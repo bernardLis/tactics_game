@@ -1,0 +1,27 @@
+.tileInfoIcon {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+}
+
+.tileInfoWrapper {
+    height: 40px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: auto;
+    flex-shrink: 1;
+    flex-grow: 0;
+    position: relative;
+}
+
+.tileInfoLabel {
+    -unity-text-align: upper-center;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
+  m_Name: First
+  m_EditorClassIdentifier: 
+  characterName: First
+  portrait: {fileID: 21300000, guid: afd309c482f885140af9ed07152aa6f0, type: 3}
+  maxHealth: 100
+  armor: 20
+  strength: 10
+  intelligence: 20
+  maxMana: 50
+  movementRange: 5
+  characterAbilities:
+  - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
+  - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
+  - {fileID: 11400000, guid: 072c64cc0cc872b4aa875e6c7f766440, type: 2}
+  - {fileID: 11400000, guid: 52f76dcea9d85784d90cfafb9d54e907, type: 2}

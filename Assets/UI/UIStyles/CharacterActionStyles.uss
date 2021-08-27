@@ -1,0 +1,15 @@
+.ActionButtons {
+    width: 32px;
+    position: relative;
+    top: auto;
+    left: auto;
+    height: 32px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.FaceDirectionSize {
+    width: 10%;
+}

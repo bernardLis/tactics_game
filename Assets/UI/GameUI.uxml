@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="UIStyles/GameUIStyles.uss" />
+    <ui:VisualElement name="tileInfo" style="height: auto; width: 180px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
+        <ui:Label display-tooltip-when-elided="true" name="tileText" style="width: auto; font-size: 22px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="characterInfo" style="display: none; flex-direction: row; flex-wrap: wrap; width: 150px; background-color: rgba(0, 0, 0, 0.59); align-items: flex-start; justify-content: flex-start;">
+        <ui:VisualElement name="healthWrapper" class="tileInfoWrapper">
+            <ui:Button display-tooltip-when-elided="true" name="healthIcon" class="tileInfoIcon" style="background-image: url(&apos;/Assets/Sprites/Icons/cure.png#cure&apos;); width: 32px; height: 32px;" />
+            <ui:Label display-tooltip-when-elided="true" name="currentHealthLabel" text="100/100" class="tileInfoLabel" />
+        </ui:VisualElement>
+        <ui:VisualElement name="manaWrapper" class="tileInfoWrapper">
+            <ui:Button display-tooltip-when-elided="true" name="manaIcon" class="tileInfoIcon" style="background-image: url(&apos;/Assets/Sprites/Icons/charm.png#charm&apos;);" />
+            <ui:Label display-tooltip-when-elided="true" name="currentManaLabel" text="50/50" class="tileInfoLabel" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="abilityInfo" style="height: auto; width: 150px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
+        <ui:Label display-tooltip-when-elided="true" name="abilityName" text="bash" style="width: auto; font-size: 16px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
+        <ui:Label display-tooltip-when-elided="true" name="abilityResult" text="result" style="width: auto; font-size: 16px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="turnTextContainer" style="position: absolute; top: auto; height: 50%; display: none; opacity: 1; width: 100%;">
+        <ui:Label text="TURN 0 - PLAYER" display-tooltip-when-elided="true" name="turnText" style="justify-content: flex-start; align-items: auto; bottom: 0; position: absolute; margin-left: 0; margin-right: 0; left: auto; width: 100%; font-size: 64px; color: rgb(0, 0, 0); -unity-text-align: upper-center; -unity-font-style: bold;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="conversationContainer" style="width: 80%; height: 20%; align-items: stretch; margin-left: auto; margin-right: auto; top: 75%; background-color: rgba(0, 0, 0, 0.49); flex-wrap: wrap; display: none;">
+        <ui:VisualElement name="conversationPortrait" style="background-image: url(&apos;/Assets/Sprites/Portraits/Monet.jpg#Monet&apos;); width: 20%; height: 100%; -unity-background-scale-mode: scale-to-fit;" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="conversationText" style="width: 80%; height: 100%; -unity-text-align: middle-left; font-size: 32px; -unity-font-style: normal; margin-left: 20px; color: rgb(255, 255, 255); flex-wrap: wrap;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="tooltipUI" style="top: 75%; align-items: center; width: 20%; margin-left: auto; margin-right: auto; background-color: rgba(0, 0, 0, 0.4); display: none;">
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="interactionTooltip" style="font-size: 24px; color: rgba(255, 255, 255, 255);" />
+    </ui:VisualElement>
+</ui:UXML>
