@@ -11,14 +11,11 @@ public class ConversationTrigger : MonoBehaviour
 	VisualElement tooltipUI;
 	Label interactionTooltip;
 
-	[SerializeField]
-	Conversation conversation;
+	protected Conversation currentConversation;
+
 	// https://www.youtube.com/watch?v=_nRzoTzeyxU
 	Queue<Line> lines;
 	Line currentLine;
-
-	[SerializeField]
-	FMPlayerInteractionController interactionController;
 
 	void Awake()
 	{
@@ -28,7 +25,7 @@ public class ConversationTrigger : MonoBehaviour
 		interactionTooltip = root.Q<Label>("interactionTooltip");
 	}
 
-	void Start()
+	protected virtual void Start()
 	{
 		lines = new Queue<Line>();
 	}
@@ -37,6 +34,7 @@ public class ConversationTrigger : MonoBehaviour
 	{
 		if (col.CompareTag("PlayerCollider"))
 		{
+			SetCurrentConversation();
 			DisplayConversationTooltip();
 		}
 	}
@@ -70,8 +68,7 @@ public class ConversationTrigger : MonoBehaviour
 		ConversationUI.instance.ShowUI();
 
 		lines.Clear();
-
-		foreach (Line line in conversation.cLines)
+		foreach (Line line in currentConversation.cLines)
 		{
 			lines.Enqueue(line);
 		}
@@ -91,6 +88,9 @@ public class ConversationTrigger : MonoBehaviour
 		{
 			if (lines.Count == 0)
 			{
+				// mark conversation as seen
+				currentConversation.cSeen = true;
+
 				EndConversation();
 				return;
 			}
@@ -111,6 +111,13 @@ public class ConversationTrigger : MonoBehaviour
 		// or should i allow him to talk only when he goes out of the circle and then back
 		//StartCoroutine(DelayedTooltipDisplay());
 	}
+
+
+	protected virtual void SetCurrentConversation()
+	{
+		// meant to be overwritten
+	}
+
 	/*
 	IEnumerator DelayedTooltipDisplay()
 	{

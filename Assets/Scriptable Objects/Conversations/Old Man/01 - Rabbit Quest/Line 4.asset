@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
-  m_Name: Old Man 04
+  m_Name: Line 4
   m_EditorClassIdentifier: 
+  id: OldMan01_4
   character: {fileID: 11400000, guid: 73abcce88805d484088fe99d111cfe0c, type: 2}
   text: Ok! I love soup. I will be back shortly.
+  clip: {fileID: 0}

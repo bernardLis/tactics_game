@@ -255,7 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 64623718470695000}
   - component: {fileID: 64623718470695002}
-  - component: {fileID: 64623718470695003}
+  - component: {fileID: 3019501315658490800}
   m_Layer: 6
   m_Name: ConversationCollider
   m_TagString: ConversationCollider
@@ -293,7 +293,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &64623718470695003
+--- !u!114 &3019501315658490800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,12 +302,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 64623718470695001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 042ff51f9db9ae643a73a17bc1d3600b, type: 3}
+  m_Script: {fileID: 11500000, guid: c411ba3f2de216f4eb99e68ce19ae92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UIDocument: {fileID: 0}
-  conversation: {fileID: 11400000, guid: c058a3d2b62528243b416c206eefd557, type: 2}
+  currentConversation: {fileID: 0}
   interactionController: {fileID: 0}
+  rabbitQuest: {fileID: 11400000, guid: c058a3d2b62528243b416c206eefd557, type: 2}
+  noRabbits: {fileID: 11400000, guid: b8c1eb1bff8dbde4f89ac9791b936bd3, type: 2}
+  hasRabbits: {fileID: 11400000, guid: 8b6e2d0cddcb9c94eae30b16acf08d3b, type: 2}
 --- !u!1 &64623718519173022
 GameObject:
   m_ObjectHideFlags: 0

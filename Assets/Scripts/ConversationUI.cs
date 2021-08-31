@@ -16,6 +16,7 @@ public class ConversationUI : MonoBehaviour
 
 	bool printTextCoroutineFinished = true;
 
+	IEnumerator typeTextCoroutine;
 
 	#region Singleton
 	public static ConversationUI instance;
@@ -42,6 +43,7 @@ public class ConversationUI : MonoBehaviour
 	{
 		if (!conversationOnGoing)
 		{
+			print("show ui triggered");
 			conversationOnGoing = true;
 			conversationContainer.style.display = DisplayStyle.Flex;
 
@@ -50,7 +52,10 @@ public class ConversationUI : MonoBehaviour
 			// https://docs.unity3d.com/ScriptReference/UIElements.IVisualElementScheduledItem.html
 			// set the container all the way to the bottom
 			topPercent = 100f;
+
 			conversationContainer.style.top = Length.Percent(topPercent);
+
+			//print("show UI after setting topPercent " + conversationContainer.style.top);
 			// 'animate' it to come up 
 			scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
 		}
@@ -58,12 +63,19 @@ public class ConversationUI : MonoBehaviour
 
 	public void HideUI()
 	{
-		conversationOnGoing = false;
-		scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
+		print("hide ui triggered");
+		if (conversationOnGoing)
+		{
+			conversationOnGoing = false;
+			scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
+		}
+
 	}
 
 	void AnimateConversationBoxUp()
 	{
+		//print("AnimateConversationBoxUp top% " + topPercent);
+
 		if (topPercent > 75f)
 		{
 			conversationContainer.style.top = Length.Percent(topPercent);
@@ -98,8 +110,12 @@ public class ConversationUI : MonoBehaviour
 	{
 		conversationText.style.color = Color.white;
 
-		StopAllCoroutines();
-		StartCoroutine(TypeText(text));
+		//StopAllCoroutines();
+		if (typeTextCoroutine != null)
+			StopCoroutine(typeTextCoroutine);
+
+		typeTextCoroutine = TypeText(text);
+		StartCoroutine(typeTextCoroutine);
 		printTextCoroutineFinished = false;
 	}
 
@@ -107,7 +123,9 @@ public class ConversationUI : MonoBehaviour
 	{
 		conversationText.style.color = Color.white;
 
-		StopAllCoroutines();
+		if (typeTextCoroutine != null)
+			StopCoroutine(typeTextCoroutine);
+		//StopAllCoroutines();
 		conversationText.text = text;
 		printTextCoroutineFinished = true;
 	}

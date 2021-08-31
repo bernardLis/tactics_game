@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ba5f980ebd23c408a51d28bddd5bf9, type: 3}
+  m_Name: Conversation Old Man 02
+  m_EditorClassIdentifier: 
+  cId: OldMan02
+  cSeen: 0
+  cName: Waiting for rabbits
+  cDescription: Old Man waits for hero to collect rabbits.
+  cLines:
+  - {fileID: 11400000, guid: 6bc353d920444664898fdf9f93699c0a, type: 2}
+  - {fileID: 11400000, guid: 1c06df39e4b177d439585b6d5fdc33a2, type: 2}

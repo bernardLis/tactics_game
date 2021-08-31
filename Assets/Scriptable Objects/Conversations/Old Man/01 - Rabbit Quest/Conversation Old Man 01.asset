@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ba5f980ebd23c408a51d28bddd5bf9, type: 3}
   m_Name: Conversation Old Man 01
   m_EditorClassIdentifier: 
-  cName: Old Man 01
+  cId: OldMan01
+  cName: Collect rabbits
   cDescription: Old man asks hero to collect rabbits for the stew.
   cLines:
   - {fileID: 11400000, guid: 45b2a14593154e34d8428803c3e47824, type: 2}

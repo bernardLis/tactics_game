@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
-  m_Name: Old Man 01
+  m_Name: Line 2
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: c94e33448cfcce94abb13df2e0eefd8f, type: 2}
-  text: Hello Hero! Could you catch some rabbits for me? This is a very very long
-    line. It is so long it fact that you have to wait a long time for it to FINISH!!!
+  id: OldMan01_2
+  character: {fileID: 11400000, guid: 73abcce88805d484088fe99d111cfe0c, type: 2}
+  text: 'Why would I do that? '
   clip: {fileID: 0}

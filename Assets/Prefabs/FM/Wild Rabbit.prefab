@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 8197420057511047802}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8197420056406305604
 Animator:
@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 8197420057511047802}
   - component: {fileID: 8197420057511047749}
   - component: {fileID: 8197420057511047748}
+  - component: {fileID: 2419385667340984923}
   - component: {fileID: 3356806919435169019}
   m_Layer: 6
   m_Name: Wild Rabbit
@@ -133,7 +134,6 @@ Transform:
   m_LocalPosition: {x: 10.5, y: 14.442, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8197420058190121226}
   - {fileID: 8197420056406305606}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -170,6 +170,22 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 99
+--- !u!58 &2419385667340984923
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8197420057511047751}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.01, y: 0.05}
+  serializedVersion: 2
+  m_Radius: 0.23
 --- !u!114 &3356806919435169019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,50 +202,3 @@ MonoBehaviour:
   randomMoveRange: 1
   randomMoveDelayMin: 1
   randomMoveDelayMax: 5
---- !u!1 &8197420058190121237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8197420058190121226}
-  - component: {fileID: 8197420058190121227}
-  m_Layer: 6
-  m_Name: AgentCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &8197420058190121226
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8197420058190121237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.011, y: 0.0725, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 5}
-  m_Children: []
-  m_Father: {fileID: 8197420057511047802}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &8197420058190121227
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8197420058190121237}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2

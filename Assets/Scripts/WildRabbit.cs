@@ -11,6 +11,7 @@ public class WildRabbit : Rabbit
 
 	RabbitState state;
 	int retryCounter;
+	Vector3 startPosition;
 
 	protected override void Awake()
 	{
@@ -22,6 +23,7 @@ public class WildRabbit : Rabbit
 
 	void Start()
 	{
+		startPosition = transform.position;
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 
 		if (player != null)
@@ -31,6 +33,7 @@ public class WildRabbit : Rabbit
 	protected override void Update()
 	{
 		base.Update();
+
 		// Rabbit moves randomly from time to time
 		if (state == RabbitState.IDLE && Time.time > nextRandomMove)
 		{
@@ -42,36 +45,38 @@ public class WildRabbit : Rabbit
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
 		foreach (var hitCollider in colliders)
 		{
-			if (hitCollider.CompareTag("PlayerCollider"))
-			{
-				if (!playerController.isSneaking && state != RabbitState.FLEEING)
-				{
-					Flee();
-				}
-			}
+			if (hitCollider.CompareTag("PlayerCollider") && !playerController.isSneaking && state != RabbitState.FLEEING)
+				Flee();
 		}
 	}
+
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		// if you hit unpassable layer, you are cornered
+		// TODO: something a bit smarter.
+		if (col.gameObject.layer == 3)
+			Cornered();
+		if (col.gameObject.CompareTag("Player"))
+			print("player hit, you are captured");
+	}
+
 
 
 	void Flee()
 	{
-		if (state != RabbitState.FLEEING)
+		if (state != RabbitState.FLEEING && state != RabbitState.CORNERED)
 		{
 			retryCounter++;
 			if (retryCounter >= 10)
 			{
-				print("rabbit flee retry counter more than 10");
-				state = RabbitState.CORNERED;
-				// TODO: maybe also check if we are moving towards but not making progress and create a function that runs to somewhere
-				// and makes the capture circle small so player not always wins when they corner a rabbit
-
+				Cornered();
+				return;
 			}
 
 			state = RabbitState.FLEEING;
+
 			if (tempObject != null)
-			{
 				Destroy(tempObject);
-			}
 
 			// go further from player
 			Vector3 direction = (transform.position - player.transform.position).normalized;
@@ -85,11 +90,8 @@ public class WildRabbit : Rabbit
 			Vector3Int tilePos = tilemap.WorldToCell(fleePosition);
 			if (tiles.TryGetValue(tilePos, out _tile))
 			{
-				print("if out tile");
 				if (_tile.IsObstacle)
 				{
-					print("tile is obstacle");
-
 					// TODO: I would like to start over, is that alright? 
 					state = RabbitState.IDLE;
 					Flee();
@@ -98,13 +100,14 @@ public class WildRabbit : Rabbit
 			}
 			else
 			{
-				print("I have probably reached end of the map coz I am choosing destination without tile.");
-				state = RabbitState.IDLE;
-				Flee();
+				// probably reached the end of the map
+				Cornered();
 				return;
 			}
 
+			// we have managed to get through all the checks now we can really flee
 			retryCounter = 0;
+
 
 			tempObject = new GameObject("rabbit flee pos");
 			tempObject.transform.position = fleePosition;
@@ -119,6 +122,24 @@ public class WildRabbit : Rabbit
 			// and check like movement range of 7 for example;
 			// if we are cornered we should disappear 
 		}
+	}
+
+	void Cornered()
+	{
+		retryCounter = 0;
+		state = RabbitState.CORNERED;
+
+		if (tempObject != null)
+			Destroy(tempObject);
+
+		// TODO: make capture circle smaller
+		tempObject = new GameObject("rabbit start pos");
+		tempObject.transform.position = startPosition;
+		targetReached = false;
+
+		moveSpeed = 5f;
+		animator.SetFloat("speed", 1f);
+		SetDirection(tempObject.transform);
 	}
 
 	protected override void TargetReached()

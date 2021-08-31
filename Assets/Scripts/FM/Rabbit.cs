@@ -46,10 +46,8 @@ public class Rabbit : MonoBehaviour
 	protected virtual void Update()
 	{
 		if (tempObject != null)
-		{
 			transform.position = Vector3.MoveTowards(transform.position,
 							tempObject.transform.position, moveSpeed * Time.deltaTime);
-		}
 
 		// target reached;
 		if (tempObject != null && !targetReached)
