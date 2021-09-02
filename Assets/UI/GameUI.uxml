@@ -25,6 +25,7 @@
         <ui:Label text="Label" display-tooltip-when-elided="true" name="conversationText" style="width: 80%; height: 100%; -unity-text-align: middle-left; font-size: 32px; -unity-font-style: normal; margin-left: 20px; color: rgb(255, 255, 255); flex-wrap: wrap;" />
     </ui:VisualElement>
     <ui:VisualElement name="tooltipUI" style="top: 75%; align-items: center; width: 20%; margin-left: auto; margin-right: auto; background-color: rgba(0, 0, 0, 0.4); display: none;">
-        <ui:Label text="Label" display-tooltip-when-elided="true" name="interactionTooltip" style="font-size: 24px; color: rgba(255, 255, 255, 255);" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="interactionTooltip" style="font-size: 24px; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
+    <ui:VisualElement name="rushUI" style="height: 20px; width: 20px; background-color: rgb(255, 255, 255); display: none;" />
 </ui:UXML>

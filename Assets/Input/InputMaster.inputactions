@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Rush",
+                    "type": "Button",
+                    "id": "77c52d3d-b8c2-4653-ab31-e40a7b9ee1fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -105,6 +113,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "106f92e9-5f65-41a9-b770-a1c75913ce9a",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Rush",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

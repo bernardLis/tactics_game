@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 4
+  rushEffect: {fileID: 0}
 --- !u!114 &5523969868876218168
 MonoBehaviour:
   m_ObjectHideFlags: 0

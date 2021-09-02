@@ -536,30 +536,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
---- !u!1 &1334149121 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2995979785274122219, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
-  m_PrefabInstance: {fileID: 1334149120}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1334149122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334149121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dcf7a91fc30f4e478d7088a29160f2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UIDocument: {fileID: 1334149125}
 --- !u!114 &1334149125 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2995979785274122218, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
   m_PrefabInstance: {fileID: 1334149120}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334149121}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f21c074d86024caca2a0034ce4f53f73, type: 3}
@@ -981,7 +963,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Character
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5523969868876218171, guid: dc65b10bab66d464da765d7932d53229, type: 3}
+      propertyPath: rushEffect
+      value: 
+      objectReference: {fileID: 8766134272244128695, guid: cc66bd5f237754d4093cd9d84907ce14, type: 3}
+    m_RemovedComponents:
+    - {fileID: 497134702670010476, guid: dc65b10bab66d464da765d7932d53229, type: 3}
+    - {fileID: 2592271917123354098, guid: dc65b10bab66d464da765d7932d53229, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dc65b10bab66d464da765d7932d53229, type: 3}
 --- !u!1001 &2067630292032833788
 PrefabInstance:

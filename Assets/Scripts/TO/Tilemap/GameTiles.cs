@@ -73,10 +73,12 @@ public class GameTiles : MonoBehaviour
 				GameObject col = new GameObject();
 				col.name = "col";
 				col.layer = 3; // unpassable layer
+				// positioning the game object;
+				col.transform.position = new Vector3(PosTile.Key.x + 0.5f, PosTile.Key.y + 0.5f, 0f);
 
 				BoxCollider2D bc = col.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
 				bc.size = Vector2.one;
-				bc.offset = new Vector2(PosTile.Key.x + 0.5f, PosTile.Key.y + 0.5f);
+				//bc.offset = new Vector2(PosTile.Key.x + 0.5f, PosTile.Key.y + 0.5f);
 
 				// parent the object
 				col.transform.parent = ObsctacleColliders.transform;

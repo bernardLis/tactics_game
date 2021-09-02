@@ -41,6 +41,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Rush"",
+                    ""type"": ""Button"",
+                    ""id"": ""77c52d3d-b8c2-4653-ab31-e40a7b9ee1fd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -118,6 +126,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""106f92e9-5f65-41a9-b770-a1c75913ce9a"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Rush"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -414,6 +433,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_FMPlayer_Movement = m_FMPlayer.FindAction("Movement", throwIfNotFound: true);
         m_FMPlayer_Sneak = m_FMPlayer.FindAction("Sneak", throwIfNotFound: true);
         m_FMPlayer_Interact = m_FMPlayer.FindAction("Interact", throwIfNotFound: true);
+        m_FMPlayer_Rush = m_FMPlayer.FindAction("Rush", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_QButtonClick = m_Player.FindAction("QButtonClick", throwIfNotFound: true);
@@ -485,6 +505,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_FMPlayer_Movement;
     private readonly InputAction m_FMPlayer_Sneak;
     private readonly InputAction m_FMPlayer_Interact;
+    private readonly InputAction m_FMPlayer_Rush;
     public struct FMPlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -492,6 +513,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_FMPlayer_Movement;
         public InputAction @Sneak => m_Wrapper.m_FMPlayer_Sneak;
         public InputAction @Interact => m_Wrapper.m_FMPlayer_Interact;
+        public InputAction @Rush => m_Wrapper.m_FMPlayer_Rush;
         public InputActionMap Get() { return m_Wrapper.m_FMPlayer; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -510,6 +532,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnInteract;
+                @Rush.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
+                @Rush.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
+                @Rush.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
             }
             m_Wrapper.m_FMPlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -523,6 +548,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Rush.started += instance.OnRush;
+                @Rush.performed += instance.OnRush;
+                @Rush.canceled += instance.OnRush;
             }
         }
     }
@@ -720,6 +748,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSneak(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnRush(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {
