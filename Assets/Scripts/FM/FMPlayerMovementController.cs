@@ -17,7 +17,10 @@ public class FMPlayerMovementController : MonoBehaviour
 	[SerializeField]
 	GameObject rushEffect;
 	bool rushButtonIsHeld = false;
+	float rushChargingSpeed = 4f;
+	float rushLimit = 4f;
 	Vector2 rushStrength;
+	bool rushForceReleaseTriggered;
 
 	public InputMaster controls;
 
@@ -64,8 +67,24 @@ public class FMPlayerMovementController : MonoBehaviour
 		// rush is charged
 		if (rushButtonIsHeld)
 		{
-			rushStrength += inputVector * movementSpeed * Time.fixedDeltaTime;
-			GameUI.instance.DrawRushUI(transform.position, rushStrength);
+			// After the rush reaches 4 tiles it will be forcefully released within 0.5s
+			rushStrength += inputVector * rushChargingSpeed * Time.fixedDeltaTime;
+			float limitCheck = Mathf.Abs(rushStrength.x) + Mathf.Abs(rushStrength.y);
+			float percentToLimit = limitCheck / rushLimit;
+			if (limitCheck < rushLimit)
+			{
+				GameUI.instance.DrawRushUI(transform.position, rushStrength, percentToLimit);
+			}
+			else
+			{
+				GameUI.instance.DrawRushUI(transform.position, rushStrength, percentToLimit);
+				// force release the rush once it goes over the limit and is not released;
+				if (!rushForceReleaseTriggered)
+				{
+					rushForceReleaseTriggered = true;
+					Invoke("ForceRushRelease", 0.5f);
+				}
+			}
 			return;
 		}
 		// normal movmenent code;
@@ -83,28 +102,24 @@ public class FMPlayerMovementController : MonoBehaviour
 
 	void Sneak()
 	{
-		Debug.Log("sneak");
 		movementSpeed = 1f;
 		isSneaking = true;
 	}
 
 	void SneakReset()
 	{
-		Debug.Log("SneakReset");
 		movementSpeed = 3f;
 		isSneaking = false;
 	}
 
 	void RushPressed()
 	{
-		print("Rush(");
 		rushButtonIsHeld = true;
 		// get direction and force
 
 	}
 	void RushReleased()
 	{
-		print("RushReset()");
 		Vector3 originalPosition = transform.position;
 
 		rushButtonIsHeld = false;
@@ -131,14 +146,21 @@ public class FMPlayerMovementController : MonoBehaviour
 		if (rushStrength != Vector2.zero)
 		{
 			float angle = Mathf.Atan2(dir.x, -dir.y) * Mathf.Rad2Deg;
+			// TODO: destory after the animation is finished 
 			Destroy(Instantiate(rushEffect, transform.position, Quaternion.AngleAxis(angle, Vector3.forward)) as GameObject, 1f);
+			Destroy(Instantiate(rushEffect, originalPosition, Quaternion.AngleAxis(angle, Vector3.forward)) as GameObject, 1f);
 
 		}
 
 		GameUI.instance.HideRushUI();
 		rushStrength = Vector2.zero;
+	}
 
-		// TODO: change to destory after particle system lifetime;
+	void ForceRushRelease()
+	{
+		rushForceReleaseTriggered = false;
+		//rushStrength = Vector2.zero;
+		RushReleased();
 
 	}
 }

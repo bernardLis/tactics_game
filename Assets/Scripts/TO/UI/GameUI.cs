@@ -94,10 +94,14 @@ public class GameUI : MonoBehaviour
 		characterInfo.style.display = DisplayStyle.None;
 	}
 
-	public void DrawRushUI(Vector3 pos, Vector2 rushVector)
+	public void DrawRushUI(Vector3 pos, Vector2 rushVector, float percentToLimit)
 	{
 		rushUI.style.display = DisplayStyle.Flex;
 
+		// showing over the limit color
+		rushUI.style.backgroundColor = Color.Lerp(Color.white, Color.red, percentToLimit);
+
+		// TODO: this UI sucks.
 		// direction
 		Vector2 dir = rushVector.normalized;
 		float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg - 90;
@@ -105,27 +109,24 @@ public class GameUI : MonoBehaviour
 
 		// position
 		Vector3 posAdjusted = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
-		print("angle" + angle);
-		if (angle >= 315 && angle < 45)
+
+		if (angle >= -135 && angle < -45)
 		{
-			print("top");
+			posAdjusted = new Vector3(pos.x, pos.y + 0.5f, 0f);
+		}
+		else if (angle >= -45 && angle < 45)
+		{
 			posAdjusted = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
 		}
-		else if (angle >= 45 && angle < 135)
+		else if ((angle >= 45 && angle < 91) || angle < -225)
 		{
-			print("right");
-			posAdjusted = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
+			posAdjusted = new Vector3(pos.x, pos.y, 0f);
 		}
-		else if (angle >= 135 && angle < 225)
+		else if (angle >= -225 && angle < -135)
 		{
-			print("left");
-			posAdjusted = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
+			posAdjusted = new Vector3(pos.x - 0.5f, pos.y, 0f);
 		}
-		else if (angle >= 225 && angle < 315)
-		{
-			print("left");
-			posAdjusted = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
-		}
+
 
 		Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(rushUI.panel, posAdjusted, cam);
 		rushUI.transform.position = newPosition;
@@ -137,7 +138,6 @@ public class GameUI : MonoBehaviour
 
 	public void HideRushUI()
 	{
-		print("hide rush ui");
 		rushUI.style.display = DisplayStyle.None;
 	}
 }

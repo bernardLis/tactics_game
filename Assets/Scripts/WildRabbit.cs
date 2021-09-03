@@ -1,17 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+using Random = UnityEngine.Random;
 
 public enum RabbitState { IDLE, FLEEING, CORNERED, CAPTURED }
 public class WildRabbit : Rabbit
 {
 	Transform player;
 	float detectionRadius = 4f;
+	float sneakDetectionRadius = 1f;
+
 	FMPlayerMovementController playerController;
 
 	RabbitState state;
 	int retryCounter;
 	Vector3 startPosition;
+
+	[SerializeField]
+	GameObject poofEffect;
+
+
+	public event Action rabbitHides;
 
 	protected override void Awake()
 	{
@@ -48,6 +59,13 @@ public class WildRabbit : Rabbit
 			if (hitCollider.CompareTag("PlayerCollider") && !playerController.isSneaking && state != RabbitState.FLEEING)
 				Flee();
 		}
+
+		Collider2D[] sneakColliders = Physics2D.OverlapCircleAll(transform.position, sneakDetectionRadius);
+		foreach (var hitCollider in sneakColliders)
+		{
+			if (hitCollider.CompareTag("PlayerCollider") && state != RabbitState.FLEEING)
+				Flee();
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
@@ -58,6 +76,8 @@ public class WildRabbit : Rabbit
 			Cornered();
 		if (col.gameObject.CompareTag("Player"))
 			print("player hit, you are captured");
+
+		//Destroy(Instantiate(poofEffect, transform.position, Quaternion.identity) as GameObject, 1f);
 	}
 
 
@@ -126,12 +146,25 @@ public class WildRabbit : Rabbit
 
 	void Cornered()
 	{
-		retryCounter = 0;
-		state = RabbitState.CORNERED;
+		if (state != RabbitState.CORNERED)
+		{
+			state = RabbitState.CORNERED;
+			TargetReached();
 
-		if (tempObject != null)
-			Destroy(tempObject);
+			if (tempObject != null)
+				Destroy(tempObject);
 
+			Destroy(Instantiate(poofEffect, transform.position, Quaternion.identity) as GameObject, 1f);
+
+			// Action
+			if (rabbitHides != null)
+			{
+				rabbitHides();
+			}
+
+			Destroy(gameObject);
+		}
+		/*
 		// TODO: make capture circle smaller
 		tempObject = new GameObject("rabbit start pos");
 		tempObject.transform.position = startPosition;
@@ -140,6 +173,7 @@ public class WildRabbit : Rabbit
 		moveSpeed = 5f;
 		animator.SetFloat("speed", 1f);
 		SetDirection(tempObject.transform);
+		*/
 	}
 
 	protected override void TargetReached()

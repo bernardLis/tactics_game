@@ -202,3 +202,4 @@ MonoBehaviour:
   randomMoveRange: 1
   randomMoveDelayMin: 1
   randomMoveDelayMax: 5
+  poofEffect: {fileID: 6199452303025352576, guid: 9dc785d8caff2f9498a74a906c904e01, type: 3}
