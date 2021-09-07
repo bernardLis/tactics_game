@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Conversation Old Man 01
   m_EditorClassIdentifier: 
   cId: OldMan01
+  cSeen: 0
   cName: Collect rabbits
   cDescription: Old man asks hero to collect rabbits for the stew.
   cLines:
@@ -20,3 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c31d0773d1c5ff848bbe457f5a2b3e45, type: 2}
   - {fileID: 11400000, guid: 083acd4cee805bd46b5abf7d410b977c, type: 2}
   - {fileID: 11400000, guid: b98fbf1afccd8a14fa5a36ca449178b7, type: 2}
+  quest: {fileID: 11400000, guid: 08cded9b54f0a3241a0086795c082fb9, type: 2}
+  questTrigger: 1
+  questCompleted: 0
+  questFailed: 0

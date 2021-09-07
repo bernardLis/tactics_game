@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/MoveAbility")]
+[CreateAssetMenu(menuName = "Abilities/Move Ability")]
 public class MoveAbility : Ability
 {
 	private Transform tr;

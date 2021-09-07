@@ -27,5 +27,19 @@
     <ui:VisualElement name="tooltipUI" style="top: 75%; align-items: center; width: 20%; margin-left: auto; margin-right: auto; background-color: rgba(0, 0, 0, 0.4); display: none;">
         <ui:Label text="Label" display-tooltip-when-elided="true" name="interactionTooltip" style="font-size: 24px; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
-    <ui:VisualElement name="rushUI" style="height: 20px; width: 20px; background-color: rgb(255, 255, 255); display: flex;" />
+    <ui:VisualElement name="rushUI" style="height: 20px; width: 20px; background-color: rgb(255, 255, 255); display: none;" />
+    <ui:VisualElement name="questUI" style="width: 100%; height: 100%; background-color: rgb(0, 0, 0); flex-direction: row; display: none;">
+        <ui:VisualElement name="questList" style="background-color: rgb(159, 156, 156); width: 30%; height: 100%;">
+            <ui:VisualElement name="activeQuests" class="questsHeader">
+                <ui:Label text="Active quests:" display-tooltip-when-elided="true" name="activeQuestsTitle" />
+            </ui:VisualElement>
+            <ui:VisualElement name="completedQuests">
+                <ui:Label text="Completed quests:" display-tooltip-when-elided="true" name="CompletedQuestsTitle" class="questsHeader" />
+            </ui:VisualElement>
+            <ui:VisualElement name="failedQuests">
+                <ui:Label text="Failed quests:" display-tooltip-when-elided="true" name="failedQuestsTitle" class="questsHeader" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="questInformation" style="height: 100%; width: 80%; background-color: rgb(190, 190, 190);" />
+    </ui:VisualElement>
 </ui:UXML>

@@ -13,6 +13,7 @@ public class WildRabbit : Rabbit
 	float sneakDetectionRadius = 1f;
 
 	FMPlayerMovementController playerController;
+	FMPlayerInteractionController playerInteractionController;
 
 	RabbitState state;
 	int retryCounter;
@@ -20,9 +21,10 @@ public class WildRabbit : Rabbit
 
 	[SerializeField]
 	GameObject poofEffect;
+	[SerializeField]
+	GameObject starEffect;
 
-
-	public event Action rabbitHides;
+	//	public event Action rabbitHides;
 
 	protected override void Awake()
 	{
@@ -39,6 +41,7 @@ public class WildRabbit : Rabbit
 
 		if (player != null)
 			playerController = player.GetComponent<FMPlayerMovementController>();
+		playerInteractionController = player.GetComponent<FMPlayerInteractionController>();
 	}
 
 	protected override void Update()
@@ -75,16 +78,28 @@ public class WildRabbit : Rabbit
 		if (col.gameObject.layer == 3)
 			Cornered();
 		if (col.gameObject.CompareTag("Player"))
-			print("player hit, you are captured");
+			Captured();
 
 		//Destroy(Instantiate(poofEffect, transform.position, Quaternion.identity) as GameObject, 1f);
+	}
+
+	void Captured()
+	{
+		print("player hit, you are captured");
+		state = RabbitState.CAPTURED;
+		Destroy(Instantiate(starEffect, transform.position, Quaternion.identity) as GameObject, 1f);
+
+		playerInteractionController.rabbitsCaught++;
+
+		TargetReached();
+		Destroy(gameObject);
 	}
 
 
 
 	void Flee()
 	{
-		if (state != RabbitState.FLEEING && state != RabbitState.CORNERED)
+		if (state != RabbitState.FLEEING && state != RabbitState.CORNERED && state != RabbitState.CAPTURED)
 		{
 			retryCounter++;
 			if (retryCounter >= 10)
@@ -155,12 +170,16 @@ public class WildRabbit : Rabbit
 				Destroy(tempObject);
 
 			Destroy(Instantiate(poofEffect, transform.position, Quaternion.identity) as GameObject, 1f);
-
+			/*
 			// Action
 			if (rabbitHides != null)
 			{
 				rabbitHides();
 			}
+			*/
+			// TODO: dunno if correct
+			rabbitSpawner.SpawnRabbit();
+
 
 			Destroy(gameObject);
 		}

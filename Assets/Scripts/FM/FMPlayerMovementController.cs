@@ -48,12 +48,12 @@ public class FMPlayerMovementController : MonoBehaviour
 
 	void OnEnable()
 	{
-		controls.Enable();
+		controls.FMPlayer.Enable();
 	}
 
 	void OnDisable()
 	{
-		controls.Disable();
+		controls.FMPlayer.Disable();
 	}
 
 	void Move(Vector2 direction)

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: OldMan03_1
   character: {fileID: 11400000, guid: 73abcce88805d484088fe99d111cfe0c, type: 2}
-  text: I have 3 rabbits, like you asked! Can I get some stew?
+  text: I have caught 3 rabbits, like you asked! Can I get some stew?
   clip: {fileID: 0}

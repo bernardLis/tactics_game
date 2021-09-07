@@ -49,6 +49,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""EnableQuestUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c929326-04e1-4033-a0ce-3c1758da7867"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -137,6 +145,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Rush"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77ed70b5-3822-475e-aa22-c11a3184a72a"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EnableQuestUI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -412,6 +431,63 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""3052e362-56ee-4f77-b5b7-5d5a335137f0"",
+            ""actions"": [
+                {
+                    ""name"": ""Test"",
+                    ""type"": ""Button"",
+                    ""id"": ""72d3cb93-a3a7-477b-9cc4-e01878d426bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DisableQuestUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""94cab8f4-a6a5-464a-8311-c96b09f59e0a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4aab5aea-1ed9-4e5b-b4b7-d4497f1d9b99"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Test"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85302d05-7c9d-43a9-ab4e-dbd71d4ebd95"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DisableQuestUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""237c8f38-9cad-410a-8ea1-7c21fada2514"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DisableQuestUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -434,6 +510,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_FMPlayer_Sneak = m_FMPlayer.FindAction("Sneak", throwIfNotFound: true);
         m_FMPlayer_Interact = m_FMPlayer.FindAction("Interact", throwIfNotFound: true);
         m_FMPlayer_Rush = m_FMPlayer.FindAction("Rush", throwIfNotFound: true);
+        m_FMPlayer_EnableQuestUI = m_FMPlayer.FindAction("EnableQuestUI", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_QButtonClick = m_Player.FindAction("QButtonClick", throwIfNotFound: true);
@@ -453,6 +530,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_ZoomIn = m_Camera.FindAction("ZoomIn", throwIfNotFound: true);
         m_Camera_ZoomOut = m_Camera.FindAction("ZoomOut", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Test = m_UI.FindAction("Test", throwIfNotFound: true);
+        m_UI_DisableQuestUI = m_UI.FindAction("DisableQuestUI", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -506,6 +587,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_FMPlayer_Sneak;
     private readonly InputAction m_FMPlayer_Interact;
     private readonly InputAction m_FMPlayer_Rush;
+    private readonly InputAction m_FMPlayer_EnableQuestUI;
     public struct FMPlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -514,6 +596,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Sneak => m_Wrapper.m_FMPlayer_Sneak;
         public InputAction @Interact => m_Wrapper.m_FMPlayer_Interact;
         public InputAction @Rush => m_Wrapper.m_FMPlayer_Rush;
+        public InputAction @EnableQuestUI => m_Wrapper.m_FMPlayer_EnableQuestUI;
         public InputActionMap Get() { return m_Wrapper.m_FMPlayer; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -535,6 +618,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Rush.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
                 @Rush.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
                 @Rush.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
+                @EnableQuestUI.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
+                @EnableQuestUI.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
+                @EnableQuestUI.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
             }
             m_Wrapper.m_FMPlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -551,6 +637,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Rush.started += instance.OnRush;
                 @Rush.performed += instance.OnRush;
                 @Rush.canceled += instance.OnRush;
+                @EnableQuestUI.started += instance.OnEnableQuestUI;
+                @EnableQuestUI.performed += instance.OnEnableQuestUI;
+                @EnableQuestUI.canceled += instance.OnEnableQuestUI;
             }
         }
     }
@@ -734,6 +823,47 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     }
     public CameraActions @Camera => new CameraActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_Test;
+    private readonly InputAction m_UI_DisableQuestUI;
+    public struct UIActions
+    {
+        private @InputMaster m_Wrapper;
+        public UIActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Test => m_Wrapper.m_UI_Test;
+        public InputAction @DisableQuestUI => m_Wrapper.m_UI_DisableQuestUI;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @Test.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTest;
+                @Test.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTest;
+                @Test.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTest;
+                @DisableQuestUI.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDisableQuestUI;
+                @DisableQuestUI.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDisableQuestUI;
+                @DisableQuestUI.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDisableQuestUI;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Test.started += instance.OnTest;
+                @Test.performed += instance.OnTest;
+                @Test.canceled += instance.OnTest;
+                @DisableQuestUI.started += instance.OnDisableQuestUI;
+                @DisableQuestUI.performed += instance.OnDisableQuestUI;
+                @DisableQuestUI.canceled += instance.OnDisableQuestUI;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -749,6 +879,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnSneak(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnRush(InputAction.CallbackContext context);
+        void OnEnableQuestUI(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {
@@ -771,5 +902,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
     {
         void OnZoomIn(InputAction.CallbackContext context);
         void OnZoomOut(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnTest(InputAction.CallbackContext context);
+        void OnDisableQuestUI(InputAction.CallbackContext context);
     }
 }

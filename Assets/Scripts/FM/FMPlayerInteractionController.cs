@@ -8,6 +8,9 @@ public class FMPlayerInteractionController : MonoBehaviour
 	ConversationTrigger conversationTrigger;
 	public bool conversationStarted;
 
+	// TODO: need inventory system
+	public int rabbitsCaught;
+
 	void Awake()
 	{
 		controls = new InputMaster();
@@ -28,7 +31,6 @@ public class FMPlayerInteractionController : MonoBehaviour
 	{
 		if (col.CompareTag("ConversationCollider"))
 		{
-			print("player enters the conversation zone");
 			conversationTrigger = col.GetComponent<ConversationTrigger>();
 		}
 
@@ -41,14 +43,12 @@ public class FMPlayerInteractionController : MonoBehaviour
 			conversationStarted = false;
 
 			conversationTrigger.EndConversation();
-			print("player leaves the conversation zone");
 			conversationTrigger = null;
 		}
 	}
 
 	void Interact()
 	{
-		print("interact triggered");
 		if (conversationTrigger != null)
 		{
 			if (!conversationStarted)

@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "EnableQuestUI",
+                    "type": "Button",
+                    "id": "2c929326-04e1-4033-a0ce-3c1758da7867",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -124,6 +132,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Rush",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77ed70b5-3822-475e-aa22-c11a3184a72a",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "EnableQuestUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -395,6 +414,63 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "ZoomOut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "3052e362-56ee-4f77-b5b7-5d5a335137f0",
+            "actions": [
+                {
+                    "name": "Test",
+                    "type": "Button",
+                    "id": "72d3cb93-a3a7-477b-9cc4-e01878d426bc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DisableQuestUI",
+                    "type": "Button",
+                    "id": "94cab8f4-a6a5-464a-8311-c96b09f59e0a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4aab5aea-1ed9-4e5b-b4b7-d4497f1d9b99",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85302d05-7c9d-43a9-ab4e-dbd71d4ebd95",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "DisableQuestUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "237c8f38-9cad-410a-8ea1-7c21fada2514",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "DisableQuestUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

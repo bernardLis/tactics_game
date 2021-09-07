@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/HealAbility")]
+[CreateAssetMenu(menuName = "Abilities/Heal Ability")]
 public class HealAbility : Ability
 {
 	private Transform tr;

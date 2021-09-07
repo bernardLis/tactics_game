@@ -5,22 +5,31 @@ using UnityEngine;
 public class RabbitSpawner : MonoBehaviour
 {
 	[SerializeField]
-	GameObject rabbitPrefab;
-	[SerializeField]
-	GameObject poofEffect;
+	GameObject rabbitPrefab, poofEffect;
 
+	// rabbits should be spawned in a selected area
+	[SerializeField]
+	float minX, maxX, minY, maxY;
+
+	[SerializeField]
 	int startingRabbits = 3;
+
+	Rabbit rabbitScript;
 
 	void Start()
 	{
 		// spawn rabbits at the beginnig of the game
 		for (var i = 0; i < startingRabbits; i++)
 		{
-			StartCoroutine(SpawnRabbit());
+			StartCoroutine(SpawnRabbitCoroutine());
 		}
 	}
+	public void SpawnRabbit()
+	{
+		StartCoroutine(SpawnRabbitCoroutine());
+	}
 
-	IEnumerator SpawnRabbit()
+	IEnumerator SpawnRabbitCoroutine()
 	{
 		Vector3 spawnPosition = ChooseSpawnPosition();
 
@@ -31,16 +40,12 @@ public class RabbitSpawner : MonoBehaviour
 
 		GameObject rabbit = Instantiate(rabbitPrefab, spawnPosition, Quaternion.identity);
 		rabbit.transform.parent = transform;
-		rabbit.GetComponent<WildRabbit>().rabbitHides += OnRabbitHides;
+		rabbit.GetComponent<Rabbit>().rabbitSpawner = this;
+		//rabbit.GetComponent<WildRabbit>().rabbitHides += OnRabbitHides;
 	}
 
 	Vector3 ChooseSpawnPosition()
 	{
-		// rabbits should be spawned in a selected by me area
-		float minX = -17.5f;
-		float maxX = 4;
-		float minY = 5.5f;
-		float maxY = 23.5f;
 
 		float x = Random.Range(minX, maxX);
 		float y = Random.Range(minY, maxY);
@@ -58,8 +63,10 @@ public class RabbitSpawner : MonoBehaviour
 		return spawnPosition;
 	}
 
+	/*
 	void OnRabbitHides()
 	{
-		StartCoroutine(SpawnRabbit());
+		StartCoroutine(SpawnRabbitCoroutine());
 	}
+	*/
 }

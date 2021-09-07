@@ -15,5 +15,12 @@ MonoBehaviour:
   cId: OldMan03
   cSeen: 0
   cName: Hero brings rabbits
-  cDescription: Old Man congratulates hero and asks for him to collect mushrooms.
-  cLines: []
+  cDescription: Old Man congratulates hero and gives him stew.
+  cLines:
+  - {fileID: 11400000, guid: c61e3e61f880baf4693c86f6bccfe02c, type: 2}
+  - {fileID: 11400000, guid: 70db0b3bb9feba349ae48e3237fb9bf9, type: 2}
+  - {fileID: 11400000, guid: e9f0d64237b036f4f9fddb3b1333877a, type: 2}
+  quest: {fileID: 11400000, guid: 08cded9b54f0a3241a0086795c082fb9, type: 2}
+  questTrigger: 0
+  questCompleted: 1
+  questFailed: 0

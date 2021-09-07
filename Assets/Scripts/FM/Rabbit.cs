@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class Rabbit : MonoBehaviour
 {
+
 	// pathfinding
 	protected AIDestinationSetter destinationSetter;
 	protected AILerp AILerp;
@@ -26,6 +27,8 @@ public class Rabbit : MonoBehaviour
 	protected float nextRandomMove = 0f;
 	public float randomMoveDelayMin = 1f;
 	public float randomMoveDelayMax = 5f;
+
+	public RabbitSpawner rabbitSpawner;
 
 	protected virtual void Awake()
 	{

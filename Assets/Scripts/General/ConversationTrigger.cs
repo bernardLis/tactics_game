@@ -63,7 +63,6 @@ public class ConversationTrigger : MonoBehaviour
 
 	public void StartConversation()
 	{
-		print("starting conversation");
 		HideConversationTooltip();
 		ConversationUI.instance.ShowUI();
 
@@ -89,7 +88,7 @@ public class ConversationTrigger : MonoBehaviour
 			if (lines.Count == 0)
 			{
 				// mark conversation as seen
-				currentConversation.cSeen = true;
+				currentConversation.EndConversation();
 
 				EndConversation();
 				return;
@@ -104,7 +103,7 @@ public class ConversationTrigger : MonoBehaviour
 		}
 	}
 
-	public void EndConversation()
+	public virtual void EndConversation()
 	{
 		ConversationUI.instance.HideUI();
 		// TODO: should I display tooltip and allow hero to talk again? 

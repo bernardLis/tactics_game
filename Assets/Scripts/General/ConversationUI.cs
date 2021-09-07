@@ -43,7 +43,6 @@ public class ConversationUI : MonoBehaviour
 	{
 		if (!conversationOnGoing)
 		{
-			print("show ui triggered");
 			conversationOnGoing = true;
 			conversationContainer.style.display = DisplayStyle.Flex;
 
@@ -63,7 +62,6 @@ public class ConversationUI : MonoBehaviour
 
 	public void HideUI()
 	{
-		print("hide ui triggered");
 		if (conversationOnGoing)
 		{
 			conversationOnGoing = false;
@@ -74,8 +72,6 @@ public class ConversationUI : MonoBehaviour
 
 	void AnimateConversationBoxUp()
 	{
-		//print("AnimateConversationBoxUp top% " + topPercent);
-
 		if (topPercent > 75f)
 		{
 			conversationContainer.style.top = Length.Percent(topPercent);

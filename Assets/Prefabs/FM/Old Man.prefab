@@ -306,11 +306,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIDocument: {fileID: 0}
-  currentConversation: {fileID: 0}
-  interactionController: {fileID: 0}
-  rabbitQuest: {fileID: 11400000, guid: c058a3d2b62528243b416c206eefd557, type: 2}
-  noRabbits: {fileID: 11400000, guid: b8c1eb1bff8dbde4f89ac9791b936bd3, type: 2}
-  hasRabbits: {fileID: 11400000, guid: 8b6e2d0cddcb9c94eae30b16acf08d3b, type: 2}
+  domesticatedRabbitSpawner: {fileID: 0}
+  rabbitQuestSO: {fileID: 11400000, guid: c058a3d2b62528243b416c206eefd557, type: 2}
+  noRabbitsSO: {fileID: 11400000, guid: b8c1eb1bff8dbde4f89ac9791b936bd3, type: 2}
+  hasRabbitsSO: {fileID: 11400000, guid: 8b6e2d0cddcb9c94eae30b16acf08d3b, type: 2}
+  afterRabbitQuestCompletedSO: {fileID: 11400000, guid: 8b6e2d0cddcb9c94eae30b16acf08d3b, type: 2}
 --- !u!1 &64623718519173022
 GameObject:
   m_ObjectHideFlags: 0

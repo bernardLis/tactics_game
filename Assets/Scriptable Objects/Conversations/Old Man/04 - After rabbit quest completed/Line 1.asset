@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
-  m_Name: Line 5
+  m_Name: Line 1
   m_EditorClassIdentifier: 
-  id: OldMan03_5
+  id: OldMan04_1
   character: {fileID: 11400000, guid: c94e33448cfcce94abb13df2e0eefd8f, type: 2}
-  text: 'I know they are holding them in the barracks, could you steal them back? '
+  text: Thank you for catching the rabbits, have a nice day
   clip: {fileID: 0}
