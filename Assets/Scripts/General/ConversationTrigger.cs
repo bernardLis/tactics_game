@@ -9,7 +9,8 @@ public class ConversationTrigger : MonoBehaviour
 	[SerializeField]
 	UIDocument UIDocument;
 	VisualElement tooltipUI;
-	Label interactionTooltip;
+	VisualElement interactionTooltipWrapper;
+	Label interactionTooltipText;
 
 	protected Conversation currentConversation;
 
@@ -22,7 +23,8 @@ public class ConversationTrigger : MonoBehaviour
 		// getting ui elements
 		var root = UIDocument.rootVisualElement;
 		tooltipUI = root.Q<VisualElement>("tooltipUI");
-		interactionTooltip = root.Q<Label>("interactionTooltip");
+		interactionTooltipWrapper = root.Q<VisualElement>("interactionTooltipWrapper");
+		interactionTooltipText = root.Q<Label>("interactionTooltipText");
 	}
 
 	protected virtual void Start()
@@ -49,8 +51,8 @@ public class ConversationTrigger : MonoBehaviour
 	void DisplayConversationTooltip()
 	{
 		tooltipUI.style.display = DisplayStyle.Flex;
-		interactionTooltip.text = "'f' to talk";
-		interactionTooltip.style.display = DisplayStyle.Flex;
+		interactionTooltipWrapper.style.display = DisplayStyle.Flex;
+		interactionTooltipText.text = " to talk";
 		// TODO: resize tooltipUI to fit the text
 		// width is resolved only on the next frame
 	}
@@ -58,7 +60,7 @@ public class ConversationTrigger : MonoBehaviour
 	void HideConversationTooltip()
 	{
 		tooltipUI.style.display = DisplayStyle.None;
-		interactionTooltip.style.display = DisplayStyle.None;
+		interactionTooltipWrapper.style.display = DisplayStyle.None;
 	}
 
 	public void StartConversation()

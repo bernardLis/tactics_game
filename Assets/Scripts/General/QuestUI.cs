@@ -12,6 +12,7 @@ public class QuestUI : MonoBehaviour
 	VisualElement activeQuestsElement;
 	VisualElement completedQuestsElement;
 	VisualElement failedQuestsElement;
+	VisualElement questInformation;
 
 	public InputMaster controls;
 
@@ -27,6 +28,7 @@ public class QuestUI : MonoBehaviour
 		activeQuestsElement = root.Q<VisualElement>("activeQuests");
 		completedQuestsElement = root.Q<VisualElement>("completedQuests");
 		failedQuestsElement = root.Q<VisualElement>("failedQuests");
+		questInformation = root.Q<VisualElement>("questInformation");
 
 		controls = new InputMaster();
 		controls.FMPlayer.EnableQuestUI.performed += ctx => EnableQuestUI();
@@ -76,8 +78,10 @@ public class QuestUI : MonoBehaviour
 		foreach (Quest quest in activeQuests)
 		{
 			Label questName = new Label(quest.qName);
-			print(questName.GetClasses().FirstOrDefault());
-
+			// https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
+			// myElement.RegisterCallback<MouseDownEvent, MyType>(MyCallbackWithData, myData);
+			// void MyCallbackWithData(MouseDownEvent evt, MyType data) { /* ... */ }
+			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
 			activeQuestsElement.Add(questName);
 		}
 
@@ -85,7 +89,7 @@ public class QuestUI : MonoBehaviour
 		foreach (Quest quest in completedQuests)
 		{
 			Label questName = new Label(quest.qName);
-
+			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
 			completedQuestsElement.Add(questName);
 		}
 
@@ -93,8 +97,35 @@ public class QuestUI : MonoBehaviour
 		foreach (Quest quest in failedQuests)
 		{
 			Label questName = new Label(quest.qName);
+			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
 			failedQuestsElement.Add(questName);
 		}
+	}
+
+	void DisplayQuestInformation(MouseDownEvent evt, Quest quest)
+	{
+		ClearQuestInformation();
+
+		Label questName = new Label(quest.qName);
+		questInformation.Add(questName);
+		Label questDescription = new Label(quest.qDescription);
+		questInformation.Add(questDescription);
+
+		foreach (QuestGoal questGoal in quest.qGoals)
+		{
+			print("in q goal" + questGoal.title);
+			Label questGoalLabel = new Label(questGoal.title);
+			questInformation.Add(questGoalLabel);
+			// TODO: display item required 
+			// Label itemRequired = new Label(questGoal.requiredItem)
+			Label amountRequired = new Label(questGoal.currentAmount + "/" + questGoal.requiredAmount);
+			questInformation.Add(amountRequired);
+		}
+	}
+
+	void ClearQuestInformation()
+	{
+		questInformation.Clear();
 	}
 
 	void Test()
