@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Collect 3 rabbits
   completed: 0
+  requiredItem: {fileID: 0}
   currentAmount: 0
-  requiredAmount: 0
+  requiredAmount: 3

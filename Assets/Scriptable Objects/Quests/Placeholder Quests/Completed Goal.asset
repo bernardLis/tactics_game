@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Goal goal goal
   completed: 1
-  currentAmount: 0
-  requiredAmount: 0
+  requiredItem: {fileID: 0}
+  currentAmount: 3
+  requiredAmount: 3

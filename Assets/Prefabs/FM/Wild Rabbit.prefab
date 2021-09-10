@@ -202,5 +202,7 @@ MonoBehaviour:
   randomMoveRange: 1
   randomMoveDelayMin: 1
   randomMoveDelayMax: 5
+  rabbitSpawner: {fileID: 0}
   poofEffect: {fileID: 6199452303025352576, guid: 9dc785d8caff2f9498a74a906c904e01, type: 3}
   starEffect: {fileID: 2060092509515171908, guid: f588a433e409706429d8a018f347526c, type: 3}
+  rabbitItem: {fileID: 11400000, guid: fd66c83919d6e7349b0227a13ef73d90, type: 2}

@@ -23,6 +23,9 @@ public class WildRabbit : Rabbit
 	GameObject poofEffect;
 	[SerializeField]
 	GameObject starEffect;
+	[SerializeField]
+	Item rabbitItem;
+
 
 	//	public event Action rabbitHides;
 
@@ -89,6 +92,8 @@ public class WildRabbit : Rabbit
 		state = RabbitState.CAPTURED;
 		Destroy(Instantiate(starEffect, transform.position, Quaternion.identity) as GameObject, 1f);
 
+		// TODO: inventory sys
+		rabbitItem.PickUp();
 		playerInteractionController.rabbitsCaught++;
 
 		TargetReached();

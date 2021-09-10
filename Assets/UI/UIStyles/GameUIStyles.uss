@@ -30,3 +30,43 @@
     font-size: 20px;
     color: rgb(0, 0, 0);
 }
+
+.inventoryContainer {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inventory {
+    flex-grow: 1;
+    width: 50%;
+    height: 75%;
+    max-width: 50%;
+    max-height: 75%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgb(28, 32, 36);
+    border-left-color: rgb(255, 197, 0);
+    border-right-color: rgb(255, 197, 0);
+    border-top-color: rgb(255, 197, 0);
+    border-bottom-color: rgb(255, 197, 0);
+    border-top-width: 5px;
+}
+
+.inventoryHeader {
+    font-size: 24px;
+    color: rgb(255, 197, 0);
+    padding-bottom: 0;
+    margin-bottom: 10px;
+    border-bottom-color: rgb(64, 74, 82);
+    border-bottom-width: 1px;
+}
+
+.inventorySlotContainer {
+    flex-grow: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="UIStyles/GameUIStyles.uss" />
+    <Style src="UIStyles/Inventory.uss" />
     <ui:VisualElement name="tileInfo" style="height: auto; width: 180px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
         <ui:Label display-tooltip-when-elided="true" name="tileText" style="width: auto; font-size: 22px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
@@ -44,5 +45,12 @@
             <ui:Button display-tooltip-when-elided="true" name="interactionTooltipButton" style="background-image: url(&apos;/Assets/Sprites/UI/f key.png#f key&apos;); width: 32px; height: 32px;" />
             <ui:Label text="Label" display-tooltip-when-elided="true" name="interactionTooltipText" style="-unity-text-align: middle-center; font-size: 24px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="inventoryContainer" class="inventoryContainer">
+        <ui:VisualElement name="inventory" class="inventory">
+            <ui:Label text="Inventory" display-tooltip-when-elided="true" name="inventoryHeader" class="inventoryHeader" />
+            <ui:VisualElement name="inventorySlotContainer" class="inventorySlotContainer" />
+        </ui:VisualElement>
+        <ui:VisualElement name="inventoryGhostIcon" style="position: absolute; width: 128px; height: 128px; display: flex; visibility: hidden;" />
     </ui:VisualElement>
 </ui:UXML>
