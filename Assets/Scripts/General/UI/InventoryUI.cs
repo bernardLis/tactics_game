@@ -3,35 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
+using UnityEngine.InputSystem;
 
-public class InventoryUIController : MonoBehaviour
+public class InventoryUI : MonoBehaviour
 {
 
 	public List<InventorySlot> inventoryItems = new List<InventorySlot>();
+
 	VisualElement root;
+	VisualElement inventoryContainer;
 	VisualElement slotContainer;
 
 	VisualElement ghostIcon;
 	bool isDragging;
 	InventorySlot originalSlot;
 
-	public static InventoryUIController instance;
+	public InputMaster controls;
+
+	GameObject player;
+
+
+	public static InventoryUI instance;
+
 
 	void Awake()
 	{
 		// singleton
 		if (instance != null)
 		{
-			Debug.LogWarning("More than one instance of InventoryUIController found");
+			Debug.LogWarning("More than one instance of InventoryUI found");
 			return;
 		}
 		instance = this;
 
-		Inventory.instance.onItemChangedCallback += OnItemChanged;
+		controls = new InputMaster();
+		controls.FMPlayer.EnableInventoryUI.performed += ctx => EnableInventoryUI();
+
+		controls.InventoryUI.Test.performed += ctx => Test();
+		controls.InventoryUI.DisableInventoryUI.performed += ctx => DisableInventoryUI();
+
+		player = GameObject.FindGameObjectWithTag("Player");
+
+		Inventory.instance.OnItemChanged += OnItemChanged;
 		// store the root from the ui document component
 		root = GetComponent<UIDocument>().rootVisualElement;
 
 		// search for slot container
+		inventoryContainer = root.Q<VisualElement>("inventoryContainer");
 		slotContainer = root.Q<VisualElement>("inventorySlotContainer");
 		ghostIcon = root.Q<VisualElement>("inventoryGhostIcon");
 
@@ -49,18 +67,41 @@ public class InventoryUIController : MonoBehaviour
 		// populate inventory ui on awake;
 		foreach (Item item in Inventory.instance.items)
 		{
-			// find first empty slot
-			var emptySlot = inventoryItems.FirstOrDefault(x => x.item == null);
-			if (emptySlot != null)
-			{
-				emptySlot.HoldItem(item);
-			}
+			AddItemToUI(item);
 		}
 	}
 
-	void OnItemChanged()
+	void AddItemToUI(Item item)
 	{
-		print("on item chagne in inventory ui controller");
+		// find first empty slot
+		var emptySlot = inventoryItems.FirstOrDefault(x => x.item == null);
+		if (emptySlot != null)
+		{
+			emptySlot.HoldItem(item);
+		}
+	}
+	void OnEnable()
+	{
+		controls.FMPlayer.Enable();
+	}
+
+	void OnDisable()
+	{
+		controls.FMPlayer.Disable();
+	}
+
+	// https://www.youtube.com/watch?v=NJLOnRzTPFo&list=PLAE7FECFFFCBE1A54&index=18
+	// Inventory.cs sends event
+	void OnItemChanged(object sender, ItemChangedEventArgs e)
+	{
+		if (e.added)
+		{
+			AddItemToUI(e.item);
+		}
+		else
+		{
+			// TODO: remove item from the ui;
+		}
 	}
 
 
@@ -115,7 +156,36 @@ public class InventoryUIController : MonoBehaviour
 		isDragging = false;
 		originalSlot = null;
 		ghostIcon.style.visibility = Visibility.Hidden;
-
-
 	}
+
+	// Inputs
+	void Test()
+	{
+		print("test");
+	}
+
+	void EnableInventoryUI()
+	{
+		inventoryContainer.style.display = DisplayStyle.Flex;
+		// TODO: only controls.FMPlayer.Disable() does not disable player controlls
+		controls.FMPlayer.Disable();
+		player.SetActive(false);
+
+		GameManager.instance.PauseGame();
+
+		controls.InventoryUI.Enable();
+	}
+
+	void DisableInventoryUI()
+	{
+		inventoryContainer.style.display = DisplayStyle.None;
+
+		controls.FMPlayer.Enable();
+		player.SetActive(true);
+		GameManager.instance.ResumeGame();
+
+		controls.InventoryUI.Disable();
+	}
+
+
 }

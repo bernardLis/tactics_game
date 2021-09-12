@@ -46,11 +46,14 @@
             <ui:Label text="Label" display-tooltip-when-elided="true" name="interactionTooltipText" style="-unity-text-align: middle-center; font-size: 24px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="inventoryContainer" class="inventoryContainer">
+    <ui:VisualElement name="inventoryContainer" class="inventoryContainer" style="display: none;">
         <ui:VisualElement name="inventory" class="inventory">
             <ui:Label text="Inventory" display-tooltip-when-elided="true" name="inventoryHeader" class="inventoryHeader" />
             <ui:VisualElement name="inventorySlotContainer" class="inventorySlotContainer" />
         </ui:VisualElement>
         <ui:VisualElement name="inventoryGhostIcon" style="position: absolute; width: 128px; height: 128px; display: flex; visibility: hidden;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="logContainer" style="top: 75%; align-items: center; justify-content: flex-start; display: none;">
+        <ui:Label text="New quest: Catch 3 rabbits." display-tooltip-when-elided="true" name="logText" style="-unity-text-outline-width: 1px; color: rgb(255, 255, 255); font-size: 36px; -unity-font-style: normal; -unity-text-align: upper-left;" />
     </ui:VisualElement>
 </ui:UXML>

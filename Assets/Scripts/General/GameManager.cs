@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
+
 	void Awake()
 	{
 		// singleton
@@ -17,4 +18,15 @@ public class GameManager : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
+	public void PauseGame()
+	{
+		Time.timeScale = 0;
+	}
+
+	public void ResumeGame()
+	{
+		Time.timeScale = 1;
+	}
+
 }

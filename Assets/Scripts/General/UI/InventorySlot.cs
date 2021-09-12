@@ -46,6 +46,6 @@ public class InventorySlot : VisualElement
 		}
 		// clear the image
 		icon.sprite = null;
-		InventoryUIController.instance.StartDrag(evt.position, this);
+		InventoryUI.instance.StartDrag(evt.position, this);
 	}
 }

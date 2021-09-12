@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "EnableInventoryUI",
+                    "type": "Button",
+                    "id": "bd26f55a-b710-4483-9573-d99630bbe1d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -143,6 +151,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "EnableQuestUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d695f77-e46c-4433-a52e-d80c097119d8",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "EnableInventoryUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -420,7 +439,7 @@
             ]
         },
         {
-            "name": "UI",
+            "name": "QuestUI",
             "id": "3052e362-56ee-4f77-b5b7-5d5a335137f0",
             "actions": [
                 {
@@ -471,6 +490,63 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "DisableQuestUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "InventoryUI",
+            "id": "00730d4c-f8a2-47ad-a1e4-3f601bbd57b6",
+            "actions": [
+                {
+                    "name": "Test",
+                    "type": "Button",
+                    "id": "a6df8010-b323-4296-a372-4c30ba82bf15",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DisableInventoryUI",
+                    "type": "Button",
+                    "id": "bd0e9c66-9512-4acf-850c-45c59ce61d5a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ba5e1909-cd3c-45b0-a068-18685bd5cfa2",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a80e7dae-7a49-4b08-9de5-b913f6bed235",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "DisableInventoryUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e250808-275d-4b51-bcb2-0fcf67eefa67",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "DisableInventoryUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

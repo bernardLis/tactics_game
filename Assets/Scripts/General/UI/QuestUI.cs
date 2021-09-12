@@ -33,8 +33,8 @@ public class QuestUI : MonoBehaviour
 		controls = new InputMaster();
 		controls.FMPlayer.EnableQuestUI.performed += ctx => EnableQuestUI();
 
-		controls.UI.Test.performed += ctx => Test();
-		controls.UI.DisableQuestUI.performed += ctx => DisableQuestUI();
+		controls.QuestUI.Test.performed += ctx => Test();
+		controls.QuestUI.DisableQuestUI.performed += ctx => DisableQuestUI();
 
 		player = GameObject.FindGameObjectWithTag("Player");
 
@@ -57,9 +57,10 @@ public class QuestUI : MonoBehaviour
 		questUI.style.display = DisplayStyle.Flex;
 		// TODO: only controls.FMPlayer.Disable() does not disable player controlls
 		controls.FMPlayer.Disable();
-		PauseGame();
+		player.SetActive(false);
+		GameManager.instance.PauseGame();
 
-		controls.UI.Enable();
+		controls.QuestUI.Enable();
 	}
 
 	void DisableQuestUI()
@@ -67,9 +68,10 @@ public class QuestUI : MonoBehaviour
 		questUI.style.display = DisplayStyle.None;
 
 		controls.FMPlayer.Enable();
-		ResumeGame();
+		player.SetActive(true);
+		GameManager.instance.ResumeGame();
 
-		controls.UI.Disable();
+		controls.QuestUI.Disable();
 	}
 
 	void PopulateQuestUI()
@@ -132,17 +134,4 @@ public class QuestUI : MonoBehaviour
 	{
 		print("testtest");
 	}
-
-	void PauseGame()
-	{
-		player.SetActive(false);
-		Time.timeScale = 0;
-	}
-
-	void ResumeGame()
-	{
-		player.SetActive(true);
-		Time.timeScale = 1;
-	}
-
 }

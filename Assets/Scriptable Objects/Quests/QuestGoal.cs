@@ -11,6 +11,8 @@ public abstract class QuestGoal : ScriptableObject
 	public int currentAmount;
 	public int requiredAmount;
 
+	public abstract void Initialize();
 	public abstract void Evaluate();
+	public abstract void Evaluate(object sender, ItemChangedEventArgs e);
 	public abstract void Complete();
 }

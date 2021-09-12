@@ -24,6 +24,9 @@ public class GameUI : MonoBehaviour
 
 	VisualElement rushUI;
 
+	VisualElement logContainer;
+	Label logText;
+
 	#region Singleton
 	public static GameUI instance;
 	void Awake()
@@ -58,6 +61,10 @@ public class GameUI : MonoBehaviour
 		intelligenceLabel = root.Q<Label>("intelligenceLabel");
 
 		rushUI = root.Q<VisualElement>("rushUI");
+
+		// log
+		logContainer = root.Q<VisualElement>("logContainer");
+		logText = root.Q<Label>("logText");
 	}
 
 
@@ -139,5 +146,18 @@ public class GameUI : MonoBehaviour
 	public void HideRushUI()
 	{
 		rushUI.style.display = DisplayStyle.None;
+	}
+
+	public void DisplayLogText(string newText)
+	{
+		logText.text = newText;
+		logContainer.style.display = DisplayStyle.Flex;
+
+		Invoke("HideLogText", 2);
+	}
+
+	void HideLogText()
+	{
+		logContainer.style.display = DisplayStyle.None;
 	}
 }

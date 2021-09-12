@@ -564,7 +564,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6390663538396494060, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: items.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6390663538396494060, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: items.Array.data[0]

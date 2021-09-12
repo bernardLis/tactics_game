@@ -57,6 +57,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""EnableInventoryUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd26f55a-b710-4483-9573-d99630bbe1d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -156,6 +164,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""EnableQuestUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d695f77-e46c-4433-a52e-d80c097119d8"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""EnableInventoryUI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -433,7 +452,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""UI"",
+            ""name"": ""QuestUI"",
             ""id"": ""3052e362-56ee-4f77-b5b7-5d5a335137f0"",
             ""actions"": [
                 {
@@ -488,6 +507,63 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""InventoryUI"",
+            ""id"": ""00730d4c-f8a2-47ad-a1e4-3f601bbd57b6"",
+            ""actions"": [
+                {
+                    ""name"": ""Test"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6df8010-b323-4296-a372-4c30ba82bf15"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DisableInventoryUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd0e9c66-9512-4acf-850c-45c59ce61d5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ba5e1909-cd3c-45b0-a068-18685bd5cfa2"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Test"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a80e7dae-7a49-4b08-9de5-b913f6bed235"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DisableInventoryUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e250808-275d-4b51-bcb2-0fcf67eefa67"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DisableInventoryUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -511,6 +587,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_FMPlayer_Interact = m_FMPlayer.FindAction("Interact", throwIfNotFound: true);
         m_FMPlayer_Rush = m_FMPlayer.FindAction("Rush", throwIfNotFound: true);
         m_FMPlayer_EnableQuestUI = m_FMPlayer.FindAction("EnableQuestUI", throwIfNotFound: true);
+        m_FMPlayer_EnableInventoryUI = m_FMPlayer.FindAction("EnableInventoryUI", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_QButtonClick = m_Player.FindAction("QButtonClick", throwIfNotFound: true);
@@ -530,10 +607,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_ZoomIn = m_Camera.FindAction("ZoomIn", throwIfNotFound: true);
         m_Camera_ZoomOut = m_Camera.FindAction("ZoomOut", throwIfNotFound: true);
-        // UI
-        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Test = m_UI.FindAction("Test", throwIfNotFound: true);
-        m_UI_DisableQuestUI = m_UI.FindAction("DisableQuestUI", throwIfNotFound: true);
+        // QuestUI
+        m_QuestUI = asset.FindActionMap("QuestUI", throwIfNotFound: true);
+        m_QuestUI_Test = m_QuestUI.FindAction("Test", throwIfNotFound: true);
+        m_QuestUI_DisableQuestUI = m_QuestUI.FindAction("DisableQuestUI", throwIfNotFound: true);
+        // InventoryUI
+        m_InventoryUI = asset.FindActionMap("InventoryUI", throwIfNotFound: true);
+        m_InventoryUI_Test = m_InventoryUI.FindAction("Test", throwIfNotFound: true);
+        m_InventoryUI_DisableInventoryUI = m_InventoryUI.FindAction("DisableInventoryUI", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -588,6 +669,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_FMPlayer_Interact;
     private readonly InputAction m_FMPlayer_Rush;
     private readonly InputAction m_FMPlayer_EnableQuestUI;
+    private readonly InputAction m_FMPlayer_EnableInventoryUI;
     public struct FMPlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -597,6 +679,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Interact => m_Wrapper.m_FMPlayer_Interact;
         public InputAction @Rush => m_Wrapper.m_FMPlayer_Rush;
         public InputAction @EnableQuestUI => m_Wrapper.m_FMPlayer_EnableQuestUI;
+        public InputAction @EnableInventoryUI => m_Wrapper.m_FMPlayer_EnableInventoryUI;
         public InputActionMap Get() { return m_Wrapper.m_FMPlayer; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -621,6 +704,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @EnableQuestUI.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
                 @EnableQuestUI.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
                 @EnableQuestUI.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
+                @EnableInventoryUI.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableInventoryUI;
+                @EnableInventoryUI.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableInventoryUI;
+                @EnableInventoryUI.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableInventoryUI;
             }
             m_Wrapper.m_FMPlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -640,6 +726,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @EnableQuestUI.started += instance.OnEnableQuestUI;
                 @EnableQuestUI.performed += instance.OnEnableQuestUI;
                 @EnableQuestUI.canceled += instance.OnEnableQuestUI;
+                @EnableInventoryUI.started += instance.OnEnableInventoryUI;
+                @EnableInventoryUI.performed += instance.OnEnableInventoryUI;
+                @EnableInventoryUI.canceled += instance.OnEnableInventoryUI;
             }
         }
     }
@@ -824,34 +913,34 @@ public class @InputMaster : IInputActionCollection, IDisposable
     }
     public CameraActions @Camera => new CameraActions(this);
 
-    // UI
-    private readonly InputActionMap m_UI;
-    private IUIActions m_UIActionsCallbackInterface;
-    private readonly InputAction m_UI_Test;
-    private readonly InputAction m_UI_DisableQuestUI;
-    public struct UIActions
+    // QuestUI
+    private readonly InputActionMap m_QuestUI;
+    private IQuestUIActions m_QuestUIActionsCallbackInterface;
+    private readonly InputAction m_QuestUI_Test;
+    private readonly InputAction m_QuestUI_DisableQuestUI;
+    public struct QuestUIActions
     {
         private @InputMaster m_Wrapper;
-        public UIActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Test => m_Wrapper.m_UI_Test;
-        public InputAction @DisableQuestUI => m_Wrapper.m_UI_DisableQuestUI;
-        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public QuestUIActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Test => m_Wrapper.m_QuestUI_Test;
+        public InputAction @DisableQuestUI => m_Wrapper.m_QuestUI_DisableQuestUI;
+        public InputActionMap Get() { return m_Wrapper.m_QuestUI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
-        public void SetCallbacks(IUIActions instance)
+        public static implicit operator InputActionMap(QuestUIActions set) { return set.Get(); }
+        public void SetCallbacks(IQuestUIActions instance)
         {
-            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            if (m_Wrapper.m_QuestUIActionsCallbackInterface != null)
             {
-                @Test.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTest;
-                @Test.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTest;
-                @Test.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTest;
-                @DisableQuestUI.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDisableQuestUI;
-                @DisableQuestUI.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDisableQuestUI;
-                @DisableQuestUI.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDisableQuestUI;
+                @Test.started -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnTest;
+                @Test.performed -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnTest;
+                @Test.canceled -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnTest;
+                @DisableQuestUI.started -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnDisableQuestUI;
+                @DisableQuestUI.performed -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnDisableQuestUI;
+                @DisableQuestUI.canceled -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnDisableQuestUI;
             }
-            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            m_Wrapper.m_QuestUIActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Test.started += instance.OnTest;
@@ -863,7 +952,48 @@ public class @InputMaster : IInputActionCollection, IDisposable
             }
         }
     }
-    public UIActions @UI => new UIActions(this);
+    public QuestUIActions @QuestUI => new QuestUIActions(this);
+
+    // InventoryUI
+    private readonly InputActionMap m_InventoryUI;
+    private IInventoryUIActions m_InventoryUIActionsCallbackInterface;
+    private readonly InputAction m_InventoryUI_Test;
+    private readonly InputAction m_InventoryUI_DisableInventoryUI;
+    public struct InventoryUIActions
+    {
+        private @InputMaster m_Wrapper;
+        public InventoryUIActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Test => m_Wrapper.m_InventoryUI_Test;
+        public InputAction @DisableInventoryUI => m_Wrapper.m_InventoryUI_DisableInventoryUI;
+        public InputActionMap Get() { return m_Wrapper.m_InventoryUI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InventoryUIActions set) { return set.Get(); }
+        public void SetCallbacks(IInventoryUIActions instance)
+        {
+            if (m_Wrapper.m_InventoryUIActionsCallbackInterface != null)
+            {
+                @Test.started -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnTest;
+                @Test.performed -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnTest;
+                @Test.canceled -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnTest;
+                @DisableInventoryUI.started -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnDisableInventoryUI;
+                @DisableInventoryUI.performed -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnDisableInventoryUI;
+                @DisableInventoryUI.canceled -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnDisableInventoryUI;
+            }
+            m_Wrapper.m_InventoryUIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Test.started += instance.OnTest;
+                @Test.performed += instance.OnTest;
+                @Test.canceled += instance.OnTest;
+                @DisableInventoryUI.started += instance.OnDisableInventoryUI;
+                @DisableInventoryUI.performed += instance.OnDisableInventoryUI;
+                @DisableInventoryUI.canceled += instance.OnDisableInventoryUI;
+            }
+        }
+    }
+    public InventoryUIActions @InventoryUI => new InventoryUIActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -880,6 +1010,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnRush(InputAction.CallbackContext context);
         void OnEnableQuestUI(InputAction.CallbackContext context);
+        void OnEnableInventoryUI(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {
@@ -903,9 +1034,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnZoomIn(InputAction.CallbackContext context);
         void OnZoomOut(InputAction.CallbackContext context);
     }
-    public interface IUIActions
+    public interface IQuestUIActions
     {
         void OnTest(InputAction.CallbackContext context);
         void OnDisableQuestUI(InputAction.CallbackContext context);
+    }
+    public interface IInventoryUIActions
+    {
+        void OnTest(InputAction.CallbackContext context);
+        void OnDisableInventoryUI(InputAction.CallbackContext context);
     }
 }

@@ -9,6 +9,14 @@ public class CollectQuest : Quest
 	{
 		// TODO: show ui
 		Debug.Log("quest triggered");
+		// initialize quest goals
+		foreach (var qGoal in qGoals)
+		{
+			qGoal.Initialize();
+		}
+
+		GameUI.instance.DisplayLogText("New quest: " + qName);
+
 		qState = QuestState.ACTIVE;
 	}
 
@@ -16,6 +24,8 @@ public class CollectQuest : Quest
 	{
 		// TODO: show ui
 		Debug.Log("quest completed");
+		GameUI.instance.DisplayLogText("Quest completed: " + qName);
+
 
 		qState = QuestState.COMPLETED;
 	}
@@ -24,6 +34,7 @@ public class CollectQuest : Quest
 	{
 		// TODO: show ui
 		Debug.Log("quest failed");
+		GameUI.instance.DisplayLogText("Quest failed: " + qName);
 
 		qState = QuestState.FAILED;
 	}
