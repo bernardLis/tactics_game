@@ -29,6 +29,8 @@ public class OldManConversationTrigger : ConversationTrigger
 
 	bool spawnedRabbits;
 
+	QuestManager questManager;
+
 
 	protected override void Start()
 	{
@@ -36,6 +38,8 @@ public class OldManConversationTrigger : ConversationTrigger
 
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 		playerInteractionController = player.GetComponent<FMPlayerInteractionController>();
+
+		questManager = GameManager.instance.GetComponent<QuestManager>();
 
 		rabbitQuest = Instantiate(rabbitQuestSO);
 		noRabbits = Instantiate(noRabbitsSO);
@@ -46,15 +50,17 @@ public class OldManConversationTrigger : ConversationTrigger
 
 	protected override void SetCurrentConversation()
 	{
+		Debug.Log(questManager.ReturnQuestFromID(0).qGoals[0].qGoalState);
 		if (!rabbitQuest.cSeen)
 		{
 			currentConversation = rabbitQuest;
 		}
-		else if (playerInteractionController.rabbitsCaught < 3)
+		// TODO: check if **all** goals of rabbit quest were completed 
+		else if (questManager.ReturnQuestFromID(0).qGoals[0].qGoalState == QuestGoalState.ACTIVE)
 		{
 			currentConversation = noRabbits;
 		}
-		else if (playerInteractionController.rabbitsCaught >= 3 && !hasRabbits.cSeen)
+		else if (questManager.ReturnQuestFromID(0).qGoals[0].qGoalState == QuestGoalState.COMPLETED && !hasRabbits.cSeen)
 		{
 			currentConversation = hasRabbits;
 		}

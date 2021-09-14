@@ -22,8 +22,6 @@ public class GameUI : MonoBehaviour
 	Label strengthLabel;
 	Label intelligenceLabel;
 
-	VisualElement rushUI;
-
 	VisualElement logContainer;
 	Label logText;
 
@@ -59,8 +57,6 @@ public class GameUI : MonoBehaviour
 		armorLabel = root.Q<Label>("armorLabel");
 		strengthLabel = root.Q<Label>("strengthLabel");
 		intelligenceLabel = root.Q<Label>("intelligenceLabel");
-
-		rushUI = root.Q<VisualElement>("rushUI");
 
 		// log
 		logContainer = root.Q<VisualElement>("logContainer");
@@ -99,53 +95,6 @@ public class GameUI : MonoBehaviour
 	{
 		// hide UI;
 		characterInfo.style.display = DisplayStyle.None;
-	}
-
-	public void DrawRushUI(Vector3 pos, Vector2 rushVector, float percentToLimit)
-	{
-		rushUI.style.display = DisplayStyle.Flex;
-
-		// showing over the limit color
-		rushUI.style.backgroundColor = Color.Lerp(Color.white, Color.red, percentToLimit);
-
-		// TODO: this UI sucks.
-		// direction
-		Vector2 dir = rushVector.normalized;
-		float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg - 90;
-		rushUI.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-		// position
-		Vector3 posAdjusted = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
-
-		if (angle >= -135 && angle < -45)
-		{
-			posAdjusted = new Vector3(pos.x, pos.y + 0.5f, 0f);
-		}
-		else if (angle >= -45 && angle < 45)
-		{
-			posAdjusted = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
-		}
-		else if ((angle >= 45 && angle < 91) || angle < -225)
-		{
-			posAdjusted = new Vector3(pos.x, pos.y, 0f);
-		}
-		else if (angle >= -225 && angle < -135)
-		{
-			posAdjusted = new Vector3(pos.x - 0.5f, pos.y, 0f);
-		}
-
-
-		Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(rushUI.panel, posAdjusted, cam);
-		rushUI.transform.position = newPosition;
-
-		// length
-		float len = (Mathf.Abs(rushVector.x) + Mathf.Abs(rushVector.y)) * 50; // TODO: this is incorrect
-		rushUI.style.width = len;
-	}
-
-	public void HideRushUI()
-	{
-		rushUI.style.display = DisplayStyle.None;
 	}
 
 	public void DisplayLogText(string newText)

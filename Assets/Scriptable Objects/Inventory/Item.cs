@@ -7,8 +7,9 @@ public class Item : ScriptableObject
 {
 	public string iName = "New Item";
 	public Sprite icon = null;
-	public int iAmount = 1;
+	public int amount = 1;
 	public int stackSize = 5;
+	public bool questItem;
 
 	public virtual void PickUp()
 	{

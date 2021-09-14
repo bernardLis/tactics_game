@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Collect 3 rabbits - goal
   m_EditorClassIdentifier: 
   title: Collect 3 rabbits
-  completed: 0
+  qGoalState: 0
   requiredItem: {fileID: 11400000, guid: fd66c83919d6e7349b0227a13ef73d90, type: 2}
   currentAmount: 0
   requiredAmount: 3

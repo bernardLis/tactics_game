@@ -25,7 +25,12 @@
         <ui:VisualElement name="conversationPortrait" style="background-image: url(&apos;/Assets/Sprites/Portraits/Monet.jpg#Monet&apos;); width: 20%; height: 100%; -unity-background-scale-mode: scale-to-fit;" />
         <ui:Label text="Label" display-tooltip-when-elided="true" name="conversationText" style="width: 80%; height: 100%; -unity-text-align: middle-left; font-size: 32px; -unity-font-style: normal; margin-left: 20px; color: rgb(255, 255, 255); flex-wrap: wrap; white-space: normal;" />
     </ui:VisualElement>
-    <ui:VisualElement name="rushUI" style="height: 20px; width: 20px; background-color: rgb(255, 255, 255); display: none;" />
+    <ui:VisualElement name="rushUIContainer" style="height: 10px; flex-grow: 0; flex-wrap: wrap; display: none; justify-content: flex-start; align-items: stretch;">
+        <ui:VisualElement name="rushUI" style="height: 4px; width: 50px; background-color: rgb(255, 255, 255); display: flex; margin-top: 3px; flex-direction: column-reverse;">
+            <ui:VisualElement name="rushUIShadow" style="height: 1px; background-color: rgb(0, 0, 0);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="rushUIArrow" style="width: 10px; height: 10px; background-color: rgb(255, 255, 255); background-image: none; margin-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0;" />
+    </ui:VisualElement>
     <ui:VisualElement name="questUI" style="width: 100%; height: 100%; background-color: rgb(0, 0, 0); flex-direction: row; display: none;">
         <ui:VisualElement name="questList" style="background-color: rgb(159, 156, 156); width: 30%; height: 100%;">
             <ui:VisualElement name="activeQuests" class="questsHeader">

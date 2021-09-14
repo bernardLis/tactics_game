@@ -30,11 +30,11 @@ public class Conversation : ScriptableObject
 	public void ChangeQuestStatus()
 	{
 		if (questTrigger)
-			quest.TriggerQuest();
+			quest.Trigger();
 		if (questCompleted)
-			quest.CompleteQuest();
+			quest.Complete();
 		if (questFailed)
-			quest.FailQuest();
+			quest.Fail();
 	}
 
 

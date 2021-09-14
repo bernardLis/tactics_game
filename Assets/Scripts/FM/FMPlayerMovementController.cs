@@ -14,11 +14,17 @@ public class FMPlayerMovementController : MonoBehaviour
 	Rigidbody2D rbody;
 	Vector2 inputVector;
 
+	RushUI rushUI;
 	[SerializeField]
 	GameObject rushEffect;
 	bool rushButtonIsHeld = false;
 	float rushChargingSpeed = 4f;
-	float rushLimit = 4f;
+	//float rushLimit = 4.5f;
+	float rushStartTime;
+	float rushForcedReleaseTime;
+	float rushSecondsToForcedRelease = 1.2f;
+	float percentToLimit = 0f;
+
 	Vector2 rushStrength;
 	bool rushForceReleaseTriggered;
 
@@ -28,6 +34,8 @@ public class FMPlayerMovementController : MonoBehaviour
 
 	void Awake()
 	{
+		rushUI = GameUI.instance.GetComponent<RushUI>();
+
 		controls = new InputMaster();
 
 		controls.FMPlayer.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
@@ -67,22 +75,34 @@ public class FMPlayerMovementController : MonoBehaviour
 		// rush is charged
 		if (rushButtonIsHeld)
 		{
-			// After the rush reaches 4 tiles it will be forcefully released within 0.5s
 			rushStrength += inputVector * rushChargingSpeed * Time.fixedDeltaTime;
+
+			// TODO: there has to be a better way to get the %
+			rushStartTime += Time.fixedDeltaTime;
+			percentToLimit = 1 - ((rushForcedReleaseTime - rushStartTime) / rushSecondsToForcedRelease);
+
+			// you have x seconds to charge the rush, before I forcefully release it;
+			if (Time.fixedTime < rushForcedReleaseTime)
+			{
+				rushUI.DrawRushUI(transform.position, rushStrength, percentToLimit);
+			}
+			/*
+			// After rush reaches 4 tiles it will be forcefully released within 0.5s
 			float limitCheck = Mathf.Abs(rushStrength.x) + Mathf.Abs(rushStrength.y);
 			float percentToLimit = limitCheck / rushLimit;
-			if (limitCheck < rushLimit)
+			if (time < rushLimit)
 			{
-				GameUI.instance.DrawRushUI(transform.position, rushStrength, percentToLimit);
+				rushUI.DrawRushUI(transform.position, rushStrength, percentToLimit);
 			}
+			*/
 			else
 			{
-				GameUI.instance.DrawRushUI(transform.position, rushStrength, percentToLimit);
+				//rushUI.DrawRushUI(transform.position, rushStrength, percentToLimit);
 				// force release the rush once it goes over the limit and is not released;
 				if (!rushForceReleaseTriggered)
 				{
 					rushForceReleaseTriggered = true;
-					Invoke("ForceRushRelease", 0.5f);
+					ForceRushRelease();
 				}
 			}
 			return;
@@ -115,9 +135,10 @@ public class FMPlayerMovementController : MonoBehaviour
 	void RushPressed()
 	{
 		rushButtonIsHeld = true;
-		// get direction and force
-
+		rushStartTime = Time.fixedTime;
+		rushForcedReleaseTime = Time.fixedTime + rushSecondsToForcedRelease;
 	}
+
 	void RushReleased()
 	{
 		Vector3 originalPosition = transform.position;
@@ -149,10 +170,9 @@ public class FMPlayerMovementController : MonoBehaviour
 			// TODO: destory after the animation is finished 
 			Destroy(Instantiate(rushEffect, transform.position, Quaternion.AngleAxis(angle, Vector3.forward)) as GameObject, 1f);
 			Destroy(Instantiate(rushEffect, originalPosition, Quaternion.AngleAxis(angle, Vector3.forward)) as GameObject, 1f);
-
 		}
 
-		GameUI.instance.HideRushUI();
+		rushUI.HideRushUI();
 		rushStrength = Vector2.zero;
 	}
 
@@ -161,6 +181,5 @@ public class FMPlayerMovementController : MonoBehaviour
 		rushForceReleaseTriggered = false;
 		//rushStrength = Vector2.zero;
 		RushReleased();
-
 	}
 }

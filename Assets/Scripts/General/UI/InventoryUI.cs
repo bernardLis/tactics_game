@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class InventoryUI : MonoBehaviour
 {
 
-	public List<InventorySlot> inventoryItems = new List<InventorySlot>();
+	public List<InventorySlot> inventorySlots = new List<InventorySlot>();
 
 	VisualElement root;
 	VisualElement inventoryContainer;
@@ -60,7 +60,7 @@ public class InventoryUI : MonoBehaviour
 		for (int i = 0; i < 20; i++)
 		{
 			InventorySlot item = new InventorySlot();
-			inventoryItems.Add(item);
+			inventorySlots.Add(item);
 			slotContainer.Add(item);
 		}
 
@@ -73,13 +73,36 @@ public class InventoryUI : MonoBehaviour
 
 	void AddItemToUI(Item item)
 	{
+		/*
+		// check if you already have this item, if yes, stack it
+		foreach (var slot in inventorySlots)
+		{
+			if (slot.item == item)
+				print("i already have this item, i would like to stack it");
+		}
+		*/
+
 		// find first empty slot
-		var emptySlot = inventoryItems.FirstOrDefault(x => x.item == null);
+		var emptySlot = inventorySlots.FirstOrDefault(x => x.item == null);
 		if (emptySlot != null)
 		{
 			emptySlot.HoldItem(item);
 		}
 	}
+
+	void RemoveItemFromUI(Item item)
+	{
+		// TODO: now I am going to remove the first one that I find, does it pose a problem, should I be removing the particular item?
+		// find the inventory slot that holds the item
+		foreach (var slot in inventorySlots)
+		{
+			// ask it to drop it
+			if (slot.item == item)
+				slot.DropItem();
+		}
+	}
+
+
 	void OnEnable()
 	{
 		controls.FMPlayer.Enable();
@@ -95,13 +118,9 @@ public class InventoryUI : MonoBehaviour
 	void OnItemChanged(object sender, ItemChangedEventArgs e)
 	{
 		if (e.added)
-		{
 			AddItemToUI(e.item);
-		}
 		else
-		{
-			// TODO: remove item from the ui;
-		}
+			RemoveItemFromUI(e.item);
 	}
 
 
@@ -140,7 +159,7 @@ public class InventoryUI : MonoBehaviour
 		}
 
 		// Check to see if they are dropping the ghost icon over any inventory slots.
-		IEnumerable<InventorySlot> slots = inventoryItems.Where(x => x.worldBound.Overlaps(ghostIcon.worldBound));
+		IEnumerable<InventorySlot> slots = inventorySlots.Where(x => x.worldBound.Overlaps(ghostIcon.worldBound));
 		if (slots.Count() != 0)
 		{
 			InventorySlot closestSlot = slots.OrderBy(x => Vector2.Distance(x.worldBound.position, ghostIcon.worldBound.position)).First();

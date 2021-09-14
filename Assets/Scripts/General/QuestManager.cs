@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-	public Quest[] allQuests;
+
+	public Quest[] allQuestsSO;
+
+	List<Quest> allQuests = new List<Quest>();
+
+	void Awake()
+	{
+		foreach(Quest quest in allQuestsSO)
+		{
+			Quest q = Instantiate(quest);
+			allQuests.Add(q);
+		}
+	}
 
 	public List<Quest> ReturnActiveQuests()
 	{
@@ -43,5 +55,16 @@ public class QuestManager : MonoBehaviour
 			}
 		}
 		return activeQuests;
+	}
+
+	public Quest ReturnQuestFromID(int id)
+	{
+		foreach (Quest quest in allQuests)
+		{
+			if (quest.qID == id)
+				return quest;
+		}
+
+		return null;
 	}
 }

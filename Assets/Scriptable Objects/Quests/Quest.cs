@@ -7,14 +7,15 @@ public enum QuestState { INACTIVE, ACTIVE, COMPLETED, FAILED }
 
 public abstract class Quest : ScriptableObject
 {
+	public int qID;
 	public string qName;
 	public string qDescription;
 	public QuestState qState;
 	public QuestGoal[] qGoals;
-	public ScriptableObject qReward;
+	public Item qReward;
 
-	public abstract void TriggerQuest();
-	public abstract void CompleteQuest();
-	public abstract void FailQuest();
+	public abstract void Trigger();
+	public abstract void Complete();
+	public abstract void Fail();
 
 }

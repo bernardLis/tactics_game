@@ -254,6 +254,7 @@ MonoBehaviour:
   randomMoveRange: 0.4
   randomMoveDelayMin: 1
   randomMoveDelayMax: 5
+  rabbitSpawner: {fileID: 0}
 --- !u!1 &8197420058190121237
 GameObject:
   m_ObjectHideFlags: 0

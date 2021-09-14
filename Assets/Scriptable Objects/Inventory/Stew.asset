@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 941165d4f05d24840aa481aca7f36c9b, type: 3}
-  m_Name: Rabbit
+  m_Name: Stew
   m_EditorClassIdentifier: 
-  iName: Rabbit
-  icon: {fileID: 444111797852221278, guid: f70693574510d5d4aa20fc3b1a902e6f, type: 3}
+  iName: Stew
+  icon: {fileID: -4218819425404330313, guid: c98d7b9e4f8fb974593dedcb63eff15f, type: 3}
   amount: 1
-  stackSize: 1
+  stackSize: 5
   questItem: 1

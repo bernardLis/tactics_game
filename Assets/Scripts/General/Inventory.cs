@@ -22,11 +22,6 @@ public class Inventory : MonoBehaviour
 
 	public event EventHandler<ItemChangedEventArgs> OnItemChanged;
 
-	/*
-	public delegate void OnItemChanged();
-	public OnItemChanged onItemChangedCallback;
-*/
-
 	#region Singleton
 	public static Inventory instance;
 	void Awake()
@@ -49,10 +44,6 @@ public class Inventory : MonoBehaviour
 		if (OnItemChanged != null)
 			OnItemChanged(this, new ItemChangedEventArgs(item, true));
 
-		/*
-		if (onItemChangedCallback != null)
-			onItemChangedCallback.Invoke();
-			*/
 	}
 
 	public void Remove(Item item)

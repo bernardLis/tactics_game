@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Quests/Collect Quest")]
 public class CollectQuest : Quest
 {
-	public override void TriggerQuest()
+	public override void Trigger()
 	{
 		// TODO: show ui
 		Debug.Log("quest triggered");
@@ -20,17 +20,24 @@ public class CollectQuest : Quest
 		qState = QuestState.ACTIVE;
 	}
 
-	public override void CompleteQuest()
+	public override void Complete()
 	{
-		// TODO: show ui
-		Debug.Log("quest completed");
+		qState = QuestState.COMPLETED;
+
+		// UI
 		GameUI.instance.DisplayLogText("Quest completed: " + qName);
 
+		// remove quest items
+		foreach (var qGoal in qGoals)
+		{
+			qGoal.CleanUp();
+		}
 
-		qState = QuestState.COMPLETED;
+		// give player the reward
+		Inventory.instance.Add(qReward);
 	}
 
-	public override void FailQuest()
+	public override void Fail()
 	{
 		// TODO: show ui
 		Debug.Log("quest failed");
