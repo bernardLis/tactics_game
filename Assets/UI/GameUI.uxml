@@ -35,12 +35,15 @@
         <ui:VisualElement name="questList" style="background-color: rgb(159, 156, 156); width: 30%; height: 100%;">
             <ui:VisualElement name="activeQuests" class="questsHeader">
                 <ui:Label text="Active quests:" display-tooltip-when-elided="true" name="activeQuestsTitle" />
+                <ui:VisualElement name="activeQuestsContainer" />
             </ui:VisualElement>
             <ui:VisualElement name="completedQuests">
-                <ui:Label text="Completed quests:" display-tooltip-when-elided="true" name="CompletedQuestsTitle" class="questsHeader" />
+                <ui:Label text="Completed quests:" display-tooltip-when-elided="true" name="completedQuestsTitle" class="questsHeader" />
+                <ui:VisualElement name="completedQuestsContainer" />
             </ui:VisualElement>
             <ui:VisualElement name="failedQuests">
                 <ui:Label text="Failed quests:" display-tooltip-when-elided="true" name="failedQuestsTitle" class="questsHeader" />
+                <ui:VisualElement name="failedQuestsContainer" style="display: none;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="questInformation" style="height: 100%; width: 80%; background-color: rgb(190, 190, 190);" />
@@ -58,7 +61,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="inventoryGhostIcon" style="position: absolute; width: 128px; height: 128px; display: flex; visibility: hidden;" />
     </ui:VisualElement>
-    <ui:VisualElement name="logContainer" style="top: 75%; align-items: center; justify-content: flex-start; display: none;">
+    <ui:VisualElement name="logContainer" style="top: 25%; align-items: center; justify-content: flex-start; display: none;">
         <ui:Label text="New quest: Catch 3 rabbits." display-tooltip-when-elided="true" name="logText" style="-unity-text-outline-width: 1px; color: rgb(255, 255, 255); font-size: 36px; -unity-font-style: normal; -unity-text-align: upper-left;" />
     </ui:VisualElement>
 </ui:UXML>

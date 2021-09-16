@@ -11,7 +11,7 @@ public class TurnManager : MonoBehaviour
 	public BattleState state;
 
 	public static TurnManager instance;
-	GameObject[] controlledByPlayer;
+	GameObject[] playerCharacters;
 	GameObject[] enemies;
 
 	int playerCharactersLeftToTakeTurn;
@@ -35,13 +35,13 @@ public class TurnManager : MonoBehaviour
 		}
 		instance = this;
 
-		controlledByPlayer = GameObject.FindGameObjectsWithTag("ControlledByPlayer");
+		playerCharacters = GameObject.FindGameObjectsWithTag("Player");
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-		playerCharactersLeftToTakeTurn = controlledByPlayer.Length;
+		playerCharactersLeftToTakeTurn = playerCharacters.Length;
 		enemyCharactersLeftToTakeTurn = enemies.Length;
 
-		playerCharactersAlive = controlledByPlayer.Length;
+		playerCharactersAlive = playerCharacters.Length;
 		enemyCharactersAlive = enemies.Length;
 
 		// subscribe to death events
@@ -49,7 +49,7 @@ public class TurnManager : MonoBehaviour
 		{
 			enemy.GetComponent<CharacterStats>().characterDeathEvent += OnEnemyDeath;
 		}
-		foreach (GameObject player in controlledByPlayer)
+		foreach (GameObject player in playerCharacters)
 		{
 			player.GetComponent<CharacterStats>().characterDeathEvent += OnPlayerCharDeath;
 		}

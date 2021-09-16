@@ -9,7 +9,7 @@ public class GameUI : MonoBehaviour
 	Camera cam;
 
 	// UI
-	public UIDocument UIDocument;
+	UIDocument UIDocument;
 	VisualElement tileInfo;
 	Label tileTextLabel;
 
@@ -24,6 +24,11 @@ public class GameUI : MonoBehaviour
 
 	VisualElement logContainer;
 	Label logText;
+
+	Queue<string> logQueue;
+	string currentLog;
+	bool showLogIsRunning;
+
 
 	#region Singleton
 	public static GameUI instance;
@@ -43,6 +48,7 @@ public class GameUI : MonoBehaviour
 		cam = Camera.main;
 
 		// getting ui elements
+		UIDocument = GetComponent<UIDocument>();
 		var root = UIDocument.rootVisualElement;
 		tileInfo = root.Q<VisualElement>("tileInfo");
 
@@ -61,6 +67,8 @@ public class GameUI : MonoBehaviour
 		// log
 		logContainer = root.Q<VisualElement>("logContainer");
 		logText = root.Q<Label>("logText");
+
+		logQueue = new Queue<string>();
 	}
 
 
@@ -99,14 +107,27 @@ public class GameUI : MonoBehaviour
 
 	public void DisplayLogText(string newText)
 	{
-		logText.text = newText;
-		logContainer.style.display = DisplayStyle.Flex;
+		// add log text to the queue
+		logQueue.Enqueue(newText);
 
-		Invoke("HideLogText", 2);
+		if (!showLogIsRunning)
+			StartCoroutine(ShowLogText());
 	}
 
-	void HideLogText()
+	IEnumerator ShowLogText()
 	{
+		showLogIsRunning = true;
+		logContainer.style.display = DisplayStyle.Flex;
+
+		while (logQueue.Count > 0)
+		{
+			currentLog = logQueue.Dequeue();
+			logText.text = currentLog;
+			yield return new WaitForSeconds(2f);
+		}
+
+		showLogIsRunning = false;
 		logContainer.style.display = DisplayStyle.None;
+		yield break;
 	}
 }

@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class MovePointController : MonoBehaviour
 {
 	Highlighter highlighter;
+	AbilityUI abilityUI;
 
 	public GameObject selected;
 	public InputMaster controls;
@@ -46,6 +47,7 @@ public class MovePointController : MonoBehaviour
 		FindObjectOfType<TurnManager>().playerTurnEndEvent += OnPlayerTurnEnd;
 
 		highlighter = GameManager.instance.GetComponent<Highlighter>();
+		abilityUI = GameUI.instance.GetComponent<AbilityUI>();
 
 		// This is our Dictionary of tiles
 		tiles = GameTiles.instance.tiles;
@@ -218,7 +220,7 @@ public class MovePointController : MonoBehaviour
 					playerCharInteractionController.selectedAbility.TriggerAbility(col.gameObject);
 
 				// hide ui
-				AbilityUI.instance.HideAbilityUI();
+				abilityUI.HideAbilityUI();
 			}
 			else
 			{
@@ -313,7 +315,7 @@ public class MovePointController : MonoBehaviour
 		{
 			if (playerCharInteractionController.enabled && playerCharInteractionController.selectedAbility != null)
 			{
-				AbilityUI.instance.ShowAbilityUI();
+				abilityUI.ShowAbilityUI();
 				string name = playerCharInteractionController.selectedAbility.aName;
 				string result = "";
 
@@ -323,7 +325,7 @@ public class MovePointController : MonoBehaviour
 				{
 					if (!_tile.WithinRange)
 					{
-						AbilityUI.instance.UpdateAbilityUI(name, result);
+						abilityUI.UpdateAbilityUI(name, result);
 						return;
 					}
 				}
@@ -345,12 +347,12 @@ public class MovePointController : MonoBehaviour
 					// TODO: if it is a move ability is can also be boulder
 				}
 
-				AbilityUI.instance.UpdateAbilityUI(name, result);
+				abilityUI.UpdateAbilityUI(name, result);
 
 			}
 			else
 			{
-				AbilityUI.instance.HideAbilityUI();
+				abilityUI.HideAbilityUI();
 			}
 		}
 	}
@@ -404,7 +406,7 @@ public class MovePointController : MonoBehaviour
 	{
 		blockMovePoint = false;
 
-		GameObject[] playerChars = GameObject.FindGameObjectsWithTag("ControlledByPlayer");
+		GameObject[] playerChars = GameObject.FindGameObjectsWithTag("PlayerCollider");
 		if (playerChars.Length > 0)
 			transform.position = playerChars[0].transform.position;
 

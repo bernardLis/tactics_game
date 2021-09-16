@@ -11,7 +11,8 @@ public class PlayerCharInteractionController : CharacterInteractionController
 	PlayerStats playerStats;
 
 	// UI
-	public UIDocument UIDocument;
+	AbilityUI abilityUI;
+	UIDocument UIDocument;
 	VisualElement characterAction;
 	Button QButton;
 	Button WButton;
@@ -21,12 +22,13 @@ public class PlayerCharInteractionController : CharacterInteractionController
 	public InputMaster controls;
 
 	bool inHighlight = false;
-	//public Ability selectedAbility;
+
 
 	protected override void Awake()
 	{
 		base.Awake();
 		
+
 		// TODO: Supposedly, this is an expensive call
 		cam = Camera.main;
 
@@ -35,6 +37,10 @@ public class PlayerCharInteractionController : CharacterInteractionController
 		//playerCharInteractionController = GetComponent<PlayerCharInteractionController>();
 
 		// getting ui elements
+		// TODO: maybe I should migrate UI to UI class and call it from here.
+		UIDocument = GetComponent<UIDocument>();
+		abilityUI = GameUI.instance.GetComponent<AbilityUI>();
+
 		var rootVisualElement = UIDocument.rootVisualElement;
 
 		characterAction = rootVisualElement.Q<VisualElement>("CharacterAction");
@@ -150,7 +156,7 @@ public class PlayerCharInteractionController : CharacterInteractionController
 			highlighter.ClearHighlightedTiles();
 
 			selectedAbility = null;
-			AbilityUI.instance.HideAbilityUI();
+			abilityUI.HideAbilityUI();
 
 			// move movepoint back to character & block it
 			MovePointController.instance.transform.position = transform.position;

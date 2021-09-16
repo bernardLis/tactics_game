@@ -5,30 +5,28 @@ using UnityEngine.InputSystem;
 
 public class FMPlayerMovementController : MonoBehaviour
 {
+	public InputMaster controls;
 
+	FMIsometricCharacterRenderer isoRenderer;
+	Rigidbody2D rbody;
+	Vector2 inputVector;
 
 	[SerializeField]
 	float movementSpeed = 4f;
-	FMIsometricCharacterRenderer isoRenderer;
-
-	Rigidbody2D rbody;
-	Vector2 inputVector;
 
 	RushUI rushUI;
 	[SerializeField]
 	GameObject rushEffect;
+
 	bool rushButtonIsHeld = false;
 	float rushChargingSpeed = 4f;
-	//float rushLimit = 4.5f;
-	float rushStartTime;
+	float rushTimer;
 	float rushForcedReleaseTime;
 	float rushSecondsToForcedRelease = 1.2f;
 	float percentToLimit = 0f;
 
 	Vector2 rushStrength;
 	bool rushForceReleaseTriggered;
-
-	public InputMaster controls;
 
 	public bool isSneaking { get; private set; }
 
@@ -69,7 +67,6 @@ public class FMPlayerMovementController : MonoBehaviour
 		inputVector = direction;
 	}
 
-	// Update is called once per frame
 	void FixedUpdate()
 	{
 		// rush is charged
@@ -77,27 +74,16 @@ public class FMPlayerMovementController : MonoBehaviour
 		{
 			rushStrength += inputVector * rushChargingSpeed * Time.fixedDeltaTime;
 
-			// TODO: there has to be a better way to get the %
-			rushStartTime += Time.fixedDeltaTime;
-			percentToLimit = 1 - ((rushForcedReleaseTime - rushStartTime) / rushSecondsToForcedRelease);
+			rushTimer += Time.fixedDeltaTime;
+			percentToLimit = 1 - ((rushForcedReleaseTime - rushTimer) / rushSecondsToForcedRelease);
 
 			// you have x seconds to charge the rush, before I forcefully release it;
 			if (Time.fixedTime < rushForcedReleaseTime)
 			{
 				rushUI.DrawRushUI(transform.position, rushStrength, percentToLimit);
 			}
-			/*
-			// After rush reaches 4 tiles it will be forcefully released within 0.5s
-			float limitCheck = Mathf.Abs(rushStrength.x) + Mathf.Abs(rushStrength.y);
-			float percentToLimit = limitCheck / rushLimit;
-			if (time < rushLimit)
-			{
-				rushUI.DrawRushUI(transform.position, rushStrength, percentToLimit);
-			}
-			*/
 			else
 			{
-				//rushUI.DrawRushUI(transform.position, rushStrength, percentToLimit);
 				// force release the rush once it goes over the limit and is not released;
 				if (!rushForceReleaseTriggered)
 				{
@@ -105,8 +91,10 @@ public class FMPlayerMovementController : MonoBehaviour
 					ForceRushRelease();
 				}
 			}
+			// block movement when charging rush
 			return;
 		}
+
 		// normal movmenent code;
 		Vector2 currentPos = rbody.position;
 
@@ -121,7 +109,7 @@ public class FMPlayerMovementController : MonoBehaviour
 	}
 
 	void Sneak()
-	{
+	{		
 		movementSpeed = 1f;
 		isSneaking = true;
 	}
@@ -135,7 +123,7 @@ public class FMPlayerMovementController : MonoBehaviour
 	void RushPressed()
 	{
 		rushButtonIsHeld = true;
-		rushStartTime = Time.fixedTime;
+		rushTimer = Time.fixedTime;
 		rushForcedReleaseTime = Time.fixedTime + rushSecondsToForcedRelease;
 	}
 
@@ -149,7 +137,7 @@ public class FMPlayerMovementController : MonoBehaviour
 		Vector2 newPos = currentPos + rushStrength;
 		Vector2 dir = rushStrength.normalized;
 
-		// TODO: check for obstacles on the way if there is an obcstalce you should stop before it
+		// Check for obstacles on the way if there is an obcstalce you should stop before it
 		// Cast a ray
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, Vector2.Distance(currentPos, newPos));
 		// If it hits something... 
@@ -167,7 +155,8 @@ public class FMPlayerMovementController : MonoBehaviour
 		if (rushStrength != Vector2.zero)
 		{
 			float angle = Mathf.Atan2(dir.x, -dir.y) * Mathf.Rad2Deg;
-			// TODO: destory after the animation is finished 
+			// TODO: destory after the animation is finished
+			// https://gamedev.stackexchange.com/questions/117423/unity-detect-animations-end
 			Destroy(Instantiate(rushEffect, transform.position, Quaternion.AngleAxis(angle, Vector3.forward)) as GameObject, 1f);
 			Destroy(Instantiate(rushEffect, originalPosition, Quaternion.AngleAxis(angle, Vector3.forward)) as GameObject, 1f);
 		}
@@ -179,7 +168,6 @@ public class FMPlayerMovementController : MonoBehaviour
 	void ForceRushRelease()
 	{
 		rushForceReleaseTriggered = false;
-		//rushStrength = Vector2.zero;
 		RushReleased();
 	}
 }

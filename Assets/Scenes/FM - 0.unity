@@ -582,6 +582,30 @@ PrefabInstance:
       propertyPath: items.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: fd66c83919d6e7349b0227a13ef73d90, type: 2}
+    - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
+      propertyPath: allQuests.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
+      propertyPath: allQuestsSO.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
+      propertyPath: allQuestsSO.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 08cded9b54f0a3241a0086795c082fb9, type: 2}
+    - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
+      propertyPath: allQuestsSO.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 08cded9b54f0a3241a0086795c082fb9, type: 2}
+    - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
+      propertyPath: allQuestsSO.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 08cded9b54f0a3241a0086795c082fb9, type: 2}
+    - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
+      propertyPath: allQuestsSO.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 08cded9b54f0a3241a0086795c082fb9, type: 2}
     - target: {fileID: 8071719569660592114, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: m_Name
       value: Game Manager

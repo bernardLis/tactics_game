@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class TurnDisplayer : MonoBehaviour
 {
-	public UIDocument UIDocument;
+	UIDocument UIDocument;
 	VisualElement turnTextContainer;
 	Label turnText;
 
@@ -16,6 +16,8 @@ public class TurnDisplayer : MonoBehaviour
 	public int turnCount = 0;
 	void Awake()
 	{
+		UIDocument = GameUI.instance.GetComponent<UIDocument>();
+		
 		// getting ui elements
 		var rootVisualElement = UIDocument.rootVisualElement;
 		turnTextContainer = rootVisualElement.Q<VisualElement>("turnTextContainer");

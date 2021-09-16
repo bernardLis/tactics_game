@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour
 			return;
 		}
 		instance = this;
+
 	}
 	#endregion
 

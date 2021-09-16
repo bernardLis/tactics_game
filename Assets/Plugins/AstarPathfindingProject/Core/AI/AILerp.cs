@@ -649,7 +649,7 @@ namespace Pathfinding {
 
 			// myshiz
 			string tag = transform.tag;
-			if(tag == "ControlledByPlayer" || tag == "Enemy"){
+			if(tag == "Player" || tag == "Enemy"){
 				isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
 				Vector2 inputVector = new Vector2(direction.x, direction.y);
 				isoRenderer.SetDirection(inputVector);

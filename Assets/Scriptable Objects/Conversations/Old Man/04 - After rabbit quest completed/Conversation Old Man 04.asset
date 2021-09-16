@@ -18,8 +18,6 @@ MonoBehaviour:
   cDescription: Old Man wishes hero a good day.
   cLines:
   - {fileID: 11400000, guid: 2047f7f086156c440b40229499a268d8, type: 2}
-  - {fileID: 11400000, guid: 53de60afdc818fa4cb1a3c6c07a0a5fd, type: 2}
-  - {fileID: 11400000, guid: e5585ba9b36686443afc23581d18a3d2, type: 2}
   quest: {fileID: 0}
   questTrigger: 0
   questCompleted: 0

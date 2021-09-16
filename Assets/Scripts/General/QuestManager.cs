@@ -5,16 +5,14 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
 
-	public Quest[] allQuestsSO;
-
-	List<Quest> allQuests = new List<Quest>();
+	public Quest[] allQuests;
 
 	void Awake()
 	{
-		foreach(Quest quest in allQuestsSO)
+		foreach(Quest quest in allQuests)
 		{
-			Quest q = Instantiate(quest);
-			allQuests.Add(q);
+			// TODO: the state of the quest should be loaded from the save game, if it exists
+			quest.qState = QuestState.INACTIVE;
 		}
 	}
 
@@ -24,9 +22,7 @@ public class QuestManager : MonoBehaviour
 		foreach (Quest quest in allQuests)
 		{
 			if (quest.qState == QuestState.ACTIVE)
-			{
 				activeQuests.Add(quest);
-			}
 		}
 		return activeQuests;
 	}
@@ -37,9 +33,7 @@ public class QuestManager : MonoBehaviour
 		foreach (Quest quest in allQuests)
 		{
 			if (quest.qState == QuestState.COMPLETED)
-			{
 				activeQuests.Add(quest);
-			}
 		}
 		return activeQuests;
 	}
@@ -50,9 +44,7 @@ public class QuestManager : MonoBehaviour
 		foreach (Quest quest in allQuests)
 		{
 			if (quest.qState == QuestState.FAILED)
-			{
 				activeQuests.Add(quest);
-			}
 		}
 		return activeQuests;
 	}
@@ -64,7 +56,6 @@ public class QuestManager : MonoBehaviour
 			if (quest.qID == id)
 				return quest;
 		}
-
 		return null;
 	}
 }

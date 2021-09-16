@@ -6,8 +6,9 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(CircleCollider2D))]
 public class ConversationTrigger : MonoBehaviour
 {
-	[SerializeField]
 	UIDocument UIDocument;
+	ConversationUI conversationUI;
+
 	VisualElement tooltipUI;
 	VisualElement interactionTooltipWrapper;
 	Label interactionTooltipText;
@@ -18,18 +19,24 @@ public class ConversationTrigger : MonoBehaviour
 	Queue<Line> lines;
 	Line currentLine;
 
-	void Awake()
+	// player
+	FMPlayerInteractionController playerInteractionController;
+
+	protected virtual void Start()
 	{
+		UIDocument = GameUI.instance.GetComponent<UIDocument>();
+		conversationUI = GameUI.instance.GetComponent<ConversationUI>();
+
 		// getting ui elements
 		var root = UIDocument.rootVisualElement;
 		tooltipUI = root.Q<VisualElement>("tooltipUI");
 		interactionTooltipWrapper = root.Q<VisualElement>("interactionTooltipWrapper");
 		interactionTooltipText = root.Q<Label>("interactionTooltipText");
-	}
 
-	protected virtual void Start()
-	{
 		lines = new Queue<Line>();
+
+		if(GameObject.FindGameObjectWithTag("Player") != null)
+			playerInteractionController = GameObject.FindGameObjectWithTag("Player").GetComponent<FMPlayerInteractionController>();
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -48,7 +55,7 @@ public class ConversationTrigger : MonoBehaviour
 		}
 	}
 
-	void DisplayConversationTooltip()
+	protected void DisplayConversationTooltip()
 	{
 		tooltipUI.style.display = DisplayStyle.Flex;
 		interactionTooltipWrapper.style.display = DisplayStyle.Flex;
@@ -66,7 +73,7 @@ public class ConversationTrigger : MonoBehaviour
 	public void StartConversation()
 	{
 		HideConversationTooltip();
-		ConversationUI.instance.ShowUI();
+		conversationUI.ShowUI();
 
 		lines.Clear();
 		foreach (Line line in currentConversation.cLines)
@@ -79,7 +86,7 @@ public class ConversationTrigger : MonoBehaviour
 
 	public void DisplayNextLine()
 	{
-		bool isLinePrinted = ConversationUI.instance.IsLinePrinted();
+		bool isLinePrinted = conversationUI.IsLinePrinted();
 
 		// set-up to use one function for:
 		// * showing new line of dialogue
@@ -96,36 +103,37 @@ public class ConversationTrigger : MonoBehaviour
 				return;
 			}
 			currentLine = lines.Dequeue();
-			ConversationUI.instance.SetText(currentLine.text);
-			ConversationUI.instance.SetPortrait(currentLine.character.portrait);
+
+			if (currentLine != null)
+			{
+				conversationUI.SetText(currentLine.text);
+				conversationUI.SetPortrait(currentLine.character.portrait);
+			}
 		}
 		else
 		{
-			ConversationUI.instance.SkipTextTyping(currentLine.text);
+			conversationUI.SkipTextTyping(currentLine.text);
 		}
 	}
 
 	public virtual void EndConversation()
 	{
-		ConversationUI.instance.HideUI();
+		// TODO: should I display tooltip
 		// TODO: should I display tooltip and allow hero to talk again? 
 		// or should i allow him to talk only when he goes out of the circle and then back
-		//StartCoroutine(DelayedTooltipDisplay());
-	}
 
+		conversationUI.HideUI();
+
+		SetCurrentConversation();
+		DisplayConversationTooltip();
+
+		// TODO: dunno if that's a correct way to handle this
+		if (playerInteractionController != null)
+			playerInteractionController.conversationOngoing = false;
+	}
 
 	protected virtual void SetCurrentConversation()
 	{
 		// meant to be overwritten
 	}
-
-	/*
-	IEnumerator DelayedTooltipDisplay()
-	{
-		yield return new WaitForSeconds(1);
-		// TODO: all this kinda sucks...
-		DisplayConversationTooltip();
-		interactionController.conversationStarted = false;
-	}
-	*/
 }

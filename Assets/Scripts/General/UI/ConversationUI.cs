@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class ConversationUI : MonoBehaviour
 {
-	public UIDocument UIDocument;
+	UIDocument UIDocument;
 	VisualElement conversationContainer;
 	VisualElement conversationPortrait;
 	Label conversationText;
@@ -13,24 +13,16 @@ public class ConversationUI : MonoBehaviour
 	bool conversationOnGoing;
 	float topPercent;
 	IVisualElementScheduledItem scheduler;
+	bool schedulerUpRunning;
+	bool schedulerDownRunning;
 
 	bool printTextCoroutineFinished = true;
 
 	IEnumerator typeTextCoroutine;
 
-	#region Singleton
-	public static ConversationUI instance;
 	void Awake()
 	{
-		// singleton
-		if (instance != null)
-		{
-			Debug.LogWarning("More than one instance of ConversationUI found");
-			return;
-		}
-		instance = this;
-
-		#endregion
+		UIDocument = GetComponent<UIDocument>();
 
 		// getting ui elements
 		var root = UIDocument.rootVisualElement;
@@ -54,8 +46,8 @@ public class ConversationUI : MonoBehaviour
 
 			conversationContainer.style.top = Length.Percent(topPercent);
 
-			//print("show UI after setting topPercent " + conversationContainer.style.top);
 			// 'animate' it to come up 
+			schedulerUpRunning = true;
 			scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
 		}
 	}
@@ -65,9 +57,10 @@ public class ConversationUI : MonoBehaviour
 		if (conversationOnGoing)
 		{
 			conversationOnGoing = false;
-			scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
+			schedulerDownRunning = true;
+			if (!scheduler.isActive)
+				scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
 		}
-
 	}
 
 	void AnimateConversationBoxUp()
@@ -80,6 +73,7 @@ public class ConversationUI : MonoBehaviour
 		}
 
 		// TODO: idk how to destroy scheduler...
+		schedulerUpRunning = false;
 		scheduler.Pause();
 	}
 
@@ -93,6 +87,7 @@ public class ConversationUI : MonoBehaviour
 		}
 
 		// TODO: idk how to destroy scheduler...
+		schedulerDownRunning = false;
 		scheduler.Pause();
 		conversationContainer.style.display = DisplayStyle.None;
 	}
@@ -106,7 +101,6 @@ public class ConversationUI : MonoBehaviour
 	{
 		conversationText.style.color = Color.white;
 
-		//StopAllCoroutines();
 		if (typeTextCoroutine != null)
 			StopCoroutine(typeTextCoroutine);
 
@@ -117,13 +111,16 @@ public class ConversationUI : MonoBehaviour
 
 	public void SkipTextTyping(string text)
 	{
-		conversationText.style.color = Color.white;
+		if (!schedulerUpRunning)
+		{
+			conversationText.style.color = Color.white;
 
-		if (typeTextCoroutine != null)
-			StopCoroutine(typeTextCoroutine);
-		//StopAllCoroutines();
-		conversationText.text = text;
-		printTextCoroutineFinished = true;
+			if (typeTextCoroutine != null)
+				StopCoroutine(typeTextCoroutine);
+
+			conversationText.text = text;
+			printTextCoroutineFinished = true;
+		}
 	}
 
 	public bool IsLinePrinted()
@@ -138,10 +135,11 @@ public class ConversationUI : MonoBehaviour
 		for (int i = 0; i < charArray.Length; i++)
 		{
 			conversationText.text += charArray[i];
+
 			if (i == charArray.Length - 1)
 				printTextCoroutineFinished = true;
-			yield return new WaitForSeconds(0.03f);
 
+			yield return new WaitForSeconds(0.03f);
 		}
 	}
 

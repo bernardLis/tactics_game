@@ -1,16 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
 using UnityEngine.Tilemaps;
 
 public class Rabbit : MonoBehaviour
 {
-
-	// pathfinding
-	protected AIDestinationSetter destinationSetter;
-	protected AILerp AILerp;
-
 	// tilemap
 	protected Tilemap tilemap;
 	protected Dictionary<Vector3, WorldTile> tiles;
@@ -32,9 +26,6 @@ public class Rabbit : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		destinationSetter = GetComponent<AIDestinationSetter>();
-		AILerp = GetComponent<AILerp>();
-
 		tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 		tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
 
@@ -53,13 +44,8 @@ public class Rabbit : MonoBehaviour
 							tempObject.transform.position, moveSpeed * Time.deltaTime);
 
 		// target reached;
-		if (tempObject != null && !targetReached)
-		{
-			if (Vector3.Distance(transform.position, tempObject.transform.position) < 0.01f)
-			{
-				TargetReached();
-			}
-		}
+		if (tempObject != null && !targetReached && Vector3.Distance(transform.position, tempObject.transform.position) < 0.01f)
+			TargetReached();
 	}
 
 	protected virtual void TargetReached()
@@ -72,9 +58,7 @@ public class Rabbit : MonoBehaviour
 	protected void RandomMove()
 	{
 		if (tempObject != null)
-		{
 			Destroy(tempObject);
-		}
 
 		float x = Random.Range(-randomMoveRange, randomMoveRange);
 		float y = Random.Range(-randomMoveRange, randomMoveRange);
@@ -87,7 +71,7 @@ public class Rabbit : MonoBehaviour
 		{
 			if (_tile.IsObstacle)
 			{
-				// TODO: I would like to start over, is that alright? 
+				// TODO: I would like to start over, is that code alright? 
 				RandomMove();
 				return;
 			}
@@ -100,7 +84,7 @@ public class Rabbit : MonoBehaviour
 
 		animator.SetFloat("speed", 1f);
 
-		nextRandomMove += Random.Range(-randomMoveDelayMin, randomMoveDelayMax);
+		nextRandomMove += Random.Range(randomMoveDelayMin, randomMoveDelayMax);
 
 		SetDirection(tempObject.transform);
 	}

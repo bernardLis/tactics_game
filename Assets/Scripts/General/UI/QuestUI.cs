@@ -7,11 +7,11 @@ using System.Linq;
 
 public class QuestUI : MonoBehaviour
 {
-	public UIDocument UIDocument;
+	UIDocument UIDocument;
 	VisualElement questUI;
-	VisualElement activeQuestsElement;
-	VisualElement completedQuestsElement;
-	VisualElement failedQuestsElement;
+	VisualElement activeQuestsContainer;
+	VisualElement completedQuestsContainer;
+	VisualElement failedQuestsContainer;
 	VisualElement questInformation;
 
 	public InputMaster controls;
@@ -20,14 +20,15 @@ public class QuestUI : MonoBehaviour
 
 	QuestManager questManager;
 
-
 	void Awake()
 	{
+		UIDocument = GetComponent<UIDocument>();
 		var root = UIDocument.rootVisualElement;
+
 		questUI = root.Q<VisualElement>("questUI");
-		activeQuestsElement = root.Q<VisualElement>("activeQuests");
-		completedQuestsElement = root.Q<VisualElement>("completedQuests");
-		failedQuestsElement = root.Q<VisualElement>("failedQuests");
+		activeQuestsContainer = root.Q<VisualElement>("activeQuestsContainer");
+		completedQuestsContainer = root.Q<VisualElement>("completedQuestsContainer");
+		failedQuestsContainer = root.Q<VisualElement>("failedQuestsContainer");
 		questInformation = root.Q<VisualElement>("questInformation");
 
 		controls = new InputMaster();
@@ -76,6 +77,11 @@ public class QuestUI : MonoBehaviour
 
 	void PopulateQuestUI()
 	{
+
+		activeQuestsContainer.Clear();
+		completedQuestsContainer.Clear();
+		failedQuestsContainer.Clear();
+
 		List<Quest> activeQuests = questManager.ReturnActiveQuests();
 		foreach (Quest quest in activeQuests)
 		{
@@ -84,7 +90,7 @@ public class QuestUI : MonoBehaviour
 			// myElement.RegisterCallback<MouseDownEvent, MyType>(MyCallbackWithData, myData);
 			// void MyCallbackWithData(MouseDownEvent evt, MyType data) { /* ... */ }
 			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
-			activeQuestsElement.Add(questName);
+			activeQuestsContainer.Add(questName);
 		}
 
 		List<Quest> completedQuests = questManager.ReturnCompletedQuests();
@@ -92,7 +98,7 @@ public class QuestUI : MonoBehaviour
 		{
 			Label questName = new Label(quest.qName);
 			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
-			completedQuestsElement.Add(questName);
+			completedQuestsContainer.Add(questName);
 		}
 
 		List<Quest> failedQuests = questManager.ReturnFailedQuests();
@@ -100,7 +106,7 @@ public class QuestUI : MonoBehaviour
 		{
 			Label questName = new Label(quest.qName);
 			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
-			failedQuestsElement.Add(questName);
+			failedQuestsContainer.Add(questName);
 		}
 	}
 

@@ -9,7 +9,9 @@ public class CollectQuestGoal : QuestGoal
 
 	public override void Initialize()
 	{
-		Debug.Log("evaluate is called");
+		// TODO: this writes over the values that were saved from previous 'test play'
+		currentAmount = 0;
+		qGoalState = QuestGoalState.ACTIVE;
 
 		// check if hero has the item in the inventory already and update current amount & evaluate
 		foreach (Item item in Inventory.instance.items)
@@ -21,14 +23,14 @@ public class CollectQuestGoal : QuestGoal
 		}
 
 		// subscribe to on item changed by Inventory.cs
+		// TODO: this is hacky/wrong... but I need to make sure evaluate is subscribed only once. 
+		Inventory.instance.OnItemChanged -= Evaluate;
 		Inventory.instance.OnItemChanged += Evaluate;
 		Evaluate();
 	}
 
 	public override void Evaluate()
 	{
-		Debug.Log("current amount in evaluate without object " + currentAmount);
-
 		// TODO: I am not certain about this logic here.
 		if (currentAmount >= requiredAmount && qGoalState != QuestGoalState.COMPLETED)
 		{

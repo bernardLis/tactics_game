@@ -115,7 +115,7 @@ public class HealerEnemyAI : EnemyAI
 		if (target == gameObject)
 		{
 			// get player characters
-			playerCharacters = GameObject.FindGameObjectsWithTag("ControlledByPlayer");
+			playerCharacters = GameObject.FindGameObjectsWithTag("Player");
 
 			GameObject closestPlayer = playerCharacters[0];
 			int distanceToClosestPlayer = Mathf.RoundToInt(Mathf.Abs(transform.position.x - playerCharacters[0].transform.position.x)

@@ -48,7 +48,7 @@ public class MeeleEnemyAI : EnemyAI
 	// * Player character we are getting should already have a valid tile around them
 	protected override GameObject GetTargetCharacter()
 	{
-		playerCharacters = GameObject.FindGameObjectsWithTag("ControlledByPlayer");
+		playerCharacters = GameObject.FindGameObjectsWithTag("Player");
 		Dictionary<float, GameObject> distToPlayerCharacters = new Dictionary<float, GameObject>();
 		// check distance between self and each player character,
 		foreach (var playerCharacter in playerCharacters)

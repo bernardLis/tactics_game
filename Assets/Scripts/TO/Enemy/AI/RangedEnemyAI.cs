@@ -31,7 +31,7 @@ public class RangedEnemyAI : EnemyAI
 			// if your original target is not in range check if you can attack any other players 
 			if (!targetInRange)
 			{
-				playerCharacters = GameObject.FindGameObjectsWithTag("ControlledByPlayer");
+				playerCharacters = GameObject.FindGameObjectsWithTag("Player");
 				foreach (GameObject player in playerCharacters)
 				{
 					// check man distance
@@ -72,7 +72,7 @@ public class RangedEnemyAI : EnemyAI
 
 	protected override GameObject GetTargetCharacter()
 	{
-		playerCharacters = GameObject.FindGameObjectsWithTag("ControlledByPlayer");
+		playerCharacters = GameObject.FindGameObjectsWithTag("Player");
 
 		// defaults
 		int lowestArmor = playerCharacters[0].GetComponent<CharacterStats>().armor.GetValue();

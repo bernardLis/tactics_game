@@ -12,7 +12,7 @@ public class FMIsometricCharacterRenderer : MonoBehaviour
 	Animator animator;
 	int lastDirection;
 
-	private void Awake()
+	void Awake()
 	{
 		//cache the animator component
 		animator = GetComponent<Animator>();

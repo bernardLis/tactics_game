@@ -20,19 +20,13 @@ public class WildRabbit : Rabbit
 	Vector3 startPosition;
 
 	[SerializeField]
-	GameObject poofEffect;
-	[SerializeField]
-	GameObject starEffect;
+	GameObject poofEffect, starEffect;
 	[SerializeField]
 	Item rabbitItem;
-
-
-	//	public event Action rabbitHides;
 
 	protected override void Awake()
 	{
 		base.Awake();
-
 
 		state = RabbitState.IDLE;
 	}
@@ -43,8 +37,10 @@ public class WildRabbit : Rabbit
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 
 		if (player != null)
+		{
 			playerController = player.GetComponent<FMPlayerMovementController>();
-		playerInteractionController = player.GetComponent<FMPlayerInteractionController>();
+			playerInteractionController = player.GetComponent<FMPlayerInteractionController>();
+		}
 	}
 
 	protected override void Update()
@@ -53,9 +49,7 @@ public class WildRabbit : Rabbit
 
 		// Rabbit moves randomly from time to time
 		if (state == RabbitState.IDLE && Time.time > nextRandomMove)
-		{
 			RandomMove();
-		}
 
 		// TODO: is this a correct implementation of what I want to do?
 		// Rabbit flees from the player 
@@ -82,30 +76,24 @@ public class WildRabbit : Rabbit
 			Cornered();
 		if (col.gameObject.CompareTag("Player"))
 			Captured();
-
-		//Destroy(Instantiate(poofEffect, transform.position, Quaternion.identity) as GameObject, 1f);
 	}
 
 	void Captured()
 	{
-		print("player hit, you are captured");
 		state = RabbitState.CAPTURED;
 		Destroy(Instantiate(starEffect, transform.position, Quaternion.identity) as GameObject, 1f);
 
-		// TODO: inventory sys
 		rabbitItem.PickUp();
-		playerInteractionController.rabbitsCaught++;
 
 		TargetReached();
 		Destroy(gameObject);
 	}
 
-
-
 	void Flee()
 	{
 		if (state != RabbitState.FLEEING && state != RabbitState.CORNERED && state != RabbitState.CAPTURED)
 		{
+			// if rabbit retries too many times it's are cornered
 			retryCounter++;
 			if (retryCounter >= 10)
 			{
@@ -148,7 +136,6 @@ public class WildRabbit : Rabbit
 			// we have managed to get through all the checks now we can really flee
 			retryCounter = 0;
 
-
 			tempObject = new GameObject("rabbit flee pos");
 			tempObject.transform.position = fleePosition;
 			targetReached = false;
@@ -156,11 +143,6 @@ public class WildRabbit : Rabbit
 			moveSpeed = 5f;
 			animator.SetFloat("speed", 1f);
 			SetDirection(tempObject.transform);
-
-
-			// I could use manhatann distance and check whether the tile we are picking is not an obstacle
-			// and check like movement range of 7 for example;
-			// if we are cornered we should disappear 
 		}
 	}
 
@@ -175,29 +157,12 @@ public class WildRabbit : Rabbit
 				Destroy(tempObject);
 
 			Destroy(Instantiate(poofEffect, transform.position, Quaternion.identity) as GameObject, 1f);
-			/*
-			// Action
-			if (rabbitHides != null)
-			{
-				rabbitHides();
-			}
-			*/
+
 			// TODO: dunno if correct
 			rabbitSpawner.SpawnRabbit();
 
-
 			Destroy(gameObject);
 		}
-		/*
-		// TODO: make capture circle smaller
-		tempObject = new GameObject("rabbit start pos");
-		tempObject.transform.position = startPosition;
-		targetReached = false;
-
-		moveSpeed = 5f;
-		animator.SetFloat("speed", 1f);
-		SetDirection(tempObject.transform);
-		*/
 	}
 
 	protected override void TargetReached()

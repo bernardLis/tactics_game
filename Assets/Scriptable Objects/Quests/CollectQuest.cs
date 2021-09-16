@@ -7,12 +7,11 @@ public class CollectQuest : Quest
 {
 	public override void Trigger()
 	{
-		// TODO: show ui
-		Debug.Log("quest triggered");
 		// initialize quest goals
 		foreach (var qGoal in qGoals)
 		{
-			qGoal.Initialize();
+			if (qGoal != null)
+				qGoal.Initialize();
 		}
 
 		GameUI.instance.DisplayLogText("New quest: " + qName);
@@ -40,7 +39,6 @@ public class CollectQuest : Quest
 	public override void Fail()
 	{
 		// TODO: show ui
-		Debug.Log("quest failed");
 		GameUI.instance.DisplayLogText("Quest failed: " + qName);
 
 		qState = QuestState.FAILED;

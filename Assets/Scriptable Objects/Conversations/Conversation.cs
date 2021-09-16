@@ -21,7 +21,6 @@ public class Conversation : ScriptableObject
 
 	public void EndConversation()
 	{
-		Debug.Log("end conversation triggered");
 		cSeen = true;
 		if (quest != null)
 			ChangeQuestStatus();

@@ -7,7 +7,7 @@ public class DamageUI : MonoBehaviour
 {
 	Camera cam;
 
-	public UIDocument UIDocument;
+	UIDocument UIDocument;
 	float offsetY = 0.5f;
 
 	VisualElement healthChangeDisplayContainer;
@@ -18,6 +18,7 @@ public class DamageUI : MonoBehaviour
 		// TODO: Supposedly, this is an expensive call
 		cam = Camera.main;
 
+		UIDocument = GetComponent<UIDocument>();
 		// getting ui elements
 		var rootVisualElement = UIDocument.rootVisualElement;
 		healthChangeDisplayContainer = rootVisualElement.Q<VisualElement>("HealthChangeDisplayContainer");

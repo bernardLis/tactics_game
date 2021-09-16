@@ -8,20 +8,15 @@ public class OldManConversationTrigger : ConversationTrigger
 	[SerializeField]
 	RabbitSpawner domesticatedRabbitSpawner;
 
-	Transform player;
-
-	// TODO: rabbit check should be done via inventory system - or something even smarter.
-	FMPlayerInteractionController playerInteractionController;
 
 	public Conversation rabbitQuestSO;
 	public Conversation noRabbitsSO;
 	public Conversation hasRabbitsSO;
 	public Conversation afterRabbitQuestCompletedSO;
 
-
 	// TODO: does this make sense?
 	// if I don't instatiate them, cseen is persistent between starts of the new game
-	// it is a great way to save progress btw. 
+	// it is a great way to save progress btw. - after a quick google, apparently, it is not a good way to save progress.
 	Conversation rabbitQuest;
 	Conversation noRabbits;
 	Conversation hasRabbits;
@@ -30,14 +25,12 @@ public class OldManConversationTrigger : ConversationTrigger
 	bool spawnedRabbits;
 
 	QuestManager questManager;
-
+	Quest rabbitQ;
 
 	protected override void Start()
 	{
 		base.Start();
 
-		player = GameObject.FindGameObjectWithTag("Player").transform;
-		playerInteractionController = player.GetComponent<FMPlayerInteractionController>();
 
 		questManager = GameManager.instance.GetComponent<QuestManager>();
 
@@ -45,26 +38,28 @@ public class OldManConversationTrigger : ConversationTrigger
 		noRabbits = Instantiate(noRabbitsSO);
 		hasRabbits = Instantiate(hasRabbitsSO);
 		afterRabbitQuestCompleted = Instantiate(afterRabbitQuestCompletedSO);
-	}
 
+		rabbitQ = questManager.ReturnQuestFromID(0);
+	}
 
 	protected override void SetCurrentConversation()
 	{
-		Debug.Log(questManager.ReturnQuestFromID(0).qGoals[0].qGoalState);
 		if (!rabbitQuest.cSeen)
 		{
 			currentConversation = rabbitQuest;
 		}
 		// TODO: check if **all** goals of rabbit quest were completed 
-		else if (questManager.ReturnQuestFromID(0).qGoals[0].qGoalState == QuestGoalState.ACTIVE)
+		// TODO: does this make sense to display different convo?
+		// TODO: I am not certain about all this.. there must be a better way
+		else if (rabbitQ.qGoals[0].qGoalState == QuestGoalState.ACTIVE)
 		{
 			currentConversation = noRabbits;
 		}
-		else if (questManager.ReturnQuestFromID(0).qGoals[0].qGoalState == QuestGoalState.COMPLETED && !hasRabbits.cSeen)
+		else if (rabbitQ.qGoals[0].qGoalState == QuestGoalState.COMPLETED && rabbitQ.qState != QuestState.COMPLETED)
 		{
 			currentConversation = hasRabbits;
 		}
-		else if(hasRabbits.cSeen)
+		else if(rabbitQ.qState == QuestState.COMPLETED)
 		{
 			currentConversation = afterRabbitQuestCompleted;
 		}
@@ -73,7 +68,8 @@ public class OldManConversationTrigger : ConversationTrigger
 	public override void EndConversation()
 	{
 		base.EndConversation();
-		if (currentConversation == hasRabbits && !spawnedRabbits)
+
+		if (rabbitQ.qGoals[0].qGoalState == QuestGoalState.COMPLETED && !spawnedRabbits)
 		{
 			spawnedRabbits = true;
 			domesticatedRabbitSpawner.SpawnRabbit();
