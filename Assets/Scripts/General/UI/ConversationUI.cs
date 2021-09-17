@@ -10,13 +10,11 @@ public class ConversationUI : MonoBehaviour
 	VisualElement conversationPortrait;
 	Label conversationText;
 
-	bool conversationOnGoing;
-	float topPercent;
+	float topPercent = 100f;
 	IVisualElementScheduledItem scheduler;
-	bool schedulerUpRunning;
-	bool schedulerDownRunning;
 
 	bool printTextCoroutineFinished = true;
+	bool animationOngoing;
 
 	IEnumerator typeTextCoroutine;
 
@@ -33,34 +31,29 @@ public class ConversationUI : MonoBehaviour
 
 	public void ShowUI()
 	{
-		if (!conversationOnGoing)
-		{
-			conversationOnGoing = true;
-			conversationContainer.style.display = DisplayStyle.Flex;
+		if (animationOngoing)
+			return;
+		// https://forum.unity.com/threads/animation-via-code-examples.948161/
+		// https://forum.unity.com/threads/propertydrawer-with-uielements-changes-in-array-dont-refresh-inspector.747467/
+		// https://docs.unity3d.com/ScriptReference/UIElements.IVisualElementScheduledItem.html
+		// set the container all the way to the bottom
+		//topPercent = 100f;
 
-			// https://forum.unity.com/threads/animation-via-code-examples.948161/
-			// https://forum.unity.com/threads/propertydrawer-with-uielements-changes-in-array-dont-refresh-inspector.747467/
-			// https://docs.unity3d.com/ScriptReference/UIElements.IVisualElementScheduledItem.html
-			// set the container all the way to the bottom
-			topPercent = 100f;
-
-			conversationContainer.style.top = Length.Percent(topPercent);
-
-			// 'animate' it to come up 
-			schedulerUpRunning = true;
-			scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
-		}
+		conversationContainer.style.display = DisplayStyle.Flex;
+		conversationContainer.style.top = Length.Percent(topPercent);
+		// 'animate' it to come up 
+		animationOngoing = true;
+		scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
 	}
 
 	public void HideUI()
 	{
-		if (conversationOnGoing)
-		{
-			conversationOnGoing = false;
-			schedulerDownRunning = true;
-			if (!scheduler.isActive)
-				scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
-		}
+		if (animationOngoing)
+			return;
+
+		animationOngoing = true;
+		scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
+
 	}
 
 	void AnimateConversationBoxUp()
@@ -73,7 +66,8 @@ public class ConversationUI : MonoBehaviour
 		}
 
 		// TODO: idk how to destroy scheduler...
-		schedulerUpRunning = false;
+		animationOngoing = false;
+
 		scheduler.Pause();
 	}
 
@@ -87,7 +81,7 @@ public class ConversationUI : MonoBehaviour
 		}
 
 		// TODO: idk how to destroy scheduler...
-		schedulerDownRunning = false;
+		animationOngoing = false;
 		scheduler.Pause();
 		conversationContainer.style.display = DisplayStyle.None;
 	}
@@ -111,16 +105,13 @@ public class ConversationUI : MonoBehaviour
 
 	public void SkipTextTyping(string text)
 	{
-		if (!schedulerUpRunning)
-		{
-			conversationText.style.color = Color.white;
+		conversationText.style.color = Color.white;
 
-			if (typeTextCoroutine != null)
-				StopCoroutine(typeTextCoroutine);
+		if (typeTextCoroutine != null)
+			StopCoroutine(typeTextCoroutine);
 
-			conversationText.text = text;
-			printTextCoroutineFinished = true;
-		}
+		conversationText.text = text;
+		printTextCoroutineFinished = true;
 	}
 
 	public bool IsLinePrinted()

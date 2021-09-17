@@ -40,6 +40,7 @@ public class FMPlayerInteractionController : MonoBehaviour
 			conversationOngoing = false;
 
 			conversationTrigger.EndConversation();
+			conversationTrigger.HideConversationTooltip();
 			conversationTrigger = null;
 		}
 	}
@@ -50,8 +51,9 @@ public class FMPlayerInteractionController : MonoBehaviour
 		{
 			if (!conversationOngoing)
 			{
-				conversationTrigger.StartConversation();
 				conversationOngoing = true;
+
+				conversationTrigger.StartConversation();
 				return;
 			}
 			// I need to know whether the line stopped printing = yes > start printing next line, no print the full line without the typing effect

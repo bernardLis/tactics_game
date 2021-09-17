@@ -12,7 +12,9 @@ public class FMPlayerMovementController : MonoBehaviour
 	Vector2 inputVector;
 
 	[SerializeField]
-	float movementSpeed = 4f;
+	float movementSpeed, sneakSpeed;
+
+	float originalMovementSpeed;
 
 	RushUI rushUI;
 	[SerializeField]
@@ -28,6 +30,7 @@ public class FMPlayerMovementController : MonoBehaviour
 	Vector2 rushStrength;
 	bool rushForceReleaseTriggered;
 
+	bool sneakIsHeld;
 	public bool isSneaking { get; private set; }
 
 	void Awake()
@@ -50,6 +53,8 @@ public class FMPlayerMovementController : MonoBehaviour
 
 		rbody = GetComponent<Rigidbody2D>();
 		isoRenderer = GetComponentInChildren<FMIsometricCharacterRenderer>();
+
+		originalMovementSpeed = movementSpeed;
 	}
 
 	void OnEnable()
@@ -100,6 +105,13 @@ public class FMPlayerMovementController : MonoBehaviour
 
 		inputVector = Vector2.ClampMagnitude(inputVector, 1);
 
+		// sneak reset
+		if (inputVector != Vector2.zero && !sneakIsHeld)
+		{
+			isSneaking = false;
+			movementSpeed = originalMovementSpeed;
+		}
+
 		Vector2 movement = inputVector * movementSpeed;
 		Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
 
@@ -109,15 +121,15 @@ public class FMPlayerMovementController : MonoBehaviour
 	}
 
 	void Sneak()
-	{		
-		movementSpeed = 1f;
+	{
+		movementSpeed = sneakSpeed;
 		isSneaking = true;
+		sneakIsHeld = true;
 	}
 
 	void SneakReset()
 	{
-		movementSpeed = 3f;
-		isSneaking = false;
+		sneakIsHeld = false;
 	}
 
 	void RushPressed()
@@ -129,6 +141,10 @@ public class FMPlayerMovementController : MonoBehaviour
 
 	void RushReleased()
 	{
+		// sneak reset
+		movementSpeed = originalMovementSpeed;
+		isSneaking = false;
+
 		Vector3 originalPosition = transform.position;
 
 		rushButtonIsHeld = false;

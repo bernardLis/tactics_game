@@ -22,6 +22,8 @@ public class ConversationTrigger : MonoBehaviour
 	// player
 	FMPlayerInteractionController playerInteractionController;
 
+	bool allowNextConversation;
+
 	protected virtual void Start()
 	{
 		UIDocument = GameUI.instance.GetComponent<UIDocument>();
@@ -35,7 +37,7 @@ public class ConversationTrigger : MonoBehaviour
 
 		lines = new Queue<Line>();
 
-		if(GameObject.FindGameObjectWithTag("Player") != null)
+		if (GameObject.FindGameObjectWithTag("Player") != null)
 			playerInteractionController = GameObject.FindGameObjectWithTag("Player").GetComponent<FMPlayerInteractionController>();
 	}
 
@@ -64,7 +66,7 @@ public class ConversationTrigger : MonoBehaviour
 		// width is resolved only on the next frame
 	}
 
-	void HideConversationTooltip()
+	public void HideConversationTooltip()
 	{
 		tooltipUI.style.display = DisplayStyle.None;
 		interactionTooltipWrapper.style.display = DisplayStyle.None;
@@ -118,18 +120,26 @@ public class ConversationTrigger : MonoBehaviour
 
 	public virtual void EndConversation()
 	{
-		// TODO: should I display tooltip
-		// TODO: should I display tooltip and allow hero to talk again? 
-		// or should i allow him to talk only when he goes out of the circle and then back
-
 		conversationUI.HideUI();
+
+		if (!allowNextConversation)
+		{
+			allowNextConversation = true;
+			Invoke("AllowNextConversation", 1f);
+		}
+	}
+
+	void AllowNextConversation()
+	{
 
 		SetCurrentConversation();
 		DisplayConversationTooltip();
-
-		// TODO: dunno if that's a correct way to handle this
 		if (playerInteractionController != null)
 			playerInteractionController.conversationOngoing = false;
+
+		allowNextConversation = false;
+
+		// TODO: dunno if that's a correct way to handle this
 	}
 
 	protected virtual void SetCurrentConversation()
