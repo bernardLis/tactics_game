@@ -11,6 +11,7 @@ public class InventoryUI : MonoBehaviour
 	public List<InventorySlot> inventorySlots = new List<InventorySlot>();
 
 	VisualElement root;
+	VisualElement questUI;
 	VisualElement inventoryContainer;
 	VisualElement slotContainer;
 
@@ -47,6 +48,8 @@ public class InventoryUI : MonoBehaviour
 		Inventory.instance.OnItemChanged += OnItemChanged;
 		// store the root from the ui document component
 		root = GetComponent<UIDocument>().rootVisualElement;
+
+		questUI = root.Q<VisualElement>("questUI");
 
 		// search for slot container
 		inventoryContainer = root.Q<VisualElement>("inventoryContainer");
@@ -185,6 +188,11 @@ public class InventoryUI : MonoBehaviour
 
 	void EnableInventoryUI()
 	{
+		// TODO: maybe there should be a method that disables all overlays before enabling the one you need 
+		// only one can be visible.
+		if (questUI.style.display == DisplayStyle.Flex)
+			GameUI.instance.GetComponent<QuestUI>().DisableQuestUI();
+
 		inventoryContainer.style.display = DisplayStyle.Flex;
 		// TODO: only controls.FMPlayer.Disable() does not disable player controlls
 		controls.FMPlayer.Disable();
@@ -195,7 +203,7 @@ public class InventoryUI : MonoBehaviour
 		controls.InventoryUI.Enable();
 	}
 
-	void DisableInventoryUI()
+	public void DisableInventoryUI()
 	{
 		inventoryContainer.style.display = DisplayStyle.None;
 

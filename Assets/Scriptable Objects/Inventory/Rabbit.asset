@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941165d4f05d24840aa481aca7f36c9b, type: 3}
   m_Name: Rabbit
   m_EditorClassIdentifier: 
+  ID: 2a86733f-085b-4657-a7e4-a3e61226f226
   iName: Rabbit
+  heroLine: It was fast, but not fast enough!
   icon: {fileID: 444111797852221278, guid: f70693574510d5d4aa20fc3b1a902e6f, type: 3}
   amount: 1
+  sellPrice: 0
   stackSize: 1
   questItem: 1
+  slotDimension:
+    height: 1
+    width: 1

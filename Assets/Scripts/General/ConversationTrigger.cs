@@ -20,7 +20,10 @@ public class ConversationTrigger : MonoBehaviour
 	Line currentLine;
 
 	// player
+	bool playerWithinConversationZone;
 	FMPlayerInteractionController playerInteractionController;
+
+
 
 	bool allowNextConversation;
 
@@ -45,6 +48,7 @@ public class ConversationTrigger : MonoBehaviour
 	{
 		if (col.CompareTag("PlayerCollider"))
 		{
+			playerWithinConversationZone = true;
 			SetCurrentConversation();
 			DisplayConversationTooltip();
 		}
@@ -53,6 +57,7 @@ public class ConversationTrigger : MonoBehaviour
 	{
 		if (col.CompareTag("PlayerCollider"))
 		{
+			playerWithinConversationZone = false;
 			HideConversationTooltip();
 		}
 	}
@@ -131,9 +136,12 @@ public class ConversationTrigger : MonoBehaviour
 
 	void AllowNextConversation()
 	{
-
 		SetCurrentConversation();
-		DisplayConversationTooltip();
+		
+		// check if player is within the convo trigger
+		if(playerWithinConversationZone)
+			DisplayConversationTooltip();
+
 		if (playerInteractionController != null)
 			playerInteractionController.conversationOngoing = false;
 

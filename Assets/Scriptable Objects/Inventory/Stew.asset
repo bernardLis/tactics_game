@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941165d4f05d24840aa481aca7f36c9b, type: 3}
   m_Name: Stew
   m_EditorClassIdentifier: 
+  ID: 00ee3d86-656b-4900-826e-0c1e49123607
   iName: Stew
+  heroLine: Looks yummy!
   icon: {fileID: -4218819425404330313, guid: c98d7b9e4f8fb974593dedcb63eff15f, type: 3}
   amount: 1
+  sellPrice: 0
   stackSize: 5
   questItem: 1
+  slotDimension:
+    height: 2
+    width: 2

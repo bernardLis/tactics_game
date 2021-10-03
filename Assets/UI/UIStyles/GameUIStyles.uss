@@ -26,11 +26,6 @@
     color: rgb(255, 255, 255);
 }
 
-.questsHeader {
-    font-size: 20px;
-    color: rgb(0, 0, 0);
-}
-
 .inventoryContainer {
     flex-grow: 1;
     align-items: center;
@@ -69,4 +64,26 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.questStatusHeader {
+    border-bottom-width: 2px;
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
+    font-size: 30px;
+    color: rgba(0, 0, 0, 255);
+    -unity-font-style: bold;
+}
+
+.questTitleLabel {
+    font-size: 20px;
+    -unity-font-style: normal;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 255);
+    white-space: normal;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
 }

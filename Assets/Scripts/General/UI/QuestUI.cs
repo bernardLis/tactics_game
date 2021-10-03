@@ -8,6 +8,7 @@ using System.Linq;
 public class QuestUI : MonoBehaviour
 {
 	UIDocument UIDocument;
+	VisualElement inventoryContainer;
 	VisualElement questUI;
 	VisualElement activeQuestsContainer;
 	VisualElement completedQuestsContainer;
@@ -24,6 +25,8 @@ public class QuestUI : MonoBehaviour
 	{
 		UIDocument = GetComponent<UIDocument>();
 		var root = UIDocument.rootVisualElement;
+
+		inventoryContainer = root.Q<VisualElement>("inventoryContainer");
 
 		questUI = root.Q<VisualElement>("questUI");
 		activeQuestsContainer = root.Q<VisualElement>("activeQuestsContainer");
@@ -55,7 +58,14 @@ public class QuestUI : MonoBehaviour
 	void EnableQuestUI()
 	{
 		PopulateQuestUI();
+
+		// TODO: maybe there should be a method that disables all overlays before enabling the one you need 
+		// only one can be visible.
+		if (inventoryContainer.style.display == DisplayStyle.Flex)
+			InventoryUI.instance.DisableInventoryUI();
+
 		questUI.style.display = DisplayStyle.Flex;
+
 		// TODO: only controls.FMPlayer.Disable() does not disable player controlls
 		controls.FMPlayer.Disable();
 		player.SetActive(false);
@@ -64,7 +74,7 @@ public class QuestUI : MonoBehaviour
 		controls.QuestUI.Enable();
 	}
 
-	void DisableQuestUI()
+	public void DisableQuestUI()
 	{
 		questUI.style.display = DisplayStyle.None;
 
@@ -86,6 +96,7 @@ public class QuestUI : MonoBehaviour
 		foreach (Quest quest in activeQuests)
 		{
 			Label questName = new Label(quest.qName);
+			questName.AddToClassList("questTitleLabel");
 			// https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
 			// myElement.RegisterCallback<MouseDownEvent, MyType>(MyCallbackWithData, myData);
 			// void MyCallbackWithData(MouseDownEvent evt, MyType data) { /* ... */ }
@@ -97,6 +108,8 @@ public class QuestUI : MonoBehaviour
 		foreach (Quest quest in completedQuests)
 		{
 			Label questName = new Label(quest.qName);
+			questName.AddToClassList("questTitleLabel");
+
 			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
 			completedQuestsContainer.Add(questName);
 		}
@@ -105,6 +118,8 @@ public class QuestUI : MonoBehaviour
 		foreach (Quest quest in failedQuests)
 		{
 			Label questName = new Label(quest.qName);
+			questName.AddToClassList("questTitleLabel");
+
 			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
 			failedQuestsContainer.Add(questName);
 		}
