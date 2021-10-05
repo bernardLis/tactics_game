@@ -7,7 +7,7 @@ public class Item : ScriptableObject
 {
 	public string ID = Guid.NewGuid().ToString();
 	public string iName = "New Item";
-	public string heroLine;
+	public Line iLine;
 	public Sprite icon = null;
 	public int amount = 1;
 	public int sellPrice;

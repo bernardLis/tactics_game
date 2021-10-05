@@ -14,12 +14,14 @@ public class QuestUI : MonoBehaviour
 	VisualElement completedQuestsContainer;
 	VisualElement failedQuestsContainer;
 	VisualElement questInformation;
-
-	public InputMaster controls;
+	VisualElement questGoalContainer;
 
 	GameObject player;
+	PlayerInput playerInput;
 
 	QuestManager questManager;
+
+	Quest lastClickedQuest;
 
 	void Awake()
 	{
@@ -34,116 +36,200 @@ public class QuestUI : MonoBehaviour
 		failedQuestsContainer = root.Q<VisualElement>("failedQuestsContainer");
 		questInformation = root.Q<VisualElement>("questInformation");
 
-		controls = new InputMaster();
-		controls.FMPlayer.EnableQuestUI.performed += ctx => EnableQuestUI();
-
-		controls.QuestUI.Test.performed += ctx => Test();
-		controls.QuestUI.DisableQuestUI.performed += ctx => DisableQuestUI();
-
 		player = GameObject.FindGameObjectWithTag("Player");
+		playerInput = player.GetComponent<PlayerInput>();
 
 		questManager = GameManager.instance.GetComponent<QuestManager>();
 	}
 
 	void OnEnable()
 	{
-		controls.FMPlayer.Enable();
+		playerInput.actions["DisableQuestUI"].performed += ctx => DisableQuestUI();
+
+		ClearQuestInformation();
 	}
 
 	void OnDisable()
 	{
-		controls.FMPlayer.Disable();
+		playerInput.actions["DisableQuestUI"].performed -= ctx => DisableQuestUI();
 	}
 
-	void EnableQuestUI()
+	public void EnableQuestUI()
 	{
-		PopulateQuestUI();
-
-		// TODO: maybe there should be a method that disables all overlays before enabling the one you need 
-		// only one can be visible.
-		if (inventoryContainer.style.display == DisplayStyle.Flex)
-			InventoryUI.instance.DisableInventoryUI();
-
-		questUI.style.display = DisplayStyle.Flex;
-
-		// TODO: only controls.FMPlayer.Disable() does not disable player controlls
-		controls.FMPlayer.Disable();
-		player.SetActive(false);
+		// switch action map
+		player.GetComponent<PlayerInput>().SwitchCurrentActionMap("QuestUI");
 		GameManager.instance.PauseGame();
 
-		controls.QuestUI.Enable();
+		PopulateQuestUI();
+
+		// refresh quest info if player had it open previously
+		if (lastClickedQuest != null)
+			RefreshQuestInformation();
+
+		// only one can be visible/
+		GameUI.instance.HideAllUIPanels();
+
+		questUI.style.display = DisplayStyle.Flex;
 	}
 
 	public void DisableQuestUI()
 	{
 		questUI.style.display = DisplayStyle.None;
 
-		controls.FMPlayer.Enable();
-		player.SetActive(true);
+		GameManager.instance.EnableFMPlayerControls();
 		GameManager.instance.ResumeGame();
-
-		controls.QuestUI.Disable();
 	}
 
 	void PopulateQuestUI()
 	{
-
 		activeQuestsContainer.Clear();
 		completedQuestsContainer.Clear();
 		failedQuestsContainer.Clear();
 
 		List<Quest> activeQuests = questManager.ReturnActiveQuests();
-		foreach (Quest quest in activeQuests)
-		{
-			Label questName = new Label(quest.qName);
-			questName.AddToClassList("questTitleLabel");
-			// https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
-			// myElement.RegisterCallback<MouseDownEvent, MyType>(MyCallbackWithData, myData);
-			// void MyCallbackWithData(MouseDownEvent evt, MyType data) { /* ... */ }
-			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
-			activeQuestsContainer.Add(questName);
-		}
-
 		List<Quest> completedQuests = questManager.ReturnCompletedQuests();
-		foreach (Quest quest in completedQuests)
-		{
-			Label questName = new Label(quest.qName);
-			questName.AddToClassList("questTitleLabel");
-
-			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
-			completedQuestsContainer.Add(questName);
-		}
-
 		List<Quest> failedQuests = questManager.ReturnFailedQuests();
-		foreach (Quest quest in failedQuests)
-		{
-			Label questName = new Label(quest.qName);
-			questName.AddToClassList("questTitleLabel");
 
-			questName.RegisterCallback<MouseDownEvent, Quest>(DisplayQuestInformation, quest);
-			failedQuestsContainer.Add(questName);
+		if (activeQuests.Count != 0)
+		{
+			UIDocument.rootVisualElement.Q<VisualElement>("activeQuests").style.display = DisplayStyle.Flex;
+
+			foreach (Quest quest in activeQuests)
+			{
+				Label questLabel = new Label(quest.qName);
+				questLabel.AddToClassList("questTitleLabel");
+				// https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
+				// myElement.RegisterCallback<MouseDownEvent, MyType>(MyCallbackWithData, myData);
+				// void MyCallbackWithData(MouseDownEvent evt, MyType data) { /* ... */ }
+				questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
+				activeQuestsContainer.Add(questLabel);
+			}
 		}
+		else
+			UIDocument.rootVisualElement.Q<VisualElement>("activeQuests").style.display = DisplayStyle.None;
+
+		if (completedQuests.Count != 0)
+		{
+			UIDocument.rootVisualElement.Q<VisualElement>("completedQuests").style.display = DisplayStyle.Flex;
+
+			foreach (Quest quest in completedQuests)
+			{
+				Label questLabel = new Label(quest.qName);
+				questLabel.AddToClassList("questTitleLabel");
+
+				questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
+				completedQuestsContainer.Add(questLabel);
+			}
+		}
+		else
+			UIDocument.rootVisualElement.Q<VisualElement>("completedQuests").style.display = DisplayStyle.None;
+
+
+		if (failedQuests.Count != 0)
+		{
+			UIDocument.rootVisualElement.Q<VisualElement>("failedQuests").style.display = DisplayStyle.Flex;
+
+			foreach (Quest quest in failedQuests)
+			{
+				Label questLabel = new Label(quest.qName);
+				questLabel.AddToClassList("questTitleLabel");
+
+				questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
+				failedQuestsContainer.Add(questLabel);
+			}
+		}
+		else
+			UIDocument.rootVisualElement.Q<VisualElement>("failedQuests").style.display = DisplayStyle.None;
+
+		// if there are no quests to display add a text;
+		if (activeQuests.Count == 0 && completedQuests.Count == 0 && failedQuests.Count == 0)
+		{
+			ClearQuestInformation();
+			Label noQuests = new Label("Such empty, get some quests!");
+			noQuests.AddToClassList("questTitleLabel");
+			questInformation.Add(noQuests);
+		}
+		else
+			RefreshQuestInformation();
 	}
 
-	void DisplayQuestInformation(MouseDownEvent evt, Quest quest)
+	void OnQuestClick(MouseDownEvent evt, Quest quest)
 	{
+		lastClickedQuest = quest;
 		ClearQuestInformation();
+		DisplayQuestInformation(quest);
+	}
 
+	void DisplayQuestInformation(Quest quest)
+	{
+		// show that the quest is completed
+
+		// TODO: could be even nicer;
 		Label questName = new Label(quest.qName);
+		questName.AddToClassList("questInformationName");
 		questInformation.Add(questName);
+
 		Label questDescription = new Label(quest.qDescription);
+		questDescription.AddToClassList("questInformationDescription");
 		questInformation.Add(questDescription);
+
+		VisualElement questRewardContainer = new VisualElement();
+		questRewardContainer.AddToClassList("questCurrentRequiredContainer");
+		questInformation.Add(questRewardContainer);
+
+		Label questRewardLabel = new Label("Reward: ");
+		questRewardLabel.AddToClassList("questGoalLabels");
+		Label questReward = new Label();
+		questReward.AddToClassList("questItem");
+		questReward.style.backgroundImage = quest.qReward.icon.texture;
+		questRewardContainer.Add(questRewardLabel);
+		questRewardContainer.Add(questReward);
 
 		foreach (QuestGoal questGoal in quest.qGoals)
 		{
-			print("in q goal" + questGoal.title);
-			Label questGoalLabel = new Label(questGoal.title);
-			questInformation.Add(questGoalLabel);
-			// TODO: display item required 
-			// Label itemRequired = new Label(questGoal.requiredItem)
-			Label amountRequired = new Label(questGoal.currentAmount + "/" + questGoal.requiredAmount);
-			questInformation.Add(amountRequired);
+			VisualElement questGoalContainer = new VisualElement();
+			questInformation.Add(questGoalContainer);
+
+			VisualElement currentContainer = new VisualElement();
+			VisualElement requiredContainer = new VisualElement();
+
+			currentContainer.AddToClassList("questCurrentRequiredContainer");
+			requiredContainer.AddToClassList("questCurrentRequiredContainer");
+
+			questGoalContainer.Add(currentContainer);
+			questGoalContainer.Add(requiredContainer);
+
+			Label currentLabel = new Label("You have:");
+			Label requiredLabel = new Label("Required:");
+			currentLabel.AddToClassList("questGoalLabels");
+			requiredLabel.AddToClassList("questGoalLabels");
+			currentContainer.Add(currentLabel);
+			requiredContainer.Add(requiredLabel);
+
+			// items
+			for (int i = 0; i < questGoal.currentAmount; i++)
+			{
+				Label item = new Label();
+				item.style.backgroundImage = questGoal.requiredItem.icon.texture;
+				item.AddToClassList("questItem");
+				currentContainer.Add(item);
+			}
+
+			for (int i = 0; i < questGoal.requiredAmount; i++)
+			{
+				Label item = new Label();
+				item.style.backgroundImage = questGoal.requiredItem.icon.texture;
+				item.AddToClassList("questItem");
+				requiredContainer.Add(item);
+			}
 		}
+	}
+
+	void RefreshQuestInformation()
+	{
+		ClearQuestInformation();
+		if (lastClickedQuest != null)
+			DisplayQuestInformation(lastClickedQuest);
 	}
 
 	void ClearQuestInformation()

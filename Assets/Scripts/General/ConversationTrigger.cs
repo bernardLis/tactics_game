@@ -23,8 +23,6 @@ public class ConversationTrigger : MonoBehaviour
 	bool playerWithinConversationZone;
 	FMPlayerInteractionController playerInteractionController;
 
-
-
 	bool allowNextConversation;
 
 	protected virtual void Start()
@@ -127,6 +125,9 @@ public class ConversationTrigger : MonoBehaviour
 	{
 		conversationUI.HideUI();
 
+		// enable player movement
+		GameManager.instance.EnableFMPlayerControls();
+
 		if (!allowNextConversation)
 		{
 			allowNextConversation = true;
@@ -136,16 +137,18 @@ public class ConversationTrigger : MonoBehaviour
 
 	void AllowNextConversation()
 	{
+		Debug.Log("allow next conversation is called");
+		allowNextConversation = false;
+
 		SetCurrentConversation();
-		
+
 		// check if player is within the convo trigger
-		if(playerWithinConversationZone)
+		if (playerWithinConversationZone)
 			DisplayConversationTooltip();
 
 		if (playerInteractionController != null)
 			playerInteractionController.conversationOngoing = false;
 
-		allowNextConversation = false;
 
 		// TODO: dunno if that's a correct way to handle this
 	}

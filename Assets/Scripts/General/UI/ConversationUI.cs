@@ -39,7 +39,10 @@ public class ConversationUI : MonoBehaviour
 		// set the container all the way to the bottom
 		//topPercent = 100f;
 
+		// only one can be visible.
+		GameUI.instance.HideAllUIPanels();
 		conversationContainer.style.display = DisplayStyle.Flex;
+
 		conversationContainer.style.top = Length.Percent(topPercent);
 		// 'animate' it to come up 
 		animationOngoing = true;

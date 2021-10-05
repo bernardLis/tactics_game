@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   qID: 0
   qName: Catch 3 rabbits
-  qDescription: Old man asks hero to catch 3 rabbits.
-  qState: 0
+  qDescription: Old man asked me to catch 3 rabbits.
+  qState: 1
   qGoals:
   - {fileID: 11400000, guid: 9d255270821347f48b03ca88550c75d5, type: 2}
   qReward: {fileID: 11400000, guid: 85bb4b35c18f9e041b2676cb60485b4b, type: 2}

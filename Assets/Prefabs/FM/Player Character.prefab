@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 5523969868876218170}
   - component: {fileID: 5523969868876218171}
   - component: {fileID: 5523969868876218168}
+  - component: {fileID: 2006982389}
   m_Layer: 6
   m_Name: Player Character
   m_TagString: Player
@@ -132,7 +133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 4
-  rushEffect: {fileID: 0}
+  sneakSpeed: 2
+  rushEffect: {fileID: 6199452303025352576, guid: 9dc785d8caff2f9498a74a906c904e01, type: 3}
 --- !u!114 &5523969868876218168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +147,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec4a8bb902e39449b574dad3488df35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversationStarted: 0
+  conversationOngoing: 0
+--- !u!114 &2006982389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5523969868876218165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 492f15df5a88df641b1f4b8ead40333f, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: FMPlayer
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &5523969869666938878
 GameObject:
   m_ObjectHideFlags: 0

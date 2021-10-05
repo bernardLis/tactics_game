@@ -1,27 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FMPlayerInteractionController : MonoBehaviour
 {
-	public InputMaster controls;
+	PlayerInput playerInput;
+
 	ConversationTrigger conversationTrigger;
 	public bool conversationOngoing;
 
 	void Awake()
 	{
-		controls = new InputMaster();
-		controls.FMPlayer.Interact.performed += ctx => Interact();
+		playerInput = GetComponent<PlayerInput>();
 	}
 
 	void OnEnable()
 	{
-		controls.Enable();
+		playerInput.actions["EnableQuestUI"].performed += ctx => GameUI.instance.GetComponent<QuestUI>().EnableQuestUI();
+		playerInput.actions["EnableInventoryUI"].performed += ctx => GameUI.instance.GetComponent<InventoryUI>().EnableInventoryUI();
+
+		playerInput.actions["Interact"].performed += ctx => Interact();
+		// TODO: does it make sense?
+		playerInput.actions["ConversationInteract"].performed += ctx => Interact();
 	}
 
 	void OnDisable()
 	{
-		controls.Disable();
+		playerInput.actions["Interact"].performed -= ctx => Interact();
+		playerInput.actions["ConversationInteract"].performed -= ctx => Interact();
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -39,7 +46,7 @@ public class FMPlayerInteractionController : MonoBehaviour
 			// reseting 
 			conversationOngoing = false;
 
-			conversationTrigger.EndConversation();
+			//conversationTrigger.EndConversation();
 			conversationTrigger.HideConversationTooltip();
 			conversationTrigger = null;
 		}
@@ -47,17 +54,21 @@ public class FMPlayerInteractionController : MonoBehaviour
 
 	void Interact()
 	{
+		Debug.Log("interact is called");
+
 		if (conversationTrigger != null)
 		{
 			if (!conversationOngoing)
 			{
 				conversationOngoing = true;
+				Debug.Log("interact after all checks");
+
+				// TODO: does it make sense?
+				playerInput.SwitchCurrentActionMap("Conversation");
 
 				conversationTrigger.StartConversation();
 				return;
 			}
-			// I need to know whether the line stopped printing = yes > start printing next line, no print the full line without the typing effect
-			// I need to know when there are not more lines and convo ends = reset bool, show tooltip again
 			conversationTrigger.DisplayNextLine();
 		}
 	}

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class FMPlayerMovementController : MonoBehaviour
 {
-	public InputMaster controls;
+	PlayerInput playerInput;
 
 	FMIsometricCharacterRenderer isoRenderer;
 	Rigidbody2D rbody;
@@ -37,19 +37,8 @@ public class FMPlayerMovementController : MonoBehaviour
 	{
 		rushUI = GameUI.instance.GetComponent<RushUI>();
 
-		controls = new InputMaster();
 
-		controls.FMPlayer.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
-		// to reset on key release
-		controls.FMPlayer.Movement.canceled += ctx => inputVector = Vector2.zero;
-
-		controls.FMPlayer.Sneak.performed += ctx => Sneak();
-		// to reset on key release
-		controls.FMPlayer.Sneak.canceled += ctx => SneakReset();
-
-		controls.FMPlayer.Rush.performed += ctx => RushPressed();
-		controls.FMPlayer.Rush.canceled += ctx => RushReleased();
-
+		playerInput = GetComponent<PlayerInput>();
 
 		rbody = GetComponent<Rigidbody2D>();
 		isoRenderer = GetComponentInChildren<FMIsometricCharacterRenderer>();
@@ -59,12 +48,31 @@ public class FMPlayerMovementController : MonoBehaviour
 
 	void OnEnable()
 	{
-		controls.FMPlayer.Enable();
+		playerInput.actions["Movement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
+		// to reset on key release
+		playerInput.actions["Movement"].canceled += ctx => inputVector = Vector2.zero;
+
+		playerInput.actions["Sneak"].performed += ctx => Sneak();
+		// to reset on key release
+		playerInput.actions["Sneak"].canceled += ctx => SneakReset();
+
+		playerInput.actions["Rush"].performed += ctx => RushPressed();
+		playerInput.actions["Rush"].canceled += ctx => RushReleased();
 	}
 
 	void OnDisable()
 	{
-		controls.FMPlayer.Disable();
+
+		playerInput.actions["Movement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
+		// to reset on key release
+		playerInput.actions["Movement"].canceled -= ctx => inputVector = Vector2.zero;
+
+		playerInput.actions["Sneak"].performed -= ctx => Sneak();
+		// to reset on key release
+		playerInput.actions["Sneak"].canceled -= ctx => SneakReset();
+
+		playerInput.actions["Rush"].performed -= ctx => RushPressed();
+		playerInput.actions["Rush"].canceled -= ctx => RushReleased();
 	}
 
 	void Move(Vector2 direction)

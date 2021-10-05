@@ -564,6 +564,44 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Conversation"",
+            ""id"": ""bba1ee92-5585-4d47-9802-db9688f45a02"",
+            ""actions"": [
+                {
+                    ""name"": ""ConversationInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""727d1062-3fd9-402e-9e81-4c31dc72bd7d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9c5db3cf-8bfe-4a22-831e-58d59fc773aa"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ConversationInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46ba40a9-8ea7-49d9-9032-580a98968c6e"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ConversationInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -615,6 +653,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_InventoryUI = asset.FindActionMap("InventoryUI", throwIfNotFound: true);
         m_InventoryUI_Test = m_InventoryUI.FindAction("Test", throwIfNotFound: true);
         m_InventoryUI_DisableInventoryUI = m_InventoryUI.FindAction("DisableInventoryUI", throwIfNotFound: true);
+        // Conversation
+        m_Conversation = asset.FindActionMap("Conversation", throwIfNotFound: true);
+        m_Conversation_ConversationInteract = m_Conversation.FindAction("ConversationInteract", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -994,6 +1035,39 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     }
     public InventoryUIActions @InventoryUI => new InventoryUIActions(this);
+
+    // Conversation
+    private readonly InputActionMap m_Conversation;
+    private IConversationActions m_ConversationActionsCallbackInterface;
+    private readonly InputAction m_Conversation_ConversationInteract;
+    public struct ConversationActions
+    {
+        private @InputMaster m_Wrapper;
+        public ConversationActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ConversationInteract => m_Wrapper.m_Conversation_ConversationInteract;
+        public InputActionMap Get() { return m_Wrapper.m_Conversation; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ConversationActions set) { return set.Get(); }
+        public void SetCallbacks(IConversationActions instance)
+        {
+            if (m_Wrapper.m_ConversationActionsCallbackInterface != null)
+            {
+                @ConversationInteract.started -= m_Wrapper.m_ConversationActionsCallbackInterface.OnConversationInteract;
+                @ConversationInteract.performed -= m_Wrapper.m_ConversationActionsCallbackInterface.OnConversationInteract;
+                @ConversationInteract.canceled -= m_Wrapper.m_ConversationActionsCallbackInterface.OnConversationInteract;
+            }
+            m_Wrapper.m_ConversationActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ConversationInteract.started += instance.OnConversationInteract;
+                @ConversationInteract.performed += instance.OnConversationInteract;
+                @ConversationInteract.canceled += instance.OnConversationInteract;
+            }
+        }
+    }
+    public ConversationActions @Conversation => new ConversationActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -1043,5 +1117,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
     {
         void OnTest(InputAction.CallbackContext context);
         void OnDisableInventoryUI(InputAction.CallbackContext context);
+    }
+    public interface IConversationActions
+    {
+        void OnConversationInteract(InputAction.CallbackContext context);
     }
 }

@@ -14,10 +14,11 @@ public class TurnDisplayer : MonoBehaviour
 	Queue<IEnumerator> coroutineQueue = new Queue<IEnumerator>();
 
 	public int turnCount = 0;
-	void Awake()
+
+	void Start()
 	{
 		UIDocument = GameUI.instance.GetComponent<UIDocument>();
-		
+
 		// getting ui elements
 		var rootVisualElement = UIDocument.rootVisualElement;
 		turnTextContainer = rootVisualElement.Q<VisualElement>("turnTextContainer");
@@ -28,10 +29,7 @@ public class TurnDisplayer : MonoBehaviour
 		FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnEnemyTurnEnd;
 
 		turnText.text = "TURN " + turnCount.ToString() + " - PLAYER";
-	}
 
-	void Start()
-	{
 		// coroutine queue
 		StartCoroutine(CoroutineCoordinator());
 		coroutineQueue.Enqueue(DisplayTurnText(false));

@@ -19,9 +19,8 @@ public class InventoryUI : MonoBehaviour
 	bool isDragging;
 	InventorySlot originalSlot;
 
-	public InputMaster controls;
-
 	GameObject player;
+	PlayerInput playerInput;
 
 
 	public static InventoryUI instance;
@@ -37,13 +36,8 @@ public class InventoryUI : MonoBehaviour
 		}
 		instance = this;
 
-		controls = new InputMaster();
-		controls.FMPlayer.EnableInventoryUI.performed += ctx => EnableInventoryUI();
-
-		controls.InventoryUI.Test.performed += ctx => Test();
-		controls.InventoryUI.DisableInventoryUI.performed += ctx => DisableInventoryUI();
-
 		player = GameObject.FindGameObjectWithTag("Player");
+		playerInput = player.GetComponent<PlayerInput>();
 
 		Inventory.instance.OnItemChanged += OnItemChanged;
 		// store the root from the ui document component
@@ -72,6 +66,16 @@ public class InventoryUI : MonoBehaviour
 		{
 			AddItemToUI(item);
 		}
+	}
+
+	void OnEnable()
+	{
+		playerInput.actions["DisableInventoryUI"].performed += ctx => DisableInventoryUI();
+	}
+
+	void OnDisable()
+	{
+		playerInput.actions["DisableInventoryUI"].performed -= ctx => DisableInventoryUI();
 	}
 
 	void AddItemToUI(Item item)
@@ -105,16 +109,6 @@ public class InventoryUI : MonoBehaviour
 		}
 	}
 
-
-	void OnEnable()
-	{
-		controls.FMPlayer.Enable();
-	}
-
-	void OnDisable()
-	{
-		controls.FMPlayer.Disable();
-	}
 
 	// https://www.youtube.com/watch?v=NJLOnRzTPFo&list=PLAE7FECFFFCBE1A54&index=18
 	// Inventory.cs sends event
@@ -180,38 +174,24 @@ public class InventoryUI : MonoBehaviour
 		ghostIcon.style.visibility = Visibility.Hidden;
 	}
 
-	// Inputs
-	void Test()
+	public void EnableInventoryUI()
 	{
-		print("test");
-	}
-
-	void EnableInventoryUI()
-	{
-		// TODO: maybe there should be a method that disables all overlays before enabling the one you need 
-		// only one can be visible.
-		if (questUI.style.display == DisplayStyle.Flex)
-			GameUI.instance.GetComponent<QuestUI>().DisableQuestUI();
-
-		inventoryContainer.style.display = DisplayStyle.Flex;
-		// TODO: only controls.FMPlayer.Disable() does not disable player controlls
-		controls.FMPlayer.Disable();
-		player.SetActive(false);
-
+		// switch action map
+		player.GetComponent<PlayerInput>().SwitchCurrentActionMap("InventoryUI");
 		GameManager.instance.PauseGame();
 
-		controls.InventoryUI.Enable();
+		// only one can be visible.
+		GameUI.instance.HideAllUIPanels();
+
+		inventoryContainer.style.display = DisplayStyle.Flex;
 	}
 
 	public void DisableInventoryUI()
 	{
 		inventoryContainer.style.display = DisplayStyle.None;
 
-		controls.FMPlayer.Enable();
-		player.SetActive(true);
+		GameManager.instance.EnableFMPlayerControls();
 		GameManager.instance.ResumeGame();
-
-		controls.InventoryUI.Disable();
 	}
 
 
