@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 00ee3d86-656b-4900-826e-0c1e49123607
   iName: Stew
-  iLine: {fileID: 0}
+  iLine: {fileID: 11400000, guid: 88cadded94f49724ca467d187625a2ce, type: 2}
   icon: {fileID: 21300000, guid: 0bb13f4fd52f0394f81765e44d0f65a1, type: 3}
   amount: 1
   sellPrice: 0

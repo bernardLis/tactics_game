@@ -96,6 +96,7 @@ public class ConversationUI : MonoBehaviour
 
 	public void SetText(string text)
 	{
+		conversationText.Clear();
 		conversationText.style.color = Color.white;
 
 		if (typeTextCoroutine != null)

@@ -12,6 +12,8 @@ public class InventoryUI : MonoBehaviour
 
 	VisualElement root;
 	VisualElement questUI;
+
+	VisualElement inventory;
 	VisualElement inventoryContainer;
 	VisualElement slotContainer;
 
@@ -46,16 +48,27 @@ public class InventoryUI : MonoBehaviour
 		questUI = root.Q<VisualElement>("questUI");
 
 		// search for slot container
+		inventory = root.Q<VisualElement>("inventory");
 		inventoryContainer = root.Q<VisualElement>("inventoryContainer");
 		slotContainer = root.Q<VisualElement>("inventorySlotContainer");
 		ghostIcon = root.Q<VisualElement>("inventoryGhostIcon");
 
-		ghostIcon.RegisterCallback<PointerMoveEvent>(OnPointerMove);
-		ghostIcon.RegisterCallback<PointerUpEvent>(OnPointerUp);
+		//ghostIcon.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+		//ghostIcon.RegisterCallback<PointerUpEvent>(OnPointerUp);
 
-		// create inventory slotsd and add them as chlidren to the slot container
-		for (int i = 0; i < 20; i++)
+		// create inventory slots and add them as chlidren to the slot container
+		// get size of area that I want to fill with slots, 
+		// TODO: it is hard coded for now, it should not be, but it complicates stuff, coz we cannot get size of ui element before displaying it +1 frame
+		int width = (int)(0.8 * 0.7 * Screen.width);
+		int height = (int)(0.8 * 1 * Screen.height);
+
+		int amountOfSlots = (width * height) / (128 * 128);
+
+		Debug.Log("amountOfSlots " + amountOfSlots);
+
+		for (int i = 0; i < amountOfSlots; i++)
 		{
+
 			InventorySlot item = new InventorySlot();
 			inventorySlots.Add(item);
 			slotContainer.Add(item);
@@ -120,7 +133,7 @@ public class InventoryUI : MonoBehaviour
 			RemoveItemFromUI(e.item);
 	}
 
-
+	/* TODO: dragging is not a necessary feature for now
 	// TODO: should I disable it when inventory window is closed?
 	// https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
 	public void StartDrag(Vector2 position, InventorySlot _originalSlot)
@@ -173,6 +186,7 @@ public class InventoryUI : MonoBehaviour
 		originalSlot = null;
 		ghostIcon.style.visibility = Visibility.Hidden;
 	}
+	*/
 
 	public void EnableInventoryUI()
 	{

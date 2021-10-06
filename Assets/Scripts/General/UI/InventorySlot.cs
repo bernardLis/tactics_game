@@ -39,6 +39,16 @@ public class InventorySlot : VisualElement
 
 	void OnPointerDown(PointerDownEvent evt)
 	{
+		if (evt.button != 0 || item == null)
+			return;
+
+		Debug.Log("click, give me item line: " + item.iLine.text);
+	}
+
+
+	/* TODO: dragging items in inventory is not a necessary feature for now
+	void OnPointerDown(PointerDownEvent evt)
+	{
 		// TODO: correct? 
 		if (evt.button != 0 || item == null)
 		{
@@ -48,4 +58,5 @@ public class InventorySlot : VisualElement
 		icon.sprite = null;
 		InventoryUI.instance.StartDrag(evt.position, this);
 	}
+	*/
 }

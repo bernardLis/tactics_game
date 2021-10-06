@@ -140,17 +140,17 @@
 
 .questUIContainer {
     flex-direction: row;
-    background-color: rgba(221, 221, 221, 255);
+    background-color: rgb(221, 221, 221);
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
     width: 80%;
     height: 80%;
-    border-left-color: rgba(0, 0, 0, 255);
-    border-right-color: rgba(0, 0, 0, 255);
-    border-top-color: rgba(0, 0, 0, 255);
-    border-bottom-color: rgba(0, 0, 0, 255);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
     border-left-width: 10px;
     border-right-width: 10px;
     border-top-width: 10px;
@@ -159,4 +159,10 @@
     padding-right: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+.conversationOption {
+    font-size: 42px;
+    margin-bottom: 30px;
+    white-space: normal;
 }

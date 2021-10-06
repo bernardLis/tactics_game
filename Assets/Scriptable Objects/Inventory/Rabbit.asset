@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2a86733f-085b-4657-a7e4-a3e61226f226
   iName: Rabbit
-  iLine: {fileID: 0}
+  iLine: {fileID: 11400000, guid: dec5815e167ff6949a9d82774f8f8b65, type: 2}
   icon: {fileID: 21300000, guid: aafa530027e8d284b88845469fa0612a, type: 3}
   amount: 1
   sellPrice: 0

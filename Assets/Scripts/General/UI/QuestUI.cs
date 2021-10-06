@@ -177,16 +177,23 @@ public class QuestUI : MonoBehaviour
 		questRewardContainer.AddToClassList("questCurrentRequiredContainer");
 		questInformation.Add(questRewardContainer);
 
-		Label questRewardLabel = new Label("Reward: ");
-		questRewardLabel.AddToClassList("questGoalLabels");
-		Label questReward = new Label();
-		questReward.AddToClassList("questItem");
-		questReward.style.backgroundImage = quest.qReward.icon.texture;
-		questRewardContainer.Add(questRewardLabel);
-		questRewardContainer.Add(questReward);
+		// quest reward icon
+		if (quest.qReward != null)
+		{
+			Label questRewardLabel = new Label("Reward: ");
+			questRewardLabel.AddToClassList("questGoalLabels");
+			Label questReward = new Label();
+			questReward.AddToClassList("questItem");
+			questReward.style.backgroundImage = quest.qReward.icon.texture;
+			questRewardContainer.Add(questRewardLabel);
+			questRewardContainer.Add(questReward);
+		}
 
 		foreach (QuestGoal questGoal in quest.qGoals)
 		{
+			if(questGoal.requiredItem == null)
+				return;
+
 			VisualElement questGoalContainer = new VisualElement();
 			questInformation.Add(questGoalContainer);
 
@@ -199,7 +206,7 @@ public class QuestUI : MonoBehaviour
 			questGoalContainer.Add(currentContainer);
 			questGoalContainer.Add(requiredContainer);
 
-			Label currentLabel = new Label("You have:");
+			Label currentLabel = new Label("Owned:");
 			Label requiredLabel = new Label("Required:");
 			currentLabel.AddToClassList("questGoalLabels");
 			requiredLabel.AddToClassList("questGoalLabels");
@@ -223,6 +230,7 @@ public class QuestUI : MonoBehaviour
 				requiredContainer.Add(item);
 			}
 		}
+
 	}
 
 	void RefreshQuestInformation()
