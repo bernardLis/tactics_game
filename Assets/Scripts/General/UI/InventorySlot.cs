@@ -12,13 +12,14 @@ public class InventorySlot : VisualElement
 
 	public InventorySlot()
 	{
+		AddToClassList("slotContainer");
+
 		// create a new image element and add it to the root
 		icon = new Image();
 		Add(icon);
 
 		// add uss style properties to the elements
 		icon.AddToClassList("slotIcon");
-		AddToClassList("slotContainer");
 
 		RegisterCallback<PointerDownEvent>(OnPointerDown);
 	}
@@ -39,10 +40,30 @@ public class InventorySlot : VisualElement
 
 	void OnPointerDown(PointerDownEvent evt)
 	{
-		if (evt.button != 0 || item == null)
+		// || item == null
+		if (evt.button != 0)
 			return;
 
-		Debug.Log("click, give me item line: " + item.iLine.text);
+		Select();
+		InventoryUI.instance.ScrollTo(this);
+	}
+
+	public void Select()
+	{
+		InventoryUI.instance.UnselectSlot();
+
+		//this.style.backgroundColor = Color.gray;
+		this.style.backgroundColor = new Color(255 / 255f, 133 / 255f, 125 / 255f, 1); //new Color(0.9f, 0.9f, 0.9f, 1);
+
+		this.style.backgroundImage = new StyleBackground(InventoryUI.instance.selectedSlotBackground);
+		InventoryUI.instance.DisplayItemInfo(item);
+		InventoryUI.instance.selectedSlot = this;
+	}
+
+	public void Unselect()
+	{
+		this.style.backgroundImage = new StyleBackground(InventoryUI.instance.slotBackground);
+		this.style.backgroundColor = new Color(0.764f, 0.764f, 0.764f, 1);
 	}
 
 

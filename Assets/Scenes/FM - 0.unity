@@ -320,6 +320,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6150204838195089752, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
+      propertyPath: slotBackground
+      value: 
+      objectReference: {fileID: 21300000, guid: b488159f2e2a2eb4bb253ecd08460b40, type: 3}
+    - target: {fileID: 6150204838195089752, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
+      propertyPath: selectedSlotTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 3c90f08f09e65f64bb46e1900c5d9186, type: 3}
+    - target: {fileID: 6150204838195089752, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
+      propertyPath: selectedSlotBackground
+      value: 
+      objectReference: {fileID: 21300000, guid: f6152afeec336ad46aa07ae203f94e13, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
 --- !u!114 &1334149125 stripped
@@ -564,7 +576,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6390663538396494060, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: items.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6390663538396494060, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: items.Array.data[0]
@@ -577,19 +589,27 @@ PrefabInstance:
     - target: {fileID: 6390663538396494060, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: items.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: fd66c83919d6e7349b0227a13ef73d90, type: 2}
+      objectReference: {fileID: 11400000, guid: 85bb4b35c18f9e041b2676cb60485b4b, type: 2}
     - target: {fileID: 6390663538396494060, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: items.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: fd66c83919d6e7349b0227a13ef73d90, type: 2}
     - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: allQuests.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: allQuestsSO.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
+      propertyPath: allQuests.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 17a524af147b9e54887e198fa0b38a45, type: 2}
+    - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
+      propertyPath: allQuests.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7416e1ebd2edee94c80a4e92f9940adb, type: 2}
     - target: {fileID: 8071719569660592112, guid: 1dd60a249c4b9524aa4615e64f463b7a, type: 3}
       propertyPath: allQuestsSO.Array.data[0]
       value: 

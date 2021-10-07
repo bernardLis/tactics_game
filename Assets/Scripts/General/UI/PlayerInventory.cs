@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
+using System;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class PlayerInventory : MonoBehaviour
 	static Label itemDetailHeader;
 	static Label itemDetailBody;
 	static Label itemDetailPrice;
-	bool isInventoryReady;
 
 	public static Dimensions slotDimension { get; private set; }
 
@@ -35,14 +35,12 @@ public class PlayerInventory : MonoBehaviour
 		}
 	}
 
-
 	IEnumerator Configure()
 	{
 		root = GetComponentInChildren<UIDocument>().rootVisualElement;
 		inventoryGrid = root.Q<VisualElement>("Grid");
 
 		VisualElement itemDetails = root.Q<VisualElement>("ItemDetails");
-
 
 		itemDetailHeader = itemDetails.Q<Label>("Header");
 		itemDetailBody = itemDetails.Q<Label>("Body");
@@ -51,7 +49,6 @@ public class PlayerInventory : MonoBehaviour
 		//returning 0 will make it wait 1 frame
 		yield return 0;
 
-		isInventoryReady = true;
 		StartCoroutine(LoadInventory());
 	}
 
@@ -132,3 +129,5 @@ public class PlayerInventory : MonoBehaviour
 		visual.style.visibility = Visibility.Visible;
 	}
 }
+
+

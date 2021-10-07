@@ -7,26 +7,23 @@ using UnityEngine.InputSystem;
 
 public class InventoryUI : MonoBehaviour
 {
-
 	public List<InventorySlot> inventorySlots = new List<InventorySlot>();
 
 	VisualElement root;
-	VisualElement questUI;
 
 	VisualElement inventory;
 	VisualElement inventoryContainer;
-	VisualElement slotContainer;
+	ScrollView inventorySlotContainer;
+	VisualElement inventoryItemInfo;
 
-	VisualElement ghostIcon;
-	bool isDragging;
-	InventorySlot originalSlot;
+	public Sprite slotBackground;
+	public Sprite selectedSlotBackground;
+	public InventorySlot selectedSlot;
 
 	GameObject player;
 	PlayerInput playerInput;
 
-
 	public static InventoryUI instance;
-
 
 	void Awake()
 	{
@@ -45,33 +42,25 @@ public class InventoryUI : MonoBehaviour
 		// store the root from the ui document component
 		root = GetComponent<UIDocument>().rootVisualElement;
 
-		questUI = root.Q<VisualElement>("questUI");
-
 		// search for slot container
 		inventory = root.Q<VisualElement>("inventory");
 		inventoryContainer = root.Q<VisualElement>("inventoryContainer");
-		slotContainer = root.Q<VisualElement>("inventorySlotContainer");
-		ghostIcon = root.Q<VisualElement>("inventoryGhostIcon");
+		inventorySlotContainer = root.Q<ScrollView>("inventorySlotContainer");
+		inventoryItemInfo = root.Q<VisualElement>("inventoryItemInfo");
 
-		//ghostIcon.RegisterCallback<PointerMoveEvent>(OnPointerMove);
-		//ghostIcon.RegisterCallback<PointerUpEvent>(OnPointerUp);
+		inventorySlotContainer.contentContainer.Clear();
+		inventorySlotContainer.contentContainer.style.flexDirection = FlexDirection.Row;
+		inventorySlotContainer.contentContainer.style.flexWrap = Wrap.Wrap;
+
+		inventoryItemInfo.Clear();
 
 		// create inventory slots and add them as chlidren to the slot container
-		// get size of area that I want to fill with slots, 
-		// TODO: it is hard coded for now, it should not be, but it complicates stuff, coz we cannot get size of ui element before displaying it +1 frame
-		int width = (int)(0.8 * 0.7 * Screen.width);
-		int height = (int)(0.8 * 1 * Screen.height);
-
-		int amountOfSlots = (width * height) / (128 * 128);
-
-		Debug.Log("amountOfSlots " + amountOfSlots);
-
-		for (int i = 0; i < amountOfSlots; i++)
+		// TODO: resize on amount of items in inventory? 
+		for (int i = 0; i < 25; i++)
 		{
-
 			InventorySlot item = new InventorySlot();
 			inventorySlots.Add(item);
-			slotContainer.Add(item);
+			inventorySlotContainer.Add(item);
 		}
 
 		// populate inventory ui on awake;
@@ -83,31 +72,88 @@ public class InventoryUI : MonoBehaviour
 
 	void OnEnable()
 	{
+		playerInput.actions["InventoryMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
 		playerInput.actions["DisableInventoryUI"].performed += ctx => DisableInventoryUI();
 	}
 
 	void OnDisable()
 	{
-		playerInput.actions["DisableInventoryUI"].performed -= ctx => DisableInventoryUI();
+		if (playerInput != null)
+		{
+			playerInput.actions["InventoryMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
+			playerInput.actions["DisableInventoryUI"].performed -= ctx => DisableInventoryUI();
+		}
+	}
+
+	void Move(Vector2 direction)
+	{
+		// TODO: should not be hardcoded
+		float slotContainerWidth = 128f;
+		int numberOfItemsInRow = Mathf.FloorToInt(inventorySlotContainer.resolvedStyle.width / slotContainerWidth);
+
+		if (selectedSlot == null)
+			return;
+
+		// selectedSlot to be overwritten;
+		InventorySlot slot = selectedSlot;
+
+		// https://stackoverflow.com/questions/24799820/get-previous-next-item-of-a-given-item-in-a-list
+		// if it is right - select next slot
+		if (direction.Equals(Vector2.right))
+			slot = inventorySlots.SkipWhile(x => x != selectedSlot).Skip(1).DefaultIfEmpty(inventorySlots[0]).FirstOrDefault();
+		if (direction.Equals(Vector2.left))
+			slot = inventorySlots.TakeWhile(x => x != selectedSlot).DefaultIfEmpty(inventorySlots[inventorySlots.Count - 1]).LastOrDefault();
+
+		// moving up means current item from list - number of items in the row
+		if (direction.Equals(Vector2.up))
+			slot = inventorySlots[(inventorySlots.Count() + inventorySlots.IndexOf(selectedSlot) - numberOfItemsInRow) % inventorySlots.Count()];
+		// moving down means current item from list + number of items in the row
+		if (direction.Equals(Vector2.down))
+			slot = inventorySlots[(inventorySlots.IndexOf(selectedSlot) + numberOfItemsInRow) % inventorySlots.Count()];
+
+		slot.Select();
+		inventorySlotContainer.ScrollTo(slot);
+	}
+
+	public void DisplayItemInfo(Item item)
+	{
+		inventoryItemInfo.Clear();
+		if (item == null)
+			return;
+
+		Label name = new Label(item.iName);
+		name.AddToClassList("inventoryItemInfoTitle");
+
+		Label icon = new Label();
+		icon.style.backgroundImage = item.icon.texture;
+		icon.AddToClassList("inventoryItemInfoIcon");
+
+		Label description = new Label(item.iDescription);
+		description.AddToClassList("inventoryItemInfoDescription");
+
+		inventoryItemInfo.Add(name);
+		inventoryItemInfo.Add(icon);
+		inventoryItemInfo.Add(description);
+	}
+
+	public void UnselectSlot()
+	{
+		if (selectedSlot != null)
+			selectedSlot.Unselect();
+	}
+
+	// helper for selecting slot with mouse
+	public void ScrollTo(InventorySlot slot)
+	{
+		inventorySlotContainer.ScrollTo(slot);
 	}
 
 	void AddItemToUI(Item item)
 	{
-		/*
-		// check if you already have this item, if yes, stack it
-		foreach (var slot in inventorySlots)
-		{
-			if (slot.item == item)
-				print("i already have this item, i would like to stack it");
-		}
-		*/
-
 		// find first empty slot
 		var emptySlot = inventorySlots.FirstOrDefault(x => x.item == null);
 		if (emptySlot != null)
-		{
 			emptySlot.HoldItem(item);
-		}
 	}
 
 	void RemoveItemFromUI(Item item)
@@ -122,7 +168,6 @@ public class InventoryUI : MonoBehaviour
 		}
 	}
 
-
 	// https://www.youtube.com/watch?v=NJLOnRzTPFo&list=PLAE7FECFFFCBE1A54&index=18
 	// Inventory.cs sends event
 	void OnItemChanged(object sender, ItemChangedEventArgs e)
@@ -133,7 +178,42 @@ public class InventoryUI : MonoBehaviour
 			RemoveItemFromUI(e.item);
 	}
 
+	public void EnableInventoryUI()
+	{
+		// switch action map
+		player.GetComponent<PlayerInput>().SwitchCurrentActionMap("InventoryUI");
+		GameManager.instance.PauseGame();
+
+		// only one can be visible.
+		GameUI.instance.HideAllUIPanels();
+
+		inventoryContainer.style.display = DisplayStyle.Flex;
+
+		// moving around inventory - select top left inventory slot
+		inventorySlots.FirstOrDefault().Select();
+	}
+
+	public void DisableInventoryUI()
+	{
+		inventoryContainer.style.display = DisplayStyle.None;
+
+		GameManager.instance.EnableFMPlayerControls();
+		GameManager.instance.ResumeGame();
+	}
+
 	/* TODO: dragging is not a necessary feature for now
+
+	in awake: 
+		//VisualElement ghostIcon;
+	bool isDragging;
+
+			//ghostIcon = root.Q<VisualElement>("inventoryGhostIcon");
+				InventorySlot originalSlot;
+
+
+			//ghostIcon.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+		//ghostIcon.RegisterCallback<PointerUpEvent>(OnPointerUp);
+
 	// TODO: should I disable it when inventory window is closed?
 	// https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
 	public void StartDrag(Vector2 position, InventorySlot _originalSlot)
@@ -187,26 +267,4 @@ public class InventoryUI : MonoBehaviour
 		ghostIcon.style.visibility = Visibility.Hidden;
 	}
 	*/
-
-	public void EnableInventoryUI()
-	{
-		// switch action map
-		player.GetComponent<PlayerInput>().SwitchCurrentActionMap("InventoryUI");
-		GameManager.instance.PauseGame();
-
-		// only one can be visible.
-		GameUI.instance.HideAllUIPanels();
-
-		inventoryContainer.style.display = DisplayStyle.Flex;
-	}
-
-	public void DisableInventoryUI()
-	{
-		inventoryContainer.style.display = DisplayStyle.None;
-
-		GameManager.instance.EnableFMPlayerControls();
-		GameManager.instance.ResumeGame();
-	}
-
-
 }

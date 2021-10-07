@@ -9,11 +9,13 @@ public class QuestManager : MonoBehaviour
 
 	void Awake()
 	{
+		/* HERE: 
 		foreach(Quest quest in allQuests)
 		{
 			// TODO: the state of the quest should be loaded from the save game, if it exists
 			quest.qState = QuestState.INACTIVE;
-		}
+		}*/
+
 	}
 
 	public List<Quest> ReturnActiveQuests()

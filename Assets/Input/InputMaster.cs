@@ -470,6 +470,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""QuestMovement"",
+                    ""type"": ""Button"",
+                    ""id"": ""a549cc41-2f19-4355-b83a-b046e5346a8b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -505,6 +513,61 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""DisableQuestUI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""402f2bf1-28c2-4a26-b4bc-5985dd44ba8f"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuestMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""c9b06aab-4fbe-4d7f-b0e1-511af07fd10e"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""QuestMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""b9355ce9-afbf-43c6-83d4-8f064bb2a79b"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""QuestMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""3fc4ea66-a0e7-4dd2-a02b-e46c98e4cbd4"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""QuestMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""572a15e9-a33a-4500-819a-1151735cc7ec"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""QuestMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -525,6 +588,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""bd0e9c66-9512-4acf-850c-45c59ce61d5a"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""InventoryMovement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e49492d9-ebe1-42f9-baca-c623ebbd984d"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -562,6 +633,61 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""DisableInventoryUI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""eba39aeb-b2c9-4622-9097-478a7ceea26e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""1d6498ab-247c-47d4-a64a-4a6408675c23"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InventoryMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""1c0c6b8d-94f5-4158-bb79-93c8003aef53"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InventoryMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""c31b0189-e25d-4f10-90de-8abd87322d31"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InventoryMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""57a384e3-eeee-4864-8500-5ef31a3bd189"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InventoryMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -649,10 +775,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_QuestUI = asset.FindActionMap("QuestUI", throwIfNotFound: true);
         m_QuestUI_Test = m_QuestUI.FindAction("Test", throwIfNotFound: true);
         m_QuestUI_DisableQuestUI = m_QuestUI.FindAction("DisableQuestUI", throwIfNotFound: true);
+        m_QuestUI_QuestMovement = m_QuestUI.FindAction("QuestMovement", throwIfNotFound: true);
         // InventoryUI
         m_InventoryUI = asset.FindActionMap("InventoryUI", throwIfNotFound: true);
         m_InventoryUI_Test = m_InventoryUI.FindAction("Test", throwIfNotFound: true);
         m_InventoryUI_DisableInventoryUI = m_InventoryUI.FindAction("DisableInventoryUI", throwIfNotFound: true);
+        m_InventoryUI_InventoryMovement = m_InventoryUI.FindAction("InventoryMovement", throwIfNotFound: true);
         // Conversation
         m_Conversation = asset.FindActionMap("Conversation", throwIfNotFound: true);
         m_Conversation_ConversationInteract = m_Conversation.FindAction("ConversationInteract", throwIfNotFound: true);
@@ -959,12 +1087,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private IQuestUIActions m_QuestUIActionsCallbackInterface;
     private readonly InputAction m_QuestUI_Test;
     private readonly InputAction m_QuestUI_DisableQuestUI;
+    private readonly InputAction m_QuestUI_QuestMovement;
     public struct QuestUIActions
     {
         private @InputMaster m_Wrapper;
         public QuestUIActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Test => m_Wrapper.m_QuestUI_Test;
         public InputAction @DisableQuestUI => m_Wrapper.m_QuestUI_DisableQuestUI;
+        public InputAction @QuestMovement => m_Wrapper.m_QuestUI_QuestMovement;
         public InputActionMap Get() { return m_Wrapper.m_QuestUI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -980,6 +1110,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @DisableQuestUI.started -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnDisableQuestUI;
                 @DisableQuestUI.performed -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnDisableQuestUI;
                 @DisableQuestUI.canceled -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnDisableQuestUI;
+                @QuestMovement.started -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnQuestMovement;
+                @QuestMovement.performed -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnQuestMovement;
+                @QuestMovement.canceled -= m_Wrapper.m_QuestUIActionsCallbackInterface.OnQuestMovement;
             }
             m_Wrapper.m_QuestUIActionsCallbackInterface = instance;
             if (instance != null)
@@ -990,6 +1123,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @DisableQuestUI.started += instance.OnDisableQuestUI;
                 @DisableQuestUI.performed += instance.OnDisableQuestUI;
                 @DisableQuestUI.canceled += instance.OnDisableQuestUI;
+                @QuestMovement.started += instance.OnQuestMovement;
+                @QuestMovement.performed += instance.OnQuestMovement;
+                @QuestMovement.canceled += instance.OnQuestMovement;
             }
         }
     }
@@ -1000,12 +1136,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private IInventoryUIActions m_InventoryUIActionsCallbackInterface;
     private readonly InputAction m_InventoryUI_Test;
     private readonly InputAction m_InventoryUI_DisableInventoryUI;
+    private readonly InputAction m_InventoryUI_InventoryMovement;
     public struct InventoryUIActions
     {
         private @InputMaster m_Wrapper;
         public InventoryUIActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Test => m_Wrapper.m_InventoryUI_Test;
         public InputAction @DisableInventoryUI => m_Wrapper.m_InventoryUI_DisableInventoryUI;
+        public InputAction @InventoryMovement => m_Wrapper.m_InventoryUI_InventoryMovement;
         public InputActionMap Get() { return m_Wrapper.m_InventoryUI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1021,6 +1159,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @DisableInventoryUI.started -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnDisableInventoryUI;
                 @DisableInventoryUI.performed -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnDisableInventoryUI;
                 @DisableInventoryUI.canceled -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnDisableInventoryUI;
+                @InventoryMovement.started -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnInventoryMovement;
+                @InventoryMovement.performed -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnInventoryMovement;
+                @InventoryMovement.canceled -= m_Wrapper.m_InventoryUIActionsCallbackInterface.OnInventoryMovement;
             }
             m_Wrapper.m_InventoryUIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1031,6 +1172,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @DisableInventoryUI.started += instance.OnDisableInventoryUI;
                 @DisableInventoryUI.performed += instance.OnDisableInventoryUI;
                 @DisableInventoryUI.canceled += instance.OnDisableInventoryUI;
+                @InventoryMovement.started += instance.OnInventoryMovement;
+                @InventoryMovement.performed += instance.OnInventoryMovement;
+                @InventoryMovement.canceled += instance.OnInventoryMovement;
             }
         }
     }
@@ -1112,11 +1256,13 @@ public class @InputMaster : IInputActionCollection, IDisposable
     {
         void OnTest(InputAction.CallbackContext context);
         void OnDisableQuestUI(InputAction.CallbackContext context);
+        void OnQuestMovement(InputAction.CallbackContext context);
     }
     public interface IInventoryUIActions
     {
         void OnTest(InputAction.CallbackContext context);
         void OnDisableInventoryUI(InputAction.CallbackContext context);
+        void OnInventoryMovement(InputAction.CallbackContext context);
     }
     public interface IConversationActions
     {

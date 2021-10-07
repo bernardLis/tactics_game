@@ -36,7 +36,11 @@
             <ui:VisualElement name="questList" style="width: 20%;">
                 <ui:VisualElement name="activeQuests" class="questsHeader" style="-unity-text-align: upper-center;">
                     <ui:Label text="Active quests:" display-tooltip-when-elided="true" name="activeQuestsTitle" class="questStatusHeader" />
-                    <ui:VisualElement name="activeQuestsContainer" class="questTitleLabel" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                    <ui:VisualElement name="activeQuestsContainer" class="questTitleLabel" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
+                        <ui:VisualElement name="questSlot" class="questSlot">
+                            <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="completedQuests" style="-unity-text-align: upper-center;">
                     <ui:Label text="Completed quests:" display-tooltip-when-elided="true" name="completedQuestsTitle" class="questStatusHeader questsHeader" />
@@ -74,7 +78,16 @@
     <ui:VisualElement name="inventoryContainer" class="inventoryContainer" style="display: none; background-color: rgba(0, 0, 0, 0.59);">
         <ui:VisualElement name="inventory" class="inventory" style="margin-top: auto; margin-bottom: auto; background-color: rgb(221, 221, 221); border-left-width: 10px; border-right-width: 10px; border-top-width: 10px; border-bottom-width: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); bottom: auto; max-width: 80%; width: 80%; max-height: 80%; height: 80%; justify-content: flex-end; align-items: flex-start; flex-direction: column; display: flex;">
             <ui:Label text="Inventory" display-tooltip-when-elided="true" name="inventoryHeader" class="inventoryHeader" style="color: rgb(0, 0, 0);" />
-            <ui:ScrollView name="inventorySlotContainer" class="scrollableSlotContainer" />
+            <ui:VisualElement name="anotherInventoryContainer" class="anotherInventoryContainer">
+                <ui:ScrollView name="inventorySlotContainer" class="scrollableSlotContainer">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" />
+                </ui:ScrollView>
+                <ui:VisualElement name="inventoryItemInfo" class="inventoryItemInfo">
+                    <ui:Label text="Rabbit" display-tooltip-when-elided="true" class="inventoryItemInfoTitle" />
+                    <ui:Label text="Label" display-tooltip-when-elided="true" class="inventoryItemInfoIcon" />
+                    <ui:Label text="It was fast but not fast enough" display-tooltip-when-elided="true" class="inventoryItemInfoDescription" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="inventoryGhostIcon" style="position: absolute; width: 128px; height: 128px; display: flex; visibility: hidden;" />
     </ui:VisualElement>

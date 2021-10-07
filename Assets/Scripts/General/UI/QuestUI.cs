@@ -7,8 +7,9 @@ using System.Linq;
 
 public class QuestUI : MonoBehaviour
 {
+	List<QuestSlot> questSlots = new List<QuestSlot>();
+
 	UIDocument UIDocument;
-	VisualElement inventoryContainer;
 	VisualElement questUI;
 	VisualElement activeQuestsContainer;
 	VisualElement completedQuestsContainer;
@@ -21,14 +22,12 @@ public class QuestUI : MonoBehaviour
 
 	QuestManager questManager;
 
-	Quest lastClickedQuest;
+	public QuestSlot selectedQuestSlot;
 
 	void Awake()
 	{
 		UIDocument = GetComponent<UIDocument>();
 		var root = UIDocument.rootVisualElement;
-
-		inventoryContainer = root.Q<VisualElement>("inventoryContainer");
 
 		questUI = root.Q<VisualElement>("questUI");
 		activeQuestsContainer = root.Q<VisualElement>("activeQuestsContainer");
@@ -45,14 +44,39 @@ public class QuestUI : MonoBehaviour
 	void OnEnable()
 	{
 		playerInput.actions["DisableQuestUI"].performed += ctx => DisableQuestUI();
+		playerInput.actions["QuestMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
 
 		ClearQuestInformation();
 	}
 
 	void OnDisable()
 	{
-		playerInput.actions["DisableQuestUI"].performed -= ctx => DisableQuestUI();
+		if (playerInput != null)
+		{
+			playerInput.actions["DisableQuestUI"].performed -= ctx => DisableQuestUI();
+			playerInput.actions["QuestMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
+		}
 	}
+
+	void Move(Vector2 direction)
+	{
+		// selectedSlot to be overwritten;
+		QuestSlot slot = null;
+		// https://stackoverflow.com/questions/24799820/get-previous-next-item-of-a-given-item-in-a-list
+		// if it is right - select next slot
+		if (direction.Equals(Vector2.down))
+			slot = questSlots.SkipWhile(x => x != selectedQuestSlot).Skip(1).DefaultIfEmpty(questSlots[0]).FirstOrDefault();
+		if (direction.Equals(Vector2.up))
+			slot = questSlots.TakeWhile(x => x != selectedQuestSlot).DefaultIfEmpty(questSlots[questSlots.Count - 1]).LastOrDefault();
+
+		// not interaction for left and right;
+		if(slot == null)
+			return;
+
+		slot.Select();
+		//inventorySlotContainer.ScrollTo(slot);
+	}
+
 
 	public void EnableQuestUI()
 	{
@@ -63,7 +87,7 @@ public class QuestUI : MonoBehaviour
 		PopulateQuestUI();
 
 		// refresh quest info if player had it open previously
-		if (lastClickedQuest != null)
+		if (selectedQuestSlot != null)
 			RefreshQuestInformation();
 
 		// only one can be visible/
@@ -82,6 +106,8 @@ public class QuestUI : MonoBehaviour
 
 	void PopulateQuestUI()
 	{
+		questSlots.Clear();
+
 		activeQuestsContainer.Clear();
 		completedQuestsContainer.Clear();
 		failedQuestsContainer.Clear();
@@ -96,13 +122,19 @@ public class QuestUI : MonoBehaviour
 
 			foreach (Quest quest in activeQuests)
 			{
-				Label questLabel = new Label(quest.qName);
-				questLabel.AddToClassList("questTitleLabel");
+				QuestSlot slot = new QuestSlot();
+				slot.HoldQuest(quest);
+				activeQuestsContainer.Add(slot);
+
+				questSlots.Add(slot);
+
+				//Label questLabel = new Label(quest.qName);
+				//questLabel.AddToClassList("questTitleLabel");
 				// https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
 				// myElement.RegisterCallback<MouseDownEvent, MyType>(MyCallbackWithData, myData);
 				// void MyCallbackWithData(MouseDownEvent evt, MyType data) { /* ... */ }
-				questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
-				activeQuestsContainer.Add(questLabel);
+				//questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
+				//activeQuestsContainer.Add(questLabel);				
 			}
 		}
 		else
@@ -114,11 +146,19 @@ public class QuestUI : MonoBehaviour
 
 			foreach (Quest quest in completedQuests)
 			{
+				QuestSlot slot = new QuestSlot();
+				slot.HoldQuest(quest);
+				completedQuestsContainer.Add(slot);
+
+				questSlots.Add(slot);
+
+				/*
 				Label questLabel = new Label(quest.qName);
 				questLabel.AddToClassList("questTitleLabel");
 
 				questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
 				completedQuestsContainer.Add(questLabel);
+				*/
 			}
 		}
 		else
@@ -131,11 +171,18 @@ public class QuestUI : MonoBehaviour
 
 			foreach (Quest quest in failedQuests)
 			{
+				QuestSlot slot = new QuestSlot();
+				slot.HoldQuest(quest);
+				failedQuestsContainer.Add(slot);
+
+				questSlots.Add(slot);
+				/*
 				Label questLabel = new Label(quest.qName);
 				questLabel.AddToClassList("questTitleLabel");
 
 				questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
 				failedQuestsContainer.Add(questLabel);
+				*/
 			}
 		}
 		else
@@ -153,16 +200,19 @@ public class QuestUI : MonoBehaviour
 			RefreshQuestInformation();
 	}
 
-	void OnQuestClick(MouseDownEvent evt, Quest quest)
+	//MouseDownEvent evt,
+	public void OnQuestClick(Quest quest)
 	{
-		lastClickedQuest = quest;
+		if (selectedQuestSlot != null)
+			selectedQuestSlot.Unselect();
+
 		ClearQuestInformation();
 		DisplayQuestInformation(quest);
 	}
 
 	void DisplayQuestInformation(Quest quest)
 	{
-		// show that the quest is completed
+		// TODO: show that the quest is completed
 
 		// TODO: could be even nicer;
 		Label questName = new Label(quest.qName);
@@ -191,7 +241,7 @@ public class QuestUI : MonoBehaviour
 
 		foreach (QuestGoal questGoal in quest.qGoals)
 		{
-			if(questGoal.requiredItem == null)
+			if (questGoal.requiredItem == null)
 				return;
 
 			VisualElement questGoalContainer = new VisualElement();
@@ -236,8 +286,8 @@ public class QuestUI : MonoBehaviour
 	void RefreshQuestInformation()
 	{
 		ClearQuestInformation();
-		if (lastClickedQuest != null)
-			DisplayQuestInformation(lastClickedQuest);
+		if (selectedQuestSlot != null)
+			DisplayQuestInformation(selectedQuestSlot.quest);
 	}
 
 	void ClearQuestInformation()

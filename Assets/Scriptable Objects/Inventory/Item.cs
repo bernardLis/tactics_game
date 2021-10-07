@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
 	public string ID = Guid.NewGuid().ToString();
 	public string iName = "New Item";
-	public Line iLine;
+	public string iDescription;
 	public Sprite icon = null;
 	public int amount = 1;
 	public int sellPrice;
