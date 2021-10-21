@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
+  m_Name: Orc Male
+  m_EditorClassIdentifier: 
+  eName: Orc Male
+  icon: {fileID: 4849975704201446384, guid: f2cac05025a13a1469bb92279c6132ad, type: 3}
+  animatorController: {fileID: 22100000, guid: 910a8e9a4286e15429b20756e6a8cce5, type: 2}
+  eSlot: 0

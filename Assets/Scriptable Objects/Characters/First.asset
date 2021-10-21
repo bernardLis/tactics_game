@@ -20,6 +20,15 @@ MonoBehaviour:
   intelligence: 20
   maxMana: 50
   movementRange: 5
+  body: {fileID: 11400000, guid: 67b8fdf6ef7563042aa09ed2714e02b0, type: 2}
+  feet: {fileID: 11400000, guid: 11267fbcd1abb6d4e9c3d1c1b5373948, type: 2}
+  hair: {fileID: 11400000, guid: a5e8401870ed78747b2a85ec14a9d0df, type: 2}
+  hands: {fileID: 11400000, guid: e30c815ac73e90e48bec1f0e91fa118e, type: 2}
+  helmet: {fileID: 11400000, guid: 64d6f8269a8ca7e44adc73e8a7d36c56, type: 2}
+  legs: {fileID: 11400000, guid: 5f5ed3a5b252c20428721790fae974fc, type: 2}
+  torso: {fileID: 11400000, guid: 7bbeada867b885842897088f8549b569, type: 2}
+  shield: {fileID: 0}
+  weapon: {fileID: 11400000, guid: ee0c100ca9742414d9e8b23ad0811a2e, type: 2}
   characterAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
   - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}

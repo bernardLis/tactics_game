@@ -1,0 +1,4665 @@
+fileFormatVersion: 2
+guid: 839b93d74c49e22439bd93db223818af
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7522023811306432517
+    second: lpcmalegoldenhelm_0
+  - first:
+      213: 2957367377396593155
+    second: lpcmalegoldenhelm_1
+  - first:
+      213: 1453658387766161238
+    second: lpcmalegoldenhelm_2
+  - first:
+      213: -74659652250239572
+    second: lpcmalegoldenhelm_3
+  - first:
+      213: -8522837075651504039
+    second: lpcmalegoldenhelm_4
+  - first:
+      213: -4179538428469105751
+    second: lpcmalegoldenhelm_5
+  - first:
+      213: -6360512228647916611
+    second: lpcmalegoldenhelm_6
+  - first:
+      213: -8552102549087300576
+    second: lpcmalegoldenhelm_7
+  - first:
+      213: 416899921883412987
+    second: lpcmalegoldenhelm_8
+  - first:
+      213: -5400781751421299563
+    second: lpcmalegoldenhelm_9
+  - first:
+      213: -4173877109061287940
+    second: lpcmalegoldenhelm_10
+  - first:
+      213: 7775569391222270650
+    second: lpcmalegoldenhelm_11
+  - first:
+      213: 2439117092888798729
+    second: lpcmalegoldenhelm_12
+  - first:
+      213: 4433495281992355020
+    second: lpcmalegoldenhelm_13
+  - first:
+      213: -7490534152984392664
+    second: lpcmalegoldenhelm_14
+  - first:
+      213: 681636014268041538
+    second: lpcmalegoldenhelm_15
+  - first:
+      213: 2782452415154431114
+    second: lpcmalegoldenhelm_16
+  - first:
+      213: 8780966984870931322
+    second: lpcmalegoldenhelm_17
+  - first:
+      213: -1744433716229207967
+    second: lpcmalegoldenhelm_18
+  - first:
+      213: 995101652398778254
+    second: lpcmalegoldenhelm_19
+  - first:
+      213: 4383468247056728848
+    second: lpcmalegoldenhelm_20
+  - first:
+      213: 2147509406617828604
+    second: lpcmalegoldenhelm_21
+  - first:
+      213: 2378059723246901046
+    second: lpcmalegoldenhelm_22
+  - first:
+      213: -6304911611249720985
+    second: lpcmalegoldenhelm_23
+  - first:
+      213: -49012386992587027
+    second: lpcmalegoldenhelm_24
+  - first:
+      213: -8255927226592679672
+    second: lpcmalegoldenhelm_25
+  - first:
+      213: -4307990528679391480
+    second: lpcmalegoldenhelm_26
+  - first:
+      213: 6530491230608431475
+    second: lpcmalegoldenhelm_27
+  - first:
+      213: 2770279173449843587
+    second: lpcmalegoldenhelm_28
+  - first:
+      213: -8127859563510295457
+    second: lpcmalegoldenhelm_29
+  - first:
+      213: 3218745066434218898
+    second: lpcmalegoldenhelm_30
+  - first:
+      213: -8443460436838605334
+    second: lpcmalegoldenhelm_31
+  - first:
+      213: 2968496352577729040
+    second: lpcmalegoldenhelm_32
+  - first:
+      213: 6401366248936780951
+    second: lpcmalegoldenhelm_33
+  - first:
+      213: -6421655896683389524
+    second: lpcmalegoldenhelm_34
+  - first:
+      213: 7772995038154197861
+    second: lpcmalegoldenhelm_35
+  - first:
+      213: -6019400415537173025
+    second: lpcmalegoldenhelm_36
+  - first:
+      213: -1467570570336069572
+    second: lpcmalegoldenhelm_37
+  - first:
+      213: 6536807890136477758
+    second: lpcmalegoldenhelm_38
+  - first:
+      213: 1490574652470464509
+    second: lpcmalegoldenhelm_39
+  - first:
+      213: -5569552157831788233
+    second: lpcmalegoldenhelm_40
+  - first:
+      213: 8093468009576712275
+    second: lpcmalegoldenhelm_41
+  - first:
+      213: 7295581216150950251
+    second: lpcmalegoldenhelm_42
+  - first:
+      213: -5925415464069855342
+    second: lpcmalegoldenhelm_43
+  - first:
+      213: -2386265998438693552
+    second: lpcmalegoldenhelm_44
+  - first:
+      213: 1796101096256852956
+    second: lpcmalegoldenhelm_45
+  - first:
+      213: -7183356802280756462
+    second: lpcmalegoldenhelm_46
+  - first:
+      213: -3693572834534626649
+    second: lpcmalegoldenhelm_47
+  - first:
+      213: -4127557947075205192
+    second: lpcmalegoldenhelm_48
+  - first:
+      213: 9193624506398677820
+    second: lpcmalegoldenhelm_49
+  - first:
+      213: 193205799851899788
+    second: lpcmalegoldenhelm_50
+  - first:
+      213: -6751764481781780606
+    second: lpcmalegoldenhelm_51
+  - first:
+      213: -8265289620172353483
+    second: lpcmalegoldenhelm_52
+  - first:
+      213: -1185528119029081325
+    second: lpcmalegoldenhelm_53
+  - first:
+      213: 4244060449485658239
+    second: lpcmalegoldenhelm_54
+  - first:
+      213: -5281032566829727775
+    second: lpcmalegoldenhelm_55
+  - first:
+      213: 7132946219444386047
+    second: lpcmalegoldenhelm_56
+  - first:
+      213: 6949791471350277596
+    second: lpcmalegoldenhelm_57
+  - first:
+      213: -2650317557596066504
+    second: lpcmalegoldenhelm_58
+  - first:
+      213: -4052745277367248910
+    second: lpcmalegoldenhelm_59
+  - first:
+      213: -6524845971582721096
+    second: lpcmalegoldenhelm_60
+  - first:
+      213: -4777814713756725641
+    second: lpcmalegoldenhelm_61
+  - first:
+      213: 8118225227286655890
+    second: lpcmalegoldenhelm_62
+  - first:
+      213: 5183643665032691118
+    second: lpcmalegoldenhelm_63
+  - first:
+      213: 6126671267766131980
+    second: lpcmalegoldenhelm_64
+  - first:
+      213: -1088452393615196930
+    second: lpcmalegoldenhelm_65
+  - first:
+      213: -8766833328990031769
+    second: lpcmalegoldenhelm_66
+  - first:
+      213: 3768103125587883052
+    second: lpcmalegoldenhelm_67
+  - first:
+      213: 7845729445240343675
+    second: lpcmalegoldenhelm_68
+  - first:
+      213: -1655793044835826134
+    second: lpcmalegoldenhelm_69
+  - first:
+      213: -2719397632400017377
+    second: lpcmalegoldenhelm_70
+  - first:
+      213: -2171866078693222653
+    second: lpcmalegoldenhelm_71
+  - first:
+      213: 4204015388033997587
+    second: lpcmalegoldenhelm_72
+  - first:
+      213: 911593507716179799
+    second: lpcmalegoldenhelm_73
+  - first:
+      213: -901178924530197202
+    second: lpcmalegoldenhelm_74
+  - first:
+      213: -2133032230125190975
+    second: lpcmalegoldenhelm_75
+  - first:
+      213: 5424571420485019747
+    second: lpcmalegoldenhelm_76
+  - first:
+      213: -897431396128439296
+    second: lpcmalegoldenhelm_77
+  - first:
+      213: 318373091351924970
+    second: lpcmalegoldenhelm_78
+  - first:
+      213: 1218150045583411178
+    second: lpcmalegoldenhelm_79
+  - first:
+      213: 2732207490773484792
+    second: lpcmalegoldenhelm_80
+  - first:
+      213: 691977135515017284
+    second: lpcmalegoldenhelm_81
+  - first:
+      213: 7349460268538503119
+    second: lpcmalegoldenhelm_82
+  - first:
+      213: -56243678286102497
+    second: lpcmalegoldenhelm_83
+  - first:
+      213: 1816980968373738261
+    second: lpcmalegoldenhelm_84
+  - first:
+      213: -3119937139817077044
+    second: lpcmalegoldenhelm_85
+  - first:
+      213: 8608657306699605546
+    second: lpcmalegoldenhelm_86
+  - first:
+      213: 8925970759005685674
+    second: lpcmalegoldenhelm_87
+  - first:
+      213: 7880239411208524040
+    second: lpcmalegoldenhelm_88
+  - first:
+      213: -7837298535598551552
+    second: lpcmalegoldenhelm_89
+  - first:
+      213: 2018596532637119785
+    second: lpcmalegoldenhelm_90
+  - first:
+      213: -7732529958217176675
+    second: lpcmalegoldenhelm_91
+  - first:
+      213: -129463703671338775
+    second: lpcmalegoldenhelm_92
+  - first:
+      213: 3929457144599003840
+    second: lpcmalegoldenhelm_93
+  - first:
+      213: -78228621281262893
+    second: lpcmalegoldenhelm_94
+  - first:
+      213: -1668933629874694300
+    second: lpcmalegoldenhelm_95
+  - first:
+      213: 8903722343041083037
+    second: lpcmalegoldenhelm_96
+  - first:
+      213: 989930831033457097
+    second: lpcmalegoldenhelm_97
+  - first:
+      213: -7482746297879166790
+    second: lpcmalegoldenhelm_98
+  - first:
+      213: -7717151445244052619
+    second: lpcmalegoldenhelm_99
+  - first:
+      213: 3898977225856150345
+    second: lpcmalegoldenhelm_100
+  - first:
+      213: 6701951127193072985
+    second: lpcmalegoldenhelm_101
+  - first:
+      213: -3284821611165033096
+    second: lpcmalegoldenhelm_102
+  - first:
+      213: -3675165079917327702
+    second: lpcmalegoldenhelm_103
+  - first:
+      213: -3308719846043572853
+    second: lpcmalegoldenhelm_104
+  - first:
+      213: 4782270920152962141
+    second: lpcmalegoldenhelm_105
+  - first:
+      213: 844960711890189210
+    second: lpcmalegoldenhelm_106
+  - first:
+      213: -5609809420512880807
+    second: lpcmalegoldenhelm_107
+  - first:
+      213: 705123440975583996
+    second: lpcmalegoldenhelm_108
+  - first:
+      213: -4596713765708981192
+    second: lpcmalegoldenhelm_109
+  - first:
+      213: -3358185626483457415
+    second: lpcmalegoldenhelm_110
+  - first:
+      213: -6940628593888038335
+    second: lpcmalegoldenhelm_111
+  - first:
+      213: -7675252531405147672
+    second: lpcmalegoldenhelm_112
+  - first:
+      213: 1868267341836588118
+    second: lpcmalegoldenhelm_113
+  - first:
+      213: 5136582634282121395
+    second: lpcmalegoldenhelm_114
+  - first:
+      213: 6293188748049225391
+    second: lpcmalegoldenhelm_115
+  - first:
+      213: 7086961615417592154
+    second: lpcmalegoldenhelm_116
+  - first:
+      213: 2944902593363096486
+    second: lpcmalegoldenhelm_117
+  - first:
+      213: -477196667412842374
+    second: lpcmalegoldenhelm_118
+  - first:
+      213: -7930768561763906474
+    second: lpcmalegoldenhelm_119
+  - first:
+      213: -5158212600483353703
+    second: lpcmalegoldenhelm_120
+  - first:
+      213: -3406905796920236319
+    second: lpcmalegoldenhelm_121
+  - first:
+      213: 7008889127323238288
+    second: lpcmalegoldenhelm_122
+  - first:
+      213: -7327984791879564507
+    second: lpcmalegoldenhelm_123
+  - first:
+      213: 3070112557676270049
+    second: lpcmalegoldenhelm_124
+  - first:
+      213: 8266266770623070902
+    second: lpcmalegoldenhelm_125
+  - first:
+      213: -6929142154471001553
+    second: lpcmalegoldenhelm_126
+  - first:
+      213: 1745064657663338201
+    second: lpcmalegoldenhelm_127
+  - first:
+      213: 276254537368366571
+    second: lpcmalegoldenhelm_128
+  - first:
+      213: 1410248336692336943
+    second: lpcmalegoldenhelm_129
+  - first:
+      213: 4727783656495641930
+    second: lpcmalegoldenhelm_130
+  - first:
+      213: -8458188403630080448
+    second: lpcmalegoldenhelm_131
+  - first:
+      213: 980384916912352972
+    second: lpcmalegoldenhelm_132
+  - first:
+      213: 5346387766428100815
+    second: lpcmalegoldenhelm_133
+  - first:
+      213: 2310019903772538602
+    second: lpcmalegoldenhelm_134
+  - first:
+      213: -2954734069463054649
+    second: lpcmalegoldenhelm_135
+  - first:
+      213: -5692801315815237612
+    second: lpcmalegoldenhelm_136
+  - first:
+      213: -1601183416305975372
+    second: lpcmalegoldenhelm_137
+  - first:
+      213: -4396600329630736169
+    second: lpcmalegoldenhelm_138
+  - first:
+      213: -400017429474978234
+    second: lpcmalegoldenhelm_139
+  - first:
+      213: 2096507980395638899
+    second: lpcmalegoldenhelm_140
+  - first:
+      213: 6388356594824583378
+    second: lpcmalegoldenhelm_141
+  - first:
+      213: -911903400863718623
+    second: lpcmalegoldenhelm_142
+  - first:
+      213: -2409604922936851603
+    second: lpcmalegoldenhelm_143
+  - first:
+      213: -3044798069133553605
+    second: lpcmalegoldenhelm_144
+  - first:
+      213: 3357701236215704385
+    second: lpcmalegoldenhelm_145
+  - first:
+      213: 2758474958092011298
+    second: lpcmalegoldenhelm_146
+  - first:
+      213: 7011948877477461964
+    second: lpcmalegoldenhelm_147
+  - first:
+      213: 2766791074669766127
+    second: lpcmalegoldenhelm_148
+  - first:
+      213: -4479102508326644358
+    second: lpcmalegoldenhelm_149
+  - first:
+      213: -6167478045677976802
+    second: lpcmalegoldenhelm_150
+  - first:
+      213: -2973547059632167477
+    second: lpcmalegoldenhelm_151
+  - first:
+      213: 8987131541991168949
+    second: lpcmalegoldenhelm_152
+  - first:
+      213: -8404386487218695937
+    second: lpcmalegoldenhelm_153
+  - first:
+      213: -7556624099075100360
+    second: lpcmalegoldenhelm_154
+  - first:
+      213: -3153082579827034089
+    second: lpcmalegoldenhelm_155
+  - first:
+      213: 2769273716568106094
+    second: lpcmalegoldenhelm_156
+  - first:
+      213: 3155265609875033762
+    second: lpcmalegoldenhelm_157
+  - first:
+      213: -2539914146215104721
+    second: lpcmalegoldenhelm_158
+  - first:
+      213: -1050648231571888066
+    second: lpcmalegoldenhelm_159
+  - first:
+      213: -6636289061494331896
+    second: lpcmalegoldenhelm_160
+  - first:
+      213: 3739204621275596535
+    second: lpcmalegoldenhelm_161
+  - first:
+      213: 3679670810916613226
+    second: lpcmalegoldenhelm_162
+  - first:
+      213: -7353626861767528405
+    second: lpcmalegoldenhelm_163
+  - first:
+      213: 864782823522095046
+    second: lpcmalegoldenhelm_164
+  - first:
+      213: 4024492050361359514
+    second: lpcmalegoldenhelm_165
+  - first:
+      213: 2274882811240742145
+    second: lpcmalegoldenhelm_166
+  - first:
+      213: -6228082206385282664
+    second: lpcmalegoldenhelm_167
+  - first:
+      213: 243384272046349673
+    second: lpcmalegoldenhelm_168
+  - first:
+      213: 3672232918740702127
+    second: lpcmalegoldenhelm_169
+  - first:
+      213: 6866568804613574198
+    second: lpcmalegoldenhelm_170
+  - first:
+      213: 597293268894853989
+    second: lpcmalegoldenhelm_171
+  - first:
+      213: -5657984416197685837
+    second: lpcmalegoldenhelm_172
+  - first:
+      213: -1689284267377170538
+    second: lpcmalegoldenhelm_173
+  - first:
+      213: -4889199245537205813
+    second: lpcmalegoldenhelm_174
+  - first:
+      213: 2954023524058972714
+    second: lpcmalegoldenhelm_175
+  - first:
+      213: 5270713454003416158
+    second: lpcmalegoldenhelm_176
+  - first:
+      213: 3020653279749110870
+    second: lpcmalegoldenhelm_177
+  - first:
+      213: 9146309671468554434
+    second: lpcmalegoldenhelm_178
+  - first:
+      213: -7053357435773961298
+    second: lpcmalegoldenhelm_179
+  - first:
+      213: -9143613099100199705
+    second: lpcmalegoldenhelm_180
+  - first:
+      213: 5419889544729066803
+    second: lpcmalegoldenhelm_181
+  - first:
+      213: 8753299209296354017
+    second: lpcmalegoldenhelm_182
+  - first:
+      213: -5735139426483500570
+    second: lpcmalegoldenhelm_183
+  - first:
+      213: -8222675263024062325
+    second: lpcmalegoldenhelm_184
+  - first:
+      213: -3975193754087084678
+    second: lpcmalegoldenhelm_185
+  - first:
+      213: 5833609527882065068
+    second: lpcmalegoldenhelm_186
+  - first:
+      213: -6503086162638215284
+    second: lpcmalegoldenhelm_187
+  - first:
+      213: 6056133640783535960
+    second: lpcmalegoldenhelm_188
+  - first:
+      213: -3200452484020554590
+    second: lpcmalegoldenhelm_189
+  - first:
+      213: 8131866176548792007
+    second: lpcmalegoldenhelm_190
+  - first:
+      213: -4451258553107753557
+    second: lpcmalegoldenhelm_191
+  - first:
+      213: -6957272532047119026
+    second: lpcmalegoldenhelm_192
+  - first:
+      213: -5868355002997653730
+    second: lpcmalegoldenhelm_193
+  - first:
+      213: 971231144969103729
+    second: lpcmalegoldenhelm_194
+  - first:
+      213: -5970850899237316685
+    second: lpcmalegoldenhelm_195
+  - first:
+      213: 1382446588437810498
+    second: lpcmalegoldenhelm_196
+  - first:
+      213: -8656664482861303862
+    second: lpcmalegoldenhelm_197
+  - first:
+      213: -1590315308507306303
+    second: lpcmalegoldenhelm_198
+  - first:
+      213: -1675597718220729257
+    second: lpcmalegoldenhelm_199
+  - first:
+      213: 5501630565367270245
+    second: lpcmalegoldenhelm_200
+  - first:
+      213: -8889729435328565261
+    second: lpcmalegoldenhelm_201
+  - first:
+      213: 3291177516722052482
+    second: lpcmalegoldenhelm_202
+  - first:
+      213: -5740545829374031886
+    second: lpcmalegoldenhelm_203
+  - first:
+      213: -8439467863001497036
+    second: lpcmalegoldenhelm_204
+  - first:
+      213: 7618493198991588446
+    second: lpcmalegoldenhelm_205
+  - first:
+      213: -4573640106747215478
+    second: lpcmalegoldenhelm_206
+  - first:
+      213: -8411908789147067798
+    second: lpcmalegoldenhelm_207
+  - first:
+      213: -195242092952068709
+    second: lpcmalegoldenhelm_208
+  - first:
+      213: 4914843721171787750
+    second: lpcmalegoldenhelm_209
+  - first:
+      213: -1910576927698616068
+    second: lpcmalegoldenhelm_210
+  - first:
+      213: -839390487838756886
+    second: lpcmalegoldenhelm_211
+  - first:
+      213: -1322123335092164549
+    second: lpcmalegoldenhelm_212
+  - first:
+      213: -6995527198588734251
+    second: lpcmalegoldenhelm_213
+  - first:
+      213: 8525860597720641494
+    second: lpcmalegoldenhelm_214
+  - first:
+      213: -8035760825604047177
+    second: lpcmalegoldenhelm_215
+  - first:
+      213: -2505496149958026189
+    second: lpcmalegoldenhelm_216
+  - first:
+      213: 5938498578145838768
+    second: lpcmalegoldenhelm_217
+  - first:
+      213: 4528161009152197733
+    second: lpcmalegoldenhelm_218
+  - first:
+      213: -5753100996112782273
+    second: lpcmalegoldenhelm_219
+  - first:
+      213: -1096356428029999754
+    second: lpcmalegoldenhelm_220
+  - first:
+      213: 1672677543316583273
+    second: lpcmalegoldenhelm_221
+  - first:
+      213: -8527204160165183519
+    second: lpcmalegoldenhelm_222
+  - first:
+      213: -6268641474658819135
+    second: lpcmalegoldenhelm_223
+  - first:
+      213: 8715609186052518930
+    second: lpcmalegoldenhelm_224
+  - first:
+      213: 8530974546150194254
+    second: lpcmalegoldenhelm_225
+  - first:
+      213: -1728637556183092480
+    second: lpcmalegoldenhelm_226
+  - first:
+      213: -5343093247047768102
+    second: lpcmalegoldenhelm_227
+  - first:
+      213: 5051260114189215513
+    second: lpcmalegoldenhelm_228
+  - first:
+      213: 5821883520459681233
+    second: lpcmalegoldenhelm_229
+  - first:
+      213: -821366365281685988
+    second: lpcmalegoldenhelm_230
+  - first:
+      213: -8828666427989253948
+    second: lpcmalegoldenhelm_231
+  - first:
+      213: 8290394869330070881
+    second: lpcmalegoldenhelm_232
+  - first:
+      213: -8917737716216555873
+    second: lpcmalegoldenhelm_233
+  - first:
+      213: 8911510641827922710
+    second: lpcmalegoldenhelm_234
+  - first:
+      213: -2399450207626659679
+    second: lpcmalegoldenhelm_235
+  - first:
+      213: 9165753983613933055
+    second: lpcmalegoldenhelm_236
+  - first:
+      213: -3896959352682672455
+    second: lpcmalegoldenhelm_237
+  - first:
+      213: -858096360852922904
+    second: lpcmalegoldenhelm_238
+  - first:
+      213: 7921007503769965264
+    second: lpcmalegoldenhelm_239
+  - first:
+      213: 4821174438414554652
+    second: lpcmalegoldenhelm_240
+  - first:
+      213: 6973548215289297238
+    second: lpcmalegoldenhelm_241
+  - first:
+      213: 9170981398428195576
+    second: lpcmalegoldenhelm_242
+  - first:
+      213: 1572990439395107163
+    second: lpcmalegoldenhelm_243
+  - first:
+      213: 7971856504131823711
+    second: lpcmalegoldenhelm_244
+  - first:
+      213: 189137092810761548
+    second: lpcmalegoldenhelm_245
+  - first:
+      213: 6619616048815991939
+    second: lpcmalegoldenhelm_246
+  - first:
+      213: 5971234909054235963
+    second: lpcmalegoldenhelm_247
+  - first:
+      213: -2656301424898819737
+    second: lpcmalegoldenhelm_248
+  - first:
+      213: -2600413671697843613
+    second: lpcmalegoldenhelm_249
+  - first:
+      213: -6300419019680735239
+    second: lpcmalegoldenhelm_250
+  - first:
+      213: -1610912572743129475
+    second: lpcmalegoldenhelm_251
+  - first:
+      213: 2770710563778940372
+    second: lpcmalegoldenhelm_252
+  - first:
+      213: -8869964019288597507
+    second: lpcmalegoldenhelm_253
+  - first:
+      213: -4647071772701721110
+    second: lpcmalegoldenhelm_254
+  - first:
+      213: -7253374375412363596
+    second: lpcmalegoldenhelm_255
+  - first:
+      213: -4465796274546929608
+    second: lpcmalegoldenhelm_256
+  - first:
+      213: -6488467029982264649
+    second: lpcmalegoldenhelm_257
+  - first:
+      213: -8408523252973546669
+    second: lpcmalegoldenhelm_258
+  - first:
+      213: 7188997534159913772
+    second: lpcmalegoldenhelm_259
+  - first:
+      213: 2795408505026540719
+    second: lpcmalegoldenhelm_260
+  - first:
+      213: -7810144328809352987
+    second: lpcmalegoldenhelm_261
+  - first:
+      213: -3672052472826522569
+    second: lpcmalegoldenhelm_262
+  - first:
+      213: -5875675639398280669
+    second: lpcmalegoldenhelm_263
+  - first:
+      213: -8535057451851556142
+    second: lpcmalegoldenhelm_264
+  - first:
+      213: -6280781353095337183
+    second: lpcmalegoldenhelm_265
+  - first:
+      213: 6564865772190350927
+    second: lpcmalegoldenhelm_266
+  - first:
+      213: 4255207616318566554
+    second: lpcmalegoldenhelm_267
+  - first:
+      213: 8359414329692646241
+    second: lpcmalegoldenhelm_268
+  - first:
+      213: -3073143145205840680
+    second: lpcmalegoldenhelm_269
+  - first:
+      213: 465082953004546213
+    second: lpcmalegoldenhelm_270
+  - first:
+      213: 8433235887110852801
+    second: lpcmalegoldenhelm_271
+  - first:
+      213: 2863828141590269904
+    second: lpcmalegoldenhelm_272
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf7dc0f62376c9790800000000000000
+      internalID: -7522023811306432517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3027d0006fdaa0920800000000000000
+      internalID: 2957367377396593155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65fa1931a9e6c2410800000000000000
+      internalID: 1453658387766161238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cadf19c1171c6fef0800000000000000
+      internalID: -74659652250239572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 958534be5dcc8b980800000000000000
+      internalID: -8522837075651504039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ab210681fb4ff5c0800000000000000
+      internalID: -4179538428469105751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbba9e5d3dbeab7a0800000000000000
+      internalID: -6360512228647916611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccc46842870f68d30800000000000000
+      internalID: 4433495281992355020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82c0f69dfd64c0890800000000000000
+      internalID: -7490534152984392664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_15
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2494f80f758a57900800000000000000
+      internalID: 681636014268041538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_16
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8425b1cab14d9620800000000000000
+      internalID: 2782452415154431114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_17
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7b2aadf2f24cd970800000000000000
+      internalID: 8780966984870931322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_18
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16881f907c68ac7e0800000000000000
+      internalID: -1744433716229207967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_19
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8722aa3eaf4fcd00800000000000000
+      internalID: 995101652398778254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80f415a5071f634c0800000000000000
+      internalID: -4307990528679391480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_27
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37918399c27f0aa50800000000000000
+      internalID: 6530491230608431475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_28
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 383042e0b32027620800000000000000
+      internalID: 2770279173449843587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_29
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5415bc4aca043f80800000000000000
+      internalID: -8127859563510295457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_30
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29b4a5395974bac20800000000000000
+      internalID: 3218745066434218898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_31
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aed9b23d77dc2da80800000000000000
+      internalID: -8443460436838605334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_32
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 012307474b7323920800000000000000
+      internalID: 2968496352577729040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dff04bfbfb59fa410800000000000000
+      internalID: 1490574652470464509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_40
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7390d6a32d9f4b2b0800000000000000
+      internalID: -5569552157831788233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_41
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 358cecf0646c15070800000000000000
+      internalID: 8093468009576712275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_42
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6190b2667c1f3560800000000000000
+      internalID: 7295581216150950251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_43
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29782859702b4cda0800000000000000
+      internalID: -5925415464069855342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_44
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0550877a7b742eed0800000000000000
+      internalID: -2386265998438693552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_45
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd3541f4e680de810800000000000000
+      internalID: 1796101096256852956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53057efb1eacb4d80800000000000000
+      internalID: -8265289620172353483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_53
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31bd80af4782c8fe0800000000000000
+      internalID: -1185528119029081325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_54
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7890e82e7ee5ea30800000000000000
+      internalID: 4244060449485658239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_55
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ef38de4cd006b6b0800000000000000
+      internalID: -5281032566829727775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_56
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff8b2fb6bc05df260800000000000000
+      internalID: 7132946219444386047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_57
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd56fd8858e927060800000000000000
+      internalID: 6949791471350277596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_58
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83d618d293e283bd0800000000000000
+      internalID: -2650317557596066504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_59
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f7126184a1c1c7c0800000000000000
+      internalID: -4052745277367248910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_65
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efc74ab905a05e0f0800000000000000
+      internalID: -1088452393615196930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_66
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7607e743983f55680800000000000000
+      internalID: -8766833328990031769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_67
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2474b514ddfa4430800000000000000
+      internalID: 3768103125587883052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_68
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7c8f5bac51a1ec60800000000000000
+      internalID: 7845729445240343675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_69
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a268ffc9ff07509e0800000000000000
+      internalID: -1655793044835826134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_70
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1832c5e242c24ad0800000000000000
+      internalID: -2719397632400017377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_71
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30715c7fe4bfbd1e0800000000000000
+      internalID: -2171866078693222653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_72
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31bda0ab8b9a75a30800000000000000
+      internalID: 4204015388033997587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_78
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae01318c3a61b6400800000000000000
+      internalID: 318373091351924970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_79
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae7002e230db7e010800000000000000
+      internalID: 1218150045583411178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_80
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f4073cac30cae520800000000000000
+      internalID: 2732207490773484792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_81
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 440a01bd9856a9900800000000000000
+      internalID: 691977135515017284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_82
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcf9515dc278ef560800000000000000
+      internalID: 7349460268538503119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_83
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1045ee2cae283ff0800000000000000
+      internalID: -56243678286102497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_84
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51bdf8f5096373910800000000000000
+      internalID: 1816980968373738261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_85
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc6a7a393b1c3b4d0800000000000000
+      internalID: -3119937139817077044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_91
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d992661c8f880b490800000000000000
+      internalID: -7732529958217176675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_92
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e80d5b827d043ef0800000000000000
+      internalID: -129463703671338775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_93
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c2c1ff247c388630800000000000000
+      internalID: 3929457144599003840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_94
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d20341cb731aeef0800000000000000
+      internalID: -78228621281262893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_95
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4679d9db4b1c6d8e0800000000000000
+      internalID: -1668933629874694300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_96
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d962cab0c40609b70800000000000000
+      internalID: 8903722343041083037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_97
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c9d4ff88d0fcbd00800000000000000
+      internalID: 989930831033457097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_98
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab00b8a23e1f72890800000000000000
+      internalID: -7482746297879166790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_104
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b85a94394d01512d0800000000000000
+      internalID: -3308719846043572853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_105
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d54d567701a0e5240800000000000000
+      internalID: 4782270920152962141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_106
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b30696a47e9bb00800000000000000
+      internalID: 844960711890189210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_107
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95790b8dd04f522b0800000000000000
+      internalID: -5609809420512880807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_108
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfa962e980a19c900800000000000000
+      internalID: 705123440975583996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_109
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c94cc3f213530c0800000000000000
+      internalID: -4596713765708981192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_110
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97281a317f35561d0800000000000000
+      internalID: -3358185626483457415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_111
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 142726f111fedaf90800000000000000
+      internalID: -6940628593888038335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_112
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e1bd28ec760c7590800000000000000
+      internalID: -7675252531405147672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_117
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a3b88f4e456ed820800000000000000
+      internalID: 2944902593363096486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_118
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a787bd6c828a069f0800000000000000
+      internalID: -477196667412842374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_119
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65c0a38130040f190800000000000000
+      internalID: -7930768561763906474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_120
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99bee3028f85a68b0800000000000000
+      internalID: -5158212600483353703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_121
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e6a95f6a3d38b0d0800000000000000
+      internalID: -3406905796920236319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_122
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09ff230d683944160800000000000000
+      internalID: 7008889127323238288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_123
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 523cd8838a4cd4a90800000000000000
+      internalID: -7327984791879564507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_124
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e192c4ea1b3b9a20800000000000000
+      internalID: 3070112557676270049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_125
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b28a91d4dda7b270800000000000000
+      internalID: 8266266770623070902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_130
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a45f15ccf267c9140800000000000000
+      internalID: 4727783656495641930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_131
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04efc46d57a7e9a80800000000000000
+      internalID: -8458188403630080448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_132
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cce26bb33e60b9d00800000000000000
+      internalID: 980384916912352972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_133
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc8e071e85f223a40800000000000000
+      internalID: 5346387766428100815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_134
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae6b17c0dd6de0020800000000000000
+      internalID: 2310019903772538602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_135
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c609e7c40daef6d0800000000000000
+      internalID: -2954734069463054649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_136
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 418d4f17d5b1ff0b0800000000000000
+      internalID: -5692801315815237612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_137
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bff5d29a2477c9e0800000000000000
+      internalID: -1601183416305975372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_138
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d0aefc5b432cf2c0800000000000000
+      internalID: -4396600329630736169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_143
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d630157d61d5f8ed0800000000000000
+      internalID: -2409604922936851603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_144
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b30df74c944beb5d0800000000000000
+      internalID: -3044798069133553605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_145
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14be6860c73f89e20800000000000000
+      internalID: 3357701236215704385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_146
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22782eefb52184620800000000000000
+      internalID: 2758474958092011298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_147
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccf3e396a527f4160800000000000000
+      internalID: 7011948877477461964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_148
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe5a965c2dd956620800000000000000
+      internalID: 2766791074669766127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_149
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7511aefff707d1c0800000000000000
+      internalID: -4479102508326644358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_150
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e130857e467b86aa0800000000000000
+      internalID: -6167478045677976802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_151
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc5a7bb24b6dbb6d0800000000000000
+      internalID: -2973547059632167477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_156
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e642ed1e5cf6e6620800000000000000
+      internalID: 2769273716568106094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_157
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ae8b98da51c9cb20800000000000000
+      internalID: 3155265609875033762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_158
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2febd28a8960ccd0800000000000000
+      internalID: -2539914146215104721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_159
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e38e34dfff85b61f0800000000000000
+      internalID: -1050648231571888066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_160
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 806e1d6524a27e3a0800000000000000
+      internalID: -6636289061494331896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_161
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f681a9bac254e330800000000000000
+      internalID: 3739204621275596535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_169
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa3190e126466f230800000000000000
+      internalID: 3672232918740702127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_170
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63e45c872f3fa4f50800000000000000
+      internalID: 6866568804613574198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_171
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56ba53f30130a4800800000000000000
+      internalID: 597293268894853989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_172
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bd47d7962dca71b0800000000000000
+      internalID: -5657984416197685837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_173
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 697e356b8e47e88e0800000000000000
+      internalID: -1689284267377170538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_174
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc1a5a5b033162cb0800000000000000
+      internalID: -4889199245537205813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_182
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ea11def047f97970800000000000000
+      internalID: 8753299209296354017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_183
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e90d13e311b860b0800000000000000
+      internalID: -5735139426483500570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_184
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b802f04f96033ed80800000000000000
+      internalID: -8222675263024062325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_185
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7da946975645d8c0800000000000000
+      internalID: -3975193754087084678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_186
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca4aeb335f425f050800000000000000
+      internalID: 5833609527882065068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_187
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c87e034079560c5a0800000000000000
+      internalID: -6503086162638215284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_195
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b75328fdb6432da0800000000000000
+      internalID: -5970850899237316685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_196
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24d49c009df6f2310800000000000000
+      internalID: 1382446588437810498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_197
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac7bf4f84895dd780800000000000000
+      internalID: -8656664482861303862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_198
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c66e8b17a01ee9e0800000000000000
+      internalID: -1590315308507306303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_199
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7549ff2c0c41fb8e0800000000000000
+      internalID: -1675597718220729257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_200
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56bc52ea9d7b95c40800000000000000
+      internalID: 5501630565367270245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_208
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9d5364d95c5a4df0800000000000000
+      internalID: -195242092952068709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_209
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6efd00f0358053440800000000000000
+      internalID: 4914843721171787750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_210
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf0877c28644c75e0800000000000000
+      internalID: -1910576927698616068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_211
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aef67807cc2e954f0800000000000000
+      internalID: -839390487838756886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_212
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b38a396e4dfd6ade0800000000000000
+      internalID: -1322123335092164549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_213
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d4f887a315eaee90800000000000000
+      internalID: -6995527198588734251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_214
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6df63abaa01f15670800000000000000
+      internalID: 8525860597720641494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_215
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7befed9ba1e3b7090800000000000000
+      internalID: -8035760825604047177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_216
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33c94abb680ba3dd0800000000000000
+      internalID: -2505496149958026189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_217
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b68b894ef8c96250800000000000000
+      internalID: 5938498578145838768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_218
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5648a44527247de30800000000000000
+      internalID: 4528161009152197733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_219
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3c60c11021e820b0800000000000000
+      internalID: -5753100996112782273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_220
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6754e0033a5f8c0f0800000000000000
+      internalID: -1096356428029999754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_221
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96378290d5b863710800000000000000
+      internalID: 1672677543316583273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_222
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1effe12def849a980800000000000000
+      internalID: -8527204160165183519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_223
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c32eae9acf4109a0800000000000000
+      internalID: -6268641474658819135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_224
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214bacf906014f870800000000000000
+      internalID: 8715609186052518930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_225
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4c7e23962c146670800000000000000
+      internalID: 8530974546150194254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_226
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 003be462d45a208e0800000000000000
+      internalID: -1728637556183092480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_227
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad7edef200589d5b0800000000000000
+      internalID: -5343093247047768102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_228
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 917e856af4ea91640800000000000000
+      internalID: 5051260114189215513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_229
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dd23b8573c7bc050800000000000000
+      internalID: 5821883520459681233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_230
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1e6eee74abe994f0800000000000000
+      internalID: -821366365281685988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_231
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0a847f8a64a7580800000000000000
+      internalID: -8828666427989253948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_232
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16dc32295366d0370800000000000000
+      internalID: 8290394869330070881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_233
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f961fc89bc4dd3480800000000000000
+      internalID: -8917737716216555873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_234
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 613444aa6bb0cab70800000000000000
+      internalID: 8911510641827922710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_235
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a8fc2ebfb073bed0800000000000000
+      internalID: -2399450207626659679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_236
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff51ee39fac433f70800000000000000
+      internalID: 9165753983613933055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_237
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9be863f9d183be9c0800000000000000
+      internalID: -3896959352682672455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_238
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ed5e4cf7ed6714f0800000000000000
+      internalID: -858096360852922904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_239
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d2996d7b521ded60800000000000000
+      internalID: 7921007503769965264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_240
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1694e9ab9048e240800000000000000
+      internalID: 4821174438414554652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_241
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 659b064872507c060800000000000000
+      internalID: 6973548215289297238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_242
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa170fedfed54f70800000000000000
+      internalID: 9170981398428195576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_243
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b512b37787264d510800000000000000
+      internalID: 1572990439395107163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_244
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f582a29f049b1ae60800000000000000
+      internalID: 7971856504131823711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_245
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c45e5de0f23ff9200800000000000000
+      internalID: 189137092810761548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_246
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ce62369b99ddb50800000000000000
+      internalID: 6619616048815991939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_247
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b35f69843861ed250800000000000000
+      internalID: 5971234909054235963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_248
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 769ba808debe22bd0800000000000000
+      internalID: -2656301424898819737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_249
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36a716d0b8979ebd0800000000000000
+      internalID: -2600413671697843613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_250
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ff90db584a6098a0800000000000000
+      internalID: -6300419019680735239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_251
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d766f61dc83e4a9e0800000000000000
+      internalID: -1610912572743129475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_252
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dd4771f39a837620800000000000000
+      internalID: 2770710563778940372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_253
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfb9ec338be87e480800000000000000
+      internalID: -8869964019288597507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_254
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aed7e5e08d8428fb0800000000000000
+      internalID: -4647071772701721110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_255
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4be00a28f66d65b90800000000000000
+      internalID: -7253374375412363596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_256
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8301e58f2fd4602c0800000000000000
+      internalID: -4465796274546929608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_257
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b2c2151d9554f5a0800000000000000
+      internalID: -6488467029982264649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_258
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35356e4d6acee4b80800000000000000
+      internalID: -8408523252973546669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_259
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c23c2ca1b2374c360800000000000000
+      internalID: 7188997534159913772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_260
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa4763089394bc620800000000000000
+      internalID: 2795408505026540719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_261
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e079c4ec1bcc9390800000000000000
+      internalID: -7810144328809352987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_262
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73494983bbf3a0dc0800000000000000
+      internalID: -3672052472826522569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_263
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 322df3af228657ea0800000000000000
+      internalID: -5875675639398280669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_264
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2da56dcd7726d8980800000000000000
+      internalID: -8535057451851556142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldenhelm_265
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12bead8e2ae26d8a0800000000000000
+      internalID: -6280781353095337183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,5148 @@
+fileFormatVersion: 2
+guid: f2cac05025a13a1469bb92279c6132ad
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9044786021765537137
+    second: 0, 0
+  - first:
+      213: -1089144892780137783
+    second: 1, 0
+  - first:
+      213: -2488639020316162581
+    second: 2, 0
+  - first:
+      213: -295113430069471073
+    second: 3, 0
+  - first:
+      213: 6503537453322089983
+    second: 4, 0
+  - first:
+      213: -12264509652025264
+    second: 5, 0
+  - first:
+      213: -3875554222614321790
+    second: 6, 0
+  - first:
+      213: -399767361371280061
+    second: 7, 0
+  - first:
+      213: -6367013011299501219
+    second: 8, 0
+  - first:
+      213: -6437927861772605381
+    second: 9, 0
+  - first:
+      213: -4557654317244500955
+    second: 10, 0
+  - first:
+      213: 5704287153454960976
+    second: 11, 0
+  - first:
+      213: -4029577841673726457
+    second: 12, 0
+  - first:
+      213: 3951226243626129225
+    second: 13, 0
+  - first:
+      213: 2621386314527076407
+    second: 14, 0
+  - first:
+      213: -3800590359052009122
+    second: 15, 0
+  - first:
+      213: 3647156553916755266
+    second: 0, 1
+  - first:
+      213: -699172573524776084
+    second: 1, 1
+  - first:
+      213: -2598636317655206641
+    second: 2, 1
+  - first:
+      213: 7960680161761409807
+    second: 3, 1
+  - first:
+      213: 947080115633142592
+    second: 4, 1
+  - first:
+      213: 270179354809656890
+    second: 5, 1
+  - first:
+      213: 8753485970948776522
+    second: 6, 1
+  - first:
+      213: -1617182061705522964
+    second: 7, 1
+  - first:
+      213: -7759010653134470069
+    second: 8, 1
+  - first:
+      213: 3057679863131800989
+    second: 9, 1
+  - first:
+      213: 932378433391738661
+    second: 10, 1
+  - first:
+      213: 1662000302105716039
+    second: 11, 1
+  - first:
+      213: -4099930426804717323
+    second: 12, 1
+  - first:
+      213: -4169420816879109218
+    second: 13, 1
+  - first:
+      213: 5603623449664155209
+    second: 14, 1
+  - first:
+      213: -5969531577014848311
+    second: 15, 1
+  - first:
+      213: -7025760825990288548
+    second: 0, 2
+  - first:
+      213: 5607560764849394003
+    second: 1, 2
+  - first:
+      213: -2123495546284220226
+    second: 2, 2
+  - first:
+      213: 3753271776765924765
+    second: 3, 2
+  - first:
+      213: -8007533846855061310
+    second: 4, 2
+  - first:
+      213: 8605375992158075039
+    second: 5, 2
+  - first:
+      213: -4585590419691963449
+    second: 6, 2
+  - first:
+      213: -1832874914104159681
+    second: 7, 2
+  - first:
+      213: -644947516374640692
+    second: 8, 2
+  - first:
+      213: 1798426107957860254
+    second: 9, 2
+  - first:
+      213: 4627964863675177963
+    second: 10, 2
+  - first:
+      213: 4233106605251747415
+    second: 11, 2
+  - first:
+      213: 7120417943015572163
+    second: 12, 2
+  - first:
+      213: 4630270302796270173
+    second: 13, 2
+  - first:
+      213: -9008625327577819359
+    second: 14, 2
+  - first:
+      213: 7396855232218386025
+    second: 15, 2
+  - first:
+      213: 1008453939145656331
+    second: 0, 3
+  - first:
+      213: -5688838145115488194
+    second: 1, 3
+  - first:
+      213: -1051512389244718589
+    second: 2, 3
+  - first:
+      213: -5079729399448785023
+    second: 3, 3
+  - first:
+      213: 5660251884462376711
+    second: 4, 3
+  - first:
+      213: 2502068697461925671
+    second: 5, 3
+  - first:
+      213: 5007093723679304401
+    second: 6, 3
+  - first:
+      213: -6815819328393133276
+    second: 7, 3
+  - first:
+      213: -1766430097719656074
+    second: 8, 3
+  - first:
+      213: -9085460965663539512
+    second: 9, 3
+  - first:
+      213: -5845973447769427699
+    second: 10, 3
+  - first:
+      213: -1176051532376333519
+    second: 11, 3
+  - first:
+      213: -2200633934793614226
+    second: 12, 3
+  - first:
+      213: 6833761365142179328
+    second: 13, 3
+  - first:
+      213: -7748934191035761245
+    second: 14, 3
+  - first:
+      213: -2519603704999062185
+    second: 15, 3
+  - first:
+      213: 1121910671679707029
+    second: 0, 4
+  - first:
+      213: -6059541328130880742
+    second: 1, 4
+  - first:
+      213: 3817433794022384911
+    second: 2, 4
+  - first:
+      213: 4797565538569206846
+    second: 3, 4
+  - first:
+      213: -3108477533314671230
+    second: 4, 4
+  - first:
+      213: -3674796410303590298
+    second: 5, 4
+  - first:
+      213: -4418062214283718423
+    second: 6, 4
+  - first:
+      213: 4423934809434418902
+    second: 7, 4
+  - first:
+      213: -8311588842579459666
+    second: 8, 4
+  - first:
+      213: -8716751303841069437
+    second: 9, 4
+  - first:
+      213: 2029782630428570633
+    second: 10, 4
+  - first:
+      213: -5327958033297558998
+    second: 11, 4
+  - first:
+      213: -2845179792342167773
+    second: 12, 4
+  - first:
+      213: 111290579870616309
+    second: 13, 4
+  - first:
+      213: 8214086692810576965
+    second: 14, 4
+  - first:
+      213: -4156703724277028267
+    second: 15, 4
+  - first:
+      213: -5727901431455522701
+    second: 0, 5
+  - first:
+      213: 9033444334087190794
+    second: 1, 5
+  - first:
+      213: 8857434878746710297
+    second: 2, 5
+  - first:
+      213: -2947423126490086715
+    second: 3, 5
+  - first:
+      213: 1236625216908243709
+    second: 4, 5
+  - first:
+      213: -3704621093554223340
+    second: 5, 5
+  - first:
+      213: 8500576920542016266
+    second: 6, 5
+  - first:
+      213: -3754146551050766132
+    second: 7, 5
+  - first:
+      213: 6972506256666100931
+    second: 8, 5
+  - first:
+      213: -2327683321737666931
+    second: 9, 5
+  - first:
+      213: 1665895041920301718
+    second: 10, 5
+  - first:
+      213: 8825993357067770737
+    second: 11, 5
+  - first:
+      213: 8286073823395778478
+    second: 12, 5
+  - first:
+      213: 8389769282557442979
+    second: 13, 5
+  - first:
+      213: -7395873668323384159
+    second: 14, 5
+  - first:
+      213: -6699097718470105055
+    second: 15, 5
+  - first:
+      213: -620837105957682656
+    second: 0, 6
+  - first:
+      213: 231895693195600308
+    second: 1, 6
+  - first:
+      213: 2064706780114635989
+    second: 2, 6
+  - first:
+      213: 4557248067181983057
+    second: 3, 6
+  - first:
+      213: 654209767824446604
+    second: 4, 6
+  - first:
+      213: 3355623505788715414
+    second: 5, 6
+  - first:
+      213: 655697250124038501
+    second: 6, 6
+  - first:
+      213: -8233188811451105483
+    second: 7, 6
+  - first:
+      213: -8037796258871847732
+    second: 8, 6
+  - first:
+      213: 542017343415920866
+    second: 9, 6
+  - first:
+      213: -7514100231299039600
+    second: 10, 6
+  - first:
+      213: -11845221652895550
+    second: 11, 6
+  - first:
+      213: -3853733330629424372
+    second: 12, 6
+  - first:
+      213: 2162063763077580236
+    second: 13, 6
+  - first:
+      213: 1749575944487659871
+    second: 14, 6
+  - first:
+      213: -731847886068724778
+    second: 15, 6
+  - first:
+      213: -2743714266842379729
+    second: 0, 7
+  - first:
+      213: -847721699317345537
+    second: 1, 7
+  - first:
+      213: 593654016243522294
+    second: 2, 7
+  - first:
+      213: -1715076786414945247
+    second: 3, 7
+  - first:
+      213: -1474774162410830463
+    second: 4, 7
+  - first:
+      213: -9200711037479649180
+    second: 5, 7
+  - first:
+      213: 7253357268343335432
+    second: 6, 7
+  - first:
+      213: -2282564693710089177
+    second: 7, 7
+  - first:
+      213: 3570023389078535544
+    second: 8, 7
+  - first:
+      213: 6969207102020706276
+    second: 9, 7
+  - first:
+      213: -2119929767678779684
+    second: 10, 7
+  - first:
+      213: 7969047608236424508
+    second: 11, 7
+  - first:
+      213: -879313335814885572
+    second: 12, 7
+  - first:
+      213: 4657432626263393903
+    second: 13, 7
+  - first:
+      213: 8939087961964790525
+    second: 14, 7
+  - first:
+      213: -3910725700751285853
+    second: 15, 7
+  - first:
+      213: 3640451382535226330
+    second: 0, 8
+  - first:
+      213: -1313939775573398117
+    second: 1, 8
+  - first:
+      213: 4533651441686960279
+    second: 2, 8
+  - first:
+      213: 8925110123084682814
+    second: 3, 8
+  - first:
+      213: 6100074082924094064
+    second: 4, 8
+  - first:
+      213: -46891873089825599
+    second: 5, 8
+  - first:
+      213: -30233754606401839
+    second: 6, 8
+  - first:
+      213: 5600845667547945540
+    second: 7, 8
+  - first:
+      213: 1217601962877624452
+    second: 8, 8
+  - first:
+      213: -6945474301739116315
+    second: 9, 8
+  - first:
+      213: -120717517189127970
+    second: 10, 8
+  - first:
+      213: -4983078450065506595
+    second: 11, 8
+  - first:
+      213: -5501904818998837324
+    second: 12, 8
+  - first:
+      213: 661312858953418789
+    second: 13, 8
+  - first:
+      213: -8583876225786964561
+    second: 14, 8
+  - first:
+      213: -6658344767329924382
+    second: 15, 8
+  - first:
+      213: -5575196374550173287
+    second: 0, 9
+  - first:
+      213: 7350560219720975086
+    second: 1, 9
+  - first:
+      213: -8654536674006226129
+    second: 2, 9
+  - first:
+      213: 649197929054378329
+    second: 3, 9
+  - first:
+      213: -829713552197061713
+    second: 4, 9
+  - first:
+      213: 1559711932296365724
+    second: 5, 9
+  - first:
+      213: -4024820099122304045
+    second: 6, 9
+  - first:
+      213: -1128735415298404735
+    second: 7, 9
+  - first:
+      213: 2689235785106986766
+    second: 8, 9
+  - first:
+      213: -1836017558257656359
+    second: 9, 9
+  - first:
+      213: 1778071094416904612
+    second: 10, 9
+  - first:
+      213: 3711179832988868626
+    second: 11, 9
+  - first:
+      213: 4922729768154948869
+    second: 12, 9
+  - first:
+      213: 612339774362489139
+    second: 13, 9
+  - first:
+      213: 1683524828140587408
+    second: 14, 9
+  - first:
+      213: -3526757566910047356
+    second: 15, 9
+  - first:
+      213: 2161022902928788810
+    second: 0, 10
+  - first:
+      213: 7617385275562574341
+    second: 1, 10
+  - first:
+      213: 6195544543852841596
+    second: 2, 10
+  - first:
+      213: -4148371221433958247
+    second: 3, 10
+  - first:
+      213: 1109786860355573593
+    second: 4, 10
+  - first:
+      213: -9065922519325440684
+    second: 5, 10
+  - first:
+      213: 2814434970188342274
+    second: 6, 10
+  - first:
+      213: 668861202999727119
+    second: 7, 10
+  - first:
+      213: 4469607168208219126
+    second: 8, 10
+  - first:
+      213: -2698856880734701540
+    second: 9, 10
+  - first:
+      213: 2217374801312033330
+    second: 10, 10
+  - first:
+      213: -9004246916833955760
+    second: 11, 10
+  - first:
+      213: -4810516007431950842
+    second: 12, 10
+  - first:
+      213: -6162666467847470974
+    second: 13, 10
+  - first:
+      213: -7065594367402132004
+    second: 14, 10
+  - first:
+      213: -5282879841969473931
+    second: 15, 10
+  - first:
+      213: 4928345377813566977
+    second: 0, 11
+  - first:
+      213: 8070649478152118617
+    second: 1, 11
+  - first:
+      213: -4668796220631751795
+    second: 2, 11
+  - first:
+      213: 980349789850427314
+    second: 3, 11
+  - first:
+      213: 1074909928587944626
+    second: 4, 11
+  - first:
+      213: -768344192976142358
+    second: 5, 11
+  - first:
+      213: 1110020324518148855
+    second: 6, 11
+  - first:
+      213: 8288340498916562634
+    second: 7, 11
+  - first:
+      213: -5435763779821272427
+    second: 8, 11
+  - first:
+      213: 1122191088598278493
+    second: 9, 11
+  - first:
+      213: -8701700610741473478
+    second: 10, 11
+  - first:
+      213: 3037599279931929218
+    second: 11, 11
+  - first:
+      213: -895539301119373613
+    second: 12, 11
+  - first:
+      213: 694530996430459315
+    second: 13, 11
+  - first:
+      213: 2366340681509271620
+    second: 14, 11
+  - first:
+      213: -954102202036514039
+    second: 15, 11
+  - first:
+      213: -1600184675314013669
+    second: 0, 12
+  - first:
+      213: 459934725482671390
+    second: 1, 12
+  - first:
+      213: -2627623018118356387
+    second: 2, 12
+  - first:
+      213: 7953862838232339490
+    second: 3, 12
+  - first:
+      213: -4450788519042227521
+    second: 4, 12
+  - first:
+      213: 1685230746363506194
+    second: 5, 12
+  - first:
+      213: 659749067205010886
+    second: 6, 12
+  - first:
+      213: -7535282973397949678
+    second: 7, 12
+  - first:
+      213: -1240373686369437916
+    second: 8, 12
+  - first:
+      213: 3140794927160170336
+    second: 9, 12
+  - first:
+      213: -6141988220998981209
+    second: 10, 12
+  - first:
+      213: -4378983215149490034
+    second: 11, 12
+  - first:
+      213: 1123804150351029176
+    second: 12, 12
+  - first:
+      213: -686565659161058102
+    second: 13, 12
+  - first:
+      213: -485184143647418830
+    second: 14, 12
+  - first:
+      213: -2712221343191684175
+    second: 15, 12
+  - first:
+      213: 5332998060340971841
+    second: 0, 13
+  - first:
+      213: 7621145974577929057
+    second: 1, 13
+  - first:
+      213: -1510138519484353985
+    second: 2, 13
+  - first:
+      213: 4828602282230448924
+    second: 3, 13
+  - first:
+      213: -7029679409091335502
+    second: 4, 13
+  - first:
+      213: -6264296642241963318
+    second: 5, 13
+  - first:
+      213: 6014208506102015166
+    second: 6, 13
+  - first:
+      213: 1745000447215777763
+    second: 7, 13
+  - first:
+      213: -2720835822395436188
+    second: 8, 13
+  - first:
+      213: -3682468052339454676
+    second: 9, 13
+  - first:
+      213: 9125071527142258154
+    second: 10, 13
+  - first:
+      213: -1186983393506294255
+    second: 11, 13
+  - first:
+      213: -4559489433391679991
+    second: 12, 13
+  - first:
+      213: 7832063928971331991
+    second: 13, 13
+  - first:
+      213: 7444572272321812687
+    second: 14, 13
+  - first:
+      213: -6695774506362275631
+    second: 15, 13
+  - first:
+      213: 2368265254602211193
+    second: 0, 14
+  - first:
+      213: -3204947143203591057
+    second: 1, 14
+  - first:
+      213: -7066784110349262848
+    second: 2, 14
+  - first:
+      213: 3618538040639195619
+    second: 3, 14
+  - first:
+      213: 6344038915250980707
+    second: 4, 14
+  - first:
+      213: -7635101694074357605
+    second: 5, 14
+  - first:
+      213: 3277049409106896368
+    second: 6, 14
+  - first:
+      213: 5021100522401201576
+    second: 7, 14
+  - first:
+      213: -191547722018670372
+    second: 8, 14
+  - first:
+      213: -6141878783397104339
+    second: 9, 14
+  - first:
+      213: -3317706312586437618
+    second: 10, 14
+  - first:
+      213: 5228943620293725538
+    second: 11, 14
+  - first:
+      213: 7486354394324153411
+    second: 12, 14
+  - first:
+      213: 6229586059143984685
+    second: 13, 14
+  - first:
+      213: 2635141763227858294
+    second: 14, 14
+  - first:
+      213: 3875391334991895140
+    second: 15, 14
+  - first:
+      213: 1652016620120282212
+    second: 0, 15
+  - first:
+      213: 6782684021888432416
+    second: 1, 15
+  - first:
+      213: 2474221979613770891
+    second: 2, 15
+  - first:
+      213: 6570083884213697949
+    second: 3, 15
+  - first:
+      213: 2153368719693442348
+    second: 4, 15
+  - first:
+      213: -3036720403410317603
+    second: 5, 15
+  - first:
+      213: -332463183373670988
+    second: 6, 15
+  - first:
+      213: 5188261204226266776
+    second: 7, 15
+  - first:
+      213: 730637271609840691
+    second: 8, 15
+  - first:
+      213: -2472727763698941899
+    second: 9, 15
+  - first:
+      213: 3091490358074042033
+    second: 10, 15
+  - first:
+      213: 6642555879878168279
+    second: 11, 15
+  - first:
+      213: -6547465908815176295
+    second: 12, 15
+  - first:
+      213: 9044314409123542097
+    second: 13, 15
+  - first:
+      213: -8846711469094224122
+    second: 14, 15
+  - first:
+      213: 704022700216865752
+    second: 15, 15
+  - first:
+      213: 7195621425753648647
+    second: maleorcfullsheet_0
+  - first:
+      213: 1123180528785474256
+    second: maleorcfullsheet_1
+  - first:
+      213: 363152585012024790
+    second: maleorcfullsheet_2
+  - first:
+      213: 1927351248391624456
+    second: maleorcfullsheet_3
+  - first:
+      213: 608204385408669658
+    second: maleorcfullsheet_4
+  - first:
+      213: -5732384678488904475
+    second: maleorcfullsheet_5
+  - first:
+      213: -7533203391130776476
+    second: maleorcfullsheet_6
+  - first:
+      213: 1730132193655493134
+    second: maleorcfullsheet_7
+  - first:
+      213: -8925176391936869081
+    second: maleorcfullsheet_8
+  - first:
+      213: -902543242998486638
+    second: maleorcfullsheet_9
+  - first:
+      213: -3980299871517860241
+    second: maleorcfullsheet_10
+  - first:
+      213: 3348292120493783686
+    second: maleorcfullsheet_11
+  - first:
+      213: -6666106538135956950
+    second: maleorcfullsheet_12
+  - first:
+      213: 574419098087514706
+    second: maleorcfullsheet_13
+  - first:
+      213: 3938369572927433349
+    second: maleorcfullsheet_14
+  - first:
+      213: 3625304276698559065
+    second: maleorcfullsheet_15
+  - first:
+      213: 1656649301519551895
+    second: maleorcfullsheet_16
+  - first:
+      213: 2727825089471007889
+    second: maleorcfullsheet_17
+  - first:
+      213: 4849975704201446384
+    second: maleorcfullsheet_18
+  - first:
+      213: -2418198270718069348
+    second: maleorcfullsheet_19
+  - first:
+      213: 1410798187285583768
+    second: maleorcfullsheet_20
+  - first:
+      213: 6965323123641496140
+    second: maleorcfullsheet_21
+  - first:
+      213: -8163382539350908483
+    second: maleorcfullsheet_22
+  - first:
+      213: -4560742005482582456
+    second: maleorcfullsheet_23
+  - first:
+      213: 6270186930736895206
+    second: maleorcfullsheet_24
+  - first:
+      213: 133021119989573141
+    second: maleorcfullsheet_25
+  - first:
+      213: -4466394011578824881
+    second: maleorcfullsheet_26
+  - first:
+      213: -2709863700201172904
+    second: maleorcfullsheet_27
+  - first:
+      213: 1234013759936597065
+    second: maleorcfullsheet_28
+  - first:
+      213: -7181580532556921219
+    second: maleorcfullsheet_29
+  - first:
+      213: -2032425538690042539
+    second: maleorcfullsheet_30
+  - first:
+      213: -8086497939743449327
+    second: maleorcfullsheet_31
+  - first:
+      213: 7829073615433328602
+    second: maleorcfullsheet_32
+  - first:
+      213: -7681048711866407232
+    second: maleorcfullsheet_33
+  - first:
+      213: 7232843816984718329
+    second: maleorcfullsheet_34
+  - first:
+      213: 4754242798274567427
+    second: maleorcfullsheet_35
+  - first:
+      213: -3207827489804312312
+    second: maleorcfullsheet_36
+  - first:
+      213: -9206407825129077211
+    second: maleorcfullsheet_37
+  - first:
+      213: -5713992749727666727
+    second: maleorcfullsheet_38
+  - first:
+      213: -9009342011376989463
+    second: maleorcfullsheet_39
+  - first:
+      213: -7408883501401256602
+    second: maleorcfullsheet_40
+  - first:
+      213: 9121054173278387344
+    second: maleorcfullsheet_41
+  - first:
+      213: 2459714867754679243
+    second: maleorcfullsheet_42
+  - first:
+      213: 4870741875204888007
+    second: maleorcfullsheet_43
+  - first:
+      213: 8443555784521846052
+    second: maleorcfullsheet_44
+  - first:
+      213: 2550180188073434
+    second: maleorcfullsheet_45
+  - first:
+      213: 4200300439064730122
+    second: maleorcfullsheet_46
+  - first:
+      213: 2468005324405069585
+    second: maleorcfullsheet_47
+  - first:
+      213: -3848680819753274834
+    second: maleorcfullsheet_48
+  - first:
+      213: -2183977053593777021
+    second: maleorcfullsheet_49
+  - first:
+      213: -4096383224844126278
+    second: maleorcfullsheet_50
+  - first:
+      213: 8501729968060526617
+    second: maleorcfullsheet_51
+  - first:
+      213: -8069199919032909377
+    second: maleorcfullsheet_52
+  - first:
+      213: 1519290437783300071
+    second: maleorcfullsheet_53
+  - first:
+      213: 7936936924772463184
+    second: maleorcfullsheet_54
+  - first:
+      213: -6782939808405057538
+    second: maleorcfullsheet_55
+  - first:
+      213: -6196317704146112001
+    second: maleorcfullsheet_56
+  - first:
+      213: -4430980959674914097
+    second: maleorcfullsheet_57
+  - first:
+      213: -5291411855977730670
+    second: maleorcfullsheet_58
+  - first:
+      213: 8763989570012340000
+    second: maleorcfullsheet_59
+  - first:
+      213: -894219176536353311
+    second: maleorcfullsheet_60
+  - first:
+      213: -5739583365670015900
+    second: maleorcfullsheet_61
+  - first:
+      213: 6156201731589303387
+    second: maleorcfullsheet_62
+  - first:
+      213: -805671765851656268
+    second: maleorcfullsheet_63
+  - first:
+      213: 6781668126235881391
+    second: maleorcfullsheet_64
+  - first:
+      213: -7566082605584172240
+    second: maleorcfullsheet_65
+  - first:
+      213: -6309122517705188579
+    second: maleorcfullsheet_66
+  - first:
+      213: -2821714714477903149
+    second: maleorcfullsheet_67
+  - first:
+      213: -7182372256176391679
+    second: maleorcfullsheet_68
+  - first:
+      213: -5832811113562513732
+    second: maleorcfullsheet_69
+  - first:
+      213: 7549337217315270383
+    second: maleorcfullsheet_70
+  - first:
+      213: -2546236762654716199
+    second: maleorcfullsheet_71
+  - first:
+      213: -9200380781035775024
+    second: maleorcfullsheet_72
+  - first:
+      213: 5991868615818466195
+    second: maleorcfullsheet_73
+  - first:
+      213: 662802852497390340
+    second: maleorcfullsheet_74
+  - first:
+      213: -1548967264560470876
+    second: maleorcfullsheet_75
+  - first:
+      213: 7742481330286392978
+    second: maleorcfullsheet_76
+  - first:
+      213: -5836620576766059418
+    second: maleorcfullsheet_77
+  - first:
+      213: 8015270902263954153
+    second: maleorcfullsheet_78
+  - first:
+      213: 8743536399980596916
+    second: maleorcfullsheet_79
+  - first:
+      213: 7894028017084016529
+    second: maleorcfullsheet_80
+  - first:
+      213: -3081138184255455200
+    second: maleorcfullsheet_81
+  - first:
+      213: 1408711824041069769
+    second: maleorcfullsheet_82
+  - first:
+      213: 1452594670523438940
+    second: maleorcfullsheet_83
+  - first:
+      213: 2178532913858397654
+    second: maleorcfullsheet_84
+  - first:
+      213: 8499131147161335842
+    second: maleorcfullsheet_85
+  - first:
+      213: -8262803175691113100
+    second: maleorcfullsheet_86
+  - first:
+      213: -3317457068591866187
+    second: maleorcfullsheet_87
+  - first:
+      213: -7103988977669880012
+    second: maleorcfullsheet_88
+  - first:
+      213: 138196663613185279
+    second: maleorcfullsheet_89
+  - first:
+      213: -1088945462792794999
+    second: maleorcfullsheet_90
+  - first:
+      213: 3715147644164216954
+    second: maleorcfullsheet_91
+  - first:
+      213: -642168296730452427
+    second: maleorcfullsheet_92
+  - first:
+      213: -1330155774990788231
+    second: maleorcfullsheet_93
+  - first:
+      213: -4568605900469541536
+    second: maleorcfullsheet_94
+  - first:
+      213: 1262351617689222734
+    second: maleorcfullsheet_95
+  - first:
+      213: 4814156589605409595
+    second: maleorcfullsheet_96
+  - first:
+      213: 1755421584859145077
+    second: maleorcfullsheet_97
+  - first:
+      213: 2938174999399064165
+    second: maleorcfullsheet_98
+  - first:
+      213: -3036155044851755093
+    second: maleorcfullsheet_99
+  - first:
+      213: 8399569242492625853
+    second: maleorcfullsheet_100
+  - first:
+      213: -4180595672170067679
+    second: maleorcfullsheet_101
+  - first:
+      213: -5024248276738796993
+    second: maleorcfullsheet_102
+  - first:
+      213: -6412724840277764857
+    second: maleorcfullsheet_103
+  - first:
+      213: -4222007435348568319
+    second: maleorcfullsheet_104
+  - first:
+      213: 4077600747364448269
+    second: maleorcfullsheet_105
+  - first:
+      213: 4868630046358485676
+    second: maleorcfullsheet_106
+  - first:
+      213: -424357087484953118
+    second: maleorcfullsheet_107
+  - first:
+      213: 3608887033323165836
+    second: maleorcfullsheet_108
+  - first:
+      213: 612287784664063508
+    second: maleorcfullsheet_109
+  - first:
+      213: 2202572457168532011
+    second: maleorcfullsheet_110
+  - first:
+      213: 9055934091480707475
+    second: maleorcfullsheet_111
+  - first:
+      213: -7753476512874918172
+    second: maleorcfullsheet_112
+  - first:
+      213: 6990958839137715016
+    second: maleorcfullsheet_113
+  - first:
+      213: -8611624115344326942
+    second: maleorcfullsheet_114
+  - first:
+      213: 9145231540471166953
+    second: maleorcfullsheet_115
+  - first:
+      213: 4051372340832681580
+    second: maleorcfullsheet_116
+  - first:
+      213: 5874016506630118372
+    second: maleorcfullsheet_117
+  - first:
+      213: 8723207495149222854
+    second: maleorcfullsheet_118
+  - first:
+      213: -3324360693279710634
+    second: maleorcfullsheet_119
+  - first:
+      213: 951142316637653603
+    second: maleorcfullsheet_120
+  - first:
+      213: 8012635701356086493
+    second: maleorcfullsheet_121
+  - first:
+      213: -8757648426128565320
+    second: maleorcfullsheet_122
+  - first:
+      213: -7533742367161631429
+    second: maleorcfullsheet_123
+  - first:
+      213: 7073403070389457317
+    second: maleorcfullsheet_124
+  - first:
+      213: 8745790943817238521
+    second: maleorcfullsheet_125
+  - first:
+      213: -5633124462165592153
+    second: maleorcfullsheet_126
+  - first:
+      213: -5960648529389374359
+    second: maleorcfullsheet_127
+  - first:
+      213: 8199167866890161170
+    second: maleorcfullsheet_128
+  - first:
+      213: 5521778283384120726
+    second: maleorcfullsheet_129
+  - first:
+      213: -8420581520437015229
+    second: maleorcfullsheet_130
+  - first:
+      213: -2993854273164064309
+    second: maleorcfullsheet_131
+  - first:
+      213: 9130683534527174910
+    second: maleorcfullsheet_132
+  - first:
+      213: -2596964998088589970
+    second: maleorcfullsheet_133
+  - first:
+      213: -4467800261068976059
+    second: maleorcfullsheet_134
+  - first:
+      213: 4489646682616087513
+    second: maleorcfullsheet_135
+  - first:
+      213: -4586402421344659400
+    second: maleorcfullsheet_136
+  - first:
+      213: 4736440636270570553
+    second: maleorcfullsheet_137
+  - first:
+      213: 7307903881675818801
+    second: maleorcfullsheet_138
+  - first:
+      213: 6853692377091775501
+    second: maleorcfullsheet_139
+  - first:
+      213: -6947089384334662977
+    second: maleorcfullsheet_140
+  - first:
+      213: 8201921692853427099
+    second: maleorcfullsheet_141
+  - first:
+      213: 7624643500559318548
+    second: maleorcfullsheet_142
+  - first:
+      213: 5706017233703843333
+    second: maleorcfullsheet_143
+  - first:
+      213: -6510876832978199659
+    second: maleorcfullsheet_144
+  - first:
+      213: 9210069676894667079
+    second: maleorcfullsheet_145
+  - first:
+      213: -489223222411704091
+    second: maleorcfullsheet_146
+  - first:
+      213: -390031619892648997
+    second: maleorcfullsheet_147
+  - first:
+      213: 7056782680057044188
+    second: maleorcfullsheet_148
+  - first:
+      213: -8121504696090847918
+    second: maleorcfullsheet_149
+  - first:
+      213: 3064422073756393578
+    second: maleorcfullsheet_150
+  - first:
+      213: 6051937265835788324
+    second: maleorcfullsheet_151
+  - first:
+      213: 8073776895952579486
+    second: maleorcfullsheet_152
+  - first:
+      213: -8004795903785168846
+    second: maleorcfullsheet_153
+  - first:
+      213: 1048256821244451697
+    second: maleorcfullsheet_154
+  - first:
+      213: 2312219350751376478
+    second: maleorcfullsheet_155
+  - first:
+      213: -5118298859019413698
+    second: maleorcfullsheet_156
+  - first:
+      213: -4752687811027884835
+    second: maleorcfullsheet_157
+  - first:
+      213: -4506044655741067741
+    second: maleorcfullsheet_158
+  - first:
+      213: 3030757023551567720
+    second: maleorcfullsheet_159
+  - first:
+      213: 1485177596153584492
+    second: maleorcfullsheet_160
+  - first:
+      213: -3603400483916835618
+    second: maleorcfullsheet_161
+  - first:
+      213: -2807252095892927167
+    second: maleorcfullsheet_162
+  - first:
+      213: 8875513104950518487
+    second: maleorcfullsheet_163
+  - first:
+      213: 6810829731617171685
+    second: maleorcfullsheet_164
+  - first:
+      213: 5096793179662687354
+    second: maleorcfullsheet_165
+  - first:
+      213: 9020886960731118230
+    second: maleorcfullsheet_166
+  - first:
+      213: -348487361091192228
+    second: maleorcfullsheet_167
+  - first:
+      213: 1517618908631263041
+    second: maleorcfullsheet_168
+  - first:
+      213: 2922787992662113889
+    second: maleorcfullsheet_169
+  - first:
+      213: 315189598670945227
+    second: maleorcfullsheet_170
+  - first:
+      213: 4854383510525495929
+    second: maleorcfullsheet_171
+  - first:
+      213: 4419010189643297348
+    second: maleorcfullsheet_172
+  - first:
+      213: -5779632273849169071
+    second: maleorcfullsheet_173
+  - first:
+      213: 6226783028188575653
+    second: maleorcfullsheet_174
+  - first:
+      213: -7207166361824791960
+    second: maleorcfullsheet_175
+  - first:
+      213: 6203247679547422546
+    second: maleorcfullsheet_176
+  - first:
+      213: -3100253397401285413
+    second: maleorcfullsheet_177
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: maleorcfullsheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70e6c3c009bfbd360800000000000000
+      internalID: 7195621425753648647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d2c4e47db6569f00800000000000000
+      internalID: 1123180528785474256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d518ec1a5d2a0500800000000000000
+      internalID: 363152585012024790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 807d9c5bfb35fba10800000000000000
+      internalID: 1927351248391624456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad75e178aa6c07800800000000000000
+      internalID: 608204385408669658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ece6c2a18a7270b0800000000000000
+      internalID: -5732384678488904475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46cc1eaad6fa47790800000000000000
+      internalID: -7533203391130776476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e029d41401aa20810800000000000000
+      internalID: 1730132193655493134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_8
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72d76e0fb57632480800000000000000
+      internalID: -8925176391936869081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29965aec3b58973f0800000000000000
+      internalID: -902543242998486638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_10
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e15aafa5223c8c0800000000000000
+      internalID: -3980299871517860241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_11
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68a754e81f5877e20800000000000000
+      internalID: 3348292120493783686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_12
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a225f7f0c6b3d73a0800000000000000
+      internalID: -6666106538135956950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_13
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 252e4b5502fb8f700800000000000000
+      internalID: 574419098087514706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58aeb8c9246e7a630800000000000000
+      internalID: 3938369572927433349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_15
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 952725f280baf4230800000000000000
+      internalID: 3625304276698559065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79dc87e23c99df610800000000000000
+      internalID: 1656649301519551895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_17
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19c415b577e2bd520800000000000000
+      internalID: 2727825089471007889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f3c33ae4339e4340800000000000000
+      internalID: 4849975704201446384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_19
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c95b2652c75d07ed0800000000000000
+      internalID: -2418198270718069348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_20
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8971ce20a79249310800000000000000
+      internalID: 1410798187285583768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4237722a7cc9a060800000000000000
+      internalID: 6965323123641496140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db1ec58f4d6d5be80800000000000000
+      internalID: -8163382539350908483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_23
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84e02035f4df4b0c0800000000000000
+      internalID: -4560742005482582456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_24
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e49ed9eacd240750800000000000000
+      internalID: 6270186930736895206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_25
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5166a9cf00698d100800000000000000
+      internalID: 133021119989573141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_26
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4789e87f4e2402c0800000000000000
+      internalID: -4466394011578824881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_27
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85098c77251a46ad0800000000000000
+      internalID: -2709863700201172904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c07f00af8102110800000000000000
+      internalID: 1234013759936597065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_29
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7685172e86e55c90800000000000000
+      internalID: -7181580532556921219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_30
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 555b2f5adbf5bc3e0800000000000000
+      internalID: -2032425538690042539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_31
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11fd9a8c7fcf6cf80800000000000000
+      internalID: -8086497939743449327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_32
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad7694819f476ac60800000000000000
+      internalID: 7829073615433328602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_33
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c62bba74ee676590800000000000000
+      internalID: -7681048711866407232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_34
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fb214b5129306460800000000000000
+      internalID: 7232843816984718329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_35
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30d5d1fc2a67af140800000000000000
+      internalID: 4754242798274567427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8012b71d4e18b73d0800000000000000
+      internalID: -3207827489804312312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_37
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5260ec55cd44c3080800000000000000
+      internalID: -9206407825129077211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_38
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dd235f3ed1d3b0b0800000000000000
+      internalID: -5713992749727666727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_39
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ea0fd79c2368f280800000000000000
+      internalID: -9009342011376989463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_40
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66dc9bc95bb5e2990800000000000000
+      internalID: -7408883501401256602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_41
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09c3a57f17e749e70800000000000000
+      internalID: 9121054173278387344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_42
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcbb34dd3a9a22220800000000000000
+      internalID: 2459714867754679243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_43
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c51530ede9589340800000000000000
+      internalID: 4870741875204888007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_44
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42d8e9900498d2570800000000000000
+      internalID: 8443555784521846052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_45
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: add2938106f090000800000000000000
+      internalID: 2550180188073434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_46
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0ade54cef67a4a30800000000000000
+      internalID: 4200300439064730122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_47
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 117dfe834cd104220800000000000000
+      internalID: 2468005324405069585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_48
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e223fb48f2db69ac0800000000000000
+      internalID: -3848680819753274834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_49
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38c40f2e074f0b1e0800000000000000
+      internalID: -2183977053593777021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_50
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab7fb4b1929b627c0800000000000000
+      internalID: -4096383224844126278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_51
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9107a82ac563cf570800000000000000
+      internalID: 8501729968060526617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb1ce641d61740090800000000000000
+      internalID: -8069199919032909377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_53
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e7a8b68a9a951510800000000000000
+      internalID: 1519290437783300071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_54
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0527eb5d41aa52e60800000000000000
+      internalID: 7936936924772463184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_55
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eff092b8e282ed1a0800000000000000
+      internalID: -6782939808405057538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_56
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff138e8a0e1420aa0800000000000000
+      internalID: -6196317704146112001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_57
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcaae042b4ef182c0800000000000000
+      internalID: -4430980959674914097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_58
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29d282cb3f02196b0800000000000000
+      internalID: -5291411855977730670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_59
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02f50df8412ff9970800000000000000
+      internalID: 8763989570012340000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e5553f85681793f0800000000000000
+      internalID: -894219176536353311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_61
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46c6f7aa657e850b0800000000000000
+      internalID: -5739583365670015900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_62
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5c6601abd83f6550800000000000000
+      internalID: 6156201731589303387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_63
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bfa9de2ccda1d4f0800000000000000
+      internalID: -805671765851656268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_64
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fafe0e0ea335d1e50800000000000000
+      internalID: 6781668126235881391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_65
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03bb4e005ffdff690800000000000000
+      internalID: -7566082605584172240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_66
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1b93cf4f7e7178a0800000000000000
+      internalID: -6309122517705188579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_67
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d24d02da6147d8d0800000000000000
+      internalID: -2821714714477903149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_68
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10a3cf1ac76135c90800000000000000
+      internalID: -7182372256176391679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_69
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbed72e1231bd0fa0800000000000000
+      internalID: -5832811113562513732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_70
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fee66b77332a4c860800000000000000
+      internalID: 7549337217315270383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_71
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9decce7a723f9acd0800000000000000
+      internalID: -2546236762654716199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_72
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0db1804ec6ea15080800000000000000
+      internalID: -9200380781035775024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_73
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 393dba282c4672350800000000000000
+      internalID: 5991868615818466195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_74
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40bf833ceafb23900800000000000000
+      internalID: 662802852497390340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_75
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a42a2bca76f08ae0800000000000000
+      internalID: -1548967264560470876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_76
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29670db9fb1d27b60800000000000000
+      internalID: 7742481330286392978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_77
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66c9f195288200fa0800000000000000
+      internalID: -5836620576766059418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_78
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eab7fb3b66fb3f60800000000000000
+      internalID: 8015270902263954153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_79
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4be8a81d708475970800000000000000
+      internalID: 8743536399980596916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_80
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 197264d38a83d8d60800000000000000
+      internalID: 7894028017084016529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_81
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 020cf8f55299d35d0800000000000000
+      internalID: -3081138184255455200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_82
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cc4cd6b0ffbc8310800000000000000
+      internalID: 1408711824041069769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_83
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c57dc2b1827a82410800000000000000
+      internalID: 1452594670523438940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_84
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d5c60e8424bb3e10800000000000000
+      internalID: 2178532913858397654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_85
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 228720e7fbaf2f570800000000000000
+      internalID: 8499131147161335842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_86
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47d26f73a40a45d80800000000000000
+      internalID: -8262803175691113100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_87
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5be19fc6f5606f1d0800000000000000
+      internalID: -3317457068591866187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_88
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43742b1d9af896d90800000000000000
+      internalID: -7103988977669880012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_89
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffcdec32229fae100800000000000000
+      internalID: 138196663613185279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_90
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98c467efed943e0f0800000000000000
+      internalID: -1088945462792794999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_91
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a789982491bde8330800000000000000
+      internalID: 3715147644164216954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_92
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53e1d53265f8617f0800000000000000
+      internalID: -642168296730452427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_93
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9795dbfbe565a8de0800000000000000
+      internalID: -1330155774990788231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_94
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06562c7932d0990c0800000000000000
+      internalID: -4568605900469541536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_95
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4e710aab16c48110800000000000000
+      internalID: 1262351617689222734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_96
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b33598869e15fc240800000000000000
+      internalID: 4814156589605409595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_97
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 573259c71a28c5810800000000000000
+      internalID: 1755421584859145077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_98
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5626d17489e76c820800000000000000
+      internalID: 2938174999399064165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_99
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba7d99ca2196dd5d0800000000000000
+      internalID: -3036155044851755093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_100
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db3e11529b3419470800000000000000
+      internalID: 8399569242492625853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_101
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12984cac26a8bf5c0800000000000000
+      internalID: -4180595672170067679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_102
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f329d99dfc8464ab0800000000000000
+      internalID: -5024248276738796993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_103
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7059becdbbc6107a0800000000000000
+      internalID: -6412724840277764857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_104
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1079df05b9a6865c0800000000000000
+      internalID: -4222007435348568319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_105
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d087682964c869830800000000000000
+      internalID: 4077600747364448269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_106
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caabdf76b39d09340800000000000000
+      internalID: 4868630046358485676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_107
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ed3a8e2a716c1af0800000000000000
+      internalID: -424357087484953118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_108
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c889db7d2a7551230800000000000000
+      internalID: 3608887033323165836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_109
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41e56310f784f7800800000000000000
+      internalID: 612287784664063508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_110
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b22f695eafb119e10800000000000000
+      internalID: 2202572457168532011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_111
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 391be0863142dad70800000000000000
+      internalID: 9055934091480707475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_112
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ee81c3f03e166490800000000000000
+      internalID: -7753476512874918172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_113
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8434e264600e40160800000000000000
+      internalID: 6990958839137715016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_114
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eeb6b15e7d5d7880800000000000000
+      internalID: -8611624115344326942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_115
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e77b7ee1a36aee70800000000000000
+      internalID: 9145231540471166953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_116
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6ebc2ccdad593830800000000000000
+      internalID: 4051372340832681580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_117
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eb187214e2b48150800000000000000
+      internalID: 5874016506630118372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_118
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cbf462dffe0f0970800000000000000
+      internalID: 8723207495149222854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_119
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 652aacb009f7dd1d0800000000000000
+      internalID: -3324360693279710634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_120
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36a870ac5e2233d00800000000000000
+      internalID: 951142316637653603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_121
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd441f5b7b9923f60800000000000000
+      internalID: 8012635701356086493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_122
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bb19dc0825967680800000000000000
+      internalID: -8757648426128565320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_123
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3d35088b35c27790800000000000000
+      internalID: -7533742367161631429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_124
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a198b3bd96c92260800000000000000
+      internalID: 7073403070389457317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_125
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f70e06b68a4f5970800000000000000
+      internalID: 8745790943817238521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_126
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a77e01b52f13d1b0800000000000000
+      internalID: -5633124462165592153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_127
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 964bace4eb5874da0800000000000000
+      internalID: -5960648529389374359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_128
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21c09cfdbbb49c170800000000000000
+      internalID: 8199167866890161170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_129
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 695a395d71c41ac40800000000000000
+      internalID: 5521778283384120726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_130
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34d0228a8b5142b80800000000000000
+      internalID: -8420581520437015229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_131
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc945c29661b376d0800000000000000
+      internalID: -2993854273164064309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_132
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef810085c44b6be70800000000000000
+      internalID: 9130683534527174910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_133
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6d7ec2f71ab5fbd0800000000000000
+      internalID: -2596964998088589970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_134
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 540169f755f2ff1c0800000000000000
+      internalID: -4467800261068976059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_135
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d3c754eedd6e4e30800000000000000
+      internalID: 4489646682616087513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_136
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83892ce2c43d950c0800000000000000
+      internalID: -4586402421344659400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_137
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93ce1a8f9a73bb140800000000000000
+      internalID: 4736440636270570553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_138
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1374cf78cd3ea6560800000000000000
+      internalID: 7307903881675818801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_139
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0c9b5097e43d1f50800000000000000
+      internalID: 6853692377091775501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_140
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb268df130bf69f90800000000000000
+      internalID: -6947089384334662977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_141
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9b5912f25413d170800000000000000
+      internalID: 8201921692853427099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_142
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41e34dddddc20d960800000000000000
+      internalID: 7624643500559318548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_143
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 506bc293178df2f40800000000000000
+      internalID: 5706017233703843333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_144
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59b930a3408b4a5a0800000000000000
+      internalID: -6510876832978199659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_145
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74147e7f29db0df70800000000000000
+      internalID: 9210069676894667079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_146
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e8474c321ee539f0800000000000000
+      internalID: -489223222411704091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_147
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd3e025ee44569af0800000000000000
+      internalID: -390031619892648997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_148
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdcdde5857abee160800000000000000
+      internalID: 7056782680057044188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_149
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25596db228e9a4f80800000000000000
+      internalID: -8121504696090847918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_150
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a60ad1cd3a3078a20800000000000000
+      internalID: 3064422073756393578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_151
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4284715f0ecccf350800000000000000
+      internalID: 6051937265835788324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_152
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9b62076f41db0070800000000000000
+      internalID: 8073776895952579486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_153
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2301267698049e090800000000000000
+      internalID: -8004795903785168846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_154
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17bd7a766082c8e00800000000000000
+      internalID: 1048256821244451697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_155
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e54f154bf37a61020800000000000000
+      internalID: 2312219350751376478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_156
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e375cdd3e4628f8b0800000000000000
+      internalID: -5118298859019413698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_157
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd4aa5fdd9f0b0eb0800000000000000
+      internalID: -4752687811027884835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_158
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32e918872405771c0800000000000000
+      internalID: -4506044655741067741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_159
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 867bf4d84796f0a20800000000000000
+      internalID: 3030757023551567720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_160
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6b5a17a7296c9410800000000000000
+      internalID: 1485177596153584492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_161
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed49aacf9562efdc0800000000000000
+      internalID: -3603400483916835618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_162
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14dc45d9713aa09d0800000000000000
+      internalID: -2807252095892927167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_163
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d266ebf4282c2b70800000000000000
+      internalID: 8875513104950518487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_164
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e8e5ba3e8de48e50800000000000000
+      internalID: 6810829731617171685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_165
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7c9d6794627bb640800000000000000
+      internalID: 5096793179662687354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_166
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69ad45565e0a03d70800000000000000
+      internalID: 9020886960731118230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_167
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5a3279679ce92bf0800000000000000
+      internalID: -348487361091192228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_168
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 147e1615b5aaf0510800000000000000
+      internalID: 1517618908631263041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_169
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16ef6689134df8820800000000000000
+      internalID: 2922787992662113889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_170
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcbfda12547cf5400800000000000000
+      internalID: 315189598670945227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_171
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97ac26c451c3e5340800000000000000
+      internalID: 4854383510525495929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_172
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4423584ca5a735d30800000000000000
+      internalID: 4419010189643297348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_173
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15b46d8911f9acfa0800000000000000
+      internalID: -5779632273849169071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_174
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a77c985c2af96650800000000000000
+      internalID: 6226783028188575653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_175
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 862f94e01600bfb90800000000000000
+      internalID: -7207166361824791960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_176
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 257b039f5ec561650800000000000000
+      internalID: 6203247679547422546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maleorcfullsheet_177
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdcc23ef5ffa9f4d0800000000000000
+      internalID: -3100253397401285413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b2666aed65da03e40ab1177e42cc8999
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

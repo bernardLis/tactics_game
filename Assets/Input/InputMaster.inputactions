@@ -2,172 +2,6 @@
     "name": "InputMaster",
     "maps": [
         {
-            "name": "FMPlayer",
-            "id": "0ccd06b9-f131-470c-be50-ef1863cc3e26",
-            "actions": [
-                {
-                    "name": "Movement",
-                    "type": "Button",
-                    "id": "750d8564-d89e-4c1d-b869-d067d9006619",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Sneak",
-                    "type": "Button",
-                    "id": "c0bb7937-33d3-412f-b434-76c14eeba3d1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "2dcc2bfe-8366-4ed3-982e-b6c6e1b40f74",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Rush",
-                    "type": "Button",
-                    "id": "77c52d3d-b8c2-4653-ab31-e40a7b9ee1fd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "EnableQuestUI",
-                    "type": "Button",
-                    "id": "2c929326-04e1-4033-a0ce-3c1758da7867",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "EnableInventoryUI",
-                    "type": "Button",
-                    "id": "bd26f55a-b710-4483-9573-d99630bbe1d2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "arrowKeys",
-                    "id": "3b9bee84-1b33-40c1-a54b-e0a94674e0b0",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "89328f61-590e-4d63-9eb9-2cd848414a50",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "724401c0-ece9-4c9f-a764-1c46c0f561bf",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "0b084813-8bdd-4545-8cb0-dbb3b3ab32fc",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "e8c8c638-8560-494e-8b51-93fc25c3b279",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "b3cc2aea-0aed-4472-90b7-5c13e4a48562",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Sneak",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a38c0af5-247e-4890-92dc-a3dc8dfc5aa5",
-                    "path": "<Keyboard>/f",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "106f92e9-5f65-41a9-b770-a1c75913ce9a",
-                    "path": "<Keyboard>/leftAlt",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Rush",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "77ed70b5-3822-475e-aa22-c11a3184a72a",
-                    "path": "<Keyboard>/j",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "EnableQuestUI",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4d695f77-e46c-4433-a52e-d80c097119d8",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "EnableInventoryUI",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "Player",
             "id": "e053d83d-8535-4868-a630-72c397b5d7c3",
             "actions": [
@@ -207,6 +41,70 @@
                     "name": "Back",
                     "type": "Button",
                     "id": "7c78f711-47be-47b3-b3e1-04865a1d14a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LeftMouseClick",
+                    "type": "Button",
+                    "id": "6a73f7fa-bf06-4d7e-ac53-fa6e2c526e46",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ArrowUpClick",
+                    "type": "Button",
+                    "id": "41d80404-79c8-4c07-bb6a-55568b64eca2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ArrowDownClick",
+                    "type": "Button",
+                    "id": "54747ac8-dbe3-464d-b73c-87c128a022f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ArrowLeftClick",
+                    "type": "Button",
+                    "id": "698338ce-238a-449f-830c-270be72b0f80",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ArrowRightClick",
+                    "type": "Button",
+                    "id": "6faa3e42-d72b-4e67-8a54-f7d6d772fd4e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectClick",
+                    "type": "Button",
+                    "id": "581d02ac-c4e3-418e-ac16-a6dbc3bbc39e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ZoomOut",
+                    "type": "Button",
+                    "id": "0f94d516-b444-4a32-af0a-d47b86fc77e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ZoomIn",
+                    "type": "Button",
+                    "id": "28561bfc-00d2-47fe-97ef-87a6df8882ab",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -267,66 +165,10 @@
                     "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "MovePoint",
-            "id": "a6bbacf3-6b2d-4c79-937a-bbf4affd75a6",
-            "actions": [
-                {
-                    "name": "LeftMouseClick",
-                    "type": "Button",
-                    "id": "ffc9d8cd-2db4-4dba-94ee-76bc6d4f1ccf",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 },
-                {
-                    "name": "ArrowUpClick",
-                    "type": "Button",
-                    "id": "9862e19d-05df-47be-be51-1ab349958c99",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ArrowDownClick",
-                    "type": "Button",
-                    "id": "e5b88a02-9e34-4ff4-b96b-55956eefbb14",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ArrowLeftClick",
-                    "type": "Button",
-                    "id": "4b9a24f8-5516-4072-99fc-f367e8b77572",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ArrowRightClick",
-                    "type": "Button",
-                    "id": "96ad6dff-3e53-4371-a4a8-ddf1f72a3fdb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "SelectClick",
-                    "type": "Button",
-                    "id": "2ed3cc7b-5140-41cb-a825-9fb5013009a7",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
                 {
                     "name": "",
-                    "id": "eefbdc5d-670f-414b-946d-53c989c66716",
+                    "id": "fe2c0d37-b13f-4f2f-8028-26b55420ca74",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press",
                     "processors": "",
@@ -337,29 +179,7 @@
                 },
                 {
                     "name": "",
-                    "id": "eb15c8c4-7262-4594-aafa-154057343b2f",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "ArrowDownClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "635e1f40-1496-4ab3-b494-08c316d7c924",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "ArrowRightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "852f1e61-3032-45e6-9f00-c7783d7b5b76",
+                    "id": "efbe31bd-deaa-4b88-b46a-fc30e3cc9c32",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "Press",
                     "processors": "",
@@ -370,7 +190,18 @@
                 },
                 {
                     "name": "",
-                    "id": "3981e1bf-2caf-485d-9801-c994937c468c",
+                    "id": "86fac896-41c7-41f7-b264-fda9ed6f3243",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ArrowDownClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20ce7863-0d9b-41c0-8323-60a7cf95c7a3",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "Press",
                     "processors": "",
@@ -381,7 +212,18 @@
                 },
                 {
                     "name": "",
-                    "id": "2d97653c-91fe-42d4-8935-3edf3a3325c2",
+                    "id": "b08bc65f-d8e4-4a61-9d7e-54de02fa536d",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ArrowRightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d72a8822-1533-426c-be42-e739aa829a07",
                     "path": "<Keyboard>/f",
                     "interactions": "Press",
                     "processors": "",
@@ -389,50 +231,26 @@
                     "action": "SelectClick",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Camera",
-            "id": "6acef09f-51be-42af-98ff-1d9ba56da734",
-            "actions": [
-                {
-                    "name": "ZoomIn",
-                    "type": "Button",
-                    "id": "90144bf6-53bc-418a-85f0-bfc6c835e492",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ZoomOut",
-                    "type": "Button",
-                    "id": "ab881bbc-f354-44a3-a1e0-5aaf6e0f7f9e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "c78ce989-565c-4888-8940-6adbd6b272c3",
-                    "path": "<Keyboard>/comma",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "ZoomIn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4b4df95a-9356-4f8d-8b34-09bac762c800",
+                    "id": "aba80308-1ab1-4b94-af1d-95a9276bdab4",
                     "path": "<Keyboard>/period",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "ZoomOut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c220781-60e0-4033-a4db-76c06987f93c",
+                    "path": "<Keyboard>/comma",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ZoomIn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

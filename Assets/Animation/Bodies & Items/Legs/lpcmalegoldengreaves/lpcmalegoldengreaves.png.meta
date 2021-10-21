@@ -1,0 +1,4665 @@
+fileFormatVersion: 2
+guid: 1674addcbd3102b40bfb849dc6ea0837
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5681900529947119667
+    second: lpcmalegoldengreaves_0
+  - first:
+      213: -584321679174259105
+    second: lpcmalegoldengreaves_1
+  - first:
+      213: 5156998669133914385
+    second: lpcmalegoldengreaves_2
+  - first:
+      213: -1656299956142557787
+    second: lpcmalegoldengreaves_3
+  - first:
+      213: -7970899102699047935
+    second: lpcmalegoldengreaves_4
+  - first:
+      213: 1898587133251290657
+    second: lpcmalegoldengreaves_5
+  - first:
+      213: -1748486136828833068
+    second: lpcmalegoldengreaves_6
+  - first:
+      213: -3771668297499694231
+    second: lpcmalegoldengreaves_7
+  - first:
+      213: 6252252019230553245
+    second: lpcmalegoldengreaves_8
+  - first:
+      213: -6901626692535638155
+    second: lpcmalegoldengreaves_9
+  - first:
+      213: -8390824944679129916
+    second: lpcmalegoldengreaves_10
+  - first:
+      213: 3958613930889306528
+    second: lpcmalegoldengreaves_11
+  - first:
+      213: 107263625228889003
+    second: lpcmalegoldengreaves_12
+  - first:
+      213: 7739112379332225941
+    second: lpcmalegoldengreaves_13
+  - first:
+      213: -4409120409653937737
+    second: lpcmalegoldengreaves_14
+  - first:
+      213: -1312151462726913599
+    second: lpcmalegoldengreaves_15
+  - first:
+      213: 6412596932107754472
+    second: lpcmalegoldengreaves_16
+  - first:
+      213: -1327882056644459152
+    second: lpcmalegoldengreaves_17
+  - first:
+      213: 942780943041686718
+    second: lpcmalegoldengreaves_18
+  - first:
+      213: -8582872731789298756
+    second: lpcmalegoldengreaves_19
+  - first:
+      213: -7044620335917526740
+    second: lpcmalegoldengreaves_20
+  - first:
+      213: -2631002676069151137
+    second: lpcmalegoldengreaves_21
+  - first:
+      213: 5632576124617278470
+    second: lpcmalegoldengreaves_22
+  - first:
+      213: -3503001297622468350
+    second: lpcmalegoldengreaves_23
+  - first:
+      213: 5494103514774630408
+    second: lpcmalegoldengreaves_24
+  - first:
+      213: -3400177116865487235
+    second: lpcmalegoldengreaves_25
+  - first:
+      213: 5872775913151323691
+    second: lpcmalegoldengreaves_26
+  - first:
+      213: 3484239359860391087
+    second: lpcmalegoldengreaves_27
+  - first:
+      213: -8771593209299563987
+    second: lpcmalegoldengreaves_28
+  - first:
+      213: -3451069288334109089
+    second: lpcmalegoldengreaves_29
+  - first:
+      213: 8042191711465425377
+    second: lpcmalegoldengreaves_30
+  - first:
+      213: 5368616010848873698
+    second: lpcmalegoldengreaves_31
+  - first:
+      213: -4398678504505479086
+    second: lpcmalegoldengreaves_32
+  - first:
+      213: 4615458157441461468
+    second: lpcmalegoldengreaves_33
+  - first:
+      213: 1553176464995737950
+    second: lpcmalegoldengreaves_34
+  - first:
+      213: 4008222662494291389
+    second: lpcmalegoldengreaves_35
+  - first:
+      213: 5971913923805438132
+    second: lpcmalegoldengreaves_36
+  - first:
+      213: -3008918058013734410
+    second: lpcmalegoldengreaves_37
+  - first:
+      213: 7270236827895380371
+    second: lpcmalegoldengreaves_38
+  - first:
+      213: -2599353130665573317
+    second: lpcmalegoldengreaves_39
+  - first:
+      213: 4303623156037931876
+    second: lpcmalegoldengreaves_40
+  - first:
+      213: -8245232072412781027
+    second: lpcmalegoldengreaves_41
+  - first:
+      213: -4671608201130921768
+    second: lpcmalegoldengreaves_42
+  - first:
+      213: -8800522468184239616
+    second: lpcmalegoldengreaves_43
+  - first:
+      213: -7903795463935745357
+    second: lpcmalegoldengreaves_44
+  - first:
+      213: 6567267050483255419
+    second: lpcmalegoldengreaves_45
+  - first:
+      213: -6275111085807332377
+    second: lpcmalegoldengreaves_46
+  - first:
+      213: -896948342635158820
+    second: lpcmalegoldengreaves_47
+  - first:
+      213: -2037616291890855924
+    second: lpcmalegoldengreaves_48
+  - first:
+      213: -2638733721060108129
+    second: lpcmalegoldengreaves_49
+  - first:
+      213: 3721458519751141861
+    second: lpcmalegoldengreaves_50
+  - first:
+      213: -3592185975955145129
+    second: lpcmalegoldengreaves_51
+  - first:
+      213: 1104519857513546821
+    second: lpcmalegoldengreaves_52
+  - first:
+      213: 7704227302243288889
+    second: lpcmalegoldengreaves_53
+  - first:
+      213: -1447844184075989288
+    second: lpcmalegoldengreaves_54
+  - first:
+      213: 7804007521118531653
+    second: lpcmalegoldengreaves_55
+  - first:
+      213: 2996776840980465467
+    second: lpcmalegoldengreaves_56
+  - first:
+      213: 6790969437692370359
+    second: lpcmalegoldengreaves_57
+  - first:
+      213: -6064840465672105126
+    second: lpcmalegoldengreaves_58
+  - first:
+      213: -1356499134715067180
+    second: lpcmalegoldengreaves_59
+  - first:
+      213: -3323994267304569056
+    second: lpcmalegoldengreaves_60
+  - first:
+      213: 704806091230356561
+    second: lpcmalegoldengreaves_61
+  - first:
+      213: 8593544159039057725
+    second: lpcmalegoldengreaves_62
+  - first:
+      213: -494404831433141207
+    second: lpcmalegoldengreaves_63
+  - first:
+      213: 6655319810732010443
+    second: lpcmalegoldengreaves_64
+  - first:
+      213: 6081189079468118822
+    second: lpcmalegoldengreaves_65
+  - first:
+      213: -1970354151089624150
+    second: lpcmalegoldengreaves_66
+  - first:
+      213: -3250942258980680745
+    second: lpcmalegoldengreaves_67
+  - first:
+      213: 1873424020295078119
+    second: lpcmalegoldengreaves_68
+  - first:
+      213: 563150392845771261
+    second: lpcmalegoldengreaves_69
+  - first:
+      213: -7014386858673668868
+    second: lpcmalegoldengreaves_70
+  - first:
+      213: 6168676211907696366
+    second: lpcmalegoldengreaves_71
+  - first:
+      213: -8613904044151360479
+    second: lpcmalegoldengreaves_72
+  - first:
+      213: 1994310414932484195
+    second: lpcmalegoldengreaves_73
+  - first:
+      213: 4447288859895763046
+    second: lpcmalegoldengreaves_74
+  - first:
+      213: 1708476023875832040
+    second: lpcmalegoldengreaves_75
+  - first:
+      213: 3152333978256013021
+    second: lpcmalegoldengreaves_76
+  - first:
+      213: 3128739787976679701
+    second: lpcmalegoldengreaves_77
+  - first:
+      213: 8812652092582842475
+    second: lpcmalegoldengreaves_78
+  - first:
+      213: -1044122933737369559
+    second: lpcmalegoldengreaves_79
+  - first:
+      213: -2442467378351050905
+    second: lpcmalegoldengreaves_80
+  - first:
+      213: 5935538818499825949
+    second: lpcmalegoldengreaves_81
+  - first:
+      213: -8584204276217566350
+    second: lpcmalegoldengreaves_82
+  - first:
+      213: -7924302833018780003
+    second: lpcmalegoldengreaves_83
+  - first:
+      213: -1312442451668331185
+    second: lpcmalegoldengreaves_84
+  - first:
+      213: -323020369207917383
+    second: lpcmalegoldengreaves_85
+  - first:
+      213: 4963206145007945905
+    second: lpcmalegoldengreaves_86
+  - first:
+      213: -8706639562711448886
+    second: lpcmalegoldengreaves_87
+  - first:
+      213: 421333845893588316
+    second: lpcmalegoldengreaves_88
+  - first:
+      213: 2369938008946177368
+    second: lpcmalegoldengreaves_89
+  - first:
+      213: -1586809080141756987
+    second: lpcmalegoldengreaves_90
+  - first:
+      213: -4963292402043531387
+    second: lpcmalegoldengreaves_91
+  - first:
+      213: 5759859897573330496
+    second: lpcmalegoldengreaves_92
+  - first:
+      213: 131123208698098576
+    second: lpcmalegoldengreaves_93
+  - first:
+      213: 9045371631399343185
+    second: lpcmalegoldengreaves_94
+  - first:
+      213: -7831821669594207083
+    second: lpcmalegoldengreaves_95
+  - first:
+      213: 8790678708381221190
+    second: lpcmalegoldengreaves_96
+  - first:
+      213: -1930747674654621297
+    second: lpcmalegoldengreaves_97
+  - first:
+      213: -6447590607777786526
+    second: lpcmalegoldengreaves_98
+  - first:
+      213: 8466723142114772613
+    second: lpcmalegoldengreaves_99
+  - first:
+      213: -4503121917010759598
+    second: lpcmalegoldengreaves_100
+  - first:
+      213: -7755674093085467081
+    second: lpcmalegoldengreaves_101
+  - first:
+      213: -3834105941713207090
+    second: lpcmalegoldengreaves_102
+  - first:
+      213: 88379378618040757
+    second: lpcmalegoldengreaves_103
+  - first:
+      213: -2814685141390369192
+    second: lpcmalegoldengreaves_104
+  - first:
+      213: 5954870610152226574
+    second: lpcmalegoldengreaves_105
+  - first:
+      213: -680638714921033684
+    second: lpcmalegoldengreaves_106
+  - first:
+      213: -4617099380942420858
+    second: lpcmalegoldengreaves_107
+  - first:
+      213: -1921850572970868845
+    second: lpcmalegoldengreaves_108
+  - first:
+      213: 3910400534871792624
+    second: lpcmalegoldengreaves_109
+  - first:
+      213: 6820818688274263093
+    second: lpcmalegoldengreaves_110
+  - first:
+      213: 6837041548492753152
+    second: lpcmalegoldengreaves_111
+  - first:
+      213: -4470746759753548925
+    second: lpcmalegoldengreaves_112
+  - first:
+      213: 3889992113236296230
+    second: lpcmalegoldengreaves_113
+  - first:
+      213: -9189626342489984824
+    second: lpcmalegoldengreaves_114
+  - first:
+      213: 4636110180952835503
+    second: lpcmalegoldengreaves_115
+  - first:
+      213: 1978847563774119792
+    second: lpcmalegoldengreaves_116
+  - first:
+      213: 1151490987831529076
+    second: lpcmalegoldengreaves_117
+  - first:
+      213: -8739774268622943876
+    second: lpcmalegoldengreaves_118
+  - first:
+      213: -2056773126830566684
+    second: lpcmalegoldengreaves_119
+  - first:
+      213: 562192158514000869
+    second: lpcmalegoldengreaves_120
+  - first:
+      213: -5433036300551358818
+    second: lpcmalegoldengreaves_121
+  - first:
+      213: -6859027122133566661
+    second: lpcmalegoldengreaves_122
+  - first:
+      213: -8092505669657875957
+    second: lpcmalegoldengreaves_123
+  - first:
+      213: 4999252119167487133
+    second: lpcmalegoldengreaves_124
+  - first:
+      213: 8081549160793372194
+    second: lpcmalegoldengreaves_125
+  - first:
+      213: 6327147233293796626
+    second: lpcmalegoldengreaves_126
+  - first:
+      213: 7611121542985692974
+    second: lpcmalegoldengreaves_127
+  - first:
+      213: 2432753762651248071
+    second: lpcmalegoldengreaves_128
+  - first:
+      213: -3435601293270072835
+    second: lpcmalegoldengreaves_129
+  - first:
+      213: 5308758447400528902
+    second: lpcmalegoldengreaves_130
+  - first:
+      213: -4496259616743921281
+    second: lpcmalegoldengreaves_131
+  - first:
+      213: 3139934646571119704
+    second: lpcmalegoldengreaves_132
+  - first:
+      213: -9006071393301923526
+    second: lpcmalegoldengreaves_133
+  - first:
+      213: 1936994107695940720
+    second: lpcmalegoldengreaves_134
+  - first:
+      213: -1250969437763563074
+    second: lpcmalegoldengreaves_135
+  - first:
+      213: -8968360136855611913
+    second: lpcmalegoldengreaves_136
+  - first:
+      213: -5749554229731297841
+    second: lpcmalegoldengreaves_137
+  - first:
+      213: -6302503177444078855
+    second: lpcmalegoldengreaves_138
+  - first:
+      213: 1925409033689804354
+    second: lpcmalegoldengreaves_139
+  - first:
+      213: 5889191771780180258
+    second: lpcmalegoldengreaves_140
+  - first:
+      213: -1203291490310980110
+    second: lpcmalegoldengreaves_141
+  - first:
+      213: 4943308970855644378
+    second: lpcmalegoldengreaves_142
+  - first:
+      213: -908620836261509394
+    second: lpcmalegoldengreaves_143
+  - first:
+      213: -5320782892421022566
+    second: lpcmalegoldengreaves_144
+  - first:
+      213: -8549023644393272457
+    second: lpcmalegoldengreaves_145
+  - first:
+      213: 6980094857310255215
+    second: lpcmalegoldengreaves_146
+  - first:
+      213: 7701467500924444492
+    second: lpcmalegoldengreaves_147
+  - first:
+      213: -7790951560569659170
+    second: lpcmalegoldengreaves_148
+  - first:
+      213: 6666927169955007189
+    second: lpcmalegoldengreaves_149
+  - first:
+      213: 4423200086983934225
+    second: lpcmalegoldengreaves_150
+  - first:
+      213: 7114053729813750974
+    second: lpcmalegoldengreaves_151
+  - first:
+      213: 2494091018587045745
+    second: lpcmalegoldengreaves_152
+  - first:
+      213: 1920128884488369501
+    second: lpcmalegoldengreaves_153
+  - first:
+      213: 388860998527379172
+    second: lpcmalegoldengreaves_154
+  - first:
+      213: -4466841547469053910
+    second: lpcmalegoldengreaves_155
+  - first:
+      213: -4191735960008059879
+    second: lpcmalegoldengreaves_156
+  - first:
+      213: 1067772660762827322
+    second: lpcmalegoldengreaves_157
+  - first:
+      213: -6672380788489114806
+    second: lpcmalegoldengreaves_158
+  - first:
+      213: 3611907427177521597
+    second: lpcmalegoldengreaves_159
+  - first:
+      213: -2642575724506130467
+    second: lpcmalegoldengreaves_160
+  - first:
+      213: 4989804143736375373
+    second: lpcmalegoldengreaves_161
+  - first:
+      213: 577235352872854436
+    second: lpcmalegoldengreaves_162
+  - first:
+      213: 8806847813257371794
+    second: lpcmalegoldengreaves_163
+  - first:
+      213: 3803982375883101246
+    second: lpcmalegoldengreaves_164
+  - first:
+      213: -6235357387061075346
+    second: lpcmalegoldengreaves_165
+  - first:
+      213: 7051261059394065470
+    second: lpcmalegoldengreaves_166
+  - first:
+      213: -7808925828422355374
+    second: lpcmalegoldengreaves_167
+  - first:
+      213: 3131328033752270019
+    second: lpcmalegoldengreaves_168
+  - first:
+      213: 8123172718965680733
+    second: lpcmalegoldengreaves_169
+  - first:
+      213: -5927291690154155264
+    second: lpcmalegoldengreaves_170
+  - first:
+      213: -255967878205897027
+    second: lpcmalegoldengreaves_171
+  - first:
+      213: -4274038601278744162
+    second: lpcmalegoldengreaves_172
+  - first:
+      213: -1966688179441779931
+    second: lpcmalegoldengreaves_173
+  - first:
+      213: 7459568747616275706
+    second: lpcmalegoldengreaves_174
+  - first:
+      213: -8618877894636276846
+    second: lpcmalegoldengreaves_175
+  - first:
+      213: 8976185731898326345
+    second: lpcmalegoldengreaves_176
+  - first:
+      213: -4950114887464467542
+    second: lpcmalegoldengreaves_177
+  - first:
+      213: 379415677683381387
+    second: lpcmalegoldengreaves_178
+  - first:
+      213: 8169413241454589135
+    second: lpcmalegoldengreaves_179
+  - first:
+      213: 609253617619598434
+    second: lpcmalegoldengreaves_180
+  - first:
+      213: -4080084693184935881
+    second: lpcmalegoldengreaves_181
+  - first:
+      213: 4230835635844750679
+    second: lpcmalegoldengreaves_182
+  - first:
+      213: 4055254747618997455
+    second: lpcmalegoldengreaves_183
+  - first:
+      213: 3090714143332250895
+    second: lpcmalegoldengreaves_184
+  - first:
+      213: -2933592868702643431
+    second: lpcmalegoldengreaves_185
+  - first:
+      213: -1658006471839047336
+    second: lpcmalegoldengreaves_186
+  - first:
+      213: -4883996781374156599
+    second: lpcmalegoldengreaves_187
+  - first:
+      213: -6149349720241020148
+    second: lpcmalegoldengreaves_188
+  - first:
+      213: -3081013646604088552
+    second: lpcmalegoldengreaves_189
+  - first:
+      213: 402081159445168457
+    second: lpcmalegoldengreaves_190
+  - first:
+      213: -7698215377156828470
+    second: lpcmalegoldengreaves_191
+  - first:
+      213: -7211329473336519435
+    second: lpcmalegoldengreaves_192
+  - first:
+      213: 7634051146093078253
+    second: lpcmalegoldengreaves_193
+  - first:
+      213: 1727552118177072879
+    second: lpcmalegoldengreaves_194
+  - first:
+      213: -2484396689465998378
+    second: lpcmalegoldengreaves_195
+  - first:
+      213: 4103475924474418061
+    second: lpcmalegoldengreaves_196
+  - first:
+      213: -3514807612049718853
+    second: lpcmalegoldengreaves_197
+  - first:
+      213: -3308250763436823976
+    second: lpcmalegoldengreaves_198
+  - first:
+      213: -7208270787417939296
+    second: lpcmalegoldengreaves_199
+  - first:
+      213: -3084323063237036977
+    second: lpcmalegoldengreaves_200
+  - first:
+      213: -1837405531820257293
+    second: lpcmalegoldengreaves_201
+  - first:
+      213: -3227720309339943846
+    second: lpcmalegoldengreaves_202
+  - first:
+      213: -2482953518875981302
+    second: lpcmalegoldengreaves_203
+  - first:
+      213: -5561322344960987516
+    second: lpcmalegoldengreaves_204
+  - first:
+      213: -1177220162748748420
+    second: lpcmalegoldengreaves_205
+  - first:
+      213: 6193391211920673908
+    second: lpcmalegoldengreaves_206
+  - first:
+      213: 3781932180911101085
+    second: lpcmalegoldengreaves_207
+  - first:
+      213: -1314193015988704494
+    second: lpcmalegoldengreaves_208
+  - first:
+      213: -749988857960550700
+    second: lpcmalegoldengreaves_209
+  - first:
+      213: -3436187512569217263
+    second: lpcmalegoldengreaves_210
+  - first:
+      213: -6913257262386433664
+    second: lpcmalegoldengreaves_211
+  - first:
+      213: -8195848117819763667
+    second: lpcmalegoldengreaves_212
+  - first:
+      213: 227522721096495517
+    second: lpcmalegoldengreaves_213
+  - first:
+      213: 3171921924682338115
+    second: lpcmalegoldengreaves_214
+  - first:
+      213: 599399597366142387
+    second: lpcmalegoldengreaves_215
+  - first:
+      213: -8476588997423193971
+    second: lpcmalegoldengreaves_216
+  - first:
+      213: 157532654936063091
+    second: lpcmalegoldengreaves_217
+  - first:
+      213: 1882410240488604799
+    second: lpcmalegoldengreaves_218
+  - first:
+      213: 5011573803715109306
+    second: lpcmalegoldengreaves_219
+  - first:
+      213: 1707936139968627644
+    second: lpcmalegoldengreaves_220
+  - first:
+      213: -23427367106281311
+    second: lpcmalegoldengreaves_221
+  - first:
+      213: -3597282242167527267
+    second: lpcmalegoldengreaves_222
+  - first:
+      213: 4872979072495647526
+    second: lpcmalegoldengreaves_223
+  - first:
+      213: -5564687524112716977
+    second: lpcmalegoldengreaves_224
+  - first:
+      213: -8433595923113342178
+    second: lpcmalegoldengreaves_225
+  - first:
+      213: -4921339056058919718
+    second: lpcmalegoldengreaves_226
+  - first:
+      213: -6379039281402012778
+    second: lpcmalegoldengreaves_227
+  - first:
+      213: 3109651664788858370
+    second: lpcmalegoldengreaves_228
+  - first:
+      213: 4900975173919471782
+    second: lpcmalegoldengreaves_229
+  - first:
+      213: 3868755892851071320
+    second: lpcmalegoldengreaves_230
+  - first:
+      213: -7646693456775132743
+    second: lpcmalegoldengreaves_231
+  - first:
+      213: 149610930188485061
+    second: lpcmalegoldengreaves_232
+  - first:
+      213: 8755373634728765389
+    second: lpcmalegoldengreaves_233
+  - first:
+      213: -6816656057917197550
+    second: lpcmalegoldengreaves_234
+  - first:
+      213: 2104894815141900167
+    second: lpcmalegoldengreaves_235
+  - first:
+      213: 1081899627246988008
+    second: lpcmalegoldengreaves_236
+  - first:
+      213: -346865973523387523
+    second: lpcmalegoldengreaves_237
+  - first:
+      213: 2705115839019901531
+    second: lpcmalegoldengreaves_238
+  - first:
+      213: -434556977812242245
+    second: lpcmalegoldengreaves_239
+  - first:
+      213: 354087924421388508
+    second: lpcmalegoldengreaves_240
+  - first:
+      213: -8572018580859952077
+    second: lpcmalegoldengreaves_241
+  - first:
+      213: 1057095275334376441
+    second: lpcmalegoldengreaves_242
+  - first:
+      213: 4878039829730739993
+    second: lpcmalegoldengreaves_243
+  - first:
+      213: -493247595166040320
+    second: lpcmalegoldengreaves_244
+  - first:
+      213: 8461584619110379947
+    second: lpcmalegoldengreaves_245
+  - first:
+      213: -2369856720905867584
+    second: lpcmalegoldengreaves_246
+  - first:
+      213: -3034715920991799979
+    second: lpcmalegoldengreaves_247
+  - first:
+      213: -6291608417166244855
+    second: lpcmalegoldengreaves_248
+  - first:
+      213: 2085455640293902671
+    second: lpcmalegoldengreaves_249
+  - first:
+      213: 3981364612180722409
+    second: lpcmalegoldengreaves_250
+  - first:
+      213: 8883715529214391044
+    second: lpcmalegoldengreaves_251
+  - first:
+      213: -8646491459924374806
+    second: lpcmalegoldengreaves_252
+  - first:
+      213: -515879201808819200
+    second: lpcmalegoldengreaves_253
+  - first:
+      213: 5451011015495902356
+    second: lpcmalegoldengreaves_254
+  - first:
+      213: 6342560648556867379
+    second: lpcmalegoldengreaves_255
+  - first:
+      213: 5262239015392755625
+    second: lpcmalegoldengreaves_256
+  - first:
+      213: 136632987503749019
+    second: lpcmalegoldengreaves_257
+  - first:
+      213: -2009480414381096072
+    second: lpcmalegoldengreaves_258
+  - first:
+      213: -7629702079181190320
+    second: lpcmalegoldengreaves_259
+  - first:
+      213: -2553232062246158433
+    second: lpcmalegoldengreaves_260
+  - first:
+      213: 7261235634863188561
+    second: lpcmalegoldengreaves_261
+  - first:
+      213: -839794374338849796
+    second: lpcmalegoldengreaves_262
+  - first:
+      213: -8332984493993442544
+    second: lpcmalegoldengreaves_263
+  - first:
+      213: -41304213754205129
+    second: lpcmalegoldengreaves_264
+  - first:
+      213: 9025050066689185006
+    second: lpcmalegoldengreaves_265
+  - first:
+      213: 2684489053576615075
+    second: lpcmalegoldengreaves_266
+  - first:
+      213: 4403127060204886558
+    second: lpcmalegoldengreaves_267
+  - first:
+      213: -1134100934397972591
+    second: lpcmalegoldengreaves_268
+  - first:
+      213: 4876073481822256403
+    second: lpcmalegoldengreaves_269
+  - first:
+      213: 212080296739345642
+    second: lpcmalegoldengreaves_270
+  - first:
+      213: -2239526273822682156
+    second: lpcmalegoldengreaves_271
+  - first:
+      213: -1222987262407873266
+    second: lpcmalegoldengreaves_272
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3301a909d6a2ade40800000000000000
+      internalID: 5681900529947119667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5e2246578214e7f0800000000000000
+      internalID: -584321679174259105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 111a3e477f6519740800000000000000
+      internalID: 5156998669133914385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a5b0a027f3a309e0800000000000000
+      internalID: -1656299956142557787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 104b42b6f7da16190800000000000000
+      internalID: -7970899102699047935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 126029440f2295a10800000000000000
+      internalID: 1898587133251290657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d25f975f112cb7e0800000000000000
+      internalID: -1748486136828833068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59bece694b9d66b60800000000000000
+      internalID: 7739112379332225941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b9f6a21958afc2c0800000000000000
+      internalID: -4409120409653937737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_15
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c137ac523d4acde0800000000000000
+      internalID: -1312151462726913599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_16
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ebda023fee1ef850800000000000000
+      internalID: 6412596932107754472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_17
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 075871e0e4a629de0800000000000000
+      internalID: -1327882056644459152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_18
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebce10bc54e651d00800000000000000
+      internalID: 942780943041686718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_19
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb3ff4579b283e880800000000000000
+      internalID: -8582872731789298756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2edad4e39a408150800000000000000
+      internalID: 5872775913151323691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_27
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: facb9eccc318a5030800000000000000
+      internalID: 3484239359860391087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_28
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2a8875337a054680800000000000000
+      internalID: -8771593209299563987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_29
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f56d59d44c65b10d0800000000000000
+      internalID: -3451069288334109089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_30
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e9cc7190ca9b9f60800000000000000
+      internalID: 8042191711465425377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_31
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ec2f1651d7218a40800000000000000
+      internalID: 5368616010848873698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_32
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 250fdc19431c4f2c0800000000000000
+      internalID: -4398678504505479086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3401e0891e3debd0800000000000000
+      internalID: -2599353130665573317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_40
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46359c6757a89bb30800000000000000
+      internalID: 4303623156037931876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_41
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d16ad218d1d039d80800000000000000
+      internalID: -8245232072412781027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_42
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d03ac1a71d1b2fb0800000000000000
+      internalID: -4671608201130921768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_43
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 002d80e31734ed580800000000000000
+      internalID: -8800522468184239616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_44
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b224c2d6e3105290800000000000000
+      internalID: -7903795463935745357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_45
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b788e29669e932b50800000000000000
+      internalID: 6567267050483255419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 544c57a55fa045f00800000000000000
+      internalID: 1104519857513546821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_53
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 937c313a9e9eaea60800000000000000
+      internalID: 7704227302243288889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_54
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8de0906b26938ebe0800000000000000
+      internalID: -1447844184075989288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_55
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5403fb83e776d4c60800000000000000
+      internalID: 7804007521118531653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_56
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3702c5c8a0b69920800000000000000
+      internalID: 2996776840980465467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_57
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bd103639be5e3e50800000000000000
+      internalID: 6790969437692370359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_58
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a531338babb55dba0800000000000000
+      internalID: -6064840465672105126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_59
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d40f29593fbc2de0800000000000000
+      internalID: -1356499134715067180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_65
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6239ead8f39b46450800000000000000
+      internalID: 6081189079468118822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_66
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aab2696c655e7a4e0800000000000000
+      internalID: -1970354151089624150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_67
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7db862c5d3552e2d0800000000000000
+      internalID: -3250942258980680745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_68
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e05f5b783dbff910800000000000000
+      internalID: 1873424020295078119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_69
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df1a1b07c46b0d700800000000000000
+      internalID: 563150392845771261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_70
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfc769bd054e7ae90800000000000000
+      internalID: -7014386858673668868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_71
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee61929e45a8b9550800000000000000
+      internalID: 6168676211907696366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_72
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 124be0709e3457880800000000000000
+      internalID: -8613904044151360479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_78
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b60d0830364dc4a70800000000000000
+      internalID: 8812652092582842475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_79
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 920deb849b78281f0800000000000000
+      internalID: -1044122933737369559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_80
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76fe7e13cdc9a1ed0800000000000000
+      internalID: -2442467378351050905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_81
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d11593b8b154f5250800000000000000
+      internalID: 5935538818499825949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_82
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27ba9ac11b7ced880800000000000000
+      internalID: -8584204276217566350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_83
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d964b41ee88370290800000000000000
+      internalID: -7924302833018780003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_84
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f459a283b8449cde0800000000000000
+      internalID: -1312442451668331185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_85
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b485268fa6648bf0800000000000000
+      internalID: -323020369207917383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_91
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58fccc36bd7de1bb0800000000000000
+      internalID: -4963292402043531387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_92
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04e40ee4f022fef40800000000000000
+      internalID: 5759859897573330496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_93
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09372441dd7d1d100800000000000000
+      internalID: 131123208698098576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_94
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15414f6039d978d70800000000000000
+      internalID: 9045371631399343185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_95
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59c61afafa7cf4390800000000000000
+      internalID: -7831821669594207083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_96
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64107a3d5b3cef970800000000000000
+      internalID: 8790678708381221190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_97
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f81cc4d283b9435e0800000000000000
+      internalID: -1930747674654621297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_98
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2659246c08e8586a0800000000000000
+      internalID: -6447590607777786526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_104
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85e5bd8d6ca30f8d0800000000000000
+      internalID: -2814685141390369192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_105
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0f79890543f3a250800000000000000
+      internalID: 5954870610152226574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_106
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c20e0c8e1b2ed86f0800000000000000
+      internalID: -680638714921033684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_107
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68440425394ccefb0800000000000000
+      internalID: -4617099380942420858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_108
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39fb0b616173455e0800000000000000
+      internalID: -1921850572970868845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_109
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fbd78a7198844630800000000000000
+      internalID: 3910400534871792624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_110
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53ceeef657a68ae50800000000000000
+      internalID: 6820818688274263093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_111
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0094f7c601d02ee50800000000000000
+      internalID: 6837041548492753152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_112
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38b39205287b4f1c0800000000000000
+      internalID: -4470746759753548925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_117
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e03cbd3faeaff00800000000000000
+      internalID: 1151490987831529076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_118
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7941a5ab9516b680800000000000000
+      internalID: -8739774268622943876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_119
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e2d1b70dbfd473e0800000000000000
+      internalID: -2056773126830566684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_120
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3bcbf1ace4dc700800000000000000
+      internalID: 562192158514000869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_121
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9675d5254af994b0800000000000000
+      internalID: -5433036300551358818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_122
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3b75705c27dfc0a0800000000000000
+      internalID: -6859027122133566661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_123
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0a253928f4a1bf80800000000000000
+      internalID: -8092505669657875957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_124
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9cc891b059e06540800000000000000
+      internalID: 4999252119167487133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_125
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 226f1f3d42e672070800000000000000
+      internalID: 8081549160793372194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_130
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60ca9af4eaf7ca940800000000000000
+      internalID: 5308758447400528902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_131
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f796b0663b31a91c0800000000000000
+      internalID: -4496259616743921281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_132
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85430dacce9439b20800000000000000
+      internalID: 3139934646571119704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_133
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a397e64b8c1040380800000000000000
+      internalID: -9006071393301923526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_134
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 074cd39d0e591ea10800000000000000
+      internalID: 1936994107695940720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_135
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb19b3d9ce9a3aee0800000000000000
+      internalID: -1250969437763563074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_136
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f592f0d8fbf98380800000000000000
+      internalID: -8968360136855611913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_137
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc57508f3ea7530b0800000000000000
+      internalID: -5749554229731297841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_138
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9facca090c20988a0800000000000000
+      internalID: -6302503177444078855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_143
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee64d1bd92ee363f0800000000000000
+      internalID: -908620836261509394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_144
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9cf44a6628c826b0800000000000000
+      internalID: -5320782892421022566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_145
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77b06834a44cb5980800000000000000
+      internalID: -8549023644393272457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_146
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6832846a474ed060800000000000000
+      internalID: 6980094857310255215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_147
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4f11d153eb11ea60800000000000000
+      internalID: 7701467500924444492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_148
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed068f975daf0e390800000000000000
+      internalID: -7790951560569659170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_149
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da819c20fea58c50800000000000000
+      internalID: 6666927169955007189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_150
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11187234b0d526d30800000000000000
+      internalID: 4423200086983934225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_151
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb46796ec223ab260800000000000000
+      internalID: 7114053729813750974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_156
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9141d776a56f3d5c0800000000000000
+      internalID: -4191735960008059879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_157
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3a54a1e39d71de00800000000000000
+      internalID: 1067772660762827322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_158
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4b27ff4601f663a0800000000000000
+      internalID: -6672380788489114806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_159
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db1e2861ba2102230800000000000000
+      internalID: 3611907427177521597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_160
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd7ddb8216fa35bd0800000000000000
+      internalID: -2642575724506130467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_161
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d48cd2e7e685f3540800000000000000
+      internalID: 4989804143736375373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_169
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5ae71bac8e4bb070800000000000000
+      internalID: 8123172718965680733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_170
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 003ac38ac970ebda0800000000000000
+      internalID: -5927291690154155264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_171
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db680a9229e927cf0800000000000000
+      internalID: -255967878205897027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_172
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e99197679809fa4c0800000000000000
+      internalID: -4274038601278744162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_173
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52bb960558be4b4e0800000000000000
+      internalID: -1966688179441779931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_174
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afc0643e046b58760800000000000000
+      internalID: 7459568747616275706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_182
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d17994892f6ba30800000000000000
+      internalID: 4230835635844750679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_183
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc4fb8115b8274830800000000000000
+      internalID: 4055254747618997455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_184
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f053897532c64ea20800000000000000
+      internalID: 3090714143332250895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_185
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91b1c5924d8c947d0800000000000000
+      internalID: -2933592868702643431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_186
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8512cbaf5e39df8e0800000000000000
+      internalID: -1658006471839047336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_187
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c0da0acdce883cb0800000000000000
+      internalID: -4883996781374156599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_195
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d30933bf56a58dd0800000000000000
+      internalID: -2484396689465998378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_196
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d835aa6bc9972f830800000000000000
+      internalID: 4103475924474418061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_197
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb100fd5915e83fc0800000000000000
+      internalID: -3514807612049718853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_198
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85aee61657bb612d0800000000000000
+      internalID: -3308250763436823976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_199
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a2e02fe8e317fb90800000000000000
+      internalID: -7208270787417939296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_200
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f443633f3884235d0800000000000000
+      internalID: -3084323063237036977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_208
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21ba1b33a6c03cde0800000000000000
+      internalID: -1314193015988704494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_209
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dea2c77b118795f0800000000000000
+      internalID: -749988857960550700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_210
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11fbdabb9a53050d0800000000000000
+      internalID: -3436187512569217263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_211
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 081319ad52d2f00a0800000000000000
+      internalID: -6913257262386433664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_212
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d249c407f8f724e80800000000000000
+      internalID: -8195848117819763667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_213
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d91794995b2582300800000000000000
+      internalID: 227522721096495517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_214
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34fc6f75f2ee40c20800000000000000
+      internalID: 3171921924682338115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_215
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b5658f02ce715800800000000000000
+      internalID: 599399597366142387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_216
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d802b9db73b1d5a80800000000000000
+      internalID: -8476588997423193971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_217
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37cfcf17d1baf2200800000000000000
+      internalID: 157532654936063091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_218
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7481e9e32aaf1a10800000000000000
+      internalID: 1882410240488604799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_219
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab1a71072dfac8540800000000000000
+      internalID: 5011573803715109306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_220
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb3c1e9cedec3b710800000000000000
+      internalID: 1707936139968627644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_221
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a08b990fe4ccaff0800000000000000
+      internalID: -23427367106281311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_222
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d98a8c62cd2e31ec0800000000000000
+      internalID: -3597282242167527267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_223
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62bf306f5ac40a340800000000000000
+      internalID: 4872979072495647526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_224
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4ba6370e2246c2b0800000000000000
+      internalID: -5564687524112716977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_225
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1b85a7e039d5fa80800000000000000
+      internalID: -8433595923113342178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_226
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad41a50f334e3bbb0800000000000000
+      internalID: -4921339056058919718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_227
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69b15c732991977a0800000000000000
+      internalID: -6379039281402012778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_228
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20621f6a6b3b72b20800000000000000
+      internalID: 3109651664788858370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_229
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a87a7644f2c30440800000000000000
+      internalID: 4900975173919471782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_230
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 859561cacf490b530800000000000000
+      internalID: 3868755892851071320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_231
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b94d92a0dc71e590800000000000000
+      internalID: -7646693456775132743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_232
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c1866c2956831200800000000000000
+      internalID: 149610930188485061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_233
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc724ddcee5518970800000000000000
+      internalID: 8755373634728765389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_234
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 213b4d77e6f5661a0800000000000000
+      internalID: -6816656057917197550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_235
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78f2812aea6163d10800000000000000
+      internalID: 2104894815141900167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_236
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ea2fa49afda30f00800000000000000
+      internalID: 1081899627246988008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_237
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7be77f1c3faf2bf0800000000000000
+      internalID: -346865973523387523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_238
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b526015f5808a8520800000000000000
+      internalID: 2705115839019901531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_239
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb085d62bb428f9f0800000000000000
+      internalID: -434556977812242245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_240
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd8646a5719f9e400800000000000000
+      internalID: 354087924421388508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_241
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3346bc764821a0980800000000000000
+      internalID: -8572018580859952077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_242
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fb9c0c5d8e8bae00800000000000000
+      internalID: 1057095275334376441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_243
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 917ce43516742b340800000000000000
+      internalID: 4878039829730739993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_244
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00fffcfece1a729f0800000000000000
+      internalID: -493247595166040320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_245
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba1bbf231669d6570800000000000000
+      internalID: 8461584619110379947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_246
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ce65dd4ed39c1fd0800000000000000
+      internalID: -2369856720905867584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_247
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 555bf0fc2f582e5d0800000000000000
+      internalID: -3034715920991799979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_248
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 904c2fc9a77bfa8a0800000000000000
+      internalID: -6291608417166244855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_249
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f498d8a0bd601fc10800000000000000
+      internalID: 2085455640293902671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_250
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e2c7564506a04730800000000000000
+      internalID: 3981364612180722409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_251
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 403f174b43c494b70800000000000000
+      internalID: 8883715529214391044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_252
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea42c904dd710880800000000000000
+      internalID: -8646491459924374806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_253
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00c5c25699a37d8f0800000000000000
+      internalID: -515879201808819200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_254
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 494ef5d43a1e5ab40800000000000000
+      internalID: 5451011015495902356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_255
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33f6a973e4d450850800000000000000
+      internalID: 6342560648556867379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_256
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9afbfa3018a370940800000000000000
+      internalID: 5262239015392755625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_257
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b97e2cc6afa65e100800000000000000
+      internalID: 136632987503749019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_258
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 873c5b5b534ec14e0800000000000000
+      internalID: -2009480414381096072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_259
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05b8854026add1690800000000000000
+      internalID: -7629702079181190320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_260
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ffdac87f8119cd0800000000000000
+      internalID: -2553232062246158433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_261
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15aad66965715c460800000000000000
+      internalID: 7261235634863188561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_262
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf3592947737854f0800000000000000
+      internalID: -839794374338849796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_263
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 013cea4b0ca4b5c80800000000000000
+      internalID: -8332984493993442544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_264
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73c247359024d6ff0800000000000000
+      internalID: -41304213754205129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpcmalegoldengreaves_265
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee4df19083b6f3d70800000000000000
+      internalID: 9025050066689185006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: e546fdeac9bb75c4fa6213b504db9a7b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

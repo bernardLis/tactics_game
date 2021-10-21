@@ -1,0 +1,5148 @@
+fileFormatVersion: 2
+guid: 329c0ff13a265a240a63eb726594e20b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9044786021765537137
+    second: 0, 0
+  - first:
+      213: -1089144892780137783
+    second: 1, 0
+  - first:
+      213: -2488639020316162581
+    second: 2, 0
+  - first:
+      213: -295113430069471073
+    second: 3, 0
+  - first:
+      213: 6503537453322089983
+    second: 4, 0
+  - first:
+      213: -12264509652025264
+    second: 5, 0
+  - first:
+      213: -3875554222614321790
+    second: 6, 0
+  - first:
+      213: -399767361371280061
+    second: 7, 0
+  - first:
+      213: -6367013011299501219
+    second: 8, 0
+  - first:
+      213: -6437927861772605381
+    second: 9, 0
+  - first:
+      213: -4557654317244500955
+    second: 10, 0
+  - first:
+      213: 5704287153454960976
+    second: 11, 0
+  - first:
+      213: -4029577841673726457
+    second: 12, 0
+  - first:
+      213: 3951226243626129225
+    second: 13, 0
+  - first:
+      213: 2621386314527076407
+    second: 14, 0
+  - first:
+      213: -3800590359052009122
+    second: 15, 0
+  - first:
+      213: 3647156553916755266
+    second: 0, 1
+  - first:
+      213: -699172573524776084
+    second: 1, 1
+  - first:
+      213: -2598636317655206641
+    second: 2, 1
+  - first:
+      213: 7960680161761409807
+    second: 3, 1
+  - first:
+      213: 947080115633142592
+    second: 4, 1
+  - first:
+      213: 270179354809656890
+    second: 5, 1
+  - first:
+      213: 8753485970948776522
+    second: 6, 1
+  - first:
+      213: -1617182061705522964
+    second: 7, 1
+  - first:
+      213: -7759010653134470069
+    second: 8, 1
+  - first:
+      213: 3057679863131800989
+    second: 9, 1
+  - first:
+      213: 932378433391738661
+    second: 10, 1
+  - first:
+      213: 1662000302105716039
+    second: 11, 1
+  - first:
+      213: -4099930426804717323
+    second: 12, 1
+  - first:
+      213: -4169420816879109218
+    second: 13, 1
+  - first:
+      213: 5603623449664155209
+    second: 14, 1
+  - first:
+      213: -5969531577014848311
+    second: 15, 1
+  - first:
+      213: -7025760825990288548
+    second: 0, 2
+  - first:
+      213: 5607560764849394003
+    second: 1, 2
+  - first:
+      213: -2123495546284220226
+    second: 2, 2
+  - first:
+      213: 3753271776765924765
+    second: 3, 2
+  - first:
+      213: -8007533846855061310
+    second: 4, 2
+  - first:
+      213: 8605375992158075039
+    second: 5, 2
+  - first:
+      213: -4585590419691963449
+    second: 6, 2
+  - first:
+      213: -1832874914104159681
+    second: 7, 2
+  - first:
+      213: -644947516374640692
+    second: 8, 2
+  - first:
+      213: 1798426107957860254
+    second: 9, 2
+  - first:
+      213: 4627964863675177963
+    second: 10, 2
+  - first:
+      213: 4233106605251747415
+    second: 11, 2
+  - first:
+      213: 7120417943015572163
+    second: 12, 2
+  - first:
+      213: 4630270302796270173
+    second: 13, 2
+  - first:
+      213: -9008625327577819359
+    second: 14, 2
+  - first:
+      213: 7396855232218386025
+    second: 15, 2
+  - first:
+      213: 1008453939145656331
+    second: 0, 3
+  - first:
+      213: -5688838145115488194
+    second: 1, 3
+  - first:
+      213: -1051512389244718589
+    second: 2, 3
+  - first:
+      213: -5079729399448785023
+    second: 3, 3
+  - first:
+      213: 5660251884462376711
+    second: 4, 3
+  - first:
+      213: 2502068697461925671
+    second: 5, 3
+  - first:
+      213: 5007093723679304401
+    second: 6, 3
+  - first:
+      213: -6815819328393133276
+    second: 7, 3
+  - first:
+      213: -1766430097719656074
+    second: 8, 3
+  - first:
+      213: -9085460965663539512
+    second: 9, 3
+  - first:
+      213: -5845973447769427699
+    second: 10, 3
+  - first:
+      213: -1176051532376333519
+    second: 11, 3
+  - first:
+      213: -2200633934793614226
+    second: 12, 3
+  - first:
+      213: 6833761365142179328
+    second: 13, 3
+  - first:
+      213: -7748934191035761245
+    second: 14, 3
+  - first:
+      213: -2519603704999062185
+    second: 15, 3
+  - first:
+      213: 1121910671679707029
+    second: 0, 4
+  - first:
+      213: -6059541328130880742
+    second: 1, 4
+  - first:
+      213: 3817433794022384911
+    second: 2, 4
+  - first:
+      213: 4797565538569206846
+    second: 3, 4
+  - first:
+      213: -3108477533314671230
+    second: 4, 4
+  - first:
+      213: -3674796410303590298
+    second: 5, 4
+  - first:
+      213: -4418062214283718423
+    second: 6, 4
+  - first:
+      213: 4423934809434418902
+    second: 7, 4
+  - first:
+      213: -8311588842579459666
+    second: 8, 4
+  - first:
+      213: -8716751303841069437
+    second: 9, 4
+  - first:
+      213: 2029782630428570633
+    second: 10, 4
+  - first:
+      213: -5327958033297558998
+    second: 11, 4
+  - first:
+      213: -2845179792342167773
+    second: 12, 4
+  - first:
+      213: 111290579870616309
+    second: 13, 4
+  - first:
+      213: 8214086692810576965
+    second: 14, 4
+  - first:
+      213: -4156703724277028267
+    second: 15, 4
+  - first:
+      213: -5727901431455522701
+    second: 0, 5
+  - first:
+      213: 9033444334087190794
+    second: 1, 5
+  - first:
+      213: 8857434878746710297
+    second: 2, 5
+  - first:
+      213: -2947423126490086715
+    second: 3, 5
+  - first:
+      213: 1236625216908243709
+    second: 4, 5
+  - first:
+      213: -3704621093554223340
+    second: 5, 5
+  - first:
+      213: 8500576920542016266
+    second: 6, 5
+  - first:
+      213: -3754146551050766132
+    second: 7, 5
+  - first:
+      213: 6972506256666100931
+    second: 8, 5
+  - first:
+      213: -2327683321737666931
+    second: 9, 5
+  - first:
+      213: 1665895041920301718
+    second: 10, 5
+  - first:
+      213: 8825993357067770737
+    second: 11, 5
+  - first:
+      213: 8286073823395778478
+    second: 12, 5
+  - first:
+      213: 8389769282557442979
+    second: 13, 5
+  - first:
+      213: -7395873668323384159
+    second: 14, 5
+  - first:
+      213: -6699097718470105055
+    second: 15, 5
+  - first:
+      213: -620837105957682656
+    second: 0, 6
+  - first:
+      213: 231895693195600308
+    second: 1, 6
+  - first:
+      213: 2064706780114635989
+    second: 2, 6
+  - first:
+      213: 4557248067181983057
+    second: 3, 6
+  - first:
+      213: 654209767824446604
+    second: 4, 6
+  - first:
+      213: 3355623505788715414
+    second: 5, 6
+  - first:
+      213: 655697250124038501
+    second: 6, 6
+  - first:
+      213: -8233188811451105483
+    second: 7, 6
+  - first:
+      213: -8037796258871847732
+    second: 8, 6
+  - first:
+      213: 542017343415920866
+    second: 9, 6
+  - first:
+      213: -7514100231299039600
+    second: 10, 6
+  - first:
+      213: -11845221652895550
+    second: 11, 6
+  - first:
+      213: -3853733330629424372
+    second: 12, 6
+  - first:
+      213: 2162063763077580236
+    second: 13, 6
+  - first:
+      213: 1749575944487659871
+    second: 14, 6
+  - first:
+      213: -731847886068724778
+    second: 15, 6
+  - first:
+      213: -2743714266842379729
+    second: 0, 7
+  - first:
+      213: -847721699317345537
+    second: 1, 7
+  - first:
+      213: 593654016243522294
+    second: 2, 7
+  - first:
+      213: -1715076786414945247
+    second: 3, 7
+  - first:
+      213: -1474774162410830463
+    second: 4, 7
+  - first:
+      213: -9200711037479649180
+    second: 5, 7
+  - first:
+      213: 7253357268343335432
+    second: 6, 7
+  - first:
+      213: -2282564693710089177
+    second: 7, 7
+  - first:
+      213: 3570023389078535544
+    second: 8, 7
+  - first:
+      213: 6969207102020706276
+    second: 9, 7
+  - first:
+      213: -2119929767678779684
+    second: 10, 7
+  - first:
+      213: 7969047608236424508
+    second: 11, 7
+  - first:
+      213: -879313335814885572
+    second: 12, 7
+  - first:
+      213: 4657432626263393903
+    second: 13, 7
+  - first:
+      213: 8939087961964790525
+    second: 14, 7
+  - first:
+      213: -3910725700751285853
+    second: 15, 7
+  - first:
+      213: 3640451382535226330
+    second: 0, 8
+  - first:
+      213: -1313939775573398117
+    second: 1, 8
+  - first:
+      213: 4533651441686960279
+    second: 2, 8
+  - first:
+      213: 8925110123084682814
+    second: 3, 8
+  - first:
+      213: 6100074082924094064
+    second: 4, 8
+  - first:
+      213: -46891873089825599
+    second: 5, 8
+  - first:
+      213: -30233754606401839
+    second: 6, 8
+  - first:
+      213: 5600845667547945540
+    second: 7, 8
+  - first:
+      213: 1217601962877624452
+    second: 8, 8
+  - first:
+      213: -6945474301739116315
+    second: 9, 8
+  - first:
+      213: -120717517189127970
+    second: 10, 8
+  - first:
+      213: -4983078450065506595
+    second: 11, 8
+  - first:
+      213: -5501904818998837324
+    second: 12, 8
+  - first:
+      213: 661312858953418789
+    second: 13, 8
+  - first:
+      213: -8583876225786964561
+    second: 14, 8
+  - first:
+      213: -6658344767329924382
+    second: 15, 8
+  - first:
+      213: -5575196374550173287
+    second: 0, 9
+  - first:
+      213: 7350560219720975086
+    second: 1, 9
+  - first:
+      213: -8654536674006226129
+    second: 2, 9
+  - first:
+      213: 649197929054378329
+    second: 3, 9
+  - first:
+      213: -829713552197061713
+    second: 4, 9
+  - first:
+      213: 1559711932296365724
+    second: 5, 9
+  - first:
+      213: -4024820099122304045
+    second: 6, 9
+  - first:
+      213: -1128735415298404735
+    second: 7, 9
+  - first:
+      213: 2689235785106986766
+    second: 8, 9
+  - first:
+      213: -1836017558257656359
+    second: 9, 9
+  - first:
+      213: 1778071094416904612
+    second: 10, 9
+  - first:
+      213: 3711179832988868626
+    second: 11, 9
+  - first:
+      213: 4922729768154948869
+    second: 12, 9
+  - first:
+      213: 612339774362489139
+    second: 13, 9
+  - first:
+      213: 1683524828140587408
+    second: 14, 9
+  - first:
+      213: -3526757566910047356
+    second: 15, 9
+  - first:
+      213: 2161022902928788810
+    second: 0, 10
+  - first:
+      213: 7617385275562574341
+    second: 1, 10
+  - first:
+      213: 6195544543852841596
+    second: 2, 10
+  - first:
+      213: -4148371221433958247
+    second: 3, 10
+  - first:
+      213: 1109786860355573593
+    second: 4, 10
+  - first:
+      213: -9065922519325440684
+    second: 5, 10
+  - first:
+      213: 2814434970188342274
+    second: 6, 10
+  - first:
+      213: 668861202999727119
+    second: 7, 10
+  - first:
+      213: 4469607168208219126
+    second: 8, 10
+  - first:
+      213: -2698856880734701540
+    second: 9, 10
+  - first:
+      213: 2217374801312033330
+    second: 10, 10
+  - first:
+      213: -9004246916833955760
+    second: 11, 10
+  - first:
+      213: -4810516007431950842
+    second: 12, 10
+  - first:
+      213: -6162666467847470974
+    second: 13, 10
+  - first:
+      213: -7065594367402132004
+    second: 14, 10
+  - first:
+      213: -5282879841969473931
+    second: 15, 10
+  - first:
+      213: 4928345377813566977
+    second: 0, 11
+  - first:
+      213: 8070649478152118617
+    second: 1, 11
+  - first:
+      213: -4668796220631751795
+    second: 2, 11
+  - first:
+      213: 980349789850427314
+    second: 3, 11
+  - first:
+      213: 1074909928587944626
+    second: 4, 11
+  - first:
+      213: -768344192976142358
+    second: 5, 11
+  - first:
+      213: 1110020324518148855
+    second: 6, 11
+  - first:
+      213: 8288340498916562634
+    second: 7, 11
+  - first:
+      213: -5435763779821272427
+    second: 8, 11
+  - first:
+      213: 1122191088598278493
+    second: 9, 11
+  - first:
+      213: -8701700610741473478
+    second: 10, 11
+  - first:
+      213: 3037599279931929218
+    second: 11, 11
+  - first:
+      213: -895539301119373613
+    second: 12, 11
+  - first:
+      213: 694530996430459315
+    second: 13, 11
+  - first:
+      213: 2366340681509271620
+    second: 14, 11
+  - first:
+      213: -954102202036514039
+    second: 15, 11
+  - first:
+      213: -1600184675314013669
+    second: 0, 12
+  - first:
+      213: 459934725482671390
+    second: 1, 12
+  - first:
+      213: -2627623018118356387
+    second: 2, 12
+  - first:
+      213: 7953862838232339490
+    second: 3, 12
+  - first:
+      213: -4450788519042227521
+    second: 4, 12
+  - first:
+      213: 1685230746363506194
+    second: 5, 12
+  - first:
+      213: 659749067205010886
+    second: 6, 12
+  - first:
+      213: -7535282973397949678
+    second: 7, 12
+  - first:
+      213: -1240373686369437916
+    second: 8, 12
+  - first:
+      213: 3140794927160170336
+    second: 9, 12
+  - first:
+      213: -6141988220998981209
+    second: 10, 12
+  - first:
+      213: -4378983215149490034
+    second: 11, 12
+  - first:
+      213: 1123804150351029176
+    second: 12, 12
+  - first:
+      213: -686565659161058102
+    second: 13, 12
+  - first:
+      213: -485184143647418830
+    second: 14, 12
+  - first:
+      213: -2712221343191684175
+    second: 15, 12
+  - first:
+      213: 5332998060340971841
+    second: 0, 13
+  - first:
+      213: 7621145974577929057
+    second: 1, 13
+  - first:
+      213: -1510138519484353985
+    second: 2, 13
+  - first:
+      213: 4828602282230448924
+    second: 3, 13
+  - first:
+      213: -7029679409091335502
+    second: 4, 13
+  - first:
+      213: -6264296642241963318
+    second: 5, 13
+  - first:
+      213: 6014208506102015166
+    second: 6, 13
+  - first:
+      213: 1745000447215777763
+    second: 7, 13
+  - first:
+      213: -2720835822395436188
+    second: 8, 13
+  - first:
+      213: -3682468052339454676
+    second: 9, 13
+  - first:
+      213: 9125071527142258154
+    second: 10, 13
+  - first:
+      213: -1186983393506294255
+    second: 11, 13
+  - first:
+      213: -4559489433391679991
+    second: 12, 13
+  - first:
+      213: 7832063928971331991
+    second: 13, 13
+  - first:
+      213: 7444572272321812687
+    second: 14, 13
+  - first:
+      213: -6695774506362275631
+    second: 15, 13
+  - first:
+      213: 2368265254602211193
+    second: 0, 14
+  - first:
+      213: -3204947143203591057
+    second: 1, 14
+  - first:
+      213: -7066784110349262848
+    second: 2, 14
+  - first:
+      213: 3618538040639195619
+    second: 3, 14
+  - first:
+      213: 6344038915250980707
+    second: 4, 14
+  - first:
+      213: -7635101694074357605
+    second: 5, 14
+  - first:
+      213: 3277049409106896368
+    second: 6, 14
+  - first:
+      213: 5021100522401201576
+    second: 7, 14
+  - first:
+      213: -191547722018670372
+    second: 8, 14
+  - first:
+      213: -6141878783397104339
+    second: 9, 14
+  - first:
+      213: -3317706312586437618
+    second: 10, 14
+  - first:
+      213: 5228943620293725538
+    second: 11, 14
+  - first:
+      213: 7486354394324153411
+    second: 12, 14
+  - first:
+      213: 6229586059143984685
+    second: 13, 14
+  - first:
+      213: 2635141763227858294
+    second: 14, 14
+  - first:
+      213: 3875391334991895140
+    second: 15, 14
+  - first:
+      213: 1652016620120282212
+    second: 0, 15
+  - first:
+      213: 6782684021888432416
+    second: 1, 15
+  - first:
+      213: 2474221979613770891
+    second: 2, 15
+  - first:
+      213: 6570083884213697949
+    second: 3, 15
+  - first:
+      213: 2153368719693442348
+    second: 4, 15
+  - first:
+      213: -3036720403410317603
+    second: 5, 15
+  - first:
+      213: -332463183373670988
+    second: 6, 15
+  - first:
+      213: 5188261204226266776
+    second: 7, 15
+  - first:
+      213: 730637271609840691
+    second: 8, 15
+  - first:
+      213: -2472727763698941899
+    second: 9, 15
+  - first:
+      213: 3091490358074042033
+    second: 10, 15
+  - first:
+      213: 6642555879878168279
+    second: 11, 15
+  - first:
+      213: -6547465908815176295
+    second: 12, 15
+  - first:
+      213: 9044314409123542097
+    second: 13, 15
+  - first:
+      213: -8846711469094224122
+    second: 14, 15
+  - first:
+      213: 704022700216865752
+    second: 15, 15
+  - first:
+      213: -2171572293463644405
+    second: man_olive_0
+  - first:
+      213: 6408157878650389720
+    second: man_olive_1
+  - first:
+      213: 960907158857226771
+    second: man_olive_2
+  - first:
+      213: -5829744578483379592
+    second: man_olive_3
+  - first:
+      213: -6196350705826921004
+    second: man_olive_4
+  - first:
+      213: -82950895513830612
+    second: man_olive_5
+  - first:
+      213: -4237098031404463708
+    second: man_olive_6
+  - first:
+      213: -5387894220183975766
+    second: man_olive_7
+  - first:
+      213: 1279041730852147778
+    second: man_olive_8
+  - first:
+      213: -3933718273868071961
+    second: man_olive_9
+  - first:
+      213: -7684306091337840362
+    second: man_olive_10
+  - first:
+      213: -2238624783236015310
+    second: man_olive_11
+  - first:
+      213: 3577522814412858588
+    second: man_olive_12
+  - first:
+      213: 5190975722712656736
+    second: man_olive_13
+  - first:
+      213: -4659513227434857832
+    second: man_olive_14
+  - first:
+      213: -5033150441747777679
+    second: man_olive_15
+  - first:
+      213: -2531350588729979409
+    second: man_olive_16
+  - first:
+      213: 2917302752643674505
+    second: man_olive_17
+  - first:
+      213: -5776561427490227590
+    second: man_olive_18
+  - first:
+      213: 7052278394938907084
+    second: man_olive_19
+  - first:
+      213: -4730465548969893054
+    second: man_olive_20
+  - first:
+      213: -6114834044520304026
+    second: man_olive_21
+  - first:
+      213: 54228467202145595
+    second: man_olive_22
+  - first:
+      213: 3711466977814162559
+    second: man_olive_23
+  - first:
+      213: 8624679993121076529
+    second: man_olive_24
+  - first:
+      213: -6254178540987039085
+    second: man_olive_25
+  - first:
+      213: -5269047756484936006
+    second: man_olive_26
+  - first:
+      213: -2842504040531602496
+    second: man_olive_27
+  - first:
+      213: -2094067675761246467
+    second: man_olive_28
+  - first:
+      213: -3989833632126590568
+    second: man_olive_29
+  - first:
+      213: -3261207386079721196
+    second: man_olive_30
+  - first:
+      213: -1966509910774117698
+    second: man_olive_31
+  - first:
+      213: -1518423744995276162
+    second: man_olive_32
+  - first:
+      213: 1026547471820975046
+    second: man_olive_33
+  - first:
+      213: 8512174865031772944
+    second: man_olive_34
+  - first:
+      213: 5454137192367495096
+    second: man_olive_35
+  - first:
+      213: -4384518736579458606
+    second: man_olive_36
+  - first:
+      213: -187278770733810127
+    second: man_olive_37
+  - first:
+      213: -5082249218195172700
+    second: man_olive_38
+  - first:
+      213: -1493554648151862352
+    second: man_olive_39
+  - first:
+      213: 8954178709934750856
+    second: man_olive_40
+  - first:
+      213: 1458908055494760431
+    second: man_olive_41
+  - first:
+      213: -5004367812339831056
+    second: man_olive_42
+  - first:
+      213: 4845829999471307512
+    second: man_olive_43
+  - first:
+      213: 6432407750112652268
+    second: man_olive_44
+  - first:
+      213: -4716345785685976592
+    second: man_olive_45
+  - first:
+      213: -7909503750869451522
+    second: man_olive_46
+  - first:
+      213: -3121674730833228752
+    second: man_olive_47
+  - first:
+      213: -7125215322092351949
+    second: man_olive_48
+  - first:
+      213: 5943787397101416521
+    second: man_olive_49
+  - first:
+      213: -561229630182422127
+    second: man_olive_50
+  - first:
+      213: 4407266036898764098
+    second: man_olive_51
+  - first:
+      213: 1530606286576917938
+    second: man_olive_52
+  - first:
+      213: 5919962266395459918
+    second: man_olive_53
+  - first:
+      213: 7386307638088021740
+    second: man_olive_54
+  - first:
+      213: 8353690953223981895
+    second: man_olive_55
+  - first:
+      213: 1645617644117362962
+    second: man_olive_56
+  - first:
+      213: 3251051637449940375
+    second: man_olive_57
+  - first:
+      213: -8861845117068456467
+    second: man_olive_58
+  - first:
+      213: 8530710632733437898
+    second: man_olive_59
+  - first:
+      213: -1597616881702470038
+    second: man_olive_60
+  - first:
+      213: 2254844633836447000
+    second: man_olive_61
+  - first:
+      213: -8540192017928167284
+    second: man_olive_62
+  - first:
+      213: -8623854207053489906
+    second: man_olive_63
+  - first:
+      213: 1769599113744838976
+    second: man_olive_64
+  - first:
+      213: 563026706962489074
+    second: man_olive_65
+  - first:
+      213: 2967051285453969393
+    second: man_olive_66
+  - first:
+      213: -5277109613516739399
+    second: man_olive_67
+  - first:
+      213: -4755377132198857613
+    second: man_olive_68
+  - first:
+      213: 1062543373634001453
+    second: man_olive_69
+  - first:
+      213: -3197995745570065646
+    second: man_olive_70
+  - first:
+      213: -7374211116026920502
+    second: man_olive_71
+  - first:
+      213: 3197492312436187246
+    second: man_olive_72
+  - first:
+      213: 2068395264316105678
+    second: man_olive_73
+  - first:
+      213: -5247829267789188064
+    second: man_olive_74
+  - first:
+      213: 2912765105812993761
+    second: man_olive_75
+  - first:
+      213: 2313927287871745767
+    second: man_olive_76
+  - first:
+      213: 1456501267635206825
+    second: man_olive_77
+  - first:
+      213: 7085287923743927098
+    second: man_olive_78
+  - first:
+      213: 7016095918434884123
+    second: man_olive_79
+  - first:
+      213: 2343563449826147683
+    second: man_olive_80
+  - first:
+      213: 6294215415704298792
+    second: man_olive_81
+  - first:
+      213: -2306624960490215553
+    second: man_olive_82
+  - first:
+      213: 5182238075709002657
+    second: man_olive_83
+  - first:
+      213: -307333788949979245
+    second: man_olive_84
+  - first:
+      213: -5911471678323067003
+    second: man_olive_85
+  - first:
+      213: -52386687557103477
+    second: man_olive_86
+  - first:
+      213: -46954008404212760
+    second: man_olive_87
+  - first:
+      213: 6025309207637060444
+    second: man_olive_88
+  - first:
+      213: -3026642821256177844
+    second: man_olive_89
+  - first:
+      213: -7863966913662826559
+    second: man_olive_90
+  - first:
+      213: 6219096423150280744
+    second: man_olive_91
+  - first:
+      213: 3212992246449357608
+    second: man_olive_92
+  - first:
+      213: -7299383529390573771
+    second: man_olive_93
+  - first:
+      213: 3640120033405599940
+    second: man_olive_94
+  - first:
+      213: 3197906205126033871
+    second: man_olive_95
+  - first:
+      213: -7374398757330795673
+    second: man_olive_96
+  - first:
+      213: -644215680489739893
+    second: man_olive_97
+  - first:
+      213: -6673070101562536870
+    second: man_olive_98
+  - first:
+      213: 1581340551884282734
+    second: man_olive_99
+  - first:
+      213: 2459468915765544031
+    second: man_olive_100
+  - first:
+      213: 4333260537679372255
+    second: man_olive_101
+  - first:
+      213: 7227580632099220688
+    second: man_olive_102
+  - first:
+      213: 4903675594791735546
+    second: man_olive_103
+  - first:
+      213: 6381461453492544714
+    second: man_olive_104
+  - first:
+      213: 5235625674565222490
+    second: man_olive_105
+  - first:
+      213: -5858685270857700767
+    second: man_olive_106
+  - first:
+      213: 8603379764165758043
+    second: man_olive_107
+  - first:
+      213: 3408873593692606476
+    second: man_olive_108
+  - first:
+      213: 5068682875393207349
+    second: man_olive_109
+  - first:
+      213: -6967146731044454775
+    second: man_olive_110
+  - first:
+      213: 9063986314070988772
+    second: man_olive_111
+  - first:
+      213: -3944092625850005269
+    second: man_olive_112
+  - first:
+      213: 266405978850049492
+    second: man_olive_113
+  - first:
+      213: -5285486520627079774
+    second: man_olive_114
+  - first:
+      213: 6871560880528537993
+    second: man_olive_115
+  - first:
+      213: 1732451016731698340
+    second: man_olive_116
+  - first:
+      213: 4669693444975091347
+    second: man_olive_117
+  - first:
+      213: -3254023846402628418
+    second: man_olive_118
+  - first:
+      213: -1952344547082844431
+    second: man_olive_119
+  - first:
+      213: 4749285354162254917
+    second: man_olive_120
+  - first:
+      213: -3547499008637767459
+    second: man_olive_121
+  - first:
+      213: 4803190725979640979
+    second: man_olive_122
+  - first:
+      213: -4682513763869186751
+    second: man_olive_123
+  - first:
+      213: -5789175146099791911
+    second: man_olive_124
+  - first:
+      213: 7396440693957513743
+    second: man_olive_125
+  - first:
+      213: 1290417592122974142
+    second: man_olive_126
+  - first:
+      213: -6621496982919511972
+    second: man_olive_127
+  - first:
+      213: 2841992678421947754
+    second: man_olive_128
+  - first:
+      213: 1917958283507046879
+    second: man_olive_129
+  - first:
+      213: 6213378164295479765
+    second: man_olive_130
+  - first:
+      213: -7524796164574440727
+    second: man_olive_131
+  - first:
+      213: 7262336614525426803
+    second: man_olive_132
+  - first:
+      213: 8871781743300779199
+    second: man_olive_133
+  - first:
+      213: 8478191611965779498
+    second: man_olive_134
+  - first:
+      213: -474510048530462513
+    second: man_olive_135
+  - first:
+      213: 6692235683761787716
+    second: man_olive_136
+  - first:
+      213: -455883514364838346
+    second: man_olive_137
+  - first:
+      213: -7320692897750350165
+    second: man_olive_138
+  - first:
+      213: -5811974324923077042
+    second: man_olive_139
+  - first:
+      213: 7426488946706968315
+    second: man_olive_140
+  - first:
+      213: -58164027965154966
+    second: man_olive_141
+  - first:
+      213: -1412353020133833958
+    second: man_olive_142
+  - first:
+      213: -2019554440111154578
+    second: man_olive_143
+  - first:
+      213: -6625541832277994565
+    second: man_olive_144
+  - first:
+      213: 1216429849643441275
+    second: man_olive_145
+  - first:
+      213: 6318796337377241892
+    second: man_olive_146
+  - first:
+      213: -7013290536714474015
+    second: man_olive_147
+  - first:
+      213: 1829952839124728374
+    second: man_olive_148
+  - first:
+      213: 5165633373593380728
+    second: man_olive_149
+  - first:
+      213: 728078818405316454
+    second: man_olive_150
+  - first:
+      213: 6898914745927183045
+    second: man_olive_151
+  - first:
+      213: 2828954748835985094
+    second: man_olive_152
+  - first:
+      213: 4431438695948419155
+    second: man_olive_153
+  - first:
+      213: -8959964219202237348
+    second: man_olive_154
+  - first:
+      213: -4734445400130708691
+    second: man_olive_155
+  - first:
+      213: -1538056189518153086
+    second: man_olive_156
+  - first:
+      213: 8077783875232896413
+    second: man_olive_157
+  - first:
+      213: 2948444376065177599
+    second: man_olive_158
+  - first:
+      213: -8181671770729117802
+    second: man_olive_159
+  - first:
+      213: -6510946451495469922
+    second: man_olive_160
+  - first:
+      213: -7775499738476389119
+    second: man_olive_161
+  - first:
+      213: -1483013095269133270
+    second: man_olive_162
+  - first:
+      213: 3460737465426896885
+    second: man_olive_163
+  - first:
+      213: -7304459429571019741
+    second: man_olive_164
+  - first:
+      213: -1405942678473213700
+    second: man_olive_165
+  - first:
+      213: 8051581871134611454
+    second: man_olive_166
+  - first:
+      213: 5804347755547608344
+    second: man_olive_167
+  - first:
+      213: 4351495099854394179
+    second: man_olive_168
+  - first:
+      213: 8393903124112192270
+    second: man_olive_169
+  - first:
+      213: 4126403560583976626
+    second: man_olive_170
+  - first:
+      213: 7121344691871285146
+    second: man_olive_171
+  - first:
+      213: 8014102157692818465
+    second: man_olive_172
+  - first:
+      213: -8558687034444047461
+    second: man_olive_173
+  - first:
+      213: 5761623806880932912
+    second: man_olive_174
+  - first:
+      213: 4703412384092299355
+    second: man_olive_175
+  - first:
+      213: -2274566215630274739
+    second: man_olive_176
+  - first:
+      213: -633545810521087876
+    second: man_olive_177
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: man_olive_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b07e40c21860dd1e0800000000000000
+      internalID: -2171572293463644405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d4c39583a95ee850800000000000000
+      internalID: 6408157878650389720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31a90d948f3d55d00800000000000000
+      internalID: 960907158857226771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8722d347136981fa0800000000000000
+      internalID: -5829744578483379592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d5027bdcd3220aa0800000000000000
+      internalID: -6196350705826921004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2bf81b999c49def0800000000000000
+      internalID: -82950895513830612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a941af1acdc235c0800000000000000
+      internalID: -4237098031404463708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa8cd86c0ca5a35b0800000000000000
+      internalID: -5387894220183975766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_8
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 242d7547da110c110800000000000000
+      internalID: 1279041730852147778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb71a75210a869c0800000000000000
+      internalID: -3933718273868071961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_10
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6190078b25cdb5590800000000000000
+      internalID: -7684306091337840362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_11
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23bd4d1de9ecee0e0800000000000000
+      internalID: -2238624783236015310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_12
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd42fe09b0ae5a130800000000000000
+      internalID: 3577522814412858588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_13
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06be6f5baec0a0840800000000000000
+      internalID: 5190975722712656736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89ae2842865165fb0800000000000000
+      internalID: -4659513227434857832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_15
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 177f58a0758a62ab0800000000000000
+      internalID: -5033150441747777679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fed06cc1d06dedcd0800000000000000
+      internalID: -2531350588729979409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_17
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9817891a5675c7820800000000000000
+      internalID: 2917302752643674505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7ab83bbcf785dfa0800000000000000
+      internalID: -5776561427490227590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_19
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc9de7be5d9bed160800000000000000
+      internalID: 7052278394938907084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_20
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2432d6375a20a5eb0800000000000000
+      internalID: -4730465548969893054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 662f6e395deb32ba0800000000000000
+      internalID: -6114834044520304026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3d3c4ce088a0c000800000000000000
+      internalID: 54228467202145595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_23
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7ca4385d87c18330800000000000000
+      internalID: 3711466977814162559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_24
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 135766b12c401b770800000000000000
+      internalID: 8624679993121076529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_25
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 392c896c0c1b439a0800000000000000
+      internalID: -6254178540987039085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_26
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abe752a6bf490e6b0800000000000000
+      internalID: -5269047756484936006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_27
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c35087a2a56d88d0800000000000000
+      internalID: -2842504040531602496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfe7f923b8060f2e0800000000000000
+      internalID: -2094067675761246467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_29
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 891203c537341a8c0800000000000000
+      internalID: -3989833632126590568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_30
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41986d5392dddb2d0800000000000000
+      internalID: -3261207386079721196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_31
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eba0609b7ad85b4e0800000000000000
+      internalID: -1966509910774117698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_32
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7ac90d16a97deae0800000000000000
+      internalID: -1518423744995276162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_33
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cbe6fa9c770f3e00800000000000000
+      internalID: 1026547471820975046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_34
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01b3a38b0f1512670800000000000000
+      internalID: 8512174865031772944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_35
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b79f4311ecf0bb40800000000000000
+      internalID: 5454137192367495096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d90323707f0723c0800000000000000
+      internalID: -4384518736579458606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_37
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13e707443f6a66df0800000000000000
+      internalID: -187278770733810127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_38
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a2587153493879b0800000000000000
+      internalID: -5082249218195172700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_39
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b35640f5f3d54be0800000000000000
+      internalID: -1493554648151862352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_40
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88cb60d6812a34c70800000000000000
+      internalID: 8954178709934750856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_41
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe798b795251f3410800000000000000
+      internalID: 1458908055494760431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_42
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fee51c2df9ec8ab0800000000000000
+      internalID: -5004367812339831056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_43
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa2b60d5b8df3340800000000000000
+      internalID: 4845829999471307512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_44
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ceb2fe3b4c0844950800000000000000
+      internalID: 6432407750112652268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_45
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f9d6460f7c2c8eb0800000000000000
+      internalID: -4716345785685976592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_46
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efc7ec3be3ccb3290800000000000000
+      internalID: -7909503750869451522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_47
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03c4f542f559da4d0800000000000000
+      internalID: -3121674730833228752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_48
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33ec3826a662e1d90800000000000000
+      internalID: -7125215322092351949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_49
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9407ca865239c7250800000000000000
+      internalID: 5943787397101416521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_50
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1998d87ff9c1638f0800000000000000
+      internalID: -561229630182422127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_51
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2459eff1c11c92d30800000000000000
+      internalID: 4407266036898764098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bd9562ee4ecd3510800000000000000
+      internalID: 1530606286576917938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_53
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e41c734e05ee72250800000000000000
+      internalID: 5919962266395459918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_54
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce6bdf999af618660800000000000000
+      internalID: 7386307638088021740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_55
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74b4f4689a54ee370800000000000000
+      internalID: 8353690953223981895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_56
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2190bb9478866d610800000000000000
+      internalID: 1645617644117362962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_57
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79dd7ac4d3e0e1d20800000000000000
+      internalID: 3251051637449940375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_58
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dedca9e61d6640580800000000000000
+      internalID: -8861845117068456467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_59
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acf69b17f1c236670800000000000000
+      internalID: 8530710632733437898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6ef4fe19ef14d9e0800000000000000
+      internalID: -1597616881702470038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_61
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 815648f6f31da4f10800000000000000
+      internalID: 2254844633836447000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_62
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c80e3c98b942b7980800000000000000
+      internalID: -8540192017928167284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_63
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0991d13a4ae15880800000000000000
+      internalID: -8623854207053489906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_64
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0417b99a401ee8810800000000000000
+      internalID: 1769599113744838976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_65
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fe9e839ec540d700800000000000000
+      internalID: 563026706962489074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_66
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f799db8c651d2920800000000000000
+      internalID: 2967051285453969393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_67
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bc298d04c0f3c6b0800000000000000
+      internalID: -5277109613516739399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_68
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 374754e71b1810eb0800000000000000
+      internalID: -4755377132198857613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_69
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2a56e79199eebe00800000000000000
+      internalID: 1062543373634001453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_70
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 213f51820df6e93d0800000000000000
+      internalID: -3197995745570065646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_71
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac18a7a6f0a89a990800000000000000
+      internalID: -7374211116026920502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_72
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e602dce2156cf5c20800000000000000
+      internalID: 3197492312436187246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_73
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec369a8b88a64bc10800000000000000
+      internalID: 2068395264316105678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_74
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 024f68bc517fb27b0800000000000000
+      internalID: -5247829267789188064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_75
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e6f2266e683c6820800000000000000
+      internalID: 2912765105812993761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_76
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eeadadcb98bc1020800000000000000
+      internalID: 2313927287871745767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_77
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aa7d40af28863410800000000000000
+      internalID: 1456501267635206825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_78
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3b2f12c3dff35260800000000000000
+      internalID: 7085287923743927098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_79
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1a1160a01e2e5160800000000000000
+      internalID: 7016095918434884123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_80
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36df9777a82068020800000000000000
+      internalID: 2343563449826147683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_81
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 825a7d8829b895750800000000000000
+      internalID: 6294215415704298792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_82
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f776ee7c1d83dffd0800000000000000
+      internalID: -2306624960490215553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_83
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a3932cb2120be740800000000000000
+      internalID: 5182238075709002657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_84
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f592a1c812cbbf0800000000000000
+      internalID: -307333788949979245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_85
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58775c134db36fda0800000000000000
+      internalID: -5911471678323067003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_86
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b801331d592e54ff0800000000000000
+      internalID: -52386687557103477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_87
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e34940049f295ff0800000000000000
+      internalID: -46954008404212760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_88
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5be8170dc23e9350800000000000000
+      internalID: 6025309207637060444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_89
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c471a01d3643ff5d0800000000000000
+      internalID: -3026642821256177844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_90
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c7c3b1d1c39dd290800000000000000
+      internalID: -7863966913662826559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_91
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82066c52f3bae4650800000000000000
+      internalID: 6219096423150280744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_92
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 823c2bbcc67d69c20800000000000000
+      internalID: 3212992246449357608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_93
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53776539a5163ba90800000000000000
+      internalID: -7299383529390573771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_94
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c08cea52ed448230800000000000000
+      internalID: 3640120033405599940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_95
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc10e8510ce316c20800000000000000
+      internalID: 3197906205126033871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_96
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7634735c66fd8a990800000000000000
+      internalID: -7374398757330795673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_97
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b892ca570494f07f0800000000000000
+      internalID: -644215680489739893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_98
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5cc51b191e7463a0800000000000000
+      internalID: -6673070101562536870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_99
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6b9bf78adc02f510800000000000000
+      internalID: 1581340551884282734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_100
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f540254b2f9c12220800000000000000
+      internalID: 2459468915765544031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_101
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdfd89b1085d22c30800000000000000
+      internalID: 4333260537679372255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_102
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc64c1aa468d4460800000000000000
+      internalID: 7227580632099220688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_103
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af0505109fa5d0440800000000000000
+      internalID: 4903675594791735546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_104
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac4654ba1618f8850800000000000000
+      internalID: 6381461453492544714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_105
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a50006dbfcda8a840800000000000000
+      internalID: 5235625674565222490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_106
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16aa6bb69c4c1bea0800000000000000
+      internalID: -5858685270857700767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_107
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5c42e61058556770800000000000000
+      internalID: 8603379764165758043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_108
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c00d144f870ce4f20800000000000000
+      internalID: 3408873593692606476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_109
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53ceaea5834975640800000000000000
+      internalID: 5068682875393207349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_110
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98e321e26f8bf4f90800000000000000
+      internalID: -6967146731044454775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_111
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e71433978fb9cd70800000000000000
+      internalID: 9063986314070988772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_112
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be809fa47a4c349c0800000000000000
+      internalID: -3944092625850005269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_113
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ddb56783d672b300800000000000000
+      internalID: 266405978850049492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_114
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a558e0630e26a6b0800000000000000
+      internalID: -5285486520627079774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_115
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 989bf58b630bc5f50800000000000000
+      internalID: 6871560880528537993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_116
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a4ae035507ea0810800000000000000
+      internalID: 1732451016731698340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_117
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39ed5b572751ec040800000000000000
+      internalID: 4669693444975091347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_118
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb465806d8267d2d0800000000000000
+      internalID: -3254023846402628418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_119
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f6c4f77af0e7e4e0800000000000000
+      internalID: -1952344547082844431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_120
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5447ec7edd9d8e140800000000000000
+      internalID: 4749285354162254917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_121
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd078157270c4cec0800000000000000
+      internalID: -3547499008637767459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_122
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3949772548c58a240800000000000000
+      internalID: 4803190725979640979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_123
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14523b07a8e540fb0800000000000000
+      internalID: -4682513763869186751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_124
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d7a33280e7b8afa0800000000000000
+      internalID: -5789175146099791911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_125
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f02d4958f9f65a660800000000000000
+      internalID: 7396440693957513743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_126
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebf976e86fb78e110800000000000000
+      internalID: 1290417592122974142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_127
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5003c38397bb14a0800000000000000
+      internalID: -6621496982919511972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_128
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a65e9939849c07720800000000000000
+      internalID: 2841992678421947754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_129
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd99476a5e4fd9a10800000000000000
+      internalID: 1917958283507046879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_130
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d13002458a5a3650800000000000000
+      internalID: 6213378164295479765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_131
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e29153a1cd829790800000000000000
+      internalID: -7524796164574440727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_132
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37cd9146ca009c460800000000000000
+      internalID: 7262336614525426803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_133
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc1d36ad76ee1b70800000000000000
+      internalID: 8871781743300779199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_134
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2eaae80a5698a570800000000000000
+      internalID: 8478191611965779498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_135
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc80dfaff933a69f0800000000000000
+      internalID: -474510048530462513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_136
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44390dbb5e89fdc50800000000000000
+      internalID: 6692235683761787716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_137
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63eb35beb506ca9f0800000000000000
+      internalID: -455883514364838346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_138
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba68ddf989ca76a90800000000000000
+      internalID: -7320692897750350165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_139
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4ee4470528b75fa0800000000000000
+      internalID: -5811974324923077042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_140
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfe65dc8950301760800000000000000
+      internalID: 7426488946706968315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_141
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a695e6eef1c513ff0800000000000000
+      internalID: -58164027965154966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_142
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1309714960566ce0800000000000000
+      internalID: -1412353020133833958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_143
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6a9c90dfe919f3e0800000000000000
+      internalID: -2019554440111154578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_144
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb35492aec85d04a0800000000000000
+      internalID: -6625541832277994565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_145
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7cdd2ad080a1e010800000000000000
+      internalID: 1216429849643441275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_146
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42be8695acfd0b750800000000000000
+      internalID: 6318796337377241892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_147
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ed66843a69cbae90800000000000000
+      internalID: -7013290536714474015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_148
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63a3fb3696c456910800000000000000
+      internalID: 1829952839124728374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_149
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 877afe04f2400b740800000000000000
+      internalID: 5165633373593380728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_150
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 667f88be3d7aa1a00800000000000000
+      internalID: 728078818405316454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_151
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5caa1bec86eddbf50800000000000000
+      internalID: 6898914745927183045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_152
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c6f50a0b57724720800000000000000
+      internalID: 2828954748835985094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_153
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3500de3e302af7d30800000000000000
+      internalID: 4431438695948419155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_154
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5c8d3ab300d7a380800000000000000
+      internalID: -8959964219202237348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_155
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2b1ab42efedb4eb0800000000000000
+      internalID: -4734445400130708691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_156
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28afd2b6b0ab7aae0800000000000000
+      internalID: -1538056189518153086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_157
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9592a7f2ad0a1070800000000000000
+      internalID: 8077783875232896413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_158
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff7fc5bd98afae820800000000000000
+      internalID: 2948444376065177599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_159
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69789d47fdcd47e80800000000000000
+      internalID: -8181671770729117802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_160
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9cb507e2b874a5a0800000000000000
+      internalID: -6510946451495469922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_161
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10dd8f82f20e71490800000000000000
+      internalID: -7775499738476389119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_162
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a241b3b72774b6be0800000000000000
+      internalID: -1483013095269133270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_163
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f7e7a79362070030800000000000000
+      internalID: 3460737465426896885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_164
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32cba2879d851aa90800000000000000
+      internalID: -7304459429571019741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_165
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf8fa0b35961d7ce0800000000000000
+      internalID: -1405942678473213700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_166
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef714fc7d07fcbf60800000000000000
+      internalID: 8051581871134611454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_167
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 815404ae78f2d8050800000000000000
+      internalID: 5804347755547608344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_168
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3439ca4fcbd936c30800000000000000
+      internalID: 4351495099854394179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_169
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e03bfb72b622d7470800000000000000
+      internalID: 8393903124112192270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_170
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b6d38cfc2ee34930800000000000000
+      internalID: 4126403560583976626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_171
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9ff91a444914d260800000000000000
+      internalID: 7121344691871285146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_172
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 124d8fea37fc73f60800000000000000
+      internalID: 8014102157692818465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_173
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9b9830fc7f693980800000000000000
+      internalID: -8558687034444047461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_174
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0346292735665ff40800000000000000
+      internalID: 5761623806880932912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_175
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b50aef1c4a0e54140800000000000000
+      internalID: 4703412384092299355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_176
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4fb04bf31e1f60e0800000000000000
+      internalID: -2274566215630274739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_olive_177
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7024f621713537f0800000000000000
+      internalID: -633545810521087876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 4de7937efa9987d46bc42939e459713c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

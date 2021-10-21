@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc2ca2b1271fe5419bd8fab56f34f69, type: 3}
+  m_Name: Cane
+  m_EditorClassIdentifier: 
+  eName: Cane
+  icon: {fileID: 1569468284126946330, guid: 95fc92f4b3de4214fb524cb21c87840b, type: 3}
+  animatorController: {fileID: 22100000, guid: ea58b10ffadd5ae4a856c5fef59fce30, type: 2}
+  eSlot: 8
+  gender: 0
+  weaponType: 1

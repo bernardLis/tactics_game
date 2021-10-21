@@ -1,0 +1,5148 @@
+fileFormatVersion: 2
+guid: f4fef513c8289d04b9216449d904bc2c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9044786021765537137
+    second: 0, 0
+  - first:
+      213: -1089144892780137783
+    second: 1, 0
+  - first:
+      213: -2488639020316162581
+    second: 2, 0
+  - first:
+      213: -295113430069471073
+    second: 3, 0
+  - first:
+      213: 6503537453322089983
+    second: 4, 0
+  - first:
+      213: -12264509652025264
+    second: 5, 0
+  - first:
+      213: -3875554222614321790
+    second: 6, 0
+  - first:
+      213: -399767361371280061
+    second: 7, 0
+  - first:
+      213: -6367013011299501219
+    second: 8, 0
+  - first:
+      213: -6437927861772605381
+    second: 9, 0
+  - first:
+      213: -4557654317244500955
+    second: 10, 0
+  - first:
+      213: 5704287153454960976
+    second: 11, 0
+  - first:
+      213: -4029577841673726457
+    second: 12, 0
+  - first:
+      213: 3951226243626129225
+    second: 13, 0
+  - first:
+      213: 2621386314527076407
+    second: 14, 0
+  - first:
+      213: -3800590359052009122
+    second: 15, 0
+  - first:
+      213: 3647156553916755266
+    second: 0, 1
+  - first:
+      213: -699172573524776084
+    second: 1, 1
+  - first:
+      213: -2598636317655206641
+    second: 2, 1
+  - first:
+      213: 7960680161761409807
+    second: 3, 1
+  - first:
+      213: 947080115633142592
+    second: 4, 1
+  - first:
+      213: 270179354809656890
+    second: 5, 1
+  - first:
+      213: 8753485970948776522
+    second: 6, 1
+  - first:
+      213: -1617182061705522964
+    second: 7, 1
+  - first:
+      213: -7759010653134470069
+    second: 8, 1
+  - first:
+      213: 3057679863131800989
+    second: 9, 1
+  - first:
+      213: 932378433391738661
+    second: 10, 1
+  - first:
+      213: 1662000302105716039
+    second: 11, 1
+  - first:
+      213: -4099930426804717323
+    second: 12, 1
+  - first:
+      213: -4169420816879109218
+    second: 13, 1
+  - first:
+      213: 5603623449664155209
+    second: 14, 1
+  - first:
+      213: -5969531577014848311
+    second: 15, 1
+  - first:
+      213: -7025760825990288548
+    second: 0, 2
+  - first:
+      213: 5607560764849394003
+    second: 1, 2
+  - first:
+      213: -2123495546284220226
+    second: 2, 2
+  - first:
+      213: 3753271776765924765
+    second: 3, 2
+  - first:
+      213: -8007533846855061310
+    second: 4, 2
+  - first:
+      213: 8605375992158075039
+    second: 5, 2
+  - first:
+      213: -4585590419691963449
+    second: 6, 2
+  - first:
+      213: -1832874914104159681
+    second: 7, 2
+  - first:
+      213: -644947516374640692
+    second: 8, 2
+  - first:
+      213: 1798426107957860254
+    second: 9, 2
+  - first:
+      213: 4627964863675177963
+    second: 10, 2
+  - first:
+      213: 4233106605251747415
+    second: 11, 2
+  - first:
+      213: 7120417943015572163
+    second: 12, 2
+  - first:
+      213: 4630270302796270173
+    second: 13, 2
+  - first:
+      213: -9008625327577819359
+    second: 14, 2
+  - first:
+      213: 7396855232218386025
+    second: 15, 2
+  - first:
+      213: 1008453939145656331
+    second: 0, 3
+  - first:
+      213: -5688838145115488194
+    second: 1, 3
+  - first:
+      213: -1051512389244718589
+    second: 2, 3
+  - first:
+      213: -5079729399448785023
+    second: 3, 3
+  - first:
+      213: 5660251884462376711
+    second: 4, 3
+  - first:
+      213: 2502068697461925671
+    second: 5, 3
+  - first:
+      213: 5007093723679304401
+    second: 6, 3
+  - first:
+      213: -6815819328393133276
+    second: 7, 3
+  - first:
+      213: -1766430097719656074
+    second: 8, 3
+  - first:
+      213: -9085460965663539512
+    second: 9, 3
+  - first:
+      213: -5845973447769427699
+    second: 10, 3
+  - first:
+      213: -1176051532376333519
+    second: 11, 3
+  - first:
+      213: -2200633934793614226
+    second: 12, 3
+  - first:
+      213: 6833761365142179328
+    second: 13, 3
+  - first:
+      213: -7748934191035761245
+    second: 14, 3
+  - first:
+      213: -2519603704999062185
+    second: 15, 3
+  - first:
+      213: 1121910671679707029
+    second: 0, 4
+  - first:
+      213: -6059541328130880742
+    second: 1, 4
+  - first:
+      213: 3817433794022384911
+    second: 2, 4
+  - first:
+      213: 4797565538569206846
+    second: 3, 4
+  - first:
+      213: -3108477533314671230
+    second: 4, 4
+  - first:
+      213: -3674796410303590298
+    second: 5, 4
+  - first:
+      213: -4418062214283718423
+    second: 6, 4
+  - first:
+      213: 4423934809434418902
+    second: 7, 4
+  - first:
+      213: -8311588842579459666
+    second: 8, 4
+  - first:
+      213: -8716751303841069437
+    second: 9, 4
+  - first:
+      213: 2029782630428570633
+    second: 10, 4
+  - first:
+      213: -5327958033297558998
+    second: 11, 4
+  - first:
+      213: -2845179792342167773
+    second: 12, 4
+  - first:
+      213: 111290579870616309
+    second: 13, 4
+  - first:
+      213: 8214086692810576965
+    second: 14, 4
+  - first:
+      213: -4156703724277028267
+    second: 15, 4
+  - first:
+      213: -5727901431455522701
+    second: 0, 5
+  - first:
+      213: 9033444334087190794
+    second: 1, 5
+  - first:
+      213: 8857434878746710297
+    second: 2, 5
+  - first:
+      213: -2947423126490086715
+    second: 3, 5
+  - first:
+      213: 1236625216908243709
+    second: 4, 5
+  - first:
+      213: -3704621093554223340
+    second: 5, 5
+  - first:
+      213: 8500576920542016266
+    second: 6, 5
+  - first:
+      213: -3754146551050766132
+    second: 7, 5
+  - first:
+      213: 6972506256666100931
+    second: 8, 5
+  - first:
+      213: -2327683321737666931
+    second: 9, 5
+  - first:
+      213: 1665895041920301718
+    second: 10, 5
+  - first:
+      213: 8825993357067770737
+    second: 11, 5
+  - first:
+      213: 8286073823395778478
+    second: 12, 5
+  - first:
+      213: 8389769282557442979
+    second: 13, 5
+  - first:
+      213: -7395873668323384159
+    second: 14, 5
+  - first:
+      213: -6699097718470105055
+    second: 15, 5
+  - first:
+      213: -620837105957682656
+    second: 0, 6
+  - first:
+      213: 231895693195600308
+    second: 1, 6
+  - first:
+      213: 2064706780114635989
+    second: 2, 6
+  - first:
+      213: 4557248067181983057
+    second: 3, 6
+  - first:
+      213: 654209767824446604
+    second: 4, 6
+  - first:
+      213: 3355623505788715414
+    second: 5, 6
+  - first:
+      213: 655697250124038501
+    second: 6, 6
+  - first:
+      213: -8233188811451105483
+    second: 7, 6
+  - first:
+      213: -8037796258871847732
+    second: 8, 6
+  - first:
+      213: 542017343415920866
+    second: 9, 6
+  - first:
+      213: -7514100231299039600
+    second: 10, 6
+  - first:
+      213: -11845221652895550
+    second: 11, 6
+  - first:
+      213: -3853733330629424372
+    second: 12, 6
+  - first:
+      213: 2162063763077580236
+    second: 13, 6
+  - first:
+      213: 1749575944487659871
+    second: 14, 6
+  - first:
+      213: -731847886068724778
+    second: 15, 6
+  - first:
+      213: -2743714266842379729
+    second: 0, 7
+  - first:
+      213: -847721699317345537
+    second: 1, 7
+  - first:
+      213: 593654016243522294
+    second: 2, 7
+  - first:
+      213: -1715076786414945247
+    second: 3, 7
+  - first:
+      213: -1474774162410830463
+    second: 4, 7
+  - first:
+      213: -9200711037479649180
+    second: 5, 7
+  - first:
+      213: 7253357268343335432
+    second: 6, 7
+  - first:
+      213: -2282564693710089177
+    second: 7, 7
+  - first:
+      213: 3570023389078535544
+    second: 8, 7
+  - first:
+      213: 6969207102020706276
+    second: 9, 7
+  - first:
+      213: -2119929767678779684
+    second: 10, 7
+  - first:
+      213: 7969047608236424508
+    second: 11, 7
+  - first:
+      213: -879313335814885572
+    second: 12, 7
+  - first:
+      213: 4657432626263393903
+    second: 13, 7
+  - first:
+      213: 8939087961964790525
+    second: 14, 7
+  - first:
+      213: -3910725700751285853
+    second: 15, 7
+  - first:
+      213: 3640451382535226330
+    second: 0, 8
+  - first:
+      213: -1313939775573398117
+    second: 1, 8
+  - first:
+      213: 4533651441686960279
+    second: 2, 8
+  - first:
+      213: 8925110123084682814
+    second: 3, 8
+  - first:
+      213: 6100074082924094064
+    second: 4, 8
+  - first:
+      213: -46891873089825599
+    second: 5, 8
+  - first:
+      213: -30233754606401839
+    second: 6, 8
+  - first:
+      213: 5600845667547945540
+    second: 7, 8
+  - first:
+      213: 1217601962877624452
+    second: 8, 8
+  - first:
+      213: -6945474301739116315
+    second: 9, 8
+  - first:
+      213: -120717517189127970
+    second: 10, 8
+  - first:
+      213: -4983078450065506595
+    second: 11, 8
+  - first:
+      213: -5501904818998837324
+    second: 12, 8
+  - first:
+      213: 661312858953418789
+    second: 13, 8
+  - first:
+      213: -8583876225786964561
+    second: 14, 8
+  - first:
+      213: -6658344767329924382
+    second: 15, 8
+  - first:
+      213: -5575196374550173287
+    second: 0, 9
+  - first:
+      213: 7350560219720975086
+    second: 1, 9
+  - first:
+      213: -8654536674006226129
+    second: 2, 9
+  - first:
+      213: 649197929054378329
+    second: 3, 9
+  - first:
+      213: -829713552197061713
+    second: 4, 9
+  - first:
+      213: 1559711932296365724
+    second: 5, 9
+  - first:
+      213: -4024820099122304045
+    second: 6, 9
+  - first:
+      213: -1128735415298404735
+    second: 7, 9
+  - first:
+      213: 2689235785106986766
+    second: 8, 9
+  - first:
+      213: -1836017558257656359
+    second: 9, 9
+  - first:
+      213: 1778071094416904612
+    second: 10, 9
+  - first:
+      213: 3711179832988868626
+    second: 11, 9
+  - first:
+      213: 4922729768154948869
+    second: 12, 9
+  - first:
+      213: 612339774362489139
+    second: 13, 9
+  - first:
+      213: 1683524828140587408
+    second: 14, 9
+  - first:
+      213: -3526757566910047356
+    second: 15, 9
+  - first:
+      213: 2161022902928788810
+    second: 0, 10
+  - first:
+      213: 7617385275562574341
+    second: 1, 10
+  - first:
+      213: 6195544543852841596
+    second: 2, 10
+  - first:
+      213: -4148371221433958247
+    second: 3, 10
+  - first:
+      213: 1109786860355573593
+    second: 4, 10
+  - first:
+      213: -9065922519325440684
+    second: 5, 10
+  - first:
+      213: 2814434970188342274
+    second: 6, 10
+  - first:
+      213: 668861202999727119
+    second: 7, 10
+  - first:
+      213: 4469607168208219126
+    second: 8, 10
+  - first:
+      213: -2698856880734701540
+    second: 9, 10
+  - first:
+      213: 2217374801312033330
+    second: 10, 10
+  - first:
+      213: -9004246916833955760
+    second: 11, 10
+  - first:
+      213: -4810516007431950842
+    second: 12, 10
+  - first:
+      213: -6162666467847470974
+    second: 13, 10
+  - first:
+      213: -7065594367402132004
+    second: 14, 10
+  - first:
+      213: -5282879841969473931
+    second: 15, 10
+  - first:
+      213: 4928345377813566977
+    second: 0, 11
+  - first:
+      213: 8070649478152118617
+    second: 1, 11
+  - first:
+      213: -4668796220631751795
+    second: 2, 11
+  - first:
+      213: 980349789850427314
+    second: 3, 11
+  - first:
+      213: 1074909928587944626
+    second: 4, 11
+  - first:
+      213: -768344192976142358
+    second: 5, 11
+  - first:
+      213: 1110020324518148855
+    second: 6, 11
+  - first:
+      213: 8288340498916562634
+    second: 7, 11
+  - first:
+      213: -5435763779821272427
+    second: 8, 11
+  - first:
+      213: 1122191088598278493
+    second: 9, 11
+  - first:
+      213: -8701700610741473478
+    second: 10, 11
+  - first:
+      213: 3037599279931929218
+    second: 11, 11
+  - first:
+      213: -895539301119373613
+    second: 12, 11
+  - first:
+      213: 694530996430459315
+    second: 13, 11
+  - first:
+      213: 2366340681509271620
+    second: 14, 11
+  - first:
+      213: -954102202036514039
+    second: 15, 11
+  - first:
+      213: -1600184675314013669
+    second: 0, 12
+  - first:
+      213: 459934725482671390
+    second: 1, 12
+  - first:
+      213: -2627623018118356387
+    second: 2, 12
+  - first:
+      213: 7953862838232339490
+    second: 3, 12
+  - first:
+      213: -4450788519042227521
+    second: 4, 12
+  - first:
+      213: 1685230746363506194
+    second: 5, 12
+  - first:
+      213: 659749067205010886
+    second: 6, 12
+  - first:
+      213: -7535282973397949678
+    second: 7, 12
+  - first:
+      213: -1240373686369437916
+    second: 8, 12
+  - first:
+      213: 3140794927160170336
+    second: 9, 12
+  - first:
+      213: -6141988220998981209
+    second: 10, 12
+  - first:
+      213: -4378983215149490034
+    second: 11, 12
+  - first:
+      213: 1123804150351029176
+    second: 12, 12
+  - first:
+      213: -686565659161058102
+    second: 13, 12
+  - first:
+      213: -485184143647418830
+    second: 14, 12
+  - first:
+      213: -2712221343191684175
+    second: 15, 12
+  - first:
+      213: 5332998060340971841
+    second: 0, 13
+  - first:
+      213: 7621145974577929057
+    second: 1, 13
+  - first:
+      213: -1510138519484353985
+    second: 2, 13
+  - first:
+      213: 4828602282230448924
+    second: 3, 13
+  - first:
+      213: -7029679409091335502
+    second: 4, 13
+  - first:
+      213: -6264296642241963318
+    second: 5, 13
+  - first:
+      213: 6014208506102015166
+    second: 6, 13
+  - first:
+      213: 1745000447215777763
+    second: 7, 13
+  - first:
+      213: -2720835822395436188
+    second: 8, 13
+  - first:
+      213: -3682468052339454676
+    second: 9, 13
+  - first:
+      213: 9125071527142258154
+    second: 10, 13
+  - first:
+      213: -1186983393506294255
+    second: 11, 13
+  - first:
+      213: -4559489433391679991
+    second: 12, 13
+  - first:
+      213: 7832063928971331991
+    second: 13, 13
+  - first:
+      213: 7444572272321812687
+    second: 14, 13
+  - first:
+      213: -6695774506362275631
+    second: 15, 13
+  - first:
+      213: 2368265254602211193
+    second: 0, 14
+  - first:
+      213: -3204947143203591057
+    second: 1, 14
+  - first:
+      213: -7066784110349262848
+    second: 2, 14
+  - first:
+      213: 3618538040639195619
+    second: 3, 14
+  - first:
+      213: 6344038915250980707
+    second: 4, 14
+  - first:
+      213: -7635101694074357605
+    second: 5, 14
+  - first:
+      213: 3277049409106896368
+    second: 6, 14
+  - first:
+      213: 5021100522401201576
+    second: 7, 14
+  - first:
+      213: -191547722018670372
+    second: 8, 14
+  - first:
+      213: -6141878783397104339
+    second: 9, 14
+  - first:
+      213: -3317706312586437618
+    second: 10, 14
+  - first:
+      213: 5228943620293725538
+    second: 11, 14
+  - first:
+      213: 7486354394324153411
+    second: 12, 14
+  - first:
+      213: 6229586059143984685
+    second: 13, 14
+  - first:
+      213: 2635141763227858294
+    second: 14, 14
+  - first:
+      213: 3875391334991895140
+    second: 15, 14
+  - first:
+      213: 1652016620120282212
+    second: 0, 15
+  - first:
+      213: 6782684021888432416
+    second: 1, 15
+  - first:
+      213: 2474221979613770891
+    second: 2, 15
+  - first:
+      213: 6570083884213697949
+    second: 3, 15
+  - first:
+      213: 2153368719693442348
+    second: 4, 15
+  - first:
+      213: -3036720403410317603
+    second: 5, 15
+  - first:
+      213: -332463183373670988
+    second: 6, 15
+  - first:
+      213: 5188261204226266776
+    second: 7, 15
+  - first:
+      213: 730637271609840691
+    second: 8, 15
+  - first:
+      213: -2472727763698941899
+    second: 9, 15
+  - first:
+      213: 3091490358074042033
+    second: 10, 15
+  - first:
+      213: 6642555879878168279
+    second: 11, 15
+  - first:
+      213: -6547465908815176295
+    second: 12, 15
+  - first:
+      213: 9044314409123542097
+    second: 13, 15
+  - first:
+      213: -8846711469094224122
+    second: 14, 15
+  - first:
+      213: 704022700216865752
+    second: 15, 15
+  - first:
+      213: 6588284179092153485
+    second: tannedmale_0
+  - first:
+      213: -6927711830042681117
+    second: tannedmale_1
+  - first:
+      213: 6493577690158933590
+    second: tannedmale_2
+  - first:
+      213: -2049528920239843144
+    second: tannedmale_3
+  - first:
+      213: -1282774921978098343
+    second: tannedmale_4
+  - first:
+      213: 1523890886288238111
+    second: tannedmale_5
+  - first:
+      213: -2657159565045389329
+    second: tannedmale_6
+  - first:
+      213: 4309871494986793444
+    second: tannedmale_7
+  - first:
+      213: -4999053159056189556
+    second: tannedmale_8
+  - first:
+      213: -2214179740353725465
+    second: tannedmale_9
+  - first:
+      213: -1520927771692188928
+    second: tannedmale_10
+  - first:
+      213: 5306552707851649256
+    second: tannedmale_11
+  - first:
+      213: 3228245620662912530
+    second: tannedmale_12
+  - first:
+      213: -439739890769814016
+    second: tannedmale_13
+  - first:
+      213: -4274862643997631115
+    second: tannedmale_14
+  - first:
+      213: 4497628114996463115
+    second: tannedmale_15
+  - first:
+      213: -102505708606809850
+    second: tannedmale_16
+  - first:
+      213: -5536245624124871673
+    second: tannedmale_17
+  - first:
+      213: -795255341206155772
+    second: tannedmale_18
+  - first:
+      213: -5913134523325525962
+    second: tannedmale_19
+  - first:
+      213: -923561648732099228
+    second: tannedmale_20
+  - first:
+      213: 6419488834450711184
+    second: tannedmale_21
+  - first:
+      213: -4507268281884266901
+    second: tannedmale_22
+  - first:
+      213: -5481733035265571381
+    second: tannedmale_23
+  - first:
+      213: 1936805498523714520
+    second: tannedmale_24
+  - first:
+      213: -8236083270336183007
+    second: tannedmale_25
+  - first:
+      213: 7075580019448964772
+    second: tannedmale_26
+  - first:
+      213: 7068373386926349149
+    second: tannedmale_27
+  - first:
+      213: -4917328573031069209
+    second: tannedmale_28
+  - first:
+      213: -548399645771631525
+    second: tannedmale_29
+  - first:
+      213: 1670347915284860790
+    second: tannedmale_30
+  - first:
+      213: 8952552421030502357
+    second: tannedmale_31
+  - first:
+      213: 8061680840657813146
+    second: tannedmale_32
+  - first:
+      213: -8998999791379770880
+    second: tannedmale_33
+  - first:
+      213: 8596809354826394240
+    second: tannedmale_34
+  - first:
+      213: 4894395614365774365
+    second: tannedmale_35
+  - first:
+      213: 7669193199667826472
+    second: tannedmale_36
+  - first:
+      213: 5613018399940970228
+    second: tannedmale_37
+  - first:
+      213: 6453428246909188193
+    second: tannedmale_38
+  - first:
+      213: 1581778093510238346
+    second: tannedmale_39
+  - first:
+      213: -2452493701504544679
+    second: tannedmale_40
+  - first:
+      213: -1198752985467244031
+    second: tannedmale_41
+  - first:
+      213: 6464784598068362744
+    second: tannedmale_42
+  - first:
+      213: 929016238006193449
+    second: tannedmale_43
+  - first:
+      213: -8723274280363104503
+    second: tannedmale_44
+  - first:
+      213: -6882916167070925851
+    second: tannedmale_45
+  - first:
+      213: 1566013257904913692
+    second: tannedmale_46
+  - first:
+      213: -8181064890029086874
+    second: tannedmale_47
+  - first:
+      213: -4518114002866396780
+    second: tannedmale_48
+  - first:
+      213: -6586160508358773730
+    second: tannedmale_49
+  - first:
+      213: -79852631063039574
+    second: tannedmale_50
+  - first:
+      213: 3016882569153667667
+    second: tannedmale_51
+  - first:
+      213: -5249953282373263483
+    second: tannedmale_52
+  - first:
+      213: -2315834146665116879
+    second: tannedmale_53
+  - first:
+      213: -7940398622056361695
+    second: tannedmale_54
+  - first:
+      213: 6358596348875893865
+    second: tannedmale_55
+  - first:
+      213: -6224906024055107081
+    second: tannedmale_56
+  - first:
+      213: -1705004913585325459
+    second: tannedmale_57
+  - first:
+      213: -3806240344068349171
+    second: tannedmale_58
+  - first:
+      213: -7239439199310182089
+    second: tannedmale_59
+  - first:
+      213: -5593297319508375959
+    second: tannedmale_60
+  - first:
+      213: 6689356538531766251
+    second: tannedmale_61
+  - first:
+      213: -4612461206016735620
+    second: tannedmale_62
+  - first:
+      213: -4460701565402834155
+    second: tannedmale_63
+  - first:
+      213: -2139622112428883553
+    second: tannedmale_64
+  - first:
+      213: -1488693669324003118
+    second: tannedmale_65
+  - first:
+      213: -2488709590360294104
+    second: tannedmale_66
+  - first:
+      213: 2370731137184345896
+    second: tannedmale_67
+  - first:
+      213: -1296111645093806412
+    second: tannedmale_68
+  - first:
+      213: 4040885310616056924
+    second: tannedmale_69
+  - first:
+      213: -1541106839703547567
+    second: tannedmale_70
+  - first:
+      213: 6152694610537706797
+    second: tannedmale_71
+  - first:
+      213: -1762924693996176369
+    second: tannedmale_72
+  - first:
+      213: -5072985521805750368
+    second: tannedmale_73
+  - first:
+      213: 4929823102967011026
+    second: tannedmale_74
+  - first:
+      213: 2588609728720545915
+    second: tannedmale_75
+  - first:
+      213: 1026324010155991660
+    second: tannedmale_76
+  - first:
+      213: 7891217563181012688
+    second: tannedmale_77
+  - first:
+      213: 8218644057120548308
+    second: tannedmale_78
+  - first:
+      213: 7507136322906450391
+    second: tannedmale_79
+  - first:
+      213: 4312882874768004771
+    second: tannedmale_80
+  - first:
+      213: -2639399368663345023
+    second: tannedmale_81
+  - first:
+      213: -6222227444105111286
+    second: tannedmale_82
+  - first:
+      213: 3501857462280347229
+    second: tannedmale_83
+  - first:
+      213: 4325439248373196692
+    second: tannedmale_84
+  - first:
+      213: -5255762183274057882
+    second: tannedmale_85
+  - first:
+      213: 3548064193758639837
+    second: tannedmale_86
+  - first:
+      213: -1406014700219451301
+    second: tannedmale_87
+  - first:
+      213: -8035201779437580451
+    second: tannedmale_88
+  - first:
+      213: 840850839636584144
+    second: tannedmale_89
+  - first:
+      213: 7802471750252788173
+    second: tannedmale_90
+  - first:
+      213: -4321884010843166302
+    second: tannedmale_91
+  - first:
+      213: -5177778103489158742
+    second: tannedmale_92
+  - first:
+      213: 8108549304259152334
+    second: tannedmale_93
+  - first:
+      213: -2833967885519163689
+    second: tannedmale_94
+  - first:
+      213: 5450684559735177337
+    second: tannedmale_95
+  - first:
+      213: -4602986638559223966
+    second: tannedmale_96
+  - first:
+      213: 5685467929526675080
+    second: tannedmale_97
+  - first:
+      213: 4081029819106807579
+    second: tannedmale_98
+  - first:
+      213: 7689778707489789589
+    second: tannedmale_99
+  - first:
+      213: 4598687735823836149
+    second: tannedmale_100
+  - first:
+      213: 3856085890908251985
+    second: tannedmale_101
+  - first:
+      213: 2316442985001950855
+    second: tannedmale_102
+  - first:
+      213: -6614770578521565068
+    second: tannedmale_103
+  - first:
+      213: -1842600671248317845
+    second: tannedmale_104
+  - first:
+      213: 7764076559528393455
+    second: tannedmale_105
+  - first:
+      213: 5558093847779006926
+    second: tannedmale_106
+  - first:
+      213: 3639385000828506510
+    second: tannedmale_107
+  - first:
+      213: 8076805944638712446
+    second: tannedmale_108
+  - first:
+      213: 8746636937205671667
+    second: tannedmale_109
+  - first:
+      213: 944623628048216968
+    second: tannedmale_110
+  - first:
+      213: 5110525025060438710
+    second: tannedmale_111
+  - first:
+      213: 4597451205705791234
+    second: tannedmale_112
+  - first:
+      213: -4365116724289828317
+    second: tannedmale_113
+  - first:
+      213: -4468842040943915022
+    second: tannedmale_114
+  - first:
+      213: 4561033073139105345
+    second: tannedmale_115
+  - first:
+      213: 8638890010843134941
+    second: tannedmale_116
+  - first:
+      213: -7142336221354569100
+    second: tannedmale_117
+  - first:
+      213: 2505375401674278475
+    second: tannedmale_118
+  - first:
+      213: -2064231749157846954
+    second: tannedmale_119
+  - first:
+      213: -3145639023369874682
+    second: tannedmale_120
+  - first:
+      213: -8391401153724863383
+    second: tannedmale_121
+  - first:
+      213: -8858725045083737787
+    second: tannedmale_122
+  - first:
+      213: -4845149536845283446
+    second: tannedmale_123
+  - first:
+      213: 530068463804126855
+    second: tannedmale_124
+  - first:
+      213: -3002897954911625473
+    second: tannedmale_125
+  - first:
+      213: 1370048812699814882
+    second: tannedmale_126
+  - first:
+      213: 4867895248450439658
+    second: tannedmale_127
+  - first:
+      213: 1773887129944902739
+    second: tannedmale_128
+  - first:
+      213: 7552661542778505979
+    second: tannedmale_129
+  - first:
+      213: 6221854267273396228
+    second: tannedmale_130
+  - first:
+      213: -3262284793966721041
+    second: tannedmale_131
+  - first:
+      213: 1824139681182596939
+    second: tannedmale_132
+  - first:
+      213: 8249076433102030761
+    second: tannedmale_133
+  - first:
+      213: -5428218533528183185
+    second: tannedmale_134
+  - first:
+      213: 9005806677838923299
+    second: tannedmale_135
+  - first:
+      213: 3322560265396753500
+    second: tannedmale_136
+  - first:
+      213: 402496152462285392
+    second: tannedmale_137
+  - first:
+      213: 9134736691792508535
+    second: tannedmale_138
+  - first:
+      213: 1967489578491485227
+    second: tannedmale_139
+  - first:
+      213: 7011594471756667137
+    second: tannedmale_140
+  - first:
+      213: -2081292831175830199
+    second: tannedmale_141
+  - first:
+      213: -4115197669690574813
+    second: tannedmale_142
+  - first:
+      213: -8179009204851198723
+    second: tannedmale_143
+  - first:
+      213: -7670429439915467429
+    second: tannedmale_144
+  - first:
+      213: 6293560312233500988
+    second: tannedmale_145
+  - first:
+      213: 3474066413428901493
+    second: tannedmale_146
+  - first:
+      213: -211861369074469881
+    second: tannedmale_147
+  - first:
+      213: 2216693760649299725
+    second: tannedmale_148
+  - first:
+      213: -8559018532796570209
+    second: tannedmale_149
+  - first:
+      213: 8183785466216758890
+    second: tannedmale_150
+  - first:
+      213: -8023488096279176620
+    second: tannedmale_151
+  - first:
+      213: -2826161559599978020
+    second: tannedmale_152
+  - first:
+      213: -5519722867513962944
+    second: tannedmale_153
+  - first:
+      213: -8151373742086956229
+    second: tannedmale_154
+  - first:
+      213: 2014547632528802012
+    second: tannedmale_155
+  - first:
+      213: 2164140039969240571
+    second: tannedmale_156
+  - first:
+      213: 2861266771400436697
+    second: tannedmale_157
+  - first:
+      213: -3242738486328944587
+    second: tannedmale_158
+  - first:
+      213: -8708362346104801582
+    second: tannedmale_159
+  - first:
+      213: -8106284014893155582
+    second: tannedmale_160
+  - first:
+      213: -1571923402949917347
+    second: tannedmale_161
+  - first:
+      213: -1654804155399447244
+    second: tannedmale_162
+  - first:
+      213: -4063383601019150223
+    second: tannedmale_163
+  - first:
+      213: -3519207486926292813
+    second: tannedmale_164
+  - first:
+      213: -2742272532269387189
+    second: tannedmale_165
+  - first:
+      213: -2368297953147153004
+    second: tannedmale_166
+  - first:
+      213: -7926442260131200679
+    second: tannedmale_167
+  - first:
+      213: 7719125043588158968
+    second: tannedmale_168
+  - first:
+      213: 923058659912044559
+    second: tannedmale_169
+  - first:
+      213: 2319146150815490153
+    second: tannedmale_170
+  - first:
+      213: 466744374699882615
+    second: tannedmale_171
+  - first:
+      213: -6932226985485369693
+    second: tannedmale_172
+  - first:
+      213: -9131276974362675100
+    second: tannedmale_173
+  - first:
+      213: -3521833845833067920
+    second: tannedmale_174
+  - first:
+      213: 3329017849017826097
+    second: tannedmale_175
+  - first:
+      213: 4650305161909389476
+    second: tannedmale_176
+  - first:
+      213: -4657797712009164336
+    second: tannedmale_177
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tannedmale_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d842d1efd894e6b50800000000000000
+      internalID: 6588284179092153485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e0e8009bc2dbdf90800000000000000
+      internalID: -6927711830042681117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65623573182dd1a50800000000000000
+      internalID: 6493577690158933590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b8d6305e4c9e83e0800000000000000
+      internalID: -2049528920239843144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95d47b0410ba23ee0800000000000000
+      internalID: -1282774921978098343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f166aa9efa2f52510800000000000000
+      internalID: 1523890886288238111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe720fd247fdf1bd0800000000000000
+      internalID: -2657159565045389329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e1054e3a4dbfcb30800000000000000
+      internalID: 4309871494986793444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_8
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c87592153abcf9ab0800000000000000
+      internalID: -4999053159056189556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb7953e147a541e0800000000000000
+      internalID: -2214179740353725465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_10
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00bb247ff3494eae0800000000000000
+      internalID: -1520927771692188928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_11
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e0826d8299a4a940800000000000000
+      internalID: 5306552707851649256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_12
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 216c25bb9480dcc20800000000000000
+      internalID: 3228245620662912530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_13
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00e981136eab5e9f0800000000000000
+      internalID: -439739890769814016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57d1fe01313aca4c0800000000000000
+      internalID: -4274862643997631115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_15
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b068c2ee0f8ca6e30800000000000000
+      internalID: 4497628114996463115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6099a03e993d39ef0800000000000000
+      internalID: -102505708606809850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_17
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70ce9b8efed4b23b0800000000000000
+      internalID: -5536245624124871673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40ecca90b7fa6f4f0800000000000000
+      internalID: -795255341206155772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_19
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 630551cea7350fda0800000000000000
+      internalID: -5913134523325525962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_20
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d262fd299de23f0800000000000000
+      internalID: -923561648732099228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0926501451b961950800000000000000
+      internalID: 6419488834450711184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6e27eec067f271c0800000000000000
+      internalID: -4507268281884266901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_23
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc5c87f09d8fce3b0800000000000000
+      internalID: -5481733035265571381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_24
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d3878ad65ae0ea10800000000000000
+      internalID: 1936805498523714520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_25
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 125031bf6ed83bd80800000000000000
+      internalID: -8236083270336183007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_26
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a66b172a82813260800000000000000
+      internalID: 7075580019448964772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_27
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5bd1934528e71260800000000000000
+      internalID: 7068373386926349149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e9ca9847b322cbb0800000000000000
+      internalID: -4917328573031069209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_29
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b54f4de7d61b368f0800000000000000
+      internalID: -548399645771631525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_30
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67f4edd34944e2710800000000000000
+      internalID: 1670347915284860790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_31
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5df16988efadd3c70800000000000000
+      internalID: 8952552421030502357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_32
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9e3bff0308d0ef60800000000000000
+      internalID: 8061680840657813146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_33
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0029ef45e512d1380800000000000000
+      internalID: -8998999791379770880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_34
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08aae247f800e4770800000000000000
+      internalID: 8596809354826394240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_35
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d12708031e26ce340800000000000000
+      internalID: 4894395614365774365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82fca0cf4927e6a60800000000000000
+      internalID: 7669193199667826472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_37
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f68636ee7275ed40800000000000000
+      internalID: 5613018399940970228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_38
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1687e708cce2f8950800000000000000
+      internalID: 6453428246909188193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_39
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a802c21abca93f510800000000000000
+      internalID: 1581778093510238346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_40
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95050fbe8fdf6fdd0800000000000000
+      internalID: -2452493701504544679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_41
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10239cfc28c2d5fe0800000000000000
+      internalID: -1198752985467244031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_42
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fdf74d075787b950800000000000000
+      internalID: 6464784598068362744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_43
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92dcde8a85784ec00800000000000000
+      internalID: 929016238006193449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_44
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 907e7a88244b0f680800000000000000
+      internalID: -8723274280363104503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_45
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ebb1fa9638fa70a0800000000000000
+      internalID: -6882916167070925851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_46
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1d79fec2c89bb510800000000000000
+      internalID: 1566013257904913692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_47
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6676561e3d4077e80800000000000000
+      internalID: -8181064890029086874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_48
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4912e6c904f6c41c0800000000000000
+      internalID: -4518114002866396780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_49
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e14b191a9e14994a0800000000000000
+      internalID: -6586160508358773730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_50
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa17b13847e44eef0800000000000000
+      internalID: -79852631063039574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_51
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 352e87766be1ed920800000000000000
+      internalID: 3016882569153667667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58fdebc1e4b6427b0800000000000000
+      internalID: -5249953282373263483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_53
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b4e490d118cdfd0800000000000000
+      internalID: -2315834146665116879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_54
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1215455f5890ec190800000000000000
+      internalID: -7940398622056361695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_55
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96ce7d4a0b54e3850800000000000000
+      internalID: 6358596348875893865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_56
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f1910cb3f0bc99a0800000000000000
+      internalID: -6224906024055107081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_57
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6a7379801b9658e0800000000000000
+      internalID: -1705004913585325459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_58
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d03ab0ac2948d2bc0800000000000000
+      internalID: -3806240344068349171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_59
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73904188768588b90800000000000000
+      internalID: -7239439199310182089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9660f83f8bd9062b0800000000000000
+      internalID: -5593297319508375959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_61
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bef5f1f745e55dc50800000000000000
+      internalID: 6689356538531766251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_62
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c764a1398fe3dffb0800000000000000
+      internalID: -4612461206016735620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_63
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51b92216f876812c0800000000000000
+      internalID: -4460701565402834155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_64
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f910b1366098e42e0800000000000000
+      internalID: -2139622112428883553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_65
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d8e194cef8175be0800000000000000
+      internalID: -1488693669324003118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_66
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d777530d3567dd0800000000000000
+      internalID: -2488709590360294104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_67
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82fa4d9986786e020800000000000000
+      internalID: 2370731137184345896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_68
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bebfec6359430ee0800000000000000
+      internalID: -1296111645093806412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_69
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c543d5dc7cb141830800000000000000
+      internalID: 4040885310616056924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_70
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1519b829e73ec9ae0800000000000000
+      internalID: -1541106839703547567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_71
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d257f806623c26550800000000000000
+      internalID: 6152694610537706797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_72
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0cf798c455d887e0800000000000000
+      internalID: -1762924693996176369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_73
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af8116bb822999b0800000000000000
+      internalID: -5072985521805750368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_74
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d6dcd92eff3a6440800000000000000
+      internalID: 4929823102967011026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_75
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b78228e45d69ce320800000000000000
+      internalID: 2588609728720545915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_76
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c626dc1ef3c3e3e00800000000000000
+      internalID: 1026324010155991660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_77
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d65ab2709c338d60800000000000000
+      internalID: 7891217563181012688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_78
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d5ab08c93d7e0270800000000000000
+      internalID: 8218644057120548308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_79
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d9654f06b4be2860800000000000000
+      internalID: 7507136322906450391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_80
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a6996cbf107adb30800000000000000
+      internalID: 4312882874768004771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_81
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1885e622248fe5bd0800000000000000
+      internalID: -2639399368663345023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_82
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a099d6a3b1536a9a0800000000000000
+      internalID: -6222227444105111286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_83
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5e554deec8199030800000000000000
+      internalID: 3501857462280347229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_84
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49721d8441c070c30800000000000000
+      internalID: 4325439248373196692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_85
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66fa40af328cf07b0800000000000000
+      internalID: -5255762183274057882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_86
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd63445f5914d3130800000000000000
+      internalID: 3548064193758639837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_87
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b58317c5415dc7ce0800000000000000
+      internalID: -1406014700219451301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_88
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5f490ecd8a3d7090800000000000000
+      internalID: -8035201779437580451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_89
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d6a0a5326d4bab00800000000000000
+      internalID: 840850839636584144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_90
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc976d3b7b2f74c60800000000000000
+      internalID: 7802471750252788173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_91
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a9a045f3659504c0800000000000000
+      internalID: -4321884010843166302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_92
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa1abb77f36d428b0800000000000000
+      internalID: -5177778103489158742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_93
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec98b1c91aa578070800000000000000
+      internalID: 8108549304259152334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_94
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dee3ce1939bba8d0800000000000000
+      internalID: -2833967885519163689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_95
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 970c8b56ab8b4ab40800000000000000
+      internalID: 5450684559735177337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_96
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26fdec63a08ee10c0800000000000000
+      internalID: -4602986638559223966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_97
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 886205185f6d6ee40800000000000000
+      internalID: 5685467929526675080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_98
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1f43ad8ffab2a830800000000000000
+      internalID: 4081029819106807579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_99
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5969a450ef497ba60800000000000000
+      internalID: 7689778707489789589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_100
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f3a9be7122d1df30800000000000000
+      internalID: 4598687735823836149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_101
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1576bf6ffa1938530800000000000000
+      internalID: 3856085890908251985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_102
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78e9c7f2f98a52020800000000000000
+      internalID: 2316442985001950855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_103
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4785484943d9334a0800000000000000
+      internalID: -6614770578521565068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_104
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b620957b374cd66e0800000000000000
+      internalID: -1842600671248317845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_105
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fea70abbe7a8fbb60800000000000000
+      internalID: 7764076559528393455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_106
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec9d62118e0522d40800000000000000
+      internalID: 5558093847779006926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_107
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e81944f3061b18230800000000000000
+      internalID: 3639385000828506510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_108
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7a24f1c634961070800000000000000
+      internalID: 8076805944638712446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_109
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f66475e3fb426970800000000000000
+      internalID: 8746636937205671667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_110
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88331445f2afb1d00800000000000000
+      internalID: 944623628048216968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_111
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b2c87efe6b3ce640800000000000000
+      internalID: 5110525025060438710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_112
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 207f844638d6dcf30800000000000000
+      internalID: 4597451205705791234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_113
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a8695777dfb63c0800000000000000
+      internalID: -4365116724289828317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_114
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ffc43837db7bf1c0800000000000000
+      internalID: -4468842040943915022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_115
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14eb3452a6b0c4f30800000000000000
+      internalID: 4561033073139105345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_116
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddbb9fda1b083e770800000000000000
+      internalID: 8638890010843134941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_117
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47251c36c0351ec90800000000000000
+      internalID: -7142336221354569100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_118
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b460ccd57a1e4c220800000000000000
+      internalID: 2505375401674278475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_119
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6500d5139206a53e0800000000000000
+      internalID: -2064231749157846954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_120
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6039e6c79f17854d0800000000000000
+      internalID: -3145639023369874682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_121
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96c2d683c11cb8b80800000000000000
+      internalID: -8391401153724863383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_122
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5417decc18c7f0580800000000000000
+      internalID: -8858725045083737787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_123
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f30bcba2292ccb0800000000000000
+      internalID: -4845149536845283446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_124
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7869eab957e2b5700800000000000000
+      internalID: 530068463804126855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_125
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffedeb458309356d0800000000000000
+      internalID: -3002897954911625473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_126
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eb0be5e224630310800000000000000
+      internalID: 1370048812699814882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_127
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae943bfefec3e8340800000000000000
+      internalID: 4867895248450439658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_128
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35cc00c32fc1e9810800000000000000
+      internalID: 1773887129944902739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_129
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfa011e48a170d860800000000000000
+      internalID: 7552661542778505979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_130
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4004415cd77785650800000000000000
+      internalID: 6221854267273396228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_131
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe78473a3490ab2d0800000000000000
+      internalID: -3262284793966721041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_132
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4f35951065a05910800000000000000
+      internalID: 1824139681182596939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_133
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a7c7187f4b9a7270800000000000000
+      internalID: 8249076433102030761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_134
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e5cd1f0081ba4b0800000000000000
+      internalID: -5428218533528183185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_135
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3260e6c657d0bfc70800000000000000
+      internalID: 9005806677838923299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_136
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c541dcb25fa1c1e20800000000000000
+      internalID: 3322560265396753500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_137
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05ad9fe3e14f59500800000000000000
+      internalID: 402496152462285392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_138
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 776f40f8f9a15ce70800000000000000
+      internalID: 9134736691792508535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_139
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2c9441f85ded4b10800000000000000
+      internalID: 1967489578491485227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_140
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1091626e5003e4160800000000000000
+      internalID: 7011594471756667137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_141
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 945923c7233cd13e0800000000000000
+      internalID: -2081292831175830199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_142
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 328f39dc581e3e6c0800000000000000
+      internalID: -4115197669690574813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_143
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df4b13266725e7e80800000000000000
+      internalID: -8179009204851198723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_144
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5dd32760192d8590800000000000000
+      internalID: -7670429439915467429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_145
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c31ac2f52c7375750800000000000000
+      internalID: 6293560312233500988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_146
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5768b822ffc563030800000000000000
+      internalID: 3474066413428901493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_147
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70430b215315f0df0800000000000000
+      internalID: -211861369074469881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_148
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0783531b3743ce10800000000000000
+      internalID: 2216693760649299725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_149
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f95eca6fdf1483980800000000000000
+      internalID: -8559018532796570209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_150
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6ebadf9585a29170800000000000000
+      internalID: 8183785466216758890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_151
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45a54b13618d6a090800000000000000
+      internalID: -8023488096279176620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_152
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd9ed22090577c8d0800000000000000
+      internalID: -2826161559599978020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_153
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04eca37fb410663b0800000000000000
+      internalID: -5519722867513962944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_154
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3bd577f4c080ee80800000000000000
+      internalID: -8151373742086956229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_155
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd0cbf3f56c15fb10800000000000000
+      internalID: 2014547632528802012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_156
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf5f09676e1980e10800000000000000
+      internalID: 2164140039969240571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_157
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dba3fc08f245b720800000000000000
+      internalID: 2861266771400436697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_158
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53810e6078a7ff2d0800000000000000
+      internalID: -3242738486328944587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_159
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d63909c59ea52780800000000000000
+      internalID: -8708362346104801582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_160
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20bbddb23a1b08f80800000000000000
+      internalID: -8106284014893155582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_161
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d550c015ef76f2ae0800000000000000
+      internalID: -1571923402949917347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_162
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43d53906364f809e0800000000000000
+      internalID: -1654804155399447244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_163
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1702b13c426fb97c0800000000000000
+      internalID: -4063383601019150223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_164
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b8fcdaaf63492fc0800000000000000
+      internalID: -3519207486926292813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_165
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b42b5cc39ad71f9d0800000000000000
+      internalID: -2742272532269387189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_166
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49511643f8d122fd0800000000000000
+      internalID: -2368297953147153004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_167
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9514c30b2ce9ff190800000000000000
+      internalID: -7926442260131200679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_168
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f5d4e75457df1b60800000000000000
+      internalID: 7719125043588158968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_169
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f00d7eae5fc5fcc00800000000000000
+      internalID: 923058659912044559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_170
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960629503234f2020800000000000000
+      internalID: 2319146150815490153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_171
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 778f5ee29853a7600800000000000000
+      internalID: 466744374699882615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_172
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ae74c30948cbcf90800000000000000
+      internalID: -6932226985485369693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_173
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 468b86da8ff274180800000000000000
+      internalID: -9131276974362675100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_174
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0721c25d6ceef1fc0800000000000000
+      internalID: -3521833845833067920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_175
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b74a5881c033e20800000000000000
+      internalID: 3329017849017826097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_176
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a846c808e3398040800000000000000
+      internalID: 4650305161909389476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tannedmale_177
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d90114b8ad2c5fb0800000000000000
+      internalID: -4657797712009164336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 4828f84c2deaae64888999bf1261e397
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

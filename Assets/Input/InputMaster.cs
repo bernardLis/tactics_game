@@ -15,172 +15,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
     ""name"": ""InputMaster"",
     ""maps"": [
         {
-            ""name"": ""FMPlayer"",
-            ""id"": ""0ccd06b9-f131-470c-be50-ef1863cc3e26"",
-            ""actions"": [
-                {
-                    ""name"": ""Movement"",
-                    ""type"": ""Button"",
-                    ""id"": ""750d8564-d89e-4c1d-b869-d067d9006619"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Sneak"",
-                    ""type"": ""Button"",
-                    ""id"": ""c0bb7937-33d3-412f-b434-76c14eeba3d1"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""2dcc2bfe-8366-4ed3-982e-b6c6e1b40f74"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Rush"",
-                    ""type"": ""Button"",
-                    ""id"": ""77c52d3d-b8c2-4653-ab31-e40a7b9ee1fd"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""EnableQuestUI"",
-                    ""type"": ""Button"",
-                    ""id"": ""2c929326-04e1-4033-a0ce-3c1758da7867"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""EnableInventoryUI"",
-                    ""type"": ""Button"",
-                    ""id"": ""bd26f55a-b710-4483-9573-d99630bbe1d2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": ""arrowKeys"",
-                    ""id"": ""3b9bee84-1b33-40c1-a54b-e0a94674e0b0"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""89328f61-590e-4d63-9eb9-2cd848414a50"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""724401c0-ece9-4c9f-a764-1c46c0f561bf"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""0b084813-8bdd-4545-8cb0-dbb3b3ab32fc"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""e8c8c638-8560-494e-8b51-93fc25c3b279"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b3cc2aea-0aed-4472-90b7-5c13e4a48562"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Sneak"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a38c0af5-247e-4890-92dc-a3dc8dfc5aa5"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""106f92e9-5f65-41a9-b770-a1c75913ce9a"",
-                    ""path"": ""<Keyboard>/leftAlt"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Rush"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""77ed70b5-3822-475e-aa22-c11a3184a72a"",
-                    ""path"": ""<Keyboard>/j"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""EnableQuestUI"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4d695f77-e46c-4433-a52e-d80c097119d8"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""EnableInventoryUI"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""Player"",
             ""id"": ""e053d83d-8535-4868-a630-72c397b5d7c3"",
             ""actions"": [
@@ -220,6 +54,70 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": ""Back"",
                     ""type"": ""Button"",
                     ""id"": ""7c78f711-47be-47b3-b3e1-04865a1d14a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftMouseClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a73f7fa-bf06-4d7e-ac53-fa6e2c526e46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ArrowUpClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""41d80404-79c8-4c07-bb6a-55568b64eca2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ArrowDownClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""54747ac8-dbe3-464d-b73c-87c128a022f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ArrowLeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""698338ce-238a-449f-830c-270be72b0f80"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ArrowRightClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""6faa3e42-d72b-4e67-8a54-f7d6d772fd4e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SelectClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""581d02ac-c4e3-418e-ac16-a6dbc3bbc39e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ZoomOut"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f94d516-b444-4a32-af0a-d47b86fc77e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ZoomIn"",
+                    ""type"": ""Button"",
+                    ""id"": ""28561bfc-00d2-47fe-97ef-87a6df8882ab"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -280,66 +178,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Back"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""MovePoint"",
-            ""id"": ""a6bbacf3-6b2d-4c79-937a-bbf4affd75a6"",
-            ""actions"": [
-                {
-                    ""name"": ""LeftMouseClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""ffc9d8cd-2db4-4dba-94ee-76bc6d4f1ccf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 },
-                {
-                    ""name"": ""ArrowUpClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""9862e19d-05df-47be-be51-1ab349958c99"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ArrowDownClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""e5b88a02-9e34-4ff4-b96b-55956eefbb14"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ArrowLeftClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""4b9a24f8-5516-4072-99fc-f367e8b77572"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ArrowRightClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""96ad6dff-3e53-4371-a4a8-ddf1f72a3fdb"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""SelectClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""2ed3cc7b-5140-41cb-a825-9fb5013009a7"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""eefbdc5d-670f-414b-946d-53c989c66716"",
+                    ""id"": ""fe2c0d37-b13f-4f2f-8028-26b55420ca74"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
@@ -350,29 +192,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""eb15c8c4-7262-4594-aafa-154057343b2f"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""ArrowDownClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""635e1f40-1496-4ab3-b494-08c316d7c924"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""ArrowRightClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""852f1e61-3032-45e6-9f00-c7783d7b5b76"",
+                    ""id"": ""efbe31bd-deaa-4b88-b46a-fc30e3cc9c32"",
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
@@ -383,7 +203,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3981e1bf-2caf-485d-9801-c994937c468c"",
+                    ""id"": ""86fac896-41c7-41f7-b264-fda9ed6f3243"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ArrowDownClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20ce7863-0d9b-41c0-8323-60a7cf95c7a3"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
@@ -394,7 +225,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2d97653c-91fe-42d4-8935-3edf3a3325c2"",
+                    ""id"": ""b08bc65f-d8e4-4a61-9d7e-54de02fa536d"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ArrowRightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d72a8822-1533-426c-be42-e739aa829a07"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
@@ -402,50 +244,26 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""SelectClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Camera"",
-            ""id"": ""6acef09f-51be-42af-98ff-1d9ba56da734"",
-            ""actions"": [
-                {
-                    ""name"": ""ZoomIn"",
-                    ""type"": ""Button"",
-                    ""id"": ""90144bf6-53bc-418a-85f0-bfc6c835e492"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ZoomOut"",
-                    ""type"": ""Button"",
-                    ""id"": ""ab881bbc-f354-44a3-a1e0-5aaf6e0f7f9e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""c78ce989-565c-4888-8940-6adbd6b272c3"",
-                    ""path"": ""<Keyboard>/comma"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""ZoomIn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4b4df95a-9356-4f8d-8b34-09bac762c800"",
+                    ""id"": ""aba80308-1ab1-4b94-af1d-95a9276bdab4"",
                     ""path"": ""<Keyboard>/period"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""ZoomOut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c220781-60e0-4033-a4db-76c06987f93c"",
+                    ""path"": ""<Keyboard>/comma"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ZoomIn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -744,14 +562,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     ]
 }");
-        // FMPlayer
-        m_FMPlayer = asset.FindActionMap("FMPlayer", throwIfNotFound: true);
-        m_FMPlayer_Movement = m_FMPlayer.FindAction("Movement", throwIfNotFound: true);
-        m_FMPlayer_Sneak = m_FMPlayer.FindAction("Sneak", throwIfNotFound: true);
-        m_FMPlayer_Interact = m_FMPlayer.FindAction("Interact", throwIfNotFound: true);
-        m_FMPlayer_Rush = m_FMPlayer.FindAction("Rush", throwIfNotFound: true);
-        m_FMPlayer_EnableQuestUI = m_FMPlayer.FindAction("EnableQuestUI", throwIfNotFound: true);
-        m_FMPlayer_EnableInventoryUI = m_FMPlayer.FindAction("EnableInventoryUI", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_QButtonClick = m_Player.FindAction("QButtonClick", throwIfNotFound: true);
@@ -759,18 +569,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_EButtonClick = m_Player.FindAction("EButtonClick", throwIfNotFound: true);
         m_Player_RButtonClick = m_Player.FindAction("RButtonClick", throwIfNotFound: true);
         m_Player_Back = m_Player.FindAction("Back", throwIfNotFound: true);
-        // MovePoint
-        m_MovePoint = asset.FindActionMap("MovePoint", throwIfNotFound: true);
-        m_MovePoint_LeftMouseClick = m_MovePoint.FindAction("LeftMouseClick", throwIfNotFound: true);
-        m_MovePoint_ArrowUpClick = m_MovePoint.FindAction("ArrowUpClick", throwIfNotFound: true);
-        m_MovePoint_ArrowDownClick = m_MovePoint.FindAction("ArrowDownClick", throwIfNotFound: true);
-        m_MovePoint_ArrowLeftClick = m_MovePoint.FindAction("ArrowLeftClick", throwIfNotFound: true);
-        m_MovePoint_ArrowRightClick = m_MovePoint.FindAction("ArrowRightClick", throwIfNotFound: true);
-        m_MovePoint_SelectClick = m_MovePoint.FindAction("SelectClick", throwIfNotFound: true);
-        // Camera
-        m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
-        m_Camera_ZoomIn = m_Camera.FindAction("ZoomIn", throwIfNotFound: true);
-        m_Camera_ZoomOut = m_Camera.FindAction("ZoomOut", throwIfNotFound: true);
+        m_Player_LeftMouseClick = m_Player.FindAction("LeftMouseClick", throwIfNotFound: true);
+        m_Player_ArrowUpClick = m_Player.FindAction("ArrowUpClick", throwIfNotFound: true);
+        m_Player_ArrowDownClick = m_Player.FindAction("ArrowDownClick", throwIfNotFound: true);
+        m_Player_ArrowLeftClick = m_Player.FindAction("ArrowLeftClick", throwIfNotFound: true);
+        m_Player_ArrowRightClick = m_Player.FindAction("ArrowRightClick", throwIfNotFound: true);
+        m_Player_SelectClick = m_Player.FindAction("SelectClick", throwIfNotFound: true);
+        m_Player_ZoomOut = m_Player.FindAction("ZoomOut", throwIfNotFound: true);
+        m_Player_ZoomIn = m_Player.FindAction("ZoomIn", throwIfNotFound: true);
         // QuestUI
         m_QuestUI = asset.FindActionMap("QuestUI", throwIfNotFound: true);
         m_QuestUI_Test = m_QuestUI.FindAction("Test", throwIfNotFound: true);
@@ -830,79 +636,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // FMPlayer
-    private readonly InputActionMap m_FMPlayer;
-    private IFMPlayerActions m_FMPlayerActionsCallbackInterface;
-    private readonly InputAction m_FMPlayer_Movement;
-    private readonly InputAction m_FMPlayer_Sneak;
-    private readonly InputAction m_FMPlayer_Interact;
-    private readonly InputAction m_FMPlayer_Rush;
-    private readonly InputAction m_FMPlayer_EnableQuestUI;
-    private readonly InputAction m_FMPlayer_EnableInventoryUI;
-    public struct FMPlayerActions
-    {
-        private @InputMaster m_Wrapper;
-        public FMPlayerActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_FMPlayer_Movement;
-        public InputAction @Sneak => m_Wrapper.m_FMPlayer_Sneak;
-        public InputAction @Interact => m_Wrapper.m_FMPlayer_Interact;
-        public InputAction @Rush => m_Wrapper.m_FMPlayer_Rush;
-        public InputAction @EnableQuestUI => m_Wrapper.m_FMPlayer_EnableQuestUI;
-        public InputAction @EnableInventoryUI => m_Wrapper.m_FMPlayer_EnableInventoryUI;
-        public InputActionMap Get() { return m_Wrapper.m_FMPlayer; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(FMPlayerActions set) { return set.Get(); }
-        public void SetCallbacks(IFMPlayerActions instance)
-        {
-            if (m_Wrapper.m_FMPlayerActionsCallbackInterface != null)
-            {
-                @Movement.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnMovement;
-                @Sneak.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnSneak;
-                @Sneak.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnSneak;
-                @Sneak.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnSneak;
-                @Interact.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnInteract;
-                @Rush.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
-                @Rush.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
-                @Rush.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnRush;
-                @EnableQuestUI.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
-                @EnableQuestUI.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
-                @EnableQuestUI.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableQuestUI;
-                @EnableInventoryUI.started -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableInventoryUI;
-                @EnableInventoryUI.performed -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableInventoryUI;
-                @EnableInventoryUI.canceled -= m_Wrapper.m_FMPlayerActionsCallbackInterface.OnEnableInventoryUI;
-            }
-            m_Wrapper.m_FMPlayerActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
-                @Sneak.started += instance.OnSneak;
-                @Sneak.performed += instance.OnSneak;
-                @Sneak.canceled += instance.OnSneak;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
-                @Rush.started += instance.OnRush;
-                @Rush.performed += instance.OnRush;
-                @Rush.canceled += instance.OnRush;
-                @EnableQuestUI.started += instance.OnEnableQuestUI;
-                @EnableQuestUI.performed += instance.OnEnableQuestUI;
-                @EnableQuestUI.canceled += instance.OnEnableQuestUI;
-                @EnableInventoryUI.started += instance.OnEnableInventoryUI;
-                @EnableInventoryUI.performed += instance.OnEnableInventoryUI;
-                @EnableInventoryUI.canceled += instance.OnEnableInventoryUI;
-            }
-        }
-    }
-    public FMPlayerActions @FMPlayer => new FMPlayerActions(this);
-
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
@@ -911,6 +644,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_EButtonClick;
     private readonly InputAction m_Player_RButtonClick;
     private readonly InputAction m_Player_Back;
+    private readonly InputAction m_Player_LeftMouseClick;
+    private readonly InputAction m_Player_ArrowUpClick;
+    private readonly InputAction m_Player_ArrowDownClick;
+    private readonly InputAction m_Player_ArrowLeftClick;
+    private readonly InputAction m_Player_ArrowRightClick;
+    private readonly InputAction m_Player_SelectClick;
+    private readonly InputAction m_Player_ZoomOut;
+    private readonly InputAction m_Player_ZoomIn;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -920,6 +661,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @EButtonClick => m_Wrapper.m_Player_EButtonClick;
         public InputAction @RButtonClick => m_Wrapper.m_Player_RButtonClick;
         public InputAction @Back => m_Wrapper.m_Player_Back;
+        public InputAction @LeftMouseClick => m_Wrapper.m_Player_LeftMouseClick;
+        public InputAction @ArrowUpClick => m_Wrapper.m_Player_ArrowUpClick;
+        public InputAction @ArrowDownClick => m_Wrapper.m_Player_ArrowDownClick;
+        public InputAction @ArrowLeftClick => m_Wrapper.m_Player_ArrowLeftClick;
+        public InputAction @ArrowRightClick => m_Wrapper.m_Player_ArrowRightClick;
+        public InputAction @SelectClick => m_Wrapper.m_Player_SelectClick;
+        public InputAction @ZoomOut => m_Wrapper.m_Player_ZoomOut;
+        public InputAction @ZoomIn => m_Wrapper.m_Player_ZoomIn;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -944,6 +693,30 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Back.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
                 @Back.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
                 @Back.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
+                @LeftMouseClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseClick;
+                @LeftMouseClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseClick;
+                @LeftMouseClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseClick;
+                @ArrowUpClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUpClick;
+                @ArrowUpClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUpClick;
+                @ArrowUpClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUpClick;
+                @ArrowDownClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDownClick;
+                @ArrowDownClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDownClick;
+                @ArrowDownClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDownClick;
+                @ArrowLeftClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeftClick;
+                @ArrowLeftClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeftClick;
+                @ArrowLeftClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeftClick;
+                @ArrowRightClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRightClick;
+                @ArrowRightClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRightClick;
+                @ArrowRightClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRightClick;
+                @SelectClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
+                @SelectClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
+                @SelectClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
+                @ZoomOut.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
+                @ZoomOut.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
+                @ZoomOut.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
+                @ZoomIn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
+                @ZoomIn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
+                @ZoomIn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -963,61 +736,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Back.started += instance.OnBack;
                 @Back.performed += instance.OnBack;
                 @Back.canceled += instance.OnBack;
-            }
-        }
-    }
-    public PlayerActions @Player => new PlayerActions(this);
-
-    // MovePoint
-    private readonly InputActionMap m_MovePoint;
-    private IMovePointActions m_MovePointActionsCallbackInterface;
-    private readonly InputAction m_MovePoint_LeftMouseClick;
-    private readonly InputAction m_MovePoint_ArrowUpClick;
-    private readonly InputAction m_MovePoint_ArrowDownClick;
-    private readonly InputAction m_MovePoint_ArrowLeftClick;
-    private readonly InputAction m_MovePoint_ArrowRightClick;
-    private readonly InputAction m_MovePoint_SelectClick;
-    public struct MovePointActions
-    {
-        private @InputMaster m_Wrapper;
-        public MovePointActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LeftMouseClick => m_Wrapper.m_MovePoint_LeftMouseClick;
-        public InputAction @ArrowUpClick => m_Wrapper.m_MovePoint_ArrowUpClick;
-        public InputAction @ArrowDownClick => m_Wrapper.m_MovePoint_ArrowDownClick;
-        public InputAction @ArrowLeftClick => m_Wrapper.m_MovePoint_ArrowLeftClick;
-        public InputAction @ArrowRightClick => m_Wrapper.m_MovePoint_ArrowRightClick;
-        public InputAction @SelectClick => m_Wrapper.m_MovePoint_SelectClick;
-        public InputActionMap Get() { return m_Wrapper.m_MovePoint; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MovePointActions set) { return set.Get(); }
-        public void SetCallbacks(IMovePointActions instance)
-        {
-            if (m_Wrapper.m_MovePointActionsCallbackInterface != null)
-            {
-                @LeftMouseClick.started -= m_Wrapper.m_MovePointActionsCallbackInterface.OnLeftMouseClick;
-                @LeftMouseClick.performed -= m_Wrapper.m_MovePointActionsCallbackInterface.OnLeftMouseClick;
-                @LeftMouseClick.canceled -= m_Wrapper.m_MovePointActionsCallbackInterface.OnLeftMouseClick;
-                @ArrowUpClick.started -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowUpClick;
-                @ArrowUpClick.performed -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowUpClick;
-                @ArrowUpClick.canceled -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowUpClick;
-                @ArrowDownClick.started -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowDownClick;
-                @ArrowDownClick.performed -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowDownClick;
-                @ArrowDownClick.canceled -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowDownClick;
-                @ArrowLeftClick.started -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowLeftClick;
-                @ArrowLeftClick.performed -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowLeftClick;
-                @ArrowLeftClick.canceled -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowLeftClick;
-                @ArrowRightClick.started -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowRightClick;
-                @ArrowRightClick.performed -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowRightClick;
-                @ArrowRightClick.canceled -= m_Wrapper.m_MovePointActionsCallbackInterface.OnArrowRightClick;
-                @SelectClick.started -= m_Wrapper.m_MovePointActionsCallbackInterface.OnSelectClick;
-                @SelectClick.performed -= m_Wrapper.m_MovePointActionsCallbackInterface.OnSelectClick;
-                @SelectClick.canceled -= m_Wrapper.m_MovePointActionsCallbackInterface.OnSelectClick;
-            }
-            m_Wrapper.m_MovePointActionsCallbackInterface = instance;
-            if (instance != null)
-            {
                 @LeftMouseClick.started += instance.OnLeftMouseClick;
                 @LeftMouseClick.performed += instance.OnLeftMouseClick;
                 @LeftMouseClick.canceled += instance.OnLeftMouseClick;
@@ -1036,51 +754,16 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @SelectClick.started += instance.OnSelectClick;
                 @SelectClick.performed += instance.OnSelectClick;
                 @SelectClick.canceled += instance.OnSelectClick;
-            }
-        }
-    }
-    public MovePointActions @MovePoint => new MovePointActions(this);
-
-    // Camera
-    private readonly InputActionMap m_Camera;
-    private ICameraActions m_CameraActionsCallbackInterface;
-    private readonly InputAction m_Camera_ZoomIn;
-    private readonly InputAction m_Camera_ZoomOut;
-    public struct CameraActions
-    {
-        private @InputMaster m_Wrapper;
-        public CameraActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ZoomIn => m_Wrapper.m_Camera_ZoomIn;
-        public InputAction @ZoomOut => m_Wrapper.m_Camera_ZoomOut;
-        public InputActionMap Get() { return m_Wrapper.m_Camera; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
-        public void SetCallbacks(ICameraActions instance)
-        {
-            if (m_Wrapper.m_CameraActionsCallbackInterface != null)
-            {
-                @ZoomIn.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomIn;
-                @ZoomIn.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomIn;
-                @ZoomIn.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomIn;
-                @ZoomOut.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomOut;
-                @ZoomOut.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomOut;
-                @ZoomOut.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomOut;
-            }
-            m_Wrapper.m_CameraActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @ZoomIn.started += instance.OnZoomIn;
-                @ZoomIn.performed += instance.OnZoomIn;
-                @ZoomIn.canceled += instance.OnZoomIn;
                 @ZoomOut.started += instance.OnZoomOut;
                 @ZoomOut.performed += instance.OnZoomOut;
                 @ZoomOut.canceled += instance.OnZoomOut;
+                @ZoomIn.started += instance.OnZoomIn;
+                @ZoomIn.performed += instance.OnZoomIn;
+                @ZoomIn.canceled += instance.OnZoomIn;
             }
         }
     }
-    public CameraActions @Camera => new CameraActions(this);
+    public PlayerActions @Player => new PlayerActions(this);
 
     // QuestUI
     private readonly InputActionMap m_QuestUI;
@@ -1221,15 +904,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_KeyboardSchemeIndex];
         }
     }
-    public interface IFMPlayerActions
-    {
-        void OnMovement(InputAction.CallbackContext context);
-        void OnSneak(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
-        void OnRush(InputAction.CallbackContext context);
-        void OnEnableQuestUI(InputAction.CallbackContext context);
-        void OnEnableInventoryUI(InputAction.CallbackContext context);
-    }
     public interface IPlayerActions
     {
         void OnQButtonClick(InputAction.CallbackContext context);
@@ -1237,20 +911,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnEButtonClick(InputAction.CallbackContext context);
         void OnRButtonClick(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
-    }
-    public interface IMovePointActions
-    {
         void OnLeftMouseClick(InputAction.CallbackContext context);
         void OnArrowUpClick(InputAction.CallbackContext context);
         void OnArrowDownClick(InputAction.CallbackContext context);
         void OnArrowLeftClick(InputAction.CallbackContext context);
         void OnArrowRightClick(InputAction.CallbackContext context);
         void OnSelectClick(InputAction.CallbackContext context);
-    }
-    public interface ICameraActions
-    {
-        void OnZoomIn(InputAction.CallbackContext context);
         void OnZoomOut(InputAction.CallbackContext context);
+        void OnZoomIn(InputAction.CallbackContext context);
     }
     public interface IQuestUIActions
     {
