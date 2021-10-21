@@ -320,6 +320,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5809991291737814431, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
+      propertyPath: checkmark
+      value: 
+      objectReference: {fileID: 4561253339802451974, guid: 1400ee94531d8e74c98f3ee11827f3bf, type: 3}
     - target: {fileID: 6150204838195089752, guid: 3415a6da6e0fe6d4db2a91625e88388b, type: 3}
       propertyPath: slotBackground
       value: 

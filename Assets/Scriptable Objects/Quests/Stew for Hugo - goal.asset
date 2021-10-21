@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa07236297d34e3418d3e7f18c9b407e, type: 3}
   m_Name: Stew for Hugo - goal
   m_EditorClassIdentifier: 
-  title: 
+  title: Get stew
   qGoalState: 0
   requiredItem: {fileID: 11400000, guid: 85bb4b35c18f9e041b2676cb60485b4b, type: 2}
   currentAmount: 0

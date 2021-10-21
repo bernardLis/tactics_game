@@ -33,14 +33,14 @@
     </ui:VisualElement>
     <ui:VisualElement name="questUI" class="questUI" style="display: none;">
         <ui:VisualElement name="questUIContainer" class="questUIContainer">
-            <ui:VisualElement name="questList" style="width: 20%;">
-                <ui:VisualElement name="activeQuests" class="questsHeader" style="-unity-text-align: upper-center;">
+            <ui:ScrollView name="questList" style="width: 20%;">
+								<ui:VisualElement name="activeQuests" class="questsHeader" style="-unity-text-align: upper-center;">
                     <ui:Label text="Active quests:" display-tooltip-when-elided="true" name="activeQuestsTitle" class="questStatusHeader" />
                     <ui:VisualElement name="activeQuestsContainer" class="questTitleLabel" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
                         <ui:VisualElement name="questSlot" class="questSlot">
                             <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" />
                         </ui:VisualElement>
-                    </ui:VisualElement>
+                </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="completedQuests" style="-unity-text-align: upper-center;">
                     <ui:Label text="Completed quests:" display-tooltip-when-elided="true" name="completedQuestsTitle" class="questStatusHeader questsHeader" />
@@ -49,20 +49,14 @@
                 <ui:VisualElement name="failedQuests" style="-unity-text-align: upper-center;">
                     <ui:Label text="Failed quests:" display-tooltip-when-elided="true" name="failedQuestsTitle" class="questsHeader questStatusHeader" />
                     <ui:VisualElement name="failedQuestsContainer" />
-                </ui:VisualElement>
-            </ui:VisualElement>
+                </ui:VisualElement>            </ui:ScrollView>
             <ui:VisualElement name="questInformation" style="width: 80%; margin-left: 20px; background-color: rgb(195, 195, 195); padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
                 <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" name="questTitle" class="questInformationName" />
                 <ui:Label text="Old man asked me to catch 3 rabbits." display-tooltip-when-elided="true" name="questDescription" class="questInformationDescription" />
+                <ui:VisualElement name="questGoalContainer" class="questGoalContainer">
+                    <ui:Label text="Goal: Catch 3 rabbits" display-tooltip-when-elided="true" name="questGoalTitle" class="questGoalTitle" />
+                </ui:VisualElement>
                 <ui:VisualElement name="questCompletedOverlay" />
-                <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" name="questTitle" class="questInformationName" />
-                <ui:Label text="Old man asked me to catch 3 rabbits." display-tooltip-when-elided="true" name="questDescription" class="questInformationDescription" />
-                <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" name="questTitle" class="questInformationName" />
-                <ui:Label text="Old man asked me to catch 3 rabbits." display-tooltip-when-elided="true" name="questDescription" class="questInformationDescription" />
-                <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" name="questTitle" class="questInformationName" />
-                <ui:Label text="Old man asked me to catch 3 rabbits." display-tooltip-when-elided="true" name="questDescription" class="questInformationDescription" />
-                <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" name="questTitle" class="questInformationName" />
-                <ui:Label text="Old man asked me to catch 3 rabbits." display-tooltip-when-elided="true" name="questDescription" class="questInformationDescription" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

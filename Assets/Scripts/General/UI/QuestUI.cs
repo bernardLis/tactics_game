@@ -22,6 +22,7 @@ public class QuestUI : MonoBehaviour
 
 	QuestManager questManager;
 
+	public Texture2D checkmark;
 	public QuestSlot selectedQuestSlot;
 
 	void Awake()
@@ -70,7 +71,7 @@ public class QuestUI : MonoBehaviour
 			slot = questSlots.TakeWhile(x => x != selectedQuestSlot).DefaultIfEmpty(questSlots[questSlots.Count - 1]).LastOrDefault();
 
 		// not interaction for left and right;
-		if(slot == null)
+		if (slot == null)
 			return;
 
 		slot.Select();
@@ -127,14 +128,6 @@ public class QuestUI : MonoBehaviour
 				activeQuestsContainer.Add(slot);
 
 				questSlots.Add(slot);
-
-				//Label questLabel = new Label(quest.qName);
-				//questLabel.AddToClassList("questTitleLabel");
-				// https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
-				// myElement.RegisterCallback<MouseDownEvent, MyType>(MyCallbackWithData, myData);
-				// void MyCallbackWithData(MouseDownEvent evt, MyType data) { /* ... */ }
-				//questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
-				//activeQuestsContainer.Add(questLabel);				
 			}
 		}
 		else
@@ -151,14 +144,6 @@ public class QuestUI : MonoBehaviour
 				completedQuestsContainer.Add(slot);
 
 				questSlots.Add(slot);
-
-				/*
-				Label questLabel = new Label(quest.qName);
-				questLabel.AddToClassList("questTitleLabel");
-
-				questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
-				completedQuestsContainer.Add(questLabel);
-				*/
 			}
 		}
 		else
@@ -176,17 +161,24 @@ public class QuestUI : MonoBehaviour
 				failedQuestsContainer.Add(slot);
 
 				questSlots.Add(slot);
-				/*
-				Label questLabel = new Label(quest.qName);
-				questLabel.AddToClassList("questTitleLabel");
-
-				questLabel.RegisterCallback<MouseDownEvent, Quest>(OnQuestClick, quest);
-				failedQuestsContainer.Add(questLabel);
-				*/
 			}
+
 		}
 		else
 			UIDocument.rootVisualElement.Q<VisualElement>("failedQuests").style.display = DisplayStyle.None;
+
+		// the list has changed I need to update selected quest slot
+		if (selectedQuestSlot != null)
+		{
+			foreach (QuestSlot slot in questSlots)
+			{
+				if (slot.quest == selectedQuestSlot.quest)
+				{
+					Debug.Log("selected questtt found");
+					selectedQuestSlot = slot;
+				}
+			}
+		}
 
 		// if there are no quests to display add a text;
 		if (activeQuests.Count == 0 && completedQuests.Count == 0 && failedQuests.Count == 0)
@@ -200,14 +192,17 @@ public class QuestUI : MonoBehaviour
 			RefreshQuestInformation();
 	}
 
-	//MouseDownEvent evt,
 	public void OnQuestClick(Quest quest)
 	{
-		if (selectedQuestSlot != null)
-			selectedQuestSlot.Unselect();
 
 		ClearQuestInformation();
 		DisplayQuestInformation(quest);
+	}
+
+	public void UnselectCurrent()
+	{
+		if (selectedQuestSlot != null)
+			selectedQuestSlot.Unselect();
 	}
 
 	void DisplayQuestInformation(Quest quest)
@@ -241,11 +236,22 @@ public class QuestUI : MonoBehaviour
 
 		foreach (QuestGoal questGoal in quest.qGoals)
 		{
+			VisualElement questGoalContainer = new VisualElement();
+			questGoalContainer.AddToClassList("questGoalContainer");
+			questInformation.Add(questGoalContainer);
+
+			Label title = new Label("Goal: " + questGoal.title);
+			title.AddToClassList("questGoalTitle");
+			questGoalContainer.Add(title);
+
+			if(questGoal.qGoalState == QuestGoalState.COMPLETED)
+			{
+				questGoalContainer.style.backgroundImage = checkmark;
+				questGoalContainer.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
+			}
+
 			if (questGoal.requiredItem == null)
 				return;
-
-			VisualElement questGoalContainer = new VisualElement();
-			questInformation.Add(questGoalContainer);
 
 			VisualElement currentContainer = new VisualElement();
 			VisualElement requiredContainer = new VisualElement();
@@ -287,7 +293,10 @@ public class QuestUI : MonoBehaviour
 	{
 		ClearQuestInformation();
 		if (selectedQuestSlot != null)
-			DisplayQuestInformation(selectedQuestSlot.quest);
+		{
+			// DisplayQuestInformation(selectedQuestSlot.quest);
+			selectedQuestSlot.Select();
+		}
 	}
 
 	void ClearQuestInformation()

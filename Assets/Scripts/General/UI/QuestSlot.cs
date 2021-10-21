@@ -53,19 +53,24 @@ public class QuestSlot : VisualElement
 	{
 		Debug.Log("clicked on " + quest.qName);
 
-		this.style.backgroundColor = Color.magenta;
-
 		if (questUI != null)
 		{
+			questUI.UnselectCurrent();
 			questUI.OnQuestClick(quest);
 			questUI.selectedQuestSlot = this;
 		}
+
+		this.AddToClassList("selectedQuestSlot");
+
+		//this.style.backgroundColor = new Color(255 / 255f, 133 / 255f, 125 / 255f, 1);
+
 
 
 	}
 
 	public void Unselect()
 	{
-		this.style.backgroundColor = new Color(0f, 0f, 0f, 0f);
+		//this.style.backgroundColor = new Color(0f, 0f, 0f, 0f);
+		this.RemoveFromClassList("selectedQuestSlot");
 	}
 }

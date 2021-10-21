@@ -15,7 +15,7 @@ MonoBehaviour:
   qID: 1
   qName: Stew for Hugo
   qDescription: Hugo asked me for stew
-  qState: 2
+  qState: 1
   qGoals:
   - {fileID: 11400000, guid: 83b5163a4d178884d946d01698a99537, type: 2}
   qReward: {fileID: 11400000, guid: 85bb4b35c18f9e041b2676cb60485b4b, type: 2}

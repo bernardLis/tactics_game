@@ -15,6 +15,6 @@ MonoBehaviour:
   qID: 0
   qName: Sneak past the guard
   qDescription: I have failed to sneak past the guard.
-  qState: 3
+  qState: 1
   qGoals: []
   qReward: {fileID: 11400000, guid: fd66c83919d6e7349b0227a13ef73d90, type: 2}
