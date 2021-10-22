@@ -63,12 +63,14 @@ public class TurnManager : MonoBehaviour
 
 	void Update()
 	{
+        /*
 		// next turn 
 		if (Input.GetKeyUp("p"))
 		{
 			EndPlayerTurn();
 			Highlighter.instance.ClearHighlightedTiles();
 		}
+        */
 	}
 
 	public void EndPlayerTurn()

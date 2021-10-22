@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class MovePointController : MonoBehaviour
 {
+
     Highlighter highlighter;
     AbilityUI abilityUI;
 
@@ -32,6 +33,15 @@ public class MovePointController : MonoBehaviour
 
     public bool blockMovePoint = false;
     bool firstEnable = false;
+
+    [Header("Chararacter from SO")]
+    public Character tempChar;
+    public GameObject characterTemplate;
+    [Space(10)]
+    public Character enemyCharSO;
+    public GameObject enemyTemplateGO;
+
+
 
     public static MovePointController instance;
     void Awake()
@@ -83,6 +93,8 @@ public class MovePointController : MonoBehaviour
         playerInput.actions["ArrowRightClick"].performed += ctx => ArrowRightClick();
         playerInput.actions["SelectClick"].performed += ctx => SelectClick();
 
+        playerInput.actions["Test"].performed += ctx => Test();
+        playerInput.actions["TestY"].performed += ctx => TestY();
 
         // TODO: THIS SUCKS but document ui is not ready on the first enable.
         if (!firstEnable)
@@ -98,24 +110,51 @@ public class MovePointController : MonoBehaviour
         GameUI.instance.HideTileInfoUI();
         GameUI.instance.HideCharacterInfoUI();
 
-        if(playerInput == null)
+        if (playerInput == null)
             return;
-    
+
         playerInput.actions["LeftMouseClick"].performed -= ctx => LeftMouseClick();
+
         playerInput.actions["ArrowUpClick"].performed -= ctx => ArrowUpClick();
         playerInput.actions["ArrowDownClick"].performed -= ctx => ArrowDownClick();
         playerInput.actions["ArrowLeftClick"].performed -= ctx => ArrowLeftClick();
         playerInput.actions["ArrowRightClick"].performed -= ctx => ArrowRightClick();
         playerInput.actions["SelectClick"].performed -= ctx => SelectClick();
+
+        playerInput.actions["Test"].performed -= ctx => Test();
+        playerInput.actions["TestY"].performed -= ctx => TestY();
+
     }
 
     // INPUT
+
+    void Test()
+    {
+        Debug.Log("T is clicked");
+
+        GameObject newCharacter = Instantiate(characterTemplate, transform.position, Quaternion.identity);
+        tempChar.Initialize(newCharacter);
+        newCharacter.GetComponent<CharacterStats>().SetCharacteristics(tempChar);
+    }
+
+    void TestY()
+    {
+        Debug.Log("Y is clicked");
+
+        GameObject newCharacter = Instantiate(enemyTemplateGO, transform.position, Quaternion.identity);
+        Character instantiatedSO = Instantiate(enemyCharSO);
+        instantiatedSO.Initialize(newCharacter);
+        newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+    }
+
+
+
     void LeftMouseClick()
     {
-        Debug.Log("left mouse click");
+
         if (!blockMovePoint)
         {
-            Vector3 mousePos = Input.mousePosition;
+            Vector3 mousePos = Mouse.current.position.ReadValue(); // TODO: this is wrong, right? input is a different system
             mousePos.z = 1; // select distance = 1 unit(s) from the camera
             Vector3Int tilePos = tilemap.WorldToCell(cam.ScreenToWorldPoint(mousePos));
             if (tiles.TryGetValue(tilePos, out _tile))

@@ -5,111 +5,126 @@ using System;
 
 public class CharacterStats : MonoBehaviour
 {
-	public Character character;
+    public Character character;
 
-	public event Action characterDeathEvent;
+    public event Action characterDeathEvent;
 
-	// Stats are accessed by other scripts need to be public.
-	[HideInInspector] public string characterName; // from char scriptable object
-	[HideInInspector] public Stat movementRange;
-	[HideInInspector] public Stat strength;
-	[HideInInspector] public Stat armor;
-	[HideInInspector] public Stat intelligence;
-	[HideInInspector] public Stat maxHealth;
-	[HideInInspector] public Stat maxMana;
+    // Stats are accessed by other scripts need to be public.
+    [HideInInspector] public string characterName; // from char scriptable object
+    [HideInInspector] public Stat movementRange;
+    [HideInInspector] public Stat strength;
+    [HideInInspector] public Stat armor;
+    [HideInInspector] public Stat intelligence;
+    [HideInInspector] public Stat maxHealth;
+    [HideInInspector] public Stat maxMana;
 
-	public int currentHealth { get; private set; }
-	public int currentMana { get; private set; }
+    public int currentHealth { get; private set; }
+    public int currentMana { get; private set; }
 
-	public List<Ability> abilities;
+    public List<Ability> abilities;
 
-	DamageUI damageUI;
+    DamageUI damageUI;
 
-	protected virtual void Awake()
-	{
-		// taking values from scriptable object to c#
-		characterName = character.characterName;
-		movementRange.baseValue = character.movementRange;
-		strength.baseValue = character.strength; ;
-		armor.baseValue = character.armor; ;
-		intelligence.baseValue = character.intelligence; ;
-		maxHealth.baseValue = character.maxHealth; ;
-		maxMana.baseValue = character.maxMana; ;
+    CharacterRendererManager characterRendererManager;
 
-		// TODO: /2 and startin mana is for heal testing purposes 
-		currentHealth = maxHealth.GetValue();
-		currentMana = 20;
+    protected virtual void Awake()
+    {
+        damageUI = GetComponent<DamageUI>();
+        characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+    }
+    public void SetCharacteristics(Character _character)
+    {
+        character = _character;
+        SetCharacteristics();
+    }
 
-		foreach (Ability ability in character.characterAbilities)
-		{
-			// I am cloning the ability coz if I don't there is only one scriptable object and it overrides variables
-			// if 2 characters use the same ability
-			var clone = Instantiate(ability);
-			abilities.Add(clone);
-			clone.Initialize(gameObject);
-		}
+    void SetCharacteristics()
+    {
+        // taking values from scriptable object to c#
+        characterName = character.characterName;
+        movementRange.baseValue = character.movementRange;
+        strength.baseValue = character.strength; ;
+        armor.baseValue = character.armor; ;
+        intelligence.baseValue = character.intelligence; ;
+        maxHealth.baseValue = character.maxHealth; ;
+        maxMana.baseValue = character.maxMana;
 
-		damageUI = GetComponent<DamageUI>();
-	}
+        // TODO: /2 and startin mana is for heal testing purposes 
+        currentHealth = maxHealth.GetValue();
+        currentMana = 20;
 
-	public void TakeDamage(int damage)
-	{
-		damage -= armor.GetValue();
+        foreach (Ability ability in character.characterAbilities)
+        {
+            // I am cloning the ability coz if I don't there is only one scriptable object and it overrides variables
+            // if 2 characters use the same ability
+            var clone = Instantiate(ability);
+            abilities.Add(clone);
+            clone.Initialize(gameObject);
+        }
+    }
 
-		// to not repeat the code
-		TakePiercingDamage(damage);
-	}
 
-	public void TakePiercingDamage(int damage)
-	{
-		damage = Mathf.Clamp(damage, 0, int.MaxValue);
-		currentHealth -= damage;
+    public void TakeDamage(int damage)
+    {
+        damage -= armor.GetValue();
 
-		// displaying damage UI
-		damageUI.DisplayDamage(damage);
+        // to not repeat the code
+        TakePiercingDamage(damage);
+    }
 
-		if (currentHealth <= 0)
-		{
-			Die();
-		}
-	}
+    public void TakePiercingDamage(int damage)
+    {
+        damage = Mathf.Clamp(damage, 0, int.MaxValue);
+        currentHealth -= damage;
 
-	public void GainMana(int amount)
-	{
-		currentMana += amount;
-		currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
-	}
+        // displaying damage UI
+        damageUI.DisplayDamage(damage);
 
-	public void UseMana(int amount)
-	{
-		currentMana -= amount;
-		currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
 
-		Debug.Log(transform.name + " uses " + amount + " mana.");
-	}
+    public void GainMana(int amount)
+    {
+        currentMana += amount;
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
+    }
 
-	public void Heal(int healthGain)
-	{
-		healthGain = Mathf.Clamp(healthGain, 0, maxHealth.GetValue() - currentHealth);
-		currentHealth += healthGain;
+    public void UseMana(int amount)
+    {
+        currentMana -= amount;
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
 
-		Debug.Log(transform.name + " heals " + healthGain + " .");
+        Debug.Log(transform.name + " uses " + amount + " mana.");
+    }
 
-		damageUI.DisplayHeal(healthGain);
-	}
+    public void Heal(int healthGain)
+    {
+        healthGain = Mathf.Clamp(healthGain, 0, maxHealth.GetValue() - currentHealth);
+        currentHealth += healthGain;
 
-	public virtual void Die()
-	{
-		// die in some way
-		// this method is meant to be overwirtten
-		Destroy(gameObject, 0.5f);
+        Debug.Log(transform.name + " heals " + healthGain + " .");
 
-		Debug.Log(transform.name + " died.");
-		// movement script needs to clear the highlight 
-		if (characterDeathEvent != null)
-		{
-			characterDeathEvent();
-		}
-	}
+        damageUI.DisplayHeal(healthGain);
+    }
+
+    public virtual void Die()
+    {
+        // playing death animation
+        characterRendererManager.DieAnimation();
+
+        // die in some way
+        // this method is meant to be overwirtten
+        Destroy(gameObject, 0.5f);
+
+        Debug.Log(transform.name + " died.");
+        // movement script needs to clear the highlight 
+        if (characterDeathEvent != null)
+        {
+            characterDeathEvent();
+        }
+    }
 
 }

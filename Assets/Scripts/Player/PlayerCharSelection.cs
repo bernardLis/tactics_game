@@ -58,7 +58,9 @@ public class PlayerCharSelection : CharacterSelection
 
 	public void OnTurnEnd()
 	{
-		selectionCircleRenderer.color = new Color(0.53f, 0.52f, 1f, 1f);
-		movedThisTurn = false;
+        if(selectionCircle != null)
+		    selectionCircleRenderer.color = new Color(0.53f, 0.52f, 1f, 1f);
+		
+        movedThisTurn = false;
 	}
 }

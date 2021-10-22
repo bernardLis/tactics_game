@@ -33,9 +33,9 @@ public class EnemyAI : MonoBehaviour
 		seeker = GetComponent<Seeker>();
 
 		highlighter = GameManager.instance.GetComponent<Highlighter>();
-		characterSelection = transform.GetComponent<EnemyCharSelection>();
-		enemyCharMovementController = transform.GetComponent<EnemyCharMovementController>();
-		enemyInteractionController = transform.GetComponent<EnemyCharInteractionController>();
+		characterSelection = GetComponent<EnemyCharSelection>();
+		enemyCharMovementController = GetComponent<EnemyCharMovementController>();
+		enemyInteractionController = GetComponent<EnemyCharInteractionController>();
 
 		// This is our Dictionary of tiles
 		tiles = GameTiles.instance.tiles;

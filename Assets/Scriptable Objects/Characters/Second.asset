@@ -12,13 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
   m_Name: Second
   m_EditorClassIdentifier: 
-  characterName: First
+  characterName: Second
+  portrait: {fileID: 21300000, guid: 3bf5cfa5ff6fff04cb2f1e323618711b, type: 3}
   maxHealth: 100
   armor: 0
   strength: 10
   intelligence: 20
   maxMana: 50
   movementRange: 5
+  body: {fileID: 11400000, guid: aaba8a144793e964cb8f8d940b610a6b, type: 2}
+  feet: {fileID: 11400000, guid: 11267fbcd1abb6d4e9c3d1c1b5373948, type: 2}
+  hair: {fileID: 11400000, guid: a5e8401870ed78747b2a85ec14a9d0df, type: 2}
+  hands: {fileID: 11400000, guid: e30c815ac73e90e48bec1f0e91fa118e, type: 2}
+  helmet: {fileID: 11400000, guid: ffa24a91e6fc8194dbde0d67886970bf, type: 2}
+  legs: {fileID: 11400000, guid: faf9f294916c4974fa655eb32c8822c4, type: 2}
+  torso: {fileID: 11400000, guid: 7c9eb3cbbd271b84f94af7594c30a864, type: 2}
+  shield: {fileID: 11400000, guid: 7b97ebc92bd34534ba65d1cf3444a819, type: 2}
+  weapon: {fileID: 11400000, guid: afe2c78e7d3b7f14f82976bc31f26153, type: 2}
   characterAbilities:
   - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
   - {fileID: 11400000, guid: 37a19eb1451c9ee4b880197882681637, type: 2}

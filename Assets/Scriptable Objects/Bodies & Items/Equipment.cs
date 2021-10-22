@@ -6,7 +6,7 @@ public enum EquipmentSlot { BODY, FEET, HAIR, HANDS, HELMET, LEGS, TORSO, SHIELD
 public enum Gender { MALE, FEMALE }
 
 
-[CreateAssetMenu(menuName = "Equipment")]
+[CreateAssetMenu(menuName = "Equipment/NewEquipment")]
 public class Equipment : ScriptableObject
 {
 	public string eName;

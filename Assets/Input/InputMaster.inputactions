@@ -43,15 +43,15 @@
                     "id": "7c78f711-47be-47b3-b3e1-04865a1d14a7",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "LeftMouseClick",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "6a73f7fa-bf06-4d7e-ac53-fa6e2c526e46",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "ArrowUpClick",
@@ -108,6 +108,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Test",
+                    "type": "Button",
+                    "id": "eff9d875-de2e-4d55-95a7-1e723325c83f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TestY",
+                    "type": "Button",
+                    "id": "ad65bd75-1db2-4d28-a1a9-6035ad724364",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -117,7 +133,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "QButtonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -128,7 +144,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "EButtonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -139,7 +155,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "WButtonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -150,7 +166,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "RButtonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -161,7 +177,7 @@
                     "path": "<Keyboard>/b",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -172,7 +188,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "LeftMouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -183,7 +199,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "ArrowUpClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -194,7 +210,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "ArrowDownClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -205,7 +221,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "ArrowLeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -216,7 +232,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "ArrowRightClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -227,7 +243,7 @@
                     "path": "<Keyboard>/f",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "SelectClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -238,7 +254,7 @@
                     "path": "<Keyboard>/period",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "ZoomOut",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -249,8 +265,30 @@
                     "path": "<Keyboard>/comma",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "ZoomIn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "410f9425-52bb-45df-99db-91b497c4705e",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a7fa1ad-066e-48b0-aef9-519d299d0e17",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "TestY",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -292,7 +330,7 @@
                     "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "Test",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -303,7 +341,7 @@
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "DisableQuestUI",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -314,7 +352,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "DisableQuestUI",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -336,7 +374,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "QuestMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -347,7 +385,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "QuestMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -358,7 +396,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "QuestMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -369,7 +407,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "QuestMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -412,7 +450,7 @@
                     "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "Test",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -423,7 +461,7 @@
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "DisableInventoryUI",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -434,7 +472,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "DisableInventoryUI",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -456,7 +494,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "InventoryMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -467,7 +505,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "InventoryMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -478,7 +516,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "InventoryMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -489,7 +527,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "InventoryMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -516,7 +554,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "ConversationInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -527,7 +565,7 @@
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard & Mouse",
                     "action": "ConversationInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -537,11 +575,16 @@
     ],
     "controlSchemes": [
         {
-            "name": "Keyboard",
-            "bindingGroup": "Keyboard",
+            "name": "Keyboard & Mouse",
+            "bindingGroup": "Keyboard & Mouse",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }

@@ -41,6 +41,7 @@ public class PlayerCharMovementController : CharacterMovementController
 
     public void BackClickInput()
     {
+        Debug.Log("back clikc");
         if (reachedDestinationThisTurn)
         {
             // TODO: block player input when character is moving back;
@@ -67,16 +68,19 @@ public class PlayerCharMovementController : CharacterMovementController
         base.OnEnable();
 
         playerInput = MovePointController.instance.GetComponent<PlayerInput>();
+
+        // TODO: hacky.
+        playerInput.actions["Back"].performed -= ctx => BackClickInput();
         playerInput.actions["Back"].performed += ctx => BackClickInput();
     }
     protected override void OnDisable()
     {
         base.OnDisable();
 
-        if(playerInput == null)
+        if (playerInput == null)
             return;
 
-        playerInput.actions["Back"].performed += ctx => BackClickInput();
+        playerInput.actions["Back"].performed -= ctx => BackClickInput();
     }
 
     public void Move(Transform t)
@@ -124,6 +128,10 @@ public class PlayerCharMovementController : CharacterMovementController
     {
         base.OnTargetReached();
 
+        // destroy the temp object
+        if (tempObject != null)
+            Destroy(tempObject);
+
         if (reachedDestinationThisTurn)
         {
             destinationTile = null;
@@ -137,11 +145,6 @@ public class PlayerCharMovementController : CharacterMovementController
 
             MovePointController.instance.blockMovePoint = false;
 
-            // destroy the temp object
-            if (tempObject != null)
-            {
-                Destroy(tempObject);
-            }
 
             // allow player input
             //controls.Enable();

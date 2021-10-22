@@ -9,17 +9,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
-  m_Name: EnemyHealer
+  m_Script: {fileID: 11500000, guid: f3daa1c671160234e995dc8e63564010, type: 3}
+  m_Name: Randomized Enemy
   m_EditorClassIdentifier: 
-  characterName: Basic Enemy
+  characterName: Enemy 1
   portrait: {fileID: 21300000, guid: c10d0c3d65130624e89209b936de9e2f, type: 3}
   maxHealth: 100
   armor: 5
   strength: 5
   intelligence: 5
   maxMana: 50
-  movementRange: 4
+  movementRange: 5
+  body: {fileID: 0}
+  feet: {fileID: 0}
+  hair: {fileID: 0}
+  hands: {fileID: 0}
+  helmet: {fileID: 0}
+  legs: {fileID: 0}
+  torso: {fileID: 0}
+  shield: {fileID: 0}
+  weapon: {fileID: 0}
   characterAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
-  - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
+  enemyBrain: {fileID: 0}
+  equipmentDatabase: {fileID: 11400000, guid: ab5a334b1d10e8a4d8c321e06aa340e1, type: 2}
