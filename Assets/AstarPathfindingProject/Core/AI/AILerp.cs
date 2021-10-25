@@ -483,6 +483,7 @@ namespace Pathfinding
         /// </summary>
         public virtual void OnTargetReached()
         {
+            myDirection = Vector2.zero;
             // myshiz
             /*
 			// stop animating player
@@ -663,6 +664,7 @@ namespace Pathfinding
         /// <summary>\copydoc Pathfinding::IAstarAI::MovementUpdate</summary>
         public void MovementUpdate(float deltaTime, out Vector3 nextPosition, out Quaternion nextRotation)
         {
+            Debug.Log("movement update");
             if (updatePosition) simulatedPosition = tr.position;
             if (updateRotation) simulatedRotation = tr.rotation;
 
@@ -670,7 +672,7 @@ namespace Pathfinding
 
             nextPosition = CalculateNextPosition(out direction, isStopped ? 0f : deltaTime);
 
-            // HERE: my code, don't know if this is correct, but it works well :)
+            // HERE: my code, don't know if this is correct, but it works well :) almost....
             myDirection = new Vector2(nextPosition.x - tr.position.x, nextPosition.y - tr.position.y) * 100;
 
             if (enableRotation) nextRotation = SimulateRotationTowards(direction, deltaTime);

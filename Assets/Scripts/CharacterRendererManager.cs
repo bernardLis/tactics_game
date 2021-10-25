@@ -4,7 +4,7 @@ using UnityEngine;
 using Pathfinding;
 public class CharacterRendererManager : MonoBehaviour
 {
-    Vector2 direction;
+    public Vector2 direction;
     Vector2 lastDirection;
     Animator animator;
     CharacterRenderer characterRenderer;
@@ -15,8 +15,9 @@ public class CharacterRendererManager : MonoBehaviour
 
 
 
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
         characterRenderer = GetComponent<CharacterRenderer>();
@@ -24,16 +25,17 @@ public class CharacterRendererManager : MonoBehaviour
     }
 
     // Update is called once per frame
+    // TODO: something smarter I probably don't need to set direction when character movement is not active
     void Update()
     {
-        // TODO: something smarter I probably don't need to set direction when character movement is not active;
-        direction = AI.myDirection;
+        if (AI.canMove)
+            direction = AI.myDirection;
 
         if (direction.sqrMagnitude > 0)
             lastDirection = direction;
+
         if (!noIdleAnimation)
         {
-
             characterRenderer.SetDirection(direction);
 
             foreach (Transform child in transform)
@@ -43,8 +45,8 @@ public class CharacterRendererManager : MonoBehaviour
                     cr.SetDirection(direction);
             }
         }
-
     }
+    
     // TODO: noone calls it
     // TODO: no weapon holder
     public void AttackAnimation()
@@ -60,7 +62,19 @@ public class CharacterRendererManager : MonoBehaviour
             StartCoroutine(Shoot());
     }
 
-    public void DieAnimation()
+    public void Face(Vector2 dir)
+    {
+        // TODO: this is hacky and incorrect, make something smarter
+        direction = dir;
+        Invoke("DirectionZero", 0.1f);
+    }
+
+    void DirectionZero()
+    {
+        direction = Vector2.zero;
+    }
+
+    public void PlayDieAnimation()
     {
         StartCoroutine(Die());
     }

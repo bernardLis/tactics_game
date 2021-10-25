@@ -127,11 +127,13 @@ public class PlayerCharMovementController : CharacterMovementController
     public override void OnTargetReached()
     {
         base.OnTargetReached();
+        Debug.Log("on target reached");
 
         // destroy the temp object
         if (tempObject != null)
             Destroy(tempObject);
 
+        // this is for back
         if (reachedDestinationThisTurn)
         {
             destinationTile = null;
@@ -144,10 +146,6 @@ public class PlayerCharMovementController : CharacterMovementController
             characterSelection.HiglightMovementRange();
 
             MovePointController.instance.blockMovePoint = false;
-
-
-            // allow player input
-            //controls.Enable();
         }
         else
         {
@@ -156,9 +154,6 @@ public class PlayerCharMovementController : CharacterMovementController
 
             // yield control to interaction controller
             playerCharInteractionController.enabled = true;
-
-            // disable controls
-            //controls.Disable();
 
             // disable self
             this.enabled = false;

@@ -113,7 +113,7 @@ public class CharacterStats : MonoBehaviour
     public virtual void Die()
     {
         // playing death animation
-        characterRendererManager.DieAnimation();
+        characterRendererManager.PlayDieAnimation();
 
         // die in some way
         // this method is meant to be overwirtten

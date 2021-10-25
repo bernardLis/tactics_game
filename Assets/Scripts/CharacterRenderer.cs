@@ -23,7 +23,7 @@ public class CharacterRenderer : MonoBehaviour
 		string[] directionArray = null;
 
 		//measure the magnitude of the input.
-		if (direction.magnitude < .01f)
+		if (direction.magnitude < 0.01f)
 		{
 			//if we are basically standing still, we'll use the Static states
 			//we won't be able to calculate a direction if the user isn't pressing one, anyway!

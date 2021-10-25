@@ -15,8 +15,6 @@ public class MovePointController : MonoBehaviour
     public GameObject selected;
 
     PlayerInput playerInput;
-
-    //public InputMaster controls;
     Camera cam;
 
     // tiles
@@ -40,7 +38,6 @@ public class MovePointController : MonoBehaviour
     [Space(10)]
     public Character enemyCharSO;
     public GameObject enemyTemplateGO;
-
 
 
     public static MovePointController instance;
@@ -123,11 +120,9 @@ public class MovePointController : MonoBehaviour
 
         playerInput.actions["Test"].performed -= ctx => Test();
         playerInput.actions["TestY"].performed -= ctx => TestY();
-
     }
 
     // INPUT
-
     void Test()
     {
         Debug.Log("T is clicked");
@@ -151,7 +146,6 @@ public class MovePointController : MonoBehaviour
 
     void LeftMouseClick()
     {
-
         if (!blockMovePoint)
         {
             Vector3 mousePos = Mouse.current.position.ReadValue(); // TODO: this is wrong, right? input is a different system

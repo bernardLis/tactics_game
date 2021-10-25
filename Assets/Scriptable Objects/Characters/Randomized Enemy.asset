@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Enemy 1
   portrait: {fileID: 21300000, guid: c10d0c3d65130624e89209b936de9e2f, type: 3}
-  maxHealth: 100
+  maxHealth: 10
   armor: 5
   strength: 5
   intelligence: 5
