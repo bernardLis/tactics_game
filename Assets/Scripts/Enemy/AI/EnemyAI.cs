@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
 	public virtual IEnumerator RunAI()
 	{
 		// exit if battle is over
-		if (TurnManager.instance.state.ToString() == "WON" || TurnManager.instance.state.ToString() == "LOST")
+		if (TurnManager.battleState == BattleState.WON || TurnManager.battleState == BattleState.LOST)
 		{
 			yield break;
 		}

@@ -23,7 +23,7 @@ public class HealerEnemyAI : EnemyAI
 		// TODO: this is a repetition from the base coroutine,
 		// idk how to make base coroutine exit both coroutines.
 		// exit if battle is over
-		if (TurnManager.instance.state.ToString() == "WON" || TurnManager.instance.state.ToString() == "LOST")
+		if (TurnManager.battleState == BattleState.WON || TurnManager.battleState == BattleState.LOST)
 		{
 			yield break;
 		}

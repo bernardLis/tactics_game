@@ -10,6 +10,8 @@ public class MovePointController : MonoBehaviour
 {
 
     Highlighter highlighter;
+    BattlePreparationController battlePreparationController;
+
     AbilityUI abilityUI;
 
     public GameObject selected;
@@ -31,13 +33,6 @@ public class MovePointController : MonoBehaviour
 
     public bool blockMovePoint = false;
     bool firstEnable = false;
-
-    [Header("Chararacter from SO")]
-    public Character tempChar;
-    public GameObject characterTemplate;
-    [Space(10)]
-    public Character enemyCharSO;
-    public GameObject enemyTemplateGO;
 
 
     public static MovePointController instance;
@@ -68,6 +63,7 @@ public class MovePointController : MonoBehaviour
         cam = Camera.main;
 
         playerInput = GetComponent<PlayerInput>();
+        battlePreparationController = GetComponent<BattlePreparationController>();
     }
 
     void Start()
@@ -125,24 +121,15 @@ public class MovePointController : MonoBehaviour
     // INPUT
     void Test()
     {
-        Debug.Log("T is clicked");
-
-        GameObject newCharacter = Instantiate(characterTemplate, transform.position, Quaternion.identity);
-        tempChar.Initialize(newCharacter);
-        newCharacter.GetComponent<CharacterStats>().SetCharacteristics(tempChar);
+        Debug.Log("T is clicked ");
     }
 
     void TestY()
     {
         Debug.Log("Y is clicked");
-
-        GameObject newCharacter = Instantiate(enemyTemplateGO, transform.position, Quaternion.identity);
-        Character instantiatedSO = Instantiate(enemyCharSO);
-        instantiatedSO.Initialize(newCharacter);
-        newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
     }
 
-
+    // TODO: character being placed
 
     void LeftMouseClick()
     {
@@ -160,6 +147,10 @@ public class MovePointController : MonoBehaviour
                 UpdateTileInfoUI();
                 UpdateCharacterInfoUI();
                 UpdateAbilityUI();
+
+                // character being placed
+                if (battlePreparationController.characterBeingPlaced != null)
+                    battlePreparationController.UpdateCharacterBeingPlacedPosition();
             }
         }
     }
@@ -193,6 +184,10 @@ public class MovePointController : MonoBehaviour
         UpdateTileInfoUI();
         UpdateCharacterInfoUI();
         UpdateAbilityUI();
+
+        // TODO: character being placed
+        if (battlePreparationController.characterBeingPlaced != null)
+            battlePreparationController.UpdateCharacterBeingPlacedPosition();
     }
 
     void ClearEnemyHighlight()
@@ -210,6 +205,21 @@ public class MovePointController : MonoBehaviour
         // check if there is a selectable object at selector's position
         // only one selectable object can occypy space: 
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+
+        // For placing characters during prep
+        if (TurnManager.battleState == BattleState.PREPARATION && battlePreparationController.characterBeingPlaced != null)
+        {
+            Vector3Int tilePos = tilemap.WorldToCell(transform.position);
+            if (tiles.TryGetValue(tilePos, out _tile))
+            {
+                if (!_tile.WithinRange)
+                    return;
+            }
+            battlePreparationController.PlaceCharacter();
+            return;
+        }
+
 
         // select controlled by player object
         if (selected == null && col == null)

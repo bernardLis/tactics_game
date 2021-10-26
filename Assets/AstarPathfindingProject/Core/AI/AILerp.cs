@@ -664,7 +664,6 @@ namespace Pathfinding
         /// <summary>\copydoc Pathfinding::IAstarAI::MovementUpdate</summary>
         public void MovementUpdate(float deltaTime, out Vector3 nextPosition, out Quaternion nextRotation)
         {
-            Debug.Log("movement update");
             if (updatePosition) simulatedPosition = tr.position;
             if (updateRotation) simulatedRotation = tr.rotation;
 

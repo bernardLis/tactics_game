@@ -8,11 +8,16 @@ public enum BattleState { PREPARATION, PLAYERTURN, ENEMYTURN, WON, LOST }
 [RequireComponent(typeof(TurnDisplayer))]
 public class TurnManager : MonoBehaviour
 {
-    public BattleState state;
+    public static BattleState battleState;
+    public static int currentTurn = 0;
+
+    Highlighter highlighter;
 
     public static TurnManager instance;
     GameObject[] playerCharacters;
     GameObject[] enemies;
+
+
 
     int playerCharactersLeftToTakeTurn;
     int enemyCharactersLeftToTakeTurn;
@@ -39,17 +44,15 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        // TODO: create a start state where you place your characters
-        state = BattleState.PREPARATION;
-
-        
-
-
+        highlighter = Highlighter.instance;
+        // TODO: create a start battleState where you place your characters
+        battleState = BattleState.PREPARATION;
     }
 
     // TODO: this will be called when player places their characters and confirms that he wants to start the battle.
     public void StartBattle()
     {
+        battleState = BattleState.PLAYERTURN;
 
         playerCharacters = GameObject.FindGameObjectsWithTag("Player");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -69,8 +72,9 @@ public class TurnManager : MonoBehaviour
         {
             player.GetComponent<CharacterStats>().characterDeathEvent += OnPlayerCharDeath;
         }
-
-
+        
+        // TODO: do I need a separate method for starting or can I just use this;
+        EndEnemyTurn();
     }
 
 
@@ -82,7 +86,7 @@ public class TurnManager : MonoBehaviour
             playerTurnEndEvent();
         }
 
-        state = BattleState.ENEMYTURN;
+        battleState = BattleState.ENEMYTURN;
 
         // TODO: Is this taxing?
         // Recalculate all graphs
@@ -95,6 +99,8 @@ public class TurnManager : MonoBehaviour
 
     public void EndEnemyTurn()
     {
+        currentTurn++;
+
         // display text
         if (enemyTurnEndEvent != null)
         {
@@ -103,14 +109,14 @@ public class TurnManager : MonoBehaviour
 
         //yield return new WaitForSeconds(1f);
 
-        state = BattleState.PLAYERTURN;
+        battleState = BattleState.PLAYERTURN;
 
         // TODO: Is this very taxing? 
         // Recalculate all graphs
         AstarPath.active.Scan();
 
         // just for a good measure
-        Highlighter.instance.ClearHighlightedTiles();
+        highlighter.ClearHighlightedTiles();
 
         // reset counts
         playerCharactersLeftToTakeTurn = playerCharactersAlive;
@@ -131,7 +137,7 @@ public class TurnManager : MonoBehaviour
         enemyCharactersAlive--;
         if (enemyCharactersAlive <= 0)
         {
-            state = BattleState.WON;
+            battleState = BattleState.WON;
             PlayerWon();
         }
     }
@@ -141,7 +147,7 @@ public class TurnManager : MonoBehaviour
         playerCharactersAlive--;
         if (playerCharactersAlive <= 0)
         {
-            state = BattleState.LOST;
+            battleState = BattleState.LOST;
             PlayerLost();
         }
     }

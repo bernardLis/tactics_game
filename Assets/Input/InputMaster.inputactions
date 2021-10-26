@@ -124,6 +124,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SelectNextCharacter",
+                    "type": "Button",
+                    "id": "9d5f88cd-7b60-4de9-bafd-87df0f29f18a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectPreviousCharacter",
+                    "type": "Button",
+                    "id": "ea3b674b-df29-4a25-be2d-2c204c9d6ea3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -289,6 +305,28 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "TestY",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "126036a9-efdb-47f5-9773-8dfbd5460919",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "SelectNextCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd1a7ce5-3de1-4080-aadf-b80a23bcdec4",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "SelectPreviousCharacter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

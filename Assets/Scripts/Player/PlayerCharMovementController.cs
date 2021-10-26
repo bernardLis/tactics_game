@@ -127,7 +127,6 @@ public class PlayerCharMovementController : CharacterMovementController
     public override void OnTargetReached()
     {
         base.OnTargetReached();
-        Debug.Log("on target reached");
 
         // destroy the temp object
         if (tempObject != null)

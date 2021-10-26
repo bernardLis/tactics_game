@@ -44,7 +44,9 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
+        // TODO: this should be done by map generator
         PlaceEnemies();
+        CreatePlayerStartingArea();
     }
 
     // TODO: this should be done by map generator
@@ -60,16 +62,21 @@ public class MapManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             GameObject newCharacter = Instantiate(enemyTemplateGO, enemyPositions[i], Quaternion.identity);
+            newCharacter.name = enemyCharSO.characterName;
             Character instantiatedSO = Instantiate(enemyCharSO);
             instantiatedSO.Initialize(newCharacter);
             newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
 
             // face right 
             // TODO: face player => center of designated player spawn location - this spawn location
-            CharacterRendererManager cr = newCharacter.GetComponentInChildren<CharacterRendererManager>();
-            Debug.Log(cr);
-            cr.Face(Vector2.right);
+            newCharacter.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
         }
+    }
+
+    void CreatePlayerStartingArea()
+    {
+        // TODO: this is temporary
+        Highlighter.instance.HighlightTiles(MovePointController.instance.transform.position, 3, Color.blue, true, true);
     }
 
     public bool IsObstacle(Vector3Int pos)

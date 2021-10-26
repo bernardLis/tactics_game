@@ -137,6 +137,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SelectNextCharacter"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d5f88cd-7b60-4de9-bafd-87df0f29f18a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SelectPreviousCharacter"",
+                    ""type"": ""Button"",
+                    ""id"": ""ea3b674b-df29-4a25-be2d-2c204c9d6ea3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -302,6 +318,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""TestY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""126036a9-efdb-47f5-9773-8dfbd5460919"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""SelectNextCharacter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd1a7ce5-3de1-4080-aadf-b80a23bcdec4"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""SelectPreviousCharacter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -622,6 +660,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_ZoomIn = m_Player.FindAction("ZoomIn", throwIfNotFound: true);
         m_Player_Test = m_Player.FindAction("Test", throwIfNotFound: true);
         m_Player_TestY = m_Player.FindAction("TestY", throwIfNotFound: true);
+        m_Player_SelectNextCharacter = m_Player.FindAction("SelectNextCharacter", throwIfNotFound: true);
+        m_Player_SelectPreviousCharacter = m_Player.FindAction("SelectPreviousCharacter", throwIfNotFound: true);
         // QuestUI
         m_QuestUI = asset.FindActionMap("QuestUI", throwIfNotFound: true);
         m_QuestUI_Test = m_QuestUI.FindAction("Test", throwIfNotFound: true);
@@ -699,6 +739,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_ZoomIn;
     private readonly InputAction m_Player_Test;
     private readonly InputAction m_Player_TestY;
+    private readonly InputAction m_Player_SelectNextCharacter;
+    private readonly InputAction m_Player_SelectPreviousCharacter;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -718,6 +760,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @ZoomIn => m_Wrapper.m_Player_ZoomIn;
         public InputAction @Test => m_Wrapper.m_Player_Test;
         public InputAction @TestY => m_Wrapper.m_Player_TestY;
+        public InputAction @SelectNextCharacter => m_Wrapper.m_Player_SelectNextCharacter;
+        public InputAction @SelectPreviousCharacter => m_Wrapper.m_Player_SelectPreviousCharacter;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -772,6 +816,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @TestY.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestY;
                 @TestY.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestY;
                 @TestY.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestY;
+                @SelectNextCharacter.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
+                @SelectNextCharacter.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
+                @SelectNextCharacter.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
+                @SelectPreviousCharacter.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectPreviousCharacter;
+                @SelectPreviousCharacter.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectPreviousCharacter;
+                @SelectPreviousCharacter.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectPreviousCharacter;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -821,6 +871,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @TestY.started += instance.OnTestY;
                 @TestY.performed += instance.OnTestY;
                 @TestY.canceled += instance.OnTestY;
+                @SelectNextCharacter.started += instance.OnSelectNextCharacter;
+                @SelectNextCharacter.performed += instance.OnSelectNextCharacter;
+                @SelectNextCharacter.canceled += instance.OnSelectNextCharacter;
+                @SelectPreviousCharacter.started += instance.OnSelectPreviousCharacter;
+                @SelectPreviousCharacter.performed += instance.OnSelectPreviousCharacter;
+                @SelectPreviousCharacter.canceled += instance.OnSelectPreviousCharacter;
             }
         }
     }
@@ -982,6 +1038,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnZoomIn(InputAction.CallbackContext context);
         void OnTest(InputAction.CallbackContext context);
         void OnTestY(InputAction.CallbackContext context);
+        void OnSelectNextCharacter(InputAction.CallbackContext context);
+        void OnSelectPreviousCharacter(InputAction.CallbackContext context);
     }
     public interface IQuestUIActions
     {
