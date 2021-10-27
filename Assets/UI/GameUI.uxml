@@ -4,14 +4,20 @@
     <ui:VisualElement name="tileInfo" style="height: auto; width: 180px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
         <ui:Label display-tooltip-when-elided="true" name="tileText" style="width: auto; font-size: 22px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
-    <ui:VisualElement name="characterInfo" style="display: none; flex-direction: row; flex-wrap: wrap; width: 150px; background-color: rgba(0, 0, 0, 0.59); align-items: flex-start; justify-content: flex-start;">
-        <ui:VisualElement name="healthWrapper" class="tileInfoWrapper">
-            <ui:Button display-tooltip-when-elided="true" name="healthIcon" class="tileInfoIcon" style="background-image: url(&apos;/Assets/Sprites/Icons/cure.png#cure&apos;); width: 32px; height: 32px;" />
-            <ui:Label display-tooltip-when-elided="true" name="currentHealthLabel" text="100/100" class="tileInfoLabel" />
-        </ui:VisualElement>
-        <ui:VisualElement name="manaWrapper" class="tileInfoWrapper">
-            <ui:Button display-tooltip-when-elided="true" name="manaIcon" class="tileInfoIcon" style="background-image: url(&apos;/Assets/Sprites/Icons/charm.png#charm&apos;);" />
-            <ui:Label display-tooltip-when-elided="true" name="currentManaLabel" text="50/50" class="tileInfoLabel" />
+    <ui:VisualElement name="characterUIContainer" style="display: flex; flex-direction: column-reverse; flex-wrap: wrap; width: 100%; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: flex-start; height: 100%; visibility: visible; overflow: visible;">
+        <ui:VisualElement name="characterUI" style="background-color: rgba(0, 0, 0, 0.57); width: 80%; height: 20%;">
+            <ui:VisualElement name="characterInfo">
+                <ui:Label text="Label" display-tooltip-when-elided="true" name="characterName" />
+                <ui:VisualElement name="characterPortrait" style="width: 200px; height: 200px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="manaWrapper" class="tileInfoWrapper">
+                <ui:Button display-tooltip-when-elided="true" name="manaIcon" class="tileInfoIcon" style="background-image: url(&apos;/Assets/Sprites/Icons/charm.png#charm&apos;);" />
+                <ui:Label display-tooltip-when-elided="true" name="currentManaLabel" text="50/50" class="tileInfoLabel" />
+            </ui:VisualElement>
+            <ui:VisualElement name="healthWrapper" class="tileInfoWrapper">
+                <ui:Button display-tooltip-when-elided="true" name="healthIcon" class="tileInfoIcon" style="background-image: url(&apos;/Assets/Sprites/Icons/cure.png#cure&apos;); width: 32px; height: 32px;" />
+                <ui:Label display-tooltip-when-elided="true" name="currentHealthLabel" text="100/100" class="tileInfoLabel" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="abilityInfo" style="height: auto; width: 150px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
@@ -25,22 +31,16 @@
         <ui:VisualElement name="conversationPortrait" style="background-image: url(&apos;/Assets/Sprites/Portraits/Monet.jpg#Monet&apos;); width: 20%; height: 100%; -unity-background-scale-mode: scale-to-fit;" />
         <ui:Label display-tooltip-when-elided="true" name="conversationText" style="width: 80%; height: 100%; -unity-text-align: middle-left; font-size: 32px; -unity-font-style: normal; margin-left: 20px; color: rgb(255, 255, 255); flex-wrap: wrap; white-space: normal; flex-direction: column; justify-content: center; align-items: flex-start;" />
     </ui:VisualElement>
-    <ui:VisualElement name="rushUIContainer" style="height: 10px; flex-grow: 0; flex-wrap: wrap; display: none; justify-content: flex-start; align-items: stretch;">
-        <ui:VisualElement name="rushUI" style="height: 4px; width: 50px; background-color: rgb(255, 255, 255); display: flex; margin-top: 3px; flex-direction: column-reverse;">
-            <ui:VisualElement name="rushUIShadow" style="height: 1px; background-color: rgb(0, 0, 0);" />
-        </ui:VisualElement>
-        <ui:VisualElement name="rushUIArrow" style="width: 10px; height: 10px; background-color: rgb(255, 255, 255); background-image: none; margin-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0;" />
-    </ui:VisualElement>
     <ui:VisualElement name="questUI" class="questUI" style="display: none;">
         <ui:VisualElement name="questUIContainer" class="questUIContainer">
             <ui:ScrollView name="questList" style="width: 20%;">
-								<ui:VisualElement name="activeQuests" class="questsHeader" style="-unity-text-align: upper-center;">
+                <ui:VisualElement name="activeQuests" class="questsHeader" style="-unity-text-align: upper-center;">
                     <ui:Label text="Active quests:" display-tooltip-when-elided="true" name="activeQuestsTitle" class="questStatusHeader" />
                     <ui:VisualElement name="activeQuestsContainer" class="questTitleLabel" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
                         <ui:VisualElement name="questSlot" class="questSlot">
                             <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" />
                         </ui:VisualElement>
-                </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="completedQuests" style="-unity-text-align: upper-center;">
                     <ui:Label text="Completed quests:" display-tooltip-when-elided="true" name="completedQuestsTitle" class="questStatusHeader questsHeader" />
@@ -49,7 +49,8 @@
                 <ui:VisualElement name="failedQuests" style="-unity-text-align: upper-center;">
                     <ui:Label text="Failed quests:" display-tooltip-when-elided="true" name="failedQuestsTitle" class="questsHeader questStatusHeader" />
                     <ui:VisualElement name="failedQuestsContainer" />
-                </ui:VisualElement>            </ui:ScrollView>
+                </ui:VisualElement>
+            </ui:ScrollView>
             <ui:VisualElement name="questInformation" style="width: 80%; margin-left: 20px; background-color: rgb(195, 195, 195); padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
                 <ui:Label text="Catch 3 Rabbits" display-tooltip-when-elided="true" name="questTitle" class="questInformationName" />
                 <ui:Label text="Old man asked me to catch 3 rabbits." display-tooltip-when-elided="true" name="questDescription" class="questInformationDescription" />
