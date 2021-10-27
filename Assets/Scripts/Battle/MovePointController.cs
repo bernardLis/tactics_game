@@ -8,9 +8,10 @@ using UnityEngine.InputSystem;
 
 public class MovePointController : MonoBehaviour
 {
-
+    GameUI gameUI;
     Highlighter highlighter;
     BattlePreparationController battlePreparationController;
+    CharacterBattleController characterBattleController;
 
     AbilityUI abilityUI;
 
@@ -52,8 +53,10 @@ public class MovePointController : MonoBehaviour
         FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnEnemyTurnEnd;
         FindObjectOfType<TurnManager>().playerTurnEndEvent += OnPlayerTurnEnd;
 
+        gameUI = GameUI.instance;
+
         highlighter = GameManager.instance.GetComponent<Highlighter>();
-        abilityUI = GameUI.instance.GetComponent<AbilityUI>();
+        abilityUI = gameUI.GetComponent<AbilityUI>();
 
         // This is our Dictionary of tiles
         tiles = GameTiles.instance.tiles;
@@ -64,6 +67,7 @@ public class MovePointController : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
         battlePreparationController = GetComponent<BattlePreparationController>();
+        characterBattleController = GetComponent<CharacterBattleController>();
     }
 
     void Start()
@@ -100,8 +104,8 @@ public class MovePointController : MonoBehaviour
 
     void OnDisable()
     {
-        GameUI.instance.HideTileInfoUI();
-        GameUI.instance.HideCharacterInfoUI();
+        gameUI.HideTileInfoUI();
+        //gameUI.HideCharacterInfoUI();
 
         if (playerInput == null)
             return;
@@ -205,7 +209,6 @@ public class MovePointController : MonoBehaviour
         // check if there is a selectable object at selector's position
         // only one selectable object can occypy space: 
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f);
 
         // For placing characters during prep
         if (TurnManager.battleState == BattleState.PREPARATION && battlePreparationController.characterBeingPlaced != null)
@@ -220,6 +223,10 @@ public class MovePointController : MonoBehaviour
             return;
         }
 
+        Select(col);
+        return;
+
+        //TODO: Generally, I want to get rid of all the code below and move it to character battle controller;
 
         // select controlled by player object
         if (selected == null && col == null)
@@ -232,7 +239,7 @@ public class MovePointController : MonoBehaviour
         }
         else if (selected == null && col.transform.CompareTag("PlayerCollider"))
         {
-            Select(col.transform.parent.gameObject);
+            Select(col);
         }
         // move if the space is empty
         else if (playerCharMovementController.enabled && col == null)
@@ -320,12 +327,12 @@ public class MovePointController : MonoBehaviour
         // hide/show the whole panel
         if (tileUIText == "")
         {
-            GameUI.instance.HideTileInfoUI();
+            gameUI.HideTileInfoUI();
         }
         else
         {
-            GameUI.instance.UpdateTileInfoUI(tileUIText);
-            GameUI.instance.ShowTileInfoUI();
+            gameUI.UpdateTileInfoUI(tileUIText);
+            gameUI.ShowTileInfoUI();
         }
     }
 
@@ -337,7 +344,8 @@ public class MovePointController : MonoBehaviour
         // return if there is no object on the tile
         if (col == null)
         {
-            GameUI.instance.HideCharacterInfoUI();
+
+            //gameUI.HideCharacterInfoUI();
             return;
         }
 
@@ -355,14 +363,15 @@ public class MovePointController : MonoBehaviour
         {
             CharacterStats stats = col.transform.parent.GetComponent<CharacterStats>();
 
-            GameUI.instance.UpdateCharacterInfoUI(stats.currentHealth, stats.maxHealth.GetValue(),
-            stats.currentMana, stats.maxMana.GetValue());
 
-            GameUI.instance.ShowCharacterInfoUI();
+            //gameUI.UpdateCharacterInfoUI(stats.currentHealth, stats.maxHealth.GetValue(),
+            //stats.currentMana, stats.maxMana.GetValue());
+
+            //gameUI.ShowCharacterInfoUI();
         }
         else
         {
-            GameUI.instance.HideCharacterInfoUI();
+            //gameUI.HideCharacterInfoUI();
         }
     }
     void UpdateAbilityUI()
@@ -413,8 +422,11 @@ public class MovePointController : MonoBehaviour
         }
     }
 
-    void Select(GameObject obj)
+    void Select(Collider2D obj)
     {
+        characterBattleController.Select(obj);
+        /*
+
         charSelection = obj.GetComponent<PlayerCharSelection>();
         if (!charSelection.movedThisTurn)
         {
@@ -430,33 +442,36 @@ public class MovePointController : MonoBehaviour
         {
             Debug.Log("Character moved this turn already");
         }
+        */
     }
-
-    public void UnselectSelected()
-    {
-        // incase we end the turn with highlighted tiles;
-        highlighter.ClearHighlightedTiles();
-
-        // reset controllers
-        if (playerCharMovementController != null)
+    /*
+        public void UnselectSelected()
         {
-            playerCharMovementController.enabled = false;
-            playerCharMovementController = null;
-        }
-        if (playerCharInteractionController != null)
-        {
-            playerCharInteractionController.enabled = false;
-            playerCharInteractionController = null;
-        }
-        if (charSelection != null)
-        {
-            charSelection.UnselectCharacter();
-            charSelection = null;
-        }
 
-        blockMovePoint = false;
-        selected = null;
-    }
+            // incase we end the turn with highlighted tiles;
+            highlighter.ClearHighlightedTiles();
+
+            // reset controllers
+            if (playerCharMovementController != null)
+            {
+                playerCharMovementController.enabled = false;
+                playerCharMovementController = null;
+            }
+            if (playerCharInteractionController != null)
+            {
+                playerCharInteractionController.enabled = false;
+                playerCharInteractionController = null;
+            }
+            if (charSelection != null)
+            {
+                charSelection.UnselectCharacter();
+                charSelection = null;
+            }
+
+            blockMovePoint = false;
+            selected = null;
+
+        }*/
 
     void OnEnemyTurnEnd()
     {
@@ -476,7 +491,7 @@ public class MovePointController : MonoBehaviour
 
     void OnPlayerTurnEnd()
     {
-        UnselectSelected();
+        //UnselectSelected();
         gameObject.SetActive(false);
     }
 

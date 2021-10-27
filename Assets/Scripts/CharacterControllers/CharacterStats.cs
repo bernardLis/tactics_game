@@ -81,9 +81,7 @@ public class CharacterStats : MonoBehaviour
         damageUI.DisplayDamage(damage);
 
         if (currentHealth <= 0)
-        {
             Die();
-        }
     }
 
     public void GainMana(int amount)
@@ -122,9 +120,7 @@ public class CharacterStats : MonoBehaviour
         Debug.Log(transform.name + " died.");
         // movement script needs to clear the highlight 
         if (characterDeathEvent != null)
-        {
             characterDeathEvent();
-        }
     }
 
 }

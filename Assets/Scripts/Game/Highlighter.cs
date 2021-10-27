@@ -191,8 +191,10 @@ public class Highlighter : MonoBehaviour
 
         if (tiles.TryGetValue(tilePos, out _tile))
         {
-            HighlightTile(_tile, col);
-            _tile.WithinRange = true;
+            // If you want the tile that you are standing on highlighted: 
+            //HighlightTile(_tile, col);
+            //_tile.WithinRange = true;
+
             highlightedTiles.Add(_tile);
             markedTiles.Add(_tile);
         }

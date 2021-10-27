@@ -59,7 +59,7 @@ public class PlayerCharMovementController : CharacterMovementController
         }
         else
         {
-            MovePointController.instance.UnselectSelected();
+            //MovePointController.instance.UnselectSelected();
         }
     }
 
@@ -141,14 +141,14 @@ public class PlayerCharMovementController : CharacterMovementController
             // resetting ailerp speed
             AILerp.speed = 3f;
 
-            characterSelection.movedThisTurn = false;
-            characterSelection.HiglightMovementRange();
+            characterSelection.hasMovedThisTurn = false;
+            //characterSelection.HiglightMovementRange();
 
             MovePointController.instance.blockMovePoint = false;
         }
         else
         {
-            characterSelection.movedThisTurn = true;
+            characterSelection.hasMovedThisTurn = true;
             reachedDestinationThisTurn = true;
 
             // yield control to interaction controller

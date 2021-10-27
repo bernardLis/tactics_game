@@ -4,22 +4,6 @@
     <ui:VisualElement name="tileInfo" style="height: auto; width: 180px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
         <ui:Label display-tooltip-when-elided="true" name="tileText" style="width: auto; font-size: 22px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
-    <ui:VisualElement name="characterUIContainer" style="display: flex; flex-direction: column-reverse; flex-wrap: wrap; width: 100%; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: flex-start; height: 100%; visibility: visible; overflow: visible;">
-        <ui:VisualElement name="characterUI" style="background-color: rgba(0, 0, 0, 0.57); width: 80%; height: 20%;">
-            <ui:VisualElement name="characterInfo">
-                <ui:Label text="Label" display-tooltip-when-elided="true" name="characterName" />
-                <ui:VisualElement name="characterPortrait" style="width: 200px; height: 200px;" />
-            </ui:VisualElement>
-            <ui:VisualElement name="manaWrapper" class="tileInfoWrapper">
-                <ui:Button display-tooltip-when-elided="true" name="manaIcon" class="tileInfoIcon" style="background-image: url(&apos;/Assets/Sprites/Icons/charm.png#charm&apos;);" />
-                <ui:Label display-tooltip-when-elided="true" name="currentManaLabel" text="50/50" class="tileInfoLabel" />
-            </ui:VisualElement>
-            <ui:VisualElement name="healthWrapper" class="tileInfoWrapper">
-                <ui:Button display-tooltip-when-elided="true" name="healthIcon" class="tileInfoIcon" style="background-image: url(&apos;/Assets/Sprites/Icons/cure.png#cure&apos;); width: 32px; height: 32px;" />
-                <ui:Label display-tooltip-when-elided="true" name="currentHealthLabel" text="100/100" class="tileInfoLabel" />
-            </ui:VisualElement>
-        </ui:VisualElement>
-    </ui:VisualElement>
     <ui:VisualElement name="abilityInfo" style="height: auto; width: 150px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
         <ui:Label display-tooltip-when-elided="true" name="abilityName" text="bash" style="width: auto; font-size: 16px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
         <ui:Label display-tooltip-when-elided="true" name="abilityResult" text="result" style="width: auto; font-size: 16px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />

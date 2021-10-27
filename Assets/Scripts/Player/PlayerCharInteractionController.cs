@@ -248,7 +248,7 @@ public class PlayerCharInteractionController : CharacterInteractionController
         selectedAbility = null;
 
         // finish character's turn after the interaction is performed
-        MovePointController.instance.UnselectSelected();
+        //mMovePointController.instance.UnselectSelected();
         TurnManager.instance.PlayerCharacterTurnFinished();
 
         // disable self

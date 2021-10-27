@@ -93,16 +93,6 @@ public class GameUI : MonoBehaviour
 		// hide UI;
 		tileInfo.style.display = DisplayStyle.None;
 	}
-	public void ShowCharacterInfoUI()
-	{
-		//show UI;
-		characterInfo.style.display = DisplayStyle.Flex;
-	}
-	public void HideCharacterInfoUI()
-	{
-		// hide UI;
-		characterInfo.style.display = DisplayStyle.None;
-	}
 
 	public void HideAllUIPanels()
 	{

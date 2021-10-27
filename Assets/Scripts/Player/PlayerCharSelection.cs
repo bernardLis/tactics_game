@@ -5,31 +5,26 @@ using UnityEngine.Tilemaps;
 
 public class PlayerCharSelection : CharacterSelection
 {
-    public GameObject selectionCircle;
-    SpriteRenderer selectionCircleRenderer;
 
-    public bool movedThisTurn = false;
+    public bool hasMovedThisTurn;
+    public bool hasFinishedTurn;
 
-    public bool finishedTurn;
+    public WorldTile tileTurnStart;
     bool scalingUp;
-
 
     public override void Awake()
     {
         base.Awake();
-        FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnTurnEnd;
-        selectionCircleRenderer = selectionCircle.GetComponent<SpriteRenderer>();
+        FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnEnemyTurnEnd;
 
         // subscribe to player death
         GetComponent<CharacterStats>().characterDeathEvent += OnPlayerCharDeath;
     }
     void Update()
     {
-        if (!finishedTurn && Time.frameCount % 45 == 0)
-        {
-            // Highlight characters that have a move this turn and change their scale back and forth\
+        // Highlight characters that have a move this turn and change their scale back and forth\
+        if (!hasMovedThisTurn && Time.frameCount % 60 == 0)
             OscilateScale();
-        }
     }
 
     void OscilateScale()
@@ -39,7 +34,6 @@ public class PlayerCharSelection : CharacterSelection
         else
             transform.localScale -= Vector3.one * 0.01f;
 
-
         if (transform.localScale.x > 1.03f)
             scalingUp = false;
         else if (transform.localScale.x < 0.98f)
@@ -48,46 +42,17 @@ public class PlayerCharSelection : CharacterSelection
 
     void OnPlayerCharDeath()
     {
-        UnselectCharacter();
-        highlighter.ClearHighlightedTiles();
     }
 
-    public void SelectCharacter()
+    public void OnEnemyTurnEnd()
     {
-        // selectionCircle.SetActive(true);
-        if (!movedThisTurn)
-        {
-            selectionCircle.SetActive(false);
-            HiglightMovementRange();
-        }
-    }
-    public void UnselectCharacter()
-    {
-        //selectionCircle.SetActive(false);
-        selectionCircle.SetActive(true);
-        if (!movedThisTurn)
-        {
-            selectionCircleRenderer.color = new Color(0.53f, 0.52f, 1f, 1f);
-        }
-        else
-        {
-            selectionCircleRenderer.color = new Color(1f, 1f, 1f, 1f);
-        }
+        // reseting flags on turn's end
+        hasMovedThisTurn = false;
+        hasFinishedTurn = false;
 
-        highlighter.ClearHighlightedTiles();
-    }
-
-    public override void HiglightMovementRange()
-    {
-        base.HiglightMovementRange();
-        highlighter.HiglightPlayerMovementRange(transform.position, range, new Color(0.53f, 0.52f, 1f, 1f));
-    }
-
-    public void OnTurnEnd()
-    {
-        if (selectionCircle != null)
-            selectionCircleRenderer.color = new Color(0.53f, 0.52f, 1f, 1f);
-
-        movedThisTurn = false;
+        // remember on which tile you start the turn
+        if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
+            tileTurnStart = _tile;
     }
 }
+

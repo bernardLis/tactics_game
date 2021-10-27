@@ -484,6 +484,12 @@ namespace Pathfinding
         public virtual void OnTargetReached()
         {
             myDirection = Vector2.zero;
+
+            //canSearch = false;
+            //canMove = false;
+
+            GetComponent<AIDestinationSetter>().target = null;
+
             // myshiz
             /*
 			// stop animating player

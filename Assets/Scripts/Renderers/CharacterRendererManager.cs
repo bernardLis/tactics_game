@@ -13,9 +13,6 @@ public class CharacterRendererManager : MonoBehaviour
     AILerp AI;
     bool noIdleAnimation;
 
-
-
-
     // Start is called before the first frame update
     void Awake()
     {

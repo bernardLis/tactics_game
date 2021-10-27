@@ -27,6 +27,7 @@ public class CharacterSelection : MonoBehaviour
 
 	public virtual void HiglightMovementRange()
 	{
+        // TODO: when rewriting enemies I can get rid of it;
 		range = myStats.movementRange.GetValue();
 	}
 }
