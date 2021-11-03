@@ -8,7 +8,6 @@ public class PlayerCharInteractionController : CharacterInteractionController
 {
     Camera cam;
 
-    PlayerCharMovementController playerCharMovementController;
     PlayerStats playerStats;
 
     // UI
@@ -33,7 +32,6 @@ public class PlayerCharInteractionController : CharacterInteractionController
         cam = Camera.main;
 
         playerStats = GetComponent<PlayerStats>();
-        playerCharMovementController = GetComponent<PlayerCharMovementController>();
 
         // getting ui elements
         // TODO: maybe I should migrate UI to UI class and call it from here.
@@ -73,8 +71,6 @@ public class PlayerCharInteractionController : CharacterInteractionController
 
         // UI
         characterAction.style.display = DisplayStyle.Flex;
-
-        MovePointController.instance.blockMovePoint = true;
 
         QButton.style.backgroundImage = new StyleBackground(playerStats.abilities[0].aIcon);
         WButton.style.backgroundImage = new StyleBackground(playerStats.abilities[1].aIcon);
@@ -169,7 +165,6 @@ public class PlayerCharInteractionController : CharacterInteractionController
 
             // move movepoint back to character & block it
             MovePointController.instance.transform.position = transform.position;
-            MovePointController.instance.blockMovePoint = true;
             MovePointController.instance.UpdateTileInfoUI();
 
             // display UI
@@ -179,9 +174,6 @@ public class PlayerCharInteractionController : CharacterInteractionController
         else
         {
             HideUI();
-
-            playerCharMovementController.enabled = true;
-            playerCharMovementController.BackClickInput();
 
             this.enabled = false;
         }
@@ -205,7 +197,6 @@ public class PlayerCharInteractionController : CharacterInteractionController
     // wrapper function for utilities on button click
     void ButtonClick()
     {
-        MovePointController.instance.blockMovePoint = false;
 
         inHighlight = true;
         HideUI();

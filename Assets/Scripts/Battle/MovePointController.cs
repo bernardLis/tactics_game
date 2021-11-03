@@ -5,11 +5,11 @@ using Pathfinding;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class MovePointController : MonoBehaviour
 {
     GameUI gameUI;
-    Highlighter highlighter;
     BattlePreparationController battlePreparationController;
     CharacterBattleController characterBattleController;
 
@@ -17,22 +17,21 @@ public class MovePointController : MonoBehaviour
 
     public GameObject selected;
 
-    PlayerInput playerInput;
+    //PlayerInput playerInput;
     Camera cam;
 
     // tiles
-    public Tilemap tilemap;
+    Tilemap tilemap;
     WorldTile _tile;
-    public Dictionary<Vector3, WorldTile> tiles;
+    Dictionary<Vector3, WorldTile> tiles;
 
     // my scripts
     PlayerCharSelection charSelection;
-    PlayerCharMovementController playerCharMovementController;
+    //PlayerCharMovementController playerCharMovementController;
     PlayerCharInteractionController playerCharInteractionController;
 
     EnemyCharSelection enemyCharSelection;
 
-    public bool blockMovePoint = false;
     bool firstEnable = false;
 
 
@@ -55,7 +54,6 @@ public class MovePointController : MonoBehaviour
 
         gameUI = GameUI.instance;
 
-        highlighter = GameManager.instance.GetComponent<Highlighter>();
         abilityUI = gameUI.GetComponent<AbilityUI>();
 
         // This is our Dictionary of tiles
@@ -65,7 +63,7 @@ public class MovePointController : MonoBehaviour
         // TODO: Supposedly, this is an expensive call
         cam = Camera.main;
 
-        playerInput = GetComponent<PlayerInput>();
+        //playerInput = GetComponent<PlayerInput>();
         battlePreparationController = GetComponent<BattlePreparationController>();
         characterBattleController = GetComponent<CharacterBattleController>();
     }
@@ -78,7 +76,7 @@ public class MovePointController : MonoBehaviour
 
     void OnEnable()
     {
-        //controls.Enable();
+        /*
         // inputs
         playerInput = GetComponent<PlayerInput>();
 
@@ -90,8 +88,16 @@ public class MovePointController : MonoBehaviour
         playerInput.actions["ArrowRightClick"].performed += ctx => ArrowRightClick();
         playerInput.actions["SelectClick"].performed += ctx => SelectClick();
 
+        playerInput.actions["QButtonClick"].performed += ctx => QButtonClickInput();
+        playerInput.actions["WButtonClick"].performed += ctx => WButtonClickInput();
+        playerInput.actions["EButtonClick"].performed += ctx => EButtonClickInput();
+        playerInput.actions["RButtonClick"].performed += ctx => RButtonClickInput();
+
+        playerInput.actions["Back"].performed += ctx => BackClick();
+
         playerInput.actions["Test"].performed += ctx => Test();
         playerInput.actions["TestY"].performed += ctx => TestY();
+        */
 
         // TODO: THIS SUCKS but document ui is not ready on the first enable.
         if (!firstEnable)
@@ -106,7 +112,7 @@ public class MovePointController : MonoBehaviour
     {
         gameUI.HideTileInfoUI();
         //gameUI.HideCharacterInfoUI();
-
+        /*
         if (playerInput == null)
             return;
 
@@ -118,9 +124,18 @@ public class MovePointController : MonoBehaviour
         playerInput.actions["ArrowRightClick"].performed -= ctx => ArrowRightClick();
         playerInput.actions["SelectClick"].performed -= ctx => SelectClick();
 
+        playerInput.actions["QButtonClick"].performed -= ctx => QButtonClickInput();
+        playerInput.actions["WButtonClick"].performed -= ctx => WButtonClickInput();
+        playerInput.actions["EButtonClick"].performed -= ctx => EButtonClickInput();
+        playerInput.actions["RButtonClick"].performed -= ctx => RButtonClickInput();
+
+        playerInput.actions["Back"].performed -= ctx => BackClick();
+
         playerInput.actions["Test"].performed -= ctx => Test();
         playerInput.actions["TestY"].performed -= ctx => TestY();
+        */
     }
+
 
     // INPUT
     void Test()
@@ -137,53 +152,34 @@ public class MovePointController : MonoBehaviour
 
     void LeftMouseClick()
     {
-        if (!blockMovePoint)
-        {
-            Vector3 mousePos = Mouse.current.position.ReadValue(); // TODO: this is wrong, right? input is a different system
-            mousePos.z = 1; // select distance = 1 unit(s) from the camera
-            Vector3Int tilePos = tilemap.WorldToCell(cam.ScreenToWorldPoint(mousePos));
-            if (tiles.TryGetValue(tilePos, out _tile))
-            {
-                transform.position = new Vector3(_tile.LocalPlace.x + 0.5f, _tile.LocalPlace.y + 0.5f, _tile.LocalPlace.z);
 
-                ClearEnemyHighlight();
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = 1; // select distance = 1 unit(s) from the camera
+        Vector3Int tilePos = tilemap.WorldToCell(cam.ScreenToWorldPoint(mousePos));
+        if (!tiles.TryGetValue(tilePos, out _tile))
+            return;
 
-                UpdateTileInfoUI();
-                UpdateCharacterInfoUI();
-                UpdateAbilityUI();
+        transform.position = new Vector3(_tile.LocalPlace.x + 0.5f, _tile.LocalPlace.y + 0.5f, _tile.LocalPlace.z);
 
-                // character being placed
-                if (battlePreparationController.characterBeingPlaced != null)
-                    battlePreparationController.UpdateCharacterBeingPlacedPosition();
-            }
-        }
+        UpdateTileInfoUI();
+        UpdateCharacterInfoUI();
+        UpdateAbilityUI();
+
+        // character being placed
+        if (battlePreparationController.characterBeingPlaced != null)
+            battlePreparationController.UpdateCharacterBeingPlacedPosition();
     }
 
-    void ArrowUpClick()
-    {
-        if (!blockMovePoint)
-            Move(Vector3.up);
-    }
-    void ArrowDownClick()
-    {
-        if (!blockMovePoint)
-            Move(Vector3.down);
-    }
-    void ArrowLeftClick()
-    {
-        if (!blockMovePoint)
-            Move(Vector3.left);
-    }
-    void ArrowRightClick()
-    {
-        if (!blockMovePoint)
-            Move(Vector3.right);
-    }
 
-    void Move(Vector3 movePos)
+    public void Move(Vector3 pos)
     {
-        ClearEnemyHighlight();
-        transform.position += movePos;
+
+        // block moving out form tile map
+        Vector3Int tilePos = tilemap.WorldToCell(pos);
+        if (!tiles.TryGetValue(tilePos, out _tile))
+            return;
+
+        transform.position = pos;
 
         UpdateTileInfoUI();
         UpdateCharacterInfoUI();
@@ -194,17 +190,7 @@ public class MovePointController : MonoBehaviour
             battlePreparationController.UpdateCharacterBeingPlacedPosition();
     }
 
-    void ClearEnemyHighlight()
-    {
-        // clear enemy highlight if needed
-        if (enemyCharSelection != null)
-        {
-            highlighter.ClearHighlightedTiles();
-            enemyCharSelection = null;
-        }
-    }
-
-    void SelectClick()
+    public void HandleSelectClick()
     {
         // check if there is a selectable object at selector's position
         // only one selectable object can occypy space: 
@@ -225,77 +211,6 @@ public class MovePointController : MonoBehaviour
 
         Select(col);
         return;
-
-        //TODO: Generally, I want to get rid of all the code below and move it to character battle controller;
-
-        // select controlled by player object
-        if (selected == null && col == null)
-        {
-            Debug.Log("Selecting nothingness");
-        }
-        else if (selected == null && !col.transform.CompareTag("PlayerCollider"))
-        {
-            Debug.Log("Selecting something you can't control!");
-        }
-        else if (selected == null && col.transform.CompareTag("PlayerCollider"))
-        {
-            Select(col);
-        }
-        // move if the space is empty
-        else if (playerCharMovementController.enabled && col == null)
-        {
-            // check if target is within range
-            // TODO: is this a correct place and way to check? 
-            Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-            if (tiles.TryGetValue(tilePos, out _tile))
-            {
-                if (!_tile.WithinRange)
-                {
-                    Debug.Log("Not within range");
-                    return;
-                }
-            }
-
-            playerCharMovementController.Move(transform);
-        }
-        // interact
-        else if (playerCharInteractionController.enabled)
-        {
-            // check if target is within range
-            // TODO: is this a correct place and way to check? 
-            Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-            if (tiles.TryGetValue(tilePos, out _tile))
-            {
-                if (!_tile.WithinRange)
-                {
-                    Debug.Log("Not within range");
-                    return;
-                }
-            }
-
-            if (col != null)
-            {
-                // character colliders are children
-                if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
-                    playerCharInteractionController.selectedAbility.TriggerAbility(col.transform.parent.gameObject);
-                // environment objects colliders are on the object itself 
-                else
-                    playerCharInteractionController.selectedAbility.TriggerAbility(col.gameObject);
-
-                // hide ui
-                abilityUI.HideAbilityUI();
-            }
-            else
-            {
-                // there is no one (nothing) to interact with, it will be cool if I could create stuff on the map.
-                Debug.Log("nothing to interact with");
-            }
-        }
-        // if selected player's location "move" there;
-        else if (selected == col.transform.parent.gameObject && col.transform.CompareTag("PlayerCollider"))
-            playerCharMovementController.Move(transform);
-        else
-            Debug.Log("What am I selecting?");
     }
 
     public void UpdateTileInfoUI()
@@ -348,21 +263,21 @@ public class MovePointController : MonoBehaviour
             //gameUI.HideCharacterInfoUI();
             return;
         }
-
+        /*
         // highlight how far can enemy character move
         if (col.transform.CompareTag("EnemyCollider")
-            && (playerCharInteractionController == null || playerCharInteractionController.enabled == false)
-            && (playerCharMovementController == null || playerCharMovementController.enabled == false))
+            && (playerCharInteractionController == null || playerCharInteractionController.enabled == false))
+        //&& (playerCharMovementController == null || playerCharMovementController.enabled == false))
         {
             enemyCharSelection = col.transform.parent.gameObject.GetComponent<EnemyCharSelection>();
             enemyCharSelection.HiglightMovementRange();
         }
+        */
 
         // display stats of characters
         if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
         {
             CharacterStats stats = col.transform.parent.GetComponent<CharacterStats>();
-
 
             //gameUI.UpdateCharacterInfoUI(stats.currentHealth, stats.maxHealth.GetValue(),
             //stats.currentMana, stats.maxMana.GetValue());
@@ -425,58 +340,10 @@ public class MovePointController : MonoBehaviour
     void Select(Collider2D obj)
     {
         characterBattleController.Select(obj);
-        /*
-
-        charSelection = obj.GetComponent<PlayerCharSelection>();
-        if (!charSelection.movedThisTurn)
-        {
-            selected = obj;
-            charSelection.SelectCharacter();
-
-            playerCharMovementController = selected.GetComponent<PlayerCharMovementController>();
-            playerCharMovementController.enabled = true;
-
-            playerCharInteractionController = selected.GetComponent<PlayerCharInteractionController>();
-        }
-        else
-        {
-            Debug.Log("Character moved this turn already");
-        }
-        */
     }
-    /*
-        public void UnselectSelected()
-        {
-
-            // incase we end the turn with highlighted tiles;
-            highlighter.ClearHighlightedTiles();
-
-            // reset controllers
-            if (playerCharMovementController != null)
-            {
-                playerCharMovementController.enabled = false;
-                playerCharMovementController = null;
-            }
-            if (playerCharInteractionController != null)
-            {
-                playerCharInteractionController.enabled = false;
-                playerCharInteractionController = null;
-            }
-            if (charSelection != null)
-            {
-                charSelection.UnselectCharacter();
-                charSelection = null;
-            }
-
-            blockMovePoint = false;
-            selected = null;
-
-        }*/
 
     void OnEnemyTurnEnd()
     {
-        blockMovePoint = false;
-
         GameObject[] playerChars = GameObject.FindGameObjectsWithTag("PlayerCollider");
         if (playerChars.Length > 0)
             transform.position = playerChars[0].transform.position;

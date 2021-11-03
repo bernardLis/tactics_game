@@ -19,6 +19,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""id"": ""e053d83d-8535-4868-a630-72c397b5d7c3"",
             ""actions"": [
                 {
+                    ""name"": ""ArrowMovement"",
+                    ""type"": ""Button"",
+                    ""id"": ""70892e3d-250f-4237-a502-b1321820c988"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""QButtonClick"",
                     ""type"": ""Button"",
                     ""id"": ""618f08ab-7a07-40cf-a3c8-0f92bedb73d3"",
@@ -51,6 +59,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""TButtonClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""51f2f3c9-941f-43b6-b626-7404acbbd970"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""YButtonClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc5387e7-b010-406f-85a3-2780fd031eef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Back"",
                     ""type"": ""Button"",
                     ""id"": ""7c78f711-47be-47b3-b3e1-04865a1d14a7"",
@@ -65,38 +89,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": ""Press""
-                },
-                {
-                    ""name"": ""ArrowUpClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""41d80404-79c8-4c07-bb6a-55568b64eca2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ArrowDownClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""54747ac8-dbe3-464d-b73c-87c128a022f5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ArrowLeftClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""698338ce-238a-449f-830c-270be72b0f80"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ArrowRightClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""6faa3e42-d72b-4e67-8a54-f7d6d772fd4e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 },
                 {
                     ""name"": ""SelectClick"",
@@ -118,22 +110,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": ""ZoomIn"",
                     ""type"": ""Button"",
                     ""id"": ""28561bfc-00d2-47fe-97ef-87a6df8882ab"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Test"",
-                    ""type"": ""Button"",
-                    ""id"": ""eff9d875-de2e-4d55-95a7-1e723325c83f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""TestY"",
-                    ""type"": ""Button"",
-                    ""id"": ""ad65bd75-1db2-4d28-a1a9-6035ad724364"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -224,50 +200,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""efbe31bd-deaa-4b88-b46a-fc30e3cc9c32"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowUpClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""86fac896-41c7-41f7-b264-fda9ed6f3243"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowDownClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""20ce7863-0d9b-41c0-8323-60a7cf95c7a3"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowLeftClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b08bc65f-d8e4-4a61-9d7e-54de02fa536d"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowRightClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d72a8822-1533-426c-be42-e739aa829a07"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": ""Press"",
@@ -301,28 +233,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""410f9425-52bb-45df-99db-91b497c4705e"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Test"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2a7fa1ad-066e-48b0-aef9-519d299d0e17"",
-                    ""path"": ""<Keyboard>/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""TestY"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""126036a9-efdb-47f5-9773-8dfbd5460919"",
                     ""path"": ""<Keyboard>/o"",
                     ""interactions"": """",
@@ -340,6 +250,83 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""SelectPreviousCharacter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""3b93ea8e-603f-47d2-bc6e-9c547f0f2c1c"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""1b198813-666b-4d08-b856-292c6b5faed1"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8c8a2681-0f38-40d4-990f-d7565f27ff40"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""162aaf32-6412-4446-9745-f0655d815476"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""bb5e0e15-f0e0-4a4e-877d-3ef57e507686"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9818ed2-e762-40ff-9499-74de2acc107e"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""TButtonClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a837ccc-7b30-462f-8d96-b9ab51ca40b8"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""YButtonClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -645,21 +632,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_ArrowMovement = m_Player.FindAction("ArrowMovement", throwIfNotFound: true);
         m_Player_QButtonClick = m_Player.FindAction("QButtonClick", throwIfNotFound: true);
         m_Player_WButtonClick = m_Player.FindAction("WButtonClick", throwIfNotFound: true);
         m_Player_EButtonClick = m_Player.FindAction("EButtonClick", throwIfNotFound: true);
         m_Player_RButtonClick = m_Player.FindAction("RButtonClick", throwIfNotFound: true);
+        m_Player_TButtonClick = m_Player.FindAction("TButtonClick", throwIfNotFound: true);
+        m_Player_YButtonClick = m_Player.FindAction("YButtonClick", throwIfNotFound: true);
         m_Player_Back = m_Player.FindAction("Back", throwIfNotFound: true);
         m_Player_LeftMouseClick = m_Player.FindAction("LeftMouseClick", throwIfNotFound: true);
-        m_Player_ArrowUpClick = m_Player.FindAction("ArrowUpClick", throwIfNotFound: true);
-        m_Player_ArrowDownClick = m_Player.FindAction("ArrowDownClick", throwIfNotFound: true);
-        m_Player_ArrowLeftClick = m_Player.FindAction("ArrowLeftClick", throwIfNotFound: true);
-        m_Player_ArrowRightClick = m_Player.FindAction("ArrowRightClick", throwIfNotFound: true);
         m_Player_SelectClick = m_Player.FindAction("SelectClick", throwIfNotFound: true);
         m_Player_ZoomOut = m_Player.FindAction("ZoomOut", throwIfNotFound: true);
         m_Player_ZoomIn = m_Player.FindAction("ZoomIn", throwIfNotFound: true);
-        m_Player_Test = m_Player.FindAction("Test", throwIfNotFound: true);
-        m_Player_TestY = m_Player.FindAction("TestY", throwIfNotFound: true);
         m_Player_SelectNextCharacter = m_Player.FindAction("SelectNextCharacter", throwIfNotFound: true);
         m_Player_SelectPreviousCharacter = m_Player.FindAction("SelectPreviousCharacter", throwIfNotFound: true);
         // QuestUI
@@ -724,42 +708,36 @@ public class @InputMaster : IInputActionCollection, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_ArrowMovement;
     private readonly InputAction m_Player_QButtonClick;
     private readonly InputAction m_Player_WButtonClick;
     private readonly InputAction m_Player_EButtonClick;
     private readonly InputAction m_Player_RButtonClick;
+    private readonly InputAction m_Player_TButtonClick;
+    private readonly InputAction m_Player_YButtonClick;
     private readonly InputAction m_Player_Back;
     private readonly InputAction m_Player_LeftMouseClick;
-    private readonly InputAction m_Player_ArrowUpClick;
-    private readonly InputAction m_Player_ArrowDownClick;
-    private readonly InputAction m_Player_ArrowLeftClick;
-    private readonly InputAction m_Player_ArrowRightClick;
     private readonly InputAction m_Player_SelectClick;
     private readonly InputAction m_Player_ZoomOut;
     private readonly InputAction m_Player_ZoomIn;
-    private readonly InputAction m_Player_Test;
-    private readonly InputAction m_Player_TestY;
     private readonly InputAction m_Player_SelectNextCharacter;
     private readonly InputAction m_Player_SelectPreviousCharacter;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
         public PlayerActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ArrowMovement => m_Wrapper.m_Player_ArrowMovement;
         public InputAction @QButtonClick => m_Wrapper.m_Player_QButtonClick;
         public InputAction @WButtonClick => m_Wrapper.m_Player_WButtonClick;
         public InputAction @EButtonClick => m_Wrapper.m_Player_EButtonClick;
         public InputAction @RButtonClick => m_Wrapper.m_Player_RButtonClick;
+        public InputAction @TButtonClick => m_Wrapper.m_Player_TButtonClick;
+        public InputAction @YButtonClick => m_Wrapper.m_Player_YButtonClick;
         public InputAction @Back => m_Wrapper.m_Player_Back;
         public InputAction @LeftMouseClick => m_Wrapper.m_Player_LeftMouseClick;
-        public InputAction @ArrowUpClick => m_Wrapper.m_Player_ArrowUpClick;
-        public InputAction @ArrowDownClick => m_Wrapper.m_Player_ArrowDownClick;
-        public InputAction @ArrowLeftClick => m_Wrapper.m_Player_ArrowLeftClick;
-        public InputAction @ArrowRightClick => m_Wrapper.m_Player_ArrowRightClick;
         public InputAction @SelectClick => m_Wrapper.m_Player_SelectClick;
         public InputAction @ZoomOut => m_Wrapper.m_Player_ZoomOut;
         public InputAction @ZoomIn => m_Wrapper.m_Player_ZoomIn;
-        public InputAction @Test => m_Wrapper.m_Player_Test;
-        public InputAction @TestY => m_Wrapper.m_Player_TestY;
         public InputAction @SelectNextCharacter => m_Wrapper.m_Player_SelectNextCharacter;
         public InputAction @SelectPreviousCharacter => m_Wrapper.m_Player_SelectPreviousCharacter;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -771,6 +749,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
+                @ArrowMovement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowMovement;
+                @ArrowMovement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowMovement;
+                @ArrowMovement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowMovement;
                 @QButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
                 @QButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
                 @QButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
@@ -783,24 +764,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @RButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRButtonClick;
                 @RButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRButtonClick;
                 @RButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRButtonClick;
+                @TButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTButtonClick;
+                @TButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTButtonClick;
+                @TButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTButtonClick;
+                @YButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYButtonClick;
+                @YButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYButtonClick;
+                @YButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYButtonClick;
                 @Back.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
                 @Back.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
                 @Back.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
                 @LeftMouseClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseClick;
                 @LeftMouseClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseClick;
                 @LeftMouseClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseClick;
-                @ArrowUpClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUpClick;
-                @ArrowUpClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUpClick;
-                @ArrowUpClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUpClick;
-                @ArrowDownClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDownClick;
-                @ArrowDownClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDownClick;
-                @ArrowDownClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDownClick;
-                @ArrowLeftClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeftClick;
-                @ArrowLeftClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeftClick;
-                @ArrowLeftClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeftClick;
-                @ArrowRightClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRightClick;
-                @ArrowRightClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRightClick;
-                @ArrowRightClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRightClick;
                 @SelectClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
                 @SelectClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
                 @SelectClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
@@ -810,12 +785,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @ZoomIn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
                 @ZoomIn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
                 @ZoomIn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
-                @Test.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTest;
-                @Test.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTest;
-                @Test.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTest;
-                @TestY.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestY;
-                @TestY.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestY;
-                @TestY.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestY;
                 @SelectNextCharacter.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
                 @SelectNextCharacter.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
                 @SelectNextCharacter.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
@@ -826,6 +795,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @ArrowMovement.started += instance.OnArrowMovement;
+                @ArrowMovement.performed += instance.OnArrowMovement;
+                @ArrowMovement.canceled += instance.OnArrowMovement;
                 @QButtonClick.started += instance.OnQButtonClick;
                 @QButtonClick.performed += instance.OnQButtonClick;
                 @QButtonClick.canceled += instance.OnQButtonClick;
@@ -838,24 +810,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @RButtonClick.started += instance.OnRButtonClick;
                 @RButtonClick.performed += instance.OnRButtonClick;
                 @RButtonClick.canceled += instance.OnRButtonClick;
+                @TButtonClick.started += instance.OnTButtonClick;
+                @TButtonClick.performed += instance.OnTButtonClick;
+                @TButtonClick.canceled += instance.OnTButtonClick;
+                @YButtonClick.started += instance.OnYButtonClick;
+                @YButtonClick.performed += instance.OnYButtonClick;
+                @YButtonClick.canceled += instance.OnYButtonClick;
                 @Back.started += instance.OnBack;
                 @Back.performed += instance.OnBack;
                 @Back.canceled += instance.OnBack;
                 @LeftMouseClick.started += instance.OnLeftMouseClick;
                 @LeftMouseClick.performed += instance.OnLeftMouseClick;
                 @LeftMouseClick.canceled += instance.OnLeftMouseClick;
-                @ArrowUpClick.started += instance.OnArrowUpClick;
-                @ArrowUpClick.performed += instance.OnArrowUpClick;
-                @ArrowUpClick.canceled += instance.OnArrowUpClick;
-                @ArrowDownClick.started += instance.OnArrowDownClick;
-                @ArrowDownClick.performed += instance.OnArrowDownClick;
-                @ArrowDownClick.canceled += instance.OnArrowDownClick;
-                @ArrowLeftClick.started += instance.OnArrowLeftClick;
-                @ArrowLeftClick.performed += instance.OnArrowLeftClick;
-                @ArrowLeftClick.canceled += instance.OnArrowLeftClick;
-                @ArrowRightClick.started += instance.OnArrowRightClick;
-                @ArrowRightClick.performed += instance.OnArrowRightClick;
-                @ArrowRightClick.canceled += instance.OnArrowRightClick;
                 @SelectClick.started += instance.OnSelectClick;
                 @SelectClick.performed += instance.OnSelectClick;
                 @SelectClick.canceled += instance.OnSelectClick;
@@ -865,12 +831,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @ZoomIn.started += instance.OnZoomIn;
                 @ZoomIn.performed += instance.OnZoomIn;
                 @ZoomIn.canceled += instance.OnZoomIn;
-                @Test.started += instance.OnTest;
-                @Test.performed += instance.OnTest;
-                @Test.canceled += instance.OnTest;
-                @TestY.started += instance.OnTestY;
-                @TestY.performed += instance.OnTestY;
-                @TestY.canceled += instance.OnTestY;
                 @SelectNextCharacter.started += instance.OnSelectNextCharacter;
                 @SelectNextCharacter.performed += instance.OnSelectNextCharacter;
                 @SelectNextCharacter.canceled += instance.OnSelectNextCharacter;
@@ -1023,21 +983,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
     }
     public interface IPlayerActions
     {
+        void OnArrowMovement(InputAction.CallbackContext context);
         void OnQButtonClick(InputAction.CallbackContext context);
         void OnWButtonClick(InputAction.CallbackContext context);
         void OnEButtonClick(InputAction.CallbackContext context);
         void OnRButtonClick(InputAction.CallbackContext context);
+        void OnTButtonClick(InputAction.CallbackContext context);
+        void OnYButtonClick(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
         void OnLeftMouseClick(InputAction.CallbackContext context);
-        void OnArrowUpClick(InputAction.CallbackContext context);
-        void OnArrowDownClick(InputAction.CallbackContext context);
-        void OnArrowLeftClick(InputAction.CallbackContext context);
-        void OnArrowRightClick(InputAction.CallbackContext context);
         void OnSelectClick(InputAction.CallbackContext context);
         void OnZoomOut(InputAction.CallbackContext context);
         void OnZoomIn(InputAction.CallbackContext context);
-        void OnTest(InputAction.CallbackContext context);
-        void OnTestY(InputAction.CallbackContext context);
         void OnSelectNextCharacter(InputAction.CallbackContext context);
         void OnSelectPreviousCharacter(InputAction.CallbackContext context);
     }

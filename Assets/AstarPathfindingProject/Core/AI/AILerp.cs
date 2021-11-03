@@ -45,6 +45,8 @@ namespace Pathfinding
         //CharacterRendererManager characterRendererManager;
         public Vector2 myDirection;
 
+        public bool isMoving;
+
         /// <summary>
         /// Determines how often it will search for new paths.
         /// If you have fast moving targets or AIs, you might want to set it to a lower value.
@@ -484,6 +486,8 @@ namespace Pathfinding
         public virtual void OnTargetReached()
         {
             myDirection = Vector2.zero;
+            speed = 3;
+            isMoving = false;
 
             //canSearch = false;
             //canMove = false;
@@ -670,6 +674,9 @@ namespace Pathfinding
         /// <summary>\copydoc Pathfinding::IAstarAI::MovementUpdate</summary>
         public void MovementUpdate(float deltaTime, out Vector3 nextPosition, out Quaternion nextRotation)
         {
+            // HERE:
+            isMoving = true;
+
             if (updatePosition) simulatedPosition = tr.position;
             if (updateRotation) simulatedRotation = tr.rotation;
 

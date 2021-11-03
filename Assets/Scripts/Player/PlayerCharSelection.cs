@@ -9,6 +9,7 @@ public class PlayerCharSelection : CharacterSelection
     public bool hasMovedThisTurn;
     public bool hasFinishedTurn;
 
+    public Vector3 positionTurnStart;
     public WorldTile tileTurnStart;
     bool scalingUp;
 
@@ -50,7 +51,10 @@ public class PlayerCharSelection : CharacterSelection
         hasMovedThisTurn = false;
         hasFinishedTurn = false;
 
-        // remember on which tile you start the turn
+
+        // remember on which tile you start the turn on 
+        positionTurnStart = transform.position;
+
         if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             tileTurnStart = _tile;
     }

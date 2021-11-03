@@ -6,6 +6,14 @@
             "id": "e053d83d-8535-4868-a630-72c397b5d7c3",
             "actions": [
                 {
+                    "name": "ArrowMovement",
+                    "type": "Button",
+                    "id": "70892e3d-250f-4237-a502-b1321820c988",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "QButtonClick",
                     "type": "Button",
                     "id": "618f08ab-7a07-40cf-a3c8-0f92bedb73d3",
@@ -38,6 +46,22 @@
                     "interactions": ""
                 },
                 {
+                    "name": "TButtonClick",
+                    "type": "Button",
+                    "id": "51f2f3c9-941f-43b6-b626-7404acbbd970",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "YButtonClick",
+                    "type": "Button",
+                    "id": "fc5387e7-b010-406f-85a3-2780fd031eef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Back",
                     "type": "Button",
                     "id": "7c78f711-47be-47b3-b3e1-04865a1d14a7",
@@ -52,38 +76,6 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "Press"
-                },
-                {
-                    "name": "ArrowUpClick",
-                    "type": "Button",
-                    "id": "41d80404-79c8-4c07-bb6a-55568b64eca2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ArrowDownClick",
-                    "type": "Button",
-                    "id": "54747ac8-dbe3-464d-b73c-87c128a022f5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ArrowLeftClick",
-                    "type": "Button",
-                    "id": "698338ce-238a-449f-830c-270be72b0f80",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ArrowRightClick",
-                    "type": "Button",
-                    "id": "6faa3e42-d72b-4e67-8a54-f7d6d772fd4e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 },
                 {
                     "name": "SelectClick",
@@ -105,22 +97,6 @@
                     "name": "ZoomIn",
                     "type": "Button",
                     "id": "28561bfc-00d2-47fe-97ef-87a6df8882ab",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Test",
-                    "type": "Button",
-                    "id": "eff9d875-de2e-4d55-95a7-1e723325c83f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "TestY",
-                    "type": "Button",
-                    "id": "ad65bd75-1db2-4d28-a1a9-6035ad724364",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -211,50 +187,6 @@
                 },
                 {
                     "name": "",
-                    "id": "efbe31bd-deaa-4b88-b46a-fc30e3cc9c32",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "ArrowUpClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "86fac896-41c7-41f7-b264-fda9ed6f3243",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "ArrowDownClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "20ce7863-0d9b-41c0-8323-60a7cf95c7a3",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "ArrowLeftClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b08bc65f-d8e4-4a61-9d7e-54de02fa536d",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "ArrowRightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d72a8822-1533-426c-be42-e739aa829a07",
                     "path": "<Keyboard>/f",
                     "interactions": "Press",
@@ -288,28 +220,6 @@
                 },
                 {
                     "name": "",
-                    "id": "410f9425-52bb-45df-99db-91b497c4705e",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "Test",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2a7fa1ad-066e-48b0-aef9-519d299d0e17",
-                    "path": "<Keyboard>/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "TestY",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "126036a9-efdb-47f5-9773-8dfbd5460919",
                     "path": "<Keyboard>/o",
                     "interactions": "",
@@ -327,6 +237,83 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "SelectPreviousCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "3b93ea8e-603f-47d2-bc6e-9c547f0f2c1c",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "ArrowMovement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1b198813-666b-4d08-b856-292c6b5faed1",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "ArrowMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "8c8a2681-0f38-40d4-990f-d7565f27ff40",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "ArrowMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "162aaf32-6412-4446-9745-f0655d815476",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "ArrowMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "bb5e0e15-f0e0-4a4e-877d-3ef57e507686",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "ArrowMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d9818ed2-e762-40ff-9499-74de2acc107e",
+                    "path": "<Keyboard>/t",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "TButtonClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a837ccc-7b30-462f-8d96-b9ab51ca40b8",
+                    "path": "<Keyboard>/y",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "YButtonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

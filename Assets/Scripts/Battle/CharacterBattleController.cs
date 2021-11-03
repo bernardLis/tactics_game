@@ -14,8 +14,8 @@ public class CharacterBattleController : MonoBehaviour
 
     // global utilities
     Highlighter highlighter;
-    MovePointController movePointController;
     BattleUI battleUI;
+    BattleInputController battleInputController;
 
     // I will be caching them for selected character
     GameObject selectedCharacter;
@@ -25,6 +25,21 @@ public class CharacterBattleController : MonoBehaviour
     AIDestinationSetter destinationSetter;
     CharacterRendererManager characterRendererManager;
 
+    public static CharacterBattleController instance;
+    void Awake()
+    {
+        #region singleton
+
+        // singleton
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of TurnManager found");
+            return;
+        }
+        instance = this;
+        #endregion
+    }
+
 
     void Start()
     {
@@ -32,43 +47,45 @@ public class CharacterBattleController : MonoBehaviour
         tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
 
         highlighter = Highlighter.instance;
-        movePointController = MovePointController.instance;
+        //movePointController = MovePointController.instance;
+        battleInputController = BattleInputController.instance;
         battleUI = BattleUI.instance;
     }
 
     void Update()
     {
-        // TODO: find a better way to reset flag for movepoint after character reaches the destination
-        if (aILerp != null && aILerp.reachedDestination)
-            movePointController.blockMovePoint = false;
+        if (aILerp != null && !aILerp.isMoving)
+            battleInputController.allowInput = true;
     }
 
     public void Select(Collider2D _col)
     {
+        Debug.Log("trying to select: " + _col);
+
         // get the tile movepoint is on
         if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             selectedTile = _tile;
 
-        // when character is selected
-        if (selectedCharacter != null)
-        {
-            // Move
-            if (!playerCharSelection.hasMovedThisTurn && selectedTile.WithinRange)
-                Move();
-
-            // Interact with something when ability is selected && tile is within range
-
-            return;
-        }
-
-        // Select character
-        if (_col.transform.CompareTag("PlayerCollider"))
+        // select character
+        // don't allow to select another character if you have moved this character and did not take the action
+        if (_col != null && _col.transform.CompareTag("PlayerCollider")
+        && !(selectedCharacter != null && playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn)) // TODO: this is quite convoluted...
         {
             SelectCharacter(_col.transform.parent.gameObject);
             return;
         }
 
-        Debug.Log("trying to select: " + _col);
+        if (selectedCharacter == null)
+            return;
+
+        // when character is selected
+        // Move
+        if (!playerCharSelection.hasMovedThisTurn && selectedTile.WithinRange)
+            Move();
+
+        // Interact with something when ability is selected && tile is within range
+        if (!playerCharSelection.hasFinishedTurn && selectedTile.WithinRange)
+            Interact();
     }
 
     void SelectCharacter(GameObject _character)
@@ -89,7 +106,7 @@ public class CharacterBattleController : MonoBehaviour
 
         // UI
         battleUI.ShowCharacterUI(playerStats.currentHealth, playerStats.currentMana, playerStats.character);
-        
+
         // highlight
         highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
                                                 new Color(0.53f, 0.52f, 1f, 1f));
@@ -101,26 +118,54 @@ public class CharacterBattleController : MonoBehaviour
         playerStats = null;
         playerCharSelection = null;
 
+        // UI
+        battleUI.HideCharacterUI();
+
+        // highlight
         highlighter.ClearHighlightedTiles();
     }
 
     void Move()
     {
         highlighter.ClearHighlightedTiles();
-        playerCharSelection.hasMovedThisTurn = true;
 
         destinationSetter.target = transform;
+        playerCharSelection.hasMovedThisTurn = true;
 
-        // disable movepoint
-        movePointController.blockMovePoint = true;
+        // disable input
+        battleInputController.allowInput = false;
     }
 
-    void Back()
+    public bool canInteract()
     {
-        // well... maybe i need 2 backs for unselecting and moving back, but maybe i don't need for unselecting? ???!!@!@#
-        // only one back is needed coz you can 'always' select abilities
-        // back will be going to the starting character destination - held by player char selection
-        // need to reset moved this turn
+        if(!battleInputController.isInputAllowed())
+            return false;
+        if(selectedCharacter == null)
+            return false;
+        if(playerCharSelection.hasFinishedTurn)
+            return false;
 
+        return true;
+    }
+
+    void Interact()
+    {
+        Debug.Log("interact");
+    }
+
+    public void Back()
+    {
+        if (selectedCharacter == null)
+            return;
+
+        // flag reset
+        playerCharSelection.hasMovedThisTurn = false;
+
+        // move move point and character to character's starting position quickly.
+        aILerp.speed = 15;
+        transform.position = playerCharSelection.positionTurnStart;
+        destinationSetter.target = transform;
+
+        UnselectCharacter();
     }
 }
