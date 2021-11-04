@@ -5,32 +5,29 @@ using UnityEngine.Tilemaps;
 using UnityEngine.Profiling;
 public class Highlighter : MonoBehaviour
 {
-    public static Highlighter instance;
+    // TODO: this script can be better - I have multiple 4 nested loops
 
-    [SerializeField]
-    GameObject flasherHolder;
-    [SerializeField]
-    GameObject flasherPrefab;
-
-    //TODO: this script could be better.
+    // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
+    // tilemap
     Tilemap tilemap;
     Dictionary<Vector3, WorldTile> tiles;
-
     WorldTile _tile;
-    WorldTile charTile;
 
+    WorldTile charTile;
     public List<WorldTile> highlightedTiles = new List<WorldTile>();
 
     //flashers
     List<GameObject> flashers = new List<GameObject>();
-
     [Header("Flasher")]
+    [SerializeField]
+    GameObject flasherHolder;
+    [SerializeField]
+    GameObject flasherPrefab;
     public float flasherXOffset = 0.4f;
     public float flasherYOffset = 0.6f;
 
-
-
-    protected virtual void Awake()
+    public static Highlighter instance;
+    void Awake()
     {
         // singleton
         if (instance != null)
@@ -59,9 +56,23 @@ public class Highlighter : MonoBehaviour
     }
 
     // TODO: this
-    public void HighlightRectangle()
+    public void HighlightRectanglePlayer(Vector2 SWcorner, int length, int height, Color col)
     {
+        for (int i = 0; i < length; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                Vector3 position = new Vector3(SWcorner.x + i, SWcorner.y + j, 0f);
+                Vector3Int tilePos = tilemap.WorldToCell(position);
 
+                // continue looping if the tile does not exist
+                if (!tiles.TryGetValue(tilePos, out _tile))
+                    continue;
+
+                if (CanPlayerWalkOnTile(_tile) && CanPlayerStopOnTile(_tile))
+                    HighlightTile(_tile, col);
+            }
+        }
     }
 
     // TODO: this is a mess...
@@ -94,75 +105,52 @@ public class Highlighter : MonoBehaviour
                 {
                     // excluding diagonals
                     if (!diagonal)
-                    {
                         worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, charTile.LocalPlace.y, 0);
-                    }
                     else
-                    {
                         worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, markedTile.LocalPlace.y, 0);
-                    }
 
-                    if (tiles.TryGetValue(worldPoint, out _tile))
-                    {
-                        // excluding self
-                        if (!self)
-                        {
-                            if (!_tile.IsObstacle && _tile != charTile)
-                            {
-                                if (!highlightedTiles.Contains(_tile))
-                                    HighlightTile(_tile, col);
-                                if (!newMarkedTiles.Contains(_tile))
-                                    newMarkedTiles.Add(_tile);
-                            }
-                        }
-                        else
-                        {
-                            if (!_tile.IsObstacle)
-                            {
-                                if (!highlightedTiles.Contains(_tile))
-                                    HighlightTile(_tile, col);
-                                if (!newMarkedTiles.Contains(_tile))
-                                    newMarkedTiles.Add(_tile);
-                            }
-                        }
-                    }
+                    // excluding not tiles
+                    if (!tiles.TryGetValue(worldPoint, out _tile))
+                        continue;
+
+                    // excluding self
+                    if (!self && _tile == charTile)
+                        continue;
+
+                    // exclude obstacle tiles
+                    if (_tile.IsObstacle)
+                        continue;
+
+                    if (!highlightedTiles.Contains(_tile))
+                        HighlightTile(_tile, col);
+                    if (!newMarkedTiles.Contains(_tile))
+                        newMarkedTiles.Add(_tile);
                 }
                 // +/- y
                 for (int y = -1; y <= 1; y++)
                 {
                     // excluding diagonals
                     if (!diagonal)
-                    {
                         worldPoint = new Vector3Int(charTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
-                    }
                     else
-                    {
                         worldPoint = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
-                    }
-                    if (tiles.TryGetValue(worldPoint, out _tile))
-                    {
-                        // excluding self
-                        if (!self)
-                        {
-                            if (!_tile.IsObstacle && _tile != charTile)
-                            {
-                                if (!highlightedTiles.Contains(_tile))
-                                    HighlightTile(_tile, col);
-                                if (!newMarkedTiles.Contains(_tile))
-                                    newMarkedTiles.Add(_tile);
-                            }
-                        }
-                        else
-                        {
-                            if (!_tile.IsObstacle)
-                            {
-                                if (!highlightedTiles.Contains(_tile))
-                                    HighlightTile(_tile, col);
-                                if (!newMarkedTiles.Contains(_tile))
-                                    newMarkedTiles.Add(_tile);
-                            }
-                        }
-                    }
+
+                    // excluding not tiles
+                    if (!tiles.TryGetValue(worldPoint, out _tile))
+                        continue;
+
+                    // excluding self
+                    if (!self && _tile == charTile)
+                        continue;
+
+                    // exclude obstacle tiles
+                    if (_tile.IsObstacle)
+                        continue;
+
+                    if (!highlightedTiles.Contains(_tile))
+                        HighlightTile(_tile, col);
+                    if (!newMarkedTiles.Contains(_tile))
+                        newMarkedTiles.Add(_tile);
                 }
             }
             markedTiles = newMarkedTiles;
@@ -176,13 +164,7 @@ public class Highlighter : MonoBehaviour
         ClearHighlightedTiles();
 
         // get tiles withing character range
-        // create the bounds object yourself with new BoundsInt(origin, size)
         Vector3Int pos = Vector3Int.FloorToInt(position);
-        // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
-        // This is our Dictionary of tiles
-        var tiles = GameTiles.instance.tiles;
-        // highlight tiles in movement range
-        // list with tiles
         var markedTiles = new List<WorldTile>();
 
         // adding char position
@@ -191,15 +173,10 @@ public class Highlighter : MonoBehaviour
 
         if (tiles.TryGetValue(tilePos, out _tile))
         {
-            // If you want the tile that you are standing on highlighted: 
-            //HighlightTile(_tile, col);
-            //_tile.WithinRange = true;
-
             highlightedTiles.Add(_tile);
             markedTiles.Add(_tile);
         }
 
-        // number of steps character can make
         // TODO: this seems not optimal, it lags unity for 1 min when range is 10;
         for (int i = 0; i < range; i++)
         {
@@ -219,17 +196,19 @@ public class Highlighter : MonoBehaviour
                         if (x == 0 ^ y == 0)
                         {
                             worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
-                            if (tiles.TryGetValue(worldPoint, out _tile))
-                            {
-                                // can you walk on the tile? 
-                                if (PlayerIsTileWalkable(worldPoint))
-                                {
-                                    newMarkedTiles.Add(_tile);
-                                    // can you stop on the tile?
-                                    if (!highlightedTiles.Contains(_tile) && PlayerCanIStopOnTheTile(worldPoint))
-                                        HighlightTile(_tile, col);
-                                }
-                            }
+
+                            if (!tiles.TryGetValue(worldPoint, out _tile))
+                                continue;
+
+                            // can you walk on the tile? 
+                            if (!CanPlayerWalkOnTile(_tile))
+                                continue;
+
+                            newMarkedTiles.Add(_tile);
+
+                            // can you stop on the tile?
+                            if (!highlightedTiles.Contains(_tile) && CanPlayerStopOnTile(_tile))
+                                HighlightTile(_tile, col);
                         }
                     }
                 }
@@ -246,31 +225,25 @@ public class Highlighter : MonoBehaviour
     // you can't walk on:
     // - obstacle tiles
     // - tiles that contain an obstacle object
-    bool PlayerIsTileWalkable(Vector3Int pos)
+    bool CanPlayerWalkOnTile(WorldTile tile)
     {
-        if (tiles.TryGetValue(pos, out _tile))
-        {
-            // if tile is marked as obstacle it is not walkable
-            if (_tile.IsObstacle)
-                return false;
+        // if tile is marked as obstacle it is not walkable
+        if (tile.IsObstacle)
+            return false;
 
-            // creating a collider in the middle of the tile
-            Vector3 colPos = new Vector3(_tile.LocalPlace.x + 0.5f, _tile.LocalPlace.y + 0.5f, _tile.LocalPlace.z);
-            Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
+        // creating a collider in the middle of the tile
+        Vector3 colPos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
+        Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
 
-            if (col != null)
-            {
-                // you can't walk on obstacles
-                if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Stone"))
-                    return false;
+        if (col == null)
+            return true;
 
-                // you can't walk on tiles enemies are standing on
-                if (col.transform.CompareTag("EnemyCollider"))
-                    return false;
-            }
-        }
-        // if there is no tile you cannot walk there
-        else
+        // you can't walk on obstacles
+        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Stone"))
+            return false;
+
+        // you can't walk on tiles enemies are standing on
+        if (col.transform.CompareTag("EnemyCollider"))
             return false;
 
         // if we don't return before we can walk on that tile
@@ -282,11 +255,10 @@ public class Highlighter : MonoBehaviour
     // you can't stop on:
     // - trap tiles
     // - tiles your allies are standing on
-
-    bool PlayerCanIStopOnTheTile(Vector3Int pos)
+    bool CanPlayerStopOnTile(WorldTile tile)
     {
         // creating a collider in the middle of the tile
-        Vector3 colPos = new Vector3(pos.x + 0.5f, pos.y + 0.5f, pos.z);
+        Vector3 colPos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
         Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
 
         // there is nothing to collide with on the tile
@@ -309,7 +281,6 @@ public class Highlighter : MonoBehaviour
 
         // get movement range of the character
         // get tiles withing character range
-        // create the bounds object yourself with new BoundsInt(origin, size)
         Vector3Int pos = Vector3Int.FloorToInt(position);
 
         // list with tiles
@@ -346,17 +317,18 @@ public class Highlighter : MonoBehaviour
                         if (x == 0 ^ y == 0)
                         {
                             worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
-                            if (tiles.TryGetValue(worldPoint, out _tile))
-                            {
-                                // can you calk on the tile? 
-                                if (EnemyIsTileWalkable(worldPoint))
-                                {
-                                    newMarkedTiles.Add(_tile);
-                                    // can you stop on the tile?
-                                    if (!highlightedTiles.Contains(_tile) && EnemyCanIStopOnTheTile(worldPoint))
-                                        HighlightTile(_tile, col);
-                                }
-                            }
+                            if (!tiles.TryGetValue(worldPoint, out _tile))
+                                continue;
+
+                            // can you calk on the tile? 
+                            if (!CanEnemyWalkOnTile(_tile))
+                                continue;
+
+                            newMarkedTiles.Add(_tile);
+
+                            // can you stop on the tile?
+                            if (!highlightedTiles.Contains(_tile) && CanEnemyStopOnTile(_tile))
+                                HighlightTile(_tile, col);
                         }
                     }
                 }
@@ -369,31 +341,25 @@ public class Highlighter : MonoBehaviour
     // you can't walk on:
     // - obstacle tiles
     // - tiles that contain an obstacle object
-    public bool EnemyIsTileWalkable(Vector3Int pos)
+    public bool CanEnemyWalkOnTile(WorldTile tile)
     {
-        if (tiles.TryGetValue(pos, out _tile))
-        {
-            // if tile is marked as obstacle it is not walkable
-            if (_tile.IsObstacle)
-                return false;
+        // if tile is marked as obstacle it is not walkable
+        if (tile.IsObstacle)
+            return false;
 
-            // creating a collider in the middle of the tile
-            Vector3 colPos = new Vector3(_tile.LocalPlace.x + 0.5f, _tile.LocalPlace.y + 0.5f, _tile.LocalPlace.z);
-            Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
+        // creating a collider in the middle of the tile
+        Vector3 colPos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
+        Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
 
-            if (col != null)
-            {
-                // you can't walk on obstacles
-                if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Stone"))
-                    return false;
+        if (col == null)
+            return true;
 
-                // you can't walk on tiles enemies are standing on
-                if (col.transform.CompareTag("PlayerCollider"))
-                    return false;
-            }
-        }
-        // if there is no tile you cannot walk there
-        else
+        // you can't walk on obstacles
+        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Stone"))
+            return false;
+
+        // you can't walk on tiles enemies are standing on
+        if (col.transform.CompareTag("PlayerCollider"))
             return false;
 
         // if we don't return before we can walk on that tile
@@ -404,10 +370,10 @@ public class Highlighter : MonoBehaviour
     // this function will return false if you can't stop on the tile
     // you can't stop on:
     // - tiles your allies are standing on
-    public bool EnemyCanIStopOnTheTile(Vector3Int pos)
+    public bool CanEnemyStopOnTile(WorldTile tile)
     {
         // creating a collider in the middle of the tile
-        Vector3 colPos = new Vector3(pos.x + 0.5f, pos.y + 0.5f, pos.z);
+        Vector3 colPos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
         Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
 
         // there is nothing to collide with on the tile
@@ -425,25 +391,24 @@ public class Highlighter : MonoBehaviour
     public void ClearHighlightedTile(Vector3 position)
     {
         Vector3Int tilePos = tilemap.WorldToCell(position);
-        if (tiles.TryGetValue(tilePos, out _tile))
+        if (!tiles.TryGetValue(tilePos, out _tile))
+            return;
+
+        // remove flag from the tile
+        // remove it from the list
+        _tile.WithinRange = false;
+        highlightedTiles.Remove(_tile);
+
+        // remove flasher from that tile
+        foreach (GameObject flasher in flashers)
         {
-            // remove flag from the tile
-            // remove it from the list
-            _tile.WithinRange = false;
-            highlightedTiles.Remove(_tile);
+            if (flasher == null)
+                continue;
 
-            // remove flasher from that tile
-            foreach (GameObject flasher in flashers)
-            {
-                if (flasher != null && flasher.transform.position == new Vector3(_tile.LocalPlace.x + flasherXOffset,
-                                                                    _tile.LocalPlace.y + flasherYOffset, _tile.LocalPlace.z))
-                {
-                    Destroy(flasher);
-
-                }
-            }
-
+            if (flasher.transform.position == new Vector3(_tile.LocalPlace.x + flasherXOffset, _tile.LocalPlace.y + flasherYOffset, _tile.LocalPlace.z))
+                Destroy(flasher);
         }
+
     }
 
     public void ClearHighlightedTiles()
@@ -453,16 +418,14 @@ public class Highlighter : MonoBehaviour
         {
             GameObject.Destroy(flasher);
         }
-        // clear the list
-        flashers.Clear();
 
         // clear highlights 
         foreach (WorldTile tile in highlightedTiles)
         {
             tile.ClearHighlightAndTags();
         }
-
-        // clear the list
+        // clear the lists
+        flashers.Clear();
         highlightedTiles.Clear();
     }
 
@@ -472,8 +435,6 @@ public class Highlighter : MonoBehaviour
         flasher.GetComponent<Flasher>().StartFlashing(col);
         flashers.Add(flasher);
         flasher.transform.SetParent(flasherHolder.transform);
-        //tile.Highlight(col);
-        //flashCoroutines.Add(flash);
 
         _tile.WithinRange = true;
         highlightedTiles.Add(_tile);

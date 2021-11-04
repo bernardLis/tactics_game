@@ -59,7 +59,7 @@ public class MapManager : MonoBehaviour
         enemyPositions[1] = new Vector3(3.5f, -3.5f, 0f);
         enemyPositions[2] = new Vector3(3.5f, -5.5f, 0f);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             GameObject newCharacter = Instantiate(enemyTemplateGO, enemyPositions[i], Quaternion.identity);
             newCharacter.name = enemyCharSO.characterName;
@@ -76,7 +76,8 @@ public class MapManager : MonoBehaviour
     void CreatePlayerStartingArea()
     {
         // TODO: this is temporary
-        Highlighter.instance.HighlightTiles(MovePointController.instance.transform.position, 3, Color.blue, true, true);
+        Vector2 SWCorner = new Vector2(19.5f, -6.5f);
+        Highlighter.instance.HighlightRectanglePlayer(SWCorner, 5, 5, Color.blue);
     }
 
     public bool IsObstacle(Vector3Int pos)

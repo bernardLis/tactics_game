@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CharacterStats : MonoBehaviour
+public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
 {
     public Character character;
 
@@ -63,7 +63,6 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-
     public void TakeDamage(int damage)
     {
         damage -= armor.GetValue();
@@ -98,7 +97,7 @@ public class CharacterStats : MonoBehaviour
         Debug.Log(transform.name + " uses " + amount + " mana.");
     }
 
-    public void Heal(int healthGain)
+    public void GainHealth(int healthGain)
     {
         healthGain = Mathf.Clamp(healthGain, 0, maxHealth.GetValue() - currentHealth);
         currentHealth += healthGain;
@@ -106,6 +105,11 @@ public class CharacterStats : MonoBehaviour
         Debug.Log(transform.name + " heals " + healthGain + " .");
 
         damageUI.DisplayHeal(healthGain);
+    }
+
+    public void GetPushed()
+    {
+        
     }
 
     public virtual void Die()

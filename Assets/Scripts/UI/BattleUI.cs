@@ -37,7 +37,7 @@ public class BattleUI : MonoBehaviour
     VisualElement characterRSkillIcon;
 
     // local
-    Character currentCharacter;
+    PlayerStats selectedPlayerStats;
 
     #region Singleton
     public static BattleUI instance;
@@ -103,42 +103,47 @@ public class BattleUI : MonoBehaviour
     // allow clicks only when not moving and character is selected & did not finish its turn
     void QButtonClicked()
     {
-        Debug.Log("q button clicked");
         if (!characterBattleController.canInteract())
             return;
 
-        currentCharacter.characterAbilities[0].HighlightTargetable();
+        selectedPlayerStats.abilities[0].HighlightTargetable();
+        characterBattleController.SetSelectedAbility(selectedPlayerStats.abilities[0]);
     }
+
     void WButtonClicked()
     {
-        Debug.Log("w button clicked");
         if (!characterBattleController.canInteract())
             return;
 
-        currentCharacter.characterAbilities[1].HighlightTargetable();
+        selectedPlayerStats.abilities[1].HighlightTargetable();
+        characterBattleController.SetSelectedAbility(selectedPlayerStats.abilities[1]);
     }
+
     void EButtonClicked()
     {
-        Debug.Log("E button clicked");
         if (!characterBattleController.canInteract())
             return;
 
-        currentCharacter.characterAbilities[2].HighlightTargetable();
+        selectedPlayerStats.abilities[2].HighlightTargetable();
+        characterBattleController.SetSelectedAbility(selectedPlayerStats.abilities[2]);
     }
+
     void RButtonClicked()
     {
-        Debug.Log("r button clicked");
         if (!characterBattleController.canInteract())
             return;
 
-        currentCharacter.characterAbilities[3].HighlightTargetable();
+        selectedPlayerStats.abilities[3].HighlightTargetable();
+        characterBattleController.SetSelectedAbility(selectedPlayerStats.abilities[3]);
     }
+
     void TButtonClicked()
     {
         Debug.Log("T button clicked - basic attack");
         if (!characterBattleController.canInteract())
             return;
     }
+    
     void YButtonClicked()
     {
         Debug.Log("Y button clicked - basic defend");
@@ -146,26 +151,27 @@ public class BattleUI : MonoBehaviour
             return;
     }
 
-    public void ShowCharacterUI(int currentHealth, int currentMana, Character _character)
+    public void ShowCharacterUI(PlayerStats playerStats)
     {
-        currentCharacter = _character;
+        // current character is not in the scene, keep that in mind. It's a static scriptable object.
+        selectedPlayerStats = playerStats;
 
         characterUIContainer.style.display = DisplayStyle.Flex;
 
-        characterName.text = _character.characterName;
-        characterPortrait.style.backgroundImage = _character.portrait.texture;
-        characterHealth.text = currentHealth + "/" + _character.maxHealth;
-        characterMana.text = currentMana + "/" + _character.maxMana;
+        characterName.text = selectedPlayerStats.character.characterName;
+        characterPortrait.style.backgroundImage = selectedPlayerStats.character.portrait.texture;
+        characterHealth.text = selectedPlayerStats.currentHealth + "/" + selectedPlayerStats.maxHealth.GetValue();
+        characterMana.text = selectedPlayerStats.currentMana + "/" + selectedPlayerStats.maxMana.GetValue();
 
-        characterQSkillIcon.style.backgroundImage = _character.characterAbilities[0].aIcon.texture;
-        characterWSkillIcon.style.backgroundImage = _character.characterAbilities[1].aIcon.texture;
-        characterESkillIcon.style.backgroundImage = _character.characterAbilities[2].aIcon.texture;
-        characterRSkillIcon.style.backgroundImage = _character.characterAbilities[3].aIcon.texture;
+        characterQSkillIcon.style.backgroundImage = selectedPlayerStats.abilities[0].aIcon.texture;
+        characterWSkillIcon.style.backgroundImage = selectedPlayerStats.abilities[1].aIcon.texture;
+        characterESkillIcon.style.backgroundImage = selectedPlayerStats.abilities[2].aIcon.texture;
+        characterRSkillIcon.style.backgroundImage = selectedPlayerStats.abilities[3].aIcon.texture;
     }
 
     public void HideCharacterUI()
     {
-        currentCharacter = null;
+        selectedPlayerStats = null;
 
         characterUIContainer.style.display = DisplayStyle.None;
     }
@@ -173,7 +179,6 @@ public class BattleUI : MonoBehaviour
     // for keyboard input
     public void SimulateQButtonClicked()
     {
-        Debug.Log("simulated q button clicked");
         // https://forum.unity.com/threads/trigger-button-click-from-code.1124356/
         using (var e = new NavigationSubmitEvent() { target = characterQButton })
             characterQButton.SendEvent(e);
@@ -181,35 +186,30 @@ public class BattleUI : MonoBehaviour
 
     public void SimulateWButtonClicked()
     {
-        Debug.Log("simulated W button clicked");
         using (var e = new NavigationSubmitEvent() { target = characterWButton })
             characterWButton.SendEvent(e);
     }
 
     public void SimulateEButtonClicked()
     {
-        Debug.Log("simulated E button clicked");
         using (var e = new NavigationSubmitEvent() { target = characterEButton })
             characterEButton.SendEvent(e);
     }
 
     public void SimulateRButtonClicked()
     {
-        Debug.Log("simulated R button clicked");
         using (var e = new NavigationSubmitEvent() { target = characterRButton })
             characterRButton.SendEvent(e);
     }
 
     public void SimulateTButtonClicked()
     {
-        Debug.Log("simulated T button clicked");
         using (var e = new NavigationSubmitEvent() { target = characterTButton })
             characterTButton.SendEvent(e);
     }
 
     public void SimulateYButtonClicked()
     {
-        Debug.Log("simulated Y button clicked");
         using (var e = new NavigationSubmitEvent() { target = characterYButton })
             characterYButton.SendEvent(e);
     }

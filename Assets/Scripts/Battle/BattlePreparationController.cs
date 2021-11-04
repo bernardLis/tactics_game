@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class BattlePreparationController : MonoBehaviour
 {
-    PlayerInput playerInput;
 
     [Header("Chararacter from SO")]
     public List<Character> charactersToPlace = new List<Character>();
@@ -15,11 +13,6 @@ public class BattlePreparationController : MonoBehaviour
 
     int characterBeingPlacedIndex = 0;
 
-    void Awake()
-    {
-        playerInput = GetComponent<PlayerInput>();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -27,27 +20,7 @@ public class BattlePreparationController : MonoBehaviour
             InstantiateCharacter(0);
     }
 
-    void OnEnable()
-    {
-        //controls.Enable();
-        // inputs
-        playerInput = GetComponent<PlayerInput>();
-
-        playerInput.actions["SelectNextCharacter"].performed += ctx => SelectNextCharacter();
-        playerInput.actions["SelectPreviousCharacter"].performed += ctx => SelectPreviousCharacter();
-
-    }
-
-    void OnDisable()
-    {
-        if (playerInput == null)
-            return;
-        playerInput.actions["SelectNextCharacter"].performed -= ctx => SelectNextCharacter();
-        playerInput.actions["SelectPreviousCharacter"].performed -= ctx => SelectPreviousCharacter();
-
-    }
-
-    void SelectNextCharacter()
+    public void SelectNextCharacter()
     {
         characterBeingPlacedIndex += 1;
         if (characterBeingPlacedIndex >= charactersToPlace.Count)
@@ -56,7 +29,7 @@ public class BattlePreparationController : MonoBehaviour
         InstantiateCharacter(characterBeingPlacedIndex);
     }
 
-    void SelectPreviousCharacter()
+    public void SelectPreviousCharacter()
     {
         // TODO: character being placed
         characterBeingPlacedIndex -= 1;

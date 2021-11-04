@@ -9,8 +9,6 @@ using UnityEngine.EventSystems;
 
 public class BattleInputController : MonoBehaviour
 {
-    // UI elements
-
     // input system
     PlayerInput playerInput;
 
@@ -24,6 +22,7 @@ public class BattleInputController : MonoBehaviour
     Camera cam;
     MovePointController movePointController;
     CharacterBattleController characterBattleController;
+    BattlePreparationController battlePreparationController;
     BattleUI battleUI;
 
     public bool allowInput;
@@ -46,7 +45,8 @@ public class BattleInputController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        battleUI = BattleUI.instance;
+        FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnEnemyTurnEnd;
+        FindObjectOfType<TurnManager>().playerTurnEndEvent += OnPlayerTurnEnd;
 
         playerInput = GetComponent<PlayerInput>();
 
@@ -57,6 +57,7 @@ public class BattleInputController : MonoBehaviour
         cam = Camera.main;
         movePointController = MovePointController.instance;
         characterBattleController = GetComponent<CharacterBattleController>();
+        battlePreparationController = GetComponent<BattlePreparationController>();
         battleUI = BattleUI.instance;
 
         allowInput = true;
@@ -67,6 +68,21 @@ public class BattleInputController : MonoBehaviour
         // inputs
         playerInput = GetComponent<PlayerInput>();
 
+        // hacky way to make sure it is subscribed only once (TODO: does that wokr? XD)
+        UnsubscribeInputActions();
+        SubscribeInputActions();
+    }
+
+    void OnDisable()
+    {
+        if (playerInput == null)
+            return;
+
+        UnsubscribeInputActions();
+    }
+
+    void SubscribeInputActions()
+    {
         playerInput.actions["LeftMouseClick"].performed += ctx => LeftMouseClick();
         playerInput.actions["ArrowMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
 
@@ -80,13 +96,15 @@ public class BattleInputController : MonoBehaviour
         playerInput.actions["YButtonClick"].performed += ctx => YButtonClickInput();
 
         playerInput.actions["Back"].performed += ctx => BackClick();
+
+        // char placement specific for now
+        playerInput.actions["SelectNextCharacter"].performed += ctx => SelectNextCharacter();
+        playerInput.actions["SelectPreviousCharacter"].performed += ctx => SelectPreviousCharacter();
+
     }
 
-    void OnDisable()
+    void UnsubscribeInputActions()
     {
-        if (playerInput == null)
-            return;
-
         playerInput.actions["LeftMouseClick"].performed -= ctx => LeftMouseClick();
         playerInput.actions["ArrowMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
 
@@ -99,8 +117,12 @@ public class BattleInputController : MonoBehaviour
         playerInput.actions["TButtonClick"].performed += ctx => TButtonClickInput();
         playerInput.actions["YButtonClick"].performed += ctx => YButtonClickInput();
 
-
         playerInput.actions["Back"].performed -= ctx => BackClick();
+
+        // char placement specific for now
+        playerInput.actions["SelectNextCharacter"].performed -= ctx => SelectNextCharacter();
+        playerInput.actions["SelectPreviousCharacter"].performed -= ctx => SelectPreviousCharacter();
+
     }
 
     public bool isInputAllowed()
@@ -133,7 +155,7 @@ public class BattleInputController : MonoBehaviour
         // with only normalize, if you press both arrows at the same time you will get (0.7, 0.7) vector        
         direction.Normalize();
         Vector2 vectorX = new Vector2(direction.x, 0).normalized;
-        Vector2 vectorY = new Vector2 (0, direction.y).normalized;
+        Vector2 vectorY = new Vector2(0, direction.y).normalized;
 
         movePointController.Move(new Vector3(transform.position.x + vectorX.x, transform.position.y + vectorY.y, transform.position.z));
     }
@@ -148,6 +170,25 @@ public class BattleInputController : MonoBehaviour
             return;
 
         characterBattleController.Back();
+    }
+
+    void SelectNextCharacter()
+    {
+        if (TurnManager.battleState == BattleState.PREPARATION)
+        {
+            battlePreparationController.SelectNextCharacter();
+            return;
+        }
+
+    }
+
+    void SelectPreviousCharacter()
+    {
+        if (TurnManager.battleState == BattleState.PREPARATION)
+        {
+            battlePreparationController.SelectPreviousCharacter();
+            return;
+        }
     }
 
     // when you click Q on keyboard I want to simulate clicking a button with mouse
@@ -175,6 +216,17 @@ public class BattleInputController : MonoBehaviour
     {
         battleUI.SimulateYButtonClicked();
     }
+
+    void OnEnemyTurnEnd()
+    {
+        allowInput = true;
+    }
+
+    void OnPlayerTurnEnd()
+    {
+        allowInput = false;
+    }
+
 
 
 

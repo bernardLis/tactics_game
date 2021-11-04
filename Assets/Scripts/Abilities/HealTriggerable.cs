@@ -4,40 +4,35 @@ using UnityEngine;
 
 public class HealTriggerable : MonoBehaviour
 {
-	CharacterStats myStats;
-	CharacterStats targetStats;
-	CharacterInteractionController characterInteractionController;
+    CharacterStats myStats;
+    CharacterStats targetStats;
+    CharacterRendererManager characterRendererManager;
 
-	void Awake()
-	{
-		characterInteractionController = GetComponent<CharacterInteractionController>();
-		myStats = GetComponent<CharacterStats>();
-	}
+    void Awake()
+    {
+        myStats = GetComponent<CharacterStats>();
+        characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+    }
 
-	public void Heal(GameObject target)
-	{
-		int healAmount = characterInteractionController.selectedAbility.value + myStats.intelligence.GetValue();
-		targetStats = target.GetComponent<CharacterStats>();
+    // returns true if successfully healed
+    public bool Heal(GameObject target, int value, int manaCost)
+    {
+        var healableObject = target.GetComponent<IHealable>();
+        if (healableObject == null)
+            return false;
 
-		// face the target character
-		Vector2 dir = target.transform.position - transform.position;
-		characterInteractionController.Face(dir);
+        // TODO: don't allow click if mana cost is less than the current mana 
+        if(myStats.currentMana < manaCost)
+            return false;
+        
+        // face the target
+        Vector2 dir = target.transform.position - transform.position;
+        characterRendererManager.Face(dir);
 
-		if (targetStats != null)
-		{
-			// TODO: dunno if this is a correct place to do that...
-			AudioSource audioSource;
-			audioSource = AudioScript.instance.transform.GetComponent<AudioSource>();
-			audioSource.clip = characterInteractionController.selectedAbility.aSound;
-			audioSource.Play();
+        int healAmount = value + myStats.intelligence.GetValue();
+        healableObject.GainHealth(healAmount);
+        myStats.UseMana(manaCost);
 
-			targetStats.Heal(healAmount);
-			myStats.UseMana(characterInteractionController.selectedAbility.manaCost);
-			characterInteractionController.FinishCharacterTurn();
-		}
-		else
-		{
-			Debug.Log("target stats are null");
-		}
-	}
+        return true;
+    }
 }

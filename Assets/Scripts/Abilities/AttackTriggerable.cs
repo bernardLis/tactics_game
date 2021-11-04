@@ -4,39 +4,35 @@ using UnityEngine;
 
 public class AttackTriggerable : MonoBehaviour
 {
-	CharacterStats myStats;
-	CharacterStats targetStats;
-	CharacterInteractionController characterInteractionController;
+    CharacterStats myStats;
+    CharacterStats targetStats;
+    CharacterRendererManager characterRendererManager;
 
-	void Awake()
-	{
-		characterInteractionController = GetComponent<CharacterInteractionController>();
-		myStats = GetComponent<CharacterStats>();
-	}
+    void Awake()
+    {
+        myStats = GetComponent<CharacterStats>();
 
-	public void Attack(GameObject target)
-	{
-		int damage = characterInteractionController.selectedAbility.value + myStats.strength.GetValue();
-		targetStats = target.GetComponent<CharacterStats>();
+        characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+    }
 
-		// face the target character
-		Vector2 dir = target.transform.position - transform.position;
-		characterInteractionController.Face(dir);
+    public bool Attack(GameObject target, int value, int manaCost)
+    {
+        var attackableObject = target.GetComponent<IAttackable>();
+        if (attackableObject == null)
+            return false;
 
-		if (targetStats != null)
-		{
-			// TODO: dunno if this is a correct place to do that...
-			AudioSource audioSource;
-			audioSource = AudioScript.instance.transform.GetComponent<AudioSource>();
-			audioSource.clip = characterInteractionController.selectedAbility.aSound;
-			audioSource.Play();
+        // TODO: don't allow click if mana cost is less than the current mana 
+        if (myStats.currentMana < manaCost)
+            return false;
 
-			targetStats.TakeDamage(damage);
-			characterInteractionController.FinishCharacterTurn();
-		}
-		else
-		{
-			Debug.Log("target stats are null");
-		}
-	}
+        // face the target
+        Vector2 dir = target.transform.position - transform.position;
+        characterRendererManager.Face(dir);
+
+        int damage = value + myStats.strength.GetValue();
+        attackableObject.TakeDamage(damage);
+        myStats.UseMana(manaCost);
+
+        return true;
+    }
 }

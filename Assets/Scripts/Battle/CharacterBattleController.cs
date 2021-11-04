@@ -25,6 +25,9 @@ public class CharacterBattleController : MonoBehaviour
     AIDestinationSetter destinationSetter;
     CharacterRendererManager characterRendererManager;
 
+    // interactions
+    Ability selectedAbility;
+
     public static CharacterBattleController instance;
     void Awake()
     {
@@ -40,14 +43,12 @@ public class CharacterBattleController : MonoBehaviour
         #endregion
     }
 
-
     void Start()
     {
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
         tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
 
         highlighter = Highlighter.instance;
-        //movePointController = MovePointController.instance;
         battleInputController = BattleInputController.instance;
         battleUI = BattleUI.instance;
     }
@@ -67,10 +68,12 @@ public class CharacterBattleController : MonoBehaviour
             selectedTile = _tile;
 
         // select character
-        // don't allow to select another character if you have moved this character and did not take the action
+        // TODO: this is quite convoluted...
         if (_col != null && _col.transform.CompareTag("PlayerCollider")
-        && !(selectedCharacter != null && playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn)) // TODO: this is quite convoluted...
-        {
+        && !(selectedCharacter != null && playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn) // don't allow to select another character if you have moved this character and did not take the action
+        && selectedAbility == null // don't allow to select another character if you are triggering ability;
+        && _col.GetComponentInParent<PlayerCharSelection>().CanBeSelected()) // and character allows selection
+        {        
             SelectCharacter(_col.transform.parent.gameObject);
             return;
         }
@@ -80,12 +83,14 @@ public class CharacterBattleController : MonoBehaviour
 
         // when character is selected
         // Move
-        if (!playerCharSelection.hasMovedThisTurn && selectedTile.WithinRange)
+        if ((!playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn) 
+            && selectedTile.WithinRange 
+            && selectedAbility == null)
             Move();
 
         // Interact with something when ability is selected && tile is within range
-        if (!playerCharSelection.hasFinishedTurn && selectedTile.WithinRange)
-            Interact();
+        if (_col != null && !playerCharSelection.hasFinishedTurn && selectedTile.WithinRange)
+            Interact(_col);
     }
 
     void SelectCharacter(GameObject _character)
@@ -105,7 +110,7 @@ public class CharacterBattleController : MonoBehaviour
         characterRendererManager = selectedCharacter.GetComponentInChildren<CharacterRendererManager>();
 
         // UI
-        battleUI.ShowCharacterUI(playerStats.currentHealth, playerStats.currentMana, playerStats.character);
+        battleUI.ShowCharacterUI(playerStats);
 
         // highlight
         highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
@@ -117,6 +122,8 @@ public class CharacterBattleController : MonoBehaviour
         selectedCharacter = null;
         playerStats = null;
         playerCharSelection = null;
+
+        selectedAbility = null;
 
         // UI
         battleUI.HideCharacterUI();
@@ -138,25 +145,41 @@ public class CharacterBattleController : MonoBehaviour
 
     public bool canInteract()
     {
-        if(!battleInputController.isInputAllowed())
+        if (!battleInputController.isInputAllowed())
             return false;
-        if(selectedCharacter == null)
+        if (selectedCharacter == null)
             return false;
-        if(playerCharSelection.hasFinishedTurn)
+        if (playerCharSelection.hasFinishedTurn)
             return false;
 
         return true;
     }
 
-    void Interact()
+    public void SetSelectedAbility(Ability ability)
     {
-        Debug.Log("interact");
+        selectedAbility = ability;
+    }
+
+    void Interact(Collider2D col)
+    {
+        Debug.Log("interact " + col.gameObject);
+        // returns true if ability was triggered successfuly.
+        if (!selectedAbility.TriggerAbility(col.transform.parent.gameObject))
+            return;
+
+        FinishCharacterTurn();
     }
 
     public void Back()
     {
         if (selectedCharacter == null)
             return;
+
+        if (selectedAbility != null)
+        {
+            BackFromAbilitySelection();
+            return;
+        }
 
         // flag reset
         playerCharSelection.hasMovedThisTurn = false;
@@ -168,4 +191,24 @@ public class CharacterBattleController : MonoBehaviour
 
         UnselectCharacter();
     }
+
+    void BackFromAbilitySelection()
+    {
+        selectedAbility = null;
+        highlighter.ClearHighlightedTiles();
+    }
+
+    void FinishCharacterTurn()
+    {
+        // set flags in player char selection
+        playerCharSelection.FinishCharacterTurn();
+
+        // clearing the cache here
+        UnselectCharacter();
+
+        // finish character's turn after the interaction is performed
+        TurnManager.instance.PlayerCharacterTurnFinished();
+    }
+
+
 }

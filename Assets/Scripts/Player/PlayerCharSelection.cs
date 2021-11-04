@@ -23,8 +23,8 @@ public class PlayerCharSelection : CharacterSelection
     }
     void Update()
     {
-        // Highlight characters that have a move this turn and change their scale back and forth\
-        if (!hasMovedThisTurn && Time.frameCount % 60 == 0)
+        // Highlight characters that have a move/finish their turn this turn and change their scale back and forth
+        if ((!hasMovedThisTurn && !hasFinishedTurn) && Time.frameCount % 60 == 0)
             OscilateScale();
     }
 
@@ -41,6 +41,16 @@ public class PlayerCharSelection : CharacterSelection
             scalingUp = true;
     }
 
+    public bool CanBeSelected()
+    {
+        return !hasFinishedTurn;
+    }
+
+    public override void FinishCharacterTurn()
+    {
+        hasFinishedTurn = true;
+    }
+
     void OnPlayerCharDeath()
     {
     }
@@ -50,7 +60,6 @@ public class PlayerCharSelection : CharacterSelection
         // reseting flags on turn's end
         hasMovedThisTurn = false;
         hasFinishedTurn = false;
-
 
         // remember on which tile you start the turn on 
         positionTurnStart = transform.position;

@@ -13,7 +13,7 @@ public class HealerEnemyAI : EnemyAI
 		base.Awake();
 
 		// giving lowest health a value
-		lowestHealth = 99999;
+		lowestHealth = int.MaxValue;
 	}
 
 	public override IEnumerator RunAI()

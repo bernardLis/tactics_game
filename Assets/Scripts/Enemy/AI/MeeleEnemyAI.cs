@@ -104,7 +104,7 @@ public class MeeleEnemyAI : EnemyAI
         {
             if (tiles.TryGetValue(point, out _tile))
             {
-                if (highlighter.EnemyIsTileWalkable(point) && highlighter.EnemyCanIStopOnTheTile(point))
+                if (highlighter.CanEnemyWalkOnTile(_tile) && highlighter.CanEnemyStopOnTile(_tile))
                 {
                     return true;
                 }

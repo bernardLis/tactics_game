@@ -4,39 +4,37 @@ using UnityEngine;
 
 public class PushTriggerable : MonoBehaviour
 {
-	CharacterStats myStats;
-	CharacterStats targetStats;
-	CharacterInteractionController characterInteractionController;
+    CharacterStats myStats;
+    CharacterStats targetStats;
+    CharacterRendererManager characterRendererManager;
 
-	Pushable pushable;
+    Pushable pushable;
 
-	void Awake()
-	{
-		characterInteractionController = GetComponent<CharacterInteractionController>();
-		myStats = GetComponent<CharacterStats>();
-	}
+    void Awake()
+    {
+        myStats = GetComponent<CharacterStats>();
+        characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+    }
 
-	public void Push(GameObject target)
-	{
-		// face the target character
-		Vector2 dir = target.transform.position - transform.position;
-		characterInteractionController.Face(dir);
+    public bool Push(GameObject target, int manaCost)
+    {
+        pushable = target.GetComponent<Pushable>();
+        if (pushable == null)
+            return false;
 
-		// player can push characters/stones
-		// TODO: pushing characters with lerp breaks the A*
-		Vector3 pushDir = (target.transform.position - transform.position).normalized;
+        if (myStats.currentMana < manaCost)
+            return false;
 
-		pushable = target.GetComponent<Pushable>();
-		if (pushable != null)
-		{
-			// TODO: dunno if this is a correct place to do that...
-			AudioSource audioSource;
-			audioSource = AudioScript.instance.transform.GetComponent<AudioSource>();
-			audioSource.clip = characterInteractionController.selectedAbility.aSound;
-			audioSource.Play();
+        // face the target character
+        Vector2 dir = target.transform.position - transform.position;
+        characterRendererManager.Face(dir);
 
-			pushable.IsPushed(pushDir);
-			characterInteractionController.FinishCharacterTurn();
-		}
-	}
+        // player can push characters/stones
+        // TODO: pushing characters with lerp breaks the A*
+        Vector3 pushDir = (target.transform.position - transform.position).normalized;
+
+        pushable = target.GetComponent<Pushable>();
+        pushable.IsPushed(pushDir);
+        return true;
+    }
 }

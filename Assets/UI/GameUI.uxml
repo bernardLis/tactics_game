@@ -4,10 +4,6 @@
     <ui:VisualElement name="tileInfo" style="height: auto; width: 180px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
         <ui:Label display-tooltip-when-elided="true" name="tileText" style="width: auto; font-size: 22px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
-    <ui:VisualElement name="abilityInfo" style="height: auto; width: 150px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
-        <ui:Label display-tooltip-when-elided="true" name="abilityName" text="bash" style="width: auto; font-size: 16px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
-        <ui:Label display-tooltip-when-elided="true" name="abilityResult" text="result" style="width: auto; font-size: 16px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
-    </ui:VisualElement>
     <ui:VisualElement name="turnTextContainer" style="position: absolute; top: auto; height: 50%; display: none; opacity: 1; width: 100%;">
         <ui:Label text="TURN 0 - PLAYER" display-tooltip-when-elided="true" name="turnText" style="justify-content: flex-start; align-items: auto; bottom: 0; position: absolute; margin-left: 0; margin-right: 0; left: auto; width: 100%; font-size: 64px; color: rgb(0, 0, 0); -unity-text-align: upper-center; -unity-font-style: bold;" />
     </ui:VisualElement>

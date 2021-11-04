@@ -9,15 +9,12 @@ using UnityEngine.EventSystems;
 
 public class MovePointController : MonoBehaviour
 {
+    // TODO: movepoint should only be using battle ui
     GameUI gameUI;
+
     BattlePreparationController battlePreparationController;
     CharacterBattleController characterBattleController;
 
-    AbilityUI abilityUI;
-
-    public GameObject selected;
-
-    //PlayerInput playerInput;
     Camera cam;
 
     // tiles
@@ -25,12 +22,8 @@ public class MovePointController : MonoBehaviour
     WorldTile _tile;
     Dictionary<Vector3, WorldTile> tiles;
 
-    // my scripts
-    PlayerCharSelection charSelection;
-    //PlayerCharMovementController playerCharMovementController;
-    PlayerCharInteractionController playerCharInteractionController;
+    // TODO: display some enemy info when you are hovering on them
 
-    EnemyCharSelection enemyCharSelection;
 
     bool firstEnable = false;
 
@@ -54,8 +47,6 @@ public class MovePointController : MonoBehaviour
 
         gameUI = GameUI.instance;
 
-        abilityUI = gameUI.GetComponent<AbilityUI>();
-
         // This is our Dictionary of tiles
         tiles = GameTiles.instance.tiles;
         tilemap = (Tilemap)TileMapInstance.instance.GetComponent<Tilemap>();
@@ -63,7 +54,6 @@ public class MovePointController : MonoBehaviour
         // TODO: Supposedly, this is an expensive call
         cam = Camera.main;
 
-        //playerInput = GetComponent<PlayerInput>();
         battlePreparationController = GetComponent<BattlePreparationController>();
         characterBattleController = GetComponent<CharacterBattleController>();
     }
@@ -71,109 +61,24 @@ public class MovePointController : MonoBehaviour
     void Start()
     {
         UpdateTileInfoUI();
-        UpdateCharacterInfoUI();
     }
 
     void OnEnable()
     {
-        /*
-        // inputs
-        playerInput = GetComponent<PlayerInput>();
-
-        playerInput.actions["LeftMouseClick"].performed += ctx => LeftMouseClick();
-
-        playerInput.actions["ArrowUpClick"].performed += ctx => ArrowUpClick();
-        playerInput.actions["ArrowDownClick"].performed += ctx => ArrowDownClick();
-        playerInput.actions["ArrowLeftClick"].performed += ctx => ArrowLeftClick();
-        playerInput.actions["ArrowRightClick"].performed += ctx => ArrowRightClick();
-        playerInput.actions["SelectClick"].performed += ctx => SelectClick();
-
-        playerInput.actions["QButtonClick"].performed += ctx => QButtonClickInput();
-        playerInput.actions["WButtonClick"].performed += ctx => WButtonClickInput();
-        playerInput.actions["EButtonClick"].performed += ctx => EButtonClickInput();
-        playerInput.actions["RButtonClick"].performed += ctx => RButtonClickInput();
-
-        playerInput.actions["Back"].performed += ctx => BackClick();
-
-        playerInput.actions["Test"].performed += ctx => Test();
-        playerInput.actions["TestY"].performed += ctx => TestY();
-        */
-
         // TODO: THIS SUCKS but document ui is not ready on the first enable.
         if (!firstEnable)
-        {
             UpdateTileInfoUI();
-            UpdateCharacterInfoUI();
-        }
+
         firstEnable = true;
     }
 
     void OnDisable()
     {
         gameUI.HideTileInfoUI();
-        //gameUI.HideCharacterInfoUI();
-        /*
-        if (playerInput == null)
-            return;
-
-        playerInput.actions["LeftMouseClick"].performed -= ctx => LeftMouseClick();
-
-        playerInput.actions["ArrowUpClick"].performed -= ctx => ArrowUpClick();
-        playerInput.actions["ArrowDownClick"].performed -= ctx => ArrowDownClick();
-        playerInput.actions["ArrowLeftClick"].performed -= ctx => ArrowLeftClick();
-        playerInput.actions["ArrowRightClick"].performed -= ctx => ArrowRightClick();
-        playerInput.actions["SelectClick"].performed -= ctx => SelectClick();
-
-        playerInput.actions["QButtonClick"].performed -= ctx => QButtonClickInput();
-        playerInput.actions["WButtonClick"].performed -= ctx => WButtonClickInput();
-        playerInput.actions["EButtonClick"].performed -= ctx => EButtonClickInput();
-        playerInput.actions["RButtonClick"].performed -= ctx => RButtonClickInput();
-
-        playerInput.actions["Back"].performed -= ctx => BackClick();
-
-        playerInput.actions["Test"].performed -= ctx => Test();
-        playerInput.actions["TestY"].performed -= ctx => TestY();
-        */
     }
-
-
-    // INPUT
-    void Test()
-    {
-        Debug.Log("T is clicked ");
-    }
-
-    void TestY()
-    {
-        Debug.Log("Y is clicked");
-    }
-
-    // TODO: character being placed
-
-    void LeftMouseClick()
-    {
-
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-        mousePos.z = 1; // select distance = 1 unit(s) from the camera
-        Vector3Int tilePos = tilemap.WorldToCell(cam.ScreenToWorldPoint(mousePos));
-        if (!tiles.TryGetValue(tilePos, out _tile))
-            return;
-
-        transform.position = new Vector3(_tile.LocalPlace.x + 0.5f, _tile.LocalPlace.y + 0.5f, _tile.LocalPlace.z);
-
-        UpdateTileInfoUI();
-        UpdateCharacterInfoUI();
-        UpdateAbilityUI();
-
-        // character being placed
-        if (battlePreparationController.characterBeingPlaced != null)
-            battlePreparationController.UpdateCharacterBeingPlacedPosition();
-    }
-
 
     public void Move(Vector3 pos)
     {
-
         // block moving out form tile map
         Vector3Int tilePos = tilemap.WorldToCell(pos);
         if (!tiles.TryGetValue(tilePos, out _tile))
@@ -182,8 +87,6 @@ public class MovePointController : MonoBehaviour
         transform.position = pos;
 
         UpdateTileInfoUI();
-        UpdateCharacterInfoUI();
-        UpdateAbilityUI();
 
         // TODO: character being placed
         if (battlePreparationController.characterBeingPlaced != null)
@@ -199,18 +102,22 @@ public class MovePointController : MonoBehaviour
         // For placing characters during prep
         if (TurnManager.battleState == BattleState.PREPARATION && battlePreparationController.characterBeingPlaced != null)
         {
-            Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-            if (tiles.TryGetValue(tilePos, out _tile))
-            {
-                if (!_tile.WithinRange)
-                    return;
-            }
-            battlePreparationController.PlaceCharacter();
+            HandleBattlePrepSelectClick();
             return;
         }
 
         Select(col);
-        return;
+    }
+
+    void HandleBattlePrepSelectClick()
+    {
+        Vector3Int tilePos = tilemap.WorldToCell(transform.position);
+        if (!tiles.TryGetValue(tilePos, out _tile))
+            return;
+        if (!_tile.WithinRange)
+            return;
+
+        battlePreparationController.PlaceCharacter();
     }
 
     public void UpdateTileInfoUI()
@@ -219,24 +126,26 @@ public class MovePointController : MonoBehaviour
         Vector3Int tilePos = tilemap.WorldToCell(transform.position);
         string tileUIText = "";
 
-        if (tiles.TryGetValue(tilePos, out _tile))
-        {
-            if (_tile.IsObstacle)
-                tileUIText = "Obstacle. ";
-        }
+        // if it is not a tile, return
+        if (!tiles.TryGetValue(tilePos, out _tile))
+            return;
+
+        if (_tile.IsObstacle)
+            tileUIText = "Obstacle. ";
+
 
         // check if there is a character standing there
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
 
         // return if there is no object on the tile
-        if (col != null)
+        if (col == null)
+            return;
+
+        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Trap"))
         {
-            if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Trap"))
-            {
-                UIText textScript = col.transform.GetComponent<UIText>();
-                if (textScript != null)
-                    tileUIText = tileUIText + textScript.displayText;
-            }
+            UIText textScript = col.transform.GetComponent<UIText>();
+            if (textScript != null)
+                tileUIText = tileUIText + textScript.displayText;
         }
 
         // hide/show the whole panel
@@ -249,92 +158,7 @@ public class MovePointController : MonoBehaviour
             gameUI.UpdateTileInfoUI(tileUIText);
             gameUI.ShowTileInfoUI();
         }
-    }
 
-    void UpdateCharacterInfoUI()
-    {
-        // check if there is a character standing there
-        Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
-
-        // return if there is no object on the tile
-        if (col == null)
-        {
-
-            //gameUI.HideCharacterInfoUI();
-            return;
-        }
-        /*
-        // highlight how far can enemy character move
-        if (col.transform.CompareTag("EnemyCollider")
-            && (playerCharInteractionController == null || playerCharInteractionController.enabled == false))
-        //&& (playerCharMovementController == null || playerCharMovementController.enabled == false))
-        {
-            enemyCharSelection = col.transform.parent.gameObject.GetComponent<EnemyCharSelection>();
-            enemyCharSelection.HiglightMovementRange();
-        }
-        */
-
-        // display stats of characters
-        if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
-        {
-            CharacterStats stats = col.transform.parent.GetComponent<CharacterStats>();
-
-            //gameUI.UpdateCharacterInfoUI(stats.currentHealth, stats.maxHealth.GetValue(),
-            //stats.currentMana, stats.maxMana.GetValue());
-
-            //gameUI.ShowCharacterInfoUI();
-        }
-        else
-        {
-            //gameUI.HideCharacterInfoUI();
-        }
-    }
-    void UpdateAbilityUI()
-    {
-        if (playerCharInteractionController != null)
-        {
-            if (playerCharInteractionController.enabled && playerCharInteractionController.selectedAbility != null)
-            {
-                abilityUI.ShowAbilityUI();
-                string name = playerCharInteractionController.selectedAbility.aName;
-                string result = "";
-
-                // check it's within range;
-                Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-                if (tiles.TryGetValue(tilePos, out _tile))
-                {
-                    if (!_tile.WithinRange)
-                    {
-                        abilityUI.UpdateAbilityUI(name, result);
-                        return;
-                    }
-                }
-
-                Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
-                if (col != null)
-                {
-                    // TODO: if it is attack/heal it has to be character
-                    if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
-                    {
-                        CharacterStats myStats = selected.GetComponent<CharacterStats>();
-                        CharacterStats stats = col.transform.parent.GetComponent<CharacterStats>();
-
-                        if (playerCharInteractionController.selectedAbility.aType == "attack")
-                            result = "health: -" + (playerCharInteractionController.selectedAbility.value + myStats.strength.GetValue() - stats.armor.GetValue());
-                        else if (playerCharInteractionController.selectedAbility.aType == "heal")
-                            result = "health: +" + (playerCharInteractionController.selectedAbility.value + myStats.intelligence.GetValue());
-                    }
-                    // TODO: if it is a move ability is can also be boulder
-                }
-
-                abilityUI.UpdateAbilityUI(name, result);
-
-            }
-            else
-            {
-                abilityUI.HideAbilityUI();
-            }
-        }
     }
 
     void Select(Collider2D obj)
@@ -358,8 +182,7 @@ public class MovePointController : MonoBehaviour
 
     void OnPlayerTurnEnd()
     {
-        //UnselectSelected();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
 }

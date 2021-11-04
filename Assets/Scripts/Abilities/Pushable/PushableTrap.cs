@@ -26,7 +26,7 @@ public class PushableTrap : Pushable
 	protected override void CollisionCheck()
 	{
 		// check what is in character's new place and act accordingly
-		objectCollider = transform.GetComponent<BoxCollider2D>();
+		objectCollider = transform.GetComponentInChildren<BoxCollider2D>();
 		objectCollider.enabled = false;
 
 		Collider2D col = Physics2D.OverlapCircle(finalPos, 0.2f);
