@@ -39,15 +39,11 @@ public class CameraController : MonoBehaviour
     void ZoomIn()
     {
         if (cam.orthographicSize > minZoom)
-        {
             cam.orthographicSize -= zoomSpeed;
-        }
     }
     void ZoomOut()
     {
         if (cam.orthographicSize < maxZoom)
-        {
             cam.orthographicSize += zoomSpeed;
-        }
     }
 }

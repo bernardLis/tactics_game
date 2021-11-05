@@ -20,12 +20,16 @@ public class BattleInputController : MonoBehaviour
 
     // global utilities
     Camera cam;
+    BattleUI battleUI;
+
+    // local
     MovePointController movePointController;
     CharacterBattleController characterBattleController;
     BattlePreparationController battlePreparationController;
-    BattleUI battleUI;
+    OscilateScale oscilateScale;
 
     public bool allowInput;
+
 
     public static BattleInputController instance;
     void Awake()
@@ -55,12 +59,15 @@ public class BattleInputController : MonoBehaviour
 
         // TODO: Supposedly, this is an expensive call
         cam = Camera.main;
+        battleUI = BattleUI.instance;
+
         movePointController = MovePointController.instance;
         characterBattleController = GetComponent<CharacterBattleController>();
         battlePreparationController = GetComponent<BattlePreparationController>();
-        battleUI = BattleUI.instance;
+        oscilateScale = GetComponentInChildren<OscilateScale>();
 
         allowInput = true;
+        oscilateScale.SetOscilation(true);
     }
 
     void OnEnable()
@@ -220,15 +227,12 @@ public class BattleInputController : MonoBehaviour
     void OnEnemyTurnEnd()
     {
         allowInput = true;
+        oscilateScale.SetOscilation(true);
     }
 
     void OnPlayerTurnEnd()
     {
         allowInput = false;
+        oscilateScale.SetOscilation(false);
     }
-
-
-
-
-
 }

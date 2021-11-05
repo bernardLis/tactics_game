@@ -172,8 +172,6 @@ public class MovePointController : MonoBehaviour
         if (playerChars.Length > 0)
             transform.position = playerChars[0].transform.position;
 
-        gameObject.SetActive(true);
-
         // camera follows the movepoint again
         BasicCameraFollow.instance.followTarget = transform;
 
@@ -182,7 +180,6 @@ public class MovePointController : MonoBehaviour
 
     void OnPlayerTurnEnd()
     {
-        //gameObject.SetActive(false);
     }
 
 }

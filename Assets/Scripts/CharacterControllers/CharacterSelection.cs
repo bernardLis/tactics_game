@@ -6,14 +6,14 @@ using UnityEngine.Tilemaps;
 
 public class CharacterSelection : MonoBehaviour
 {
-    public Highlighter highlighter;
+    protected Highlighter highlighter;
 
     // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
-    public Tilemap tilemap;
-    public WorldTile _tile;
-    public Dictionary<Vector3, WorldTile> tiles;
+    protected Tilemap tilemap;
+    protected WorldTile _tile;
+    protected Dictionary<Vector3, WorldTile> tiles;
 
-    public CharacterStats myStats;
+    protected CharacterStats myStats;
     public int range;
 
     public virtual void Awake()

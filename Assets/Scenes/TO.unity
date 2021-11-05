@@ -6072,6 +6072,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1558323601, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: charactersToPlace.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558323601, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: charactersToPlace.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: fe8d5d37d4c3de74faf310e9b1456853, type: 2}
     - target: {fileID: 7569243889877751800, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
       propertyPath: m_Name
       value: Move Point
@@ -6118,6 +6126,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7569243889877751803, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569243889959606441, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a383d64a1168f944b8c4193f7443c230, type: 3}
+    - target: {fileID: 7569243889959606446, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569243889959606446, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569243889959606446, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569243889959606446, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569243889959606446, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
