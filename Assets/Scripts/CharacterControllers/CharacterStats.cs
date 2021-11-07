@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using DG.Tweening;
 
 public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
 {
@@ -116,6 +117,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
     {
         // playing death animation
         characterRendererManager.PlayDieAnimation();
+
+        // kill all tweens
+        DOTween.KillAll();
 
         // die in some way
         // this method is meant to be overwirtten

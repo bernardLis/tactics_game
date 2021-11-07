@@ -1,36 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class OscilateScale : MonoBehaviour
 {
-    bool isOscilating;
-    bool isScalingUp;
-
-
-    // Update is called once per frame
-    void Update()
+    public float targetScaleMultiplier = 1.2f;
+    public float duration = 1f;
+    Vector3 startScale;
+    Vector3 endScale;
+    void Start()
     {
-        if (isOscilating && Time.frameCount % 60 == 0)
-            Oscilate();
+        startScale = transform.localScale;
+        endScale = new Vector3(startScale.x * targetScaleMultiplier, startScale.y * targetScaleMultiplier, startScale.z * targetScaleMultiplier);
+        transform.DOScale(endScale, duration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }
 
-    public void SetOscilation(bool _isOscilating)
+    public void SetOscilation(bool isOscilating)
     {
-        isOscilating = _isOscilating;
-    }
+        if (isOscilating)
+        {
+            // TODO: potentially risky if I will be tweening other things on the same transform.
+            if (DOTween.IsTweening(transform))
+                return;
 
-    void Oscilate()
-    {
-        if (isScalingUp)
-            transform.localScale += Vector3.one * 0.01f;
-        else
-            transform.localScale -= Vector3.one * 0.01f;
+            transform.DOScale(endScale, duration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+            return;
+        }
 
-        if (transform.localScale.x > 1.03f)
-            isScalingUp = false;
-        else if (transform.localScale.x < 0.98f)
-            isScalingUp = true;
+        // reseting scale and killing the tween;
+        transform.localScale = startScale;
+        DOTween.Kill(transform);
     }
 
 }

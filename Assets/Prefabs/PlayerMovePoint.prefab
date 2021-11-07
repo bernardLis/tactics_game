@@ -78,7 +78,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a4f3dbf7ebf424caf9d25440f9a521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: {fileID: 0}
 --- !u!114 &1558323601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersToPlace:
   - {fileID: 11400000, guid: 73abcce88805d484088fe99d111cfe0c, type: 2}
-  - {fileID: 11400000, guid: 5507a8cd877cad54f8f6d41f9a19dc3d, type: 2}
   - {fileID: 11400000, guid: fe8d5d37d4c3de74faf310e9b1456853, type: 2}
   characterTemplate: {fileID: 6105715623576548083, guid: 5292bfb2a93455445be59d39c398d325, type: 3}
 --- !u!114 &1558323604
@@ -131,8 +129,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7569243889959606446}
   - component: {fileID: 7569243889959606441}
+  - component: {fileID: 281838226}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,8 +145,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7569243889959606447}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 0.12, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 7569243889877751803}
   m_RootOrder: 0
@@ -193,7 +192,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 98
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a383d64a1168f944b8c4193f7443c230, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -204,3 +203,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &281838226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7569243889959606447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1788cd6727830b44bac30ee1527f713c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScale: 1.2
+  duration: 1

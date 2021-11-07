@@ -67,7 +67,7 @@ public class BattleInputController : MonoBehaviour
         oscilateScale = GetComponentInChildren<OscilateScale>();
 
         allowInput = true;
-        oscilateScale.SetOscilation(true);
+        //oscilateScale.SetOscilation(true);
     }
 
     void OnEnable()

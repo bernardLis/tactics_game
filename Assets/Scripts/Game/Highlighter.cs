@@ -416,7 +416,10 @@ public class Highlighter : MonoBehaviour
         // destory flashers
         foreach (GameObject flasher in flashers)
         {
-            GameObject.Destroy(flasher);
+            if(flasher == null)
+                continue;
+
+            flasher.GetComponent<Flasher>().StopFlashing();
         }
 
         // clear highlights 
@@ -424,6 +427,7 @@ public class Highlighter : MonoBehaviour
         {
             tile.ClearHighlightAndTags();
         }
+
         // clear the lists
         flashers.Clear();
         highlightedTiles.Clear();

@@ -531,13 +531,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c544fc6426e029429c54d55ebae389e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlighter: {fileID: 0}
-  tilemap: {fileID: 0}
-  myStats: {fileID: 0}
   range: 0
   hasMovedThisTurn: 0
   hasFinishedTurn: 0
   positionTurnStart: {x: 0, y: 0, z: 0}
+  grayOutColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
 --- !u!114 &1864993293436626186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1138,7 @@ GameObject:
   - component: {fileID: 7495358995766541935}
   - component: {fileID: 1864993293459646455}
   - component: {fileID: 1864993293459646451}
+  - component: {fileID: 2149225895106756549}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -1286,6 +1285,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00498bc1bf7206449aa6cd3a49c4edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2149225895106756549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7495358995766541934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1788cd6727830b44bac30ee1527f713c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScaleMultiplier: 1.05
+  duration: 1
 --- !u!1 &8381861545048777499
 GameObject:
   m_ObjectHideFlags: 0
