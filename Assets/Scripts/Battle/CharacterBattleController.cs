@@ -24,6 +24,10 @@ public class CharacterBattleController : MonoBehaviour
     AIDestinationSetter destinationSetter;
     CharacterRendererManager characterRendererManager;
 
+    // movement
+    bool hasCharacterStartedMoving;
+    bool hasCharacterGoneBack;
+
     // interactions
     Ability selectedAbility;
 
@@ -54,8 +58,36 @@ public class CharacterBattleController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("battleInputController.allowInput: " + battleInputController.allowInput);
+
+        if (selectedCharacter == null)
+            return;
+
+        Debug.Log(Vector3.Distance(selectedCharacter.transform.position, transform.position));
+
+        if (hasCharacterStartedMoving && Vector3.Distance(selectedCharacter.transform.position, transform.position) <= 0.1f)
+            Invoke("CharacterReachedDestination", 0.2f); // TODO: this sucks and does not really work, still can break movement with back and click really quickly..
+        /*
+        if (aILerp != null)
+            Debug.Log("aILerp.isMoving: " + aILerp.isMoving);
+
+        // TODO: this should be improved
         if (aILerp != null && !aILerp.isMoving)
-            battleInputController.allowInput = true;
+            
+        */
+    }
+
+    void CharacterReachedDestination()
+    {
+        battleInputController.allowInput = true;
+        hasCharacterStartedMoving = false;
+        if (hasCharacterGoneBack)
+        {
+            hasCharacterGoneBack = false;
+            highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
+                                        new Color(0.53f, 0.52f, 1f, 1f));
+        }
+
     }
 
     public void Select(Collider2D _col)
@@ -70,7 +102,7 @@ public class CharacterBattleController : MonoBehaviour
         && !(selectedCharacter != null && playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn) // don't allow to select another character if you have moved this character and did not take the action
         && selectedAbility == null // don't allow to select another character if you are triggering ability;
         && _col.GetComponentInParent<PlayerCharSelection>().CanBeSelected()) // and character allows selection
-        {        
+        {
             SelectCharacter(_col.transform.parent.gameObject);
             return;
         }
@@ -80,8 +112,8 @@ public class CharacterBattleController : MonoBehaviour
 
         // when character is selected
         // Move
-        if ((!playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn) 
-            && selectedTile.WithinRange 
+        if ((!playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn)
+            && selectedTile.WithinRange
             && selectedAbility == null)
             Move();
 
@@ -114,23 +146,10 @@ public class CharacterBattleController : MonoBehaviour
                                                 new Color(0.53f, 0.52f, 1f, 1f));
     }
 
-    void UnselectCharacter()
-    {
-        selectedCharacter = null;
-        playerStats = null;
-        playerCharSelection = null;
-
-        selectedAbility = null;
-
-        // UI
-        battleUI.HideCharacterUI();
-
-        // highlight
-        highlighter.ClearHighlightedTiles();
-    }
-
     void Move()
     {
+        hasCharacterStartedMoving = true;
+
         highlighter.ClearHighlightedTiles();
 
         destinationSetter.target = transform;
@@ -177,6 +196,15 @@ public class CharacterBattleController : MonoBehaviour
             return;
         }
 
+        if (!playerCharSelection.hasMovedThisTurn)
+        {
+            UnselectCharacter();
+            return;
+        }
+
+        hasCharacterStartedMoving = true;
+        battleInputController.allowInput = false;
+
         // flag reset
         playerCharSelection.hasMovedThisTurn = false;
 
@@ -185,7 +213,7 @@ public class CharacterBattleController : MonoBehaviour
         transform.position = playerCharSelection.positionTurnStart;
         destinationSetter.target = transform;
 
-        UnselectCharacter();
+        //UnselectCharacter();
     }
 
     void BackFromAbilitySelection()
@@ -205,4 +233,20 @@ public class CharacterBattleController : MonoBehaviour
         // finish character's turn after the interaction is performed
         TurnManager.instance.PlayerCharacterTurnFinished();
     }
+
+    void UnselectCharacter()
+    {
+        selectedCharacter = null;
+        playerStats = null;
+        playerCharSelection = null;
+
+        selectedAbility = null;
+
+        // UI
+        battleUI.HideCharacterUI();
+
+        // highlight
+        highlighter.ClearHighlightedTiles();
+    }
+
 }

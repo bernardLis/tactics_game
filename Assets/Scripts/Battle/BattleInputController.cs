@@ -39,7 +39,6 @@ public class BattleInputController : MonoBehaviour
         }
         instance = this;
         #endregion
-
     }
 
     void Start()
@@ -133,7 +132,7 @@ public class BattleInputController : MonoBehaviour
 
     void LeftMouseClick()
     {
-        if (!allowInput || EventSystem.current.IsPointerOverGameObject())
+        if (!allowInput) // TODO: ||EventSystem.current.IsPointerOverGameObject() << throws an error;
             return;
 
         Vector3 mousePos = Mouse.current.position.ReadValue();

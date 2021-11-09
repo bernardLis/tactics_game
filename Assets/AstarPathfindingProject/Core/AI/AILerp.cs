@@ -703,16 +703,15 @@ namespace Pathfinding
         /// <summary>\copydoc Pathfinding::IAstarAI::MovementUpdate</summary>
         public void MovementUpdate(float deltaTime, out Vector3 nextPosition, out Quaternion nextRotation)
         {
-
-            // HERE: my shiz
-            isMoving = true;
-
             if (updatePosition) simulatedPosition = tr.position;
             if (updateRotation) simulatedRotation = tr.rotation;
 
             Vector3 direction;
 
             nextPosition = CalculateNextPosition(out direction, isStopped ? 0f : deltaTime);
+
+            // HERE: my shiz
+            isMoving = true;
 
             // HERE: my code, don't know if this is correct, but it works well :) almost....
             myDirection = new Vector2(nextPosition.x - tr.position.x, nextPosition.y - tr.position.y) * 100;
@@ -755,7 +754,6 @@ namespace Pathfinding
             }
 
             interpolator.distance += deltaTime * speed;
-
             if (interpolator.remainingDistance < 0.0001f && !reachedEndOfPath)
             {
                 reachedEndOfPath = true;

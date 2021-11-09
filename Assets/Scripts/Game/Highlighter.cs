@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.Profiling;
+
 public class Highlighter : MonoBehaviour
 {
     // TODO: this script can be better - I have multiple 4 nested loops
@@ -15,6 +15,8 @@ public class Highlighter : MonoBehaviour
 
     WorldTile charTile;
     public List<WorldTile> highlightedTiles = new();
+    List<WorldTile> previousMarkedTiles = new();
+
 
     //flashers
     List<GameObject> flashers = new();
@@ -74,149 +76,155 @@ public class Highlighter : MonoBehaviour
     }
 
     // TODO: this is a mess...
-    public void HighlightTiles(Vector3 position, int range, Color col, bool diagonal, bool self)
+    public async void HighlightTiles(Vector3 position, int range, Color col, bool diagonal, bool self)
     {
         // making sure there is only one highlight at the time
         ClearHighlightedTiles();
 
-        var markedTiles = new List<WorldTile>();
-
         // get the tile character is currently standing on
         Vector3Int tilePos = tilemap.WorldToCell(position);
-        Vector3Int worldPoint;
 
         if (tiles.TryGetValue(tilePos, out _tile))
         {
-            markedTiles.Add(_tile);
+            previousMarkedTiles.Add(_tile);
             charTile = _tile;
         }
 
         for (int i = 0; i < range; i++)
         {
-            // for each tile in marked tiles
-            var newMarkedTiles = new List<WorldTile>();
-
-            foreach (WorldTile markedTile in markedTiles)
-            {
-                // +/-  x
-                for (int x = -1; x <= 1; x++)
-                {
-                    // excluding diagonals
-                    if (!diagonal)
-                        worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, charTile.LocalPlace.y, 0);
-                    else
-                        worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, markedTile.LocalPlace.y, 0);
-
-                    // excluding not tiles
-                    if (!tiles.TryGetValue(worldPoint, out _tile))
-                        continue;
-
-                    // excluding self
-                    if (!self && _tile == charTile)
-                        continue;
-
-                    // exclude obstacle tiles
-                    if (_tile.IsObstacle)
-                        continue;
-
-                    if (!highlightedTiles.Contains(_tile))
-                        HighlightTile(_tile, col);
-                    if (!newMarkedTiles.Contains(_tile))
-                        newMarkedTiles.Add(_tile);
-                }
-                // +/- y
-                for (int y = -1; y <= 1; y++)
-                {
-                    // excluding diagonals
-                    if (!diagonal)
-                        worldPoint = new Vector3Int(charTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
-                    else
-                        worldPoint = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
-
-                    // excluding not tiles
-                    if (!tiles.TryGetValue(worldPoint, out _tile))
-                        continue;
-
-                    // excluding self
-                    if (!self && _tile == charTile)
-                        continue;
-
-                    // exclude obstacle tiles
-                    if (_tile.IsObstacle)
-                        continue;
-
-                    if (!highlightedTiles.Contains(_tile))
-                        HighlightTile(_tile, col);
-                    if (!newMarkedTiles.Contains(_tile))
-                        newMarkedTiles.Add(_tile);
-                }
-            }
-            markedTiles = newMarkedTiles;
+            await HandleTileHighlighting(col, diagonal, self);
         }
     }
 
+    async Task HandleTileHighlighting(Color col, bool diagonal, bool self)
+    {
+        // for each tile in marked tiles
+        var newMarkedTiles = new List<WorldTile>();
+        Vector3Int worldPoint;
+
+        foreach (WorldTile markedTile in previousMarkedTiles)
+        {
+            // +/-  x
+            for (int x = -1; x <= 1; x++)
+            {
+                // excluding diagonals
+                if (!diagonal)
+                    worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, charTile.LocalPlace.y, 0);
+                else
+                    worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, markedTile.LocalPlace.y, 0);
+
+                // excluding not tiles
+                if (!tiles.TryGetValue(worldPoint, out _tile))
+                    continue;
+
+                // excluding self
+                if (!self && _tile == charTile)
+                    continue;
+
+                // exclude obstacle tiles
+                if (_tile.IsObstacle)
+                    continue;
+
+                if (!highlightedTiles.Contains(_tile))
+                    HighlightTile(_tile, col);
+                if (!newMarkedTiles.Contains(_tile))
+                    newMarkedTiles.Add(_tile);
+            }
+            // +/- y
+            for (int y = -1; y <= 1; y++)
+            {
+                // excluding diagonals
+                if (!diagonal)
+                    worldPoint = new Vector3Int(charTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
+                else
+                    worldPoint = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
+
+                // excluding not tiles
+                if (!tiles.TryGetValue(worldPoint, out _tile))
+                    continue;
+
+                // excluding self
+                if (!self && _tile == charTile)
+                    continue;
+
+                // exclude obstacle tiles
+                if (_tile.IsObstacle)
+                    continue;
+
+                if (!highlightedTiles.Contains(_tile))
+                    HighlightTile(_tile, col);
+                if (!newMarkedTiles.Contains(_tile))
+                    newMarkedTiles.Add(_tile);
+            }
+        }
+        previousMarkedTiles = newMarkedTiles;
+        await Task.Delay(50);
+    }
+
     /* Player movement highlighting */
-    public List<WorldTile> HiglightPlayerMovementRange(Vector3 position, int range, Color col)
+    public async void HiglightPlayerMovementRange(Vector3 position, int range, Color col)
     {
         // clear the list just in case.
         ClearHighlightedTiles();
 
-        // get tiles withing character range
-        var markedTiles = new List<WorldTile>();
-
         // adding char position
         Vector3Int tilePos = tilemap.WorldToCell(position);
-        Vector3Int worldPoint;
 
         if (tiles.TryGetValue(tilePos, out _tile))
         {
+            previousMarkedTiles.Add(_tile);
             highlightedTiles.Add(_tile);
-            markedTiles.Add(_tile);
+
         }
 
         // TODO: this seems not optimal, it lags unity for 1 min when range is 10;
         for (int i = 0; i < range; i++)
         {
-            var newMarkedTiles = new List<WorldTile>();
+            await HandlePlayerMovementHighlighting(col);
+        }
+    }
 
-            // for each tile in marked tiles
-            foreach (WorldTile tile in markedTiles)
+    async Task HandlePlayerMovementHighlighting(Color col)
+    {
+        Vector3Int worldPoint;
+        var newMarkedTiles = new List<WorldTile>();
+
+        // for each tile in marked tiles
+        foreach (WorldTile tile in previousMarkedTiles)
+        {
+            for (int x = -1; x <= 1; x++)
             {
-                for (int x = -1; x <= 1; x++)
+                for (int y = -1; y <= 1; y++)
                 {
-                    for (int y = -1; y <= 1; y++)
+                    // https://youtu.be/2ycN6ZkWgOo?t=598
+                    // (using the XOR operator instead) that way, we'll skip the current tile (:
+                    int neighbourX = tile.LocalPlace.x + x;
+                    int neighbourY = tile.LocalPlace.y + y;
+                    if (x == 0 ^ y == 0)
                     {
-                        // https://youtu.be/2ycN6ZkWgOo?t=598
-                        // (using the XOR operator instead) that way, we'll skip the current tile (:
-                        int neighbourX = tile.LocalPlace.x + x;
-                        int neighbourY = tile.LocalPlace.y + y;
-                        if (x == 0 ^ y == 0)
-                        {
-                            worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
+                        worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
 
-                            if (!tiles.TryGetValue(worldPoint, out _tile))
-                                continue;
+                        if (!tiles.TryGetValue(worldPoint, out _tile))
+                            continue;
 
-                            // can you walk on the tile? 
-                            if (!CanPlayerWalkOnTile(_tile))
-                                continue;
+                        // can you walk on the tile? 
+                        if (!CanPlayerWalkOnTile(_tile))
+                            continue;
 
-                            newMarkedTiles.Add(_tile);
+                        newMarkedTiles.Add(_tile);
 
-                            // can you stop on the tile?
-                            if (!highlightedTiles.Contains(_tile) && CanPlayerStopOnTile(_tile))
-                                HighlightTile(_tile, col);
-                        }
+                        // can you stop on the tile?
+                        if (!highlightedTiles.Contains(_tile) && CanPlayerStopOnTile(_tile))
+                            HighlightTile(_tile, col);
                     }
                 }
-
             }
-            markedTiles = newMarkedTiles;
         }
-
-        // remember what tiles you highlight
-        return highlightedTiles;
+        previousMarkedTiles = newMarkedTiles;
+        await Task.Delay(50);
     }
+
+
 
     // this function will return false if the tile is not walkable
     // you can't walk on:
@@ -423,6 +431,7 @@ public class Highlighter : MonoBehaviour
         // clear the lists
         flashers.Clear();
         highlightedTiles.Clear();
+        previousMarkedTiles.Clear();
     }
 
     void HighlightTile(WorldTile tile, Color col)
