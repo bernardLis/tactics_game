@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,10 +15,10 @@ public class CameraController : MonoBehaviour
     {
         cam = GetComponent<Camera>();
     }
+
     void OnEnable()
     {
-        // TODO: does this cost a lot, can I do something smarter
-        // maybe characters don't need interaction controllers, they just need to know what abilities they have and I will 
+        // TODO: does this cost a lot, can I do something smarter?
         playerInput = MovePointController.instance.GetComponent<PlayerInput>();
 
         // inputs

@@ -5,34 +5,29 @@ using UnityEngine;
 [System.Serializable]
 public class Stat
 {
-	[SerializeField]
-	public int baseValue;
+    [SerializeField] public int baseValue;
 
-	List<int> modifiers = new List<int>();
+    List<int> modifiers = new();
 
-	public int GetValue()
-	{
-		int finalValue = baseValue;
-		modifiers.ForEach(x => finalValue += x);
+    public int GetValue()
+    {
+        int finalValue = baseValue;
+        modifiers.ForEach(x => finalValue += x);
 
-		// final value can't be negative
-		finalValue = Mathf.Clamp(finalValue, 0, int.MaxValue);
+        // final value can't be negative
+        finalValue = Mathf.Clamp(finalValue, 0, int.MaxValue);
 
-		return finalValue;
-	}
+        return finalValue;
+    }
 
-	public void AddModifier(int modifier)
-	{
-		if (modifier != 0)
-		{
-			modifiers.Add(modifier);
-		}
-	}
-	public void RemoveModifier(int modifier)
-	{
-		if (modifier != 0)
-		{
-			modifiers.Remove(modifier);
-		}
-	}
+    public void AddModifier(int modifier)
+    {
+        if (modifier != 0)
+            modifiers.Add(modifier);
+    }
+    public void RemoveModifier(int modifier)
+    {
+        if (modifier != 0)
+            modifiers.Remove(modifier);
+    }
 }

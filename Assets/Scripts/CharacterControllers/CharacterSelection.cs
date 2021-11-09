@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
 
 public class CharacterSelection : MonoBehaviour
 {
@@ -14,6 +12,7 @@ public class CharacterSelection : MonoBehaviour
     protected Dictionary<Vector3, WorldTile> tiles;
 
     protected CharacterStats myStats;
+
     [Header("after rewritting enemies you can get rid of range")]
     public int range;
 

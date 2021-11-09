@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ public class BattlePreparationController : MonoBehaviour
 {
 
     [Header("Chararacter from SO")]
-    public List<Character> charactersToPlace = new List<Character>();
+    public List<Character> charactersToPlace = new();
     public GameObject characterTemplate;
 
     public GameObject characterBeingPlaced { get; private set; }
@@ -75,12 +74,9 @@ public class BattlePreparationController : MonoBehaviour
         {
             Highlighter.instance.ClearHighlightedTiles();
             TurnManager.instance.StartBattle();
-        }
-        else
-        {
-            // select next character
-            SelectNextCharacter();
+            return;
         }
 
+        SelectNextCharacter();
     }
 }

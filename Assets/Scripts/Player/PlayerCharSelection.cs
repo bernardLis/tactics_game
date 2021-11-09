@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using DG.Tweening;
 
 public class PlayerCharSelection : CharacterSelection
@@ -22,23 +19,16 @@ public class PlayerCharSelection : CharacterSelection
     public override void Awake()
     {
         base.Awake();
-        FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnEnemyTurnEnd;
-        FindObjectOfType<TurnManager>().playerTurnEndEvent += OnPlayerTurnEnd;
+        FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
+        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
 
 
         // subscribe to player death
-        GetComponent<CharacterStats>().characterDeathEvent += OnPlayerCharDeath;
+        GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
 
         oscilateScale = GetComponentInChildren<OscilateScale>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
     }
-    void Update()
-    {
-        // Highlight characters that have a move/finish their turn this turn and change their scale back and forth
-        //if ((!hasMovedThisTurn && !hasFinishedTurn) && Time.frameCount % 60 == 0)
-        //OscilateScale();
-    }
-
 
     public bool CanBeSelected()
     {

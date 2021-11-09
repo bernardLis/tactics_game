@@ -5,29 +5,29 @@ using System;
 
 public class EnemyStats : CharacterStats
 {
-	bool firstTurn = true;
+    bool firstTurn = true;
 
-	protected override void Awake()
-	{
-		base.Awake();
-		FindObjectOfType<TurnManager>().playerTurnEndEvent += OnPlayerTurnEnd;
-	}
+    protected override void Awake()
+    {
+        base.Awake();
+        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
+    }
 
-	public override void Die()
-	{
-		base.Die();
-	}
+    public override void Die()
+    {
+        base.Die();
+    }
 
-	void OnPlayerTurnEnd()
-	{
-		// TODO: this is a bad way to block enemies from getting mana on their first turn
-		if (!firstTurn)
-		{
-			GainMana(10);
-		}
-		else
-		{
-			firstTurn = false;
-		}
-	}
+    void OnPlayerTurnEnd()
+    {
+        // TODO: this is a bad way to block enemies from getting mana on their first turn
+        if (!firstTurn)
+        {
+            GainMana(10);
+        }
+        else
+        {
+            firstTurn = false;
+        }
+    }
 }

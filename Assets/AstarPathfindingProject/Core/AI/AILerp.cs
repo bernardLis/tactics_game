@@ -42,23 +42,53 @@ namespace Pathfinding
     {
 
         // HERE: myshiz
-        //CharacterRendererManager characterRendererManager;
         public Vector2 myDirection;
-
         public bool isMoving;
 
         /// <summary>
         /// Determines how often it will search for new paths.
         /// If you have fast moving targets or AIs, you might want to set it to a lower value.
         /// The value is in seconds between path requests.
+        ///
+        /// Deprecated: This has been renamed to \reflink{autoRepath.interval}.
+        /// See: \reflink{AutoRepathPolicy}
         /// </summary>
-        public float repathRate = 0.5F;
+        public float repathRate
+        {
+            get
+            {
+                return this.autoRepath.interval;
+            }
+            set
+            {
+                this.autoRepath.interval = value;
+            }
+        }
 
-        /// <summary>\copydoc Pathfinding::IAstarAI::canSearch</summary>
-        public bool canSearch = false;
+        /// <summary>
+        /// \copydoc Pathfinding::IAstarAI::canSearch
+        /// Deprecated: This has been superseded by \reflink{autoRepath.mode}.
+        /// </summary>
+        public bool canSearch
+        {
+            get
+            {
+                return this.autoRepath.mode != AutoRepathPolicy.Mode.Never;
+            }
+            set
+            {
+                this.autoRepath.mode = value ? AutoRepathPolicy.Mode.EveryNSeconds : AutoRepathPolicy.Mode.Never;
+            }
+        }
+
+        /// <summary>
+        /// Determines how the agent recalculates its path automatically.
+        /// This corresponds to the settings under the "Recalculate Paths Automatically" field in the inspector.
+        /// </summary>
+        public AutoRepathPolicy autoRepath = new AutoRepathPolicy();
 
         /// <summary>\copydoc Pathfinding::IAstarAI::canMove</summary>
-        public bool canMove = false;
+        public bool canMove = true;
 
         /// <summary>Speed in world units</summary>
         public float speed = 3;
@@ -188,7 +218,21 @@ namespace Pathfinding
         public Vector3 position { get { return updatePosition ? tr.position : simulatedPosition; } }
 
         /// <summary>\copydoc Pathfinding::IAstarAI::rotation</summary>
-        public Quaternion rotation { get { return updateRotation ? tr.rotation : simulatedRotation; } }
+        public Quaternion rotation
+        {
+            get { return updateRotation ? tr.rotation : simulatedRotation; }
+            set
+            {
+                if (updateRotation)
+                {
+                    tr.rotation = value;
+                }
+                else
+                {
+                    simulatedRotation = value;
+                }
+            }
+        }
 
         #region IAstarAI implementation
 
@@ -214,7 +258,8 @@ namespace Pathfinding
         /// <summary>\copydoc Pathfinding::IAstarAI::canMove</summary>
         bool IAstarAI.canMove { get { return canMove; } set { canMove = value; } }
 
-        Vector3 IAstarAI.velocity
+        /// <summary>\copydoc Pathfinding::IAstarAI::velocity</summary>
+        public Vector3 velocity
         {
             get
             {
@@ -286,9 +331,6 @@ namespace Pathfinding
         /// <summary>Cached Transform component</summary>
         protected Transform tr;
 
-        /// <summary>Time when the last path request was sent</summary>
-        protected float lastRepath = -9999;
-
         /// <summary>Current path which is followed</summary>
         protected ABPath path;
 
@@ -328,6 +370,16 @@ namespace Pathfinding
         [HideInInspector]
         Transform targetCompatibility;
 
+        [SerializeField]
+        [HideInInspector]
+        [UnityEngine.Serialization.FormerlySerializedAs("repathRate")]
+        float repathRateCompatibility = float.NaN;
+
+        [SerializeField]
+        [HideInInspector]
+        [UnityEngine.Serialization.FormerlySerializedAs("canSearch")]
+        bool canSearchCompability = false;
+
         protected AILerp()
         {
             // Note that this needs to be set here in the constructor and not in e.g Awake
@@ -348,14 +400,12 @@ namespace Pathfinding
 
             seeker = GetComponent<Seeker>();
 
-
             // Tell the StartEndModifier to ask for our exact position when post processing the path This
             // is important if we are using prediction and requesting a path from some point slightly ahead
             // of us since then the start point in the path request may be far from our position when the
             // path has been calculated. This is also good because if a long path is requested, it may take
             // a few frames for it to be calculated so we could have moved some distance during that time
             seeker.startEndModifier.adjustStartPoint = () => simulatedPosition;
-
         }
 
         /// <summary>
@@ -384,12 +434,12 @@ namespace Pathfinding
             {
                 // The Teleport call will make sure some variables are properly initialized (like #prevPosition1 and #prevPosition2)
                 Teleport(position, false);
-                lastRepath = float.NegativeInfinity;
+                autoRepath.Reset();
                 if (shouldRecalculatePath) SearchPath();
             }
         }
 
-        protected virtual void OnDisable()
+        public void OnDisable()
         {
             ClearPath();
             // Make sure we no longer receive callbacks when paths complete
@@ -429,7 +479,7 @@ namespace Pathfinding
         {
             get
             {
-                return Time.time - lastRepath >= repathRate && canSearchAgain && canSearch && !float.IsPositiveInfinity(destination.x);
+                return canSearchAgain && autoRepath.ShouldRecalculatePath((IAstarAI)this);
             }
         }
 
@@ -449,8 +499,6 @@ namespace Pathfinding
             if (float.IsPositiveInfinity(destination.x)) return;
             if (onSearchPath != null) onSearchPath();
 
-            lastRepath = Time.time;
-
             // This is where the path should start to search from
             var currentPosition = GetFeetPosition();
 
@@ -467,13 +515,9 @@ namespace Pathfinding
 
             canSearchAgain = false;
 
-            // Alternative way of creating a path request
-            //ABPath p = ABPath.Construct(currentPosition, targetPoint, null);
-            //seeker.StartPath(p);
-
             // Create a new path request
             // The OnPathComplete method will later be called with the result
-            seeker.StartPath(currentPosition, destination);
+            SetPath(ABPath.Construct(currentPosition, destination, null));
         }
 
         /// <summary>
@@ -485,26 +529,11 @@ namespace Pathfinding
         /// </summary>
         public virtual void OnTargetReached()
         {
+            // HERE: my shiz
             myDirection = Vector2.zero;
             speed = 3;
             isMoving = false;
-
-            //canSearch = false;
-            //canMove = false;
-
             GetComponent<AIDestinationSetter>().target = null;
-
-            // myshiz
-            /*
-			// stop animating player
-			string tag = transform.tag;
-			if(tag == "ControlledByPlayer"){
-				characterRenderer = GetComponentInChildren<CharacterRenderer>();
-				Vector2 inputVector = new Vector2(0f, 0f);
-				characterRenderer.SetDirection(inputVector);
-			}
-			Debug.Log("astar on target reached");
-			*/
         }
 
         /// <summary>
@@ -598,10 +627,10 @@ namespace Pathfinding
             else if (path.PipelineState == PathState.Created)
             {
                 // Path has not started calculation yet
-                lastRepath = Time.time;
                 canSearchAgain = false;
                 seeker.CancelCurrentPathRequest();
                 seeker.StartPath(path);
+                autoRepath.DidRecalculatePath(destination);
             }
             else if (path.PipelineState == PathState.Returned)
             {
@@ -674,7 +703,8 @@ namespace Pathfinding
         /// <summary>\copydoc Pathfinding::IAstarAI::MovementUpdate</summary>
         public void MovementUpdate(float deltaTime, out Vector3 nextPosition, out Quaternion nextRotation)
         {
-            // HERE:
+
+            // HERE: my shiz
             isMoving = true;
 
             if (updatePosition) simulatedPosition = tr.position;
@@ -733,22 +763,6 @@ namespace Pathfinding
             }
 
             direction = interpolator.tangent;
-
-            // HERE: myshiz
-            // TODO: I don't think this is the correct place to get the direction;
-            //myDirection = direction;          
-            /*
-			string tag = transform.tag;
-			if(tag == "Player" || tag == "Enemy"){
-                // TODO: create a script that will be ma
-				characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
-				Vector2 inputVector = new Vector2(direction.x, direction.y);
-				characterRendererManager.SetDirection(inputVector);
-			}
-            */
-
-            /*
-			*/
             pathSwitchInterpolationTime += deltaTime;
             var alpha = switchPathInterpolationSpeed * pathSwitchInterpolationTime;
             if (interpolatePathSwitches && alpha < 1f)
@@ -772,7 +786,19 @@ namespace Pathfinding
 #pragma warning disable 618
             if (unityThread && targetCompatibility != null) target = targetCompatibility;
 #pragma warning restore 618
-            return 2;
+
+            if (version <= 3)
+            {
+                repathRate = repathRateCompatibility;
+                canSearch = canSearchCompability;
+            }
+            return 4;
+        }
+
+        public virtual void OnDrawGizmos()
+        {
+            tr = transform;
+            autoRepath.DrawGizmos((IAstarAI)this);
         }
     }
 }

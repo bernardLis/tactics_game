@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -8,7 +7,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
 {
     public Character character;
 
-    public event Action characterDeathEvent;
+    public event Action CharacterDeathEvent;
 
     // Stats are accessed by other scripts need to be public.
     [HideInInspector] public string characterName; // from char scriptable object
@@ -95,6 +94,8 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
         currentMana -= amount;
         currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
 
+        if (amount == 0)
+            return;
         Debug.Log(transform.name + " uses " + amount + " mana.");
     }
 
@@ -110,6 +111,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
 
     public void GetPushed()
     {
+        // TODO: do this instead of pushable character.
         
     }
 
@@ -125,10 +127,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
         // this method is meant to be overwirtten
         Destroy(gameObject, 0.5f);
 
-        Debug.Log(transform.name + " died.");
         // movement script needs to clear the highlight 
-        if (characterDeathEvent != null)
-            characterDeathEvent();
+        if (CharacterDeathEvent != null)
+            CharacterDeathEvent();
     }
 
 }

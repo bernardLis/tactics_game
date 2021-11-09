@@ -14,15 +14,13 @@ public class Highlighter : MonoBehaviour
     WorldTile _tile;
 
     WorldTile charTile;
-    public List<WorldTile> highlightedTiles = new List<WorldTile>();
+    public List<WorldTile> highlightedTiles = new();
 
     //flashers
-    List<GameObject> flashers = new List<GameObject>();
+    List<GameObject> flashers = new();
     [Header("Flasher")]
-    [SerializeField]
-    GameObject flasherHolder;
-    [SerializeField]
-    GameObject flasherPrefab;
+    [SerializeField] GameObject flasherHolder;
+    [SerializeField] GameObject flasherPrefab;
     public float flasherXOffset = 0.4f;
     public float flasherYOffset = 0.6f;
 
@@ -164,7 +162,6 @@ public class Highlighter : MonoBehaviour
         ClearHighlightedTiles();
 
         // get tiles withing character range
-        Vector3Int pos = Vector3Int.FloorToInt(position);
         var markedTiles = new List<WorldTile>();
 
         // adding char position
@@ -279,10 +276,6 @@ public class Highlighter : MonoBehaviour
         // clear the list just in case.
         ClearHighlightedTiles();
 
-        // get movement range of the character
-        // get tiles withing character range
-        Vector3Int pos = Vector3Int.FloorToInt(position);
-
         // list with tiles
         var markedTiles = new List<WorldTile>();
 
@@ -394,11 +387,6 @@ public class Highlighter : MonoBehaviour
         if (!tiles.TryGetValue(tilePos, out _tile))
             return;
 
-        // remove flag from the tile
-        // remove it from the list
-        _tile.WithinRange = false;
-        highlightedTiles.Remove(_tile);
-
         // remove flasher from that tile
         foreach (GameObject flasher in flashers)
         {
@@ -406,9 +394,13 @@ public class Highlighter : MonoBehaviour
                 continue;
 
             if (flasher.transform.position == new Vector3(_tile.LocalPlace.x + flasherXOffset, _tile.LocalPlace.y + flasherYOffset, _tile.LocalPlace.z))
-                Destroy(flasher);
+                flasher.GetComponent<Flasher>().StopFlashing();
         }
 
+        // remove flag from the tile
+        // remove it from the list
+        _tile.WithinRange = false;
+        highlightedTiles.Remove(_tile);
     }
 
     public void ClearHighlightedTiles()
@@ -416,7 +408,7 @@ public class Highlighter : MonoBehaviour
         // destory flashers
         foreach (GameObject flasher in flashers)
         {
-            if(flasher == null)
+            if (flasher == null)
                 continue;
 
             flasher.GetComponent<Flasher>().StopFlashing();

@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+
 public class CharacterRendererManager : MonoBehaviour
 {
     public Vector2 direction;
@@ -43,7 +43,7 @@ public class CharacterRendererManager : MonoBehaviour
             }
         }
     }
-    
+
     // TODO: noone calls it
     // TODO: no weapon holder
     public void AttackAnimation()

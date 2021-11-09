@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterRenderer : MonoBehaviour
@@ -20,7 +18,7 @@ public class CharacterRenderer : MonoBehaviour
 	{
 
 		//use the Run states by default
-		string[] directionArray = null;
+		string[] directionArray;
 
 		//measure the magnitude of the input.
 		if (direction.magnitude < 0.01f)

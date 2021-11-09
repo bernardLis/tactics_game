@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealTriggerable : MonoBehaviour
 {
     CharacterStats myStats;
-    CharacterStats targetStats;
     CharacterRendererManager characterRendererManager;
 
     void Awake()

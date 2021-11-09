@@ -1,19 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class MovePointController : MonoBehaviour
 {
     // TODO: movepoint should only be using battle ui
+    BasicCameraFollow basicCameraFollow;
     GameUI gameUI;
 
     BattlePreparationController battlePreparationController;
     CharacterBattleController characterBattleController;
-
-    Camera cam;
 
     // tiles
     Tilemap tilemap;
@@ -21,10 +17,7 @@ public class MovePointController : MonoBehaviour
     Dictionary<Vector3, WorldTile> tiles;
 
     // TODO: display some enemy info when you are hovering on them
-
-
     bool firstEnable = false;
-
 
     public static MovePointController instance;
     void Awake()
@@ -40,17 +33,15 @@ public class MovePointController : MonoBehaviour
         instance = this;
         #endregion
 
-        FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnEnemyTurnEnd;
-        FindObjectOfType<TurnManager>().playerTurnEndEvent += OnPlayerTurnEnd;
+        FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
+        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
 
+        basicCameraFollow = BasicCameraFollow.instance;
         gameUI = GameUI.instance;
 
         // This is our Dictionary of tiles
         tiles = GameTiles.instance.tiles;
-        tilemap = (Tilemap)TileMapInstance.instance.GetComponent<Tilemap>();
-
-        // TODO: Supposedly, this is an expensive call
-        cam = Camera.main;
+        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
         battlePreparationController = GetComponent<BattlePreparationController>();
         characterBattleController = GetComponent<CharacterBattleController>();
@@ -171,7 +162,7 @@ public class MovePointController : MonoBehaviour
             transform.position = playerChars[0].transform.position;
 
         // camera follows the movepoint again
-        BasicCameraFollow.instance.followTarget = transform;
+        basicCameraFollow.followTarget = transform;
 
         UpdateTileInfoUI();
     }

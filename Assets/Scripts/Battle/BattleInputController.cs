@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
@@ -29,7 +26,6 @@ public class BattleInputController : MonoBehaviour
 
     public bool allowInput;
 
-
     public static BattleInputController instance;
     void Awake()
     {
@@ -43,18 +39,18 @@ public class BattleInputController : MonoBehaviour
         }
         instance = this;
         #endregion
+
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnEnemyTurnEnd;
-        FindObjectOfType<TurnManager>().playerTurnEndEvent += OnPlayerTurnEnd;
+        FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
+        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
 
         playerInput = GetComponent<PlayerInput>();
 
         tiles = GameTiles.instance.tiles;
-        tilemap = (Tilemap)TileMapInstance.instance.GetComponent<Tilemap>();
+        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
         // TODO: Supposedly, this is an expensive call
         cam = Camera.main;
@@ -66,7 +62,6 @@ public class BattleInputController : MonoBehaviour
         oscilateScale = GetComponentInChildren<OscilateScale>();
 
         allowInput = true;
-        //oscilateScale.SetOscilation(true);
     }
 
     void OnEnable()
@@ -131,7 +126,7 @@ public class BattleInputController : MonoBehaviour
 
     }
 
-    public bool isInputAllowed()
+    public bool IsInputAllowed()
     {
         return allowInput;
     }

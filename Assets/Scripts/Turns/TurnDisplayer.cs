@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.UIElements;
 
 public class TurnDisplayer : MonoBehaviour
@@ -10,7 +9,7 @@ public class TurnDisplayer : MonoBehaviour
     VisualElement turnTextContainer;
     Label turnText;
 
-    Queue<IEnumerator> coroutineQueue = new Queue<IEnumerator>();
+    Queue<IEnumerator> coroutineQueue = new();
 
     void Start()
     {
@@ -22,8 +21,8 @@ public class TurnDisplayer : MonoBehaviour
         turnText = rootVisualElement.Q<Label>("turnText");
 
         // subscribing to Actions
-        FindObjectOfType<TurnManager>().playerTurnEndEvent += OnPlayerTurnEnd;
-        FindObjectOfType<TurnManager>().enemyTurnEndEvent += OnEnemyTurnEnd;
+        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
+        FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
 
         // coroutine queue
         StartCoroutine(CoroutineCoordinator());

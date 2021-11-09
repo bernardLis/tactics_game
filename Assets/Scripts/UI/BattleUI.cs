@@ -103,7 +103,7 @@ public class BattleUI : MonoBehaviour
     // allow clicks only when not moving and character is selected & did not finish its turn
     void QButtonClicked()
     {
-        if (!characterBattleController.canInteract())
+        if (!characterBattleController.CanInteract())
             return;
 
         selectedPlayerStats.abilities[0].HighlightTargetable();
@@ -112,7 +112,7 @@ public class BattleUI : MonoBehaviour
 
     void WButtonClicked()
     {
-        if (!characterBattleController.canInteract())
+        if (!characterBattleController.CanInteract())
             return;
 
         selectedPlayerStats.abilities[1].HighlightTargetable();
@@ -121,7 +121,7 @@ public class BattleUI : MonoBehaviour
 
     void EButtonClicked()
     {
-        if (!characterBattleController.canInteract())
+        if (!characterBattleController.CanInteract())
             return;
 
         selectedPlayerStats.abilities[2].HighlightTargetable();
@@ -130,7 +130,7 @@ public class BattleUI : MonoBehaviour
 
     void RButtonClicked()
     {
-        if (!characterBattleController.canInteract())
+        if (!characterBattleController.CanInteract())
             return;
 
         selectedPlayerStats.abilities[3].HighlightTargetable();
@@ -140,14 +140,14 @@ public class BattleUI : MonoBehaviour
     void TButtonClicked()
     {
         Debug.Log("T button clicked - basic attack");
-        if (!characterBattleController.canInteract())
+        if (!characterBattleController.CanInteract())
             return;
     }
-    
+
     void YButtonClicked()
     {
         Debug.Log("Y button clicked - basic defend");
-        if (!characterBattleController.canInteract())
+        if (!characterBattleController.CanInteract())
             return;
     }
 

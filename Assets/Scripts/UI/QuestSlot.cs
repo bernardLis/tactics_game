@@ -6,71 +6,65 @@ using UnityEngine.UIElements;
 // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
 public class QuestSlot : VisualElement
 {
-	public Label title;
-	public Quest quest;
+    public Label title;
+    public Quest quest;
 
-	QuestUI questUI;
+    QuestUI questUI;
 
-	public QuestSlot()
-	{
-		AddToClassList("questSlot");
+    public QuestSlot()
+    {
+        AddToClassList("questSlot");
 
-		// create a new label element and add it to the root
-		title = new Label();
-		Add(title);
-		title.AddToClassList("questTitleLabel");
+        // create a new label element and add it to the root
+        title = new Label();
+        Add(title);
+        title.AddToClassList("questTitleLabel");
 
-		// on click
-		RegisterCallback<PointerDownEvent>(OnPointerDown);
-	}
+        // on click
+        RegisterCallback<PointerDownEvent>(OnPointerDown);
+    }
 
-	public void HoldQuest(Quest _quest)
-	{
-		questUI = GameUI.instance.GetComponent<QuestUI>();
+    public void HoldQuest(Quest _quest)
+    {
+        questUI = GameUI.instance.GetComponent<QuestUI>();
 
-		quest = _quest;
-		title.text = quest.qName;
-	}
+        quest = _quest;
+        title.text = quest.qName;
+    }
 
-	public void DropQuest()
-	{
-		if (quest != null)
-			quest = null;
-		if (title.text != null)
-			title.text = null;
-	}
+    public void DropQuest()
+    {
+        if (quest != null)
+            quest = null;
+        if (title.text != null)
+            title.text = null;
+    }
 
-	void OnPointerDown(PointerDownEvent evt)
-	{
-		// || item == null
-		if (evt.button != 0)
-			return;
+    void OnPointerDown(PointerDownEvent evt)
+    {
+        // || item == null
+        if (evt.button != 0)
+            return;
 
-		Select();
-	}
+        Select();
+    }
 
-	public void Select()
-	{
-		Debug.Log("clicked on " + quest.qName);
+    public void Select()
+    {
+        Debug.Log("clicked on " + quest.qName);
 
-		if (questUI != null)
-		{
-			questUI.UnselectCurrent();
-			questUI.OnQuestClick(quest);
-			questUI.selectedQuestSlot = this;
-		}
+        if (questUI != null)
+        {
+            questUI.UnselectCurrent();
+            questUI.OnQuestClick(quest);
+            questUI.selectedQuestSlot = this;
+        }
 
-		this.AddToClassList("selectedQuestSlot");
+        this.AddToClassList("selectedQuestSlot");
+    }
 
-		//this.style.backgroundColor = new Color(255 / 255f, 133 / 255f, 125 / 255f, 1);
-
-
-
-	}
-
-	public void Unselect()
-	{
-		//this.style.backgroundColor = new Color(0f, 0f, 0f, 0f);
-		this.RemoveFromClassList("selectedQuestSlot");
-	}
+    public void Unselect()
+    {
+        this.RemoveFromClassList("selectedQuestSlot");
+    }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -24,6 +22,7 @@ public class Flasher : MonoBehaviour
         // TODO: errors
         DOTween.Kill(transform);
         DOTween.Kill(rend);
+
         gameObject.SetActive(false);
         Invoke("SelfDestroy", 1f);
     }
@@ -31,39 +30,5 @@ public class Flasher : MonoBehaviour
     void SelfDestroy()
     {
         Destroy(gameObject);
-
     }
-
-    //Material mat;
-    /*
-	void Start()
-	{
-
-		//mat = GetComponent<Renderer>().material;
-	}
-    */
-
-
-    /*
-
-	IEnumerator Flash(Color col)
-	{
-		mat.color = col;
-
-		float flashTimer = 0f;
-		while (true)
-		{
-			// *2 coz I want it to flash quicker 
-			// +0.2f coz I don't want it to disapear completly
-			float a = 1.3f - Mathf.PingPong(flashTimer / 2f, 1f);
-			a = Mathf.Clamp(a, 0f, 1f);
-			col.a = a;
-			mat.color = col;
-			//mat.color = Color.Lerp(Color.white, Color.red, Mathf.PingPong(flashTimer, 1f));
-			flashTimer += Time.deltaTime;
-			yield return null;
-		}
-	}
-    */
-
 }

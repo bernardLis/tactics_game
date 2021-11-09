@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -61,8 +60,6 @@ public class CharacterBattleController : MonoBehaviour
 
     public void Select(Collider2D _col)
     {
-        Debug.Log("trying to select: " + _col);
-
         // get the tile movepoint is on
         if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             selectedTile = _tile;
@@ -143,9 +140,9 @@ public class CharacterBattleController : MonoBehaviour
         battleInputController.allowInput = false;
     }
 
-    public bool canInteract()
+    public bool CanInteract()
     {
-        if (!battleInputController.isInputAllowed())
+        if (!battleInputController.IsInputAllowed())
             return false;
         if (selectedCharacter == null)
             return false;
@@ -162,7 +159,6 @@ public class CharacterBattleController : MonoBehaviour
 
     void Interact(Collider2D col)
     {
-        Debug.Log("interact " + col.gameObject);
         // returns true if ability was triggered successfuly.
         if (!selectedAbility.TriggerAbility(col.transform.parent.gameObject))
             return;
@@ -209,6 +205,4 @@ public class CharacterBattleController : MonoBehaviour
         // finish character's turn after the interaction is performed
         TurnManager.instance.PlayerCharacterTurnFinished();
     }
-
-
 }

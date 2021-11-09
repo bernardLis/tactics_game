@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -17,22 +15,21 @@ public class TurnManager : MonoBehaviour
     GameObject[] playerCharacters;
     GameObject[] enemies;
 
-
-
     int playerCharactersLeftToTakeTurn;
     int enemyCharactersLeftToTakeTurn;
 
     int playerCharactersAlive;
     int enemyCharactersAlive;
 
-    public event Action enemyTurnEndEvent;
-    public event Action playerTurnEndEvent;
+    public event Action EnemyTurnEndEvent;
+    public event Action PlayerTurnEndEvent;
 
     // get the amount of player characters
     // each time player character finishes its move subtract one from the total
     // if all player characters finished their turn -> start a new turn
     void Awake()
     {
+        #region Singleton
         // singleton
         if (instance != null)
         {
@@ -40,6 +37,7 @@ public class TurnManager : MonoBehaviour
             return;
         }
         instance = this;
+        #endregion
     }
 
     void Start()
@@ -66,13 +64,13 @@ public class TurnManager : MonoBehaviour
         // subscribe to death events
         foreach (GameObject enemy in enemies)
         {
-            enemy.GetComponent<CharacterStats>().characterDeathEvent += OnEnemyDeath;
+            enemy.GetComponent<CharacterStats>().CharacterDeathEvent += OnEnemyDeath;
         }
         foreach (GameObject player in playerCharacters)
         {
-            player.GetComponent<CharacterStats>().characterDeathEvent += OnPlayerCharDeath;
+            player.GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
         }
-        
+
         // TODO: do I need a separate method for starting or can I just use this;
         EndEnemyTurn();
     }
@@ -81,10 +79,7 @@ public class TurnManager : MonoBehaviour
     public void EndPlayerTurn()
     {
         // display text & run enemy ai
-        if (playerTurnEndEvent != null)
-        {
-            playerTurnEndEvent();
-        }
+        PlayerTurnEndEvent?.Invoke();
 
         battleState = BattleState.ENEMYTURN;
 
@@ -102,10 +97,7 @@ public class TurnManager : MonoBehaviour
         currentTurn++;
 
         // display text
-        if (enemyTurnEndEvent != null)
-        {
-            enemyTurnEndEvent();
-        }
+        EnemyTurnEndEvent?.Invoke();
 
         //yield return new WaitForSeconds(1f);
 
