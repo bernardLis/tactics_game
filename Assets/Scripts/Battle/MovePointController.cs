@@ -4,8 +4,6 @@ using UnityEngine;
 using Pathfinding;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 
 public class MovePointController : MonoBehaviour
 {

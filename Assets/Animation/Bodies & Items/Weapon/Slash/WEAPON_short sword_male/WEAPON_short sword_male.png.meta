@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -676,6 +677,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      WEAPON_short sword_male_18: 4879499319943028871
+      WEAPON_short sword_male_3: 4702607015799688202
+      WEAPON_short sword_male_23: 8520935027990026934
+      WEAPON_short sword_male_4: -5708290888031463605
+      WEAPON_short sword_male_9: -4031500396695666685
+      WEAPON_short sword_male_2: 5949644262919159846
+      WEAPON_short sword_male_6: 724664098499272416
+      WEAPON_short sword_male_16: -1398611287324751435
+      WEAPON_short sword_male_5: -1874496563943313013
+      WEAPON_short sword_male_8: -1886985086781853842
+      WEAPON_short sword_male_14: -3221209783643453987
+      WEAPON_short sword_male_11: -5466837358365660928
+      WEAPON_short sword_male_19: -8266856474427980253
+      WEAPON_short sword_male_12: 8995006432011627548
+      WEAPON_short sword_male_22: 7030000061425827513
+      WEAPON_short sword_male_13: 8574633993028423906
+      WEAPON_short sword_male_17: 6906351125669690381
+      WEAPON_short sword_male_15: 7041529742596787621
+      WEAPON_short sword_male_20: -2101126215281926760
+      WEAPON_short sword_male_1: -3312934511365514104
+      WEAPON_short sword_male_21: 6522092202426431237
+      WEAPON_short sword_male_7: -8164384998598162592
+      WEAPON_short sword_male_10: 7789668679503294298
+      WEAPON_short sword_male_0: 8191042739315165300
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

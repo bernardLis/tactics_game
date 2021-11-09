@@ -9,13 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2995979785274122221}
-  - component: {fileID: 2995979785274122218}
+  - component: {fileID: 1554662679}
   - component: {fileID: 2995979785274122220}
   - component: {fileID: 2995979785274122223}
   - component: {fileID: 1334149122}
   - component: {fileID: 5809991291737814431}
   - component: {fileID: 6150204838195089752}
-  - component: {fileID: 8267317690137134884}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -33,11 +32,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2995979785274122218
+--- !u!114 &1554662679
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,13 +46,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2995979785274122219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21c074d86024caca2a0034ce4f53f73, type: 3}
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 1c7ac08c651bb3f419c09521f827c80a, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 18ce7200385ca6449979cb53c428bdb4, type: 3}
-  m_SortingOrder: 1
+  m_SortingOrder: 0
 --- !u!114 &2995979785274122220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6bd46a6d3b23a49bd9fbd33eb7b2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIDocument: {fileID: 2995979785274122218}
 --- !u!114 &2995979785274122223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,7 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115b1c89a7d19434b85dfb439ce786b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIDocument: {fileID: 2995979785274122218}
 --- !u!114 &1334149122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dcf7a91fc30f4e478d7088a29160f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIDocument: {fileID: 2995979785274122218}
 --- !u!114 &5809991291737814431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c8337becc342744eb9a55796b8487df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIDocument: {fileID: 2995979785274122218}
+  checkmark: {fileID: 0}
 --- !u!114 &6150204838195089752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,15 +114,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52a6e90809c0114489329ed0b074734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8267317690137134884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2995979785274122219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffffa91c47c54f142bbfc1c4fb12ead7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  slotBackground: {fileID: 0}
+  selectedSlotBackground: {fileID: 0}

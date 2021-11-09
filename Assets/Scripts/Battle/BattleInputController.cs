@@ -17,7 +17,6 @@ public class BattleInputController : MonoBehaviour
     WorldTile _tile;
     Dictionary<Vector3, WorldTile> tiles;
 
-
     // global utilities
     Camera cam;
     BattleUI battleUI;

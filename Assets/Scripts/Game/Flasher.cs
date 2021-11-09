@@ -22,8 +22,8 @@ public class Flasher : MonoBehaviour
     public void StopFlashing()
     {
         // TODO: errors
-        
         DOTween.Kill(transform);
+        DOTween.Kill(rend);
         gameObject.SetActive(false);
         Invoke("SelfDestroy", 1f);
     }

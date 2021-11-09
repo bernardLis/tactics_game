@@ -120,6 +120,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -868,6 +869,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      bunnysheet5_22: 2847634463238158637
+      bunnysheet5_25: 3252560904565458319
+      bunnysheet5_29: -3212677609307287835
+      bunnysheet5_18: -418294001531983399
+      bunnysheet5_10: -5349491637534667418
+      bunnysheet5_14: -7433593249684275589
+      bunnysheet5_2: -3348856246090889719
+      bunnysheet5_23: -2814134884403579876
+      bunnysheet5_27: 1435523438162670576
+      bunnysheet5_30: 3252048469076205447
+      bunnysheet5_20: 816408920872918970
+      bunnysheet5_13: -95336567041038329
+      bunnysheet5_7: 7434113628398826867
+      bunnysheet5_11: 7680802109023076327
+      bunnysheet5_26: -8285695277251522309
+      bunnysheet5_8: 2060990041794518466
+      bunnysheet5_31: -343370808665093336
+      bunnysheet5_5: -2242379734599970852
+      bunnysheet5_17: 545243366331958610
+      bunnysheet5_15: 3261707608684854505
+      bunnysheet5_16: 6077385878122362404
+      bunnysheet5_24: -2162653779365081872
+      bunnysheet5_4: -5482664134182839463
+      bunnysheet5_6: 3123300321099728854
+      bunnysheet5_12: 8448685036910516125
+      bunnysheet5_0: 444111797852221278
+      bunnysheet5_1: 7977435031334894272
+      bunnysheet5_3: 4653676723318331041
+      bunnysheet5_21: 6075835992053466013
+      bunnysheet5_19: 3763927603246310543
+      bunnysheet5_28: -8383891638086258376
+      bunnysheet5_9: 5672977028431016932
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
