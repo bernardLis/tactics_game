@@ -100,7 +100,6 @@ public class BattleInputController : MonoBehaviour
         // char placement specific for now
         playerInput.actions["SelectNextCharacter"].performed += ctx => SelectNextCharacter();
         playerInput.actions["SelectPreviousCharacter"].performed += ctx => SelectPreviousCharacter();
-
     }
 
     void UnsubscribeInputActions()
@@ -122,7 +121,6 @@ public class BattleInputController : MonoBehaviour
         // char placement specific for now
         playerInput.actions["SelectNextCharacter"].performed -= ctx => SelectNextCharacter();
         playerInput.actions["SelectPreviousCharacter"].performed -= ctx => SelectPreviousCharacter();
-
     }
 
     public bool IsInputAllowed()

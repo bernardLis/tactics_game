@@ -198,74 +198,7 @@ public class InventoryUI : MonoBehaviour
     {
         inventoryContainer.style.display = DisplayStyle.None;
 
-        GameManager.instance.EnableFMPlayerControls();
+        //GameManager.instance.EnableFMPlayerControls(); << TODO: decide when is quest ui / inventory ui accessible
         GameManager.instance.ResumeGame();
     }
-
-    /* TODO: dragging is not a necessary feature for now
-
-	in awake: 
-		//VisualElement ghostIcon;
-	bool isDragging;
-
-			//ghostIcon = root.Q<VisualElement>("inventoryGhostIcon");
-				InventorySlot originalSlot;
-
-
-			//ghostIcon.RegisterCallback<PointerMoveEvent>(OnPointerMove);
-		//ghostIcon.RegisterCallback<PointerUpEvent>(OnPointerUp);
-
-	// TODO: should I disable it when inventory window is closed?
-	// https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
-	public void StartDrag(Vector2 position, InventorySlot _originalSlot)
-	{
-		isDragging = true;
-		originalSlot = _originalSlot;
-
-		ghostIcon.style.top = position.y - ghostIcon.layout.height / 2;
-		ghostIcon.style.left = position.x - ghostIcon.layout.width / 2;
-
-		ghostIcon.style.backgroundImage = originalSlot.item.icon.texture;
-
-		ghostIcon.style.visibility = Visibility.Visible;
-	}
-
-	void OnPointerMove(PointerMoveEvent evt)
-	{
-		// Only take action if the player is dragging an item around the screen
-		if (!isDragging)
-		{
-			return;
-		}
-
-		ghostIcon.style.top = evt.position.y - ghostIcon.layout.height / 2;
-		ghostIcon.style.left = evt.position.x - ghostIcon.layout.width / 2;
-	}
-
-	void OnPointerUp(PointerUpEvent evt)
-	{
-		if (!isDragging)
-		{
-			return;
-		}
-
-		// Check to see if they are dropping the ghost icon over any inventory slots.
-		IEnumerable<InventorySlot> slots = inventorySlots.Where(x => x.worldBound.Overlaps(ghostIcon.worldBound));
-		if (slots.Count() != 0)
-		{
-			InventorySlot closestSlot = slots.OrderBy(x => Vector2.Distance(x.worldBound.position, ghostIcon.worldBound.position)).First();
-			closestSlot.HoldItem(originalSlot.item);
-			originalSlot.DropItem();
-		}
-		// Didn't find any (dragged off the window)
-		else
-		{
-			originalSlot.icon.image = originalSlot.item.icon.texture;
-		}
-
-		isDragging = false;
-		originalSlot = null;
-		ghostIcon.style.visibility = Visibility.Hidden;
-	}
-	*/
 }

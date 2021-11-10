@@ -100,7 +100,7 @@ public class QuestUI : MonoBehaviour
     {
         questUI.style.display = DisplayStyle.None;
 
-        GameManager.instance.EnableFMPlayerControls();
+        // GameManager.instance.EnableFMPlayerControls(); << TODO: decide when is quest ui / inventory ui accessible
         GameManager.instance.ResumeGame();
     }
 

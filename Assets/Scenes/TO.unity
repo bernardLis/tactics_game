@@ -453,25 +453,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1109123155325162342, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
+      propertyPath: m_CropFrameX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109123155325162342, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
+      propertyPath: m_CropFrameY
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1537849511793772524, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: followTarget
       value: 
       objectReference: {fileID: 80634750}
     - target: {fileID: 2769911964981889595, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2769911964981889595, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.38
+      value: 6.6284013
       objectReference: {fileID: 0}
     - target: {fileID: 2769911964981889595, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.28
+      value: -3.2065887
       objectReference: {fileID: 0}
     - target: {fileID: 2769911964981889595, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: -10.879563
       objectReference: {fileID: 0}
     - target: {fileID: 2769911964981889595, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -504,10 +512,6 @@ PrefabInstance:
     - target: {fileID: 3749418624018675002, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: m_Name
       value: Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 6576119103995927308, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
-      propertyPath: orthographic size
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
@@ -616,7 +620,7 @@ Transform:
   m_Children:
   - {fileID: 292178139}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &329132432 stripped
 Transform:

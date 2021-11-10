@@ -25,6 +25,7 @@ public class CharacterBattleController : MonoBehaviour
     CharacterRendererManager characterRendererManager;
 
     // movement
+    GameObject tempObject;
     bool hasCharacterStartedMoving;
     bool hasCharacterGoneBack;
 
@@ -58,36 +59,13 @@ public class CharacterBattleController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("battleInputController.allowInput: " + battleInputController.allowInput);
-
+        // TODO: is there a better way? 
         if (selectedCharacter == null)
             return;
 
-        Debug.Log(Vector3.Distance(selectedCharacter.transform.position, transform.position));
-
-        if (hasCharacterStartedMoving && Vector3.Distance(selectedCharacter.transform.position, transform.position) <= 0.1f)
-            Invoke("CharacterReachedDestination", 0.2f); // TODO: this sucks and does not really work, still can break movement with back and click really quickly..
-        /*
-        if (aILerp != null)
-            Debug.Log("aILerp.isMoving: " + aILerp.isMoving);
-
-        // TODO: this should be improved
-        if (aILerp != null && !aILerp.isMoving)
-            
-        */
-    }
-
-    void CharacterReachedDestination()
-    {
-        battleInputController.allowInput = true;
-        hasCharacterStartedMoving = false;
-        if (hasCharacterGoneBack)
-        {
-            hasCharacterGoneBack = false;
-            highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
-                                        new Color(0.53f, 0.52f, 1f, 1f));
-        }
-
+        if (hasCharacterStartedMoving && tempObject != null 
+            && Vector3.Distance(selectedCharacter.transform.position, tempObject.transform.position) <= 0.1f)
+            CharacterReachedDestination();
     }
 
     public void Select(Collider2D _col)
@@ -152,11 +130,67 @@ public class CharacterBattleController : MonoBehaviour
 
         highlighter.ClearHighlightedTiles();
 
-        destinationSetter.target = transform;
+        tempObject = new GameObject("Destination");
+        tempObject.transform.position = transform.position;
+        destinationSetter.target = tempObject.transform;
+
         playerCharSelection.hasMovedThisTurn = true;
 
         // disable input
         battleInputController.allowInput = false;
+    }
+
+
+    void CharacterReachedDestination()
+    {
+        if (tempObject != null)
+            Destroy(tempObject);
+
+        battleInputController.allowInput = true;
+        hasCharacterStartedMoving = false;
+
+        if (!hasCharacterGoneBack)
+            return;
+
+        // highlight movement range if character was going back
+        hasCharacterGoneBack = false;
+        highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
+                                    new Color(0.53f, 0.52f, 1f, 1f));
+    }
+
+
+    public void Back()
+    {
+        if (selectedCharacter == null)
+            return;
+
+        if (selectedAbility != null)
+        {
+            BackFromAbilitySelection();
+            return;
+        }
+
+        if (!playerCharSelection.hasMovedThisTurn)
+        {
+            UnselectCharacter();
+            return;
+        }
+
+        battleInputController.allowInput = false;
+        hasCharacterGoneBack = true;                   
+        hasCharacterStartedMoving = true;
+
+        // flag reset
+        playerCharSelection.hasMovedThisTurn = false;
+
+        // move move point and character to character's starting position quickly.
+        aILerp.speed = 15;
+
+        transform.position = playerCharSelection.positionTurnStart;
+
+        tempObject = new GameObject("Back Destination");
+        tempObject.transform.position = playerCharSelection.positionTurnStart;
+        destinationSetter.target = tempObject.transform;
     }
 
     public bool CanInteract()
@@ -183,37 +217,6 @@ public class CharacterBattleController : MonoBehaviour
             return;
 
         FinishCharacterTurn();
-    }
-
-    public void Back()
-    {
-        if (selectedCharacter == null)
-            return;
-
-        if (selectedAbility != null)
-        {
-            BackFromAbilitySelection();
-            return;
-        }
-
-        if (!playerCharSelection.hasMovedThisTurn)
-        {
-            UnselectCharacter();
-            return;
-        }
-
-        hasCharacterStartedMoving = true;
-        battleInputController.allowInput = false;
-
-        // flag reset
-        playerCharSelection.hasMovedThisTurn = false;
-
-        // move move point and character to character's starting position quickly.
-        aILerp.speed = 15;
-        transform.position = playerCharSelection.positionTurnStart;
-        destinationSetter.target = transform;
-
-        //UnselectCharacter();
     }
 
     void BackFromAbilitySelection()

@@ -1,14 +1,11 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    PlayerInput playerInput;
-
     public static GameManager instance;
-
     void Awake()
     {
+        #region Singleton
         // singleton
         if (instance == null)
         {
@@ -18,16 +15,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-        playerInput = MovePointController.instance.GetComponent<PlayerInput>();
-    }
-
-    public void EnableFMPlayerControls()
-    {
-        playerInput.SwitchCurrentActionMap("FMPlayer");
+        #endregion
     }
 
     public void PauseGame()

@@ -43,7 +43,6 @@ namespace Pathfinding
 
         // HERE: myshiz
         public Vector2 myDirection;
-        public bool isMoving;
 
         /// <summary>
         /// Determines how often it will search for new paths.
@@ -532,7 +531,6 @@ namespace Pathfinding
             // HERE: my shiz
             myDirection = Vector2.zero;
             speed = 3;
-            isMoving = false;
             GetComponent<AIDestinationSetter>().target = null;
         }
 
@@ -709,9 +707,6 @@ namespace Pathfinding
             Vector3 direction;
 
             nextPosition = CalculateNextPosition(out direction, isStopped ? 0f : deltaTime);
-
-            // HERE: my shiz
-            isMoving = true;
 
             // HERE: my code, don't know if this is correct, but it works well :) almost....
             myDirection = new Vector2(nextPosition.x - tr.position.x, nextPosition.y - tr.position.y) * 100;
