@@ -4,15 +4,16 @@ using DG.Tweening;
 public class PlayerCharSelection : CharacterSelection
 {
 
-    [HideInInspector] public bool hasMovedThisTurn;
-    [HideInInspector] public bool hasFinishedTurn;
+    [HideInInspector] public bool hasMovedThisTurn { get; private set; }
+    [HideInInspector] public bool hasFinishedTurn { get; private set; }
 
-    [HideInInspector] public Vector3 positionTurnStart;
-    [HideInInspector] public WorldTile tileTurnStart;
+    [HideInInspector] public Vector3 positionTurnStart { get; private set; }
+    [HideInInspector] public WorldTile tileTurnStart { get; private set; }
 
     public Color grayOutColor;
 
     OscilateScale oscilateScale;
+    public SelectionArrow selectionArrow;
     SpriteRenderer[] spriteRenderers;
 
 
@@ -21,7 +22,6 @@ public class PlayerCharSelection : CharacterSelection
         base.Awake();
         FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
         FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
-
 
         // subscribe to player death
         GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
@@ -35,8 +35,21 @@ public class PlayerCharSelection : CharacterSelection
         return !hasFinishedTurn;
     }
 
+    public void SelectCharacter()
+    {
+        selectionArrow.gameObject.SetActive(true);
+    }
+
+    public void DeselectCharacter()
+    {
+        // hide the arrow
+        selectionArrow.gameObject.SetActive(false);
+
+    }
+
     public override void FinishCharacterTurn()
     {
+        DeselectCharacter();
         // stop playing "idle animation"
         oscilateScale.SetOscilation(false);
 
@@ -48,22 +61,25 @@ public class PlayerCharSelection : CharacterSelection
     void GrayOutCharacter()
     {
         foreach (SpriteRenderer rend in spriteRenderers)
-        {        
-            if(rend != null)
+        {
+            if (rend != null)
                 rend.DOColor(grayOutColor, 1f);
         }
     }
 
     void ReturnCharacterColor()
     {
-        
         foreach (SpriteRenderer rend in spriteRenderers)
         {
-            // well, shieet that looks way better than changing it right away;
-            if(rend != null)
+            // shieet that looks way better than changing it right away;
+            if (rend != null)
                 rend.DOColor(Color.white, 2f);
         }
+    }
 
+    public void SetCharacterMoved(bool hasMoved)
+    {
+        hasMovedThisTurn = hasMoved;
     }
 
     void OnPlayerCharDeath()
@@ -89,5 +105,6 @@ public class PlayerCharSelection : CharacterSelection
         if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             tileTurnStart = _tile;
     }
+
 }
 

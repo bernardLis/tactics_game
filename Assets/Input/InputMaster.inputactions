@@ -11,7 +11,8 @@
                     "id": "70892e3d-250f-4237-a502-b1321820c988",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "QButtonClick",
@@ -19,7 +20,8 @@
                     "id": "618f08ab-7a07-40cf-a3c8-0f92bedb73d3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "WButtonClick",
@@ -27,7 +29,8 @@
                     "id": "8b102efc-3ce3-44f2-aa6b-63c50c2f0bcb",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "EButtonClick",
@@ -35,7 +38,8 @@
                     "id": "9dee79f0-db68-4c3e-933b-afcafc5a5a5c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RButtonClick",
@@ -43,7 +47,8 @@
                     "id": "3dd55fee-0310-480a-951e-d111f267683f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TButtonClick",
@@ -51,7 +56,8 @@
                     "id": "51f2f3c9-941f-43b6-b626-7404acbbd970",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "YButtonClick",
@@ -59,7 +65,8 @@
                     "id": "fc5387e7-b010-406f-85a3-2780fd031eef",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Back",
@@ -67,7 +74,8 @@
                     "id": "7c78f711-47be-47b3-b3e1-04865a1d14a7",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "LeftMouseClick",
@@ -75,7 +83,8 @@
                     "id": "6a73f7fa-bf06-4d7e-ac53-fa6e2c526e46",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "SelectClick",
@@ -83,7 +92,8 @@
                     "id": "581d02ac-c4e3-418e-ac16-a6dbc3bbc39e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ZoomOut",
@@ -91,7 +101,8 @@
                     "id": "0f94d516-b444-4a32-af0a-d47b86fc77e2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ZoomIn",
@@ -99,7 +110,8 @@
                     "id": "28561bfc-00d2-47fe-97ef-87a6df8882ab",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "SelectNextCharacter",
@@ -107,7 +119,8 @@
                     "id": "9d5f88cd-7b60-4de9-bafd-87df0f29f18a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "SelectPreviousCharacter",
@@ -115,7 +128,17 @@
                     "id": "ea3b674b-df29-4a25-be2d-2c204c9d6ea3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CancelEverything",
+                    "type": "Button",
+                    "id": "1f261bb9-2615-4413-a68d-5ce71b177671",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -316,6 +339,17 @@
                     "action": "YButtonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdce7e40-3aa1-4850-9951-4235e46ea8a4",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "CancelEverything",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -329,7 +363,8 @@
                     "id": "72d3cb93-a3a7-477b-9cc4-e01878d426bc",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "DisableQuestUI",
@@ -337,7 +372,8 @@
                     "id": "94cab8f4-a6a5-464a-8311-c96b09f59e0a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "QuestMovement",
@@ -345,7 +381,8 @@
                     "id": "a549cc41-2f19-4355-b83a-b046e5346a8b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -449,7 +486,8 @@
                     "id": "a6df8010-b323-4296-a372-4c30ba82bf15",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "DisableInventoryUI",
@@ -457,7 +495,8 @@
                     "id": "bd0e9c66-9512-4acf-850c-45c59ce61d5a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "InventoryMovement",
@@ -465,7 +504,8 @@
                     "id": "e49492d9-ebe1-42f9-baca-c623ebbd984d",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -569,7 +609,8 @@
                     "id": "727d1062-3fd9-402e-9e81-4c31dc72bd7d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

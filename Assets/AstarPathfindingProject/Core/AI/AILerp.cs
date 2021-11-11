@@ -749,7 +749,7 @@ namespace Pathfinding
             }
 
             interpolator.distance += deltaTime * speed;
-            if (interpolator.remainingDistance < 0.0001f && !reachedEndOfPath)
+            if (interpolator.remainingDistance < 0.1f && !reachedEndOfPath)
             {
                 reachedEndOfPath = true;
                 OnTargetReached();

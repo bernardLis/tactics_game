@@ -29,6 +29,9 @@ public class CharacterBattleController : MonoBehaviour
     bool hasCharacterStartedMoving;
     bool hasCharacterGoneBack;
 
+    Seeker seeker;
+    LineRenderer pathRenderer;
+
     // interactions
     Ability selectedAbility;
 
@@ -55,6 +58,9 @@ public class CharacterBattleController : MonoBehaviour
         highlighter = Highlighter.instance;
         battleInputController = BattleInputController.instance;
         battleUI = BattleUI.instance;
+
+        seeker = GetComponent<Seeker>();
+        pathRenderer = GetComponent<LineRenderer>();
     }
 
     void Update()
@@ -63,23 +69,21 @@ public class CharacterBattleController : MonoBehaviour
         if (selectedCharacter == null)
             return;
 
-        if (hasCharacterStartedMoving && tempObject != null 
+        if (hasCharacterStartedMoving && tempObject != null
             && Vector3.Distance(selectedCharacter.transform.position, tempObject.transform.position) <= 0.1f)
             CharacterReachedDestination();
     }
 
     public void Select(Collider2D _col)
     {
+        ClearPathRenderer();
+
         // get the tile movepoint is on
         if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             selectedTile = _tile;
 
         // select character
-        // TODO: this is quite convoluted...
-        if (_col != null && _col.transform.CompareTag("PlayerCollider")
-        && !(selectedCharacter != null && playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn) // don't allow to select another character if you have moved this character and did not take the action
-        && selectedAbility == null // don't allow to select another character if you are triggering ability;
-        && _col.GetComponentInParent<PlayerCharSelection>().CanBeSelected()) // and character allows selection
+        if (CanSelectCharacter(_col))
         {
             SelectCharacter(_col.transform.parent.gameObject);
             return;
@@ -89,15 +93,46 @@ public class CharacterBattleController : MonoBehaviour
             return;
 
         // when character is selected
+
         // Move
-        if ((!playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn)
-            && selectedTile.WithinRange
-            && selectedAbility == null)
+        if (CanMoveCharacter() && selectedTile.WithinRange)
             Move();
 
         // Interact with something when ability is selected && tile is within range
         if (_col != null && !playerCharSelection.hasFinishedTurn && selectedTile.WithinRange)
             Interact(_col);
+    }
+
+    bool CanSelectCharacter(Collider2D _col)
+    {
+        if (_col == null)
+            return false;
+        // can select only player characters
+        if (!_col.transform.CompareTag("PlayerCollider"))
+            return false;
+        // character allows selection
+        if (!_col.GetComponentInParent<PlayerCharSelection>().CanBeSelected())
+            return false;
+        // don't allow to select another character if you have moved this character and did not take the action
+        if (selectedCharacter != null && playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn)
+            return false;
+        // don't allow to select another character if you are triggering ability;
+        if (selectedAbility != null)
+            return false;
+
+        return true;
+    }
+
+    bool CanMoveCharacter()
+    {
+        if (playerCharSelection.hasMovedThisTurn)
+            return false;
+        if (playerCharSelection.hasFinishedTurn)
+            return false;
+        if (selectedAbility != null)
+            return false;
+
+        return true;
     }
 
     void SelectCharacter(GameObject _character)
@@ -108,13 +143,23 @@ public class CharacterBattleController : MonoBehaviour
             return;
         }
 
+        // character specific ui
+        if (playerCharSelection != null)
+            playerCharSelection.DeselectCharacter();
+
         // cache
         selectedCharacter = _character;
         playerStats = selectedCharacter.GetComponent<PlayerStats>();
         playerCharSelection = selectedCharacter.GetComponent<PlayerCharSelection>();
         aILerp = selectedCharacter.GetComponent<AILerp>();
+        aILerp.canMove = false;
+
+        //seeker = selectedCharacter.GetComponent<Seeker>();
         destinationSetter = selectedCharacter.GetComponent<AIDestinationSetter>();
         characterRendererManager = selectedCharacter.GetComponentInChildren<CharacterRendererManager>();
+
+        // character specific ui
+        playerCharSelection.SelectCharacter();
 
         // UI
         battleUI.ShowCharacterUI(playerStats);
@@ -126,6 +171,8 @@ public class CharacterBattleController : MonoBehaviour
 
     void Move()
     {
+        aILerp.canMove = true;
+
         hasCharacterStartedMoving = true;
 
         highlighter.ClearHighlightedTiles();
@@ -134,33 +181,17 @@ public class CharacterBattleController : MonoBehaviour
         tempObject.transform.position = transform.position;
         destinationSetter.target = tempObject.transform;
 
-        playerCharSelection.hasMovedThisTurn = true;
-
-        // disable input
-        battleInputController.allowInput = false;
+        playerCharSelection.SetCharacterMoved(true);
     }
-
-
-    void CharacterReachedDestination()
-    {
-        if (tempObject != null)
-            Destroy(tempObject);
-
-        battleInputController.allowInput = true;
-        hasCharacterStartedMoving = false;
-
-        if (!hasCharacterGoneBack)
-            return;
-
-        // highlight movement range if character was going back
-        hasCharacterGoneBack = false;
-        highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
-                                    new Color(0.53f, 0.52f, 1f, 1f));
-    }
-
 
     public void Back()
     {
+        ClearPathRenderer();
+
+        // if back is called during character movement return
+        if (hasCharacterStartedMoving)
+            return;
+
         if (selectedCharacter == null)
             return;
 
@@ -176,14 +207,15 @@ public class CharacterBattleController : MonoBehaviour
             return;
         }
 
-        battleInputController.allowInput = false;
-        hasCharacterGoneBack = true;                   
-        hasCharacterStartedMoving = true;
 
         // flag reset
-        playerCharSelection.hasMovedThisTurn = false;
+        playerCharSelection.SetCharacterMoved(false);
 
-        // move move point and character to character's starting position quickly.
+        hasCharacterGoneBack = true;
+        hasCharacterStartedMoving = true;
+
+        // move character to character's starting position quickly.
+        aILerp.canMove = true;
         aILerp.speed = 15;
 
         transform.position = playerCharSelection.positionTurnStart;
@@ -191,6 +223,34 @@ public class CharacterBattleController : MonoBehaviour
         tempObject = new GameObject("Back Destination");
         tempObject.transform.position = playerCharSelection.positionTurnStart;
         destinationSetter.target = tempObject.transform;
+    }
+
+    void CharacterReachedDestination()
+    {
+        if (tempObject != null)
+            Destroy(tempObject);
+
+        // reset flag
+        hasCharacterStartedMoving = false;
+
+        // TODO: this is bad - I do it because my reached destination is more liberal than ai lerp reached destination. 
+        // Ideally, I have only one reached destination. 
+        Invoke("BlockMovement", 0.2f);
+
+        // check if it was back or normal move
+        if (!hasCharacterGoneBack)
+            return;
+
+        // highlight movement range if character was going back
+        hasCharacterGoneBack = false;
+        highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
+                                    new Color(0.53f, 0.52f, 1f, 1f));
+    }
+    
+    // TODO: this is bad.
+    void BlockMovement()
+    {
+        aILerp.canMove = false;
     }
 
     public bool CanInteract()
@@ -201,7 +261,8 @@ public class CharacterBattleController : MonoBehaviour
             return false;
         if (playerCharSelection.hasFinishedTurn)
             return false;
-
+        if (hasCharacterStartedMoving) // don't allow button click when character is on the move;
+            return false;
         return true;
     }
 
@@ -237,12 +298,15 @@ public class CharacterBattleController : MonoBehaviour
         TurnManager.instance.PlayerCharacterTurnFinished();
     }
 
-    void UnselectCharacter()
+    public void UnselectCharacter()
     {
+        // character specific ui
+        if (playerCharSelection != null)
+            playerCharSelection.DeselectCharacter();
+
         selectedCharacter = null;
         playerStats = null;
         playerCharSelection = null;
-
         selectedAbility = null;
 
         // UI
@@ -252,4 +316,44 @@ public class CharacterBattleController : MonoBehaviour
         highlighter.ClearHighlightedTiles();
     }
 
+    // TODO: this probably shouldn't be here 
+    public void DrawPath()
+    {
+        ClearPathRenderer();
+
+        // don't draw path if ability is selected
+        if (selectedAbility != null)
+            return;
+
+        if (seeker == null)
+            return;
+
+        // get the tile movepoint is on
+        if (!tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
+            return;
+        // don't draw path to tiles you can't reach
+        if (!_tile.WithinRange)
+            return;
+
+        // https://arongranberg.com/astar/docs_dev/calling-pathfinding.php
+        var path = seeker.StartPath(selectedCharacter.transform.position, transform.position, OnPathComplete);
+    }
+
+    void OnPathComplete(Path p)
+    {
+        if (p.error)
+            return;
+
+        // draw path with line renderer
+        for (int i = 0; i < p.vectorPath.Count; i++)
+        {
+            pathRenderer.positionCount = p.vectorPath.Count;
+            pathRenderer.SetPosition(i, new Vector3(p.vectorPath[i].x, p.vectorPath[i].y, -1f));
+        }
+    }
+
+    void ClearPathRenderer()
+    {
+        pathRenderer.positionCount = 0;
+    }
 }

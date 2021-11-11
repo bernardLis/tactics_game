@@ -152,6 +152,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelEverything"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f261bb9-2615-4413-a68d-5ce71b177671"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -350,6 +359,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""YButtonClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fdce7e40-3aa1-4850-9951-4235e46ea8a4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""CancelEverything"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -676,6 +696,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_ZoomIn = m_Player.FindAction("ZoomIn", throwIfNotFound: true);
         m_Player_SelectNextCharacter = m_Player.FindAction("SelectNextCharacter", throwIfNotFound: true);
         m_Player_SelectPreviousCharacter = m_Player.FindAction("SelectPreviousCharacter", throwIfNotFound: true);
+        m_Player_CancelEverything = m_Player.FindAction("CancelEverything", throwIfNotFound: true);
         // QuestUI
         m_QuestUI = asset.FindActionMap("QuestUI", throwIfNotFound: true);
         m_QuestUI_Test = m_QuestUI.FindAction("Test", throwIfNotFound: true);
@@ -762,6 +783,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ZoomIn;
     private readonly InputAction m_Player_SelectNextCharacter;
     private readonly InputAction m_Player_SelectPreviousCharacter;
+    private readonly InputAction m_Player_CancelEverything;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -780,6 +802,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @ZoomIn => m_Wrapper.m_Player_ZoomIn;
         public InputAction @SelectNextCharacter => m_Wrapper.m_Player_SelectNextCharacter;
         public InputAction @SelectPreviousCharacter => m_Wrapper.m_Player_SelectPreviousCharacter;
+        public InputAction @CancelEverything => m_Wrapper.m_Player_CancelEverything;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -831,6 +854,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @SelectPreviousCharacter.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectPreviousCharacter;
                 @SelectPreviousCharacter.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectPreviousCharacter;
                 @SelectPreviousCharacter.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectPreviousCharacter;
+                @CancelEverything.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelEverything;
+                @CancelEverything.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelEverything;
+                @CancelEverything.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelEverything;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -877,6 +903,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @SelectPreviousCharacter.started += instance.OnSelectPreviousCharacter;
                 @SelectPreviousCharacter.performed += instance.OnSelectPreviousCharacter;
                 @SelectPreviousCharacter.canceled += instance.OnSelectPreviousCharacter;
+                @CancelEverything.started += instance.OnCancelEverything;
+                @CancelEverything.performed += instance.OnCancelEverything;
+                @CancelEverything.canceled += instance.OnCancelEverything;
             }
         }
     }
@@ -1037,6 +1066,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnZoomIn(InputAction.CallbackContext context);
         void OnSelectNextCharacter(InputAction.CallbackContext context);
         void OnSelectPreviousCharacter(InputAction.CallbackContext context);
+        void OnCancelEverything(InputAction.CallbackContext context);
     }
     public interface IQuestUIActions
     {

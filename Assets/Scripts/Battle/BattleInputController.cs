@@ -24,7 +24,7 @@ public class BattleInputController : MonoBehaviour
     BattlePreparationController battlePreparationController;
     OscilateScale oscilateScale;
 
-    public bool allowInput;
+    [HideInInspector] public bool allowInput { get; private set; }
 
     public static BattleInputController instance;
     void Awake()
@@ -97,6 +97,9 @@ public class BattleInputController : MonoBehaviour
 
         playerInput.actions["Back"].performed += ctx => BackClick();
 
+        playerInput.actions["CancelEverything"].performed += ctx => CancelEverything();
+
+
         // char placement specific for now
         playerInput.actions["SelectNextCharacter"].performed += ctx => SelectNextCharacter();
         playerInput.actions["SelectPreviousCharacter"].performed += ctx => SelectPreviousCharacter();
@@ -118,6 +121,9 @@ public class BattleInputController : MonoBehaviour
 
         playerInput.actions["Back"].performed -= ctx => BackClick();
 
+        playerInput.actions["CancelEverything"].performed -= ctx => CancelEverything();
+
+
         // char placement specific for now
         playerInput.actions["SelectNextCharacter"].performed -= ctx => SelectNextCharacter();
         playerInput.actions["SelectPreviousCharacter"].performed -= ctx => SelectPreviousCharacter();
@@ -126,6 +132,11 @@ public class BattleInputController : MonoBehaviour
     public bool IsInputAllowed()
     {
         return allowInput;
+    }
+
+    public void SetInputAllowed(bool isAllowed)
+    {
+        allowInput = isAllowed;
     }
 
     void LeftMouseClick()
@@ -187,6 +198,13 @@ public class BattleInputController : MonoBehaviour
             battlePreparationController.SelectPreviousCharacter();
             return;
         }
+    }
+
+    void CancelEverything()
+    {
+        allowInput = true;
+        characterBattleController.Back();
+        characterBattleController.UnselectCharacter();
     }
 
     // when you click Q on keyboard I want to simulate clicking a button with mouse

@@ -104,7 +104,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
         healthGain = Mathf.Clamp(healthGain, 0, maxHealth.GetValue() - currentHealth);
         currentHealth += healthGain;
 
-        Debug.Log(transform.name + " heals " + healthGain + " .");
+        Debug.Log(transform.name + " heals " + healthGain + ".");
 
         damageUI.DisplayHeal(healthGain);
     }

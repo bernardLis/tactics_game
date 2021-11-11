@@ -75,6 +75,9 @@ public class MovePointController : MonoBehaviour
 
         transform.position = pos;
 
+        // TODO: dunno if this is the correct way to handle this.
+        characterBattleController.DrawPath();
+
         UpdateTileInfoUI();
 
         // TODO: character being placed
