@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+
+public enum AbilityType { ATTACK, DEFEND, HEAL, MOVE }
 
 public abstract class Ability : ScriptableObject
 {
     public string aName = "New Ability";
     public string aDescription = "New Description";
 
-    public string aType;
+    public AbilityType aType;
 
     public Sprite aIcon;
     public AudioClip aSound;
@@ -33,10 +34,11 @@ public abstract class Ability : ScriptableObject
         myStats = obj.GetComponent<CharacterStats>();
         audioSource = AudioScript.instance.GetComponent<AudioSource>();
     }
-    public virtual void HighlightTargetable()
+    public virtual async Task HighlightTargetable()
     {
-        highlighter.HighlightTiles(characterGameObject.transform.position, range,
-                                   highlightColor, canTargetDiagonally, canTargetSelf);
+        await highlighter.HighlightTiles(characterGameObject.transform.position, range,
+                       highlightColor, canTargetDiagonally, canTargetSelf);
+
     }
     public abstract bool TriggerAbility(GameObject target);
 }

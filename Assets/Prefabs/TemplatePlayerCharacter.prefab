@@ -470,6 +470,7 @@ GameObject:
   - component: {fileID: 1864993292968118660}
   - component: {fileID: 1864993293436626187}
   - component: {fileID: 1864993293436626183}
+  - component: {fileID: 4669123874557101098}
   - component: {fileID: 1864993293436626181}
   - component: {fileID: 2624438210781941185}
   - component: {fileID: 6054607876147072440}
@@ -527,8 +528,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6105715623576548083}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -841411547
+  m_SortingLayer: 3
   m_SortingOrder: 99
 --- !u!114 &1384944250223896114
 MonoBehaviour:
@@ -634,16 +635,23 @@ MonoBehaviour:
   characterName: 
   movementRange:
     baseValue: 4
+    modifiers: 
   strength:
     baseValue: 0
+    modifiers: 
   armor:
     baseValue: 5
+    modifiers: 
   intelligence:
     baseValue: 0
+    modifiers: 
   maxHealth:
     baseValue: 0
+    modifiers: 
   maxMana:
     baseValue: 0
+    modifiers: 
+  stats: []
   abilities: []
 --- !u!114 &1864993292968118660
 MonoBehaviour:
@@ -682,6 +690,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d1dce015e723454a943f8c8c4ef0e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4669123874557101098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105715623576548083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b877cf5225b56d40b13b5f2074220a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1864993293436626181

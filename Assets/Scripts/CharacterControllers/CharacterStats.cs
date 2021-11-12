@@ -17,6 +17,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
     [HideInInspector] public Stat intelligence;
     [HideInInspector] public Stat maxHealth;
     [HideInInspector] public Stat maxMana;
+    public List<Stat> stats;
 
     public int currentHealth { get; private set; }
     public int currentMana { get; private set; }
@@ -31,6 +32,18 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
     {
         damageUI = GetComponent<DamageUI>();
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+
+        AddStatsToList();
+    }
+
+    void AddStatsToList()
+    {
+        stats.Add(movementRange);
+        stats.Add(strength);
+        stats.Add(armor);
+        stats.Add(intelligence);
+        stats.Add(maxHealth);
+        stats.Add(maxMana);
     }
     public void SetCharacteristics(Character _character)
     {
@@ -112,7 +125,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
     public void GetPushed()
     {
         // TODO: do this instead of pushable character.
-        
+
     }
 
     public virtual void Die()

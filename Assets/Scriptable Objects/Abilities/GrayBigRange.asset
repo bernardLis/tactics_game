@@ -19,7 +19,7 @@ MonoBehaviour:
   aSound: {fileID: 8300000, guid: 3d96ffe5bfae1e74189fbbfeaf87ee22, type: 3}
   value: 7
   range: 7
-  manaCost: 0
+  manaCost: 999
   canTargetSelf: 0
   canTargetDiagonally: 0
   highlightColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}

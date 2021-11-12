@@ -41,6 +41,8 @@ public class HealerEnemyAI : EnemyAI
                 CharacterStats targetStats = targetCharacter.GetComponent<CharacterStats>();
                 if (targetStats.currentHealth < targetStats.maxHealth.GetValue())
                 {
+                    // TODO: should I make it all async?
+#pragma warning disable CS4014
                     myStats.abilities[1].HighlightTargetable();
                     yield return new WaitForSeconds(0.5f);
                     enemyInteractionController.Heal(targetCharacter);

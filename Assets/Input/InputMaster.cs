@@ -37,6 +37,24 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""AButtonClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""51f2f3c9-941f-43b6-b626-7404acbbd970"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SButtonClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc5387e7-b010-406f-85a3-2780fd031eef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""QButtonClick"",
                     ""type"": ""Button"",
                     ""id"": ""618f08ab-7a07-40cf-a3c8-0f92bedb73d3"",
@@ -73,63 +91,27 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TButtonClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""51f2f3c9-941f-43b6-b626-7404acbbd970"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""YButtonClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""fc5387e7-b010-406f-85a3-2780fd031eef"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Back"",
                     ""type"": ""Button"",
                     ""id"": ""7c78f711-47be-47b3-b3e1-04865a1d14a7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""LeftMouseClick"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""6a73f7fa-bf06-4d7e-ac53-fa6e2c526e46"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": true
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""SelectClick"",
                     ""type"": ""Button"",
                     ""id"": ""581d02ac-c4e3-418e-ac16-a6dbc3bbc39e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ZoomOut"",
-                    ""type"": ""Button"",
-                    ""id"": ""0f94d516-b444-4a32-af0a-d47b86fc77e2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ZoomIn"",
-                    ""type"": ""Button"",
-                    ""id"": ""28561bfc-00d2-47fe-97ef-87a6df8882ab"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -212,7 +194,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""1157a2df-7454-43be-84e8-c17f80af27ba"",
                     ""path"": ""<Keyboard>/b"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Back"",
@@ -223,7 +205,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""fe2c0d37-b13f-4f2f-8028-26b55420ca74"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""LeftMouseClick"",
@@ -238,28 +220,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""SelectClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""aba80308-1ab1-4b94-af1d-95a9276bdab4"",
-                    ""path"": ""<Keyboard>/period"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ZoomOut"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4c220781-60e0-4033-a4db-76c06987f93c"",
-                    ""path"": ""<Keyboard>/comma"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ZoomIn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -342,34 +302,34 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d9818ed2-e762-40ff-9499-74de2acc107e"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""TButtonClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4a837ccc-7b30-462f-8d96-b9ab51ca40b8"",
-                    ""path"": ""<Keyboard>/y"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""YButtonClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""fdce7e40-3aa1-4850-9951-4235e46ea8a4"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""CancelEverything"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9818ed2-e762-40ff-9499-74de2acc107e"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""AButtonClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a837ccc-7b30-462f-8d96-b9ab51ca40b8"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""SButtonClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -683,17 +643,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_ArrowMovement = m_Player.FindAction("ArrowMovement", throwIfNotFound: true);
+        m_Player_AButtonClick = m_Player.FindAction("AButtonClick", throwIfNotFound: true);
+        m_Player_SButtonClick = m_Player.FindAction("SButtonClick", throwIfNotFound: true);
         m_Player_QButtonClick = m_Player.FindAction("QButtonClick", throwIfNotFound: true);
         m_Player_WButtonClick = m_Player.FindAction("WButtonClick", throwIfNotFound: true);
         m_Player_EButtonClick = m_Player.FindAction("EButtonClick", throwIfNotFound: true);
         m_Player_RButtonClick = m_Player.FindAction("RButtonClick", throwIfNotFound: true);
-        m_Player_TButtonClick = m_Player.FindAction("TButtonClick", throwIfNotFound: true);
-        m_Player_YButtonClick = m_Player.FindAction("YButtonClick", throwIfNotFound: true);
         m_Player_Back = m_Player.FindAction("Back", throwIfNotFound: true);
         m_Player_LeftMouseClick = m_Player.FindAction("LeftMouseClick", throwIfNotFound: true);
         m_Player_SelectClick = m_Player.FindAction("SelectClick", throwIfNotFound: true);
-        m_Player_ZoomOut = m_Player.FindAction("ZoomOut", throwIfNotFound: true);
-        m_Player_ZoomIn = m_Player.FindAction("ZoomIn", throwIfNotFound: true);
         m_Player_SelectNextCharacter = m_Player.FindAction("SelectNextCharacter", throwIfNotFound: true);
         m_Player_SelectPreviousCharacter = m_Player.FindAction("SelectPreviousCharacter", throwIfNotFound: true);
         m_Player_CancelEverything = m_Player.FindAction("CancelEverything", throwIfNotFound: true);
@@ -770,17 +728,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_ArrowMovement;
+    private readonly InputAction m_Player_AButtonClick;
+    private readonly InputAction m_Player_SButtonClick;
     private readonly InputAction m_Player_QButtonClick;
     private readonly InputAction m_Player_WButtonClick;
     private readonly InputAction m_Player_EButtonClick;
     private readonly InputAction m_Player_RButtonClick;
-    private readonly InputAction m_Player_TButtonClick;
-    private readonly InputAction m_Player_YButtonClick;
     private readonly InputAction m_Player_Back;
     private readonly InputAction m_Player_LeftMouseClick;
     private readonly InputAction m_Player_SelectClick;
-    private readonly InputAction m_Player_ZoomOut;
-    private readonly InputAction m_Player_ZoomIn;
     private readonly InputAction m_Player_SelectNextCharacter;
     private readonly InputAction m_Player_SelectPreviousCharacter;
     private readonly InputAction m_Player_CancelEverything;
@@ -789,17 +745,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         private @InputMaster m_Wrapper;
         public PlayerActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @ArrowMovement => m_Wrapper.m_Player_ArrowMovement;
+        public InputAction @AButtonClick => m_Wrapper.m_Player_AButtonClick;
+        public InputAction @SButtonClick => m_Wrapper.m_Player_SButtonClick;
         public InputAction @QButtonClick => m_Wrapper.m_Player_QButtonClick;
         public InputAction @WButtonClick => m_Wrapper.m_Player_WButtonClick;
         public InputAction @EButtonClick => m_Wrapper.m_Player_EButtonClick;
         public InputAction @RButtonClick => m_Wrapper.m_Player_RButtonClick;
-        public InputAction @TButtonClick => m_Wrapper.m_Player_TButtonClick;
-        public InputAction @YButtonClick => m_Wrapper.m_Player_YButtonClick;
         public InputAction @Back => m_Wrapper.m_Player_Back;
         public InputAction @LeftMouseClick => m_Wrapper.m_Player_LeftMouseClick;
         public InputAction @SelectClick => m_Wrapper.m_Player_SelectClick;
-        public InputAction @ZoomOut => m_Wrapper.m_Player_ZoomOut;
-        public InputAction @ZoomIn => m_Wrapper.m_Player_ZoomIn;
         public InputAction @SelectNextCharacter => m_Wrapper.m_Player_SelectNextCharacter;
         public InputAction @SelectPreviousCharacter => m_Wrapper.m_Player_SelectPreviousCharacter;
         public InputAction @CancelEverything => m_Wrapper.m_Player_CancelEverything;
@@ -815,6 +769,12 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @ArrowMovement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowMovement;
                 @ArrowMovement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowMovement;
                 @ArrowMovement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowMovement;
+                @AButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAButtonClick;
+                @AButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAButtonClick;
+                @AButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAButtonClick;
+                @SButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSButtonClick;
+                @SButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSButtonClick;
+                @SButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSButtonClick;
                 @QButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
                 @QButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
                 @QButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
@@ -827,12 +787,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @RButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRButtonClick;
                 @RButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRButtonClick;
                 @RButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRButtonClick;
-                @TButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTButtonClick;
-                @TButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTButtonClick;
-                @TButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTButtonClick;
-                @YButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYButtonClick;
-                @YButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYButtonClick;
-                @YButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYButtonClick;
                 @Back.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
                 @Back.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
                 @Back.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBack;
@@ -842,12 +796,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @SelectClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
                 @SelectClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
                 @SelectClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
-                @ZoomOut.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
-                @ZoomOut.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
-                @ZoomOut.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
-                @ZoomIn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
-                @ZoomIn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
-                @ZoomIn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomIn;
                 @SelectNextCharacter.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
                 @SelectNextCharacter.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
                 @SelectNextCharacter.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
@@ -864,6 +812,12 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @ArrowMovement.started += instance.OnArrowMovement;
                 @ArrowMovement.performed += instance.OnArrowMovement;
                 @ArrowMovement.canceled += instance.OnArrowMovement;
+                @AButtonClick.started += instance.OnAButtonClick;
+                @AButtonClick.performed += instance.OnAButtonClick;
+                @AButtonClick.canceled += instance.OnAButtonClick;
+                @SButtonClick.started += instance.OnSButtonClick;
+                @SButtonClick.performed += instance.OnSButtonClick;
+                @SButtonClick.canceled += instance.OnSButtonClick;
                 @QButtonClick.started += instance.OnQButtonClick;
                 @QButtonClick.performed += instance.OnQButtonClick;
                 @QButtonClick.canceled += instance.OnQButtonClick;
@@ -876,12 +830,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @RButtonClick.started += instance.OnRButtonClick;
                 @RButtonClick.performed += instance.OnRButtonClick;
                 @RButtonClick.canceled += instance.OnRButtonClick;
-                @TButtonClick.started += instance.OnTButtonClick;
-                @TButtonClick.performed += instance.OnTButtonClick;
-                @TButtonClick.canceled += instance.OnTButtonClick;
-                @YButtonClick.started += instance.OnYButtonClick;
-                @YButtonClick.performed += instance.OnYButtonClick;
-                @YButtonClick.canceled += instance.OnYButtonClick;
                 @Back.started += instance.OnBack;
                 @Back.performed += instance.OnBack;
                 @Back.canceled += instance.OnBack;
@@ -891,12 +839,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @SelectClick.started += instance.OnSelectClick;
                 @SelectClick.performed += instance.OnSelectClick;
                 @SelectClick.canceled += instance.OnSelectClick;
-                @ZoomOut.started += instance.OnZoomOut;
-                @ZoomOut.performed += instance.OnZoomOut;
-                @ZoomOut.canceled += instance.OnZoomOut;
-                @ZoomIn.started += instance.OnZoomIn;
-                @ZoomIn.performed += instance.OnZoomIn;
-                @ZoomIn.canceled += instance.OnZoomIn;
                 @SelectNextCharacter.started += instance.OnSelectNextCharacter;
                 @SelectNextCharacter.performed += instance.OnSelectNextCharacter;
                 @SelectNextCharacter.canceled += instance.OnSelectNextCharacter;
@@ -1053,17 +995,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnArrowMovement(InputAction.CallbackContext context);
+        void OnAButtonClick(InputAction.CallbackContext context);
+        void OnSButtonClick(InputAction.CallbackContext context);
         void OnQButtonClick(InputAction.CallbackContext context);
         void OnWButtonClick(InputAction.CallbackContext context);
         void OnEButtonClick(InputAction.CallbackContext context);
         void OnRButtonClick(InputAction.CallbackContext context);
-        void OnTButtonClick(InputAction.CallbackContext context);
-        void OnYButtonClick(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
         void OnLeftMouseClick(InputAction.CallbackContext context);
         void OnSelectClick(InputAction.CallbackContext context);
-        void OnZoomOut(InputAction.CallbackContext context);
-        void OnZoomIn(InputAction.CallbackContext context);
         void OnSelectNextCharacter(InputAction.CallbackContext context);
         void OnSelectPreviousCharacter(InputAction.CallbackContext context);
         void OnCancelEverything(InputAction.CallbackContext context);

@@ -33,6 +33,8 @@ public class MeeleEnemyAI : EnemyAI
             enemyInteractionController.Attack(targetCharacter);
             // clearing the highlight and finishing the turn
             yield return new WaitForSeconds(1f);
+            // TODO: should I make it all async?
+#pragma warning disable CS4014
             highlighter.ClearHighlightedTiles();
         }
         // or just face its direction

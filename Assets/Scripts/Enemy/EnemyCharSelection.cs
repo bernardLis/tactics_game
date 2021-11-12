@@ -16,6 +16,8 @@ public class EnemyCharSelection : CharacterSelection
     }
     void OnEnemyDeath()
     {
+        // TODO: should I make it all async?
+#pragma warning disable CS4014
         highlighter.ClearHighlightedTiles();
     }
 

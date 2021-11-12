@@ -4,6 +4,9 @@ using UnityEngine;
 public class BattlePreparationController : MonoBehaviour
 {
 
+    // global utility
+    Highlighter highlighter;
+
     [Header("Chararacter from SO")]
     public List<Character> charactersToPlace = new();
     public GameObject characterTemplate;
@@ -17,6 +20,8 @@ public class BattlePreparationController : MonoBehaviour
     {
         if (TurnManager.battleState == BattleState.PREPARATION)
             InstantiateCharacter(0);
+
+        highlighter = Highlighter.instance;
     }
 
     public void SelectNextCharacter()
@@ -72,7 +77,10 @@ public class BattlePreparationController : MonoBehaviour
         // start the battle
         if (charactersToPlace.Count == 0)
         {
-            Highlighter.instance.ClearHighlightedTiles();
+            // TODO: should I make it all async?
+#pragma warning disable CS4014
+            highlighter.ClearHighlightedTiles();
+
             TurnManager.instance.StartBattle();
             return;
         }

@@ -14,7 +14,7 @@ public class ConversationUI : MonoBehaviour
     IVisualElementScheduledItem scheduler;
 
     bool printTextCoroutineFinished = true;
-    bool animationOngoing;
+    bool isAnimationOn;
 
     IEnumerator typeTextCoroutine;
 
@@ -31,7 +31,7 @@ public class ConversationUI : MonoBehaviour
 
     public void ShowUI()
     {
-        if (animationOngoing)
+        if (isAnimationOn)
             return;
         // https://forum.unity.com/threads/animation-via-code-examples.948161/
         // https://forum.unity.com/threads/propertydrawer-with-uielements-changes-in-array-dont-refresh-inspector.747467/
@@ -45,16 +45,16 @@ public class ConversationUI : MonoBehaviour
 
         conversationContainer.style.top = Length.Percent(topPercent);
         // 'animate' it to come up 
-        animationOngoing = true;
+        isAnimationOn = true;
         scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
     }
 
     public void HideUI()
     {
-        if (animationOngoing)
+        if (isAnimationOn)
             return;
 
-        animationOngoing = true;
+        isAnimationOn = true;
         scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
 
     }
@@ -69,7 +69,7 @@ public class ConversationUI : MonoBehaviour
         }
 
         // TODO: idk how to destroy scheduler...
-        animationOngoing = false;
+        isAnimationOn = false;
 
         scheduler.Pause();
     }
@@ -84,7 +84,7 @@ public class ConversationUI : MonoBehaviour
         }
 
         // TODO: idk how to destroy scheduler...
-        animationOngoing = false;
+        isAnimationOn = false;
         scheduler.Pause();
         conversationContainer.style.display = DisplayStyle.None;
     }

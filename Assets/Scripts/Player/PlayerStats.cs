@@ -15,6 +15,15 @@ public class PlayerStats : CharacterStats
     void OnEnemyTurnEnd()
     {
         GainMana(10);
+
+        // TODO: modifiers should last number of turns and I should be checking each stat for modifier and how many turns are left;
+        foreach(Stat stat in stats)
+        {
+            foreach(int modifier in stat.modifiers)
+            {
+                stat.RemoveModifier(modifier);
+            }
+        }
     }
 
 }

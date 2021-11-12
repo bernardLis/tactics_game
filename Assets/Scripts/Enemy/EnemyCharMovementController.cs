@@ -71,6 +71,8 @@ public class EnemyCharMovementController : CharacterMovementController
     public void GoToDestination(Vector3 destination)
     {
         // clear highlight
+        // TODO: should I make it all async?
+#pragma warning disable CS4014
         highlighter.ClearHighlightedTiles();
 
         // reset ailerp speed

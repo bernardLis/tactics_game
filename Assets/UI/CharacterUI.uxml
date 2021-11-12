@@ -1,12 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="UIStyles/CharacterActionStyles.uss" />
-    <Style src="UIStyles/DamageUIStyles.uss" />
-    <ui:VisualElement name="CharacterAction" style="margin-top: 0; height: 40px; width: auto; justify-content: flex-start; background-color: rgba(255, 136, 136, 0); display: none; opacity: 1; visibility: visible; align-items: auto; -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 0; flex-direction: row; flex-wrap: nowrap; position: absolute;">
-        <ui:Button display-tooltip-when-elided="true" name="QButton" focusable="true" tooltip="Click Q" class="ActionButtons" style="top: auto; left: auto; width: 32px; margin-left: 4px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; background-image: none; background-color: rgb(0, 0, 0); bottom: auto; position: relative;" />
-        <ui:Button display-tooltip-when-elided="true" name="WButton" focusable="true" tooltip="Click W" class="ActionButtons" style="width: 32px; position: relative; top: auto; left: auto; height: 32px; background-image: none; background-color: rgb(0, 0, 0);" />
-        <ui:Button display-tooltip-when-elided="true" name="EButton" tooltip="Click E" focusable="true" class="ActionButtons" style="width: 32px; left: auto; top: auto; height: 32px; margin-left: 4px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; background-image: none; background-color: rgb(0, 0, 0);" />
-        <ui:Button display-tooltip-when-elided="true" name="RButton" tooltip="Click R" focusable="true" class="ActionButtons" style="width: 32px; position: relative; top: auto; left: auto; height: 32px; background-image: none; background-color: rgb(0, 0, 0);" />
-    </ui:VisualElement>
+    <Style src="project://database/Assets/UI/UIStyles/CharacterActionStyles.uss?fileID=7433441132597879392&amp;guid=6298c577d650e464586723babfdc4986&amp;type=3#CharacterActionStyles" />
+    <Style src="project://database/Assets/UI/UIStyles/DamageUIStyles.uss?fileID=7433441132597879392&amp;guid=ed5e3e0cc359d7147bb005a9eaa49ab0&amp;type=3#DamageUIStyles" />
     <ui:VisualElement name="HealthChangeDisplayContainer" style="display: none; position: absolute; -unity-font-style: bold; font-size: 20px;">
         <ui:Label text="50" display-tooltip-when-elided="true" name="HealthChangeDisplayLabel" style="background-color: rgba(255, 255, 255, 0); -unity-font-style: bold; font-size: 24px; color: rgb(255, 109, 109); -unity-text-align: lower-left; white-space: normal;" />
     </ui:VisualElement>

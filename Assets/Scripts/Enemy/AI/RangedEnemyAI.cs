@@ -51,12 +51,16 @@ public class RangedEnemyAI : EnemyAI
             if (targetInRange || newTargetInRange)
             {
                 // TODO: don't hardcore abilities
+                // TODO: should I make it all async?
+#pragma warning disable CS4014
                 myStats.abilities[0].HighlightTargetable();
                 yield return new WaitForSeconds(0.5f);
                 enemyInteractionController.Attack(targetCharacter);
 
                 // clearing the highlight and finishing the turn
                 yield return new WaitForSeconds(1f);
+                // TODO: should I make it all async?
+#pragma warning disable CS4014
                 highlighter.ClearHighlightedTiles();
             }
             // or just face its direction

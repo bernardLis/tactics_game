@@ -15,6 +15,8 @@ public class Highlighter : MonoBehaviour
 
     WorldTile charTile;
     public List<WorldTile> highlightedTiles = new();
+
+    // TODO: when I rewrite enemies I can change it to marked tiles.
     List<WorldTile> previousMarkedTiles = new();
 
 
@@ -43,6 +45,8 @@ public class Highlighter : MonoBehaviour
 
     public WorldTile HighlightSingle(Vector3 position, Color col)
     {
+        // TODO: should I make it all async?
+#pragma warning disable CS4014
         // making sure there is only one highlight at the time
         ClearHighlightedTiles();
 
@@ -76,11 +80,10 @@ public class Highlighter : MonoBehaviour
     }
 
     // TODO: this is a mess...
-    public async void HighlightTiles(Vector3 position, int range, Color col, bool diagonal, bool self)
+    public async Task HighlightTiles(Vector3 position, int range, Color col, bool diagonal, bool self)
     {
         // making sure there is only one highlight at the time
-        ClearHighlightedTiles();
-
+        await ClearHighlightedTiles();
         // get the tile character is currently standing on
         Vector3Int tilePos = tilemap.WorldToCell(position);
 
@@ -157,15 +160,16 @@ public class Highlighter : MonoBehaviour
                     newMarkedTiles.Add(_tile);
             }
         }
+        // delay to make it appear in a cool way (sequentially)
         previousMarkedTiles = newMarkedTiles;
         await Task.Delay(50);
     }
 
     /* Player movement highlighting */
-    public async void HiglightPlayerMovementRange(Vector3 position, int range, Color col)
+    public async Task HiglightPlayerMovementRange(Vector3 position, int range, Color col)
     {
         // clear the list just in case.
-        ClearHighlightedTiles();
+        await ClearHighlightedTiles();
 
         // adding char position
         Vector3Int tilePos = tilemap.WorldToCell(position);
@@ -281,6 +285,8 @@ public class Highlighter : MonoBehaviour
     /* Enemy movement highlighting */
     public void HiglightEnemyMovementRange(Vector3 position, int range, Color col)
     {
+        // TODO: should I make it all async?
+#pragma warning disable CS4014
         // clear the list just in case.
         ClearHighlightedTiles();
 
@@ -411,7 +417,7 @@ public class Highlighter : MonoBehaviour
         highlightedTiles.Remove(_tile);
     }
 
-    public void ClearHighlightedTiles()
+    public async Task ClearHighlightedTiles()
     {
         // destory flashers
         foreach (GameObject flasher in flashers)
@@ -432,6 +438,8 @@ public class Highlighter : MonoBehaviour
         flashers.Clear();
         highlightedTiles.Clear();
         previousMarkedTiles.Clear();
+
+        await Task.Yield();
     }
 
     void HighlightTile(WorldTile tile, Color col)

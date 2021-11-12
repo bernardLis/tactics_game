@@ -31,6 +31,8 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: ee0c100ca9742414d9e8b23ad0811a2e, type: 2}
   characterAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
+  - {fileID: 11400000, guid: a3c1665185194554687fae6545ac1bc2, type: 2}
+  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
   - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
   - {fileID: 11400000, guid: 072c64cc0cc872b4aa875e6c7f766440, type: 2}
   - {fileID: 11400000, guid: 52f76dcea9d85784d90cfafb9d54e907, type: 2}

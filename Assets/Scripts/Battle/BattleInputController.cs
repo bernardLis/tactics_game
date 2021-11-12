@@ -68,8 +68,6 @@ public class BattleInputController : MonoBehaviour
         // inputs
         playerInput = GetComponent<PlayerInput>();
 
-        // hacky way to make sure it is subscribed only once (TODO: does that wokr? XD)
-        UnsubscribeInputActions();
         SubscribeInputActions();
     }
 
@@ -88,12 +86,13 @@ public class BattleInputController : MonoBehaviour
 
         playerInput.actions["SelectClick"].performed += ctx => SelectClick();
 
+        playerInput.actions["AButtonClick"].performed += ctx => AButtonClickInput();
+        playerInput.actions["SButtonClick"].performed += ctx => SButtonClickInput();
+
         playerInput.actions["QButtonClick"].performed += ctx => QButtonClickInput();
         playerInput.actions["WButtonClick"].performed += ctx => WButtonClickInput();
         playerInput.actions["EButtonClick"].performed += ctx => EButtonClickInput();
         playerInput.actions["RButtonClick"].performed += ctx => RButtonClickInput();
-        playerInput.actions["TButtonClick"].performed += ctx => TButtonClickInput();
-        playerInput.actions["YButtonClick"].performed += ctx => YButtonClickInput();
 
         playerInput.actions["Back"].performed += ctx => BackClick();
 
@@ -112,12 +111,13 @@ public class BattleInputController : MonoBehaviour
 
         playerInput.actions["SelectClick"].performed -= ctx => SelectClick();
 
+        playerInput.actions["AButtonClick"].performed += ctx => AButtonClickInput();
+        playerInput.actions["SButtonClick"].performed += ctx => SButtonClickInput();
+
         playerInput.actions["QButtonClick"].performed -= ctx => QButtonClickInput();
         playerInput.actions["WButtonClick"].performed -= ctx => WButtonClickInput();
         playerInput.actions["EButtonClick"].performed -= ctx => EButtonClickInput();
         playerInput.actions["RButtonClick"].performed -= ctx => RButtonClickInput();
-        playerInput.actions["TButtonClick"].performed += ctx => TButtonClickInput();
-        playerInput.actions["YButtonClick"].performed += ctx => YButtonClickInput();
 
         playerInput.actions["Back"].performed -= ctx => BackClick();
 
@@ -208,6 +208,15 @@ public class BattleInputController : MonoBehaviour
     }
 
     // when you click Q on keyboard I want to simulate clicking a button with mouse
+    void AButtonClickInput()
+    {
+        battleUI.SimulateAButtonClicked();
+    }
+    void SButtonClickInput()
+    {
+        battleUI.SimulateSButtonClicked();
+    }
+
     void QButtonClickInput()
     {
         battleUI.SimulateQButtonClicked();
@@ -223,14 +232,6 @@ public class BattleInputController : MonoBehaviour
     void RButtonClickInput()
     {
         battleUI.SimulateRButtonClicked();
-    }
-    void TButtonClickInput()
-    {
-        battleUI.SimulateTButtonClicked();
-    }
-    void YButtonClickInput()
-    {
-        battleUI.SimulateYButtonClicked();
     }
 
     void OnEnemyTurnEnd()

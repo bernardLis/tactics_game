@@ -108,6 +108,8 @@ public class TurnManager : MonoBehaviour
         AstarPath.active.Scan();
 
         // just for a good measure
+        // TODO: should I make it all async?
+#pragma warning disable CS4014
         highlighter.ClearHighlightedTiles();
 
         // reset counts
@@ -118,9 +120,7 @@ public class TurnManager : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             if (enemy != null)
-            {
                 enemy.GetComponent<EnemyCharMovementController>().reachedDestinationThisTurn = false;
-            }
         }
     }
 

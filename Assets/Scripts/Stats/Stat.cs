@@ -7,7 +7,7 @@ public class Stat
 {
     [SerializeField] public int baseValue;
 
-    List<int> modifiers = new();
+    [HideInInspector] public List<int> modifiers = new();
 
     public int GetValue()
     {

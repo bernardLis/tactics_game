@@ -24,6 +24,9 @@ public class CharacterBattleController : MonoBehaviour
     AIDestinationSetter destinationSetter;
     CharacterRendererManager characterRendererManager;
 
+    // selection
+    bool isSelectionBlocked; // block mashing select character coz it breaks the highlight - if you quickly switch between selection of 2 chars.
+
     // movement
     GameObject tempObject;
     bool hasCharacterStartedMoving;
@@ -101,10 +104,16 @@ public class CharacterBattleController : MonoBehaviour
         // Interact with something when ability is selected && tile is within range
         if (_col != null && !playerCharSelection.hasFinishedTurn && selectedTile.WithinRange)
             Interact(_col);
+
+        // trigger defend even if there is no collider TODO: dunno how to manage that...
+        if (selectedAbility.aType == AbilityType.DEFEND)
+            Interact(null);
     }
 
     bool CanSelectCharacter(Collider2D _col)
     {
+        if (isSelectionBlocked)
+            return false;
         if (_col == null)
             return false;
         // can select only player characters
@@ -135,8 +144,10 @@ public class CharacterBattleController : MonoBehaviour
         return true;
     }
 
-    void SelectCharacter(GameObject _character)
+    async void SelectCharacter(GameObject _character)
     {
+        isSelectionBlocked = true;
+
         if (_character.GetComponent<PlayerCharSelection>().hasMovedThisTurn)
         {
             Debug.Log("Character has moved this turn already");
@@ -152,7 +163,6 @@ public class CharacterBattleController : MonoBehaviour
         playerStats = selectedCharacter.GetComponent<PlayerStats>();
         playerCharSelection = selectedCharacter.GetComponent<PlayerCharSelection>();
         aILerp = selectedCharacter.GetComponent<AILerp>();
-        aILerp.canMove = false;
 
         //seeker = selectedCharacter.GetComponent<Seeker>();
         destinationSetter = selectedCharacter.GetComponent<AIDestinationSetter>();
@@ -165,21 +175,24 @@ public class CharacterBattleController : MonoBehaviour
         battleUI.ShowCharacterUI(playerStats);
 
         // highlight
-        highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
+        await highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
                                                 new Color(0.53f, 0.52f, 1f, 1f));
+        isSelectionBlocked = false;
     }
 
     void Move()
     {
-        aILerp.canMove = true;
-
         hasCharacterStartedMoving = true;
 
+        // TODO: should I make it all async?
+#pragma warning disable CS4014
         highlighter.ClearHighlightedTiles();
 
         tempObject = new GameObject("Destination");
         tempObject.transform.position = transform.position;
         destinationSetter.target = tempObject.transform;
+
+        battleUI.DisableSkillButtons();
 
         playerCharSelection.SetCharacterMoved(true);
     }
@@ -207,7 +220,6 @@ public class CharacterBattleController : MonoBehaviour
             return;
         }
 
-
         // flag reset
         playerCharSelection.SetCharacterMoved(false);
 
@@ -215,7 +227,6 @@ public class CharacterBattleController : MonoBehaviour
         hasCharacterStartedMoving = true;
 
         // move character to character's starting position quickly.
-        aILerp.canMove = true;
         aILerp.speed = 15;
 
         transform.position = playerCharSelection.positionTurnStart;
@@ -223,19 +234,19 @@ public class CharacterBattleController : MonoBehaviour
         tempObject = new GameObject("Back Destination");
         tempObject.transform.position = playerCharSelection.positionTurnStart;
         destinationSetter.target = tempObject.transform;
+
+        battleUI.DisableSkillButtons();
     }
 
     void CharacterReachedDestination()
     {
+        battleUI.EnableSkillButtons();
+
         if (tempObject != null)
             Destroy(tempObject);
 
         // reset flag
         hasCharacterStartedMoving = false;
-
-        // TODO: this is bad - I do it because my reached destination is more liberal than ai lerp reached destination. 
-        // Ideally, I have only one reached destination. 
-        Invoke("BlockMovement", 0.2f);
 
         // check if it was back or normal move
         if (!hasCharacterGoneBack)
@@ -247,12 +258,6 @@ public class CharacterBattleController : MonoBehaviour
                                     new Color(0.53f, 0.52f, 1f, 1f));
     }
     
-    // TODO: this is bad.
-    void BlockMovement()
-    {
-        aILerp.canMove = false;
-    }
-
     public bool CanInteract()
     {
         if (!battleInputController.IsInputAllowed())
@@ -268,11 +273,13 @@ public class CharacterBattleController : MonoBehaviour
 
     public void SetSelectedAbility(Ability ability)
     {
+        ClearPathRenderer();
         selectedAbility = ability;
     }
 
     void Interact(Collider2D col)
     {
+        Debug.Log("interact");
         // returns true if ability was triggered successfuly.
         if (!selectedAbility.TriggerAbility(col.transform.parent.gameObject))
             return;
@@ -283,6 +290,7 @@ public class CharacterBattleController : MonoBehaviour
     void BackFromAbilitySelection()
     {
         selectedAbility = null;
+        battleUI.HideAbilityTooltip();
         highlighter.ClearHighlightedTiles();
     }
 
@@ -321,11 +329,12 @@ public class CharacterBattleController : MonoBehaviour
     {
         ClearPathRenderer();
 
-        // don't draw path if ability is selected
-        if (selectedAbility != null)
+        // only draw path when character is selected
+        if (selectedCharacter == null)
             return;
 
-        if (seeker == null)
+        // don't draw path if ability is selected
+        if (selectedAbility != null)
             return;
 
         // get the tile movepoint is on

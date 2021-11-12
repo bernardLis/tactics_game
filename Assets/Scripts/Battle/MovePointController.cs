@@ -160,7 +160,7 @@ public class MovePointController : MonoBehaviour
 
     void OnEnemyTurnEnd()
     {
-        GameObject[] playerChars = GameObject.FindGameObjectsWithTag("PlayerCollider");
+        GameObject[] playerChars = GameObject.FindGameObjectsWithTag("Player");
         if (playerChars.Length > 0)
             transform.position = playerChars[0].transform.position;
 
