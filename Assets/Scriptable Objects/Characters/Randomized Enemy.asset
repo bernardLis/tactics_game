@@ -29,6 +29,9 @@ MonoBehaviour:
   torso: {fileID: 0}
   shield: {fileID: 0}
   weapon: {fileID: 0}
+  basicAbilities:
+  - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
+  - {fileID: 11400000, guid: a3c1665185194554687fae6545ac1bc2, type: 2}
   characterAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
   enemyBrain: {fileID: 0}

@@ -18,14 +18,11 @@ public class AttackTriggerable : MonoBehaviour
         if (attackableObject == null)
             return false;
 
-        // TODO: don't allow click if mana cost is less than the current mana 
-        if (myStats.currentMana < manaCost)
-            return false;
-
-        // face the target
+        //play animation
         Vector2 dir = target.transform.position - transform.position;
-        characterRendererManager.Face(dir);
+        characterRendererManager.AttackAnimation(dir);
 
+        // damage target
         int damage = value + myStats.strength.GetValue();
         attackableObject.TakeDamage(damage);
         myStats.UseMana(manaCost);

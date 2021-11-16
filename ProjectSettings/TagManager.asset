@@ -12,6 +12,7 @@ TagManager:
   - PlayerCollider
   - EnemyCollider
   - ConversationCollider
+  - Weapon
   layers:
   - Default
   - TransparentFX

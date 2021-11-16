@@ -652,6 +652,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   stats: []
+  basicAbilities: []
   abilities: []
 --- !u!114 &1864993292968118660
 MonoBehaviour:
@@ -1144,7 +1145,7 @@ GameObject:
   - component: {fileID: 221775542510644028}
   m_Layer: 0
   m_Name: Weapon
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1173,7 +1174,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7495358995450803790}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0

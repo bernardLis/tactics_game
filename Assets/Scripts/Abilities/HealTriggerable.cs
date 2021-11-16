@@ -18,14 +18,11 @@ public class HealTriggerable : MonoBehaviour
         if (healableObject == null)
             return false;
 
-        // TODO: don't allow click if mana cost is less than the current mana 
-        if(myStats.currentMana < manaCost)
-            return false;
-        
-        // face the target
+        // animation
         Vector2 dir = target.transform.position - transform.position;
-        characterRendererManager.Face(dir);
+        characterRendererManager.SpellcastAnimation(dir);
 
+        // data
         int healAmount = value + myStats.intelligence.GetValue();
         healableObject.GainHealth(healAmount);
         myStats.UseMana(manaCost);

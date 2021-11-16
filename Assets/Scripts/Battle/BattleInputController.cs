@@ -20,7 +20,7 @@ public class BattleInputController : MonoBehaviour
 
     // local
     MovePointController movePointController;
-    CharacterBattleController characterBattleController;
+    BattleCharacterController characterBattleController;
     BattlePreparationController battlePreparationController;
     OscilateScale oscilateScale;
 
@@ -56,7 +56,7 @@ public class BattleInputController : MonoBehaviour
         battleUI = BattleUI.instance;
 
         movePointController = MovePointController.instance;
-        characterBattleController = GetComponent<CharacterBattleController>();
+        characterBattleController = GetComponent<BattleCharacterController>();
         battlePreparationController = GetComponent<BattlePreparationController>();
         oscilateScale = GetComponentInChildren<OscilateScale>();
 

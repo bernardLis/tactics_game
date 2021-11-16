@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Pathfinding;
 
-public class CharacterBattleController : MonoBehaviour
+public class BattleCharacterController : MonoBehaviour
 {
     // tilemap
     Tilemap tilemap;
@@ -38,7 +38,7 @@ public class CharacterBattleController : MonoBehaviour
     // interactions
     Ability selectedAbility;
 
-    public static CharacterBattleController instance;
+    public static BattleCharacterController instance;
     void Awake()
     {
         #region singleton
@@ -86,7 +86,7 @@ public class CharacterBattleController : MonoBehaviour
             selectedTile = _tile;
 
         // select character
-        if (CanSelectCharacter(_col))
+        if (_col != null && CanSelectCharacter(_col))
         {
             SelectCharacter(_col.transform.parent.gameObject);
             return;
@@ -99,15 +99,24 @@ public class CharacterBattleController : MonoBehaviour
 
         // Move
         if (CanMoveCharacter() && selectedTile.WithinRange)
+        {
             Move();
+            return;
+        }
 
         // Interact with something when ability is selected && tile is within range
         if (_col != null && !playerCharSelection.hasFinishedTurn && selectedTile.WithinRange)
+        {
             Interact(_col);
+            return;
+        }
 
         // trigger defend even if there is no collider TODO: dunno how to manage that...
         if (selectedAbility.aType == AbilityType.DEFEND)
+        {
             Interact(null);
+            return;
+        }
     }
 
     bool CanSelectCharacter(Collider2D _col)
@@ -257,7 +266,7 @@ public class CharacterBattleController : MonoBehaviour
         highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
                                     new Color(0.53f, 0.52f, 1f, 1f));
     }
-    
+
     public bool CanInteract()
     {
         if (!battleInputController.IsInputAllowed())
@@ -279,7 +288,13 @@ public class CharacterBattleController : MonoBehaviour
 
     void Interact(Collider2D col)
     {
-        Debug.Log("interact");
+        // defend ability
+        if (col == null && selectedAbility.aType == AbilityType.DEFEND && selectedAbility.TriggerAbility(null))
+        {
+            FinishCharacterTurn();
+            return;
+        }
+
         // returns true if ability was triggered successfuly.
         if (!selectedAbility.TriggerAbility(col.transform.parent.gameObject))
             return;

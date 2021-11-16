@@ -1042,8 +1042,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f072eed42372bd44a72cccfdd716548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAttack: {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
-  basicDefend: {fileID: 11400000, guid: a3c1665185194554687fae6545ac1bc2, type: 2}
 --- !u!4 &1321782991
 Transform:
   m_ObjectHideFlags: 0

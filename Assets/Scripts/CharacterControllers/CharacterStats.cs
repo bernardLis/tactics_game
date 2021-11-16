@@ -22,6 +22,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
     public int currentHealth { get; private set; }
     public int currentMana { get; private set; }
 
+    public List<Ability> basicAbilities;
     public List<Ability> abilities;
 
     DamageUI damageUI;
@@ -66,10 +67,22 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
         currentHealth = maxHealth.GetValue();
         currentMana = 20;
 
-        foreach (Ability ability in character.characterAbilities)
+        // set weapon for animations & deactivate the game object
+        WeaponHolder wh = GetComponentInChildren<WeaponHolder>();
+        wh.SetWeapon(character.weapon);
+        wh.gameObject.SetActive(false);
+
+        foreach (Ability ability in character.basicAbilities)
         {
             // I am cloning the ability coz if I don't there is only one scriptable object and it overrides variables
             // if 2 characters use the same ability
+            var clone = Instantiate(ability);
+            basicAbilities.Add(clone);
+            clone.Initialize(gameObject);
+        }
+
+        foreach (Ability ability in character.characterAbilities)
+        {
             var clone = Instantiate(ability);
             abilities.Add(clone);
             clone.Initialize(gameObject);

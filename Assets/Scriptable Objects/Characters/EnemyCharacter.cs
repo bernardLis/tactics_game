@@ -36,7 +36,7 @@ public class EnemyCharacter : Character
         if (shield == null && Random.value > 0.5)
             shield = RandomizeEq(EquipmentSlot.SHIELD);
         if (weapon == null && Random.value > 0.5)
-            weapon = RandomizeEq(EquipmentSlot.WEAPON);
+            weapon = (Weapon) RandomizeEq(EquipmentSlot.WEAPON);
 
         base.Initialize(obj);
         enemyBrain = obj.AddComponent(typeof(EnemyAI)) as EnemyAI;
@@ -66,4 +66,6 @@ public class EnemyCharacter : Character
 
         return null;
     }
+
+
 }

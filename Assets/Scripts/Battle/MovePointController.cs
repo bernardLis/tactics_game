@@ -9,7 +9,7 @@ public class MovePointController : MonoBehaviour
     GameUI gameUI;
 
     BattlePreparationController battlePreparationController;
-    CharacterBattleController characterBattleController;
+    BattleCharacterController characterBattleController;
 
     // tiles
     Tilemap tilemap;
@@ -44,7 +44,7 @@ public class MovePointController : MonoBehaviour
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
         battlePreparationController = GetComponent<BattlePreparationController>();
-        characterBattleController = GetComponent<CharacterBattleController>();
+        characterBattleController = GetComponent<BattleCharacterController>();
     }
 
     void Start()

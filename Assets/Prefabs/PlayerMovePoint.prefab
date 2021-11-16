@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 242066056}
   - component: {fileID: 7569243889877751802}
   - component: {fileID: 1558323601}
-  - component: {fileID: 1558323604}
   - component: {fileID: 1153939686}
+  - component: {fileID: 939083757458475861}
   m_Layer: 0
   m_Name: PlayerMovePoint
   m_TagString: Untagged
@@ -222,18 +222,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 73abcce88805d484088fe99d111cfe0c, type: 2}
   - {fileID: 11400000, guid: fe8d5d37d4c3de74faf310e9b1456853, type: 2}
   characterTemplate: {fileID: 6105715623576548083, guid: 5292bfb2a93455445be59d39c398d325, type: 3}
---- !u!114 &1558323604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7569243889877751800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b26690f19285d49bb94f4e526a8391, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1153939686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +232,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5072079c33b0874dbbeba24b737ed02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &939083757458475861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7569243889877751800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9c57bfe0538924c8ea4d4c6ffdad16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7569243889959606447

@@ -20,6 +20,7 @@ MonoBehaviour:
   intelligence: 20
   maxMana: 50
   movementRange: 5
+  shield: {fileID: 0}
   body: {fileID: 11400000, guid: 67b8fdf6ef7563042aa09ed2714e02b0, type: 2}
   feet: {fileID: 11400000, guid: 11267fbcd1abb6d4e9c3d1c1b5373948, type: 2}
   hair: {fileID: 11400000, guid: a5e8401870ed78747b2a85ec14a9d0df, type: 2}
@@ -27,11 +28,11 @@ MonoBehaviour:
   helmet: {fileID: 11400000, guid: 64d6f8269a8ca7e44adc73e8a7d36c56, type: 2}
   legs: {fileID: 11400000, guid: 5f5ed3a5b252c20428721790fae974fc, type: 2}
   torso: {fileID: 11400000, guid: 7bbeada867b885842897088f8549b569, type: 2}
-  shield: {fileID: 0}
-  weapon: {fileID: 11400000, guid: ee0c100ca9742414d9e8b23ad0811a2e, type: 2}
-  characterAbilities:
+  weapon: {fileID: 11400000, guid: 7b713e2a54e3a1e4e83309b9a8ab804f, type: 2}
+  basicAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
   - {fileID: 11400000, guid: a3c1665185194554687fae6545ac1bc2, type: 2}
+  characterAbilities:
   - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
   - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
   - {fileID: 11400000, guid: 072c64cc0cc872b4aa875e6c7f766440, type: 2}

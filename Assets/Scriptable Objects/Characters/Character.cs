@@ -19,6 +19,7 @@ public class Character : ScriptableObject
     public int movementRange;
 
     [Header("Equipment")]
+    public Equipment shield;
     public Equipment body;
     public Equipment feet;
     public Equipment hair;
@@ -26,10 +27,10 @@ public class Character : ScriptableObject
     public Equipment helmet;
     public Equipment legs;
     public Equipment torso;
-    public Equipment shield;
-    public Equipment weapon;
+    public Weapon weapon;
 
     [Header("Abilities")]
+    public Ability[] basicAbilities;
     public Ability[] characterAbilities;
 
     public virtual void Initialize(GameObject obj)

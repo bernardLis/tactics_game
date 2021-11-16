@@ -16,7 +16,6 @@ public class DefendAbility : Ability
     // returns true if ability was triggered with success
     public override bool TriggerAbility(GameObject target)
     {
-        Debug.Log("trigger ability is called");
         if (!defendTriggerable.Defend(target, value, manaCost))
             return false;
 

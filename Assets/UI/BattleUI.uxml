@@ -29,21 +29,21 @@
                 </ui:Button>
                 <ui:Button display-tooltip-when-elided="true" name="characterSButton">
                     <ui:VisualElement name="characterSSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/shield.png?fileID=21300000&amp;guid=46fdae8c04a550547a6bef44d81553d0&amp;type=3#shield&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
-                    <ui:Label text="s" display-tooltip-when-elided="true" name="characterSSkillTooltip" style="-unity-text-align: upper-center;" />
+                    <ui:Label text="S" display-tooltip-when-elided="true" name="characterSSkillTooltip" style="-unity-text-align: upper-center;" />
                 </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterQButton">
+                <ui:Button display-tooltip-when-elided="true" name="characterQButton" style="display: none;">
                     <ui:VisualElement name="characterQSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/charm.png?fileID=21300000&amp;guid=15968a194dfe51b49bc2a583a4957492&amp;type=3#charm&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
                     <ui:Label text="Q" display-tooltip-when-elided="true" name="characterQSkillTooltip" style="-unity-text-align: upper-center;" />
                 </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterWButton">
+                <ui:Button display-tooltip-when-elided="true" name="characterWButton" style="display: none;">
                     <ui:VisualElement name="characterWSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/battle.png?fileID=21300000&amp;guid=a80a197cf1bbc9846b1faf238203f16d&amp;type=3#battle&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
                     <ui:Label text="W" display-tooltip-when-elided="true" name="characterWSkillTooltip" style="-unity-text-align: upper-center;" />
                 </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterEButton">
+                <ui:Button display-tooltip-when-elided="true" name="characterEButton" style="display: none;">
                     <ui:VisualElement name="characterESkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/cross.png?fileID=21300000&amp;guid=b51c8ea1d2298f849a9ad9b3f74a9359&amp;type=3#cross&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
                     <ui:Label text="E" display-tooltip-when-elided="true" name="characterESkillTooltip" style="-unity-text-align: upper-center;" />
                 </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterRButton">
+                <ui:Button display-tooltip-when-elided="true" name="characterRButton" style="display: none;">
                     <ui:VisualElement name="characterRSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/hourglass.png?fileID=21300000&amp;guid=add71f5399e78894590af1adbd8e0c75&amp;type=3#hourglass&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
                     <ui:Label text="R" display-tooltip-when-elided="true" name="characterRSkillTooltip" style="-unity-text-align: upper-center;" />
                 </ui:Button>

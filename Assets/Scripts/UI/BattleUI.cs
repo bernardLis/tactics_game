@@ -9,8 +9,7 @@ public class BattleUI : MonoBehaviour
 
     // global utility
     BattleInputController battleInputController;
-    CharacterBattleController characterBattleController;
-    Highlighter highlighter;
+    BattleCharacterController characterBattleController;
 
     // UI Elements
     UIDocument UIDocument;
@@ -35,11 +34,13 @@ public class BattleUI : MonoBehaviour
     Button characterWButton;
     Button characterEButton;
     Button characterRButton;
+    List<Button> abilityButtons;
 
     VisualElement characterQSkillIcon;
     VisualElement characterWSkillIcon;
     VisualElement characterESkillIcon;
     VisualElement characterRSkillIcon;
+    List<VisualElement> abilityIcons;
 
     // local
     PlayerStats selectedPlayerStats;
@@ -91,6 +92,13 @@ public class BattleUI : MonoBehaviour
         characterEButton = root.Q<Button>("characterEButton");
         characterRButton = root.Q<Button>("characterRButton");
 
+        // TODO: this could be probably improved
+        abilityButtons = new();
+        abilityButtons.Add(characterQButton);
+        abilityButtons.Add(characterWButton);
+        abilityButtons.Add(characterEButton);
+        abilityButtons.Add(characterRButton);
+
         // register interaction callbacks (buttons)
         characterAButton.clickable.clicked += AButtonClicked;
         characterSButton.clickable.clicked += SButtonClicked;
@@ -104,13 +112,19 @@ public class BattleUI : MonoBehaviour
         characterWSkillIcon = root.Q<VisualElement>("characterWSkillIcon");
         characterESkillIcon = root.Q<VisualElement>("characterESkillIcon");
         characterRSkillIcon = root.Q<VisualElement>("characterRSkillIcon");
+
+        // TODO: this could be probably improved
+        abilityIcons = new();
+        abilityIcons.Add(characterQSkillIcon);
+        abilityIcons.Add(characterWSkillIcon);
+        abilityIcons.Add(characterESkillIcon);
+        abilityIcons.Add(characterRSkillIcon);
     }
 
     void Start()
     {
         battleInputController = BattleInputController.instance;
-        characterBattleController = CharacterBattleController.instance;
-        highlighter = Highlighter.instance;
+        characterBattleController = BattleCharacterController.instance;
 
         //https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
         StartCoroutine(CoroutineCoordinator());
@@ -126,20 +140,18 @@ public class BattleUI : MonoBehaviour
     // first 2 abilities should always be 
     void AButtonClicked()
     {
-        Debug.Log("A button clicked - basic attack");
         if (!characterBattleController.CanInteract())
             return;
-
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[0]));
+        // TODO: hardcoded ability indexes
+        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.basicAbilities[0]));
     }
 
     void SButtonClicked()
     {
-        Debug.Log(" button clicked - basic defend");
         if (!characterBattleController.CanInteract())
             return;
-
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[1]));
+        // TODO: hardcoded ability indexes
+        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.basicAbilities[1]));
     }
 
 
@@ -149,7 +161,11 @@ public class BattleUI : MonoBehaviour
         if (!characterBattleController.CanInteract())
             return;
 
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[2]));
+        // TODO: hardcoded ability indexes
+        if (selectedPlayerStats.abilities[0] == null)
+            return;
+
+        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[0]));
     }
 
     void WButtonClicked()
@@ -157,7 +173,11 @@ public class BattleUI : MonoBehaviour
         if (!characterBattleController.CanInteract())
             return;
 
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[3]));
+        // TODO: hardcoded ability indexes
+        if (selectedPlayerStats.abilities[1] == null)
+            return;
+
+        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[1]));
     }
 
     void EButtonClicked()
@@ -165,7 +185,11 @@ public class BattleUI : MonoBehaviour
         if (!characterBattleController.CanInteract())
             return;
 
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[4]));
+        // TODO: hardcoded ability indexes
+        if (selectedPlayerStats.abilities[2] == null)
+            return;
+
+        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[2]));
     }
 
     void RButtonClicked()
@@ -173,7 +197,11 @@ public class BattleUI : MonoBehaviour
         if (!characterBattleController.CanInteract())
             return;
 
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[5]));
+        // TODO: hardcoded ability indexes
+        if (selectedPlayerStats.abilities[3] == null)
+            return;
+
+        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[3]));
     }
 
 
@@ -220,11 +248,7 @@ public class BattleUI : MonoBehaviour
         characterHealth.text = selectedPlayerStats.currentHealth + "/" + selectedPlayerStats.maxHealth.GetValue();
         characterMana.text = selectedPlayerStats.currentMana + "/" + selectedPlayerStats.maxMana.GetValue();
 
-        characterQSkillIcon.style.backgroundImage = selectedPlayerStats.abilities[2].aIcon.texture;
-        characterWSkillIcon.style.backgroundImage = selectedPlayerStats.abilities[3].aIcon.texture;
-        characterESkillIcon.style.backgroundImage = selectedPlayerStats.abilities[4].aIcon.texture;
-        characterRSkillIcon.style.backgroundImage = selectedPlayerStats.abilities[5].aIcon.texture;
-
+        HandleAbilityButtons();
         DisableSkillButtons();
         EnableSkillButtons();
 
@@ -232,6 +256,26 @@ public class BattleUI : MonoBehaviour
         characterUIContainer.style.top = Length.Percent(topPercent);
         isAnimationOn = true;
         scheduler = characterUIContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
+    }
+
+    void HandleAbilityButtons()
+    {
+        int count = 0; // TODO: ugh...-1
+        foreach (Button b in abilityButtons)
+        {
+            // hide buttons if there are not enough abilities to populate them;
+            if (selectedPlayerStats.abilities.Count <= count)
+            {
+                abilityButtons[count].style.display = DisplayStyle.None;
+                return;
+            }
+
+            // show buttons for each ability
+            abilityButtons[count].style.display = DisplayStyle.Flex;
+            abilityIcons[count].style.backgroundImage = selectedPlayerStats.abilities[count].aIcon.texture;
+
+            count++;
+        }
     }
 
     public void DisableSkillButtons()
@@ -251,16 +295,16 @@ public class BattleUI : MonoBehaviour
         characterAButton.SetEnabled(true);
         characterSButton.SetEnabled(true);
 
-        // enable skill buttons if you can afford mana cost;
-        if (selectedPlayerStats.abilities[2].manaCost <= selectedPlayerStats.currentMana)
-            characterQButton.SetEnabled(true);
-        if (selectedPlayerStats.abilities[3].manaCost <= selectedPlayerStats.currentMana)
-            characterWButton.SetEnabled(true);
-        if (selectedPlayerStats.abilities[4].manaCost <= selectedPlayerStats.currentMana)
-            characterEButton.SetEnabled(true);
-        if (selectedPlayerStats.abilities[5].manaCost <= selectedPlayerStats.currentMana)
-            characterRButton.SetEnabled(true);
+        int count = 0;
+        foreach (Button b in abilityButtons)
+        {
+            // enable buttons if they are populated & player has enough mana to cast ability;
+            if (b.style.display == DisplayStyle.Flex &&
+                selectedPlayerStats.abilities[count].manaCost <= selectedPlayerStats.currentMana)
+                abilityButtons[count].SetEnabled(true);
 
+            count++;
+        }
     }
 
     public void HideCharacterUI()

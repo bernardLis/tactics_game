@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 3387775229403623853}
   - component: {fileID: 5413392492234382795}
   m_Layer: 0
-  m_Name: Template Enemy Character
+  m_Name: TemplateEnemyCharacter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,16 +334,24 @@ MonoBehaviour:
   characterName: 
   movementRange:
     baseValue: 4
+    modifiers: 
   strength:
     baseValue: 0
+    modifiers: 
   armor:
     baseValue: 0
+    modifiers: 
   intelligence:
     baseValue: 0
+    modifiers: 
   maxHealth:
     baseValue: 0
+    modifiers: 
   maxMana:
     baseValue: 0
+    modifiers: 
+  stats: []
+  basicAbilities: []
   abilities: []
 --- !u!114 &3387775229403623841
 MonoBehaviour:
@@ -1193,9 +1201,10 @@ GameObject:
   - component: {fileID: 8617911046022017728}
   - component: {fileID: 8617911046022017731}
   - component: {fileID: 5822935135884744264}
+  - component: {fileID: 4758171974227571935}
   m_Layer: 0
   m_Name: Weapon
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1298,6 +1307,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a00498bc1bf7206449aa6cd3a49c4edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4758171974227571935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8617911046022017732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 725b1e9b0b72ea8439cee9b2d0b042eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8617911046303157451

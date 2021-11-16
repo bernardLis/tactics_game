@@ -5,13 +5,17 @@ using Pathfinding;
 public class CharacterRendererManager : MonoBehaviour
 {
     public Vector2 direction;
-    Vector2 lastDirection;
+    public Vector2 lastDirection;
+
     Animator animator;
     CharacterRenderer characterRenderer;
+
     WeaponHolder weaponHolder;
     SpriteRenderer weaponRenderer;
+
     AILerp AI;
-    bool noIdleAnimation;
+
+    bool noIdleAnimation; // TODO: wat is dat?
 
     // Start is called before the first frame update
     void Awake()
@@ -19,6 +23,8 @@ public class CharacterRendererManager : MonoBehaviour
         animator = GetComponent<Animator>();
         characterRenderer = GetComponent<CharacterRenderer>();
         AI = GetComponentInParent<AILerp>();
+        weaponHolder = GetComponentInChildren<WeaponHolder>();
+        weaponRenderer = weaponHolder.transform.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -30,7 +36,8 @@ public class CharacterRendererManager : MonoBehaviour
 
         if (direction.sqrMagnitude > 0)
             lastDirection = direction;
-
+        
+        // TODO: there is probably way to improve that;
         if (!noIdleAnimation)
         {
             characterRenderer.SetDirection(direction);
@@ -46,29 +53,36 @@ public class CharacterRendererManager : MonoBehaviour
 
     // TODO: noone calls it
     // TODO: no weapon holder
-    public void AttackAnimation()
+    public void AttackAnimation(Vector2 dir)
     {
         if (weaponHolder.weapon == null)
             return;
 
         if (weaponHolder.weapon.weaponType == WeaponType.SLASH)
-            StartCoroutine(Slash());
+            StartCoroutine(Slash(dir));
         if (weaponHolder.weapon.weaponType == WeaponType.THRUST)
-            StartCoroutine(Thrust());
+            StartCoroutine(Thrust(dir));
         if (weaponHolder.weapon.weaponType == WeaponType.SHOOT)
-            StartCoroutine(Shoot());
+            StartCoroutine(Shoot(dir));
+    }
+
+    public void SpellcastAnimation(Vector2 dir)
+    {
+        StartCoroutine(Spellcast(dir));
     }
 
     public void Face(Vector2 dir)
     {
-        // TODO: this is hacky and incorrect, make something smarter
         direction = dir;
-        Invoke("DirectionZero", 0.1f);
-    }
 
-    void DirectionZero()
-    {
-        direction = Vector2.zero;
+        characterRenderer.SetDirection(direction);
+
+        foreach (Transform child in transform)
+        {
+            CharacterRenderer cr = child.GetComponent<CharacterRenderer>();
+            if (cr != null)
+                cr.SetDirection(direction);
+        }
     }
 
     public void PlayDieAnimation()
@@ -94,11 +108,16 @@ public class CharacterRendererManager : MonoBehaviour
         noIdleAnimation = false;
     }
 
-    IEnumerator Spellcast()
-    {
+    // TODO: code repetition between all 3 methods.
+    IEnumerator Spellcast(Vector2 dir)
+    {        
         noIdleAnimation = true;
 
+        // set direction and play animation
+        animator.SetFloat("Last Horizontal", dir.x);
+        animator.SetFloat("Last Vertical", dir.y);
         animator.Play("Spellcast");
+
         foreach (Transform child in transform)
         {
             if (child.CompareTag("Weapon"))
@@ -107,65 +126,89 @@ public class CharacterRendererManager : MonoBehaviour
             Animator an = child.GetComponent<Animator>();
             if (an != null && an.runtimeAnimatorController != null && an.gameObject.activeSelf)
             {
+                // set direction and play animation
+                an.SetFloat("Last Horizontal", dir.x);
+                an.SetFloat("Last Vertical", dir.y);
                 an.Play("Spellcast");
             }
         }
 
+        // TODO: this is not perfect, waiting for animation to finish
         yield return new WaitForSeconds(0.5f);
-        weaponRenderer.sprite = null;
+
+        Face(dir);
+
         noIdleAnimation = false;
     }
 
-    IEnumerator Slash()
+    IEnumerator Slash(Vector2 dir)
     {
         noIdleAnimation = true;
 
         weaponHolder.gameObject.SetActive(true);
-
+        animator.SetFloat("Last Horizontal", dir.x);
+        animator.SetFloat("Last Vertical", dir.y);
         animator.Play("Slash");
+
         foreach (Transform child in transform)
         {
             Animator an = child.GetComponent<Animator>();
             if (an != null && an.runtimeAnimatorController != null && an.gameObject.activeSelf)
             {
+                an.SetFloat("Last Horizontal", dir.x);
+                an.SetFloat("Last Vertical", dir.y);
                 an.Play("Slash");
+
             }
         }
-
+        // TODO: this is not perfect, waiting for animation to finish
         yield return new WaitForSeconds(0.8f);
+
         weaponHolder.gameObject.SetActive(false);
         weaponRenderer.sprite = null;
+        Face(dir);
+
         noIdleAnimation = false;
     }
 
-    IEnumerator Thrust()
+    IEnumerator Thrust(Vector2 dir)
     {
         noIdleAnimation = true;
 
         weaponHolder.gameObject.SetActive(true);
 
+        animator.SetFloat("Last Horizontal", dir.x);
+        animator.SetFloat("Last Vertical", dir.y);
         animator.Play("Thrust");
+
         foreach (Transform child in transform)
         {
             Animator an = child.GetComponent<Animator>();
             if (an != null && an.runtimeAnimatorController != null && an.gameObject.activeSelf)
             {
+                an.SetFloat("Last Horizontal", dir.x);
+                an.SetFloat("Last Vertical", dir.y);
                 an.Play("Thrust");
             }
         }
-
+        // TODO: this is not perfect, waiting for animation to finish
         yield return new WaitForSeconds(0.8f);
+
         weaponHolder.gameObject.SetActive(false);
         weaponRenderer.sprite = null;
+        Face(dir);
+
         noIdleAnimation = false;
     }
 
-    IEnumerator Shoot()
+    IEnumerator Shoot(Vector2 dir)
     {
         noIdleAnimation = true;
 
         weaponHolder.gameObject.SetActive(true);
 
+        animator.SetFloat("Last Horizontal", dir.x);
+        animator.SetFloat("Last Vertical", dir.y);
         animator.Play("Bow");
 
         Animator arrowAnimator = weaponHolder.transform.Find("Arrow").GetComponent<Animator>();
@@ -178,15 +221,19 @@ public class CharacterRendererManager : MonoBehaviour
             Animator an = child.GetComponent<Animator>();
             if (an != null && an.runtimeAnimatorController != null && an.gameObject.activeSelf)
             {
+                an.SetFloat("Last Horizontal", dir.x);
+                an.SetFloat("Last Vertical", dir.y);
                 an.Play("Bow");
             }
         }
-
+        // TODO: this is not perfect, waiting for animation to finish
         yield return new WaitForSeconds(1.2f);
 
         weaponHolder.gameObject.SetActive(false);
         arrowAnimator.transform.GetComponent<SpriteRenderer>().sprite = null;
         weaponRenderer.sprite = null;
+        Face(dir);
+
         noIdleAnimation = false;
     }
 }

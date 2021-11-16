@@ -19,9 +19,6 @@ public class PushTriggerable : MonoBehaviour
         if (pushable == null)
             return false;
 
-        if (myStats.currentMana < manaCost)
-            return false;
-
         // face the target character
         Vector2 dir = target.transform.position - transform.position;
         characterRendererManager.Face(dir);
