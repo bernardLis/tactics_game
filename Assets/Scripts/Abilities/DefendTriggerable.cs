@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class DefendTriggerable : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class DefendTriggerable : MonoBehaviour
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
     }
 
-    public bool Defend(GameObject target, int value, int manaCost)
+    public async Task<bool> Defend(GameObject target, int value, int manaCost)
     {
         // TODO: probably wrong, if you are defending empty space, use movepoint's transform to set the direction;  
         if (target == null)
@@ -20,7 +21,7 @@ public class DefendTriggerable : MonoBehaviour
 
         // play animation TODO: add defend animation
         Vector2 dir = target.transform.position - transform.position;
-        characterRendererManager.SpellcastAnimation(dir);
+        await characterRendererManager.SpellcastAnimation(dir);
 
         // add armor
         myStats.armor.AddModifier(value);

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "Abilities/Attack Ability")]
 public class AttackAbility : Ability
@@ -14,13 +13,25 @@ public class AttackAbility : Ability
     }
     
     // returns true if ability was triggered with success
-    public override bool TriggerAbility(GameObject target)
+    public async override Task<bool> TriggerAbility(GameObject target)
     {
-        if (!attackTriggerable.Attack(target, value, manaCost))
+        // check if target is valid
+        var attackableObject = target.GetComponent<IAttackable>();
+        if (attackableObject == null)
             return false;
 
+        // highlight only target
+        await Highlighter.instance.ClearHighlightedTiles();
+        Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
+
+        // interact
+        if (!await attackTriggerable.Attack(target, value, manaCost, aProjectile))
+            return false;
+
+        // sound
         audioSource.clip = aSound;
         audioSource.Play();
+
         return true;
     }
 

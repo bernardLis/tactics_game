@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "Abilities/Move Ability")]
 public class MoveAbility : Ability
@@ -14,7 +13,7 @@ public class MoveAbility : Ability
     }
 
     // returns true if ability was triggered with success
-    public override bool TriggerAbility(GameObject target)
+    public async override Task<bool> TriggerAbility(GameObject target)
     {
         if (!pushTriggerable.Push(target, manaCost))
             return false;

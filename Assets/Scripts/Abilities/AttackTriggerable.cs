@@ -1,30 +1,39 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class AttackTriggerable : MonoBehaviour
 {
+    public Transform projectileSpawnPoint; // TODO: is that ok way to handle this?
+
     CharacterStats myStats;
     CharacterRendererManager characterRendererManager;
+
 
     void Awake()
     {
         myStats = GetComponent<CharacterStats>();
-
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
     }
 
-    public bool Attack(GameObject target, int value, int manaCost)
+    public async Task<bool> Attack(GameObject target, int value, int manaCost, GameObject _projectile)
     {
-        var attackableObject = target.GetComponent<IAttackable>();
-        if (attackableObject == null)
-            return false;
-
-        //play animation
+        // play animation
         Vector2 dir = target.transform.position - transform.position;
-        characterRendererManager.AttackAnimation(dir);
+        await characterRendererManager.AttackAnimation(dir);
+
+        // spawn and fire a projectile if the ability has one
+        if(_projectile != null)
+        {
+            GameObject projectile = Instantiate(_projectile, transform.position, Quaternion.identity);
+            projectile.GetComponent<IShootable<Transform>>().Shoot(target.transform);
+
+            // TODO: maybe there is a better way to wait for shoot to hit the target;
+            await Task.Delay(300);
+        }
 
         // damage target
         int damage = value + myStats.strength.GetValue();
-        attackableObject.TakeDamage(damage);
+        target.GetComponent<IAttackable>().TakeDamage(damage);
         myStats.UseMana(manaCost);
 
         return true;

@@ -28,7 +28,7 @@ MonoBehaviour:
   helmet: {fileID: 11400000, guid: 64d6f8269a8ca7e44adc73e8a7d36c56, type: 2}
   legs: {fileID: 11400000, guid: 5f5ed3a5b252c20428721790fae974fc, type: 2}
   torso: {fileID: 11400000, guid: 7bbeada867b885842897088f8549b569, type: 2}
-  weapon: {fileID: 11400000, guid: 7b713e2a54e3a1e4e83309b9a8ab804f, type: 2}
+  weapon: {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
   basicAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
   - {fileID: 11400000, guid: a3c1665185194554687fae6545ac1bc2, type: 2}

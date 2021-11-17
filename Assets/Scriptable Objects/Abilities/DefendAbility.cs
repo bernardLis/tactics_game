@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "Abilities/Defend Ability")]
 public class DefendAbility : Ability
@@ -14,9 +13,9 @@ public class DefendAbility : Ability
     }
     
     // returns true if ability was triggered with success
-    public override bool TriggerAbility(GameObject target)
+    public async override Task<bool> TriggerAbility(GameObject target)
     {
-        if (!defendTriggerable.Defend(target, value, manaCost))
+        if (!await defendTriggerable.Defend(target, value, manaCost))
             return false;
 
         audioSource.clip = aSound;

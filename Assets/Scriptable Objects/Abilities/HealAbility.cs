@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "Abilities/Heal Ability")]
 public class HealAbility : Ability
@@ -15,9 +14,19 @@ public class HealAbility : Ability
     }
 
     // returns true if ability was triggered with success
-    public override bool TriggerAbility(GameObject target)
+    public async override Task<bool> TriggerAbility(GameObject target)
     {
-        if (!healTriggerable.Heal(target, value, manaCost))
+        // check if target is valid
+        var healableObject = target.GetComponent<IHealable>();
+        if (healableObject == null)
+            return false;
+
+        // highlight only target
+        await Highlighter.instance.ClearHighlightedTiles();
+        Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
+
+        // heal target if successful play sound and retrun true;
+        if (!await healTriggerable.Heal(target, value, manaCost))
             return false;
 
         audioSource.clip = aSound;

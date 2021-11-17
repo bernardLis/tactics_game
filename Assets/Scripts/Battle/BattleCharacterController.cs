@@ -286,17 +286,17 @@ public class BattleCharacterController : MonoBehaviour
         selectedAbility = ability;
     }
 
-    void Interact(Collider2D col)
+    async void Interact(Collider2D col)
     {
-        // defend ability
-        if (col == null && selectedAbility.aType == AbilityType.DEFEND && selectedAbility.TriggerAbility(null))
+        // defend ability // TODO: await in if ... hmmmmmmm....
+        if (col == null && selectedAbility.aType == AbilityType.DEFEND && await selectedAbility.TriggerAbility(null))
         {
             FinishCharacterTurn();
             return;
         }
 
-        // returns true if ability was triggered successfuly.
-        if (!selectedAbility.TriggerAbility(col.transform.parent.gameObject))
+        // returns true if ability was triggered successfuly. // TODO: await in if ... hmmmmmmm....
+        if (!await selectedAbility.TriggerAbility(col.transform.parent.gameObject))
             return;
 
         FinishCharacterTurn();

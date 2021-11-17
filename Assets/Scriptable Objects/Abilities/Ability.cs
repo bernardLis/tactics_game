@@ -9,6 +9,7 @@ public abstract class Ability : ScriptableObject
     public string aDescription = "New Description";
 
     public AbilityType aType;
+    public GameObject aProjectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
 
     public Sprite aIcon;
     public AudioClip aSound;
@@ -24,7 +25,7 @@ public abstract class Ability : ScriptableObject
     protected AudioSource audioSource;
 
     GameObject characterGameObject;
-    Highlighter highlighter;
+    protected Highlighter highlighter;
     CharacterStats myStats;
 
     public virtual void Initialize(GameObject obj)
@@ -40,5 +41,10 @@ public abstract class Ability : ScriptableObject
                        highlightColor, canTargetDiagonally, canTargetSelf);
 
     }
-    public abstract bool TriggerAbility(GameObject target);
+    public virtual async Task<bool> TriggerAbility(GameObject target)
+    {
+        // meant to be overwritten;
+        await Task.Yield(); // just to get rid of errors;
+        return false; // just to get rid of errors;
+    }
 }
