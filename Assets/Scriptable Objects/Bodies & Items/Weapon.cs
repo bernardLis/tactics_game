@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum WeaponType { SLASH, THRUST, SHOOT }
+public enum WeaponType { SLASH, THRUST, SHOOT, ANY }
 
 [CreateAssetMenu(menuName = "Weapon")]
 public class Weapon : Equipment
 {
 	public WeaponType weaponType;
+	public Ability basicAttack;
 
 	// https://answers.unity.com/questions/158319/overriding-an-initial-value-in-a-subclass.html
 	public void Reset()
@@ -25,9 +26,6 @@ public class Weapon : Equipment
 			equipmentHandler.transform.Find("Arrow").gameObject.SetActive(true);
 		else
 			equipmentHandler.transform.Find("Arrow").gameObject.SetActive(false);
-
-
-
 	}
 
 }

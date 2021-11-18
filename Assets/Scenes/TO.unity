@@ -377,11 +377,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4377347653787997841, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.52
+      value: 18.57
       objectReference: {fileID: 0}
     - target: {fileID: 4377347653787997841, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.63
+      value: -7.53
       objectReference: {fileID: 0}
     - target: {fileID: 4377347653787997841, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -536,7 +536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7512957698282176493, guid: a549c98ce7982e049a7ea6344afcc711, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.52
+      value: -7.47
       objectReference: {fileID: 0}
     - target: {fileID: 7512957698282176493, guid: a549c98ce7982e049a7ea6344afcc711, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5597,7 +5597,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Foothold Trap (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5238105796796588233, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
 --- !u!1 &1639324375
 GameObject:

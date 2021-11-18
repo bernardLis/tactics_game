@@ -18,3 +18,4 @@ MonoBehaviour:
   eSlot: 8
   gender: 0
   weaponType: 2
+  basicAttack: {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}

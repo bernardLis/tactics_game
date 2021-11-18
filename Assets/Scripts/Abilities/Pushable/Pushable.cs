@@ -11,7 +11,6 @@ public class Pushable : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		SnapToGrid();
 		myStats = GetComponent<CharacterStats>();
 	}
 
@@ -41,7 +40,6 @@ public class Pushable : MonoBehaviour
 			yield return null;
 		}
 
-		SnapToGrid();
 		UpdateAstar();
 	}
 
@@ -52,18 +50,5 @@ public class Pushable : MonoBehaviour
 		AstarPath.active.Scan();
 	}
 
-	void SnapToGrid()
-	{
-		float x = transform.position.x;
-		float y = transform.position.y;
-		//https://answers.unity.com/questions/714197/round-to-05-15-25-.html
-		float outputX = Mathf.Sign(x) * (Mathf.Abs((int)x) + 0.5f);
-		float outputY = Mathf.Sign(y) * (Mathf.Abs((int)y) + 0.5f);
-
-		if (outputX != transform.position.x || outputY != transform.position.y)
-		{
-			transform.position = new Vector3(outputX, outputY, transform.position.z);
-		}
-	}
 
 }

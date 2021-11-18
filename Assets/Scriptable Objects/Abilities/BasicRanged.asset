@@ -15,12 +15,13 @@ MonoBehaviour:
   aName: Ranged Attack
   aDescription: Damage 12
   aType: 0
+  weaponType: 2
   aProjectile: {fileID: 6450357399194659378, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
   aIcon: {fileID: 21300000, guid: 2279c0f46fc1a0a468df6cb82ce15400, type: 3}
   aSound: {fileID: 8300000, guid: 063b94fe78343964796f6bdd41f83e31, type: 3}
   value: 12
-  range: 8
   manaCost: 0
+  range: 8
   canTargetSelf: 0
   canTargetDiagonally: 1
   highlightColor: {r: 1, g: 0.55321556, b: 0, a: 1}

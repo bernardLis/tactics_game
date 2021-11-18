@@ -1,9 +1,11 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using DG.Tweening;
+using Pathfinding;
 
-public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
+public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<Vector3>
 {
     public Character character;
 
@@ -29,10 +31,19 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
 
     CharacterRendererManager characterRendererManager;
 
+    // pushable variables
+    Vector3 startingPos;
+    Vector3 finalPos;
+    int characterDmg = 10;
+    GameObject tempObject;
+    AILerp aILerp;
+
+
     protected virtual void Awake()
     {
         damageUI = GetComponent<DamageUI>();
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+        aILerp = GetComponent<AILerp>();
 
         AddStatsToList();
     }
@@ -72,6 +83,14 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
         wh.SetWeapon(character.weapon);
         wh.gameObject.SetActive(false);
 
+        // adding basic attack from weapon to basic abilities to be instantiated
+        if (character.weapon != null)
+        {
+            var clone = Instantiate(character.weapon.basicAttack);
+            basicAbilities.Add(clone);
+            clone.Initialize(gameObject);
+        }
+
         foreach (Ability ability in character.basicAbilities)
         {
             // I am cloning the ability coz if I don't there is only one scriptable object and it overrides variables
@@ -83,6 +102,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
 
         foreach (Ability ability in character.characterAbilities)
         {
+            if (ability == null)
+                continue;
+
             var clone = Instantiate(ability);
             abilities.Add(clone);
             clone.Initialize(gameObject);
@@ -104,6 +126,12 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
 
         // displaying damage UI
         damageUI.DisplayDamage(damage);
+
+        // shake a character;
+        float duration = 0.5f;
+        float strength = 0.1f;
+
+        transform.DOShakePosition(duration, strength);
 
         if (currentHealth <= 0)
             Die();
@@ -135,10 +163,123 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable
         damageUI.DisplayHeal(healthGain);
     }
 
-    public void GetPushed()
+    public void GetPushed(Vector3 _dir)
     {
-        // TODO: do this instead of pushable character.
+        startingPos = transform.position;
+        finalPos = transform.position + _dir;
 
+        // TODO: do this instead of pushable character.
+        StartCoroutine(MoveToPosition(finalPos, 0.5f));
+        Invoke("CollisionCheck", 0.35f);
+    }
+
+    IEnumerator MoveToPosition(Vector3 finalPos, float time)
+    {
+        /*
+        tempObject = new("Dest");
+        tempObject.transform.position = finalPos;
+        GetComponent<AIDestinationSetter>().target = tempObject.transform;
+        GetComponent<AILerp>().canMove = false;
+        */
+        GetComponent<AILerp>().enabled = false;
+        Vector3 startingPos = transform.position;
+
+        float elapsedTime = 0;
+
+        while (elapsedTime < time)
+        {
+            transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        UpdateAstar();
+
+        //GetComponent<AILerp>().enabled = true;
+
+        //GetComponent<AILerp>().canMove = true;
+        //GetComponent<AILerp>().Teleport(finalPos, true);
+
+
+        //yield return new WaitForSeconds(0.5f);
+        if (tempObject != null)
+            Destroy(tempObject);
+
+    }
+
+    void UpdateAstar()
+    {
+        // TODO: is that alright? 
+        // Recalculate all graphs
+        AstarPath.active.Scan();
+    }
+
+
+    void CollisionCheck()
+    {
+        // check what is in boulders new place and act accordingly
+        BoxCollider2D characterCollider = transform.GetComponentInChildren<BoxCollider2D>();
+        characterCollider.enabled = false;
+
+        Collider2D col = Physics2D.OverlapCircle(finalPos, 0.2f);
+
+        if (col == null)
+        {
+            characterCollider.enabled = true;
+            return;
+        }
+
+        // player/enemy get dmged by 10 and are moved back to their starting position
+        // character colliders are children
+        if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
+        {
+            TakePiercingDamage(characterDmg);
+
+            CharacterStats targetStats = col.transform.parent.GetComponent<CharacterStats>();
+            targetStats.TakePiercingDamage(characterDmg);
+
+            // move back to starting position (if target is not dead)
+            // TODO: test what happens when target dies
+            if (targetStats.currentHealth <= 0)
+            {
+                if (characterCollider != null)
+                    characterCollider.enabled = true;
+                return;
+            }
+
+            if (tempObject != null)
+                Destroy(tempObject);
+
+            StartCoroutine(MoveToPosition(startingPos, 0.5f));
+        }
+        // character destroys boulder when they are pushed into it + 10dmg to self
+        else if (col.transform.gameObject.CompareTag("Stone"))
+        {
+            TakePiercingDamage(characterDmg);
+
+            Destroy(col.transform.parent.gameObject);
+        }
+        // character triggers traps
+        else if (col.transform.gameObject.CompareTag("Trap"))
+        {            
+            int dmg = col.transform.GetComponentInParent<FootholdTrap>().damage;
+
+            TakePiercingDamage(dmg);
+            // movement range is down by 1 for each trap enemy walks on
+            movementRange.AddModifier(-1);
+
+            Destroy(col.transform.parent.gameObject);
+        }
+        else
+        {
+            TakePiercingDamage(characterDmg);
+            if (tempObject != null)
+                Destroy(tempObject);
+            StartCoroutine(MoveToPosition(startingPos, 0.5f));
+        }
+        // TODO: pushing characters into the river/other obstacles?
+        // currently you can't target it on the river bank
+        if (characterCollider != null)
+            characterCollider.enabled = true;
     }
 
     public virtual void Die()

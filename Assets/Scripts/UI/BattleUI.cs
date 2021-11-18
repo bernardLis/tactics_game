@@ -36,6 +36,9 @@ public class BattleUI : MonoBehaviour
     Button characterRButton;
     List<Button> abilityButtons;
 
+    VisualElement characterASkillIcon;
+    VisualElement characterSSkillIcon;
+
     VisualElement characterQSkillIcon;
     VisualElement characterWSkillIcon;
     VisualElement characterESkillIcon;
@@ -108,6 +111,9 @@ public class BattleUI : MonoBehaviour
         characterEButton.clickable.clicked += EButtonClicked;
         characterRButton.clickable.clicked += RButtonClicked;
 
+        characterASkillIcon = root.Q<VisualElement>("characterASkillIcon");
+        characterSSkillIcon = root.Q<VisualElement>("characterSSkillIcon");
+
         characterQSkillIcon = root.Q<VisualElement>("characterQSkillIcon");
         characterWSkillIcon = root.Q<VisualElement>("characterWSkillIcon");
         characterESkillIcon = root.Q<VisualElement>("characterESkillIcon");
@@ -142,6 +148,7 @@ public class BattleUI : MonoBehaviour
     {
         if (!characterBattleController.CanInteract())
             return;
+
         // TODO: hardcoded ability indexes
         buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.basicAbilities[0]));
     }
@@ -150,6 +157,7 @@ public class BattleUI : MonoBehaviour
     {
         if (!characterBattleController.CanInteract())
             return;
+
         // TODO: hardcoded ability indexes
         buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.basicAbilities[1]));
     }
@@ -260,6 +268,10 @@ public class BattleUI : MonoBehaviour
 
     void HandleAbilityButtons()
     {
+        // TODO: hardcoded ability indexes
+        characterASkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[0].aIcon.texture;
+        characterSSkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[1].aIcon.texture;
+
         int count = 0; // TODO: ugh...-1
         foreach (Button b in abilityButtons)
         {
@@ -295,15 +307,19 @@ public class BattleUI : MonoBehaviour
         characterAButton.SetEnabled(true);
         characterSButton.SetEnabled(true);
 
-        int count = 0;
-        foreach (Button b in abilityButtons)
+        // enable buttons if they are populated
+        // && player has enough mana to cast ability;
+        // && weapon type matches
+        for (int i = 0; i < abilityButtons.Count; i++)
         {
-            // enable buttons if they are populated & player has enough mana to cast ability;
-            if (b.style.display == DisplayStyle.Flex &&
-                selectedPlayerStats.abilities[count].manaCost <= selectedPlayerStats.currentMana)
-                abilityButtons[count].SetEnabled(true);
+            if (abilityButtons[i].style.display == DisplayStyle.None)
+                continue;
+            if (selectedPlayerStats.abilities[i].manaCost >= selectedPlayerStats.currentMana)
+                continue;
+            if (selectedPlayerStats.abilities[i].weaponType != selectedPlayerStats.character.weapon.weaponType && selectedPlayerStats.abilities[i].weaponType != WeaponType.ANY)
+                continue;
 
-            count++;
+            abilityButtons[i].SetEnabled(true);
         }
     }
 

@@ -27,7 +27,7 @@ public class AttackTriggerable : MonoBehaviour
             GameObject projectile = Instantiate(_projectile, transform.position, Quaternion.identity);
             projectile.GetComponent<IShootable<Transform>>().Shoot(target.transform);
 
-            // TODO: maybe there is a better way to wait for shoot to hit the target;
+            // TODO: There is a better way to wait for shoot to hit the target;
             await Task.Delay(300);
         }
 

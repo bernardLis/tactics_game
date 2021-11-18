@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7512957698282176493}
   - component: {fileID: 7512957698282176491}
   - component: {fileID: 1109791785411308892}
-  - component: {fileID: 6524884976401527177}
+  - component: {fileID: 6071374170014707723}
   m_Layer: 3
   m_Name: Stone
   m_TagString: Stone
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: Boulder, you can move if you know the technique.
---- !u!114 &6524884976401527177
+--- !u!114 &6071374170014707723
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,9 +79,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7512957698282176492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 448e8f8ed4e0de847b60a2fe78bfadf6, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c031f926b01d2749b556862f0229f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stoneSprites:
+  - {fileID: -3827938194557775324, guid: 2b90151a94ed5504784600a9c93dae5a, type: 3}
+  - {fileID: 4560169676936920773, guid: 2b90151a94ed5504784600a9c93dae5a, type: 3}
 --- !u!1 &7512957699131220223
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +95,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7512957699131220220}
   - component: {fileID: 7512957699131220218}
-  - component: {fileID: 7512957699131220221}
   m_Layer: 0
   m_Name: GFX
   m_TagString: Untagged
@@ -167,21 +169,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7512957699131220221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7512957699131220223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f657709fac2fb040805ca46ed8bbdfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stoneSprites:
-  - {fileID: -3827938194557775324, guid: 2b90151a94ed5504784600a9c93dae5a, type: 3}
-  - {fileID: 4560169676936920773, guid: 2b90151a94ed5504784600a9c93dae5a, type: 3}
 --- !u!1 &9104076807615263278
 GameObject:
   m_ObjectHideFlags: 0

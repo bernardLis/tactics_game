@@ -43,7 +43,7 @@ public class FlyingArrow : MonoBehaviour, IShootable<Transform>
 		}
 	}
 
-	void HitTarget()
+	public void HitTarget()
 	{
 		Destroy(gameObject);
 	}

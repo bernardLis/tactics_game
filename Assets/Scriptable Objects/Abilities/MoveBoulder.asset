@@ -15,11 +15,13 @@ MonoBehaviour:
   aName: Move Boulder
   aDescription: Move object 1 tile
   aType: 3
+  weaponType: 3
+  aProjectile: {fileID: 0}
   aIcon: {fileID: 21300000, guid: b80594f4f3cd0f643913275415d3922e, type: 3}
   aSound: {fileID: 8300000, guid: f0180443af161364eb8f4ee688b5ed82, type: 3}
   value: 0
-  range: 1
   manaCost: 0
+  range: 1
   canTargetSelf: 0
   canTargetDiagonally: 0
   highlightColor: {r: 0.6415094, g: 0.2389937, b: 0, a: 1}

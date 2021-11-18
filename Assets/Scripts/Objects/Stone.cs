@@ -1,44 +1,29 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class FootholdTrap : MonoBehaviour, IPushable<Vector3>
+public class Stone : MonoBehaviour, IPushable<Vector3>
 {
     // global
     GameManager gameManager;
+
+    public List<Sprite> stoneSprites;
+    SpriteRenderer spriteRenderer;
+
     // push
-    public int damage = 50;
-    public bool isPushed;
     Vector3 finalPos;
     CharacterStats targetStats;
+    int damage = 50;
 
+    // Start is called before the first frame update
     void Start()
     {
         gameManager = GameManager.instance;
+        // TODO: stones are going to be created by map maker but for now, just for fun.
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.sprite = stoneSprites[Random.Range(0, stoneSprites.Count)];
+
         gameManager.SnapToGrid(transform);
-    }
-
-    public void OnTriggerEnter2D(Collider2D col)
-    {
-        if (isPushed)
-            return;
-
-        if (!col.transform.CompareTag("EnemyCollider"))
-            return;
-
-        // TODO: needs a rewrite with enemies
-        // functionality when enemy walks onto the trap
-        GameObject enemy = col.transform.parent.gameObject;
-        EnemyCharMovementController enemyCharMovementController = enemy.GetComponent<EnemyCharMovementController>();
-        if (enemyCharMovementController != null)
-        {
-            // trap is triggered
-            enemyCharMovementController.TrappedOnTheWay(damage, transform.position);
-
-            // trap no longer collides
-            // TODO: swap gfx with triggered sprite
-            transform.GetComponentInChildren<BoxCollider2D>().enabled = false;
-            transform.GetChild(0).gameObject.SetActive(false);
-        }
     }
 
     public void GetPushed(Vector3 _dir)
@@ -46,12 +31,9 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3>
         finalPos = transform.position + _dir;
 
         StartCoroutine(MoveToPosition(finalPos, 0.5f));
-        isPushed = true;
 
         // TODO: this is quite bad;
         Invoke("CollisionCheck", 0.35f);
-        // TODO: reset should be after trap stops moving and not at 1s randomly...
-        Invoke("ResetPushed", 1f);
     }
 
     protected IEnumerator MoveToPosition(Vector3 finalPos, float time)
@@ -91,9 +73,8 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3>
             return;
         }
 
-        // trap is triggered on player/enemy
+        // player/enemy get dmged by 50 and boulder is destroyed
         // character colliders are children
-        // enemy triggers trap from trap script
         if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
         {
             targetStats = col.transform.parent.GetComponent<CharacterStats>();
@@ -104,18 +85,17 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3>
 
             Destroy(gameObject);
         }
-        // trap is destroyed when it hits a boulder
+        // boulder is destroyed when it hits another boulder
         else if (col.transform.gameObject.CompareTag("Stone"))
             Destroy(gameObject);
-        // one trap is destroyed when it hits another traps
+        // boulder destroys traps
         else if (col.transform.gameObject.CompareTag("Trap"))
-            Destroy(gameObject);
+            Destroy(col.transform.gameObject);
         // currently you can't target it on the river bank
-    }
 
-    void ResetPushed()
-    {
-        isPushed = false;
-    }
 
+        if (boxCol != null)
+            boxCol.enabled = true;
+
+    }
 }

@@ -112,7 +112,7 @@ public class BattleCharacterController : MonoBehaviour
         }
 
         // trigger defend even if there is no collider TODO: dunno how to manage that...
-        if (selectedAbility.aType == AbilityType.DEFEND)
+        if (selectedAbility != null && selectedAbility.aType == AbilityType.DEFEND)
         {
             Interact(null);
             return;

@@ -9,15 +9,16 @@ public abstract class Ability : ScriptableObject
     public string aDescription = "New Description";
 
     public AbilityType aType;
-    public GameObject aProjectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
+    public WeaponType weaponType; // abilities have weapons that can use them
+    [Tooltip("GO that will be flying through the scene")] public GameObject aProjectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
 
     public Sprite aIcon;
     public AudioClip aSound;
     public int value;
-    public int range;
     public int manaCost;
 
     [Header("Highlight")]
+    public int range;
     public bool canTargetSelf;
     public bool canTargetDiagonally;
     public Color highlightColor;
@@ -26,13 +27,11 @@ public abstract class Ability : ScriptableObject
 
     GameObject characterGameObject;
     protected Highlighter highlighter;
-    CharacterStats myStats;
 
     public virtual void Initialize(GameObject obj)
     {
         characterGameObject = obj;
         highlighter = GameManager.instance.GetComponent<Highlighter>();
-        myStats = obj.GetComponent<CharacterStats>();
         audioSource = AudioScript.instance.GetComponent<AudioSource>();
     }
     public virtual async Task HighlightTargetable()

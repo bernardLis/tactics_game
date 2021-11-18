@@ -1,4 +1,4 @@
-public interface IPushable
+public interface IPushable<Vector3>
 {
-    public void GetPushed();
+    public void GetPushed(Vector3 dir);
 }

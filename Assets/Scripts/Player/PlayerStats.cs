@@ -22,10 +22,9 @@ public class PlayerStats : CharacterStats
             if (stat.modifiers.Count == 0)
                 return;
 
-            foreach(int modifier in stat.modifiers)
-            {
-                stat.RemoveModifier(modifier);
-            }
+            // iterate from the back to remove safely.
+            for(int i = stat.modifiers.Count; i <=0; i--)
+                stat.RemoveModifier(stat.modifiers[i]);
         }
     }
 

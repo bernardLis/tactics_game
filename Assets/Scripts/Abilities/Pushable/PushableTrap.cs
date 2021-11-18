@@ -14,7 +14,7 @@ public class PushableTrap : Pushable
 	public override void IsPushed(Vector3 dir)
 	{
 		base.IsPushed(dir);
-		footholdTrap.pushed = true;
+		footholdTrap.isPushed = true;
 
 		Invoke("CollisionCheck", 0.35f);
 		// TODO: reset should be after trap stops moving and not at 1s randomly...
@@ -64,7 +64,7 @@ public class PushableTrap : Pushable
 	void ResetPushed()
 	{
 		if (footholdTrap != null)
-			footholdTrap.pushed = false;
+			footholdTrap.isPushed = false;
 	}
 
 

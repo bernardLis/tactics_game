@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PushableCharacter : Pushable
 {
-	CircleCollider2D characterCollider;
+	BoxCollider2D characterCollider;
 
 	int characterDmg = 10;
 	public override void IsPushed(Vector3 dir)
@@ -14,7 +14,7 @@ public class PushableCharacter : Pushable
 	protected override void CollisionCheck()
 	{
 		// check what is in boulders new place and act accordingly
-		characterCollider = transform.GetComponentInChildren<CircleCollider2D>();
+		characterCollider = transform.GetComponentInChildren<BoxCollider2D>();
 		characterCollider.enabled = false;
 
 		Collider2D col = Physics2D.OverlapCircle(finalPos, 0.2f);

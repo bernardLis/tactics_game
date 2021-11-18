@@ -30,7 +30,8 @@ public class Character : ScriptableObject
     public Weapon weapon;
 
     [Header("Abilities")]
-    public Ability[] basicAbilities;
+    [Tooltip("For now just defend, basic attack is from the weapon")]
+    public Ability[] basicAbilities; 
     public Ability[] characterAbilities;
 
     public virtual void Initialize(GameObject obj)

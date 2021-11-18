@@ -154,7 +154,6 @@ GameObject:
   - component: {fileID: 4377347653787997840}
   - component: {fileID: 4377347653787997847}
   - component: {fileID: 7283060149418966599}
-  - component: {fileID: 5238105796796588233}
   m_Layer: 0
   m_Name: Foothold Trap
   m_TagString: Trap
@@ -227,15 +226,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: 'Foothold trap. Damage to enemies: 50.'
---- !u!114 &5238105796796588233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4377347653787997842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3933326020538e4b8dcf68d7104c7ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
