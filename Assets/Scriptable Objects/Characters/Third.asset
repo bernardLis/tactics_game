@@ -14,12 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Third
   portrait: {fileID: 21300000, guid: 3bf5cfa5ff6fff04cb2f1e323618711b, type: 3}
-  maxHealth: 100
-  armor: 0
-  strength: 10
-  intelligence: 20
-  maxMana: 50
-  movementRange: 5
+  strength: 2
+  intelligence: 1
+  agility: 6
+  stamina: 2
   shield: {fileID: 11400000, guid: 7b97ebc92bd34534ba65d1cf3444a819, type: 2}
   body: {fileID: 11400000, guid: 1657a0ab62676d042a2fcdae9c7b89c0, type: 2}
   feet: {fileID: 0}

@@ -1,0 +1,10 @@
+.basicStatAmountText {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    background-image: none;
+    width: 32px;
+    height: 32px;
+    -unity-text-outline-width: 0;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 255);
+    -unity-text-align: middle-center;
+}

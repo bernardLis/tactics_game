@@ -24,7 +24,7 @@ public class PushAbility : Ability
         await Highlighter.instance.ClearHighlightedTiles();
         Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
 
-        // heal push if successful play sound and retrun true;
+        // push if successful play sound and retrun true;
         if (!await pushTriggerable.Push(target, manaCost))
             return false;
 

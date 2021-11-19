@@ -15,9 +15,10 @@ public class BattleCharacterController : MonoBehaviour
     Highlighter highlighter;
     BattleUI battleUI;
     BattleInputController battleInputController;
+    MovePointController movePointController;
 
     // I will be caching them for selected character
-    GameObject selectedCharacter;
+    public GameObject selectedCharacter;
     PlayerStats playerStats;
     PlayerCharSelection playerCharSelection;
     AILerp aILerp;
@@ -61,6 +62,7 @@ public class BattleCharacterController : MonoBehaviour
         highlighter = Highlighter.instance;
         battleInputController = BattleInputController.instance;
         battleUI = BattleUI.instance;
+        movePointController = MovePointController.instance;
 
         seeker = GetComponent<Seeker>();
         pathRenderer = GetComponent<LineRenderer>();
@@ -311,6 +313,9 @@ public class BattleCharacterController : MonoBehaviour
 
     void FinishCharacterTurn()
     {
+        // update ui through movepoint
+        movePointController.UpdateCharacterCardInfo();
+
         // set flags in player char selection
         playerCharSelection.FinishCharacterTurn();
 

@@ -15,6 +15,7 @@ public class BattleUI : MonoBehaviour
     UIDocument UIDocument;
 
     VisualElement characterUIContainer;
+    VisualElement characterUI;
 
     VisualElement characterUITooltipContainer;
     Label characterUITooltipAbilityName;
@@ -26,6 +27,16 @@ public class BattleUI : MonoBehaviour
 
     Label characterHealth;
     Label characterMana;
+
+    VisualElement characterHealthBarMissingHealth;
+    VisualElement characterManaBarMissingMana;
+
+    Label characterStrengthAmount;
+    Label characterIntelligenceAmount;
+    Label characterAgilityAmount;
+    Label characterStaminaAmount;
+    Label characterArmorAmount;
+    Label characterRangeAmount;
 
     Button characterAButton;
     Button characterSButton;
@@ -45,13 +56,36 @@ public class BattleUI : MonoBehaviour
     VisualElement characterRSkillIcon;
     List<VisualElement> abilityIcons;
 
+    // character card
+    VisualElement characterCardContainer;
+    Label characterCardName;
+    VisualElement characterCardPortrait;
+
+    Label characterCardHealth;
+    Label characterCardMana;
+
+    VisualElement characterCardHealthBarMissingHealth;
+    VisualElement characterCardManaBarMissingMana;
+
+    Label characterCardStrengthAmount;
+    Label characterCardIntelligenceAmount;
+    Label characterCardAgilityAmount;
+    Label characterCardStaminaAmount;
+    Label characterCardArmorAmount;
+    Label characterCardRangeAmount;
+
     // local
     PlayerStats selectedPlayerStats;
 
     // animate ui up/down on show/hide
-    float topPercent = 20;
-    bool isAnimationOn;
+    float characterUITopPercent = 20;
+    bool isCharacterUIAnimationOn;
     IVisualElementScheduledItem scheduler;
+
+    // animate card left right on show/hide
+    float characterCardLeftPercent = -30;
+    bool isCharacterCardAnimationOn;
+    IVisualElementScheduledItem characterCardScheduler;
 
     // buttons management
     Queue<IEnumerator> buttonClickQueue = new();
@@ -76,6 +110,7 @@ public class BattleUI : MonoBehaviour
         var root = UIDocument.rootVisualElement;
 
         characterUIContainer = root.Q<VisualElement>("characterUIContainer");
+        characterUI = root.Q<VisualElement>("characterUI");
 
         characterUITooltipContainer = root.Q<VisualElement>("characterUITooltipContainer");
         characterUITooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
@@ -86,6 +121,16 @@ public class BattleUI : MonoBehaviour
         characterPortrait = root.Q<VisualElement>("characterPortrait");
         characterHealth = root.Q<Label>("characterHealth");
         characterMana = root.Q<Label>("characterMana");
+
+        characterHealthBarMissingHealth = root.Q<VisualElement>("characterHealthBarMissingHealth");
+        characterManaBarMissingMana = root.Q<VisualElement>("characterManaBarMissingMana");
+
+        characterStrengthAmount = root.Q<Label>("characterStrengthAmount");
+        characterIntelligenceAmount = root.Q<Label>("characterIntelligenceAmount");
+        characterAgilityAmount = root.Q<Label>("characterAgilityAmount");
+        characterStaminaAmount = root.Q<Label>("characterStaminaAmount");
+        characterArmorAmount = root.Q<Label>("characterArmorAmount");
+        characterRangeAmount = root.Q<Label>("characterRangeAmount");
 
         characterAButton = root.Q<Button>("characterAButton");
         characterSButton = root.Q<Button>("characterSButton");
@@ -125,6 +170,24 @@ public class BattleUI : MonoBehaviour
         abilityIcons.Add(characterWSkillIcon);
         abilityIcons.Add(characterESkillIcon);
         abilityIcons.Add(characterRSkillIcon);
+
+        // character card
+        characterCardContainer = root.Q<VisualElement>("characterCardContainer");
+        characterCardName = root.Q<Label>("characterCardName");
+        characterCardPortrait = root.Q<VisualElement>("characterCardPortrait");
+
+        characterCardHealth = root.Q<Label>("characterCardHealth");
+        characterCardMana = root.Q<Label>("characterCardMana");
+
+        characterCardHealthBarMissingHealth = root.Q<VisualElement>("characterCardHealthBarMissingHealth");
+        characterCardManaBarMissingMana = root.Q<VisualElement>("characterCardManaBarMissingMana");
+
+        characterCardStrengthAmount = root.Q<Label>("characterCardStrengthAmount");
+        characterCardIntelligenceAmount = root.Q<Label>("characterCardIntelligenceAmount");
+        characterCardAgilityAmount = root.Q<Label>("characterCardAgilityAmount");
+        characterCardStaminaAmount = root.Q<Label>("characterCardStaminaAmount");
+        characterCardArmorAmount = root.Q<Label>("characterCardArmorAmount");
+        characterCardRangeAmount = root.Q<Label>("characterCardRangeAmount");
     }
 
     void Start()
@@ -135,12 +198,6 @@ public class BattleUI : MonoBehaviour
         //https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
         StartCoroutine(CoroutineCoordinator());
     }
-
-    // TODO: 
-    // * hook up buttons and interactions with character battle controller
-    // * on hover or on selection show ability tooltip with some info
-    // * update character UI on interaction
-
 
     // allow clicks only when not moving and character is selected & did not finish its turn
     // first 2 abilities should always be 
@@ -161,8 +218,6 @@ public class BattleUI : MonoBehaviour
         // TODO: hardcoded ability indexes
         buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.basicAbilities[1]));
     }
-
-
 
     void QButtonClicked()
     {
@@ -212,7 +267,6 @@ public class BattleUI : MonoBehaviour
         buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[3]));
     }
 
-
     // TODO: Hey future Bernard, I know you are looking at this and thinking: "damn... mixing coroutines and async await sucks, what was I thinking"
     // I, past Bernard would like to tell you that I tried hard to make it work and I left coroutines and async await not because I don't like you but
     // because I am not skilled enough to rewrite everything to use only async await. 
@@ -243,27 +297,62 @@ public class BattleUI : MonoBehaviour
 
     public void ShowCharacterUI(PlayerStats playerStats)
     {
-        if (isAnimationOn)
+        if (isCharacterUIAnimationOn)
             return;
 
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
         selectedPlayerStats = playerStats;
 
-        characterUIContainer.style.display = DisplayStyle.Flex;
+        //characterUIContainer.style.display = DisplayStyle.Flex;
+        //characterUI.style.display = DisplayStyle.Flex;
 
         characterName.text = selectedPlayerStats.character.characterName;
         characterPortrait.style.backgroundImage = selectedPlayerStats.character.portrait.texture;
-        characterHealth.text = selectedPlayerStats.currentHealth + "/" + selectedPlayerStats.maxHealth.GetValue();
-        characterMana.text = selectedPlayerStats.currentMana + "/" + selectedPlayerStats.maxMana.GetValue();
 
+        SetCharacterHealthMana(playerStats);
+        SetCharacteristics(playerStats);
         HandleAbilityButtons();
         DisableSkillButtons();
         EnableSkillButtons();
 
         // 'animate' it to come up 
-        characterUIContainer.style.top = Length.Percent(topPercent);
-        isAnimationOn = true;
-        scheduler = characterUIContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
+        characterUI.style.top = Length.Percent(characterUITopPercent);
+        isCharacterUIAnimationOn = true;
+        scheduler = characterUI.schedule.Execute(() => AnimateCharacterUIBoxUp()).Every(10); // ms
+    }
+
+    public void HideCharacterUI()
+    {
+        if (isCharacterUIAnimationOn)
+            return;
+
+        selectedPlayerStats = null;
+        isCharacterUIAnimationOn = true;
+        scheduler = characterUI.schedule.Execute(() => AnimateCharacterUIBoxDown()).Every(10); // ms
+    }
+
+
+    void SetCharacterHealthMana(PlayerStats playerStats)
+    {
+        characterHealth.text = playerStats.currentHealth + "/" + playerStats.maxHealth.GetValue();
+        characterMana.text = playerStats.currentMana + "/" + playerStats.maxMana.GetValue();
+
+        // (float) casts are not redundant, without them it does not work
+        float missingHealthPerc = ((float)playerStats.maxHealth.GetValue() - (float)playerStats.currentHealth) / (float)playerStats.maxHealth.GetValue();
+        float missingManaPerc = ((float)playerStats.maxMana.GetValue() - (float)playerStats.currentMana) / (float)playerStats.maxMana.GetValue();
+
+        characterHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
+        characterManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
+    }
+
+    void SetCharacteristics(PlayerStats playerStats)
+    {
+        characterStrengthAmount.text = "" + playerStats.strength.GetValue();
+        characterIntelligenceAmount.text = "" + playerStats.intelligence.GetValue();
+        characterAgilityAmount.text = "" + playerStats.agility.GetValue();
+        characterStaminaAmount.text = "" + playerStats.stamina.GetValue();
+        characterArmorAmount.text = "" + playerStats.armor.GetValue();
+        characterRangeAmount.text = "" + playerStats.movementRange.GetValue();
     }
 
     void HandleAbilityButtons()
@@ -323,45 +412,117 @@ public class BattleUI : MonoBehaviour
         }
     }
 
-    public void HideCharacterUI()
-    {
-        if (isAnimationOn)
-            return;
 
-        selectedPlayerStats = null;
-        isAnimationOn = true;
-        scheduler = characterUIContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
-    }
-
-    void AnimateConversationBoxUp()
+    void AnimateCharacterUIBoxUp()
     {
-        if (topPercent > -1f)
+        if (characterUITopPercent >= 0f)
         {
-            characterUIContainer.style.top = Length.Percent(topPercent);
-            topPercent--;
+            characterUI.style.top = Length.Percent(characterUITopPercent);
+            characterUITopPercent--;
             return;
         }
-        isAnimationOn = false;
+        // TODO: idk how to destroy scheduler...
+        isCharacterUIAnimationOn = false;
 
         scheduler.Pause();
     }
 
-    void AnimateConversationBoxDown()
+    void AnimateCharacterUIBoxDown()
     {
-        if (topPercent < 21f)
+        if (characterUITopPercent <= 20f)
         {
-            characterUIContainer.style.top = Length.Percent(topPercent);
-            topPercent++;
+            characterUI.style.top = Length.Percent(characterUITopPercent);
+            characterUITopPercent++;
             return;
         }
 
         // TODO: idk how to destroy scheduler...
-        isAnimationOn = false;
+        isCharacterUIAnimationOn = false;
+
         scheduler.Pause();
 
-        characterUIContainer.style.display = DisplayStyle.None;
+        //characterUI.style.display = DisplayStyle.None;
         HideAbilityTooltip();
     }
+
+    // character card
+
+    public void ShowCharacterCard(CharacterStats chStats)
+    {
+        PopulateCharacterCard(chStats);
+
+        if (isCharacterCardAnimationOn)
+            return;
+
+        // 'animate' it to come up 
+        characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
+        isCharacterCardAnimationOn = true;
+        characterCardScheduler = characterCardContainer.schedule.Execute(() => AnimateCharacterCardRight()).Every(5); // ms
+    }
+
+    public void HideCharacterCard()
+    {
+        if (isCharacterCardAnimationOn)
+            return;
+
+        isCharacterCardAnimationOn = true;
+        characterCardScheduler = characterCardContainer.schedule.Execute(() => AnimateCharacterCardLeft()).Every(5); // ms
+    }
+
+    void AnimateCharacterCardRight()
+    {
+        if (characterCardLeftPercent <= 0f)
+        {
+            characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
+            characterCardLeftPercent++;
+            return;
+        }
+        // TODO: idk how to destroy scheduler...
+        isCharacterCardAnimationOn = false;
+
+        characterCardScheduler.Pause();
+    }
+
+    void AnimateCharacterCardLeft()
+    {
+        if (characterCardLeftPercent >= -30f)
+        {
+            characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
+            characterCardLeftPercent--;
+            return;
+        }
+
+        // TODO: idk how to destroy scheduler...
+        isCharacterCardAnimationOn = false;
+
+        characterCardScheduler.Pause();
+    }
+
+
+    // TODO: this is code repetition
+    void PopulateCharacterCard(CharacterStats chStats)
+    {
+        characterCardName.text = chStats.character.characterName;
+        characterCardPortrait.style.backgroundImage = chStats.character.portrait.texture;
+
+        characterCardHealth.text = chStats.currentHealth + "/" + chStats.maxHealth.GetValue();
+        characterCardMana.text = chStats.currentMana + "/" + chStats.maxMana.GetValue();
+
+        // (float) casts are not redundant, without them it does not work
+        float missingHealthPerc = ((float)chStats.maxHealth.GetValue() - (float)chStats.currentHealth) / (float)chStats.maxHealth.GetValue();
+        float missingManaPerc = ((float)chStats.maxMana.GetValue() - (float)chStats.currentMana) / (float)chStats.maxMana.GetValue();
+
+        characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
+        characterCardManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
+
+        characterCardStrengthAmount.text = "" + chStats.strength.GetValue();
+        characterCardIntelligenceAmount.text = "" + chStats.intelligence.GetValue();
+        characterCardAgilityAmount.text = "" + chStats.agility.GetValue();
+        characterCardStaminaAmount.text = "" + chStats.stamina.GetValue();
+        characterCardArmorAmount.text = "" + chStats.armor.GetValue();
+        characterCardRangeAmount.text = "" + chStats.movementRange.GetValue();
+    }
+
 
 
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html

@@ -9,16 +9,28 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
 {
     public Character character;
 
+    [Header("Base value for stats")]
+    public int baseMaxHealth = 100;
+    public int baseMaxMana = 50;
+    public int baseArmor = 0;
+    public int baseMovementRange = 5;
+
+
     public event Action CharacterDeathEvent;
 
     // Stats are accessed by other scripts need to be public.
     [HideInInspector] public string characterName; // from char scriptable object
-    [HideInInspector] public Stat movementRange;
     [HideInInspector] public Stat strength;
-    [HideInInspector] public Stat armor;
     [HideInInspector] public Stat intelligence;
+    [HideInInspector] public Stat agility;
+    [HideInInspector] public Stat stamina;
+
     [HideInInspector] public Stat maxHealth;
     [HideInInspector] public Stat maxMana;
+
+    [HideInInspector] public Stat armor;
+    [HideInInspector] public Stat movementRange;
+
     public List<Stat> stats;
 
     public int currentHealth { get; private set; }
@@ -50,12 +62,16 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
 
     void AddStatsToList()
     {
-        stats.Add(movementRange);
         stats.Add(strength);
-        stats.Add(armor);
         stats.Add(intelligence);
+        stats.Add(agility);
+        stats.Add(stamina);
+
         stats.Add(maxHealth);
         stats.Add(maxMana);
+
+        stats.Add(armor);
+        stats.Add(movementRange);
     }
     public void SetCharacteristics(Character _character)
     {
@@ -67,12 +83,17 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
     {
         // taking values from scriptable object to c#
         characterName = character.characterName;
-        movementRange.baseValue = character.movementRange;
-        strength.baseValue = character.strength; ;
-        armor.baseValue = character.armor; ;
-        intelligence.baseValue = character.intelligence; ;
-        maxHealth.baseValue = character.maxHealth; ;
-        maxMana.baseValue = character.maxMana;
+
+        strength.baseValue = character.strength;
+        intelligence.baseValue = character.intelligence;
+        agility.baseValue = character.agility;
+        stamina.baseValue = character.stamina;
+
+        maxHealth.baseValue = baseMaxHealth + character.stamina * 5;
+        maxMana.baseValue = baseMaxMana + character.intelligence * 5;
+
+        armor.baseValue = baseArmor; // TODO: should be base value + all pieces of eq
+        movementRange.baseValue = 5 + Mathf.FloorToInt(character.agility / 3);
 
         // TODO: /2 and startin mana is for heal testing purposes 
         currentHealth = maxHealth.GetValue();
@@ -175,12 +196,12 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
 
     IEnumerator MoveToPosition(Vector3 finalPos, float time)
     {
-        /*
+        // TODO: this AILerp hack is meh
         tempObject = new("Dest");
         tempObject.transform.position = finalPos;
         GetComponent<AIDestinationSetter>().target = tempObject.transform;
-        GetComponent<AILerp>().canMove = false;
-        */
+        aILerp.canMove = false;
+
         GetComponent<AILerp>().enabled = false;
         Vector3 startingPos = transform.position;
 
@@ -192,27 +213,17 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        UpdateAstar();
 
-        //GetComponent<AILerp>().enabled = true;
+        // Update astar
+        AstarPath.active.Scan();
 
-        //GetComponent<AILerp>().canMove = true;
-        //GetComponent<AILerp>().Teleport(finalPos, true);
+        aILerp.enabled = true;
+        aILerp.canMove = true;
+        aILerp.Teleport(finalPos, true);
 
-
-        //yield return new WaitForSeconds(0.5f);
         if (tempObject != null)
             Destroy(tempObject);
-
     }
-
-    void UpdateAstar()
-    {
-        // TODO: is that alright? 
-        // Recalculate all graphs
-        AstarPath.active.Scan();
-    }
-
 
     void CollisionCheck()
     {
@@ -260,7 +271,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         }
         // character triggers traps
         else if (col.transform.gameObject.CompareTag("Trap"))
-        {            
+        {
             int dmg = col.transform.GetComponentInParent<FootholdTrap>().damage;
 
             TakePiercingDamage(dmg);
@@ -287,7 +298,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         // playing death animation
         characterRendererManager.PlayDieAnimation();
 
-        // kill all tweens
+        // kill all tweens TODO: is that OK?
         DOTween.KillAll();
 
         // die in some way

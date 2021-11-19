@@ -10,8 +10,8 @@ public class TurnManager : MonoBehaviour
     public static int currentTurn = 0;
 
     Highlighter highlighter;
+    BattleUI battleUI;
 
-    public static TurnManager instance;
     GameObject[] playerCharacters;
     GameObject[] enemies;
 
@@ -27,6 +27,7 @@ public class TurnManager : MonoBehaviour
     // get the amount of player characters
     // each time player character finishes its move subtract one from the total
     // if all player characters finished their turn -> start a new turn
+    public static TurnManager instance;
     void Awake()
     {
         #region Singleton
@@ -43,6 +44,7 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         highlighter = Highlighter.instance;
+        battleUI = BattleUI.instance;
         // TODO: create a start battleState where you place your characters
         battleState = BattleState.PREPARATION;
     }
@@ -83,6 +85,9 @@ public class TurnManager : MonoBehaviour
 
         battleState = BattleState.ENEMYTURN;
 
+        // hide character card
+        battleUI.HideCharacterCard();
+
         // TODO: Is this taxing?
         // Recalculate all graphs
         AstarPath.active.Scan();
@@ -102,6 +107,10 @@ public class TurnManager : MonoBehaviour
         //yield return new WaitForSeconds(1f);
 
         battleState = BattleState.PLAYERTURN;
+
+        // hide character card
+        battleUI.HideCharacterCard();
+
 
         // TODO: Is this very taxing? 
         // Recalculate all graphs

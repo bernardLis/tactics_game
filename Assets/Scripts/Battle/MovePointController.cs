@@ -7,9 +7,10 @@ public class MovePointController : MonoBehaviour
     // TODO: movepoint should only be using battle ui
     BasicCameraFollow basicCameraFollow;
     GameUI gameUI;
+    BattleUI battleUI;
 
     BattlePreparationController battlePreparationController;
-    BattleCharacterController characterBattleController;
+    BattleCharacterController battleCharacterController;
 
     // tiles
     Tilemap tilemap;
@@ -38,13 +39,14 @@ public class MovePointController : MonoBehaviour
 
         basicCameraFollow = BasicCameraFollow.instance;
         gameUI = GameUI.instance;
+        battleUI = BattleUI.instance;
 
         // This is our Dictionary of tiles
         tiles = GameTiles.instance.tiles;
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
         battlePreparationController = GetComponent<BattlePreparationController>();
-        characterBattleController = GetComponent<BattleCharacterController>();
+        battleCharacterController = GetComponent<BattleCharacterController>();
     }
 
     void Start()
@@ -76,9 +78,10 @@ public class MovePointController : MonoBehaviour
         transform.position = pos;
 
         // TODO: dunno if this is the correct way to handle this.
-        characterBattleController.DrawPath();
+        battleCharacterController.DrawPath();
 
         UpdateTileInfoUI();
+        UpdateCharacterCardInfo();
 
         // TODO: character being placed
         if (battlePreparationController.characterBeingPlaced != null)
@@ -153,9 +156,37 @@ public class MovePointController : MonoBehaviour
 
     }
 
+    public void UpdateCharacterCardInfo()
+    {
+        // check if there is a character standing there
+        Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
+
+        // return if there is no object on the tile
+        if (col == null)
+        {
+            battleUI.HideCharacterCard();
+            return;
+        }
+
+        // don't show card if you are hovering over selected character
+        if(battleCharacterController.selectedCharacter == col.transform.parent.gameObject)
+        {
+            battleUI.HideCharacterCard();
+            return;
+        }
+
+        // show character card if there is a character there
+        if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
+            battleUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
+        
+        // hide if it is something else
+        battleUI.HideCharacterCard();
+    }
+
     void Select(Collider2D obj)
     {
-        characterBattleController.Select(obj);
+        battleCharacterController.Select(obj);
+        UpdateCharacterCardInfo();
     }
 
     void OnEnemyTurnEnd()
