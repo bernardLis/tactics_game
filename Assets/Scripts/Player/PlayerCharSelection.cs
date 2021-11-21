@@ -4,16 +4,16 @@ using DG.Tweening;
 public class PlayerCharSelection : CharacterSelection
 {
 
-    [HideInInspector] public bool hasMovedThisTurn { get; private set; }
-    [HideInInspector] public bool hasFinishedTurn { get; private set; }
+    public bool hasMovedThisTurn { get; private set; }
+    public bool hasFinishedTurn { get; private set; }
 
-    [HideInInspector] public Vector3 positionTurnStart { get; private set; }
-    [HideInInspector] public WorldTile tileTurnStart { get; private set; }
+    public Vector3 positionTurnStart { get; private set; }
+    public WorldTile tileTurnStart { get; private set; }
 
     public Color grayOutColor;
+    public SelectionArrow selectionArrow;
 
     OscilateScale oscilateScale;
-    public SelectionArrow selectionArrow;
     SpriteRenderer[] spriteRenderers;
 
 
@@ -84,6 +84,9 @@ public class PlayerCharSelection : CharacterSelection
 
     void OnPlayerCharDeath()
     {
+        // unsubscribe from events on death
+        FindObjectOfType<TurnManager>().EnemyTurnEndEvent -= OnEnemyTurnEnd;
+        FindObjectOfType<TurnManager>().PlayerTurnEndEvent -= OnPlayerTurnEnd;
     }
 
     void OnPlayerTurnEnd()
@@ -92,7 +95,7 @@ public class PlayerCharSelection : CharacterSelection
     }
 
     public void OnEnemyTurnEnd()
-    {
+    {        
         oscilateScale.SetOscilation(true);
 
         // reseting flags on turn's end

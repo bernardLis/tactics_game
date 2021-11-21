@@ -21,8 +21,9 @@ public class CharacterSelection : MonoBehaviour
         highlighter = GameManager.instance.GetComponent<Highlighter>();
 
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
-        myStats = GetComponent<CharacterStats>();
         tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
+
+        myStats = GetComponent<CharacterStats>();
     }
 
     public virtual void HiglightMovementRange()

@@ -4,4 +4,16 @@
     <ui:VisualElement name="HealthChangeDisplayContainer" style="display: none; position: absolute; -unity-font-style: bold; font-size: 20px;">
         <ui:Label text="50" display-tooltip-when-elided="true" name="HealthChangeDisplayLabel" style="background-color: rgba(255, 255, 255, 0); -unity-font-style: bold; font-size: 24px; color: rgb(255, 109, 109); -unity-text-align: lower-left; white-space: normal;" />
     </ui:VisualElement>
+    <ui:VisualElement name="faceDirectionContainer" style="width: 100px; height: 100px; flex-wrap: nowrap; display: none;">
+        <ui:VisualElement name="top" style="align-items: center;">
+            <ui:Button text="/\" display-tooltip-when-elided="true" name="faceUp" style="width: 20px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="middle" style="align-items: stretch; flex-wrap: nowrap; flex-direction: row; justify-content: space-between;">
+            <ui:Button text="&lt;" display-tooltip-when-elided="true" name="faceLeft" style="width: 20px;" />
+            <ui:Button text="&gt;" display-tooltip-when-elided="true" name="faceRight" style="width: 20px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="bottom" style="align-items: center;">
+            <ui:Button text="\/" display-tooltip-when-elided="true" name="faceDown" style="width: 20px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

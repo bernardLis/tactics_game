@@ -5,22 +5,19 @@ public class DefendTriggerable : MonoBehaviour
 {
     CharacterStats myStats;
     CharacterRendererManager characterRendererManager;
+    FaceDirectionUI faceDirectionUI;
 
     void Awake()
     {
         myStats = GetComponent<CharacterStats>();
-
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+        faceDirectionUI = GetComponent<FaceDirectionUI>();
     }
 
-    public async Task<bool> Defend(GameObject target, int value, int manaCost)
+    public async Task<bool> Defend(int value, int manaCost)
     {
-        // TODO: probably wrong, if you are defending empty space, use movepoint's transform to set the direction;  
-        if (target == null)
-            target = MovePointController.instance.gameObject;
-
+        Vector2 dir = await faceDirectionUI.PickDirection();
         // play animation TODO: add defend animation
-        Vector2 dir = target.transform.position - transform.position;
         await characterRendererManager.SpellcastAnimation(dir);
 
         // add armor

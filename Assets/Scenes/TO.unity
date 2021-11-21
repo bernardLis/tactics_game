@@ -6047,6 +6047,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1558323601, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: charactersToPlace.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558323601, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
+      propertyPath: charactersToPlace.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5507a8cd877cad54f8f6d41f9a19dc3d, type: 2}
     - target: {fileID: 7569243889877751800, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
       propertyPath: m_Name
       value: Move Point

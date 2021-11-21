@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Pathfinding;
+using System.Threading.Tasks;
 
 public class BattleCharacterController : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class BattleCharacterController : MonoBehaviour
 
     // interactions
     Ability selectedAbility;
+    bool isSelectingFaceDirection;
 
     public static BattleCharacterController instance;
     void Awake()
@@ -111,6 +113,13 @@ public class BattleCharacterController : MonoBehaviour
         {
             Interact(_col);
             return;
+        }
+
+        if (isSelectingFaceDirection)
+        {
+            isSelectingFaceDirection = false;
+
+
         }
 
         // trigger defend even if there is no collider TODO: dunno how to manage that...
@@ -309,6 +318,8 @@ public class BattleCharacterController : MonoBehaviour
         selectedAbility = null;
         battleUI.HideAbilityTooltip();
         highlighter.ClearHighlightedTiles();
+        // TODO:cache face direction ui if it is the right approach
+        selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
     }
 
     void FinishCharacterTurn()

@@ -169,7 +169,7 @@ public class MovePointController : MonoBehaviour
         }
 
         // don't show card if you are hovering over selected character
-        if(battleCharacterController.selectedCharacter == col.transform.parent.gameObject)
+        if (battleCharacterController.selectedCharacter == col.transform.parent.gameObject)
         {
             battleUI.HideCharacterCard();
             return;
@@ -177,8 +177,11 @@ public class MovePointController : MonoBehaviour
 
         // show character card if there is a character there
         if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
+        {
             battleUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
-        
+            return;
+        }
+
         // hide if it is something else
         battleUI.HideCharacterCard();
     }

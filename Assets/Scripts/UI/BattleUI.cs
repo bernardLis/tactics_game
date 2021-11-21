@@ -9,7 +9,7 @@ public class BattleUI : MonoBehaviour
 
     // global utility
     BattleInputController battleInputController;
-    BattleCharacterController characterBattleController;
+    BattleCharacterController battleCharacterController;
 
     // UI Elements
     UIDocument UIDocument;
@@ -78,13 +78,19 @@ public class BattleUI : MonoBehaviour
     PlayerStats selectedPlayerStats;
 
     // animate ui up/down on show/hide
-    float characterUITopPercent = 20;
+    float characterUITopPercent = 20f;
+    float characterUIShowValue = 0f;
+    float characterUIHideValue = 20f;
     bool isCharacterUIAnimationOn;
     IVisualElementScheduledItem scheduler;
 
     // animate card left right on show/hide
-    float characterCardLeftPercent = -30;
+    float characterCardLeftPercent = -30f;
+    float characterCardShowValue = 0f;
+    float characterCardHideValue = -30f;
+
     bool isCharacterCardAnimationOn;
+
     IVisualElementScheduledItem characterCardScheduler;
 
     // buttons management
@@ -111,6 +117,8 @@ public class BattleUI : MonoBehaviour
 
         characterUIContainer = root.Q<VisualElement>("characterUIContainer");
         characterUI = root.Q<VisualElement>("characterUI");
+        // otherwise it is null
+        characterUI.style.top = Length.Percent(characterUIHideValue);
 
         characterUITooltipContainer = root.Q<VisualElement>("characterUITooltipContainer");
         characterUITooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
@@ -173,6 +181,8 @@ public class BattleUI : MonoBehaviour
 
         // character card
         characterCardContainer = root.Q<VisualElement>("characterCardContainer");
+        characterCardContainer.style.left = Length.Percent(characterCardHideValue);
+
         characterCardName = root.Q<Label>("characterCardName");
         characterCardPortrait = root.Q<VisualElement>("characterCardPortrait");
 
@@ -193,7 +203,7 @@ public class BattleUI : MonoBehaviour
     void Start()
     {
         battleInputController = BattleInputController.instance;
-        characterBattleController = BattleCharacterController.instance;
+        battleCharacterController = BattleCharacterController.instance;
 
         //https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
         StartCoroutine(CoroutineCoordinator());
@@ -203,7 +213,7 @@ public class BattleUI : MonoBehaviour
     // first 2 abilities should always be 
     void AButtonClicked()
     {
-        if (!characterBattleController.CanInteract())
+        if (!battleCharacterController.CanInteract())
             return;
 
         // TODO: hardcoded ability indexes
@@ -212,7 +222,7 @@ public class BattleUI : MonoBehaviour
 
     void SButtonClicked()
     {
-        if (!characterBattleController.CanInteract())
+        if (!battleCharacterController.CanInteract())
             return;
 
         // TODO: hardcoded ability indexes
@@ -221,7 +231,7 @@ public class BattleUI : MonoBehaviour
 
     void QButtonClicked()
     {
-        if (!characterBattleController.CanInteract())
+        if (!battleCharacterController.CanInteract())
             return;
 
         // TODO: hardcoded ability indexes
@@ -233,7 +243,7 @@ public class BattleUI : MonoBehaviour
 
     void WButtonClicked()
     {
-        if (!characterBattleController.CanInteract())
+        if (!battleCharacterController.CanInteract())
             return;
 
         // TODO: hardcoded ability indexes
@@ -245,7 +255,7 @@ public class BattleUI : MonoBehaviour
 
     void EButtonClicked()
     {
-        if (!characterBattleController.CanInteract())
+        if (!battleCharacterController.CanInteract())
             return;
 
         // TODO: hardcoded ability indexes
@@ -257,7 +267,7 @@ public class BattleUI : MonoBehaviour
 
     void RButtonClicked()
     {
-        if (!characterBattleController.CanInteract())
+        if (!battleCharacterController.CanInteract())
             return;
 
         // TODO: hardcoded ability indexes
@@ -277,9 +287,8 @@ public class BattleUI : MonoBehaviour
         Task task = ability.HighlightTargetable(); // for some reason this works, but it has to be written exactly like that with Task task = ;
         yield return new WaitUntil(() => task.IsCompleted);
 
-        characterBattleController.SetSelectedAbility(ability);
+        battleCharacterController.SetSelectedAbility(ability);
     }
-
 
     void ShowAbilityTooltip(Ability ability)
     {
@@ -297,9 +306,6 @@ public class BattleUI : MonoBehaviour
 
     public void ShowCharacterUI(PlayerStats playerStats)
     {
-        if (isCharacterUIAnimationOn)
-            return;
-
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
         selectedPlayerStats = playerStats;
 
@@ -315,6 +321,13 @@ public class BattleUI : MonoBehaviour
         DisableSkillButtons();
         EnableSkillButtons();
 
+        // skip showing it, if it is already shown;
+        if (characterUI.style.top.value.value == characterUIShowValue)
+            return;
+
+        if (isCharacterUIAnimationOn)
+            return;
+
         // 'animate' it to come up 
         characterUI.style.top = Length.Percent(characterUITopPercent);
         isCharacterUIAnimationOn = true;
@@ -323,6 +336,10 @@ public class BattleUI : MonoBehaviour
 
     public void HideCharacterUI()
     {
+        // skip hiding it, if it is already hidden;
+        if (characterUI.style.top.value.value == characterUIHideValue)
+            return;
+
         if (isCharacterUIAnimationOn)
             return;
 
@@ -415,7 +432,7 @@ public class BattleUI : MonoBehaviour
 
     void AnimateCharacterUIBoxUp()
     {
-        if (characterUITopPercent >= 0f)
+        if (characterUITopPercent >= characterUIShowValue)
         {
             characterUI.style.top = Length.Percent(characterUITopPercent);
             characterUITopPercent--;
@@ -429,7 +446,7 @@ public class BattleUI : MonoBehaviour
 
     void AnimateCharacterUIBoxDown()
     {
-        if (characterUITopPercent <= 20f)
+        if (characterUITopPercent <= characterUIHideValue)
         {
             characterUI.style.top = Length.Percent(characterUITopPercent);
             characterUITopPercent++;
@@ -451,10 +468,14 @@ public class BattleUI : MonoBehaviour
     {
         PopulateCharacterCard(chStats);
 
+        // skip showing it, if it is already shown;
+        if (characterCardContainer.style.left.value.value == characterCardShowValue)
+            return;
+
         if (isCharacterCardAnimationOn)
             return;
 
-        // 'animate' it to come up 
+        // 'animate' it to come up
         characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
         isCharacterCardAnimationOn = true;
         characterCardScheduler = characterCardContainer.schedule.Execute(() => AnimateCharacterCardRight()).Every(5); // ms
@@ -462,6 +483,10 @@ public class BattleUI : MonoBehaviour
 
     public void HideCharacterCard()
     {
+        // skip hidding it, if it is already hidden;
+        if (characterCardContainer.style.left.value.value == characterCardHideValue)
+            return;
+
         if (isCharacterCardAnimationOn)
             return;
 
@@ -471,7 +496,7 @@ public class BattleUI : MonoBehaviour
 
     void AnimateCharacterCardRight()
     {
-        if (characterCardLeftPercent <= 0f)
+        if (characterCardLeftPercent <= characterCardShowValue)
         {
             characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
             characterCardLeftPercent++;
@@ -485,7 +510,7 @@ public class BattleUI : MonoBehaviour
 
     void AnimateCharacterCardLeft()
     {
-        if (characterCardLeftPercent >= -30f)
+        if (characterCardLeftPercent >= characterCardHideValue)
         {
             characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
             characterCardLeftPercent--;
@@ -510,6 +535,7 @@ public class BattleUI : MonoBehaviour
 
         // (float) casts are not redundant, without them it does not work
         float missingHealthPerc = ((float)chStats.maxHealth.GetValue() - (float)chStats.currentHealth) / (float)chStats.maxHealth.GetValue();
+        missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
         float missingManaPerc = ((float)chStats.maxMana.GetValue() - (float)chStats.currentMana) / (float)chStats.maxMana.GetValue();
 
         characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
@@ -522,8 +548,6 @@ public class BattleUI : MonoBehaviour
         characterCardArmorAmount.text = "" + chStats.armor.GetValue();
         characterCardRangeAmount.text = "" + chStats.movementRange.GetValue();
     }
-
-
 
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
     IEnumerator CoroutineCoordinator()

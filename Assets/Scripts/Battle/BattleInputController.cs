@@ -20,7 +20,7 @@ public class BattleInputController : MonoBehaviour
 
     // local
     MovePointController movePointController;
-    BattleCharacterController characterBattleController;
+    BattleCharacterController battleCharacterController;
     BattlePreparationController battlePreparationController;
     OscilateScale oscilateScale;
 
@@ -56,7 +56,7 @@ public class BattleInputController : MonoBehaviour
         battleUI = BattleUI.instance;
 
         movePointController = MovePointController.instance;
-        characterBattleController = GetComponent<BattleCharacterController>();
+        battleCharacterController = GetComponent<BattleCharacterController>();
         battlePreparationController = GetComponent<BattlePreparationController>();
         oscilateScale = GetComponentInChildren<OscilateScale>();
 
@@ -123,7 +123,6 @@ public class BattleInputController : MonoBehaviour
 
         playerInput.actions["CancelEverything"].performed -= ctx => CancelEverything();
 
-
         // char placement specific for now
         playerInput.actions["SelectNextCharacter"].performed -= ctx => SelectNextCharacter();
         playerInput.actions["SelectPreviousCharacter"].performed -= ctx => SelectPreviousCharacter();
@@ -141,6 +140,7 @@ public class BattleInputController : MonoBehaviour
 
     void LeftMouseClick()
     {
+        Debug.Log("allowInput " + allowInput);
         if (!allowInput) // TODO: ||EventSystem.current.IsPointerOverGameObject() << throws an error;
             return;
 
@@ -178,7 +178,7 @@ public class BattleInputController : MonoBehaviour
         if (!allowInput)
             return;
 
-        characterBattleController.Back();
+        battleCharacterController.Back();
     }
 
     void SelectNextCharacter()
@@ -203,8 +203,8 @@ public class BattleInputController : MonoBehaviour
     void CancelEverything()
     {
         allowInput = true;
-        characterBattleController.Back();
-        characterBattleController.UnselectCharacter();
+        battleCharacterController.Back();
+        battleCharacterController.UnselectCharacter();
     }
 
     // when you click Q on keyboard I want to simulate clicking a button with mouse

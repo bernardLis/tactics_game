@@ -15,11 +15,8 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
     public int baseArmor = 0;
     public int baseMovementRange = 5;
 
-
-    public event Action CharacterDeathEvent;
-
     // Stats are accessed by other scripts need to be public.
-    [HideInInspector] public string characterName; // from char scriptable object
+    [HideInInspector] public string characterName;
     [HideInInspector] public Stat strength;
     [HideInInspector] public Stat intelligence;
     [HideInInspector] public Stat agility;
@@ -31,30 +28,36 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
     [HideInInspector] public Stat armor;
     [HideInInspector] public Stat movementRange;
 
+    // lists of abilities
+    [Header("Filled with character SO")]
     public List<Stat> stats;
-
-    public int currentHealth { get; private set; }
-    public int currentMana { get; private set; }
-
     public List<Ability> basicAbilities;
     public List<Ability> abilities;
 
+    // local
     DamageUI damageUI;
-
     CharacterRendererManager characterRendererManager;
+    CharacterSelection characterSelection;
+    AILerp aILerp;
+
 
     // pushable variables
     Vector3 startingPos;
     Vector3 finalPos;
     int characterDmg = 10;
     GameObject tempObject;
-    AILerp aILerp;
 
+    public int currentHealth { get; private set; }
+    public int currentMana { get; private set; }
+
+    // delegate
+    public event Action CharacterDeathEvent;
 
     protected virtual void Awake()
     {
         damageUI = GetComponent<DamageUI>();
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+        characterSelection = GetComponent<CharacterSelection>();
         aILerp = GetComponent<AILerp>();
 
         AddStatsToList();
@@ -297,6 +300,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
     {
         // playing death animation
         characterRendererManager.PlayDieAnimation();
+
+        // ending that character's turn // TODO: is that a smart way to handle death?
+        TurnManager.instance.PlayerCharacterTurnFinished();
 
         // kill all tweens TODO: is that OK?
         DOTween.KillAll();

@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 4669123874557101098}
   - component: {fileID: 1864993293436626181}
   - component: {fileID: 2624438210781941185}
+  - component: {fileID: 4212650218818044008}
   m_Layer: 6
   m_Name: TemplatePlayerCharacter
   m_TagString: Player
@@ -631,17 +632,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  baseMaxHealth: 1
+  baseMaxMana: 50
+  baseArmor: 0
+  baseMovementRange: 5
   characterName: 
-  movementRange:
-    baseValue: 4
-    modifiers: 
   strength:
     baseValue: 0
     modifiers: 
-  armor:
-    baseValue: 5
-    modifiers: 
   intelligence:
+    baseValue: 0
+    modifiers: 
+  agility:
+    baseValue: 0
+    modifiers: 
+  stamina:
     baseValue: 0
     modifiers: 
   maxHealth:
@@ -649,6 +654,12 @@ MonoBehaviour:
     modifiers: 
   maxMana:
     baseValue: 0
+    modifiers: 
+  armor:
+    baseValue: 5
+    modifiers: 
+  movementRange:
+    baseValue: 4
     modifiers: 
   stats: []
   basicAbilities: []
@@ -727,6 +738,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1d1227ef4e7aca4bb6fa921c9c609e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4212650218818044008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105715623576548083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a4ba4d7fbf2394288672d4319167c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6105715624814662954
