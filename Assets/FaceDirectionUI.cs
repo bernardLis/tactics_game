@@ -8,6 +8,10 @@ public class FaceDirectionUI : MonoBehaviour
 {
     // global
     Camera cam;
+    BattleCharacterController battleCharacterController;
+
+    // local
+    PlayerCharSelection playerCharSelection;
 
     // UI Elements
     UIDocument UIDocument;
@@ -17,18 +21,23 @@ public class FaceDirectionUI : MonoBehaviour
     Button faceRightButton;
     Button faceDownButton;
 
+    bool isUIShown;
     bool directionPicked;
+    bool breakTask;
     Vector2 pickedDirection;
 
     // to place the UI in the right spot
-    float offsetY = 1.75f;
-    float offsetX = -0.75f;
-
+    public float offsetY = 1.75f;
+    public float offsetX = -1.42f;
 
     void Start()
     {
         // global
         cam = Camera.main;
+        battleCharacterController = BattleCharacterController.instance;
+
+        // local
+        playerCharSelection = GetComponent<PlayerCharSelection>();
 
         // getting ui elements
         UIDocument = GetComponent<UIDocument>();
@@ -47,28 +56,47 @@ public class FaceDirectionUI : MonoBehaviour
         faceDownButton.clickable.clicked += FaceDownButtonClicked;
     }
 
+    void Update()
+    {
+        if (isUIShown)
+           ShowUI();
+
+    }
+
     public async Task<Vector2> PickDirection()
     {
-        ShowUI();
+        MovePointController.instance.Move(transform.position);
+
+        container.style.display = DisplayStyle.Flex;
+        isUIShown = true;
+
         directionPicked = false;
-        BattleInputController.instance.SetInputAllowed(false);
+        breakTask = false;
+
+        // disable selection arrow
+        playerCharSelection.ToggleSelectionArrow(false);
+
+        battleCharacterController.characterState = CharacterState.SelectingFaceDir;
+
         while (!directionPicked)
         {
+            if (breakTask)
+                return Vector2.zero;
+
+            Debug.Log("poick direction is running");
             await Task.Yield();
         }
 
         HideUI();
-        BattleInputController.instance.SetInputAllowed(true);
 
         return pickedDirection;
     }
 
     void ShowUI()
     {
-        container.style.display = DisplayStyle.Flex;
 
         // TODO: place it on the character
-        Vector3 middleOfTheTile = new Vector3(transform.position.x+ offsetX, transform.position.y + offsetY, transform.position.z);
+        Vector3 middleOfTheTile = new Vector3(transform.position.x + offsetX, transform.position.y + offsetY, transform.position.z);
         Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(container.panel, middleOfTheTile, cam);
 
         container.transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
@@ -76,6 +104,8 @@ public class FaceDirectionUI : MonoBehaviour
 
     public void HideUI()
     {
+        isUIShown = false;
+        breakTask = true;
         container.style.display = DisplayStyle.None;
     }
 
@@ -98,6 +128,32 @@ public class FaceDirectionUI : MonoBehaviour
     {
         directionPicked = true;
         pickedDirection = Vector2.down;
+    }
+
+
+    public void SimulateUpButtonClicked()
+    {
+        using (var e = new NavigationSubmitEvent() { target = faceUpButton })
+            faceUpButton.SendEvent(e);
+    }
+
+    public void SimulateLeftButtonClicked()
+    {
+        using (var e = new NavigationSubmitEvent() { target = faceLeftButton })
+            faceLeftButton.SendEvent(e);
+    }
+
+    public void SimulateRightButtonClicked()
+    {
+        // https://forum.unity.com/threads/trigger-button-click-from-code.1124356/
+        using (var e = new NavigationSubmitEvent() { target = faceRightButton })
+            faceRightButton.SendEvent(e);
+    }
+
+    public void SimulateDownButtonClicked()
+    {
+        using (var e = new NavigationSubmitEvent() { target = faceDownButton })
+            faceDownButton.SendEvent(e);
     }
 
 

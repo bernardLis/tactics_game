@@ -47,7 +47,7 @@ public class EnemyManager : MonoBehaviour
             if (enemy != null)
             {
                 BasicCameraFollow.instance.followTarget = enemy.transform;
-                BattleUI.instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
+                InfoCardUI.instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
                 enemyAI = enemy.GetComponent<EnemyAI>();
                 // this waits until the previous corutine is done
                 yield return StartCoroutine(enemyAI.RunAI());

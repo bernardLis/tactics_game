@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using DG.Tweening;
 
 public class PlayerCharSelection : CharacterSelection
@@ -37,15 +38,23 @@ public class PlayerCharSelection : CharacterSelection
 
     public void SelectCharacter()
     {
-        selectionArrow.gameObject.SetActive(true);
+        GetComponent<SortingGroup>().sortingOrder = 99;
+        ToggleSelectionArrow(true);
     }
 
     public void DeselectCharacter()
     {
-        // hide the arrow
-        selectionArrow.gameObject.SetActive(false);
+        GetComponent<SortingGroup>().sortingOrder = 90;
 
+        // hide the arrow
+        ToggleSelectionArrow(false);
     }
+
+    public void ToggleSelectionArrow(bool isActive)
+    {
+        selectionArrow.gameObject.SetActive(isActive);
+    }
+
 
     public override void FinishCharacterTurn()
     {
@@ -82,6 +91,7 @@ public class PlayerCharSelection : CharacterSelection
         hasMovedThisTurn = hasMoved;
     }
 
+
     void OnPlayerCharDeath()
     {
         // unsubscribe from events on death
@@ -95,7 +105,7 @@ public class PlayerCharSelection : CharacterSelection
     }
 
     public void OnEnemyTurnEnd()
-    {        
+    {
         oscilateScale.SetOscilation(true);
 
         // reseting flags on turn's end

@@ -20,7 +20,12 @@ public class HealTriggerable : MonoBehaviour
         Vector2 dir = target.transform.position - transform.position;
         // healing self, should be able to choose what direction to face
         if (target == gameObject)
+        {
             dir = await faceDirectionUI.PickDirection();
+            // TODO: is that correct, facedir returns vector2.zero when it's broken out of
+            if (dir == Vector2.zero)
+                return false;
+        }
 
         // animation
         await characterRendererManager.SpellcastAnimation(dir);

@@ -4,6 +4,9 @@ using UnityEngine.Tilemaps;
 using Pathfinding;
 using System.Threading.Tasks;
 
+public enum CharacterState { None, Selected, SelectingInteractionTarget, SelectingFaceDir }
+
+
 public class BattleCharacterController : MonoBehaviour
 {
     // tilemap
@@ -14,7 +17,7 @@ public class BattleCharacterController : MonoBehaviour
 
     // global utilities
     Highlighter highlighter;
-    BattleUI battleUI;
+    CharacterUI battleUI;
     BattleInputController battleInputController;
     MovePointController movePointController;
 
@@ -25,6 +28,9 @@ public class BattleCharacterController : MonoBehaviour
     AILerp aILerp;
     AIDestinationSetter destinationSetter;
     CharacterRendererManager characterRendererManager;
+
+    // state
+    public CharacterState characterState;
 
     // selection
     bool isSelectionBlocked; // block mashing select character coz it breaks the highlight - if you quickly switch between selection of 2 chars.
@@ -63,7 +69,7 @@ public class BattleCharacterController : MonoBehaviour
 
         highlighter = Highlighter.instance;
         battleInputController = BattleInputController.instance;
-        battleUI = BattleUI.instance;
+        battleUI = CharacterUI.instance;
         movePointController = MovePointController.instance;
 
         seeker = GetComponent<Seeker>();
@@ -167,6 +173,7 @@ public class BattleCharacterController : MonoBehaviour
     async void SelectCharacter(GameObject _character)
     {
         isSelectionBlocked = true;
+        characterState = CharacterState.Selected;
 
         if (_character.GetComponent<PlayerCharSelection>().hasMovedThisTurn)
         {
@@ -220,6 +227,7 @@ public class BattleCharacterController : MonoBehaviour
     public void Back()
     {
         ClearPathRenderer();
+        movePointController.UpdateDisplayInformation();
 
         // if back is called during character movement return
         if (hasCharacterStartedMoving)
@@ -227,6 +235,12 @@ public class BattleCharacterController : MonoBehaviour
 
         if (selectedCharacter == null)
             return;
+
+        if (characterState == CharacterState.SelectingFaceDir)
+        {
+            BackFromFaceDirSelection();
+            return;
+        }
 
         if (selectedAbility != null)
         {
@@ -299,12 +313,17 @@ public class BattleCharacterController : MonoBehaviour
 
     async void Interact(Collider2D col)
     {
+        Debug.Log("interact is runnign");
         // defend ability // TODO: await in if ... hmmmmmmm....
-        if (col == null && selectedAbility.aType == AbilityType.DEFEND && await selectedAbility.TriggerAbility(null))
+
+        if (col == null && selectedAbility.aType == AbilityType.DEFEND)
         {
-            FinishCharacterTurn();
+            if (await selectedAbility.TriggerAbility(null))
+                FinishCharacterTurn();
+
             return;
         }
+
 
         // returns true if ability was triggered successfuly. // TODO: await in if ... hmmmmmmm....
         if (!await selectedAbility.TriggerAbility(col.transform.parent.gameObject))
@@ -313,22 +332,46 @@ public class BattleCharacterController : MonoBehaviour
         FinishCharacterTurn();
     }
 
+
     void BackFromAbilitySelection()
     {
         selectedAbility = null;
         battleUI.HideAbilityTooltip();
         highlighter.ClearHighlightedTiles();
+
+        // TODO:cache face direction ui if it is the right approach
+        //selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+    }
+
+    void BackFromFaceDirSelection()
+    {
         // TODO:cache face direction ui if it is the right approach
         selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+        playerCharSelection.ToggleSelectionArrow(true);
+        
+        // abilities that can target self should go back to Select target
+        Debug.Log("back from face dir selection");
+        if (selectedAbility.canTargetSelf)
+        {
+            // it changes the state too
+            selectedAbility.HighlightTargetable();
+            return;
+        }
+
+        // deselect ability if it was an ability that goes straight to facing dir;
+        BackFromAbilitySelection();
+        characterState = CharacterState.Selected; 
     }
+
 
     void FinishCharacterTurn()
     {
         // update ui through movepoint
-        movePointController.UpdateCharacterCardInfo();
+        movePointController.UpdateDisplayInformation();
 
         // set flags in player char selection
-        playerCharSelection.FinishCharacterTurn();
+        if (playerCharSelection != null)
+            playerCharSelection.FinishCharacterTurn();
 
         // clearing the cache here
         UnselectCharacter();
@@ -339,6 +382,8 @@ public class BattleCharacterController : MonoBehaviour
 
     public void UnselectCharacter()
     {
+        characterState = CharacterState.None;
+
         // character specific ui
         if (playerCharSelection != null)
             playerCharSelection.DeselectCharacter();

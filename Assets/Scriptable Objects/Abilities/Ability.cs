@@ -27,15 +27,19 @@ public abstract class Ability : ScriptableObject
 
     GameObject characterGameObject;
     protected Highlighter highlighter;
+    protected BattleCharacterController battleCharacterController;
 
     public virtual void Initialize(GameObject obj)
     {
         characterGameObject = obj;
         highlighter = GameManager.instance.GetComponent<Highlighter>();
+        battleCharacterController = BattleCharacterController.instance;
         audioSource = AudioScript.instance.GetComponent<AudioSource>();
     }
     public virtual async Task HighlightTargetable()
     {
+        battleCharacterController.characterState = CharacterState.SelectingInteractionTarget;
+
         await highlighter.HighlightTiles(characterGameObject.transform.position, range,
                        highlightColor, canTargetDiagonally, canTargetSelf);
 

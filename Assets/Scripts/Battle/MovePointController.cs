@@ -7,7 +7,8 @@ public class MovePointController : MonoBehaviour
     // TODO: movepoint should only be using battle ui
     BasicCameraFollow basicCameraFollow;
     GameUI gameUI;
-    BattleUI battleUI;
+    CharacterUI characterUI;
+    InfoCardUI infoCardUI;
 
     BattlePreparationController battlePreparationController;
     BattleCharacterController battleCharacterController;
@@ -19,6 +20,9 @@ public class MovePointController : MonoBehaviour
 
     // TODO: display some enemy info when you are hovering on them
     bool firstEnable = false;
+
+    // highlighting enemy movmeent range on hover
+    EnemyCharSelection enemyCharSelection;
 
     public static MovePointController instance;
     void Awake()
@@ -39,7 +43,8 @@ public class MovePointController : MonoBehaviour
 
         basicCameraFollow = BasicCameraFollow.instance;
         gameUI = GameUI.instance;
-        battleUI = BattleUI.instance;
+        characterUI = CharacterUI.instance;
+        infoCardUI = InfoCardUI.instance;
 
         // This is our Dictionary of tiles
         tiles = GameTiles.instance.tiles;
@@ -80,8 +85,7 @@ public class MovePointController : MonoBehaviour
         // TODO: dunno if this is the correct way to handle this.
         battleCharacterController.DrawPath();
 
-        UpdateTileInfoUI();
-        UpdateCharacterCardInfo();
+        UpdateDisplayInformation();
 
         // TODO: character being placed
         if (battlePreparationController.characterBeingPlaced != null)
@@ -115,7 +119,13 @@ public class MovePointController : MonoBehaviour
         battlePreparationController.PlaceCharacter();
     }
 
-    public void UpdateTileInfoUI()
+    public void UpdateDisplayInformation()
+    {
+        UpdateTileInfoUI();
+        UpdateCharacterCardInfo();
+    }
+
+    void UpdateTileInfoUI()
     {
         // tile info
         Vector3Int tilePos = tilemap.WorldToCell(transform.position);
@@ -156,7 +166,7 @@ public class MovePointController : MonoBehaviour
 
     }
 
-    public void UpdateCharacterCardInfo()
+    void UpdateCharacterCardInfo()
     {
         // check if there is a character standing there
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
@@ -164,26 +174,26 @@ public class MovePointController : MonoBehaviour
         // return if there is no object on the tile
         if (col == null)
         {
-            battleUI.HideCharacterCard();
+            infoCardUI.HideCharacterCard();
             return;
         }
 
         // don't show card if you are hovering over selected character
         if (battleCharacterController.selectedCharacter == col.transform.parent.gameObject)
         {
-            battleUI.HideCharacterCard();
+            infoCardUI.HideCharacterCard();
             return;
         }
 
         // show character card if there is a character there
         if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
         {
-            battleUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
+            infoCardUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
             return;
         }
 
         // hide if it is something else
-        battleUI.HideCharacterCard();
+        infoCardUI.HideCharacterCard();
     }
 
     void Select(Collider2D obj)

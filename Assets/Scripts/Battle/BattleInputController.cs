@@ -16,7 +16,7 @@ public class BattleInputController : MonoBehaviour
 
     // global utilities
     Camera cam;
-    BattleUI battleUI;
+    CharacterUI battleUI;
 
     // local
     MovePointController movePointController;
@@ -53,7 +53,7 @@ public class BattleInputController : MonoBehaviour
 
         // TODO: Supposedly, this is an expensive call
         cam = Camera.main;
-        battleUI = BattleUI.instance;
+        battleUI = CharacterUI.instance;
 
         movePointController = MovePointController.instance;
         battleCharacterController = GetComponent<BattleCharacterController>();
@@ -140,7 +140,9 @@ public class BattleInputController : MonoBehaviour
 
     void LeftMouseClick()
     {
-        Debug.Log("allowInput " + allowInput);
+        if (battleCharacterController.characterState == CharacterState.SelectingFaceDir)
+            return;
+
         if (!allowInput) // TODO: ||EventSystem.current.IsPointerOverGameObject() << throws an error;
             return;
 
@@ -157,6 +159,21 @@ public class BattleInputController : MonoBehaviour
 
     void Move(Vector2 direction)
     {
+        // Selecting face direction with arrows
+        if (battleCharacterController.characterState == CharacterState.SelectingFaceDir)
+        {
+            if (direction == Vector2.up)
+                battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateUpButtonClicked();
+            if (direction == Vector2.left)
+                battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateLeftButtonClicked();
+            if (direction == Vector2.right)
+                battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateRightButtonClicked();
+            if (direction == Vector2.down)
+                battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateDownButtonClicked();
+
+            return;
+        }
+
         if (!allowInput)
             return;
 

@@ -18,8 +18,10 @@ public class DefendAbility : Ability
         await highlighter.ClearHighlightedTiles();
 
         // TODO: this is a hacky way it works for now but I don't know if I want to live this way.
-        BattleCharacterController.instance.SetSelectedAbility(this);
-        BattleCharacterController.instance.Select(null);
+        battleCharacterController.SetSelectedAbility(this);
+        battleCharacterController.Select(null);
+
+        battleCharacterController.characterState = CharacterState.SelectingFaceDir;
     }
 
     // returns true if ability was triggered with success

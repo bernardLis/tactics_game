@@ -17,6 +17,11 @@ public class DefendTriggerable : MonoBehaviour
     public async Task<bool> Defend(int value, int manaCost)
     {
         Vector2 dir = await faceDirectionUI.PickDirection();
+
+        // TODO: is that correct, facedir returns vector2.zero when it's broken out of
+        if (dir == Vector2.zero)
+            return false;
+
         // play animation TODO: add defend animation
         await characterRendererManager.SpellcastAnimation(dir);
 

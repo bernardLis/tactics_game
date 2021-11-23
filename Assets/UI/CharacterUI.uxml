@@ -1,19 +1,27 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/UIStyles/CharacterActionStyles.uss?fileID=7433441132597879392&amp;guid=6298c577d650e464586723babfdc4986&amp;type=3#CharacterActionStyles" />
     <Style src="project://database/Assets/UI/UIStyles/DamageUIStyles.uss?fileID=7433441132597879392&amp;guid=ed5e3e0cc359d7147bb005a9eaa49ab0&amp;type=3#DamageUIStyles" />
+    <Style src="project://database/Assets/UI/UIStyles/CharacterUIStyles.uss?fileID=7433441132597879392&amp;guid=a1261494d382f244d8700b3a48ae79b9&amp;type=3#CharacterUIStyles" />
     <ui:VisualElement name="HealthChangeDisplayContainer" style="display: none; position: absolute; -unity-font-style: bold; font-size: 20px;">
         <ui:Label text="50" display-tooltip-when-elided="true" name="HealthChangeDisplayLabel" style="background-color: rgba(255, 255, 255, 0); -unity-font-style: bold; font-size: 24px; color: rgb(255, 109, 109); -unity-text-align: lower-left; white-space: normal;" />
     </ui:VisualElement>
-    <ui:VisualElement name="faceDirectionContainer" style="width: 100px; height: 100px; flex-wrap: nowrap; display: none;">
-        <ui:VisualElement name="top" style="align-items: center;">
-            <ui:Button text="/\" display-tooltip-when-elided="true" name="faceUp" style="width: 20px;" />
+    <ui:VisualElement name="faceDirectionContainer" style="width: 180px; height: 180px; flex-wrap: nowrap; display: none; justify-content: space-between;">
+        <ui:VisualElement name="top" style="align-items: center; display: flex;">
+            <ui:Button display-tooltip-when-elided="true" name="faceUp" class="faceDirButton">
+                <ui:VisualElement name="icon" class="faceDirIcon" />
+            </ui:Button>
         </ui:VisualElement>
-        <ui:VisualElement name="middle" style="align-items: stretch; flex-wrap: nowrap; flex-direction: row; justify-content: space-between;">
-            <ui:Button text="&lt;" display-tooltip-when-elided="true" name="faceLeft" style="width: 20px;" />
-            <ui:Button text="&gt;" display-tooltip-when-elided="true" name="faceRight" style="width: 20px;" />
+        <ui:VisualElement name="middle" style="align-items: stretch; flex-wrap: nowrap; flex-direction: row; justify-content: space-between; margin-left: 0; margin-right: 0; margin-top: 10px; margin-bottom: 10px;">
+            <ui:Button display-tooltip-when-elided="true" name="faceLeft" class="faceDirButton">
+                <ui:VisualElement name="icon" class="faceDirIcon" style="background-image: url(&apos;project://database/Assets/Sprites/faceLeftArrow.png?fileID=2800000&amp;guid=e7ef8a96a61b34f46b7c3f154ad180ba&amp;type=3#faceLeftArrow&apos;);" />
+            </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" name="faceRight" class="faceDirButton">
+                <ui:VisualElement name="icon" class="faceDirIcon" style="background-image: url(&apos;project://database/Assets/Sprites/faceRightArrow.png?fileID=2800000&amp;guid=ec3288d02fc7b1546ba34df9dc75646a&amp;type=3#faceRightArrow&apos;);" />
+            </ui:Button>
         </ui:VisualElement>
         <ui:VisualElement name="bottom" style="align-items: center;">
-            <ui:Button text="\/" display-tooltip-when-elided="true" name="faceDown" style="width: 20px;" />
+            <ui:Button display-tooltip-when-elided="true" name="faceDown" class="faceDirButton">
+                <ui:VisualElement name="icon" class="faceDirIcon" style="background-image: url(&apos;project://database/Assets/Sprites/selectionArrow.png?fileID=2800000&amp;guid=6aaee8b56b4949d468c2cfc6ccc84fff&amp;type=3#selectionArrow&apos;);" />
+            </ui:Button>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

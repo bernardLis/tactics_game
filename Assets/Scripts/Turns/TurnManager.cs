@@ -10,7 +10,7 @@ public class TurnManager : MonoBehaviour
     public static int currentTurn = 0;
 
     Highlighter highlighter;
-    BattleUI battleUI;
+    InfoCardUI infoCardUI;
 
     GameObject[] playerCharacters;
     GameObject[] enemies;
@@ -44,7 +44,7 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         highlighter = Highlighter.instance;
-        battleUI = BattleUI.instance;
+        infoCardUI = InfoCardUI.instance;
         // TODO: create a start battleState where you place your characters
         battleState = BattleState.PREPARATION;
     }
@@ -86,7 +86,7 @@ public class TurnManager : MonoBehaviour
         battleState = BattleState.ENEMYTURN;
 
         // hide character card
-        battleUI.HideCharacterCard();
+        infoCardUI.HideCharacterCard();
 
         // TODO: Is this taxing?
         // Recalculate all graphs
@@ -109,8 +109,7 @@ public class TurnManager : MonoBehaviour
         battleState = BattleState.PLAYERTURN;
 
         // hide character card
-        battleUI.HideCharacterCard();
-
+        infoCardUI.HideCharacterCard();
 
         // TODO: Is this very taxing? 
         // Recalculate all graphs
