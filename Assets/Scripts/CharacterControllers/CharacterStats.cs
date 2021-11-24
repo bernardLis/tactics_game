@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,9 +38,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
     // local
     DamageUI damageUI;
     CharacterRendererManager characterRendererManager;
-    CharacterSelection characterSelection;
     AILerp aILerp;
-
 
     // pushable variables
     Vector3 startingPos;
@@ -57,10 +56,35 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
     {
         damageUI = GetComponent<DamageUI>();
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
-        characterSelection = GetComponent<CharacterSelection>();
         aILerp = GetComponent<AILerp>();
 
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+
         AddStatsToList();
+    }
+
+    protected virtual void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        // TODO: modifiers should last number of turns and I should be checking each stat for modifier and how many turns are left;
+        foreach (Stat stat in stats)
+        {
+            if (stat.modifiers.Count == 0)
+                continue;
+
+            // iterate from the back to remove safely.
+            for (int i = stat.modifiers.Count; i <= 0; i--)
+                stat.RemoveModifier(stat.modifiers[i]);
+        }
+
+        if (TurnManager.currentTurn == 1)
+            return;
+
+        GainMana(10);
+    }
+
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
     void AddStatsToList()

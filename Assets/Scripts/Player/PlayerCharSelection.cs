@@ -14,26 +14,53 @@ public class PlayerCharSelection : CharacterSelection
     public Color grayOutColor;
     public SelectionArrow selectionArrow;
 
-    OscilateScale oscilateScale;
     SpriteRenderer[] spriteRenderers;
 
 
     public override void Awake()
     {
         base.Awake();
-        FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
-        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
-
-        // subscribe to player death
-        GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
-
-        oscilateScale = GetComponentInChildren<OscilateScale>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
+
+    void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        if (state == BattleState.PlayerTurn)
+            HandlePlayerTurn();
+        if (state == BattleState.EnemyTurn)
+            HandleEnemyTurn();
+
+    }
+
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+    }
+
 
     public bool CanBeSelected()
     {
         return !hasFinishedTurn;
+    }
+
+    public void HandlePlayerTurn()
+    {
+        // reseting flags on turn's end
+        hasMovedThisTurn = false;
+        hasFinishedTurn = false;
+
+        // remember on which tile you start the turn on 
+        positionTurnStart = transform.position;
+
+        if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
+            tileTurnStart = _tile;
+    }
+
+    void HandleEnemyTurn()
+    {
+        Invoke("ReturnCharacterColor", 1f);
     }
 
     public void SelectCharacter()
@@ -59,9 +86,6 @@ public class PlayerCharSelection : CharacterSelection
     public override void FinishCharacterTurn()
     {
         DeselectCharacter();
-        // stop playing "idle animation"
-        oscilateScale.SetOscilation(false);
-
         GrayOutCharacter();
 
         hasFinishedTurn = true;
@@ -92,32 +116,6 @@ public class PlayerCharSelection : CharacterSelection
     }
 
 
-    void OnPlayerCharDeath()
-    {
-        // unsubscribe from events on death
-        FindObjectOfType<TurnManager>().EnemyTurnEndEvent -= OnEnemyTurnEnd;
-        FindObjectOfType<TurnManager>().PlayerTurnEndEvent -= OnPlayerTurnEnd;
-    }
-
-    void OnPlayerTurnEnd()
-    {
-        Invoke("ReturnCharacterColor", 1f);
-    }
-
-    public void OnEnemyTurnEnd()
-    {
-        oscilateScale.SetOscilation(true);
-
-        // reseting flags on turn's end
-        hasMovedThisTurn = false;
-        hasFinishedTurn = false;
-
-        // remember on which tile you start the turn on 
-        positionTurnStart = transform.position;
-
-        if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
-            tileTurnStart = _tile;
-    }
 
 }
 

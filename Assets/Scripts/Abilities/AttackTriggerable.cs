@@ -33,6 +33,7 @@ public class AttackTriggerable : MonoBehaviour
 
         // damage target
         int damage = value + myStats.strength.GetValue();
+
         target.GetComponent<IAttackable>().TakeDamage(damage);
         myStats.UseMana(manaCost);
 

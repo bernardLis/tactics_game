@@ -7,7 +7,6 @@ public class MovePointController : MonoBehaviour
     // TODO: movepoint should only be using battle ui
     BasicCameraFollow basicCameraFollow;
     GameUI gameUI;
-    CharacterUI characterUI;
     InfoCardUI infoCardUI;
 
     BattlePreparationController battlePreparationController;
@@ -17,12 +16,6 @@ public class MovePointController : MonoBehaviour
     Tilemap tilemap;
     WorldTile _tile;
     Dictionary<Vector3, WorldTile> tiles;
-
-    // TODO: display some enemy info when you are hovering on them
-    bool firstEnable = false;
-
-    // highlighting enemy movmeent range on hover
-    EnemyCharSelection enemyCharSelection;
 
     public static MovePointController instance;
     void Awake()
@@ -38,12 +31,10 @@ public class MovePointController : MonoBehaviour
         instance = this;
         #endregion
 
-        FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
-        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
         basicCameraFollow = BasicCameraFollow.instance;
         gameUI = GameUI.instance;
-        characterUI = CharacterUI.instance;
         infoCardUI = InfoCardUI.instance;
 
         // This is our Dictionary of tiles
@@ -54,23 +45,16 @@ public class MovePointController : MonoBehaviour
         battleCharacterController = GetComponent<BattleCharacterController>();
     }
 
-    void Start()
+    void OnDestroy()
     {
-        UpdateTileInfoUI();
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
-    void OnEnable()
-    {
-        // TODO: THIS SUCKS but document ui is not ready on the first enable.
-        if (!firstEnable)
-            UpdateTileInfoUI();
 
-        firstEnable = true;
-    }
-
-    void OnDisable()
+    void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        gameUI.HideTileInfoUI();
+        if (state == BattleState.PlayerTurn)
+            HandlePlayerTurn();
     }
 
     public void Move(Vector3 pos)
@@ -99,7 +83,7 @@ public class MovePointController : MonoBehaviour
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
 
         // For placing characters during prep
-        if (TurnManager.battleState == BattleState.PREPARATION && battlePreparationController.characterBeingPlaced != null)
+        if (TurnManager.battleState == BattleState.Preparation && battlePreparationController.characterBeingPlaced != null)
         {
             HandleBattlePrepSelectClick();
             return;
@@ -119,12 +103,33 @@ public class MovePointController : MonoBehaviour
         battlePreparationController.PlaceCharacter();
     }
 
+    void Select(Collider2D obj)
+    {
+        battleCharacterController.Select(obj);
+        UpdateDisplayInformation();
+    }
+
+    void HandlePlayerTurn()
+    {
+        GameObject[] playerChars = GameObject.FindGameObjectsWithTag("Player");
+        if (playerChars.Length > 0)
+            transform.position = playerChars[0].transform.position;
+
+        // camera follows the movepoint again
+        basicCameraFollow.followTarget = transform;
+
+        UpdateDisplayInformation();
+    }
+
+
     public void UpdateDisplayInformation()
     {
         UpdateTileInfoUI();
         UpdateCharacterCardInfo();
+        ShowAbilityResult();
     }
 
+    // TODO: needs a rewrite
     void UpdateTileInfoUI()
     {
         // tile info
@@ -137,7 +142,6 @@ public class MovePointController : MonoBehaviour
 
         if (_tile.IsObstacle)
             tileUIText = "Obstacle. ";
-
 
         // check if there is a character standing there
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
@@ -196,27 +200,41 @@ public class MovePointController : MonoBehaviour
         infoCardUI.HideCharacterCard();
     }
 
-    void Select(Collider2D obj)
+    void ShowAbilityResult()
     {
-        battleCharacterController.Select(obj);
-        UpdateCharacterCardInfo();
+        if (battleCharacterController.characterState != CharacterState.SelectingInteractionTarget)
+            return;
+
+        // check if there is a character standing there
+        Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
+        if (col == null)
+            return;
+        // TODO: maybe check for interfaces?
+        if (!(col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider")))
+            return;
+
+        CharacterStats attacker = battleCharacterController.selectedCharacter.GetComponent<CharacterStats>();
+        CharacterStats defender = col.transform.parent.GetComponent<CharacterStats>();
+
+        if (battleCharacterController.selectedAbility.aType == AbilityType.ATTACK)
+            infoCardUI.ShowDamage(defender, CalculateInteractionResult(attacker, defender));
+        if (battleCharacterController.selectedAbility.aType == AbilityType.HEAL)
+            infoCardUI.ShowHeal(defender, CalculateInteractionResult(attacker, defender));
     }
 
-    void OnEnemyTurnEnd()
+    int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
     {
-        GameObject[] playerChars = GameObject.FindGameObjectsWithTag("Player");
-        if (playerChars.Length > 0)
-            transform.position = playerChars[0].transform.position;
+        int result = 0;
 
-        // camera follows the movepoint again
-        basicCameraFollow.followTarget = transform;
+        // TODO: differentiate between abilities that calculate value from int/str
+        if (battleCharacterController.selectedAbility.aType == AbilityType.ATTACK)
+            result = battleCharacterController.selectedAbility.value + attacker.strength.GetValue() - defender.armor.GetValue();
 
-        UpdateTileInfoUI();
+        if (battleCharacterController.selectedAbility.aType == AbilityType.HEAL)
+            result = battleCharacterController.selectedAbility.value + attacker.intelligence.GetValue();
+
+
+        return result;
     }
-
-    void OnPlayerTurnEnd()
-    {
-    }
-
 }
 

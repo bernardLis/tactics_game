@@ -15,14 +15,27 @@ public class BattlePreparationController : MonoBehaviour
 
     int characterBeingPlacedIndex = 0;
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+    }
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+    }
+
     void Start()
     {
-        if (TurnManager.battleState == BattleState.PREPARATION)
-            InstantiateCharacter(0);
-
         highlighter = Highlighter.instance;
     }
+
+    void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        if (TurnManager.battleState == BattleState.Preparation)
+            InstantiateCharacter(0);
+    }
+
+    // Start is called before the first frame update
 
     public void SelectNextCharacter()
     {
@@ -81,7 +94,8 @@ public class BattlePreparationController : MonoBehaviour
 #pragma warning disable CS4014
             highlighter.ClearHighlightedTiles();
 
-            TurnManager.instance.StartBattle();
+            TurnManager.instance.UpdateBattleState(BattleState.PlayerTurn);
+            //TurnManager.instance.StartBattle();
             return;
         }
 

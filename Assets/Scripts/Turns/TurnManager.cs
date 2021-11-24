@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public enum BattleState { PREPARATION, PLAYERTURN, ENEMYTURN, WON, LOST }
+public enum BattleState { Preparation, PlayerTurn, EnemyTurn, Won, Lost }
 
 [RequireComponent(typeof(TurnDisplayer))]
 public class TurnManager : MonoBehaviour
@@ -9,7 +9,6 @@ public class TurnManager : MonoBehaviour
     public static BattleState battleState;
     public static int currentTurn = 0;
 
-    Highlighter highlighter;
     InfoCardUI infoCardUI;
 
     GameObject[] playerCharacters;
@@ -21,12 +20,8 @@ public class TurnManager : MonoBehaviour
     int playerCharactersAlive;
     int enemyCharactersAlive;
 
-    public event Action EnemyTurnEndEvent;
-    public event Action PlayerTurnEndEvent;
+    public static event Action<BattleState> OnBattleStateChanged;
 
-    // get the amount of player characters
-    // each time player character finishes its move subtract one from the total
-    // if all player characters finished their turn -> start a new turn
     public static TurnManager instance;
     void Awake()
     {
@@ -43,17 +38,76 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        highlighter = Highlighter.instance;
         infoCardUI = InfoCardUI.instance;
+
         // TODO: create a start battleState where you place your characters
-        battleState = BattleState.PREPARATION;
+        UpdateBattleState(BattleState.Preparation);
+    }
+
+    // https://www.youtube.com/watch?v=4I0vonyqMi8&t=193s
+    public void UpdateBattleState(BattleState newState)
+    {
+        battleState = newState;
+
+        switch (newState)
+        {
+            case BattleState.Preparation:
+                HandlePreparation();
+                break;
+            case BattleState.PlayerTurn:
+                HandlePlayerTurn();
+                break;
+            case BattleState.EnemyTurn:
+                HandleEnemyTurn();
+                break;
+            case BattleState.Won:
+                HandleWinning();
+                break;
+            case BattleState.Lost:
+                HandleLosing();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
+
+        OnBattleStateChanged?.Invoke(newState);
+    }
+
+    void HandlePreparation()
+    {
+    }
+
+    void HandlePlayerTurn()
+    {
+        // TODO: I don't think there is a need to get rid of this, but it is kinda sucky.
+        if (currentTurn == 0)
+            InitBattle();
+
+        // TODO: do I need a separate method for starting or can I just use this;
+        currentTurn++;
+
+        // hide character card
+        infoCardUI.HideCharacterCard();
+
+        // TODO: Is this very taxing? 
+        // Recalculate all graphs
+        AstarPath.active.Scan();
+
+        // reset counts
+        playerCharactersLeftToTakeTurn = playerCharactersAlive;
+        enemyCharactersLeftToTakeTurn = enemyCharactersAlive;
+
+        // reset enemy flags;
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy != null)
+                enemy.GetComponent<EnemyCharMovementController>().reachedDestinationThisTurn = false;
+        }
     }
 
     // TODO: this will be called when player places their characters and confirms that he wants to start the battle.
-    public void StartBattle()
+    public void InitBattle()
     {
-        battleState = BattleState.PLAYERTURN;
-
         playerCharacters = GameObject.FindGameObjectsWithTag("Player");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -72,19 +126,10 @@ public class TurnManager : MonoBehaviour
         {
             player.GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
         }
-
-        // TODO: do I need a separate method for starting or can I just use this;
-        EndEnemyTurn();
     }
 
-
-    public void EndPlayerTurn()
+    void HandleEnemyTurn()
     {
-        // display text & run enemy ai
-        PlayerTurnEndEvent?.Invoke();
-
-        battleState = BattleState.ENEMYTURN;
-
         // hide character card
         infoCardUI.HideCharacterCard();
 
@@ -97,68 +142,27 @@ public class TurnManager : MonoBehaviour
         enemyCharactersLeftToTakeTurn = enemyCharactersAlive;
     }
 
-    public void EndEnemyTurn()
-    {
-        currentTurn++;
-
-        // display text
-        EnemyTurnEndEvent?.Invoke();
-
-        //yield return new WaitForSeconds(1f);
-
-        battleState = BattleState.PLAYERTURN;
-
-        // hide character card
-        infoCardUI.HideCharacterCard();
-
-        // TODO: Is this very taxing? 
-        // Recalculate all graphs
-        AstarPath.active.Scan();
-
-        // just for a good measure
-        // TODO: should I make it all async?
-#pragma warning disable CS4014
-        highlighter.ClearHighlightedTiles();
-
-        // reset counts
-        playerCharactersLeftToTakeTurn = playerCharactersAlive;
-        enemyCharactersLeftToTakeTurn = enemyCharactersAlive;
-
-        // reset enemy flags;
-        foreach (GameObject enemy in enemies)
-        {
-            if (enemy != null)
-                enemy.GetComponent<EnemyCharMovementController>().reachedDestinationThisTurn = false;
-        }
-    }
-
     public void OnEnemyDeath()
     {
         enemyCharactersAlive--;
         if (enemyCharactersAlive <= 0)
-        {
-            battleState = BattleState.WON;
-            PlayerWon();
-        }
+            UpdateBattleState(BattleState.Won);
     }
 
     public void OnPlayerCharDeath()
     {
         playerCharactersAlive--;
         if (playerCharactersAlive <= 0)
-        {
-            battleState = BattleState.LOST;
-            PlayerLost();
-        }
+            UpdateBattleState(BattleState.Lost);
     }
 
-    public void PlayerWon()
+    void HandleWinning()
     {
         // TODO: this
         Debug.Log("Congratz player! You win!!!");
     }
 
-    public void PlayerLost()
+    void HandleLosing()
     {
         // TODO: this
         Debug.Log("Ugh... you lost!");
@@ -170,7 +174,7 @@ public class TurnManager : MonoBehaviour
         playerCharactersLeftToTakeTurn -= 1;
         if (playerCharactersLeftToTakeTurn <= 0)
         {
-            EndPlayerTurn();
+            UpdateBattleState(BattleState.EnemyTurn);
         }
     }
 
@@ -180,7 +184,7 @@ public class TurnManager : MonoBehaviour
         enemyCharactersLeftToTakeTurn -= 1;
         if (enemyCharactersLeftToTakeTurn <= 0)
         {
-            EndEnemyTurn();
+            UpdateBattleState(BattleState.PlayerTurn);
         }
     }
 }

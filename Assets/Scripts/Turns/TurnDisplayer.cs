@@ -16,17 +16,29 @@ public class TurnDisplayer : MonoBehaviour
         UIDocument = GameUI.instance.GetComponent<UIDocument>();
 
         // getting ui elements
-        var rootVisualElement = UIDocument.rootVisualElement;
-        turnTextContainer = rootVisualElement.Q<VisualElement>("turnTextContainer");
-        turnText = rootVisualElement.Q<Label>("turnText");
+        var root = UIDocument.rootVisualElement;
+        turnTextContainer = root.Q<VisualElement>("turnTextContainer");
+        turnText = root.Q<Label>("turnText");
 
         // subscribing to Actions
-        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
-        FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
         // coroutine queue
         StartCoroutine(CoroutineCoordinator());
         coroutineQueue.Enqueue(DisplayTurnText("DEPLOY TROOPS"));
+    }
+
+    void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        if(state == BattleState.EnemyTurn)
+            coroutineQueue.Enqueue(DisplayTurnText("TURN " + TurnManager.currentTurn.ToString() + " - ENEMY"));
+        if(state == BattleState.PlayerTurn)
+            coroutineQueue.Enqueue(DisplayTurnText("TURN " + TurnManager.currentTurn.ToString() + " - PLAYER"));
+    }
+
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
@@ -40,16 +52,6 @@ public class TurnDisplayer : MonoBehaviour
                 yield return StartCoroutine(coroutineQueue.Dequeue());
             yield return null;
         }
-    }
-
-    public void OnEnemyTurnEnd()
-    {
-        coroutineQueue.Enqueue(DisplayTurnText("TURN " + TurnManager.currentTurn.ToString() + " - PLAYER"));
-    }
-
-    public void OnPlayerTurnEnd()
-    {
-        coroutineQueue.Enqueue(DisplayTurnText("TURN " + TurnManager.currentTurn.ToString() + " - ENEMY"));
     }
 
     IEnumerator DisplayTurnText(string _text)

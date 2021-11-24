@@ -56,7 +56,7 @@ public class CharacterUI : MonoBehaviour
     List<VisualElement> abilityIcons;
 
     // local
-    PlayerStats selectedPlayerStats;
+    CharacterStats selectedPlayerStats;
 
     // animate ui up/down on show/hide
     float characterUITopPercent = 20f;
@@ -69,10 +69,10 @@ public class CharacterUI : MonoBehaviour
     Queue<IEnumerator> buttonClickQueue = new();
     bool wasClickEnqueued;
 
-    #region Singleton
     public static CharacterUI instance;
     void Awake()
     {
+        #region Singleton
         // singleton
         if (instance != null)
         {
@@ -257,7 +257,7 @@ public class CharacterUI : MonoBehaviour
         characterUITooltipContainer.style.display = DisplayStyle.None;
     }
 
-    public void ShowCharacterUI(PlayerStats playerStats)
+    public void ShowCharacterUI(CharacterStats playerStats)
     {
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
         selectedPlayerStats = playerStats;
@@ -299,7 +299,7 @@ public class CharacterUI : MonoBehaviour
     }
 
 
-    void SetCharacterHealthMana(PlayerStats playerStats)
+    void SetCharacterHealthMana(CharacterStats playerStats)
     {
         characterHealth.text = playerStats.currentHealth + "/" + playerStats.maxHealth.GetValue();
         characterMana.text = playerStats.currentMana + "/" + playerStats.maxMana.GetValue();
@@ -312,7 +312,7 @@ public class CharacterUI : MonoBehaviour
         characterManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
     }
 
-    void SetCharacteristics(PlayerStats playerStats)
+    void SetCharacteristics(CharacterStats playerStats)
     {
         characterStrengthAmount.text = "" + playerStats.strength.GetValue();
         characterIntelligenceAmount.text = "" + playerStats.intelligence.GetValue();

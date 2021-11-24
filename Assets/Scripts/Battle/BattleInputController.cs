@@ -43,8 +43,7 @@ public class BattleInputController : MonoBehaviour
 
     void Start()
     {
-        FindObjectOfType<TurnManager>().EnemyTurnEndEvent += OnEnemyTurnEnd;
-        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged; 
 
         playerInput = GetComponent<PlayerInput>();
 
@@ -77,6 +76,32 @@ public class BattleInputController : MonoBehaviour
             return;
 
         UnsubscribeInputActions();
+    }
+
+    void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        if (state == BattleState.PlayerTurn)
+            HandlePlayerTurn();
+
+        if (state == BattleState.EnemyTurn)
+            HandleEnemyTurn();
+    }
+
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+    }
+
+    void HandlePlayerTurn()
+    {
+        SetInputAllowed(true);
+        oscilateScale.SetOscilation(true);
+    }
+
+    void HandleEnemyTurn()
+    {
+        SetInputAllowed(false);
+        oscilateScale.SetOscilation(false);
     }
 
     void SubscribeInputActions()
@@ -200,7 +225,7 @@ public class BattleInputController : MonoBehaviour
 
     void SelectNextCharacter()
     {
-        if (TurnManager.battleState == BattleState.PREPARATION)
+        if (TurnManager.battleState == BattleState.Preparation)
         {
             battlePreparationController.SelectNextCharacter();
             return;
@@ -210,7 +235,7 @@ public class BattleInputController : MonoBehaviour
 
     void SelectPreviousCharacter()
     {
-        if (TurnManager.battleState == BattleState.PREPARATION)
+        if (TurnManager.battleState == BattleState.Preparation)
         {
             battlePreparationController.SelectPreviousCharacter();
             return;
@@ -251,15 +276,5 @@ public class BattleInputController : MonoBehaviour
         battleUI.SimulateRButtonClicked();
     }
 
-    void OnEnemyTurnEnd()
-    {
-        allowInput = true;
-        oscilateScale.SetOscilation(true);
-    }
 
-    void OnPlayerTurnEnd()
-    {
-        allowInput = false;
-        oscilateScale.SetOscilation(false);
-    }
 }

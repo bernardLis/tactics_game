@@ -17,13 +17,13 @@ public class BattleCharacterController : MonoBehaviour
 
     // global utilities
     Highlighter highlighter;
-    CharacterUI battleUI;
+    CharacterUI characterUI;
     BattleInputController battleInputController;
     MovePointController movePointController;
 
     // I will be caching them for selected character
     public GameObject selectedCharacter;
-    PlayerStats playerStats;
+    CharacterStats playerStats;
     PlayerCharSelection playerCharSelection;
     AILerp aILerp;
     AIDestinationSetter destinationSetter;
@@ -44,13 +44,12 @@ public class BattleCharacterController : MonoBehaviour
     LineRenderer pathRenderer;
 
     // interactions
-    Ability selectedAbility;
-    bool isSelectingFaceDirection;
+    public Ability selectedAbility;
 
+    #region Singleton
     public static BattleCharacterController instance;
     void Awake()
     {
-        #region singleton
 
         // singleton
         if (instance != null)
@@ -69,7 +68,7 @@ public class BattleCharacterController : MonoBehaviour
 
         highlighter = Highlighter.instance;
         battleInputController = BattleInputController.instance;
-        battleUI = CharacterUI.instance;
+        characterUI = CharacterUI.instance;
         movePointController = MovePointController.instance;
 
         seeker = GetComponent<Seeker>();
@@ -119,13 +118,6 @@ public class BattleCharacterController : MonoBehaviour
         {
             Interact(_col);
             return;
-        }
-
-        if (isSelectingFaceDirection)
-        {
-            isSelectingFaceDirection = false;
-
-
         }
 
         // trigger defend even if there is no collider TODO: dunno how to manage that...
@@ -187,7 +179,7 @@ public class BattleCharacterController : MonoBehaviour
 
         // cache
         selectedCharacter = _character;
-        playerStats = selectedCharacter.GetComponent<PlayerStats>();
+        playerStats = selectedCharacter.GetComponent<CharacterStats>();
         playerCharSelection = selectedCharacter.GetComponent<PlayerCharSelection>();
         aILerp = selectedCharacter.GetComponent<AILerp>();
 
@@ -199,7 +191,7 @@ public class BattleCharacterController : MonoBehaviour
         playerCharSelection.SelectCharacter();
 
         // UI
-        battleUI.ShowCharacterUI(playerStats);
+        characterUI.ShowCharacterUI(playerStats);
 
         // highlight
         await highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
@@ -219,7 +211,7 @@ public class BattleCharacterController : MonoBehaviour
         tempObject.transform.position = transform.position;
         destinationSetter.target = tempObject.transform;
 
-        battleUI.DisableSkillButtons();
+        characterUI.DisableSkillButtons();
 
         playerCharSelection.SetCharacterMoved(true);
     }
@@ -269,12 +261,12 @@ public class BattleCharacterController : MonoBehaviour
         tempObject.transform.position = playerCharSelection.positionTurnStart;
         destinationSetter.target = tempObject.transform;
 
-        battleUI.DisableSkillButtons();
+        characterUI.DisableSkillButtons();
     }
 
     void CharacterReachedDestination()
     {
-        battleUI.EnableSkillButtons();
+        characterUI.EnableSkillButtons();
 
         if (tempObject != null)
             Destroy(tempObject);
@@ -313,9 +305,7 @@ public class BattleCharacterController : MonoBehaviour
 
     async void Interact(Collider2D col)
     {
-        Debug.Log("interact is runnign");
         // defend ability // TODO: await in if ... hmmmmmmm....
-
         if (col == null && selectedAbility.aType == AbilityType.DEFEND)
         {
             if (await selectedAbility.TriggerAbility(null))
@@ -335,12 +325,11 @@ public class BattleCharacterController : MonoBehaviour
 
     void BackFromAbilitySelection()
     {
-        selectedAbility = null;
-        battleUI.HideAbilityTooltip();
-        highlighter.ClearHighlightedTiles();
+        characterState = CharacterState.Selected;
 
-        // TODO:cache face direction ui if it is the right approach
-        //selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+        selectedAbility = null;
+        characterUI.HideAbilityTooltip();
+        highlighter.ClearHighlightedTiles();
     }
 
     void BackFromFaceDirSelection()
@@ -350,7 +339,6 @@ public class BattleCharacterController : MonoBehaviour
         playerCharSelection.ToggleSelectionArrow(true);
         
         // abilities that can target self should go back to Select target
-        Debug.Log("back from face dir selection");
         if (selectedAbility.canTargetSelf)
         {
             // it changes the state too
@@ -366,6 +354,8 @@ public class BattleCharacterController : MonoBehaviour
 
     void FinishCharacterTurn()
     {
+        characterState = CharacterState.None;
+
         // update ui through movepoint
         movePointController.UpdateDisplayInformation();
 
@@ -394,7 +384,7 @@ public class BattleCharacterController : MonoBehaviour
         selectedAbility = null;
 
         // UI
-        battleUI.HideCharacterUI();
+        characterUI.HideCharacterUI();
 
         // highlight
         highlighter.ClearHighlightedTiles();

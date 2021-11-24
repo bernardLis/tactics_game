@@ -83,7 +83,6 @@ public class FaceDirectionUI : MonoBehaviour
             if (breakTask)
                 return Vector2.zero;
 
-            Debug.Log("poick direction is running");
             await Task.Yield();
         }
 

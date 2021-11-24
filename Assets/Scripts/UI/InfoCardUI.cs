@@ -35,6 +35,14 @@ public class InfoCardUI : MonoBehaviour
 
     IVisualElementScheduledItem characterCardScheduler;
 
+    // animate interaction result
+    float resultOpacity = 1f;
+    bool animatingDown;
+
+    IVisualElementScheduledItem resultSchedulerText;
+    IVisualElementScheduledItem resultSchedulerBar;
+
+
     #region Singleton
     public static InfoCardUI instance;
     void Awake()
@@ -136,6 +144,12 @@ public class InfoCardUI : MonoBehaviour
 
     void PopulateCharacterCard(CharacterStats chStats)
     {
+        // reset values from 'animation'
+        if (resultSchedulerText != null)
+            resultSchedulerText.Pause();
+        characterCardHealth.style.color = Color.white;
+        characterCardHealthBarMissingHealth.style.backgroundColor = new Color(0.21f, 0.21f, 0.21f, 1f);
+
         characterCardName.text = chStats.character.characterName;
         characterCardPortrait.style.backgroundImage = chStats.character.portrait.texture;
 
@@ -157,5 +171,77 @@ public class InfoCardUI : MonoBehaviour
         characterCardArmorAmount.text = "" + chStats.armor.GetValue();
         characterCardRangeAmount.text = "" + chStats.movementRange.GetValue();
     }
+    public void ShowDamage(CharacterStats chStats, int val)
+    {
+        float maxHealth = (float)chStats.maxHealth.GetValue();
+        float healthAfterInteraction = (float)chStats.currentHealth - val;
+
+        // text
+        characterCardHealth.text = healthAfterInteraction + "/" + maxHealth;
+
+        // bar
+        float missingHealthPerc = (maxHealth - healthAfterInteraction) / maxHealth;
+        missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
+        characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
+
+        // "animate it"
+        AnimateInteractionResult();
+
+    }
+
+    public void ShowHeal(CharacterStats chStats, int val)
+    {
+        // if there is nothing to heal, don't show the result
+        if (chStats.maxHealth.GetValue() >= chStats.currentHealth)
+            return;
+
+        float maxHealth = (float)chStats.maxHealth.GetValue();
+        float healthAfterInteraction = (float)chStats.currentHealth + val;
+
+        // text
+        characterCardHealth.text = healthAfterInteraction + "/" + maxHealth;
+
+        // bar
+        float missingHealthPerc = (maxHealth - healthAfterInteraction) / maxHealth;
+        missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
+        characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
+
+        // "animate it"
+        AnimateInteractionResult();
+    }
+
+    void AnimateInteractionResult()
+    {
+        characterCardHealth.style.color = Color.white;
+        resultOpacity = 1;
+
+        resultSchedulerText = characterCardHealth.schedule.Execute(() => AnimateTextBar()).Every(10); // ms
+    }
+
+    void AnimateTextBar()
+    {
+        if (resultOpacity <= 0.5f)
+            animatingDown = false;
+
+        if (resultOpacity >= 1f)
+            animatingDown = true;
+
+        // I want it to go from 1 - 0.5 opacity and back
+        if (animatingDown)
+        {
+            characterCardHealth.style.color = new Color(1f, 1f, 1f, resultOpacity);
+            characterCardHealthBarMissingHealth.style.backgroundColor = new Color(0.21f, 0.21f, 0.21f, resultOpacity);
+
+            resultOpacity -= 0.01f;
+            return;
+        }
+
+        characterCardHealthBarMissingHealth.style.backgroundColor = new Color(0.21f, 0.21f, 0.21f, resultOpacity);
+        characterCardHealth.style.color = new Color(1f, 1f, 1f, resultOpacity);
+        resultOpacity += 0.01f;
+    }
+
+
+
 
 }

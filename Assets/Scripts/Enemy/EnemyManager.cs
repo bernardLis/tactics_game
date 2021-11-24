@@ -9,10 +9,10 @@ public class EnemyManager : MonoBehaviour
     EnemyAI enemyAI;
     IEnumerator currentEnemyAI;
 
-    #region Singleton
     public static EnemyManager instance;
     void Awake()
     {
+        #region Singleton
         // singleton
         if (instance != null)
         {
@@ -20,14 +20,15 @@ public class EnemyManager : MonoBehaviour
             return;
         }
         instance = this;
+        #endregion
 
-        FindObjectOfType<TurnManager>().PlayerTurnEndEvent += OnPlayerTurnEnd;
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
-    #endregion
 
-    void OnPlayerTurnEnd()
+    private void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        StartCoroutine(ForEachEnemy());
+        if(state == BattleState.EnemyTurn)
+            StartCoroutine(ForEachEnemy());
     }
 
     IEnumerator ForEachEnemy()

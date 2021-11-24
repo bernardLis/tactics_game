@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 3387775229403623846}
   - component: {fileID: 3387775229403623845}
   - component: {fileID: 3387775229403623844}
-  - component: {fileID: 8036547556319484789}
+  - component: {fileID: 584134014384748159}
   - component: {fileID: 3387775229403623841}
   - component: {fileID: 3387775229403623867}
   - component: {fileID: 3387775229403623868}
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
---- !u!114 &8036547556319484789
+--- !u!114 &584134014384748159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,27 +336,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 3387775229403623854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57b6ed4f667cd494db9bb8fc608ffa8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 95075a8cbf34d4dc1ae895099785a719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  baseMaxHealth: 100
+  baseMaxMana: 50
+  baseArmor: 0
+  baseMovementRange: 5
   characterName: 
-  movementRange:
-    baseValue: 4
-    modifiers: 
   strength:
     baseValue: 0
     modifiers: 
-  armor:
+  intelligence:
     baseValue: 0
     modifiers: 
-  intelligence:
+  agility:
+    baseValue: 0
+    modifiers: 
+  stamina:
     baseValue: 0
     modifiers: 
   maxHealth:
     baseValue: 0
     modifiers: 
   maxMana:
+    baseValue: 0
+    modifiers: 
+  armor:
+    baseValue: 0
+    modifiers: 
+  movementRange:
     baseValue: 0
     modifiers: 
   stats: []

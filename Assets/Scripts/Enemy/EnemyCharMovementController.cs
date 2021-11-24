@@ -7,7 +7,7 @@ using Pathfinding;
 
 public class EnemyCharMovementController : CharacterMovementController
 {
-    public EnemyStats myStats;
+    public CharacterStats myStats;
     EnemyCharSelection characterSelection;
     CharacterInteractionController characterInteractionController;
 
@@ -25,7 +25,7 @@ public class EnemyCharMovementController : CharacterMovementController
     {
         base.Awake();
 
-        myStats = GetComponent<EnemyStats>();
+        myStats = GetComponent<CharacterStats>();
         myStats.CharacterDeathEvent += OnEnemyCharDeath;
 
         characterSelection = (EnemyCharSelection)transform.GetComponent<EnemyCharSelection>();
