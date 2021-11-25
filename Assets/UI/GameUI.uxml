@@ -1,14 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="UIStyles/GameUIStyles.uss" />
-    <Style src="UIStyles/Inventory.uss" />
-    <ui:VisualElement name="tileInfo" style="height: auto; width: 180px; display: none; background-color: rgba(0, 0, 0, 0.59); -unity-background-image-tint-color: rgb(221, 218, 218);">
-        <ui:Label display-tooltip-when-elided="true" name="tileText" style="width: auto; font-size: 22px; flex-wrap: wrap; white-space: normal; color: rgb(255, 255, 255);" />
-    </ui:VisualElement>
+    <Style src="project://database/Assets/UI/UIStyles/GameUIStyles.uss?fileID=7433441132597879392&amp;guid=a47a009f466e11645bb4003e2c447390&amp;type=3#GameUIStyles" />
+    <Style src="project://database/Assets/UI/UIStyles/Inventory.uss?fileID=7433441132597879392&amp;guid=1ec75396d51df3c46b342cfa027bb4ba&amp;type=3#Inventory" />
     <ui:VisualElement name="turnTextContainer" style="position: absolute; top: auto; height: 50%; display: none; opacity: 1; width: 100%;">
         <ui:Label text="TURN 0 - PLAYER" display-tooltip-when-elided="true" name="turnText" style="justify-content: flex-start; align-items: auto; bottom: 0; position: absolute; margin-left: 0; margin-right: 0; left: auto; width: 100%; font-size: 64px; color: rgb(0, 0, 0); -unity-text-align: upper-center; -unity-font-style: bold;" />
     </ui:VisualElement>
     <ui:VisualElement name="conversationContainer" style="width: 80%; height: 20%; align-items: stretch; margin-left: auto; margin-right: auto; top: 75%; background-color: rgba(0, 0, 0, 0.49); flex-wrap: wrap; display: none;">
-        <ui:VisualElement name="conversationPortrait" style="background-image: url(&apos;/Assets/Sprites/Portraits/Monet.jpg#Monet&apos;); width: 20%; height: 100%; -unity-background-scale-mode: scale-to-fit;" />
+        <ui:VisualElement name="conversationPortrait" style="background-image: url(&apos;project://database/Assets/Sprites/Portraits/Monet.jpg?fileID=21300000&amp;guid=e9ebbda9a47e27343a1441e94d6e2d85&amp;type=3#Monet&apos;); width: 20%; height: 100%; -unity-background-scale-mode: scale-to-fit;" />
         <ui:Label display-tooltip-when-elided="true" name="conversationText" style="width: 80%; height: 100%; -unity-text-align: middle-left; font-size: 32px; -unity-font-style: normal; margin-left: 20px; color: rgb(255, 255, 255); flex-wrap: wrap; white-space: normal; flex-direction: column; justify-content: center; align-items: flex-start;" />
     </ui:VisualElement>
     <ui:VisualElement name="questUI" class="questUI" style="display: none;">
@@ -43,7 +40,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="tooltipUI" style="background-color: rgba(0, 0, 0, 0.47); display: none; width: 15%; margin-left: auto; margin-right: auto; top: 70%; align-items: flex-start; justify-content: flex-start;">
         <ui:VisualElement name="interactionTooltipWrapper" style="flex-direction: row; display: none; align-items: center; margin-left: auto; margin-right: auto;">
-            <ui:Button display-tooltip-when-elided="true" name="interactionTooltipButton" style="background-image: url(&apos;/Assets/Sprites/UI/f key.png#f key&apos;); width: 32px; height: 32px;" />
+            <ui:Button display-tooltip-when-elided="true" name="interactionTooltipButton" style="background-image: url(&apos;project://database/Assets/Sprites/UI/f%20key.png?fileID=21300000&amp;guid=57dc5fef12d2ae9449ce21c8d973f371&amp;type=3#f key&apos;); width: 32px; height: 32px;" />
             <ui:Label text="Label" display-tooltip-when-elided="true" name="interactionTooltipText" style="-unity-text-align: middle-center; font-size: 24px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>

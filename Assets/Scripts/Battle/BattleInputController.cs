@@ -221,6 +221,7 @@ public class BattleInputController : MonoBehaviour
             return;
 
         battleCharacterController.Back();
+        movePointController.UpdateDisplayInformation();
     }
 
     void SelectNextCharacter()

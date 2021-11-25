@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -5,7 +6,6 @@ using Pathfinding;
 using System.Threading.Tasks;
 
 public enum CharacterState { None, Selected, SelectingInteractionTarget, SelectingFaceDir }
-
 
 public class BattleCharacterController : MonoBehaviour
 {
@@ -45,12 +45,15 @@ public class BattleCharacterController : MonoBehaviour
 
     // interactions
     public Ability selectedAbility;
+    bool isInteracting;
 
-    #region Singleton
+    // TODO: I am currently, not using that, but I have a feeling that it will be useful.
+    public static event Action<CharacterState> OnCharacterStateChanged;
+
     public static BattleCharacterController instance;
     void Awake()
     {
-
+        #region Singleton
         // singleton
         if (instance != null)
         {
@@ -85,6 +88,29 @@ public class BattleCharacterController : MonoBehaviour
             && Vector3.Distance(selectedCharacter.transform.position, tempObject.transform.position) <= 0.1f)
             CharacterReachedDestination();
     }
+
+    // https://www.youtube.com/watch?v=4I0vonyqMi8&t=193s
+    public void UpdateCharacterState(CharacterState newState)
+    {
+        characterState = newState;
+
+        switch (newState)
+        {
+            case CharacterState.None:
+                break;
+            case CharacterState.Selected:
+                break;
+            case CharacterState.SelectingInteractionTarget:
+                break;
+            case CharacterState.SelectingFaceDir:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+
+        }
+        OnCharacterStateChanged?.Invoke(newState);
+    }
+
 
     public void Select(Collider2D _col)
     {
@@ -162,10 +188,25 @@ public class BattleCharacterController : MonoBehaviour
         return true;
     }
 
+    // for ability button clicks
+    public bool CanSelectAbility()
+    {
+        if (!battleInputController.IsInputAllowed())
+            return false;
+        if (selectedCharacter == null)
+            return false;
+        if (playerCharSelection.hasFinishedTurn)
+            return false;
+        if (hasCharacterStartedMoving) // don't allow button click when character is on the move;
+            return false;
+        return true;
+    }
+
+
     async void SelectCharacter(GameObject _character)
     {
         isSelectionBlocked = true;
-        characterState = CharacterState.Selected;
+        UpdateCharacterState(CharacterState.Selected);
 
         if (_character.GetComponent<PlayerCharSelection>().hasMovedThisTurn)
         {
@@ -284,40 +325,37 @@ public class BattleCharacterController : MonoBehaviour
                                     new Color(0.53f, 0.52f, 1f, 1f));
     }
 
-    public bool CanInteract()
-    {
-        if (!battleInputController.IsInputAllowed())
-            return false;
-        if (selectedCharacter == null)
-            return false;
-        if (playerCharSelection.hasFinishedTurn)
-            return false;
-        if (hasCharacterStartedMoving) // don't allow button click when character is on the move;
-            return false;
-        return true;
-    }
-
     public void SetSelectedAbility(Ability ability)
     {
         ClearPathRenderer();
         selectedAbility = ability;
+
+        movePointController.UpdateDisplayInformation();
     }
 
     async void Interact(Collider2D col)
     {
+        // TODO: this is a meh schema
+        if (isInteracting)
+            return;
+        isInteracting = true;
+
         // defend ability // TODO: await in if ... hmmmmmmm....
         if (col == null && selectedAbility.aType == AbilityType.DEFEND)
         {
             if (await selectedAbility.TriggerAbility(null))
                 FinishCharacterTurn();
-
+            
+            isInteracting = false;
             return;
         }
 
-
         // returns true if ability was triggered successfuly. // TODO: await in if ... hmmmmmmm....
         if (!await selectedAbility.TriggerAbility(col.transform.parent.gameObject))
+        {
+            isInteracting = false;
             return;
+        }
 
         FinishCharacterTurn();
     }
@@ -325,7 +363,9 @@ public class BattleCharacterController : MonoBehaviour
 
     void BackFromAbilitySelection()
     {
-        characterState = CharacterState.Selected;
+        isInteracting = false;
+
+        UpdateCharacterState(CharacterState.Selected);
 
         selectedAbility = null;
         characterUI.HideAbilityTooltip();
@@ -334,6 +374,8 @@ public class BattleCharacterController : MonoBehaviour
 
     void BackFromFaceDirSelection()
     {
+        isInteracting = false;
+
         // TODO:cache face direction ui if it is the right approach
         selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
         playerCharSelection.ToggleSelectionArrow(true);
@@ -348,13 +390,15 @@ public class BattleCharacterController : MonoBehaviour
 
         // deselect ability if it was an ability that goes straight to facing dir;
         BackFromAbilitySelection();
-        characterState = CharacterState.Selected; 
+        UpdateCharacterState(CharacterState.Selected);
     }
 
 
     void FinishCharacterTurn()
     {
-        characterState = CharacterState.None;
+        isInteracting = false;
+
+        UpdateCharacterState(CharacterState.None);
 
         // update ui through movepoint
         movePointController.UpdateDisplayInformation();
@@ -372,7 +416,7 @@ public class BattleCharacterController : MonoBehaviour
 
     public void UnselectCharacter()
     {
-        characterState = CharacterState.None;
+        UpdateCharacterState(CharacterState.None);
 
         // character specific ui
         if (playerCharSelection != null)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
+using DG.Tweening;
 
 public class CharacterUI : MonoBehaviour
 {
@@ -59,11 +60,8 @@ public class CharacterUI : MonoBehaviour
     CharacterStats selectedPlayerStats;
 
     // animate ui up/down on show/hide
-    float characterUITopPercent = 20f;
     float characterUIShowValue = 0f;
     float characterUIHideValue = 20f;
-    bool isCharacterUIAnimationOn;
-    IVisualElementScheduledItem scheduler;
 
     // buttons management
     Queue<IEnumerator> buttonClickQueue = new();
@@ -164,7 +162,7 @@ public class CharacterUI : MonoBehaviour
     // first 2 abilities should always be 
     void AButtonClicked()
     {
-        if (!battleCharacterController.CanInteract())
+        if (!battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
@@ -173,7 +171,7 @@ public class CharacterUI : MonoBehaviour
 
     void SButtonClicked()
     {
-        if (!battleCharacterController.CanInteract())
+        if (!battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
@@ -182,7 +180,7 @@ public class CharacterUI : MonoBehaviour
 
     void QButtonClicked()
     {
-        if (!battleCharacterController.CanInteract())
+        if (!battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
@@ -194,7 +192,7 @@ public class CharacterUI : MonoBehaviour
 
     void WButtonClicked()
     {
-        if (!battleCharacterController.CanInteract())
+        if (!battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
@@ -206,7 +204,7 @@ public class CharacterUI : MonoBehaviour
 
     void EButtonClicked()
     {
-        if (!battleCharacterController.CanInteract())
+        if (!battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
@@ -218,7 +216,7 @@ public class CharacterUI : MonoBehaviour
 
     void RButtonClicked()
     {
-        if (!battleCharacterController.CanInteract())
+        if (!battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
@@ -271,31 +269,16 @@ public class CharacterUI : MonoBehaviour
         DisableSkillButtons();
         EnableSkillButtons();
 
-        // skip showing it, if it is already shown;
-        if (characterUI.style.top.value.value == characterUIShowValue)
-            return;
-
-        if (isCharacterUIAnimationOn)
-            return;
-
-        // 'animate' it to come up 
-        characterUI.style.top = Length.Percent(characterUITopPercent);
-        isCharacterUIAnimationOn = true;
-        scheduler = characterUI.schedule.Execute(() => AnimateCharacterUIBoxUp()).Every(10); // ms
+        DOTween.To(() => characterUI.style.top.value.value, x => characterUI.style.top = Length.Percent(x), characterUIShowValue, 0.5f)
+            .SetEase(Ease.InOutSine);
     }
 
     public void HideCharacterUI()
     {
-        // skip hiding it, if it is already hidden;
-        if (characterUI.style.top.value.value == characterUIHideValue)
-            return;
-
-        if (isCharacterUIAnimationOn)
-            return;
-
+        HideAbilityTooltip();
         selectedPlayerStats = null;
-        isCharacterUIAnimationOn = true;
-        scheduler = characterUI.schedule.Execute(() => AnimateCharacterUIBoxDown()).Every(10); // ms
+        DOTween.To(() => characterUI.style.top.value.value, x => characterUI.style.top = Length.Percent(x), characterUIHideValue, 0.5f)
+            .SetEase(Ease.InOutSine); ;
     }
 
 
@@ -378,43 +361,7 @@ public class CharacterUI : MonoBehaviour
             abilityButtons[i].SetEnabled(true);
         }
     }
-
-
-    void AnimateCharacterUIBoxUp()
-    {
-        if (characterUITopPercent >= characterUIShowValue)
-        {
-            characterUI.style.top = Length.Percent(characterUITopPercent);
-            characterUITopPercent--;
-            return;
-        }
-        // TODO: idk how to destroy scheduler...
-        isCharacterUIAnimationOn = false;
-
-        scheduler.Pause();
-    }
-
-    void AnimateCharacterUIBoxDown()
-    {
-        if (characterUITopPercent <= characterUIHideValue)
-        {
-            characterUI.style.top = Length.Percent(characterUITopPercent);
-            characterUITopPercent++;
-            return;
-        }
-
-        // TODO: idk how to destroy scheduler...
-        isCharacterUIAnimationOn = false;
-
-        scheduler.Pause();
-
-        //characterUI.style.display = DisplayStyle.None;
-        HideAbilityTooltip();
-    }
-
-    // character card
-
-
+    
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
     IEnumerator CoroutineCoordinator()
     {

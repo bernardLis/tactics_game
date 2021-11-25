@@ -1,5 +1,5 @@
-using DG.Tweening;
 using UnityEngine;
+using DG.Tweening;
 
 public class Flasher : MonoBehaviour
 {

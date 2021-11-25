@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class InfoCardUI : MonoBehaviour
 {
     // UI Elements
     UIDocument UIDocument;
 
+    // tile info
+    VisualElement tileInfoCard;
+    Label tileInfoText;
+
     // character card
-    VisualElement characterCardContainer;
+    VisualElement characterCard;
+    //VisualElement infoCardContainer;
     Label characterCardName;
     VisualElement characterCardPortrait;
 
@@ -26,27 +30,17 @@ public class InfoCardUI : MonoBehaviour
     Label characterCardArmorAmount;
     Label characterCardRangeAmount;
 
+    public Color missingBarColor;
+    string missingBarTweenID = "missingBarTweenID";
+
     // animate card left right on show/hide
-    bool isCharacterCardAnimationOn;
-    float characterCardLeftPercent = -30f;
+    float cardShowValue = 0f;
+    float cardHideValue = -100f;
 
-    float characterCardShowValue = 0f;
-    float characterCardHideValue = -30f;
-
-    IVisualElementScheduledItem characterCardScheduler;
-
-    // animate interaction result
-    float resultOpacity = 1f;
-    bool animatingDown;
-
-    IVisualElementScheduledItem resultSchedulerText;
-    IVisualElementScheduledItem resultSchedulerBar;
-
-
-    #region Singleton
     public static InfoCardUI instance;
     void Awake()
     {
+        #region Singleton
         // singleton
         if (instance != null)
         {
@@ -61,9 +55,13 @@ public class InfoCardUI : MonoBehaviour
         UIDocument = GetComponent<UIDocument>();
         var root = UIDocument.rootVisualElement;
 
+        // tile info
+        tileInfoCard = root.Q<VisualElement>("tileInfoCard");
+        tileInfoText = root.Q<Label>("tileInfoText");
+
         // character card
-        characterCardContainer = root.Q<VisualElement>("characterCardContainer");
-        characterCardContainer.style.left = Length.Percent(characterCardHideValue);
+        characterCard = root.Q<VisualElement>("characterCard");
+        characterCard.style.left = Length.Percent(cardHideValue);
 
         characterCardName = root.Q<Label>("characterCardName");
         characterCardPortrait = root.Q<VisualElement>("characterCardPortrait");
@@ -82,74 +80,45 @@ public class InfoCardUI : MonoBehaviour
         characterCardRangeAmount = root.Q<Label>("characterCardRangeAmount");
     }
 
+    /* tile info */
+    public void ShowTileInfo(string info)
+    {
+        tileInfoText.text = info;
+        tileInfoCard.style.display = DisplayStyle.Flex;
+
+        DOTween.To(() => tileInfoCard.style.left.value.value, x => tileInfoCard.style.left = Length.Percent(x), cardShowValue, 0.5f)
+               .SetEase(Ease.InOutSine);
+    }
+
+    public void HideTileInfo()
+    {
+        tileInfoCard.style.display = DisplayStyle.None;
+
+        DOTween.To(() => tileInfoCard.style.left.value.value, x => tileInfoCard.style.left = Length.Percent(x), cardHideValue, 0.5f)
+               .SetEase(Ease.InOutSine);
+    }
+
+
+    /* character card */
     public void ShowCharacterCard(CharacterStats chStats)
     {
         PopulateCharacterCard(chStats);
 
-        // skip showing it, if it is already shown;
-        if (characterCardContainer.style.left.value.value == characterCardShowValue)
-            return;
+        DOTween.Pause(missingBarTweenID);
+        characterCardHealthBarMissingHealth.style.backgroundColor = missingBarColor;
 
-        if (isCharacterCardAnimationOn)
-            return;
-
-        // 'animate' it to come up
-        characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
-        isCharacterCardAnimationOn = true;
-        characterCardScheduler = characterCardContainer.schedule.Execute(() => AnimateCharacterCardRight()).Every(5); // ms
+        DOTween.To(() => characterCard.style.left.value.value, x => characterCard.style.left = Length.Percent(x), cardShowValue, 0.5f)
+               .SetEase(Ease.InOutSine);
     }
 
     public void HideCharacterCard()
     {
-        // skip hidding it, if it is already hidden;
-        if (characterCardContainer.style.left.value.value == characterCardHideValue)
-            return;
-
-        if (isCharacterCardAnimationOn)
-            return;
-
-        isCharacterCardAnimationOn = true;
-        characterCardScheduler = characterCardContainer.schedule.Execute(() => AnimateCharacterCardLeft()).Every(5); // ms
+        DOTween.To(() => characterCard.style.left.value.value, x => characterCard.style.left = Length.Percent(x), cardHideValue, 0.5f)
+               .SetEase(Ease.InOutSine);
     }
-
-    void AnimateCharacterCardRight()
-    {
-        if (characterCardLeftPercent <= characterCardShowValue)
-        {
-            characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
-            characterCardLeftPercent++;
-            return;
-        }
-        // TODO: idk how to destroy scheduler...
-        isCharacterCardAnimationOn = false;
-
-        characterCardScheduler.Pause();
-    }
-
-    void AnimateCharacterCardLeft()
-    {
-        if (characterCardLeftPercent >= characterCardHideValue)
-        {
-            characterCardContainer.style.left = Length.Percent(characterCardLeftPercent);
-            characterCardLeftPercent--;
-            return;
-        }
-
-        // TODO: idk how to destroy scheduler...
-        isCharacterCardAnimationOn = false;
-
-        characterCardScheduler.Pause();
-    }
-
 
     void PopulateCharacterCard(CharacterStats chStats)
     {
-        // reset values from 'animation'
-        if (resultSchedulerText != null)
-            resultSchedulerText.Pause();
-        characterCardHealth.style.color = Color.white;
-        characterCardHealthBarMissingHealth.style.backgroundColor = new Color(0.21f, 0.21f, 0.21f, 1f);
-
         characterCardName.text = chStats.character.characterName;
         characterCardPortrait.style.backgroundImage = chStats.character.portrait.texture;
 
@@ -171,6 +140,7 @@ public class InfoCardUI : MonoBehaviour
         characterCardArmorAmount.text = "" + chStats.armor.GetValue();
         characterCardRangeAmount.text = "" + chStats.movementRange.GetValue();
     }
+
     public void ShowDamage(CharacterStats chStats, int val)
     {
         float maxHealth = (float)chStats.maxHealth.GetValue();
@@ -186,7 +156,6 @@ public class InfoCardUI : MonoBehaviour
 
         // "animate it"
         AnimateInteractionResult();
-
     }
 
     public void ShowHeal(CharacterStats chStats, int val)
@@ -212,36 +181,12 @@ public class InfoCardUI : MonoBehaviour
 
     void AnimateInteractionResult()
     {
-        characterCardHealth.style.color = Color.white;
-        resultOpacity = 1;
+        characterCardHealthBarMissingHealth.style.backgroundColor = missingBarColor;
 
-        resultSchedulerText = characterCardHealth.schedule.Execute(() => AnimateTextBar()).Every(10); // ms
+        DOTween.ToAlpha(() => characterCardHealthBarMissingHealth.style.backgroundColor.value,
+                         x => characterCardHealthBarMissingHealth.style.backgroundColor = x,
+                         0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
+                         .SetId(missingBarTweenID);
     }
-
-    void AnimateTextBar()
-    {
-        if (resultOpacity <= 0.5f)
-            animatingDown = false;
-
-        if (resultOpacity >= 1f)
-            animatingDown = true;
-
-        // I want it to go from 1 - 0.5 opacity and back
-        if (animatingDown)
-        {
-            characterCardHealth.style.color = new Color(1f, 1f, 1f, resultOpacity);
-            characterCardHealthBarMissingHealth.style.backgroundColor = new Color(0.21f, 0.21f, 0.21f, resultOpacity);
-
-            resultOpacity -= 0.01f;
-            return;
-        }
-
-        characterCardHealthBarMissingHealth.style.backgroundColor = new Color(0.21f, 0.21f, 0.21f, resultOpacity);
-        characterCardHealth.style.color = new Color(1f, 1f, 1f, resultOpacity);
-        resultOpacity += 0.01f;
-    }
-
-
-
 
 }

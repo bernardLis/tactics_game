@@ -160,12 +160,14 @@ public class MovePointController : MonoBehaviour
         // hide/show the whole panel
         if (tileUIText == "")
         {
-            gameUI.HideTileInfoUI();
+            infoCardUI.HideTileInfo();
+            //gameUI.HideTileInfoUI();
         }
         else
         {
-            gameUI.UpdateTileInfoUI(tileUIText);
-            gameUI.ShowTileInfoUI();
+            infoCardUI.ShowTileInfo(tileUIText);
+           // gameUI.UpdateTileInfoUI(tileUIText);
+            //gameUI.ShowTileInfoUI();
         }
 
     }
@@ -203,6 +205,9 @@ public class MovePointController : MonoBehaviour
     void ShowAbilityResult()
     {
         if (battleCharacterController.characterState != CharacterState.SelectingInteractionTarget)
+            return;
+
+        if (battleCharacterController.selectedAbility == null)
             return;
 
         // check if there is a character standing there
