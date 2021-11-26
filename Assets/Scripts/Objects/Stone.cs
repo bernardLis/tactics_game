@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stone : MonoBehaviour, IPushable<Vector3>
+public class Stone : MonoBehaviour, IPushable<Vector3>, IUITextDisplayable
 {
     // global
     GameManager gameManager;
@@ -14,6 +14,9 @@ public class Stone : MonoBehaviour, IPushable<Vector3>
     Vector3 finalPos;
     CharacterStats targetStats;
     int damage = 50;
+
+    // display info
+    public string displayText = "Boulder, you can move if you know the technique.";
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +82,7 @@ public class Stone : MonoBehaviour, IPushable<Vector3>
         {
             targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
-            targetStats.TakePiercingDamage(damage);
+            targetStats.TakePiercingDamage(damage, null);
             // movement range is down by 1 for each trap enemy walks on
             targetStats.movementRange.AddModifier(-1);
 
@@ -93,9 +96,9 @@ public class Stone : MonoBehaviour, IPushable<Vector3>
             Destroy(col.transform.gameObject);
         // currently you can't target it on the river bank
 
-
         if (boxCol != null)
             boxCol.enabled = true;
-
     }
+
+    public string DisplayText() { return displayText; }
 }

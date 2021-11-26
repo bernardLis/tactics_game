@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/BattleUIStyles.uss?fileID=7433441132597879392&amp;guid=eecbfa54f11bb6b4b8770f2f94f8bfd7&amp;type=3#BattleUIStyles" />
     <ui:VisualElement name="infoCardContainer" style="width: 20%; height: 30%; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto;">
-        <ui:VisualElement name="tileInfoCard" style="height: 40%; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%;">
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" />
+        <ui:VisualElement name="tileInfoCard" style="height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
         </ui:VisualElement>
         <ui:VisualElement name="characterCard" style="align-items: stretch; justify-content: flex-start; width: 100%; height: 60%; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%;">
             <ui:VisualElement name="characterCardBasicInfo" style="height: 100%; width: 100%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: flex-start;">

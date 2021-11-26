@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7512957698282176493}
   - component: {fileID: 7512957698282176491}
-  - component: {fileID: 1109791785411308892}
   - component: {fileID: 6071374170014707723}
   m_Layer: 3
   m_Name: Stone
@@ -57,19 +56,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1109791785411308892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7512957698282176492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01fa3e877625df844baab3406fa1bec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayText: Boulder, you can move if you know the technique.
 --- !u!114 &6071374170014707723
 MonoBehaviour:
   m_ObjectHideFlags: 0

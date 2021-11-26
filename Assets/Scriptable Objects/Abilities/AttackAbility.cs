@@ -16,7 +16,7 @@ public class AttackAbility : Ability
     public async override Task<bool> TriggerAbility(GameObject target)
     {
         // check if target is valid
-        var attackableObject = target.GetComponent<IAttackable>();
+        var attackableObject = target.GetComponent<IAttackable<GameObject>>();
         if (attackableObject == null)
             return false;
 

@@ -36,6 +36,8 @@ public class InfoCardUI : MonoBehaviour
     // animate card left right on show/hide
     float cardShowValue = 0f;
     float cardHideValue = -100f;
+    string hideTileInfoTweenID = "hideTileInfoTweenID";
+
 
     public static InfoCardUI instance;
     void Awake()
@@ -86,16 +88,18 @@ public class InfoCardUI : MonoBehaviour
         tileInfoText.text = info;
         tileInfoCard.style.display = DisplayStyle.Flex;
 
+        DOTween.Pause(hideTileInfoTweenID);
+
         DOTween.To(() => tileInfoCard.style.left.value.value, x => tileInfoCard.style.left = Length.Percent(x), cardShowValue, 0.5f)
                .SetEase(Ease.InOutSine);
     }
 
     public void HideTileInfo()
     {
-        tileInfoCard.style.display = DisplayStyle.None;
-
         DOTween.To(() => tileInfoCard.style.left.value.value, x => tileInfoCard.style.left = Length.Percent(x), cardHideValue, 0.5f)
-               .SetEase(Ease.InOutSine);
+               .SetEase(Ease.InOutSine)
+               .OnComplete(() => DisplayNone(tileInfoCard))
+               .SetId(hideTileInfoTweenID);
     }
 
 
@@ -188,5 +192,7 @@ public class InfoCardUI : MonoBehaviour
                          0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
                          .SetId(missingBarTweenID);
     }
+
+    void DisplayNone(VisualElement el) { el.style.display = DisplayStyle.None; }
 
 }

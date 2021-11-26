@@ -5563,14 +5563,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359617507}
     m_Modifications:
-    - target: {fileID: 4377347652854327240, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 47385097dba674e458be3a915f6da394, type: 3}
-    - target: {fileID: 4377347652854327240, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4377347653787997841, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5619,8 +5611,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Foothold Trap (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5238105796796588233, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
 --- !u!1 &1639324375
 GameObject:

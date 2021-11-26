@@ -61,7 +61,7 @@ public class EnemyCharMovementController : CharacterMovementController
 
                 destinationSetter.target = tempObject.transform;
 
-                myStats.TakePiercingDamage(damage);
+                myStats.TakePiercingDamage(damage, null);
                 // movement range is down by 1 for each trap enemy walks on
                 myStats.movementRange.AddModifier(-1);
             }

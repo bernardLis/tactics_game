@@ -1,12 +1,12 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Pathfinding;
+using System.Threading.Tasks;
 
-public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<Vector3>
+public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>, IPushable<Vector3>
 {
     public Character character;
 
@@ -48,6 +48,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
 
     public int currentHealth { get; private set; }
     public int currentMana { get; private set; }
+
+    // reply to interaction
+    bool isAttacker;
 
     // delegate
     public event Action CharacterDeathEvent;
@@ -159,16 +162,21 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         }
     }
 
-    public void TakeDamage(int damage)
+    public async Task TakeDamage(int damage, GameObject attacker)
     {
         damage -= armor.GetValue();
 
         // to not repeat the code
-        TakePiercingDamage(damage);
+        await TakePiercingDamage(damage, attacker);
     }
 
-    public void TakePiercingDamage(int damage)
+    public async Task TakePiercingDamage(int damage, GameObject attacker)
     {
+        // TODO: chance to dodge
+        // TODO: there should be undodgable damage - from push and traps 
+        // TODO: there problably should be unreplieable damage
+
+
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
         currentHealth -= damage;
 
@@ -178,11 +186,34 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         // shake a character;
         float duration = 0.5f;
         float strength = 0.1f;
-
         transform.DOShakePosition(duration, strength);
 
         if (currentHealth <= 0)
+        {
             Die();
+            return;
+        }
+
+        if (attacker == null)
+            return;
+
+        // blocking interaction replies to go on forever;
+        if (isAttacker)
+            return;
+
+        // strike back triggering basic attack at him
+        foreach (Ability a in basicAbilities)
+        {
+            // TODO: if attacker in range of basic attack
+            if (a.aType == AbilityType.ATTACK)
+                if (!await a.TriggerAbility(attacker))
+                    return;
+        }
+
+        // it will go on until one of them is dead, need a flag to determine whether it is a retaliation or not
+        //
+        // problems:
+        // 2. it will trigger for bow attacks through the whole map
     }
 
     public void GainMana(int amount)
@@ -270,10 +301,10 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         // character colliders are children
         if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
         {
-            TakePiercingDamage(characterDmg);
+            TakePiercingDamage(characterDmg, null);
 
             CharacterStats targetStats = col.transform.parent.GetComponent<CharacterStats>();
-            targetStats.TakePiercingDamage(characterDmg);
+            targetStats.TakePiercingDamage(characterDmg, null);
 
             // move back to starting position (if target is not dead)
             // TODO: test what happens when target dies
@@ -292,7 +323,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         // character destroys boulder when they are pushed into it + 10dmg to self
         else if (col.transform.gameObject.CompareTag("Stone"))
         {
-            TakePiercingDamage(characterDmg);
+            TakePiercingDamage(characterDmg, null);
 
             Destroy(col.transform.parent.gameObject);
         }
@@ -301,7 +332,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         {
             int dmg = col.transform.GetComponentInParent<FootholdTrap>().damage;
 
-            TakePiercingDamage(dmg);
+            TakePiercingDamage(dmg, null);
             // movement range is down by 1 for each trap enemy walks on
             movementRange.AddModifier(-1);
 
@@ -309,7 +340,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         }
         else
         {
-            TakePiercingDamage(characterDmg);
+            TakePiercingDamage(characterDmg, null);
             if (tempObject != null)
                 Destroy(tempObject);
             StartCoroutine(MoveToPosition(startingPos, 0.5f));
@@ -339,5 +370,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable, IPushable<V
         if (CharacterDeathEvent != null)
             CharacterDeathEvent();
     }
+
+    public void SetAttacker(bool _isAttacker) { isAttacker = _isAttacker; }
 
 }

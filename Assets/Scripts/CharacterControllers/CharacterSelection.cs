@@ -34,6 +34,7 @@ public class CharacterSelection : MonoBehaviour
 
     public virtual void FinishCharacterTurn()
     {
+        myStats.SetAttacker(false);
         // meant to be overwritten
     }
 }

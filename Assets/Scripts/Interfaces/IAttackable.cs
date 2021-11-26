@@ -1,4 +1,6 @@
-public interface IAttackable
+using System.Threading.Tasks;
+
+public interface IAttackable<T>
 {
-    public void TakeDamage(int damage);
+    public Task TakeDamage(int damage, T attacker);
 }

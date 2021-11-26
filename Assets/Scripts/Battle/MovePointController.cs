@@ -147,15 +147,13 @@ public class MovePointController : MonoBehaviour
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
 
         // return if there is no object on the tile
-        if (col == null)
-            return;
-
-        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Trap"))
+        if (col != null)
         {
-            UIText textScript = col.transform.GetComponent<UIText>();
-            if (textScript != null)
-                tileUIText = tileUIText + textScript.displayText;
+            IUITextDisplayable textComponent = col.transform.parent.GetComponent<IUITextDisplayable>();
+            if (textComponent != null)
+                tileUIText += textComponent.DisplayText();           
         }
+
 
         // hide/show the whole panel
         if (tileUIText == "")
@@ -166,7 +164,7 @@ public class MovePointController : MonoBehaviour
         else
         {
             infoCardUI.ShowTileInfo(tileUIText);
-           // gameUI.UpdateTileInfoUI(tileUIText);
+            // gameUI.UpdateTileInfoUI(tileUIText);
             //gameUI.ShowTileInfoUI();
         }
 

@@ -1,15 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class FootholdTrap : MonoBehaviour, IPushable<Vector3>
+public class FootholdTrap : MonoBehaviour, IPushable<Vector3>, IUITextDisplayable
 {
     // global
     GameManager gameManager;
+
     // push
     public int damage = 50;
     public bool isPushed;
     Vector3 finalPos;
     CharacterStats targetStats;
+
+    // display text
+    public string displayText = "Foothold trap. Damage to enemies: 50.";
 
     void Start()
     {
@@ -98,7 +102,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3>
         {
             targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
-            targetStats.TakePiercingDamage(damage);
+            targetStats.TakePiercingDamage(damage, null);
             // movement range is down by 1 for each trap enemy walks on
             targetStats.movementRange.AddModifier(-1);
 
@@ -113,9 +117,8 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3>
         // currently you can't target it on the river bank
     }
 
-    void ResetPushed()
-    {
-        isPushed = false;
-    }
+    void ResetPushed() { isPushed = false; }
+
+    public string DisplayText() { return displayText; }
 
 }
