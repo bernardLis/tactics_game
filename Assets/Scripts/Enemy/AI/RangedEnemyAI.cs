@@ -54,6 +54,8 @@ public class RangedEnemyAI : EnemyAI
                 // TODO: should I make it all async?
 #pragma warning disable CS4014
                 myStats.abilities[0].HighlightTargetable();
+#pragma warning restore CS4014
+
                 yield return new WaitForSeconds(0.5f);
                 enemyInteractionController.Attack(targetCharacter);
 
@@ -62,6 +64,8 @@ public class RangedEnemyAI : EnemyAI
                 // TODO: should I make it all async?
 #pragma warning disable CS4014
                 highlighter.ClearHighlightedTiles();
+#pragma warning restore CS4014
+
             }
             // or just face its direction
             else

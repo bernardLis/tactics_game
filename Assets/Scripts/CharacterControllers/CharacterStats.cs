@@ -5,9 +5,16 @@ using UnityEngine;
 using DG.Tweening;
 using Pathfinding;
 using System.Threading.Tasks;
+using UnityEngine.Tilemaps;
 
 public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>, IPushable<Vector3>
 {
+    // global
+    Tilemap tilemap;
+    WorldTile _tile;
+    Dictionary<Vector3, WorldTile> tiles;
+    Highlighter highlighter;
+
     public Character character;
 
     [Header("Base value for stats")]
@@ -57,6 +64,12 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
 
     protected virtual void Awake()
     {
+        // global
+        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
+        tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
+        highlighter = Highlighter.instance;
+
+        // local
         damageUI = GetComponent<DamageUI>();
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
         aILerp = GetComponent<AILerp>();
@@ -173,9 +186,55 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
     public async Task TakePiercingDamage(int damage, GameObject attacker)
     {
         // TODO: chance to dodge
-        // TODO: there should be undodgable damage - from push and traps 
-        // TODO: there problably should be unreplieable damage
 
+        TakeDamageNoDodgeNoRetaliation(damage);
+
+        // if you are dead don't retaliate
+        if (currentHealth <= 0)
+            return;
+
+        // if there is noone to retaliate to don't do it
+        if (attacker == null)
+            return;
+
+        // blocking interaction replies to go on forever;
+        if (isAttacker)
+            return;
+
+        // strike back triggering basic attack at him
+        foreach (Ability a in basicAbilities)
+        {
+            // no retaliation with ranged attacks 
+            if (a.weaponType == WeaponType.SHOOT)
+                continue;
+
+            // if attacker in range of basic attack
+            if (a.aType != AbilityType.ATTACK)
+                continue;
+
+            // TODO: this schema is meh but it works.
+            // highlight tiles
+            await a.HighlightTargetable();
+
+            // get tile of attacker, check if it is in range
+            if (!tiles.TryGetValue(tilemap.WorldToCell(attacker.transform.position), out _tile))
+            {
+                await highlighter.ClearHighlightedTiles();
+                return;
+            }
+            if (!_tile.WithinRange)
+            {
+                await highlighter.ClearHighlightedTiles();
+                return;
+            }
+
+            // if it is in range retaliate            
+            await a.TriggerAbility(attacker);
+        }
+    }
+
+    public void TakeDamageNoDodgeNoRetaliation(int damage)
+    {
 
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
         currentHealth -= damage;
@@ -189,31 +248,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         transform.DOShakePosition(duration, strength);
 
         if (currentHealth <= 0)
-        {
             Die();
-            return;
-        }
-
-        if (attacker == null)
-            return;
-
-        // blocking interaction replies to go on forever;
-        if (isAttacker)
-            return;
-
-        // strike back triggering basic attack at him
-        foreach (Ability a in basicAbilities)
-        {
-            // TODO: if attacker in range of basic attack
-            if (a.aType == AbilityType.ATTACK)
-                if (!await a.TriggerAbility(attacker))
-                    return;
-        }
-
-        // it will go on until one of them is dead, need a flag to determine whether it is a retaliation or not
-        //
-        // problems:
-        // 2. it will trigger for bow attacks through the whole map
     }
 
     public void GainMana(int amount)
@@ -301,10 +336,10 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         // character colliders are children
         if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
         {
-            TakePiercingDamage(characterDmg, null);
+            TakeDamageNoDodgeNoRetaliation(characterDmg);
 
             CharacterStats targetStats = col.transform.parent.GetComponent<CharacterStats>();
-            targetStats.TakePiercingDamage(characterDmg, null);
+            targetStats.TakeDamageNoDodgeNoRetaliation(characterDmg);
 
             // move back to starting position (if target is not dead)
             // TODO: test what happens when target dies
@@ -323,7 +358,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         // character destroys boulder when they are pushed into it + 10dmg to self
         else if (col.transform.gameObject.CompareTag("Stone"))
         {
-            TakePiercingDamage(characterDmg, null);
+            TakeDamageNoDodgeNoRetaliation(characterDmg);
 
             Destroy(col.transform.parent.gameObject);
         }
@@ -332,7 +367,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         {
             int dmg = col.transform.GetComponentInParent<FootholdTrap>().damage;
 
-            TakePiercingDamage(dmg, null);
+            TakeDamageNoDodgeNoRetaliation(dmg);
             // movement range is down by 1 for each trap enemy walks on
             movementRange.AddModifier(-1);
 
@@ -340,7 +375,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         }
         else
         {
-            TakePiercingDamage(characterDmg, null);
+            TakeDamageNoDodgeNoRetaliation(characterDmg);
             if (tempObject != null)
                 Destroy(tempObject);
             StartCoroutine(MoveToPosition(startingPos, 0.5f));

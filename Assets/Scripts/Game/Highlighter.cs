@@ -1,11 +1,16 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
 public class Highlighter : MonoBehaviour
 {
-    // TODO: this script can be better - I have multiple 4 nested loops
+    // TODO: this script can be better
+
+    // global
+    BattleInputController battleInputController;
 
     // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
     // tilemap
@@ -19,8 +24,7 @@ public class Highlighter : MonoBehaviour
     // TODO: when I rewrite enemies I can change it to marked tiles.
     List<WorldTile> previousMarkedTiles = new();
 
-
-    //flashers
+    // flashers
     List<GameObject> flashers = new();
     [Header("Flasher")]
     [SerializeField] GameObject flasherHolder;
@@ -31,6 +35,7 @@ public class Highlighter : MonoBehaviour
     public static Highlighter instance;
     void Awake()
     {
+        #region Singleton
         // singleton
         if (instance != null)
         {
@@ -38,9 +43,15 @@ public class Highlighter : MonoBehaviour
             return;
         }
         instance = this;
+        #endregion
 
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
         tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
+    }
+
+    public void Start()
+    {
+        battleInputController = BattleInputController.instance;
     }
 
     public WorldTile HighlightSingle(Vector3 position, Color col)
@@ -49,6 +60,7 @@ public class Highlighter : MonoBehaviour
 #pragma warning disable CS4014
         // making sure there is only one highlight at the time
         ClearHighlightedTiles();
+#pragma warning restore CS4014
 
         Vector3Int tilePos = tilemap.WorldToCell(position);
         if (tiles.TryGetValue(tilePos, out _tile))
@@ -82,8 +94,12 @@ public class Highlighter : MonoBehaviour
     // TODO: this is a mess...
     public async Task HighlightTiles(Vector3 position, int range, Color col, bool diagonal, bool self)
     {
+        // TODO: does this suck
+        battleInputController.SetInputAllowed(false);
+
         // making sure there is only one highlight at the time
         await ClearHighlightedTiles();
+
         // get the tile character is currently standing on
         Vector3Int tilePos = tilemap.WorldToCell(position);
 
@@ -94,9 +110,10 @@ public class Highlighter : MonoBehaviour
         }
 
         for (int i = 0; i < range; i++)
-        {
             await HandleTileHighlighting(col, diagonal, self);
-        }
+
+        // TODO: does this suck
+        battleInputController.SetInputAllowed(true);
     }
 
     async Task HandleTileHighlighting(Color col, bool diagonal, bool self)
@@ -168,6 +185,9 @@ public class Highlighter : MonoBehaviour
     /* Player movement highlighting */
     public async Task HiglightPlayerMovementRange(Vector3 position, int range, Color col)
     {
+        // TODO: does this suck
+        battleInputController.SetInputAllowed(false);
+
         // clear the list just in case.
         await ClearHighlightedTiles();
 
@@ -183,9 +203,10 @@ public class Highlighter : MonoBehaviour
 
         // TODO: this seems not optimal, it lags unity for 1 min when range is 10;
         for (int i = 0; i < range; i++)
-        {
             await HandlePlayerMovementHighlighting(col);
-        }
+
+        // TODO: does this suck
+        battleInputController.SetInputAllowed(true);
     }
 
     async Task HandlePlayerMovementHighlighting(Color col)
@@ -289,6 +310,7 @@ public class Highlighter : MonoBehaviour
 #pragma warning disable CS4014
         // clear the list just in case.
         ClearHighlightedTiles();
+#pragma warning restore CS4014
 
         // list with tiles
         var markedTiles = new List<WorldTile>();
@@ -452,7 +474,6 @@ public class Highlighter : MonoBehaviour
         _tile.WithinRange = true;
         highlightedTiles.Add(_tile);
     }
-
 }
 
 

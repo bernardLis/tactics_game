@@ -247,6 +247,7 @@ public class BattleCharacterController : MonoBehaviour
         // TODO: should I make it all async?
 #pragma warning disable CS4014
         highlighter.ClearHighlightedTiles();
+#pragma warning restore CS4014
 
         tempObject = new GameObject("Destination");
         tempObject.transform.position = transform.position;
@@ -321,8 +322,11 @@ public class BattleCharacterController : MonoBehaviour
 
         // highlight movement range if character was going back
         hasCharacterGoneBack = false;
+#pragma warning disable CS4014
         highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
                                     new Color(0.53f, 0.52f, 1f, 1f));
+#pragma warning restore CS4014
+
     }
 
     public void SetSelectedAbility(Ability ability)
@@ -369,7 +373,11 @@ public class BattleCharacterController : MonoBehaviour
 
         selectedAbility = null;
         characterUI.HideAbilityTooltip();
+#pragma warning disable CS4014
+
         highlighter.ClearHighlightedTiles();
+#pragma warning restore CS4014
+
     }
 
     void BackFromFaceDirSelection()
@@ -384,7 +392,11 @@ public class BattleCharacterController : MonoBehaviour
         if (selectedAbility.canTargetSelf)
         {
             // it changes the state too
+#pragma warning disable CS4014
+
             selectedAbility.HighlightTargetable();
+#pragma warning restore CS4014
+
             return;
         }
 
@@ -431,7 +443,10 @@ public class BattleCharacterController : MonoBehaviour
         characterUI.HideCharacterUI();
 
         // highlight
+#pragma warning disable CS4014
         highlighter.ClearHighlightedTiles();
+#pragma warning restore CS4014
+
     }
 
     // TODO: this probably shouldn't be here 

@@ -36,6 +36,8 @@ public class MeeleEnemyAI : EnemyAI
             // TODO: should I make it all async?
 #pragma warning disable CS4014
             highlighter.ClearHighlightedTiles();
+#pragma warning restore CS4014
+
         }
         // or just face its direction
         else

@@ -93,6 +93,7 @@ public class BattlePreparationController : MonoBehaviour
             // TODO: should I make it all async?
 #pragma warning disable CS4014
             highlighter.ClearHighlightedTiles();
+#pragma warning restore CS4014
 
             TurnManager.instance.UpdateBattleState(BattleState.PlayerTurn);
             //TurnManager.instance.StartBattle();

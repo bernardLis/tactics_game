@@ -61,7 +61,7 @@ public class EnemyCharMovementController : CharacterMovementController
 
                 destinationSetter.target = tempObject.transform;
 
-                myStats.TakePiercingDamage(damage, null);
+                myStats.TakeDamageNoDodgeNoRetaliation(damage);
                 // movement range is down by 1 for each trap enemy walks on
                 myStats.movementRange.AddModifier(-1);
             }
@@ -74,6 +74,7 @@ public class EnemyCharMovementController : CharacterMovementController
         // TODO: should I make it all async?
 #pragma warning disable CS4014
         highlighter.ClearHighlightedTiles();
+#pragma warning restore CS4014
 
         // reset ailerp speed
         AILerp.speed = 3f;

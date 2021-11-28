@@ -16,7 +16,7 @@ public class BattleInputController : MonoBehaviour
 
     // global utilities
     Camera cam;
-    CharacterUI battleUI;
+    CharacterUI characterUI;
 
     // local
     MovePointController movePointController;
@@ -52,7 +52,7 @@ public class BattleInputController : MonoBehaviour
 
         // TODO: Supposedly, this is an expensive call
         cam = Camera.main;
-        battleUI = CharacterUI.instance;
+        characterUI = CharacterUI.instance;
 
         movePointController = MovePointController.instance;
         battleCharacterController = GetComponent<BattleCharacterController>();
@@ -160,6 +160,11 @@ public class BattleInputController : MonoBehaviour
 
     public void SetInputAllowed(bool isAllowed)
     {
+        if (isAllowed)
+            characterUI.EnableSkillButtons();
+        if (!isAllowed)
+            characterUI.DisableSkillButtons();
+
         allowInput = isAllowed;
     }
 
@@ -253,28 +258,28 @@ public class BattleInputController : MonoBehaviour
     // when you click Q on keyboard I want to simulate clicking a button with mouse
     void AButtonClickInput()
     {
-        battleUI.SimulateAButtonClicked();
+        characterUI.SimulateAButtonClicked();
     }
     void SButtonClickInput()
     {
-        battleUI.SimulateSButtonClicked();
+        characterUI.SimulateSButtonClicked();
     }
 
     void QButtonClickInput()
     {
-        battleUI.SimulateQButtonClicked();
+        characterUI.SimulateQButtonClicked();
     }
     void WButtonClickInput()
     {
-        battleUI.SimulateWButtonClicked();
+        characterUI.SimulateWButtonClicked();
     }
     void EButtonClickInput()
     {
-        battleUI.SimulateEButtonClicked();
+        characterUI.SimulateEButtonClicked();
     }
     void RButtonClickInput()
     {
-        battleUI.SimulateRButtonClicked();
+        characterUI.SimulateRButtonClicked();
     }
 
 

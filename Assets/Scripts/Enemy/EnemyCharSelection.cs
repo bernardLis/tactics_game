@@ -19,11 +19,18 @@ public class EnemyCharSelection : CharacterSelection
         // TODO: should I make it all async?
 #pragma warning disable CS4014
         highlighter.ClearHighlightedTiles();
+#pragma warning restore CS4014
+
     }
 
     public override void HiglightMovementRange()
     {
         base.HiglightMovementRange();
         highlighter.HiglightEnemyMovementRange(transform.position, range, new Color(0.53f, 0.52f, 1f, 1f));
+    }
+
+    public override void FinishCharacterTurn()
+    {
+        base.FinishCharacterTurn();
     }
 }

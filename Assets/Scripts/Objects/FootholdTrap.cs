@@ -102,7 +102,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3>, IUITextDisplayabl
         {
             targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
-            targetStats.TakePiercingDamage(damage, null);
+            targetStats.TakeDamageNoDodgeNoRetaliation(damage);
             // movement range is down by 1 for each trap enemy walks on
             targetStats.movementRange.AddModifier(-1);
 

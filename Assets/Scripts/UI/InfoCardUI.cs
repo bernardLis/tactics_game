@@ -16,10 +16,12 @@ public class InfoCardUI : MonoBehaviour
     //VisualElement infoCardContainer;
     Label characterCardName;
     VisualElement characterCardPortrait;
+    VisualElement characterCardPortraitSkull;
 
     Label characterCardHealth;
     Label characterCardMana;
 
+    VisualElement characterCardHealthBarInteractionResult;
     VisualElement characterCardHealthBarMissingHealth;
     VisualElement characterCardManaBarMissingMana;
 
@@ -37,7 +39,6 @@ public class InfoCardUI : MonoBehaviour
     float cardShowValue = 0f;
     float cardHideValue = -100f;
     string hideTileInfoTweenID = "hideTileInfoTweenID";
-
 
     public static InfoCardUI instance;
     void Awake()
@@ -67,10 +68,12 @@ public class InfoCardUI : MonoBehaviour
 
         characterCardName = root.Q<Label>("characterCardName");
         characterCardPortrait = root.Q<VisualElement>("characterCardPortrait");
+        characterCardPortraitSkull = root.Q<VisualElement>("characterCardPortraitSkull");
 
         characterCardHealth = root.Q<Label>("characterCardHealth");
         characterCardMana = root.Q<Label>("characterCardMana");
 
+        characterCardHealthBarInteractionResult = root.Q<VisualElement>("characterCardHealthBarInteractionResult");
         characterCardHealthBarMissingHealth = root.Q<VisualElement>("characterCardHealthBarMissingHealth");
         characterCardManaBarMissingMana = root.Q<VisualElement>("characterCardManaBarMissingMana");
 
@@ -108,9 +111,14 @@ public class InfoCardUI : MonoBehaviour
     {
         PopulateCharacterCard(chStats);
 
+        // clean-up
         DOTween.Pause(missingBarTweenID);
-        characterCardHealthBarMissingHealth.style.backgroundColor = missingBarColor;
 
+        characterCardPortraitSkull.style.display = DisplayStyle.None;
+        characterCardHealthBarMissingHealth.style.backgroundColor = missingBarColor;
+        characterCardHealthBarInteractionResult.style.display = DisplayStyle.None;
+
+        // show the card
         DOTween.To(() => characterCard.style.left.value.value, x => characterCard.style.left = Length.Percent(x), cardShowValue, 0.5f)
                .SetEase(Ease.InOutSine);
     }
@@ -147,16 +155,27 @@ public class InfoCardUI : MonoBehaviour
 
     public void ShowDamage(CharacterStats chStats, int val)
     {
-        float maxHealth = (float)chStats.maxHealth.GetValue();
+        float currentHealth = (float)chStats.currentHealth;
         float healthAfterInteraction = (float)chStats.currentHealth - val;
+        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, chStats.currentHealth);
 
         // text
-        characterCardHealth.text = healthAfterInteraction + "/" + maxHealth;
+        characterCardHealth.text = healthAfterInteraction + "/" + chStats.maxHealth.GetValue();
 
         // bar
-        float missingHealthPerc = (maxHealth - healthAfterInteraction) / maxHealth;
-        missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
-        characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
+        float result = (currentHealth - healthAfterInteraction) / currentHealth;
+        result = Mathf.Clamp(result, 0, 1);
+
+        // TODO: there is a better way to do it
+        if(result <= 0)
+            result = currentHealth / (float)chStats.maxHealth.GetValue();
+        
+        characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
+        characterCardHealthBarInteractionResult.style.width = Length.Percent(result * 100);
+
+        // death
+        if(healthAfterInteraction <= 0)
+            characterCardPortraitSkull.style.display = DisplayStyle.Flex;
 
         // "animate it"
         AnimateInteractionResult();
@@ -168,16 +187,17 @@ public class InfoCardUI : MonoBehaviour
         if (chStats.maxHealth.GetValue() >= chStats.currentHealth)
             return;
 
-        float maxHealth = (float)chStats.maxHealth.GetValue();
+        float currentHealth = (float)chStats.currentHealth;
         float healthAfterInteraction = (float)chStats.currentHealth + val;
 
         // text
-        characterCardHealth.text = healthAfterInteraction + "/" + maxHealth;
+        characterCardHealth.text = healthAfterInteraction + "/" + chStats.maxHealth.GetValue();
 
         // bar
-        float missingHealthPerc = (maxHealth - healthAfterInteraction) / maxHealth;
-        missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
-        characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
+        float result = (currentHealth - healthAfterInteraction) / currentHealth;
+        result = Mathf.Clamp(result, 0, 1);
+        characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
+        characterCardHealthBarInteractionResult.style.width = Length.Percent(result * 100);
 
         // "animate it"
         AnimateInteractionResult();
@@ -185,10 +205,10 @@ public class InfoCardUI : MonoBehaviour
 
     void AnimateInteractionResult()
     {
-        characterCardHealthBarMissingHealth.style.backgroundColor = missingBarColor;
+        characterCardHealthBarInteractionResult.style.backgroundColor = missingBarColor;
 
-        DOTween.ToAlpha(() => characterCardHealthBarMissingHealth.style.backgroundColor.value,
-                         x => characterCardHealthBarMissingHealth.style.backgroundColor = x,
+        DOTween.ToAlpha(() => characterCardHealthBarInteractionResult.style.backgroundColor.value,
+                         x => characterCardHealthBarInteractionResult.style.backgroundColor = x,
                          0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
                          .SetId(missingBarTweenID);
     }

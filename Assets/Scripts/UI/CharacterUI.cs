@@ -342,6 +342,9 @@ public class CharacterUI : MonoBehaviour
 
     public void EnableSkillButtons()
     {
+        if (selectedPlayerStats == null)
+            return;
+
         // costless actions
         characterAButton.SetEnabled(true);
         characterSButton.SetEnabled(true);
@@ -385,8 +388,8 @@ public class CharacterUI : MonoBehaviour
             yield return null;
         }
     }
-    // for keyboard input
 
+    // for keyboard input
     public void SimulateAButtonClicked()
     {
         using (var e = new NavigationSubmitEvent() { target = characterAButton })

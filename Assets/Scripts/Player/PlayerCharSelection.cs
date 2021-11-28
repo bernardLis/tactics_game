@@ -85,6 +85,8 @@ public class PlayerCharSelection : CharacterSelection
 
     public override void FinishCharacterTurn()
     {
+        base.FinishCharacterTurn();
+
         DeselectCharacter();
         GrayOutCharacter();
 
