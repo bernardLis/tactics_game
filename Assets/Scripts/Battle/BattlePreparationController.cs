@@ -6,6 +6,7 @@ public class BattlePreparationController : MonoBehaviour
 
     // global utility
     Highlighter highlighter;
+    InfoCardUI infoCardUI;
 
     [Header("Chararacter from SO")]
     public List<Character> charactersToPlace = new();
@@ -27,6 +28,7 @@ public class BattlePreparationController : MonoBehaviour
     void Start()
     {
         highlighter = Highlighter.instance;
+        infoCardUI = InfoCardUI.instance;
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
@@ -67,12 +69,15 @@ public class BattlePreparationController : MonoBehaviour
         Character instantiatedSO = Instantiate(charactersToPlace[index]);
         instantiatedSO.Initialize(characterBeingPlaced);
         characterBeingPlaced.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+
+        infoCardUI.ShowCharacterCard(characterBeingPlaced.GetComponent<CharacterStats>());
     }
 
     // TODO: character being placed
     public void UpdateCharacterBeingPlacedPosition()
     {
         characterBeingPlaced.transform.position = transform.position;
+        infoCardUI.ShowCharacterCard(characterBeingPlaced.GetComponent<CharacterStats>());
     }
 
     // TODO: character being placed

@@ -22,7 +22,7 @@ public class AttackTriggerable : MonoBehaviour
         await characterRendererManager.AttackAnimation(dir);
 
         // spawn and fire a projectile if the ability has one
-        if(_projectile != null)
+        if (_projectile != null)
         {
             GameObject projectile = Instantiate(_projectile, transform.position, Quaternion.identity);
             projectile.GetComponent<IShootable<Transform>>().Shoot(target.transform);

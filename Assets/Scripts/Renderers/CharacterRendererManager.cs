@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Pathfinding;
 using System.Threading.Tasks;
+using DG.Tweening;
 
 public class CharacterRendererManager : MonoBehaviour
 {
@@ -164,8 +165,12 @@ public class CharacterRendererManager : MonoBehaviour
 
             }
         }
+
         // TODO: this is not perfect, waiting for animation to finish
-        await Task.Delay(800);
+        // this looks good, I am punching in the middle of animation
+        await Task.Delay(400);
+        transform.DOPunchPosition(dir * 0.2f, 0.4f, 1, 0, false);
+        await Task.Delay(400);
 
         weaponHolder.gameObject.SetActive(false);
         weaponRenderer.sprite = null;
@@ -194,8 +199,12 @@ public class CharacterRendererManager : MonoBehaviour
                 an.Play("Thrust");
             }
         }
+
         // TODO: this is not perfect, waiting for animation to finish
-        await Task.Delay(800);
+        // this looks good, I am punching in the middle of animation
+        await Task.Delay(400);
+        transform.DOPunchPosition(dir * 0.2f, 0.4f, 1, 0, false);
+        await Task.Delay(400);
 
         weaponHolder.gameObject.SetActive(false);
         weaponRenderer.sprite = null;

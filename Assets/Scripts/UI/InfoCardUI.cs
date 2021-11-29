@@ -138,9 +138,11 @@ public class InfoCardUI : MonoBehaviour
         characterCardMana.text = chStats.currentMana + "/" + chStats.maxMana.GetValue();
 
         // (float) casts are not redundant, without them it does not work
-        float missingHealthPerc = ((float)chStats.maxHealth.GetValue() - (float)chStats.currentHealth) / (float)chStats.maxHealth.GetValue();
+        float missingHealthPerc = ((float)chStats.maxHealth.GetValue() - (float)chStats.currentHealth)
+                                  / (float)chStats.maxHealth.GetValue();
         missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
-        float missingManaPerc = ((float)chStats.maxMana.GetValue() - (float)chStats.currentMana) / (float)chStats.maxMana.GetValue();
+        float missingManaPerc = ((float)chStats.maxMana.GetValue() - (float)chStats.currentMana)
+                                / (float)chStats.maxMana.GetValue();
 
         characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
         characterCardManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
@@ -163,18 +165,17 @@ public class InfoCardUI : MonoBehaviour
         characterCardHealth.text = healthAfterInteraction + "/" + chStats.maxHealth.GetValue();
 
         // bar
-        float result = (currentHealth - healthAfterInteraction) / currentHealth;
-        result = Mathf.Clamp(result, 0, 1);
-
-        // TODO: there is a better way to do it
-        if(result <= 0)
+        float result = val / (float)chStats.maxHealth.GetValue();
+        if (healthAfterInteraction == 0)
             result = currentHealth / (float)chStats.maxHealth.GetValue();
-        
+
         characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
+        // reset right
+        characterCardHealthBarInteractionResult.style.right = Length.Percent(0);
         characterCardHealthBarInteractionResult.style.width = Length.Percent(result * 100);
 
         // death
-        if(healthAfterInteraction <= 0)
+        if (healthAfterInteraction <= 0)
             characterCardPortraitSkull.style.display = DisplayStyle.Flex;
 
         // "animate it"
@@ -184,19 +185,23 @@ public class InfoCardUI : MonoBehaviour
     public void ShowHeal(CharacterStats chStats, int val)
     {
         // if there is nothing to heal, don't show the result
-        if (chStats.maxHealth.GetValue() >= chStats.currentHealth)
+        if (chStats.currentHealth >= chStats.maxHealth.GetValue())
             return;
 
-        float currentHealth = (float)chStats.currentHealth;
         float healthAfterInteraction = (float)chStats.currentHealth + val;
+        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, chStats.maxHealth.GetValue());
 
         // text
         characterCardHealth.text = healthAfterInteraction + "/" + chStats.maxHealth.GetValue();
 
+        // TODO: this does not work.
         // bar
-        float result = (currentHealth - healthAfterInteraction) / currentHealth;
+        float result = val / (float)chStats.maxHealth.GetValue();
         result = Mathf.Clamp(result, 0, 1);
+
         characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
+        // move it left, to show that it is health gain not loss.
+        characterCardHealthBarInteractionResult.style.right = Length.Percent(result * 100);
         characterCardHealthBarInteractionResult.style.width = Length.Percent(result * 100);
 
         // "animate it"

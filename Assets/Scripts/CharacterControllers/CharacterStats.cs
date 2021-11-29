@@ -228,6 +228,8 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
                 return;
             }
 
+            await Task.Delay(500);
+
             // if it is in range retaliate            
             await a.TriggerAbility(attacker);
         }

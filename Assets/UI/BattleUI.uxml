@@ -16,10 +16,9 @@
                     <ui:VisualElement name="characterHealthGroup" style="flex-direction: row; width: 100%;">
                         <ui:Label display-tooltip-when-elided="true" name="characterHealthLabel" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/cure.png?fileID=2800000&amp;guid=74c108c1392ffdb4eb4e79bd11f34e57&amp;type=3#cure&apos;); width: 32px; height: 32px;" />
                         <ui:VisualElement name="characterHealthBar" style="width: 100%; background-color: rgb(135, 41, 41); -unity-slice-left: 0; -unity-background-scale-mode: stretch-to-fill; align-items: center; padding-left: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; height: 32px; flex-direction: row;">
-                            <ui:VisualElement name="characterCardHealthBarMissingHealth" style="width: 0; height: 32px; background-color: rgb(56, 56, 56); justify-content: center;">
-                                <ui:Label text="100/100" display-tooltip-when-elided="true" name="characterCardHealth" style="font-size: 18px; background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255);" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="characterCardHealthBarInteractionResult" style="width: 0; height: 32px; background-color: rgb(56, 56, 56); justify-content: center;" />
+                            <ui:VisualElement name="characterCardHealthBarMissingHealth" style="width: 0; height: 32px; background-color: rgb(56, 56, 56); justify-content: center; overflow: visible;" />
+                            <ui:VisualElement name="characterCardHealthBarInteractionResult" style="width: 0; height: 32px; background-color: rgb(255, 0, 0); justify-content: center; visibility: visible;" />
+                            <ui:Label text="100/100" display-tooltip-when-elided="true" name="characterCardHealth" style="font-size: 18px; background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255); position: absolute;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="characterManaGroup" style="flex-direction: row; justify-content: center; width: 100%; margin-top: 5px; height: auto;">
