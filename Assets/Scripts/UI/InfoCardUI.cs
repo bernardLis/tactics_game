@@ -32,6 +32,13 @@ public class InfoCardUI : MonoBehaviour
     Label characterCardArmorAmount;
     Label characterCardRangeAmount;
 
+    /*
+     attackDamageValue
+attackHitValue
+retaliationDamageValue
+retaliationHitValue
+     */
+
     public Color missingBarColor;
     string missingBarTweenID = "missingBarTweenID";
 

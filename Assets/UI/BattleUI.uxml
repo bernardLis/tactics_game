@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/BattleUIStyles.uss?fileID=7433441132597879392&amp;guid=eecbfa54f11bb6b4b8770f2f94f8bfd7&amp;type=3#BattleUIStyles" />
-    <ui:VisualElement name="infoCardContainer" style="width: 20%; height: 30%; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto;">
+    <ui:VisualElement name="infoCardContainer" style="width: 20%; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto;">
         <ui:VisualElement name="tileInfoCard" style="height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%;">
             <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
         </ui:VisualElement>
@@ -55,6 +55,30 @@
                             <ui:Label display-tooltip-when-elided="true" name="characterCardRangeAmount" text="5" class="basicStatAmountText" />
                         </ui:VisualElement>
                     </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="interactionSummary" style="width: 100%; left: 0; height: auto;">
+            <ui:VisualElement name="attackSummary">
+                <ui:Label text="Attack:" display-tooltip-when-elided="true" name="attackLabel" />
+                <ui:VisualElement name="attackDamageGroup" style="flex-direction: row;">
+                    <ui:Label text="Damage:" display-tooltip-when-elided="true" name="attackDamageLabel" />
+                    <ui:Label text="XX" display-tooltip-when-elided="true" name="attackDamageValue" />
+                </ui:VisualElement>
+                <ui:VisualElement name="attackHitGroup" style="flex-direction: row;">
+                    <ui:Label text="Hit chance:" display-tooltip-when-elided="true" name="attackHitLabel" />
+                    <ui:Label text="XX" display-tooltip-when-elided="true" name="attackHitValue" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="retaliationSummary">
+                <ui:Label text="Retaliation:" display-tooltip-when-elided="true" name="retaliationLabel" />
+                <ui:VisualElement name="retaliationDamageGroup" style="flex-direction: row;">
+                    <ui:Label text="Damage:" display-tooltip-when-elided="true" name="retaliationDamageLabel" />
+                    <ui:Label text="XX" display-tooltip-when-elided="true" name="retaliationDamageValue" />
+                </ui:VisualElement>
+                <ui:VisualElement name="retaliationHitGroup" style="flex-direction: row;">
+                    <ui:Label text="Hit chance:" display-tooltip-when-elided="true" name="retaliationHitLabel" />
+                    <ui:Label text="XX" display-tooltip-when-elided="true" name="retaliationHitValue" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

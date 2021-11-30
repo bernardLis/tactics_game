@@ -6,8 +6,8 @@ using DG.Tweening;
 
 public class CharacterRendererManager : MonoBehaviour
 {
-    public Vector2 direction;
-    public Vector2 lastDirection;
+    [HideInInspector] public Vector2 direction;
+    [HideInInspector] public Vector2 lastDirection;
 
     public GameObject flyingArrowPrefab; // TODO: is this the right place for managing the flying arrow?
 
@@ -21,9 +21,17 @@ public class CharacterRendererManager : MonoBehaviour
 
     bool noIdleAnimation;
 
+    // TODO: I am not certain if it is correctly set
+    public Vector2 faceDir { get; private set; }
+
     // Start is called before the first frame update
     void Awake()
     {
+        Debug.Log("Vector2.up " + Vector2.up);
+        Debug.Log("Vector2.down " + Vector2.down);
+        Debug.Log("Vector2.left " + Vector2.left);
+        Debug.Log("Vector2.right " + Vector2.right);
+
         animator = GetComponent<Animator>();
         characterRenderer = GetComponent<CharacterRenderer>();
         AI = GetComponentInParent<AILerp>();
@@ -39,8 +47,11 @@ public class CharacterRendererManager : MonoBehaviour
             direction = AI.myDirection;
 
         if (direction.sqrMagnitude > 0)
+        {
             lastDirection = direction;
-        
+            SetFaceDir(direction);
+        }
+
         // TODO: there is probably way to improve that;
         if (!noIdleAnimation)
         {
@@ -68,16 +79,25 @@ public class CharacterRendererManager : MonoBehaviour
             await Shoot(dir);
     }
 
+    void SetFaceDir(Vector2 _dir)
+    {
+        // TODO: this is weirdness...
+        float x = Mathf.FloorToInt(_dir.x);
+        float y = Mathf.FloorToInt(_dir.y);
+
+        faceDir = new Vector2(x, y);
+    }
+
     public async Task SpellcastAnimation(Vector2 dir)
     {
         // TODO: this is the set-up coz i might want to add some other animations or effects that should be awaited sequentially.
         await Spellcast(dir);
-        
     }
 
     public void Face(Vector2 dir)
     {
         direction = dir;
+        SetFaceDir(dir);
 
         characterRenderer.SetDirection(direction);
 
@@ -114,7 +134,7 @@ public class CharacterRendererManager : MonoBehaviour
 
     // TODO: code repetition between all 3 methods.
     async Task Spellcast(Vector2 dir)
-    {        
+    {
         noIdleAnimation = true;
 
         // set direction and play animation
@@ -168,9 +188,7 @@ public class CharacterRendererManager : MonoBehaviour
 
         // TODO: this is not perfect, waiting for animation to finish
         // this looks good, I am punching in the middle of animation
-        await Task.Delay(400);
-        transform.DOPunchPosition(dir * 0.2f, 0.4f, 1, 0, false);
-        await Task.Delay(400);
+        await PunchEffect(dir, 800);
 
         weaponHolder.gameObject.SetActive(false);
         weaponRenderer.sprite = null;
@@ -202,9 +220,7 @@ public class CharacterRendererManager : MonoBehaviour
 
         // TODO: this is not perfect, waiting for animation to finish
         // this looks good, I am punching in the middle of animation
-        await Task.Delay(400);
-        transform.DOPunchPosition(dir * 0.2f, 0.4f, 1, 0, false);
-        await Task.Delay(400);
+        await PunchEffect(dir, 800);
 
         weaponHolder.gameObject.SetActive(false);
         weaponRenderer.sprite = null;
@@ -242,7 +258,6 @@ public class CharacterRendererManager : MonoBehaviour
         // TODO: this is not perfect, waiting for animation to finish
         await Task.Delay(900);
 
-
         weaponHolder.gameObject.SetActive(false);
         arrowAnimator.transform.GetComponent<SpriteRenderer>().sprite = null;
         weaponRenderer.sprite = null;
@@ -250,4 +265,12 @@ public class CharacterRendererManager : MonoBehaviour
 
         noIdleAnimation = false;
     }
+
+    async Task PunchEffect(Vector2 dir, int delay)
+    {
+        await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
+        transform.DOPunchPosition(dir * 0.2f, 0.4f, 1, 0, false);
+        await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
+    }
+
 }

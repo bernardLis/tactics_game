@@ -6,6 +6,7 @@ using DG.Tweening;
 using Pathfinding;
 using System.Threading.Tasks;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>, IPushable<Vector3>
 {
@@ -185,9 +186,47 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
 
     public async Task TakePiercingDamage(int damage, GameObject attacker)
     {
-        // TODO: chance to dodge
+        Vector2 attackerFaceDir = attacker.GetComponentInChildren<CharacterRendererManager>().faceDir;
+        Vector2 defenderFaceDir = characterRendererManager.faceDir;
 
-        TakeDamageNoDodgeNoRetaliation(damage);
+        // in the side 1, face to face 2, from the back 0, 
+        int attackDir = 1;
+        if (attackerFaceDir + defenderFaceDir == Vector2.zero)
+            attackDir = 2;
+        if (attackerFaceDir + defenderFaceDir == attackerFaceDir * 2)
+            attackDir = 0;
+
+        // base 50% chance of dodging when being attacked face to face
+        // base 25% chance of dodging when being attacked from the side
+        // base 0% chance of dodging when being attacked from the back
+
+        // additionally, every point difference in agi between characters is worth 2%
+        // if it is negative, than attacker is more agile than us, so higher chance to hit.
+        int agiDiff = agility.GetValue() - attacker.GetComponent<CharacterStats>().agility.GetValue();
+
+        float dodgeChance = (float)(0.25 * attackDir) + (float)(0.02 * agiDiff);
+
+        if (Random.value > dodgeChance)
+        {
+            // you dodged
+            // face the attacker
+            characterRendererManager.Face((attacker.transform.position - transform.position).normalized);
+            // shake yourself
+            float duration = 0.5f;
+            float strength = 0.2f;
+
+            transform.DOShakePosition(duration, 0.8f, 0, 0, false, true);
+            Debug.Log("Dodged");
+        }
+        else
+        {
+            // you did not dodge
+            TakeDamageNoDodgeNoRetaliation(damage);
+        }
+
+        // if you were attacked from the back don't retaliate
+        if (attackDir == 0)
+            return;
 
         // if you are dead don't retaliate
         if (currentHealth <= 0)

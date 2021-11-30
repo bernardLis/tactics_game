@@ -69,6 +69,8 @@ public class BattlePreparationController : MonoBehaviour
         Character instantiatedSO = Instantiate(charactersToPlace[index]);
         instantiatedSO.Initialize(characterBeingPlaced);
         characterBeingPlaced.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+        // TODO: maybe face enemy?
+        characterBeingPlaced.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.left);
 
         infoCardUI.ShowCharacterCard(characterBeingPlaced.GetComponent<CharacterStats>());
     }

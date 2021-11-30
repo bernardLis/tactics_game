@@ -16,7 +16,6 @@ public class CharacterRenderer : MonoBehaviour
 
 	public void SetDirection(Vector2 direction)
 	{
-
 		//use the Run states by default
 		string[] directionArray;
 
