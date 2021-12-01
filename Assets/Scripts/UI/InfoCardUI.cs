@@ -4,6 +4,9 @@ using DG.Tweening;
 
 public class InfoCardUI : MonoBehaviour
 {
+    // global
+    CharacterUI characterUI;
+
     // UI Elements
     UIDocument UIDocument;
 
@@ -13,7 +16,6 @@ public class InfoCardUI : MonoBehaviour
 
     // character card
     VisualElement characterCard;
-    //VisualElement infoCardContainer;
     Label characterCardName;
     VisualElement characterCardPortrait;
     VisualElement characterCardPortraitSkull;
@@ -32,12 +34,14 @@ public class InfoCardUI : MonoBehaviour
     Label characterCardArmorAmount;
     Label characterCardRangeAmount;
 
-    /*
-     attackDamageValue
-attackHitValue
-retaliationDamageValue
-retaliationHitValue
-     */
+    // interaction summary
+    VisualElement interactionSummary;
+    Label attackDamageValue;
+    Label attackHitValue;
+    VisualElement retaliationSummary;
+    Label retaliationDamageValue;
+    Label retaliationHitValue;
+
 
     public Color missingBarColor;
     string missingBarTweenID = "missingBarTweenID";
@@ -90,12 +94,27 @@ retaliationHitValue
         characterCardStaminaAmount = root.Q<Label>("characterCardStaminaAmount");
         characterCardArmorAmount = root.Q<Label>("characterCardArmorAmount");
         characterCardRangeAmount = root.Q<Label>("characterCardRangeAmount");
+
+        // interaction summary
+        interactionSummary = root.Q<VisualElement>("interactionSummary");
+
+        attackDamageValue = root.Q<Label>("attackDamageValue");
+        attackHitValue = root.Q<Label>("attackHitValue");
+
+        retaliationSummary = root.Q<VisualElement>("retaliationSummary");
+        retaliationDamageValue = root.Q<Label>("retaliationDamageValue");
+        retaliationHitValue = root.Q<Label>("retaliationHitValue");
+    }
+
+    void Start()
+    {
+        characterUI = CharacterUI.instance;
     }
 
     /* tile info */
-    public void ShowTileInfo(string info)
+    public void ShowTileInfo(string _info)
     {
-        tileInfoText.text = info;
+        tileInfoText.text = _info;
         tileInfoCard.style.display = DisplayStyle.Flex;
 
         DOTween.Pause(hideTileInfoTweenID);
@@ -114,9 +133,9 @@ retaliationHitValue
 
 
     /* character card */
-    public void ShowCharacterCard(CharacterStats chStats)
+    public void ShowCharacterCard(CharacterStats _chStats)
     {
-        PopulateCharacterCard(chStats);
+        PopulateCharacterCard(_chStats);
 
         // clean-up
         DOTween.Pause(missingBarTweenID);
@@ -136,46 +155,107 @@ retaliationHitValue
                .SetEase(Ease.InOutSine);
     }
 
-    void PopulateCharacterCard(CharacterStats chStats)
+    void PopulateCharacterCard(CharacterStats _chStats)
     {
-        characterCardName.text = chStats.character.characterName;
-        characterCardPortrait.style.backgroundImage = chStats.character.portrait.texture;
+        characterCardName.text = _chStats.character.characterName;
+        characterCardPortrait.style.backgroundImage = _chStats.character.portrait.texture;
 
-        characterCardHealth.text = chStats.currentHealth + "/" + chStats.maxHealth.GetValue();
-        characterCardMana.text = chStats.currentMana + "/" + chStats.maxMana.GetValue();
+        characterCardHealth.text = _chStats.currentHealth + "/" + _chStats.maxHealth.GetValue();
+        characterCardMana.text = _chStats.currentMana + "/" + _chStats.maxMana.GetValue();
 
         // (float) casts are not redundant, without them it does not work
-        float missingHealthPerc = ((float)chStats.maxHealth.GetValue() - (float)chStats.currentHealth)
-                                  / (float)chStats.maxHealth.GetValue();
+        float missingHealthPerc = ((float)_chStats.maxHealth.GetValue() - (float)_chStats.currentHealth)
+                                  / (float)_chStats.maxHealth.GetValue();
         missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
-        float missingManaPerc = ((float)chStats.maxMana.GetValue() - (float)chStats.currentMana)
-                                / (float)chStats.maxMana.GetValue();
+        float missingManaPerc = ((float)_chStats.maxMana.GetValue() - (float)_chStats.currentMana)
+                                / (float)_chStats.maxMana.GetValue();
 
         characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
         characterCardManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
 
-        characterCardStrengthAmount.text = "" + chStats.strength.GetValue();
-        characterCardIntelligenceAmount.text = "" + chStats.intelligence.GetValue();
-        characterCardAgilityAmount.text = "" + chStats.agility.GetValue();
-        characterCardStaminaAmount.text = "" + chStats.stamina.GetValue();
-        characterCardArmorAmount.text = "" + chStats.armor.GetValue();
-        characterCardRangeAmount.text = "" + chStats.movementRange.GetValue();
+        characterCardStrengthAmount.text = "" + _chStats.strength.GetValue();
+        characterCardIntelligenceAmount.text = "" + _chStats.intelligence.GetValue();
+        characterCardAgilityAmount.text = "" + _chStats.agility.GetValue();
+        characterCardStaminaAmount.text = "" + _chStats.stamina.GetValue();
+        characterCardArmorAmount.text = "" + _chStats.armor.GetValue();
+        characterCardRangeAmount.text = "" + _chStats.movementRange.GetValue();
     }
 
-    public void ShowDamage(CharacterStats chStats, int val)
+    public void ShowInteractionSummary(CharacterStats _attacker, CharacterStats _defender, Ability _ability)
     {
-        float currentHealth = (float)chStats.currentHealth;
-        float healthAfterInteraction = (float)chStats.currentHealth - val;
-        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, chStats.currentHealth);
+        int attackValue = CalculateInteractionResult(_attacker, _defender, _ability);
+        if (_ability.aType == AbilityType.ATTACK)
+            ShowDamage(_defender, attackValue);
+        if (_ability.aType == AbilityType.HEAL)
+            ShowHeal(_defender, attackValue);
+
+        DOTween.To(() => interactionSummary.style.left.value.value, x => interactionSummary.style.left = Length.Percent(x), cardShowValue, 0.5f)
+               .SetEase(Ease.InOutSine);
+        
+        
+        // TODO: I will deal with heal later
+
+        // now I need to get values from stats
+        // damage you will deal
+        attackDamageValue.text = "" + attackValue;
+        // hit chance (1-dodge chance)
+        float hitChance = (1 - _defender.GetDodgeChance(_attacker.gameObject)) * 100;
+        hitChance = Mathf.Clamp(hitChance, 0, 100);
+        attackHitValue.text = hitChance + "%";
+
+        // Will there be retaliation?
+        characterUI.HideRetaliationResult();
+
+        Ability retaliationAbility = _defender.GetRetaliationAbility();
+        if (retaliationAbility == null)
+        {
+            DisplayNone(retaliationSummary);
+            return;
+        }
+
+        bool willRetaliate = _defender.WillRetaliate(_attacker.gameObject);
+        bool canRetaliate = retaliationAbility.CanHit(_defender.gameObject, _attacker.gameObject);
+        if (!willRetaliate || !canRetaliate)
+        {
+            DisplayNone(retaliationSummary);
+            return;
+        }
+
+        // show change in attackers health after they get retaliated on
+
+        retaliationSummary.style.display = DisplayStyle.Flex;
+
+        // damage you will take
+        int relatiationResult = CalculateInteractionResult(_defender, _attacker, retaliationAbility);
+        retaliationDamageValue.text = "" + relatiationResult;
+        // hit chance you take it (1-dodge chance)
+        float retaliationChance = (1 - _attacker.GetDodgeChance(_attacker.gameObject)) * 100;
+        retaliationChance = Mathf.Clamp(retaliationChance, 0, 100);
+        retaliationHitValue.text = retaliationChance + "%";
+
+        characterUI.ShowRetaliationResult(relatiationResult);
+    }
+    public void HideInteractionSummary()
+    {
+        DOTween.To(() => interactionSummary.style.left.value.value, x => interactionSummary.style.left = Length.Percent(x), cardHideValue, 0.5f)
+               .SetEase(Ease.InOutSine);
+    }
+
+    void ShowDamage(CharacterStats _chStats, int _val)
+    {
+        float currentHealth = (float)_chStats.currentHealth;
+        float healthAfterInteraction = (float)_chStats.currentHealth - _val;
+        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, _chStats.currentHealth);
 
         // text
-        characterCardHealth.text = healthAfterInteraction + "/" + chStats.maxHealth.GetValue();
+        characterCardHealth.text = healthAfterInteraction + "/" + _chStats.maxHealth.GetValue();
 
         // bar
-        float result = val / (float)chStats.maxHealth.GetValue();
+        float result = _val / (float)_chStats.maxHealth.GetValue();
+        
         if (healthAfterInteraction == 0)
-            result = currentHealth / (float)chStats.maxHealth.GetValue();
-
+            result = currentHealth / (float)_chStats.maxHealth.GetValue();
+        
         characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
         // reset right
         characterCardHealthBarInteractionResult.style.right = Length.Percent(0);
@@ -189,21 +269,21 @@ retaliationHitValue
         AnimateInteractionResult();
     }
 
-    public void ShowHeal(CharacterStats chStats, int val)
+    void ShowHeal(CharacterStats _chStats, int _val)
     {
         // if there is nothing to heal, don't show the result
-        if (chStats.currentHealth >= chStats.maxHealth.GetValue())
+        if (_chStats.currentHealth >= _chStats.maxHealth.GetValue())
             return;
 
-        float healthAfterInteraction = (float)chStats.currentHealth + val;
-        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, chStats.maxHealth.GetValue());
+        float healthAfterInteraction = (float)_chStats.currentHealth + _val;
+        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, _chStats.maxHealth.GetValue());
 
         // text
-        characterCardHealth.text = healthAfterInteraction + "/" + chStats.maxHealth.GetValue();
+        characterCardHealth.text = healthAfterInteraction + "/" + _chStats.maxHealth.GetValue();
 
         // TODO: this does not work.
         // bar
-        float result = val / (float)chStats.maxHealth.GetValue();
+        float result = _val / (float)_chStats.maxHealth.GetValue();
         result = Mathf.Clamp(result, 0, 1);
 
         characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
@@ -223,6 +303,21 @@ retaliationHitValue
                          x => characterCardHealthBarInteractionResult.style.backgroundColor = x,
                          0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
                          .SetId(missingBarTweenID);
+    }
+
+    int CalculateInteractionResult(CharacterStats _attacker, CharacterStats _defender, Ability _ability)
+    {
+        int result = 0;
+
+        // TODO: differentiate between abilities that calculate value from int/str
+        if (_ability.aType == AbilityType.ATTACK)
+            result = _ability.value + _attacker.strength.GetValue() - _defender.armor.GetValue();
+
+        if (_ability.aType == AbilityType.HEAL)
+            result = _ability.value + _attacker.intelligence.GetValue();
+
+
+        return result;
     }
 
     void DisplayNone(VisualElement el) { el.style.display = DisplayStyle.None; }

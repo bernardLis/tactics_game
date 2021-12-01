@@ -26,9 +26,10 @@ public class CharacterUI : MonoBehaviour
     VisualElement characterPortrait;
 
     Label characterHealth;
-    Label characterMana;
-
     VisualElement characterHealthBarMissingHealth;
+    VisualElement characterHealthBarRetaliationResult;
+
+    Label characterMana;
     VisualElement characterManaBarMissingMana;
 
     Label characterStrengthAmount;
@@ -67,6 +68,11 @@ public class CharacterUI : MonoBehaviour
     Queue<IEnumerator> buttonClickQueue = new();
     bool wasClickEnqueued;
 
+    // showing retaliation result
+    public Color missingBarColor;
+    string missingBarTweenID = "characterHealthBarTweenID";
+
+
     public static CharacterUI instance;
     void Awake()
     {
@@ -96,10 +102,12 @@ public class CharacterUI : MonoBehaviour
 
         characterName = root.Q<Label>("characterName");
         characterPortrait = root.Q<VisualElement>("characterPortrait");
-        characterHealth = root.Q<Label>("characterHealth");
-        characterMana = root.Q<Label>("characterMana");
 
+        characterHealth = root.Q<Label>("characterHealth");
         characterHealthBarMissingHealth = root.Q<VisualElement>("characterHealthBarMissingHealth");
+        characterHealthBarRetaliationResult = root.Q<VisualElement>("characterHealthBarRetaliationResult");
+
+        characterMana = root.Q<Label>("characterMana");
         characterManaBarMissingMana = root.Q<VisualElement>("characterManaBarMissingMana");
 
         characterStrengthAmount = root.Q<Label>("characterStrengthAmount");
@@ -255,16 +263,16 @@ public class CharacterUI : MonoBehaviour
         characterUITooltipContainer.style.display = DisplayStyle.None;
     }
 
-    public void ShowCharacterUI(CharacterStats playerStats)
+    public void ShowCharacterUI(CharacterStats _playerStats)
     {
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
-        selectedPlayerStats = playerStats;
+        selectedPlayerStats = _playerStats;
 
         characterName.text = selectedPlayerStats.character.characterName;
         characterPortrait.style.backgroundImage = selectedPlayerStats.character.portrait.texture;
 
-        SetCharacterHealthMana(playerStats);
-        SetCharacteristics(playerStats);
+        SetCharacterHealthMana(_playerStats);
+        SetCharacteristics(_playerStats);
         HandleAbilityButtons();
         DisableSkillButtons();
         EnableSkillButtons();
@@ -282,14 +290,14 @@ public class CharacterUI : MonoBehaviour
     }
 
 
-    void SetCharacterHealthMana(CharacterStats playerStats)
+    void SetCharacterHealthMana(CharacterStats _playerStats)
     {
-        characterHealth.text = playerStats.currentHealth + "/" + playerStats.maxHealth.GetValue();
-        characterMana.text = playerStats.currentMana + "/" + playerStats.maxMana.GetValue();
+        characterHealth.text = _playerStats.currentHealth + "/" + _playerStats.maxHealth.GetValue();
+        characterMana.text = _playerStats.currentMana + "/" + _playerStats.maxMana.GetValue();
 
         // (float) casts are not redundant, without them it does not work
-        float missingHealthPerc = ((float)playerStats.maxHealth.GetValue() - (float)playerStats.currentHealth) / (float)playerStats.maxHealth.GetValue();
-        float missingManaPerc = ((float)playerStats.maxMana.GetValue() - (float)playerStats.currentMana) / (float)playerStats.maxMana.GetValue();
+        float missingHealthPerc = ((float)_playerStats.maxHealth.GetValue() - (float)_playerStats.currentHealth) / (float)_playerStats.maxHealth.GetValue();
+        float missingManaPerc = ((float)_playerStats.maxMana.GetValue() - (float)_playerStats.currentMana) / (float)_playerStats.maxMana.GetValue();
 
         characterHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
         characterManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
@@ -364,7 +372,58 @@ public class CharacterUI : MonoBehaviour
             abilityButtons[i].SetEnabled(true);
         }
     }
-    
+
+    // called by infocardUI
+    public void ShowRetaliationResult(int _val)
+    {
+        if (selectedPlayerStats == null)
+            return;
+
+        float currentHealth = (float)selectedPlayerStats.currentHealth;
+        float healthAfterInteraction = (float)selectedPlayerStats.currentHealth - _val;
+        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, selectedPlayerStats.currentHealth);
+
+        // text
+        characterHealth.text = healthAfterInteraction + "/" + selectedPlayerStats.maxHealth.GetValue();
+
+        // bar
+        float result = _val / (float)selectedPlayerStats.maxHealth.GetValue();
+
+        if (healthAfterInteraction == 0)
+            result = currentHealth / (float)selectedPlayerStats.maxHealth.GetValue();
+
+        characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
+        // reset right
+        characterHealthBarRetaliationResult.style.right = Length.Percent(0);
+        characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
+
+        // death - TODO: display the skull
+        //if (healthAfterInteraction <= 0)
+        //characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
+
+        // "animate it"
+        AnimateRetaliationnResult();
+
+    }
+
+    public void HideRetaliationResult()
+    {
+        if (selectedPlayerStats != null)
+            SetCharacterHealthMana(selectedPlayerStats);
+        DOTween.Pause(missingBarTweenID);
+    }
+
+    void AnimateRetaliationnResult()
+    {
+        characterHealthBarRetaliationResult.style.backgroundColor = missingBarColor;
+
+        DOTween.ToAlpha(() => characterHealthBarRetaliationResult.style.backgroundColor.value,
+                         x => characterHealthBarRetaliationResult.style.backgroundColor = x,
+                         0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
+                         .SetId(missingBarTweenID);
+    }
+
+
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
     IEnumerator CoroutineCoordinator()
     {

@@ -449,6 +449,17 @@ public class BattleCharacterController : MonoBehaviour
 
     }
 
+    // TODO: Not used
+    public void CharacterFaceInteraction(Vector3 pos)
+    {
+        if (selectedCharacter == null)
+            return;
+
+        Vector2 dir = (pos - selectedCharacter.transform.position).normalized;
+
+        characterRendererManager.Face(dir);
+    }
+
     // TODO: this probably shouldn't be here 
     public void DrawPath()
     {

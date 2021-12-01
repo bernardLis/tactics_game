@@ -6,8 +6,8 @@ public class MovePointController : MonoBehaviour
 {
     // TODO: movepoint should only be using battle ui
     BasicCameraFollow basicCameraFollow;
-    GameUI gameUI;
     InfoCardUI infoCardUI;
+    CharacterUI characterUI;
 
     BattlePreparationController battlePreparationController;
     BattleCharacterController battleCharacterController;
@@ -34,8 +34,8 @@ public class MovePointController : MonoBehaviour
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
         basicCameraFollow = BasicCameraFollow.instance;
-        gameUI = GameUI.instance;
         infoCardUI = InfoCardUI.instance;
+        characterUI = CharacterUI.instance;
 
         // This is our Dictionary of tiles
         tiles = GameTiles.instance.tiles;
@@ -51,20 +51,20 @@ public class MovePointController : MonoBehaviour
     }
 
 
-    void TurnManager_OnBattleStateChanged(BattleState state)
+    void TurnManager_OnBattleStateChanged(BattleState _state)
     {
-        if (state == BattleState.PlayerTurn)
+        if (_state == BattleState.PlayerTurn)
             HandlePlayerTurn();
     }
 
-    public void Move(Vector3 pos)
+    public void Move(Vector3 _pos)
     {
         // block moving out form tile map
-        Vector3Int tilePos = tilemap.WorldToCell(pos);
+        Vector3Int tilePos = tilemap.WorldToCell(_pos);
         if (!tiles.TryGetValue(tilePos, out _tile))
             return;
 
-        transform.position = pos;
+        transform.position = _pos;
 
         // TODO: dunno if this is the correct way to handle this.
         battleCharacterController.DrawPath();
@@ -103,9 +103,9 @@ public class MovePointController : MonoBehaviour
         battlePreparationController.PlaceCharacter();
     }
 
-    void Select(Collider2D obj)
+    void Select(Collider2D _obj)
     {
-        battleCharacterController.Select(obj);
+        battleCharacterController.Select(_obj);
         UpdateDisplayInformation();
     }
 
@@ -154,18 +154,14 @@ public class MovePointController : MonoBehaviour
                 tileUIText += textComponent.DisplayText();           
         }
 
-
         // hide/show the whole panel
         if (tileUIText == "")
         {
             infoCardUI.HideTileInfo();
-            //gameUI.HideTileInfoUI();
         }
         else
         {
             infoCardUI.ShowTileInfo(tileUIText);
-            // gameUI.UpdateTileInfoUI(tileUIText);
-            //gameUI.ShowTileInfoUI();
         }
 
     }
@@ -202,10 +198,22 @@ public class MovePointController : MonoBehaviour
 
     void ShowAbilityResult()
     {
+        infoCardUI.HideInteractionSummary();
+        characterUI.HideRetaliationResult();
+
+
         if (battleCharacterController.characterState != CharacterState.SelectingInteractionTarget)
             return;
 
         if (battleCharacterController.selectedAbility == null)
+            return;
+
+        Vector3Int tilePos = tilemap.WorldToCell(transform.position);
+        if (!tiles.TryGetValue(tilePos, out _tile))
+            return;
+
+        // don't show interaction summary if not in range of interaction
+        if (!_tile.WithinRange)
             return;
 
         // check if there is a character standing there
@@ -219,25 +227,8 @@ public class MovePointController : MonoBehaviour
         CharacterStats attacker = battleCharacterController.selectedCharacter.GetComponent<CharacterStats>();
         CharacterStats defender = col.transform.parent.GetComponent<CharacterStats>();
 
-        if (battleCharacterController.selectedAbility.aType == AbilityType.ATTACK)
-            infoCardUI.ShowDamage(defender, CalculateInteractionResult(attacker, defender));
-        if (battleCharacterController.selectedAbility.aType == AbilityType.HEAL)
-            infoCardUI.ShowHeal(defender, CalculateInteractionResult(attacker, defender));
+        infoCardUI.ShowInteractionSummary(attacker, defender, battleCharacterController.selectedAbility);
     }
 
-    int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
-    {
-        int result = 0;
-
-        // TODO: differentiate between abilities that calculate value from int/str
-        if (battleCharacterController.selectedAbility.aType == AbilityType.ATTACK)
-            result = battleCharacterController.selectedAbility.value + attacker.strength.GetValue() - defender.armor.GetValue();
-
-        if (battleCharacterController.selectedAbility.aType == AbilityType.HEAL)
-            result = battleCharacterController.selectedAbility.value + attacker.intelligence.GetValue();
-
-
-        return result;
-    }
 }
 

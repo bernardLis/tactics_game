@@ -1095,6 +1095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08373c6203ab617428821eb9974da252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missingBarColor: {r: 0.21176471, g: 0.21176471, b: 0.21176471, a: 1}
 --- !u!4 &1383862955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4377347653787997841, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
@@ -6062,7 +6063,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1558323601, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
       propertyPath: charactersToPlace.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1558323601, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
       propertyPath: charactersToPlace.Array.data[1]

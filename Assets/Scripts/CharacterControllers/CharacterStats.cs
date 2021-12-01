@@ -176,17 +176,102 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         }
     }
 
-    public async Task TakeDamage(int damage, GameObject attacker)
+    public async Task TakeDamage(int _damage, GameObject _attacker)
     {
-        damage -= armor.GetValue();
+        _damage -= armor.GetValue();
 
         // to not repeat the code
-        await TakePiercingDamage(damage, attacker);
+        await TakePiercingDamage(_damage, _attacker);
     }
 
-    public async Task TakePiercingDamage(int damage, GameObject attacker)
+    public async Task TakePiercingDamage(int _damage, GameObject _attacker)
     {
-        Vector2 attackerFaceDir = attacker.GetComponentInChildren<CharacterRendererManager>().faceDir;
+        // in the side 1, face to face 2, from the back 0, 
+        int attackDir = CalculateAttackDir(_attacker);
+        float dodgeChance = CalculateDodgeChance(attackDir, _attacker);
+
+        if (Random.value > dodgeChance)
+        {
+            // you dodged
+            // face the attacker
+            characterRendererManager.Face((_attacker.transform.position - transform.position).normalized);
+            // shake yourself
+            float duration = 0.5f;
+            float strength = 0.8f;
+
+            // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
+            characterRendererManager.enabled = false;
+            transform.DOShakePosition(duration, strength, 0, 0, false, true)
+                     .OnComplete(() => characterRendererManager.enabled = true);
+
+            Debug.Log("Dodged");
+        }
+        else
+        {
+            // you did not dodge
+            TakeDamageNoDodgeNoRetaliation(_damage);
+        }
+
+        // if you were attacked from the back don't retaliate
+        if (!WillRetaliate(_attacker))
+            return;
+
+        // if you are dead don't retaliate
+        if (currentHealth <= 0)
+            return;
+
+        // if there is noone to retaliate to don't do it
+        if (_attacker == null)
+            return;
+
+        // blocking interaction replies to go on forever;
+        if (isAttacker)
+            return;
+
+        // it is just the basic attack that is not ranged;
+        Ability retaliationAbility = GetRetaliationAbility();
+
+        if (retaliationAbility == null)
+            return;
+
+        // strike back triggering basic attack at him
+        bool isRetaliationReachable = retaliationAbility.CanHit(gameObject, _attacker);
+
+        if (!isRetaliationReachable)
+            return;
+
+        await Task.Delay(500);
+
+        // if it is in range retaliate            
+        await retaliationAbility.TriggerAbility(_attacker);
+    }
+
+    public void TakeDamageNoDodgeNoRetaliation(int _damage)
+    {
+        _damage = Mathf.Clamp(_damage, 0, int.MaxValue);
+        currentHealth -= _damage;
+
+        // displaying damage UI
+        damageUI.DisplayDamage(_damage);
+
+        // shake a character;
+        float duration = 0.5f;
+        float strength = 0.1f;
+
+        // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
+        characterRendererManager.enabled = false;
+        transform.DOShakePosition(duration, strength)
+                 .OnComplete(() => characterRendererManager.enabled = true); 
+
+        if (currentHealth <= 0)
+            Die();
+    }
+
+    int CalculateAttackDir(GameObject _attacker)
+    {
+        // does not matter what dir is attacker facing, it matters where he stands
+        // coz he will turn around when attacking to face the defender
+        Vector2 attackerFaceDir = (transform.position - _attacker.transform.position).normalized;
         Vector2 defenderFaceDir = characterRendererManager.faceDir;
 
         // in the side 1, face to face 2, from the back 0, 
@@ -196,126 +281,86 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         if (attackerFaceDir + defenderFaceDir == attackerFaceDir * 2)
             attackDir = 0;
 
+        return attackDir;
+    }
+
+    float CalculateDodgeChance(int _attackDir, GameObject _attacker)
+    {
         // base 50% chance of dodging when being attacked face to face
         // base 25% chance of dodging when being attacked from the side
         // base 0% chance of dodging when being attacked from the back
 
         // additionally, every point difference in agi between characters is worth 2%
         // if it is negative, than attacker is more agile than us, so higher chance to hit.
-        int agiDiff = agility.GetValue() - attacker.GetComponent<CharacterStats>().agility.GetValue();
 
-        float dodgeChance = (float)(0.25 * attackDir) + (float)(0.02 * agiDiff);
+        int agiDiff = agility.GetValue() - _attacker.GetComponent<CharacterStats>().agility.GetValue();
 
-        if (Random.value > dodgeChance)
-        {
-            // you dodged
-            // face the attacker
-            characterRendererManager.Face((attacker.transform.position - transform.position).normalized);
-            // shake yourself
-            float duration = 0.5f;
-            float strength = 0.2f;
+        return (float)(0.25 * _attackDir) + (float)(0.02 * agiDiff);
+    }
 
-            transform.DOShakePosition(duration, 0.8f, 0, 0, false, true);
-            Debug.Log("Dodged");
-        }
-        else
-        {
-            // you did not dodge
-            TakeDamageNoDodgeNoRetaliation(damage);
-        }
-
-        // if you were attacked from the back don't retaliate
-        if (attackDir == 0)
-            return;
-
-        // if you are dead don't retaliate
-        if (currentHealth <= 0)
-            return;
-
-        // if there is noone to retaliate to don't do it
-        if (attacker == null)
-            return;
-
-        // blocking interaction replies to go on forever;
-        if (isAttacker)
-            return;
-
-        // strike back triggering basic attack at him
+    public Ability GetRetaliationAbility()
+    {
         foreach (Ability a in basicAbilities)
         {
             // no retaliation with ranged attacks 
             if (a.weaponType == WeaponType.SHOOT)
                 continue;
 
-            // if attacker in range of basic attack
             if (a.aType != AbilityType.ATTACK)
                 continue;
 
-            // TODO: this schema is meh but it works.
-            // highlight tiles
-            await a.HighlightTargetable();
-
-            // get tile of attacker, check if it is in range
-            if (!tiles.TryGetValue(tilemap.WorldToCell(attacker.transform.position), out _tile))
-            {
-                await highlighter.ClearHighlightedTiles();
-                return;
-            }
-            if (!_tile.WithinRange)
-            {
-                await highlighter.ClearHighlightedTiles();
-                return;
-            }
-
-            await Task.Delay(500);
-
-            // if it is in range retaliate            
-            await a.TriggerAbility(attacker);
+            return a;
         }
+
+
+        return null;
     }
 
-    public void TakeDamageNoDodgeNoRetaliation(int damage)
+    // used by info card ui
+    public bool WillRetaliate(GameObject _attacker)
     {
+        // if attacked from the back, don't retaliate
+        if (CalculateAttackDir(_attacker) == 0)
+            return false;
 
-        damage = Mathf.Clamp(damage, 0, int.MaxValue);
-        currentHealth -= damage;
+        // if attacker is yourself, don't retaliate
+        if (_attacker == gameObject)
+            return false;
 
-        // displaying damage UI
-        damageUI.DisplayDamage(damage);
-
-        // shake a character;
-        float duration = 0.5f;
-        float strength = 0.1f;
-        transform.DOShakePosition(duration, strength);
-
-        if (currentHealth <= 0)
-            Die();
+        return true;
     }
 
-    public void GainMana(int amount)
+    public float GetDodgeChance(GameObject _attacker)
     {
-        currentMana += amount;
+        // in the side 1, face to face 2, from the back 0, 
+        return CalculateDodgeChance(CalculateAttackDir(_attacker), _attacker);
+    }
+
+
+    public void GainMana(int _amount)
+    {
+        currentMana += _amount;
         currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
     }
 
-    public void UseMana(int amount)
+    public void UseMana(int _amount)
     {
-        currentMana -= amount;
+        currentMana -= _amount;
         currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
 
-        if (amount == 0)
+        if (_amount == 0)
             return;
-        Debug.Log(transform.name + " uses " + amount + " mana.");
+        Debug.Log(transform.name + " uses " + _amount + " mana.");
     }
 
-    public void GainHealth(int healthGain)
+    public void GainHealth(int _healthGain)
     {
-        healthGain = Mathf.Clamp(healthGain, 0, maxHealth.GetValue() - currentHealth);
-        currentHealth += healthGain;
+        _healthGain = Mathf.Clamp(_healthGain, 0, maxHealth.GetValue() - currentHealth);
+        currentHealth += _healthGain;
 
-        Debug.Log(transform.name + " heals " + healthGain + ".");
+        Debug.Log(transform.name + " heals " + _healthGain + ".");
 
-        damageUI.DisplayHeal(healthGain);
+        damageUI.DisplayHeal(_healthGain);
     }
 
     public void GetPushed(Vector3 _dir)
@@ -328,11 +373,11 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         Invoke("CollisionCheck", 0.35f);
     }
 
-    IEnumerator MoveToPosition(Vector3 finalPos, float time)
+    IEnumerator MoveToPosition(Vector3 _finalPos, float _time)
     {
         // TODO: this AILerp hack is meh
         tempObject = new("Dest");
-        tempObject.transform.position = finalPos;
+        tempObject.transform.position = _finalPos;
         GetComponent<AIDestinationSetter>().target = tempObject.transform;
         aILerp.canMove = false;
 
@@ -341,9 +386,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
 
         float elapsedTime = 0;
 
-        while (elapsedTime < time)
+        while (elapsedTime < _time)
         {
-            transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
+            transform.position = Vector3.Lerp(startingPos, _finalPos, (elapsedTime / _time));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -353,7 +398,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
 
         aILerp.enabled = true;
         aILerp.canMove = true;
-        aILerp.Teleport(finalPos, true);
+        aILerp.Teleport(_finalPos, true);
 
         if (tempObject != null)
             Destroy(tempObject);
@@ -448,5 +493,4 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
     }
 
     public void SetAttacker(bool _isAttacker) { isAttacker = _isAttacker; }
-
 }

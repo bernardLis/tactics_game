@@ -36,9 +36,22 @@ public abstract class Ability : ScriptableObject
         battleCharacterController = BattleCharacterController.instance;
         audioSource = AudioScript.instance.GetComponent<AudioSource>();
     }
+
+    // TODO: this is wrong.
+    public virtual bool CanHit(GameObject _self, GameObject _target)
+    {
+        // manhattan distance to see whether we are in range
+        int manDistance = Mathf.FloorToInt(Mathf.Abs(_self.transform.position.x - _target.transform.position.x)
+                                            + Mathf.Abs(_self.transform.position.y - _target.transform.position.y));
+
+        if (manDistance > range)
+            return false;
+
+        return true;
+    }
     public virtual async Task HighlightTargetable()
     {
-        battleCharacterController.characterState = CharacterState.SelectingInteractionTarget;
+        battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);   
 
         await highlighter.HighlightTiles(characterGameObject.transform.position, range,
                        highlightColor, canTargetDiagonally, canTargetSelf);

@@ -27,11 +27,6 @@ public class CharacterRendererManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log("Vector2.up " + Vector2.up);
-        Debug.Log("Vector2.down " + Vector2.down);
-        Debug.Log("Vector2.left " + Vector2.left);
-        Debug.Log("Vector2.right " + Vector2.right);
-
         animator = GetComponent<Animator>();
         characterRenderer = GetComponent<CharacterRenderer>();
         AI = GetComponentInParent<AILerp>();
