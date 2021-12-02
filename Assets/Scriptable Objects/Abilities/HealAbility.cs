@@ -22,8 +22,8 @@ public class HealAbility : Ability
             return false;
 
         // highlight only target
-        await Highlighter.instance.ClearHighlightedTiles();
-        Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
+        //await Highlighter.instance.ClearHighlightedTiles();
+        //Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
 
         // heal target if successful play sound and retrun true;
         if (!await healTriggerable.Heal(target, value, manaCost))

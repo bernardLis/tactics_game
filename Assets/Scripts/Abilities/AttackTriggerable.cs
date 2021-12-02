@@ -8,6 +8,7 @@ public class AttackTriggerable : MonoBehaviour
     CharacterStats myStats;
     CharacterRendererManager characterRendererManager;
 
+    bool hasPlayedAnimation;
 
     void Awake()
     {
@@ -15,30 +16,40 @@ public class AttackTriggerable : MonoBehaviour
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
     }
 
-    public async Task<bool> Attack(GameObject target, int value, int manaCost, GameObject _projectile)
+    public async Task<bool> Attack(GameObject _target, int _value, int _manaCost, GameObject _projectile)
     {
-        // play animation
-        Vector2 dir = target.transform.position - transform.position;
-        await characterRendererManager.AttackAnimation(dir);
-
-        // spawn and fire a projectile if the ability has one
-        if (_projectile != null)
+        // TODO: !hasPlayedAnimation kinda sucks
+        if (!hasPlayedAnimation)
         {
-            GameObject projectile = Instantiate(_projectile, transform.position, Quaternion.identity);
-            projectile.GetComponent<IShootable<Transform>>().Shoot(target.transform);
+            // play animation
+            Vector2 dir = _target.transform.position - transform.position;
+            await characterRendererManager.AttackAnimation(dir);
 
-            // TODO: There is a better way to wait for shoot to hit the target;
-            await Task.Delay(300);
+            // spawn and fire a projectile if the ability has one
+            if (_projectile != null)
+            {
+                GameObject projectile = Instantiate(_projectile, transform.position, Quaternion.identity);
+                projectile.GetComponent<IShootable<Transform>>().Shoot(_target.transform);
+
+                // TODO: There is a better way to wait for shoot to hit the target;
+                await Task.Delay(300);
+            }
+
+            // reseted by char selection - this makes sure you play only one animation per attack - useful for aoe attacks
+            if (myStats.isAttacker) // to not set this when you retaliate
+                hasPlayedAnimation = true;
         }
 
         // damage target
-        int damage = value + myStats.strength.GetValue();
+        int damage = _value + myStats.strength.GetValue();
 
         myStats.SetAttacker(true);
-        myStats.UseMana(manaCost);
+        myStats.UseMana(_manaCost);
 
-        await target.GetComponent<IAttackable<GameObject>>().TakeDamage(damage, gameObject);
+        await _target.GetComponent<IAttackable<GameObject>>().TakeDamage(damage, gameObject);
 
         return true;
     }
+
+    public void SetHasPlayedAnimation(bool _has) { hasPlayedAnimation = _has; }
 }

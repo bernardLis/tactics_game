@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Pathfinding;
 using System.Threading.Tasks;
 
-public enum CharacterState { None, Selected, SelectingInteractionTarget, SelectingFaceDir }
+public enum CharacterState { None, Selected, SelectingInteractionTarget, SelectingFaceDir, ConfirmingInteraction }
 
 public class BattleCharacterController : MonoBehaviour
 {
@@ -80,6 +80,7 @@ public class BattleCharacterController : MonoBehaviour
 
     void Update()
     {
+
         // TODO: is there a better way? 
         if (selectedCharacter == null)
             return;
@@ -93,7 +94,7 @@ public class BattleCharacterController : MonoBehaviour
     public void UpdateCharacterState(CharacterState newState)
     {
         characterState = newState;
-
+        // TODO: this is not really implemented...
         switch (newState)
         {
             case CharacterState.None:
@@ -103,6 +104,8 @@ public class BattleCharacterController : MonoBehaviour
             case CharacterState.SelectingInteractionTarget:
                 break;
             case CharacterState.SelectingFaceDir:
+                break;
+            case CharacterState.ConfirmingInteraction:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -139,19 +142,7 @@ public class BattleCharacterController : MonoBehaviour
             return;
         }
 
-        // Interact with something when ability is selected && tile is within range
-        if (_col != null && !playerCharSelection.hasFinishedTurn && selectedTile.WithinRange)
-        {
-            Interact(_col);
-            return;
-        }
-
-        // trigger defend even if there is no collider TODO: dunno how to manage that...
-        if (selectedAbility != null && selectedAbility.aType == AbilityType.DEFEND)
-        {
-            Interact(null);
-            return;
-        }
+        Interact();
     }
 
     bool CanSelectCharacter(Collider2D _col)
@@ -197,7 +188,7 @@ public class BattleCharacterController : MonoBehaviour
             return false;
         if (playerCharSelection.hasFinishedTurn)
             return false;
-        if (hasCharacterStartedMoving) // don't allow button click when character is on the move;
+        if (hasCharacterStartedMoving) // don't allow button click when character is moving;
             return false;
         return true;
     }
@@ -270,6 +261,12 @@ public class BattleCharacterController : MonoBehaviour
         if (selectedCharacter == null)
             return;
 
+        if(characterState == CharacterState.ConfirmingInteraction)
+        {
+            BackFromConfirmingInteraction();
+            return;
+        }
+
         if (characterState == CharacterState.SelectingFaceDir)
         {
             BackFromFaceDirSelection();
@@ -337,33 +334,58 @@ public class BattleCharacterController : MonoBehaviour
         movePointController.UpdateDisplayInformation();
     }
 
-    async void Interact(Collider2D col)
+    async void Interact()
     {
         // TODO: this is a meh schema
         if (isInteracting)
             return;
         isInteracting = true;
 
-        // defend ability // TODO: await in if ... hmmmmmmm....
-        if (col == null && selectedAbility.aType == AbilityType.DEFEND)
+        // defend ability 
+        if (selectedAbility.aType == AbilityType.Defend)
         {
+            // TODO: await in if ... hmmmmmmm....
             if (await selectedAbility.TriggerAbility(null))
                 FinishCharacterTurn();
-            
+
             isInteracting = false;
             return;
         }
 
-        // returns true if ability was triggered successfuly. // TODO: await in if ... hmmmmmmm....
-        if (!await selectedAbility.TriggerAbility(col.transform.parent.gameObject))
+        // highlight aoe
+        if (characterState == CharacterState.SelectingInteractionTarget)
         {
+            await selectedAbility.HighlightAreaOfEffect(transform.position);
             isInteracting = false;
             return;
         }
 
+        await TriggerAbility();
+        isInteracting = false;
         FinishCharacterTurn();
     }
 
+    async Task TriggerAbility()
+    {
+        int successfullAttacks = 0;
+        List<WorldTile> highlightedTiles = highlighter.highlightedTiles;
+
+        // for each tile of highlighted tiles -
+        // TODO: kinda sucks to be using highlighted tiles, I could calculate the affected tiles
+        foreach (WorldTile t in highlightedTiles)
+        {
+            Vector3 pos = new Vector3(t.LocalPlace.x + 0.5f, t.LocalPlace.y + 0.5f, transform.position.z);
+
+            // check if there is an object there and try to attack it
+            Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);
+
+            if (col == null)
+                continue;
+
+            if (await selectedAbility.TriggerAbility(col.transform.parent.gameObject))
+                successfullAttacks++;
+        }
+    }
 
     void BackFromAbilitySelection()
     {
@@ -387,7 +409,7 @@ public class BattleCharacterController : MonoBehaviour
         // TODO:cache face direction ui if it is the right approach
         selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
         playerCharSelection.ToggleSelectionArrow(true);
-        
+
         // abilities that can target self should go back to Select target
         if (selectedAbility.canTargetSelf)
         {
@@ -403,6 +425,17 @@ public class BattleCharacterController : MonoBehaviour
         // deselect ability if it was an ability that goes straight to facing dir;
         BackFromAbilitySelection();
         UpdateCharacterState(CharacterState.Selected);
+    }
+
+    void BackFromConfirmingInteraction()
+    {
+        isInteracting = false;
+        UpdateCharacterState(CharacterState.SelectingInteractionTarget);
+#pragma warning disable CS4014
+
+        selectedAbility.HighlightTargetable();
+#pragma warning restore CS4014
+
     }
 
 
@@ -447,17 +480,6 @@ public class BattleCharacterController : MonoBehaviour
         highlighter.ClearHighlightedTiles();
 #pragma warning restore CS4014
 
-    }
-
-    // TODO: Not used
-    public void CharacterFaceInteraction(Vector3 pos)
-    {
-        if (selectedCharacter == null)
-            return;
-
-        Vector2 dir = (pos - selectedCharacter.transform.position).normalized;
-
-        characterRendererManager.Face(dir);
     }
 
     // TODO: this probably shouldn't be here 

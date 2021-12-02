@@ -36,14 +36,19 @@ public class InfoCardUI : MonoBehaviour
 
     // interaction summary
     VisualElement interactionSummary;
+
+    Label attackLabel;
     Label attackDamageValue;
     Label attackHitValue;
+
     VisualElement retaliationSummary;
     Label retaliationDamageValue;
     Label retaliationHitValue;
+    
+    // tweeen
+    public Color damageBarColor;
+    public Color healBarColor;
 
-
-    public Color missingBarColor;
     string missingBarTweenID = "missingBarTweenID";
 
     // animate card left right on show/hide
@@ -97,7 +102,8 @@ public class InfoCardUI : MonoBehaviour
 
         // interaction summary
         interactionSummary = root.Q<VisualElement>("interactionSummary");
-
+        
+        attackLabel = root.Q<Label>("attackLabel");
         attackDamageValue = root.Q<Label>("attackDamageValue");
         attackHitValue = root.Q<Label>("attackHitValue");
 
@@ -141,7 +147,7 @@ public class InfoCardUI : MonoBehaviour
         DOTween.Pause(missingBarTweenID);
 
         characterCardPortraitSkull.style.display = DisplayStyle.None;
-        characterCardHealthBarMissingHealth.style.backgroundColor = missingBarColor;
+        characterCardHealthBarMissingHealth.style.backgroundColor = damageBarColor;
         characterCardHealthBarInteractionResult.style.display = DisplayStyle.None;
 
         // show the card
@@ -183,29 +189,51 @@ public class InfoCardUI : MonoBehaviour
 
     public void ShowInteractionSummary(CharacterStats _attacker, CharacterStats _defender, Ability _ability)
     {
-        int attackValue = CalculateInteractionResult(_attacker, _defender, _ability);
-        if (_ability.aType == AbilityType.ATTACK)
-            ShowDamage(_defender, attackValue);
-        if (_ability.aType == AbilityType.HEAL)
-            ShowHeal(_defender, attackValue);
-
         DOTween.To(() => interactionSummary.style.left.value.value, x => interactionSummary.style.left = Length.Percent(x), cardShowValue, 0.5f)
                .SetEase(Ease.InOutSine);
-        
-        
-        // TODO: I will deal with heal later
 
-        // now I need to get values from stats
-        // damage you will deal
+
+        int attackValue = CalculateInteractionResult(_attacker, _defender, _ability);
         attackDamageValue.text = "" + attackValue;
-        // hit chance (1-dodge chance)
-        float hitChance = (1 - _defender.GetDodgeChance(_attacker.gameObject)) * 100;
-        hitChance = Mathf.Clamp(hitChance, 0, 100);
-        attackHitValue.text = hitChance + "%";
+
+        // different labels and UI for heal / attack
+        if (_ability.aType == AbilityType.Attack)
+        {
+            ShowDamage(_defender, attackValue);
+
+            // labels
+            attackLabel.text = "Attack";
+           // attackDamageLabel.text = "Attack: ";
+
+            // hit chance (1-dodge chance)
+            float hitChance = (1 - _defender.GetDodgeChance(_attacker.gameObject)) * 100;
+            hitChance = Mathf.Clamp(hitChance, 0, 100);
+            attackHitValue.text = hitChance + "%";
+
+        }
+        if (_ability.aType == AbilityType.Heal)
+        {
+            ShowHeal(_defender, attackValue);
+
+            // labels
+            attackLabel.text = "Heal";
+           // attackDamageLabel.text = "Heal: ";
+
+            // heal always hits
+            attackHitValue.text = 100 + "%";
+        }
 
         // Will there be retaliation?
         characterUI.HideRetaliationResult();
 
+        // retaliation only on attack
+        if(_ability.aType != AbilityType.Attack)
+        {
+            DisplayNone(retaliationSummary);
+            return;
+        }
+
+        // retaliation only if there is an ability that character can retaliate with
         Ability retaliationAbility = _defender.GetRetaliationAbility();
         if (retaliationAbility == null)
         {
@@ -222,7 +250,6 @@ public class InfoCardUI : MonoBehaviour
         }
 
         // show change in attackers health after they get retaliated on
-
         retaliationSummary.style.display = DisplayStyle.Flex;
 
         // damage you will take
@@ -266,7 +293,7 @@ public class InfoCardUI : MonoBehaviour
             characterCardPortraitSkull.style.display = DisplayStyle.Flex;
 
         // "animate it"
-        AnimateInteractionResult();
+        AnimateInteractionResult(damageBarColor);
     }
 
     void ShowHeal(CharacterStats _chStats, int _val)
@@ -292,12 +319,12 @@ public class InfoCardUI : MonoBehaviour
         characterCardHealthBarInteractionResult.style.width = Length.Percent(result * 100);
 
         // "animate it"
-        AnimateInteractionResult();
+        AnimateInteractionResult(healBarColor);
     }
 
-    void AnimateInteractionResult()
+    void AnimateInteractionResult(Color _color)
     {
-        characterCardHealthBarInteractionResult.style.backgroundColor = missingBarColor;
+        characterCardHealthBarInteractionResult.style.backgroundColor = _color;
 
         DOTween.ToAlpha(() => characterCardHealthBarInteractionResult.style.backgroundColor.value,
                          x => characterCardHealthBarInteractionResult.style.backgroundColor = x,
@@ -310,10 +337,10 @@ public class InfoCardUI : MonoBehaviour
         int result = 0;
 
         // TODO: differentiate between abilities that calculate value from int/str
-        if (_ability.aType == AbilityType.ATTACK)
+        if (_ability.aType == AbilityType.Attack)
             result = _ability.value + _attacker.strength.GetValue() - _defender.armor.GetValue();
 
-        if (_ability.aType == AbilityType.HEAL)
+        if (_ability.aType == AbilityType.Heal)
             result = _ability.value + _attacker.intelligence.GetValue();
 
 

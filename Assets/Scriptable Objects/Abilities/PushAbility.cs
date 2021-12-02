@@ -21,8 +21,8 @@ public class PushAbility : Ability
             return false;
 
         // highlight only target
-        await Highlighter.instance.ClearHighlightedTiles();
-        Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
+        //await Highlighter.instance.ClearHighlightedTiles();
+        // Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
 
         // push if successful play sound and retrun true;
         if (!await pushTriggerable.Push(target, manaCost))

@@ -24,6 +24,7 @@ public class CharacterUI : MonoBehaviour
 
     Label characterName;
     VisualElement characterPortrait;
+    VisualElement characterPortraitSkull;
 
     Label characterHealth;
     VisualElement characterHealthBarMissingHealth;
@@ -31,6 +32,7 @@ public class CharacterUI : MonoBehaviour
 
     Label characterMana;
     VisualElement characterManaBarMissingMana;
+    VisualElement characterManaBarInteractionResult;
 
     Label characterStrengthAmount;
     Label characterIntelligenceAmount;
@@ -68,8 +70,13 @@ public class CharacterUI : MonoBehaviour
     Queue<IEnumerator> buttonClickQueue = new();
     bool wasClickEnqueued;
 
+    // showing mana use
+    string manaUseTweenID = "manaUseTweenID";
+
+
     // showing retaliation result
-    public Color missingBarColor;
+    public Color damageBarColor;
+    public Color healBarColor;
     string missingBarTweenID = "characterHealthBarTweenID";
 
 
@@ -102,6 +109,7 @@ public class CharacterUI : MonoBehaviour
 
         characterName = root.Q<Label>("characterName");
         characterPortrait = root.Q<VisualElement>("characterPortrait");
+        characterPortraitSkull = root.Q<VisualElement>("characterPortraitSkull");
 
         characterHealth = root.Q<Label>("characterHealth");
         characterHealthBarMissingHealth = root.Q<VisualElement>("characterHealthBarMissingHealth");
@@ -109,6 +117,7 @@ public class CharacterUI : MonoBehaviour
 
         characterMana = root.Q<Label>("characterMana");
         characterManaBarMissingMana = root.Q<VisualElement>("characterManaBarMissingMana");
+        characterManaBarInteractionResult = root.Q<VisualElement>("characterManaBarInteractionResult");
 
         characterStrengthAmount = root.Q<Label>("characterStrengthAmount");
         characterIntelligenceAmount = root.Q<Label>("characterIntelligenceAmount");
@@ -319,21 +328,17 @@ public class CharacterUI : MonoBehaviour
         characterASkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[0].aIcon.texture;
         characterSSkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[1].aIcon.texture;
 
-        int count = 0; // TODO: ugh...-1
-        foreach (Button b in abilityButtons)
+        for (int i = 0; i < abilityButtons.Count; i++)
         {
-            // hide buttons if there are not enough abilities to populate them;
-            if (selectedPlayerStats.abilities.Count <= count)
+            if (selectedPlayerStats.abilities.Count <= i)
             {
-                abilityButtons[count].style.display = DisplayStyle.None;
-                return;
+                abilityButtons[i].style.display = DisplayStyle.None;
+                continue;
             }
 
             // show buttons for each ability
-            abilityButtons[count].style.display = DisplayStyle.Flex;
-            abilityIcons[count].style.backgroundImage = selectedPlayerStats.abilities[count].aIcon.texture;
-
-            count++;
+            abilityButtons[i].style.display = DisplayStyle.Flex;
+            abilityIcons[i].style.backgroundImage = selectedPlayerStats.abilities[i].aIcon.texture;
         }
     }
 
@@ -374,10 +379,61 @@ public class CharacterUI : MonoBehaviour
     }
 
     // called by infocardUI
+    public void ShowManaUse(int _val)
+    {
+        if (selectedPlayerStats == null)
+            return;
+
+        float currentMana = (float)selectedPlayerStats.currentMana;
+        float manaAfterInteraction = (float)selectedPlayerStats.currentMana - _val;
+        manaAfterInteraction = Mathf.Clamp(manaAfterInteraction, 0, selectedPlayerStats.currentMana);
+
+        // text
+        characterMana.text = manaAfterInteraction + "/" + selectedPlayerStats.maxMana.GetValue();
+
+        // bar
+        float result = _val / (float)selectedPlayerStats.maxMana.GetValue();
+
+        if (manaAfterInteraction == 0)
+            result = currentMana / (float)selectedPlayerStats.maxMana.GetValue();
+
+        characterManaBarInteractionResult.style.display = DisplayStyle.Flex;
+        // reset right
+        characterManaBarInteractionResult.style.right = Length.Percent(0);
+        characterManaBarInteractionResult.style.width = Length.Percent(result * 100);
+
+        // "animate it"
+        AnimateManaUse();
+    }
+
+    public void HideManaUse()
+    {
+        DOTween.Pause(manaUseTweenID);
+
+        characterManaBarInteractionResult.style.width = Length.Percent(0);
+        if (selectedPlayerStats != null)
+            SetCharacterHealthMana(selectedPlayerStats);
+
+    }
+
+    void AnimateManaUse()
+    {
+        characterManaBarInteractionResult.style.backgroundColor = damageBarColor;
+
+        DOTween.ToAlpha(() => characterManaBarInteractionResult.style.backgroundColor.value,
+                         x => characterManaBarInteractionResult.style.backgroundColor = x,
+                         0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
+                         .SetId(manaUseTweenID);
+    }
+
+
+    // called by infocardUI
     public void ShowRetaliationResult(int _val)
     {
         if (selectedPlayerStats == null)
             return;
+
+        characterPortraitSkull.style.display = DisplayStyle.None;
 
         float currentHealth = (float)selectedPlayerStats.currentHealth;
         float healthAfterInteraction = (float)selectedPlayerStats.currentHealth - _val;
@@ -398,24 +454,26 @@ public class CharacterUI : MonoBehaviour
         characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
 
         // death - TODO: display the skull
-        //if (healthAfterInteraction <= 0)
-        //characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
+        if (healthAfterInteraction <= 0)
+            characterPortraitSkull.style.display = DisplayStyle.Flex;
 
         // "animate it"
         AnimateRetaliationnResult();
-
     }
 
     public void HideRetaliationResult()
     {
+        DOTween.Pause(missingBarTweenID);
+
+        characterHealthBarRetaliationResult.style.width = Length.Percent(0);
         if (selectedPlayerStats != null)
             SetCharacterHealthMana(selectedPlayerStats);
-        DOTween.Pause(missingBarTweenID);
+
     }
 
     void AnimateRetaliationnResult()
     {
-        characterHealthBarRetaliationResult.style.backgroundColor = missingBarColor;
+        characterHealthBarRetaliationResult.style.backgroundColor = damageBarColor;
 
         DOTween.ToAlpha(() => characterHealthBarRetaliationResult.style.backgroundColor.value,
                          x => characterHealthBarRetaliationResult.style.backgroundColor = x,

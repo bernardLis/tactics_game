@@ -104,12 +104,7 @@ public class CharacterRendererManager : MonoBehaviour
         }
     }
 
-    public void PlayDieAnimation()
-    {
-        StartCoroutine(Die());
-    }
-
-    IEnumerator Die()
+    public async Task Die()
     {
         noIdleAnimation = true;
 
@@ -123,7 +118,7 @@ public class CharacterRendererManager : MonoBehaviour
                 an.Play("Hurt");
         }
 
-        yield return new WaitForSeconds(0.5f);
+        await Task.Delay(500);
         noIdleAnimation = false;
     }
 

@@ -5,17 +5,10 @@ using UnityEngine;
 using DG.Tweening;
 using Pathfinding;
 using System.Threading.Tasks;
-using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>, IPushable<Vector3>
 {
-    // global
-    Tilemap tilemap;
-    WorldTile _tile;
-    Dictionary<Vector3, WorldTile> tiles;
-    Highlighter highlighter;
-
     public Character character;
 
     [Header("Base value for stats")]
@@ -58,18 +51,13 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
     public int currentMana { get; private set; }
 
     // reply to interaction
-    bool isAttacker;
+    public bool isAttacker { get; private set; }
 
     // delegate
     public event Action CharacterDeathEvent;
 
     protected virtual void Awake()
     {
-        // global
-        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
-        tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
-        highlighter = Highlighter.instance;
-
         // local
         damageUI = GetComponent<DamageUI>();
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
@@ -189,8 +177,8 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         // in the side 1, face to face 2, from the back 0, 
         int attackDir = CalculateAttackDir(_attacker);
         float dodgeChance = CalculateDodgeChance(attackDir, _attacker);
-
-        if (Random.value > dodgeChance)
+        float randomVal = Random.value;
+        if (randomVal < dodgeChance) // dodgeChance% of time <- TODO: is that correct?
         {
             // you dodged
             // face the attacker
@@ -203,8 +191,6 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
             characterRendererManager.enabled = false;
             transform.DOShakePosition(duration, strength, 0, 0, false, true)
                      .OnComplete(() => characterRendererManager.enabled = true);
-
-            Debug.Log("Dodged");
         }
         else
         {
@@ -212,12 +198,12 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
             TakeDamageNoDodgeNoRetaliation(_damage);
         }
 
-        // if you were attacked from the back don't retaliate
-        if (!WillRetaliate(_attacker))
-            return;
-
         // if you are dead don't retaliate
         if (currentHealth <= 0)
+            return;
+
+        // if you were attacked from the back don't retaliate
+        if (!WillRetaliate(_attacker))
             return;
 
         // if there is noone to retaliate to don't do it
@@ -258,13 +244,18 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         float duration = 0.5f;
         float strength = 0.1f;
 
+        // don't shake on death
+        if (currentHealth <= 0)
+        {
+            Die().GetAwaiter();
+            return;
+        }
+
         // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
         characterRendererManager.enabled = false;
         transform.DOShakePosition(duration, strength)
                  .OnComplete(() => characterRendererManager.enabled = true); 
 
-        if (currentHealth <= 0)
-            Die();
     }
 
     int CalculateAttackDir(GameObject _attacker)
@@ -306,12 +297,11 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
             if (a.weaponType == WeaponType.SHOOT)
                 continue;
 
-            if (a.aType != AbilityType.ATTACK)
+            if (a.aType != AbilityType.Attack)
                 continue;
 
             return a;
         }
-
 
         return null;
     }
@@ -472,10 +462,10 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
             characterCollider.enabled = true;
     }
 
-    public virtual void Die()
+    public async Task Die()
     {
         // playing death animation
-        characterRendererManager.PlayDieAnimation();
+        await characterRendererManager.Die();
 
         // ending that character's turn // TODO: is that a smart way to handle death?
         TurnManager.instance.PlayerCharacterTurnFinished();

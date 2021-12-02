@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-public enum AbilityType { ATTACK, DEFEND, HEAL, MOVE }
+public enum AbilityType { Attack, Defend, Heal, Move }
 
 public abstract class Ability : ScriptableObject
 {
@@ -10,12 +10,13 @@ public abstract class Ability : ScriptableObject
 
     public AbilityType aType;
     public WeaponType weaponType; // abilities have weapons that can use them
-    [Tooltip("GO that will be flying through the scene")] public GameObject aProjectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
+    public GameObject aProjectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
 
     public Sprite aIcon;
     public AudioClip aSound;
     public int value;
     public int manaCost;
+    public int areaOfEffect; // 1 is one tile, 2 is a cross
 
     [Header("Highlight")]
     public int range;
@@ -37,12 +38,12 @@ public abstract class Ability : ScriptableObject
         audioSource = AudioScript.instance.GetComponent<AudioSource>();
     }
 
-    // TODO: this is wrong.
+    // TODO: this is wrong. BUUUT... I use it only for retaliation, where it is 'mostly' correct.
     public virtual bool CanHit(GameObject _self, GameObject _target)
     {
         // manhattan distance to see whether we are in range
         int manDistance = Mathf.FloorToInt(Mathf.Abs(_self.transform.position.x - _target.transform.position.x)
-                                            + Mathf.Abs(_self.transform.position.y - _target.transform.position.y));
+                                         + Mathf.Abs(_self.transform.position.y - _target.transform.position.y));
 
         if (manDistance > range)
             return false;
@@ -51,12 +52,22 @@ public abstract class Ability : ScriptableObject
     }
     public virtual async Task HighlightTargetable()
     {
-        battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);   
+        battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
 
         await highlighter.HighlightTiles(characterGameObject.transform.position, range,
                        highlightColor, canTargetDiagonally, canTargetSelf);
 
     }
+
+    public virtual async Task HighlightAreaOfEffect(Vector3 _middle)
+    {
+        battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
+        if (areaOfEffect == 0)
+            highlighter.HighlightSingle(_middle, highlightColor);
+        else
+            await highlighter.HighlightTiles(_middle, areaOfEffect, highlightColor, true, canTargetSelf);
+    }
+
     public virtual async Task<bool> TriggerAbility(GameObject target)
     {
         // meant to be overwritten;

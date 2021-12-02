@@ -11,7 +11,7 @@ public class AttackAbility : Ability
         base.Initialize(obj);
         attackTriggerable = obj.GetComponent<AttackTriggerable>();
     }
-    
+
     // returns true if ability was triggered with success
     public async override Task<bool> TriggerAbility(GameObject target)
     {
@@ -21,8 +21,8 @@ public class AttackAbility : Ability
             return false;
 
         // highlight only target
-        await Highlighter.instance.ClearHighlightedTiles();
-        Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
+        //await Highlighter.instance.ClearHighlightedTiles();
+        //Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
 
         // interact
         if (!await attackTriggerable.Attack(target, value, manaCost, aProjectile))
