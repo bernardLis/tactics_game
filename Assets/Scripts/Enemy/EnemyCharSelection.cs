@@ -17,10 +17,7 @@ public class EnemyCharSelection : CharacterSelection
     void OnEnemyDeath()
     {
         // TODO: should I make it all async?
-#pragma warning disable CS4014
-        highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
-
+        highlighter.ClearHighlightedTiles().GetAwaiter();
     }
 
     public override void HiglightMovementRange()

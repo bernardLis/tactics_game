@@ -19,6 +19,8 @@ public class CharacterRendererManager : MonoBehaviour
 
     AILerp AI;
 
+    Vector2 directionFromFace;
+
     bool noIdleAnimation;
 
     // TODO: I am not certain if it is correctly set
@@ -61,21 +63,22 @@ public class CharacterRendererManager : MonoBehaviour
         }
     }
 
-    public async Task AttackAnimation(Vector2 dir)
+    public async Task AttackAnimation()
     {
         if (weaponHolder.weapon == null)
             return;
 
         if (weaponHolder.weapon.weaponType == WeaponType.SLASH)
-            await Slash(dir);
+            await Slash(directionFromFace);
         if (weaponHolder.weapon.weaponType == WeaponType.THRUST)
-            await Thrust(dir);
+            await Thrust(directionFromFace);
         if (weaponHolder.weapon.weaponType == WeaponType.SHOOT)
-            await Shoot(dir);
+            await Shoot(directionFromFace);
     }
 
     void SetFaceDir(Vector2 _dir)
     {
+        directionFromFace = _dir;
         // TODO: this is weirdness...
         float x = Mathf.FloorToInt(_dir.x);
         float y = Mathf.FloorToInt(_dir.y);
@@ -83,10 +86,10 @@ public class CharacterRendererManager : MonoBehaviour
         faceDir = new Vector2(x, y);
     }
 
-    public async Task SpellcastAnimation(Vector2 dir)
+    public async Task SpellcastAnimation()
     {
         // TODO: this is the set-up coz i might want to add some other animations or effects that should be awaited sequentially.
-        await Spellcast(dir);
+        await Spellcast(directionFromFace);
     }
 
     public void Face(Vector2 dir)

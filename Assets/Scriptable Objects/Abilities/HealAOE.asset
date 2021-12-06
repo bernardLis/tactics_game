@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d898f116c1e0c6c4ab7be9cd59f9b50c, type: 3}
-  m_Name: BasicHeal
+  m_Name: HealAOE
   m_EditorClassIdentifier: 
   aName: Basic Heal
   aDescription: Heal 20

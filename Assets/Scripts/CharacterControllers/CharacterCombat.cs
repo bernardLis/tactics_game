@@ -12,10 +12,7 @@ public class CharacterCombat : MonoBehaviour
 
     public void Attack(CharacterStats targetStats)
     {
-#pragma warning disable CS4014
-        targetStats.TakeDamage(myStats.strength.GetValue(), gameObject);
-#pragma warning restore CS4014
-
+        targetStats.TakeDamage(myStats.strength.GetValue(), gameObject).GetAwaiter();
     }
 
 }

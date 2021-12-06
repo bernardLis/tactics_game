@@ -236,9 +236,7 @@ public class BattleCharacterController : MonoBehaviour
         hasCharacterStartedMoving = true;
 
         // TODO: should I make it all async?
-#pragma warning disable CS4014
-        highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
+        highlighter.ClearHighlightedTiles().GetAwaiter();
 
         tempObject = new GameObject("Destination");
         tempObject.transform.position = transform.position;
@@ -319,10 +317,8 @@ public class BattleCharacterController : MonoBehaviour
 
         // highlight movement range if character was going back
         hasCharacterGoneBack = false;
-#pragma warning disable CS4014
         highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
-                                    new Color(0.53f, 0.52f, 1f, 1f));
-#pragma warning restore CS4014
+                                    new Color(0.53f, 0.52f, 1f, 1f)).GetAwaiter();
 
     }
 
@@ -355,7 +351,9 @@ public class BattleCharacterController : MonoBehaviour
         // highlight aoe
         if (characterState == CharacterState.SelectingInteractionTarget)
         {
+            characterRendererManager.Face((transform.position - selectedCharacter.transform.position).normalized);
             await selectedAbility.HighlightAreaOfEffect(transform.position);
+            movePointController.UpdateDisplayInformation();
             isInteracting = false;
             return;
         }
@@ -395,10 +393,8 @@ public class BattleCharacterController : MonoBehaviour
 
         selectedAbility = null;
         characterUI.HideAbilityTooltip();
-#pragma warning disable CS4014
 
-        highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
+        highlighter.ClearHighlightedTiles().GetAwaiter();
 
     }
 
@@ -414,10 +410,7 @@ public class BattleCharacterController : MonoBehaviour
         if (selectedAbility.canTargetSelf)
         {
             // it changes the state too
-#pragma warning disable CS4014
-
-            selectedAbility.HighlightTargetable();
-#pragma warning restore CS4014
+            selectedAbility.HighlightTargetable().GetAwaiter();
 
             return;
         }
@@ -431,11 +424,7 @@ public class BattleCharacterController : MonoBehaviour
     {
         isInteracting = false;
         UpdateCharacterState(CharacterState.SelectingInteractionTarget);
-#pragma warning disable CS4014
-
-        selectedAbility.HighlightTargetable();
-#pragma warning restore CS4014
-
+        selectedAbility.HighlightTargetable().GetAwaiter();
     }
 
 
@@ -476,10 +465,7 @@ public class BattleCharacterController : MonoBehaviour
         characterUI.HideCharacterUI();
 
         // highlight
-#pragma warning disable CS4014
-        highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
-
+        highlighter.ClearHighlightedTiles().GetAwaiter();
     }
 
     // TODO: this probably shouldn't be here 

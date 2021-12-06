@@ -25,7 +25,7 @@ public class DefendAbility : Ability
     }
 
     // returns true if ability was triggered with success
-    public async override Task<bool> TriggerAbility(GameObject target)
+    public async override Task<bool> TriggerAbility(GameObject _target)
     {
         if (!await defendTriggerable.Defend(value, manaCost))
             return false;

@@ -6,6 +6,8 @@ public class AttackAbility : Ability
 {
     AttackTriggerable attackTriggerable;
 
+    public bool isRetaliation { get; private set; }
+
     public override void Initialize(GameObject obj)
     {
         base.Initialize(obj);
@@ -13,20 +15,18 @@ public class AttackAbility : Ability
     }
 
     // returns true if ability was triggered with success
-    public async override Task<bool> TriggerAbility(GameObject target)
+    public async override Task<bool> TriggerAbility(GameObject _target)
     {
         // check if target is valid
-        var attackableObject = target.GetComponent<IAttackable<GameObject>>();
+        var attackableObject = _target.GetComponent<IAttackable<GameObject>>();
         if (attackableObject == null)
             return false;
 
-        // highlight only target
-        //await Highlighter.instance.ClearHighlightedTiles();
-        //Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
-
         // interact
-        if (!await attackTriggerable.Attack(target, value, manaCost, aProjectile))
+        if (!await attackTriggerable.Attack(_target, value, manaCost, aProjectile, isRetaliation))
             return false;
+
+        SetIsRetaliation(false);
 
         // sound
         audioSource.clip = aSound;
@@ -35,5 +35,6 @@ public class AttackAbility : Ability
         return true;
     }
 
+    public void SetIsRetaliation(bool _is) { isRetaliation = _is; }
 
 }

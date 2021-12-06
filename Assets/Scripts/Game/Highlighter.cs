@@ -57,10 +57,8 @@ public class Highlighter : MonoBehaviour
     public WorldTile HighlightSingle(Vector3 position, Color col)
     {
         // TODO: should I make it all async?
-#pragma warning disable CS4014
         // making sure there is only one highlight at the time
-        ClearHighlightedTiles();
-#pragma warning restore CS4014
+        ClearHighlightedTiles().GetAwaiter();
 
         Vector3Int tilePos = tilemap.WorldToCell(position);
         if (tiles.TryGetValue(tilePos, out _tile))
@@ -307,10 +305,8 @@ public class Highlighter : MonoBehaviour
     public void HiglightEnemyMovementRange(Vector3 position, int range, Color col)
     {
         // TODO: should I make it all async?
-#pragma warning disable CS4014
         // clear the list just in case.
-        ClearHighlightedTiles();
-#pragma warning restore CS4014
+        ClearHighlightedTiles().GetAwaiter();
 
         // list with tiles
         var markedTiles = new List<WorldTile>();

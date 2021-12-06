@@ -9,8 +9,6 @@ public class HealTriggerable : MonoBehaviour
     
     FaceDirectionUI faceDirectionUI;
 
-    bool hasPlayedAnimation;
-
     void Awake()
     {
         myStats = GetComponent<CharacterStats>();
@@ -21,34 +19,33 @@ public class HealTriggerable : MonoBehaviour
     // returns true if successfully healed
     public async Task<bool> Heal(GameObject target, int value, int manaCost)
     {
-        // TODO: !hasPlayedAnimation kinda sucks
-        if (!hasPlayedAnimation)
+        // triggered only once if AOE
+        if (!myStats.isAttacker)
         {
-            Vector2 dir = target.transform.position - transform.position;
             // healing self, should be able to choose what direction to face
             if (target == gameObject)
             {
-                dir = await faceDirectionUI.PickDirection();
+                Vector2 dir = await faceDirectionUI.PickDirection();
+
                 // TODO: is that correct, facedir returns vector2.zero when it's broken out of
                 if (dir == Vector2.zero)
                     return false;
+
+                characterRendererManager.Face(dir.normalized);
             }
 
             // animation
-            await characterRendererManager.SpellcastAnimation(dir);
-            // reseted by char selection - this makes sure you play only one animation per attack - useful for aoe attacks
-            if (myStats.isAttacker) // to not set this when you retaliate
-                hasPlayedAnimation = true;
+            await characterRendererManager.SpellcastAnimation();
+
+            myStats.UseMana(manaCost);
         }
 
         // data
         int healAmount = value + myStats.intelligence.GetValue();
         target.GetComponent<IHealable>().GainHealth(healAmount);
-        myStats.UseMana(manaCost);
+
+        myStats.SetAttacker(true);
 
         return true;
     }
-
-    public void SetHasPlayedAnimation(bool _has) { hasPlayedAnimation = _has; }
-
 }

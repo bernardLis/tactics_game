@@ -14,19 +14,15 @@ public class HealAbility : Ability
     }
 
     // returns true if ability was triggered with success
-    public async override Task<bool> TriggerAbility(GameObject target)
+    public async override Task<bool> TriggerAbility(GameObject _target)
     {
         // check if target is valid
-        var healableObject = target.GetComponent<IHealable>();
+        var healableObject = _target.GetComponent<IHealable>();
         if (healableObject == null)
             return false;
 
-        // highlight only target
-        //await Highlighter.instance.ClearHighlightedTiles();
-        //Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
-
         // heal target if successful play sound and retrun true;
-        if (!await healTriggerable.Heal(target, value, manaCost))
+        if (!await healTriggerable.Heal(_target, value, manaCost))
             return false;
 
         audioSource.clip = aSound;

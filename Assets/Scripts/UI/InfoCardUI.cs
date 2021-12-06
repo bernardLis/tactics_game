@@ -44,7 +44,7 @@ public class InfoCardUI : MonoBehaviour
     VisualElement retaliationSummary;
     Label retaliationDamageValue;
     Label retaliationHitValue;
-    
+
     // tweeen
     public Color damageBarColor;
     public Color healBarColor;
@@ -102,7 +102,7 @@ public class InfoCardUI : MonoBehaviour
 
         // interaction summary
         interactionSummary = root.Q<VisualElement>("interactionSummary");
-        
+
         attackLabel = root.Q<Label>("attackLabel");
         attackDamageValue = root.Q<Label>("attackDamageValue");
         attackHitValue = root.Q<Label>("attackHitValue");
@@ -192,6 +192,8 @@ public class InfoCardUI : MonoBehaviour
         DOTween.To(() => interactionSummary.style.left.value.value, x => interactionSummary.style.left = Length.Percent(x), cardShowValue, 0.5f)
                .SetEase(Ease.InOutSine);
 
+        // Clean-up
+        characterUI.HideDamage();
 
         int attackValue = CalculateInteractionResult(_attacker, _defender, _ability);
         attackDamageValue.text = "" + attackValue;
@@ -199,35 +201,32 @@ public class InfoCardUI : MonoBehaviour
         // different labels and UI for heal / attack
         if (_ability.aType == AbilityType.Attack)
         {
+            if (_attacker.gameObject == _defender.gameObject)
+                characterUI.ShowDamage(CalculateInteractionResult(_attacker, _attacker, _ability));
+
             ShowDamage(_defender, attackValue);
 
-            // labels
             attackLabel.text = "Attack";
-           // attackDamageLabel.text = "Attack: ";
-
-            // hit chance (1-dodge chance)
             float hitChance = (1 - _defender.GetDodgeChance(_attacker.gameObject)) * 100;
             hitChance = Mathf.Clamp(hitChance, 0, 100);
             attackHitValue.text = hitChance + "%";
 
         }
+
         if (_ability.aType == AbilityType.Heal)
         {
+            // TODO:
+            if (_attacker.gameObject == _defender.gameObject)
+                characterUI.ShowHeal(attackValue);
+
             ShowHeal(_defender, attackValue);
 
-            // labels
             attackLabel.text = "Heal";
-           // attackDamageLabel.text = "Heal: ";
-
-            // heal always hits
             attackHitValue.text = 100 + "%";
         }
 
-        // Will there be retaliation?
-        characterUI.HideRetaliationResult();
-
         // retaliation only on attack
-        if(_ability.aType != AbilityType.Attack)
+        if (_ability.aType != AbilityType.Attack)
         {
             DisplayNone(retaliationSummary);
             return;
@@ -252,15 +251,14 @@ public class InfoCardUI : MonoBehaviour
         // show change in attackers health after they get retaliated on
         retaliationSummary.style.display = DisplayStyle.Flex;
 
-        // damage you will take
         int relatiationResult = CalculateInteractionResult(_defender, _attacker, retaliationAbility);
         retaliationDamageValue.text = "" + relatiationResult;
-        // hit chance you take it (1-dodge chance)
+
         float retaliationChance = (1 - _attacker.GetDodgeChance(_attacker.gameObject)) * 100;
         retaliationChance = Mathf.Clamp(retaliationChance, 0, 100);
         retaliationHitValue.text = retaliationChance + "%";
 
-        characterUI.ShowRetaliationResult(relatiationResult);
+        characterUI.ShowDamage(relatiationResult);
     }
     public void HideInteractionSummary()
     {
@@ -279,10 +277,9 @@ public class InfoCardUI : MonoBehaviour
 
         // bar
         float result = _val / (float)_chStats.maxHealth.GetValue();
-        
         if (healthAfterInteraction == 0)
             result = currentHealth / (float)_chStats.maxHealth.GetValue();
-        
+
         characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
         // reset right
         characterCardHealthBarInteractionResult.style.right = Length.Percent(0);
@@ -308,7 +305,6 @@ public class InfoCardUI : MonoBehaviour
         // text
         characterCardHealth.text = healthAfterInteraction + "/" + _chStats.maxHealth.GetValue();
 
-        // TODO: this does not work.
         // bar
         float result = _val / (float)_chStats.maxHealth.GetValue();
         result = Mathf.Clamp(result, 0, 1);

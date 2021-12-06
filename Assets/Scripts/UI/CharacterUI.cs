@@ -426,9 +426,8 @@ public class CharacterUI : MonoBehaviour
                          .SetId(manaUseTweenID);
     }
 
-
     // called by infocardUI
-    public void ShowRetaliationResult(int _val)
+    public void ShowDamage(int _val)
     {
         if (selectedPlayerStats == null)
             return;
@@ -458,22 +457,54 @@ public class CharacterUI : MonoBehaviour
             characterPortraitSkull.style.display = DisplayStyle.Flex;
 
         // "animate it"
-        AnimateRetaliationnResult();
+        AnimateInteractionResult(damageBarColor);
     }
 
-    public void HideRetaliationResult()
+    public void ShowHeal(int _val)
+    {
+        if (selectedPlayerStats == null)
+            return;
+
+        float currentHealth = (float)selectedPlayerStats.currentHealth;
+        float maxHealth = (float)selectedPlayerStats.maxHealth.GetValue();
+
+        // if there is nothing to heal, don't show the result
+        if (currentHealth >= maxHealth)
+            return;
+
+        float healthAfterInteraction = (float)currentHealth + _val;
+        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, maxHealth);
+
+        // text
+        characterHealth.text = healthAfterInteraction + "/" + maxHealth;
+
+        // bar
+        float result = _val / (float)maxHealth;
+        result = Mathf.Clamp(result, 0, 1);
+
+        characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
+        // move it left, to show that it is health gain not loss.
+        characterHealthBarRetaliationResult.style.right = Length.Percent(result * 100);
+        characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
+
+        // "animate it"
+        AnimateInteractionResult(healBarColor);
+    }
+
+
+
+    public void HideDamage()
     {
         DOTween.Pause(missingBarTweenID);
 
         characterHealthBarRetaliationResult.style.width = Length.Percent(0);
         if (selectedPlayerStats != null)
             SetCharacterHealthMana(selectedPlayerStats);
-
     }
 
-    void AnimateRetaliationnResult()
+    void AnimateInteractionResult(Color _col)
     {
-        characterHealthBarRetaliationResult.style.backgroundColor = damageBarColor;
+        characterHealthBarRetaliationResult.style.backgroundColor = _col;
 
         DOTween.ToAlpha(() => characterHealthBarRetaliationResult.style.backgroundColor.value,
                          x => characterHealthBarRetaliationResult.style.backgroundColor = x,

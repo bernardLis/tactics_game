@@ -98,9 +98,7 @@ public class BattlePreparationController : MonoBehaviour
         if (charactersToPlace.Count == 0)
         {
             // TODO: should I make it all async?
-#pragma warning disable CS4014
-            highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
+            highlighter.ClearHighlightedTiles().GetAwaiter();
 
             TurnManager.instance.UpdateBattleState(BattleState.PlayerTurn);
             //TurnManager.instance.StartBattle();

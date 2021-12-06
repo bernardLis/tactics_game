@@ -72,9 +72,7 @@ public class EnemyCharMovementController : CharacterMovementController
     {
         // clear highlight
         // TODO: should I make it all async?
-#pragma warning disable CS4014
-        highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
+        highlighter.ClearHighlightedTiles().GetAwaiter();
 
         // reset ailerp speed
         AILerp.speed = 3f;

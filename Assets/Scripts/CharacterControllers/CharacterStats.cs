@@ -51,7 +51,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
     public int currentMana { get; private set; }
 
     // reply to interaction
-    public bool isAttacker { get; private set; }
+    public bool isAttacker;// { get; private set; }
 
     // delegate
     public event Action CharacterDeathEvent;
@@ -179,26 +179,10 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         float dodgeChance = CalculateDodgeChance(attackDir, _attacker);
         float randomVal = Random.value;
         if (randomVal < dodgeChance) // dodgeChance% of time <- TODO: is that correct?
-        {
-            // you dodged
-            // face the attacker
-            characterRendererManager.Face((_attacker.transform.position - transform.position).normalized);
-            // shake yourself
-            float duration = 0.5f;
-            float strength = 0.8f;
-
-            // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
-            characterRendererManager.enabled = false;
-            transform.DOShakePosition(duration, strength, 0, 0, false, true)
-                     .OnComplete(() => characterRendererManager.enabled = true);
-        }
+            Dodge(_attacker);
         else
-        {
-            // you did not dodge
             TakeDamageNoDodgeNoRetaliation(_damage);
-        }
 
-        // if you are dead don't retaliate
         if (currentHealth <= 0)
             return;
 
@@ -206,8 +190,10 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         if (!WillRetaliate(_attacker))
             return;
 
-        // if there is noone to retaliate to don't do it
         if (_attacker == null)
+            return;
+
+        if (_attacker.GetComponent<CharacterStats>().currentHealth <= 0)
             return;
 
         // blocking interaction replies to go on forever;
@@ -215,21 +201,38 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
             return;
 
         // it is just the basic attack that is not ranged;
-        Ability retaliationAbility = GetRetaliationAbility();
-
+        AttackAbility retaliationAbility = GetRetaliationAbility();
         if (retaliationAbility == null)
             return;
 
         // strike back triggering basic attack at him
-        bool isRetaliationReachable = retaliationAbility.CanHit(gameObject, _attacker);
-
-        if (!isRetaliationReachable)
+        if (!retaliationAbility.CanHit(gameObject, _attacker))
             return;
 
         await Task.Delay(500);
 
-        // if it is in range retaliate            
+        // if it is in range retaliate
+        characterRendererManager.Face((_attacker.transform.position - transform.position).normalized);
+        retaliationAbility.SetIsRetaliation(true);
         await retaliationAbility.TriggerAbility(_attacker);
+    }
+
+    void Dodge(GameObject _attacker)
+    {
+        // face the attacker
+        characterRendererManager.Face((_attacker.transform.position - transform.position).normalized);
+
+        damageUI.DisplayText("Dodged!");
+
+        // shake yourself
+        float duration = 0.5f;
+        float strength = 0.8f;
+
+        // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
+        characterRendererManager.enabled = false;
+        transform.DOShakePosition(duration, strength, 0, 0, false, true)
+                 .OnComplete(() => characterRendererManager.enabled = true);
+
     }
 
     public void TakeDamageNoDodgeNoRetaliation(int _damage)
@@ -289,7 +292,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         return (float)(0.25 * _attackDir) + (float)(0.02 * agiDiff);
     }
 
-    public Ability GetRetaliationAbility()
+    public AttackAbility GetRetaliationAbility()
     {
         foreach (Ability a in basicAbilities)
         {
@@ -300,7 +303,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
             if (a.aType != AbilityType.Attack)
                 continue;
 
-            return a;
+            return (AttackAbility) a;
         }
 
         return null;
@@ -322,10 +325,8 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
 
     public float GetDodgeChance(GameObject _attacker)
     {
-        // in the side 1, face to face 2, from the back 0, 
         return CalculateDodgeChance(CalculateAttackDir(_attacker), _attacker);
     }
-
 
     public void GainMana(int _amount)
     {
@@ -473,13 +474,13 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         // kill all tweens TODO: is that OK?
         DOTween.KillAll();
 
-        // die in some way
-        // this method is meant to be overwirtten
-        Destroy(gameObject, 0.5f);
-
         // movement script needs to clear the highlight 
         if (CharacterDeathEvent != null)
             CharacterDeathEvent();
+
+        // die in some way
+        // this method is meant to be overwirtten
+        Destroy(gameObject);
     }
 
     public void SetAttacker(bool _isAttacker) { isAttacker = _isAttacker; }

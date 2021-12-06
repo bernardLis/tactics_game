@@ -42,9 +42,7 @@ public class HealerEnemyAI : EnemyAI
                 if (targetStats.currentHealth < targetStats.maxHealth.GetValue())
                 {
                     // TODO: should I make it all async?
-#pragma warning disable CS4014
-                    myStats.abilities[1].HighlightTargetable();
-#pragma warning restore CS4014
+                    myStats.abilities[1].HighlightTargetable().GetAwaiter();
 
                     yield return new WaitForSeconds(0.5f);
                     enemyInteractionController.Heal(targetCharacter);
@@ -63,10 +61,7 @@ public class HealerEnemyAI : EnemyAI
             }
             // clearing the highlight and finishing the turn
             yield return new WaitForSeconds(1f);
-#pragma warning disable CS4014
-            highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
-
+            highlighter.ClearHighlightedTiles().GetAwaiter();
         }
         // or just face its direction
         else

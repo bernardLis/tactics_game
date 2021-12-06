@@ -23,7 +23,7 @@ public class DefendTriggerable : MonoBehaviour
             return false;
 
         // play animation TODO: add defend animation
-        await characterRendererManager.SpellcastAnimation(dir);
+        await characterRendererManager.SpellcastAnimation();
 
         // add armor
         myStats.armor.AddModifier(value);

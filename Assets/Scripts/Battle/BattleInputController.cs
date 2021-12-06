@@ -78,12 +78,12 @@ public class BattleInputController : MonoBehaviour
         UnsubscribeInputActions();
     }
 
-    void TurnManager_OnBattleStateChanged(BattleState state)
+    void TurnManager_OnBattleStateChanged(BattleState _state)
     {
-        if (state == BattleState.PlayerTurn)
+        if (_state == BattleState.PlayerTurn)
             HandlePlayerTurn();
 
-        if (state == BattleState.EnemyTurn)
+        if (_state == BattleState.EnemyTurn)
             HandleEnemyTurn();
     }
 
@@ -158,14 +158,14 @@ public class BattleInputController : MonoBehaviour
         return allowInput;
     }
 
-    public void SetInputAllowed(bool isAllowed)
+    public void SetInputAllowed(bool _isAllowed)
     {
-        if (isAllowed)
+        if (_isAllowed)
             characterUI.EnableSkillButtons();
-        if (!isAllowed)
+        if (!_isAllowed)
             characterUI.DisableSkillButtons();
 
-        allowInput = isAllowed;
+        allowInput = _isAllowed;
     }
 
     void LeftMouseClick()
@@ -187,18 +187,18 @@ public class BattleInputController : MonoBehaviour
         movePointController.Move(pos);
     }
 
-    void Move(Vector2 direction)
+    void Move(Vector2 _direction)
     {
         // Selecting face direction with arrows
         if (battleCharacterController.characterState == CharacterState.SelectingFaceDir)
         {
-            if (direction == Vector2.up)
+            if (_direction == Vector2.up)
                 battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateUpButtonClicked();
-            if (direction == Vector2.left)
+            if (_direction == Vector2.left)
                 battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateLeftButtonClicked();
-            if (direction == Vector2.right)
+            if (_direction == Vector2.right)
                 battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateRightButtonClicked();
-            if (direction == Vector2.down)
+            if (_direction == Vector2.down)
                 battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateDownButtonClicked();
 
             return;
@@ -209,9 +209,9 @@ public class BattleInputController : MonoBehaviour
 
         // TODO: this is wrong, but it works.
         // with only normalize, if you press both arrows at the same time you will get (0.7, 0.7) vector        
-        direction.Normalize();
-        Vector2 vectorX = new Vector2(direction.x, 0).normalized;
-        Vector2 vectorY = new Vector2(0, direction.y).normalized;
+        _direction.Normalize();
+        Vector2 vectorX = new Vector2(_direction.x, 0).normalized;
+        Vector2 vectorY = new Vector2(0, _direction.y).normalized;
 
         movePointController.Move(new Vector3(transform.position.x + vectorX.x, transform.position.y + vectorY.y, transform.position.z));
     }

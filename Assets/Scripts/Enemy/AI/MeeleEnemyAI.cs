@@ -34,10 +34,7 @@ public class MeeleEnemyAI : EnemyAI
             // clearing the highlight and finishing the turn
             yield return new WaitForSeconds(1f);
             // TODO: should I make it all async?
-#pragma warning disable CS4014
-            highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
-
+            highlighter.ClearHighlightedTiles().GetAwaiter();
         }
         // or just face its direction
         else

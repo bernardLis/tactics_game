@@ -1082,7 +1082,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a6e6f7bf1b59448abae17576df242e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missingBarColor: {r: 0.21, g: 0.21, b: 0.21, a: 1}
+  damageBarColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+  healBarColor: {r: 1, g: 0.09811318, b: 0.09811318, a: 1}
 --- !u!114 &1321782994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,7 +1096,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08373c6203ab617428821eb9974da252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missingBarColor: {r: 0.21176471, g: 0.21176471, b: 0.21176471, a: 1}
+  damageBarColor: {r: 0, g: 0, b: 0, a: 1}
+  healBarColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1383862955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4377347653787997841, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}

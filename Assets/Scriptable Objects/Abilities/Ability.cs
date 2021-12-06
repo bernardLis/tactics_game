@@ -38,18 +38,13 @@ public abstract class Ability : ScriptableObject
         audioSource = AudioScript.instance.GetComponent<AudioSource>();
     }
 
-    // TODO: this is wrong. BUUUT... I use it only for retaliation, where it is 'mostly' correct.
+    // TODO: I am not certain whether this is correct.
     public virtual bool CanHit(GameObject _self, GameObject _target)
     {
-        // manhattan distance to see whether we are in range
-        int manDistance = Mathf.FloorToInt(Mathf.Abs(_self.transform.position.x - _target.transform.position.x)
-                                         + Mathf.Abs(_self.transform.position.y - _target.transform.position.y));
-
-        if (manDistance > range)
-            return false;
-
-        return true;
+        int manDist = Helpers.GetManhattanDistance(_self.transform.position, _target.transform.position);
+        return manDist <= range;
     }
+
     public virtual async Task HighlightTargetable()
     {
         battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
@@ -68,7 +63,7 @@ public abstract class Ability : ScriptableObject
             await highlighter.HighlightTiles(_middle, areaOfEffect, highlightColor, true, canTargetSelf);
     }
 
-    public virtual async Task<bool> TriggerAbility(GameObject target)
+    public virtual async Task<bool> TriggerAbility(GameObject _target)
     {
         // meant to be overwritten;
         await Task.Yield(); // just to get rid of errors;

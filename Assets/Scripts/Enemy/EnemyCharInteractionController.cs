@@ -19,10 +19,7 @@ public class EnemyCharInteractionController : CharacterInteractionController
 
         // TODO: select appropriate ability; for now it's only basic attack;
         selectedAbility = myStats.abilities[0];
-#pragma warning disable CS4014
-        myStats.abilities[0].TriggerAbility(targetCharacter);
-#pragma warning restore CS4014
-
+        myStats.abilities[0].TriggerAbility(targetCharacter).GetAwaiter();
     }
 
     public void Heal(GameObject targetCharacter)
@@ -42,10 +39,7 @@ public class EnemyCharInteractionController : CharacterInteractionController
 
             // TODO: select appropriate ability; it's hardcoded now;
             selectedAbility = myStats.abilities[1];
-#pragma warning disable CS4014
-            myStats.abilities[1].TriggerAbility(targetCharacter);
-#pragma warning restore CS4014
-
+            myStats.abilities[1].TriggerAbility(targetCharacter).GetAwaiter();
         }
         else
         {

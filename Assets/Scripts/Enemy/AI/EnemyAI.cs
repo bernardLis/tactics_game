@@ -81,9 +81,7 @@ public class EnemyAI : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
         // TODO: should I make it all async?
-#pragma warning disable CS4014
-        highlighter.ClearHighlightedTiles();
-#pragma warning restore CS4014
+        highlighter.ClearHighlightedTiles().GetAwaiter();
 
         // this method is meant to be overwritten
     }

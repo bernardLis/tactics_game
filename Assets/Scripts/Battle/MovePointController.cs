@@ -156,14 +156,9 @@ public class MovePointController : MonoBehaviour
 
         // hide/show the whole panel
         if (tileUIText == "")
-        {
             infoCardUI.HideTileInfo();
-        }
         else
-        {
             infoCardUI.ShowTileInfo(tileUIText);
-        }
-
     }
 
     void UpdateCharacterCardInfo()
@@ -199,7 +194,7 @@ public class MovePointController : MonoBehaviour
     void ShowAbilityResult()
     {
         infoCardUI.HideInteractionSummary();
-        characterUI.HideRetaliationResult();
+        characterUI.HideDamage();
         characterUI.HideManaUse();
 
         // only show interaction result when we are selecting a target
@@ -209,6 +204,10 @@ public class MovePointController : MonoBehaviour
         if (battleCharacterController.selectedAbility == null)
             return;
         Ability selectedAbility = battleCharacterController.selectedAbility;
+
+        // mana use
+        if (selectedAbility.manaCost != 0)
+            characterUI.ShowManaUse(selectedAbility.manaCost);
 
         // don't show interaction summary if not in range of interaction
         Vector3Int tilePos = tilemap.WorldToCell(transform.position);
@@ -229,11 +228,6 @@ public class MovePointController : MonoBehaviour
         CharacterStats defender = col.transform.parent.GetComponent<CharacterStats>();
 
         infoCardUI.ShowInteractionSummary(attacker, defender, selectedAbility);
-
-        // mana use
-        if(selectedAbility.manaCost != 0)
-            characterUI.ShowManaUse(selectedAbility.manaCost);
-
     }
 
 }
