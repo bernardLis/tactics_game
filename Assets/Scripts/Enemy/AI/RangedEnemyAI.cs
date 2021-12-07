@@ -52,7 +52,7 @@ public class RangedEnemyAI : EnemyAI
             {
                 // TODO: don't hardcore abilities
                 // TODO: should I make it all async?
-                myStats.abilities[0].HighlightTargetable().GetAwaiter();
+                myStats.abilities[0].HighlightTargetable(gameObject).GetAwaiter();
 
                 yield return new WaitForSeconds(0.5f);
                 enemyInteractionController.Attack(targetCharacter);

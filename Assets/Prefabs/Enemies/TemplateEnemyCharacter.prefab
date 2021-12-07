@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 8036547555935282502}
   - component: {fileID: 8036547555935282553}
   - component: {fileID: 3387775229403623852}
+  - component: {fileID: 7748143736339006443}
   - component: {fileID: 3387775229403623853}
   - component: {fileID: 5413392492234382795}
   m_Layer: 0
@@ -346,32 +347,41 @@ MonoBehaviour:
   baseMovementRange: 5
   characterName: 
   strength:
+    type: 0
     baseValue: 0
-    modifiers: 
+    modifiers: []
   intelligence:
+    type: 1
     baseValue: 0
-    modifiers: 
+    modifiers: []
   agility:
+    type: 2
     baseValue: 0
-    modifiers: 
+    modifiers: []
   stamina:
+    type: 3
     baseValue: 0
-    modifiers: 
+    modifiers: []
   maxHealth:
+    type: 4
     baseValue: 0
-    modifiers: 
+    modifiers: []
   maxMana:
+    type: 5
     baseValue: 0
-    modifiers: 
+    modifiers: []
   armor:
+    type: 6
     baseValue: 0
-    modifiers: 
+    modifiers: []
   movementRange:
+    type: 7
     baseValue: 0
-    modifiers: 
+    modifiers: []
   stats: []
   basicAbilities: []
   abilities: []
+  isAttacker: 0
 --- !u!114 &3387775229403623841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +483,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a03604d90f0e64ab3901eae2a545ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7748143736339006443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387775229403623854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d00e56168786243b0f68a5728954b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpawnPoint: {fileID: 0}
 --- !u!114 &3387775229403623853
 MonoBehaviour:
   m_ObjectHideFlags: 0

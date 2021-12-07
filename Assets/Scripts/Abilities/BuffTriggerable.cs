@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
-public class HealTriggerable : MonoBehaviour
+public class BuffTriggerable : MonoBehaviour
 {
-    // local
+    public Transform projectileSpawnPoint; // TODO: is that ok way to handle this?
+
     CharacterStats myStats;
     CharacterRendererManager characterRendererManager;
     FaceDirectionUI faceDirectionUI;
@@ -15,13 +17,15 @@ public class HealTriggerable : MonoBehaviour
         faceDirectionUI = GetComponent<FaceDirectionUI>();
     }
 
-    // returns true if successfully healed
-    public async Task<bool> Heal(GameObject _target, int _value, int _manaCost)
+    public async Task<bool> Buff(GameObject _target, int _value, int _manaCost, GameObject _projectile, StatModifier _modifier)
     {
+        if (_target == null)
+            return false;
+
         // triggered only once if AOE
         if (!myStats.isAttacker)
         {
-            // healing self, should be able to choose what direction to face
+            // buffing self, should be able to choose what direction to face
             if (_target == gameObject)
             {
                 Vector2 dir = await faceDirectionUI.PickDirection();
@@ -33,17 +37,16 @@ public class HealTriggerable : MonoBehaviour
                 characterRendererManager.Face(dir.normalized);
             }
 
-            // animation
             await characterRendererManager.SpellcastAnimation();
 
             myStats.UseMana(_manaCost);
         }
 
-        // data
-        int healAmount = _value + myStats.intelligence.GetValue();
-        _target.GetComponent<IHealable>().GainHealth(healAmount);
-
-        myStats.SetAttacker(true);
+        // adding stat modifiers
+        List<Stat> stats = _target.GetComponent<CharacterStats>().stats;
+        foreach (Stat s in stats)
+            if (s.type == _modifier.statType)
+                s.AddModifier(Instantiate(_modifier));
 
         return true;
     }

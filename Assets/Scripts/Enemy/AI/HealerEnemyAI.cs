@@ -42,7 +42,7 @@ public class HealerEnemyAI : EnemyAI
                 if (targetStats.currentHealth < targetStats.maxHealth.GetValue())
                 {
                     // TODO: should I make it all async?
-                    myStats.abilities[1].HighlightTargetable().GetAwaiter();
+                    myStats.abilities[1].HighlightTargetable(gameObject).GetAwaiter();
 
                     yield return new WaitForSeconds(0.5f);
                     enemyInteractionController.Heal(targetCharacter);

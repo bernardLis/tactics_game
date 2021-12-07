@@ -30,7 +30,7 @@ public class BattleCharacterController : MonoBehaviour
     CharacterRendererManager characterRendererManager;
 
     // state
-    public CharacterState characterState;
+    public CharacterState characterState { get; private set; }
 
     // selection
     bool isSelectionBlocked; // block mashing select character coz it breaks the highlight - if you quickly switch between selection of 2 chars.
@@ -44,7 +44,7 @@ public class BattleCharacterController : MonoBehaviour
     LineRenderer pathRenderer;
 
     // interactions
-    public Ability selectedAbility;
+    public Ability selectedAbility { get; private set; }
     bool isInteracting;
 
     // TODO: I am currently, not using that, but I have a feeling that it will be useful.
@@ -80,7 +80,6 @@ public class BattleCharacterController : MonoBehaviour
 
     void Update()
     {
-
         // TODO: is there a better way? 
         if (selectedCharacter == null)
             return;
@@ -193,17 +192,13 @@ public class BattleCharacterController : MonoBehaviour
         return true;
     }
 
-
     async void SelectCharacter(GameObject _character)
     {
         isSelectionBlocked = true;
         UpdateCharacterState(CharacterState.Selected);
 
         if (_character.GetComponent<PlayerCharSelection>().hasMovedThisTurn)
-        {
-            Debug.Log("Character has moved this turn already");
             return;
-        }
 
         // character specific ui
         if (playerCharSelection != null)
@@ -259,7 +254,7 @@ public class BattleCharacterController : MonoBehaviour
         if (selectedCharacter == null)
             return;
 
-        if(characterState == CharacterState.ConfirmingInteraction)
+        if (characterState == CharacterState.ConfirmingInteraction)
         {
             BackFromConfirmingInteraction();
             return;
@@ -337,17 +332,6 @@ public class BattleCharacterController : MonoBehaviour
             return;
         isInteracting = true;
 
-        // defend ability 
-        if (selectedAbility.aType == AbilityType.Defend)
-        {
-            // TODO: await in if ... hmmmmmmm....
-            if (await selectedAbility.TriggerAbility(null))
-                FinishCharacterTurn();
-
-            isInteracting = false;
-            return;
-        }
-
         // highlight aoe
         if (characterState == CharacterState.SelectingInteractionTarget)
         {
@@ -395,7 +379,6 @@ public class BattleCharacterController : MonoBehaviour
         characterUI.HideAbilityTooltip();
 
         highlighter.ClearHighlightedTiles().GetAwaiter();
-
     }
 
     void BackFromFaceDirSelection()
@@ -410,7 +393,7 @@ public class BattleCharacterController : MonoBehaviour
         if (selectedAbility.canTargetSelf)
         {
             // it changes the state too
-            selectedAbility.HighlightTargetable().GetAwaiter();
+            selectedAbility.HighlightTargetable(selectedCharacter).GetAwaiter();
 
             return;
         }
@@ -424,7 +407,7 @@ public class BattleCharacterController : MonoBehaviour
     {
         isInteracting = false;
         UpdateCharacterState(CharacterState.SelectingInteractionTarget);
-        selectedAbility.HighlightTargetable().GetAwaiter();
+        selectedAbility.HighlightTargetable(selectedCharacter).GetAwaiter();
     }
 
 

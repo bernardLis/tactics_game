@@ -19,19 +19,21 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
 
     // Stats are accessed by other scripts need to be public.
     [HideInInspector] public string characterName;
-    [HideInInspector] public Stat strength;
-    [HideInInspector] public Stat intelligence;
-    [HideInInspector] public Stat agility;
-    [HideInInspector] public Stat stamina;
 
-    [HideInInspector] public Stat maxHealth;
-    [HideInInspector] public Stat maxMana;
+    // TODO: I could make them private and use only list to get info about stats
+    [HideInInspector] public Stat strength = new(StatType.Strength);
+    [HideInInspector] public Stat intelligence = new(StatType.Intelligence);
+    [HideInInspector] public Stat agility = new(StatType.Agility);
+    [HideInInspector] public Stat stamina = new(StatType.Stamina);
 
-    [HideInInspector] public Stat armor;
-    [HideInInspector] public Stat movementRange;
+    [HideInInspector] public Stat maxHealth = new(StatType.MaxHealth);
+    [HideInInspector] public Stat maxMana = new(StatType.MaxMana);
+
+    [HideInInspector] public Stat armor = new(StatType.Armor);
+    [HideInInspector] public Stat movementRange = new(StatType.MovementRange);
 
     // lists of abilities
-    [Header("Filled with character SO")]
+    [Header("Filled on character init")]
     public List<Stat> stats;
     public List<Ability> basicAbilities;
     public List<Ability> abilities;
@@ -51,7 +53,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
     public int currentMana { get; private set; }
 
     // reply to interaction
-    public bool isAttacker;// { get; private set; }
+    public bool isAttacker { get; private set; }
 
     // delegate
     public event Action CharacterDeathEvent;
@@ -68,20 +70,13 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         AddStatsToList();
     }
 
-    protected virtual void TurnManager_OnBattleStateChanged(BattleState state)
+    protected virtual void TurnManager_OnBattleStateChanged(BattleState _state)
     {
         // TODO: modifiers should last number of turns and I should be checking each stat for modifier and how many turns are left;
-        foreach (Stat stat in stats)
-        {
-            if (stat.modifiers.Count == 0)
-                continue;
+        foreach (Stat s in stats)
+            s.TurnEndDecrement();
 
-            // iterate from the back to remove safely.
-            for (int i = stat.modifiers.Count; i <= 0; i--)
-                stat.RemoveModifier(stat.modifiers[i]);
-        }
-
-        if (TurnManager.currentTurn == 1)
+        if (TurnManager.currentTurn <= 1)
             return;
 
         GainMana(10);
@@ -105,6 +100,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         stats.Add(armor);
         stats.Add(movementRange);
     }
+
     public void SetCharacteristics(Character _character)
     {
         character = _character;
@@ -127,7 +123,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         armor.baseValue = baseArmor; // TODO: should be base value + all pieces of eq
         movementRange.baseValue = 5 + Mathf.FloorToInt(character.agility / 3);
 
-        // TODO: /2 and startin mana is for heal testing purposes 
+        // TODO: startin mana is for heal testing purposes 
         currentHealth = maxHealth.GetValue();
         currentMana = 20;
 
@@ -232,7 +228,6 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         characterRendererManager.enabled = false;
         transform.DOShakePosition(duration, strength, 0, 0, false, true)
                  .OnComplete(() => characterRendererManager.enabled = true);
-
     }
 
     public void TakeDamageNoDodgeNoRetaliation(int _damage)
@@ -257,7 +252,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
         characterRendererManager.enabled = false;
         transform.DOShakePosition(duration, strength)
-                 .OnComplete(() => characterRendererManager.enabled = true); 
+                 .OnComplete(() => characterRendererManager.enabled = true);
 
     }
 
@@ -303,7 +298,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
             if (a.aType != AbilityType.Attack)
                 continue;
 
-            return (AttackAbility) a;
+            return (AttackAbility)a;
         }
 
         return null;
@@ -446,7 +441,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
 
             TakeDamageNoDodgeNoRetaliation(dmg);
             // movement range is down by 1 for each trap enemy walks on
-            movementRange.AddModifier(-1);
+            //movementRange.AddModifier(-1);
 
             Destroy(col.transform.parent.gameObject);
         }

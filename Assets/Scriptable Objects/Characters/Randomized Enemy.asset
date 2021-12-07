@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Enemy 1
   portrait: {fileID: 21300000, guid: c10d0c3d65130624e89209b936de9e2f, type: 3}
+  stats: []
   strength: 5
   intelligence: 5
   agility: 5
@@ -29,7 +30,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   basicAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
-  - {fileID: 11400000, guid: a3c1665185194554687fae6545ac1bc2, type: 2}
+  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   characterAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
   enemyBrain: {fileID: 0}

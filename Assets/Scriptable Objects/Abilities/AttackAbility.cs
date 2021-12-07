@@ -23,15 +23,12 @@ public class AttackAbility : Ability
             return false;
 
         // interact
-        if (!await attackTriggerable.Attack(_target, value, manaCost, aProjectile, isRetaliation))
+        if (!await attackTriggerable.Attack(_target, value, manaCost, aProjectile, statModifier, isRetaliation))
             return false;
 
         SetIsRetaliation(false);
 
-        // sound
-        audioSource.clip = aSound;
-        audioSource.Play();
-
+        await base.TriggerAbility(_target);
         return true;
     }
 

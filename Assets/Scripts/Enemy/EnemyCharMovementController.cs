@@ -63,7 +63,7 @@ public class EnemyCharMovementController : CharacterMovementController
 
                 myStats.TakeDamageNoDodgeNoRetaliation(damage);
                 // movement range is down by 1 for each trap enemy walks on
-                myStats.movementRange.AddModifier(-1);
+                //myStats.movementRange.AddModifier(-1);
             }
         }
     }

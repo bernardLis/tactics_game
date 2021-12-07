@@ -161,30 +161,46 @@ public class InfoCardUI : MonoBehaviour
                .SetEase(Ease.InOutSine);
     }
 
-    void PopulateCharacterCard(CharacterStats _chStats)
+    void PopulateCharacterCard(CharacterStats _stats)
     {
-        characterCardName.text = _chStats.character.characterName;
-        characterCardPortrait.style.backgroundImage = _chStats.character.portrait.texture;
+        characterCardName.text = _stats.character.characterName;
+        characterCardPortrait.style.backgroundImage = _stats.character.portrait.texture;
 
-        characterCardHealth.text = _chStats.currentHealth + "/" + _chStats.maxHealth.GetValue();
-        characterCardMana.text = _chStats.currentMana + "/" + _chStats.maxMana.GetValue();
+        characterCardHealth.text = _stats.currentHealth + "/" + _stats.maxHealth.GetValue();
+        characterCardMana.text = _stats.currentMana + "/" + _stats.maxMana.GetValue();
 
         // (float) casts are not redundant, without them it does not work
-        float missingHealthPerc = ((float)_chStats.maxHealth.GetValue() - (float)_chStats.currentHealth)
-                                  / (float)_chStats.maxHealth.GetValue();
+        float missingHealthPerc = ((float)_stats.maxHealth.GetValue() - (float)_stats.currentHealth)
+                                  / (float)_stats.maxHealth.GetValue();
         missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
-        float missingManaPerc = ((float)_chStats.maxMana.GetValue() - (float)_chStats.currentMana)
-                                / (float)_chStats.maxMana.GetValue();
+        float missingManaPerc = ((float)_stats.maxMana.GetValue() - (float)_stats.currentMana)
+                                / (float)_stats.maxMana.GetValue();
 
         characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
         characterCardManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
 
-        characterCardStrengthAmount.text = "" + _chStats.strength.GetValue();
-        characterCardIntelligenceAmount.text = "" + _chStats.intelligence.GetValue();
-        characterCardAgilityAmount.text = "" + _chStats.agility.GetValue();
-        characterCardStaminaAmount.text = "" + _chStats.stamina.GetValue();
-        characterCardArmorAmount.text = "" + _chStats.armor.GetValue();
-        characterCardRangeAmount.text = "" + _chStats.movementRange.GetValue();
+        characterCardStrengthAmount.text = "" + _stats.strength.GetValue();
+        characterCardIntelligenceAmount.text = "" + _stats.intelligence.GetValue();
+        characterCardAgilityAmount.text = "" + _stats.agility.GetValue();
+        characterCardStaminaAmount.text = "" + _stats.stamina.GetValue();
+        characterCardArmorAmount.text = "" + _stats.armor.GetValue();
+        characterCardRangeAmount.text = "" + _stats.movementRange.GetValue();
+
+        HandleStatCheck(_stats.strength, characterCardStrengthAmount);
+        HandleStatCheck(_stats.intelligence, characterCardIntelligenceAmount);
+        HandleStatCheck(_stats.agility, characterCardAgilityAmount);
+        HandleStatCheck(_stats.stamina, characterCardStaminaAmount);
+        HandleStatCheck(_stats.armor, characterCardArmorAmount);
+        HandleStatCheck(_stats.movementRange, characterCardRangeAmount);
+    }
+
+    void HandleStatCheck(Stat _stat, Label _label)
+    {
+        _label.style.color = Color.white;
+        if (_stat.GetValue() > _stat.baseValue)
+            _label.style.color = Color.green;
+        if (_stat.GetValue() < _stat.baseValue)
+            _label.style.color = Color.red;
     }
 
     public void ShowInteractionSummary(CharacterStats _attacker, CharacterStats _defender, Ability _ability)
@@ -215,7 +231,6 @@ public class InfoCardUI : MonoBehaviour
 
         if (_ability.aType == AbilityType.Heal)
         {
-            // TODO:
             if (_attacker.gameObject == _defender.gameObject)
                 characterUI.ShowHeal(attackValue);
 
@@ -224,6 +239,19 @@ public class InfoCardUI : MonoBehaviour
             attackLabel.text = "Heal";
             attackHitValue.text = 100 + "%";
         }
+
+        if (_ability.aType == AbilityType.Buff)
+        {
+            if (_attacker.gameObject == _defender.gameObject)
+                characterUI.ShowHeal(attackValue);
+
+            ShowHeal(_defender, attackValue);
+
+            attackLabel.text = "Buff";
+            attackDamageValue.text = "" + _ability.statModifier.value; // TODO: lazy way
+            attackHitValue.text = 100 + "%";
+        }
+
 
         // retaliation only on attack
         if (_ability.aType != AbilityType.Attack)

@@ -28,8 +28,7 @@ public class PushAbility : Ability
         if (!await pushTriggerable.Push(_target, manaCost))
             return false;
 
-        audioSource.clip = aSound;
-        audioSource.Play();
+        await base.TriggerAbility(_target);
         return true;
     }
 }

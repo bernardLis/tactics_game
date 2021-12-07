@@ -1,28 +1,27 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Abilities/Heal Ability")]
-public class HealAbility : Ability
+[CreateAssetMenu(menuName = "Abilities/Buff Ability")]
+public class BuffAbility : Ability
 {
-
-    HealTriggerable healTriggerable;
+    BuffTriggerable buffTriggerable;
 
     public override void Initialize(GameObject obj)
     {
         base.Initialize(obj);
-        healTriggerable = obj.GetComponent<HealTriggerable>();
+        buffTriggerable = obj.GetComponent<BuffTriggerable>();
     }
 
     // returns true if ability was triggered with success
     public async override Task<bool> TriggerAbility(GameObject _target)
     {
         // check if target is valid
-        var healableObject = _target.GetComponent<IHealable>();
-        if (healableObject == null)
+        var stats = _target.GetComponent<CharacterStats>();
+        if (stats == null)
             return false;
 
-        // heal target if successful play sound and retrun true;
-        if (!await healTriggerable.Heal(_target, value, manaCost))
+        // interact
+        if (!await buffTriggerable.Buff(_target, value, manaCost, aProjectile, statModifier))
             return false;
 
         await base.TriggerAbility(_target);

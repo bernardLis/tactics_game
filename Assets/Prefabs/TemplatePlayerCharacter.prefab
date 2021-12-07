@@ -466,14 +466,14 @@ GameObject:
   - component: {fileID: 6105715623576548095}
   - component: {fileID: 6105715623576548089}
   - component: {fileID: 6105715623576548088}
-  - component: {fileID: 1406207608834884785}
+  - component: {fileID: -5655211445388662278}
   - component: {fileID: 1864993292968118660}
   - component: {fileID: 1864993293436626187}
   - component: {fileID: 4212650218818044008}
   - component: {fileID: 1864993293436626183}
-  - component: {fileID: 4669123874557101098}
   - component: {fileID: 1864993293436626181}
   - component: {fileID: 2624438210781941185}
+  - component: {fileID: 2727775403500498410}
   m_Layer: 6
   m_Name: TemplatePlayerCharacter
   m_TagString: Player
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
---- !u!114 &1406207608834884785
+--- !u!114 &-5655211445388662278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6105715623576548083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95075a8cbf34d4dc1ae895099785a719, type: 3}
+  m_Script: {fileID: 11500000, guid: 93fcf6f467bff8e44a97e3b68bc4832b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
@@ -638,32 +638,41 @@ MonoBehaviour:
   baseMovementRange: 5
   characterName: 
   strength:
+    type: 0
     baseValue: 0
-    modifiers: 
+    modifiers: []
   intelligence:
+    type: 1
     baseValue: 0
-    modifiers: 
+    modifiers: []
   agility:
+    type: 2
     baseValue: 0
-    modifiers: 
+    modifiers: []
   stamina:
+    type: 3
     baseValue: 0
-    modifiers: 
+    modifiers: []
   maxHealth:
+    type: 4
     baseValue: 0
-    modifiers: 
+    modifiers: []
   maxMana:
+    type: 5
     baseValue: 0
-    modifiers: 
+    modifiers: []
   armor:
+    type: 6
     baseValue: 0
-    modifiers: 
+    modifiers: []
   movementRange:
+    type: 7
     baseValue: 0
-    modifiers: 
+    modifiers: []
   stats: []
   basicAbilities: []
   abilities: []
+  isAttacker: 0
 --- !u!114 &1864993292968118660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,18 +727,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPoint: {fileID: 0}
---- !u!114 &4669123874557101098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6105715623576548083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b877cf5225b56d40b13b5f2074220a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1864993293436626181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,6 +751,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d1227ef4e7aca4bb6fa921c9c609e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2727775403500498410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105715623576548083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d00e56168786243b0f68a5728954b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpawnPoint: {fileID: 0}
 --- !u!1 &6105715624814662954
 GameObject:
   m_ObjectHideFlags: 0

@@ -83,8 +83,6 @@ public class Stone : MonoBehaviour, IPushable<Vector3>, IUITextDisplayable
             targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
             targetStats.TakeDamageNoDodgeNoRetaliation(damage);
-            // movement range is down by 1 for each trap enemy walks on
-            targetStats.movementRange.AddModifier(-1);
 
             Destroy(gameObject);
         }

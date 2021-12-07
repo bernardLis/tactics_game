@@ -104,7 +104,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3>, IUITextDisplayabl
 
             targetStats.TakeDamageNoDodgeNoRetaliation(damage);
             // movement range is down by 1 for each trap enemy walks on
-            targetStats.movementRange.AddModifier(-1);
+            //targetStats.movementRange.AddModifier(-1);
 
             Destroy(gameObject);
         }

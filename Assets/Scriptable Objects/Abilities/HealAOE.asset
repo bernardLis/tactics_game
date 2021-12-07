@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: HealAOE
   m_EditorClassIdentifier: 
   aName: Basic Heal
-  aDescription: Heal 20
-  aType: 2
+  aDescription: Heal 20, AOE 1
+  aType: 1
   weaponType: 3
   aProjectile: {fileID: 0}
-  aIcon: {fileID: 21300000, guid: 74c108c1392ffdb4eb4e79bd11f34e57, type: 3}
+  aIcon: {fileID: 21300000, guid: b2add1505f340bf4f90ac7d7f4cfa000, type: 3}
   aSound: {fileID: 8300000, guid: ac47aa3094b445241827fe1222d39260, type: 3}
   value: 20
   manaCost: 12
-  areaOfEffect: 0
+  areaOfEffect: 1
+  statModifier: {fileID: 0}
   range: 5
   canTargetSelf: 1
   canTargetDiagonally: 1
-  highlightColor: {r: 0.4778081, g: 0.5943396, b: 0.46818262, a: 1}
+  highlightColor: {r: 0.25728986, g: 1, b: 0.1830188, a: 1}

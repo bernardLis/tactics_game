@@ -11,11 +11,11 @@ public class Character : ScriptableObject
     public Sprite portrait;
 
     [Header("Stats")]
+    public List<Stat> stats;
     public int strength; // how strong you hit
     public int intelligence; // maxMana depends on intelligence (also how strong the spell dmg is)
     public int agility; // influences range
     public int stamina; // influences maxHealth
-
 
     [Header("Equipment")]
     public Equipment shield;

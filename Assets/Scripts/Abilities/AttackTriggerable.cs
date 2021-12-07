@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public class AttackTriggerable : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class AttackTriggerable : MonoBehaviour
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
     }
 
-    public async Task<bool> Attack(GameObject _target, int _value, int _manaCost, GameObject _projectile, bool _isRetaliation)
+    public async Task<bool> Attack(GameObject _target, int _value, int _manaCost, GameObject _projectile, StatModifier _modifier,
+                                   bool _isRetaliation)
     {
         if (_target == null)
             return false;
@@ -43,6 +45,12 @@ public class AttackTriggerable : MonoBehaviour
         // damage target
         int damage = _value + myStats.strength.GetValue();
         await _target.GetComponent<IAttackable<GameObject>>().TakeDamage(damage, gameObject);
+
+        // adding stat modifiers
+        List<Stat> stats = _target.GetComponent<CharacterStats>().stats;
+        foreach (Stat s in stats)
+            if (s.type == _modifier.statType)
+                s.AddModifier(Instantiate(_modifier));
 
         return true;
     }

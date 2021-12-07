@@ -21,6 +21,7 @@ public class CharacterUI : MonoBehaviour
     Label characterUITooltipAbilityName;
     Label characterUITooltipAbilityDescription;
     Label characterUITooltipAbilityManaCost;
+    Label characterUITooltipModifierDescription;
 
     Label characterName;
     VisualElement characterPortrait;
@@ -106,6 +107,7 @@ public class CharacterUI : MonoBehaviour
         characterUITooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
         characterUITooltipAbilityDescription = root.Q<Label>("characterUITooltipAbilityDescription");
         characterUITooltipAbilityManaCost = root.Q<Label>("characterUITooltipAbilityManaCost");
+        characterUITooltipModifierDescription = root.Q<Label>("characterUITooltipModifierDescription");
 
         characterName = root.Q<Label>("characterName");
         characterPortrait = root.Q<VisualElement>("characterPortrait");
@@ -252,19 +254,22 @@ public class CharacterUI : MonoBehaviour
 
         ShowAbilityTooltip(ability);
 
-        Task task = ability.HighlightTargetable(); // for some reason this works, but it has to be written exactly like that with Task task = ;
+        Task task = ability.HighlightTargetable(battleCharacterController.selectedCharacter); // for some reason this works, but it has to be written exactly like that with Task task = ;
         yield return new WaitUntil(() => task.IsCompleted);
 
         battleCharacterController.SetSelectedAbility(ability);
     }
 
-    void ShowAbilityTooltip(Ability ability)
+    void ShowAbilityTooltip(Ability _ability)
     {
         characterUITooltipContainer.style.display = DisplayStyle.Flex;
 
-        characterUITooltipAbilityName.text = ability.aName;
-        characterUITooltipAbilityDescription.text = ability.aDescription;
-        characterUITooltipAbilityManaCost.text = "Mana cost: " + ability.manaCost;
+        characterUITooltipAbilityName.text = _ability.aName;
+        characterUITooltipAbilityDescription.text = _ability.aDescription;
+        characterUITooltipAbilityManaCost.text = "Mana cost: " + _ability.manaCost;
+
+        // TODO: display modifier description
+        characterUITooltipModifierDescription.text = _ability.statModifier.GetDesctiption();
     }
 
     public void HideAbilityTooltip()
@@ -312,14 +317,30 @@ public class CharacterUI : MonoBehaviour
         characterManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
     }
 
-    void SetCharacteristics(CharacterStats playerStats)
+    void SetCharacteristics(CharacterStats _stats)
     {
-        characterStrengthAmount.text = "" + playerStats.strength.GetValue();
-        characterIntelligenceAmount.text = "" + playerStats.intelligence.GetValue();
-        characterAgilityAmount.text = "" + playerStats.agility.GetValue();
-        characterStaminaAmount.text = "" + playerStats.stamina.GetValue();
-        characterArmorAmount.text = "" + playerStats.armor.GetValue();
-        characterRangeAmount.text = "" + playerStats.movementRange.GetValue();
+        characterStrengthAmount.text = "" + _stats.strength.GetValue();
+        characterIntelligenceAmount.text = "" + _stats.intelligence.GetValue();
+        characterAgilityAmount.text = "" + _stats.agility.GetValue();
+        characterStaminaAmount.text = "" + _stats.stamina.GetValue();
+        characterArmorAmount.text = "" + _stats.armor.GetValue();
+        characterRangeAmount.text = "" + _stats.movementRange.GetValue();
+
+        HandleStatCheck(_stats.strength, characterStrengthAmount);
+        HandleStatCheck(_stats.intelligence, characterIntelligenceAmount);
+        HandleStatCheck(_stats.agility, characterAgilityAmount);
+        HandleStatCheck(_stats.stamina, characterStaminaAmount);
+        HandleStatCheck(_stats.armor, characterArmorAmount);
+        HandleStatCheck(_stats.movementRange, characterRangeAmount);
+    }
+
+    void HandleStatCheck(Stat _stat, Label _label)
+    {
+        _label.style.color = Color.white;
+        if (_stat.GetValue() > _stat.baseValue)
+            _label.style.color = Color.green;
+        if (_stat.GetValue() < _stat.baseValue)
+            _label.style.color = Color.red;
     }
 
     void HandleAbilityButtons()

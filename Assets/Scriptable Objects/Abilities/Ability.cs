@@ -1,7 +1,8 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-public enum AbilityType { Attack, Defend, Heal, Move }
+public enum AbilityType { Attack, Heal, Move, Buff }
 
 public abstract class Ability : ScriptableObject
 {
@@ -17,6 +18,7 @@ public abstract class Ability : ScriptableObject
     public int value;
     public int manaCost;
     public int areaOfEffect; // 1 is one tile, 2 is a cross
+    public StatModifier statModifier;
 
     [Header("Highlight")]
     public int range;
@@ -45,13 +47,14 @@ public abstract class Ability : ScriptableObject
         return manDist <= range;
     }
 
-    public virtual async Task HighlightTargetable()
+    public virtual async Task HighlightTargetable(GameObject _self)
     {
         battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
-
-        await highlighter.HighlightTiles(characterGameObject.transform.position, range,
+        if (range == 0)
+            highlighter.HighlightSingle(_self.transform.position, highlightColor);
+        else
+            await highlighter.HighlightTiles(characterGameObject.transform.position, range,
                        highlightColor, canTargetDiagonally, canTargetSelf);
-
     }
 
     public virtual async Task HighlightAreaOfEffect(Vector3 _middle)
@@ -65,8 +68,10 @@ public abstract class Ability : ScriptableObject
 
     public virtual async Task<bool> TriggerAbility(GameObject _target)
     {
-        // meant to be overwritten;
+        audioSource.clip = aSound;
+        audioSource.Play();
+
         await Task.Yield(); // just to get rid of errors;
-        return false; // just to get rid of errors;
+        return true;
     }
 }

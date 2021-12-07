@@ -17,10 +17,7 @@ public static class Helpers
 
     public static int GetManhattanDistance(Vector2 _start, Vector2 _end)
     {
-        float xDist = Mathf.Abs(_start.x - _end.x);
-        float yDist = Mathf.Abs(_start.y - _end.y);
-
-        return Mathf.RoundToInt(xDist + yDist);
+        return Mathf.RoundToInt(Mathf.Abs(_start.x - _end.x) + Mathf.Abs(_start.y - _end.y));
     }
 
 }
