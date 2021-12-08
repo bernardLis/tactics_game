@@ -18,12 +18,12 @@ public class AttackAbility : Ability
     public async override Task<bool> TriggerAbility(GameObject _target)
     {
         // check if target is valid
-        var attackableObject = _target.GetComponent<IAttackable<GameObject>>();
+        var attackableObject = _target.GetComponent<IAttackable<GameObject, Ability>>();
         if (attackableObject == null)
             return false;
 
         // interact
-        if (!await attackTriggerable.Attack(_target, value, manaCost, aProjectile, statModifier, isRetaliation))
+        if (!await attackTriggerable.Attack(_target, this, isRetaliation))
             return false;
 
         SetIsRetaliation(false);

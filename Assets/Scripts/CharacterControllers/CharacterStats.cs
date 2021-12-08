@@ -7,7 +7,7 @@ using Pathfinding;
 using System.Threading.Tasks;
 using Random = UnityEngine.Random;
 
-public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>, IPushable<Vector3>
+public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, Ability>, IPushable<Vector3>
 {
     public Character character;
 
@@ -55,6 +55,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
     // reply to interaction
     public bool isAttacker { get; private set; }
 
+    // statuses
+    public List<Status> statuses;
+
     // delegate
     public event Action CharacterDeathEvent;
 
@@ -72,12 +75,19 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
 
     protected virtual void TurnManager_OnBattleStateChanged(BattleState _state)
     {
-        // TODO: modifiers should last number of turns and I should be checking each stat for modifier and how many turns are left;
+        if (TurnManager.currentTurn <= 1)
+            return;
+
         foreach (Stat s in stats)
             s.TurnEndDecrement();
 
-        if (TurnManager.currentTurn <= 1)
-            return;
+        for (int i = statuses.Count - 1; i >= 0; i--)
+        {
+            statuses[i].TriggerStatus();
+            statuses[i].numberOfTurns--;
+            if (statuses[i].numberOfTurns <= 0)
+                statuses.Remove(statuses[i]);
+        }
 
         GainMana(10);
     }
@@ -160,15 +170,15 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
         }
     }
 
-    public async Task TakeDamage(int _damage, GameObject _attacker)
+    public async Task TakeDamage(int _damage, GameObject _attacker, Ability _ability)
     {
         _damage -= armor.GetValue();
 
         // to not repeat the code
-        await TakePiercingDamage(_damage, _attacker);
+        await TakePiercingDamage(_damage, _attacker, _ability);
     }
 
-    public async Task TakePiercingDamage(int _damage, GameObject _attacker)
+    public async Task TakePiercingDamage(int _damage, GameObject _attacker, Ability _ability)
     {
         // in the side 1, face to face 2, from the back 0, 
         int attackDir = CalculateAttackDir(_attacker);
@@ -178,6 +188,8 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
             Dodge(_attacker);
         else
             TakeDamageNoDodgeNoRetaliation(_damage);
+
+
 
         if (currentHealth <= 0)
             return;
@@ -479,4 +491,14 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject>,
     }
 
     public void SetAttacker(bool _isAttacker) { isAttacker = _isAttacker; }
+
+    public void AddStatus(Status _s)
+    {
+        var clone = Instantiate(_s);
+        statuses.Add(clone);
+        clone.Initialize(gameObject);
+
+        // TODO: trigger on add?
+        clone.TriggerStatus();
+    }
 }

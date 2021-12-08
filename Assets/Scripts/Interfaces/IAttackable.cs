@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-public interface IAttackable<T>
+public interface IAttackable<T, Y>
 {
-    public Task TakeDamage(int damage, T attacker);
+    public Task TakeDamage(int damage, T attacker, Y ability);
 }

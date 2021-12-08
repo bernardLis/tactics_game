@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 using DG.Tweening;
 
 public class InfoCardUI : MonoBehaviour
@@ -33,6 +34,8 @@ public class InfoCardUI : MonoBehaviour
     Label characterCardStaminaAmount;
     Label characterCardArmorAmount;
     Label characterCardRangeAmount;
+
+    VisualElement characterCardModifierContainer;
 
     // interaction summary
     VisualElement interactionSummary;
@@ -99,6 +102,8 @@ public class InfoCardUI : MonoBehaviour
         characterCardStaminaAmount = root.Q<Label>("characterCardStaminaAmount");
         characterCardArmorAmount = root.Q<Label>("characterCardArmorAmount");
         characterCardRangeAmount = root.Q<Label>("characterCardRangeAmount");
+
+        characterCardModifierContainer = root.Q<VisualElement>("characterCardModifierContainer");
 
         // interaction summary
         interactionSummary = root.Q<VisualElement>("interactionSummary");
@@ -192,7 +197,11 @@ public class InfoCardUI : MonoBehaviour
         HandleStatCheck(_stats.stamina, characterCardStaminaAmount);
         HandleStatCheck(_stats.armor, characterCardArmorAmount);
         HandleStatCheck(_stats.movementRange, characterCardRangeAmount);
+
+        HandleStatModifiers(_stats);
     }
+
+    // TODO: common to infoCardUI and characterUI
 
     void HandleStatCheck(Stat _stat, Label _label)
     {
@@ -201,6 +210,26 @@ public class InfoCardUI : MonoBehaviour
             _label.style.color = Color.green;
         if (_stat.GetValue() < _stat.baseValue)
             _label.style.color = Color.red;
+    }
+
+    void HandleStatModifiers(CharacterStats _stats)
+    {
+        characterCardModifierContainer.Clear();
+
+        foreach (Stat s in _stats.stats)
+        {
+            List<StatModifier> modifiers = s.GetActiveModifiers();
+            if (modifiers.Count == 0)
+                continue;
+
+            foreach (StatModifier m in modifiers)
+            {
+                VisualElement mElement = new VisualElement();
+                mElement.style.backgroundImage = m.icon.texture;
+                mElement.AddToClassList("modifierIconContainer");
+                characterCardModifierContainer.Add(mElement);
+            }
+        }
     }
 
     public void ShowInteractionSummary(CharacterStats _attacker, CharacterStats _defender, Ability _ability)

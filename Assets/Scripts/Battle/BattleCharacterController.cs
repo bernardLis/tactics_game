@@ -415,8 +415,6 @@ public class BattleCharacterController : MonoBehaviour
     {
         isInteracting = false;
 
-        UpdateCharacterState(CharacterState.None);
-
         // update ui through movepoint
         movePointController.UpdateDisplayInformation();
 
@@ -426,9 +424,6 @@ public class BattleCharacterController : MonoBehaviour
 
         // clearing the cache here
         UnselectCharacter();
-
-        // finish character's turn after the interaction is performed
-        TurnManager.instance.PlayerCharacterTurnFinished();
     }
 
     public void UnselectCharacter()

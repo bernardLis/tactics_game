@@ -15,8 +15,8 @@ public class AttackTriggerable : MonoBehaviour
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
     }
 
-    public async Task<bool> Attack(GameObject _target, int _value, int _manaCost, GameObject _projectile, StatModifier _modifier,
-                                   bool _isRetaliation)
+    public async Task<bool> Attack(GameObject _target, Ability _ability, bool _isRetaliation)// int _value, int _manaCost, GameObject _projectile, StatModifier _modifier,
+                                   //Status _status)
     {
         if (_target == null)
             return false;
@@ -27,30 +27,39 @@ public class AttackTriggerable : MonoBehaviour
             await characterRendererManager.AttackAnimation();
 
             // spawn and fire a projectile if the ability has one
-            if (_projectile != null)
+            if (_ability.aProjectile != null)
             {
-                GameObject projectile = Instantiate(_projectile, transform.position, Quaternion.identity);
+                GameObject projectile = Instantiate(_ability.aProjectile, transform.position, Quaternion.identity);
                 projectile.GetComponent<IShootable<Transform>>().Shoot(_target.transform);
 
                 // TODO: There is a better way to wait for shoot to hit the target;
                 await Task.Delay(300);
             }
 
-            myStats.UseMana(_manaCost);
+            myStats.UseMana(_ability.manaCost);
         }
 
         if (!_isRetaliation)
             myStats.SetAttacker(true);
 
         // damage target
-        int damage = _value + myStats.strength.GetValue();
-        await _target.GetComponent<IAttackable<GameObject>>().TakeDamage(damage, gameObject);
+        int damage = _ability.value + myStats.strength.GetValue();
+        await _target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, _ability);
 
+
+        CharacterStats targetStats = _target.GetComponent<CharacterStats>();
         // adding stat modifiers
-        List<Stat> stats = _target.GetComponent<CharacterStats>().stats;
-        foreach (Stat s in stats)
-            if (s.type == _modifier.statType)
-                s.AddModifier(Instantiate(_modifier));
+        if (_ability.statModifier != null)
+        {
+            List<Stat> stats = targetStats.stats;
+            foreach (Stat s in stats)
+                if (s.type == _ability.statModifier.statType)
+                    s.AddModifier(Instantiate(_ability.statModifier));
+        }
+
+        // add status https://i.redd.it/iuy9fxt300811.png
+        if (_ability.status != null)
+            targetStats.AddStatus(_ability.status);
 
         return true;
     }

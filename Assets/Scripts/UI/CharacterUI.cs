@@ -42,6 +42,8 @@ public class CharacterUI : MonoBehaviour
     Label characterArmorAmount;
     Label characterRangeAmount;
 
+    VisualElement modifierContainer;
+
     Button characterAButton;
     Button characterSButton;
 
@@ -127,6 +129,8 @@ public class CharacterUI : MonoBehaviour
         characterStaminaAmount = root.Q<Label>("characterStaminaAmount");
         characterArmorAmount = root.Q<Label>("characterArmorAmount");
         characterRangeAmount = root.Q<Label>("characterRangeAmount");
+
+        modifierContainer = root.Q<VisualElement>("modifierContainer");
 
         characterAButton = root.Q<Button>("characterAButton");
         characterSButton = root.Q<Button>("characterSButton");
@@ -268,8 +272,19 @@ public class CharacterUI : MonoBehaviour
         characterUITooltipAbilityDescription.text = _ability.aDescription;
         characterUITooltipAbilityManaCost.text = "Mana cost: " + _ability.manaCost;
 
-        // TODO: display modifier description
-        characterUITooltipModifierDescription.text = _ability.statModifier.GetDesctiption();
+        characterUITooltipModifierDescription.style.display = DisplayStyle.Flex;
+        // display modifier & status description
+        if (_ability.statModifier != null)
+            characterUITooltipModifierDescription.text = _ability.statModifier.GetDescription();
+        else
+            characterUITooltipModifierDescription.style.display = DisplayStyle.None;
+
+        // characterUITooltipStatusDescription.style.display = DisplayStyle.Flex;
+        if (_ability.status != null)
+            Debug.Log(_ability.status.GetDescription());
+        else
+            Debug.Log("no status");
+
     }
 
     public void HideAbilityTooltip()
@@ -332,8 +347,11 @@ public class CharacterUI : MonoBehaviour
         HandleStatCheck(_stats.stamina, characterStaminaAmount);
         HandleStatCheck(_stats.armor, characterArmorAmount);
         HandleStatCheck(_stats.movementRange, characterRangeAmount);
+
+        HandleStatModifiers(_stats);
     }
 
+    // TODO: common to infoCardUI and characterUI
     void HandleStatCheck(Stat _stat, Label _label)
     {
         _label.style.color = Color.white;
@@ -341,6 +359,25 @@ public class CharacterUI : MonoBehaviour
             _label.style.color = Color.green;
         if (_stat.GetValue() < _stat.baseValue)
             _label.style.color = Color.red;
+    }
+
+    void HandleStatModifiers(CharacterStats _stats)
+    {
+        modifierContainer.Clear();
+        foreach (Stat s in _stats.stats)
+        {
+            List<StatModifier> modifiers = s.GetActiveModifiers();
+            if (modifiers.Count == 0)
+                continue;
+
+            foreach (StatModifier m in modifiers)
+            {
+                VisualElement mElement = new VisualElement();
+                mElement.style.backgroundImage = m.icon.texture;
+                mElement.AddToClassList("modifierIconContainer");
+                modifierContainer.Add(mElement);
+            }
+        }
     }
 
     void HandleAbilityButtons()

@@ -6,9 +6,9 @@ public class StatModifier : ScriptableObject
     public StatType statType;
     public int numberOfTurns;
     public int value;
-    public string description;
+    public Sprite icon;
 
-    public string GetDesctiption()
+    public string GetDescription()
     {
         string str = "";
 
@@ -17,7 +17,7 @@ public class StatModifier : ScriptableObject
         if (value > 0)
             str += "Increase ";
 
-        str += statType + " by " + value + " for " + numberOfTurns + " turn/s.";
+        str += statType + " by " + Mathf.Abs(value) + " for " + numberOfTurns + " turn/s.";
 
         return str;
     }

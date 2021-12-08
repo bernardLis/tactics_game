@@ -39,3 +39,9 @@
     justify-content: center;
     visibility: visible;
 }
+
+.modifierIconContainer {
+    width: 32px;
+    height: 32px;
+    background-image: url('project://database/Assets/Sprites/Icons/armorDown.png?fileID=2800000&guid=0fda0a682cfb53c4aa27458455162b24&type=3#armorDown');
+}

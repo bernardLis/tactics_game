@@ -4,7 +4,6 @@ using DG.Tweening;
 
 public class PlayerCharSelection : CharacterSelection
 {
-
     public bool hasMovedThisTurn { get; private set; }
     public bool hasFinishedTurn { get; private set; }
 
@@ -31,7 +30,6 @@ public class PlayerCharSelection : CharacterSelection
             HandlePlayerTurn();
         if (state == BattleState.EnemyTurn)
             HandleEnemyTurn();
-
     }
 
     void OnDestroy()
@@ -91,6 +89,9 @@ public class PlayerCharSelection : CharacterSelection
         GrayOutCharacter();
 
         hasFinishedTurn = true;
+
+        // finish character's turn after the interaction is performed
+        TurnManager.instance.PlayerCharacterTurnFinished();
     }
 
     void GrayOutCharacter()

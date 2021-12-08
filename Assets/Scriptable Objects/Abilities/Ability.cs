@@ -18,7 +18,10 @@ public abstract class Ability : ScriptableObject
     public int value;
     public int manaCost;
     public int areaOfEffect; // 1 is one tile, 2 is a cross
-    public StatModifier statModifier;
+
+    [Header("Abilities can add modifiers and statuses on interaction")]
+    public StatModifier statModifier; 
+    public Status status;
 
     [Header("Highlight")]
     public int range;
@@ -32,9 +35,9 @@ public abstract class Ability : ScriptableObject
     protected Highlighter highlighter;
     protected BattleCharacterController battleCharacterController;
 
-    public virtual void Initialize(GameObject obj)
+    public virtual void Initialize(GameObject _self)
     {
-        characterGameObject = obj;
+        characterGameObject = _self;
         highlighter = GameManager.instance.GetComponent<Highlighter>();
         battleCharacterController = BattleCharacterController.instance;
         audioSource = AudioScript.instance.GetComponent<AudioSource>();

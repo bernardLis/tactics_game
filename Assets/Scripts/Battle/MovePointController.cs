@@ -54,7 +54,7 @@ public class MovePointController : MonoBehaviour
     void TurnManager_OnBattleStateChanged(BattleState _state)
     {
         if (_state == BattleState.PlayerTurn)
-            HandlePlayerTurn();
+            Invoke("HandlePlayerTurn", 0.1f); // gives time for stats to resolve modifiers => UI displays correct numbers
     }
 
     public void Move(Vector3 _pos)
@@ -151,7 +151,7 @@ public class MovePointController : MonoBehaviour
         {
             IUITextDisplayable textComponent = col.transform.parent.GetComponent<IUITextDisplayable>();
             if (textComponent != null)
-                tileUIText += textComponent.DisplayText();           
+                tileUIText += textComponent.DisplayText();
         }
 
         // hide/show the whole panel

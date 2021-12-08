@@ -44,4 +44,9 @@ public class Stat
                 RemoveModifier(modifiers[i]);
         }
     }
+
+    public List<StatModifier> GetActiveModifiers()
+    {
+        return modifiers;
+    }
 }
