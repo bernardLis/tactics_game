@@ -12,7 +12,8 @@ public class CharacterCombat : MonoBehaviour
 
     public void Attack(CharacterStats targetStats)
     {
-        targetStats.TakeDamage(myStats.strength.GetValue(), gameObject).GetAwaiter();
+        // TODO: wrong. will be rewritten during the big enemy rewrite, need to pass ability to be resolved by stats
+        targetStats.TakeDamage(myStats.strength.GetValue(), gameObject, myStats.basicAbilities[1]).GetAwaiter();
     }
 
 }

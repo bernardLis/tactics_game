@@ -14,50 +14,37 @@ public class DamageUI : MonoBehaviour
     VisualElement healthChangeDisplayContainer;
     Label healthChangeDisplayLabel;
 
+    Queue<IEnumerator> coroutineQueue = new();
+
     void Awake()
     {
         // TODO: Supposedly, this is an expensive call
-        cam = Camera.main;
+        cam = Helpers.Camera;
 
         UIDocument = GetComponent<UIDocument>();
         // getting ui elements
         var rootVisualElement = UIDocument.rootVisualElement;
-        healthChangeDisplayContainer = rootVisualElement.Q<VisualElement>("HealthChangeDisplayContainer");
-        healthChangeDisplayLabel = rootVisualElement.Q<Label>("HealthChangeDisplayLabel");
+        healthChangeDisplayContainer = rootVisualElement.Q<VisualElement>("healthChangeDisplayContainer");
+        healthChangeDisplayLabel = rootVisualElement.Q<Label>("healthChangeDisplayLabel");
+    }
+    void Start()
+    {
+        StartCoroutine(CoroutineCoordinator());
     }
 
-    public void DisplayDamage(int damage)
+    public void DisplayOnCharacter(string _txt, int _fontSize, Color col)
     {
-        healthChangeDisplayLabel.text = "" + damage;
-        healthChangeDisplayLabel.style.fontSize = 24;
-        healthChangeDisplayLabel.style.color = new Color(1f, 0.42f, 0.42f, 1f);
+        coroutineQueue.Enqueue(DisplayOnCharacterCoroutine(_txt, _fontSize, col));
+    }
+
+    IEnumerator DisplayOnCharacterCoroutine(string _txt, int _fontSize, Color _col)
+    {
         healthChangeDisplayContainer.style.display = DisplayStyle.Flex;
 
-        StartCoroutine(DisplayHealthChangeCoroutine());
-    }
-
-    public void DisplayHeal(int healthGain)
-    {
-        healthChangeDisplayLabel.text = "" + healthGain;
-        healthChangeDisplayLabel.style.fontSize = 24;
-        healthChangeDisplayLabel.style.color = new Color(0.42f, 1f, 0.42f, 1f);
-        healthChangeDisplayContainer.style.display = DisplayStyle.Flex;
-
-        StartCoroutine(DisplayHealthChangeCoroutine());
-    }
-
-    public void DisplayText(string _txt)
-    {
         healthChangeDisplayLabel.text = _txt;
-        healthChangeDisplayLabel.style.fontSize = 12;
-        healthChangeDisplayLabel.style.color = new Color(1f, 1f, 1f, 1f);
-        healthChangeDisplayContainer.style.display = DisplayStyle.Flex;
+        healthChangeDisplayLabel.style.fontSize = _fontSize;
+        healthChangeDisplayLabel.style.color = _col;
 
-        StartCoroutine(DisplayHealthChangeCoroutine());
-    }
-
-    IEnumerator DisplayHealthChangeCoroutine()
-    {
         // set position of the element 
         Vector3 middleOfTheTile = new Vector3(transform.position.x, transform.position.y + offsetY, transform.position.z);
         Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(healthChangeDisplayContainer.panel, middleOfTheTile, cam);
@@ -90,5 +77,17 @@ public class DamageUI : MonoBehaviour
 
         healthChangeDisplayContainer.style.display = DisplayStyle.None;
     }
+
+    IEnumerator CoroutineCoordinator()
+    {
+        while (true)
+        {
+            while (coroutineQueue.Count > 0)
+                yield return StartCoroutine(coroutineQueue.Dequeue());
+            yield return null;
+        }
+    }
+
+
 
 }

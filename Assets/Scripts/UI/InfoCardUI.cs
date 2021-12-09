@@ -198,7 +198,9 @@ public class InfoCardUI : MonoBehaviour
         HandleStatCheck(_stats.armor, characterCardArmorAmount);
         HandleStatCheck(_stats.movementRange, characterCardRangeAmount);
 
+        characterCardModifierContainer.Clear();
         HandleStatModifiers(_stats);
+        HandleStatuses(_stats);
     }
 
     // TODO: common to infoCardUI and characterUI
@@ -212,10 +214,22 @@ public class InfoCardUI : MonoBehaviour
             _label.style.color = Color.red;
     }
 
+    void HandleStatuses(CharacterStats _stats)
+    {
+        if (_stats.statuses.Count == 0)
+            return;
+
+        foreach (Status s in _stats.statuses)
+        {
+            VisualElement mElement = new VisualElement();
+            mElement.style.backgroundImage = s.icon.texture;
+            mElement.AddToClassList("modifierIconContainer");
+            characterCardModifierContainer.Add(mElement);
+        }
+    }
+
     void HandleStatModifiers(CharacterStats _stats)
     {
-        characterCardModifierContainer.Clear();
-
         foreach (Stat s in _stats.stats)
         {
             List<StatModifier> modifiers = s.GetActiveModifiers();
@@ -252,8 +266,10 @@ public class InfoCardUI : MonoBehaviour
             ShowDamage(_defender, attackValue);
 
             attackLabel.text = "Attack";
+
             float hitChance = (1 - _defender.GetDodgeChance(_attacker.gameObject)) * 100;
             hitChance = Mathf.Clamp(hitChance, 0, 100);
+
             attackHitValue.text = hitChance + "%";
 
         }
@@ -277,7 +293,9 @@ public class InfoCardUI : MonoBehaviour
             ShowHeal(_defender, attackValue);
 
             attackLabel.text = "Buff";
-            attackDamageValue.text = "" + _ability.statModifier.value; // TODO: lazy way
+
+            if (_ability.statModifier != null)
+                attackDamageValue.text = "" + _ability.statModifier.value; // TODO: lazy way
             attackHitValue.text = 100 + "%";
         }
 

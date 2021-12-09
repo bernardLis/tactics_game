@@ -1,11 +1,13 @@
 using UnityEngine;
 
+
 public class Status : ScriptableObject
 {
     public int numberOfTurns;
     public int value;
     public Sprite icon;
-    public string displayOnTriggerText;
+    public string displayOnCharacterText;
+    public Color displayOnCharacterColor;
 
     GameObject characterGameObject;
     protected BattleCharacterController battleCharacterController;
@@ -20,7 +22,7 @@ public class Status : ScriptableObject
 
     public virtual void TriggerStatus()
     {
-        damageUI.DisplayText(displayOnTriggerText);
+        damageUI.DisplayOnCharacter(displayOnCharacterText, 24, displayOnCharacterColor);
     }
 
     public virtual string GetDescription()

@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: Stun
   m_EditorClassIdentifier: 
-  aName: New Ability
-  aDescription: New Description
+  aName: Stun
+  aDescription: Stun target.
   aType: 0
-  weaponType: 0
+  weaponType: 3
   aProjectile: {fileID: 0}
-  aIcon: {fileID: 0}
-  aSound: {fileID: 0}
+  aIcon: {fileID: 21300000, guid: 1a3910e3b66340440a040e0c7663f734, type: 3}
+  aSound: {fileID: 8300000, guid: 1d0fda77619fcb44dbe97d9fc252a92e, type: 3}
   value: 0
-  manaCost: 0
+  manaCost: 10
   areaOfEffect: 0
   statModifier: {fileID: 0}
-  range: 0
+  status: {fileID: 11400000, guid: 59041834044d6d04e8505af7bffba3d8, type: 2}
+  range: 1
   canTargetSelf: 0
   canTargetDiagonally: 0
-  highlightColor: {r: 0, g: 0, b: 0, a: 0}
+  highlightColor: {r: 0.3584906, g: 0, b: 0.23520936, a: 1}

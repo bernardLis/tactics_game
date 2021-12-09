@@ -21,7 +21,7 @@ public class BuffAbility : Ability
             return false;
 
         // interact
-        if (!await buffTriggerable.Buff(_target, value, manaCost, aProjectile, statModifier))
+        if (!await buffTriggerable.Buff(_target, this))
             return false;
 
         await base.TriggerAbility(_target);

@@ -414,6 +414,9 @@ public class BattleCharacterController : MonoBehaviour
     void FinishCharacterTurn()
     {
         isInteracting = false;
+        
+        // necessary for movepoint to correctly update UI;
+        UpdateCharacterState(CharacterState.None);
 
         // update ui through movepoint
         movePointController.UpdateDisplayInformation();

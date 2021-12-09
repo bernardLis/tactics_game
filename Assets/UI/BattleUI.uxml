@@ -173,8 +173,9 @@
         <ui:VisualElement name="characterUITooltipContainer" style="width: auto; height: auto; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgba(0, 0, 0, 0.53); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); visibility: visible; display: none;">
             <ui:Label text="Very Strong Ability" display-tooltip-when-elided="true" name="characterUITooltipAbilityName" style="font-size: 24px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal;" />
             <ui:Label text="This is a very stong skill, it will deal 50dmg." display-tooltip-when-elided="true" name="characterUITooltipAbilityDescription" style="color: rgb(255, 255, 255); font-size: 18px; white-space: normal;" />
-            <ui:Label text="This is a very stong skill, it will deal 50dmg." display-tooltip-when-elided="true" name="characterUITooltipAbilityManaCost" style="color: rgb(255, 255, 255); font-size: 18px; white-space: normal;" />
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="characterUITooltipModifierDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
+            <ui:Label text="Mana cost: 50" display-tooltip-when-elided="true" name="characterUITooltipAbilityManaCost" style="color: rgb(255, 255, 255); font-size: 18px; white-space: normal;" />
+            <ui:Label text="It modifiers targets AGI by -3" display-tooltip-when-elided="true" name="characterUITooltipModifierDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
+            <ui:Label text="It stuns the target." display-tooltip-when-elided="true" name="characterUITooltipStatusDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -40065,7 +40065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4822818146984469560}
   m_Layer: 0
-  m_Name: Tilemap Holder
+  m_Name: TilemapHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

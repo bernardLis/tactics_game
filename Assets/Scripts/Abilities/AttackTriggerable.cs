@@ -46,21 +46,6 @@ public class AttackTriggerable : MonoBehaviour
         int damage = _ability.value + myStats.strength.GetValue();
         await _target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, _ability);
 
-
-        CharacterStats targetStats = _target.GetComponent<CharacterStats>();
-        // adding stat modifiers
-        if (_ability.statModifier != null)
-        {
-            List<Stat> stats = targetStats.stats;
-            foreach (Stat s in stats)
-                if (s.type == _ability.statModifier.statType)
-                    s.AddModifier(Instantiate(_ability.statModifier));
-        }
-
-        // add status https://i.redd.it/iuy9fxt300811.png
-        if (_ability.status != null)
-            targetStats.AddStatus(_ability.status);
-
         return true;
     }
 }

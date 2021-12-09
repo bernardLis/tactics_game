@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/DamageUIStyles.uss?fileID=7433441132597879392&amp;guid=ed5e3e0cc359d7147bb005a9eaa49ab0&amp;type=3#DamageUIStyles" />
     <Style src="project://database/Assets/UI/UIStyles/CharacterUIStyles.uss?fileID=7433441132597879392&amp;guid=a1261494d382f244d8700b3a48ae79b9&amp;type=3#CharacterUIStyles" />
-    <ui:VisualElement name="HealthChangeDisplayContainer" style="display: none; position: absolute; -unity-font-style: bold; font-size: 20px;">
-        <ui:Label text="50" display-tooltip-when-elided="true" name="HealthChangeDisplayLabel" style="background-color: rgba(255, 255, 255, 0); -unity-font-style: bold; font-size: 24px; color: rgb(255, 109, 109); -unity-text-align: lower-left; white-space: normal;" />
+    <ui:VisualElement name="healthChangeDisplayContainer" style="display: none; position: absolute; -unity-font-style: bold; font-size: 20px;">
+        <ui:Label text="50" display-tooltip-when-elided="true" name="healthChangeDisplayLabel" style="background-color: rgba(255, 255, 255, 0); -unity-font-style: bold; font-size: 24px; color: rgb(255, 109, 109); -unity-text-align: lower-left; white-space: normal;" />
     </ui:VisualElement>
     <ui:VisualElement name="faceDirectionContainer" style="width: 180px; height: 180px; flex-wrap: nowrap; display: none; justify-content: space-between;">
         <ui:VisualElement name="top" style="align-items: center; display: flex;">

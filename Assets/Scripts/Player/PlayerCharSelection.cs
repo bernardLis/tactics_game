@@ -58,7 +58,8 @@ public class PlayerCharSelection : CharacterSelection
 
     void HandleEnemyTurn()
     {
-        Invoke("ReturnCharacterColor", 1f);
+        if (!myStats.isStunned)
+            Invoke("ReturnCharacterColor", 1f);
     }
 
     public void SelectCharacter()

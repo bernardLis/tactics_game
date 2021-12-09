@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stone : MonoBehaviour, IPushable<Vector3>, IUITextDisplayable
+public class Stone : MonoBehaviour, IPushable<Vector3, Ability>, IUITextDisplayable
 {
     // global
     GameManager gameManager;
@@ -29,7 +29,7 @@ public class Stone : MonoBehaviour, IPushable<Vector3>, IUITextDisplayable
         gameManager.SnapToGrid(transform);
     }
 
-    public void GetPushed(Vector3 _dir)
+    public void GetPushed(Vector3 _dir, Ability _ability)
     {
         finalPos = transform.position + _dir;
 

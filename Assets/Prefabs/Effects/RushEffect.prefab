@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4636030807333955178}
   - component: {fileID: 5628091018057348468}
   m_Layer: 0
-  m_Name: Rush Effect
+  m_Name: RushEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

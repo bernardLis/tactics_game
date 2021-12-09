@@ -22,6 +22,7 @@ public class CharacterUI : MonoBehaviour
     Label characterUITooltipAbilityDescription;
     Label characterUITooltipAbilityManaCost;
     Label characterUITooltipModifierDescription;
+    Label characterUITooltipStatusDescription;
 
     Label characterName;
     VisualElement characterPortrait;
@@ -110,6 +111,7 @@ public class CharacterUI : MonoBehaviour
         characterUITooltipAbilityDescription = root.Q<Label>("characterUITooltipAbilityDescription");
         characterUITooltipAbilityManaCost = root.Q<Label>("characterUITooltipAbilityManaCost");
         characterUITooltipModifierDescription = root.Q<Label>("characterUITooltipModifierDescription");
+        characterUITooltipStatusDescription = root.Q<Label>("characterUITooltipStatusDescription");
 
         characterName = root.Q<Label>("characterName");
         characterPortrait = root.Q<VisualElement>("characterPortrait");
@@ -279,11 +281,11 @@ public class CharacterUI : MonoBehaviour
         else
             characterUITooltipModifierDescription.style.display = DisplayStyle.None;
 
-        // characterUITooltipStatusDescription.style.display = DisplayStyle.Flex;
+        characterUITooltipStatusDescription.style.display = DisplayStyle.Flex;
         if (_ability.status != null)
-            Debug.Log(_ability.status.GetDescription());
+            characterUITooltipStatusDescription.text = _ability.status.GetDescription();
         else
-            Debug.Log("no status");
+            characterUITooltipStatusDescription.style.display = DisplayStyle.None;
 
     }
 
@@ -348,7 +350,9 @@ public class CharacterUI : MonoBehaviour
         HandleStatCheck(_stats.armor, characterArmorAmount);
         HandleStatCheck(_stats.movementRange, characterRangeAmount);
 
+        modifierContainer.Clear();
         HandleStatModifiers(_stats);
+        HandleStatuses(_stats);
     }
 
     // TODO: common to infoCardUI and characterUI
@@ -363,7 +367,6 @@ public class CharacterUI : MonoBehaviour
 
     void HandleStatModifiers(CharacterStats _stats)
     {
-        modifierContainer.Clear();
         foreach (Stat s in _stats.stats)
         {
             List<StatModifier> modifiers = s.GetActiveModifiers();
@@ -377,6 +380,20 @@ public class CharacterUI : MonoBehaviour
                 mElement.AddToClassList("modifierIconContainer");
                 modifierContainer.Add(mElement);
             }
+        }
+    }
+
+    void HandleStatuses(CharacterStats _stats)
+    {
+        if (_stats.statuses.Count == 0)
+            return;
+
+        foreach (Status s in _stats.statuses)
+        {
+            VisualElement mElement = new VisualElement();
+            mElement.style.backgroundImage = s.icon.texture;
+            mElement.AddToClassList("modifierIconContainer");
+            modifierContainer.Add(mElement);
         }
     }
 

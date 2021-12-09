@@ -17,12 +17,12 @@ public class HealAbility : Ability
     public async override Task<bool> TriggerAbility(GameObject _target)
     {
         // check if target is valid
-        var healableObject = _target.GetComponent<IHealable>();
+        var healableObject = _target.GetComponent<IHealable<Ability>>();
         if (healableObject == null)
             return false;
 
         // heal target if successful play sound and retrun true;
-        if (!await healTriggerable.Heal(_target, value, manaCost))
+        if (!await healTriggerable.Heal(_target, this))
             return false;
 
         await base.TriggerAbility(_target);

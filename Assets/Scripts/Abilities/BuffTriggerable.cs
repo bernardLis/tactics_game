@@ -17,7 +17,7 @@ public class BuffTriggerable : MonoBehaviour
         faceDirectionUI = GetComponent<FaceDirectionUI>();
     }
 
-    public async Task<bool> Buff(GameObject _target, int _value, int _manaCost, GameObject _projectile, StatModifier _modifier)
+    public async Task<bool> Buff(GameObject _target, Ability _ability)
     {
         if (_target == null)
             return false;
@@ -39,14 +39,10 @@ public class BuffTriggerable : MonoBehaviour
 
             await characterRendererManager.SpellcastAnimation();
 
-            myStats.UseMana(_manaCost);
+            myStats.UseMana(_ability.manaCost);
         }
 
-        // adding stat modifiers
-        List<Stat> stats = _target.GetComponent<CharacterStats>().stats;
-        foreach (Stat s in stats)
-            if (s.type == _modifier.statType)
-                s.AddModifier(Instantiate(_modifier));
+        _target.GetComponent<IBuffable<Ability>>().GetBuffed(_ability);
 
         return true;
     }

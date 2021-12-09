@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class FootholdTrap : MonoBehaviour, IPushable<Vector3>, IUITextDisplayable
+public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextDisplayable
 {
     // global
     GameManager gameManager;
@@ -45,7 +45,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3>, IUITextDisplayabl
         }
     }
 
-    public void GetPushed(Vector3 _dir)
+    public void GetPushed(Vector3 _dir, Ability _ability)
     {
         finalPos = transform.position + _dir;
 

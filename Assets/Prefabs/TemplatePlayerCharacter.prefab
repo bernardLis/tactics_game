@@ -546,7 +546,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 09d4ed2fde4c49c40b5c9c3b190f6959, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 99
 --- !u!114 &6105715623576548095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,7 +672,6 @@ MonoBehaviour:
   stats: []
   basicAbilities: []
   abilities: []
-  isAttacker: 0
 --- !u!114 &1864993292968118660
 MonoBehaviour:
   m_ObjectHideFlags: 0

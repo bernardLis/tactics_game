@@ -12,7 +12,7 @@ public class PushTriggerable : MonoBehaviour
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
     }
 
-    public async Task<bool> Push(GameObject target, int manaCost)
+    public async Task<bool> Push(GameObject target, Ability _ability)
     {
         // face the target character
         await characterRendererManager.SpellcastAnimation(); // add animation for pushing
@@ -21,9 +21,9 @@ public class PushTriggerable : MonoBehaviour
         // TODO: pushing characters with lerp breaks the A*
         Vector3 pushDir = (target.transform.position - transform.position).normalized;
         
-        myStats.UseMana(manaCost);
+        myStats.UseMana(_ability.manaCost);
 
-        target.GetComponent<IPushable<Vector3>>().GetPushed(pushDir);
+        target.GetComponent<IPushable<Vector3, Ability>>().GetPushed(pushDir, _ability);
         // TODO: There is a better way to wait for target to get pushed
         await Task.Delay(500);
 

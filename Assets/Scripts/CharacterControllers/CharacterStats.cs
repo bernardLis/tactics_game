@@ -7,7 +7,7 @@ using Pathfinding;
 using System.Threading.Tasks;
 using Random = UnityEngine.Random;
 
-public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, Ability>, IPushable<Vector3>
+public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, Ability>, IBuffable<Ability>
 {
     public Character character;
 
@@ -56,11 +56,11 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
     public bool isAttacker { get; private set; }
 
     // statuses
-    public List<Status> statuses;
+    public List<Status> statuses = new();
+    public bool isStunned { get; private set; }
 
     // delegate
     public event Action CharacterDeathEvent;
-
     protected virtual void Awake()
     {
         // local
@@ -80,6 +80,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
 
         foreach (Stat s in stats)
             s.TurnEndDecrement();
+
+        // resetting status flag
+        SetIsStunned(false);
 
         for (int i = statuses.Count - 1; i >= 0; i--)
         {
@@ -184,17 +187,18 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
         int attackDir = CalculateAttackDir(_attacker);
         float dodgeChance = CalculateDodgeChance(attackDir, _attacker);
         float randomVal = Random.value;
-        if (randomVal < dodgeChance) // dodgeChance% of time <- TODO: is that correct?
+        if (randomVal < dodgeChance && !isStunned) // dodgeChance% of time <- TODO: is that correct?
             Dodge(_attacker);
         else
+        {
             TakeDamageNoDodgeNoRetaliation(_damage);
-
-
+            HandleModifier(_ability);
+            HandleStatus(_ability);
+        }
 
         if (currentHealth <= 0)
             return;
 
-        // if you were attacked from the back don't retaliate
         if (!WillRetaliate(_attacker))
             return;
 
@@ -230,7 +234,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
         // face the attacker
         characterRendererManager.Face((_attacker.transform.position - transform.position).normalized);
 
-        damageUI.DisplayText("Dodged!");
+        damageUI.DisplayOnCharacter("Dodged!", 24, Color.black);
 
         // shake yourself
         float duration = 0.5f;
@@ -248,7 +252,7 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
         currentHealth -= _damage;
 
         // displaying damage UI
-        damageUI.DisplayDamage(_damage);
+        damageUI.DisplayOnCharacter(_damage.ToString(), 36, new Color(1f, 0.42f, 0.42f, 1f));
 
         // shake a character;
         float duration = 0.5f;
@@ -266,6 +270,28 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
         transform.DOShakePosition(duration, strength)
                  .OnComplete(() => characterRendererManager.enabled = true);
 
+    }
+
+    public void GetBuffed(Ability _ability)
+    {
+        HandleModifier(_ability);
+        HandleStatus(_ability);
+    }
+
+    void HandleModifier(Ability _ability)
+    {
+        if (_ability.statModifier != null)
+        {
+            foreach (Stat s in stats)
+                if (s.type == _ability.statModifier.statType)
+                    s.AddModifier(Instantiate(_ability.statModifier));
+        }
+    }
+
+    void HandleStatus(Ability _ability)
+    {
+        if (_ability.status != null)
+            AddStatus(_ability.status);
     }
 
     int CalculateAttackDir(GameObject _attacker)
@@ -319,6 +345,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
     // used by info card ui
     public bool WillRetaliate(GameObject _attacker)
     {
+        if (isStunned)
+            return false;
+
         // if attacked from the back, don't retaliate
         if (CalculateAttackDir(_attacker) == 0)
             return false;
@@ -332,6 +361,9 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
 
     public float GetDodgeChance(GameObject _attacker)
     {
+        if (isStunned)
+            return 0;
+
         return CalculateDodgeChance(CalculateAttackDir(_attacker), _attacker);
     }
 
@@ -351,20 +383,26 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
         Debug.Log(transform.name + " uses " + _amount + " mana.");
     }
 
-    public void GainHealth(int _healthGain)
+    public void GainHealth(int _healthGain, Ability _ability)
     {
         _healthGain = Mathf.Clamp(_healthGain, 0, maxHealth.GetValue() - currentHealth);
         currentHealth += _healthGain;
 
         Debug.Log(transform.name + " heals " + _healthGain + ".");
 
-        damageUI.DisplayHeal(_healthGain);
+        HandleModifier(_ability);
+        HandleStatus(_ability);
+
+        damageUI.DisplayOnCharacter(_healthGain.ToString(), 36, new Color(0.42f, 1f, 0.42f, 1f));
     }
 
-    public void GetPushed(Vector3 _dir)
+    public void GetPushed(Vector3 _dir, Ability _ability)
     {
         startingPos = transform.position;
         finalPos = transform.position + _dir;
+
+        HandleModifier(_ability);
+        HandleStatus(_ability);
 
         // TODO: do this instead of pushable character.
         StartCoroutine(MoveToPosition(finalPos, 0.5f));
@@ -491,14 +529,13 @@ public class CharacterStats : MonoBehaviour, IHealable, IAttackable<GameObject, 
     }
 
     public void SetAttacker(bool _isAttacker) { isAttacker = _isAttacker; }
+    public void SetIsStunned(bool _is) { isStunned = _is; }
 
     public void AddStatus(Status _s)
     {
         var clone = Instantiate(_s);
         statuses.Add(clone);
         clone.Initialize(gameObject);
-
-        // TODO: trigger on add?
         clone.TriggerStatus();
     }
 }

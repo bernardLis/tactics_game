@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: PoisonedArrow
   m_EditorClassIdentifier: 
   aName: Poisoned Arrow
-  aDescription: New Description
+  aDescription: Poisons & slows target.
   aType: 0
   weaponType: 2
-  aProjectile: {fileID: 0}
-  aIcon: {fileID: 0}
-  aSound: {fileID: 0}
-  value: 0
-  manaCost: 0
+  aProjectile: {fileID: 6450357399194659378, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
+  aIcon: {fileID: 21300000, guid: be3c0667496c12b48b5045904c6627f9, type: 3}
+  aSound: {fileID: 8300000, guid: 1d0fda77619fcb44dbe97d9fc252a92e, type: 3}
+  value: 10
+  manaCost: 5
   areaOfEffect: 0
-  statModifier: {fileID: 0}
-  status: {fileID: 0}
-  range: 0
+  statModifier: {fileID: 11400000, guid: 23a41191ad5f5f6478d7ccf5d7eb9e7f, type: 2}
+  status: {fileID: 11400000, guid: 2ac10217aea54c74894379c860cf804e, type: 2}
+  range: 5
   canTargetSelf: 0
-  canTargetDiagonally: 0
-  highlightColor: {r: 0, g: 0, b: 0, a: 0}
+  canTargetDiagonally: 1
+  highlightColor: {r: 0.043883793, g: 0.3584906, b: 0, a: 1}

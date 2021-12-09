@@ -16,16 +16,12 @@ public class PushAbility : Ability
     public async override Task<bool> TriggerAbility(GameObject _target)
     {
         // check if target is valid
-        var pushableObject = _target.GetComponent<IPushable<Vector3>>();
+        var pushableObject = _target.GetComponent<IPushable<Vector3, Ability>>();
         if (pushableObject == null)
             return false;
 
-        // highlight only target
-        //await Highlighter.instance.ClearHighlightedTiles();
-        // Highlighter.instance.HighlightSingle(target.transform.position, highlightColor);
-
         // push if successful play sound and retrun true;
-        if (!await pushTriggerable.Push(_target, manaCost))
+        if (!await pushTriggerable.Push(_target, this))
             return false;
 
         await base.TriggerAbility(_target);

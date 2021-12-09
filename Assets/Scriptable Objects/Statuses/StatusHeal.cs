@@ -1,29 +1,24 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Statuses/Stun")]
-public class StatusStun : Status
+[CreateAssetMenu(menuName = "Statuses/Heal")]
+public class StatusHeal : Status
 {
-    CharacterSelection characterSelection;
     CharacterStats characterStats;
-
     public override void Initialize(GameObject _self)
     {
         base.Initialize(_self);
 
-        characterSelection = _self.GetComponent<CharacterSelection>();
         characterStats = _self.GetComponent<CharacterStats>();
     }
 
     public override void TriggerStatus()
     {
         base.TriggerStatus();
-
-        characterSelection.FinishCharacterTurn();
-        characterStats.SetIsStunned(true);
+        characterStats.GainHealth(value, null);
     }
 
     public override string GetDescription()
     {
-        return "Stuns target for " + numberOfTurns + " turn/s.";
+        return "Heals target by " + value + " for " + numberOfTurns + " turn/s.";
     }
 }

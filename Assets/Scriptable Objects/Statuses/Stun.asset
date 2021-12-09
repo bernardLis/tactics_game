@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00691759a43c03242972e1bd5bf0e126, type: 3}
   m_Name: Stun
   m_EditorClassIdentifier: 
-  numberOfTurns: 0
+  numberOfTurns: 3
   value: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 1a3910e3b66340440a040e0c7663f734, type: 3}
+  displayOnCharacterText: Stunned!
+  displayOnCharacterColor: {r: 0.3962264, g: 0, b: 0, a: 1}

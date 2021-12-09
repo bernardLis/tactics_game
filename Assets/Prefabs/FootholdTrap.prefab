@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 4377347653787997840}
   - component: {fileID: 4377347653787997847}
   m_Layer: 0
-  m_Name: Foothold Trap
+  m_Name: FootholdTrap
   m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

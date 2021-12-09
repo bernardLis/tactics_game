@@ -16,7 +16,7 @@ public class HealTriggerable : MonoBehaviour
     }
 
     // returns true if successfully healed
-    public async Task<bool> Heal(GameObject _target, int _value, int _manaCost)
+    public async Task<bool> Heal(GameObject _target, Ability _ability)
     {
         // triggered only once if AOE
         if (!myStats.isAttacker)
@@ -36,12 +36,12 @@ public class HealTriggerable : MonoBehaviour
             // animation
             await characterRendererManager.SpellcastAnimation();
 
-            myStats.UseMana(_manaCost);
+            myStats.UseMana(_ability.manaCost);
         }
 
         // data
-        int healAmount = _value + myStats.intelligence.GetValue();
-        _target.GetComponent<IHealable>().GainHealth(healAmount);
+        int healAmount = _ability.value + myStats.intelligence.GetValue();
+        _target.GetComponent<IHealable<Ability>>().GainHealth(healAmount, _ability);
 
         myStats.SetAttacker(true);
 

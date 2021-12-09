@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b7519a6da41714799a9b476731daf2, type: 3}
   m_Name: Poison
   m_EditorClassIdentifier: 
-  numberOfTurns: 0
-  value: 0
-  icon: {fileID: 0}
-  description: 
+  numberOfTurns: 5
+  value: 5
+  icon: {fileID: 21300000, guid: be3c0667496c12b48b5045904c6627f9, type: 3}
+  displayOnCharacterText: Poisoned!
+  displayOnCharacterColor: {r: 0.18945944, g: 0.6037736, b: 0.15037379, a: 1}
