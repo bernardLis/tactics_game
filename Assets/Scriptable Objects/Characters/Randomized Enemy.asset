@@ -33,5 +33,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   characterAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
-  enemyBrain: {fileID: 0}
+  enemyBrain: {fileID: 11400000, guid: a2bb34b03e651a74e8f81bf356a58a33, type: 2}
   equipmentDatabase: {fileID: 11400000, guid: ab5a334b1d10e8a4d8c321e06aa340e1, type: 2}

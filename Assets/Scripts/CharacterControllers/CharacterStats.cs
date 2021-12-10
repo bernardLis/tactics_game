@@ -43,6 +43,9 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     CharacterRendererManager characterRendererManager;
     AILerp aILerp;
 
+    // global
+    Highlighter highlighter;
+
     // pushable variables
     Vector3 startingPos;
     Vector3 finalPos;
@@ -67,6 +70,9 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         damageUI = GetComponent<DamageUI>();
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
         aILerp = GetComponent<AILerp>();
+
+        // global
+        highlighter = Highlighter.instance;
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
@@ -184,7 +190,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     public async Task TakePiercingDamage(int _damage, GameObject _attacker, Ability _ability)
     {
         // in the side 1, face to face 2, from the back 0, 
-        int attackDir = CalculateAttackDir(_attacker);
+        int attackDir = CalculateAttackDir(_attacker.transform.position);
         float dodgeChance = CalculateDodgeChance(attackDir, _attacker);
         float randomVal = Random.value;
         if (randomVal < dodgeChance && !isStunned) // dodgeChance% of time <- TODO: is that correct?
@@ -294,11 +300,11 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             AddStatus(_ability.status);
     }
 
-    int CalculateAttackDir(GameObject _attacker)
+    public int CalculateAttackDir(Vector3 _attackerPos)
     {
         // does not matter what dir is attacker facing, it matters where he stands
         // coz he will turn around when attacking to face the defender
-        Vector2 attackerFaceDir = (transform.position - _attacker.transform.position).normalized;
+        Vector2 attackerFaceDir = (transform.position - _attackerPos).normalized;
         Vector2 defenderFaceDir = characterRendererManager.faceDir;
 
         // in the side 1, face to face 2, from the back 0, 
@@ -349,7 +355,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             return false;
 
         // if attacked from the back, don't retaliate
-        if (CalculateAttackDir(_attacker) == 0)
+        if (CalculateAttackDir(_attacker.transform.position) == 0)
             return false;
 
         // if attacker is yourself, don't retaliate
@@ -364,7 +370,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         if (isStunned)
             return 0;
 
-        return CalculateDodgeChance(CalculateAttackDir(_attacker), _attacker);
+        return CalculateDodgeChance(CalculateAttackDir(_attacker.transform.position), _attacker);
     }
 
     public void GainMana(int _amount)
@@ -510,6 +516,8 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     public async Task Die()
     {
+        await highlighter.ClearHighlightedTiles();
+
         // playing death animation
         await characterRendererManager.Die();
 

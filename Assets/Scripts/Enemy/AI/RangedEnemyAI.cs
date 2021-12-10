@@ -38,7 +38,7 @@ public class RangedEnemyAI : EnemyAI
                     // TODO: don't hardcode abilities
                     int manDistance = Mathf.RoundToInt(Mathf.Abs(transform.position.x - player.transform.position.x)
                                                         + Mathf.Abs(transform.position.y - player.transform.position.y));
-                    if (manDistance <= myStats.abilities[0].range)
+                    if (manDistance <= enemyStats.abilities[0].range)
                     {
                         targetCharacter = player;
                         newTargetInRange = true;
@@ -52,7 +52,7 @@ public class RangedEnemyAI : EnemyAI
             {
                 // TODO: don't hardcore abilities
                 // TODO: should I make it all async?
-                myStats.abilities[0].HighlightTargetable(gameObject).GetAwaiter();
+                enemyStats.abilities[0].HighlightTargetable(gameObject).GetAwaiter();
 
                 yield return new WaitForSeconds(0.5f);
                 enemyInteractionController.Attack(targetCharacter);
@@ -102,7 +102,7 @@ public class RangedEnemyAI : EnemyAI
         // check how far is the target
         int distanceFromTarget = Mathf.RoundToInt(Mathf.Abs(transform.position.x - target.transform.position.x)
                                                             + Mathf.Abs(transform.position.y - target.transform.position.y));
-        abilityRange = myStats.abilities[0].range;
+        abilityRange = enemyStats.abilities[0].range;
 
         // if they are exactly in range
         if (distanceFromTarget == abilityRange)

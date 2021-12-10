@@ -54,11 +54,11 @@ public class MapManager : MonoBehaviour
         // TODO: randomized smart enemy placement
         // for now I am going to place enemies "by hand"
         Vector3[] enemyPositions = new Vector3[3];
-        enemyPositions[0] = new Vector3(6.5f, -3.5f, 0f);
-        enemyPositions[1] = new Vector3(3.5f, -3.5f, 0f);
+        enemyPositions[0] = new Vector3(18.5f, -5.5f, 0f);
+        enemyPositions[1] = new Vector3(15.5f, -5.5f, 0f);
         enemyPositions[2] = new Vector3(3.5f, -5.5f, 0f);
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 3; i++)
         {
             GameObject newCharacter = Instantiate(enemyTemplateGO, enemyPositions[i], Quaternion.identity);
             newCharacter.name = enemyCharSO.characterName;

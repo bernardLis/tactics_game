@@ -1,5 +1,5 @@
 public class EnemyStats : CharacterStats
-{
+{    
     protected override void TurnManager_OnBattleStateChanged(BattleState state)
     {
         if (state != BattleState.EnemyTurn)

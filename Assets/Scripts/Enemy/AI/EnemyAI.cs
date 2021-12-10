@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
     protected EnemyCharMovementController enemyCharMovementController;
     protected EnemyCharInteractionController enemyInteractionController;
 
-    protected CharacterStats myStats;
+    protected EnemyStats enemyStats;
     public bool amDead = false;
 
     protected GameObject targetCharacter;
@@ -28,6 +28,11 @@ public class EnemyAI : MonoBehaviour
     protected GameObject[] playerCharacters;
     protected int abilityRange;
 
+    public Brain brain;
+
+    // movement
+
+
     protected virtual void Awake()
     {
         seeker = GetComponent<Seeker>();
@@ -41,9 +46,10 @@ public class EnemyAI : MonoBehaviour
         tiles = GameTiles.instance.tiles;
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
+
         // subscribe to your death
-        myStats = GetComponent<CharacterStats>();
-        myStats.CharacterDeathEvent += OnEnemyDeath;
+        enemyStats = GetComponent<EnemyStats>();
+        enemyStats.CharacterDeathEvent += OnEnemyDeath;
     }
 
     protected virtual void OnEnemyDeath()
@@ -61,10 +67,14 @@ public class EnemyAI : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        characterSelection.HiglightMovementRange();
+        brain.Select();
         yield return new WaitForSeconds(0.5f);
 
-        GetDestination(GetTargetCharacter());
+        brain.Move();
+        yield return true;
+
+        //GetDestination(GetTargetCharacter());
+        /*
 
         // or more if character has not reached their destination
         while (!enemyCharMovementController.reachedDestinationThisTurn)
@@ -84,6 +94,7 @@ public class EnemyAI : MonoBehaviour
         highlighter.ClearHighlightedTiles().GetAwaiter();
 
         // this method is meant to be overwritten
+        */
     }
 
     protected virtual GameObject GetTargetCharacter()

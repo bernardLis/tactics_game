@@ -5,9 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public GameObject[] enemies;
-    public GameObject[] playerCharacters;
     EnemyAI enemyAI;
-    IEnumerator currentEnemyAI;
 
     public static EnemyManager instance;
     void Awake()
@@ -25,34 +23,35 @@ public class EnemyManager : MonoBehaviour
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
 
-    private void TurnManager_OnBattleStateChanged(BattleState state)
+    void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if(state == BattleState.EnemyTurn)
+        if (state == BattleState.EnemyTurn)
             StartCoroutine(ForEachEnemy());
     }
 
     IEnumerator ForEachEnemy()
     {
-        yield return new WaitForSeconds(1.5f);
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        // TODO: THIS IS A BAD IDEA 
+        // TODO: is this ok, performance-wise?
         // but it fixes a problem where enemies did not have updated graph
         // after player moved stone at the end of player turn
         // Recalculate all graphs
         AstarPath.active.Scan();
 
+        yield return new WaitForSeconds(1.5f);
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
         // for every enemy character
         foreach (var enemy in enemies)
         {
-            if (enemy != null)
-            {
-                BasicCameraFollow.instance.followTarget = enemy.transform;
-                InfoCardUI.instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
-                enemyAI = enemy.GetComponent<EnemyAI>();
-                // this waits until the previous corutine is done
-                yield return StartCoroutine(enemyAI.RunAI());
-            }
+            if (enemy == null)
+                continue;
+            
+            BasicCameraFollow.instance.followTarget = enemy.transform;
+            InfoCardUI.instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
+            enemyAI = enemy.GetComponent<EnemyAI>();
+            // this waits until the previous corutine is done
+            yield return StartCoroutine(enemyAI.RunAI());
+
             yield return new WaitForSeconds(1f);
         }
     }

@@ -36,13 +36,13 @@ public class HealerEnemyAI : EnemyAI
                                                 + Mathf.Abs(transform.position.y - targetCharacter.transform.position.y));
 
             // TODO: don't hardcore abilities
-            if (manDistance <= myStats.abilities[1].range)
+            if (manDistance <= enemyStats.abilities[1].range)
             {
                 CharacterStats targetStats = targetCharacter.GetComponent<CharacterStats>();
                 if (targetStats.currentHealth < targetStats.maxHealth.GetValue())
                 {
                     // TODO: should I make it all async?
-                    myStats.abilities[1].HighlightTargetable(gameObject).GetAwaiter();
+                    enemyStats.abilities[1].HighlightTargetable(gameObject).GetAwaiter();
 
                     yield return new WaitForSeconds(0.5f);
                     enemyInteractionController.Heal(targetCharacter);
@@ -169,7 +169,7 @@ public class HealerEnemyAI : EnemyAI
         // check how far is the target
         int distanceFromTarget = Mathf.RoundToInt(Mathf.Abs(transform.position.x - target.transform.position.x)
                                                             + Mathf.Abs(transform.position.y - target.transform.position.y));
-        abilityRange = myStats.abilities[1].range;
+        abilityRange = enemyStats.abilities[1].range;
 
         // if they are exactly in range
         if (distanceFromTarget == abilityRange)

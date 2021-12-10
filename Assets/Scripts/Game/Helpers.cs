@@ -4,7 +4,13 @@ using UnityEngine;
 
 public static class Helpers
 {
-    private static Camera _camera;
+
+    static Dictionary<string, Color> colors = new()
+    {
+        { "movementBlue", new Color(0.53f, 0.52f, 1f, 1f) },
+    };
+
+    static Camera _camera;
     //https://www.youtube.com/watch?v=JOABOQMurZo
     public static Camera Camera
     {
@@ -18,6 +24,17 @@ public static class Helpers
     public static int GetManhattanDistance(Vector2 _start, Vector2 _end)
     {
         return Mathf.RoundToInt(Mathf.Abs(_start.x - _end.x) + Mathf.Abs(_start.y - _end.y));
+    }
+
+    public static Color GetColor(string _name)
+    {
+        Color col;
+        if (!colors.TryGetValue(_name, out col))
+        {
+            // the key isn't in the dictionary.
+            return Color.black; // or whatever you want to do
+        }
+        return col;
     }
 
 }

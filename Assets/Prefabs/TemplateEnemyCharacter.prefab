@@ -187,19 +187,19 @@ GameObject:
   - component: {fileID: 3387775229403623866}
   - component: {fileID: 3387775229403623865}
   - component: {fileID: 3387775229403623864}
+  - component: {fileID: 5413392492234382795}
+  - component: {fileID: 8036547555935282502}
   - component: {fileID: 3387775229403623846}
   - component: {fileID: 3387775229403623845}
   - component: {fileID: 3387775229403623844}
-  - component: {fileID: 584134014384748159}
+  - component: {fileID: -5146182719898333223}
   - component: {fileID: 3387775229403623841}
-  - component: {fileID: 3387775229403623867}
-  - component: {fileID: 3387775229403623868}
-  - component: {fileID: 8036547555935282502}
   - component: {fileID: 8036547555935282553}
   - component: {fileID: 3387775229403623852}
   - component: {fileID: 7748143736339006443}
-  - component: {fileID: 3387775229403623853}
-  - component: {fileID: 5413392492234382795}
+  - component: {fileID: 3387775229403623868}
+  - component: {fileID: 3387775229403623867}
+  - component: {fileID: -6719876550734273804}
   m_Layer: 0
   m_Name: TemplateEnemyCharacter
   m_TagString: Enemy
@@ -255,7 +255,35 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: -841411547
   m_SortingLayer: 3
-  m_SortingOrder: 99
+  m_SortingOrder: 90
+--- !u!114 &5413392492234382795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387775229403623854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 09d4ed2fde4c49c40b5c9c3b190f6959, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &8036547555935282502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387775229403623854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee9cc88b11dcf74d8748c532a284917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3387775229403623846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
---- !u!114 &584134014384748159
+--- !u!114 &-5146182719898333223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -337,7 +365,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3387775229403623854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95075a8cbf34d4dc1ae895099785a719, type: 3}
+  m_Script: {fileID: 11500000, guid: 57b6ed4f667cd494db9bb8fc608ffa8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
@@ -381,7 +409,8 @@ MonoBehaviour:
   stats: []
   basicAbilities: []
   abilities: []
-  isAttacker: 0
+  statuses: []
+  enemyBrain: {fileID: 0}
 --- !u!114 &3387775229403623841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,69 +424,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0
---- !u!114 &3387775229403623867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3387775229403623854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69133c35c54d5c74fa0c6b41713dd0f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 4
-  myDirection: {x: 0, y: 0}
-  autoRepath:
-    mode: 0
-    interval: 0.5
-    sensitivity: 10
-    maximumInterval: 2
-    visualizeSensitivity: 0
-  canMove: 0
-  speed: 3
-  orientation: 0
-  enableRotation: 1
-  rotationSpeed: 10
-  interpolatePathSwitches: 1
-  switchPathInterpolationSpeed: 5
-  targetCompatibility: {fileID: 0}
-  repathRateCompatibility: 0.5
-  canSearchCompability: 0
-  highlighter: {fileID: 0}
-  destinationSetter: {fileID: 0}
-  AILerp: {fileID: 0}
-  _characterRenderer: {fileID: 0}
-  tilemap: {fileID: 0}
-  myStats: {fileID: 0}
-  reachedDestinationThisTurn: 0
-  trappedOnTheWay: 0
---- !u!114 &3387775229403623868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3387775229403623854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62ad22a3ba26c2d4c843bb8d186da42b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedAbility: {fileID: 0}
---- !u!114 &8036547555935282502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3387775229403623854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ee9cc88b11dcf74d8748c532a284917, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8036547555935282553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,7 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPoint: {fileID: 0}
---- !u!114 &3387775229403623853
+--- !u!114 &3387775229403623868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -505,26 +471,61 @@ MonoBehaviour:
   m_GameObject: {fileID: 3387775229403623854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969b5db1055eb2b40909ebfeff741e9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62ad22a3ba26c2d4c843bb8d186da42b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedAbility: {fileID: 0}
+--- !u!114 &3387775229403623867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387775229403623854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69133c35c54d5c74fa0c6b41713dd0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 4
+  myDirection: {x: 0, y: 0}
+  autoRepath:
+    mode: 0
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  canMove: 0
+  speed: 3
+  orientation: 0
+  enableRotation: 1
+  rotationSpeed: 10
+  interpolatePathSwitches: 1
+  switchPathInterpolationSpeed: 5
+  targetCompatibility: {fileID: 0}
+  repathRateCompatibility: 0.5
+  canSearchCompability: 0
+  highlighter: {fileID: 0}
+  destinationSetter: {fileID: 0}
+  AILerp: {fileID: 0}
+  _characterRenderer: {fileID: 0}
+  tilemap: {fileID: 0}
+  myStats: {fileID: 0}
+  reachedDestinationThisTurn: 0
+  trappedOnTheWay: 0
+--- !u!114 &-6719876550734273804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387775229403623854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2f6c180614a1646bf13599aff7f96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amDead: 0
---- !u!114 &5413392492234382795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3387775229403623854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 09d4ed2fde4c49c40b5c9c3b190f6959, type: 3}
-  m_SortingOrder: 0
 --- !u!1 &4306381184817490121
 GameObject:
   m_ObjectHideFlags: 0

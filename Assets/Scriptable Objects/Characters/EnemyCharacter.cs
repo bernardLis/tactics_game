@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
 
 [CreateAssetMenu(menuName = "Character/Enemy")]
 public class EnemyCharacter : Character
 {
-    public EnemyAI enemyBrain;
+    public Brain enemyBrain;
 
     public EquipmentDatabase equipmentDatabase;
 
-    public override void Initialize(GameObject obj)
+    public override void Initialize(GameObject _obj)
     {
         // TODO: understand reflections and get it done in a nice loop
         // enemy needs a body
@@ -38,8 +35,10 @@ public class EnemyCharacter : Character
         if (weapon == null && Random.value > 0.5)
             weapon = (Weapon) RandomizeEq(EquipmentSlot.WEAPON);
 
-        base.Initialize(obj);
-        enemyBrain = obj.AddComponent(typeof(EnemyAI)) as EnemyAI;
+        base.Initialize(_obj);
+        var clone = Instantiate(enemyBrain);
+        clone.Initialize(_obj);
+        //enemyBrain = obj.AddComponent(typeof(EnemyAI)) as EnemyAI;
     }
 
     Equipment RandomizeEq(EquipmentSlot slot)

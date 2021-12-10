@@ -134,7 +134,7 @@ public class MeeleEnemyAI : EnemyAI
             enemyCharMovementController.GoToDestination(transform.position);
         }
         // if you do not have movement range stay
-        else if (myStats.movementRange.GetValue() <= 0)
+        else if (enemyStats.movementRange.GetValue() <= 0)
         {
             enemyCharMovementController.GoToDestination(transform.position);
         }
