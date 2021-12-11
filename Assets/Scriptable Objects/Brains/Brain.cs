@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Linq;
 using Pathfinding;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 
@@ -55,13 +54,13 @@ public class Brain : ScriptableObject
         // meant to be overwritten
     }
 
-    protected Dictionary<GameObject, float> GetPlayerCharactersOderedByDistance()
+    protected List<PotentialTarget> GetPotentialTargets(string _tag)
     {
         if (seeker == null)
             return null;
 
-        GameObject[] playerCharacters = GameObject.FindGameObjectsWithTag("Player");
-        Dictionary<GameObject, float> distToPlayerCharacters = new();
+        GameObject[] playerCharacters = GameObject.FindGameObjectsWithTag(_tag);
+        List<PotentialTarget> potentialTargets = new();
         // check distance between self and each player character,
         foreach (var pCharacter in playerCharacters)
         {
@@ -72,49 +71,43 @@ public class Brain : ScriptableObject
             // distance is the path length 
             // https://arongranberg.com/astar/docs_dev/class_pathfinding_1_1_path.php#a1076ed6812e2b4f98dca64b74dabae5d
             float distance = p.GetTotalLength();
-            distToPlayerCharacters.Add(pCharacter, distance);
+            PotentialTarget potentialTarget = new PotentialTarget(pCharacter, distance);
+            potentialTargets.Add(potentialTarget);
         }
 
-        distToPlayerCharacters.OrderByDescending(entry => entry.Value);
-        return distToPlayerCharacters;
+        potentialTargets = potentialTargets.OrderByDescending(entry => entry.distanceToTarget).ToList();
+        return potentialTargets;
     }
 
-    protected Dictionary<WorldTile, int> GetFreeTilesAround(GameObject _character)
+    // get destination will be different for each brain
+    protected Vector3 GetDestinationCloserTo(PotentialTarget _target)
     {
-        List<WorldTile> freeTiles = new();
+        Path p = seeker.StartPath(characterGameObject.transform.position, _target.self.transform.position);
+        p.BlockUntilCalculated();
+        // The path is calculated now
+        // We got our path back
+        if (p.error)
+            return Vector3.zero;
 
-        // get players tile and then get the tile up, left, right and left from him
-        Vector3 tilePos = tilemap.WorldToCell(_character.transform.position);
-
-        // check tiles around target player 
-        Vector3[] tilesAroundPlayer = {
-            new Vector3(tilePos.x+1, tilePos.y, tilePos.z),
-            new Vector3(tilePos.x-1, tilePos.y, tilePos.z),
-            new Vector3(tilePos.x, tilePos.y+1, tilePos.z),
-            new Vector3(tilePos.x, tilePos.y-1, tilePos.z)
-        };
-
-        // for each point check if there is a within reach tile
-        foreach (Vector3 point in tilesAroundPlayer)
+        Vector3Int tilePos;
+        // Yay, now we can get a Vector3 representation of the path
+        // loop from the target to self
+        for (int i = p.vectorPath.Count - 1; i >= 0; i--)
         {
-            if (!tiles.TryGetValue(point, out _tile))
+            tilePos = tilemap.WorldToCell(p.vectorPath[i]);
+            if (!tiles.TryGetValue(tilePos, out _tile))
                 continue;
-            
-            // TODO: if you are standing on it, it should go into the list
 
-            if (highlighter.CanEnemyWalkOnTile(_tile) && highlighter.CanEnemyStopOnTile(_tile))
-                freeTiles.Add(_tile);
+            // check if it is within reach and is not the tile I am currently standing on
+            if (_tile.WithinRange)
+                return _tile.GetMiddleOfTile();
         }
 
-        Dictionary<WorldTile, int> tilesWithAttackDirection = new();
-        CharacterStats stats = _character.GetComponent<CharacterStats>();
-
-        foreach (WorldTile tile in freeTiles)
-        {
-            Vector3 pos = new Vector3(tile.LocalPlace.x+0.5f, tile.LocalPlace.y+0.5f,tile.LocalPlace.z);
-            tilesWithAttackDirection.Add(tile, stats.CalculateAttackDir(pos));
-        }
-
-        return tilesWithAttackDirection;
+        // no within range tile that is on path
+        // selecting a random tile
+        // TODO: something smarter
+        WorldTile randomTile = highlighter.highlightedTiles[Random.Range(0, highlighter.highlightedTiles.Count)];
+        return randomTile.GetMiddleOfTile();
     }
+
 }

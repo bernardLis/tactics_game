@@ -30,7 +30,11 @@ public class WorldTile
         TilemapMember.SetTileFlags(LocalPlace, TileFlags.None);
         TilemapMember.SetColor(LocalPlace, Color.white);
         WithinRange = false;
+    }
 
+    public Vector3 GetMiddleOfTile()
+    {
+        return new Vector3(LocalPlace.x + 0.5f, LocalPlace.y + 0.5f, LocalPlace.z);
     }
 
 }
