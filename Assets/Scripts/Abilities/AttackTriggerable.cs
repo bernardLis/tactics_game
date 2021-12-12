@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 public class AttackTriggerable : MonoBehaviour
 {
@@ -15,8 +14,7 @@ public class AttackTriggerable : MonoBehaviour
         characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
     }
 
-    public async Task<bool> Attack(GameObject _target, Ability _ability, bool _isRetaliation)// int _value, int _manaCost, GameObject _projectile, StatModifier _modifier,
-                                   //Status _status)
+    public async Task<bool> Attack(GameObject _target, Ability _ability, bool _isRetaliation)
     {
         if (_target == null)
             return false;

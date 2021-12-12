@@ -3,15 +3,14 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 public class PotentialTarget
 {
-    public GameObject self;
+    public GameObject gObject;
     public float distanceToTarget;
 
-    public PotentialTarget(GameObject _self, float _distanceToTarget)
+    public PotentialTarget(GameObject _gameObject, float _distanceToTarget)
     {
-        self = _self;
+        gObject = _gameObject;
         distanceToTarget = _distanceToTarget;
     }
-
 
     public List<AttackPosition> GetAttackPositions(GameObject _attacker)
     {
@@ -25,7 +24,7 @@ public class PotentialTarget
         List<WorldTile> freeTiles = new();
 
         // get players tile and then get the tile up, left, right and left from him
-        Vector3 tilePos = tilemap.WorldToCell(self.transform.position);
+        Vector3 tilePos = tilemap.WorldToCell(gObject.transform.position);
 
         // check tiles around target player 
         Vector3[] tilesAroundPlayer = {
@@ -57,12 +56,12 @@ public class PotentialTarget
         }
 
         List<AttackPosition> attackPositions = new();
-        CharacterStats stats = self.GetComponent<CharacterStats>();
+        CharacterStats stats = gObject.GetComponent<CharacterStats>();
 
         foreach (WorldTile tile in freeTiles)
         {
             Vector3 pos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
-            attackPositions.Add(new AttackPosition(self, tile, stats.CalculateAttackDir(pos)));
+            attackPositions.Add(new AttackPosition(gObject, tile, stats.CalculateAttackDir(pos)));
         }
 
         return attackPositions;

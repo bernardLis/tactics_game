@@ -7,6 +7,7 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
     protected Seeker seeker;
+    protected AILerp aiLerp;
     protected Highlighter highlighter;
     protected EnemyCharSelection characterSelection;
     protected EnemyCharMovementController enemyCharMovementController;
@@ -36,8 +37,9 @@ public class EnemyAI : MonoBehaviour
     protected virtual void Awake()
     {
         seeker = GetComponent<Seeker>();
+        aiLerp = GetComponent<AILerp>();
 
-        highlighter = GameManager.instance.GetComponent<Highlighter>();
+        highlighter = Highlighter.instance;
         characterSelection = GetComponent<EnemyCharSelection>();
         enemyCharMovementController = GetComponent<EnemyCharMovementController>();
         enemyInteractionController = GetComponent<EnemyCharInteractionController>();
@@ -45,7 +47,6 @@ public class EnemyAI : MonoBehaviour
         // This is our Dictionary of tiles
         tiles = GameTiles.instance.tiles;
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
-
 
         // subscribe to your death
         enemyStats = GetComponent<EnemyStats>();
@@ -62,16 +63,27 @@ public class EnemyAI : MonoBehaviour
     {
         // exit if battle is over
         if (TurnManager.battleState == BattleState.Won || TurnManager.battleState == BattleState.Lost)
-        {
             yield break;
-        }
 
         yield return new WaitForSeconds(0.5f);
         brain.Select();
         yield return new WaitForSeconds(0.5f);
 
         brain.Move();
+        yield return new WaitForSeconds(0.5f);
+        // needa wait for character to reach destination
+        Debug.Log("aiLerp.reached destination " + aiLerp.reachedDestination);
+        while (!aiLerp.reachedDestination)
+            yield return null;
+        yield return new WaitForSeconds(0.5f);
+        brain.Interact();
+        // need to wait for retaliation... wooow...
+        yield return new WaitForSeconds(1.5f);
+        highlighter.ClearHighlightedTiles().GetAwaiter();
+
+        TurnManager.instance.EnemyCharacterTurnFinished();
         yield return true;
+
 
         //GetDestination(GetTargetCharacter());
         /*

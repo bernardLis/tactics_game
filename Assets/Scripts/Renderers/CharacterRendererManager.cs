@@ -40,6 +40,7 @@ public class CharacterRendererManager : MonoBehaviour
     // TODO: something smarter I probably don't need to set direction when character movement is not active
     void Update()
     {
+        Debug.Log("Ai.mydirection " + AI.myDirection);
         if (AI.canMove)
             direction = AI.myDirection;
 

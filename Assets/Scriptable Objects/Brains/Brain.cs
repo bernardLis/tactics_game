@@ -14,14 +14,18 @@ public class Brain : ScriptableObject
     protected Dictionary<Vector3, WorldTile> tiles;
     protected Tilemap tilemap;
     protected WorldTile _tile;
-    protected WorldTile currentTile;
-    protected WorldTile targetTile;
 
     // Game Object components
     protected GameObject characterGameObject;
     protected EnemyStats enemyStats;
-    protected Seeker seeker;
 
+    // movement
+    protected Seeker seeker;
+    protected AILerp aiLerp;
+    protected AIDestinationSetter destinationSetter;
+
+    // interaction
+    protected CharacterRendererManager characterRendererManager;
 
     public virtual void Initialize(GameObject _self)
     {
@@ -33,8 +37,13 @@ public class Brain : ScriptableObject
 
         characterGameObject = _self;
         enemyStats = characterGameObject.GetComponent<EnemyStats>();
-        seeker = characterGameObject.GetComponent<Seeker>();
         characterGameObject.GetComponent<EnemyAI>().brain = this;
+
+        seeker = characterGameObject.GetComponent<Seeker>();
+        aiLerp = characterGameObject.GetComponent<AILerp>();
+        destinationSetter = characterGameObject.GetComponent<AIDestinationSetter>();
+
+        characterRendererManager = characterGameObject.GetComponentInChildren<CharacterRendererManager>();
     }
 
     // TODO: I might do it all async
@@ -82,7 +91,7 @@ public class Brain : ScriptableObject
     // get destination will be different for each brain
     protected Vector3 GetDestinationCloserTo(PotentialTarget _target)
     {
-        Path p = seeker.StartPath(characterGameObject.transform.position, _target.self.transform.position);
+        Path p = seeker.StartPath(characterGameObject.transform.position, _target.gObject.transform.position);
         p.BlockUntilCalculated();
         // The path is calculated now
         // We got our path back

@@ -14,9 +14,6 @@ public class CharacterSelection : MonoBehaviour
     // local
     protected CharacterStats myStats;
 
-    [Header("after rewritting enemies you can get rid of range")]
-    public int range;
-
     public virtual void Awake()
     {
         highlighter = GameManager.instance.GetComponent<Highlighter>();

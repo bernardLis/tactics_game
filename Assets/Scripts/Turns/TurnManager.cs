@@ -96,13 +96,6 @@ public class TurnManager : MonoBehaviour
         // reset counts
         playerCharactersLeftToTakeTurn = playerCharactersAlive;
         enemyCharactersLeftToTakeTurn = enemyCharactersAlive;
-
-        // reset enemy flags;
-        foreach (GameObject enemy in enemies)
-        {
-            if (enemy != null)
-                enemy.GetComponent<EnemyCharMovementController>().reachedDestinationThisTurn = false;
-        }
     }
 
     // TODO: this will be called when player places their characters and confirms that he wants to start the battle.
@@ -119,13 +112,9 @@ public class TurnManager : MonoBehaviour
 
         // subscribe to death events
         foreach (GameObject enemy in enemies)
-        {
             enemy.GetComponent<CharacterStats>().CharacterDeathEvent += OnEnemyDeath;
-        }
         foreach (GameObject player in playerCharacters)
-        {
             player.GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
-        }
     }
 
     void HandleEnemyTurn()
@@ -173,9 +162,7 @@ public class TurnManager : MonoBehaviour
         // -= player chars left. At 0 turn ends;
         playerCharactersLeftToTakeTurn -= 1;
         if (playerCharactersLeftToTakeTurn <= 0)
-        {
             UpdateBattleState(BattleState.EnemyTurn);
-        }
     }
 
     public void EnemyCharacterTurnFinished()
@@ -183,8 +170,6 @@ public class TurnManager : MonoBehaviour
         // -= player chars left. At 0 turn ends;
         enemyCharactersLeftToTakeTurn -= 1;
         if (enemyCharactersLeftToTakeTurn <= 0)
-        {
             UpdateBattleState(BattleState.PlayerTurn);
-        }
     }
 }
