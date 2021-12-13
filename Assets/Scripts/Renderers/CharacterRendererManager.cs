@@ -40,7 +40,6 @@ public class CharacterRendererManager : MonoBehaviour
     // TODO: something smarter I probably don't need to set direction when character movement is not active
     void Update()
     {
-        Debug.Log("Ai.mydirection " + AI.myDirection);
         if (AI.canMove)
             direction = AI.myDirection;
 
@@ -66,8 +65,9 @@ public class CharacterRendererManager : MonoBehaviour
 
     public async Task AttackAnimation()
     {
+        // if character does not have a weapon
         if (weaponHolder.weapon == null)
-            return;
+            await Thrust(directionFromFace); // punch animation
 
         if (weaponHolder.weapon.weaponType == WeaponType.SLASH)
             await Slash(directionFromFace);
@@ -260,11 +260,16 @@ public class CharacterRendererManager : MonoBehaviour
         noIdleAnimation = false;
     }
 
-    async Task PunchEffect(Vector2 dir, int delay)
+    async Task PunchEffect(Vector2 _dir, int _delay)
     {
-        await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
-        transform.DOPunchPosition(dir * 0.2f, 0.4f, 1, 0, false);
-        await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
+        await Task.Delay(Mathf.FloorToInt(_delay * 0.5f));
+        transform.DOPunchPosition(_dir * 0.2f, 0.4f, 1, 0, false);
+        await Task.Delay(Mathf.FloorToInt(_delay * 0.5f));
     }
 
+    public void PlayIdle(string _dir)
+    {
+        Face(Vector2.right);
+        Face(Vector2.zero);
+    }
 }

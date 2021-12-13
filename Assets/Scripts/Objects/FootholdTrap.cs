@@ -29,6 +29,8 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
         if (!col.transform.CompareTag("EnemyCollider"))
             return;
 
+
+/*
         // TODO: needs a rewrite with enemies
         // functionality when enemy walks onto the trap
         GameObject enemy = col.transform.parent.gameObject;
@@ -43,6 +45,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
             transform.GetComponentInChildren<BoxCollider2D>().enabled = false;
             transform.GetChild(0).gameObject.SetActive(false);
         }
+        */
     }
 
     public void GetPushed(Vector3 _dir, Ability _ability)

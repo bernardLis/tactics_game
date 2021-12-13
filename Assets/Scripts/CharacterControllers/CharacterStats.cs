@@ -421,9 +421,9 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         tempObject = new("Dest");
         tempObject.transform.position = _finalPos;
         GetComponent<AIDestinationSetter>().target = tempObject.transform;
-        aILerp.canMove = false;
 
-        GetComponent<AILerp>().enabled = false;
+        aILerp.canMove = false;
+        aILerp.enabled = false;
         Vector3 startingPos = transform.position;
 
         float elapsedTime = 0;

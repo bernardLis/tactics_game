@@ -9,7 +9,7 @@ public class RangedEnemyAI : EnemyAI
     {
         base.Awake();
     }
-
+/*
     public override IEnumerator RunAI()
     {
         targetInRange = false;
@@ -213,4 +213,5 @@ public class RangedEnemyAI : EnemyAI
             enemyCharMovementController.GoToDestination(new Vector3(randomTile.LocalPlace.x, randomTile.LocalPlace.y, randomTile.LocalPlace.z));
         }
     }
+    */
 }

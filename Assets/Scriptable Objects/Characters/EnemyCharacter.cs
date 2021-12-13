@@ -32,7 +32,7 @@ public class EnemyCharacter : Character
             torso = RandomizeEq(EquipmentSlot.TORSO);
         if (shield == null && Random.value > 0.5)
             shield = RandomizeEq(EquipmentSlot.SHIELD);
-        if (weapon == null && Random.value > 0.5)
+        if (weapon == null)
             weapon = (Weapon) RandomizeEq(EquipmentSlot.WEAPON);
 
         base.Initialize(_obj);

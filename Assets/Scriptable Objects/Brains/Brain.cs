@@ -112,11 +112,7 @@ public class Brain : ScriptableObject
                 return _tile.GetMiddleOfTile();
         }
 
-        // no within range tile that is on path
-        // selecting a random tile
-        // TODO: something smarter
-        WorldTile randomTile = highlighter.highlightedTiles[Random.Range(0, highlighter.highlightedTiles.Count)];
-        return randomTile.GetMiddleOfTile();
+        return Vector3.zero;
     }
 
 }

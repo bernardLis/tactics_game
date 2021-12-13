@@ -67,11 +67,13 @@ public class MapManager : MonoBehaviour
             instantiatedSO.Initialize(newCharacter);
             newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
 
-            // face right 
-            // TODO: face player => center of designated player spawn location - this spawn location
-            newCharacter.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
+            // face right
+            CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();
+            characterRendererManager.Face(Vector2.right);
+            characterRendererManager.Face(Vector2.zero);
         }
     }
+
 
     void CreatePlayerStartingArea()
     {

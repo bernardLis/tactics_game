@@ -76,10 +76,10 @@ GameObject:
   - component: {fileID: 3387775229403623844}
   - component: {fileID: -5146182719898333223}
   - component: {fileID: 3387775229403623841}
+  - component: {fileID: -6719876550734273804}
   - component: {fileID: 8036547555935282553}
   - component: {fileID: 3387775229403623852}
   - component: {fileID: 7748143736339006443}
-  - component: {fileID: -6719876550734273804}
   m_Layer: 0
   m_Name: TemplateEnemyCharacter
   m_TagString: Enemy
@@ -207,12 +207,12 @@ MonoBehaviour:
   version: 4
   myDirection: {x: 0, y: 0}
   autoRepath:
-    mode: 0
+    mode: 1
     interval: 0.5
     sensitivity: 10
     maximumInterval: 2
     visualizeSensitivity: 0
-  canMove: 0
+  canMove: 1
   speed: 3
   orientation: 0
   enableRotation: 0
@@ -302,6 +302,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40108e7219aaf9a4e98a91fdfdbfceb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6719876550734273804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387775229403623854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2f6c180614a1646bf13599aff7f96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amDead: 0
+  brain: {fileID: 0}
 --- !u!114 &8036547555935282553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,20 +354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPoint: {fileID: 0}
---- !u!114 &-6719876550734273804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3387775229403623854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a2f6c180614a1646bf13599aff7f96c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amDead: 0
-  brain: {fileID: 0}
 --- !u!1001 &9199590524805037080
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,12 +12,15 @@ public class MeeleBrain : Brain
     public override void Move()
     {
         potentialTargets = GetPotentialTargets("Player");
-        AttackPosition attackPos = GetAttackPosition(potentialTargets);
+        AttackPosition attackPos = GetBestAttackPosition(potentialTargets);
         // 3. null if there are no good attack positions
         Vector3 destinationPos;
         if (attackPos == null)
         {
             destinationPos = GetDestinationCloserTo(potentialTargets.FirstOrDefault());
+            // get a random tile if there are no good tiles on path
+            if (destinationPos == Vector3.zero)
+                destinationPos = highlighter.highlightedTiles[Random.Range(0, highlighter.highlightedTiles.Count)].GetMiddleOfTile();
         }
         else
         {
@@ -25,40 +28,22 @@ public class MeeleBrain : Brain
             target = attackPos.target;
         }
 
-        // go there!
-        highlighter.ClearHighlightedTiles().GetAwaiter();
 
-        // reset ailerp speed
+        highlighter.ClearHighlightedTiles().GetAwaiter();
         aiLerp.speed = 3f;
 
-        // move if destination is not the same as current position
-        if (destinationPos != characterGameObject.transform.position)
-        {
-            tempObject = new GameObject("Enemy Destination");
-            // I want it to be in the center of the tile, not on the edge.
-            tempObject.transform.position = destinationPos;
+        if (destinationPos == characterGameObject.transform.position)
+            return;
 
-            highlighter.HighlightSingle(tempObject.transform.position, new Color(0.53f, 0.52f, 1f, 1f));
+        tempObject = new GameObject("Enemy Destination");
+        tempObject.transform.position = destinationPos;
 
-            // move
-            destinationSetter.target = tempObject.transform;
-            aiLerp.canSearch = true;
-            aiLerp.canMove = true;
-        }
-
-        // now I can receive: 
-        // 1. a tile that I am currently standing on
-        // 2. new tile within reach of the target
-        // 3. tile that's closer to target
-        //GameObject target = //GetClosestPlayerCharacter();
-        //Vector3 destination = GetDestination(target);
-        // in the side 1, face to face 2, from the back 0, 
-
+        highlighter.HighlightSingle(tempObject.transform.position, Helpers.GetColor("movementBlue"));
+        destinationSetter.target = tempObject.transform;
     }
 
     public override void Interact()
     {
-        Debug.Log("intarct is called");
         // clean-up after movement
         if (tempObject != null)
             Destroy(tempObject);
@@ -68,11 +53,10 @@ public class MeeleBrain : Brain
             faceDir = (potentialTargets[0].gObject.transform.position - characterGameObject.transform.position).normalized;
         else
             faceDir = (target.transform.position - characterGameObject.transform.position).normalized;
-    
+
         // face 'stronger direction'
         faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
 
-        Debug.Log("faceDir " + faceDir);
         characterRendererManager.Face(faceDir);
 
         if (target == null)
@@ -88,7 +72,7 @@ public class MeeleBrain : Brain
 
     // meele wants to attack anyone from the back
     // this means that they need a reachable  
-    AttackPosition GetAttackPosition(List<PotentialTarget> _potentialTargets)
+    AttackPosition GetBestAttackPosition(List<PotentialTarget> _potentialTargets)
     {
         // TODO: does it make sense to get ALLL the tiles around ALLL the player characters and than work on that? 
         List<AttackPosition> allAvailableAttackPositions = new();

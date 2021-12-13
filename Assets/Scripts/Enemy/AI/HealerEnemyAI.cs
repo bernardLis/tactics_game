@@ -15,7 +15,7 @@ public class HealerEnemyAI : EnemyAI
         // giving lowest health a value
         lowestHealth = int.MaxValue;
     }
-
+/*
     public override IEnumerator RunAI()
     {
         yield return StartCoroutine(base.RunAI());
@@ -257,4 +257,5 @@ public class HealerEnemyAI : EnemyAI
             enemyCharMovementController.GoToDestination(new Vector3(randomTile.LocalPlace.x, randomTile.LocalPlace.y, randomTile.LocalPlace.z));
         }
     }
+    */
 }
