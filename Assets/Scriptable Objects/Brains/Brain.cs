@@ -3,6 +3,7 @@ using System.Linq;
 using Pathfinding;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "Brain/Brain")]
 public class Brain : ScriptableObject
@@ -26,6 +27,7 @@ public class Brain : ScriptableObject
 
     // interaction
     protected CharacterRendererManager characterRendererManager;
+    public GameObject target;
 
     public virtual void Initialize(GameObject _self)
     {
@@ -49,6 +51,7 @@ public class Brain : ScriptableObject
     // TODO: I might do it all async
     public virtual void Select()
     {
+        target = null;
         highlighter.HiglightEnemyMovementRange(characterGameObject.transform.position,
                                                enemyStats.movementRange.GetValue(), Helpers.GetColor("movementBlue"));
     }
@@ -58,9 +61,10 @@ public class Brain : ScriptableObject
         // meant to be overwritten
     }
 
-    public virtual void Interact()
+    public virtual async Task Interact()
     {
         // meant to be overwritten
+        await Task.Yield(); // just to get rid of errors;
     }
 
     protected List<PotentialTarget> GetPotentialTargets(string _tag)

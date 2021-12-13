@@ -536,7 +536,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         Destroy(gameObject);
     }
 
-    public void SetAttacker(bool _isAttacker) { isAttacker = _isAttacker; }
+    public void SetAttacker(bool _is) { isAttacker = _is; }
     public void SetIsStunned(bool _is) { isStunned = _is; }
 
     public void AddStatus(Status _s)

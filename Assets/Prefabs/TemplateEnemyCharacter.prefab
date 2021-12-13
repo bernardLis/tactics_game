@@ -112,7 +112,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3387775229403623854}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -217,7 +217,7 @@ MonoBehaviour:
   orientation: 0
   enableRotation: 0
   rotationSpeed: 10
-  interpolatePathSwitches: 1
+  interpolatePathSwitches: 0
   switchPathInterpolationSpeed: 5
   targetCompatibility: {fileID: 0}
   repathRateCompatibility: 0.5
@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40108e7219aaf9a4e98a91fdfdbfceb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grayOutColor: {r: 0.38039216, g: 0.38039216, b: 0.38039216, a: 1}
 --- !u!114 &-6719876550734273804
 MonoBehaviour:
   m_ObjectHideFlags: 0

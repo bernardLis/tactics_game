@@ -1,12 +1,11 @@
 using UnityEngine;
-using Pathfinding;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "Brain/Meele")]
 public class MeeleBrain : Brain
 {
-    GameObject target;
     GameObject tempObject;
     List<PotentialTarget> potentialTargets;
     public override void Move()
@@ -32,17 +31,21 @@ public class MeeleBrain : Brain
         highlighter.ClearHighlightedTiles().GetAwaiter();
         aiLerp.speed = 3f;
 
-        if (destinationPos == characterGameObject.transform.position)
-            return;
-
         tempObject = new GameObject("Enemy Destination");
-        tempObject.transform.position = destinationPos;
 
+        if (destinationPos == characterGameObject.transform.position)
+        {
+            tempObject.transform.position = characterGameObject.transform.position;
+            destinationSetter.target = tempObject.transform;
+            return;
+        }
+
+        tempObject.transform.position = destinationPos;
         highlighter.HighlightSingle(tempObject.transform.position, Helpers.GetColor("movementBlue"));
         destinationSetter.target = tempObject.transform;
     }
 
-    public override void Interact()
+    public override async Task Interact()
     {
         // clean-up after movement
         if (tempObject != null)
@@ -67,7 +70,7 @@ public class MeeleBrain : Brain
         highlighter.HighlightSingle(target.transform.position, enemyStats.abilities[0].highlightColor);
 
         // TODO: select appropriate ability; for now it's only basic attack;
-        enemyStats.abilities[0].TriggerAbility(target).GetAwaiter();
+        await enemyStats.abilities[0].TriggerAbility(target);
     }
 
     // meele wants to attack anyone from the back

@@ -105,8 +105,19 @@ public class MovePointController : MonoBehaviour
 
     void Select(Collider2D _obj)
     {
-        battleCharacterController.Select(_obj);
         UpdateDisplayInformation();
+
+        // only within range tiles when selecting interaction target
+        if (battleCharacterController.characterState == CharacterState.SelectingInteractionTarget)
+        {
+            Vector3Int tilePos = tilemap.WorldToCell(transform.position);
+            if (!tiles.TryGetValue(tilePos, out _tile))
+                return;
+            if (!_tile.WithinRange)
+                return;
+        }
+
+        battleCharacterController.Select(_obj);
     }
 
     void HandlePlayerTurn()

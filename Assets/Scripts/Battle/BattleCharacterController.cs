@@ -332,6 +332,7 @@ public class BattleCharacterController : MonoBehaviour
             return;
         isInteracting = true;
 
+
         // highlight aoe
         if (characterState == CharacterState.SelectingInteractionTarget)
         {
@@ -414,7 +415,7 @@ public class BattleCharacterController : MonoBehaviour
     void FinishCharacterTurn()
     {
         isInteracting = false;
-        
+
         // necessary for movepoint to correctly update UI;
         UpdateCharacterState(CharacterState.None);
 

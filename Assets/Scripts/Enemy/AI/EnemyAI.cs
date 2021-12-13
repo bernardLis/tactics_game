@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Pathfinding;
+using System.Threading.Tasks;
 
 public class EnemyAI : MonoBehaviour
 {
     protected Seeker seeker;
     protected AILerp aiLerp;
-    protected Highlighter highlighter;
     protected EnemyCharSelection characterSelection;
 
     protected EnemyStats enemyStats;
@@ -35,7 +35,6 @@ public class EnemyAI : MonoBehaviour
         seeker = GetComponent<Seeker>();
         aiLerp = GetComponent<AILerp>();
 
-        highlighter = Highlighter.instance;
         characterSelection = GetComponent<EnemyCharSelection>();
 
         // This is our Dictionary of tiles
@@ -53,28 +52,44 @@ public class EnemyAI : MonoBehaviour
         amDead = true;
     }
 
+    // TODO: rewrite to async await
     public virtual IEnumerator RunAI()
     {
         // exit if battle is over
         if (TurnManager.battleState == BattleState.Won || TurnManager.battleState == BattleState.Lost)
             yield break;
 
+        // character can be stunned = no turn
+        if (characterSelection.hasFinishedTurn)
+            yield return true;
+
+
         yield return new WaitForSeconds(0.5f);
         brain.Select();
         yield return new WaitForSeconds(0.5f);
         brain.Move();
         yield return new WaitForSeconds(0.5f);
-        
+
         // wait for character to reach destination
         while (!aiLerp.reachedDestination)
             yield return null;
         yield return new WaitForSeconds(0.5f);
-        brain.Interact();
-        // need to wait for retaliation... wooow...
-        yield return new WaitForSeconds(1.5f); // TODO: I think it may be hard to do it properly
-        highlighter.ClearHighlightedTiles().GetAwaiter();
 
-        TurnManager.instance.EnemyCharacterTurnFinished();
+        Task task = brain.Interact();
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        yield return new WaitForSeconds(0.5f);
+
+        // need to wait for retaliation... wooow...
+        if (brain.target == null)
+        {
+            characterSelection.FinishCharacterTurn();
+            yield return true;
+            yield break;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        characterSelection.FinishCharacterTurn();
         yield return true;
     }
 }
