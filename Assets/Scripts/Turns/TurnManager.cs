@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 public enum BattleState { Preparation, PlayerTurn, EnemyTurn, Won, Lost }
 
@@ -14,8 +15,8 @@ public class TurnManager : MonoBehaviour
     GameObject[] playerCharacters;
     GameObject[] enemies;
 
-    int playerCharactersLeftToTakeTurn;
-    int enemyCharactersLeftToTakeTurn;
+    public int playerCharactersLeftToTakeTurn;
+    public int enemyCharactersLeftToTakeTurn;
 
     int playerCharactersAlive;
     int enemyCharactersAlive;
@@ -77,26 +78,6 @@ public class TurnManager : MonoBehaviour
     {
     }
 
-    void HandlePlayerTurn()
-    {
-        // TODO: I don't think there is a need to get rid of this, but it is kinda sucky.
-        if (currentTurn == 0)
-            InitBattle();
-
-        // TODO: do I need a separate method for starting or can I just use this;
-        currentTurn++;
-
-        // hide character card
-        infoCardUI.HideCharacterCard();
-
-        // TODO: Is this very taxing? 
-        // Recalculate all graphs
-        AstarPath.active.Scan();
-
-        // reset counts
-        playerCharactersLeftToTakeTurn = playerCharactersAlive;
-        enemyCharactersLeftToTakeTurn = enemyCharactersAlive;
-    }
 
     // TODO: this will be called when player places their characters and confirms that he wants to start the battle.
     public void InitBattle()
@@ -116,6 +97,24 @@ public class TurnManager : MonoBehaviour
         foreach (GameObject player in playerCharacters)
             player.GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
     }
+    void HandlePlayerTurn()
+    {
+        // TODO: I don't think there is a need to get rid of this, but it is kinda sucky.
+        if (currentTurn == 0)
+            InitBattle();
+
+        // TODO: do I need a separate method for starting or can I just use this;
+        currentTurn++;
+
+        // hide character card
+        infoCardUI.HideCharacterCard();
+
+        // TODO: Is this very taxing? 
+        // Recalculate all graphs
+        AstarPath.active.Scan();
+
+        ResetCounts();
+    }
 
     void HandleEnemyTurn()
     {
@@ -126,7 +125,12 @@ public class TurnManager : MonoBehaviour
         // Recalculate all graphs
         AstarPath.active.Scan();
 
-        // reset counts
+        ResetCounts();
+    }
+
+    // TODO: eeee... does it make sense?
+    void ResetCounts()
+    {
         playerCharactersLeftToTakeTurn = playerCharactersAlive;
         enemyCharactersLeftToTakeTurn = enemyCharactersAlive;
     }
@@ -157,19 +161,27 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Ugh... you lost!");
     }
 
-    public void PlayerCharacterTurnFinished()
+    public async void PlayerCharacterTurnFinished()
     {
         // -= player chars left. At 0 turn ends;
         playerCharactersLeftToTakeTurn -= 1;
-        if (playerCharactersLeftToTakeTurn <= 0)
-            UpdateBattleState(BattleState.EnemyTurn);
+        if (playerCharactersLeftToTakeTurn <= 0 && battleState != BattleState.EnemyTurn)
+            await ChangeTurn(BattleState.EnemyTurn);
     }
 
-    public void EnemyCharacterTurnFinished()
+    public async void EnemyCharacterTurnFinished()
     {
+        Debug.Log("EnemyCharacterTurnFinished");
         // -= player chars left. At 0 turn ends;
         enemyCharactersLeftToTakeTurn -= 1;
-        if (enemyCharactersLeftToTakeTurn <= 0)
-            UpdateBattleState(BattleState.PlayerTurn);
+        if (enemyCharactersLeftToTakeTurn <= 0 && battleState != BattleState.PlayerTurn)
+            await ChangeTurn(BattleState.PlayerTurn);
     }
+
+    async Task ChangeTurn(BattleState _state)
+    {
+        await Task.Delay(500);
+        UpdateBattleState(_state);
+    }
+
 }

@@ -60,7 +60,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     // statuses
     public List<Status> statuses = new();
-    public bool isStunned { get; private set; }
+    public bool isStunned; //{ get; private set; }
 
     // delegate
     public event Action CharacterDeathEvent;
@@ -81,22 +81,25 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     protected virtual void TurnManager_OnBattleStateChanged(BattleState _state)
     {
-        if (TurnManager.currentTurn <= 1)
-            return;
-
         foreach (Stat s in stats)
             s.TurnEndDecrement();
 
-        // resetting status flag
-        SetIsStunned(false);
-
         for (int i = statuses.Count - 1; i >= 0; i--)
         {
-            statuses[i].TriggerStatus();
-            statuses[i].numberOfTurns--;
-            if (statuses[i].numberOfTurns <= 0)
+            statuses[i].ResetFlag();
+
+            if (statuses[i].ShouldTrigger())
+                statuses[i].TriggerStatus();
+
+            if (statuses[i].ShouldBeRemoved())
+            {
+                statuses[i].ResetFlag();
                 statuses.Remove(statuses[i]);
+            }
         }
+
+        if (TurnManager.currentTurn <= 1)
+            return;
 
         GainMana(10);
     }
@@ -140,7 +143,8 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         maxMana.baseValue = baseMaxMana + character.intelligence * 5;
 
         armor.baseValue = baseArmor; // TODO: should be base value + all pieces of eq
-        movementRange.baseValue = 5 + Mathf.FloorToInt(character.agility / 3);
+        int mRangeCalculation = 5 + Mathf.FloorToInt(character.agility / 3);
+        movementRange.baseValue = Mathf.Clamp(mRangeCalculation, 0, 9); // after 9 it lags unity.
 
         // TODO: startin mana is for heal testing purposes 
         currentHealth = maxHealth.GetValue();
@@ -199,7 +203,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         {
             TakeDamageNoDodgeNoRetaliation(_damage);
             HandleModifier(_ability);
-            HandleStatus(_ability);
+            HandleStatus(_ability, _attacker);
         }
 
         if (currentHealth <= 0)
@@ -281,7 +285,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     public void GetBuffed(Ability _ability)
     {
         HandleModifier(_ability);
-        HandleStatus(_ability);
+        HandleStatus(_ability, null);
     }
 
     void HandleModifier(Ability _ability)
@@ -294,10 +298,10 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         }
     }
 
-    void HandleStatus(Ability _ability)
+    void HandleStatus(Ability _ability, GameObject _attacker)
     {
         if (_ability.status != null)
-            AddStatus(_ability.status);
+            AddStatus(_ability.status, _attacker);
     }
 
     public int CalculateAttackDir(Vector3 _attackerPos)
@@ -397,7 +401,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         Debug.Log(transform.name + " heals " + _healthGain + ".");
 
         HandleModifier(_ability);
-        HandleStatus(_ability);
+        HandleStatus(_ability, null);
 
         damageUI.DisplayOnCharacter(_healthGain.ToString(), 36, new Color(0.42f, 1f, 0.42f, 1f));
     }
@@ -408,7 +412,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         finalPos = transform.position + _dir;
 
         HandleModifier(_ability);
-        HandleStatus(_ability);
+        HandleStatus(_ability, null);
 
         // TODO: do this instead of pushable character.
         StartCoroutine(MoveToPosition(finalPos, 0.5f));
@@ -539,11 +543,12 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     public void SetAttacker(bool _is) { isAttacker = _is; }
     public void SetIsStunned(bool _is) { isStunned = _is; }
 
-    public void AddStatus(Status _s)
+    public void AddStatus(Status _s, GameObject _attacker)
     {
         var clone = Instantiate(_s);
         statuses.Add(clone);
-        clone.Initialize(gameObject);
+        clone.Initialize(gameObject, _attacker);
+        // status triggers right away
         clone.TriggerStatus();
     }
 }

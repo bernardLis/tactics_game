@@ -6,7 +6,6 @@ public class PlayerCharSelection : CharacterSelection
     public bool hasMovedThisTurn { get; private set; }
 
     public Vector3 positionTurnStart { get; private set; }
-   // public WorldTile tileTurnStart { get; private set; }
 
     public SelectionArrow selectionArrow;
 
@@ -23,15 +22,16 @@ public class PlayerCharSelection : CharacterSelection
 
     protected override void HandlePlayerTurn()
     {
-        // reseting flags on turn's end
-        hasMovedThisTurn = false;
-        hasFinishedTurn = false;
+        if (!myStats.isStunned)
+        {
+            hasMovedThisTurn = false;
+            SetHasFinishedTurn(false);
+        }
+        else
+            FinishCharacterTurn();
 
         // remember on which tile you start the turn on 
         positionTurnStart = transform.position;
-
-       // if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
-          //  tileTurnStart = _tile;
     }
 
     protected override void HandleEnemyTurn()
@@ -59,25 +59,18 @@ public class PlayerCharSelection : CharacterSelection
         selectionArrow.gameObject.SetActive(isActive);
     }
 
-
     public override void FinishCharacterTurn()
     {
         base.FinishCharacterTurn();
-
         DeselectCharacter();
 
         // finish character's turn after the interaction is performed
-        TurnManager.instance.PlayerCharacterTurnFinished();
+        turnManager.PlayerCharacterTurnFinished();
     }
-
-
 
     public void SetCharacterMoved(bool hasMoved)
     {
         hasMovedThisTurn = hasMoved;
     }
-
-
-
 }
 

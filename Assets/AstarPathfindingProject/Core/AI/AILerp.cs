@@ -530,7 +530,7 @@ namespace Pathfinding
         {
             // HERE: my shiz
             myDirection = Vector2.zero;
-            speed = 3;
+            speed = 6;
             GetComponent<AIDestinationSetter>().target = null;
         }
 

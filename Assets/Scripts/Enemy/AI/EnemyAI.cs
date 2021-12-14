@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using Pathfinding;
 using System.Threading.Tasks;
 
 public class EnemyAI : MonoBehaviour
 {
+    protected Highlighter highlighter;
+
     protected Seeker seeker;
     protected AILerp aiLerp;
     protected EnemyCharSelection characterSelection;
@@ -16,30 +16,18 @@ public class EnemyAI : MonoBehaviour
 
     protected GameObject targetCharacter;
 
-    // tilemap vars
-    protected Dictionary<Vector3, WorldTile> tiles;
-    protected Tilemap tilemap;
-    protected WorldTile _tile;
-    protected WorldTile currentTile;
-    protected WorldTile targetTile;
-
-    protected bool targetInRange;
-    protected GameObject[] playerCharacters;
-    protected int abilityRange;
 
     public Brain brain;
 
 
     protected virtual void Awake()
     {
+        highlighter = Highlighter.instance;
+
         seeker = GetComponent<Seeker>();
         aiLerp = GetComponent<AILerp>();
 
         characterSelection = GetComponent<EnemyCharSelection>();
-
-        // This is our Dictionary of tiles
-        tiles = GameTiles.instance.tiles;
-        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
         // subscribe to your death
         enemyStats = GetComponent<EnemyStats>();
@@ -48,6 +36,8 @@ public class EnemyAI : MonoBehaviour
 
     protected virtual void OnEnemyDeath()
     {
+        // maybe useful for trapping on the way
+
         // it exits the coroutine Run()
         amDead = true;
     }
@@ -61,8 +51,7 @@ public class EnemyAI : MonoBehaviour
 
         // character can be stunned = no turn
         if (characterSelection.hasFinishedTurn)
-            yield return true;
-
+            yield break;
 
         yield return new WaitForSeconds(0.5f);
         brain.Select();
@@ -80,14 +69,7 @@ public class EnemyAI : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        // need to wait for retaliation... wooow...
-        if (brain.target == null)
-        {
-            characterSelection.FinishCharacterTurn();
-            yield return true;
-            yield break;
-        }
-
+        highlighter.ClearHighlightedTiles().GetAwaiter();
         yield return new WaitForSeconds(0.5f);
         characterSelection.FinishCharacterTurn();
         yield return true;

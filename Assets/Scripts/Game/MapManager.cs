@@ -59,13 +59,20 @@ public class MapManager : MonoBehaviour
         enemyPositions[1] = new Vector3(15.5f, -5.5f, 0f);
         enemyPositions[2] = new Vector3(3.5f, -5.5f, 0f);
 
+        string[] enemyNames = new string[] {
+            "Markus",
+            "Ulf",
+            "Ludwig"
+        };
+
         for (int i = 0; i < 3; i++)
         {
             GameObject newCharacter = Instantiate(enemyTemplateGO, enemyPositions[i], Quaternion.identity);
-            newCharacter.name = enemyCharSO.characterName;
+            newCharacter.name = enemyNames[i];
             Character instantiatedSO = Instantiate(enemyCharSO);
             instantiatedSO.Initialize(newCharacter);
             newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+
 
             // face right
             CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();

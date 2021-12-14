@@ -4,9 +4,9 @@ using UnityEngine;
 public class StatusHeal : Status
 {
     CharacterStats characterStats;
-    public override void Initialize(GameObject _self)
+    public override void Initialize(GameObject _self, GameObject _attacker)
     {
-        base.Initialize(_self);
+        base.Initialize(_self, _attacker);
 
         characterStats = _self.GetComponent<CharacterStats>();
     }

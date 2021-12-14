@@ -27,9 +27,8 @@ public class MeeleBrain : Brain
             target = attackPos.target;
         }
 
-
         highlighter.ClearHighlightedTiles().GetAwaiter();
-        aiLerp.speed = 3f;
+        aiLerp.speed = 6f;
 
         tempObject = new GameObject("Enemy Destination");
 

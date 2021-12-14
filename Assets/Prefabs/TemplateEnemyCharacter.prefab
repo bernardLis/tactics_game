@@ -213,7 +213,7 @@ MonoBehaviour:
     maximumInterval: 2
     visualizeSensitivity: 0
   canMove: 1
-  speed: 3
+  speed: 6
   orientation: 0
   enableRotation: 0
   rotationSpeed: 10
@@ -290,6 +290,7 @@ MonoBehaviour:
   basicAbilities: []
   abilities: []
   statuses: []
+  isStunned: 0
 --- !u!114 &3387775229403623841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grayOutColor: {r: 0.38039216, g: 0.38039216, b: 0.38039216, a: 1}
+  hasFinishedTurn: 0
 --- !u!114 &-6719876550734273804
 MonoBehaviour:
   m_ObjectHideFlags: 0

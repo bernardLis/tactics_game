@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -37,7 +36,11 @@ public class EnemyManager : MonoBehaviour
         // Recalculate all graphs
         AstarPath.active.Scan();
 
-        yield return new WaitForSeconds(1.5f);
+
+        yield return new WaitForSeconds(0.5f);
+        if (TurnManager.battleState != BattleState.EnemyTurn)
+            yield break;
+
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         // for every enemy character
@@ -45,8 +48,7 @@ public class EnemyManager : MonoBehaviour
         {
             if (enemy == null)
                 continue;
-            
-            BasicCameraFollow.instance.followTarget = enemy.transform;
+
             InfoCardUI.instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
             enemyAI = enemy.GetComponent<EnemyAI>();
             // this waits until the previous corutine is done

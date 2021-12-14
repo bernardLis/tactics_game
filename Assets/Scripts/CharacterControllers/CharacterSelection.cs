@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
+using System;
 
 public class CharacterSelection : MonoBehaviour
 {
     protected Highlighter highlighter;
+    protected TurnManager turnManager;
 
     // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
     protected Tilemap tilemap;
@@ -17,13 +19,12 @@ public class CharacterSelection : MonoBehaviour
     SpriteRenderer[] spriteRenderers;
     public Color grayOutColor;
 
-    public bool hasFinishedTurn { get; protected set; }
+    public bool hasFinishedTurn; //{ get; protected set; }
 
-
-    //
     public virtual void Awake()
     {
         highlighter = Highlighter.instance;
+        turnManager = TurnManager.instance;
 
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
         tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
@@ -59,7 +60,7 @@ public class CharacterSelection : MonoBehaviour
     public virtual void FinishCharacterTurn()
     {
         myStats.SetAttacker(false);
-        hasFinishedTurn = true;
+        SetHasFinishedTurn(true);
         GrayOutCharacter();
     }
 
@@ -70,12 +71,22 @@ public class CharacterSelection : MonoBehaviour
                 rend.DOColor(grayOutColor, 1f);
     }
 
-    void ReturnCharacterColor()
+    protected void ReturnCharacterColor()
     {
         // shieet that looks way better than changing it right away;
         foreach (SpriteRenderer rend in spriteRenderers)
             if (rend != null)
                 rend.DOColor(Color.white, 2f);
+    }
+
+    public void SetHasFinishedTurn(bool _has) { hasFinishedTurn = _has; }
+
+    public bool WillTakeTurn()
+    {
+        if (myStats.isStunned)
+            return false;
+
+        return true;
     }
 
 

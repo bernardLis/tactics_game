@@ -2,8 +2,13 @@ public class EnemyCharSelection : CharacterSelection
 {
     protected override void HandleEnemyTurn()
     {
-        // reseting flags on turn's end
-        hasFinishedTurn = false;
+        if (!myStats.isStunned)
+        {
+            SetHasFinishedTurn(false);
+            ReturnCharacterColor();
+        }
+        else
+            FinishCharacterTurn();
     }
 
     protected override void HandlePlayerTurn()
@@ -14,8 +19,7 @@ public class EnemyCharSelection : CharacterSelection
     public override void FinishCharacterTurn()
     {
         base.FinishCharacterTurn();
-        highlighter.ClearHighlightedTiles().GetAwaiter();
-        TurnManager.instance.EnemyCharacterTurnFinished();
+        turnManager.EnemyCharacterTurnFinished();
     }
 
 }
