@@ -171,7 +171,6 @@ public class TurnManager : MonoBehaviour
 
     public async void EnemyCharacterTurnFinished()
     {
-        Debug.Log("EnemyCharacterTurnFinished");
         // -= player chars left. At 0 turn ends;
         enemyCharactersLeftToTakeTurn -= 1;
         if (enemyCharactersLeftToTakeTurn <= 0 && battleState != BattleState.PlayerTurn)

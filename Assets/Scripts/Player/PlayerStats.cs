@@ -2,9 +2,10 @@ public class PlayerStats : CharacterStats
 {
     protected override void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if (state != BattleState.PlayerTurn)
-            return;
+        if (state == BattleState.PlayerTurn)
+            base.TurnManager_OnBattleStateChanged(state);
+        if(state == BattleState.EnemyTurn)
+            ResolveModifiersTurnEnd();
 
-        base.TurnManager_OnBattleStateChanged(state);
     }
 }

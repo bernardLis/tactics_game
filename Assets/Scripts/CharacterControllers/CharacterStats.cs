@@ -55,7 +55,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     public int currentHealth { get; private set; }
     public int currentMana { get; private set; }
 
-    // reply to interaction
+    // retaliation on interaction
     public bool isAttacker { get; private set; }
 
     // statuses
@@ -81,15 +81,26 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     protected virtual void TurnManager_OnBattleStateChanged(BattleState _state)
     {
+        foreach (Status s in statuses)
+            if (s.ShouldTrigger())
+                s.TriggerStatus();
+
+        if (TurnManager.currentTurn <= 1)
+            return;
+
+        GainMana(10);
+    }
+
+    protected void ResolveModifiersTurnEnd()
+    {
+        // modifiers
         foreach (Stat s in stats)
             s.TurnEndDecrement();
 
+        // statuses
         for (int i = statuses.Count - 1; i >= 0; i--)
         {
-            statuses[i].ResetFlag();
-
-            if (statuses[i].ShouldTrigger())
-                statuses[i].TriggerStatus();
+            statuses[i].ResolveTurnEnd();
 
             if (statuses[i].ShouldBeRemoved())
             {
@@ -97,11 +108,6 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
                 statuses.Remove(statuses[i]);
             }
         }
-
-        if (TurnManager.currentTurn <= 1)
-            return;
-
-        GainMana(10);
     }
 
     void OnDestroy()
@@ -262,7 +268,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         currentHealth -= _damage;
 
         // displaying damage UI
-        damageUI.DisplayOnCharacter(_damage.ToString(), 36, new Color(1f, 0.42f, 0.42f, 1f));
+        damageUI.DisplayOnCharacter(_damage.ToString(), 36, Helpers.GetColor("damageRed"));
 
         // shake a character;
         float duration = 0.5f;
@@ -403,7 +409,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         HandleModifier(_ability);
         HandleStatus(_ability, null);
 
-        damageUI.DisplayOnCharacter(_healthGain.ToString(), 36, new Color(0.42f, 1f, 0.42f, 1f));
+        damageUI.DisplayOnCharacter(_healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
     }
 
     public void GetPushed(Vector3 _dir, Ability _ability)

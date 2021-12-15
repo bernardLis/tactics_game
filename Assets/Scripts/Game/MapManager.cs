@@ -65,7 +65,7 @@ public class MapManager : MonoBehaviour
             "Ludwig"
         };
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             GameObject newCharacter = Instantiate(enemyTemplateGO, enemyPositions[i], Quaternion.identity);
             newCharacter.name = enemyNames[i];

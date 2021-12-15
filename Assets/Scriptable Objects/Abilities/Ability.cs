@@ -20,7 +20,7 @@ public abstract class Ability : ScriptableObject
     public int areaOfEffect; // 1 is one tile, 2 is a cross
 
     [Header("Abilities can add modifiers and statuses on interaction")]
-    public StatModifier statModifier; 
+    public StatModifier statModifier;
     public Status status;
 
     [Header("Highlight")]
@@ -52,7 +52,9 @@ public abstract class Ability : ScriptableObject
 
     public virtual async Task HighlightTargetable(GameObject _self)
     {
-        battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
+        if (characterGameObject.CompareTag("Player"))
+            battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
+
         if (range == 0)
             highlighter.HighlightSingle(_self.transform.position, highlightColor);
         else
@@ -62,7 +64,9 @@ public abstract class Ability : ScriptableObject
 
     public virtual async Task HighlightAreaOfEffect(Vector3 _middle)
     {
-        battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
+        if (characterGameObject.CompareTag("Player"))
+            battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
+            
         if (areaOfEffect == 0)
             highlighter.HighlightSingle(_middle, highlightColor);
         else

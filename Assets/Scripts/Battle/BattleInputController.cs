@@ -182,7 +182,7 @@ public class BattleInputController : MonoBehaviour
         if (!tiles.TryGetValue(tilePos, out _tile))
             return;
 
-        Vector3 pos = new Vector3(_tile.LocalPlace.x + 0.5f, _tile.LocalPlace.y + 0.5f, _tile.LocalPlace.z);
+        Vector3 pos = _tile.GetMiddleOfTile();
 
         movePointController.Move(pos);
     }

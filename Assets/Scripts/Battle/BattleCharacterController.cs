@@ -222,7 +222,7 @@ public class BattleCharacterController : MonoBehaviour
 
         // highlight
         await highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
-                                                new Color(0.53f, 0.52f, 1f, 1f));
+                                                Helpers.GetColor("movementBlue"));
         isSelectionBlocked = false;
     }
 
@@ -313,7 +313,7 @@ public class BattleCharacterController : MonoBehaviour
         // highlight movement range if character was going back
         hasCharacterGoneBack = false;
         highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
-                                    new Color(0.53f, 0.52f, 1f, 1f)).GetAwaiter();
+                                    Helpers.GetColor("movementBlue")).GetAwaiter();
 
     }
 
@@ -332,13 +332,19 @@ public class BattleCharacterController : MonoBehaviour
             return;
         isInteracting = true;
 
-
         // highlight aoe
         if (characterState == CharacterState.SelectingInteractionTarget)
         {
             characterRendererManager.Face((transform.position - selectedCharacter.transform.position).normalized);
             await selectedAbility.HighlightAreaOfEffect(transform.position);
             movePointController.UpdateDisplayInformation();
+            isInteracting = false;
+            return;
+        }
+
+        // fixes a bug where when you walked and clicked on yourself you ended your turn
+        if (selectedAbility == null)
+        {
             isInteracting = false;
             return;
         }
@@ -357,7 +363,7 @@ public class BattleCharacterController : MonoBehaviour
         // TODO: kinda sucks to be using highlighted tiles, I could calculate the affected tiles
         foreach (WorldTile t in highlightedTiles)
         {
-            Vector3 pos = new Vector3(t.LocalPlace.x + 0.5f, t.LocalPlace.y + 0.5f, transform.position.z);
+            Vector3 pos = t.GetMiddleOfTile();
 
             // check if there is an object there and try to attack it
             Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);

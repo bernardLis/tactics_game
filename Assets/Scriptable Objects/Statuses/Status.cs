@@ -30,6 +30,10 @@ public class Status : ScriptableObject
     public virtual void TriggerStatus()
     {
         damageUI.DisplayOnCharacter(displayOnCharacterText, 24, displayOnCharacterColor);
+    }
+
+    public virtual void ResolveTurnEnd()
+    {
         numberOfTurns--;
     }
 
@@ -54,14 +58,6 @@ public class Status : ScriptableObject
         // meant to be overwritten; 
     }
 
-    protected virtual bool ShouldResetFlag()
-    {
-        if (isFirstTurn)
-            return false;
-
-        return true;
-    }
-
     public virtual void ResetFlag()
     {
         // meant to be overwritten; 
@@ -73,7 +69,11 @@ public class Status : ScriptableObject
         return null;
     }
 
-    public virtual bool ShouldBeRemoved() { return numberOfTurns < 0; }
+    public virtual bool ShouldBeRemoved()
+    {
+        Debug.Log("number of turns in should be removed " + numberOfTurns);
+        return numberOfTurns <= 0;
+    }
 
     public void SetIsFirstTurn(bool _is) { isFirstTurn = _is; }
 }

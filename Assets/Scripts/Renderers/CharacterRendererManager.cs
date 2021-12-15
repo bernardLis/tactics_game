@@ -24,7 +24,7 @@ public class CharacterRendererManager : MonoBehaviour
     bool noIdleAnimation;
 
     // TODO: I am not certain if it is correctly set
-    public Vector2 faceDir { get; private set; }
+    public Vector2 faceDir; //{ get; private set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -79,6 +79,11 @@ public class CharacterRendererManager : MonoBehaviour
 
     void SetFaceDir(Vector2 _dir)
     {
+        // This is because at the beginning of the game I was making enemies face right and than 0, for them to stop walking.
+        // It was setting facedir to 0, which made attack dir calculations wrong. Now it works, but is hacky.
+        if (_dir == Vector2.zero)
+            return;
+        
         directionFromFace = _dir;
         // TODO: this is weirdness...
         float x = Mathf.FloorToInt(_dir.x);

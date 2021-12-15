@@ -253,15 +253,14 @@ public class Highlighter : MonoBehaviour
     // you can't walk on:
     // - obstacle tiles
     // - tiles that contain an obstacle object
-    bool CanPlayerWalkOnTile(WorldTile tile)
+    bool CanPlayerWalkOnTile(WorldTile _tile)
     {
         // if tile is marked as obstacle it is not walkable
-        if (tile.IsObstacle)
+        if (_tile.IsObstacle)
             return false;
 
         // creating a collider in the middle of the tile
-        Vector3 colPos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
-        Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
+        Collider2D col = Physics2D.OverlapCircle(_tile.GetMiddleOfTile(), 0.2f);
 
         if (col == null)
             return true;
@@ -283,11 +282,10 @@ public class Highlighter : MonoBehaviour
     // you can't stop on:
     // - trap tiles
     // - tiles your allies are standing on
-    bool CanPlayerStopOnTile(WorldTile tile)
+    bool CanPlayerStopOnTile(WorldTile _tile)
     {
         // creating a collider in the middle of the tile
-        Vector3 colPos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
-        Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
+        Collider2D col = Physics2D.OverlapCircle(_tile.GetMiddleOfTile(), 0.2f);
 
         // there is nothing to collide with on the tile
         if (col == null)
@@ -366,15 +364,14 @@ public class Highlighter : MonoBehaviour
     // you can't walk on:
     // - obstacle tiles
     // - tiles that contain an obstacle object
-    public bool CanEnemyWalkOnTile(WorldTile tile)
+    public bool CanEnemyWalkOnTile(WorldTile _tile)
     {
         // if tile is marked as obstacle it is not walkable
-        if (tile.IsObstacle)
+        if (_tile.IsObstacle)
             return false;
 
         // creating a collider in the middle of the tile
-        Vector3 colPos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
-        Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
+        Collider2D col = Physics2D.OverlapCircle(_tile.GetMiddleOfTile(), 0.2f);
 
         if (col == null)
             return true;
@@ -395,11 +392,10 @@ public class Highlighter : MonoBehaviour
     // this function will return false if you can't stop on the tile
     // you can't stop on:
     // - tiles your allies are standing on
-    public bool CanEnemyStopOnTile(WorldTile tile)
+    public bool CanEnemyStopOnTile(WorldTile _tile)
     {
         // creating a collider in the middle of the tile
-        Vector3 colPos = new Vector3(tile.LocalPlace.x + 0.5f, tile.LocalPlace.y + 0.5f, tile.LocalPlace.z);
-        Collider2D col = Physics2D.OverlapCircle(colPos, 0.2f);
+        Collider2D col = Physics2D.OverlapCircle(_tile.GetMiddleOfTile(), 0.2f);
 
         // there is nothing to collide with on the tile
         if (col == null)

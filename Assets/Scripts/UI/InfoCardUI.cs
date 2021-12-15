@@ -204,7 +204,6 @@ public class InfoCardUI : MonoBehaviour
     }
 
     // TODO: common to infoCardUI and characterUI
-
     void HandleStatCheck(Stat _stat, Label _label)
     {
         _label.style.color = Color.white;

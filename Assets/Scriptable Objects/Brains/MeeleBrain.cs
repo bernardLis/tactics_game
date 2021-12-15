@@ -66,10 +66,17 @@ public class MeeleBrain : Brain
 
         // attack;
         // highlight tile target char is standing on
-        highlighter.HighlightSingle(target.transform.position, enemyStats.abilities[0].highlightColor);
 
+        //highlighter.HighlightSingle(target.transform.position, enemyStats.abilities[0].highlightColor);
+        // TODO: BROKEN
         // TODO: select appropriate ability; for now it's only basic attack;
-        await enemyStats.abilities[0].TriggerAbility(target);
+        Ability selectedAbility = enemyStats.abilities[0];
+        if (enemyStats.currentMana >= 20)
+            selectedAbility = enemyStats.abilities[3]; // TODO: hardocded indexes.
+
+        await selectedAbility.HighlightAreaOfEffect(target.transform.position);
+        await Task.Delay(500);
+        await selectedAbility.TriggerAbility(target);
     }
 
     // meele wants to attack anyone from the back

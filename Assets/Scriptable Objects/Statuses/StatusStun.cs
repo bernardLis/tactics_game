@@ -36,8 +36,7 @@ public class StatusStun : Status
 
     public override void ResetFlag()
     {
-        if (ShouldResetFlag())
-            characterStats.SetIsStunned(false);
+        characterStats.SetIsStunned(false);
     }
 
     public override string GetDescription()
