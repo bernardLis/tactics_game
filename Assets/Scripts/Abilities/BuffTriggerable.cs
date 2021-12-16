@@ -17,7 +17,7 @@ public class BuffTriggerable : MonoBehaviour
         faceDirectionUI = GetComponent<FaceDirectionUI>();
     }
 
-    public async Task<bool> Buff(GameObject _target, Ability _ability)
+    public async Task<bool> Buff(GameObject _target, Ability _ability, GameObject _attacker)
     {
         if (_target == null)
             return false;
@@ -26,15 +26,10 @@ public class BuffTriggerable : MonoBehaviour
         if (!myStats.isAttacker)
         {
             // buffing self, should be able to choose what direction to face
-            if (_target == gameObject)
+            if (_target == gameObject && _attacker.CompareTag("Player"))
             {
-                Vector2 dir = await faceDirectionUI.PickDirection();
-
-                // TODO: is that correct, facedir returns vector2.zero when it's broken out of
-                if (dir == Vector2.zero)
+                if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction
                     return false;
-
-                characterRendererManager.Face(dir.normalized);
             }
 
             await characterRendererManager.SpellcastAnimation();
@@ -46,4 +41,21 @@ public class BuffTriggerable : MonoBehaviour
 
         return true;
     }
+
+    //TODO: repetition between heal and buff triggerables
+    async Task<bool> PlayerFaceDirSelection()
+    {
+        Vector2 dir = Vector2.zero;
+        if (faceDirectionUI != null)
+            dir = await faceDirectionUI.PickDirection();
+
+        // TODO: is that correct, facedir returns vector2.zero when it's broken out of
+        if (dir == Vector2.zero)
+            return false;
+
+        characterRendererManager.Face(dir.normalized);
+
+        return true;
+    }
+
 }

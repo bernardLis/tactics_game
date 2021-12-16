@@ -12,7 +12,7 @@ public class PotentialTarget
         distanceToTarget = _distanceToTarget;
     }
 
-    public List<AttackPosition> GetAttackPositions(GameObject _attacker)
+    public List<AttackPosition> GetMeeleAttackPositions(GameObject _attacker)
     {
         // This is our Dictionary of tiles
         Dictionary<Vector3, WorldTile> tiles = GameTiles.instance.tiles;

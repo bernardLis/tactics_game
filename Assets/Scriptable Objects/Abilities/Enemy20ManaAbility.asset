@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: Enemy20ManaAbility
   m_EditorClassIdentifier: 
+  Id: 
   aName: Strong enemy attack
   aDescription: 20 mana ability for enemy
   aType: 0
   weaponType: 0
   aProjectile: {fileID: 0}
-  aIcon: {fileID: 0}
-  aSound: {fileID: 0}
-  value: 0
-  manaCost: 0
+  aIcon: {fileID: 5199979006384268662, guid: f2090e7888e3f3043b1f5aeeff2e3b79, type: 3}
+  aSound: {fileID: 8300000, guid: 1d0fda77619fcb44dbe97d9fc252a92e, type: 3}
+  value: 12
+  manaCost: 20
   areaOfEffect: 0
   statModifier: {fileID: 0}
-  status: {fileID: 0}
-  range: 0
+  status: {fileID: 11400000, guid: 59041834044d6d04e8505af7bffba3d8, type: 2}
+  range: 1
   canTargetSelf: 0
   canTargetDiagonally: 0
-  highlightColor: {r: 0, g: 0, b: 0, a: 0}
+  highlightColor: {r: 1, g: 0.0603773, b: 0.71027935, a: 1}

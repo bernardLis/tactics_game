@@ -14,23 +14,21 @@ public class StatusStun : Status
         characterSelection = _self.GetComponent<CharacterSelection>();
         characterStats = _self.GetComponent<CharacterStats>();
     }
-
-
-    protected override void HandleFirstTurn()
+    public override void FirstTrigger()
     {
-        Debug.Log("handle first turn in stun");
-        Debug.Log("attacker.tag " + attacker.tag);
-        Debug.Log("characterGameObject.tag " + characterGameObject.tag);
-
-        // if you are stunned by your boy (ally) and you have not finished the turn
+        Debug.Log("in first trigger");
+        // this is when you apply stun on your mate
         if (attacker.CompareTag(characterGameObject.tag) && !characterSelection.hasFinishedTurn)
             characterSelection.FinishCharacterTurn();
-    }
 
+        // this is normal situation, when you apply stun on person from opposite team
+        base.FirstTrigger();
+    }
 
     public override void TriggerStatus()
     {
         base.TriggerStatus();
+        characterSelection.GrayOutCharacter();
         characterStats.SetIsStunned(true);
     }
 

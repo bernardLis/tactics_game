@@ -7,7 +7,7 @@ public enum Gender { MALE, FEMALE }
 
 
 [CreateAssetMenu(menuName = "Equipment/NewEquipment")]
-public class Equipment : ScriptableObject
+public class Equipment : BaseScriptableObject
 {
 	public string eName;
 	public Sprite icon;

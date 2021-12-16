@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
 public enum QuestState { INACTIVE, ACTIVE, COMPLETED, FAILED }
 
-public abstract class Quest : ScriptableObject
+public abstract class Quest : BaseScriptableObject
 {
 	public int qID;
 	public string qName;

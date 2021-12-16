@@ -1,10 +1,9 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public enum AbilityType { Attack, Heal, Move, Buff }
 
-public abstract class Ability : ScriptableObject
+public abstract class Ability : BaseScriptableObject
 {
     public string aName = "New Ability";
     public string aDescription = "New Description";
@@ -17,7 +16,8 @@ public abstract class Ability : ScriptableObject
     public AudioClip aSound;
     public int value;
     public int manaCost;
-    public int areaOfEffect; // 1 is one tile, 2 is a cross
+    [Tooltip("1 is one tile, 2 is a cross")]
+    public int areaOfEffect;
 
     [Header("Abilities can add modifiers and statuses on interaction")]
     public StatModifier statModifier;
@@ -31,7 +31,7 @@ public abstract class Ability : ScriptableObject
 
     protected AudioSource audioSource;
 
-    GameObject characterGameObject;
+    protected GameObject characterGameObject;
     protected Highlighter highlighter;
     protected BattleCharacterController battleCharacterController;
 
@@ -66,7 +66,7 @@ public abstract class Ability : ScriptableObject
     {
         if (characterGameObject.CompareTag("Player"))
             battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
-            
+
         if (areaOfEffect == 0)
             highlighter.HighlightSingle(_middle, highlightColor);
         else
@@ -81,4 +81,6 @@ public abstract class Ability : ScriptableObject
         await Task.Yield(); // just to get rid of errors;
         return true;
     }
+
+
 }

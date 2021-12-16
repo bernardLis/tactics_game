@@ -64,7 +64,7 @@ public class CharacterSelection : MonoBehaviour
         GrayOutCharacter();
     }
 
-    protected void GrayOutCharacter()
+    public void GrayOutCharacter()
     {
         foreach (SpriteRenderer rend in spriteRenderers)
             if (rend != null)

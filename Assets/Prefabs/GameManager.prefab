@@ -94,6 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc76384835e24e40b0df1bc9678f651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCharactersLeftToTakeTurn: 0
+  enemyCharactersLeftToTakeTurn: 0
 --- !u!114 &515482014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  playerCharacters: []
 --- !u!114 &515482018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myTileDatas:
   - {fileID: 11400000, guid: 5d96530fd9630554dab8e24726ef0d1f, type: 2}
-  enemyCharSO: {fileID: 11400000, guid: 39059db24e54bc947860a71d4f609cb2, type: 2}
+  meeleEnemySO: {fileID: 11400000, guid: 39059db24e54bc947860a71d4f609cb2, type: 2}
+  healerEnemySO: {fileID: 11400000, guid: 4843f2a9ac4308c4e9c82dd51ec88d48, type: 2}
   enemyTemplateGO: {fileID: 3387775229403623854, guid: b81a4c5ec70160849a703e08180495d1, type: 3}
 --- !u!114 &515482019
 MonoBehaviour:

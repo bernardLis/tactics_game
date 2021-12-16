@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038a89add6c1e5b468ff86f4f710393b, type: 3}
   m_Name: Obstacle
   m_EditorClassIdentifier: 
+  Id: 3f8892d3-7dfa-4e14-8b79-5dd6dc7f7579
   tiles:
   - {fileID: 11400000, guid: 4080fe25436de3e40b7caa892165b8a3, type: 2}
   - {fileID: 11400000, guid: c09249b435f86a54a9262fa90eb672e4, type: 2}

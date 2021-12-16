@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 3387775229403623844}
   - component: {fileID: -5146182719898333223}
   - component: {fileID: 3387775229403623841}
-  - component: {fileID: -6719876550734273804}
+  - component: {fileID: 4512964953220444060}
   - component: {fileID: 8036547555935282553}
   - component: {fileID: 3387775229403623852}
   - component: {fileID: 7748143736339006443}
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grayOutColor: {r: 0.38039216, g: 0.38039216, b: 0.38039216, a: 1}
   hasFinishedTurn: 0
---- !u!114 &-6719876550734273804
+--- !u!114 &4512964953220444060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3387775229403623854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a2f6c180614a1646bf13599aff7f96c, type: 3}
+  m_Script: {fileID: 11500000, guid: eb02dc1fe77fec14e985d9ec7b67ca15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amDead: 0

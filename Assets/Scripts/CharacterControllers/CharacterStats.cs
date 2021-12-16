@@ -153,7 +153,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         movementRange.baseValue = Mathf.Clamp(mRangeCalculation, 0, 9); // after 9 it lags unity.
 
         // TODO: startin mana is for heal testing purposes 
-        currentHealth = maxHealth.GetValue();
+        currentHealth = maxHealth.GetValue() / 2;
         currentMana = 20;
 
         // set weapon for animations & deactivate the game object
@@ -298,9 +298,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     {
         if (_ability.statModifier != null)
         {
-            foreach (Stat s in stats)
-                if (s.type == _ability.statModifier.statType)
-                    s.AddModifier(Instantiate(_ability.statModifier));
+            AddModifier(_ability);
         }
     }
 
@@ -549,12 +547,33 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     public void SetAttacker(bool _is) { isAttacker = _is; }
     public void SetIsStunned(bool _is) { isStunned = _is; }
 
+    void AddModifier(Ability _ability)
+    {
+        foreach (Stat s in stats)
+            if (s.type == _ability.statModifier.statType)
+                s.AddModifier(Instantiate(_ability.statModifier)); // stat checks if modifier is a dupe, to prevent stacking
+
+    }
+
     public void AddStatus(Status _s, GameObject _attacker)
     {
+        // statuses don't stack
+        if (IsStatusOn(_s))
+            return;
+
         var clone = Instantiate(_s);
         statuses.Add(clone);
         clone.Initialize(gameObject, _attacker);
         // status triggers right away
-        clone.TriggerStatus();
+        clone.FirstTrigger();
+    }
+
+    bool IsStatusOn(Status _s)
+    {
+        foreach (Status s in statuses)
+            if (s.id == _s.id)
+                return true;
+
+        return false;
     }
 }

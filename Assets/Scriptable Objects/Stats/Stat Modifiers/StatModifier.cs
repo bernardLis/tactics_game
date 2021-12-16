@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Stats/Modifiers/Modifier")]
-public class StatModifier : ScriptableObject
+public class StatModifier : BaseScriptableObject
 {
     public StatType statType;
     public int numberOfTurns;

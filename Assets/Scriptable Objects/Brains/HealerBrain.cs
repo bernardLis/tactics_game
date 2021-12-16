@@ -3,26 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Brain/Meele")]
-public class MeeleBrain : Brain
+[CreateAssetMenu(menuName = "Brain/Healer")]
+public class HealerBrain : Brain
 {
     GameObject tempObject;
     List<PotentialTarget> potentialTargets;
     public override void Move()
     {
-        potentialTargets = GetPotentialTargets("Player");
-        AttackPosition attackPos = GetBestAttackPosition(potentialTargets);
-        // 3. null if there are no good attack positions
+        potentialTargets = GetPotentialTargets(characterGameObject.tag); // get guys from your team
+        PotentialTarget selectedTarget = ChooseTarget(potentialTargets);
+        target = selectedTarget.gObject; // for interaction
         Vector3 destinationPos;
-        if (attackPos == null)
-        {
+        if (target == null)
             destinationPos = GetDestinationWithoutTarget(potentialTargets);
-        }
         else
-        {
-            destinationPos = attackPos.tile.GetMiddleOfTile();
-            target = attackPos.target;
-        }
+            destinationPos = GetDestinationCloserTo(selectedTarget);
 
         highlighter.ClearHighlightedTiles().GetAwaiter();
         aiLerp.speed = 6f;
@@ -44,6 +39,11 @@ public class MeeleBrain : Brain
         if (tempObject != null)
             Destroy(tempObject);
 
+        // TODO: check whether target is within range of our ability, if yes, heal him
+        // otherwise heal someone else who is in range
+        // or buff someone
+
+
         Vector2 faceDir;
         if (target == null)
             faceDir = (potentialTargets[0].gObject.transform.position - characterGameObject.transform.position).normalized;
@@ -52,45 +52,38 @@ public class MeeleBrain : Brain
 
         // face 'stronger direction'
         faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
-
         characterRendererManager.Face(faceDir);
+
+
+
         if (target == null)
             return;
 
         // attack;
         Ability selectedAbility = abilities[0]; // TODO: hardocded indexes.
-        if (enemyStats.currentMana >= 20)
-            selectedAbility = abilities[1]; // TODO: hardocded indexes.
 
         await selectedAbility.HighlightAreaOfEffect(target.transform.position);
         await Task.Delay(500);
         await selectedAbility.TriggerAbility(target);
     }
 
-    // meele wants to attack anyone from the back
-    AttackPosition GetBestAttackPosition(List<PotentialTarget> _potentialTargets)
+    PotentialTarget ChooseTarget(List<PotentialTarget> _potentialTargets)
     {
-        // TODO: does it make sense to get ALLL the tiles around ALLL the player characters and than work on that? 
-        List<AttackPosition> allAvailableAttackPositions = new();
-        foreach (PotentialTarget potentialTarget in _potentialTargets)
+        // looking for the lowest health boi who is damaged
+        int lowestHealth = int.MaxValue;
+        PotentialTarget target = null;
+        foreach (PotentialTarget t in _potentialTargets)
         {
-            List<AttackPosition> attackPositions = potentialTarget.GetMeeleAttackPositions(characterGameObject);
-            foreach (AttackPosition pos in attackPositions)
-                allAvailableAttackPositions.Add(pos);
+            CharacterStats stats = t.gObject.GetComponent<CharacterStats>();
+
+            if (stats.currentHealth < stats.maxHealth.GetValue() && stats.currentHealth < lowestHealth)
+            {
+                lowestHealth = stats.currentHealth;
+                target = t;
+            }
         }
 
-        // in the side 1, face to face 2, from the back 0 - back is most preferential
-        allAvailableAttackPositions = allAvailableAttackPositions.OrderBy(entry => entry.attackDirection).ToList();
-
-        // now I want to get the first tile that I can reach
-        foreach (AttackPosition pos in allAvailableAttackPositions)
-        {
-            if (!pos.tile.WithinRange) // kinda sucky, but it works way better than calculating path and comparing to movement range
-                continue;
-
-            return pos;
-        }
-
-        return null;
+        return target;
     }
+
 }

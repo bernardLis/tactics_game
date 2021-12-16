@@ -16,21 +16,16 @@ public class HealTriggerable : MonoBehaviour
     }
 
     // returns true if successfully healed
-    public async Task<bool> Heal(GameObject _target, Ability _ability)
+    public async Task<bool> Heal(GameObject _target, Ability _ability, GameObject _attacker)
     {
         // triggered only once if AOE
         if (!myStats.isAttacker)
         {
             // healing self, should be able to choose what direction to face
-            if (_target == gameObject)
+            if (_target == gameObject && _attacker.CompareTag("Player"))
             {
-                Vector2 dir = await faceDirectionUI.PickDirection();
-
-                // TODO: is that correct, facedir returns vector2.zero when it's broken out of
-                if (dir == Vector2.zero)
+                if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction
                     return false;
-
-                characterRendererManager.Face(dir.normalized);
             }
 
             // animation
@@ -47,4 +42,21 @@ public class HealTriggerable : MonoBehaviour
 
         return true;
     }
+
+    //TODO: repetition between heal and buff triggerables
+    async Task<bool> PlayerFaceDirSelection()
+    {
+        Vector2 dir = Vector2.zero;
+        if (faceDirectionUI != null)
+            dir = await faceDirectionUI.PickDirection();
+
+        // TODO: is that correct, facedir returns vector2.zero when it's broken out of
+        if (dir == Vector2.zero)
+            return false;
+
+        characterRendererManager.Face(dir.normalized);
+
+        return true;
+    }
+
 }

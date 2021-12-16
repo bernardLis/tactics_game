@@ -29,6 +29,10 @@ public class Stat
 
     public void AddModifier(StatModifier _modifier)
     {
+        foreach(StatModifier s in modifiers)
+            if(s.id == _modifier.id)
+                return; // prevents stacking of the same modifier
+
         modifiers.Add(_modifier);
     }
     public void RemoveModifier(StatModifier _modifier)

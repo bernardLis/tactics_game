@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 //https://www.youtube.com/watch?v=XIqtZnqutGg
 [CreateAssetMenu]
-public class MyTileData : ScriptableObject
+public class MyTileData : BaseScriptableObject
 {
 	public TileBase[] tiles;
 

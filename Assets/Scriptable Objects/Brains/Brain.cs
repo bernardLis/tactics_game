@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "Brain/Brain")]
-public class Brain : ScriptableObject
+public class Brain : BaseScriptableObject
 {
     // global
     protected Highlighter highlighter;
@@ -30,6 +30,9 @@ public class Brain : ScriptableObject
     protected CharacterRendererManager characterRendererManager;
     public GameObject target;
 
+    public Ability[] abilitiesToInstantiate;
+    protected List<Ability> abilities;
+
     public virtual void Initialize(GameObject _self)
     {
         highlighter = GameManager.instance.GetComponent<Highlighter>();
@@ -48,9 +51,17 @@ public class Brain : ScriptableObject
         destinationSetter = characterGameObject.GetComponent<AIDestinationSetter>();
 
         characterRendererManager = characterGameObject.GetComponentInChildren<CharacterRendererManager>();
+
+        // instantiate abilities
+        abilities = new();
+        foreach (Ability a in abilitiesToInstantiate)
+        {
+            var c = Instantiate(a);
+            c.Initialize(characterGameObject);
+            abilities.Add(c);
+        }
     }
 
-    // TODO: I might do it all async
     public virtual void Select()
     {
         target = null;
@@ -93,6 +104,16 @@ public class Brain : ScriptableObject
 
         potentialTargets = potentialTargets.OrderByDescending(entry => entry.distanceToTarget).ToList();
         return potentialTargets;
+    }
+
+    protected Vector3 GetDestinationWithoutTarget(List<PotentialTarget> potentialTargets)
+    {
+        Vector3 destinationPos = GetDestinationCloserTo(potentialTargets.FirstOrDefault());
+        // get a random tile if there are no good tiles on path
+        if (destinationPos == Vector3.zero)
+            destinationPos = highlighter.highlightedTiles[Random.Range(0, highlighter.highlightedTiles.Count)].GetMiddleOfTile();
+
+        return destinationPos;
     }
 
     // get destination will be different for each brain

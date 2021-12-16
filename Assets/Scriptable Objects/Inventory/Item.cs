@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-public class Item : ScriptableObject
+public class Item : BaseScriptableObject
 {
 	public string ID = Guid.NewGuid().ToString();
 	public string iName = "New Item";

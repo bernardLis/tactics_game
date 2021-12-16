@@ -22,7 +22,7 @@ public class HealAbility : Ability
             return false;
 
         // heal target if successful play sound and retrun true;
-        if (!await healTriggerable.Heal(_target, this))
+        if (!await healTriggerable.Heal(_target, this, characterGameObject))
             return false;
 
         await base.TriggerAbility(_target);

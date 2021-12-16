@@ -13,7 +13,9 @@ public class MapManager : MonoBehaviour
     Dictionary<TileBase, MyTileData> dataFromTiles;
 
     [Header("Enemy placement")]
-    public Character enemyCharSO;
+    public Character meeleEnemySO;
+    public Character healerEnemySO;
+
     public GameObject enemyTemplateGO;
 
     public static MapManager instance;
@@ -55,24 +57,23 @@ public class MapManager : MonoBehaviour
         // TODO: randomized smart enemy placement
         // for now I am going to place enemies "by hand"
         Vector3[] enemyPositions = new Vector3[3];
-        enemyPositions[0] = new Vector3(18.5f, -5.5f, 0f);
-        enemyPositions[1] = new Vector3(15.5f, -5.5f, 0f);
-        enemyPositions[2] = new Vector3(3.5f, -5.5f, 0f);
+        enemyPositions[0] = new Vector3(4.5f, -3.5f, 0f);
+        enemyPositions[1] = new Vector3(4.5f, -1.5f, 0f);
+        enemyPositions[2] = new Vector3(1.5f, -6.5f, 0f);
 
-        string[] enemyNames = new string[] {
-            "Markus",
-            "Ulf",
-            "Ludwig"
-        };
-
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 3; i++)
         {
-            GameObject newCharacter = Instantiate(enemyTemplateGO, enemyPositions[i], Quaternion.identity);
-            newCharacter.name = enemyNames[i];
-            Character instantiatedSO = Instantiate(enemyCharSO);
-            instantiatedSO.Initialize(newCharacter);
-            newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+            Character pickedChar = meeleEnemySO;
+            if (i == 1)
+                pickedChar = healerEnemySO;
 
+            GameObject newCharacter = Instantiate(enemyTemplateGO, enemyPositions[i], Quaternion.identity);
+            Character instantiatedSO = Instantiate(pickedChar);
+
+            instantiatedSO.Initialize(newCharacter);
+            newCharacter.name = instantiatedSO.characterName;
+
+            newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
 
             // face right
             CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();

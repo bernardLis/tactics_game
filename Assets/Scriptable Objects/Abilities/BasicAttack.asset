@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: BasicAttack
   m_EditorClassIdentifier: 
+  Id: 557b3926-8503-421a-9e2e-b82a6af96c49
   aName: Basic Attack
   aDescription: Damage 10
   aType: 0
@@ -23,6 +24,7 @@ MonoBehaviour:
   manaCost: 0
   areaOfEffect: 0
   statModifier: {fileID: 11400000, guid: 23a41191ad5f5f6478d7ccf5d7eb9e7f, type: 2}
+  status: {fileID: 0}
   range: 1
   canTargetSelf: 0
   canTargetDiagonally: 0

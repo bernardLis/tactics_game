@@ -3,12 +3,31 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Character/Enemy")]
 public class EnemyCharacter : Character
 {
+    string[] names = new string[10]
+    {
+        "Liam",
+        "Noah",
+        "Oliver",
+        "Elijah",
+        "William",
+        "James",
+        "Benjamin",
+        "Lucas",
+        "Henry",
+        "Alexander"
+    };
+
+    public Sprite[] portraits;
+    
     public Brain enemyBrain;
 
     public EquipmentDatabase equipmentDatabase;
 
     public override void Initialize(GameObject _obj)
     {
+        // randomized name and portrait
+        characterName = names[Random.Range(0, names.Length)];
+        portrait = portraits[Random.Range(0, portraits.Length)];
         // TODO: understand reflections and get it done in a nice loop
         // enemy needs a body
         if (body == null)
@@ -33,7 +52,7 @@ public class EnemyCharacter : Character
         if (shield == null && Random.value > 0.5)
             shield = RandomizeEq(EquipmentSlot.SHIELD);
         if (weapon == null)
-            weapon = (Weapon) RandomizeEq(EquipmentSlot.WEAPON);
+            weapon = (Weapon)RandomizeEq(EquipmentSlot.WEAPON);
 
         base.Initialize(_obj);
         var clone = Instantiate(enemyBrain);
