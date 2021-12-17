@@ -48,5 +48,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c10d0c3d65130624e89209b936de9e2f, type: 3}
   - {fileID: 21300000, guid: 6b4c65901b114044789b283cc1083832, type: 3}
   - {fileID: 21300000, guid: 2c59ce9a31dd52748a30bf53367bf85b, type: 3}
-  enemyBrain: {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
+  enemyBrain: {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
   equipmentDatabase: {fileID: 11400000, guid: ab5a334b1d10e8a4d8c321e06aa340e1, type: 2}

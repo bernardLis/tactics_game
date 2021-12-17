@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
   m_Name: Haste
   m_EditorClassIdentifier: 
+  id: ceeb705c-e94e-435e-b3da-245b7893d9f6
   aName: Haste
   aDescription: So fast!
   aType: 3
@@ -23,6 +24,7 @@ MonoBehaviour:
   manaCost: 10
   areaOfEffect: 0
   statModifier: {fileID: 11400000, guid: 3374d2ca0ca89134abc8b2188e55c8b9, type: 2}
+  status: {fileID: 0}
   range: 5
   canTargetSelf: 1
   canTargetDiagonally: 1

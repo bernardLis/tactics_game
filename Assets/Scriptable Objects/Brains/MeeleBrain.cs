@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "Brain/Meele")]
 public class MeeleBrain : Brain
 {
-    GameObject tempObject;
-    List<PotentialTarget> potentialTargets;
     public override void Move()
     {
         potentialTargets = GetPotentialTargets("Player");
         AttackPosition attackPos = GetBestAttackPosition(potentialTargets);
-        // 3. null if there are no good attack positions
+        // null if there are no good attack positions
         Vector3 destinationPos;
         if (attackPos == null)
         {
@@ -58,13 +56,11 @@ public class MeeleBrain : Brain
             return;
 
         // attack;
-        Ability selectedAbility = abilities[0]; // TODO: hardocded indexes.
+        selectedAbility = abilities[0]; // TODO: hardocded indexes.
         if (enemyStats.currentMana >= 20)
             selectedAbility = abilities[1]; // TODO: hardocded indexes.
 
-        await selectedAbility.HighlightAreaOfEffect(target.transform.position);
-        await Task.Delay(500);
-        await selectedAbility.TriggerAbility(target);
+        await base.Interact();
     }
 
     // meele wants to attack anyone from the back

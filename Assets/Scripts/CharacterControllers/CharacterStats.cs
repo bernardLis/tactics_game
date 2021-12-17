@@ -153,7 +153,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         movementRange.baseValue = Mathf.Clamp(mRangeCalculation, 0, 9); // after 9 it lags unity.
 
         // TODO: startin mana is for heal testing purposes 
-        currentHealth = maxHealth.GetValue() / 2;
+        currentHealth = maxHealth.GetValue();
         currentMana = 20;
 
         // set weapon for animations & deactivate the game object

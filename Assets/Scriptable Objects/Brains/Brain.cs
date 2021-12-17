@@ -29,9 +29,13 @@ public class Brain : BaseScriptableObject
     // interaction
     protected CharacterRendererManager characterRendererManager;
     public GameObject target;
+    protected GameObject tempObject;
+    protected List<PotentialTarget> potentialTargets;
 
     public Ability[] abilitiesToInstantiate;
     protected List<Ability> abilities;
+    protected Ability selectedAbility;
+
 
     public virtual void Initialize(GameObject _self)
     {
@@ -77,8 +81,11 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Interact()
     {
-        // meant to be overwritten
-        await Task.Yield(); // just to get rid of errors;
+        await selectedAbility.HighlightTargetable(characterGameObject);
+        await Task.Delay(300);
+        await selectedAbility.HighlightAreaOfEffect(target.transform.position);
+        await Task.Delay(500);
+        await selectedAbility.TriggerAbility(target);
     }
 
     protected List<PotentialTarget> GetPotentialTargets(string _tag)
