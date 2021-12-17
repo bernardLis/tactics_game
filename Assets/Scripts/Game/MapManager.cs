@@ -15,6 +15,7 @@ public class MapManager : MonoBehaviour
     [Header("Enemy placement")]
     public Character meeleEnemySO;
     public Character healerEnemySO;
+    public Character rangedEnemySO;
 
     public GameObject enemyTemplateGO;
 
@@ -57,15 +58,24 @@ public class MapManager : MonoBehaviour
         // TODO: randomized smart enemy placement
         // for now I am going to place enemies "by hand"
         Vector3[] enemyPositions = new Vector3[3];
+        enemyPositions[0] = new Vector3(10.5f, -4.5f, 0f);
+        enemyPositions[1] = new Vector3(21.5f, -8.5f, 0f);
+        enemyPositions[2] = new Vector3(23.5f, -4.5f, 0f);
+
+        /*
         enemyPositions[0] = new Vector3(21.5f, -3.5f, 0f);
         enemyPositions[1] = new Vector3(4.5f, -1.5f, 0f);
         enemyPositions[2] = new Vector3(3.5f, -1.5f, 0f);
-
+            */
         for (int i = 0; i < 3; i++)
         {
-            Character pickedChar = meeleEnemySO;
+            Character pickedChar = rangedEnemySO;
+            /*
+            if (i == 1)
+                pickedChar = rangedEnemySO;
             if (i == 2)
                 pickedChar = healerEnemySO;
+                */
 
             GameObject newCharacter = Instantiate(enemyTemplateGO, enemyPositions[i], Quaternion.identity);
             Character instantiatedSO = Instantiate(pickedChar);

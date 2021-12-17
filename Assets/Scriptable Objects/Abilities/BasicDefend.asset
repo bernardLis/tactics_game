@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
   m_Name: BasicDefend
   m_EditorClassIdentifier: 
+  id: 3af1dbfc-0ba4-4d76-9a93-71725ee3a391
   aName: Defend
   aDescription: Defend!
   aType: 3
@@ -23,6 +24,7 @@ MonoBehaviour:
   manaCost: 0
   areaOfEffect: 0
   statModifier: {fileID: 11400000, guid: 0f14d421b7b051f43852c804bf2f9bf8, type: 2}
+  status: {fileID: 0}
   range: 0
   canTargetSelf: 1
   canTargetDiagonally: 0

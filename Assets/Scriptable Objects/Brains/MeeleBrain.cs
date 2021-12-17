@@ -26,11 +26,7 @@ public class MeeleBrain : Brain
         aiLerp.speed = 6f;
 
         tempObject = new GameObject("Enemy Destination");
-
-        if (destinationPos != characterGameObject.transform.position)
-            tempObject.transform.position = destinationPos;
-        else
-            tempObject.transform.position = characterGameObject.transform.position;
+        tempObject.transform.position = destinationPos;
 
         highlighter.HighlightSingle(tempObject.transform.position, Helpers.GetColor("movementBlue"));
         destinationSetter.target = tempObject.transform;

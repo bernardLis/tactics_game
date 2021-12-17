@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: PoisonedArrow
   m_EditorClassIdentifier: 
+  id: 759b692e-ddbb-4c00-b5db-387f0ced1bb5
   aName: Poisoned Arrow
   aDescription: Poisons & slows target.
   aType: 0
@@ -20,7 +21,7 @@ MonoBehaviour:
   aIcon: {fileID: 21300000, guid: be3c0667496c12b48b5045904c6627f9, type: 3}
   aSound: {fileID: 8300000, guid: 1d0fda77619fcb44dbe97d9fc252a92e, type: 3}
   value: 10
-  manaCost: 5
+  manaCost: 20
   areaOfEffect: 0
   statModifier: {fileID: 11400000, guid: 23a41191ad5f5f6478d7ccf5d7eb9e7f, type: 2}
   status: {fileID: 11400000, guid: 2ac10217aea54c74894379c860cf804e, type: 2}

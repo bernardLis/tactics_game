@@ -22,11 +22,7 @@ public class HealerBrain : Brain
         aiLerp.speed = 6f;
 
         tempObject = new GameObject("Enemy Destination");
-
-        if (destinationPos != characterGameObject.transform.position)
-            tempObject.transform.position = destinationPos;
-        else
-            tempObject.transform.position = characterGameObject.transform.position;
+        tempObject.transform.position = destinationPos;
 
         highlighter.HighlightSingle(tempObject.transform.position, Helpers.GetColor("movementBlue"));
         destinationSetter.target = tempObject.transform;
@@ -50,6 +46,8 @@ public class HealerBrain : Brain
             PotentialTarget pTarget = GetWithinReachHealableTarget(potentialTargets, selectedAbility);
             if (pTarget != null)
                 target = pTarget.gObject;
+            else
+                target = null;
         }
 
         // there is no within reach healable targets
@@ -106,6 +104,7 @@ public class HealerBrain : Brain
         foreach (PotentialTarget t in _potentialTargets)
         {
             CharacterStats stats = t.gObject.GetComponent<CharacterStats>();
+
             if (stats.currentHealth < stats.maxHealth.GetValue()
                 && Helpers.GetManhattanDistance(characterGameObject.transform.position, t.gObject.transform.position) < _selectedAbility.range
                 && stats.currentHealth < lowestHealth)
@@ -119,6 +118,7 @@ public class HealerBrain : Brain
 
     List<PotentialTarget> GetWithinReachBuffableTargets(List<PotentialTarget> _potentialTargets, Ability _selectedAbility)
     {
+
         List<PotentialTarget> buffableTargets = new();
         foreach (PotentialTarget t in _potentialTargets)
             if (Helpers.GetManhattanDistance(characterGameObject.transform.position, t.gObject.transform.position) < _selectedAbility.range)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: Enemy20ManaAbility
   m_EditorClassIdentifier: 
-  Id: 
+  id: 65122084-94ec-431b-8b65-478afe3fb71f
   aName: Strong enemy attack
   aDescription: 20 mana ability for enemy
   aType: 0

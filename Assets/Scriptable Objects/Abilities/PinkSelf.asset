@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: PinkSelf
   m_EditorClassIdentifier: 
+  id: 54f995c2-c0d5-4b42-acd1-c26636741dea
   aName: Pink Self
   aDescription: Damage 22
   aType: 0
@@ -22,6 +23,8 @@ MonoBehaviour:
   value: 22
   manaCost: 7
   areaOfEffect: 0
+  statModifier: {fileID: 0}
+  status: {fileID: 0}
   range: 1
   canTargetSelf: 1
   canTargetDiagonally: 0
