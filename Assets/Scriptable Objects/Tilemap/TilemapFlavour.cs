@@ -19,9 +19,6 @@ public class TilemapFlavour : BaseScriptableObject
     public TileBase cornerSW;
  
     // TODO: temp, dunno how to deal with this...
-    public GameObject ship;
-
-
-
+    public TilemapObject[] objects;
 
 }

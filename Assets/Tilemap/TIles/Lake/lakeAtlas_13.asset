@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: lakeAtlas_13
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 370903943, guid: 29125d0b4f082124985ed5550150ad7c, type: 3}
+  m_Sprite: {fileID: 1999537445, guid: 9fbb11889f828c845954b32e7af2d9fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

@@ -17,22 +17,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 79b4bf84d76ac3c4eb41ddaf83485676, type: 2}
   - {fileID: 11400000, guid: 16720f29d9421f742906aa62d49cf9ef, type: 2}
   - {fileID: 11400000, guid: 97ce9580cf8fae74695a0729b915abd0, type: 2}
-  - {fileID: 11400000, guid: 182c4feef8ad3ca4caaedb9ddab154f0, type: 2}
-  - {fileID: 11400000, guid: 9757d1881fde2094fa72d31fbf1a22c0, type: 2}
-  - {fileID: 11400000, guid: beb4d28dc9b341943be3ad53afd28115, type: 2}
+  - {fileID: 11400000, guid: 77ec68bbf5e0c934f8054300a7fe627a, type: 2}
+  - {fileID: 11400000, guid: 31806d91a62ccdb4594aeee3d55bae99, type: 2}
+  - {fileID: 11400000, guid: 759e13ee166606b46b8b3e43d86a61d4, type: 2}
   floorAdditions:
-  - {fileID: 11400000, guid: e9f339d9cfd9cdd4d8b3c0ad108b654e, type: 2}
-  - {fileID: 11400000, guid: 2c0c8667be49f344bbc5b89b688c80c2, type: 2}
   - {fileID: 11400000, guid: 793e915cdd59b104da9ab6e3f582320d, type: 2}
-  - {fileID: 11400000, guid: d57acc8623381e945bab0fe188cd5b5e, type: 2}
-  - {fileID: 11400000, guid: e5bd08fcef5a28849b1f97a5eb6bfffa, type: 2}
-  outerTile: {fileID: 11400000, guid: a335f9992af5deb43930fd5053df10e4, type: 2}
-  edgeN: {fileID: 11400000, guid: f1cbe07569a58714ea21ff100be4cd0d, type: 2}
-  edgeS: {fileID: 11400000, guid: 31806d91a62ccdb4594aeee3d55bae99, type: 2}
-  edgeE: {fileID: 11400000, guid: 5a0f7f1312851a348ab3293427b47452, type: 2}
-  edgeW: {fileID: 11400000, guid: aea5eb1bcad6f8843b98ccbcd0164a14, type: 2}
-  cornerNE: {fileID: 11400000, guid: 90c431148418fc14293f79ffd6287f7d, type: 2}
-  cornerNW: {fileID: 11400000, guid: 866a397eecc20bd40ad7487ab40f5cf8, type: 2}
-  cornerSE: {fileID: 11400000, guid: 77ec68bbf5e0c934f8054300a7fe627a, type: 2}
-  cornerSW: {fileID: 11400000, guid: 759e13ee166606b46b8b3e43d86a61d4, type: 2}
-  ship: {fileID: 7947444687951095306, guid: f18dbb15ded7da3468d74957289fe0d9, type: 3}
+  - {fileID: 11400000, guid: 2c0c8667be49f344bbc5b89b688c80c2, type: 2}
+  - {fileID: 11400000, guid: e9f339d9cfd9cdd4d8b3c0ad108b654e, type: 2}
+  - {fileID: 11400000, guid: 866a397eecc20bd40ad7487ab40f5cf8, type: 2}
+  - {fileID: 11400000, guid: f1cbe07569a58714ea21ff100be4cd0d, type: 2}
+  outerTile: {fileID: 11400000, guid: 182c4feef8ad3ca4caaedb9ddab154f0, type: 2}
+  edgeN: {fileID: 11400000, guid: 5a0f7f1312851a348ab3293427b47452, type: 2}
+  edgeS: {fileID: 11400000, guid: 34379366cf76d58499bfc867c5af3a3a, type: 2}
+  edgeE: {fileID: 11400000, guid: ebadf828c761aba49ac5b9a3387be169, type: 2}
+  edgeW: {fileID: 11400000, guid: 9757d1881fde2094fa72d31fbf1a22c0, type: 2}
+  cornerNE: {fileID: 11400000, guid: 61825e07daa937244b6043f7118d175d, type: 2}
+  cornerNW: {fileID: 11400000, guid: b7552a805206aa542a10a7c80a581e82, type: 2}
+  cornerSE: {fileID: 11400000, guid: c48a794fbebc6794baa3514cfedd9e20, type: 2}
+  cornerSW: {fileID: 11400000, guid: 90c431148418fc14293f79ffd6287f7d, type: 2}
+  objects:
+  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}

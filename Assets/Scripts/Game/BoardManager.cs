@@ -20,8 +20,10 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public int columns = 10;
-    public int rows = 10;
+    public Transform envObjects;
+
+    public int mapSizeX = 10;
+    public int mapSizeY = 10;
 
     public Tilemap backgroundTilemap;
     public Tilemap middlegroundTilemap;
@@ -29,9 +31,12 @@ public class BoardManager : MonoBehaviour
 
     public TilemapFlavour[] tilemapFlavours;
 
+    // TODO: this could be derived from map size
     public Count floorAdditionsCount = new Count(3, 7);
     public Count stoneCount = new Count(2, 5);
     public Count trapCount = new Count(1, 2);
+
+    // TODO: this
     public Count enemyCount = new Count(1, 3);
 
     public GameObject stone;
@@ -40,59 +45,69 @@ public class BoardManager : MonoBehaviour
     public Character[] enemyCharacters;
     public GameObject enemyGO;
 
-
-    public Transform boardHolder;
     List<Vector3> gridPositions = new();
+
+    void ClearTilemaps()
+    {
+        backgroundTilemap.ClearAllTiles();
+        middlegroundTilemap.ClearAllTiles();
+        foregroundTilemap.ClearAllTiles();
+    }
 
     void InitaliseList()
     {
         gridPositions.Clear();
 
-        for (int x = 1; x < columns - 1; x++)
-        {
-            for (int y = 1; y < rows - 1; y++) // -1 to leave outer ring of tiles free 
-            {
+        for (int x = 1; x < mapSizeX - 1; x++)
+            for (int y = 1; y < mapSizeY - 1; y++) // -1 to leave outer ring of tiles free 
                 gridPositions.Add(new Vector3(x, y, 0f));
-            }
-        }
     }
 
-    void BoardSetup()
+    void BoardSetup(TilemapFlavour _flav)
     {
-        // TODO: choose map flavour
-        TilemapFlavour flav = tilemapFlavours[0];
-        TileBase[] floorTiles = flav.floorTiles;
+        TileBase[] floorTiles = _flav.floorTiles;
 
-        for (int x = -1; x < columns + 1; x++)
+        for (int x = -1; x < mapSizeX + 1; x++)
         {
-            for (int y = -1; y < rows + 1; y++) // +-1 to create an edge;
+            for (int y = -1; y < mapSizeY + 1; y++) // +-1 to create an edge;
             {
                 backgroundTilemap.SetTile(new Vector3Int(x, y), floorTiles[Random.Range(0, floorTiles.Length)]);
 
                 // tiles are overwritten in the process
 
                 // edge
-                if(x == -1)
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), flav.edgeW);
-                if(x == columns)
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), flav.edgeE);
-                if(y == -1)
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), flav.edgeS);
-                if(y == rows)
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), flav.edgeN);
+                if (x == -1)
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.edgeW);
+                if (x == mapSizeX)
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.edgeE);
+                if (y == -1)
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.edgeS);
+                if (y == mapSizeY)
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.edgeN);
 
                 // corners
                 if (x == -1 && y == -1)
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), flav.cornerSE);
-                if (x == columns && y == -1)
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), flav.cornerNE);
-                if (x == -1 && y == rows)
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), flav.cornerSW);
-                if (x == columns && y == rows)
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), flav.cornerNW);
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.cornerSE);
+                if (x == mapSizeX && y == -1)
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.cornerSW);
+                if (x == -1 && y == mapSizeY)
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.cornerNW);
+                if (x == mapSizeX && y == mapSizeY)
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.cornerNE);
             }
         }
+    }
 
+    void OuterSetup(TilemapFlavour _flav)
+    {
+        int outerX = mapSizeX * 3;
+        int outerY = mapSizeY * 3;
+        outerX = Mathf.Clamp(outerX, 30, 10000);
+        outerY = Mathf.Clamp(outerY, 30, 10000);
+
+        for (int x = -outerX; x < outerX; x++)
+            for (int y = -outerY; y < outerY; y++)
+                backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.outerTile);
     }
 
     Vector3 GetRandomPosition()
@@ -103,6 +118,11 @@ public class BoardManager : MonoBehaviour
 
         return randomPosition;
     }
+    void ClearObjects()
+    {
+        foreach (Transform t in envObjects)
+            DestroyImmediate(t.gameObject); // TODO: use Destory instead, this is for editor
+    }
 
     void LayoutObjectAtRandom(GameObject obj, int minimum, int maximum)
     {
@@ -110,8 +130,21 @@ public class BoardManager : MonoBehaviour
         for (int i = 0; i < objectCount; i++)
         {
             Vector3 randomPosiiton = GetRandomPosition();
-            Instantiate(obj, new Vector3(randomPosiiton.x + 0.5f, randomPosiiton.y + 0.5f, randomPosiiton.z), Quaternion.identity);
+            GameObject ob = Instantiate(obj, new Vector3(randomPosiiton.x + 0.5f, randomPosiiton.y + 0.5f, randomPosiiton.z), Quaternion.identity);
+            ob.transform.parent = envObjects;
         }
+    }
+    void LayoutFloorAdditions(TilemapFlavour _flav, int minimum, int maximum)
+    {
+        TileBase[] tiles = _flav.floorAdditions;
+        int objectCount = Random.Range(minimum, maximum + 1);
+        for (int i = 0; i < objectCount; i++)
+        {
+            Vector3 randomPosiiton = GetRandomPosition();
+            middlegroundTilemap.SetTile(new Vector3Int((int)randomPosiiton.x, (int)randomPosiiton.y),
+                             tiles[Random.Range(0, tiles.Length)]);
+        }
+
     }
 
     void SpawnEnemies(int minimum, int maximum)
@@ -134,14 +167,42 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    void PlaceSpecialObject(TilemapFlavour _flav)
+    {
+        // TODO: this should be way smarter
+        TilemapObject ob = _flav.objects[0];
+
+        // create a game object with sprite renderer compotenent and set correct layer
+        GameObject n = new GameObject(ob.oName);
+        n.transform.parent = envObjects;
+
+        float y = mapSizeY + ob.size.y;
+        float x = mapSizeX / 2;
+        n.transform.position = new Vector3(x, y, 0f);
+
+        SpriteRenderer sr = n.AddComponent<SpriteRenderer>();
+        sr.sortingLayerName = "Foreground";
+        sr.sortingOrder = 1;
+        sr.sprite = ob.sprite;
+    }
+
+
     [ContextMenu("SetupScene")]
     public void SetupScene()
     {
-        BoardSetup();
+        // TODO: choose map flavour
+        TilemapFlavour flav = tilemapFlavours[0];
+        ClearTilemaps();
+        OuterSetup(flav);
+        BoardSetup(flav);
         InitaliseList();
+        ClearObjects();
         LayoutObjectAtRandom(stone, stoneCount.minimum, stoneCount.maximum);
         LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
-        //SpawnEnemies(enemyCount.minimum, enemyCount.maximum);
+        LayoutFloorAdditions(flav, floorAdditionsCount.minimum, floorAdditionsCount.maximum);
+
+        // TODO: this should be way smarter
+        PlaceSpecialObject(flav);
 
         // TODO: spawn player chars / set-up player spawn positions;
     }
