@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
+using DG.Tweening;
 
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 public class BoardManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class BoardManager : MonoBehaviour
             maximum = max;
         }
     }
+
+    public int seed = 10;
 
     public Transform envObjects;
 
@@ -113,8 +116,12 @@ public class BoardManager : MonoBehaviour
     Vector3 GetRandomPosition()
     {
         int randomIndex = Random.Range(0, gridPositions.Count);
+        Debug.Log("randomIndex: " + randomIndex);
+
         Vector3 randomPosition = gridPositions[randomIndex];
+
         gridPositions.RemoveAt(randomIndex); // only one thing can occupy a position
+        Debug.Log("randomPosition: " + randomPosition);
 
         return randomPosition;
     }
@@ -129,6 +136,9 @@ public class BoardManager : MonoBehaviour
         int objectCount = Random.Range(minimum, maximum + 1);
         for (int i = 0; i < objectCount; i++)
         {
+            if (gridPositions.Count <= 0)
+                return;
+
             Vector3 randomPosiiton = GetRandomPosition();
             GameObject ob = Instantiate(obj, new Vector3(randomPosiiton.x + 0.5f, randomPosiiton.y + 0.5f, randomPosiiton.z), Quaternion.identity);
             ob.transform.parent = envObjects;
@@ -140,6 +150,9 @@ public class BoardManager : MonoBehaviour
         int objectCount = Random.Range(minimum, maximum + 1);
         for (int i = 0; i < objectCount; i++)
         {
+            if (gridPositions.Count <= 0)
+                return;
+
             Vector3 randomPosiiton = GetRandomPosition();
             middlegroundTilemap.SetTile(new Vector3Int((int)randomPosiiton.x, (int)randomPosiiton.y),
                              tiles[Random.Range(0, tiles.Length)]);
@@ -153,7 +166,7 @@ public class BoardManager : MonoBehaviour
         for (int i = 0; i < objectCount; i++)
         {
             Character instantiatedSO = Instantiate(enemyCharacters[Random.Range(0, enemyCharacters.Length)]);
-            GameObject newCharacter = Instantiate(enemyGO, GetRandomPosition(), Quaternion.identity);
+            GameObject newCharacter = Instantiate(enemyGO, GetRandomPosition(), Quaternion.identity); // TODO: get random posiiton is wrong here
 
             instantiatedSO.Initialize(newCharacter);
             newCharacter.name = instantiatedSO.characterName;
@@ -170,7 +183,7 @@ public class BoardManager : MonoBehaviour
     void PlaceSpecialObject(TilemapFlavour _flav)
     {
         // TODO: this should be way smarter
-        TilemapObject ob = _flav.objects[0];
+        TilemapObject ob = _flav.objects[Random.Range(0, _flav.objects.Length)];
 
         // create a game object with sprite renderer compotenent and set correct layer
         GameObject n = new GameObject(ob.oName);
@@ -180,18 +193,22 @@ public class BoardManager : MonoBehaviour
         float x = mapSizeX / 2;
         n.transform.position = new Vector3(x, y, 0f);
 
+        n.transform.DOPunchPosition(Vector3.up*0.5f, 2f, 0, 1f, false).SetLoops(-1, LoopType.Yoyo); // TODO: cool! 
+
         SpriteRenderer sr = n.AddComponent<SpriteRenderer>();
         sr.sortingLayerName = "Foreground";
         sr.sortingOrder = 1;
         sr.sprite = ob.sprite;
     }
 
-
     [ContextMenu("SetupScene")]
     public void SetupScene()
     {
+        Random.InitState(seed);
+
         // TODO: choose map flavour
-        TilemapFlavour flav = tilemapFlavours[0];
+        TilemapFlavour flav = tilemapFlavours[Random.Range(0, tilemapFlavours.Length)];
+
         ClearTilemaps();
         OuterSetup(flav);
         BoardSetup(flav);
