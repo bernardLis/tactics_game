@@ -26,7 +26,7 @@ public class Stone : MonoBehaviour, IPushable<Vector3, Ability>, IUITextDisplaya
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.sprite = stoneSprites[Random.Range(0, stoneSprites.Count)];
 
-        gameManager.SnapToGrid(transform);
+//TODO:        gameManager.SnapToGrid(transform);
     }
 
     public void GetPushed(Vector3 _dir, Ability _ability)

@@ -18,7 +18,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
     void Start()
     {
         gameManager = GameManager.instance;
-        gameManager.SnapToGrid(transform);
+//TODO:        gameManager.SnapToGrid(transform);
     }
 
     public void OnTriggerEnter2D(Collider2D col)

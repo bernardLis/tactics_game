@@ -28,7 +28,7 @@ MonoBehaviour:
   helmet: {fileID: 0}
   legs: {fileID: 0}
   torso: {fileID: 0}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
   basicAbilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
@@ -46,5 +46,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c10d0c3d65130624e89209b936de9e2f, type: 3}
   - {fileID: 21300000, guid: 6b4c65901b114044789b283cc1083832, type: 3}
   - {fileID: 21300000, guid: 2c59ce9a31dd52748a30bf53367bf85b, type: 3}
-  enemyBrain: {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
+  enemyBrain: {fileID: 11400000, guid: 8bc22a1c29683204e9f24870b11baac8, type: 2}
   equipmentDatabase: {fileID: 11400000, guid: ab5a334b1d10e8a4d8c321e06aa340e1, type: 2}
