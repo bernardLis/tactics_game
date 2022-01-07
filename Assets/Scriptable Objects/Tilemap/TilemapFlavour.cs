@@ -7,7 +7,8 @@ public class TilemapFlavour : BaseScriptableObject
 {
     public TileBase[] floorTiles;
     public TileBase[] floorAdditions;
-    public TileBase outerTile;
+    public TileBase[] outerTiles;
+
     public TileBase edgeN;
     public TileBase edgeS;
     public TileBase edgeE;

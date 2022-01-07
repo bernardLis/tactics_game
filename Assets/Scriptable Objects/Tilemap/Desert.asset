@@ -38,7 +38,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0efeec264ab582b48a729eac4f5bd181, type: 2}
   - {fileID: 11400000, guid: 0a6e7b042d67c2c408dc14bb50580787, type: 2}
   - {fileID: 11400000, guid: 354ad62c608133c4c9a7cb8ad8ff0445, type: 2}
-  outerTile: {fileID: 11400000, guid: abbef812cd0cab2468727c937eb7f1f7, type: 2}
+  outerTiles:
+  - {fileID: 11400000, guid: abbef812cd0cab2468727c937eb7f1f7, type: 2}
   edgeN: {fileID: 11400000, guid: 7ddf49ce18043b94cb05089c3320d51b, type: 2}
   edgeS: {fileID: 11400000, guid: 6e809c97c655e0a4e8958bf5b3501477, type: 2}
   edgeE: {fileID: 11400000, guid: 75ed4b8f04476c345a1e19868743c9de, type: 2}

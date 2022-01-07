@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f3178798064e043b4ca8d0620801a8, type: 3}
+  m_Name: Lava
+  m_EditorClassIdentifier: 
+  id: 46d2c9e1-cbd8-4ab7-89e4-509db3889604
+  floorTiles:
+  - {fileID: 11400000, guid: 9a4734f99812b6b4babbb69e471da50f, type: 2}
+  - {fileID: 11400000, guid: 6963ef22864885e4e848172cd59fb522, type: 2}
+  - {fileID: 11400000, guid: d5ef6b2c8edab56458a77b9553b16e10, type: 2}
+  - {fileID: 11400000, guid: 5e211d65a97092b4cb65e8df4fa00079, type: 2}
+  - {fileID: 11400000, guid: 0bcfa7698a27ade42aac7dc927ad479d, type: 2}
+  - {fileID: 11400000, guid: 59b7762c6afd875459e12bb0e9752f48, type: 2}
+  floorAdditions:
+  - {fileID: 11400000, guid: 8aa198c87860ebd4789c390f82bb78c9, type: 2}
+  - {fileID: 11400000, guid: 0ddde9504f3b7a8498c82866d643909b, type: 2}
+  - {fileID: 11400000, guid: 48ac32f3d3f49fe42aabeea6e15f5ed1, type: 2}
+  - {fileID: 11400000, guid: 32011bf82fb0ef44fbf45f05eac08cfd, type: 2}
+  - {fileID: 11400000, guid: c98fef33f961a314399949dc2f89c6ab, type: 2}
+  - {fileID: 11400000, guid: 454cd7a1487de0743b26744cbe2ee8e9, type: 2}
+  outerTiles:
+  - {fileID: 11400000, guid: 7f15f1374bfbdc345a2702a7b7915afd, type: 2}
+  - {fileID: 11400000, guid: 0b25ebd4b286b2a44a26e99a73f58d61, type: 2}
+  - {fileID: 11400000, guid: 587e509a680a6d3418336080f86699db, type: 2}
+  - {fileID: 11400000, guid: be1fdd81d40d9454ba510949ccb28d43, type: 2}
+  edgeN: {fileID: 11400000, guid: 1e70be9f04c268b46a41b3339288da21, type: 2}
+  edgeS: {fileID: 11400000, guid: 32ff021de4dea91479e006917ef29c7e, type: 2}
+  edgeE: {fileID: 11400000, guid: 9b8333f2b5333524789650ba2e04431c, type: 2}
+  edgeW: {fileID: 11400000, guid: 8184e02591a8960408b0a9fd796b4535, type: 2}
+  cornerNE: {fileID: 11400000, guid: 3b9aa78ad9b3c6b49b28e9db94b25da7, type: 2}
+  cornerNW: {fileID: 11400000, guid: c357b85bc55d8da47ae3e7661109faa8, type: 2}
+  cornerSE: {fileID: 11400000, guid: 430748bf0e1485a42bd2cd69d9a857da, type: 2}
+  cornerSW: {fileID: 11400000, guid: 596bd23449c77e34fab248f0491d7183, type: 2}
+  objects:
+  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
+  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
+  - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}

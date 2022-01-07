@@ -108,21 +108,18 @@ public class BoardManager : MonoBehaviour
         outerX = Mathf.Clamp(outerX, 30, 10000);
         outerY = Mathf.Clamp(outerY, 30, 10000);
 
+        TileBase[] tiles = _flav.outerTiles;
+
         for (int x = -outerX; x < outerX; x++)
             for (int y = -outerY; y < outerY; y++)
-                backgroundTilemap.SetTile(new Vector3Int(x, y), _flav.outerTile);
+                backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
     }
 
     Vector3 GetRandomPosition()
     {
         int randomIndex = Random.Range(0, gridPositions.Count);
-        Debug.Log("randomIndex: " + randomIndex);
-
         Vector3 randomPosition = gridPositions[randomIndex];
-
         gridPositions.RemoveAt(randomIndex); // only one thing can occupy a position
-        Debug.Log("randomPosition: " + randomPosition);
-
         return randomPosition;
     }
     void ClearObjects()
