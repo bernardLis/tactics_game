@@ -9,16 +9,24 @@ public class TilemapFlavour : BaseScriptableObject
     public TileBase[] floorAdditions;
     public TileBase[] outerTiles;
 
+    [Header("Edge")]
     public TileBase edgeN;
     public TileBase edgeS;
     public TileBase edgeE;
     public TileBase edgeW;
- 
+
+    [Header("Corner")]
     public TileBase cornerNE;
     public TileBase cornerNW;
     public TileBase cornerSE;
     public TileBase cornerSW;
- 
+
+    [Header("Inland Corner")]
+    public TileBase inlandCornerNE;
+    public TileBase inlandCornerNW;
+    public TileBase inlandCornerSE;
+    public TileBase inlandCornerSW;
+
     // TODO: temp, dunno how to deal with this...
     public TilemapObject[] objects;
 

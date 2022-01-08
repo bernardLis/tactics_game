@@ -36,6 +36,10 @@ MonoBehaviour:
   cornerNW: {fileID: 11400000, guid: b7552a805206aa542a10a7c80a581e82, type: 2}
   cornerSE: {fileID: 11400000, guid: c48a794fbebc6794baa3514cfedd9e20, type: 2}
   cornerSW: {fileID: 11400000, guid: 90c431148418fc14293f79ffd6287f7d, type: 2}
+  inlandCornerNE: {fileID: 11400000, guid: 84a91fcfde2d1cc49a056195d80cd7c8, type: 2}
+  inlandCornerNW: {fileID: 11400000, guid: 37c5215c5d22ed84a9c8e80220b47f33, type: 2}
+  inlandCornerSE: {fileID: 11400000, guid: beb4d28dc9b341943be3ad53afd28115, type: 2}
+  inlandCornerSW: {fileID: 11400000, guid: a335f9992af5deb43930fd5053df10e4, type: 2}
   objects:
   - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
   - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
