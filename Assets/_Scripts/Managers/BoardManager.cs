@@ -198,15 +198,86 @@ public class BoardManager : MonoBehaviour
         sr.sprite = ob.sprite;
     }
 
+    // TODO: is there a way to 
     void PlaceRiver(TilemapFlavour _flav)
     {
+        // TODO: is there a way to write one function for both rivers?
+        if (Random.Range(0, 2) == 0)
+            PlaceVerticalRiver(_flav);
+        else
+            PlaceHorizontalRiver(_flav);
+            
+    }
+    void PlaceVerticalRiver(TilemapFlavour _flav)
+    {
         // river
-        TileBase[] outerTiles = _flav.outerTiles;
-        int middleOfMap = Mathf.RoundToInt(mapSizeY * 0.5f); // river is in the middle of the map
+        int middleOfMap = Mathf.RoundToInt(mapSizeX * 0.5f);
+        int riverWidth = Random.Range(1, mapSizeX / 5);
+        int xMin = middleOfMap - riverWidth;
+        int xMax = middleOfMap + riverWidth;
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = -1; y < mapSizeY + 1; y++) // -+1 to cover the edges
+            {
+                ClearTile(new Vector2Int(x, y));
 
-        middleOfMap = Mathf.RoundToInt(mapSizeX * 0.5f);
+                TileBase selectedTile = _flav.outerTiles[Random.Range(0, _flav.outerTiles.Length)];
 
-        int riverWidth = Random.Range(1, 3);
+                // edges
+                if (x == xMin)
+                    selectedTile = _flav.edgeE;
+                if (x == xMax)
+                    selectedTile = _flav.edgeW;
+                // corners
+                if (x == xMin && y == -1)
+                    selectedTile = _flav.cornerSW;
+                if (x == xMin && y == mapSizeY)
+                    selectedTile = _flav.cornerNE;
+                if (x == xMax && y == -1)
+                    selectedTile = _flav.cornerSE;
+                if (x == xMax && y == mapSizeY)
+                    selectedTile = _flav.cornerNW;
+
+                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
+            }
+        }
+
+        // bridge
+        int bridgeWidth = Random.Range(1, 4);
+        int bridgeY = Random.Range(1, mapSizeY - bridgeWidth - 1); // so the bridge can fit
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = bridgeY - 1; y <= bridgeY + bridgeWidth; y++) // +-1 for edges
+            {
+                // middle tiles are normal edge tiles are edges corner tile are corners - wow. smart
+                TileBase selectedTile = _flav.floorTiles[Random.Range(0, _flav.floorTiles.Length)];
+                // edges
+                if (y == bridgeY - 1)
+                    selectedTile = _flav.edgeS;
+                if (y == bridgeY + bridgeWidth)
+                    selectedTile = _flav.edgeN;
+
+                // corners
+                if (y == bridgeY - 1 && x == xMin)
+                    selectedTile = _flav.inlandCornerNE;
+                if (y == bridgeY - 1 && x == xMax)
+                    selectedTile = _flav.inlandCornerNW;
+                if (y == bridgeY + bridgeWidth && x == xMin)
+                    selectedTile = _flav.inlandCornerSE;
+                if (y == bridgeY + bridgeWidth && x == xMax)
+                    selectedTile = _flav.inlandCornerSW;
+
+                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
+            }
+        }
+
+    }
+
+    void PlaceHorizontalRiver(TilemapFlavour _flav)
+    {
+        // river
+        int middleOfMap = Mathf.RoundToInt(mapSizeY * 0.5f);
+        int riverWidth = Random.Range(1, mapSizeY / 5);
         int yMin = middleOfMap - riverWidth;
         int yMax = middleOfMap + riverWidth;
         for (int y = yMin; y <= yMax; y++)
@@ -215,7 +286,7 @@ public class BoardManager : MonoBehaviour
             {
                 ClearTile(new Vector2Int(x, y));
 
-                TileBase selectedTile = outerTiles[Random.Range(0, outerTiles.Length)];
+                TileBase selectedTile = _flav.outerTiles[Random.Range(0, _flav.outerTiles.Length)];
 
                 // edges
                 if (y == yMin)
@@ -264,6 +335,7 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
+
 
     // clears tile from objects and floor additions on middle ground
     void ClearTile(Vector2Int _pos)
