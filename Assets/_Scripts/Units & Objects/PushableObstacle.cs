@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stone : MonoBehaviour, IPushable<Vector3, Ability>, IUITextDisplayable
+public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDisplayable
 {
     // global
     GameManager gameManager;
-
-    public List<Sprite> stoneSprites;
-    SpriteRenderer spriteRenderer;
 
     // push
     Vector3 finalPos;
@@ -22,11 +19,6 @@ public class Stone : MonoBehaviour, IPushable<Vector3, Ability>, IUITextDisplaya
     void Start()
     {
         gameManager = GameManager.instance;
-        // TODO: stones are going to be created by map maker but for now, just for fun.
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.sprite = stoneSprites[Random.Range(0, stoneSprites.Count)];
-
-//TODO:        gameManager.SnapToGrid(transform);
     }
 
     public void GetPushed(Vector3 _dir, Ability _ability)

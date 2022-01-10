@@ -46,7 +46,10 @@ MonoBehaviour:
   inlandCornerNW: {fileID: 11400000, guid: 374e2ae62714a7b408dbcd227b08f565, type: 2}
   inlandCornerSE: {fileID: 11400000, guid: 8523d372bcf9c2545a950dfd5c62b0b9, type: 2}
   inlandCornerSW: {fileID: 11400000, guid: 47c283ea8b887dc44883bb1ac44f5527, type: 2}
-  objects:
-  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: 544c53a97b04a29428a574d43c828939, type: 2}
+  - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
+  outerObjects:
   - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
   - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
+  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}

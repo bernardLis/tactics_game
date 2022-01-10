@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7512957698282176493}
   - component: {fileID: 7512957698282176491}
-  - component: {fileID: 6071374170014707723}
+  - component: {fileID: 7716697212794855699}
   m_Layer: 3
-  m_Name: Stone
+  m_Name: Obstacle
   m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6071374170014707723
+--- !u!114 &7716697212794855699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,12 +65,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7512957698282176492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c031f926b01d2749b556862f0229f46, type: 3}
+  m_Script: {fileID: 11500000, guid: 20871fdd860b2554288fc3ed52b5e08b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoneSprites:
-  - {fileID: -3827938194557775324, guid: 2b90151a94ed5504784600a9c93dae5a, type: 3}
-  - {fileID: 4560169676936920773, guid: 2b90151a94ed5504784600a9c93dae5a, type: 3}
 --- !u!1 &7512957699131220223
 GameObject:
   m_ObjectHideFlags: 0

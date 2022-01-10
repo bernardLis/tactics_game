@@ -10,4 +10,5 @@ public class TilemapObject : BaseScriptableObject
     public Vector2 size;
     public TileMapObjectType objectType;
     public Sprite sprite;
+    public bool pushable;
 }

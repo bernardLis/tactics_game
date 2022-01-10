@@ -27,7 +27,8 @@ public class TilemapFlavour : BaseScriptableObject
     public TileBase inlandCornerSE;
     public TileBase inlandCornerSW;
 
+    public TilemapObject[] obstacles;
     // TODO: temp, dunno how to deal with this...
-    public TilemapObject[] objects;
+    public TilemapObject[] outerObjects;
 
 }

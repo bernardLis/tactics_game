@@ -25,8 +25,8 @@ public class BoardManager : MonoBehaviour
 
     public Transform envObjects;
 
-    public int mapSizeX = 10;
-    public int mapSizeY = 10;
+    int mapSizeX = 20;
+    int mapSizeY = 20;
 
     public Tilemap backgroundTilemap;
     public Tilemap middlegroundTilemap;
@@ -45,7 +45,8 @@ public class BoardManager : MonoBehaviour
     // TODO: this
     public Count enemyCount = new Count(1, 3);
 
-    public GameObject stone;
+    public GameObject obstaclePrefab;
+    public GameObject pushableObstaclePrefab;
     public GameObject trap;
 
     public Character[] enemyCharacters;
@@ -66,6 +67,7 @@ public class BoardManager : MonoBehaviour
         ClearObjects();
 
         // pick a map variant
+        /*
         int mapVariant = Random.Range(1, 4);
         if (mapVariant == 1) // river in the middle
         {
@@ -84,8 +86,11 @@ public class BoardManager : MonoBehaviour
             obstaclePercent = 1f;
             mapVariantChosen = "Labirynth";
         }
+        */
+        obstaclePercent = 1f;
+        mapVariantChosen = "Labirynth";
 
-        LayoutObstacles(stone);
+        LayoutObstacles(flav);
         //LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
         LayoutFloorAdditions(flav, floorAdditionsCount.minimum, floorAdditionsCount.maximum);
 
@@ -164,12 +169,50 @@ public class BoardManager : MonoBehaviour
         openGridPositions.Remove(bottomLeftCornerPosition);
     }
 
-    Vector3 GetRandomOpenPosition()
+    List<Vector3> GetRandomOpenPosition(Vector2 _size)
     {
-        int randomIndex = Random.Range(0, openGridPositions.Count);
-        Vector3 randomPosition = openGridPositions[randomIndex];
-        openGridPositions.RemoveAt(randomIndex); // only one thing can occupy a position
-        return randomPosition;
+        List<Vector3> openPositions = new();
+        if (_size == Vector2.one)
+        {
+            int randomIndex = Random.Range(0, openGridPositions.Count);
+            Vector3 randomPosition = openGridPositions[randomIndex];
+            openGridPositions.RemoveAt(randomIndex); // only one thing can occupy a position
+            openPositions.Add(randomPosition);
+            return openPositions;
+        }
+        // how do I find open positions in size of _size? 
+        // what does it mean there are open positions in _size?
+        // it means that there are open tiles in _size next to each other, 
+        // so I should go through all open positions and check what sizes do they come in
+        List<Vector3> candidatePositions = new();
+        foreach (Vector3 pos in openGridPositions)
+        {
+            candidatePositions.Add(pos);
+            for (int x = 0; x < _size.x; x++)
+            {
+                for (int y = 0; y < _size.y; y++)
+                {
+                    if (x == 0 && y == 0)
+                        continue;
+
+                    Vector3 posToCheck = new Vector3(pos.x - x, pos.y - y, 0f);
+                    if (openGridPositions.Contains(posToCheck) && !candidatePositions.Contains(posToCheck))
+                        candidatePositions.Add(posToCheck);
+                }
+            }
+
+            // here I need to check if we have enough open positions to send it, else clear candidate positions
+            if (candidatePositions.Count >= _size.x * _size.y)
+            {
+                foreach (Vector3 posToRemove in candidatePositions)
+                    openGridPositions.Remove(posToRemove);
+
+                return candidatePositions;
+            }
+            candidatePositions.Clear();
+        }
+
+        return null;
     }
 
     void ClearObjects()
@@ -178,39 +221,57 @@ public class BoardManager : MonoBehaviour
             DestroyImmediate(t.gameObject); // TODO: use Destroy instead, this is for editor
     }
 
-    void LayoutObstacles(GameObject obj)
+    void LayoutObstacles(TilemapFlavour _flav)
     {
         bool[,] obstacleMap = new bool[mapSizeX, mapSizeY];
 
         int objectCount = (int)(mapSizeX * mapSizeY * obstaclePercent);
         int currentObstacleCount = 0;
+
         for (int i = 0; i < objectCount; i++)
         {
             if (openGridPositions.Count <= 0)
                 return;
 
-            Vector3 randomPosition = GetRandomOpenPosition();
-            obstacleMap[(int)randomPosition.x, (int)randomPosition.y] = true;
+            TilemapObject selectedObject = _flav.obstacles[Random.Range(0, _flav.obstacles.Length)];
+
+            List<Vector3> randomPosition = GetRandomOpenPosition(selectedObject.size);
+            if (randomPosition == null)
+                return;
+
+            foreach (Vector3 pos in randomPosition)
+                obstacleMap[(int)pos.x, (int)pos.y] = true;
+
             currentObstacleCount++; // TODO: improve this
 
-            if (MapIsFullyAccessible(obstacleMap, currentObstacleCount))
+            if (!MapIsFullyAccessible(obstacleMap, currentObstacleCount))
             {
-                GameObject ob = Instantiate(obj, new Vector3(randomPosition.x + 0.5f, randomPosition.y + 0.5f, randomPosition.z), Quaternion.identity);
-                ob.transform.parent = envObjects;
-            }
-            else
-            {
-                obstacleMap[(int)randomPosition.x, (int)randomPosition.y] = false;
+                Debug.Log("map is not fully accessbile returning");
+                foreach (Vector3 pos in randomPosition)
+                    obstacleMap[(int)pos.x, (int)pos.y] = false;
                 currentObstacleCount--;
+                continue;
             }
 
+            GameObject selectedPrefab = obstaclePrefab;
+            if (selectedObject.pushable)
+            {
+                selectedPrefab = pushableObstaclePrefab;
+            }
+
+            GameObject ob = Instantiate(selectedPrefab,
+                            new Vector3(randomPosition[0].x + 0.5f, randomPosition[0].y + 0.5f, randomPosition[0].z),
+                            Quaternion.identity);
+            ob.GetComponent<Obstacle>().Initialise(selectedObject);
+            ob.transform.parent = envObjects;
 
         }
     }
     // https://www.youtube.com/watch?v=2ycN6ZkWgOo&list=PLFt_AvWsXl0ctd4dgE1F8g3uec4zKNRV0&index=11
     bool MapIsFullyAccessible(bool[,] obstacleMap, int currentObstacleCount)
     {
-        // floodfull algo from bottom left corner that stays free;
+        return true;
+        // flood fill algo from bottom left corner that stays free;
         bool[,] mapFlags = new bool[obstacleMap.GetLength(0), obstacleMap.GetLength(1)];
         Queue<Vector3> queue = new(); // TODO: do I need "Coord" like in the video?
         queue.Enqueue(bottomLeftCornerPosition); // always free
@@ -278,8 +339,8 @@ public class BoardManager : MonoBehaviour
             if (openGridPositions.Count <= 0)
                 return;
 
-            Vector3 randomPosiiton = GetRandomOpenPosition();
-            middlegroundTilemap.SetTile(new Vector3Int((int)randomPosiiton.x, (int)randomPosiiton.y),
+            List<Vector3> randomPosiiton = GetRandomOpenPosition(Vector2.one);
+            middlegroundTilemap.SetTile(new Vector3Int((int)randomPosiiton[0].x, (int)randomPosiiton[0].y),
                              tiles[Random.Range(0, tiles.Length)]);
         }
 
@@ -291,7 +352,7 @@ public class BoardManager : MonoBehaviour
         for (int i = 0; i < objectCount; i++)
         {
             Character instantiatedSO = Instantiate(enemyCharacters[Random.Range(0, enemyCharacters.Length)]);
-            GameObject newCharacter = Instantiate(enemyGO, GetRandomOpenPosition(), Quaternion.identity); // TODO: get random posiiton is wrong here
+            GameObject newCharacter = Instantiate(enemyGO, GetRandomOpenPosition(Vector2.one)[0], Quaternion.identity); // TODO: get random posiiton is wrong here
 
             instantiatedSO.Initialize(newCharacter);
             newCharacter.name = instantiatedSO.characterName;
@@ -308,7 +369,7 @@ public class BoardManager : MonoBehaviour
     void PlaceSpecialObject(TilemapFlavour _flav)
     {
         // TODO: this should be way smarter
-        TilemapObject ob = _flav.objects[Random.Range(0, _flav.objects.Length)];
+        TilemapObject ob = _flav.outerObjects[Random.Range(0, _flav.outerObjects.Length)];
 
         // create a game object with sprite renderer compotenent and set correct layer
         GameObject n = new GameObject(ob.oName);
@@ -475,7 +536,6 @@ public class BoardManager : MonoBehaviour
 
 
     }
-
 
     // clears tile from objects and floor additions on middle ground
     void ClearTile(Vector2Int _pos)
