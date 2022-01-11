@@ -39,7 +39,7 @@ public class BoardManager : MonoBehaviour
     [Range(0, 1)]
     public float obstaclePercent;
     // bottom left corner always stays empty
-    Vector3 bottomLeftCornerPosition;
+    public Vector3 emptyCorner;
     public Count trapCount = new Count(1, 2); // TODO: not used righ now
 
     // TODO: this
@@ -64,15 +64,17 @@ public class BoardManager : MonoBehaviour
         OuterSetup(flav);
         BoardSetup(flav);
         InitialiseOpenPositions();
+        openGridPositions = Utility.ShuffleList<Vector3>(openGridPositions, seed);
+
         ClearObjects();
 
         // pick a map variant
-        /*
+
         int mapVariant = Random.Range(1, 4);
         if (mapVariant == 1) // river in the middle
         {
             PlaceRiver(flav);
-            obstaclePercent = Random.Range(0f, 0.2f);
+            obstaclePercent = Random.Range(0f, 0.1f);
             mapVariantChosen = "River";
         }
         if (mapVariant == 2) // big space some obstacles
@@ -86,9 +88,6 @@ public class BoardManager : MonoBehaviour
             obstaclePercent = 1f;
             mapVariantChosen = "Labirynth";
         }
-        */
-        obstaclePercent = 1f;
-        mapVariantChosen = "Labirynth";
 
         LayoutObstacles(flav);
         //LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
@@ -164,9 +163,19 @@ public class BoardManager : MonoBehaviour
             for (int y = 0; y < mapSizeY; y++)
                 openGridPositions.Add(new Vector3(x, y, 0f));
 
-        // bottom left corner is always empty
-        bottomLeftCornerPosition = Vector3.zero;
-        openGridPositions.Remove(bottomLeftCornerPosition);
+        // one of the corners is always empty TODO: better way of doing it? 
+        // btw. it does not help to change obstacles mostly spawning on the left hand side
+        int cornerChoice = Random.Range(1, 5);
+        if (cornerChoice == 1)
+            emptyCorner = Vector3.zero;
+        if (cornerChoice == 2)
+            emptyCorner = new Vector3(0f, mapSizeY - 1f, 0f);
+        if (cornerChoice == 3)
+            emptyCorner = new Vector3(mapSizeX - 1f, 0f, 0f);
+        if (cornerChoice == 4)
+            emptyCorner = new Vector3(mapSizeX - 1f, mapSizeY - 1f, 0f);
+
+        openGridPositions.Remove(emptyCorner);
     }
 
     List<Vector3> GetRandomOpenPosition(Vector2 _size)
@@ -242,40 +251,48 @@ public class BoardManager : MonoBehaviour
             foreach (Vector3 pos in randomPosition)
                 obstacleMap[(int)pos.x, (int)pos.y] = true;
 
-            currentObstacleCount++; // TODO: improve this
+            currentObstacleCount += (int)(selectedObject.size.x * selectedObject.size.y); // TODO: improve this
 
             if (!MapIsFullyAccessible(obstacleMap, currentObstacleCount))
             {
-                Debug.Log("map is not fully accessbile returning");
                 foreach (Vector3 pos in randomPosition)
                     obstacleMap[(int)pos.x, (int)pos.y] = false;
-                currentObstacleCount--;
+                currentObstacleCount -= (int)(selectedObject.size.x * selectedObject.size.y);// TODO: improve this
                 continue;
             }
 
             GameObject selectedPrefab = obstaclePrefab;
             if (selectedObject.pushable)
-            {
                 selectedPrefab = pushableObstaclePrefab;
-            }
+
+            // TODO: I am not certain why is that so - pushable object in the middle of the tile, while object with a different size in the bottom left corner.
+            //Vector3 placingPos = new Vector3(randomPosition[0].x + 0.5f, randomPosition[0].y + 0.5f, randomPosition[0].z);
+            float posX = randomPosition[0].x;
+            float posY = randomPosition[0].y;
+            if (selectedObject.size.x % 2 != 0)
+                posX += 0.5f;
+            if (selectedObject.size.y % 2 != 0)
+                posY += 0.5f;
+
+            Vector3 placingPos = new Vector3(posX, posY, randomPosition[0].z);
 
             GameObject ob = Instantiate(selectedPrefab,
-                            new Vector3(randomPosition[0].x + 0.5f, randomPosition[0].y + 0.5f, randomPosition[0].z),
+                            placingPos,
                             Quaternion.identity);
             ob.GetComponent<Obstacle>().Initialise(selectedObject);
+            ob.name = selectedObject.oName;
             ob.transform.parent = envObjects;
-
         }
     }
     // https://www.youtube.com/watch?v=2ycN6ZkWgOo&list=PLFt_AvWsXl0ctd4dgE1F8g3uec4zKNRV0&index=11
     bool MapIsFullyAccessible(bool[,] obstacleMap, int currentObstacleCount)
     {
-        return true;
+        //return true;
         // flood fill algo from bottom left corner that stays free;
         bool[,] mapFlags = new bool[obstacleMap.GetLength(0), obstacleMap.GetLength(1)];
         Queue<Vector3> queue = new(); // TODO: do I need "Coord" like in the video?
-        queue.Enqueue(bottomLeftCornerPosition); // always free
-        mapFlags[0, 0] = true;// always free
+        queue.Enqueue(emptyCorner); // always free
+        mapFlags[(int)  emptyCorner.x, (int)emptyCorner.y] = true;// always free
 
         int accessibleTileCount = 1;
         while (queue.Count > 0)
@@ -288,39 +305,20 @@ public class BoardManager : MonoBehaviour
                     int neighbourX = (int)tile.x + x;
                     int neighbourY = (int)tile.y + y;
 
-                    if (x == 0 ^ y == 0)
-                    {
-                        if (neighbourX >= 0 && neighbourX < obstacleMap.GetLength(0) && neighbourY >= 0 && neighbourY < obstacleMap.GetLength(1))
-                        {
-                            if (!mapFlags[neighbourX, neighbourY] && !obstacleMap[neighbourX, neighbourY])
-                            {
-                                mapFlags[neighbourX, neighbourY] = true;
-                                queue.Enqueue(new Vector3(neighbourX, neighbourY, 0f));
-                                accessibleTileCount++;
-                            }
-                        }
-                    }
-
-                    /*
-                    if (x != 0 ^ y != 0)// (using the XOR operator instead) that way, we'll skip the current tile (: from comment
-                        continue;
-                    // inside of obstacle map
-                    if (neighbourX < 0 || neighbourX >= obstacleMap.GetLength(0) || neighbourY < 0 || neighbourY >= obstacleMap.GetLength(1))
+                    // TODO: Improve this? I have 'reversed' if statements to get rid of indentation.
+                    if (!(x == 0 ^ y == 0)) // (using the XOR operator instead) that way, we'll skip the current tile (: from comment
                         continue;
 
-                    Debug.Log("neighbourX + " + neighbourX);
-                    Debug.Log("neighbourY + " + neighbourY);
+                    if (!(neighbourX >= 0 && neighbourX < obstacleMap.GetLength(0) &&
+                        neighbourY >= 0 && neighbourY < obstacleMap.GetLength(1)))
+                        continue; // make sure it is in bounds
 
-                    if (mapFlags[neighbourX, neighbourY])
-                        continue;
-
-                    if (obstacleMap[neighbourX, neighbourY])
+                    if (mapFlags[neighbourX, neighbourY] || obstacleMap[neighbourX, neighbourY])
                         continue;
 
                     mapFlags[neighbourX, neighbourY] = true;
                     queue.Enqueue(new Vector3(neighbourX, neighbourY, 0f));
                     accessibleTileCount++;
-                    */
                 }
 
             }

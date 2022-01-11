@@ -55,6 +55,10 @@ MonoBehaviour:
   obstacles:
   - {fileID: 11400000, guid: 544c53a97b04a29428a574d43c828939, type: 2}
   - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
+  - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
+  - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
+  - {fileID: 11400000, guid: e45b567afb0eea844ba0ef975186ce28, type: 2}
+  - {fileID: 11400000, guid: 00bf384ae232d5347b66f897b0850df7, type: 2}
   outerObjects:
   - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
   - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
