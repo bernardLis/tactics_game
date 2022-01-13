@@ -32,7 +32,7 @@ public class BoardManager : MonoBehaviour
     Vector3 emptyCorner;
     float obstaclePercent;
     List<Vector3> openGridPositions = new();
-    int mapSizeSqm;
+    int floorTileCount;
     TilemapFlavour flav;
 
     public void SetupScene()
@@ -42,6 +42,7 @@ public class BoardManager : MonoBehaviour
         InitialiseOpenPositions();
 
         // pick a map variant
+
         int mapVariant = Random.Range(1, 5);
         if (mapVariant == 1) // river in the middle
         {
@@ -66,12 +67,14 @@ public class BoardManager : MonoBehaviour
             mapVariantChosen = "Lake in the middle";
         }
 
+        HandleEdge();
+
         // TODO: this should be way smarter
         PlaceSpecialObject();
 
         LayoutObstacles();
         //LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
-        LayoutFloorAdditions(Mathf.RoundToInt(mapSizeSqm * 0.1f), Mathf.RoundToInt(mapSizeSqm * 0.2f));
+        LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f));
 
         DrawOuter();
 
@@ -80,7 +83,7 @@ public class BoardManager : MonoBehaviour
 
     void InitialSetup()
     {
-        mapSizeSqm = mapSize.x * mapSize.y;
+        floorTileCount = mapSize.x * mapSize.y;
         Random.InitState(seed);
         flav = tilemapFlavours[Random.Range(0, tilemapFlavours.Length)];
 
@@ -90,55 +93,14 @@ public class BoardManager : MonoBehaviour
 
         foreach (Transform child in envObjectsHolder.transform)
             DestroyImmediate(child.gameObject);
-
     }
-    void DrawOuter()
-    {
-        // outer
-        int outerX = mapSize.x * 3;
-        int outerY = mapSize.y * 3;
-        outerX = Mathf.Clamp(outerX, 30, 10000);
-        outerY = Mathf.Clamp(outerY, 30, 10000);
 
-        TileBase[] tiles = flav.outerTiles;
-
-        for (int x = -outerX; x < outerX; x++)
-            for (int y = -outerY; y < outerY; y++)
-                if (!backgroundTilemap.GetTile(new Vector3Int(x, y)))
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
-    }
     void BoardSetup()
     {
-        // inner
+        // +-1 because I am setting edge tiles to unwalkable edges
         for (int x = -1; x < mapSize.x + 1; x++)
-        {
-            for (int y = -1; y < mapSize.y + 1; y++) // +-1 to create an edge;
-            {
-                TileBase selectedTile = flav.floorTiles[Random.Range(0, flav.floorTiles.Length)];
-
-                // edge
-                if (x == -1)
-                    selectedTile = flav.edgeW;
-                if (x == mapSize.x)
-                    selectedTile = flav.edgeE;
-                if (y == -1)
-                    selectedTile = flav.edgeS;
-                if (y == mapSize.y)
-                    selectedTile = flav.edgeN;
-
-                // corners
-                if (x == -1 && y == -1)
-                    selectedTile = flav.cornerSE;
-                if (x == mapSize.x && y == -1)
-                    selectedTile = flav.cornerSW;
-                if (x == -1 && y == mapSize.y)
-                    selectedTile = flav.cornerNW;
-                if (x == mapSize.x && y == mapSize.y)
-                    selectedTile = flav.cornerNE;
-
-                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
-            }
-        }
+            for (int y = -1; y < mapSize.y + 1; y++)
+                backgroundTilemap.SetTile(new Vector3Int(x, y), flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
     }
 
     void InitialiseOpenPositions()
@@ -152,13 +114,13 @@ public class BoardManager : MonoBehaviour
         // one of the corners is always empty TODO: better way of doing it? 
         int cornerChoice = Random.Range(1, 5);
         if (cornerChoice == 1)
-            emptyCorner = Vector3.zero;
+            emptyCorner = new Vector3(1f, 1f);
         if (cornerChoice == 2)
-            emptyCorner = new Vector3(0f, mapSize.y - 1f, 0f);
+            emptyCorner = new Vector3(1f, mapSize.y - 2f, 0f);
         if (cornerChoice == 3)
-            emptyCorner = new Vector3(mapSize.x - 1f, 0f, 0f);
+            emptyCorner = new Vector3(mapSize.x - 2f, 1f, 0f);
         if (cornerChoice == 4)
-            emptyCorner = new Vector3(mapSize.x - 1f, mapSize.y - 1f, 0f);
+            emptyCorner = new Vector3(mapSize.x - 2f, mapSize.y - 2f, 0f);
 
         openGridPositions.Remove(emptyCorner);
 
@@ -200,7 +162,7 @@ public class BoardManager : MonoBehaviour
     {
         bool[,] obstacleMap = new bool[mapSize.x, mapSize.y];
 
-        int objectCount = (int)(mapSizeSqm * obstaclePercent);
+        int objectCount = (int)(floorTileCount * obstaclePercent);
         int currentObstacleCount = 0;
 
         for (int i = 0; i < objectCount; i++)
@@ -254,8 +216,7 @@ public class BoardManager : MonoBehaviour
     // https://www.youtube.com/watch?v=2ycN6ZkWgOo&list=PLFt_AvWsXl0ctd4dgE1F8g3uec4zKNRV0&index=11
     bool MapIsFullyAccessible(bool[,] obstacleMap, int currentObstacleCount)
     {
-        //return true;
-        // flood fill algo from bottom left corner that stays free;
+        // flood fill algo from corner that stays free;
         bool[,] mapFlags = new bool[obstacleMap.GetLength(0), obstacleMap.GetLength(1)];
         Queue<Vector3> queue = new(); // TODO: do I need "Coord" like in the video?
         queue.Enqueue(emptyCorner); // always free
@@ -289,10 +250,13 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+        int targetAccessibleTileCount = floorTileCount - currentObstacleCount;
+        Debug.Log("mapSizeSqm " + floorTileCount);
+        Debug.Log("currentObstacleCount " + currentObstacleCount);
 
-        int targetAccessibleTileCount = mapSizeSqm - currentObstacleCount;
         return targetAccessibleTileCount == accessibleTileCount;
     }
+
     void LayoutFloorAdditions(int minimum, int maximum)
     {
         TileBase[] tiles = flav.floorAdditions;
@@ -346,61 +310,16 @@ public class BoardManager : MonoBehaviour
         int xMin = middleOfMap - riverWidth;
         int xMax = middleOfMap + riverWidth;
 
-        // make sure edge of the river is walkable;
-        for (int x = xMin - 1; x <= xMax + 1; x++)
+        for (int x = xMin; x <= xMax; x++)
             for (int y = -1; y < mapSize.y + 1; y++) // -+1 to cover the edges
                 ClearTile(new Vector2Int(x, y));
 
-        for (int x = xMin; x <= xMax; x++)
-        {
-            for (int y = -1; y < mapSize.y + 1; y++) // -+1 to cover the edges
-            {
-                TileBase selectedTile = flav.outerTiles[Random.Range(0, flav.outerTiles.Length)];
-                // edges
-                if (x == xMin)
-                    selectedTile = flav.edgeE;
-                if (x == xMax)
-                    selectedTile = flav.edgeW;
-                // corners
-                if (x == xMin && y == -1)
-                    selectedTile = flav.cornerSW;
-                if (x == xMin && y == mapSize.y)
-                    selectedTile = flav.cornerNE;
-                if (x == xMax && y == -1)
-                    selectedTile = flav.cornerSE;
-                if (x == xMax && y == mapSize.y)
-                    selectedTile = flav.cornerNW;
-
-                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
-            }
-        }
-
         // bridge
         int bridgeWidth = Random.Range(1, 4);
-        int bridgeY = Random.Range(1, mapSize.y - bridgeWidth - 1); // so the bridge can fit
+        int bridgeY = Random.Range(2, mapSize.y - bridgeWidth - 2); // so the bridge can fit
         for (int x = xMin; x <= xMax; x++)
-        {
             for (int y = bridgeY - 1; y <= bridgeY + bridgeWidth; y++) // +-1 for edges
-            {
-                TileBase selectedTile = flav.floorTiles[Random.Range(0, flav.floorTiles.Length)];
-                // edges
-                if (y == bridgeY - 1)
-                    selectedTile = flav.edgeS;
-                if (y == bridgeY + bridgeWidth)
-                    selectedTile = flav.edgeN;
-                // corners
-                if (y == bridgeY - 1 && x == xMin)
-                    selectedTile = flav.inlandCornerNE;
-                if (y == bridgeY - 1 && x == xMax)
-                    selectedTile = flav.inlandCornerNW;
-                if (y == bridgeY + bridgeWidth && x == xMin)
-                    selectedTile = flav.inlandCornerSE;
-                if (y == bridgeY + bridgeWidth && x == xMax)
-                    selectedTile = flav.inlandCornerSW;
-
-                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
-            }
-        }
+                backgroundTilemap.SetTile(new Vector3Int(x, y), flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
     }
 
     void PlaceHorizontalRiver()
@@ -411,67 +330,22 @@ public class BoardManager : MonoBehaviour
         int yMin = middleOfMap - riverWidth;
         int yMax = middleOfMap + riverWidth;
 
-        // make sure edge of the river is walkable;
-        for (int y = yMin - 1; y <= yMax + 1; y++)
-            for (int x = -1; x < mapSize.x + 1; x++)
-                ClearTile(new Vector2Int(x, y));
-
         for (int y = yMin; y <= yMax; y++)
-        {
             for (int x = -1; x < mapSize.x + 1; x++) // -+1 to cover the edges
-            {
-                TileBase selectedTile = flav.outerTiles[Random.Range(0, flav.outerTiles.Length)];
-                // edges
-                if (y == yMin)
-                    selectedTile = flav.edgeN;
-                if (y == yMax)
-                    selectedTile = flav.edgeS;
-                // corners
-                if (y == yMin && x == -1)
-                    selectedTile = flav.cornerNW;
-                if (y == yMin && x == mapSize.x)
-                    selectedTile = flav.cornerNE;
-                if (y == yMax && x == -1)
-                    selectedTile = flav.cornerSE;
-                if (y == yMax && x == mapSize.x)
-                    selectedTile = flav.cornerSW;
-
-                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
-            }
-        }
+                ClearTile(new Vector2Int(x, y));
 
         // bridge
         int bridgeWidth = Random.Range(1, 4);
         int bridgeX = Random.Range(1, mapSize.x - bridgeWidth - 1); // so the bridge can fit
         for (int y = yMin; y <= yMax; y++)
-        {
             for (int x = bridgeX - 1; x <= bridgeX + bridgeWidth; x++) // +-1 for edges
-            {
-                TileBase selectedTile = flav.floorTiles[Random.Range(0, flav.floorTiles.Length)];
-                // edges
-                if (x == bridgeX - 1)
-                    selectedTile = flav.edgeW;
-                if (x == bridgeX + bridgeWidth)
-                    selectedTile = flav.edgeE;
-                // corners
-                if (x == bridgeX - 1 && y == yMin)
-                    selectedTile = flav.inlandCornerSW;
-                if (x == bridgeX - 1 && y == yMax)
-                    selectedTile = flav.inlandCornerNW;
-                if (x == bridgeX + bridgeWidth && y == yMin)
-                    selectedTile = flav.inlandCornerSE;
-                if (x == bridgeX + bridgeWidth && y == yMax)
-                    selectedTile = flav.inlandCornerNE;
-
-                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
-            }
-        }
+                backgroundTilemap.SetTile(new Vector3Int(x, y), flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
     }
 
     void PlaceLakeInTheMiddle()
     {
-        int lakeWidth = Mathf.RoundToInt(Random.Range(mapSize.x * 0.4f, mapSize.x * 0.7f));
-        int lakeHeight = Mathf.RoundToInt(Random.Range(mapSize.x * 0.4f, mapSize.y * 0.7f));
+        int lakeWidth = Mathf.RoundToInt(Random.Range(mapSize.x * 0.2f, mapSize.x * 0.4f));
+        int lakeHeight = Mathf.RoundToInt(Random.Range(mapSize.x * 0.2f, mapSize.y * 0.4f));
 
         // -+1 to cover the edges
         int xMin = Mathf.RoundToInt((mapSize.x - lakeWidth) * 0.5f) + 1;
@@ -480,53 +354,125 @@ public class BoardManager : MonoBehaviour
         int xMax = xMin + lakeWidth - 1;
         int yMax = yMin + lakeHeight - 1;
 
-        for (int x = xMin - 1; x <= xMax + 1; x++)
-        {
-            for (int y = yMin - 1; y <= yMax + 1; y++)
-            {
-                ClearTile(new Vector2Int(x, y));
-            }
-        }
-
-
         for (int x = xMin; x <= xMax; x++)
-        {
             for (int y = yMin; y <= yMax; y++)
-            {
                 ClearTile(new Vector2Int(x, y));
-                TileBase selectedTile = flav.outerTiles[Random.Range(0, flav.outerTiles.Length)];
-
-                // edges
-                if (x == xMin)
-                    selectedTile = flav.edgeE;
-                if (x == xMax)
-                    selectedTile = flav.edgeW;
-                if (y == yMin)
-                    selectedTile = flav.edgeN;
-                if (y == yMax)
-                    selectedTile = flav.edgeS;
-
-                // corners
-                if (y == yMin && x == xMin)
-                    selectedTile = flav.inlandCornerSE;
-                if (y == yMin && x == xMax)
-                    selectedTile = flav.inlandCornerSW;
-                if (y == yMax && x == xMin)
-                    selectedTile = flav.inlandCornerNE;
-                if (y == yMax && x == xMax)
-                    selectedTile = flav.inlandCornerNW;
-
-                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
-            }
-        }
     }
 
+    void HandleEdge()
+    {
+        for (int x = -1; x < mapSize.x + 1; x++)
+            for (int y = -1; y < mapSize.y + 1; y++)
+                SetEdges(new Vector3Int(x, y));
+
+        for (int x = -1; x < mapSize.x + 1; x++)
+            for (int y = -1; y < mapSize.y + 1; y++)
+                SetInlandCorners(new Vector3Int(x, y));
+    }
+
+    void SetEdges(Vector3Int _pos)
+    {
+        // I am swapping tiles that exist
+        if (backgroundTilemap.GetTile(_pos) == null)
+            return;
+
+        bool[] neighbours = new bool[4]; // left, top, right, bottom 
+
+        if (backgroundTilemap.GetTile(new Vector3Int(_pos.x - 1, _pos.y)) != null)
+            neighbours[0] = true;
+        if (backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y + 1)) != null)
+            neighbours[1] = true;
+        if (backgroundTilemap.GetTile(new Vector3Int(_pos.x + 1, _pos.y)) != null)
+            neighbours[2] = true;
+        if (backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y - 1)) != null)
+            neighbours[3] = true;
+
+        // TODO: this seems stupid
+        if (neighbours[0] && !neighbours[1] && neighbours[2] && neighbours[3])// edge N
+            SetEdgeTile(_pos, flav.edgeN);
+        if (neighbours[0] && neighbours[1] && neighbours[2] && !neighbours[3])// edge S
+            SetEdgeTile(_pos, flav.edgeS);
+        if (!neighbours[0] && neighbours[1] && neighbours[2] && neighbours[3])// edge W
+            SetEdgeTile(_pos, flav.edgeW);
+        if (neighbours[0] && neighbours[1] && !neighbours[2] && neighbours[3])// edge E
+            SetEdgeTile(_pos, flav.edgeE);
+
+        // corners
+        if (!neighbours[0] && !neighbours[1] && neighbours[2] && neighbours[3])// corner NW
+            SetEdgeTile(_pos, flav.cornerNW);
+        if (neighbours[0] && !neighbours[1] && !neighbours[2] && neighbours[3])// corner NE
+            SetEdgeTile(_pos, flav.cornerNE);
+        if (!neighbours[0] && neighbours[1] && neighbours[2] && !neighbours[3])// corner SW
+            SetEdgeTile(_pos, flav.cornerSE);
+        if (neighbours[0] && neighbours[1] && !neighbours[2] && !neighbours[3])// corner SE
+            SetEdgeTile(_pos, flav.cornerSW);
+    }
+
+    void SetInlandCorners(Vector3Int _pos)
+    {
+        // I am only swapping tiles that exist
+        if (backgroundTilemap.GetTile(_pos) == null)
+            return;
+
+        // TODO: seems verbose;
+        // inland corners is surrounded by 2 edge tiles and 2 normal tiles
+        if (backgroundTilemap.GetTile(new Vector3Int(_pos.x - 1, _pos.y)) == null)
+            return;
+        if (backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y + 1)) == null)
+            return;
+        if (backgroundTilemap.GetTile(new Vector3Int(_pos.x + 1, _pos.y)) == null)
+            return;
+        if (backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y - 1)) == null)
+            return;
+
+        TileBase[] surroundingTiles = new TileBase[4]; // left, top, right, bottom 
+        surroundingTiles[0] = backgroundTilemap.GetTile(new Vector3Int(_pos.x - 1, _pos.y));
+        surroundingTiles[1] = backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y + 1));
+        surroundingTiles[2] = backgroundTilemap.GetTile(new Vector3Int(_pos.x + 1, _pos.y));
+        surroundingTiles[3] = backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y - 1));
+
+        if (surroundingTiles[0] == flav.edgeS && surroundingTiles[3] == flav.edgeW)
+            SetEdgeTile(_pos, flav.inlandCornerNW);
+        if (surroundingTiles[2] == flav.edgeS && surroundingTiles[3] == flav.edgeE)
+            SetEdgeTile(_pos, flav.inlandCornerNE);
+        if (surroundingTiles[0] == flav.edgeN && surroundingTiles[1] == flav.edgeW)
+            SetEdgeTile(_pos, flav.inlandCornerSW);
+        if (surroundingTiles[1] == flav.edgeE && surroundingTiles[2] == flav.edgeN)
+            SetEdgeTile(_pos, flav.inlandCornerSE);
+    }
+
+    void SetEdgeTile(Vector3Int _pos, TileBase _tile)
+    {
+        ClearTile(new Vector2Int(_pos.x, _pos.y));
+        backgroundTilemap.SetTile(_pos, _tile);
+    }
+
+    void DrawOuter()
+    {
+        // outer
+        int outerX = mapSize.x * 3;
+        int outerY = mapSize.y * 3;
+        outerX = Mathf.Clamp(outerX, 30, 10000);
+        outerY = Mathf.Clamp(outerY, 30, 10000);
+
+        TileBase[] tiles = flav.outerTiles;
+
+        for (int x = -outerX; x < outerX; x++)
+            for (int y = -outerY; y < outerY; y++)
+                if (!backgroundTilemap.GetTile(new Vector3Int(x, y)))
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
+    }
+
+    // makes sure the tile is not walkable and nothing will be placed there.
     void ClearTile(Vector2Int _pos)
     {
+        floorTileCount--;
         // TODO: I am not certain it is a good idea to place it here
         // It makes sure there won't be obstacles/map additions placed on that tile;
         openGridPositions.Remove(new Vector3(_pos.x, _pos.y, 0f));
 
+        // TODO: this, does it make sense?
+        backgroundTilemap.SetTile(new Vector3Int(_pos.x, _pos.y), null); // getting rid of map additons
         middlegroundTilemap.SetTile(new Vector3Int(_pos.x, _pos.y), null); // getting rid of map additons
         Collider2D col = Physics2D.OverlapCircle(new Vector2(_pos.x + 0.5f, _pos.y + 0.5f), 0.2f);
         if (col == null)
