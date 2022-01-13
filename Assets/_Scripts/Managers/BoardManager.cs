@@ -42,7 +42,7 @@ public class BoardManager : MonoBehaviour
         InitialiseOpenPositions();
 
         // pick a map variant
-        int mapVariant = Random.Range(1, 4);
+        int mapVariant = Random.Range(1, 5);
         if (mapVariant == 1) // river in the middle
         {
             PlaceRiver();
@@ -59,6 +59,12 @@ public class BoardManager : MonoBehaviour
             obstaclePercent = 1f;
             mapVariantChosen = "Labirynth";
         }
+        if (mapVariant == 4)
+        {
+            PlaceLakeInTheMiddle();
+            obstaclePercent = Random.Range(0f, 0.1f);
+            mapVariantChosen = "Lake in the middle";
+        }
 
         // TODO: this should be way smarter
         PlaceSpecialObject();
@@ -66,6 +72,8 @@ public class BoardManager : MonoBehaviour
         LayoutObstacles();
         //LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
         LayoutFloorAdditions(Mathf.RoundToInt(mapSizeSqm * 0.1f), Mathf.RoundToInt(mapSizeSqm * 0.2f));
+
+        DrawOuter();
 
         // TODO: spawn player chars / set-up player spawn positions;
     }
@@ -84,8 +92,7 @@ public class BoardManager : MonoBehaviour
             DestroyImmediate(child.gameObject);
 
     }
-
-    void BoardSetup()
+    void DrawOuter()
     {
         // outer
         int outerX = mapSize.x * 3;
@@ -97,8 +104,11 @@ public class BoardManager : MonoBehaviour
 
         for (int x = -outerX; x < outerX; x++)
             for (int y = -outerY; y < outerY; y++)
-                backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
-
+                if (!backgroundTilemap.GetTile(new Vector3Int(x, y)))
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
+    }
+    void BoardSetup()
+    {
         // inner
         for (int x = -1; x < mapSize.x + 1; x++)
         {
@@ -397,7 +407,7 @@ public class BoardManager : MonoBehaviour
     {
         // river
         int middleOfMap = Mathf.RoundToInt(mapSize.y * 0.5f);
-        int riverWidth = Random.Range(1, mapSize.y / 5);
+        int riverWidth = Mathf.RoundToInt(Random.Range(1, mapSize.y * 0.2f));
         int yMin = middleOfMap - riverWidth;
         int yMax = middleOfMap + riverWidth;
 
@@ -458,6 +468,59 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    void PlaceLakeInTheMiddle()
+    {
+        int lakeWidth = Mathf.RoundToInt(Random.Range(mapSize.x * 0.4f, mapSize.x * 0.7f));
+        int lakeHeight = Mathf.RoundToInt(Random.Range(mapSize.x * 0.4f, mapSize.y * 0.7f));
+
+        // -+1 to cover the edges
+        int xMin = Mathf.RoundToInt((mapSize.x - lakeWidth) * 0.5f) + 1;
+        int yMin = Mathf.RoundToInt((mapSize.y - lakeHeight) * 0.5f) + 1;
+
+        int xMax = xMin + lakeWidth - 1;
+        int yMax = yMin + lakeHeight - 1;
+
+        for (int x = xMin - 1; x <= xMax + 1; x++)
+        {
+            for (int y = yMin - 1; y <= yMax + 1; y++)
+            {
+                ClearTile(new Vector2Int(x, y));
+            }
+        }
+
+
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = yMin; y <= yMax; y++)
+            {
+                ClearTile(new Vector2Int(x, y));
+                TileBase selectedTile = flav.outerTiles[Random.Range(0, flav.outerTiles.Length)];
+
+                // edges
+                if (x == xMin)
+                    selectedTile = flav.edgeE;
+                if (x == xMax)
+                    selectedTile = flav.edgeW;
+                if (y == yMin)
+                    selectedTile = flav.edgeN;
+                if (y == yMax)
+                    selectedTile = flav.edgeS;
+
+                // corners
+                if (y == yMin && x == xMin)
+                    selectedTile = flav.inlandCornerSE;
+                if (y == yMin && x == xMax)
+                    selectedTile = flav.inlandCornerSW;
+                if (y == yMax && x == xMin)
+                    selectedTile = flav.inlandCornerNE;
+                if (y == yMax && x == xMax)
+                    selectedTile = flav.inlandCornerNW;
+
+                backgroundTilemap.SetTile(new Vector3Int(x, y), selectedTile);
+            }
+        }
+    }
+
     void ClearTile(Vector2Int _pos)
     {
         // TODO: I am not certain it is a good idea to place it here
@@ -490,5 +553,4 @@ public class BoardManager : MonoBehaviour
             characterRendererManager.Face(Vector2.zero);
         }
     }
-
 }
