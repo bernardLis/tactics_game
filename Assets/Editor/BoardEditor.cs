@@ -11,15 +11,15 @@ public class BoardEditor : Editor
         base.OnInspectorGUI();
         BoardManager board = target as BoardManager;
         //if (DrawDefaultInspector())
-       // {
-       //     board.SetupScene();
-       // }
+        // {
+        //     board.SetupScene();
+        // }
+        
+        if (GUILayout.Button("Generate Map"))
+        {
+            board.SetupScene();
+        }
 
-        //if (GUILayout.Button("Generate Map"))
-        //{
-       //     board.SetupScene();
-       // }
-
-        board.SetupScene();
+        //board.SetupScene();
     }
 }

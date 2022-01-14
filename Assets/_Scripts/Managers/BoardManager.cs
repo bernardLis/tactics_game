@@ -1,10 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
+using System.Threading.Tasks;
+using System;
 
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 public class BoardManager : MonoBehaviour
@@ -31,6 +31,9 @@ public class BoardManager : MonoBehaviour
     // other map vars
     Vector3 emptyCorner;
     float obstaclePercent;
+    bool[,] obstacleMap;
+    Queue<Vector3> floodFillQueue;
+    int accessibleTileCount;
     List<Vector3> openGridPositions = new();
     int floorTileCount;
     TilemapFlavour flav;
@@ -71,6 +74,26 @@ public class BoardManager : MonoBehaviour
 
         // TODO: this should be way smarter
         PlaceSpecialObject();
+        Debug.Log("floorTileCount " + floorTileCount);
+        int obstacleMapFalseCount = 0;
+        for (int x = 0; x < mapSize.x; x++)
+            for (int y = 0; y < mapSize.y; y++)
+                if (!obstacleMap[x, y])
+                    obstacleMapFalseCount++;
+        Debug.Log("obstacleMapfalseCount (walkable) " + obstacleMapFalseCount);
+
+        backgroundTilemap.SetTileFlags(new Vector3Int(3, 4), TileFlags.None);
+        backgroundTilemap.SetColor(new Vector3Int(3, 4), Color.black);
+        int myFloorTiles = 0;
+        for (int x = 0; x <= mapSize.x; x++)
+        {
+            for (int y = 0; y <= mapSize.y; y++)
+            {
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    myFloorTiles++;
+            }
+        }
+        floorTileCount = myFloorTiles;
 
         LayoutObstacles();
         //LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
@@ -84,6 +107,9 @@ public class BoardManager : MonoBehaviour
     void InitialSetup()
     {
         floorTileCount = mapSize.x * mapSize.y;
+        obstacleMap = new bool[mapSize.x, mapSize.y];
+
+        Debug.Log("floor tile count: " + floorTileCount);
         Random.InitState(seed);
         flav = tilemapFlavours[Random.Range(0, tilemapFlavours.Length)];
 
@@ -100,7 +126,12 @@ public class BoardManager : MonoBehaviour
         // +-1 because I am setting edge tiles to unwalkable edges
         for (int x = -1; x < mapSize.x + 1; x++)
             for (int y = -1; y < mapSize.y + 1; y++)
+            {
+                backgroundTilemap.SetTileFlags(new Vector3Int(x, y), TileFlags.None);
+                backgroundTilemap.SetColor(new Vector3Int(x, y), Color.white);
                 backgroundTilemap.SetTile(new Vector3Int(x, y), flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
+
+            }
     }
 
     void InitialiseOpenPositions()
@@ -114,13 +145,13 @@ public class BoardManager : MonoBehaviour
         // one of the corners is always empty TODO: better way of doing it? 
         int cornerChoice = Random.Range(1, 5);
         if (cornerChoice == 1)
-            emptyCorner = new Vector3(1f, 1f);
+            emptyCorner = new Vector3(0f, 0f);
         if (cornerChoice == 2)
-            emptyCorner = new Vector3(1f, mapSize.y - 2f, 0f);
+            emptyCorner = new Vector3(0f, mapSize.y - 1f, 0f);
         if (cornerChoice == 3)
-            emptyCorner = new Vector3(mapSize.x - 2f, 1f, 0f);
+            emptyCorner = new Vector3(mapSize.x - 1f, 0f, 0f);
         if (cornerChoice == 4)
-            emptyCorner = new Vector3(mapSize.x - 2f, mapSize.y - 2f, 0f);
+            emptyCorner = new Vector3(mapSize.x - 1f, mapSize.y - 1f, 0f);
 
         openGridPositions.Remove(emptyCorner);
 
@@ -158,13 +189,11 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
-    void LayoutObstacles()
+    async void LayoutObstacles()
     {
-        bool[,] obstacleMap = new bool[mapSize.x, mapSize.y];
-
         int objectCount = (int)(floorTileCount * obstaclePercent);
         int currentObstacleCount = 0;
-
+        Debug.Log("target object count " + objectCount);
         for (int i = 0; i < objectCount; i++)
         {
             if (openGridPositions.Count <= 0)
@@ -176,16 +205,30 @@ public class BoardManager : MonoBehaviour
             if (randomPosition == null)
                 return;
 
+            for (int x = 0; x <= mapSize.x; x++)
+            {
+                for (int y = 0; y <= mapSize.y; y++)
+                {
+                    backgroundTilemap.SetTileFlags(new Vector3Int(x, y), TileFlags.None);
+                    backgroundTilemap.SetColor(new Vector3Int(x, y), Color.white);
+                }
+            }
+
             foreach (Vector3 pos in randomPosition)
+            {
+                backgroundTilemap.SetTileFlags(new Vector3Int((int)pos.x, (int)pos.y), TileFlags.None);
+                backgroundTilemap.SetColor(new Vector3Int((int)pos.x, (int)pos.y), Color.magenta);
                 obstacleMap[(int)pos.x, (int)pos.y] = true;
+            }
 
             currentObstacleCount += (int)(selectedObject.size.x * selectedObject.size.y); // TODO: improve this
 
-            if (!MapIsFullyAccessible(obstacleMap, currentObstacleCount))
+            if (!await MapIsFullyAccessible(obstacleMap, currentObstacleCount))
             {
                 foreach (Vector3 pos in randomPosition)
                     obstacleMap[(int)pos.x, (int)pos.y] = false;
                 currentObstacleCount -= (int)(selectedObject.size.x * selectedObject.size.y);// TODO: improve this
+                Debug.Log("map aint fully accessible, continue");
                 continue;
             }
 
@@ -214,47 +257,69 @@ public class BoardManager : MonoBehaviour
     }
 
     // https://www.youtube.com/watch?v=2ycN6ZkWgOo&list=PLFt_AvWsXl0ctd4dgE1F8g3uec4zKNRV0&index=11
-    bool MapIsFullyAccessible(bool[,] obstacleMap, int currentObstacleCount)
+    async Task<bool> MapIsFullyAccessible(bool[,] obstacleMap, int currentObstacleCount)
     {
+        Debug.Log("MapIsFullyAccessible check");
         // flood fill algo from corner that stays free;
         bool[,] mapFlags = new bool[obstacleMap.GetLength(0), obstacleMap.GetLength(1)];
-        Queue<Vector3> queue = new(); // TODO: do I need "Coord" like in the video?
-        queue.Enqueue(emptyCorner); // always free
+        floodFillQueue = new(); // TODO: do I need "Coord" like in the video?
+        floodFillQueue.Enqueue(emptyCorner); // always free
         mapFlags[(int)emptyCorner.x, (int)emptyCorner.y] = true;// always free
+        backgroundTilemap.SetTileFlags(new Vector3Int((int)emptyCorner.x, (int)emptyCorner.y), TileFlags.None);
+        backgroundTilemap.SetColor(new Vector3Int((int)emptyCorner.x, (int)emptyCorner.y), Color.red);
 
-        int accessibleTileCount = 1;
-        while (queue.Count > 0)
-        {
-            Vector3 tile = queue.Dequeue();
-            for (int x = -1; x <= 1; x++)
-            {
-                for (int y = -1; y <= 1; y++)
-                {
-                    int neighbourX = (int)tile.x + x;
-                    int neighbourY = (int)tile.y + y;
+        accessibleTileCount = 1; // coz corner?
 
-                    // TODO: Improve this? I have 'reversed' if statements to get rid of indentation.
-                    if (!(x == 0 ^ y == 0)) // (using the XOR operator instead) that way, we'll skip the current tile (: from comment
-                        continue;
+        while (floodFillQueue.Count > 0)
+            await CheckAccessibility(floodFillQueue.Dequeue(), mapFlags);
 
-                    if (!(neighbourX >= 0 && neighbourX < obstacleMap.GetLength(0) &&
-                        neighbourY >= 0 && neighbourY < obstacleMap.GetLength(1)))
-                        continue; // make sure it is in bounds
-
-                    if (mapFlags[neighbourX, neighbourY] || obstacleMap[neighbourX, neighbourY])
-                        continue;
-
-                    mapFlags[neighbourX, neighbourY] = true;
-                    queue.Enqueue(new Vector3(neighbourX, neighbourY, 0f));
-                    accessibleTileCount++;
-                }
-            }
-        }
         int targetAccessibleTileCount = floorTileCount - currentObstacleCount;
-        Debug.Log("mapSizeSqm " + floorTileCount);
-        Debug.Log("currentObstacleCount " + currentObstacleCount);
+        Debug.Log("targetAccessibleTileCount " + targetAccessibleTileCount);
+        Debug.Log("accessibleTileCount " + accessibleTileCount);
 
         return targetAccessibleTileCount == accessibleTileCount;
+    }
+
+    async Task CheckAccessibility(Vector3 _pos, bool[,] _mapFlags)
+    {
+        await Task.Delay(50);
+
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                int neighbourX = (int)_pos.x + x;
+                int neighbourY = (int)_pos.y + y;
+                // TODO: Improve this? I have 'reversed' if statements to get rid of indentation.
+
+                if (!(x == 0 ^ y == 0))// (using the XOR operator instead) that way, we'll skip the current tile (: from comment
+                    continue;
+
+                if (!(neighbourX >= 0 && neighbourX < obstacleMap.GetLength(0) &&
+                    neighbourY >= 0 && neighbourY < obstacleMap.GetLength(1)))
+                    continue; // make sure it is in bounds
+
+                if (_mapFlags[neighbourX, neighbourY] || obstacleMap[neighbourX, neighbourY])
+                    continue;
+
+                if (!IsFloorTile(new Vector3Int(neighbourX, neighbourY)))
+                    continue;
+
+                floodFillQueue.Enqueue(new Vector3(neighbourX, neighbourY));
+                accessibleTileCount++;
+                _mapFlags[neighbourX, neighbourY] = true;
+                backgroundTilemap.SetTileFlags(new Vector3Int(neighbourX, neighbourY), TileFlags.None);
+                backgroundTilemap.SetColor(new Vector3Int(neighbourX, neighbourY), Color.blue);
+            }
+        }
+    }
+
+    bool IsFloorTile(Vector3Int _pos)
+    {
+        if (Array.IndexOf(flav.floorTiles, backgroundTilemap.GetTile(_pos)) == -1)
+            return false;
+
+        return true;
     }
 
     void LayoutFloorAdditions(int minimum, int maximum)
@@ -319,7 +384,7 @@ public class BoardManager : MonoBehaviour
         int bridgeY = Random.Range(2, mapSize.y - bridgeWidth - 2); // so the bridge can fit
         for (int x = xMin; x <= xMax; x++)
             for (int y = bridgeY - 1; y <= bridgeY + bridgeWidth; y++) // +-1 for edges
-                backgroundTilemap.SetTile(new Vector3Int(x, y), flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
+                SetBackgroundFloorTile(new Vector3Int(x, y));
     }
 
     void PlaceHorizontalRiver()
@@ -339,7 +404,7 @@ public class BoardManager : MonoBehaviour
         int bridgeX = Random.Range(1, mapSize.x - bridgeWidth - 1); // so the bridge can fit
         for (int y = yMin; y <= yMax; y++)
             for (int x = bridgeX - 1; x <= bridgeX + bridgeWidth; x++) // +-1 for edges
-                backgroundTilemap.SetTile(new Vector3Int(x, y), flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
+                SetBackgroundFloorTile(new Vector3Int(x, y));
     }
 
     void PlaceLakeInTheMiddle()
@@ -463,21 +528,43 @@ public class BoardManager : MonoBehaviour
                     backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
     }
 
+
+    void SetBackgroundFloorTile(Vector3Int _pos)
+    {
+        floorTileCount++;
+        obstacleMap[_pos.x, _pos.y] = false;
+        backgroundTilemap.SetTile(_pos, flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
+    }
+
     // makes sure the tile is not walkable and nothing will be placed there.
     void ClearTile(Vector2Int _pos)
     {
-        floorTileCount--;
+        /* this is wrong
+        if (IsFloorTile(new Vector3Int(_pos.x, _pos.y)))
+        {
+            Debug.Log("pos " + _pos);
+            if (_pos.x >= 1 && _pos.x < obstacleMap.GetLength(0) &&
+       _pos.y >= 1 && _pos.y < obstacleMap.GetLength(1))
+            {
+                floorTileCount--;
+                obstacleMap[_pos.x, _pos.y] = true;
+            }
+
+        }
+        */
         // TODO: I am not certain it is a good idea to place it here
         // It makes sure there won't be obstacles/map additions placed on that tile;
         openGridPositions.Remove(new Vector3(_pos.x, _pos.y, 0f));
 
         // TODO: this, does it make sense?
-        backgroundTilemap.SetTile(new Vector3Int(_pos.x, _pos.y), null); // getting rid of map additons
+        backgroundTilemap.SetTile(new Vector3Int(_pos.x, _pos.y), null);
+        /*
         middlegroundTilemap.SetTile(new Vector3Int(_pos.x, _pos.y), null); // getting rid of map additons
         Collider2D col = Physics2D.OverlapCircle(new Vector2(_pos.x + 0.5f, _pos.y + 0.5f), 0.2f);
         if (col == null)
             return;
         DestroyImmediate(col.transform.parent.gameObject); // TODO: destory immediate to make it work in the editor
+        */
     }
 
     void SpawnEnemies(int minimum, int maximum)
