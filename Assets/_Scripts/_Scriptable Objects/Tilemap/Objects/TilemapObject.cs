@@ -7,7 +7,7 @@ public class TilemapObject : BaseScriptableObject
 {
     public string oName;
     [Tooltip("Number of tiles, like: 2, 4.")]
-    public Vector2 size;
+    public Vector2Int size;
     public TileMapObjectType objectType;
     public Sprite sprite;
     public bool pushable;
