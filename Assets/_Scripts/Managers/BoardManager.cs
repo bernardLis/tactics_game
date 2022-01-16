@@ -12,8 +12,6 @@ public class BoardManager : MonoBehaviour
     public string mapVariantChosen; // TODO: just for dev
     public int seed;
     public Vector2Int mapSize = new(20, 20);
-    [Range(0, 1)]
-    public float terrainIrregularitiesPercent;
 
     [Header("Enemies")]
     public Character[] enemyCharacters;
@@ -31,6 +29,7 @@ public class BoardManager : MonoBehaviour
 
     // other map vars
     Vector3Int emptyTile;
+    float terrainIrregularitiesPercent;
     float obstaclePercent;
     bool[,] obstacleMap;
     int accessibleTileCount;
@@ -41,6 +40,7 @@ public class BoardManager : MonoBehaviour
 
     public void SetupScene()
     {
+        Debug.Log("miau miau");
         InitialSetup();
         BoardSetup();
         InitialiseOpenPositions();
@@ -48,7 +48,7 @@ public class BoardManager : MonoBehaviour
         int mapVariant = Random.Range(1, 5);
         if (mapVariant == 1)
         {
-            obstaclePercent = Random.Range(0f, 0.1f);
+            obstaclePercent = Random.Range(0.05f, 0.1f);
             mapVariantChosen = "Space";
         }
         if (mapVariant == 2)
@@ -59,19 +59,18 @@ public class BoardManager : MonoBehaviour
         if (mapVariant == 3)
         {
             PlaceRiver();
-            obstaclePercent = Random.Range(0f, 0.1f);
+            obstaclePercent = 1f;//Random.Range(0.05f, 0.2f);
             mapVariantChosen = "River";
         }
         if (mapVariant == 4)
         {
             PlaceLakeInTheMiddle();
-            obstaclePercent = Random.Range(0f, 0.1f);
+            obstaclePercent = Random.Range(0.05f, 0.2f);
             mapVariantChosen = "Lake in the middle";
         }
 
         PlaceTerrainIrregularities();
         HandleLooseTiles();
-
         HandleEdge();
 
         // TODO: this should be way smarter
@@ -81,22 +80,13 @@ public class BoardManager : MonoBehaviour
         LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f));
 
         DrawOuter();
-
-        Debug.Log("what are you?");
-        Debug.Log("self: " + backgroundTilemap.GetTile(new Vector3Int(9, 1)));
-        Debug.Log("left: " + backgroundTilemap.GetTile(new Vector3Int(8, 1)));
-        Debug.Log("top: " + backgroundTilemap.GetTile(new Vector3Int(9, 2)));
-
-        Debug.Log("right: " + backgroundTilemap.GetTile(new Vector3Int(10, 1)));
-        Debug.Log("bottom: " + backgroundTilemap.GetTile(new Vector3Int(9, 0)));
-
-
         // TODO: spawn player chars / set-up player spawn positions;
     }
 
     void InitialSetup()
     {
         Random.InitState(seed);
+        terrainIrregularitiesPercent = 0f;//Random.Range(0f, 0.4f);
 
         obstacleMap = new bool[mapSize.x, mapSize.y];
         flav = tilemapFlavours[Random.Range(0, tilemapFlavours.Length)];
@@ -136,13 +126,19 @@ public class BoardManager : MonoBehaviour
     {
         int irrCount = Mathf.FloorToInt((mapSize.x * 2 + mapSize.y * 2) * terrainIrregularitiesPercent);
 
-        // I want to place irregularities by destrying tiles on the edge
-        // I need to make sure map is still accessbile before destroying it
-        // To get tiles on the edge I could try getting random open positions
         for (int i = 0; i < irrCount; i++)
         {
             int x = Random.Range(0, mapSize.x);
             int y = Random.Range(0, mapSize.y);
+
+            // OK, this is weird, but I don't have a tile to handle map corners that look like:
+            // [empty][tile][tile]
+            // [tile][tile][tile]
+            // [tile][tile][empty]
+            if (x == 2 || x == mapSize.x - 2)
+                continue;
+            if (y == 2 || y == mapSize.y - 2)
+                continue;
 
             int edgeX = -1;
             int edgeY = -1;
@@ -172,9 +168,11 @@ public class BoardManager : MonoBehaviour
 
     void HandleLooseTiles()
     {
-        for (int x = -1; x < mapSize.x + 1; x++)
-            for (int y = -1; y < mapSize.y + 1; y++)
-                ClearLooseTile(new Vector3Int(x, y));
+        // go twice to smooth things over TODO: I am not certain if that's correct
+        for (int i = 0; i < 2; i++)
+            for (int x = -1; x < mapSize.x + 1; x++)
+                for (int y = -1; y < mapSize.y + 1; y++)
+                    ClearLooseTile(new Vector3Int(x, y));
     }
 
     void PlaceSpecialObject()
@@ -204,8 +202,10 @@ public class BoardManager : MonoBehaviour
             for (int y = 0; y <= mapSize.y; y++)
                 if (IsFloorTile(new Vector3Int(x, y)))
                     floorTileCount++;
+        Debug.Log("floorTileCount " + floorTileCount);
 
         int objectCount = Mathf.FloorToInt(floorTileCount * obstaclePercent);
+        Debug.Log("objectCount " + objectCount);
         int obstacledTileCount = 0;
         for (int i = 0; i < objectCount; i++)
         {
@@ -271,44 +271,52 @@ public class BoardManager : MonoBehaviour
     /* --- MAP TYPES --- */
     void PlaceRiver()
     {
-        int middleOfMap = Mathf.RoundToInt(mapSize.x * 0.5f);
-        int riverWidth = Random.Range(1, mapSize.x / 5);
-        int min = middleOfMap - riverWidth;
-        int max = middleOfMap + riverWidth;
 
         // TODO: is there a way to write one function for both rivers?
         if (Random.Range(0f, 1f) > 0.5f)
-            PlaceVerticalRiver(min, max);
+            PlaceVerticalRiver();
         else
-            PlaceHorizontalRiver(min, max);
+            PlaceHorizontalRiver();
     }
 
-    void PlaceVerticalRiver(int _min, int _max)
+    void PlaceVerticalRiver()
     {
+        int middleOfMap = Mathf.RoundToInt(mapSize.x * 0.5f);
+        int riverWidth = Mathf.RoundToInt(Random.Range(1, mapSize.x * 0.2f));
+        int min = middleOfMap - riverWidth;
+        int max = middleOfMap + riverWidth;
+
         // river
-        for (int x = _min; x <= _max; x++)
+        for (int x = min; x <= max; x++)
             for (int y = -1; y < mapSize.y + 1; y++) // -+1 to cover the edges
                 ClearTile(new Vector3Int(x, y));
 
         // bridge
-        int bridgeWidth = Random.Range(1, mapSize.x - 3);
+        int bridgeWidth = Random.Range(1, mapSize.y - 3);
+        bridgeWidth = Mathf.Clamp(bridgeWidth, 1, 5);
         int bridgeY = Random.Range(2, mapSize.y - bridgeWidth - 1); // so the bridge can fit
-        for (int x = _min; x <= _max; x++)
+        for (int x = min; x <= max; x++)
             for (int y = bridgeY - 1; y <= bridgeY + bridgeWidth; y++) // +-1 for edges
                 SetBackgroundFloorTile(new Vector3Int(x, y));
     }
 
-    void PlaceHorizontalRiver(int _min, int _max)
+    void PlaceHorizontalRiver()
     {
+        int middleOfMap = Mathf.RoundToInt(mapSize.y * 0.5f);
+        int riverWidth = Mathf.RoundToInt(Random.Range(1, mapSize.y * 0.2f));
+        int min = middleOfMap - riverWidth;
+        int max = middleOfMap + riverWidth;
+
         // river
-        for (int y = _min; y <= _max; y++)
+        for (int y = min; y <= max; y++)
             for (int x = -1; x < mapSize.x + 1; x++) // -+1 to cover the edges
                 ClearTile(new Vector3Int(x, y));
 
         // bridge
         int bridgeWidth = Random.Range(1, mapSize.x - 3);
+        bridgeWidth = Mathf.Clamp(bridgeWidth, 1, 5);
         int bridgeX = Random.Range(2, mapSize.x - bridgeWidth - 1); // so the bridge can fit
-        for (int y = _min; y <= _max; y++)
+        for (int y = min; y <= max; y++)
             for (int x = bridgeX - 1; x <= bridgeX + bridgeWidth; x++) // +-1 for edges
                 SetBackgroundFloorTile(new Vector3Int(x, y));
     }
@@ -453,14 +461,16 @@ public class BoardManager : MonoBehaviour
         if (surroundingTiles[1] == flav.edgeE && surroundingTiles[2] == flav.cornerNE)
             SetEdgeTile(_pos, flav.inlandCornerSE);
 
-        // normal corners next to other normal corners
-        if (surroundingTiles[2] == flav.cornerSE && surroundingTiles[3] == flav.cornerSE)
-        {
-            SetEdgeTile(_pos, flav.cornerSE);
-            Debug.Log("bla");
-        }
-        if (surroundingTiles[0] == flav.cornerSW && surroundingTiles[3] == flav.cornerSW)
-            SetEdgeTile(_pos, flav.cornerSW);
+        // corners next to other corners
+        if (surroundingTiles[2] == flav.cornerSW && surroundingTiles[3] == flav.cornerSW)
+            SetEdgeTile(_pos, flav.inlandCornerNE);
+        if (surroundingTiles[0] == flav.cornerSE && surroundingTiles[3] == flav.cornerSE)
+            SetEdgeTile(_pos, flav.inlandCornerNW);
+        if (surroundingTiles[1] == flav.cornerNE && surroundingTiles[2] == flav.cornerNE)
+            SetEdgeTile(_pos, flav.inlandCornerSE);
+        if (surroundingTiles[0] == flav.cornerNW && surroundingTiles[1] == flav.cornerNW)
+            SetEdgeTile(_pos, flav.inlandCornerSW);
+
     }
 
     void ClearLooseTile(Vector3Int _pos)
@@ -564,7 +574,6 @@ public class BoardManager : MonoBehaviour
             CheckAccessibility(floodFillQueue.Dequeue(), mapFlags);
 
         int targetAccessibleTileCount = floorTileCount - currentObstacleCount;
-
         return targetAccessibleTileCount == accessibleTileCount;
     }
 
