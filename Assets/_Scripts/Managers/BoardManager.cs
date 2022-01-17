@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
 using System;
+using System.Threading.Tasks;
 
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 public class BoardManager : MonoBehaviour
@@ -45,7 +46,7 @@ public class BoardManager : MonoBehaviour
         BoardSetup();
         InitialiseOpenPositions();
 
-        int mapVariant = Random.Range(1, 5);
+        int mapVariant = Random.Range(1, 6);
         if (mapVariant == 1)
         {
             obstaclePercent = Random.Range(0.05f, 0.1f);
@@ -59,7 +60,7 @@ public class BoardManager : MonoBehaviour
         if (mapVariant == 3)
         {
             PlaceRiver();
-            obstaclePercent = 1f;//Random.Range(0.05f, 0.2f);
+            obstaclePercent = Random.Range(0.05f, 0.2f);
             mapVariantChosen = "River";
         }
         if (mapVariant == 4)
@@ -68,7 +69,15 @@ public class BoardManager : MonoBehaviour
             obstaclePercent = Random.Range(0.05f, 0.2f);
             mapVariantChosen = "Lake in the middle";
         }
+        if (mapVariant == 5)
+        {
+            CarveCircle(); // that's pretty boring.
+            obstaclePercent = Random.Range(0.05f, 0.2f);
+            mapVariantChosen = "Circle";
+        }
 
+
+        terrainIrregularitiesPercent = Random.Range(0.1f, 0.25f);
         PlaceTerrainIrregularities();
         HandleLooseTiles();
         HandleEdge();
@@ -85,10 +94,12 @@ public class BoardManager : MonoBehaviour
 
     void InitialSetup()
     {
+        mapSize.x = Mathf.Clamp(mapSize.x, 4, 40);
+        mapSize.y = Mathf.Clamp(mapSize.y, 4, 40);
+
         Random.InitState(seed);
         terrainIrregularitiesPercent = 0f;//Random.Range(0f, 0.4f);
 
-        obstacleMap = new bool[mapSize.x, mapSize.y];
         flav = tilemapFlavours[Random.Range(0, tilemapFlavours.Length)];
 
         backgroundTilemap.ClearAllTiles();
@@ -117,9 +128,6 @@ public class BoardManager : MonoBehaviour
 
 
         openGridPositions = Utility.ShuffleList<Vector3Int>(openGridPositions, seed);
-        // one of the tiles is always empty (used to be corner)
-        emptyTile = GetRandomOpenPosition(Vector2.one)[0];
-        openGridPositions.Remove(emptyTile);
     }
 
     void PlaceTerrainIrregularities()
@@ -197,18 +205,23 @@ public class BoardManager : MonoBehaviour
 
     void LayoutObstacles()
     {
+        obstacleMap = new bool[mapSize.x, mapSize.y];
+
+        // one of the tiles is always empty (used to be corner)
+        emptyTile = GetRandomOpenPosition(Vector2.one)[0];
+        openGridPositions.Remove(emptyTile);
+
         floorTileCount = 0;
         for (int x = 0; x <= mapSize.x; x++)
             for (int y = 0; y <= mapSize.y; y++)
                 if (IsFloorTile(new Vector3Int(x, y)))
                     floorTileCount++;
-        Debug.Log("floorTileCount " + floorTileCount);
 
         int objectCount = Mathf.FloorToInt(floorTileCount * obstaclePercent);
-        Debug.Log("objectCount " + objectCount);
         int obstacledTileCount = 0;
         for (int i = 0; i < objectCount; i++)
         {
+
             if (openGridPositions.Count <= 0)
                 return;
 
@@ -338,35 +351,76 @@ public class BoardManager : MonoBehaviour
                 ClearTile(new Vector3Int(x, y));
     }
 
-    /* TODO: unfinished
+    void CarveCircle()
+    {
+        // force a rectangle - it works better
+        if (mapSize.x > mapSize.y)
+            mapSize.y = mapSize.x;
+        else
+            mapSize.x = mapSize.y;
+
+        int centerX = Mathf.FloorToInt(mapSize.x * 0.5f);
+        int centerY = Mathf.FloorToInt(mapSize.y * 0.5f);
+        for (int x = -1; x < mapSize.x + 1; x++)
+        {
+            for (int y = -1; y < mapSize.y + 1; y++)
+            {
+                int sqrtX = (x - centerX) * (x - centerX);
+                int sqrtY = (y - centerY) * (y - centerY);
+                int sqrtR = centerX * centerX;
+                if (sqrtX + sqrtY > sqrtR)
+                    ClearTile(new Vector3Int(x, y));
+            }
+        }
+    }
+
+    /* ugh...
         void CarveHourglass()
         {
-            // vertical hourglass
-            int yMiddle = Mathf.FloorToInt(mapSize.y * 0.5f);
-
-            for (int y = 0; y < yMiddle; y++)
+            // if mapSize is even, 2 rows in the middle are 1 tile
+            // else one row in the middle is 1 tile
+            if (mapSize.y % 2 == 0)
             {
-                // I want to clear # of tiles on each end of the row, depending on what row we are on
-                // until we reach the middle, I want to be clearing more and more tiles
-                // than I want to be clearing less and less tiles
-                for (int x = 0; x < y; x++)
+                int lowerRow = Mathf.FloorToInt(mapSize.y * 0.5f);
+                int upperRow = lowerRow + 1;
+                for (int y = lowerRow; y <= upperRow; y++)
                 {
-                    ClearTile(new Vector3Int(x, y));
-                    ClearTile(new Vector3Int(mapSize.x - x, y));
+                    BoundsInt bounds = new BoundsInt()
+                    // clear all but the middle one
+                    backgroundTilemap.GetTilesBlock()
                 }
             }
 
-            for (int y = mapSize.y; y > yMiddle; y--)
-            {
-                // I want to clear # of tiles on each end of the row, depending on what row we are on
-                // until we reach the middle, I want to be clearing more and more tiles
-                // than I want to be clearing less and less tiles
-                for (int x = 0; x < mapSize.y-y; x++)
-                {
-                    ClearTile(new Vector3Int(x, y));
-                    ClearTile(new Vector3Int(mapSize.x - x, y));
-                }
-            }
+            // middle has one tile
+            // top and bottom have max tiles
+            // rows in between have increasing number of tiles from the middle
+
+
+            /*
+                    for (int y = 0; y < yMiddle; y++)
+                    {
+                        // I want to clear # of tiles on each end of the row, depending on what row we are on
+                        // until we reach the middle, I want to be clearing more and more tiles
+                        // than I want to be clearing less and less tiles
+                        for (int x = 0; x < y; x++)
+                        {
+                            ClearTile(new Vector3Int(x, y));
+                            ClearTile(new Vector3Int(mapSize.x - x, y));
+                        }
+                    }
+
+                    for (int y = mapSize.y; y > yMiddle; y--)
+                    {
+                        // I want to clear # of tiles on each end of the row, depending on what row we are on
+                        // until we reach the middle, I want to be clearing more and more tiles
+                        // than I want to be clearing less and less tiles
+                        for (int x = 0; x < mapSize.y - y; x++)
+                        {
+                            ClearTile(new Vector3Int(x, y));
+                            ClearTile(new Vector3Int(mapSize.x - x, y));
+                        }
+                    }
+
 
 
         }
@@ -594,7 +648,13 @@ public class BoardManager : MonoBehaviour
                     neighbourY >= 0 && neighbourY < obstacleMap.GetLength(1)))
                     continue; // make sure it is in bounds
 
-                if (_mapFlags[neighbourX, neighbourY] || obstacleMap[neighbourX, neighbourY])
+                if (_mapFlags[neighbourX, neighbourY])
+                {
+
+                    continue;
+                }
+
+                if (obstacleMap[neighbourX, neighbourY])
                     continue;
 
                 if (!IsFloorTile(new Vector3Int(neighbourX, neighbourY)))
