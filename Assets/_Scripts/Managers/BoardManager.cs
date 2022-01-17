@@ -83,7 +83,7 @@ public class BoardManager : MonoBehaviour
         HandleEdge();
 
         // TODO: this should be way smarter
-        PlaceSpecialObject();
+        PlaceSpecialObjects();
         LayoutObstacles();
         //LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
         LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f));
@@ -183,17 +183,15 @@ public class BoardManager : MonoBehaviour
                     ClearLooseTile(new Vector3Int(x, y));
     }
 
-    void PlaceSpecialObject()
+    void PlaceSpecialObjects()
     {
         // TODO: this should be way smarter
+        // outer
         TilemapObject ob = flav.outerObjects[Random.Range(0, flav.outerObjects.Length)];
 
         GameObject n = new GameObject(ob.oName);
         n.transform.parent = envObjectsHolder.transform;
-
-        float y = mapSize.y + ob.size.y;
-        float x = mapSize.x * 0.5f;
-        n.transform.position = new Vector3(x, y, 0f);
+        n.transform.position = new Vector3(mapSize.x * 0.5f, mapSize.y + ob.size.y, 0f);
 
         n.transform.DOPunchPosition(Vector3.up * 0.5f, 2f, 0, 1f, false).SetLoops(-1, LoopType.Yoyo); // TODO: cool! 
 
@@ -201,6 +199,21 @@ public class BoardManager : MonoBehaviour
         sr.sortingLayerName = "Foreground";
         sr.sortingOrder = 1;
         sr.sprite = ob.sprite;
+
+        // scene TODO: should be a seperate method
+        TilemapSceneObject sc = flav.sceneObjects[Random.Range(0, flav.sceneObjects.Length)];
+        GameObject s = new GameObject(sc.oName);
+        s.transform.parent = envObjectsHolder.transform;
+        List<Vector3Int> objectPosition = GetDirectionalOpenPosition(sc.accessSize, sc.placement);
+        foreach (Vector3Int pos in objectPosition)
+            openGridPositions.Remove(pos); // keep them open
+        if(sc.placement == TilemapObjectPlacement.Bottom) // TODO: this is magic
+            s.transform.position = new Vector3(objectPosition[0].x + sc.offsetX+2, objectPosition[0].y + sc.offsetY - sc.size.y/2);
+
+        SpriteRenderer rend = s.AddComponent<SpriteRenderer>();
+        rend.sortingLayerName = "Foreground";
+        rend.sortingOrder = 1;
+        rend.sprite = sc.sprite;
     }
 
     void LayoutObstacles()
@@ -284,7 +297,6 @@ public class BoardManager : MonoBehaviour
     /* --- MAP TYPES --- */
     void PlaceRiver()
     {
-
         // TODO: is there a way to write one function for both rivers?
         if (Random.Range(0f, 1f) > 0.5f)
             PlaceVerticalRiver();
@@ -579,6 +591,41 @@ public class BoardManager : MonoBehaviour
     bool IsFloorTile(Vector3Int _pos)
     {
         return Array.IndexOf(flav.floorTiles, backgroundTilemap.GetTile(_pos)) != -1;
+    }
+
+    List<Vector3Int> GetDirectionalOpenPosition(Vector2 _size, TilemapObjectPlacement _placement)
+    {
+        List<Vector3Int> candidatePositions = new();
+        foreach (Vector3Int pos in openGridPositions)
+        {
+            // TODO: add other options
+            if (_placement == TilemapObjectPlacement.Bottom && pos.y != 0)
+                continue;
+
+            candidatePositions.Add(pos);
+            for (int x = 0; x < _size.x; x++)
+            {
+                for (int y = 0; y < _size.y; y++)
+                {
+                    if (x == 0 && y == 0)
+                        continue;
+
+                    Vector3Int posToCheck = new Vector3Int(pos.x - x, pos.y - y, 0); // - to go North West on the map
+                    if (openGridPositions.Contains(posToCheck) && !candidatePositions.Contains(posToCheck))
+                        candidatePositions.Add(posToCheck);
+                }
+            }
+
+            if (candidatePositions.Count >= _size.x * _size.y)
+            {
+                foreach (Vector3Int posToRemove in candidatePositions)
+                    openGridPositions.Remove(posToRemove);
+
+                return candidatePositions; // winner
+            }
+            candidatePositions.Clear(); // try again
+        }
+        return null;
     }
 
     // TODO: improve this?

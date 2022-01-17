@@ -31,4 +31,8 @@ public class TilemapFlavour : BaseScriptableObject
     // TODO: temp, dunno how to deal with this...
     public TilemapObject[] outerObjects;
 
+    public TilemapSceneObject[] sceneObjects;
+
+    
+
 }

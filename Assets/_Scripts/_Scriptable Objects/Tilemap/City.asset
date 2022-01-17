@@ -57,3 +57,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
   - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
   - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
+  sceneObjects:
+  - {fileID: 11400000, guid: 3b5e95b13c71b0c4f8d911da1d564a1d, type: 2}
