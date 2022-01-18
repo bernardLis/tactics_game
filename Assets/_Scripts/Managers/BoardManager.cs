@@ -186,6 +186,12 @@ public class BoardManager : MonoBehaviour
     void PlaceSpecialObjects()
     {
         // TODO: this should be way smarter
+        PlaceOuterDemon();
+        PlaceScene();
+    }
+
+    void PlaceOuterDemon()
+    {
         // outer
         TilemapObject ob = flav.outerObjects[Random.Range(0, flav.outerObjects.Length)];
 
@@ -199,21 +205,44 @@ public class BoardManager : MonoBehaviour
         sr.sortingLayerName = "Foreground";
         sr.sortingOrder = 1;
         sr.sprite = ob.sprite;
+    }
 
+    void PlaceScene()
+    {
         // scene TODO: should be a seperate method
-        TilemapSceneObject sc = flav.sceneObjects[Random.Range(0, flav.sceneObjects.Length)];
-        GameObject s = new GameObject(sc.oName);
-        s.transform.parent = envObjectsHolder.transform;
-        List<Vector3Int> objectPosition = GetDirectionalOpenPosition(sc.accessSize, sc.placement);
+        TilemapSceneObject scene = flav.sceneObjects[Random.Range(0, flav.sceneObjects.Length)];
+        GameObject obj = new GameObject(scene.oName);
+        obj.transform.parent = envObjectsHolder.transform;
+        // TODO: another option would be to place it when the map is fully done
+        // then I could go over the map and collect openings and choose one that fits. (if any)
+        List<Vector3Int> objectPosition = GetDirectionalOpenPosition(scene.accessSize, scene.placement);
+        Debug.Log("object pos " + objectPosition[0]);
+        if (objectPosition == null)
+            return;
         foreach (Vector3Int pos in objectPosition)
             openGridPositions.Remove(pos); // keep them open
-        if(sc.placement == TilemapObjectPlacement.Bottom) // TODO: this is magic
-            s.transform.position = new Vector3(objectPosition[0].x + sc.offsetX+2, objectPosition[0].y + sc.offsetY - sc.size.y/2);
 
-        SpriteRenderer rend = s.AddComponent<SpriteRenderer>();
+        // TODO: does this make sense?
+        float x = 0;
+        float y = 0;
+
+        if (scene.placement == TilemapObjectPlacement.Bottom)
+        {
+            x = objectPosition[0].x + scene.offsetX + scene.accessSize.x;
+            y = objectPosition[0].y + scene.offsetY - scene.size.y / 2;
+        }
+
+        if (scene.placement == TilemapObjectPlacement.Left)
+        {
+            x = objectPosition[0].x - scene.size.x/2 + scene.offsetX;
+            y = objectPosition[0].y + scene.offsetY;
+        }
+
+        obj.transform.position = new Vector3(x, y);
+        SpriteRenderer rend = obj.AddComponent<SpriteRenderer>();
         rend.sortingLayerName = "Foreground";
         rend.sortingOrder = 1;
-        rend.sprite = sc.sprite;
+        rend.sprite = scene.sprite;
     }
 
     void LayoutObstacles()
@@ -371,15 +400,18 @@ public class BoardManager : MonoBehaviour
         else
             mapSize.x = mapSize.y;
 
-        int centerX = Mathf.FloorToInt(mapSize.x * 0.5f);
-        int centerY = Mathf.FloorToInt(mapSize.y * 0.5f);
+        float centerX = mapSize.x * 0.5f;
+        float centerY = mapSize.y * 0.5f;
+
         for (int x = -1; x < mapSize.x + 1; x++)
         {
             for (int y = -1; y < mapSize.y + 1; y++)
             {
-                int sqrtX = (x - centerX) * (x - centerX);
-                int sqrtY = (y - centerY) * (y - centerY);
-                int sqrtR = centerX * centerX;
+
+                float sqrtX = (x - centerX) * (x - centerX);
+                float sqrtY = (y - centerY) * (y - centerY);
+                float sqrtR = centerX * centerX;
+
                 if (sqrtX + sqrtY > sqrtR)
                     ClearTile(new Vector3Int(x, y));
             }
@@ -595,13 +627,20 @@ public class BoardManager : MonoBehaviour
 
     List<Vector3Int> GetDirectionalOpenPosition(Vector2 _size, TilemapObjectPlacement _placement)
     {
+        Debug.Log("placement " + _placement);
         List<Vector3Int> candidatePositions = new();
         foreach (Vector3Int pos in openGridPositions)
         {
-            // TODO: add other options
-            if (_placement == TilemapObjectPlacement.Bottom && pos.y != 0)
+            if (_placement == TilemapObjectPlacement.Bottom && pos.y != GetMostSouthFloor())
+                continue;
+            if (_placement == TilemapObjectPlacement.Top && pos.y != mapSize.y) // TODO:GetMostSouthFloor
+                continue;
+            if (_placement == TilemapObjectPlacement.Left && pos.x != 0) // TODO:GetMostSouthFloor
+                continue;
+            if (_placement == TilemapObjectPlacement.Right && pos.x != mapSize.x) // TODO:GetMostSouthFloor
                 continue;
 
+            Debug.Log("after continue");
             candidatePositions.Add(pos);
             for (int x = 0; x < _size.x; x++)
             {
@@ -626,6 +665,15 @@ public class BoardManager : MonoBehaviour
             candidatePositions.Clear(); // try again
         }
         return null;
+    }
+
+    int GetMostSouthFloor()
+    {
+        for (int y = -1; y < mapSize.y; y++)
+            for (int x = 0; x < mapSize.x; x++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    return y;
+        return int.MaxValue;
     }
 
     // TODO: improve this?
