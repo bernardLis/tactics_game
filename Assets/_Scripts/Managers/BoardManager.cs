@@ -216,7 +216,6 @@ public class BoardManager : MonoBehaviour
         // TODO: another option would be to place it when the map is fully done
         // then I could go over the map and collect openings and choose one that fits. (if any)
         List<Vector3Int> objectPosition = GetDirectionalOpenPosition(scene.accessSize, scene.placement);
-        Debug.Log("object pos " + objectPosition[0]);
         if (objectPosition == null)
             return;
         foreach (Vector3Int pos in objectPosition)
@@ -234,7 +233,7 @@ public class BoardManager : MonoBehaviour
 
         if (scene.placement == TilemapObjectPlacement.Left)
         {
-            x = objectPosition[0].x - scene.size.x/2 + scene.offsetX;
+            x = objectPosition[0].x - scene.size.x / 2 + scene.offsetX;
             y = objectPosition[0].y + scene.offsetY;
         }
 
@@ -631,13 +630,13 @@ public class BoardManager : MonoBehaviour
         List<Vector3Int> candidatePositions = new();
         foreach (Vector3Int pos in openGridPositions)
         {
-            if (_placement == TilemapObjectPlacement.Bottom && pos.y != GetMostSouthFloor())
+            if (_placement == TilemapObjectPlacement.Bottom && pos.y != GetMostSouthRow())
                 continue;
-            if (_placement == TilemapObjectPlacement.Top && pos.y != mapSize.y) // TODO:GetMostSouthFloor
+            if (_placement == TilemapObjectPlacement.Top && pos.y != GetMostNorthRow()) // TODO:GetMostSouthFloor
                 continue;
-            if (_placement == TilemapObjectPlacement.Left && pos.x != 0) // TODO:GetMostSouthFloor
+            if (_placement == TilemapObjectPlacement.Left && pos.x != GetMostWestColumn()) // TODO:GetMostSouthFloor
                 continue;
-            if (_placement == TilemapObjectPlacement.Right && pos.x != mapSize.x) // TODO:GetMostSouthFloor
+            if (_placement == TilemapObjectPlacement.Right && pos.x != GetMostEastColumn()) // TODO:GetMostSouthFloor
                 continue;
 
             Debug.Log("after continue");
@@ -667,7 +666,7 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
-    int GetMostSouthFloor()
+    int GetMostSouthRow()
     {
         for (int y = -1; y < mapSize.y; y++)
             for (int x = 0; x < mapSize.x; x++)
@@ -675,6 +674,32 @@ public class BoardManager : MonoBehaviour
                     return y;
         return int.MaxValue;
     }
+    int GetMostNorthRow()
+    {
+        for (int y = mapSize.y + 1; y > 0; y--)
+            for (int x = 0; x < mapSize.x; x++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    return y;
+        return int.MaxValue;
+    }
+
+    int GetMostWestColumn()
+    {
+        for (int x = -1; x < mapSize.x; x++)
+            for (int y = 0; y < mapSize.y; y++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    return x;
+        return int.MaxValue;
+    }
+    int GetMostEastColumn()
+    {
+        for (int x = mapSize.x + 1; x > 0; x--)
+            for (int y = 0; y < mapSize.y; y++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    return x;
+        return int.MaxValue;
+    }
+
 
     // TODO: improve this?
     List<Vector3Int> GetRandomOpenPosition(Vector2 _size)
