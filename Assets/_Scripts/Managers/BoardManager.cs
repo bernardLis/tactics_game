@@ -28,6 +28,7 @@ public class BoardManager : MonoBehaviour
     public GameObject obstaclePrefab;
     public GameObject pushableObstaclePrefab;
     public GameObject collectiblePrefab;
+    public GameObject chestPrefab;
     public GameObject trap;     // TODO: this
 
     // other map vars
@@ -96,7 +97,6 @@ public class BoardManager : MonoBehaviour
         for (int x = 0; x < mapSize.x; x++)
             for (int y = 0; y < mapSize.y; y++)
                 openGridPositions.Add(new Vector3Int(x, y, 0));
-
 
         openGridPositions = Utility.ShuffleList<Vector3Int>(openGridPositions, seed);
     }
@@ -186,7 +186,6 @@ public class BoardManager : MonoBehaviour
         int obstacledTileCount = 0;
         for (int i = 0; i < objectCount; i++)
         {
-
             if (openGridPositions.Count <= 0)
                 return;
 
@@ -212,15 +211,25 @@ public class BoardManager : MonoBehaviour
             if (selectedObject.pushable)
                 selectedPrefab = pushableObstaclePrefab;
 
+            // we are getting SE corner of the most NW tile of all positions
+            Debug.Log("pos[0] " + randomPosition[0]);
             // TODO: I am not certain why is that so:
             // size 1 object needs to be in the middle of the tile, 
             // while object with a different size are placed in the bottom left corner.
             float posX = randomPosition[0].x;
             float posY = randomPosition[0].y;
-            if (selectedObject.size.x % 2 != 0)
+
+            if (selectedObject.size.x == 1)
                 posX += 0.5f;
-            if (selectedObject.size.y % 2 != 0)
+            if (selectedObject.size.y == 1)
                 posY += 0.5f;
+
+            // TODO: I don't fully understand why.
+            if(selectedObject.size.x >= 3)
+                posX -= 0.5f * (selectedObject.size.x - 2); 
+            if(selectedObject.size.y >= 3)
+                posY -= 0.5f * (selectedObject.size.y - 2); 
+
 
             Vector3 placingPos = new Vector3(posX, posY, randomPosition[0].z);
 
@@ -239,6 +248,7 @@ public class BoardManager : MonoBehaviour
         // TODO: this should be way smarter
         PlaceOuterDemon();
         PlaceCollectible();
+        PlaceChest();
     }
 
     void PlaceOuterDemon()
@@ -260,9 +270,27 @@ public class BoardManager : MonoBehaviour
 
     void PlaceCollectible()
     {
+        if (pushableObstacles.Count == 0)
+            return;
         GameObject chosenObstacle = pushableObstacles[Random.Range(0, pushableObstacles.Count)];
         GameObject collectible = Instantiate(collectiblePrefab, chosenObstacle.transform.position, Quaternion.identity);
         collectible.transform.parent = envObjectsHolder.transform;
+    }
+
+    void PlaceChest()
+    {
+        List<GameObject> shuffledObstacles = Utility.ShuffleList(pushableObstacles, seed);
+        foreach (GameObject obs in shuffledObstacles)
+        {
+            Vector3Int tileSouth = new Vector3Int((int)obs.transform.position.x, (int)obs.transform.position.y - 1);
+            if (!openGridPositions.Contains(tileSouth))
+                continue;
+
+            GameObject chest = Instantiate(chestPrefab, obs.transform.position, Quaternion.identity);
+            chest.transform.parent = envObjectsHolder.transform;
+            DestroyImmediate(obs); // TODO: destroy immediate
+            return;
+        }
     }
 
     void LayoutFloorAdditions(int minimum, int maximum)
@@ -473,7 +501,7 @@ public class BoardManager : MonoBehaviour
             return;
 
         // TODO: this whole function seems verbose;
-        // inland corners is surrounded by 2 edge tiles and 2 normal tiles
+        // inland corner is surrounded by 2 edge tiles and 2 normal tiles
         if (backgroundTilemap.GetTile(new Vector3Int(_pos.x - 1, _pos.y)) == null)
             return;
         if (backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y + 1)) == null)
@@ -489,43 +517,30 @@ public class BoardManager : MonoBehaviour
         surroundingTiles[2] = backgroundTilemap.GetTile(new Vector3Int(_pos.x + 1, _pos.y));
         surroundingTiles[3] = backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y - 1));
 
-        if (surroundingTiles[0] == flav.edgeS && surroundingTiles[3] == flav.edgeW)
-            SetEdgeTile(_pos, flav.inlandCornerNW);
-        if (surroundingTiles[2] == flav.edgeS && surroundingTiles[3] == flav.edgeE)
-            SetEdgeTile(_pos, flav.inlandCornerNE);
-        if (surroundingTiles[0] == flav.edgeN && surroundingTiles[1] == flav.edgeW)
-            SetEdgeTile(_pos, flav.inlandCornerSW);
-        if (surroundingTiles[1] == flav.edgeE && surroundingTiles[2] == flav.edgeN)
-            SetEdgeTile(_pos, flav.inlandCornerSE);
-
         // inland corners need to consider corners too
-        if (surroundingTiles[2] == flav.edgeS && surroundingTiles[3] == flav.cornerSW)
-            SetEdgeTile(_pos, flav.inlandCornerNE);
-        if (surroundingTiles[0] == flav.edgeS && surroundingTiles[3] == flav.cornerSE)
-            SetEdgeTile(_pos, flav.inlandCornerNW);
-        if (surroundingTiles[0] == flav.cornerNW && surroundingTiles[1] == flav.edgeW)
-            SetEdgeTile(_pos, flav.inlandCornerSW);
-        if (surroundingTiles[0] == flav.cornerSE && surroundingTiles[3] == flav.edgeW)
-            SetEdgeTile(_pos, flav.inlandCornerNW);
-        if (surroundingTiles[1] == flav.cornerNE && surroundingTiles[2] == flav.edgeN)
-            SetEdgeTile(_pos, flav.inlandCornerSE);
-        if (surroundingTiles[0] == flav.edgeN && surroundingTiles[1] == flav.cornerNW)
-            SetEdgeTile(_pos, flav.inlandCornerSW);
-        if (surroundingTiles[2] == flav.cornerSW && surroundingTiles[3] == flav.edgeE)
-            SetEdgeTile(_pos, flav.inlandCornerNE);
-        if (surroundingTiles[1] == flav.edgeE && surroundingTiles[2] == flav.cornerNE)
-            SetEdgeTile(_pos, flav.inlandCornerSE);
-
-        // corners next to other corners
-        if (surroundingTiles[2] == flav.cornerSW && surroundingTiles[3] == flav.cornerSW)
-            SetEdgeTile(_pos, flav.inlandCornerNE);
-        if (surroundingTiles[0] == flav.cornerSE && surroundingTiles[3] == flav.cornerSE)
-            SetEdgeTile(_pos, flav.inlandCornerNW);
-        if (surroundingTiles[1] == flav.cornerNE && surroundingTiles[2] == flav.cornerNE)
-            SetEdgeTile(_pos, flav.inlandCornerSE);
-        if (surroundingTiles[0] == flav.cornerNW && surroundingTiles[1] == flav.cornerNW)
+        if ((surroundingTiles[0] == flav.edgeN && surroundingTiles[1] == flav.edgeW)
+            || (surroundingTiles[0] == flav.cornerNW && surroundingTiles[1] == flav.edgeW)
+            || (surroundingTiles[0] == flav.cornerNW && surroundingTiles[1] == flav.cornerNW)
+            || (surroundingTiles[0] == flav.edgeN && surroundingTiles[1] == flav.cornerNW))
             SetEdgeTile(_pos, flav.inlandCornerSW);
 
+        if ((surroundingTiles[0] == flav.edgeS && surroundingTiles[3] == flav.edgeW)
+            || (surroundingTiles[0] == flav.edgeS && surroundingTiles[3] == flav.cornerSE)
+            || (surroundingTiles[0] == flav.cornerSE && surroundingTiles[3] == flav.edgeW)
+            || (surroundingTiles[0] == flav.cornerSE && surroundingTiles[3] == flav.cornerSE))
+            SetEdgeTile(_pos, flav.inlandCornerNW);
+
+        if ((surroundingTiles[1] == flav.edgeE && surroundingTiles[2] == flav.edgeN)
+            || (surroundingTiles[1] == flav.cornerNE && surroundingTiles[2] == flav.edgeN)
+            || (surroundingTiles[1] == flav.edgeE && surroundingTiles[2] == flav.cornerNE)
+            || (surroundingTiles[1] == flav.cornerNE && surroundingTiles[2] == flav.cornerNE))
+            SetEdgeTile(_pos, flav.inlandCornerSE);
+
+        if ((surroundingTiles[2] == flav.edgeS && surroundingTiles[3] == flav.edgeE)
+            || (surroundingTiles[2] == flav.edgeS && surroundingTiles[3] == flav.cornerSW)
+            || (surroundingTiles[2] == flav.cornerSW && surroundingTiles[3] == flav.edgeE)
+            || (surroundingTiles[2] == flav.cornerSW && surroundingTiles[3] == flav.cornerSW))
+            SetEdgeTile(_pos, flav.inlandCornerNE);
     }
 
     void ClearLooseTile(Vector3Int _pos)
@@ -650,10 +665,7 @@ public class BoardManager : MonoBehaviour
                     continue; // make sure it is in bounds
 
                 if (_mapFlags[neighbourX, neighbourY])
-                {
-
                     continue;
-                }
 
                 if (obstacleMap[neighbourX, neighbourY])
                     continue;

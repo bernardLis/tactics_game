@@ -53,16 +53,16 @@ MonoBehaviour:
   inlandCornerSE: {fileID: 11400000, guid: c6b28ab334cbbab4ea44391153293aa3, type: 2}
   inlandCornerSW: {fileID: 11400000, guid: bdd3d5bf11219fd42a54cc72ccb1bdda, type: 2}
   obstacles:
+  - {fileID: 11400000, guid: a075f43f480da334687099b22ca9fa14, type: 2}
   - {fileID: 11400000, guid: 544c53a97b04a29428a574d43c828939, type: 2}
-  - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
-  - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
-  - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
-  - {fileID: 11400000, guid: e45b567afb0eea844ba0ef975186ce28, type: 2}
   - {fileID: 11400000, guid: 00bf384ae232d5347b66f897b0850df7, type: 2}
+  - {fileID: 11400000, guid: e45b567afb0eea844ba0ef975186ce28, type: 2}
+  - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
+  - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
+  - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
+  - {fileID: 11400000, guid: 7970e8794f49c9f4f8488d393290fb6f, type: 2}
+  - {fileID: 11400000, guid: 976e34c39fa76e44b858ac7b00b1e184, type: 2}
   outerObjects:
   - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
   - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
   - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
-  sceneObjects:
-  - {fileID: 11400000, guid: 3b5e95b13c71b0c4f8d911da1d564a1d, type: 2}
-  - {fileID: 11400000, guid: 5dffdd8cab486d74daba1f8423944fa2, type: 2}
