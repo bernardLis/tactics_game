@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f3178798064e043b4ca8d0620801a8, type: 3}
+  m_Name: City
+  m_EditorClassIdentifier: 
+  id: 46d2c9e1-cbd8-4ab7-89e4-509db3889604
+  floorTiles:
+  - {fileID: 11400000, guid: 7fff049502ccb354d8b6f3c85b900ae7, type: 2}
+  - {fileID: 11400000, guid: e9e3e3028a30bed428683228aca88e0f, type: 2}
+  - {fileID: 11400000, guid: bbc3b2eff85b2104dad728bcf21f09d5, type: 2}
+  - {fileID: 11400000, guid: c4da114ab3e587e4cbaf96171fdd0d17, type: 2}
+  - {fileID: 11400000, guid: 600d0717b9212ba48a17bd136d4a9c32, type: 2}
+  - {fileID: 11400000, guid: 3d7e445cb087f724d9399ecdf2610ed8, type: 2}
+  - {fileID: 11400000, guid: 3fb78a9cb1df646489b3832c0d46c7e9, type: 2}
+  - {fileID: 11400000, guid: c6789fd71f7f26e438da85eb65e71fdd, type: 2}
+  - {fileID: 11400000, guid: a654cae0a4959944d86d2fbd31655edc, type: 2}
+  - {fileID: 11400000, guid: db73922ce96e5124c88f0c88089a1974, type: 2}
+  - {fileID: 11400000, guid: 2ddb73d208a499f4eb3fbcdd5f39c6e2, type: 2}
+  - {fileID: 11400000, guid: 161798581a49fac439285de54b6202d4, type: 2}
+  - {fileID: 11400000, guid: 03e30d086d3f4934f968d65c1fa40b12, type: 2}
+  - {fileID: 11400000, guid: 423122d57d837364c932af120c1a9257, type: 2}
+  floorAdditions:
+  - {fileID: 11400000, guid: ccb4adaf305f4a04da279b69c1c23a44, type: 2}
+  - {fileID: 11400000, guid: f8723568b10d191488c19e65cb33c767, type: 2}
+  - {fileID: 11400000, guid: fa5f02cfede355341a830cb070c0ccbb, type: 2}
+  outerTiles:
+  - {fileID: 11400000, guid: 59e03d24f655b144d8438f5d3745cae1, type: 2}
+  edgeN: {fileID: 11400000, guid: f0628095ecbc07342824a145037f8d38, type: 2}
+  edgeS: {fileID: 11400000, guid: 1346d31ec2fb84b4f84204413951575d, type: 2}
+  edgeE: {fileID: 11400000, guid: 07aa23f126d0f0140ab54de875b8c20e, type: 2}
+  edgeW: {fileID: 11400000, guid: e590de3da9dff5d4181132717e10cab2, type: 2}
+  cornerNE: {fileID: 11400000, guid: d5735df904073c344bc83f8515c88c9b, type: 2}
+  cornerNW: {fileID: 11400000, guid: 31d968f50a1fc02459d70cadc03d037c, type: 2}
+  cornerSE: {fileID: 11400000, guid: 6a7707ac891d582498299700d40843c1, type: 2}
+  cornerSW: {fileID: 11400000, guid: e84f7cc6c8bb08948a740280516c1cdd, type: 2}
+  inlandCornerNE: {fileID: 11400000, guid: 6e8656a8a33f23143b02aa94a846ddbf, type: 2}
+  inlandCornerNW: {fileID: 11400000, guid: 374e2ae62714a7b408dbcd227b08f565, type: 2}
+  inlandCornerSE: {fileID: 11400000, guid: 8523d372bcf9c2545a950dfd5c62b0b9, type: 2}
+  inlandCornerSW: {fileID: 11400000, guid: 47c283ea8b887dc44883bb1ac44f5527, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: 544c53a97b04a29428a574d43c828939, type: 2}
+  - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
+  - {fileID: 11400000, guid: 00bf384ae232d5347b66f897b0850df7, type: 2}
+  - {fileID: 11400000, guid: e45b567afb0eea844ba0ef975186ce28, type: 2}
+  - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
+  - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
+  outerObjects:
+  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
+  - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
+  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
+  sceneObjects:
+  - {fileID: 11400000, guid: 3b5e95b13c71b0c4f8d911da1d564a1d, type: 2}
+  - {fileID: 11400000, guid: 5dffdd8cab486d74daba1f8423944fa2, type: 2}

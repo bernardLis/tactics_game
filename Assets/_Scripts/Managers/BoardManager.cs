@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public class BoardManager : MonoBehaviour
 {
     [Header("Map Setup")]
-    public string mapVariantChosen; // TODO: just for dev
+    public MapVariant mapVariantChosen; // TODO: just for dev
     public int seed;
     public Vector2Int mapSize = new(20, 20);
 
@@ -19,6 +19,7 @@ public class BoardManager : MonoBehaviour
     public GameObject enemyGO;
 
     [Header("Unity objects")]
+    public MapVariant[] mapVariants;
     public TilemapFlavour[] tilemapFlavours;
     public Tilemap backgroundTilemap;
     public Tilemap middlegroundTilemap;
@@ -26,6 +27,7 @@ public class BoardManager : MonoBehaviour
     public GameObject envObjectsHolder;
     public GameObject obstaclePrefab;
     public GameObject pushableObstaclePrefab;
+    public GameObject collectiblePrefab;
     public GameObject trap;     // TODO: this
 
     // other map vars
@@ -38,6 +40,7 @@ public class BoardManager : MonoBehaviour
     List<Vector3Int> openGridPositions = new();
     int floorTileCount;
     TilemapFlavour flav;
+    List<GameObject> pushableObstacles;
 
     public void SetupScene()
     {
@@ -45,46 +48,12 @@ public class BoardManager : MonoBehaviour
         InitialSetup();
         BoardSetup();
         InitialiseOpenPositions();
-
-        int mapVariant = Random.Range(1, 6);
-        if (mapVariant == 1)
-        {
-            obstaclePercent = Random.Range(0.05f, 0.1f);
-            mapVariantChosen = "Space";
-        }
-        if (mapVariant == 2)
-        {
-            obstaclePercent = 1f;
-            mapVariantChosen = "Labirynth";
-        }
-        if (mapVariant == 3)
-        {
-            PlaceRiver();
-            obstaclePercent = Random.Range(0.05f, 0.2f);
-            mapVariantChosen = "River";
-        }
-        if (mapVariant == 4)
-        {
-            PlaceLakeInTheMiddle();
-            obstaclePercent = Random.Range(0.05f, 0.2f);
-            mapVariantChosen = "Lake in the middle";
-        }
-        if (mapVariant == 5)
-        {
-            CarveCircle(); // that's pretty boring.
-            obstaclePercent = Random.Range(0.05f, 0.2f);
-            mapVariantChosen = "Circle";
-        }
-
-
-        terrainIrregularitiesPercent = Random.Range(0.1f, 0.25f);
+        ResolveMapVariant();
         PlaceTerrainIrregularities();
         HandleLooseTiles();
         HandleEdge();
-
-        // TODO: this should be way smarter
-        PlaceSpecialObjects();
         LayoutObstacles();
+        PlaceSpecialObjects();
         //LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
         LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f));
 
@@ -101,6 +70,8 @@ public class BoardManager : MonoBehaviour
         terrainIrregularitiesPercent = 0f;//Random.Range(0f, 0.4f);
 
         flav = tilemapFlavours[Random.Range(0, tilemapFlavours.Length)];
+
+        pushableObstacles = new();
 
         backgroundTilemap.ClearAllTiles();
         middlegroundTilemap.ClearAllTiles();
@@ -128,6 +99,20 @@ public class BoardManager : MonoBehaviour
 
 
         openGridPositions = Utility.ShuffleList<Vector3Int>(openGridPositions, seed);
+    }
+
+    void ResolveMapVariant()
+    {
+        mapVariantChosen = mapVariants[Random.Range(0, mapVariants.Length)];
+        obstaclePercent = Random.Range(mapVariantChosen.obstaclePercent.x, mapVariantChosen.obstaclePercent.y);
+        terrainIrregularitiesPercent = Random.Range(mapVariantChosen.terrainIrregularitiesPercent.x,
+                                                    mapVariantChosen.terrainIrregularitiesPercent.y);
+        if (mapVariantChosen.mapType == MapType.Circle)
+            CarveCircle();
+        if (mapVariantChosen.mapType == MapType.River)
+            PlaceRiver();
+        if (mapVariantChosen.mapType == MapType.Lake)
+            PlaceLake();
     }
 
     void PlaceTerrainIrregularities()
@@ -181,67 +166,6 @@ public class BoardManager : MonoBehaviour
             for (int x = -1; x < mapSize.x + 1; x++)
                 for (int y = -1; y < mapSize.y + 1; y++)
                     ClearLooseTile(new Vector3Int(x, y));
-    }
-
-    void PlaceSpecialObjects()
-    {
-        // TODO: this should be way smarter
-        PlaceOuterDemon();
-        PlaceScene();
-    }
-
-    void PlaceOuterDemon()
-    {
-        // outer
-        TilemapObject ob = flav.outerObjects[Random.Range(0, flav.outerObjects.Length)];
-
-        GameObject n = new GameObject(ob.oName);
-        n.transform.parent = envObjectsHolder.transform;
-        n.transform.position = new Vector3(mapSize.x * 0.5f, mapSize.y + ob.size.y, 0f);
-
-        n.transform.DOPunchPosition(Vector3.up * 0.5f, 2f, 0, 1f, false).SetLoops(-1, LoopType.Yoyo); // TODO: cool! 
-
-        SpriteRenderer sr = n.AddComponent<SpriteRenderer>();
-        sr.sortingLayerName = "Foreground";
-        sr.sortingOrder = 1;
-        sr.sprite = ob.sprite;
-    }
-
-    void PlaceScene()
-    {
-        // scene TODO: should be a seperate method
-        TilemapSceneObject scene = flav.sceneObjects[Random.Range(0, flav.sceneObjects.Length)];
-        GameObject obj = new GameObject(scene.oName);
-        obj.transform.parent = envObjectsHolder.transform;
-        // TODO: another option would be to place it when the map is fully done
-        // then I could go over the map and collect openings and choose one that fits. (if any)
-        List<Vector3Int> objectPosition = GetDirectionalOpenPosition(scene.accessSize, scene.placement);
-        if (objectPosition == null)
-            return;
-        foreach (Vector3Int pos in objectPosition)
-            openGridPositions.Remove(pos); // keep them open
-
-        // TODO: does this make sense?
-        float x = 0;
-        float y = 0;
-
-        if (scene.placement == TilemapObjectPlacement.Bottom)
-        {
-            x = objectPosition[0].x + scene.offsetX + scene.accessSize.x;
-            y = objectPosition[0].y + scene.offsetY - scene.size.y / 2;
-        }
-
-        if (scene.placement == TilemapObjectPlacement.Left)
-        {
-            x = objectPosition[0].x - scene.size.x / 2 + scene.offsetX;
-            y = objectPosition[0].y + scene.offsetY;
-        }
-
-        obj.transform.position = new Vector3(x, y);
-        SpriteRenderer rend = obj.AddComponent<SpriteRenderer>();
-        rend.sortingLayerName = "Foreground";
-        rend.sortingOrder = 1;
-        rend.sprite = scene.sprite;
     }
 
     void LayoutObstacles()
@@ -302,9 +226,43 @@ public class BoardManager : MonoBehaviour
 
             GameObject ob = Instantiate(selectedPrefab, placingPos, Quaternion.identity);
             ob.GetComponent<Obstacle>().Initialise(selectedObject);
+
+            if (selectedObject.pushable)
+                pushableObstacles.Add(ob);
+
             ob.name = selectedObject.oName;
             ob.transform.parent = envObjectsHolder.transform;
         }
+    }
+    void PlaceSpecialObjects()
+    {
+        // TODO: this should be way smarter
+        PlaceOuterDemon();
+        PlaceCollectible();
+    }
+
+    void PlaceOuterDemon()
+    {
+        // outer
+        TilemapObject ob = flav.outerObjects[Random.Range(0, flav.outerObjects.Length)];
+
+        GameObject n = new GameObject(ob.oName);
+        n.transform.parent = envObjectsHolder.transform;
+        n.transform.position = new Vector3(mapSize.x * 0.5f, mapSize.y + ob.size.y, 0f);
+
+        n.transform.DOPunchPosition(Vector3.up * 0.5f, 2f, 0, 1f, false).SetLoops(-1, LoopType.Yoyo); // TODO: cool! 
+
+        SpriteRenderer sr = n.AddComponent<SpriteRenderer>();
+        sr.sortingLayerName = "Foreground";
+        sr.sortingOrder = 1;
+        sr.sprite = ob.sprite;
+    }
+
+    void PlaceCollectible()
+    {
+        GameObject chosenObstacle = pushableObstacles[Random.Range(0, pushableObstacles.Count)];
+        GameObject collectible = Instantiate(collectiblePrefab, chosenObstacle.transform.position, Quaternion.identity);
+        collectible.transform.parent = envObjectsHolder.transform;
     }
 
     void LayoutFloorAdditions(int minimum, int maximum)
@@ -374,7 +332,7 @@ public class BoardManager : MonoBehaviour
                 SetBackgroundFloorTile(new Vector3Int(x, y));
     }
 
-    void PlaceLakeInTheMiddle()
+    void PlaceLake()
     {
         int lakeWidth = Mathf.RoundToInt(Random.Range(mapSize.x * 0.2f, mapSize.x * 0.4f));
         int lakeHeight = Mathf.RoundToInt(Random.Range(mapSize.x * 0.2f, mapSize.y * 0.4f));
@@ -623,83 +581,6 @@ public class BoardManager : MonoBehaviour
     {
         return Array.IndexOf(flav.floorTiles, backgroundTilemap.GetTile(_pos)) != -1;
     }
-
-    List<Vector3Int> GetDirectionalOpenPosition(Vector2 _size, TilemapObjectPlacement _placement)
-    {
-        Debug.Log("placement " + _placement);
-        List<Vector3Int> candidatePositions = new();
-        foreach (Vector3Int pos in openGridPositions)
-        {
-            if (_placement == TilemapObjectPlacement.Bottom && pos.y != GetMostSouthRow())
-                continue;
-            if (_placement == TilemapObjectPlacement.Top && pos.y != GetMostNorthRow()) // TODO:GetMostSouthFloor
-                continue;
-            if (_placement == TilemapObjectPlacement.Left && pos.x != GetMostWestColumn()) // TODO:GetMostSouthFloor
-                continue;
-            if (_placement == TilemapObjectPlacement.Right && pos.x != GetMostEastColumn()) // TODO:GetMostSouthFloor
-                continue;
-
-            Debug.Log("after continue");
-            candidatePositions.Add(pos);
-            for (int x = 0; x < _size.x; x++)
-            {
-                for (int y = 0; y < _size.y; y++)
-                {
-                    if (x == 0 && y == 0)
-                        continue;
-
-                    Vector3Int posToCheck = new Vector3Int(pos.x - x, pos.y - y, 0); // - to go North West on the map
-                    if (openGridPositions.Contains(posToCheck) && !candidatePositions.Contains(posToCheck))
-                        candidatePositions.Add(posToCheck);
-                }
-            }
-
-            if (candidatePositions.Count >= _size.x * _size.y)
-            {
-                foreach (Vector3Int posToRemove in candidatePositions)
-                    openGridPositions.Remove(posToRemove);
-
-                return candidatePositions; // winner
-            }
-            candidatePositions.Clear(); // try again
-        }
-        return null;
-    }
-
-    int GetMostSouthRow()
-    {
-        for (int y = -1; y < mapSize.y; y++)
-            for (int x = 0; x < mapSize.x; x++)
-                if (IsFloorTile(new Vector3Int(x, y)))
-                    return y;
-        return int.MaxValue;
-    }
-    int GetMostNorthRow()
-    {
-        for (int y = mapSize.y + 1; y > 0; y--)
-            for (int x = 0; x < mapSize.x; x++)
-                if (IsFloorTile(new Vector3Int(x, y)))
-                    return y;
-        return int.MaxValue;
-    }
-
-    int GetMostWestColumn()
-    {
-        for (int x = -1; x < mapSize.x; x++)
-            for (int y = 0; y < mapSize.y; y++)
-                if (IsFloorTile(new Vector3Int(x, y)))
-                    return x;
-        return int.MaxValue;
-    }
-    int GetMostEastColumn()
-    {
-        for (int x = mapSize.x + 1; x > 0; x--)
-            for (int y = 0; y < mapSize.y; y++)
-                if (IsFloorTile(new Vector3Int(x, y)))
-                    return x;
-        return int.MaxValue;
-    }
-
 
     // TODO: improve this?
     List<Vector3Int> GetRandomOpenPosition(Vector2 _size)
