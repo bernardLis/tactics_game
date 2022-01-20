@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum MapType {None, Circle, River, Lake }
+public enum MapType { None, Circle, River, Lake }
 
 [CreateAssetMenu(menuName = "Tilemap/MapVariant")]
 public class MapVariant : BaseScriptableObject

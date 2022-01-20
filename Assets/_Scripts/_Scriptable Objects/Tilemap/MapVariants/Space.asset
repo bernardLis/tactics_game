@@ -16,6 +16,5 @@ MonoBehaviour:
   variantName: Space
   obstaclePercent: {x: 0.05, y: 0.1}
   terrainIrregularitiesPercent: {x: 0.1, y: 0.25}
-  circle: 0
-  river: 0
-  lake: 0
+  outerAdditionsPercent: {x: 0.2, y: 0.3}
+  mapType: 0

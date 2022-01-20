@@ -27,6 +27,7 @@ public class BoardManager : MonoBehaviour
     public GameObject envObjectsHolder;
     public GameObject obstaclePrefab;
     public GameObject pushableObstaclePrefab;
+    public GameObject outerObjectPrefab;
     public GameObject collectiblePrefab;
     public GameObject chestPrefab;
     public GameObject trap;     // TODO: this
@@ -35,6 +36,7 @@ public class BoardManager : MonoBehaviour
     Vector3Int emptyTile;
     float terrainIrregularitiesPercent;
     float obstaclePercent;
+    float outerAdditionsPercent;
     bool[,] obstacleMap;
     int accessibleTileCount;
     Queue<Vector3Int> floodFillQueue;
@@ -42,7 +44,7 @@ public class BoardManager : MonoBehaviour
     int floorTileCount;
     TilemapFlavour flav;
     List<GameObject> pushableObstacles;
-
+    List<Vector3Int> openOuterPositions = new();
     public void SetupScene()
     {
         Debug.Log("miau miau");
@@ -59,6 +61,7 @@ public class BoardManager : MonoBehaviour
         LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f));
 
         DrawOuter();
+        PlaceOuterAdditions();
         // TODO: spawn player chars / set-up player spawn positions;
     }
 
@@ -68,7 +71,6 @@ public class BoardManager : MonoBehaviour
         mapSize.y = Mathf.Clamp(mapSize.y, 4, 40);
 
         Random.InitState(seed);
-        terrainIrregularitiesPercent = 0f;//Random.Range(0f, 0.4f);
 
         flav = tilemapFlavours[Random.Range(0, tilemapFlavours.Length)];
 
@@ -107,6 +109,7 @@ public class BoardManager : MonoBehaviour
         obstaclePercent = Random.Range(mapVariantChosen.obstaclePercent.x, mapVariantChosen.obstaclePercent.y);
         terrainIrregularitiesPercent = Random.Range(mapVariantChosen.terrainIrregularitiesPercent.x,
                                                     mapVariantChosen.terrainIrregularitiesPercent.y);
+        outerAdditionsPercent = Random.Range(flav.outerAdditionsPercent.x, flav.outerAdditionsPercent.y);
         if (mapVariantChosen.mapType == MapType.Circle)
             CarveCircle();
         if (mapVariantChosen.mapType == MapType.River)
@@ -125,9 +128,17 @@ public class BoardManager : MonoBehaviour
             int y = Random.Range(0, mapSize.y);
 
             // OK, this is weird, but I don't have a tile to handle map corners that look like:
+            // [tile][empty][tile]
+            // [tile][tile][empty]
+            // [tile][tile][tile]
+            // or
             // [empty][tile][tile]
             // [tile][tile][tile]
             // [tile][tile][empty]
+            if (x == 1 || x == mapSize.x - 1)
+                continue;
+            if (y == 1 || y == mapSize.y - 1)
+                continue;
             if (x == 2 || x == mapSize.x - 2)
                 continue;
             if (y == 2 || y == mapSize.y - 2)
@@ -173,7 +184,7 @@ public class BoardManager : MonoBehaviour
         obstacleMap = new bool[mapSize.x, mapSize.y];
 
         // one of the tiles is always empty (used to be corner)
-        emptyTile = GetRandomOpenPosition(Vector2.one)[0];
+        emptyTile = GetRandomOpenPosition(Vector2.one, openGridPositions)[0];
         openGridPositions.Remove(emptyTile);
 
         floorTileCount = 0;
@@ -190,13 +201,12 @@ public class BoardManager : MonoBehaviour
                 return;
 
             TilemapObject selectedObject = flav.obstacles[Random.Range(0, flav.obstacles.Length)];
-            List<Vector3Int> randomPosition = GetRandomOpenPosition(selectedObject.size);
+            List<Vector3Int> randomPosition = GetRandomOpenPosition(selectedObject.size, openGridPositions);
             if (randomPosition == null)
                 return;
 
             foreach (Vector3Int pos in randomPosition)
                 obstacleMap[pos.x, pos.y] = true;
-
             obstacledTileCount += selectedObject.size.x * selectedObject.size.y; // TODO: improve this
 
             if (!MapIsFullyAccessible(obstacleMap, obstacledTileCount))
@@ -206,46 +216,12 @@ public class BoardManager : MonoBehaviour
                 obstacledTileCount -= selectedObject.size.x * selectedObject.size.y;// TODO: improve this
                 continue;
             }
-
-            GameObject selectedPrefab = obstaclePrefab;
-            if (selectedObject.pushable)
-                selectedPrefab = pushableObstaclePrefab;
-
-            // we are getting SE corner of the most NW tile of all positions
-            Debug.Log("pos[0] " + randomPosition[0]);
-            // TODO: I am not certain why is that so:
-            // size 1 object needs to be in the middle of the tile, 
-            // while object with a different size are placed in the bottom left corner.
-            float posX = randomPosition[0].x;
-            float posY = randomPosition[0].y;
-
-            if (selectedObject.size.x == 1)
-                posX += 0.5f;
-            if (selectedObject.size.y == 1)
-                posY += 0.5f;
-
-            // TODO: I don't fully understand why.
-            if(selectedObject.size.x >= 3)
-                posX -= 0.5f * (selectedObject.size.x - 2); 
-            if(selectedObject.size.y >= 3)
-                posY -= 0.5f * (selectedObject.size.y - 2); 
-
-
-            Vector3 placingPos = new Vector3(posX, posY, randomPosition[0].z);
-
-            GameObject ob = Instantiate(selectedPrefab, placingPos, Quaternion.identity);
-            ob.GetComponent<Obstacle>().Initialise(selectedObject);
-
-            if (selectedObject.pushable)
-                pushableObstacles.Add(ob);
-
-            ob.name = selectedObject.oName;
-            ob.transform.parent = envObjectsHolder.transform;
+            PlaceObject(selectedObject, randomPosition[0]);
         }
     }
+
     void PlaceSpecialObjects()
     {
-        // TODO: this should be way smarter
         PlaceOuterDemon();
         PlaceCollectible();
         PlaceChest();
@@ -253,8 +229,7 @@ public class BoardManager : MonoBehaviour
 
     void PlaceOuterDemon()
     {
-        // outer
-        TilemapObject ob = flav.outerObjects[Random.Range(0, flav.outerObjects.Length)];
+        TilemapObject ob = flav.outerDemons[Random.Range(0, flav.outerDemons.Length)];
 
         GameObject n = new GameObject(ob.oName);
         n.transform.parent = envObjectsHolder.transform;
@@ -302,7 +277,7 @@ public class BoardManager : MonoBehaviour
             if (openGridPositions.Count <= 0)
                 return;
 
-            List<Vector3Int> randomPosiiton = GetRandomOpenPosition(Vector2.one);
+            List<Vector3Int> randomPosiiton = GetRandomOpenPosition(Vector2.one, openGridPositions);
             middlegroundTilemap.SetTile(randomPosiiton[0],
                              tiles[Random.Range(0, tiles.Length)]);
         }
@@ -449,13 +424,87 @@ public class BoardManager : MonoBehaviour
                             ClearTile(new Vector3Int(mapSize.x - x, y));
                         }
                     }
-
-
-
         }
     */
 
+    void DrawOuter()
+    {
+        openOuterPositions.Clear();
+
+        TileBase[] tiles = flav.outerTiles;
+
+        for (int x = -mapSize.x; x < mapSize.x * 2; x++)
+            for (int y = -mapSize.y; y < mapSize.y * 2; y++)
+                if (!backgroundTilemap.GetTile(new Vector3Int(x, y)))
+                {
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
+                    openOuterPositions.Add(new Vector3Int(x, y));
+                }
+        openOuterPositions = Utility.ShuffleList(openOuterPositions, seed);
+    }
+
+    void PlaceOuterAdditions()
+    {
+        if (flav.outerAdditions.Length == 0)
+            return;
+
+        int outerAdditionsCount = Mathf.FloorToInt(openOuterPositions.Count * outerAdditionsPercent);
+        for (int i = 0; i < outerAdditionsCount; i++)
+        {
+
+            if (openOuterPositions.Count <= 0)
+                return;
+
+            TilemapObject selectedObject = flav.outerAdditions[Random.Range(0, flav.outerAdditions.Length)];
+            List<Vector3Int> randomPosition = GetRandomOpenPosition(selectedObject.size, openOuterPositions);
+            if (randomPosition == null)
+                return;
+
+            PlaceObject(selectedObject, randomPosition[0]);
+
+            foreach (Vector3Int pos in randomPosition)
+                openOuterPositions.Remove(pos);
+        }
+    }
+
+
     /* --- HELPERS --- */
+
+    void PlaceObject(TilemapObject _obj, Vector3Int _pos)
+    {
+        GameObject selectedPrefab = obstaclePrefab;
+        if (_obj.pushable)
+            selectedPrefab = pushableObstaclePrefab;
+        if (_obj.objectType == TileMapObjectType.Outer)
+            selectedPrefab = outerObjectPrefab;
+
+        // we are getting SE corner of the most NW tile of all positions
+        float posX = _pos.x;
+        float posY = _pos.y;
+
+        if (_obj.size.x == 1)
+            posX += 0.5f;
+        if (_obj.size.y == 1)
+            posY += 0.5f;
+
+        if (_obj.size.x >= 3)
+            posX -= 0.5f * (_obj.size.x - 2);
+        if (_obj.size.y >= 3)
+            posY -= 0.5f * (_obj.size.y - 2);
+
+        Vector3 placingPos = new Vector3(posX, posY, _pos.z);
+
+        GameObject ob = Instantiate(selectedPrefab, placingPos, Quaternion.identity);
+        ob.GetComponent<Obstacle>().Initialise(_obj);
+
+        if (_obj.pushable)
+            pushableObstacles.Add(ob);
+
+        ob.name = _obj.oName;
+        ob.transform.parent = envObjectsHolder.transform;
+    }
+
+
     void SetEdges(Vector3Int _pos)
     {
         // I am swapping tiles that exist
@@ -559,20 +608,6 @@ public class BoardManager : MonoBehaviour
             ClearTile(_pos);
     }
 
-    void DrawOuter()
-    {
-        int outerX = mapSize.x * 3;
-        int outerY = mapSize.y * 3;
-        outerX = Mathf.Clamp(outerX, 30, 10000);
-        outerY = Mathf.Clamp(outerY, 30, 10000);
-
-        TileBase[] tiles = flav.outerTiles;
-
-        for (int x = -outerX; x < outerX; x++)
-            for (int y = -outerY; y < outerY; y++)
-                if (!backgroundTilemap.GetTile(new Vector3Int(x, y)))
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
-    }
 
     void SetEdgeTile(Vector3Int _pos, TileBase _tile)
     {
@@ -598,10 +633,10 @@ public class BoardManager : MonoBehaviour
     }
 
     // TODO: improve this?
-    List<Vector3Int> GetRandomOpenPosition(Vector2 _size)
+    List<Vector3Int> GetRandomOpenPosition(Vector2 _size, List<Vector3Int> _positions)
     {
         List<Vector3Int> candidatePositions = new();
-        foreach (Vector3Int pos in openGridPositions)
+        foreach (Vector3Int pos in _positions)
         {
             candidatePositions.Add(pos);
             for (int x = 0; x < _size.x; x++)
@@ -612,7 +647,7 @@ public class BoardManager : MonoBehaviour
                         continue;
 
                     Vector3Int posToCheck = new Vector3Int(pos.x - x, pos.y - y, 0); // - to go North West on the map
-                    if (openGridPositions.Contains(posToCheck) && !candidatePositions.Contains(posToCheck))
+                    if (_positions.Contains(posToCheck) && !candidatePositions.Contains(posToCheck))
                         candidatePositions.Add(posToCheck);
                 }
             }
@@ -620,7 +655,7 @@ public class BoardManager : MonoBehaviour
             if (candidatePositions.Count >= _size.x * _size.y)
             {
                 foreach (Vector3Int posToRemove in candidatePositions)
-                    openGridPositions.Remove(posToRemove);
+                    _positions.Remove(posToRemove);
 
                 return candidatePositions; // winner
             }
@@ -686,7 +721,7 @@ public class BoardManager : MonoBehaviour
         for (int i = 0; i < objectCount; i++)
         {
             Character instantiatedSO = Instantiate(enemyCharacters[Random.Range(0, enemyCharacters.Length)]);
-            GameObject newCharacter = Instantiate(enemyGO, GetRandomOpenPosition(Vector2.one)[0], Quaternion.identity); // TODO: get random posiiton is wrong here
+            GameObject newCharacter = Instantiate(enemyGO, GetRandomOpenPosition(Vector2.one, openGridPositions)[0], Quaternion.identity); // TODO: get random posiiton is wrong here
 
             instantiatedSO.Initialize(newCharacter);
             newCharacter.name = instantiatedSO.characterName;

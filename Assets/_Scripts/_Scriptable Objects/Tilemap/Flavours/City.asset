@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: City
   m_EditorClassIdentifier: 
   id: 46d2c9e1-cbd8-4ab7-89e4-509db3889604
+  outerAdditionsPercent: {x: 0.2, y: 0.4}
   floorTiles:
   - {fileID: 11400000, guid: 7fff049502ccb354d8b6f3c85b900ae7, type: 2}
   - {fileID: 11400000, guid: e9e3e3028a30bed428683228aca88e0f, type: 2}
@@ -53,7 +54,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e45b567afb0eea844ba0ef975186ce28, type: 2}
   - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
   - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
-  outerObjects:
-  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
+  outerDemons:
   - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
   - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
+  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
+  outerAdditions: []

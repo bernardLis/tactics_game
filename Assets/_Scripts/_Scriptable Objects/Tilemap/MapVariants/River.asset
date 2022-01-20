@@ -16,4 +16,5 @@ MonoBehaviour:
   variantName: River
   obstaclePercent: {x: 0.05, y: 0.1}
   terrainIrregularitiesPercent: {x: 0.1, y: 0.25}
+  outerAdditionsPercent: {x: 0.2, y: 0.3}
   mapType: 2

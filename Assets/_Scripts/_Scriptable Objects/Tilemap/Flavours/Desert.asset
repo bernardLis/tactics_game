@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Desert
   m_EditorClassIdentifier: 
   id: 46d2c9e1-cbd8-4ab7-89e4-509db3889604
+  outerAdditionsPercent: {x: 0.1, y: 0.3}
   floorTiles:
   - {fileID: 11400000, guid: b7dc81053c6ab4f48b6ff2bbb8940871, type: 2}
   - {fileID: 11400000, guid: fe80c3810cdca9a49b2c0335f81cc150, type: 2}
@@ -53,16 +54,18 @@ MonoBehaviour:
   inlandCornerSE: {fileID: 11400000, guid: c6b28ab334cbbab4ea44391153293aa3, type: 2}
   inlandCornerSW: {fileID: 11400000, guid: bdd3d5bf11219fd42a54cc72ccb1bdda, type: 2}
   obstacles:
-  - {fileID: 11400000, guid: a075f43f480da334687099b22ca9fa14, type: 2}
   - {fileID: 11400000, guid: 544c53a97b04a29428a574d43c828939, type: 2}
   - {fileID: 11400000, guid: 00bf384ae232d5347b66f897b0850df7, type: 2}
   - {fileID: 11400000, guid: e45b567afb0eea844ba0ef975186ce28, type: 2}
   - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
   - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
-  - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
-  - {fileID: 11400000, guid: 7970e8794f49c9f4f8488d393290fb6f, type: 2}
-  - {fileID: 11400000, guid: 976e34c39fa76e44b858ac7b00b1e184, type: 2}
-  outerObjects:
+  outerDemons:
   - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
   - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
   - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
+  outerAdditions:
+  - {fileID: 11400000, guid: 1033919bb166f3b4fb86f31730cc5302, type: 2}
+  - {fileID: 11400000, guid: 29cb099b434299847925fd3a63f1a370, type: 2}
+  - {fileID: 11400000, guid: 6855480dec0364a4f9a17e0d86deaee5, type: 2}
+  - {fileID: 11400000, guid: c77937567869d8d429beaacaf4c49e71, type: 2}
+  - {fileID: 11400000, guid: 6f068bf3ccb576741adf3f11f44b380e, type: 2}
