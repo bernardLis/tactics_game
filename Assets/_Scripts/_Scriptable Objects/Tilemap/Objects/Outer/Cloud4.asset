@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 89d3a2c6-f4d9-4ae0-999c-07844e9b0510
   oName: Cloud4
-  size: {x: 2, y: 11}
+  size: {x: 2, y: 1}
   objectType: 0
   sprite: {fileID: 21300000, guid: 17f62dd5f377f5c4bafa8503327a0915, type: 3}
   pushable: 0
+  isMoving: 1

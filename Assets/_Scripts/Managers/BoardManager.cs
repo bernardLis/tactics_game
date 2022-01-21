@@ -378,6 +378,71 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    void DrawOuter()
+    {
+        openOuterPositions.Clear();
+
+        TileBase[] tiles = flav.outerTiles;
+
+        for (int x = -mapSize.x; x < mapSize.x * 2; x++)
+            for (int y = -mapSize.y; y < mapSize.y * 2; y++)
+                if (!backgroundTilemap.GetTile(new Vector3Int(x, y)))
+                {
+                    backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
+                    openOuterPositions.Add(new Vector3Int(x, y));
+                }
+    }
+
+    void PlaceOuterAdditions()
+    {
+        if (flav.outerAdditions.Length == 0)
+            return;
+
+        int outerAdditionsCount = Mathf.FloorToInt(openOuterPositions.Count * outerAdditionsPercent);
+        for (int i = 0; i < outerAdditionsCount; i++)
+        {
+            if (openOuterPositions.Count <= 0)
+                return;
+
+            TilemapObject selectedObject = flav.outerAdditions[Random.Range(0, flav.outerAdditions.Length)];
+            Vector3Int randomPosition = GetRandomOuterPosition(selectedObject.size);
+            if (randomPosition == Vector3Int.zero) // TODO: ehh...
+                continue;
+
+            PlaceObject(selectedObject, randomPosition);
+        }
+    }
+
+    Vector3Int GetRandomOuterPosition(Vector2Int _size)
+    {
+        Vector3Int randPos = openOuterPositions[Random.Range(0, openOuterPositions.Count)];
+
+        // outer positions are not shuffled
+        // + 1 coz if size is '1' I don't want to move any tiles down
+        if (Array.IndexOf(flav.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y))) == -1)
+            return Vector3Int.zero;
+        if (Array.IndexOf(flav.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x, randPos.y - _size.y + 1))) == -1)
+            return Vector3Int.zero;
+        if (Array.IndexOf(flav.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y - _size.y + 1))) == -1)
+            return Vector3Int.zero;
+
+        openOuterPositions.Remove(randPos);
+        // remove positions from open outer positions;
+        for (int x = 0; x < _size.x; x++)
+        {
+            for (int y = 0; y < _size.y; y++)
+            {
+                if (x == 0 && y == 0)
+                    continue;
+
+                openOuterPositions.Remove(new Vector3Int(randPos.x - x, randPos.y - y));
+            }
+        }
+        // need to check whether 
+        return randPos;
+    }
+
+
     /* ugh...
         void CarveHourglass()
         {
@@ -426,48 +491,6 @@ public class BoardManager : MonoBehaviour
                     }
         }
     */
-
-    void DrawOuter()
-    {
-        openOuterPositions.Clear();
-
-        TileBase[] tiles = flav.outerTiles;
-
-        for (int x = -mapSize.x; x < mapSize.x * 2; x++)
-            for (int y = -mapSize.y; y < mapSize.y * 2; y++)
-                if (!backgroundTilemap.GetTile(new Vector3Int(x, y)))
-                {
-                    backgroundTilemap.SetTile(new Vector3Int(x, y), tiles[Random.Range(0, tiles.Length)]);
-                    openOuterPositions.Add(new Vector3Int(x, y));
-                }
-        openOuterPositions = Utility.ShuffleList(openOuterPositions, seed);
-    }
-
-    void PlaceOuterAdditions()
-    {
-        if (flav.outerAdditions.Length == 0)
-            return;
-
-        int outerAdditionsCount = Mathf.FloorToInt(openOuterPositions.Count * outerAdditionsPercent);
-        for (int i = 0; i < outerAdditionsCount; i++)
-        {
-
-            if (openOuterPositions.Count <= 0)
-                return;
-
-            TilemapObject selectedObject = flav.outerAdditions[Random.Range(0, flav.outerAdditions.Length)];
-            List<Vector3Int> randomPosition = GetRandomOpenPosition(selectedObject.size, openOuterPositions);
-            if (randomPosition == null)
-                return;
-
-            PlaceObject(selectedObject, randomPosition[0]);
-
-            foreach (Vector3Int pos in randomPosition)
-                openOuterPositions.Remove(pos);
-        }
-    }
-
-
     /* --- HELPERS --- */
 
     void PlaceObject(TilemapObject _obj, Vector3Int _pos)
@@ -495,7 +518,10 @@ public class BoardManager : MonoBehaviour
         Vector3 placingPos = new Vector3(posX, posY, _pos.z);
 
         GameObject ob = Instantiate(selectedPrefab, placingPos, Quaternion.identity);
-        ob.GetComponent<Obstacle>().Initialise(_obj);
+        if (_obj.objectType == TileMapObjectType.Obstacle)
+            ob.GetComponent<Obstacle>().Initialise(_obj);
+        if (_obj.objectType == TileMapObjectType.Outer)
+            ob.GetComponent<OuterObject>().Initialise(_obj); 
 
         if (_obj.pushable)
             pushableObstacles.Add(ob);
@@ -607,7 +633,6 @@ public class BoardManager : MonoBehaviour
         if (voidTiles >= 3)
             ClearTile(_pos);
     }
-
 
     void SetEdgeTile(Vector3Int _pos, TileBase _tile)
     {

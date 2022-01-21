@@ -18,3 +18,4 @@ MonoBehaviour:
   objectType: 0
   sprite: {fileID: 21300000, guid: 669e2cc6ee854d542897a1c3d50b0d31, type: 3}
   pushable: 0
+  isMoving: 1

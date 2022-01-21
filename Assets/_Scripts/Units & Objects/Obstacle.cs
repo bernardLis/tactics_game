@@ -6,8 +6,8 @@ public class Obstacle : MonoBehaviour
     void Start()
     {
         col = GetComponentInChildren<BoxCollider2D>();
-
     }
+
     public void Initialise(TilemapObject _obj)
     {
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
@@ -16,7 +16,5 @@ public class Obstacle : MonoBehaviour
         if (col != null)
             col.size = _obj.size;
 
-        if (Random.Range(0f, 1f) > 0.5f)
-            sr.flipX = true;
     }
 }

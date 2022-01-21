@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Desert
   m_EditorClassIdentifier: 
   id: 46d2c9e1-cbd8-4ab7-89e4-509db3889604
-  outerAdditionsPercent: {x: 0.1, y: 0.3}
+  outerAdditionsPercent: {x: 0.05, y: 0.1}
   floorTiles:
   - {fileID: 11400000, guid: b7dc81053c6ab4f48b6ff2bbb8940871, type: 2}
   - {fileID: 11400000, guid: fe80c3810cdca9a49b2c0335f81cc150, type: 2}

@@ -11,4 +11,5 @@ public class TilemapObject : BaseScriptableObject
     public TileMapObjectType objectType;
     public Sprite sprite;
     public bool pushable;
+    public bool isMoving;
 }
