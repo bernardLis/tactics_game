@@ -110,12 +110,15 @@ public class BoardManager : MonoBehaviour
         terrainIrregularitiesPercent = Random.Range(mapVariantChosen.terrainIrregularitiesPercent.x,
                                                     mapVariantChosen.terrainIrregularitiesPercent.y);
         outerAdditionsPercent = Random.Range(flav.outerAdditionsPercent.x, flav.outerAdditionsPercent.y);
+        CarveHourglass();
+        /*
         if (mapVariantChosen.mapType == MapType.Circle)
             CarveCircle();
         if (mapVariantChosen.mapType == MapType.River)
             PlaceRiver();
         if (mapVariantChosen.mapType == MapType.Lake)
             PlaceLake();
+        */
     }
 
     void PlaceTerrainIrregularities()
@@ -443,54 +446,149 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    /* ugh...
-        void CarveHourglass()
+    void CarveHourglass()
+    {
+        // force a rectangle - it works better
+        if (mapSize.x > mapSize.y)
+            mapSize.y = mapSize.x;
+        else
+            mapSize.x = mapSize.y;
+
+        // I actually need +1 column on each side to create an edge
+        int numberOfTilesLeft = 1;
+        if (mapSize.x % 2 == 0)
+            numberOfTilesLeft = 3;
+
+        for (int y = Mathf.FloorToInt(mapSize.y * 0.5f); y < mapSize.y; y++)
         {
-            // if mapSize is even, 2 rows in the middle are 1 tile
-            // else one row in the middle is 1 tile
-            if (mapSize.y % 2 == 0)
+            numberOfTilesLeft += 2;
+            Debug.Log("y: " + y);
+            Debug.Log("numberOfTilesLeft: " + numberOfTilesLeft);
+            for (int x = -1; x < mapSize.x + 1; x++) // +-1 to clear the edges
             {
-                int lowerRow = Mathf.FloorToInt(mapSize.y * 0.5f);
-                int upperRow = lowerRow + 1;
-                for (int y = lowerRow; y <= upperRow; y++)
+                // I want to keep number of tiles in the middle
+                int middleXTile = Mathf.RoundToInt(mapSize.x / 2);
+                if (x < middleXTile - Mathf.FloorToInt(numberOfTilesLeft / 2))
                 {
-                    BoundsInt bounds = new BoundsInt()
-                    // clear all but the middle one
-                    backgroundTilemap.GetTilesBlock()
+                    ClearTile(new Vector3Int(x, y));
+                    ClearTile(new Vector3Int(x, mapSize.y - y));
+                }
+                if (x > middleXTile + Mathf.FloorToInt(numberOfTilesLeft / 2))
+                {
+                    ClearTile(new Vector3Int(x, y));
+                    ClearTile(new Vector3Int(x, mapSize.y - y));
                 }
             }
-
-            // middle has one tile
-            // top and bottom have max tiles
-            // rows in between have increasing number of tiles from the middle
-
-
-            /*
-                    for (int y = 0; y < yMiddle; y++)
-                    {
-                        // I want to clear # of tiles on each end of the row, depending on what row we are on
-                        // until we reach the middle, I want to be clearing more and more tiles
-                        // than I want to be clearing less and less tiles
-                        for (int x = 0; x < y; x++)
-                        {
-                            ClearTile(new Vector3Int(x, y));
-                            ClearTile(new Vector3Int(mapSize.x - x, y));
-                        }
-                    }
-
-                    for (int y = mapSize.y; y > yMiddle; y--)
-                    {
-                        // I want to clear # of tiles on each end of the row, depending on what row we are on
-                        // until we reach the middle, I want to be clearing more and more tiles
-                        // than I want to be clearing less and less tiles
-                        for (int x = 0; x < mapSize.y - y; x++)
-                        {
-                            ClearTile(new Vector3Int(x, y));
-                            ClearTile(new Vector3Int(mapSize.x - x, y));
-                        }
-                    }
         }
-    */
+
+        /*
+        int[] middleColumns;
+
+                if (mapSize.x % 2 == 0)
+        {
+            Debug.Log("mapsize.x%2");
+            middleColumns = new int[5];
+            
+            middleColumns[0] = Mathf.FloorToInt(mapSize.x * 0.5f) - 2;
+            middleColumns[0] = Mathf.FloorToInt(mapSize.x * 0.5f) - 1;
+            middleColumns[1] = Mathf.FloorToInt(mapSize.x * 0.5f);
+            middleColumns[1] = Mathf.FloorToInt(mapSize.x * 0.5f) + 1;
+            middleColumns[2] = Mathf.FloorToInt(mapSize.x * 0.5f) + 2;
+        }
+        else
+        {
+            numberOfTiles = 3;
+            
+            middleColumns = new int[3];
+            middleColumns[0] = Mathf.FloorToInt(mapSize.x * 0.5f) - 1;
+            middleColumns[1] = Mathf.FloorToInt(mapSize.x * 0.5f);
+            middleColumns[2] = Mathf.FloorToInt(mapSize.x * 0.5f) + 1;
+            
+        }
+
+        for (int y = 0; y < middleRows.Length; y++)
+        {
+            for (int x = -1; x < mapSize.x + 1; x++) // +-1 to clear the edges
+            {
+                if (Array.IndexOf(middleColumns, x) != -1)
+                    continue;
+
+                ClearTile(new Vector3Int(x, middleRows[y]));
+            }
+        }
+
+        
+        */
+
+
+        /*
+        float slopeHeight = (mapSize.y - 1f) * 0.5f;
+        float slopeDepth = (mapSize.x - 1f) * 0.5f;
+        float ratio = slopeDepth / slopeHeight;
+        float rest = 0f;
+
+        for (int y = 0; y < mapSize.y * 0.5f; y += (Mathf.FloorToInt(rest + ratio)))
+        {
+
+            int realIncrement = Mathf.FloorToInt(rest + ratio);
+            rest = (rest + ratio) - realIncrement;
+
+            Debug.Log("ratio " + ratio);
+            Debug.Log("realIncrement " + realIncrement);
+            Debug.Log("rest " + rest);
+
+            for (int x = -1; x < realIncrement * y + 1; x++) // +-1 to clear the edges
+            {
+                Debug.Log("x,y " + x + ", " + (y + realIncrement));
+
+                ClearTile(new Vector3Int(x, y + realIncrement));
+                ClearTile(new Vector3Int(mapSize.x - x, y + realIncrement));
+
+                ClearTile(new Vector3Int(x, mapSize.y - y - realIncrement));
+                ClearTile(new Vector3Int(mapSize.x - x, mapSize.y - y - realIncrement));
+
+
+            }
+        }
+
+
+        // map.size.y / 2 is number of steps (-1 or -2?) 
+        // if mapsize.y / 2 is odd steps should have odd number of tiles, eles even number of tiles
+        // how to count what number of tiles should have each step and put it into a for loop
+        // maybe I could just start from the middle and cut tiles in shape of a cone and once I reach max I'll just stop
+        // then I'll figure it out (maybe)
+
+        // middle has one tile
+        // top and bottom have max tiles
+        // rows in between have increasing number of tiles from the middle
+
+
+        /*
+                for (int y = 0; y < yMiddle; y++)
+                {
+                    // I want to clear # of tiles on each end of the row, depending on what row we are on
+                    // until we reach the middle, I want to be clearing more and more tiles
+                    // than I want to be clearing less and less tiles
+                    for (int x = 0; x < y; x++)
+                    {
+                        ClearTile(new Vector3Int(x, y));
+                        ClearTile(new Vector3Int(mapSize.x - x, y));
+                    }
+                }
+
+                for (int y = mapSize.y; y > yMiddle; y--)
+                {
+                    // I want to clear # of tiles on each end of the row, depending on what row we are on
+                    // until we reach the middle, I want to be clearing more and more tiles
+                    // than I want to be clearing less and less tiles
+                    for (int x = 0; x < mapSize.y - y; x++)
+                    {
+                        ClearTile(new Vector3Int(x, y));
+                        ClearTile(new Vector3Int(mapSize.x - x, y));
+                    }
+                */
+    }
+
     /* --- HELPERS --- */
 
     void PlaceObject(TilemapObject _obj, Vector3Int _pos)
@@ -521,7 +619,7 @@ public class BoardManager : MonoBehaviour
         if (_obj.objectType == TileMapObjectType.Obstacle)
             ob.GetComponent<Obstacle>().Initialise(_obj);
         if (_obj.objectType == TileMapObjectType.Outer)
-            ob.GetComponent<OuterObject>().Initialise(_obj); 
+            ob.GetComponent<OuterObject>().Initialise(_obj);
 
         if (_obj.pushable)
             pushableObstacles.Add(ob);

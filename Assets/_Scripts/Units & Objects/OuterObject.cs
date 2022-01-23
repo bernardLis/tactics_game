@@ -27,7 +27,7 @@ public class OuterObject : MonoBehaviour
 
         float x = Random.Range(0f, 1f);
         float y = Random.Range(0f, 1f);
-        float multiplier = Random.Range(0.01f, 0.2f);
+        float multiplier = Random.Range(0.1f, 0.3f);
         Vector3 direction = new Vector3(x * multiplier, y * multiplier);
 
         float duration = Random.Range(2f, 5f);
