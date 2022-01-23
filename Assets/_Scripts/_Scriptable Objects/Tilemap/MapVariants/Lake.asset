@@ -16,4 +16,5 @@ MonoBehaviour:
   variantName: Lake
   obstaclePercent: {x: 0.05, y: 0.1}
   terrainIrregularitiesPercent: {x: 0.1, y: 0.25}
+  trapPercent: {x: 0.01, y: 0.1}
   mapType: 3

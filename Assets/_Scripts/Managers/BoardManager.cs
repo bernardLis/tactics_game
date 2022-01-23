@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
-using DG.Tweening;
 using System;
 using System.Threading.Tasks;
 
@@ -28,15 +27,17 @@ public class BoardManager : MonoBehaviour
     public GameObject obstaclePrefab;
     public GameObject pushableObstaclePrefab;
     public GameObject outerObjectPrefab;
+    public GameObject outerDemonPrefab;
     public GameObject collectiblePrefab;
     public GameObject chestPrefab;
-    public GameObject trap;     // TODO: this
+    public GameObject trap;
 
     // other map vars
     Vector3Int emptyTile;
     float terrainIrregularitiesPercent;
     float obstaclePercent;
     float outerAdditionsPercent;
+    float trapPercent;
     bool[,] obstacleMap;
     int accessibleTileCount;
     Queue<Vector3Int> floodFillQueue;
@@ -47,7 +48,6 @@ public class BoardManager : MonoBehaviour
     List<Vector3Int> openOuterPositions = new();
     public void SetupScene()
     {
-        Debug.Log("miau miau");
         InitialSetup();
         BoardSetup();
         InitialiseOpenPositions();
@@ -57,11 +57,14 @@ public class BoardManager : MonoBehaviour
         HandleEdge();
         LayoutObstacles();
         PlaceSpecialObjects();
-        //LayoutObjectAtRandom(trap, trapCount.minimum, trapCount.maximum);
-        LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f));
-
+        LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f)); // TODO: chagne to per flavour 
         DrawOuter();
         PlaceOuterAdditions();
+
+        if (Random.Range(0, 2) == 0)
+            LayoutObjectAtRandom(trap, trapPercent);
+
+        // TODO: spawn enemy chars;
         // TODO: spawn player chars / set-up player spawn positions;
     }
 
@@ -110,15 +113,17 @@ public class BoardManager : MonoBehaviour
         terrainIrregularitiesPercent = Random.Range(mapVariantChosen.terrainIrregularitiesPercent.x,
                                                     mapVariantChosen.terrainIrregularitiesPercent.y);
         outerAdditionsPercent = Random.Range(flav.outerAdditionsPercent.x, flav.outerAdditionsPercent.y);
-        CarveHourglass();
-        /*
+        trapPercent = Random.Range(mapVariantChosen.trapPercent.x,
+                                            mapVariantChosen.trapPercent.y);
+
         if (mapVariantChosen.mapType == MapType.Circle)
             CarveCircle();
         if (mapVariantChosen.mapType == MapType.River)
             PlaceRiver();
         if (mapVariantChosen.mapType == MapType.Lake)
             PlaceLake();
-        */
+        if (mapVariantChosen.mapType == MapType.Hourglass)
+            CarveHourglass();
     }
 
     void PlaceTerrainIrregularities()
@@ -232,18 +237,11 @@ public class BoardManager : MonoBehaviour
 
     void PlaceOuterDemon()
     {
-        TilemapObject ob = flav.outerDemons[Random.Range(0, flav.outerDemons.Length)];
-
-        GameObject n = new GameObject(ob.oName);
-        n.transform.parent = envObjectsHolder.transform;
-        n.transform.position = new Vector3(mapSize.x * 0.5f, mapSize.y + ob.size.y, 0f);
-
-        n.transform.DOPunchPosition(Vector3.up * 0.5f, 2f, 0, 1f, false).SetLoops(-1, LoopType.Yoyo); // TODO: cool! 
-
-        SpriteRenderer sr = n.AddComponent<SpriteRenderer>();
-        sr.sortingLayerName = "Foreground";
-        sr.sortingOrder = 1;
-        sr.sprite = ob.sprite;
+        TilemapObject so = Instantiate(flav.outerDemons[Random.Range(0, flav.outerDemons.Length)]);
+        GameObject go = Instantiate(outerDemonPrefab);
+        go.GetComponent<OuterDemon>().Initialize(so);
+        go.transform.position = new Vector3(mapSize.x * 0.5f, mapSize.y + so.size.y, 0f);
+        go.transform.parent = envObjectsHolder.transform;
     }
 
     void PlaceCollectible()
@@ -290,7 +288,7 @@ public class BoardManager : MonoBehaviour
     void PlaceRiver()
     {
         // TODO: is there a way to write one function for both rivers?
-        if (Random.Range(0f, 1f) > 0.5f)
+        if (Random.Range(0, 2) == 0)
             PlaceVerticalRiver();
         else
             PlaceHorizontalRiver();
@@ -357,7 +355,7 @@ public class BoardManager : MonoBehaviour
 
     void CarveCircle()
     {
-        // force a rectangle - it works better
+        // force a square - it works better
         if (mapSize.x > mapSize.y)
             mapSize.y = mapSize.x;
         else
@@ -445,10 +443,9 @@ public class BoardManager : MonoBehaviour
         return randPos;
     }
 
-
     void CarveHourglass()
     {
-        // force a rectangle - it works better
+        // force a square - it works better
         if (mapSize.x > mapSize.y)
             mapSize.y = mapSize.x;
         else
@@ -462,8 +459,6 @@ public class BoardManager : MonoBehaviour
         for (int y = Mathf.FloorToInt(mapSize.y * 0.5f); y < mapSize.y; y++)
         {
             numberOfTilesLeft += 2;
-            Debug.Log("y: " + y);
-            Debug.Log("numberOfTilesLeft: " + numberOfTilesLeft);
             for (int x = -1; x < mapSize.x + 1; x++) // +-1 to clear the edges
             {
                 // I want to keep number of tiles in the middle
@@ -480,117 +475,27 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+    }
 
-        /*
-        int[] middleColumns;
-
-                if (mapSize.x % 2 == 0)
+    // supports only 1x1 objects and GameObjects not tilemap objects
+    void LayoutObjectAtRandom(GameObject _obj, float _density)
+    {
+        int objectCount = Mathf.FloorToInt(openGridPositions.Count * _density);
+        for (int i = 0; i < objectCount; i++)
         {
-            Debug.Log("mapsize.x%2");
-            middleColumns = new int[5];
-            
-            middleColumns[0] = Mathf.FloorToInt(mapSize.x * 0.5f) - 2;
-            middleColumns[0] = Mathf.FloorToInt(mapSize.x * 0.5f) - 1;
-            middleColumns[1] = Mathf.FloorToInt(mapSize.x * 0.5f);
-            middleColumns[1] = Mathf.FloorToInt(mapSize.x * 0.5f) + 1;
-            middleColumns[2] = Mathf.FloorToInt(mapSize.x * 0.5f) + 2;
+            if (openGridPositions.Count <= 0)
+                return;
+
+            List<Vector3Int> randomPosition = GetRandomOpenPosition(Vector2.one, openGridPositions);
+            if (randomPosition == null)
+                return;
+
+            GameObject o = Instantiate(_obj, new Vector3(randomPosition[0].x + 0.5f, randomPosition[0].y + 0.5f), Quaternion.identity);
+            o.transform.parent = envObjectsHolder.transform;
         }
-        else
-        {
-            numberOfTiles = 3;
-            
-            middleColumns = new int[3];
-            middleColumns[0] = Mathf.FloorToInt(mapSize.x * 0.5f) - 1;
-            middleColumns[1] = Mathf.FloorToInt(mapSize.x * 0.5f);
-            middleColumns[2] = Mathf.FloorToInt(mapSize.x * 0.5f) + 1;
-            
-        }
-
-        for (int y = 0; y < middleRows.Length; y++)
-        {
-            for (int x = -1; x < mapSize.x + 1; x++) // +-1 to clear the edges
-            {
-                if (Array.IndexOf(middleColumns, x) != -1)
-                    continue;
-
-                ClearTile(new Vector3Int(x, middleRows[y]));
-            }
-        }
-
-        
-        */
-
-
-        /*
-        float slopeHeight = (mapSize.y - 1f) * 0.5f;
-        float slopeDepth = (mapSize.x - 1f) * 0.5f;
-        float ratio = slopeDepth / slopeHeight;
-        float rest = 0f;
-
-        for (int y = 0; y < mapSize.y * 0.5f; y += (Mathf.FloorToInt(rest + ratio)))
-        {
-
-            int realIncrement = Mathf.FloorToInt(rest + ratio);
-            rest = (rest + ratio) - realIncrement;
-
-            Debug.Log("ratio " + ratio);
-            Debug.Log("realIncrement " + realIncrement);
-            Debug.Log("rest " + rest);
-
-            for (int x = -1; x < realIncrement * y + 1; x++) // +-1 to clear the edges
-            {
-                Debug.Log("x,y " + x + ", " + (y + realIncrement));
-
-                ClearTile(new Vector3Int(x, y + realIncrement));
-                ClearTile(new Vector3Int(mapSize.x - x, y + realIncrement));
-
-                ClearTile(new Vector3Int(x, mapSize.y - y - realIncrement));
-                ClearTile(new Vector3Int(mapSize.x - x, mapSize.y - y - realIncrement));
-
-
-            }
-        }
-
-
-        // map.size.y / 2 is number of steps (-1 or -2?) 
-        // if mapsize.y / 2 is odd steps should have odd number of tiles, eles even number of tiles
-        // how to count what number of tiles should have each step and put it into a for loop
-        // maybe I could just start from the middle and cut tiles in shape of a cone and once I reach max I'll just stop
-        // then I'll figure it out (maybe)
-
-        // middle has one tile
-        // top and bottom have max tiles
-        // rows in between have increasing number of tiles from the middle
-
-
-        /*
-                for (int y = 0; y < yMiddle; y++)
-                {
-                    // I want to clear # of tiles on each end of the row, depending on what row we are on
-                    // until we reach the middle, I want to be clearing more and more tiles
-                    // than I want to be clearing less and less tiles
-                    for (int x = 0; x < y; x++)
-                    {
-                        ClearTile(new Vector3Int(x, y));
-                        ClearTile(new Vector3Int(mapSize.x - x, y));
-                    }
-                }
-
-                for (int y = mapSize.y; y > yMiddle; y--)
-                {
-                    // I want to clear # of tiles on each end of the row, depending on what row we are on
-                    // until we reach the middle, I want to be clearing more and more tiles
-                    // than I want to be clearing less and less tiles
-                    for (int x = 0; x < mapSize.y - y; x++)
-                    {
-                        ClearTile(new Vector3Int(x, y));
-                        ClearTile(new Vector3Int(mapSize.x - x, y));
-                    }
-                */
     }
 
     /* --- HELPERS --- */
-
     void PlaceObject(TilemapObject _obj, Vector3Int _pos)
     {
         GameObject selectedPrefab = obstaclePrefab;
@@ -627,7 +532,6 @@ public class BoardManager : MonoBehaviour
         ob.name = _obj.oName;
         ob.transform.parent = envObjectsHolder.transform;
     }
-
 
     void SetEdges(Vector3Int _pos)
     {
