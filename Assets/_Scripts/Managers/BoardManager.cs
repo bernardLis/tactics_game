@@ -231,8 +231,8 @@ public class BoardManager : MonoBehaviour
     void PlaceSpecialObjects()
     {
         PlaceOuterDemon();
-        PlaceCollectible();
         PlaceChest();
+        PlaceCollectible();
     }
 
     void PlaceOuterDemon()
@@ -242,15 +242,6 @@ public class BoardManager : MonoBehaviour
         go.GetComponent<OuterDemon>().Initialize(so);
         go.transform.position = new Vector3(mapSize.x * 0.5f, mapSize.y + so.size.y, 0f);
         go.transform.parent = envObjectsHolder.transform;
-    }
-
-    void PlaceCollectible()
-    {
-        if (pushableObstacles.Count == 0)
-            return;
-        GameObject chosenObstacle = pushableObstacles[Random.Range(0, pushableObstacles.Count)];
-        GameObject collectible = Instantiate(collectiblePrefab, chosenObstacle.transform.position, Quaternion.identity);
-        collectible.transform.parent = envObjectsHolder.transform;
     }
 
     void PlaceChest()
@@ -264,10 +255,21 @@ public class BoardManager : MonoBehaviour
 
             GameObject chest = Instantiate(chestPrefab, obs.transform.position, Quaternion.identity);
             chest.transform.parent = envObjectsHolder.transform;
+            pushableObstacles.Remove(obs);
             DestroyImmediate(obs); // TODO: destroy immediate
             return;
         }
     }
+
+    void PlaceCollectible()
+    {
+        if (pushableObstacles.Count == 0)
+            return;
+        GameObject chosenObstacle = pushableObstacles[Random.Range(0, pushableObstacles.Count)];
+        GameObject collectible = Instantiate(collectiblePrefab, chosenObstacle.transform.position, Quaternion.identity);
+        collectible.transform.parent = envObjectsHolder.transform;
+    }
+
 
     void LayoutFloorAdditions(int minimum, int maximum)
     {

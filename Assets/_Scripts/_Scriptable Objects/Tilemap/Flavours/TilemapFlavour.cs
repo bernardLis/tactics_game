@@ -5,12 +5,16 @@ using UnityEngine.Tilemaps;
 
 public class TilemapFlavour : BaseScriptableObject
 {
-    [Tooltip("min, max")]
-    public Vector2 outerAdditionsPercent;
-
     public TileBase[] floorTiles;
     public TileBase[] floorAdditions;
     public TileBase[] outerTiles;
+
+    public TilemapObject[] obstacles;
+    public TilemapObject[] outerDemons;
+    public TilemapObject[] outerAdditions;
+
+    [Tooltip("min, max")]
+    public Vector2 outerAdditionsPercent;
 
     [Header("Edge")]
     public TileBase edgeN;
@@ -29,9 +33,4 @@ public class TilemapFlavour : BaseScriptableObject
     public TileBase inlandCornerNW;
     public TileBase inlandCornerSE;
     public TileBase inlandCornerSW;
-
-    public TilemapObject[] obstacles;
-    public TilemapObject[] outerDemons;
-    public TilemapObject[] outerAdditions;
-
 }

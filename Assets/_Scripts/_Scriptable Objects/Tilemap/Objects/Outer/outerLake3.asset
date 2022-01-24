@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
-  m_Name: outerLake3
+  m_Name: OuterLake3
   m_EditorClassIdentifier: 
   id: 89d3a2c6-f4d9-4ae0-999c-07844e9b0510
   oName: OuterLake3
