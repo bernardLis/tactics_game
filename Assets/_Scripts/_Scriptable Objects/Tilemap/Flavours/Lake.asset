@@ -43,9 +43,13 @@ MonoBehaviour:
   obstacles:
   - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
   - {fileID: 11400000, guid: 25e9fc9e9b20f4748958b3758b282632, type: 2}
-  - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
   - {fileID: 11400000, guid: de01f0191457a8f45a8caf01ec60aaed, type: 2}
   - {fileID: 11400000, guid: 4ed1f65d647f30f429c969cc61864935, type: 2}
+  - {fileID: 11400000, guid: 92a72a4f19afcf24894dabf89d2ef010, type: 2}
+  - {fileID: 11400000, guid: 1eea45f79ad8b174896caa92a8d371ae, type: 2}
+  - {fileID: 11400000, guid: 9a3220dabd347ac46b58a5fd9a6d1833, type: 2}
+  - {fileID: 11400000, guid: b7d96340fbba2264eac0e1f1d1ee1dc5, type: 2}
+  - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
   outerDemons:
   - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
   - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}

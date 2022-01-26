@@ -12,4 +12,14 @@ public class TilemapObject : BaseScriptableObject
     public Sprite sprite;
     public bool pushable;
     public bool isMoving;
+
+    [Header("Light")]
+    public bool emitsLight;
+    public Color lightColor;
+    [Tooltip("Min, max")]
+    public Vector2 lightIntensity;
+    [Tooltip("Min, max")]
+    public Vector2 innerRadius;
+    [Tooltip("Min, max")]
+    public Vector2 outerRadius;
 }

@@ -8,7 +8,7 @@ public class Chest : MonoBehaviour
     SpriteRenderer sr;
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     void OnTriggerEnter2D(Collider2D _col)
@@ -19,5 +19,6 @@ public class Chest : MonoBehaviour
     void Interact()
     {
         sr.sprite = openedChest;
+        // TODO: maybe disable the light?
     }
 }

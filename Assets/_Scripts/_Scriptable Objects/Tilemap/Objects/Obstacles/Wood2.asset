@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Wood2
   m_EditorClassIdentifier: 
   id: 4188db2a-d712-439a-b199-b36120b51261
-  oName: Wood
-  size: {x: 1, y: 2}
+  oName: Wood2
+  size: {x: 2, y: 1}
   objectType: 1
-  sprite: {fileID: 21300000, guid: b8613d159a00d0a4ba906d55776e413b, type: 3}
+  sprite: {fileID: 21300000, guid: 341af9a0f6fbfaa48b97d2e87c172eaf, type: 3}
   pushable: 0
+  isMoving: 0

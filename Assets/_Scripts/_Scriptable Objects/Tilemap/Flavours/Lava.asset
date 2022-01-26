@@ -32,6 +32,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0b25ebd4b286b2a44a26e99a73f58d61, type: 2}
   - {fileID: 11400000, guid: 587e509a680a6d3418336080f86699db, type: 2}
   - {fileID: 11400000, guid: be1fdd81d40d9454ba510949ccb28d43, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
+  - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
+  - {fileID: 11400000, guid: ab02759692ec90542973f297087f5257, type: 2}
+  - {fileID: 11400000, guid: 78ad9e02fb9aa7b4b941fa5cc2838e8c, type: 2}
+  - {fileID: 11400000, guid: 5449077a5a53cb74b962baf9a7a443ef, type: 2}
+  - {fileID: 11400000, guid: 0e123a856a8035c43b913072a94ffc5a, type: 2}
+  - {fileID: 11400000, guid: 5875b4005a74d3c4cad7fdd1525f2940, type: 2}
+  - {fileID: 11400000, guid: e86d1ca460bd48b4e9927a6743891982, type: 2}
+  - {fileID: 11400000, guid: dac25273b4311df4682cbfdaacbbd80c, type: 2}
+  - {fileID: 11400000, guid: c01584aa1a159a44cafbb71f7e6528ff, type: 2}
+  - {fileID: 11400000, guid: 1c721845190dcc34ebfbed4f9d5a280d, type: 2}
+  - {fileID: 11400000, guid: 0aa5651e8bb410d4786bd1cfc69b4176, type: 2}
+  outerDemons:
+  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
+  - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
+  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
+  outerAdditions: []
+  outerAdditionsPercent: {x: 0, y: 0}
   edgeN: {fileID: 11400000, guid: 1e70be9f04c268b46a41b3339288da21, type: 2}
   edgeS: {fileID: 11400000, guid: 32ff021de4dea91479e006917ef29c7e, type: 2}
   edgeE: {fileID: 11400000, guid: 9b8333f2b5333524789650ba2e04431c, type: 2}
@@ -44,15 +63,3 @@ MonoBehaviour:
   inlandCornerNW: {fileID: 11400000, guid: 36030729b3605414188daaea21214a0c, type: 2}
   inlandCornerSE: {fileID: 11400000, guid: efe605f9bfb697043b33551fd225fa32, type: 2}
   inlandCornerSW: {fileID: 11400000, guid: 17262dac4b11f1f4ba8be46f7cf384d3, type: 2}
-  obstacles:
-  - {fileID: 11400000, guid: 544c53a97b04a29428a574d43c828939, type: 2}
-  - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
-  - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
-  - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
-  - {fileID: 11400000, guid: e45b567afb0eea844ba0ef975186ce28, type: 2}
-  - {fileID: 11400000, guid: 00bf384ae232d5347b66f897b0850df7, type: 2}
-  outerDemons:
-  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
-  - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
-  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
-  outerAdditions: []

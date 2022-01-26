@@ -65,7 +65,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6855480dec0364a4f9a17e0d86deaee5, type: 2}
   - {fileID: 11400000, guid: c77937567869d8d429beaacaf4c49e71, type: 2}
   - {fileID: 11400000, guid: 6f068bf3ccb576741adf3f11f44b380e, type: 2}
-  - {fileID: 11400000, guid: 8eb0ba18c25d0c84389a9944affbffc9, type: 2}
   outerAdditionsPercent: {x: 0.05, y: 0.1}
   edgeN: {fileID: 11400000, guid: 7ddf49ce18043b94cb05089c3320d51b, type: 2}
   edgeS: {fileID: 11400000, guid: 6e809c97c655e0a4e8958bf5b3501477, type: 2}
