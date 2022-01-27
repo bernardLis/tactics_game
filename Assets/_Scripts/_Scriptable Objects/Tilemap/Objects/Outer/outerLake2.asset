@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: OuterLake2
   m_EditorClassIdentifier: 
   id: 89d3a2c6-f4d9-4ae0-999c-07844e9b0510
-  oName: OuterLake2
   size: {x: 1, y: 1}
   objectType: 0
-  sprite: {fileID: -973582083, guid: 105177ec31b3def468e17f8b22d854e7, type: 3}
+  sprite: {fileID: 21300000, guid: fa390298378abfb4fb456a76a51dc594, type: 3}
   pushable: 0
+  isMoving: 0
+  emitsLight: 0
+  lightColor: {r: 0, g: 0, b: 0, a: 0}
+  lightIntensity: {x: 0, y: 0}
+  innerRadius: {x: 0, y: 0}
+  outerRadius: {x: 0, y: 0}
+  offset: {x: 0, y: 0}

@@ -50,10 +50,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9a3220dabd347ac46b58a5fd9a6d1833, type: 2}
   - {fileID: 11400000, guid: b7d96340fbba2264eac0e1f1d1ee1dc5, type: 2}
   - {fileID: 11400000, guid: f547e8251b3d567469aacfc48a2b765b, type: 2}
-  outerDemons:
-  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
-  - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
-  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
   outerAdditions:
   - {fileID: 11400000, guid: c2184b1a354439042a0b20ae3b791901, type: 2}
   - {fileID: 11400000, guid: 60e6b7f0194d8cc498b2f777af372585, type: 2}
@@ -78,4 +74,4 @@ MonoBehaviour:
   inlandCornerSE: {fileID: 11400000, guid: beb4d28dc9b341943be3ad53afd28115, type: 2}
   inlandCornerSW: {fileID: 11400000, guid: a335f9992af5deb43930fd5053df10e4, type: 2}
   lightColor: {r: 1, g: 1, b: 1, a: 1}
-  lightIntensity: 0
+  lightIntensity: 1

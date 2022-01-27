@@ -10,10 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
-  m_Name: FloatingHead
+  m_Name: Pebble3
   m_EditorClassIdentifier: 
-  id: 399842fd-55b9-4455-858e-b2bbee5bd4cc
-  oName: Floating Head
-  size: {x: 4, y: 4}
+  id: 89d3a2c6-f4d9-4ae0-999c-07844e9b0510
+  size: {x: 1, y: 1}
   objectType: 0
-  sprite: {fileID: 21300000, guid: afa058be50ab2794eb5770994a727756, type: 3}
+  sprite: {fileID: 21300000, guid: 14ac8dddd7948724385928c8712db552, type: 3}
+  pushable: 0
+  isMoving: 1
+  emitsLight: 0
+  lightColor: {r: 0, g: 0, b: 0, a: 0}
+  lightIntensity: {x: 0, y: 0}
+  innerRadius: {x: 0, y: 0}
+  outerRadius: {x: 0, y: 0}
+  offset: {x: 0, y: 0}

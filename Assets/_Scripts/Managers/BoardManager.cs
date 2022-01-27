@@ -238,18 +238,8 @@ public class BoardManager : MonoBehaviour
 
     void PlaceSpecialObjects()
     {
-        PlaceOuterDemon();
         PlaceChest();
         PlaceCollectible();
-    }
-
-    void PlaceOuterDemon()
-    {
-        TilemapObject so = Instantiate(flav.outerDemons[Random.Range(0, flav.outerDemons.Length)]);
-        GameObject go = Instantiate(outerDemonPrefab);
-        go.GetComponent<OuterDemon>().Initialize(so);
-        go.transform.position = new Vector3(mapSize.x * 0.5f, mapSize.y + so.size.y, 0f);
-        go.transform.parent = envObjectsHolder.transform;
     }
 
     void PlaceChest()

@@ -12,7 +12,6 @@ public class TilemapFlavour : BaseScriptableObject
 
     [Header("Objects")]
     public TilemapObject[] obstacles;
-    public TilemapObject[] outerDemons;
     public TilemapObject[] outerAdditions;
 
     [Tooltip("min, max")]

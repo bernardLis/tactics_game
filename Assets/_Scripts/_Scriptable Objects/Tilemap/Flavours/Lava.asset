@@ -45,12 +45,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c01584aa1a159a44cafbb71f7e6528ff, type: 2}
   - {fileID: 11400000, guid: 1c721845190dcc34ebfbed4f9d5a280d, type: 2}
   - {fileID: 11400000, guid: 0aa5651e8bb410d4786bd1cfc69b4176, type: 2}
-  outerDemons:
-  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
-  - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
-  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
-  outerAdditions: []
-  outerAdditionsPercent: {x: 0, y: 0}
+  outerAdditions:
+  - {fileID: 11400000, guid: 4814a9e8dbed8a34e8c53850a51253ef, type: 2}
+  - {fileID: 11400000, guid: d676373bffd6b5743bed3e141e80725f, type: 2}
+  - {fileID: 11400000, guid: 7a0482ba4c46bb84fb43b33f08013b40, type: 2}
+  - {fileID: 11400000, guid: e87a65c756d66684f9ca44ad8481dccf, type: 2}
+  - {fileID: 11400000, guid: 4e09bd05f97a1da44a5fa1f723cb1d5e, type: 2}
+  - {fileID: 11400000, guid: 908fb439de74b754ca295b7ad62fb72c, type: 2}
+  - {fileID: 11400000, guid: 53f1f657df9e6f54da76fef8362cd771, type: 2}
+  outerAdditionsPercent: {x: 0.05, y: 0.1}
   edgeN: {fileID: 11400000, guid: 1e70be9f04c268b46a41b3339288da21, type: 2}
   edgeS: {fileID: 11400000, guid: 32ff021de4dea91479e006917ef29c7e, type: 2}
   edgeE: {fileID: 11400000, guid: 9b8333f2b5333524789650ba2e04431c, type: 2}
@@ -63,5 +66,5 @@ MonoBehaviour:
   inlandCornerNW: {fileID: 11400000, guid: 36030729b3605414188daaea21214a0c, type: 2}
   inlandCornerSE: {fileID: 11400000, guid: efe605f9bfb697043b33551fd225fa32, type: 2}
   inlandCornerSW: {fileID: 11400000, guid: 17262dac4b11f1f4ba8be46f7cf384d3, type: 2}
-  lightColor: {r: 0.8679245, g: 0.6501246, b: 0.6501246, a: 0}
+  lightColor: {r: 0.8679245, g: 0.6501246, b: 0.6501246, a: 1}
   lightIntensity: 1
