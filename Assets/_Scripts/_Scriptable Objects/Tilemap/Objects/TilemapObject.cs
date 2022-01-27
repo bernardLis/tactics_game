@@ -5,7 +5,6 @@ public enum TileMapObjectType { Outer, Obstacle }
 [CreateAssetMenu(menuName = "Tilemap/Object")]
 public class TilemapObject : BaseScriptableObject
 {
-    public string oName;
     [Tooltip("Number of tiles, like: 1, 2.")]
     public Vector2Int size;
     public TileMapObjectType objectType;
@@ -22,4 +21,5 @@ public class TilemapObject : BaseScriptableObject
     public Vector2 innerRadius;
     [Tooltip("Min, max")]
     public Vector2 outerRadius;
+    public Vector2 offset;
 }

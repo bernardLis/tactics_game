@@ -46,28 +46,29 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 59e03d24f655b144d8438f5d3745cae1, type: 2}
   obstacles:
   - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
-  - {fileID: 11400000, guid: 69a4d89a3221f15448d21133d81446d3, type: 2}
-  - {fileID: 11400000, guid: 83a2f401a0e3c664096d28ca46fe874b, type: 2}
   - {fileID: 11400000, guid: 26dfb51a90aa116409ce2dbc1e90ae38, type: 2}
   - {fileID: 11400000, guid: 7106443487fa88f43990f27e7dc4c336, type: 2}
   - {fileID: 11400000, guid: 9d95c56646ec82e4fa6e2deac4413336, type: 2}
   - {fileID: 11400000, guid: 58ab6157a3572f44db50c60e412c094e, type: 2}
-  - {fileID: 11400000, guid: a86a57ee22ba83f41862e0c5d5c3413d, type: 2}
-  - {fileID: 11400000, guid: 9bc39dc488ea4ea428c28a35682baaa0, type: 2}
+  - {fileID: 11400000, guid: 83a2f401a0e3c664096d28ca46fe874b, type: 2}
   - {fileID: 11400000, guid: 160eba4466fbe124b85b37fc330430ec, type: 2}
-  - {fileID: 11400000, guid: bfee8b143b5e6e14c884510c7831503c, type: 2}
-  - {fileID: 11400000, guid: 8ff77aebd7b477340b08899980df83a1, type: 2}
-  - {fileID: 11400000, guid: 57a503ecc4b60134f80bc2e43a355d3c, type: 2}
-  - {fileID: 11400000, guid: 9553fcaffefa27c4fabcbe0275228657, type: 2}
-  - {fileID: 11400000, guid: 02554e1a04a4e8e4dbeb3878de362fd2, type: 2}
-  - {fileID: 11400000, guid: 9cf486af36c8088448d119c62ab6a074, type: 2}
+  - {fileID: 11400000, guid: 69a4d89a3221f15448d21133d81446d3, type: 2}
   - {fileID: 11400000, guid: 4221cc816717bfc44802ff925b40761b, type: 2}
+  - {fileID: 11400000, guid: 9cf486af36c8088448d119c62ab6a074, type: 2}
+  - {fileID: 11400000, guid: 02554e1a04a4e8e4dbeb3878de362fd2, type: 2}
+  - {fileID: 11400000, guid: f82e8b97ac36b35459d8bf6930400cd0, type: 2}
+  - {fileID: 11400000, guid: bc5f162e620d98649a8cc01f9a5d169a, type: 2}
+  - {fileID: 11400000, guid: 9553fcaffefa27c4fabcbe0275228657, type: 2}
+  - {fileID: 11400000, guid: 57a503ecc4b60134f80bc2e43a355d3c, type: 2}
+  - {fileID: 11400000, guid: 8ff77aebd7b477340b08899980df83a1, type: 2}
+  - {fileID: 11400000, guid: bfee8b143b5e6e14c884510c7831503c, type: 2}
+  - {fileID: 11400000, guid: 9bc39dc488ea4ea428c28a35682baaa0, type: 2}
+  - {fileID: 11400000, guid: a86a57ee22ba83f41862e0c5d5c3413d, type: 2}
   outerDemons:
   - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
   - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
   - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
   outerAdditions:
-  - {fileID: 11400000, guid: 8eb0ba18c25d0c84389a9944affbffc9, type: 2}
   - {fileID: 11400000, guid: 6f068bf3ccb576741adf3f11f44b380e, type: 2}
   - {fileID: 11400000, guid: c77937567869d8d429beaacaf4c49e71, type: 2}
   - {fileID: 11400000, guid: 6855480dec0364a4f9a17e0d86deaee5, type: 2}
@@ -86,3 +87,5 @@ MonoBehaviour:
   inlandCornerNW: {fileID: 11400000, guid: 374e2ae62714a7b408dbcd227b08f565, type: 2}
   inlandCornerSE: {fileID: 11400000, guid: 8523d372bcf9c2545a950dfd5c62b0b9, type: 2}
   inlandCornerSW: {fileID: 11400000, guid: 47c283ea8b887dc44883bb1ac44f5527, type: 2}
+  lightColor: {r: 0.7294118, g: 0.8156863, b: 0.9254902, a: 1}
+  lightIntensity: 1

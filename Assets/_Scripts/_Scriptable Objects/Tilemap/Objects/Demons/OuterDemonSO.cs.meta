@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 20871fdd860b2554288fc3ed52b5e08b
+guid: fd3535cc3d6ef8943b0a9cd818132728
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - spotLightPrefab: {fileID: 3155923102404573503, guid: cf71252f1081ac5479358c2ec3bc3e57, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

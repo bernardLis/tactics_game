@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
 using System;
 using System.Threading.Tasks;
+using UnityEngine.Rendering.Universal;
 
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 public class BoardManager : MonoBehaviour
@@ -31,6 +32,7 @@ public class BoardManager : MonoBehaviour
     public GameObject collectiblePrefab;
     public GameObject chestPrefab;
     public GameObject trap;
+    public GameObject globalLightPrefab;
 
     // other map vars
     Vector3Int emptyTile;
@@ -46,6 +48,7 @@ public class BoardManager : MonoBehaviour
     TilemapFlavour flav;
     List<GameObject> pushableObstacles;
     List<Vector3Int> openOuterPositions = new();
+    int lightCount;
     public void SetupScene()
     {
         InitialSetup();
@@ -115,6 +118,11 @@ public class BoardManager : MonoBehaviour
         outerAdditionsPercent = Random.Range(flav.outerAdditionsPercent.x, flav.outerAdditionsPercent.y);
         trapPercent = Random.Range(mapVariantChosen.trapPercent.x,
                                             mapVariantChosen.trapPercent.y);
+
+        Light2D l = Instantiate(globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
+        l.transform.parent = envObjectsHolder.transform;
+        l.color = flav.lightColor;
+        l.intensity = flav.lightIntensity;
 
         if (mapVariantChosen.mapType == MapType.Circle)
             CarveCircle();
@@ -531,7 +539,7 @@ public class BoardManager : MonoBehaviour
         if (_obj.pushable)
             pushableObstacles.Add(ob);
 
-        ob.name = _obj.oName;
+        ob.name = _obj.name;
         ob.transform.parent = envObjectsHolder.transform;
     }
 
@@ -640,6 +648,14 @@ public class BoardManager : MonoBehaviour
 
     void SetEdgeTile(Vector3Int _pos, TileBase _tile)
     {
+        /*
+        if (lightCount % 5 == 0)
+        {
+            GameObject st = Instantiate(standingTorch, new Vector3(_pos.x + 0.5f, _pos.y + 0.5f), Quaternion.identity);
+            st.transform.parent = envObjectsHolder.transform;
+        }
+        lightCount++;
+    */
         ClearTile(new Vector3Int(_pos.x, _pos.y));
         backgroundTilemap.SetTile(_pos, _tile);
     }

@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20871fdd860b2554288fc3ed52b5e08b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spotLightPrefab: {fileID: 3155923102404573503, guid: cf71252f1081ac5479358c2ec3bc3e57, type: 3}
 --- !u!1 &7512957699131220223
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,10 +5,12 @@ using UnityEngine.Tilemaps;
 
 public class TilemapFlavour : BaseScriptableObject
 {
+    [Header("Tiles")]
     public TileBase[] floorTiles;
     public TileBase[] floorAdditions;
     public TileBase[] outerTiles;
 
+    [Header("Objects")]
     public TilemapObject[] obstacles;
     public TilemapObject[] outerDemons;
     public TilemapObject[] outerAdditions;
@@ -33,4 +35,9 @@ public class TilemapFlavour : BaseScriptableObject
     public TileBase inlandCornerNW;
     public TileBase inlandCornerSE;
     public TileBase inlandCornerSW;
+
+    [Header("Global light")]
+    public Color lightColor;
+    public float lightIntensity;
+
 }

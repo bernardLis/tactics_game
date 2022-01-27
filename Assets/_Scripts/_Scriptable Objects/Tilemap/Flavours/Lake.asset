@@ -77,3 +77,5 @@ MonoBehaviour:
   inlandCornerNW: {fileID: 11400000, guid: 37c5215c5d22ed84a9c8e80220b47f33, type: 2}
   inlandCornerSE: {fileID: 11400000, guid: beb4d28dc9b341943be3ad53afd28115, type: 2}
   inlandCornerSW: {fileID: 11400000, guid: a335f9992af5deb43930fd5053df10e4, type: 2}
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 0

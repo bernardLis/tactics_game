@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Rendering.Universal;
 
 public class OuterObject : MonoBehaviour
 {
-    public Light2D spotLightPrefab;
     string tweenID;
 
     public void Initialise(TilemapObject _obj)
@@ -21,16 +19,6 @@ public class OuterObject : MonoBehaviour
         {
             sr.sortingOrder = 2;
             StartCoroutine(ChangeMovement());
-        }
-
-        if (_obj.emitsLight)
-        {
-            Light2D l = Instantiate(spotLightPrefab, transform.position, Quaternion.identity);
-            l.transform.parent = transform;
-            l.color = _obj.lightColor;
-            l.intensity = Random.Range(_obj.lightIntensity.x, _obj.lightIntensity.y);
-            l.pointLightInnerRadius = Random.Range(_obj.innerRadius.x, _obj.innerRadius.y);
-            l.pointLightOuterRadius = Random.Range(_obj.outerRadius.x, _obj.outerRadius.y);
         }
     }
 
