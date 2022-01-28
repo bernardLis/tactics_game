@@ -26,8 +26,8 @@ public class TilemapFlavour : BaseScriptableObject
     [Header("Corner")]
     public TileBase cornerNE;
     public TileBase cornerNW;
-    public TileBase cornerSE;
     public TileBase cornerSW;
+    public TileBase cornerSE;
 
     [Header("Inland Corner")]
     public TileBase inlandCornerNE;

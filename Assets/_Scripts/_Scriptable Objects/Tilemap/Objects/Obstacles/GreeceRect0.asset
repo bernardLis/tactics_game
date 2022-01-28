@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
-  m_Name: DesertStone1Torch
+  m_Name: GreeceRect0
   m_EditorClassIdentifier: 
   id: 4188db2a-d712-439a-b199-b36120b51261
-  size: {x: 2, y: 2}
+  size: {x: 3, y: 2}
   objectType: 1
-  sprite: {fileID: 21300000, guid: b8a0c0f1f10247444b49edf9511d81f4, type: 3}
+  sprite: {fileID: 21300000, guid: 42f3c33eb463a084d860982cb98e3ff8, type: 3}
   pushable: 0
   isMoving: 0
-  emitsLight: 1
-  lightColor: {r: 1, g: 0.70889974, b: 0.29622638, a: 1}
-  lightIntensity: {x: 0.2, y: 0.4}
-  innerRadius: {x: 0.6, y: 1}
-  outerRadius: {x: 2, y: 4}
-  offset: {x: 0, y: -0.23}
+  emitsLight: 0
+  lightColor: {r: 0, g: 0, b: 0, a: 0}
+  lightIntensity: {x: 0, y: 0}
+  innerRadius: {x: 0, y: 0}
+  outerRadius: {x: 0, y: 0}
+  offset: {x: 0, y: 0}

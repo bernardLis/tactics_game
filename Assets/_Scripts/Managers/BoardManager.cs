@@ -197,6 +197,9 @@ public class BoardManager : MonoBehaviour
 
     void LayoutObstacles()
     {
+        if (flav.obstacles.Length == 0)
+            return;
+
         obstacleMap = new bool[mapSize.x, mapSize.y];
 
         // one of the tiles is always empty (used to be corner)
