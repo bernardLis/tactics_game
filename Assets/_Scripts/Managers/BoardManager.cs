@@ -3,6 +3,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 
@@ -10,7 +11,7 @@ using UnityEngine.Rendering.Universal;
 public class BoardManager : MonoBehaviour
 {
     [Header("Map Setup")]
-    public MapVariant mapVariantChosen; // TODO: just for dev
+    public MapVariant mapVariantChosen;
     public int seed;
     public Vector2Int mapSize = new(20, 20);
 
@@ -20,7 +21,7 @@ public class BoardManager : MonoBehaviour
 
     [Header("Unity objects")]
     public MapVariant[] mapVariants;
-    public TilemapFlavour[] tilemapFlavours;
+    public TilemapBiome[] biomes;
     public Tilemap backgroundTilemap;
     public Tilemap middlegroundTilemap;
     public Tilemap foregroundTilemap;
@@ -28,7 +29,6 @@ public class BoardManager : MonoBehaviour
     public GameObject obstaclePrefab;
     public GameObject pushableObstaclePrefab;
     public GameObject outerObjectPrefab;
-    public GameObject outerDemonPrefab;
     public GameObject collectiblePrefab;
     public GameObject chestPrefab;
     public GameObject trap;
@@ -45,11 +45,11 @@ public class BoardManager : MonoBehaviour
     Queue<Vector3Int> floodFillQueue;
     List<Vector3Int> openGridPositions = new();
     int floorTileCount;
-    TilemapFlavour flav;
+    TilemapBiome biome;
     List<GameObject> pushableObstacles;
     List<Vector3Int> openOuterPositions = new();
-    int lightCount;
-    public void SetupScene()
+
+    public void GenerateMap()
     {
         InitialSetup();
         BoardSetup();
@@ -73,12 +73,9 @@ public class BoardManager : MonoBehaviour
 
     void InitialSetup()
     {
-        mapSize.x = Mathf.Clamp(mapSize.x, 4, 40);
-        mapSize.y = Mathf.Clamp(mapSize.y, 4, 40);
-
         Random.InitState(seed);
 
-        flav = tilemapFlavours[Random.Range(0, tilemapFlavours.Length)];
+        biome = biomes[Random.Range(0, biomes.Length)];
 
         pushableObstacles = new();
 
@@ -86,7 +83,8 @@ public class BoardManager : MonoBehaviour
         middlegroundTilemap.ClearAllTiles();
         foregroundTilemap.ClearAllTiles();
 
-        foreach (Transform child in envObjectsHolder.transform)
+        var tempList = envObjectsHolder.transform.Cast<Transform>().ToList();
+        foreach (Transform child in tempList)
             DestroyImmediate(child.gameObject); // TODO: destory
     }
 
@@ -95,7 +93,7 @@ public class BoardManager : MonoBehaviour
         // +-1 because I am setting edge tiles to unwalkable edges
         for (int x = -1; x < mapSize.x + 1; x++)
             for (int y = -1; y < mapSize.y + 1; y++)
-                backgroundTilemap.SetTile(new Vector3Int(x, y), flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
+                backgroundTilemap.SetTile(new Vector3Int(x, y), biome.floorTiles[Random.Range(0, biome.floorTiles.Length)]);
     }
 
     void InitialiseOpenPositions()
@@ -115,14 +113,14 @@ public class BoardManager : MonoBehaviour
         obstaclePercent = Random.Range(mapVariantChosen.obstaclePercent.x, mapVariantChosen.obstaclePercent.y);
         terrainIrregularitiesPercent = Random.Range(mapVariantChosen.terrainIrregularitiesPercent.x,
                                                     mapVariantChosen.terrainIrregularitiesPercent.y);
-        outerAdditionsPercent = Random.Range(flav.outerAdditionsPercent.x, flav.outerAdditionsPercent.y);
+        outerAdditionsPercent = Random.Range(biome.outerAdditionsPercent.x, biome.outerAdditionsPercent.y);
         trapPercent = Random.Range(mapVariantChosen.trapPercent.x,
                                             mapVariantChosen.trapPercent.y);
 
         Light2D l = Instantiate(globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
         l.transform.parent = envObjectsHolder.transform;
-        l.color = flav.lightColor;
-        l.intensity = flav.lightIntensity;
+        l.color = biome.lightColor;
+        l.intensity = biome.lightIntensity;
 
         if (mapVariantChosen.mapType == MapType.Circle)
             CarveCircle();
@@ -197,12 +195,12 @@ public class BoardManager : MonoBehaviour
 
     void LayoutObstacles()
     {
-        if (flav.obstacles.Length == 0)
+        if (biome.obstacles.Length == 0)
             return;
 
         obstacleMap = new bool[mapSize.x, mapSize.y];
 
-        // one of the tiles is always empty (used to be corner)
+        // one of the tiles is always empty
         emptyTile = GetRandomOpenPosition(Vector2.one, openGridPositions)[0];
         openGridPositions.Remove(emptyTile);
 
@@ -219,20 +217,20 @@ public class BoardManager : MonoBehaviour
             if (openGridPositions.Count <= 0)
                 return;
 
-            TilemapObject selectedObject = flav.obstacles[Random.Range(0, flav.obstacles.Length)];
+            TilemapObject selectedObject = biome.obstacles[Random.Range(0, biome.obstacles.Length)];
             List<Vector3Int> randomPosition = GetRandomOpenPosition(selectedObject.size, openGridPositions);
             if (randomPosition == null)
                 return;
 
             foreach (Vector3Int pos in randomPosition)
                 obstacleMap[pos.x, pos.y] = true;
-            obstacledTileCount += selectedObject.size.x * selectedObject.size.y; // TODO: improve this
+            obstacledTileCount += selectedObject.size.x * selectedObject.size.y;
 
             if (!MapIsFullyAccessible(obstacleMap, obstacledTileCount))
             {
                 foreach (Vector3Int pos in randomPosition)
                     obstacleMap[pos.x, pos.y] = false;
-                obstacledTileCount -= selectedObject.size.x * selectedObject.size.y;// TODO: improve this
+                obstacledTileCount -= selectedObject.size.x * selectedObject.size.y;
                 continue;
             }
             PlaceObject(selectedObject, randomPosition[0]);
@@ -271,10 +269,9 @@ public class BoardManager : MonoBehaviour
         collectible.transform.parent = envObjectsHolder.transform;
     }
 
-
     void LayoutFloorAdditions(int minimum, int maximum)
     {
-        TileBase[] tiles = flav.floorAdditions;
+        TileBase[] tiles = biome.floorAdditions;
         int objectCount = Random.Range(minimum, maximum + 1);
         for (int i = 0; i < objectCount; i++)
         {
@@ -282,8 +279,7 @@ public class BoardManager : MonoBehaviour
                 return;
 
             List<Vector3Int> randomPosiiton = GetRandomOpenPosition(Vector2.one, openGridPositions);
-            middlegroundTilemap.SetTile(randomPosiiton[0],
-                             tiles[Random.Range(0, tiles.Length)]);
+            middlegroundTilemap.SetTile(randomPosiiton[0], tiles[Random.Range(0, tiles.Length)]);
         }
     }
 
@@ -386,7 +382,7 @@ public class BoardManager : MonoBehaviour
     {
         openOuterPositions.Clear();
 
-        TileBase[] tiles = flav.outerTiles;
+        TileBase[] tiles = biome.outerTiles;
 
         for (int x = -mapSize.x; x < mapSize.x * 2; x++)
             for (int y = -mapSize.y; y < mapSize.y * 2; y++)
@@ -399,7 +395,7 @@ public class BoardManager : MonoBehaviour
 
     void PlaceOuterAdditions()
     {
-        if (flav.outerAdditions.Length == 0)
+        if (biome.outerAdditions.Length == 0)
             return;
 
         int outerAdditionsCount = Mathf.FloorToInt(openOuterPositions.Count * outerAdditionsPercent);
@@ -408,7 +404,7 @@ public class BoardManager : MonoBehaviour
             if (openOuterPositions.Count <= 0)
                 return;
 
-            TilemapObject selectedObject = flav.outerAdditions[Random.Range(0, flav.outerAdditions.Length)];
+            TilemapObject selectedObject = biome.outerAdditions[Random.Range(0, biome.outerAdditions.Length)];
             Vector3Int randomPosition = GetRandomOuterPosition(selectedObject.size);
             if (randomPosition == Vector3Int.zero) // TODO: ehh...
                 continue;
@@ -423,11 +419,11 @@ public class BoardManager : MonoBehaviour
 
         // outer positions are not shuffled
         // + 1 coz if size is '1' I don't want to move any tiles down
-        if (Array.IndexOf(flav.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y))) == -1)
+        if (Array.IndexOf(biome.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y))) == -1)
             return Vector3Int.zero;
-        if (Array.IndexOf(flav.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x, randPos.y - _size.y + 1))) == -1)
+        if (Array.IndexOf(biome.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x, randPos.y - _size.y + 1))) == -1)
             return Vector3Int.zero;
-        if (Array.IndexOf(flav.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y - _size.y + 1))) == -1)
+        if (Array.IndexOf(biome.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y - _size.y + 1))) == -1)
             return Vector3Int.zero;
 
         openOuterPositions.Remove(randPos);
@@ -448,7 +444,7 @@ public class BoardManager : MonoBehaviour
 
     void CarveHourglass()
     {
-        // force a square - it works better
+        // force a square - it only works on square maps
         if (mapSize.x > mapSize.y)
             mapSize.y = mapSize.x;
         else
@@ -507,7 +503,7 @@ public class BoardManager : MonoBehaviour
         if (_obj.objectType == TileMapObjectType.Outer)
             selectedPrefab = outerObjectPrefab;
 
-        // we are getting SE corner of the most NW tile of all positions
+        // we are getting SE corner of the most NW tile of all positions and need to adjust the position to fit the tilemap
         float posX = _pos.x;
         float posY = _pos.y;
 
@@ -555,23 +551,23 @@ public class BoardManager : MonoBehaviour
 
         // TODO: this seems stupid
         if (neighbours[0] && !neighbours[1] && neighbours[2] && neighbours[3])// edge N
-            SetEdgeTile(_pos, flav.edgeN);
+            SetEdgeTile(_pos, biome.edgeN);
         if (neighbours[0] && neighbours[1] && neighbours[2] && !neighbours[3])// edge S
-            SetEdgeTile(_pos, flav.edgeS);
+            SetEdgeTile(_pos, biome.edgeS);
         if (!neighbours[0] && neighbours[1] && neighbours[2] && neighbours[3])// edge W
-            SetEdgeTile(_pos, flav.edgeW);
+            SetEdgeTile(_pos, biome.edgeW);
         if (neighbours[0] && neighbours[1] && !neighbours[2] && neighbours[3])// edge E
-            SetEdgeTile(_pos, flav.edgeE);
+            SetEdgeTile(_pos, biome.edgeE);
 
         // corners
         if (!neighbours[0] && !neighbours[1] && neighbours[2] && neighbours[3])// corner NW
-            SetEdgeTile(_pos, flav.cornerNW);
+            SetEdgeTile(_pos, biome.cornerNW);
         if (neighbours[0] && !neighbours[1] && !neighbours[2] && neighbours[3])// corner NE
-            SetEdgeTile(_pos, flav.cornerNE);
+            SetEdgeTile(_pos, biome.cornerNE);
         if (!neighbours[0] && neighbours[1] && neighbours[2] && !neighbours[3])// corner SW
-            SetEdgeTile(_pos, flav.cornerSE);
+            SetEdgeTile(_pos, biome.cornerSE);
         if (neighbours[0] && neighbours[1] && !neighbours[2] && !neighbours[3])// corner SE
-            SetEdgeTile(_pos, flav.cornerSW);
+            SetEdgeTile(_pos, biome.cornerSW);
     }
 
     void SetInlandCorners(Vector3Int _pos)
@@ -598,29 +594,29 @@ public class BoardManager : MonoBehaviour
         surroundingTiles[3] = backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y - 1));
 
         // inland corners need to consider corners too
-        if ((surroundingTiles[0] == flav.edgeN && surroundingTiles[1] == flav.edgeW)
-            || (surroundingTiles[0] == flav.cornerNW && surroundingTiles[1] == flav.edgeW)
-            || (surroundingTiles[0] == flav.cornerNW && surroundingTiles[1] == flav.cornerNW)
-            || (surroundingTiles[0] == flav.edgeN && surroundingTiles[1] == flav.cornerNW))
-            SetEdgeTile(_pos, flav.inlandCornerSW);
+        if ((surroundingTiles[0] == biome.edgeN && surroundingTiles[1] == biome.edgeW)
+            || (surroundingTiles[0] == biome.cornerNW && surroundingTiles[1] == biome.edgeW)
+            || (surroundingTiles[0] == biome.cornerNW && surroundingTiles[1] == biome.cornerNW)
+            || (surroundingTiles[0] == biome.edgeN && surroundingTiles[1] == biome.cornerNW))
+            SetEdgeTile(_pos, biome.inlandCornerSW);
 
-        if ((surroundingTiles[0] == flav.edgeS && surroundingTiles[3] == flav.edgeW)
-            || (surroundingTiles[0] == flav.edgeS && surroundingTiles[3] == flav.cornerSE)
-            || (surroundingTiles[0] == flav.cornerSE && surroundingTiles[3] == flav.edgeW)
-            || (surroundingTiles[0] == flav.cornerSE && surroundingTiles[3] == flav.cornerSE))
-            SetEdgeTile(_pos, flav.inlandCornerNW);
+        if ((surroundingTiles[0] == biome.edgeS && surroundingTiles[3] == biome.edgeW)
+            || (surroundingTiles[0] == biome.edgeS && surroundingTiles[3] == biome.cornerSE)
+            || (surroundingTiles[0] == biome.cornerSE && surroundingTiles[3] == biome.edgeW)
+            || (surroundingTiles[0] == biome.cornerSE && surroundingTiles[3] == biome.cornerSE))
+            SetEdgeTile(_pos, biome.inlandCornerNW);
 
-        if ((surroundingTiles[1] == flav.edgeE && surroundingTiles[2] == flav.edgeN)
-            || (surroundingTiles[1] == flav.cornerNE && surroundingTiles[2] == flav.edgeN)
-            || (surroundingTiles[1] == flav.edgeE && surroundingTiles[2] == flav.cornerNE)
-            || (surroundingTiles[1] == flav.cornerNE && surroundingTiles[2] == flav.cornerNE))
-            SetEdgeTile(_pos, flav.inlandCornerSE);
+        if ((surroundingTiles[1] == biome.edgeE && surroundingTiles[2] == biome.edgeN)
+            || (surroundingTiles[1] == biome.cornerNE && surroundingTiles[2] == biome.edgeN)
+            || (surroundingTiles[1] == biome.edgeE && surroundingTiles[2] == biome.cornerNE)
+            || (surroundingTiles[1] == biome.cornerNE && surroundingTiles[2] == biome.cornerNE))
+            SetEdgeTile(_pos, biome.inlandCornerSE);
 
-        if ((surroundingTiles[2] == flav.edgeS && surroundingTiles[3] == flav.edgeE)
-            || (surroundingTiles[2] == flav.edgeS && surroundingTiles[3] == flav.cornerSW)
-            || (surroundingTiles[2] == flav.cornerSW && surroundingTiles[3] == flav.edgeE)
-            || (surroundingTiles[2] == flav.cornerSW && surroundingTiles[3] == flav.cornerSW))
-            SetEdgeTile(_pos, flav.inlandCornerNE);
+        if ((surroundingTiles[2] == biome.edgeS && surroundingTiles[3] == biome.edgeE)
+            || (surroundingTiles[2] == biome.edgeS && surroundingTiles[3] == biome.cornerSW)
+            || (surroundingTiles[2] == biome.cornerSW && surroundingTiles[3] == biome.edgeE)
+            || (surroundingTiles[2] == biome.cornerSW && surroundingTiles[3] == biome.cornerSW))
+            SetEdgeTile(_pos, biome.inlandCornerNE);
     }
 
     void ClearLooseTile(Vector3Int _pos)
@@ -641,21 +637,13 @@ public class BoardManager : MonoBehaviour
 
     void SetEdgeTile(Vector3Int _pos, TileBase _tile)
     {
-        /*
-        if (lightCount % 5 == 0)
-        {
-            GameObject st = Instantiate(standingTorch, new Vector3(_pos.x + 0.5f, _pos.y + 0.5f), Quaternion.identity);
-            st.transform.parent = envObjectsHolder.transform;
-        }
-        lightCount++;
-    */
         ClearTile(new Vector3Int(_pos.x, _pos.y));
         backgroundTilemap.SetTile(_pos, _tile);
     }
 
     void SetBackgroundFloorTile(Vector3Int _pos)
     {
-        backgroundTilemap.SetTile(_pos, flav.floorTiles[Random.Range(0, flav.floorTiles.Length)]);
+        backgroundTilemap.SetTile(_pos, biome.floorTiles[Random.Range(0, biome.floorTiles.Length)]);
     }
 
     void ClearTile(Vector3Int _pos)
@@ -667,7 +655,7 @@ public class BoardManager : MonoBehaviour
 
     bool IsFloorTile(Vector3Int _pos)
     {
-        return Array.IndexOf(flav.floorTiles, backgroundTilemap.GetTile(_pos)) != -1;
+        return Array.IndexOf(biome.floorTiles, backgroundTilemap.GetTile(_pos)) != -1;
     }
 
     // TODO: improve this?

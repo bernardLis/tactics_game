@@ -12,11 +12,11 @@ public class BoardEditor : Editor
         BoardManager board = target as BoardManager;
 
         //if (DrawDefaultInspector())
-        //    board.SetupScene();
+        //    board.GenerateMap();
 
         if (GUILayout.Button("Generate Map"))
-            board.SetupScene();
+            board.GenerateMap();
 
-        //board.SetupScene();
+        //board.GenerateMap();
     }
 }

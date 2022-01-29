@@ -25,6 +25,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 59e03d24f655b144d8438f5d3745cae1, type: 2}
   obstacles:
   - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
+  - {fileID: 11400000, guid: 2d0c23d1378ecc342907a5a9f08af042, type: 2}
+  - {fileID: 11400000, guid: ebbf7c1262740ae4eb7c5a253b72b3dc, type: 2}
+  - {fileID: 11400000, guid: 8613f82e5b80d0f4db16d004e49f3170, type: 2}
+  - {fileID: 11400000, guid: e5369601cff230547a1a5a8af5e2ff9d, type: 2}
+  - {fileID: 11400000, guid: 5534733ef0220ac4e9e857ef95df3d2e, type: 2}
+  - {fileID: 11400000, guid: 2eb7b0fe9ea09c548b90996b0342adc0, type: 2}
+  - {fileID: 11400000, guid: f19bb78eeab06534b9f6ee54fbd6f420, type: 2}
+  - {fileID: 11400000, guid: e1d32b9c76e70da488563e2c99f2f837, type: 2}
+  - {fileID: 11400000, guid: a301a13705839094a86a40910097c45e, type: 2}
+  - {fileID: 11400000, guid: acae699bfd283294587211d65cbf8df8, type: 2}
   outerAdditions:
   - {fileID: 11400000, guid: 1033919bb166f3b4fb86f31730cc5302, type: 2}
   - {fileID: 11400000, guid: 29cb099b434299847925fd3a63f1a370, type: 2}

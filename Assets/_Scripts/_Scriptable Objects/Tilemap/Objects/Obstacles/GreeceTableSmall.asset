@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: GreeceTableSmall
   m_EditorClassIdentifier: 
   id: 4188db2a-d712-439a-b199-b36120b51261
-  size: {x: 3, y: 1}
+  size: {x: 1, y: 1}
   objectType: 1
-  sprite: {fileID: 21300000, guid: 44fb8a23a3b1635429a72c77ef827df9, type: 3}
+  sprite: {fileID: 21300000, guid: 3aae787d0bb11024b9a6f6fc3e4a45a4, type: 3}
   pushable: 0
   isMoving: 0
   emitsLight: 0

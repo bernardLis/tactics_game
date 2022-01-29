@@ -19,8 +19,8 @@ MonoBehaviour:
   pushable: 0
   isMoving: 0
   emitsLight: 1
-  lightColor: {r: 1, g: 0, b: 0, a: 1}
-  lightIntensity: {x: 1, y: 1}
-  innerRadius: {x: 1, y: 1}
-  outerRadius: {x: 1, y: 1}
-  offset: {x: 0, y: 0}
+  lightColor: {r: 1, g: 0.6745098, b: 0, a: 1}
+  lightIntensity: {x: 0.3, y: 0.5}
+  innerRadius: {x: 0.4, y: 0.6}
+  outerRadius: {x: 1, y: 2}
+  offset: {x: 0.46, y: 0.7}

@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(menuName = "Tilemap/Flavour")]
+[CreateAssetMenu(menuName = "Tilemap/Biome")]
 
-public class TilemapFlavour : BaseScriptableObject
+public class TilemapBiome : BaseScriptableObject
 {
     [Header("Tiles")]
     public TileBase[] floorTiles;
@@ -26,8 +26,8 @@ public class TilemapFlavour : BaseScriptableObject
     [Header("Corner")]
     public TileBase cornerNE;
     public TileBase cornerNW;
-    public TileBase cornerSW;
     public TileBase cornerSE;
+    public TileBase cornerSW;
 
     [Header("Inland Corner")]
     public TileBase inlandCornerNE;
