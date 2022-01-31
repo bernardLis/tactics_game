@@ -12,7 +12,6 @@ public class BattleCharacterController : MonoBehaviour
     // tilemap
     Tilemap tilemap;
     WorldTile _tile;
-    Dictionary<Vector3, WorldTile> tiles;
     WorldTile selectedTile;
 
     // global utilities
@@ -67,7 +66,6 @@ public class BattleCharacterController : MonoBehaviour
     void Start()
     {
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
-        tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
 
         highlighter = Highlighter.instance;
         battleInputController = BattleInputController.instance;
@@ -119,7 +117,7 @@ public class BattleCharacterController : MonoBehaviour
         ClearPathRenderer();
 
         // get the tile movepoint is on
-        if (tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
+        if (GameTiles.tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             selectedTile = _tile;
 
         // select character
@@ -470,7 +468,7 @@ public class BattleCharacterController : MonoBehaviour
             return;
 
         // get the tile movepoint is on
-        if (!tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
+        if (!GameTiles.tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             return;
         // don't draw path to tiles you can't reach
         if (!_tile.WithinRange)

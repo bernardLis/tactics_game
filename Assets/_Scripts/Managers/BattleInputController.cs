@@ -12,7 +12,6 @@ public class BattleInputController : MonoBehaviour
     // tilemap
     Tilemap tilemap;
     WorldTile _tile;
-    Dictionary<Vector3, WorldTile> tiles;
 
     // global utilities
     Camera cam;
@@ -47,7 +46,6 @@ public class BattleInputController : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
 
-        tiles = GameTiles.instance.tiles;
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
         // TODO: Supposedly, this is an expensive call
@@ -179,7 +177,7 @@ public class BattleInputController : MonoBehaviour
         Vector3 mousePos = Mouse.current.position.ReadValue();
         mousePos.z = 1; // select distance = 1 unit(s) from the camera
         Vector3Int tilePos = tilemap.WorldToCell(cam.ScreenToWorldPoint(mousePos));
-        if (!tiles.TryGetValue(tilePos, out _tile))
+        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
             return;
 
         Vector3 pos = _tile.GetMiddleOfTile();

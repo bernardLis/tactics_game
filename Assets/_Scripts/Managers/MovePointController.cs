@@ -15,7 +15,6 @@ public class MovePointController : MonoBehaviour
     // tiles
     Tilemap tilemap;
     WorldTile _tile;
-    Dictionary<Vector3, WorldTile> tiles;
 
     public static MovePointController instance;
     void Awake()
@@ -38,7 +37,6 @@ public class MovePointController : MonoBehaviour
         characterUI = CharacterUI.instance;
 
         // This is our Dictionary of tiles
-        tiles = GameTiles.instance.tiles;
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
         battlePreparationController = GetComponent<BattlePreparationController>();
@@ -61,7 +59,7 @@ public class MovePointController : MonoBehaviour
     {
         // block moving out form tile map
         Vector3Int tilePos = tilemap.WorldToCell(_pos);
-        if (!tiles.TryGetValue(tilePos, out _tile))
+        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
             return;
 
         transform.position = _pos;
@@ -95,7 +93,7 @@ public class MovePointController : MonoBehaviour
     void HandleBattlePrepSelectClick()
     {
         Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-        if (!tiles.TryGetValue(tilePos, out _tile))
+        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
             return;
         if (!_tile.WithinRange)
             return;
@@ -111,7 +109,7 @@ public class MovePointController : MonoBehaviour
         if (battleCharacterController.characterState == CharacterState.SelectingInteractionTarget)
         {
             Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-            if (!tiles.TryGetValue(tilePos, out _tile))
+            if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
                 return;
             if (!_tile.WithinRange)
                 return;
@@ -148,7 +146,7 @@ public class MovePointController : MonoBehaviour
         string tileUIText = "";
 
         // if it is not a tile, return
-        if (!tiles.TryGetValue(tilePos, out _tile))
+        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
             return;
 
         if (_tile.IsObstacle)
@@ -222,7 +220,7 @@ public class MovePointController : MonoBehaviour
 
         // don't show interaction summary if not in range of interaction
         Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-        if (!tiles.TryGetValue(tilePos, out _tile))
+        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
             return;
         if (!_tile.WithinRange)
             return;

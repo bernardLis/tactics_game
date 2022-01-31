@@ -13,7 +13,6 @@ public class Brain : BaseScriptableObject
     BasicCameraFollow basicCameraFollow;
 
     // tilemap
-    protected Dictionary<Vector3, WorldTile> tiles;
     protected Tilemap tilemap;
     protected WorldTile _tile;
 
@@ -43,7 +42,6 @@ public class Brain : BaseScriptableObject
         basicCameraFollow = BasicCameraFollow.instance;
 
         // This is our Dictionary of tiles
-        tiles = GameTiles.instance.tiles;
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
         characterGameObject = _self;
@@ -139,7 +137,7 @@ public class Brain : BaseScriptableObject
         for (int i = p.vectorPath.Count - 1; i >= 0; i--)
         {
             tilePos = tilemap.WorldToCell(p.vectorPath[i]);
-            if (!tiles.TryGetValue(tilePos, out _tile))
+            if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
                 continue;
 
             // check if it is within reach and is not the tile I am currently standing on

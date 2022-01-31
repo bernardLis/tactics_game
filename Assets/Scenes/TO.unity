@@ -42862,18 +42862,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6800105349130585848, guid: 739e5cb970955dc41b7b790318e929ab, type: 3}
-      propertyPath: data.dataString
-      value: UEsDBBQAAAgIAAAIIeyiNXIUNQAAAD4AAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgDilmSkgdnQskFNSWZDql5ibChGoBQBQSwECLQAUAAAICAAACCHsojVyFDUAAAA+AAAACQAkAAAAAAAAAAAAAAAAAAAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAABAAEAWwAAAIAAAAAAAA==
-      objectReference: {fileID: 0}
-    - target: {fileID: 6800105349130585848, guid: 739e5cb970955dc41b7b790318e929ab, type: 3}
-      propertyPath: data.cacheStartup
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6800105349130585848, guid: 739e5cb970955dc41b7b790318e929ab, type: 3}
-      propertyPath: data.file_cachedStartup
-      value: 
-      objectReference: {fileID: 4900000, guid: 294358e2369993d48a12e09ad32f3e50, type: 3}
     - target: {fileID: 6800105349130585849, guid: 739e5cb970955dc41b7b790318e929ab, type: 3}
       propertyPath: m_RootOrder
       value: 0

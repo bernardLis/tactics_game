@@ -12,7 +12,6 @@ public class CharacterSelection : MonoBehaviour
     // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
     protected Tilemap tilemap;
     protected WorldTile _tile;
-    protected Dictionary<Vector3, WorldTile> tiles;
 
     // local
     protected CharacterStats myStats;
@@ -27,7 +26,6 @@ public class CharacterSelection : MonoBehaviour
         turnManager = TurnManager.instance;
 
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
-        tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
 
         myStats = GetComponent<CharacterStats>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();

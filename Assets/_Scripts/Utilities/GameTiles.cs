@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class GameTiles : MonoBehaviour
 {
     Tilemap tilemap;
-    public Dictionary<Vector3, WorldTile> tiles;
+    public static Dictionary<Vector3, WorldTile> tiles;
 
     public static GameTiles instance;
     void Awake()

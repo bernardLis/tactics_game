@@ -821,9 +821,8 @@ public class BoardManager : MonoBehaviour
     void CreatePlayerStartingArea()
     {
         // TODO: this is temporary
-        Vector3Int v = GetRandomOpenPosition(Vector2.one, openGridPositions)[0];
-        Vector2 SWCorner = new Vector2(v.x, v.y);
-        Highlighter.instance.HighlightRectanglePlayer(SWCorner, 5, 5, Color.blue);
+        Vector2 SWCorner = new Vector2(1, 1);
+        Highlighter.instance.HighlightRectanglePlayer(SWCorner, 5, mapSize.y, Color.blue);
         TurnManager.instance.UpdateBattleState(BattleState.Preparation);
     }
 

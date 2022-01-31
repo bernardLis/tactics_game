@@ -15,7 +15,6 @@ public class Highlighter : MonoBehaviour
     // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
     // tilemap
     Tilemap tilemap;
-    Dictionary<Vector3, WorldTile> tiles;
     WorldTile _tile;
 
     WorldTile charTile;
@@ -46,7 +45,6 @@ public class Highlighter : MonoBehaviour
         #endregion
 
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
-        tiles = GameTiles.instance.tiles; // This is our Dictionary of tiles
     }
 
     public void Start()
@@ -61,7 +59,7 @@ public class Highlighter : MonoBehaviour
         ClearHighlightedTiles().GetAwaiter();
 
         Vector3Int tilePos = tilemap.WorldToCell(position);
-        if (tiles.TryGetValue(tilePos, out _tile))
+        if (GameTiles.tiles.TryGetValue(tilePos, out _tile))
         {
             HighlightTile(_tile, col);
             return _tile;
@@ -78,9 +76,10 @@ public class Highlighter : MonoBehaviour
             {
                 Vector3 position = new Vector3(SWcorner.x + i, SWcorner.y + j, 0f);
                 Vector3Int tilePos = tilemap.WorldToCell(position);
-
+               // if(tiles == null)
+              //      tiles = GameTiles.instance.tiles;
                 // continue looping if the tile does not exist
-                if (!tiles.TryGetValue(tilePos, out _tile))
+                if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
                     continue;
 
                 if (CanPlayerWalkOnTile(_tile) && CanPlayerStopOnTile(_tile))
@@ -101,7 +100,7 @@ public class Highlighter : MonoBehaviour
         // get the tile character is currently standing on
         Vector3Int tilePos = tilemap.WorldToCell(position);
 
-        if (tiles.TryGetValue(tilePos, out _tile))
+        if (GameTiles.tiles.TryGetValue(tilePos, out _tile))
         {
             previousMarkedTiles.Add(_tile);
             charTile = _tile;
@@ -132,7 +131,7 @@ public class Highlighter : MonoBehaviour
                     worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, markedTile.LocalPlace.y, 0);
 
                 // excluding not tiles
-                if (!tiles.TryGetValue(worldPoint, out _tile))
+                if (!GameTiles.tiles.TryGetValue(worldPoint, out _tile))
                     continue;
 
                 // excluding self
@@ -158,7 +157,7 @@ public class Highlighter : MonoBehaviour
                     worldPoint = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
 
                 // excluding not tiles
-                if (!tiles.TryGetValue(worldPoint, out _tile))
+                if (!GameTiles.tiles.TryGetValue(worldPoint, out _tile))
                     continue;
 
                 // excluding self
@@ -192,7 +191,7 @@ public class Highlighter : MonoBehaviour
         // adding char position
         Vector3Int tilePos = tilemap.WorldToCell(position);
 
-        if (tiles.TryGetValue(tilePos, out _tile))
+        if (GameTiles.tiles.TryGetValue(tilePos, out _tile))
         {
             previousMarkedTiles.Add(_tile);
             highlightedTiles.Add(_tile);
@@ -227,7 +226,7 @@ public class Highlighter : MonoBehaviour
                     {
                         worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
 
-                        if (!tiles.TryGetValue(worldPoint, out _tile))
+                        if (!GameTiles.tiles.TryGetValue(worldPoint, out _tile))
                             continue;
 
                         // can you walk on the tile? 
@@ -313,7 +312,7 @@ public class Highlighter : MonoBehaviour
         Vector3Int tilePos = tilemap.WorldToCell(position);
         Vector3Int worldPoint;
 
-        if (tiles.TryGetValue(tilePos, out _tile))
+        if (GameTiles.tiles.TryGetValue(tilePos, out _tile))
         {
             HighlightTile(_tile, col);
             markedTiles.Add(_tile);
@@ -340,7 +339,7 @@ public class Highlighter : MonoBehaviour
                         if (x == 0 ^ y == 0)
                         {
                             worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
-                            if (!tiles.TryGetValue(worldPoint, out _tile))
+                            if (!GameTiles.tiles.TryGetValue(worldPoint, out _tile))
                                 continue;
 
                             // can you calk on the tile? 
@@ -412,7 +411,7 @@ public class Highlighter : MonoBehaviour
     public void ClearHighlightedTile(Vector3 position)
     {
         Vector3Int tilePos = tilemap.WorldToCell(position);
-        if (!tiles.TryGetValue(tilePos, out _tile))
+        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
             return;
 
         // remove flasher from that tile
