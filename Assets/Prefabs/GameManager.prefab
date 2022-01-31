@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 515482018}
   - component: {fileID: 515482019}
   - component: {fileID: 6486815242508854033}
+  - component: {fileID: 2914137046906788761}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -168,3 +169,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+--- !u!114 &2914137046906788761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110995401688889203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c793009563fa5664e8187a9aeb642591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapVariantChosen: {fileID: 0}
+  seed: 0
+  mapSize: {x: 20, y: 20}
+  enemyCharacters:
+  - {fileID: 11400000, guid: 4843f2a9ac4308c4e9c82dd51ec88d48, type: 2}
+  - {fileID: 11400000, guid: 39059db24e54bc947860a71d4f609cb2, type: 2}
+  - {fileID: 11400000, guid: 4e5e4696ddea4f14c81499d11986c6f0, type: 2}
+  enemyGO: {fileID: 3387775229403623854, guid: b81a4c5ec70160849a703e08180495d1, type: 3}
+  mapVariants:
+  - {fileID: 11400000, guid: ea1e05dc5ef7aed44a0ff185134ed555, type: 2}
+  - {fileID: 11400000, guid: 6bd08ff98e53a5d4abc5126888aa8475, type: 2}
+  - {fileID: 11400000, guid: c159929732da3bc4596aac7906992863, type: 2}
+  - {fileID: 11400000, guid: e384dcdfc67b64d4fa588b56428c2ed1, type: 2}
+  - {fileID: 11400000, guid: 97d8524dc97d414438e24efbc74f523f, type: 2}
+  - {fileID: 11400000, guid: ebc48c573e25c2b4ab8f7288a5008429, type: 2}
+  biomes:
+  - {fileID: 11400000, guid: a53d5abe5308c3d499efac31c14882cf, type: 2}
+  - {fileID: 11400000, guid: 31bb81b2ebd793344bcbe3b01809c164, type: 2}
+  - {fileID: 11400000, guid: 1e36ccc6e7e024441b0416d06801257c, type: 2}
+  - {fileID: 11400000, guid: b3c31ad5d2be3744f9798528e30b1514, type: 2}
+  - {fileID: 11400000, guid: b2c54c4e7590ed94dbaa8c30438de01a, type: 2}
+  - {fileID: 11400000, guid: ca411c7119c85344fa7ba0b53dc8beef, type: 2}
+  backgroundTilemap: {fileID: 0}
+  middlegroundTilemap: {fileID: 0}
+  foregroundTilemap: {fileID: 0}
+  envObjectsHolder: {fileID: 0}
+  obstaclePrefab: {fileID: 7512957698282176492, guid: fdb07fdc2b9ea38459129c53f992df49, type: 3}
+  pushableObstaclePrefab: {fileID: 7512957698282176492, guid: a549c98ce7982e049a7ea6344afcc711, type: 3}
+  outerObjectPrefab: {fileID: 2250858329478428567, guid: 1026ff98a9efe9a488bf119986ab6561, type: 3}
+  collectiblePrefab: {fileID: 702634473209585991, guid: a360c64badc8f0a498531a16771efffa, type: 3}
+  chestPrefab: {fileID: 5247648617231209867, guid: 9a16a01a8c5aeea449e0d2fa07156386, type: 3}
+  trap: {fileID: 4377347653787997842, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
+  globalLightPrefab: {fileID: 2082967730658958768, guid: 1adf34ae1f6f620438325a9f51e6a6aa, type: 3}

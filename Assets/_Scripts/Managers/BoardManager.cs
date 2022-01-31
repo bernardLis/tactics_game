@@ -6,13 +6,14 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
+using Pathfinding;
 
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 public class BoardManager : MonoBehaviour
 {
     [Header("Map Setup")]
     public MapVariant mapVariantChosen;
-    public int seed;
+    int seed;
     public Vector2Int mapSize = new(20, 20);
 
     [Header("Enemies")]
@@ -24,7 +25,6 @@ public class BoardManager : MonoBehaviour
     public TilemapBiome[] biomes;
     public Tilemap backgroundTilemap;
     public Tilemap middlegroundTilemap;
-    public Tilemap foregroundTilemap;
     public GameObject envObjectsHolder;
     public GameObject obstaclePrefab;
     public GameObject pushableObstaclePrefab;
@@ -33,6 +33,7 @@ public class BoardManager : MonoBehaviour
     public GameObject chestPrefab;
     public GameObject trap;
     public GameObject globalLightPrefab;
+    public TextAsset graphData;
 
     // other map vars
     Vector3Int emptyTile;
@@ -49,31 +50,66 @@ public class BoardManager : MonoBehaviour
     List<GameObject> pushableObstacles;
     List<Vector3Int> openOuterPositions = new();
 
-    public void GenerateMap()
+    void Start()
+    {
+        GenerateMap();
+        seed = System.DateTime.Now.Millisecond;
+    }
+    public async void GenerateMap()
     {
         InitialSetup();
+        await Task.Delay(100);
         BoardSetup();
+        await Task.Delay(100);
+
         InitialiseOpenPositions();
         ResolveMapVariant();
+        await Task.Delay(100);
+
         PlaceTerrainIrregularities();
+        await Task.Delay(100);
+
         HandleLooseTiles();
+        await Task.Delay(100);
+
         HandleEdge();
-        LayoutObstacles();
+        await Task.Delay(100);
+
+        await LayoutObstacles();
+        await Task.Delay(100);
+
         PlaceSpecialObjects();
+        await Task.Delay(100);
+
         LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f)); // TODO: chagne to per flavour 
+        await Task.Delay(100);
+
         DrawOuter();
+        await Task.Delay(100);
+
         PlaceOuterAdditions();
+        await Task.Delay(100);
 
         if (Random.Range(0, 2) == 0)
             LayoutObjectAtRandom(trap, trapPercent);
 
+        GameTiles.instance.SetUp(); // TODO:
+
+        SetupAstar();
+        await Task.Delay(100);
         // TODO: spawn enemy chars;
+        SpawnEnemies(3);
         // TODO: spawn player chars / set-up player spawn positions;
+        await Task.Delay(100);
+
+        CreatePlayerStartingArea();
     }
 
     void InitialSetup()
     {
         Random.InitState(seed);
+        // TODO: change
+        MovePointController.instance.transform.position = new Vector3(mapSize.x / 2, mapSize.y / 2);
 
         biome = biomes[Random.Range(0, biomes.Length)];
 
@@ -81,7 +117,6 @@ public class BoardManager : MonoBehaviour
 
         backgroundTilemap.ClearAllTiles();
         middlegroundTilemap.ClearAllTiles();
-        foregroundTilemap.ClearAllTiles();
 
         var tempList = envObjectsHolder.transform.Cast<Transform>().ToList();
         foreach (Transform child in tempList)
@@ -193,7 +228,7 @@ public class BoardManager : MonoBehaviour
                     ClearLooseTile(new Vector3Int(x, y));
     }
 
-    void LayoutObstacles()
+    async Task LayoutObstacles()
     {
         if (biome.obstacles.Length == 0)
             return;
@@ -214,6 +249,7 @@ public class BoardManager : MonoBehaviour
         int obstacledTileCount = 0;
         for (int i = 0; i < objectCount; i++)
         {
+            await Task.Delay(25);
             if (openGridPositions.Count <= 0)
                 return;
 
@@ -741,13 +777,34 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void SpawnEnemies(int minimum, int maximum)
+    void SetupAstar()
     {
-        int objectCount = Random.Range(minimum, maximum + 1);
-        for (int i = 0; i < objectCount; i++)
+        AstarData data = AstarPath.active.data;
+
+        data.DeserializeGraphs(graphData.bytes);
+        GridGraph gg = data.gridGraph;
+
+        // Setup a grid graph with some values
+        int width = mapSize.x + 2;
+        int depth = mapSize.y + 2;
+        float nodeSize = 1;
+        gg.center = new Vector3(mapSize.x / 2, mapSize.y / 2, 0);
+
+        // Updates internal size from the above values
+        gg.SetDimensions(width, depth, nodeSize);
+
+        // Scans all graphs
+        AstarPath.active.Scan();
+    }
+
+    void SpawnEnemies(int numberOfEnemies)
+    {
+        for (int i = 0; i < numberOfEnemies; i++)
         {
+            Vector3Int randPos = GetRandomOpenPosition(Vector2.one, openGridPositions)[0];
+            Vector3 pos = new Vector3(randPos.x + 0.5f, randPos.y + 0.5f);
             Character instantiatedSO = Instantiate(enemyCharacters[Random.Range(0, enemyCharacters.Length)]);
-            GameObject newCharacter = Instantiate(enemyGO, GetRandomOpenPosition(Vector2.one, openGridPositions)[0], Quaternion.identity); // TODO: get random posiiton is wrong here
+            GameObject newCharacter = Instantiate(enemyGO, pos, Quaternion.identity); // TODO: get random posiiton is wrong here
 
             instantiatedSO.Initialize(newCharacter);
             newCharacter.name = instantiatedSO.characterName;
@@ -760,4 +817,14 @@ public class BoardManager : MonoBehaviour
             characterRendererManager.Face(Vector2.zero);
         }
     }
+
+    void CreatePlayerStartingArea()
+    {
+        // TODO: this is temporary
+        Vector3Int v = GetRandomOpenPosition(Vector2.one, openGridPositions)[0];
+        Vector2 SWCorner = new Vector2(v.x, v.y);
+        Highlighter.instance.HighlightRectanglePlayer(SWCorner, 5, 5, Color.blue);
+        TurnManager.instance.UpdateBattleState(BattleState.Preparation);
+    }
+
 }

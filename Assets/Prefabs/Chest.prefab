@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 644904712361492289}
   - component: {fileID: 2503658772136814475}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4331170078490872934}
   - component: {fileID: 2075305425955437950}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 5247648617231209871}
   - component: {fileID: 5247648617231209865}
   - component: {fileID: 5247648617231209870}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 989206605927621239}
   - component: {fileID: 4190177185413279476}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}

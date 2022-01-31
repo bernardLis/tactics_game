@@ -10,7 +10,5 @@ public class MyTileData : BaseScriptableObject
 	public TileBase[] tiles;
 
 	public bool obstacle;
-
-	public int tileDamage;
 	
 }

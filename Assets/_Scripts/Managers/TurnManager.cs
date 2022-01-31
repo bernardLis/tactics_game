@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Threading.Tasks;
 
-public enum BattleState { Preparation, PlayerTurn, EnemyTurn, Won, Lost }
+public enum BattleState { MapBuilding, Preparation, PlayerTurn, EnemyTurn, Won, Lost }
 
 [RequireComponent(typeof(TurnDisplayer))]
 public class TurnManager : MonoBehaviour
@@ -42,7 +42,7 @@ public class TurnManager : MonoBehaviour
         infoCardUI = InfoCardUI.instance;
 
         // TODO: create a start battleState where you place your characters
-        UpdateBattleState(BattleState.Preparation);
+        UpdateBattleState(BattleState.MapBuilding);
     }
 
     // https://www.youtube.com/watch?v=4I0vonyqMi8&t=193s
@@ -52,6 +52,8 @@ public class TurnManager : MonoBehaviour
 
         switch (newState)
         {
+            case BattleState.MapBuilding:
+                break;
             case BattleState.Preparation:
                 HandlePreparation();
                 break;

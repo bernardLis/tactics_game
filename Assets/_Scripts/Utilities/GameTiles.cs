@@ -25,6 +25,10 @@ public class GameTiles : MonoBehaviour
 
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
 
+    }
+
+    public void SetUp()
+    {
         GetWorldTiles();
         CreateObstacleColliders();
     }
@@ -63,6 +67,7 @@ public class GameTiles : MonoBehaviour
         GameObject ObsctacleColliders = new();
         ObsctacleColliders.name = "ObsctacleColliders";
 
+        // TODO: does not work
         foreach (KeyValuePair<Vector3, WorldTile> PosTile in tiles)
         {
             if (PosTile.Value.IsObstacle)
