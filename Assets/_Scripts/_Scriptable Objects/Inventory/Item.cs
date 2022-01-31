@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
+[CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObject/Inventory/Item")]
 public class Item : BaseScriptableObject
 {
 	public string ID = Guid.NewGuid().ToString();

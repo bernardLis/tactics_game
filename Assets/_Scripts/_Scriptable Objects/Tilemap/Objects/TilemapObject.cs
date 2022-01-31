@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum TileMapObjectType { Outer, Obstacle }
 
-[CreateAssetMenu(menuName = "Tilemap/Object")]
+[CreateAssetMenu(menuName = "ScriptableObject/Tilemap/Object")]
 public class TilemapObject : BaseScriptableObject
 {
     [Tooltip("Number of tiles, like: 1, 2.")]

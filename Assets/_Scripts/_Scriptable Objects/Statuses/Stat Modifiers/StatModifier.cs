@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Stats/Modifiers/Modifier")]
+[CreateAssetMenu(menuName = "ScriptableObject/Stats/Modifiers/Modifier")]
 public class StatModifier : BaseScriptableObject
 {
     public StatType statType;

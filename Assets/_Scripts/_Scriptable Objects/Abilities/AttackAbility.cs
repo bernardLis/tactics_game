@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Abilities/Attack Ability")]
+[CreateAssetMenu(menuName = "ScriptableObject/Abilities/Attack Ability")]
 public class AttackAbility : Ability
 {
     AttackTriggerable attackTriggerable;

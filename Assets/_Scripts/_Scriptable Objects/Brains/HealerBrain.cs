@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Brain/Healer")]
+[CreateAssetMenu(menuName = "ScriptableObject/Brain/Healer")]
 public class HealerBrain : Brain
 {
     public override void Move()

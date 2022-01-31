@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Abilities/Buff Ability")]
+[CreateAssetMenu(menuName = "ScriptableObject/Abilities/Buff Ability")]
 public class BuffAbility : Ability
 {
     BuffTriggerable buffTriggerable;

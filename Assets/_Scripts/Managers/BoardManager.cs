@@ -12,7 +12,7 @@ using Pathfinding;
 public class BoardManager : MonoBehaviour
 {
     [Header("Map Setup")]
-    public MapVariant mapVariantChosen;
+    MapVariant mapVariantChosen;
     int seed;
     public Vector2Int mapSize = new(20, 20);
 
@@ -52,9 +52,10 @@ public class BoardManager : MonoBehaviour
 
     void Start()
     {
-        GenerateMap();
         seed = System.DateTime.Now.Millisecond;
+        GenerateMap();
     }
+
     public async void GenerateMap()
     {
         InitialSetup();
@@ -87,13 +88,14 @@ public class BoardManager : MonoBehaviour
         DrawOuter();
         await Task.Delay(100);
 
+        GameTiles.instance.SetUp();
+
         PlaceOuterAdditions();
         await Task.Delay(100);
 
         if (Random.Range(0, 2) == 0)
             LayoutObjectAtRandom(trap, trapPercent);
 
-        GameTiles.instance.SetUp(); // TODO:
 
         SetupAstar();
         await Task.Delay(100);

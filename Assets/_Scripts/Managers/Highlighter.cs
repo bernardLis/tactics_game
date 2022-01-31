@@ -104,7 +104,7 @@ public class Highlighter : MonoBehaviour
         {
             previousMarkedTiles.Add(_tile);
             charTile = _tile;
-        }
+        } 
 
         for (int i = 0; i < range; i++)
             await HandleTileHighlighting(col, diagonal, self);

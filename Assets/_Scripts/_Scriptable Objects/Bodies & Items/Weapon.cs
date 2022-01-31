@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum WeaponType { SLASH, THRUST, SHOOT, ANY }
 
-[CreateAssetMenu(menuName = "Weapon")]
+[CreateAssetMenu(menuName = "ScriptableObject/Weapon")]
 public class Weapon : Equipment
 {
 	public WeaponType weaponType;

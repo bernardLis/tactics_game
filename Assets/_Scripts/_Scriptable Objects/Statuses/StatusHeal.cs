@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Statuses/Heal")]
+[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Heal")]
 public class StatusHeal : Status
 {
     CharacterStats characterStats;

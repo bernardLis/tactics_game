@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(menuName = "Tilemap/Biome")]
-
+[CreateAssetMenu(menuName = "ScriptableObject/Tilemap/Biome")]
 public class TilemapBiome : BaseScriptableObject
 {
     [Header("Tiles")]

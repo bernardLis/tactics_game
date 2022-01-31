@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Statuses/Stun")]
+[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Stun")]
 public class StatusStun : Status
 {
     CharacterSelection characterSelection;

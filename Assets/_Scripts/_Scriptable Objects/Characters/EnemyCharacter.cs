@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Character/Enemy")]
+[CreateAssetMenu(menuName = "ScriptableObject/Character/Enemy")]
 public class EnemyCharacter : Character
 {
     string[] names = new string[10]

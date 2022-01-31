@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Brain/Brain")]
+[CreateAssetMenu(menuName = "ScriptableObject/Brain/Brain")]
 public class Brain : BaseScriptableObject
 {
     // global

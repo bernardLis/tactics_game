@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Brain/Ranged")]
+[CreateAssetMenu(menuName = "ScriptableObject/Brain/Ranged")]
 public class RangedBrain : Brain
 {
     public Weapon[] bows;

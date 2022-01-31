@@ -4941,18 +4941,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1109123155325162342, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
-      propertyPath: m_UpscaleRT
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1109123155325162342, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
-      propertyPath: m_CropFrameX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1109123155325162342, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
-      propertyPath: m_CropFrameY
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1537849511793772524, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: followTarget
       value: 
@@ -5004,10 +4992,6 @@ PrefabInstance:
     - target: {fileID: 3749418624018675002, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
       propertyPath: m_Name
       value: Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 6576119103995927308, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
-      propertyPath: orthographic size
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
@@ -41783,44 +41767,6 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
---- !u!1 &2091829439 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3749418624018675002, guid: 43bdb6030c4714e98ac388d1f11b3e5b, type: 3}
-  m_PrefabInstance: {fileID: 203280527}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2091829440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091829439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
 --- !u!114 &2104221810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42754,18 +42700,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: graphData
-      value: 
-      objectReference: {fileID: 4900000, guid: b860b7d032095244997bdc598418103d, type: 3}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: mapSize.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: mapSize.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
       propertyPath: envObjectsHolder
       value: 
       objectReference: {fileID: 911840050}
@@ -42774,37 +42708,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1654271932}
     - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: biomes.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: foregroundTilemap
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
       propertyPath: middlegroundTilemap
       value: 
       objectReference: {fileID: 1577310939}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: biomes.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1e36ccc6e7e024441b0416d06801257c, type: 2}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: enemyCharacters.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: enemyCharacters.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4843f2a9ac4308c4e9c82dd51ec88d48, type: 2}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: enemyCharacters.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 39059db24e54bc947860a71d4f609cb2, type: 2}
-    - target: {fileID: 2914137046906788761, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
-      propertyPath: enemyCharacters.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4e5e4696ddea4f14c81499d11986c6f0, type: 2}
     - target: {fileID: 3110995401688889203, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
       propertyPath: m_Name
       value: Game Manager

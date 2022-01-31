@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Conversations/Line")]
+[CreateAssetMenu(menuName = "ScriptableObject/Conversations/Line")]
 public class Line : BaseScriptableObject
 {
 	public Character character;

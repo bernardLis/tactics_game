@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Brain/Meele")]
+[CreateAssetMenu(menuName = "ScriptableObject/Brain/Meele")]
 public class MeeleBrain : Brain
 {
     public override void Move()

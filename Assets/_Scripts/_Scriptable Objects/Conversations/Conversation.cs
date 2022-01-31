@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Conversations/Conversation")]
+[CreateAssetMenu(menuName = "ScriptableObject/Conversations/Conversation")]
 public class Conversation : BaseScriptableObject
 {
 	public string cId = "New Id";

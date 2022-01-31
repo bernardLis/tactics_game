@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Quests/Goals/Collect Quest Goal")]
+[CreateAssetMenu(menuName = "ScriptableObject/Quests/Goals/Collect Quest Goal")]
 public class CollectQuestGoal : QuestGoal
 {
 

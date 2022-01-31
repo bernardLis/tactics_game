@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Abilities/Heal Ability")]
+[CreateAssetMenu(menuName = "ScriptableObject/Abilities/Heal Ability")]
 public class HealAbility : Ability
 {
 

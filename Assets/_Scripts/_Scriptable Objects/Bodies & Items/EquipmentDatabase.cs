@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Equipment/EquipmentDatabase")]
+[CreateAssetMenu(menuName = "ScriptableObject/Equipment/EquipmentDatabase")]
 public class EquipmentDatabase : ScriptableObject
 {
     public List<Equipment> allBodies = new();

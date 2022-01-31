@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 //https://www.youtube.com/watch?v=XIqtZnqutGg
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObject/Tilemap/Biome")]
 public class MyTileData : BaseScriptableObject
 {
 	public TileBase[] tiles;

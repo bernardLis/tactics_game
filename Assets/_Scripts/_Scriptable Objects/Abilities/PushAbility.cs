@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "Abilities/Push Ability")]
+[CreateAssetMenu(menuName = "ScriptableObject/Abilities/Push Ability")]
 public class PushAbility : Ability
 {
     PushTriggerable pushTriggerable;

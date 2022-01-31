@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Statuses/Damage")]
+[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Damage")]
 public class StatusDamage : Status
 {
     CharacterStats characterStats;

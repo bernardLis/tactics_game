@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quests/Collect Quest")]
+[CreateAssetMenu(menuName = "ScriptableObject/Quests/Collect Quest")]
 public class CollectQuest : Quest
 {
 	public override void Trigger()

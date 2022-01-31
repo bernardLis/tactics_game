@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Character/Player")]
+[CreateAssetMenu(menuName = "ScriptableObject/Character/Player")]
 public class Character : BaseScriptableObject
 {
     // character scriptable object holds stats & abilities of a character.
