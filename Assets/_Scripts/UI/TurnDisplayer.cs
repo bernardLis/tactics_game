@@ -25,14 +25,15 @@ public class TurnDisplayer : MonoBehaviour
 
         // coroutine queue
         StartCoroutine(CoroutineCoordinator());
-        coroutineQueue.Enqueue(DisplayTurnText("DEPLOY TROOPS"));
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if(state == BattleState.EnemyTurn)
+        if (state == BattleState.Preparation)
+            coroutineQueue.Enqueue(DisplayTurnText("DEPLOY TROOPS"));
+        if (state == BattleState.EnemyTurn)
             coroutineQueue.Enqueue(DisplayTurnText("TURN " + TurnManager.currentTurn.ToString() + " - ENEMY"));
-        if(state == BattleState.PlayerTurn)
+        if (state == BattleState.PlayerTurn)
             coroutineQueue.Enqueue(DisplayTurnText("TURN " + TurnManager.currentTurn.ToString() + " - PLAYER"));
     }
 

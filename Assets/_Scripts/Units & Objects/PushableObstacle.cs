@@ -79,7 +79,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDi
             Destroy(gameObject);
         }
         // boulder is destroyed when it hits another boulder
-        else if (col.transform.gameObject.CompareTag("Stone"))
+        else if (col.transform.gameObject.CompareTag("PushableObstacle"))
             Destroy(gameObject);
         // boulder destroys traps
         else if (col.transform.gameObject.CompareTag("Trap"))

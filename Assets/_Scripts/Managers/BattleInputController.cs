@@ -177,7 +177,7 @@ public class BattleInputController : MonoBehaviour
         Vector3 mousePos = Mouse.current.position.ReadValue();
         mousePos.z = 1; // select distance = 1 unit(s) from the camera
         Vector3Int tilePos = tilemap.WorldToCell(cam.ScreenToWorldPoint(mousePos));
-        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
             return;
 
         Vector3 pos = _tile.GetMiddleOfTile();

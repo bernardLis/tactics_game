@@ -492,7 +492,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             StartCoroutine(MoveToPosition(startingPos, 0.5f));
         }
         // character destroys boulder when they are pushed into it + 10dmg to self
-        else if (col.transform.gameObject.CompareTag("Stone"))
+        else if (col.transform.gameObject.CompareTag("PushableObstacle"))
         {
             TakeDamageNoDodgeNoRetaliation(characterDmg);
 

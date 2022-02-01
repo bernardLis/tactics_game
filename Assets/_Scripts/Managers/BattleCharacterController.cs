@@ -117,7 +117,7 @@ public class BattleCharacterController : MonoBehaviour
         ClearPathRenderer();
 
         // get the tile movepoint is on
-        if (GameTiles.tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
+        if (TileManager.tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             selectedTile = _tile;
 
         // select character
@@ -468,7 +468,7 @@ public class BattleCharacterController : MonoBehaviour
             return;
 
         // get the tile movepoint is on
-        if (!GameTiles.tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
+        if (!TileManager.tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
             return;
         // don't draw path to tiles you can't reach
         if (!_tile.WithinRange)

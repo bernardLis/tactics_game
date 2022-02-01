@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 using Pathfinding;
 
+public enum EnemySpawnDirection { Left, Right, Top, Bottom }
+
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 public class BoardManager : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class BoardManager : MonoBehaviour
     [Header("Enemies")]
     public Character[] enemyCharacters;
     public GameObject enemyGO;
+    EnemySpawnDirection enemySpawnDirection;
+
 
     [Header("Unity objects")]
     public MapVariant[] mapVariants;
@@ -62,46 +66,31 @@ public class BoardManager : MonoBehaviour
         await Task.Delay(100);
         BoardSetup();
         await Task.Delay(100);
-
         InitialiseOpenPositions();
         ResolveMapVariant();
         await Task.Delay(100);
-
         PlaceTerrainIrregularities();
         await Task.Delay(100);
-
         HandleLooseTiles();
         await Task.Delay(100);
-
         HandleEdge();
         await Task.Delay(100);
-
         await LayoutObstacles();
         await Task.Delay(100);
-
         PlaceSpecialObjects();
         await Task.Delay(100);
-
         LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f)); // TODO: chagne to per flavour 
         await Task.Delay(100);
-
         DrawOuter();
         await Task.Delay(100);
-
-        GameTiles.instance.SetUp();
-
+        TileManager.instance.SetUp();
         PlaceOuterAdditions();
         await Task.Delay(100);
-
         if (Random.Range(0, 2) == 0)
             LayoutObjectAtRandom(trap, trapPercent);
-
-
         SetupAstar();
         await Task.Delay(100);
-        // TODO: spawn enemy chars;
-        SpawnEnemies(3);
-        // TODO: spawn player chars / set-up player spawn positions;
+        SpawnEnemies(3); // left, top, right, bottom // TODO: other script will be saying where to spawn enemies, and player chars will be opposite to that
         await Task.Delay(100);
 
         CreatePlayerStartingArea();
@@ -122,7 +111,7 @@ public class BoardManager : MonoBehaviour
 
         var tempList = envObjectsHolder.transform.Cast<Transform>().ToList();
         foreach (Transform child in tempList)
-            DestroyImmediate(child.gameObject); // TODO: destory
+            Destroy(child.gameObject);
     }
 
     void BoardSetup()
@@ -293,7 +282,7 @@ public class BoardManager : MonoBehaviour
             GameObject chest = Instantiate(chestPrefab, obs.transform.position, Quaternion.identity);
             chest.transform.parent = envObjectsHolder.transform;
             pushableObstacles.Remove(obs);
-            DestroyImmediate(obs); // TODO: destroy immediate
+            Destroy(obs);
             return;
         }
     }
@@ -801,30 +790,88 @@ public class BoardManager : MonoBehaviour
 
     void SpawnEnemies(int numberOfEnemies)
     {
+        enemySpawnDirection = (EnemySpawnDirection)Random.Range(0, System.Enum.GetValues(typeof(EnemySpawnDirection)).Length); // https://answers.unity.com/questions/810638/using-randomrange-to-pick-a-random-value-out-of-an.html
+
         for (int i = 0; i < numberOfEnemies; i++)
         {
-            Vector3Int randPos = GetRandomOpenPosition(Vector2.one, openGridPositions)[0];
-            Vector3 pos = new Vector3(randPos.x + 0.5f, randPos.y + 0.5f);
+            Vector3Int chosenPos = Vector3Int.zero;
+            foreach (Vector3Int pos in openGridPositions)
+            {
+                // left, top, right, bottom
+                if (enemySpawnDirection == EnemySpawnDirection.Left && pos.x <= 2)
+                    chosenPos = pos;
+                if (enemySpawnDirection == EnemySpawnDirection.Top && pos.y >= mapSize.y - 2)
+                    chosenPos = pos;
+                if (enemySpawnDirection == EnemySpawnDirection.Right && pos.x >= mapSize.x - 2)
+                    chosenPos = pos;
+                if (enemySpawnDirection == EnemySpawnDirection.Bottom && pos.y <= 2)
+                    chosenPos = pos;
+
+                if (chosenPos != Vector3Int.zero)
+                {
+                    openGridPositions.Remove(chosenPos);
+                    break;
+                }
+            }
+
+            Vector3 spawnPos = new Vector3(chosenPos.x + 0.5f, chosenPos.y + 0.5f);
             Character instantiatedSO = Instantiate(enemyCharacters[Random.Range(0, enemyCharacters.Length)]);
-            GameObject newCharacter = Instantiate(enemyGO, pos, Quaternion.identity); // TODO: get random posiiton is wrong here
+            GameObject newCharacter = Instantiate(enemyGO, spawnPos, Quaternion.identity); // TODO: get random posiiton is wrong here
 
             instantiatedSO.Initialize(newCharacter);
             newCharacter.name = instantiatedSO.characterName;
 
             newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
 
-            // face right
+            // face correct dir
             CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();
-            characterRendererManager.Face(Vector2.right);
+
+            if (enemySpawnDirection == EnemySpawnDirection.Left)
+                characterRendererManager.Face(Vector2.right);
+            if (enemySpawnDirection == EnemySpawnDirection.Top)
+                characterRendererManager.Face(Vector2.down);
+            if (enemySpawnDirection == EnemySpawnDirection.Right)
+                characterRendererManager.Face(Vector2.left);
+            if (enemySpawnDirection == EnemySpawnDirection.Bottom)
+                characterRendererManager.Face(Vector2.up);
+
             characterRendererManager.Face(Vector2.zero);
         }
     }
 
     void CreatePlayerStartingArea()
     {
-        // TODO: this is temporary
-        Vector2 SWCorner = new Vector2(1, 1);
-        Highlighter.instance.HighlightRectanglePlayer(SWCorner, 5, mapSize.y, Color.blue);
+        Vector2 SWCorner = Vector2.zero;
+        int width = 0;
+        int height = 0;
+        Debug.Log("enemy spawn dir: " + enemySpawnDirection);
+        // left, top, right, bottom
+        if (enemySpawnDirection == EnemySpawnDirection.Left)
+        {
+            SWCorner = new Vector2(0, mapSize.y / 2 - 2);
+            width = 3;
+            height = 5;
+        }
+        if (enemySpawnDirection == EnemySpawnDirection.Top)
+        {
+            SWCorner = new Vector2(mapSize.x / 2 - 2, 0);
+            width = 5;
+            height = 3;
+        }
+        if (enemySpawnDirection == EnemySpawnDirection.Right)
+        {
+            SWCorner = new Vector2(3, mapSize.y / 2 - 2);
+            width = 3;
+            height = 5;
+        }
+        if (enemySpawnDirection == EnemySpawnDirection.Bottom)
+        {
+            SWCorner = new Vector2(mapSize.x / 2 - 2, mapSize.y - 3);
+            width = 5;
+            height = 3;
+        }
+
+        Highlighter.instance.HighlightRectanglePlayer(SWCorner, width, height, Color.blue);
         TurnManager.instance.UpdateBattleState(BattleState.Preparation);
     }
 

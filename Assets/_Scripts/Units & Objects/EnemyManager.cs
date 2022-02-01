@@ -32,7 +32,7 @@ public class EnemyManager : MonoBehaviour
     {
         // TODO: is this ok, performance-wise?
         // but it fixes a problem where enemies did not have updated graph
-        // after player moved stone at the end of player turn
+        // after player moved PushableObstacle at the end of player turn
         // Recalculate all graphs
         AstarPath.active.Scan();
 

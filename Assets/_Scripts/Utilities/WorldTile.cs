@@ -9,14 +9,9 @@ public class WorldTile
     public Tilemap TilemapMember { get; set; }
     public string Name { get; set; }
 
-    // Below is needed for Breadth First Searching
-    public bool IsExplored { get; set; }
-    public WorldTile ExploredFrom { get; set; }
-
     public int Cost { get; set; }
+    
     public bool IsObstacle { get; set; }
-    public int TileDamage { get; set; }
-
     public bool WithinRange { get; set; }
 
     public void Highlight(Color col)

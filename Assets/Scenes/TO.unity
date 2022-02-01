@@ -80673,7 +80673,8 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[38].second.m_TileSpriteIndex
       value: 21
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8697716146085311630, guid: eefcb78a046d3bd41b293675226629b3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eefcb78a046d3bd41b293675226629b3, type: 3}
 --- !u!1001 &7569243889676361917
 PrefabInstance:

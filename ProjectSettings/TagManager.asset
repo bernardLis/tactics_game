@@ -8,12 +8,12 @@ TagManager:
   - Traversable
   - Enemy
   - Trap
-  - Stone
   - PlayerCollider
   - EnemyCollider
   - ConversationCollider
   - Weapon
-  - Temp
+  - PushableObstacle
+  - Stone
   layers:
   - Default
   - TransparentFX

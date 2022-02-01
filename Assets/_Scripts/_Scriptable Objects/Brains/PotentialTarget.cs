@@ -15,7 +15,7 @@ public class PotentialTarget
     public List<AttackPosition> GetMeeleAttackPositions(GameObject _attacker)
     {
         // This is our Dictionary of tiles
-        Dictionary<Vector3, WorldTile> tiles = GameTiles.tiles;
+        Dictionary<Vector3, WorldTile> tiles = TileManager.tiles;
         Tilemap tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
         WorldTile _tile;
 
@@ -38,7 +38,7 @@ public class PotentialTarget
         foreach (Vector3 point in tilesAroundPlayer)
         {
 
-            if (!GameTiles.tiles.TryGetValue(point, out _tile))
+            if (!TileManager.tiles.TryGetValue(point, out _tile))
                 continue;
 
             if (highlighter.CanEnemyWalkOnTile(_tile) && highlighter.CanEnemyStopOnTile(_tile))

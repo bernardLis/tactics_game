@@ -55,7 +55,6 @@ public class TurnManager : MonoBehaviour
             case BattleState.MapBuilding:
                 break;
             case BattleState.Preparation:
-                HandlePreparation();
                 break;
             case BattleState.PlayerTurn:
                 HandlePlayerTurn();
@@ -75,11 +74,6 @@ public class TurnManager : MonoBehaviour
 
         OnBattleStateChanged?.Invoke(newState);
     }
-
-    void HandlePreparation()
-    {
-    }
-
 
     // TODO: this will be called when player places their characters and confirms that he wants to start the battle.
     public void InitBattle()

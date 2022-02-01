@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 3750554321697331491}
   m_Layer: 3
   m_Name: PushableObstacle
-  m_TagString: Stone
+  m_TagString: PushableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c031f926b01d2749b556862f0229f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spotLightPrefab: {fileID: 0}
   displayText: Boulder, you can move if you know the technique.
 --- !u!1 &7512957699131220223
 GameObject:
@@ -276,7 +277,7 @@ GameObject:
   - component: {fileID: 2234758742996568745}
   m_Layer: 3
   m_Name: Collider
-  m_TagString: Stone
+  m_TagString: PushableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

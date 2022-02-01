@@ -18,7 +18,6 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
     void Start()
     {
         gameManager = GameManager.instance;
-//TODO:        gameManager.SnapToGrid(transform);
     }
 
     public void OnTriggerEnter2D(Collider2D col)
@@ -112,7 +111,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
             Destroy(gameObject);
         }
         // trap is destroyed when it hits a boulder
-        else if (col.transform.gameObject.CompareTag("Stone"))
+        else if (col.transform.gameObject.CompareTag("PushableObstacle"))
             Destroy(gameObject);
         // one trap is destroyed when it hits another traps
         else if (col.transform.gameObject.CompareTag("Trap"))

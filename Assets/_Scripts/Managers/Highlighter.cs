@@ -59,7 +59,7 @@ public class Highlighter : MonoBehaviour
         ClearHighlightedTiles().GetAwaiter();
 
         Vector3Int tilePos = tilemap.WorldToCell(position);
-        if (GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (TileManager.tiles.TryGetValue(tilePos, out _tile))
         {
             HighlightTile(_tile, col);
             return _tile;
@@ -68,18 +68,18 @@ public class Highlighter : MonoBehaviour
     }
 
     // TODO: this
-    public void HighlightRectanglePlayer(Vector2 SWcorner, int length, int height, Color col)
+    public void HighlightRectanglePlayer(Vector2 SWcorner, int width, int height, Color col)
     {
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
                 Vector3 position = new Vector3(SWcorner.x + i, SWcorner.y + j, 0f);
                 Vector3Int tilePos = tilemap.WorldToCell(position);
                // if(tiles == null)
-              //      tiles = GameTiles.instance.tiles;
+              //      tiles = TileManager.instance.tiles;
                 // continue looping if the tile does not exist
-                if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+                if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
                     continue;
 
                 if (CanPlayerWalkOnTile(_tile) && CanPlayerStopOnTile(_tile))
@@ -100,7 +100,7 @@ public class Highlighter : MonoBehaviour
         // get the tile character is currently standing on
         Vector3Int tilePos = tilemap.WorldToCell(position);
 
-        if (GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (TileManager.tiles.TryGetValue(tilePos, out _tile))
         {
             previousMarkedTiles.Add(_tile);
             charTile = _tile;
@@ -131,7 +131,7 @@ public class Highlighter : MonoBehaviour
                     worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, markedTile.LocalPlace.y, 0);
 
                 // excluding not tiles
-                if (!GameTiles.tiles.TryGetValue(worldPoint, out _tile))
+                if (!TileManager.tiles.TryGetValue(worldPoint, out _tile))
                     continue;
 
                 // excluding self
@@ -157,7 +157,7 @@ public class Highlighter : MonoBehaviour
                     worldPoint = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
 
                 // excluding not tiles
-                if (!GameTiles.tiles.TryGetValue(worldPoint, out _tile))
+                if (!TileManager.tiles.TryGetValue(worldPoint, out _tile))
                     continue;
 
                 // excluding self
@@ -191,7 +191,7 @@ public class Highlighter : MonoBehaviour
         // adding char position
         Vector3Int tilePos = tilemap.WorldToCell(position);
 
-        if (GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (TileManager.tiles.TryGetValue(tilePos, out _tile))
         {
             previousMarkedTiles.Add(_tile);
             highlightedTiles.Add(_tile);
@@ -226,7 +226,7 @@ public class Highlighter : MonoBehaviour
                     {
                         worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
 
-                        if (!GameTiles.tiles.TryGetValue(worldPoint, out _tile))
+                        if (!TileManager.tiles.TryGetValue(worldPoint, out _tile))
                             continue;
 
                         // can you walk on the tile? 
@@ -265,7 +265,7 @@ public class Highlighter : MonoBehaviour
             return true;
 
         // you can't walk on obstacles
-        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Stone"))
+        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("PushableObstacle"))
             return false;
 
         // you can't walk on tiles enemies are standing on
@@ -312,7 +312,7 @@ public class Highlighter : MonoBehaviour
         Vector3Int tilePos = tilemap.WorldToCell(position);
         Vector3Int worldPoint;
 
-        if (GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (TileManager.tiles.TryGetValue(tilePos, out _tile))
         {
             HighlightTile(_tile, col);
             markedTiles.Add(_tile);
@@ -339,7 +339,7 @@ public class Highlighter : MonoBehaviour
                         if (x == 0 ^ y == 0)
                         {
                             worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
-                            if (!GameTiles.tiles.TryGetValue(worldPoint, out _tile))
+                            if (!TileManager.tiles.TryGetValue(worldPoint, out _tile))
                                 continue;
 
                             // can you calk on the tile? 
@@ -375,8 +375,8 @@ public class Highlighter : MonoBehaviour
         if (col == null)
             return true;
 
-        // you can't walk on obstacles
-        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("Stone"))
+        // you can't walk on obstacles TODO: better check layer
+        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("PushableObstacle"))
             return false;
 
         // you can't walk on tiles enemies are standing on
@@ -411,7 +411,7 @@ public class Highlighter : MonoBehaviour
     public void ClearHighlightedTile(Vector3 position)
     {
         Vector3Int tilePos = tilemap.WorldToCell(position);
-        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
             return;
 
         // remove flasher from that tile

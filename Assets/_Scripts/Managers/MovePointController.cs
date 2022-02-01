@@ -59,7 +59,7 @@ public class MovePointController : MonoBehaviour
     {
         // block moving out form tile map
         Vector3Int tilePos = tilemap.WorldToCell(_pos);
-        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
             return;
 
         transform.position = _pos;
@@ -93,7 +93,7 @@ public class MovePointController : MonoBehaviour
     void HandleBattlePrepSelectClick()
     {
         Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
             return;
         if (!_tile.WithinRange)
             return;
@@ -109,7 +109,7 @@ public class MovePointController : MonoBehaviour
         if (battleCharacterController.characterState == CharacterState.SelectingInteractionTarget)
         {
             Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-            if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+            if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
                 return;
             if (!_tile.WithinRange)
                 return;
@@ -146,7 +146,7 @@ public class MovePointController : MonoBehaviour
         string tileUIText = "";
 
         // if it is not a tile, return
-        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
             return;
 
         if (_tile.IsObstacle)
@@ -220,7 +220,7 @@ public class MovePointController : MonoBehaviour
 
         // don't show interaction summary if not in range of interaction
         Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-        if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
             return;
         if (!_tile.WithinRange)
             return;

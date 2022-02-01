@@ -137,7 +137,7 @@ public class Brain : BaseScriptableObject
         for (int i = p.vectorPath.Count - 1; i >= 0; i--)
         {
             tilePos = tilemap.WorldToCell(p.vectorPath[i]);
-            if (!GameTiles.tiles.TryGetValue(tilePos, out _tile))
+            if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
                 continue;
 
             // check if it is within reach and is not the tile I am currently standing on

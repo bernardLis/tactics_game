@@ -2,17 +2,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
 //https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
-public class GameTiles : MonoBehaviour
+public class TileManager : MonoBehaviour
 {
     Tilemap tilemap;
+    [SerializeField]
+    List<MyTileData> myTileDatas;
+    Dictionary<TileBase, MyTileData> dataFromTiles;
+
     public static Dictionary<Vector3, WorldTile> tiles;
 
-    public static GameTiles instance;
+    public static TileManager instance;
+
     void Awake()
     {
-        #region Singleton
+        // singleton
         if (instance == null)
         {
             instance = this;
@@ -21,27 +25,28 @@ public class GameTiles : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        #endregion
+
 
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
-
+        dataFromTiles = new Dictionary<TileBase, MyTileData>();
+        foreach (var tileData in myTileDatas)
+            foreach (var tile in tileData.tiles)
+                dataFromTiles.Add(tile, tileData);
     }
 
     public void SetUp()
     {
-        GetWorldTiles();
+        CreateWorldTiles();
         CreateObstacleColliders();
     }
 
-    // Use this for initialization
-    void GetWorldTiles()
+    void CreateWorldTiles()
     {
         tiles = new Dictionary<Vector3, WorldTile>();
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
             Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
-            bool _isObstacle = MapManager.instance.IsObstacle(localPlace);
-            int _tileDamage = 0;
+            bool _isObstacle = IsObstacle(localPlace);
 
             if (!tilemap.HasTile(localPlace)) continue;
 
@@ -52,9 +57,8 @@ public class GameTiles : MonoBehaviour
                 TileBase = tilemap.GetTile(localPlace),
                 TilemapMember = tilemap,
                 Name = localPlace.x + "," + localPlace.y,
-                Cost = 1, // TODO: Change this with the proper cost from ruletile
+                Cost = 1, // TODO: Could be used for tiles with walk penalties
                 IsObstacle = _isObstacle,
-                TileDamage = _tileDamage,
                 WithinRange = false,
             };
 
@@ -89,4 +93,14 @@ public class GameTiles : MonoBehaviour
         }
     }
 
+    public bool IsObstacle(Vector3Int pos)
+    {
+        TileBase tile = tilemap.GetTile(pos);
+        if (tile == null)
+            return false;
+        if (!dataFromTiles.ContainsKey(tile))
+            return false;
+
+        return dataFromTiles[tile].obstacle;
+    }
 }

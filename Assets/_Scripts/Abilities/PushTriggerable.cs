@@ -17,7 +17,7 @@ public class PushTriggerable : MonoBehaviour
         // face the target character
         await characterRendererManager.SpellcastAnimation(); // add animation for pushing
 
-        // player can push characters/stones
+        // player can push characters/PushableObstacle
         // TODO: pushing characters with lerp breaks the A*
         Vector3 pushDir = (target.transform.position - transform.position).normalized;
         
