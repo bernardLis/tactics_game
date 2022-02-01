@@ -53,8 +53,10 @@ public class TurnManager : MonoBehaviour
         switch (newState)
         {
             case BattleState.MapBuilding:
+                HandleMapBuilding();
                 break;
             case BattleState.Preparation:
+                HandlePreparation();
                 break;
             case BattleState.PlayerTurn:
                 HandlePlayerTurn();
@@ -73,6 +75,15 @@ public class TurnManager : MonoBehaviour
         }
 
         OnBattleStateChanged?.Invoke(newState);
+    }
+    void HandleMapBuilding()
+    {
+        Debug.Log("map building");
+    }
+
+    void HandlePreparation()
+    {
+        Debug.Log("preparation");
     }
 
     // TODO: this will be called when player places their characters and confirms that he wants to start the battle.
@@ -95,6 +106,7 @@ public class TurnManager : MonoBehaviour
     }
     void HandlePlayerTurn()
     {
+        Debug.Log("player turn");
         // TODO: I don't think there is a need to get rid of this, but it is kinda sucky.
         if (currentTurn == 0)
             InitBattle();
@@ -105,7 +117,7 @@ public class TurnManager : MonoBehaviour
         // hide character card
         infoCardUI.HideCharacterCard();
 
-        // TODO: Is this very taxing? 
+        // TODO: Is this very taxing?   
         // Recalculate all graphs
         AstarPath.active.Scan();
 

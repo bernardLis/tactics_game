@@ -18,14 +18,9 @@ public class TileManager : MonoBehaviour
     {
         // singleton
         if (instance == null)
-        {
             instance = this;
-        }
         else if (instance != this)
-        {
             Destroy(gameObject);
-        }
-
 
         tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
         dataFromTiles = new Dictionary<TileBase, MyTileData>();

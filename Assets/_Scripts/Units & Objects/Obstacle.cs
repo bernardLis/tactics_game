@@ -6,16 +6,12 @@ public class Obstacle : MonoBehaviour
     BoxCollider2D col;
     public Light2D spotLightPrefab;
 
-    void Start()
-    {
-        col = GetComponentInChildren<BoxCollider2D>();
-    }
-
     public void Initialise(TilemapObject _obj)
     {
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
         sr.sprite = _obj.sprite;
 
+        col = GetComponentInChildren<BoxCollider2D>();
         if (col != null)
             col.size = _obj.size;
 

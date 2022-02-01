@@ -101,7 +101,6 @@ public class BattlePreparationController : MonoBehaviour
             highlighter.ClearHighlightedTiles().GetAwaiter();
 
             TurnManager.instance.UpdateBattleState(BattleState.PlayerTurn);
-            //TurnManager.instance.StartBattle();
             return;
         }
 

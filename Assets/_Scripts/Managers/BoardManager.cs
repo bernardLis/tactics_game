@@ -21,6 +21,7 @@ public class BoardManager : MonoBehaviour
     [Header("Enemies")]
     public Character[] enemyCharacters;
     public GameObject enemyGO;
+    List<EnemySpawnDirection> allowedEnemySpawnDirections = new();
     EnemySpawnDirection enemySpawnDirection;
 
 
@@ -62,37 +63,25 @@ public class BoardManager : MonoBehaviour
 
     public async void GenerateMap()
     {
+        // TODO: without the delays it breaks the game, 
+        // preparation is called before map building, I just need a few miliseconds to set everything up.
         InitialSetup();
-        await Task.Delay(100);
         BoardSetup();
-        await Task.Delay(100);
         InitialiseOpenPositions();
         ResolveMapVariant();
-        await Task.Delay(100);
         PlaceTerrainIrregularities();
-        await Task.Delay(100);
         HandleLooseTiles();
-        await Task.Delay(100);
         HandleEdge();
-        await Task.Delay(100);
         await LayoutObstacles();
-        await Task.Delay(100);
         PlaceSpecialObjects();
-        await Task.Delay(100);
         LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f)); // TODO: chagne to per flavour 
-        await Task.Delay(100);
         DrawOuter();
-        await Task.Delay(100);
         TileManager.instance.SetUp();
         PlaceOuterAdditions();
-        await Task.Delay(100);
         if (Random.Range(0, 2) == 0)
             LayoutObjectAtRandom(trap, trapPercent);
-        SetupAstar();
-        await Task.Delay(100);
-        SpawnEnemies(3); // left, top, right, bottom // TODO: other script will be saying where to spawn enemies, and player chars will be opposite to that
-        await Task.Delay(100);
-
+        await SetupAstar();
+        await SpawnEnemies(3);
         CreatePlayerStartingArea();
     }
 
@@ -147,6 +136,10 @@ public class BoardManager : MonoBehaviour
         l.transform.parent = envObjectsHolder.transform;
         l.color = biome.lightColor;
         l.intensity = biome.lightIntensity;
+
+        // TODO: Correct? I want to remove some values on some map types - river / hourglass
+
+        allowedEnemySpawnDirections = System.Enum.GetValues(typeof(EnemySpawnDirection)).Cast<EnemySpawnDirection>().ToList();
 
         if (mapVariantChosen.mapType == MapType.Circle)
             CarveCircle();
@@ -240,7 +233,6 @@ public class BoardManager : MonoBehaviour
         int obstacledTileCount = 0;
         for (int i = 0; i < objectCount; i++)
         {
-            await Task.Delay(25);
             if (openGridPositions.Count <= 0)
                 return;
 
@@ -262,6 +254,7 @@ public class BoardManager : MonoBehaviour
             }
             PlaceObject(selectedObject, randomPosition[0]);
         }
+        await Task.Delay(10);
     }
 
     void PlaceSpecialObjects()
@@ -322,6 +315,9 @@ public class BoardManager : MonoBehaviour
 
     void PlaceVerticalRiver()
     {
+        allowedEnemySpawnDirections.Remove(EnemySpawnDirection.Top);
+        allowedEnemySpawnDirections.Remove(EnemySpawnDirection.Bottom);
+
         int middleOfMap = Mathf.RoundToInt(mapSize.x * 0.5f);
         int riverWidth = Mathf.RoundToInt(Random.Range(1, mapSize.x * 0.2f));
         int min = middleOfMap - riverWidth;
@@ -343,6 +339,9 @@ public class BoardManager : MonoBehaviour
 
     void PlaceHorizontalRiver()
     {
+        allowedEnemySpawnDirections.Remove(EnemySpawnDirection.Left);
+        allowedEnemySpawnDirections.Remove(EnemySpawnDirection.Right);
+
         int middleOfMap = Mathf.RoundToInt(mapSize.y * 0.5f);
         int riverWidth = Mathf.RoundToInt(Random.Range(1, mapSize.y * 0.2f));
         int min = middleOfMap - riverWidth;
@@ -471,6 +470,10 @@ public class BoardManager : MonoBehaviour
 
     void CarveHourglass()
     {
+        // it's always vertical
+        allowedEnemySpawnDirections.Remove(EnemySpawnDirection.Left);
+        allowedEnemySpawnDirections.Remove(EnemySpawnDirection.Right);
+
         // force a square - it only works on square maps
         if (mapSize.x > mapSize.y)
             mapSize.y = mapSize.x;
@@ -768,7 +771,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void SetupAstar()
+    async Task SetupAstar()
     {
         AstarData data = AstarPath.active.data;
 
@@ -786,25 +789,27 @@ public class BoardManager : MonoBehaviour
 
         // Scans all graphs
         AstarPath.active.Scan();
+
+        await Task.Delay(10);
     }
 
-    void SpawnEnemies(int numberOfEnemies)
+    async Task SpawnEnemies(int numberOfEnemies)
     {
-        enemySpawnDirection = (EnemySpawnDirection)Random.Range(0, System.Enum.GetValues(typeof(EnemySpawnDirection)).Length); // https://answers.unity.com/questions/810638/using-randomrange-to-pick-a-random-value-out-of-an.html
+        enemySpawnDirection = allowedEnemySpawnDirections[Random.Range(0, allowedEnemySpawnDirections.Count)];
 
         for (int i = 0; i < numberOfEnemies; i++)
         {
-            Vector3Int chosenPos = Vector3Int.zero;
+            Vector3Int chosenPos = Vector3Int.zero; // TODO: this is wrong;
             foreach (Vector3Int pos in openGridPositions)
             {
                 // left, top, right, bottom
-                if (enemySpawnDirection == EnemySpawnDirection.Left && pos.x <= 2)
+                if (enemySpawnDirection == EnemySpawnDirection.Left && pos.x <= GetLeftmostColumnIndex() + 2)
                     chosenPos = pos;
-                if (enemySpawnDirection == EnemySpawnDirection.Top && pos.y >= mapSize.y - 2)
+                if (enemySpawnDirection == EnemySpawnDirection.Top && pos.y >= GetMostTopRowIndex() - 2)
                     chosenPos = pos;
-                if (enemySpawnDirection == EnemySpawnDirection.Right && pos.x >= mapSize.x - 2)
+                if (enemySpawnDirection == EnemySpawnDirection.Right && pos.x >= GetRightmostColumnIndex() - 2)
                     chosenPos = pos;
-                if (enemySpawnDirection == EnemySpawnDirection.Bottom && pos.y <= 2)
+                if (enemySpawnDirection == EnemySpawnDirection.Bottom && pos.y <= GetMostBottomRowIndex() + 2)
                     chosenPos = pos;
 
                 if (chosenPos != Vector3Int.zero)
@@ -837,6 +842,8 @@ public class BoardManager : MonoBehaviour
 
             characterRendererManager.Face(Vector2.zero);
         }
+
+        await Task.Delay(10);
     }
 
     void CreatePlayerStartingArea()
@@ -848,31 +855,74 @@ public class BoardManager : MonoBehaviour
         // left, top, right, bottom
         if (enemySpawnDirection == EnemySpawnDirection.Left)
         {
-            SWCorner = new Vector2(0, mapSize.y / 2 - 2);
             width = 3;
-            height = 5;
+            height = mapSize.y;
+            // TODO: I need to make sure there is space to deploy X player chars;
+            SWCorner = new Vector2(GetRightmostColumnIndex() - width + 1, 0);
         }
         if (enemySpawnDirection == EnemySpawnDirection.Top)
         {
-            SWCorner = new Vector2(mapSize.x / 2 - 2, 0);
-            width = 5;
+            width = mapSize.x;
             height = 3;
+            Debug.Log("GetTheMostBottomRowIndex(): " + GetMostBottomRowIndex());
+            SWCorner = new Vector2(GetMostBottomRowIndex(), 0);
         }
         if (enemySpawnDirection == EnemySpawnDirection.Right)
         {
-            SWCorner = new Vector2(3, mapSize.y / 2 - 2);
             width = 3;
-            height = 5;
+            height = mapSize.y;
+
+            SWCorner = new Vector2(GetLeftmostColumnIndex(), 0);
         }
         if (enemySpawnDirection == EnemySpawnDirection.Bottom)
         {
-            SWCorner = new Vector2(mapSize.x / 2 - 2, mapSize.y - 3);
-            width = 5;
+            width = mapSize.x;
             height = 3;
+
+            SWCorner = new Vector2(0, GetMostTopRowIndex() - height + 1);
         }
 
         Highlighter.instance.HighlightRectanglePlayer(SWCorner, width, height, Color.blue);
         TurnManager.instance.UpdateBattleState(BattleState.Preparation);
     }
 
+    int GetRightmostColumnIndex()
+    {
+        for (int x = mapSize.x; x > 0; x--)
+            for (int y = 0; y <= mapSize.y; y++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    return x;
+
+        return 0;
+    }
+
+    int GetLeftmostColumnIndex()
+    {
+        for (int x = 0; x < mapSize.x; x++)
+            for (int y = 0; y <= mapSize.y; y++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    return x;
+
+        return 0;
+    }
+
+    int GetMostTopRowIndex()
+    {
+        for (int y = mapSize.y; y > 0; y--)
+            for (int x = 0; x <= mapSize.x; x++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    return y;
+
+        return 0;
+    }
+
+    int GetMostBottomRowIndex()
+    {
+        for (int y = 0; y < mapSize.y; y++)
+            for (int x = 0; x <= mapSize.x; x++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    return y;
+
+        return 0;
+    }
 }
