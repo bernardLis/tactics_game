@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 
 public class BattleInputController : MonoBehaviour
 {
@@ -46,7 +44,7 @@ public class BattleInputController : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
 
-        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
+        tilemap = TileManager.instance.tilemap;
 
         // TODO: Supposedly, this is an expensive call
         cam = Camera.main;

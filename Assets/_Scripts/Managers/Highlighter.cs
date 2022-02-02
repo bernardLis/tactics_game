@@ -44,7 +44,7 @@ public class Highlighter : MonoBehaviour
         instance = this;
         #endregion
 
-        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
+        tilemap = TileManager.instance.tilemap;
     }
 
     public void Start()
@@ -70,14 +70,16 @@ public class Highlighter : MonoBehaviour
     // TODO: this
     public void HighlightRectanglePlayer(Vector2 SWcorner, int width, int height, Color col)
     {
+        ClearHighlightedTiles().GetAwaiter();
+
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
                 Vector3 position = new Vector3(SWcorner.x + i, SWcorner.y + j, 0f);
                 Vector3Int tilePos = tilemap.WorldToCell(position);
-               // if(tiles == null)
-              //      tiles = TileManager.instance.tiles;
+                // if(tiles == null)
+                //      tiles = TileManager.instance.tiles;
                 // continue looping if the tile does not exist
                 if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
                     continue;
@@ -104,7 +106,7 @@ public class Highlighter : MonoBehaviour
         {
             previousMarkedTiles.Add(_tile);
             charTile = _tile;
-        } 
+        }
 
         for (int i = 0; i < range; i++)
             await HandleTileHighlighting(col, diagonal, self);

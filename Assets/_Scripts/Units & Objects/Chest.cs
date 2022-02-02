@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Chest : MonoBehaviour
@@ -13,7 +11,11 @@ public class Chest : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D _col)
     {
-        Debug.Log("do you want to open the chest?");
+        if (_col.CompareTag("PlayerCollider") && TurnManager.battleState == BattleState.PlayerTurn)
+        {
+            Interact();
+            Debug.Log("do you want to open the chest?");
+        }
     }
 
     void Interact()

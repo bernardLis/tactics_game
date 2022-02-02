@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 //https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
 public class TileManager : MonoBehaviour
 {
-    Tilemap tilemap;
+    public Tilemap tilemap;
     [SerializeField]
     List<MyTileData> myTileDatas;
     Dictionary<TileBase, MyTileData> dataFromTiles;
@@ -22,7 +22,6 @@ public class TileManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
         dataFromTiles = new Dictionary<TileBase, MyTileData>();
         foreach (var tileData in myTileDatas)
             foreach (var tile in tileData.tiles)

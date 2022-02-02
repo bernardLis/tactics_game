@@ -16,7 +16,7 @@ public class PotentialTarget
     {
         // This is our Dictionary of tiles
         Dictionary<Vector3, WorldTile> tiles = TileManager.tiles;
-        Tilemap tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
+        Tilemap tilemap = TileManager.instance.tilemap;
         WorldTile _tile;
 
         Highlighter highlighter = Highlighter.instance;

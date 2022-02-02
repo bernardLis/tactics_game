@@ -795,7 +795,7 @@ public class BoardManager : MonoBehaviour
 
     async Task SpawnEnemies(int numberOfEnemies)
     {
-        enemySpawnDirection = allowedEnemySpawnDirections[Random.Range(0, allowedEnemySpawnDirections.Count)];
+        enemySpawnDirection = EnemySpawnDirection.Top; // allowedEnemySpawnDirections[Random.Range(0, allowedEnemySpawnDirections.Count)];
 
         for (int i = 0; i < numberOfEnemies; i++)
         {
@@ -865,7 +865,7 @@ public class BoardManager : MonoBehaviour
             width = mapSize.x;
             height = 3;
             Debug.Log("GetTheMostBottomRowIndex(): " + GetMostBottomRowIndex());
-            SWCorner = new Vector2(GetMostBottomRowIndex(), 0);
+            SWCorner = new Vector2(0, GetMostBottomRowIndex());
         }
         if (enemySpawnDirection == EnemySpawnDirection.Right)
         {
@@ -883,6 +883,10 @@ public class BoardManager : MonoBehaviour
         }
 
         Highlighter.instance.HighlightRectanglePlayer(SWCorner, width, height, Color.blue);
+        // TODO: this is wrong
+        if (!IsEnoughSpaceToDeploy())
+            Highlighter.instance.HighlightRectanglePlayer(SWCorner, width + 2, height + 2, Color.blue);
+
         TurnManager.instance.UpdateBattleState(BattleState.Preparation);
     }
 
@@ -924,5 +928,10 @@ public class BoardManager : MonoBehaviour
                     return y;
 
         return 0;
+    }
+
+    bool IsEnoughSpaceToDeploy()
+    {
+        return Highlighter.instance.highlightedTiles.Count > 6;
     }
 }

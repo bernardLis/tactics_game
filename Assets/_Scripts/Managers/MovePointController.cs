@@ -37,7 +37,7 @@ public class MovePointController : MonoBehaviour
         characterUI = CharacterUI.instance;
 
         // This is our Dictionary of tiles
-        tilemap = TileMapInstance.instance.GetComponent<Tilemap>();
+        tilemap = TileManager.instance.tilemap;
 
         battlePreparationController = GetComponent<BattlePreparationController>();
         battleCharacterController = GetComponent<BattleCharacterController>();

@@ -14,7 +14,8 @@ public class Collectible : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!collected)
+        // TODO: so the problem is that you can trigger when placing a character
+        if (!collected && other.CompareTag("PlayerCollider") && TurnManager.battleState == BattleState.PlayerTurn) 
             Collect();
     }
 

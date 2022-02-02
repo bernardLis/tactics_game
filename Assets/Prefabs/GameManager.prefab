@@ -40,14 +40,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3110995401688889204}
+  - component: {fileID: 515482019}
   - component: {fileID: 3110995401688889206}
   - component: {fileID: 3110995401688889205}
-  - component: {fileID: 515482014}
-  - component: {fileID: 515482017}
   - component: {fileID: 515482018}
-  - component: {fileID: 515482019}
-  - component: {fileID: 6486815242508854033}
   - component: {fileID: 2914137046906788761}
+  - component: {fileID: 515482017}
+  - component: {fileID: 515482014}
+  - component: {fileID: 6486815242508854033}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -71,6 +71,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &515482019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110995401688889203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c26f97263fa74e4d90f6071578baf71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3110995401688889206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,35 +109,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCharactersLeftToTakeTurn: 0
   enemyCharactersLeftToTakeTurn: 0
---- !u!114 &515482014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110995401688889203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429824c420d18c34f9f5a2fa8804a280, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flasherHolder: {fileID: 1446513054}
-  flasherPrefab: {fileID: 7010577588347357674, guid: ce23f5dc53edb06409194e0359237b95, type: 3}
-  flasherXOffset: 0.4
-  flasherYOffset: 0.6
---- !u!114 &515482017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110995401688889203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9df0a48855ebd74297bc4f74df0e422, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemies: []
 --- !u!114 &515482018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,33 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0baa37117ba6b4db28373dc5405e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
   myTileDatas:
   - {fileID: 11400000, guid: 5d96530fd9630554dab8e24726ef0d1f, type: 2}
---- !u!114 &515482019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110995401688889203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c26f97263fa74e4d90f6071578baf71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6486815242508854033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110995401688889203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac1ab7021ef82a4d8abe0b418fed1d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items: []
 --- !u!114 &2914137046906788761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c793009563fa5664e8187a9aeb642591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapVariantChosen: {fileID: 0}
   mapSize: {x: 20, y: 20}
   enemyCharacters:
   - {fileID: 11400000, guid: 4843f2a9ac4308c4e9c82dd51ec88d48, type: 2}
@@ -209,3 +167,45 @@ MonoBehaviour:
   trap: {fileID: 4377347653787997842, guid: 8f2ae6c2d4b660c4a96233153fa5b65d, type: 3}
   globalLightPrefab: {fileID: 2082967730658958768, guid: 1adf34ae1f6f620438325a9f51e6a6aa, type: 3}
   graphData: {fileID: 4900000, guid: b860b7d032095244997bdc598418103d, type: 3}
+--- !u!114 &515482017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110995401688889203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9df0a48855ebd74297bc4f74df0e422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
+--- !u!114 &515482014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110995401688889203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429824c420d18c34f9f5a2fa8804a280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flasherHolder: {fileID: 1446513054}
+  flasherPrefab: {fileID: 7010577588347357674, guid: ce23f5dc53edb06409194e0359237b95, type: 3}
+  flasherXOffset: 0.4
+  flasherYOffset: 0.6
+--- !u!114 &6486815242508854033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110995401688889203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac1ab7021ef82a4d8abe0b418fed1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
