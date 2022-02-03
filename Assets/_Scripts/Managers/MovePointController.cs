@@ -9,12 +9,15 @@ public class MovePointController : MonoBehaviour
     InfoCardUI infoCardUI;
     CharacterUI characterUI;
 
-    BattleDeploymentController battleDeploymentController;
-    BattleCharacterController battleCharacterController;
-
     // tiles
     Tilemap tilemap;
     WorldTile _tile;
+
+    BattleDeploymentController battleDeploymentController;
+    BattleCharacterController battleCharacterController;
+    SpriteRenderer spriteRenderer;
+
+
 
     public static MovePointController instance;
     void Awake()
@@ -37,10 +40,11 @@ public class MovePointController : MonoBehaviour
         characterUI = CharacterUI.instance;
 
         // This is our Dictionary of tiles
-        tilemap = TileManager.instance.tilemap;
+        tilemap = GameManager.instance.GetComponent<TileManager>().tilemap;
 
         battleDeploymentController = GetComponent<BattleDeploymentController>();
         battleCharacterController = GetComponent<BattleCharacterController>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void OnDestroy()
@@ -55,14 +59,23 @@ public class MovePointController : MonoBehaviour
             HandleDeployment();
 
         if (_state == BattleState.PlayerTurn)
-            Invoke("HandlePlayerTurn", 0.1f); // gives time for stats to resolve modifiers => UI displays correct numbers
+            Invoke("HandlePlayerTurn", 0.1f); // gives time for stats to resolve modifiers => UI displays correct numbers\
+
+        if (_state == BattleState.EnemyTurn)
+            HandleEnemyTurn(); // gives time for stats to resolve modifiers => UI displays correct numbers
+
     }
 
     void HandleDeployment()
     {
-        GetComponentInChildren<SpriteRenderer>().enabled = true;
+        spriteRenderer.enabled = true;
         transform.position = Highlighter.instance.highlightedTiles[Mathf.FloorToInt(Highlighter.instance.highlightedTiles.Count / 2)].GetMiddleOfTile();
         battleDeploymentController.InstantiateCharacter(0);
+    }
+
+    void HandleEnemyTurn()
+    {
+        spriteRenderer.enabled = false;
     }
 
     public void Move(Vector3 _pos)
@@ -130,12 +143,11 @@ public class MovePointController : MonoBehaviour
 
     void HandlePlayerTurn()
     {
+        spriteRenderer.enabled = true;
+
         GameObject[] playerChars = GameObject.FindGameObjectsWithTag("Player");
         if (playerChars.Length > 0)
             transform.position = playerChars[0].transform.position;
-
-        // camera follows the movepoint again
-        //basicCameraFollow.followTarget = transform;
 
         UpdateDisplayInformation();
     }

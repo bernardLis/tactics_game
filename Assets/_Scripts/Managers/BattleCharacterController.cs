@@ -65,7 +65,7 @@ public class BattleCharacterController : MonoBehaviour
 
     void Start()
     {
-        tilemap = TileManager.instance.tilemap;
+        tilemap = GameManager.instance.GetComponent<TileManager>().tilemap;
 
         highlighter = Highlighter.instance;
         battleInputController = BattleInputController.instance;

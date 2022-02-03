@@ -12,16 +12,8 @@ public class TileManager : MonoBehaviour
 
     public static Dictionary<Vector3, WorldTile> tiles;
 
-    public static TileManager instance;
-
     void Awake()
     {
-        // singleton
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
         dataFromTiles = new Dictionary<TileBase, MyTileData>();
         foreach (var tileData in myTileDatas)
             foreach (var tile in tileData.tiles)

@@ -84,7 +84,7 @@ public class BoardManager : MonoBehaviour
         await Task.Delay(100);
         DrawOuter();
         await Task.Delay(100);
-        TileManager.instance.SetUp();
+        GameManager.instance.GetComponent<TileManager>().SetUp();
         PlaceOuterAdditions();
         if (Random.Range(0, 2) == 0)
             LayoutObjectAtRandom(trap, trapPercent);

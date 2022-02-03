@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 
 public class CameraManager : MonoBehaviour
 {
-
     public Transform followTarget;
-    Vector3 targetPos;
     public float moveSpeed;
+    Vector3 targetPos;
+
+    Camera cam;
 
     BoardManager boardManager;
 
@@ -23,6 +24,7 @@ public class CameraManager : MonoBehaviour
         instance = this;
         #endregion
 
+        cam = GetComponent<Camera>();
         boardManager = GameManager.instance.GetComponent<BoardManager>();
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
@@ -55,13 +57,14 @@ public class CameraManager : MonoBehaviour
 
     void HandleMapBuilding()
     {
+        cam.orthographicSize = 12;
         transform.position = new Vector3(boardManager.mapSize.x / 2, boardManager.mapSize.y / 2, -2); // TODO:
     }
 
-    async void  HandleDeployment()
+    async void HandleDeployment()
     {
         followTarget = MovePointController.instance.transform;
-        await ResizeRoutine(12, 7, 1);
+        await LerpOrthographicSize(7, 1);
     }
 
     void HandlePlayerTurn()
@@ -69,15 +72,16 @@ public class CameraManager : MonoBehaviour
         followTarget = MovePointController.instance.transform;
     }
 
-    async Task ResizeRoutine(float oldSize, float newSize, float time)
+    async Task LerpOrthographicSize(float newSize, float time)
     {
+        float oldSize = cam.orthographicSize;
         float elapsed = 0;
         while (elapsed <= time)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / time);
 
-            Camera.main.orthographicSize = Mathf.Lerp(oldSize, newSize, t);
+            cam.orthographicSize = Mathf.Lerp(oldSize, newSize, t);
             await Task.Yield();
         }
     }

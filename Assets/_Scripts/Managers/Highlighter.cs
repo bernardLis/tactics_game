@@ -44,7 +44,7 @@ public class Highlighter : MonoBehaviour
         instance = this;
         #endregion
 
-        tilemap = TileManager.instance.tilemap;
+        tilemap = GameManager.instance.GetComponent<TileManager>().tilemap;
     }
 
     public void Start()

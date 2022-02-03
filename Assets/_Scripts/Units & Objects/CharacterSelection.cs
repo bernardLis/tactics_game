@@ -25,7 +25,7 @@ public class CharacterSelection : MonoBehaviour
         highlighter = Highlighter.instance;
         turnManager = TurnManager.instance;
 
-        tilemap = TileManager.instance.tilemap;
+        tilemap = GameManager.instance.GetComponent<TileManager>().tilemap;
 
         myStats = GetComponent<CharacterStats>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();

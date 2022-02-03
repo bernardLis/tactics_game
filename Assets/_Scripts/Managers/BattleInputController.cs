@@ -44,7 +44,7 @@ public class BattleInputController : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
 
-        tilemap = TileManager.instance.tilemap;
+        tilemap = GameManager.instance.GetComponent<TileManager>().tilemap;
 
         // TODO: Supposedly, this is an expensive call
         cam = Camera.main;

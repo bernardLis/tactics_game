@@ -42,7 +42,7 @@ public class Brain : BaseScriptableObject
         cameraManager = CameraManager.instance;
 
         // This is our Dictionary of tiles
-        tilemap = TileManager.instance.tilemap;
+        tilemap = GameManager.instance.GetComponent<TileManager>().tilemap;
 
         characterGameObject = _self;
         enemyStats = characterGameObject.GetComponent<EnemyStats>();

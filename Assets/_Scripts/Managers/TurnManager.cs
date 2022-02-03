@@ -27,7 +27,6 @@ public class TurnManager : MonoBehaviour
     void Awake()
     {
         #region Singleton
-        // singleton
         if (instance != null)
         {
             Debug.LogWarning("More than one instance of TurnManager found");
@@ -78,12 +77,10 @@ public class TurnManager : MonoBehaviour
     }
     void HandleMapBuilding()
     {
-        Camera.main.orthographicSize = 12;
     }
 
     void HandleDeployment()
     {
-        Debug.Log("deployment");
     }
 
     // TODO: this will be called when player places their characters and confirms that he wants to start the battle.
@@ -106,7 +103,6 @@ public class TurnManager : MonoBehaviour
     }
     void HandlePlayerTurn()
     {
-        Debug.Log("player turn");
         // TODO: I don't think there is a need to get rid of this, but it is kinda sucky.
         if (currentTurn == 0)
             InitBattle();
