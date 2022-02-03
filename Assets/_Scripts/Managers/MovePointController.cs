@@ -5,11 +5,11 @@ using UnityEngine.Tilemaps;
 public class MovePointController : MonoBehaviour
 {
     // TODO: movepoint should only be using battle ui
-    BasicCameraFollow basicCameraFollow;
+    CameraManager basicCameraFollow;
     InfoCardUI infoCardUI;
     CharacterUI characterUI;
 
-    BattlePreparationController battlePreparationController;
+    BattleDeploymentController battleDeploymentController;
     BattleCharacterController battleCharacterController;
 
     // tiles
@@ -32,14 +32,14 @@ public class MovePointController : MonoBehaviour
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
-        basicCameraFollow = BasicCameraFollow.instance;
+        basicCameraFollow = CameraManager.instance;
         infoCardUI = InfoCardUI.instance;
         characterUI = CharacterUI.instance;
 
         // This is our Dictionary of tiles
         tilemap = TileManager.instance.tilemap;
 
-        battlePreparationController = GetComponent<BattlePreparationController>();
+        battleDeploymentController = GetComponent<BattleDeploymentController>();
         battleCharacterController = GetComponent<BattleCharacterController>();
     }
 
@@ -51,8 +51,18 @@ public class MovePointController : MonoBehaviour
 
     void TurnManager_OnBattleStateChanged(BattleState _state)
     {
+        if (_state == BattleState.Deployment)
+            HandleDeployment();
+
         if (_state == BattleState.PlayerTurn)
             Invoke("HandlePlayerTurn", 0.1f); // gives time for stats to resolve modifiers => UI displays correct numbers
+    }
+
+    void HandleDeployment()
+    {
+        GetComponentInChildren<SpriteRenderer>().enabled = true;
+        transform.position = Highlighter.instance.highlightedTiles[Mathf.FloorToInt(Highlighter.instance.highlightedTiles.Count / 2)].GetMiddleOfTile();
+        battleDeploymentController.InstantiateCharacter(0);
     }
 
     public void Move(Vector3 _pos)
@@ -70,8 +80,8 @@ public class MovePointController : MonoBehaviour
         UpdateDisplayInformation();
 
         // TODO: character being placed
-        if (battlePreparationController.characterBeingPlaced != null)
-            battlePreparationController.UpdateCharacterBeingPlacedPosition();
+        if (battleDeploymentController.characterBeingPlaced != null)
+            battleDeploymentController.UpdateCharacterBeingPlacedPosition();
     }
 
     public void HandleSelectClick()
@@ -81,7 +91,7 @@ public class MovePointController : MonoBehaviour
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
 
         // For placing characters during prep
-        if (TurnManager.battleState == BattleState.Preparation && battlePreparationController.characterBeingPlaced != null)
+        if (TurnManager.battleState == BattleState.Deployment && battleDeploymentController.characterBeingPlaced != null)
         {
             HandleBattlePrepSelectClick();
             return;
@@ -98,7 +108,7 @@ public class MovePointController : MonoBehaviour
         if (!_tile.WithinRange)
             return;
 
-        battlePreparationController.PlaceCharacter();
+        battleDeploymentController.PlaceCharacter();
     }
 
     void Select(Collider2D _obj)
@@ -125,7 +135,7 @@ public class MovePointController : MonoBehaviour
             transform.position = playerChars[0].transform.position;
 
         // camera follows the movepoint again
-        basicCameraFollow.followTarget = transform;
+        //basicCameraFollow.followTarget = transform;
 
         UpdateDisplayInformation();
     }

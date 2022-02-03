@@ -13,7 +13,6 @@ TagManager:
   - ConversationCollider
   - Weapon
   - PushableObstacle
-  - Stone
   layers:
   - Default
   - TransparentFX

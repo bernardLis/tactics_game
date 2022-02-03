@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattlePreparationController : MonoBehaviour
+public class BattleDeploymentController : MonoBehaviour
 {
 
     // global utility
@@ -33,8 +33,8 @@ public class BattlePreparationController : MonoBehaviour
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if (TurnManager.battleState == BattleState.Preparation)
-            InstantiateCharacter(0);
+        //if (TurnManager.battleState == BattleState.Deployment)
+         //   InstantiateCharacter(0);
     }
 
     // Start is called before the first frame update
@@ -59,7 +59,7 @@ public class BattlePreparationController : MonoBehaviour
 
     }
 
-    void InstantiateCharacter(int index)
+    public void InstantiateCharacter(int index)
     {
         if (characterBeingPlaced != null)
             Destroy(characterBeingPlaced);

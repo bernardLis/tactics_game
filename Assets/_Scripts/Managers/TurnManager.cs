@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Threading.Tasks;
 
-public enum BattleState { MapBuilding, Preparation, PlayerTurn, EnemyTurn, Won, Lost }
+public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 
 [RequireComponent(typeof(TurnDisplayer))]
 public class TurnManager : MonoBehaviour
@@ -55,8 +55,8 @@ public class TurnManager : MonoBehaviour
             case BattleState.MapBuilding:
                 HandleMapBuilding();
                 break;
-            case BattleState.Preparation:
-                HandlePreparation();
+            case BattleState.Deployment:
+                HandleDeployment();
                 break;
             case BattleState.PlayerTurn:
                 HandlePlayerTurn();
@@ -78,12 +78,12 @@ public class TurnManager : MonoBehaviour
     }
     void HandleMapBuilding()
     {
-        Debug.Log("map building");
+        Camera.main.orthographicSize = 12;
     }
 
-    void HandlePreparation()
+    void HandleDeployment()
     {
-        Debug.Log("preparation");
+        Debug.Log("deployment");
     }
 
     // TODO: this will be called when player places their characters and confirms that he wants to start the battle.

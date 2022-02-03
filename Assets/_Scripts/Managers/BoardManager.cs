@@ -67,21 +67,30 @@ public class BoardManager : MonoBehaviour
         // preparation is called before map building, I just need a few miliseconds to set everything up.
         InitialSetup();
         BoardSetup();
+        await Task.Delay(100);
         InitialiseOpenPositions();
         ResolveMapVariant();
+        await Task.Delay(100);
         PlaceTerrainIrregularities();
+        await Task.Delay(100);
         HandleLooseTiles();
+        await Task.Delay(100);
         HandleEdge();
+        await Task.Delay(100);
         await LayoutObstacles();
         PlaceSpecialObjects();
+        await Task.Delay(100);
         LayoutFloorAdditions(Mathf.RoundToInt(floorTileCount * 0.1f), Mathf.RoundToInt(floorTileCount * 0.2f)); // TODO: chagne to per flavour 
+        await Task.Delay(100);
         DrawOuter();
+        await Task.Delay(100);
         TileManager.instance.SetUp();
         PlaceOuterAdditions();
         if (Random.Range(0, 2) == 0)
             LayoutObjectAtRandom(trap, trapPercent);
         await SetupAstar();
         await SpawnEnemies(3);
+        await Task.Delay(250);
         CreatePlayerStartingArea();
     }
 
@@ -252,6 +261,8 @@ public class BoardManager : MonoBehaviour
                 obstacledTileCount -= selectedObject.size.x * selectedObject.size.y;
                 continue;
             }
+            await Task.Delay(30);
+
             PlaceObject(selectedObject, randomPosition[0]);
         }
         await Task.Delay(10);
@@ -795,24 +806,25 @@ public class BoardManager : MonoBehaviour
 
     async Task SpawnEnemies(int numberOfEnemies)
     {
-        enemySpawnDirection = EnemySpawnDirection.Top; // allowedEnemySpawnDirections[Random.Range(0, allowedEnemySpawnDirections.Count)];
+        enemySpawnDirection = allowedEnemySpawnDirections[Random.Range(0, allowedEnemySpawnDirections.Count)];
 
         for (int i = 0; i < numberOfEnemies; i++)
         {
-            Vector3Int chosenPos = Vector3Int.zero; // TODO: this is wrong;
+            // TODO: this is wrong
+            Vector3Int randomPos = GetRandomOpenPosition(Vector2.one, openGridPositions)[0]; 
+            Vector3Int chosenPos = randomPos; 
             foreach (Vector3Int pos in openGridPositions)
             {
-                // left, top, right, bottom
-                if (enemySpawnDirection == EnemySpawnDirection.Left && pos.x <= GetLeftmostColumnIndex() + 2)
+                if (enemySpawnDirection == EnemySpawnDirection.Left && pos.x <= GetLeftmostColumnIndex() + 3)
                     chosenPos = pos;
-                if (enemySpawnDirection == EnemySpawnDirection.Top && pos.y >= GetMostTopRowIndex() - 2)
+                if (enemySpawnDirection == EnemySpawnDirection.Top && pos.y >= GetMostTopRowIndex() - 3)
                     chosenPos = pos;
-                if (enemySpawnDirection == EnemySpawnDirection.Right && pos.x >= GetRightmostColumnIndex() - 2)
+                if (enemySpawnDirection == EnemySpawnDirection.Right && pos.x >= GetRightmostColumnIndex() - 3)
                     chosenPos = pos;
-                if (enemySpawnDirection == EnemySpawnDirection.Bottom && pos.y <= GetMostBottomRowIndex() + 2)
+                if (enemySpawnDirection == EnemySpawnDirection.Bottom && pos.y <= GetMostBottomRowIndex() + 3)
                     chosenPos = pos;
 
-                if (chosenPos != Vector3Int.zero)
+                if (chosenPos != randomPos)
                 {
                     openGridPositions.Remove(chosenPos);
                     break;
@@ -821,7 +833,7 @@ public class BoardManager : MonoBehaviour
 
             Vector3 spawnPos = new Vector3(chosenPos.x + 0.5f, chosenPos.y + 0.5f);
             Character instantiatedSO = Instantiate(enemyCharacters[Random.Range(0, enemyCharacters.Length)]);
-            GameObject newCharacter = Instantiate(enemyGO, spawnPos, Quaternion.identity); // TODO: get random posiiton is wrong here
+            GameObject newCharacter = Instantiate(enemyGO, spawnPos, Quaternion.identity);
 
             instantiatedSO.Initialize(newCharacter);
             newCharacter.name = instantiatedSO.characterName;
@@ -851,13 +863,10 @@ public class BoardManager : MonoBehaviour
         Vector2 SWCorner = Vector2.zero;
         int width = 0;
         int height = 0;
-        Debug.Log("enemy spawn dir: " + enemySpawnDirection);
-        // left, top, right, bottom
         if (enemySpawnDirection == EnemySpawnDirection.Left)
         {
             width = 3;
             height = mapSize.y;
-            // TODO: I need to make sure there is space to deploy X player chars;
             SWCorner = new Vector2(GetRightmostColumnIndex() - width + 1, 0);
         }
         if (enemySpawnDirection == EnemySpawnDirection.Top)
@@ -871,14 +880,12 @@ public class BoardManager : MonoBehaviour
         {
             width = 3;
             height = mapSize.y;
-
             SWCorner = new Vector2(GetLeftmostColumnIndex(), 0);
         }
         if (enemySpawnDirection == EnemySpawnDirection.Bottom)
         {
             width = mapSize.x;
             height = 3;
-
             SWCorner = new Vector2(0, GetMostTopRowIndex() - height + 1);
         }
 
@@ -887,7 +894,7 @@ public class BoardManager : MonoBehaviour
         if (!IsEnoughSpaceToDeploy())
             Highlighter.instance.HighlightRectanglePlayer(SWCorner, width + 2, height + 2, Color.blue);
 
-        TurnManager.instance.UpdateBattleState(BattleState.Preparation);
+        TurnManager.instance.UpdateBattleState(BattleState.Deployment);
     }
 
     int GetRightmostColumnIndex()

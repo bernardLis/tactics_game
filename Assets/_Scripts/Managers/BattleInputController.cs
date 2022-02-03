@@ -18,7 +18,7 @@ public class BattleInputController : MonoBehaviour
     // local
     MovePointController movePointController;
     BattleCharacterController battleCharacterController;
-    BattlePreparationController battlePreparationController;
+    BattleDeploymentController battleDeploymentController;
     OscilateScale oscilateScale;
 
     [HideInInspector] public bool allowInput { get; private set; }
@@ -40,7 +40,7 @@ public class BattleInputController : MonoBehaviour
 
     void Start()
     {
-        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged; 
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
         playerInput = GetComponent<PlayerInput>();
 
@@ -52,10 +52,8 @@ public class BattleInputController : MonoBehaviour
 
         movePointController = MovePointController.instance;
         battleCharacterController = GetComponent<BattleCharacterController>();
-        battlePreparationController = GetComponent<BattlePreparationController>();
+        battleDeploymentController = GetComponent<BattleDeploymentController>();
         oscilateScale = GetComponentInChildren<OscilateScale>();
-
-        allowInput = true;
     }
 
     void OnEnable()
@@ -76,6 +74,9 @@ public class BattleInputController : MonoBehaviour
 
     void TurnManager_OnBattleStateChanged(BattleState _state)
     {
+        if (_state == BattleState.Deployment)
+            HandleDeployment();
+
         if (_state == BattleState.PlayerTurn)
             HandlePlayerTurn();
 
@@ -86,6 +87,11 @@ public class BattleInputController : MonoBehaviour
     void OnDestroy()
     {
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+    }
+
+    void HandleDeployment()
+    {
+        allowInput = true;
     }
 
     void HandlePlayerTurn()
@@ -227,9 +233,9 @@ public class BattleInputController : MonoBehaviour
 
     void SelectNextCharacter()
     {
-        if (TurnManager.battleState == BattleState.Preparation)
+        if (TurnManager.battleState == BattleState.Deployment)
         {
-            battlePreparationController.SelectNextCharacter();
+            battleDeploymentController.SelectNextCharacter();
             return;
         }
 
@@ -237,9 +243,9 @@ public class BattleInputController : MonoBehaviour
 
     void SelectPreviousCharacter()
     {
-        if (TurnManager.battleState == BattleState.Preparation)
+        if (TurnManager.battleState == BattleState.Deployment)
         {
-            battlePreparationController.SelectPreviousCharacter();
+            battleDeploymentController.SelectPreviousCharacter();
             return;
         }
     }

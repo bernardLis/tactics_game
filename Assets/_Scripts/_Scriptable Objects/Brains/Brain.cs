@@ -10,7 +10,7 @@ public class Brain : BaseScriptableObject
 {
     // global
     protected Highlighter highlighter;
-    BasicCameraFollow basicCameraFollow;
+    CameraManager cameraManager;
 
     // tilemap
     protected Tilemap tilemap;
@@ -39,7 +39,7 @@ public class Brain : BaseScriptableObject
     public virtual void Initialize(GameObject _self)
     {
         highlighter = GameManager.instance.GetComponent<Highlighter>();
-        basicCameraFollow = BasicCameraFollow.instance;
+        cameraManager = CameraManager.instance;
 
         // This is our Dictionary of tiles
         tilemap = TileManager.instance.tilemap;
@@ -67,7 +67,7 @@ public class Brain : BaseScriptableObject
     public virtual void Select()
     {
         target = null;
-        basicCameraFollow.followTarget = characterGameObject.transform;
+        cameraManager.followTarget = characterGameObject.transform;
         highlighter.HiglightEnemyMovementRange(characterGameObject.transform.position,
                                                enemyStats.movementRange.GetValue(), Helpers.GetColor("movementBlue"));
     }
