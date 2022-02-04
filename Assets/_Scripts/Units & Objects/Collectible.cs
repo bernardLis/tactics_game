@@ -1,27 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
     bool collected;
     SpriteRenderer sr;
+    BoxCollider2D boxCollider2D;
 
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+        boxCollider2D = GetComponentInChildren<BoxCollider2D>();
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D _other)
     {
-        if (!collected && other.CompareTag("PlayerCollider") && TurnManager.battleState == BattleState.PlayerTurn) 
+        if (!collected && _other.CompareTag("PushableObstacle"))
             Collect();
     }
 
     void Collect()
     {
+        Debug.Log("Collected!");
         collected = true;
         sr.color = Color.red;
-        Debug.Log("Collected!");
+        boxCollider2D.enabled = false;
     }
 }

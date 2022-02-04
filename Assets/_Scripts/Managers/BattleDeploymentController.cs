@@ -33,12 +33,17 @@ public class BattleDeploymentController : MonoBehaviour
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        //if (TurnManager.battleState == BattleState.Deployment)
-         //   InstantiateCharacter(0);
+        if (TurnManager.battleState == BattleState.MapBuilding)
+            HandleMapBuilding();
+    }
+
+    void HandleMapBuilding()
+    {
+        if (characterBeingPlaced != null)
+            Destroy(characterBeingPlaced);
     }
 
     // Start is called before the first frame update
-
     public void SelectNextCharacter()
     {
         characterBeingPlacedIndex += 1;

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -55,6 +54,9 @@ public class MovePointController : MonoBehaviour
 
     void TurnManager_OnBattleStateChanged(BattleState _state)
     {
+        if (_state == BattleState.MapBuilding)
+            HandleMapBuilding();
+
         if (_state == BattleState.Deployment)
             HandleDeployment();
 
@@ -63,6 +65,11 @@ public class MovePointController : MonoBehaviour
 
         if (_state == BattleState.EnemyTurn)
             HandleEnemyTurn(); // gives time for stats to resolve modifiers => UI displays correct numbers
+
+    }
+
+    void HandleMapBuilding()
+    {
 
     }
 

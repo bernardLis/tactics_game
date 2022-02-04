@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 using Pathfinding;
+using DG.Tweening;
 
 public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 
@@ -37,6 +38,7 @@ public class BoardManager : MonoBehaviour
     public GameObject collectiblePrefab;
     public GameObject chestPrefab;
     public GameObject trap;
+    public GameObject mapResetPrefab;
     public GameObject globalLightPrefab;
     public TextAsset graphData;
 
@@ -55,14 +57,21 @@ public class BoardManager : MonoBehaviour
     List<GameObject> pushableObstacles;
     List<Vector3Int> openOuterPositions = new();
 
+    // global
+    Highlighter highlighter;
+    TurnManager turnManager;
+
     void Start()
     {
-        seed = System.DateTime.Now.Millisecond;
+        highlighter = Highlighter.instance;
+        turnManager = TurnManager.instance;
         GenerateMap();
     }
 
     public async void GenerateMap()
     {
+        seed = System.DateTime.Now.Millisecond;
+
         // TODO: without the delays it breaks the game, 
         // preparation is called before map building, I just need a few miliseconds to set everything up.
         InitialSetup();
@@ -90,14 +99,18 @@ public class BoardManager : MonoBehaviour
             LayoutObjectAtRandom(trap, trapPercent);
         await SetupAstar();
         await SpawnEnemies(3);
+        PlaceMapReset();
         await Task.Delay(250);
         CreatePlayerStartingArea();
     }
 
     void InitialSetup()
     {
+        DOTween.KillAll();
         Random.InitState(seed);
-        // TODO: change
+
+        highlighter.ClearHighlightedTiles().GetAwaiter();
+        turnManager.UpdateBattleState(BattleState.MapBuilding);
         MovePointController.instance.transform.position = new Vector3(mapSize.x / 2, mapSize.y / 2);
 
         biome = biomes[Random.Range(0, biomes.Length)];
@@ -811,8 +824,8 @@ public class BoardManager : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             // TODO: this is wrong
-            Vector3Int randomPos = GetRandomOpenPosition(Vector2.one, openGridPositions)[0]; 
-            Vector3Int chosenPos = randomPos; 
+            Vector3Int randomPos = GetRandomOpenPosition(Vector2.one, openGridPositions)[0];
+            Vector3Int chosenPos = randomPos;
             foreach (Vector3Int pos in openGridPositions)
             {
                 if (enemySpawnDirection == EnemySpawnDirection.Left && pos.x <= GetLeftmostColumnIndex() + 3)
@@ -837,6 +850,7 @@ public class BoardManager : MonoBehaviour
 
             instantiatedSO.Initialize(newCharacter);
             newCharacter.name = instantiatedSO.characterName;
+            newCharacter.transform.parent = envObjectsHolder.transform;
 
             newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
 
@@ -858,6 +872,12 @@ public class BoardManager : MonoBehaviour
         await Task.Delay(10);
     }
 
+    void PlaceMapReset()
+    {
+        GameObject mr = Instantiate(mapResetPrefab, new Vector3(-mapSize.x + 0.5f, -mapSize.y + 0.5f), Quaternion.identity);
+        mr.transform.parent = envObjectsHolder.transform;
+    }
+
     void CreatePlayerStartingArea()
     {
         Vector2 SWCorner = Vector2.zero;
@@ -873,7 +893,6 @@ public class BoardManager : MonoBehaviour
         {
             width = mapSize.x;
             height = 3;
-            Debug.Log("GetTheMostBottomRowIndex(): " + GetMostBottomRowIndex());
             SWCorner = new Vector2(0, GetMostBottomRowIndex());
         }
         if (enemySpawnDirection == EnemySpawnDirection.Right)
@@ -889,12 +908,12 @@ public class BoardManager : MonoBehaviour
             SWCorner = new Vector2(0, GetMostTopRowIndex() - height + 1);
         }
 
-        Highlighter.instance.HighlightRectanglePlayer(SWCorner, width, height, Color.blue);
+        highlighter.HighlightRectanglePlayer(SWCorner, width, height, Color.blue);
         // TODO: this is wrong
         if (!IsEnoughSpaceToDeploy())
-            Highlighter.instance.HighlightRectanglePlayer(SWCorner, width + 2, height + 2, Color.blue);
+            highlighter.HighlightRectanglePlayer(SWCorner, width + 2, height + 2, Color.blue);
 
-        TurnManager.instance.UpdateBattleState(BattleState.Deployment);
+        turnManager.UpdateBattleState(BattleState.Deployment);
     }
 
     int GetRightmostColumnIndex()
@@ -939,6 +958,6 @@ public class BoardManager : MonoBehaviour
 
     bool IsEnoughSpaceToDeploy()
     {
-        return Highlighter.instance.highlightedTiles.Count > 6;
+        return highlighter.highlightedTiles.Count > 6;
     }
 }

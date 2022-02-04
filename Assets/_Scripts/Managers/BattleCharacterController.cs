@@ -304,6 +304,8 @@ public class BattleCharacterController : MonoBehaviour
         // reset flag
         hasCharacterStartedMoving = false;
 
+        // TODO: maybe here check if there is interaction target that we are standing on and allow that interaction
+
         // check if it was back or normal move
         if (!hasCharacterGoneBack)
             return;
