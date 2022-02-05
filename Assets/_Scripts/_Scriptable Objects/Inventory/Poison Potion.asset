@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941165d4f05d24840aa481aca7f36c9b, type: 3}
+  m_Name: Poison Potion
+  m_EditorClassIdentifier: 
+  id: cbe98832-bd18-4cdb-ba42-be25c0041294
+  iDescription: Poisons target.
+  icon: {fileID: 21300000, guid: cff97041784330943a55156f266c1b81, type: 3}
+  amount: 1
+  sellPrice: 0
+  stackSize: 5
+  questItem: 0
+  slotDimension:
+    height: 1
+    width: 1
+  ability: {fileID: 11400000, guid: da2e11c92376d7a4a873abdb06715e51, type: 2}

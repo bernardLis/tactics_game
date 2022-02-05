@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "DButtonClick",
+                    "type": "Button",
+                    "id": "7fd84d31-94b6-4e68-bbde-10667712e605",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "QButtonClick",
                     "type": "Button",
                     "id": "618f08ab-7a07-40cf-a3c8-0f92bedb73d3",
@@ -310,6 +319,17 @@
                     "action": "SButtonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f63c75b0-dbbd-4513-9380-8f72c451b1fe",
+                    "path": "<Keyboard>/d",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "DButtonClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -466,6 +486,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UseItem",
+                    "type": "Button",
+                    "id": "f4729054-ee0d-45d5-b707-190f172005dc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -483,7 +512,7 @@
                 {
                     "name": "",
                     "id": "a80e7dae-7a49-4b08-9de5-b913f6bed235",
-                    "path": "<Keyboard>/i",
+                    "path": "<Keyboard>/b",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
@@ -556,6 +585,17 @@
                     "action": "InventoryMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "bcb85bb5-63d7-470d-a236-63bc614fc575",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "UseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

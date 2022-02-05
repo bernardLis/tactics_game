@@ -5,7 +5,6 @@ public enum AbilityType { Attack, Heal, Move, Buff }
 
 public abstract class Ability : BaseScriptableObject
 {
-    public string aName = "New Ability";
     public string aDescription = "New Description";
 
     public AbilityType aType;
@@ -81,6 +80,4 @@ public abstract class Ability : BaseScriptableObject
         await Task.Yield(); // just to get rid of errors;
         return true;
     }
-
-
 }

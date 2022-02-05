@@ -14,7 +14,7 @@ public class CollectQuestGoal : QuestGoal
 		qGoalState = QuestGoalState.ACTIVE;
 
 		// check if hero has the item in the inventory already and update current amount & evaluate
-		foreach (Item item in Inventory.instance.items)
+		foreach (Item item in InventoryManager.instance.items)
 		{
 			if (item == requiredItem)
 			{
@@ -24,8 +24,8 @@ public class CollectQuestGoal : QuestGoal
 
 		// subscribe to on item changed by Inventory.cs
 		// TODO: this is hacky/wrong... but I need to make sure evaluate is subscribed only once. 
-		Inventory.instance.OnItemChanged -= Evaluate;
-		Inventory.instance.OnItemChanged += Evaluate;
+		InventoryManager.instance.OnItemChanged -= Evaluate;
+		InventoryManager.instance.OnItemChanged += Evaluate;
 		Evaluate();
 	}
 
@@ -48,7 +48,7 @@ public class CollectQuestGoal : QuestGoal
 		if (e.item == requiredItem)
 		{
 			currentAmount++;
-			GameUI.instance.DisplayLogText(currentAmount + "/" + requiredAmount + " of " + e.item.iName);
+			GameUI.instance.DisplayLogText(currentAmount + "/" + requiredAmount + " of " + e.item.name);
 			Evaluate();
 		}
 	}
@@ -63,14 +63,14 @@ public class CollectQuestGoal : QuestGoal
 
 	public override void CleanUp()
 	{
-		Inventory.instance.OnItemChanged -= Evaluate;
+		InventoryManager.instance.OnItemChanged -= Evaluate;
 
 		// on quest complete remove items from the inventory
 		if (requiredItem != null)
 		{
 			for (var i = 0; i < requiredAmount; i++)
 			{
-				Inventory.instance.Remove(requiredItem);
+				InventoryManager.instance.Remove(requiredItem);
 			}
 		}
 	}

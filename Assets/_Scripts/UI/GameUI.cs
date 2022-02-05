@@ -32,7 +32,7 @@ public class GameUI : MonoBehaviour
         // getting ui elements
         UIDocument = GetComponent<UIDocument>();
         var root = UIDocument.rootVisualElement;
- 
+
         // log
         logContainer = root.Q<VisualElement>("logContainer");
         logText = root.Q<Label>("logText");
@@ -42,6 +42,11 @@ public class GameUI : MonoBehaviour
 
     public void HideAllUIPanels()
     {
+        CharacterUI.instance.HideCharacterUI();
+        InfoCardUI.instance.HideCharacterCard();
+        InfoCardUI.instance.HideInteractionSummary();
+        InfoCardUI.instance.HideTileInfo();
+
         UIDocument.rootVisualElement.Q<VisualElement>("inventoryContainer").style.display = DisplayStyle.None;
         UIDocument.rootVisualElement.Q<VisualElement>("questUI").style.display = DisplayStyle.None;
         UIDocument.rootVisualElement.Q<VisualElement>("conversationContainer").style.display = DisplayStyle.None;

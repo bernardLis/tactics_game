@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941165d4f05d24840aa481aca7f36c9b, type: 3}
   m_Name: Rabbit
   m_EditorClassIdentifier: 
-  ID: 2a86733f-085b-4657-a7e4-a3e61226f226
+  id: 7c0e5a26-5e97-42fe-9314-447f663f7c3a
   iName: Rabbit
   iDescription: It was fast, but not fast enough.
   icon: {fileID: 21300000, guid: aafa530027e8d284b88845469fa0612a, type: 3}

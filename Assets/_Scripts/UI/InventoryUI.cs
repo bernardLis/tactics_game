@@ -20,11 +20,13 @@ public class InventoryUI : MonoBehaviour
     public Sprite selectedSlotBackground;
     public InventorySlot selectedSlot;
 
-    GameObject player;
+    Item selectedItem;
+
     PlayerInput playerInput;
 
-    public static InventoryUI instance;
+    InventoryManager inventoryManager;
 
+    public static InventoryUI instance;
     void Awake()
     {
         #region Singleton
@@ -39,7 +41,9 @@ public class InventoryUI : MonoBehaviour
 
         playerInput = MovePointController.instance.GetComponent<PlayerInput>();
 
-        Inventory.instance.OnItemChanged += OnItemChanged;
+        inventoryManager = InventoryManager.instance;
+        inventoryManager.OnItemChanged += OnItemChanged;
+
         // store the root from the ui document component
         root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -65,7 +69,7 @@ public class InventoryUI : MonoBehaviour
         }
 
         // populate inventory ui on awake;
-        foreach (Item item in Inventory.instance.items)
+        foreach (Item item in inventoryManager.items)
         {
             AddItemToUI(item);
         }
@@ -75,14 +79,17 @@ public class InventoryUI : MonoBehaviour
     {
         playerInput.actions["InventoryMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
         playerInput.actions["DisableInventoryUI"].performed += ctx => DisableInventoryUI();
+        playerInput.actions["UseItem"].performed += ctx => UseItem();
+
     }
 
     void OnDisable()
     {
         if (playerInput != null)
         {
-            playerInput.actions["InventoryMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
+            playerInput.actions["InventoryMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
             playerInput.actions["DisableInventoryUI"].performed -= ctx => DisableInventoryUI();
+            playerInput.actions["UseItem"].performed -= ctx => UseItem();
         }
     }
 
@@ -113,6 +120,7 @@ public class InventoryUI : MonoBehaviour
             slot = inventorySlots[(inventorySlots.IndexOf(selectedSlot) + numberOfItemsInRow) % inventorySlots.Count()];
 
         slot.Select();
+        selectedItem = slot.item;
         inventorySlotContainer.ScrollTo(slot);
     }
 
@@ -122,7 +130,7 @@ public class InventoryUI : MonoBehaviour
         if (item == null)
             return;
 
-        Label name = new Label(item.iName);
+        Label name = new Label(item.name);
         name.AddToClassList("inventoryItemInfoTitle");
 
         Label icon = new Label();
@@ -182,8 +190,7 @@ public class InventoryUI : MonoBehaviour
     public void EnableInventoryUI()
     {
         // switch action map
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("InventoryUI");
-        GameManager.instance.PauseGame();
+        playerInput.SwitchCurrentActionMap("InventoryUI");
 
         // only one can be visible.
         GameUI.instance.HideAllUIPanels();
@@ -198,7 +205,20 @@ public class InventoryUI : MonoBehaviour
     {
         inventoryContainer.style.display = DisplayStyle.None;
 
-        //GameManager.instance.EnableFMPlayerControls(); << TODO: decide when is quest ui / inventory ui accessible
-        GameManager.instance.ResumeGame();
+        // TODO: maybe battle controller can have a method for that;
+        CharacterUI.instance.ShowCharacterUI(BattleCharacterController.instance.selectedCharacter.GetComponent<CharacterStats>());
+
+        playerInput.SwitchCurrentActionMap("Player");
+    }
+
+    void UseItem()
+    {
+        if (selectedItem.ability == null)
+            return;
+        Debug.Log("using item: " + selectedItem);
+        // get current item and queue action
+        DisableInventoryUI();
+
+        CharacterUI.instance.UseItem(selectedItem);
     }
 }

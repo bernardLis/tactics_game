@@ -33,7 +33,7 @@ public class CollectQuest : Quest
 		}
 
 		// give player the reward
-		Inventory.instance.Add(qReward);
+		InventoryManager.instance.Add(qReward);
 	}
 
 	public override void Fail()

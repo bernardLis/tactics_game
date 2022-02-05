@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObject/Inventory/Item")]
+[CreateAssetMenu(menuName = "ScriptableObject/Inventory/Item")]
 public class Item : BaseScriptableObject
 {
-	public string ID = Guid.NewGuid().ToString();
-	public string iName = "New Item";
-	public string iDescription;
-	public Sprite icon = null;
-	public int amount = 1;
-	public int sellPrice;
-	public int stackSize = 5;
-	public bool questItem;
-	public Dimensions slotDimension;
+    public string iDescription;
+    public Sprite icon = null;
+    public int amount = 1;
+    public int sellPrice;
+    public int stackSize = 5;
+    public bool questItem;
+    public Dimensions slotDimension;
+    public Ability ability;
 
-	public virtual void PickUp()
-	{
-		// TODO: maybe a bad idea? 
-		Inventory.instance.Add(this);
-	}
+    public virtual void PickUp()
+    {
+        // TODO: maybe a bad idea? 
+        InventoryManager.instance.Add(this);
+    }
 
-	public virtual void Use()
-	{
-		// meant to be overwritten
-	}
+    public virtual void Use()
+    {
+        // meant to be overwritten
+    }
 
 
 }
@@ -33,6 +32,6 @@ public class Item : BaseScriptableObject
 [Serializable]
 public struct Dimensions
 {
-	public int height;
-	public int width;
+    public int height;
+    public int width;
 }

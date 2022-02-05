@@ -11,6 +11,7 @@ public class HealAbility : Ability
     {
         base.Initialize(obj);
         healTriggerable = obj.GetComponent<HealTriggerable>();
+        Debug.Log("initializing heal ability");
     }
 
     // returns true if ability was triggered with success

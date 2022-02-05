@@ -47,6 +47,7 @@ public class CharacterUI : MonoBehaviour
 
     Button characterAButton;
     Button characterSButton;
+    Button characterDButton;
 
     Button characterQButton;
     Button characterWButton;
@@ -136,6 +137,7 @@ public class CharacterUI : MonoBehaviour
 
         characterAButton = root.Q<Button>("characterAButton");
         characterSButton = root.Q<Button>("characterSButton");
+        characterDButton = root.Q<Button>("characterDButton");
 
         characterQButton = root.Q<Button>("characterQButton");
         characterWButton = root.Q<Button>("characterWButton");
@@ -152,6 +154,7 @@ public class CharacterUI : MonoBehaviour
         // register interaction callbacks (buttons)
         characterAButton.clickable.clicked += AButtonClicked;
         characterSButton.clickable.clicked += SButtonClicked;
+        characterDButton.clickable.clicked += DButtonClicked;
 
         characterQButton.clickable.clicked += QButtonClicked;
         characterWButton.clickable.clicked += WButtonClicked;
@@ -201,6 +204,15 @@ public class CharacterUI : MonoBehaviour
 
         // TODO: hardcoded ability indexes
         buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.basicAbilities[1]));
+    }
+
+    void DButtonClicked()
+    {
+        if (!battleCharacterController.CanSelectAbility())
+            return;
+
+        // TODO: hardcoded ability indexes
+        OpenInventory();
     }
 
     void QButtonClicked()
@@ -266,11 +278,27 @@ public class CharacterUI : MonoBehaviour
         battleCharacterController.SetSelectedAbility(ability);
     }
 
+    void OpenInventory()
+    {
+        Debug.Log("opening inventory");
+        battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+        InventoryUI.instance.EnableInventoryUI();
+        // then player selects item and I can queue ability with handle button click... sounds a bit convoluted
+        // I probably need to disable game controlls and enable inventory controls.
+    }
+
+    public void UseItem(Item _item)
+    {
+        Debug.Log("using ite in char ui");
+        _item.ability.Initialize(battleCharacterController.selectedCharacter);
+        buttonClickQueue.Enqueue(HandleButtonClick(_item.ability));
+    }
+
     void ShowAbilityTooltip(Ability _ability)
     {
         characterUITooltipContainer.style.display = DisplayStyle.Flex;
 
-        characterUITooltipAbilityName.text = _ability.aName;
+        characterUITooltipAbilityName.text = _ability.name;
         characterUITooltipAbilityDescription.text = _ability.aDescription;
         characterUITooltipAbilityManaCost.text = "Mana cost: " + _ability.manaCost;
 
@@ -296,6 +324,8 @@ public class CharacterUI : MonoBehaviour
 
     public void ShowCharacterUI(CharacterStats _playerStats)
     {
+        InfoCardUI.instance.HideCharacterCard();
+
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
         selectedPlayerStats = _playerStats;
 
@@ -421,6 +451,7 @@ public class CharacterUI : MonoBehaviour
     {
         characterAButton.SetEnabled(false);
         characterSButton.SetEnabled(false);
+        characterDButton.SetEnabled(false);
 
         characterQButton.SetEnabled(false);
         characterWButton.SetEnabled(false);
@@ -436,6 +467,7 @@ public class CharacterUI : MonoBehaviour
         // costless actions
         characterAButton.SetEnabled(true);
         characterSButton.SetEnabled(true);
+        characterDButton.SetEnabled(true);
 
         // enable buttons if they are populated
         // && player has enough mana to cast ability;
@@ -624,6 +656,13 @@ public class CharacterUI : MonoBehaviour
         using (var e = new NavigationSubmitEvent() { target = characterSButton })
             characterSButton.SendEvent(e);
     }
+
+    public void SimulateDButtonClicked()
+    {
+        using (var e = new NavigationSubmitEvent() { target = characterDButton })
+            characterDButton.SendEvent(e);
+    }
+
 
     public void SimulateQButtonClicked()
     {

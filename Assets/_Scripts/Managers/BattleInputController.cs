@@ -115,6 +115,7 @@ public class BattleInputController : MonoBehaviour
 
         playerInput.actions["AButtonClick"].performed += ctx => AButtonClickInput();
         playerInput.actions["SButtonClick"].performed += ctx => SButtonClickInput();
+        playerInput.actions["DButtonClick"].performed += ctx => DButtonClickInput();
 
         playerInput.actions["QButtonClick"].performed += ctx => QButtonClickInput();
         playerInput.actions["WButtonClick"].performed += ctx => WButtonClickInput();
@@ -138,8 +139,9 @@ public class BattleInputController : MonoBehaviour
 
         playerInput.actions["SelectClick"].performed -= ctx => SelectClick();
 
-        playerInput.actions["AButtonClick"].performed += ctx => AButtonClickInput();
-        playerInput.actions["SButtonClick"].performed += ctx => SButtonClickInput();
+        playerInput.actions["AButtonClick"].performed -= ctx => AButtonClickInput();
+        playerInput.actions["SButtonClick"].performed -= ctx => SButtonClickInput();
+        playerInput.actions["DButtonClick"].performed -= ctx => DButtonClickInput();
 
         playerInput.actions["QButtonClick"].performed -= ctx => QButtonClickInput();
         playerInput.actions["WButtonClick"].performed -= ctx => WButtonClickInput();
@@ -266,6 +268,11 @@ public class BattleInputController : MonoBehaviour
     {
         characterUI.SimulateSButtonClicked();
     }
+    void DButtonClickInput()
+    {
+        characterUI.SimulateDButtonClicked();
+    }
+
 
     void QButtonClickInput()
     {
