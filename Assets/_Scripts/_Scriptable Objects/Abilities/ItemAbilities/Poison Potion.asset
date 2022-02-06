@@ -24,7 +24,7 @@ MonoBehaviour:
   areaOfEffect: 0
   statModifier: {fileID: 0}
   status: {fileID: 11400000, guid: 2ac10217aea54c74894379c860cf804e, type: 2}
-  range: 3
+  range: 7
   canTargetSelf: 0
   canTargetDiagonally: 1
-  highlightColor: {r: 0.020496989, g: 0.41509432, b: 0, a: 0}
+  highlightColor: {r: 0.020496989, g: 0.41509432, b: 0, a: 1}

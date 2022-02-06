@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Chest : MonoBehaviour
+public class Chest : MonoBehaviour, IItemUsable<UtilityAbility>
 {
     public Sprite openedChest;
     SpriteRenderer sr;
@@ -9,13 +9,15 @@ public class Chest : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
     }
 
-    void OnTriggerEnter2D(Collider2D _col)
+    public bool UseItem(UtilityAbility _ability)
     {
-        if (_col.CompareTag("PlayerCollider") && TurnManager.battleState == BattleState.PlayerTurn)
+        Debug.Log("use item in chest");
+        if (_ability.utilityType == UtilityType.Key)
         {
             Interact();
-            Debug.Log("do you want to open the chest?");
+            return true;
         }
+        return false;
     }
 
     void Interact()

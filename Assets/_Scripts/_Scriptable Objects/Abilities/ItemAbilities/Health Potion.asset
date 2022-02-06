@@ -21,7 +21,7 @@ MonoBehaviour:
   aSound: {fileID: 8300000, guid: 236467638c85dae4ab20d46a97d62857, type: 3}
   value: 20
   manaCost: 0
-  areaOfEffect: 1
+  areaOfEffect: 0
   statModifier: {fileID: 0}
   status: {fileID: 0}
   range: 1

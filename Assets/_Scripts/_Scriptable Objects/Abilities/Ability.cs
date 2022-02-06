@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-public enum AbilityType { Attack, Heal, Move, Buff }
+public enum AbilityType { Attack, Heal, Move, Buff, Utility }
 
 public abstract class Ability : BaseScriptableObject
 {
@@ -15,7 +15,7 @@ public abstract class Ability : BaseScriptableObject
     public AudioClip aSound;
     public int value;
     public int manaCost;
-    [Tooltip("1 is one tile, 2 is a cross")]
+    [Tooltip("0 is one tile, 1 is a cross")]
     public int areaOfEffect;
 
     [Header("Abilities can add modifiers and statuses on interaction")]
@@ -51,6 +51,7 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightTargetable(GameObject _self)
     {
+        Debug.Log("HighlightTargetable");
         if (characterGameObject.CompareTag("Player"))
             battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
 
@@ -63,6 +64,8 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightAreaOfEffect(Vector3 _middle)
     {
+        Debug.Log("HighlightAreaOfEffect");
+
         if (characterGameObject.CompareTag("Player"))
             battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
 
