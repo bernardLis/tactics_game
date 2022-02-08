@@ -13,6 +13,9 @@ public class JourneyMapManager : MonoBehaviour
 
     [Header("Unity Setup")]
     public JourneyNode[] journeyNodes;
+    public JourneyNode startNode;
+    public JourneyNode endNode;
+
     public GameObject journeyHolder;
     public GameObject journeyNodePrefab;
 
@@ -24,6 +27,8 @@ public class JourneyMapManager : MonoBehaviour
         InitialSetup();
         CreateRows();
         CreateNodes();
+        CreateConnections();
+        RemoveSomeConnections();
     }
 
     void InitialSetup()
@@ -39,13 +44,22 @@ public class JourneyMapManager : MonoBehaviour
     void CreateRows()
     {
         journeyRows = new();
+
+        JourneyRow startRow = ScriptableObject.CreateInstance<JourneyRow>();
+        startRow.AddNode(startNode);
+        journeyRows.Add(startRow);
+
         for (int i = 0; i < numberOfRows; i++)
         {
-            JourneyRow r = new JourneyRow();
+            JourneyRow r = ScriptableObject.CreateInstance<JourneyRow>();
             r.CreateRow(numberOfNodes, journeyNodes);
             r.RemoveRandomNodes();
             journeyRows.Add(r);
         }
+
+        JourneyRow endRow = ScriptableObject.CreateInstance<JourneyRow>();
+        endRow.AddNode(endNode);
+        journeyRows.Add(endRow);
     }
 
     void CreateNodes()
@@ -53,17 +67,40 @@ public class JourneyMapManager : MonoBehaviour
         int y = 0;
         foreach (JourneyRow r in journeyRows)
         {
-            int x = 0;
+            int x = (numberOfNodes - r.journeyNodes.Count) * 45; // TODO: magic number! 10/2 to center the rows nodes somewhat
             foreach (JourneyNode n in r.journeyNodes)
             {
                 GameObject g = Instantiate(journeyNodePrefab, new Vector3(x, y, 0f), Quaternion.identity);
+                n.Initialize(g);
                 g.GetComponentInChildren<SpriteRenderer>().sprite = n.icon;
                 g.transform.parent = journeyHolder.transform;
-                x += Random.Range(10, 20);
+                x += Random.Range(30, 60);
             }
-            y += Random.Range(10, 20);
+            y += Random.Range(20, 40);
         }
+    }
 
+    void CreateConnections()
+    {
+        for (int i = 0; i < journeyRows.Count - 1; i++) // -1 to skip the last one
+            foreach (JourneyNode n in journeyRows[i].journeyNodes)
+                n.Connect(journeyRows[i + 1]);
+    }
+
+    void RemoveSomeConnections()
+    {
+        // TODO: I need to make sure that there is at least one connection to the node from the previous row
+        // maybe node needs to keep track who is connecting to it.
+        foreach (JourneyRow r in journeyRows)
+        {
+            foreach (JourneyNode n in r.journeyNodes)
+            {
+                if (n.nodeType == JourneyNodeType.Start || n.nodeType == JourneyNodeType.End)
+                    continue;
+                n.RemoveSomeConnections();
+            }
+
+        }
     }
 
 }

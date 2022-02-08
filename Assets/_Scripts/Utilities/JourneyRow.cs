@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using UnityEngine;
 
-public class JourneyRow
+public class JourneyRow : BaseScriptableObject // needed for instantiate
 {
-
-    public List<JourneyNode> journeyNodes = new();
+    public List<JourneyNode> journeyNodes = new List<JourneyNode>();
+    public int rowNumber;
 
     public void CreateRow(int _numberOfNodes, JourneyNode[] _nodes) // TODO: should I pass on seed?
     {
         for (int i = 0; i < _numberOfNodes; i++)
         {
-            JourneyNode n = _nodes[Random.Range(0, _nodes.Length)];
+            JourneyNode n = Instantiate(_nodes[Random.Range(0, _nodes.Length)]);
             journeyNodes.Add(n);
         }
     }
