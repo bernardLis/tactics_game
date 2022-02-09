@@ -8,6 +8,7 @@ public class JourneyNodeBehaviour : MonoBehaviour
     {
         journeyNode = _jn;
         gameObject.name = _jn.name;
+        gameObject.transform.localScale = new Vector3(3f, 3f);
         GetComponentInChildren<SpriteRenderer>().sprite = _jn.icon;
     }
 

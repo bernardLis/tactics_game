@@ -6,16 +6,21 @@ using System.Linq;
 
 public class JourneyMapManager : MonoBehaviour
 {
-    public int numberOfRows = 7;
     public int numberOfPaths = 5;
+    public int numberOfRows = 7;
+    public int numberOfBridges = 5;
 
     int seed;
 
+    [Header("Config")]
+    public JourneyPathConfig[] basicConfigs;
+
+
     [Header("Unity Setup")]
+    public Sprite[] backgrounds;
     public JourneyNode[] journeyNodes;
     public JourneyNode startNodeScriptableObject;
     public JourneyNode endNodeScriptableObject;
-
     public GameObject journeyHolder;
     public GameObject journeyNodePrefab;
 
@@ -34,6 +39,7 @@ public class JourneyMapManager : MonoBehaviour
         DisplayNodes();
         DrawConnections();
         AddJourneyBridges();
+        SetBackground();
     }
 
     void InitialSetup()
@@ -53,7 +59,7 @@ public class JourneyMapManager : MonoBehaviour
         for (int i = 0; i < numberOfPaths; i++)
         {
             JourneyPath jp = ScriptableObject.CreateInstance<JourneyPath>();
-            jp.CreatePath(numberOfRows, journeyNodes);
+            jp.CreatePath(numberOfRows, journeyNodes, basicConfigs);
             journeyPaths.Add(jp);
         }
     }
@@ -93,11 +99,11 @@ public class JourneyMapManager : MonoBehaviour
         // start gets line renderer per path and renders a line
         foreach (JourneyPath p in journeyPaths)
         {
-            GameObject g = new GameObject();
+            GameObject g = new GameObject("LineRenderer");
             g.transform.parent = startNode.gameObject.transform;
             LineRenderer lr = g.AddComponent<LineRenderer>();
             lr.positionCount = p.nodes.Count + 2; // start + end
-            lr.startWidth = 0.2f;
+            lr.startWidth = 0.5f;
             lr.SetPosition(0, startNode.gameObject.transform.position);
 
             for (int i = 0; i < p.nodes.Count; i++)
@@ -109,11 +115,8 @@ public class JourneyMapManager : MonoBehaviour
 
     void AddJourneyBridges()
     {
-
-        // the connection can only be to +-1 one path - it cannot cross through a path
-        // who keeps track of bridges?
-        // bridge needs to go upwards
-        int numberOfBridges = 5;
+        if (numberOfPaths == 1)
+            return;
 
         for (int i = 0; i < numberOfBridges; i++)
         {
@@ -128,8 +131,7 @@ public class JourneyMapManager : MonoBehaviour
             else
                 toPath = journeyPaths[fromPathIndex + 1];
 
-            // ok, number of nodes in paths varies, so there is a chance that there won't as many nodes as I need
-            // TODO: there may be a better way? 
+            // TODO: is there a better way? 
             if (toPath.nodes.Count <= fromNodeIndex + 1)
                 continue;
             JourneyNode toNode = toPath.nodes[fromNodeIndex + 1];
@@ -138,16 +140,17 @@ public class JourneyMapManager : MonoBehaviour
             bridge.Initialize(fromNode, toNode);
             fromPath.bridges.Add(bridge);
         }
-
-        // choose a random path, 
-        // choose a random node, 
-        // choose path +- to it
-        // choose a node with index of random node +1
-        // create a bridge
-        // add bridge to list of path of from node
-
     }
 
+    void SetBackground()
+    {
+        GameObject g = new GameObject("Background");
+        g.transform.parent = journeyHolder.transform;
+        g.AddComponent<SpriteRenderer>().sprite = backgrounds[Random.Range(0, backgrounds.Length)];
+        float x = GetMostRightNode().gameObject.transform.position.x * 0.5f;
+        g.transform.position = new Vector3(x, endNode.transform.position.y * 0.5f, 1f); // TODO: magic numbers
+        g.transform.localScale = new Vector3(numberOfPaths + 2f, endNode.transform.position.y * 0.05f); // TODO: magic numbers
+    }
 
     /* Helpers */
     void InstantiateNode(JourneyNode _n, Vector3 _pos)
@@ -158,4 +161,9 @@ public class JourneyMapManager : MonoBehaviour
         g.GetComponent<JourneyNodeBehaviour>().Initialize(_n); // Game Object knows it's node ... TODO: maybe unnecessary
     }
 
+    // TODO: this is a very lazy approximation... 
+    JourneyNode GetMostRightNode()
+    {
+        return journeyPaths[journeyPaths.Count - 1].nodes[0];
+    }
 }
