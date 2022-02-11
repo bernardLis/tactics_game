@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class JourneyMapManager : MonoBehaviour
 {
@@ -23,14 +24,119 @@ public class JourneyMapManager : MonoBehaviour
     public JourneyNode endNodeScriptableObject;
     public GameObject journeyHolder;
     public GameObject journeyNodePrefab;
+    public GameObject onClickParticlePrefab;
 
+    PlayerInput playerInput;
 
     GameObject startNode; // TODO: that's a bit confusing with scriptable object and node itself... 
     GameObject endNode;
 
     List<JourneyPath> journeyPaths;
+    JourneyNode currentNode;
+
+    void Start()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        GenerateJourney();
+    }
+
+    /* INPUT */
+    void OnEnable()
+    {
+        // inputs
+        playerInput = GetComponent<PlayerInput>();
+
+        SubscribeInputActions();
+    }
+
+    void OnDisable()
+    {
+        if (playerInput == null)
+            return;
+
+        UnsubscribeInputActions();
+    }
 
 
+    void SubscribeInputActions()
+    {
+        playerInput.actions["LeftMouseClick"].performed += ctx => LeftMouseClick();
+    }
+
+    void UnsubscribeInputActions()
+    {
+        playerInput.actions["LeftMouseClick"].performed -= ctx => LeftMouseClick();
+    }
+
+    void LeftMouseClick()
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+
+        // particle // TODO: Camera.main
+        mousePos.z = 0;
+        Destroy(Instantiate(onClickParticlePrefab, Camera.main.ScreenToWorldPoint(mousePos), Quaternion.identity), 1f);
+
+        mousePos.z = 1;
+        var collider = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(mousePos), 10f); // TODO: Camera.main
+        if (collider == null)
+            return;
+        if (!collider.TryGetComponent(out JourneyNodeBehaviour n))
+            return;
+        if (!IsTravelLegal(n.journeyNode))
+            return;
+
+        // TODO: not like that.
+        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, n.transform.position.y, Camera.main.transform.position.z);
+        currentNode = n.journeyNode;
+        n.journeyNode.Select();
+    }
+
+    bool IsTravelLegal(JourneyNode _node)
+    {
+        // if we are on the start node we can only travel to nodes [0] on each path
+        if (currentNode.nodeType == JourneyNodeType.Start && IsFirstNodeOfPath(_node))
+            return true;
+        // if we are on the last node of the path we can travel only to the end node
+        if (_node.nodeType == JourneyNodeType.End && IsLastNodeOnPath())
+            return true;
+
+        // if we are on any other node, we can only travel to the next node on path or a node that is connected via bridge
+        JourneyPath currentPath = GetCurrentPath(currentNode);
+        if (currentPath == null)
+            return false;
+
+        if (currentPath.IsLegalMove(currentNode, _node))
+            return true;
+
+        return false;
+    }
+
+    bool IsFirstNodeOfPath(JourneyNode _node)
+    {
+        foreach (JourneyPath p in journeyPaths)
+            if (p.nodes[0] == _node)
+                return true;
+        return false;
+    }
+
+    bool IsLastNodeOnPath()
+    {
+        foreach (JourneyPath p in journeyPaths)
+            if (p.nodes[p.nodes.Count - 1] == currentNode)
+                return true;
+
+        return false;
+    }
+
+    JourneyPath GetCurrentPath(JourneyNode _node)
+    {
+        foreach (JourneyPath p in journeyPaths)
+            if (p.nodes.Contains(currentNode))
+                return p;
+        return null;
+    }
+
+    /* JOURNEY GENERATION */
     public void GenerateJourney()
     {
         Debug.Log("GenerateJourney");
@@ -70,6 +176,8 @@ public class JourneyMapManager : MonoBehaviour
         JourneyNode startNodeInstance = Instantiate(startNodeScriptableObject);
         InstantiateNode(startNodeInstance, new Vector3(centerX, 0f));
         startNode = startNodeInstance.gameObject;
+        currentNode = startNodeInstance;
+        currentNode.Select();
 
         int x = 0;
         int y = Random.Range(30, 60);

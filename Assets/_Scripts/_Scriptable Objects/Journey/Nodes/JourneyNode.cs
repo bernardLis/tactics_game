@@ -10,15 +10,22 @@ public class JourneyNode : BaseScriptableObject
     public Sprite icon;
     public JourneyNodeType nodeType;
     public GameObject gameObject;
+    SpriteRenderer sr;
 
     public void Initialize(GameObject _self)
     {
         gameObject = _self;
-    }
+        gameObject.name = name;
+        gameObject.transform.localScale = new Vector3(3f, 3f);
 
-    public void ChooseNode()
+        sr = gameObject.GetComponentInChildren<SpriteRenderer>();
+        sr.sprite = icon;
+    }
+    
+    // TODO: do I want to do it from scriptable Object?
+    public void Select()
     {
-        Debug.Log("this node was chosen: " + nodeType);
+        sr.color = Color.magenta;
     }
 
 }

@@ -8,7 +8,7 @@ public class JourneyBridge
     {
         from = _from;
         to = _to;
-
+                
         // from gets a line renderer
         GameObject g = new GameObject();
         g.transform.parent = from.gameObject.transform;

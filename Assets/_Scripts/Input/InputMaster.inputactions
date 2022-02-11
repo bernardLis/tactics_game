@@ -637,6 +637,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Journey",
+            "id": "5d652576-3d48-449c-b167-69231d3745f7",
+            "actions": [
+                {
+                    "name": "LeftMouseClick",
+                    "type": "Button",
+                    "id": "69164288-fb35-43a0-9452-bf747e4d2c3a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d7b74a78-7a63-4425-9ace-e923042cebb8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "LeftMouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -659,6 +659,34 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Journey"",
+            ""id"": ""5d652576-3d48-449c-b167-69231d3745f7"",
+            ""actions"": [
+                {
+                    ""name"": ""LeftMouseClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""69164288-fb35-43a0-9452-bf747e4d2c3a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d7b74a78-7a63-4425-9ace-e923042cebb8"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""LeftMouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -710,6 +738,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         // Conversation
         m_Conversation = asset.FindActionMap("Conversation", throwIfNotFound: true);
         m_Conversation_ConversationInteract = m_Conversation.FindAction("ConversationInteract", throwIfNotFound: true);
+        // Journey
+        m_Journey = asset.FindActionMap("Journey", throwIfNotFound: true);
+        m_Journey_LeftMouseClick = m_Journey.FindAction("LeftMouseClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1041,6 +1072,39 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         }
     }
     public ConversationActions @Conversation => new ConversationActions(this);
+
+    // Journey
+    private readonly InputActionMap m_Journey;
+    private IJourneyActions m_JourneyActionsCallbackInterface;
+    private readonly InputAction m_Journey_LeftMouseClick;
+    public struct JourneyActions
+    {
+        private @InputMaster m_Wrapper;
+        public JourneyActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LeftMouseClick => m_Wrapper.m_Journey_LeftMouseClick;
+        public InputActionMap Get() { return m_Wrapper.m_Journey; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(JourneyActions set) { return set.Get(); }
+        public void SetCallbacks(IJourneyActions instance)
+        {
+            if (m_Wrapper.m_JourneyActionsCallbackInterface != null)
+            {
+                @LeftMouseClick.started -= m_Wrapper.m_JourneyActionsCallbackInterface.OnLeftMouseClick;
+                @LeftMouseClick.performed -= m_Wrapper.m_JourneyActionsCallbackInterface.OnLeftMouseClick;
+                @LeftMouseClick.canceled -= m_Wrapper.m_JourneyActionsCallbackInterface.OnLeftMouseClick;
+            }
+            m_Wrapper.m_JourneyActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @LeftMouseClick.started += instance.OnLeftMouseClick;
+                @LeftMouseClick.performed += instance.OnLeftMouseClick;
+                @LeftMouseClick.canceled += instance.OnLeftMouseClick;
+            }
+        }
+    }
+    public JourneyActions @Journey => new JourneyActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1083,5 +1147,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     public interface IConversationActions
     {
         void OnConversationInteract(InputAction.CallbackContext context);
+    }
+    public interface IJourneyActions
+    {
+        void OnLeftMouseClick(InputAction.CallbackContext context);
     }
 }

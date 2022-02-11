@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Battle Index 2
   m_EditorClassIdentifier: 
   id: f7a865d8-dc08-451d-8a42-29986716656e
-  nodeIndex: 0
+  nodeIndexRange: {x: 0, y: 0}
   node: {fileID: 11400000, guid: a3a897d73153d6c428b95c7b766b073f, type: 2}
+  chanceToIgnore: 0

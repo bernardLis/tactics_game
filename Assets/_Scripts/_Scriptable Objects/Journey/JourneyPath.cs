@@ -23,4 +23,18 @@ public class JourneyPath : BaseScriptableObject // needed for instantiate
             nodes.Add(n);
         }
     }
+
+    public bool IsLegalMove(JourneyNode _current, JourneyNode _next)
+    {
+        // next node on path
+        if (nodes.IndexOf(_next) == nodes.IndexOf(_current) + 1)
+            return true;
+
+        // nodes connected by bridge
+        foreach (JourneyBridge b in bridges)
+            if (b.from == _current && b.to == _next)
+                return true;
+
+        return false;
+    }
 }
