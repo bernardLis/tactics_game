@@ -9,8 +9,10 @@ public class JourneyNode : BaseScriptableObject
 {
     public Sprite icon;
     public JourneyNodeType nodeType;
-    public GameObject gameObject;
+
+    [HideInInspector] public GameObject gameObject;
     SpriteRenderer sr;
+    [HideInInspector] public JourneyNodeBehaviour journeyNodeBehaviour;
 
     public void Initialize(GameObject _self)
     {
@@ -19,13 +21,14 @@ public class JourneyNode : BaseScriptableObject
         gameObject.transform.localScale = new Vector3(3f, 3f);
 
         sr = gameObject.GetComponentInChildren<SpriteRenderer>();
+        journeyNodeBehaviour = gameObject.GetComponent<JourneyNodeBehaviour>();
         sr.sprite = icon;
     }
-    
+
     // TODO: do I want to do it from scriptable Object?
     public void Select()
     {
-        sr.color = Color.magenta;
+        sr.color = Color.black;
     }
 
 }

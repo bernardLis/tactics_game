@@ -663,8 +663,74 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         {
             ""name"": ""Journey"",
             ""id"": ""5d652576-3d48-449c-b167-69231d3745f7"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""ArrowMovement"",
+                    ""type"": ""Button"",
+                    ""id"": ""feda9b30-cead-44fe-a8e9-7657a039d199"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""3ea75a7b-e115-4e82-b724-ddd05dbf5132"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""a3de26a8-fc58-4c93-8238-7a7a80b48318"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8a7238d0-75eb-4bf4-8b9b-cea5714e9f1c"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4019f775-cc69-414f-95a3-263f28692435"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""aa961ebb-3da1-4bf1-b926-a5690c396496"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ArrowMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -718,6 +784,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Conversation_ConversationInteract = m_Conversation.FindAction("ConversationInteract", throwIfNotFound: true);
         // Journey
         m_Journey = asset.FindActionMap("Journey", throwIfNotFound: true);
+        m_Journey_ArrowMovement = m_Journey.FindAction("ArrowMovement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1053,10 +1120,12 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     // Journey
     private readonly InputActionMap m_Journey;
     private IJourneyActions m_JourneyActionsCallbackInterface;
+    private readonly InputAction m_Journey_ArrowMovement;
     public struct JourneyActions
     {
         private @InputMaster m_Wrapper;
         public JourneyActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ArrowMovement => m_Wrapper.m_Journey_ArrowMovement;
         public InputActionMap Get() { return m_Wrapper.m_Journey; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1066,10 +1135,16 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_JourneyActionsCallbackInterface != null)
             {
+                @ArrowMovement.started -= m_Wrapper.m_JourneyActionsCallbackInterface.OnArrowMovement;
+                @ArrowMovement.performed -= m_Wrapper.m_JourneyActionsCallbackInterface.OnArrowMovement;
+                @ArrowMovement.canceled -= m_Wrapper.m_JourneyActionsCallbackInterface.OnArrowMovement;
             }
             m_Wrapper.m_JourneyActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @ArrowMovement.started += instance.OnArrowMovement;
+                @ArrowMovement.performed += instance.OnArrowMovement;
+                @ArrowMovement.canceled += instance.OnArrowMovement;
             }
         }
     }
@@ -1119,5 +1194,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     }
     public interface IJourneyActions
     {
+        void OnArrowMovement(InputAction.CallbackContext context);
     }
 }

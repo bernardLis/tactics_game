@@ -23,7 +23,9 @@ public class JourneyMapManager : MonoBehaviour
     public JourneyNode endNodeScriptableObject;
     public GameObject journeyHolder;
     public GameObject journeyNodePrefab;
-    public GameObject onClickParticlePrefab;
+    public Material journeyLine;
+    public Material pathTravelledLine;
+
 
     PlayerInput playerInput;
 
@@ -31,11 +33,10 @@ public class JourneyMapManager : MonoBehaviour
     GameObject endNode;
 
     List<JourneyPath> journeyPaths;
-    public JourneyNode currentNode;
+    JourneyNode currentNode;
     LineRenderer pathTravelledLineRenderer;
 
-    public List<JourneyNode> availableNodes = new();
-
+    [HideInInspector] public List<JourneyNode> availableNodes = new();
 
     public static JourneyMapManager instance;
     void Awake()
@@ -92,9 +93,9 @@ public class JourneyMapManager : MonoBehaviour
         }
 
         currentNode = _node.journeyNode;
-        _node.journeyNode.Select();
         UpdateAvailableNodes();
         AnimateAvailableNodes();
+        _node.journeyNode.Select(); // after n.journeyNodeBehaviour.StopAnimating(); to keep the color
 
         // render path
         pathTravelledLineRenderer.positionCount++;
@@ -104,10 +105,7 @@ public class JourneyMapManager : MonoBehaviour
     void UpdateAvailableNodes()
     {
         foreach (JourneyNode n in availableNodes)
-        {
-            n.gameObject.transform.DOKill();
-            n.gameObject.transform.localScale = new Vector3(3f, 3f, 1f); //TODO: magic number
-        }
+            n.journeyNodeBehaviour.StopAnimating();
 
         availableNodes.Clear();
         // first node is set up in SetUpTraversal
@@ -132,7 +130,7 @@ public class JourneyMapManager : MonoBehaviour
     void AnimateAvailableNodes()
     {
         foreach (JourneyNode n in availableNodes)
-            n.gameObject.transform.DOScale(n.gameObject.transform.localScale * 1.7f, 1f).SetLoops(-1, LoopType.Yoyo);
+            n.journeyNodeBehaviour.AnimateAvailableNode();
     }
 
     bool IsLastNodeOnPath(JourneyNode _node)
@@ -221,15 +219,16 @@ public class JourneyMapManager : MonoBehaviour
 
     void DrawConnections()
     {
-
         // start gets line renderer per path and renders a line
         foreach (JourneyPath p in journeyPaths)
         {
             GameObject g = new GameObject("LineRenderer");
             g.transform.parent = startNode.gameObject.transform;
             LineRenderer lr = g.AddComponent<LineRenderer>();
+            lr.material = journeyLine;
+            lr.textureMode = LineTextureMode.Tile;
             lr.positionCount = p.nodes.Count + 2; // start + end
-            lr.startWidth = 0.5f;
+            //lr.startWidth = 0.5f;
             lr.SetPosition(0, startNode.gameObject.transform.position);
 
             for (int i = 0; i < p.nodes.Count; i++)
@@ -263,7 +262,7 @@ public class JourneyMapManager : MonoBehaviour
             JourneyNode toNode = toPath.nodes[fromNodeIndex + 1];
 
             JourneyBridge bridge = new JourneyBridge();
-            bridge.Initialize(fromNode, toNode);
+            bridge.Initialize(fromNode, toNode, journeyLine);
             fromPath.bridges.Add(bridge);
         }
     }
@@ -285,6 +284,7 @@ public class JourneyMapManager : MonoBehaviour
         GameObject g = new GameObject("PathTravelledLineRenderer");
         g.transform.parent = startNode.gameObject.transform;
         pathTravelledLineRenderer = g.AddComponent<LineRenderer>();
+        pathTravelledLineRenderer.material = pathTravelledLine;
         pathTravelledLineRenderer.startWidth = 1f;
         pathTravelledLineRenderer.material.color = Color.red;
         pathTravelledLineRenderer.positionCount = 1;
