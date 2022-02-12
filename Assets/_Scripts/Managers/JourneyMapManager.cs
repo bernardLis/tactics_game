@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
 using UnityEngine.InputSystem;
-
+using DG.Tweening;
 public class JourneyMapManager : MonoBehaviour
 {
     public int numberOfPaths = 5;
@@ -32,7 +31,25 @@ public class JourneyMapManager : MonoBehaviour
     GameObject endNode;
 
     List<JourneyPath> journeyPaths;
-    JourneyNode currentNode;
+    public JourneyNode currentNode;
+    LineRenderer pathTravelledLineRenderer;
+
+    public List<JourneyNode> availableNodes = new();
+
+
+    public static JourneyMapManager instance;
+    void Awake()
+    {
+        #region Singleton
+        // singleton
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of TurnManager found");
+            return;
+        }
+        instance = this;
+        #endregion
+    }
 
     void Start()
     {
@@ -60,69 +77,68 @@ public class JourneyMapManager : MonoBehaviour
 
     void SubscribeInputActions()
     {
-        playerInput.actions["LeftMouseClick"].performed += ctx => LeftMouseClick();
     }
 
     void UnsubscribeInputActions()
     {
-        playerInput.actions["LeftMouseClick"].performed -= ctx => LeftMouseClick();
     }
 
-    void LeftMouseClick()
+    public void NodeClick(JourneyNodeBehaviour _node)
     {
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-
-        // particle // TODO: Camera.main
-        mousePos.z = 0;
-        Destroy(Instantiate(onClickParticlePrefab, Camera.main.ScreenToWorldPoint(mousePos), Quaternion.identity), 1f);
-
-        mousePos.z = 1;
-        var collider = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(mousePos), 10f); // TODO: Camera.main
-        if (collider == null)
+        if (!availableNodes.Contains(_node.journeyNode))
+        {
+            _node.transform.DOShakePosition(1f, new Vector3(2f, 2f, 0f)); // Vector3 to not vibrate on Z - coz it can be 'hidden' 
             return;
-        if (!collider.TryGetComponent(out JourneyNodeBehaviour n))
-            return;
-        if (!IsTravelLegal(n.journeyNode))
-            return;
+        }
 
-        // TODO: not like that.
-        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, n.transform.position.y, Camera.main.transform.position.z);
-        currentNode = n.journeyNode;
-        n.journeyNode.Select();
+        currentNode = _node.journeyNode;
+        _node.journeyNode.Select();
+        UpdateAvailableNodes();
+        AnimateAvailableNodes();
+
+        // render path
+        pathTravelledLineRenderer.positionCount++;
+        pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, _node.gameObject.transform.position);
     }
 
-    bool IsTravelLegal(JourneyNode _node)
+    void UpdateAvailableNodes()
     {
-        // if we are on the start node we can only travel to nodes [0] on each path
-        if (currentNode.nodeType == JourneyNodeType.Start && IsFirstNodeOfPath(_node))
-            return true;
+        foreach (JourneyNode n in availableNodes)
+        {
+            n.gameObject.transform.DOKill();
+            n.gameObject.transform.localScale = new Vector3(3f, 3f, 1f); //TODO: magic number
+        }
+
+        availableNodes.Clear();
+        // first node is set up in SetUpTraversal
         // if we are on the last node of the path we can travel only to the end node
-        if (_node.nodeType == JourneyNodeType.End && IsLastNodeOnPath())
-            return true;
+        if (IsLastNodeOnPath(currentNode))
+        {
+            availableNodes.Add(endNode.GetComponent<JourneyNodeBehaviour>().journeyNode);
+            return;
+        }
 
-        // if we are on any other node, we can only travel to the next node on path or a node that is connected via bridge
-        JourneyPath currentPath = GetCurrentPath(currentNode);
-        if (currentPath == null)
-            return false;
+        JourneyPath p = GetCurrentPath(currentNode);
+        if (p == null)
+            return;
 
-        if (currentPath.IsLegalMove(currentNode, _node))
-            return true;
+        availableNodes.Add(p.nodes[p.nodes.IndexOf(currentNode) + 1]);
 
-        return false;
+        JourneyNode bridgeNode = p.CheckBridge(currentNode);
+        if (bridgeNode != null)
+            availableNodes.Add(bridgeNode);
     }
 
-    bool IsFirstNodeOfPath(JourneyNode _node)
+    void AnimateAvailableNodes()
     {
-        foreach (JourneyPath p in journeyPaths)
-            if (p.nodes[0] == _node)
-                return true;
-        return false;
+        foreach (JourneyNode n in availableNodes)
+            n.gameObject.transform.DOScale(n.gameObject.transform.localScale * 1.7f, 1f).SetLoops(-1, LoopType.Yoyo);
     }
 
-    bool IsLastNodeOnPath()
+    bool IsLastNodeOnPath(JourneyNode _node)
     {
         foreach (JourneyPath p in journeyPaths)
-            if (p.nodes[p.nodes.Count - 1] == currentNode)
+            if (p.nodes[p.nodes.Count - 1] == _node)
                 return true;
 
         return false;
@@ -146,6 +162,7 @@ public class JourneyMapManager : MonoBehaviour
         DrawConnections();
         AddJourneyBridges();
         SetBackground();
+        SetUpTraversal();
     }
 
     void InitialSetup()
@@ -204,6 +221,7 @@ public class JourneyMapManager : MonoBehaviour
 
     void DrawConnections()
     {
+
         // start gets line renderer per path and renders a line
         foreach (JourneyPath p in journeyPaths)
         {
@@ -254,10 +272,29 @@ public class JourneyMapManager : MonoBehaviour
     {
         GameObject g = new GameObject("Background");
         g.transform.parent = journeyHolder.transform;
+        g.layer = 2; // TODO: magic number, although it should always stay the same
         g.AddComponent<SpriteRenderer>().sprite = backgrounds[Random.Range(0, backgrounds.Length)];
         float x = GetMostRightNode().gameObject.transform.position.x * 0.5f;
         g.transform.position = new Vector3(x, endNode.transform.position.y * 0.5f, 1f); // TODO: magic numbers
         g.transform.localScale = new Vector3(numberOfPaths + 2f, endNode.transform.position.y * 0.05f); // TODO: magic numbers
+    }
+
+    void SetUpTraversal()
+    {
+        // line renderer
+        GameObject g = new GameObject("PathTravelledLineRenderer");
+        g.transform.parent = startNode.gameObject.transform;
+        pathTravelledLineRenderer = g.AddComponent<LineRenderer>();
+        pathTravelledLineRenderer.startWidth = 1f;
+        pathTravelledLineRenderer.material.color = Color.red;
+        pathTravelledLineRenderer.positionCount = 1;
+        pathTravelledLineRenderer.SetPosition(0, startNode.gameObject.transform.position);
+
+        // available nodes
+        availableNodes = new();
+        foreach (JourneyPath p in journeyPaths)
+            availableNodes.Add(p.nodes[0]);
+        AnimateAvailableNodes();
     }
 
     /* Helpers */

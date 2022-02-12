@@ -26,15 +26,21 @@ public class JourneyPath : BaseScriptableObject // needed for instantiate
 
     public bool IsLegalMove(JourneyNode _current, JourneyNode _next)
     {
+        if (nodes.IndexOf(_current) == -1) // not on path
+            return false;
+
         // next node on path
         if (nodes.IndexOf(_next) == nodes.IndexOf(_current) + 1)
             return true;
 
-        // nodes connected by bridge
-        foreach (JourneyBridge b in bridges)
-            if (b.from == _current && b.to == _next)
-                return true;
-
         return false;
+    }
+
+    public JourneyNode CheckBridge(JourneyNode _current)
+    {
+        foreach (JourneyBridge b in bridges)
+            if (b.from == _current)
+                return b.to;
+        return null;
     }
 }
