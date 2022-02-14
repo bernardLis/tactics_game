@@ -36,14 +36,10 @@ public class JourneyCameraController : MonoBehaviour
         playerInput.actions["ArrowMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
     }
 
-
     void Move(Vector2 _direction)
     {
-        Debug.Log("move: " + _direction);
         Vector3 change = Vector3.one * _direction * 30f;
         Vector3 endPos = transform.position + change;
         transform.DOMove(endPos, 0.5f);
     }
-
-
 }

@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="UI" style="width: 40%; height: 100%;">
+        <ui:VisualElement name="runInformationContainer">
+            <ui:Label text="Current Run:" display-tooltip-when-elided="true" style="font-size: 30px; -unity-font: resource(&apos;Fonts &amp; Materials/LiberationSans&apos;); color: rgb(255, 255, 255);" />
+            <ui:VisualElement name="currencyContainer" style="flex-direction: row;">
+                <ui:Label display-tooltip-when-elided="true" name="currencyIcon" style="background-image: url(&apos;project://database/Assets/Sprites/Journey/obol.png?fileID=2800000&amp;guid=ad5c4b9d1e718544886f737b294085c5&amp;type=3#obol&apos;); width: 100px; height: 100px;" />
+                <ui:Label text="24" display-tooltip-when-elided="true" name="currencyAmount" style="-unity-text-align: middle-left; font-size: 54px; -unity-font: resource(&apos;Fonts &amp; Materials/LiberationSans&apos;); color: rgb(255, 255, 255); margin-left: 8px;" />
+            </ui:VisualElement>
+            <ui:Button text="View troops" display-tooltip-when-elided="true" />
+            <ui:Button text="View inventory" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

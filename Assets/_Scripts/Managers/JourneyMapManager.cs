@@ -96,7 +96,8 @@ public class JourneyMapManager : MonoBehaviour
         UpdateAvailableNodes();
         AnimateAvailableNodes();
         _node.journeyNode.Select(); // after n.journeyNodeBehaviour.StopAnimating(); to keep the color
-
+        _node.DrawCircle();
+        
         // render path
         pathTravelledLineRenderer.positionCount++;
         pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, _node.gameObject.transform.position);
