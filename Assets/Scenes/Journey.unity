@@ -1580,9 +1580,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 375417099}
+  - component: {fileID: 375417100}
   - component: {fileID: 375417101}
   - component: {fileID: 375417098}
-  - component: {fileID: 375417100}
+  - component: {fileID: 375417102}
   m_Layer: 0
   m_Name: NodeMapManager
   m_TagString: Untagged
@@ -1690,6 +1691,18 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 6db02e70e6e25214fb836d2a68ad9df4, type: 3}
   m_SortingOrder: 0
+--- !u!114 &375417102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375417097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977e349851823014c8fa58514ad0448d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &392101971
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 public class JourneyMapManager : MonoBehaviour
 {
+    public int obols { get; private set; }
+
     public int numberOfPaths = 5;
     public int numberOfRows = 7;
     public int numberOfBridges = 5;
@@ -27,6 +29,7 @@ public class JourneyMapManager : MonoBehaviour
     public Material pathTravelledLine;
 
 
+    JourneyMapUI journeyMapUI;
     PlayerInput playerInput;
 
     GameObject startNode; // TODO: that's a bit confusing with scriptable object and node itself... 
@@ -54,8 +57,17 @@ public class JourneyMapManager : MonoBehaviour
 
     void Start()
     {
+        journeyMapUI = GetComponent<JourneyMapUI>();
         playerInput = GetComponent<PlayerInput>();
         GenerateJourney();
+    }
+
+    /* CURRENCY */
+
+    public void ChangeObols(int _amount)
+    {
+        obols += _amount;
+        journeyMapUI.ChangeObols(obols - _amount, obols);
     }
 
     /* INPUT */
@@ -97,7 +109,8 @@ public class JourneyMapManager : MonoBehaviour
         AnimateAvailableNodes();
         _node.journeyNode.Select(); // after n.journeyNodeBehaviour.StopAnimating(); to keep the color
         _node.DrawCircle();
-        
+        ChangeObols(_node.journeyNode.nodeObols);
+
         // render path
         pathTravelledLineRenderer.positionCount++;
         pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, _node.gameObject.transform.position);
