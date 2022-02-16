@@ -7,7 +7,7 @@ public class JourneyPathConfig : BaseScriptableObject
 {
     [Tooltip("inclusive, exclusive")]
     public Vector2 nodeIndexRange;
-    public JourneyNode node;
+    public JourneyNode[] nodes;
     [Range(0, 1)]
     public float chanceToIgnore;
 }

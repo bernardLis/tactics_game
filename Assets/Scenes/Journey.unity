@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 1418224277}
 --- !u!1 &19517409
 GameObject:
@@ -418,7 +419,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66496532}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 55, z: 0}
+  m_LocalPosition: {x: -48.6, y: 124.9, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -486,7 +487,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 1787461477}
+--- !u!1 &118181012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 118181014}
+  - component: {fileID: 118181013}
+  m_Layer: 0
+  m_Name: JourneyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &118181013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118181012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a5a222abe45dc40bc3e638135b656c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  journeyPaths: []
+  visitedNodes: []
+--- !u!4 &118181014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118181012}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &135013495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,6 +550,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 1154628806}
   journeyNodeBehaviour: {fileID: 1154628810}
 --- !u!1 &143133636
@@ -599,6 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 669401959}
 --- !u!1 &146693746
 GameObject:
@@ -1015,6 +1067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 1803773654}
 --- !u!1 &236497320
 GameObject:
@@ -1136,6 +1189,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 819026615}
   journeyNodeBehaviour: {fileID: 819026619}
 --- !u!1 &276394532
@@ -1233,6 +1289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 2081965197}
 --- !u!1 &332184644
 GameObject:
@@ -1329,6 +1386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 786536144}
 --- !u!1 &336021472
 GameObject:
@@ -1585,7 +1643,7 @@ GameObject:
   - component: {fileID: 375417098}
   - component: {fileID: 375417102}
   m_Layer: 0
-  m_Name: NodeMapManager
+  m_Name: JourneyMapManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1703,6 +1761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977e349851823014c8fa58514ad0448d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obolObject: {fileID: 4198658476046925160, guid: 766bc13060cef0c4196303962a9eb56c, type: 3}
 --- !u!1 &392101971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,6 +1857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 1690382181}
 --- !u!1 &431990287
 GameObject:
@@ -1863,6 +1923,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 2074892515}
   journeyNodeBehaviour: {fileID: 2074892519}
 --- !u!1 &499842465
@@ -2336,6 +2399,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 143133636}
   journeyNodeBehaviour: {fileID: 143133640}
 --- !u!114 &675782311
@@ -2353,6 +2419,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 1664654701}
   journeyNodeBehaviour: {fileID: 1664654705}
 --- !u!1 &725759705
@@ -2775,6 +2844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 2026457198}
 --- !u!1 &776826716
 GameObject:
@@ -2980,6 +3050,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 69556d3833f6a4144bdb3dc8f234b270, type: 3}
   nodeType: 1
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 332184644}
   journeyNodeBehaviour: {fileID: 332184648}
 --- !u!1 &819026615
@@ -3077,6 +3150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 267555353}
 --- !u!1 &857681599
 GameObject:
@@ -3278,6 +3352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 1079012083}
 --- !u!1 &928371604
 GameObject:
@@ -3288,7 +3363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 928371606}
-  - component: {fileID: 928371605}
+  - component: {fileID: 928371608}
   - component: {fileID: 928371607}
   m_Layer: 0
   m_Name: EventSystem
@@ -3297,21 +3372,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &928371605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928371604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
 --- !u!4 &928371606
 Transform:
   m_ObjectHideFlags: 0
@@ -3355,6 +3415,21 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+--- !u!114 &928371608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928371604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
 --- !u!1 &933647024
 GameObject:
   m_ObjectHideFlags: 0
@@ -3555,6 +3630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 1664117835}
 --- !u!1 &972740224
 GameObject:
@@ -4201,6 +4277,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 868907273}
   journeyNodeBehaviour: {fileID: 868907277}
 --- !u!1 &1154628806
@@ -4298,6 +4377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 135013495}
 --- !u!1 &1207577446
 GameObject:
@@ -5011,6 +5091,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 1481883849}
   journeyNodeBehaviour: {fileID: 1481883853}
 --- !u!1 &1324866417
@@ -5238,6 +5321,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 6d220d0fead5c4844a5dd1c7252aaca6, type: 3}
   nodeType: 0
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 16247145}
   journeyNodeBehaviour: {fileID: 16247149}
 --- !u!1 &1455950226
@@ -5335,6 +5421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 2136172753}
 --- !u!1 &1461345546
 GameObject:
@@ -5580,6 +5667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 1319168344}
 --- !u!21 &1541377035
 Material:
@@ -5761,6 +5849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 1646601023}
 --- !u!1 &1627889760
 GameObject:
@@ -5966,6 +6055,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 1558464387}
   journeyNodeBehaviour: {fileID: 1558464391}
 --- !u!114 &1664117835
@@ -5983,6 +6075,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 943943008}
   journeyNodeBehaviour: {fileID: 943943012}
 --- !u!1 &1664654701
@@ -6080,6 +6175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 675782311}
 --- !u!114 &1690382181
 MonoBehaviour:
@@ -6096,6 +6192,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: fe6e968ba925ea041810fcebb33faf66, type: 3}
   nodeType: 7
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 392101971}
   journeyNodeBehaviour: {fileID: 392101975}
 --- !u!1 &1696753023
@@ -6281,6 +6380,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 66496532}
   journeyNodeBehaviour: {fileID: 66496536}
 --- !u!114 &1803773654
@@ -6298,6 +6400,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 219718982}
   journeyNodeBehaviour: {fileID: 219718986}
 --- !u!1 &1991978506
@@ -6420,6 +6525,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 764672279}
   journeyNodeBehaviour: {fileID: 764672283}
 --- !u!1 &2034316416
@@ -6601,6 +6709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visitedGFX: {fileID: 0}
   journeyNode: {fileID: 472527223}
 --- !u!114 &2081965197
 MonoBehaviour:
@@ -6617,6 +6726,9 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 276394532}
   journeyNodeBehaviour: {fileID: 276394536}
 --- !u!114 &2136172753
@@ -6634,5 +6746,8 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
+  nodeObols: 0
+  journeyEvent: {fileID: 0}
+  sceneToLoad: 
   gameObject: {fileID: 1455950226}
   journeyNodeBehaviour: {fileID: 1455950230}

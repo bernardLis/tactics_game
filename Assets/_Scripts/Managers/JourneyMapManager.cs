@@ -4,6 +4,8 @@ using Random = UnityEngine.Random;
 using System.Linq;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
+
 public class JourneyMapManager : MonoBehaviour
 {
     public int obols { get; private set; }
@@ -29,6 +31,7 @@ public class JourneyMapManager : MonoBehaviour
     public Material pathTravelledLine;
 
 
+    JourneyManager journeyManager;
     JourneyMapUI journeyMapUI;
     PlayerInput playerInput;
 
@@ -36,7 +39,7 @@ public class JourneyMapManager : MonoBehaviour
     GameObject endNode;
 
     List<JourneyPath> journeyPaths;
-    JourneyNode currentNode;
+    public JourneyNode currentNode { get; private set; }
     LineRenderer pathTravelledLineRenderer;
 
     [HideInInspector] public List<JourneyNode> availableNodes = new();
@@ -57,111 +60,10 @@ public class JourneyMapManager : MonoBehaviour
 
     void Start()
     {
+        journeyManager = JourneyManager.instance;
         journeyMapUI = GetComponent<JourneyMapUI>();
         playerInput = GetComponent<PlayerInput>();
         GenerateJourney();
-    }
-
-    /* CURRENCY */
-
-    public void ChangeObols(int _amount)
-    {
-        obols += _amount;
-        journeyMapUI.ChangeObols(obols - _amount, obols);
-    }
-
-    /* INPUT */
-    void OnEnable()
-    {
-        // inputs
-        playerInput = GetComponent<PlayerInput>();
-
-        SubscribeInputActions();
-    }
-
-    void OnDisable()
-    {
-        if (playerInput == null)
-            return;
-
-        UnsubscribeInputActions();
-    }
-
-
-    void SubscribeInputActions()
-    {
-    }
-
-    void UnsubscribeInputActions()
-    {
-    }
-
-    public void NodeClick(JourneyNodeBehaviour _node)
-    {
-        if (!availableNodes.Contains(_node.journeyNode))
-        {
-            _node.transform.DOShakePosition(1f, new Vector3(2f, 2f, 0f)); // Vector3 to not vibrate on Z - coz it can be 'hidden' 
-            return;
-        }
-
-        currentNode = _node.journeyNode;
-        UpdateAvailableNodes();
-        AnimateAvailableNodes();
-        _node.journeyNode.Select(); // after n.journeyNodeBehaviour.StopAnimating(); to keep the color
-        _node.DrawCircle();
-        ChangeObols(_node.journeyNode.nodeObols);
-
-        // render path
-        pathTravelledLineRenderer.positionCount++;
-        pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, _node.gameObject.transform.position);
-    }
-
-    void UpdateAvailableNodes()
-    {
-        foreach (JourneyNode n in availableNodes)
-            n.journeyNodeBehaviour.StopAnimating();
-
-        availableNodes.Clear();
-        // first node is set up in SetUpTraversal
-        // if we are on the last node of the path we can travel only to the end node
-        if (IsLastNodeOnPath(currentNode))
-        {
-            availableNodes.Add(endNode.GetComponent<JourneyNodeBehaviour>().journeyNode);
-            return;
-        }
-
-        JourneyPath p = GetCurrentPath(currentNode);
-        if (p == null)
-            return;
-
-        availableNodes.Add(p.nodes[p.nodes.IndexOf(currentNode) + 1]);
-
-        JourneyNode bridgeNode = p.CheckBridge(currentNode);
-        if (bridgeNode != null)
-            availableNodes.Add(bridgeNode);
-    }
-
-    void AnimateAvailableNodes()
-    {
-        foreach (JourneyNode n in availableNodes)
-            n.journeyNodeBehaviour.AnimateAvailableNode();
-    }
-
-    bool IsLastNodeOnPath(JourneyNode _node)
-    {
-        foreach (JourneyPath p in journeyPaths)
-            if (p.nodes[p.nodes.Count - 1] == _node)
-                return true;
-
-        return false;
-    }
-
-    JourneyPath GetCurrentPath(JourneyNode _node)
-    {
-        foreach (JourneyPath p in journeyPaths)
-            if (p.nodes.Contains(currentNode))
-                return p;
-        return null;
     }
 
     /* JOURNEY GENERATION */
@@ -175,27 +77,41 @@ public class JourneyMapManager : MonoBehaviour
         AddJourneyBridges();
         SetBackground();
         SetUpTraversal();
+        LoadData();
     }
 
     void InitialSetup()
     {
-        seed = System.DateTime.Now.Millisecond;
+        seed = journeyManager.journeySeed;
+        if (journeyManager.journeySeed == 0) // TODO: this is a bad idea probably.
+        {
+            seed = System.DateTime.Now.Millisecond;
+            journeyManager.SetJourneySeed(seed);
+        }
+
         Random.InitState(seed);
 
         var tempList = journeyHolder.transform.Cast<Transform>().ToList();
         foreach (Transform child in tempList)
-            DestroyImmediate(child.gameObject); // TODO: destory
+            Destroy(child.gameObject);
     }
 
     void CreatePaths()
     {
-        journeyPaths = new();
+        // use paths stored in object that is not destroyed between scenes, if there are any (cat comment)
+        if (journeyManager.journeyPaths.Count != 0)
+        {
+            journeyPaths = journeyManager.journeyPaths;
+            return;
+        }
 
+        journeyPaths = new();
         for (int i = 0; i < numberOfPaths; i++)
         {
             JourneyPath jp = ScriptableObject.CreateInstance<JourneyPath>();
             jp.CreatePath(numberOfRows, journeyNodes, basicConfigs);
             journeyPaths.Add(jp);
+            journeyManager.journeyPaths.Add(jp);
         }
     }
     void DisplayNodes()
@@ -205,6 +121,7 @@ public class JourneyMapManager : MonoBehaviour
         JourneyNode startNodeInstance = Instantiate(startNodeScriptableObject);
         InstantiateNode(startNodeInstance, new Vector3(centerX, 0f));
         startNode = startNodeInstance.gameObject;
+
         currentNode = startNodeInstance;
         currentNode.Select();
 
@@ -311,6 +228,95 @@ public class JourneyMapManager : MonoBehaviour
         AnimateAvailableNodes();
     }
 
+    void LoadData()
+    {
+        if (journeyManager.visitedNodes.Count == 0)
+            return;
+
+        currentNode = journeyManager.currentJourneyNode;
+
+        // this is a problem because these nodes don't exist anymore, they are instantiated again.
+        foreach (JourneyNode n in journeyManager.visitedNodes)
+        {
+            CameBackToJourney();
+
+            n.journeyNodeBehaviour.MarkAsVisited();
+
+            // render path
+            pathTravelledLineRenderer.positionCount++;
+            pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, n.gameObject.transform.position);
+        }
+    }
+
+    public void CameBackToJourney()
+    {
+        // and when I come back, I would like to run this:
+        UpdateAvailableNodes();
+        AnimateAvailableNodes();
+        //ChangeObols(_node.journeyNode.nodeObols);
+    }
+
+    void UpdateAvailableNodes()
+    {
+        foreach (JourneyNode n in availableNodes)
+            n.journeyNodeBehaviour.StopAnimating();
+
+        availableNodes.Clear();
+        // first node is set up in SetUpTraversal
+        // if we are on the last node of the path we can travel only to the end node
+        if (IsLastNodeOnPath(currentNode))
+        {
+            availableNodes.Add(endNode.GetComponent<JourneyNodeBehaviour>().journeyNode);
+            return;
+        }
+
+        JourneyPath p = GetCurrentPath(currentNode);
+        if (p == null)
+            return;
+
+        availableNodes.Add(p.nodes[p.nodes.IndexOf(currentNode) + 1]);
+
+        JourneyNode bridgeNode = p.CheckBridge(currentNode);
+        if (bridgeNode != null)
+            availableNodes.Add(bridgeNode);
+    }
+
+    public void NodeClick(JourneyNodeBehaviour _node)
+    {
+        if (!availableNodes.Contains(_node.journeyNode))
+        {
+            _node.transform.DOShakePosition(1f, new Vector3(2f, 2f, 0f)); // Vector3 to not vibrate on Z - coz it can be 'hidden' 
+            return;
+        }
+
+        SelectNode(_node);
+    }
+
+    void SelectNode(JourneyNodeBehaviour _node)
+    {
+        Camera.main.GetComponent<JourneyCameraController>().UnsubscribeInputActions();
+        DOTween.KillAll();
+
+        _node.DrawCircle();
+        _node.journeyNode.Select(); // after n.journeyNodeBehaviour.StopAnimating(); to keep the color
+        currentNode = _node.journeyNode;
+        journeyManager.SetCurrentJourneyNode(_node.journeyNode);
+
+        // render path
+        pathTravelledLineRenderer.positionCount++;
+        pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, _node.gameObject.transform.position);
+
+        // So, here I would like to transition to a scene depending on the node
+        // I also need to make sure this journey and all data is remembered between scene transitions 
+        if (_node.journeyNode.nodeType == JourneyNodeType.Event)
+            Invoke("ChangeScene", 1f); // TODO: smarter
+    }
+
+    void ChangeScene() // TODO: smarter
+    {
+        SceneManager.LoadScene(currentNode.sceneToLoad);
+    }
+
     /* Helpers */
     void InstantiateNode(JourneyNode _n, Vector3 _pos)
     {
@@ -324,5 +330,34 @@ public class JourneyMapManager : MonoBehaviour
     JourneyNode GetMostRightNode()
     {
         return journeyPaths[journeyPaths.Count - 1].nodes[0];
+    }
+
+    bool IsLastNodeOnPath(JourneyNode _node)
+    {
+        foreach (JourneyPath p in journeyPaths)
+            if (p.nodes[p.nodes.Count - 1] == _node)
+                return true;
+
+        return false;
+    }
+
+    JourneyPath GetCurrentPath(JourneyNode _node)
+    {
+        foreach (JourneyPath p in journeyPaths)
+            if (p.nodes.Contains(currentNode))
+                return p;
+        return null;
+    }
+
+    void AnimateAvailableNodes()
+    {
+        foreach (JourneyNode n in availableNodes)
+            n.journeyNodeBehaviour.AnimateAvailableNode();
+    }
+
+    public void ChangeObols(int _amount)
+    {
+        obols += _amount;
+        journeyMapUI.ChangeObols(obols - _amount, obols);
     }
 }

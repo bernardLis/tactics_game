@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum JourneyNodeType { Start, End, Battle, Knowledge, Chest, Blacksmith, Fire, Boss }
+public enum JourneyNodeType { Start, End, Battle, Knowledge, Chest, Blacksmith, Fire, Boss, Event }
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/Node")]
 public class JourneyNode : BaseScriptableObject
 {
     public Sprite icon;
     public JourneyNodeType nodeType;
     public int nodeObols;
+    public JourneyEvent journeyEvent;
+    public string sceneToLoad;
 
     [HideInInspector] public GameObject gameObject;
     SpriteRenderer sr;

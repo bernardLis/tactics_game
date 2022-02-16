@@ -51,17 +51,21 @@ public class JourneyMapUI : MonoBehaviour
             else
                 current--;
 
-            currencyAmount.text = current.ToString();
             SpawnObol();
             yield return new WaitForSeconds(0.1f);
+            currencyAmount.text = current.ToString();
+
         }
     }
 
     void SpawnObol()
     {
-        Vector3 pos = currencyAmount.contentRect.center;
-        Debug.Log("pos: " + pos);
-        Destroy(Instantiate(obolObject, pos, Quaternion.identity), 2f);
+
+        Vector3 pos = JourneyMapManager.instance.currentNode.gameObject.transform.position;
+        GameObject g = Instantiate(obolObject, pos, Quaternion.identity);
+        Vector3 toPos = Camera.main.ScreenToWorldPoint(new Vector3(0f, Screen.height));
+        g.transform.DOMove(toPos, 1f);
+        Destroy(g, 1.1f);
     }
 
     public void ShowNodeInfo(JourneyNode _node)

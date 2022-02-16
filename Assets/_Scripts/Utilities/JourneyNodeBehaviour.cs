@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 
 public class JourneyNodeBehaviour : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public SpriteRenderer visitedGFX;
+
     public JourneyNode journeyNode;
     JourneyMapManager journeyMapManager;
     JourneyMapUI journeyMapUI;
     SpriteRenderer sr;
 
     Vector3 originalScale;
+
+
 
     public void Initialize(JourneyNode _jn)
     {
@@ -61,9 +65,14 @@ public class JourneyNodeBehaviour : MonoBehaviour, IPointerClickHandler, IPointe
 
     public void DrawCircle()
     {
-
         Animator anim = GetComponentInChildren<Animator>();
         anim.enabled = true;
+    }
+
+    public void MarkAsVisited()
+    {
+        sr.color = Color.black;
+        visitedGFX.enabled = true;
     }
 
 }

@@ -14,7 +14,7 @@ public class JourneyPath : BaseScriptableObject // needed for instantiate
             JourneyNode nodeToInstantiate = null;
             foreach (JourneyPathConfig c in _configs)
                 if (c.nodeIndexRange.x <= i && c.nodeIndexRange.y > i && Random.Range(0f, 1f) > c.chanceToIgnore)
-                    nodeToInstantiate = c.node;
+                    nodeToInstantiate = c.nodes[Random.Range(0, c.nodes.Length)];
 
             if (nodeToInstantiate == null)
                 nodeToInstantiate = _nodes[Random.Range(0, _nodes.Length)];
