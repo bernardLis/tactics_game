@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: ea7d74d2-4ade-4234-87fa-edbbaca752fc
   text: You kick the boys and save the dog.
-  numberOfObols: -2
+  response: Apparently, the dog has owner, who is happy to see his puppy. You are
+    rewarded.
+  reward: {fileID: 11400000, guid: 255402bbe5d4e324b88c799485cfd5eb, type: 2}

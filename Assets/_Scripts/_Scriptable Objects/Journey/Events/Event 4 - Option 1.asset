@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: ea7d74d2-4ade-4234-87fa-edbbaca752fc
   text: You tell the police.
-  numberOfObols: 2
+  response: They reward you.
+  reward: {fileID: 11400000, guid: 255402bbe5d4e324b88c799485cfd5eb, type: 2}

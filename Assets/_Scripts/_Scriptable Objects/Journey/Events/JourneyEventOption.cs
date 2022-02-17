@@ -5,6 +5,7 @@ using UnityEngine;
 public class JourneyEventOption : BaseScriptableObject
 {
     public string text;
+    public string response;
     public JourneyNodeReward reward; // TODO: how do I store rewards? 
-	
+
 }

@@ -7,7 +7,6 @@ public class JourneyNode : BaseScriptableObject
 {
     public Sprite icon;
     public JourneyNodeType nodeType;
-    public int nodeObols;
     public string sceneToLoad;
 
     [HideInInspector] public GameObject gameObject;
@@ -19,8 +18,6 @@ public class JourneyNode : BaseScriptableObject
         gameObject = _self;
         gameObject.name = name;
         gameObject.transform.localScale = new Vector3(3f, 3f);
-
-        nodeObols = Random.Range(0, 10);
 
         sr = gameObject.GetComponentInChildren<SpriteRenderer>();
         journeyNodeBehaviour = gameObject.GetComponent<JourneyNodeBehaviour>();

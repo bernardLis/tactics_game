@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JourneyManager : MonoBehaviour
 {
+    public bool wasJourneySetUp { get; private set; }
     public int journeySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
     public JourneyNode currentJourneyNode { get; private set; }
     public int obols { get; private set; }
@@ -15,7 +16,7 @@ public class JourneyManager : MonoBehaviour
     List<JourneyEvent> availableEvents;
 
     [HideInInspector] public List<JourneyPath> journeyPaths = new();
-    [HideInInspector] public List<JourneyNode> visitedNodes = new();
+    public List<JourneyNode> visitedNodes = new();
 
 
     public static JourneyManager instance;
@@ -38,6 +39,11 @@ public class JourneyManager : MonoBehaviour
         #endregion
         // copy array to list;
         availableEvents = new(allEvents);
+    }
+
+    public void JourneyWasSetUp(bool _was) // TODO: better naming
+    {
+        wasJourneySetUp = _was;
     }
 
     public void SetJourneySeed(int _s)

@@ -8,7 +8,6 @@
         </ui:VisualElement>
         <ui:VisualElement name="nodeInfo" style="margin-top: 20px; display: flex; visibility: hidden;">
             <ui:Label text="Label" display-tooltip-when-elided="true" name="nodeType" style="font-size: 48px; color: rgb(255, 255, 255);" />
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="nodeObols" style="font-size: 48px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
         <ui:Button text="View troops" display-tooltip-when-elided="true" style="font-size: 14px; margin-top: 20px;" />
     </ui:VisualElement>

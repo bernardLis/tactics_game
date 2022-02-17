@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: ea7d74d2-4ade-4234-87fa-edbbaca752fc
   text: You help her beat her husband.
-  reward: {fileID: 0}
+  response: The police comes and fines you.
+  reward: {fileID: 11400000, guid: 747eb6c51dec6ea498636d5e0ef0d892, type: 2}

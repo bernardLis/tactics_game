@@ -90,7 +90,6 @@ public class JourneyMapUI : MonoBehaviour
     {
         nodeInfo.style.visibility = Visibility.Visible;
         nodeType.text = _node.nodeType.ToString();
-        nodeObols.text = _node.nodeObols.ToString();
     }
 
     public void HideNodeInfo()

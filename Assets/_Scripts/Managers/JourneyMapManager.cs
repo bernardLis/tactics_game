@@ -27,7 +27,6 @@ public class JourneyMapManager : MonoBehaviour
     public Material journeyLine;
     public Material pathTravelledLine;
 
-
     JourneyManager journeyManager;
     LevelLoader levelLoader;
     JourneyMapUI journeyMapUI;
@@ -76,6 +75,7 @@ public class JourneyMapManager : MonoBehaviour
         AddJourneyBridges();
         SetBackground();
         SetUpTraversal();
+        journeyManager.JourneyWasSetUp(true);
         LoadData();
     }
 
@@ -98,7 +98,7 @@ public class JourneyMapManager : MonoBehaviour
     void CreatePaths()
     {
         // use paths stored in object that is not destroyed between scenes, if there are any (cat comment)
-        if (journeyManager.journeyPaths.Count != 0)
+        if (journeyManager.wasJourneySetUp)
         {
             journeyPaths = journeyManager.journeyPaths;
             return;
@@ -121,8 +121,8 @@ public class JourneyMapManager : MonoBehaviour
         InstantiateNode(startNodeInstance, new Vector3(centerX, 0f));
         startNode = startNodeInstance.gameObject;
 
-        currentNode = startNodeInstance;
-        currentNode.Select();
+        if(journeyManager.wasJourneySetUp)
+            startNode.GetComponent<JourneyNodeBehaviour>().MarkAsVisited();
 
         int x = 0;
         int y = Random.Range(30, 60);
@@ -170,6 +170,13 @@ public class JourneyMapManager : MonoBehaviour
 
     void AddJourneyBridges()
     {
+        // we are coming back to journey - bridges should stay the same
+        if (journeyManager.wasJourneySetUp)
+        {
+            RecreateBridges();
+            return;
+        }
+
         if (numberOfPaths == 1)
             return;
 
@@ -197,6 +204,18 @@ public class JourneyMapManager : MonoBehaviour
         }
     }
 
+    void RecreateBridges()
+    {
+        foreach (JourneyPath p in journeyManager.journeyPaths)
+        {
+            foreach (JourneyBridge b in p.bridges)
+            {
+                JourneyBridge bridge = new JourneyBridge();
+                bridge.Initialize(b.from, b.to, journeyLine);
+            }
+        }
+    }
+
     void SetBackground()
     {
         GameObject g = new GameObject("Background");
@@ -220,17 +239,24 @@ public class JourneyMapManager : MonoBehaviour
         pathTravelledLineRenderer.positionCount = 1;
         pathTravelledLineRenderer.SetPosition(0, startNode.gameObject.transform.position);
 
-        // available nodes
-        availableNodes = new();
-        foreach (JourneyPath p in journeyPaths)
-            availableNodes.Add(p.nodes[0]);
-        AnimateAvailableNodes();
     }
 
     void LoadData()
     {
+        // TODO: this can be improved
         if (journeyManager.visitedNodes.Count == 0)
+        {
+            currentNode = startNode.GetComponent<JourneyNodeBehaviour>().journeyNode;
+            currentNode.Select();
+
+            // available nodes
+            availableNodes = new();
+            foreach (JourneyPath p in journeyPaths)
+                availableNodes.Add(p.nodes[0]);
+            AnimateAvailableNodes();
+
             return;
+        }
 
         currentNode = journeyManager.currentJourneyNode;
 
@@ -265,9 +291,10 @@ public class JourneyMapManager : MonoBehaviour
 
     void UpdateAvailableNodes()
     {
+        /*
         foreach (JourneyNode n in availableNodes)
             n.journeyNodeBehaviour.StopAnimating();
-
+        */
         availableNodes.Clear();
         // first node is set up in SetUpTraversal
         // if we are on the last node of the path we can travel only to the end node
@@ -359,7 +386,6 @@ public class JourneyMapManager : MonoBehaviour
 
     public void ChangeObols(int _amount)
     {
-        Debug.Log("change obols " + _amount);
         int obols = journeyManager.obols;
         obols += _amount;
         Mathf.Clamp(obols, 0, Mathf.Infinity);
