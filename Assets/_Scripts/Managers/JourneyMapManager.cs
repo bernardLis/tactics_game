@@ -4,12 +4,9 @@ using Random = UnityEngine.Random;
 using System.Linq;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
 
 public class JourneyMapManager : MonoBehaviour
 {
-    public int obols { get; private set; }
-
     public int numberOfPaths = 5;
     public int numberOfRows = 7;
     public int numberOfBridges = 5;
@@ -32,6 +29,7 @@ public class JourneyMapManager : MonoBehaviour
 
 
     JourneyManager journeyManager;
+    LevelLoader levelLoader;
     JourneyMapUI journeyMapUI;
     PlayerInput playerInput;
 
@@ -61,6 +59,7 @@ public class JourneyMapManager : MonoBehaviour
     void Start()
     {
         journeyManager = JourneyManager.instance;
+        levelLoader = journeyManager.GetComponent<LevelLoader>();
         journeyMapUI = GetComponent<JourneyMapUI>();
         playerInput = GetComponent<PlayerInput>();
         GenerateJourney();
@@ -235,25 +234,33 @@ public class JourneyMapManager : MonoBehaviour
 
         currentNode = journeyManager.currentJourneyNode;
 
-        // this is a problem because these nodes don't exist anymore, they are instantiated again.
         foreach (JourneyNode n in journeyManager.visitedNodes)
         {
-            CameBackToJourney();
-
             n.journeyNodeBehaviour.MarkAsVisited();
 
             // render path
             pathTravelledLineRenderer.positionCount++;
             pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, n.gameObject.transform.position);
         }
+
+        ResolveBackToJourney();
     }
 
-    public void CameBackToJourney()
+    public void ResolveBackToJourney()
     {
         // and when I come back, I would like to run this:
+        Invoke("ResolveRewards", 1f); // TODO: better way - waiting for the level loader to transition
         UpdateAvailableNodes();
         AnimateAvailableNodes();
-        //ChangeObols(_node.journeyNode.nodeObols);
+    }
+
+    void ResolveRewards()
+    {
+        if (journeyManager.reward == null)
+            return;
+
+        ChangeObols(journeyManager.reward.obols);
+        journeyManager.SetNodeReward(null);
     }
 
     void UpdateAvailableNodes()
@@ -309,12 +316,7 @@ public class JourneyMapManager : MonoBehaviour
         // So, here I would like to transition to a scene depending on the node
         // I also need to make sure this journey and all data is remembered between scene transitions 
         if (_node.journeyNode.nodeType == JourneyNodeType.Event)
-            Invoke("ChangeScene", 1f); // TODO: smarter
-    }
-
-    void ChangeScene() // TODO: smarter
-    {
-        SceneManager.LoadScene(currentNode.sceneToLoad);
+            levelLoader.ChangeScene(currentNode.sceneToLoad);
     }
 
     /* Helpers */
@@ -357,7 +359,11 @@ public class JourneyMapManager : MonoBehaviour
 
     public void ChangeObols(int _amount)
     {
+        Debug.Log("change obols " + _amount);
+        int obols = journeyManager.obols;
         obols += _amount;
+        Mathf.Clamp(obols, 0, Mathf.Infinity);
+        journeyManager.SetObols(obols);
         journeyMapUI.ChangeObols(obols - _amount, obols);
     }
 }

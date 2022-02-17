@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Event Node 3
+  m_Name: Event
   m_EditorClassIdentifier: 
   id: fe773f89-1fdf-4730-b790-4fa22cafb217
   icon: {fileID: 21300000, guid: 3a72c8a5fa788c04da48de94f0db4ad7, type: 3}
   nodeType: 8
   nodeObols: 0
-  journeyEvent: {fileID: 11400000, guid: c4797b46d258a8944848dd5522d53c6e, type: 2}
+  journeyEvent: {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
   sceneToLoad: Event
   gameObject: {fileID: 0}
   journeyNodeBehaviour: {fileID: 0}

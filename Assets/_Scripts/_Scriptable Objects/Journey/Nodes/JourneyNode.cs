@@ -8,7 +8,6 @@ public class JourneyNode : BaseScriptableObject
     public Sprite icon;
     public JourneyNodeType nodeType;
     public int nodeObols;
-    public JourneyEvent journeyEvent;
     public string sceneToLoad;
 
     [HideInInspector] public GameObject gameObject;

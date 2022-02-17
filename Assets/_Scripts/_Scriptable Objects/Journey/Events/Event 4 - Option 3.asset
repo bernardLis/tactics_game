@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Event 4 - Option 3
   m_EditorClassIdentifier: 
   id: ea7d74d2-4ade-4234-87fa-edbbaca752fc
-  text: You force him to give you that apple.
+  text: You force him to give you the apple.
   numberOfObols: 2

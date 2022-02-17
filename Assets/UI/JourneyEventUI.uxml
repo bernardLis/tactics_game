@@ -1,10 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIStyles/JourneyEventUIStyles.uss?fileID=7433441132597879392&amp;guid=7e44c691ad9dde445b842759737adfb1&amp;type=3#JourneyEventUIStyles" />
     <ui:VisualElement name="eventWrapper" style="width: 100%; height: 100%;">
-        <ui:Label text="Label" display-tooltip-when-elided="true" name="eventDescription" />
-        <ui:VisualElement name="optionsWrapper">
-            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionTwo" />
-            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionThree" />
-            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionOne" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="eventDescription" style="margin-left: 20%; margin-right: 20%; margin-top: 20px; margin-bottom: 20px; font-size: 44px; -unity-text-align: middle-center; color: rgb(255, 255, 255); white-space: normal;" />
+        <ui:VisualElement name="optionsWrapper" style="padding-left: 20%; padding-right: 20%; padding-top: 20px; padding-bottom: 20px;">
+            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionTwo" class="optionButton" style="background-color: rgba(88, 88, 88, 0.36);" />
+            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionThree" class="optionButton" />
+            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionOne" class="optionButton" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

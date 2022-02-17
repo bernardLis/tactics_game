@@ -4,11 +4,11 @@ using UnityEngine;
 using DG.Tweening;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 
 public class JourneyEventManager : MonoBehaviour
 {
     JourneyManager journeyManager;
+    LevelLoader levelLoader;
 
     UIDocument UIDocument;
     Label eventDescription;
@@ -17,10 +17,10 @@ public class JourneyEventManager : MonoBehaviour
 
     JourneyEvent journeyEvent;
 
-
     void Awake()
     {
         journeyManager = JourneyManager.instance;
+        levelLoader = journeyManager.GetComponent<LevelLoader>();
 
         UIDocument = GetComponent<UIDocument>();
         var root = UIDocument.rootVisualElement;
@@ -34,32 +34,34 @@ public class JourneyEventManager : MonoBehaviour
 
     void SetupEvent()
     {
-        journeyEvent = journeyManager.currentJourneyNode.journeyEvent;
+        journeyEvent = journeyManager.ChooseEvent();
 
         eventWrapper.style.backgroundImage = journeyEvent.background.texture;
         eventDescription.text = journeyEvent.description;
     }
 
-
     void CreateOptions()
     {
         optionsWrapper.Clear();
 
-        foreach (JourneyEventOption option in journeyEvent.options)
+        for (int i = 0; i < journeyEvent.options.Count; i++)
         {
             Button b = new Button();
             optionsWrapper.Add(b);
 
-            b.text = option.text;
-            b.clickable.clicked += BackToJourney;
-            // TODO: I could be holding result in here and then acting on it in Journey scene.
+            b.text = journeyEvent.options[i].text + "(" + journeyEvent.options[i].reward.obols + ")";
+            b.userData = i;
+            b.clickable.clickedWithEventInfo += BackToJourney;
+            b.AddToClassList("optionButton");
+
         }
     }
 
-    void BackToJourney()
+    void BackToJourney(EventBase _evt)
     {
-        Debug.Log("back to journey");
-        SceneManager.LoadScene("Journey");
+        var b = _evt.target as Button;
+        int index = int.Parse(b.userData.ToString()); // TODO: dunno if a good idea 
+        journeyManager.SetNodeReward(journeyEvent.options[index].reward);
+        levelLoader.ChangeScene("Journey");
     }
-
 }

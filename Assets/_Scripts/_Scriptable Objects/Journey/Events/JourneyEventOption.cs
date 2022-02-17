@@ -5,6 +5,6 @@ using UnityEngine;
 public class JourneyEventOption : BaseScriptableObject
 {
     public string text;
-    public int numberOfObols; // TODO: how do I store rewards? 
+    public JourneyNodeReward reward; // TODO: how do I store rewards? 
 	
 }

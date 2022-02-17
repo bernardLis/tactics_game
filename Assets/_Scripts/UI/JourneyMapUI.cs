@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 public class JourneyMapUI : MonoBehaviour
 {
+    JourneyManager journeyManager;
+    JourneyMapManager journeyMapManager;
     UIDocument UIDocument;
     Label currencyAmount;
     VisualElement nodeInfo;
@@ -20,6 +22,8 @@ public class JourneyMapUI : MonoBehaviour
 
     void Awake()
     {
+        journeyManager = JourneyManager.instance; 
+        journeyMapManager = JourneyMapManager.instance;
         UIDocument = GetComponent<UIDocument>();
         var root = UIDocument.rootVisualElement;
         currencyAmount = root.Q<Label>("currencyAmount");
@@ -31,7 +35,7 @@ public class JourneyMapUI : MonoBehaviour
 
     void Start()
     {
-        currencyAmount.text = GetComponent<JourneyMapManager>().obols.ToString();
+        currencyAmount.text = journeyManager.obols.ToString();
     }
 
     public void ChangeObols(int _start, int _end)
@@ -47,24 +51,38 @@ public class JourneyMapUI : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             if (_end > _start)
+            {
                 current++;
+                SpawnObol(1);
+            }
             else
+            {
+                if (current - 1 < 0)
+                    yield break;
+
                 current--;
 
-            SpawnObol();
+                SpawnObol(-1);
+            }
+
             yield return new WaitForSeconds(0.1f);
             currencyAmount.text = current.ToString();
-
         }
     }
 
-    void SpawnObol()
+    void SpawnObol(int _dir)
     {
+        Vector3 spawnPos = journeyMapManager.currentNode.gameObject.transform.position;
+        Vector3 travelToPos = Camera.main.ScreenToWorldPoint(new Vector3(0f, Screen.height));
+        if (_dir == -1)
+        {
+            // if we are subtracting obols, they should be flying the other way
+            spawnPos = Camera.main.ScreenToWorldPoint(new Vector3(0f, Screen.height));
+            travelToPos = journeyMapManager.currentNode.gameObject.transform.position;
+        }
 
-        Vector3 pos = JourneyMapManager.instance.currentNode.gameObject.transform.position;
-        GameObject g = Instantiate(obolObject, pos, Quaternion.identity);
-        Vector3 toPos = Camera.main.ScreenToWorldPoint(new Vector3(0f, Screen.height));
-        g.transform.DOMove(toPos, 1f);
+        GameObject g = Instantiate(obolObject, spawnPos, Quaternion.identity);
+        g.transform.DOMove(travelToPos, 1f);
         Destroy(g, 1.1f);
     }
 

@@ -16,8 +16,4 @@ MonoBehaviour:
   nodeIndexRange: {x: 0, y: 4}
   nodes:
   - {fileID: 11400000, guid: d219158be8803d243a25d93b40f5d925, type: 2}
-  - {fileID: 11400000, guid: c143b0f13f7c02a48b2acf01a95d64b4, type: 2}
-  - {fileID: 11400000, guid: f120cf8ed8edfef4da35898d0fa75660, type: 2}
-  - {fileID: 11400000, guid: a61e39c41de204746b54e3d0a4eb434f, type: 2}
-  - {fileID: 11400000, guid: 73de387cf679b2c418b3a9beb8b69e18, type: 2}
   chanceToIgnore: 0

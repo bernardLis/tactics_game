@@ -16,6 +16,6 @@ MonoBehaviour:
   background: {fileID: 21300000, guid: 34d3be11bd5675f49a6d192f27bb7033, type: 3}
   description: You see a man stealing an apple. He looks hungry.
   options:
-  - {fileID: 11400000, guid: 27375149190163741b20f75da8572734, type: 2}
-  - {fileID: 11400000, guid: ec9b9bd652f882843935008c461769b6, type: 2}
-  - {fileID: 11400000, guid: 5e94afab7c2939e4bbde06a2d674ff30, type: 2}
+  - {fileID: 11400000, guid: a1f14fd2adad25f45b1069a8da8016ec, type: 2}
+  - {fileID: 11400000, guid: c2434681e09261441b6654ffe30981cf, type: 2}
+  - {fileID: 11400000, guid: ee8f6610de7f80d459bfc4d217dc57d9, type: 2}
