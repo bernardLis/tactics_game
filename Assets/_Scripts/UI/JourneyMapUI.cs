@@ -22,7 +22,7 @@ public class JourneyMapUI : MonoBehaviour
 
     void Awake()
     {
-        journeyManager = JourneyManager.instance; 
+        journeyManager = JourneyManager.instance;
         journeyMapManager = JourneyMapManager.instance;
         UIDocument = GetComponent<UIDocument>();
         var root = UIDocument.rootVisualElement;
@@ -82,6 +82,7 @@ public class JourneyMapUI : MonoBehaviour
         }
 
         GameObject g = Instantiate(obolObject, spawnPos, Quaternion.identity);
+        g.transform.localScale = Vector3.one * 10;
         g.transform.DOMove(travelToPos, 1f);
         Destroy(g, 1.1f);
     }

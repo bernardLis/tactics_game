@@ -586,7 +586,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 1154628806}
   journeyNodeBehaviour: {fileID: 1154628810}
@@ -1224,7 +1223,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 819026615}
   journeyNodeBehaviour: {fileID: 819026619}
@@ -1676,7 +1674,6 @@ GameObject:
   - component: {fileID: 375417101}
   - component: {fileID: 375417098}
   - component: {fileID: 375417102}
-  - component: {fileID: 375417103}
   m_Layer: 0
   m_Name: JourneyMapManager
   m_TagString: Untagged
@@ -1701,6 +1698,7 @@ MonoBehaviour:
   numberOfBridges: 2
   basicConfigs:
   - {fileID: 11400000, guid: e5776c8dc62eacf4d8be1de62bd97cca, type: 2}
+  - {fileID: 11400000, guid: d45fee76690705842bd937e929c708b7, type: 2}
   backgrounds:
   - {fileID: 21300000, guid: 5ed7bae907d9bdf4481ac157fa16c084, type: 3}
   - {fileID: 21300000, guid: 1feec931a9118d540b30c7c34e2e5517, type: 3}
@@ -1736,7 +1734,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &375417100
 MonoBehaviour:
@@ -1797,18 +1795,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obolObject: {fileID: 4198658476046925160, guid: 766bc13060cef0c4196303962a9eb56c, type: 3}
---- !u!114 &375417103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 375417097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5099a7f12eae8f4cb11b8fe2e897b5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &392101971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,7 +1939,7 @@ Transform:
   - {fileID: 332184645}
   - {fileID: 1744570822}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &472527223
 MonoBehaviour:
@@ -1970,7 +1956,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 2074892515}
   journeyNodeBehaviour: {fileID: 2074892519}
@@ -2445,7 +2430,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 143133636}
   journeyNodeBehaviour: {fileID: 143133640}
@@ -2464,7 +2448,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 1664654701}
   journeyNodeBehaviour: {fileID: 1664654705}
@@ -3094,7 +3077,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 69556d3833f6a4144bdb3dc8f234b270, type: 3}
   nodeType: 1
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 332184644}
   journeyNodeBehaviour: {fileID: 332184648}
@@ -3428,7 +3410,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &928371607
 MonoBehaviour:
@@ -4320,7 +4302,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 868907273}
   journeyNodeBehaviour: {fileID: 868907277}
@@ -5133,7 +5114,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 1481883849}
   journeyNodeBehaviour: {fileID: 1481883853}
@@ -5362,7 +5342,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 6d220d0fead5c4844a5dd1c7252aaca6, type: 3}
   nodeType: 0
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 16247145}
   journeyNodeBehaviour: {fileID: 16247149}
@@ -6095,7 +6074,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 1558464387}
   journeyNodeBehaviour: {fileID: 1558464391}
@@ -6114,7 +6092,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 943943008}
   journeyNodeBehaviour: {fileID: 943943012}
@@ -6230,7 +6207,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: fe6e968ba925ea041810fcebb33faf66, type: 3}
   nodeType: 7
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 392101971}
   journeyNodeBehaviour: {fileID: 392101975}
@@ -6417,7 +6393,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 66496532}
   journeyNodeBehaviour: {fileID: 66496536}
@@ -6436,7 +6411,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 219718982}
   journeyNodeBehaviour: {fileID: 219718986}
@@ -6560,7 +6534,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 764672279}
   journeyNodeBehaviour: {fileID: 764672283}
@@ -6760,7 +6733,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 276394532}
   journeyNodeBehaviour: {fileID: 276394536}
@@ -6779,7 +6751,6 @@ MonoBehaviour:
   id: b067083a-9532-4643-aeaf-db821f8fbb75
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
-  nodeObols: 0
   sceneToLoad: 
   gameObject: {fileID: 1455950226}
   journeyNodeBehaviour: {fileID: 1455950230}

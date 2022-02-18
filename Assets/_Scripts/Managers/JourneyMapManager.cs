@@ -121,7 +121,7 @@ public class JourneyMapManager : MonoBehaviour
         InstantiateNode(startNodeInstance, new Vector3(centerX, 0f));
         startNode = startNodeInstance.gameObject;
 
-        if(journeyManager.wasJourneySetUp)
+        if (journeyManager.wasJourneySetUp)
             startNode.GetComponent<JourneyNodeBehaviour>().MarkAsVisited();
 
         int x = 0;
@@ -291,10 +291,6 @@ public class JourneyMapManager : MonoBehaviour
 
     void UpdateAvailableNodes()
     {
-        /*
-        foreach (JourneyNode n in availableNodes)
-            n.journeyNodeBehaviour.StopAnimating();
-        */
         availableNodes.Clear();
         // first node is set up in SetUpTraversal
         // if we are on the last node of the path we can travel only to the end node
@@ -342,8 +338,7 @@ public class JourneyMapManager : MonoBehaviour
 
         // So, here I would like to transition to a scene depending on the node
         // I also need to make sure this journey and all data is remembered between scene transitions 
-        if (_node.journeyNode.nodeType == JourneyNodeType.Event)
-            levelLoader.ChangeScene(currentNode.sceneToLoad);
+        levelLoader.ChangeScene(currentNode.sceneToLoad);
     }
 
     /* Helpers */

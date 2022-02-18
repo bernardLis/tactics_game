@@ -14,8 +14,6 @@ public class JourneyNodeBehaviour : MonoBehaviour, IPointerClickHandler, IPointe
 
     Vector3 originalScale;
 
-
-
     public void Initialize(JourneyNode _jn)
     {
         journeyNode = _jn;
