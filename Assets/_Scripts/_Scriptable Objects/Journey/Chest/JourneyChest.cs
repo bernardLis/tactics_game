@@ -26,30 +26,22 @@ public class JourneyChest : BaseScriptableObject
         journeyManager = JourneyManager.instance;
     }
 
-    public void Select()
-    {
-        if (Random.Range(0f, 1f) < chanceToBeEmpty)
-            ChestIsEmpty();
-        else
-            ChestIsFull();
-    }
-
-    void ChestIsEmpty()
-    {
-        sr.sprite = emptyChest;
-
-        reward = Instantiate(reward);
-        reward.obols = 0;
-        journeyManager.SetNodeReward(reward); // TODO: dunno if necessary
-    }
-
-    void ChestIsFull()
+    public JourneyNodeReward Won()
     {
         sr.sprite = fullChest;
 
         reward = Instantiate(reward);
         reward.obols = Random.Range(3, 10);
-        journeyManager.SetNodeReward(reward);
+        return reward;
+    }
+
+    public JourneyNodeReward Lost()
+    {
+        sr.sprite = emptyChest;
+
+        reward = Instantiate(reward);
+        reward.obols = 0;
+        return reward;
     }
 
 }

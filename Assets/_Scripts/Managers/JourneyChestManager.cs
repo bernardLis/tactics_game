@@ -13,22 +13,26 @@ public class JourneyChestManager : MonoBehaviour
     [Header("Unity Setup")]
     public JourneyChest[] chests;
     public GameObject chestPrefab;
+    public GameObject cursorPrefab;
     public GameObject obolPrefab;
 
     public int numberOfChests;
-
-    List<JourneyChestBehaviour> chestBehaviours = new();
-
 
     // UI
     UIDocument UIDocument;
     VisualElement wrapper;
 
+    Label result;
     VisualElement rewardWrapper;
     Label obolAmountLabel;
     Button backToJourneyButton;
 
-    JourneyChest selectedChest;
+    // mini game
+    List<JourneyChestBehaviour> chestBehaviours = new();
+    List<JourneyChestBehaviour> allowedChests;
+    GameObject cursor;
+    public JourneyChestBehaviour cursorChest { get; private set; }
+    JourneyChestBehaviour selectedChest;
 
     public static JourneyChestManager instance;
     void Awake()
@@ -50,6 +54,7 @@ public class JourneyChestManager : MonoBehaviour
         var root = UIDocument.rootVisualElement;
         wrapper = root.Q<VisualElement>("wrapper");
 
+        result = root.Q<Label>("result");
         rewardWrapper = root.Q<VisualElement>("rewardWrapper");
         obolAmountLabel = root.Q<Label>("obolAmount");
         backToJourneyButton = root.Q<Button>("backToJourney");
@@ -75,18 +80,66 @@ public class JourneyChestManager : MonoBehaviour
             chestScriptable.Initialize(obj);
             x += 5;
         }
+        ResponsiveCamera cam = Camera.main.GetComponent<ResponsiveCamera>();
+        cam.SetOrthoSize();
+
+        StartGame();
     }
 
-    public void ChestWasSelected(JourneyChest _chest)
+    async void StartGame()
     {
-        selectedChest = _chest;
+        allowedChests = new(chestBehaviours);
+        cursor = Instantiate(cursorPrefab, transform.position, Quaternion.identity);
+        // every second change pointed chest
+        while (selectedChest == null)
+        {
+            MoveCursor();
+            await Task.Delay(400);
+        }
+    }
+
+    public void AddForbiddenChest(JourneyChestBehaviour _chest)
+    {
+        allowedChests.Remove(_chest);
+    }
+
+    public void RemoveForbiddenChest(JourneyChestBehaviour _chest)
+    {
+        allowedChests.Add(_chest);
+    }
+
+    void MoveCursor()
+    {
+        cursorChest = allowedChests[Random.Range(0, allowedChests.Count)];
+        Vector3 pos = new Vector3(cursorChest.transform.position.x, cursorChest.transform.position.y + 0.5f);
+        cursor.transform.position = pos;
+    }
+
+    public void ChestWasSelected(JourneyChestBehaviour _chestBehaviour)
+    {
+        selectedChest = _chestBehaviour;
         // TODO: there probably is a better way to do that but that's easy.
         foreach (JourneyChestBehaviour c in chestBehaviours)
             c.wasChestSelected = true;
 
-        journeyManager.SetNodeReward(_chest.reward);
+        JourneyNodeReward reward;
+        if (_chestBehaviour == cursorChest)
+        {
+            result.text = "Winner winner chicken dinner";
+            result.style.color = Color.white;
+            reward = _chestBehaviour.chest.Won();
+        }
+        else
+        {
+            result.text = "Better luck next time";
+            result.style.color = Color.red;
+            reward = _chestBehaviour.chest.Lost();
+        }
+
         obolAmountLabel.text = "0";
-        StartCoroutine(ChangeObolsCoroutine(_chest.reward.obols));
+
+        journeyManager.SetNodeReward(reward);
+        StartCoroutine(ChangeObolsCoroutine(reward.obols));
 
         wrapper.style.opacity = 0;
         wrapper.style.display = DisplayStyle.Flex;
@@ -116,7 +169,6 @@ public class JourneyChestManager : MonoBehaviour
 
         Destroy(g, 1.1f);
     }
-
 
     void BackToJourney()
     {

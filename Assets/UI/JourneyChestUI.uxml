@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/JourneyEventUIStyles.uss?fileID=7433441132597879392&amp;guid=7e44c691ad9dde445b842759737adfb1&amp;type=3#JourneyEventUIStyles" />
     <ui:VisualElement name="wrapper" style="bottom: auto; top: 50%; display: none;">
+        <ui:Label text="Winner winner chicken dinner!" display-tooltip-when-elided="true" name="result" style="font-size: 48px; -unity-text-align: upper-center; margin-bottom: 10px; color: rgba(255, 255, 255, 255);" />
         <ui:VisualElement name="rewardWrapper" style="justify-content: center; flex-direction: row;">
             <ui:Label text="2" display-tooltip-when-elided="true" name="obolAmount" style="font-size: 48px; -unity-text-align: middle-center; color: rgb(255, 255, 255);" />
             <ui:Label display-tooltip-when-elided="true" name="obolIcon" style="background-image: url(&apos;project://database/Assets/Sprites/Journey/obol.png?fileID=2800000&amp;guid=ad5c4b9d1e718544886f737b294085c5&amp;type=3#obol&apos;); width: 100px; height: 100px;" />
