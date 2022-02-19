@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIStyles/JourneyKnowledgeUIStyles.uss?fileID=7433441132597879392&amp;guid=f15aef2d315ad614f8fb2e10d37919aa&amp;type=3#JourneyKnowledgeUIStyles" />
+    <ui:VisualElement name="wrapper" style="height: 100%; width: 70%; left: 30%; display: none;">
+        <ui:VisualElement name="stateFrom" class="element label">
+            <ui:Label text="Being Alive" display-tooltip-when-elided="true" name="stateFromLabel" class="label" />
+        </ui:VisualElement>
+        <ui:VisualElement name="transformationFrom" class="element">
+            <ui:Label text="Dying" display-tooltip-when-elided="true" name="transitionFromLabel" class="label" />
+        </ui:VisualElement>
+        <ui:VisualElement name="stateTo" class="element">
+            <ui:Label text="Being Dead" display-tooltip-when-elided="true" name="stateToLabel" class="label" />
+        </ui:VisualElement>
+        <ui:VisualElement name="transformationTo" class="element">
+            <ui:Label text="Coming back to life" display-tooltip-when-elided="true" name="transitionToLabel" class="label" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -42,7 +42,6 @@ public class JourneyChestBehaviour : MonoBehaviour, IPointerClickHandler, IPoint
         if (wasChestSelected)
             return;
 
-        Debug.Log("on pointer enter");
         timeOn = 0f;
         timeOff = 0f;
 
@@ -55,7 +54,6 @@ public class JourneyChestBehaviour : MonoBehaviour, IPointerClickHandler, IPoint
     {
         if (wasChestSelected)
             return;
-
 
         timeOn = 0f;
 
@@ -92,7 +90,7 @@ public class JourneyChestBehaviour : MonoBehaviour, IPointerClickHandler, IPoint
 
         transform.DOScale(Vector3.one * 1.2f, 2f);
 
-        JourneyChestManager.instance.ChestWasSelected(this);
+        journeyChestManager.ChestWasSelected(this);
     }
 
 }

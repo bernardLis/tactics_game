@@ -14,6 +14,7 @@ public class ResponsiveCamera : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
+    // TODO: make it smoother       
     public void SetOrthoSize()
     {
         var bounds = new Bounds();
@@ -25,10 +26,13 @@ public class ResponsiveCamera : MonoBehaviour
         var vertical = bounds.size.y;
         var horizontal = bounds.size.x * cam.pixelHeight / cam.pixelWidth;
 
-        var size = Mathf.Max(horizontal, vertical) * 0.5f;
-        var center = bounds.center + new Vector3(0, 0, -10);
+        float size = Mathf.Max(horizontal, vertical) * 0.5f;
+        Vector3 center = bounds.center + new Vector3(0, 0, -10);
 
-        cam.transform.position = center;
-        cam.orthographicSize = size;
+        //cam.transform.position = center;
+        transform.DOMove(center,1f);
+        DOTween.To(() => cam.orthographicSize, x => cam.orthographicSize = x, size, 1f)
+            .SetEase(Ease.InSine);
     }
+
 }

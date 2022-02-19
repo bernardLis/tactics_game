@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 454610379}
   - component: {fileID: 454610382}
   - component: {fileID: 454610386}
+  - component: {fileID: 454610387}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -177,7 +178,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -258,6 +259,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &454610387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454610378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103190631a81e554d933ea2e853676b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1146815204
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +394,7 @@ MonoBehaviour:
   chestPrefab: {fileID: 3743325661672015387, guid: 7f02eadd7b911c648ad5da3a1c265cd9, type: 3}
   cursorPrefab: {fileID: 1072772088968734176, guid: 9a71e3624c4e0db4597d8442eb2488ec, type: 3}
   obolPrefab: {fileID: 4198658476046925160, guid: 766bc13060cef0c4196303962a9eb56c, type: 3}
-  numberOfChests: 3
+  reward: {fileID: 11400000, guid: f5cfa74393a7f8f48805ea6860de49ff, type: 2}
 --- !u!4 &1359308929
 Transform:
   m_ObjectHideFlags: 0
@@ -535,60 +548,3 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: f97743c95bc729646a9d651f968354ef, type: 3}
   m_SortingOrder: 0
---- !u!1001 &1417085617
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_Name
-      value: JourneyManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}

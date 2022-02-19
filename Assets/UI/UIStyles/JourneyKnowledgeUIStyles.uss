@@ -1,0 +1,17 @@
+.label {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 255);
+}
+
+.element {
+    height: 25%;
+    background-color: rgba(0, 0, 0, 0.21);
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+}

@@ -7,12 +7,8 @@ public class JourneyChest : BaseScriptableObject
     public Sprite emptyChest;
     public Sprite fullChest;
 
-    public JourneyNodeReward reward;
-
     [Range(0, 1)]
     public float chanceToBeEmpty;
-
-    JourneyManager journeyManager;
 
     public GameObject gameObject;
     SpriteRenderer sr;
@@ -22,26 +18,16 @@ public class JourneyChest : BaseScriptableObject
         gameObject = _obj;
         sr = gameObject.GetComponentInChildren<SpriteRenderer>();
         sr.sprite = closedChest;
-
-        journeyManager = JourneyManager.instance;
     }
 
-    public JourneyNodeReward Won()
+    public void Won()
     {
         sr.sprite = fullChest;
-
-        reward = Instantiate(reward);
-        reward.obols = Random.Range(3, 10);
-        return reward;
     }
 
-    public JourneyNodeReward Lost()
+    public void Lost()
     {
         sr.sprite = emptyChest;
-
-        reward = Instantiate(reward);
-        reward.obols = 0;
-        return reward;
     }
 
 }
