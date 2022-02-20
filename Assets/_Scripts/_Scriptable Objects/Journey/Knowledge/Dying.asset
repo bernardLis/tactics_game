@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354e386922873a74985760aca73626a4, type: 3}
+  m_Name: Dying
+  m_EditorClassIdentifier: 
+  id: 5a4654fa-8b59-498d-af73-d594f22c2b19
+  sprite: {fileID: 21300000, guid: c89e8185807474141a558b41c8dfcaef, type: 3}
+  miniatureSpriteSize: {x: 400, y: 400}
+  text: Dying
+  state: 0

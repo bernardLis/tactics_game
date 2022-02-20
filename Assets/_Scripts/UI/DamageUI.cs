@@ -23,9 +23,9 @@ public class DamageUI : MonoBehaviour
 
         UIDocument = GetComponent<UIDocument>();
         // getting ui elements
-        var rootVisualElement = UIDocument.rootVisualElement;
-        healthChangeDisplayContainer = rootVisualElement.Q<VisualElement>("healthChangeDisplayContainer");
-        healthChangeDisplayLabel = rootVisualElement.Q<Label>("healthChangeDisplayLabel");
+        var root = UIDocument.rootVisualElement;
+        healthChangeDisplayContainer = root.Q<VisualElement>("healthChangeDisplayContainer");
+        healthChangeDisplayLabel = root.Q<Label>("healthChangeDisplayLabel");
     }
     void Start()
     {
