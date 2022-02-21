@@ -20,11 +20,13 @@ public class LevelLoader : MonoBehaviour
 
     public void ChangeScene(string _newScene)
     {
+
         // fade out opacity 0 -> 1
         crossfade.style.opacity = 0;
         crossfade.style.display = DisplayStyle.Flex;
         DOTween.To(() => crossfade.style.opacity.value, x => crossfade.style.opacity = x, 1f, 1f)
         .SetEase(Ease.InSine).OnComplete(() => FadeIn(_newScene));
+
     }
 
     public void FadeIn(string _newScene)
@@ -36,6 +38,7 @@ public class LevelLoader : MonoBehaviour
         crossfade.style.display = DisplayStyle.Flex;
         DOTween.To(() => crossfade.style.opacity.value, x => crossfade.style.opacity = x, 0f, 1f)
             .SetEase(Ease.InSine).OnComplete(HideCrossfade);
+
     }
 
     void HideCrossfade()

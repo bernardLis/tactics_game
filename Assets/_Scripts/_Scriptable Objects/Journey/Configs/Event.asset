@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Fire
+  m_Script: {fileID: 11500000, guid: b3e401684ba21fd46b4f6e1837529da0, type: 3}
+  m_Name: Event
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
-  icon: {fileID: 21300000, guid: f27fab740296f924691f37a873f1061a, type: 3}
-  nodeType: 6
+  id: f7a865d8-dc08-451d-8a42-29986716656e
+  nodeIndexRange: {x: 3, y: 4}
+  nodes:
+  - {fileID: 11400000, guid: d219158be8803d243a25d93b40f5d925, type: 2}
+  chanceToIgnore: 0

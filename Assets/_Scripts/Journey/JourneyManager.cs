@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JourneyManager : MonoBehaviour
 {
+    public List<Character> playerTroops;
     public bool wasJourneySetUp { get; private set; }
     public int journeySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
     public JourneyNode currentJourneyNode { get; private set; }
@@ -39,6 +40,14 @@ public class JourneyManager : MonoBehaviour
         #endregion
         // copy array to list;
         availableEvents = new(allEvents);
+
+        LoadPlayerCharacters();
+    }
+
+    void LoadPlayerCharacters()
+    {
+        // TODO: I imagine that player characters are set-up somewhere and I can load them
+        Debug.Log("Loading player characters");
     }
 
     public void JourneyWasSetUp(bool _was) // TODO: better naming

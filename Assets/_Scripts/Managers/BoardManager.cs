@@ -106,7 +106,6 @@ public class BoardManager : MonoBehaviour
 
     void InitialSetup()
     {
-        DOTween.KillAll();
         Random.InitState(seed);
 
         highlighter.ClearHighlightedTiles().GetAwaiter();
