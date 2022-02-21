@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
+  m_Name: Haste Potion
+  m_EditorClassIdentifier: 
+  id: 72cff9cf-7028-46d8-84c7-309a9fd3ee8c
+  aDescription: Hastes target.
+  aType: 3
+  weaponType: 3
+  aProjectile: {fileID: 0}
+  aIcon: {fileID: 21300000, guid: c273ba80fe5ba3149b25560bc2bc6976, type: 3}
+  aSound: {fileID: 0}
+  value: 1
+  manaCost: 0
+  areaOfEffect: 0
+  statModifier: {fileID: 11400000, guid: 3374d2ca0ca89134abc8b2188e55c8b9, type: 2}
+  status: {fileID: 0}
+  range: 3
+  canTargetSelf: 1
+  canTargetDiagonally: 1
+  highlightColor: {r: 1, g: 0.91110325, b: 0.32452828, a: 1}

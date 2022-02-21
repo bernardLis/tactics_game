@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
+  m_Name: Plate Armor Legs
+  m_EditorClassIdentifier: 
+  eName: Robe Skirt
+  icon: {fileID: -7674688248903962682, guid: eee443a33e2f49844b0d25f10a85d343, type: 3}
+  animatorController: {fileID: 22100000, guid: 1ecd2725a04b25d41afd283e555e9abc, type: 2}
+  eSlot: 5
+  gender: 0

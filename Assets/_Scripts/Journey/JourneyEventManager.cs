@@ -95,6 +95,6 @@ public class JourneyEventManager : MonoBehaviour
 
     void BackToJourney()
     {
-        levelLoader.ChangeScene("Journey");
+        levelLoader.LoadLevel("Journey");
     }
 }

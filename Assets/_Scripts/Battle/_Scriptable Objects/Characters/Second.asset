@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
+  m_Name: Second
+  m_EditorClassIdentifier: 
+  id: 0baeefa2-3122-4a8c-b17c-b286e624b048
+  characterName: Second
+  portrait: {fileID: 21300000, guid: 3bf5cfa5ff6fff04cb2f1e323618711b, type: 3}
+  stats: []
+  strength: 2
+  intelligence: 10
+  agility: 1
+  stamina: 1
+  shield: {fileID: 11400000, guid: 7b97ebc92bd34534ba65d1cf3444a819, type: 2}
+  body: {fileID: 11400000, guid: aaba8a144793e964cb8f8d940b610a6b, type: 2}
+  feet: {fileID: 11400000, guid: 11267fbcd1abb6d4e9c3d1c1b5373948, type: 2}
+  hair: {fileID: 11400000, guid: a5e8401870ed78747b2a85ec14a9d0df, type: 2}
+  hands: {fileID: 11400000, guid: e30c815ac73e90e48bec1f0e91fa118e, type: 2}
+  helmet: {fileID: 11400000, guid: ffa24a91e6fc8194dbde0d67886970bf, type: 2}
+  legs: {fileID: 11400000, guid: faf9f294916c4974fa655eb32c8822c4, type: 2}
+  torso: {fileID: 11400000, guid: 7c9eb3cbbd271b84f94af7594c30a864, type: 2}
+  weapon: {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
+  basicAbilities:
+  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
+  characterAbilities:
+  - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
+  - {fileID: 11400000, guid: 99f1227b414b7dd4da4a9196c2a29e1f, type: 2}
+  - {fileID: 11400000, guid: 071ead248fbc7d04c9d7662e76ff59b7, type: 2}
+  - {fileID: 11400000, guid: e49a070c12b7eaa44a34f20aa8e67d1d, type: 2}

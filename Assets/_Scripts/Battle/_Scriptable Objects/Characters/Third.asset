@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
+  m_Name: Third
+  m_EditorClassIdentifier: 
+  id: 9e52ca4a-e03b-449d-82e7-b2216ff85d42
+  characterName: Third
+  portrait: {fileID: 21300000, guid: 3bf5cfa5ff6fff04cb2f1e323618711b, type: 3}
+  stats: []
+  strength: 2
+  intelligence: 1
+  agility: 6
+  stamina: 2
+  shield: {fileID: 11400000, guid: 7b97ebc92bd34534ba65d1cf3444a819, type: 2}
+  body: {fileID: 11400000, guid: 1657a0ab62676d042a2fcdae9c7b89c0, type: 2}
+  feet: {fileID: 0}
+  hair: {fileID: 0}
+  hands: {fileID: 0}
+  helmet: {fileID: 11400000, guid: ffa24a91e6fc8194dbde0d67886970bf, type: 2}
+  legs: {fileID: 11400000, guid: faf9f294916c4974fa655eb32c8822c4, type: 2}
+  torso: {fileID: 11400000, guid: 7c9eb3cbbd271b84f94af7594c30a864, type: 2}
+  weapon: {fileID: 11400000, guid: afe2c78e7d3b7f14f82976bc31f26153, type: 2}
+  basicAbilities:
+  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
+  characterAbilities:
+  - {fileID: 11400000, guid: 52f76dcea9d85784d90cfafb9d54e907, type: 2}
+  - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
+  - {fileID: 11400000, guid: 072c64cc0cc872b4aa875e6c7f766440, type: 2}

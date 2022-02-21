@@ -182,4 +182,8 @@
             <ui:Label text="It stuns the target." display-tooltip-when-elided="true" name="characterUITooltipStatusDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="cheats" style="position: absolute; top: 70%;">
+        <ui:Button text="Kill all enemies" display-tooltip-when-elided="true" name="enemiesKillButton" />
+        <ui:Button text="Kill a friend" display-tooltip-when-elided="true" name="friendliesKillButton" />
+    </ui:VisualElement>
 </ui:UXML>

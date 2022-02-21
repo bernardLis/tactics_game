@@ -338,7 +338,7 @@ public class JourneyMapManager : MonoBehaviour
 
         // So, here I would like to transition to a scene depending on the node
         // I also need to make sure this journey and all data is remembered between scene transitions 
-        levelLoader.ChangeScene(currentNode.sceneToLoad);
+        levelLoader.LoadLevel(currentNode.sceneToLoad);
     }
 
     /* Helpers */

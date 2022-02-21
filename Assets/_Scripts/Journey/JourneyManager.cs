@@ -19,7 +19,6 @@ public class JourneyManager : MonoBehaviour
     [HideInInspector] public List<JourneyPath> journeyPaths = new();
     public List<JourneyNode> visitedNodes = new();
 
-
     public static JourneyManager instance;
     void Awake()
     {
@@ -38,14 +37,15 @@ public class JourneyManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         #endregion
+
         // copy array to list;
         availableEvents = new(allEvents);
-
-        LoadPlayerCharacters();
+        //LoadPlayerCharacters();
     }
 
-    void LoadPlayerCharacters()
+    public void SetPlayerTroops(List<Character> _troops)
     {
+        playerTroops = new(_troops);
         // TODO: I imagine that player characters are set-up somewhere and I can load them
         Debug.Log("Loading player characters");
     }

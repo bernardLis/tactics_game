@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941165d4f05d24840aa481aca7f36c9b, type: 3}
+  m_Name: Rabbit
+  m_EditorClassIdentifier: 
+  id: 7c0e5a26-5e97-42fe-9314-447f663f7c3a
+  iName: Rabbit
+  iDescription: It was fast, but not fast enough.
+  icon: {fileID: 21300000, guid: aafa530027e8d284b88845469fa0612a, type: 3}
+  amount: 1
+  sellPrice: 0
+  stackSize: 1
+  questItem: 1
+  slotDimension:
+    height: 1
+    width: 1

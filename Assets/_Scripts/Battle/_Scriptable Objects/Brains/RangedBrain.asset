@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6604eea773e90a24981a185c1ca0c6aa, type: 3}
+  m_Name: RangedBrain
+  m_EditorClassIdentifier: 
+  id: 0336e2e4-7667-4be8-ac74-3fb5217e3e04
+  target: {fileID: 0}
+  abilitiesToInstantiate:
+  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
+  - {fileID: 11400000, guid: e49a070c12b7eaa44a34f20aa8e67d1d, type: 2}
+  bows:
+  - {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
+  - {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
+  - {fileID: 11400000, guid: 5e18854942d797e48b551288497d4016, type: 2}

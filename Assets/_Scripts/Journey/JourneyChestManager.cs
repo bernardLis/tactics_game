@@ -274,7 +274,7 @@ public class JourneyChestManager : MonoBehaviour
 
     void BackToJourney()
     {
-        levelLoader.ChangeScene("Journey");
+        levelLoader.LoadLevel("Journey");
     }
 
 }

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07f5512160fad54c8864dcae66c9758, type: 3}
+  m_Name: Male Equipment Database
+  m_EditorClassIdentifier: 
+  allBodies:
+  - {fileID: 11400000, guid: 24a42c124bdb4534d872db8a9c22d814, type: 2}
+  - {fileID: 11400000, guid: b5e711c1eaf8c7249ab8e48146c59cbb, type: 2}
+  - {fileID: 11400000, guid: eecd9c56d9d14f743a0a6006d44e829c, type: 2}
+  - {fileID: 11400000, guid: aaba8a144793e964cb8f8d940b610a6b, type: 2}
+  - {fileID: 11400000, guid: 70299e201a147814c9348dc4dbb4a7f4, type: 2}
+  - {fileID: 11400000, guid: fd00dd9cc7727b649a653bd2e7307f01, type: 2}
+  - {fileID: 11400000, guid: 40e9ad8039f0a1d49818a0fb6a5f5087, type: 2}
+  - {fileID: 11400000, guid: bdb1e9209b976014aa5081abd4356620, type: 2}
+  - {fileID: 11400000, guid: 67b8fdf6ef7563042aa09ed2714e02b0, type: 2}
+  - {fileID: 11400000, guid: 4813cd928895a344693c99831ad2dc0c, type: 2}
+  - {fileID: 11400000, guid: 1657a0ab62676d042a2fcdae9c7b89c0, type: 2}
+  allFeet:
+  - {fileID: 11400000, guid: 11267fbcd1abb6d4e9c3d1c1b5373948, type: 2}
+  - {fileID: 11400000, guid: 36f400af609619b4991648752e052268, type: 2}
+  - {fileID: 11400000, guid: bca6d8e7db1cee4419dbeae9fa55f534, type: 2}
+  allHair:
+  - {fileID: 11400000, guid: 2822660e91cbfcc4e88338cbcc15ea60, type: 2}
+  - {fileID: 11400000, guid: 18f78c65329c2284d9845bf63a1d8f22, type: 2}
+  - {fileID: 11400000, guid: a5e8401870ed78747b2a85ec14a9d0df, type: 2}
+  - {fileID: 11400000, guid: 63c222df16b79e84ea6e061679746ac9, type: 2}
+  allHands:
+  - {fileID: 11400000, guid: 292e7078797a07f42b031c1b5802b86b, type: 2}
+  - {fileID: 11400000, guid: e30c815ac73e90e48bec1f0e91fa118e, type: 2}
+  allHelmets:
+  - {fileID: 11400000, guid: 28d858d26a07a3c428c3b7b9aa439354, type: 2}
+  - {fileID: 11400000, guid: 120f1a33e29e73846b01cd8142192068, type: 2}
+  - {fileID: 11400000, guid: d3b0fdba1391102489e19e0c8ff76a6a, type: 2}
+  - {fileID: 11400000, guid: ffa24a91e6fc8194dbde0d67886970bf, type: 2}
+  - {fileID: 11400000, guid: 4db4b511370adb24bb55411e55839936, type: 2}
+  - {fileID: 11400000, guid: e535b5233bf49404abd523f187d75685, type: 2}
+  - {fileID: 11400000, guid: 8181f0f25e0be1c40adf7abb628f1901, type: 2}
+  - {fileID: 11400000, guid: 60778a8b458ffe149ae7a66074a04ab1, type: 2}
+  - {fileID: 11400000, guid: 64d6f8269a8ca7e44adc73e8a7d36c56, type: 2}
+  allLegs:
+  - {fileID: 11400000, guid: 5f5ed3a5b252c20428721790fae974fc, type: 2}
+  - {fileID: 11400000, guid: 5b64ce1c503d96f4094d908dfd14bd98, type: 2}
+  - {fileID: 11400000, guid: faf9f294916c4974fa655eb32c8822c4, type: 2}
+  - {fileID: 11400000, guid: f78c7ef4834984e48a2f197602e800c8, type: 2}
+  allTorsos:
+  - {fileID: 11400000, guid: 7c9eb3cbbd271b84f94af7594c30a864, type: 2}
+  - {fileID: 11400000, guid: 410b6dd77e7a4804799b603bb9a5714f, type: 2}
+  - {fileID: 11400000, guid: 7bb01aec4c8c7d04a83122a9024bd28b, type: 2}
+  - {fileID: 11400000, guid: ac0209dc23b93d64a87dc8494897b5c8, type: 2}
+  - {fileID: 11400000, guid: 1b593e5011adebb4c9cb959d5ae3f031, type: 2}
+  - {fileID: 11400000, guid: ce425c9e686920848993277b84f99250, type: 2}
+  - {fileID: 11400000, guid: 7bbeada867b885842897088f8549b569, type: 2}
+  allShields:
+  - {fileID: 11400000, guid: 7b97ebc92bd34534ba65d1cf3444a819, type: 2}
+  - {fileID: 11400000, guid: f9c8ac9f761bdd24f843dfa97f8e416f, type: 2}
+  allWeapons:
+  - {fileID: 11400000, guid: b3756de8953f75e4e8b992726567dc45, type: 2}
+  - {fileID: 11400000, guid: afe2c78e7d3b7f14f82976bc31f26153, type: 2}
+  - {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
+  - {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
+  - {fileID: 11400000, guid: 5e18854942d797e48b551288497d4016, type: 2}
+  - {fileID: 11400000, guid: ee0c100ca9742414d9e8b23ad0811a2e, type: 2}
+  - {fileID: 11400000, guid: 7b713e2a54e3a1e4e83309b9a8ab804f, type: 2}
+  - {fileID: 11400000, guid: 4804546585f86f84bbb8971d56cdf806, type: 2}
+  - {fileID: 11400000, guid: b8d7856ec8dc5b64b81faae0877206c8, type: 2}
+  - {fileID: 11400000, guid: 6b248cac7f7f3b6408dfbf7491ff607e, type: 2}

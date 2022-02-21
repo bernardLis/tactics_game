@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f3178798064e043b4ca8d0620801a8, type: 3}
+  m_Name: Desert
+  m_EditorClassIdentifier: 
+  id: 46d2c9e1-cbd8-4ab7-89e4-509db3889604
+  floorTiles:
+  - {fileID: 11400000, guid: b7dc81053c6ab4f48b6ff2bbb8940871, type: 2}
+  - {fileID: 11400000, guid: fe80c3810cdca9a49b2c0335f81cc150, type: 2}
+  - {fileID: 11400000, guid: 7f2ebad1157e72b40b3a60edede7de36, type: 2}
+  - {fileID: 11400000, guid: 544ec8e541f336942a1cc4b8e94d003c, type: 2}
+  - {fileID: 11400000, guid: fbbe65add6ecee64b89316a0a5ea3bd6, type: 2}
+  - {fileID: 11400000, guid: ffb6f65ac7030ff4984c94a7a9a9115f, type: 2}
+  - {fileID: 11400000, guid: dad2b352ef8183247a96dd8580959fb6, type: 2}
+  - {fileID: 11400000, guid: 0db326af480841a4891cd9830f1463e2, type: 2}
+  - {fileID: 11400000, guid: 68979a722787636459a729b223a6ad80, type: 2}
+  - {fileID: 11400000, guid: d4a0c998bfd201341a552cd842297552, type: 2}
+  - {fileID: 11400000, guid: 563e77959046964418c9d9ac44d11cc4, type: 2}
+  - {fileID: 11400000, guid: ae0481fe5416f4f4cad9cc664556ea21, type: 2}
+  - {fileID: 11400000, guid: 5aff0f3f242b129469c90c49a4d9aa0d, type: 2}
+  - {fileID: 11400000, guid: 04f4f2522f2f036468838f8992e269f2, type: 2}
+  - {fileID: 11400000, guid: 9b091b74346df4f4ca4e04f51cbe62fe, type: 2}
+  - {fileID: 11400000, guid: dd3bc20bd2687f4408c8cd416a28e0a4, type: 2}
+  - {fileID: 11400000, guid: 1a5d66413e975ff4d91e70607f5b356d, type: 2}
+  - {fileID: 11400000, guid: cd46838dd4c11794b91dc38f7f62c4e9, type: 2}
+  - {fileID: 11400000, guid: 71188d3f46e0f494c9bca97946e66a57, type: 2}
+  - {fileID: 11400000, guid: 8ca235a16b95add48a5ac8df95ec614c, type: 2}
+  floorAdditions:
+  - {fileID: 11400000, guid: 0efeec264ab582b48a729eac4f5bd181, type: 2}
+  - {fileID: 11400000, guid: 0a6e7b042d67c2c408dc14bb50580787, type: 2}
+  - {fileID: 11400000, guid: 354ad62c608133c4c9a7cb8ad8ff0445, type: 2}
+  - {fileID: 11400000, guid: 1d8831cb3c42e0a4886cdaf8464495ce, type: 2}
+  - {fileID: 11400000, guid: a3a77b9c85a5eb64f81f0817503b9702, type: 2}
+  - {fileID: 11400000, guid: 1bb04a28be1d4fd4f95b75d8722b6019, type: 2}
+  outerTiles:
+  - {fileID: 11400000, guid: abbef812cd0cab2468727c937eb7f1f7, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
+  - {fileID: 11400000, guid: 25e9fc9e9b20f4748958b3758b282632, type: 2}
+  - {fileID: 11400000, guid: fdd93d068b51ead4a8b7e8126aee0e1a, type: 2}
+  - {fileID: 11400000, guid: ab02759692ec90542973f297087f5257, type: 2}
+  - {fileID: 11400000, guid: 78ad9e02fb9aa7b4b941fa5cc2838e8c, type: 2}
+  - {fileID: 11400000, guid: 5449077a5a53cb74b962baf9a7a443ef, type: 2}
+  - {fileID: 11400000, guid: 0e123a856a8035c43b913072a94ffc5a, type: 2}
+  - {fileID: 11400000, guid: 5875b4005a74d3c4cad7fdd1525f2940, type: 2}
+  - {fileID: 11400000, guid: 0b7e558526f38d4409999aaf67c6727b, type: 2}
+  - {fileID: 11400000, guid: 67eda9684901c4540b00cb8038cdc513, type: 2}
+  - {fileID: 11400000, guid: 1405a4fb1849d6145954fb1393bc53b0, type: 2}
+  - {fileID: 11400000, guid: 94ce60fed1848de49a1068d148a940ae, type: 2}
+  - {fileID: 11400000, guid: 0fb24f296bcdb72419cd13aa7015eba4, type: 2}
+  - {fileID: 11400000, guid: 0208285a66be2724e98cb9d6715a8fd0, type: 2}
+  - {fileID: 11400000, guid: e2348aa1de3a5114fbe6cf832e5ad931, type: 2}
+  - {fileID: 11400000, guid: 06b4fe3dc23144445bf1dd05723bc932, type: 2}
+  - {fileID: 11400000, guid: 15de8d68b5a4aa842a8060713ce87b98, type: 2}
+  - {fileID: 11400000, guid: 057085e907b9ef644a410f06bd576c48, type: 2}
+  outerDemons:
+  - {fileID: 11400000, guid: 25eb8117d1078804996d217111ba3e2b, type: 2}
+  - {fileID: 11400000, guid: 7049ed24c6d7a0b4db4bbd2271e3f470, type: 2}
+  - {fileID: 11400000, guid: 5b4461b774bcc5b41aee699970496678, type: 2}
+  outerAdditions:
+  - {fileID: 11400000, guid: 1033919bb166f3b4fb86f31730cc5302, type: 2}
+  - {fileID: 11400000, guid: 29cb099b434299847925fd3a63f1a370, type: 2}
+  - {fileID: 11400000, guid: 6855480dec0364a4f9a17e0d86deaee5, type: 2}
+  - {fileID: 11400000, guid: c77937567869d8d429beaacaf4c49e71, type: 2}
+  - {fileID: 11400000, guid: 6f068bf3ccb576741adf3f11f44b380e, type: 2}
+  outerAdditionsPercent: {x: 0.05, y: 0.1}
+  edgeN: {fileID: 11400000, guid: 7ddf49ce18043b94cb05089c3320d51b, type: 2}
+  edgeS: {fileID: 11400000, guid: 6e809c97c655e0a4e8958bf5b3501477, type: 2}
+  edgeE: {fileID: 11400000, guid: 75ed4b8f04476c345a1e19868743c9de, type: 2}
+  edgeW: {fileID: 11400000, guid: 2eaf5b1024e0ec24a93865bfcfab4b2d, type: 2}
+  cornerNE: {fileID: 11400000, guid: 4371af19c144e0445854c4f75c283360, type: 2}
+  cornerNW: {fileID: 11400000, guid: 5a6621621e22925459945682780ca23e, type: 2}
+  cornerSE: {fileID: 11400000, guid: 770bfcca05d512d45bb0d743a664108d, type: 2}
+  cornerSW: {fileID: 11400000, guid: 823d96790dedceb4c90f39c1217fd176, type: 2}
+  inlandCornerNE: {fileID: 11400000, guid: 7723ff2181a7c124a858fff9364ff3bf, type: 2}
+  inlandCornerNW: {fileID: 11400000, guid: d66a65413e71a8941ab0b5d70847c9b8, type: 2}
+  inlandCornerSE: {fileID: 11400000, guid: c6b28ab334cbbab4ea44391153293aa3, type: 2}
+  inlandCornerSW: {fileID: 11400000, guid: bdd3d5bf11219fd42a54cc72ccb1bdda, type: 2}
+  lightColor: {r: 0.83137256, g: 0.8117647, b: 0.7254902, a: 1}
+  lightIntensity: 1
