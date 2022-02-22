@@ -40,8 +40,10 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         infoCardUI = InfoCardUI.instance;
+        journeyManager = JourneyManager.instance;
 
-        // TODO: create a start battleState where you place your characters
+        currentTurn = 0;
+
         UpdateBattleState(BattleState.MapBuilding);
     }
 
@@ -84,7 +86,6 @@ public class TurnManager : MonoBehaviour
     {
     }
 
-    // TODO: this will be called when player places their characters and confirms that he wants to start the battle.
     public void InitBattle()
     {
         playerCharacters = new(GameObject.FindGameObjectsWithTag("Player"));
@@ -173,7 +174,7 @@ public class TurnManager : MonoBehaviour
     {
         // TODO: this
         // for now game over screen
-        // load jurney from the beginning
+        // load home 
         Debug.Log("Ugh... you lost!");
     }
 

@@ -38,8 +38,6 @@ public class Character : BaseScriptableObject
         // TODO: this could be done in a loop
         // you have to learn reflections
 
-        // TODO: dunno if I should be instantiating the object coz now I am using the same object always
-
         // get all
         Transform bodyObj = obj.transform.Find("Body");
         if (body != null)

@@ -20,6 +20,9 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(string _newScene)
     {
+        Debug.Log("load level");
+        DOTween.KillAll();
+
         // fade out opacity 0 -> 1
         crossfade.style.opacity = 0;
         crossfade.style.display = DisplayStyle.Flex;

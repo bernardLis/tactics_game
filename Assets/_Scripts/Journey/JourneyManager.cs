@@ -45,9 +45,10 @@ public class JourneyManager : MonoBehaviour
 
     public void SetPlayerTroops(List<Character> _troops)
     {
-        playerTroops = new(_troops);
         // TODO: I imagine that player characters are set-up somewhere and I can load them
         Debug.Log("Loading player characters");
+
+        playerTroops = new(_troops);
     }
 
     public void JourneyWasSetUp(bool _was) // TODO: better naming

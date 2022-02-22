@@ -18,7 +18,7 @@ public class EnemyManager : MonoBehaviour
         }
         instance = this;
         #endregion
-
+        Debug.Log("enemy manager awake");
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
 
@@ -35,7 +35,6 @@ public class EnemyManager : MonoBehaviour
         // after player moved PushableObstacle at the end of player turn
         // Recalculate all graphs
         AstarPath.active.Scan();
-
 
         yield return new WaitForSeconds(0.5f);
         if (TurnManager.battleState != BattleState.EnemyTurn)

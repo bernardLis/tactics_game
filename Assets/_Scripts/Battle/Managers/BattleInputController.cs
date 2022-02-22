@@ -108,53 +108,52 @@ public class BattleInputController : MonoBehaviour
 
     void SubscribeInputActions()
     {
-        playerInput.actions["LeftMouseClick"].performed += ctx => LeftMouseClick();
-        playerInput.actions["ArrowMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
-
-        playerInput.actions["SelectClick"].performed += ctx => SelectClick();
-
-        playerInput.actions["AButtonClick"].performed += ctx => AButtonClickInput();
-        playerInput.actions["SButtonClick"].performed += ctx => SButtonClickInput();
-        playerInput.actions["DButtonClick"].performed += ctx => DButtonClickInput();
-
-        playerInput.actions["QButtonClick"].performed += ctx => QButtonClickInput();
-        playerInput.actions["WButtonClick"].performed += ctx => WButtonClickInput();
-        playerInput.actions["EButtonClick"].performed += ctx => EButtonClickInput();
-        playerInput.actions["RButtonClick"].performed += ctx => RButtonClickInput();
-
-        playerInput.actions["Back"].performed += ctx => BackClick();
-
-        playerInput.actions["CancelEverything"].performed += ctx => CancelEverything();
-
-
         // char placement specific for now
-        playerInput.actions["SelectNextCharacter"].performed += ctx => SelectNextCharacter();
-        playerInput.actions["SelectPreviousCharacter"].performed += ctx => SelectPreviousCharacter();
+        playerInput.actions["SelectNextCharacter"].performed += SelectNextCharacter;
+        playerInput.actions["SelectPreviousCharacter"].performed += SelectPreviousCharacter;
+
+        playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
+        playerInput.actions["ArrowMovement"].performed += Move;
+
+        playerInput.actions["SelectClick"].performed += SelectClick;
+
+        playerInput.actions["AButtonClick"].performed += AButtonClickInput;
+        playerInput.actions["SButtonClick"].performed += SButtonClickInput;
+        playerInput.actions["DButtonClick"].performed += DButtonClickInput;
+
+        playerInput.actions["QButtonClick"].performed += QButtonClickInput;
+        playerInput.actions["WButtonClick"].performed += WButtonClickInput;
+        playerInput.actions["EButtonClick"].performed += EButtonClickInput;
+        playerInput.actions["RButtonClick"].performed += RButtonClickInput;
+
+        playerInput.actions["Back"].performed += BackClick;
+
+        playerInput.actions["CancelEverything"].performed += CancelEverything;
     }
 
     void UnsubscribeInputActions()
     {
-        playerInput.actions["LeftMouseClick"].performed -= ctx => LeftMouseClick();
-        playerInput.actions["ArrowMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
-
-        playerInput.actions["SelectClick"].performed -= ctx => SelectClick();
-
-        playerInput.actions["AButtonClick"].performed -= ctx => AButtonClickInput();
-        playerInput.actions["SButtonClick"].performed -= ctx => SButtonClickInput();
-        playerInput.actions["DButtonClick"].performed -= ctx => DButtonClickInput();
-
-        playerInput.actions["QButtonClick"].performed -= ctx => QButtonClickInput();
-        playerInput.actions["WButtonClick"].performed -= ctx => WButtonClickInput();
-        playerInput.actions["EButtonClick"].performed -= ctx => EButtonClickInput();
-        playerInput.actions["RButtonClick"].performed -= ctx => RButtonClickInput();
-
-        playerInput.actions["Back"].performed -= ctx => BackClick();
-
-        playerInput.actions["CancelEverything"].performed -= ctx => CancelEverything();
-
         // char placement specific for now
-        playerInput.actions["SelectNextCharacter"].performed -= ctx => SelectNextCharacter();
-        playerInput.actions["SelectPreviousCharacter"].performed -= ctx => SelectPreviousCharacter();
+        playerInput.actions["SelectNextCharacter"].performed -= SelectNextCharacter;
+        playerInput.actions["SelectPreviousCharacter"].performed -= SelectPreviousCharacter;
+
+        playerInput.actions["LeftMouseClick"].performed -= LeftMouseClick;
+        playerInput.actions["ArrowMovement"].performed -= Move;
+
+        playerInput.actions["SelectClick"].performed -= SelectClick;
+
+        playerInput.actions["AButtonClick"].performed -= AButtonClickInput;
+        playerInput.actions["SButtonClick"].performed -= SButtonClickInput;
+        playerInput.actions["DButtonClick"].performed -= DButtonClickInput;
+
+        playerInput.actions["QButtonClick"].performed -= QButtonClickInput;
+        playerInput.actions["WButtonClick"].performed -= WButtonClickInput;
+        playerInput.actions["EButtonClick"].performed -= EButtonClickInput;
+        playerInput.actions["RButtonClick"].performed -= RButtonClickInput;
+
+        playerInput.actions["Back"].performed -= BackClick;
+
+        playerInput.actions["CancelEverything"].performed -= CancelEverything;
     }
 
     public bool IsInputAllowed()
@@ -172,7 +171,7 @@ public class BattleInputController : MonoBehaviour
         allowInput = _isAllowed;
     }
 
-    void LeftMouseClick()
+    void LeftMouseClick(InputAction.CallbackContext _ctx)
     {
         if (battleCharacterController.characterState == CharacterState.SelectingFaceDir)
             return;
@@ -191,18 +190,20 @@ public class BattleInputController : MonoBehaviour
         movePointController.Move(pos);
     }
 
-    void Move(Vector2 _direction)
+    void Move(InputAction.CallbackContext _ctx)
     {
+        Vector2 direction = _ctx.ReadValue<Vector2>();
+
         // Selecting face direction with arrows
         if (battleCharacterController.characterState == CharacterState.SelectingFaceDir)
         {
-            if (_direction == Vector2.up)
+            if (direction == Vector2.up)
                 battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateUpButtonClicked();
-            if (_direction == Vector2.left)
+            if (direction == Vector2.left)
                 battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateLeftButtonClicked();
-            if (_direction == Vector2.right)
+            if (direction == Vector2.right)
                 battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateRightButtonClicked();
-            if (_direction == Vector2.down)
+            if (direction == Vector2.down)
                 battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateDownButtonClicked();
 
             return;
@@ -213,18 +214,18 @@ public class BattleInputController : MonoBehaviour
 
         // TODO: this is wrong, but it works.
         // with only normalize, if you press both arrows at the same time you will get (0.7, 0.7) vector        
-        _direction.Normalize();
-        Vector2 vectorX = new Vector2(_direction.x, 0).normalized;
-        Vector2 vectorY = new Vector2(0, _direction.y).normalized;
+        direction.Normalize();
+        Vector2 vectorX = new Vector2(direction.x, 0).normalized;
+        Vector2 vectorY = new Vector2(0, direction.y).normalized;
 
         movePointController.Move(new Vector3(transform.position.x + vectorX.x, transform.position.y + vectorY.y, transform.position.z));
     }
-    void SelectClick()
+    void SelectClick(InputAction.CallbackContext _ctx)
     {
         movePointController.HandleSelectClick();
     }
 
-    void BackClick()
+    void BackClick(InputAction.CallbackContext _ctx)
     {
         if (!allowInput)
             return;
@@ -233,26 +234,19 @@ public class BattleInputController : MonoBehaviour
         movePointController.UpdateDisplayInformation();
     }
 
-    void SelectNextCharacter()
+    void SelectNextCharacter(InputAction.CallbackContext _ctx)
     {
         if (TurnManager.battleState == BattleState.Deployment)
-        {
             battleDeploymentController.SelectNextCharacter();
-            return;
-        }
-
     }
 
-    void SelectPreviousCharacter()
+    void SelectPreviousCharacter(InputAction.CallbackContext _ctx)
     {
         if (TurnManager.battleState == BattleState.Deployment)
-        {
             battleDeploymentController.SelectPreviousCharacter();
-            return;
-        }
     }
 
-    void CancelEverything()
+    void CancelEverything(InputAction.CallbackContext _ctx)
     {
         allowInput = true;
         battleCharacterController.Back();
@@ -260,33 +254,33 @@ public class BattleInputController : MonoBehaviour
     }
 
     // when you click Q on keyboard I want to simulate clicking a button with mouse
-    void AButtonClickInput()
+    void AButtonClickInput(InputAction.CallbackContext _ctx)
     {
         characterUI.SimulateAButtonClicked();
     }
-    void SButtonClickInput()
+    void SButtonClickInput(InputAction.CallbackContext _ctx)
     {
         characterUI.SimulateSButtonClicked();
     }
-    void DButtonClickInput()
+    void DButtonClickInput(InputAction.CallbackContext _ctx)
     {
         characterUI.SimulateDButtonClicked();
     }
 
 
-    void QButtonClickInput()
+    void QButtonClickInput(InputAction.CallbackContext _ctx)
     {
         characterUI.SimulateQButtonClicked();
     }
-    void WButtonClickInput()
+    void WButtonClickInput(InputAction.CallbackContext _ctx)
     {
         characterUI.SimulateWButtonClicked();
     }
-    void EButtonClickInput()
+    void EButtonClickInput(InputAction.CallbackContext _ctx)
     {
         characterUI.SimulateEButtonClicked();
     }
-    void RButtonClickInput()
+    void RButtonClickInput(InputAction.CallbackContext _ctx)
     {
         characterUI.SimulateRButtonClicked();
     }

@@ -7,7 +7,7 @@ public class BattleDeploymentController : MonoBehaviour
     Highlighter highlighter;
     InfoCardUI infoCardUI;
 
-    List<Character> charactersToPlace = new();
+    List<Character> charactersToPlace;
     public GameObject characterTemplate;
     public GameObject characterBeingPlaced { get; private set; }
     int characterBeingPlacedIndex = 0;
@@ -26,7 +26,7 @@ public class BattleDeploymentController : MonoBehaviour
         highlighter = Highlighter.instance;
         infoCardUI = InfoCardUI.instance;
 
-        charactersToPlace = JourneyManager.instance.playerTroops;
+        charactersToPlace = new(JourneyManager.instance.playerTroops);
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
