@@ -238,13 +238,12 @@ public class JourneyMapManager : MonoBehaviour
         pathTravelledLineRenderer.material.color = Color.red;
         pathTravelledLineRenderer.positionCount = 1;
         pathTravelledLineRenderer.SetPosition(0, startNode.gameObject.transform.position);
-
     }
 
     void LoadData()
     {
         // TODO: this can be improved
-        if (journeyManager.visitedNodes.Count == 0)
+        if (journeyManager.visitedJourneyNodes.Count == 0)
         {
             currentNode = startNode.GetComponent<JourneyNodeBehaviour>().journeyNode;
             currentNode.Select();
@@ -258,15 +257,17 @@ public class JourneyMapManager : MonoBehaviour
             return;
         }
 
-        currentNode = journeyManager.currentJourneyNode;
+        JourneyNodeData data = journeyManager.currentJourneyNode;
+        currentNode = journeyPaths[data.pathIndex].nodes[data.nodeIndex];
 
-        foreach (JourneyNode n in journeyManager.visitedNodes)
+        foreach (JourneyNodeData n in journeyManager.visitedJourneyNodes)
         {
-            n.journeyNodeBehaviour.MarkAsVisited();
+            JourneyNode node = journeyPaths[n.pathIndex].nodes[n.nodeIndex];
+            node.journeyNodeBehaviour.MarkAsVisited();
 
             // render path
             pathTravelledLineRenderer.positionCount++;
-            pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, n.gameObject.transform.position);
+            pathTravelledLineRenderer.SetPosition(pathTravelledLineRenderer.positionCount - 1, node.gameObject.transform.position);
         }
 
         ResolveBackToJourney();
@@ -330,7 +331,12 @@ public class JourneyMapManager : MonoBehaviour
         _node.DrawCircle();
         _node.journeyNode.Select(); // after n.journeyNodeBehaviour.StopAnimating(); to keep the color
         currentNode = _node.journeyNode;
-        journeyManager.SetCurrentJourneyNode(_node.journeyNode);
+
+        JourneyNodeData data = new JourneyNodeData();
+        JourneyPath currentPath = GetCurrentPath(_node.journeyNode);
+        data.pathIndex = journeyPaths.IndexOf(currentPath);
+        data.nodeIndex = currentPath.nodes.IndexOf(currentNode);
+        journeyManager.SetCurrentJourneyNode(data);
 
         // render path
         pathTravelledLineRenderer.positionCount++;

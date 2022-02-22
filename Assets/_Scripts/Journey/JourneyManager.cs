@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class JourneyManager : MonoBehaviour
+public class JourneyManager : MonoBehaviour, ISavable
 {
     public List<Character> playerTroops;
     public bool wasJourneySetUp { get; private set; }
     public int journeySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
-    public JourneyNode currentJourneyNode { get; private set; }
+    public JourneyNodeData currentJourneyNode { get; private set; }
     public int obols { get; private set; }
     public JourneyNodeReward reward { get; private set; }
 
@@ -17,7 +19,7 @@ public class JourneyManager : MonoBehaviour
     List<JourneyEvent> availableEvents;
 
     [HideInInspector] public List<JourneyPath> journeyPaths = new();
-    public List<JourneyNode> visitedNodes = new();
+    public List<JourneyNodeData> visitedJourneyNodes = new();
 
     public static JourneyManager instance;
     void Awake()
@@ -40,6 +42,7 @@ public class JourneyManager : MonoBehaviour
 
         // copy array to list;
         availableEvents = new(allEvents);
+        LoadJsonData();
         //LoadPlayerCharacters();
     }
 
@@ -61,15 +64,16 @@ public class JourneyManager : MonoBehaviour
         journeySeed = _s;
     }
 
-    public void SetCurrentJourneyNode(JourneyNode _n)
+    public void SetCurrentJourneyNode(JourneyNodeData _n)
     {
-        visitedNodes.Add(_n);
+        visitedJourneyNodes.Add(_n);
         currentJourneyNode = _n;
     }
 
     public void SetObols(int _o)
     {
         obols = _o;
+        SaveJsonData();
     }
 
     public void SetNodeReward(JourneyNodeReward _r)
@@ -84,4 +88,46 @@ public class JourneyManager : MonoBehaviour
         availableEvents.Remove(ev);
         return ev;
     }
+
+    /*************
+    * Saving and Loading
+    * https://www.youtube.com/watch?v=uD7y4T4PVk0
+    */
+
+    public void SaveJsonData()
+    {
+        SaveData sd = new SaveData();
+        PopulateSaveData(sd);
+        if (FileManager.WriteToFile("SaveData.dat", sd.ToJson()))
+            Debug.Log("save successful");
+    }
+
+    public void PopulateSaveData(SaveData saveData)
+    {
+        saveData.obols = obols;
+        saveData.journeySeed = journeySeed;
+        saveData.currentJourneyNode = currentJourneyNode;
+        saveData.visitedJourneyNodes = visitedJourneyNodes;
+    }
+
+    public void LoadJsonData()
+    {
+        if (FileManager.LoadFromFile("SaveData.dat", out var json))
+        {
+            SaveData sd = new SaveData();
+            sd.LoadFromJson(json);
+
+            LoadFromSaveData(sd);
+            Debug.Log("load complete");
+        }
+    }
+
+    public void LoadFromSaveData(SaveData saveData)
+    {
+        obols = saveData.obols;
+        journeySeed = saveData.journeySeed;
+        currentJourneyNode = saveData.currentJourneyNode;
+        visitedJourneyNodes = saveData.visitedJourneyNodes;
+    }
+
 }

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: BasicAttack
   m_EditorClassIdentifier: 
-  Id: 557b3926-8503-421a-9e2e-b82a6af96c49
-  aName: Basic Attack
+  id: 9db78370-290f-4489-86ee-448523fe1a29
   aDescription: Damage 10
   aType: 0
   weaponType: 0
