@@ -10,12 +10,12 @@ public class OuterObject : MonoBehaviour
     public void Initialise(TilemapObject _obj)
     {
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        sr.sprite = _obj.sprite;
+        sr.sprite = _obj.Sprite;
         if (Random.Range(0f, 1f) > 0.5f)
             sr.flipX = true;
 
-        tweenID = _obj.id;
-        if (_obj.isMoving)
+        tweenID = _obj.Id;
+        if (_obj.IsMoving)
         {
             sr.sortingOrder = 2;
             StartCoroutine(ChangeMovement());

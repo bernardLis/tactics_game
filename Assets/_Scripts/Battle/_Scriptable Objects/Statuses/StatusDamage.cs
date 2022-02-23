@@ -3,23 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Statuses/Damage")]
 public class StatusDamage : Status
 {
-    CharacterStats characterStats;
-    public override void Initialize(GameObject _self, GameObject _attacker)
-    {
-        base.Initialize(_self, _attacker);
-
-        characterStats = _self.GetComponent<CharacterStats>();
-    }
-
     public override void TriggerStatus()
     {
         base.TriggerStatus();
-        characterStats.TakeDamageNoDodgeNoRetaliation(value);
+        _characterStats.TakeDamageNoDodgeNoRetaliation(Value);
     }
 
     public override string GetDescription()
     {
-        return "Damages target by " + value + " for " + numberOfTurns + " turn/s.";
+        return "Damages target by " + Value + " for " + NumberOfTurns + " turn/s.";
     }
 
 }

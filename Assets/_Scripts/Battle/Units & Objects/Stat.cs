@@ -19,7 +19,7 @@ public class Stat
     {
         int finalValue = baseValue;
         foreach (StatModifier m in modifiers)
-            finalValue += m.value;
+            finalValue += m.Value;
 
         // final value can't be negative
         finalValue = Mathf.Clamp(finalValue, 0, int.MaxValue);
@@ -30,7 +30,7 @@ public class Stat
     public void AddModifier(StatModifier _modifier)
     {
         foreach(StatModifier s in modifiers)
-            if(s.id == _modifier.id)
+            if(s.Id == _modifier.Id)
                 return; // prevents stacking of the same modifier
 
         modifiers.Add(_modifier);
@@ -43,8 +43,8 @@ public class Stat
     {
         for (int i = modifiers.Count - 1; i >= 0; i--)
         {
-            modifiers[i].numberOfTurns--;
-            if (modifiers[i].numberOfTurns <= 0)
+            modifiers[i].NumberOfTurns--;
+            if (modifiers[i].NumberOfTurns <= 0)
                 RemoveModifier(modifiers[i]);
         }
     }

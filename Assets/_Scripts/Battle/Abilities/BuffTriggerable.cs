@@ -34,7 +34,7 @@ public class BuffTriggerable : MonoBehaviour
 
             await characterRendererManager.SpellcastAnimation();
 
-            myStats.UseMana(_ability.manaCost);
+            myStats.UseMana(_ability.ManaCost);
         }
 
         _target.GetComponent<IBuffable<Ability>>().GetBuffed(_ability);

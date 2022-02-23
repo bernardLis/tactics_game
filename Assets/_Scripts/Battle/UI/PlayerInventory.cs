@@ -57,20 +57,20 @@ public class PlayerInventory : MonoBehaviour
 
         slotDimension = new Dimensions
         {
-            width = Mathf.RoundToInt(firstSlot.worldBound.width),
-            height = Mathf.RoundToInt(firstSlot.worldBound.height)
+            Width = Mathf.RoundToInt(firstSlot.worldBound.width),
+            Height = Mathf.RoundToInt(firstSlot.worldBound.height)
         };
     }
 
     IEnumerator GetPositionForItem(VisualElement newItem)
     {
-        for (int y = 0; y < inventoryDimensions.height; y++)
+        for (int y = 0; y < inventoryDimensions.Height; y++)
         {
-            for (int x = 0; x < inventoryDimensions.width; x++)
+            for (int x = 0; x < inventoryDimensions.Width; x++)
             {
                 //try position
-                SetItemPosition(newItem, new Vector2(slotDimension.width * x,
-                        slotDimension.height * y));
+                SetItemPosition(newItem, new Vector2(slotDimension.Width * x,
+                        slotDimension.Height * y));
 
                 yield return 0;
 

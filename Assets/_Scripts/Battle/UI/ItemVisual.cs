@@ -13,12 +13,12 @@ public class ItemVisual : VisualElement
 	{
 		item = _item;
 		name = $"{item.name}";
-		style.height = item.slotDimension.height * PlayerInventory.slotDimension.height;
-		style.height = item.slotDimension.width * PlayerInventory.slotDimension.width;
+		style.height = item.SlotDimension.Height * PlayerInventory.slotDimension.Height;
+		style.height = item.SlotDimension.Width * PlayerInventory.slotDimension.Width;
 		style.visibility = Visibility.Hidden;
 		VisualElement icon = new VisualElement
 		{
-			style = { backgroundImage = item.icon.texture }
+			style = { backgroundImage = item.Icon.texture }
 		};
 		Add(icon);
 		icon.AddToClassList("visual-icon");

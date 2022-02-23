@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,8 +5,8 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(menuName = "ScriptableObject/Tilemap/Biome")]
 public class MyTileData : BaseScriptableObject
 {
-	public TileBase[] tiles;
+	public TileBase[] Tiles;
 
-	public bool obstacle;
+	public bool isObstacle;
 	
 }

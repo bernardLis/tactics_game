@@ -11,7 +11,7 @@ public class QuestManager : MonoBehaviour
         List<Quest> activeQuests = new List<Quest>();
         foreach (Quest quest in allQuests)
         {
-            if (quest.qState == QuestState.ACTIVE)
+            if (quest.State == QuestState.ACTIVE)
                 activeQuests.Add(quest);
         }
         return activeQuests;
@@ -22,7 +22,7 @@ public class QuestManager : MonoBehaviour
         List<Quest> activeQuests = new List<Quest>();
         foreach (Quest quest in allQuests)
         {
-            if (quest.qState == QuestState.COMPLETED)
+            if (quest.State == QuestState.COMPLETED)
                 activeQuests.Add(quest);
         }
         return activeQuests;
@@ -33,19 +33,9 @@ public class QuestManager : MonoBehaviour
         List<Quest> activeQuests = new List<Quest>();
         foreach (Quest quest in allQuests)
         {
-            if (quest.qState == QuestState.FAILED)
+            if (quest.State == QuestState.FAILED)
                 activeQuests.Add(quest);
         }
         return activeQuests;
-    }
-
-    public Quest ReturnQuestFromID(int id)
-    {
-        foreach (Quest quest in allQuests)
-        {
-            if (quest.qID == id)
-                return quest;
-        }
-        return null;
     }
 }

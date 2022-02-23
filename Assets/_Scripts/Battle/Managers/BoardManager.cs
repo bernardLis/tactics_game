@@ -127,7 +127,7 @@ public class BoardManager : MonoBehaviour
         // +-1 because I am setting edge tiles to unwalkable edges
         for (int x = -1; x < mapSize.x + 1; x++)
             for (int y = -1; y < mapSize.y + 1; y++)
-                backgroundTilemap.SetTile(new Vector3Int(x, y), biome.floorTiles[Random.Range(0, biome.floorTiles.Length)]);
+                backgroundTilemap.SetTile(new Vector3Int(x, y), biome.FloorTiles[Random.Range(0, biome.FloorTiles.Length)]);
     }
 
     void InitialiseOpenPositions()
@@ -144,29 +144,29 @@ public class BoardManager : MonoBehaviour
     void ResolveMapVariant()
     {
         mapVariantChosen = mapVariants[Random.Range(0, mapVariants.Length)];
-        obstaclePercent = Random.Range(mapVariantChosen.obstaclePercent.x, mapVariantChosen.obstaclePercent.y);
-        terrainIrregularitiesPercent = Random.Range(mapVariantChosen.terrainIrregularitiesPercent.x,
-                                                    mapVariantChosen.terrainIrregularitiesPercent.y);
-        outerAdditionsPercent = Random.Range(biome.outerAdditionsPercent.x, biome.outerAdditionsPercent.y);
-        trapPercent = Random.Range(mapVariantChosen.trapPercent.x,
-                                            mapVariantChosen.trapPercent.y);
+        obstaclePercent = Random.Range(mapVariantChosen.ObstaclePercent.x, mapVariantChosen.ObstaclePercent.y);
+        terrainIrregularitiesPercent = Random.Range(mapVariantChosen.TerrainIrregularitiesPercent.x,
+                                                    mapVariantChosen.TerrainIrregularitiesPercent.y);
+        outerAdditionsPercent = Random.Range(biome.OuterAdditionsPercent.x, biome.OuterAdditionsPercent.y);
+        trapPercent = Random.Range(mapVariantChosen.TrapPercent.x,
+                                            mapVariantChosen.TrapPercent.y);
 
         Light2D l = Instantiate(globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
         l.transform.parent = envObjectsHolder.transform;
-        l.color = biome.lightColor;
-        l.intensity = biome.lightIntensity;
+        l.color = biome.LightColor;
+        l.intensity = biome.LightIntensity;
 
         // TODO: Correct? I want to remove some values on some map types - river / hourglass
 
         allowedEnemySpawnDirections = System.Enum.GetValues(typeof(EnemySpawnDirection)).Cast<EnemySpawnDirection>().ToList();
 
-        if (mapVariantChosen.mapType == MapType.Circle)
+        if (mapVariantChosen.MapType == MapType.Circle)
             CarveCircle();
-        if (mapVariantChosen.mapType == MapType.River)
+        if (mapVariantChosen.MapType == MapType.River)
             PlaceRiver();
-        if (mapVariantChosen.mapType == MapType.Lake)
+        if (mapVariantChosen.MapType == MapType.Lake)
             PlaceLake();
-        if (mapVariantChosen.mapType == MapType.Hourglass)
+        if (mapVariantChosen.MapType == MapType.Hourglass)
             CarveHourglass();
     }
 
@@ -233,7 +233,7 @@ public class BoardManager : MonoBehaviour
 
     async Task LayoutObstacles()
     {
-        if (biome.obstacles.Length == 0)
+        if (biome.Obstacles.Length == 0)
             return;
 
         obstacleMap = new bool[mapSize.x, mapSize.y];
@@ -255,20 +255,20 @@ public class BoardManager : MonoBehaviour
             if (openGridPositions.Count <= 0)
                 return;
 
-            TilemapObject selectedObject = biome.obstacles[Random.Range(0, biome.obstacles.Length)];
-            List<Vector3Int> randomPosition = GetRandomOpenPosition(selectedObject.size, openGridPositions);
+            TilemapObject selectedObject = biome.Obstacles[Random.Range(0, biome.Obstacles.Length)];
+            List<Vector3Int> randomPosition = GetRandomOpenPosition(selectedObject.Size, openGridPositions);
             if (randomPosition == null)
                 return;
 
             foreach (Vector3Int pos in randomPosition)
                 obstacleMap[pos.x, pos.y] = true;
-            obstacledTileCount += selectedObject.size.x * selectedObject.size.y;
+            obstacledTileCount += selectedObject.Size.x * selectedObject.Size.y;
 
             if (!MapIsFullyAccessible(obstacleMap, obstacledTileCount))
             {
                 foreach (Vector3Int pos in randomPosition)
                     obstacleMap[pos.x, pos.y] = false;
-                obstacledTileCount -= selectedObject.size.x * selectedObject.size.y;
+                obstacledTileCount -= selectedObject.Size.x * selectedObject.Size.y;
                 continue;
             }
             await Task.Delay(30);
@@ -312,7 +312,7 @@ public class BoardManager : MonoBehaviour
 
     void LayoutFloorAdditions(int minimum, int maximum)
     {
-        TileBase[] tiles = biome.floorAdditions;
+        TileBase[] tiles = biome.FloorAdditions;
         int objectCount = Random.Range(minimum, maximum + 1);
         for (int i = 0; i < objectCount; i++)
         {
@@ -429,7 +429,7 @@ public class BoardManager : MonoBehaviour
     {
         openOuterPositions.Clear();
 
-        TileBase[] tiles = biome.outerTiles;
+        TileBase[] tiles = biome.OuterTiles;
 
         for (int x = -mapSize.x; x < mapSize.x * 2; x++)
             for (int y = -mapSize.y; y < mapSize.y * 2; y++)
@@ -442,7 +442,7 @@ public class BoardManager : MonoBehaviour
 
     void PlaceOuterAdditions()
     {
-        if (biome.outerAdditions.Length == 0)
+        if (biome.OuterAdditions.Length == 0)
             return;
 
         int outerAdditionsCount = Mathf.FloorToInt(openOuterPositions.Count * outerAdditionsPercent);
@@ -451,8 +451,8 @@ public class BoardManager : MonoBehaviour
             if (openOuterPositions.Count <= 0)
                 return;
 
-            TilemapObject selectedObject = biome.outerAdditions[Random.Range(0, biome.outerAdditions.Length)];
-            Vector3Int randomPosition = GetRandomOuterPosition(selectedObject.size);
+            TilemapObject selectedObject = biome.OuterAdditions[Random.Range(0, biome.OuterAdditions.Length)];
+            Vector3Int randomPosition = GetRandomOuterPosition(selectedObject.Size);
             if (randomPosition == Vector3Int.zero) // TODO: ehh...
                 continue;
 
@@ -466,11 +466,11 @@ public class BoardManager : MonoBehaviour
 
         // outer positions are not shuffled
         // + 1 coz if size is '1' I don't want to move any tiles down
-        if (Array.IndexOf(biome.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y))) == -1)
+        if (Array.IndexOf(biome.OuterTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y))) == -1)
             return Vector3Int.zero;
-        if (Array.IndexOf(biome.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x, randPos.y - _size.y + 1))) == -1)
+        if (Array.IndexOf(biome.OuterTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x, randPos.y - _size.y + 1))) == -1)
             return Vector3Int.zero;
-        if (Array.IndexOf(biome.outerTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y - _size.y + 1))) == -1)
+        if (Array.IndexOf(biome.OuterTiles, backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y - _size.y + 1))) == -1)
             return Vector3Int.zero;
 
         openOuterPositions.Remove(randPos);
@@ -549,34 +549,34 @@ public class BoardManager : MonoBehaviour
     void PlaceObject(TilemapObject _obj, Vector3Int _pos)
     {
         GameObject selectedPrefab = obstaclePrefab;
-        if (_obj.pushable)
+        if (_obj.IsPushable)
             selectedPrefab = pushableObstaclePrefab;
-        if (_obj.objectType == TileMapObjectType.Outer)
+        if (_obj.ObjectType == TileMapObjectType.Outer)
             selectedPrefab = outerObjectPrefab;
 
         // we are getting SE corner of the most NW tile of all positions and need to adjust the position to fit the tilemap
         float posX = _pos.x;
         float posY = _pos.y;
 
-        if (_obj.size.x == 1)
+        if (_obj.Size.x == 1)
             posX += 0.5f;
-        if (_obj.size.y == 1)
+        if (_obj.Size.y == 1)
             posY += 0.5f;
 
-        if (_obj.size.x >= 3)
-            posX -= 0.5f * (_obj.size.x - 2);
-        if (_obj.size.y >= 3)
-            posY -= 0.5f * (_obj.size.y - 2);
+        if (_obj.Size.x >= 3)
+            posX -= 0.5f * (_obj.Size.x - 2);
+        if (_obj.Size.y >= 3)
+            posY -= 0.5f * (_obj.Size.y - 2);
 
         Vector3 placingPos = new Vector3(posX, posY, _pos.z);
 
         GameObject ob = Instantiate(selectedPrefab, placingPos, Quaternion.identity);
-        if (_obj.objectType == TileMapObjectType.Obstacle)
+        if (_obj.ObjectType == TileMapObjectType.Obstacle)
             ob.GetComponent<Obstacle>().Initialise(_obj);
-        if (_obj.objectType == TileMapObjectType.Outer)
+        if (_obj.ObjectType == TileMapObjectType.Outer)
             ob.GetComponent<OuterObject>().Initialise(_obj);
 
-        if (_obj.pushable)
+        if (_obj.IsPushable)
             pushableObstacles.Add(ob);
 
         ob.name = _obj.name;
@@ -602,23 +602,23 @@ public class BoardManager : MonoBehaviour
 
         // TODO: this seems stupid
         if (neighbours[0] && !neighbours[1] && neighbours[2] && neighbours[3])// edge N
-            SetEdgeTile(_pos, biome.edgeN);
+            SetEdgeTile(_pos, biome.EdgeN);
         if (neighbours[0] && neighbours[1] && neighbours[2] && !neighbours[3])// edge S
-            SetEdgeTile(_pos, biome.edgeS);
+            SetEdgeTile(_pos, biome.EdgeS);
         if (!neighbours[0] && neighbours[1] && neighbours[2] && neighbours[3])// edge W
-            SetEdgeTile(_pos, biome.edgeW);
+            SetEdgeTile(_pos, biome.EdgeW);
         if (neighbours[0] && neighbours[1] && !neighbours[2] && neighbours[3])// edge E
-            SetEdgeTile(_pos, biome.edgeE);
+            SetEdgeTile(_pos, biome.EdgeE);
 
         // corners
         if (!neighbours[0] && !neighbours[1] && neighbours[2] && neighbours[3])// corner NW
-            SetEdgeTile(_pos, biome.cornerNW);
+            SetEdgeTile(_pos, biome.CornerNW);
         if (neighbours[0] && !neighbours[1] && !neighbours[2] && neighbours[3])// corner NE
-            SetEdgeTile(_pos, biome.cornerNE);
+            SetEdgeTile(_pos, biome.CornerNE);
         if (!neighbours[0] && neighbours[1] && neighbours[2] && !neighbours[3])// corner SW
-            SetEdgeTile(_pos, biome.cornerSE);
+            SetEdgeTile(_pos, biome.CornerSE);
         if (neighbours[0] && neighbours[1] && !neighbours[2] && !neighbours[3])// corner SE
-            SetEdgeTile(_pos, biome.cornerSW);
+            SetEdgeTile(_pos, biome.CornerSW);
     }
 
     void SetInlandCorners(Vector3Int _pos)
@@ -645,29 +645,29 @@ public class BoardManager : MonoBehaviour
         surroundingTiles[3] = backgroundTilemap.GetTile(new Vector3Int(_pos.x, _pos.y - 1));
 
         // inland corners need to consider corners too
-        if ((surroundingTiles[0] == biome.edgeN && surroundingTiles[1] == biome.edgeW)
-            || (surroundingTiles[0] == biome.cornerNW && surroundingTiles[1] == biome.edgeW)
-            || (surroundingTiles[0] == biome.cornerNW && surroundingTiles[1] == biome.cornerNW)
-            || (surroundingTiles[0] == biome.edgeN && surroundingTiles[1] == biome.cornerNW))
-            SetEdgeTile(_pos, biome.inlandCornerSW);
+        if ((surroundingTiles[0] == biome.EdgeN && surroundingTiles[1] == biome.EdgeW)
+            || (surroundingTiles[0] == biome.CornerNW && surroundingTiles[1] == biome.EdgeW)
+            || (surroundingTiles[0] == biome.CornerNW && surroundingTiles[1] == biome.CornerNW)
+            || (surroundingTiles[0] == biome.EdgeN && surroundingTiles[1] == biome.CornerNW))
+            SetEdgeTile(_pos, biome.InlandCornerSW);
 
-        if ((surroundingTiles[0] == biome.edgeS && surroundingTiles[3] == biome.edgeW)
-            || (surroundingTiles[0] == biome.edgeS && surroundingTiles[3] == biome.cornerSE)
-            || (surroundingTiles[0] == biome.cornerSE && surroundingTiles[3] == biome.edgeW)
-            || (surroundingTiles[0] == biome.cornerSE && surroundingTiles[3] == biome.cornerSE))
-            SetEdgeTile(_pos, biome.inlandCornerNW);
+        if ((surroundingTiles[0] == biome.EdgeS && surroundingTiles[3] == biome.EdgeW)
+            || (surroundingTiles[0] == biome.EdgeS && surroundingTiles[3] == biome.CornerSE)
+            || (surroundingTiles[0] == biome.CornerSE && surroundingTiles[3] == biome.EdgeW)
+            || (surroundingTiles[0] == biome.CornerSE && surroundingTiles[3] == biome.CornerSE))
+            SetEdgeTile(_pos, biome.InlandCornerNW);
 
-        if ((surroundingTiles[1] == biome.edgeE && surroundingTiles[2] == biome.edgeN)
-            || (surroundingTiles[1] == biome.cornerNE && surroundingTiles[2] == biome.edgeN)
-            || (surroundingTiles[1] == biome.edgeE && surroundingTiles[2] == biome.cornerNE)
-            || (surroundingTiles[1] == biome.cornerNE && surroundingTiles[2] == biome.cornerNE))
-            SetEdgeTile(_pos, biome.inlandCornerSE);
+        if ((surroundingTiles[1] == biome.EdgeE && surroundingTiles[2] == biome.EdgeN)
+            || (surroundingTiles[1] == biome.CornerNE && surroundingTiles[2] == biome.EdgeN)
+            || (surroundingTiles[1] == biome.EdgeE && surroundingTiles[2] == biome.CornerNE)
+            || (surroundingTiles[1] == biome.CornerNE && surroundingTiles[2] == biome.CornerNE))
+            SetEdgeTile(_pos, biome.InlandCornerSE);
 
-        if ((surroundingTiles[2] == biome.edgeS && surroundingTiles[3] == biome.edgeE)
-            || (surroundingTiles[2] == biome.edgeS && surroundingTiles[3] == biome.cornerSW)
-            || (surroundingTiles[2] == biome.cornerSW && surroundingTiles[3] == biome.edgeE)
-            || (surroundingTiles[2] == biome.cornerSW && surroundingTiles[3] == biome.cornerSW))
-            SetEdgeTile(_pos, biome.inlandCornerNE);
+        if ((surroundingTiles[2] == biome.EdgeS && surroundingTiles[3] == biome.EdgeE)
+            || (surroundingTiles[2] == biome.EdgeS && surroundingTiles[3] == biome.CornerSW)
+            || (surroundingTiles[2] == biome.CornerSW && surroundingTiles[3] == biome.EdgeE)
+            || (surroundingTiles[2] == biome.CornerSW && surroundingTiles[3] == biome.CornerSW))
+            SetEdgeTile(_pos, biome.InlandCornerNE);
     }
 
     void ClearLooseTile(Vector3Int _pos)
@@ -694,7 +694,7 @@ public class BoardManager : MonoBehaviour
 
     void SetBackgroundFloorTile(Vector3Int _pos)
     {
-        backgroundTilemap.SetTile(_pos, biome.floorTiles[Random.Range(0, biome.floorTiles.Length)]);
+        backgroundTilemap.SetTile(_pos, biome.FloorTiles[Random.Range(0, biome.FloorTiles.Length)]);
     }
 
     void ClearTile(Vector3Int _pos)
@@ -706,7 +706,7 @@ public class BoardManager : MonoBehaviour
 
     bool IsFloorTile(Vector3Int _pos)
     {
-        return Array.IndexOf(biome.floorTiles, backgroundTilemap.GetTile(_pos)) != -1;
+        return Array.IndexOf(biome.FloorTiles, backgroundTilemap.GetTile(_pos)) != -1;
     }
 
     // TODO: improve this?
@@ -846,7 +846,7 @@ public class BoardManager : MonoBehaviour
             GameObject newCharacter = Instantiate(enemyGO, spawnPos, Quaternion.identity);
 
             instantiatedSO.Initialize(newCharacter);
-            newCharacter.name = instantiatedSO.characterName;
+            newCharacter.name = instantiatedSO.CharacterName;
             newCharacter.transform.parent = envObjectsHolder.transform;
 
             newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);

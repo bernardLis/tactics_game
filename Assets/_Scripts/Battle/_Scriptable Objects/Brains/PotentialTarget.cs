@@ -3,16 +3,16 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 public class PotentialTarget
 {
-    public GameObject gObject;
-    public float distanceToTarget;
+    public GameObject GameObj;
+    public float DistanceToTarget;
 
-    public PotentialTarget(GameObject _gameObject, float _distanceToTarget)
+    public PotentialTarget(GameObject gameObject, float distanceToTarget)
     {
-        gObject = _gameObject;
-        distanceToTarget = _distanceToTarget;
+        GameObj = gameObject;
+        DistanceToTarget = distanceToTarget;
     }
 
-    public List<AttackPosition> GetMeeleAttackPositions(GameObject _attacker)
+    public List<AttackPosition> GetMeeleAttackPositions(GameObject attacker)
     {
         // This is our Dictionary of tiles
         Dictionary<Vector3, WorldTile> tiles = TileManager.tiles;
@@ -24,7 +24,7 @@ public class PotentialTarget
         List<WorldTile> freeTiles = new();
 
         // get players tile and then get the tile up, left, right and left from him
-        Vector3 tilePos = tilemap.WorldToCell(gObject.transform.position);
+        Vector3 tilePos = tilemap.WorldToCell(GameObj.transform.position);
 
         // check tiles around target player 
         Vector3[] tilesAroundPlayer = {
@@ -53,15 +53,15 @@ public class PotentialTarget
             if (col == null)
                 continue;
             
-            if (col.transform.parent.gameObject == _attacker)
+            if (col.transform.parent.gameObject == attacker)
                 freeTiles.Add(_tile);
         }
 
         List<AttackPosition> attackPositions = new();
-        CharacterStats stats = gObject.GetComponent<CharacterStats>();
+        CharacterStats stats = GameObj.GetComponent<CharacterStats>();
 
         foreach (WorldTile tile in freeTiles)
-            attackPositions.Add(new AttackPosition(gObject, tile, stats.CalculateAttackDir(tile.GetMiddleOfTile())));
+            attackPositions.Add(new AttackPosition(GameObj, tile, stats.CalculateAttackDir(tile.GetMiddleOfTile())));
 
         return attackPositions;
     }

@@ -290,8 +290,8 @@ public class CharacterUI : MonoBehaviour
     public void UseItem(Item _item)
     {
         Debug.Log("using ite in char ui");
-        _item.ability.Initialize(battleCharacterController.selectedCharacter);
-        buttonClickQueue.Enqueue(HandleButtonClick(_item.ability));
+        _item.Ability.Initialize(battleCharacterController.selectedCharacter);
+        buttonClickQueue.Enqueue(HandleButtonClick(_item.Ability));
     }
 
     void ShowAbilityTooltip(Ability _ability)
@@ -299,19 +299,19 @@ public class CharacterUI : MonoBehaviour
         characterUITooltipContainer.style.display = DisplayStyle.Flex;
 
         characterUITooltipAbilityName.text = _ability.name;
-        characterUITooltipAbilityDescription.text = _ability.aDescription;
-        characterUITooltipAbilityManaCost.text = "Mana cost: " + _ability.manaCost;
+        characterUITooltipAbilityDescription.text = _ability.Description;
+        characterUITooltipAbilityManaCost.text = "Mana cost: " + _ability.ManaCost;
 
         characterUITooltipModifierDescription.style.display = DisplayStyle.Flex;
         // display modifier & status description
-        if (_ability.statModifier != null)
-            characterUITooltipModifierDescription.text = _ability.statModifier.GetDescription();
+        if (_ability.StatModifier != null)
+            characterUITooltipModifierDescription.text = _ability.StatModifier.GetDescription();
         else
             characterUITooltipModifierDescription.style.display = DisplayStyle.None;
 
         characterUITooltipStatusDescription.style.display = DisplayStyle.Flex;
-        if (_ability.status != null)
-            characterUITooltipStatusDescription.text = _ability.status.GetDescription();
+        if (_ability.Status != null)
+            characterUITooltipStatusDescription.text = _ability.Status.GetDescription();
         else
             characterUITooltipStatusDescription.style.display = DisplayStyle.None;
 
@@ -329,8 +329,8 @@ public class CharacterUI : MonoBehaviour
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
         selectedPlayerStats = _playerStats;
 
-        characterName.text = selectedPlayerStats.character.characterName;
-        characterPortrait.style.backgroundImage = selectedPlayerStats.character.portrait.texture;
+        characterName.text = selectedPlayerStats.character.CharacterName;
+        characterPortrait.style.backgroundImage = selectedPlayerStats.character.Portrait.texture;
 
         SetCharacterHealthMana(_playerStats);
         SetCharacteristics(_playerStats);
@@ -406,7 +406,7 @@ public class CharacterUI : MonoBehaviour
             foreach (StatModifier m in modifiers)
             {
                 VisualElement mElement = new VisualElement();
-                mElement.style.backgroundImage = m.icon.texture;
+                mElement.style.backgroundImage = m.Icon.texture;
                 mElement.AddToClassList("modifierIconContainer");
                 modifierContainer.Add(mElement);
             }
@@ -421,7 +421,7 @@ public class CharacterUI : MonoBehaviour
         foreach (Status s in _stats.statuses)
         {
             VisualElement mElement = new VisualElement();
-            mElement.style.backgroundImage = s.icon.texture;
+            mElement.style.backgroundImage = s.Icon.texture;
             mElement.AddToClassList("modifierIconContainer");
             modifierContainer.Add(mElement);
         }
@@ -430,8 +430,8 @@ public class CharacterUI : MonoBehaviour
     void HandleAbilityButtons()
     {
         // TODO: hardcoded ability indexes
-        characterASkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[0].aIcon.texture;
-        characterSSkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[1].aIcon.texture;
+        characterASkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[0].Icon.texture;
+        characterSSkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[1].Icon.texture;
 
         for (int i = 0; i < abilityButtons.Count; i++)
         {
@@ -443,7 +443,7 @@ public class CharacterUI : MonoBehaviour
 
             // show buttons for each ability
             abilityButtons[i].style.display = DisplayStyle.Flex;
-            abilityIcons[i].style.backgroundImage = selectedPlayerStats.abilities[i].aIcon.texture;
+            abilityIcons[i].style.backgroundImage = selectedPlayerStats.abilities[i].Icon.texture;
         }
     }
 
@@ -476,9 +476,9 @@ public class CharacterUI : MonoBehaviour
         {
             if (abilityButtons[i].style.display == DisplayStyle.None)
                 continue;
-            if (selectedPlayerStats.abilities[i].manaCost >= selectedPlayerStats.currentMana)
+            if (selectedPlayerStats.abilities[i].ManaCost >= selectedPlayerStats.currentMana)
                 continue;
-            if (selectedPlayerStats.abilities[i].weaponType != selectedPlayerStats.character.weapon.weaponType && selectedPlayerStats.abilities[i].weaponType != WeaponType.ANY)
+            if (selectedPlayerStats.abilities[i].WeaponType != selectedPlayerStats.character.Weapon.WeaponType && selectedPlayerStats.abilities[i].WeaponType != WeaponType.Any)
                 continue;
 
             abilityButtons[i].SetEnabled(true);

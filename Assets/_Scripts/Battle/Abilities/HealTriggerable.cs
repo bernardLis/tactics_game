@@ -31,11 +31,11 @@ public class HealTriggerable : MonoBehaviour
             // animation
             await characterRendererManager.SpellcastAnimation();
 
-            myStats.UseMana(_ability.manaCost);
+            myStats.UseMana(_ability.ManaCost);
         }
 
         // data
-        int healAmount = _ability.value + myStats.intelligence.GetValue();
+        int healAmount = _ability.BasePower + myStats.intelligence.GetValue();
         _target.GetComponent<IHealable<Ability>>().GainHealth(healAmount, _ability);
 
         myStats.SetAttacker(true);

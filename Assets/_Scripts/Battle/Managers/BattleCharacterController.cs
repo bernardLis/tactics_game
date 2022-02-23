@@ -397,7 +397,7 @@ public class BattleCharacterController : MonoBehaviour
         playerCharSelection.ToggleSelectionArrow(true);
 
         // abilities that can target self should go back to Select target
-        if (selectedAbility.canTargetSelf)
+        if (selectedAbility.CanTargetSelf)
         {
             // it changes the state too
             selectedAbility.HighlightTargetable(selectedCharacter).GetAwaiter();

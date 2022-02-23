@@ -138,18 +138,18 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     void SetCharacteristics()
     {
         // taking values from scriptable object to c#
-        characterName = character.characterName;
+        characterName = character.CharacterName;
 
-        strength.baseValue = character.strength;
-        intelligence.baseValue = character.intelligence;
-        agility.baseValue = character.agility;
-        stamina.baseValue = character.stamina;
+        strength.baseValue = character.Strength;
+        intelligence.baseValue = character.Intelligence;
+        agility.baseValue = character.Agility;
+        stamina.baseValue = character.Stamina;
 
-        maxHealth.baseValue = baseMaxHealth + character.stamina * 5;
-        maxMana.baseValue = baseMaxMana + character.intelligence * 5;
+        maxHealth.baseValue = baseMaxHealth + character.Stamina * 5;
+        maxMana.baseValue = baseMaxMana + character.Intelligence * 5;
 
         armor.baseValue = baseArmor; // TODO: should be base value + all pieces of eq
-        int mRangeCalculation = 5 + Mathf.FloorToInt(character.agility / 3);
+        int mRangeCalculation = 5 + Mathf.FloorToInt(character.Agility / 3);
         movementRange.baseValue = Mathf.Clamp(mRangeCalculation, 0, 9); // after 9 it lags unity.
 
         // TODO: startin mana is for heal testing purposes 
@@ -158,18 +158,18 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
         // set weapon for animations & deactivate the game object
         WeaponHolder wh = GetComponentInChildren<WeaponHolder>();
-        wh.SetWeapon(character.weapon);
+        wh.SetWeapon(character.Weapon);
         wh.gameObject.SetActive(false);
 
         // adding basic attack from weapon to basic abilities to be instantiated
-        if (character.weapon != null)
+        if (character.Weapon != null)
         {
-            var clone = Instantiate(character.weapon.basicAttack);
+            var clone = Instantiate(character.Weapon.BasicAttack);
             basicAbilities.Add(clone);
             clone.Initialize(gameObject);
         }
 
-        foreach (Ability ability in character.basicAbilities)
+        foreach (Ability ability in character.BasicAbilities)
         {
             // I am cloning the ability coz if I don't there is only one scriptable object and it overrides variables
             // if 2 characters use the same ability
@@ -178,7 +178,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             clone.Initialize(gameObject);
         }
 
-        foreach (Ability ability in character.characterAbilities)
+        foreach (Ability ability in character.CharacterAbilities)
         {
             if (ability == null)
                 continue;
@@ -296,7 +296,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     void HandleModifier(Ability _ability)
     {
-        if (_ability.statModifier != null)
+        if (_ability.StatModifier != null)
         {
             AddModifier(_ability);
         }
@@ -304,8 +304,8 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     void HandleStatus(Ability _ability, GameObject _attacker)
     {
-        if (_ability.status != null)
-            AddStatus(_ability.status, _attacker);
+        if (_ability.Status != null)
+            AddStatus(_ability.Status, _attacker);
     }
 
     public int CalculateAttackDir(Vector3 _attackerPos)
@@ -344,10 +344,10 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         foreach (Ability a in basicAbilities)
         {
             // no retaliation with ranged attacks 
-            if (a.weaponType == WeaponType.SHOOT)
+            if (a.WeaponType == WeaponType.Shoot)
                 continue;
 
-            if (a.aType != AbilityType.Attack)
+            if (a.AbilityType != AbilityType.Attack)
                 continue;
 
             return (AttackAbility)a;
@@ -547,8 +547,8 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     void AddModifier(Ability _ability)
     {
         foreach (Stat s in stats)
-            if (s.type == _ability.statModifier.statType)
-                s.AddModifier(Instantiate(_ability.statModifier)); // stat checks if modifier is a dupe, to prevent stacking
+            if (s.type == _ability.StatModifier.StatType)
+                s.AddModifier(Instantiate(_ability.StatModifier)); // stat checks if modifier is a dupe, to prevent stacking
 
     }
 
@@ -568,7 +568,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     bool IsStatusOn(Status _s)
     {
         foreach (Status s in statuses)
-            if (s.id == _s.id)
+            if (s.Id == _s.Id)
                 return true;
 
         return false;

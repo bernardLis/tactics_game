@@ -7,30 +7,27 @@ public enum UtilityType { Key }
 public class UtilityAbility : Ability
 {
     [Header("Utility Ability")]
-    public UtilityType utilityType;
-    UtilityTriggerable utilityTriggerable;
+    public UtilityType UtilityType;
+    UtilityTriggerable _utilityTriggerable;
 
     public override void Initialize(GameObject obj)
     {
         base.Initialize(obj);
-        utilityTriggerable = obj.GetComponent<UtilityTriggerable>();
+        _utilityTriggerable = obj.GetComponent<UtilityTriggerable>();
     }
 
-    public async override Task<bool> TriggerAbility(GameObject _target)
+    public async override Task<bool> TriggerAbility(GameObject target)
     {
-        Debug.Log("target in trigger: " + _target);
-
         // check if target is valid
-        var itemUsableObject = _target.GetComponent<IItemUsable<UtilityAbility>>();
-        Debug.Log("itemUsableObject in trigger ability: " + itemUsableObject);
+        var itemUsableObject = target.GetComponent<IItemUsable<UtilityAbility>>();
         if (itemUsableObject == null)
             return false;
 
         // heal target if successful play sound and retrun true;
-        if (!await utilityTriggerable.TriggerUtility(_target, this, characterGameObject))
+        if (!await _utilityTriggerable.TriggerUtility(target, this, _characterGameObject))
             return false;
 
-        await base.TriggerAbility(_target);
+        await base.TriggerAbility(target);
         return true;
     }
 

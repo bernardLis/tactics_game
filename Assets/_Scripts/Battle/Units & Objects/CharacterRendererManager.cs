@@ -69,11 +69,11 @@ public class CharacterRendererManager : MonoBehaviour
         if (weaponHolder.weapon == null)
             await Thrust(directionFromFace); // punch animation
 
-        if (weaponHolder.weapon.weaponType == WeaponType.SLASH)
+        if (weaponHolder.weapon.WeaponType == WeaponType.Slash)
             await Slash(directionFromFace);
-        if (weaponHolder.weapon.weaponType == WeaponType.THRUST)
+        if (weaponHolder.weapon.WeaponType == WeaponType.Thrust)
             await Thrust(directionFromFace);
-        if (weaponHolder.weapon.weaponType == WeaponType.SHOOT)
+        if (weaponHolder.weapon.WeaponType == WeaponType.Shoot)
             await Shoot(directionFromFace);
     }
 

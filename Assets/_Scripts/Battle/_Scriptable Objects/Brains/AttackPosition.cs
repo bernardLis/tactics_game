@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class AttackPosition
 {
-    public GameObject target;
-    public WorldTile tile;
-    public int attackDirection;
+    public GameObject Target;
+    public WorldTile Tile;
+    public int AttackDirection;
 
-    public AttackPosition(GameObject _target, WorldTile _tile, int _attackDirection)
+    public AttackPosition(GameObject target, WorldTile tile, int attackDirection)
     {
-        target = _target;
-        tile = _tile;
-        attackDirection = _attackDirection;
+        Target = target;
+        Tile = tile;
+        AttackDirection = attackDirection;
     }
 }

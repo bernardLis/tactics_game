@@ -209,11 +209,11 @@ public class QuestUI : MonoBehaviour
         // TODO: show that the quest is completed
 
         // TODO: could be even nicer;
-        Label questName = new Label(quest.qName);
+        Label questName = new Label(quest.Title);
         questName.AddToClassList("questInformationName");
         questInformation.Add(questName);
 
-        Label questDescription = new Label(quest.qDescription);
+        Label questDescription = new Label(quest.Description);
         questDescription.AddToClassList("questInformationDescription");
         questInformation.Add(questDescription);
 
@@ -222,34 +222,34 @@ public class QuestUI : MonoBehaviour
         questInformation.Add(questRewardContainer);
 
         // quest reward icon
-        if (quest.qReward != null)
+        if (quest.Reward != null)
         {
             Label questRewardLabel = new Label("Reward: ");
             questRewardLabel.AddToClassList("questGoalLabels");
             Label questReward = new Label();
             questReward.AddToClassList("questItem");
-            questReward.style.backgroundImage = quest.qReward.icon.texture;
+            questReward.style.backgroundImage = quest.Reward.Icon.texture;
             questRewardContainer.Add(questRewardLabel);
             questRewardContainer.Add(questReward);
         }
 
-        foreach (QuestGoal questGoal in quest.qGoals)
+        foreach (QuestGoal questGoal in quest.Goals)
         {
             VisualElement questGoalContainer = new VisualElement();
             questGoalContainer.AddToClassList("questGoalContainer");
             questInformation.Add(questGoalContainer);
 
-            Label title = new Label("Goal: " + questGoal.title);
+            Label title = new Label("Goal: " + questGoal.Title);
             title.AddToClassList("questGoalTitle");
             questGoalContainer.Add(title);
 
-            if (questGoal.qGoalState == QuestGoalState.COMPLETED)
+            if (questGoal.QuestGoalState == QuestGoalState.COMPLETED)
             {
                 questGoalContainer.style.backgroundImage = checkmark;
                 questGoalContainer.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
             }
 
-            if (questGoal.requiredItem == null)
+            if (questGoal.RequiredItem == null)
                 return;
 
             VisualElement currentContainer = new VisualElement();
@@ -269,18 +269,18 @@ public class QuestUI : MonoBehaviour
             requiredContainer.Add(requiredLabel);
 
             // items
-            for (int i = 0; i < questGoal.currentAmount; i++)
+            for (int i = 0; i < questGoal.CurrentAmount; i++)
             {
                 Label item = new Label();
-                item.style.backgroundImage = questGoal.requiredItem.icon.texture;
+                item.style.backgroundImage = questGoal.RequiredItem.Icon.texture;
                 item.AddToClassList("questItem");
                 currentContainer.Add(item);
             }
 
-            for (int i = 0; i < questGoal.requiredAmount; i++)
+            for (int i = 0; i < questGoal.RequiredAmount; i++)
             {
                 Label item = new Label();
-                item.style.backgroundImage = questGoal.requiredItem.icon.texture;
+                item.style.backgroundImage = questGoal.RequiredItem.Icon.texture;
                 item.AddToClassList("questItem");
                 requiredContainer.Add(item);
             }

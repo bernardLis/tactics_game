@@ -6,14 +6,14 @@ using System;
 [CreateAssetMenu(menuName = "ScriptableObject/Inventory/Item")]
 public class Item : BaseScriptableObject
 {
-    public string iDescription;
-    public Sprite icon = null;
-    public int amount = 1;
-    public int sellPrice;
-    public int stackSize = 5;
-    public bool questItem;
-    public Dimensions slotDimension;
-    public Ability ability;
+    public string Description;
+    public Sprite Icon = null;
+    public int Amount = 1;
+    public int SellPrice;
+    public int StackSize = 5;
+    public bool QuestItem;
+    public Dimensions SlotDimension;
+    public Ability Ability;
 
     public virtual void PickUp()
     {
@@ -32,6 +32,6 @@ public class Item : BaseScriptableObject
 [Serializable]
 public struct Dimensions
 {
-    public int height;
-    public int width;
+    public int Height;
+    public int Width;
 }

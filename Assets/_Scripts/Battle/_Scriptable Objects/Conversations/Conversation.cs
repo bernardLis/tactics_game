@@ -1,42 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Conversations/Conversation")]
 public class Conversation : BaseScriptableObject
 {
-	public string cId = "New Id";
-	public bool cSeen = false;
-	public string cName = "New Conversation";
-	public string cDescription = "New Description";
-	public Line[] cLines;
-
+	public bool Seen = false;
+	public Line[] Lines;
 
 	// conversations trigger a change in a quest
 	[Header("Quests")]
-	public Quest quest;
-	public bool questTrigger;
-	public bool questCompleted;
-	public bool questFailed;
+	public Quest Quest;
+	public bool QuestTrigger;
+	public bool QuestCompleted; // TODO: these 3 could be an enum
+	public bool QuestFailed;
 
 	public void EndConversation()
 	{
-		cSeen = true;
-		if (quest != null)
+		Seen = true;
+		if (Quest != null)
 			ChangeQuestStatus();
 	}
 
 	public void ChangeQuestStatus()
 	{
-		if (questTrigger)
-			quest.Trigger();
-		if (questCompleted)
-			quest.Complete();
-		if (questFailed)
-			quest.Fail();
+		if (QuestTrigger)
+			Quest.Trigger();
+		if (QuestCompleted)
+			Quest.Complete();
+		if (QuestFailed)
+			Quest.Fail();
 	}
-
-
-
-
 }

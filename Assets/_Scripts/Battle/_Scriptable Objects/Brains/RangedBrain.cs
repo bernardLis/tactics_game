@@ -6,108 +6,104 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Ranged")]
 public class RangedBrain : Brain
 {
-    public Weapon[] bows;
+    public Weapon[] Bows;
 
-    public override void Initialize(GameObject _self)
-    {
-        base.Initialize(_self);
-    }
     public override void Move()
     {
-        potentialTargets = GetPotentialTargets("Player");
+        _potentialTargets = GetPotentialTargets("Player");
         // attack;
-        selectedAbility = abilities[0]; // TODO: hardocded indexes.
-        if (enemyStats.currentMana >= 20)
-            selectedAbility = abilities[1]; // TODO: hardocded indexes.
+        _selectedAbility = _abilities[0]; // TODO: hardocded indexes.
+        if (_enemyStats.currentMana >= 20)
+            _selectedAbility = _abilities[1]; // TODO: hardocded indexes.
 
         // ranged brain wants to keep distance but to be in the range of his attack
-        PotentialTarget selectedTarget = GetClosestTarget(potentialTargets, selectedAbility);
-        Vector3 myPos = characterGameObject.transform.position;
-        Vector3 targetPos = selectedTarget.gObject.transform.position;
+        PotentialTarget selectedTarget = GetClosestTarget(_potentialTargets, _selectedAbility);
+        Vector3 myPos = _characterGameObject.transform.position;
+        Vector3 targetPos = selectedTarget.GameObj.transform.position;
         Vector3 destinationPos = Vector3.zero;
         // 1. you cannot reach the target with you attack range
-        if (Helpers.GetManhattanDistance(myPos, targetPos) > selectedAbility.range)
+        if (Helpers.GetManhattanDistance(myPos, targetPos) > _selectedAbility.Range)
         {
             // you want to move closer to the target and not attack
             Debug.Log("target not within attack range");
             destinationPos = GetDestinationCloserTo(selectedTarget);
-            target = null;
+            Target = null;
         }
 
         // 2. the target is perfectly at the edge of your attack range
-        if (Helpers.GetManhattanDistance(myPos, targetPos) == selectedAbility.range)
+        if (Helpers.GetManhattanDistance(myPos, targetPos) == _selectedAbility.Range)
         {
             Debug.Log("target perfectly where we want them");
             destinationPos = myPos;
-            target = selectedTarget.gObject;
+            Target = selectedTarget.GameObj;
 
         }
         // = you want to keep position and attack
 
         // 3. the target is closer than you would like
-        if (Helpers.GetManhattanDistance(myPos, targetPos) < selectedAbility.range)
+        if (Helpers.GetManhattanDistance(myPos, targetPos) < _selectedAbility.Range)
         {
             Debug.Log("target is too close I want to move away");
             // = you want to path the furthest you can from the target but still within attack range
-            destinationPos = FindArcherPosition(selectedTarget, selectedAbility);
-            target = selectedTarget.gObject;
+            destinationPos = FindArcherPosition(selectedTarget, _selectedAbility);
+            Target = selectedTarget.GameObj;
 
             if (destinationPos == Vector3.zero)
-                destinationPos = characterGameObject.transform.position;
+                destinationPos = _characterGameObject.transform.position;
         }
 
 
-        highlighter.ClearHighlightedTiles().GetAwaiter();
-        aiLerp.speed = 6f;
+        _highlighter.ClearHighlightedTiles().GetAwaiter();
+        _aiLerp.speed = 6f;
 
-        tempObject = new GameObject("Enemy Destination");
-        tempObject.transform.position = destinationPos;
+        _tempObject = new GameObject("Enemy Destination");
+        _tempObject.transform.position = destinationPos;
 
-        highlighter.HighlightSingle(tempObject.transform.position, Helpers.GetColor("movementBlue"));
-        destinationSetter.target = tempObject.transform;
+        _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
+        _destinationSetter.target = _tempObject.transform;
     }
 
     public override async Task Interact()
     {
         // clean-up after movement
-        if (tempObject != null)
-            Destroy(tempObject);
+        if (_tempObject != null)
+            Destroy(_tempObject);
 
         Vector2 faceDir;
-        if (target == null)
-            faceDir = (potentialTargets[0].gObject.transform.position - characterGameObject.transform.position).normalized;
+        if (Target == null)
+            faceDir = (_potentialTargets[0].GameObj.transform.position - _characterGameObject.transform.position).normalized;
         else
-            faceDir = (target.transform.position - characterGameObject.transform.position).normalized;
+            faceDir = (Target.transform.position - _characterGameObject.transform.position).normalized;
 
         // face 'stronger direction'
         faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
 
-        characterRendererManager.Face(faceDir);
-        if (target == null)
+        _characterRendererManager.Face(faceDir);
+        if (Target == null)
             return;
 
         await base.Interact();
     }
 
-    PotentialTarget GetClosestTarget(List<PotentialTarget> _potentialTargets, Ability _ability)
+    PotentialTarget GetClosestTarget(List<PotentialTarget> potentialTargets, Ability ability)
     {
         List<PotentialTarget> pTargets = new();
-        pTargets = _potentialTargets.OrderBy(entry => entry.distanceToTarget).ToList();
+        pTargets = potentialTargets.OrderBy(entry => entry.DistanceToTarget).ToList();
         return pTargets[0];
     }
 
-    Vector3 FindArcherPosition(PotentialTarget _target, Ability _ability)
+    Vector3 FindArcherPosition(PotentialTarget target, Ability ability)
     {
-        Vector3 targetPos = _target.gObject.transform.position;
-        float maxDist = _target.distanceToTarget;
+        Vector3 targetPos = target.GameObj.transform.position;
+        float maxDist = target.DistanceToTarget;
         Vector3 bestDest = Vector3.zero;
         // going through all within reach tiles
-        foreach (WorldTile tile in highlighter.highlightedTiles)
+        foreach (WorldTile tile in _highlighter.highlightedTiles)
         {
             float hypotheticalDistance = Helpers.GetManhattanDistance(tile.GetMiddleOfTile(), targetPos);
 
             // must be within attack range
-            if (hypotheticalDistance > _ability.range)
+            if (hypotheticalDistance > ability.Range)
                 continue;
 
             // and checking whether they are further from target than current positon

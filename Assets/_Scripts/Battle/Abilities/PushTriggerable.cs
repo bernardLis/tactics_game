@@ -21,7 +21,7 @@ public class PushTriggerable : MonoBehaviour
         // TODO: pushing characters with lerp breaks the A*
         Vector3 pushDir = (target.transform.position - transform.position).normalized;
         
-        myStats.UseMana(_ability.manaCost);
+        myStats.UseMana(_ability.ManaCost);
 
         target.GetComponent<IPushable<Vector3, Ability>>().GetPushed(pushDir, _ability);
         // TODO: There is a better way to wait for target to get pushed

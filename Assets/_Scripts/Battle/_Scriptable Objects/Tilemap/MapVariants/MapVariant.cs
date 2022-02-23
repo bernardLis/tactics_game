@@ -5,12 +5,12 @@ public enum MapType { None, Circle, River, Lake, Hourglass }
 [CreateAssetMenu(menuName = "ScriptableObject/Tilemap/MapVariant")]
 public class MapVariant : BaseScriptableObject
 {
-    public string variantName;
+    public string VariantName;
     [Tooltip("min, max")]
-    public Vector2 obstaclePercent;
+    public Vector2 ObstaclePercent;
     [Tooltip("min, max")]
-    public Vector2 terrainIrregularitiesPercent;
+    public Vector2 TerrainIrregularitiesPercent;
     [Tooltip("min, max")]
-    public Vector2 trapPercent;
-    public MapType mapType;
+    public Vector2 TrapPercent;
+    public MapType MapType;
 }

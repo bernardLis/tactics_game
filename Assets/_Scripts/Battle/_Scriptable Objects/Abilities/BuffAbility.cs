@@ -4,27 +4,27 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Buff Ability")]
 public class BuffAbility : Ability
 {
-    BuffTriggerable buffTriggerable;
+    BuffTriggerable _buffTriggerable;
 
     public override void Initialize(GameObject obj)
     {
         base.Initialize(obj);
-        buffTriggerable = obj.GetComponent<BuffTriggerable>();
+        _buffTriggerable = obj.GetComponent<BuffTriggerable>();
     }
 
     // returns true if ability was triggered with success
-    public async override Task<bool> TriggerAbility(GameObject _target)
+    public async override Task<bool> TriggerAbility(GameObject target)
     {
         // check if target is valid
-        var stats = _target.GetComponent<CharacterStats>();
+        var stats = target.GetComponent<CharacterStats>();
         if (stats == null)
             return false;
 
         // interact
-        if (!await buffTriggerable.Buff(_target, this, characterGameObject))
+        if (!await _buffTriggerable.Buff(target, this, _characterGameObject))
             return false;
 
-        await base.TriggerAbility(_target);
+        await base.TriggerAbility(target);
         return true;
     }
 

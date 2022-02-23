@@ -134,10 +134,10 @@ public class InventoryUI : MonoBehaviour
         name.AddToClassList("inventoryItemInfoTitle");
 
         Label icon = new Label();
-        icon.style.backgroundImage = item.icon.texture;
+        icon.style.backgroundImage = item.Icon.texture;
         icon.AddToClassList("inventoryItemInfoIcon");
 
-        Label description = new Label(item.iDescription);
+        Label description = new Label(item.Description);
         description.AddToClassList("inventoryItemInfoDescription");
 
         inventoryItemInfo.Add(name);
@@ -213,7 +213,7 @@ public class InventoryUI : MonoBehaviour
 
     void UseItem()
     {
-        if (selectedItem.ability == null)
+        if (selectedItem.Ability == null)
             return;
         Debug.Log("using item: " + selectedItem);
         // get current item and queue action

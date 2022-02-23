@@ -9,21 +9,21 @@ public class Obstacle : MonoBehaviour
     public void Initialise(TilemapObject _obj)
     {
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        sr.sprite = _obj.sprite;
+        sr.sprite = _obj.Sprite;
 
         col = GetComponentInChildren<BoxCollider2D>();
         if (col != null)
-            col.size = _obj.size;
+            col.size = _obj.Size;
 
-        if (_obj.emitsLight)
+        if (_obj.IsEmitingLight)
         {
             Light2D l = Instantiate(spotLightPrefab, transform.position, Quaternion.identity);
             l.transform.parent = transform;
-            l.transform.localPosition = new Vector3(_obj.offset.x, _obj.offset.y);
-            l.color = _obj.lightColor;
-            l.intensity = Random.Range(_obj.lightIntensity.x, _obj.lightIntensity.y);
-            l.pointLightInnerRadius = Random.Range(_obj.innerRadius.x, _obj.innerRadius.y);
-            l.pointLightOuterRadius = Random.Range(_obj.outerRadius.x, _obj.outerRadius.y);
+            l.transform.localPosition = new Vector3(_obj.Offset.x, _obj.Offset.y);
+            l.color = _obj.LightColor;
+            l.intensity = Random.Range(_obj.LightIntensity.x, _obj.LightIntensity.y);
+            l.pointLightInnerRadius = Random.Range(_obj.InnerRadius.x, _obj.InnerRadius.y);
+            l.pointLightOuterRadius = Random.Range(_obj.OuterRadius.x, _obj.OuterRadius.y);
         }
 
     }

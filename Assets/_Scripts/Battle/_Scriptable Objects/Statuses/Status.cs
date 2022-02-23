@@ -3,26 +3,33 @@ using UnityEngine;
 
 public class Status : BaseScriptableObject
 {
-    public int numberOfTurns;
-    public int value;
-    public Sprite icon;
-    public string displayOnCharacterText;
-    public Color displayOnCharacterColor;
+    public int NumberOfTurns;
+    public int Value;
+    public Sprite Icon;
 
-    protected GameObject characterGameObject;
-    protected BattleCharacterController battleCharacterController;
-    protected DamageUI damageUI;
+    public string DisplayOnCharacterText;
+    public Color DisplayOnCharacterColor;
 
-    protected GameObject attacker;
+    protected GameObject _characterGameObject;
+    protected CharacterSelection _characterSelection;
+    protected CharacterStats _characterStats;
 
-    public virtual void Initialize(GameObject _self, GameObject _attacker)
+    protected BattleCharacterController _battleCharacterController;
+    protected DamageUI _damageUI;
+
+    protected GameObject _attacker;
+
+    public virtual void Initialize(GameObject self, GameObject attacker)
     {
-        characterGameObject = _self;
-        damageUI = _self.GetComponent<DamageUI>();
-        battleCharacterController = BattleCharacterController.instance;
+        _characterGameObject = self;
+        _characterSelection = self.GetComponent<CharacterSelection>();
+        _characterStats = self.GetComponent<CharacterStats>();
 
-        if (_attacker != null)
-            attacker = _attacker;
+        _damageUI = self.GetComponent<DamageUI>();
+        _battleCharacterController = BattleCharacterController.instance;
+
+        if (attacker != null)
+            this._attacker = attacker;
     }
 
     public virtual void FirstTrigger()
@@ -34,17 +41,17 @@ public class Status : BaseScriptableObject
 
     public virtual void TriggerStatus()
     {
-        damageUI.DisplayOnCharacter(displayOnCharacterText, 24, displayOnCharacterColor);
+        _damageUI.DisplayOnCharacter(DisplayOnCharacterText, 24, DisplayOnCharacterColor);
     }
 
     public virtual void ResolveTurnEnd()
     {
-        numberOfTurns--;
+        NumberOfTurns--;
     }
 
     public virtual bool ShouldTrigger()
     {
-        if (numberOfTurns > 0)
+        if (NumberOfTurns > 0)
             return true;
 
         return false;
@@ -68,7 +75,7 @@ public class Status : BaseScriptableObject
 
     public virtual bool ShouldBeRemoved()
     {
-        Debug.Log("number of turns in should be removed " + numberOfTurns);
-        return numberOfTurns <= 0;
+        Debug.Log("number of turns in should be removed " + NumberOfTurns);
+        return NumberOfTurns <= 0;
     }
 }

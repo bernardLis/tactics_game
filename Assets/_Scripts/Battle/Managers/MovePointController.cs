@@ -244,8 +244,8 @@ public class MovePointController : MonoBehaviour
         Ability selectedAbility = battleCharacterController.selectedAbility;
 
         // mana use
-        if (selectedAbility.manaCost != 0)
-            characterUI.ShowManaUse(selectedAbility.manaCost);
+        if (selectedAbility.ManaCost != 0)
+            characterUI.ShowManaUse(selectedAbility.ManaCost);
 
         // don't show interaction summary if not in range of interaction
         Vector3Int tilePos = tilemap.WorldToCell(transform.position);

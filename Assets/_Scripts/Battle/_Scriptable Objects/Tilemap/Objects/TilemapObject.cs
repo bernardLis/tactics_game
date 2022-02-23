@@ -6,20 +6,20 @@ public enum TileMapObjectType { Outer, Obstacle }
 public class TilemapObject : BaseScriptableObject
 {
     [Tooltip("Number of tiles, like: 1, 2.")]
-    public Vector2Int size;
-    public TileMapObjectType objectType;
-    public Sprite sprite;
-    public bool pushable;
-    public bool isMoving;
+    public Vector2Int Size;
+    public TileMapObjectType ObjectType;
+    public Sprite Sprite;
+    public bool IsPushable;
+    public bool IsMoving;
 
     [Header("Light")]
-    public bool emitsLight;
-    public Color lightColor;
+    public bool IsEmitingLight;
+    public Color LightColor;
     [Tooltip("Min, max")]
-    public Vector2 lightIntensity;
+    public Vector2 LightIntensity;
     [Tooltip("Min, max")]
-    public Vector2 innerRadius;
+    public Vector2 InnerRadius;
     [Tooltip("Min, max")]
-    public Vector2 outerRadius;
-    public Vector2 offset;
+    public Vector2 OuterRadius;
+    public Vector2 Offset;
 }

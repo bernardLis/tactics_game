@@ -9,67 +9,66 @@ using System.Threading.Tasks;
 public class Brain : BaseScriptableObject
 {
     // global
-    protected Highlighter highlighter;
-    CameraManager cameraManager;
+    protected Highlighter _highlighter;
+    CameraManager _cameraManager;
 
     // tilemap
-    protected Tilemap tilemap;
+    protected Tilemap _tilemap;
     protected WorldTile _tile;
 
     // Game Object components
-    protected GameObject characterGameObject;
-    protected EnemyStats enemyStats;
+    protected GameObject _characterGameObject;
+    protected EnemyStats _enemyStats;
 
     // movement
-    protected Seeker seeker;
-    protected AILerp aiLerp;
-    protected AIDestinationSetter destinationSetter;
+    protected Seeker _seeker;
+    protected AILerp _aiLerp;
+    protected AIDestinationSetter _destinationSetter;
 
     // interaction
-    protected CharacterRendererManager characterRendererManager;
-    public GameObject target;
-    protected GameObject tempObject;
-    protected List<PotentialTarget> potentialTargets;
+    protected CharacterRendererManager _characterRendererManager;
+    public GameObject Target;
+    protected GameObject _tempObject;
+    protected List<PotentialTarget> _potentialTargets;
 
-    public Ability[] abilitiesToInstantiate;
-    protected List<Ability> abilities;
-    protected Ability selectedAbility;
+    public Ability[] AbilitiesToInstantiate;
+    protected List<Ability> _abilities;
+    protected Ability _selectedAbility;
 
 
-    public virtual void Initialize(GameObject _self)
+    public virtual void Initialize(GameObject self)
     {
-        highlighter = BattleManager.instance.GetComponent<Highlighter>();
-        cameraManager = CameraManager.instance;
+        _highlighter = BattleManager.instance.GetComponent<Highlighter>();
+        _cameraManager = CameraManager.instance;
 
-        // This is our Dictionary of tiles
-        tilemap = BattleManager.instance.GetComponent<TileManager>().tilemap;
+        _tilemap = BattleManager.instance.GetComponent<TileManager>().tilemap;
 
-        characterGameObject = _self;
-        enemyStats = characterGameObject.GetComponent<EnemyStats>();
-        characterGameObject.GetComponent<EnemyAI>().brain = this;
+        _characterGameObject = self;
+        _enemyStats = _characterGameObject.GetComponent<EnemyStats>();
+        _characterGameObject.GetComponent<EnemyAI>().brain = this;
 
-        seeker = characterGameObject.GetComponent<Seeker>();
-        aiLerp = characterGameObject.GetComponent<AILerp>();
-        destinationSetter = characterGameObject.GetComponent<AIDestinationSetter>();
+        _seeker = _characterGameObject.GetComponent<Seeker>();
+        _aiLerp = _characterGameObject.GetComponent<AILerp>();
+        _destinationSetter = _characterGameObject.GetComponent<AIDestinationSetter>();
 
-        characterRendererManager = characterGameObject.GetComponentInChildren<CharacterRendererManager>();
+        _characterRendererManager = _characterGameObject.GetComponentInChildren<CharacterRendererManager>();
 
         // instantiate abilities
-        abilities = new();
-        foreach (Ability a in abilitiesToInstantiate)
+        _abilities = new();
+        foreach (Ability ability in AbilitiesToInstantiate)
         {
-            var c = Instantiate(a);
-            c.Initialize(characterGameObject);
-            abilities.Add(c);
+            Ability abilityClone = Instantiate(ability);
+            abilityClone.Initialize(_characterGameObject);
+            _abilities.Add(abilityClone);
         }
     }
 
     public virtual void Select()
     {
-        target = null;
-        cameraManager.followTarget = characterGameObject.transform;
-        highlighter.HiglightEnemyMovementRange(characterGameObject.transform.position,
-                                               enemyStats.movementRange.GetValue(), Helpers.GetColor("movementBlue"));
+        Target = null;
+        _cameraManager.followTarget = _characterGameObject.transform;
+        _highlighter.HiglightEnemyMovementRange(_characterGameObject.transform.position,
+                                               _enemyStats.movementRange.GetValue(), Helpers.GetColor("movementBlue"));
     }
 
     public virtual void Move()
@@ -79,35 +78,35 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Interact()
     {
-        await selectedAbility.HighlightTargetable(characterGameObject);
+        await _selectedAbility.HighlightTargetable(_characterGameObject);
         await Task.Delay(300);
-        await selectedAbility.HighlightAreaOfEffect(target.transform.position);
+        await _selectedAbility.HighlightAreaOfEffect(Target.transform.position);
         await Task.Delay(500);
-        await selectedAbility.TriggerAbility(target);
+        await _selectedAbility.TriggerAbility(Target);
     }
 
-    protected List<PotentialTarget> GetPotentialTargets(string _tag)
+    protected List<PotentialTarget> GetPotentialTargets(string targetTag)
     {
-        if (seeker == null)
+        if (_seeker == null)
             return null;
 
-        GameObject[] playerCharacters = GameObject.FindGameObjectsWithTag(_tag);
+        GameObject[] targetCharacters = GameObject.FindGameObjectsWithTag(targetTag);
         List<PotentialTarget> potentialTargets = new();
         // check distance between self and each player character,
-        foreach (var pCharacter in playerCharacters)
+        foreach (var targetChar in targetCharacters)
         {
             // https://arongranberg.com/astar/documentation/dev_4_1_6_17dee0ac/calling-pathfinding.php
-            Path p = seeker.StartPath(characterGameObject.transform.position, pCharacter.transform.position);
+            Path p = _seeker.StartPath(_characterGameObject.transform.position, targetChar.transform.position);
             p.BlockUntilCalculated();
             // The path is calculated now
             // distance is the path length 
             // https://arongranberg.com/astar/docs_dev/class_pathfinding_1_1_path.php#a1076ed6812e2b4f98dca64b74dabae5d
             float distance = p.GetTotalLength();
-            PotentialTarget potentialTarget = new PotentialTarget(pCharacter, distance);
+            PotentialTarget potentialTarget = new PotentialTarget(targetChar, distance);
             potentialTargets.Add(potentialTarget);
         }
 
-        potentialTargets = potentialTargets.OrderByDescending(entry => entry.distanceToTarget).ToList();
+        potentialTargets = potentialTargets.OrderByDescending(entry => entry.DistanceToTarget).ToList();
         return potentialTargets;
     }
 
@@ -116,15 +115,14 @@ public class Brain : BaseScriptableObject
         Vector3 destinationPos = GetDestinationCloserTo(potentialTargets.FirstOrDefault());
         // get a random tile if there are no good tiles on path
         if (destinationPos == Vector3.zero)
-            destinationPos = highlighter.highlightedTiles[Random.Range(0, highlighter.highlightedTiles.Count)].GetMiddleOfTile();
+            destinationPos = _highlighter.highlightedTiles[Random.Range(0, _highlighter.highlightedTiles.Count)].GetMiddleOfTile();
 
         return destinationPos;
     }
 
-    // get destination will be different for each brain
-    protected Vector3 GetDestinationCloserTo(PotentialTarget _target)
+    protected Vector3 GetDestinationCloserTo(PotentialTarget target)
     {
-        Path p = seeker.StartPath(characterGameObject.transform.position, _target.gObject.transform.position);
+        Path p = _seeker.StartPath(_characterGameObject.transform.position, target.GameObj.transform.position);
         p.BlockUntilCalculated();
         // The path is calculated now
         // We got our path back
@@ -136,7 +134,7 @@ public class Brain : BaseScriptableObject
         // loop from the target to self
         for (int i = p.vectorPath.Count - 1; i >= 0; i--)
         {
-            tilePos = tilemap.WorldToCell(p.vectorPath[i]);
+            tilePos = _tilemap.WorldToCell(p.vectorPath[i]);
             if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
                 continue;
 
@@ -145,7 +143,7 @@ public class Brain : BaseScriptableObject
                 return _tile.GetMiddleOfTile();
         }
 
-        return Vector3.zero;
+        return Vector3.zero; // TODO: this is dangerous
     }
 
 }

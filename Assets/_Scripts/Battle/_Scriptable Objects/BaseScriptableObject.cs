@@ -27,5 +27,5 @@ public class ScriptableObjectIdDrawer : PropertyDrawer
 public class BaseScriptableObject : ScriptableObject
 {
     [ScriptableObjectId]
-    public string id;
+    public string Id;
 }

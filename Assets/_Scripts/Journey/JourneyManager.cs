@@ -130,4 +130,10 @@ public class JourneyManager : MonoBehaviour, ISavable
         visitedJourneyNodes = saveData.visitedJourneyNodes;
     }
 
+    public void ClearSaveData()
+    {
+        if (FileManager.WriteToFile("SaveData.dat", ""))
+            Debug.Log("Cleared SaveData");
+    }
+
 }

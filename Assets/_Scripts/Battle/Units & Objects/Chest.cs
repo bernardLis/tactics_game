@@ -12,7 +12,7 @@ public class Chest : MonoBehaviour, IItemUsable<UtilityAbility>
     public bool UseItem(UtilityAbility _ability)
     {
         Debug.Log("use item in chest");
-        if (_ability.utilityType == UtilityType.Key)
+        if (_ability.UtilityType == UtilityType.Key)
         {
             Interact();
             return true;

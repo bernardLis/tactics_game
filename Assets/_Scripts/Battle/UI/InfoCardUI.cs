@@ -168,8 +168,8 @@ public class InfoCardUI : MonoBehaviour
 
     void PopulateCharacterCard(CharacterStats _stats)
     {
-        characterCardName.text = _stats.character.characterName;
-        characterCardPortrait.style.backgroundImage = _stats.character.portrait.texture;
+        characterCardName.text = _stats.character.CharacterName;
+        characterCardPortrait.style.backgroundImage = _stats.character.Portrait.texture;
 
         characterCardHealth.text = _stats.currentHealth + "/" + _stats.maxHealth.GetValue();
         characterCardMana.text = _stats.currentMana + "/" + _stats.maxMana.GetValue();
@@ -221,7 +221,7 @@ public class InfoCardUI : MonoBehaviour
         foreach (Status s in _stats.statuses)
         {
             VisualElement mElement = new VisualElement();
-            mElement.style.backgroundImage = s.icon.texture;
+            mElement.style.backgroundImage = s.Icon.texture;
             mElement.AddToClassList("modifierIconContainer");
             characterCardModifierContainer.Add(mElement);
         }
@@ -238,7 +238,7 @@ public class InfoCardUI : MonoBehaviour
             foreach (StatModifier m in modifiers)
             {
                 VisualElement mElement = new VisualElement();
-                mElement.style.backgroundImage = m.icon.texture;
+                mElement.style.backgroundImage = m.Icon.texture;
                 mElement.AddToClassList("modifierIconContainer");
                 characterCardModifierContainer.Add(mElement);
             }
@@ -257,7 +257,7 @@ public class InfoCardUI : MonoBehaviour
         attackDamageValue.text = "" + attackValue;
 
         // different labels and UI for heal / attack
-        if (_ability.aType == AbilityType.Attack)
+        if (_ability.AbilityType == AbilityType.Attack)
         {
             if (_attacker.gameObject == _defender.gameObject)
                 characterUI.ShowDamage(CalculateInteractionResult(_attacker, _attacker, _ability));
@@ -273,7 +273,7 @@ public class InfoCardUI : MonoBehaviour
 
         }
 
-        if (_ability.aType == AbilityType.Heal)
+        if (_ability.AbilityType == AbilityType.Heal)
         {
             if (_attacker.gameObject == _defender.gameObject)
                 characterUI.ShowHeal(attackValue);
@@ -284,7 +284,7 @@ public class InfoCardUI : MonoBehaviour
             attackHitValue.text = 100 + "%";
         }
 
-        if (_ability.aType == AbilityType.Buff)
+        if (_ability.AbilityType == AbilityType.Buff)
         {
             if (_attacker.gameObject == _defender.gameObject)
                 characterUI.ShowHeal(attackValue);
@@ -293,14 +293,14 @@ public class InfoCardUI : MonoBehaviour
 
             attackLabel.text = "Buff";
 
-            if (_ability.statModifier != null)
-                attackDamageValue.text = "" + _ability.statModifier.value; // TODO: lazy way
+            if (_ability.StatModifier != null)
+                attackDamageValue.text = "" + _ability.StatModifier.Value; // TODO: lazy way
             attackHitValue.text = 100 + "%";
         }
 
 
         // retaliation only on attack
-        if (_ability.aType != AbilityType.Attack)
+        if (_ability.AbilityType != AbilityType.Attack)
         {
             DisplayNone(retaliationSummary);
             return;
@@ -407,11 +407,11 @@ public class InfoCardUI : MonoBehaviour
         int result = 0;
 
         // TODO: differentiate between abilities that calculate value from int/str
-        if (_ability.aType == AbilityType.Attack)
-            result = _ability.value + _attacker.strength.GetValue() - _defender.armor.GetValue();
+        if (_ability.AbilityType == AbilityType.Attack)
+            result = _ability.BasePower + _attacker.strength.GetValue() - _defender.armor.GetValue();
 
-        if (_ability.aType == AbilityType.Heal)
-            result = _ability.value + _attacker.intelligence.GetValue();
+        if (_ability.AbilityType == AbilityType.Heal)
+            result = _ability.BasePower + _attacker.intelligence.GetValue();
 
 
         return result;

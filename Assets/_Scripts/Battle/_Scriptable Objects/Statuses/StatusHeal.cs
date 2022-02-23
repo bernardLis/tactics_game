@@ -3,22 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Statuses/Heal")]
 public class StatusHeal : Status
 {
-    CharacterStats characterStats;
-    public override void Initialize(GameObject _self, GameObject _attacker)
-    {
-        base.Initialize(_self, _attacker);
-
-        characterStats = _self.GetComponent<CharacterStats>();
-    }
-
     public override void TriggerStatus()
     {
         base.TriggerStatus();
-        characterStats.GainHealth(value, null);
+        _characterStats.GainHealth(Value, null);
     }
 
     public override string GetDescription()
     {
-        return "Heals target by " + value + " for " + numberOfTurns + " turn/s.";
+        return "Heals target by " + Value + " for " + NumberOfTurns + " turn/s.";
     }
 }

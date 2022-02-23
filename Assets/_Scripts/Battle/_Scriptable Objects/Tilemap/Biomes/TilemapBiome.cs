@@ -5,37 +5,37 @@ using UnityEngine.Tilemaps;
 public class TilemapBiome : BaseScriptableObject
 {
     [Header("Tiles")]
-    public TileBase[] floorTiles;
-    public TileBase[] floorAdditions;
-    public TileBase[] outerTiles;
+    public TileBase[] FloorTiles;
+    public TileBase[] FloorAdditions;
+    public TileBase[] OuterTiles;
 
     [Header("Objects")]
-    public TilemapObject[] obstacles;
-    public TilemapObject[] outerAdditions;
+    public TilemapObject[] Obstacles;
+    public TilemapObject[] OuterAdditions;
 
     [Tooltip("min, max")]
-    public Vector2 outerAdditionsPercent;
+    public Vector2 OuterAdditionsPercent;
 
     [Header("Edge")]
-    public TileBase edgeN;
-    public TileBase edgeS;
-    public TileBase edgeE;
-    public TileBase edgeW;
+    public TileBase EdgeN;
+    public TileBase EdgeS;
+    public TileBase EdgeE;
+    public TileBase EdgeW;
 
     [Header("Corner")]
-    public TileBase cornerNE;
-    public TileBase cornerNW;
-    public TileBase cornerSE;
-    public TileBase cornerSW;
+    public TileBase CornerNE;
+    public TileBase CornerNW;
+    public TileBase CornerSE;
+    public TileBase CornerSW;
 
     [Header("Inland Corner")]
-    public TileBase inlandCornerNE;
-    public TileBase inlandCornerNW;
-    public TileBase inlandCornerSE;
-    public TileBase inlandCornerSW;
+    public TileBase InlandCornerNE;
+    public TileBase InlandCornerNW;
+    public TileBase InlandCornerSE;
+    public TileBase InlandCornerSW;
 
     [Header("Global light")]
-    public Color lightColor;
-    public float lightIntensity;
+    public Color LightColor;
+    public float LightIntensity;
 
 }

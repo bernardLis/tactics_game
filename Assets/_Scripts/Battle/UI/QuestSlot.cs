@@ -29,7 +29,7 @@ public class QuestSlot : VisualElement
         questUI = GameUI.instance.GetComponent<QuestUI>();
 
         quest = _quest;
-        title.text = quest.qName;
+        title.text = quest.Title;
     }
 
     public void DropQuest()
@@ -51,7 +51,7 @@ public class QuestSlot : VisualElement
 
     public void Select()
     {
-        Debug.Log("clicked on " + quest.qName);
+        Debug.Log("clicked on " + quest.Title);
 
         if (questUI != null)
         {

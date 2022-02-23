@@ -33,7 +33,7 @@ public class UtilityTriggerable : MonoBehaviour
             }
             await characterRendererManager.SpellcastAnimation();
 
-            myStats.UseMana(_ability.manaCost);
+            myStats.UseMana(_ability.ManaCost);
         }
         
         // there is item usable, it is being checked in ability;

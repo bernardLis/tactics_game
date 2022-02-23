@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   id: f7a865d8-dc08-451d-8a42-29986716656e
-  nodeIndexRange: {x: 2, y: 3}
+  nodeIndexRange: {x: 0, y: 3}
   nodes:
   - {fileID: 11400000, guid: 8dbb94a5cdc6ec547902bb1eecaa5aa8, type: 2}
   chanceToIgnore: 0

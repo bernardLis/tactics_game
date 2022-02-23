@@ -16,7 +16,7 @@ public class TileManager : MonoBehaviour
     {
         dataFromTiles = new Dictionary<TileBase, MyTileData>();
         foreach (var tileData in myTileDatas)
-            foreach (var tile in tileData.tiles)
+            foreach (var tile in tileData.Tiles)
                 dataFromTiles.Add(tile, tileData);
     }
 
@@ -87,6 +87,6 @@ public class TileManager : MonoBehaviour
         if (!dataFromTiles.ContainsKey(tile))
             return false;
 
-        return dataFromTiles[tile].obstacle;
+        return dataFromTiles[tile].isObstacle;
     }
 }

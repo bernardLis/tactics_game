@@ -7,84 +7,84 @@ public class HealerBrain : Brain
 {
     public override void Move()
     {
-        potentialTargets = GetPotentialTargets(characterGameObject.tag); // get guys from your team
-        PotentialTarget selectedTarget = ChooseTarget(potentialTargets);
+        _potentialTargets = GetPotentialTargets(_characterGameObject.tag); // get guys from your team
+        PotentialTarget selectedTarget = ChooseTarget(_potentialTargets);
         if (selectedTarget != null)
-            target = selectedTarget.gObject; // for interaction
+            Target = selectedTarget.GameObj; // for interaction
 
         Vector3 destinationPos;
-        if (target == null)
-            destinationPos = GetDestinationWithoutTarget(potentialTargets);
+        if (Target == null)
+            destinationPos = GetDestinationWithoutTarget(_potentialTargets);
         else
             destinationPos = GetDestinationCloserTo(selectedTarget);
 
-        highlighter.ClearHighlightedTiles().GetAwaiter();
-        aiLerp.speed = 6f;
+        _highlighter.ClearHighlightedTiles().GetAwaiter();
+        _aiLerp.speed = 6f;
 
-        tempObject = new GameObject("Enemy Destination");
-        tempObject.transform.position = destinationPos;
+        _tempObject = new GameObject("Enemy Destination");
+        _tempObject.transform.position = destinationPos;
 
-        highlighter.HighlightSingle(tempObject.transform.position, Helpers.GetColor("movementBlue"));
-        destinationSetter.target = tempObject.transform;
+        _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
+        _destinationSetter.target = _tempObject.transform;
     }
 
     public override async Task Interact()
     {
         // clean-up after movement
-        if (tempObject != null)
-            Destroy(tempObject);
+        if (_tempObject != null)
+            Destroy(_tempObject);
 
         // so, you have moved closer to lowest health boi, but you are not sure whether you can reach him
-        selectedAbility = abilities[0]; // this is heal // TODO: hardocded indexes.
+        _selectedAbility = _abilities[0]; // this is heal // TODO: hardocded indexes.
         // target does not exist or you cannot reach him 
-        if (target == null || Helpers.GetManhattanDistance(characterGameObject.transform.position, target.transform.position) > selectedAbility.range)
+        if (Target == null || Helpers.GetManhattanDistance(_characterGameObject.transform.position, Target.transform.position) > _selectedAbility.Range)
         {
             // select within reach target that has lower hp than max
             // if noone within reach or everyone within reach has full health buff someone
-            potentialTargets = GetPotentialTargets(characterGameObject.tag); // get guys from your team
+            _potentialTargets = GetPotentialTargets(_characterGameObject.tag); // get guys from your team
 
-            PotentialTarget pTarget = GetWithinReachHealableTarget(potentialTargets, selectedAbility);
+            PotentialTarget pTarget = GetWithinReachHealableTarget(_potentialTargets, _selectedAbility);
             if (pTarget != null)
-                target = pTarget.gObject;
+                Target = pTarget.GameObj;
             else
-                target = null;
+                Target = null;
         }
 
         // there is no within reach healable targets
-        if (target == null)
+        if (Target == null)
         {
             // buff someone
-            selectedAbility = abilities[1]; // this is buff // TODO: hardocded indexes.
-            List<PotentialTarget> buffableTargets = GetWithinReachBuffableTargets(potentialTargets, selectedAbility);
+            _selectedAbility = _abilities[1]; // this is buff // TODO: hardocded indexes.
+            List<PotentialTarget> buffableTargets = GetWithinReachBuffableTargets(_potentialTargets, _selectedAbility);
             // it will always return someone, because you are within reach
-            target = buffableTargets[Random.Range(0, buffableTargets.Count)].gObject;
+            Target = buffableTargets[Random.Range(0, buffableTargets.Count)].GameObj;
         }
 
         Vector2 faceDir;
-        if (target == null || target == characterGameObject)
-            faceDir = (potentialTargets[0].gObject.transform.position - characterGameObject.transform.position).normalized;
+        if (Target == null || Target == _characterGameObject)
+            faceDir = (_potentialTargets[0].GameObj.transform.position - _characterGameObject.transform.position).normalized;
         else
-            faceDir = (target.transform.position - characterGameObject.transform.position).normalized;
+            faceDir = (Target.transform.position - _characterGameObject.transform.position).normalized;
 
         // face 'stronger direction'
         faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
-        characterRendererManager.Face(faceDir);
+        _characterRendererManager.Face(faceDir);
 
-        if (target == null)
+        if (Target == null)
             return;
 
         // heal/buff
         await base.Interact();
     }
 
-    PotentialTarget ChooseTarget(List<PotentialTarget> _potentialTargets)
+    PotentialTarget ChooseTarget(List<PotentialTarget> potentialTargets)
     {
         // looking for the lowest health boi who is damaged
         int lowestHealth = int.MaxValue;
         PotentialTarget target = null;
-        foreach (PotentialTarget t in _potentialTargets)
+        foreach (PotentialTarget t in potentialTargets)
         {
-            CharacterStats stats = t.gObject.GetComponent<CharacterStats>();
+            CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
             if (stats.currentHealth < stats.maxHealth.GetValue() && stats.currentHealth < lowestHealth)
             {
                 lowestHealth = stats.currentHealth;
@@ -96,17 +96,17 @@ public class HealerBrain : Brain
     }
 
 
-    PotentialTarget GetWithinReachHealableTarget(List<PotentialTarget> _potentialTargets, Ability _selectedAbility)
+    PotentialTarget GetWithinReachHealableTarget(List<PotentialTarget> potentialTargets, Ability selectedAbility)
     {
         // actually, get the lowest health reachable target
         PotentialTarget target = null;
         int lowestHealth = int.MaxValue;
-        foreach (PotentialTarget t in _potentialTargets)
+        foreach (PotentialTarget t in potentialTargets)
         {
-            CharacterStats stats = t.gObject.GetComponent<CharacterStats>();
+            CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
 
             if (stats.currentHealth < stats.maxHealth.GetValue()
-                && Helpers.GetManhattanDistance(characterGameObject.transform.position, t.gObject.transform.position) < _selectedAbility.range
+                && Helpers.GetManhattanDistance(_characterGameObject.transform.position, t.GameObj.transform.position) < selectedAbility.Range
                 && stats.currentHealth < lowestHealth)
             {
                 lowestHealth = stats.currentHealth;
@@ -116,12 +116,12 @@ public class HealerBrain : Brain
         return target;
     }
 
-    List<PotentialTarget> GetWithinReachBuffableTargets(List<PotentialTarget> _potentialTargets, Ability _selectedAbility)
+    List<PotentialTarget> GetWithinReachBuffableTargets(List<PotentialTarget> potentialTargets, Ability selectedAbility)
     {
 
         List<PotentialTarget> buffableTargets = new();
-        foreach (PotentialTarget t in _potentialTargets)
-            if (Helpers.GetManhattanDistance(characterGameObject.transform.position, t.gObject.transform.position) < _selectedAbility.range)
+        foreach (PotentialTarget t in potentialTargets)
+            if (Helpers.GetManhattanDistance(_characterGameObject.transform.position, t.GameObj.transform.position) < selectedAbility.Range)
                 buffableTargets.Add(t);
         return buffableTargets;
     }

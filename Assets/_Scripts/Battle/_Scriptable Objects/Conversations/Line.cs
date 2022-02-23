@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Conversations/Line")]
 public class Line : BaseScriptableObject
 {
-	public Character character;
+	public Character SpeakerCharacter;
 	[TextArea(2,5)]
-	public string text;
-	public AudioClip clip;
+	public string Text;
+	public AudioClip Clip;
 }

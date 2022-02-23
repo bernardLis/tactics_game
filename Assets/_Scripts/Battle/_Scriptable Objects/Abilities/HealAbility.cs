@@ -5,27 +5,27 @@ using System.Threading.Tasks;
 public class HealAbility : Ability
 {
 
-    HealTriggerable healTriggerable;
+    HealTriggerable _healTriggerable;
 
     public override void Initialize(GameObject obj)
     {
         base.Initialize(obj);
-        healTriggerable = obj.GetComponent<HealTriggerable>();
+        _healTriggerable = obj.GetComponent<HealTriggerable>();
     }
 
     // returns true if ability was triggered with success
-    public async override Task<bool> TriggerAbility(GameObject _target)
+    public async override Task<bool> TriggerAbility(GameObject target)
     {
         // check if target is valid
-        var healableObject = _target.GetComponent<IHealable<Ability>>();
+        var healableObject = target.GetComponent<IHealable<Ability>>();
         if (healableObject == null)
             return false;
 
         // heal target if successful play sound and retrun true;
-        if (!await healTriggerable.Heal(_target, this, characterGameObject))
+        if (!await _healTriggerable.Heal(target, this, _characterGameObject))
             return false;
 
-        await base.TriggerAbility(_target);
+        await base.TriggerAbility(target);
         return true;
     }
 

@@ -65,7 +65,7 @@ public class BattleDeploymentController : MonoBehaviour
             Destroy(characterBeingPlaced);
 
         characterBeingPlaced = Instantiate(characterTemplate, transform.position, Quaternion.identity);
-        characterBeingPlaced.name = charactersToPlace[index].characterName;
+        characterBeingPlaced.name = charactersToPlace[index].CharacterName;
         Character instantiatedSO = Instantiate(charactersToPlace[index]);
         instantiatedSO.Initialize(characterBeingPlaced);
         characterBeingPlaced.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);

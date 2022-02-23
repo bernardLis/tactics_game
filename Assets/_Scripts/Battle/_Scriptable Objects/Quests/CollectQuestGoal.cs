@@ -6,21 +6,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Quests/Goals/Collect Quest Goal")]
 public class CollectQuestGoal : QuestGoal
 {
-
 	public override void Initialize()
 	{
 		// TODO: this writes over the values that were saved from previous 'test play'
-		currentAmount = 0;
-		qGoalState = QuestGoalState.ACTIVE;
+		CurrentAmount = 0;
+		QuestGoalState = QuestGoalState.ACTIVE;
 
 		// check if hero has the item in the inventory already and update current amount & evaluate
 		foreach (Item item in InventoryManager.instance.items)
-		{
-			if (item == requiredItem)
-			{
-				currentAmount++;
-			}
-		}
+			if (item == RequiredItem)
+				CurrentAmount++;
 
 		// subscribe to on item changed by Inventory.cs
 		// TODO: this is hacky/wrong... but I need to make sure evaluate is subscribed only once. 
@@ -32,33 +27,29 @@ public class CollectQuestGoal : QuestGoal
 	public override void Evaluate()
 	{
 		// TODO: I am not certain about this logic here.
-		if (currentAmount >= requiredAmount && qGoalState != QuestGoalState.COMPLETED)
-		{
+		if (CurrentAmount >= RequiredAmount && QuestGoalState != QuestGoalState.COMPLETED)
 			Complete();
-		}
-		else if (currentAmount < requiredAmount)
-		{
-			qGoalState = QuestGoalState.ACTIVE;
-		}
+		else if (CurrentAmount < RequiredAmount)
+			QuestGoalState = QuestGoalState.ACTIVE;
 	}
 
 	public override void Evaluate(object sender, ItemChangedEventArgs e)
 	{
 		Debug.Log("evaluate with object etc. is called");
-		if (e.item == requiredItem)
+		if (e.item == RequiredItem)
 		{
-			currentAmount++;
-			GameUI.instance.DisplayLogText(currentAmount + "/" + requiredAmount + " of " + e.item.name);
+			CurrentAmount++;
+			GameUI.instance.DisplayLogText(CurrentAmount + "/" + RequiredAmount + " of " + e.item.name);
 			Evaluate();
 		}
 	}
 
 	public override void Complete()
 	{
-		GameUI.instance.DisplayLogText("Quest Goal compelted! " + title);
+		GameUI.instance.DisplayLogText("Quest Goal compelted! " + Title);
 
 		Debug.Log("quest goal compelte");
-		qGoalState = QuestGoalState.COMPLETED;
+		QuestGoalState = QuestGoalState.COMPLETED;
 	}
 
 	public override void CleanUp()
@@ -66,13 +57,10 @@ public class CollectQuestGoal : QuestGoal
 		InventoryManager.instance.OnItemChanged -= Evaluate;
 
 		// on quest complete remove items from the inventory
-		if (requiredItem != null)
-		{
-			for (var i = 0; i < requiredAmount; i++)
-			{
-				InventoryManager.instance.Remove(requiredItem);
-			}
-		}
+		if (RequiredItem != null)
+			for (var i = 0; i < RequiredAmount; i++)
+				InventoryManager.instance.Remove(RequiredItem);
+
 	}
 
 }

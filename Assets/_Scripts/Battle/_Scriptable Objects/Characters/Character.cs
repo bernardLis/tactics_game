@@ -7,31 +7,30 @@ public class Character : BaseScriptableObject
 {
     // character scriptable object holds stats & abilities of a character.
     // it passes these values to CharacterStats script where they can be used in game.
-    public string characterName = "Default";
-    public Sprite portrait;
+    public string CharacterName = "Default";
+    public Sprite Portrait;
 
     [Header("Stats")]
-    public List<Stat> stats;
-    public int strength; // how strong you hit
-    public int intelligence; // maxMana depends on intelligence (also how strong the spell dmg is)
-    public int agility; // influences range
-    public int stamina; // influences maxHealth
+    public int Strength; // how strong you hit
+    public int Intelligence; // maxMana depends on intelligence (also how strong the spell dmg is)
+    public int Agility; // influences range
+    public int Stamina; // influences maxHealth
 
     [Header("Equipment")]
-    public Equipment shield;
-    public Equipment body;
-    public Equipment feet;
-    public Equipment hair;
-    public Equipment hands;
-    public Equipment helmet;
-    public Equipment legs;
-    public Equipment torso;
-    public Weapon weapon;
+    public Equipment Shield;
+    public Equipment Body;
+    public Equipment Feet;
+    public Equipment Hair;
+    public Equipment Hands;
+    public Equipment Helmet;
+    public Equipment Legs;
+    public Equipment Torso;
+    public Weapon Weapon;
 
     [Header("Abilities")]
     [Tooltip("For now just defend, basic attack is from the weapon")]
-    public Ability[] basicAbilities; 
-    public Ability[] characterAbilities;
+    public Ability[] BasicAbilities; 
+    public Ability[] CharacterAbilities;
 
     public virtual void Initialize(GameObject obj)
     {
@@ -40,41 +39,40 @@ public class Character : BaseScriptableObject
 
         // get all
         Transform bodyObj = obj.transform.Find("Body");
-        if (body != null)
-            body.Initialize(bodyObj.gameObject);
+        if (Body != null)
+            Body.Initialize(bodyObj.gameObject);
 
         // TODO: deal with object none;
         Transform feetObj = bodyObj.transform.Find("Feet");
-        if (feet != null)
-            feet.Initialize(feetObj.gameObject);
+        if (Feet != null)
+            Feet.Initialize(feetObj.gameObject);
 
         Transform hairObj = bodyObj.transform.Find("Hair");
-        if (hair != null)
-            hair.Initialize(hairObj.gameObject);
+        if (Hair != null)
+            Hair.Initialize(hairObj.gameObject);
 
         Transform handsObj = bodyObj.transform.Find("Hands");
-        if (hands != null)
-            hands.Initialize(handsObj.gameObject);
+        if (Hands != null)
+            Hands.Initialize(handsObj.gameObject);
 
         Transform helmetObj = bodyObj.transform.Find("Helmet");
-        if (helmet != null)
-            helmet.Initialize(helmetObj.gameObject);
+        if (Helmet != null)
+            Helmet.Initialize(helmetObj.gameObject);
 
         Transform legsObj = bodyObj.transform.Find("Legs");
-        if (legs != null)
-            legs.Initialize(legsObj.gameObject);
+        if (Legs != null)
+            Legs.Initialize(legsObj.gameObject);
 
         Transform torsoObj = bodyObj.transform.Find("Torso");
-        if (torso != null)
-            torso.Initialize(torsoObj.gameObject);
+        if (Torso != null)
+            Torso.Initialize(torsoObj.gameObject);
 
         Transform shieldObj = bodyObj.transform.Find("Shield");
-        if (shield != null)
-            shield.Initialize(shieldObj.gameObject);
+        if (Shield != null)
+            Shield.Initialize(shieldObj.gameObject);
 
         Transform weaponObj = bodyObj.transform.Find("Weapon");
-        if (weapon != null)
-            weapon.Initialize(weaponObj.gameObject);
-
+        if (Weapon != null)
+            Weapon.Initialize(weaponObj.gameObject);
     }
 }

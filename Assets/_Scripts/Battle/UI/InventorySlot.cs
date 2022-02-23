@@ -27,7 +27,7 @@ public class InventorySlot : VisualElement
     public void HoldItem(Item _item)
     {
         item = _item;
-        icon.sprite = _item.icon;
+        icon.sprite = _item.Icon;
     }
 
     public void DropItem()

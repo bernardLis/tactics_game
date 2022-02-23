@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Character/Enemy")]
 public class EnemyCharacter : Character
 {
-    string[] names = new string[10]
+    string[] _names = new string[10]
     {
         "Liam",
         "Noah",
@@ -17,70 +17,70 @@ public class EnemyCharacter : Character
         "Alexander"
     };
 
-    public Sprite[] portraits;
+    public Sprite[] Portraits;
     
-    public Brain enemyBrain;
+    public Brain EnemyBrain;
 
-    public EquipmentDatabase equipmentDatabase;
+    public EquipmentDatabase EquipmentDatabase;
 
-    public override void Initialize(GameObject _obj)
+    public override void Initialize(GameObject obj)
     {
         // randomized name and portrait
-        characterName = names[Random.Range(0, names.Length)];
-        portrait = portraits[Random.Range(0, portraits.Length)];
+        CharacterName = _names[Random.Range(0, _names.Length)];
+        Portrait = Portraits[Random.Range(0, Portraits.Length)];
         // TODO: understand reflections and get it done in a nice loop
         // enemy needs a body
-        if (body == null)
-            body = RandomizeEq(EquipmentSlot.BODY);
+        if (Body == null)
+            Body = RandomizeEq(EquipmentSlot.Body);
 
         // TODO: need to differentiate between a piece of eq left blank on purpose and not
         // TODO: it would be fun if eq had influence on enemy stats
         // so you start fighting with enemies in rugs and end fighting enemies in golden armors
         // but that's for another day;
-        if (feet == null && Random.value > 0.5)
-            feet = RandomizeEq(EquipmentSlot.FEET);
-        if (hair == null && Random.value > 0.5)
-            hair = RandomizeEq(EquipmentSlot.HAIR);
-        if (hands == null && Random.value > 0.5)
-            hands = RandomizeEq(EquipmentSlot.HANDS);
-        if (helmet == null && Random.value > 0.5)
-            helmet = RandomizeEq(EquipmentSlot.HELMET);
-        if (legs == null && Random.value > 0.5)
-            legs = RandomizeEq(EquipmentSlot.LEGS);
-        if (torso == null && Random.value > 0.5)
-            torso = RandomizeEq(EquipmentSlot.TORSO);
-        if (shield == null && Random.value > 0.5)
-            shield = RandomizeEq(EquipmentSlot.SHIELD);
-        if (weapon == null)
-            weapon = (Weapon)RandomizeEq(EquipmentSlot.WEAPON);
+        if (Feet == null && Random.value > 0.5)
+            Feet = RandomizeEq(EquipmentSlot.Feet);
+        if (Hair == null && Random.value > 0.5)
+            Hair = RandomizeEq(EquipmentSlot.Hair);
+        if (Hands == null && Random.value > 0.5)
+            Hands = RandomizeEq(EquipmentSlot.Hands);
+        if (Helmet == null && Random.value > 0.5)
+            Helmet = RandomizeEq(EquipmentSlot.Helmet);
+        if (Legs == null && Random.value > 0.5)
+            Legs = RandomizeEq(EquipmentSlot.Legs);
+        if (Torso == null && Random.value > 0.5)
+            Torso = RandomizeEq(EquipmentSlot.Torso);
+        if (Shield == null && Random.value > 0.5)
+            Shield = RandomizeEq(EquipmentSlot.Shield);
+        if (Weapon == null)
+            Weapon = (Weapon)RandomizeEq(EquipmentSlot.Weapon);
 
-        base.Initialize(_obj);
-        var clone = Instantiate(enemyBrain);
-        clone.Initialize(_obj);
+        base.Initialize(obj);
+        var clone = Instantiate(EnemyBrain);
+        clone.Initialize(obj);
         //enemyBrain = obj.AddComponent(typeof(EnemyAI)) as EnemyAI;
     }
 
     Equipment RandomizeEq(EquipmentSlot slot)
     {
         // TODO: this could be made smarter, right?
-        if (slot == EquipmentSlot.BODY)
-            return equipmentDatabase.allBodies[Random.Range(0, equipmentDatabase.allBodies.Count)];
-        if (slot == EquipmentSlot.FEET)
-            return equipmentDatabase.allFeet[Random.Range(0, equipmentDatabase.allFeet.Count)];
-        if (slot == EquipmentSlot.HAIR)
-            return equipmentDatabase.allHair[Random.Range(0, equipmentDatabase.allHair.Count)];
-        if (slot == EquipmentSlot.HANDS)
-            return equipmentDatabase.allHands[Random.Range(0, equipmentDatabase.allHands.Count)];
-        if (slot == EquipmentSlot.HELMET)
-            return equipmentDatabase.allHelmets[Random.Range(0, equipmentDatabase.allHelmets.Count)];
-        if (slot == EquipmentSlot.LEGS)
-            return equipmentDatabase.allLegs[Random.Range(0, equipmentDatabase.allLegs.Count)];
-        if (slot == EquipmentSlot.TORSO)
-            return equipmentDatabase.allTorsos[Random.Range(0, equipmentDatabase.allTorsos.Count)];
-        if (slot == EquipmentSlot.SHIELD)
-            return equipmentDatabase.allShields[Random.Range(0, equipmentDatabase.allShields.Count)];
-        if (slot == EquipmentSlot.WEAPON)
-            return equipmentDatabase.allWeapons[Random.Range(0, equipmentDatabase.allWeapons.Count)];
+        if (slot == EquipmentSlot.Body)
+            return EquipmentDatabase.AllBodies[Random.Range(0, EquipmentDatabase.AllBodies.Count)];
+        if (slot == EquipmentSlot.Feet)
+            return EquipmentDatabase.AllFeet[Random.Range(0, EquipmentDatabase.AllFeet.Count)];
+        if (slot == EquipmentSlot.Hair)
+            return EquipmentDatabase.AllHair[Random.Range(0, EquipmentDatabase.AllHair.Count)];
+        if (slot == EquipmentSlot.Hands)
+            return EquipmentDatabase.AllHands[Random.Range(0, EquipmentDatabase.AllHands.Count)];
+        if (slot == EquipmentSlot.Helmet)
+            return EquipmentDatabase.AllHelmets[Random.Range(0, EquipmentDatabase.AllHelmets.Count)];
+        if (slot == EquipmentSlot.Legs)
+            return EquipmentDatabase.AllLegs[Random.Range(0, EquipmentDatabase.AllLegs.Count)];
+        if (slot == EquipmentSlot.Torso)
+            return EquipmentDatabase.AllTorsos[Random.Range(0, EquipmentDatabase.AllTorsos.Count)];
+        if (slot == EquipmentSlot.Shield)
+            return EquipmentDatabase.AllShields[Random.Range(0, EquipmentDatabase.AllShields.Count)];
+        if (slot == EquipmentSlot.Weapon)
+            return EquipmentDatabase.AllWeapons[Random.Range(0, EquipmentDatabase.AllWeapons.Count)];
 
         return null;
     }

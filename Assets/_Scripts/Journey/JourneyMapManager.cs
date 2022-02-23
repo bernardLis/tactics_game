@@ -257,6 +257,8 @@ public class JourneyMapManager : MonoBehaviour
             return;
         }
 
+        startNode.GetComponent<JourneyNodeBehaviour>().MarkAsVisited();
+
         JourneyNodeData data = journeyManager.currentJourneyNode;
         currentNode = journeyPaths[data.pathIndex].nodes[data.nodeIndex];
 
