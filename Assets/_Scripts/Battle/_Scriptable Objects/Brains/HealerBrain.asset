@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a9c4c102f1dca4b88d16fa3a092f66, type: 3}
   m_Name: HealerBrain
   m_EditorClassIdentifier: 
-  id: 8467ee11-9fa6-4a64-8ec7-c847419613d7
-  target: {fileID: 0}
-  abilitiesToInstantiate:
-  - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
-  - {fileID: 11400000, guid: 071ead248fbc7d04c9d7662e76ff59b7, type: 2}
+  Id: 9003cf17-74f4-43d3-81e3-dcc7289e083d
+  Target: {fileID: 0}
+  AbilitiesToInstantiate: []

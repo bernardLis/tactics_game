@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dea0a890083a8f4989d4f1a63e3a70a, type: 3}
   m_Name: BasicBrain
   m_EditorClassIdentifier: 
-  id: 6375a914-27a2-4623-838e-5fc210a12a56
-  target: {fileID: 0}
-  abilities: []
+  Id: 7d8a57da-f754-44a1-9e5c-0cdc85da187c
+  Target: {fileID: 0}
+  AbilitiesToInstantiate: []

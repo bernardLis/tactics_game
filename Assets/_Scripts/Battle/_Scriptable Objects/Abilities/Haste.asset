@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
   m_Name: Haste
   m_EditorClassIdentifier: 
-  id: ceeb705c-e94e-435e-b3da-245b7893d9f6
-  aName: Haste
-  aDescription: So fast!
-  aType: 3
-  weaponType: 3
-  aProjectile: {fileID: 0}
-  aIcon: {fileID: 21300000, guid: 9064011653d24ba499c5478200bdf71e, type: 3}
-  aSound: {fileID: 8300000, guid: 1d0fda77619fcb44dbe97d9fc252a92e, type: 3}
-  value: 0
-  manaCost: 10
-  areaOfEffect: 0
-  statModifier: {fileID: 11400000, guid: 3374d2ca0ca89134abc8b2188e55c8b9, type: 2}
-  status: {fileID: 0}
-  range: 5
-  canTargetSelf: 1
-  canTargetDiagonally: 1
-  highlightColor: {r: 1, g: 0.9310135, b: 0, a: 1}
+  Id: eec8a787-fc7c-4396-abb8-b464bce307b1
+  ReferenceID: 
+  Description: New Description
+  Icon: {fileID: 0}
+  Sound: {fileID: 0}
+  BasePower: 0
+  ManaCost: 0
+  AreaOfEffect: 0
+  AbilityType: 0
+  WeaponType: 0
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0, g: 0, b: 0, a: 0}

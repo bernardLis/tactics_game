@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
   m_Name: Dark Elf
   m_EditorClassIdentifier: 
-  eName: Dark Elf
-  icon: {fileID: 8822755541165077197, guid: 20eea2cf3cafe7240a4aa856d4225689, type: 3}
-  animatorController: {fileID: 22100000, guid: e7f49f95b1213d448bcb441dbca5e83c, type: 2}
-  eSlot: 0
+  Id: f0aac233-5048-4845-b39d-fc94919118f2
+  Icon: {fileID: 0}
+  AnimatorController: {fileID: 0}
+  Slot: 0
+  Gender: 0

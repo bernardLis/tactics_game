@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f017837fc022eb47ab41a886748218d, type: 3}
   m_Name: Open Chest
   m_EditorClassIdentifier: 
-  id: a6ba2b33-4026-4f45-b1c9-ee9d4fdb0702
-  aDescription: Opens chest
-  aType: 4
-  weaponType: 3
-  aProjectile: {fileID: 0}
-  aIcon: {fileID: 21300000, guid: 2227c8068fbf57244abf6c10f04382ed, type: 3}
-  aSound: {fileID: 0}
-  value: 0
-  manaCost: 0
-  areaOfEffect: 0
-  statModifier: {fileID: 0}
-  status: {fileID: 0}
-  range: 1
-  canTargetSelf: 0
-  canTargetDiagonally: 0
-  highlightColor: {r: 1, g: 0.5722114, b: 0, a: 1}
-  utilityType: 0
+  Id: 7c796d4f-7005-4878-b04d-93d224927f07
+  Description: New Description
+  Icon: {fileID: 0}
+  Sound: {fileID: 0}
+  BasePower: 0
+  ManaCost: 0
+  AreaOfEffect: 0
+  AbilityType: 0
+  WeaponType: 0
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
+  UtilityType: 0

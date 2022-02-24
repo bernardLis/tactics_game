@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941165d4f05d24840aa481aca7f36c9b, type: 3}
   m_Name: Rabbit
   m_EditorClassIdentifier: 
-  id: 7c0e5a26-5e97-42fe-9314-447f663f7c3a
-  iName: Rabbit
-  iDescription: It was fast, but not fast enough.
-  icon: {fileID: 21300000, guid: aafa530027e8d284b88845469fa0612a, type: 3}
-  amount: 1
-  sellPrice: 0
-  stackSize: 1
-  questItem: 1
-  slotDimension:
-    height: 1
-    width: 1
+  Id: ee03d08c-7e5c-4d29-81cc-546e388f155c
+  Description: 
+  Icon: {fileID: 0}
+  Amount: 1
+  SellPrice: 0
+  StackSize: 5
+  QuestItem: 0
+  SlotDimension:
+    Height: 0
+    Width: 0
+  Ability: {fileID: 0}

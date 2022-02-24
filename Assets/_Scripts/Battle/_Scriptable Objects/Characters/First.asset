@@ -12,27 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
   m_Name: First
   m_EditorClassIdentifier: 
-  id: f5cbf00a-19dc-4daf-a71c-80b332b6b86e
-  characterName: First
-  portrait: {fileID: 21300000, guid: afd309c482f885140af9ed07152aa6f0, type: 3}
-  stats: []
-  strength: 5
-  intelligence: 3
-  agility: 150
-  stamina: 5
-  shield: {fileID: 0}
-  body: {fileID: 11400000, guid: 67b8fdf6ef7563042aa09ed2714e02b0, type: 2}
-  feet: {fileID: 11400000, guid: 11267fbcd1abb6d4e9c3d1c1b5373948, type: 2}
-  hair: {fileID: 11400000, guid: a5e8401870ed78747b2a85ec14a9d0df, type: 2}
-  hands: {fileID: 11400000, guid: e30c815ac73e90e48bec1f0e91fa118e, type: 2}
-  helmet: {fileID: 11400000, guid: 64d6f8269a8ca7e44adc73e8a7d36c56, type: 2}
-  legs: {fileID: 11400000, guid: 5f5ed3a5b252c20428721790fae974fc, type: 2}
-  torso: {fileID: 11400000, guid: 7bbeada867b885842897088f8549b569, type: 2}
-  weapon: {fileID: 11400000, guid: 4804546585f86f84bbb8971d56cdf806, type: 2}
-  basicAbilities:
-  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
-  characterAbilities:
-  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
-  - {fileID: 11400000, guid: 072c64cc0cc872b4aa875e6c7f766440, type: 2}
-  - {fileID: 11400000, guid: d88a69c7be749374f85b1120dd7fbe59, type: 2}
-  - {fileID: 11400000, guid: 244ff5213d6bd1d468adefa414fed3d7, type: 2}
+  Id: 2a37bf5e-ae83-4366-b12f-3744f694cb0a
+  CharacterName: Default
+  Portrait: {fileID: 0}
+  Strength: 0
+  Intelligence: 0
+  Agility: 0
+  Stamina: 0
+  Shield: {fileID: 0}
+  Body: {fileID: 0}
+  Feet: {fileID: 0}
+  Hair: {fileID: 0}
+  Hands: {fileID: 0}
+  Helmet: {fileID: 0}
+  Legs: {fileID: 0}
+  Torso: {fileID: 0}
+  Weapon: {fileID: 0}
+  BasicAbilities: []
+  CharacterAbilities: []

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
   m_Name: White Male
   m_EditorClassIdentifier: 
-  eName: White Male
-  icon: {fileID: -5467807186778410338, guid: e3fb834ccb97a4646b6603f633d17afd, type: 3}
-  animatorController: {fileID: 22100000, guid: b0faed43a8199724cbc78d755b1821be, type: 2}
-  eSlot: 0
+  Id: f912056d-5c20-4ba9-86c1-c9f5a1572d1c
+  Icon: {fileID: 0}
+  AnimatorController: {fileID: 0}
+  Slot: 0
+  Gender: 0

@@ -12,20 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
   m_Name: BasicDefend
   m_EditorClassIdentifier: 
-  id: 3af1dbfc-0ba4-4d76-9a93-71725ee3a391
-  aName: Defend
-  aDescription: Defend!
-  aType: 3
-  weaponType: 3
-  aProjectile: {fileID: 0}
-  aIcon: {fileID: 21300000, guid: 46fdae8c04a550547a6bef44d81553d0, type: 3}
-  aSound: {fileID: 8300000, guid: 1d0fda77619fcb44dbe97d9fc252a92e, type: 3}
-  value: 0
-  manaCost: 0
-  areaOfEffect: 0
-  statModifier: {fileID: 11400000, guid: 0f14d421b7b051f43852c804bf2f9bf8, type: 2}
-  status: {fileID: 0}
-  range: 0
-  canTargetSelf: 1
-  canTargetDiagonally: 0
-  highlightColor: {r: 0, g: 0, b: 0, a: 1}
+  Id: 5f7d8c47-7ec1-4abf-b8ec-74ea82be327f
+  Description: New Description
+  Icon: {fileID: 0}
+  Sound: {fileID: 0}
+  BasePower: 0
+  ManaCost: 0
+  AreaOfEffect: 0
+  AbilityType: 0
+  WeaponType: 0
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0, g: 0, b: 0, a: 0}

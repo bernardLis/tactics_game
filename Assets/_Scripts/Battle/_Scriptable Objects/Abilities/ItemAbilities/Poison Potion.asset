@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: Poison Potion
   m_EditorClassIdentifier: 
-  id: 29f33bce-eb12-4f7a-a807-97bbfe471580
-  aDescription: Poisons target.
-  aType: 0
-  weaponType: 3
-  aProjectile: {fileID: 0}
-  aIcon: {fileID: 21300000, guid: cff97041784330943a55156f266c1b81, type: 3}
-  aSound: {fileID: 0}
-  value: 0
-  manaCost: 0
-  areaOfEffect: 0
-  statModifier: {fileID: 0}
-  status: {fileID: 11400000, guid: 2ac10217aea54c74894379c860cf804e, type: 2}
-  range: 7
-  canTargetSelf: 0
-  canTargetDiagonally: 1
-  highlightColor: {r: 0.020496989, g: 0.41509432, b: 0, a: 1}
+  Id: 1381ca30-0784-451f-b648-885e41ffd891
+  Description: New Description
+  Icon: {fileID: 0}
+  Sound: {fileID: 0}
+  BasePower: 0
+  ManaCost: 0
+  AreaOfEffect: 0
+  AbilityType: 0
+  WeaponType: 0
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0, g: 0, b: 0, a: 0}

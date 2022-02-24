@@ -12,20 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: PinkSelf
   m_EditorClassIdentifier: 
-  id: 54f995c2-c0d5-4b42-acd1-c26636741dea
-  aName: Pink Self
-  aDescription: Damage 22
-  aType: 0
-  weaponType: 0
-  aProjectile: {fileID: 0}
-  aIcon: {fileID: 21300000, guid: a80a197cf1bbc9846b1faf238203f16d, type: 3}
-  aSound: {fileID: 8300000, guid: 77e2d4d0f859f8e439a7ff69ebd004b9, type: 3}
-  value: 22
-  manaCost: 7
-  areaOfEffect: 0
-  statModifier: {fileID: 0}
-  status: {fileID: 0}
-  range: 1
-  canTargetSelf: 1
-  canTargetDiagonally: 0
-  highlightColor: {r: 1, g: 0.3254717, b: 0.8521388, a: 1}
+  Id: a45cd731-89d0-4f76-92e5-c542d177616e
+  Description: New Description
+  Icon: {fileID: 0}
+  Sound: {fileID: 0}
+  BasePower: 0
+  ManaCost: 0
+  AreaOfEffect: 0
+  AbilityType: 0
+  WeaponType: 0
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0, g: 0, b: 0, a: 0}

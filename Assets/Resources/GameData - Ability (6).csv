@@ -1,0 +1,23 @@
+ReferenceID,SOName,Description,AbilityType,WeaponType,Projectile,Icon,Sound,BasePower,ManaCost,AreaOfEffect,StatModifierReferenceID,StatusReferenceID,Range,CanTargetSelf,CanTargetDiagonally,HighlightColor
+ABILITY-0,Super Hit,Super effective!,Attack,Any,FlyingArrow,egyptian-walk.png,gun-1a.wav,12,0,0,MODIFIER-1,,1,FALSE,FALSE,fcba03
+ABILITY-1,Long Arm,Oh the arm is so long.,Heal,Any,,skeleton.png,hammer-1a.wav,24,0,0,MODIFIER-0,,2,FALSE,TRUE,37941e
+ABILITY-2,Pink Hit,Gaaaay.,Buff,Any,Chest,swordman.png,punch-1a.wav,36,0,0,MODIFIER-2,,5,TRUE,FALSE,be22c9
+ABILITY-3,,,,,,,,,,,,,,,,
+ABILITY-4,,,,,,,,,,,,,,,,
+ABILITY-5,,,,,,,,,,,,,,,,
+ABILITY-6,,,,,,,,,,,,,,,,
+ABILITY-7,,,,,,,,,,,,,,,,
+ABILITY-8,,,,,,,,,,,,,,,,
+ABILITY-9,,,,,,,,,,,,,,,,
+ABILITY-10,,,,,,,,,,,,,,,,
+ABILITY-11,,,,,,,,,,,,,,,,
+ABILITY-12,,,,,,,,,,,,,,,,
+ABILITY-13,,,,,,,,,,,,,,,,
+ABILITY-14,,,,,,,,,,,,,,,,
+ABILITY-15,,,,,,,,,,,,,,,,
+ABILITY-16,,,,,,,,,,,,,,,,
+ABILITY-17,,,,,,,,,,,,,,,,
+ABILITY-18,,,,,,,,,,,,,,,,
+ABILITY-19,,,,,,,,,,,,,,,,
+ABILITY-20,,,,,,,,,,,,,,,,
+ABILITY-21,,,,,,,,,,,,,,,,

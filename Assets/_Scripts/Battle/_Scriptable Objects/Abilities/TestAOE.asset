@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: TestAOE
   m_EditorClassIdentifier: 
-  aName: AOE
-  aDescription: AOE 2, damage 40
-  aType: 0
-  weaponType: 3
-  aProjectile: {fileID: 0}
-  aIcon: {fileID: -1580473744372487362, guid: bcbcb6ed19f7cc4499a9581dec7ee7e6, type: 3}
-  aSound: {fileID: 8300000, guid: bd57b65ca67cf9341a265fc488288051, type: 3}
-  value: 40
-  manaCost: 10
-  areaOfEffect: 1
-  range: 5
-  canTargetSelf: 1
-  canTargetDiagonally: 1
-  highlightColor: {r: 0.7075472, g: 0.242969, b: 0.67069286, a: 1}
+  Id: 6794d771-7d4f-4e7c-8c07-72cb363c344f
+  Description: New Description
+  Icon: {fileID: 0}
+  Sound: {fileID: 0}
+  BasePower: 0
+  ManaCost: 0
+  AreaOfEffect: 0
+  AbilityType: 0
+  WeaponType: 0
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0, g: 0, b: 0, a: 0}

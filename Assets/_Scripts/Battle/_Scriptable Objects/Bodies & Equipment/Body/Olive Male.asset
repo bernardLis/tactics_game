@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
   m_Name: Olive Male
   m_EditorClassIdentifier: 
-  eName: Olive Male
-  icon: {fileID: -5776561427490227590, guid: 329c0ff13a265a240a63eb726594e20b, type: 3}
-  animatorController: {fileID: 22100000, guid: 07e27b73411da1645b55b2cb6923e389, type: 2}
-  eSlot: 0
+  Id: 34bc5cb3-ebda-4132-9e8f-980e392655b8
+  Icon: {fileID: 0}
+  AnimatorController: {fileID: 0}
+  Slot: 0
+  Gender: 0

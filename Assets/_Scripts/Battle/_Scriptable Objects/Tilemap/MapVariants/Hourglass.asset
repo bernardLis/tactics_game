@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7485786c1985cb94ba88d63ab344f7ec, type: 3}
   m_Name: Hourglass
   m_EditorClassIdentifier: 
-  id: 1e72e694-2b5b-4370-b722-00de43ef6c21
-  variantName: Hourglass
-  obstaclePercent: {x: 0.05, y: 0.1}
-  terrainIrregularitiesPercent: {x: 0.1, y: 0.25}
-  trapPercent: {x: 0.01, y: 0.1}
-  mapType: 4
+  Id: ae845e0c-e364-421e-8353-d59ff1bf71f8
+  VariantName: 
+  ObstaclePercent: {x: 0, y: 0}
+  TerrainIrregularitiesPercent: {x: 0, y: 0}
+  TrapPercent: {x: 0, y: 0}
+  MapType: 0

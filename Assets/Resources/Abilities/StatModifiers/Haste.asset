@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d530eac77827d4d92ca6bfb5861a5d, type: 3}
+  m_Name: Haste
+  m_EditorClassIdentifier: 
+  Id: 6875fe93-0e77-4aea-b846-b6dbde6dd4ae
+  ReferenceID: MODIFIER-0
+  Icon: {fileID: 21300000, guid: 683768a520f930747a75a187e322b7ea, type: 3}
+  StatType: 7
+  NumberOfTurns: 3
+  Value: 1

@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using UnityEditor;
 
-public enum AbilityType { Attack, Heal, Move, Buff, Utility }
+public enum AbilityType { Attack, Heal, Push, Buff, Utility }
 
 public abstract class Ability : BaseScriptableObject
 {
+    [HideInInspector] public string ReferenceID;
+
     [Header("Characteristics")]
     public string Description = "New Description";
     public Sprite Icon;
@@ -17,7 +21,7 @@ public abstract class Ability : BaseScriptableObject
     public AbilityType AbilityType;
     public WeaponType WeaponType; // abilities have weapons that can use them
     public GameObject Projectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
-    
+
     [Header("Abilities can add modifiers and statuses on interaction")]
     public StatModifier StatModifier;
     public Status Status;
@@ -32,6 +36,30 @@ public abstract class Ability : BaseScriptableObject
     protected GameObject _characterGameObject;
     protected Highlighter _highlighter;
     protected BattleCharacterController _battleCharacterController;
+
+    // called from editor using table data
+    public virtual void Create(Dictionary<string, object> item)
+    {
+        ReferenceID = item["ReferenceID"].ToString();
+        Description = item["Description"].ToString();
+        AbilityType = (AbilityType)System.Enum.Parse(typeof(AbilityType), item["AbilityType"].ToString());
+        WeaponType = (WeaponType)System.Enum.Parse(typeof(WeaponType), item["WeaponType"].ToString());
+        Projectile = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/{item["Projectile"]}.prefab", typeof(GameObject));
+        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
+        Sound = (AudioClip)AssetDatabase.LoadAssetAtPath($"Assets/Sounds/Ability/{item["Sound"]}", typeof(AudioClip));
+        BasePower = int.Parse(item["BasePower"].ToString());
+        ManaCost = int.Parse(item["ManaCost"].ToString());
+        AreaOfEffect = int.Parse(item["AreaOfEffect"].ToString());
+        Debug.Log(item["StatModifierReferenceID"].ToString());
+        if (item["StatModifierReferenceID"].ToString() != "")
+            StatModifier = SOGeneratorUtility.GetStatModifierFromReferenceId(item["StatModifierReferenceID"].ToString()) as StatModifier;
+        // TODO: stat modifier load by reference from stat modifier db ... < that I need to create
+        // TODO: status reference same same
+        Range = int.Parse(item["Range"].ToString());
+        CanTargetSelf = item["CanTargetSelf"].ToString() == "TRUE" ? true : false;
+        CanTargetDiagonally = item["CanTargetDiagonally"].ToString() == "TRUE" ? true : false;
+        HighlightColor = Utility.HexToColor(item["HighlightColor"].ToString());
+    }
 
     public virtual void Initialize(GameObject self)
     {

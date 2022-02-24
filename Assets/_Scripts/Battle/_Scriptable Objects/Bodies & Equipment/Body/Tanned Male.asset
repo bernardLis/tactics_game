@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
   m_Name: Tanned Male
   m_EditorClassIdentifier: 
-  eName: Tanned Male
-  icon: {fileID: -795255341206155772, guid: f4fef513c8289d04b9216449d904bc2c, type: 3}
-  animatorController: {fileID: 22100000, guid: c14a232da15b3ba4992ef620b498d20d, type: 2}
-  eSlot: 0
+  Id: bf4a7341-7f64-4e51-8b60-ab8efd5d0370
+  Icon: {fileID: 0}
+  AnimatorController: {fileID: 0}
+  Slot: 0
+  Gender: 0

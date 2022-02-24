@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7485786c1985cb94ba88d63ab344f7ec, type: 3}
   m_Name: Space
   m_EditorClassIdentifier: 
-  id: 1e72e694-2b5b-4370-b722-00de43ef6c21
-  variantName: Space
-  obstaclePercent: {x: 0.05, y: 0.1}
-  terrainIrregularitiesPercent: {x: 0.1, y: 0.25}
-  trapPercent: {x: 0.01, y: 0.1}
-  mapType: 0
+  Id: 04981a72-f75e-48cf-8c54-bebdbfac2d98
+  VariantName: 
+  ObstaclePercent: {x: 0, y: 0}
+  TerrainIrregularitiesPercent: {x: 0, y: 0}
+  TrapPercent: {x: 0, y: 0}
+  MapType: 0

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: 
-  eName: Skeleton
-  icon: {fileID: 5311655696396966444, guid: 10dd065bc389ce340bc66ba3e00a36e0, type: 3}
-  animatorController: {fileID: 22100000, guid: 3f937ce1ec64a0740a86b0d5f72d64a2, type: 2}
-  eSlot: 0
+  Id: b288fb02-b225-4316-ae72-be829861c52e
+  Icon: {fileID: 0}
+  AnimatorController: {fileID: 0}
+  Slot: 0
+  Gender: 0

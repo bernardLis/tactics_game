@@ -12,76 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f3178798064e043b4ca8d0620801a8, type: 3}
   m_Name: City
   m_EditorClassIdentifier: 
-  id: 46d2c9e1-cbd8-4ab7-89e4-509db3889604
-  floorTiles:
-  - {fileID: 11400000, guid: 7fff049502ccb354d8b6f3c85b900ae7, type: 2}
-  - {fileID: 11400000, guid: e9e3e3028a30bed428683228aca88e0f, type: 2}
-  - {fileID: 11400000, guid: bbc3b2eff85b2104dad728bcf21f09d5, type: 2}
-  - {fileID: 11400000, guid: c4da114ab3e587e4cbaf96171fdd0d17, type: 2}
-  - {fileID: 11400000, guid: 600d0717b9212ba48a17bd136d4a9c32, type: 2}
-  - {fileID: 11400000, guid: 3d7e445cb087f724d9399ecdf2610ed8, type: 2}
-  - {fileID: 11400000, guid: 3fb78a9cb1df646489b3832c0d46c7e9, type: 2}
-  - {fileID: 11400000, guid: c6789fd71f7f26e438da85eb65e71fdd, type: 2}
-  - {fileID: 11400000, guid: a654cae0a4959944d86d2fbd31655edc, type: 2}
-  - {fileID: 11400000, guid: db73922ce96e5124c88f0c88089a1974, type: 2}
-  - {fileID: 11400000, guid: 2ddb73d208a499f4eb3fbcdd5f39c6e2, type: 2}
-  - {fileID: 11400000, guid: 161798581a49fac439285de54b6202d4, type: 2}
-  - {fileID: 11400000, guid: 03e30d086d3f4934f968d65c1fa40b12, type: 2}
-  - {fileID: 11400000, guid: 423122d57d837364c932af120c1a9257, type: 2}
-  floorAdditions:
-  - {fileID: 11400000, guid: ccb4adaf305f4a04da279b69c1c23a44, type: 2}
-  - {fileID: 11400000, guid: f8723568b10d191488c19e65cb33c767, type: 2}
-  - {fileID: 11400000, guid: fa5f02cfede355341a830cb070c0ccbb, type: 2}
-  - {fileID: 11400000, guid: fd1aec7f2b8566145a9b0d734cd90934, type: 2}
-  - {fileID: 11400000, guid: d7b521925d6692c4b968820382244c38, type: 2}
-  - {fileID: 11400000, guid: 88f3366bc694f0440997f848b01afa38, type: 2}
-  - {fileID: 11400000, guid: 348b4c4a2575d3b468c12687dbd6ca13, type: 2}
-  - {fileID: 11400000, guid: 4f27c8d93e7d34742ae0a59ca4f3b799, type: 2}
-  - {fileID: 11400000, guid: 668642cb20c70fa489b769fccf3c46f7, type: 2}
-  - {fileID: 11400000, guid: e95eaa576a7c5eb4698fd471c9654a7f, type: 2}
-  - {fileID: 11400000, guid: d36fbe1cf7b3a23429be0a6c8966d357, type: 2}
-  - {fileID: 11400000, guid: 9aefb45896797934ebc2447e5b01d54f, type: 2}
-  - {fileID: 11400000, guid: 0956d8f28fe9aff48b34f577de733625, type: 2}
-  outerTiles:
-  - {fileID: 11400000, guid: 59e03d24f655b144d8438f5d3745cae1, type: 2}
-  obstacles:
-  - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
-  - {fileID: 11400000, guid: 26dfb51a90aa116409ce2dbc1e90ae38, type: 2}
-  - {fileID: 11400000, guid: 7106443487fa88f43990f27e7dc4c336, type: 2}
-  - {fileID: 11400000, guid: 9d95c56646ec82e4fa6e2deac4413336, type: 2}
-  - {fileID: 11400000, guid: 58ab6157a3572f44db50c60e412c094e, type: 2}
-  - {fileID: 11400000, guid: 83a2f401a0e3c664096d28ca46fe874b, type: 2}
-  - {fileID: 11400000, guid: 160eba4466fbe124b85b37fc330430ec, type: 2}
-  - {fileID: 11400000, guid: 69a4d89a3221f15448d21133d81446d3, type: 2}
-  - {fileID: 11400000, guid: 4221cc816717bfc44802ff925b40761b, type: 2}
-  - {fileID: 11400000, guid: 9cf486af36c8088448d119c62ab6a074, type: 2}
-  - {fileID: 11400000, guid: 02554e1a04a4e8e4dbeb3878de362fd2, type: 2}
-  - {fileID: 11400000, guid: f82e8b97ac36b35459d8bf6930400cd0, type: 2}
-  - {fileID: 11400000, guid: bc5f162e620d98649a8cc01f9a5d169a, type: 2}
-  - {fileID: 11400000, guid: 9553fcaffefa27c4fabcbe0275228657, type: 2}
-  - {fileID: 11400000, guid: 57a503ecc4b60134f80bc2e43a355d3c, type: 2}
-  - {fileID: 11400000, guid: 8ff77aebd7b477340b08899980df83a1, type: 2}
-  - {fileID: 11400000, guid: bfee8b143b5e6e14c884510c7831503c, type: 2}
-  - {fileID: 11400000, guid: 9bc39dc488ea4ea428c28a35682baaa0, type: 2}
-  - {fileID: 11400000, guid: a86a57ee22ba83f41862e0c5d5c3413d, type: 2}
-  outerAdditions:
-  - {fileID: 11400000, guid: 6f068bf3ccb576741adf3f11f44b380e, type: 2}
-  - {fileID: 11400000, guid: c77937567869d8d429beaacaf4c49e71, type: 2}
-  - {fileID: 11400000, guid: 6855480dec0364a4f9a17e0d86deaee5, type: 2}
-  - {fileID: 11400000, guid: 29cb099b434299847925fd3a63f1a370, type: 2}
-  - {fileID: 11400000, guid: 1033919bb166f3b4fb86f31730cc5302, type: 2}
-  outerAdditionsPercent: {x: 0.05, y: 0.1}
-  edgeN: {fileID: 11400000, guid: f0628095ecbc07342824a145037f8d38, type: 2}
-  edgeS: {fileID: 11400000, guid: 1346d31ec2fb84b4f84204413951575d, type: 2}
-  edgeE: {fileID: 11400000, guid: 07aa23f126d0f0140ab54de875b8c20e, type: 2}
-  edgeW: {fileID: 11400000, guid: e590de3da9dff5d4181132717e10cab2, type: 2}
-  cornerNE: {fileID: 11400000, guid: d5735df904073c344bc83f8515c88c9b, type: 2}
-  cornerNW: {fileID: 11400000, guid: 31d968f50a1fc02459d70cadc03d037c, type: 2}
-  cornerSE: {fileID: 11400000, guid: 6a7707ac891d582498299700d40843c1, type: 2}
-  cornerSW: {fileID: 11400000, guid: e84f7cc6c8bb08948a740280516c1cdd, type: 2}
-  inlandCornerNE: {fileID: 11400000, guid: 6e8656a8a33f23143b02aa94a846ddbf, type: 2}
-  inlandCornerNW: {fileID: 11400000, guid: 374e2ae62714a7b408dbcd227b08f565, type: 2}
-  inlandCornerSE: {fileID: 11400000, guid: 8523d372bcf9c2545a950dfd5c62b0b9, type: 2}
-  inlandCornerSW: {fileID: 11400000, guid: 47c283ea8b887dc44883bb1ac44f5527, type: 2}
-  lightColor: {r: 0.7294118, g: 0.8156863, b: 0.9254902, a: 1}
-  lightIntensity: 1
+  Id: 2bd60f07-e74e-4e9c-b0fb-7ce20fe570ae
+  FloorTiles: []
+  FloorAdditions: []
+  OuterTiles: []
+  Obstacles: []
+  OuterAdditions: []
+  OuterAdditionsPercent: {x: 0, y: 0}
+  EdgeN: {fileID: 0}
+  EdgeS: {fileID: 0}
+  EdgeE: {fileID: 0}
+  EdgeW: {fileID: 0}
+  CornerNE: {fileID: 0}
+  CornerNW: {fileID: 0}
+  CornerSE: {fileID: 0}
+  CornerSW: {fileID: 0}
+  InlandCornerNE: {fileID: 0}
+  InlandCornerNW: {fileID: 0}
+  InlandCornerSE: {fileID: 0}
+  InlandCornerSW: {fileID: 0}
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: 0

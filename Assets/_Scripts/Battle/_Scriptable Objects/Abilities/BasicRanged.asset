@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: BasicRanged
   m_EditorClassIdentifier: 
-  aName: Ranged Attack
-  aDescription: Damage 12
-  aType: 0
-  weaponType: 2
-  aProjectile: {fileID: 6450357399194659378, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
-  aIcon: {fileID: 21300000, guid: 2279c0f46fc1a0a468df6cb82ce15400, type: 3}
-  aSound: {fileID: 8300000, guid: 063b94fe78343964796f6bdd41f83e31, type: 3}
-  value: 12
-  manaCost: 0
-  areaOfEffect: 0
-  range: 8
-  canTargetSelf: 0
-  canTargetDiagonally: 1
-  highlightColor: {r: 1, g: 0.55321556, b: 0, a: 1}
+  Id: 0b3276d3-22e2-4ff4-973b-fd2f7aed067b
+  Description: New Description
+  Icon: {fileID: 0}
+  Sound: {fileID: 0}
+  BasePower: 0
+  ManaCost: 0
+  AreaOfEffect: 0
+  AbilityType: 0
+  WeaponType: 0
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0, g: 0, b: 0, a: 0}

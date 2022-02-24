@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9d530eac77827d4d92ca6bfb5861a5d, type: 3}
-  m_Name: ArmorUp
+  m_Name: Slow
   m_EditorClassIdentifier: 
-  statType: 6
-  numberOfTurns: 1
-  value: 1
-  icon: {fileID: 21300000, guid: 228b0bcee94be45428d59d52293e85a1, type: 3}
+  Id: bc3da1ba-6f7b-4401-88f8-d6fef328ef5b
+  ReferenceID: MODIFIER-2
+  Icon: {fileID: 21300000, guid: bc66d215210fa8e49b5230cfa5771053, type: 3}
+  StatType: 7
+  NumberOfTurns: 4
+  Value: -1

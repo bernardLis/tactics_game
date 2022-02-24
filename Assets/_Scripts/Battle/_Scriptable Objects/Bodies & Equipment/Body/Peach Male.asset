@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
   m_Name: Peach Male
   m_EditorClassIdentifier: 
-  eName: Peach Male
-  icon: {fileID: 30354386144885673, guid: 246ce6a5b7b80794ab2b533e44522bc6, type: 3}
-  animatorController: {fileID: 22100000, guid: 748ce26d29fa5994fbe744e9364d82f2, type: 2}
-  eSlot: 0
+  Id: 91569b90-f88f-4bf9-8c0b-b6093b799ec8
+  Icon: {fileID: 0}
+  AnimatorController: {fileID: 0}
+  Slot: 0
+  Gender: 0

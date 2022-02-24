@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9d530eac77827d4d92ca6bfb5861a5d, type: 3}
-  m_Name: Haste
+  m_Name: Slow
   m_EditorClassIdentifier: 
-  id: c9879ed7-434d-47e7-8bbe-09daa715d87d
-  statType: 7
-  numberOfTurns: 4
-  value: 1
-  icon: {fileID: 21300000, guid: 81ccdb1ac18aeaa4c90b4a814e27dba6, type: 3}
+  Id: 8d384593-9f42-463a-bd1d-a1706b0e77ab
+  StatType: 0
+  NumberOfTurns: 0
+  Value: 0
+  Icon: {fileID: 0}

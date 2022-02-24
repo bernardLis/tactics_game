@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1854d8e58981824ea83ac9bf0984611, type: 3}
   m_Name: Brown Male
   m_EditorClassIdentifier: 
-  eName: Brown Male
-  icon: {fileID: -2751071790081323338, guid: 1075de626a3aa5440962650fcea07c05, type: 3}
-  animatorController: {fileID: 22100000, guid: a9db925f01162804d96bfb15cacaf264, type: 2}
-  eSlot: 0
+  Id: a76dc719-9a03-4b1e-aae0-4c50dca372fa
+  Icon: {fileID: 0}
+  AnimatorController: {fileID: 0}
+  Slot: 0
+  Gender: 0
