@@ -1,14 +1,16 @@
 using UnityEngine;
-
+using System.Collections.Generic;
+using UnityEditor;
 
 public class Status : BaseScriptableObject
 {
+    public string ReferenceID;
     public int NumberOfTurns;
     public int Value;
     public Sprite Icon;
 
-    public string DisplayOnCharacterText;
-    public Color DisplayOnCharacterColor;
+    public string DisplayText;
+    public Color DisplayColor;
 
     protected GameObject _characterGameObject;
     protected CharacterSelection _characterSelection;
@@ -18,6 +20,16 @@ public class Status : BaseScriptableObject
     protected DamageUI _damageUI;
 
     protected GameObject _attacker;
+
+    public virtual void Create(Dictionary<string, object> item)
+    {
+        ReferenceID = item["ReferenceID"].ToString();
+        NumberOfTurns = int.Parse(item["NumberOfTurns"].ToString());
+        Value = int.Parse(item["Value"].ToString());
+        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/Status/{item["Icon"]}", typeof(Sprite));
+        DisplayText = item["DisplayText"].ToString();
+        DisplayColor = Utility.HexToColor(item["DisplayColor"].ToString());
+    }
 
     public virtual void Initialize(GameObject self, GameObject attacker)
     {
@@ -41,7 +53,7 @@ public class Status : BaseScriptableObject
 
     public virtual void TriggerStatus()
     {
-        _damageUI.DisplayOnCharacter(DisplayOnCharacterText, 24, DisplayOnCharacterColor);
+        _damageUI.DisplayOnCharacter(DisplayText, 24, DisplayColor);
     }
 
     public virtual void ResolveTurnEnd()

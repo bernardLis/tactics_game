@@ -23,8 +23,8 @@ MonoBehaviour:
   AbilityType: 3
   WeaponType: 3
   Projectile: {fileID: 5247648617231209867, guid: 9a16a01a8c5aeea449e0d2fa07156386, type: 3}
-  StatModifier: {fileID: 0}
-  Status: {fileID: 0}
+  StatModifier: {fileID: 11400000, guid: 826f8690ab47bb941b14d9265ffaa617, type: 2}
+  Status: {fileID: 11400000, guid: c2a4eee76b031964695933bad1a8b197, type: 2}
   Range: 5
   CanTargetSelf: 1
   CanTargetDiagonally: 0

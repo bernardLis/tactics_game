@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Statuses/Heal")]
-public class StatusHeal : Status
+public class HealStatus : Status
 {
     public override void TriggerStatus()
     {

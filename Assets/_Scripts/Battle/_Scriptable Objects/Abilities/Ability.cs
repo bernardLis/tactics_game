@@ -38,7 +38,7 @@ public abstract class Ability : BaseScriptableObject
     protected BattleCharacterController _battleCharacterController;
 
     // called from editor using table data
-    public virtual void Create(Dictionary<string, object> item)
+    public virtual void Create(Dictionary<string, object> item, StatModifier statModifier, Status status)
     {
         ReferenceID = item["ReferenceID"].ToString();
         Description = item["Description"].ToString();
@@ -50,11 +50,8 @@ public abstract class Ability : BaseScriptableObject
         BasePower = int.Parse(item["BasePower"].ToString());
         ManaCost = int.Parse(item["ManaCost"].ToString());
         AreaOfEffect = int.Parse(item["AreaOfEffect"].ToString());
-        Debug.Log(item["StatModifierReferenceID"].ToString());
-        if (item["StatModifierReferenceID"].ToString() != "")
-            StatModifier = SOGeneratorUtility.GetStatModifierFromReferenceId(item["StatModifierReferenceID"].ToString()) as StatModifier;
-        // TODO: stat modifier load by reference from stat modifier db ... < that I need to create
-        // TODO: status reference same same
+        StatModifier = statModifier;
+        Status = status;
         Range = int.Parse(item["Range"].ToString());
         CanTargetSelf = item["CanTargetSelf"].ToString() == "TRUE" ? true : false;
         CanTargetDiagonally = item["CanTargetDiagonally"].ToString() == "TRUE" ? true : false;

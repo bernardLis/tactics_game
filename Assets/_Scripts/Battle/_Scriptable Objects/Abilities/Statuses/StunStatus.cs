@@ -1,11 +1,10 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Statuses/Stun")]
-public class StatusStun : Status
+public class StunStatus : Status
 {
     public override void FirstTrigger()
     {
-        Debug.Log("in first trigger");
         // this is when you apply stun on your mate
         if (_attacker.CompareTag(_characterGameObject.tag) && !_characterSelection.hasFinishedTurn)
             _characterSelection.FinishCharacterTurn();

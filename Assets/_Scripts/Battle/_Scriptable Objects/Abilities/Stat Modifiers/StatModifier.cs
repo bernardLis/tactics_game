@@ -15,10 +15,10 @@ public class StatModifier : BaseScriptableObject
     public virtual void Create(Dictionary<string, object> item)
     {
         ReferenceID = item["ReferenceID"].ToString();
-        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/StatModifier/{item["Icon"]}", typeof(Sprite));
         StatType = (StatType)System.Enum.Parse(typeof(StatType), item["StatType"].ToString());
         NumberOfTurns = int.Parse(item["NumberOfTurns"].ToString());
         Value = int.Parse(item["Value"].ToString());
+        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/StatModifier/{item["Icon"]}", typeof(Sprite));
     }
 
     public string GetDescription()
