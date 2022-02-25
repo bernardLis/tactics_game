@@ -82,19 +82,28 @@ public static class ScriptableObjectGenerator
     static void CreateAbility(Dictionary<string, object> item)
     {
         // https://stackoverflow.com/questions/64056647/making-a-tool-to-edit-scriptableobjects
-        // TODO: Need to check which ability it is and instantiate a proper one
         Ability ability = null;
-        //Attack, Heal, Move, Buff, Utility } // TODO: change to switch statement?
-        if (item["AbilityType"].ToString() == "Attack")
-            ability = (AttackAbility)ScriptableObject.CreateInstance<AttackAbility>();
-        if (item["AbilityType"].ToString() == "Heal")
-            ability = (HealAbility)ScriptableObject.CreateInstance<HealAbility>();
-        if (item["AbilityType"].ToString() == "Push")
-            ability = (PushAbility)ScriptableObject.CreateInstance<PushAbility>();
-        if (item["AbilityType"].ToString() == "Buff")
-            ability = (BuffAbility)ScriptableObject.CreateInstance<BuffAbility>();
-        if (item["AbilityType"].ToString() == "Utility")
-            ability = (UtilityAbility)ScriptableObject.CreateInstance<UtilityAbility>();
+        switch (item["AbilityType"].ToString())
+        {
+            case "Attack":
+                ability = (AttackAbility)ScriptableObject.CreateInstance<AttackAbility>();
+                break;
+            case "Heal":
+                ability = (HealAbility)ScriptableObject.CreateInstance<HealAbility>();
+                break;
+            case "Push":
+                ability = (PushAbility)ScriptableObject.CreateInstance<PushAbility>();
+                break;
+            case "Buff":
+                ability = (BuffAbility)ScriptableObject.CreateInstance<BuffAbility>();
+                break;
+            case "Utility":
+                ability = (UtilityAbility)ScriptableObject.CreateInstance<UtilityAbility>();
+                break;
+            default:
+                Debug.LogError($"Wrong Ability Type {item["AbilityType"].ToString()}");
+                break;
+        }
 
         if (ability == null)
         {
@@ -126,13 +135,21 @@ public static class ScriptableObjectGenerator
         // https://stackoverflow.com/questions/64056647/making-a-tool-to-edit-scriptableobjects
         // TODO: Need to check which ability it is and instantiate a proper one
         Status status = null;
-        //Attack, Heal, Move, Buff, Utility } // TODO: change to switch statement?
-        if (item["StatusType"].ToString() == "Damage")
-            status = (DamageStatus)ScriptableObject.CreateInstance<DamageStatus>();
-        if (item["StatusType"].ToString() == "Heal")
-            status = (HealStatus)ScriptableObject.CreateInstance<HealStatus>();
-        if (item["StatusType"].ToString() == "Stun")
-            status = (StunStatus)ScriptableObject.CreateInstance<StunStatus>();
+        switch (item["StatusType"].ToString())
+        {
+            case "Damage":
+                status = (DamageStatus)ScriptableObject.CreateInstance<DamageStatus>();
+                break;
+            case "Heal":
+                status = (HealStatus)ScriptableObject.CreateInstance<HealStatus>();
+                break;
+            case "Stun":
+                status = (StunStatus)ScriptableObject.CreateInstance<StunStatus>();
+                break;
+            default:
+                Debug.LogError($"Wrong Ability Type {item["AbilityType"].ToString()}");
+                break;
+        }
 
         if (status == null)
         {
@@ -168,12 +185,11 @@ public static class ScriptableObjectGenerator
     {
         string path = "Abilities/StatModifiers";
         Object[] mods = Resources.LoadAll(path, typeof(StatModifier));
-
         foreach (StatModifier mod in mods)
             if (mod.ReferenceID == id)
                 return mod;
 
-        Debug.LogError($"did not find a stat modifier with id: {id}");
+        Debug.LogError($"Did not find a stat modifier with id: {id}");
         return null;
     }
 
@@ -181,12 +197,11 @@ public static class ScriptableObjectGenerator
     {
         string path = "Abilities/Statuses";
         Object[] statuses = Resources.LoadAll(path, typeof(Status));
-        Debug.Log($"statuses.length {statuses.Length}");
         foreach (Status st in statuses)
             if (st.ReferenceID == id)
                 return st;
 
-        Debug.LogError($"did not find a status with id: {id}");
+        Debug.LogError($"Did not find a status with id: {id}");
         return null;
     }
 

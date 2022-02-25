@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public enum UtilityType { Key }
 
@@ -9,6 +10,12 @@ public class UtilityAbility : Ability
     [Header("Utility Ability")]
     public UtilityType UtilityType;
     UtilityTriggerable _utilityTriggerable;
+
+    public override void Create(Dictionary<string, object> item, StatModifier statModifier, Status status)
+    {
+        base.Create(item, statModifier, status);
+        UtilityType = (UtilityType)System.Enum.Parse(typeof(UtilityType), item["UtilityType"].ToString());
+    }
 
     public override void Initialize(GameObject obj)
     {

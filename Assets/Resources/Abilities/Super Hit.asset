@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: Super Hit
   m_EditorClassIdentifier: 
-  Id: 
+  Id: f038f7e2-51e2-46ce-a16c-a41d259240ed
   ReferenceID: ABILITY-0
   Description: Super effective!
   Icon: {fileID: 21300000, guid: 4764e7f41a22ee143b920b64c5a3092f, type: 3}

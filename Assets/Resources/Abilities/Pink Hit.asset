@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
   m_Name: Pink Hit
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 58d9bca9-f206-494d-83b4-6fb2fcf51a98
   ReferenceID: ABILITY-2
   Description: Gaaaay.
   Icon: {fileID: 21300000, guid: 38ccb73712c2df745a714d692ce04ba8, type: 3}
