@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc2ca2b1271fe5419bd8fab56f34f69, type: 3}
+  m_Name: Dagger
+  m_EditorClassIdentifier: 
+  Id: c2d3d484-de51-4d91-9855-3cad0f602175
+  Icon: {fileID: 0}
+  AnimatorController: {fileID: 22100000, guid: da88fc59b1085bc4e84903517eab1f65, type: 2}
+  WeaponType: 0
+  BasicAttack: {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}

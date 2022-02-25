@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: TableLargeVertLantern
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  size: {x: 3, y: 3}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: 01f216b0a33f7b543abf520ee673ecfc, type: 3}
-  pushable: 0
-  isMoving: 0
-  emitsLight: 1
-  lightColor: {r: 1, g: 0.70980394, b: 0.29803923, a: 1}
-  lightIntensity: {x: 0.2, y: 0.4}
-  innerRadius: {x: 0.6, y: 0.4}
-  outerRadius: {x: 2, y: 4}
-  offset: {x: 0, y: 0.81}
+  Id: 41f18358-5b0d-48c1-accc-d05d1eb6b646
+  Size: {x: 3, y: 2}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 01f216b0a33f7b543abf520ee673ecfc, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

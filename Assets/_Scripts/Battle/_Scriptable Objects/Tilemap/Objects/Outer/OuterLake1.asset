@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: OuterLake1
   m_EditorClassIdentifier: 
-  id: 89d3a2c6-f4d9-4ae0-999c-07844e9b0510
-  size: {x: 1, y: 1}
-  objectType: 0
-  sprite: {fileID: 21300000, guid: 18d7f110e1b17534582b22f035f81e2b, type: 3}
-  pushable: 0
-  isMoving: 0
-  emitsLight: 0
-  lightColor: {r: 0, g: 0, b: 0, a: 0}
-  lightIntensity: {x: 0, y: 0}
-  innerRadius: {x: 0, y: 0}
-  outerRadius: {x: 0, y: 0}
-  offset: {x: 0, y: 0}
+  Id: 5668abe7-a4e0-46cb-a9a4-d135031c092d
+  Size: {x: 1, y: 1}
+  ObjectType: 0
+  Sprite: {fileID: 21300000, guid: 18d7f110e1b17534582b22f035f81e2b, type: 3}
+  IsPushable: 0
+  IsMoving: 1
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Ranged")]
 public class RangedBrain : Brain
 {
-    public Weapon[] Bows;
-
     public override void Move()
     {
         _potentialTargets = GetPotentialTargets("Player");

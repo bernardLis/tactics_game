@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: Cloud4
   m_EditorClassIdentifier: 
-  id: 89d3a2c6-f4d9-4ae0-999c-07844e9b0510
-  oName: Cloud4
-  size: {x: 2, y: 1}
-  objectType: 0
-  sprite: {fileID: 21300000, guid: 17f62dd5f377f5c4bafa8503327a0915, type: 3}
-  pushable: 0
-  isMoving: 1
+  Id: 56c46d6e-0540-4fdb-831d-6f81d6d18e5c
+  Size: {x: 2, y: 1}
+  ObjectType: 0
+  Sprite: {fileID: 21300000, guid: 17f62dd5f377f5c4bafa8503327a0915, type: 3}
+  IsPushable: 0
+  IsMoving: 1
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

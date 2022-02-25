@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: TableLargeBottles
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  oName: Table Large Bottles
-  size: {x: 3, y: 3}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: 30cfe52aeede1c84ab6f408eeb3e703e, type: 3}
-  pushable: 0
-  isMoving: 0
+  Id: 77e4c02a-793b-4ead-8327-9f31169ed1e3
+  Size: {x: 2, y: 3}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 30cfe52aeede1c84ab6f408eeb3e703e, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: River
   m_EditorClassIdentifier: 
   Id: deef80bf-238d-434d-805c-1e645a9a9ab4
-  VariantName: 
-  ObstaclePercent: {x: 0, y: 0}
-  TerrainIrregularitiesPercent: {x: 0, y: 0}
-  TrapPercent: {x: 0, y: 0}
-  MapType: 0
+  VariantName: River
+  ObstaclePercent: {x: 0.05, y: 0.1}
+  TerrainIrregularitiesPercent: {x: 0.1, y: 0.25}
+  TrapPercent: {x: 0.01, y: 0.1}
+  MapType: 2

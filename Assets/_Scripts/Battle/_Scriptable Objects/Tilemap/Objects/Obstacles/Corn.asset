@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: Corn
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  oName: Corn
-  size: {x: 2, y: 1}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: 500829c8e12a77345b653c8e813ca95e, type: 3}
-  pushable: 0
+  Id: 5f931c5c-07ef-45b7-8dd3-62b8908b869b
+  Size: {x: 2, y: 1}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 500829c8e12a77345b653c8e813ca95e, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Battle(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
   sceneToLoad: 
@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Battle(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
   sceneToLoad: 
@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Battle(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
   sceneToLoad: 
@@ -2565,7 +2565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Battle(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
   sceneToLoad: 
@@ -2583,7 +2583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Battle(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
   sceneToLoad: 
@@ -3248,7 +3248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: End(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: 69556d3833f6a4144bdb3dc8f234b270, type: 3}
   nodeType: 1
   sceneToLoad: 
@@ -4473,7 +4473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Blacksmith(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
   sceneToLoad: 
@@ -5615,7 +5615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Knowledge(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
   sceneToLoad: 
@@ -5843,7 +5843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Start(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: 6d220d0fead5c4844a5dd1c7252aaca6, type: 3}
   nodeType: 0
   sceneToLoad: 
@@ -6575,7 +6575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Blacksmith(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
   sceneToLoad: 
@@ -6593,7 +6593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Knowledge(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
   sceneToLoad: 
@@ -6708,7 +6708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Boss(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: fe6e968ba925ea041810fcebb33faf66, type: 3}
   nodeType: 7
   sceneToLoad: 
@@ -6894,7 +6894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Battle(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   nodeType: 2
   sceneToLoad: 
@@ -6912,7 +6912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Blacksmith(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
   sceneToLoad: 
@@ -7035,7 +7035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Knowledge(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
   sceneToLoad: 
@@ -7234,7 +7234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Knowledge(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
   nodeType: 3
   sceneToLoad: 
@@ -7252,7 +7252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: Blacksmith(Clone)
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
+  Id: 
   icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
   nodeType: 5
   sceneToLoad: 

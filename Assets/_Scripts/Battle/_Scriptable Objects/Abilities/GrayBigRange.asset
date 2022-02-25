@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: GrayBigRange
   m_EditorClassIdentifier: 
-  aName: Gray Big Range
-  aDescription: Damage 7
-  aType: 0
-  weaponType: 1
-  aProjectile: {fileID: 0}
-  aIcon: {fileID: 21300000, guid: b51c8ea1d2298f849a9ad9b3f74a9359, type: 3}
-  aSound: {fileID: 8300000, guid: 3d96ffe5bfae1e74189fbbfeaf87ee22, type: 3}
-  value: 7
-  manaCost: 999
-  areaOfEffect: 0
-  range: 7
-  canTargetSelf: 0
-  canTargetDiagonally: 0
-  highlightColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
+  Id: e16a038a-72cd-4c7b-a8cd-d20ba6e97cb0
+  ReferenceID: 
+  Description: New Description
+  Icon: {fileID: 0}
+  Sound: {fileID: 0}
+  BasePower: 0
+  ManaCost: 0
+  AreaOfEffect: 0
+  AbilityType: 0
+  WeaponType: 0
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0, g: 0, b: 0, a: 0}

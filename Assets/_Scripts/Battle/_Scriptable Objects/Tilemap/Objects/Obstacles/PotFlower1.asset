@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: PotFlower1
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  oName: PotFlower1
-  size: {x: 1, y: 1}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: 0f492787dea4975449e328fa69f5675c, type: 3}
-  pushable: 0
-  isMoving: 0
+  Id: 55135c86-d412-4d00-b35f-7714aea9448a
+  Size: {x: 1, y: 1}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 0f492787dea4975449e328fa69f5675c, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

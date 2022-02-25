@@ -178,7 +178,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             clone.Initialize(gameObject);
         }
 
-        foreach (Ability ability in character.CharacterAbilities)
+        foreach (Ability ability in character.Abilities)
         {
             if (ability == null)
                 continue;

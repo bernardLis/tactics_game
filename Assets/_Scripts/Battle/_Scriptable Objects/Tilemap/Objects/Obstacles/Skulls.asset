@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: Skulls
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  oName: Skulls
-  size: {x: 1, y: 1}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: dfdf87d48cb5d65478fe932e33cd6060, type: 3}
-  pushable: 0
-  isMoving: 0
+  Id: 851ff1b4-dd78-4f34-9636-76b866c204ff
+  Size: {x: 1, y: 1}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: dfdf87d48cb5d65478fe932e33cd6060, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

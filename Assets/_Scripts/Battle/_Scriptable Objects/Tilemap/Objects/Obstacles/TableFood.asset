@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: TableFood
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  oName: Table Food
-  size: {x: 3, y: 1}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: 3729cd8b8366f4043b48995e1e5ef7b4, type: 3}
-  pushable: 0
-  isMoving: 0
+  Id: 7bcc0584-433e-4ee4-8a67-059fa82c8de3
+  Size: {x: 3, y: 1}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 3729cd8b8366f4043b48995e1e5ef7b4, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

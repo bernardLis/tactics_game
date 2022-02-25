@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: TableVertFlower
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  oName: Table Flower
-  size: {x: 1, y: 3}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: bd4c304539c850f418e3882beaf1b5ea, type: 3}
-  pushable: 0
-  isMoving: 0
+  Id: 3c5a6b9a-f08f-433a-be96-9c4e7d29310d
+  Size: {x: 1, y: 3}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 8d26ba8af01cd6f42a07bd921f7855b4, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Space
   m_EditorClassIdentifier: 
   Id: 04981a72-f75e-48cf-8c54-bebdbfac2d98
-  VariantName: 
-  ObstaclePercent: {x: 0, y: 0}
-  TerrainIrregularitiesPercent: {x: 0, y: 0}
-  TrapPercent: {x: 0, y: 0}
+  VariantName: Space
+  ObstaclePercent: {x: 0.05, y: 0.1}
+  TerrainIrregularitiesPercent: {x: 0.1, y: 0.25}
+  TrapPercent: {x: 0.01, y: 0.1}
   MapType: 0

@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: PushableStone1
   m_EditorClassIdentifier: 
-  id: cdab12a6-0c2d-4e53-a1e6-9ee817031ac7
-  oName: Stone
-  size: {x: 1, y: 1}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: 304589924623a4c4990f483d0904b219, type: 3}
-  pushable: 1
-  isMoving: 0
+  Id: a33caddb-d0bf-4e07-8859-256578b1d779
+  Size: {x: 1, y: 1}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 304589924623a4c4990f483d0904b219, type: 3}
+  IsPushable: 1
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

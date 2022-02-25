@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: FirePot
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  size: {x: 1, y: 1}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: 3774b592e14411e4bbcefc204fcf5e1c, type: 3}
-  pushable: 0
-  isMoving: 0
-  emitsLight: 1
-  lightColor: {r: 1, g: 0.6117647, b: 0.4862745, a: 1}
-  lightIntensity: {x: 0.5, y: 0.8}
-  innerRadius: {x: 0.5, y: 0.8}
-  outerRadius: {x: 0.8, y: 1.4}
-  offset: {x: 0, y: 0}
+  Id: 1ddfbbaf-67d9-49b0-ac64-498dac4550cf
+  Size: {x: 1, y: 1}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 3774b592e14411e4bbcefc204fcf5e1c, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

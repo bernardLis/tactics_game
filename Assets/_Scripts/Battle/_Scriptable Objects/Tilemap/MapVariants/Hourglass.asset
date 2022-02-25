@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Hourglass
   m_EditorClassIdentifier: 
   Id: ae845e0c-e364-421e-8353-d59ff1bf71f8
-  VariantName: 
-  ObstaclePercent: {x: 0, y: 0}
-  TerrainIrregularitiesPercent: {x: 0, y: 0}
-  TrapPercent: {x: 0, y: 0}
-  MapType: 0
+  VariantName: Hourglass
+  ObstaclePercent: {x: 0.05, y: 0.1}
+  TerrainIrregularitiesPercent: {x: 0.1, y: 0.25}
+  TrapPercent: {x: 0.01, y: 0.1}
+  MapType: 4

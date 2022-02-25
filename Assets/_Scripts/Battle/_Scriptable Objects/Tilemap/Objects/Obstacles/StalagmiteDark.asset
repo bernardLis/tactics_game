@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7d5223dc62ba49b37d255db04cd57, type: 3}
   m_Name: StalagmiteDark
   m_EditorClassIdentifier: 
-  id: 4188db2a-d712-439a-b199-b36120b51261
-  oName: Stalagmite Dark
-  size: {x: 1, y: 1}
-  objectType: 1
-  sprite: {fileID: 21300000, guid: b043e30abef9a2b4ca06c08b86e0959a, type: 3}
-  pushable: 0
-  isMoving: 0
+  Id: 0fd0a977-165a-4c77-aed0-38359ec88041
+  Size: {x: 1, y: 1}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: b043e30abef9a2b4ca06c08b86e0959a, type: 3}
+  IsPushable: 0
+  IsMoving: 0
+  IsEmitingLight: 0
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  LightIntensity: {x: 0, y: 0}
+  InnerRadius: {x: 0, y: 0}
+  OuterRadius: {x: 0, y: 0}
+  Offset: {x: 0, y: 0}

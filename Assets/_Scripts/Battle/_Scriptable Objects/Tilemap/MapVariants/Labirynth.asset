@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Labirynth
   m_EditorClassIdentifier: 
   Id: 54142094-cfc4-478b-9d3a-ff43924fc945
-  VariantName: 
-  ObstaclePercent: {x: 0, y: 0}
-  TerrainIrregularitiesPercent: {x: 0, y: 0}
-  TrapPercent: {x: 0, y: 0}
+  VariantName: Labirynth
+  ObstaclePercent: {x: 1, y: 1}
+  TerrainIrregularitiesPercent: {x: 0.1, y: 0.25}
+  TrapPercent: {x: 0.01, y: 0.1}
   MapType: 0

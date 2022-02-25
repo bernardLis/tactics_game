@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Circle
   m_EditorClassIdentifier: 
   Id: 8e7a8b5e-74fb-4da5-80b1-e6b3d9771c63
-  VariantName: 
-  ObstaclePercent: {x: 0, y: 0}
-  TerrainIrregularitiesPercent: {x: 0, y: 0}
-  TrapPercent: {x: 0, y: 0}
-  MapType: 0
+  VariantName: Circle
+  ObstaclePercent: {x: 0.05, y: 0.1}
+  TerrainIrregularitiesPercent: {x: 0.1, y: 0.25}
+  TrapPercent: {x: 0.01, y: 0.1}
+  MapType: 1

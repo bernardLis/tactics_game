@@ -6,6 +6,32 @@ using System.IO;
 
 public static class ScriptableObjectGenerator
 {
+
+    [MenuItem("Utilities/Generate Characters")]
+    public static void GenerateCharacters()
+    {
+        string path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), AssetDatabase.GetAssetPath(Selection.activeObject));
+
+        if (!IsSelectionCSV(path))
+            return;
+
+        List<Dictionary<string, object>> rawCSVData = CSVReader.Read(path);
+        if (rawCSVData.Count <= 0)
+        {
+            Debug.LogError("no data in the file");
+            return;
+        }
+
+        foreach (Dictionary<string, object> item in rawCSVData)
+        {
+            if (item["SOName"].ToString().Length == 0)
+                continue;
+
+            CreateCharacter(item);
+        }
+    }
+
+
     [MenuItem("Utilities/Generate Abilities")]
     public static void GenerateAbilities()
     {
@@ -78,6 +104,26 @@ public static class ScriptableObjectGenerator
         }
     }
 
+    static void CreateCharacter(Dictionary<string, object> item)
+    {
+        Character character = ScriptableObject.CreateInstance<Character>();
+
+        string path = $"Assets/Resources/Characters/{item["SOName"]}.asset";
+        AssetDatabase.CreateAsset(character, path);
+
+        // load abilities
+        List<Ability> abilities = new();
+        string[] arr = item["AbilitiesReferenceID"].ToString().Split(" ");
+        foreach (string s in arr)
+            abilities.Add(GetAbilityFromReferenceID(s));
+
+        character.Create(item, abilities);
+
+        // Now flag the object as "dirty" in the editor so it will be saved
+        EditorUtility.SetDirty(character);
+        // And finally, prompt the editor database to save dirty assets, committing your changes to disk.
+        AssetDatabase.SaveAssets();
+    }
 
     static void CreateAbility(Dictionary<string, object> item)
     {
@@ -181,8 +227,22 @@ public static class ScriptableObjectGenerator
         AssetDatabase.SaveAssets();
     }
 
+    static Ability GetAbilityFromReferenceID(string id)
+    {
+        id = id.Trim();
+        string path = "Abilities";
+        Object[] abilities = Resources.LoadAll(path, typeof(Ability));
+        foreach (Ability a in abilities)
+            if (a.ReferenceID == id)
+                return a;
+
+        Debug.LogError($"Did not find a ability with id: {id}");
+        return null;
+    }
+
     static StatModifier GetStatModifierFromReferenceId(string id)
     {
+        id = id.Trim();
         string path = "Abilities/StatModifiers";
         Object[] mods = Resources.LoadAll(path, typeof(StatModifier));
         foreach (StatModifier mod in mods)
@@ -195,6 +255,7 @@ public static class ScriptableObjectGenerator
 
     static Status GetStatusFromReferenceID(string id)
     {
+        id = id.Trim();
         string path = "Abilities/Statuses";
         Object[] statuses = Resources.LoadAll(path, typeof(Status));
         foreach (Status st in statuses)

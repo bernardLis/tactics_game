@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DarkStone0
   m_EditorClassIdentifier: 
   Id: e15b37d7-3d28-42f4-86df-1da284340dfa
-  Size: {x: 0, y: 0}
-  ObjectType: 0
-  Sprite: {fileID: 0}
+  Size: {x: 2, y: 2}
+  ObjectType: 1
+  Sprite: {fileID: 21300000, guid: 0060036e63aad134eb82fce1d6ccf980, type: 3}
   IsPushable: 0
   IsMoving: 0
   IsEmitingLight: 0
