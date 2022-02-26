@@ -19,7 +19,7 @@ public class BoardManager : MonoBehaviour
     public Vector2Int mapSize = new(20, 20);
 
     [Header("Enemies")]
-    public Character[] enemyCharacters;
+    public Brain[] enemyBrains;
     public GameObject enemyGO;
     List<EnemySpawnDirection> allowedEnemySpawnDirections = new();
     public EnemySpawnDirection enemySpawnDirection { get; private set; }
@@ -840,9 +840,23 @@ public class BoardManager : MonoBehaviour
                     break;
                 }
             }
+            /*
+        string path = $"Assets/Resources/Abilities/StatModifiers/{item["SOName"]}.asset";
+        StatModifier mod = (StatModifier)ScriptableObject.CreateInstance<StatModifier>();
+        AssetDatabase.CreateAsset(mod, path);
+        mod.Create(item);
+
+        // Now flag the object as "dirty" in the editor so it will be saved
+        EditorUtility.SetDirty(mod);
+        // And finally, prompt the editor database to save dirty assets, committing your changes to disk.
+        AssetDatabase.SaveAssets();
+    */
+            EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
+            // TODO: level higher than player by 2? Like in tactics ogre:)
+            enemySO.CreateEnemy(1, enemyBrains[Random.Range(0, enemyBrains.Length)]); 
 
             Vector3 spawnPos = new Vector3(chosenPos.x + 0.5f, chosenPos.y + 0.5f);
-            Character instantiatedSO = Instantiate(enemyCharacters[Random.Range(0, enemyCharacters.Length)]);
+            Character instantiatedSO = Instantiate(enemySO);
             GameObject newCharacter = Instantiate(enemyGO, spawnPos, Quaternion.identity);
 
             instantiatedSO.Initialize(newCharacter);

@@ -84,10 +84,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSize: {x: 20, y: 20}
-  enemyCharacters:
-  - {fileID: 11400000, guid: 4843f2a9ac4308c4e9c82dd51ec88d48, type: 2}
-  - {fileID: 11400000, guid: 39059db24e54bc947860a71d4f609cb2, type: 2}
-  - {fileID: 11400000, guid: 4e5e4696ddea4f14c81499d11986c6f0, type: 2}
+  enemyBrains:
+  - {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
+  - {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
+  - {fileID: 11400000, guid: 8bc22a1c29683204e9f24870b11baac8, type: 2}
   enemyGO: {fileID: 3387775229403623854, guid: b81a4c5ec70160849a703e08180495d1, type: 3}
   mapVariants:
   - {fileID: 11400000, guid: ea1e05dc5ef7aed44a0ff185134ed555, type: 2}

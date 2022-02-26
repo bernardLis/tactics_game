@@ -9,41 +9,41 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
     UIDocument UIDocument;
-    VisualElement crossfade;
+    VisualElement Crossfade;
 
     void Start()
     {
         UIDocument = GetComponent<UIDocument>();
         var root = UIDocument.rootVisualElement;
-        crossfade = root.Q<VisualElement>("crossfade");
+        Crossfade = root.Q<VisualElement>("crossfade");
     }
 
-    public void LoadLevel(string _newScene)
+    public void LoadLevel(string newScene)
     {
         Debug.Log("load level");
         DOTween.KillAll();
 
         // fade out opacity 0 -> 1
-        crossfade.style.opacity = 0;
-        crossfade.style.display = DisplayStyle.Flex;
-        DOTween.To(() => crossfade.style.opacity.value, x => crossfade.style.opacity = x, 1f, 1f)
-            .SetEase(Ease.InSine).OnComplete(() => FadeIn(_newScene));
+        Crossfade.style.opacity = 0;
+        Crossfade.style.display = DisplayStyle.Flex;
+        DOTween.To(() => Crossfade.style.opacity.value, x => Crossfade.style.opacity = x, 1f, 1f)
+            .SetEase(Ease.InSine).OnComplete(() => FadeIn(newScene));
     }
 
-    void FadeIn(string _newScene)
+    void FadeIn(string newScene)
     {
-        SceneManager.LoadScene(_newScene);
+        SceneManager.LoadScene(newScene);
 
         // fade in opacity 1 -> 0
-        crossfade.style.opacity = 1;
-        crossfade.style.display = DisplayStyle.Flex;
-        DOTween.To(() => crossfade.style.opacity.value, x => crossfade.style.opacity = x, 0f, 1f)
+        Crossfade.style.opacity = 1;
+        Crossfade.style.display = DisplayStyle.Flex;
+        DOTween.To(() => Crossfade.style.opacity.value, x => Crossfade.style.opacity = x, 0f, 1f)
             .SetEase(Ease.InSine).OnComplete(HideCrossfade);
 
     }
 
     void HideCrossfade()
     {
-        crossfade.style.display = DisplayStyle.None;
+        Crossfade.style.display = DisplayStyle.None;
     }
 }

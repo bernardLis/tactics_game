@@ -162,12 +162,15 @@ public class TurnManager : MonoBehaviour
 
         journeyManager.SetNodeReward(BattleManager.instance.GetReward());
 
+        // TODO: maybe show a win screen, where you get reward, 
+        // you characters level up and stuff and there is a button to go back to journey
+
         List<Character> playerCharactersAlive = new();
         foreach (GameObject p in playerCharacters)
             playerCharactersAlive.Add(p.GetComponent<CharacterStats>().character);
         journeyManager.SetPlayerTroops(playerCharactersAlive);
 
-        journeyManager.GetComponent<LevelLoader>().LoadLevel("Journey");
+        journeyManager.LoadLevel("Journey");
     }
 
     void HandleLosing()

@@ -35,8 +35,8 @@ public class JourneyNode : BaseScriptableObject
 [System.Serializable]
 public struct JourneyNodeData
 {
-    public int pathIndex;
-    public int nodeIndex;
+    public int PathIndex;
+    public int NodeIndex;
 }
 
 

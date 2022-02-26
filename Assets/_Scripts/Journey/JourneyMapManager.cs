@@ -260,11 +260,11 @@ public class JourneyMapManager : MonoBehaviour
         startNode.GetComponent<JourneyNodeBehaviour>().MarkAsVisited();
 
         JourneyNodeData data = journeyManager.currentJourneyNode;
-        currentNode = journeyPaths[data.pathIndex].nodes[data.nodeIndex];
+        currentNode = journeyPaths[data.PathIndex].nodes[data.NodeIndex];
 
         foreach (JourneyNodeData n in journeyManager.visitedJourneyNodes)
         {
-            JourneyNode node = journeyPaths[n.pathIndex].nodes[n.nodeIndex];
+            JourneyNode node = journeyPaths[n.PathIndex].nodes[n.NodeIndex];
             node.journeyNodeBehaviour.MarkAsVisited();
 
             // render path
@@ -336,8 +336,8 @@ public class JourneyMapManager : MonoBehaviour
 
         JourneyNodeData data = new JourneyNodeData();
         JourneyPath currentPath = GetCurrentPath(_node.journeyNode);
-        data.pathIndex = journeyPaths.IndexOf(currentPath);
-        data.nodeIndex = currentPath.nodes.IndexOf(currentNode);
+        data.PathIndex = journeyPaths.IndexOf(currentPath);
+        data.NodeIndex = currentPath.nodes.IndexOf(currentNode);
         journeyManager.SetCurrentJourneyNode(data);
 
         // render path

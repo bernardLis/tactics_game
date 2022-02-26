@@ -18,7 +18,7 @@ public class EnemyManager : MonoBehaviour
         }
         instance = this;
         #endregion
-        Debug.Log("enemy manager awake");
+        
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
 

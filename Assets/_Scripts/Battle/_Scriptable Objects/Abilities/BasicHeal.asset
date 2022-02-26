@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: BasicHeal
   m_EditorClassIdentifier: 
   Id: 46e41085-4f2e-41d7-83cd-c968c11375c6
-  Description: New Description
-  Icon: {fileID: 0}
-  Sound: {fileID: 0}
-  BasePower: 0
-  ManaCost: 0
+  ReferenceID: 
+  Description: Basic Heal
+  Icon: {fileID: 21300000, guid: b2add1505f340bf4f90ac7d7f4cfa000, type: 3}
+  Sound: {fileID: 8300000, guid: ac47aa3094b445241827fe1222d39260, type: 3}
+  BasePower: 20
+  ManaCost: 10
   AreaOfEffect: 0
-  AbilityType: 0
-  WeaponType: 0
+  AbilityType: 1
+  WeaponType: 3
   Projectile: {fileID: 0}
   StatModifier: {fileID: 0}
   Status: {fileID: 0}
-  Range: 0
-  CanTargetSelf: 0
-  CanTargetDiagonally: 0
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
+  Range: 4
+  CanTargetSelf: 1
+  CanTargetDiagonally: 1
+  HighlightColor: {r: 0.3339622, g: 1, b: 0.39528167, a: 1}

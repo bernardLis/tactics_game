@@ -26,7 +26,13 @@ public class BattleDeploymentController : MonoBehaviour
         highlighter = Highlighter.instance;
         infoCardUI = InfoCardUI.instance;
 
-        charactersToPlace = new(JourneyManager.instance.playerTroops);
+        // TODO: here I can actually create characters from save data
+        // no, actually characters are created by journey manager by loading save data, so you should just use them;
+        string path = "Characters";
+        Object[] playerCharacters = Resources.LoadAll(path, typeof(Character));
+        charactersToPlace = new();
+        foreach (Character character in playerCharacters)
+            charactersToPlace.Add(character);
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)

@@ -13,6 +13,7 @@ public class Character : BaseScriptableObject
     public Sprite Portrait;
 
     [Header("Stats")]
+    public int Level;
     public int Strength; // how strong you hit
     public int Intelligence; // maxMana depends on intelligence (also how strong the spell dmg is)
     public int Agility; // influences range
@@ -32,6 +33,7 @@ public class Character : BaseScriptableObject
         ReferenceID = item["ReferenceID"].ToString();
         CharacterName = item["CharacterName"].ToString();
         Portrait = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Character/Portrait/{item["Portrait"]}", typeof(Sprite));
+        Level = int.Parse(item["Strength"].ToString());
         Strength = int.Parse(item["Strength"].ToString());
         Intelligence = int.Parse(item["Intelligence"].ToString());
         Agility = int.Parse(item["Agility"].ToString());
@@ -42,12 +44,30 @@ public class Character : BaseScriptableObject
         Abilities = new(abilities);
     }
 
+    public virtual void Create(CharacterData data)
+    {
+        ReferenceID = data.ReferenceID;
+        CharacterName = data.CharacterName;
+        Portrait = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Character/Portrait/{data.Portrait}", typeof(Sprite));
+        Level = data.Level;
+        Strength = data.Strength;
+        Intelligence = data.Intelligence;
+        Agility = data.Agility;
+        Stamina = data.Stamina;
+        Body = (Equipment)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/{data.Body}", typeof(Equipment));
+        Weapon = (Weapon)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/Weapon/{data.Weapon}", typeof(Weapon));
+        BasicAbilities.Add((Ability)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Abilities/BasicDefend.asset", typeof(Ability)));
+
+        string path = "Abilities";
+        Object[] loadedAbilities = Resources.LoadAll(path, typeof(Ability));
+        foreach (string id in data.AbilityReferenceIds)
+            foreach (Ability loadedAbility in loadedAbilities)
+                if (id == loadedAbility.ReferenceID)
+                    Abilities.Add(loadedAbility);
+    }
+
     public virtual void Initialize(GameObject obj)
     {
-        // TODO: this could be done in a loop
-        // you have to learn reflections
-
-        // get all
         Transform bodyObj = obj.transform.Find("Body");
         if (Body != null)
             Body.Initialize(bodyObj.gameObject);
@@ -56,4 +76,20 @@ public class Character : BaseScriptableObject
         if (Weapon != null)
             Weapon.Initialize(weaponObj.gameObject);
     }
+}
+
+[System.Serializable]
+public struct CharacterData
+{
+    public string ReferenceID;
+    public string CharacterName;
+    public string Portrait;
+    public int Level;
+    public int Strength;
+    public int Intelligence;
+    public int Agility;
+    public int Stamina;
+    public string Body;
+    public string Weapon;
+    public List<string> AbilityReferenceIds;
 }

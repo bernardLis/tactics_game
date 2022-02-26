@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class JourneyManager : MonoBehaviour, ISavable
 {
+    LevelLoader levelLoader;
+
     public List<Character> playerTroops;
     public bool wasJourneySetUp { get; private set; }
     public int journeySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
@@ -40,45 +42,51 @@ public class JourneyManager : MonoBehaviour, ISavable
         }
         #endregion
 
+        levelLoader = GetComponent<LevelLoader>();
+
         // copy array to list;
         availableEvents = new(allEvents);
         LoadJsonData();
         //LoadPlayerCharacters();
     }
 
-    public void SetPlayerTroops(List<Character> _troops)
+    public void LoadLevel(string level)
     {
-        // TODO: I imagine that player characters are set-up somewhere and I can load them
-        Debug.Log("Loading player characters");
-
-        playerTroops = new(_troops);
+        SaveJsonData();
+        levelLoader.LoadLevel(level);
     }
 
-    public void JourneyWasSetUp(bool _was) // TODO: better naming
+    public void SetPlayerTroops(List<Character> troops)
     {
-        wasJourneySetUp = _was;
+        Debug.Log("Setting player characters");
+        playerTroops = new(troops);
     }
 
-    public void SetJourneySeed(int _s)
+    public void JourneyWasSetUp(bool was) // TODO: better naming
     {
-        journeySeed = _s;
+        wasJourneySetUp = was;
     }
 
-    public void SetCurrentJourneyNode(JourneyNodeData _n)
+    public void SetJourneySeed(int s)
     {
-        visitedJourneyNodes.Add(_n);
-        currentJourneyNode = _n;
+        journeySeed = s;
     }
 
-    public void SetObols(int _o)
+    public void SetCurrentJourneyNode(JourneyNodeData n)
     {
-        obols = _o;
+        visitedJourneyNodes.Add(n);
+        currentJourneyNode = n;
+    }
+
+    public void SetObols(int o)
+    {
+        obols = o;
         SaveJsonData();
     }
 
-    public void SetNodeReward(JourneyNodeReward _r)
+    public void SetNodeReward(JourneyNodeReward r)
     {
-        reward = _r;
+        reward = r;
     }
 
 
@@ -108,6 +116,35 @@ public class JourneyManager : MonoBehaviour, ISavable
         saveData.journeySeed = journeySeed;
         saveData.currentJourneyNode = currentJourneyNode;
         saveData.visitedJourneyNodes = visitedJourneyNodes;
+        saveData.characters = PopulateCharacters();
+    }
+
+    List<CharacterData> PopulateCharacters()
+    {
+        List<CharacterData> charData = new();
+        foreach (Character c in playerTroops)
+        {
+            CharacterData data = new();
+            data.ReferenceID = c.ReferenceID;
+            data.CharacterName = c.CharacterName;
+            data.Portrait = c.Portrait.name;
+            data.Level = c.Level;
+            data.Strength = c.Strength;
+            data.Intelligence = c.Intelligence;
+            data.Agility = c.Agility;
+            data.Stamina = c.Stamina;
+            data.Body = c.Body.name;
+            data.Weapon = c.Weapon.name;
+
+            List<string> abilityReferenceIds = new();
+            foreach (Ability a in c.Abilities)
+                abilityReferenceIds.Add(a.ReferenceID);
+            data.AbilityReferenceIds = new(abilityReferenceIds);
+
+            charData.Add(data);
+        }
+
+        return charData;
     }
 
     public void LoadJsonData()
@@ -128,6 +165,16 @@ public class JourneyManager : MonoBehaviour, ISavable
         journeySeed = saveData.journeySeed;
         currentJourneyNode = saveData.currentJourneyNode;
         visitedJourneyNodes = saveData.visitedJourneyNodes;
+        playerTroops = new();
+        foreach (CharacterData data in saveData.characters)
+        {
+            Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
+            playerCharacter.Create(data);
+            playerTroops.Add(playerCharacter);
+        }
+
+        // TODO: probably here I need to create Characters from save data 
+        // and populate troops
     }
 
     public void ClearSaveData()

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
   m_Name: First
   m_EditorClassIdentifier: 
-  Id: 45156dfa-904d-4da3-8bb4-78678565996b
+  Id: 
   ReferenceID: CHARACTER-0
   CharacterName: First
   Portrait: {fileID: 21300000, guid: afd309c482f885140af9ed07152aa6f0, type: 3}
+  Level: 5
   Strength: 5
   Intelligence: 5
   Agility: 5

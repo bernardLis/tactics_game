@@ -13,6 +13,7 @@ public class SaveData
     public List<JourneyNodeData> visitedJourneyNodes = new();
     public JourneyNodeData currentJourneyNode;
     // TODO: what do I want to save? Characters...
+    public List<CharacterData> characters = new();
 
     public string ToJson()
     {

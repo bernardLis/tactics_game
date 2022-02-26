@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Brain")]
 public class Brain : BaseScriptableObject
 {
+    public Equipment Body;
+    public Weapon Weapon;
+
     // global
     protected Highlighter _highlighter;
     CameraManager _cameraManager;
