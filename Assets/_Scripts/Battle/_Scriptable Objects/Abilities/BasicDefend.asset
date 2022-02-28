@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: BasicDefend
   m_EditorClassIdentifier: 
   Id: 5f7d8c47-7ec1-4abf-b8ec-74ea82be327f
-  Description: New Description
-  Icon: {fileID: 0}
+  ReferenceID: 
+  Description: Increases armor by 1 for 1 turn
+  Icon: {fileID: 21300000, guid: 9c498454d8c5c214890f3ba50d63dbf2, type: 3}
   Sound: {fileID: 0}
   BasePower: 0
   ManaCost: 0
   AreaOfEffect: 0
-  AbilityType: 0
-  WeaponType: 0
+  AbilityType: 4
+  WeaponType: 3
   Projectile: {fileID: 0}
-  StatModifier: {fileID: 0}
+  StatModifier: {fileID: 11400000, guid: 8b86706caed80434c92051c35646b1da, type: 2}
   Status: {fileID: 0}
   Range: 0
-  CanTargetSelf: 0
+  CanTargetSelf: 1
   CanTargetDiagonally: 0
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.5660378, g: 0.18321536, b: 0, a: 1}

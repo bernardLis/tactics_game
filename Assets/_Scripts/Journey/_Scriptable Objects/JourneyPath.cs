@@ -4,43 +4,43 @@ using UnityEngine;
 
 public class JourneyPath : BaseScriptableObject // needed for instantiate
 {
-    public List<JourneyNode> nodes = new();
-    public List<JourneyBridge> bridges = new();
+    public List<JourneyNode> Nodes = new();
+    public List<JourneyBridge> Bridges = new();
 
-    public void CreatePath(int _numberOfRows, JourneyNode[] _nodes, JourneyPathConfig[] _configs)
+    public void CreatePath(int numberOfRows, JourneyNode[] nodes, JourneyPathConfig[] configs)
     {
-        for (int i = 0; i < _numberOfRows; i++)
+        for (int i = 0; i < numberOfRows; i++)
         {
             JourneyNode nodeToInstantiate = null;
-            foreach (JourneyPathConfig c in _configs)
-                if (c.nodeIndexRange.x <= i && c.nodeIndexRange.y > i && Random.Range(0f, 1f) > c.chanceToIgnore)
-                    nodeToInstantiate = c.nodes[Random.Range(0, c.nodes.Length)];
+            foreach (JourneyPathConfig c in configs)
+                if (c.NodeIndexRange.x <= i && c.NodeIndexRange.y > i && Random.Range(0f, 1f) > c.ChanceToIgnore)
+                    nodeToInstantiate = c.Nodes[Random.Range(0, c.Nodes.Length)];
 
             if (nodeToInstantiate == null)
-                nodeToInstantiate = _nodes[Random.Range(0, _nodes.Length)];
+                nodeToInstantiate = nodes[Random.Range(0, nodes.Length)];
 
             JourneyNode n = Instantiate(nodeToInstantiate);
-            nodes.Add(n);
+            Nodes.Add(n);
         }
     }
 
-    public bool IsLegalMove(JourneyNode _current, JourneyNode _next)
+    public bool IsLegalMove(JourneyNode current, JourneyNode next)
     {
-        if (nodes.IndexOf(_current) == -1) // not on path
+        if (Nodes.IndexOf(current) == -1) // not on path
             return false;
 
         // next node on path
-        if (nodes.IndexOf(_next) == nodes.IndexOf(_current) + 1)
+        if (Nodes.IndexOf(next) == Nodes.IndexOf(current) + 1)
             return true;
 
         return false;
     }
 
-    public JourneyNode CheckBridge(JourneyNode _current)
+    public JourneyNode CheckBridge(JourneyNode current)
     {
-        foreach (JourneyBridge b in bridges)
-            if (b.from == _current)
-                return b.to;
+        foreach (JourneyBridge b in Bridges)
+            if (b.From == current)
+                return b.To;
         return null;
     }
 }

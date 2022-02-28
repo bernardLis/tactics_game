@@ -1,4 +1,4 @@
 public interface IHealable<T>
 {
-    public void GainHealth(int _healthGain, T _ability);
+    public void GainHealth(int healthGain, T ability);
 }

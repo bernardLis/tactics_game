@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
@@ -7,80 +5,77 @@ using UnityEngine.UIElements;
 public class FaceDirectionUI : MonoBehaviour
 {
     // global
-    Camera cam;
-    BattleCharacterController battleCharacterController;
+    Camera _cam;
+    BattleCharacterController _battleCharacterController;
 
     // local
-    PlayerCharSelection playerCharSelection;
+    PlayerCharSelection _playerCharSelection;
 
     // UI Elements
-    UIDocument UIDocument;
-    VisualElement container;
-    Button faceUpButton;
-    Button faceLeftButton;
-    Button faceRightButton;
-    Button faceDownButton;
+    VisualElement _container;
+    Button _faceUpButton;
+    Button _faceLeftButton;
+    Button _faceRightButton;
+    Button _faceDownButton;
 
-    bool isUIShown;
-    bool directionPicked;
-    bool breakTask;
-    Vector2 pickedDirection;
+    bool _isUIShown;
+    bool _isDirectionPicked;
+    bool _breakTask;
+    Vector2 _pickedDirection;
 
     // to place the UI in the right spot
-    public float offsetY = 1.75f;
-    public float offsetX = -1.42f;
+    [SerializeField] float _offsetY = 1.75f;
+    [SerializeField] float _offsetX = -1.42f;
 
     void Start()
     {
         // global
-        cam = Camera.main;
-        battleCharacterController = BattleCharacterController.instance;
+        _cam = Camera.main;
+        _battleCharacterController = BattleCharacterController.instance;
 
         // local
-        playerCharSelection = GetComponent<PlayerCharSelection>();
+        _playerCharSelection = GetComponent<PlayerCharSelection>();
 
         // getting ui elements
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
+        var root = GetComponent<UIDocument>().rootVisualElement;
 
-        container = root.Q<VisualElement>("faceDirectionContainer");
+        _container = root.Q<VisualElement>("faceDirectionContainer");
 
-        faceUpButton = root.Q<Button>("faceUp");
-        faceLeftButton = root.Q<Button>("faceLeft");
-        faceRightButton = root.Q<Button>("faceRight");
-        faceDownButton = root.Q<Button>("faceDown");
+        _faceUpButton = root.Q<Button>("faceUp");
+        _faceLeftButton = root.Q<Button>("faceLeft");
+        _faceRightButton = root.Q<Button>("faceRight");
+        _faceDownButton = root.Q<Button>("faceDown");
 
-        faceUpButton.clickable.clicked += FaceUpButtonClicked;
-        faceLeftButton.clickable.clicked += FaceLeftButtonClicked;
-        faceRightButton.clickable.clicked += FaceRightButtonClicked;
-        faceDownButton.clickable.clicked += FaceDownButtonClicked;
+        _faceUpButton.clickable.clicked += FaceUpButtonClicked;
+        _faceLeftButton.clickable.clicked += FaceLeftButtonClicked;
+        _faceRightButton.clickable.clicked += FaceRightButtonClicked;
+        _faceDownButton.clickable.clicked += FaceDownButtonClicked;
     }
 
     void Update()
     {
-        if (isUIShown)
+        if (_isUIShown)
            ShowUI();
-
     }
 
     public async Task<Vector2> PickDirection()
     {
         MovePointController.instance.Move(transform.position);
 
-        container.style.display = DisplayStyle.Flex;
-        isUIShown = true;
+        _container.style.display = DisplayStyle.Flex;
+        _isUIShown = true;
 
-        directionPicked = false;
-        breakTask = false;
+        _isDirectionPicked = false;
+        _breakTask = false;
 
         // disable selection arrow
-        playerCharSelection.ToggleSelectionArrow(false);
+        _playerCharSelection.ToggleSelectionArrow(false);
 
-        battleCharacterController.UpdateCharacterState(CharacterState.SelectingFaceDir);
+        _battleCharacterController.UpdateCharacterState(CharacterState.SelectingFaceDir);
 
-        while (!directionPicked)
+        while (!_isDirectionPicked)
         {
-            if (breakTask)
+            if (_breakTask)
                 return Vector2.zero;
 
             await Task.Yield();
@@ -88,71 +83,72 @@ public class FaceDirectionUI : MonoBehaviour
 
         HideUI();
 
-        return pickedDirection;
+        return _pickedDirection;
     }
 
     void ShowUI()
     {
-
         // TODO: place it on the character
-        Vector3 middleOfTheTile = new Vector3(transform.position.x + offsetX, transform.position.y + offsetY, transform.position.z);
-        Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(container.panel, middleOfTheTile, cam);
+        Vector3 middleOfTheTile = new Vector3(transform.position.x + _offsetX, transform.position.y + _offsetY, transform.position.z);
+        Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(_container.panel, middleOfTheTile, _cam);
 
-        container.transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        _container.transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
     }
 
     public void HideUI()
     {
-        isUIShown = false;
-        breakTask = true;
-        container.style.display = DisplayStyle.None;
+        _isUIShown = false;
+        _breakTask = true;
+        _container.style.display = DisplayStyle.None;
     }
 
     void FaceUpButtonClicked()
     {
-        directionPicked = true;
-        pickedDirection = Vector2.up;
-    }
-    void FaceLeftButtonClicked()
-    {
-        directionPicked = true;
-        pickedDirection = Vector2.left;
-    }
-    void FaceRightButtonClicked()
-    {
-        directionPicked = true;
-        pickedDirection = Vector2.right;
-    }
-    void FaceDownButtonClicked()
-    {
-        directionPicked = true;
-        pickedDirection = Vector2.down;
+        _isDirectionPicked = true;
+        _pickedDirection = Vector2.up;
     }
 
+    void FaceLeftButtonClicked()
+    {
+        _isDirectionPicked = true;
+        _pickedDirection = Vector2.left;
+    }
+    
+    void FaceRightButtonClicked()
+    {
+        _isDirectionPicked = true;
+        _pickedDirection = Vector2.right;
+    }
+
+    void FaceDownButtonClicked()
+    {
+        _isDirectionPicked = true;
+        _pickedDirection = Vector2.down;
+    }
 
     public void SimulateUpButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = faceUpButton })
-            faceUpButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _faceUpButton })
+            _faceUpButton.SendEvent(e);
     }
 
     public void SimulateLeftButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = faceLeftButton })
-            faceLeftButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _faceLeftButton })
+            _faceLeftButton.SendEvent(e);
     }
 
     public void SimulateRightButtonClicked()
     {
         // https://forum.unity.com/threads/trigger-button-click-from-code.1124356/
-        using (var e = new NavigationSubmitEvent() { target = faceRightButton })
-            faceRightButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _faceRightButton })
+            _faceRightButton.SendEvent(e);
     }
 
     public void SimulateDownButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = faceDownButton })
-            faceDownButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _faceDownButton })
+            _faceDownButton.SendEvent(e);
     }
 
 

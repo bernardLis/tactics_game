@@ -4,20 +4,17 @@ using DG.Tweening;
 
 public class TurnDisplayer : MonoBehaviour
 {
-    UIDocument UIDocument;
-    VisualElement turnTextContainer;
-    Label turnText;
+    VisualElement _turnTextContainer;
+    Label _turnText;
 
-    string tweenID = "tweenID";
+    string _tweenID = "tweenID";
 
     void Start()
     {
-        UIDocument = GameUI.instance.GetComponent<UIDocument>();
-
         // getting ui elements
-        var root = UIDocument.rootVisualElement;
-        turnTextContainer = root.Q<VisualElement>("turnTextContainer");
-        turnText = root.Q<Label>("turnText");
+        var root = GameUI.instance.GetComponent<UIDocument>().rootVisualElement;
+        _turnTextContainer = root.Q<VisualElement>("turnTextContainer");
+        _turnText = root.Q<Label>("turnText");
 
         // subscribing to Actions
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
@@ -28,9 +25,9 @@ public class TurnDisplayer : MonoBehaviour
         if (state == BattleState.Deployment)
             DisplayText("DEPLOY TROOPS");
         if (state == BattleState.EnemyTurn)
-            DisplayText("TURN " + TurnManager.currentTurn.ToString() + " - ENEMY");
+            DisplayText("TURN " + TurnManager.CurrentTurn.ToString() + " - ENEMY");
         if (state == BattleState.PlayerTurn)
-            DisplayText("TURN " + TurnManager.currentTurn.ToString() + " - PLAYER");
+            DisplayText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
     }
 
     void OnDestroy()
@@ -38,23 +35,23 @@ public class TurnDisplayer : MonoBehaviour
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
-    async void DisplayText(string _text)
+    async void DisplayText(string text)
     {
-        if (DOTween.TweensById(tweenID) != null)
-            await DOTween.TweensById(tweenID)[0].AsyncWaitForCompletion();
+        if (DOTween.TweensById(_tweenID) != null)
+            await DOTween.TweensById(_tweenID)[0].AsyncWaitForCompletion();
 
-        turnText.text = _text;
-        turnTextContainer.style.display = DisplayStyle.Flex;
+        _turnText.text = text;
+        _turnTextContainer.style.display = DisplayStyle.Flex;
 
-        DOTween.To(() => turnTextContainer.style.opacity.value, x => turnTextContainer.style.opacity = x, 1f, 2f)
+        DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 1f, 2f)
             .OnComplete(HideText)
-            .SetId(tweenID);
+            .SetId(_tweenID);
     }
 
     void HideText()
     {
-        DOTween.To(() => turnTextContainer.style.opacity.value, x => turnTextContainer.style.opacity = x, 0f, 2f)
-            .OnComplete(() => turnTextContainer.style.display = DisplayStyle.None)
-            .SetId(tweenID);
+        DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 0f, 2f)
+            .OnComplete(() => _turnTextContainer.style.display = DisplayStyle.None)
+            .SetId(_tweenID);
     }
 }

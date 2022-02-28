@@ -1,34 +1,34 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
-using System;
 
 public class CharacterSelection : MonoBehaviour
 {
-    protected Highlighter highlighter;
-    protected TurnManager turnManager;
+    protected Highlighter _highlighter;
+    protected TurnManager _turnManager;
 
     // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
-    protected Tilemap tilemap;
+    protected Tilemap _tilemap;
     protected WorldTile _tile;
 
     // local
-    protected CharacterStats myStats;
-    SpriteRenderer[] spriteRenderers;
-    public Color grayOutColor;
+    protected CharacterStats _myStats;
+    SpriteRenderer[] _spriteRenderers;
+    Color _grayOutColor;
 
-    public bool hasFinishedTurn; //{ get; protected set; }
+    public bool HasFinishedTurn { get; protected set; }
 
     public virtual void Awake()
     {
-        highlighter = Highlighter.instance;
-        turnManager = TurnManager.instance;
+        _highlighter = Highlighter.instance;
+        _turnManager = TurnManager.instance;
 
-        tilemap = BattleManager.instance.GetComponent<TileManager>().tilemap;
+        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
 
-        myStats = GetComponent<CharacterStats>();
-        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        _myStats = GetComponent<CharacterStats>();
+        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+        _grayOutColor = Helpers.GetColor("gray");
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
@@ -57,31 +57,31 @@ public class CharacterSelection : MonoBehaviour
 
     public virtual void FinishCharacterTurn()
     {
-        myStats.SetAttacker(false);
+        _myStats.SetAttacker(false);
         SetHasFinishedTurn(true);
         GrayOutCharacter();
     }
 
     public void GrayOutCharacter()
     {
-        foreach (SpriteRenderer rend in spriteRenderers)
+        foreach (SpriteRenderer rend in _spriteRenderers)
             if (rend != null)
-                rend.DOColor(grayOutColor, 1f);
+                rend.DOColor(_grayOutColor, 1f);
     }
 
     protected void ReturnCharacterColor()
     {
         // shieet that looks way better than changing it right away;
-        foreach (SpriteRenderer rend in spriteRenderers)
+        foreach (SpriteRenderer rend in _spriteRenderers)
             if (rend != null)
                 rend.DOColor(Color.white, 2f);
     }
 
-    public void SetHasFinishedTurn(bool _has) { hasFinishedTurn = _has; }
+    public void SetHasFinishedTurn(bool has) { HasFinishedTurn = has; }
 
     public bool WillTakeTurn()
     {
-        if (myStats.isStunned)
+        if (_myStats.IsStunned)
             return false;
 
         return true;

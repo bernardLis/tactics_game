@@ -5,92 +5,92 @@ using UnityEngine.EventSystems;
 public class JourneyChestBehaviour : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Unity Setup")]
-    public GameObject forbiddenMarker;
+    [SerializeField] GameObject _forbiddenMarker;
 
-    JourneyChestManager journeyChestManager;
+    JourneyChestManager _journeyChestManager;
 
-    [HideInInspector] public bool wasChestSelected;
-    [HideInInspector] public JourneyChest chest;
+    [HideInInspector] public bool WasChestSelected;
+    [HideInInspector] public JourneyChest Chest;
 
-    float timeOn;
-    float timeOff;
+    float _timeOn;
+    float _timeOff;
 
-    bool isHovering;
-    bool locked;
+    bool _isHovering;
+    bool _locked;
 
     void Start()
     {
-        journeyChestManager = JourneyChestManager.instance;
+        _journeyChestManager = JourneyChestManager.instance;
     }
 
     void Update()
     {
-        if (isHovering)
-            timeOn += Time.deltaTime;
-        if (!isHovering && locked)
-            timeOff += Time.deltaTime;
+        if (_isHovering)
+            _timeOn += Time.deltaTime;
+        if (!_isHovering && _locked)
+            _timeOff += Time.deltaTime;
 
-        if (timeOn > 0.5f && !locked)
+        if (_timeOn > 0.5f && !_locked)
             ForbidChest();
 
-        if (timeOff > 0.5f && locked)
+        if (_timeOff > 0.5f && _locked)
             UnforbidChest();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (wasChestSelected)
+        if (WasChestSelected)
             return;
 
-        timeOn = 0f;
-        timeOff = 0f;
+        _timeOn = 0f;
+        _timeOff = 0f;
 
-        isHovering = true;
+        _isHovering = true;
 
         transform.DOScale(Vector3.one * 0.8f, 1f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (wasChestSelected)
+        if (WasChestSelected)
             return;
 
-        timeOn = 0f;
+        _timeOn = 0f;
 
-        timeOff = 0f;
-        isHovering = false;
+        _timeOff = 0f;
+        _isHovering = false;
 
         transform.DOScale(Vector3.one, 1f);
     }
 
     void ForbidChest()
     {
-        if (wasChestSelected)
+        if (WasChestSelected)
             return;
 
-        locked = true;
-        forbiddenMarker.SetActive(true);
-        journeyChestManager.AddForbiddenChest(this);
+        _locked = true;
+        _forbiddenMarker.SetActive(true);
+        _journeyChestManager.AddForbiddenChest(this);
     }
 
     void UnforbidChest()
     {
-        locked = false;
-        forbiddenMarker.SetActive(false);
-        journeyChestManager.RemoveForbiddenChest(this);
+        _locked = false;
+        _forbiddenMarker.SetActive(false);
+        _journeyChestManager.RemoveForbiddenChest(this);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (locked)
+        if (_locked)
             return;
         
-        if (wasChestSelected)
+        if (WasChestSelected)
             return;
 
         transform.DOScale(Vector3.one * 1.2f, 2f);
 
-        journeyChestManager.ChestWasSelected(this);
+        _journeyChestManager.ChestWasSelected(this);
     }
 
 }

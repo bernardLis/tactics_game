@@ -6,6 +6,5 @@ public class PlayerStats : CharacterStats
             base.TurnManager_OnBattleStateChanged(state);
         if(state == BattleState.EnemyTurn)
             ResolveModifiersTurnEnd();
-
     }
 }

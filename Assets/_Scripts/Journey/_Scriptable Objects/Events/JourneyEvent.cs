@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class JourneyEvent : BaseScriptableObject
 {
-    public Sprite background;
-    public string description;
-    public List<JourneyEventOption> options = new();
+    public Sprite Background;
+    public string Description;
+    public List<JourneyEventOption> Options = new();
 	
 }

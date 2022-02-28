@@ -5,31 +5,30 @@ public enum JourneyNodeType { Start, End, Battle, Knowledge, Chest, Blacksmith, 
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/Node")]
 public class JourneyNode : BaseScriptableObject
 {
-    public Sprite icon;
-    public JourneyNodeType nodeType;
-    public string sceneToLoad;
+    public Sprite Icon;
+    public JourneyNodeType NodeType;
+    public string SceneToLoad;
 
-    [HideInInspector] public GameObject gameObject;
-    SpriteRenderer sr;
-    [HideInInspector] public JourneyNodeBehaviour journeyNodeBehaviour;
+    [HideInInspector] public GameObject GameObject;
+    SpriteRenderer _spriteRenderer;
+    [HideInInspector] public JourneyNodeBehaviour JourneyNodeBehaviour;
 
-    public void Initialize(GameObject _self)
+    public void Initialize(GameObject self)
     {
-        gameObject = _self;
-        gameObject.name = name;
-        gameObject.transform.localScale = new Vector3(3f, 3f);
+        GameObject = self;
+        GameObject.name = name;
+        GameObject.transform.localScale = new Vector3(3f, 3f);
 
-        sr = gameObject.GetComponentInChildren<SpriteRenderer>();
-        journeyNodeBehaviour = gameObject.GetComponent<JourneyNodeBehaviour>();
-        sr.sprite = icon;
+        _spriteRenderer = GameObject.GetComponentInChildren<SpriteRenderer>();
+        JourneyNodeBehaviour = GameObject.GetComponent<JourneyNodeBehaviour>();
+        _spriteRenderer.sprite = Icon;
     }
 
     // TODO: do I want to do it from scriptable Object?
     public void Select()
     {
-        sr.color = Color.black;
+        _spriteRenderer.color = Color.black;
     }
-
 }
 
 [System.Serializable]

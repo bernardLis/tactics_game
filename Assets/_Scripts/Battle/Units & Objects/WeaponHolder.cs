@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponHolder : MonoBehaviour
 {
-	public Weapon weapon { get; private set; }
+	public Weapon Weapon { get; private set; }
 
-	public void SetWeapon(Weapon _weapon)
+	public void SetWeapon(Weapon weapon)
 	{
-		weapon = _weapon;
+		Weapon = weapon;
 	}
 }

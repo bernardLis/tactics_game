@@ -7,18 +7,18 @@ public enum StatType { Strength, Intelligence, Agility, Stamina, MaxHealth, MaxM
 [System.Serializable]
 public class Stat
 {
-    [SerializeField] public StatType type;
-    [SerializeField] public int baseValue;
+    [SerializeField] public StatType Type;
+    [SerializeField] public int BaseValue;
 
-    [HideInInspector] public List<StatModifier> modifiers = new();
+    [HideInInspector] public List<StatModifier> Modifiers = new();
 
     // constructor https://i.redd.it/iuy9fxt300811.png
-    public Stat(StatType _type) { type = _type; }
+    public Stat(StatType type) { Type = type; }
 
     public int GetValue()
     {
-        int finalValue = baseValue;
-        foreach (StatModifier m in modifiers)
+        int finalValue = BaseValue;
+        foreach (StatModifier m in Modifiers)
             finalValue += m.Value;
 
         // final value can't be negative
@@ -27,30 +27,30 @@ public class Stat
         return finalValue;
     }
 
-    public void AddModifier(StatModifier _modifier)
+    public void AddModifier(StatModifier modifier)
     {
-        foreach(StatModifier s in modifiers)
-            if(s.Id == _modifier.Id)
+        foreach(StatModifier s in Modifiers)
+            if(s.Id == modifier.Id)
                 return; // prevents stacking of the same modifier
 
-        modifiers.Add(_modifier);
+        Modifiers.Add(modifier);
     }
-    public void RemoveModifier(StatModifier _modifier)
+    public void RemoveModifier(StatModifier modifier)
     {
-        modifiers.Remove(_modifier);
+        Modifiers.Remove(modifier);
     }
     public void TurnEndDecrement()
     {
-        for (int i = modifiers.Count - 1; i >= 0; i--)
+        for (int i = Modifiers.Count - 1; i >= 0; i--)
         {
-            modifiers[i].NumberOfTurns--;
-            if (modifiers[i].NumberOfTurns <= 0)
-                RemoveModifier(modifiers[i]);
+            Modifiers[i].NumberOfTurns--;
+            if (Modifiers[i].NumberOfTurns <= 0)
+                RemoveModifier(Modifiers[i]);
         }
     }
 
     public List<StatModifier> GetActiveModifiers()
     {
-        return modifiers;
+        return Modifiers;
     }
 }

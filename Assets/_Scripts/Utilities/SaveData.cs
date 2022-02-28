@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 [System.Serializable]
 public class SaveData
 {
-    public int journeySeed; // this reproduces paths with bridges and nodes // how do I keep the reference to visited nodes?
-    public int obols;
-    public List<JourneyNodeData> visitedJourneyNodes = new();
-    public JourneyNodeData currentJourneyNode;
+    public int JourneySeed; // this reproduces paths with bridges and nodes // how do I keep the reference to visited nodes?
+    public int Obols;
+    public List<JourneyNodeData> VisitedJourneyNodes = new();
+    public JourneyNodeData CurrentJourneyNode;
     // TODO: what do I want to save? Characters...
-    public List<CharacterData> characters = new();
+    public List<CharacterData> Characters = new();
 
     public string ToJson()
     {

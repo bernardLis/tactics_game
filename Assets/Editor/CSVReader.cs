@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 // https://bravenewmethod.com/2014/09/13/lightweight-csv-reader-for-unity/
 public class CSVReader
 {
-    static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-    static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
-    static char[] TRIM_CHARS = { '\"' };
+    static string _splitCharacters = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
+    static string _lineBreakCharacters = @"\r\n|\n\r|\n|\r";
+    static char[] _trimCharacters = { '\"' };
 
     public static List<Dictionary<string, object>> Read(string file)
     {
@@ -16,22 +16,22 @@ public class CSVReader
         //TextAsset data = (TextAsset)Resources.Load(file, typeof(TextAsset));
         string rawText = System.IO.File.ReadAllText(file);
 
-        var lines = Regex.Split(rawText, LINE_SPLIT_RE);
+        var lines = Regex.Split(rawText, _lineBreakCharacters);
 
         if (lines.Length <= 1) return list;
 
-        var header = Regex.Split(lines[0], SPLIT_RE);
+        var header = Regex.Split(lines[0], _splitCharacters);
         for (var i = 1; i < lines.Length; i++)
         {
 
-            var values = Regex.Split(lines[i], SPLIT_RE);
+            var values = Regex.Split(lines[i], _splitCharacters);
             if (values.Length == 0 || values[0] == "") continue;
 
             var entry = new Dictionary<string, object>();
             for (var j = 0; j < header.Length && j < values.Length; j++)
             {
                 string value = values[j];
-                value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
+                value = value.TrimStart(_trimCharacters).TrimEnd(_trimCharacters).Replace("\\", "");
                 object finalvalue = value;
                 int n;
                 float f;

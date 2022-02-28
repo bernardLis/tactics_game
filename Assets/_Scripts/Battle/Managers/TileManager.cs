@@ -5,19 +5,18 @@ using UnityEngine.Tilemaps;
 //https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
 public class TileManager : MonoBehaviour
 {
-    public Tilemap tilemap;
-    [SerializeField]
-    List<MyTileData> myTileDatas;
-    Dictionary<TileBase, MyTileData> dataFromTiles;
+    public Tilemap Tilemap;
+    [SerializeField] List<MyTileData> _myTileDatas;
+    Dictionary<TileBase, MyTileData> _dataFromTiles;
 
-    public static Dictionary<Vector3, WorldTile> tiles;
+    public static Dictionary<Vector3, WorldTile> Tiles;
 
     void Awake()
     {
-        dataFromTiles = new Dictionary<TileBase, MyTileData>();
-        foreach (var tileData in myTileDatas)
+        _dataFromTiles = new Dictionary<TileBase, MyTileData>();
+        foreach (var tileData in _myTileDatas)
             foreach (var tile in tileData.Tiles)
-                dataFromTiles.Add(tile, tileData);
+                _dataFromTiles.Add(tile, tileData);
     }
 
     public void SetUp()
@@ -28,27 +27,27 @@ public class TileManager : MonoBehaviour
 
     void CreateWorldTiles()
     {
-        tiles = new Dictionary<Vector3, WorldTile>();
-        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
+        Tiles = new Dictionary<Vector3, WorldTile>();
+        foreach (Vector3Int pos in Tilemap.cellBounds.allPositionsWithin)
         {
             Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
             bool _isObstacle = IsObstacle(localPlace);
 
-            if (!tilemap.HasTile(localPlace)) continue;
+            if (!Tilemap.HasTile(localPlace)) continue;
 
             var tile = new WorldTile
             {
                 LocalPlace = localPlace,
-                WorldLocation = tilemap.CellToWorld(localPlace),
-                TileBase = tilemap.GetTile(localPlace),
-                TilemapMember = tilemap,
+                WorldLocation = Tilemap.CellToWorld(localPlace),
+                TileBase = Tilemap.GetTile(localPlace),
+                TilemapMember = Tilemap,
                 Name = localPlace.x + "," + localPlace.y,
                 Cost = 1, // TODO: Could be used for tiles with walk penalties
                 IsObstacle = _isObstacle,
                 WithinRange = false,
             };
 
-            tiles.Add(tile.WorldLocation, tile);
+            Tiles.Add(tile.WorldLocation, tile);
         }
     }
 
@@ -58,7 +57,7 @@ public class TileManager : MonoBehaviour
         ObsctacleColliders.name = "ObsctacleColliders";
 
         // TODO: does not work
-        foreach (KeyValuePair<Vector3, WorldTile> PosTile in tiles)
+        foreach (KeyValuePair<Vector3, WorldTile> PosTile in Tiles)
         {
             if (PosTile.Value.IsObstacle)
             {
@@ -66,14 +65,10 @@ public class TileManager : MonoBehaviour
                 GameObject col = new();
                 col.name = "col";
                 col.layer = 3; // unpassable layer
-                               // positioning the game object;
                 col.transform.position = new Vector3(PosTile.Key.x + 0.5f, PosTile.Key.y + 0.5f, 0f);
 
                 BoxCollider2D bc = col.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
                 bc.size = Vector2.one;
-                //bc.offset = new Vector2(PosTile.Key.x + 0.5f, PosTile.Key.y + 0.5f);
-
-                // parent the object
                 col.transform.parent = ObsctacleColliders.transform;
             }
         }
@@ -81,12 +76,12 @@ public class TileManager : MonoBehaviour
 
     public bool IsObstacle(Vector3Int pos)
     {
-        TileBase tile = tilemap.GetTile(pos);
+        TileBase tile = Tilemap.GetTile(pos);
         if (tile == null)
             return false;
-        if (!dataFromTiles.ContainsKey(tile))
+        if (!_dataFromTiles.ContainsKey(tile))
             return false;
 
-        return dataFromTiles[tile].isObstacle;
+        return _dataFromTiles[tile].isObstacle;
     }
 }

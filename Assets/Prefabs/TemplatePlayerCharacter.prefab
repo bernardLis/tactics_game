@@ -291,49 +291,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93fcf6f467bff8e44a97e3b68bc4832b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
-  baseMaxHealth: 100
-  baseMaxMana: 50
-  baseArmor: 0
-  baseMovementRange: 5
-  characterName: 
-  strength:
-    type: 0
-    baseValue: 0
-    modifiers: []
-  intelligence:
-    type: 1
-    baseValue: 0
-    modifiers: []
-  agility:
-    type: 2
-    baseValue: 0
-    modifiers: []
-  stamina:
-    type: 3
-    baseValue: 0
-    modifiers: []
-  maxHealth:
-    type: 4
-    baseValue: 0
-    modifiers: []
-  maxMana:
-    type: 5
-    baseValue: 0
-    modifiers: []
-  armor:
-    type: 6
-    baseValue: 0
-    modifiers: []
-  movementRange:
-    type: 7
-    baseValue: 0
-    modifiers: []
-  stats: []
-  basicAbilities: []
-  abilities: []
-  statuses: []
-  isStunned: 0
+  Strength:
+    Type: 0
+    BaseValue: 0
+    Modifiers: []
+  Intelligence:
+    Type: 1
+    BaseValue: 0
+    Modifiers: []
+  Agility:
+    Type: 2
+    BaseValue: 0
+    Modifiers: []
+  Stamina:
+    Type: 3
+    BaseValue: 0
+    Modifiers: []
+  MaxHealth:
+    Type: 4
+    BaseValue: 0
+    Modifiers: []
+  MaxMana:
+    Type: 5
+    BaseValue: 0
+    Modifiers: []
+  Armor:
+    Type: 6
+    BaseValue: 0
+    Modifiers: []
+  MovementRange:
+    Type: 7
+    BaseValue: 0
+    Modifiers: []
+  Stats: []
+  BasicAbilities: []
+  Abilities: []
+  Statuses: []
 --- !u!114 &1864993292968118660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,9 +339,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c544fc6426e029429c54d55ebae389e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grayOutColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
-  hasFinishedTurn: 0
-  selectionArrow: {fileID: 6628598217306585581}
+  _grayOutColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+  _selectionArrow: {fileID: 6628598217306585581}
 --- !u!114 &4212650218818044008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,8 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a4ba4d7fbf2394288672d4319167c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetY: 1.75
-  offsetX: -1.42
+  _offsetY: 1.75
+  _offsetX: -1.42
 --- !u!114 &1864993293436626183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1dce015e723454a943f8c8c4ef0e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawnPoint: {fileID: 0}
 --- !u!114 &1864993293436626181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,7 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7d00e56168786243b0f68a5728954b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawnPoint: {fileID: 0}
 --- !u!114 &-2183359834462256654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,7 +415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891e9154304e5cb4daa9dd58db58b0a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawnPoint: {fileID: 0}
 --- !u!114 &1712415301602900234
 MonoBehaviour:
   m_ObjectHideFlags: 0

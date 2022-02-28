@@ -3,27 +3,27 @@ using UnityEngine.Rendering.Universal;
 
 public class Obstacle : MonoBehaviour
 {
-    BoxCollider2D col;
-    public Light2D spotLightPrefab;
+    BoxCollider2D _col;
+    [SerializeField] Light2D _spotLightPrefab;
 
-    public void Initialise(TilemapObject _obj)
+    public void Initialise(TilemapObject obj)
     {
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        sr.sprite = _obj.Sprite;
+        sr.sprite = obj.Sprite;
 
-        col = GetComponentInChildren<BoxCollider2D>();
-        if (col != null)
-            col.size = _obj.Size;
+        _col = GetComponentInChildren<BoxCollider2D>();
+        if (_col != null)
+            _col.size = obj.Size;
 
-        if (_obj.IsEmitingLight)
+        if (obj.IsEmitingLight)
         {
-            Light2D l = Instantiate(spotLightPrefab, transform.position, Quaternion.identity);
+            Light2D l = Instantiate(_spotLightPrefab, transform.position, Quaternion.identity);
             l.transform.parent = transform;
-            l.transform.localPosition = new Vector3(_obj.Offset.x, _obj.Offset.y);
-            l.color = _obj.LightColor;
-            l.intensity = Random.Range(_obj.LightIntensity.x, _obj.LightIntensity.y);
-            l.pointLightInnerRadius = Random.Range(_obj.InnerRadius.x, _obj.InnerRadius.y);
-            l.pointLightOuterRadius = Random.Range(_obj.OuterRadius.x, _obj.OuterRadius.y);
+            l.transform.localPosition = new Vector3(obj.Offset.x, obj.Offset.y);
+            l.color = obj.LightColor;
+            l.intensity = Random.Range(obj.LightIntensity.x, obj.LightIntensity.y);
+            l.pointLightInnerRadius = Random.Range(obj.InnerRadius.x, obj.InnerRadius.y);
+            l.pointLightOuterRadius = Random.Range(obj.OuterRadius.x, obj.OuterRadius.y);
         }
 
     }

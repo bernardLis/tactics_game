@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IItemUsable<UtilityAbility>
 {
-    public Sprite openedChest;
-    SpriteRenderer sr;
+    [SerializeField] Sprite _openedChest;
+    SpriteRenderer _spriteRenderer;
     void Start()
     {
-        sr = GetComponentInChildren<SpriteRenderer>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    public bool UseItem(UtilityAbility _ability)
+    public bool UseItem(UtilityAbility ability)
     {
-        Debug.Log("use item in chest");
-        if (_ability.UtilityType == UtilityType.Key)
+        if (ability.UtilityType == UtilityType.Key)
         {
             Interact();
             return true;
@@ -22,7 +21,7 @@ public class Chest : MonoBehaviour, IItemUsable<UtilityAbility>
 
     void Interact()
     {
-        sr.sprite = openedChest;
+        _spriteRenderer.sprite = _openedChest;
         // TODO: maybe disable the light?
     }
 }

@@ -1,27 +1,25 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class JourneyManager : MonoBehaviour, ISavable
 {
-    LevelLoader levelLoader;
+    LevelLoader _levelLoader;
 
-    public List<Character> playerTroops;
-    public bool wasJourneySetUp { get; private set; }
-    public int journeySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
-    public JourneyNodeData currentJourneyNode { get; private set; }
-    public int obols { get; private set; }
-    public JourneyNodeReward reward { get; private set; }
+    public List<Character> PlayerTroops;
+    public bool WasJourneySetUp { get; private set; }
+    public int JourneySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
+    public JourneyNodeData CurrentJourneyNode { get; private set; }
+    public int Obols { get; private set; }
+    public JourneyNodeReward Reward { get; private set; }
 
     [Header("Unity Setup")]
-    public JourneyEvent[] allEvents;
+    [SerializeField] JourneyEvent[] AllEvents;
 
-    List<JourneyEvent> availableEvents;
+    List<JourneyEvent> _availableEvents;
 
-    [HideInInspector] public List<JourneyPath> journeyPaths = new();
-    public List<JourneyNodeData> visitedJourneyNodes = new();
+    [HideInInspector] public List<JourneyPath> JourneyPaths = new();
+    public List<JourneyNodeData> VisitedJourneyNodes = new();
 
     public static JourneyManager instance;
     void Awake()
@@ -42,58 +40,57 @@ public class JourneyManager : MonoBehaviour, ISavable
         }
         #endregion
 
-        levelLoader = GetComponent<LevelLoader>();
+        _levelLoader = GetComponent<LevelLoader>();
 
         // copy array to list;
-        availableEvents = new(allEvents);
+        _availableEvents = new(AllEvents);
         LoadJsonData();
-        //LoadPlayerCharacters();
     }
 
     public void LoadLevel(string level)
     {
         SaveJsonData();
-        levelLoader.LoadLevel(level);
+        _levelLoader.LoadLevel(level);
     }
 
     public void SetPlayerTroops(List<Character> troops)
     {
         Debug.Log("Setting player characters");
-        playerTroops = new(troops);
+        PlayerTroops = new(troops);
     }
 
     public void JourneyWasSetUp(bool was) // TODO: better naming
     {
-        wasJourneySetUp = was;
+        WasJourneySetUp = was;
     }
 
     public void SetJourneySeed(int s)
     {
-        journeySeed = s;
+        JourneySeed = s;
     }
 
     public void SetCurrentJourneyNode(JourneyNodeData n)
     {
-        visitedJourneyNodes.Add(n);
-        currentJourneyNode = n;
+        VisitedJourneyNodes.Add(n);
+        CurrentJourneyNode = n;
     }
 
     public void SetObols(int o)
     {
-        obols = o;
+        Obols = o;
         SaveJsonData();
     }
 
     public void SetNodeReward(JourneyNodeReward r)
     {
-        reward = r;
+        Reward = r;
     }
 
 
     public JourneyEvent ChooseEvent()
     {
-        JourneyEvent ev = availableEvents[Random.Range(0, availableEvents.Count)];
-        availableEvents.Remove(ev);
+        JourneyEvent ev = _availableEvents[Random.Range(0, _availableEvents.Count)];
+        _availableEvents.Remove(ev);
         return ev;
     }
 
@@ -112,17 +109,17 @@ public class JourneyManager : MonoBehaviour, ISavable
 
     public void PopulateSaveData(SaveData saveData)
     {
-        saveData.obols = obols;
-        saveData.journeySeed = journeySeed;
-        saveData.currentJourneyNode = currentJourneyNode;
-        saveData.visitedJourneyNodes = visitedJourneyNodes;
-        saveData.characters = PopulateCharacters();
+        saveData.Obols = Obols;
+        saveData.JourneySeed = JourneySeed;
+        saveData.CurrentJourneyNode = CurrentJourneyNode;
+        saveData.VisitedJourneyNodes = VisitedJourneyNodes;
+        saveData.Characters = PopulateCharacters();
     }
 
     List<CharacterData> PopulateCharacters()
     {
         List<CharacterData> charData = new();
-        foreach (Character c in playerTroops)
+        foreach (Character c in PlayerTroops)
         {
             CharacterData data = new();
             data.ReferenceID = c.ReferenceID;
@@ -161,16 +158,16 @@ public class JourneyManager : MonoBehaviour, ISavable
 
     public void LoadFromSaveData(SaveData saveData)
     {
-        obols = saveData.obols;
-        journeySeed = saveData.journeySeed;
-        currentJourneyNode = saveData.currentJourneyNode;
-        visitedJourneyNodes = saveData.visitedJourneyNodes;
-        playerTroops = new();
-        foreach (CharacterData data in saveData.characters)
+        Obols = saveData.Obols;
+        JourneySeed = saveData.JourneySeed;
+        CurrentJourneyNode = saveData.CurrentJourneyNode;
+        VisitedJourneyNodes = saveData.VisitedJourneyNodes;
+        PlayerTroops = new();
+        foreach (CharacterData data in saveData.Characters)
         {
             Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
             playerCharacter.Create(data);
-            playerTroops.Add(playerCharacter);
+            PlayerTroops.Add(playerCharacter);
         }
 
         // TODO: probably here I need to create Characters from save data 

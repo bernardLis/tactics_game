@@ -4,19 +4,16 @@ using UnityEngine.Tilemaps;
 public class MovePointController : MonoBehaviour
 {
     // TODO: movepoint should only be using battle ui
-    CameraManager basicCameraFollow;
-    InfoCardUI infoCardUI;
-    CharacterUI characterUI;
+    InfoCardUI _infoCardUI;
+    CharacterUI _characterUI;
 
     // tiles
-    Tilemap tilemap;
+    Tilemap _tilemap;
     WorldTile _tile;
 
-    BattleDeploymentController battleDeploymentController;
-    BattleCharacterController battleCharacterController;
-    SpriteRenderer spriteRenderer;
-
-
+    BattleDeploymentController _battleDeploymentController;
+    BattleCharacterController _battleCharacterController;
+    SpriteRenderer _spriteRenderer;
 
     public static MovePointController instance;
     void Awake()
@@ -34,16 +31,15 @@ public class MovePointController : MonoBehaviour
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
-        basicCameraFollow = CameraManager.instance;
-        infoCardUI = InfoCardUI.instance;
-        characterUI = CharacterUI.instance;
+        _infoCardUI = InfoCardUI.instance;
+        _characterUI = CharacterUI.instance;
 
         // This is our Dictionary of tiles
-        tilemap = BattleManager.instance.GetComponent<TileManager>().tilemap;
+        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
 
-        battleDeploymentController = GetComponent<BattleDeploymentController>();
-        battleCharacterController = GetComponent<BattleCharacterController>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _battleDeploymentController = GetComponent<BattleDeploymentController>();
+        _battleCharacterController = GetComponent<BattleCharacterController>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void OnDestroy()
@@ -54,54 +50,44 @@ public class MovePointController : MonoBehaviour
 
     void TurnManager_OnBattleStateChanged(BattleState _state)
     {
-        if (_state == BattleState.MapBuilding)
-            HandleMapBuilding();
-
         if (_state == BattleState.Deployment)
             HandleDeployment();
-
         if (_state == BattleState.PlayerTurn)
             Invoke("HandlePlayerTurn", 0.1f); // gives time for stats to resolve modifiers => UI displays correct numbers\
-
         if (_state == BattleState.EnemyTurn)
             HandleEnemyTurn(); // gives time for stats to resolve modifiers => UI displays correct numbers
 
     }
 
-    void HandleMapBuilding()
-    {
-
-    }
-
     void HandleDeployment()
     {
-        spriteRenderer.enabled = true;
-        transform.position = Highlighter.instance.highlightedTiles[Mathf.FloorToInt(Highlighter.instance.highlightedTiles.Count / 2)].GetMiddleOfTile();
-        battleDeploymentController.InstantiateCharacter(0);
+        _spriteRenderer.enabled = true;
+        transform.position = Highlighter.instance.HighlightedTiles[Mathf.FloorToInt(Highlighter.instance.HighlightedTiles.Count / 2)].GetMiddleOfTile();
+        _battleDeploymentController.InstantiateCharacter(0);
     }
 
     void HandleEnemyTurn()
     {
-        spriteRenderer.enabled = false;
+        _spriteRenderer.enabled = false;
     }
 
     public void Move(Vector3 _pos)
     {
         // block moving out form tile map
-        Vector3Int tilePos = tilemap.WorldToCell(_pos);
-        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
+        Vector3Int tilePos = _tilemap.WorldToCell(_pos);
+        if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
             return;
 
         transform.position = _pos;
 
         // TODO: dunno if this is the correct way to handle this.
-        battleCharacterController.DrawPath();
+        _battleCharacterController.DrawPath();
 
         UpdateDisplayInformation();
 
         // TODO: character being placed
-        if (battleDeploymentController.characterBeingPlaced != null)
-            battleDeploymentController.UpdateCharacterBeingPlacedPosition();
+        if (_battleDeploymentController.CharacterBeingPlaced != null)
+            _battleDeploymentController.UpdateCharacterBeingPlacedPosition();
     }
 
     public void HandleSelectClick()
@@ -111,7 +97,7 @@ public class MovePointController : MonoBehaviour
         Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
 
         // For placing characters during prep
-        if (TurnManager.battleState == BattleState.Deployment && battleDeploymentController.characterBeingPlaced != null)
+        if (TurnManager.BattleState == BattleState.Deployment && _battleDeploymentController.CharacterBeingPlaced != null)
         {
             HandleBattlePrepSelectClick();
             return;
@@ -122,13 +108,13 @@ public class MovePointController : MonoBehaviour
 
     void HandleBattlePrepSelectClick()
     {
-        Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
+        Vector3Int tilePos = _tilemap.WorldToCell(transform.position);
+        if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
             return;
         if (!_tile.WithinRange)
             return;
 
-        battleDeploymentController.PlaceCharacter();
+        _battleDeploymentController.PlaceCharacter();
     }
 
     void Select(Collider2D _obj)
@@ -136,21 +122,21 @@ public class MovePointController : MonoBehaviour
         UpdateDisplayInformation();
 
         // only within range tiles when selecting interaction target
-        if (battleCharacterController.characterState == CharacterState.SelectingInteractionTarget)
+        if (_battleCharacterController.CharacterState == CharacterState.SelectingInteractionTarget)
         {
-            Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-            if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
+            Vector3Int tilePos = _tilemap.WorldToCell(transform.position);
+            if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
                 return;
             if (!_tile.WithinRange)
                 return;
         }
 
-        battleCharacterController.Select(_obj);
+        _battleCharacterController.Select(_obj);
     }
 
     void HandlePlayerTurn()
     {
-        spriteRenderer.enabled = true;
+        _spriteRenderer.enabled = true;
 
         GameObject[] playerChars = GameObject.FindGameObjectsWithTag("Player");
         if (playerChars.Length > 0)
@@ -171,11 +157,11 @@ public class MovePointController : MonoBehaviour
     void UpdateTileInfoUI()
     {
         // tile info
-        Vector3Int tilePos = tilemap.WorldToCell(transform.position);
+        Vector3Int tilePos = _tilemap.WorldToCell(transform.position);
         string tileUIText = "";
 
         // if it is not a tile, return
-        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
+        if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
             return;
 
         if (_tile.IsObstacle)
@@ -194,9 +180,9 @@ public class MovePointController : MonoBehaviour
 
         // hide/show the whole panel
         if (tileUIText == "")
-            infoCardUI.HideTileInfo();
+            _infoCardUI.HideTileInfo();
         else
-            infoCardUI.ShowTileInfo(tileUIText);
+            _infoCardUI.ShowTileInfo(tileUIText);
     }
 
     void UpdateCharacterCardInfo()
@@ -207,49 +193,49 @@ public class MovePointController : MonoBehaviour
         // return if there is no object on the tile
         if (col == null)
         {
-            infoCardUI.HideCharacterCard();
+            _infoCardUI.HideCharacterCard();
             return;
         }
 
         // don't show card if you are hovering over selected character
-        if (battleCharacterController.selectedCharacter == col.transform.parent.gameObject)
+        if (_battleCharacterController.SelectedCharacter == col.transform.parent.gameObject)
         {
-            infoCardUI.HideCharacterCard();
+            _infoCardUI.HideCharacterCard();
             return;
         }
 
         // show character card if there is a character there
         if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
         {
-            infoCardUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
+            _infoCardUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
             return;
         }
 
         // hide if it is something else
-        infoCardUI.HideCharacterCard();
+        _infoCardUI.HideCharacterCard();
     }
 
     void ShowAbilityResult()
     {
-        infoCardUI.HideInteractionSummary();
-        characterUI.HideDamage();
-        characterUI.HideManaUse();
+        _infoCardUI.HideInteractionSummary();
+        _characterUI.HideDamage();
+        _characterUI.HideManaUse();
 
         // only show interaction result when we are selecting a target
-        if (battleCharacterController.characterState != CharacterState.ConfirmingInteraction)
+        if (_battleCharacterController.CharacterState != CharacterState.ConfirmingInteraction)
             return;
         // and the ability is selected
-        if (battleCharacterController.selectedAbility == null)
+        if (_battleCharacterController.SelectedAbility == null)
             return;
-        Ability selectedAbility = battleCharacterController.selectedAbility;
+        Ability selectedAbility = _battleCharacterController.SelectedAbility;
 
         // mana use
         if (selectedAbility.ManaCost != 0)
-            characterUI.ShowManaUse(selectedAbility.ManaCost);
+            _characterUI.ShowManaUse(selectedAbility.ManaCost);
 
         // don't show interaction summary if not in range of interaction
-        Vector3Int tilePos = tilemap.WorldToCell(transform.position);
-        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
+        Vector3Int tilePos = _tilemap.WorldToCell(transform.position);
+        if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
             return;
         if (!_tile.WithinRange)
             return;
@@ -262,11 +248,10 @@ public class MovePointController : MonoBehaviour
         if (!(col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider")))
             return;
 
-        CharacterStats attacker = battleCharacterController.selectedCharacter.GetComponent<CharacterStats>();
+        CharacterStats attacker = _battleCharacterController.SelectedCharacter.GetComponent<CharacterStats>();
         CharacterStats defender = col.transform.parent.GetComponent<CharacterStats>();
 
-        infoCardUI.ShowInteractionSummary(attacker, defender, selectedAbility);
+        _infoCardUI.ShowInteractionSummary(attacker, defender, selectedAbility);
     }
-
 }
 

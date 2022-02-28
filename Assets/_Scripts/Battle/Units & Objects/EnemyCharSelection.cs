@@ -2,7 +2,7 @@ public class EnemyCharSelection : CharacterSelection
 {
     protected override void HandleEnemyTurn()
     {
-        if (!myStats.isStunned)
+        if (!_myStats.IsStunned)
         {
             SetHasFinishedTurn(false);
             ReturnCharacterColor();
@@ -13,13 +13,13 @@ public class EnemyCharSelection : CharacterSelection
 
     protected override void HandlePlayerTurn()
     {
-        if (!myStats.isStunned)
+        if (!_myStats.IsStunned)
             Invoke("ReturnCharacterColor", 1f);
     }
     public override void FinishCharacterTurn()
     {
         base.FinishCharacterTurn();
-        turnManager.EnemyCharacterTurnFinished();
+        _turnManager.EnemyCharacterTurnFinished();
     }
 
 }

@@ -6,13 +6,13 @@ using UnityEngine;
 //https://github.com/UnityTechnologies/UniteNow20-Persistent-Data/blob/main/FileManager.cs
 public static class FileManager
 {
-    public static bool WriteToFile(string a_FileName, string a_FileContents)
+    public static bool WriteToFile(string fileName, string fileContents)
     {
-        var fullPath = Path.Combine(Application.persistentDataPath, a_FileName);
+        var fullPath = Path.Combine(Application.persistentDataPath, fileName);
 
         try
         {
-            File.WriteAllText(fullPath, a_FileContents);
+            File.WriteAllText(fullPath, fileContents);
             return true;
         }
         catch (Exception e)
@@ -22,9 +22,9 @@ public static class FileManager
         }
     }
 
-    public static bool LoadFromFile(string a_FileName, out string result)
+    public static bool LoadFromFile(string fileName, out string result)
     {
-        var fullPath = Path.Combine(Application.persistentDataPath, a_FileName);
+        var fullPath = Path.Combine(Application.persistentDataPath, fileName);
 
         try
         {

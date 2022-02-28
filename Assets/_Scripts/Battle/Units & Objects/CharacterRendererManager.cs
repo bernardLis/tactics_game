@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using Pathfinding;
 using System.Threading.Tasks;
@@ -6,59 +5,53 @@ using DG.Tweening;
 
 public class CharacterRendererManager : MonoBehaviour
 {
-    [HideInInspector] public Vector2 direction;
-    [HideInInspector] public Vector2 lastDirection;
+    Vector2 _direction;
 
-    public GameObject flyingArrowPrefab; // TODO: is this the right place for managing the flying arrow?
+    Animator _animator;
+    CharacterRenderer _characterRenderer;
 
-    Animator animator;
-    CharacterRenderer characterRenderer;
+    WeaponHolder _weaponHolder;
+    SpriteRenderer _weaponRenderer;
 
-    WeaponHolder weaponHolder;
-    SpriteRenderer weaponRenderer;
+    AILerp _AILerp;
 
-    AILerp AI;
+    Vector2 _directionFromFace;
 
-    Vector2 directionFromFace;
-
-    bool noIdleAnimation;
+    bool _noIdleAnimation;
 
     // TODO: I am not certain if it is correctly set
-    public Vector2 faceDir; //{ get; private set; }
+    public Vector2 FaceDir { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
     {
-        animator = GetComponent<Animator>();
-        characterRenderer = GetComponent<CharacterRenderer>();
-        AI = GetComponentInParent<AILerp>();
-        weaponHolder = GetComponentInChildren<WeaponHolder>();
-        weaponRenderer = weaponHolder.transform.GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
+        _characterRenderer = GetComponent<CharacterRenderer>();
+        _AILerp = GetComponentInParent<AILerp>();
+        _weaponHolder = GetComponentInChildren<WeaponHolder>();
+        _weaponRenderer = _weaponHolder.transform.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     // TODO: something smarter I probably don't need to set direction when character movement is not active
     void Update()
     {
-        if (AI.canMove)
-            direction = AI.myDirection;
+        if (_AILerp.canMove)
+            _direction = _AILerp.myDirection;
 
-        if (direction.sqrMagnitude > 0)
-        {
-            lastDirection = direction;
-            SetFaceDir(direction);
-        }
+        if (_direction.sqrMagnitude > 0)
+            SetFaceDir(_direction);
 
-        // TODO: there is probably way to improve that;
-        if (!noIdleAnimation)
+        // TODO: there is probably a way to improve that;
+        if (!_noIdleAnimation)
         {
-            characterRenderer.SetDirection(direction);
+            _characterRenderer.SetDirection(_direction);
 
             foreach (Transform child in transform)
             {
                 CharacterRenderer cr = child.GetComponent<CharacterRenderer>();
                 if (cr != null)
-                    cr.SetDirection(direction);
+                    cr.SetDirection(_direction);
             }
         }
     }
@@ -66,58 +59,58 @@ public class CharacterRendererManager : MonoBehaviour
     public async Task AttackAnimation()
     {
         // if character does not have a weapon
-        if (weaponHolder.weapon == null)
-            await Thrust(directionFromFace); // punch animation
+        if (_weaponHolder.Weapon == null)
+            await Thrust(_directionFromFace); // punch animation
 
-        if (weaponHolder.weapon.WeaponType == WeaponType.Slash)
-            await Slash(directionFromFace);
-        if (weaponHolder.weapon.WeaponType == WeaponType.Thrust)
-            await Thrust(directionFromFace);
-        if (weaponHolder.weapon.WeaponType == WeaponType.Shoot)
-            await Shoot(directionFromFace);
+        if (_weaponHolder.Weapon.WeaponType == WeaponType.Slash)
+            await Slash(_directionFromFace);
+        if (_weaponHolder.Weapon.WeaponType == WeaponType.Thrust)
+            await Thrust(_directionFromFace);
+        if (_weaponHolder.Weapon.WeaponType == WeaponType.Shoot)
+            await Shoot(_directionFromFace);
     }
 
-    void SetFaceDir(Vector2 _dir)
+    void SetFaceDir(Vector2 dir)
     {
         // This is because at the beginning of the game I was making enemies face right and than 0, for them to stop walking.
         // It was setting facedir to 0, which made attack dir calculations wrong. Now it works, but is hacky.
-        if (_dir == Vector2.zero)
+        if (dir == Vector2.zero)
             return;
-        
-        directionFromFace = _dir;
-        // TODO: this is weirdness...
-        float x = Mathf.FloorToInt(_dir.x);
-        float y = Mathf.FloorToInt(_dir.y);
 
-        faceDir = new Vector2(x, y);
+        _directionFromFace = dir;
+        // TODO: this is weirdness...
+        float x = Mathf.FloorToInt(dir.x);
+        float y = Mathf.FloorToInt(dir.y);
+
+        FaceDir = new Vector2(x, y);
     }
 
     public async Task SpellcastAnimation()
     {
         // TODO: this is the set-up coz i might want to add some other animations or effects that should be awaited sequentially.
-        await Spellcast(directionFromFace);
+        await Spellcast(_directionFromFace);
     }
 
     public void Face(Vector2 dir)
     {
-        direction = dir;
+        _direction = dir;
         SetFaceDir(dir);
 
-        characterRenderer.SetDirection(direction);
+        _characterRenderer.SetDirection(_direction);
 
         foreach (Transform child in transform)
         {
             CharacterRenderer cr = child.GetComponent<CharacterRenderer>();
             if (cr != null)
-                cr.SetDirection(direction);
+                cr.SetDirection(_direction);
         }
     }
 
     public async Task Die()
     {
-        noIdleAnimation = true;
+        _noIdleAnimation = true;
 
-        animator.Play("Hurt");
+        _animator.Play("Hurt");
 
         foreach (Transform child in transform)
         {
@@ -128,18 +121,18 @@ public class CharacterRendererManager : MonoBehaviour
         }
 
         await Task.Delay(500);
-        noIdleAnimation = false;
+        _noIdleAnimation = false;
     }
 
     // TODO: code repetition between all 3 methods.
     async Task Spellcast(Vector2 dir)
     {
-        noIdleAnimation = true;
+        _noIdleAnimation = true;
 
         // set direction and play animation
-        animator.SetFloat("Last Horizontal", dir.x);
-        animator.SetFloat("Last Vertical", dir.y);
-        animator.Play("Spellcast");
+        _animator.SetFloat("Last Horizontal", dir.x);
+        _animator.SetFloat("Last Vertical", dir.y);
+        _animator.Play("Spellcast");
 
         foreach (Transform child in transform)
         {
@@ -161,17 +154,17 @@ public class CharacterRendererManager : MonoBehaviour
 
         Face(dir);
 
-        noIdleAnimation = false;
+        _noIdleAnimation = false;
     }
 
     async Task Slash(Vector2 dir)
     {
-        noIdleAnimation = true;
+        _noIdleAnimation = true;
 
-        weaponHolder.gameObject.SetActive(true);
-        animator.SetFloat("Last Horizontal", dir.x);
-        animator.SetFloat("Last Vertical", dir.y);
-        animator.Play("Slash");
+        _weaponHolder.gameObject.SetActive(true);
+        _animator.SetFloat("Last Horizontal", dir.x);
+        _animator.SetFloat("Last Vertical", dir.y);
+        _animator.Play("Slash");
 
         foreach (Transform child in transform)
         {
@@ -189,22 +182,22 @@ public class CharacterRendererManager : MonoBehaviour
         // this looks good, I am punching in the middle of animation
         await PunchEffect(dir, 800);
 
-        weaponHolder.gameObject.SetActive(false);
-        weaponRenderer.sprite = null;
+        _weaponHolder.gameObject.SetActive(false);
+        _weaponRenderer.sprite = null;
         Face(dir);
 
-        noIdleAnimation = false;
+        _noIdleAnimation = false;
     }
 
     async Task Thrust(Vector2 dir)
     {
-        noIdleAnimation = true;
+        _noIdleAnimation = true;
 
-        weaponHolder.gameObject.SetActive(true);
+        _weaponHolder.gameObject.SetActive(true);
 
-        animator.SetFloat("Last Horizontal", dir.x);
-        animator.SetFloat("Last Vertical", dir.y);
-        animator.Play("Thrust");
+        _animator.SetFloat("Last Horizontal", dir.x);
+        _animator.SetFloat("Last Vertical", dir.y);
+        _animator.Play("Thrust");
 
         foreach (Transform child in transform)
         {
@@ -221,24 +214,24 @@ public class CharacterRendererManager : MonoBehaviour
         // this looks good, I am punching in the middle of animation
         await PunchEffect(dir, 800);
 
-        weaponHolder.gameObject.SetActive(false);
-        weaponRenderer.sprite = null;
+        _weaponHolder.gameObject.SetActive(false);
+        _weaponRenderer.sprite = null;
         Face(dir);
 
-        noIdleAnimation = false;
+        _noIdleAnimation = false;
     }
 
     async Task Shoot(Vector2 dir)
     {
-        noIdleAnimation = true;
+        _noIdleAnimation = true;
 
-        weaponHolder.gameObject.SetActive(true);
+        _weaponHolder.gameObject.SetActive(true);
 
-        animator.SetFloat("Last Horizontal", dir.x);
-        animator.SetFloat("Last Vertical", dir.y);
-        animator.Play("Bow");
+        _animator.SetFloat("Last Horizontal", dir.x);
+        _animator.SetFloat("Last Vertical", dir.y);
+        _animator.Play("Bow");
 
-        Animator arrowAnimator = weaponHolder.transform.Find("Arrow").GetComponent<Animator>();
+        Animator arrowAnimator = _weaponHolder.transform.Find("Arrow").GetComponent<Animator>();
         arrowAnimator.gameObject.SetActive(true);
         arrowAnimator.SetFloat("Last Horizontal", dir.x);
         arrowAnimator.SetFloat("Last Vertical", dir.y);
@@ -257,24 +250,18 @@ public class CharacterRendererManager : MonoBehaviour
         // TODO: this is not perfect, waiting for animation to finish
         await Task.Delay(900);
 
-        weaponHolder.gameObject.SetActive(false);
+        _weaponHolder.gameObject.SetActive(false);
         arrowAnimator.transform.GetComponent<SpriteRenderer>().sprite = null;
-        weaponRenderer.sprite = null;
+        _weaponRenderer.sprite = null;
         Face(dir);
 
-        noIdleAnimation = false;
+        _noIdleAnimation = false;
     }
 
-    async Task PunchEffect(Vector2 _dir, int _delay)
+    async Task PunchEffect(Vector2 dir, int delay)
     {
-        await Task.Delay(Mathf.FloorToInt(_delay * 0.5f));
-        transform.DOPunchPosition(_dir * 0.2f, 0.4f, 1, 0, false);
-        await Task.Delay(Mathf.FloorToInt(_delay * 0.5f));
-    }
-
-    public void PlayIdle(string _dir)
-    {
-        Face(Vector2.right);
-        Face(Vector2.zero);
+        await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
+        transform.DOPunchPosition(dir * 0.2f, 0.4f, 1, 0, false);
+        await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
     }
 }

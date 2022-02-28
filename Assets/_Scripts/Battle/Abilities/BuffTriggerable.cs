@@ -2,60 +2,28 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-public class BuffTriggerable : MonoBehaviour
+public class BuffTriggerable : BaseTriggerable
 {
-    public Transform projectileSpawnPoint; // TODO: is that ok way to handle this?
-
-    CharacterStats myStats;
-    CharacterRendererManager characterRendererManager;
-    FaceDirectionUI faceDirectionUI;
-
-    void Awake()
+    public async Task<bool> Buff(GameObject target, Ability ability, GameObject attacker)
     {
-        myStats = GetComponent<CharacterStats>();
-        characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
-        faceDirectionUI = GetComponent<FaceDirectionUI>();
-    }
-
-    public async Task<bool> Buff(GameObject _target, Ability _ability, GameObject _attacker)
-    {
-        if (_target == null)
+        if (target == null)
             return false;
 
         // triggered only once if AOE
-        if (!myStats.isAttacker)
+        if (!_myStats.IsAttacker)
         {
             // buffing self, should be able to choose what direction to face
-            if (_target == gameObject && _attacker.CompareTag("Player"))
-            {
+            if (target == gameObject && attacker.CompareTag("Player"))
                 if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction
                     return false;
-            }
 
-            await characterRendererManager.SpellcastAnimation();
+            await _characterRendererManager.SpellcastAnimation();
 
-            myStats.UseMana(_ability.ManaCost);
+            _myStats.UseMana(ability.ManaCost);
         }
 
-        _target.GetComponent<IBuffable<Ability>>().GetBuffed(_ability);
+        target.GetComponent<IBuffable<Ability>>().GetBuffed(ability);
 
         return true;
     }
-
-    //TODO: repetition between heal and buff triggerables
-    async Task<bool> PlayerFaceDirSelection()
-    {
-        Vector2 dir = Vector2.zero;
-        if (faceDirectionUI != null)
-            dir = await faceDirectionUI.PickDirection();
-
-        // TODO: is that correct, facedir returns vector2.zero when it's broken out of
-        if (dir == Vector2.zero)
-            return false;
-
-        characterRendererManager.Face(dir.normalized);
-
-        return true;
-    }
-
 }

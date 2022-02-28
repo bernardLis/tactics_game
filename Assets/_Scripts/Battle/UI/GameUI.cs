@@ -6,14 +6,13 @@ using UnityEngine.UIElements;
 public class GameUI : MonoBehaviour
 {
     // UI
-    UIDocument UIDocument;
+    UIDocument _UIDocument;
+    VisualElement _logContainer;
+    Label _logText;
 
-    VisualElement logContainer;
-    Label logText;
-
-    Queue<string> logQueue;
-    string currentLog;
-    bool showLogIsRunning;
+    Queue<string> _logQueue;
+    string _currentLog;
+    bool isShowLogRunning;
 
     public static GameUI instance;
     void Awake()
@@ -30,14 +29,14 @@ public class GameUI : MonoBehaviour
         #endregion
 
         // getting ui elements
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
+        _UIDocument = GetComponent<UIDocument>();
+        var root = _UIDocument.rootVisualElement;
 
         // log
-        logContainer = root.Q<VisualElement>("logContainer");
-        logText = root.Q<Label>("logText");
+        _logContainer = root.Q<VisualElement>("logContainer");
+        _logText = root.Q<Label>("logText");
 
-        logQueue = new Queue<string>();
+        _logQueue = new Queue<string>();
     }
 
     public void HideAllUIPanels()
@@ -47,40 +46,40 @@ public class GameUI : MonoBehaviour
         InfoCardUI.instance.HideInteractionSummary();
         InfoCardUI.instance.HideTileInfo();
 
-        UIDocument.rootVisualElement.Q<VisualElement>("inventoryContainer").style.display = DisplayStyle.None;
-        UIDocument.rootVisualElement.Q<VisualElement>("questUI").style.display = DisplayStyle.None;
-        UIDocument.rootVisualElement.Q<VisualElement>("conversationContainer").style.display = DisplayStyle.None;
-        UIDocument.rootVisualElement.Q<VisualElement>("tooltipUI").style.display = DisplayStyle.None;
-        logContainer.style.display = DisplayStyle.None;
+        _UIDocument.rootVisualElement.Q<VisualElement>("inventoryContainer").style.display = DisplayStyle.None;
+        _UIDocument.rootVisualElement.Q<VisualElement>("questUI").style.display = DisplayStyle.None;
+        _UIDocument.rootVisualElement.Q<VisualElement>("conversationContainer").style.display = DisplayStyle.None;
+        _UIDocument.rootVisualElement.Q<VisualElement>("tooltipUI").style.display = DisplayStyle.None;
+        _logContainer.style.display = DisplayStyle.None;
     }
 
     public void DisplayLogText(string newText)
     {
         // add log text to the queue
-        logQueue.Enqueue(newText);
+        _logQueue.Enqueue(newText);
 
         // make sure only one ui panel is active
-        if (!showLogIsRunning)
+        if (!isShowLogRunning)
             StartCoroutine(ShowLogText());
     }
 
     IEnumerator ShowLogText()
     {
-        showLogIsRunning = true;
+        isShowLogRunning = true;
 
         // only one can be visible.
         HideAllUIPanels();
-        logContainer.style.display = DisplayStyle.Flex;
+        _logContainer.style.display = DisplayStyle.Flex;
 
-        while (logQueue.Count > 0)
+        while (_logQueue.Count > 0)
         {
-            currentLog = logQueue.Dequeue();
-            logText.text = currentLog;
+            _currentLog = _logQueue.Dequeue();
+            _logText.text = _currentLog;
             yield return new WaitForSeconds(2f);
         }
 
-        showLogIsRunning = false;
-        logContainer.style.display = DisplayStyle.None;
+        isShowLogRunning = false;
+        _logContainer.style.display = DisplayStyle.None;
         yield break;
     }
 }

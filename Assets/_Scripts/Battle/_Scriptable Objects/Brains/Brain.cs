@@ -44,11 +44,11 @@ public class Brain : BaseScriptableObject
         _highlighter = BattleManager.instance.GetComponent<Highlighter>();
         _cameraManager = CameraManager.instance;
 
-        _tilemap = BattleManager.instance.GetComponent<TileManager>().tilemap;
+        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
 
         _characterGameObject = self;
         _enemyStats = _characterGameObject.GetComponent<EnemyStats>();
-        _characterGameObject.GetComponent<EnemyAI>().brain = this;
+        _characterGameObject.GetComponent<EnemyAI>().SetBrain(this);
 
         _seeker = _characterGameObject.GetComponent<Seeker>();
         _aiLerp = _characterGameObject.GetComponent<AILerp>();
@@ -69,9 +69,9 @@ public class Brain : BaseScriptableObject
     public virtual void Select()
     {
         Target = null;
-        _cameraManager.followTarget = _characterGameObject.transform;
+        _cameraManager.SetTarget(_characterGameObject.transform);
         _highlighter.HiglightEnemyMovementRange(_characterGameObject.transform.position,
-                                               _enemyStats.movementRange.GetValue(), Helpers.GetColor("movementBlue"));
+                                               _enemyStats.MovementRange.GetValue(), Helpers.GetColor("movementBlue"));
     }
 
     public virtual void Move()
@@ -118,7 +118,7 @@ public class Brain : BaseScriptableObject
         Vector3 destinationPos = GetDestinationCloserTo(potentialTargets.FirstOrDefault());
         // get a random tile if there are no good tiles on path
         if (destinationPos == Vector3.zero)
-            destinationPos = _highlighter.highlightedTiles[Random.Range(0, _highlighter.highlightedTiles.Count)].GetMiddleOfTile();
+            destinationPos = _highlighter.HighlightedTiles[Random.Range(0, _highlighter.HighlightedTiles.Count)].GetMiddleOfTile();
 
         return destinationPos;
     }
@@ -138,7 +138,7 @@ public class Brain : BaseScriptableObject
         for (int i = p.vectorPath.Count - 1; i >= 0; i--)
         {
             tilePos = _tilemap.WorldToCell(p.vectorPath[i]);
-            if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
+            if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
                 continue;
 
             // check if it is within reach and is not the tile I am currently standing on

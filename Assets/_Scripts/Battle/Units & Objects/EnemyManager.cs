@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject[] enemies;
-    EnemyAI enemyAI;
+    GameObject[] _enemies;
+    EnemyAI _enemyAI;
 
     public static EnemyManager instance;
     void Awake()
@@ -37,21 +37,21 @@ public class EnemyManager : MonoBehaviour
         AstarPath.active.Scan();
 
         yield return new WaitForSeconds(0.5f);
-        if (TurnManager.battleState != BattleState.EnemyTurn)
+        if (TurnManager.BattleState != BattleState.EnemyTurn)
             yield break;
 
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        _enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         // for every enemy character
-        foreach (var enemy in enemies)
+        foreach (var enemy in _enemies)
         {
             if (enemy == null)
                 continue;
 
             InfoCardUI.instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
-            enemyAI = enemy.GetComponent<EnemyAI>();
+            _enemyAI = enemy.GetComponent<EnemyAI>();
             // this waits until the previous corutine is done
-            yield return StartCoroutine(enemyAI.RunAI());
+            yield return StartCoroutine(_enemyAI.RunAI());
 
             yield return new WaitForSeconds(1f);
         }

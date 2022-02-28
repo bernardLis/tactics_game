@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class MapReset : MonoBehaviour
 {
-    bool reset;
-    void OnTriggerEnter2D(Collider2D _other)
+    bool _isResetting;
+    
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (!reset && _other.CompareTag("PlayerCollider"))
+        if (!_isResetting && other.CompareTag("PlayerCollider"))
             Reset();
     }
     void Reset()
     {
+        // TODO: need to remove player chars
         BattleManager.instance.GetComponent<BoardManager>().GenerateMap();
     }
 }

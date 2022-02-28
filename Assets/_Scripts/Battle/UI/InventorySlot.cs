@@ -1,41 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
 public class InventorySlot : VisualElement
 {
-    public Image icon;
-    public Item item;
-    public int amount;
+    public Image Icon;
+    public Item Item;
+    public int Amount;
 
     public InventorySlot()
     {
         AddToClassList("slotContainer");
 
         // create a new image element and add it to the root
-        icon = new Image();
-        Add(icon);
+        Icon = new Image();
+        Add(Icon);
 
         // add uss style properties to the elements
-        icon.AddToClassList("slotIcon");
+        Icon.AddToClassList("slotIcon");
 
         RegisterCallback<PointerDownEvent>(OnPointerDown);
     }
 
     public void HoldItem(Item _item)
     {
-        item = _item;
-        icon.sprite = _item.Icon;
+        Item = _item;
+        Icon.sprite = _item.Icon;
     }
 
     public void DropItem()
     {
-        if (item != null)
-            item = null;
-        if (icon != null && icon.sprite != null)
-            icon.sprite = null;
+        if (Item != null)
+            Item = null;
+        if (Icon != null && Icon.sprite != null)
+            Icon.sprite = null;
     }
 
     void OnPointerDown(PointerDownEvent evt)
@@ -55,29 +53,14 @@ public class InventorySlot : VisualElement
         //this.style.backgroundColor = Color.gray;
         this.style.backgroundColor = new Color(255 / 255f, 133 / 255f, 125 / 255f, 1); //new Color(0.9f, 0.9f, 0.9f, 1);
 
-        this.style.backgroundImage = new StyleBackground(InventoryUI.instance.selectedSlotBackground);
-        InventoryUI.instance.DisplayItemInfo(item);
-        InventoryUI.instance.selectedSlot = this;
+        this.style.backgroundImage = new StyleBackground(InventoryUI.instance.SelectedSlotBackground);
+        InventoryUI.instance.DisplayItemInfo(Item);
+        InventoryUI.instance.SelectedSlot = this;
     }
 
     public void Unselect()
     {
-        this.style.backgroundImage = new StyleBackground(InventoryUI.instance.slotBackground);
+        this.style.backgroundImage = new StyleBackground(InventoryUI.instance.SlotBackground);
         this.style.backgroundColor = new Color(0.764f, 0.764f, 0.764f, 1);
     }
-
-
-    /* TODO: dragging items in inventory is not a necessary feature for now
-	void OnPointerDown(PointerDownEvent evt)
-	{
-		// TODO: correct? 
-		if (evt.button != 0 || item == null)
-		{
-			return;
-		}
-		// clear the image
-		icon.sprite = null;
-		InventoryUI.instance.StartDrag(evt.position, this);
-	}
-	*/
 }

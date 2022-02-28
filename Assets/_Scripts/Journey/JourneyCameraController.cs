@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 public class JourneyCameraController : MonoBehaviour
 {
-    PlayerInput playerInput;
+    PlayerInput _playerInput;
     void Start()
     {
-        playerInput = JourneyMapManager.instance.GetComponent<PlayerInput>();
+        _playerInput = JourneyMapManager.instance.GetComponent<PlayerInput>();
         UnsubscribeInputActions();
         SubscribeInputActions();
     }
@@ -16,12 +16,12 @@ public class JourneyCameraController : MonoBehaviour
     /* INPUT */
     void SubscribeInputActions()
     {
-        playerInput.actions["ArrowMovement"].performed += Move;
+        _playerInput.actions["ArrowMovement"].performed += Move;
     }
 
     public void UnsubscribeInputActions()
     {
-        playerInput.actions["ArrowMovement"].performed -= Move;
+        _playerInput.actions["ArrowMovement"].performed -= Move;
     }
 
     // TODO: this should be better

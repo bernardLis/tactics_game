@@ -4,25 +4,25 @@ using UnityEngine;
 public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextDisplayable
 {
     // global
-    BattleManager battleManager;
+    BattleManager _battleManager;
 
     // push
-    public int damage = 50;
-    public bool isPushed;
-    Vector3 finalPos;
-    CharacterStats targetStats;
+    public int Damage = 50;
+    bool _isPushed;
+    Vector3 _finalPos;
+    CharacterStats _targetStats;
 
     // display text
-    public string displayText = "Foothold trap. Damage to enemies: 50.";
+    string displayText = "Foothold trap. Damage to enemies: 50.";
 
     void Start()
     {
-        battleManager = BattleManager.instance;
+        _battleManager = BattleManager.instance;
     }
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-        if (isPushed)
+        if (_isPushed)
             return;
 
         if (!col.transform.CompareTag("EnemyCollider"))
@@ -47,12 +47,12 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
         */
     }
 
-    public void GetPushed(Vector3 _dir, Ability _ability)
+    public void GetPushed(Vector3 dir, Ability ability)
     {
-        finalPos = transform.position + _dir;
+        _finalPos = transform.position + dir;
 
-        StartCoroutine(MoveToPosition(finalPos, 0.5f));
-        isPushed = true;
+        StartCoroutine(MoveToPosition(_finalPos, 0.5f));
+        _isPushed = true;
 
         // TODO: this is quite bad;
         Invoke("CollisionCheck", 0.35f);
@@ -73,7 +73,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
             yield return null;
         }
 
-        battleManager.SnapToGrid(transform);
+        _battleManager.SnapToGrid(transform);
         UpdateAstar();
     }
 
@@ -90,7 +90,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
         BoxCollider2D boxCol = transform.GetComponentInChildren<BoxCollider2D>();
         boxCol.enabled = false;
 
-        Collider2D col = Physics2D.OverlapCircle(finalPos, 0.2f);
+        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
         if (col == null)
         {
             boxCol.enabled = true;
@@ -102,9 +102,9 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
         // enemy triggers trap from trap script
         if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
         {
-            targetStats = col.transform.parent.GetComponent<CharacterStats>();
+            _targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
-            targetStats.TakeDamageNoDodgeNoRetaliation(damage);
+            _targetStats.TakeDamageNoDodgeNoRetaliation(Damage);
             // movement range is down by 1 for each trap enemy walks on
             //targetStats.movementRange.AddModifier(-1);
 
@@ -119,7 +119,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
         // currently you can't target it on the river bank
     }
 
-    void ResetPushed() { isPushed = false; }
+    void ResetPushed() { _isPushed = false; }
 
     public string DisplayText() { return displayText; }
 

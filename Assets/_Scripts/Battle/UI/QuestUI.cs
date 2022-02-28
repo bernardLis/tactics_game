@@ -7,54 +7,54 @@ using System.Linq;
 
 public class QuestUI : MonoBehaviour
 {
-    List<QuestSlot> questSlots = new();
+    // TODO: refactor this more 
+    List<QuestSlot> _questSlots = new();
 
-    UIDocument UIDocument;
-    VisualElement questUI;
-    VisualElement activeQuestsContainer;
-    VisualElement completedQuestsContainer;
-    VisualElement failedQuestsContainer;
-    VisualElement questInformation;
-    VisualElement questGoalContainer;
+    UIDocument _UIDocument;
+    VisualElement _questUI;
+    VisualElement _activeQuestsContainer;
+    VisualElement _completedQuestsContainer;
+    VisualElement _failedQuestsContainer;
+    VisualElement _questInformation;
+    VisualElement _questGoalContainer;
 
-    GameObject player;
-    PlayerInput playerInput;
+    PlayerInput _playerInput;
 
-    QuestManager questManager;
+    QuestManager _questManager;
 
-    public Texture2D checkmark;
-    public QuestSlot selectedQuestSlot;
+    [SerializeField] Texture2D _checkmark;
+    public QuestSlot SelectedQuestSlot;
 
     void Awake()
     {
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
+        _UIDocument = GetComponent<UIDocument>();
+        var root = _UIDocument.rootVisualElement;
 
-        questUI = root.Q<VisualElement>("questUI");
-        activeQuestsContainer = root.Q<VisualElement>("activeQuestsContainer");
-        completedQuestsContainer = root.Q<VisualElement>("completedQuestsContainer");
-        failedQuestsContainer = root.Q<VisualElement>("failedQuestsContainer");
-        questInformation = root.Q<VisualElement>("questInformation");
+        _questUI = root.Q<VisualElement>("questUI");
+        _activeQuestsContainer = root.Q<VisualElement>("activeQuestsContainer");
+        _completedQuestsContainer = root.Q<VisualElement>("completedQuestsContainer");
+        _failedQuestsContainer = root.Q<VisualElement>("failedQuestsContainer");
+        _questInformation = root.Q<VisualElement>("questInformation");
 
-        playerInput = MovePointController.instance.GetComponent<PlayerInput>();
+        _playerInput = MovePointController.instance.GetComponent<PlayerInput>();
 
-        questManager = BattleManager.instance.GetComponent<QuestManager>();
+        _questManager = BattleManager.instance.GetComponent<QuestManager>();
     }
 
     void OnEnable()
     {
-        playerInput.actions["DisableQuestUI"].performed += ctx => DisableQuestUI();
-        playerInput.actions["QuestMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
+        _playerInput.actions["DisableQuestUI"].performed += ctx => DisableQuestUI();
+        _playerInput.actions["QuestMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
 
         ClearQuestInformation();
     }
 
     void OnDisable()
     {
-        if (playerInput != null)
+        if (_playerInput != null)
         {
-            playerInput.actions["DisableQuestUI"].performed -= ctx => DisableQuestUI();
-            playerInput.actions["QuestMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
+            _playerInput.actions["DisableQuestUI"].performed -= ctx => DisableQuestUI();
+            _playerInput.actions["QuestMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
         }
     }
 
@@ -65,9 +65,9 @@ public class QuestUI : MonoBehaviour
         // https://stackoverflow.com/questions/24799820/get-previous-next-item-of-a-given-item-in-a-list
         // if it is right - select next slot
         if (direction.Equals(Vector2.down))
-            slot = questSlots.SkipWhile(x => x != selectedQuestSlot).Skip(1).DefaultIfEmpty(questSlots[0]).FirstOrDefault();
+            slot = _questSlots.SkipWhile(x => x != SelectedQuestSlot).Skip(1).DefaultIfEmpty(_questSlots[0]).FirstOrDefault();
         if (direction.Equals(Vector2.up))
-            slot = questSlots.TakeWhile(x => x != selectedQuestSlot).DefaultIfEmpty(questSlots[questSlots.Count - 1]).LastOrDefault();
+            slot = _questSlots.TakeWhile(x => x != SelectedQuestSlot).DefaultIfEmpty(_questSlots[_questSlots.Count - 1]).LastOrDefault();
 
         // not interaction for left and right;
         if (slot == null)
@@ -81,24 +81,24 @@ public class QuestUI : MonoBehaviour
     public void EnableQuestUI()
     {
         // switch action map
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("QuestUI");
+        _playerInput.SwitchCurrentActionMap("QuestUI");
         BattleManager.instance.PauseGame();
 
         PopulateQuestUI();
 
         // refresh quest info if player had it open previously
-        if (selectedQuestSlot != null)
+        if (SelectedQuestSlot != null)
             RefreshQuestInformation();
 
         // only one can be visible/
         GameUI.instance.HideAllUIPanels();
 
-        questUI.style.display = DisplayStyle.Flex;
+        _questUI.style.display = DisplayStyle.Flex;
     }
 
     public void DisableQuestUI()
     {
-        questUI.style.display = DisplayStyle.None;
+        _questUI.style.display = DisplayStyle.None;
 
         // BattleManager.instance.EnableFMPlayerControls(); << TODO: decide when is quest ui / inventory ui accessible
         BattleManager.instance.ResumeGame();
@@ -106,75 +106,75 @@ public class QuestUI : MonoBehaviour
 
     void PopulateQuestUI()
     {
-        questSlots.Clear();
+        _questSlots.Clear();
 
-        activeQuestsContainer.Clear();
-        completedQuestsContainer.Clear();
-        failedQuestsContainer.Clear();
+        _activeQuestsContainer.Clear();
+        _completedQuestsContainer.Clear();
+        _failedQuestsContainer.Clear();
 
-        List<Quest> activeQuests = questManager.ReturnActiveQuests();
-        List<Quest> completedQuests = questManager.ReturnCompletedQuests();
-        List<Quest> failedQuests = questManager.ReturnFailedQuests();
+        List<Quest> activeQuests = _questManager.ReturnActiveQuests();
+        List<Quest> completedQuests = _questManager.ReturnCompletedQuests();
+        List<Quest> failedQuests = _questManager.ReturnFailedQuests();
 
         if (activeQuests.Count != 0)
         {
-            UIDocument.rootVisualElement.Q<VisualElement>("activeQuests").style.display = DisplayStyle.Flex;
+            _UIDocument.rootVisualElement.Q<VisualElement>("activeQuests").style.display = DisplayStyle.Flex;
 
             foreach (Quest quest in activeQuests)
             {
                 QuestSlot slot = new QuestSlot();
                 slot.HoldQuest(quest);
-                activeQuestsContainer.Add(slot);
+                _activeQuestsContainer.Add(slot);
 
-                questSlots.Add(slot);
+                _questSlots.Add(slot);
             }
         }
         else
-            UIDocument.rootVisualElement.Q<VisualElement>("activeQuests").style.display = DisplayStyle.None;
+            _UIDocument.rootVisualElement.Q<VisualElement>("activeQuests").style.display = DisplayStyle.None;
 
         if (completedQuests.Count != 0)
         {
-            UIDocument.rootVisualElement.Q<VisualElement>("completedQuests").style.display = DisplayStyle.Flex;
+            _UIDocument.rootVisualElement.Q<VisualElement>("completedQuests").style.display = DisplayStyle.Flex;
 
             foreach (Quest quest in completedQuests)
             {
                 QuestSlot slot = new QuestSlot();
                 slot.HoldQuest(quest);
-                completedQuestsContainer.Add(slot);
+                _completedQuestsContainer.Add(slot);
 
-                questSlots.Add(slot);
+                _questSlots.Add(slot);
             }
         }
         else
-            UIDocument.rootVisualElement.Q<VisualElement>("completedQuests").style.display = DisplayStyle.None;
+            _UIDocument.rootVisualElement.Q<VisualElement>("completedQuests").style.display = DisplayStyle.None;
 
 
         if (failedQuests.Count != 0)
         {
-            UIDocument.rootVisualElement.Q<VisualElement>("failedQuests").style.display = DisplayStyle.Flex;
+            _UIDocument.rootVisualElement.Q<VisualElement>("failedQuests").style.display = DisplayStyle.Flex;
 
             foreach (Quest quest in failedQuests)
             {
                 QuestSlot slot = new QuestSlot();
                 slot.HoldQuest(quest);
-                failedQuestsContainer.Add(slot);
+                _failedQuestsContainer.Add(slot);
 
-                questSlots.Add(slot);
+                _questSlots.Add(slot);
             }
 
         }
         else
-            UIDocument.rootVisualElement.Q<VisualElement>("failedQuests").style.display = DisplayStyle.None;
+            _UIDocument.rootVisualElement.Q<VisualElement>("failedQuests").style.display = DisplayStyle.None;
 
         // the list has changed I need to update selected quest slot
-        if (selectedQuestSlot != null)
+        if (SelectedQuestSlot != null)
         {
-            foreach (QuestSlot slot in questSlots)
+            foreach (QuestSlot slot in _questSlots)
             {
-                if (slot.quest == selectedQuestSlot.quest)
+                if (slot.Quest == SelectedQuestSlot.Quest)
                 {
                     Debug.Log("selected questtt found");
-                    selectedQuestSlot = slot;
+                    SelectedQuestSlot = slot;
                 }
             }
         }
@@ -185,7 +185,7 @@ public class QuestUI : MonoBehaviour
             ClearQuestInformation();
             Label noQuests = new Label("Such empty, get some quests!");
             noQuests.AddToClassList("questTitleLabel");
-            questInformation.Add(noQuests);
+            _questInformation.Add(noQuests);
         }
         else
             RefreshQuestInformation();
@@ -200,8 +200,8 @@ public class QuestUI : MonoBehaviour
 
     public void UnselectCurrent()
     {
-        if (selectedQuestSlot != null)
-            selectedQuestSlot.Unselect();
+        if (SelectedQuestSlot != null)
+            SelectedQuestSlot.Unselect();
     }
 
     void DisplayQuestInformation(Quest quest)
@@ -211,15 +211,15 @@ public class QuestUI : MonoBehaviour
         // TODO: could be even nicer;
         Label questName = new Label(quest.Title);
         questName.AddToClassList("questInformationName");
-        questInformation.Add(questName);
+        _questInformation.Add(questName);
 
         Label questDescription = new Label(quest.Description);
         questDescription.AddToClassList("questInformationDescription");
-        questInformation.Add(questDescription);
+        _questInformation.Add(questDescription);
 
         VisualElement questRewardContainer = new VisualElement();
         questRewardContainer.AddToClassList("questCurrentRequiredContainer");
-        questInformation.Add(questRewardContainer);
+        _questInformation.Add(questRewardContainer);
 
         // quest reward icon
         if (quest.Reward != null)
@@ -237,7 +237,7 @@ public class QuestUI : MonoBehaviour
         {
             VisualElement questGoalContainer = new VisualElement();
             questGoalContainer.AddToClassList("questGoalContainer");
-            questInformation.Add(questGoalContainer);
+            _questInformation.Add(questGoalContainer);
 
             Label title = new Label("Goal: " + questGoal.Title);
             title.AddToClassList("questGoalTitle");
@@ -245,7 +245,7 @@ public class QuestUI : MonoBehaviour
 
             if (questGoal.QuestGoalState == QuestGoalState.COMPLETED)
             {
-                questGoalContainer.style.backgroundImage = checkmark;
+                questGoalContainer.style.backgroundImage = _checkmark;
                 questGoalContainer.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
             }
 
@@ -291,16 +291,16 @@ public class QuestUI : MonoBehaviour
     void RefreshQuestInformation()
     {
         ClearQuestInformation();
-        if (selectedQuestSlot != null)
+        if (SelectedQuestSlot != null)
         {
             // DisplayQuestInformation(selectedQuestSlot.quest);
-            selectedQuestSlot.Select();
+            SelectedQuestSlot.Select();
         }
     }
 
     void ClearQuestInformation()
     {
-        questInformation.Clear();
+        _questInformation.Clear();
     }
 
     void Test()

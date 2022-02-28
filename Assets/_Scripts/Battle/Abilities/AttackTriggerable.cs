@@ -1,26 +1,15 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class AttackTriggerable : MonoBehaviour
+public class AttackTriggerable : BaseTriggerable
 {
-    public Transform ProjectileSpawnPoint; // TODO: is that ok way to handle this?
-
-    CharacterStats _characterStats;
-    CharacterRendererManager _characterRendererManager;
-
-    void Awake()
-    {
-        _characterStats = GetComponent<CharacterStats>();
-        _characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
-    }
-
     public async Task<bool> Attack(GameObject target, Ability ability, bool isRetaliation)
     {
         if (target == null)
             return false;
 
         // triggered only once if AOE
-        if (!_characterStats.isAttacker)
+        if (!_myStats.IsAttacker)
         {
             await _characterRendererManager.AttackAnimation();
 
@@ -34,14 +23,14 @@ public class AttackTriggerable : MonoBehaviour
                 await Task.Delay(300);
             }
 
-            _characterStats.UseMana(ability.ManaCost);
+            _myStats.UseMana(ability.ManaCost);
         }
 
         if (!isRetaliation)
-            _characterStats.SetAttacker(true);
+            _myStats.SetAttacker(true);
 
         // damage target
-        int damage = ability.BasePower + _characterStats.strength.GetValue();
+        int damage = ability.BasePower + _myStats.Strength.GetValue();
         await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
 
         return true;

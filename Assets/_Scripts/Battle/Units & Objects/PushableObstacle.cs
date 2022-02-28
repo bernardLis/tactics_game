@@ -5,27 +5,27 @@ using UnityEngine;
 public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDisplayable
 {
     // global
-    BattleManager battleManager;
+    BattleManager _battleManager;
 
     // push
-    Vector3 finalPos;
-    CharacterStats targetStats;
-    int damage = 50;
+    Vector3 _finalPos;
+    CharacterStats _targetStats;
+    int _damage = 50;
 
     // display info
-    public string displayText = "Boulder, you can move if you know the technique.";
+    string _displayText = "Boulder, you can move if you know the technique.";
 
     // Start is called before the first frame update
     void Start()
     {
-        battleManager = BattleManager.instance;
+        _battleManager = BattleManager.instance;
     }
 
-    public void GetPushed(Vector3 _dir, Ability _ability)
+    public void GetPushed(Vector3 dir, Ability ability)
     {
-        finalPos = transform.position + _dir;
+        _finalPos = transform.position + dir;
 
-        StartCoroutine(MoveToPosition(finalPos, 0.5f));
+        StartCoroutine(MoveToPosition(_finalPos, 0.5f));
 
         // TODO: this is quite bad;
         Invoke("CollisionCheck", 0.35f);
@@ -44,7 +44,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDi
             yield return null;
         }
 
-        battleManager.SnapToGrid(transform);
+        _battleManager.SnapToGrid(transform);
         UpdateAstar();
     }
 
@@ -61,7 +61,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDi
         BoxCollider2D boxCol = transform.GetComponentInChildren<BoxCollider2D>();
         boxCol.enabled = false;
 
-        Collider2D col = Physics2D.OverlapCircle(finalPos, 0.2f);
+        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
         if (col == null)
         {
             boxCol.enabled = true;
@@ -72,9 +72,9 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDi
         // character colliders are children
         if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
         {
-            targetStats = col.transform.parent.GetComponent<CharacterStats>();
+            _targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
-            targetStats.TakeDamageNoDodgeNoRetaliation(damage);
+            _targetStats.TakeDamageNoDodgeNoRetaliation(_damage);
 
             Destroy(gameObject);
         }
@@ -90,5 +90,5 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDi
             boxCol.enabled = true;
     }
 
-    public string DisplayText() { return displayText; }
+    public string DisplayText() { return _displayText; }
 }

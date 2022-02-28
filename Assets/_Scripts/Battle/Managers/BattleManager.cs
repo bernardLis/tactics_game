@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] JourneyNodeReward rewardScriptableObject;
-    JourneyNodeReward reward;
+    [SerializeField] JourneyNodeReward _rewardScriptableObject;
+    JourneyNodeReward _reward;
 
     public static BattleManager instance;
     void Awake()
@@ -16,17 +16,17 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
         #endregion
 
-        reward = Instantiate(rewardScriptableObject);
+        _reward = Instantiate(_rewardScriptableObject);
     }
 
-    public void AddRewardObols(int _n)
+    public void AddRewardObols(int n)
     {
-        reward.obols += _n;
+        _reward.obols += n;
     }
 
     public JourneyNodeReward GetReward()
     {
-        return reward;
+        return _reward;
     }
 
     public void PauseGame()
@@ -39,17 +39,15 @@ public class BattleManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void SnapToGrid(Transform _t)
+    public void SnapToGrid(Transform t)
     {
-        float x = _t.position.x;
-        float y = _t.position.y;
+        float x = t.position.x;
+        float y = t.position.y;
         //https://answers.unity.com/questions/714197/round-to-05-15-25-.html
         float outputX = Mathf.Sign(x) * (Mathf.Abs((int)x) + 0.5f);
         float outputY = Mathf.Sign(y) * (Mathf.Abs((int)y) + 0.5f);
 
-        if (outputX != _t.position.x || outputY != _t.position.y)
-        {
-            _t.position = new Vector3(outputX, outputY, _t.position.z);
-        }
+        if (outputX != t.position.x || outputY != t.position.y)
+            t.position = new Vector3(outputX, outputY, t.position.z);
     }
 }

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c8337becc342744eb9a55796b8487df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkmark: {fileID: 0}
+  _checkmark: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &6150204838195089752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,5 +114,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52a6e90809c0114489329ed0b074734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotBackground: {fileID: 0}
-  selectedSlotBackground: {fileID: 0}
+  SlotBackground: {fileID: 21300000, guid: b488159f2e2a2eb4bb253ecd08460b40, type: 3}
+  SelectedSlotBackground: {fileID: 21300000, guid: f6152afeec336ad46aa07ae203f94e13, type: 3}

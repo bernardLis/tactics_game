@@ -1,48 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System.Threading.Tasks;
 using UnityEngine.UIElements;
 
 public class JourneyEventManager : MonoBehaviour
 {
-    JourneyManager journeyManager;
-    LevelLoader levelLoader;
+    JourneyManager _journeyManager;
 
-    UIDocument UIDocument;
-    Label eventDescription;
-    VisualElement eventWrapper;
-    VisualElement optionsWrapper;
+    Label _eventDescription;
+    VisualElement _eventWrapper;
+    VisualElement _optionsWrapper;
 
-    VisualElement responseWrapper;
-    Label responseLabel;
-    VisualElement rewardWrapper;
-    Label obolAmountLabel;
-    Button backToJourneyButton;
+    VisualElement _responseWrapper;
+    Label _responseLabel;
+    VisualElement _rewardWrapper;
+    Label _obolAmountLabel;
+    Button _backToJourneyButton;
 
-    JourneyEvent journeyEvent;
+    JourneyEvent _journeyEvent;
 
-    List<Button> optionButtons = new();
+    List<Button> _optionButtons = new();
 
     void Awake()
     {
-        journeyManager = JourneyManager.instance;
-        levelLoader = journeyManager.GetComponent<LevelLoader>();
+        _journeyManager = JourneyManager.instance;
 
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
-        eventWrapper = root.Q<VisualElement>("eventWrapper");
-        eventDescription = root.Q<Label>("eventDescription");
-        optionsWrapper = root.Q<VisualElement>("optionsWrapper");
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        _eventWrapper = root.Q<VisualElement>("eventWrapper");
+        _eventDescription = root.Q<Label>("eventDescription");
+        _optionsWrapper = root.Q<VisualElement>("optionsWrapper");
 
-        responseWrapper = root.Q<VisualElement>("responseWrapper");
-        responseLabel = root.Q<Label>("response");
-        rewardWrapper = root.Q<VisualElement>("rewardWrapper");
-        obolAmountLabel = root.Q<Label>("obolAmount");
-        backToJourneyButton = root.Q<Button>("backToJourney");
+        _responseWrapper = root.Q<VisualElement>("responseWrapper");
+        _responseLabel = root.Q<Label>("response");
+        _rewardWrapper = root.Q<VisualElement>("rewardWrapper");
+        _obolAmountLabel = root.Q<Label>("obolAmount");
+        _backToJourneyButton = root.Q<Button>("backToJourney");
 
-        backToJourneyButton.clickable.clicked += BackToJourney;
+        _backToJourneyButton.clickable.clicked += BackToJourney;
 
         SetupEvent();
         CreateOptions();
@@ -50,51 +44,51 @@ public class JourneyEventManager : MonoBehaviour
 
     void SetupEvent()
     {
-        journeyEvent = journeyManager.ChooseEvent();
+        _journeyEvent = _journeyManager.ChooseEvent();
 
-        eventWrapper.style.backgroundImage = journeyEvent.background.texture;
-        eventDescription.text = journeyEvent.description;
+        _eventWrapper.style.backgroundImage = _journeyEvent.Background.texture;
+        _eventDescription.text = _journeyEvent.Description;
     }
 
     void CreateOptions()
     {
-        optionsWrapper.Clear();
+        _optionsWrapper.Clear();
 
-        for (int i = 0; i < journeyEvent.options.Count; i++)
+        for (int i = 0; i < _journeyEvent.Options.Count; i++)
         {
             Button b = new Button();
-            optionsWrapper.Add(b);
+            _optionsWrapper.Add(b);
 
-            b.text = journeyEvent.options[i].text + "(" + journeyEvent.options[i].reward.obols + ")";
+            b.text = _journeyEvent.Options[i].Text + "(" + _journeyEvent.Options[i].Reward.obols + ")";
             b.userData = i;
             b.clickable.clickedWithEventInfo += OptionChosen;
             b.AddToClassList("optionButton");
-            optionButtons.Add(b);
+            _optionButtons.Add(b);
         }
     }
 
     void OptionChosen(EventBase _evt)
     {
-        foreach (Button b in optionButtons)
+        foreach (Button b in _optionButtons)
             b.SetEnabled(false);
 
         Button clickedButton = _evt.target as Button;
         clickedButton.style.backgroundColor = Color.black;
         int index = int.Parse(clickedButton.userData.ToString()); // TODO: dunno if a good idea 
-        journeyManager.SetNodeReward(journeyEvent.options[index].reward);
+        _journeyManager.SetNodeReward(_journeyEvent.Options[index].Reward);
 
-        responseLabel.text = journeyEvent.options[index].response;
-        obolAmountLabel.text = journeyEvent.options[index].reward.obols.ToString();
+        _responseLabel.text = _journeyEvent.Options[index].Response;
+        _obolAmountLabel.text = _journeyEvent.Options[index].Reward.obols.ToString();
 
-        responseWrapper.style.opacity = 0;
-        responseWrapper.style.display = DisplayStyle.Flex;
-        DOTween.To(() => responseWrapper.style.opacity.value, x => responseWrapper.style.opacity = x, 1f, 1f)
+        _responseWrapper.style.opacity = 0;
+        _responseWrapper.style.display = DisplayStyle.Flex;
+        DOTween.To(() => _responseWrapper.style.opacity.value, x => _responseWrapper.style.opacity = x, 1f, 1f)
             .SetEase(Ease.InSine);
     }
 
 
     void BackToJourney()
     {
-        levelLoader.LoadLevel("Journey");
+        _journeyManager.LoadLevel("Journey");
     }
 }

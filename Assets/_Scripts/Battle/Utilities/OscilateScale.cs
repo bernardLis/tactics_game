@@ -3,15 +3,15 @@ using DG.Tweening;
 
 public class OscilateScale : MonoBehaviour
 {
-    public float targetScaleMultiplier = 1.2f;
-    public float duration = 1f;
-    Vector3 startScale;
-    Vector3 endScale;
+    [SerializeField] float _targetScaleMultiplier = 1.2f;
+    [SerializeField] float _duration = 1f;
+    Vector3 _startScale;
+    Vector3 _endScale;
     void Start()
     {
-        startScale = transform.localScale;
-        endScale = new Vector3(startScale.x * targetScaleMultiplier, startScale.y * targetScaleMultiplier, startScale.z * targetScaleMultiplier);
-        transform.DOScale(endScale, duration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+        _startScale = transform.localScale;
+        _endScale = new Vector3(_startScale.x * _targetScaleMultiplier, _startScale.y * _targetScaleMultiplier, _startScale.z * _targetScaleMultiplier);
+        transform.DOScale(_endScale, _duration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void SetOscilation(bool isOscilating)
@@ -22,12 +22,12 @@ public class OscilateScale : MonoBehaviour
             if (DOTween.IsTweening(transform))
                 return;
 
-            transform.DOScale(endScale, duration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+            transform.DOScale(_endScale, _duration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
             return;
         }
 
         // reseting scale and killing the tween;
-        transform.localScale = startScale;
+        transform.localScale = _startScale;
         DOTween.Kill(transform);
     }
 

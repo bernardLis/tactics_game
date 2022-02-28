@@ -9,70 +9,65 @@ using Random = UnityEngine.Random;
 
 public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, Ability>, IBuffable<Ability>
 {
-    public Character character;
+    [HideInInspector] public Character Character { get; private set; }
 
     [Header("Base value for stats")]
-    public int baseMaxHealth = 100;
-    public int baseMaxMana = 50;
-    public int baseArmor = 0;
-    public int baseMovementRange = 5;
+    int _baseMaxHealth = 100;
+    int _baseMaxMana = 50;
+    int _baseArmor = 0;
 
     // Stats are accessed by other scripts need to be public.
-    [HideInInspector] public string characterName;
-
     // TODO: I could make them private and use only list to get info about stats
-    [HideInInspector] public Stat strength = new(StatType.Strength);
-    [HideInInspector] public Stat intelligence = new(StatType.Intelligence);
-    [HideInInspector] public Stat agility = new(StatType.Agility);
-    [HideInInspector] public Stat stamina = new(StatType.Stamina);
-
-    [HideInInspector] public Stat maxHealth = new(StatType.MaxHealth);
-    [HideInInspector] public Stat maxMana = new(StatType.MaxMana);
-
-    [HideInInspector] public Stat armor = new(StatType.Armor);
-    [HideInInspector] public Stat movementRange = new(StatType.MovementRange);
+    [HideInInspector] public Stat Strength = new(StatType.Strength);
+    [HideInInspector] public Stat Intelligence = new(StatType.Intelligence);
+    [HideInInspector] public Stat Agility = new(StatType.Agility);
+    [HideInInspector] public Stat Stamina = new(StatType.Stamina);
+    [HideInInspector] public Stat MaxHealth = new(StatType.MaxHealth);
+    [HideInInspector] public Stat MaxMana = new(StatType.MaxMana);
+    [HideInInspector] public Stat Armor = new(StatType.Armor);
+    [HideInInspector] public Stat MovementRange = new(StatType.MovementRange);
 
     // lists of abilities
     [Header("Filled on character init")]
-    public List<Stat> stats;
-    public List<Ability> basicAbilities;
-    public List<Ability> abilities;
+    [HideInInspector] public List<Stat> Stats;
+    [HideInInspector] public List<Ability> BasicAbilities;
+    [HideInInspector] public List<Ability> Abilities;
 
     // local
-    DamageUI damageUI;
-    CharacterRendererManager characterRendererManager;
-    AILerp aILerp;
+    DamageUI _damageUI;
+    CharacterRendererManager _characterRendererManager;
+    AILerp _AILerp;
 
     // global
-    Highlighter highlighter;
+    Highlighter _highlighter;
 
     // pushable variables
-    Vector3 startingPos;
-    Vector3 finalPos;
-    int characterDmg = 10;
-    GameObject tempObject;
+    Vector3 _startingPos;
+    Vector3 _finalPos;
+    int _characterDmg = 10;
+    GameObject _tempObject;
 
-    public int currentHealth { get; private set; }
-    public int currentMana { get; private set; }
+    public int CurrentHealth { get; private set; }
+    public int CurrentMana { get; private set; }
 
     // retaliation on interaction
-    public bool isAttacker { get; private set; }
+    public bool IsAttacker { get; private set; }
 
     // statuses
-    public List<Status> statuses = new();
-    public bool isStunned; //{ get; private set; }
+    [HideInInspector] public List<Status> Statuses = new();
+    public bool IsStunned { get; private set; }
 
     // delegate
     public event Action<GameObject> CharacterDeathEvent;
     protected virtual void Awake()
     {
         // local
-        damageUI = GetComponent<DamageUI>();
-        characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
-        aILerp = GetComponent<AILerp>();
+        _damageUI = GetComponent<DamageUI>();
+        _characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+        _AILerp = GetComponent<AILerp>();
 
         // global
-        highlighter = Highlighter.instance;
+        _highlighter = Highlighter.instance;
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
@@ -81,11 +76,11 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     protected virtual void TurnManager_OnBattleStateChanged(BattleState _state)
     {
-        foreach (Status s in statuses)
+        foreach (Status s in Statuses)
             if (s.ShouldTrigger())
                 s.TriggerStatus();
 
-        if (TurnManager.currentTurn <= 1)
+        if (TurnManager.CurrentTurn <= 1)
             return;
 
         GainMana(10);
@@ -94,18 +89,18 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     protected void ResolveModifiersTurnEnd()
     {
         // modifiers
-        foreach (Stat s in stats)
+        foreach (Stat s in Stats)
             s.TurnEndDecrement();
 
         // statuses
-        for (int i = statuses.Count - 1; i >= 0; i--)
+        for (int i = Statuses.Count - 1; i >= 0; i--)
         {
-            statuses[i].ResolveTurnEnd();
+            Statuses[i].ResolveTurnEnd();
 
-            if (statuses[i].ShouldBeRemoved())
+            if (Statuses[i].ShouldBeRemoved())
             {
-                statuses[i].ResetFlag();
-                statuses.Remove(statuses[i]);
+                Statuses[i].ResetFlag();
+                Statuses.Remove(Statuses[i]);
             }
         }
     }
@@ -117,115 +112,113 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     void AddStatsToList()
     {
-        stats.Add(strength);
-        stats.Add(intelligence);
-        stats.Add(agility);
-        stats.Add(stamina);
+        Stats.Add(Strength);
+        Stats.Add(Intelligence);
+        Stats.Add(Agility);
+        Stats.Add(Stamina);
 
-        stats.Add(maxHealth);
-        stats.Add(maxMana);
+        Stats.Add(MaxHealth);
+        Stats.Add(MaxMana);
 
-        stats.Add(armor);
-        stats.Add(movementRange);
+        Stats.Add(Armor);
+        Stats.Add(MovementRange);
     }
 
-    public void SetCharacteristics(Character _character)
+    public void SetCharacteristics(Character character)
     {
-        character = _character;
+        Character = character;
         SetCharacteristics();
     }
 
     void SetCharacteristics()
     {
         // taking values from scriptable object to c#
-        characterName = character.CharacterName;
+        Strength.BaseValue = Character.Strength;
+        Intelligence.BaseValue = Character.Intelligence;
+        Agility.BaseValue = Character.Agility;
+        Stamina.BaseValue = Character.Stamina;
 
-        strength.baseValue = character.Strength;
-        intelligence.baseValue = character.Intelligence;
-        agility.baseValue = character.Agility;
-        stamina.baseValue = character.Stamina;
+        MaxHealth.BaseValue = _baseMaxHealth + Character.Stamina * 5;
+        MaxMana.BaseValue = _baseMaxMana + Character.Intelligence * 5;
 
-        maxHealth.baseValue = baseMaxHealth + character.Stamina * 5;
-        maxMana.baseValue = baseMaxMana + character.Intelligence * 5;
-
-        armor.baseValue = baseArmor; // TODO: should be base value + all pieces of eq
-        int mRangeCalculation = 5 + Mathf.FloorToInt(character.Agility / 3);
-        movementRange.baseValue = Mathf.Clamp(mRangeCalculation, 0, 9); // after 9 it lags unity.
+        Armor.BaseValue = _baseArmor; // TODO: should be base value + all pieces of eq
+        int mRangeCalculation = 5 + Mathf.FloorToInt(Character.Agility / 3);
+        MovementRange.BaseValue = Mathf.Clamp(mRangeCalculation, 0, 9); // after 9 it lags unity.
 
         // TODO: startin mana is for heal testing purposes 
-        currentHealth = maxHealth.GetValue();
-        currentMana = 20;
+        CurrentHealth = MaxHealth.GetValue();
+        CurrentMana = 20;
 
         // set weapon for animations & deactivate the game object
         WeaponHolder wh = GetComponentInChildren<WeaponHolder>();
-        wh.SetWeapon(character.Weapon);
+        wh.SetWeapon(Character.Weapon);
         wh.gameObject.SetActive(false);
 
         // adding basic attack from weapon to basic abilities to be instantiated
-        if (character.Weapon != null)
+        if (Character.Weapon != null)
         {
-            var clone = Instantiate(character.Weapon.BasicAttack);
-            basicAbilities.Add(clone);
+            var clone = Instantiate(Character.Weapon.BasicAttack);
+            BasicAbilities.Add(clone);
             clone.Initialize(gameObject);
         }
 
-        foreach (Ability ability in character.BasicAbilities)
+        foreach (Ability ability in Character.BasicAbilities)
         {
             // I am cloning the ability coz if I don't there is only one scriptable object and it overrides variables
             // if 2 characters use the same ability
             var clone = Instantiate(ability);
-            basicAbilities.Add(clone);
+            BasicAbilities.Add(clone);
             clone.Initialize(gameObject);
         }
 
-        foreach (Ability ability in character.Abilities)
+        foreach (Ability ability in Character.Abilities)
         {
             if (ability == null)
                 continue;
 
             var clone = Instantiate(ability);
-            abilities.Add(clone);
+            Abilities.Add(clone);
             clone.Initialize(gameObject);
         }
     }
 
-    public async Task TakeDamage(int _damage, GameObject _attacker, Ability _ability)
+    public async Task TakeDamage(int damage, GameObject attacker, Ability ability)
     {
-        _damage -= armor.GetValue();
+        damage -= Armor.GetValue();
 
         // to not repeat the code
-        await TakePiercingDamage(_damage, _attacker, _ability);
+        await TakePiercingDamage(damage, attacker, ability);
     }
 
-    public async Task TakePiercingDamage(int _damage, GameObject _attacker, Ability _ability)
+    public async Task TakePiercingDamage(int damage, GameObject attacker, Ability ability)
     {
         // in the side 1, face to face 2, from the back 0, 
-        int attackDir = CalculateAttackDir(_attacker.transform.position);
-        float dodgeChance = CalculateDodgeChance(attackDir, _attacker);
+        int attackDir = CalculateAttackDir(attacker.transform.position);
+        float dodgeChance = CalculateDodgeChance(attackDir, attacker);
         float randomVal = Random.value;
-        if (randomVal < dodgeChance && !isStunned) // dodgeChance% of time <- TODO: is that correct?
-            Dodge(_attacker);
+        if (randomVal < dodgeChance && !IsStunned) // dodgeChance% of time <- TODO: is that correct?
+            Dodge(attacker);
         else
         {
-            TakeDamageNoDodgeNoRetaliation(_damage);
-            HandleModifier(_ability);
-            HandleStatus(_ability, _attacker);
+            TakeDamageNoDodgeNoRetaliation(damage);
+            HandleModifier(ability);
+            HandleStatus(ability, attacker);
         }
 
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
             return;
 
-        if (!WillRetaliate(_attacker))
+        if (!WillRetaliate(attacker))
             return;
 
-        if (_attacker == null)
+        if (attacker == null)
             return;
 
-        if (_attacker.GetComponent<CharacterStats>().currentHealth <= 0)
+        if (attacker.GetComponent<CharacterStats>().CurrentHealth <= 0)
             return;
 
         // blocking interaction replies to go on forever;
-        if (isAttacker)
+        if (IsAttacker)
             return;
 
         // it is just the basic attack that is not ranged;
@@ -234,86 +227,83 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             return;
 
         // strike back triggering basic attack at him
-        if (!retaliationAbility.CanHit(gameObject, _attacker))
+        if (!retaliationAbility.CanHit(gameObject, attacker))
             return;
 
         await Task.Delay(500);
 
         // if it is in range retaliate
-        characterRendererManager.Face((_attacker.transform.position - transform.position).normalized);
+        _characterRendererManager.Face((attacker.transform.position - transform.position).normalized);
         retaliationAbility.SetIsRetaliation(true);
-        await retaliationAbility.TriggerAbility(_attacker);
+        await retaliationAbility.TriggerAbility(attacker);
     }
 
-    void Dodge(GameObject _attacker)
+    void Dodge(GameObject attacker)
     {
         // face the attacker
-        characterRendererManager.Face((_attacker.transform.position - transform.position).normalized);
+        _characterRendererManager.Face((attacker.transform.position - transform.position).normalized);
 
-        damageUI.DisplayOnCharacter("Dodged!", 24, Color.black);
+        _damageUI.DisplayOnCharacter("Dodged!", 24, Color.black);
 
         // shake yourself
         float duration = 0.5f;
         float strength = 0.8f;
 
         // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
-        characterRendererManager.enabled = false;
+        _characterRendererManager.enabled = false;
         transform.DOShakePosition(duration, strength, 0, 0, false, true)
-                 .OnComplete(() => characterRendererManager.enabled = true);
+                 .OnComplete(() => _characterRendererManager.enabled = true);
     }
 
-    public void TakeDamageNoDodgeNoRetaliation(int _damage)
+    public void TakeDamageNoDodgeNoRetaliation(int damage)
     {
-        _damage = Mathf.Clamp(_damage, 0, int.MaxValue);
-        currentHealth -= _damage;
+        damage = Mathf.Clamp(damage, 0, int.MaxValue);
+        CurrentHealth -= damage;
 
         // displaying damage UI
-        damageUI.DisplayOnCharacter(_damage.ToString(), 36, Helpers.GetColor("damageRed"));
+        _damageUI.DisplayOnCharacter(damage.ToString(), 36, Helpers.GetColor("damageRed"));
 
         // shake a character;
         float duration = 0.5f;
         float strength = 0.1f;
 
         // don't shake on death
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die().GetAwaiter();
             return;
         }
 
-        // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
-        characterRendererManager.enabled = false;
+        _characterRendererManager.enabled = false;
         transform.DOShakePosition(duration, strength)
-                 .OnComplete(() => characterRendererManager.enabled = true);
+                 .OnComplete(() => _characterRendererManager.enabled = true);
 
     }
 
-    public void GetBuffed(Ability _ability)
+    public void GetBuffed(Ability ability)
     {
-        HandleModifier(_ability);
-        HandleStatus(_ability, null);
+        HandleModifier(ability);
+        HandleStatus(ability, null);
     }
 
-    void HandleModifier(Ability _ability)
+    void HandleModifier(Ability ability)
     {
-        if (_ability.StatModifier != null)
-        {
-            AddModifier(_ability);
-        }
+        if (ability.StatModifier != null)
+            AddModifier(ability);
     }
 
-    void HandleStatus(Ability _ability, GameObject _attacker)
+    void HandleStatus(Ability ability, GameObject attacker)
     {
-        if (_ability.Status != null)
-            AddStatus(_ability.Status, _attacker);
+        if (ability.Status != null)
+            AddStatus(ability.Status, attacker);
     }
 
-    public int CalculateAttackDir(Vector3 _attackerPos)
+    public int CalculateAttackDir(Vector3 attackerPos)
     {
         // does not matter what dir is attacker facing, it matters where he stands
         // coz he will turn around when attacking to face the defender
-        Vector2 attackerFaceDir = (transform.position - _attackerPos).normalized;
-        Vector2 defenderFaceDir = characterRendererManager.faceDir;
+        Vector2 attackerFaceDir = (transform.position - attackerPos).normalized;
+        Vector2 defenderFaceDir = _characterRendererManager.FaceDir;
 
         // in the side 1, face to face 2, from the back 0, 
         int attackDir = 1;
@@ -325,7 +315,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         return attackDir;
     }
 
-    float CalculateDodgeChance(int _attackDir, GameObject _attacker)
+    float CalculateDodgeChance(int attackDir, GameObject attacker)
     {
         // base 50% chance of dodging when being attacked face to face
         // base 25% chance of dodging when being attacked from the side
@@ -334,14 +324,14 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         // additionally, every point difference in agi between characters is worth 2%
         // if it is negative, than attacker is more agile than us, so higher chance to hit.
 
-        int agiDiff = agility.GetValue() - _attacker.GetComponent<CharacterStats>().agility.GetValue();
+        int agiDiff = Agility.GetValue() - attacker.GetComponent<CharacterStats>().Agility.GetValue();
 
-        return (float)(0.25 * _attackDir) + (float)(0.02 * agiDiff);
+        return (float)(0.25 * attackDir) + (float)(0.02 * agiDiff);
     }
 
     public AttackAbility GetRetaliationAbility()
     {
-        foreach (Ability a in basicAbilities)
+        foreach (Ability a in BasicAbilities)
         {
             // no retaliation with ranged attacks 
             if (a.WeaponType == WeaponType.Shoot)
@@ -357,88 +347,88 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     }
 
     // used by info card ui
-    public bool WillRetaliate(GameObject _attacker)
+    public bool WillRetaliate(GameObject attacker)
     {
-        if (isStunned)
+        if (IsStunned)
             return false;
 
         // if attacked from the back, don't retaliate
-        if (CalculateAttackDir(_attacker.transform.position) == 0)
+        if (CalculateAttackDir(attacker.transform.position) == 0)
             return false;
 
         // if attacker is yourself, don't retaliate
-        if (_attacker == gameObject)
+        if (attacker == gameObject)
             return false;
 
         return true;
     }
 
-    public float GetDodgeChance(GameObject _attacker)
+    public float GetDodgeChance(GameObject attacker)
     {
-        if (isStunned)
+        if (IsStunned)
             return 0;
 
-        return CalculateDodgeChance(CalculateAttackDir(_attacker.transform.position), _attacker);
+        return CalculateDodgeChance(CalculateAttackDir(attacker.transform.position), attacker);
     }
 
-    public void GainMana(int _amount)
+    public void GainMana(int amount)
     {
-        currentMana += _amount;
-        currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
+        CurrentMana += amount;
+        CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
     }
 
-    public void UseMana(int _amount)
+    public void UseMana(int amount)
     {
-        currentMana -= _amount;
-        currentMana = Mathf.Clamp(currentMana, 0, maxMana.GetValue());
+        CurrentMana -= amount;
+        CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
 
-        if (_amount == 0)
+        if (amount == 0)
             return;
-        Debug.Log(transform.name + " uses " + _amount + " mana.");
+        Debug.Log(transform.name + " uses " + amount + " mana.");
     }
 
-    public void GainHealth(int _healthGain, Ability _ability)
+    public void GainHealth(int healthGain, Ability ability)
     {
-        _healthGain = Mathf.Clamp(_healthGain, 0, maxHealth.GetValue() - currentHealth);
-        currentHealth += _healthGain;
+        healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
+        CurrentHealth += healthGain;
 
-        Debug.Log(transform.name + " heals " + _healthGain + ".");
+        Debug.Log(transform.name + " heals " + healthGain + ".");
 
-        HandleModifier(_ability);
-        HandleStatus(_ability, null);
+        HandleModifier(ability);
+        HandleStatus(ability, null);
 
-        damageUI.DisplayOnCharacter(_healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
+        _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
     }
 
-    public void GetPushed(Vector3 _dir, Ability _ability)
+    public void GetPushed(Vector3 dir, Ability ability)
     {
-        startingPos = transform.position;
-        finalPos = transform.position + _dir;
+        _startingPos = transform.position;
+        _finalPos = transform.position + dir;
 
-        HandleModifier(_ability);
-        HandleStatus(_ability, null);
+        HandleModifier(ability);
+        HandleStatus(ability, null);
 
         // TODO: do this instead of pushable character.
-        StartCoroutine(MoveToPosition(finalPos, 0.5f));
+        StartCoroutine(MoveToPosition(_finalPos, 0.5f));
         Invoke("CollisionCheck", 0.35f);
     }
 
-    IEnumerator MoveToPosition(Vector3 _finalPos, float _time)
+    IEnumerator MoveToPosition(Vector3 finalPos, float time)
     {
         // TODO: this AILerp hack is meh
-        tempObject = new("Dest");
-        tempObject.transform.position = _finalPos;
-        GetComponent<AIDestinationSetter>().target = tempObject.transform;
+        _tempObject = new("Dest");
+        _tempObject.transform.position = finalPos;
+        GetComponent<AIDestinationSetter>().target = _tempObject.transform;
 
-        aILerp.canMove = false;
-        aILerp.enabled = false;
+        _AILerp.canMove = false;
+        _AILerp.enabled = false;
         Vector3 startingPos = transform.position;
 
         float elapsedTime = 0;
 
-        while (elapsedTime < _time)
+        while (elapsedTime < time)
         {
-            transform.position = Vector3.Lerp(startingPos, _finalPos, (elapsedTime / _time));
+            transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -446,12 +436,12 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         // Update astar
         AstarPath.active.Scan();
 
-        aILerp.enabled = true;
-        aILerp.canMove = true;
-        aILerp.Teleport(_finalPos, true);
+        _AILerp.enabled = true;
+        _AILerp.canMove = true;
+        _AILerp.Teleport(finalPos, true);
 
-        if (tempObject != null)
-            Destroy(tempObject);
+        if (_tempObject != null)
+            Destroy(_tempObject);
     }
 
     void CollisionCheck()
@@ -460,7 +450,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         BoxCollider2D characterCollider = transform.GetComponentInChildren<BoxCollider2D>();
         characterCollider.enabled = false;
 
-        Collider2D col = Physics2D.OverlapCircle(finalPos, 0.2f);
+        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
 
         if (col == null)
         {
@@ -472,36 +462,36 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         // character colliders are children
         if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
         {
-            TakeDamageNoDodgeNoRetaliation(characterDmg);
+            TakeDamageNoDodgeNoRetaliation(_characterDmg);
 
             CharacterStats targetStats = col.transform.parent.GetComponent<CharacterStats>();
-            targetStats.TakeDamageNoDodgeNoRetaliation(characterDmg);
+            targetStats.TakeDamageNoDodgeNoRetaliation(_characterDmg);
 
             // move back to starting position (if target is not dead)
             // TODO: test what happens when target dies
-            if (targetStats.currentHealth <= 0)
+            if (targetStats.CurrentHealth <= 0)
             {
                 if (characterCollider != null)
                     characterCollider.enabled = true;
                 return;
             }
 
-            if (tempObject != null)
-                Destroy(tempObject);
+            if (_tempObject != null)
+                Destroy(_tempObject);
 
-            StartCoroutine(MoveToPosition(startingPos, 0.5f));
+            StartCoroutine(MoveToPosition(_startingPos, 0.5f));
         }
         // character destroys boulder when they are pushed into it + 10dmg to self
         else if (col.transform.gameObject.CompareTag("PushableObstacle"))
         {
-            TakeDamageNoDodgeNoRetaliation(characterDmg);
+            TakeDamageNoDodgeNoRetaliation(_characterDmg);
 
             Destroy(col.transform.parent.gameObject);
         }
         // character triggers traps
         else if (col.transform.gameObject.CompareTag("Trap"))
         {
-            int dmg = col.transform.GetComponentInParent<FootholdTrap>().damage;
+            int dmg = col.transform.GetComponentInParent<FootholdTrap>().Damage;
 
             TakeDamageNoDodgeNoRetaliation(dmg);
             // movement range is down by 1 for each trap enemy walks on
@@ -511,10 +501,10 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         }
         else
         {
-            TakeDamageNoDodgeNoRetaliation(characterDmg);
-            if (tempObject != null)
-                Destroy(tempObject);
-            StartCoroutine(MoveToPosition(startingPos, 0.5f));
+            TakeDamageNoDodgeNoRetaliation(_characterDmg);
+            if (_tempObject != null)
+                Destroy(_tempObject);
+            StartCoroutine(MoveToPosition(_startingPos, 0.5f));
         }
         // TODO: pushing characters into the river/other obstacles?
         // currently you can't target it on the river bank
@@ -524,10 +514,10 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     public async Task Die()
     {
-        await highlighter.ClearHighlightedTiles();
+        await _highlighter.ClearHighlightedTiles();
 
         // playing death animation
-        await characterRendererManager.Die();
+        await _characterRendererManager.Die();
 
         // kill all tweens TODO: is that OK?
         DOTween.KillAll();
@@ -541,34 +531,33 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         Destroy(gameObject);
     }
 
-    public void SetAttacker(bool _is) { isAttacker = _is; }
-    public void SetIsStunned(bool _is) { isStunned = _is; }
+    public void SetAttacker(bool isAttacker) { IsAttacker = isAttacker; }
+    public void SetIsStunned(bool isStunned) { IsStunned = isStunned; }
 
-    void AddModifier(Ability _ability)
+    void AddModifier(Ability ability)
     {
-        foreach (Stat s in stats)
-            if (s.type == _ability.StatModifier.StatType)
-                s.AddModifier(Instantiate(_ability.StatModifier)); // stat checks if modifier is a dupe, to prevent stacking
-
+        foreach (Stat s in Stats)
+            if (s.Type == ability.StatModifier.StatType)
+                s.AddModifier(Instantiate(ability.StatModifier)); // stat checks if modifier is a dupe, to prevent stacking
     }
 
-    public void AddStatus(Status _s, GameObject _attacker)
+    public void AddStatus(Status s, GameObject attacker)
     {
         // statuses don't stack
-        if (IsStatusOn(_s))
+        if (IsStatusOn(s))
             return;
 
-        var clone = Instantiate(_s);
-        statuses.Add(clone);
-        clone.Initialize(gameObject, _attacker);
+        var clone = Instantiate(s);
+        Statuses.Add(clone);
+        clone.Initialize(gameObject, attacker);
         // status triggers right away
         clone.FirstTrigger();
     }
 
-    bool IsStatusOn(Status _s)
+    bool IsStatusOn(Status s)
     {
-        foreach (Status s in statuses)
-            if (s.Id == _s.Id)
+        foreach (Status status in Statuses)
+            if (status.Id == s.Id)
                 return true;
 
         return false;

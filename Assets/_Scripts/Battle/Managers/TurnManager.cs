@@ -9,18 +9,18 @@ public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, L
 public class TurnManager : MonoBehaviour
 {
     // global
-    JourneyManager journeyManager;
+    JourneyManager _journeyManager;
 
-    public static BattleState battleState;
-    public static int currentTurn = 0;
+    public static BattleState BattleState;
+    public static int CurrentTurn = 0;
 
-    InfoCardUI infoCardUI;
+    InfoCardUI _infoCardUI;
 
-    List<GameObject> playerCharacters;
-    List<GameObject> enemies;
+    List<GameObject> _playerCharacters;
+    List<GameObject> _enemies;
 
-    public int playerCharactersLeftToTakeTurn;
-    public int enemyCharactersLeftToTakeTurn;
+    int _playerCharactersLeftToTakeTurn;
+    int _enemyCharactersLeftToTakeTurn;
 
     public static event Action<BattleState> OnBattleStateChanged;
 
@@ -39,10 +39,10 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        infoCardUI = InfoCardUI.instance;
-        journeyManager = JourneyManager.instance;
+        _infoCardUI = InfoCardUI.instance;
+        _journeyManager = JourneyManager.instance;
 
-        currentTurn = 0;
+        CurrentTurn = 0;
 
         UpdateBattleState(BattleState.MapBuilding);
     }
@@ -50,7 +50,7 @@ public class TurnManager : MonoBehaviour
     // https://www.youtube.com/watch?v=4I0vonyqMi8&t=193s
     public void UpdateBattleState(BattleState newState)
     {
-        battleState = newState;
+        BattleState = newState;
 
         switch (newState)
         {
@@ -88,29 +88,29 @@ public class TurnManager : MonoBehaviour
 
     public void InitBattle()
     {
-        playerCharacters = new(GameObject.FindGameObjectsWithTag("Player"));
-        enemies = new(GameObject.FindGameObjectsWithTag("Enemy"));
+        _playerCharacters = new(GameObject.FindGameObjectsWithTag("Player"));
+        _enemies = new(GameObject.FindGameObjectsWithTag("Enemy"));
 
-        playerCharactersLeftToTakeTurn = playerCharacters.Count;
-        enemyCharactersLeftToTakeTurn = enemies.Count;
+        _playerCharactersLeftToTakeTurn = _playerCharacters.Count;
+        _enemyCharactersLeftToTakeTurn = _enemies.Count;
 
         // subscribe to death events
-        foreach (GameObject enemy in enemies)
+        foreach (GameObject enemy in _enemies)
             enemy.GetComponent<CharacterStats>().CharacterDeathEvent += OnEnemyDeath;
-        foreach (GameObject player in playerCharacters)
+        foreach (GameObject player in _playerCharacters)
             player.GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
     }
     void HandlePlayerTurn()
     {
         // TODO: I don't think there is a need to get rid of this, but it is kinda sucky.
-        if (currentTurn == 0)
+        if (CurrentTurn == 0)
             InitBattle();
 
         // TODO: do I need a separate method for starting or can I just use this;
-        currentTurn++;
+        CurrentTurn++;
 
         // hide character card
-        infoCardUI.HideCharacterCard();
+        _infoCardUI.HideCharacterCard();
 
         // TODO: Is this very taxing?   
         // Recalculate all graphs
@@ -122,7 +122,7 @@ public class TurnManager : MonoBehaviour
     void HandleEnemyTurn()
     {
         // hide character card
-        infoCardUI.HideCharacterCard();
+        _infoCardUI.HideCharacterCard();
 
         // TODO: Is this taxing?
         // Recalculate all graphs
@@ -134,16 +134,16 @@ public class TurnManager : MonoBehaviour
     // TODO: eeee... does it make sense?
     void ResetCounts()
     {
-        playerCharactersLeftToTakeTurn = playerCharacters.Count;
-        enemyCharactersLeftToTakeTurn = enemies.Count;
+        _playerCharactersLeftToTakeTurn = _playerCharacters.Count;
+        _enemyCharactersLeftToTakeTurn = _enemies.Count;
     }
 
     public void OnPlayerCharDeath(GameObject _obj)
     {
         PlayerCharacterTurnFinished();
 
-        playerCharacters.Remove(_obj);
-        if (playerCharacters.Count <= 0)
+        _playerCharacters.Remove(_obj);
+        if (_playerCharacters.Count <= 0)
             UpdateBattleState(BattleState.Lost);
     }
 
@@ -151,8 +151,8 @@ public class TurnManager : MonoBehaviour
     {
         EnemyCharacterTurnFinished();
 
-        enemies.Remove(_obj);
-        if (enemies.Count <= 0)
+        _enemies.Remove(_obj);
+        if (_enemies.Count <= 0)
             UpdateBattleState(BattleState.Won);
     }
 
@@ -160,17 +160,17 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("Congratz player! You win!!!");
 
-        journeyManager.SetNodeReward(BattleManager.instance.GetReward());
+        _journeyManager.SetNodeReward(BattleManager.instance.GetReward());
 
         // TODO: maybe show a win screen, where you get reward, 
         // you characters level up and stuff and there is a button to go back to journey
 
         List<Character> playerCharactersAlive = new();
-        foreach (GameObject p in playerCharacters)
-            playerCharactersAlive.Add(p.GetComponent<CharacterStats>().character);
-        journeyManager.SetPlayerTroops(playerCharactersAlive);
+        foreach (GameObject p in _playerCharacters)
+            playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);
+        _journeyManager.SetPlayerTroops(playerCharactersAlive);
 
-        journeyManager.LoadLevel("Journey");
+        _journeyManager.LoadLevel("Journey");
     }
 
     void HandleLosing()
@@ -184,16 +184,16 @@ public class TurnManager : MonoBehaviour
     public async void PlayerCharacterTurnFinished()
     {
         // -= player chars left. At 0 turn ends;
-        playerCharactersLeftToTakeTurn -= 1;
-        if (playerCharactersLeftToTakeTurn <= 0 && battleState != BattleState.EnemyTurn)
+        _playerCharactersLeftToTakeTurn -= 1;
+        if (_playerCharactersLeftToTakeTurn <= 0 && BattleState != BattleState.EnemyTurn)
             await ChangeTurn(BattleState.EnemyTurn);
     }
 
     public async void EnemyCharacterTurnFinished()
     {
         // -= player chars left. At 0 turn ends;
-        enemyCharactersLeftToTakeTurn -= 1;
-        if (enemyCharactersLeftToTakeTurn <= 0 && battleState != BattleState.PlayerTurn)
+        _enemyCharactersLeftToTakeTurn -= 1;
+        if (_enemyCharactersLeftToTakeTurn <= 0 && BattleState != BattleState.PlayerTurn)
             await ChangeTurn(BattleState.PlayerTurn);
     }
 
@@ -202,5 +202,4 @@ public class TurnManager : MonoBehaviour
         await Task.Delay(500);
         UpdateBattleState(_state);
     }
-
 }

@@ -3,31 +3,28 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/Chest")]
 public class JourneyChest : BaseScriptableObject
 {
-    public Sprite closedChest;
-    public Sprite emptyChest;
-    public Sprite fullChest;
+    [SerializeField] Sprite _closedChest;
+    [SerializeField] Sprite _emptyChest;
+    [SerializeField] Sprite _fullChest;
 
-    [Range(0, 1)]
-    public float chanceToBeEmpty;
+    [SerializeField] GameObject _gameObject;
+    SpriteRenderer _spriteRenderer;
 
-    public GameObject gameObject;
-    SpriteRenderer sr;
-
-    public void Initialize(GameObject _obj)
+    public void Initialize(GameObject obj)
     {
-        gameObject = _obj;
-        sr = gameObject.GetComponentInChildren<SpriteRenderer>();
-        sr.sprite = closedChest;
+        _gameObject = obj;
+        _spriteRenderer = _gameObject.GetComponentInChildren<SpriteRenderer>();
+        _spriteRenderer.sprite = _closedChest;
     }
 
     public void Won()
     {
-        sr.sprite = fullChest;
+        _spriteRenderer.sprite = _fullChest;
     }
 
     public void Lost()
     {
-        sr.sprite = emptyChest;
+        _spriteRenderer.sprite = _emptyChest;
     }
 
 }

@@ -3,40 +3,38 @@ using UnityEngine.Rendering;
 
 public class PlayerCharSelection : CharacterSelection
 {
-    public bool hasMovedThisTurn { get; private set; }
+    public bool HasMovedThisTurn { get; private set; }
+    public Vector3 PositionTurnStart { get; private set; }
 
-    public Vector3 positionTurnStart { get; private set; }
-
-    public SelectionArrow selectionArrow;
+    [SerializeField] SelectionArrow _selectionArrow;
 
     public override void Awake()
     {
         base.Awake();
-
     }
 
     public bool CanBeSelected()
     {
-        return !hasFinishedTurn;
+        return !HasFinishedTurn;
     }
 
     protected override void HandlePlayerTurn()
     {
-        if (!myStats.isStunned)
+        if (!_myStats.IsStunned)
         {
-            hasMovedThisTurn = false;
+            HasMovedThisTurn = false;
             SetHasFinishedTurn(false);
         }
         else
             FinishCharacterTurn();
 
         // remember on which tile you start the turn on 
-        positionTurnStart = transform.position;
+        PositionTurnStart = transform.position;
     }
 
     protected override void HandleEnemyTurn()
     {
-        if (!myStats.isStunned)
+        if (!_myStats.IsStunned)
             Invoke("ReturnCharacterColor", 1f);
     }
 
@@ -56,7 +54,7 @@ public class PlayerCharSelection : CharacterSelection
 
     public void ToggleSelectionArrow(bool isActive)
     {
-        selectionArrow.gameObject.SetActive(isActive);
+        _selectionArrow.gameObject.SetActive(isActive);
     }
 
     public override void FinishCharacterTurn()
@@ -65,12 +63,12 @@ public class PlayerCharSelection : CharacterSelection
         DeselectCharacter();
 
         // finish character's turn after the interaction is performed
-        turnManager.PlayerCharacterTurnFinished();
+        _turnManager.PlayerCharacterTurnFinished();
     }
 
     public void SetCharacterMoved(bool hasMoved)
     {
-        hasMovedThisTurn = hasMoved;
+        HasMovedThisTurn = hasMoved;
     }
 }
 

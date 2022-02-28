@@ -1,64 +1,65 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
-using System.Threading.Tasks;
 
 public class JourneyNodeBehaviour : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public SpriteRenderer visitedGFX;
 
-    public JourneyNode journeyNode;
-    JourneyMapManager journeyMapManager;
-    JourneyMapUI journeyMapUI;
-    SpriteRenderer sr;
+    JourneyMapManager _journeyMapManager;
+    JourneyMapUI _journeyMapUI;
 
-    Vector3 originalScale;
+    [SerializeField] SpriteRenderer _visitedGFX;
+
+    public JourneyNode JourneyNode;
+
+    Vector3 _originalScale;
+    SpriteRenderer _spriteRenderer;
 
     public void Initialize(JourneyNode _jn)
     {
-        journeyNode = _jn;
-        journeyMapManager = JourneyMapManager.instance;
-        journeyMapUI = journeyMapManager.GetComponent<JourneyMapUI>();
+        JourneyNode = _jn;
+        _journeyMapManager = JourneyMapManager.instance;
+        _journeyMapUI = _journeyMapManager.GetComponent<JourneyMapUI>();
 
-        sr = GetComponentInChildren<SpriteRenderer>();
-        originalScale = transform.localScale;
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _originalScale = transform.localScale;
     }
 
     public void AnimateAvailableNode()
     {
         float duration = 1f;
-        transform.DOScale(originalScale * 1.5f, duration).SetLoops(-1, LoopType.Yoyo);
-        sr.DOColor(Color.black, duration).SetLoops(-1, LoopType.Yoyo);
+        transform.DOScale(_originalScale * 1.5f, duration).SetLoops(-1, LoopType.Yoyo);
+        _spriteRenderer.DOColor(Color.black, duration).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void StopAnimating()
     {
         transform.DOKill();
-        transform.localScale = originalScale;
+        transform.localScale = _originalScale;
 
-        sr.DOKill();
-        sr.color = Color.white;
+        _spriteRenderer.DOKill();
+        _spriteRenderer.color = Color.white;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!journeyMapManager.availableNodes.Contains(journeyNode))
-            transform.DOScale(originalScale * 1.2f, 1f);
+        if (!_journeyMapManager.AvailableNodes.Contains(JourneyNode))
+            transform.DOScale(_originalScale * 1.2f, 1f);
 
-        journeyMapUI.ShowNodeInfo(journeyNode);
+        _journeyMapUI.ShowNodeInfo(JourneyNode);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!journeyMapManager.availableNodes.Contains(journeyNode))
-            transform.DOScale(originalScale, 1f);
+        if (!_journeyMapManager.AvailableNodes.Contains(JourneyNode))
+            transform.DOScale(_originalScale, 1f);
 
-        journeyMapUI.HideNodeInfo();
+        _journeyMapUI.HideNodeInfo();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        journeyMapManager.NodeClick(this);
+        _journeyMapManager.NodeClick(this);
     }
 
     public void DrawCircle()
@@ -69,8 +70,8 @@ public class JourneyNodeBehaviour : MonoBehaviour, IPointerClickHandler, IPointe
 
     public void MarkAsVisited()
     {
-        sr.color = Color.black;
-        visitedGFX.enabled = true;
+        _spriteRenderer.color = Color.black;
+        _visitedGFX.enabled = true;
     }
 
 }

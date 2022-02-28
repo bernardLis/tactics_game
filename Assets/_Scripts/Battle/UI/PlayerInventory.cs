@@ -6,19 +6,18 @@ using System.Linq;
 
 public class PlayerInventory : MonoBehaviour
 {
-    VisualElement root;
-    VisualElement inventoryGrid;
+    VisualElement _inventoryGrid;
 
-    static Label itemDetailHeader;
-    static Label itemDetailBody;
-    static Label itemDetailPrice;
+    static Label _itemDetailHeader;
+    static Label _itemDetailBody;
+    static Label _itemDetailPrice;
 
-    public static Dimensions slotDimension { get; private set; }
+    public static Dimensions SlotDimension { get; private set; }
 
-    public List<StoredItem> storedItems = new List<StoredItem>();
-    public Dimensions inventoryDimensions;
+    public List<StoredItem> StoredItems = new List<StoredItem>();
+    public Dimensions InventoryDimensions;
 
-    object inventoryHasSpace;
+    object _inventoryHasSpace;
     public static PlayerInventory Instance;
 
     void Awake()
@@ -36,14 +35,14 @@ public class PlayerInventory : MonoBehaviour
 
     IEnumerator Configure()
     {
-        root = GetComponentInChildren<UIDocument>().rootVisualElement;
-        inventoryGrid = root.Q<VisualElement>("Grid");
+        var root = GetComponentInChildren<UIDocument>().rootVisualElement;
+        _inventoryGrid = root.Q<VisualElement>("Grid");
 
         VisualElement itemDetails = root.Q<VisualElement>("ItemDetails");
 
-        itemDetailHeader = itemDetails.Q<Label>("Header");
-        itemDetailBody = itemDetails.Q<Label>("Body");
-        itemDetailPrice = itemDetails.Q<Label>("Price");
+        _itemDetailHeader = itemDetails.Q<Label>("Header");
+        _itemDetailBody = itemDetails.Q<Label>("Body");
+        _itemDetailPrice = itemDetails.Q<Label>("Price");
 
         //returning 0 will make it wait 1 frame
         yield return 0;
@@ -53,9 +52,9 @@ public class PlayerInventory : MonoBehaviour
 
     void ConfigureSlotDimensions()
     {
-        VisualElement firstSlot = inventoryGrid.Children().First();
+        VisualElement firstSlot = _inventoryGrid.Children().First();
 
-        slotDimension = new Dimensions
+        SlotDimension = new Dimensions
         {
             Width = Mathf.RoundToInt(firstSlot.worldBound.width),
             Height = Mathf.RoundToInt(firstSlot.worldBound.height)
@@ -64,28 +63,28 @@ public class PlayerInventory : MonoBehaviour
 
     IEnumerator GetPositionForItem(VisualElement newItem)
     {
-        for (int y = 0; y < inventoryDimensions.Height; y++)
+        for (int y = 0; y < InventoryDimensions.Height; y++)
         {
-            for (int x = 0; x < inventoryDimensions.Width; x++)
+            for (int x = 0; x < InventoryDimensions.Width; x++)
             {
                 //try position
-                SetItemPosition(newItem, new Vector2(slotDimension.Width * x,
-                        slotDimension.Height * y));
+                SetItemPosition(newItem, new Vector2(SlotDimension.Width * x,
+                        SlotDimension.Height * y));
 
                 yield return 0;
 
-                StoredItem overlappingItem = storedItems.FirstOrDefault(s =>
-                        s.rootVisual != null &&
-                        s.rootVisual.layout.Overlaps(newItem.layout));
+                StoredItem overlappingItem = StoredItems.FirstOrDefault(s =>
+                        s.RootVisual != null &&
+                        s.RootVisual.layout.Overlaps(newItem.layout));
                 //Nothing is here! Place the item.
                 if (overlappingItem == null)
                 {
-                    inventoryHasSpace = true;
+                    _inventoryHasSpace = true;
                     yield return true;
                 }
             }
         }
-        inventoryHasSpace = false;
+        _inventoryHasSpace = false;
         yield return false;
     }
     static void SetItemPosition(VisualElement element, Vector2 vector)
@@ -96,13 +95,13 @@ public class PlayerInventory : MonoBehaviour
 
     IEnumerator LoadInventory()
     {
-        foreach (StoredItem loadedItem in storedItems)
+        foreach (StoredItem loadedItem in StoredItems)
         {
-            ItemVisual inventoryItemVisual = new ItemVisual(loadedItem.details);
+            ItemVisual inventoryItemVisual = new ItemVisual(loadedItem.Details);
 
             AddItemToInventoryGrid(inventoryItemVisual);
             yield return GetPositionForItem(inventoryItemVisual);
-            if ((bool)inventoryHasSpace == false)
+            if ((bool)_inventoryHasSpace == false)
             {
                 Debug.Log("No space - Cannot pick up the item");
                 RemoveItemFromInventoryGrid(inventoryItemVisual);
@@ -116,15 +115,15 @@ public class PlayerInventory : MonoBehaviour
 
     private void AddItemToInventoryGrid(VisualElement item)
     {
-        inventoryGrid.Add(item);
+        _inventoryGrid.Add(item);
     }
     private void RemoveItemFromInventoryGrid(VisualElement item)
     {
-        inventoryGrid.Remove(item);
+        _inventoryGrid.Remove(item);
     }
     private static void ConfigureInventoryItem(StoredItem item, ItemVisual visual)
     {
-        item.rootVisual = visual;
+        item.RootVisual = visual;
         visual.style.visibility = Visibility.Visible;
     }
 }

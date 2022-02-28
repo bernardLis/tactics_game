@@ -6,7 +6,7 @@ using System;
 [Serializable]
 public class StoredItem
 {
-	public Item details;
-	public ItemVisual rootVisual;
+	public Item Details;
+	public ItemVisual RootVisual;
 
 }

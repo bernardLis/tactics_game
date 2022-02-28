@@ -4,14 +4,12 @@ using UnityEngine;
 
 public static class Helpers
 {
-
-    static Dictionary<string, Color> colors = new()
+    static Dictionary<string, Color> _colors = new()
     {
         { "movementBlue", new Color(0.53f, 0.52f, 1f, 1f) },
         { "healthGainGreen", new Color(0.42f, 1f, 0.42f, 1f) },
         { "damageRed", new Color(1f, 0.42f, 0.42f, 1f) },
-
-
+        { "gray", new Color(0.22f, 0.22f, 0.22f, 1f) }
     };
 
     static Camera _camera;
@@ -25,18 +23,18 @@ public static class Helpers
         }
     }
 
-    public static int GetManhattanDistance(Vector2 _start, Vector2 _end)
+    public static int GetManhattanDistance(Vector2 start, Vector2 end)
     {
-        return Mathf.RoundToInt(Mathf.Abs(_start.x - _end.x) + Mathf.Abs(_start.y - _end.y));
+        return Mathf.RoundToInt(Mathf.Abs(start.x - end.x) + Mathf.Abs(start.y - end.y));
     }
 
-    public static Color GetColor(string _name)
+    public static Color GetColor(string name)
     {
         Color col;
-        if (!colors.TryGetValue(_name, out col))
+        if (!_colors.TryGetValue(name, out col))
         {
-            // the key isn't in the dictionary.
-            return Color.black; // or whatever you want to do
+            Debug.LogError($"Color: {name} is not in the color dictionary");
+            return Color.black;
         }
         return col;
     }

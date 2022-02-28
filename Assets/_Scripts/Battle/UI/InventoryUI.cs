@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,24 +6,23 @@ using UnityEngine.InputSystem;
 
 public class InventoryUI : MonoBehaviour
 {
-    public List<InventorySlot> inventorySlots = new List<InventorySlot>();
+    PlayerInput _playerInput;
 
-    VisualElement root;
+    InventoryManager _inventoryManager;
 
-    VisualElement inventory;
-    VisualElement inventoryContainer;
-    ScrollView inventorySlotContainer;
-    VisualElement inventoryItemInfo;
+    VisualElement _root;
+    VisualElement _inventory;
+    VisualElement _inventoryContainer;
+    ScrollView _inventorySlotContainer;
+    VisualElement _inventoryItemInfo;
 
-    public Sprite slotBackground;
-    public Sprite selectedSlotBackground;
-    public InventorySlot selectedSlot;
+    public Sprite SlotBackground;
+    public Sprite SelectedSlotBackground;
+    public InventorySlot SelectedSlot;
 
-    Item selectedItem;
+    Item _selectedItem;
 
-    PlayerInput playerInput;
-
-    InventoryManager inventoryManager;
+    public List<InventorySlot> InventorySlots = new List<InventorySlot>();
 
     public static InventoryUI instance;
     void Awake()
@@ -39,37 +37,37 @@ public class InventoryUI : MonoBehaviour
         instance = this;
         #endregion
 
-        playerInput = MovePointController.instance.GetComponent<PlayerInput>();
+        _playerInput = MovePointController.instance.GetComponent<PlayerInput>();
 
-        inventoryManager = InventoryManager.instance;
-        inventoryManager.OnItemChanged += OnItemChanged;
+        _inventoryManager = InventoryManager.instance;
+        _inventoryManager.OnItemChanged += OnItemChanged;
 
         // store the root from the ui document component
-        root = GetComponent<UIDocument>().rootVisualElement;
+        _root = GetComponent<UIDocument>().rootVisualElement;
 
         // search for slot container
-        inventory = root.Q<VisualElement>("inventory");
-        inventoryContainer = root.Q<VisualElement>("inventoryContainer");
-        inventorySlotContainer = root.Q<ScrollView>("inventorySlotContainer");
-        inventoryItemInfo = root.Q<VisualElement>("inventoryItemInfo");
+        _inventory = _root.Q<VisualElement>("inventory");
+        _inventoryContainer = _root.Q<VisualElement>("inventoryContainer");
+        _inventorySlotContainer = _root.Q<ScrollView>("inventorySlotContainer");
+        _inventoryItemInfo = _root.Q<VisualElement>("inventoryItemInfo");
 
-        inventorySlotContainer.contentContainer.Clear();
-        inventorySlotContainer.contentContainer.style.flexDirection = FlexDirection.Row;
-        inventorySlotContainer.contentContainer.style.flexWrap = Wrap.Wrap;
+        _inventorySlotContainer.contentContainer.Clear();
+        _inventorySlotContainer.contentContainer.style.flexDirection = FlexDirection.Row;
+        _inventorySlotContainer.contentContainer.style.flexWrap = Wrap.Wrap;
 
-        inventoryItemInfo.Clear();
+        _inventoryItemInfo.Clear();
 
         // create inventory slots and add them as chlidren to the slot container
         // TODO: resize on amount of items in inventory? 
         for (int i = 0; i < 25; i++)
         {
             InventorySlot item = new InventorySlot();
-            inventorySlots.Add(item);
-            inventorySlotContainer.Add(item);
+            InventorySlots.Add(item);
+            _inventorySlotContainer.Add(item);
         }
 
         // populate inventory ui on awake;
-        foreach (Item item in inventoryManager.items)
+        foreach (Item item in _inventoryManager.items)
         {
             AddItemToUI(item);
         }
@@ -77,19 +75,19 @@ public class InventoryUI : MonoBehaviour
 
     void OnEnable()
     {
-        playerInput.actions["InventoryMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
-        playerInput.actions["DisableInventoryUI"].performed += ctx => DisableInventoryUI();
-        playerInput.actions["UseItem"].performed += ctx => UseItem();
+        _playerInput.actions["InventoryMovement"].performed += ctx => Move(ctx.ReadValue<Vector2>());
+        _playerInput.actions["DisableInventoryUI"].performed += ctx => DisableInventoryUI();
+        _playerInput.actions["UseItem"].performed += ctx => UseItem();
 
     }
 
     void OnDisable()
     {
-        if (playerInput != null)
+        if (_playerInput != null)
         {
-            playerInput.actions["InventoryMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
-            playerInput.actions["DisableInventoryUI"].performed -= ctx => DisableInventoryUI();
-            playerInput.actions["UseItem"].performed -= ctx => UseItem();
+            _playerInput.actions["InventoryMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
+            _playerInput.actions["DisableInventoryUI"].performed -= ctx => DisableInventoryUI();
+            _playerInput.actions["UseItem"].performed -= ctx => UseItem();
         }
     }
 
@@ -97,36 +95,36 @@ public class InventoryUI : MonoBehaviour
     {
         // TODO: should not be hardcoded
         float slotContainerWidth = 128f;
-        int numberOfItemsInRow = Mathf.FloorToInt(inventorySlotContainer.resolvedStyle.width / slotContainerWidth);
+        int numberOfItemsInRow = Mathf.FloorToInt(_inventorySlotContainer.resolvedStyle.width / slotContainerWidth);
 
-        if (selectedSlot == null)
+        if (SelectedSlot == null)
             return;
 
         // selectedSlot to be overwritten;
-        InventorySlot slot = selectedSlot;
+        InventorySlot slot = SelectedSlot;
 
         // https://stackoverflow.com/questions/24799820/get-previous-next-item-of-a-given-item-in-a-list
         // if it is right - select next slot
         if (direction.Equals(Vector2.right))
-            slot = inventorySlots.SkipWhile(x => x != selectedSlot).Skip(1).DefaultIfEmpty(inventorySlots[0]).FirstOrDefault();
+            slot = InventorySlots.SkipWhile(x => x != SelectedSlot).Skip(1).DefaultIfEmpty(InventorySlots[0]).FirstOrDefault();
         if (direction.Equals(Vector2.left))
-            slot = inventorySlots.TakeWhile(x => x != selectedSlot).DefaultIfEmpty(inventorySlots[inventorySlots.Count - 1]).LastOrDefault();
+            slot = InventorySlots.TakeWhile(x => x != SelectedSlot).DefaultIfEmpty(InventorySlots[InventorySlots.Count - 1]).LastOrDefault();
 
         // moving up means current item from list - number of items in the row
         if (direction.Equals(Vector2.up))
-            slot = inventorySlots[(inventorySlots.Count() + inventorySlots.IndexOf(selectedSlot) - numberOfItemsInRow) % inventorySlots.Count()];
+            slot = InventorySlots[(InventorySlots.Count() + InventorySlots.IndexOf(SelectedSlot) - numberOfItemsInRow) % InventorySlots.Count()];
         // moving down means current item from list + number of items in the row
         if (direction.Equals(Vector2.down))
-            slot = inventorySlots[(inventorySlots.IndexOf(selectedSlot) + numberOfItemsInRow) % inventorySlots.Count()];
+            slot = InventorySlots[(InventorySlots.IndexOf(SelectedSlot) + numberOfItemsInRow) % InventorySlots.Count()];
 
         slot.Select();
-        selectedItem = slot.item;
-        inventorySlotContainer.ScrollTo(slot);
+        _selectedItem = slot.Item;
+        _inventorySlotContainer.ScrollTo(slot);
     }
 
     public void DisplayItemInfo(Item item)
     {
-        inventoryItemInfo.Clear();
+        _inventoryItemInfo.Clear();
         if (item == null)
             return;
 
@@ -140,27 +138,27 @@ public class InventoryUI : MonoBehaviour
         Label description = new Label(item.Description);
         description.AddToClassList("inventoryItemInfoDescription");
 
-        inventoryItemInfo.Add(name);
-        inventoryItemInfo.Add(icon);
-        inventoryItemInfo.Add(description);
+        _inventoryItemInfo.Add(name);
+        _inventoryItemInfo.Add(icon);
+        _inventoryItemInfo.Add(description);
     }
 
     public void UnselectSlot()
     {
-        if (selectedSlot != null)
-            selectedSlot.Unselect();
+        if (SelectedSlot != null)
+            SelectedSlot.Unselect();
     }
 
     // helper for selecting slot with mouse
     public void ScrollTo(InventorySlot slot)
     {
-        inventorySlotContainer.ScrollTo(slot);
+        _inventorySlotContainer.ScrollTo(slot);
     }
 
     void AddItemToUI(Item item)
     {
         // find first empty slot
-        var emptySlot = inventorySlots.FirstOrDefault(x => x.item == null);
+        var emptySlot = InventorySlots.FirstOrDefault(x => x.Item == null);
         if (emptySlot != null)
             emptySlot.HoldItem(item);
     }
@@ -169,10 +167,10 @@ public class InventoryUI : MonoBehaviour
     {
         // TODO: now I am going to remove the first one that I find, does it pose a problem, should I be removing the particular item?
         // find the inventory slot that holds the item
-        foreach (var slot in inventorySlots)
+        foreach (var slot in InventorySlots)
         {
             // ask it to drop it
-            if (slot.item == item)
+            if (slot.Item == item)
                 slot.DropItem();
         }
     }
@@ -181,44 +179,44 @@ public class InventoryUI : MonoBehaviour
     // Inventory.cs sends event
     void OnItemChanged(object sender, ItemChangedEventArgs e)
     {
-        if (e.added)
-            AddItemToUI(e.item);
+        if (e.IsAdded)
+            AddItemToUI(e.Item);
         else
-            RemoveItemFromUI(e.item);
+            RemoveItemFromUI(e.Item);
     }
 
     public void EnableInventoryUI()
     {
         // switch action map
-        playerInput.SwitchCurrentActionMap("InventoryUI");
+        _playerInput.SwitchCurrentActionMap("InventoryUI");
 
         // only one can be visible.
         GameUI.instance.HideAllUIPanels();
 
-        inventoryContainer.style.display = DisplayStyle.Flex;
+        _inventoryContainer.style.display = DisplayStyle.Flex;
 
         // moving around inventory - select top left inventory slot
-        inventorySlots.FirstOrDefault().Select();
+        InventorySlots.FirstOrDefault().Select();
     }
 
     public void DisableInventoryUI()
     {
-        inventoryContainer.style.display = DisplayStyle.None;
+        _inventoryContainer.style.display = DisplayStyle.None;
 
         // TODO: maybe battle controller can have a method for that;
-        CharacterUI.instance.ShowCharacterUI(BattleCharacterController.instance.selectedCharacter.GetComponent<CharacterStats>());
+        CharacterUI.instance.ShowCharacterUI(BattleCharacterController.instance.SelectedCharacter.GetComponent<CharacterStats>());
 
-        playerInput.SwitchCurrentActionMap("Player");
+        _playerInput.SwitchCurrentActionMap("Player");
     }
 
     void UseItem()
     {
-        if (selectedItem.Ability == null)
+        if (_selectedItem.Ability == null)
             return;
-        Debug.Log("using item: " + selectedItem);
+        Debug.Log("using item: " + _selectedItem);
         // get current item and queue action
         DisableInventoryUI();
 
-        CharacterUI.instance.UseItem(selectedItem);
+        CharacterUI.instance.UseItem(_selectedItem);
     }
 }

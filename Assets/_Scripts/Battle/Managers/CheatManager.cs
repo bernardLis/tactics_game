@@ -7,23 +7,19 @@ using UnityEngine.UIElements;
 
 public class CheatManager : MonoBehaviour
 {
-    UIDocument UIDocument;
-
-    Button enemiesKillButton;
-
-    Button friendliesKillButton;
+    Button _enemiesKillButton;
+    Button _friendliesKillButton;
 
     void Start()
     {
         // getting ui elements
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
+        var root = GetComponent<UIDocument>().rootVisualElement;
 
-        enemiesKillButton = root.Q<Button>("enemiesKillButton");
-        friendliesKillButton = root.Q<Button>("friendliesKillButton");
+        _enemiesKillButton = root.Q<Button>("enemiesKillButton");
+        _friendliesKillButton = root.Q<Button>("friendliesKillButton");
 
-        enemiesKillButton.clickable.clicked += KillAllEnemies;
-        friendliesKillButton.clickable.clicked += KillAFriend;
+        _enemiesKillButton.clickable.clicked += KillAllEnemies;
+        _friendliesKillButton.clickable.clicked += KillAFriend;
     }
 
     void KillAllEnemies()
@@ -41,18 +37,18 @@ public class CheatManager : MonoBehaviour
         GameObject[] toKill = GameObject.FindGameObjectsWithTag(_tag);
         GameObject target = toKill[Random.Range(0, toKill.Length)];
         CharacterStats stats = target.GetComponent<CharacterStats>();
-        int currentHealth = stats.currentHealth;
+        int currentHealth = stats.CurrentHealth;
         stats.TakeDamageNoDodgeNoRetaliation(currentHealth);
 
     }
 
-    void KillAllWithTag(string _tag)
+    void KillAllWithTag(string tag)
     {
-        GameObject[] toKill = GameObject.FindGameObjectsWithTag(_tag);
+        GameObject[] toKill = GameObject.FindGameObjectsWithTag(tag);
         foreach (GameObject target in toKill)
         {
             CharacterStats stats = target.GetComponent<CharacterStats>();
-            int currentHealth = stats.currentHealth;
+            int currentHealth = stats.CurrentHealth;
             stats.TakeDamageNoDodgeNoRetaliation(currentHealth + 1);
         }
 

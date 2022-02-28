@@ -5,134 +5,130 @@ using UnityEngine.UIElements;
 
 public class ConversationUI : MonoBehaviour
 {
-    UIDocument UIDocument;
-    VisualElement conversationContainer;
-    VisualElement conversationPortrait;
-    Label conversationText;
+    VisualElement _conversationContainer;
+    VisualElement _conversationPortrait;
+    Label _conversationText;
 
-    float topPercent = 100f;
-    IVisualElementScheduledItem scheduler;
+    float _topPercent = 100f;
+    IVisualElementScheduledItem _scheduler;
 
-    bool printTextCoroutineFinished = true;
-    bool isAnimationOn;
+    bool _printTextCoroutineFinished = true;
+    bool _isAnimationOn;
 
-    IEnumerator typeTextCoroutine;
-
+    IEnumerator _typeTextCoroutine;
     void Awake()
     {
-        UIDocument = GetComponent<UIDocument>();
-
         // getting ui elements
-        var root = UIDocument.rootVisualElement;
-        conversationContainer = root.Q<VisualElement>("conversationContainer");
-        conversationPortrait = root.Q<VisualElement>("conversationPortrait");
-        conversationText = root.Q<Label>("conversationText");
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        _conversationContainer = root.Q<VisualElement>("conversationContainer");
+        _conversationPortrait = root.Q<VisualElement>("conversationPortrait");
+        _conversationText = root.Q<Label>("conversationText");
     }
 
     public void ShowUI()
     {
-        if (isAnimationOn)
+        // TODO: use dotween instead
+        if (_isAnimationOn)
             return;
         // https://forum.unity.com/threads/animation-via-code-examples.948161/
         // https://forum.unity.com/threads/propertydrawer-with-uielements-changes-in-array-dont-refresh-inspector.747467/
         // https://docs.unity3d.com/ScriptReference/UIElements.IVisualElementScheduledItem.html
         // set the container all the way to the bottom
-        //topPercent = 100f;
 
         // only one can be visible.
         GameUI.instance.HideAllUIPanels();
-        conversationContainer.style.display = DisplayStyle.Flex;
+        _conversationContainer.style.display = DisplayStyle.Flex;
 
-        conversationContainer.style.top = Length.Percent(topPercent);
+        _conversationContainer.style.top = Length.Percent(_topPercent);
         // 'animate' it to come up 
-        isAnimationOn = true;
-        scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
+        _isAnimationOn = true;
+        _scheduler = _conversationContainer.schedule.Execute(() => AnimateConversationBoxUp()).Every(10); // ms
     }
 
     public void HideUI()
     {
-        if (isAnimationOn)
+        if (_isAnimationOn)
             return;
 
-        isAnimationOn = true;
-        scheduler = conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
+        _isAnimationOn = true;
+        _scheduler = _conversationContainer.schedule.Execute(() => AnimateConversationBoxDown()).Every(10); // ms
 
     }
 
     void AnimateConversationBoxUp()
     {
-        if (topPercent > 75f)
+        if (_topPercent > 75f)
         {
-            conversationContainer.style.top = Length.Percent(topPercent);
-            topPercent--;
+            _conversationContainer.style.top = Length.Percent(_topPercent);
+            _topPercent--;
             return;
         }
 
         // TODO: idk how to destroy scheduler...
-        isAnimationOn = false;
+        _isAnimationOn = false;
 
-        scheduler.Pause();
+        _scheduler.Pause();
     }
 
     void AnimateConversationBoxDown()
     {
-        if (topPercent < 100f)
+        if (_topPercent < 100f)
         {
-            conversationContainer.style.top = Length.Percent(topPercent);
-            topPercent++;
+            _conversationContainer.style.top = Length.Percent(_topPercent);
+            _topPercent++;
             return;
         }
 
         // TODO: idk how to destroy scheduler...
-        isAnimationOn = false;
-        scheduler.Pause();
-        conversationContainer.style.display = DisplayStyle.None;
+        _isAnimationOn = false;
+        _scheduler.Pause();
+        _conversationContainer.style.display = DisplayStyle.None;
     }
 
     public void SetPortrait(Sprite sprite)
     {
-        conversationPortrait.style.backgroundImage = new StyleBackground(sprite);
+        _conversationPortrait.style.backgroundImage = new StyleBackground(sprite);
     }
 
     public void SetText(string text)
     {
-        conversationText.Clear();
-        conversationText.style.color = Color.white;
+        _conversationText.Clear();
+        _conversationText.style.color = Color.white;
 
-        if (typeTextCoroutine != null)
-            StopCoroutine(typeTextCoroutine);
+        if (_typeTextCoroutine != null)
+            StopCoroutine(_typeTextCoroutine);
 
-        typeTextCoroutine = TypeText(text);
-        StartCoroutine(typeTextCoroutine);
-        printTextCoroutineFinished = false;
+        _typeTextCoroutine = TypeText(text);
+        StartCoroutine(_typeTextCoroutine);
+        _printTextCoroutineFinished = false;
     }
 
     public void SkipTextTyping(string text)
     {
-        conversationText.style.color = Color.white;
+        _conversationText.style.color = Color.white;
 
-        if (typeTextCoroutine != null)
-            StopCoroutine(typeTextCoroutine);
+        if (_typeTextCoroutine != null)
+            StopCoroutine(_typeTextCoroutine);
 
-        conversationText.text = text;
-        printTextCoroutineFinished = true;
+        _conversationText.text = text;
+        _printTextCoroutineFinished = true;
     }
 
     public bool IsLinePrinted()
     {
-        return printTextCoroutineFinished;
+        return _printTextCoroutineFinished;
     }
 
     IEnumerator TypeText(string text)
     {
-        conversationText.text = "";
+        _conversationText.text = "";
         char[] charArray = text.ToCharArray();
         for (int i = 0; i < charArray.Length; i++)
         {
-            conversationText.text += charArray[i];
+            _conversationText.text += charArray[i];
 
             if (i == charArray.Length - 1)
-                printTextCoroutineFinished = true;
+                _printTextCoroutineFinished = true;
 
             yield return new WaitForSeconds(0.03f);
         }

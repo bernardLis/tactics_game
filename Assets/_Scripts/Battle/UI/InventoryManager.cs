@@ -7,12 +7,12 @@ using System;
 // https://www.youtube.com/watch?v=NJLOnRzTPFo&list=PLAE7FECFFFCBE1A54&index=18
 public class ItemChangedEventArgs : EventArgs
 {
-    public Item item { get; private set; }
-    public bool added;
-    public ItemChangedEventArgs(Item _item, bool _added)
+    public Item Item { get; private set; }
+    public bool IsAdded;
+    public ItemChangedEventArgs(Item item, bool added)
     {
-        item = _item;
-        added = _added;
+        Item = item;
+        IsAdded = added;
     }
 }
 

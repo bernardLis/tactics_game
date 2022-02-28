@@ -1,62 +1,31 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class HealTriggerable : MonoBehaviour
+public class HealTriggerable : BaseTriggerable
 {
-    // local
-    CharacterStats myStats;
-    CharacterRendererManager characterRendererManager;
-    FaceDirectionUI faceDirectionUI;
-
-    void Awake()
-    {
-        myStats = GetComponent<CharacterStats>();
-        characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
-        faceDirectionUI = GetComponent<FaceDirectionUI>();
-    }
-
     // returns true if successfully healed
-    public async Task<bool> Heal(GameObject _target, Ability _ability, GameObject _attacker)
+    public async Task<bool> Heal(GameObject target, Ability ability, GameObject attacker)
     {
         // triggered only once if AOE
-        if (!myStats.isAttacker)
+        if (!_myStats.IsAttacker)
         {
             // healing self, should be able to choose what direction to face
-            if (_target == gameObject && _attacker.CompareTag("Player"))
-            {
+            if (target == gameObject && attacker.CompareTag("Player"))
                 if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction
                     return false;
-            }
 
             // animation
-            await characterRendererManager.SpellcastAnimation();
+            await _characterRendererManager.SpellcastAnimation();
 
-            myStats.UseMana(_ability.ManaCost);
+            _myStats.UseMana(ability.ManaCost);
         }
 
         // data
-        int healAmount = _ability.BasePower + myStats.intelligence.GetValue();
-        _target.GetComponent<IHealable<Ability>>().GainHealth(healAmount, _ability);
+        int healAmount = ability.BasePower + _myStats.Intelligence.GetValue();
+        target.GetComponent<IHealable<Ability>>().GainHealth(healAmount, ability);
 
-        myStats.SetAttacker(true);
-
-        return true;
-    }
-
-    //TODO: repetition between heal and buff triggerables
-    async Task<bool> PlayerFaceDirSelection()
-    {
-        Vector2 dir = Vector2.zero;
-        if (faceDirectionUI != null)
-            dir = await faceDirectionUI.PickDirection();
-
-        // TODO: is that correct, facedir returns vector2.zero when it's broken out of
-        if (dir == Vector2.zero)
-            return false;
-
-        characterRendererManager.Face(dir.normalized);
+        _myStats.SetAttacker(true);
 
         return true;
     }
-
 }

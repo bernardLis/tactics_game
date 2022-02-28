@@ -9,16 +9,16 @@ public class ItemVisual : VisualElement
 {
 	private readonly Item item;
 
-	public ItemVisual(Item _item)
+	public ItemVisual(Item item)
 	{
-		item = _item;
-		name = $"{item.name}";
-		style.height = item.SlotDimension.Height * PlayerInventory.slotDimension.Height;
-		style.height = item.SlotDimension.Width * PlayerInventory.slotDimension.Width;
+		this.item = item;
+        name = $"{this.item.name}";
+        style.height = this.item.SlotDimension.Height * PlayerInventory.SlotDimension.Height;
+        style.height = this.item.SlotDimension.Width * PlayerInventory.SlotDimension.Width;
 		style.visibility = Visibility.Hidden;
-		VisualElement icon = new VisualElement
-		{
-			style = { backgroundImage = item.Icon.texture }
+        VisualElement icon = new VisualElement
+        {
+			style = { backgroundImage = this.item.Icon.texture }
 		};
 		Add(icon);
 		icon.AddToClassList("visual-icon");

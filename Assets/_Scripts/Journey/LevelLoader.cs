@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System.Threading.Tasks;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    UIDocument UIDocument;
-    VisualElement Crossfade;
+    VisualElement _crossfade;
 
     void Start()
     {
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
-        Crossfade = root.Q<VisualElement>("crossfade");
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        _crossfade = root.Q<VisualElement>("crossfade");
     }
 
     public void LoadLevel(string newScene)
@@ -24,9 +19,9 @@ public class LevelLoader : MonoBehaviour
         DOTween.KillAll();
 
         // fade out opacity 0 -> 1
-        Crossfade.style.opacity = 0;
-        Crossfade.style.display = DisplayStyle.Flex;
-        DOTween.To(() => Crossfade.style.opacity.value, x => Crossfade.style.opacity = x, 1f, 1f)
+        _crossfade.style.opacity = 0;
+        _crossfade.style.display = DisplayStyle.Flex;
+        DOTween.To(() => _crossfade.style.opacity.value, x => _crossfade.style.opacity = x, 1f, 1f)
             .SetEase(Ease.InSine).OnComplete(() => FadeIn(newScene));
     }
 
@@ -35,15 +30,15 @@ public class LevelLoader : MonoBehaviour
         SceneManager.LoadScene(newScene);
 
         // fade in opacity 1 -> 0
-        Crossfade.style.opacity = 1;
-        Crossfade.style.display = DisplayStyle.Flex;
-        DOTween.To(() => Crossfade.style.opacity.value, x => Crossfade.style.opacity = x, 0f, 1f)
+        _crossfade.style.opacity = 1;
+        _crossfade.style.display = DisplayStyle.Flex;
+        DOTween.To(() => _crossfade.style.opacity.value, x => _crossfade.style.opacity = x, 0f, 1f)
             .SetEase(Ease.InSine).OnComplete(HideCrossfade);
 
     }
 
     void HideCrossfade()
     {
-        Crossfade.style.display = DisplayStyle.None;
+        _crossfade.style.display = DisplayStyle.None;
     }
 }

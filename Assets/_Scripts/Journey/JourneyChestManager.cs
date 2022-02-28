@@ -8,44 +8,40 @@ using UnityEngine.UIElements;
 public class JourneyChestManager : MonoBehaviour
 {
     // global
-    JourneyManager journeyManager;
-    LevelLoader levelLoader;
+    JourneyManager _journeyManager;
 
-    ResponsiveCamera cam;
-
+    ResponsiveCamera _cam;
 
     [Header("Unity Setup")]
-    public JourneyChest[] chests;
-    public GameObject chestPrefab;
-    public GameObject cursorPrefab;
-    public GameObject obolPrefab;
-    public JourneyNodeReward reward;
-
+    [SerializeField] JourneyChest[] _chests;
+    [SerializeField] GameObject _chestPrefab;
+    [SerializeField] GameObject _cursorPrefab;
+    [SerializeField] GameObject _obolPrefab;
+    [SerializeField] JourneyNodeReward _reward;
 
     // UI
-    UIDocument UIDocument;
-    VisualElement difficultyAdjustWrapper;
-    Button increaseDifficultyButton;
-    Button decreaseDifficultyButton;
-    Label playingForObolsLabel;
+    VisualElement _difficultyAdjustWrapper;
+    Button _increaseDifficultyButton;
+    Button _decreaseDifficultyButton;
+    Label _playingForObolsLabel;
 
-    VisualElement resultWrapper;
-    Label result;
-    VisualElement rewardWrapper;
-    Label obolAmountLabel;
-    Button backToJourneyButton;
+    VisualElement _resultWrapper;
+    Label _result;
+    VisualElement _rewardWrapper;
+    Label _obolAmountLabel;
+    Button _backToJourneyButton;
 
     // mini game
-    int numberOfChests = 3;
-    int obolsReward = 3;
-    int cursorDelay = 500;
+    int _numberOfChests = 3;
+    int _obolsReward = 3;
+    int _cursorDelay = 500;
 
-    List<JourneyChestBehaviour> chestBehaviours = new();
-    List<JourneyChest> availableChests; // to make sure they are all visiually differnet
-    List<JourneyChestBehaviour> allowedChests;
-    GameObject cursor;
-    public JourneyChestBehaviour cursorChest { get; private set; }
-    JourneyChestBehaviour selectedChest;
+    List<JourneyChestBehaviour> _chestBehaviours = new();
+    List<JourneyChest> _availableChests; // to make sure they are all visiually differnet
+    List<JourneyChestBehaviour> _allowedChests;
+    GameObject _cursor;
+    public JourneyChestBehaviour CurrentCursorChest { get; private set; }
+    JourneyChestBehaviour _selectedChest;
 
     public static JourneyChestManager instance;
     void Awake()
@@ -61,118 +57,115 @@ public class JourneyChestManager : MonoBehaviour
         #endregion
 
         // global
-        journeyManager = JourneyManager.instance;
-        levelLoader = journeyManager.GetComponent<LevelLoader>();
-
-        cam = Camera.main.GetComponent<ResponsiveCamera>();
+        _journeyManager = JourneyManager.instance;
+        _cam = Camera.main.GetComponent<ResponsiveCamera>();
 
         // UI
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
+        var root = GetComponent<UIDocument>().rootVisualElement;
 
-        difficultyAdjustWrapper = root.Q<VisualElement>("difficultyAdjustWrapper");
-        playingForObolsLabel = root.Q<Label>("playingForObols");
-        increaseDifficultyButton = root.Q<Button>("increaseDifficulty");
-        decreaseDifficultyButton = root.Q<Button>("decreaseDifficulty");
+        _difficultyAdjustWrapper = root.Q<VisualElement>("difficultyAdjustWrapper");
+        _playingForObolsLabel = root.Q<Label>("playingForObols");
+        _increaseDifficultyButton = root.Q<Button>("increaseDifficulty");
+        _decreaseDifficultyButton = root.Q<Button>("decreaseDifficulty");
 
-        increaseDifficultyButton.clickable.clicked += IncreaseDifficulty;
-        decreaseDifficultyButton.clickable.clicked += DecreaseDifficulty;
+        _increaseDifficultyButton.clickable.clicked += IncreaseDifficulty;
+        _decreaseDifficultyButton.clickable.clicked += DecreaseDifficulty;
 
-        resultWrapper = root.Q<VisualElement>("resultWrapper");
-        result = root.Q<Label>("result");
-        rewardWrapper = root.Q<VisualElement>("rewardWrapper");
-        obolAmountLabel = root.Q<Label>("obolAmount");
-        backToJourneyButton = root.Q<Button>("backToJourney");
+        _resultWrapper = root.Q<VisualElement>("resultWrapper");
+        _result = root.Q<Label>("result");
+        _rewardWrapper = root.Q<VisualElement>("rewardWrapper");
+        _obolAmountLabel = root.Q<Label>("obolAmount");
+        _backToJourneyButton = root.Q<Button>("backToJourney");
 
-        backToJourneyButton.clickable.clicked += BackToJourney;
+        _backToJourneyButton.clickable.clicked += BackToJourney;
 
         // other
-        availableChests = new(chests);
+        _availableChests = new(_chests);
     }
 
     void Start()
     {
         int x = -5;
-        for (int i = 0; i < numberOfChests; i++)
+        for (int i = 0; i < _numberOfChests; i++)
         {
-            GameObject obj = Instantiate(chestPrefab, new Vector3(x, 2), Quaternion.identity); // TOOD: magic 2
-            JourneyChest chestScriptable = Instantiate(availableChests[Random.Range(0, availableChests.Count)]);
+            GameObject obj = Instantiate(_chestPrefab, new Vector3(x, 2), Quaternion.identity); // TOOD: magic 2
+            JourneyChest chestScriptable = Instantiate(_availableChests[Random.Range(0, _availableChests.Count)]);
 
             JourneyChestBehaviour chestBehaviour = obj.GetComponent<JourneyChestBehaviour>();
-            chestBehaviour.chest = chestScriptable;
-            chestBehaviours.Add(chestBehaviour);
+            chestBehaviour.Chest = chestScriptable;
+            _chestBehaviours.Add(chestBehaviour);
 
-            availableChests.Remove(chestScriptable); // making sure chests are different
+            _availableChests.Remove(chestScriptable); // making sure chests are different
             chestScriptable.Initialize(obj);
             x += 5;
         }
-        cam.SetOrthoSize();
+        _cam.SetOrthoSize();
 
         StartGame();
     }
 
     async void StartGame()
     {
-        allowedChests = new(chestBehaviours);
-        cursor = Instantiate(cursorPrefab, transform.position, Quaternion.identity);
+        _allowedChests = new(_chestBehaviours);
+        _cursor = Instantiate(_cursorPrefab, transform.position, Quaternion.identity);
 
-        while (selectedChest == null)
+        while (_selectedChest == null)
         {
             MoveCursor();
-            await Task.Delay(cursorDelay);
+            await Task.Delay(_cursorDelay);
         }
     }
 
     public void AddForbiddenChest(JourneyChestBehaviour _chest)
     {
-        allowedChests.Remove(_chest);
+        _allowedChests.Remove(_chest);
     }
 
     public void RemoveForbiddenChest(JourneyChestBehaviour _chest)
     {
-        allowedChests.Add(_chest);
+        _allowedChests.Add(_chest);
     }
 
     void MoveCursor()
     {
-        cursorChest = allowedChests[Random.Range(0, allowedChests.Count)];
-        Vector3 pos = new Vector3(cursorChest.transform.position.x, cursorChest.transform.position.y + 0.5f);
-        cursor.transform.position = pos;
+        CurrentCursorChest = _allowedChests[Random.Range(0, _allowedChests.Count)];
+        Vector3 pos = new Vector3(CurrentCursorChest.transform.position.x, CurrentCursorChest.transform.position.y + 0.5f);
+        _cursor.transform.position = pos;
     }
 
     public void ChestWasSelected(JourneyChestBehaviour _chestBehaviour)
     {
-        selectedChest = _chestBehaviour;
+        _selectedChest = _chestBehaviour;
 
-        foreach (JourneyChestBehaviour c in chestBehaviours)
-            c.wasChestSelected = true;
+        foreach (JourneyChestBehaviour c in _chestBehaviours)
+            c.WasChestSelected = true;
 
-        JourneyNodeReward rewardInstance = Instantiate(reward);
-        if (_chestBehaviour == cursorChest)
+        JourneyNodeReward rewardInstance = Instantiate(_reward);
+        if (_chestBehaviour == CurrentCursorChest)
         {
-            result.text = "Winner winner chicken dinner";
-            result.style.color = Color.white;
-            _chestBehaviour.chest.Won();
-            rewardInstance.obols = obolsReward;
+            _result.text = "Winner winner chicken dinner";
+            _result.style.color = Color.white;
+            _chestBehaviour.Chest.Won();
+            rewardInstance.obols = _obolsReward;
         }
         else
         {
-            result.text = "Better luck next time";
-            result.style.color = Color.red;
-            _chestBehaviour.chest.Lost();
+            _result.text = "Better luck next time";
+            _result.style.color = Color.red;
+            _chestBehaviour.Chest.Lost();
             rewardInstance.obols = 0;
         }
 
-        obolAmountLabel.text = "0";
+        _obolAmountLabel.text = "0";
 
-        journeyManager.SetNodeReward(rewardInstance);
+        _journeyManager.SetNodeReward(rewardInstance);
         StartCoroutine(ChangeObolsCoroutine(rewardInstance.obols));
 
-        difficultyAdjustWrapper.style.display = DisplayStyle.None;
+        _difficultyAdjustWrapper.style.display = DisplayStyle.None;
 
-        resultWrapper.style.opacity = 0;
-        resultWrapper.style.display = DisplayStyle.Flex;
-        DOTween.To(() => resultWrapper.style.opacity.value, x => resultWrapper.style.opacity = x, 1f, 1f)
+        _resultWrapper.style.opacity = 0;
+        _resultWrapper.style.display = DisplayStyle.Flex;
+        DOTween.To(() => _resultWrapper.style.opacity.value, x => _resultWrapper.style.opacity = x, 1f, 1f)
             .SetEase(Ease.InSine);
     }
 
@@ -184,16 +177,16 @@ public class JourneyChestManager : MonoBehaviour
             current++;
             SpawnObol();
             yield return new WaitForSeconds(0.2f);
-            obolAmountLabel.text = current.ToString();
+            _obolAmountLabel.text = current.ToString();
         }
     }
 
     void SpawnObol()
     {
-        Vector3 spawnPos = selectedChest.gameObject.transform.position;
+        Vector3 spawnPos = _selectedChest.gameObject.transform.position;
         Vector3 randomVector = new Vector3(Random.Range(0f, 3f), Random.Range(0f, 3f));
 
-        GameObject g = Instantiate(obolPrefab, spawnPos, Quaternion.identity);
+        GameObject g = Instantiate(_obolPrefab, spawnPos, Quaternion.identity);
         g.transform.DOJump(spawnPos + randomVector, 1f, 1, 1f);
 
         Destroy(g, 1.1f);
@@ -202,13 +195,13 @@ public class JourneyChestManager : MonoBehaviour
     /* BUTTONS */
     void IncreaseDifficulty()
     {
-        if (obolsReward == 10)
+        if (_obolsReward == 10)
             return;
 
-        obolsReward++;
-        playingForObolsLabel.text = obolsReward.ToString();
+        _obolsReward++;
+        _playingForObolsLabel.text = _obolsReward.ToString();
         // we add a chest or decrease delay every second obol, starting with adding a chest
-        if (obolsReward % 2 == 0)
+        if (_obolsReward % 2 == 0)
             AddChest();
         else
             DecreaseDelay();
@@ -216,13 +209,13 @@ public class JourneyChestManager : MonoBehaviour
 
     void DecreaseDifficulty()
     {
-        if (obolsReward == 1)
+        if (_obolsReward == 1)
             return;
 
-        obolsReward--;
-        playingForObolsLabel.text = obolsReward.ToString();
+        _obolsReward--;
+        _playingForObolsLabel.text = _obolsReward.ToString();
         // we add a chest or decrease delay every second obol, starting with adding a chest
-        if (obolsReward % 2 == 0)
+        if (_obolsReward % 2 == 0)
             IncreaseDelay();
         else
             RemoveChest();
@@ -231,50 +224,50 @@ public class JourneyChestManager : MonoBehaviour
     void AddChest()
     {
         // start over if you use all visuals
-        if (availableChests.Count == 0)
-            availableChests = new(chests);
+        if (_availableChests.Count == 0)
+            _availableChests = new(_chests);
 
-        JourneyChestBehaviour lastChest = chestBehaviours[chestBehaviours.Count - 1];
+        JourneyChestBehaviour lastChest = _chestBehaviours[_chestBehaviours.Count - 1];
         Vector3 pos = new Vector3(lastChest.transform.position.x + 5f, lastChest.transform.position.y);
 
-        GameObject obj = Instantiate(chestPrefab, pos, Quaternion.identity);
-        JourneyChest chestScriptable = Instantiate(availableChests[Random.Range(0, availableChests.Count)]);
+        GameObject obj = Instantiate(_chestPrefab, pos, Quaternion.identity);
+        JourneyChest chestScriptable = Instantiate(_availableChests[Random.Range(0, _availableChests.Count)]);
 
         JourneyChestBehaviour chestBehaviour = obj.GetComponent<JourneyChestBehaviour>();
-        chestBehaviour.chest = chestScriptable;
-        chestBehaviours.Add(chestBehaviour);
-        allowedChests.Add(chestBehaviour);
+        chestBehaviour.Chest = chestScriptable;
+        _chestBehaviours.Add(chestBehaviour);
+        _allowedChests.Add(chestBehaviour);
 
-        availableChests.Remove(chestScriptable); // making sure chests are different
+        _availableChests.Remove(chestScriptable); // making sure chests are different
         chestScriptable.Initialize(obj);
 
-        cam.SetOrthoSize();
+        _cam.SetOrthoSize();
     }
 
     void RemoveChest()
     {
-        JourneyChestBehaviour chestToRemove = chestBehaviours[chestBehaviours.Count - 1];
-        chestBehaviours.Remove(chestToRemove);
-        allowedChests.Remove(chestToRemove);
+        JourneyChestBehaviour chestToRemove = _chestBehaviours[_chestBehaviours.Count - 1];
+        _chestBehaviours.Remove(chestToRemove);
+        _allowedChests.Remove(chestToRemove);
         Destroy(chestToRemove.gameObject);
 
-        cam.SetOrthoSize();
+        _cam.SetOrthoSize();
     }
 
     void DecreaseDelay()
     {
         // TODO: this should be usnig a curve
-        cursorDelay -= 100;
+        _cursorDelay -= 100;
     }
 
     void IncreaseDelay()
     {
-        cursorDelay += 100;
+        _cursorDelay += 100;
     }
 
     void BackToJourney()
     {
-        levelLoader.LoadLevel("Journey");
+        _journeyManager.LoadLevel("Journey");
     }
 
 }

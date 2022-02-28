@@ -6,19 +6,19 @@ using UnityEngine.UIElements;
 // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
 public class QuestSlot : VisualElement
 {
-    public Label title;
-    public Quest quest;
+    public Label Title;
+    public Quest Quest;
 
-    QuestUI questUI;
+    QuestUI _questUI;
 
     public QuestSlot()
     {
         AddToClassList("questSlot");
 
         // create a new label element and add it to the root
-        title = new Label();
-        Add(title);
-        title.AddToClassList("questTitleLabel");
+        Title = new Label();
+        Add(Title);
+        Title.AddToClassList("questTitleLabel");
 
         // on click
         RegisterCallback<PointerDownEvent>(OnPointerDown);
@@ -26,18 +26,18 @@ public class QuestSlot : VisualElement
 
     public void HoldQuest(Quest _quest)
     {
-        questUI = GameUI.instance.GetComponent<QuestUI>();
+        _questUI = GameUI.instance.GetComponent<QuestUI>();
 
-        quest = _quest;
-        title.text = quest.Title;
+        Quest = _quest;
+        Title.text = Quest.Title;
     }
 
     public void DropQuest()
     {
-        if (quest != null)
-            quest = null;
-        if (title.text != null)
-            title.text = null;
+        if (Quest != null)
+            Quest = null;
+        if (Title.text != null)
+            Title.text = null;
     }
 
     void OnPointerDown(PointerDownEvent evt)
@@ -51,13 +51,11 @@ public class QuestSlot : VisualElement
 
     public void Select()
     {
-        Debug.Log("clicked on " + quest.Title);
-
-        if (questUI != null)
+        if (_questUI != null)
         {
-            questUI.UnselectCurrent();
-            questUI.OnQuestClick(quest);
-            questUI.selectedQuestSlot = this;
+            _questUI.UnselectCurrent();
+            _questUI.OnQuestClick(Quest);
+            _questUI.SelectedQuestSlot = this;
         }
 
         this.AddToClassList("selectedQuestSlot");

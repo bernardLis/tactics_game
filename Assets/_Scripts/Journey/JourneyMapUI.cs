@@ -1,56 +1,54 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
-using System.Threading.Tasks;
 
 public class JourneyMapUI : MonoBehaviour
 {
-    JourneyManager journeyManager;
-    JourneyMapManager journeyMapManager;
-    UIDocument UIDocument;
-    Label currencyAmount;
-    VisualElement nodeInfo;
-    Label nodeType;
-    Label nodeObols;
+    JourneyManager _journeyManager;
+    JourneyMapManager _journeyMapManager;
+
+    Label _currencyAmount;
+    VisualElement _nodeInfo;
+    Label _nodeType;
+    Label _nodeObols;
 
     [Header("Unity Setup")]
-    public GameObject obolObject;
+    [SerializeField] GameObject obolObject;
 
 
 
     void Awake()
     {
-        journeyManager = JourneyManager.instance;
-        journeyMapManager = JourneyMapManager.instance;
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
-        currencyAmount = root.Q<Label>("currencyAmount");
+        _journeyManager = JourneyManager.instance;
+        _journeyMapManager = JourneyMapManager.instance;
 
-        nodeInfo = root.Q<VisualElement>("nodeInfo");
-        nodeType = root.Q<Label>("nodeType");
-        nodeObols = root.Q<Label>("nodeObols");
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        _currencyAmount = root.Q<Label>("currencyAmount");
+
+        _nodeInfo = root.Q<VisualElement>("nodeInfo");
+        _nodeType = root.Q<Label>("nodeType");
+        _nodeObols = root.Q<Label>("nodeObols");
     }
 
     void Start()
     {
-        currencyAmount.text = journeyManager.obols.ToString();
+        _currencyAmount.text = _journeyManager.Obols.ToString();
     }
 
-    public void ChangeObols(int _start, int _end)
+    public void ChangeObols(int start, int end)
     {
-        StartCoroutine(ChangeObolsCoroutine(_start, _end));
+        StartCoroutine(ChangeObolsCoroutine(start, end));
     }
 
-    IEnumerator ChangeObolsCoroutine(int _start, int _end)
+    IEnumerator ChangeObolsCoroutine(int start, int end)
     {
-        int current = _start;
-        int amount = Mathf.Abs(_end - _start);
+        int current = start;
+        int amount = Mathf.Abs(end - start);
         // TODO: there must be a better way
         for (int i = 0; i < amount; i++)
         {
-            if (_end > _start)
+            if (end > start)
             {
                 current++;
                 SpawnObol(1);
@@ -66,19 +64,19 @@ public class JourneyMapUI : MonoBehaviour
             }
 
             yield return new WaitForSeconds(0.1f);
-            currencyAmount.text = current.ToString();
+            _currencyAmount.text = current.ToString();
         }
     }
 
-    void SpawnObol(int _dir)
+    void SpawnObol(int dir)
     {
-        Vector3 spawnPos = journeyMapManager.currentNode.gameObject.transform.position;
+        Vector3 spawnPos = _journeyMapManager.CurrentNode.GameObject.transform.position;
         Vector3 travelToPos = Camera.main.ScreenToWorldPoint(new Vector3(0f, Screen.height));
-        if (_dir == -1)
+        if (dir == -1)
         {
             // if we are subtracting obols, they should be flying the other way
             spawnPos = Camera.main.ScreenToWorldPoint(new Vector3(0f, Screen.height));
-            travelToPos = journeyMapManager.currentNode.gameObject.transform.position;
+            travelToPos = _journeyMapManager.CurrentNode.GameObject.transform.position;
         }
 
         GameObject g = Instantiate(obolObject, spawnPos, Quaternion.identity);
@@ -87,15 +85,15 @@ public class JourneyMapUI : MonoBehaviour
         Destroy(g, 1.1f);
     }
 
-    public void ShowNodeInfo(JourneyNode _node)
+    public void ShowNodeInfo(JourneyNode node)
     {
-        nodeInfo.style.visibility = Visibility.Visible;
-        nodeType.text = _node.nodeType.ToString();
+        _nodeInfo.style.visibility = Visibility.Visible;
+        _nodeType.text = node.NodeType.ToString();
     }
 
     public void HideNodeInfo()
     {
-        nodeInfo.style.visibility = Visibility.Hidden;
+        _nodeInfo.style.visibility = Visibility.Hidden;
     }
 
 }

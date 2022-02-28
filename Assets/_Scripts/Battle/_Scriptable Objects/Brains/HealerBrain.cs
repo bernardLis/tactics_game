@@ -85,9 +85,9 @@ public class HealerBrain : Brain
         foreach (PotentialTarget t in potentialTargets)
         {
             CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
-            if (stats.currentHealth < stats.maxHealth.GetValue() && stats.currentHealth < lowestHealth)
+            if (stats.CurrentHealth < stats.MaxHealth.GetValue() && stats.CurrentHealth < lowestHealth)
             {
-                lowestHealth = stats.currentHealth;
+                lowestHealth = stats.CurrentHealth;
                 target = t;
             }
         }
@@ -105,11 +105,11 @@ public class HealerBrain : Brain
         {
             CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
 
-            if (stats.currentHealth < stats.maxHealth.GetValue()
+            if (stats.CurrentHealth < stats.MaxHealth.GetValue()
                 && Helpers.GetManhattanDistance(_characterGameObject.transform.position, t.GameObj.transform.position) < selectedAbility.Range
-                && stats.currentHealth < lowestHealth)
+                && stats.CurrentHealth < lowestHealth)
             {
-                lowestHealth = stats.currentHealth;
+                lowestHealth = stats.CurrentHealth;
                 target = t;
             }
         }

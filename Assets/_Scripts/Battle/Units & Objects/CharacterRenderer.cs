@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class CharacterRenderer : MonoBehaviour
 {
-	public static readonly string[] staticDirections = { "Idle N", "Idle W", "Idle S", "Idle E"};
-	public static readonly string[] runDirections = { "Walk N", "Walk W", "Walk S", "Walk E" };
+	public static readonly string[] StaticDirections = { "Idle N", "Idle W", "Idle S", "Idle E"};
+	public static readonly string[] RunDirections = { "Walk N", "Walk W", "Walk S", "Walk E" };
 
-	Animator animator;
-	int lastDirection;
+	Animator _animator;
+	int _lastDirection;
 
 	void Awake()
 	{
 		//cache the animator component
-		animator = GetComponent<Animator>();
+		_animator = GetComponent<Animator>();
 	}
 
 	public void SetDirection(Vector2 direction)
@@ -24,20 +24,20 @@ public class CharacterRenderer : MonoBehaviour
 		{
 			//if we are basically standing still, we'll use the Static states
 			//we won't be able to calculate a direction if the user isn't pressing one, anyway!
-			directionArray = staticDirections;
+			directionArray = StaticDirections;
 		}
 		else
 		{
 			//we can calculate which direction we are going in
 			//use DirectionToIndex to get the index of the slice from the direction vector
 			//save the answer to lastDirection
-			directionArray = runDirections;
-			lastDirection = DirectionToIndex(direction, 4);
+			directionArray = RunDirections;
+			_lastDirection = DirectionToIndex(direction, 4);
 		}
 
 		//tell the animator to play the requested state
-		if(animator.runtimeAnimatorController != null && animator.gameObject.activeSelf)
-			animator.Play(directionArray[lastDirection]);
+		if(_animator.runtimeAnimatorController != null && _animator.gameObject.activeSelf)
+			_animator.Play(directionArray[_lastDirection]);
 	}
 
 	//helper functions

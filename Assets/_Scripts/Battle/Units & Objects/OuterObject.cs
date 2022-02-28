@@ -5,17 +5,17 @@ using DG.Tweening;
 
 public class OuterObject : MonoBehaviour
 {
-    string tweenID;
+    string _tweenID;
 
-    public void Initialise(TilemapObject _obj)
+    public void Initialise(TilemapObject obj)
     {
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        sr.sprite = _obj.Sprite;
+        sr.sprite = obj.Sprite;
         if (Random.Range(0f, 1f) > 0.5f)
             sr.flipX = true;
 
-        tweenID = _obj.Id;
-        if (_obj.IsMoving)
+        _tweenID = obj.Id;
+        if (obj.IsMoving)
         {
             sr.sortingOrder = 2;
             StartCoroutine(ChangeMovement());
@@ -24,14 +24,13 @@ public class OuterObject : MonoBehaviour
 
     void MoveRandomly()
     {
-
         float x = Random.Range(0f, 1f);
         float y = Random.Range(0f, 1f);
         float multiplier = Random.Range(0.1f, 0.3f);
         Vector3 direction = new Vector3(x * multiplier, y * multiplier);
 
         float duration = Random.Range(2f, 5f);
-        transform.DOPunchPosition(direction, duration, 0, 1f, false).SetLoops(3, LoopType.Yoyo).SetId(tweenID); // TODO: cool! 
+        transform.DOPunchPosition(direction, duration, 0, 1f, false).SetLoops(3, LoopType.Yoyo).SetId(_tweenID); // TODO: cool! 
     }
 
     IEnumerator ChangeMovement()

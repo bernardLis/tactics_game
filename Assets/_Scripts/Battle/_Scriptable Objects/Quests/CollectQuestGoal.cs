@@ -36,10 +36,10 @@ public class CollectQuestGoal : QuestGoal
 	public override void Evaluate(object sender, ItemChangedEventArgs e)
 	{
 		Debug.Log("evaluate with object etc. is called");
-		if (e.item == RequiredItem)
+		if (e.Item == RequiredItem)
 		{
 			CurrentAmount++;
-			GameUI.instance.DisplayLogText(CurrentAmount + "/" + RequiredAmount + " of " + e.item.name);
+			GameUI.instance.DisplayLogText(CurrentAmount + "/" + RequiredAmount + " of " + e.Item.name);
 			Evaluate();
 		}
 	}

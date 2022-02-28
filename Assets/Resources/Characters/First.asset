@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
   m_Name: First
   m_EditorClassIdentifier: 
-  Id: 
+  Id: e015cca2-5b59-4efc-bd45-a7b813863624
   ReferenceID: CHARACTER-0
   CharacterName: First
   Portrait: {fileID: 21300000, guid: afd309c482f885140af9ed07152aa6f0, type: 3}

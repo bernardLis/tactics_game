@@ -53,7 +53,7 @@ public class MeeleBrain : Brain
 
         // attack;
         _selectedAbility = _abilities[0]; // TODO: hardocded indexes.
-        if (_enemyStats.currentMana >= 20)
+        if (_enemyStats.CurrentMana >= 20)
             _selectedAbility = _abilities[1]; // TODO: hardocded indexes.
 
         await base.Interact();

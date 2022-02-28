@@ -6,7 +6,7 @@ public class StunStatus : Status
     public override void FirstTrigger()
     {
         // this is when you apply stun on your mate
-        if (_attacker.CompareTag(_characterGameObject.tag) && !_characterSelection.hasFinishedTurn)
+        if (_attacker.CompareTag(_characterGameObject.tag) && !_characterSelection.HasFinishedTurn)
             _characterSelection.FinishCharacterTurn();
 
         // this is normal situation, when you apply stun on person from opposite team

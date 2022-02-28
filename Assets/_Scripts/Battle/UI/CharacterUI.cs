@@ -7,83 +7,79 @@ using DG.Tweening;
 
 public class CharacterUI : MonoBehaviour
 {
-
     // global utility
-    BattleInputController battleInputController;
-    BattleCharacterController battleCharacterController;
+    BattleInputController _battleInputController;
+    BattleCharacterController _battleCharacterController;
 
     // UI Elements
-    UIDocument UIDocument;
+    VisualElement _characterUI;
 
-    VisualElement characterUI;
+    VisualElement _characterUITooltipContainer;
+    Label _characterUITooltipAbilityName;
+    Label _characterUITooltipAbilityDescription;
+    Label _characterUITooltipAbilityManaCost;
+    Label _characterUITooltipModifierDescription;
+    Label _characterUITooltipStatusDescription;
 
-    VisualElement characterUITooltipContainer;
-    Label characterUITooltipAbilityName;
-    Label characterUITooltipAbilityDescription;
-    Label characterUITooltipAbilityManaCost;
-    Label characterUITooltipModifierDescription;
-    Label characterUITooltipStatusDescription;
+    Label _characterName;
+    VisualElement _characterPortrait;
+    VisualElement _characterPortraitSkull;
 
-    Label characterName;
-    VisualElement characterPortrait;
-    VisualElement characterPortraitSkull;
+    Label _characterHealth;
+    VisualElement _characterHealthBarMissingHealth;
+    VisualElement _characterHealthBarRetaliationResult;
 
-    Label characterHealth;
-    VisualElement characterHealthBarMissingHealth;
-    VisualElement characterHealthBarRetaliationResult;
+    Label _characterMana;
+    VisualElement _characterManaBarMissingMana;
+    VisualElement _characterManaBarInteractionResult;
 
-    Label characterMana;
-    VisualElement characterManaBarMissingMana;
-    VisualElement characterManaBarInteractionResult;
+    Label _characterStrength;
+    Label _characterIntelligence;
+    Label _characterAgility;
+    Label _characterStamina;
+    Label _characterArmor;
+    Label _characterRange;
 
-    Label characterStrengthAmount;
-    Label characterIntelligenceAmount;
-    Label characterAgilityAmount;
-    Label characterStaminaAmount;
-    Label characterArmorAmount;
-    Label characterRangeAmount;
+    VisualElement _modifierContainer;
 
-    VisualElement modifierContainer;
+    Button _characterAButton;
+    Button _characterSButton;
+    Button _characterDButton;
 
-    Button characterAButton;
-    Button characterSButton;
-    Button characterDButton;
+    Button _characterQButton;
+    Button _characterWButton;
+    Button _characterEButton;
+    Button _characterRButton;
+    List<Button> _abilityButtons;
 
-    Button characterQButton;
-    Button characterWButton;
-    Button characterEButton;
-    Button characterRButton;
-    List<Button> abilityButtons;
+    VisualElement _characterASkillIcon;
+    VisualElement _characterSSkillIcon;
 
-    VisualElement characterASkillIcon;
-    VisualElement characterSSkillIcon;
-
-    VisualElement characterQSkillIcon;
-    VisualElement characterWSkillIcon;
-    VisualElement characterESkillIcon;
-    VisualElement characterRSkillIcon;
-    List<VisualElement> abilityIcons;
+    VisualElement _characterQSkillIcon;
+    VisualElement _characterWSkillIcon;
+    VisualElement _characterESkillIcon;
+    VisualElement _characterRSkillIcon;
+    List<VisualElement> _abilityIcons;
 
     // local
-    CharacterStats selectedPlayerStats;
+    CharacterStats _selectedPlayerStats;
 
     // animate ui up/down on show/hide
-    float characterUIShowValue = 0f;
-    float characterUIHideValue = 20f;
+    float _characterUIShowValue = 0f;
+    float _characterUIHideValue = 20f;
 
     // buttons management
-    Queue<IEnumerator> buttonClickQueue = new();
-    bool wasClickEnqueued;
+    Queue<IEnumerator> _buttonClickQueue = new();
+    bool _wasClickEnqueued;
 
     // showing mana use
-    string manaUseTweenID = "manaUseTweenID";
+    string _manaUseTweenID = "manaUseTweenID";
 
 
     // showing retaliation result
-    public Color damageBarColor;
-    public Color healBarColor;
-    string missingBarTweenID = "characterHealthBarTweenID";
-
+    Color _damageBarColor;
+    Color _healBarColor;
+    string _healthLostTweenID = "characterHealthBarTweenID";
 
     public static CharacterUI instance;
     void Awake()
@@ -92,7 +88,7 @@ public class CharacterUI : MonoBehaviour
         // singleton
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of UIDocument found");
+            Debug.LogWarning("More than one instance of CharacterUI found");
             return;
         }
         instance = this;
@@ -100,87 +96,89 @@ public class CharacterUI : MonoBehaviour
         #endregion
 
         // getting ui elements
-        UIDocument = GetComponent<UIDocument>();
-        var root = UIDocument.rootVisualElement;
+        var root = GetComponent<UIDocument>().rootVisualElement;
 
-        characterUI = root.Q<VisualElement>("characterUI");
+        _characterUI = root.Q<VisualElement>("characterUI");
         // otherwise it is null
-        characterUI.style.top = Length.Percent(characterUIHideValue);
+        _characterUI.style.top = Length.Percent(_characterUIHideValue);
 
-        characterUITooltipContainer = root.Q<VisualElement>("characterUITooltipContainer");
-        characterUITooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
-        characterUITooltipAbilityDescription = root.Q<Label>("characterUITooltipAbilityDescription");
-        characterUITooltipAbilityManaCost = root.Q<Label>("characterUITooltipAbilityManaCost");
-        characterUITooltipModifierDescription = root.Q<Label>("characterUITooltipModifierDescription");
-        characterUITooltipStatusDescription = root.Q<Label>("characterUITooltipStatusDescription");
+        _characterUITooltipContainer = root.Q<VisualElement>("characterUITooltipContainer");
+        _characterUITooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
+        _characterUITooltipAbilityDescription = root.Q<Label>("characterUITooltipAbilityDescription");
+        _characterUITooltipAbilityManaCost = root.Q<Label>("characterUITooltipAbilityManaCost");
+        _characterUITooltipModifierDescription = root.Q<Label>("characterUITooltipModifierDescription");
+        _characterUITooltipStatusDescription = root.Q<Label>("characterUITooltipStatusDescription");
 
-        characterName = root.Q<Label>("characterName");
-        characterPortrait = root.Q<VisualElement>("characterPortrait");
-        characterPortraitSkull = root.Q<VisualElement>("characterPortraitSkull");
+        _characterName = root.Q<Label>("characterName");
+        _characterPortrait = root.Q<VisualElement>("characterPortrait");
+        _characterPortraitSkull = root.Q<VisualElement>("characterPortraitSkull");
 
-        characterHealth = root.Q<Label>("characterHealth");
-        characterHealthBarMissingHealth = root.Q<VisualElement>("characterHealthBarMissingHealth");
-        characterHealthBarRetaliationResult = root.Q<VisualElement>("characterHealthBarRetaliationResult");
+        _characterHealth = root.Q<Label>("characterHealth");
+        _characterHealthBarMissingHealth = root.Q<VisualElement>("characterHealthBarMissingHealth");
+        _characterHealthBarRetaliationResult = root.Q<VisualElement>("characterHealthBarRetaliationResult");
 
-        characterMana = root.Q<Label>("characterMana");
-        characterManaBarMissingMana = root.Q<VisualElement>("characterManaBarMissingMana");
-        characterManaBarInteractionResult = root.Q<VisualElement>("characterManaBarInteractionResult");
+        _characterMana = root.Q<Label>("characterMana");
+        _characterManaBarMissingMana = root.Q<VisualElement>("characterManaBarMissingMana");
+        _characterManaBarInteractionResult = root.Q<VisualElement>("characterManaBarInteractionResult");
 
-        characterStrengthAmount = root.Q<Label>("characterStrengthAmount");
-        characterIntelligenceAmount = root.Q<Label>("characterIntelligenceAmount");
-        characterAgilityAmount = root.Q<Label>("characterAgilityAmount");
-        characterStaminaAmount = root.Q<Label>("characterStaminaAmount");
-        characterArmorAmount = root.Q<Label>("characterArmorAmount");
-        characterRangeAmount = root.Q<Label>("characterRangeAmount");
+        _characterStrength = root.Q<Label>("characterStrengthAmount");
+        _characterIntelligence = root.Q<Label>("characterIntelligenceAmount");
+        _characterAgility = root.Q<Label>("characterAgilityAmount");
+        _characterStamina = root.Q<Label>("characterStaminaAmount");
+        _characterArmor = root.Q<Label>("characterArmorAmount");
+        _characterRange = root.Q<Label>("characterRangeAmount");
 
-        modifierContainer = root.Q<VisualElement>("modifierContainer");
+        _modifierContainer = root.Q<VisualElement>("modifierContainer");
 
-        characterAButton = root.Q<Button>("characterAButton");
-        characterSButton = root.Q<Button>("characterSButton");
-        characterDButton = root.Q<Button>("characterDButton");
+        _characterAButton = root.Q<Button>("characterAButton");
+        _characterSButton = root.Q<Button>("characterSButton");
+        _characterDButton = root.Q<Button>("characterDButton");
 
-        characterQButton = root.Q<Button>("characterQButton");
-        characterWButton = root.Q<Button>("characterWButton");
-        characterEButton = root.Q<Button>("characterEButton");
-        characterRButton = root.Q<Button>("characterRButton");
+        _characterQButton = root.Q<Button>("characterQButton");
+        _characterWButton = root.Q<Button>("characterWButton");
+        _characterEButton = root.Q<Button>("characterEButton");
+        _characterRButton = root.Q<Button>("characterRButton");
 
         // TODO: this could be probably improved
-        abilityButtons = new();
-        abilityButtons.Add(characterQButton);
-        abilityButtons.Add(characterWButton);
-        abilityButtons.Add(characterEButton);
-        abilityButtons.Add(characterRButton);
+        _abilityButtons = new();
+        _abilityButtons.Add(_characterQButton);
+        _abilityButtons.Add(_characterWButton);
+        _abilityButtons.Add(_characterEButton);
+        _abilityButtons.Add(_characterRButton);
 
         // register interaction callbacks (buttons)
-        characterAButton.clickable.clicked += AButtonClicked;
-        characterSButton.clickable.clicked += SButtonClicked;
-        characterDButton.clickable.clicked += DButtonClicked;
+        _characterAButton.clickable.clicked += AButtonClicked;
+        _characterSButton.clickable.clicked += SButtonClicked;
+        _characterDButton.clickable.clicked += DButtonClicked;
 
-        characterQButton.clickable.clicked += QButtonClicked;
-        characterWButton.clickable.clicked += WButtonClicked;
-        characterEButton.clickable.clicked += EButtonClicked;
-        characterRButton.clickable.clicked += RButtonClicked;
+        _characterQButton.clickable.clicked += QButtonClicked;
+        _characterWButton.clickable.clicked += WButtonClicked;
+        _characterEButton.clickable.clicked += EButtonClicked;
+        _characterRButton.clickable.clicked += RButtonClicked;
 
-        characterASkillIcon = root.Q<VisualElement>("characterASkillIcon");
-        characterSSkillIcon = root.Q<VisualElement>("characterSSkillIcon");
+        _characterASkillIcon = root.Q<VisualElement>("characterASkillIcon");
+        _characterSSkillIcon = root.Q<VisualElement>("characterSSkillIcon");
 
-        characterQSkillIcon = root.Q<VisualElement>("characterQSkillIcon");
-        characterWSkillIcon = root.Q<VisualElement>("characterWSkillIcon");
-        characterESkillIcon = root.Q<VisualElement>("characterESkillIcon");
-        characterRSkillIcon = root.Q<VisualElement>("characterRSkillIcon");
+        _characterQSkillIcon = root.Q<VisualElement>("characterQSkillIcon");
+        _characterWSkillIcon = root.Q<VisualElement>("characterWSkillIcon");
+        _characterESkillIcon = root.Q<VisualElement>("characterESkillIcon");
+        _characterRSkillIcon = root.Q<VisualElement>("characterRSkillIcon");
 
         // TODO: this could be probably improved
-        abilityIcons = new();
-        abilityIcons.Add(characterQSkillIcon);
-        abilityIcons.Add(characterWSkillIcon);
-        abilityIcons.Add(characterESkillIcon);
-        abilityIcons.Add(characterRSkillIcon);
+        _abilityIcons = new();
+        _abilityIcons.Add(_characterQSkillIcon);
+        _abilityIcons.Add(_characterWSkillIcon);
+        _abilityIcons.Add(_characterESkillIcon);
+        _abilityIcons.Add(_characterRSkillIcon);
+
+        _damageBarColor = Helpers.GetColor("gray");
+        _healBarColor =  Helpers.GetColor("healthGainGreen");
     }
 
     void Start()
     {
-        battleInputController = BattleInputController.instance;
-        battleCharacterController = BattleCharacterController.instance;
+        _battleInputController = BattleInputController.instance;
+        _battleCharacterController = BattleCharacterController.instance;
 
         //https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
         StartCoroutine(CoroutineCoordinator());
@@ -190,25 +188,25 @@ public class CharacterUI : MonoBehaviour
     // first 2 abilities should always be 
     void AButtonClicked()
     {
-        if (!battleCharacterController.CanSelectAbility())
+        if (!_battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.basicAbilities[0]));
+        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.BasicAbilities[0]));
     }
 
     void SButtonClicked()
     {
-        if (!battleCharacterController.CanSelectAbility())
+        if (!_battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.basicAbilities[1]));
+        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.BasicAbilities[1]));
     }
 
     void DButtonClicked()
     {
-        if (!battleCharacterController.CanSelectAbility())
+        if (!_battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
@@ -217,50 +215,50 @@ public class CharacterUI : MonoBehaviour
 
     void QButtonClicked()
     {
-        if (!battleCharacterController.CanSelectAbility())
+        if (!_battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
-        if (selectedPlayerStats.abilities[0] == null)
+        if (_selectedPlayerStats.Abilities[0] == null)
             return;
 
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[0]));
+        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.Abilities[0]));
     }
 
     void WButtonClicked()
     {
-        if (!battleCharacterController.CanSelectAbility())
+        if (!_battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
-        if (selectedPlayerStats.abilities[1] == null)
+        if (_selectedPlayerStats.Abilities[1] == null)
             return;
 
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[1]));
+        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.Abilities[1]));
     }
 
     void EButtonClicked()
     {
-        if (!battleCharacterController.CanSelectAbility())
+        if (!_battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
-        if (selectedPlayerStats.abilities[2] == null)
+        if (_selectedPlayerStats.Abilities[2] == null)
             return;
 
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[2]));
+        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.Abilities[2]));
     }
 
     void RButtonClicked()
     {
-        if (!battleCharacterController.CanSelectAbility())
+        if (!_battleCharacterController.CanSelectAbility())
             return;
 
         // TODO: hardcoded ability indexes
-        if (selectedPlayerStats.abilities[3] == null)
+        if (_selectedPlayerStats.Abilities[3] == null)
             return;
 
-        buttonClickQueue.Enqueue(HandleButtonClick(selectedPlayerStats.abilities[3]));
+        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.Abilities[3]));
     }
 
     // TODO: Hey future Bernard, I know you are looking at this and thinking: "damn... mixing coroutines and async await sucks, what was I thinking"
@@ -268,58 +266,56 @@ public class CharacterUI : MonoBehaviour
     // because I am not skilled enough to rewrite everything to use only async await. 
     IEnumerator HandleButtonClick(Ability ability)
     {
-        battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+        _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
 
         ShowAbilityTooltip(ability);
 
-        Task task = ability.HighlightTargetable(battleCharacterController.selectedCharacter); // for some reason this works, but it has to be written exactly like that with Task task = ;
+        Task task = ability.HighlightTargetable(_battleCharacterController.SelectedCharacter); // for some reason this works, but it has to be written exactly like that with Task task = ;
         yield return new WaitUntil(() => task.IsCompleted);
 
-        battleCharacterController.SetSelectedAbility(ability);
+        _battleCharacterController.SetSelectedAbility(ability);
     }
 
     void OpenInventory()
     {
-        Debug.Log("opening inventory");
-        battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+        _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
         InventoryUI.instance.EnableInventoryUI();
         // then player selects item and I can queue ability with handle button click... sounds a bit convoluted
         // I probably need to disable game controlls and enable inventory controls.
     }
 
-    public void UseItem(Item _item)
+    public void UseItem(Item item)
     {
-        Debug.Log("using ite in char ui");
-        _item.Ability.Initialize(battleCharacterController.selectedCharacter);
-        buttonClickQueue.Enqueue(HandleButtonClick(_item.Ability));
+        item.Ability.Initialize(_battleCharacterController.SelectedCharacter);
+        _buttonClickQueue.Enqueue(HandleButtonClick(item.Ability));
     }
 
     void ShowAbilityTooltip(Ability _ability)
     {
-        characterUITooltipContainer.style.display = DisplayStyle.Flex;
+        _characterUITooltipContainer.style.display = DisplayStyle.Flex;
 
-        characterUITooltipAbilityName.text = _ability.name;
-        characterUITooltipAbilityDescription.text = _ability.Description;
-        characterUITooltipAbilityManaCost.text = "Mana cost: " + _ability.ManaCost;
+        _characterUITooltipAbilityName.text = _ability.name;
+        _characterUITooltipAbilityDescription.text = _ability.Description;
+        _characterUITooltipAbilityManaCost.text = "Mana cost: " + _ability.ManaCost;
 
-        characterUITooltipModifierDescription.style.display = DisplayStyle.Flex;
+        _characterUITooltipModifierDescription.style.display = DisplayStyle.Flex;
         // display modifier & status description
         if (_ability.StatModifier != null)
-            characterUITooltipModifierDescription.text = _ability.StatModifier.GetDescription();
+            _characterUITooltipModifierDescription.text = _ability.StatModifier.GetDescription();
         else
-            characterUITooltipModifierDescription.style.display = DisplayStyle.None;
+            _characterUITooltipModifierDescription.style.display = DisplayStyle.None;
 
-        characterUITooltipStatusDescription.style.display = DisplayStyle.Flex;
+        _characterUITooltipStatusDescription.style.display = DisplayStyle.Flex;
         if (_ability.Status != null)
-            characterUITooltipStatusDescription.text = _ability.Status.GetDescription();
+            _characterUITooltipStatusDescription.text = _ability.Status.GetDescription();
         else
-            characterUITooltipStatusDescription.style.display = DisplayStyle.None;
+            _characterUITooltipStatusDescription.style.display = DisplayStyle.None;
 
     }
 
     public void HideAbilityTooltip()
     {
-        characterUITooltipContainer.style.display = DisplayStyle.None;
+        _characterUITooltipContainer.style.display = DisplayStyle.None;
     }
 
     public void ShowCharacterUI(CharacterStats _playerStats)
@@ -327,10 +323,10 @@ public class CharacterUI : MonoBehaviour
         InfoCardUI.instance.HideCharacterCard();
 
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
-        selectedPlayerStats = _playerStats;
+        _selectedPlayerStats = _playerStats;
 
-        characterName.text = selectedPlayerStats.character.CharacterName;
-        characterPortrait.style.backgroundImage = selectedPlayerStats.character.Portrait.texture;
+        _characterName.text = _selectedPlayerStats.Character.CharacterName;
+        _characterPortrait.style.backgroundImage = _selectedPlayerStats.Character.Portrait.texture;
 
         SetCharacterHealthMana(_playerStats);
         SetCharacteristics(_playerStats);
@@ -338,49 +334,48 @@ public class CharacterUI : MonoBehaviour
         DisableSkillButtons();
         EnableSkillButtons();
 
-        DOTween.To(() => characterUI.style.top.value.value, x => characterUI.style.top = Length.Percent(x), characterUIShowValue, 0.5f)
+        DOTween.To(() => _characterUI.style.top.value.value, x => _characterUI.style.top = Length.Percent(x), _characterUIShowValue, 0.5f)
             .SetEase(Ease.InOutSine);
     }
 
     public void HideCharacterUI()
     {
         HideAbilityTooltip();
-        selectedPlayerStats = null;
-        DOTween.To(() => characterUI.style.top.value.value, x => characterUI.style.top = Length.Percent(x), characterUIHideValue, 0.5f)
+        _selectedPlayerStats = null;
+        DOTween.To(() => _characterUI.style.top.value.value, x => _characterUI.style.top = Length.Percent(x), _characterUIHideValue, 0.5f)
             .SetEase(Ease.InOutSine); ;
     }
 
-
     void SetCharacterHealthMana(CharacterStats _playerStats)
     {
-        characterHealth.text = _playerStats.currentHealth + "/" + _playerStats.maxHealth.GetValue();
-        characterMana.text = _playerStats.currentMana + "/" + _playerStats.maxMana.GetValue();
+        _characterHealth.text = _playerStats.CurrentHealth + "/" + _playerStats.MaxHealth.GetValue();
+        _characterMana.text = _playerStats.CurrentMana + "/" + _playerStats.MaxMana.GetValue();
 
         // (float) casts are not redundant, without them it does not work
-        float missingHealthPerc = ((float)_playerStats.maxHealth.GetValue() - (float)_playerStats.currentHealth) / (float)_playerStats.maxHealth.GetValue();
-        float missingManaPerc = ((float)_playerStats.maxMana.GetValue() - (float)_playerStats.currentMana) / (float)_playerStats.maxMana.GetValue();
+        float missingHealthPerc = ((float)_playerStats.MaxHealth.GetValue() - (float)_playerStats.CurrentHealth) / (float)_playerStats.MaxHealth.GetValue();
+        float missingManaPerc = ((float)_playerStats.MaxMana.GetValue() - (float)_playerStats.CurrentMana) / (float)_playerStats.MaxMana.GetValue();
 
-        characterHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
-        characterManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
+        _characterHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
+        _characterManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
     }
 
     void SetCharacteristics(CharacterStats _stats)
     {
-        characterStrengthAmount.text = "" + _stats.strength.GetValue();
-        characterIntelligenceAmount.text = "" + _stats.intelligence.GetValue();
-        characterAgilityAmount.text = "" + _stats.agility.GetValue();
-        characterStaminaAmount.text = "" + _stats.stamina.GetValue();
-        characterArmorAmount.text = "" + _stats.armor.GetValue();
-        characterRangeAmount.text = "" + _stats.movementRange.GetValue();
+        _characterStrength.text = "" + _stats.Strength.GetValue();
+        _characterIntelligence.text = "" + _stats.Intelligence.GetValue();
+        _characterAgility.text = "" + _stats.Agility.GetValue();
+        _characterStamina.text = "" + _stats.Stamina.GetValue();
+        _characterArmor.text = "" + _stats.Armor.GetValue();
+        _characterRange.text = "" + _stats.MovementRange.GetValue();
 
-        HandleStatCheck(_stats.strength, characterStrengthAmount);
-        HandleStatCheck(_stats.intelligence, characterIntelligenceAmount);
-        HandleStatCheck(_stats.agility, characterAgilityAmount);
-        HandleStatCheck(_stats.stamina, characterStaminaAmount);
-        HandleStatCheck(_stats.armor, characterArmorAmount);
-        HandleStatCheck(_stats.movementRange, characterRangeAmount);
+        HandleStatCheck(_stats.Strength, _characterStrength);
+        HandleStatCheck(_stats.Intelligence, _characterIntelligence);
+        HandleStatCheck(_stats.Agility, _characterAgility);
+        HandleStatCheck(_stats.Stamina, _characterStamina);
+        HandleStatCheck(_stats.Armor, _characterArmor);
+        HandleStatCheck(_stats.MovementRange, _characterRange);
 
-        modifierContainer.Clear();
+        _modifierContainer.Clear();
         HandleStatModifiers(_stats);
         HandleStatuses(_stats);
     }
@@ -389,15 +384,15 @@ public class CharacterUI : MonoBehaviour
     void HandleStatCheck(Stat _stat, Label _label)
     {
         _label.style.color = Color.white;
-        if (_stat.GetValue() > _stat.baseValue)
+        if (_stat.GetValue() > _stat.BaseValue)
             _label.style.color = Color.green;
-        if (_stat.GetValue() < _stat.baseValue)
+        if (_stat.GetValue() < _stat.BaseValue)
             _label.style.color = Color.red;
     }
 
     void HandleStatModifiers(CharacterStats _stats)
     {
-        foreach (Stat s in _stats.stats)
+        foreach (Stat s in _stats.Stats)
         {
             List<StatModifier> modifiers = s.GetActiveModifiers();
             if (modifiers.Count == 0)
@@ -408,106 +403,106 @@ public class CharacterUI : MonoBehaviour
                 VisualElement mElement = new VisualElement();
                 mElement.style.backgroundImage = m.Icon.texture;
                 mElement.AddToClassList("modifierIconContainer");
-                modifierContainer.Add(mElement);
+                _modifierContainer.Add(mElement);
             }
         }
     }
 
     void HandleStatuses(CharacterStats _stats)
     {
-        if (_stats.statuses.Count == 0)
+        if (_stats.Statuses.Count == 0)
             return;
 
-        foreach (Status s in _stats.statuses)
+        foreach (Status s in _stats.Statuses)
         {
             VisualElement mElement = new VisualElement();
             mElement.style.backgroundImage = s.Icon.texture;
             mElement.AddToClassList("modifierIconContainer");
-            modifierContainer.Add(mElement);
+            _modifierContainer.Add(mElement);
         }
     }
 
     void HandleAbilityButtons()
     {
         // TODO: hardcoded ability indexes
-        characterASkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[0].Icon.texture;
-        characterSSkillIcon.style.backgroundImage = selectedPlayerStats.basicAbilities[1].Icon.texture;
+        _characterASkillIcon.style.backgroundImage = _selectedPlayerStats.BasicAbilities[0].Icon.texture;
+        _characterSSkillIcon.style.backgroundImage = _selectedPlayerStats.BasicAbilities[1].Icon.texture;
 
-        for (int i = 0; i < abilityButtons.Count; i++)
+        for (int i = 0; i < _abilityButtons.Count; i++)
         {
-            if (selectedPlayerStats.abilities.Count <= i)
+            if (_selectedPlayerStats.Abilities.Count <= i)
             {
-                abilityButtons[i].style.display = DisplayStyle.None;
+                _abilityButtons[i].style.display = DisplayStyle.None;
                 continue;
             }
 
             // show buttons for each ability
-            abilityButtons[i].style.display = DisplayStyle.Flex;
-            abilityIcons[i].style.backgroundImage = selectedPlayerStats.abilities[i].Icon.texture;
+            _abilityButtons[i].style.display = DisplayStyle.Flex;
+            _abilityIcons[i].style.backgroundImage = _selectedPlayerStats.Abilities[i].Icon.texture;
         }
     }
 
     public void DisableSkillButtons()
     {
-        characterAButton.SetEnabled(false);
-        characterSButton.SetEnabled(false);
-        characterDButton.SetEnabled(false);
+        _characterAButton.SetEnabled(false);
+        _characterSButton.SetEnabled(false);
+        _characterDButton.SetEnabled(false);
 
-        characterQButton.SetEnabled(false);
-        characterWButton.SetEnabled(false);
-        characterEButton.SetEnabled(false);
-        characterRButton.SetEnabled(false);
+        _characterQButton.SetEnabled(false);
+        _characterWButton.SetEnabled(false);
+        _characterEButton.SetEnabled(false);
+        _characterRButton.SetEnabled(false);
     }
 
     public void EnableSkillButtons()
     {
-        if (selectedPlayerStats == null)
+        if (_selectedPlayerStats == null)
             return;
 
         // costless actions
-        characterAButton.SetEnabled(true);
-        characterSButton.SetEnabled(true);
-        characterDButton.SetEnabled(true);
+        _characterAButton.SetEnabled(true);
+        _characterSButton.SetEnabled(true);
+        _characterDButton.SetEnabled(true);
 
         // enable buttons if they are populated
         // && player has enough mana to cast ability;
         // && weapon type matches
-        for (int i = 0; i < abilityButtons.Count; i++)
+        for (int i = 0; i < _abilityButtons.Count; i++)
         {
-            if (abilityButtons[i].style.display == DisplayStyle.None)
+            if (_abilityButtons[i].style.display == DisplayStyle.None)
                 continue;
-            if (selectedPlayerStats.abilities[i].ManaCost >= selectedPlayerStats.currentMana)
+            if (_selectedPlayerStats.Abilities[i].ManaCost >= _selectedPlayerStats.CurrentMana)
                 continue;
-            if (selectedPlayerStats.abilities[i].WeaponType != selectedPlayerStats.character.Weapon.WeaponType && selectedPlayerStats.abilities[i].WeaponType != WeaponType.Any)
+            if (_selectedPlayerStats.Abilities[i].WeaponType != _selectedPlayerStats.Character.Weapon.WeaponType && _selectedPlayerStats.Abilities[i].WeaponType != WeaponType.Any)
                 continue;
 
-            abilityButtons[i].SetEnabled(true);
+            _abilityButtons[i].SetEnabled(true);
         }
     }
 
     // called by infocardUI
     public void ShowManaUse(int _val)
     {
-        if (selectedPlayerStats == null)
+        if (_selectedPlayerStats == null)
             return;
 
-        float currentMana = (float)selectedPlayerStats.currentMana;
-        float manaAfterInteraction = (float)selectedPlayerStats.currentMana - _val;
-        manaAfterInteraction = Mathf.Clamp(manaAfterInteraction, 0, selectedPlayerStats.currentMana);
+        float currentMana = (float)_selectedPlayerStats.CurrentMana;
+        float manaAfterInteraction = (float)_selectedPlayerStats.CurrentMana - _val;
+        manaAfterInteraction = Mathf.Clamp(manaAfterInteraction, 0, _selectedPlayerStats.CurrentMana);
 
         // text
-        characterMana.text = manaAfterInteraction + "/" + selectedPlayerStats.maxMana.GetValue();
+        _characterMana.text = manaAfterInteraction + "/" + _selectedPlayerStats.MaxMana.GetValue();
 
         // bar
-        float result = _val / (float)selectedPlayerStats.maxMana.GetValue();
+        float result = _val / (float)_selectedPlayerStats.MaxMana.GetValue();
 
         if (manaAfterInteraction == 0)
-            result = currentMana / (float)selectedPlayerStats.maxMana.GetValue();
+            result = currentMana / (float)_selectedPlayerStats.MaxMana.GetValue();
 
-        characterManaBarInteractionResult.style.display = DisplayStyle.Flex;
+        _characterManaBarInteractionResult.style.display = DisplayStyle.Flex;
         // reset right
-        characterManaBarInteractionResult.style.right = Length.Percent(0);
-        characterManaBarInteractionResult.style.width = Length.Percent(result * 100);
+        _characterManaBarInteractionResult.style.right = Length.Percent(0);
+        _characterManaBarInteractionResult.style.width = Length.Percent(result * 100);
 
         // "animate it"
         AnimateManaUse();
@@ -515,65 +510,65 @@ public class CharacterUI : MonoBehaviour
 
     public void HideManaUse()
     {
-        DOTween.Pause(manaUseTweenID);
+        DOTween.Pause(_manaUseTweenID);
 
-        characterManaBarInteractionResult.style.width = Length.Percent(0);
-        if (selectedPlayerStats != null)
-            SetCharacterHealthMana(selectedPlayerStats);
+        _characterManaBarInteractionResult.style.width = Length.Percent(0);
+        if (_selectedPlayerStats != null)
+            SetCharacterHealthMana(_selectedPlayerStats);
 
     }
 
     void AnimateManaUse()
     {
-        characterManaBarInteractionResult.style.backgroundColor = damageBarColor;
+        _characterManaBarInteractionResult.style.backgroundColor = _damageBarColor;
 
-        DOTween.ToAlpha(() => characterManaBarInteractionResult.style.backgroundColor.value,
-                         x => characterManaBarInteractionResult.style.backgroundColor = x,
+        DOTween.ToAlpha(() => _characterManaBarInteractionResult.style.backgroundColor.value,
+                         x => _characterManaBarInteractionResult.style.backgroundColor = x,
                          0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
-                         .SetId(manaUseTweenID);
+                         .SetId(_manaUseTweenID);
     }
 
     // called by infocardUI
     public void ShowDamage(int _val)
     {
-        if (selectedPlayerStats == null)
+        if (_selectedPlayerStats == null)
             return;
 
-        characterPortraitSkull.style.display = DisplayStyle.None;
+        _characterPortraitSkull.style.display = DisplayStyle.None;
 
-        float currentHealth = (float)selectedPlayerStats.currentHealth;
-        float healthAfterInteraction = (float)selectedPlayerStats.currentHealth - _val;
-        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, selectedPlayerStats.currentHealth);
+        float currentHealth = (float)_selectedPlayerStats.CurrentHealth;
+        float healthAfterInteraction = (float)_selectedPlayerStats.CurrentHealth - _val;
+        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, _selectedPlayerStats.CurrentHealth);
 
         // text
-        characterHealth.text = healthAfterInteraction + "/" + selectedPlayerStats.maxHealth.GetValue();
+        _characterHealth.text = healthAfterInteraction + "/" + _selectedPlayerStats.MaxHealth.GetValue();
 
         // bar
-        float result = _val / (float)selectedPlayerStats.maxHealth.GetValue();
+        float result = _val / (float)_selectedPlayerStats.MaxHealth.GetValue();
 
         if (healthAfterInteraction == 0)
-            result = currentHealth / (float)selectedPlayerStats.maxHealth.GetValue();
+            result = currentHealth / (float)_selectedPlayerStats.MaxHealth.GetValue();
 
-        characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
+        _characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
         // reset right
-        characterHealthBarRetaliationResult.style.right = Length.Percent(0);
-        characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
+        _characterHealthBarRetaliationResult.style.right = Length.Percent(0);
+        _characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
 
         // death - TODO: display the skull
         if (healthAfterInteraction <= 0)
-            characterPortraitSkull.style.display = DisplayStyle.Flex;
+            _characterPortraitSkull.style.display = DisplayStyle.Flex;
 
         // "animate it"
-        AnimateInteractionResult(damageBarColor);
+        AnimateInteractionResult(_damageBarColor);
     }
 
     public void ShowHeal(int _val)
     {
-        if (selectedPlayerStats == null)
+        if (_selectedPlayerStats == null)
             return;
 
-        float currentHealth = (float)selectedPlayerStats.currentHealth;
-        float maxHealth = (float)selectedPlayerStats.maxHealth.GetValue();
+        float currentHealth = (float)_selectedPlayerStats.CurrentHealth;
+        float maxHealth = (float)_selectedPlayerStats.MaxHealth.GetValue();
 
         // if there is nothing to heal, don't show the result
         if (currentHealth >= maxHealth)
@@ -583,61 +578,58 @@ public class CharacterUI : MonoBehaviour
         healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, maxHealth);
 
         // text
-        characterHealth.text = healthAfterInteraction + "/" + maxHealth;
+        _characterHealth.text = healthAfterInteraction + "/" + maxHealth;
 
         // bar
         float result = _val / (float)maxHealth;
         result = Mathf.Clamp(result, 0, 1);
 
-        characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
+        _characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
         // move it left, to show that it is health gain not loss.
-        characterHealthBarRetaliationResult.style.right = Length.Percent(result * 100);
-        characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
+        _characterHealthBarRetaliationResult.style.right = Length.Percent(result * 100);
+        _characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
 
         // "animate it"
-        AnimateInteractionResult(healBarColor);
+        AnimateInteractionResult(_healBarColor);
     }
-
-
 
     public void HideDamage()
     {
-        DOTween.Pause(missingBarTweenID);
+        DOTween.Pause(_healthLostTweenID);
 
-        characterHealthBarRetaliationResult.style.width = Length.Percent(0);
-        if (selectedPlayerStats != null)
-            SetCharacterHealthMana(selectedPlayerStats);
+        _characterHealthBarRetaliationResult.style.width = Length.Percent(0);
+        if (_selectedPlayerStats != null)
+            SetCharacterHealthMana(_selectedPlayerStats);
     }
 
     void AnimateInteractionResult(Color _col)
     {
-        characterHealthBarRetaliationResult.style.backgroundColor = _col;
+        _characterHealthBarRetaliationResult.style.backgroundColor = _col;
 
-        DOTween.ToAlpha(() => characterHealthBarRetaliationResult.style.backgroundColor.value,
-                         x => characterHealthBarRetaliationResult.style.backgroundColor = x,
+        DOTween.ToAlpha(() => _characterHealthBarRetaliationResult.style.backgroundColor.value,
+                         x => _characterHealthBarRetaliationResult.style.backgroundColor = x,
                          0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
-                         .SetId(missingBarTweenID);
+                         .SetId(_healthLostTweenID);
     }
-
 
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
     IEnumerator CoroutineCoordinator()
     {
         while (true)
         {
-            while (buttonClickQueue.Count > 0)
+            while (_buttonClickQueue.Count > 0)
             {
                 // block input when the queue is not 0;
-                wasClickEnqueued = true;
-                battleInputController.SetInputAllowed(false);
+                _wasClickEnqueued = true;
+                _battleInputController.SetInputAllowed(false);
 
-                yield return StartCoroutine(buttonClickQueue.Dequeue());
+                yield return StartCoroutine(_buttonClickQueue.Dequeue());
             }
             // set input allowed to true only once when the queue is emptied;
-            if (wasClickEnqueued)
+            if (_wasClickEnqueued)
             {
-                wasClickEnqueued = false;
-                battleInputController.SetInputAllowed(true);
+                _wasClickEnqueued = false;
+                _battleInputController.SetInputAllowed(true);
             }
 
             yield return null;
@@ -647,46 +639,46 @@ public class CharacterUI : MonoBehaviour
     // for keyboard input
     public void SimulateAButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = characterAButton })
-            characterAButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _characterAButton })
+            _characterAButton.SendEvent(e);
     }
 
     public void SimulateSButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = characterSButton })
-            characterSButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _characterSButton })
+            _characterSButton.SendEvent(e);
     }
 
     public void SimulateDButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = characterDButton })
-            characterDButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _characterDButton })
+            _characterDButton.SendEvent(e);
     }
 
 
     public void SimulateQButtonClicked()
     {
         // https://forum.unity.com/threads/trigger-button-click-from-code.1124356/
-        using (var e = new NavigationSubmitEvent() { target = characterQButton })
-            characterQButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _characterQButton })
+            _characterQButton.SendEvent(e);
     }
 
     public void SimulateWButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = characterWButton })
-            characterWButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _characterWButton })
+            _characterWButton.SendEvent(e);
     }
 
     public void SimulateEButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = characterEButton })
-            characterEButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _characterEButton })
+            _characterEButton.SendEvent(e);
     }
 
     public void SimulateRButtonClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = characterRButton })
-            characterRButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _characterRButton })
+            _characterRButton.SendEvent(e);
     }
 
 }

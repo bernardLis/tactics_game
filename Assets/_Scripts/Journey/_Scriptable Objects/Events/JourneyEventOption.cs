@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/EventOption")]
 public class JourneyEventOption : BaseScriptableObject
 {
-    public string text;
-    public string response;
-    public JourneyNodeReward reward; // TODO: how do I store rewards? 
+    public string Text;
+    public string Response;
+    public JourneyNodeReward Reward; // TODO: how do I store rewards? 
 
 }

@@ -11,7 +11,7 @@ public class RangedBrain : Brain
         _potentialTargets = GetPotentialTargets("Player");
         // attack;
         _selectedAbility = _abilities[0]; // TODO: hardocded indexes.
-        if (_enemyStats.currentMana >= 20)
+        if (_enemyStats.CurrentMana >= 20)
             _selectedAbility = _abilities[1]; // TODO: hardocded indexes.
 
         // ranged brain wants to keep distance but to be in the range of his attack
@@ -96,7 +96,7 @@ public class RangedBrain : Brain
         float maxDist = target.DistanceToTarget;
         Vector3 bestDest = Vector3.zero;
         // going through all within reach tiles
-        foreach (WorldTile tile in _highlighter.highlightedTiles)
+        foreach (WorldTile tile in _highlighter.HighlightedTiles)
         {
             float hypotheticalDistance = Helpers.GetManhattanDistance(tile.GetMiddleOfTile(), targetPos);
 

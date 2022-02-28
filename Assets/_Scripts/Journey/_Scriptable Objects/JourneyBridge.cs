@@ -1,23 +1,23 @@
 using UnityEngine;
 public class JourneyBridge
 {
-    public JourneyNode from;
-    public JourneyNode to;
+    public JourneyNode From;
+    public JourneyNode To;
 
-    public void Initialize(JourneyNode _from, JourneyNode _to, Material _mat)
+    public void Initialize(JourneyNode from, JourneyNode to, Material mat)
     {
-        from = _from;
-        to = _to;
+        From = from;
+        To = to;
 
         // from gets a line renderer
         GameObject g = new GameObject();
-        g.transform.parent = from.gameObject.transform;
+        g.transform.parent = From.GameObject.transform;
         LineRenderer lr = g.AddComponent<LineRenderer>();
-        lr.material = _mat;
+        lr.material = mat;
         lr.textureMode = LineTextureMode.Tile;
-        //lr.startWidth = 0.2f;
-        lr.SetPosition(0, from.gameObject.transform.position);
-        lr.SetPosition(1, to.gameObject.transform.position);
+
+        lr.SetPosition(0, From.GameObject.transform.position);
+        lr.SetPosition(1, To.GameObject.transform.position);
     }
 
 

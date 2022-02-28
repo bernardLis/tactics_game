@@ -10,41 +10,41 @@ public enum CharacterState { None, Selected, SelectingInteractionTarget, Selecti
 public class BattleCharacterController : MonoBehaviour
 {
     // tilemap
-    Tilemap tilemap;
+    Tilemap _tilemap;
     WorldTile _tile;
-    WorldTile selectedTile;
+    WorldTile _selectedTile;
 
     // global utilities
-    Highlighter highlighter;
-    CharacterUI characterUI;
-    BattleInputController battleInputController;
-    MovePointController movePointController;
+    Highlighter _highlighter;
+    CharacterUI _characterUI;
+    BattleInputController _battleInputController;
+    MovePointController _movePointController;
 
     // I will be caching them for selected character
-    public GameObject selectedCharacter;
-    CharacterStats playerStats;
-    PlayerCharSelection playerCharSelection;
-    AILerp aILerp;
-    AIDestinationSetter destinationSetter;
-    CharacterRendererManager characterRendererManager;
+    [HideInInspector] public GameObject SelectedCharacter;
+    CharacterStats _playerStats;
+    PlayerCharSelection _playerCharSelection;
+    AILerp _aILerp;
+    AIDestinationSetter _destinationSetter;
+    CharacterRendererManager _characterRendererManager;
 
     // state
-    public CharacterState characterState { get; private set; }
+    public CharacterState CharacterState { get; private set; }
 
     // selection
-    bool isSelectionBlocked; // block mashing select character coz it breaks the highlight - if you quickly switch between selection of 2 chars.
+    bool _isSelectionBlocked; // block mashing select character coz it breaks the highlight - if you quickly switch between selection of 2 chars.
 
     // movement
-    GameObject tempObject;
-    bool hasCharacterStartedMoving;
-    bool hasCharacterGoneBack;
+    GameObject _tempObject;
+    bool _hasCharacterStartedMoving;
+    bool _hasCharacterGoneBack;
 
-    Seeker seeker;
-    LineRenderer pathRenderer;
+    Seeker _seeker;
+    LineRenderer _pathRenderer;
 
     // interactions
-    public Ability selectedAbility { get; private set; }
-    bool isInteracting;
+    public Ability SelectedAbility { get; private set; }
+    bool _isInteracting;
 
     // TODO: I am currently, not using that, but I have a feeling that it will be useful.
     public static event Action<CharacterState> OnCharacterStateChanged;
@@ -65,32 +65,32 @@ public class BattleCharacterController : MonoBehaviour
 
     void Start()
     {
-        tilemap = BattleManager.instance.GetComponent<TileManager>().tilemap;
+        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
 
-        highlighter = Highlighter.instance;
-        battleInputController = BattleInputController.instance;
-        characterUI = CharacterUI.instance;
-        movePointController = MovePointController.instance;
+        _highlighter = Highlighter.instance;
+        _battleInputController = BattleInputController.instance;
+        _characterUI = CharacterUI.instance;
+        _movePointController = MovePointController.instance;
 
-        seeker = GetComponent<Seeker>();
-        pathRenderer = GetComponent<LineRenderer>();
+        _seeker = GetComponent<Seeker>();
+        _pathRenderer = GetComponent<LineRenderer>();
     }
 
     void Update()
     {
         // TODO: is there a better way? 
-        if (selectedCharacter == null)
+        if (SelectedCharacter == null)
             return;
 
-        if (hasCharacterStartedMoving && tempObject != null
-            && Vector3.Distance(selectedCharacter.transform.position, tempObject.transform.position) <= 0.1f)
+        if (_hasCharacterStartedMoving && _tempObject != null
+            && Vector3.Distance(SelectedCharacter.transform.position, _tempObject.transform.position) <= 0.1f)
             CharacterReachedDestination();
     }
 
     // https://www.youtube.com/watch?v=4I0vonyqMi8&t=193s
     public void UpdateCharacterState(CharacterState newState)
     {
-        characterState = newState;
+        CharacterState = newState;
         // TODO: this is not really implemented...
         switch (newState)
         {
@@ -112,28 +112,28 @@ public class BattleCharacterController : MonoBehaviour
     }
 
 
-    public void Select(Collider2D _col)
+    public void Select(Collider2D col)
     {
         ClearPathRenderer();
 
         // get the tile movepoint is on
-        if (TileManager.tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
-            selectedTile = _tile;
+        if (TileManager.Tiles.TryGetValue(_tilemap.WorldToCell(transform.position), out _tile))
+            _selectedTile = _tile;
 
         // select character
-        if (_col != null && CanSelectCharacter(_col))
+        if (col != null && CanSelectCharacter(col))
         {
-            SelectCharacter(_col.transform.parent.gameObject);
+            SelectCharacter(col.transform.parent.gameObject);
             return;
         }
 
-        if (selectedCharacter == null)
+        if (SelectedCharacter == null)
             return;
 
         // when character is selected
 
         // Move
-        if (CanMoveCharacter() && selectedTile.WithinRange)
+        if (CanMoveCharacter() && _selectedTile.WithinRange)
         {
             Move();
             return;
@@ -142,23 +142,23 @@ public class BattleCharacterController : MonoBehaviour
         Interact();
     }
 
-    bool CanSelectCharacter(Collider2D _col)
+    bool CanSelectCharacter(Collider2D col)
     {
-        if (isSelectionBlocked)
+        if (_isSelectionBlocked)
             return false;
-        if (_col == null)
+        if (col == null)
             return false;
         // can select only player characters
-        if (!_col.transform.CompareTag("PlayerCollider"))
+        if (!col.transform.CompareTag("PlayerCollider"))
             return false;
         // character allows selection
-        if (!_col.GetComponentInParent<PlayerCharSelection>().CanBeSelected())
+        if (!col.GetComponentInParent<PlayerCharSelection>().CanBeSelected())
             return false;
         // don't allow to select another character if you have moved this character and did not take the action
-        if (selectedCharacter != null && playerCharSelection.hasMovedThisTurn && !playerCharSelection.hasFinishedTurn)
+        if (SelectedCharacter != null && _playerCharSelection.HasMovedThisTurn && !_playerCharSelection.HasFinishedTurn)
             return false;
         // don't allow to select another character if you are triggering ability;
-        if (selectedAbility != null)
+        if (SelectedAbility != null)
             return false;
 
         return true;
@@ -166,11 +166,11 @@ public class BattleCharacterController : MonoBehaviour
 
     bool CanMoveCharacter()
     {
-        if (playerCharSelection.hasMovedThisTurn)
+        if (_playerCharSelection.HasMovedThisTurn)
             return false;
-        if (playerCharSelection.hasFinishedTurn)
+        if (_playerCharSelection.HasFinishedTurn)
             return false;
-        if (selectedAbility != null)
+        if (SelectedAbility != null)
             return false;
 
         return true;
@@ -179,140 +179,138 @@ public class BattleCharacterController : MonoBehaviour
     // for ability button clicks
     public bool CanSelectAbility()
     {
-        if (!battleInputController.IsInputAllowed())
+        if (!_battleInputController.IsInputAllowed())
             return false;
-        if (selectedCharacter == null)
+        if (SelectedCharacter == null)
             return false;
-        if (playerCharSelection.hasFinishedTurn)
+        if (_playerCharSelection.HasFinishedTurn)
             return false;
-        if (hasCharacterStartedMoving) // don't allow button click when character is moving;
+        if (_hasCharacterStartedMoving) // don't allow button click when character is moving;
             return false;
         return true;
     }
 
-    async void SelectCharacter(GameObject _character)
+    async void SelectCharacter(GameObject character)
     {
-        isSelectionBlocked = true;
+        _isSelectionBlocked = true;
         UpdateCharacterState(CharacterState.Selected);
 
-        if (_character.GetComponent<PlayerCharSelection>().hasMovedThisTurn)
+        if (character.GetComponent<PlayerCharSelection>().HasMovedThisTurn)
             return;
 
         // character specific ui
-        if (playerCharSelection != null)
-            playerCharSelection.DeselectCharacter();
+        if (_playerCharSelection != null)
+            _playerCharSelection.DeselectCharacter();
 
         // cache
-        selectedCharacter = _character;
-        playerStats = selectedCharacter.GetComponent<CharacterStats>();
-        playerCharSelection = selectedCharacter.GetComponent<PlayerCharSelection>();
-        aILerp = selectedCharacter.GetComponent<AILerp>();
-
-        //seeker = selectedCharacter.GetComponent<Seeker>();
-        destinationSetter = selectedCharacter.GetComponent<AIDestinationSetter>();
-        characterRendererManager = selectedCharacter.GetComponentInChildren<CharacterRendererManager>();
+        SelectedCharacter = character;
+        _playerStats = SelectedCharacter.GetComponent<CharacterStats>();
+        _playerCharSelection = SelectedCharacter.GetComponent<PlayerCharSelection>();
+        _aILerp = SelectedCharacter.GetComponent<AILerp>();
+        _destinationSetter = SelectedCharacter.GetComponent<AIDestinationSetter>();
+        _characterRendererManager = SelectedCharacter.GetComponentInChildren<CharacterRendererManager>();
 
         // character specific ui
-        playerCharSelection.SelectCharacter();
+        _playerCharSelection.SelectCharacter();
 
         // UI
-        characterUI.ShowCharacterUI(playerStats);
+        _characterUI.ShowCharacterUI(_playerStats);
 
         // highlight
-        await highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
+        await _highlighter.HiglightPlayerMovementRange(SelectedCharacter.transform.position, _playerStats.MovementRange.GetValue(),
                                                 Helpers.GetColor("movementBlue"));
-        isSelectionBlocked = false;
+        _isSelectionBlocked = false;
     }
 
     void Move()
     {
-        hasCharacterStartedMoving = true;
+        _hasCharacterStartedMoving = true;
 
         // TODO: should I make it all async?
-        highlighter.ClearHighlightedTiles().GetAwaiter();
+        _highlighter.ClearHighlightedTiles().GetAwaiter();
 
-        tempObject = new GameObject("Destination");
-        tempObject.transform.position = transform.position;
-        destinationSetter.target = tempObject.transform;
+        _tempObject = new GameObject("Destination");
+        _tempObject.transform.position = transform.position;
+        _destinationSetter.target = _tempObject.transform;
 
-        characterUI.DisableSkillButtons();
+        _characterUI.DisableSkillButtons();
 
-        playerCharSelection.SetCharacterMoved(true);
+        _playerCharSelection.SetCharacterMoved(true);
     }
 
     public void Back()
     {
         ClearPathRenderer();
-        movePointController.UpdateDisplayInformation();
+        _movePointController.UpdateDisplayInformation();
 
         // if back is called during character movement return
-        if (hasCharacterStartedMoving)
+        if (_hasCharacterStartedMoving)
             return;
 
-        if (selectedCharacter == null)
+        if (SelectedCharacter == null)
             return;
 
-        if (characterState == CharacterState.ConfirmingInteraction)
+        if (CharacterState == CharacterState.ConfirmingInteraction)
         {
             BackFromConfirmingInteraction();
             return;
         }
 
-        if (characterState == CharacterState.SelectingFaceDir)
+        if (CharacterState == CharacterState.SelectingFaceDir)
         {
             BackFromFaceDirSelection();
             return;
         }
 
-        if (selectedAbility != null)
+        if (SelectedAbility != null)
         {
             BackFromAbilitySelection();
             return;
         }
 
-        if (!playerCharSelection.hasMovedThisTurn)
+        if (!_playerCharSelection.HasMovedThisTurn)
         {
             UnselectCharacter();
             return;
         }
 
         // flag reset
-        playerCharSelection.SetCharacterMoved(false);
+        _playerCharSelection.SetCharacterMoved(false);
 
-        hasCharacterGoneBack = true;
-        hasCharacterStartedMoving = true;
+        _hasCharacterGoneBack = true;
+        _hasCharacterStartedMoving = true;
 
         // move character to character's starting position quickly.
-        aILerp.speed = 15;
+        _aILerp.speed = 15;
 
-        transform.position = playerCharSelection.positionTurnStart;
+        transform.position = _playerCharSelection.PositionTurnStart;
 
-        tempObject = new GameObject("Back Destination");
-        tempObject.transform.position = playerCharSelection.positionTurnStart;
-        destinationSetter.target = tempObject.transform;
+        _tempObject = new GameObject("Back Destination");
+        _tempObject.transform.position = _playerCharSelection.PositionTurnStart;
+        _destinationSetter.target = _tempObject.transform;
 
-        characterUI.DisableSkillButtons();
+        _characterUI.DisableSkillButtons();
     }
 
     void CharacterReachedDestination()
     {
-        characterUI.EnableSkillButtons();
+        _characterUI.EnableSkillButtons();
 
-        if (tempObject != null)
-            Destroy(tempObject);
+        if (_tempObject != null)
+            Destroy(_tempObject);
 
         // reset flag
-        hasCharacterStartedMoving = false;
+        _hasCharacterStartedMoving = false;
 
         // TODO: maybe here check if there is interaction target that we are standing on and allow that interaction
 
         // check if it was back or normal move
-        if (!hasCharacterGoneBack)
+        if (!_hasCharacterGoneBack)
             return;
 
         // highlight movement range if character was going back
-        hasCharacterGoneBack = false;
-        highlighter.HiglightPlayerMovementRange(selectedCharacter.transform.position, playerStats.movementRange.GetValue(),
+        _hasCharacterGoneBack = false;
+        _highlighter.HiglightPlayerMovementRange(SelectedCharacter.transform.position, _playerStats.MovementRange.GetValue(),
                                     Helpers.GetColor("movementBlue")).GetAwaiter();
 
     }
@@ -320,44 +318,44 @@ public class BattleCharacterController : MonoBehaviour
     public void SetSelectedAbility(Ability ability)
     {
         ClearPathRenderer();
-        selectedAbility = ability;
+        SelectedAbility = ability;
 
-        movePointController.UpdateDisplayInformation();
+        _movePointController.UpdateDisplayInformation();
     }
 
     async void Interact()
     {
         // TODO: this is a meh schema
-        if (isInteracting)
+        if (_isInteracting)
             return;
-        isInteracting = true;
+        _isInteracting = true;
 
         // highlight aoe
-        if (characterState == CharacterState.SelectingInteractionTarget)
+        if (CharacterState == CharacterState.SelectingInteractionTarget)
         {
-            characterRendererManager.Face((transform.position - selectedCharacter.transform.position).normalized);
-            await selectedAbility.HighlightAreaOfEffect(transform.position);
-            movePointController.UpdateDisplayInformation();
-            isInteracting = false;
+            _characterRendererManager.Face((transform.position - SelectedCharacter.transform.position).normalized);
+            await SelectedAbility.HighlightAreaOfEffect(transform.position);
+            _movePointController.UpdateDisplayInformation();
+            _isInteracting = false;
             return;
         }
 
         // fixes a bug where when you walked and clicked on yourself you ended your turn
-        if (selectedAbility == null)
+        if (SelectedAbility == null)
         {
-            isInteracting = false;
+            _isInteracting = false;
             return;
         }
 
         await TriggerAbility();
-        isInteracting = false;
+        _isInteracting = false;
         FinishCharacterTurn();
     }
 
     async Task TriggerAbility()
     {
         int successfullAttacks = 0;
-        List<WorldTile> highlightedTiles = highlighter.highlightedTiles;
+        List<WorldTile> highlightedTiles = _highlighter.HighlightedTiles;
 
         // for each tile of highlighted tiles -
         // TODO: kinda sucks to be using highlighted tiles, I could calculate the affected tiles
@@ -371,36 +369,36 @@ public class BattleCharacterController : MonoBehaviour
             if (col == null)
                 continue;
 
-            if (await selectedAbility.TriggerAbility(col.transform.parent.gameObject))
+            if (await SelectedAbility.TriggerAbility(col.transform.parent.gameObject))
                 successfullAttacks++;
         }
     }
 
     void BackFromAbilitySelection()
     {
-        isInteracting = false;
+        _isInteracting = false;
 
         UpdateCharacterState(CharacterState.Selected);
 
-        selectedAbility = null;
-        characterUI.HideAbilityTooltip();
+        SelectedAbility = null;
+        _characterUI.HideAbilityTooltip();
 
-        highlighter.ClearHighlightedTiles().GetAwaiter();
+        _highlighter.ClearHighlightedTiles().GetAwaiter();
     }
 
     void BackFromFaceDirSelection()
     {
-        isInteracting = false;
+        _isInteracting = false;
 
         // TODO:cache face direction ui if it is the right approach
-        selectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
-        playerCharSelection.ToggleSelectionArrow(true);
+        SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+        _playerCharSelection.ToggleSelectionArrow(true);
 
         // abilities that can target self should go back to Select target
-        if (selectedAbility.CanTargetSelf)
+        if (SelectedAbility.CanTargetSelf)
         {
             // it changes the state too
-            selectedAbility.HighlightTargetable(selectedCharacter).GetAwaiter();
+            SelectedAbility.HighlightTargetable(SelectedCharacter).GetAwaiter();
 
             return;
         }
@@ -412,25 +410,25 @@ public class BattleCharacterController : MonoBehaviour
 
     void BackFromConfirmingInteraction()
     {
-        isInteracting = false;
+        _isInteracting = false;
         UpdateCharacterState(CharacterState.SelectingInteractionTarget);
-        selectedAbility.HighlightTargetable(selectedCharacter).GetAwaiter();
+        SelectedAbility.HighlightTargetable(SelectedCharacter).GetAwaiter();
     }
 
 
     void FinishCharacterTurn()
     {
-        isInteracting = false;
+        _isInteracting = false;
 
         // necessary for movepoint to correctly update UI;
         UpdateCharacterState(CharacterState.None);
 
         // update ui through movepoint
-        movePointController.UpdateDisplayInformation();
+        _movePointController.UpdateDisplayInformation();
 
         // set flags in player char selection
-        if (playerCharSelection != null)
-            playerCharSelection.FinishCharacterTurn();
+        if (_playerCharSelection != null)
+            _playerCharSelection.FinishCharacterTurn();
 
         // clearing the cache here
         UnselectCharacter();
@@ -441,19 +439,19 @@ public class BattleCharacterController : MonoBehaviour
         UpdateCharacterState(CharacterState.None);
 
         // character specific ui
-        if (playerCharSelection != null)
-            playerCharSelection.DeselectCharacter();
+        if (_playerCharSelection != null)
+            _playerCharSelection.DeselectCharacter();
 
-        selectedCharacter = null;
-        playerStats = null;
-        playerCharSelection = null;
-        selectedAbility = null;
+        SelectedCharacter = null;
+        _playerStats = null;
+        _playerCharSelection = null;
+        SelectedAbility = null;
 
         // UI
-        characterUI.HideCharacterUI();
+        _characterUI.HideCharacterUI();
 
         // highlight
-        highlighter.ClearHighlightedTiles().GetAwaiter();
+        _highlighter.ClearHighlightedTiles().GetAwaiter();
     }
 
     // TODO: this probably shouldn't be here 
@@ -462,22 +460,22 @@ public class BattleCharacterController : MonoBehaviour
         ClearPathRenderer();
 
         // only draw path when character is selected
-        if (selectedCharacter == null)
+        if (SelectedCharacter == null)
             return;
 
         // don't draw path if ability is selected
-        if (selectedAbility != null)
+        if (SelectedAbility != null)
             return;
 
         // get the tile movepoint is on
-        if (!TileManager.tiles.TryGetValue(tilemap.WorldToCell(transform.position), out _tile))
+        if (!TileManager.Tiles.TryGetValue(_tilemap.WorldToCell(transform.position), out _tile))
             return;
         // don't draw path to tiles you can't reach
         if (!_tile.WithinRange)
             return;
 
         // https://arongranberg.com/astar/docs_dev/calling-pathfinding.php
-        var path = seeker.StartPath(selectedCharacter.transform.position, transform.position, OnPathComplete);
+        var path = _seeker.StartPath(SelectedCharacter.transform.position, transform.position, OnPathComplete);
     }
 
     void OnPathComplete(Path p)
@@ -488,13 +486,13 @@ public class BattleCharacterController : MonoBehaviour
         // draw path with line renderer
         for (int i = 0; i < p.vectorPath.Count; i++)
         {
-            pathRenderer.positionCount = p.vectorPath.Count;
-            pathRenderer.SetPosition(i, new Vector3(p.vectorPath[i].x, p.vectorPath[i].y, -1f));
+            _pathRenderer.positionCount = p.vectorPath.Count;
+            _pathRenderer.SetPosition(i, new Vector3(p.vectorPath[i].x, p.vectorPath[i].y, -1f));
         }
     }
 
     void ClearPathRenderer()
     {
-        pathRenderer.positionCount = 0;
+        _pathRenderer.positionCount = 0;
     }
 }

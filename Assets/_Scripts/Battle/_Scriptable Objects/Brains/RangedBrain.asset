@@ -16,4 +16,6 @@ MonoBehaviour:
   Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
   Weapon: {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
   Target: {fileID: 0}
-  AbilitiesToInstantiate: []
+  AbilitiesToInstantiate:
+  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
+  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}

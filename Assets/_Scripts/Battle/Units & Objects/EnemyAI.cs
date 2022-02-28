@@ -5,33 +5,29 @@ using System.Threading.Tasks;
 
 public class EnemyAI : MonoBehaviour
 {
-    protected Highlighter highlighter;
+    Highlighter _highlighter;
 
-    protected Seeker seeker;
-    protected AILerp aiLerp;
-    protected EnemyCharSelection characterSelection;
+    Seeker _seeker;
+    AILerp _AILerp;
+    EnemyCharSelection _characterSelection;
 
-    protected EnemyStats enemyStats;
-    public bool amDead = false;
+    EnemyStats _enemyStats;
+    [HideInInspector] public bool _amDead = false;
 
-    protected GameObject targetCharacter;
-
-
-    public Brain brain;
-
+    Brain _brain;
 
     protected virtual void Awake()
     {
-        highlighter = Highlighter.instance;
+        _highlighter = Highlighter.instance;
 
-        seeker = GetComponent<Seeker>();
-        aiLerp = GetComponent<AILerp>();
+        _seeker = GetComponent<Seeker>();
+        _AILerp = GetComponent<AILerp>();
 
-        characterSelection = GetComponent<EnemyCharSelection>();
+        _characterSelection = GetComponent<EnemyCharSelection>();
 
         // subscribe to your death
-        enemyStats = GetComponent<EnemyStats>();
-        enemyStats.CharacterDeathEvent += OnEnemyDeath;
+        _enemyStats = GetComponent<EnemyStats>();
+        _enemyStats.CharacterDeathEvent += OnEnemyDeath;
     }
 
     protected virtual void OnEnemyDeath(GameObject _obj)
@@ -39,39 +35,44 @@ public class EnemyAI : MonoBehaviour
         // maybe useful for trapping on the way
 
         // it exits the coroutine Run()
-        amDead = true;
+        _amDead = true;
+    }
+
+    public void SetBrain(Brain brain)
+    {
+        _brain = brain;
     }
 
     // TODO: rewrite to async await
     public virtual IEnumerator RunAI()
     {
         // exit if battle is over
-        if (TurnManager.battleState == BattleState.Won || TurnManager.battleState == BattleState.Lost)
+        if (TurnManager.BattleState == BattleState.Won || TurnManager.BattleState == BattleState.Lost)
             yield break;
 
         // character can be stunned = no turn
-        if (characterSelection.hasFinishedTurn)
+        if (_characterSelection.HasFinishedTurn)
             yield break;
 
         yield return new WaitForSeconds(0.5f);
-        brain.Select();
+        _brain.Select();
         yield return new WaitForSeconds(0.5f);
-        brain.Move();
+        _brain.Move();
         yield return new WaitForSeconds(0.5f);
 
         // wait for character to reach destination
-        while (!aiLerp.reachedDestination)
+        while (!_AILerp.reachedDestination)
             yield return null;
         yield return new WaitForSeconds(0.5f);
 
-        Task task = brain.Interact();
+        Task task = _brain.Interact();
         yield return new WaitUntil(() => task.IsCompleted);
 
         yield return new WaitForSeconds(0.5f);
 
-        highlighter.ClearHighlightedTiles().GetAwaiter();
+        _highlighter.ClearHighlightedTiles().GetAwaiter();
         yield return new WaitForSeconds(0.5f);
-        characterSelection.FinishCharacterTurn();
+        _characterSelection.FinishCharacterTurn();
         yield return true;
     }
 }

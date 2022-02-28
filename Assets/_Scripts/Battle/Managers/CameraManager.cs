@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 
 public class CameraManager : MonoBehaviour
 {
-    public Transform followTarget;
-    public float moveSpeed;
-    Vector3 targetPos;
+    BoardManager _boardManager;
 
-    Camera cam;
+    Camera _cam;
 
-    BoardManager boardManager;
+    Transform _followTarget;
+    [SerializeField] float _moveSpeed;
+    Vector3 _targetPos;
 
     public static CameraManager instance;
     void Awake()
@@ -24,20 +24,20 @@ public class CameraManager : MonoBehaviour
         instance = this;
         #endregion
 
-        cam = GetComponent<Camera>();
-        boardManager = BattleManager.instance.GetComponent<BoardManager>();
+        _cam = GetComponent<Camera>();
+        _boardManager = BattleManager.instance.GetComponent<BoardManager>();
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
 
     void Update()
     {
-        if (followTarget == null)
+        if (_followTarget == null)
             return;
 
         // follow the target
-        targetPos = new Vector3(followTarget.position.x, followTarget.position.y, transform.position.z);
-        Vector3 velocity = (targetPos - transform.position) * moveSpeed;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 1.0f, Time.deltaTime);
+        _targetPos = new Vector3(_followTarget.position.x, _followTarget.position.y, transform.position.z);
+        Vector3 velocity = (_targetPos - transform.position) * _moveSpeed;
+        transform.position = Vector3.SmoothDamp(transform.position, _targetPos, ref velocity, 1.0f, Time.deltaTime);
     }
 
     void OnDestroy()
@@ -57,31 +57,36 @@ public class CameraManager : MonoBehaviour
 
     void HandleMapBuilding()
     {
-        cam.orthographicSize = 12;
-        transform.position = new Vector3(boardManager.mapSize.x / 2, boardManager.mapSize.y / 2, -2); // TODO:
+        _cam.orthographicSize = 12;
+        transform.position = new Vector3(_boardManager.MapSize.x / 2, _boardManager.MapSize.y / 2, -2); // TODO:
     }
 
     async void HandleDeployment()
     {
-        followTarget = MovePointController.instance.transform;
+        _followTarget = MovePointController.instance.transform;
         await LerpOrthographicSize(7, 1);
     }
 
     void HandlePlayerTurn()
     {
-        followTarget = MovePointController.instance.transform;
+        _followTarget = MovePointController.instance.transform;
+    }
+
+    public void SetTarget(Transform t)
+    {
+        _followTarget = t;
     }
 
     async Task LerpOrthographicSize(float newSize, float time)
     {
-        float oldSize = cam.orthographicSize;
+        float oldSize = _cam.orthographicSize;
         float elapsed = 0;
         while (elapsed <= time)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / time);
 
-            cam.orthographicSize = Mathf.Lerp(oldSize, newSize, t);
+            _cam.orthographicSize = Mathf.Lerp(oldSize, newSize, t);
             await Task.Yield();
         }
     }

@@ -3,13 +3,13 @@ using DG.Tweening;
 
 public class Flasher : MonoBehaviour
 {
-    SpriteRenderer rend;
+    SpriteRenderer _spriteRenderer;
 
     public void StartFlashing(Color col)
     {
         Color startColor = col * 0.7f;
-        rend = GetComponent<SpriteRenderer>();
-        rend.color = startColor;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.color = startColor;
 
         transform.DOScale(0.9f, 1f).SetEase(Ease.InOutBack).SetLoops(-1, LoopType.Yoyo);
     }

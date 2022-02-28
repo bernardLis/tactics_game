@@ -5,23 +5,23 @@ using UnityEngine.InputSystem;
 public class BattleInputController : MonoBehaviour
 {
     // input system
-    PlayerInput playerInput;
+    PlayerInput _playerInput;
 
     // tilemap
-    Tilemap tilemap;
+    Tilemap _tilemap;
     WorldTile _tile;
 
     // global utilities
-    Camera cam;
-    CharacterUI characterUI;
+    Camera _cam;
+    CharacterUI _characterUI;
 
     // local
-    MovePointController movePointController;
-    BattleCharacterController battleCharacterController;
-    BattleDeploymentController battleDeploymentController;
-    OscilateScale oscilateScale;
+    MovePointController _movePointController;
+    BattleCharacterController _battleCharacterController;
+    BattleDeploymentController _battleDeploymentController;
+    OscilateScale _oscilateScale;
 
-    [HideInInspector] public bool allowInput { get; private set; }
+    [HideInInspector] public bool AllowInput { get; private set; }
 
     public static BattleInputController instance;
     void Awake()
@@ -42,31 +42,31 @@ public class BattleInputController : MonoBehaviour
     {
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
-        playerInput = GetComponent<PlayerInput>();
+        _playerInput = GetComponent<PlayerInput>();
 
-        tilemap = BattleManager.instance.GetComponent<TileManager>().tilemap;
+        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
 
         // TODO: Supposedly, this is an expensive call
-        cam = Camera.main;
-        characterUI = CharacterUI.instance;
+        _cam = Camera.main;
+        _characterUI = CharacterUI.instance;
 
-        movePointController = MovePointController.instance;
-        battleCharacterController = GetComponent<BattleCharacterController>();
-        battleDeploymentController = GetComponent<BattleDeploymentController>();
-        oscilateScale = GetComponentInChildren<OscilateScale>();
+        _movePointController = MovePointController.instance;
+        _battleCharacterController = GetComponent<BattleCharacterController>();
+        _battleDeploymentController = GetComponent<BattleDeploymentController>();
+        _oscilateScale = GetComponentInChildren<OscilateScale>();
     }
 
     void OnEnable()
     {
         // inputs
-        playerInput = GetComponent<PlayerInput>();
+        _playerInput = GetComponent<PlayerInput>();
 
         SubscribeInputActions();
     }
 
     void OnDisable()
     {
-        if (playerInput == null)
+        if (_playerInput == null)
             return;
 
         UnsubscribeInputActions();
@@ -91,125 +91,125 @@ public class BattleInputController : MonoBehaviour
 
     void HandleDeployment()
     {
-        allowInput = true;
+        AllowInput = true;
     }
 
     void HandlePlayerTurn()
     {
         SetInputAllowed(true);
-        oscilateScale.SetOscilation(true);
+        _oscilateScale.SetOscilation(true);
     }
 
     void HandleEnemyTurn()
     {
         SetInputAllowed(false);
-        oscilateScale.SetOscilation(false);
+        _oscilateScale.SetOscilation(false);
     }
 
     void SubscribeInputActions()
     {
         // char placement specific for now
-        playerInput.actions["SelectNextCharacter"].performed += SelectNextCharacter;
-        playerInput.actions["SelectPreviousCharacter"].performed += SelectPreviousCharacter;
+        _playerInput.actions["SelectNextCharacter"].performed += SelectNextCharacter;
+        _playerInput.actions["SelectPreviousCharacter"].performed += SelectPreviousCharacter;
 
-        playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
-        playerInput.actions["ArrowMovement"].performed += Move;
+        _playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
+        _playerInput.actions["ArrowMovement"].performed += Move;
 
-        playerInput.actions["SelectClick"].performed += SelectClick;
+        _playerInput.actions["SelectClick"].performed += SelectClick;
 
-        playerInput.actions["AButtonClick"].performed += AButtonClickInput;
-        playerInput.actions["SButtonClick"].performed += SButtonClickInput;
-        playerInput.actions["DButtonClick"].performed += DButtonClickInput;
+        _playerInput.actions["AButtonClick"].performed += AButtonClickInput;
+        _playerInput.actions["SButtonClick"].performed += SButtonClickInput;
+        _playerInput.actions["DButtonClick"].performed += DButtonClickInput;
 
-        playerInput.actions["QButtonClick"].performed += QButtonClickInput;
-        playerInput.actions["WButtonClick"].performed += WButtonClickInput;
-        playerInput.actions["EButtonClick"].performed += EButtonClickInput;
-        playerInput.actions["RButtonClick"].performed += RButtonClickInput;
+        _playerInput.actions["QButtonClick"].performed += QButtonClickInput;
+        _playerInput.actions["WButtonClick"].performed += WButtonClickInput;
+        _playerInput.actions["EButtonClick"].performed += EButtonClickInput;
+        _playerInput.actions["RButtonClick"].performed += RButtonClickInput;
 
-        playerInput.actions["Back"].performed += BackClick;
+        _playerInput.actions["Back"].performed += BackClick;
 
-        playerInput.actions["CancelEverything"].performed += CancelEverything;
+        _playerInput.actions["CancelEverything"].performed += CancelEverything;
     }
 
     void UnsubscribeInputActions()
     {
         // char placement specific for now
-        playerInput.actions["SelectNextCharacter"].performed -= SelectNextCharacter;
-        playerInput.actions["SelectPreviousCharacter"].performed -= SelectPreviousCharacter;
+        _playerInput.actions["SelectNextCharacter"].performed -= SelectNextCharacter;
+        _playerInput.actions["SelectPreviousCharacter"].performed -= SelectPreviousCharacter;
 
-        playerInput.actions["LeftMouseClick"].performed -= LeftMouseClick;
-        playerInput.actions["ArrowMovement"].performed -= Move;
+        _playerInput.actions["LeftMouseClick"].performed -= LeftMouseClick;
+        _playerInput.actions["ArrowMovement"].performed -= Move;
 
-        playerInput.actions["SelectClick"].performed -= SelectClick;
+        _playerInput.actions["SelectClick"].performed -= SelectClick;
 
-        playerInput.actions["AButtonClick"].performed -= AButtonClickInput;
-        playerInput.actions["SButtonClick"].performed -= SButtonClickInput;
-        playerInput.actions["DButtonClick"].performed -= DButtonClickInput;
+        _playerInput.actions["AButtonClick"].performed -= AButtonClickInput;
+        _playerInput.actions["SButtonClick"].performed -= SButtonClickInput;
+        _playerInput.actions["DButtonClick"].performed -= DButtonClickInput;
 
-        playerInput.actions["QButtonClick"].performed -= QButtonClickInput;
-        playerInput.actions["WButtonClick"].performed -= WButtonClickInput;
-        playerInput.actions["EButtonClick"].performed -= EButtonClickInput;
-        playerInput.actions["RButtonClick"].performed -= RButtonClickInput;
+        _playerInput.actions["QButtonClick"].performed -= QButtonClickInput;
+        _playerInput.actions["WButtonClick"].performed -= WButtonClickInput;
+        _playerInput.actions["EButtonClick"].performed -= EButtonClickInput;
+        _playerInput.actions["RButtonClick"].performed -= RButtonClickInput;
 
-        playerInput.actions["Back"].performed -= BackClick;
+        _playerInput.actions["Back"].performed -= BackClick;
 
-        playerInput.actions["CancelEverything"].performed -= CancelEverything;
+        _playerInput.actions["CancelEverything"].performed -= CancelEverything;
     }
 
     public bool IsInputAllowed()
     {
-        return allowInput;
+        return AllowInput;
     }
 
-    public void SetInputAllowed(bool _isAllowed)
+    public void SetInputAllowed(bool isAllowed)
     {
-        if (_isAllowed)
-            characterUI.EnableSkillButtons();
-        if (!_isAllowed)
-            characterUI.DisableSkillButtons();
+        if (isAllowed)
+            _characterUI.EnableSkillButtons();
+        if (!isAllowed)
+            _characterUI.DisableSkillButtons();
 
-        allowInput = _isAllowed;
+        AllowInput = isAllowed;
     }
 
-    void LeftMouseClick(InputAction.CallbackContext _ctx)
+    void LeftMouseClick(InputAction.CallbackContext ctx)
     {
-        if (battleCharacterController.characterState == CharacterState.SelectingFaceDir)
+        if (_battleCharacterController.CharacterState == CharacterState.SelectingFaceDir)
             return;
 
-        if (!allowInput) // TODO: ||EventSystem.current.IsPointerOverGameObject() << throws an error;
+        if (!AllowInput) // TODO: ||EventSystem.current.IsPointerOverGameObject() << throws an error;
             return;
 
         Vector3 mousePos = Mouse.current.position.ReadValue();
         mousePos.z = 0; // select distance = 1 unit(s) from the camera
-        Vector3Int tilePos = tilemap.WorldToCell(cam.ScreenToWorldPoint(mousePos));
-        if (!TileManager.tiles.TryGetValue(tilePos, out _tile))
+        Vector3Int tilePos = _tilemap.WorldToCell(_cam.ScreenToWorldPoint(mousePos));
+        if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
             return;
 
         Vector3 pos = _tile.GetMiddleOfTile();
 
-        movePointController.Move(pos);
+        _movePointController.Move(pos);
     }
 
-    void Move(InputAction.CallbackContext _ctx)
+    void Move(InputAction.CallbackContext ctx)
     {
-        Vector2 direction = _ctx.ReadValue<Vector2>();
+        Vector2 direction = ctx.ReadValue<Vector2>();
 
         // Selecting face direction with arrows
-        if (battleCharacterController.characterState == CharacterState.SelectingFaceDir)
+        if (_battleCharacterController.CharacterState == CharacterState.SelectingFaceDir)
         {
             if (direction == Vector2.up)
-                battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateUpButtonClicked();
+                _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().SimulateUpButtonClicked();
             if (direction == Vector2.left)
-                battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateLeftButtonClicked();
+                _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().SimulateLeftButtonClicked();
             if (direction == Vector2.right)
-                battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateRightButtonClicked();
+                _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().SimulateRightButtonClicked();
             if (direction == Vector2.down)
-                battleCharacterController.selectedCharacter.GetComponent<FaceDirectionUI>().SimulateDownButtonClicked();
+                _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().SimulateDownButtonClicked();
 
             return;
         }
 
-        if (!allowInput)
+        if (!AllowInput)
             return;
 
         // TODO: this is wrong, but it works.
@@ -218,71 +218,71 @@ public class BattleInputController : MonoBehaviour
         Vector2 vectorX = new Vector2(direction.x, 0).normalized;
         Vector2 vectorY = new Vector2(0, direction.y).normalized;
 
-        movePointController.Move(new Vector3(transform.position.x + vectorX.x, transform.position.y + vectorY.y, transform.position.z));
+        _movePointController.Move(new Vector3(transform.position.x + vectorX.x, transform.position.y + vectorY.y, transform.position.z));
     }
-    void SelectClick(InputAction.CallbackContext _ctx)
+    void SelectClick(InputAction.CallbackContext ctx)
     {
-        movePointController.HandleSelectClick();
+        _movePointController.HandleSelectClick();
     }
 
-    void BackClick(InputAction.CallbackContext _ctx)
+    void BackClick(InputAction.CallbackContext ctx)
     {
-        if (!allowInput)
+        if (!AllowInput)
             return;
 
-        battleCharacterController.Back();
-        movePointController.UpdateDisplayInformation();
+        _battleCharacterController.Back();
+        _movePointController.UpdateDisplayInformation();
     }
 
-    void SelectNextCharacter(InputAction.CallbackContext _ctx)
+    void SelectNextCharacter(InputAction.CallbackContext ctx)
     {
-        if (TurnManager.battleState == BattleState.Deployment)
-            battleDeploymentController.SelectNextCharacter();
+        if (TurnManager.BattleState == BattleState.Deployment)
+            _battleDeploymentController.SelectNextCharacter();
     }
 
-    void SelectPreviousCharacter(InputAction.CallbackContext _ctx)
+    void SelectPreviousCharacter(InputAction.CallbackContext ctx)
     {
-        if (TurnManager.battleState == BattleState.Deployment)
-            battleDeploymentController.SelectPreviousCharacter();
+        if (TurnManager.BattleState == BattleState.Deployment)
+            _battleDeploymentController.SelectPreviousCharacter();
     }
 
-    void CancelEverything(InputAction.CallbackContext _ctx)
+    void CancelEverything(InputAction.CallbackContext ctx)
     {
-        allowInput = true;
-        battleCharacterController.Back();
-        battleCharacterController.UnselectCharacter();
+        AllowInput = true;
+        _battleCharacterController.Back();
+        _battleCharacterController.UnselectCharacter();
     }
 
     // when you click Q on keyboard I want to simulate clicking a button with mouse
-    void AButtonClickInput(InputAction.CallbackContext _ctx)
+    void AButtonClickInput(InputAction.CallbackContext ctx)
     {
-        characterUI.SimulateAButtonClicked();
+        _characterUI.SimulateAButtonClicked();
     }
-    void SButtonClickInput(InputAction.CallbackContext _ctx)
+    void SButtonClickInput(InputAction.CallbackContext ctx)
     {
-        characterUI.SimulateSButtonClicked();
+        _characterUI.SimulateSButtonClicked();
     }
-    void DButtonClickInput(InputAction.CallbackContext _ctx)
+    void DButtonClickInput(InputAction.CallbackContext ctx)
     {
-        characterUI.SimulateDButtonClicked();
+        _characterUI.SimulateDButtonClicked();
     }
 
 
-    void QButtonClickInput(InputAction.CallbackContext _ctx)
+    void QButtonClickInput(InputAction.CallbackContext ctx)
     {
-        characterUI.SimulateQButtonClicked();
+        _characterUI.SimulateQButtonClicked();
     }
-    void WButtonClickInput(InputAction.CallbackContext _ctx)
+    void WButtonClickInput(InputAction.CallbackContext ctx)
     {
-        characterUI.SimulateWButtonClicked();
+        _characterUI.SimulateWButtonClicked();
     }
-    void EButtonClickInput(InputAction.CallbackContext _ctx)
+    void EButtonClickInput(InputAction.CallbackContext ctx)
     {
-        characterUI.SimulateEButtonClicked();
+        _characterUI.SimulateEButtonClicked();
     }
-    void RButtonClickInput(InputAction.CallbackContext _ctx)
+    void RButtonClickInput(InputAction.CallbackContext ctx)
     {
-        characterUI.SimulateRButtonClicked();
+        _characterUI.SimulateRButtonClicked();
     }
 
 
