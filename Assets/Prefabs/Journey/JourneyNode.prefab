@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 3875179349699931703}
-  journeyNode: {fileID: 0}
+  _visitedGFX: {fileID: 3875179349699931703}
+  JourneyNode: {fileID: 0}
 --- !u!50 &308522721298514670
 Rigidbody2D:
   serializedVersion: 4

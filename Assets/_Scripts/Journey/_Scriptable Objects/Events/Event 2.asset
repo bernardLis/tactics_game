@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5dd9c7f2eb223488303bde0b7f5101, type: 3}
   m_Name: Event 2
   m_EditorClassIdentifier: 
-  id: 4aaef649-67e2-43fb-8358-934c18869681
-  background: {fileID: 21300000, guid: e5db9d5fc71bb864b8bd8fe155d9002c, type: 3}
-  description: You see 2 boys beating a dog. It is too weak to run away.
-  options:
-  - {fileID: 11400000, guid: b4081dd6ec53fb943af512be61381a6e, type: 2}
-  - {fileID: 11400000, guid: 559fc122fb7802a4bb42b16a7b96b057, type: 2}
-  - {fileID: 11400000, guid: 23b6e1341f8e67e4bb16b5fb82574a97, type: 2}
+  Id: 2551f088-c516-4a32-812b-c66ede571d46
+  Background: {fileID: 21300000, guid: e5db9d5fc71bb864b8bd8fe155d9002c, type: 3}
+  Description: Looks great!
+  Options:
+  - {fileID: 11400000, guid: 27375149190163741b20f75da8572734, type: 2}
+  - {fileID: 11400000, guid: ec9b9bd652f882843935008c461769b6, type: 2}
+  - {fileID: 11400000, guid: 5e94afab7c2939e4bbde06a2d674ff30, type: 2}

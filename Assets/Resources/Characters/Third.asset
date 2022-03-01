@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
   m_Name: Third
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 37152021-3dcc-4017-b526-0f952744961e
   ReferenceID: CHARACTER-2
   CharacterName: Third
   Portrait: {fileID: 21300000, guid: f9cfb7fa4e56f16488d0ac809a225e60, type: 3}

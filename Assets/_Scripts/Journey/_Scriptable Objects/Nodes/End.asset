@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
   m_Name: End
   m_EditorClassIdentifier: 
-  id: b067083a-9532-4643-aeaf-db821f8fbb75
-  icon: {fileID: 21300000, guid: 69556d3833f6a4144bdb3dc8f234b270, type: 3}
-  nodeType: 1
-  gameObject: {fileID: 0}
+  Id: ea8e7e51-21ee-45c8-bb00-50d2a6c3901f
+  Icon: {fileID: 21300000, guid: 69556d3833f6a4144bdb3dc8f234b270, type: 3}
+  NodeType: 1
+  SceneToLoad: End
+  GameObject: {fileID: 0}
+  JourneyNodeBehaviour: {fileID: 0}

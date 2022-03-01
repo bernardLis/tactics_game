@@ -62,14 +62,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a5a222abe45dc40bc3e638135b656c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allEvents:
+  PlayerTroops: []
+  AllEvents:
   - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
   - {fileID: 11400000, guid: 97ae7081e296d9d41b7dc13d84772c77, type: 2}
   - {fileID: 11400000, guid: a05ff19afa1a3ec4da7c1041436e074f, type: 2}
   - {fileID: 11400000, guid: c4797b46d258a8944848dd5522d53c6e, type: 2}
   - {fileID: 11400000, guid: 2e89f4ef24faa294aaabbeb33d5215c3, type: 2}
-  journeyPaths: []
-  visitedNodes: []
+  JourneyPaths: []
+  VisitedJourneyNodes: []
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

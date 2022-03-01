@@ -6,7 +6,7 @@ public class JourneyManager : MonoBehaviour, ISavable
 {
     LevelLoader _levelLoader;
 
-    public List<Character> PlayerTroops;
+    [HideInInspector] public List<Character> PlayerTroops;
     public bool WasJourneySetUp { get; private set; }
     public int JourneySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
     public JourneyNodeData CurrentJourneyNode { get; private set; }
@@ -19,7 +19,7 @@ public class JourneyManager : MonoBehaviour, ISavable
     List<JourneyEvent> _availableEvents;
 
     [HideInInspector] public List<JourneyPath> JourneyPaths = new();
-    public List<JourneyNodeData> VisitedJourneyNodes = new();
+    [HideInInspector] public List<JourneyNodeData> VisitedJourneyNodes = new();
 
     public static JourneyManager instance;
     void Awake()

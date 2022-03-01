@@ -222,8 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 1418224277}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &19517409
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,26 +487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 1787461477}
---- !u!114 &135013495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Battle(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
-  nodeType: 2
-  sceneToLoad: 
-  gameObject: {fileID: 1154628806}
-  journeyNodeBehaviour: {fileID: 1154628810}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &143133636
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,8 +584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 669401959}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &146693746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,8 +1111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 1803773654}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &236497320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,24 +1218,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &267555353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Battle(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
-  nodeType: 2
-  sceneToLoad: 
-  gameObject: {fileID: 819026615}
-  journeyNodeBehaviour: {fileID: 819026619}
 --- !u!1 &276394532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,8 +1313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 2081965197}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &332184644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,8 +1410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 786536144}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &336021472
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,34 +1685,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f5702067fa7544aaa866711f216534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPaths: 3
-  numberOfRows: 5
-  numberOfBridges: 2
-  basicConfigs:
+  _numberOfPaths: 5
+  _numberOfRows: 7
+  _numberOfBridges: 5
+  _basicConfigs:
   - {fileID: 11400000, guid: 48b63e31052747e439be636f588bd7b8, type: 2}
   - {fileID: 11400000, guid: e5776c8dc62eacf4d8be1de62bd97cca, type: 2}
   - {fileID: 11400000, guid: d45fee76690705842bd937e929c708b7, type: 2}
-  backgrounds:
+  _backgrounds:
   - {fileID: 21300000, guid: 5ed7bae907d9bdf4481ac157fa16c084, type: 3}
   - {fileID: 21300000, guid: 1feec931a9118d540b30c7c34e2e5517, type: 3}
   - {fileID: 21300000, guid: fd2829fbb18039045bec996992fb3c17, type: 3}
   - {fileID: 21300000, guid: 7ed25c6cd159ffa4dae0300caebb88d4, type: 3}
-  journeyNodes:
+  _journeyNodes:
   - {fileID: 11400000, guid: a3a897d73153d6c428b95c7b766b073f, type: 2}
   - {fileID: 11400000, guid: 3df89724e51fe5542b597a2b6b5998e1, type: 2}
   - {fileID: 11400000, guid: cc0d04158ce232a46832bad9060d07ec, type: 2}
   - {fileID: 11400000, guid: 8dbb94a5cdc6ec547902bb1eecaa5aa8, type: 2}
   - {fileID: 11400000, guid: d219158be8803d243a25d93b40f5d925, type: 2}
-  startNodeScriptableObject: {fileID: 11400000, guid: 40c682b48d4e172408c2a268155a79c0, type: 2}
-  endNodeScriptableObject: {fileID: 11400000, guid: 13c25550cd6bad148aa835dde8c217b1, type: 2}
-  journeyHolder: {fileID: 431990287}
-  journeyNodePrefab: {fileID: 4605823331722979178, guid: 570daa297cd33394b92bc6c18457866b, type: 3}
-  journeyLine: {fileID: 2100000, guid: e43d44a79a4deea4abc8506261f5e070, type: 2}
-  pathTravelledLine: {fileID: 2100000, guid: 27f04035a37086a44b904547debdfaf4, type: 2}
-  availableNodes:
-  - {fileID: 1787461477}
-  - {fileID: 135013495}
-  - {fileID: 267555353}
+  _startNodeScriptableObject: {fileID: 11400000, guid: 40c682b48d4e172408c2a268155a79c0, type: 2}
+  _endNodeScriptableObject: {fileID: 11400000, guid: 13c25550cd6bad148aa835dde8c217b1, type: 2}
+  _journeyHolder: {fileID: 431990287}
+  _journeyNodePrefab: {fileID: 4605823331722979178, guid: 570daa297cd33394b92bc6c18457866b, type: 3}
+  _journeyLine: {fileID: 2100000, guid: e43d44a79a4deea4abc8506261f5e070, type: 2}
+  _pathTravelledLine: {fileID: 2100000, guid: 27f04035a37086a44b904547debdfaf4, type: 2}
+  AvailableNodes: []
 --- !u!4 &375417099
 Transform:
   m_ObjectHideFlags: 0
@@ -2028,8 +1989,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 1690382181}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &431990287
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,24 +2040,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &472527223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Battle(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
-  nodeType: 2
-  sceneToLoad: 
-  gameObject: {fileID: 2074892515}
-  journeyNodeBehaviour: {fileID: 2074892519}
 --- !u!1 &499842465
 GameObject:
   m_ObjectHideFlags: 0
@@ -2553,42 +2496,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &669401959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Battle(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
-  nodeType: 2
-  sceneToLoad: 
-  gameObject: {fileID: 143133636}
-  journeyNodeBehaviour: {fileID: 143133640}
---- !u!114 &675782311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Battle(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
-  nodeType: 2
-  sceneToLoad: 
-  gameObject: {fileID: 1664654701}
-  journeyNodeBehaviour: {fileID: 1664654705}
 --- !u!1 &725759705
 GameObject:
   m_ObjectHideFlags: 0
@@ -3045,8 +2952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 2026457198}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &776826716
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,24 +3143,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &786536144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: End(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: 69556d3833f6a4144bdb3dc8f234b270, type: 3}
-  nodeType: 1
-  sceneToLoad: 
-  gameObject: {fileID: 332184644}
-  journeyNodeBehaviour: {fileID: 332184648}
 --- !u!1 &819026615
 GameObject:
   m_ObjectHideFlags: 0
@@ -3349,8 +3238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 267555353}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &857681599
 GameObject:
   m_ObjectHideFlags: 0
@@ -3551,8 +3440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 1079012083}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &928371604
 GameObject:
   m_ObjectHideFlags: 0
@@ -3829,8 +3718,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 1664117835}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &972740224
 GameObject:
   m_ObjectHideFlags: 0
@@ -4461,24 +4350,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1079012083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Blacksmith(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
-  nodeType: 5
-  sceneToLoad: 
-  gameObject: {fileID: 868907273}
-  journeyNodeBehaviour: {fileID: 868907277}
 --- !u!1 &1113283395
 GameObject:
   m_ObjectHideFlags: 0
@@ -4794,8 +4665,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 135013495}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &1207577446
 GameObject:
   m_ObjectHideFlags: 0
@@ -5603,24 +5474,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1319168344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Knowledge(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
-  nodeType: 3
-  sceneToLoad: 
-  gameObject: {fileID: 1481883849}
-  journeyNodeBehaviour: {fileID: 1481883853}
 --- !u!1 &1324866417
 GameObject:
   m_ObjectHideFlags: 0
@@ -5831,24 +5684,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1418224277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Start(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: 6d220d0fead5c4844a5dd1c7252aaca6, type: 3}
-  nodeType: 0
-  sceneToLoad: 
-  gameObject: {fileID: 16247145}
-  journeyNodeBehaviour: {fileID: 16247149}
 --- !u!1 &1455950226
 GameObject:
   m_ObjectHideFlags: 0
@@ -5944,8 +5779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 2136172753}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &1461345546
 GameObject:
   m_ObjectHideFlags: 0
@@ -6190,8 +6025,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 1319168344}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!21 &1541377035
 Material:
   serializedVersion: 6
@@ -6372,8 +6207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 1646601023}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &1627889760
 GameObject:
   m_ObjectHideFlags: 0
@@ -6563,42 +6398,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1646601023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Blacksmith(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
-  nodeType: 5
-  sceneToLoad: 
-  gameObject: {fileID: 1558464387}
-  journeyNodeBehaviour: {fileID: 1558464391}
---- !u!114 &1664117835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Knowledge(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
-  nodeType: 3
-  sceneToLoad: 
-  gameObject: {fileID: 943943008}
-  journeyNodeBehaviour: {fileID: 943943012}
 --- !u!1 &1664654701
 GameObject:
   m_ObjectHideFlags: 0
@@ -6694,26 +6493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 675782311}
---- !u!114 &1690382181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Boss(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: fe6e968ba925ea041810fcebb33faf66, type: 3}
-  nodeType: 7
-  sceneToLoad: 
-  gameObject: {fileID: 392101971}
-  journeyNodeBehaviour: {fileID: 392101975}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1 &1696753023
 GameObject:
   m_ObjectHideFlags: 0
@@ -6882,42 +6663,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1787461477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Battle(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
-  nodeType: 2
-  sceneToLoad: 
-  gameObject: {fileID: 66496532}
-  journeyNodeBehaviour: {fileID: 66496536}
---- !u!114 &1803773654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Blacksmith(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
-  nodeType: 5
-  sceneToLoad: 
-  gameObject: {fileID: 219718982}
-  journeyNodeBehaviour: {fileID: 219718986}
 --- !u!1 &1991978506
 GameObject:
   m_ObjectHideFlags: 0
@@ -7023,24 +6768,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2026457198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Knowledge(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
-  nodeType: 3
-  sceneToLoad: 
-  gameObject: {fileID: 764672279}
-  journeyNodeBehaviour: {fileID: 764672283}
 --- !u!1 &2034316416
 GameObject:
   m_ObjectHideFlags: 0
@@ -7220,44 +6947,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2eb2642c51bcbf499bcd064ba881c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedGFX: {fileID: 0}
-  journeyNode: {fileID: 472527223}
---- !u!114 &2081965197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Knowledge(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: 0698ab9d0a82eab4e877130d85fb53ad, type: 3}
-  nodeType: 3
-  sceneToLoad: 
-  gameObject: {fileID: 276394532}
-  journeyNodeBehaviour: {fileID: 276394536}
---- !u!114 &2136172753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
-  m_Name: Blacksmith(Clone)
-  m_EditorClassIdentifier: 
-  Id: 
-  icon: {fileID: 21300000, guid: e4abe6ed8437f5b4d874ed5b23cee656, type: 3}
-  nodeType: 5
-  sceneToLoad: 
-  gameObject: {fileID: 1455950226}
-  journeyNodeBehaviour: {fileID: 1455950230}
+  _visitedGFX: {fileID: 0}
+  JourneyNode: {fileID: 0}
 --- !u!1001 &2154333484784277113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7265,22 +6956,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2154333484900981484, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: playerTroops.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154333484900981484, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: playerTroops.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 73abcce88805d484088fe99d111cfe0c, type: 2}
-    - target: {fileID: 2154333484900981484, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: playerTroops.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 5507a8cd877cad54f8f6d41f9a19dc3d, type: 2}
-    - target: {fileID: 2154333484900981484, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: playerTroops.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: fe8d5d37d4c3de74faf310e9b1456853, type: 2}
     - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_Name
       value: JourneyManager

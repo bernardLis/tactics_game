@@ -26,7 +26,7 @@ public class Character : BaseScriptableObject
     [Header("Abilities")]
     [Tooltip("For now just defend, basic attack is from the weapon")]
     public List<Ability> BasicAbilities = new();
-    public List<Ability> Abilities;
+    public List<Ability> Abilities = new();
 
     public virtual void Create(Dictionary<string, object> item, List<Ability> abilities)
     {

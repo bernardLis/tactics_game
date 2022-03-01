@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5dd9c7f2eb223488303bde0b7f5101, type: 3}
   m_Name: Event 1
   m_EditorClassIdentifier: 
-  id: 4aaef649-67e2-43fb-8358-934c18869681
-  background: {fileID: 21300000, guid: d6c06b68721fd8a4fb8d88a2bbc3bd93, type: 3}
-  description: In the court you meet a man whose father killed a slave. He intends
-    to testify against his father.
-  options:
-  - {fileID: 11400000, guid: 9ce2b87ad5b9dbc41996f8a3c409cb00, type: 2}
-  - {fileID: 11400000, guid: bc11823501afb9347a34fe84d894670f, type: 2}
-  - {fileID: 11400000, guid: 9637ba758e5d7994c9dcdb36a287333e, type: 2}
+  Id: 276f7b7e-49a9-4605-b1fd-2db005baf92f
+  Background: {fileID: 21300000, guid: d6c06b68721fd8a4fb8d88a2bbc3bd93, type: 3}
+  Description: Wow! It is a bridge!
+  Options:
+  - {fileID: 11400000, guid: 27375149190163741b20f75da8572734, type: 2}
+  - {fileID: 11400000, guid: ec9b9bd652f882843935008c461769b6, type: 2}
+  - {fileID: 11400000, guid: 5e94afab7c2939e4bbde06a2d674ff30, type: 2}

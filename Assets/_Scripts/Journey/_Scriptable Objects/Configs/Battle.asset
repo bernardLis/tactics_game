@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Battle
   m_EditorClassIdentifier: 
   Id: 8dae5fa0-122f-43a3-8ac7-bc28051dee85
-  nodeIndexRange: {x: 0, y: 2}
-  nodes:
+  NodeIndexRange: {x: 0, y: 2}
+  Nodes:
   - {fileID: 11400000, guid: a3a897d73153d6c428b95c7b766b073f, type: 2}
-  chanceToIgnore: 0
+  ChanceToIgnore: 0

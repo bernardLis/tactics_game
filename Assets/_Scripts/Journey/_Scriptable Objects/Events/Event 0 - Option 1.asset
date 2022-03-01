@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6790c7ad75ef53e46ba03163b3bf89bd, type: 3}
   m_Name: Event 0 - Option 1
   m_EditorClassIdentifier: 
-  id: ea7d74d2-4ade-4234-87fa-edbbaca752fc
-  text: Free the slave, kill the master.
-  response: You have to pay for killing a free person.
-  reward: {fileID: 11400000, guid: 747eb6c51dec6ea498636d5e0ef0d892, type: 2}
+  Id: 143fca83-b6b6-4fa8-927d-af78feed6484
+  Text: Get money!
+  Response: You get 2 obols.
+  Reward: {fileID: 11400000, guid: 255402bbe5d4e324b88c799485cfd5eb, type: 2}

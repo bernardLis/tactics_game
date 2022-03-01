@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   Id: aac417f1-cd54-4220-a3db-ecfd16e403ec
-  nodeIndexRange: {x: 3, y: 4}
-  nodes:
+  NodeIndexRange: {x: 3, y: 4}
+  Nodes:
   - {fileID: 11400000, guid: d219158be8803d243a25d93b40f5d925, type: 2}
-  chanceToIgnore: 0
+  ChanceToIgnore: 0

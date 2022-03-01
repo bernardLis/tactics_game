@@ -10,7 +10,7 @@ public class JourneyNodeBehaviour : MonoBehaviour, IPointerClickHandler, IPointe
 
     [SerializeField] SpriteRenderer _visitedGFX;
 
-    public JourneyNode JourneyNode;
+    [HideInInspector] public JourneyNode JourneyNode;
 
     Vector3 _originalScale;
     SpriteRenderer _spriteRenderer;

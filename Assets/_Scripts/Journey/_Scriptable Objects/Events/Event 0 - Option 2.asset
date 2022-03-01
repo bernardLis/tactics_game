@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6790c7ad75ef53e46ba03163b3bf89bd, type: 3}
   m_Name: Event 0 - Option 2
   m_EditorClassIdentifier: 
-  id: ea7d74d2-4ade-4234-87fa-edbbaca752fc
-  text: Kill both.
-  response: There are no witnesses to your crime.
-  reward: {fileID: 11400000, guid: f5cfa74393a7f8f48805ea6860de49ff, type: 2}
+  Id: ff5fe47d-f792-42a8-b5bb-b95f7b8329fb
+  Text: Neutral option.
+  Response: Nothing happens.
+  Reward: {fileID: 11400000, guid: f5cfa74393a7f8f48805ea6860de49ff, type: 2}
