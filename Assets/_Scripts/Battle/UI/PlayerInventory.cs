@@ -103,7 +103,6 @@ public class PlayerInventory : MonoBehaviour
             yield return GetPositionForItem(inventoryItemVisual);
             if ((bool)_inventoryHasSpace == false)
             {
-                Debug.Log("No space - Cannot pick up the item");
                 RemoveItemFromInventoryGrid(inventoryItemVisual);
                 yield break;
             }

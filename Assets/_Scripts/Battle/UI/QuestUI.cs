@@ -173,7 +173,6 @@ public class QuestUI : MonoBehaviour
             {
                 if (slot.Quest == SelectedQuestSlot.Quest)
                 {
-                    Debug.Log("selected questtt found");
                     SelectedQuestSlot = slot;
                 }
             }

@@ -28,6 +28,7 @@ public class Character : BaseScriptableObject
     public List<Ability> BasicAbilities = new();
     public List<Ability> Abilities = new();
 
+    // creates character from google sheet data in editor
     public virtual void Create(Dictionary<string, object> item, List<Ability> abilities)
     {
         ReferenceID = item["ReferenceID"].ToString();
@@ -44,26 +45,26 @@ public class Character : BaseScriptableObject
         Abilities = new(abilities);
     }
 
+    // creates character at runtime from saved data
     public virtual void Create(CharacterData data)
     {
+        CharacterDatabase CharacterDatabase = JourneyManager.instance.CharacterDatabase;
+
         ReferenceID = data.ReferenceID;
         CharacterName = data.CharacterName;
-        Portrait = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Character/Portrait/{data.Portrait}", typeof(Sprite));
+        Portrait = CharacterDatabase.GetPortraitByID(data.Portrait);
         Level = data.Level;
         Strength = data.Strength;
         Intelligence = data.Intelligence;
         Agility = data.Agility;
         Stamina = data.Stamina;
-        Body = (Equipment)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/{data.Body}", typeof(Equipment));
-        Weapon = (Weapon)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/Weapon/{data.Weapon}", typeof(Weapon));
-        BasicAbilities.Add((Ability)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Abilities/BasicDefend.asset", typeof(Ability)));
+        Body = CharacterDatabase.GetBodyByName(data.Body);
+        Weapon = CharacterDatabase.GetWeaponByName(data.Weapon);
 
-        string path = "Abilities";
-        Object[] loadedAbilities = Resources.LoadAll(path, typeof(Ability));
+        BasicAbilities.Add(CharacterDatabase.GetAbilityByID("5f7d8c47-7ec1-4abf-b8ec-74ea82be327f")); // basic defend id
+
         foreach (string id in data.AbilityReferenceIds)
-            foreach (Ability loadedAbility in loadedAbilities)
-                if (id == loadedAbility.ReferenceID)
-                    Abilities.Add(loadedAbility);
+            Abilities.Add(CharacterDatabase.GetAbilityByReferenceID(id));
     }
 
     public virtual void Initialize(GameObject obj)
@@ -76,6 +77,8 @@ public class Character : BaseScriptableObject
         if (Weapon != null)
             Weapon.Initialize(weaponObj.gameObject);
     }
+
+
 }
 
 [System.Serializable]

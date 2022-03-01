@@ -65,7 +65,6 @@ public class JourneyMapManager : MonoBehaviour
     /* JOURNEY GENERATION */
     public void GenerateJourney()
     {
-        Debug.Log("GenerateJourney");
         InitialSetup();
         CreatePaths();
         DisplayNodes();

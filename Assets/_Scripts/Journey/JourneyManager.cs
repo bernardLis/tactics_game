@@ -6,20 +6,22 @@ public class JourneyManager : MonoBehaviour, ISavable
 {
     LevelLoader _levelLoader;
 
-    [HideInInspector] public List<Character> PlayerTroops;
-    public bool WasJourneySetUp { get; private set; }
-    public int JourneySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
-    public JourneyNodeData CurrentJourneyNode { get; private set; }
-    public int Obols { get; private set; }
-    public JourneyNodeReward Reward { get; private set; }
-
     [Header("Unity Setup")]
+    public CharacterDatabase CharacterDatabase;
     [SerializeField] JourneyEvent[] AllEvents;
 
     List<JourneyEvent> _availableEvents;
 
+    public bool WasJourneySetUp { get; private set; }
+    public int JourneySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
+    public JourneyNodeData CurrentJourneyNode { get; private set; }
     [HideInInspector] public List<JourneyPath> JourneyPaths = new();
     [HideInInspector] public List<JourneyNodeData> VisitedJourneyNodes = new();
+
+    [HideInInspector] public List<Character> PlayerTroops = new();
+
+    public int Obols { get; private set; }
+    public JourneyNodeReward Reward { get; private set; }
 
     public static JourneyManager instance;
     void Awake()
@@ -45,17 +47,31 @@ public class JourneyManager : MonoBehaviour, ISavable
         // copy array to list;
         _availableEvents = new(AllEvents);
         LoadJsonData();
+
+        // TODO: eee... I need a place to set player troops before the battle/journey start and then this should be gone
+        if (PlayerTroops.Count == 0)
+            CreatePlayerTroops();
     }
 
     public void LoadLevel(string level)
     {
-        SaveJsonData();
+        if (level == "Journey") // TODO: I want to save only on coming back to Journey
+            SaveJsonData();
+
         _levelLoader.LoadLevel(level);
+    }
+
+    void CreatePlayerTroops()
+    {
+        string path = "Characters";
+        Object[] playerCharacters = Resources.LoadAll(path, typeof(Character));
+        PlayerTroops = new();
+        foreach (Character character in playerCharacters)// TODO: should I clone them?
+            PlayerTroops.Add(character);
     }
 
     public void SetPlayerTroops(List<Character> troops)
     {
-        Debug.Log("Setting player characters");
         PlayerTroops = new(troops);
     }
 
@@ -104,7 +120,7 @@ public class JourneyManager : MonoBehaviour, ISavable
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
         if (FileManager.WriteToFile("SaveData.dat", sd.ToJson()))
-            Debug.Log("save successful");
+            Debug.Log("Save successful");
     }
 
     public void PopulateSaveData(SaveData saveData)
@@ -152,7 +168,6 @@ public class JourneyManager : MonoBehaviour, ISavable
             sd.LoadFromJson(json);
 
             LoadFromSaveData(sd);
-            Debug.Log("load complete");
         }
     }
 
@@ -163,15 +178,13 @@ public class JourneyManager : MonoBehaviour, ISavable
         CurrentJourneyNode = saveData.CurrentJourneyNode;
         VisitedJourneyNodes = saveData.VisitedJourneyNodes;
         PlayerTroops = new();
+        Debug.Log($"saveData.Characters: {saveData.Characters.Count}");
         foreach (CharacterData data in saveData.Characters)
         {
             Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
             playerCharacter.Create(data);
             PlayerTroops.Add(playerCharacter);
         }
-
-        // TODO: probably here I need to create Characters from save data 
-        // and populate troops
     }
 
     public void ClearSaveData()

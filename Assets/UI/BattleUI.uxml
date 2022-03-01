@@ -8,7 +8,7 @@
             <ui:VisualElement name="characterCardBasicInfo" style="height: 100%; width: 100%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: flex-start;">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 30%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterCardName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
-                    <ui:VisualElement name="characterCardPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Portraits/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center;">
+                    <ui:VisualElement name="characterCardPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center;">
                         <ui:VisualElement name="characterCardPortraitSkull" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/death-skull.png?fileID=2800000&amp;guid=e749b49a826e4ae42b6fb0a1a499bbdd&amp;type=3#death-skull&apos;); width: 50%; height: 50%; display: none;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="characterCardModifierContainer" style="height: 32px; width: 100%; flex-direction: row; flex-wrap: wrap;">
@@ -91,7 +91,7 @@
             <ui:VisualElement name="characterBasicInfo" style="height: 100%; width: 45%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: flex-start;">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 50%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
-                    <ui:VisualElement name="characterPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Portraits/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center; display: flex;">
+                    <ui:VisualElement name="characterPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center; display: flex;">
                         <ui:VisualElement name="characterPortraitSkull" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/death-skull.png?fileID=2800000&amp;guid=e749b49a826e4ae42b6fb0a1a499bbdd&amp;type=3#death-skull&apos;); width: 50%; height: 50%; display: none;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="modifierContainer" style="width: 100%; height: 32px; flex-wrap: wrap; flex-direction: row;">
@@ -182,7 +182,7 @@
             <ui:Label text="It stuns the target." display-tooltip-when-elided="true" name="characterUITooltipStatusDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="cheats" style="position: absolute; top: 70%;">
+    <ui:VisualElement name="cheats" focusable="false" style="position: absolute; top: 70%;">
         <ui:Button text="Kill all enemies" display-tooltip-when-elided="true" name="enemiesKillButton" />
         <ui:Button text="Kill a friend" display-tooltip-when-elided="true" name="friendliesKillButton" />
     </ui:VisualElement>

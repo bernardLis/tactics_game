@@ -384,15 +384,12 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
         if (amount == 0)
             return;
-        Debug.Log(transform.name + " uses " + amount + " mana.");
     }
 
     public void GainHealth(int healthGain, Ability ability)
     {
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
         CurrentHealth += healthGain;
-
-        Debug.Log(transform.name + " heals " + healthGain + ".");
 
         HandleModifier(ability);
         HandleStatus(ability, null);

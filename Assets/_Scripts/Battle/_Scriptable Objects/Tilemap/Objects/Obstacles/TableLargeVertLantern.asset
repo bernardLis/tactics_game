@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TableLargeVertLantern
   m_EditorClassIdentifier: 
   Id: 41f18358-5b0d-48c1-accc-d05d1eb6b646
-  Size: {x: 4, y: 2}
+  Size: {x: 2, y: 4}
   ObjectType: 1
   Sprite: {fileID: 21300000, guid: 01f216b0a33f7b543abf520ee673ecfc, type: 3}
   IsPushable: 0

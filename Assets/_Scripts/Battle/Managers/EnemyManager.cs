@@ -18,8 +18,13 @@ public class EnemyManager : MonoBehaviour
         }
         instance = this;
         #endregion
-        
+
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
@@ -30,9 +35,6 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator ForEachEnemy()
     {
-        // TODO: is this ok, performance-wise?
-        // but it fixes a problem where enemies did not have updated graph
-        // after player moved PushableObstacle at the end of player turn
         // Recalculate all graphs
         AstarPath.active.Scan();
 

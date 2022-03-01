@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System.Threading.Tasks;
 using UnityEngine.UIElements;
 
 public class CheatManager : MonoBehaviour
@@ -24,6 +20,7 @@ public class CheatManager : MonoBehaviour
 
     void KillAllEnemies()
     {
+        
         KillAllWithTag("Enemy");
     }
 

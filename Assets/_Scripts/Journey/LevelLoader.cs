@@ -15,7 +15,6 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(string newScene)
     {
-        Debug.Log("load level");
         DOTween.KillAll();
 
         // fade out opacity 0 -> 1

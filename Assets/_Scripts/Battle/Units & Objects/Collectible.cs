@@ -20,7 +20,6 @@ public class Collectible : MonoBehaviour
 
     void Collect()
     {
-        Debug.Log("Collected!");
         _isCollected = true;
         _spriteRenderer.color = Color.red;
         _boxCollider2D.enabled = false;

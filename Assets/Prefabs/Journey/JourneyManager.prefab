@@ -69,6 +69,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a05ff19afa1a3ec4da7c1041436e074f, type: 2}
   - {fileID: 11400000, guid: c4797b46d258a8944848dd5522d53c6e, type: 2}
   - {fileID: 11400000, guid: 2e89f4ef24faa294aaabbeb33d5215c3, type: 2}
+  CharacterDatabase: {fileID: 11400000, guid: b6ffd5f1a1266304c8caa0325f27f668, type: 2}
   JourneyPaths: []
   VisitedJourneyNodes: []
 --- !u!114 &2154333484900981486

@@ -23,7 +23,6 @@ public class RangedBrain : Brain
         if (Helpers.GetManhattanDistance(myPos, targetPos) > _selectedAbility.Range)
         {
             // you want to move closer to the target and not attack
-            Debug.Log("target not within attack range");
             destinationPos = GetDestinationCloserTo(selectedTarget);
             Target = null;
         }
@@ -31,7 +30,6 @@ public class RangedBrain : Brain
         // 2. the target is perfectly at the edge of your attack range
         if (Helpers.GetManhattanDistance(myPos, targetPos) == _selectedAbility.Range)
         {
-            Debug.Log("target perfectly where we want them");
             destinationPos = myPos;
             Target = selectedTarget.GameObj;
 
@@ -41,7 +39,6 @@ public class RangedBrain : Brain
         // 3. the target is closer than you would like
         if (Helpers.GetManhattanDistance(myPos, targetPos) < _selectedAbility.Range)
         {
-            Debug.Log("target is too close I want to move away");
             // = you want to path the furthest you can from the target but still within attack range
             destinationPos = FindArcherPosition(selectedTarget, _selectedAbility);
             Target = selectedTarget.GameObj;

@@ -1,18 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System.Threading.Tasks;
 
 // https://www.youtube.com/watch?v=uD7y4T4PVk0
 [System.Serializable]
 public class SaveData
 {
-    public int JourneySeed; // this reproduces paths with bridges and nodes // how do I keep the reference to visited nodes?
+    public int JourneySeed; // this reproduces paths with bridges and nodes 
     public int Obols;
     public List<JourneyNodeData> VisitedJourneyNodes = new();
     public JourneyNodeData CurrentJourneyNode;
-    // TODO: what do I want to save? Characters...
     public List<CharacterData> Characters = new();
 
     public string ToJson()

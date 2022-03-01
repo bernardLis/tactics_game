@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f017837fc022eb47ab41a886748218d, type: 3}
   m_Name: Open Chest
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 06ac70b3-b6ae-44f6-8b4c-2337ec9a8069
   ReferenceID: ABILITY-3
   Description: Opens a chest
   Icon: {fileID: 21300000, guid: 38ccb73712c2df745a714d692ce04ba8, type: 3}

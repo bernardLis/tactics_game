@@ -87,7 +87,6 @@ public class Status : BaseScriptableObject
 
     public virtual bool ShouldBeRemoved()
     {
-        Debug.Log("number of turns in should be removed " + NumberOfTurns);
         return NumberOfTurns <= 0;
     }
 }

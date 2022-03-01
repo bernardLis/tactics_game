@@ -168,6 +168,7 @@ public class TurnManager : MonoBehaviour
         List<Character> playerCharactersAlive = new();
         foreach (GameObject p in _playerCharacters)
             playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);
+
         _journeyManager.SetPlayerTroops(playerCharactersAlive);
 
         _journeyManager.LoadLevel("Journey");

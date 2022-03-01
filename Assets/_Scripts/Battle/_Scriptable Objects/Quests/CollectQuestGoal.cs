@@ -35,7 +35,6 @@ public class CollectQuestGoal : QuestGoal
 
 	public override void Evaluate(object sender, ItemChangedEventArgs e)
 	{
-		Debug.Log("evaluate with object etc. is called");
 		if (e.Item == RequiredItem)
 		{
 			CurrentAmount++;
@@ -48,7 +47,6 @@ public class CollectQuestGoal : QuestGoal
 	{
 		GameUI.instance.DisplayLogText("Quest Goal compelted! " + Title);
 
-		Debug.Log("quest goal compelte");
 		QuestGoalState = QuestGoalState.COMPLETED;
 	}
 
