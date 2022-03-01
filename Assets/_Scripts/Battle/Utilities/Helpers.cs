@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public static class Helpers
 {
@@ -37,6 +37,19 @@ public static class Helpers
             return Color.black;
         }
         return col;
+    }
+
+    public static string ParseScriptableObjectCloneName(string text)
+    {
+        text = text.Replace("(Clone)", "");
+        // https://stackoverflow.com/questions/3216085/split-a-pascalcase-string-into-separate-words
+        Regex r = new Regex(
+            @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])"
+          );
+
+        text = r.Replace(text, " "); // pascal case
+        text = text.Replace("  ", " "); // double space
+        return text;
     }
 
 }

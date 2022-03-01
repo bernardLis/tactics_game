@@ -8,7 +8,6 @@ public class DamageUI : MonoBehaviour
 {
     Camera _cam;
 
-
     VisualElement _healthChangeDisplayContainer;
     Label _healthChangeDisplayLabel;
 
@@ -51,11 +50,11 @@ public class DamageUI : MonoBehaviour
         float y = newPosition.y; // - healthChangeDisplayContainer.layout.height; <- height is 0, coz it does not calculate in the first frame after element creation
 
         _healthChangeDisplayContainer.transform.position = new Vector3(x, y, transform.position.z);
-
         // move up
         float waitTime = 0;
         float fadeTime = 1f;
         float i = 0.1f;
+
         while (waitTime < 1f)
         {
             middleOfTheTile = new Vector3(transform.position.x, transform.position.y + _offsetY, transform.position.z);

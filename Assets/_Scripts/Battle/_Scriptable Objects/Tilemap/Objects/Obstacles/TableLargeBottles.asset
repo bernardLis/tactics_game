@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TableLargeBottles
   m_EditorClassIdentifier: 
   Id: 77e4c02a-793b-4ead-8327-9f31169ed1e3
-  Size: {x: 2, y: 3}
+  Size: {x: 2, y: 4}
   ObjectType: 1
   Sprite: {fileID: 21300000, guid: 30cfe52aeede1c84ab6f408eeb3e703e, type: 3}
   IsPushable: 0

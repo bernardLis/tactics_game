@@ -189,58 +189,18 @@ public class InfoCardUI : MonoBehaviour
         _characterCardArmor.text = "" + stats.Armor.GetValue();
         _characterCardRange.text = "" + stats.MovementRange.GetValue();
 
-        HandleStatCheck(stats.Strength, _characterCardStrength);
-        HandleStatCheck(stats.Intelligence, _characterCardIntelligence);
-        HandleStatCheck(stats.Agility, _characterCardAgility);
-        HandleStatCheck(stats.Stamina, _characterCardStamina);
-        HandleStatCheck(stats.Armor, _characterCardArmor);
-        HandleStatCheck(stats.MovementRange, _characterCardRange);
+        BattleUIHelpers.HandleStatCheck(stats.Strength, _characterCardStrength);
+        BattleUIHelpers.HandleStatCheck(stats.Intelligence, _characterCardIntelligence);
+        BattleUIHelpers.HandleStatCheck(stats.Agility, _characterCardAgility);
+        BattleUIHelpers.HandleStatCheck(stats.Stamina, _characterCardStamina);
+        BattleUIHelpers.HandleStatCheck(stats.Armor, _characterCardArmor);
+        BattleUIHelpers.HandleStatCheck(stats.MovementRange, _characterCardRange);
 
         _characterCardModifierContainer.Clear();
-        HandleStatModifiers(stats);
-        HandleStatuses(stats);
-    }
-
-    // TODO: common to infoCardUI and characterUI
-    void HandleStatCheck(Stat stat, Label label)
-    {
-        label.style.color = Color.white;
-        if (stat.GetValue() > stat.BaseValue)
-            label.style.color = Color.green;
-        if (stat.GetValue() < stat.BaseValue)
-            label.style.color = Color.red;
-    }
-
-    void HandleStatuses(CharacterStats stats)
-    {
-        if (stats.Statuses.Count == 0)
-            return;
-
-        foreach (Status s in stats.Statuses)
-        {
-            VisualElement mElement = new VisualElement();
-            mElement.style.backgroundImage = s.Icon.texture;
-            mElement.AddToClassList("modifierIconContainer");
-            _characterCardModifierContainer.Add(mElement);
-        }
-    }
-
-    void HandleStatModifiers(CharacterStats stats)
-    {
-        foreach (Stat s in stats.Stats)
-        {
-            List<StatModifier> modifiers = s.GetActiveModifiers();
-            if (modifiers.Count == 0)
-                continue;
-
-            foreach (StatModifier m in modifiers)
-            {
-                VisualElement mElement = new VisualElement();
-                mElement.style.backgroundImage = m.Icon.texture;
-                mElement.AddToClassList("modifierIconContainer");
-                _characterCardModifierContainer.Add(mElement);
-            }
-        }
+        List<VisualElement> elements = new(BattleUIHelpers.HandleStatModifiers(stats));
+        elements.AddRange(BattleUIHelpers.HandleStatuses(stats));
+        foreach (VisualElement el in elements)
+            _characterCardModifierContainer.Add(el);
     }
 
     public void ShowInteractionSummary(CharacterStats attacker, CharacterStats defender, Ability ability)
@@ -292,7 +252,7 @@ public class InfoCardUI : MonoBehaviour
             _attackLabel.text = "Buff";
 
             if (ability.StatModifier != null)
-                _attackDamageValue.text = "" + ability.StatModifier.Value; // TODO: lazy way
+                _attackDamageValue.text = ability.StatModifier.Value.ToString();
             _attackHitValue.text = 100 + "%";
         }
 
