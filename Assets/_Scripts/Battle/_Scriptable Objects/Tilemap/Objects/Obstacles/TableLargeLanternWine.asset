@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TableLargeLanternWine
   m_EditorClassIdentifier: 
   Id: eb51e105-e9f3-46ea-a92c-74f6de065913
-  Size: {x: 4, y: 2}
+  Size: {x: 3, y: 3}
   ObjectType: 1
   Sprite: {fileID: 21300000, guid: 17356fa8ce8fca3409aeccadc5dbbddc, type: 3}
   IsPushable: 0

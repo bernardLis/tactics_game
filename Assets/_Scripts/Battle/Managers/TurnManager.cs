@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 
-[RequireComponent(typeof(TurnDisplayer))]
 public class TurnManager : MonoBehaviour
 {
     // global
@@ -51,14 +50,11 @@ public class TurnManager : MonoBehaviour
     public void UpdateBattleState(BattleState newState)
     {
         BattleState = newState;
-
         switch (newState)
         {
             case BattleState.MapBuilding:
-                HandleMapBuilding();
                 break;
             case BattleState.Deployment:
-                HandleDeployment();
                 break;
             case BattleState.PlayerTurn:
                 HandlePlayerTurn();
@@ -77,13 +73,6 @@ public class TurnManager : MonoBehaviour
         }
 
         OnBattleStateChanged?.Invoke(newState);
-    }
-    void HandleMapBuilding()
-    {
-    }
-
-    void HandleDeployment()
-    {
     }
 
     public void InitBattle()
@@ -170,8 +159,6 @@ public class TurnManager : MonoBehaviour
             playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);
 
         _journeyManager.SetPlayerTroops(playerCharactersAlive);
-
-        _journeyManager.LoadLevel("Journey");
     }
 
     void HandleLosing()
@@ -180,27 +167,30 @@ public class TurnManager : MonoBehaviour
         // for now game over screen
         // load home 
         Debug.Log("Ugh... you lost!");
+        _journeyManager.ClearSaveData(); // TODO: this is not how it should be handled.
     }
 
     public async void PlayerCharacterTurnFinished()
     {
-        // -= player chars left. At 0 turn ends;
         _playerCharactersLeftToTakeTurn -= 1;
-        if (_playerCharactersLeftToTakeTurn <= 0 && BattleState != BattleState.EnemyTurn)
+        if (_playerCharactersLeftToTakeTurn <= 0 && BattleState == BattleState.PlayerTurn)
             await ChangeTurn(BattleState.EnemyTurn);
     }
 
     public async void EnemyCharacterTurnFinished()
     {
-        // -= player chars left. At 0 turn ends;
         _enemyCharactersLeftToTakeTurn -= 1;
-        if (_enemyCharactersLeftToTakeTurn <= 0 && BattleState != BattleState.PlayerTurn)
+        if (_enemyCharactersLeftToTakeTurn <= 0 && BattleState == BattleState.EnemyTurn)
             await ChangeTurn(BattleState.PlayerTurn);
     }
 
     async Task ChangeTurn(BattleState _state)
     {
         await Task.Delay(500);
+
+        if (BattleState == BattleState.Won || BattleState == BattleState.Lost)
+            return;
+
         UpdateBattleState(_state);
     }
 }

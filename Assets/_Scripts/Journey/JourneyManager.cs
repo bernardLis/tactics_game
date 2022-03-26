@@ -178,7 +178,6 @@ public class JourneyManager : MonoBehaviour, ISavable
         CurrentJourneyNode = saveData.CurrentJourneyNode;
         VisitedJourneyNodes = saveData.VisitedJourneyNodes;
         PlayerTroops = new();
-        Debug.Log($"saveData.Characters: {saveData.Characters.Count}");
         foreach (CharacterData data in saveData.Characters)
         {
             Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();

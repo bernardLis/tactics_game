@@ -12,6 +12,7 @@ public class CharacterUI : MonoBehaviour
     BattleCharacterController _battleCharacterController;
 
     // UI Elements
+    VisualElement _characterUIContainer;
     VisualElement _characterUI;
 
     VisualElement _characterUITooltipContainer;
@@ -72,13 +73,14 @@ public class CharacterUI : MonoBehaviour
     Queue<IEnumerator> _buttonClickQueue = new();
     bool _wasClickEnqueued;
 
-    // showing mana use
-    string _manaUseTweenID = "manaUseTweenID";
 
 
     // showing retaliation result
     Color _damageBarColor;
     Color _healBarColor;
+
+    string _hideCharacterUIID = "hideCharacterUIID";
+    string _manaUseTweenID = "manaUseTweenID";
     string _healthLostTweenID = "characterHealthBarTweenID";
 
     public static CharacterUI instance;
@@ -98,6 +100,7 @@ public class CharacterUI : MonoBehaviour
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;
 
+        _characterUIContainer = root.Q<VisualElement>("characterUIContainer");
         _characterUI = root.Q<VisualElement>("characterUI");
         // otherwise it is null
         _characterUI.style.top = Length.Percent(_characterUIHideValue);
@@ -320,6 +323,8 @@ public class CharacterUI : MonoBehaviour
 
     public void ShowCharacterUI(CharacterStats playerStats)
     {
+        _characterUIContainer.style.display = DisplayStyle.Flex;
+
         InfoCardUI.instance.HideCharacterCard();
 
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
@@ -334,6 +339,7 @@ public class CharacterUI : MonoBehaviour
         DisableSkillButtons();
         EnableSkillButtons();
 
+        DOTween.Kill(_hideCharacterUIID);
         DOTween.To(() => _characterUI.style.top.value.value, x => _characterUI.style.top = Length.Percent(x), _characterUIShowValue, 0.5f)
             .SetEase(Ease.InOutSine);
     }
@@ -343,7 +349,9 @@ public class CharacterUI : MonoBehaviour
         HideAbilityTooltip();
         _selectedPlayerStats = null;
         DOTween.To(() => _characterUI.style.top.value.value, x => _characterUI.style.top = Length.Percent(x), _characterUIHideValue, 0.5f)
-            .SetEase(Ease.InOutSine); ;
+            .SetEase(Ease.InOutSine)
+            .SetId(_hideCharacterUIID)
+            .OnComplete(() => _characterUIContainer.style.display = DisplayStyle.None);
     }
 
     void SetCharacterHealthMana(CharacterStats playerStats)
@@ -351,7 +359,7 @@ public class CharacterUI : MonoBehaviour
         _characterHealth.text = playerStats.CurrentHealth + "/" + playerStats.MaxHealth.GetValue();
         _characterMana.text = playerStats.CurrentMana + "/" + playerStats.MaxMana.GetValue();
 
-        // (float) casts are not redundant, without them it does not work
+        // (float) casts are NOT redundant, without them it does not work
         float missingHealthPerc = ((float)playerStats.MaxHealth.GetValue() - (float)playerStats.CurrentHealth) / (float)playerStats.MaxHealth.GetValue();
         float missingManaPerc = ((float)playerStats.MaxMana.GetValue() - (float)playerStats.CurrentMana) / (float)playerStats.MaxMana.GetValue();
 

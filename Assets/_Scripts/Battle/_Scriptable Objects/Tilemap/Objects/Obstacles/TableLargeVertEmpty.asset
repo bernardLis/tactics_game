@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TableLargeVertEmpty
   m_EditorClassIdentifier: 
   Id: dd497a4b-5ae8-4f86-9083-ddf358eec767
-  Size: {x: 2, y: 4}
+  Size: {x: 3, y: 3}
   ObjectType: 1
   Sprite: {fileID: 21300000, guid: ff0b25384370d964483ebbad287fed94, type: 3}
   IsPushable: 0

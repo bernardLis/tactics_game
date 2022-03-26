@@ -56,7 +56,6 @@ public class MovePointController : MonoBehaviour
             Invoke("HandlePlayerTurn", 0.1f); // gives time for stats to resolve modifiers => UI displays correct numbers\
         if (_state == BattleState.EnemyTurn)
             HandleEnemyTurn(); // gives time for stats to resolve modifiers => UI displays correct numbers
-
     }
 
     void HandleDeployment()

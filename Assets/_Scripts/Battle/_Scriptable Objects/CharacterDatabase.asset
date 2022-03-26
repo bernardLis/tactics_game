@@ -36,3 +36,26 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 6b4c65901b114044789b283cc1083832, type: 3}
   - ReferenceID: Straw
     Sprite: {fileID: 21300000, guid: 2c59ce9a31dd52748a30bf53367bf85b, type: 3}
+  BodyDatabase:
+  - {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
+  WeaponDatabase:
+  - {fileID: 11400000, guid: b3756de8953f75e4e8b992726567dc45, type: 2}
+  - {fileID: 11400000, guid: afe2c78e7d3b7f14f82976bc31f26153, type: 2}
+  - {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
+  - {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
+  - {fileID: 11400000, guid: 5e18854942d797e48b551288497d4016, type: 2}
+  - {fileID: 11400000, guid: ee0c100ca9742414d9e8b23ad0811a2e, type: 2}
+  - {fileID: 11400000, guid: 7b713e2a54e3a1e4e83309b9a8ab804f, type: 2}
+  - {fileID: 11400000, guid: 4804546585f86f84bbb8971d56cdf806, type: 2}
+  - {fileID: 11400000, guid: b8d7856ec8dc5b64b81faae0877206c8, type: 2}
+  - {fileID: 11400000, guid: 6b248cac7f7f3b6408dfbf7491ff607e, type: 2}
+  AbilityDatabase:
+  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
+  - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
+  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
+  - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
+  - {fileID: 11400000, guid: 71eb9a23c9bd59541aa731d910be2c7e, type: 2}
+  - {fileID: 11400000, guid: 25b2707a95fb3714097cee91ecc49145, type: 2}
+  - {fileID: 11400000, guid: 1f052522ee014704fb5982cc3a1d11c6, type: 2}
+  - {fileID: 11400000, guid: cf63e334ccdeebd43945bb0a77632b96, type: 2}
+  - {fileID: 11400000, guid: 9ce26d022665d4b4682acf00cfd4af44, type: 2}

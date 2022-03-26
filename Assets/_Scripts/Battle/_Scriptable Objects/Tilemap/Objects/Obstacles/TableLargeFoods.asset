@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TableLargeFoods
   m_EditorClassIdentifier: 
   Id: 78c1ed89-cc82-4520-8024-ce34af55b61d
-  Size: {x: 4, y: 2}
+  Size: {x: 3, y: 3}
   ObjectType: 1
   Sprite: {fileID: 21300000, guid: 1bea6008dc82a7145922eebb258506ab, type: 3}
   IsPushable: 0

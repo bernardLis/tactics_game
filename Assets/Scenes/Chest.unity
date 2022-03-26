@@ -378,23 +378,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e7bcb12a1ca94419a87ba9624eaab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chests:
-  - {fileID: 11400000, guid: da62efbf6b7c8a443a4903ab6ffaa61f, type: 2}
-  - {fileID: 11400000, guid: 28ba21c1b733a4c4e86e6681f8243dcc, type: 2}
-  - {fileID: 11400000, guid: 91977fa5ab6309348b4afd6c19a23d8c, type: 2}
-  - {fileID: 11400000, guid: a5f81a89f285a304397925fc9dcd6b11, type: 2}
-  - {fileID: 11400000, guid: e97dd99148054ff43bbd354b716f0181, type: 2}
-  - {fileID: 11400000, guid: 4f4e5fc67acd7194bad1866ecfcfca8c, type: 2}
-  - {fileID: 11400000, guid: 32da7dce0fc8a184ba2f599adfc657b7, type: 2}
-  - {fileID: 11400000, guid: 05ff522b1aaf2ec4695ec7f643934b03, type: 2}
-  - {fileID: 11400000, guid: 594a057706da5574fa2eadfadf2b05b5, type: 2}
-  - {fileID: 11400000, guid: 5918d51f6195a944c8fa6d633aa6b57f, type: 2}
-  - {fileID: 11400000, guid: f1036d3ae789fa645829cdfe746b1cf8, type: 2}
-  - {fileID: 11400000, guid: 37166cbe99d0a4740a98ff3f2e81bdb1, type: 2}
-  chestPrefab: {fileID: 3743325661672015387, guid: 7f02eadd7b911c648ad5da3a1c265cd9, type: 3}
-  cursorPrefab: {fileID: 1072772088968734176, guid: 9a71e3624c4e0db4597d8442eb2488ec, type: 3}
-  obolPrefab: {fileID: 4198658476046925160, guid: 766bc13060cef0c4196303962a9eb56c, type: 3}
-  reward: {fileID: 11400000, guid: f5cfa74393a7f8f48805ea6860de49ff, type: 2}
+  _chests:
+  - {fileID: 11400000, guid: ddf3f8155dd0f9942addbdb8a8963cf8, type: 2}
+  - {fileID: 11400000, guid: 7ddb2323b16f29749812bb11d4d0615b, type: 2}
+  - {fileID: 11400000, guid: bea9b992d223bdf4e8e5a983d9890e0f, type: 2}
+  - {fileID: 11400000, guid: 1e648be42b7a93e4aa53fa8b6981c210, type: 2}
+  - {fileID: 11400000, guid: 0acdbc00b38b0b5448d87488cd173e52, type: 2}
+  - {fileID: 11400000, guid: 5322e381328160d4cb8ffbc4cd2f8459, type: 2}
+  - {fileID: 11400000, guid: 86b6852611d908f4dbb9120b37150f09, type: 2}
+  - {fileID: 11400000, guid: 2b0bce260e455704f96ee94998b22eb7, type: 2}
+  - {fileID: 11400000, guid: ac4d42ce0ab200f4c824dcafe240729f, type: 2}
+  - {fileID: 11400000, guid: 543a8f5111650574fb6fff8486a72b47, type: 2}
+  - {fileID: 11400000, guid: 5456720b2f82c6f4c9cf01fafec42243, type: 2}
+  - {fileID: 11400000, guid: a98fe259db56e0841a76912778a03cea, type: 2}
+  _chestPrefab: {fileID: 3743325661672015387, guid: 7f02eadd7b911c648ad5da3a1c265cd9, type: 3}
+  _cursorPrefab: {fileID: 1072772088968734176, guid: 9a71e3624c4e0db4597d8442eb2488ec, type: 3}
+  _obolPrefab: {fileID: 4198658476046925160, guid: 766bc13060cef0c4196303962a9eb56c, type: 3}
+  _reward: {fileID: 11400000, guid: f5cfa74393a7f8f48805ea6860de49ff, type: 2}
 --- !u!4 &1359308929
 Transform:
   m_ObjectHideFlags: 0

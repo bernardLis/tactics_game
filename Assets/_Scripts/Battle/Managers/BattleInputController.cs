@@ -76,12 +76,14 @@ public class BattleInputController : MonoBehaviour
     {
         if (_state == BattleState.Deployment)
             HandleDeployment();
-
         if (_state == BattleState.PlayerTurn)
             HandlePlayerTurn();
-
         if (_state == BattleState.EnemyTurn)
             HandleEnemyTurn();
+        if (_state == BattleState.Won)
+            AllowInput = false;
+        if (_state == BattleState.Lost)
+            AllowInput = false;
     }
 
     void OnDestroy()
