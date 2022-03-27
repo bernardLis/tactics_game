@@ -13,6 +13,7 @@ public class BattleUI : MonoBehaviour
 
     VisualElement _battleEndContainer;
     Label _battleEndText;
+    VisualElement _battleEndCharacters;
     Button _backToJourney;
 
     string _turnTextTweenID = "turnTextTweenID";
@@ -29,6 +30,7 @@ public class BattleUI : MonoBehaviour
 
         _battleEndContainer = root.Q<VisualElement>("battleEndContainer");
         _battleEndText = root.Q<Label>("battleEndText");
+        _battleEndCharacters = root.Q<VisualElement>("battleEndCharacters");
         _backToJourney = root.Q<Button>("backToJourney");
 
         _backToJourney.clickable.clicked += BackToJourney;
@@ -59,14 +61,10 @@ public class BattleUI : MonoBehaviour
     async void DisplayText(string text)
     {
         if (DOTween.TweensById(_turnTextTweenID) != null)
-        {
-            Debug.Log("awaiting");
             await DOTween.TweensById(_turnTextTweenID)[0].AsyncWaitForCompletion();
-        }
 
         _turnText.text = text;
         _turnTextContainer.style.display = DisplayStyle.Flex;
-        Debug.Log($"show text{text}");
 
         DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 1f, 2f)
             .OnComplete(HideText)
@@ -75,7 +73,6 @@ public class BattleUI : MonoBehaviour
 
     void HideText()
     {
-        Debug.Log("hide text");
         DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 0f, 2f)
             .OnComplete(() => _turnTextContainer.style.display = DisplayStyle.None)
             .SetId(_turnTextTweenID);
@@ -85,6 +82,12 @@ public class BattleUI : MonoBehaviour
     void ShowBattleWonScreen()
     {
         ShowBattleEndScreen();
+        foreach (Character character in _journeyManager.PlayerTroops)
+        {
+            CharacterCardVisual visual = new CharacterCardVisual(character);
+            _battleEndCharacters.Add(visual);
+        }
+
         _battleEndText.text = "WON!!";
     }
 
