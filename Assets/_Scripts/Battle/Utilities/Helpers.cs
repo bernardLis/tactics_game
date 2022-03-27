@@ -6,6 +6,8 @@ public static class Helpers
 {
     static Dictionary<string, Color> _colors = new()
     {
+        { "healthBarRed", new Color(0.529f, 0.16f, 0.16f) },
+        { "manaBarBlue", new Color(0.168f, 0.149f, 0.85f) },
         { "movementBlue", new Color(0.53f, 0.52f, 1f, 1f) },
         { "healthGainGreen", new Color(0.42f, 1f, 0.42f, 1f) },
         { "damageRed", new Color(1f, 0.42f, 0.42f, 1f) },

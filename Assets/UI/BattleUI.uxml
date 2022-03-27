@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/BattleUIStyles.uss?fileID=7433441132597879392&amp;guid=eecbfa54f11bb6b4b8770f2f94f8bfd7&amp;type=3#BattleUIStyles" />
-    <ui:VisualElement name="infoCardContainer" style="width: 20%; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto;">
+    <ui:VisualElement name="infoCardContainer" style="width: 400px; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto;">
         <ui:VisualElement name="tileInfoCard" style="height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%;">
             <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
         </ui:VisualElement>
@@ -31,9 +31,9 @@
                             <ui:Label text="20/50" display-tooltip-when-elided="true" name="characterCardMana" style="font-size: 18px; color: rgb(255, 255, 255); -unity-text-align: middle-left;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="characterStatsGroup" style="flex-direction: row; justify-content: center; width: 100%; margin-top: 5px; height: auto; flex-wrap: wrap;">
+                    <ui:VisualElement name="characterStatsGroup" class="statsGroup">
                         <ui:VisualElement name="characterCardStrength" style="flex-direction: row;">
-                            <ui:Label display-tooltip-when-elided="true" name="characterStrengthIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/gorilla.png?fileID=2800000&amp;guid=c1181cbabffb1da4cbfd479b065b8e49&amp;type=3#gorilla&apos;); width: 32px; height: 32px;" />
+                            <ui:Label display-tooltip-when-elided="true" name="characterStrengthIcon" class="statIcon" />
                             <ui:Label display-tooltip-when-elided="true" name="characterCardStrengthAmount" text="5" class="basicStatAmountText" />
                         </ui:VisualElement>
                         <ui:VisualElement name="characterCardIntelligence" style="flex-direction: row;">
@@ -85,9 +85,9 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 100%; align-items: flex-end; justify-content: flex-start; visibility: visible; display: none; top: auto; flex-direction: row; flex-wrap: nowrap;">
-        <ui:VisualElement name="characterUI" style="width: 80%; height: 20%; background-color: rgba(0, 0, 0, 0.55); flex-direction: row; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); overflow: visible; top: 20%;">
-            <ui:VisualElement name="characterBasicInfo" style="height: 100%; width: 45%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: flex-start;">
+    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 100%; align-items: flex-end; justify-content: flex-start; visibility: visible; display: flex; top: auto; flex-direction: row; flex-wrap: nowrap; position: relative; bottom: auto;">
+        <ui:VisualElement name="characterUI" style="width: 80%; height: 20%; background-color: rgba(0, 0, 0, 0.55); flex-direction: row; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); overflow: visible; top: 20%; bottom: auto; display: flex;">
+            <ui:VisualElement name="characterUICharacterCard" style="height: 100%; width: 45%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: flex-start;">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 50%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
                     <ui:VisualElement name="characterPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center; display: flex;">

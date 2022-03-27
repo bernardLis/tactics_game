@@ -144,7 +144,11 @@ public class InfoCardUI : MonoBehaviour
     /* character card */
     public void ShowCharacterCard(CharacterStats stats)
     {
-        PopulateCharacterCard(stats);
+        //PopulateCharacterCard(stats);
+        _characterCard.Clear();
+
+        CharacterCardVisual visual = new(stats.Character);
+        _characterCard.Add(visual);
 
         // clean-up
         DOTween.Pause(_missingHealthTweenID);

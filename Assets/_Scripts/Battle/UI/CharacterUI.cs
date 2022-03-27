@@ -15,6 +15,8 @@ public class CharacterUI : MonoBehaviour
     VisualElement _characterUIContainer;
     VisualElement _characterUI;
 
+    VisualElement _characterUICharacterCard;
+
     VisualElement _characterUITooltipContainer;
     Label _characterUITooltipAbilityName;
     Label _characterUITooltipAbilityDescription;
@@ -104,6 +106,7 @@ public class CharacterUI : MonoBehaviour
         _characterUI = root.Q<VisualElement>("characterUI");
         // otherwise it is null
         _characterUI.style.top = Length.Percent(_characterUIHideValue);
+        _characterUICharacterCard = root.Q<VisualElement>("characterUICharacterCard");
 
         _characterUITooltipContainer = root.Q<VisualElement>("characterUITooltipContainer");
         _characterUITooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
@@ -330,11 +333,17 @@ public class CharacterUI : MonoBehaviour
         // current character is not in the scene, keep that in mind. It's a static scriptable object.
         _selectedPlayerStats = playerStats;
 
+        _characterUICharacterCard.Clear();
+        CharacterCardVisual visual = new(playerStats.Character);
+        _characterUICharacterCard.Add(visual);
+
+        /*
         _characterName.text = _selectedPlayerStats.Character.CharacterName;
         _characterPortrait.style.backgroundImage = _selectedPlayerStats.Character.Portrait.texture;
 
         SetCharacterHealthMana(playerStats);
         SetCharacteristics(playerStats);
+        */
         HandleAbilityButtons();
         DisableSkillButtons();
         EnableSkillButtons();

@@ -11,15 +11,15 @@ public class CharacterCardVisual : VisualElement
 
     VisualElement _characteristics;
 
-    VisualElement _healthBar;
-    VisualElement _missingHealth;
-    VisualElement _healthBarInteractionResult;
-    Label _healhtText;
+    ResourceBarVisual _healthBar;
+    ResourceBarVisual _manaBar;
 
-    VisualElement _manaBar;
-    VisualElement _missingMana;
-    VisualElement _manaBarInteractionResult;
-    Label _manaText;
+    StatVisual _strength;
+    StatVisual _intelligence;
+    StatVisual _agility;
+    StatVisual _stamina;
+    StatVisual _armor;
+    StatVisual _range;
 
     public CharacterCardVisual(Character character)
     {
@@ -30,8 +30,7 @@ public class CharacterCardVisual : VisualElement
         _portrait = new();
         _name = new();
 
-        _information.style.alignContent = Align.Center;
-        _information.style.justifyContent = Justify.Center;
+        _information.style.alignItems = Align.Center;
         _information.style.width = Length.Percent(30);
 
         _name.style.color = Color.white;
@@ -54,10 +53,10 @@ public class CharacterCardVisual : VisualElement
 
         _characteristics.Add(CreateHealthGroup(character));
         _characteristics.Add(CreateManaGroup(character));
+        _characteristics.Add(CreateCharacterStats(character));
 
         Add(_characteristics);
     }
-
 
     VisualElement CreateHealthGroup(Character character)
     {
@@ -68,22 +67,9 @@ public class CharacterCardVisual : VisualElement
         Label healthLabel = new Label();
         healthLabel.AddToClassList("healthLabel");
 
-        _healthBar = new();
-        _missingHealth = new();
-        _healthBarInteractionResult = new();
-        _healhtText = new();
-
-        _healthBar.AddToClassList("resourceBar");
-        _missingHealth.AddToClassList("barMissingAmount");
-        _healthBarInteractionResult.AddToClassList("barInteractionResult");
-        _healhtText.AddToClassList("barText");
-
-        int maxHealth = 100 + character.Stamina * 5;        
-        _healhtText.text = maxHealth + "/" + maxHealth;
-
-        _healthBar.Add(_missingHealth);
-        _healthBar.Add(_healthBarInteractionResult);
-        _healthBar.Add(_healhtText);
+        _healthBar = new(Helpers.GetColor("healthBarRed"));
+        int maxHealth = 100 + character.Stamina * 5;
+        _healthBar.SetText(maxHealth + "/" + maxHealth);
 
         healthGroup.Add(healthLabel);
         healthGroup.Add(_healthBar);
@@ -100,28 +86,40 @@ public class CharacterCardVisual : VisualElement
         Label manaLabel = new Label();
         manaLabel.AddToClassList("manaLabel");
 
-        _manaBar = new();
-        _missingMana = new();
-        _manaBarInteractionResult = new();
-        _manaText = new();
-
-        _manaBar.AddToClassList("resourceBar");
-        _manaBar.style.backgroundColor = new Color(0.168f, 0.149f, 0.85f);
-        _missingMana.AddToClassList("barMissingAmount");
-        _manaBarInteractionResult.AddToClassList("barInteractionResult");
-        _manaText.AddToClassList("barText");
-
+        _manaBar = new(Helpers.GetColor("manaBarBlue"));
         int maxMana = 50 + character.Intelligence * 5;
-        _manaText.text = maxMana + "/" + maxMana;
-
-        _manaBar.Add(_missingMana);
-        _manaBar.Add(_manaBarInteractionResult);
-        _manaBar.Add(_manaText);
+        _manaBar.SetText(maxMana + "/" + maxMana);
 
         manaGroup.Add(manaLabel);
         manaGroup.Add(_manaBar);
 
         return manaGroup;
+    }
+
+    VisualElement CreateCharacterStats(Character character)
+    {
+        VisualElement statsGroup = new();
+        statsGroup.AddToClassList("statsGroup");
+
+        // TODO: this all should be coming from characters stats not from Character 
+        // TODO: actually, I should rethink how I approach stats and Character most def should know it's stats 
+
+        CharacterDatabase db = JourneyManager.instance.CharacterDatabase;
+        _strength = new(db.GetStatIconByName("Strength"), character.Strength);
+        _intelligence = new(db.GetStatIconByName("Intelligence"), character.Intelligence);
+        _agility = new(db.GetStatIconByName("Agility"), character.Agility);
+        _stamina = new(db.GetStatIconByName("Stamina"), character.Stamina);
+        _armor = new(db.GetStatIconByName("Armor"), 5);
+        _range = new(db.GetStatIconByName("Range"), 5);
+
+        statsGroup.Add(_strength);
+        statsGroup.Add(_intelligence);
+        statsGroup.Add(_agility);
+        statsGroup.Add(_stamina);
+        statsGroup.Add(_armor);
+        statsGroup.Add(_range);
+
+        return statsGroup;
     }
 
 }

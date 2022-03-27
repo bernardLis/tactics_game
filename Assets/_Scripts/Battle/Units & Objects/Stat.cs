@@ -35,10 +35,12 @@ public class Stat
 
         Modifiers.Add(modifier);
     }
+
     public void RemoveModifier(StatModifier modifier)
     {
         Modifiers.Remove(modifier);
     }
+    
     public void TurnEndDecrement()
     {
         for (int i = Modifiers.Count - 1; i >= 0; i--)
