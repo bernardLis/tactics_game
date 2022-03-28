@@ -11,27 +11,22 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 {
     [HideInInspector] public Character Character { get; private set; }
 
-    [Header("Base value for stats")]
-    int _baseMaxHealth = 100;
-    int _baseMaxMana = 50;
-    int _baseArmor = 0;
-
     // Stats are accessed by other scripts need to be public.
     // TODO: I could make them private and use only list to get info about stats
-    [HideInInspector] public Stat Strength = new(StatType.Strength);
-    [HideInInspector] public Stat Intelligence = new(StatType.Intelligence);
-    [HideInInspector] public Stat Agility = new(StatType.Agility);
-    [HideInInspector] public Stat Stamina = new(StatType.Stamina);
-    [HideInInspector] public Stat MaxHealth = new(StatType.MaxHealth);
-    [HideInInspector] public Stat MaxMana = new(StatType.MaxMana);
-    [HideInInspector] public Stat Armor = new(StatType.Armor);
-    [HideInInspector] public Stat MovementRange = new(StatType.MovementRange);
+    [HideInInspector] public Stat Strength = new();
+    [HideInInspector] public Stat Intelligence = new();
+    [HideInInspector] public Stat Agility = new();
+    [HideInInspector] public Stat Stamina = new();
+    [HideInInspector] public Stat MaxHealth = new();
+    [HideInInspector] public Stat MaxMana = new();
+    [HideInInspector] public Stat Armor = new();
+    [HideInInspector] public Stat MovementRange = new();
 
     // lists of abilities
     [Header("Filled on character init")]
-    [HideInInspector] public List<Stat> Stats;
-    [HideInInspector] public List<Ability> BasicAbilities;
-    [HideInInspector] public List<Ability> Abilities;
+    [HideInInspector] public List<Stat> Stats = new();
+    [HideInInspector] public List<Ability> BasicAbilities = new();
+    [HideInInspector] public List<Ability> Abilities = new();
 
     // local
     DamageUI _damageUI;
@@ -110,20 +105,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
-    void AddStatsToList()
-    {
-        Stats.Add(Strength);
-        Stats.Add(Intelligence);
-        Stats.Add(Agility);
-        Stats.Add(Stamina);
-
-        Stats.Add(MaxHealth);
-        Stats.Add(MaxMana);
-
-        Stats.Add(Armor);
-        Stats.Add(MovementRange);
-    }
-
+    // Enemy creation from board manager uses that
     public void SetCharacteristics(Character character)
     {
         Character = character;
@@ -133,19 +115,20 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
     void SetCharacteristics()
     {
         // taking values from scriptable object to c#
-        Strength.BaseValue = Character.Strength;
-        Intelligence.BaseValue = Character.Intelligence;
-        Agility.BaseValue = Character.Agility;
-        Stamina.BaseValue = Character.Stamina;
+        Strength.Initialize(StatType.Strength, Character.Strength);
+        Intelligence.Initialize(StatType.Intelligence, Character.Intelligence);
+        Agility.Initialize(StatType.Agility, Character.Agility);
+        Stamina.Initialize(StatType.Stamina, Character.Stamina);
 
-        MaxHealth.BaseValue = _baseMaxHealth + Character.Stamina * 5;
-        MaxMana.BaseValue = _baseMaxMana + Character.Intelligence * 5;
+        Character.UpdateDerivativeStats();
+        MaxHealth.Initialize(StatType.MaxHealth, Character.MaxHealth);
+        MaxMana.Initialize(StatType.MaxMana, Character.MaxMana);
+        Armor.Initialize(StatType.Armor, Character.Armor);
+        MovementRange.Initialize(StatType.MovementRange, Character.MovementRange);
 
-        Armor.BaseValue = _baseArmor; // TODO: should be base value + all pieces of eq
-        int mRangeCalculation = 5 + Mathf.FloorToInt(Character.Agility / 3);
-        MovementRange.BaseValue = Mathf.Clamp(mRangeCalculation, 0, 9); // after 9 it lags unity.
+        AddStatsToList();
 
-        // TODO: startin mana is for heal testing purposes 
+        // TODO: starting mana is for heal testing purposes 
         CurrentHealth = MaxHealth.GetValue();
         CurrentMana = 20;
 
@@ -180,6 +163,19 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             Abilities.Add(clone);
             clone.Initialize(gameObject);
         }
+    }
+
+    void AddStatsToList()
+    {
+        Stats.Add(Strength);
+        Stats.Add(Intelligence);
+        Stats.Add(Agility);
+        Stats.Add(Stamina);
+
+        Stats.Add(MaxHealth);
+        Stats.Add(MaxMana);
+        Stats.Add(Armor);
+        Stats.Add(MovementRange);
     }
 
     public async Task TakeDamage(int damage, GameObject attacker, Ability ability)

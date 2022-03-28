@@ -150,6 +150,9 @@ public class InfoCardUI : MonoBehaviour
         CharacterCardVisual visual = new(stats.Character);
         _characterCard.Add(visual);
 
+        visual.HealthBar.DisplayMissingAmount(stats.MaxHealth.GetValue(), stats.CurrentHealth);
+        visual.ManaBar.DisplayMissingAmount(stats.MaxMana.GetValue(), stats.CurrentMana);
+
         // clean-up
         DOTween.Pause(_missingHealthTweenID);
 
@@ -170,29 +173,6 @@ public class InfoCardUI : MonoBehaviour
 
     void PopulateCharacterCard(CharacterStats stats)
     {
-        _characterCardName.text = stats.Character.CharacterName;
-        _characterCardPortrait.style.backgroundImage = stats.Character.Portrait.texture;
-
-        _characterCardHealth.text = stats.CurrentHealth + "/" + stats.MaxHealth.GetValue();
-        _characterCardMana.text = stats.CurrentMana + "/" + stats.MaxMana.GetValue();
-
-        // (float) casts are not redundant, without them it does not work
-        float missingHealthPerc = ((float)stats.MaxHealth.GetValue() - (float)stats.CurrentHealth)
-                                  / (float)stats.MaxHealth.GetValue();
-        missingHealthPerc = Mathf.Clamp(missingHealthPerc, 0, 1);
-        float missingManaPerc = ((float)stats.MaxMana.GetValue() - (float)stats.CurrentMana)
-                                / (float)stats.MaxMana.GetValue();
-
-        _characterCardHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
-        _characterCardManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
-
-        _characterCardStrength.text = "" + stats.Strength.GetValue();
-        _characterCardIntelligence.text = "" + stats.Intelligence.GetValue();
-        _characterCardAgility.text = "" + stats.Agility.GetValue();
-        _characterCardStamina.text = "" + stats.Stamina.GetValue();
-        _characterCardArmor.text = "" + stats.Armor.GetValue();
-        _characterCardRange.text = "" + stats.MovementRange.GetValue();
-
         BattleUIHelpers.HandleStatCheck(stats.Strength, _characterCardStrength);
         BattleUIHelpers.HandleStatCheck(stats.Intelligence, _characterCardIntelligence);
         BattleUIHelpers.HandleStatCheck(stats.Agility, _characterCardAgility);

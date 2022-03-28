@@ -336,14 +336,9 @@ public class CharacterUI : MonoBehaviour
         _characterUICharacterCard.Clear();
         CharacterCardVisual visual = new(playerStats.Character);
         _characterUICharacterCard.Add(visual);
+        visual.HealthBar.DisplayMissingAmount(playerStats.MaxHealth.GetValue(), playerStats.CurrentHealth);
+        visual.ManaBar.DisplayMissingAmount(playerStats.MaxMana.GetValue(), playerStats.CurrentMana);
 
-        /*
-        _characterName.text = _selectedPlayerStats.Character.CharacterName;
-        _characterPortrait.style.backgroundImage = _selectedPlayerStats.Character.Portrait.texture;
-
-        SetCharacterHealthMana(playerStats);
-        SetCharacteristics(playerStats);
-        */
         HandleAbilityButtons();
         DisableSkillButtons();
         EnableSkillButtons();

@@ -11,8 +11,8 @@ public class CharacterCardVisual : VisualElement
 
     VisualElement _characteristics;
 
-    ResourceBarVisual _healthBar;
-    ResourceBarVisual _manaBar;
+    public ResourceBarVisual HealthBar;
+    public ResourceBarVisual ManaBar;
 
     StatVisual _strength;
     StatVisual _intelligence;
@@ -24,6 +24,8 @@ public class CharacterCardVisual : VisualElement
     public CharacterCardVisual(Character character)
     {
         AddToClassList("characterCard");
+
+        character.UpdateDerivativeStats();
 
         // group 1
         _information = new();
@@ -67,12 +69,11 @@ public class CharacterCardVisual : VisualElement
         Label healthLabel = new Label();
         healthLabel.AddToClassList("healthLabel");
 
-        _healthBar = new(Helpers.GetColor("healthBarRed"));
-        int maxHealth = 100 + character.Stamina * 5;
-        _healthBar.SetText(maxHealth + "/" + maxHealth);
+        HealthBar = new(Helpers.GetColor("healthBarRed"));
+        HealthBar.SetText(character.MaxHealth + "/" + character.MaxHealth);
 
         healthGroup.Add(healthLabel);
-        healthGroup.Add(_healthBar);
+        healthGroup.Add(HealthBar);
 
         return healthGroup;
     }
@@ -86,12 +87,11 @@ public class CharacterCardVisual : VisualElement
         Label manaLabel = new Label();
         manaLabel.AddToClassList("manaLabel");
 
-        _manaBar = new(Helpers.GetColor("manaBarBlue"));
-        int maxMana = 50 + character.Intelligence * 5;
-        _manaBar.SetText(maxMana + "/" + maxMana);
+        ManaBar = new(Helpers.GetColor("manaBarBlue"));
+        ManaBar.SetText(character.MaxMana + "/" + character.MaxMana);
 
         manaGroup.Add(manaLabel);
-        manaGroup.Add(_manaBar);
+        manaGroup.Add(ManaBar);
 
         return manaGroup;
     }
@@ -109,8 +109,8 @@ public class CharacterCardVisual : VisualElement
         _intelligence = new(db.GetStatIconByName("Intelligence"), character.Intelligence);
         _agility = new(db.GetStatIconByName("Agility"), character.Agility);
         _stamina = new(db.GetStatIconByName("Stamina"), character.Stamina);
-        _armor = new(db.GetStatIconByName("Armor"), 5);
-        _range = new(db.GetStatIconByName("Range"), 5);
+        _armor = new(db.GetStatIconByName("Armor"), character.Armor);
+        _range = new(db.GetStatIconByName("MovementRange"), character.MovementRange);
 
         statsGroup.Add(_strength);
         statsGroup.Add(_intelligence);
@@ -121,5 +121,4 @@ public class CharacterCardVisual : VisualElement
 
         return statsGroup;
     }
-
 }

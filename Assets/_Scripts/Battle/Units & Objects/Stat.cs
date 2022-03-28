@@ -1,19 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum StatType { Strength, Intelligence, Agility, Stamina, MaxHealth, MaxMana, Armor, MovementRange }
 
-[System.Serializable]
 public class Stat
 {
-    [SerializeField] public StatType Type;
-    [SerializeField] public int BaseValue;
+    public StatType Type;
+    public int BaseValue;
 
     [HideInInspector] public List<StatModifier> Modifiers = new();
 
     // constructor https://i.redd.it/iuy9fxt300811.png
-    public Stat(StatType type) { Type = type; }
+    public void Initialize(StatType type, int value)
+    {
+        Type = type;
+        BaseValue = value;
+    }
 
     public int GetValue()
     {
@@ -29,8 +31,8 @@ public class Stat
 
     public void AddModifier(StatModifier modifier)
     {
-        foreach(StatModifier s in Modifiers)
-            if(s.Id == modifier.Id)
+        foreach (StatModifier s in Modifiers)
+            if (s.Id == modifier.Id)
                 return; // prevents stacking of the same modifier
 
         Modifiers.Add(modifier);
@@ -40,7 +42,7 @@ public class Stat
     {
         Modifiers.Remove(modifier);
     }
-    
+
     public void TurnEndDecrement()
     {
         for (int i = Modifiers.Count - 1; i >= 0; i--)

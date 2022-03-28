@@ -14,10 +14,21 @@ public class Character : BaseScriptableObject
 
     [Header("Stats")]
     public int Level;
+
     public int Strength; // how strong you hit
     public int Intelligence; // maxMana depends on intelligence (also how strong the spell dmg is)
     public int Agility; // influences range
     public int Stamina; // influences maxHealth
+
+    int _baseMaxHealth = 100;
+    int _baseMaxMana = 50;
+    int _baseArmor = 0;
+    int _baseMovementRange = 3;
+
+    public int MaxHealth;
+    public int MaxMana;
+    public int Armor;
+    public int MovementRange;
 
     [Header("Equipment")]
     public Equipment Body;
@@ -34,11 +45,13 @@ public class Character : BaseScriptableObject
         ReferenceID = item["ReferenceID"].ToString();
         CharacterName = item["CharacterName"].ToString();
         Portrait = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Character/Portrait/{item["Portrait"]}", typeof(Sprite));
+
         Level = int.Parse(item["Strength"].ToString());
         Strength = int.Parse(item["Strength"].ToString());
         Intelligence = int.Parse(item["Intelligence"].ToString());
         Agility = int.Parse(item["Agility"].ToString());
         Stamina = int.Parse(item["Stamina"].ToString());
+
         Body = (Equipment)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/{item["Body"]}.asset", typeof(Equipment));
         Weapon = (Weapon)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/Weapon/{item["Weapon"]}.asset", typeof(Weapon));
         BasicAbilities.Add((Ability)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Abilities/BasicDefend.asset", typeof(Ability)));
@@ -53,11 +66,13 @@ public class Character : BaseScriptableObject
         ReferenceID = data.ReferenceID;
         CharacterName = data.CharacterName;
         Portrait = CharacterDatabase.GetPortraitByID(data.Portrait);
+
         Level = data.Level;
         Strength = data.Strength;
         Intelligence = data.Intelligence;
         Agility = data.Agility;
         Stamina = data.Stamina;
+
         Body = CharacterDatabase.GetBodyByName(data.Body);
         Weapon = CharacterDatabase.GetWeaponByName(data.Weapon);
 
@@ -78,6 +93,23 @@ public class Character : BaseScriptableObject
             Weapon.Initialize(weaponObj.gameObject);
     }
 
+    public void UpdateDerivativeStats()
+    {
+        MaxHealth = _baseMaxHealth + Stamina * 5;
+        MaxMana = _baseMaxMana + Intelligence * 5;
+        Armor = _baseArmor; // TODO: should take eq into consideration 
+        MovementRange = _baseMovementRange + Mathf.FloorToInt(Agility / 3);
+    }
+
+    public void LevelUp()
+    {
+        Level++;
+        Strength += Random.Range(0, 2);
+        Intelligence += Random.Range(0, 2); ;
+        Agility += Random.Range(0, 2);
+        Stamina += Random.Range(0, 2);
+        UpdateDerivativeStats();
+    }
 
 }
 
