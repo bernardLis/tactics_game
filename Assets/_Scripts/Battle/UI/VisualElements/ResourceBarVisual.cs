@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using DG.Tweening;
 public class ResourceBarVisual : VisualElement
 {
     VisualElement _missing;
@@ -37,16 +37,39 @@ public class ResourceBarVisual : VisualElement
         SetText($"{current}/{total}");
     }
 
-    public void DisplayInteractionResult(int total, int current, int result)
+    public void DisplayInteractionResult(int total, int current, int value)
     {
+        Debug.Log("DisplayInteractionResult is called");
         DisplayMissingAmount(total, current);
         _interactionResult.style.display = DisplayStyle.Flex;
+
+        float percent = value / (float)total * 100;
+        if (value >= current)
+            percent = current / (float)total * 100;
+
+        // reset right
+        _interactionResult.style.right = Length.Percent(0);
+        _interactionResult.style.width = Length.Percent(value);
+        AnimateInteractionResult();
+
+        SetText($"{current - value}/{total}");
     }
 
     public void SetText(string newText)
     {
         _text.text = newText;
     }
+
+    void AnimateInteractionResult()
+    {
+        _interactionResult.style.backgroundColor = Color.black;
+
+        DOTween.ToAlpha(() => _interactionResult.style.backgroundColor.value,
+                         x => _interactionResult.style.backgroundColor = x,
+                         0f, 0.8f).SetLoops(-1, LoopType.Yoyo);
+        //.SetId(_missingHealthTweenID);
+    }
+
 
 
 }

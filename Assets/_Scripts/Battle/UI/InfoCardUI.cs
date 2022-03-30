@@ -34,6 +34,9 @@ public class InfoCardUI : MonoBehaviour
 
     VisualElement _characterCardModifierContainer;
 
+    // character card
+    CharacterCardVisual _characterCardVisual;
+
     // interaction summary
     VisualElement _interactionSummary;
 
@@ -147,11 +150,11 @@ public class InfoCardUI : MonoBehaviour
         //PopulateCharacterCard(stats);
         _characterCard.Clear();
 
-        CharacterCardVisual visual = new(stats.Character);
-        _characterCard.Add(visual);
+        _characterCardVisual = new(stats.Character);
+        _characterCard.Add(_characterCardVisual);
 
-        visual.HealthBar.DisplayMissingAmount(stats.MaxHealth.GetValue(), stats.CurrentHealth);
-        visual.ManaBar.DisplayMissingAmount(stats.MaxMana.GetValue(), stats.CurrentMana);
+        _characterCardVisual.HealthBar.DisplayMissingAmount(stats.MaxHealth.GetValue(), stats.CurrentHealth);
+        _characterCardVisual.ManaBar.DisplayMissingAmount(stats.MaxMana.GetValue(), stats.CurrentMana);
 
         // clean-up
         DOTween.Pause(_missingHealthTweenID);
@@ -201,6 +204,7 @@ public class InfoCardUI : MonoBehaviour
         // different labels and UI for heal / attack
         if (ability.AbilityType == AbilityType.Attack)
         {
+            // self dmg
             if (attacker.gameObject == defender.gameObject)
                 _characterUI.ShowDamage(CalculateInteractionResult(attacker, attacker, ability));
 
@@ -239,7 +243,6 @@ public class InfoCardUI : MonoBehaviour
                 _attackDamageValue.text = ability.StatModifier.Value.ToString();
             _attackHitValue.text = 100 + "%";
         }
-
 
         // retaliation only on attack
         if (ability.AbilityType != AbilityType.Attack)
@@ -284,29 +287,33 @@ public class InfoCardUI : MonoBehaviour
 
     void ShowDamage(CharacterStats stats, int val)
     {
-        float currentHealth = (float)stats.CurrentHealth;
-        float healthAfterInteraction = (float)stats.CurrentHealth - val;
-        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, stats.CurrentHealth);
 
-        // text
-        _characterCardHealth.text = healthAfterInteraction + "/" + stats.MaxHealth.GetValue();
+        Debug.Log($"show damage is called value: {val} ");
 
-        // bar
-        float result = val / (float)stats.MaxHealth.GetValue();
-        if (healthAfterInteraction == 0)
-            result = currentHealth / (float)stats.MaxHealth.GetValue();
+        _characterCardVisual.HealthBar.DisplayInteractionResult(stats.MaxHealth.GetValue(),
+                                                                stats.CurrentHealth,
+                                                                val);
+        /*
+                // text
+                _characterCardHealth.text = healthAfterInteraction + "/" + stats.MaxHealth.GetValue();
 
-        _characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
-        // reset right
-        _characterCardHealthBarInteractionResult.style.right = Length.Percent(0);
-        _characterCardHealthBarInteractionResult.style.width = Length.Percent(result * 100);
+                // bar
+                float result = val / (float)stats.MaxHealth.GetValue();
+                if (healthAfterInteraction == 0)
+                    result = currentHealth / (float)stats.MaxHealth.GetValue();
 
-        // death
-        if (healthAfterInteraction <= 0)
-            _characterCardPortraitSkull.style.display = DisplayStyle.Flex;
+                _characterCardHealthBarInteractionResult.style.display = DisplayStyle.Flex;
+                // reset right
+                _characterCardHealthBarInteractionResult.style.right = Length.Percent(0);
+                _characterCardHealthBarInteractionResult.style.width = Length.Percent(result * 100);
 
-        // "animate it"
-        AnimateInteractionResult(_damageBarColor);
+                // death
+                if (healthAfterInteraction <= 0)
+                    _characterCardPortraitSkull.style.display = DisplayStyle.Flex;
+
+                // "animate it"
+                AnimateInteractionResult(_damageBarColor);
+                */
     }
 
     void ShowHeal(CharacterStats stats, int val)
@@ -349,6 +356,7 @@ public class InfoCardUI : MonoBehaviour
         int result = 0;
 
         // TODO: differentiate between abilities that calculate value from int/str
+        // maybe ability should count that? 
         if (ability.AbilityType == AbilityType.Attack)
             result = ability.BasePower + attacker.Strength.GetValue() - defender.Armor.GetValue();
 

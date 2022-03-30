@@ -217,7 +217,6 @@ public class BattleCharacterController : MonoBehaviour
         _characterUI.ShowCharacterUI(_playerStats);
 
         // highlight
-        Debug.Log($"range: {_playerStats.MovementRange.GetValue()}");
         await _highlighter.HiglightPlayerMovementRange(SelectedCharacter.transform.position, _playerStats.MovementRange.GetValue(),
                                                 Helpers.GetColor("movementBlue"));
         _isSelectionBlocked = false;

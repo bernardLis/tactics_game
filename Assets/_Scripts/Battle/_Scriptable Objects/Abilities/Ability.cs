@@ -13,9 +13,11 @@ public abstract class Ability : BaseScriptableObject
     public string Description = "New Description";
     public Sprite Icon;
     public AudioClip Sound;
+
     [Tooltip("Base strength of attack / heal")]
-    public int BasePower; // TODO: better name? AbilityStrength? Ability..? 
+    public int BasePower; // TODO: better name? AbilityStrength? Ability..?
     public int ManaCost;
+
     [Tooltip("0 is one tile, 1 is a cross")]
     public int AreaOfEffect;
     public AbilityType AbilityType;
