@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextDisplayable
+public class FootholdTrap : MonoBehaviour, IPushable<Vector3, GameObject, Ability>, IUITextDisplayable
 {
     // global
     BattleManager _battleManager;
@@ -29,25 +29,25 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, Ability>, IUITextD
             return;
 
 
-/*
-        // TODO: needs a rewrite with enemies
-        // functionality when enemy walks onto the trap
-        GameObject enemy = col.transform.parent.gameObject;
-        EnemyCharMovementController enemyCharMovementController = enemy.GetComponent<EnemyCharMovementController>();
-        if (enemyCharMovementController != null)
-        {
-            // trap is triggered
-            enemyCharMovementController.TrappedOnTheWay(damage, transform.position);
+        /*
+                // TODO: needs a rewrite with enemies
+                // functionality when enemy walks onto the trap
+                GameObject enemy = col.transform.parent.gameObject;
+                EnemyCharMovementController enemyCharMovementController = enemy.GetComponent<EnemyCharMovementController>();
+                if (enemyCharMovementController != null)
+                {
+                    // trap is triggered
+                    enemyCharMovementController.TrappedOnTheWay(damage, transform.position);
 
-            // trap no longer collides
-            // TODO: swap gfx with triggered sprite
-            transform.GetComponentInChildren<BoxCollider2D>().enabled = false;
-            transform.GetChild(0).gameObject.SetActive(false);
-        }
-        */
+                    // trap no longer collides
+                    // TODO: swap gfx with triggered sprite
+                    transform.GetComponentInChildren<BoxCollider2D>().enabled = false;
+                    transform.GetChild(0).gameObject.SetActive(false);
+                }
+                */
     }
 
-    public void GetPushed(Vector3 dir, Ability ability)
+    public void GetPushed(Vector3 dir, GameObject attacker, Ability ability)
     {
         _finalPos = transform.position + dir;
 

@@ -22,7 +22,7 @@ public class BuffTriggerable : BaseTriggerable
             _myStats.UseMana(ability.ManaCost);
         }
 
-        target.GetComponent<IBuffable<Ability>>().GetBuffed(ability);
+        target.GetComponent<IBuffable<GameObject, Ability>>().GetBuffed(attacker, ability);
 
         return true;
     }

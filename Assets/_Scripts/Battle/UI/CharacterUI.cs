@@ -302,7 +302,7 @@ public class CharacterUI : MonoBehaviour
         _selectedPlayerStats = playerStats;
 
         _characterUICharacterCard.Clear();
-        _characterCardVisual = new(playerStats.Character);
+        _characterCardVisual = new(playerStats);
         _characterUICharacterCard.Add(_characterCardVisual);
         _characterCardVisual.HealthBar.DisplayMissingAmount(playerStats.MaxHealth.GetValue(), playerStats.CurrentHealth);
         _characterCardVisual.ManaBar.DisplayMissingAmount(playerStats.MaxMana.GetValue(), playerStats.CurrentMana);
@@ -324,22 +324,6 @@ public class CharacterUI : MonoBehaviour
             .SetEase(Ease.InOutSine)
             .SetId(_hideCharacterUIID)
             .OnComplete(() => _characterUIContainer.style.display = DisplayStyle.None);
-    }
-
-    void SetCharacteristics(CharacterStats stats)
-    {
-        BattleUIHelpers.HandleStatCheck(stats.Strength, _characterStrength);
-        BattleUIHelpers.HandleStatCheck(stats.Intelligence, _characterIntelligence);
-        BattleUIHelpers.HandleStatCheck(stats.Agility, _characterAgility);
-        BattleUIHelpers.HandleStatCheck(stats.Stamina, _characterStamina);
-        BattleUIHelpers.HandleStatCheck(stats.Armor, _characterArmor);
-        BattleUIHelpers.HandleStatCheck(stats.MovementRange, _characterRange);
-
-        _modifierContainer.Clear();
-        List<VisualElement> elements = new(BattleUIHelpers.HandleStatModifiers(stats));
-        elements.AddRange(BattleUIHelpers.HandleStatuses(stats));
-        foreach (VisualElement el in elements)
-            _modifierContainer.Add(el);
     }
 
     void HandleAbilityButtons()

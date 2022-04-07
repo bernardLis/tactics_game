@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDisplayable
+public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, IUITextDisplayable
 {
     // global
     BattleManager _battleManager;
@@ -21,7 +21,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, Ability>, IUITextDi
         _battleManager = BattleManager.instance;
     }
 
-    public void GetPushed(Vector3 dir, Ability ability)
+    public void GetPushed(Vector3 dir, GameObject attacker, Ability ability)
     {
         _finalPos = transform.position + dir;
 

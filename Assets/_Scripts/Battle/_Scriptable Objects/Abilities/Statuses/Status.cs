@@ -32,7 +32,7 @@ public class Status : BaseScriptableObject
     }
 
     public virtual void Initialize(GameObject self, GameObject attacker)
-    {
+    {       
         _characterGameObject = self;
         _characterSelection = self.GetComponent<CharacterSelection>();
         _characterStats = self.GetComponent<CharacterStats>();
@@ -41,7 +41,7 @@ public class Status : BaseScriptableObject
         _battleCharacterController = BattleCharacterController.instance;
 
         if (attacker != null)
-            this._attacker = attacker;
+            _attacker = attacker;
     }
 
     public virtual void FirstTrigger()

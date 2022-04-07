@@ -118,7 +118,7 @@ public class InfoCardUI : MonoBehaviour
     {
         _characterCard.Clear();
 
-        _characterCardVisual = new(stats.Character);
+        _characterCardVisual = new(stats);
         _characterCard.Add(_characterCardVisual);
 
         _characterCardVisual.HealthBar.DisplayMissingAmount(stats.MaxHealth.GetValue(), stats.CurrentHealth);
@@ -135,23 +135,6 @@ public class InfoCardUI : MonoBehaviour
                .SetEase(Ease.InOutSine);
     }
 
-    void PopulateCharacterCard(CharacterStats stats)
-    {
-        // TODO: move this to character card visual
-        BattleUIHelpers.HandleStatCheck(stats.Strength, _characterCardStrength);
-        BattleUIHelpers.HandleStatCheck(stats.Intelligence, _characterCardIntelligence);
-        BattleUIHelpers.HandleStatCheck(stats.Agility, _characterCardAgility);
-        BattleUIHelpers.HandleStatCheck(stats.Stamina, _characterCardStamina);
-        BattleUIHelpers.HandleStatCheck(stats.Armor, _characterCardArmor);
-        BattleUIHelpers.HandleStatCheck(stats.MovementRange, _characterCardRange);
-
-        _characterCardModifierContainer.Clear();
-        List<VisualElement> elements = new(BattleUIHelpers.HandleStatModifiers(stats));
-        elements.AddRange(BattleUIHelpers.HandleStatuses(stats));
-        foreach (VisualElement el in elements)
-            _characterCardModifierContainer.Add(el);
-    }
-
     public void ShowInteractionSummary(CharacterStats attacker, CharacterStats defender, Ability ability)
     {
         DOTween.To(() => _interactionSummary.style.left.value.value, x => _interactionSummary.style.left = Length.Percent(x), _cardShowValue, 0.5f)
@@ -159,7 +142,7 @@ public class InfoCardUI : MonoBehaviour
 
         _characterUI.HideHealthChange();
 
-        int attackValue = CalculateInteractionResult(attacker, defender, ability);
+        int attackValue = ability.CalculateInteractionResult(attacker, defender);
         _attackDamageValue.text = "" + attackValue;
 
         // different labels and UI for heal / attack
@@ -167,7 +150,7 @@ public class InfoCardUI : MonoBehaviour
         {
             // self dmg
             if (attacker.gameObject == defender.gameObject)
-                _characterUI.ShowHealthChange(CalculateInteractionResult(attacker, attacker, ability));
+                _characterUI.ShowHealthChange(ability.CalculateInteractionResult(attacker, attacker));
 
             ShowHealthChange(defender, attackValue);
 
@@ -231,7 +214,7 @@ public class InfoCardUI : MonoBehaviour
         // show change in attackers health after they get retaliated on
         _retaliationSummary.style.display = DisplayStyle.Flex;
 
-        int relatiationResult = CalculateInteractionResult(defender, attacker, retaliationAbility);
+        int relatiationResult = retaliationAbility.CalculateInteractionResult(defender, attacker); // correct defender, attacker
         _retaliationDamageValue.text = "" + relatiationResult;
 
         float retaliationChance = (1 - attacker.GetDodgeChance(attacker.gameObject)) * 100;
@@ -260,23 +243,6 @@ public class InfoCardUI : MonoBehaviour
         _characterCardVisual.ManaBar.DisplayInteractionResult(stats.MaxHealth.GetValue(),
                                                                 stats.CurrentHealth,
                                                                 val);
-    }
-
-    // TODO: abilities should calculate this themselves
-    int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender, Ability ability)
-    {
-        int result = 0;
-
-        // TODO: differentiate between abilities that calculate value from int/str
-        // maybe ability should count that? 
-        if (ability.AbilityType == AbilityType.Attack)
-            result = -1 * (ability.BasePower + attacker.Strength.GetValue() - defender.Armor.GetValue());
-
-        if (ability.AbilityType == AbilityType.Heal)
-            result = ability.BasePower + attacker.Intelligence.GetValue();
-
-
-        return result;
     }
 
     void DisplayNone(VisualElement el) { el.style.display = DisplayStyle.None; }

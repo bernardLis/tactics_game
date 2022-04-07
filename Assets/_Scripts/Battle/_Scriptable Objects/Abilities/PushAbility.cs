@@ -16,7 +16,7 @@ public class PushAbility : Ability
     public async override Task<bool> TriggerAbility(GameObject target)
     {
         // check if target is valid
-        var pushableObject = target.GetComponent<IPushable<Vector3, Ability>>();
+        var pushableObject = target.GetComponent<IPushable<Vector3, GameObject, Ability>>();
         if (pushableObject == null)
             return false;
 

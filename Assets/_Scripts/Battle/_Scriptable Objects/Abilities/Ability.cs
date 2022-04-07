@@ -115,8 +115,6 @@ public abstract class Ability : BaseScriptableObject
             if (s.Type == MultiplerStat)
                 multiplierValue = s.GetValue();
 
-        Debug.Log($"multipler stat: {MultiplerStat} of value: {multiplierValue} for ability: {name}");
-
         // -1 coz it is attack and has to be negative... TODO: this is very imperfect.
         return -1 * (BasePower + multiplierValue - defender.Armor.GetValue());
     }

@@ -11,10 +11,10 @@ public class PushTriggerable : BaseTriggerable
         // player can push characters/PushableObstacle
         // TODO: pushing characters with lerp breaks the A*
         Vector3 pushDir = (target.transform.position - transform.position).normalized;
-        
+
         _myStats.UseMana(ability.ManaCost);
 
-        target.GetComponent<IPushable<Vector3, Ability>>().GetPushed(pushDir, ability);
+        target.GetComponent<IPushable<Vector3, GameObject, Ability>>().GetPushed(pushDir, gameObject, ability);
         // TODO: There is a better way to wait for target to get pushed
         await Task.Delay(500);
 

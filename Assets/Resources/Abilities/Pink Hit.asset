@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
   m_Name: Pink Hit
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 8c03c7fe-2da6-4b24-ae50-3f2c583a65c5
   ReferenceID: ABILITY-2
   Description: Gaaaay.
   Icon: {fileID: 21300000, guid: 38ccb73712c2df745a714d692ce04ba8, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   ManaCost: 0
   AreaOfEffect: 0
   AbilityType: 3
+  MultiplerStat: 0
   WeaponType: 3
   Projectile: {fileID: 5247648617231209867, guid: 9a16a01a8c5aeea449e0d2fa07156386, type: 3}
   StatModifier: {fileID: 11400000, guid: 826f8690ab47bb941b14d9265ffaa617, type: 2}

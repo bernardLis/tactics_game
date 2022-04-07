@@ -17,7 +17,7 @@ public class HealAbility : Ability
     public async override Task<bool> TriggerAbility(GameObject target)
     {
         // check if target is valid
-        var healableObject = target.GetComponent<IHealable<Ability>>();
+        var healableObject = target.GetComponent<IHealable<GameObject, Ability>>();
         if (healableObject == null)
             return false;
 

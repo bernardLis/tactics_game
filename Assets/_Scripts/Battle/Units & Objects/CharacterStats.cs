@@ -7,7 +7,7 @@ using Pathfinding;
 using System.Threading.Tasks;
 using Random = UnityEngine.Random;
 
-public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, Ability>, IBuffable<Ability>
+public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAttackable<GameObject, Ability>, IPushable<GameObject, Vector3, Ability>, IBuffable<GameObject, Ability>
 {
     [HideInInspector] public Character Character { get; private set; }
 
@@ -126,9 +126,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         Armor.Initialize(StatType.Armor, Character.Armor);
         MovementRange.Initialize(StatType.MovementRange, Character.MovementRange);
 
-        AddStatsToList();
-
-        // TODO: starting mana is for heal testing purposes 
+        // TODO: starting mana is for testing purposes 
         CurrentHealth = MaxHealth.GetValue();
         CurrentMana = 20;
 
@@ -167,6 +165,8 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     void AddStatsToList()
     {
+        Stats.Clear();
+
         Stats.Add(Strength);
         Stats.Add(Intelligence);
         Stats.Add(Agility);
@@ -180,8 +180,6 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     public async Task TakeDamage(int damage, GameObject attacker, Ability ability)
     {
-        damage -= Armor.GetValue();
-
         // to not repeat the code
         await TakePiercingDamage(damage, attacker, ability);
     }
@@ -198,7 +196,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
         {
             TakeDamageNoDodgeNoRetaliation(damage);
             HandleModifier(ability);
-            HandleStatus(ability, attacker);
+            HandleStatus(attacker, ability);
         }
 
         if (CurrentHealth <= 0)
@@ -276,10 +274,10 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
 
     }
 
-    public void GetBuffed(Ability ability)
+    public void GetBuffed(GameObject attacker, Ability ability)
     {
         HandleModifier(ability);
-        HandleStatus(ability, null);
+        HandleStatus(attacker, ability);
     }
 
     void HandleModifier(Ability ability)
@@ -288,7 +286,7 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             AddModifier(ability);
     }
 
-    void HandleStatus(Ability ability, GameObject attacker)
+    void HandleStatus(GameObject attacker, Ability ability)
     {
         if (ability.Status != null)
             AddStatus(ability.Status, attacker);
@@ -382,24 +380,24 @@ public class CharacterStats : MonoBehaviour, IHealable<Ability>, IAttackable<Gam
             return;
     }
 
-    public void GainHealth(int healthGain, Ability ability)
+    public void GainHealth(int healthGain, GameObject attacker, Ability ability)
     {
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
         CurrentHealth += healthGain;
 
         HandleModifier(ability);
-        HandleStatus(ability, null);
+        HandleStatus(attacker, ability);
 
         _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
     }
 
-    public void GetPushed(Vector3 dir, Ability ability)
+    public void GetPushed(GameObject attacker, Vector3 dir, Ability ability)
     {
         _startingPos = transform.position;
         _finalPos = transform.position + dir;
 
         HandleModifier(ability);
-        HandleStatus(ability, null);
+        HandleStatus(attacker, ability);
 
         // TODO: do this instead of pushable character.
         StartCoroutine(MoveToPosition(_finalPos, 0.5f));

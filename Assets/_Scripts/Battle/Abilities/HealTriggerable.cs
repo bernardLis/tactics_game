@@ -22,7 +22,7 @@ public class HealTriggerable : BaseTriggerable
 
         // data
         int healAmount = ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
-        target.GetComponent<IHealable<Ability>>().GainHealth(healAmount, ability);
+        target.GetComponent<IHealable<GameObject, Ability>>().GainHealth(healAmount, gameObject, ability);
 
         _myStats.SetAttacker(true);
 

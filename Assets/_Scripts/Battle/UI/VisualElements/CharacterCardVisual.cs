@@ -10,6 +10,7 @@ public class CharacterCardVisual : VisualElement
     Label _name;
 
     VisualElement _characteristics;
+    VisualElement _modifierContainer;
 
     public ResourceBarVisual HealthBar;
     public ResourceBarVisual ManaBar;
@@ -22,6 +23,30 @@ public class CharacterCardVisual : VisualElement
     StatVisual _range;
 
     public CharacterCardVisual(Character character)
+    {
+        BaseCharacterCardVisual(character);
+        // TODO: missing skull on portrait
+
+        _characteristics.Add(HandleCharacterStats(character, null));
+    }
+
+    public CharacterCardVisual(CharacterStats stats)
+    {
+        BaseCharacterCardVisual(stats.Character);
+
+        _modifierContainer = new();
+        _modifierContainer.AddToClassList("modifierContainer");
+        _information.Add(_modifierContainer);
+        List<VisualElement> elements = new(HandleStatModifiers(stats));
+        elements.AddRange(HandleStatuses(stats));
+        foreach (VisualElement el in elements)
+            _modifierContainer.Add(el);
+
+        _characteristics.Add(HandleCharacterStats(null, stats));
+    }
+
+
+    void BaseCharacterCardVisual(Character character)
     {
         AddToClassList("characterCard");
 
@@ -46,17 +71,11 @@ public class CharacterCardVisual : VisualElement
         _information.Add(_name);
         _information.Add(_portrait);
 
-        // TODO: missing skull on portrait
-        // TODO: missing characterCardModifierContainer
-
-        // group2
         _characteristics = new();
         _characteristics.AddToClassList("characteristicGroup");
 
         _characteristics.Add(CreateHealthGroup(character));
         _characteristics.Add(CreateManaGroup(character));
-        _characteristics.Add(CreateCharacterStats(character));
-
         Add(_characteristics);
     }
 
@@ -96,21 +115,15 @@ public class CharacterCardVisual : VisualElement
         return manaGroup;
     }
 
-    VisualElement CreateCharacterStats(Character character)
+    VisualElement HandleCharacterStats(Character character, CharacterStats characterStats)
     {
         VisualElement statsGroup = new();
         statsGroup.AddToClassList("statsGroup");
 
-        // TODO: this all should be coming from characters stats not from Character 
-        // TODO: actually, I should rethink how I approach stats and Character most def should know it's stats 
-
-        CharacterDatabase db = JourneyManager.instance.CharacterDatabase;
-        _strength = new(db.GetStatIconByName("Strength"), character.Strength);
-        _intelligence = new(db.GetStatIconByName("Intelligence"), character.Intelligence);
-        _agility = new(db.GetStatIconByName("Agility"), character.Agility);
-        _stamina = new(db.GetStatIconByName("Stamina"), character.Stamina);
-        _armor = new(db.GetStatIconByName("Armor"), character.Armor);
-        _range = new(db.GetStatIconByName("MovementRange"), character.MovementRange);
+        if (characterStats == null)
+            CreateCharacterStatsChar(character);
+        else
+            CreateCharacterStats(characterStats);
 
         statsGroup.Add(_strength);
         statsGroup.Add(_intelligence);
@@ -120,5 +133,59 @@ public class CharacterCardVisual : VisualElement
         statsGroup.Add(_range);
 
         return statsGroup;
+    }
+
+    void CreateCharacterStatsChar(Character character)
+    {
+        CharacterDatabase db = JourneyManager.instance.CharacterDatabase;
+        _strength = new(db.GetStatIconByName("Strength"), character.Strength);
+        _intelligence = new(db.GetStatIconByName("Intelligence"), character.Intelligence);
+        _agility = new(db.GetStatIconByName("Agility"), character.Agility);
+        _stamina = new(db.GetStatIconByName("Stamina"), character.Stamina);
+        _armor = new(db.GetStatIconByName("Armor"), character.Armor);
+        _range = new(db.GetStatIconByName("MovementRange"), character.MovementRange);
+    }
+
+    void CreateCharacterStats(CharacterStats characterStats)
+    {
+        CharacterDatabase db = JourneyManager.instance.CharacterDatabase;
+        _strength = new(db.GetStatIconByName("Strength"), characterStats.Strength);
+        _intelligence = new(db.GetStatIconByName("Intelligence"), characterStats.Intelligence);
+        _agility = new(db.GetStatIconByName("Agility"), characterStats.Agility);
+        _stamina = new(db.GetStatIconByName("Stamina"), characterStats.Stamina);
+        _armor = new(db.GetStatIconByName("Armor"), characterStats.Armor);
+        _range = new(db.GetStatIconByName("MovementRange"), characterStats.MovementRange);
+    }
+
+    public List<ModifierVisual> HandleStatuses(CharacterStats stats)
+    {
+        List<ModifierVisual> els = new();
+        if (stats.Statuses.Count == 0)
+            return els;
+
+        foreach (Status s in stats.Statuses)
+        {
+            ModifierVisual mElement = new ModifierVisual(s);
+            els.Add(mElement);
+        }
+        return els;
+    }
+
+    public List<ModifierVisual> HandleStatModifiers(CharacterStats stats)
+    {
+        List<ModifierVisual> els = new();
+        foreach (Stat s in stats.Stats)
+        {
+            List<StatModifier> modifiers = s.GetActiveModifiers();
+            if (modifiers.Count == 0)
+                continue;
+
+            foreach (StatModifier m in modifiers)
+            {
+                ModifierVisual mElement = new ModifierVisual(m);
+                els.Add(mElement);
+            }
+        }
+        return els;
     }
 }

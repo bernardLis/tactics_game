@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: Shoot
   m_EditorClassIdentifier: 
-  Id: 
+  Id: a5ef8c11-0fbf-4f82-a39a-2e1e904891ac
   ReferenceID: ABILITY-4
   Description: Shoots an arrow
   Icon: {fileID: 21300000, guid: e4fcd2647aed9334cb59278b307542e6, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   ManaCost: 10
   AreaOfEffect: 0
   AbilityType: 0
+  MultiplerStat: 2
   WeaponType: 2
   Projectile: {fileID: 6450357399194659378, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
   StatModifier: {fileID: 0}
