@@ -217,8 +217,8 @@ public class MovePointController : MonoBehaviour
     void ShowAbilityResult()
     {
         _infoCardUI.HideInteractionSummary();
-        _characterUI.HideDamage();
-        _characterUI.HideManaUse();
+        _characterUI.HideHealthChange();
+        _characterUI.HideManaChange();
 
         // only show interaction result when we are selecting a target
         if (_battleCharacterController.CharacterState != CharacterState.ConfirmingInteraction)
@@ -230,7 +230,7 @@ public class MovePointController : MonoBehaviour
 
         // mana use
         if (selectedAbility.ManaCost != 0)
-            _characterUI.ShowManaUse(selectedAbility.ManaCost);
+            _characterUI.ShowManaChange(-1 * selectedAbility.ManaCost);
 
         // don't show interaction summary if not in range of interaction
         Vector3Int tilePos = _tilemap.WorldToCell(transform.position);

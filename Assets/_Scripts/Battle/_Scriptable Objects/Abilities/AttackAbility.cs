@@ -33,5 +33,4 @@ public class AttackAbility : Ability
     }
 
     public void SetIsRetaliation(bool isRet) { IsRetaliation = isRet; }
-
 }

@@ -17,24 +17,14 @@ public class CharacterUI : MonoBehaviour
 
     VisualElement _characterUICharacterCard;
 
+    CharacterCardVisual _characterCardVisual;
+
     VisualElement _characterUITooltipContainer;
     Label _characterUITooltipAbilityName;
     Label _characterUITooltipAbilityDescription;
     Label _characterUITooltipAbilityManaCost;
     Label _characterUITooltipModifierDescription;
     Label _characterUITooltipStatusDescription;
-
-    Label _characterName;
-    VisualElement _characterPortrait;
-    VisualElement _characterPortraitSkull;
-
-    Label _characterHealth;
-    VisualElement _characterHealthBarMissingHealth;
-    VisualElement _characterHealthBarRetaliationResult;
-
-    Label _characterMana;
-    VisualElement _characterManaBarMissingMana;
-    VisualElement _characterManaBarInteractionResult;
 
     Label _characterStrength;
     Label _characterIntelligence;
@@ -75,15 +65,7 @@ public class CharacterUI : MonoBehaviour
     Queue<IEnumerator> _buttonClickQueue = new();
     bool _wasClickEnqueued;
 
-
-
-    // showing retaliation result
-    Color _damageBarColor;
-    Color _healBarColor;
-
     string _hideCharacterUIID = "hideCharacterUIID";
-    string _manaUseTweenID = "manaUseTweenID";
-    string _healthLostTweenID = "characterHealthBarTweenID";
 
     public static CharacterUI instance;
     void Awake()
@@ -114,18 +96,6 @@ public class CharacterUI : MonoBehaviour
         _characterUITooltipAbilityManaCost = root.Q<Label>("characterUITooltipAbilityManaCost");
         _characterUITooltipModifierDescription = root.Q<Label>("characterUITooltipModifierDescription");
         _characterUITooltipStatusDescription = root.Q<Label>("characterUITooltipStatusDescription");
-
-        _characterName = root.Q<Label>("characterName");
-        _characterPortrait = root.Q<VisualElement>("characterPortrait");
-        _characterPortraitSkull = root.Q<VisualElement>("characterPortraitSkull");
-
-        _characterHealth = root.Q<Label>("characterHealth");
-        _characterHealthBarMissingHealth = root.Q<VisualElement>("characterHealthBarMissingHealth");
-        _characterHealthBarRetaliationResult = root.Q<VisualElement>("characterHealthBarRetaliationResult");
-
-        _characterMana = root.Q<Label>("characterMana");
-        _characterManaBarMissingMana = root.Q<VisualElement>("characterManaBarMissingMana");
-        _characterManaBarInteractionResult = root.Q<VisualElement>("characterManaBarInteractionResult");
 
         _characterStrength = root.Q<Label>("characterStrengthAmount");
         _characterIntelligence = root.Q<Label>("characterIntelligenceAmount");
@@ -176,9 +146,6 @@ public class CharacterUI : MonoBehaviour
         _abilityIcons.Add(_characterWSkillIcon);
         _abilityIcons.Add(_characterESkillIcon);
         _abilityIcons.Add(_characterRSkillIcon);
-
-        _damageBarColor = Helpers.GetColor("gray");
-        _healBarColor = Helpers.GetColor("healthGainGreen");
     }
 
     void Start()
@@ -324,6 +291,7 @@ public class CharacterUI : MonoBehaviour
         _characterUITooltipContainer.style.display = DisplayStyle.None;
     }
 
+
     public void ShowCharacterUI(CharacterStats playerStats)
     {
         _characterUIContainer.style.display = DisplayStyle.Flex;
@@ -334,10 +302,10 @@ public class CharacterUI : MonoBehaviour
         _selectedPlayerStats = playerStats;
 
         _characterUICharacterCard.Clear();
-        CharacterCardVisual visual = new(playerStats.Character);
-        _characterUICharacterCard.Add(visual);
-        visual.HealthBar.DisplayMissingAmount(playerStats.MaxHealth.GetValue(), playerStats.CurrentHealth);
-        visual.ManaBar.DisplayMissingAmount(playerStats.MaxMana.GetValue(), playerStats.CurrentMana);
+        _characterCardVisual = new(playerStats.Character);
+        _characterUICharacterCard.Add(_characterCardVisual);
+        _characterCardVisual.HealthBar.DisplayMissingAmount(playerStats.MaxHealth.GetValue(), playerStats.CurrentHealth);
+        _characterCardVisual.ManaBar.DisplayMissingAmount(playerStats.MaxMana.GetValue(), playerStats.CurrentMana);
 
         HandleAbilityButtons();
         DisableSkillButtons();
@@ -358,28 +326,8 @@ public class CharacterUI : MonoBehaviour
             .OnComplete(() => _characterUIContainer.style.display = DisplayStyle.None);
     }
 
-    void SetCharacterHealthMana(CharacterStats playerStats)
-    {
-        _characterHealth.text = playerStats.CurrentHealth + "/" + playerStats.MaxHealth.GetValue();
-        _characterMana.text = playerStats.CurrentMana + "/" + playerStats.MaxMana.GetValue();
-
-        // (float) casts are NOT redundant, without them it does not work
-        float missingHealthPerc = ((float)playerStats.MaxHealth.GetValue() - (float)playerStats.CurrentHealth) / (float)playerStats.MaxHealth.GetValue();
-        float missingManaPerc = ((float)playerStats.MaxMana.GetValue() - (float)playerStats.CurrentMana) / (float)playerStats.MaxMana.GetValue();
-
-        _characterHealthBarMissingHealth.style.width = Length.Percent(missingHealthPerc * 100);
-        _characterManaBarMissingMana.style.width = Length.Percent(missingManaPerc * 100);
-    }
-
     void SetCharacteristics(CharacterStats stats)
     {
-        _characterStrength.text = "" + stats.Strength.GetValue();
-        _characterIntelligence.text = "" + stats.Intelligence.GetValue();
-        _characterAgility.text = "" + stats.Agility.GetValue();
-        _characterStamina.text = "" + stats.Stamina.GetValue();
-        _characterArmor.text = "" + stats.Armor.GetValue();
-        _characterRange.text = "" + stats.MovementRange.GetValue();
-
         BattleUIHelpers.HandleStatCheck(stats.Strength, _characterStrength);
         BattleUIHelpers.HandleStatCheck(stats.Intelligence, _characterIntelligence);
         BattleUIHelpers.HandleStatCheck(stats.Agility, _characterAgility);
@@ -452,136 +400,42 @@ public class CharacterUI : MonoBehaviour
         }
     }
 
-    // called by infocardUI
-    public void ShowManaUse(int val)
+    public void ShowHealthChange(int val)
     {
         if (_selectedPlayerStats == null)
             return;
 
-        float currentMana = (float)_selectedPlayerStats.CurrentMana;
-        float manaAfterInteraction = (float)_selectedPlayerStats.CurrentMana - val;
-        manaAfterInteraction = Mathf.Clamp(manaAfterInteraction, 0, _selectedPlayerStats.CurrentMana);
-
-        // text
-        _characterMana.text = manaAfterInteraction + "/" + _selectedPlayerStats.MaxMana.GetValue();
-
-        // bar
-        float result = val / (float)_selectedPlayerStats.MaxMana.GetValue();
-
-        if (manaAfterInteraction == 0)
-            result = currentMana / (float)_selectedPlayerStats.MaxMana.GetValue();
-
-        _characterManaBarInteractionResult.style.display = DisplayStyle.Flex;
-        // reset right
-        _characterManaBarInteractionResult.style.right = Length.Percent(0);
-        _characterManaBarInteractionResult.style.width = Length.Percent(result * 100);
-
-        // "animate it"
-        AnimateManaUse();
+        _characterCardVisual.HealthBar.DisplayInteractionResult(_selectedPlayerStats.MaxHealth.GetValue(),
+                                                                _selectedPlayerStats.CurrentHealth,
+                                                                val);
     }
 
-    public void HideManaUse()
-    {
-        DOTween.Pause(_manaUseTweenID);
-
-        _characterManaBarInteractionResult.style.width = Length.Percent(0);
-        if (_selectedPlayerStats != null)
-            SetCharacterHealthMana(_selectedPlayerStats);
-
-    }
-
-    void AnimateManaUse()
-    {
-        _characterManaBarInteractionResult.style.backgroundColor = _damageBarColor;
-
-        DOTween.ToAlpha(() => _characterManaBarInteractionResult.style.backgroundColor.value,
-                         x => _characterManaBarInteractionResult.style.backgroundColor = x,
-                         0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
-                         .SetId(_manaUseTweenID);
-    }
-
-    // called by infocardUI
-    public void ShowDamage(int val)
+    public void ShowManaChange(int val)
     {
         if (_selectedPlayerStats == null)
             return;
 
-        _characterPortraitSkull.style.display = DisplayStyle.None;
-
-        float currentHealth = (float)_selectedPlayerStats.CurrentHealth;
-        float healthAfterInteraction = (float)_selectedPlayerStats.CurrentHealth - val;
-        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, _selectedPlayerStats.CurrentHealth);
-
-        // text
-        _characterHealth.text = healthAfterInteraction + "/" + _selectedPlayerStats.MaxHealth.GetValue();
-
-        // bar
-        float result = val / (float)_selectedPlayerStats.MaxHealth.GetValue();
-
-        if (healthAfterInteraction == 0)
-            result = currentHealth / (float)_selectedPlayerStats.MaxHealth.GetValue();
-
-        _characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
-        // reset right
-        _characterHealthBarRetaliationResult.style.right = Length.Percent(0);
-        _characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
-
-        // death
-        if (healthAfterInteraction <= 0)
-            _characterPortraitSkull.style.display = DisplayStyle.Flex;
-
-        // "animate it"
-        AnimateInteractionResult(_damageBarColor);
+        _characterCardVisual.ManaBar.DisplayInteractionResult(_selectedPlayerStats.MaxMana.GetValue(),
+                                                                _selectedPlayerStats.CurrentMana,
+                                                                val);
     }
 
-    public void ShowHeal(int val)
+    public void HideHealthChange()
     {
         if (_selectedPlayerStats == null)
             return;
 
-        float currentHealth = (float)_selectedPlayerStats.CurrentHealth;
-        float maxHealth = (float)_selectedPlayerStats.MaxHealth.GetValue();
+        _characterCardVisual.HealthBar.HideInteractionResult(_selectedPlayerStats.MaxHealth.GetValue(),
+                                                            _selectedPlayerStats.CurrentHealth);
+    }
 
-        // if there is nothing to heal, don't show the result
-        if (currentHealth >= maxHealth)
+    public void HideManaChange()
+    {
+        if (_selectedPlayerStats == null)
             return;
 
-        float healthAfterInteraction = (float)currentHealth + val;
-        healthAfterInteraction = Mathf.Clamp(healthAfterInteraction, 0, maxHealth);
-
-        // text
-        _characterHealth.text = healthAfterInteraction + "/" + maxHealth;
-
-        // bar
-        float result = val / (float)maxHealth;
-        result = Mathf.Clamp(result, 0, 1);
-
-        _characterHealthBarRetaliationResult.style.display = DisplayStyle.Flex;
-        // move it left, to show that it is health gain not loss.
-        _characterHealthBarRetaliationResult.style.right = Length.Percent(result * 100);
-        _characterHealthBarRetaliationResult.style.width = Length.Percent(result * 100);
-
-        // "animate it"
-        AnimateInteractionResult(_healBarColor);
-    }
-
-    public void HideDamage()
-    {
-        DOTween.Pause(_healthLostTweenID);
-
-        _characterHealthBarRetaliationResult.style.width = Length.Percent(0);
-        if (_selectedPlayerStats != null)
-            SetCharacterHealthMana(_selectedPlayerStats);
-    }
-
-    void AnimateInteractionResult(Color col)
-    {
-        _characterHealthBarRetaliationResult.style.backgroundColor = col;
-
-        DOTween.ToAlpha(() => _characterHealthBarRetaliationResult.style.backgroundColor.value,
-                         x => _characterHealthBarRetaliationResult.style.backgroundColor = x,
-                         0f, 0.8f).SetLoops(-1, LoopType.Yoyo)
-                         .SetId(_healthLostTweenID);
+        _characterCardVisual.ManaBar.HideInteractionResult(_selectedPlayerStats.MaxMana.GetValue(),
+                                                            _selectedPlayerStats.CurrentMana);
     }
 
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html

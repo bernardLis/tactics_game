@@ -21,7 +21,7 @@ public class HealTriggerable : BaseTriggerable
         }
 
         // data
-        int healAmount = ability.BasePower + _myStats.Intelligence.GetValue();
+        int healAmount = ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
         target.GetComponent<IHealable<Ability>>().GainHealth(healAmount, ability);
 
         _myStats.SetAttacker(true);

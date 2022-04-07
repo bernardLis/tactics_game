@@ -21,6 +21,7 @@ public abstract class Ability : BaseScriptableObject
     [Tooltip("0 is one tile, 1 is a cross")]
     public int AreaOfEffect;
     public AbilityType AbilityType;
+    public StatType MultiplerStat;
     public WeaponType WeaponType; // abilities have weapons that can use them
     public GameObject Projectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
 
@@ -45,6 +46,7 @@ public abstract class Ability : BaseScriptableObject
         ReferenceID = item["ReferenceID"].ToString();
         Description = item["Description"].ToString();
         AbilityType = (AbilityType)System.Enum.Parse(typeof(AbilityType), item["AbilityType"].ToString());
+        MultiplerStat = (StatType)System.Enum.Parse(typeof(StatType), item["MultiplerStat"].ToString());
         WeaponType = (WeaponType)System.Enum.Parse(typeof(WeaponType), item["WeaponType"].ToString());
         Projectile = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/{item["Projectile"]}.prefab", typeof(GameObject));
         Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
@@ -105,5 +107,17 @@ public abstract class Ability : BaseScriptableObject
 
         await Task.Yield(); // just to get rid of errors;
         return true;
+    }
+    public virtual int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
+    {
+        int multiplierValue = 0;
+        foreach (Stat s in attacker.Stats)
+            if (s.Type == MultiplerStat)
+                multiplierValue = s.GetValue();
+
+        Debug.Log($"multipler stat: {MultiplerStat} of value: {multiplierValue} for ability: {name}");
+
+        // -1 coz it is attack and has to be negative... TODO: this is very imperfect.
+        return -1 * (BasePower + multiplierValue - defender.Armor.GetValue());
     }
 }

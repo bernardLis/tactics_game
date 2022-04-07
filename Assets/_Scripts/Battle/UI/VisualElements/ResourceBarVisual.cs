@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using System;
+
 public class ResourceBarVisual : VisualElement
 {
     VisualElement _missing;
     VisualElement _interactionResult;
     Label _text;
+
+    string _tweenID;
 
     public ResourceBarVisual(Color color)
     {
@@ -25,6 +27,8 @@ public class ResourceBarVisual : VisualElement
         Add(_missing);
         Add(_interactionResult);
         Add(_text);
+
+        _tweenID = Guid.NewGuid().ToString();
     }
 
     public void DisplayMissingAmount(int total, int current)
@@ -39,20 +43,52 @@ public class ResourceBarVisual : VisualElement
 
     public void DisplayInteractionResult(int total, int current, int value)
     {
-        Debug.Log("DisplayInteractionResult is called");
         DisplayMissingAmount(total, current);
-        _interactionResult.style.display = DisplayStyle.Flex;
 
-        float percent = value / (float)total * 100;
-        if (value >= current)
+        // nothing to heal
+        if (value > 0 && current >= total)
+            return;
+
+        string resultText = "" + (value + current);
+        float percent = Mathf.Abs(value) / (float)total * 100;
+        // limit percent to current health when damaging
+        if (value < 0 && Mathf.Abs(value) >= current)
+        {
+            resultText = "" + 0;
             percent = current / (float)total * 100;
+        }
+        // limit percent to missing missing health when healing 
+        if (value > 0 && Mathf.Abs(value) >= total - current)
+        {
+            resultText = "" + total;
+            percent = (total - current) / (float)total * 100;
+        }
 
-        // reset right
-        _interactionResult.style.right = Length.Percent(0);
-        _interactionResult.style.width = Length.Percent(value);
-        AnimateInteractionResult();
+        _interactionResult.style.display = DisplayStyle.Flex;
+        _interactionResult.style.width = Length.Percent(percent);
+        Color color = Color.black;
+        if (value < 0)
+        {
+            _interactionResult.style.right = Length.Percent(0);
+            color = Color.black;
+        }
+        else
+        {
+            _interactionResult.style.right = Length.Percent(percent);
+            color = Color.white;
+        }
 
-        SetText($"{current - value}/{total}");
+        AnimateInteractionResult(color);
+
+        SetText($"{resultText}/{total}");
+    }
+
+    public void HideInteractionResult(int total, int current)
+    {
+        DOTween.Pause(_tweenID);
+
+        _interactionResult.style.display = DisplayStyle.None;
+        DisplayMissingAmount(total, current);
     }
 
     public void SetText(string newText)
@@ -60,16 +96,15 @@ public class ResourceBarVisual : VisualElement
         _text.text = newText;
     }
 
-    void AnimateInteractionResult()
+    void AnimateInteractionResult(Color color)
     {
-        _interactionResult.style.backgroundColor = Color.black;
+        _interactionResult.style.backgroundColor = color;
 
         DOTween.ToAlpha(() => _interactionResult.style.backgroundColor.value,
                          x => _interactionResult.style.backgroundColor = x,
-                         0f, 0.8f).SetLoops(-1, LoopType.Yoyo);
-        //.SetId(_missingHealthTweenID);
+                         0f, 0.8f)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetId(_tweenID);
     }
-
-
 
 }

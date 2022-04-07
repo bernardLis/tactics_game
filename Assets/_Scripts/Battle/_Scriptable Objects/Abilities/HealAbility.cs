@@ -29,4 +29,10 @@ public class HealAbility : Ability
         return true;
     }
 
+    public override int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
+    {
+        // return positive value coz it is heal // TODO: this is not a perfect way to do it...
+        return -1 * base.CalculateInteractionResult(attacker, defender);
+    }
+
 }

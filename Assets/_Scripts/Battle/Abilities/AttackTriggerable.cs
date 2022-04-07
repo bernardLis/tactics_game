@@ -29,8 +29,8 @@ public class AttackTriggerable : BaseTriggerable
         if (!isRetaliation)
             _myStats.SetAttacker(true);
 
-        // damage target
-        int damage = ability.BasePower + _myStats.Strength.GetValue();
+        // damage target // TODO: ugh... this -1 is killing me...
+        int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
         await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
 
         return true;
