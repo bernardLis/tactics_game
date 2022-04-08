@@ -11,7 +11,7 @@
                     <ui:VisualElement name="characterCardPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center;">
                         <ui:VisualElement name="characterCardPortraitSkull" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/death-skull.png?fileID=2800000&amp;guid=e749b49a826e4ae42b6fb0a1a499bbdd&amp;type=3#death-skull&apos;); width: 50%; height: 50%; display: none;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="characterCardModifierContainer" style="height: 32px; width: 100%; flex-direction: row; flex-wrap: wrap;">
+                    <ui:VisualElement name="characterCardModifierContainer" class="modifierContainer">
                         <ui:VisualElement name="modifierIconContainer" class="modifierIconContainer" />
                     </ui:VisualElement>
                 </ui:VisualElement>

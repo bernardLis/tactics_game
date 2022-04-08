@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class StatVisual : VisualElement
+public class StatVisual : VisualWithTooltip
 {
     public Label Icon;
     public Label Value;
+
+    Stat _stat;
+
 
     public StatVisual(Sprite icon, int value)
     {
@@ -16,6 +19,8 @@ public class StatVisual : VisualElement
     public StatVisual(Sprite icon, Stat stat)
     {
         BaseStatVisual(icon);
+
+        _stat = stat;
 
         Value.text = stat.GetValue().ToString();
 
@@ -39,13 +44,13 @@ public class StatVisual : VisualElement
         Value.AddToClassList("statValue");
         Add(Value);
 
-        // TODO: Tooltip study
-        Icon.RegisterCallback<MouseEnterEvent>((evt) => MouseEnters());
+        RegisterTooltipCallbacks();
     }
 
-    void MouseEnters()
+    protected override void DisplayTooltip()
     {
-        Debug.Log($"mouse over {Value}");
+        _tooltip = new(this, _stat.Type.ToString());
+        base.DisplayTooltip();
     }
 
 }

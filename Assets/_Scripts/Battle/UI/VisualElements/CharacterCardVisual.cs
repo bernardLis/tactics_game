@@ -45,7 +45,6 @@ public class CharacterCardVisual : VisualElement
         _characteristics.Add(HandleCharacterStats(null, stats));
     }
 
-
     void BaseCharacterCardVisual(Character character)
     {
         AddToClassList("characterCard");

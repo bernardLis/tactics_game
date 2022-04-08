@@ -1,27 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class ModifierVisual : VisualElement
+public class ModifierVisual : VisualWithTooltip
 {
     public StatModifier Modifier;
     public Status Status;
 
-    public ModifierVisual(StatModifier statModifier)
+    public ModifierVisual(StatModifier modifier)
     {
         BaseModifierVisual();
-        style.backgroundImage = statModifier.Icon.texture;
+        Modifier = modifier;
+        style.backgroundImage = modifier.Icon.texture;
     }
 
     public ModifierVisual(Status status)
     {
         BaseModifierVisual();
+        Status = status;
         style.backgroundImage = status.Icon.texture;
     }
 
     void BaseModifierVisual()
     {
         AddToClassList("modifierIcon");
+        RegisterTooltipCallbacks();
     }
+
+    protected override void DisplayTooltip()
+    {
+        Debug.Log($"Modifier: {Modifier}");
+        Debug.Log($"Status: {Status}");
+        string text = "";
+
+        if (Modifier != null)
+            text = Modifier.name.Replace("(Clone)", "") + " for " + Modifier.NumberOfTurns + " turns";
+
+        if (Status != null)
+            text = Status.name.Replace("(Clone)", "") + " for " + Status.NumberOfTurns + " turns";
+
+        _tooltip = new(this, text);
+        base.DisplayTooltip();
+    }
+
 }
