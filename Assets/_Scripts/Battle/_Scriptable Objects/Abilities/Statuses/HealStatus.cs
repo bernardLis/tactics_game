@@ -11,6 +11,6 @@ public class HealStatus : Status
 
     public override string GetDescription()
     {
-        return "Heals target by " + Value + " for " + NumberOfTurns + " turn/s.";
+        return "Heal " + Value + " for " + NumberOfTurns + " turn/s.";
     }
 }

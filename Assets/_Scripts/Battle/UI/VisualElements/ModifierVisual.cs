@@ -27,10 +27,10 @@ public class ModifierVisual : VisualWithTooltip
         string text = "";
 
         if (Modifier != null)
-            text = Modifier.name.Replace("(Clone)", "") + " for " + Modifier.NumberOfTurns + " turns";
+            text = Modifier.GetDescription();
 
         if (Status != null)
-            text = Status.name.Replace("(Clone)", "") + " for " + Status.NumberOfTurns + " turns";
+            text = Status.GetDescription();
 
         _tooltip = new(this, text);
         base.DisplayTooltip();

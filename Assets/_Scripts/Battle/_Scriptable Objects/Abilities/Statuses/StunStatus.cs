@@ -27,6 +27,6 @@ public class StunStatus : Status
 
     public override string GetDescription()
     {
-        return "Stuns target for " + NumberOfTurns + " turn/s.";
+        return "Stun for " + NumberOfTurns + " turn/s.";
     }
 }

@@ -11,7 +11,7 @@ public class DamageStatus : Status
 
     public override string GetDescription()
     {
-        return "Damages target by " + Value + " for " + NumberOfTurns + " turn/s.";
+        return "Damage " + Value + " for " + NumberOfTurns + " turn/s.";
     }
 
 }

@@ -16,12 +16,7 @@ public class CharacterUI : MonoBehaviour
     VisualElement _characterCardContainer;
     CharacterCardVisual _characterCardVisual;
 
-    VisualElement _tooltipContainer;
-    Label _tooltipAbilityName;
-    Label _tooltipAbilityDescription;
-    Label _tooltipAbilityManaCost;
-    Label _tooltipModifierDescription;
-    Label _tooltipStatusDescription;
+    VisualElement _abilityTooltipContainer;
 
     Button _characterAButton;
     Button _characterSButton;
@@ -75,12 +70,7 @@ public class CharacterUI : MonoBehaviour
         _container = root.Q<VisualElement>("characterUIContainer");
         _characterCardContainer = root.Q<VisualElement>("characterUICharacterCard");
 
-        _tooltipContainer = root.Q<VisualElement>("characterUITooltipContainer");
-        _tooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
-        _tooltipAbilityDescription = root.Q<Label>("characterUITooltipAbilityDescription");
-        _tooltipAbilityManaCost = root.Q<Label>("characterUITooltipAbilityManaCost");
-        _tooltipModifierDescription = root.Q<Label>("characterUITooltipModifierDescription");
-        _tooltipStatusDescription = root.Q<Label>("characterUITooltipStatusDescription");
+        _abilityTooltipContainer = root.Q<VisualElement>("abilityTooltipContainer");
 
         _characterAButton = root.Q<Button>("characterAButton");
         _characterSButton = root.Q<Button>("characterSButton");
@@ -241,29 +231,16 @@ public class CharacterUI : MonoBehaviour
 
     void ShowAbilityTooltip(Ability ability)
     {
-        _tooltipContainer.style.display = DisplayStyle.Flex;
+        _abilityTooltipContainer.style.display = DisplayStyle.Flex;
+        _abilityTooltipContainer.Clear();
 
-        _tooltipAbilityName.text = Helpers.ParseScriptableObjectCloneName(ability.name);
-        _tooltipAbilityDescription.text = ability.Description;
-        _tooltipAbilityManaCost.text = "Mana cost: " + ability.ManaCost;
-
-        _tooltipModifierDescription.style.display = DisplayStyle.Flex;
-        // display modifier & status description
-        if (ability.StatModifier != null)
-            _tooltipModifierDescription.text = ability.StatModifier.GetDescription();
-        else
-            _tooltipModifierDescription.style.display = DisplayStyle.None;
-
-        _tooltipStatusDescription.style.display = DisplayStyle.Flex;
-        if (ability.Status != null)
-            _tooltipStatusDescription.text = ability.Status.GetDescription();
-        else
-            _tooltipStatusDescription.style.display = DisplayStyle.None;
+        AbilityTooltipVisual visual = new(ability);
+        _abilityTooltipContainer.Add(visual);
     }
 
     public void HideAbilityTooltip()
     {
-        _tooltipContainer.style.display = DisplayStyle.None;
+        _abilityTooltipContainer.style.display = DisplayStyle.None;
     }
 
 
@@ -282,7 +259,7 @@ public class CharacterUI : MonoBehaviour
         EnableSkillButtons();
 
         DOTween.Kill(_hideCharacterUIID);
-        DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x), 
+        DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x),
                          _UIShowValue, 0.5f)
                     .SetEase(Ease.InOutSine);
     }
@@ -291,7 +268,7 @@ public class CharacterUI : MonoBehaviour
     {
         HideAbilityTooltip();
         _selectedPlayerStats = null;
-        DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x), 
+        DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x),
                          _UIHideValue, 0.5f)
                 .SetEase(Ease.InOutSine)
                 .SetId(_hideCharacterUIID);
