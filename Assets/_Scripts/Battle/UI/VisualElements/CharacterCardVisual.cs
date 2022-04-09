@@ -43,6 +43,9 @@ public class CharacterCardVisual : VisualElement
             _modifierContainer.Add(el);
 
         _characteristics.Add(HandleCharacterStats(null, stats));
+
+        HealthBar.DisplayMissingAmount(stats.MaxHealth.GetValue(), stats.CurrentHealth);
+        ManaBar.DisplayMissingAmount(stats.MaxMana.GetValue(), stats.CurrentMana);
     }
 
     void BaseCharacterCardVisual(Character character)
@@ -87,7 +90,7 @@ public class CharacterCardVisual : VisualElement
         Label healthLabel = new Label();
         healthLabel.AddToClassList("healthLabel");
 
-        HealthBar = new(Helpers.GetColor("healthBarRed"));
+        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health");
         HealthBar.SetText(character.MaxHealth + "/" + character.MaxHealth);
 
         healthGroup.Add(healthLabel);
@@ -105,7 +108,7 @@ public class CharacterCardVisual : VisualElement
         Label manaLabel = new Label();
         manaLabel.AddToClassList("manaLabel");
 
-        ManaBar = new(Helpers.GetColor("manaBarBlue"));
+        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana");
         ManaBar.SetText(character.MaxMana + "/" + character.MaxMana);
 
         manaGroup.Add(manaLabel);
@@ -137,12 +140,12 @@ public class CharacterCardVisual : VisualElement
     void CreateCharacterStatsChar(Character character)
     {
         CharacterDatabase db = JourneyManager.instance.CharacterDatabase;
-        _strength = new(db.GetStatIconByName("Strength"), character.Strength);
-        _intelligence = new(db.GetStatIconByName("Intelligence"), character.Intelligence);
-        _agility = new(db.GetStatIconByName("Agility"), character.Agility);
-        _stamina = new(db.GetStatIconByName("Stamina"), character.Stamina);
-        _armor = new(db.GetStatIconByName("Armor"), character.Armor);
-        _range = new(db.GetStatIconByName("MovementRange"), character.MovementRange);
+        _strength = new(db.GetStatIconByName("Strength"), character.Strength, "Strength");
+        _intelligence = new(db.GetStatIconByName("Intelligence"), character.Intelligence, "Intelligence");
+        _agility = new(db.GetStatIconByName("Agility"), character.Agility, "Agility");
+        _stamina = new(db.GetStatIconByName("Stamina"), character.Stamina, "Stamina");
+        _armor = new(db.GetStatIconByName("Armor"), character.Armor, "Armor");
+        _range = new(db.GetStatIconByName("MovementRange"), character.MovementRange, "Movement Range");
     }
 
     void CreateCharacterStats(CharacterStats characterStats)

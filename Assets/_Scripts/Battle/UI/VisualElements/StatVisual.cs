@@ -8,19 +8,21 @@ public class StatVisual : VisualWithTooltip
 
     Stat _stat;
 
+    string _tooltipText;
 
-    public StatVisual(Sprite icon, int value)
+    public StatVisual(Sprite icon, int value, string tooltipText) : base()
     {
         BaseStatVisual(icon);
-
+        _tooltipText = tooltipText;
         Value.text = value.ToString();
     }
 
-    public StatVisual(Sprite icon, Stat stat)
+    public StatVisual(Sprite icon, Stat stat) : base()
     {
         BaseStatVisual(icon);
 
         _stat = stat;
+        _tooltipText = _stat.Type.ToString();
 
         Value.text = stat.GetValue().ToString();
 
@@ -43,13 +45,11 @@ public class StatVisual : VisualWithTooltip
         Value = new();
         Value.AddToClassList("statValue");
         Add(Value);
-
-        RegisterTooltipCallbacks();
     }
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, _stat.Type.ToString());
+        _tooltip = new(this, _tooltipText);
         base.DisplayTooltip();
     }
 

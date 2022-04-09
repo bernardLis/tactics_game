@@ -1,18 +1,16 @@
-using UnityEngine;
-
 public class ModifierVisual : VisualWithTooltip
 {
     public StatModifier Modifier;
     public Status Status;
 
-    public ModifierVisual(StatModifier modifier)
+    public ModifierVisual(StatModifier modifier) : base()
     {
         BaseModifierVisual();
         Modifier = modifier;
         style.backgroundImage = modifier.Icon.texture;
     }
 
-    public ModifierVisual(Status status)
+    public ModifierVisual(Status status) : base()
     {
         BaseModifierVisual();
         Status = status;
@@ -22,13 +20,10 @@ public class ModifierVisual : VisualWithTooltip
     void BaseModifierVisual()
     {
         AddToClassList("modifierIcon");
-        RegisterTooltipCallbacks();
     }
 
     protected override void DisplayTooltip()
     {
-        Debug.Log($"Modifier: {Modifier}");
-        Debug.Log($"Status: {Status}");
         string text = "";
 
         if (Modifier != null)

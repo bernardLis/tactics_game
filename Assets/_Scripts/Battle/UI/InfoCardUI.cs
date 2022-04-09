@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Collections.Generic;
 using DG.Tweening;
 
 public class InfoCardUI : MonoBehaviour
@@ -14,17 +13,6 @@ public class InfoCardUI : MonoBehaviour
 
     // character card
     VisualElement _characterCard;
-
-    Label _characterCardStrength;
-    Label _characterCardIntelligence;
-    Label _characterCardAgility;
-    Label _characterCardStamina;
-    Label _characterCardArmor;
-    Label _characterCardRange;
-
-    VisualElement _characterCardModifierContainer;
-
-    // character card
     CharacterCardVisual _characterCardVisual;
 
     // interaction summary
@@ -66,15 +54,6 @@ public class InfoCardUI : MonoBehaviour
         // character card
         _characterCard = root.Q<VisualElement>("characterCard");
         _characterCard.style.left = Length.Percent(_cardHideValue);
-
-        _characterCardStrength = root.Q<Label>("characterCardStrengthAmount");
-        _characterCardIntelligence = root.Q<Label>("characterCardIntelligenceAmount");
-        _characterCardAgility = root.Q<Label>("characterCardAgilityAmount");
-        _characterCardStamina = root.Q<Label>("characterCardStaminaAmount");
-        _characterCardArmor = root.Q<Label>("characterCardArmorAmount");
-        _characterCardRange = root.Q<Label>("characterCardRangeAmount");
-
-        _characterCardModifierContainer = root.Q<VisualElement>("characterCardModifierContainer");
 
         // interaction summary
         _interactionSummary = root.Q<VisualElement>("interactionSummary");
@@ -121,9 +100,6 @@ public class InfoCardUI : MonoBehaviour
         _characterCardVisual = new(stats);
         _characterCard.Add(_characterCardVisual);
 
-        _characterCardVisual.HealthBar.DisplayMissingAmount(stats.MaxHealth.GetValue(), stats.CurrentHealth);
-        _characterCardVisual.ManaBar.DisplayMissingAmount(stats.MaxMana.GetValue(), stats.CurrentMana);
-
         // show the card
         DOTween.To(() => _characterCard.style.left.value.value, x => _characterCard.style.left = Length.Percent(x), _cardShowValue, 0.5f)
                .SetEase(Ease.InOutSine);
@@ -160,7 +136,6 @@ public class InfoCardUI : MonoBehaviour
             hitChance = Mathf.Clamp(hitChance, 0, 100);
 
             _attackHitValue.text = hitChance + "%";
-
         }
 
         if (ability.AbilityType == AbilityType.Heal)
@@ -246,5 +221,4 @@ public class InfoCardUI : MonoBehaviour
     }
 
     void DisplayNone(VisualElement el) { el.style.display = DisplayStyle.None; }
-
 }

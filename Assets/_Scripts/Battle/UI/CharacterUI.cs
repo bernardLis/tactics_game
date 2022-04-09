@@ -12,28 +12,16 @@ public class CharacterUI : MonoBehaviour
     BattleCharacterController _battleCharacterController;
 
     // UI Elements
-    VisualElement _characterUIContainer;
-    VisualElement _characterUI;
-
-    VisualElement _characterUICharacterCard;
-
+    VisualElement _container;
+    VisualElement _characterCardContainer;
     CharacterCardVisual _characterCardVisual;
 
-    VisualElement _characterUITooltipContainer;
-    Label _characterUITooltipAbilityName;
-    Label _characterUITooltipAbilityDescription;
-    Label _characterUITooltipAbilityManaCost;
-    Label _characterUITooltipModifierDescription;
-    Label _characterUITooltipStatusDescription;
-
-    Label _characterStrength;
-    Label _characterIntelligence;
-    Label _characterAgility;
-    Label _characterStamina;
-    Label _characterArmor;
-    Label _characterRange;
-
-    VisualElement _modifierContainer;
+    VisualElement _tooltipContainer;
+    Label _tooltipAbilityName;
+    Label _tooltipAbilityDescription;
+    Label _tooltipAbilityManaCost;
+    Label _tooltipModifierDescription;
+    Label _tooltipStatusDescription;
 
     Button _characterAButton;
     Button _characterSButton;
@@ -58,8 +46,8 @@ public class CharacterUI : MonoBehaviour
     CharacterStats _selectedPlayerStats;
 
     // animate ui up/down on show/hide
-    float _characterUIShowValue = 0f;
-    float _characterUIHideValue = 20f;
+    float _UIShowValue = 0f;
+    float _UIHideValue = -20f;//20f;
 
     // buttons management
     Queue<IEnumerator> _buttonClickQueue = new();
@@ -84,27 +72,15 @@ public class CharacterUI : MonoBehaviour
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        _characterUIContainer = root.Q<VisualElement>("characterUIContainer");
-        _characterUI = root.Q<VisualElement>("characterUI");
-        // otherwise it is null
-        _characterUI.style.top = Length.Percent(_characterUIHideValue);
-        _characterUICharacterCard = root.Q<VisualElement>("characterUICharacterCard");
+        _container = root.Q<VisualElement>("characterUIContainer");
+        _characterCardContainer = root.Q<VisualElement>("characterUICharacterCard");
 
-        _characterUITooltipContainer = root.Q<VisualElement>("characterUITooltipContainer");
-        _characterUITooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
-        _characterUITooltipAbilityDescription = root.Q<Label>("characterUITooltipAbilityDescription");
-        _characterUITooltipAbilityManaCost = root.Q<Label>("characterUITooltipAbilityManaCost");
-        _characterUITooltipModifierDescription = root.Q<Label>("characterUITooltipModifierDescription");
-        _characterUITooltipStatusDescription = root.Q<Label>("characterUITooltipStatusDescription");
-
-        _characterStrength = root.Q<Label>("characterStrengthAmount");
-        _characterIntelligence = root.Q<Label>("characterIntelligenceAmount");
-        _characterAgility = root.Q<Label>("characterAgilityAmount");
-        _characterStamina = root.Q<Label>("characterStaminaAmount");
-        _characterArmor = root.Q<Label>("characterArmorAmount");
-        _characterRange = root.Q<Label>("characterRangeAmount");
-
-        _modifierContainer = root.Q<VisualElement>("modifierContainer");
+        _tooltipContainer = root.Q<VisualElement>("characterUITooltipContainer");
+        _tooltipAbilityName = root.Q<Label>("characterUITooltipAbilityName");
+        _tooltipAbilityDescription = root.Q<Label>("characterUITooltipAbilityDescription");
+        _tooltipAbilityManaCost = root.Q<Label>("characterUITooltipAbilityManaCost");
+        _tooltipModifierDescription = root.Q<Label>("characterUITooltipModifierDescription");
+        _tooltipStatusDescription = root.Q<Label>("characterUITooltipStatusDescription");
 
         _characterAButton = root.Q<Button>("characterAButton");
         _characterSButton = root.Q<Button>("characterSButton");
@@ -265,65 +241,60 @@ public class CharacterUI : MonoBehaviour
 
     void ShowAbilityTooltip(Ability ability)
     {
-        _characterUITooltipContainer.style.display = DisplayStyle.Flex;
+        _tooltipContainer.style.display = DisplayStyle.Flex;
 
-        _characterUITooltipAbilityName.text = Helpers.ParseScriptableObjectCloneName(ability.name);
-        _characterUITooltipAbilityDescription.text = ability.Description;
-        _characterUITooltipAbilityManaCost.text = "Mana cost: " + ability.ManaCost;
+        _tooltipAbilityName.text = Helpers.ParseScriptableObjectCloneName(ability.name);
+        _tooltipAbilityDescription.text = ability.Description;
+        _tooltipAbilityManaCost.text = "Mana cost: " + ability.ManaCost;
 
-        _characterUITooltipModifierDescription.style.display = DisplayStyle.Flex;
+        _tooltipModifierDescription.style.display = DisplayStyle.Flex;
         // display modifier & status description
         if (ability.StatModifier != null)
-            _characterUITooltipModifierDescription.text = ability.StatModifier.GetDescription();
+            _tooltipModifierDescription.text = ability.StatModifier.GetDescription();
         else
-            _characterUITooltipModifierDescription.style.display = DisplayStyle.None;
+            _tooltipModifierDescription.style.display = DisplayStyle.None;
 
-        _characterUITooltipStatusDescription.style.display = DisplayStyle.Flex;
+        _tooltipStatusDescription.style.display = DisplayStyle.Flex;
         if (ability.Status != null)
-            _characterUITooltipStatusDescription.text = ability.Status.GetDescription();
+            _tooltipStatusDescription.text = ability.Status.GetDescription();
         else
-            _characterUITooltipStatusDescription.style.display = DisplayStyle.None;
-
+            _tooltipStatusDescription.style.display = DisplayStyle.None;
     }
 
     public void HideAbilityTooltip()
     {
-        _characterUITooltipContainer.style.display = DisplayStyle.None;
+        _tooltipContainer.style.display = DisplayStyle.None;
     }
 
 
     public void ShowCharacterUI(CharacterStats playerStats)
     {
-        _characterUIContainer.style.display = DisplayStyle.Flex;
-
         InfoCardUI.instance.HideCharacterCard();
 
-        // current character is not in the scene, keep that in mind. It's a static scriptable object.
         _selectedPlayerStats = playerStats;
 
-        _characterUICharacterCard.Clear();
+        _characterCardContainer.Clear();
         _characterCardVisual = new(playerStats);
-        _characterUICharacterCard.Add(_characterCardVisual);
-        _characterCardVisual.HealthBar.DisplayMissingAmount(playerStats.MaxHealth.GetValue(), playerStats.CurrentHealth);
-        _characterCardVisual.ManaBar.DisplayMissingAmount(playerStats.MaxMana.GetValue(), playerStats.CurrentMana);
+        _characterCardContainer.Add(_characterCardVisual);
 
         HandleAbilityButtons();
         DisableSkillButtons();
         EnableSkillButtons();
 
         DOTween.Kill(_hideCharacterUIID);
-        DOTween.To(() => _characterUI.style.top.value.value, x => _characterUI.style.top = Length.Percent(x), _characterUIShowValue, 0.5f)
-            .SetEase(Ease.InOutSine);
+        DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x), 
+                         _UIShowValue, 0.5f)
+                    .SetEase(Ease.InOutSine);
     }
 
     public void HideCharacterUI()
     {
         HideAbilityTooltip();
         _selectedPlayerStats = null;
-        DOTween.To(() => _characterUI.style.top.value.value, x => _characterUI.style.top = Length.Percent(x), _characterUIHideValue, 0.5f)
-            .SetEase(Ease.InOutSine)
-            .SetId(_hideCharacterUIID)
-            .OnComplete(() => _characterUIContainer.style.display = DisplayStyle.None);
+        DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x), 
+                         _UIHideValue, 0.5f)
+                .SetEase(Ease.InOutSine)
+                .SetId(_hideCharacterUIID);
     }
 
     void HandleAbilityButtons()
@@ -490,5 +461,4 @@ public class CharacterUI : MonoBehaviour
         using (var e = new NavigationSubmitEvent() { target = _characterRButton })
             _characterRButton.SendEvent(e);
     }
-
 }

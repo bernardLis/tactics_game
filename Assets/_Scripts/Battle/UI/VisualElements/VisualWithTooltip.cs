@@ -1,11 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public abstract class VisualWithTooltip : VisualElement
 {
     protected TooltipVisual _tooltip;
+
+    public VisualWithTooltip()
+    {
+        RegisterTooltipCallbacks();
+    }
 
     protected void RegisterTooltipCallbacks()
     {

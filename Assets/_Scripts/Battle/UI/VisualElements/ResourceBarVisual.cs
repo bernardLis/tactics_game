@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using System;
 
-public class ResourceBarVisual : VisualElement
+public class ResourceBarVisual : VisualWithTooltip
 {
     VisualElement _missing;
     VisualElement _interactionResult;
@@ -11,8 +11,12 @@ public class ResourceBarVisual : VisualElement
 
     string _tweenID;
 
-    public ResourceBarVisual(Color color)
+    string _tooltipText;
+
+    public ResourceBarVisual(Color color, string tooltipText) : base()
     {
+        _tooltipText = tooltipText;
+
         _missing = new();
         _interactionResult = new();
         _text = new();
@@ -107,4 +111,9 @@ public class ResourceBarVisual : VisualElement
                     .SetId(_tweenID);
     }
 
+    protected override void DisplayTooltip()
+    {
+        _tooltip = new(this, _tooltipText);
+        base.DisplayTooltip();
+    }
 }
