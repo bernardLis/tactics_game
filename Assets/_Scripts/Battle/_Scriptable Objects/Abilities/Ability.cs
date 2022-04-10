@@ -79,7 +79,7 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightTargetable(GameObject self)
     {
-        if (_characterGameObject.CompareTag("Player"))
+        if (_characterGameObject.CompareTag(Tags.Player))
             _battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
 
         if (Range == 0)
@@ -91,7 +91,7 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightAreaOfEffect(Vector3 middlePos)
     {
-        if (_characterGameObject.CompareTag("Player"))
+        if (_characterGameObject.CompareTag(Tags.Player))
             _battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
 
         if (AreaOfEffect == 0)

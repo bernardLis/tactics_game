@@ -14,7 +14,7 @@ public class Collectible : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!_isCollected && other.CompareTag("PushableObstacle"))
+        if (!_isCollected && other.CompareTag(Tags.PushableObstacle))
             Collect();
     }
 

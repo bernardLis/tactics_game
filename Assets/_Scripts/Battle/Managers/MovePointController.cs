@@ -204,7 +204,7 @@ public class MovePointController : MonoBehaviour
         }
 
         // show character card if there is a character there
-        if (col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
+        if (col.transform.CompareTag(Tags.PlayerCollider) || col.transform.CompareTag(Tags.EnemyCollider))
         {
             _infoCardUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
             return;
@@ -244,7 +244,7 @@ public class MovePointController : MonoBehaviour
         if (col == null)
             return;
         // TODO: maybe check for interfaces?
-        if (!(col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider")))
+        if (!(col.transform.CompareTag(Tags.PlayerCollider) || col.transform.CompareTag(Tags.EnemyCollider)))
             return;
 
         CharacterStats attacker = _battleCharacterController.SelectedCharacter.GetComponent<CharacterStats>();

@@ -264,11 +264,11 @@ public class Highlighter : MonoBehaviour
             return true;
 
         // you can't walk on obstacles
-        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("PushableObstacle"))
+        if (col.transform.CompareTag(Tags.Obstacle) || col.transform.CompareTag(Tags.PushableObstacle))
             return false;
 
         // you can't walk on tiles enemies are standing on
-        if (col.transform.CompareTag("EnemyCollider"))
+        if (col.transform.CompareTag(Tags.EnemyCollider))
             return false;
 
         // if we don't return before we can walk on that tile
@@ -290,7 +290,7 @@ public class Highlighter : MonoBehaviour
             return true;
 
         // you can't stop on that tile
-        if (col.transform.CompareTag("Trap") || col.transform.CompareTag("PlayerCollider") || col.transform.CompareTag("EnemyCollider"))
+        if (col.transform.CompareTag(Tags.Trap) || col.transform.CompareTag(Tags.PlayerCollider) || col.transform.CompareTag(Tags.EnemyCollider))
             return false;
 
         // if we don't return before we can stop on that tile
@@ -375,11 +375,11 @@ public class Highlighter : MonoBehaviour
             return true;
 
         // you can't walk on obstacles TODO: better check layer
-        if (col.transform.CompareTag("Obstacle") || col.transform.CompareTag("PushableObstacle"))
+        if (col.transform.CompareTag(Tags.Obstacle) || col.transform.CompareTag(Tags.PushableObstacle))
             return false;
 
         // you can't walk on tiles enemies are standing on
-        if (col.transform.CompareTag("PlayerCollider"))
+        if (col.transform.CompareTag(Tags.PlayerCollider))
             return false;
 
         // if we don't return before we can walk on that tile
@@ -400,7 +400,7 @@ public class Highlighter : MonoBehaviour
             return true;
 
         // you can't stop on that tile
-        if (col.transform.CompareTag("EnemyCollider"))
+        if (col.transform.CompareTag(Tags.EnemyCollider))
             return false;
 
         // if we don't return before we can stop on that tile

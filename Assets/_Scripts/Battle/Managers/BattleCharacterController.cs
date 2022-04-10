@@ -149,7 +149,7 @@ public class BattleCharacterController : MonoBehaviour
         if (col == null)
             return false;
         // can select only player characters
-        if (!col.transform.CompareTag("PlayerCollider"))
+        if (!col.transform.CompareTag(Tags.PlayerCollider))
             return false;
         // character allows selection
         if (!col.GetComponentInParent<PlayerCharSelection>().CanBeSelected())

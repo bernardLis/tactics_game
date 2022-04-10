@@ -25,7 +25,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, GameObject, Abilit
         if (_isPushed)
             return;
 
-        if (!col.transform.CompareTag("EnemyCollider"))
+        if (!col.transform.CompareTag(Tags.EnemyCollider))
             return;
 
 
@@ -100,7 +100,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, GameObject, Abilit
         // trap is triggered on player/enemy
         // character colliders are children
         // enemy triggers trap from trap script
-        if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
+        if (col.transform.gameObject.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
         {
             _targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
@@ -111,10 +111,10 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, GameObject, Abilit
             Destroy(gameObject);
         }
         // trap is destroyed when it hits a boulder
-        else if (col.transform.gameObject.CompareTag("PushableObstacle"))
+        else if (col.transform.gameObject.CompareTag(Tags.PushableObstacle))
             Destroy(gameObject);
         // one trap is destroyed when it hits another traps
-        else if (col.transform.gameObject.CompareTag("Trap"))
+        else if (col.transform.gameObject.CompareTag(Tags.Trap))
             Destroy(gameObject);
         // currently you can't target it on the river bank
     }

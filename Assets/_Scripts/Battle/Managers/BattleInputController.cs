@@ -167,11 +167,6 @@ public class BattleInputController : MonoBehaviour
 
     public void SetInputAllowed(bool isAllowed)
     {
-        if (isAllowed)
-            _characterUI.EnableSkillButtons();
-        if (!isAllowed)
-            _characterUI.DisableSkillButtons();
-
         AllowInput = isAllowed;
     }
 

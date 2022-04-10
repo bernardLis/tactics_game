@@ -70,7 +70,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
         // player/enemy get dmged by 50 and boulder is destroyed
         // character colliders are children
-        if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
+        if (col.transform.gameObject.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
         {
             _targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
@@ -79,10 +79,10 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
             Destroy(gameObject);
         }
         // boulder is destroyed when it hits another boulder
-        else if (col.transform.gameObject.CompareTag("PushableObstacle"))
+        else if (col.transform.gameObject.CompareTag(Tags.PushableObstacle))
             Destroy(gameObject);
         // boulder destroys traps
-        else if (col.transform.gameObject.CompareTag("Trap"))
+        else if (col.transform.gameObject.CompareTag(Tags.Trap))
             Destroy(col.transform.gameObject);
         // currently you can't target it on the river bank
 

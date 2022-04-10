@@ -171,6 +171,9 @@ public class CharacterUI : MonoBehaviour
 
     void AbilityButtonClicked(AbilityButton button)
     {
+        if (!_battleInputController.IsInputAllowed())
+            return;
+
         if (!_battleCharacterController.CanSelectAbility())
             return;
 

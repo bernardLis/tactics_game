@@ -451,7 +451,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
         // player/enemy get dmged by 10 and are moved back to their starting position
         // character colliders are children
-        if (col.transform.gameObject.CompareTag("PlayerCollider") || col.transform.gameObject.CompareTag("EnemyCollider"))
+        if (col.transform.gameObject.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
         {
             TakeDamageNoDodgeNoRetaliation(_characterDmg);
 
@@ -473,14 +473,14 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             StartCoroutine(MoveToPosition(_startingPos, 0.5f));
         }
         // character destroys boulder when they are pushed into it + 10dmg to self
-        else if (col.transform.gameObject.CompareTag("PushableObstacle"))
+        else if (col.transform.gameObject.CompareTag(Tags.PushableObstacle))
         {
             TakeDamageNoDodgeNoRetaliation(_characterDmg);
 
             Destroy(col.transform.parent.gameObject);
         }
         // character triggers traps
-        else if (col.transform.gameObject.CompareTag("Trap"))
+        else if (col.transform.gameObject.CompareTag(Tags.Trap))
         {
             int dmg = col.transform.GetComponentInParent<FootholdTrap>().Damage;
 

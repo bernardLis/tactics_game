@@ -136,7 +136,7 @@ public class CharacterRendererManager : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            if (child.CompareTag("Weapon"))
+            if (child.CompareTag(Tags.Weapon))
                 continue;
 
             Animator an = child.GetComponent<Animator>();

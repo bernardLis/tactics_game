@@ -10,7 +10,7 @@ public class HealTriggerable : BaseTriggerable
         if (!_myStats.IsAttacker)
         {
             // healing self, should be able to choose what direction to face
-            if (target == gameObject && attacker.CompareTag("Player"))
+            if (target == gameObject && attacker.CompareTag(Tags.Player))
                 if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction
                     return false;
 

@@ -38,7 +38,7 @@ public class EnemyManager : MonoBehaviour
         // Recalculate all graphs
         AstarPath.active.Scan();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f); // wait for statuses and modifiers to resolve
         if (TurnManager.BattleState != BattleState.EnemyTurn)
             yield break;
 
