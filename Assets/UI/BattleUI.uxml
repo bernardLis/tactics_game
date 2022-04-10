@@ -142,18 +142,20 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="characterSkills" style="height: 100%; width: 70%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: space-around; align-items: center;">
+            <ui:VisualElement name="basicActions">
+                <ui:Button display-tooltip-when-elided="true" name="openInventory">
+                    <ui:VisualElement name="inventoryIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Items/healthPotion.png?fileID=21300000&amp;guid=8b98bfed039ed294294c2f26d778c79b&amp;type=3#healthPotion&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
+                    <ui:Label text="I" display-tooltip-when-elided="true" name="inventoryTooltip" style="-unity-text-align: upper-center;" />
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="characterAbilities" style="height: 100%; width: 70%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: space-around; align-items: center;">
                 <ui:Button display-tooltip-when-elided="true" name="characterAButton">
-                    <ui:VisualElement name="characterASkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/sword.png?fileID=21300000&amp;guid=64e29a7dee046c448b82b1c27419f427&amp;type=3#sword&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
+                    <ui:VisualElement name="characterASkillIcon" class="abilityButtonIcon" />
                     <ui:Label text="A" display-tooltip-when-elided="true" name="characterASkillTooltip" style="-unity-text-align: upper-center;" />
                 </ui:Button>
                 <ui:Button display-tooltip-when-elided="true" name="characterSButton">
                     <ui:VisualElement name="characterSSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/shield.png?fileID=21300000&amp;guid=46fdae8c04a550547a6bef44d81553d0&amp;type=3#shield&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
                     <ui:Label text="S" display-tooltip-when-elided="true" name="characterSSkillTooltip" style="-unity-text-align: upper-center;" />
-                </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterDButton">
-                    <ui:VisualElement name="characterDSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Items/healthPotion.png?fileID=21300000&amp;guid=8b98bfed039ed294294c2f26d778c79b&amp;type=3#healthPotion&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
-                    <ui:Label text="D" display-tooltip-when-elided="true" name="characterDSkillTooltip" style="-unity-text-align: upper-center;" />
                 </ui:Button>
                 <ui:Button display-tooltip-when-elided="true" name="characterQButton" style="display: none;">
                     <ui:VisualElement name="characterQSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/charm.png?fileID=21300000&amp;guid=15968a194dfe51b49bc2a583a4957492&amp;type=3#charm&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
@@ -173,10 +175,10 @@
                 </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="characterUITooltipContainer" style="width: auto; height: auto; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgba(0, 0, 0, 0.53); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); visibility: visible; display: none;">
-            <ui:Label text="Very Strong Ability" display-tooltip-when-elided="true" name="characterUITooltipAbilityName" style="font-size: 24px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal;" />
-            <ui:Label text="This is a very stong skill, it will deal 50dmg." display-tooltip-when-elided="true" name="characterUITooltipAbilityDescription" style="color: rgb(255, 255, 255); font-size: 18px; white-space: normal;" />
-            <ui:Label text="Mana cost: 50" display-tooltip-when-elided="true" name="characterUITooltipAbilityManaCost" style="color: rgb(255, 255, 255); font-size: 18px; white-space: normal;" />
+        <ui:VisualElement name="abilityTooltipContainer" style="width: auto; height: auto; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgba(0, 0, 0, 0.53); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); visibility: visible; display: none;">
+            <ui:Label text="Very Strong Ability" display-tooltip-when-elided="true" name="characterUITooltipAbilityName" class="abilityName" />
+            <ui:Label text="This is a very stong skill, it will deal 50dmg." display-tooltip-when-elided="true" name="characterUITooltipAbilityDescription" class="abilityDescription" />
+            <ui:Label text="Mana cost: 50" display-tooltip-when-elided="true" name="characterUITooltipAbilityManaCost" class="abilityManaCost" style="color: rgba(255, 255, 255, 255);" />
             <ui:Label text="It modifiers targets AGI by -3" display-tooltip-when-elided="true" name="characterUITooltipModifierDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
             <ui:Label text="It stuns the target." display-tooltip-when-elided="true" name="characterUITooltipStatusDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>

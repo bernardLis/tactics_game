@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DButtonClick",
+                    "name": "OpenInventoryClick",
                     "type": "Button",
                     "id": "7fd84d31-94b6-4e68-bbde-10667712e605",
                     "expectedControlType": "Button",
@@ -323,11 +323,11 @@
                 {
                     "name": "",
                     "id": "f63c75b0-dbbd-4513-9380-8f72c451b1fe",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/i",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "DButtonClick",
+                    "action": "OpenInventoryClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

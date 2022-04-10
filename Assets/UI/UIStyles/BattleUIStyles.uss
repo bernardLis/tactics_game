@@ -114,3 +114,33 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.abilityButtonIcon {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Sprites/Icons/sword.png?fileID=21300000&guid=64e29a7dee046c448b82b1c27419f427&type=3#sword');
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.abilityName {
+    color: rgba(255, 255, 255, 255);
+}
+
+.abilityDescription {
+    color: rgba(255, 255, 255, 255);
+}
+
+.abilityManaCost {
+    color: rgba(255, 255, 255, 255);
+}

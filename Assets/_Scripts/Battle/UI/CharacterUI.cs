@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 public class CharacterUI : MonoBehaviour
 {
@@ -18,34 +19,19 @@ public class CharacterUI : MonoBehaviour
 
     VisualElement _abilityTooltipContainer;
 
-    Button _characterAButton;
-    Button _characterSButton;
-    Button _characterDButton;
-
-    Button _characterQButton;
-    Button _characterWButton;
-    Button _characterEButton;
-    Button _characterRButton;
-    List<Button> _abilityButtons;
-
-    VisualElement _characterASkillIcon;
-    VisualElement _characterSSkillIcon;
-
-    VisualElement _characterQSkillIcon;
-    VisualElement _characterWSkillIcon;
-    VisualElement _characterESkillIcon;
-    VisualElement _characterRSkillIcon;
-    List<VisualElement> _abilityIcons;
+    Button _openInventoryButton;
+    VisualElement _characterAbilitiesContainer;
 
     // local
     CharacterStats _selectedPlayerStats;
 
     // animate ui up/down on show/hide
     float _UIShowValue = 0f;
-    float _UIHideValue = -20f;//20f;
+    float _UIHideValue = -20f;
 
     // buttons management
     Queue<IEnumerator> _buttonClickQueue = new();
+    bool _areButtonEnabled;
     bool _wasClickEnqueued;
 
     string _hideCharacterUIID = "hideCharacterUIID";
@@ -72,46 +58,11 @@ public class CharacterUI : MonoBehaviour
 
         _abilityTooltipContainer = root.Q<VisualElement>("abilityTooltipContainer");
 
-        _characterAButton = root.Q<Button>("characterAButton");
-        _characterSButton = root.Q<Button>("characterSButton");
-        _characterDButton = root.Q<Button>("characterDButton");
+        _openInventoryButton = root.Q<Button>("openInventory");
+        _openInventoryButton.clickable.clicked += OpenInventoryClicked;
 
-        _characterQButton = root.Q<Button>("characterQButton");
-        _characterWButton = root.Q<Button>("characterWButton");
-        _characterEButton = root.Q<Button>("characterEButton");
-        _characterRButton = root.Q<Button>("characterRButton");
-
-        // TODO: this could be probably improved
-        _abilityButtons = new();
-        _abilityButtons.Add(_characterQButton);
-        _abilityButtons.Add(_characterWButton);
-        _abilityButtons.Add(_characterEButton);
-        _abilityButtons.Add(_characterRButton);
-
-        // register interaction callbacks (buttons)
-        _characterAButton.clickable.clicked += AButtonClicked;
-        _characterSButton.clickable.clicked += SButtonClicked;
-        _characterDButton.clickable.clicked += DButtonClicked;
-
-        _characterQButton.clickable.clicked += QButtonClicked;
-        _characterWButton.clickable.clicked += WButtonClicked;
-        _characterEButton.clickable.clicked += EButtonClicked;
-        _characterRButton.clickable.clicked += RButtonClicked;
-
-        _characterASkillIcon = root.Q<VisualElement>("characterASkillIcon");
-        _characterSSkillIcon = root.Q<VisualElement>("characterSSkillIcon");
-
-        _characterQSkillIcon = root.Q<VisualElement>("characterQSkillIcon");
-        _characterWSkillIcon = root.Q<VisualElement>("characterWSkillIcon");
-        _characterESkillIcon = root.Q<VisualElement>("characterESkillIcon");
-        _characterRSkillIcon = root.Q<VisualElement>("characterRSkillIcon");
-
-        // TODO: this could be probably improved
-        _abilityIcons = new();
-        _abilityIcons.Add(_characterQSkillIcon);
-        _abilityIcons.Add(_characterWSkillIcon);
-        _abilityIcons.Add(_characterESkillIcon);
-        _abilityIcons.Add(_characterRSkillIcon);
+        _characterAbilitiesContainer = root.Q<VisualElement>("characterAbilities");
+        _characterAbilitiesContainer.Clear();
     }
 
     void Start()
@@ -122,127 +73,6 @@ public class CharacterUI : MonoBehaviour
         //https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
         StartCoroutine(CoroutineCoordinator());
     }
-
-    // allow clicks only when not moving and character is selected & did not finish its turn
-    // first 2 abilities should always be 
-    void AButtonClicked()
-    {
-        if (!_battleCharacterController.CanSelectAbility())
-            return;
-
-        // TODO: hardcoded ability indexes
-        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.BasicAbilities[0]));
-    }
-
-    void SButtonClicked()
-    {
-        if (!_battleCharacterController.CanSelectAbility())
-            return;
-
-        // TODO: hardcoded ability indexes
-        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.BasicAbilities[1]));
-    }
-
-    void DButtonClicked()
-    {
-        if (!_battleCharacterController.CanSelectAbility())
-            return;
-
-        // TODO: hardcoded ability indexes
-        OpenInventory();
-    }
-
-    void QButtonClicked()
-    {
-        if (!_battleCharacterController.CanSelectAbility())
-            return;
-
-        // TODO: hardcoded ability indexes
-        if (_selectedPlayerStats.Abilities[0] == null)
-            return;
-
-        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.Abilities[0]));
-    }
-
-    void WButtonClicked()
-    {
-        if (!_battleCharacterController.CanSelectAbility())
-            return;
-
-        // TODO: hardcoded ability indexes
-        if (_selectedPlayerStats.Abilities[1] == null)
-            return;
-
-        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.Abilities[1]));
-    }
-
-    void EButtonClicked()
-    {
-        if (!_battleCharacterController.CanSelectAbility())
-            return;
-
-        // TODO: hardcoded ability indexes
-        if (_selectedPlayerStats.Abilities[2] == null)
-            return;
-
-        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.Abilities[2]));
-    }
-
-    void RButtonClicked()
-    {
-        if (!_battleCharacterController.CanSelectAbility())
-            return;
-
-        // TODO: hardcoded ability indexes
-        if (_selectedPlayerStats.Abilities[3] == null)
-            return;
-
-        _buttonClickQueue.Enqueue(HandleButtonClick(_selectedPlayerStats.Abilities[3]));
-    }
-
-    // TODO: Hey future Bernard, I know you are looking at this and thinking: "damn... mixing coroutines and async await sucks, what was I thinking"
-    // I, past Bernard would like to tell you that I tried hard to make it work and I left coroutines and async await not because I don't like you but
-    // because I am not skilled enough to rewrite everything to use only async await. 
-    IEnumerator HandleButtonClick(Ability ability)
-    {
-        _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
-
-        ShowAbilityTooltip(ability);
-
-        Task task = ability.HighlightTargetable(_battleCharacterController.SelectedCharacter); // for some reason this works, but it has to be written exactly like that with Task task = ;
-        yield return new WaitUntil(() => task.IsCompleted);
-
-        _battleCharacterController.SetSelectedAbility(ability);
-    }
-
-    void OpenInventory()
-    {
-        _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
-        InventoryUI.instance.EnableInventoryUI();
-        // then player selects item and I can queue ability with handle button click... sounds a bit convoluted
-        // I probably need to disable game controlls and enable inventory controls.
-    }
-
-    public void UseItem(Item item)
-    {
-        item.Ability.Initialize(_battleCharacterController.SelectedCharacter);
-        _buttonClickQueue.Enqueue(HandleButtonClick(item.Ability));
-    }
-
-    void ShowAbilityTooltip(Ability ability)
-    {
-        _abilityTooltipContainer.style.display = DisplayStyle.Flex;
-        _abilityTooltipContainer.Clear();
-
-        AbilityTooltipVisual visual = new(ability);
-        _abilityTooltipContainer.Add(visual);
-    }
-
-    public void HideAbilityTooltip()
-    {
-        _abilityTooltipContainer.style.display = DisplayStyle.None;
-    }
-
 
     public void ShowCharacterUI(CharacterStats playerStats)
     {
@@ -272,64 +102,6 @@ public class CharacterUI : MonoBehaviour
                          _UIHideValue, 0.5f)
                 .SetEase(Ease.InOutSine)
                 .SetId(_hideCharacterUIID);
-    }
-
-    void HandleAbilityButtons()
-    {
-        // TODO: hardcoded ability indexes
-        _characterASkillIcon.style.backgroundImage = _selectedPlayerStats.BasicAbilities[0].Icon.texture;
-        _characterSSkillIcon.style.backgroundImage = _selectedPlayerStats.BasicAbilities[1].Icon.texture;
-
-        for (int i = 0; i < _abilityButtons.Count; i++)
-        {
-            if (_selectedPlayerStats.Abilities.Count <= i)
-            {
-                _abilityButtons[i].style.display = DisplayStyle.None;
-                continue;
-            }
-
-            // show buttons for each ability
-            _abilityButtons[i].style.display = DisplayStyle.Flex;
-            _abilityIcons[i].style.backgroundImage = _selectedPlayerStats.Abilities[i].Icon.texture;
-        }
-    }
-
-    public void DisableSkillButtons()
-    {
-        _characterAButton.SetEnabled(false);
-        _characterSButton.SetEnabled(false);
-        _characterDButton.SetEnabled(false);
-
-        _characterQButton.SetEnabled(false);
-        _characterWButton.SetEnabled(false);
-        _characterEButton.SetEnabled(false);
-        _characterRButton.SetEnabled(false);
-    }
-
-    public void EnableSkillButtons()
-    {
-        if (_selectedPlayerStats == null)
-            return;
-
-        // costless actions
-        _characterAButton.SetEnabled(true);
-        _characterSButton.SetEnabled(true);
-        _characterDButton.SetEnabled(true);
-
-        // enable buttons if they are populated
-        // && player has enough mana to cast ability;
-        // && weapon type matches
-        for (int i = 0; i < _abilityButtons.Count; i++)
-        {
-            if (_abilityButtons[i].style.display == DisplayStyle.None)
-                continue;
-            if (_selectedPlayerStats.Abilities[i].ManaCost >= _selectedPlayerStats.CurrentMana)
-                continue;
-            if (_selectedPlayerStats.Abilities[i].WeaponType != _selectedPlayerStats.Character.Weapon.WeaponType && _selectedPlayerStats.Abilities[i].WeaponType != WeaponType.Any)
-                continue;
-
-            _abilityButtons[i].SetEnabled(true);
-        }
     }
 
     public void ShowHealthChange(int val)
@@ -370,6 +142,119 @@ public class CharacterUI : MonoBehaviour
                                                             _selectedPlayerStats.CurrentMana);
     }
 
+    void HandleAbilityButtons()
+    {
+
+        // TODO: I think that the idea with buttons remembering their input key is not so good
+        // but I don't have any other ideas... maybe in the future I will come up with something
+        // it's for simulating button clicks with the keyboard;
+        string[] buttons = { "Q", "W", "E", "R" };
+
+        AbilityButton basicAttack = new(_selectedPlayerStats.BasicAbilities[0], "A");
+        basicAttack.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicAttack));
+
+        AbilityButton basicDefend = new(_selectedPlayerStats.BasicAbilities[1], "S");
+        basicDefend.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicDefend));
+
+        _characterAbilitiesContainer.Clear();
+        _characterAbilitiesContainer.Add(basicAttack);
+        _characterAbilitiesContainer.Add(basicDefend);
+
+        for (int i = 0; i < _selectedPlayerStats.Abilities.Count; i++)
+        {
+            AbilityButton button = new(_selectedPlayerStats.Abilities[i], buttons[i]);
+            button.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(button));
+
+            _characterAbilitiesContainer.Add(button);
+        }
+    }
+
+    void AbilityButtonClicked(AbilityButton button)
+    {
+        if (!_battleCharacterController.CanSelectAbility())
+            return;
+
+        _buttonClickQueue.Enqueue(HandleButtonClick(button.Ability));
+    }
+
+    public void DisableSkillButtons()
+    {
+        _areButtonEnabled = false;
+
+        foreach (var el in _characterAbilitiesContainer.Children())
+            el.SetEnabled(false);
+    }
+
+    public void EnableSkillButtons()
+    {
+        if (_characterAbilitiesContainer.childCount == 0)
+            return;
+
+        _areButtonEnabled = true;
+
+        foreach (var el in _characterAbilitiesContainer.Children())
+        {
+            AbilityButton ab = (AbilityButton)el;
+            if (ab.Ability.ManaCost >= _selectedPlayerStats.CurrentMana)
+                continue;
+            if (ab.Ability.WeaponType != _selectedPlayerStats.Character.Weapon.WeaponType && ab.Ability.WeaponType != WeaponType.Any)
+                continue;
+
+            ab.SetEnabled(true);
+        }
+    }
+
+    void ShowAbilityTooltip(Ability ability)
+    {
+        _abilityTooltipContainer.style.display = DisplayStyle.Flex;
+        _abilityTooltipContainer.Clear();
+
+        AbilityTooltipVisual visual = new(ability);
+        _abilityTooltipContainer.Add(visual);
+    }
+
+    public void HideAbilityTooltip()
+    {
+        _abilityTooltipContainer.style.display = DisplayStyle.None;
+    }
+
+    void OpenInventoryClicked()
+    {
+        if (!_battleCharacterController.CanSelectAbility())
+            return;
+        if (!_areButtonEnabled)
+            return;
+
+        OpenInventory();
+    }
+
+    void OpenInventory()
+    {
+        _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+        InventoryUI.instance.EnableInventoryUI();
+    }
+
+    public void UseItem(Item item)
+    {
+        item.Ability.Initialize(_battleCharacterController.SelectedCharacter);
+        _buttonClickQueue.Enqueue(HandleButtonClick(item.Ability));
+    }
+
+    // TODO: Hey future Bernard, I know you are looking at this and thinking: "damn... mixing coroutines and async await sucks, what was I thinking"
+    // I, past Bernard would like to tell you that I tried hard to make it work and I left coroutines and async await not because I don't like you but
+    // because I am not skilled enough to rewrite everything to use only async await. 
+    IEnumerator HandleButtonClick(Ability ability)
+    {
+        _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
+
+        ShowAbilityTooltip(ability);
+
+        Task task = ability.HighlightTargetable(_battleCharacterController.SelectedCharacter); // for some reason this works, but it has to be written exactly like that with Task task = ;
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        _battleCharacterController.SetSelectedAbility(ability);
+    }
+
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
     IEnumerator CoroutineCoordinator()
     {
@@ -394,48 +279,29 @@ public class CharacterUI : MonoBehaviour
         }
     }
 
-    // for keyboard input
-    public void SimulateAButtonClicked()
+    /* Keyboard input */
+    public void SimulateOpenInventoryClicked()
     {
-        using (var e = new NavigationSubmitEvent() { target = _characterAButton })
-            _characterAButton.SendEvent(e);
+        using (var e = new NavigationSubmitEvent() { target = _openInventoryButton })
+            _openInventoryButton.SendEvent(e);
     }
 
-    public void SimulateSButtonClicked()
+    public void SimulateAbilityButtonClicked(InputAction.CallbackContext ctx)
     {
-        using (var e = new NavigationSubmitEvent() { target = _characterSButton })
-            _characterSButton.SendEvent(e);
-    }
+        if (_characterAbilitiesContainer.childCount == 0)
+            return;
 
-    public void SimulateDButtonClicked()
-    {
-        using (var e = new NavigationSubmitEvent() { target = _characterDButton })
-            _characterDButton.SendEvent(e);
-    }
+        foreach (var el in _characterAbilitiesContainer.Children())
+        {
+            AbilityButton ab = (AbilityButton)el;
+            if (ab.Key == ctx.control.name.ToUpper())
+            {
+                // https://forum.unity.com/threads/trigger-button-click-from-code.1124356/
+                using (var e = new NavigationSubmitEvent() { target = ab })
+                    ab.SendEvent(e);
 
-
-    public void SimulateQButtonClicked()
-    {
-        // https://forum.unity.com/threads/trigger-button-click-from-code.1124356/
-        using (var e = new NavigationSubmitEvent() { target = _characterQButton })
-            _characterQButton.SendEvent(e);
-    }
-
-    public void SimulateWButtonClicked()
-    {
-        using (var e = new NavigationSubmitEvent() { target = _characterWButton })
-            _characterWButton.SendEvent(e);
-    }
-
-    public void SimulateEButtonClicked()
-    {
-        using (var e = new NavigationSubmitEvent() { target = _characterEButton })
-            _characterEButton.SendEvent(e);
-    }
-
-    public void SimulateRButtonClicked()
-    {
-        using (var e = new NavigationSubmitEvent() { target = _characterRButton })
-            _characterRButton.SendEvent(e);
+                AbilityButtonClicked(ab);
+            }
+        }
     }
 }

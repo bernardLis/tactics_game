@@ -119,14 +119,15 @@ public class BattleInputController : MonoBehaviour
 
         _playerInput.actions["SelectClick"].performed += SelectClick;
 
-        _playerInput.actions["AButtonClick"].performed += AButtonClickInput;
-        _playerInput.actions["SButtonClick"].performed += SButtonClickInput;
-        _playerInput.actions["DButtonClick"].performed += DButtonClickInput;
+        _playerInput.actions["OpenInventoryClick"].performed += OpenInventoryClicked;
 
-        _playerInput.actions["QButtonClick"].performed += QButtonClickInput;
-        _playerInput.actions["WButtonClick"].performed += WButtonClickInput;
-        _playerInput.actions["EButtonClick"].performed += EButtonClickInput;
-        _playerInput.actions["RButtonClick"].performed += RButtonClickInput;
+        _playerInput.actions["AButtonClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["SButtonClick"].performed += AbilityButtonClicked;
+
+        _playerInput.actions["QButtonClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["WButtonClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["EButtonClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["RButtonClick"].performed += AbilityButtonClicked;
 
         _playerInput.actions["Back"].performed += BackClick;
 
@@ -144,14 +145,15 @@ public class BattleInputController : MonoBehaviour
 
         _playerInput.actions["SelectClick"].performed -= SelectClick;
 
-        _playerInput.actions["AButtonClick"].performed -= AButtonClickInput;
-        _playerInput.actions["SButtonClick"].performed -= SButtonClickInput;
-        _playerInput.actions["DButtonClick"].performed -= DButtonClickInput;
+        _playerInput.actions["OpenInventoryClick"].performed -= OpenInventoryClicked;
 
-        _playerInput.actions["QButtonClick"].performed -= QButtonClickInput;
-        _playerInput.actions["WButtonClick"].performed -= WButtonClickInput;
-        _playerInput.actions["EButtonClick"].performed -= EButtonClickInput;
-        _playerInput.actions["RButtonClick"].performed -= RButtonClickInput;
+        _playerInput.actions["AButtonClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["SButtonClick"].performed -= AbilityButtonClicked;
+
+        _playerInput.actions["QButtonClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["WButtonClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["EButtonClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["RButtonClick"].performed -= AbilityButtonClicked;
 
         _playerInput.actions["Back"].performed -= BackClick;
 
@@ -255,37 +257,13 @@ public class BattleInputController : MonoBehaviour
         _battleCharacterController.UnselectCharacter();
     }
 
-    // when you click Q on keyboard I want to simulate clicking a button with mouse
-    void AButtonClickInput(InputAction.CallbackContext ctx)
+    void OpenInventoryClicked(InputAction.CallbackContext ctx)
     {
-        _characterUI.SimulateAButtonClicked();
-    }
-    void SButtonClickInput(InputAction.CallbackContext ctx)
-    {
-        _characterUI.SimulateSButtonClicked();
-    }
-    void DButtonClickInput(InputAction.CallbackContext ctx)
-    {
-        _characterUI.SimulateDButtonClicked();
+        _characterUI.SimulateOpenInventoryClicked();
     }
 
-
-    void QButtonClickInput(InputAction.CallbackContext ctx)
+    void AbilityButtonClicked(InputAction.CallbackContext ctx)
     {
-        _characterUI.SimulateQButtonClicked();
+        _characterUI.SimulateAbilityButtonClicked(ctx);
     }
-    void WButtonClickInput(InputAction.CallbackContext ctx)
-    {
-        _characterUI.SimulateWButtonClicked();
-    }
-    void EButtonClickInput(InputAction.CallbackContext ctx)
-    {
-        _characterUI.SimulateEButtonClicked();
-    }
-    void RButtonClickInput(InputAction.CallbackContext ctx)
-    {
-        _characterUI.SimulateRButtonClicked();
-    }
-
-
 }

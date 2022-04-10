@@ -55,7 +55,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DButtonClick"",
+                    ""name"": ""OpenInventoryClick"",
                     ""type"": ""Button"",
                     ""id"": ""7fd84d31-94b6-4e68-bbde-10667712e605"",
                     ""expectedControlType"": ""Button"",
@@ -345,11 +345,11 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f63c75b0-dbbd-4513-9380-8f72c451b1fe"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""DButtonClick"",
+                    ""action"": ""OpenInventoryClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -757,7 +757,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_ArrowMovement = m_Player.FindAction("ArrowMovement", throwIfNotFound: true);
         m_Player_AButtonClick = m_Player.FindAction("AButtonClick", throwIfNotFound: true);
         m_Player_SButtonClick = m_Player.FindAction("SButtonClick", throwIfNotFound: true);
-        m_Player_DButtonClick = m_Player.FindAction("DButtonClick", throwIfNotFound: true);
+        m_Player_OpenInventoryClick = m_Player.FindAction("OpenInventoryClick", throwIfNotFound: true);
         m_Player_QButtonClick = m_Player.FindAction("QButtonClick", throwIfNotFound: true);
         m_Player_WButtonClick = m_Player.FindAction("WButtonClick", throwIfNotFound: true);
         m_Player_EButtonClick = m_Player.FindAction("EButtonClick", throwIfNotFound: true);
@@ -847,7 +847,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ArrowMovement;
     private readonly InputAction m_Player_AButtonClick;
     private readonly InputAction m_Player_SButtonClick;
-    private readonly InputAction m_Player_DButtonClick;
+    private readonly InputAction m_Player_OpenInventoryClick;
     private readonly InputAction m_Player_QButtonClick;
     private readonly InputAction m_Player_WButtonClick;
     private readonly InputAction m_Player_EButtonClick;
@@ -865,7 +865,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @ArrowMovement => m_Wrapper.m_Player_ArrowMovement;
         public InputAction @AButtonClick => m_Wrapper.m_Player_AButtonClick;
         public InputAction @SButtonClick => m_Wrapper.m_Player_SButtonClick;
-        public InputAction @DButtonClick => m_Wrapper.m_Player_DButtonClick;
+        public InputAction @OpenInventoryClick => m_Wrapper.m_Player_OpenInventoryClick;
         public InputAction @QButtonClick => m_Wrapper.m_Player_QButtonClick;
         public InputAction @WButtonClick => m_Wrapper.m_Player_WButtonClick;
         public InputAction @EButtonClick => m_Wrapper.m_Player_EButtonClick;
@@ -894,9 +894,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @SButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSButtonClick;
                 @SButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSButtonClick;
                 @SButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSButtonClick;
-                @DButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDButtonClick;
-                @DButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDButtonClick;
-                @DButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDButtonClick;
+                @OpenInventoryClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenInventoryClick;
+                @OpenInventoryClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenInventoryClick;
+                @OpenInventoryClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenInventoryClick;
                 @QButtonClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
                 @QButtonClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
                 @QButtonClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQButtonClick;
@@ -940,9 +940,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @SButtonClick.started += instance.OnSButtonClick;
                 @SButtonClick.performed += instance.OnSButtonClick;
                 @SButtonClick.canceled += instance.OnSButtonClick;
-                @DButtonClick.started += instance.OnDButtonClick;
-                @DButtonClick.performed += instance.OnDButtonClick;
-                @DButtonClick.canceled += instance.OnDButtonClick;
+                @OpenInventoryClick.started += instance.OnOpenInventoryClick;
+                @OpenInventoryClick.performed += instance.OnOpenInventoryClick;
+                @OpenInventoryClick.canceled += instance.OnOpenInventoryClick;
                 @QButtonClick.started += instance.OnQButtonClick;
                 @QButtonClick.performed += instance.OnQButtonClick;
                 @QButtonClick.canceled += instance.OnQButtonClick;
@@ -1163,7 +1163,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnArrowMovement(InputAction.CallbackContext context);
         void OnAButtonClick(InputAction.CallbackContext context);
         void OnSButtonClick(InputAction.CallbackContext context);
-        void OnDButtonClick(InputAction.CallbackContext context);
+        void OnOpenInventoryClick(InputAction.CallbackContext context);
         void OnQButtonClick(InputAction.CallbackContext context);
         void OnWButtonClick(InputAction.CallbackContext context);
         void OnEButtonClick(InputAction.CallbackContext context);
