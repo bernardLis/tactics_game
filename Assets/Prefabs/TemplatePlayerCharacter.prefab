@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 2727775403500498410}
   - component: {fileID: -2183359834462256654}
   - component: {fileID: 1712415301602900234}
+  - component: {fileID: 3267737147490542251}
   m_Layer: 6
   m_Name: TemplatePlayerCharacter
   m_TagString: Player
@@ -291,39 +292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93fcf6f467bff8e44a97e3b68bc4832b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Strength:
-    Type: 0
-    BaseValue: 0
-    Modifiers: []
-  Intelligence:
-    Type: 1
-    BaseValue: 0
-    Modifiers: []
-  Agility:
-    Type: 2
-    BaseValue: 0
-    Modifiers: []
-  Stamina:
-    Type: 3
-    BaseValue: 0
-    Modifiers: []
-  MaxHealth:
-    Type: 4
-    BaseValue: 0
-    Modifiers: []
-  MaxMana:
-    Type: 5
-    BaseValue: 0
-    Modifiers: []
-  Armor:
-    Type: 6
-    BaseValue: 0
-    Modifiers: []
-  MovementRange:
-    Type: 7
-    BaseValue: 0
-    Modifiers: []
-  Stats: []
   BasicAbilities: []
   Abilities: []
   Statuses: []
@@ -339,7 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c544fc6426e029429c54d55ebae389e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grayOutColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
   _selectionArrow: {fileID: 6628598217306585581}
 --- !u!114 &4212650218818044008
 MonoBehaviour:
@@ -493,6 +460,20 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &3267737147490542251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105715623576548083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45e20632f1604fc6bb73e0e79cd7368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  manager: {fileID: 0}
 --- !u!1 &6105715624814662954
 GameObject:
   m_ObjectHideFlags: 0

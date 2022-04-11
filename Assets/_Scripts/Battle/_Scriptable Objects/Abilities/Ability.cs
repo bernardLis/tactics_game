@@ -65,9 +65,9 @@ public abstract class Ability : BaseScriptableObject
     public virtual void Initialize(GameObject self)
     {
         _characterGameObject = self;
-        _highlighter = BattleManager.instance.GetComponent<Highlighter>();
-        _battleCharacterController = BattleCharacterController.instance;
-        _audioSource = AudioScript.instance.GetComponent<AudioSource>();
+        _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
+        _battleCharacterController = BattleCharacterController.Instance;
+        _audioSource = AudioManager.Instance.GetComponent<AudioSource>();
     }
 
     // TODO: I am not certain whether this is correct.

@@ -61,8 +61,8 @@ public class BoardManager : MonoBehaviour
 
     void Start()
     {
-        _highlighter = Highlighter.instance;
-        _turnManager = TurnManager.instance;
+        _highlighter = Highlighter.Instance;
+        _turnManager = TurnManager.Instance;
         GenerateMap();
     }
 
@@ -91,7 +91,7 @@ public class BoardManager : MonoBehaviour
         await Task.Delay(100);
         DrawOuter();
         await Task.Delay(100);
-        BattleManager.instance.GetComponent<TileManager>().SetUp();
+        BattleManager.Instance.GetComponent<TileManager>().SetUp();
         PlaceOuterAdditions();
         if (Random.Range(0, 2) == 0)
             LayoutObjectAtRandom(_trapPrefab, _trapPercent);
@@ -108,7 +108,7 @@ public class BoardManager : MonoBehaviour
 
         _highlighter.ClearHighlightedTiles().GetAwaiter();
         _turnManager.UpdateBattleState(BattleState.MapBuilding);
-        MovePointController.instance.transform.position = new Vector3(MapSize.x / 2, MapSize.y / 2);
+        MovePointController.Instance.transform.position = new Vector3(MapSize.x / 2, MapSize.y / 2);
 
         _biome = _biomes[Random.Range(0, _biomes.Length)];
 

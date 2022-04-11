@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : Singleton<PlayerInventory>
 {
     VisualElement _inventoryGrid;
 
@@ -18,19 +18,11 @@ public class PlayerInventory : MonoBehaviour
     public Dimensions InventoryDimensions;
 
     object _inventoryHasSpace;
-    public static PlayerInventory Instance;
 
-    void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            StartCoroutine(Configure());
-        }
-        else if (Instance != this)
-        {
-            Destroy(this);
-        }
+        base.Awake();
+        StartCoroutine(Configure());
     }
 
     IEnumerator Configure()

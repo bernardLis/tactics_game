@@ -18,7 +18,7 @@ public class Item : BaseScriptableObject
     public virtual void PickUp()
     {
         // TODO: maybe a bad idea? 
-        InventoryManager.instance.Add(this);
+        InventoryManager.Instance.Add(this);
     }
 
     public virtual void Use()

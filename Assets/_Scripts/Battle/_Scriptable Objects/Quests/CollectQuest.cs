@@ -14,7 +14,7 @@ public class CollectQuest : Quest
 				qGoal.Initialize();
 		}
 
-		GameUI.instance.DisplayLogText("New quest: " + Title);
+		GameUI.Instance.DisplayLogText("New quest: " + Title);
 
 		State = QuestState.ACTIVE;
 	}
@@ -24,7 +24,7 @@ public class CollectQuest : Quest
 		State = QuestState.COMPLETED;
 
 		// UI
-		GameUI.instance.DisplayLogText("Quest completed: " + Title);
+		GameUI.Instance.DisplayLogText("Quest completed: " + Title);
 
 		// remove quest items
 		foreach (var qGoal in Goals)
@@ -33,13 +33,13 @@ public class CollectQuest : Quest
 		}
 
 		// give player the reward
-		InventoryManager.instance.Add(Reward);
+		InventoryManager.Instance.Add(Reward);
 	}
 
 	public override void Fail()
 	{
 		// TODO: show ui
-		GameUI.instance.DisplayLogText("Quest failed: " + Title);
+		GameUI.Instance.DisplayLogText("Quest failed: " + Title);
 
 		State = QuestState.FAILED;
 	}

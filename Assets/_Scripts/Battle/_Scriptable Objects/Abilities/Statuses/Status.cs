@@ -38,7 +38,7 @@ public class Status : BaseScriptableObject
         _characterStats = self.GetComponent<CharacterStats>();
 
         _damageUI = self.GetComponent<DamageUI>();
-        _battleCharacterController = BattleCharacterController.instance;
+        _battleCharacterController = BattleCharacterController.Instance;
 
         if (attacker != null)
             _attacker = attacker;

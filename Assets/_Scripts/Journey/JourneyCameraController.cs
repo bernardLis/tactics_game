@@ -9,7 +9,7 @@ public class JourneyCameraController : MonoBehaviour
 
     void Start()
     {
-        _playerInput = JourneyMapManager.instance.GetComponent<PlayerInput>();
+        _playerInput = JourneyMapManager.Instance.GetComponent<PlayerInput>();
         UnsubscribeInputActions();
         SubscribeInputActions();
     }

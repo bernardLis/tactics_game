@@ -5,7 +5,7 @@ using DG.Tweening;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
 
-public class JourneyChestManager : MonoBehaviour
+public class JourneyChestManager : Singleton<JourneyChestManager>
 {
     // global
     JourneyManager _journeyManager;
@@ -43,21 +43,12 @@ public class JourneyChestManager : MonoBehaviour
     public JourneyChestBehaviour CurrentCursorChest { get; private set; }
     JourneyChestBehaviour _selectedChest;
 
-    public static JourneyChestManager instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of JourneyChestManager found");
-            return;
-        }
-        instance = this;
-        #endregion
+        base.Awake();
 
         // global
-        _journeyManager = JourneyManager.instance;
+        _journeyManager = JourneyManager.Instance;
         _cam = Camera.main.GetComponent<ResponsiveCamera>();
 
         // UI

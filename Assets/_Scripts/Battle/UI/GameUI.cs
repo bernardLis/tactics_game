@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GameUI : MonoBehaviour
+public class GameUI : Singleton<GameUI>
 {
     // UI
     UIDocument _UIDocument;
@@ -14,20 +14,9 @@ public class GameUI : MonoBehaviour
     string _currentLog;
     bool isShowLogRunning;
 
-    public static GameUI instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of UIDocument found");
-            return;
-        }
-        instance = this;
-
-        #endregion
-
+        base.Awake();
         // getting ui elements
         _UIDocument = GetComponent<UIDocument>();
         var root = _UIDocument.rootVisualElement;
@@ -41,10 +30,10 @@ public class GameUI : MonoBehaviour
 
     public void HideAllUIPanels()
     {
-        CharacterUI.instance.HideCharacterUI();
-        InfoCardUI.instance.HideCharacterCard();
-        InfoCardUI.instance.HideInteractionSummary();
-        InfoCardUI.instance.HideTileInfo();
+        CharacterUI.Instance.HideCharacterUI();
+        InfoCardUI.Instance.HideCharacterCard();
+        InfoCardUI.Instance.HideInteractionSummary();
+        InfoCardUI.Instance.HideTileInfo();
 
         _UIDocument.rootVisualElement.Q<VisualElement>("inventoryContainer").style.display = DisplayStyle.None;
         _UIDocument.rootVisualElement.Q<VisualElement>("questUI").style.display = DisplayStyle.None;

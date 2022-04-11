@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class JourneyManager : MonoBehaviour, ISavable
+public class JourneyManager : PersistentSingleton<JourneyManager>, ISavable
 {
     LevelLoader _levelLoader;
 
@@ -23,9 +23,10 @@ public class JourneyManager : MonoBehaviour, ISavable
     public int Obols { get; private set; }
     public JourneyNodeReward Reward { get; private set; }
 
-    public static JourneyManager instance;
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        /*
         #region Singleton
         // singleton
         if (instance != null && instance != this)
@@ -41,7 +42,7 @@ public class JourneyManager : MonoBehaviour, ISavable
             DontDestroyOnLoad(this.gameObject);
         }
         #endregion
-
+        */
         _levelLoader = GetComponent<LevelLoader>();
 
         // copy array to list;

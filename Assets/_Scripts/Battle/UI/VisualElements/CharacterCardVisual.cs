@@ -139,7 +139,7 @@ public class CharacterCardVisual : VisualElement
 
     void CreateCharacterStatsChar(Character character)
     {
-        CharacterDatabase db = JourneyManager.instance.CharacterDatabase;
+        CharacterDatabase db = JourneyManager.Instance.CharacterDatabase;
         _strength = new(db.GetStatIconByName("Strength"), character.Strength, "Strength");
         _intelligence = new(db.GetStatIconByName("Intelligence"), character.Intelligence, "Intelligence");
         _agility = new(db.GetStatIconByName("Agility"), character.Agility, "Agility");
@@ -150,7 +150,7 @@ public class CharacterCardVisual : VisualElement
 
     void CreateCharacterStats(CharacterStats characterStats)
     {
-        CharacterDatabase db = JourneyManager.instance.CharacterDatabase;
+        CharacterDatabase db = JourneyManager.Instance.CharacterDatabase;
         _strength = new(db.GetStatIconByName("Strength"), characterStats.Strength);
         _intelligence = new(db.GetStatIconByName("Intelligence"), characterStats.Intelligence);
         _agility = new(db.GetStatIconByName("Agility"), characterStats.Agility);

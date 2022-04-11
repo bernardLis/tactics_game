@@ -36,7 +36,7 @@ public class ConversationUI : MonoBehaviour
         // set the container all the way to the bottom
 
         // only one can be visible.
-        GameUI.instance.HideAllUIPanels();
+        GameUI.Instance.HideAllUIPanels();
         _conversationContainer.style.display = DisplayStyle.Flex;
 
         _conversationContainer.style.top = Length.Percent(_topPercent);

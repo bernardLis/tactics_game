@@ -24,9 +24,9 @@ public class BattleDeploymentController : MonoBehaviour
 
     void Start()
     {
-        _journeyManager = JourneyManager.instance;
-        _highlighter = Highlighter.instance;
-        _infoCardUI = InfoCardUI.instance;
+        _journeyManager = JourneyManager.Instance;
+        _highlighter = Highlighter.Instance;
+        _infoCardUI = InfoCardUI.Instance;
 
         // TODO: here I can actually create characters from save data
         // no, actually characters are created by journey manager by loading save data, so you should just use them;
@@ -74,7 +74,7 @@ public class BattleDeploymentController : MonoBehaviour
         instantiatedSO.Initialize(CharacterBeingPlaced);
         CharacterBeingPlaced.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
 
-        EnemySpawnDirection dir = BattleManager.instance.GetComponent<BoardManager>().EnemySpawnDirection;
+        EnemySpawnDirection dir = BattleManager.Instance.GetComponent<BoardManager>().EnemySpawnDirection;
         Vector2 faceDir = Vector2.left;
         if (dir == EnemySpawnDirection.Left)
             faceDir = Vector2.left;
@@ -99,7 +99,7 @@ public class BattleDeploymentController : MonoBehaviour
     public void PlaceCharacter()
     {
         // remove the tile from highlighted tiles = block placement of other characters on the same tile
-        Highlighter.instance.ClearHighlightedTile(CharacterBeingPlaced.transform.position);
+        Highlighter.Instance.ClearHighlightedTile(CharacterBeingPlaced.transform.position);
 
         // nullify character being placed so it doesn't get destroyed;
         CharacterBeingPlaced = null;
@@ -113,7 +113,7 @@ public class BattleDeploymentController : MonoBehaviour
             // TODO: should I make it all async?
             _highlighter.ClearHighlightedTiles().GetAwaiter();
 
-            TurnManager.instance.UpdateBattleState(BattleState.PlayerTurn);
+            TurnManager.Instance.UpdateBattleState(BattleState.PlayerTurn);
             return;
         }
 

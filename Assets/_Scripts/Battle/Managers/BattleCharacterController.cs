@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public enum CharacterState { None, Selected, SelectingInteractionTarget, SelectingFaceDir, ConfirmingInteraction }
 
-public class BattleCharacterController : MonoBehaviour
+public class BattleCharacterController : Singleton<BattleCharacterController>
 {
     // tilemap
     Tilemap _tilemap;
@@ -49,28 +49,19 @@ public class BattleCharacterController : MonoBehaviour
     // TODO: I am currently, not using that, but I have a feeling that it will be useful.
     public static event Action<CharacterState> OnCharacterStateChanged;
 
-    public static BattleCharacterController instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of TurnManager found");
-            return;
-        }
-        instance = this;
-        #endregion
+        base.Awake();
     }
 
     void Start()
     {
-        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
+        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
-        _highlighter = Highlighter.instance;
-        _battleInputController = BattleInputController.instance;
-        _characterUI = CharacterUI.instance;
-        _movePointController = MovePointController.instance;
+        _highlighter = Highlighter.Instance;
+        _battleInputController = BattleInputController.Instance;
+        _characterUI = CharacterUI.Instance;
+        _movePointController = MovePointController.Instance;
 
         _seeker = GetComponent<Seeker>();
         _pathRenderer = GetComponent<LineRenderer>();

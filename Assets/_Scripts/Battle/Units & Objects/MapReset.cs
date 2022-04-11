@@ -12,6 +12,6 @@ public class MapReset : MonoBehaviour
     void Reset()
     {
         // TODO: need to remove player chars
-        BattleManager.instance.GetComponent<BoardManager>().GenerateMap();
+        BattleManager.Instance.GetComponent<BoardManager>().GenerateMap();
     }
 }

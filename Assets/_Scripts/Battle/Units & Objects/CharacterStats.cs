@@ -62,7 +62,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         _AILerp = GetComponent<AILerp>();
 
         // global
-        _highlighter = Highlighter.instance;
+        _highlighter = Highlighter.Instance;
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 

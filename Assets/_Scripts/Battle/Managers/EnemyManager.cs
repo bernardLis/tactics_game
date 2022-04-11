@@ -6,19 +6,8 @@ public class EnemyManager : MonoBehaviour
     GameObject[] _enemies;
     EnemyAI _enemyAI;
 
-    public static EnemyManager instance;
     void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of Enemy Manager found");
-            return;
-        }
-        instance = this;
-        #endregion
-
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
 
@@ -50,7 +39,7 @@ public class EnemyManager : MonoBehaviour
             if (enemy == null)
                 continue;
 
-            InfoCardUI.instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
+            InfoCardUI.Instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
             _enemyAI = enemy.GetComponent<EnemyAI>();
             // this waits until the previous corutine is done
             yield return StartCoroutine(_enemyAI.RunAI());

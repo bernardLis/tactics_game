@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MovePointController : MonoBehaviour
+public class MovePointController : Singleton<MovePointController>
 {
     // TODO: movepoint should only be using battle ui
     InfoCardUI _infoCardUI;
@@ -15,27 +15,17 @@ public class MovePointController : MonoBehaviour
     BattleCharacterController _battleCharacterController;
     SpriteRenderer _spriteRenderer;
 
-    public static MovePointController instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region singleton
-
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of TurnManager found");
-            return;
-        }
-        instance = this;
-        #endregion
+        base.Awake();
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
-        _infoCardUI = InfoCardUI.instance;
-        _characterUI = CharacterUI.instance;
+        _infoCardUI = InfoCardUI.Instance;
+        _characterUI = CharacterUI.Instance;
 
         // This is our Dictionary of tiles
-        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
+        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
         _battleDeploymentController = GetComponent<BattleDeploymentController>();
         _battleCharacterController = GetComponent<BattleCharacterController>();
@@ -61,7 +51,7 @@ public class MovePointController : MonoBehaviour
     void HandleDeployment()
     {
         _spriteRenderer.enabled = true;
-        transform.position = Highlighter.instance.HighlightedTiles[Mathf.FloorToInt(Highlighter.instance.HighlightedTiles.Count / 2)].GetMiddleOfTile();
+        transform.position = Highlighter.Instance.HighlightedTiles[Mathf.FloorToInt(Highlighter.Instance.HighlightedTiles.Count / 2)].GetMiddleOfTile();
         _battleDeploymentController.InstantiateCharacter(0);
     }
 

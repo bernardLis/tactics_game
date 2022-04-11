@@ -36,9 +36,9 @@ public class QuestUI : MonoBehaviour
         _failedQuestsContainer = root.Q<VisualElement>("failedQuestsContainer");
         _questInformation = root.Q<VisualElement>("questInformation");
 
-        _playerInput = MovePointController.instance.GetComponent<PlayerInput>();
+        _playerInput = MovePointController.Instance.GetComponent<PlayerInput>();
 
-        _questManager = BattleManager.instance.GetComponent<QuestManager>();
+        _questManager = BattleManager.Instance.GetComponent<QuestManager>();
     }
 
     void OnEnable()
@@ -82,7 +82,7 @@ public class QuestUI : MonoBehaviour
     {
         // switch action map
         _playerInput.SwitchCurrentActionMap("QuestUI");
-        BattleManager.instance.PauseGame();
+        BattleManager.Instance.PauseGame();
 
         PopulateQuestUI();
 
@@ -91,7 +91,7 @@ public class QuestUI : MonoBehaviour
             RefreshQuestInformation();
 
         // only one can be visible/
-        GameUI.instance.HideAllUIPanels();
+        GameUI.Instance.HideAllUIPanels();
 
         _questUI.style.display = DisplayStyle.Flex;
     }
@@ -100,8 +100,8 @@ public class QuestUI : MonoBehaviour
     {
         _questUI.style.display = DisplayStyle.None;
 
-        // BattleManager.instance.EnableFMPlayerControls(); << TODO: decide when is quest ui / inventory ui accessible
-        BattleManager.instance.ResumeGame();
+        // BattleManager.Instance.EnableFMPlayerControls(); << TODO: decide when is quest ui / inventory ui accessible
+        BattleManager.Instance.ResumeGame();
     }
 
     void PopulateQuestUI()

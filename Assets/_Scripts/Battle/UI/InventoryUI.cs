@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 using System.Linq;
 using UnityEngine.InputSystem;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : Singleton<InventoryUI>
 {
     PlayerInput _playerInput;
 
@@ -24,22 +24,13 @@ public class InventoryUI : MonoBehaviour
 
     public List<InventorySlot> InventorySlots = new List<InventorySlot>();
 
-    public static InventoryUI instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of InventoryUI found");
-            return;
-        }
-        instance = this;
-        #endregion
+        base.Awake();
 
-        _playerInput = MovePointController.instance.GetComponent<PlayerInput>();
+        _playerInput = MovePointController.Instance.GetComponent<PlayerInput>();
 
-        _inventoryManager = InventoryManager.instance;
+        _inventoryManager = InventoryManager.Instance;
         _inventoryManager.OnItemChanged += OnItemChanged;
 
         // store the root from the ui document component
@@ -191,7 +182,7 @@ public class InventoryUI : MonoBehaviour
         _playerInput.SwitchCurrentActionMap("InventoryUI");
 
         // only one can be visible.
-        GameUI.instance.HideAllUIPanels();
+        GameUI.Instance.HideAllUIPanels();
 
         _inventoryContainer.style.display = DisplayStyle.Flex;
 
@@ -204,7 +195,7 @@ public class InventoryUI : MonoBehaviour
         _inventoryContainer.style.display = DisplayStyle.None;
 
         // TODO: maybe battle controller can have a method for that;
-        CharacterUI.instance.ShowCharacterUI(BattleCharacterController.instance.SelectedCharacter.GetComponent<CharacterStats>());
+        CharacterUI.Instance.ShowCharacterUI(BattleCharacterController.Instance.SelectedCharacter.GetComponent<CharacterStats>());
 
         _playerInput.SwitchCurrentActionMap("Player");
     }
@@ -217,6 +208,6 @@ public class InventoryUI : MonoBehaviour
         // get current item and queue action
         DisableInventoryUI();
 
-        CharacterUI.instance.UseItem(_selectedItem);
+        CharacterUI.Instance.UseItem(_selectedItem);
     }
 }

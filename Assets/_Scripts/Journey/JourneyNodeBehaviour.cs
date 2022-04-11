@@ -18,7 +18,7 @@ public class JourneyNodeBehaviour : MonoBehaviour, IPointerClickHandler, IPointe
     public void Initialize(JourneyNode _jn)
     {
         JourneyNode = _jn;
-        _journeyMapManager = JourneyMapManager.instance;
+        _journeyMapManager = JourneyMapManager.Instance;
         _journeyMapUI = _journeyMapManager.GetComponent<JourneyMapUI>();
 
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();

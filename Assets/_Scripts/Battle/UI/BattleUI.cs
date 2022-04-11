@@ -20,7 +20,7 @@ public class BattleUI : MonoBehaviour
 
     void Awake()
     {
-        _journeyManager = JourneyManager.instance;
+        _journeyManager = JourneyManager.Instance;
 
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;

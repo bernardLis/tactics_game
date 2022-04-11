@@ -41,10 +41,10 @@ public class Brain : BaseScriptableObject
 
     public virtual void Initialize(GameObject self)
     {
-        _highlighter = BattleManager.instance.GetComponent<Highlighter>();
-        _cameraManager = CameraManager.instance;
+        _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
+        _cameraManager = Helpers.Camera.GetComponent<CameraManager>();
 
-        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
+        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
         _characterGameObject = self;
         _enemyStats = _characterGameObject.GetComponent<EnemyStats>();

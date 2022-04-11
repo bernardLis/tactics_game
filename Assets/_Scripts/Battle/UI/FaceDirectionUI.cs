@@ -31,7 +31,7 @@ public class FaceDirectionUI : MonoBehaviour
     {
         // global
         _cam = Camera.main;
-        _battleCharacterController = BattleCharacterController.instance;
+        _battleCharacterController = BattleCharacterController.Instance;
 
         // local
         _playerCharSelection = GetComponent<PlayerCharSelection>();
@@ -60,7 +60,7 @@ public class FaceDirectionUI : MonoBehaviour
 
     public async Task<Vector2> PickDirection()
     {
-        MovePointController.instance.Move(transform.position);
+        MovePointController.Instance.Move(transform.position);
 
         _container.style.display = DisplayStyle.Flex;
         _isUIShown = true;

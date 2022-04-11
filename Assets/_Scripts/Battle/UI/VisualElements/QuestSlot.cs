@@ -26,7 +26,7 @@ public class QuestSlot : VisualElement
 
     public void HoldQuest(Quest _quest)
     {
-        _questUI = GameUI.instance.GetComponent<QuestUI>();
+        _questUI = GameUI.Instance.GetComponent<QuestUI>();
 
         Quest = _quest;
         Title.text = Quest.Title;

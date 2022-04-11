@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine.InputSystem;
 
-public class CharacterUI : MonoBehaviour
+public class CharacterUI : Singleton<CharacterUI>
 {
     // global utility
     BattleInputController _battleInputController;
@@ -36,19 +36,9 @@ public class CharacterUI : MonoBehaviour
 
     string _hideCharacterUIID = "hideCharacterUIID";
 
-    public static CharacterUI instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of CharacterUI found");
-            return;
-        }
-        instance = this;
-
-        #endregion
+        base.Awake();
 
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;
@@ -67,8 +57,8 @@ public class CharacterUI : MonoBehaviour
 
     void Start()
     {
-        _battleInputController = BattleInputController.instance;
-        _battleCharacterController = BattleCharacterController.instance;
+        _battleInputController = BattleInputController.Instance;
+        _battleCharacterController = BattleCharacterController.Instance;
 
         //https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
         StartCoroutine(CoroutineCoordinator());
@@ -76,7 +66,7 @@ public class CharacterUI : MonoBehaviour
 
     public void ShowCharacterUI(CharacterStats playerStats)
     {
-        InfoCardUI.instance.HideCharacterCard();
+        InfoCardUI.Instance.HideCharacterCard();
 
         _selectedPlayerStats = playerStats;
 
@@ -234,7 +224,7 @@ public class CharacterUI : MonoBehaviour
     void OpenInventory()
     {
         _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
-        InventoryUI.instance.EnableInventoryUI();
+        InventoryUI.Instance.EnableInventoryUI();
     }
 
     public void UseItem(Item item)

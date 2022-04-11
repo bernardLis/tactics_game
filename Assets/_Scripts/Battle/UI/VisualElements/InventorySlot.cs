@@ -43,24 +43,24 @@ public class InventorySlot : VisualElement
             return;
 
         Select();
-        InventoryUI.instance.ScrollTo(this);
+        InventoryUI.Instance.ScrollTo(this);
     }
 
     public void Select()
     {
-        InventoryUI.instance.UnselectSlot();
+        InventoryUI.Instance.UnselectSlot();
 
         //this.style.backgroundColor = Color.gray;
         this.style.backgroundColor = new Color(255 / 255f, 133 / 255f, 125 / 255f, 1); //new Color(0.9f, 0.9f, 0.9f, 1);
 
-        this.style.backgroundImage = new StyleBackground(InventoryUI.instance.SelectedSlotBackground);
-        InventoryUI.instance.DisplayItemInfo(Item);
-        InventoryUI.instance.SelectedSlot = this;
+        this.style.backgroundImage = new StyleBackground(InventoryUI.Instance.SelectedSlotBackground);
+        InventoryUI.Instance.DisplayItemInfo(Item);
+        InventoryUI.Instance.SelectedSlot = this;
     }
 
     public void Unselect()
     {
-        this.style.backgroundImage = new StyleBackground(InventoryUI.instance.SlotBackground);
+        this.style.backgroundImage = new StyleBackground(InventoryUI.Instance.SlotBackground);
         this.style.backgroundColor = new Color(0.764f, 0.764f, 0.764f, 1);
     }
 }

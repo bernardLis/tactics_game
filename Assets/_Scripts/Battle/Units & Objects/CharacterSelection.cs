@@ -20,10 +20,10 @@ public class CharacterSelection : MonoBehaviour
 
     public virtual void Awake()
     {
-        _highlighter = Highlighter.instance;
-        _turnManager = TurnManager.instance;
+        _highlighter = Highlighter.Instance;
+        _turnManager = TurnManager.Instance;
 
-        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
+        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
         _myStats = GetComponent<CharacterStats>();
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();

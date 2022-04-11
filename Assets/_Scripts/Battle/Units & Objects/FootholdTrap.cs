@@ -17,7 +17,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, GameObject, Abilit
 
     void Start()
     {
-        _battleManager = BattleManager.instance;
+        _battleManager = BattleManager.Instance;
     }
 
     public void OnTriggerEnter2D(Collider2D col)

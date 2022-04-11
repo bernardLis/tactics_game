@@ -18,7 +18,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     // Start is called before the first frame update
     void Start()
     {
-        _battleManager = BattleManager.instance;
+        _battleManager = BattleManager.Instance;
     }
 
     public void GetPushed(Vector3 dir, GameObject attacker, Ability ability)

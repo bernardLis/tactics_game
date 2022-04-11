@@ -16,32 +16,22 @@ public class ItemChangedEventArgs : EventArgs
     }
 }
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : Singleton<InventoryManager>
 {
     public List<Item> items = new();
 
     public event EventHandler<ItemChangedEventArgs> OnItemChanged;
 
-    #region Singleton
-    public static InventoryManager instance;
-    void Awake()
+    protected override void Awake()
     {
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of InventoryManager found");
-            return;
-        }
-        instance = this;
-
+        base.Awake();
     }
-    #endregion
 
     public void Add(Item item)
     {
         items.Add(item);
 
-        GameUI.instance.DisplayLogText("+ 1 " + item.name);
+        GameUI.Instance.DisplayLogText("+ 1 " + item.name);
         OnItemChanged?.Invoke(this, new ItemChangedEventArgs(item, true));
 
     }

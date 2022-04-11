@@ -14,7 +14,7 @@ public class BattleUITester : MonoBehaviour
 
     void Start()
     {
-        _journeyManager = JourneyManager.instance;
+        _journeyManager = JourneyManager.Instance;
 
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;

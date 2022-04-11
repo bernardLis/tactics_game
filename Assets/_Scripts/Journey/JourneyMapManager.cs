@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 
-public class JourneyMapManager : MonoBehaviour
+public class JourneyMapManager : Singleton<JourneyMapManager>
 {
     [SerializeField] int _numberOfPaths = 5;
     [SerializeField] int _numberOfRows = 7;
@@ -40,23 +40,14 @@ public class JourneyMapManager : MonoBehaviour
 
     [HideInInspector] public List<JourneyNode> AvailableNodes = new();
 
-    public static JourneyMapManager instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of TurnManager found");
-            return;
-        }
-        instance = this;
-        #endregion
+        base.Awake();
     }
 
     void Start()
     {
-        _journeyManager = JourneyManager.instance;
+        _journeyManager = JourneyManager.Instance;
         _journeyMapUI = GetComponent<JourneyMapUI>();
         _playerInput = GetComponent<PlayerInput>();
         GenerateJourney();

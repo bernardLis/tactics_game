@@ -20,7 +20,7 @@ public class JourneyChestBehaviour : MonoBehaviour, IPointerClickHandler, IPoint
 
     void Start()
     {
-        _journeyChestManager = JourneyChestManager.instance;
+        _journeyChestManager = JourneyChestManager.Instance;
     }
 
     void Update()

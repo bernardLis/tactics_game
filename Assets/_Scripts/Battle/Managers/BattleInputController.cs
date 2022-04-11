@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 
-public class BattleInputController : MonoBehaviour
+public class BattleInputController : Singleton<BattleInputController>
 {
     // input system
     PlayerInput _playerInput;
@@ -23,19 +23,9 @@ public class BattleInputController : MonoBehaviour
 
     [HideInInspector] public bool AllowInput { get; private set; }
 
-    public static BattleInputController instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region singleton
-
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of TurnManager found");
-            return;
-        }
-        instance = this;
-        #endregion
+        base.Awake();
     }
 
     void Start()
@@ -44,13 +34,13 @@ public class BattleInputController : MonoBehaviour
 
         _playerInput = GetComponent<PlayerInput>();
 
-        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
+        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
         // TODO: Supposedly, this is an expensive call
         _cam = Camera.main;
-        _characterUI = CharacterUI.instance;
+        _characterUI = CharacterUI.Instance;
 
-        _movePointController = MovePointController.instance;
+        _movePointController = MovePointController.Instance;
         _battleCharacterController = GetComponent<BattleCharacterController>();
         _battleDeploymentController = GetComponent<BattleDeploymentController>();
         _oscilateScale = GetComponentInChildren<OscilateScale>();

@@ -23,7 +23,7 @@ public class JourneyEventManager : MonoBehaviour
 
     void Awake()
     {
-        _journeyManager = JourneyManager.instance;
+        _journeyManager = JourneyManager.Instance;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
         _eventWrapper = root.Q<VisualElement>("eventWrapper");

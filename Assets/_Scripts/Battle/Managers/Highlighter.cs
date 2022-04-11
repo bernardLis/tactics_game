@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Highlighter : MonoBehaviour
+public class Highlighter : Singleton<Highlighter>
 {
     // TODO: this script can be better
 
@@ -29,24 +29,15 @@ public class Highlighter : MonoBehaviour
     float _flasherYOffset = 0.6f;
 
     public static Highlighter instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of Highlighter found");
-            return;
-        }
-        instance = this;
-        #endregion
-
-        _tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
+        base.Awake();
+        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
     }
 
     public void Start()
     {
-        _battleInputController = BattleInputController.instance;
+        _battleInputController = BattleInputController.Instance;
     }
 
     public WorldTile HighlightSingle(Vector3 position, Color col)

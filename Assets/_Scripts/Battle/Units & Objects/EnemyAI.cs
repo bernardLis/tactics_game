@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _highlighter = Highlighter.instance;
+        _highlighter = Highlighter.Instance;
 
         _seeker = GetComponent<Seeker>();
         _AILerp = GetComponent<AILerp>();

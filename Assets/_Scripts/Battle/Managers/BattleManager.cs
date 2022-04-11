@@ -1,20 +1,13 @@
 using UnityEngine;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : Singleton<BattleManager>
 {
     [SerializeField] JourneyNodeReward _rewardScriptableObject;
     JourneyNodeReward _reward;
 
-    public static BattleManager instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-        #endregion
+        base.Awake();
 
         _reward = Instantiate(_rewardScriptableObject);
     }

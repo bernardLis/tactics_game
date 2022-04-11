@@ -20,8 +20,8 @@ public class JourneyMapUI : MonoBehaviour
 
     void Awake()
     {
-        _journeyManager = JourneyManager.instance;
-        _journeyMapManager = JourneyMapManager.instance;
+        _journeyManager = JourneyManager.Instance;
+        _journeyMapManager = JourneyMapManager.Instance;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
         _currencyAmount = root.Q<Label>("currencyAmount");

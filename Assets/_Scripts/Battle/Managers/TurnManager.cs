@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 
-public class TurnManager : MonoBehaviour
+public class TurnManager : Singleton<TurnManager>
 {
     // global
     JourneyManager _journeyManager;
@@ -23,23 +23,15 @@ public class TurnManager : MonoBehaviour
 
     public static event Action<BattleState> OnBattleStateChanged;
 
-    public static TurnManager instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of TurnManager found");
-            return;
-        }
-        instance = this;
-        #endregion
+        base.Awake();
     }
 
     void Start()
     {
-        _infoCardUI = InfoCardUI.instance;
-        _journeyManager = JourneyManager.instance;
+        _infoCardUI = InfoCardUI.Instance;
+        _journeyManager = JourneyManager.Instance;
 
         CurrentTurn = 0;
 
@@ -149,7 +141,7 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("Congratz player! You win!!!");
 
-        _journeyManager.SetNodeReward(BattleManager.instance.GetReward());
+        _journeyManager.SetNodeReward(BattleManager.Instance.GetReward());
 
         // TODO: maybe show a win screen, where you get reward, 
         // you characters level up and stuff and there is a button to go back to journey

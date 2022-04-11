@@ -16,10 +16,10 @@ public class PotentialTarget
     {
         // This is our Dictionary of tiles
         Dictionary<Vector3, WorldTile> tiles = TileManager.Tiles;
-        Tilemap tilemap = BattleManager.instance.GetComponent<TileManager>().Tilemap;
+        Tilemap tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
         WorldTile _tile;
 
-        Highlighter highlighter = Highlighter.instance;
+        Highlighter highlighter = Highlighter.Instance;
 
         List<WorldTile> freeTiles = new();
 

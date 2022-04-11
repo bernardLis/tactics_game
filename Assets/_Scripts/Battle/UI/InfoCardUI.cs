@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class InfoCardUI : MonoBehaviour
+public class InfoCardUI : Singleton<InfoCardUI>
 {
     // global
     CharacterUI _characterUI;
@@ -31,18 +31,9 @@ public class InfoCardUI : MonoBehaviour
     float _cardHideValue = -100f;
     string _hideTileInfoTweenID = "hideTileInfoTweenID";
 
-    public static InfoCardUI instance;
-    void Awake()
+    protected override void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of InfoCardUI found");
-            return;
-        }
-        instance = this;
-        #endregion
+        base.Awake();
 
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;
@@ -69,7 +60,7 @@ public class InfoCardUI : MonoBehaviour
 
     void Start()
     {
-        _characterUI = CharacterUI.instance;
+        _characterUI = CharacterUI.Instance;
     }
 
     /* tile info */

@@ -11,21 +11,10 @@ public class CameraManager : MonoBehaviour
     [SerializeField] float _moveSpeed;
     Vector3 _targetPos;
 
-    public static CameraManager instance;
     void Awake()
     {
-        #region Singleton
-        // singleton
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of Camera Follow found");
-            return;
-        }
-        instance = this;
-        #endregion
-
         _cam = GetComponent<Camera>();
-        _boardManager = BattleManager.instance.GetComponent<BoardManager>();
+        _boardManager = BattleManager.Instance.GetComponent<BoardManager>();
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
 
@@ -63,13 +52,13 @@ public class CameraManager : MonoBehaviour
 
     async void HandleDeployment()
     {
-        _followTarget = MovePointController.instance.transform;
+        _followTarget = MovePointController.Instance.transform;
         await LerpOrthographicSize(7, 1);
     }
 
     void HandlePlayerTurn()
     {
-        _followTarget = MovePointController.instance.transform;
+        _followTarget = MovePointController.Instance.transform;
     }
 
     public void SetTarget(Transform t)
