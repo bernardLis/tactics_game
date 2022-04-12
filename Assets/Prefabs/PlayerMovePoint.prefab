@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7569243889877751803}
   - component: {fileID: 242066055}
   - component: {fileID: 1558323602}
-  - component: {fileID: 242066056}
   - component: {fileID: 7569243889877751802}
   - component: {fileID: 1558323601}
   - component: {fileID: 1153939686}
@@ -166,34 +165,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &242066056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7569243889877751800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: -1
 --- !u!114 &7569243889877751802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9c57bfe0538924c8ea4d4c6ffdad16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _obstacles: []
   SelectedCharacter: {fileID: 0}
 --- !u!1 &7569243889959606447
 GameObject:

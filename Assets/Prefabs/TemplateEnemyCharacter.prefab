@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 3387775229403623852}
   - component: {fileID: 7748143736339006443}
   - component: {fileID: 1274251231336505666}
+  - component: {fileID: 5708309214784950211}
   m_Layer: 0
   m_Name: TemplateEnemyCharacter
   m_TagString: Enemy
@@ -249,49 +250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b6ed4f667cd494db9bb8fc608ffa8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
-  baseMaxHealth: 100
-  baseMaxMana: 50
-  baseArmor: 0
-  baseMovementRange: 5
-  characterName: 
-  strength:
-    type: 0
-    baseValue: 0
-    modifiers: []
-  intelligence:
-    type: 1
-    baseValue: 0
-    modifiers: []
-  agility:
-    type: 2
-    baseValue: 0
-    modifiers: []
-  stamina:
-    type: 3
-    baseValue: 0
-    modifiers: []
-  maxHealth:
-    type: 4
-    baseValue: 0
-    modifiers: []
-  maxMana:
-    type: 5
-    baseValue: 0
-    modifiers: []
-  armor:
-    type: 6
-    baseValue: 0
-    modifiers: []
-  movementRange:
-    type: 7
-    baseValue: 0
-    modifiers: []
-  stats: []
-  basicAbilities: []
-  abilities: []
-  statuses: []
-  isStunned: 0
+  BasicAbilities: []
+  Abilities: []
+  Statuses: []
 --- !u!114 &3387775229403623841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,8 +265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40108e7219aaf9a4e98a91fdfdbfceb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grayOutColor: {r: 0.38039216, g: 0.38039216, b: 0.38039216, a: 1}
-  hasFinishedTurn: 0
 --- !u!114 &4512964953220444060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,8 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb02dc1fe77fec14e985d9ec7b67ca15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amDead: 0
-  brain: {fileID: 0}
+  _amDead: 0
 --- !u!114 &8036547555935282553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1dce015e723454a943f8c8c4ef0e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawnPoint: {fileID: 0}
 --- !u!114 &3387775229403623852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7d00e56168786243b0f68a5728954b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawnPoint: {fileID: 0}
 --- !u!114 &1274251231336505666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +392,20 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &5708309214784950211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387775229403623854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45e20632f1604fc6bb73e0e79cd7368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  manager: {fileID: 0}
 --- !u!1001 &9199590524805037080
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
+using Pathfinding;
 
 public class CharacterSelection : MonoBehaviour
 {
     protected Highlighter _highlighter;
     protected TurnManager _turnManager;
+    protected SingleNodeBlocker _blocker;
+
 
     // https://medium.com/@allencoded/unity-tilemaps-and-storing-individual-tile-data-8b95d87e9f32
     protected Tilemap _tilemap;
@@ -22,6 +25,7 @@ public class CharacterSelection : MonoBehaviour
     {
         _highlighter = Highlighter.Instance;
         _turnManager = TurnManager.Instance;
+        _blocker = GetComponent<SingleNodeBlocker>();
 
         _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
@@ -85,6 +89,14 @@ public class CharacterSelection : MonoBehaviour
             return false;
 
         return true;
+    }
+
+    /* A* node blocker*/
+
+    public void ActivateSingleNodeBlocker()
+    {
+        _blocker.manager = FindObjectOfType<BlockManager>();
+        _blocker.BlockAtCurrentPosition();
     }
 
 

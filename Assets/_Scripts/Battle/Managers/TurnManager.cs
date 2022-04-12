@@ -95,7 +95,7 @@ public class TurnManager : Singleton<TurnManager>
 
         // TODO: Is this very taxing?   
         // Recalculate all graphs
-        AstarPath.active.Scan();
+        //AstarPath.active.Scan();
 
         ResetCounts();
     }
@@ -107,7 +107,7 @@ public class TurnManager : Singleton<TurnManager>
 
         // TODO: Is this taxing?
         // Recalculate all graphs
-        AstarPath.active.Scan();
+        //AstarPath.active.Scan();
 
         ResetCounts();
     }
@@ -185,4 +185,15 @@ public class TurnManager : Singleton<TurnManager>
 
         UpdateBattleState(_state);
     }
+
+    public List<GameObject> GetEnemies()
+    {
+        return _enemies;
+    }
+
+    public List<GameObject> GetPlayerCharacters()
+    {
+        return _playerCharacters;
+    }
+
 }

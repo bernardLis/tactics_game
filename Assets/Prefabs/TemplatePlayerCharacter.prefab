@@ -112,7 +112,6 @@ GameObject:
   - component: {fileID: 1864993293436626187}
   - component: {fileID: 6105715623576548095}
   - component: {fileID: 6105715623576548089}
-  - component: {fileID: 6105715623576548088}
   - component: {fileID: -5655211445388662278}
   - component: {fileID: 1864993292968118660}
   - component: {fileID: 4212650218818044008}
@@ -122,7 +121,6 @@ GameObject:
   - component: {fileID: 2727775403500498410}
   - component: {fileID: -2183359834462256654}
   - component: {fileID: 1712415301602900234}
-  - component: {fileID: 3267737147490542251}
   m_Layer: 6
   m_Name: TemplatePlayerCharacter
   m_TagString: Player
@@ -266,20 +264,6 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   repathRateCompatibility: 0.5
   canSearchCompability: 1
---- !u!114 &6105715623576548088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6105715623576548083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  target: {fileID: 0}
 --- !u!114 &-5655211445388662278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,20 +444,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &3267737147490542251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6105715623576548083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45e20632f1604fc6bb73e0e79cd7368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  manager: {fileID: 0}
 --- !u!1 &6105715624814662954
 GameObject:
   m_ObjectHideFlags: 0

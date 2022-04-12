@@ -19,8 +19,12 @@ MonoBehaviour:
   Level: 7
   Strength: 7
   Intelligence: 7
-  Agility: 7
+  Agility: 99
   Stamina: 7
+  MaxHealth: 0
+  MaxMana: 0
+  Armor: 0
+  MovementRange: 0
   Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
   Weapon: {fileID: 11400000, guid: b3756de8953f75e4e8b992726567dc45, type: 2}
   BasicAbilities:

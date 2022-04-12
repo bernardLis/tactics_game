@@ -81,7 +81,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, GameObject, Abilit
     {
         // TODO: is that alright? 
         // Recalculate all graphs
-        AstarPath.active.Scan();
+        //AstarPath.active.Scan();
     }
 
     void CollisionCheck()

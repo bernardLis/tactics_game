@@ -52,7 +52,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     {
         // TODO: is that alright? 
         // Recalculate all graphs
-        AstarPath.active.Scan();
+        //AstarPath.active.Scan();
     }
 
     void CollisionCheck()

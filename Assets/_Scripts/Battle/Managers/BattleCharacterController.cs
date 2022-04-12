@@ -9,6 +9,12 @@ public enum CharacterState { None, Selected, SelectingInteractionTarget, Selecti
 
 public class BattleCharacterController : Singleton<BattleCharacterController>
 {
+    // node blocker test
+    BlockManager _blockManager;
+    public List<SingleNodeBlocker> _obstacles;
+    BlockManager.TraversalProvider _traversalProvider;
+
+
     // tilemap
     Tilemap _tilemap;
     WorldTile _tile;
@@ -19,13 +25,13 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     CharacterUI _characterUI;
     BattleInputController _battleInputController;
     MovePointController _movePointController;
+    TurnManager _turnManager;
 
     // I will be caching them for selected character
     [HideInInspector] public GameObject SelectedCharacter;
     CharacterStats _playerStats;
     PlayerCharSelection _playerCharSelection;
     AILerp _aILerp;
-    AIDestinationSetter _destinationSetter;
     CharacterRendererManager _characterRendererManager;
 
     // state
@@ -39,7 +45,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     bool _hasCharacterStartedMoving;
     bool _hasCharacterGoneBack;
 
-    Seeker _seeker;
     LineRenderer _pathRenderer;
 
     // interactions
@@ -62,9 +67,11 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _battleInputController = BattleInputController.Instance;
         _characterUI = CharacterUI.Instance;
         _movePointController = MovePointController.Instance;
+        _turnManager = TurnManager.Instance;
 
-        _seeker = GetComponent<Seeker>();
         _pathRenderer = GetComponent<LineRenderer>();
+
+        _blockManager = FindObjectOfType<BlockManager>();
     }
 
     void Update()
@@ -198,7 +205,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerStats = SelectedCharacter.GetComponent<CharacterStats>();
         _playerCharSelection = SelectedCharacter.GetComponent<PlayerCharSelection>();
         _aILerp = SelectedCharacter.GetComponent<AILerp>();
-        _destinationSetter = SelectedCharacter.GetComponent<AIDestinationSetter>();
+        _aILerp.canSearch = false;
         _characterRendererManager = SelectedCharacter.GetComponentInChildren<CharacterRendererManager>();
 
         // character specific ui
@@ -215,14 +222,19 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     void Move()
     {
+        ClearPathRenderer();
+
         _hasCharacterStartedMoving = true;
 
         // TODO: should I make it all async?
         _highlighter.ClearHighlightedTiles().GetAwaiter();
 
+        var path = GetPathTo(transform);
+        _aILerp.SetPath(path);
+
         _tempObject = new GameObject("Destination");
         _tempObject.transform.position = transform.position;
-        _destinationSetter.target = _tempObject.transform;
+        _aILerp.destination = _tempObject.transform.position;
 
         _characterUI.DisableSkillButtons();
 
@@ -278,7 +290,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         _tempObject = new GameObject("Back Destination");
         _tempObject.transform.position = _playerCharSelection.PositionTurnStart;
-        _destinationSetter.target = _tempObject.transform;
+        var path = GetPathTo(_tempObject.transform);
+        _aILerp.SetPath(path);
+        _aILerp.destination = _tempObject.transform.position;
 
         _characterUI.DisableSkillButtons();
     }
@@ -465,25 +479,45 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         if (!_tile.WithinRange)
             return;
 
-        // https://arongranberg.com/astar/docs_dev/calling-pathfinding.php
-        var path = _seeker.StartPath(SelectedCharacter.transform.position, transform.position, OnPathComplete);
-    }
+        ABPath path = GetPathTo(transform);
 
-    void OnPathComplete(Path p)
-    {
-        if (p.error)
+        if (path.error)
             return;
 
-        // draw path with line renderer
-        for (int i = 0; i < p.vectorPath.Count; i++)
+        for (int i = 0; i < path.vectorPath.Count; i++)
         {
-            _pathRenderer.positionCount = p.vectorPath.Count;
-            _pathRenderer.SetPosition(i, new Vector3(p.vectorPath[i].x, p.vectorPath[i].y, -1f));
+            _pathRenderer.positionCount = path.vectorPath.Count;
+            _pathRenderer.SetPosition(i, new Vector3(path.vectorPath[i].x, path.vectorPath[i].y, -1f));
         }
     }
 
     void ClearPathRenderer()
     {
         _pathRenderer.positionCount = 0;
+    }
+
+    ABPath GetPathTo(Transform t)
+    {
+        AstarPath.active.Scan();
+        // Scanning graph breaks node blockers. Whenever I scan graph I need to add node blockers again.
+        // https://arongranberg.com/astar/documentation/dev_4_0_6_e07eb1b/class_single_node_blocker.php
+        _obstacles = new();
+        foreach (GameObject e in _turnManager.GetEnemies())
+        {
+            e.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
+            _obstacles.Add(e.GetComponent<SingleNodeBlocker>());
+        }
+        _traversalProvider = new BlockManager.TraversalProvider(_blockManager, BlockManager.BlockMode.OnlySelector, _obstacles);
+
+        // https://arongranberg.com/astar/docs_dev/calling-pathfinding.php
+        // Create a new Path object
+        ABPath path = ABPath.Construct(SelectedCharacter.transform.position, t.position, null);
+        // Make the path use a specific traversal provider
+        path.traversalProvider = _traversalProvider;
+        // Calculate the path
+        AstarPath.StartPath(path);
+        AstarPath.BlockUntilCalculated(path);
+
+        return path;
     }
 }
