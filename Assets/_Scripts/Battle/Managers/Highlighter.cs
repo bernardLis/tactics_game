@@ -28,7 +28,6 @@ public class Highlighter : Singleton<Highlighter>
     float _flasherXOffset = 0.4f;
     float _flasherYOffset = 0.6f;
 
-    public static Highlighter instance;
     protected override void Awake()
     {
         base.Awake();

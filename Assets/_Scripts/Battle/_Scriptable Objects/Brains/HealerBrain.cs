@@ -38,6 +38,7 @@ public class HealerBrain : Brain
 
         // so, you have moved closer to lowest health boi, but you are not sure whether you can reach him
         _selectedAbility = _abilities[0]; // this is heal // TODO: hardocded indexes.
+
         // target does not exist or you cannot reach him 
         if (Target == null || Helpers.GetManhattanDistance(_characterGameObject.transform.position, Target.transform.position) > _selectedAbility.Range)
         {
@@ -64,7 +65,13 @@ public class HealerBrain : Brain
 
         Vector2 faceDir;
         if (Target == null || Target == _characterGameObject)
-            faceDir = (_potentialTargets[0].GameObj.transform.position - _characterGameObject.transform.position).normalized;
+        {
+            // facing the closest opponent
+            PotentialTarget opponentToFace = GetClosestPotentialTargetWithTag(Tags.Player);
+
+            faceDir = (opponentToFace.GameObj.transform.position -
+                        _characterGameObject.transform.position).normalized;
+        }
         else
             faceDir = (Target.transform.position - _characterGameObject.transform.position).normalized;
 
@@ -96,7 +103,6 @@ public class HealerBrain : Brain
 
         return target;
     }
-
 
     PotentialTarget GetWithinReachHealableTarget(List<PotentialTarget> potentialTargets, Ability selectedAbility)
     {

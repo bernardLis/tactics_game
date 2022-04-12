@@ -26,6 +26,7 @@ public class CharacterSelection : MonoBehaviour
         _highlighter = Highlighter.Instance;
         _turnManager = TurnManager.Instance;
         _blocker = GetComponent<SingleNodeBlocker>();
+        _blocker.manager = FindObjectOfType<BlockManager>();
 
         _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
@@ -95,9 +96,11 @@ public class CharacterSelection : MonoBehaviour
 
     public void ActivateSingleNodeBlocker()
     {
-        _blocker.manager = FindObjectOfType<BlockManager>();
         _blocker.BlockAtCurrentPosition();
     }
 
-
+    public void DeactivateSingleNodeBlocker()
+    {
+        _blocker.Unblock();
+    }
 }

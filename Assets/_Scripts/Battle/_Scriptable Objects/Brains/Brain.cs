@@ -14,7 +14,7 @@ public class Brain : BaseScriptableObject
     // global
     protected Highlighter _highlighter;
     CameraManager _cameraManager;
-    TurnManager _turnManager;
+    protected TurnManager _turnManager;
 
     // tilemap
     protected Tilemap _tilemap;
@@ -30,7 +30,6 @@ public class Brain : BaseScriptableObject
     BlockManager.TraversalProvider _traversalProvider;
 
     // movement
-    protected Seeker _seeker;
     protected AILerp _aiLerp;
 
     // interaction
@@ -57,7 +56,6 @@ public class Brain : BaseScriptableObject
         _enemyStats = _characterGameObject.GetComponent<EnemyStats>();
         _characterGameObject.GetComponent<EnemyAI>().SetBrain(this);
 
-        _seeker = _characterGameObject.GetComponent<Seeker>();
         _aiLerp = _characterGameObject.GetComponent<AILerp>();
         _aiLerp.canSearch = false;
 
@@ -80,7 +78,16 @@ public class Brain : BaseScriptableObject
         _highlighter.HiglightEnemyMovementRange(_characterGameObject.transform.position,
                                                _enemyStats.MovementRange.GetValue(), Helpers.GetColor("movementBlue"));
 
+
+        // node blockers
         AstarPath.active.Scan();
+
+        _nodeBlockers = new();
+        foreach (GameObject e in _turnManager.GetPlayerCharacters())
+        {
+            e.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
+            _nodeBlockers.Add(e.GetComponent<SingleNodeBlocker>());
+        }
     }
 
     public virtual void Move()
@@ -99,14 +106,12 @@ public class Brain : BaseScriptableObject
 
     protected List<PotentialTarget> GetPotentialTargets(string targetTag)
     {
-        if (_seeker == null)
-            return null;
-
         GameObject[] targetCharacters = GameObject.FindGameObjectsWithTag(targetTag);
         List<PotentialTarget> potentialTargets = new();
         // check distance between self and each player character,
-        foreach (var targetChar in targetCharacters)
+        foreach (GameObject targetChar in targetCharacters)
         {
+            targetChar.GetComponent<CharacterSelection>().DeactivateSingleNodeBlocker();
             ABPath p = GetPathTo(targetChar.transform);
 
             // distance is the path length 
@@ -114,10 +119,22 @@ public class Brain : BaseScriptableObject
             float distance = p.GetTotalLength();
             PotentialTarget potentialTarget = new PotentialTarget(targetChar, distance);
             potentialTargets.Add(potentialTarget);
+
+            targetChar.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
         }
 
         potentialTargets = potentialTargets.OrderByDescending(entry => entry.DistanceToTarget).ToList();
         return potentialTargets;
+    }
+
+    protected PotentialTarget GetClosestPotentialTargetWithTag(string tag)
+    {
+        List<PotentialTarget> opponents = GetPotentialTargets(tag);
+        opponents.Reverse();
+        foreach (PotentialTarget opp in opponents)
+            if (opp.DistanceToTarget != 0)
+                return opp;
+        return opponents[0];
     }
 
     protected Vector3 GetDestinationWithoutTarget(List<PotentialTarget> potentialTargets)
@@ -132,7 +149,6 @@ public class Brain : BaseScriptableObject
 
     protected Vector3 GetDestinationCloserTo(PotentialTarget target)
     {
-        //Path p = _seeker.StartPath(_characterGameObject.transform.position, target.GameObj.transform.position);
         ABPath p = GetPathTo(target.GameObj.transform);
 
         // The path is calculated now
@@ -161,12 +177,6 @@ public class Brain : BaseScriptableObject
     {
         // Scanning graph breaks node blockers. Whenever I scan graph I need to add node blockers again.
         // https://arongranberg.com/astar/documentation/dev_4_0_6_e07eb1b/class_single_node_blocker.php
-        _nodeBlockers = new();
-        foreach (GameObject e in _turnManager.GetPlayerCharacters())
-        {
-            e.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
-            _nodeBlockers.Add(e.GetComponent<SingleNodeBlocker>());
-        }
         _traversalProvider = new BlockManager.TraversalProvider(_blockManager, BlockManager.BlockMode.OnlySelector, _nodeBlockers);
 
         // https://arongranberg.com/astar/docs_dev/calling-pathfinding.php
@@ -186,5 +196,4 @@ public class Brain : BaseScriptableObject
         _aiLerp.SetPath(p);
         _aiLerp.destination = _tempObject.transform.position;
     }
-
 }
