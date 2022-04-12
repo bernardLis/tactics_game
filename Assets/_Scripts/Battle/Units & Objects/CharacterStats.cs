@@ -424,9 +424,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             yield return null;
         }
 
-        // Update astar
-        //AstarPath.active.Scan();
-
         _AILerp.enabled = true;
         _AILerp.canMove = true;
         _AILerp.Teleport(finalPos, true);

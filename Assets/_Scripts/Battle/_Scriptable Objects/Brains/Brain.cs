@@ -14,6 +14,7 @@ public class Brain : BaseScriptableObject
     // global
     protected Highlighter _highlighter;
     CameraManager _cameraManager;
+    TurnManager _turnManager;
 
     // tilemap
     protected Tilemap _tilemap;
@@ -23,10 +24,14 @@ public class Brain : BaseScriptableObject
     protected GameObject _characterGameObject;
     protected EnemyStats _enemyStats;
 
+    // node blocker
+    BlockManager _blockManager;
+    List<SingleNodeBlocker> _nodeBlockers;
+    BlockManager.TraversalProvider _traversalProvider;
+
     // movement
     protected Seeker _seeker;
     protected AILerp _aiLerp;
-    protected AIDestinationSetter _destinationSetter;
 
     // interaction
     protected CharacterRendererManager _characterRendererManager;
@@ -43,6 +48,8 @@ public class Brain : BaseScriptableObject
     {
         _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
         _cameraManager = Helpers.Camera.GetComponent<CameraManager>();
+        _turnManager = TurnManager.Instance;
+        _blockManager = FindObjectOfType<BlockManager>();
 
         _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
@@ -52,7 +59,7 @@ public class Brain : BaseScriptableObject
 
         _seeker = _characterGameObject.GetComponent<Seeker>();
         _aiLerp = _characterGameObject.GetComponent<AILerp>();
-        _destinationSetter = _characterGameObject.GetComponent<AIDestinationSetter>();
+        _aiLerp.canSearch = false;
 
         _characterRendererManager = _characterGameObject.GetComponentInChildren<CharacterRendererManager>();
 
@@ -72,6 +79,8 @@ public class Brain : BaseScriptableObject
         _cameraManager.SetTarget(_characterGameObject.transform);
         _highlighter.HiglightEnemyMovementRange(_characterGameObject.transform.position,
                                                _enemyStats.MovementRange.GetValue(), Helpers.GetColor("movementBlue"));
+
+        AstarPath.active.Scan();
     }
 
     public virtual void Move()
@@ -98,10 +107,8 @@ public class Brain : BaseScriptableObject
         // check distance between self and each player character,
         foreach (var targetChar in targetCharacters)
         {
-            // https://arongranberg.com/astar/documentation/dev_4_1_6_17dee0ac/calling-pathfinding.php
-            Path p = _seeker.StartPath(_characterGameObject.transform.position, targetChar.transform.position);
-            p.BlockUntilCalculated();
-            // The path is calculated now
+            ABPath p = GetPathTo(targetChar.transform);
+
             // distance is the path length 
             // https://arongranberg.com/astar/docs_dev/class_pathfinding_1_1_path.php#a1076ed6812e2b4f98dca64b74dabae5d
             float distance = p.GetTotalLength();
@@ -125,8 +132,9 @@ public class Brain : BaseScriptableObject
 
     protected Vector3 GetDestinationCloserTo(PotentialTarget target)
     {
-        Path p = _seeker.StartPath(_characterGameObject.transform.position, target.GameObj.transform.position);
-        p.BlockUntilCalculated();
+        //Path p = _seeker.StartPath(_characterGameObject.transform.position, target.GameObj.transform.position);
+        ABPath p = GetPathTo(target.GameObj.transform);
+
         // The path is calculated now
         // We got our path back
         if (p.error)
@@ -147,6 +155,36 @@ public class Brain : BaseScriptableObject
         }
 
         return Vector3.zero; // TODO: this is dangerous
+    }
+
+    protected ABPath GetPathTo(Transform t)
+    {
+        // Scanning graph breaks node blockers. Whenever I scan graph I need to add node blockers again.
+        // https://arongranberg.com/astar/documentation/dev_4_0_6_e07eb1b/class_single_node_blocker.php
+        _nodeBlockers = new();
+        foreach (GameObject e in _turnManager.GetPlayerCharacters())
+        {
+            e.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
+            _nodeBlockers.Add(e.GetComponent<SingleNodeBlocker>());
+        }
+        _traversalProvider = new BlockManager.TraversalProvider(_blockManager, BlockManager.BlockMode.OnlySelector, _nodeBlockers);
+
+        // https://arongranberg.com/astar/docs_dev/calling-pathfinding.php
+        // Create a new Path object
+        ABPath path = ABPath.Construct(_characterGameObject.transform.position, t.position, null);
+        // Make the path use a specific traversal provider
+        path.traversalProvider = _traversalProvider;
+        // Calculate the path
+        AstarPath.StartPath(path);
+        AstarPath.BlockUntilCalculated(path);
+
+        return path;
+    }
+
+    protected void SetPath(ABPath p)
+    {
+        _aiLerp.SetPath(p);
+        _aiLerp.destination = _tempObject.transform.position;
     }
 
 }

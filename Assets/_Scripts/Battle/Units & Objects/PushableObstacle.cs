@@ -45,14 +45,6 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         }
 
         _battleManager.SnapToGrid(transform);
-        UpdateAstar();
-    }
-
-    void UpdateAstar()
-    {
-        // TODO: is that alright? 
-        // Recalculate all graphs
-        //AstarPath.active.Scan();
     }
 
     void CollisionCheck()

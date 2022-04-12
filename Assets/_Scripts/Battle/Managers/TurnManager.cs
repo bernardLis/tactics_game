@@ -93,10 +93,6 @@ public class TurnManager : Singleton<TurnManager>
         // hide character card
         _infoCardUI.HideCharacterCard();
 
-        // TODO: Is this very taxing?   
-        // Recalculate all graphs
-        //AstarPath.active.Scan();
-
         ResetCounts();
     }
 
@@ -104,10 +100,6 @@ public class TurnManager : Singleton<TurnManager>
     {
         // hide character card
         _infoCardUI.HideCharacterCard();
-
-        // TODO: Is this taxing?
-        // Recalculate all graphs
-        //AstarPath.active.Scan();
 
         ResetCounts();
     }

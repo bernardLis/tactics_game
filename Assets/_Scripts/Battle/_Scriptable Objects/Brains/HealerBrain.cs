@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pathfinding;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Healer")]
 public class HealerBrain : Brain
@@ -23,9 +24,10 @@ public class HealerBrain : Brain
 
         _tempObject = new GameObject("Enemy Destination");
         _tempObject.transform.position = destinationPos;
+        ABPath path = GetPathTo(_tempObject.transform);
+        SetPath(path);
 
         _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
-        _destinationSetter.target = _tempObject.transform;
     }
 
     public override async Task Interact()

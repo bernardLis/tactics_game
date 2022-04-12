@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pathfinding;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Ranged")]
 public class RangedBrain : Brain
@@ -53,9 +54,10 @@ public class RangedBrain : Brain
 
         _tempObject = new GameObject("Enemy Destination");
         _tempObject.transform.position = destinationPos;
+        ABPath p = GetPathTo(_tempObject.transform);
+        SetPath(p);
 
         _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
-        _destinationSetter.target = _tempObject.transform;
     }
 
     public override async Task Interact()

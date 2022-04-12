@@ -74,14 +74,6 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, GameObject, Abilit
         }
 
         _battleManager.SnapToGrid(transform);
-        UpdateAstar();
-    }
-
-    void UpdateAstar()
-    {
-        // TODO: is that alright? 
-        // Recalculate all graphs
-        //AstarPath.active.Scan();
     }
 
     void CollisionCheck()

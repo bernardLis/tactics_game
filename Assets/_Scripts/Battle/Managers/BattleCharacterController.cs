@@ -9,17 +9,6 @@ public enum CharacterState { None, Selected, SelectingInteractionTarget, Selecti
 
 public class BattleCharacterController : Singleton<BattleCharacterController>
 {
-    // node blocker test
-    BlockManager _blockManager;
-    public List<SingleNodeBlocker> _obstacles;
-    BlockManager.TraversalProvider _traversalProvider;
-
-
-    // tilemap
-    Tilemap _tilemap;
-    WorldTile _tile;
-    WorldTile _selectedTile;
-
     // global utilities
     Highlighter _highlighter;
     CharacterUI _characterUI;
@@ -27,11 +16,17 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     MovePointController _movePointController;
     TurnManager _turnManager;
 
+    // tilemap
+    Tilemap _tilemap;
+    WorldTile _tile;
+    WorldTile _selectedTile;
+
+
     // I will be caching them for selected character
     [HideInInspector] public GameObject SelectedCharacter;
     CharacterStats _playerStats;
     PlayerCharSelection _playerCharSelection;
-    AILerp _aILerp;
+    AILerp _aiLerp;
     CharacterRendererManager _characterRendererManager;
 
     // state
@@ -39,6 +34,11 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     // selection
     bool _isSelectionBlocked; // block mashing select character coz it breaks the highlight - if you quickly switch between selection of 2 chars.
+
+    // node blocker
+    BlockManager _blockManager;
+    List<SingleNodeBlocker> _nodeBlockers;
+    BlockManager.TraversalProvider _traversalProvider;
 
     // movement
     GameObject _tempObject;
@@ -204,8 +204,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         SelectedCharacter = character;
         _playerStats = SelectedCharacter.GetComponent<CharacterStats>();
         _playerCharSelection = SelectedCharacter.GetComponent<PlayerCharSelection>();
-        _aILerp = SelectedCharacter.GetComponent<AILerp>();
-        _aILerp.canSearch = false;
+        _aiLerp = SelectedCharacter.GetComponent<AILerp>();
+        _aiLerp.canSearch = false;
         _characterRendererManager = SelectedCharacter.GetComponentInChildren<CharacterRendererManager>();
 
         // character specific ui
@@ -230,11 +230,11 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _highlighter.ClearHighlightedTiles().GetAwaiter();
 
         var path = GetPathTo(transform);
-        _aILerp.SetPath(path);
+        _aiLerp.SetPath(path);
 
         _tempObject = new GameObject("Destination");
         _tempObject.transform.position = transform.position;
-        _aILerp.destination = _tempObject.transform.position;
+        _aiLerp.destination = _tempObject.transform.position;
 
         _characterUI.DisableSkillButtons();
 
@@ -284,15 +284,15 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _hasCharacterStartedMoving = true;
 
         // move character to character's starting position quickly.
-        _aILerp.speed = 15;
+        _aiLerp.speed = 15;
 
         transform.position = _playerCharSelection.PositionTurnStart;
 
         _tempObject = new GameObject("Back Destination");
         _tempObject.transform.position = _playerCharSelection.PositionTurnStart;
         var path = GetPathTo(_tempObject.transform);
-        _aILerp.SetPath(path);
-        _aILerp.destination = _tempObject.transform.position;
+        _aiLerp.SetPath(path);
+        _aiLerp.destination = _tempObject.transform.position;
 
         _characterUI.DisableSkillButtons();
     }
@@ -501,13 +501,13 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         AstarPath.active.Scan();
         // Scanning graph breaks node blockers. Whenever I scan graph I need to add node blockers again.
         // https://arongranberg.com/astar/documentation/dev_4_0_6_e07eb1b/class_single_node_blocker.php
-        _obstacles = new();
+        _nodeBlockers = new();
         foreach (GameObject e in _turnManager.GetEnemies())
         {
             e.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
-            _obstacles.Add(e.GetComponent<SingleNodeBlocker>());
+            _nodeBlockers.Add(e.GetComponent<SingleNodeBlocker>());
         }
-        _traversalProvider = new BlockManager.TraversalProvider(_blockManager, BlockManager.BlockMode.OnlySelector, _obstacles);
+        _traversalProvider = new BlockManager.TraversalProvider(_blockManager, BlockManager.BlockMode.OnlySelector, _nodeBlockers);
 
         // https://arongranberg.com/astar/docs_dev/calling-pathfinding.php
         // Create a new Path object

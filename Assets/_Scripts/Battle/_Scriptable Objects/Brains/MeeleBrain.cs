@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pathfinding;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Meele")]
 public class MeeleBrain : Brain
@@ -27,9 +28,10 @@ public class MeeleBrain : Brain
 
         _tempObject = new GameObject("Enemy Destination");
         _tempObject.transform.position = destinationPos;
+        ABPath path = GetPathTo(_tempObject.transform);
+        SetPath(path);
 
         _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
-        _destinationSetter.target = _tempObject.transform;
     }
 
     public override async Task Interact()

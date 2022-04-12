@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 2727775403500498410}
   - component: {fileID: -2183359834462256654}
   - component: {fileID: 1712415301602900234}
+  - component: {fileID: 6872036329818720946}
   m_Layer: 6
   m_Name: TemplatePlayerCharacter
   m_TagString: Player
@@ -444,6 +445,20 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &6872036329818720946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105715623576548083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45e20632f1604fc6bb73e0e79cd7368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  manager: {fileID: 0}
 --- !u!1 &6105715624814662954
 GameObject:
   m_ObjectHideFlags: 0
