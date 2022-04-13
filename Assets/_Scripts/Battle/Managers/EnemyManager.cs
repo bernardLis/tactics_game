@@ -25,8 +25,7 @@ public class EnemyManager : MonoBehaviour
 
     async Task ForEachEnemy()
     {
-        // TODO: if select resolves statuses, you don't need to wait for so long
-        await Task.Delay(1500); // wait for statuses and modifiers to resolve
+        await Task.Delay(500);
         if (TurnManager.BattleState != BattleState.EnemyTurn)
             return;
 

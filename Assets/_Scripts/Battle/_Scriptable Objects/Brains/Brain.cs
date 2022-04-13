@@ -88,14 +88,12 @@ public class Brain : BaseScriptableObject
             e.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
             _nodeBlockers.Add(e.GetComponent<SingleNodeBlocker>());
         }
-
-        // wait for statuses to resolve.
-        
     }
 
-    public virtual void Move()
+    public virtual async Task Move()
     {
         // meant to be overwritten
+        await Task.Delay(1); // To silence errors.
     }
 
     public virtual async Task Interact()

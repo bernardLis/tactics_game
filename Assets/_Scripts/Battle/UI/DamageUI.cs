@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
-
+using System.Threading.Tasks;
 public class DamageUI : MonoBehaviour
 {
     Camera _cam;
@@ -12,12 +12,12 @@ public class DamageUI : MonoBehaviour
     Label _healthChangeDisplayLabel;
 
     Queue<IEnumerator> _coroutineQueue = new();
-
+    Queue<Task> _taskQueue = new();
+    
     float _offsetY = 0.5f;
 
     void Start()
     {
-        // TODO: Supposedly, this is an expensive call
         _cam = Helpers.Camera;
 
         // getting ui elements
@@ -27,6 +27,9 @@ public class DamageUI : MonoBehaviour
 
         StartCoroutine(CoroutineCoordinator());
     }
+
+    // TODO: I could be displaying some effects on character - poison cloud or something 
+    // and add it to the queue as well...
 
     public void DisplayOnCharacter(string txt, int fontSize, Color col)
     {
@@ -83,6 +86,11 @@ public class DamageUI : MonoBehaviour
                 yield return StartCoroutine(_coroutineQueue.Dequeue());
             yield return null;
         }
+    }
+
+    public bool IsQueueEmpty()
+    {
+        return _coroutineQueue.Count == 0;
     }
 
 

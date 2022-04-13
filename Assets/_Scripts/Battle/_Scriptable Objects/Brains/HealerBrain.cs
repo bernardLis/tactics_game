@@ -6,7 +6,7 @@ using Pathfinding;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Healer")]
 public class HealerBrain : Brain
 {
-    public override void Move()
+    public override async Task Move()
     {
         _potentialTargets = GetPotentialTargets(_characterGameObject.tag); // get guys from your team
         PotentialTarget selectedTarget = ChooseTarget(_potentialTargets);
@@ -19,7 +19,7 @@ public class HealerBrain : Brain
         else
             destinationPos = GetDestinationCloserTo(selectedTarget);
 
-        _highlighter.ClearHighlightedTiles().GetAwaiter();
+        await _highlighter.ClearHighlightedTiles();
         _aiLerp.speed = 6f;
 
         _tempObject = new GameObject("Enemy Destination");

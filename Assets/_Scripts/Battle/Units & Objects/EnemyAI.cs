@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     Seeker _seeker;
     AILerp _AILerp;
     EnemyCharSelection _characterSelection;
+    DamageUI _damageUI;
 
     EnemyStats _enemyStats;
     [HideInInspector] public bool _amDead = false;
@@ -22,8 +23,8 @@ public class EnemyAI : MonoBehaviour
 
         _seeker = GetComponent<Seeker>();
         _AILerp = GetComponent<AILerp>();
-
         _characterSelection = GetComponent<EnemyCharSelection>();
+        _damageUI = GetComponent<DamageUI>();
 
         // subscribe to your death
         _enemyStats = GetComponent<EnemyStats>();
@@ -53,15 +54,21 @@ public class EnemyAI : MonoBehaviour
         if (_characterSelection.HasFinishedTurn)
             return;
 
+        // wait for statuses to resolve. 
+        // TODO: there is an argument to implement it differently:
+        // status triggers should be async-await and everything in between too. 
+        while (!_damageUI.IsQueueEmpty())
+            await Task.Delay(25); //https://stackoverflow.com/questions/29089417/c-sharp-wait-until-condition-is-true
+
         await Task.Delay(500);
         await _brain.Select();
         await Task.Delay(500);
-        _brain.Move();
+        await _brain.Move();
         await Task.Delay(500);
 
         // wait for character to reach destination
         while (!_AILerp.reachedDestination)
-            await Task.Yield();
+            await Task.Delay(25); // TODO: does this work? should move be async await all the way? 
 
         await Task.Delay(500);
         await _brain.Interact();
