@@ -71,13 +71,13 @@ public class Brain : BaseScriptableObject
         }
     }
 
-    public virtual void Select()
+    public virtual async Task Select()
     {
         Target = null;
         _cameraManager.SetTarget(_characterGameObject.transform);
-        _highlighter.HiglightEnemyMovementRange(_characterGameObject.transform.position,
-                                               _enemyStats.MovementRange.GetValue(), Helpers.GetColor("movementBlue"));
-
+        await _highlighter.HiglightEnemyMovementRange(_characterGameObject.transform.position,
+                                                      _enemyStats.MovementRange.GetValue(),
+                                                      Helpers.GetColor("movementBlue"));
 
         // node blockers
         AstarPath.active.Scan();
@@ -88,6 +88,9 @@ public class Brain : BaseScriptableObject
             e.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
             _nodeBlockers.Add(e.GetComponent<SingleNodeBlocker>());
         }
+
+        // wait for statuses to resolve.
+        
     }
 
     public virtual void Move()

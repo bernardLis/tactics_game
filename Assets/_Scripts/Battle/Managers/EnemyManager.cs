@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -16,21 +17,21 @@ public class EnemyManager : MonoBehaviour
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
-    void TurnManager_OnBattleStateChanged(BattleState state)
+    async void TurnManager_OnBattleStateChanged(BattleState state)
     {
         if (state == BattleState.EnemyTurn)
-            StartCoroutine(ForEachEnemy());
+            await ForEachEnemy();
     }
 
-    IEnumerator ForEachEnemy()
+    async Task ForEachEnemy()
     {
-        yield return new WaitForSeconds(1.5f); // wait for statuses and modifiers to resolve
+        // TODO: if select resolves statuses, you don't need to wait for so long
+        await Task.Delay(1500); // wait for statuses and modifiers to resolve
         if (TurnManager.BattleState != BattleState.EnemyTurn)
-            yield break;
+            return;
 
         _enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        // for every enemy character
         foreach (var enemy in _enemies)
         {
             if (enemy == null)
@@ -38,10 +39,11 @@ public class EnemyManager : MonoBehaviour
 
             InfoCardUI.Instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
             _enemyAI = enemy.GetComponent<EnemyAI>();
-            // this waits until the previous corutine is done
-            yield return StartCoroutine(_enemyAI.RunAI());
 
-            yield return new WaitForSeconds(1f);
+            // this waits until the previous corutine is done
+            await _enemyAI.RunAI();
+
+            await Task.Delay(1000);
         }
     }
 }

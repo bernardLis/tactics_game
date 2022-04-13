@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
 
     Brain _brain;
 
-    protected virtual void Awake()
+    void Awake()
     {
         _highlighter = Highlighter.Instance;
 
@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour
         _enemyStats.CharacterDeathEvent += OnEnemyDeath;
     }
 
-    protected virtual void OnEnemyDeath(GameObject _obj)
+    void OnEnemyDeath(GameObject _obj)
     {
         // maybe useful for trapping on the way
 
@@ -43,36 +43,35 @@ public class EnemyAI : MonoBehaviour
         _brain = brain;
     }
 
-    // TODO: rewrite to async await
-    public virtual IEnumerator RunAI()
+    public async Task RunAI()
     {
         // exit if battle is over
         if (TurnManager.BattleState == BattleState.Won || TurnManager.BattleState == BattleState.Lost)
-            yield break;
+            return;
 
         // character can be stunned = no turn
         if (_characterSelection.HasFinishedTurn)
-            yield break;
+            return;
 
-        yield return new WaitForSeconds(0.5f);
-        _brain.Select();
-        yield return new WaitForSeconds(0.5f);
+        await Task.Delay(500);
+        await _brain.Select();
+        await Task.Delay(500);
         _brain.Move();
-        yield return new WaitForSeconds(0.5f);
+        await Task.Delay(500);
 
         // wait for character to reach destination
         while (!_AILerp.reachedDestination)
-            yield return null;
-        yield return new WaitForSeconds(0.5f);
+            await Task.Yield();
 
-        Task task = _brain.Interact();
-        yield return new WaitUntil(() => task.IsCompleted);
+        await Task.Delay(500);
+        await _brain.Interact();
 
-        yield return new WaitForSeconds(0.5f);
+        await Task.Delay(500);
+        await _highlighter.ClearHighlightedTiles();
 
-        _highlighter.ClearHighlightedTiles().GetAwaiter();
-        yield return new WaitForSeconds(0.5f);
+        await Task.Delay(500);
         _characterSelection.FinishCharacterTurn();
-        yield return true;
+
+        return;
     }
 }

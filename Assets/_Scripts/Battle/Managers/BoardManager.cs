@@ -843,9 +843,7 @@ public class BoardManager : MonoBehaviour
 
             EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
             // TODO: level higher than player by 2? Like in tactics ogre:)
-            //enemySO.CreateEnemy(1, _enemyBrains[Random.Range(0, _enemyBrains.Length)]);
-
-            enemySO.CreateEnemy(1, _enemyBrains[0]);
+            enemySO.CreateEnemy(1, _enemyBrains[Random.Range(0, _enemyBrains.Length)]);
 
             Vector3 spawnPos = new Vector3(chosenPos.x + 0.5f, chosenPos.y + 0.5f);
             Character instantiatedSO = Instantiate(enemySO);

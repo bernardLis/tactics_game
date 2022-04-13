@@ -288,11 +288,11 @@ public class Highlighter : Singleton<Highlighter>
     }
 
     /* Enemy movement highlighting */
-    public void HiglightEnemyMovementRange(Vector3 position, int range, Color col)
+    public async Task HiglightEnemyMovementRange(Vector3 position, int range, Color col)
     {
         // TODO: should I make it all async?
         // clear the list just in case.
-        ClearHighlightedTiles().GetAwaiter();
+        await ClearHighlightedTiles();
 
         // list with tiles
         var markedTiles = new List<WorldTile>();
