@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealerBrain
   m_EditorClassIdentifier: 
   Id: 9003cf17-74f4-43d3-81e3-dcc7289e083d
-  Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
+  Body: {fileID: 11400000, guid: 1f5961a24b5dae049a5e1b0c10eed423, type: 2}
   Weapon: {fileID: 11400000, guid: b3756de8953f75e4e8b992726567dc45, type: 2}
   Target: {fileID: 0}
   AbilitiesToInstantiate:

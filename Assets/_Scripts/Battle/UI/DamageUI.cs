@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using DG.Tweening;
-using System.Threading.Tasks;
+
 public class DamageUI : MonoBehaviour
 {
     Camera _cam;
@@ -12,8 +11,6 @@ public class DamageUI : MonoBehaviour
     Label _healthChangeDisplayLabel;
 
     Queue<IEnumerator> _coroutineQueue = new();
-    Queue<Task> _taskQueue = new();
-    
     float _offsetY = 0.5f;
 
     void Start()
@@ -92,7 +89,4 @@ public class DamageUI : MonoBehaviour
     {
         return _coroutineQueue.Count == 0;
     }
-
-
-
 }

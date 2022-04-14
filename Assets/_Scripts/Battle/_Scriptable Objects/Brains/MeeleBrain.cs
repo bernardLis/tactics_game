@@ -7,7 +7,7 @@ using Pathfinding;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Meele")]
 public class MeeleBrain : Brain
 {
-    public override void Move()
+    public override async Task Move()
     {
         _potentialTargets = GetPotentialTargets("Player");
         AttackPosition attackPos = GetBestAttackPosition(_potentialTargets);
@@ -23,7 +23,7 @@ public class MeeleBrain : Brain
             Target = attackPos.Target;
         }
 
-        _highlighter.ClearHighlightedTiles().GetAwaiter();
+        await _highlighter.ClearHighlightedTiles();
         _aiLerp.speed = 6f;
 
         _tempObject = new GameObject("Enemy Destination");

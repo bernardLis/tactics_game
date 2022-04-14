@@ -7,7 +7,7 @@ using Pathfinding;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Ranged")]
 public class RangedBrain : Brain
 {
-    public override void Move()
+    public override async Task Move()
     {
         _potentialTargets = GetPotentialTargets("Player");
         // attack;
@@ -49,7 +49,7 @@ public class RangedBrain : Brain
         }
 
 
-        _highlighter.ClearHighlightedTiles().GetAwaiter();
+        await _highlighter.ClearHighlightedTiles();
         _aiLerp.speed = 6f;
 
         _tempObject = new GameObject("Enemy Destination");

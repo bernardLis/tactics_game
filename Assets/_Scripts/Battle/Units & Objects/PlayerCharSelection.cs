@@ -63,7 +63,7 @@ public class PlayerCharSelection : CharacterSelection
         DeselectCharacter();
 
         // finish character's turn after the interaction is performed
-        _turnManager.PlayerCharacterTurnFinished();
+        _turnManager.PlayerCharacterTurnFinished(gameObject);
     }
 
     public void SetCharacterMoved(bool hasMoved)

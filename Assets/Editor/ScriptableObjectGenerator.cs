@@ -7,7 +7,7 @@ using System.IO;
 public static class ScriptableObjectGenerator
 {
 
-    [MenuItem("Utilities/Generate Characters")]
+    [MenuItem("Utilities/SOGenerator/Generate Characters")]
     public static void GenerateCharacters()
     {
         string path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), AssetDatabase.GetAssetPath(Selection.activeObject));
@@ -32,7 +32,7 @@ public static class ScriptableObjectGenerator
     }
 
 
-    [MenuItem("Utilities/Generate Abilities")]
+    [MenuItem("Utilities/SOGenerator/Generate Abilities")]
     public static void GenerateAbilities()
     {
         string path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), AssetDatabase.GetAssetPath(Selection.activeObject));
@@ -56,7 +56,7 @@ public static class ScriptableObjectGenerator
         }
     }
 
-    [MenuItem("Utilities/Generate Stat Modifiers")]
+    [MenuItem("Utilities/SOGenerator/Generate Stat Modifiers")]
     public static void GenerateStatModifiers()
     {
         string path = Path.Combine(Directory.GetCurrentDirectory(), AssetDatabase.GetAssetPath(Selection.activeObject));
@@ -80,7 +80,7 @@ public static class ScriptableObjectGenerator
         }
     }
 
-    [MenuItem("Utilities/Generate Statuses")]
+    [MenuItem("Utilities/SOGenerator/Generate Statuses")]
     public static void GenerateStatuses()
     {
         string path = Path.Combine(Directory.GetCurrentDirectory(), AssetDatabase.GetAssetPath(Selection.activeObject));

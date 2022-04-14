@@ -19,7 +19,7 @@ public class EnemyCharSelection : CharacterSelection
     public override void FinishCharacterTurn()
     {
         base.FinishCharacterTurn();
-        _turnManager.EnemyCharacterTurnFinished();
+        _turnManager.EnemyCharacterTurnFinished(gameObject);
     }
 
 }

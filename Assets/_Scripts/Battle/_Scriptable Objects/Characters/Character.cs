@@ -98,7 +98,7 @@ public class Character : BaseScriptableObject
         MaxHealth = _baseMaxHealth + Stamina * 5;
         MaxMana = _baseMaxMana + Intelligence * 5;
         Armor = _baseArmor; // TODO: should take eq into consideration 
-        MovementRange = Mathf.Clamp(_baseMovementRange + Mathf.FloorToInt(Agility / 3), 1, 10);
+        MovementRange = Mathf.Clamp(_baseMovementRange + Mathf.FloorToInt(Agility / 3), 1, 8);
     }
 
     public void LevelUp()

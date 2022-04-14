@@ -316,7 +316,6 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     void SelectNode(JourneyNodeBehaviour _node)
     {
         Camera.main.GetComponent<JourneyCameraController>().UnsubscribeInputActions();
-        DOTween.KillAll();
 
         _node.DrawCircle();
         _node.JourneyNode.Select(); // after n.journeyNodeBehaviour.StopAnimating(); to keep the color

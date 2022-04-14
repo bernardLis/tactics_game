@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MeeleBrain
   m_EditorClassIdentifier: 
   Id: 0bb2b244-0ec2-4dd3-9cb1-cb0d855f9105
-  Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
+  Body: {fileID: 11400000, guid: 02f6d0eed96c6d64294e084e81767413, type: 2}
   Weapon: {fileID: 11400000, guid: ee0c100ca9742414d9e8b23ad0811a2e, type: 2}
   Target: {fileID: 0}
   AbilitiesToInstantiate:

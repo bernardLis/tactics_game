@@ -502,13 +502,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public async Task Die()
     {
-        await _highlighter.ClearHighlightedTiles();
-
         // playing death animation
         await _characterRendererManager.Die();
 
         // kill all tweens TODO: is that OK?
-        DOTween.KillAll();
+        transform.DOKill();
 
         // movement script needs to clear the highlight 
         if (CharacterDeathEvent != null)

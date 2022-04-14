@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RangedBrain
   m_EditorClassIdentifier: 
   Id: 187f2893-3547-4c8f-9f30-d6253c01c157
-  Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
+  Body: {fileID: 11400000, guid: 88fc7d6307f320042bd5d6fb356701a1, type: 2}
   Weapon: {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
   Target: {fileID: 0}
   AbilitiesToInstantiate:

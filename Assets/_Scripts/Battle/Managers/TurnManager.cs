@@ -18,8 +18,8 @@ public class TurnManager : Singleton<TurnManager>
     List<GameObject> _playerCharacters;
     List<GameObject> _enemies;
 
-    int _playerCharactersLeftToTakeTurn;
-    int _enemyCharactersLeftToTakeTurn;
+    List<GameObject> _playerCharactersLeftToTakeTurn;
+    List<GameObject> _enemyCharactersLeftToTakeTurn;
 
     public static event Action<BattleState> OnBattleStateChanged;
 
@@ -72,8 +72,8 @@ public class TurnManager : Singleton<TurnManager>
         _playerCharacters = new(GameObject.FindGameObjectsWithTag("Player"));
         _enemies = new(GameObject.FindGameObjectsWithTag("Enemy"));
 
-        _playerCharactersLeftToTakeTurn = _playerCharacters.Count;
-        _enemyCharactersLeftToTakeTurn = _enemies.Count;
+        _playerCharactersLeftToTakeTurn = new(_playerCharacters);
+        _enemyCharactersLeftToTakeTurn = new(_enemies);
 
         // subscribe to death events
         foreach (GameObject enemy in _enemies)
@@ -104,27 +104,26 @@ public class TurnManager : Singleton<TurnManager>
         ResetCounts();
     }
 
-    // TODO: eeee... does it make sense?
     void ResetCounts()
     {
-        _playerCharactersLeftToTakeTurn = _playerCharacters.Count;
-        _enemyCharactersLeftToTakeTurn = _enemies.Count;
+        _playerCharactersLeftToTakeTurn = new(GameObject.FindGameObjectsWithTag("Player"));
+        _enemyCharactersLeftToTakeTurn = new(GameObject.FindGameObjectsWithTag("Enemy"));
     }
 
-    public void OnPlayerCharDeath(GameObject _obj)
+    public void OnPlayerCharDeath(GameObject obj)
     {
-        PlayerCharacterTurnFinished();
+        PlayerCharacterTurnFinished(obj);
 
-        _playerCharacters.Remove(_obj);
+        _playerCharacters.Remove(obj);
         if (_playerCharacters.Count <= 0)
             UpdateBattleState(BattleState.Lost);
     }
 
-    public void OnEnemyDeath(GameObject _obj)
+    public void OnEnemyDeath(GameObject obj)
     {
-        EnemyCharacterTurnFinished();
+        EnemyCharacterTurnFinished(obj);
 
-        _enemies.Remove(_obj);
+        _enemies.Remove(obj);
         if (_enemies.Count <= 0)
             UpdateBattleState(BattleState.Won);
     }
@@ -154,17 +153,17 @@ public class TurnManager : Singleton<TurnManager>
         _journeyManager.ClearSaveData(); // TODO: this is not how it should be handled.
     }
 
-    public async void PlayerCharacterTurnFinished()
+    public async void PlayerCharacterTurnFinished(GameObject obj)
     {
-        _playerCharactersLeftToTakeTurn -= 1;
-        if (_playerCharactersLeftToTakeTurn <= 0 && BattleState == BattleState.PlayerTurn)
+        _playerCharactersLeftToTakeTurn.Remove(obj);
+        if (_playerCharactersLeftToTakeTurn.Count <= 0 && BattleState == BattleState.PlayerTurn)
             await ChangeTurn(BattleState.EnemyTurn);
     }
 
-    public async void EnemyCharacterTurnFinished()
+    public async void EnemyCharacterTurnFinished(GameObject obj)
     {
-        _enemyCharactersLeftToTakeTurn -= 1;
-        if (_enemyCharactersLeftToTakeTurn <= 0 && BattleState == BattleState.EnemyTurn)
+        _enemyCharactersLeftToTakeTurn.Remove(obj);
+        if (_enemyCharactersLeftToTakeTurn.Count <= 0 && BattleState == BattleState.EnemyTurn)
             await ChangeTurn(BattleState.PlayerTurn);
     }
 
@@ -187,5 +186,4 @@ public class TurnManager : Singleton<TurnManager>
     {
         return _playerCharacters;
     }
-
 }
