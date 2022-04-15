@@ -24,4 +24,6 @@ MonoBehaviour:
   Target: {fileID: 0}
   AbilitiesToInstantiate:
   - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
-  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
+  - {fileID: 11400000, guid: 160355c14bdb039479a79a8669b0aca7, type: 2}
+  - {fileID: 11400000, guid: 7afbe107d25cc6c4682e85d08c541365, type: 2}
+  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}

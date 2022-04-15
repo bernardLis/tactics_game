@@ -36,6 +36,10 @@ public class HealerBrain : Brain
         if (_tempObject != null)
             Destroy(_tempObject);
 
+        // 1. if you have mana, and there are 2 harmed teammates(or you) next to each other use cross heal on them
+        // 2. if there is 1 teammate(or you) harmed - heal them
+        // 3. if there is nothing to heal - buff 
+
         // so, you have moved closer to lowest health boi, but you are not sure whether you can reach him
         _selectedAbility = _abilities[0]; // this is heal // TODO: hardocded indexes.
 

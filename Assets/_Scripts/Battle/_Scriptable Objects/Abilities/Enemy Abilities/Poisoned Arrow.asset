@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
   m_Name: Poisoned Arrow
   m_EditorClassIdentifier: 
-  Id: 
+  Id: ba5f4820-223c-404c-a152-c6b8e95a1658
   ReferenceID: ABILITY-3
   Description: Poison and debuff target for 3 turns.
   Icon: {fileID: 21300000, guid: 73f056cc1d394b544bcc85a99d6488d6, type: 3}
@@ -24,8 +24,8 @@ MonoBehaviour:
   MultiplerStat: 2
   WeaponType: 2
   Projectile: {fileID: 6450357399194659378, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
-  StatModifier: {fileID: 11400000, guid: fb56247f2e29ef043b2f25c84dbddeb4, type: 2}
-  Status: {fileID: 11400000, guid: 2f0fe52f207d1914799b4eed4e54e57b, type: 2}
+  StatModifier: {fileID: 11400000, guid: 0b3befe40f5e4bc4a91c09e135ed8401, type: 2}
+  Status: {fileID: 11400000, guid: 1468796ffbb600c499423279fb089246, type: 2}
   Range: 4
   CanTargetSelf: 0
   CanTargetDiagonally: 1

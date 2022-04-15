@@ -16,7 +16,7 @@ public class Brain : BaseScriptableObject
     public float IntelligenceMultiplier;
     public float AgilityMultiplier;
     public float StaminaMultiplier;
-    
+
     public Equipment Body;
     public Weapon Weapon;
 
@@ -185,6 +185,11 @@ public class Brain : BaseScriptableObject
 
     protected ABPath GetPathTo(Transform t)
     {
+        // when pathing to single node blocker, path is 0
+        CharacterSelection charSelection = t.GetComponent<CharacterSelection>();
+        if (charSelection != null)
+            charSelection.DeactivateSingleNodeBlocker();
+
         // Scanning graph breaks node blockers. Whenever I scan graph I need to add node blockers again.
         // https://arongranberg.com/astar/documentation/dev_4_0_6_e07eb1b/class_single_node_blocker.php
         _traversalProvider = new BlockManager.TraversalProvider(_blockManager, BlockManager.BlockMode.OnlySelector, _nodeBlockers);
@@ -197,6 +202,9 @@ public class Brain : BaseScriptableObject
         // Calculate the path
         AstarPath.StartPath(path);
         AstarPath.BlockUntilCalculated(path);
+
+        if (charSelection != null)
+            charSelection.ActivateSingleNodeBlocker();
 
         return path;
     }

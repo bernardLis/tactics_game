@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bfcf5bfd119a1c4b8f6cb8221a1acc7, type: 3}
   m_Name: Push
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 48f3cc5e-8a41-43f2-a73e-78dc48f051b6
   ReferenceID: ABILITY-1
   Description: Push object 1 tile.
   Icon: {fileID: 21300000, guid: 6677e6c62567ff14a8b7a2bd48729855, type: 3}

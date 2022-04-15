@@ -10,10 +10,8 @@ public class RangedBrain : Brain
     public override async Task Move()
     {
         _potentialTargets = GetPotentialTargets("Player");
-        //OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK
-        // get ability that costs the most mana - check if there are targets within reach,
-        // if yes, great move on
-        // else select next in line and check if there are targets within reach 
+        PotentialTarget selectedTarget = GetClosestTarget(_potentialTargets, _selectedAbility);
+
         Ability bestAbility = _abilities[0];
         foreach (Ability a in _abilities)
         {
@@ -21,61 +19,17 @@ public class RangedBrain : Brain
                 continue;
             if (a.ManaCost > _enemyStats.CurrentMana)
                 continue;
-            if (!AreTargetsWithinAbilityRange(a))
-                bestAbility = a;
+            if (!IsTargetWithinAttackRange(a, selectedTarget.GameObj.transform))
+                continue;
+            bestAbility = a;
         }
 
         _selectedAbility = bestAbility;
-        /*
-        // attack;
-        _selectedAbility = _abilities[0]; // TODO: hardocded indexes.
-        if (_enemyStats.CurrentMana >= 20)
-            _selectedAbility = _abilities[1]; // TODO: hardocded indexes.
-        */
+
         // ranged brain wants to keep distance but to be in the range of his attack
-        PotentialTarget selectedTarget = GetClosestTarget(_potentialTargets, _selectedAbility);
-        Vector3 myPos = _characterGameObject.transform.position;
-        Vector3 targetPos = selectedTarget.GameObj.transform.position;
-        Vector3 destinationPos = Vector3.zero;
-        // 1. you cannot reach the target with walking + attack range 
-        // it's actually ability range + walking
-        if (Helpers.GetManhattanDistance(myPos, targetPos) > _selectedAbility.Range + _enemyStats.MovementRange.GetValue())
-        {
-            // you want to move closer to the target and not attack
-            destinationPos = GetDestinationCloserTo(selectedTarget);
-            Target = null;
-        }
-
-        // 1,5. if you can reach the target by repositioning  
-        if (Helpers.GetManhattanDistance(myPos, targetPos) <= _selectedAbility.Range + _enemyStats.MovementRange.GetValue())
-        {
-            // you want to path the furthest you can from the target but still within attack range
-            destinationPos = FindArcherPosition(selectedTarget, _selectedAbility); // TODO: I am not certain it will work here
-            Target = selectedTarget.GameObj;
-
-            if (destinationPos == Vector3.zero)
-                destinationPos = _characterGameObject.transform.position;
-        }
-
-
-        // 2. the target is perfectly at the edge of your attack range
-        if (Helpers.GetManhattanDistance(myPos, targetPos) == _selectedAbility.Range)
-        {
-            destinationPos = myPos;
-            Target = selectedTarget.GameObj;
-        }
-        // = you want to keep position and attack
-
-        // 3. the target is closer than you would like
-        if (Helpers.GetManhattanDistance(myPos, targetPos) < _selectedAbility.Range)
-        {
-            // = you want to path the furthest you can from the target but still within attack range
-            destinationPos = FindArcherPosition(selectedTarget, _selectedAbility);
-            Target = selectedTarget.GameObj;
-
-            if (destinationPos == Vector3.zero)
-                destinationPos = _characterGameObject.transform.position;
-        }
+        Vector3 destinationPos = ChoosePosition(selectedTarget);
+        if (destinationPos == Vector3.zero)
+            destinationPos = _characterGameObject.transform.position;
 
         await _highlighter.ClearHighlightedTiles();
         _aiLerp.speed = 6f;
@@ -88,13 +42,52 @@ public class RangedBrain : Brain
         _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
     }
 
-    bool AreTargetsWithinAbilityRange(Ability ability)
+    Vector3 ChoosePosition(PotentialTarget selectedTarget)
     {
-        /* I AM WORKING HERE!
-        if (Helpers.GetManhattanDistance(myPos, targetPos) <= ability.Range)
-        {
-        }
-    */
+        Vector3 myPos = _characterGameObject.transform.position;
+        Vector3 targetPos = selectedTarget.GameObj.transform.position;
+        Target = selectedTarget.GameObj;
+
+        // 1. the target is perfectly at the edge of your attack range
+        // = you want to keep the position and attack
+        if (Helpers.GetManhattanDistance(myPos, targetPos) == _selectedAbility.Range)
+            return myPos;
+
+        // 2. the target is closer than you would like
+        // = you want to path the furthest you can from the target but still within attack range
+        if (Helpers.GetManhattanDistance(myPos, targetPos) < _selectedAbility.Range)
+            return FindArcherPosition(selectedTarget, _selectedAbility, false);
+
+        // 3. if you can reach the target by repositioning 
+        // you want to path the furthest you can from the target but still within attack range
+        if (IsTargetWithinAttackRange(_selectedAbility, selectedTarget.GameObj.transform))
+            return FindArcherPosition(selectedTarget, _selectedAbility, true);
+
+        // 4. you cannot reach the target with walking + attack range 
+        // you want to move closer to the target and not attack
+        Target = null;
+        return GetDestinationCloserTo(selectedTarget);
+    }
+
+    bool IsTargetWithinAttackRange(Ability ability, Transform target)
+    {
+        Vector3 myPos = _characterGameObject.transform.position;
+        // you don't even have to move!  
+        if (Helpers.GetManhattanDistance(myPos, target.position) <= ability.Range)
+            return true;
+        // when you cannot reach it like that you will need to move, so you will need to path 
+        // and it can bring you closer to your target, but it can also bring you further...
+        ABPath p = GetPathTo(target);
+
+        // this far you can go on the path to opponent 
+        int reachableVectorIndex = _enemyStats.MovementRange.GetValue();
+        if (_enemyStats.MovementRange.GetValue() >= p.vectorPath.Count)
+            reachableVectorIndex = p.vectorPath.Count - 1;
+
+        Vector3 furthestPosOnPath = p.vectorPath[reachableVectorIndex];
+        if (Helpers.GetManhattanDistance(furthestPosOnPath, target.position) <= ability.Range)
+            return true;
+
         return false;
     }
 
@@ -127,11 +120,13 @@ public class RangedBrain : Brain
         return pTargets[0];
     }
 
-    Vector3 FindArcherPosition(PotentialTarget target, Ability ability)
+    Vector3 FindArcherPosition(PotentialTarget target, Ability ability, bool closer)
     {
         Vector3 targetPos = target.GameObj.transform.position;
         float maxDist = target.DistanceToTarget;
-        Vector3 bestDest = Vector3.zero;
+        if (closer) // for finding position closer to target, but still the furthest you can be.
+            maxDist = 0;
+        Vector3 bestDest = _characterGameObject.transform.position;
         // going through all within reach tiles
         foreach (WorldTile tile in _highlighter.HighlightedTiles)
         {
@@ -150,7 +145,4 @@ public class RangedBrain : Brain
         }
         return bestDest;
     }
-
-
-
 }
