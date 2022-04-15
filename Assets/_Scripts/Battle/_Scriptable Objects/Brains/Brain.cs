@@ -8,6 +8,15 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Brain")]
 public class Brain : BaseScriptableObject
 {
+    public string Name;
+    public Sprite Portrait;
+
+    // TODO: curves instead of floats
+    public float StrengthMultiplier;
+    public float IntelligenceMultiplier;
+    public float AgilityMultiplier;
+    public float StaminaMultiplier;
+    
     public Equipment Body;
     public Weapon Weapon;
 

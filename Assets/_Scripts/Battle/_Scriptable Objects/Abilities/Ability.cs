@@ -46,7 +46,7 @@ public abstract class Ability : BaseScriptableObject
         ReferenceID = item["ReferenceID"].ToString();
         Description = item["Description"].ToString();
         AbilityType = (AbilityType)System.Enum.Parse(typeof(AbilityType), item["AbilityType"].ToString());
-        MultiplerStat = (StatType)System.Enum.Parse(typeof(StatType), item["MultiplerStat"].ToString());
+        MultiplerStat = (StatType)System.Enum.Parse(typeof(StatType), item["MultiplierStat"].ToString());
         WeaponType = (WeaponType)System.Enum.Parse(typeof(WeaponType), item["WeaponType"].ToString());
         Projectile = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/{item["Projectile"]}.prefab", typeof(GameObject));
         Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));

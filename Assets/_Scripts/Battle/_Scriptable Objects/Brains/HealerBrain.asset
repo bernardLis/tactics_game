@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: HealerBrain
   m_EditorClassIdentifier: 
   Id: 9003cf17-74f4-43d3-81e3-dcc7289e083d
+  Name: Healer Mona
+  Portrait: {fileID: 21300000, guid: f9cfb7fa4e56f16488d0ac809a225e60, type: 3}
+  StrengthMultiplier: 0.8
+  IntelligenceMultiplier: 1.2
+  AgilityMultiplier: 0.8
+  StaminaMultiplier: 0.8
   Body: {fileID: 11400000, guid: 1f5961a24b5dae049a5e1b0c10eed423, type: 2}
   Weapon: {fileID: 11400000, guid: b3756de8953f75e4e8b992726567dc45, type: 2}
   Target: {fileID: 0}

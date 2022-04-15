@@ -21,6 +21,7 @@ MonoBehaviour:
   ManaCost: 0
   AreaOfEffect: 0
   AbilityType: 4
+  MultiplerStat: 3
   WeaponType: 3
   Projectile: {fileID: 0}
   StatModifier: {fileID: 11400000, guid: 8b86706caed80434c92051c35646b1da, type: 2}

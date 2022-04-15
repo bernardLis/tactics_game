@@ -9,14 +9,15 @@ public class EnemyCharacter : Character
 
     public void CreateEnemy(int level, Brain brain)
     {
-        CharacterName = "Jason";
-        Portrait = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Character/Portrait/Eyck.jpg", typeof(Sprite));
+        CharacterName = brain.Name;
+        Portrait = brain.Portrait;
         Level = level;
-        // TODO: samehitng different - like take brain into consideration and stuff
-        Strength = level * 5;
-        Intelligence = level * 5;
-        Agility = level * 5;
-        Stamina = level * 5;
+
+        Strength = Mathf.FloorToInt(level * brain.StrengthMultiplier) + 5;
+        Intelligence = Mathf.FloorToInt(level * brain.IntelligenceMultiplier) + 5;
+        Agility = Mathf.FloorToInt(level * brain.AgilityMultiplier) + 5;
+        Stamina = Mathf.FloorToInt(level * brain.StaminaMultiplier) + 5;
+
         Body = brain.Body;
         Weapon = brain.Weapon;
         EnemyBrain = brain;

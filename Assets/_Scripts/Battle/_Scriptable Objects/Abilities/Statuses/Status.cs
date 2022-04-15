@@ -26,7 +26,7 @@ public class Status : BaseScriptableObject
         ReferenceID = item["ReferenceID"].ToString();
         NumberOfTurns = int.Parse(item["NumberOfTurns"].ToString());
         Value = int.Parse(item["Value"].ToString());
-        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/Status/{item["Icon"]}", typeof(Sprite));
+        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
         DisplayText = item["DisplayText"].ToString();
         DisplayColor = Utility.HexToColor(item["DisplayColor"].ToString());
     }

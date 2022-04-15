@@ -7,6 +7,7 @@ using Pathfinding;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Meele")]
 public class MeeleBrain : Brain
 {
+    // Find a position where you can attack from the back
     public override async Task Move()
     {
         _potentialTargets = GetPotentialTargets("Player");
@@ -34,6 +35,7 @@ public class MeeleBrain : Brain
         _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
     }
 
+    // chooses the ability that costs the most mana and executes (if there is a target)
     public override async Task Interact()
     {
         // clean-up after movement
@@ -53,10 +55,20 @@ public class MeeleBrain : Brain
         if (Target == null)
             return;
 
+        // best ability is the one that costs the most mana
+        Ability bestAbility = _abilities[0];
+        foreach (Ability a in _abilities)
+        {
+
+            if (a.ManaCost < bestAbility.ManaCost)
+                continue;
+            if (a.ManaCost > _enemyStats.CurrentMana)
+                continue;
+
+            bestAbility = a;
+        }
         // attack;
-        _selectedAbility = _abilities[0]; // TODO: hardocded indexes.
-        if (_enemyStats.CurrentMana >= 20)
-            _selectedAbility = _abilities[1]; // TODO: hardocded indexes.
+        _selectedAbility = bestAbility;
 
         await base.Interact();
     }

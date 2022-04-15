@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
+  m_Name: Haste
+  m_EditorClassIdentifier: 
+  Id: aa23b345-4cf9-448d-a3ea-8ac54f5b216a
+  ReferenceID: ABILITY-5
+  Description: Haste target for 2 turns.
+  Icon: {fileID: 21300000, guid: 4423a289550647844a78597afcd999ea, type: 3}
+  Sound: {fileID: 8300000, guid: f0180443af161364eb8f4ee688b5ed82, type: 3}
+  BasePower: 0
+  ManaCost: 8
+  AreaOfEffect: 0
+  AbilityType: 3
+  MultiplerStat: 1
+  WeaponType: 3
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 11400000, guid: ca1810f00c3ddb141bd7eaa2fdef48c8, type: 2}
+  Status: {fileID: 0}
+  Range: 4
+  CanTargetSelf: 1
+  CanTargetDiagonally: 1
+  HighlightColor: {r: 0.7411765, g: 0.70980394, b: 0.15686275, a: 1}

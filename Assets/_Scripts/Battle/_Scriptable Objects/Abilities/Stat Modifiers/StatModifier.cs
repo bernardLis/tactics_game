@@ -18,7 +18,7 @@ public class StatModifier : BaseScriptableObject
         StatType = (StatType)System.Enum.Parse(typeof(StatType), item["StatType"].ToString());
         NumberOfTurns = int.Parse(item["NumberOfTurns"].ToString());
         Value = int.Parse(item["Value"].ToString());
-        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/StatModifier/{item["Icon"]}", typeof(Sprite));
+        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
     }
 
     public string GetDescription()

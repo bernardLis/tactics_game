@@ -56,7 +56,6 @@ public class SheetAnimationUtility : MonoBehaviour
         string folderPath = "ToAnimate";
 
         Object[] spriteSheets = Resources.LoadAll(folderPath, typeof(Texture2D));
-        Debug.Log($"spriteSheets.Length {spriteSheets.Length}");
 
         // iterate on sprite sheets
         foreach (Object obj in spriteSheets)
@@ -74,7 +73,7 @@ public class SheetAnimationUtility : MonoBehaviour
 
             AnimatorOverrideController animatorOverrideController = new AnimatorOverrideController(mainController);
             animatorOverrideController.name = obj.name;
-            Debug.Log($"sprites.len {sprites.Length}");
+
             animatorOverrideController["Idle N"] = CreateClip(sprites, "Idle N", 1, 0, 1, savePath, true);
             animatorOverrideController["Idle W"] = CreateClip(sprites, "Idle W", 1, 7, 1, savePath, true);
             animatorOverrideController["Idle S"] = CreateClip(sprites, "Idle S", 1, 14, 1, savePath, true);

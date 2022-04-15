@@ -1,0 +1,11 @@
+ReferenceID,SOName,StatusType,NumberOfTurns,Value,Icon,DisplayText,DisplayColor
+STATUS-0,Poison,Damage,3,12,poisonBottle.png,Poisoned,0c6923
+STATUS-1,,,,,,,
+STATUS-2,,,,,,,
+STATUS-3,,,,,,,
+STATUS-4,,,,,,,
+STATUS-5,,,,,,,
+STATUS-6,,,,,,,
+STATUS-7,,,,,,,
+STATUS-8,,,,,,,
+STATUS-9,,,,,,,

@@ -43,7 +43,7 @@ public class HealerBrain : Brain
         if (Target == null || Helpers.GetManhattanDistance(_characterGameObject.transform.position, Target.transform.position) > _selectedAbility.Range)
         {
             // select within reach target that has lower hp than max
-            // if noone within reach or everyone within reach has full health buff someone
+            // if no one within reach or everyone within reach has full health buff someone
             _potentialTargets = GetPotentialTargets(_characterGameObject.tag); // get guys from your team
 
             PotentialTarget pTarget = GetWithinReachHealableTarget(_potentialTargets, _selectedAbility);

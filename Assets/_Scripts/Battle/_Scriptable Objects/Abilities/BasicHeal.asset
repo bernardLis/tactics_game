@@ -17,10 +17,11 @@ MonoBehaviour:
   Description: Basic Heal
   Icon: {fileID: 21300000, guid: b2add1505f340bf4f90ac7d7f4cfa000, type: 3}
   Sound: {fileID: 8300000, guid: ac47aa3094b445241827fe1222d39260, type: 3}
-  BasePower: 20
-  ManaCost: 10
+  BasePower: 10
+  ManaCost: 8
   AreaOfEffect: 0
   AbilityType: 1
+  MultiplerStat: 1
   WeaponType: 3
   Projectile: {fileID: 0}
   StatModifier: {fileID: 0}
