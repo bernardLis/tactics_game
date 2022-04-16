@@ -1,5 +1,4 @@
 using UnityEngine.UIElements;
-
 public class AbilityTooltipVisual : VisualWithTooltip
 {
     Ability _ability;

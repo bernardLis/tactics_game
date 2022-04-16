@@ -39,6 +39,7 @@ public abstract class Ability : BaseScriptableObject
     protected GameObject _characterGameObject;
     protected Highlighter _highlighter;
     protected BattleCharacterController _battleCharacterController;
+    BattleUI _battleUI;
 
     // called from editor using table data
     public virtual void Create(Dictionary<string, object> item, StatModifier statModifier, Status status)
@@ -68,6 +69,7 @@ public abstract class Ability : BaseScriptableObject
         _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
         _battleCharacterController = BattleCharacterController.Instance;
         _audioSource = AudioManager.Instance.GetComponent<AudioSource>();
+        _battleUI = BattleUI.Instance;
     }
 
     // TODO: I am not certain whether this is correct.
@@ -105,9 +107,13 @@ public abstract class Ability : BaseScriptableObject
         _audioSource.clip = Sound;
         _audioSource.Play();
 
+        string abilityName = Helpers.ParseScriptableObjectCloneName(this.name);
+        _battleUI.DisplayBattleLog($"{_characterGameObject.name} uses {abilityName} on {target.name} .");
+
         await Task.Yield(); // just to get rid of errors;
         return true;
     }
+    
     public virtual int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
     {
         int multiplierValue = 0;

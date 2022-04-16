@@ -15,6 +15,8 @@ public class PushAbility : Ability
     // returns true if ability was triggered with success
     public async override Task<bool> TriggerAbility(GameObject target)
     {
+        await base.TriggerAbility(target);
+
         // check if target is valid
         var pushableObject = target.GetComponent<IPushable<Vector3, GameObject, Ability>>();
         if (pushableObject == null)
@@ -24,7 +26,6 @@ public class PushAbility : Ability
         if (!await _pushTriggerable.Push(target, this))
             return false;
 
-        await base.TriggerAbility(target);
         return true;
     }
 }

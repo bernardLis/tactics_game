@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 08cfb1d1-ffe1-4340-a521-da6bae50316b
   ReferenceID: 
-  Icon: {fileID: 0}
-  StatType: 0
-  NumberOfTurns: 0
-  Value: 0
+  Icon: {fileID: 21300000, guid: 228b0bcee94be45428d59d52293e85a1, type: 3}
+  StatType: 6
+  NumberOfTurns: 1
+  Value: 1

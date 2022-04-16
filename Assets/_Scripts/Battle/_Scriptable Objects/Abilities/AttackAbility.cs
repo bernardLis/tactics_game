@@ -17,6 +17,8 @@ public class AttackAbility : Ability
     // returns true if ability was triggered with success
     public async override Task<bool> TriggerAbility(GameObject target)
     {
+        await base.TriggerAbility(target);
+
         // check if target is valid
         var attackableObject = target.GetComponent<IAttackable<GameObject, Ability>>();
         if (attackableObject == null)
@@ -28,7 +30,6 @@ public class AttackAbility : Ability
 
         SetIsRetaliation(false);
 
-        await base.TriggerAbility(target);
         return true;
     }
 

@@ -78,6 +78,9 @@ public class RangedBrain : Brain
         // when you cannot reach it like that you will need to move, so you will need to path 
         // and it can bring you closer to your target, but it can also bring you further...
         ABPath p = GetPathTo(target);
+        // target unreachable
+        if (p.vectorPath.Count == 0)
+            return false;
 
         // this far you can go on the path to opponent 
         int reachableVectorIndex = _enemyStats.MovementRange.GetValue();

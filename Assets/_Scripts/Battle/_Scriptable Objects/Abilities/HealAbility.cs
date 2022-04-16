@@ -16,6 +16,8 @@ public class HealAbility : Ability
     // returns true if ability was triggered with success
     public async override Task<bool> TriggerAbility(GameObject target)
     {
+        await base.TriggerAbility(target);
+
         // check if target is valid
         var healableObject = target.GetComponent<IHealable<GameObject, Ability>>();
         if (healableObject == null)
@@ -25,7 +27,6 @@ public class HealAbility : Ability
         if (!await _healTriggerable.Heal(target, this, _characterGameObject))
             return false;
 
-        await base.TriggerAbility(target);
         return true;
     }
 

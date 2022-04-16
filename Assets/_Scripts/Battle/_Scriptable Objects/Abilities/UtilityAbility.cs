@@ -25,6 +25,8 @@ public class UtilityAbility : Ability
 
     public async override Task<bool> TriggerAbility(GameObject target)
     {
+        await base.TriggerAbility(target);
+
         // check if target is valid
         var itemUsableObject = target.GetComponent<IItemUsable<UtilityAbility>>();
         if (itemUsableObject == null)
@@ -34,7 +36,6 @@ public class UtilityAbility : Ability
         if (!await _utilityTriggerable.TriggerUtility(target, this, _characterGameObject))
             return false;
 
-        await base.TriggerAbility(target);
         return true;
     }
 
