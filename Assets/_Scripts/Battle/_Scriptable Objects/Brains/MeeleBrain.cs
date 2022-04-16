@@ -35,44 +35,6 @@ public class MeeleBrain : Brain
         _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
     }
 
-    // chooses the ability that costs the most mana and executes (if there is a target)
-    public override async Task Interact()
-    {
-        // clean-up after movement
-        if (_tempObject != null)
-            Destroy(_tempObject);
-
-        Vector2 faceDir;
-        if (Target == null)
-            faceDir = (_potentialTargets[0].GameObj.transform.position - _characterGameObject.transform.position).normalized;
-        else
-            faceDir = (Target.transform.position - _characterGameObject.transform.position).normalized;
-
-        // face 'stronger direction'
-        faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
-
-        _characterRendererManager.Face(faceDir);
-        if (Target == null)
-            return;
-
-        // best ability is the one that costs the most mana
-        Ability bestAbility = _abilities[0];
-        foreach (Ability a in _abilities)
-        {
-
-            if (a.ManaCost < bestAbility.ManaCost)
-                continue;
-            if (a.ManaCost > _enemyStats.CurrentMana)
-                continue;
-
-            bestAbility = a;
-        }
-        // attack;
-        _selectedAbility = bestAbility;
-
-        await base.Interact();
-    }
-
     // meele wants to attack anyone from the back
     AttackPosition GetBestAttackPosition(List<PotentialTarget> potentialTargets)
     {
@@ -99,4 +61,47 @@ public class MeeleBrain : Brain
 
         return null;
     }
+
+    // chooses the ability that costs the most mana and executes (if there is a target)
+    public override async Task Interact()
+    {
+        // clean-up after movement
+        if (_tempObject != null)
+            Destroy(_tempObject);
+
+        Vector2 faceDir;
+        if (Target == null)
+            faceDir = (_potentialTargets[0].GameObj.transform.position - _characterGameObject.transform.position).normalized;
+        else
+            faceDir = (Target.transform.position - _characterGameObject.transform.position).normalized;
+
+        // face 'stronger direction'
+        faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
+
+        _characterRendererManager.Face(faceDir);
+        
+        if (Target != null)
+            ChooseAbility();
+        else
+            Defend();
+
+        await base.Interact();
+    }
+
+    void ChooseAbility()
+    {
+        // best ability is the one that costs the most mana
+        Ability bestAbility = _abilities[0];
+        foreach (Ability a in _abilities)
+        {
+            if (a.ManaCost < bestAbility.ManaCost)
+                continue;
+            if (a.ManaCost > _enemyStats.CurrentMana)
+                continue;
+
+            bestAbility = a;
+        }
+        _selectedAbility = bestAbility;
+    }
+
 }

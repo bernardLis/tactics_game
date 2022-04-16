@@ -114,6 +114,13 @@ public class Brain : BaseScriptableObject
         await _selectedAbility.TriggerAbility(Target);
     }
 
+    protected void Defend()
+    {
+        // TODO: this is wrong way to select defend ability, but it let's keep it for now.
+        _selectedAbility = _abilities.FirstOrDefault(a => a.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f"); 
+        Target = _characterGameObject;
+    }
+
     protected List<PotentialTarget> GetPotentialTargets(string targetTag)
     {
         GameObject[] targetCharacters = GameObject.FindGameObjectsWithTag(targetTag);

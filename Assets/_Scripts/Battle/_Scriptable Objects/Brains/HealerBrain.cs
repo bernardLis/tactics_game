@@ -75,8 +75,9 @@ public class HealerBrain : Brain
         faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
         _characterRendererManager.Face(faceDir);
 
+        // defend if there is not target to interact
         if (Target == null)
-            return;
+            Defend();
 
         // heal/buff
         await base.Interact();
