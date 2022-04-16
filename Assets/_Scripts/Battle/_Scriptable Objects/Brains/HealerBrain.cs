@@ -2,17 +2,20 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pathfinding;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Healer")]
 public class HealerBrain : Brain
 {
     public override async Task Move()
     {
+        // healer looks for damaged friend with lowest health
         _potentialTargets = GetPotentialTargets(_characterGameObject.tag); // get guys from your team
         PotentialTarget selectedTarget = ChooseTarget(_potentialTargets);
         if (selectedTarget != null)
             Target = selectedTarget.GameObj; // for interaction
 
+        // if there is no damaged friends, he will path to be next to his allies
         Vector3 destinationPos;
         if (Target == null)
             destinationPos = GetDestinationWithoutTarget(_potentialTargets);
@@ -30,42 +33,31 @@ public class HealerBrain : Brain
         _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
     }
 
+    PotentialTarget ChooseTarget(List<PotentialTarget> potentialTargets)
+    {
+        // looking for the lowest health boi who is damaged
+        int lowestHealth = int.MaxValue;
+        PotentialTarget target = null;
+        foreach (PotentialTarget t in potentialTargets)
+        {
+            CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
+            if (stats.CurrentHealth < stats.MaxHealth.GetValue() && stats.CurrentHealth < lowestHealth)
+            {
+                lowestHealth = stats.CurrentHealth;
+                target = t;
+            }
+        }
+
+        return target;
+    }
+
     public override async Task Interact()
     {
         // clean-up after movement
         if (_tempObject != null)
             Destroy(_tempObject);
 
-        // 1. if you have mana, and there are 2 harmed teammates(or you) next to each other use cross heal on them
-        // 2. if there is 1 teammate(or you) harmed - heal them
-        // 3. if there is nothing to heal - buff 
-
-        // so, you have moved closer to lowest health boi, but you are not sure whether you can reach him
-        _selectedAbility = _abilities[0]; // this is heal // TODO: hardocded indexes.
-
-        // target does not exist or you cannot reach him 
-        if (Target == null || Helpers.GetManhattanDistance(_characterGameObject.transform.position, Target.transform.position) > _selectedAbility.Range)
-        {
-            // select within reach target that has lower hp than max
-            // if no one within reach or everyone within reach has full health buff someone
-            _potentialTargets = GetPotentialTargets(_characterGameObject.tag); // get guys from your team
-
-            PotentialTarget pTarget = GetWithinReachHealableTarget(_potentialTargets, _selectedAbility);
-            if (pTarget != null)
-                Target = pTarget.GameObj;
-            else
-                Target = null;
-        }
-
-        // there is no within reach healable targets
-        if (Target == null)
-        {
-            // buff someone
-            _selectedAbility = _abilities[1]; // this is buff // TODO: hardocded indexes.
-            List<PotentialTarget> buffableTargets = GetWithinReachBuffableTargets(_potentialTargets, _selectedAbility);
-            // it will always return someone, because you are within reach
-            Target = buffableTargets[Random.Range(0, buffableTargets.Count)].GameObj;
-        }
+        SelectInteraction();
 
         Vector2 faceDir;
         if (Target == null || Target == _characterGameObject)
@@ -90,22 +82,36 @@ public class HealerBrain : Brain
         await base.Interact();
     }
 
-    PotentialTarget ChooseTarget(List<PotentialTarget> potentialTargets)
+
+    void SelectInteraction()
     {
-        // looking for the lowest health boi who is damaged
-        int lowestHealth = int.MaxValue;
-        PotentialTarget target = null;
-        foreach (PotentialTarget t in potentialTargets)
+        // so, you have moved closer to lowest health boi, but you are not sure whether you can reach him
+        // for all heal abilities, check if there is one that can reach someone harmed, starting with the most costly one
+        List<Ability> healAbilities = _abilities.Where(a => a.AbilityType == AbilityType.Heal).ToList();
+        healAbilities.Sort((p1, p2) => p2.ManaCost.CompareTo(p1.ManaCost)); //order by mana cost (https://i.redd.it/iuy9fxt300811.png)
+
+        PotentialTarget pTarget = null;
+        _selectedAbility = null;
+        foreach (Ability a in healAbilities)
         {
-            CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
-            if (stats.CurrentHealth < stats.MaxHealth.GetValue() && stats.CurrentHealth < lowestHealth)
+            pTarget = GetWithinReachHealableTarget(_potentialTargets, a);
+            if (pTarget != null)
             {
-                lowestHealth = stats.CurrentHealth;
-                target = t;
+                Target = pTarget.GameObj;
+                _selectedAbility = a;
+                break;
             }
         }
 
-        return target;
+        // there is no within reach healable targets
+        if (Target == null)
+        {
+            // buff someone
+            _selectedAbility = _abilities.FirstOrDefault(a => a.AbilityType == AbilityType.Buff); // this is buff
+            List<PotentialTarget> buffableTargets = GetWithinReachBuffableTargets(_potentialTargets, _selectedAbility);
+            // it will always return someone, because you are within reach
+            Target = buffableTargets[Random.Range(0, buffableTargets.Count)].GameObj;
+        }
     }
 
     PotentialTarget GetWithinReachHealableTarget(List<PotentialTarget> potentialTargets, Ability selectedAbility)

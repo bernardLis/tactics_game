@@ -84,9 +84,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapSize: {x: 10, y: 10}
   _enemyBrains:
-  - {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
   - {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
   - {fileID: 11400000, guid: 8bc22a1c29683204e9f24870b11baac8, type: 2}
+  - {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
   _enemyGO: {fileID: 3387775229403623854, guid: b81a4c5ec70160849a703e08180495d1, type: 3}
   _mapVariants:
   - {fileID: 11400000, guid: ea1e05dc5ef7aed44a0ff185134ed555, type: 2}
@@ -177,12 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac1ab7021ef82a4d8abe0b418fed1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: fd66c83919d6e7349b0227a13ef73d90, type: 2}
-  - {fileID: 11400000, guid: 223b9bc69e67a3149995e50be23aea4f, type: 2}
-  - {fileID: 11400000, guid: 50035c092158c5542b94ba8619841878, type: 2}
-  - {fileID: 11400000, guid: d695fcad6873f854f8893319b611f7de, type: 2}
-  - {fileID: 11400000, guid: a5729502e6f2a1b4caffd5977ed8ab38, type: 2}
+  items: []
 --- !u!114 &515482014
 MonoBehaviour:
   m_ObjectHideFlags: 0
