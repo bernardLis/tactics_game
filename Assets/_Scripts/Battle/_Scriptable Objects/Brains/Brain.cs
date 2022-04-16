@@ -24,6 +24,7 @@ public class Brain : BaseScriptableObject
     protected Highlighter _highlighter;
     CameraManager _cameraManager;
     protected TurnManager _turnManager;
+    InfoCardUI _infoCardUI;
 
     // tilemap
     protected Tilemap _tilemap;
@@ -57,6 +58,7 @@ public class Brain : BaseScriptableObject
         _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
         _cameraManager = Helpers.Camera.GetComponent<CameraManager>();
         _turnManager = TurnManager.Instance;
+        _infoCardUI = InfoCardUI.Instance;
         _blockManager = FindObjectOfType<BlockManager>();
 
         _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
@@ -82,6 +84,8 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Select()
     {
+        _infoCardUI.ShowCharacterCard(_enemyStats);
+
         Target = null;
         _cameraManager.SetTarget(_characterGameObject.transform);
         await _highlighter.HiglightEnemyMovementRange(_characterGameObject.transform.position,
@@ -107,17 +111,21 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Interact()
     {
+        _infoCardUI.ShowManaChange(_enemyStats, -_selectedAbility.ManaCost);
+
         await _selectedAbility.HighlightTargetable(_characterGameObject);
         await Task.Delay(300);
         await _selectedAbility.HighlightAreaOfEffect(Target.transform.position);
         await Task.Delay(500);
         await _selectedAbility.TriggerAbility(Target);
+
+        _infoCardUI.ShowCharacterCard(_enemyStats);
     }
 
     protected void Defend()
     {
         // TODO: this is wrong way to select defend ability, but it let's keep it for now.
-        _selectedAbility = _abilities.FirstOrDefault(a => a.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f"); 
+        _selectedAbility = _abilities.FirstOrDefault(a => a.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f");
         Target = _characterGameObject;
     }
 

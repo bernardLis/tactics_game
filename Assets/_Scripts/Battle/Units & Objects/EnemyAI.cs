@@ -13,7 +13,6 @@ public class EnemyAI : MonoBehaviour
     DamageUI _damageUI;
 
     EnemyStats _enemyStats;
-    [HideInInspector] public bool _amDead = false;
 
     Brain _brain;
 
@@ -24,19 +23,9 @@ public class EnemyAI : MonoBehaviour
         _seeker = GetComponent<Seeker>();
         _AILerp = GetComponent<AILerp>();
         _characterSelection = GetComponent<EnemyCharSelection>();
-        _damageUI = GetComponent<DamageUI>();
-
-        // subscribe to your death
         _enemyStats = GetComponent<EnemyStats>();
-        _enemyStats.CharacterDeathEvent += OnEnemyDeath;
-    }
 
-    void OnEnemyDeath(GameObject _obj)
-    {
-        // maybe useful for trapping on the way
-
-        // it exits the coroutine Run()
-        _amDead = true;
+        _damageUI = GetComponent<DamageUI>();
     }
 
     public void SetBrain(Brain brain)
@@ -73,6 +62,7 @@ public class EnemyAI : MonoBehaviour
         await Task.Delay(500);
         await _brain.Interact();
 
+        // TODO: what happens if you die during your turn;
         await Task.Delay(500);
         await _highlighter.ClearHighlightedTiles();
 

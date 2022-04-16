@@ -36,7 +36,6 @@ public class EnemyManager : MonoBehaviour
             if (enemy == null)
                 continue;
 
-            InfoCardUI.Instance.ShowCharacterCard(enemy.GetComponent<CharacterStats>());
             _enemyAI = enemy.GetComponent<EnemyAI>();
 
             // this waits until the previous corutine is done

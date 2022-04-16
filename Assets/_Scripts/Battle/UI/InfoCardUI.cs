@@ -203,11 +203,10 @@ public class InfoCardUI : Singleton<InfoCardUI>
                                                                 val);
     }
 
-    // TODO: hook-up to enemies when they are taking the turn
-    void ShowManaChange(CharacterStats stats, int val)
+    public void ShowManaChange(CharacterStats stats, int val)
     {
-        _characterCardVisual.ManaBar.DisplayInteractionResult(stats.MaxHealth.GetValue(),
-                                                                stats.CurrentHealth,
+        _characterCardVisual.ManaBar.DisplayInteractionResult(stats.MaxMana.GetValue(),
+                                                                stats.CurrentMana,
                                                                 val);
     }
 
