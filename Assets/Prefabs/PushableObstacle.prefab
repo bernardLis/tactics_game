@@ -179,8 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c031f926b01d2749b556862f0229f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spotLightPrefab: {fileID: 0}
-  displayText: Boulder, you can move if you know the technique.
+  _spotLightPrefab: {fileID: 0}
 --- !u!1 &7512957699131220223
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +253,7 @@ SpriteRenderer:
   m_SortingLayerID: -441805081
   m_SortingLayer: 2
   m_SortingOrder: 50
-  m_Sprite: {fileID: -3827938194557775324, guid: 2b90151a94ed5504784600a9c93dae5a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 399fcb7fde9ef0d44b4aa1b77d3e855c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -262,7 +261,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &9104076807615263278

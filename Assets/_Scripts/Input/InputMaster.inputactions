@@ -130,6 +130,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Cheat1",
+                    "type": "Button",
+                    "id": "aa374c6e-812f-4485-a8d7-6d6667728253",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cheat2",
+                    "type": "Button",
+                    "id": "042fa219-57b1-4f92-8d4d-2c163e89d3d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -328,6 +346,28 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "OpenInventoryClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a35a97c-9fb4-4c3b-8874-995b1da9764d",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cheat1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e0a7cba6-4d94-4fd1-b6eb-3eb8598b6fee",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cheat2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

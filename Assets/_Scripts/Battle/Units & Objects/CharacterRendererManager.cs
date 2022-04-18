@@ -13,7 +13,7 @@ public class CharacterRendererManager : MonoBehaviour
     WeaponHolder _weaponHolder;
     SpriteRenderer _weaponRenderer;
 
-    AILerp _AILerp;
+    AILerp _aiLerp;
 
     Vector2 _directionFromFace;
 
@@ -27,7 +27,7 @@ public class CharacterRendererManager : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _characterRenderer = GetComponent<CharacterRenderer>();
-        _AILerp = GetComponentInParent<AILerp>();
+        _aiLerp = GetComponentInParent<AILerp>();
         _weaponHolder = GetComponentInChildren<WeaponHolder>();
         _weaponRenderer = _weaponHolder.transform.GetComponent<SpriteRenderer>();
     }
@@ -36,8 +36,8 @@ public class CharacterRendererManager : MonoBehaviour
     // TODO: something smarter I probably don't need to set direction when character movement is not active
     void Update()
     {
-        if (_AILerp.canMove)
-            _direction = _AILerp.myDirection;
+        if (_aiLerp.canMove)
+            _direction = _aiLerp.myDirection;
 
         if (_direction.sqrMagnitude > 0)
             SetFaceDir(_direction);

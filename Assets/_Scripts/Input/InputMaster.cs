@@ -152,6 +152,24 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cheat1"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa374c6e-812f-4485-a8d7-6d6667728253"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cheat2"",
+                    ""type"": ""Button"",
+                    ""id"": ""042fa219-57b1-4f92-8d4d-2c163e89d3d6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -350,6 +368,28 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""OpenInventoryClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a35a97c-9fb4-4c3b-8874-995b1da9764d"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cheat1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0a7cba6-4d94-4fd1-b6eb-3eb8598b6fee"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cheat2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -768,6 +808,8 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_SelectNextCharacter = m_Player.FindAction("SelectNextCharacter", throwIfNotFound: true);
         m_Player_SelectPreviousCharacter = m_Player.FindAction("SelectPreviousCharacter", throwIfNotFound: true);
         m_Player_CancelEverything = m_Player.FindAction("CancelEverything", throwIfNotFound: true);
+        m_Player_Cheat1 = m_Player.FindAction("Cheat1", throwIfNotFound: true);
+        m_Player_Cheat2 = m_Player.FindAction("Cheat2", throwIfNotFound: true);
         // QuestUI
         m_QuestUI = asset.FindActionMap("QuestUI", throwIfNotFound: true);
         m_QuestUI_Test = m_QuestUI.FindAction("Test", throwIfNotFound: true);
@@ -858,6 +900,8 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectNextCharacter;
     private readonly InputAction m_Player_SelectPreviousCharacter;
     private readonly InputAction m_Player_CancelEverything;
+    private readonly InputAction m_Player_Cheat1;
+    private readonly InputAction m_Player_Cheat2;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -876,6 +920,8 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @SelectNextCharacter => m_Wrapper.m_Player_SelectNextCharacter;
         public InputAction @SelectPreviousCharacter => m_Wrapper.m_Player_SelectPreviousCharacter;
         public InputAction @CancelEverything => m_Wrapper.m_Player_CancelEverything;
+        public InputAction @Cheat1 => m_Wrapper.m_Player_Cheat1;
+        public InputAction @Cheat2 => m_Wrapper.m_Player_Cheat2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -927,6 +973,12 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @CancelEverything.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelEverything;
                 @CancelEverything.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelEverything;
                 @CancelEverything.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelEverything;
+                @Cheat1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheat1;
+                @Cheat1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheat1;
+                @Cheat1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheat1;
+                @Cheat2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheat2;
+                @Cheat2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheat2;
+                @Cheat2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheat2;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -973,6 +1025,12 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @CancelEverything.started += instance.OnCancelEverything;
                 @CancelEverything.performed += instance.OnCancelEverything;
                 @CancelEverything.canceled += instance.OnCancelEverything;
+                @Cheat1.started += instance.OnCheat1;
+                @Cheat1.performed += instance.OnCheat1;
+                @Cheat1.canceled += instance.OnCheat1;
+                @Cheat2.started += instance.OnCheat2;
+                @Cheat2.performed += instance.OnCheat2;
+                @Cheat2.canceled += instance.OnCheat2;
             }
         }
     }
@@ -1174,6 +1232,8 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnSelectNextCharacter(InputAction.CallbackContext context);
         void OnSelectPreviousCharacter(InputAction.CallbackContext context);
         void OnCancelEverything(InputAction.CallbackContext context);
+        void OnCheat1(InputAction.CallbackContext context);
+        void OnCheat2(InputAction.CallbackContext context);
     }
     public interface IQuestUIActions
     {

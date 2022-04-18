@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class CheatManager : MonoBehaviour
 {
     Button _enemiesKillButton;
     Button _friendliesKillButton;
+
+    PlayerInput _playerInput;
+
+    [SerializeField] GameObject _boulder;
 
     void Start()
     {
@@ -16,11 +21,52 @@ public class CheatManager : MonoBehaviour
 
         _enemiesKillButton.clickable.clicked += KillAllEnemies;
         _friendliesKillButton.clickable.clicked += KillAFriend;
+
+        _playerInput = BattleInputController.Instance.GetComponent<PlayerInput>();
+    }
+
+    void OnEnable()
+    {
+        // inputs
+        _playerInput = BattleInputController.Instance.GetComponent<PlayerInput>();
+
+        SubscribeInputActions();
+    }
+
+    void OnDisable()
+    {
+        if (_playerInput == null)
+            return;
+
+        UnsubscribeInputActions();
+    }
+    void SubscribeInputActions()
+    {
+        // char placement specific for now
+        _playerInput.actions["Cheat1"].performed += SpawnBoulder;
+        _playerInput.actions["Cheat2"].performed += DoSomething;
+    }
+
+    void UnsubscribeInputActions()
+    {
+        // char placement specific for now
+        _playerInput.actions["Cheat1"].performed -= SpawnBoulder;
+        _playerInput.actions["Cheat2"].performed -= DoSomething;
+    }
+
+    void SpawnBoulder(InputAction.CallbackContext ctx)
+    {
+        Instantiate(_boulder, MovePointController.Instance.transform.position, Quaternion.identity);
+    }
+
+    void DoSomething(InputAction.CallbackContext ctx)
+    {
+
     }
 
     void KillAllEnemies()
     {
-        
+
         KillAllWithTag("Enemy");
     }
 

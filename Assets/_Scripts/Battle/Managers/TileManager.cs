@@ -22,7 +22,7 @@ public class TileManager : MonoBehaviour
     public void SetUp()
     {
         CreateWorldTiles();
-        CreateObstacleColliders();
+        CreateBoundsColliders();
     }
 
     void CreateWorldTiles()
@@ -51,25 +51,22 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    void CreateObstacleColliders()
+    void CreateBoundsColliders()
     {
-        GameObject ObsctacleColliders = new();
-        ObsctacleColliders.name = "ObsctacleColliders";
-
-        // TODO: does not work
+        GameObject BoundColliders = new("BoundColliders");
         foreach (KeyValuePair<Vector3, WorldTile> PosTile in Tiles)
         {
             if (PosTile.Value.IsObstacle)
             {
                 // create gameobject with collider at it's position
-                GameObject col = new();
-                col.name = "col";
+                GameObject col = new("col");
+                col.tag = Tags.BoundCollider;
                 col.layer = 3; // unpassable layer
                 col.transform.position = new Vector3(PosTile.Key.x + 0.5f, PosTile.Key.y + 0.5f, 0f);
 
                 BoxCollider2D bc = col.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
                 bc.size = Vector2.one;
-                col.transform.parent = ObsctacleColliders.transform;
+                col.transform.parent = BoundColliders.transform;
             }
         }
     }

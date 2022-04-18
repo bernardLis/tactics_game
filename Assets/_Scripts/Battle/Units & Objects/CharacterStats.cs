@@ -7,7 +7,7 @@ using Pathfinding;
 using System.Threading.Tasks;
 using Random = UnityEngine.Random;
 
-public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAttackable<GameObject, Ability>, IPushable<GameObject, Vector3, Ability>, IBuffable<GameObject, Ability>
+public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, GameObject, Ability>, IBuffable<GameObject, Ability>
 {
     [HideInInspector] public Character Character { get; private set; }
 
@@ -31,7 +31,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     // local
     DamageUI _damageUI;
     CharacterRendererManager _characterRendererManager;
-    AILerp _AILerp;
+    AILerp _aiLerp;
 
     // global
     Highlighter _highlighter;
@@ -39,7 +39,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     // pushable variables
     Vector3 _startingPos;
     Vector3 _finalPos;
-    int _characterDmg = 10;
     GameObject _tempObject;
 
     public int CurrentHealth { get; private set; }
@@ -59,7 +58,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // local
         _damageUI = GetComponent<DamageUI>();
         _characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
-        _AILerp = GetComponent<AILerp>();
+        _aiLerp = GetComponent<AILerp>();
 
         // global
         _highlighter = Highlighter.Instance;
@@ -243,10 +242,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         float duration = 0.5f;
         float strength = 0.8f;
 
-        // TODO: Dodged is bugged, it sometimes does not shake the character but just turns it around.
-        _characterRendererManager.enabled = false;
+        DisableAILerp();
         transform.DOShakePosition(duration, strength, 0, 0, false, true)
-                 .OnComplete(() => _characterRendererManager.enabled = true);
+                 .OnComplete(() => EnableAILerp());
     }
 
     public async Task TakeDamageNoDodgeNoRetaliation(int damage)
@@ -257,10 +255,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // displaying damage UI
         _damageUI.DisplayOnCharacter(damage.ToString(), 36, Helpers.GetColor("damageRed"));
 
-        // shake a character;
-        float duration = 0.5f;
-        float strength = 0.1f;
-
         // don't shake on death
         if (CurrentHealth <= 0)
         {
@@ -268,9 +262,13 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             return;
         }
 
-        _characterRendererManager.enabled = false;
+        // shake a character;
+        float duration = 0.5f;
+        float strength = 0.1f;
+
+        DisableAILerp();
         transform.DOShakePosition(duration, strength)
-                 .OnComplete(() => _characterRendererManager.enabled = true);
+                 .OnComplete(() => EnableAILerp());
     }
 
     public void GetBuffed(GameObject attacker, Ability ability)
@@ -390,7 +388,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
     }
 
-    public void GetPushed(GameObject attacker, Vector3 dir, Ability ability)
+    public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
     {
         _startingPos = transform.position;
         _finalPos = transform.position + dir;
@@ -398,20 +396,29 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         HandleModifier(ability);
         HandleStatus(attacker, ability);
 
-        // TODO: do this instead of pushable character.
-        StartCoroutine(MoveToPosition(_finalPos, 0.5f));
-        Invoke("CollisionCheck", 0.35f);
+        BoxCollider2D selfCollider = transform.GetComponentInChildren<BoxCollider2D>();
+        selfCollider.enabled = false;
+        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
+
+        if (col == null)
+            selfCollider.enabled = true;
+
+        await MoveToPosition(_finalPos, 0.5f);
+        await CheckCollision(ability, col);
+
+        if (selfCollider != null)
+            selfCollider.enabled = true;
     }
 
-    IEnumerator MoveToPosition(Vector3 finalPos, float time)
+    public async Task MoveToPosition(Vector3 finalPos, float time)
     {
         // TODO: this AILerp hack is meh
+
         _tempObject = new("Dest");
         _tempObject.transform.position = finalPos;
-        GetComponent<AIDestinationSetter>().target = _tempObject.transform;
+        _aiLerp.destination = _tempObject.transform.position;
+        DisableAILerp();
 
-        _AILerp.canMove = false;
-        _AILerp.enabled = false;
         Vector3 startingPos = transform.position;
 
         float elapsedTime = 0;
@@ -420,72 +427,63 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         {
             transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
             elapsedTime += Time.deltaTime;
-            yield return null;
+            await Task.Yield();
         }
 
-        _AILerp.enabled = true;
-        _AILerp.canMove = true;
-        _AILerp.Teleport(finalPos, true);
+        _aiLerp.Teleport(finalPos, true);
 
         if (_tempObject != null)
             Destroy(_tempObject);
     }
 
-    void CollisionCheck()
+
+    public async Task CheckCollision(Ability ability, Collider2D col)
     {
-        // check what is in boulders new place and act accordingly
-        BoxCollider2D characterCollider = transform.GetComponentInChildren<BoxCollider2D>();
-        characterCollider.enabled = false;
-
-        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
-
+        // nothing to collide with = being pushed into empty space
         if (col == null)
-        {
-            characterCollider.enabled = true;
             return;
-        }
 
-        // player/enemy get dmged by 10 and are moved back to their starting position
+        // player/enemy get damaged  and are moved back to their starting position
         // character colliders are children
-        if (col.transform.gameObject.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
-        {
-            TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
+        if (col.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
+            await CollideWithCharacter(ability, col);
 
-            CharacterStats targetStats = col.transform.parent.GetComponent<CharacterStats>();
-            targetStats.TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
+        // character bounces back from being pushed into obstacle (and takes damage)
+        if (col.CompareTag(Tags.Obstacle) || col.CompareTag(Tags.BoundCollider))
+            await CollideWithIndestructible(ability, col);
 
-            // move back to starting position (if target is not dead)
-            // TODO: test what happens when target dies
-            if (targetStats.CurrentHealth <= 0)
-            {
-                if (characterCollider != null)
-                    characterCollider.enabled = true;
-                return;
-            }
+        // character destroys boulder when they are pushed into it
+        if (col.CompareTag(Tags.PushableObstacle))
+            await CollideWithDestructible(ability, col);
+    }
 
-            if (_tempObject != null)
-                Destroy(_tempObject);
+    public async Task CollideWithCharacter(Ability ability, Collider2D col)
+    {
+        await TakeDamageNoDodgeNoRetaliation(ability.BasePower);
 
-            StartCoroutine(MoveToPosition(_startingPos, 0.5f));
-        }
-        // character destroys boulder when they are pushed into it + 10dmg to self
-        else if (col.transform.gameObject.CompareTag(Tags.PushableObstacle))
-        {
-            TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
+        CharacterStats targetStats = col.transform.parent.GetComponent<CharacterStats>();
+        await targetStats.TakeDamageNoDodgeNoRetaliation(ability.BasePower);
 
-            Destroy(col.transform.parent.gameObject);
-        }
-        else
-        {
-            TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
-            if (_tempObject != null)
-                Destroy(_tempObject);
-            StartCoroutine(MoveToPosition(_startingPos, 0.5f));
-        }
-        // TODO: pushing characters into the river/other obstacles?
-        // currently you can't target it on the river bank
-        if (characterCollider != null)
-            characterCollider.enabled = true;
+        if (_tempObject != null)
+            Destroy(_tempObject);
+
+        await MoveToPosition(_startingPos, 0.5f);
+    }
+
+    public async Task CollideWithIndestructible(Ability ability, Collider2D col)
+    {
+        await TakeDamageNoDodgeNoRetaliation(ability.BasePower);
+        if (_tempObject != null)
+            Destroy(_tempObject);
+
+        await MoveToPosition(_startingPos, 0.5f);
+    }
+
+    public async Task CollideWithDestructible(Ability ability, Collider2D col)
+    {
+        Destroy(col.transform.parent.gameObject);
+
+        await TakeDamageNoDodgeNoRetaliation(ability.BasePower);
     }
 
     public async Task Die()
@@ -535,5 +533,17 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
                 return true;
 
         return false;
+    }
+
+    protected void DisableAILerp()
+    {
+        _aiLerp.enabled = false;
+        _aiLerp.canMove = false;
+    }
+
+    protected void EnableAILerp()
+    {
+        _aiLerp.enabled = true;
+        _aiLerp.canMove = true;
     }
 }

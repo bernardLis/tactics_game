@@ -7,12 +7,12 @@ TagManager:
   - Obstacle
   - Traversable
   - Enemy
-  - Trap
   - PlayerCollider
   - EnemyCollider
   - ConversationCollider
   - Weapon
   - PushableObstacle
+  - BoundCollider
   layers:
   - Default
   - TransparentFX

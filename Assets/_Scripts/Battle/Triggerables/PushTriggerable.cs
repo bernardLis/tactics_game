@@ -9,14 +9,11 @@ public class PushTriggerable : BaseTriggerable
         await _characterRendererManager.SpellcastAnimation(); // add animation for pushing
 
         // player can push characters/PushableObstacle
-        // TODO: pushing characters with lerp breaks the A*
         Vector3 pushDir = (target.transform.position - transform.position).normalized;
 
         _myStats.UseMana(ability.ManaCost);
 
-        target.GetComponent<IPushable<Vector3, GameObject, Ability>>().GetPushed(pushDir, gameObject, ability);
-        // TODO: There is a better way to wait for target to get pushed
-        await Task.Delay(500);
+        await target.GetComponent<IPushable<Vector3, GameObject, Ability>>().GetPushed(pushDir, gameObject, ability);
 
         return true;
     }

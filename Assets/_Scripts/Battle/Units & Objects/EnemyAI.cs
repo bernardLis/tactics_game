@@ -8,7 +8,7 @@ public class EnemyAI : MonoBehaviour
     Highlighter _highlighter;
 
     Seeker _seeker;
-    AILerp _AILerp;
+    AILerp _aiLerp;
     EnemyCharSelection _characterSelection;
     DamageUI _damageUI;
 
@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
         _highlighter = Highlighter.Instance;
 
         _seeker = GetComponent<Seeker>();
-        _AILerp = GetComponent<AILerp>();
+        _aiLerp = GetComponent<AILerp>();
         _characterSelection = GetComponent<EnemyCharSelection>();
         _enemyStats = GetComponent<EnemyStats>();
 
@@ -56,7 +56,7 @@ public class EnemyAI : MonoBehaviour
         await Task.Delay(500);
 
         // wait for character to reach destination
-        while (!_AILerp.reachedDestination)
+        while (!_aiLerp.reachedDestination)
             await Task.Delay(25); // TODO: does this work? should move be async await all the way? 
 
         await Task.Delay(500);

@@ -19,6 +19,7 @@ public class PushAbility : Ability
 
         // check if target is valid
         var pushableObject = target.GetComponent<IPushable<Vector3, GameObject, Ability>>();
+
         if (pushableObject == null)
             return false;
 

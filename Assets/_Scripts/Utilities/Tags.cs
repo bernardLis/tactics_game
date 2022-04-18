@@ -21,6 +21,13 @@ public static class Tags
         get { return "EnemyCollider"; }
         private set { }
     }
+
+    public static string Weapon
+    {
+        get { return "Weapon"; }
+        private set { }
+    }
+
     public static string Obstacle
     {
         get { return "Obstacle"; }
@@ -31,9 +38,9 @@ public static class Tags
         get { return "PushableObstacle"; }
         private set { }
     }
-    public static string Weapon
+    public static string BoundCollider
     {
-        get { return "Weapon"; }
+        get { return "BoundCollider"; }
         private set { }
     }
 }

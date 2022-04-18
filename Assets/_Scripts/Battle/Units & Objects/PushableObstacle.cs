@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, IUITextDisplayable
 {
@@ -21,63 +22,84 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         _battleManager = BattleManager.Instance;
     }
 
-    public void GetPushed(Vector3 dir, GameObject attacker, Ability ability)
+    public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
     {
         _finalPos = transform.position + dir;
 
-        StartCoroutine(MoveToPosition(_finalPos, 0.5f));
+        BoxCollider2D selfCollider = transform.GetComponentInChildren<BoxCollider2D>();
+        selfCollider.enabled = false;
+        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
 
-        // TODO: this is quite bad;
-        Invoke("CollisionCheck", 0.35f);
+        if (col == null)
+            selfCollider.enabled = true;
+
+        await MoveToPosition(_finalPos, 0.5f);
+        await CheckCollision(ability, col);
+
+        if (selfCollider != null)
+            selfCollider.enabled = true;
     }
 
-    protected IEnumerator MoveToPosition(Vector3 finalPos, float time)
+    public async Task MoveToPosition(Vector3 finalPos, float time)
     {
         Vector3 startingPos = transform.position;
-
         float elapsedTime = 0;
 
         while (elapsedTime < time)
         {
             transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
             elapsedTime += Time.deltaTime;
-            yield return null;
+            await Task.Yield();
         }
 
         _battleManager.SnapToGrid(transform);
     }
 
-    void CollisionCheck()
+    public async Task CheckCollision(Ability ability, Collider2D col)
     {
-        // check what is in character's new place and act accordingly
-        BoxCollider2D boxCol = transform.GetComponentInChildren<BoxCollider2D>();
-        boxCol.enabled = false;
-
-        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
+        // nothing to collide with = being pushed into empty space
         if (col == null)
-        {
-            boxCol.enabled = true;
             return;
-        }
 
-        // player/enemy get dmged by 50 and boulder is destroyed
+        // player/enemy get damaged  and are moved back to their starting position
         // character colliders are children
-        if (col.transform.gameObject.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
-        {
-            _targetStats = col.transform.parent.GetComponent<CharacterStats>();
+        if (col.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
+            await CollideWithCharacter(ability, col);
 
-            _targetStats.TakeDamageNoDodgeNoRetaliation(_damage).GetAwaiter();
+        // character bounces back from being pushed into obstacle (and takes damage)
+        if (col.CompareTag(Tags.Obstacle) || col.CompareTag(Tags.BoundCollider))
+            await CollideWithIndestructible(ability, col);
 
-            Destroy(gameObject);
-        }
-        // boulder is destroyed when it hits another boulder
-        else if (col.transform.gameObject.CompareTag(Tags.PushableObstacle))
-            Destroy(gameObject);
-        // currently you can't target it on the river bank
-
-        if (boxCol != null)
-            boxCol.enabled = true;
+        // character destroys boulder when they are pushed into it
+        if (col.CompareTag(Tags.PushableObstacle))
+            await CollideWithDestructible(ability, col);
     }
+
+    public async Task CollideWithCharacter(Ability ability, Collider2D col)
+    {
+        _targetStats = col.transform.parent.GetComponent<CharacterStats>();
+        await _targetStats.TakeDamageNoDodgeNoRetaliation(_damage);
+
+        Destroy(gameObject);
+    }
+
+    public async Task CollideWithIndestructible(Ability ability, Collider2D col)
+    {
+        await DestroySelf();
+    }
+
+    public async Task CollideWithDestructible(Ability ability, Collider2D col)
+    {
+        await DestroySelf();
+    }
+
+    async Task DestroySelf()
+    {
+        // TODO: add some sound and visual
+        Destroy(gameObject);
+        await Task.Yield();
+    }
+
 
     public string DisplayText() { return _displayText; }
 }
