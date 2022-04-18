@@ -35,7 +35,6 @@ public class BoardManager : MonoBehaviour
     [SerializeField] GameObject _outerObjectPrefab;
     [SerializeField] GameObject _collectiblePrefab;
     [SerializeField] GameObject _chestPrefab;
-    [SerializeField] GameObject _trapPrefab;
     [SerializeField] GameObject _mapResetPrefab;
     [SerializeField] GameObject _globalLightPrefab;
     [SerializeField] TextAsset _graphData;
@@ -45,7 +44,6 @@ public class BoardManager : MonoBehaviour
     float _terrainIrregularitiesPercent;
     float _obstaclePercent;
     float _outerAdditionsPercent;
-    float _trapPercent;
     bool[,] _obstacleMap;
     int _accessibleTileCount;
     Queue<Vector3Int> _floodFillQueue;
@@ -93,8 +91,6 @@ public class BoardManager : MonoBehaviour
         await Task.Delay(100);
         BattleManager.Instance.GetComponent<TileManager>().SetUp();
         PlaceOuterAdditions();
-        if (Random.Range(0, 2) == 0)
-            LayoutObjectAtRandom(_trapPrefab, _trapPercent);
         await SetupAstar();
         await SpawnEnemies(3);
         PlaceMapReset();
@@ -148,8 +144,6 @@ public class BoardManager : MonoBehaviour
         _terrainIrregularitiesPercent = Random.Range(_mapVariantChosen.TerrainIrregularitiesPercent.x,
                                                     _mapVariantChosen.TerrainIrregularitiesPercent.y);
         _outerAdditionsPercent = Random.Range(_biome.OuterAdditionsPercent.x, _biome.OuterAdditionsPercent.y);
-        _trapPercent = Random.Range(_mapVariantChosen.TrapPercent.x,
-                                            _mapVariantChosen.TrapPercent.y);
 
         Light2D l = Instantiate(_globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
         l.transform.parent = _envObjectsHolder.transform;

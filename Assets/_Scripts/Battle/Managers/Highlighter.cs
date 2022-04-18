@@ -268,7 +268,6 @@ public class Highlighter : Singleton<Highlighter>
 
     // this function will return false if you can't stop on the tile
     // you can't stop on:
-    // - trap tiles
     // - tiles your allies are standing on
     bool CanPlayerStopOnTile(WorldTile tile)
     {
@@ -280,7 +279,7 @@ public class Highlighter : Singleton<Highlighter>
             return true;
 
         // you can't stop on that tile
-        if (col.transform.CompareTag(Tags.Trap) || col.transform.CompareTag(Tags.PlayerCollider) || col.transform.CompareTag(Tags.EnemyCollider))
+        if (col.transform.CompareTag(Tags.PlayerCollider) || col.transform.CompareTag(Tags.EnemyCollider))
             return false;
 
         // if we don't return before we can stop on that tile

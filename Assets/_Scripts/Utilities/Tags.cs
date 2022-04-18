@@ -31,11 +31,6 @@ public static class Tags
         get { return "PushableObstacle"; }
         private set { }
     }
-    public static string Trap
-    {
-        get { return "Trap"; }
-        private set { }
-    }
     public static string Weapon
     {
         get { return "Weapon"; }

@@ -11,6 +11,5 @@ public class MapVariant : BaseScriptableObject
     [Tooltip("min, max")]
     public Vector2 TerrainIrregularitiesPercent;
     [Tooltip("min, max")]
-    public Vector2 TrapPercent;
     public MapType MapType;
 }

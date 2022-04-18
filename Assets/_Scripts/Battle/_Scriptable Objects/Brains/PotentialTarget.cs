@@ -48,7 +48,6 @@ public class PotentialTarget
             }
 
             // if attacker is standing on it, it should go into the list, but also if there is some object 
-            // like trap or other stuff that is passable
             Collider2D col = Physics2D.OverlapCircle(_tile.GetMiddleOfTile(), 0.2f);
             if (col == null)
                 continue;

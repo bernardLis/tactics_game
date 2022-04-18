@@ -73,9 +73,6 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         // boulder is destroyed when it hits another boulder
         else if (col.transform.gameObject.CompareTag(Tags.PushableObstacle))
             Destroy(gameObject);
-        // boulder destroys traps
-        else if (col.transform.gameObject.CompareTag(Tags.Trap))
-            Destroy(col.transform.gameObject);
         // currently you can't target it on the river bank
 
         if (boxCol != null)

@@ -475,17 +475,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
             Destroy(col.transform.parent.gameObject);
         }
-        // character triggers traps
-        else if (col.transform.gameObject.CompareTag(Tags.Trap))
-        {
-            int dmg = col.transform.GetComponentInParent<FootholdTrap>().Damage;
-
-            TakeDamageNoDodgeNoRetaliation(dmg).GetAwaiter();
-            // movement range is down by 1 for each trap enemy walks on
-            //movementRange.AddModifier(-1);
-
-            Destroy(col.transform.parent.gameObject);
-        }
         else
         {
             TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
