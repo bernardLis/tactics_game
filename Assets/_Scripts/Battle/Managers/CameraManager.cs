@@ -8,7 +8,8 @@ public class CameraManager : MonoBehaviour
     Camera _cam;
 
     Transform _followTarget;
-    [SerializeField] float _moveSpeed;
+    Vector3 velocity = Vector3.zero;
+
     Vector3 _targetPos;
 
     void Awake()
@@ -25,8 +26,7 @@ public class CameraManager : MonoBehaviour
 
         // follow the target
         _targetPos = new Vector3(_followTarget.position.x, _followTarget.position.y, transform.position.z);
-        Vector3 velocity = (_targetPos - transform.position) * _moveSpeed;
-        transform.position = Vector3.SmoothDamp(transform.position, _targetPos, ref velocity, 1.0f, Time.deltaTime);
+        transform.position = Vector3.SmoothDamp(transform.position, _targetPos, ref velocity, 0.25f);
     }
 
     void OnDestroy()

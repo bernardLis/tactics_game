@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: eecd892e-210e-4c3d-ac18-846d963c4283
   ReferenceID: CHARACTER-0
-  CharacterName: First
-  Portrait: {fileID: 21300000, guid: afd309c482f885140af9ed07152aa6f0, type: 3}
+  CharacterName: 'One-Punch Man '
+  Portrait: {fileID: 21300000, guid: a613d81a423cf24429b03929c1678cad, type: 3}
   Level: 5
   Strength: 5
   Intelligence: 5

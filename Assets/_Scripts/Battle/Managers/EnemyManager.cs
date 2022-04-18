@@ -4,9 +4,6 @@ using System.Threading.Tasks;
 
 public class EnemyManager : MonoBehaviour
 {
-    GameObject[] _enemies;
-    EnemyAI _enemyAI;
-
     void Awake()
     {
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
@@ -29,17 +26,14 @@ public class EnemyManager : MonoBehaviour
         if (TurnManager.BattleState != BattleState.EnemyTurn)
             return;
 
-        _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         foreach (var enemy in _enemies)
         {
             if (enemy == null)
                 continue;
 
-            _enemyAI = enemy.GetComponent<EnemyAI>();
-
-            // this waits until the previous corutine is done
-            await _enemyAI.RunAI();
+            await enemy.GetComponent<EnemyAI>().RunAI();
 
             await Task.Delay(1000);
         }

@@ -194,7 +194,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             Dodge(attacker);
         else
         {
-            TakeDamageNoDodgeNoRetaliation(damage);
+            await TakeDamageNoDodgeNoRetaliation(damage);
             HandleModifier(ability);
             HandleStatus(attacker, ability);
         }
@@ -249,7 +249,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
                  .OnComplete(() => _characterRendererManager.enabled = true);
     }
 
-    public void TakeDamageNoDodgeNoRetaliation(int damage)
+    public async Task TakeDamageNoDodgeNoRetaliation(int damage)
     {
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
         CurrentHealth -= damage;
@@ -264,14 +264,13 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // don't shake on death
         if (CurrentHealth <= 0)
         {
-            Die().GetAwaiter();
+            await Die();
             return;
         }
 
         _characterRendererManager.enabled = false;
         transform.DOShakePosition(duration, strength)
                  .OnComplete(() => _characterRendererManager.enabled = true);
-
     }
 
     public void GetBuffed(GameObject attacker, Ability ability)
@@ -450,10 +449,10 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // character colliders are children
         if (col.transform.gameObject.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
         {
-            TakeDamageNoDodgeNoRetaliation(_characterDmg);
+            TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
 
             CharacterStats targetStats = col.transform.parent.GetComponent<CharacterStats>();
-            targetStats.TakeDamageNoDodgeNoRetaliation(_characterDmg);
+            targetStats.TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
 
             // move back to starting position (if target is not dead)
             // TODO: test what happens when target dies
@@ -472,7 +471,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // character destroys boulder when they are pushed into it + 10dmg to self
         else if (col.transform.gameObject.CompareTag(Tags.PushableObstacle))
         {
-            TakeDamageNoDodgeNoRetaliation(_characterDmg);
+            TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
 
             Destroy(col.transform.parent.gameObject);
         }
@@ -481,7 +480,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         {
             int dmg = col.transform.GetComponentInParent<FootholdTrap>().Damage;
 
-            TakeDamageNoDodgeNoRetaliation(dmg);
+            TakeDamageNoDodgeNoRetaliation(dmg).GetAwaiter();
             // movement range is down by 1 for each trap enemy walks on
             //movementRange.AddModifier(-1);
 
@@ -489,7 +488,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         }
         else
         {
-            TakeDamageNoDodgeNoRetaliation(_characterDmg);
+            TakeDamageNoDodgeNoRetaliation(_characterDmg).GetAwaiter();
             if (_tempObject != null)
                 Destroy(_tempObject);
             StartCoroutine(MoveToPosition(_startingPos, 0.5f));

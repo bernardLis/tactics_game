@@ -96,7 +96,7 @@ public class FootholdTrap : MonoBehaviour, IPushable<Vector3, GameObject, Abilit
         {
             _targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
-            _targetStats.TakeDamageNoDodgeNoRetaliation(Damage);
+            _targetStats.TakeDamageNoDodgeNoRetaliation(Damage).GetAwaiter();
             // movement range is down by 1 for each trap enemy walks on
             //targetStats.movementRange.AddModifier(-1);
 

@@ -66,7 +66,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         {
             _targetStats = col.transform.parent.GetComponent<CharacterStats>();
 
-            _targetStats.TakeDamageNoDodgeNoRetaliation(_damage);
+            _targetStats.TakeDamageNoDodgeNoRetaliation(_damage).GetAwaiter();
 
             Destroy(gameObject);
         }
