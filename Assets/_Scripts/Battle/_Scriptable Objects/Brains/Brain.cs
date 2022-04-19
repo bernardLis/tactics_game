@@ -88,9 +88,7 @@ public class Brain : BaseScriptableObject
 
         Target = null;
         _cameraManager.SetTarget(_characterGameObject.transform);
-        await _highlighter.HiglightEnemyMovementRange(_characterGameObject.transform.position,
-                                                      _enemyStats.MovementRange.GetValue(),
-                                                      Helpers.GetColor("movementBlue"));
+        await _highlighter.HighlightCharacterMovementRange(_enemyStats, Tags.Player);
 
         // node blockers
         AstarPath.active.Scan();

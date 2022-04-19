@@ -39,7 +39,7 @@ public class RangedBrain : Brain
         ABPath p = GetPathTo(_tempObject.transform);
         SetPath(p);
 
-        _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
+        await _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
     }
 
     Vector3 ChoosePosition(PotentialTarget selectedTarget)

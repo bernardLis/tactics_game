@@ -162,7 +162,7 @@ public class MovePointController : Singleton<MovePointController>
         // return if there is no object on the tile
         if (col != null)
         {
-            IUITextDisplayable textComponent = col.transform.parent.GetComponent<IUITextDisplayable>();
+            IUITextDisplayable textComponent = col.GetComponent<IUITextDisplayable>();
             if (textComponent != null)
                 tileUIText += textComponent.DisplayText();
         }
@@ -187,14 +187,14 @@ public class MovePointController : Singleton<MovePointController>
         }
 
         // don't show card if you are hovering over selected character
-        if (_battleCharacterController.SelectedCharacter == col.transform.parent.gameObject)
+        if (_battleCharacterController.SelectedCharacter == col.gameObject)
         {
             _infoCardUI.HideCharacterCard();
             return;
         }
 
         // show character card if there is a character there
-        if (col.transform.CompareTag(Tags.PlayerCollider) || col.transform.CompareTag(Tags.EnemyCollider))
+        if (col.transform.CompareTag(Tags.Player) || col.transform.CompareTag(Tags.Enemy))
         {
             _infoCardUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
             return;
@@ -234,11 +234,11 @@ public class MovePointController : Singleton<MovePointController>
         if (col == null)
             return;
         // TODO: maybe check for interfaces?
-        if (!(col.transform.CompareTag(Tags.PlayerCollider) || col.transform.CompareTag(Tags.EnemyCollider)))
+        if (!(col.transform.CompareTag(Tags.Player) || col.transform.CompareTag(Tags.Enemy)))
             return;
 
         CharacterStats attacker = _battleCharacterController.SelectedCharacter.GetComponent<CharacterStats>();
-        CharacterStats defender = col.transform.parent.GetComponent<CharacterStats>();
+        CharacterStats defender = col.GetComponent<CharacterStats>();
 
         _infoCardUI.ShowInteractionSummary(attacker, defender, selectedAbility);
     }

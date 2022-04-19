@@ -32,7 +32,7 @@ public class MeeleBrain : Brain
         ABPath path = GetPathTo(_tempObject.transform);
         SetPath(path);
 
-        _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
+        await _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));
     }
 
     // meele wants to attack anyone from the back

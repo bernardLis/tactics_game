@@ -445,7 +445,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
         // player/enemy get damaged  and are moved back to their starting position
         // character colliders are children
-        if (col.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
+        if (col.CompareTag(Tags.Player) || col.transform.gameObject.CompareTag(Tags.Enemy))
             await CollideWithCharacter(ability, col);
 
         // character bounces back from being pushed into obstacle (and takes damage)
@@ -461,7 +461,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     {
         await TakeDamageNoDodgeNoRetaliation(ability.BasePower);
 
-        CharacterStats targetStats = col.transform.parent.GetComponent<CharacterStats>();
+        CharacterStats targetStats = col.GetComponent<CharacterStats>();
         await targetStats.TakeDamageNoDodgeNoRetaliation(ability.BasePower);
 
         if (_tempObject != null)

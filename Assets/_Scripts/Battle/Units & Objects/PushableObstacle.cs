@@ -64,7 +64,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
         // player/enemy get damaged  and are moved back to their starting position
         // character colliders are children
-        if (col.CompareTag(Tags.PlayerCollider) || col.transform.gameObject.CompareTag(Tags.EnemyCollider))
+        if (col.CompareTag(Tags.Player) || col.transform.gameObject.CompareTag(Tags.Enemy))
             await CollideWithCharacter(ability, col);
 
         // character bounces back from being pushed into obstacle (and takes damage)
@@ -78,7 +78,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
     public async Task CollideWithCharacter(Ability ability, Collider2D col)
     {
-        _targetStats = col.transform.parent.GetComponent<CharacterStats>();
+        _targetStats = col.GetComponent<CharacterStats>();
         await _targetStats.TakeDamageNoDodgeNoRetaliation(_damage);
 
         Destroy(gameObject);

@@ -39,19 +39,13 @@ public class Highlighter : Singleton<Highlighter>
         _battleInputController = BattleInputController.Instance;
     }
 
-    public WorldTile HighlightSingle(Vector3 position, Color col)
+    public async Task HighlightSingle(Vector3 position, Color col)
     {
-        // TODO: should I make it all async?
-        // making sure there is only one highlight at the time
-        ClearHighlightedTiles().GetAwaiter();
+        await ClearHighlightedTiles();
 
         Vector3Int tilePos = _tilemap.WorldToCell(position);
         if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
-        {
             HighlightTile(_tile, col);
-            return _tile;
-        }
-        return null;
     }
 
     // TODO: this
@@ -65,137 +59,34 @@ public class Highlighter : Singleton<Highlighter>
             {
                 Vector3 position = new Vector3(SWcorner.x + i, SWcorner.y + j, 0f);
                 Vector3Int tilePos = _tilemap.WorldToCell(position);
-                // if(tiles == null)
-                //      tiles = TileManager.instance.tiles;
+
                 // continue looping if the tile does not exist
                 if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
                     continue;
 
-                if (CanPlayerWalkOnTile(_tile) && CanPlayerStopOnTile(_tile))
+                if (CanCharacterWalkOnTile(_tile, Tags.Enemy) && CanCharacterStopOnTile(_tile))
                     HighlightTile(_tile, col);
             }
         }
-    }
-
-    // TODO: this is a mess...
-    public async Task HighlightTiles(Vector3 position, int range, Color col, bool diagonal, bool self)
-    {
-        // TODO: does this suck
-        _battleInputController.SetInputAllowed(false);
-
-        // making sure there is only one highlight at the time
-        await ClearHighlightedTiles();
-
-        // get the tile character is currently standing on
-        Vector3Int tilePos = _tilemap.WorldToCell(position);
-
-        if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
-        {
-            _previousMarkedTiles.Add(_tile);
-            _charTile = _tile;
-        }
-
-        for (int i = 0; i < range; i++)
-            await HandleTileHighlighting(col, diagonal, self);
-
-        // TODO: does this suck
-        _battleInputController.SetInputAllowed(true);
-    }
-
-    async Task HandleTileHighlighting(Color col, bool diagonal, bool self)
-    {
-        // for each tile in marked tiles
-        var newMarkedTiles = new List<WorldTile>();
-        Vector3Int worldPoint;
-
-        foreach (WorldTile markedTile in _previousMarkedTiles)
-        {
-            // +/-  x
-            for (int x = -1; x <= 1; x++)
-            {
-                // excluding diagonals
-                if (!diagonal)
-                    worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, _charTile.LocalPlace.y, 0);
-                else
-                    worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, markedTile.LocalPlace.y, 0);
-
-                // excluding not tiles
-                if (!TileManager.Tiles.TryGetValue(worldPoint, out _tile))
-                    continue;
-
-                // excluding self
-                if (!self && _tile == _charTile)
-                    continue;
-
-                // exclude obstacle tiles
-                if (_tile.IsObstacle)
-                    continue;
-
-                if (!HighlightedTiles.Contains(_tile))
-                    HighlightTile(_tile, col);
-                if (!newMarkedTiles.Contains(_tile))
-                    newMarkedTiles.Add(_tile);
-            }
-            // +/- y
-            for (int y = -1; y <= 1; y++)
-            {
-                // excluding diagonals
-                if (!diagonal)
-                    worldPoint = new Vector3Int(_charTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
-                else
-                    worldPoint = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
-
-                // excluding not tiles
-                if (!TileManager.Tiles.TryGetValue(worldPoint, out _tile))
-                    continue;
-
-                // excluding self
-                if (!self && _tile == _charTile)
-                    continue;
-
-                // exclude obstacle tiles
-                if (_tile.IsObstacle)
-                    continue;
-
-                if (!HighlightedTiles.Contains(_tile))
-                    HighlightTile(_tile, col);
-                if (!newMarkedTiles.Contains(_tile))
-                    newMarkedTiles.Add(_tile);
-            }
-        }
-        // delay to make it appear in a cool way (sequentially)
-        _previousMarkedTiles = newMarkedTiles;
-        await Task.Delay(50);
     }
 
     /* Player movement highlighting */
-    public async Task HiglightPlayerMovementRange(Vector3 position, int range, Color col)
+    public async Task HighlightCharacterMovementRange(CharacterStats stats, string opponentTag)
     {
-        // TODO: does this suck
-        _battleInputController.SetInputAllowed(false);
-
         // clear the list just in case.
         await ClearHighlightedTiles();
 
         // adding char position
-        Vector3Int tilePos = _tilemap.WorldToCell(position);
+        Vector3Int tilePos = _tilemap.WorldToCell(stats.transform.position);
 
-        if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
-        {
-            _previousMarkedTiles.Add(_tile);
-            HighlightedTiles.Add(_tile);
-
-        }
+        AddFirstTileForHighlighting(tilePos);
 
         // TODO: this seems not optimal, it lags unity for 1 min when range is 10;
-        for (int i = 0; i < range; i++)
-            await HandlePlayerMovementHighlighting(col);
-
-        // TODO: does this suck
-        _battleInputController.SetInputAllowed(true);
+        for (int i = 0; i < stats.MovementRange.GetValue(); i++)
+            await HandleCharacterMovementHighlighting(Helpers.GetColor("movementBlue"), opponentTag);
     }
 
-    async Task HandlePlayerMovementHighlighting(Color col)
+    async Task HandleCharacterMovementHighlighting(Color col, string opponentTag)
     {
         Vector3Int worldPoint;
         var newMarkedTiles = new List<WorldTile>();
@@ -219,13 +110,13 @@ public class Highlighter : Singleton<Highlighter>
                             continue;
 
                         // can you walk on the tile? 
-                        if (!CanPlayerWalkOnTile(_tile))
+                        if (!CanCharacterWalkOnTile(_tile, opponentTag))
                             continue;
 
                         newMarkedTiles.Add(_tile);
 
                         // can you stop on the tile?
-                        if (!HighlightedTiles.Contains(_tile) && CanPlayerStopOnTile(_tile))
+                        if (!HighlightedTiles.Contains(_tile) && CanCharacterStopOnTile(_tile))
                             HighlightTile(_tile, col);
                     }
                 }
@@ -235,16 +126,9 @@ public class Highlighter : Singleton<Highlighter>
         await Task.Delay(50);
     }
 
-
-
-    // this function will return false if the tile is not walkable
-    // you can't walk on:
-    // - obstacle tiles
-    // - tiles that contain an obstacle object
-    bool CanPlayerWalkOnTile(WorldTile tile)
+    bool CanCharacterWalkOnTile(WorldTile tile, string opponentTag)
     {
-        // if tile is marked as obstacle it is not walkable
-        if (tile.IsObstacle)
+        if (IsTileObstacle(tile))
             return false;
 
         // creating a collider in the middle of the tile
@@ -252,148 +136,59 @@ public class Highlighter : Singleton<Highlighter>
 
         if (col == null)
             return true;
+
+        // you can't walk on tiles opponents are standing on
+        if (col.transform.CompareTag(opponentTag))
+            return false;
+
+        // if we don't return before we can walk on that tile
+        return true;
+    }
+
+    public bool CanCharacterStopOnTile(WorldTile tile)
+    {
+        if (IsTileObstacle(tile))
+            return false;
+
+        // creating a collider in the middle of the tile
+        Collider2D col = Physics2D.OverlapCircle(tile.GetMiddleOfTile(), 0.2f);
+
+        // there is nothing to collide with on the tile
+        if (col == null)
+            return true;
+
+        // you can't stop on that tile
+        if (col.transform.CompareTag(Tags.Player) || col.transform.CompareTag(Tags.Enemy))
+            return false;
+
+        // if we don't return before we can stop on that tile
+        return true;
+    }
+
+    bool IsTileObstacle(WorldTile tile)
+    {
+        // if tile is marked as obstacle it is not walkable
+        if (tile.IsObstacle)
+            return true;
+
+        if (IsThereObstacleGameObject(tile))
+            return true;
+
+        return false;
+    }
+
+    bool IsThereObstacleGameObject(WorldTile tile)
+    {
+        // creating a collider in the middle of the tile
+        Collider2D col = Physics2D.OverlapCircle(tile.GetMiddleOfTile(), 0.2f);
+        if (col == null)
+            return false;
 
         // you can't walk on obstacles
         if (col.transform.CompareTag(Tags.Obstacle) || col.transform.CompareTag(Tags.PushableObstacle))
-            return false;
-
-        // you can't walk on tiles enemies are standing on
-        if (col.transform.CompareTag(Tags.EnemyCollider))
-            return false;
-
-        // if we don't return before we can walk on that tile
-        return true;
-    }
-
-
-    // this function will return false if you can't stop on the tile
-    // you can't stop on:
-    // - tiles your allies are standing on
-    bool CanPlayerStopOnTile(WorldTile tile)
-    {
-        // creating a collider in the middle of the tile
-        Collider2D col = Physics2D.OverlapCircle(tile.GetMiddleOfTile(), 0.2f);
-
-        // there is nothing to collide with on the tile
-        if (col == null)
             return true;
 
-        // you can't stop on that tile
-        if (col.transform.CompareTag(Tags.PlayerCollider) || col.transform.CompareTag(Tags.EnemyCollider))
-            return false;
-
-        // if we don't return before we can stop on that tile
-        return true;
-    }
-
-    /* Enemy movement highlighting */
-    public async Task HiglightEnemyMovementRange(Vector3 position, int range, Color col)
-    {
-        // TODO: should I make it all async?
-        // clear the list just in case.
-        await ClearHighlightedTiles();
-
-        // list with tiles
-        var markedTiles = new List<WorldTile>();
-
-        // adding char position
-        Vector3Int tilePos = _tilemap.WorldToCell(position);
-        Vector3Int worldPoint;
-
-        if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
-        {
-            HighlightTile(_tile, col);
-            markedTiles.Add(_tile);
-        }
-
-        // number of steps character can make
-        // TODO: this seems not optimal, it lags unity for 1 min when range is 10;
-        // TODO: I am checking waaay too many tiles
-        for (int i = 0; i < range; i++)
-        {
-            var newMarkedTiles = new List<WorldTile>();
-
-            // for each tile in marked tiles
-            foreach (WorldTile tile in markedTiles)
-            {
-                for (int x = -1; x <= 1; x++)
-                {
-                    for (int y = -1; y <= 1; y++)
-                    {
-                        // https://youtu.be/2ycN6ZkWgOo?t=598
-                        // (using the XOR operator instead) that way, we'll skip the current tile (:
-                        int neighbourX = tile.LocalPlace.x + x;
-                        int neighbourY = tile.LocalPlace.y + y;
-                        if (x == 0 ^ y == 0)
-                        {
-                            worldPoint = new Vector3Int(neighbourX, neighbourY, 0);
-                            if (!TileManager.Tiles.TryGetValue(worldPoint, out _tile))
-                                continue;
-
-                            // can you calk on the tile? 
-                            if (!CanEnemyWalkOnTile(_tile))
-                                continue;
-
-                            newMarkedTiles.Add(_tile);
-
-                            // can you stop on the tile?
-                            if (!HighlightedTiles.Contains(_tile) && CanEnemyStopOnTile(_tile))
-                                HighlightTile(_tile, col);
-                        }
-                    }
-                }
-            }
-            markedTiles = newMarkedTiles;
-        }
-    }
-
-    // this function will return false if the tile is not walkable
-    // you can't walk on:
-    // - obstacle tiles
-    // - tiles that contain an obstacle object
-    public bool CanEnemyWalkOnTile(WorldTile tile)
-    {
-        // if tile is marked as obstacle it is not walkable
-        if (tile.IsObstacle)
-            return false;
-
-        // creating a collider in the middle of the tile
-        Collider2D col = Physics2D.OverlapCircle(tile.GetMiddleOfTile(), 0.2f);
-
-        if (col == null)
-            return true;
-
-        // you can't walk on obstacles TODO: better check layer
-        if (col.transform.CompareTag(Tags.Obstacle) || col.transform.CompareTag(Tags.PushableObstacle))
-            return false;
-
-        // you can't walk on tiles enemies are standing on
-        if (col.transform.CompareTag(Tags.PlayerCollider))
-            return false;
-
-        // if we don't return before we can walk on that tile
-        return true;
-    }
-
-
-    // this function will return false if you can't stop on the tile
-    // you can't stop on:
-    // - tiles your allies are standing on
-    public bool CanEnemyStopOnTile(WorldTile tile)
-    {
-        // creating a collider in the middle of the tile
-        Collider2D col = Physics2D.OverlapCircle(tile.GetMiddleOfTile(), 0.2f);
-
-        // there is nothing to collide with on the tile
-        if (col == null)
-            return true;
-
-        // you can't stop on that tile
-        if (col.transform.CompareTag(Tags.EnemyCollider))
-            return false;
-
-        // if we don't return before we can stop on that tile
-        return true;
+        return false;
     }
 
     public void ClearHighlightedTile(Vector3 position)
@@ -453,4 +248,122 @@ public class Highlighter : Singleton<Highlighter>
         _tile.WithinRange = true;
         HighlightedTiles.Add(_tile);
     }
+
+    /* Ability */
+
+    public async Task HighlightAbilityRange(Ability ability)
+    {
+        // clear the list just in case.
+        await ClearHighlightedTiles();
+
+        Vector3 characterPos = ability._characterGameObject.transform.position;
+
+        if (ability.Range == 0)
+        {
+            await HighlightSingle(characterPos, ability.HighlightColor);
+            return;
+        }
+
+        // adding char position
+        Vector3Int tilePos = _tilemap.WorldToCell(characterPos);
+        AddFirstTileForHighlighting(tilePos);
+
+        for (int i = 0; i < ability.Range; i++)
+            await HandleAbilityHighlighting(ability, false);
+    }
+
+    public async Task HighlightAbilityAOE(Ability ability, Vector3 middlePos)
+    {
+        Vector3 characterPos = ability._characterGameObject.transform.position;
+        if (ability.AreaOfEffect == 0)
+        {
+            await HighlightSingle(middlePos, ability.HighlightColor);
+            return;
+        }
+
+        // add selected point to highlight
+        Vector3Int tilePos = _tilemap.WorldToCell(middlePos);
+        AddFirstTileForHighlighting(tilePos);
+
+        for (int i = 0; i < ability.Range; i++)
+            await HandleAbilityHighlighting(ability, true);
+    }
+
+
+    async Task HandleAbilityHighlighting(Ability ability, bool highlightingAOE)
+    {
+        bool diagonal = ability.CanTargetDiagonally;
+        Color color = ability.HighlightColor;
+
+        // for each tile in marked tiles
+        var newMarkedTiles = new List<WorldTile>();
+        Vector3Int worldPoint;
+        foreach (WorldTile markedTile in _previousMarkedTiles)
+        {
+            // +/-  x
+            for (int x = -1; x <= 1; x++)
+            {
+                // excluding diagonals
+                if (!diagonal)
+                    worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, _charTile.LocalPlace.y, 0);
+                else
+                    worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, markedTile.LocalPlace.y, 0);
+
+                if (!highlightingAOE && !CanAbilityTargetTile(ability, worldPoint))
+                    continue;
+
+                if (!HighlightedTiles.Contains(_tile))
+                    HighlightTile(_tile, color);
+                if (!newMarkedTiles.Contains(_tile))
+                    newMarkedTiles.Add(_tile);
+            }
+
+            // +/- y
+            for (int y = -1; y <= 1; y++)
+            {
+                // excluding diagonals
+                if (!diagonal)
+                    worldPoint = new Vector3Int(_charTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
+                else
+                    worldPoint = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
+
+                if (!highlightingAOE && !CanAbilityTargetTile(ability, worldPoint))
+                    continue;
+
+                if (!HighlightedTiles.Contains(_tile))
+                    HighlightTile(_tile, color);
+                if (!newMarkedTiles.Contains(_tile))
+                    newMarkedTiles.Add(_tile);
+            }
+        }
+        // delay to make it appear in a cool way (sequentially)
+        _previousMarkedTiles = newMarkedTiles;
+        await Task.Delay(50);
+    }
+
+    bool CanAbilityTargetTile(Ability ability, Vector3 worldPoint)
+    {
+        bool self = ability.CanTargetSelf;
+        bool projectile = ability.Projectile is null ? false : true;
+
+        // excluding not tiles
+        if (!TileManager.Tiles.TryGetValue(worldPoint, out _tile))
+            return false;
+
+        // excluding self
+        if (!self && _tile == _charTile)
+            return false;
+
+        return true;
+    }
+
+    void AddFirstTileForHighlighting(Vector3 pos)
+    {
+        if (TileManager.Tiles.TryGetValue(pos, out _tile))
+        {
+            _previousMarkedTiles.Add(_tile);
+            HighlightedTiles.Add(_tile);
+        }
+    }
+
 }

@@ -23,7 +23,7 @@ public class PotentialTarget
 
         List<WorldTile> freeTiles = new();
 
-        // get players tile and then get the tile up, left, right and left from him
+        // get player's tile and then get the tiles up, left, right and left from him
         Vector3 tilePos = tilemap.WorldToCell(GameObj.transform.position);
 
         // check tiles around target player 
@@ -41,18 +41,18 @@ public class PotentialTarget
             if (!TileManager.Tiles.TryGetValue(point, out _tile))
                 continue;
 
-            if (highlighter.CanEnemyWalkOnTile(_tile) && highlighter.CanEnemyStopOnTile(_tile))
+            if (highlighter.CanCharacterStopOnTile(_tile))
             {
                 freeTiles.Add(_tile);
                 continue;
             }
 
-            // if attacker is standing on it, it should go into the list, but also if there is some object 
+            // if attacker is standing on it, it should go into the list
             Collider2D col = Physics2D.OverlapCircle(_tile.GetMiddleOfTile(), 0.2f);
             if (col == null)
                 continue;
-            
-            if (col.transform.parent.gameObject == attacker)
+
+            if (col.gameObject == attacker)
                 freeTiles.Add(_tile);
         }
 

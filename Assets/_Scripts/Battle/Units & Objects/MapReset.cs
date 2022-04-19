@@ -6,7 +6,7 @@ public class MapReset : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!_isResetting && other.CompareTag(Tags.PlayerCollider))
+        if (!_isResetting && other.CompareTag(Tags.Player))
             Reset();
     }
     void Reset()

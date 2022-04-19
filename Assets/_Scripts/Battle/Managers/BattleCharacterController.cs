@@ -121,7 +121,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // select character
         if (col != null && CanSelectCharacter(col))
         {
-            SelectCharacter(col.transform.parent.gameObject);
+            SelectCharacter(col.gameObject);
             return;
         }
 
@@ -147,7 +147,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         if (col == null)
             return false;
         // can select only player characters
-        if (!col.transform.CompareTag(Tags.PlayerCollider))
+        if (!col.transform.CompareTag(Tags.Player))
             return false;
         // character allows selection
         if (!col.GetComponentInParent<PlayerCharSelection>().CanBeSelected())
@@ -215,8 +215,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _characterUI.ShowCharacterUI(_playerStats);
 
         // highlight
-        await _highlighter.HiglightPlayerMovementRange(SelectedCharacter.transform.position, _playerStats.MovementRange.GetValue(),
-                                                Helpers.GetColor("movementBlue"));
+        _battleInputController.SetInputAllowed(false);
+        await _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy);
+        _battleInputController.SetInputAllowed(true);
+
         _isSelectionBlocked = false;
     }
 
@@ -315,9 +317,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // highlight movement range if character was going back
         _hasCharacterGoneBack = false;
-        _highlighter.HiglightPlayerMovementRange(SelectedCharacter.transform.position, _playerStats.MovementRange.GetValue(),
-                                    Helpers.GetColor("movementBlue")).GetAwaiter();
-
+        _battleInputController.SetInputAllowed(false);
+        _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy).GetAwaiter(); // TODO:
+        _battleInputController.SetInputAllowed(true);
     }
 
     public void SetSelectedAbility(Ability ability)
@@ -374,7 +376,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             if (col == null)
                 continue;
 
-            if (await SelectedAbility.TriggerAbility(col.transform.parent.gameObject))
+            if (await SelectedAbility.TriggerAbility(col.gameObject))
                 successfullAttacks++;
         }
     }

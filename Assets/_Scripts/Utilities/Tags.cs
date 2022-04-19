@@ -11,17 +11,6 @@ public static class Tags
         private set { }
     }
 
-    public static string PlayerCollider
-    {
-        get { return "PlayerCollider"; }
-        private set { }
-    }
-    public static string EnemyCollider
-    {
-        get { return "EnemyCollider"; }
-        private set { }
-    }
-
     public static string Weapon
     {
         get { return "Weapon"; }

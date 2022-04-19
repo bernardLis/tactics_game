@@ -36,7 +36,7 @@ public abstract class Ability : BaseScriptableObject
     public Color HighlightColor;
 
     protected AudioSource _audioSource;
-    protected GameObject _characterGameObject;
+    public GameObject _characterGameObject;
     protected Highlighter _highlighter;
     protected BattleCharacterController _battleCharacterController;
     BattleUI _battleUI;
@@ -84,11 +84,7 @@ public abstract class Ability : BaseScriptableObject
         if (_characterGameObject.CompareTag(Tags.Player))
             _battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
 
-        if (Range == 0)
-            _highlighter.HighlightSingle(self.transform.position, HighlightColor);
-        else
-            await _highlighter.HighlightTiles(_characterGameObject.transform.position, Range,
-                       HighlightColor, CanTargetDiagonally, CanTargetSelf);
+        await _highlighter.HighlightAbilityRange(this);
     }
 
     public virtual async Task HighlightAreaOfEffect(Vector3 middlePos)
@@ -96,10 +92,7 @@ public abstract class Ability : BaseScriptableObject
         if (_characterGameObject.CompareTag(Tags.Player))
             _battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
 
-        if (AreaOfEffect == 0)
-            _highlighter.HighlightSingle(middlePos, HighlightColor);
-        else
-            await _highlighter.HighlightTiles(middlePos, AreaOfEffect, HighlightColor, true, CanTargetSelf);
+        await _highlighter.HighlightAbilityAOE(this, middlePos);
     }
 
     public virtual async Task<bool> TriggerAbility(GameObject target)
@@ -113,7 +106,7 @@ public abstract class Ability : BaseScriptableObject
         await Task.Yield(); // just to get rid of errors;
         return true;
     }
-    
+
     public virtual int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
     {
         int multiplierValue = 0;
