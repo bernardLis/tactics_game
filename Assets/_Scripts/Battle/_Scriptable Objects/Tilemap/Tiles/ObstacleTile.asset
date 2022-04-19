@@ -105,4 +105,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0b25ebd4b286b2a44a26e99a73f58d61, type: 2}
   - {fileID: 11400000, guid: 587e509a680a6d3418336080f86699db, type: 2}
   - {fileID: 11400000, guid: be1fdd81d40d9454ba510949ccb28d43, type: 2}
+  - {fileID: 11400000, guid: abbef812cd0cab2468727c937eb7f1f7, type: 2}
   isObstacle: 1

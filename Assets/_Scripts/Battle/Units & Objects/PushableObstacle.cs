@@ -9,6 +9,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     BattleManager _battleManager;
 
     // push
+    [SerializeField] AudioClip stoneCracking;
     Vector3 _finalPos;
     CharacterStats _targetStats;
     int _damage = 50;
@@ -95,11 +96,19 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
     async Task DestroySelf()
     {
+        AudioManager.Instance.PlaySound("Stone Breaking");
+        Animator anim = GetComponentInChildren<Animator>();
+        if (anim != null)
+            anim.Play("Stone Breaking");
+        // TODO: waiting for animation to finish... too hard for now.
+        // I think the animation is too short, I don't get it when I ask anim - I get new state
+        await Task.Delay(500);
+
         // TODO: add some sound and visual
         Destroy(gameObject);
-        await Task.Yield();
     }
 
 
     public string DisplayText() { return _displayText; }
+
 }
