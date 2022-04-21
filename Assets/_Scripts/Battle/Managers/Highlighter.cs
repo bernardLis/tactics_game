@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class Highlighter : Singleton<Highlighter>
 {
-    // TODO: this script can be better
 
     // global
     BattleInputController _battleInputController;
@@ -17,8 +16,7 @@ public class Highlighter : Singleton<Highlighter>
     WorldTile _charTile;
     public List<WorldTile> HighlightedTiles = new();
 
-    // TODO: when I rewrite enemies I can change it to marked tiles.
-    List<WorldTile> _previousMarkedTiles = new();
+    List<WorldTile> _markedTiles = new();
 
     // flashers
     List<GameObject> _flashers = new();
@@ -79,7 +77,7 @@ public class Highlighter : Singleton<Highlighter>
         // adding char position
         Vector3Int tilePos = _tilemap.WorldToCell(stats.transform.position);
 
-        AddFirstTileForHighlighting(tilePos);
+        AddTileForHighlighting(tilePos, Helpers.GetColor("movementBlue"));
 
         // TODO: this seems not optimal, it lags unity for 1 min when range is 10;
         for (int i = 0; i < stats.MovementRange.GetValue(); i++)
@@ -89,10 +87,12 @@ public class Highlighter : Singleton<Highlighter>
     async Task HandleCharacterMovementHighlighting(Color col, string opponentTag)
     {
         Vector3Int worldPoint;
-        var newMarkedTiles = new List<WorldTile>();
+
+        List<WorldTile> markedTilesCopy = new List<WorldTile>(_markedTiles);
+        _markedTiles.Clear();
 
         // for each tile in marked tiles
-        foreach (WorldTile tile in _previousMarkedTiles)
+        foreach (WorldTile tile in markedTilesCopy)
         {
             for (int x = -1; x <= 1; x++)
             {
@@ -113,7 +113,7 @@ public class Highlighter : Singleton<Highlighter>
                         if (!CanCharacterWalkOnTile(_tile, opponentTag))
                             continue;
 
-                        newMarkedTiles.Add(_tile);
+                        _markedTiles.Add(_tile);
 
                         // can you stop on the tile?
                         if (!HighlightedTiles.Contains(_tile) && CanCharacterStopOnTile(_tile))
@@ -122,7 +122,6 @@ public class Highlighter : Singleton<Highlighter>
                 }
             }
         }
-        _previousMarkedTiles = newMarkedTiles;
         await Task.Delay(50);
     }
 
@@ -233,7 +232,7 @@ public class Highlighter : Singleton<Highlighter>
         // clear the lists
         _flashers.Clear();
         HighlightedTiles.Clear();
-        _previousMarkedTiles.Clear();
+        _markedTiles.Clear();
 
         await Task.Yield();
     }
@@ -256,8 +255,7 @@ public class Highlighter : Singleton<Highlighter>
         // clear the list just in case.
         await ClearHighlightedTiles();
 
-        Vector3 characterPos = ability._characterGameObject.transform.position;
-
+        Vector3 characterPos = ability.CharacterGameObject.transform.position;
         if (ability.Range == 0)
         {
             await HighlightSingle(characterPos, ability.HighlightColor);
@@ -266,7 +264,10 @@ public class Highlighter : Singleton<Highlighter>
 
         // adding char position
         Vector3Int tilePos = _tilemap.WorldToCell(characterPos);
-        AddFirstTileForHighlighting(tilePos);
+
+        if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
+            _charTile = _tile;
+        _markedTiles.Add(_charTile);
 
         for (int i = 0; i < ability.Range; i++)
             await HandleAbilityHighlighting(ability, false);
@@ -274,7 +275,7 @@ public class Highlighter : Singleton<Highlighter>
 
     public async Task HighlightAbilityAOE(Ability ability, Vector3 middlePos)
     {
-        Vector3 characterPos = ability._characterGameObject.transform.position;
+        Vector3 characterPos = ability.CharacterGameObject.transform.position;
         if (ability.AreaOfEffect == 0)
         {
             await HighlightSingle(middlePos, ability.HighlightColor);
@@ -283,7 +284,9 @@ public class Highlighter : Singleton<Highlighter>
 
         // add selected point to highlight
         Vector3Int tilePos = _tilemap.WorldToCell(middlePos);
-        AddFirstTileForHighlighting(tilePos);
+        AddTileForHighlighting(tilePos, ability.HighlightColor);
+        if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
+            _charTile = _tile;
 
         for (int i = 0; i < ability.Range; i++)
             await HandleAbilityHighlighting(ability, true);
@@ -296,74 +299,61 @@ public class Highlighter : Singleton<Highlighter>
         Color color = ability.HighlightColor;
 
         // for each tile in marked tiles
-        var newMarkedTiles = new List<WorldTile>();
-        Vector3Int worldPoint;
-        foreach (WorldTile markedTile in _previousMarkedTiles)
+        List<WorldTile> markedTilesCopy = new List<WorldTile>(_markedTiles);
+        _markedTiles.Clear();
+
+        Vector3Int worldPointX;
+        Vector3Int worldPointY;
+
+        foreach (WorldTile markedTile in markedTilesCopy)
         {
-            // +/-  x
-            for (int x = -1; x <= 1; x++)
+            for (int i = -1; i <= 1; i++)
             {
-                // excluding diagonals
                 if (!diagonal)
-                    worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, _charTile.LocalPlace.y, 0);
+                {
+                    worldPointX = new Vector3Int(markedTile.LocalPlace.x + i, _charTile.LocalPlace.y, 0);
+                    worldPointY = new Vector3Int(_charTile.LocalPlace.x, markedTile.LocalPlace.y + i, 0);
+                }
                 else
-                    worldPoint = new Vector3Int(markedTile.LocalPlace.x + x, markedTile.LocalPlace.y, 0);
+                {
+                    worldPointX = new Vector3Int(markedTile.LocalPlace.x + i, markedTile.LocalPlace.y, 0);
+                    worldPointY = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + i, 0);
+                }
 
-                if (!highlightingAOE && !CanAbilityTargetTile(ability, worldPoint))
-                    continue;
-
-                if (!HighlightedTiles.Contains(_tile))
-                    HighlightTile(_tile, color);
-                if (!newMarkedTiles.Contains(_tile))
-                    newMarkedTiles.Add(_tile);
-            }
-
-            // +/- y
-            for (int y = -1; y <= 1; y++)
-            {
-                // excluding diagonals
-                if (!diagonal)
-                    worldPoint = new Vector3Int(_charTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
-                else
-                    worldPoint = new Vector3Int(markedTile.LocalPlace.x, markedTile.LocalPlace.y + y, 0);
-
-                if (!highlightingAOE && !CanAbilityTargetTile(ability, worldPoint))
-                    continue;
-
-                if (!HighlightedTiles.Contains(_tile))
-                    HighlightTile(_tile, color);
-                if (!newMarkedTiles.Contains(_tile))
-                    newMarkedTiles.Add(_tile);
+                if (highlightingAOE || CanAbilityTargetTile(ability, worldPointX))
+                    AddTileForHighlighting(worldPointX, color);
+                if (highlightingAOE || CanAbilityTargetTile(ability, worldPointY))
+                    AddTileForHighlighting(worldPointY, color);
             }
         }
         // delay to make it appear in a cool way (sequentially)
-        _previousMarkedTiles = newMarkedTiles;
-        await Task.Delay(50);
+        await Task.Delay(20);
     }
 
     bool CanAbilityTargetTile(Ability ability, Vector3 worldPoint)
     {
         bool self = ability.CanTargetSelf;
-        bool projectile = ability.Projectile is null ? false : true;
 
         // excluding not tiles
         if (!TileManager.Tiles.TryGetValue(worldPoint, out _tile))
             return false;
 
         // excluding self
-        if (!self && _tile == _charTile)
+        if (!self && _charTile.LocalPlace == worldPoint)
             return false;
 
         return true;
     }
 
-    void AddFirstTileForHighlighting(Vector3 pos)
+    void AddTileForHighlighting(Vector3 pos, Color color)
     {
-        if (TileManager.Tiles.TryGetValue(pos, out _tile))
-        {
-            _previousMarkedTiles.Add(_tile);
-            HighlightedTiles.Add(_tile);
-        }
+        if (!TileManager.Tiles.TryGetValue(pos, out _tile))
+            return;
+
+        if (!HighlightedTiles.Contains(_tile))
+            HighlightTile(_tile, color);
+        if (!_markedTiles.Contains(_tile))
+            _markedTiles.Add(_tile);
     }
 
 }

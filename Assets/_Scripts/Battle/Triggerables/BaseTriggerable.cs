@@ -23,7 +23,7 @@ public abstract class BaseTriggerable : MonoBehaviour
         if (_faceDirectionUI != null)
             dir = await _faceDirectionUI.PickDirection();
 
-        // TODO: is that correct, facedir returns vector2.zero when it's broken out of
+        // TODO: is that correct? facedir returns vector2.zero when it's broken out of
         if (dir == Vector2.zero)
             return false;
 

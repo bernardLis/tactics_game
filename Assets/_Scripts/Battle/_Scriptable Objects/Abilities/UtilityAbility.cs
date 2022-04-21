@@ -33,7 +33,7 @@ public class UtilityAbility : Ability
             return false;
 
         // heal target if successful play sound and retrun true;
-        if (!await _utilityTriggerable.TriggerUtility(target, this, _characterGameObject))
+        if (!await _utilityTriggerable.TriggerUtility(target, this, CharacterGameObject))
             return false;
 
         return true;

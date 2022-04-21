@@ -341,7 +341,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         if (CharacterState == CharacterState.SelectingInteractionTarget)
         {
             _characterRendererManager.Face((transform.position - SelectedCharacter.transform.position).normalized);
+            _battleInputController.SetInputAllowed(false);
             await SelectedAbility.HighlightAreaOfEffect(transform.position);
+            _battleInputController.SetInputAllowed(true);
+
             _movePointController.UpdateDisplayInformation();
             _isInteracting = false;
             return;
@@ -405,8 +408,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         if (SelectedAbility.CanTargetSelf)
         {
             // it changes the state too
+            _battleInputController.SetInputAllowed(false);
             SelectedAbility.HighlightTargetable(SelectedCharacter).GetAwaiter();
-
+            _battleInputController.SetInputAllowed(true);
             return;
         }
 
@@ -419,7 +423,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     {
         _isInteracting = false;
         UpdateCharacterState(CharacterState.SelectingInteractionTarget);
+        _battleInputController.SetInputAllowed(false);
         SelectedAbility.HighlightTargetable(SelectedCharacter).GetAwaiter();
+        _battleInputController.SetInputAllowed(true);
+
     }
 
 

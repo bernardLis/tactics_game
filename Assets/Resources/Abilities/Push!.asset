@@ -29,4 +29,5 @@ MonoBehaviour:
   Range: 1
   CanTargetSelf: 0
   CanTargetDiagonally: 0
-  HighlightColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
+  HighlightColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
+  CharacterGameObject: {fileID: 0}

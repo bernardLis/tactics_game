@@ -12,18 +12,22 @@ public class AttackTriggerable : BaseTriggerable
         if (!_myStats.IsAttacker)
         {
             await _characterRendererManager.AttackAnimation();
+            _myStats.UseMana(ability.ManaCost);
 
             // spawn and fire a projectile if the ability has one
             if (ability.Projectile != null)
             {
                 GameObject projectile = Instantiate(ability.Projectile, transform.position, Quaternion.identity);
-                projectile.GetComponent<IShootable<Transform>>().Shoot(target.transform);
+                Transform hit = await projectile.GetComponent<Projectile>().Shoot(transform, target.transform);
+                if (!hit.TryGetComponent(out CharacterStats stats))
+                    return false;
 
+                // you could have hit someone else, not the one you were aiming at.
+                target = hit.gameObject;
+                // TODO I need to await shoot and in shoot check whether it was a hit or not. (obstacle)
                 // TODO: There is a better way to wait for shoot to hit the target;
-                await Task.Delay(300);
+                //await Task.Delay(300);
             }
-
-            _myStats.UseMana(ability.ManaCost);
         }
 
         if (!isRetaliation)

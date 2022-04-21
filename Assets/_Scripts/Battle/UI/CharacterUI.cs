@@ -241,9 +241,11 @@ public class CharacterUI : Singleton<CharacterUI>
         _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
 
         ShowAbilityTooltip(ability);
-
+        // TODO: this eats errors
+        _battleInputController.SetInputAllowed(false);
         Task task = ability.HighlightTargetable(_battleCharacterController.SelectedCharacter); // for some reason this works, but it has to be written exactly like that with Task task = ;
         yield return new WaitUntil(() => task.IsCompleted);
+        _battleInputController.SetInputAllowed(true);
 
         _battleCharacterController.SetSelectedAbility(ability);
     }

@@ -23,10 +23,11 @@ MonoBehaviour:
   AbilityType: 0
   MultiplerStat: 2
   WeaponType: 2
-  Projectile: {fileID: 6450357399194659378, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
+  Projectile: {fileID: 930043242252355895, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
   StatModifier: {fileID: 11400000, guid: 0b3befe40f5e4bc4a91c09e135ed8401, type: 2}
   Status: {fileID: 11400000, guid: 1468796ffbb600c499423279fb089246, type: 2}
   Range: 4
   CanTargetSelf: 0
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.1254902, g: 0.5294118, b: 0.16078432, a: 1}
+  CharacterGameObject: {fileID: 0}

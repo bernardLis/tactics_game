@@ -36,7 +36,7 @@ public abstract class Ability : BaseScriptableObject
     public Color HighlightColor;
 
     protected AudioSource _audioSource;
-    public GameObject _characterGameObject;
+    public GameObject CharacterGameObject;
     protected Highlighter _highlighter;
     protected BattleCharacterController _battleCharacterController;
     BattleUI _battleUI;
@@ -65,7 +65,7 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual void Initialize(GameObject self)
     {
-        _characterGameObject = self;
+        CharacterGameObject = self;
         _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
         _battleCharacterController = BattleCharacterController.Instance;
         _audioSource = AudioManager.Instance.GetComponent<AudioSource>();
@@ -81,7 +81,7 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightTargetable(GameObject self)
     {
-        if (_characterGameObject.CompareTag(Tags.Player))
+        if (CharacterGameObject.CompareTag(Tags.Player))
             _battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
 
         await _highlighter.HighlightAbilityRange(this);
@@ -89,7 +89,7 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightAreaOfEffect(Vector3 middlePos)
     {
-        if (_characterGameObject.CompareTag(Tags.Player))
+        if (CharacterGameObject.CompareTag(Tags.Player))
             _battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
 
         await _highlighter.HighlightAbilityAOE(this, middlePos);
@@ -101,7 +101,7 @@ public abstract class Ability : BaseScriptableObject
         _audioSource.Play();
 
         string abilityName = Helpers.ParseScriptableObjectCloneName(this.name);
-        _battleUI.DisplayBattleLog($"{_characterGameObject.name} uses {abilityName} on {target.name} .");
+        _battleUI.DisplayBattleLog($"{CharacterGameObject.name} uses {abilityName} on {target.name} .");
 
         await Task.Yield(); // just to get rid of errors;
         return true;

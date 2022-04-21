@@ -21,7 +21,7 @@ public class BuffAbility : Ability
             return false;
 
         // interact
-        if (!await _buffTriggerable.Buff(target, this, _characterGameObject))
+        if (!await _buffTriggerable.Buff(target, this, CharacterGameObject))
             return false;
 
         await base.TriggerAbility(target);
