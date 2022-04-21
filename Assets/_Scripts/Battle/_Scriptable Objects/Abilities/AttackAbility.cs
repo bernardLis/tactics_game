@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Attack Ability")]
@@ -14,23 +15,17 @@ public class AttackAbility : Ability
         _attackTriggerable = obj.GetComponent<AttackTriggerable>();
     }
 
-    // returns true if ability was triggered with success
-    public async override Task<bool> TriggerAbility(GameObject target)
+    public async override Task AbilityLogic(GameObject target)
     {
-        await base.TriggerAbility(target);
-
-        // check if target is valid
+        // check if target is valid // TODO: DO I need that? Maybe triggerable should take care of it.
         var attackableObject = target.GetComponent<IAttackable<GameObject, Ability>>();
         if (attackableObject == null)
-            return false;
+            return;
 
         // interact
-        if (!await _attackTriggerable.Attack(target, this, IsRetaliation))
-            return false;
+        await _attackTriggerable.Attack(target, this, IsRetaliation);
 
         SetIsRetaliation(false);
-
-        return true;
     }
 
     public void SetIsRetaliation(bool isRet) { IsRetaliation = isRet; }

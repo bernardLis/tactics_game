@@ -252,7 +252,6 @@ public class Highlighter : Singleton<Highlighter>
 
     public async Task HighlightAbilityRange(Ability ability)
     {
-        // clear the list just in case.
         await ClearHighlightedTiles();
 
         Vector3 characterPos = ability.CharacterGameObject.transform.position;
@@ -275,6 +274,8 @@ public class Highlighter : Singleton<Highlighter>
 
     public async Task HighlightAbilityAOE(Ability ability, Vector3 middlePos)
     {
+        await ClearHighlightedTiles();
+
         Vector3 characterPos = ability.CharacterGameObject.transform.position;
         if (ability.AreaOfEffect == 0)
         {
@@ -288,7 +289,7 @@ public class Highlighter : Singleton<Highlighter>
         if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
             _charTile = _tile;
 
-        for (int i = 0; i < ability.Range; i++)
+        for (int i = 0; i < ability.AreaOfEffect; i++)
             await HandleAbilityHighlighting(ability, true);
     }
 
@@ -297,6 +298,9 @@ public class Highlighter : Singleton<Highlighter>
     {
         bool diagonal = ability.CanTargetDiagonally;
         Color color = ability.HighlightColor;
+
+        if (highlightingAOE)
+            diagonal = true;
 
         // for each tile in marked tiles
         List<WorldTile> markedTilesCopy = new List<WorldTile>(_markedTiles);

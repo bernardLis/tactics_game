@@ -3,11 +3,8 @@ using System.Threading.Tasks;
 
 public class AttackTriggerable : BaseTriggerable
 {
-    public async Task<bool> Attack(GameObject target, Ability ability, bool isRetaliation)
+    public async Task Attack(GameObject target, Ability ability, bool isRetaliation)
     {
-        if (target == null)
-            return false;
-
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
         {
@@ -20,23 +17,22 @@ public class AttackTriggerable : BaseTriggerable
                 GameObject projectile = Instantiate(ability.Projectile, transform.position, Quaternion.identity);
                 Transform hit = await projectile.GetComponent<Projectile>().Shoot(transform, target.transform);
                 if (!hit.TryGetComponent(out CharacterStats stats))
-                    return false;
+                    return;
 
                 // you could have hit someone else, not the one you were aiming at.
                 target = hit.gameObject;
-                // TODO I need to await shoot and in shoot check whether it was a hit or not. (obstacle)
-                // TODO: There is a better way to wait for shoot to hit the target;
-                //await Task.Delay(300);
             }
         }
 
         if (!isRetaliation)
             _myStats.SetAttacker(true);
 
+        // trigger ability even if there is no target (play attack animation & use mana even if there is no target)
+        if (target == null)
+            return;
+
         // damage target // TODO: ugh... this -1 is killing me...
         int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
         await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
-
-        return true;
     }
 }

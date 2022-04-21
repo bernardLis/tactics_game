@@ -115,7 +115,7 @@ public class Brain : BaseScriptableObject
         await Task.Delay(300);
         await _selectedAbility.HighlightAreaOfEffect(Target.transform.position);
         await Task.Delay(500);
-        await _selectedAbility.TriggerAbility(Target);
+        await _selectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
 
         _infoCardUI.ShowCharacterCard(_enemyStats);
     }

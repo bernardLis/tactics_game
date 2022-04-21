@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Heal Ability")]
 public class HealAbility : Ability
@@ -13,21 +14,15 @@ public class HealAbility : Ability
         _healTriggerable = obj.GetComponent<HealTriggerable>();
     }
 
-    // returns true if ability was triggered with success
-    public async override Task<bool> TriggerAbility(GameObject target)
+    public async override Task AbilityLogic(GameObject target)
     {
-        await base.TriggerAbility(target);
-
         // check if target is valid
         var healableObject = target.GetComponent<IHealable<GameObject, Ability>>();
         if (healableObject == null)
-            return false;
+            return;
 
         // heal target if successful play sound and retrun true;
-        if (!await _healTriggerable.Heal(target, this, CharacterGameObject))
-            return false;
-
-        return true;
+        await _healTriggerable.Heal(target, this, CharacterGameObject);
     }
 
     public override int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)

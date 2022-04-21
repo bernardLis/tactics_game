@@ -35,11 +35,16 @@ public abstract class Ability : BaseScriptableObject
     public bool CanTargetDiagonally;
     public Color HighlightColor;
 
+    [HideInInspector] public GameObject CharacterGameObject;
+    protected FaceDirectionUI _faceDirectionUI;
+    protected CharacterRendererManager _characterRendererManager;
+
     protected AudioSource _audioSource;
-    public GameObject CharacterGameObject;
     protected Highlighter _highlighter;
     protected BattleCharacterController _battleCharacterController;
     BattleUI _battleUI;
+
+    Vector3 middleOfTargeting;
 
     // called from editor using table data
     public virtual void Create(Dictionary<string, object> item, StatModifier statModifier, Status status)
@@ -66,6 +71,9 @@ public abstract class Ability : BaseScriptableObject
     public virtual void Initialize(GameObject self)
     {
         CharacterGameObject = self;
+        _faceDirectionUI = self.GetComponent<FaceDirectionUI>();
+        _characterRendererManager = self.GetComponentInChildren<CharacterRendererManager>();
+
         _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
         _battleCharacterController = BattleCharacterController.Instance;
         _audioSource = AudioManager.Instance.GetComponent<AudioSource>();
@@ -92,19 +100,46 @@ public abstract class Ability : BaseScriptableObject
         if (CharacterGameObject.CompareTag(Tags.Player))
             _battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
 
+        middleOfTargeting = middlePos;
         await _highlighter.HighlightAbilityAOE(this, middlePos);
     }
 
-    public virtual async Task<bool> TriggerAbility(GameObject target)
+    public virtual async Task TriggerAbility(List<WorldTile> tiles)
     {
-        _audioSource.clip = Sound;
-        _audioSource.Play();
+        // copy the list for safety
+        List<WorldTile> targetTiles = new(tiles);
 
-        string abilityName = Helpers.ParseScriptableObjectCloneName(this.name);
-        _battleUI.DisplayBattleLog($"{CharacterGameObject.name} uses {abilityName} on {target.name} .");
+        // targeting self, you should be able to choose what direction to face
+        Collider2D col = Physics2D.OverlapCircle(middleOfTargeting, 0.2f);
+        if (col != null && col.gameObject == CharacterGameObject && CharacterGameObject.CompareTag(Tags.Player))
+            if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction
+                return;
 
-        await Task.Yield(); // just to get rid of errors;
-        return true;
+        foreach (WorldTile t in targetTiles)
+        {
+            // check if there is an object there and try to attack it
+            Vector3 pos = t.GetMiddleOfTile();
+            col = Physics2D.OverlapCircle(pos, 0.2f);
+            if (col == null)
+                continue;
+
+            GameObject target = col.gameObject;
+
+            // TODO: sound
+            _audioSource.clip = Sound;
+            _audioSource.Play();
+
+            string abilityName = Helpers.ParseScriptableObjectCloneName(this.name);
+            _battleUI.DisplayBattleLog($"{CharacterGameObject.name} uses {abilityName} on {target.name} .");
+
+            await AbilityLogic(target);
+        }
+    }
+
+    public virtual async Task AbilityLogic(GameObject target)
+    {
+        // meant to be overwritten
+        await Task.Yield(); // to get rid of errors;
     }
 
     public virtual int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
@@ -116,5 +151,20 @@ public abstract class Ability : BaseScriptableObject
 
         // -1 coz it is attack and has to be negative... TODO: this is very imperfect.
         return -1 * (BasePower + multiplierValue - defender.Armor.GetValue());
+    }
+
+    protected async Task<bool> PlayerFaceDirSelection()
+    {
+        Vector2 dir = Vector2.zero;
+        if (_faceDirectionUI != null)
+            dir = await _faceDirectionUI.PickDirection();
+
+        // TODO: is that correct? facedir returns vector2.zero when it's broken out of
+        if (dir == Vector2.zero)
+            return false;
+
+        _characterRendererManager.Face(dir.normalized);
+
+        return true;
     }
 }

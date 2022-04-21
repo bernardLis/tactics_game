@@ -243,7 +243,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerCharSelection.SetCharacterMoved(true);
     }
 
-    public void Back()
+    public async void Back()
     {
         ClearPathRenderer();
         _movePointController.UpdateDisplayInformation();
@@ -257,13 +257,13 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         if (CharacterState == CharacterState.ConfirmingInteraction)
         {
-            BackFromConfirmingInteraction();
+            await BackFromConfirmingInteraction();
             return;
         }
 
         if (CharacterState == CharacterState.SelectingFaceDir)
         {
-            BackFromFaceDirSelection();
+            await BackFromFaceDirSelection();
             return;
         }
 
@@ -357,32 +357,11 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             return;
         }
 
-        await TriggerAbility();
+        await SelectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
         _isInteracting = false;
         FinishCharacterTurn();
     }
 
-    async Task TriggerAbility()
-    {
-        int successfullAttacks = 0;
-        List<WorldTile> highlightedTiles = _highlighter.HighlightedTiles;
-
-        // for each tile of highlighted tiles -
-        // TODO: kinda sucks to be using highlighted tiles, I could calculate the affected tiles
-        foreach (WorldTile t in highlightedTiles)
-        {
-            Vector3 pos = t.GetMiddleOfTile();
-
-            // check if there is an object there and try to attack it
-            Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);
-
-            if (col == null)
-                continue;
-
-            if (await SelectedAbility.TriggerAbility(col.gameObject))
-                successfullAttacks++;
-        }
-    }
 
     void BackFromAbilitySelection()
     {
@@ -396,7 +375,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _highlighter.ClearHighlightedTiles().GetAwaiter();
     }
 
-    void BackFromFaceDirSelection()
+    async Task BackFromFaceDirSelection()
     {
         _isInteracting = false;
 
@@ -409,7 +388,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         {
             // it changes the state too
             _battleInputController.SetInputAllowed(false);
-            SelectedAbility.HighlightTargetable(SelectedCharacter).GetAwaiter();
+            await SelectedAbility.HighlightTargetable(SelectedCharacter);
             _battleInputController.SetInputAllowed(true);
             return;
         }
@@ -419,12 +398,12 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         UpdateCharacterState(CharacterState.Selected);
     }
 
-    void BackFromConfirmingInteraction()
+    async Task BackFromConfirmingInteraction()
     {
         _isInteracting = false;
         UpdateCharacterState(CharacterState.SelectingInteractionTarget);
         _battleInputController.SetInputAllowed(false);
-        SelectedAbility.HighlightTargetable(SelectedCharacter).GetAwaiter();
+        await SelectedAbility.HighlightTargetable(SelectedCharacter);
         _battleInputController.SetInputAllowed(true);
 
     }

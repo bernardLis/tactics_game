@@ -228,7 +228,16 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // if it is in range retaliate
         _characterRendererManager.Face((attacker.transform.position - transform.position).normalized);
         retaliationAbility.SetIsRetaliation(true);
-        await retaliationAbility.TriggerAbility(attacker);
+
+        // TODO: kind of a hack to make retaliation work with my set-up
+        Vector3 tilePos = BattleManager.Instance.GetComponent<TileManager>().Tilemap.WorldToCell(attacker.transform.position);
+        WorldTile tile;
+        if (!TileManager.Tiles.TryGetValue(tilePos, out tile))
+            return;
+        List<WorldTile> tiles = new();
+        tiles.Add(tile);
+
+        await retaliationAbility.TriggerAbility(tiles);
     }
 
     void Dodge(GameObject attacker)

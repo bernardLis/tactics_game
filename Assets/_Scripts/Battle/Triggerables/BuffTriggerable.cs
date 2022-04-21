@@ -4,26 +4,19 @@ using System.Collections.Generic;
 
 public class BuffTriggerable : BaseTriggerable
 {
-    public async Task<bool> Buff(GameObject target, Ability ability, GameObject attacker)
+    public async Task Buff(GameObject target, Ability ability, GameObject attacker)
     {
-        if (target == null)
-            return false;
-
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
         {
-            // buffing self, should be able to choose what direction to face
-            if (target == gameObject && attacker.CompareTag(Tags.Player))
-                if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction
-                    return false;
-
             await _characterRendererManager.SpellcastAnimation();
-
             _myStats.UseMana(ability.ManaCost);
         }
+        _myStats.SetAttacker(true);
+
+        if (target == null)
+            return;
 
         target.GetComponent<IBuffable<GameObject, Ability>>().GetBuffed(attacker, ability);
-
-        return true;
     }
 }

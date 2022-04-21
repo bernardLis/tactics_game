@@ -23,20 +23,15 @@ public class UtilityAbility : Ability
         _utilityTriggerable = obj.GetComponent<UtilityTriggerable>();
     }
 
-    public async override Task<bool> TriggerAbility(GameObject target)
+    public async override Task AbilityLogic(GameObject target)
     {
-        await base.TriggerAbility(target);
-
         // check if target is valid
         var itemUsableObject = target.GetComponent<IItemUsable<UtilityAbility>>();
         if (itemUsableObject == null)
-            return false;
+            return;
 
-        // heal target if successful play sound and retrun true;
-        if (!await _utilityTriggerable.TriggerUtility(target, this, CharacterGameObject))
-            return false;
-
-        return true;
+        await _utilityTriggerable.TriggerUtility(target, this, CharacterGameObject);
     }
+
 
 }
