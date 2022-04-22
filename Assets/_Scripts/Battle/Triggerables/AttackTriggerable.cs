@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 
 public class AttackTriggerable : BaseTriggerable
 {
-    public async Task Attack(GameObject target, Ability ability, bool isRetaliation)
+    public async Task Attack(Vector3 pos, Ability ability, bool isRetaliation)
     {
+        GameObject target;
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
         {
@@ -15,7 +16,9 @@ public class AttackTriggerable : BaseTriggerable
             if (ability.Projectile != null)
             {
                 GameObject projectile = Instantiate(ability.Projectile, transform.position, Quaternion.identity);
-                Transform hit = await projectile.GetComponent<Projectile>().Shoot(transform, target.transform);
+                Transform hit = await projectile.GetComponent<Projectile>().Shoot(transform, pos);
+                if (hit == null)
+                    return;
                 if (!hit.TryGetComponent(out CharacterStats stats))
                     return;
 
@@ -23,13 +26,21 @@ public class AttackTriggerable : BaseTriggerable
                 target = hit.gameObject;
             }
         }
+        // looking for a target
+        Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);
+        if (col == null)
+            return;
+        target = col.gameObject;
+
+        // looking for attackable target
+        var attackableObject = target.GetComponent<IAttackable<GameObject, Ability>>();
+        if (attackableObject == null)
+            return;
+
+        DisplayBattleLog(target, ability);
 
         if (!isRetaliation)
             _myStats.SetAttacker(true);
-
-        // trigger ability even if there is no target (play attack animation & use mana even if there is no target)
-        if (target == null)
-            return;
 
         // damage target // TODO: ugh... this -1 is killing me...
         int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());

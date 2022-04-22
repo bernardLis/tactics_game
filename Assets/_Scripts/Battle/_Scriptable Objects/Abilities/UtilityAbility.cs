@@ -23,14 +23,9 @@ public class UtilityAbility : Ability
         _utilityTriggerable = obj.GetComponent<UtilityTriggerable>();
     }
 
-    public async override Task AbilityLogic(GameObject target)
+    public async override Task AbilityLogic(Vector3 pos)
     {
-        // check if target is valid
-        var itemUsableObject = target.GetComponent<IItemUsable<UtilityAbility>>();
-        if (itemUsableObject == null)
-            return;
-
-        await _utilityTriggerable.TriggerUtility(target, this, CharacterGameObject);
+        await _utilityTriggerable.TriggerUtility(pos, this, CharacterGameObject);
     }
 
 

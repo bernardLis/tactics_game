@@ -13,15 +13,10 @@ public class BuffAbility : Ability
         _buffTriggerable = obj.GetComponent<BuffTriggerable>();
     }
 
-    public async override Task AbilityLogic(GameObject target)
+    public async override Task AbilityLogic(Vector3 pos)
     {
-        // check if target is valid
-        var stats = target.GetComponent<CharacterStats>();
-        if (stats == null)
-            return;
-
         // interact
-        await _buffTriggerable.Buff(target, this, CharacterGameObject);
+        await _buffTriggerable.Buff(pos, this, CharacterGameObject);
     }
 
 }

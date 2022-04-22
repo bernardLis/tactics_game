@@ -13,14 +13,12 @@ public class PushAbility : Ability
         _pushTriggerable = obj.GetComponent<PushTriggerable>();
     }
 
-    public async override Task AbilityLogic(GameObject target)
+    public async override Task AbilityLogic(Vector3 pos)
     {
+        /*
         // check if target is valid
-        var pushableObject = target.GetComponent<IPushable<Vector3, GameObject, Ability>>();
-        if (pushableObject == null)
-            return;
-
+*/
         // push if successful play sound and retrun true;
-        await _pushTriggerable.Push(target, this);
+        await _pushTriggerable.Push(pos, this);
     }
 }

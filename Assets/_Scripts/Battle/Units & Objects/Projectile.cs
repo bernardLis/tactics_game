@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 public class Projectile : MonoBehaviour
 {
     [Header("Attributes")]
-    float _speed = 5f;
+    float _speed = 4f;
 
     Vector3 _adjustedTargetPosition;
 
-    public virtual async Task<Transform> Shoot(Transform shooter, Transform target)
+    public virtual async Task<Transform> Shoot(Transform shooter, Vector3 targetPos)
     {
         // shoot from the chest area
         transform.position = transform.position + (Vector3.up * 0.5f);
         // shoot at the chest area
-        _adjustedTargetPosition = target.position + (Vector3.up * 0.5f);
+        _adjustedTargetPosition = targetPos + (Vector3.up * 0.5f);
         // look at the target;
         transform.right = -(_adjustedTargetPosition - transform.position); // https://answers.unity.com/questions/585035/lookat-2d-equivalent-.html
 
@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
             // Check whether we are hitting something
             Collider2D col = Physics2D.OverlapCircle(transform.position, 0.1f);
 
-            if (col != null && col.transform != shooter)
+            if (col != null && col.transform != shooter && !col.CompareTag(Tags.BoundCollider))
             {
                 HitSomething();
                 return col.transform;
@@ -35,6 +35,7 @@ public class Projectile : MonoBehaviour
             await Task.Yield();
         }
         // code should never get here
+        DestroySelf();
         return null;
     }
 

@@ -15,15 +15,10 @@ public class AttackAbility : Ability
         _attackTriggerable = obj.GetComponent<AttackTriggerable>();
     }
 
-    public async override Task AbilityLogic(GameObject target)
+    public async override Task AbilityLogic(Vector3 pos)
     {
-        // check if target is valid // TODO: DO I need that? Maybe triggerable should take care of it.
-        var attackableObject = target.GetComponent<IAttackable<GameObject, Ability>>();
-        if (attackableObject == null)
-            return;
-
         // interact
-        await _attackTriggerable.Attack(target, this, IsRetaliation);
+        await _attackTriggerable.Attack(pos, this, IsRetaliation);
 
         SetIsRetaliation(false);
     }

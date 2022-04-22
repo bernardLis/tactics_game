@@ -42,7 +42,6 @@ public abstract class Ability : BaseScriptableObject
     protected AudioSource _audioSource;
     protected Highlighter _highlighter;
     protected BattleCharacterController _battleCharacterController;
-    BattleUI _battleUI;
 
     Vector3 middleOfTargeting;
 
@@ -77,7 +76,6 @@ public abstract class Ability : BaseScriptableObject
         _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
         _battleCharacterController = BattleCharacterController.Instance;
         _audioSource = AudioManager.Instance.GetComponent<AudioSource>();
-        _battleUI = BattleUI.Instance;
     }
 
     // TODO: I am not certain whether this is correct.
@@ -119,24 +117,16 @@ public abstract class Ability : BaseScriptableObject
         {
             // check if there is an object there and try to attack it
             Vector3 pos = t.GetMiddleOfTile();
-            col = Physics2D.OverlapCircle(pos, 0.2f);
-            if (col == null)
-                continue;
-
-            GameObject target = col.gameObject;
 
             // TODO: sound
             _audioSource.clip = Sound;
             _audioSource.Play();
 
-            string abilityName = Helpers.ParseScriptableObjectCloneName(this.name);
-            _battleUI.DisplayBattleLog($"{CharacterGameObject.name} uses {abilityName} on {target.name} .");
-
-            await AbilityLogic(target);
+            await AbilityLogic(pos);
         }
     }
 
-    public virtual async Task AbilityLogic(GameObject target)
+    public virtual async Task AbilityLogic(Vector3 pos)
     {
         // meant to be overwritten
         await Task.Yield(); // to get rid of errors;

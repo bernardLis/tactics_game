@@ -14,15 +14,10 @@ public class HealAbility : Ability
         _healTriggerable = obj.GetComponent<HealTriggerable>();
     }
 
-    public async override Task AbilityLogic(GameObject target)
+    public async override Task AbilityLogic(Vector3 pos)
     {
-        // check if target is valid
-        var healableObject = target.GetComponent<IHealable<GameObject, Ability>>();
-        if (healableObject == null)
-            return;
-
         // heal target if successful play sound and retrun true;
-        await _healTriggerable.Heal(target, this, CharacterGameObject);
+        await _healTriggerable.Heal(pos, this, CharacterGameObject);
     }
 
     public override int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)

@@ -356,9 +356,12 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             _isInteracting = false;
             return;
         }
-
+        
+        _battleInputController.SetInputAllowed(false);
         await SelectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
+        _battleInputController.SetInputAllowed(true);
         _isInteracting = false;
+
         FinishCharacterTurn();
     }
 
