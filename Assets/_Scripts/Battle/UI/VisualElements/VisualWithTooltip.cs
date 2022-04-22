@@ -15,6 +15,8 @@ public abstract class VisualWithTooltip : VisualElement
         RegisterCallback<MouseEnterEvent>((evt) => DisplayTooltip());
         RegisterCallback<MouseMoveEvent>((evt) => UpdateTooltipPosition());
         RegisterCallback<MouseLeaveEvent>((evt) => HideTooltip());
+        // on destroy https://forum.unity.com/threads/callback-for-destroy-dispose.856948/
+        RegisterCallback<DetachFromPanelEvent>((evt) => HideTooltip());
     }
 
     protected virtual void DisplayTooltip()
@@ -32,6 +34,8 @@ public abstract class VisualWithTooltip : VisualElement
     protected void HideTooltip()
     {
         if (_tooltip == null)
+            return;
+        if (_tooltip.parent == null)
             return;
         var root = panel.visualTree;
         root.Remove(_tooltip);

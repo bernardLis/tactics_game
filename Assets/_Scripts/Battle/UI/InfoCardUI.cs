@@ -19,7 +19,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
     VisualElement _interactionSummary;
 
     Label _attackLabel;
-    Label _attackDamageValue;
+    VisualElement _attackDamageValue;
     Label _attackHitValue;
 
     VisualElement _retaliationSummary;
@@ -50,7 +50,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _interactionSummary = root.Q<VisualElement>("interactionSummary");
 
         _attackLabel = root.Q<Label>("attackLabel");
-        _attackDamageValue = root.Q<Label>("attackDamageValue");
+        _attackDamageValue = root.Q<VisualElement>("attackDamageValue");
         _attackHitValue = root.Q<Label>("attackHitValue");
 
         _retaliationSummary = root.Q<VisualElement>("retaliationSummary");
@@ -108,74 +108,101 @@ public class InfoCardUI : Singleton<InfoCardUI>
                .SetEase(Ease.InOutSine);
 
         _characterUI.HideHealthChange();
-
-        int attackValue = ability.CalculateInteractionResult(attacker, defender);
-        _attackDamageValue.text = "" + attackValue;
+        DisplayNone(_retaliationSummary); // flexing it when it is necessary
+        _attackDamageValue.Clear();
 
         // different labels and UI for heal / attack
-        if (ability.AbilityType == AbilityType.Attack)
-        {
-            // self dmg
-            if (attacker.gameObject == defender.gameObject)
-                _characterUI.ShowHealthChange(ability.CalculateInteractionResult(attacker, attacker));
+        if (ability.AbilityType == AbilityType.Attack || ability.AbilityType == AbilityType.Push)
+            HandleAttackAbilitySummary(attacker, defender, ability);
 
-            ShowHealthChange(defender, attackValue);
-
-            _attackLabel.text = "Attack";
-
-            float hitChance = (1 - defender.GetDodgeChance(attacker.gameObject)) * 100;
-            hitChance = Mathf.Clamp(hitChance, 0, 100);
-
-            _attackHitValue.text = hitChance + "%";
-        }
+        // TODO: would be cool to do something special for push
+        if (ability.AbilityType == AbilityType.Push)
+            HandleAttackAbilitySummary(attacker, defender, ability);
 
         if (ability.AbilityType == AbilityType.Heal)
-        {
-            if (attacker.gameObject == defender.gameObject)
-                _characterUI.ShowHealthChange(attackValue);
-
-            ShowHealthChange(defender, attackValue);
-
-            _attackLabel.text = "Heal";
-            _attackHitValue.text = 100 + "%";
-        }
+            HandleHealAbilitySummary(attacker, defender, ability);
 
         if (ability.AbilityType == AbilityType.Buff)
+            HandleBuffAbilitySummary(attacker, defender, ability);
+
+        if (ability.AbilityType == AbilityType.Utility)
+            Debug.Log("Utlity summary not implemented");
+    }
+
+    void HandleAttackAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
+    {
+        _attackLabel.text = "Attack";
+
+        int attackValue = ability.CalculateInteractionResult(attacker, defender);
+        Label value = new("" + (-1 * attackValue)); // it looks weird when it is negative.
+        _attackDamageValue.Add(value);
+        HandleStatusesAbilitySummary(ability);
+
+        // self dmg
+        if (attacker.gameObject == defender.gameObject)
+            _characterUI.ShowHealthChange(attackValue);
+
+        ShowHealthChange(defender, attackValue);
+
+        float hitChance = (1 - defender.GetDodgeChance(attacker.gameObject)) * 100;
+        hitChance = Mathf.Clamp(hitChance, 0, 100);
+        _attackHitValue.text = hitChance + "%";
+
+        ShowRetaliationSummary(attacker, defender, ability);
+    }
+
+
+    void HandleHealAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
+    {
+        _attackLabel.text = "Heal";
+
+        int healValue = ability.CalculateInteractionResult(attacker, defender);
+        Label value = new("" + healValue); // it looks weird when it is negative.
+        _attackDamageValue.Add(value);
+        HandleStatusesAbilitySummary(ability);
+
+        if (attacker.gameObject == defender.gameObject)
+            _characterUI.ShowHealthChange(healValue);
+
+        ShowHealthChange(defender, healValue);
+        _attackHitValue.text = 100 + "%";
+    }
+
+    void HandleBuffAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
+    {
+        _attackLabel.text = "Buff";
+
+        HandleStatusesAbilitySummary(ability);
+        
+        _attackHitValue.text = 100 + "%";
+    }
+
+    void HandleStatusesAbilitySummary(Ability ability)
+    {
+        if (ability.StatModifier != null)
         {
-            if (attacker.gameObject == defender.gameObject)
-                _characterUI.ShowHealthChange(attackValue);
-
-            ShowHealthChange(defender, attackValue);
-
-            _attackLabel.text = "Buff";
-
-            if (ability.StatModifier != null)
-                _attackDamageValue.text = ability.StatModifier.Value.ToString();
-            _attackHitValue.text = 100 + "%";
+            ModifierVisual mElement = new ModifierVisual(ability.StatModifier);
+            _attackDamageValue.Add(mElement);
         }
 
-        // retaliation only on attack
-        if (ability.AbilityType != AbilityType.Attack)
+        if (ability.Status != null)
         {
-            DisplayNone(_retaliationSummary);
-            return;
+            ModifierVisual mElement = new ModifierVisual(ability.Status);
+            _attackDamageValue.Add(mElement);
         }
+    }
 
+    void ShowRetaliationSummary(CharacterStats attacker, CharacterStats defender, Ability ability)
+    {
         // retaliation only if there is an ability that character can retaliate with
         Ability retaliationAbility = defender.GetRetaliationAbility();
         if (retaliationAbility == null)
-        {
-            DisplayNone(_retaliationSummary);
             return;
-        }
 
         bool willRetaliate = defender.WillRetaliate(attacker.gameObject);
         bool canRetaliate = retaliationAbility.CanHit(defender.gameObject, attacker.gameObject);
         if (!willRetaliate || !canRetaliate)
-        {
-            DisplayNone(_retaliationSummary);
             return;
-        }
 
         // show change in attackers health after they get retaliated on
         _retaliationSummary.style.display = DisplayStyle.Flex;
@@ -183,12 +210,13 @@ public class InfoCardUI : Singleton<InfoCardUI>
         int relatiationResult = retaliationAbility.CalculateInteractionResult(defender, attacker); // correct defender, attacker
         _retaliationDamageValue.text = "" + relatiationResult;
 
-        float retaliationChance = (1 - attacker.GetDodgeChance(attacker.gameObject)) * 100;
+        float retaliationChance = (1 - attacker.GetDodgeChance(defender.gameObject)) * 100;
         retaliationChance = Mathf.Clamp(retaliationChance, 0, 100);
         _retaliationHitValue.text = retaliationChance + "%";
 
         _characterUI.ShowHealthChange(relatiationResult);
     }
+
 
     public void HideInteractionSummary()
     {

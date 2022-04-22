@@ -20,7 +20,7 @@ MonoBehaviour:
   BasePower: 0
   ManaCost: 0
   AreaOfEffect: 0
-  AbilityType: 4
+  AbilityType: 3
   MultiplerStat: 3
   WeaponType: 3
   Projectile: {fileID: 0}
@@ -30,3 +30,4 @@ MonoBehaviour:
   CanTargetSelf: 1
   CanTargetDiagonally: 0
   HighlightColor: {r: 0.5660378, g: 0.18321536, b: 0, a: 1}
+  CharacterGameObject: {fileID: 0}

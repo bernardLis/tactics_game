@@ -104,7 +104,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
-    // Enemy creation from board manager uses that
     public void SetCharacteristics(Character character)
     {
         Character = character;
@@ -144,8 +143,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
         foreach (Ability ability in Character.BasicAbilities)
         {
-            // I am cloning the ability coz if I don't there is only one scriptable object and it overrides variables
-            // if 2 characters use the same ability
             var clone = Instantiate(ability);
             BasicAbilities.Add(clone);
             clone.Initialize(gameObject);
@@ -179,24 +176,27 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public async Task TakeDamage(int damage, GameObject attacker, Ability ability)
     {
-        // to not repeat the code
-        await TakePiercingDamage(damage, attacker, ability);
-    }
-
-    public async Task TakePiercingDamage(int damage, GameObject attacker, Ability ability)
-    {
         // in the side 1, face to face 2, from the back 0, 
         int attackDir = CalculateAttackDir(attacker.transform.position);
         float dodgeChance = CalculateDodgeChance(attackDir, attacker);
         float randomVal = Random.value;
-        if (randomVal < dodgeChance && !IsStunned) // dodgeChance% of time <- TODO: is that correct?
+        bool dodged = false;
+
+        if (randomVal < dodgeChance && !IsStunned)
+        {
+            // dodgeChance% of time <- TODO: is that correct?
             Dodge(attacker);
+            dodged = true;
+        }
         else
         {
             await TakeDamageNoDodgeNoRetaliation(damage);
             HandleModifier(ability);
             HandleStatus(attacker, ability);
         }
+
+        if (attackDir == 0 && dodged)
+            return;
 
         if (CurrentHealth <= 0)
             return;
@@ -300,8 +300,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public int CalculateAttackDir(Vector3 attackerPos)
     {
-        // does not matter what dir is attacker facing, it matters where he stands
-        // coz he will turn around when attacking to face the defender
         Vector2 attackerFaceDir = (transform.position - attackerPos).normalized;
         Vector2 defenderFaceDir = _characterRendererManager.FaceDir;
 

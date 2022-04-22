@@ -8,7 +8,6 @@ public class TooltipVisual : VisualElement
     int offsetX = 5;
     int offsetY = -10;
 
-
     public TooltipVisual(VisualElement element, string text)
     {
         _text = new(text);

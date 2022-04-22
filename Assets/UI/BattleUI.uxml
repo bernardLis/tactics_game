@@ -63,9 +63,11 @@
         <ui:VisualElement name="interactionSummary" style="width: auto; left: -100%; height: auto; background-color: rgba(0, 0, 0, 0.4);">
             <ui:VisualElement name="attackSummary" style="color: rgb(253, 253, 253);">
                 <ui:Label text="Attack:" display-tooltip-when-elided="true" name="attackLabel" style="font-size: 18px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;" />
-                <ui:VisualElement name="attackDamageGroup" style="flex-direction: row; font-size: 14px;">
+                <ui:VisualElement name="attackDamageGroup" style="flex-direction: row; font-size: 14px; align-items: center;">
                     <ui:Label text="Value:" display-tooltip-when-elided="true" name="attackDamageLabel" />
-                    <ui:Label text="XX" display-tooltip-when-elided="true" name="attackDamageValue" />
+                    <ui:VisualElement name="attackDamageValue" style="flex-direction: row;">
+                        <ui:Label text="XX" display-tooltip-when-elided="true" name="asd" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="attackHitGroup" style="flex-direction: row; font-size: 14px;">
                     <ui:Label text="Hit chance:" display-tooltip-when-elided="true" name="attackHitLabel" />
