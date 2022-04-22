@@ -330,7 +330,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _movePointController.UpdateDisplayInformation();
     }
 
-    async void Interact()
+    public async void Interact()
     {
         // TODO: this is a meh schema
         if (_isInteracting)

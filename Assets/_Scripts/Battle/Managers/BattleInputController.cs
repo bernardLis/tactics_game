@@ -209,6 +209,7 @@ public class BattleInputController : Singleton<BattleInputController>
 
         _movePointController.Move(new Vector3(transform.position.x + vectorX.x, transform.position.y + vectorY.y, transform.position.z));
     }
+    
     void SelectClick(InputAction.CallbackContext ctx)
     {
         _movePointController.HandleSelectClick();

@@ -241,6 +241,14 @@ public class CharacterUI : Singleton<CharacterUI>
         _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
 
         ShowAbilityTooltip(ability);
+
+        // when clicked multiple times on the same ability treat it as if clicked select
+        if (ability == _battleCharacterController.SelectedAbility)
+        {
+            MovePointController.Instance.HandleSelectClick();
+            yield break;
+        }
+
         // TODO: this eats errors
         _battleInputController.SetInputAllowed(false);
         Task task = ability.HighlightTargetable(_battleCharacterController.SelectedCharacter); // for some reason this works, but it has to be written exactly like that with Task task = ;
