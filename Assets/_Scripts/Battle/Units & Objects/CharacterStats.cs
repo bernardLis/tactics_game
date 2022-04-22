@@ -524,9 +524,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public void AddStatus(Status s, GameObject attacker)
     {
-        // statuses don't stack
-        if (IsStatusOn(s))
-            return;
+        // statuses don't stack, they are refreshed
+        RemoveOldStatus(s);
 
         var clone = Instantiate(s);
         Statuses.Add(clone);
@@ -535,13 +534,15 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         clone.FirstTrigger();
     }
 
-    bool IsStatusOn(Status s)
+    void RemoveOldStatus(Status s)
     {
+        Status toRemove = null;
         foreach (Status status in Statuses)
-            if (status.Id == s.Id)
-                return true;
+            if (status.ReferenceID == s.ReferenceID)
+                toRemove = status;
 
-        return false;
+        if (toRemove != null)
+            Statuses.Remove(toRemove);
     }
 
     protected void DisableAILerp()

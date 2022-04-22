@@ -47,7 +47,7 @@ public class Status : BaseScriptableObject
     public virtual void FirstTrigger()
     {
         // "normal" status application and triggering is when you apply status on character from opposite team, then it works fine! 
-        // but when you apply it on person from your team, it is a bit weird. 
+        // TODO: but when you apply it on person from your team, it is a bit weird. 
         TriggerStatus();
     }
 
