@@ -300,8 +300,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public int CalculateAttackDir(Vector3 attackerPos)
     {
-        Vector2 attackerFaceDir = (transform.position - attackerPos).normalized;
-        Vector2 defenderFaceDir = _characterRendererManager.FaceDir;
+        Vector2 attackerFaceDir = (attackerPos - transform.position).normalized; // i swapped attacker pos with transform.pos
+        Vector2 defenderFaceDir = _characterRendererManager.GetFaceDir();
 
         // in the side 1, face to face 2, from the back 0, 
         int attackDir = 1;

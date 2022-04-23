@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// it's a script from unity's tilemap project
 public class CharacterRenderer : MonoBehaviour
 {
 	public static readonly string[] StaticDirections = { "Idle N", "Idle W", "Idle S", "Idle E"};

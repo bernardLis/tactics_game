@@ -20,7 +20,7 @@ public class CharacterRendererManager : MonoBehaviour
     bool _noIdleAnimation;
 
     // TODO: I am not certain if it is correctly set
-    public Vector2 FaceDir { get; private set; }
+    //public Vector2 FaceDir { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -82,8 +82,23 @@ public class CharacterRendererManager : MonoBehaviour
         float x = Mathf.FloorToInt(dir.x);
         float y = Mathf.FloorToInt(dir.y);
 
-        FaceDir = new Vector2(x, y);
+        //FaceDir = new Vector2(x, y);
     }
+
+    public Vector2 GetFaceDir()
+    {
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle N"))
+            return Vector2.up;
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle S"))
+            return Vector2.down;
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle W"))
+            return Vector2.right;
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle E"))
+            return Vector2.left;
+
+        return Vector2.zero;
+    }
+
 
     public async Task SpellcastAnimation()
     {
