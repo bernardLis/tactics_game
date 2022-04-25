@@ -17,4 +17,4 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: c11fb6e470026714583b8e32892bb306, type: 3}
   StatType: 7
   NumberOfTurns: 3
-  Value: 1
+  Value: -1

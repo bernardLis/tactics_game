@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEditor;
 
-public enum AbilityType { Attack, Heal, Push, Buff, Utility }
+public enum AbilityType { Attack, Heal, Push, Buff, Utility, Create }
 
 public abstract class Ability : BaseScriptableObject
 {
@@ -79,6 +79,8 @@ public abstract class Ability : BaseScriptableObject
     }
 
     // TODO: I am not certain whether this is correct.
+    // It's only used for retaliation so it is alright
+    // it does not need to take 'pathfinding' into consideration.
     public virtual bool CanHit(GameObject self, GameObject target)
     {
         int manDist = Helpers.GetManhattanDistance(self.transform.position, target.transform.position);

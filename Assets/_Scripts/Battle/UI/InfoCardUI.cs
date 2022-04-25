@@ -112,12 +112,11 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackDamageValue.Clear();
 
         // different labels and UI for heal / attack
-        if (ability.AbilityType == AbilityType.Attack || ability.AbilityType == AbilityType.Push)
+        if (ability.AbilityType == AbilityType.Attack)
             HandleAttackAbilitySummary(attacker, defender, ability);
 
-        // TODO: would be cool to do something special for push
         if (ability.AbilityType == AbilityType.Push)
-            HandleAttackAbilitySummary(attacker, defender, ability);
+            HandlePushAbilitySummary(attacker, defender, ability);
 
         if (ability.AbilityType == AbilityType.Heal)
             HandleHealAbilitySummary(attacker, defender, ability);
@@ -144,12 +143,26 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         ShowHealthChange(defender, attackValue);
 
-        float hitChance = (1 - defender.GetDodgeChance(attacker.gameObject)) * 100;
+        float hitChance = (1 - defender.GetDodgeChance(attacker.gameObject, false)) * 100;
         hitChance = Mathf.Clamp(hitChance, 0, 100);
         _attackHitValue.text = hitChance + "%";
 
         ShowRetaliationSummary(attacker, defender, ability);
     }
+
+    void HandlePushAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
+    {
+        _attackLabel.text = "Push";
+
+        int attackValue = ability.CalculateInteractionResult(attacker, defender);
+        Label value = new("" + (-1 * attackValue)); // it looks weird when it is negative.
+        _attackDamageValue.Add(value);
+        HandleStatusesAbilitySummary(ability);
+
+        ShowHealthChange(defender, attackValue);
+        _attackHitValue.text = "100%";
+    }
+
 
 
     void HandleHealAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
@@ -173,7 +186,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackLabel.text = "Buff";
 
         HandleStatusesAbilitySummary(ability);
-        
+
         _attackHitValue.text = 100 + "%";
     }
 
@@ -208,9 +221,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _retaliationSummary.style.display = DisplayStyle.Flex;
 
         int relatiationResult = retaliationAbility.CalculateInteractionResult(defender, attacker); // correct defender, attacker
-        _retaliationDamageValue.text = "" + relatiationResult;
+        _retaliationDamageValue.text = "" + (-1 * relatiationResult);
 
-        float retaliationChance = (1 - attacker.GetDodgeChance(defender.gameObject)) * 100;
+        float retaliationChance = (1 - attacker.GetDodgeChance(defender.gameObject, true)) * 100;
         retaliationChance = Mathf.Clamp(retaliationChance, 0, 100);
         _retaliationHitValue.text = retaliationChance + "%";
 

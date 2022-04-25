@@ -53,7 +53,6 @@ public class MeeleBrain : Brain
         // now I want to get the first tile that I can reach
         foreach (AttackPosition pos in allAvailableAttackPositions)
         {
-            Debug.Log($"pos:  {pos.Tile.LocalPlace} attack dir: {pos.AttackDirection}");
             if (!pos.Tile.WithinRange) // kinda sucky, but it works way better than calculating path and comparing to movement range
                 continue;
 

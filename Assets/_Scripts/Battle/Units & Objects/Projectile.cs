@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 public class Projectile : MonoBehaviour
 {
     [Header("Attributes")]
-    float _speed = 6f;
+    float _speed = 6f; 
 
     Vector3 _adjustedTargetPosition;
 
@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
         while (Vector2.Distance(_adjustedTargetPosition, transform.position) > 0.01f)
         {
             // Check whether we are hitting something
-            Collider2D col = Physics2D.OverlapCircle(transform.position, 0.01f);
+            Collider2D col = Physics2D.OverlapCircle(transform.position, 0.1f);
 
             if (col != null && col.transform != shooter && !col.CompareTag(Tags.BoundCollider))
             {

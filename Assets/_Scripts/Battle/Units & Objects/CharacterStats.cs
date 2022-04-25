@@ -177,8 +177,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public async Task TakeDamage(int damage, GameObject attacker, Ability ability)
     {
         // in the side 1, face to face 2, from the back 0, 
-        int attackDir = CalculateAttackDir(attacker.transform.position);
-        float dodgeChance = CalculateDodgeChance(attackDir, attacker);
+        int attackDir = CalculateAttackDir(attacker);
+        float dodgeChance = CalculateDodgeChance(attackDir, attacker, false);
         float randomVal = Random.value;
         bool dodged = false;
 
@@ -303,7 +303,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         Vector2 attackerFaceDir = (attackerPos - transform.position).normalized; // i swapped attacker pos with transform.pos
         Vector2 defenderFaceDir = _characterRendererManager.GetFaceDir();
 
-        // in the side 1, face to face 2, from the back 0, 
+        // side attack 1, face to face 2, from the back 0, 
         int attackDir = 1;
         if (attackerFaceDir + defenderFaceDir == Vector2.zero)
             attackDir = 2;
@@ -313,8 +313,27 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         return attackDir;
     }
 
-    float CalculateDodgeChance(int attackDir, GameObject attacker)
+    public int CalculateAttackDir(GameObject attacker)
     {
+        Vector2 attackerFaceDir = attacker.GetComponentInChildren<CharacterRendererManager>().GetFaceDir(); // i swapped attacker pos with transform.pos
+        Vector2 defenderFaceDir = _characterRendererManager.GetFaceDir();
+
+        // side attack 1, face to face 2, from the back 0, 
+        int attackDir = 1;
+        if (attackerFaceDir + defenderFaceDir == Vector2.zero)
+            attackDir = 2;
+        if (attackerFaceDir + defenderFaceDir == attackerFaceDir * 2)
+            attackDir = 0;
+
+        return attackDir;
+    }
+
+    float CalculateDodgeChance(int attackDir, GameObject attacker, bool isRetaliation)
+    {
+        // retaliation is always face to face (which may not be true, but let's simplify for now)
+        if (isRetaliation)
+            attackDir = 2;
+
         // base 50% chance of dodging when being attacked face to face
         // base 25% chance of dodging when being attacked from the side
         // base 0% chance of dodging when being attacked from the back
@@ -351,7 +370,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             return false;
 
         // if attacked from the back, don't retaliate
-        if (CalculateAttackDir(attacker.transform.position) == 0)
+        if (CalculateAttackDir(attacker) == 0)
             return false;
 
         // if attacker is yourself, don't retaliate
@@ -361,12 +380,12 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         return true;
     }
 
-    public float GetDodgeChance(GameObject attacker)
+    public float GetDodgeChance(GameObject attacker, bool retaliation)
     {
         if (IsStunned)
             return 0;
 
-        return CalculateDodgeChance(CalculateAttackDir(attacker.transform.position), attacker);
+        return CalculateDodgeChance(CalculateAttackDir(attacker), attacker, retaliation);
     }
 
     public void GainMana(int amount)
@@ -420,7 +439,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public async Task MoveToPosition(Vector3 finalPos, float time)
     {
         // TODO: this AILerp hack is meh
-
         _tempObject = new("Dest");
         _tempObject.transform.position = finalPos;
         _aiLerp.destination = _tempObject.transform.position;
@@ -441,6 +459,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
         if (_tempObject != null)
             Destroy(_tempObject);
+
+        EnableAILerp();
     }
 
 
