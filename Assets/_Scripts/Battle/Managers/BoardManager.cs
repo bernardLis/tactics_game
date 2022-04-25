@@ -955,4 +955,9 @@ public class BoardManager : MonoBehaviour
     {
         return _highlighter.HighlightedTiles.Count > 6;
     }
+
+    public void AddEnvObject(Transform t)
+    {
+        t.parent = _envObjectsHolder.transform;
+    }
 }

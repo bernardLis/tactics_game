@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
@@ -42,6 +40,8 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
         if (_selfCollider != null)
             _selfCollider.enabled = true;
+
+        FindObjectOfType<BoardManager>().AddEnvObject(transform);
     }
 
     public async Task Fall(Vector3 pos)
@@ -72,7 +72,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
             await Task.Yield();
         }
 
-        _shadow.SetActive(false);
+        Destroy(_shadow);
     }
 
     public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
