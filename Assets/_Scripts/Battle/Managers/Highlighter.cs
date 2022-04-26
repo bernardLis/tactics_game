@@ -131,14 +131,10 @@ public class Highlighter : Singleton<Highlighter>
             return false;
 
         // creating a collider in the middle of the tile
-        Collider2D col = Physics2D.OverlapCircle(tile.GetMiddleOfTile(), 0.2f);
-
-        if (col == null)
-            return true;
-
-        // you can't walk on tiles opponents are standing on
-        if (col.transform.CompareTag(opponentTag))
-            return false;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(tile.GetMiddleOfTile(), 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.transform.CompareTag(opponentTag)) // you can't walk on tiles opponents are standing on
+                return false;
 
         // if we don't return before we can walk on that tile
         return true;
@@ -150,15 +146,10 @@ public class Highlighter : Singleton<Highlighter>
             return false;
 
         // creating a collider in the middle of the tile
-        Collider2D col = Physics2D.OverlapCircle(tile.GetMiddleOfTile(), 0.2f);
-
-        // there is nothing to collide with on the tile
-        if (col == null)
-            return true;
-
-        // you can't stop on that tile
-        if (col.transform.CompareTag(Tags.Player) || col.transform.CompareTag(Tags.Enemy))
-            return false;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(tile.GetMiddleOfTile(), 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.transform.CompareTag(Tags.Player) || c.transform.CompareTag(Tags.Enemy))
+                return false;
 
         // if we don't return before we can stop on that tile
         return true;
@@ -179,13 +170,10 @@ public class Highlighter : Singleton<Highlighter>
     bool IsThereObstacleGameObject(WorldTile tile)
     {
         // creating a collider in the middle of the tile
-        Collider2D col = Physics2D.OverlapCircle(tile.GetMiddleOfTile(), 0.2f);
-        if (col == null)
-            return false;
-
-        // you can't walk on obstacles
-        if (col.transform.CompareTag(Tags.Obstacle) || col.transform.CompareTag(Tags.PushableObstacle))
-            return true;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(tile.GetMiddleOfTile(), 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.transform.CompareTag(Tags.Obstacle) || c.transform.CompareTag(Tags.PushableObstacle))
+                return true;
 
         return false;
     }

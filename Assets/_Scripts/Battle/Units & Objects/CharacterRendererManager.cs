@@ -6,6 +6,7 @@ using DG.Tweening;
 public class CharacterRendererManager : MonoBehaviour
 {
     Vector2 _direction;
+    Vector2 _faceDir;
 
     Animator _animator;
     CharacterRenderer _characterRenderer;
@@ -15,12 +16,7 @@ public class CharacterRendererManager : MonoBehaviour
 
     AILerp _aiLerp;
 
-    Vector2 _directionFromFace;
-
     bool _noIdleAnimation;
-
-    // TODO: I am not certain if it is correctly set
-    //public Vector2 FaceDir { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -38,9 +34,6 @@ public class CharacterRendererManager : MonoBehaviour
     {
         if (_aiLerp.canMove)
             _direction = _aiLerp.myDirection;
-
-        if (_direction.sqrMagnitude > 0)
-            SetFaceDir(_direction);
 
         // TODO: there is probably a way to improve that;
         if (!_noIdleAnimation)
@@ -60,40 +53,31 @@ public class CharacterRendererManager : MonoBehaviour
     {
         // if character does not have a weapon
         if (_weaponHolder.Weapon == null)
-            await Thrust(_directionFromFace); // punch animation
+            await Thrust(_faceDir); // TODO: punch animation
 
         if (_weaponHolder.Weapon.WeaponType == WeaponType.Slash)
-            await Slash(_directionFromFace);
+            await Slash(_faceDir);
         if (_weaponHolder.Weapon.WeaponType == WeaponType.Thrust)
-            await Thrust(_directionFromFace);
+            await Thrust(_faceDir);
         if (_weaponHolder.Weapon.WeaponType == WeaponType.Shoot)
-            await Shoot(_directionFromFace);
-    }
-
-    void SetFaceDir(Vector2 dir)
-    {
-        // This is because at the beginning of the game I was making enemies face right and than 0, for them to stop walking.
-        // It was setting facedir to 0, which made attack dir calculations wrong. Now it works, but is hacky.
-        if (dir == Vector2.zero)
-            return;
-
-        _directionFromFace = dir;
-        // TODO: this is weirdness...
-        float x = Mathf.FloorToInt(dir.x);
-        float y = Mathf.FloorToInt(dir.y);
-
-        //FaceDir = new Vector2(x, y);
+            await Shoot(_faceDir);
     }
 
     public Vector2 GetFaceDir()
     {
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle N"))
+        // https://forum.unity.com/threads/current-animator-state-name.331803/
+        var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
+        AnimationClip clip = clipInfo[0].clip;
+
+        // TODO: it assumes that animation names are "BlaBla N", it's a risky assumption
+        string dir = clip.name.Split(" ")[1];
+        if (dir == "N")
             return Vector2.up;
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle S"))
+        if (dir == "S")
             return Vector2.down;
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle W"))
+        if (dir == "W")
             return Vector2.right;
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle E"))
+        if (dir == "E")
             return Vector2.left;
 
         return Vector2.zero;
@@ -103,13 +87,13 @@ public class CharacterRendererManager : MonoBehaviour
     public async Task SpellcastAnimation()
     {
         // TODO: this is the set-up coz i might want to add some other animations or effects that should be awaited sequentially.
-        await Spellcast(_directionFromFace);
+        await Spellcast(_faceDir);
     }
 
     public void Face(Vector2 dir)
     {
         _direction = dir;
-        SetFaceDir(dir);
+        _faceDir = dir;
 
         _characterRenderer.SetDirection(_direction);
 
@@ -189,7 +173,6 @@ public class CharacterRendererManager : MonoBehaviour
                 an.SetFloat("Last Horizontal", dir.x);
                 an.SetFloat("Last Vertical", dir.y);
                 an.Play("Slash");
-
             }
         }
 

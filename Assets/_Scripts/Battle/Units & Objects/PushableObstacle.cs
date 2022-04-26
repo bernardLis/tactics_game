@@ -16,7 +16,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     int _damage = 50;
 
     // display info
-    string _displayText = "Boulder, you can move if you know the technique.";
+    string _displayText = "Boulder, you can move if you know the technique. You can learn it in Celadon City. ";
 
     // Start is called before the first frame update
     void Start()
@@ -34,9 +34,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         _selfCollider = GetComponent<BoxCollider2D>();
         _selfCollider.enabled = false;
 
-        Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);
-
-        await CheckCollision(ability, col);
+        await CheckCollision(ability);
 
         if (_selfCollider != null)
             _selfCollider.enabled = true;
@@ -46,6 +44,8 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
     public async Task Fall(Vector3 pos)
     {
+        _finalPos = pos;
+        
         _shadow.SetActive(true);
         SpriteRenderer shadowRenderer = _shadow.GetComponent<SpriteRenderer>();
         _shadow.transform.SetParent(null, true);
@@ -80,10 +80,9 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         _finalPos = transform.position + dir;
 
         _selfCollider.enabled = false;
-        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
 
         await MoveToPosition(_finalPos, 0.5f);
-        await CheckCollision(ability, col);
+        await CheckCollision(ability);
 
         if (_selfCollider != null)
             _selfCollider.enabled = true;
@@ -104,24 +103,27 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         _battleManager.SnapToGrid(transform);
     }
 
-    public async Task CheckCollision(Ability ability, Collider2D col)
+    public async Task CheckCollision(Ability ability)
     {
-        // nothing to collide with = being pushed into empty space
-        if (col == null)
-            return;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(_finalPos, 0.2f);
+        Debug.Log($"cols.length: {cols.Length}");
 
-        // player/enemy get damaged  and are moved back to their starting position
-        // character colliders are children
-        if (col.CompareTag(Tags.Player) || col.CompareTag(Tags.Enemy))
-            await CollideWithCharacter(ability, col);
+        foreach (Collider2D c in cols)
+        {
+            Debug.Log($"c in boulder: {c.name}");
+            // player/enemy get damaged  and are moved back to their starting position
+            // character colliders are children
+            if (c.CompareTag(Tags.Player) || c.CompareTag(Tags.Enemy))
+                await CollideWithCharacter(ability, c);
 
-        // character bounces back from being pushed into obstacle (and takes damage)
-        if (col.CompareTag(Tags.Obstacle) || col.CompareTag(Tags.BoundCollider))
-            await CollideWithIndestructible(ability, col);
+            // character bounces back from being pushed into obstacle (and takes damage)
+            if (c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.BoundCollider))
+                await CollideWithIndestructible(ability, c);
 
-        // character destroys boulder when they are pushed into it
-        if (col.CompareTag(Tags.PushableObstacle))
-            await CollideWithDestructible(ability, col);
+            // character destroys boulder when they are pushed into it
+            if (c.CompareTag(Tags.PushableObstacle))
+                await CollideWithDestructible(ability, c);
+        }
     }
 
     public async Task CollideWithCharacter(Ability ability, Collider2D col)

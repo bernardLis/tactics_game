@@ -110,25 +110,25 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     }
 
 
-    public void Select(Collider2D col)
+    public void Select(Collider2D[] cols)
     {
         ClearPathRenderer();
+        foreach (Collider2D c in cols)
+        {
+            // select character
+            if (c != null && CanSelectCharacter(c))
+            {
+                SelectCharacter(c.gameObject);
+                return;
+            }
+        }
 
         // get the tile movepoint is on
         if (TileManager.Tiles.TryGetValue(_tilemap.WorldToCell(transform.position), out _tile))
             _selectedTile = _tile;
 
-        // select character
-        if (col != null && CanSelectCharacter(col))
-        {
-            SelectCharacter(col.gameObject);
-            return;
-        }
-
         if (SelectedCharacter == null)
             return;
-
-        // when character is selected
 
         // Move
         if (CanMoveCharacter() && _selectedTile.WithinRange)
@@ -356,7 +356,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             _isInteracting = false;
             return;
         }
-        
+
         _battleInputController.SetInputAllowed(false);
         await SelectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
         _battleInputController.SetInputAllowed(true);

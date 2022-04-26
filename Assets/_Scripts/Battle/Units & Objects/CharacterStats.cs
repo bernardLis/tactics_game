@@ -51,8 +51,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     [HideInInspector] public List<Status> Statuses = new();
     public bool IsStunned { get; private set; }
 
-    // shields
-    public bool StrengthShield;
+    // absorbers/shields
+    List<Absorber> _absorbers = new();
 
     // delegate
     public event Action<GameObject> CharacterDeathEvent;
@@ -183,18 +183,12 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         int attackDir = CalculateAttackDir(attacker);
         float dodgeChance = CalculateDodgeChance(attackDir, attacker, false);
         float randomVal = Random.value;
-        bool dodged = false;
 
+        // dodgeChance% of time <- TODO: is that correct?
         if (randomVal < dodgeChance && !IsStunned)
-        {
-            // dodgeChance% of time <- TODO: is that correct?
             Dodge(attacker);
-            dodged = true;
-        }
-        else if (StrengthShield && ability.MultiplerStat == StatType.Strength)
-        {
+        else if (IsDamageAbsorbed(ability))
             ShieldDamage();
-        }
         else
         {
             await TakeDamageNoDodgeNoRetaliation(damage);
@@ -202,7 +196,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             HandleStatus(attacker, ability);
         }
 
-        if (attackDir == 0 && dodged)
+        if (attackDir == 0)
             return;
 
         if (CurrentHealth <= 0)
@@ -245,6 +239,14 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         tiles.Add(tile);
 
         await retaliationAbility.TriggerAbility(tiles);
+    }
+
+    public bool IsDamageAbsorbed(Ability ability)
+    {
+        foreach (Absorber a in _absorbers)
+            if (a.AbsorbedStatAttacks == ability.MultiplerStat)
+                return true;
+        return false;
     }
 
     void Dodge(GameObject attacker)
@@ -314,7 +316,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     {
         Vector2 attackerFaceDir = (attackerPos - transform.position).normalized; // i swapped attacker pos with transform.pos
         Vector2 defenderFaceDir = _characterRendererManager.GetFaceDir();
-
         // side attack 1, face to face 2, from the back 0, 
         int attackDir = 1;
         if (attackerFaceDir + defenderFaceDir == Vector2.zero)
@@ -436,13 +437,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
         BoxCollider2D selfCollider = transform.GetComponentInChildren<BoxCollider2D>();
         selfCollider.enabled = false;
-        Collider2D col = Physics2D.OverlapCircle(_finalPos, 0.2f);
-
-        if (col == null)
-            selfCollider.enabled = true;
 
         await MoveToPosition(_finalPos, 0.5f);
-        await CheckCollision(ability, col);
+        await CheckCollision(ability);
 
         if (selfCollider != null)
             selfCollider.enabled = true;
@@ -476,24 +473,25 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     }
 
 
-    public async Task CheckCollision(Ability ability, Collider2D col)
+    public async Task CheckCollision(Ability ability)
     {
-        // nothing to collide with = being pushed into empty space
-        if (col == null)
-            return;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(_finalPos, 0.2f);
+        foreach (Collider2D c in cols)
+        {
+            // player/enemy get damaged  and are moved back to their starting position
+            // character colliders are children
+            if (c.CompareTag(Tags.Player) || c.transform.gameObject.CompareTag(Tags.Enemy))
+                await CollideWithCharacter(ability, c);
 
-        // player/enemy get damaged  and are moved back to their starting position
-        // character colliders are children
-        if (col.CompareTag(Tags.Player) || col.transform.gameObject.CompareTag(Tags.Enemy))
-            await CollideWithCharacter(ability, col);
+            // character bounces back from being pushed into obstacle (and takes damage)
+            if (c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.BoundCollider))
+                await CollideWithIndestructible(ability, c);
 
-        // character bounces back from being pushed into obstacle (and takes damage)
-        if (col.CompareTag(Tags.Obstacle) || col.CompareTag(Tags.BoundCollider))
-            await CollideWithIndestructible(ability, col);
+            // character destroys boulder when they are pushed into it
+            if (c.CompareTag(Tags.PushableObstacle))
+                await CollideWithDestructible(ability, c);
+        }
 
-        // character destroys boulder when they are pushed into it
-        if (col.CompareTag(Tags.PushableObstacle))
-            await CollideWithDestructible(ability, col);
     }
 
     public async Task CollideWithCharacter(Ability ability, Collider2D col)
@@ -520,7 +518,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public async Task CollideWithDestructible(Ability ability, Collider2D col)
     {
-        Destroy(col.transform.parent.gameObject);
+        Destroy(col.transform.parent.gameObject); // TODO: call destroy self right?
 
         await TakeDamageNoDodgeNoRetaliation(ability.BasePower);
     }
@@ -573,6 +571,18 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
         if (toRemove != null)
             Statuses.Remove(toRemove);
+    }
+
+    public void AddAbsorber(Absorber absorber)
+    {
+        if (_absorbers.Contains(absorber))
+            return;
+        _absorbers.Add(absorber);
+    }
+
+    public void RemoveAbsorber(Absorber absorber)
+    {
+        _absorbers.Remove(absorber);
     }
 
     protected void DisableAILerp()

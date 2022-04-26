@@ -48,12 +48,10 @@ public class PotentialTarget
             }
 
             // if attacker is standing on it, it should go into the list
-            Collider2D col = Physics2D.OverlapCircle(_tile.GetMiddleOfTile(), 0.2f);
-            if (col == null)
-                continue;
-
-            if (col.gameObject == attacker)
-                freeTiles.Add(_tile);
+            Collider2D[] cols = Physics2D.OverlapCircleAll(_tile.GetMiddleOfTile(), 0.2f);
+            foreach (Collider2D c in cols)
+                if (c.gameObject == attacker)
+                    freeTiles.Add(_tile);
         }
 
         List<AttackPosition> attackPositions = new();

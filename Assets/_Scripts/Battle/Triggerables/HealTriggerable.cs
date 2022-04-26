@@ -13,20 +13,25 @@ public class HealTriggerable : BaseTriggerable
             _myStats.UseMana(ability.ManaCost);
         }
         // looking for a target
-        Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);
-        if (col == null)
+        target = GetTarget(pos);
+        if (target == null)
             return;
-        target = col.gameObject;
-
-        // looking for healable target
-        var healableObject = target.GetComponent<IHealable<GameObject, Ability>>();
-        if (healableObject == null)
-            return;
-
         DisplayBattleLog(target, ability);
 
         _myStats.SetAttacker(true);
         int healAmount = ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
         target.GetComponent<IHealable<GameObject, Ability>>().GainHealth(healAmount, gameObject, ability);
     }
+
+    GameObject GetTarget(Vector3 pos)
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        // looking for healable target
+        foreach (Collider2D c in cols)
+            if (c.TryGetComponent(out IHealable<GameObject, Ability> healable))
+                return c.gameObject;
+        return null;
+
+    }
+
 }

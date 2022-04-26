@@ -124,6 +124,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
         if (ability.AbilityType == AbilityType.Buff)
             HandleBuffAbilitySummary(attacker, defender, ability);
 
+        if (ability.AbilityType == AbilityType.Create)
+            HandleCreateAbilitySummary(attacker, defender, ability);
+
         if (ability.AbilityType == AbilityType.Utility)
             Debug.Log("Utlity summary not implemented");
     }
@@ -133,6 +136,8 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackLabel.text = "Attack";
 
         int attackValue = ability.CalculateInteractionResult(attacker, defender);
+        if (defender.IsDamageAbsorbed(ability))
+            attackValue = 0;
         Label value = new("" + (-1 * attackValue)); // it looks weird when it is negative.
         _attackDamageValue.Add(value);
         HandleStatusesAbilitySummary(ability);
@@ -145,6 +150,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         float hitChance = (1 - defender.GetDodgeChance(attacker.gameObject, false)) * 100;
         hitChance = Mathf.Clamp(hitChance, 0, 100);
+
         _attackHitValue.text = hitChance + "%";
 
         ShowRetaliationSummary(attacker, defender, ability);
@@ -162,8 +168,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
         ShowHealthChange(defender, attackValue);
         _attackHitValue.text = "100%";
     }
-
-
 
     void HandleHealAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
     {
@@ -189,6 +193,20 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         _attackHitValue.text = 100 + "%";
     }
+
+    void HandleCreateAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
+    {
+        _attackLabel.text = "Create";
+        CreateAbility a = (CreateAbility)ability;
+        if (a.CreatedObject.TryGetComponent(out IUITextDisplayable uiText))
+        {
+            Label value = new("" + uiText.DisplayText());
+            _attackDamageValue.Add(value);
+        }
+
+        _attackHitValue.text = 100 + "%";
+    }
+
 
     void HandleStatusesAbilitySummary(Ability ability)
     {

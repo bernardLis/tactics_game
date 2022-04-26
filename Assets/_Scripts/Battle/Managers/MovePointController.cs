@@ -81,10 +81,6 @@ public class MovePointController : Singleton<MovePointController>
 
     public void HandleSelectClick()
     {
-        // check if there is a selectable object at selector's position
-        // only one selectable object can occypy space: 
-        Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
-
         // For placing characters during prep
         if (TurnManager.BattleState == BattleState.Deployment && _battleDeploymentController.CharacterBeingPlaced != null)
         {
@@ -92,7 +88,7 @@ public class MovePointController : Singleton<MovePointController>
             return;
         }
 
-        Select(col);
+        Select();
     }
 
     void HandleBattlePrepSelectClick()
@@ -106,7 +102,7 @@ public class MovePointController : Singleton<MovePointController>
         _battleDeploymentController.PlaceCharacter();
     }
 
-    void Select(Collider2D _obj)
+    void Select()
     {
         UpdateDisplayInformation();
 
@@ -120,7 +116,8 @@ public class MovePointController : Singleton<MovePointController>
                 return;
         }
 
-        _battleCharacterController.Select(_obj);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+        _battleCharacterController.Select(cols);
     }
 
     void HandlePlayerTurn()
@@ -156,16 +153,10 @@ public class MovePointController : Singleton<MovePointController>
         if (_tile.IsObstacle)
             tileUIText = "Obstacle. ";
 
-        // check if there is a character standing there
-        Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
-
-        // return if there is no object on the tile
-        if (col != null)
-        {
-            IUITextDisplayable textComponent = col.GetComponent<IUITextDisplayable>();
-            if (textComponent != null)
-                tileUIText += textComponent.DisplayText();
-        }
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.TryGetComponent(out IUITextDisplayable uiText))
+                tileUIText += uiText.DisplayText();
 
         // hide/show the whole panel
         if (tileUIText == "")
@@ -176,29 +167,15 @@ public class MovePointController : Singleton<MovePointController>
 
     void UpdateCharacterCardInfo()
     {
-        // check if there is a character standing there
-        Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
-
-        // return if there is no object on the tile
-        if (col == null)
-        {
-            _infoCardUI.HideCharacterCard();
-            return;
-        }
-
-        // don't show card if you are hovering over selected character
-        if (_battleCharacterController.SelectedCharacter == col.gameObject)
-        {
-            _infoCardUI.HideCharacterCard();
-            return;
-        }
-
-        // show character card if there is a character there
-        if (col.transform.CompareTag(Tags.Player) || col.transform.CompareTag(Tags.Enemy))
-        {
-            _infoCardUI.ShowCharacterCard(col.transform.GetComponentInParent<CharacterStats>());
-            return;
-        }
+        // show character card if there is character standing there
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+        foreach (Collider2D c in cols)
+            if (_battleCharacterController.SelectedCharacter != c.gameObject &&
+                (c.transform.CompareTag(Tags.Player) || c.transform.CompareTag(Tags.Enemy)))
+            {
+                _infoCardUI.ShowCharacterCard(c.transform.GetComponentInParent<CharacterStats>());
+                return;
+            }
 
         // hide if it is something else
         _infoCardUI.HideCharacterCard();
@@ -229,18 +206,24 @@ public class MovePointController : Singleton<MovePointController>
         if (!_tile.WithinRange)
             return;
 
+
         // check if there is a character standing there
-        Collider2D col = Physics2D.OverlapCircle(transform.position, 0.2f);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+        /*
         if (col == null)
             return;
         // TODO: maybe check for interfaces?
         if (!(col.transform.CompareTag(Tags.Player) || col.transform.CompareTag(Tags.Enemy)))
             return;
+        */
+        foreach (Collider2D c in cols)
+            if (c.TryGetComponent(out CharacterStats stats))
+            {
+                CharacterStats attacker = _battleCharacterController.SelectedCharacter.GetComponent<CharacterStats>();
+                CharacterStats defender = c.GetComponent<CharacterStats>();
 
-        CharacterStats attacker = _battleCharacterController.SelectedCharacter.GetComponent<CharacterStats>();
-        CharacterStats defender = col.GetComponent<CharacterStats>();
-
-        _infoCardUI.ShowInteractionSummary(attacker, defender, selectedAbility);
+                _infoCardUI.ShowInteractionSummary(attacker, defender, selectedAbility);
+            }
     }
 }
 

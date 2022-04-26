@@ -13,14 +13,8 @@ public class PushTriggerable : BaseTriggerable
             _myStats.UseMana(ability.ManaCost);
         }
         // looking for a target
-        Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);
-        if (col == null)
-            return;
-        target = col.gameObject;
-
-        // looking for pushable target
-        var pushableObject = target.GetComponent<IPushable<Vector3, GameObject, Ability>>();
-        if (pushableObject == null)
+        target = GetTarget(pos);
+        if (target == null)
             return;
 
         DisplayBattleLog(target, ability);
@@ -31,4 +25,16 @@ public class PushTriggerable : BaseTriggerable
         await target.GetComponent<IPushable<Vector3, GameObject, Ability>>()
                     .GetPushed(pushDir, gameObject, ability);
     }
+
+    GameObject GetTarget(Vector3 pos)
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        // looking for pushable target
+        foreach (Collider2D c in cols)
+            if (c.TryGetComponent(out IPushable<Vector3, GameObject, Ability> pushable))
+                return c.gameObject;
+        return null;
+
+    }
+
 }

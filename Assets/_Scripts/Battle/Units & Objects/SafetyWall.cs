@@ -3,30 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class SafetyWall : MonoBehaviour, ICreatable<Vector3, Ability>
+public class SafetyWall : MonoBehaviour, ICreatable<Vector3, Ability>, IUITextDisplayable
 {
     BoxCollider2D _selfCollider;
 
     int _numberOfTurnsLeft;
 
+    [SerializeField] Absorber _absorber;
+
     Ability _ability;
 
     CharacterStats _shieldedCharacter;
 
+    Vector3 offsetVector = new Vector3(0.05f, 0.3f, 0f);
+
     public async Task Initialize(Vector3 pos, Ability ability)
     {
+        transform.position = transform.position + offsetVector;
+
         _ability = ability;
         _numberOfTurnsLeft = ability.BasePower;
+        _absorber = Instantiate(_absorber);
 
         _selfCollider = GetComponent<BoxCollider2D>();
         _selfCollider.enabled = false;
-        Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);
-        CheckCollision(ability, col);
+        CheckCollision(ability, pos);
         _selfCollider.enabled = true;
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
         await Task.Yield();
+    }
+
+    public string DisplayText()
+    {
+        return _absorber.Description;
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
@@ -38,51 +49,43 @@ public class SafetyWall : MonoBehaviour, ICreatable<Vector3, Ability>
             DecrementTurnsLeft();
     }
 
-    void CheckCollision(Ability ability, Collider2D col)
+    void CheckCollision(Ability ability, Vector3 pos)
     {
-        if (col == null)
-            return;
-        Debug.Log($"check collisioon {col.gameObject.name}");
-
-        if (col.TryGetComponent(out CharacterStats stats))
-            Shield(stats);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        // looking for shieldable target
+        foreach (Collider2D c in cols)
+            if (c.TryGetComponent(out CharacterStats stats))
+                Shield(stats);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"on trigger enter {other.gameObject.name}");
         // shield someone as they enter
-
         if (other.TryGetComponent(out CharacterStats stats))
             Shield(stats);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log($"on trigger exit {other.gameObject.name}");
         // remove shield
-
         if (other.TryGetComponent(out CharacterStats stats))
             RemoveShield(stats);
-
     }
 
     void Shield(CharacterStats stats)
     {
-        stats.StrengthShield = true;
+        stats.AddAbsorber(_absorber);
         _shieldedCharacter = stats;
     }
 
     void RemoveShield(CharacterStats stats)
     {
-        stats.StrengthShield = false;
+        stats.RemoveAbsorber(_absorber);
         _shieldedCharacter = null;
     }
 
     void DecrementTurnsLeft()
     {
-        Debug.Log($"turns lefT:  {_numberOfTurnsLeft - 1}");
-        // if someone is shielded, unshield them
         _numberOfTurnsLeft -= 1;
         if (_numberOfTurnsLeft <= 0)
             DestroySelf();
@@ -91,10 +94,7 @@ public class SafetyWall : MonoBehaviour, ICreatable<Vector3, Ability>
     void DestroySelf()
     {
         if (_shieldedCharacter != null)
-        {
-            _shieldedCharacter.StrengthShield = false;
-            _shieldedCharacter = null;
-        }
+            RemoveShield(_shieldedCharacter);
 
         Destroy(gameObject);
     }
