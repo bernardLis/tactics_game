@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21f8dad746dfb8479f1b80884919907, type: 3}
+  m_Name: Safety Wall
+  m_EditorClassIdentifier: 
+  Id: ef09e833-3ce1-4246-80df-d272c4ed2443
+  ReferenceID: 
+  Description: Shields whoever stands on it from meele damage
+  Icon: {fileID: 21300000, guid: 38be24e6963aad24ea21a9f0f1304f8d, type: 3}
+  Sound: {fileID: 8300000, guid: 5560fa00424abaa4e97ab61849525bd5, type: 3}
+  BasePower: 3
+  ManaCost: 10
+  AreaOfEffect: 0
+  AbilityType: 5
+  MultiplerStat: 1
+  WeaponType: 3
+  Projectile: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 4
+  CanTargetSelf: 1
+  CanTargetDiagonally: 1
+  HighlightColor: {r: 0.6698113, g: 0.28056246, b: 0.6430607, a: 1}
+  CharacterGameObject: {fileID: 0}
+  CreatedObject: {fileID: 1171220210199182926, guid: 93cf7b6f072b6c24696c02aed304365c, type: 3}

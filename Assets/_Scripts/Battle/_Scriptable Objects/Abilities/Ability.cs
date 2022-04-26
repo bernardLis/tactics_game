@@ -110,10 +110,11 @@ public abstract class Ability : BaseScriptableObject
         List<WorldTile> targetTiles = new(tiles);
 
         // targeting self, you should be able to choose what direction to face
-        Collider2D col = Physics2D.OverlapCircle(middleOfTargeting, 0.2f);
-        if (col != null && col.gameObject == CharacterGameObject && CharacterGameObject.CompareTag(Tags.Player))
-            if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction
-                return;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(middleOfTargeting, 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.gameObject == CharacterGameObject && CharacterGameObject.CompareTag(Tags.Player))
+                if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction TODO: it does not work
+                    return;
 
         foreach (WorldTile t in targetTiles)
         {

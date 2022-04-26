@@ -51,6 +51,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     [HideInInspector] public List<Status> Statuses = new();
     public bool IsStunned { get; private set; }
 
+    // shields
+    public bool StrengthShield;
+
     // delegate
     public event Action<GameObject> CharacterDeathEvent;
     protected virtual void Awake()
@@ -68,7 +71,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         AddStatsToList();
     }
 
-    protected virtual void TurnManager_OnBattleStateChanged(BattleState _state)
+    protected virtual void TurnManager_OnBattleStateChanged(BattleState state)
     {
         foreach (Status s in Statuses)
             if (s.ShouldTrigger())
@@ -188,6 +191,10 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             Dodge(attacker);
             dodged = true;
         }
+        else if (StrengthShield && ability.MultiplerStat == StatType.Strength)
+        {
+            ShieldDamage();
+        }
         else
         {
             await TakeDamageNoDodgeNoRetaliation(damage);
@@ -254,6 +261,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         DisableAILerp();
         transform.DOShakePosition(duration, strength, 0, 0, false, true)
                  .OnComplete(() => EnableAILerp());
+    }
+
+    void ShieldDamage()
+    {
+        _damageUI.DisplayOnCharacter("Shielded!", 24, Color.magenta);
     }
 
     public async Task TakeDamageNoDodgeNoRetaliation(int damage)

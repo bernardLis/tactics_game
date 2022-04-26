@@ -32,4 +32,10 @@ public static class Tags
         get { return "BoundCollider"; }
         private set { }
     }
+
+    public static int CharacterLayer
+    {
+        get { return 6; }
+        private set { }
+    }
 }

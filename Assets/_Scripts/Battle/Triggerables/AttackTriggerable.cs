@@ -16,11 +16,6 @@ public class AttackTriggerable : BaseTriggerable
         if (target == null)
             return;
 
-        // looking for attackable target
-        var attackableObject = target.GetComponent<IAttackable<GameObject, Ability>>();
-        if (attackableObject == null)
-            return;
-
         DisplayBattleLog(target, ability);
 
         if (!isRetaliation)
@@ -48,9 +43,11 @@ public class AttackTriggerable : BaseTriggerable
         }
 
         // looking for a target
-        Collider2D col = Physics2D.OverlapCircle(pos, 0.2f);
-        if (col == null)
-            return null;
-        return col.gameObject;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        // looking for attackable target
+        foreach (Collider2D c in cols)
+            if (c.TryGetComponent(out IAttackable<GameObject, Ability> attackable))
+                return c.gameObject;
+        return null;
     }
 }
