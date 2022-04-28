@@ -131,7 +131,6 @@ public class MovePointController : Singleton<MovePointController>
         UpdateDisplayInformation();
     }
 
-
     public void UpdateDisplayInformation()
     {
         UpdateTileInfoUI();

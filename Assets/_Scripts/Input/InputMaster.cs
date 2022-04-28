@@ -127,6 +127,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""DetailsClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""3347af0d-ef8c-411e-9d54-1c9c10f93e73"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""SelectNextCharacter"",
                     ""type"": ""Button"",
                     ""id"": ""9d5f88cd-7b60-4de9-bafd-87df0f29f18a"",
@@ -390,6 +399,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Cheat2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf6881de-d508-4ff9-b9d6-adbdfc6594bd"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""DetailsClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -805,6 +825,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_Back = m_Player.FindAction("Back", throwIfNotFound: true);
         m_Player_LeftMouseClick = m_Player.FindAction("LeftMouseClick", throwIfNotFound: true);
         m_Player_SelectClick = m_Player.FindAction("SelectClick", throwIfNotFound: true);
+        m_Player_DetailsClick = m_Player.FindAction("DetailsClick", throwIfNotFound: true);
         m_Player_SelectNextCharacter = m_Player.FindAction("SelectNextCharacter", throwIfNotFound: true);
         m_Player_SelectPreviousCharacter = m_Player.FindAction("SelectPreviousCharacter", throwIfNotFound: true);
         m_Player_CancelEverything = m_Player.FindAction("CancelEverything", throwIfNotFound: true);
@@ -897,6 +918,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Back;
     private readonly InputAction m_Player_LeftMouseClick;
     private readonly InputAction m_Player_SelectClick;
+    private readonly InputAction m_Player_DetailsClick;
     private readonly InputAction m_Player_SelectNextCharacter;
     private readonly InputAction m_Player_SelectPreviousCharacter;
     private readonly InputAction m_Player_CancelEverything;
@@ -917,6 +939,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @Back => m_Wrapper.m_Player_Back;
         public InputAction @LeftMouseClick => m_Wrapper.m_Player_LeftMouseClick;
         public InputAction @SelectClick => m_Wrapper.m_Player_SelectClick;
+        public InputAction @DetailsClick => m_Wrapper.m_Player_DetailsClick;
         public InputAction @SelectNextCharacter => m_Wrapper.m_Player_SelectNextCharacter;
         public InputAction @SelectPreviousCharacter => m_Wrapper.m_Player_SelectPreviousCharacter;
         public InputAction @CancelEverything => m_Wrapper.m_Player_CancelEverything;
@@ -964,6 +987,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @SelectClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
                 @SelectClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
                 @SelectClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectClick;
+                @DetailsClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDetailsClick;
+                @DetailsClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDetailsClick;
+                @DetailsClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDetailsClick;
                 @SelectNextCharacter.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
                 @SelectNextCharacter.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
                 @SelectNextCharacter.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectNextCharacter;
@@ -1016,6 +1042,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @SelectClick.started += instance.OnSelectClick;
                 @SelectClick.performed += instance.OnSelectClick;
                 @SelectClick.canceled += instance.OnSelectClick;
+                @DetailsClick.started += instance.OnDetailsClick;
+                @DetailsClick.performed += instance.OnDetailsClick;
+                @DetailsClick.canceled += instance.OnDetailsClick;
                 @SelectNextCharacter.started += instance.OnSelectNextCharacter;
                 @SelectNextCharacter.performed += instance.OnSelectNextCharacter;
                 @SelectNextCharacter.canceled += instance.OnSelectNextCharacter;
@@ -1229,6 +1258,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnBack(InputAction.CallbackContext context);
         void OnLeftMouseClick(InputAction.CallbackContext context);
         void OnSelectClick(InputAction.CallbackContext context);
+        void OnDetailsClick(InputAction.CallbackContext context);
         void OnSelectNextCharacter(InputAction.CallbackContext context);
         void OnSelectPreviousCharacter(InputAction.CallbackContext context);
         void OnCancelEverything(InputAction.CallbackContext context);

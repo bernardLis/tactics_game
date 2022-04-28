@@ -25,11 +25,13 @@ public class BattleManager : Singleton<BattleManager>
     public void PauseGame()
     {
         Time.timeScale = 0;
+        BattleInputController.Instance.SetInputAllowed(false);
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
+        BattleInputController.Instance.SetInputAllowed(true);
     }
 
     public void SnapToGrid(Transform t)

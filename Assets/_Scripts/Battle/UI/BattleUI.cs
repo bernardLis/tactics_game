@@ -23,6 +23,8 @@ public class BattleUI : Singleton<BattleUI>
     string _turnTextTweenID = "turnTextTweenID";
     string _battleLogTweenID = "battleLogTweenID";
 
+    public CharacterScreen CharacterScreen { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -80,7 +82,7 @@ public class BattleUI : Singleton<BattleUI>
     IEnumerator DisplayBattleLogCoroutine(string text)
     {
         DOTween.Kill(_battleLogTweenID);
-        
+
         _battleLogText.text = text;
         _battleLogContainer.style.display = DisplayStyle.Flex;
         _battleLogContainer.style.opacity = 1f;
@@ -88,7 +90,6 @@ public class BattleUI : Singleton<BattleUI>
         yield return new WaitForSeconds(2);
         HideBattleLog();
     }
-
 
     void HideBattleLog()
     {
@@ -115,6 +116,20 @@ public class BattleUI : Singleton<BattleUI>
         DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 0f, 2f)
             .OnComplete(() => _turnTextContainer.style.display = DisplayStyle.None)
             .SetId(_turnTextTweenID);
+    }
+
+
+    public void ShowCharacterScreen(Character character)
+    {
+        BattleManager.Instance.PauseGame();
+        CharacterScreen = new CharacterScreen(character, GetComponent<UIDocument>().rootVisualElement);
+    }
+
+    public void HideCharacterScreen()
+    {
+        BattleManager.Instance.ResumeGame();
+        CharacterScreen.Hide();
+        CharacterScreen = null;
     }
 
     void ShowBattleWonScreen()

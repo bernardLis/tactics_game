@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System.Threading.Tasks;
 
 public abstract class BaseTriggerable : MonoBehaviour
 {
@@ -20,7 +16,8 @@ public abstract class BaseTriggerable : MonoBehaviour
     protected void DisplayBattleLog(GameObject target, Ability ability)
     {
         string abilityName = Helpers.ParseScriptableObjectCloneName(ability.name);
-        _battleUI.DisplayBattleLog($"{gameObject.name} uses {abilityName} on {target.name} .");
+        string targetName = Helpers.ParseScriptableObjectCloneName(target.name);
+        _battleUI.DisplayBattleLog($"{gameObject.name} uses {abilityName} on {targetName}.");
     }
 
 

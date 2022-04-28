@@ -35,6 +35,7 @@ public abstract class Ability : BaseScriptableObject
     public bool CanTargetDiagonally;
     public Color HighlightColor;
 
+
     [HideInInspector] public GameObject CharacterGameObject;
     protected FaceDirectionUI _faceDirectionUI;
     protected CharacterRendererManager _characterRendererManager;
@@ -42,6 +43,7 @@ public abstract class Ability : BaseScriptableObject
     protected AudioSource _audioSource;
     protected Highlighter _highlighter;
     protected BattleCharacterController _battleCharacterController;
+    protected BattleUI _battleUI;
 
     Vector3 middleOfTargeting;
 
@@ -76,6 +78,7 @@ public abstract class Ability : BaseScriptableObject
         _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
         _battleCharacterController = BattleCharacterController.Instance;
         _audioSource = AudioManager.Instance.GetComponent<AudioSource>();
+        _battleUI = BattleUI.Instance;
     }
 
     // TODO: I am not certain whether this is correct.

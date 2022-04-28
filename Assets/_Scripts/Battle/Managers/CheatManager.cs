@@ -4,9 +4,6 @@ using UnityEngine.InputSystem;
 
 public class CheatManager : MonoBehaviour
 {
-    Button _enemiesKillButton;
-    Button _friendliesKillButton;
-
     PlayerInput _playerInput;
 
     [SerializeField] GameObject _boulder;
@@ -15,12 +12,6 @@ public class CheatManager : MonoBehaviour
     {
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;
-
-        _enemiesKillButton = root.Q<Button>("enemiesKillButton");
-        _friendliesKillButton = root.Q<Button>("friendliesKillButton");
-
-        _enemiesKillButton.clickable.clicked += KillAllEnemies;
-        _friendliesKillButton.clickable.clicked += KillAFriend;
 
         _playerInput = BattleInputController.Instance.GetComponent<PlayerInput>();
     }
@@ -42,14 +33,12 @@ public class CheatManager : MonoBehaviour
     }
     void SubscribeInputActions()
     {
-        // char placement specific for now
         _playerInput.actions["Cheat1"].performed += SpawnBoulder;
         _playerInput.actions["Cheat2"].performed += DoSomething;
     }
 
     void UnsubscribeInputActions()
     {
-        // char placement specific for now
         _playerInput.actions["Cheat1"].performed -= SpawnBoulder;
         _playerInput.actions["Cheat2"].performed -= DoSomething;
     }
@@ -64,12 +53,14 @@ public class CheatManager : MonoBehaviour
 
     }
 
+    [ContextMenu("Kill All Enemies")]
     void KillAllEnemies()
     {
 
         KillAllWithTag("Enemy");
     }
 
+    [ContextMenu("Kill A Friend")]
     void KillAFriend()
     {
         KillRandomWithTag("Player");

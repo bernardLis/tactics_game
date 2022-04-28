@@ -79,6 +79,8 @@ public class Brain : BaseScriptableObject
             Ability abilityClone = Instantiate(ability);
             abilityClone.Initialize(_characterGameObject);
             _abilities.Add(abilityClone);
+
+            _enemyStats.Abilities.Add(abilityClone);
         }
     }
 

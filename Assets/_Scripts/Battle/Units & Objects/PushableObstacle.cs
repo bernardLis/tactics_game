@@ -45,7 +45,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     public async Task Fall(Vector3 pos)
     {
         _finalPos = pos;
-        
+
         _shadow.SetActive(true);
         SpriteRenderer shadowRenderer = _shadow.GetComponent<SpriteRenderer>();
         _shadow.transform.SetParent(null, true);
@@ -106,11 +106,9 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     public async Task CheckCollision(Ability ability)
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(_finalPos, 0.2f);
-        Debug.Log($"cols.length: {cols.Length}");
 
         foreach (Collider2D c in cols)
         {
-            Debug.Log($"c in boulder: {c.name}");
             // player/enemy get damaged  and are moved back to their starting position
             // character colliders are children
             if (c.CompareTag(Tags.Player) || c.CompareTag(Tags.Enemy))

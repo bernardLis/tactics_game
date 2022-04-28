@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class BattleInputController : Singleton<BattleInputController>
 {
@@ -14,6 +15,7 @@ public class BattleInputController : Singleton<BattleInputController>
     // global utilities
     Camera _cam;
     CharacterUI _characterUI;
+    BattleUI _battleUI;
 
     // local
     MovePointController _movePointController;
@@ -41,6 +43,8 @@ public class BattleInputController : Singleton<BattleInputController>
         _characterUI = CharacterUI.Instance;
 
         _movePointController = MovePointController.Instance;
+        _battleUI = BattleUI.Instance;
+
         _battleCharacterController = GetComponent<BattleCharacterController>();
         _battleDeploymentController = GetComponent<BattleDeploymentController>();
         _oscilateScale = GetComponentInChildren<OscilateScale>();
@@ -108,6 +112,7 @@ public class BattleInputController : Singleton<BattleInputController>
         _playerInput.actions["ArrowMovement"].performed += Move;
 
         _playerInput.actions["SelectClick"].performed += SelectClick;
+        _playerInput.actions["DetailsClick"].performed += DetailsClick;
 
         _playerInput.actions["OpenInventoryClick"].performed += OpenInventoryClicked;
 
@@ -134,6 +139,7 @@ public class BattleInputController : Singleton<BattleInputController>
         _playerInput.actions["ArrowMovement"].performed -= Move;
 
         _playerInput.actions["SelectClick"].performed -= SelectClick;
+        _playerInput.actions["DetailsClick"].performed -= DetailsClick;
 
         _playerInput.actions["OpenInventoryClick"].performed -= OpenInventoryClicked;
 
@@ -209,16 +215,34 @@ public class BattleInputController : Singleton<BattleInputController>
 
         _movePointController.Move(new Vector3(transform.position.x + vectorX.x, transform.position.y + vectorY.y, transform.position.z));
     }
-    
+
     void SelectClick(InputAction.CallbackContext ctx)
     {
         _movePointController.HandleSelectClick();
+    }
+
+    void DetailsClick(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("details click");
+        if (_battleUI.CharacterScreen != null)
+        {
+            _battleUI.HideCharacterScreen();
+            return;
+        }
+
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.TryGetComponent(out CharacterStats stats))
+                _battleUI.ShowCharacterScreen(stats.Character);
     }
 
     void BackClick(InputAction.CallbackContext ctx)
     {
         if (!AllowInput)
             return;
+
+        if (_battleUI.CharacterScreen != null)
+            _battleUI.HideCharacterScreen();
 
         _battleCharacterController.Back();
         _movePointController.UpdateDisplayInformation();

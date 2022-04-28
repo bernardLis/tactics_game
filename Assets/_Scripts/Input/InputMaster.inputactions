@@ -105,6 +105,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "DetailsClick",
+                    "type": "Button",
+                    "id": "3347af0d-ef8c-411e-9d54-1c9c10f93e73",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "SelectNextCharacter",
                     "type": "Button",
                     "id": "9d5f88cd-7b60-4de9-bafd-87df0f29f18a",
@@ -368,6 +377,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Cheat2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf6881de-d508-4ff9-b9d6-adbdfc6594bd",
+                    "path": "<Keyboard>/g",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "DetailsClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
