@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class CharacterCardVisual : VisualElement
 {
     VisualElement _information;
+    Character _character;
     Image _portrait;
     Label _name;
 
@@ -22,17 +23,19 @@ public class CharacterCardVisual : VisualElement
     StatVisual _armor;
     StatVisual _range;
 
-    public CharacterCardVisual(Character character)
+    public CharacterCardVisual(Character character, bool clickable = true)
     {
-        BaseCharacterCardVisual(character);
+        BaseCharacterCardVisual(character, clickable);
         // TODO: missing skull on portrait
-
+        _character = character;
         _characteristics.Add(HandleCharacterStats(character, null));
     }
 
-    public CharacterCardVisual(CharacterStats stats)
+    public CharacterCardVisual(CharacterStats stats, bool clickable = true) 
     {
-        BaseCharacterCardVisual(stats.Character);
+        BaseCharacterCardVisual(stats.Character, clickable);
+
+        _character = stats.Character;
 
         _modifierContainer = new();
         _modifierContainer.AddToClassList("modifierContainer");
@@ -48,7 +51,7 @@ public class CharacterCardVisual : VisualElement
         ManaBar.DisplayMissingAmount(stats.MaxMana.GetValue(), stats.CurrentMana);
     }
 
-    void BaseCharacterCardVisual(Character character)
+    void BaseCharacterCardVisual(Character character, bool clickable)
     {
         AddToClassList("characterCard");
 
@@ -79,6 +82,9 @@ public class CharacterCardVisual : VisualElement
         _characteristics.Add(CreateHealthGroup(character));
         _characteristics.Add(CreateManaGroup(character));
         Add(_characteristics);
+
+        if (clickable)
+            RegisterCallback<PointerDownEvent>(OnPointerDown);
     }
 
     VisualElement CreateHealthGroup(Character character)
@@ -189,5 +195,17 @@ public class CharacterCardVisual : VisualElement
             }
         }
         return els;
+    }
+
+    void OnPointerDown(PointerDownEvent evt)
+    {
+
+        if (evt.button != 0) // only left mouse click
+            return;
+        Debug.Log("clic character card visual");
+
+        var root = panel.visualTree;
+
+        new CharacterScreen(_character, root);
     }
 }

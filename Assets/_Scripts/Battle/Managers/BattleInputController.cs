@@ -176,6 +176,8 @@ public class BattleInputController : Singleton<BattleInputController>
             return;
 
         Vector3 mousePos = Mouse.current.position.ReadValue();
+
+        //bool isOverUI = RuntimePanelUtils.ScreenToPanel(_battleUI.Root .panel, mousePos);
         mousePos.z = 0; // select distance = 1 unit(s) from the camera
         Vector3Int tilePos = _tilemap.WorldToCell(_cam.ScreenToWorldPoint(mousePos));
         if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))

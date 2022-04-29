@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor;
 
 public class CharacterScreen : VisualElement
 {
@@ -17,13 +18,17 @@ public class CharacterScreen : VisualElement
 
         _root = root;
         root.Add(this);
+
+        RegisterCallback<PointerDownEvent>(OnPointerDown);
+        StyleSheet ss = (StyleSheet)AssetDatabase.LoadAssetAtPath("Assets/UI/UIStyles/BattleUIStyles.uss", typeof(StyleSheet));
+        styleSheets.Add(ss);
     }
 
     void AddCharacterCard(Character character)
     {
         VisualElement characterCardContainer = new();
         characterCardContainer.AddToClassList("battleUIContainer");
-        CharacterCardVisual card = new CharacterCardVisual(character);
+        CharacterCardVisual card = new CharacterCardVisual(character, false);
 
         characterCardContainer.Add(card);
         Add(characterCardContainer);
@@ -59,9 +64,16 @@ public class CharacterScreen : VisualElement
         }
     }
 
+    void OnPointerDown(PointerDownEvent evt)
+    {
+        if (evt.button != 1) // only right mouse click
+            return;
+        Debug.Log("click on characrter screen");
+        Hide();
+    }
+
     public void Hide()
     {
         _root.Remove(this);
     }
-
 }
