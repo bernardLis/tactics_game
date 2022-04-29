@@ -15,6 +15,7 @@ public class ModifierVisual : VisualWithTooltip
         BaseModifierVisual();
         Status = status;
         style.backgroundImage = status.Icon.texture;
+        style.backgroundColor = status.DisplayColor;
     }
 
     void BaseModifierVisual()

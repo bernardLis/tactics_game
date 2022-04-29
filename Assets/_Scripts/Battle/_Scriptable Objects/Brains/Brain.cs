@@ -49,11 +49,11 @@ public class Brain : BaseScriptableObject
     protected List<PotentialTarget> _potentialTargets;
 
     public Ability[] AbilitiesToInstantiate;
-    protected List<Ability> _abilities;
+    public List<Ability> Abilities;
     protected Ability _selectedAbility;
 
 
-    public virtual void Initialize(GameObject self)
+    public virtual void Initialize(GameObject self, Character character)
     {
         _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
         _cameraManager = Helpers.Camera.GetComponent<CameraManager>();
@@ -73,14 +73,14 @@ public class Brain : BaseScriptableObject
         _characterRendererManager = _characterGameObject.GetComponentInChildren<CharacterRendererManager>();
 
         // instantiate abilities
-        _abilities = new();
+        Abilities = new();
         foreach (Ability ability in AbilitiesToInstantiate)
         {
             Ability abilityClone = Instantiate(ability);
             abilityClone.Initialize(_characterGameObject);
-            _abilities.Add(abilityClone);
+            Abilities.Add(abilityClone);
 
-            _enemyStats.Abilities.Add(abilityClone);
+            character.Abilities.Add(abilityClone);
         }
     }
 
@@ -125,7 +125,7 @@ public class Brain : BaseScriptableObject
     protected void Defend()
     {
         // TODO: this is wrong way to select defend ability, but it let's keep it for now.
-        _selectedAbility = _abilities.FirstOrDefault(a => a.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f");
+        _selectedAbility = Abilities.FirstOrDefault(a => a.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f");
         Target = _characterGameObject;
     }
 

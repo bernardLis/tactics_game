@@ -88,7 +88,7 @@ public class HealerBrain : Brain
     {
         // so, you have moved closer to lowest health boi, but you are not sure whether you can reach him
         // for all heal abilities, check if there is one that can reach someone harmed, starting with the most costly one
-        List<Ability> healAbilities = _abilities.Where(a => a.AbilityType == AbilityType.Heal).ToList();
+        List<Ability> healAbilities = Abilities.Where(a => a.AbilityType == AbilityType.Heal).ToList();
         healAbilities.Sort((p1, p2) => p2.ManaCost.CompareTo(p1.ManaCost)); //order by mana cost (https://i.redd.it/iuy9fxt300811.png)
 
         PotentialTarget pTarget = null;
@@ -108,7 +108,7 @@ public class HealerBrain : Brain
         if (Target == null)
         {
             // buff someone
-            _selectedAbility = _abilities.FirstOrDefault(a => a.AbilityType == AbilityType.Buff); // this is buff
+            _selectedAbility = Abilities.FirstOrDefault(a => a.AbilityType == AbilityType.Buff); // this is buff
             List<PotentialTarget> buffableTargets = GetWithinReachBuffableTargets(_potentialTargets, _selectedAbility);
             // it will always return someone, because you are within reach
             Target = buffableTargets[Random.Range(0, buffableTargets.Count)].GameObj;

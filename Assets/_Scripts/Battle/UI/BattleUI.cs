@@ -8,6 +8,7 @@ public class BattleUI : Singleton<BattleUI>
 {
     JourneyManager _journeyManager;
 
+    VisualElement _root;
     VisualElement _turnTextContainer;
     Label _turnText;
 
@@ -32,17 +33,17 @@ public class BattleUI : Singleton<BattleUI>
         _journeyManager = JourneyManager.Instance;
 
         // getting ui elements
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        _root = GetComponent<UIDocument>().rootVisualElement;
 
-        _turnTextContainer = root.Q<VisualElement>("turnTextContainer");
-        _turnText = root.Q<Label>("turnText");
-        _battleLogContainer = root.Q<VisualElement>("battleLogContainer");
-        _battleLogText = root.Q<Label>("battleLogText");
+        _turnTextContainer = _root.Q<VisualElement>("turnTextContainer");
+        _turnText = _root.Q<Label>("turnText");
+        _battleLogContainer = _root.Q<VisualElement>("battleLogContainer");
+        _battleLogText = _root.Q<Label>("battleLogText");
 
-        _battleEndContainer = root.Q<VisualElement>("battleEndContainer");
-        _battleEndText = root.Q<Label>("battleEndText");
-        _battleEndCharacters = root.Q<VisualElement>("battleEndCharacters");
-        _backToJourney = root.Q<Button>("backToJourney");
+        _battleEndContainer = _root.Q<VisualElement>("battleEndContainer");
+        _battleEndText = _root.Q<Label>("battleEndText");
+        _battleEndCharacters = _root.Q<VisualElement>("battleEndCharacters");
+        _backToJourney = _root.Q<Button>("backToJourney");
 
         _backToJourney.clickable.clicked += BackToJourney;
 
@@ -122,7 +123,7 @@ public class BattleUI : Singleton<BattleUI>
     public void ShowCharacterScreen(Character character)
     {
         BattleManager.Instance.PauseGame();
-        CharacterScreen = new CharacterScreen(character, GetComponent<UIDocument>().rootVisualElement);
+        CharacterScreen = new CharacterScreen(character, _root);
     }
 
     public void HideCharacterScreen()

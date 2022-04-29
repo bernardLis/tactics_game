@@ -12,7 +12,6 @@ public class TooltipVisual : VisualElement
     {
         _text = new(text);
         _text.style.color = Color.white;
-        _text.style.backgroundColor = Color.gray;
         _text.style.fontSize = 32;
         Add(_text);
 

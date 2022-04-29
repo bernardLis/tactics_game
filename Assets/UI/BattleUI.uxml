@@ -177,7 +177,7 @@
                 </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="abilityTooltipContainer" style="width: auto; height: auto; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgba(0, 0, 0, 0.53); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); visibility: visible; display: none;">
+        <ui:VisualElement name="abilityTooltipContainer" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgba(0, 0, 0, 0.53); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); visibility: visible; display: none;">
             <ui:Label text="Very Strong Ability" display-tooltip-when-elided="true" name="characterUITooltipAbilityName" class="abilityName" />
             <ui:Label text="This is a very stong skill, it will deal 50dmg." display-tooltip-when-elided="true" name="characterUITooltipAbilityDescription" class="abilityDescription" />
             <ui:Label text="Mana cost: 50" display-tooltip-when-elided="true" name="characterUITooltipAbilityManaCost" class="abilityManaCost" style="color: rgb(255, 255, 255);" />
@@ -191,7 +191,7 @@
         <ui:VisualElement name="battleEndCharacters" style="flex-direction: row;" />
         <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" style="font-size: 100px; width: auto; display: none;" />
     </ui:VisualElement>
-    <ui:VisualElement name="turnTextContainer" style="position: relative; top: 20%; height: auto; display: none; opacity: 1; width: 100%; align-items: center; justify-content: flex-end;">
+    <ui:VisualElement name="turnTextContainer" style="position: absolute; top: 20%; height: auto; display: none; opacity: 1; width: 100%; align-items: center; justify-content: flex-end;">
         <ui:VisualElement name="wrapper" class="battleUIContainer">
             <ui:Label text="TURN 0 - PLAYER" display-tooltip-when-elided="true" name="turnText" style="font-size: 64px; color: rgb(255, 255, 255); -unity-text-align: upper-center; -unity-font-style: bold; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
         </ui:VisualElement>

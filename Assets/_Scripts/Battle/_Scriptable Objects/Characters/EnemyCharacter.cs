@@ -28,6 +28,6 @@ public class EnemyCharacter : Character
         base.Initialize(obj);
 
         var clone = Instantiate(EnemyBrain);
-        clone.Initialize(obj);
+        clone.Initialize(obj, this);
     }
 }

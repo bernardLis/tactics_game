@@ -91,8 +91,8 @@ public class MeeleBrain : Brain
     void ChooseAbility()
     {
         // best ability is the one that costs the most mana
-        Ability bestAbility = _abilities[0];
-        foreach (Ability a in _abilities)
+        Ability bestAbility = Abilities[0];
+        foreach (Ability a in Abilities)
         {
             if (a.ManaCost < bestAbility.ManaCost)
                 continue;

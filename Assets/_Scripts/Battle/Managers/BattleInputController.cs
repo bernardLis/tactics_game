@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -223,17 +224,23 @@ public class BattleInputController : Singleton<BattleInputController>
 
     void DetailsClick(InputAction.CallbackContext ctx)
     {
-        Debug.Log("details click");
         if (_battleUI.CharacterScreen != null)
         {
             _battleUI.HideCharacterScreen();
             return;
         }
 
+        // this is niche: on the ocassion when there are 2 characters on the tile (troops deployment), 
+        // I want to show the second character; 
+        List<CharacterStats> statsList = new();
+
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
         foreach (Collider2D c in cols)
             if (c.TryGetComponent(out CharacterStats stats))
-                _battleUI.ShowCharacterScreen(stats.Character);
+                statsList.Add(stats);
+
+        _battleUI.ShowCharacterScreen(statsList[statsList.Count - 1].Character);
+
     }
 
     void BackClick(InputAction.CallbackContext ctx)

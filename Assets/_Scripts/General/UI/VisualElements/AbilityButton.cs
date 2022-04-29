@@ -13,6 +13,8 @@ public class AbilityButton : Button
         Ability = ability;
         Key = key;
 
+        style.backgroundColor = ability.HighlightColor;
+
         _icon = new();
         _icon.AddToClassList("abilityButtonIcon");
         _icon.style.backgroundImage = ability.Icon.texture;

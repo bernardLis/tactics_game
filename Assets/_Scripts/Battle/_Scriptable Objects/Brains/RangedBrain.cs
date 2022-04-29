@@ -12,8 +12,8 @@ public class RangedBrain : Brain
         _potentialTargets = GetPotentialTargets("Player");
         PotentialTarget selectedTarget = GetClosestTarget(_potentialTargets, _selectedAbility);
 
-        Ability bestAbility = _abilities[0];
-        foreach (Ability a in _abilities)
+        Ability bestAbility = Abilities[0];
+        foreach (Ability a in Abilities)
         {
             if (a.ManaCost < bestAbility.ManaCost)
                 continue;

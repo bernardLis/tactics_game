@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BattleManager : Singleton<BattleManager>
 {
+    BattleInputController _battleInputController;
+
     [SerializeField] JourneyNodeReward _rewardScriptableObject;
     JourneyNodeReward _reward;
 
@@ -10,6 +12,11 @@ public class BattleManager : Singleton<BattleManager>
         base.Awake();
 
         _reward = Instantiate(_rewardScriptableObject);
+    }
+
+    void Start()
+    {
+        _battleInputController = BattleInputController.Instance;
     }
 
     public void AddRewardObols(int n)
@@ -25,13 +32,13 @@ public class BattleManager : Singleton<BattleManager>
     public void PauseGame()
     {
         Time.timeScale = 0;
-        BattleInputController.Instance.SetInputAllowed(false);
+        _battleInputController.SetInputAllowed(false);
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
-        BattleInputController.Instance.SetInputAllowed(true);
+        _battleInputController.SetInputAllowed(true);
     }
 
     public void SnapToGrid(Transform t)

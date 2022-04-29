@@ -5,6 +5,7 @@ public class AbilityTooltipVisual : VisualWithTooltip
 
     Label _name;
     Label _description;
+    Label _range;
     Label _manaCost;
     VisualElement _modifierContainer;
 
@@ -18,8 +19,8 @@ public class AbilityTooltipVisual : VisualWithTooltip
         _description = new(ability.Description);
         _description.AddToClassList("abilityDescription");
 
-        _description = new(ability.Description);
-        _description.AddToClassList("abilityDescription");
+        _range = new("Range: " + ability.Range);
+        _range.AddToClassList("abilityDescription");
 
         _manaCost = new("Mana cost: " + ability.ManaCost.ToString());
         _manaCost.AddToClassList("abilityManaCost");
@@ -30,6 +31,7 @@ public class AbilityTooltipVisual : VisualWithTooltip
 
         Add(_name);
         Add(_description);
+        Add(_range);
         Add(_manaCost);
         Add(_modifierContainer);
     }
