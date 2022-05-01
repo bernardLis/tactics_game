@@ -14,17 +14,12 @@ public class CollectQuest : Quest
 				qGoal.Initialize();
 		}
 
-		GameUI.Instance.DisplayLogText("New quest: " + Title);
-
 		State = QuestState.ACTIVE;
 	}
 
 	public override void Complete()
 	{
 		State = QuestState.COMPLETED;
-
-		// UI
-		GameUI.Instance.DisplayLogText("Quest completed: " + Title);
 
 		// remove quest items
 		foreach (var qGoal in Goals)
@@ -38,9 +33,6 @@ public class CollectQuest : Quest
 
 	public override void Fail()
 	{
-		// TODO: show ui
-		GameUI.Instance.DisplayLogText("Quest failed: " + Title);
-
 		State = QuestState.FAILED;
 	}
 

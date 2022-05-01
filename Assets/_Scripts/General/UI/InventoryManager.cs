@@ -31,9 +31,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         items.Add(item);
 
-        GameUI.Instance.DisplayLogText("+ 1 " + item.name);
         OnItemChanged?.Invoke(this, new ItemChangedEventArgs(item, true));
-
     }
 
     public void Remove(Item item)

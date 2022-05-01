@@ -176,8 +176,9 @@ public class BattleInputController : Singleton<BattleInputController>
             return;
 
         Vector3 mousePos = Mouse.current.position.ReadValue();
+        if (IsPointerOverUI(mousePos))
+            return;
 
-        //bool isOverUI = RuntimePanelUtils.ScreenToPanel(_battleUI.Root .panel, mousePos);
         mousePos.z = 0; // select distance = 1 unit(s) from the camera
         Vector3Int tilePos = _tilemap.WorldToCell(_cam.ScreenToWorldPoint(mousePos));
         if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
@@ -186,6 +187,22 @@ public class BattleInputController : Singleton<BattleInputController>
         Vector3 pos = _tile.GetMiddleOfTile();
 
         _movePointController.Move(pos);
+    }
+
+    //https://answers.unity.com/questions/1881324/ui-toolkit-prevent-click-through-visual-element.html
+    bool IsPointerOverUI(Vector2 screenPos)
+    {
+        Vector2 pointerUiPos = new Vector2 { x = screenPos.x, y = Screen.height - screenPos.y };
+        List<VisualElement> picked = new List<VisualElement>();
+        _battleUI.Root.panel.PickAll(pointerUiPos, picked);
+        foreach (var ve in picked)
+            if (ve != null)
+            {
+                Color32 bcol = ve.resolvedStyle.backgroundColor;
+                if (bcol.a != 0 && ve.enabledInHierarchy)
+                    return true;
+            }
+        return false;
     }
 
     void Move(InputAction.CallbackContext ctx)

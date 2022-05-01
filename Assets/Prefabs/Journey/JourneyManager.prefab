@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2154333484900981473}
   - component: {fileID: 2154333484900981484}
   - component: {fileID: 2154333484900981486}
+  - component: {fileID: 1093261390}
   m_Layer: 0
   m_Name: JourneyManager
   m_TagString: Untagged
@@ -85,6 +86,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5099a7f12eae8f4cb11b8fe2e897b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1093261390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154333484900981485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871185a95a28a524bb14fc4dedbf8683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _commonStyles:
+    m_AssetGUID: d9a86c5788d7b6f4e9a3577d65d2967f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1 &6397165350733003931
 GameObject:
   m_ObjectHideFlags: 0

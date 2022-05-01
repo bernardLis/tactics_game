@@ -8,27 +8,31 @@ public class JourneyMapUI : MonoBehaviour
     JourneyManager _journeyManager;
     JourneyMapManager _journeyMapManager;
 
+
+    VisualElement _root;
     Label _currencyAmount;
     VisualElement _nodeInfo;
     Label _nodeType;
     Label _nodeObols;
+    FullScreenVisual _viewTroopsContainer;
+    Button _viewTroopsButton;
 
     [Header("Unity Setup")]
     [SerializeField] GameObject obolObject;
-
-
 
     void Awake()
     {
         _journeyManager = JourneyManager.Instance;
         _journeyMapManager = JourneyMapManager.Instance;
 
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        _currencyAmount = root.Q<Label>("currencyAmount");
+        _root = GetComponent<UIDocument>().rootVisualElement;
+        _currencyAmount = _root.Q<Label>("currencyAmount");
 
-        _nodeInfo = root.Q<VisualElement>("nodeInfo");
-        _nodeType = root.Q<Label>("nodeType");
-        _nodeObols = root.Q<Label>("nodeObols");
+        _nodeInfo = _root.Q<VisualElement>("nodeInfo");
+        _nodeType = _root.Q<Label>("nodeType");
+        _nodeObols = _root.Q<Label>("nodeObols");
+        _viewTroopsButton = _root.Q<Button>("viewTroops");
+        _viewTroopsButton.clickable.clicked += ViewTroopsClick;
     }
 
     void Start()
@@ -94,6 +98,18 @@ public class JourneyMapUI : MonoBehaviour
     public void HideNodeInfo()
     {
         _nodeInfo.style.visibility = Visibility.Hidden;
+    }
+
+    void ViewTroopsClick()
+    {
+        _viewTroopsContainer = new FullScreenVisual();
+        _viewTroopsContainer.Initialize(_root);
+
+        foreach (Character character in _journeyManager.PlayerTroops)
+        {
+            CharacterCardVisual card = new CharacterCardVisual(character);
+            _viewTroopsContainer.Add(card);
+        }
     }
 
 }

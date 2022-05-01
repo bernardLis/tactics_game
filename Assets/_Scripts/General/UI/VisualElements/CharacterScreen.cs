@@ -4,30 +4,20 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 
-public class CharacterScreen : VisualElement
+public class CharacterScreen : FullScreenVisual
 {
-    VisualElement _root;
+    //VisualElement _root;
     public CharacterScreen(Character character, VisualElement root)
     {
-        style.backgroundColor = Color.gray;
-        style.width = Length.Percent(100);
-        style.height = Length.Percent(100);
-
+        Initialize(root);
         AddCharacterCard(character);
         AddAbilityContainer(character);
-
-        _root = root;
-        root.Add(this);
-
-        RegisterCallback<PointerDownEvent>(OnPointerDown);
-        StyleSheet ss = (StyleSheet)AssetDatabase.LoadAssetAtPath("Assets/UI/UIStyles/BattleUIStyles.uss", typeof(StyleSheet));
-        styleSheets.Add(ss);
     }
 
     void AddCharacterCard(Character character)
     {
         VisualElement characterCardContainer = new();
-        characterCardContainer.AddToClassList("battleUIContainer");
+        characterCardContainer.AddToClassList("uiContainer");
         CharacterCardVisual card = new CharacterCardVisual(character, false);
 
         characterCardContainer.Add(card);
@@ -38,8 +28,7 @@ public class CharacterScreen : VisualElement
     {
         // add a container for abilities;
         VisualElement abilityContainer = new();
-        abilityContainer.AddToClassList("battleUIContainer");
-        //abilityContainer.style.width = Length.Percent(40);
+        abilityContainer.AddToClassList("uiContainer");
 
         abilityContainer.style.flexDirection = FlexDirection.Row;
         Add(abilityContainer);
@@ -51,7 +40,7 @@ public class CharacterScreen : VisualElement
         {
             VisualElement aContainer = new();
             aContainer.style.width = Length.Percent(20);
-            aContainer.AddToClassList("battleUIContainer");
+            aContainer.AddToClassList("uiContainer");
             aContainer.style.alignItems = Align.Center;
             aContainer.style.alignSelf = Align.FlexStart;
 
@@ -63,7 +52,7 @@ public class CharacterScreen : VisualElement
             abilityContainer.Add(aContainer);
         }
     }
-
+/*
     void OnPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 1) // only right mouse click
@@ -71,9 +60,5 @@ public class CharacterScreen : VisualElement
         Debug.Log("click on characrter screen");
         Hide();
     }
-
-    public void Hide()
-    {
-        _root.Remove(this);
-    }
+*/
 }

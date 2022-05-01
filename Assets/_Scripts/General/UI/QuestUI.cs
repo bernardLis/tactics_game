@@ -11,7 +11,7 @@ public class QuestUI : MonoBehaviour
     List<QuestSlot> _questSlots = new();
 
     UIDocument _UIDocument;
-    VisualElement _questUI;
+    VisualElement _questContainer;
     VisualElement _activeQuestsContainer;
     VisualElement _completedQuestsContainer;
     VisualElement _failedQuestsContainer;
@@ -30,7 +30,7 @@ public class QuestUI : MonoBehaviour
         _UIDocument = GetComponent<UIDocument>();
         var root = _UIDocument.rootVisualElement;
 
-        _questUI = root.Q<VisualElement>("questUI");
+        _questContainer = root.Q<VisualElement>("questContainer");
         _activeQuestsContainer = root.Q<VisualElement>("activeQuestsContainer");
         _completedQuestsContainer = root.Q<VisualElement>("completedQuestsContainer");
         _failedQuestsContainer = root.Q<VisualElement>("failedQuestsContainer");
@@ -93,12 +93,12 @@ public class QuestUI : MonoBehaviour
         // only one can be visible/
         GameUI.Instance.HideAllUIPanels();
 
-        _questUI.style.display = DisplayStyle.Flex;
+        _questContainer.style.display = DisplayStyle.Flex;
     }
 
     public void DisableQuestUI()
     {
-        _questUI.style.display = DisplayStyle.None;
+        _questContainer.style.display = DisplayStyle.None;
 
         // BattleManager.Instance.EnableFMPlayerControls(); << TODO: decide when is quest ui / inventory ui accessible
         BattleManager.Instance.ResumeGame();

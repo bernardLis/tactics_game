@@ -26,23 +26,6 @@ public class JourneyManager : PersistentSingleton<JourneyManager>, ISavable
     protected override void Awake()
     {
         base.Awake();
-        /*
-        #region Singleton
-        // singleton
-        if (instance != null && instance != this)
-        {
-            // TODO: it gets here on scene transitions, should I do something about it?
-            Debug.LogWarning("More than one instance of JourneyManager found");
-            Destroy(this.gameObject);
-            return;
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        #endregion
-        */
         _levelLoader = GetComponent<LevelLoader>();
 
         // copy array to list;

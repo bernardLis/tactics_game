@@ -14,16 +14,16 @@ public class AbilityTooltipVisual : VisualWithTooltip
         _ability = ability;
 
         _name = new(Helpers.ParseScriptableObjectCloneName(ability.name));
-        _name.AddToClassList("abilityName");
+        _name.AddToClassList("primaryText");
 
         _description = new(ability.Description);
-        _description.AddToClassList("abilityDescription");
+        _description.AddToClassList("secondaryText");
 
         _range = new("Range: " + ability.Range);
-        _range.AddToClassList("abilityDescription");
+        _range.AddToClassList("secondaryText");
 
         _manaCost = new("Mana cost: " + ability.ManaCost.ToString());
-        _manaCost.AddToClassList("abilityManaCost");
+        _manaCost.AddToClassList("secondaryText");
 
         _modifierContainer = new();
         _modifierContainer.AddToClassList("modifierContainer");

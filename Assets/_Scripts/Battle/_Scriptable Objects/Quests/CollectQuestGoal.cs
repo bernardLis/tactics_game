@@ -38,15 +38,12 @@ public class CollectQuestGoal : QuestGoal
 		if (e.Item == RequiredItem)
 		{
 			CurrentAmount++;
-			GameUI.Instance.DisplayLogText(CurrentAmount + "/" + RequiredAmount + " of " + e.Item.name);
 			Evaluate();
 		}
 	}
 
 	public override void Complete()
 	{
-		GameUI.Instance.DisplayLogText("Quest Goal compelted! " + Title);
-
 		QuestGoalState = QuestGoalState.COMPLETED;
 	}
 

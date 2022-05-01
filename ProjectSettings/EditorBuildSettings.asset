@@ -18,4 +18,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Chest.unity
     guid: d0728f51ca29c474fb173a6485ce6bdb
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: ca27c83b5049f574f921e445414deb0d, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 08e9aa22577882d4ebc9379ebfe20818, type: 2}
