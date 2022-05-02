@@ -49,6 +49,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     // interactions
     public Ability SelectedAbility { get; private set; }
+    List<GameObject> _viableTargets = new();
     bool _isInteracting;
 
     // TODO: I am currently, not using that, but I have a feeling that it will be useful.
@@ -510,5 +511,24 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         AstarPath.BlockUntilCalculated(path);
 
         return path;
+    }
+
+    public void GetViableTargets()
+    {
+        // for all highlighted tiles, check if selected ability can interact with that
+        // add them to the list 
+        // move movepoint to the first one
+        _viableTargets.Clear();
+
+        foreach (WorldTile tile in _highlighter.HighlightedTiles)
+        {
+            Collider2D[] cols = Physics2D.OverlapCircleAll(tile.GetMiddleOfTile(), 0.2f);
+            foreach (Collider2D c in cols)
+                if (SelectedAbility.IsTargetViable(c.gameObject))
+                    _viableTargets.Add(c.gameObject);
+        }
+
+        if (_viableTargets.Count > 0)
+            _movePointController.Move(_viableTargets[0].transform.position);
     }
 }

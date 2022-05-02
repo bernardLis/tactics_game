@@ -18,10 +18,7 @@ public class FullScreenVisual : VisualElement
         RegisterCallback<PointerDownEvent>(OnPointerDown);
 
         var ss = JourneyManager.Instance.GetComponent<AddressableManager>().GetCommonStyles();
-        Debug.Log($"ss: {ss}");
         styleSheets.Add(ss);
-        //var ss = (StyleSheet)Resources.Load("CommonStyles.uss", typeof(StyleSheet)); // does not work
-        //styleSheets.Add(ss);
     }
 
     void OnPointerDown(PointerDownEvent evt)

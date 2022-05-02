@@ -9,7 +9,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class AddressableManager : MonoBehaviour
 {
     [SerializeField] AssetReference _commonStylesAssetReference;
-    StyleSheet _ss;
+    StyleSheet _commonStyles;
 
     void Start()
     {
@@ -21,13 +21,13 @@ public class AddressableManager : MonoBehaviour
     {
         _commonStylesAssetReference.LoadAssetAsync<StyleSheet>().Completed += (sheet) =>
         {
-            _ss = (StyleSheet)sheet.Result;
+            _commonStyles = (StyleSheet)sheet.Result;
         };
 
     }
 
     public StyleSheet GetCommonStyles()
     {
-        return _ss;
+        return _commonStyles;
     }
 }

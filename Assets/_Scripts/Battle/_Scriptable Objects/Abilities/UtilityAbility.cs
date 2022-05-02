@@ -17,6 +17,13 @@ public class UtilityAbility : Ability
         UtilityType = (UtilityType)System.Enum.Parse(typeof(UtilityType), item["UtilityType"].ToString());
     }
 
+    public override bool IsTargetViable(GameObject target)
+    {
+        if (target.TryGetComponent(out IItemUsable<UtilityAbility> itemUsable))
+            return true;
+        return false;
+    }
+
     public override void Initialize(GameObject obj)
     {
         base.Initialize(obj);

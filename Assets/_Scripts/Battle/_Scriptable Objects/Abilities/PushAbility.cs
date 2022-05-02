@@ -12,6 +12,15 @@ public class PushAbility : Ability
         _pushTriggerable = obj.GetComponent<PushTriggerable>();
     }
 
+    public override bool IsTargetViable(GameObject target)
+    {
+        // you can push allies but they are not returned here
+        if (target.TryGetComponent(out IPushable<Vector3, GameObject, Ability> pushable)
+            && !target.CompareTag(CharacterGameObject.tag))
+            return true;
+        return false;
+    }
+
     public async override Task AbilityLogic(Vector3 pos)
     {
         // push if successful play sound and retrun true;

@@ -132,6 +132,12 @@ public abstract class Ability : BaseScriptableObject
         }
     }
 
+    public virtual bool IsTargetViable(GameObject target)
+    {
+        // meant to be overwritten
+        return false;// to get rid of errors;
+    }
+
     public virtual async Task AbilityLogic(Vector3 pos)
     {
         // meant to be overwritten

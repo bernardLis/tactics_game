@@ -6,7 +6,6 @@ using UnityEditor;
 
 public class CharacterScreen : FullScreenVisual
 {
-    //VisualElement _root;
     public CharacterScreen(Character character, VisualElement root)
     {
         Initialize(root);
@@ -52,13 +51,4 @@ public class CharacterScreen : FullScreenVisual
             abilityContainer.Add(aContainer);
         }
     }
-/*
-    void OnPointerDown(PointerDownEvent evt)
-    {
-        if (evt.button != 1) // only right mouse click
-            return;
-        Debug.Log("click on characrter screen");
-        Hide();
-    }
-*/
 }

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871185a95a28a524bb14fc4dedbf8683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _commonStyles:
+  _commonStylesAssetReference:
     m_AssetGUID: d9a86c5788d7b6f4e9a3577d65d2967f
     m_SubObjectName: 
     m_SubObjectType: 

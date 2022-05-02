@@ -13,6 +13,15 @@ public class BuffAbility : Ability
         _buffTriggerable = obj.GetComponent<BuffTriggerable>();
     }
 
+    public override bool IsTargetViable(GameObject target)
+    {
+        // you can buff not friens but I am not returning them here 
+        if (target.TryGetComponent(out IBuffable<GameObject, Ability> buffable)
+            && target.CompareTag(CharacterGameObject.tag))
+            return true;
+        return false;
+    }
+
     public async override Task AbilityLogic(Vector3 pos)
     {
         // interact

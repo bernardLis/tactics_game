@@ -256,6 +256,7 @@ public class CharacterUI : Singleton<CharacterUI>
         _battleInputController.SetInputAllowed(true);
 
         _battleCharacterController.SetSelectedAbility(ability);
+        _battleCharacterController.GetViableTargets();
     }
 
     // https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html

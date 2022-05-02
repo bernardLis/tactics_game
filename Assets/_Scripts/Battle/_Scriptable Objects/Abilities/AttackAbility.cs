@@ -15,6 +15,15 @@ public class AttackAbility : Ability
         _attackTriggerable = obj.GetComponent<AttackTriggerable>();
     }
 
+    public override bool IsTargetViable(GameObject target)
+    {
+        // you can attack friens but I am not going to return them as viable targets
+        if (target.TryGetComponent(out IAttackable<GameObject, Ability> attackable)
+            && !target.CompareTag(CharacterGameObject.tag))
+            return true;
+        return false;
+    }
+
     public async override Task AbilityLogic(Vector3 pos)
     {
         // interact

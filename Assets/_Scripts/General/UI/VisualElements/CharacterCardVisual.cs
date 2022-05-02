@@ -202,10 +202,8 @@ public class CharacterCardVisual : VisualElement
 
         if (evt.button != 0) // only left mouse click
             return;
-        Debug.Log("clic character card visual");
 
         var root = panel.visualTree;
-
         new CharacterScreen(_character, root);
     }
 }

@@ -14,6 +14,15 @@ public class HealAbility : Ability
         _healTriggerable = obj.GetComponent<HealTriggerable>();
     }
 
+    public override bool IsTargetViable(GameObject target)
+    {
+        // you can heal enemies but they are not returned here
+        if (target.TryGetComponent(out IHealable<GameObject, Ability> healable)
+            && target.CompareTag(CharacterGameObject.tag))
+            return true;
+        return false;
+    }
+
     public async override Task AbilityLogic(Vector3 pos)
     {
         // heal target if successful play sound and retrun true;
