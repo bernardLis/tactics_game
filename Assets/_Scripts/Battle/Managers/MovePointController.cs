@@ -51,7 +51,7 @@ public class MovePointController : Singleton<MovePointController>
     void HandleDeployment()
     {
         _spriteRenderer.enabled = true;
-        transform.position = Highlighter.Instance.HighlightedTiles[Mathf.FloorToInt(Highlighter.Instance.HighlightedTiles.Count / 2)].GetMiddleOfTile();
+        transform.position = HighlightManager.Instance.HighlightedTiles[Mathf.FloorToInt(HighlightManager.Instance.HighlightedTiles.Count / 2)].GetMiddleOfTile();
         _battleDeploymentController.InstantiateCharacter(0);
     }
 

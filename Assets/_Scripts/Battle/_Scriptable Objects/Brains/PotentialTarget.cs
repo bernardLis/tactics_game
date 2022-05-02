@@ -19,7 +19,7 @@ public class PotentialTarget
         Tilemap tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
         WorldTile _tile;
 
-        Highlighter highlighter = Highlighter.Instance;
+        HighlightManager highlighter = HighlightManager.Instance;
 
         List<WorldTile> freeTiles = new();
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Highlighter : Singleton<Highlighter>
+public class HighlightManager : Singleton<HighlightManager>
 {
 
     // global

@@ -6,7 +6,6 @@ public class PlayerCharSelection : CharacterSelection
     public bool HasMovedThisTurn { get; private set; }
     public Vector3 PositionTurnStart { get; private set; }
 
-    [SerializeField] SelectionArrow _selectionArrow;
 
     public override void Awake()
     {
@@ -52,10 +51,6 @@ public class PlayerCharSelection : CharacterSelection
         ToggleSelectionArrow(false);
     }
 
-    public void ToggleSelectionArrow(bool isActive)
-    {
-        _selectionArrow.gameObject.SetActive(isActive);
-    }
 
     public override void FinishCharacterTurn()
     {

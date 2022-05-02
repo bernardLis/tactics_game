@@ -5,7 +5,7 @@ public class BattleDeploymentController : MonoBehaviour
 {
     // global utility
     JourneyManager _journeyManager;
-    Highlighter _highlighter;
+    HighlightManager _highlighter;
     InfoCardUI _infoCardUI;
 
     List<Character> _charactersToPlace;
@@ -25,7 +25,7 @@ public class BattleDeploymentController : MonoBehaviour
     void Start()
     {
         _journeyManager = JourneyManager.Instance;
-        _highlighter = Highlighter.Instance;
+        _highlighter = HighlightManager.Instance;
         _infoCardUI = InfoCardUI.Instance;
 
         // TODO: here I can actually create characters from save data
@@ -99,7 +99,7 @@ public class BattleDeploymentController : MonoBehaviour
     public void PlaceCharacter()
     {
         // remove the tile from highlighted tiles = block placement of other characters on the same tile
-        Highlighter.Instance.ClearHighlightedTile(CharacterBeingPlaced.transform.position);
+        HighlightManager.Instance.ClearHighlightedTile(CharacterBeingPlaced.transform.position);
 
         // nullify character being placed so it doesn't get destroyed;
         CharacterBeingPlaced = null;

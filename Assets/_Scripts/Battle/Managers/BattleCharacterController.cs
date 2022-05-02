@@ -10,7 +10,7 @@ public enum CharacterState { None, Selected, SelectingInteractionTarget, Selecti
 public class BattleCharacterController : Singleton<BattleCharacterController>
 {
     // global utilities
-    Highlighter _highlighter;
+    HighlightManager _highlighter;
     CharacterUI _characterUI;
     BattleInputController _battleInputController;
     MovePointController _movePointController;
@@ -64,7 +64,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     {
         _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
-        _highlighter = Highlighter.Instance;
+        _highlighter = HighlightManager.Instance;
         _battleInputController = BattleInputController.Instance;
         _characterUI = CharacterUI.Instance;
         _movePointController = MovePointController.Instance;
@@ -393,6 +393,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             // it changes the state too
             _battleInputController.SetInputAllowed(false);
             await SelectedAbility.HighlightTargetable(SelectedCharacter);
+            GetViableTargets();
             _battleInputController.SetInputAllowed(true);
             return;
         }
@@ -408,10 +409,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         UpdateCharacterState(CharacterState.SelectingInteractionTarget);
         _battleInputController.SetInputAllowed(false);
         await SelectedAbility.HighlightTargetable(SelectedCharacter);
+        GetViableTargets();
         _battleInputController.SetInputAllowed(true);
-
     }
-
 
     void FinishCharacterTurn()
     {

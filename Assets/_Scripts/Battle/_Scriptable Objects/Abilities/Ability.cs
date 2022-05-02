@@ -41,11 +41,13 @@ public abstract class Ability : BaseScriptableObject
     protected CharacterRendererManager _characterRendererManager;
 
     protected AudioSource _audioSource;
-    protected Highlighter _highlighter;
+    protected HighlightManager _highlighter;
     protected BattleCharacterController _battleCharacterController;
     protected BattleUI _battleUI;
 
     Vector3 middleOfTargeting;
+
+    List<CharacterSelection> affectedCharacters = new();
 
     // called from editor using table data
     public virtual void Create(Dictionary<string, object> item, StatModifier statModifier, Status status)
@@ -75,7 +77,7 @@ public abstract class Ability : BaseScriptableObject
         _faceDirectionUI = self.GetComponent<FaceDirectionUI>();
         _characterRendererManager = self.GetComponentInChildren<CharacterRendererManager>();
 
-        _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
+        _highlighter = BattleManager.Instance.GetComponent<HighlightManager>();
         _battleCharacterController = BattleCharacterController.Instance;
         _audioSource = AudioManager.Instance.GetComponent<AudioSource>();
         _battleUI = BattleUI.Instance;
@@ -92,6 +94,8 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightTargetable(GameObject self)
     {
+        ClearAffectedCharacters();
+
         if (CharacterGameObject.CompareTag(Tags.Player))
             _battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
 
@@ -105,6 +109,7 @@ public abstract class Ability : BaseScriptableObject
 
         middleOfTargeting = middlePos;
         await _highlighter.HighlightAbilityAOE(this, middlePos);
+        MarkAffectedCharacters();
     }
 
     public virtual async Task TriggerAbility(List<WorldTile> tiles)
@@ -130,6 +135,8 @@ public abstract class Ability : BaseScriptableObject
 
             await AbilityLogic(pos);
         }
+
+        ClearAffectedCharacters();
     }
 
     public virtual bool IsTargetViable(GameObject target)
@@ -168,5 +175,30 @@ public abstract class Ability : BaseScriptableObject
         _characterRendererManager.Face(dir.normalized);
 
         return true;
+    }
+
+    void MarkAffectedCharacters()
+    {
+        affectedCharacters.Clear();
+        foreach (WorldTile tile in _highlighter.HighlightedTiles)
+        {
+            Collider2D[] cols = Physics2D.OverlapCircleAll(tile.GetMiddleOfTile(), 0.2f);
+            foreach (Collider2D c in cols)
+                if (c.TryGetComponent(out CharacterSelection selection))
+                {
+                    selection.ToggleSelectionArrow(true, HighlightColor);
+                    affectedCharacters.Add(selection);
+                }
+        }
+    }
+
+    void ClearAffectedCharacters()
+    {
+        foreach (CharacterSelection selection in affectedCharacters)
+        {
+            selection.ToggleSelectionArrow(false);
+            if (selection.gameObject == _battleCharacterController.SelectedCharacter)
+                selection.ToggleSelectionArrow(true, Color.white);
+        }
     }
 }

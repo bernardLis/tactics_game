@@ -21,7 +21,7 @@ public class Brain : BaseScriptableObject
     public Weapon Weapon;
 
     // global
-    protected Highlighter _highlighter;
+    protected HighlightManager _highlighter;
     CameraManager _cameraManager;
     protected TurnManager _turnManager;
     InfoCardUI _infoCardUI;
@@ -55,7 +55,7 @@ public class Brain : BaseScriptableObject
 
     public virtual void Initialize(GameObject self, Character character)
     {
-        _highlighter = BattleManager.Instance.GetComponent<Highlighter>();
+        _highlighter = BattleManager.Instance.GetComponent<HighlightManager>();
         _cameraManager = Helpers.Camera.GetComponent<CameraManager>();
         _turnManager = TurnManager.Instance;
         _infoCardUI = InfoCardUI.Instance;

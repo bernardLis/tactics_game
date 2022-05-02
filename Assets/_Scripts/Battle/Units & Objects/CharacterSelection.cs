@@ -5,7 +5,7 @@ using Pathfinding;
 
 public class CharacterSelection : MonoBehaviour
 {
-    protected Highlighter _highlighter;
+    protected HighlightManager _highlighter;
     protected TurnManager _turnManager;
     protected SingleNodeBlocker _blocker;
 
@@ -19,11 +19,13 @@ public class CharacterSelection : MonoBehaviour
     SpriteRenderer[] _spriteRenderers;
     Color _grayOutColor;
 
+    [SerializeField] SelectionArrow _selectionArrow;
+
     public bool HasFinishedTurn { get; protected set; }
 
     public virtual void Awake()
     {
-        _highlighter = Highlighter.Instance;
+        _highlighter = HighlightManager.Instance;
         _turnManager = TurnManager.Instance;
         _blocker = GetComponent<SingleNodeBlocker>();
         _blocker.manager = FindObjectOfType<BlockManager>();
@@ -103,4 +105,13 @@ public class CharacterSelection : MonoBehaviour
     {
         _blocker.Unblock();
     }
+
+    public void ToggleSelectionArrow(bool isActive, Color? color = null)
+    {
+        // https://stackoverflow.com/questions/2804395/c-sharp-4-0-can-i-use-a-color-as-an-optional-parameter-with-a-default-value
+        Color c = color ?? Color.white;
+        _selectionArrow.gameObject.SetActive(isActive);
+        _selectionArrow.GetComponent<SpriteRenderer>().color = c;
+    }
+
 }

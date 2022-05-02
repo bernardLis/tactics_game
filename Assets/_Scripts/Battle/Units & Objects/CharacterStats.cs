@@ -34,7 +34,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     AILerp _aiLerp;
 
     // global
-    Highlighter _highlighter;
+    HighlightManager _highlighter;
 
     // pushable variables
     Vector3 _startingPos;
@@ -64,7 +64,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         _aiLerp = GetComponent<AILerp>();
 
         // global
-        _highlighter = Highlighter.Instance;
+        _highlighter = HighlightManager.Instance;
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 

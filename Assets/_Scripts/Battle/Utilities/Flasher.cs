@@ -3,6 +3,7 @@ using DG.Tweening;
 
 public class Flasher : MonoBehaviour
 {
+    //BoxCollider2D _selfCollider;
     SpriteRenderer _spriteRenderer;
 
     public void StartFlashing(Color col)
@@ -26,4 +27,18 @@ public class Flasher : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // shield someone as they enter
+        Debug.Log($"trigger enters: {other.gameObject}");
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        // remove shield
+        Debug.Log($"trigger exits: {other.gameObject}");
+    }
+
 }

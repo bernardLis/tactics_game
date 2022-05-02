@@ -54,12 +54,12 @@ public class BoardManager : MonoBehaviour
     List<Vector3Int> _openOuterPositions = new();
 
     // global
-    Highlighter _highlighter;
+    HighlightManager _highlighter;
     TurnManager _turnManager;
 
     void Start()
     {
-        _highlighter = Highlighter.Instance;
+        _highlighter = HighlightManager.Instance;
         _turnManager = TurnManager.Instance;
         GenerateMap();
     }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public class EnemyAI : MonoBehaviour
 {
-    Highlighter _highlighter;
+    HighlightManager _highlighter;
 
     Seeker _seeker;
     AILerp _aiLerp;
@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
 
     void Awake()
     {
-        _highlighter = Highlighter.Instance;
+        _highlighter = HighlightManager.Instance;
 
         _seeker = GetComponent<Seeker>();
         _aiLerp = GetComponent<AILerp>();
