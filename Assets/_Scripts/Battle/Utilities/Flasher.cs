@@ -31,14 +31,16 @@ public class Flasher : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // shield someone as they enter
-        Debug.Log($"trigger enters: {other.gameObject}");
+        if (other.TryGetComponent(out MovePointController controller))
+        {
+            Vector3 rotate = new Vector3(0, 0, 90f);
+            transform.DORotate(rotate, 1f).SetEase(Ease.InOutBack).OnComplete(RotateBack);
+        }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void RotateBack()
     {
-        // remove shield
-        Debug.Log($"trigger exits: {other.gameObject}");
+        Vector3 rotate = new Vector3(0, 0, 0);
+        transform.DORotate(rotate, 1f).SetEase(Ease.InOutBack);
     }
-
 }
