@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class BattleUI : Singleton<BattleUI>
 {
-    JourneyManager _journeyManager;
+    GameManager _gameManager;
 
     public VisualElement Root { get; private set; }
     VisualElement _turnTextContainer;
@@ -30,7 +30,7 @@ public class BattleUI : Singleton<BattleUI>
     {
         base.Awake();
 
-        _journeyManager = JourneyManager.Instance;
+        _gameManager = GameManager.Instance;
 
         // getting ui elements
         Root = GetComponent<UIDocument>().rootVisualElement;
@@ -136,7 +136,7 @@ public class BattleUI : Singleton<BattleUI>
     void ShowBattleWonScreen()
     {
         ShowBattleEndScreen();
-        foreach (Character character in _journeyManager.PlayerTroops)
+        foreach (Character character in _gameManager.PlayerTroops)
         {
             CharacterCardVisual visual = new CharacterCardVisual(character);
             _battleEndCharacters.Add(visual);
@@ -163,7 +163,7 @@ public class BattleUI : Singleton<BattleUI>
 
     void BackToJourney()
     {
-        _journeyManager.LoadLevel("Journey");
+        _gameManager.LoadLevel("Journey");
     }
 
     IEnumerator CoroutineCoordinator()

@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(JourneyManager))]
+[CustomEditor(typeof(GameManager))]
 public class JourneyManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        JourneyManager n = target as JourneyManager;
+        GameManager n = target as GameManager;
 
         if (GUILayout.Button("Clear Save Data"))
             n.ClearSaveData();

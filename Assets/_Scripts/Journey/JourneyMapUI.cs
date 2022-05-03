@@ -5,11 +5,11 @@ using DG.Tweening;
 
 public class JourneyMapUI : MonoBehaviour
 {
-    JourneyManager _journeyManager;
+    GameManager _gameManager;
     JourneyMapManager _journeyMapManager;
 
-
     VisualElement _root;
+    Label _playerName;
     Label _currencyAmount;
     VisualElement _nodeInfo;
     Label _nodeType;
@@ -22,22 +22,25 @@ public class JourneyMapUI : MonoBehaviour
 
     void Awake()
     {
-        _journeyManager = JourneyManager.Instance;
+        _gameManager = GameManager.Instance;
         _journeyMapManager = JourneyMapManager.Instance;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
+        _playerName = _root.Q<Label>("playerName");
         _currencyAmount = _root.Q<Label>("currencyAmount");
 
         _nodeInfo = _root.Q<VisualElement>("nodeInfo");
         _nodeType = _root.Q<Label>("nodeType");
         _nodeObols = _root.Q<Label>("nodeObols");
+
         _viewTroopsButton = _root.Q<Button>("viewTroops");
         _viewTroopsButton.clickable.clicked += ViewTroopsClick;
     }
 
     void Start()
     {
-        _currencyAmount.text = _journeyManager.Obols.ToString();
+        _playerName.text = "Welcome King " + _gameManager.PlayerName;
+        _currencyAmount.text = _gameManager.Obols.ToString();
     }
 
     public void ChangeObols(int start, int end)
@@ -105,7 +108,7 @@ public class JourneyMapUI : MonoBehaviour
         _viewTroopsContainer = new FullScreenVisual();
         _viewTroopsContainer.Initialize(_root);
 
-        foreach (Character character in _journeyManager.PlayerTroops)
+        foreach (Character character in _gameManager.PlayerTroops)
         {
             CharacterCardVisual card = new CharacterCardVisual(character);
             _viewTroopsContainer.Add(card);

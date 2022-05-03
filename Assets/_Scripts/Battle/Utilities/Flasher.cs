@@ -31,16 +31,18 @@ public class Flasher : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out MovePointController controller))
+        if (other.TryGetComponent(out BattleInputController controller))
         {
+            if (!controller.AllowInput)
+                return;
             Vector3 rotate = new Vector3(0, 0, 90f);
-            transform.DORotate(rotate, 1f).SetEase(Ease.InOutBack).OnComplete(RotateBack);
+            transform.DORotate(rotate, 0.5f).SetEase(Ease.InOutBack).OnComplete(RotateBack);
         }
     }
 
     void RotateBack()
     {
         Vector3 rotate = new Vector3(0, 0, 0);
-        transform.DORotate(rotate, 1f).SetEase(Ease.InOutBack);
+        transform.DORotate(rotate, 0.5f).SetEase(Ease.InOutBack);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class BattleDeploymentController : MonoBehaviour
 {
     // global utility
-    JourneyManager _journeyManager;
+    GameManager _gameManager;
     HighlightManager _highlighter;
     InfoCardUI _infoCardUI;
 
@@ -24,13 +24,13 @@ public class BattleDeploymentController : MonoBehaviour
 
     void Start()
     {
-        _journeyManager = JourneyManager.Instance;
+        _gameManager = GameManager.Instance;
         _highlighter = HighlightManager.Instance;
         _infoCardUI = InfoCardUI.Instance;
 
         // TODO: here I can actually create characters from save data
         // no, actually characters are created by journey manager by loading save data, so you should just use them;
-        _charactersToPlace = new(_journeyManager.PlayerTroops);
+        _charactersToPlace = new(_gameManager.PlayerTroops);
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)

@@ -17,7 +17,7 @@ public class FullScreenVisual : VisualElement
 
         RegisterCallback<PointerDownEvent>(OnPointerDown);
 
-        var ss = JourneyManager.Instance.GetComponent<AddressableManager>().GetCommonStyles();
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetCommonStyles();
         styleSheets.Add(ss);
     }
 

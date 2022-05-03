@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class JourneyChestManager : Singleton<JourneyChestManager>
 {
     // global
-    JourneyManager _journeyManager;
+    GameManager _gameManager;
 
     ResponsiveCamera _cam;
 
@@ -48,7 +48,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
         base.Awake();
 
         // global
-        _journeyManager = JourneyManager.Instance;
+        _gameManager = GameManager.Instance;
         _cam = Camera.main.GetComponent<ResponsiveCamera>();
 
         // UI
@@ -149,7 +149,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
 
         _obolAmountLabel.text = "0";
 
-        _journeyManager.SetNodeReward(rewardInstance);
+        _gameManager.SetNodeReward(rewardInstance);
         StartCoroutine(ChangeObolsCoroutine(rewardInstance.obols));
 
         _difficultyAdjustWrapper.style.display = DisplayStyle.None;
@@ -258,7 +258,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
 
     void BackToJourney()
     {
-        _journeyManager.LoadLevel("Journey");
+        _gameManager.LoadLevel("Journey");
     }
 
 }

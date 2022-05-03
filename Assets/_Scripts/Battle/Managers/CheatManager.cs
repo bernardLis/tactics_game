@@ -13,13 +13,13 @@ public class CheatManager : MonoBehaviour
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        _playerInput = BattleInputController.Instance.GetComponent<PlayerInput>();
+        _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
     }
 
     void OnEnable()
     {
         // inputs
-        _playerInput = BattleInputController.Instance.GetComponent<PlayerInput>();
+        _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
 
         SubscribeInputActions();
     }

@@ -273,11 +273,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public async Task TakeDamageNoDodgeNoRetaliation(int damage)
     {
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
-        CurrentHealth -= damage;
 
         // displaying damage UI
         _damageUI.DisplayOnCharacter(damage.ToString(), 36, Helpers.GetColor("damageRed"));
 
+        CurrentHealth -= damage;
         // don't shake on death
         if (CurrentHealth <= 0)
         {

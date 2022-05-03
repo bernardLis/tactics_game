@@ -36,7 +36,7 @@ public class QuestUI : MonoBehaviour
         _failedQuestsContainer = root.Q<VisualElement>("failedQuestsContainer");
         _questInformation = root.Q<VisualElement>("questInformation");
 
-        _playerInput = MovePointController.Instance.GetComponent<PlayerInput>();
+        _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
 
         _questManager = BattleManager.Instance.GetComponent<QuestManager>();
     }

@@ -27,7 +27,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     [SerializeField] Material _journeyLine;
     [SerializeField] Material _pathTravelledLine;
 
-    JourneyManager _journeyManager;
+    GameManager _gameManager;
     JourneyMapUI _journeyMapUI;
     PlayerInput _playerInput;
 
@@ -47,9 +47,10 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
     void Start()
     {
-        _journeyManager = JourneyManager.Instance;
+        _gameManager = GameManager.Instance;
+        _playerInput = _gameManager.GetComponent<PlayerInput>();
+
         _journeyMapUI = GetComponent<JourneyMapUI>();
-        _playerInput = GetComponent<PlayerInput>();
         GenerateJourney();
     }
 
@@ -63,17 +64,17 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         AddJourneyBridges();
         SetBackground();
         SetUpTraversal();
-        _journeyManager.JourneyWasSetUp(true);
+        _gameManager.JourneyWasSetUp(true);
         LoadData();
     }
 
     void InitialSetup()
     {
-        _seed = _journeyManager.JourneySeed;
-        if (_journeyManager.JourneySeed == 0) // TODO: this is a bad idea probably.
+        _seed = _gameManager.JourneySeed;
+        if (_gameManager.JourneySeed == 0) // TODO: this is a bad idea probably.
         {
             _seed = System.DateTime.Now.Millisecond;
-            _journeyManager.SetJourneySeed(_seed);
+            _gameManager.SetJourneySeed(_seed);
         }
 
         Random.InitState(_seed);
@@ -86,9 +87,9 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     void CreatePaths()
     {
         // use paths stored in object that is not destroyed between scenes, if there are any (cat comment)
-        if (_journeyManager.WasJourneySetUp)
+        if (_gameManager.WasJourneySetUp)
         {
-            _journeyPaths = _journeyManager.JourneyPaths;
+            _journeyPaths = _gameManager.JourneyPaths;
             return;
         }
 
@@ -98,7 +99,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
             JourneyPath jp = ScriptableObject.CreateInstance<JourneyPath>();
             jp.CreatePath(_numberOfRows, _journeyNodes, _basicConfigs);
             _journeyPaths.Add(jp);
-            _journeyManager.JourneyPaths.Add(jp);
+            _gameManager.JourneyPaths.Add(jp);
         }
     }
     void DisplayNodes()
@@ -109,7 +110,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         InstantiateNode(startNodeInstance, new Vector3(centerX, 0f));
         _startNode = startNodeInstance.GameObject;
 
-        if (_journeyManager.WasJourneySetUp)
+        if (_gameManager.WasJourneySetUp)
             _startNode.GetComponent<JourneyNodeBehaviour>().MarkAsVisited();
 
         int x = 0;
@@ -159,7 +160,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     void AddJourneyBridges()
     {
         // we are coming back to journey - bridges should stay the same
-        if (_journeyManager.WasJourneySetUp)
+        if (_gameManager.WasJourneySetUp)
         {
             RecreateBridges();
             return;
@@ -194,7 +195,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
     void RecreateBridges()
     {
-        foreach (JourneyPath p in _journeyManager.JourneyPaths)
+        foreach (JourneyPath p in _gameManager.JourneyPaths)
         {
             foreach (JourneyBridge b in p.Bridges)
             {
@@ -231,7 +232,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     void LoadData()
     {
         // TODO: this can be improved
-        if (_journeyManager.VisitedJourneyNodes.Count == 0)
+        if (_gameManager.VisitedJourneyNodes.Count == 0)
         {
             CurrentNode = _startNode.GetComponent<JourneyNodeBehaviour>().JourneyNode;
             CurrentNode.Select();
@@ -247,10 +248,10 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
         _startNode.GetComponent<JourneyNodeBehaviour>().MarkAsVisited();
 
-        JourneyNodeData data = _journeyManager.CurrentJourneyNode;
+        JourneyNodeData data = _gameManager.CurrentJourneyNode;
         CurrentNode = _journeyPaths[data.PathIndex].Nodes[data.NodeIndex];
 
-        foreach (JourneyNodeData n in _journeyManager.VisitedJourneyNodes)
+        foreach (JourneyNodeData n in _gameManager.VisitedJourneyNodes)
         {
             JourneyNode node = _journeyPaths[n.PathIndex].Nodes[n.NodeIndex];
             node.JourneyNodeBehaviour.MarkAsVisited();
@@ -273,11 +274,11 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
     void ResolveRewards()
     {
-        if (_journeyManager.Reward == null)
+        if (_gameManager.Reward == null)
             return;
 
-        ChangeObols(_journeyManager.Reward.obols);
-        _journeyManager.SetNodeReward(null);
+        ChangeObols(_gameManager.Reward.obols);
+        _gameManager.SetNodeReward(null);
     }
 
     void UpdateAvailableNodes()
@@ -325,7 +326,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         JourneyPath currentPath = GetCurrentPath(_node.JourneyNode);
         data.PathIndex = _journeyPaths.IndexOf(currentPath);
         data.NodeIndex = currentPath.Nodes.IndexOf(CurrentNode);
-        _journeyManager.SetCurrentJourneyNode(data);
+        _gameManager.SetCurrentJourneyNode(data);
 
         // render path
         _pathTravelledLineRenderer.positionCount++;
@@ -333,7 +334,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
         // So, here I would like to transition to a scene depending on the node
         // I also need to make sure this journey and all data is remembered between scene transitions 
-        _journeyManager.LoadLevel(CurrentNode.SceneToLoad);
+        _gameManager.LoadLevel(CurrentNode.SceneToLoad);
     }
 
     /* Helpers */
@@ -376,10 +377,10 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
     public void ChangeObols(int _amount)
     {
-        int obols = _journeyManager.Obols;
+        int obols = _gameManager.Obols;
         obols += _amount;
         Mathf.Clamp(obols, 0, Mathf.Infinity);
-        _journeyManager.SetObols(obols);
+        _gameManager.SetObols(obols);
         _journeyMapUI.ChangeObols(obols - _amount, obols);
     }
 }

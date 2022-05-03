@@ -28,7 +28,7 @@ public class InventoryUI : Singleton<InventoryUI>
     {
         base.Awake();
 
-        _playerInput = MovePointController.Instance.GetComponent<PlayerInput>();
+        _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
 
         _inventoryManager = InventoryManager.Instance;
         _inventoryManager.OnItemChanged += OnItemChanged;

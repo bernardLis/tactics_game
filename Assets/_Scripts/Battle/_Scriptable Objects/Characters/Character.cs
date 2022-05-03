@@ -61,7 +61,7 @@ public class Character : BaseScriptableObject
     // creates character at runtime from saved data
     public virtual void Create(CharacterData data)
     {
-        CharacterDatabase CharacterDatabase = JourneyManager.Instance.CharacterDatabase;
+        CharacterDatabase CharacterDatabase = GameManager.Instance.CharacterDatabase;
 
         ReferenceID = data.ReferenceID;
         CharacterName = data.CharacterName;

@@ -12,6 +12,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
     Label _tileInfoText;
 
     // character card
+    public GameObject DisplayedCharacter { get; private set; }
     VisualElement _characterCard;
     CharacterCardVisual _characterCardVisual;
 
@@ -86,6 +87,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
     /* character card */
     public void ShowCharacterCard(CharacterStats stats)
     {
+        DisplayedCharacter = stats.gameObject;
         _characterCard.Clear();
 
         _characterCardVisual = new(stats);
@@ -98,6 +100,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     public void HideCharacterCard()
     {
+        DisplayedCharacter = null;
         DOTween.To(() => _characterCard.style.left.value.value, x => _characterCard.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
     }
@@ -207,7 +210,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackHitValue.text = 100 + "%";
     }
 
-
     void HandleStatusesAbilitySummary(Ability ability)
     {
         if (ability.StatModifier != null)
@@ -247,7 +249,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         _characterUI.ShowHealthChange(relatiationResult);
     }
-
 
     public void HideInteractionSummary()
     {

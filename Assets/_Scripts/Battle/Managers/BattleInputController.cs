@@ -6,6 +6,12 @@ using UnityEngine.UIElements;
 
 public class BattleInputController : Singleton<BattleInputController>
 {
+    // global utilities
+    GameManager _gameManager;
+    Camera _cam;
+    CharacterUI _characterUI;
+    BattleUI _battleUI;
+
     // input system
     PlayerInput _playerInput;
 
@@ -13,10 +19,6 @@ public class BattleInputController : Singleton<BattleInputController>
     Tilemap _tilemap;
     WorldTile _tile;
 
-    // global utilities
-    Camera _cam;
-    CharacterUI _characterUI;
-    BattleUI _battleUI;
 
     // local
     MovePointController _movePointController;
@@ -35,13 +37,14 @@ public class BattleInputController : Singleton<BattleInputController>
     {
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
-        _playerInput = GetComponent<PlayerInput>();
-
-        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
-
         // TODO: Supposedly, this is an expensive call
+        _gameManager = GameManager.Instance;
         _cam = Camera.main;
         _characterUI = CharacterUI.Instance;
+
+        _playerInput = _gameManager.GetComponent<PlayerInput>();
+
+        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
 
         _movePointController = MovePointController.Instance;
         _battleUI = BattleUI.Instance;
@@ -54,7 +57,9 @@ public class BattleInputController : Singleton<BattleInputController>
     void OnEnable()
     {
         // inputs
-        _playerInput = GetComponent<PlayerInput>();
+        if (_gameManager == null)
+            _gameManager = GameManager.Instance;
+        _playerInput = _gameManager.GetComponent<PlayerInput>();
 
         SubscribeInputActions();
     }
