@@ -64,4 +64,19 @@ public static class FileManager
 
         return files;
     }
+
+    public static bool DeleteFile(string fileName)
+    {
+        var fullPath = Path.Combine(Application.persistentDataPath, fileName);
+        try
+        {
+            File.Delete(fullPath);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to delete {fullPath} with exception {e}");
+            return false;
+        }
+    }
 }

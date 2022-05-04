@@ -204,6 +204,49 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[0].m_AssetGUID
+      value: afd309c482f885140af9ed07152aa6f0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[1].m_AssetGUID
+      value: 042bba8feed89874eb8479b155720a93
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[2].m_AssetGUID
+      value: dbf44b9143af7bb48b39083ce21d0615
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[0].m_SubObjectName
+      value: Coubert
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[0].m_SubObjectType
+      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[1].m_SubObjectName
+      value: Degas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[1].m_SubObjectType
+      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[2].m_SubObjectName
+      value: Empedokles
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _characterPortraits.Array.data[2].m_SubObjectType
+      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
     - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_Name
       value: GameManager

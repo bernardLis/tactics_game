@@ -15,10 +15,10 @@ public class Character : BaseScriptableObject
     [Header("Stats")]
     public int Level;
 
-    public int Strength; // how strong you hit
-    public int Intelligence; // maxMana depends on intelligence (also how strong the spell dmg is)
-    public int Agility; // influences range
-    public int Stamina; // influences maxHealth
+    public int Strength;
+    public int Intelligence;
+    public int Agility;
+    public int Stamina;
 
     int _baseMaxHealth = 100;
     int _baseMaxMana = 50;
@@ -40,7 +40,7 @@ public class Character : BaseScriptableObject
     public List<Ability> Abilities = new();
 
     // creates character from google sheet data in editor
-    public virtual void Create(Dictionary<string, object> item, List<Ability> abilities)
+    public virtual void CreateFromSheetData(Dictionary<string, object> item, List<Ability> abilities)
     {
         ReferenceID = item["ReferenceID"].ToString();
         CharacterName = item["CharacterName"].ToString();

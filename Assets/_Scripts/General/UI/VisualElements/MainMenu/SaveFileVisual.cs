@@ -3,9 +3,14 @@ using UnityEngine.UIElements;
 
 public class SaveFileVisual : VisualElement
 {
+    string _fileName;
+
     public SaveFileVisual(string fileName)
     {
-        Add(new Label(fileName));
+        _fileName = fileName;
+
+        AddToClassList("uiContainer");
+        //Add(new Label(fileName));
         // some info: player name, obols.
         // how to get info from that file?
 
@@ -14,13 +19,35 @@ public class SaveFileVisual : VisualElement
             SaveData sd = new SaveData();
             sd.LoadFromJson(json);
 
-            Add(new Label(sd.PlayerName));
+            VisualElement container = new VisualElement();
+            Label playerNameLabel = new Label("Player Name: ");
+            Label playerName = new Label(sd.PlayerName);
+
+            playerNameLabel.AddToClassList("primaryText");
+            playerName.AddToClassList("primaryText");
+
+            container.Add(playerNameLabel);
+            container.Add(playerName);
+
+            Add(container);
         }
 
-        // button to start game from that file
         this.AddManipulator(new Clickable(evt => GameManager.Instance.StartGameFromSave(fileName)));
+
+        // button to destory the file
+        Button deleteButton = new Button();
+        deleteButton.text = "Remove Save";
+        deleteButton.AddToClassList("primaryText");
+        deleteButton.clickable.clicked += DeleteSave;
+        Add(deleteButton);
     }
 
-    // button to destory the file
+    void DeleteSave()
+    {
+        FileManager.DeleteFile(_fileName);
+        // gray out the save or something.
+        style.backgroundColor = Color.gray;
+    }
+
 
 }

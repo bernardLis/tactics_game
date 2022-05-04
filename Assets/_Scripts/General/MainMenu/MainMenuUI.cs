@@ -7,7 +7,6 @@ public class MainMenuUI : MonoBehaviour
 {
     GameManager _gameManager;
 
-
     VisualElement _root;
     Button _continueButton;
     Button _startNewGameButton;
@@ -42,14 +41,14 @@ public class MainMenuUI : MonoBehaviour
 
     void Continue()
     {
-        Debug.Log("continue click");
         string lastSave = PlayerPrefs.GetString("lastSave");
+        if (lastSave == null)
+            _continueButton.style.backgroundColor = Color.gray;
         _gameManager.StartGameFromSave(lastSave);
     }
 
     void StartNewGame()
     {
-        Debug.Log("start new game click");
         // TODO: I could make a transition with dotween
         _menuContainer.style.display = DisplayStyle.None;
         _newGameScreen.style.display = DisplayStyle.Flex;
@@ -57,13 +56,6 @@ public class MainMenuUI : MonoBehaviour
 
     void LoadGame()
     {
-        Debug.Log("load game click");
-        // display a screen with all save data files you have created
-        // let player choose one
-        // load save data file
-        // set it as last save in player prefs
-        // also allow removing files
-
         string[] saveFiles = FileManager.LoadALlSaveFiles();
         new LoadGameScreenVisual(_root, saveFiles);
     }
@@ -76,5 +68,6 @@ public class MainMenuUI : MonoBehaviour
     void Quit()
     {
         Debug.Log("quit click");
+        Application.Quit();
     }
 }

@@ -43,26 +43,30 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void StartNewGame(string activeSave, string playerName)
     {
         PlayerName = playerName;
+        Debug.Log($"PlayerName: {PlayerName}");
 
-        StartGameFromSave(activeSave);
+        StartGameFromSave(activeSave, true);
     }
 
-    public void StartGameFromSave(string fileName)
+    public void StartGameFromSave(string fileName, bool isNewGame = false)
     {
-        LoadJsonData(fileName);
+        if (!isNewGame)
+            LoadJsonData(fileName);
 
         if (JourneySeed == 0)
             JourneySeed = System.DateTime.Now.Millisecond;
 
         _activeSave = fileName;
 
-        LoadLevel("Journey");
+        LoadLevel("Journey", true);
     }
 
-    public void LoadLevel(string level)
+    public void LoadLevel(string level, bool isGameLoaded = false)
     {
-        if (level == "Journey") // TODO: I want to save only on coming back to Journey, does it make sense?
+        if (level == "Journey" && !isGameLoaded) // TODO: I want to save only on coming back to Journey, does it make sense?
             SaveJsonData();
+
+        Debug.Log($"PlayerName: {PlayerName}");
 
         _levelLoader.LoadLevel(level);
     }
@@ -130,6 +134,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void PopulateSaveData(SaveData saveData)
     {
+        Debug.Log($"populate save data player name; {PlayerName}");
         saveData.PlayerName = PlayerName;
         saveData.Obols = Obols;
         saveData.JourneySeed = JourneySeed;

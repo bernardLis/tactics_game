@@ -117,7 +117,7 @@ public static class ScriptableObjectGenerator
         foreach (string s in arr)
             abilities.Add(GetAbilityFromReferenceID(s));
 
-        character.Create(item, abilities);
+        character.CreateFromSheetData(item, abilities);
 
         // Now flag the object as "dirty" in the editor so it will be saved
         EditorUtility.SetDirty(character);

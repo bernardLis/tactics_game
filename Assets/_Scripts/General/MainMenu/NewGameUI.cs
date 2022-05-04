@@ -38,13 +38,15 @@ public class NewGameUI : MonoBehaviour
         if (txt == null)
             return; //TODO: display a tooltip that it can't be null;
 
+        Debug.Log($"txt {txt}");
         // new save
         string guid = System.Guid.NewGuid().ToString();
-        FileManager.CreateFile(guid);
-        PlayerPrefs.SetString("lastSave", guid);
+        string fileName = guid + ".dat";
+        FileManager.CreateFile(fileName);
+        PlayerPrefs.SetString("lastSave", fileName);
         PlayerPrefs.Save();
 
-        _gameManager.StartNewGame(guid, txt);
+        _gameManager.StartNewGame(fileName, txt);
     }
 
     void Back()

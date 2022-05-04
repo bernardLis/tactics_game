@@ -36,6 +36,12 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 6b4c65901b114044789b283cc1083832, type: 3}
   - ReferenceID: Straw
     Sprite: {fileID: 21300000, guid: 2c59ce9a31dd52748a30bf53367bf85b, type: 3}
+  - ReferenceID: opm
+    Sprite: {fileID: 21300000, guid: a613d81a423cf24429b03929c1678cad, type: 3}
+  - ReferenceID: opm1
+    Sprite: {fileID: 21300000, guid: f7497f4b4c9e84248ae4aed09f491cb9, type: 3}
+  - ReferenceID: opm2
+    Sprite: {fileID: 21300000, guid: f4b17f1f358194043b70125cf5eac90b, type: 3}
   BodyDatabase:
   - {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
   WeaponDatabase:
