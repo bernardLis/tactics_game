@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1180581484
+--- !u!1 &775720506
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,24 +131,61 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1180581486}
-  - component: {fileID: 1180581485}
-  - component: {fileID: 1180581487}
-  - component: {fileID: 1180581488}
+  - component: {fileID: 775720511}
+  - component: {fileID: 775720510}
+  - component: {fileID: 775720509}
+  - component: {fileID: 775720508}
+  - component: {fileID: 775720507}
   m_Layer: 0
-  m_Name: MainMenuManager
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1180581485
+--- !u!114 &775720507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180581484}
+  m_GameObject: {fileID: 775720506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afee9169942d2ff4ea4ea91868fe2332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &775720508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775720506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf992a485e9dafa469a1e3b9c9b04fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &775720509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775720506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f7c28b973b9e14f8d51edaf581d9b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &775720510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775720506}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
@@ -157,46 +194,22 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 3fe3f99c5c7ed75498e3e51f92e8e8fa, type: 3}
-  m_SortingOrder: 20
---- !u!4 &1180581486
+  m_SortingOrder: 0
+--- !u!4 &775720511
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180581484}
+  m_GameObject: {fileID: 775720506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 21.680805, y: -6.2237115, z: -0.039862577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1180581487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180581484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22f7c28b973b9e14f8d51edaf581d9b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1180581488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180581484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf992a485e9dafa469a1e3b9c9b04fb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1448303726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,56 +217,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[0].m_AssetGUID
-      value: afd309c482f885140af9ed07152aa6f0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[1].m_AssetGUID
-      value: 042bba8feed89874eb8479b155720a93
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[2].m_AssetGUID
-      value: dbf44b9143af7bb48b39083ce21d0615
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[0].m_SubObjectName
-      value: Coubert
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[0].m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[1].m_SubObjectName
-      value: Degas
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[1].m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[2].m_SubObjectName
-      value: Empedokles
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: _characterPortraits.Array.data[2].m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
     - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_LocalPosition.x

@@ -11,7 +11,7 @@ public class LoadGameScreenVisual : FullScreenVisual
         Initialize(root);
 
         foreach (string f in saveFiles)
-            Add(new SaveFileVisual(f));
+            Add(new SaveFileVisual(this, f));
 
         Button backButton = new Button();
         backButton.AddToClassList("menuButton");

@@ -39,11 +39,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             CreatePlayerTroops();
     }
 
-
     public void StartNewGame(string activeSave, string playerName)
     {
         PlayerName = playerName;
-        Debug.Log($"PlayerName: {PlayerName}");
 
         StartGameFromSave(activeSave, true);
     }
@@ -58,15 +56,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         _activeSave = fileName;
 
-        LoadLevel("Journey", true);
+        LoadLevel("Journey");
     }
 
-    public void LoadLevel(string level, bool isGameLoaded = false)
+    public void LoadLevel(string level)
     {
-        if (level == "Journey" && !isGameLoaded) // TODO: I want to save only on coming back to Journey, does it make sense?
+        if (level == "Journey") // TODO: I want to save only on coming back to Journey, does it make sense?
             SaveJsonData();
-
-        Debug.Log($"PlayerName: {PlayerName}");
 
         _levelLoader.LoadLevel(level);
     }
@@ -126,6 +122,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     void SaveJsonData()
     {
+        Debug.Log("Save json data");
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
         if (FileManager.WriteToFile(_activeSave, sd.ToJson()))
@@ -134,7 +131,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void PopulateSaveData(SaveData saveData)
     {
-        Debug.Log($"populate save data player name; {PlayerName}");
         saveData.PlayerName = PlayerName;
         saveData.Obols = Obols;
         saveData.JourneySeed = JourneySeed;
@@ -201,8 +197,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     // TODO:
     public void ClearSaveData()
     {
-        if (FileManager.WriteToFile("SaveData.dat", ""))
-            Debug.Log("Cleared SaveData");
+        if (FileManager.WriteToFile(_activeSave, ""))
+            Debug.Log("Cleared active save");
     }
 
 }

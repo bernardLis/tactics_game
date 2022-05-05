@@ -141,6 +141,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "OpenMenu",
+                    "type": "Button",
+                    "id": "79e89792-4d70-4dc4-8931-4f9cbe20547f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Cheat1",
                     "type": "Button",
                     "id": "aa374c6e-812f-4485-a8d7-6d6667728253",
@@ -317,7 +326,7 @@
                 {
                     "name": "",
                     "id": "fdce7e40-3aa1-4850-9951-4235e46ea8a4",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
@@ -388,6 +397,17 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "DetailsClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "72516af2-132a-4d59-9aec-6a0fc3cda50d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "OpenMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

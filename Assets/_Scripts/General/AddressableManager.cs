@@ -23,11 +23,11 @@ public class AddressableManager : MonoBehaviour
         {
             _commonStyles = (StyleSheet)sheet.Result;
         };
-
     }
 
     public StyleSheet GetCommonStyles()
     {
         return _commonStyles;
     }
+
 }

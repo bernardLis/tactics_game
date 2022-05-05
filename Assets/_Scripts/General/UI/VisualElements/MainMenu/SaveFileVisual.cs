@@ -4,15 +4,14 @@ using UnityEngine.UIElements;
 public class SaveFileVisual : VisualElement
 {
     string _fileName;
+    LoadGameScreenVisual _parent;
 
-    public SaveFileVisual(string fileName)
+    public SaveFileVisual(LoadGameScreenVisual parentVisualEl, string fileName)
     {
         _fileName = fileName;
+        _parent = parentVisualEl;
 
         AddToClassList("uiContainer");
-        //Add(new Label(fileName));
-        // some info: player name, obols.
-        // how to get info from that file?
 
         if (FileManager.LoadFromFile(fileName, out var json))
         {
@@ -32,7 +31,7 @@ public class SaveFileVisual : VisualElement
             Add(container);
         }
 
-        this.AddManipulator(new Clickable(evt => GameManager.Instance.StartGameFromSave(fileName)));
+        this.AddManipulator(new Clickable(StartGame));
 
         // button to destory the file
         Button deleteButton = new Button();
@@ -42,11 +41,18 @@ public class SaveFileVisual : VisualElement
         Add(deleteButton);
     }
 
+    void StartGame()
+    {
+        GameManager.Instance.StartGameFromSave(_fileName);
+        _parent.Hide();
+    }
+
     void DeleteSave()
     {
         FileManager.DeleteFile(_fileName);
         // gray out the save or something.
-        style.backgroundColor = Color.gray;
+        //style.backgroundColor = Color.gray;
+        _parent.Remove(this);
     }
 
 

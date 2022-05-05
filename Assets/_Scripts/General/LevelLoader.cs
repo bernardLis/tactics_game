@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    VisualElement _root;
     VisualElement _crossfade;
 
     void Start()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        _crossfade = root.Q<VisualElement>("crossfade");
+        _root = GetComponent<UIDocument>().rootVisualElement;
+        _crossfade = _root.Q<VisualElement>("crossfade");
     }
 
     public void LoadLevel(string newScene)
@@ -38,6 +39,7 @@ public class LevelLoader : MonoBehaviour
 
     void HideCrossfade()
     {
+        //_root.style.display = DisplayStyle.None; // I can't use it for transition within the menu then
         _crossfade.style.display = DisplayStyle.None;
     }
 }

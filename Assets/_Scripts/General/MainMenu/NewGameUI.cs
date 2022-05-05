@@ -38,7 +38,6 @@ public class NewGameUI : MonoBehaviour
         if (txt == null)
             return; //TODO: display a tooltip that it can't be null;
 
-        Debug.Log($"txt {txt}");
         // new save
         string guid = System.Guid.NewGuid().ToString();
         string fileName = guid + ".dat";

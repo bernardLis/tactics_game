@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class MainMenuUI : MonoBehaviour
 
     VisualElement _menuContainer;
     VisualElement _newGameScreen;
+    VisualElement _settingsContainer;
 
 
     void Start()
@@ -31,6 +34,7 @@ public class MainMenuUI : MonoBehaviour
 
         _menuContainer = _root.Q<VisualElement>("menuContainer");
         _newGameScreen = _root.Q<VisualElement>("newGameContainer");
+        _settingsContainer = _root.Q<VisualElement>("settingsContainer");
 
         _continueButton.clickable.clicked += Continue;
         _startNewGameButton.clickable.clicked += StartNewGame;
@@ -39,12 +43,30 @@ public class MainMenuUI : MonoBehaviour
         _quitButton.clickable.clicked += Quit;
     }
 
+    void ShowMenuScreen()
+    {
+        _menuContainer.style.display = DisplayStyle.Flex;
+    }
+
+    public void HideMenuScreen()
+    {
+        _menuContainer.style.display = DisplayStyle.None;
+    }
+
     void Continue()
     {
+        if (SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            HideMenuScreen();
+            return;
+        }
+
         string lastSave = PlayerPrefs.GetString("lastSave");
         if (lastSave == null)
             _continueButton.style.backgroundColor = Color.gray;
         _gameManager.StartGameFromSave(lastSave);
+
+        _menuContainer.style.display = DisplayStyle.None;
     }
 
     void StartNewGame()
@@ -63,6 +85,8 @@ public class MainMenuUI : MonoBehaviour
     void Settings()
     {
         Debug.Log("settings click");
+        _menuContainer.style.display = DisplayStyle.None;
+        _settingsContainer.style.display = DisplayStyle.Flex;
     }
 
     void Quit()
@@ -70,4 +94,5 @@ public class MainMenuUI : MonoBehaviour
         Debug.Log("quit click");
         Application.Quit();
     }
+
 }
