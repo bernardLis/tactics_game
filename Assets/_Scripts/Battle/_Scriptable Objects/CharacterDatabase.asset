@@ -65,6 +65,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1f052522ee014704fb5982cc3a1d11c6, type: 2}
   - {fileID: 11400000, guid: cf63e334ccdeebd43945bb0a77632b96, type: 2}
   - {fileID: 11400000, guid: 9ce26d022665d4b4682acf00cfd4af44, type: 2}
+  - {fileID: 11400000, guid: f1adf215aef72934aaf79ac6996e1ff7, type: 2}
+  - {fileID: 11400000, guid: 2548c920de5716240ae5e1c66758fdfb, type: 2}
+  - {fileID: 11400000, guid: 160355c14bdb039479a79a8669b0aca7, type: 2}
+  - {fileID: 11400000, guid: a4ec92f1b7074f84ab21417c0aaa2ec6, type: 2}
+  - {fileID: 11400000, guid: 997dbbcb0769e524c892ed23602e5b6f, type: 2}
+  - {fileID: 11400000, guid: 7afbe107d25cc6c4682e85d08c541365, type: 2}
+  - {fileID: 11400000, guid: 7afbe107d25cc6c4682e85d08c541365, type: 2}
+  - {fileID: 11400000, guid: a243f441764e07547a084f72af92621c, type: 2}
+  - {fileID: 11400000, guid: b203184cb4195254f96a32e912135937, type: 2}
   StatIcons:
   - StatName: Strength
     Sprite: {fileID: 21300000, guid: c1181cbabffb1da4cbfd479b065b8e49, type: 3}

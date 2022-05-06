@@ -122,17 +122,15 @@ public class BattleInputController : Singleton<BattleInputController>
 
         _playerInput.actions["OpenInventoryClick"].performed += OpenInventoryClicked;
 
-        _playerInput.actions["AButtonClick"].performed += AbilityButtonClicked;
-        _playerInput.actions["SButtonClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["BasicAttackClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["BasicDefenseClick"].performed += AbilityButtonClicked;
 
-        _playerInput.actions["QButtonClick"].performed += AbilityButtonClicked;
-        _playerInput.actions["WButtonClick"].performed += AbilityButtonClicked;
-        _playerInput.actions["EButtonClick"].performed += AbilityButtonClicked;
-        _playerInput.actions["RButtonClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["FirstAbilityClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["SecondAbilityClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["ThirdAbilityClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["FourthAbilityClick"].performed += AbilityButtonClicked;
 
-        _playerInput.actions["Back"].performed += BackClick;
-
-        _playerInput.actions["CancelEverything"].performed += CancelEverything;
+        _playerInput.actions["BackClick"].performed += BackClick;
     }
 
     void UnsubscribeInputActions()
@@ -149,17 +147,15 @@ public class BattleInputController : Singleton<BattleInputController>
 
         _playerInput.actions["OpenInventoryClick"].performed -= OpenInventoryClicked;
 
-        _playerInput.actions["AButtonClick"].performed -= AbilityButtonClicked;
-        _playerInput.actions["SButtonClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["BasicAttackClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["BasicDefenseClick"].performed -= AbilityButtonClicked;
 
-        _playerInput.actions["QButtonClick"].performed -= AbilityButtonClicked;
-        _playerInput.actions["WButtonClick"].performed -= AbilityButtonClicked;
-        _playerInput.actions["EButtonClick"].performed -= AbilityButtonClicked;
-        _playerInput.actions["RButtonClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["FirstAbilityClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["SecondAbilityClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["ThirdAbilityClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["FourthAbilityClick"].performed -= AbilityButtonClicked;
 
-        _playerInput.actions["Back"].performed -= BackClick;
-
-        _playerInput.actions["CancelEverything"].performed -= CancelEverything;
+        _playerInput.actions["BackClick"].performed -= BackClick;
     }
 
     public bool IsInputAllowed()

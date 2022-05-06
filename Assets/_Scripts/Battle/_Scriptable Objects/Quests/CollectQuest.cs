@@ -28,7 +28,7 @@ public class CollectQuest : Quest
 		}
 
 		// give player the reward
-		InventoryManager.Instance.Add(Reward);
+		GameManager.Instance.GetComponent<InventoryManager>().Add(Reward);
 	}
 
 	public override void Fail()

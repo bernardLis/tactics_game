@@ -56,12 +56,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         _activeSave = fileName;
 
-        LoadLevel("Journey");
+        LoadLevel("Journey", true);
     }
 
-    public void LoadLevel(string level)
+    public void LoadLevel(string level, bool isGameLoaded = false)
     {
-        if (level == "Journey") // TODO: I want to save only on coming back to Journey, does it make sense?
+        if (level == "Journey" && !isGameLoaded) // TODO: I want to save only on coming back to Journey, does it make sense?
             SaveJsonData();
 
         _levelLoader.LoadLevel(level);
@@ -122,7 +122,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     void SaveJsonData()
     {
-        Debug.Log("Save json data");
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
         if (FileManager.WriteToFile(_activeSave, sd.ToJson()))
@@ -144,6 +143,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         List<CharacterData> charData = new();
         foreach (Character c in PlayerTroops)
         {
+            Debug.Log($"c.name {c.name}");
+
             CharacterData data = new();
             data.ReferenceID = c.ReferenceID;
             data.CharacterName = c.CharacterName;
@@ -158,7 +159,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
             List<string> abilityReferenceIds = new();
             foreach (Ability a in c.Abilities)
+            {
+                Debug.Log($"a.name {a.name}");
                 abilityReferenceIds.Add(a.ReferenceID);
+            }
             data.AbilityReferenceIds = new(abilityReferenceIds);
 
             charData.Add(data);

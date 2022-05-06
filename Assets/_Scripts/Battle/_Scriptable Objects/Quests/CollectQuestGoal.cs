@@ -6,56 +6,59 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Quests/Goals/Collect Quest Goal")]
 public class CollectQuestGoal : QuestGoal
 {
-	public override void Initialize()
-	{
-		// TODO: this writes over the values that were saved from previous 'test play'
-		CurrentAmount = 0;
-		QuestGoalState = QuestGoalState.ACTIVE;
+    InventoryManager _inventoryManager;
 
-		// check if hero has the item in the inventory already and update current amount & evaluate
-		foreach (Item item in InventoryManager.Instance.items)
-			if (item == RequiredItem)
-				CurrentAmount++;
+    public override void Initialize()
+    {
+        _inventoryManager = GameManager.Instance.GetComponent<InventoryManager>();
 
-		// subscribe to on item changed by Inventory.cs
-		// TODO: this is hacky/wrong... but I need to make sure evaluate is subscribed only once. 
-		InventoryManager.Instance.OnItemChanged -= Evaluate;
-		InventoryManager.Instance.OnItemChanged += Evaluate;
-		Evaluate();
-	}
+        // TODO: this writes over the values that were saved from previous 'test play'
+        CurrentAmount = 0;
+        QuestGoalState = QuestGoalState.ACTIVE;
 
-	public override void Evaluate()
-	{
-		// TODO: I am not certain about this logic here.
-		if (CurrentAmount >= RequiredAmount && QuestGoalState != QuestGoalState.COMPLETED)
-			Complete();
-		else if (CurrentAmount < RequiredAmount)
-			QuestGoalState = QuestGoalState.ACTIVE;
-	}
+        // check if hero has the item in the inventory already and update current amount & evaluate
+        foreach (Item item in _inventoryManager.items)
+            if (item == RequiredItem)
+                CurrentAmount++;
 
-	public override void Evaluate(object sender, ItemChangedEventArgs e)
-	{
-		if (e.Item == RequiredItem)
-		{
-			CurrentAmount++;
-			Evaluate();
-		}
-	}
+        // subscribe to on item changed by Inventory.cs
+        // TODO: this is hacky/wrong... but I need to make sure evaluate is subscribed only once. 
+        _inventoryManager.OnItemChanged -= Evaluate;
+        _inventoryManager.OnItemChanged += Evaluate;
+        Evaluate();
+    }
 
-	public override void Complete()
-	{
-		QuestGoalState = QuestGoalState.COMPLETED;
-	}
+    public override void Evaluate()
+    {
+        // TODO: I am not certain about this logic here.
+        if (CurrentAmount >= RequiredAmount && QuestGoalState != QuestGoalState.COMPLETED)
+            Complete();
+        else if (CurrentAmount < RequiredAmount)
+            QuestGoalState = QuestGoalState.ACTIVE;
+    }
 
-	public override void CleanUp()
-	{
-		InventoryManager.Instance.OnItemChanged -= Evaluate;
+    public override void Evaluate(object sender, ItemChangedEventArgs e)
+    {
+        if (e.Item == RequiredItem)
+        {
+            CurrentAmount++;
+            Evaluate();
+        }
+    }
 
-		// on quest complete remove items from the inventory
-		if (RequiredItem != null)
-			for (var i = 0; i < RequiredAmount; i++)
-				InventoryManager.Instance.Remove(RequiredItem);
+    public override void Complete()
+    {
+        QuestGoalState = QuestGoalState.COMPLETED;
+    }
 
-	}
+    public override void CleanUp()
+    {
+        _inventoryManager.OnItemChanged -= Evaluate;
+
+        // on quest complete remove items from the inventory
+        if (RequiredItem != null)
+            for (var i = 0; i < RequiredAmount; i++)
+                _inventoryManager.Remove(RequiredItem);
+    }
 
 }

@@ -8,15 +8,18 @@ using UnityEngine.SceneManagement;
 
 public class GameUIManager : MonoBehaviour
 {
+    GameManager _gameManager;
     PlayerInput _playerInput;
 
     UIDocument _uiDocument;
 
-    bool isMenuOpen;
+    MenuScreen _menuScreen;
+    ViewTroopsScreen _viewTroopsScreen;
 
     void Start()
     {
-        _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
+        _gameManager = GameManager.Instance;
+        _playerInput = _gameManager.GetComponent<PlayerInput>();
         UnsubscribeInputActions();
         SubscribeInputActions();
 
@@ -25,25 +28,57 @@ public class GameUIManager : MonoBehaviour
 
     void SubscribeInputActions()
     {
-        _playerInput.actions["OpenMenu"].performed += ShowMenu;
+        _playerInput.actions["OpenMenuClick"].performed += ShowMenu;
+        _playerInput.actions["ViewTroopsClick"].performed += ShowTroopsScreen;
+
     }
 
     public void UnsubscribeInputActions()
     {
-        _playerInput.actions["OpenMenu"].performed -= ShowMenu;
+        _playerInput.actions["OpenMenuClick"].performed -= ShowMenu;
+        _playerInput.actions["ViewTroopsClick"].performed -= ShowTroopsScreen;
+
     }
 
     void ShowMenu(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == "Main Menu" || isMenuOpen)
+        if (SceneManager.GetActiveScene().name == "Main Menu")
             return;
 
-        isMenuOpen = true;
-        MenuScreenVisual menu = new MenuScreenVisual(_uiDocument.rootVisualElement);
+        if (_menuScreen != null)
+            _menuScreen.Hide();
+
+        _menuScreen = new MenuScreen(_uiDocument.rootVisualElement);
+        _menuScreen.OnClose += MenuScreenClosed;
     }
 
-    public void SetIsMenuOpen(bool isIt)
+    void MenuScreenClosed()
     {
-        isMenuOpen = isIt;
+        _menuScreen.OnClose -= MenuScreenClosed;
+        _menuScreen = null;
+    }
+
+    public void ShowTroopsScreen(InputAction.CallbackContext ctx)
+    {
+        ShowTroopsScreenNoContext();
+    }
+
+    public void ShowTroopsScreenNoContext()
+    {
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+            return;
+        
+        if (_viewTroopsScreen != null)
+            _viewTroopsScreen.Hide();
+
+        _viewTroopsScreen = new ViewTroopsScreen(_gameManager.PlayerTroops, _uiDocument.rootVisualElement);
+        _viewTroopsScreen.AddToClassList("menuScreen");
+        _viewTroopsScreen.OnClose += TroopsScreenClosed;
+    }
+
+    void TroopsScreenClosed()
+    {
+        _viewTroopsScreen.OnClose -= TroopsScreenClosed;
+        _viewTroopsScreen = null;
     }
 }

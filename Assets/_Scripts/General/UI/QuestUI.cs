@@ -27,6 +27,9 @@ public class QuestUI : MonoBehaviour
 
     void Awake()
     {
+        _playerInput = GetComponent<PlayerInput>();
+        _questManager = GetComponent<QuestManager>();
+
         _UIDocument = GetComponent<UIDocument>();
         var root = _UIDocument.rootVisualElement;
 
@@ -36,9 +39,6 @@ public class QuestUI : MonoBehaviour
         _failedQuestsContainer = root.Q<VisualElement>("failedQuestsContainer");
         _questInformation = root.Q<VisualElement>("questInformation");
 
-        _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
-
-        _questManager = BattleManager.Instance.GetComponent<QuestManager>();
     }
 
     void OnEnable()
@@ -91,7 +91,7 @@ public class QuestUI : MonoBehaviour
             RefreshQuestInformation();
 
         // only one can be visible/
-        GameUI.Instance.HideAllUIPanels();
+        //GameUI.Instance.HideAllUIPanels();
 
         _questContainer.style.display = DisplayStyle.Flex;
     }

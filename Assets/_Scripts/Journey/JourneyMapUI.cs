@@ -14,7 +14,6 @@ public class JourneyMapUI : MonoBehaviour
     VisualElement _nodeInfo;
     Label _nodeType;
     Label _nodeObols;
-    FullScreenVisual _viewTroopsContainer;
     Button _viewTroopsButton;
 
     [Header("Unity Setup")]
@@ -105,14 +104,7 @@ public class JourneyMapUI : MonoBehaviour
 
     void ViewTroopsClick()
     {
-        _viewTroopsContainer = new FullScreenVisual();
-        _viewTroopsContainer.Initialize(_root);
-
-        foreach (Character character in _gameManager.PlayerTroops)
-        {
-            CharacterCardVisual card = new CharacterCardVisual(character);
-            _viewTroopsContainer.Add(card);
-        }
+        _gameManager.GetComponent<GameUIManager>().ShowTroopsScreenNoContext();
     }
 
 }

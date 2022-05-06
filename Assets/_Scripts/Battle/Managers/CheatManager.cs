@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
 public class CheatManager : MonoBehaviour
@@ -10,9 +9,6 @@ public class CheatManager : MonoBehaviour
 
     void Start()
     {
-        // getting ui elements
-        var root = GetComponent<UIDocument>().rootVisualElement;
-
         _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
     }
 

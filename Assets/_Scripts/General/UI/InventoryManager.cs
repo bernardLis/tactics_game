@@ -16,16 +16,11 @@ public class ItemChangedEventArgs : EventArgs
     }
 }
 
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : MonoBehaviour
 {
     public List<Item> items = new();
 
     public event EventHandler<ItemChangedEventArgs> OnItemChanged;
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
 
     public void Add(Item item)
     {

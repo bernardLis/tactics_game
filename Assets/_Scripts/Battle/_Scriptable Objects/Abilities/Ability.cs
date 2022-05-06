@@ -7,7 +7,8 @@ public enum AbilityType { Attack, Heal, Push, Buff, Utility, Create }
 
 public abstract class Ability : BaseScriptableObject
 {
-    [HideInInspector] public string ReferenceID;
+    [Tooltip("Used for saving and character creation")]
+    public string ReferenceID;
 
     [Header("Characteristics")]
     public string Description = "New Description";

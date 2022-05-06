@@ -15,78 +15,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "AButtonClick",
-                    "type": "Button",
-                    "id": "51f2f3c9-941f-43b6-b626-7404acbbd970",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SButtonClick",
-                    "type": "Button",
-                    "id": "fc5387e7-b010-406f-85a3-2780fd031eef",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "OpenInventoryClick",
-                    "type": "Button",
-                    "id": "7fd84d31-94b6-4e68-bbde-10667712e605",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "QButtonClick",
-                    "type": "Button",
-                    "id": "618f08ab-7a07-40cf-a3c8-0f92bedb73d3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "WButtonClick",
-                    "type": "Button",
-                    "id": "8b102efc-3ce3-44f2-aa6b-63c50c2f0bcb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "EButtonClick",
-                    "type": "Button",
-                    "id": "9dee79f0-db68-4c3e-933b-afcafc5a5a5c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RButtonClick",
-                    "type": "Button",
-                    "id": "3dd55fee-0310-480a-951e-d111f267683f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Back",
-                    "type": "Button",
-                    "id": "7c78f711-47be-47b3-b3e1-04865a1d14a7",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "LeftMouseClick",
                     "type": "Button",
                     "id": "6a73f7fa-bf06-4d7e-ac53-fa6e2c526e46",
@@ -105,9 +33,99 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "BackClick",
+                    "type": "Button",
+                    "id": "7c78f711-47be-47b3-b3e1-04865a1d14a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "DetailsClick",
                     "type": "Button",
                     "id": "3347af0d-ef8c-411e-9d54-1c9c10f93e73",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BasicAttackClick",
+                    "type": "Button",
+                    "id": "51f2f3c9-941f-43b6-b626-7404acbbd970",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BasicDefenseClick",
+                    "type": "Button",
+                    "id": "fc5387e7-b010-406f-85a3-2780fd031eef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FirstAbilityClick",
+                    "type": "Button",
+                    "id": "618f08ab-7a07-40cf-a3c8-0f92bedb73d3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SecondAbilityClick",
+                    "type": "Button",
+                    "id": "8b102efc-3ce3-44f2-aa6b-63c50c2f0bcb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThirdAbilityClick",
+                    "type": "Button",
+                    "id": "9dee79f0-db68-4c3e-933b-afcafc5a5a5c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FourthAbilityClick",
+                    "type": "Button",
+                    "id": "3dd55fee-0310-480a-951e-d111f267683f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenMenuClick",
+                    "type": "Button",
+                    "id": "79e89792-4d70-4dc4-8931-4f9cbe20547f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ViewTroopsClick",
+                    "type": "Button",
+                    "id": "b888122d-1bce-4588-b547-98ff38c43f38",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInventoryClick",
+                    "type": "Button",
+                    "id": "7fd84d31-94b6-4e68-bbde-10667712e605",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -126,24 +144,6 @@
                     "name": "SelectPreviousCharacter",
                     "type": "Button",
                     "id": "ea3b674b-df29-4a25-be2d-2c204c9d6ea3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "CancelEverything",
-                    "type": "Button",
-                    "id": "1f261bb9-2615-4413-a68d-5ce71b177671",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "OpenMenu",
-                    "type": "Button",
-                    "id": "79e89792-4d70-4dc4-8931-4f9cbe20547f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -176,7 +176,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "QButtonClick",
+                    "action": "FirstAbilityClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -187,7 +187,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "EButtonClick",
+                    "action": "ThirdAbilityClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -198,7 +198,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "WButtonClick",
+                    "action": "SecondAbilityClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -209,62 +209,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "RButtonClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1157a2df-7454-43be-84e8-c17f80af27ba",
-                    "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fe2c0d37-b13f-4f2f-8028-26b55420ca74",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "LeftMouseClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d72a8822-1533-426c-be42-e739aa829a07",
-                    "path": "<Keyboard>/f",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "SelectClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "126036a9-efdb-47f5-9773-8dfbd5460919",
-                    "path": "<Keyboard>/o",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "SelectNextCharacter",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bd1a7ce5-3de1-4080-aadf-b80a23bcdec4",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "SelectPreviousCharacter",
+                    "action": "FourthAbilityClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -325,23 +270,12 @@
                 },
                 {
                     "name": "",
-                    "id": "fdce7e40-3aa1-4850-9951-4235e46ea8a4",
-                    "path": "<Keyboard>/backspace",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "CancelEverything",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d9818ed2-e762-40ff-9499-74de2acc107e",
                     "path": "<Keyboard>/a",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "AButtonClick",
+                    "action": "BasicAttackClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -352,18 +286,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "SButtonClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f63c75b0-dbbd-4513-9380-8f72c451b1fe",
-                    "path": "<Keyboard>/i",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "OpenInventoryClick",
+                    "action": "BasicDefenseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -391,6 +314,61 @@
                 },
                 {
                     "name": "",
+                    "id": "72516af2-132a-4d59-9aec-6a0fc3cda50d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "OpenMenuClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f63c75b0-dbbd-4513-9380-8f72c451b1fe",
+                    "path": "<Keyboard>/i",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "OpenInventoryClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe2c0d37-b13f-4f2f-8028-26b55420ca74",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "LeftMouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d72a8822-1533-426c-be42-e739aa829a07",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "SelectClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1157a2df-7454-43be-84e8-c17f80af27ba",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "BackClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "cf6881de-d508-4ff9-b9d6-adbdfc6594bd",
                     "path": "<Keyboard>/g",
                     "interactions": "Press",
@@ -402,12 +380,34 @@
                 },
                 {
                     "name": "",
-                    "id": "72516af2-132a-4d59-9aec-6a0fc3cda50d",
-                    "path": "<Keyboard>/escape",
+                    "id": "126036a9-efdb-47f5-9773-8dfbd5460919",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "OpenMenu",
+                    "action": "SelectNextCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd1a7ce5-3de1-4080-aadf-b80a23bcdec4",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "SelectPreviousCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5405f071-3913-4ae9-9a4f-f2556b969ff8",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "ViewTroopsClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

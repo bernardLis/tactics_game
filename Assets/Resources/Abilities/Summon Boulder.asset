@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Summon Boulder
   m_EditorClassIdentifier: 
   Id: e1ed95ef-1ea3-497f-b756-d0cbecaf9f2b
-  ReferenceID: 
+  ReferenceID: CREATE-2
   Description: Summons a pushable boulder
   Icon: {fileID: 21300000, guid: 1567b1330c060d14da8567a0984cf1d1, type: 3}
   Sound: {fileID: 8300000, guid: 3d96ffe5bfae1e74189fbbfeaf87ee22, type: 3}

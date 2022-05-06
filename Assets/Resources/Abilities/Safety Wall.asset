@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Safety Wall
   m_EditorClassIdentifier: 
   Id: ef09e833-3ce1-4246-80df-d272c4ed2443
-  ReferenceID: 
+  ReferenceID: CREATE-1
   Description: Shields whoever stands on it from meele damage
   Icon: {fileID: 21300000, guid: 38be24e6963aad24ea21a9f0f1304f8d, type: 3}
   Sound: {fileID: 8300000, guid: 5560fa00424abaa4e97ab61849525bd5, type: 3}

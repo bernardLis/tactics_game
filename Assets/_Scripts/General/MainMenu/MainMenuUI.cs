@@ -20,7 +20,6 @@ public class MainMenuUI : MonoBehaviour
     VisualElement _newGameScreen;
     VisualElement _settingsContainer;
 
-
     void Start()
     {
         _gameManager = GameManager.Instance;

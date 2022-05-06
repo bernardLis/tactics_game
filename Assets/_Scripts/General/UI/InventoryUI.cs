@@ -28,9 +28,9 @@ public class InventoryUI : Singleton<InventoryUI>
     {
         base.Awake();
 
-        _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
+        _playerInput = GetComponent<PlayerInput>();
 
-        _inventoryManager = InventoryManager.Instance;
+        _inventoryManager = GetComponent<InventoryManager>();
         _inventoryManager.OnItemChanged += OnItemChanged;
 
         // store the root from the ui document component
@@ -59,9 +59,7 @@ public class InventoryUI : Singleton<InventoryUI>
 
         // populate inventory ui on awake;
         foreach (Item item in _inventoryManager.items)
-        {
             AddItemToUI(item);
-        }
     }
 
     void OnEnable()
@@ -74,12 +72,13 @@ public class InventoryUI : Singleton<InventoryUI>
 
     void OnDisable()
     {
-        if (_playerInput != null)
-        {
-            _playerInput.actions["InventoryMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
-            _playerInput.actions["DisableInventoryUI"].performed -= ctx => DisableInventoryUI();
-            _playerInput.actions["UseItem"].performed -= ctx => UseItem();
-        }
+        if (_playerInput == null)
+            return;
+
+        _playerInput.actions["InventoryMovement"].performed -= ctx => Move(ctx.ReadValue<Vector2>());
+        _playerInput.actions["DisableInventoryUI"].performed -= ctx => DisableInventoryUI();
+        _playerInput.actions["UseItem"].performed -= ctx => UseItem();
+
     }
 
     void Move(Vector2 direction)
@@ -182,7 +181,7 @@ public class InventoryUI : Singleton<InventoryUI>
         _playerInput.SwitchCurrentActionMap("InventoryUI");
 
         // only one can be visible.
-        GameUI.Instance.HideAllUIPanels();
+        //GameUI.Instance.HideAllUIPanels();
 
         _inventoryContainer.style.display = DisplayStyle.Flex;
 
@@ -194,7 +193,7 @@ public class InventoryUI : Singleton<InventoryUI>
     {
         _inventoryContainer.style.display = DisplayStyle.None;
 
-        // TODO: maybe battle controller can have a method for that;
+        // TODO: maybe battle controller can have a method for that; that's nasty
         CharacterUI.Instance.ShowCharacterUI(BattleCharacterController.Instance.SelectedCharacter.GetComponent<CharacterStats>());
 
         _playerInput.SwitchCurrentActionMap("Player");
