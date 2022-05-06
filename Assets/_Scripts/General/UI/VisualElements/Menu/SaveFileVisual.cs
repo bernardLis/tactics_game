@@ -37,7 +37,7 @@ public class SaveFileVisual : VisualElement
         Button deleteButton = new Button();
         deleteButton.text = "Remove Save";
         deleteButton.AddToClassList("primaryText");
-        deleteButton.clickable.clicked += DeleteSave;
+        deleteButton.clickable.clicked += ConfirmDelete;
         Add(deleteButton);
     }
 
@@ -45,6 +45,12 @@ public class SaveFileVisual : VisualElement
     {
         GameManager.Instance.StartGameFromSave(_fileName);
         _parent.Hide();
+    }
+
+    void ConfirmDelete()
+    {
+        ConfirmPopUp pop = new ConfirmPopUp();
+        pop.Initialize(_parent, DeleteSave);
     }
 
     void DeleteSave()

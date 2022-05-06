@@ -7,7 +7,6 @@ public class FullScreenVisual : VisualElement
 
     public void Initialize(VisualElement root)
     {
-        style.backgroundColor = Color.gray;
         style.width = Length.Percent(100);
         style.height = Length.Percent(100);
         style.position = Position.Absolute;
@@ -29,8 +28,18 @@ public class FullScreenVisual : VisualElement
         Hide();
     }
 
-    public void Hide()
+    public void AddBackButton()
     {
+        Button backButton = new Button();
+        backButton.text = "Back";
+        backButton.AddToClassList("menuButton");
+        backButton.clickable.clicked += Hide;
+        Add(backButton);
+    }
+
+    public virtual void Hide()
+    {
+        this.SetEnabled(false);
         _root.Remove(this);
     }
 }

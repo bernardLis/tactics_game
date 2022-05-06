@@ -21,6 +21,12 @@ public static class FileManager
         }
     }
 
+    public static bool FileExists(string fileName)
+    {
+        var fullPath = Path.Combine(Application.persistentDataPath, fileName);
+        return File.Exists(fullPath);
+    }
+
     public static bool WriteToFile(string fileName, string fileContents)
     {
         var fullPath = Path.Combine(Application.persistentDataPath, fileName);

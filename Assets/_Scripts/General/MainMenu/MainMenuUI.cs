@@ -27,8 +27,10 @@ public class MainMenuUI : MonoBehaviour
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _continueButton = _root.Q<Button>("continueButton");
+        ResolveContinueButton();
         _startNewGameButton = _root.Q<Button>("startNewGameButton");
         _loadGameButton = _root.Q<Button>("loadGameButton");
+        ResolveLoadGameButton();
         _settingsButton = _root.Q<Button>("settingsButton");
         _quitButton = _root.Q<Button>("quitButton");
 
@@ -40,33 +42,29 @@ public class MainMenuUI : MonoBehaviour
         _startNewGameButton.clickable.clicked += StartNewGame;
         _loadGameButton.clickable.clicked += LoadGame;
         _settingsButton.clickable.clicked += Settings;
-        _quitButton.clickable.clicked += Quit;
+        _quitButton.clickable.clicked += ConfirmQuit;
     }
 
-    void ShowMenuScreen()
+    void ResolveContinueButton()
     {
-        _menuContainer.style.display = DisplayStyle.Flex;
-    }
-
-    public void HideMenuScreen()
-    {
-        _menuContainer.style.display = DisplayStyle.None;
+        string lastSave = PlayerPrefs.GetString("lastSave");
+        if (lastSave == null || !FileManager.FileExists(lastSave))
+        {
+            _continueButton.SetEnabled(false);
+            _continueButton.style.backgroundColor = Color.gray;
+        }
     }
 
     void Continue()
     {
-        if (SceneManager.GetActiveScene().name != "Main Menu")
-        {
-            HideMenuScreen();
-            return;
-        }
-
         string lastSave = PlayerPrefs.GetString("lastSave");
-        if (lastSave == null)
-            _continueButton.style.backgroundColor = Color.gray;
-        _gameManager.StartGameFromSave(lastSave);
 
-        _menuContainer.style.display = DisplayStyle.None;
+        if (lastSave == null)
+            return;
+        if (!FileManager.FileExists(lastSave))
+            return;
+
+        _gameManager.StartGameFromSave(lastSave);
     }
 
     void StartNewGame()
@@ -74,6 +72,17 @@ public class MainMenuUI : MonoBehaviour
         // TODO: I could make a transition with dotween
         _menuContainer.style.display = DisplayStyle.None;
         _newGameScreen.style.display = DisplayStyle.Flex;
+    }
+
+
+    void ResolveLoadGameButton()
+    {
+        string[] saveFiles = FileManager.LoadALlSaveFiles();
+        if (saveFiles.Length != 0)
+            return;
+
+        _loadGameButton.SetEnabled(false);
+        _loadGameButton.style.backgroundColor = Color.gray;
     }
 
     void LoadGame()
@@ -84,14 +93,17 @@ public class MainMenuUI : MonoBehaviour
 
     void Settings()
     {
-        Debug.Log("settings click");
-        _menuContainer.style.display = DisplayStyle.None;
-        _settingsContainer.style.display = DisplayStyle.Flex;
+        new SettingsScreen(_root);
+    }
+
+    void ConfirmQuit()
+    {
+        ConfirmPopUp pop = new ConfirmPopUp();
+        pop.Initialize(_root, Quit);
     }
 
     void Quit()
     {
-        Debug.Log("quit click");
         Application.Quit();
     }
 
