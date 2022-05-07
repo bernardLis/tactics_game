@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <ui:VisualElement name="UI" style="width: 20%; height: 100%;">
         <ui:Label text="Label" display-tooltip-when-elided="true" name="playerName" style="font-size: 48px; color: rgb(255, 255, 255);" />
         <ui:VisualElement name="runInformationContainer">
@@ -7,9 +8,7 @@
                 <ui:Label text="24" display-tooltip-when-elided="true" name="currencyAmount" style="-unity-text-align: middle-left; font-size: 54px; -unity-font: resource(&apos;Fonts &amp; Materials/LiberationSans&apos;); color: rgb(255, 255, 255); margin-left: 8px;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="nodeInfo" style="margin-top: 20px; display: flex; visibility: hidden;">
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="nodeType" style="font-size: 48px; color: rgb(255, 255, 255);" />
-        </ui:VisualElement>
         <ui:Button text="View troops" display-tooltip-when-elided="true" name="viewTroops" style="font-size: 14px; margin-top: 20px;" />
+        <ui:VisualElement name="nodeInfo" style="margin-top: 20px; display: flex; visibility: visible;" />
     </ui:VisualElement>
 </ui:UXML>

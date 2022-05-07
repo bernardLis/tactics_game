@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RangedBrain
   m_EditorClassIdentifier: 
   Id: 187f2893-3547-4c8f-9f30-d6253c01c157
+  BrainIcon: {fileID: 21300000, guid: d184893bf554d68478e2c3db2f70788b, type: 3}
   Name: Ranger Kurt
   Portrait: {fileID: 21300000, guid: 2c59ce9a31dd52748a30bf53367bf85b, type: 3}
   StrengthMultiplier: 0.8
@@ -27,3 +28,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 160355c14bdb039479a79a8669b0aca7, type: 2}
   - {fileID: 11400000, guid: 7afbe107d25cc6c4682e85d08c541365, type: 2}
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
+  Abilities: []

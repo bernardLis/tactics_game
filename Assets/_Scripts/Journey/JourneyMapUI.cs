@@ -12,8 +12,7 @@ public class JourneyMapUI : MonoBehaviour
     Label _playerName;
     Label _currencyAmount;
     VisualElement _nodeInfo;
-    Label _nodeType;
-    Label _nodeObols;
+
     Button _viewTroopsButton;
 
     [Header("Unity Setup")]
@@ -29,8 +28,6 @@ public class JourneyMapUI : MonoBehaviour
         _currencyAmount = _root.Q<Label>("currencyAmount");
 
         _nodeInfo = _root.Q<VisualElement>("nodeInfo");
-        _nodeType = _root.Q<Label>("nodeType");
-        _nodeObols = _root.Q<Label>("nodeObols");
 
         _viewTroopsButton = _root.Q<Button>("viewTroops");
         _viewTroopsButton.clickable.clicked += ViewTroopsClick;
@@ -93,26 +90,13 @@ public class JourneyMapUI : MonoBehaviour
 
     public void ShowNodeInfo(JourneyNode node)
     {
-        _nodeInfo.style.visibility = Visibility.Visible;
-        _nodeType.text = node.NodeType.ToString();
-        if (node.NodeType == JourneyNodeType.Battle)
-        {
-            BattleNode bNode = (BattleNode)node;
-            // TODO: maybe a node info element that fills itself?
-            Label variant = new Label(bNode.MapVariant.name);
-            Label biome = new Label(bNode.Biome.name);
-            Label numberOfEnemies = new Label("Number of enemies: " + bNode.Enemies.Count); // TODO: brains could hold icons that represent enemy type and I could be displaying them
-            Label mapSize = new Label($"Map size: {bNode.MapSize.x} x {bNode.MapSize.y}");
-            _nodeInfo.Add(variant);
-            _nodeInfo.Add(biome);
-            _nodeInfo.Add(numberOfEnemies);
-            _nodeInfo.Add(mapSize);
-        }
+        _nodeInfo.Clear();
+        _nodeInfo.Add(new JourneyNodeInfoVisual(node));
     }
 
     public void HideNodeInfo()
     {
-        _nodeInfo.style.visibility = Visibility.Hidden;
+        _nodeInfo.Clear();
     }
 
     void ViewTroopsClick()

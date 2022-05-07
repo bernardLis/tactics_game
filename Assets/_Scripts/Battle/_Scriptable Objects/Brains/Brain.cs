@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "ScriptableObject/Brain/Brain")]
 public class Brain : BaseScriptableObject
 {
+    public Sprite BrainIcon;
+
     public string Name;
     public Sprite Portrait;
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MeeleBrain
   m_EditorClassIdentifier: 
   Id: 0bb2b244-0ec2-4dd3-9cb1-cb0d855f9105
+  BrainIcon: {fileID: 21300000, guid: 64e29a7dee046c448b82b1c27419f427, type: 3}
   Name: Meele Jason
   Portrait: {fileID: 21300000, guid: e9ebbda9a47e27343a1441e94d6e2d85, type: 3}
   StrengthMultiplier: 1.2
@@ -27,3 +28,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a4ec92f1b7074f84ab21417c0aaa2ec6, type: 2}
   - {fileID: 11400000, guid: a243f441764e07547a084f72af92621c, type: 2}
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
+  Abilities: []
