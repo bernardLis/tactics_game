@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7252322758523318539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7252322758523318537}
+  - component: {fileID: 7252322758523318543}
+  - component: {fileID: 7252322758523318536}
+  - component: {fileID: 7252322758523318540}
+  m_Layer: 0
+  m_Name: JourneyMapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7252322758523318537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252322758523318539}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7252322758523318543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252322758523318539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 6db02e70e6e25214fb836d2a68ad9df4, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &7252322758523318536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252322758523318539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f5702067fa7544aaa866711f216534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _numberOfPaths: 5
+  _numberOfRows: 7
+  _numberOfBridges: 5
+  _basicConfigs:
+  - {fileID: 11400000, guid: 48b63e31052747e439be636f588bd7b8, type: 2}
+  - {fileID: 11400000, guid: e5776c8dc62eacf4d8be1de62bd97cca, type: 2}
+  - {fileID: 11400000, guid: d45fee76690705842bd937e929c708b7, type: 2}
+  BattleDatabase: {fileID: 11400000, guid: f13568fe508ebb34bb075c2b6cff746e, type: 2}
+  _backgrounds:
+  - {fileID: 21300000, guid: 5ed7bae907d9bdf4481ac157fa16c084, type: 3}
+  - {fileID: 21300000, guid: 1feec931a9118d540b30c7c34e2e5517, type: 3}
+  - {fileID: 21300000, guid: fd2829fbb18039045bec996992fb3c17, type: 3}
+  - {fileID: 21300000, guid: 7ed25c6cd159ffa4dae0300caebb88d4, type: 3}
+  _journeyNodes:
+  - {fileID: 11400000, guid: acf1dce2041a6b44da3848b421aebe7c, type: 2}
+  - {fileID: 11400000, guid: 3df89724e51fe5542b597a2b6b5998e1, type: 2}
+  - {fileID: 11400000, guid: cc0d04158ce232a46832bad9060d07ec, type: 2}
+  - {fileID: 11400000, guid: 8dbb94a5cdc6ec547902bb1eecaa5aa8, type: 2}
+  - {fileID: 11400000, guid: d219158be8803d243a25d93b40f5d925, type: 2}
+  _startNodeScriptableObject: {fileID: 11400000, guid: 40c682b48d4e172408c2a268155a79c0, type: 2}
+  _endNodeScriptableObject: {fileID: 11400000, guid: 13c25550cd6bad148aa835dde8c217b1, type: 2}
+  _journeyHolder: {fileID: 0}
+  _journeyNodePrefab: {fileID: 4605823331722979178, guid: 570daa297cd33394b92bc6c18457866b, type: 3}
+  _journeyLine: {fileID: 2100000, guid: e43d44a79a4deea4abc8506261f5e070, type: 2}
+  _pathTravelledLine: {fileID: 2100000, guid: 27f04035a37086a44b904547debdfaf4, type: 2}
+  AvailableNodes: []
+--- !u!114 &7252322758523318540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252322758523318539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977e349851823014c8fa58514ad0448d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obolObject: {fileID: 4198658476046925160, guid: 766bc13060cef0c4196303962a9eb56c, type: 3}

@@ -95,6 +95,19 @@ public class JourneyMapUI : MonoBehaviour
     {
         _nodeInfo.style.visibility = Visibility.Visible;
         _nodeType.text = node.NodeType.ToString();
+        if (node.NodeType == JourneyNodeType.Battle)
+        {
+            BattleNode bNode = (BattleNode)node;
+            // TODO: maybe a node info element that fills itself?
+            Label variant = new Label(bNode.MapVariant.name);
+            Label biome = new Label(bNode.Biome.name);
+            Label numberOfEnemies = new Label("Number of enemies: " + bNode.Enemies.Count); // TODO: brains could hold icons that represent enemy type and I could be displaying them
+            Label mapSize = new Label($"Map size: {bNode.MapSize.x} x {bNode.MapSize.y}");
+            _nodeInfo.Add(variant);
+            _nodeInfo.Add(biome);
+            _nodeInfo.Add(numberOfEnemies);
+            _nodeInfo.Add(mapSize);
+        }
     }
 
     public void HideNodeInfo()

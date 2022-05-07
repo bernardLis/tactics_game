@@ -18,6 +18,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
 
     [Header("Unity Setup")]
+    public BattleDatabase BattleDatabase;
     [SerializeField] Sprite[] _backgrounds;
     [SerializeField] JourneyNode[] _journeyNodes;
     [SerializeField] JourneyNode _startNodeScriptableObject;
@@ -334,7 +335,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
         // So, here I would like to transition to a scene depending on the node
         // I also need to make sure this journey and all data is remembered between scene transitions 
-        _gameManager.LoadLevel(CurrentNode.SceneToLoad);
+        _gameManager.LoadLevelFromNode(CurrentNode);
     }
 
     /* Helpers */

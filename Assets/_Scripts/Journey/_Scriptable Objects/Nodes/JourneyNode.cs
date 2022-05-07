@@ -13,7 +13,7 @@ public class JourneyNode : BaseScriptableObject
     SpriteRenderer _spriteRenderer;
     [HideInInspector] public JourneyNodeBehaviour JourneyNodeBehaviour;
 
-    public void Initialize(GameObject self)
+    public virtual void Initialize(GameObject self)
     {
         GameObject = self;
         GameObject.name = name;

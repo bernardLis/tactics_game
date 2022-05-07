@@ -9,12 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cb85324df15784b800a9abd3c4ed92, type: 3}
+  m_Script: {fileID: 11500000, guid: d852f7db2f080c94aa7ae94ab7ecd293, type: 3}
   m_Name: Battle
   m_EditorClassIdentifier: 
-  Id: 35e50f44-bd0b-45c1-a58c-f2a474e22bfa
+  Id: d400f609-f0ad-4392-a3a3-9dfa81442792
   Icon: {fileID: 21300000, guid: c9fe9cf4b40b77e45b338f5b072faedf, type: 3}
   NodeType: 2
   SceneToLoad: Battle
   GameObject: {fileID: 0}
   JourneyNodeBehaviour: {fileID: 0}
+  Biome: {fileID: 0}
+  MapVariant: {fileID: 0}
+  Enemies: []
+  MapSize: {x: 0, y: 0}

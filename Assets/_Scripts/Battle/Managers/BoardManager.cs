@@ -13,20 +13,24 @@ public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 public class BoardManager : MonoBehaviour
 {
+    // global
+    GameManager _gameManager;
+    HighlightManager _highlighter;
+    TurnManager _turnManager;
+    BattleManager _battleManger;
+
     [Header("Map Setup")]
-    MapVariant _mapVariantChosen;
+    BattleNode _battleNode;
+    MapVariant _mapVariant;
     int _seed;
-    public Vector2Int MapSize = new();
+    public Vector2Int MapSize;
 
     [Header("Enemies")]
-    [SerializeField] Brain[] _enemyBrains;
     [SerializeField] GameObject _enemyGO;
     List<EnemySpawnDirection> _allowedEnemySpawnDirections = new();
     public EnemySpawnDirection EnemySpawnDirection { get; private set; }
 
     [Header("Unity objects")]
-    [SerializeField] MapVariant[] _mapVariants;
-    [SerializeField] TilemapBiome[] _biomes;
     [SerializeField] Tilemap _backgroundTilemap;
     [SerializeField] Tilemap _middlegroundTilemap;
     [SerializeField] GameObject _envObjectsHolder;
@@ -53,14 +57,18 @@ public class BoardManager : MonoBehaviour
     List<GameObject> _pushableObstacles;
     List<Vector3Int> _openOuterPositions = new();
 
-    // global
-    HighlightManager _highlighter;
-    TurnManager _turnManager;
-
     void Start()
     {
+        _gameManager = GameManager.Instance;
         _highlighter = HighlightManager.Instance;
         _turnManager = TurnManager.Instance;
+        _battleManger = BattleManager.Instance;
+
+        _battleNode = (BattleNode)_gameManager.CurrentNode;
+        MapSize = _battleNode.MapSize;
+        _biome = _battleNode.Biome;
+        _mapVariant = _battleNode.MapVariant;
+
         GenerateMap();
     }
 
@@ -89,10 +97,10 @@ public class BoardManager : MonoBehaviour
         await Task.Delay(100);
         DrawOuter();
         await Task.Delay(100);
-        BattleManager.Instance.GetComponent<TileManager>().SetUp();
+        _battleManger.GetComponent<TileManager>().SetUp();
         PlaceOuterAdditions();
         await SetupAstar();
-        await SpawnEnemies(3);
+        await SpawnEnemies();
         PlaceMapReset();
         await Task.Delay(250);
         CreatePlayerStartingArea();
@@ -105,8 +113,6 @@ public class BoardManager : MonoBehaviour
         _highlighter.ClearHighlightedTiles().GetAwaiter();
         _turnManager.UpdateBattleState(BattleState.MapBuilding);
         MovePointController.Instance.transform.position = new Vector3(MapSize.x / 2, MapSize.y / 2);
-
-        _biome = _biomes[Random.Range(0, _biomes.Length)];
 
         _pushableObstacles = new();
 
@@ -139,10 +145,9 @@ public class BoardManager : MonoBehaviour
 
     void ResolveMapVariant()
     {
-        _mapVariantChosen = _mapVariants[Random.Range(0, _mapVariants.Length)];
-        _obstaclePercent = Random.Range(_mapVariantChosen.ObstaclePercent.x, _mapVariantChosen.ObstaclePercent.y);
-        _terrainIrregularitiesPercent = Random.Range(_mapVariantChosen.TerrainIrregularitiesPercent.x,
-                                                    _mapVariantChosen.TerrainIrregularitiesPercent.y);
+        _obstaclePercent = Random.Range(_mapVariant.ObstaclePercent.x, _mapVariant.ObstaclePercent.y);
+        _terrainIrregularitiesPercent = Random.Range(_mapVariant.TerrainIrregularitiesPercent.x,
+                                                    _mapVariant.TerrainIrregularitiesPercent.y);
         _outerAdditionsPercent = Random.Range(_biome.OuterAdditionsPercent.x, _biome.OuterAdditionsPercent.y);
 
         Light2D l = Instantiate(_globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
@@ -154,13 +159,13 @@ public class BoardManager : MonoBehaviour
 
         _allowedEnemySpawnDirections = System.Enum.GetValues(typeof(EnemySpawnDirection)).Cast<EnemySpawnDirection>().ToList();
 
-        if (_mapVariantChosen.MapType == MapType.Circle)
+        if (_mapVariant.MapType == MapType.Circle)
             CarveCircle();
-        if (_mapVariantChosen.MapType == MapType.River)
+        if (_mapVariant.MapType == MapType.River)
             PlaceRiver();
-        if (_mapVariantChosen.MapType == MapType.Lake)
+        if (_mapVariant.MapType == MapType.Lake)
             PlaceLake();
-        if (_mapVariantChosen.MapType == MapType.Hourglass)
+        if (_mapVariant.MapType == MapType.Hourglass)
             CarveHourglass();
     }
 
@@ -797,7 +802,7 @@ public class BoardManager : MonoBehaviour
         int width = MapSize.x + 2;
         int depth = MapSize.y + 2;
         float nodeSize = 1;
-        gg.center = new Vector3(MapSize.x / 2, MapSize.y / 2, 0);
+        gg.center = new Vector3(MapSize.x / 2f, MapSize.y / 2f, 0);
 
         // Updates internal size from the above values
         gg.SetDimensions(width, depth, nodeSize);
@@ -808,11 +813,11 @@ public class BoardManager : MonoBehaviour
         await Task.Delay(10);
     }
 
-    async Task SpawnEnemies(int numberOfEnemies)
+    async Task SpawnEnemies()
     {
         EnemySpawnDirection = _allowedEnemySpawnDirections[Random.Range(0, _allowedEnemySpawnDirections.Count)];
 
-        for (int i = 0; i < numberOfEnemies; i++)
+        foreach (Brain brain in _battleNode.Enemies)
         {
             // TODO: this is wrong
             Vector3Int randomPos = GetRandomOpenPosition(Vector2.one, _openGridPositions)[0];
@@ -837,7 +842,7 @@ public class BoardManager : MonoBehaviour
 
             EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
             // TODO: level higher than player by 2? Like in tactics ogre:)
-            enemySO.CreateEnemy(1, _enemyBrains[i]);
+            enemySO.CreateEnemy(1, brain);
 
             Vector3 spawnPos = new Vector3(chosenPos.x + 0.5f, chosenPos.y + 0.5f);
             Character instantiatedSO = Instantiate(enemySO);
