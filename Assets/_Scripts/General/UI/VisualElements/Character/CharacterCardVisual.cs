@@ -213,7 +213,6 @@ public class CharacterCardVisual : VisualElement
 
     void OnPointerDown(PointerDownEvent evt)
     {
-
         if (evt.button != 0) // only left mouse click
             return;
 

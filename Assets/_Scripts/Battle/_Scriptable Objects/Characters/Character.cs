@@ -130,14 +130,29 @@ public class Character : BaseScriptableObject
         return 0;
     }
 
-    public void GetExp(int exp)
+    public void GetExp(GameObject target, bool isKill = false)
     {
+        int exp = CalculateExpGain(target, isKill);
         Debug.Log("get exp: " + exp);
         Experience += exp;
         if (Experience < 100)
             return;
 
         LevelUp();
+    }
+
+    int CalculateExpGain(GameObject target, bool isKill)
+    {
+        int expGain = 10;
+        if (isKill)
+            expGain += 20;
+
+        int targetLevel = target.GetComponent<CharacterStats>().Character.Level;
+        int levelExpGain = (targetLevel - Level) * 6;
+        Mathf.Clamp(levelExpGain, 0, 100);
+        expGain += levelExpGain;
+
+        return expGain;
     }
 
     public void LevelUp()
@@ -151,9 +166,9 @@ public class Character : BaseScriptableObject
         Agility += Random.Range(0, 2);
         Stamina += Random.Range(0, 2);
         UpdateDerivativeStats();
+        
         OnCharacterLevelUp?.Invoke();
     }
-
 }
 
 [System.Serializable]

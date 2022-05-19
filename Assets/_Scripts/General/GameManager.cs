@@ -21,7 +21,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [HideInInspector] public List<Character> PlayerTroops = new();
 
     public int Obols { get; private set; }
-    public JourneyNode CurrentNode { get; private set; }
+    public JourneyNode CurrentNode; //TODO: //{ get; private set; }
     public JourneyNodeReward Reward { get; private set; }
 
     public string PlayerName { get; private set; }

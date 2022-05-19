@@ -26,7 +26,7 @@ public class AttackTriggerable : BaseTriggerable
         bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
 
         if (wasAttackSuccesful)
-            _myStats.Character.GetExp(10); // TODO: exp based on level difference
+            _myStats.Character.GetExp(target);
     }
 
 
@@ -35,7 +35,10 @@ public class AttackTriggerable : BaseTriggerable
         // spawn and fire a projectile if the ability has one
         if (ability.Projectile != null)
         {
-            GameObject projectile = Instantiate(ability.Projectile, transform.position, Quaternion.identity);
+            // spawn projectile in the tile in the direction towards the target
+            Vector3 dirToTarget = (pos - transform.position).normalized;
+            Vector3 spawLocation = transform.position + dirToTarget;
+            GameObject projectile = Instantiate(ability.Projectile, spawLocation, Quaternion.identity);
             Transform hit = await projectile.GetComponent<Projectile>().Shoot(transform, pos);
             if (hit == null)
                 return null;

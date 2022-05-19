@@ -169,7 +169,10 @@ public class Brain : BaseScriptableObject
         Vector3 destinationPos = GetDestinationCloserTo(potentialTargets.FirstOrDefault());
         // get a random tile if there are no good tiles on path
         if (destinationPos == Vector3.zero)
+        {
             destinationPos = _highlighter.HighlightedTiles[Random.Range(0, _highlighter.HighlightedTiles.Count)].GetMiddleOfTile();
+            Debug.Log($"destinationPos == Vector3.zero choosinbg a random tile: {destinationPos}");
+        }
 
         return destinationPos;
     }

@@ -54,7 +54,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     // absorbers/shields
     List<Absorber> _absorbers = new();
 
+    // character progression
     CharacterStats _lastAttacker;
+    [SerializeField] GameObject _levelUpEffect;
 
     // delegate
     public event Action<GameObject> CharacterDeathEvent;
@@ -118,7 +120,10 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     void OnCharacterLevelUp()
     {
-        Debug.Log("on character level up in stats"); // maybe each stat subscribes to character on level up
+        // spawn effect
+        Destroy(Instantiate(_levelUpEffect, transform.position + Vector3.up, Quaternion.identity), 2f);
+        CurrentHealth = Character.MaxHealth;
+        _damageUI.DisplayOnCharacter("Level up!", 24, Color.black);
     }
 
     void SetCharacteristics()
@@ -294,7 +299,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // don't shake on death
         if (CurrentHealth <= 0)
         {
-            _lastAttacker.Character.GetExp(100); // TODO: exp based on level difference 
+            _lastAttacker.Character.GetExp(gameObject, true);
             await Die();
             return;
         }
@@ -311,7 +316,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public void GetBuffed(GameObject attacker, Ability ability)
     {
         if (attacker.TryGetComponent(out CharacterStats stats))
-            stats.Character.GetExp(10);// TODO: exp based on level difference  
+            stats.Character.GetExp(gameObject);
 
         HandleModifier(ability);
         HandleStatus(attacker, ability);
@@ -436,7 +441,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public void GainHealth(int healthGain, GameObject attacker, Ability ability)
     {
         if (attacker.TryGetComponent(out CharacterStats stats))
-            stats.Character.GetExp(10);// TODO: exp based on level difference  
+            stats.Character.GetExp(gameObject);
 
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
         CurrentHealth += healthGain;

@@ -306,6 +306,7 @@ MonoBehaviour:
   BasicAbilities: []
   Abilities: []
   Statuses: []
+  _levelUpEffect: {fileID: 2060092509515171908, guid: f588a433e409706429d8a018f347526c, type: 3}
 --- !u!114 &1864993292968118660
 MonoBehaviour:
   m_ObjectHideFlags: 0
