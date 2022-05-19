@@ -95,7 +95,7 @@ public class SafetyWall : MonoBehaviour, ICreatable<Vector3, Ability>, IUITextDi
     {
         if (_shieldedCharacter != null)
             RemoveShield(_shieldedCharacter);
-
-        Destroy(gameObject);
+        if (gameObject != null)
+            Destroy(gameObject);
     }
 }

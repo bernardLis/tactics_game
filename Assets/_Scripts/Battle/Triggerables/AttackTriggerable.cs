@@ -23,7 +23,10 @@ public class AttackTriggerable : BaseTriggerable
 
         // damage target // TODO: ugh... this -1 is killing me...
         int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
-        await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
+        bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
+
+        if (wasAttackSuccesful)
+            _myStats.Character.GetExp(10); // TODO: exp based on level difference
     }
 
 

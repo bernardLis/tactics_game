@@ -65,9 +65,9 @@ public class BoardManager : MonoBehaviour
         _battleManger = BattleManager.Instance;
 
         _battleNode = (BattleNode)_gameManager.CurrentNode;
-        MapSize = _battleNode.MapSize;
         _biome = _battleNode.Biome;
         _mapVariant = _battleNode.MapVariant;
+        MapSize = _battleNode.MapSize;
 
         GenerateMap();
     }
@@ -178,23 +178,7 @@ public class BoardManager : MonoBehaviour
             int x = Random.Range(0, MapSize.x);
             int y = Random.Range(0, MapSize.y);
 
-            // OK, this is weird, but I don't have a tile to handle map corners that look like:
-            // [tile][empty][tile]
-            // [tile][tile][empty]
-            // [tile][tile][tile]
-            // or
-            // [empty][tile][tile]
-            // [tile][tile][tile]
-            // [tile][tile][empty]
-            if (x == 1 || x == MapSize.x - 1)
-                continue;
-            if (y == 1 || y == MapSize.y - 1)
-                continue;
-            if (x == 2 || x == MapSize.x - 2)
-                continue;
-            if (y == 2 || y == MapSize.y - 2)
-                continue;
-
+            // pick edge
             int edgeX = -1;
             int edgeY = -1;
             if (Random.Range(0, 2) == 1)
@@ -202,12 +186,47 @@ public class BoardManager : MonoBehaviour
                 edgeX = MapSize.x;
                 edgeY = MapSize.y;
             }
-
+            Vector3Int tileToClear = new();
             if (Random.Range(0, 2) == 0)
-                ClearTile(new Vector3Int(x, edgeY));
+                tileToClear = new Vector3Int(x, edgeY);
             else
-                ClearTile(new Vector3Int(edgeX, y));
+                tileToClear = new Vector3Int(edgeX, y);
+
+            if (CanPlaceTerrainIrregularity(tileToClear))
+                ClearTile(tileToClear);
         }
+    }
+
+    bool CanPlaceTerrainIrregularity(Vector3Int tile)
+    {
+        // OK, this is weird, but I don't have a tile to handle map corners that look like:
+        // [tile][empty][tile]
+        // [tile][tile][empty]
+        // [tile][tile][tile]
+        // or
+        // [empty][tile][tile]
+        // [tile][tile][tile]
+        // [tile][tile][empty]
+        if (tile.x == 1 || tile.x == MapSize.x - 1)
+            return false;
+        if (tile.y == 1 || tile.y == MapSize.y - 1)
+            return false;
+        if (tile.x == 2 || tile.x == MapSize.x - 2)
+            return false;
+        if (tile.y == 2 || tile.y == MapSize.y - 2)
+            return false;
+
+        // TODO: https://www.notion.so/455f7c47ef3747d68f1daf1bb00dcb16?v=f18df9eaf80e4f258bef240b3b9e1ed5&p=9169adc9288840569e8a315aec224f6d
+        // also, characters can get stuck because of terrain irregularities 
+        // so, I need to check whether map is fully accessible before placing irregularity;
+        // so, to place I need to check whether there are at least 4 tiles in the row / column where irregularity will be placed
+        // but it can be a bit smarter coz I am placing them on the edges so I will only need to check up/down left/right
+        // depending on which edge
+        // ok, ok, ok
+        // need to check 
+
+        return true;
+
     }
 
     void HandleEdge()
@@ -841,8 +860,9 @@ public class BoardManager : MonoBehaviour
             }
 
             EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
-            // TODO: level higher than player by 2? Like in tactics ogre:)
-            enemySO.CreateEnemy(1, brain);
+
+            int playerLevel = _gameManager.PlayerTroops[0].Level;
+            enemySO.CreateEnemy(playerLevel + 2, brain);
 
             Vector3 spawnPos = new Vector3(chosenPos.x + 0.5f, chosenPos.y + 0.5f);
             Character instantiatedSO = Instantiate(enemySO);

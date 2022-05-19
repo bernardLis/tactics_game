@@ -54,6 +54,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     // absorbers/shields
     List<Absorber> _absorbers = new();
 
+    CharacterStats _lastAttacker;
+
     // delegate
     public event Action<GameObject> CharacterDeathEvent;
     protected virtual void Awake()
@@ -110,22 +112,28 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public void SetCharacteristics(Character character)
     {
         Character = character;
+        Character.OnCharacterLevelUp += OnCharacterLevelUp;
         SetCharacteristics();
+    }
+
+    void OnCharacterLevelUp()
+    {
+        Debug.Log("on character level up in stats"); // maybe each stat subscribes to character on level up
     }
 
     void SetCharacteristics()
     {
         // taking values from scriptable object to c#
-        Strength.Initialize(StatType.Strength, Character.Strength);
-        Intelligence.Initialize(StatType.Intelligence, Character.Intelligence);
-        Agility.Initialize(StatType.Agility, Character.Agility);
-        Stamina.Initialize(StatType.Stamina, Character.Stamina);
+        Strength.Initialize(StatType.Strength, Character.Strength, Character);
+        Intelligence.Initialize(StatType.Intelligence, Character.Intelligence, Character);
+        Agility.Initialize(StatType.Agility, Character.Agility, Character);
+        Stamina.Initialize(StatType.Stamina, Character.Stamina, Character);
 
         Character.UpdateDerivativeStats();
-        MaxHealth.Initialize(StatType.MaxHealth, Character.MaxHealth);
-        MaxMana.Initialize(StatType.MaxMana, Character.MaxMana);
-        Armor.Initialize(StatType.Armor, Character.Armor);
-        MovementRange.Initialize(StatType.MovementRange, Character.MovementRange);
+        MaxHealth.Initialize(StatType.MaxHealth, Character.MaxHealth, Character);
+        MaxMana.Initialize(StatType.MaxMana, Character.MaxMana, Character);
+        Armor.Initialize(StatType.Armor, Character.Armor, Character);
+        MovementRange.Initialize(StatType.MovementRange, Character.MovementRange, Character);
 
         // TODO: starting mana is for testing purposes 
         CurrentHealth = MaxHealth.GetValue();
@@ -177,8 +185,10 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         Stats.Add(MovementRange);
     }
 
-    public async Task TakeDamage(int damage, GameObject attacker, Ability ability)
+    public async Task<bool> TakeDamage(int damage, GameObject attacker, Ability ability)
     {
+        bool wasAttackSuccesful = false;
+
         // in the side 1, face to face 2, from the back 0, 
         int attackDir = CalculateAttackDir(attacker);
         float dodgeChance = CalculateDodgeChance(attackDir, attacker, false);
@@ -191,38 +201,40 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             ShieldDamage();
         else
         {
+            wasAttackSuccesful = true;
+            _lastAttacker = attacker.GetComponent<CharacterStats>();
             await TakeDamageNoDodgeNoRetaliation(damage);
             HandleModifier(ability);
             HandleStatus(attacker, ability);
         }
 
         if (attackDir == 0)
-            return;
+            return wasAttackSuccesful;
 
         if (CurrentHealth <= 0)
-            return;
+            return wasAttackSuccesful;
 
         if (!WillRetaliate(attacker))
-            return;
+            return wasAttackSuccesful;
 
         if (attacker == null)
-            return;
+            return wasAttackSuccesful;
 
         if (attacker.GetComponent<CharacterStats>().CurrentHealth <= 0)
-            return;
+            return wasAttackSuccesful;
 
         // blocking interaction replies to go on forever;
         if (IsAttacker)
-            return;
+            return wasAttackSuccesful;
 
         // it is just the basic attack that is not ranged;
         AttackAbility retaliationAbility = GetRetaliationAbility();
         if (retaliationAbility == null)
-            return;
+            return wasAttackSuccesful;
 
         // strike back triggering basic attack at him
         if (!retaliationAbility.CanHit(gameObject, attacker))
-            return;
+            return wasAttackSuccesful;
 
         await Task.Delay(500);
 
@@ -234,11 +246,12 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         Vector3 tilePos = BattleManager.Instance.GetComponent<TileManager>().Tilemap.WorldToCell(attacker.transform.position);
         WorldTile tile;
         if (!TileManager.Tiles.TryGetValue(tilePos, out tile))
-            return;
+            return wasAttackSuccesful;
         List<WorldTile> tiles = new();
         tiles.Add(tile);
 
         await retaliationAbility.TriggerAbility(tiles);
+        return wasAttackSuccesful;
     }
 
     public bool IsDamageAbsorbed(Ability ability)
@@ -281,6 +294,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // don't shake on death
         if (CurrentHealth <= 0)
         {
+            _lastAttacker.Character.GetExp(100); // TODO: exp based on level difference 
             await Die();
             return;
         }
@@ -296,6 +310,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public void GetBuffed(GameObject attacker, Ability ability)
     {
+        if (attacker.TryGetComponent(out CharacterStats stats))
+            stats.Character.GetExp(10);// TODO: exp based on level difference  
+
         HandleModifier(ability);
         HandleStatus(attacker, ability);
     }
@@ -418,6 +435,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public void GainHealth(int healthGain, GameObject attacker, Ability ability)
     {
+        if (attacker.TryGetComponent(out CharacterStats stats))
+            stats.Character.GetExp(10);// TODO: exp based on level difference  
+
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
         CurrentHealth += healthGain;
 
@@ -525,6 +545,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public async Task Die()
     {
+        // TODO: need to know how you died, to award exp.
+
         // playing death animation
         await _characterRendererManager.Die();
 

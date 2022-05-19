@@ -8,15 +8,19 @@ using System.Collections.Generic;
 public class AudioManager : Singleton<AudioManager>
 {
     public List<Sound> sounds = new();
+    AudioSource _audioSource;
+
     protected override void Awake()
     {
         base.Awake();
 
+        _audioSource = GetComponent<AudioSource>();
+
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            s.source = gameObject.AddComponent<AudioSource>(); // TODO: sound this does not work
             s.source.clip = s.clip;
-            
+
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
         }
@@ -30,8 +34,10 @@ public class AudioManager : Singleton<AudioManager>
             Debug.LogError($"No sound {soundName} in library");
             return;
         }
-
-        sound.source.Play();
+        /*MissingComponentException: There is no 'AudioSource' attached to the "GameManager" game object, but a script is trying to access it.
+        _audioSource.clip = sound.clip;
+        _audioSource.Play();
+        */
     }
 
 

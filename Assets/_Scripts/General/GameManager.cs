@@ -155,6 +155,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             data.CharacterName = c.CharacterName;
             data.Portrait = c.Portrait.name;
             data.Level = c.Level;
+            data.Experience = c.Experience;
             data.Strength = c.Strength;
             data.Intelligence = c.Intelligence;
             data.Agility = c.Agility;
@@ -164,9 +165,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
             List<string> abilityReferenceIds = new();
             foreach (Ability a in c.Abilities)
-            {
                 abilityReferenceIds.Add(a.ReferenceID);
-            }
+
             data.AbilityReferenceIds = new(abilityReferenceIds);
 
             charData.Add(data);

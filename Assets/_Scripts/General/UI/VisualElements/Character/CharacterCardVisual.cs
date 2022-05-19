@@ -9,6 +9,8 @@ public class CharacterCardVisual : VisualElement
     Character _character;
     Image _portrait;
     Label _name;
+    Label _level;
+    Label _exp;
 
     VisualElement _characteristics;
     VisualElement _modifierContainer;
@@ -61,19 +63,25 @@ public class CharacterCardVisual : VisualElement
         _information = new();
         _portrait = new();
         _name = new();
+        _level = new();
+        _exp = new();
 
         _information.style.alignItems = Align.Center;
         _information.style.width = Length.Percent(30);
 
-        _name.style.color = Color.white;
-        _name.style.fontSize = 18;
-        _name.style.alignSelf = Align.Center;
+        _name.AddToClassList("primaryText");
+        _level.AddToClassList("secondaryText");
+        _exp.AddToClassList("secondaryText");
 
         _portrait.sprite = character.Portrait;
         _name.text = character.CharacterName;
+        _level.text = "Level: " + character.Level;
+        _exp.text = "Exp: " + character.Experience;
 
         Add(_information);
         _information.Add(_name);
+        _information.Add(_level);
+        _information.Add(_exp);
         _information.Add(_portrait);
 
         _characteristics = new();
@@ -82,6 +90,12 @@ public class CharacterCardVisual : VisualElement
         _characteristics.Add(CreateHealthGroup(character));
         _characteristics.Add(CreateManaGroup(character));
         Add(_characteristics);
+
+        // TODO: test button
+        Button testButton = new Button();
+        testButton.text = "Level Up!";
+        Add(testButton);
+        testButton.clickable.clicked += () => _character.LevelUp();
 
         if (clickable)
             RegisterCallback<PointerDownEvent>(OnPointerDown);

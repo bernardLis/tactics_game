@@ -7,14 +7,24 @@ public class Stat
 {
     public StatType Type;
     public int BaseValue;
+    Character _character;
 
     [HideInInspector] public List<StatModifier> Modifiers = new();
 
     // constructor https://i.redd.it/iuy9fxt300811.png
-    public void Initialize(StatType type, int value)
+    public void Initialize(StatType type, int value, Character character)
     {
         Type = type;
         BaseValue = value;
+
+        _character = character;
+        character.OnCharacterLevelUp += OnCharacterLevelUp;
+    }
+
+    void OnCharacterLevelUp()
+    {
+        // TODO: this presumes that character keeps the names of stats same as stat types
+        BaseValue = _character.GetStatValue(Type.ToString());
     }
 
     public int GetValue()

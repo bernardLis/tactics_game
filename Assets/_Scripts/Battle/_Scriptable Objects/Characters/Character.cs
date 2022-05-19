@@ -1,7 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Character/Player")]
 public class Character : BaseScriptableObject
@@ -14,6 +15,7 @@ public class Character : BaseScriptableObject
 
     [Header("Stats")]
     public int Level;
+    public int Experience;
 
     public int Strength;
     public int Intelligence;
@@ -39,6 +41,9 @@ public class Character : BaseScriptableObject
     public List<Ability> BasicAbilities = new();
     public List<Ability> Abilities = new();
 
+
+    public event Action OnCharacterLevelUp;
+
     // creates character from google sheet data in editor
     public virtual void CreateFromSheetData(Dictionary<string, object> item, List<Ability> abilities)
     {
@@ -46,7 +51,8 @@ public class Character : BaseScriptableObject
         CharacterName = item["CharacterName"].ToString();
         Portrait = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Character/Portrait/{item["Portrait"]}", typeof(Sprite));
 
-        Level = int.Parse(item["Strength"].ToString());
+        Level = int.Parse(item["Level"].ToString());
+        Experience = int.Parse(item["Experience"].ToString());
         Strength = int.Parse(item["Strength"].ToString());
         Intelligence = int.Parse(item["Intelligence"].ToString());
         Agility = int.Parse(item["Agility"].ToString());
@@ -68,6 +74,7 @@ public class Character : BaseScriptableObject
         Portrait = CharacterDatabase.GetPortraitByID(data.Portrait);
 
         Level = data.Level;
+        Experience = data.Experience;
         Strength = data.Strength;
         Intelligence = data.Intelligence;
         Agility = data.Agility;
@@ -101,14 +108,50 @@ public class Character : BaseScriptableObject
         MovementRange = Mathf.Clamp(_baseMovementRange + Mathf.FloorToInt(Agility / 3), 1, 8);
     }
 
+    public int GetStatValue(string stat)
+    {
+        if (stat == "Strength")
+            return Strength;
+        if (stat == "Intelligence")
+            return Intelligence;
+        if (stat == "Agility")
+            return Agility;
+        if (stat == "Stamina")
+            return Stamina;
+        if (stat == "MaxHealth")
+            return MaxHealth;
+        if (stat == "MaxMana")
+            return MaxMana;
+        if (stat == "Armor")
+            return Armor;
+        if (stat == "MovementRange")
+            return MovementRange;
+
+        return 0;
+    }
+
+    public void GetExp(int exp)
+    {
+        Debug.Log("get exp: " + exp);
+        Experience += exp;
+        if (Experience < 100)
+            return;
+
+        LevelUp();
+    }
+
     public void LevelUp()
     {
+        Experience = 0;
+
+        Debug.Log("level up in character");
         Level++;
         Strength += Random.Range(0, 2);
         Intelligence += Random.Range(0, 2); ;
         Agility += Random.Range(0, 2);
         Stamina += Random.Range(0, 2);
         UpdateDerivativeStats();
+        OnCharacterLevelUp?.Invoke();
     }
 
 }
@@ -120,6 +163,7 @@ public struct CharacterData
     public string CharacterName;
     public string Portrait;
     public int Level;
+    public int Experience;
     public int Strength;
     public int Intelligence;
     public int Agility;
