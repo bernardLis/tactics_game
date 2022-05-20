@@ -204,9 +204,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
         if (a.CreatedObject.TryGetComponent(out IUITextDisplayable uiText))
         {
             Label value = new("" + uiText.DisplayText());
+            value.style.whiteSpace = WhiteSpace.Normal;
             _attackDamageValue.Add(value);
         }
-
         _attackHitValue.text = 100 + "%";
     }
 

@@ -197,6 +197,9 @@ public abstract class Ability : BaseScriptableObject
     {
         foreach (CharacterSelection selection in affectedCharacters)
         {
+            if (selection == null)
+                return;
+
             selection.ToggleSelectionArrow(false);
             if (selection.gameObject == _battleCharacterController.SelectedCharacter)
                 selection.ToggleSelectionArrow(true, Color.white);

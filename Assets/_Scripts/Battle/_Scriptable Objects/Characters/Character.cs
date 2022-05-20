@@ -149,7 +149,7 @@ public class Character : BaseScriptableObject
 
         int targetLevel = target.GetComponent<CharacterStats>().Character.Level;
         int levelExpGain = (targetLevel - Level) * 6;
-        Mathf.Clamp(levelExpGain, 0, 100);
+        levelExpGain = Mathf.Clamp(levelExpGain, 0, 100);
         expGain += levelExpGain;
 
         return expGain;

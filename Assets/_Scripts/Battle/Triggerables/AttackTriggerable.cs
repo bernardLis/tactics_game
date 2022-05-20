@@ -12,14 +12,14 @@ public class AttackTriggerable : BaseTriggerable
             _myStats.UseMana(ability.ManaCost);
         }
 
+        if (!isRetaliation)
+            _myStats.SetAttacker(true);
+
         GameObject target = await GetTarget(pos, ability);
         if (target == null)
             return;
 
         DisplayBattleLog(target, ability);
-
-        if (!isRetaliation)
-            _myStats.SetAttacker(true);
 
         // damage target // TODO: ugh... this -1 is killing me...
         int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
@@ -35,10 +35,7 @@ public class AttackTriggerable : BaseTriggerable
         // spawn and fire a projectile if the ability has one
         if (ability.Projectile != null)
         {
-            // spawn projectile in the tile in the direction towards the target
-            Vector3 dirToTarget = (pos - transform.position).normalized;
-            Vector3 spawLocation = transform.position + dirToTarget;
-            GameObject projectile = Instantiate(ability.Projectile, spawLocation, Quaternion.identity);
+            GameObject projectile = Instantiate(ability.Projectile, transform.position, Quaternion.identity);
             Transform hit = await projectile.GetComponent<Projectile>().Shoot(transform, pos);
             if (hit == null)
                 return null;

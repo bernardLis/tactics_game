@@ -71,7 +71,7 @@
                 <ui:Label text="Attack:" display-tooltip-when-elided="true" name="attackLabel" class="primaryText" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;" />
                 <ui:VisualElement name="attackDamageGroup" class="secondaryText" style="flex-direction: row; align-items: center;">
                     <ui:Label text="Value:" display-tooltip-when-elided="true" name="attackDamageLabel" />
-                    <ui:VisualElement name="attackDamageValue" style="flex-direction: row;">
+                    <ui:VisualElement name="attackDamageValue" style="flex-direction: row; flex-wrap: wrap;">
                         <ui:Label text="XX" display-tooltip-when-elided="true" name="asd" />
                     </ui:VisualElement>
                 </ui:VisualElement>

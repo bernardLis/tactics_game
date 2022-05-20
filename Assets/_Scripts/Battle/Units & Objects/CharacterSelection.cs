@@ -108,6 +108,8 @@ public class CharacterSelection : MonoBehaviour
 
     public void ToggleSelectionArrow(bool isActive, Color? color = null)
     {
+        if (gameObject == null)
+            return;
         // https://stackoverflow.com/questions/2804395/c-sharp-4-0-can-i-use-a-color-as-an-optional-parameter-with-a-default-value
         Color c = color ?? Color.white;
         _selectionArrow.gameObject.SetActive(isActive);

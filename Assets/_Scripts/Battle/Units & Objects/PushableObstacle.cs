@@ -112,15 +112,24 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
             // player/enemy get damaged  and are moved back to their starting position
             // character colliders are children
             if (c.CompareTag(Tags.Player) || c.CompareTag(Tags.Enemy))
+            {
                 await CollideWithCharacter(ability, c);
+                continue;
+            }
 
             // character bounces back from being pushed into obstacle (and takes damage)
             if (c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.BoundCollider))
+            {
                 await CollideWithIndestructible(ability, c);
+                continue;
+            }
 
             // character destroys boulder when they are pushed into it
             if (c.CompareTag(Tags.PushableObstacle))
+            {
                 await CollideWithDestructible(ability, c);
+                continue;
+            }
         }
     }
 

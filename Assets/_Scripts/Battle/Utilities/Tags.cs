@@ -33,6 +33,13 @@ public static class Tags
         private set { }
     }
 
+    public static string Flasher
+    {
+        get { return "Flasher"; }
+        private set { }
+    }
+
+
     public static int CharacterLayer
     {
         get { return 6; }
