@@ -30,14 +30,19 @@ public class Projectile : MonoBehaviour
             Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.1f);
 
             foreach (Collider2D c in cols)
-                if (c.transform != shooter && c.CompareTag(Tags.Obstacle) 
-                && c.CompareTag(Tags.Player) && c.CompareTag(Tags.Enemy)
-                && c.CompareTag(Tags.PushableObstacle))
+            {
+                Debug.Log($"checking c.name: {c.name}");
+                if (c.transform != shooter && (c.CompareTag(Tags.Obstacle)
+                || c.CompareTag(Tags.Player) || c.CompareTag(Tags.Enemy)
+                || c.CompareTag(Tags.PushableObstacle)))
                 {
+                    Debug.Log($"hit: {c.name}");
+
                     HitSomething();
-                    Debug.Log($"hit: {c.transform.name}");
                     return c.transform;
                 }
+
+            }
 
             float step = _speed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, _adjustedTargetPosition, step);

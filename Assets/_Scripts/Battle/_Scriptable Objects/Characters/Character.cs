@@ -43,6 +43,7 @@ public class Character : BaseScriptableObject
 
 
     public event Action OnCharacterLevelUp;
+    public event Action<int> OnCharacterExpGain;
 
     // creates character from google sheet data in editor
     public virtual void CreateFromSheetData(Dictionary<string, object> item, List<Ability> abilities)
@@ -130,11 +131,22 @@ public class Character : BaseScriptableObject
         return 0;
     }
 
+    public void GetExp(int gain)
+    {
+        BaseExpGain(gain);
+    }
+
     public void GetExp(GameObject target, bool isKill = false)
     {
         int exp = CalculateExpGain(target, isKill);
-        Debug.Log("get exp: " + exp);
-        Experience += exp;
+        BaseExpGain(exp);
+    }
+
+    void BaseExpGain(int gain)
+    {
+        Experience += gain;
+        OnCharacterExpGain?.Invoke(gain);
+
         if (Experience < 100)
             return;
 
@@ -159,14 +171,13 @@ public class Character : BaseScriptableObject
     {
         Experience = 0;
 
-        Debug.Log("level up in character");
         Level++;
         Strength += Random.Range(0, 2);
         Intelligence += Random.Range(0, 2); ;
         Agility += Random.Range(0, 2);
         Stamina += Random.Range(0, 2);
         UpdateDerivativeStats();
-        
+
         OnCharacterLevelUp?.Invoke();
     }
 }

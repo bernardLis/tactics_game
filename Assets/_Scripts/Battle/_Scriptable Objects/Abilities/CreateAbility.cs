@@ -11,6 +11,7 @@ public class CreateAbility : Ability
     public async override Task AbilityLogic(Vector3 pos)
     {
         _battleUI.DisplayBattleLog($"{CharacterGameObject.name} creates {CreatedObject.name}.");
+        _stats.Character.GetExp(10);
 
         GameObject obj = Instantiate(CreatedObject, pos, Quaternion.identity);
         await obj.GetComponent<ICreatable<Vector3, Ability>>().Initialize(pos, this);

@@ -195,6 +195,8 @@ public class BattleInputController : Singleton<BattleInputController>
     {
         Vector2 pointerUiPos = new Vector2 { x = screenPos.x, y = Screen.height - screenPos.y };
         List<VisualElement> picked = new List<VisualElement>();
+        if (_battleUI == null)
+            return false;
         _battleUI.Root.panel.PickAll(pointerUiPos, picked);
         foreach (var ve in picked)
             if (ve != null)

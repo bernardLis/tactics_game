@@ -13,7 +13,7 @@ public class ResourceBarVisual : VisualWithTooltip
 
     string _tooltipText;
 
-    public ResourceBarVisual(Color color, string tooltipText) : base()
+    public ResourceBarVisual(Color color, string tooltipText, int thickness = 0) : base()
     {
         _tooltipText = tooltipText;
 
@@ -27,6 +27,9 @@ public class ResourceBarVisual : VisualWithTooltip
         _missing.AddToClassList("barMissingAmount");
         _interactionResult.AddToClassList("barInteractionResult");
         _text.AddToClassList("barText");
+
+        if (thickness != 0)
+            style.height = thickness;
 
         Add(_missing);
         Add(_interactionResult);

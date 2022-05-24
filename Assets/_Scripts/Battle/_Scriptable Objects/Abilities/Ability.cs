@@ -38,6 +38,7 @@ public abstract class Ability : BaseScriptableObject
 
 
     [HideInInspector] public GameObject CharacterGameObject;
+    protected CharacterStats _stats;
     protected FaceDirectionUI _faceDirectionUI;
     protected CharacterRendererManager _characterRendererManager;
 
@@ -75,6 +76,7 @@ public abstract class Ability : BaseScriptableObject
     public virtual void Initialize(GameObject self)
     {
         CharacterGameObject = self;
+        _stats = self.GetComponent<CharacterStats>();
         _faceDirectionUI = self.GetComponent<FaceDirectionUI>();
         _characterRendererManager = self.GetComponentInChildren<CharacterRendererManager>();
 

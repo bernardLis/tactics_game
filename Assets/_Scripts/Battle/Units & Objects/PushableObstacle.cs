@@ -8,6 +8,8 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
     // summon (falling) boulder
     [SerializeField] GameObject _shadow;
+    [SerializeField] GameObject _poofEffect;
+
 
     // push
     BoxCollider2D _selfCollider;
@@ -71,6 +73,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
             await Task.Yield();
         }
+        Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
 
         Destroy(_shadow);
     }
@@ -152,6 +155,8 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
     async Task DestroySelf()
     {
+        Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
+
         AudioManager.Instance.PlaySound("Stone Breaking");
         Animator anim = GetComponent<Animator>();
         if (anim != null)

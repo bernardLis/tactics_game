@@ -6,14 +6,14 @@ using UnityEngine.UIElements;
 public class CharacterCardVisual : VisualElement
 {
     VisualElement _information;
+    CharacterStats _stats;
     Character _character;
-    Image _portrait;
+    VisualElement _portrait;
     Label _name;
     Label _level;
     Label _exp;
 
     VisualElement _characteristics;
-    VisualElement _modifierContainer;
 
     public ResourceBarVisual HealthBar;
     public ResourceBarVisual ManaBar;
@@ -28,7 +28,6 @@ public class CharacterCardVisual : VisualElement
     public CharacterCardVisual(Character character, bool clickable = true)
     {
         BaseCharacterCardVisual(character, clickable);
-        // TODO: missing skull on portrait
         _character = character;
         _characteristics.Add(HandleCharacterStats(character, null));
     }
@@ -36,16 +35,13 @@ public class CharacterCardVisual : VisualElement
     public CharacterCardVisual(CharacterStats stats, bool clickable = true)
     {
         BaseCharacterCardVisual(stats.Character, clickable);
-
+        _stats = stats;
         _character = stats.Character;
 
-        _modifierContainer = new();
-        _modifierContainer.AddToClassList("modifierContainer");
-        _information.Add(_modifierContainer);
         List<VisualElement> elements = new(HandleStatModifiers(stats));
         elements.AddRange(HandleStatuses(stats));
         foreach (VisualElement el in elements)
-            _modifierContainer.Add(el);
+            _portrait.Add(el);
 
         _characteristics.Add(HandleCharacterStats(null, stats));
 
@@ -63,25 +59,21 @@ public class CharacterCardVisual : VisualElement
         _information = new();
         _portrait = new();
         _name = new();
-        _level = new();
-        _exp = new();
 
         _information.style.alignItems = Align.Center;
+        _information.style.flexGrow = 1;
+        _information.style.flexShrink = 0;
         _information.style.width = Length.Percent(30);
 
         _name.AddToClassList("primaryText");
-        _level.AddToClassList("secondaryText");
-        _exp.AddToClassList("secondaryText");
+        _portrait.AddToClassList("characterCardPortrait");
 
-        _portrait.sprite = character.Portrait;
+        _portrait.style.backgroundImage = character.Portrait.texture;
         _name.text = character.CharacterName;
-        _level.text = "Level: " + character.Level;
-        _exp.text = "Exp: " + character.Experience;
 
         Add(_information);
         _information.Add(_name);
-        _information.Add(_level);
-        _information.Add(_exp);
+
         _information.Add(_portrait);
 
         _characteristics = new();
@@ -89,13 +81,8 @@ public class CharacterCardVisual : VisualElement
 
         _characteristics.Add(CreateHealthGroup(character));
         _characteristics.Add(CreateManaGroup(character));
+        _characteristics.Add(CreateExpGroup(character));
         Add(_characteristics);
-
-        // TODO: test button
-        Button testButton = new Button();
-        testButton.text = "Level Up!";
-        Add(testButton);
-        testButton.clickable.clicked += () => _character.LevelUp();
 
         if (clickable)
             RegisterCallback<PointerDownEvent>(OnPointerDown);
@@ -135,6 +122,30 @@ public class CharacterCardVisual : VisualElement
         manaGroup.Add(ManaBar);
 
         return manaGroup;
+    }
+
+    VisualElement CreateExpGroup(Character character)
+    {
+        VisualElement container = new();
+
+        VisualElement el = new();
+        el.style.flexDirection = FlexDirection.Row;
+
+        Label level = new();
+        Label exp = new();
+
+        level.AddToClassList("secondaryText");
+        exp.AddToClassList("secondaryText");
+
+        level.text = $"Level {character.Level}";
+        exp.text = $"Exp: {character.Experience}/100";
+
+        el.Add(level);
+        el.Add(exp);
+
+        container.Add(el);
+
+        return container;
     }
 
     VisualElement HandleCharacterStats(Character character, CharacterStats characterStats)
@@ -217,6 +228,9 @@ public class CharacterCardVisual : VisualElement
             return;
 
         var root = panel.visualTree;
-        new CharacterScreen(_character, root);
+        if (_stats != null)
+            new CharacterScreen(_stats, root);
+        else
+            new CharacterScreen(_character, root);
     }
 }

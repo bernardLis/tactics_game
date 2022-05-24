@@ -4,6 +4,17 @@ using UnityEngine.UIElements;
 
 public class CharacterScreen : FullScreenVisual
 {
+
+    // TODO: many repetitions in the next 4 functions
+    public CharacterScreen(CharacterStats stats, VisualElement root)
+    {
+        Initialize(root);
+        style.backgroundColor = Color.gray;
+        AddCharacterCard(stats);
+        AddAbilityContainer(stats.Character);
+        AddBackButton();
+    }
+
     public CharacterScreen(Character character, VisualElement root)
     {
         Initialize(root);
@@ -11,6 +22,16 @@ public class CharacterScreen : FullScreenVisual
         AddCharacterCard(character);
         AddAbilityContainer(character);
         AddBackButton();
+    }
+
+    void AddCharacterCard(CharacterStats stats)
+    {
+        VisualElement characterCardContainer = new();
+        characterCardContainer.AddToClassList("uiContainer");
+        CharacterCardVisual card = new CharacterCardVisual(stats, false);
+
+        characterCardContainer.Add(card);
+        Add(characterCardContainer);
     }
 
     void AddCharacterCard(Character character)

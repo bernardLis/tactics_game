@@ -365,3 +365,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spotLightPrefab: {fileID: 0}
   _shadow: {fileID: 1876863170238891852}
+  _poofEffect: {fileID: 6199452303025352576, guid: 9dc785d8caff2f9498a74a906c904e01, type: 3}

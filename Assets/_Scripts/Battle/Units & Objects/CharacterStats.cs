@@ -115,6 +115,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     {
         Character = character;
         Character.OnCharacterLevelUp += OnCharacterLevelUp;
+        Character.OnCharacterExpGain += OnCharacterExpGain;
         SetCharacteristics();
     }
 
@@ -124,6 +125,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         Destroy(Instantiate(_levelUpEffect, transform.position + Vector3.up, Quaternion.identity), 2f);
         CurrentHealth = Character.MaxHealth;
         _damageUI.DisplayOnCharacter("Level up!", 24, Color.black);
+    }
+
+    void OnCharacterExpGain(int gain)
+    {
+        _damageUI.DisplayOnCharacter($"+{gain} exp", 24, Color.white);
     }
 
     void SetCharacteristics()
@@ -299,7 +305,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // don't shake on death
         if (CurrentHealth <= 0)
         {
-            _lastAttacker.Character.GetExp(gameObject, true);
+            if (_lastAttacker != null)
+                _lastAttacker.Character.GetExp(gameObject, true);
             await Die();
             return;
         }
