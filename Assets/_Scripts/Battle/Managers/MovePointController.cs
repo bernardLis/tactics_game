@@ -177,7 +177,8 @@ public class MovePointController : Singleton<MovePointController>
             }
 
         // hide if it is something else
-        _infoCardUI.HideCharacterCard();
+        if (TurnManager.BattleState != BattleState.Deployment)
+            _infoCardUI.HideCharacterCard();
     }
 
     void ShowAbilityResult()
@@ -208,13 +209,6 @@ public class MovePointController : Singleton<MovePointController>
 
         // check if there is a character standing there
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
-        /*
-        if (col == null)
-            return;
-        // TODO: maybe check for interfaces?
-        if (!(col.transform.CompareTag(Tags.Player) || col.transform.CompareTag(Tags.Enemy)))
-            return;
-        */
         foreach (Collider2D c in cols)
             if (c.TryGetComponent(out CharacterStats stats))
             {

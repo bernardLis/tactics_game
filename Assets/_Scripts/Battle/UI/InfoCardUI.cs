@@ -12,7 +12,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
     Label _tileInfoText;
 
     // character card
-    public GameObject DisplayedCharacter { get; private set; }
+    GameObject _displayedCharacter;
     VisualElement _characterCard;
     CharacterCardVisual _characterCardVisual;
 
@@ -87,7 +87,14 @@ public class InfoCardUI : Singleton<InfoCardUI>
     /* character card */
     public void ShowCharacterCard(CharacterStats stats)
     {
-        DisplayedCharacter = stats.gameObject;
+
+        if (_displayedCharacter == stats.gameObject)
+            return;
+        if (_displayedCharacter != null)
+            Debug.Log($"DisplayedCharacter.name {_displayedCharacter.name}");
+        Debug.Log($"stats.gameObject {stats.gameObject.name}");
+
+        _displayedCharacter = stats.gameObject;
         _characterCard.Clear();
 
         _characterCardVisual = new(stats);
@@ -100,7 +107,8 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     public void HideCharacterCard()
     {
-        DisplayedCharacter = null;
+        Debug.Log("hiding the card");
+        _displayedCharacter = null;
         DOTween.To(() => _characterCard.style.left.value.value, x => _characterCard.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
     }

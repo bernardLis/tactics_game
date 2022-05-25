@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using System;
+using System.Threading.Tasks;
 
 public class ResourceBarVisual : VisualWithTooltip
 {
@@ -15,6 +16,7 @@ public class ResourceBarVisual : VisualWithTooltip
 
     public ResourceBarVisual(Color color, string tooltipText, int thickness = 0) : base()
     {
+        Debug.Log("new resource bar");
         _tooltipText = tooltipText;
 
         _missing = new();
@@ -46,6 +48,38 @@ public class ResourceBarVisual : VisualWithTooltip
         _missing.style.width = Length.Percent(missingPerc * 100);
 
         SetText($"{current}/{total}");
+    }
+
+    public async void OnValueChange(int change, int beforeChange, int total)
+    {
+        // TODO: assuming for now that the change is always negative, that's not the case
+        /*
+        DOTween.To(() => iWantToTweenThisValue, x => iWantToTweenThisValue = x, myEndValue , 3f)
+                         .SetEase(Ease.InBounce); // on 2 lines for readability
+        */
+        await Task.Delay(10);
+        Debug.Log($"in on value change: {change}, {beforeChange}, {total}");
+        HideInteractionResult(total, beforeChange);
+        _missing.style.display = DisplayStyle.Flex;
+        float missingPerc = ((float)beforeChange + (float)change) / (float)total;
+        Debug.Log($"localBound.width: {localBound.width}, worldBound.width {worldBound.width}");
+        float actualWidth = localBound.width - localBound.width * missingPerc;
+        Debug.Log($"missingPerc: {missingPerc}, actualWidth {actualWidth}");
+
+        DOTween.To(() => _missing.style.width.value.value, x => _missing.style.width = x, actualWidth, 1f)
+                         .SetEase(Ease.InBounce);
+
+        SetText($"{beforeChange}/{total}");
+        int current = beforeChange;
+        int goal = beforeChange + change;
+        while (current > goal)
+        {
+            current--;
+
+            SetText($"{current}/{total}");
+            await Task.Delay(20);
+        }
+
     }
 
     public void DisplayInteractionResult(int total, int current, int value)

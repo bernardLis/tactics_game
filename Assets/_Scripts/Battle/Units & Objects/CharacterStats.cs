@@ -58,8 +58,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     CharacterStats _lastAttacker;
     [SerializeField] GameObject _levelUpEffect;
 
-    // delegate
+    // delegates
     public event Action<GameObject> CharacterDeathEvent;
+    public event Action<int, int, int> OnHealthChange; // change, value before change, total
+    public event Action<int, int, int> OnManaChange;
+
     protected virtual void Awake()
     {
         // local
@@ -301,7 +304,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // displaying damage UI
         _damageUI.DisplayOnCharacter(damage.ToString(), 36, Helpers.GetColor("damageRed"));
 
+        OnHealthChange?.Invoke(-damage, CurrentHealth, Character.MaxHealth);
         CurrentHealth -= damage;
+
         // don't shake on death
         if (CurrentHealth <= 0)
         {
@@ -432,17 +437,20 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public void GainMana(int amount)
     {
+        OnManaChange?.Invoke(amount, CurrentMana, Character.MaxMana);
         CurrentMana += amount;
         CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
     }
 
     public void UseMana(int amount)
     {
+        if (amount == 0)
+            return;
+
+        OnManaChange?.Invoke(-amount, CurrentMana, Character.MaxMana);
         CurrentMana -= amount;
         CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
 
-        if (amount == 0)
-            return;
     }
 
     public void GainHealth(int healthGain, GameObject attacker, Ability ability)
@@ -451,6 +459,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             stats.Character.GetExp(gameObject);
 
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
+        OnHealthChange?.Invoke(healthGain, CurrentHealth, Character.MaxHealth);
         CurrentHealth += healthGain;
 
         HandleModifier(ability);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum StatType { Strength, Intelligence, Agility, Stamina, MaxHealth, MaxMana, Armor, MovementRange }
 
@@ -10,6 +11,9 @@ public class Stat
     Character _character;
 
     [HideInInspector] public List<StatModifier> Modifiers = new();
+
+    public event Action<StatModifier> OnModifierAdded;
+    public event Action<StatModifier> OnModifierRemoved;
 
     // constructor https://i.redd.it/iuy9fxt300811.png
     public void Initialize(StatType type, int value, Character character)
@@ -46,11 +50,13 @@ public class Stat
                 return; // prevents stacking of the same modifier
 
         Modifiers.Add(modifier);
+        OnModifierAdded?.Invoke(modifier);
     }
 
     public void RemoveModifier(StatModifier modifier)
     {
         Modifiers.Remove(modifier);
+        OnModifierRemoved?.Invoke(modifier);
     }
 
     public void TurnEndDecrement()

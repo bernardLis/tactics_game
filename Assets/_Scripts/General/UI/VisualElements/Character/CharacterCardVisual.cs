@@ -47,6 +47,19 @@ public class CharacterCardVisual : VisualElement
 
         HealthBar.DisplayMissingAmount(stats.MaxHealth.GetValue(), stats.CurrentHealth);
         ManaBar.DisplayMissingAmount(stats.MaxMana.GetValue(), stats.CurrentMana);
+
+        stats.OnHealthChange += HealthBar.OnValueChange;
+        stats.OnManaChange += ManaBar.OnValueChange;
+
+        RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
+    }
+
+    void OnPanelDetached(DetachFromPanelEvent evt)
+    {
+        if (_stats == null)
+            return;
+        _stats.OnHealthChange -= HealthBar.OnValueChange;
+        _stats.OnManaChange -= ManaBar.OnValueChange;
     }
 
     void BaseCharacterCardVisual(Character character, bool clickable)

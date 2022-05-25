@@ -10,6 +10,7 @@ public class StatVisual : VisualWithTooltip
 
     string _tooltipText;
 
+    // when there are no Stats => stats won't be interacted with
     public StatVisual(Sprite icon, int value, string tooltipText) : base()
     {
         BaseStatVisual(icon);
@@ -17,20 +18,27 @@ public class StatVisual : VisualWithTooltip
         Value.text = value.ToString();
     }
 
+    // when there are Stats
     public StatVisual(Sprite icon, Stat stat) : base()
     {
         BaseStatVisual(icon);
 
         _stat = stat;
+        _stat.OnModifierAdded += OnModiferAdded;
+        _stat.OnModifierRemoved += OnModifierRemoved;
+
+        RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
+
+
         _tooltipText = _stat.Type.ToString();
 
-        Value.text = stat.GetValue().ToString();
+        HandleStatValue();
+    }
 
-        Value.style.color = Color.white;
-        if (stat.GetValue() > stat.BaseValue)
-            Value.style.color = Color.green;
-        if (stat.GetValue() < stat.BaseValue)
-            Value.style.color = Color.red;
+    void OnPanelDetached(DetachFromPanelEvent evt)
+    {
+        _stat.OnModifierAdded -= OnModiferAdded;
+        _stat.OnModifierRemoved -= OnModifierRemoved;
     }
 
     void BaseStatVisual(Sprite icon)
@@ -46,6 +54,28 @@ public class StatVisual : VisualWithTooltip
         Value.AddToClassList("statValue");
         Add(Value);
     }
+
+    void OnModiferAdded(StatModifier modifier)
+    {
+        HandleStatValue();
+    }
+
+    void OnModifierRemoved(StatModifier modifier)
+    {
+        HandleStatValue();
+    }
+
+    void HandleStatValue()
+    {
+        Value.text = _stat.GetValue().ToString();
+
+        Value.style.color = Color.white;
+        if (_stat.GetValue() > _stat.BaseValue)
+            Value.style.color = Color.green;
+        if (_stat.GetValue() < _stat.BaseValue)
+            Value.style.color = Color.red;
+    }
+
 
     protected override void DisplayTooltip()
     {
