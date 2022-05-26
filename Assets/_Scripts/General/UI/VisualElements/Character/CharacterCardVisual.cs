@@ -45,14 +45,25 @@ public class CharacterCardVisual : VisualElement
 
         _characteristics.Add(HandleCharacterStats(null, stats));
 
-        HealthBar.DisplayMissingAmount(stats.MaxHealth.GetValue(), stats.CurrentHealth);
-        ManaBar.DisplayMissingAmount(stats.MaxMana.GetValue(), stats.CurrentMana);
+        RegisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
 
-        stats.OnHealthChange += HealthBar.OnValueChange;
-        stats.OnManaChange += ManaBar.OnValueChange;
+        _stats.OnHealthChange += HealthBar.OnValueChange;
+        _stats.OnManaChange += ManaBar.OnValueChange;
+        _character.OnCharacterExpGain += OnExpGain;
+        _character.OnCharacterLevelUp += OnLevelUp;
 
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
+
+    private void GeometryChangedCallback(GeometryChangedEvent evt)
+    {
+        //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/
+        UnregisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
+        // Do what you need to do here, as geometry should be calculated.
+        HealthBar.DisplayMissingAmount(_stats.MaxHealth.GetValue(), _stats.CurrentHealth);
+        ManaBar.DisplayMissingAmount(_stats.MaxMana.GetValue(), _stats.CurrentMana);
+    }
+
 
     void OnPanelDetached(DetachFromPanelEvent evt)
     {
@@ -60,6 +71,11 @@ public class CharacterCardVisual : VisualElement
             return;
         _stats.OnHealthChange -= HealthBar.OnValueChange;
         _stats.OnManaChange -= ManaBar.OnValueChange;
+
+        if (_character == null)
+            return;
+        _character.OnCharacterExpGain -= OnExpGain;
+        _character.OnCharacterLevelUp -= OnLevelUp;
     }
 
     void BaseCharacterCardVisual(Character character, bool clickable)
@@ -144,21 +160,31 @@ public class CharacterCardVisual : VisualElement
         VisualElement el = new();
         el.style.flexDirection = FlexDirection.Row;
 
-        Label level = new();
-        Label exp = new();
+        _level = new();
+        _exp = new();
 
-        level.AddToClassList("secondaryText");
-        exp.AddToClassList("secondaryText");
+        _level.AddToClassList("secondaryText");
+        _exp.AddToClassList("secondaryText");
 
-        level.text = $"Level {character.Level}";
-        exp.text = $"Exp: {character.Experience}/100";
+        _level.text = $"Level {character.Level}";
+        _exp.text = $"Exp: {character.Experience}/100";
 
-        el.Add(level);
-        el.Add(exp);
+        el.Add(_level);
+        el.Add(_exp);
 
         container.Add(el);
 
         return container;
+    }
+
+    void OnExpGain(int gain)
+    {
+        _exp.text = $"Exp: {_character.Experience}/100";
+    }
+
+    void OnLevelUp()
+    {
+        _level.text = $"Level {_character.Level}";
     }
 
     VisualElement HandleCharacterStats(Character character, CharacterStats characterStats)

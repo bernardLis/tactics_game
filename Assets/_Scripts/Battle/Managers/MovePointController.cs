@@ -135,7 +135,7 @@ public class MovePointController : Singleton<MovePointController>
     {
         UpdateTileInfoUI();
         UpdateCharacterCardInfo();
-        ShowAbilityResult();
+        UpdateAbilityResult();
     }
 
     // TODO: needs a rewrite
@@ -181,7 +181,7 @@ public class MovePointController : Singleton<MovePointController>
             _infoCardUI.HideCharacterCard();
     }
 
-    void ShowAbilityResult()
+    void UpdateAbilityResult()
     {
         _infoCardUI.HideInteractionSummary();
         _characterUI.HideHealthChange();

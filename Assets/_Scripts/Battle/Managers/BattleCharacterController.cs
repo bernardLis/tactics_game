@@ -346,7 +346,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             await SelectedAbility.HighlightAreaOfEffect(transform.position);
             _battleInputController.SetInputAllowed(true);
 
-            //TODO: _movePointController.UpdateDisplayInformation();
+            _movePointController.UpdateDisplayInformation();
             _isInteracting = false;
             return;
         }
@@ -421,7 +421,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         UpdateCharacterState(CharacterState.None);
 
         // update ui through movepoint
-        //TODO: _movePointController.UpdateDisplayInformation();
+        _movePointController.UpdateDisplayInformation();
 
         // set flags in player char selection
         if (_playerCharSelection != null)

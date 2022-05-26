@@ -87,12 +87,8 @@ public class InfoCardUI : Singleton<InfoCardUI>
     /* character card */
     public void ShowCharacterCard(CharacterStats stats)
     {
-
         if (_displayedCharacter == stats.gameObject)
             return;
-        if (_displayedCharacter != null)
-            Debug.Log($"DisplayedCharacter.name {_displayedCharacter.name}");
-        Debug.Log($"stats.gameObject {stats.gameObject.name}");
 
         _displayedCharacter = stats.gameObject;
         _characterCard.Clear();
@@ -107,7 +103,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     public void HideCharacterCard()
     {
-        Debug.Log("hiding the card");
         _displayedCharacter = null;
         DOTween.To(() => _characterCard.style.left.value.value, x => _characterCard.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
@@ -260,6 +255,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     public void HideInteractionSummary()
     {
+        _characterCardVisual.HealthBar.HideInteractionResult();
+        _characterCardVisual.ManaBar.HideInteractionResult();
+
         DOTween.To(() => _interactionSummary.style.left.value.value, x => _interactionSummary.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
     }

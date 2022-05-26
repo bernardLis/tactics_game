@@ -13,13 +13,14 @@ public class BuffTriggerable : BaseTriggerable
             await _characterRendererManager.SpellcastAnimation();
             _myStats.UseMana(ability.ManaCost);
         }
+        _myStats.SetAttacker(true);
+
         target = GetTarget(pos);
         if (target == null)
             return;
 
         DisplayBattleLog(target, ability);
 
-        _myStats.SetAttacker(true);
         target.GetComponent<IBuffable<GameObject, Ability>>().GetBuffed(attacker, ability);
     }
 

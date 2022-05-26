@@ -10,13 +10,15 @@ public class ResourceBarVisual : VisualWithTooltip
     VisualElement _interactionResult;
     Label _text;
 
+    int _lastTotalValue;
+    int _lastCurrentValue;
+
     string _tweenID;
 
     string _tooltipText;
 
     public ResourceBarVisual(Color color, string tooltipText, int thickness = 0) : base()
     {
-        Debug.Log("new resource bar");
         _tooltipText = tooltipText;
 
         _missing = new();
@@ -42,44 +44,53 @@ public class ResourceBarVisual : VisualWithTooltip
 
     public void DisplayMissingAmount(int total, int current)
     {
+        _lastTotalValue = total;
+        _lastCurrentValue = current;
+
         _missing.style.display = DisplayStyle.Flex;
-        float missingPerc = ((float)total - (float)current) / (float)total;
-        missingPerc = Mathf.Clamp(missingPerc, 0, 1);
-        _missing.style.width = Length.Percent(missingPerc * 100);
+        float missingPercent = (float)current / (float)total;
+        missingPercent = Mathf.Clamp(missingPercent, 0, 1);
+
+        float targetWidth = localBound.width * (1 - missingPercent);
+        _missing.style.width = targetWidth;
 
         SetText($"{current}/{total}");
     }
 
-    public async void OnValueChange(int change, int beforeChange, int total)
+    public async void OnValueChange(int total, int beforeChange, int change)
     {
-        // TODO: assuming for now that the change is always negative, that's not the case
-        /*
-        DOTween.To(() => iWantToTweenThisValue, x => iWantToTweenThisValue = x, myEndValue , 3f)
-                         .SetEase(Ease.InBounce); // on 2 lines for readability
-        */
-        await Task.Delay(10);
-        Debug.Log($"in on value change: {change}, {beforeChange}, {total}");
         HideInteractionResult(total, beforeChange);
-        _missing.style.display = DisplayStyle.Flex;
-        float missingPerc = ((float)beforeChange + (float)change) / (float)total;
-        Debug.Log($"localBound.width: {localBound.width}, worldBound.width {worldBound.width}");
-        float actualWidth = localBound.width - localBound.width * missingPerc;
-        Debug.Log($"missingPerc: {missingPerc}, actualWidth {actualWidth}");
+        if (change == 0)
+            return;
+        float missingPercent = ((float)beforeChange + (float)change) / (float)total;
+        missingPercent = Mathf.Clamp(missingPercent, 0, 1);
 
-        DOTween.To(() => _missing.style.width.value.value, x => _missing.style.width = x, actualWidth, 1f)
-                         .SetEase(Ease.InBounce);
+        float targetWidth = localBound.width * (1 - missingPercent);// * 100;
+        DOTween.To(() => _missing.style.width.value.value, x => _missing.style.width = x, targetWidth, 1f);
 
-        SetText($"{beforeChange}/{total}");
         int current = beforeChange;
         int goal = beforeChange + change;
-        while (current > goal)
+        goal = Mathf.Clamp(goal, 0, total);
+        int delay = Mathf.FloorToInt(1000 / Mathf.Abs(change)); // do it in 1second
+
+        if (change < 0)
         {
-            current--;
-
-            SetText($"{current}/{total}");
-            await Task.Delay(20);
+            while (current > goal)
+            {
+                current--;
+                SetText($"{current}/{total}");
+                await Task.Delay(delay);
+            }
         }
-
+        else
+        {
+            while (current < goal)
+            {
+                current++;
+                SetText($"{current}/{total}");
+                await Task.Delay(delay);
+            }
+        }
     }
 
     public void DisplayInteractionResult(int total, int current, int value)
@@ -124,12 +135,23 @@ public class ResourceBarVisual : VisualWithTooltip
         SetText($"{resultText}/{total}");
     }
 
+    public void HideInteractionResult()
+    {
+        BaseHideInteractionResult();
+        DisplayMissingAmount(_lastTotalValue, _lastCurrentValue);
+    }
+
     public void HideInteractionResult(int total, int current)
+    {
+        BaseHideInteractionResult();
+        DisplayMissingAmount(total, current);
+    }
+
+    void BaseHideInteractionResult()
     {
         DOTween.Pause(_tweenID);
 
         _interactionResult.style.display = DisplayStyle.None;
-        DisplayMissingAmount(total, current);
     }
 
     public void SetText(string newText)

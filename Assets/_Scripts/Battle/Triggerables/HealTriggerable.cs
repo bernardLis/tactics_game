@@ -12,13 +12,14 @@ public class HealTriggerable : BaseTriggerable
             await _characterRendererManager.SpellcastAnimation();
             _myStats.UseMana(ability.ManaCost);
         }
+        _myStats.SetAttacker(true);
+
         // looking for a target
         target = GetTarget(pos);
         if (target == null)
             return;
         DisplayBattleLog(target, ability);
 
-        _myStats.SetAttacker(true);
         int healAmount = ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
         target.GetComponent<IHealable<GameObject, Ability>>().GainHealth(healAmount, gameObject, ability);
     }

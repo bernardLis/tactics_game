@@ -13,14 +13,14 @@ public class UtilityTriggerable : BaseTriggerable
             await _characterRendererManager.SpellcastAnimation();
             _myStats.UseMana(ability.ManaCost);
         }
+        _myStats.SetAttacker(true);
+
         // looking for a target
         target = GetTarget(pos);
         if (target == null)
             return;
 
         DisplayBattleLog(target, ability);
-
-        _myStats.SetAttacker(true);
 
         target.GetComponent<IItemUsable<UtilityAbility>>().UseItem(ability);
     }

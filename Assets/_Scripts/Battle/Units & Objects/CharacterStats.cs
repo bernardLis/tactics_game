@@ -60,7 +60,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     // delegates
     public event Action<GameObject> CharacterDeathEvent;
-    public event Action<int, int, int> OnHealthChange; // change, value before change, total
+    public event Action<int, int, int> OnHealthChange; // total,  value before change, change 
     public event Action<int, int, int> OnManaChange;
 
     protected virtual void Awake()
@@ -304,7 +304,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // displaying damage UI
         _damageUI.DisplayOnCharacter(damage.ToString(), 36, Helpers.GetColor("damageRed"));
 
-        OnHealthChange?.Invoke(-damage, CurrentHealth, Character.MaxHealth);
+        OnHealthChange?.Invoke(Character.MaxHealth, CurrentHealth, -damage);
         CurrentHealth -= damage;
 
         // don't shake on death
@@ -437,9 +437,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public void GainMana(int amount)
     {
-        OnManaChange?.Invoke(amount, CurrentMana, Character.MaxMana);
+        int manaBeforeChange = CurrentMana;
         CurrentMana += amount;
         CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
+        OnManaChange?.Invoke(Character.MaxMana, manaBeforeChange, amount);
+
     }
 
     public void UseMana(int amount)
@@ -447,10 +449,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         if (amount == 0)
             return;
 
-        OnManaChange?.Invoke(-amount, CurrentMana, Character.MaxMana);
+        int manaBeforeChange = CurrentMana;
+
         CurrentMana -= amount;
         CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
-
+        OnManaChange?.Invoke(Character.MaxMana, manaBeforeChange, -amount);
     }
 
     public void GainHealth(int healthGain, GameObject attacker, Ability ability)
@@ -459,7 +462,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             stats.Character.GetExp(gameObject);
 
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
-        OnHealthChange?.Invoke(healthGain, CurrentHealth, Character.MaxHealth);
+        OnHealthChange?.Invoke(Character.MaxHealth, CurrentHealth, healthGain);
         CurrentHealth += healthGain;
 
         HandleModifier(ability);
@@ -566,8 +569,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public async Task Die()
     {
-        // TODO: need to know how you died, to award exp.
-
         // playing death animation
         await _characterRendererManager.Die();
 

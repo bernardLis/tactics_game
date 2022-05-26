@@ -12,6 +12,8 @@ public class PushTriggerable : BaseTriggerable
             await _characterRendererManager.SpellcastAnimation();
             _myStats.UseMana(ability.ManaCost);
         }
+        _myStats.SetAttacker(true);
+
         // looking for a target
         target = GetTarget(pos);
         if (target == null)
@@ -19,7 +21,6 @@ public class PushTriggerable : BaseTriggerable
 
         DisplayBattleLog(target, ability);
 
-        _myStats.SetAttacker(true);
         // player can push characters/PushableObstacle
         Vector3 pushDir = (target.transform.position - transform.position).normalized;
         await target.GetComponent<IPushable<Vector3, GameObject, Ability>>()
