@@ -17,6 +17,7 @@ MonoBehaviour:
   CharacterName: Saitama
   Portrait: {fileID: 21300000, guid: f7497f4b4c9e84248ae4aed09f491cb9, type: 3}
   Level: 7
+  Experience: 0
   Strength: 7
   Intelligence: 7
   Agility: 99
@@ -26,7 +27,7 @@ MonoBehaviour:
   Armor: 0
   MovementRange: 0
   Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
-  Weapon: {fileID: 11400000, guid: b3756de8953f75e4e8b992726567dc45, type: 2}
+  Weapon: {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
   BasicAbilities:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities:

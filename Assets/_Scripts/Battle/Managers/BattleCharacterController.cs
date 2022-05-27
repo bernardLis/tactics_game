@@ -421,7 +421,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         UpdateCharacterState(CharacterState.None);
 
         // update ui through movepoint
-        _movePointController.UpdateDisplayInformation();
+        _movePointController.UpdateAbilityResult();
 
         // set flags in player char selection
         if (_playerCharSelection != null)

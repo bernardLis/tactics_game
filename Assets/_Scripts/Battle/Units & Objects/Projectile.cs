@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 public class Projectile : MonoBehaviour
 {
     [Header("Attributes")]
-    float _speed = 6f;
+    float _speed = 5f;
 
     Vector3 _adjustedTargetPosition;
     Transform _shooter;
 
+    [SerializeField] GameObject _arrow;
+    [SerializeField] GameObject _impactEffect;
+
     public virtual async Task<Transform> Shoot(Transform shooter, Vector3 targetPos)
     {
         _shooter = shooter;
-        // spawn projectile in the tile in the direction towards the target at chest height
+        // spawn projectile in the tile in the direction towards the target
         Vector3 dirToTarget = (targetPos - transform.position).normalized;
-        Vector3 spawnLocation = transform.position + dirToTarget + (Vector3.up * 0.5f);
-        Debug.Log($"shoot spawn: {spawnLocation}");
-
+        Vector3 spawnLocation = transform.position + dirToTarget; 
         transform.position = spawnLocation;
 
-        // shoot at the chest area
-        _adjustedTargetPosition = targetPos + (Vector3.up * 0.5f);
+        _adjustedTargetPosition = targetPos;
+        Debug.DrawLine(spawnLocation, _adjustedTargetPosition, Color.magenta, 3f);
         // look at the target;
         transform.right = -(_adjustedTargetPosition - transform.position); // https://answers.unity.com/questions/585035/lookat-2d-equivalent-.html
 
@@ -59,12 +60,10 @@ public class Projectile : MonoBehaviour
 
         foreach (Collider2D c in cols)
         {
-            Debug.Log($"checking c.name: {c.name}");
             if (c.transform != _shooter && (c.CompareTag(Tags.Obstacle)
             || c.CompareTag(Tags.Player) || c.CompareTag(Tags.Enemy)
             || c.CompareTag(Tags.PushableObstacle)))
             {
-                Debug.Log($"hit: {c.name}");
                 return c.transform;
             }
         }
@@ -78,6 +77,7 @@ public class Projectile : MonoBehaviour
 
     void DestroySelf()
     {
+        Destroy(Instantiate(_impactEffect, transform.position, Quaternion.identity), 1f);
         Destroy(gameObject);
     }
 }

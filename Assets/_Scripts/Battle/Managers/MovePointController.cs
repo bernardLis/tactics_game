@@ -181,7 +181,7 @@ public class MovePointController : Singleton<MovePointController>
             _infoCardUI.HideCharacterCard();
     }
 
-    void UpdateAbilityResult()
+    public void UpdateAbilityResult()
     {
         _infoCardUI.HideInteractionSummary();
         _characterUI.HideHealthChange();
