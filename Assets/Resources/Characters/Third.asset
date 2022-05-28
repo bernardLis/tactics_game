@@ -17,6 +17,7 @@ MonoBehaviour:
   CharacterName: Caped Baldy
   Portrait: {fileID: 21300000, guid: f4b17f1f358194043b70125cf5eac90b, type: 3}
   Level: 5
+  Experience: 0
   Strength: 5
   Intelligence: 5
   Agility: 99
@@ -30,7 +31,7 @@ MonoBehaviour:
   BasicAbilities:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities:
-  - {fileID: 11400000, guid: cf63e334ccdeebd43945bb0a77632b96, type: 2}
+  - {fileID: 11400000, guid: 1795d5fe550f40e479e8196acc297e21, type: 2}
   - {fileID: 11400000, guid: b203184cb4195254f96a32e912135937, type: 2}
   - {fileID: 11400000, guid: 997dbbcb0769e524c892ed23602e5b6f, type: 2}
   - {fileID: 11400000, guid: 2548c920de5716240ae5e1c66758fdfb, type: 2}

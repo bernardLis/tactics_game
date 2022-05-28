@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 public class Projectile : MonoBehaviour
 {
     [Header("Attributes")]
-    float _speed = 5f;
+    [SerializeField] float _speed = 5f;
 
     Vector3 _adjustedTargetPosition;
     Transform _shooter;
 
-    [SerializeField] GameObject _arrow;
     [SerializeField] GameObject _impactEffect;
 
     public virtual async Task<Transform> Shoot(Transform shooter, Vector3 targetPos)

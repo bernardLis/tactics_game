@@ -50,6 +50,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     // statuses
     [HideInInspector] public List<Status> Statuses = new();
     public bool IsStunned { get; private set; }
+    public bool IsElectrified { get; private set; }
+
 
     // absorbers/shields
     List<Absorber> _absorbers = new();
@@ -62,6 +64,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public event Action<GameObject> CharacterDeathEvent;
     public event Action<int, int, int> OnHealthChange; // total,  value before change, change 
     public event Action<int, int, int> OnManaChange;
+    public event Action<StatModifier> OnModifierAdded;
+    public event Action<Status> OnStatusAdded;
+
 
     protected virtual void Awake()
     {
@@ -586,12 +591,17 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public void SetAttacker(bool isAttacker) { IsAttacker = isAttacker; }
     public void SetIsStunned(bool isStunned) { IsStunned = isStunned; }
+    public void SetIsElectrified(bool isElectrified) { IsElectrified = isElectrified; }
 
     void AddModifier(Ability ability)
     {
         foreach (Stat s in Stats)
             if (s.Type == ability.StatModifier.StatType)
-                s.AddModifier(Instantiate(ability.StatModifier)); // stat checks if modifier is a dupe, to prevent stacking
+            {
+                StatModifier mod = Instantiate(ability.StatModifier);
+                s.AddModifier(mod); // stat checks if modifier is a dupe, to prevent stacking
+                OnModifierAdded?.Invoke(mod);
+            }
     }
 
     public void AddStatus(Status s, GameObject attacker)
@@ -599,11 +609,12 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // statuses don't stack, they are refreshed
         RemoveOldStatus(s);
 
-        var clone = Instantiate(s);
+        Status clone = Instantiate(s);
         Statuses.Add(clone);
         clone.Initialize(gameObject, attacker);
         // status triggers right away
         clone.FirstTrigger();
+        OnStatusAdded?.Invoke(clone);
     }
 
     void RemoveOldStatus(Status s)

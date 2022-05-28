@@ -49,6 +49,9 @@ public class CharacterCardVisual : VisualElement
 
         _stats.OnHealthChange += HealthBar.OnValueChange;
         _stats.OnManaChange += ManaBar.OnValueChange;
+        _stats.OnModifierAdded += OnModiferAdded;
+        _stats.OnStatusAdded += OnStatusAdded;
+
         _character.OnCharacterExpGain += OnExpGain;
         _character.OnCharacterLevelUp += OnLevelUp;
 
@@ -71,6 +74,8 @@ public class CharacterCardVisual : VisualElement
             return;
         _stats.OnHealthChange -= HealthBar.OnValueChange;
         _stats.OnManaChange -= ManaBar.OnValueChange;
+        _stats.OnModifierAdded -= OnModiferAdded;
+        _stats.OnStatusAdded -= OnStatusAdded;
 
         if (_character == null)
             return;
@@ -177,15 +182,6 @@ public class CharacterCardVisual : VisualElement
         return container;
     }
 
-    void OnExpGain(int gain)
-    {
-        _exp.text = $"Exp: {_character.Experience}/100";
-    }
-
-    void OnLevelUp()
-    {
-        _level.text = $"Level {_character.Level}";
-    }
 
     VisualElement HandleCharacterStats(Character character, CharacterStats characterStats)
     {
@@ -261,6 +257,32 @@ public class CharacterCardVisual : VisualElement
         return els;
     }
 
+    // Delegates
+    void OnExpGain(int gain)
+    {
+        _exp.text = $"Exp: {_character.Experience}/100";
+    }
+
+    void OnLevelUp()
+    {
+        _level.text = $"Level {_character.Level}";
+    }
+
+    void OnModiferAdded(StatModifier mod)
+    {
+        ModifierVisual mElement = new ModifierVisual(mod);
+        _portrait.Add(mElement);
+
+
+    }
+
+    void OnStatusAdded(Status status)
+    {
+        ModifierVisual mElement = new ModifierVisual(status);
+        _portrait.Add(mElement);
+    }
+
+    // clicks
     void OnPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0) // only left mouse click

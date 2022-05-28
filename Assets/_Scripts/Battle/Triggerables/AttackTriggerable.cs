@@ -8,7 +8,11 @@ public class AttackTriggerable : BaseTriggerable
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
         {
-            await _characterRendererManager.AttackAnimation();
+            // TODO: may be problematic, play spellcast animation on spell abilities
+            if (ability.MultiplerStat == StatType.Intelligence)
+                await _characterRendererManager.SpellcastAnimation();
+            else
+                await _characterRendererManager.AttackAnimation();
             _myStats.UseMana(ability.ManaCost);
         }
 

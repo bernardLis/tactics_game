@@ -10,6 +10,8 @@ public class TooltipVisual : VisualElement
 
     public TooltipVisual(VisualElement element, string text)
     {
+        style.backgroundColor = Color.black;
+        
         _text = new(text);
         _text.style.color = Color.white;
         _text.style.fontSize = 32;
