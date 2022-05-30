@@ -51,6 +51,7 @@ public class CharacterCardVisual : VisualElement
         _stats.OnManaChange += ManaBar.OnValueChange;
         _stats.OnModifierAdded += OnModiferAdded;
         _stats.OnStatusAdded += OnStatusAdded;
+        _stats.OnStatusRemoved += OnStatusRemoved;
 
         _character.OnCharacterExpGain += OnExpGain;
         _character.OnCharacterLevelUp += OnLevelUp;
@@ -76,6 +77,7 @@ public class CharacterCardVisual : VisualElement
         _stats.OnManaChange -= ManaBar.OnValueChange;
         _stats.OnModifierAdded -= OnModiferAdded;
         _stats.OnStatusAdded -= OnStatusAdded;
+        _stats.OnStatusRemoved -= OnStatusRemoved;
 
         if (_character == null)
             return;
@@ -272,14 +274,24 @@ public class CharacterCardVisual : VisualElement
     {
         ModifierVisual mElement = new ModifierVisual(mod);
         _portrait.Add(mElement);
-
-
     }
 
     void OnStatusAdded(Status status)
     {
         ModifierVisual mElement = new ModifierVisual(status);
         _portrait.Add(mElement);
+    }
+
+    void OnStatusRemoved(Status status)
+    {
+        foreach (ModifierVisual el in _portrait.Children())
+        {
+            if (el.Status.ReferenceID == status.ReferenceID)
+            {
+                el.RemoveSelf(_portrait);
+                return;
+            }
+        }
     }
 
     // clicks

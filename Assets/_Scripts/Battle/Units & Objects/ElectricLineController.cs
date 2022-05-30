@@ -10,27 +10,40 @@ public class ElectricLineController : MonoBehaviour
     int _animationStep;
     float _fps = 30f;
     float _fpsCoutner;
+    int currentPosition = 0;
 
-    void Start()
+    void Awake()
     {
         _lineRenderer = GetComponent<LineRenderer>();
+        _lineRenderer.material.SetTexture("_MainTex", _textures[0]);
     }
 
-    public void Electrify(Vector3 startPos, Vector3 endPos)
+
+    public void Electrify(Vector3 startPos)
     {
+        //, Vector3 endPos
         _lineRenderer.SetPosition(0, startPos);
-        _lineRenderer.SetPosition(1, endPos);
+        //_lineRenderer.SetPosition(1, endPos);
+    }
+
+    public void AddPosition(Vector3 pos)
+    {
+        currentPosition++;
+        _lineRenderer.positionCount = currentPosition + 1;
+        _lineRenderer.SetPosition(currentPosition, pos);
     }
 
     void Update()
     {
+        if (_lineRenderer == null)
+            return;
+
         _fpsCoutner += Time.deltaTime;
         if (_fpsCoutner >= 1f / _fps)
         {
             _animationStep++;
             if (_animationStep == _textures.Length)
                 _animationStep = 0;
-
             _lineRenderer.material.SetTexture("_MainTex", _textures[_animationStep]);
             _fpsCoutner = 0f;
         }

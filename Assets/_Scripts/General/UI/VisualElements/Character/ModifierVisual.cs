@@ -1,3 +1,5 @@
+using UnityEngine.UIElements;
+
 public class ModifierVisual : VisualWithTooltip
 {
     public StatModifier Modifier;
@@ -35,6 +37,12 @@ public class ModifierVisual : VisualWithTooltip
 
         _tooltip = new(this, text);
         base.DisplayTooltip();
+    }
+
+    public void RemoveSelf(VisualElement parent)
+    {
+        this.SetEnabled(false);
+        parent.Remove(this);
     }
 
 }

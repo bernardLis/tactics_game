@@ -13,6 +13,12 @@ public class AttackTriggerable : BaseTriggerable
                 await _characterRendererManager.SpellcastAnimation();
             else
                 await _characterRendererManager.AttackAnimation();
+
+            // TODO: maybe here check if ability has an effect and spawn it correctly.
+            // maybe this effect has a script that controlls the ability and you pass some variables to it 
+            // and await it
+            // it should be a game object to interact with update etc. 
+
             _myStats.UseMana(ability.ManaCost);
         }
 

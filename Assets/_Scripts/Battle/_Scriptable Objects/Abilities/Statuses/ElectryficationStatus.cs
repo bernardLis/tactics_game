@@ -12,21 +12,36 @@ public class ElectryficationStatus : Status
     {
         base.FirstTrigger();
         _characterStats.SetIsElectrified(true);
+        GameObject effectInstance = Instantiate(Effect, _characterGameObject.transform.position, Quaternion.identity);
+        ElectricLineController effectController = effectInstance.GetComponent<ElectricLineController>();
+        Vector3 startPositionRandomized = new Vector3(_characterGameObject.transform.position.x + Random.Range(0, 0.5f),
+                                              _characterGameObject.transform.position.y + Random.Range(0, 0.5f));
+
+        effectController.Electrify(startPositionRandomized);
 
         // spawn effect on the tile
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
             {
-                // TODO: it would be cool if I was able to draw and effect from  
+
                 Vector3 pos = new Vector3(_characterGameObject.transform.position.x + x, _characterGameObject.transform.position.y + y);
-                GameObject effectInstance = Instantiate(Effect, _characterGameObject.transform.position, Quaternion.identity);
-                Destroy(effectInstance, 1f);
-                effectInstance.GetComponent<ElectricLineController>().Electrify(_characterGameObject.transform.position, pos);
+                Vector3 endPosistionRandomized = new Vector3(pos.x + Random.Range(0, 0.5f),
+                                             pos.y + Random.Range(0, 0.5f));
+
+                /*
+
+                effectInstance.GetComponent<ElectricLineController>()
+                              .Electrify(startPositionRandomized, endPosistionRandomized);
+                */
+                effectController.AddPosition(endPosistionRandomized);
+
                 SpreadElectrification(pos);
-                await Task.Delay(300);
+                await Task.Delay(50);
             }
         }
+        if (effectInstance != null)
+            Destroy(effectInstance, 1f);
     }
 
     void SpreadElectrification(Vector3 pos)

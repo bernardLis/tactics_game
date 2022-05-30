@@ -12,13 +12,15 @@ public class Projectile : MonoBehaviour
     Transform _shooter;
 
     [SerializeField] GameObject _impactEffect;
+    [SerializeField] float _impactDuration = 1f;
+
 
     public virtual async Task<Transform> Shoot(Transform shooter, Vector3 targetPos)
     {
         _shooter = shooter;
         // spawn projectile in the tile in the direction towards the target
         Vector3 dirToTarget = (targetPos - transform.position).normalized;
-        Vector3 spawnLocation = transform.position + dirToTarget; 
+        Vector3 spawnLocation = transform.position + dirToTarget;
         transform.position = spawnLocation;
 
         _adjustedTargetPosition = targetPos;
@@ -76,7 +78,7 @@ public class Projectile : MonoBehaviour
 
     void DestroySelf()
     {
-        Destroy(Instantiate(_impactEffect, transform.position, Quaternion.identity), 1f);
+        Destroy(Instantiate(_impactEffect, transform.position, Quaternion.identity), _impactDuration);
         Destroy(gameObject);
     }
 }

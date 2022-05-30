@@ -66,6 +66,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public event Action<int, int, int> OnManaChange;
     public event Action<StatModifier> OnModifierAdded;
     public event Action<Status> OnStatusAdded;
+    public event Action<Status> OnStatusRemoved;
+
 
 
     protected virtual void Awake()
@@ -625,7 +627,10 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
                 toRemove = status;
 
         if (toRemove != null)
+        {
             Statuses.Remove(toRemove);
+            OnStatusRemoved?.Invoke(toRemove);
+        }
     }
 
     public void AddAbsorber(Absorber absorber)
