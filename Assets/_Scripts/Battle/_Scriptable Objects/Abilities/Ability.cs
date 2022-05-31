@@ -21,10 +21,12 @@ public abstract class Ability : BaseScriptableObject
 
     [Tooltip("0 is one tile, 1 is a cross")]
     public int AreaOfEffect;
+    public bool LineAreaOfEffect;
     public AbilityType AbilityType;
     public StatType MultiplerStat;
     public WeaponType WeaponType; // abilities have weapons that can use them
     public GameObject Projectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
+    public GameObject AbilityEffect;
 
     [Header("Abilities can add modifiers and statuses on interaction")]
     public StatModifier StatModifier;
@@ -60,11 +62,13 @@ public abstract class Ability : BaseScriptableObject
         MultiplerStat = (StatType)System.Enum.Parse(typeof(StatType), item["MultiplierStat"].ToString());
         WeaponType = (WeaponType)System.Enum.Parse(typeof(WeaponType), item["WeaponType"].ToString());
         Projectile = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/{item["Projectile"]}.prefab", typeof(GameObject));
+        AbilityEffect = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/AbilityEffects/{item["AbilityEffect"]}.prefab", typeof(GameObject));
         Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
         Sound = (AudioClip)AssetDatabase.LoadAssetAtPath($"Assets/Sounds/Ability/{item["Sound"]}", typeof(AudioClip));
         BasePower = int.Parse(item["BasePower"].ToString());
         ManaCost = int.Parse(item["ManaCost"].ToString());
         AreaOfEffect = int.Parse(item["AreaOfEffect"].ToString());
+        LineAreaOfEffect = item["LineAreaOfEffect"].ToString() == "TRUE" ? true : false;
         StatModifier = statModifier;
         Status = status;
         Range = int.Parse(item["Range"].ToString());
@@ -111,7 +115,11 @@ public abstract class Ability : BaseScriptableObject
             _battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
 
         middleOfTargeting = middlePos;
-        await _highlighter.HighlightAbilityAOE(this, middlePos);
+        if (LineAreaOfEffect)
+            await _highlighter.HighlightAbilityLineAOE(this, middlePos);
+        else
+            await _highlighter.HighlightAbilityAOE(this, middlePos);
+
         MarkAffectedCharacters();
     }
 

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
+  m_Name: Zap
+  m_EditorClassIdentifier: 
+  Id: ffef5873-d45f-417e-98a4-17148af29093
+  ReferenceID: 
+  Description: Zap all targets in line
+  Icon: {fileID: 21300000, guid: d0fb20503269f0247846511b79604ef0, type: 3}
+  Sound: {fileID: 8300000, guid: 302ad6c081876fd4d8ffe4df0ed46010, type: 3}
+  BasePower: 10
+  ManaCost: 10
+  AreaOfEffect: 0
+  LineAreaOfEffect: 1
+  AbilityType: 0
+  MultiplerStat: 1
+  WeaponType: 3
+  Projectile: {fileID: 0}
+  AbilityEffect: {fileID: 7926466856204447407, guid: 8f0ba081f0c8caa44a41a691861c483b, type: 3}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 11400000, guid: a05ceeb634ffb9145ac8fbd75f28443e, type: 2}
+  Range: 5
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0.33333334, g: 0.7254902, b: 0.8980392, a: 1}
+  CharacterGameObject: {fileID: 0}

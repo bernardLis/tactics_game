@@ -18,12 +18,9 @@ public class ElectricLineController : MonoBehaviour
         _lineRenderer.material.SetTexture("_MainTex", _textures[0]);
     }
 
-
     public void Electrify(Vector3 startPos)
     {
-        //, Vector3 endPos
         _lineRenderer.SetPosition(0, startPos);
-        //_lineRenderer.SetPosition(1, endPos);
     }
 
     public void AddPosition(Vector3 pos)

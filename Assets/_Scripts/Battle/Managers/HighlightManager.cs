@@ -260,6 +260,34 @@ public class HighlightManager : Singleton<HighlightManager>
             await HandleAbilityHighlighting(ability, false);
     }
 
+    public async Task HighlightAbilityLineAOE(Ability ability, Vector3 targetPos)
+    {
+        await ClearHighlightedTiles();
+
+        // TOOD: incorrect
+
+        Vector3 characterPos = ability.CharacterGameObject.transform.position;
+        Vector3 dir = (targetPos - characterPos).normalized;
+        Debug.Log($"dir: {dir}");
+
+        float distance = Vector3.Distance(characterPos, targetPos);
+        Debug.Log($"dir: {distance}");
+
+        for (int i = 1; i <= distance; i++)
+        {
+            Vector3 pos = characterPos + dir * i;
+            // add selected point to highlight
+            Vector3Int tilePos = _tilemap.WorldToCell(pos);
+
+            //Vector3 posAdjusted = new Vector3(pos.x - 0.5f, pos.y - 0.5f);
+            Debug.Log($"dir: {tilePos}");
+            Debug.Log($"CanAbilityTargetTile(ability, posAdjusted): {CanAbilityTargetTile(ability, tilePos)}");
+
+            if (CanAbilityTargetTile(ability, tilePos))
+                AddTileForHighlighting(tilePos, ability.HighlightColor);
+        }
+    }
+
     public async Task HighlightAbilityAOE(Ability ability, Vector3 middlePos)
     {
         await ClearHighlightedTiles();

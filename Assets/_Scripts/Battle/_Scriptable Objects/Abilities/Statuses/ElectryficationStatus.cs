@@ -28,12 +28,6 @@ public class ElectryficationStatus : Status
                 Vector3 pos = new Vector3(_characterGameObject.transform.position.x + x, _characterGameObject.transform.position.y + y);
                 Vector3 endPosistionRandomized = new Vector3(pos.x + Random.Range(0, 0.5f),
                                              pos.y + Random.Range(0, 0.5f));
-
-                /*
-
-                effectInstance.GetComponent<ElectricLineController>()
-                              .Electrify(startPositionRandomized, endPosistionRandomized);
-                */
                 effectController.AddPosition(endPosistionRandomized);
 
                 SpreadElectrification(pos);
@@ -52,7 +46,7 @@ public class ElectryficationStatus : Status
                 if (!stats.IsElectrified)
                     stats.AddStatus(this, _attacker);
     }
-
+    
     public override void ResetFlag()
     {
         _characterStats.SetIsElectrified(false);
@@ -62,7 +56,4 @@ public class ElectryficationStatus : Status
     {
         return "Electrified for " + NumberOfTurns + " turn/s.";
     }
-
-
-
 }

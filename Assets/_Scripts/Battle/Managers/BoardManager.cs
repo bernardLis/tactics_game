@@ -11,7 +11,7 @@ using Pathfinding;
 public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
-public class BoardManager : MonoBehaviour
+public class BoardManager : Singleton<BoardManager>
 {
     // global
     GameManager _gameManager;
@@ -56,6 +56,14 @@ public class BoardManager : MonoBehaviour
     TilemapBiome _biome;
     List<GameObject> _pushableObstacles;
     List<Vector3Int> _openOuterPositions = new();
+
+    // accessible vars
+    public Light2D GlobalLight { get; private set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     void Start()
     {
@@ -150,10 +158,10 @@ public class BoardManager : MonoBehaviour
                                                     _mapVariant.TerrainIrregularitiesPercent.y);
         _outerAdditionsPercent = Random.Range(_biome.OuterAdditionsPercent.x, _biome.OuterAdditionsPercent.y);
 
-        Light2D l = Instantiate(_globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
-        l.transform.parent = _envObjectsHolder.transform;
-        l.color = _biome.LightColor;
-        l.intensity = _biome.LightIntensity;
+        GlobalLight = Instantiate(_globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
+        GlobalLight.transform.parent = _envObjectsHolder.transform;
+        GlobalLight.color = _biome.LightColor;
+        GlobalLight.intensity = _biome.LightIntensity;
 
         // TODO: Correct? I want to remove some values on some map types - river / hourglass
 

@@ -14,10 +14,12 @@ public class AttackTriggerable : BaseTriggerable
             else
                 await _characterRendererManager.AttackAnimation();
 
-            // TODO: maybe here check if ability has an effect and spawn it correctly.
-            // maybe this effect has a script that controlls the ability and you pass some variables to it 
-            // and await it
-            // it should be a game object to interact with update etc. 
+            if (ability.AbilityEffect != null)
+            {
+                Effect e = Instantiate(ability.AbilityEffect, pos, Quaternion.identity).GetComponent<Effect>();
+                await e.Play(ability, pos);
+                Destroy(e.gameObject);
+            }
 
             _myStats.UseMana(ability.ManaCost);
         }

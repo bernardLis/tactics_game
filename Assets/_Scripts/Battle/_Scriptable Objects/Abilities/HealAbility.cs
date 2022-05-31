@@ -5,7 +5,6 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Heal Ability")]
 public class HealAbility : Ability
 {
-
     HealTriggerable _healTriggerable;
 
     public override void Initialize(GameObject obj)
