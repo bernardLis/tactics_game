@@ -268,20 +268,17 @@ public class HighlightManager : Singleton<HighlightManager>
 
         Vector3 characterPos = ability.CharacterGameObject.transform.position;
         Vector3 dir = (targetPos - characterPos).normalized;
-        Debug.Log($"dir: {dir}");
-
         float distance = Vector3.Distance(characterPos, targetPos);
-        Debug.Log($"dir: {distance}");
 
         for (int i = 1; i <= distance; i++)
         {
             Vector3 pos = characterPos + dir * i;
-            // add selected point to highlight
             Vector3Int tilePos = _tilemap.WorldToCell(pos);
 
-            //Vector3 posAdjusted = new Vector3(pos.x - 0.5f, pos.y - 0.5f);
-            Debug.Log($"dir: {tilePos}");
-            Debug.Log($"CanAbilityTargetTile(ability, posAdjusted): {CanAbilityTargetTile(ability, tilePos)}");
+            // obstacles block lines
+            if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
+                if (IsThereObstacleGameObject(_tile))
+                    return;
 
             if (CanAbilityTargetTile(ability, tilePos))
                 AddTileForHighlighting(tilePos, ability.HighlightColor);

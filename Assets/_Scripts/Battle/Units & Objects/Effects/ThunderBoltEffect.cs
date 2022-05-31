@@ -17,26 +17,20 @@ public class ThunderBoltEffect : Effect
 
         DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, targetIntensity, 0.5f);
         await Task.Delay(500);
-        // maybe flash the light twice
-        DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, flashIntensity, 0.05f);
-        await Task.Delay(100);
-        DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, targetIntensity, 0.05f);
-        await Task.Delay(100);
-        DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, flashIntensity, 0.05f);
-        await Task.Delay(100);
-        DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, targetIntensity, 0.05f);
-        await Task.Delay(100);
 
+        // flash the light twice
+        DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, flashIntensity, 0.05f)
+                .SetLoops(4, LoopType.Yoyo);
+        await Task.Delay(300);
 
         // spawn the effect that emits light << nope? 
-
 
         // get light back to normal 
         ElectricLineController controller = GetComponent<ElectricLineController>();
         controller.Electrify(targetPos);
         Vector3 skyPos = new Vector3(targetPos.x + Random.Range(1f, 2f), targetPos.y + 20f);
         controller.AddPosition(skyPos);
-        await Task.Delay(500);
+        await Task.Delay(300);
         DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, startIntensity, 0.5f);
         await Task.Delay(500);
     }

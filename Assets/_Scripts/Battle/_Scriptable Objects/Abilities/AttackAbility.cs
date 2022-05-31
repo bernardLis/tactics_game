@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Attack Ability")]
 public class AttackAbility : Ability
 {
-    AttackTriggerable _attackTriggerable;
+    protected AttackTriggerable _attackTriggerable;
 
     public bool IsRetaliation { get; private set; }
 
