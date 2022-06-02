@@ -43,7 +43,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     // movement
     GameObject _tempObject;
     bool _hasCharacterStartedMoving;
-    bool _hasCharacterGoneBack;
+    public bool IsMovingBack { get; private set; }
 
     LineRenderer _pathRenderer;
 
@@ -283,12 +283,11 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // flag reset
         _playerCharSelection.SetCharacterMoved(false);
 
-        _hasCharacterGoneBack = true;
+        IsMovingBack = true;
         _hasCharacterStartedMoving = true;
 
         // move character to character's starting position quickly.
         _aiLerp.speed = 15;
-
         transform.position = _playerCharSelection.PositionTurnStart;
 
         _tempObject = new GameObject("Back Destination");
@@ -296,6 +295,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         var path = GetPathTo(_tempObject.transform);
         _aiLerp.SetPath(path);
         _aiLerp.destination = _tempObject.transform.position;
+
+        // remove statuses that were applied when moving
+        _playerStats.ResolveGoingBack();
 
         _characterUI.DisableSkillButtons();
     }
@@ -313,11 +315,11 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // TODO: maybe here check if there is interaction target that we are standing on and allow that interaction
 
         // check if it was back or normal move
-        if (!_hasCharacterGoneBack)
+        if (!IsMovingBack)
             return;
 
         // highlight movement range if character was going back
-        _hasCharacterGoneBack = false;
+        IsMovingBack = false;
         _battleInputController.SetInputAllowed(false);
         _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy).GetAwaiter(); // TODO:
         _battleInputController.SetInputAllowed(true);

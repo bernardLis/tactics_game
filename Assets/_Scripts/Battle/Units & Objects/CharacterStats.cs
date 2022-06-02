@@ -9,6 +9,14 @@ using Random = UnityEngine.Random;
 
 public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, GameObject, Ability>, IBuffable<GameObject, Ability>
 {
+    // global
+    HighlightManager _highlighter;
+
+    // local
+    DamageUI _damageUI;
+    CharacterRendererManager _characterRendererManager;
+    AILerp _aiLerp;
+
     [HideInInspector] public Character Character { get; private set; }
 
     // Stats are accessed by other scripts need to be public.
@@ -28,30 +36,23 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     [HideInInspector] public List<Ability> BasicAbilities = new();
     [HideInInspector] public List<Ability> Abilities = new();
 
-    // local
-    DamageUI _damageUI;
-    CharacterRendererManager _characterRendererManager;
-    AILerp _aiLerp;
-
-    // global
-    HighlightManager _highlighter;
-
-    // pushable variables
-    Vector3 _startingPos;
-    Vector3 _finalPos;
-    GameObject _tempObject;
-
     public int CurrentHealth { get; private set; }
     public int CurrentMana { get; private set; }
 
     // retaliation on interaction
     public bool IsAttacker { get; private set; }
 
+    // pushable variables
+    Vector3 _startingPos;
+    Vector3 _finalPos;
+    GameObject _tempObject;
+
     // statuses
     [HideInInspector] public List<Status> Statuses = new();
     public bool IsStunned { get; private set; }
     public bool IsElectrified { get; private set; }
-
+    Status _burnStatusAddedThisTurn;
+    public int DamageReceivedWhenWalking { get; private set; }
 
     // absorbers/shields
     List<Absorber> _absorbers = new();
@@ -67,8 +68,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public event Action<StatModifier> OnModifierAdded;
     public event Action<Status> OnStatusAdded;
     public event Action<Status> OnStatusRemoved;
-
-
 
     protected virtual void Awake()
     {
@@ -95,6 +94,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             return;
 
         GainMana(10);
+
+        // resetting status flags
+        _burnStatusAddedThisTurn = null;
+        DamageReceivedWhenWalking = 0;
+
     }
 
     protected void ResolveModifiersTurnEnd()
@@ -542,7 +546,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             if (c.CompareTag(Tags.PushableObstacle))
                 await CollideWithDestructible(ability, c);
         }
-
     }
 
     public async Task CollideWithCharacter(Ability ability, Collider2D col)
@@ -594,6 +597,12 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public void SetAttacker(bool isAttacker) { IsAttacker = isAttacker; }
     public void SetIsStunned(bool isStunned) { IsStunned = isStunned; }
     public void SetIsElectrified(bool isElectrified) { IsElectrified = isElectrified; }
+    public void WalkedThroughFire(Status s)
+    {
+        _burnStatusAddedThisTurn = s;
+        DamageReceivedWhenWalking += s.Value;
+    }
+
 
     void AddModifier(Ability ability)
     {
@@ -609,7 +618,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public void AddStatus(Status s, GameObject attacker)
     {
         // statuses don't stack, they are refreshed
-        RemoveOldStatus(s);
+        RemoveStatus(s);
 
         Status clone = Instantiate(s);
         Statuses.Add(clone);
@@ -619,7 +628,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         OnStatusAdded?.Invoke(clone);
     }
 
-    void RemoveOldStatus(Status s)
+    void RemoveStatus(Status s)
     {
         Status toRemove = null;
         foreach (Status status in Statuses)
@@ -645,6 +654,15 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         _absorbers.Remove(absorber);
     }
 
+    public void ResolveGoingBack()
+    {
+        CurrentHealth += DamageReceivedWhenWalking;
+        DamageReceivedWhenWalking = 0;
+
+        if (_burnStatusAddedThisTurn != null)
+            RemoveStatus(_burnStatusAddedThisTurn);
+    }
+
     protected void DisableAILerp()
     {
         _aiLerp.enabled = false;
@@ -655,5 +673,13 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     {
         _aiLerp.enabled = true;
         _aiLerp.canMove = true;
+        _aiLerp.canSearch = true;
+
+        Invoke("DisableAiLerpSearch", 1);
+    }
+
+    void DisableAiLerpSearch()
+    {
+        _aiLerp.canSearch = false;
     }
 }
