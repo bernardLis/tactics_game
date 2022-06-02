@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2078566322395839280}
   m_Layer: 0
   m_Name: FireOnTile
-  m_TagString: Untagged
+  m_TagString: FireOnTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,3 +145,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f9404684f3e0f4c887b8305367396b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spreadEffect: {fileID: 7464311929800695636, guid: 2ee25ecece12c6a43b78caac61022a7e, type: 3}

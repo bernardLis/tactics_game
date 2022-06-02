@@ -305,6 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicAbilities: []
   Abilities: []
+  _body: {fileID: 7495358995766541934}
   Statuses: []
   _levelUpEffect: {fileID: 2060092509515171908, guid: f588a433e409706429d8a018f347526c, type: 3}
 --- !u!114 &1864993292968118660
@@ -586,5 +587,10 @@ PrefabInstance:
 --- !u!4 &7495358995766541929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7963708993579331141, guid: 0a26501945ec5934e816991d9aee15f5, type: 3}
+  m_PrefabInstance: {fileID: 468403402713354284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7495358995766541934 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7963708993579331138, guid: 0a26501945ec5934e816991d9aee15f5, type: 3}
   m_PrefabInstance: {fileID: 468403402713354284}
   m_PrefabAsset: {fileID: 0}

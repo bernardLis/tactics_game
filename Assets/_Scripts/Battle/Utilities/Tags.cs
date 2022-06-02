@@ -39,6 +39,11 @@ public static class Tags
         private set { }
     }
 
+    public static string FireOnTile
+    {
+        get { return "FireOnTile"; }
+        private set { }
+    }
 
     public static int CharacterLayer
     {

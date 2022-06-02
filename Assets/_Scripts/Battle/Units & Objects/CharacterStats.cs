@@ -47,6 +47,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     Vector3 _finalPos;
     GameObject _tempObject;
 
+    // shake body
+    [SerializeField] GameObject _body;
+
     // statuses
     [HideInInspector] public List<Status> Statuses = new();
     public bool IsStunned { get; private set; }
@@ -298,9 +301,12 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         float duration = 0.5f;
         float strength = 0.8f;
 
-        DisableAILerp();
-        transform.DOShakePosition(duration, strength, 0, 0, false, true)
-                 .OnComplete(() => EnableAILerp());
+        // TODO: character shakes itself out of a tile
+        //DisableAILerp();
+        _body.transform.DOShakePosition(duration, strength, 0, 0, false, true);
+
+        //transform.DOShakePosition(duration, strength, 0, 0, false, true)
+        //         .OnComplete(() => EnableAILerp());
     }
 
     void ShieldDamage()
@@ -331,9 +337,12 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         float duration = 0.5f;
         float strength = 0.1f;
 
-        DisableAILerp();
-        transform.DOShakePosition(duration, strength)
-                 .OnComplete(() => EnableAILerp());
+
+        _body.transform.DOShakePosition(duration, strength, 0, 0, false, true);
+
+        //DisableAILerp();
+        //transform.DOShakePosition(duration, strength)
+        //         .OnComplete(() => EnableAILerp());
     }
 
     public void GetBuffed(GameObject attacker, Ability ability)

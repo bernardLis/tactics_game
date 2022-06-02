@@ -3,25 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using Pathfinding;
+using DG.Tweening;
 
-public class FireOnTile : TileEffect//, ICreatable<Vector3, Ability>
+public class FireOnTile : TileEffect
 {
     BattleCharacterController _battleCharacterController;
 
-    Vector3 _offsetVector = new Vector3(-0.16f, 0.21f, 0f);
+    [SerializeField] GameObject _spreadEffect;
 
+    Vector3 _offsetVector = new Vector3(-0.16f, 0.21f, 0f);
     CharacterStats _characterBurnedThisTurn = null;
     public override async Task Initialize(Vector3 pos, Ability ability)
     {
         await base.Initialize(pos, ability);
+
+        Debug.Log("initialize");
+        transform.position = transform.position + _offsetVector;
+
         _battleCharacterController = BattleCharacterController.Instance;
 
-        transform.position = transform.position + _offsetVector;
 
         _ability = ability;
         _numberOfTurnsLeft = 3; // TODO: hardcoded
+        CheckCollision(ability, pos);
 
         await Task.Yield();
+    }
+
+    void CheckCollision()
+    {
+        // don't allow multiple fires on one tile
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.CompareTag(Tags.FireOnTile))
+            {
+                Debug.Log("destory");
+                Destroy(gameObject);
+
+            }
     }
 
     protected override void DecrementTurnsLeft()
@@ -34,29 +53,55 @@ public class FireOnTile : TileEffect//, ICreatable<Vector3, Ability>
     {
         // TODO: I want fire to spread every turn to a random tile
         Debug.Log("fire spreads");
-        int x = Random.Range(-1, 2);
-        int y = Random.Range(-1, 2);
-        // TODO: need to check whether it is a valid tile before I instantiate it
-        if(Random.Range(0,2))
-        Vector3 pos = new Vector3(transform.position.x + x, transform.position.y + y);
-        // check if there is fire already on the tile
-        // check if there is an obstacle
-        // don't allow diagonal spreading
-        // if spreading on the character, burn them
-        // TODO: I do need some spawn effect
+        int change = 1;
+        if (Random.Range(0, 2) == 0)
+            change = -1;
+        Vector3 pos = Vector3.zero;
+        if (Random.Range(0, 2) == 0)
+            pos = new Vector3(transform.position.x + change, transform.position.y);
+        else
+            pos = new Vector3(transform.position.x, transform.position.y + change);
 
+        GameObject sEffect = Instantiate(_spreadEffect, transform.position, Quaternion.identity);
+        sEffect.transform.DOMove(pos, 0.5f);
+        Destroy(sEffect, 1f);
 
-        Instantiate(this.gameObject, pos, Quaternion.identity);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+
+        bool canSpread = true;
+        foreach (Collider2D c in cols)
+        {
+            if (c.TryGetComponent(out CharacterStats stats))
+            {
+                Burn(stats);
+                continue;
+            }
+            if (c.CompareTag(Tags.FireOnTile))
+            {
+                canSpread = false;
+                continue;
+            }
+            if (c.CompareTag(Tags.Obstacle))
+            {
+                canSpread = false;
+                continue;
+            }
+        }
+
+        if (canSpread)
+            Instantiate(this.gameObject, pos, Quaternion.identity);
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log($"on trigger enter: {other.name}");
+        Debug.Log($"_battleCharacterController: {_battleCharacterController}");
+
         if (other.TryGetComponent(out CharacterStats stats))
         {
             if (_characterBurnedThisTurn != null && _characterBurnedThisTurn == stats)
                 return;
-            if (_battleCharacterController.IsMovingBack)
+            if (_battleCharacterController != null && _battleCharacterController.IsMovingBack)
                 return;
 
             Burn(stats);
