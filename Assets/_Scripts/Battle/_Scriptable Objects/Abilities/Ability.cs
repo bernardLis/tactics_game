@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEditor;
 
-public enum AbilityType { Attack, Heal, Push, Buff, Utility, Create }
+public enum AbilityType { Attack, Heal, Push, Buff, Utility, Create, AttackCreate }
 
 public abstract class Ability : BaseScriptableObject
 {

@@ -11,6 +11,9 @@ public class StatModifier : BaseScriptableObject
     public int NumberOfTurns;
     public int Value;
 
+    GameObject _characterGameObject;
+    DamageUI _damageUI;
+
     // called from editor using table data
     public virtual void Create(Dictionary<string, object> item)
     {
@@ -19,6 +22,21 @@ public class StatModifier : BaseScriptableObject
         NumberOfTurns = int.Parse(item["NumberOfTurns"].ToString());
         Value = int.Parse(item["Value"].ToString());
         Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
+    }
+
+    public virtual void Initialize(GameObject self)
+    {
+        _characterGameObject = self;
+        _damageUI = self.GetComponent<DamageUI>();
+
+        string str = "";
+
+        if (Value < 0)
+            str = $"{Value} {StatType.ToString()}";
+        if (Value > 0)
+            str = $"+{Value} {StatType.ToString()}";
+
+        _damageUI.DisplayOnCharacter(str, 24, Color.white);
     }
 
     public string GetDescription()

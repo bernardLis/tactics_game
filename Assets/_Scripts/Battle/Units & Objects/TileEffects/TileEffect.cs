@@ -17,6 +17,7 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
 
         await Task.Yield();
 
+
     }
 
     protected virtual void CheckCollision(Ability ability, Vector3 pos)
@@ -51,8 +52,10 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
             DestroySelf();
     }
 
-    protected virtual void DestroySelf()
+    public virtual void DestroySelf()
     {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+
         if (gameObject != null)
             Destroy(gameObject);
     }

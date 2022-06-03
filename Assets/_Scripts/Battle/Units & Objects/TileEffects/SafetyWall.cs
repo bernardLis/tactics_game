@@ -65,7 +65,7 @@ public class SafetyWall : TileEffect, ICreatable<Vector3, Ability>
         _shieldedCharacter = null;
     }
 
-    protected override void DestroySelf()
+    public override void DestroySelf()
     {
         if (_shieldedCharacter != null)
             RemoveShield(_shieldedCharacter);

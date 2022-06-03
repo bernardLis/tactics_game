@@ -133,6 +133,12 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
                 await CollideWithDestructible(ability, c);
                 continue;
             }
+
+            if (c.CompareTag(Tags.FireOnTile))
+            {
+                await CollideWithFire(ability, c);
+                continue;
+            }
         }
     }
 
@@ -151,6 +157,15 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     public async Task CollideWithDestructible(Ability ability, Collider2D col)
     {
         await DestroySelf();
+    }
+
+    public async Task CollideWithFire(Ability ability, Collider2D col)
+    {
+        if (col.TryGetComponent(out FireOnTile fireOnTile))
+        {
+            fireOnTile.DestroySelf();
+            await Task.Yield();
+        }
     }
 
     async Task DestroySelf()

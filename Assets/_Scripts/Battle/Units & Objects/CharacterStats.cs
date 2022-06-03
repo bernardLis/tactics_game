@@ -290,7 +290,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         return false;
     }
 
-    void Dodge(GameObject attacker)
+    async void Dodge(GameObject attacker)
     {
         // face the attacker
         _characterRendererManager.Face((attacker.transform.position - transform.position).normalized);
@@ -302,11 +302,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         float strength = 0.8f;
 
         // TODO: character shakes itself out of a tile
-        //DisableAILerp();
         _body.transform.DOShakePosition(duration, strength, 0, 0, false, true);
+        await Task.Delay(500);
 
         //transform.DOShakePosition(duration, strength, 0, 0, false, true)
-        //         .OnComplete(() => EnableAILerp());
+        //         
     }
 
     void ShieldDamage()
@@ -334,15 +334,13 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         }
 
         // shake a character;
-        float duration = 0.5f;
+        float duration = 0.15f;
         float strength = 0.1f;
 
-
-        _body.transform.DOShakePosition(duration, strength, 0, 0, false, true);
-
-        //DisableAILerp();
-        //transform.DOShakePosition(duration, strength)
-        //         .OnComplete(() => EnableAILerp());
+        DisableAILerp();
+        _body.transform.DOShakePosition(duration, strength, 0, 0, false, true).SetLoops(2)
+                       .OnComplete(() => EnableAILerp());
+        await Task.Delay(300);               
     }
 
     public void GetBuffed(GameObject attacker, Ability ability)
@@ -612,13 +610,13 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         DamageReceivedWhenWalking += s.Value;
     }
 
-
     void AddModifier(Ability ability)
     {
         foreach (Stat s in Stats)
             if (s.Type == ability.StatModifier.StatType)
             {
                 StatModifier mod = Instantiate(ability.StatModifier);
+                mod.Initialize(gameObject);
                 s.AddModifier(mod); // stat checks if modifier is a dupe, to prevent stacking
                 OnModifierAdded?.Invoke(mod);
             }
@@ -684,7 +682,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         _aiLerp.canMove = true;
         _aiLerp.canSearch = true;
 
-        Invoke("DisableAiLerpSearch", 1);
+        Invoke("DisableAiLerpSearch", 1f);
     }
 
     void DisableAiLerpSearch()

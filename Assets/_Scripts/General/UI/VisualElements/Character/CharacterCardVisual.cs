@@ -284,14 +284,20 @@ public class CharacterCardVisual : VisualElement
 
     void OnStatusRemoved(Status status)
     {
+        Debug.Log($"OnStatusRemoved name of the status: {status.name}");
+
+        ModifierVisual elToRemove = null;
         foreach (ModifierVisual el in _portrait.Children())
         {
+            Debug.Log($"el {el}");
+            Debug.Log($"status.ReferenceID {status.ReferenceID}");
             if (el.Status.ReferenceID == status.ReferenceID)
-            {
-                el.RemoveSelf(_portrait);
-                return;
-            }
+                elToRemove = el;
+
         }
+
+        if (elToRemove != null)
+            elToRemove.RemoveSelf(_portrait);
     }
 
     // clicks

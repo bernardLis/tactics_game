@@ -11,9 +11,16 @@ public class AttackCreateAbility : AttackAbility
 
     public async override Task AbilityLogic(Vector3 pos)
     {
-        await base.AbilityLogic(pos);
-        GameObject obj = Instantiate(CreatedObject, pos, Quaternion.identity);
-        await obj.GetComponent<ICreatable<Vector3, Ability>>().Initialize(pos, this);
+        GameObject hit = await _attackTriggerable.Attack(pos, this, IsRetaliation);
+        SetIsRetaliation(false);
+
+        // if projectile, spawn the object where projectile hits
+        Vector3 tileEffectPosition = pos;
+        if (hit != null)
+            tileEffectPosition = hit.transform.position;
+
+        GameObject obj = Instantiate(CreatedObject, tileEffectPosition, Quaternion.identity);
+        await obj.GetComponent<ICreatable<Vector3, Ability>>().Initialize(tileEffectPosition, this);
     }
 
 

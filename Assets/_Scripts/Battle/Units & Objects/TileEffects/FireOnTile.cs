@@ -11,48 +11,59 @@ public class FireOnTile : TileEffect
 
     [SerializeField] GameObject _spreadEffect;
 
-    Vector3 _offsetVector = new Vector3(-0.16f, 0.21f, 0f);
     CharacterStats _characterBurnedThisTurn = null;
+    bool _isInitialized;
+    bool _wasDestroyed;
+
     public override async Task Initialize(Vector3 pos, Ability ability)
     {
         await base.Initialize(pos, ability);
 
-        Debug.Log("initialize");
-        transform.position = transform.position + _offsetVector;
+        transform.position = transform.position;
 
         _battleCharacterController = BattleCharacterController.Instance;
 
-
         _ability = ability;
-        _numberOfTurnsLeft = 3; // TODO: hardcoded
+        _numberOfTurnsLeft = 1; // TODO: hardcoded
         CheckCollision(ability, pos);
+        _isInitialized = true;
 
         await Task.Yield();
     }
 
-    void CheckCollision()
+    protected override void CheckCollision(Ability ability, Vector3 pos)
     {
-        // don't allow multiple fires on one tile
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+
         foreach (Collider2D c in cols)
+        {
+            if (c.gameObject == gameObject)
+                continue;
+
             if (c.CompareTag(Tags.FireOnTile))
             {
-                Debug.Log("destory");
                 Destroy(gameObject);
-
+                continue;
             }
+            if (c.TryGetComponent(out CharacterStats stats))
+            {
+                Burn(stats);
+                continue;
+            }
+        }
     }
 
-    protected override void DecrementTurnsLeft()
+    protected override async void DecrementTurnsLeft()
     {
+        await Spread();
+        //await Task.Delay(10); // without that it throws an error sometimes...
         base.DecrementTurnsLeft();
-        Spread();
     }
 
-    void Spread()
+    async Task Spread()
     {
-        // TODO: I want fire to spread every turn to a random tile
-        Debug.Log("fire spreads");
+
+        Debug.Log($"transform.position {transform.position}");
         int change = 1;
         if (Random.Range(0, 2) == 0)
             change = -1;
@@ -76,12 +87,7 @@ public class FireOnTile : TileEffect
                 Burn(stats);
                 continue;
             }
-            if (c.CompareTag(Tags.FireOnTile))
-            {
-                canSpread = false;
-                continue;
-            }
-            if (c.CompareTag(Tags.Obstacle))
+            if (c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.FireOnTile) || c.CompareTag(Tags.BoundCollider))
             {
                 canSpread = false;
                 continue;
@@ -89,13 +95,18 @@ public class FireOnTile : TileEffect
         }
 
         if (canSpread)
-            Instantiate(this.gameObject, pos, Quaternion.identity);
+        {
+            GameObject newFire = Instantiate(this.gameObject, pos, Quaternion.identity);
+            await newFire.GetComponent<FireOnTile>().Initialize(pos, _ability);
+        }
+
+        await Task.Yield();
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"on trigger enter: {other.name}");
-        Debug.Log($"_battleCharacterController: {_battleCharacterController}");
+        if (!_isInitialized)
+            return;
 
         if (other.TryGetComponent(out CharacterStats stats))
         {
@@ -110,10 +121,7 @@ public class FireOnTile : TileEffect
 
     protected override void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log($"on trigger exit: {other.name}");
-        // I am worried that if there is fire on tiles next to each other 
-        // character will shake from one tile to another on damage dealt. 
-        Invoke("ResetCharacterBurnedThisTurn", 0.6f); // character shakes for 0.5s
+        Invoke("ResetCharacterBurnedThisTurn", 0.6f);
     }
 
     void ResetCharacterBurnedThisTurn()
@@ -130,7 +138,14 @@ public class FireOnTile : TileEffect
 
     public override string DisplayText()
     {
-        return $"Spreads. Burns character that walks through it. Lasts for {_numberOfTurnsLeft} turns.";
+        return $"Spreads. Burns anyone who walks through it. Lasts for {_numberOfTurnsLeft} turns.";
+    }
+
+    public override void DestroySelf()
+    {
+        // TODO: different effect;
+        Destroy(Instantiate(_spreadEffect, transform.position, Quaternion.identity), 1f);
+        base.DestroySelf();
     }
 
 }

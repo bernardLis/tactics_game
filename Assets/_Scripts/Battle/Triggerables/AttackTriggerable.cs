@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 public class AttackTriggerable : BaseTriggerable
 {
-    public async Task Attack(Vector3 pos, Ability ability, bool isRetaliation)
+    public async Task<GameObject> Attack(Vector3 pos, Ability ability, bool isRetaliation)
     {
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
@@ -29,7 +29,7 @@ public class AttackTriggerable : BaseTriggerable
 
         GameObject target = await GetTarget(pos, ability);
         if (target == null)
-            return;
+            return null;
 
         DisplayBattleLog(target, ability);
 
@@ -39,6 +39,9 @@ public class AttackTriggerable : BaseTriggerable
 
         if (wasAttackSuccesful)
             _myStats.Character.GetExp(target);
+
+        // return what you hit
+        return target;
     }
 
 

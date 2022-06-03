@@ -76,7 +76,7 @@ public class HealerBrain : Brain
         _characterRendererManager.Face(faceDir);
 
         // defend if there is not target to interact
-        if (Target == null)
+        if (Target == null || _selectedAbility == null)
             Defend();
 
         // heal/buff
@@ -111,7 +111,7 @@ public class HealerBrain : Brain
             _selectedAbility = Abilities.FirstOrDefault(a => a.AbilityType == AbilityType.Buff); // this is buff
             List<PotentialTarget> buffableTargets = GetWithinReachBuffableTargets(_potentialTargets, _selectedAbility);
             // it will always return someone, because you are within reach
-            Target = buffableTargets[Random.Range(0, buffableTargets.Count)].GameObj;
+            Target = buffableTargets[Random.Range(0, buffableTargets.Count - 1)].GameObj;
         }
     }
 
@@ -137,11 +137,12 @@ public class HealerBrain : Brain
 
     List<PotentialTarget> GetWithinReachBuffableTargets(List<PotentialTarget> potentialTargets, Ability selectedAbility)
     {
-
         List<PotentialTarget> buffableTargets = new();
         foreach (PotentialTarget t in potentialTargets)
+        {
             if (Helpers.GetManhattanDistance(_characterGameObject.transform.position, t.GameObj.transform.position) < selectedAbility.Range)
                 buffableTargets.Add(t);
+        }
         return buffableTargets;
     }
 }

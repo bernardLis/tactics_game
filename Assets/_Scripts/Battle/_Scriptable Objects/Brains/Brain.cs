@@ -113,9 +113,7 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Interact()
     {
-        if (_selectedAbility != null)
-            _infoCardUI.ShowManaChange(_enemyStats, -_selectedAbility.ManaCost);
-
+        _infoCardUI.ShowManaChange(_enemyStats, -_selectedAbility.ManaCost);
         await _selectedAbility.HighlightTargetable(_characterGameObject);
         await Task.Delay(300);
         await _selectedAbility.HighlightAreaOfEffect(Target.transform.position);
