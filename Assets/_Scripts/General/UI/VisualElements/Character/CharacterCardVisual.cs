@@ -284,14 +284,11 @@ public class CharacterCardVisual : VisualElement
 
     void OnStatusRemoved(Status status)
     {
-        Debug.Log($"OnStatusRemoved name of the status: {status.name}");
-
         ModifierVisual elToRemove = null;
         foreach (ModifierVisual el in _portrait.Children())
         {
-            Debug.Log($"el.Status {el.Status}");
-            Debug.Log($"el.Status.ReferenceID {el.Status.ReferenceID}");
-            Debug.Log($"status.ReferenceID {status.ReferenceID}");
+            if (el.Status == null) // some elements are stat modifier elements... duh...
+                continue;
             if (el.Status.ReferenceID == status.ReferenceID)
                 elToRemove = el;
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class SafetyWall : TileEffect, ICreatable<Vector3, Ability>
+public class SafetyWall : TileEffect, ICreatable<Vector3, Ability, string>
 {
     [SerializeField] Absorber _absorber;
 
@@ -11,18 +11,15 @@ public class SafetyWall : TileEffect, ICreatable<Vector3, Ability>
 
     Vector3 _offsetVector = new Vector3(0.05f, 0.3f, 0f);
 
-    public override async Task Initialize(Vector3 pos, Ability ability)
+    public override async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
-        await base.Initialize(pos, ability);
+        await base.Initialize(pos, ability, tag);
         transform.position = transform.position + _offsetVector;
 
-        _ability = ability;
         _numberOfTurnsLeft = ability.BasePower;
         _absorber = Instantiate(_absorber);
 
-        _selfCollider.enabled = false;
         CheckCollision(ability, pos);
-        _selfCollider.enabled = true;
     }
 
     public override string DisplayText()

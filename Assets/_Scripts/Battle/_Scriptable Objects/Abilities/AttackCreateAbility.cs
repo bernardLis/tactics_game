@@ -20,6 +20,6 @@ public class AttackCreateAbility : AttackAbility
             tileEffectPosition = hit.transform.position;
 
         GameObject obj = Instantiate(CreatedObject, tileEffectPosition, Quaternion.identity);
-        await obj.GetComponent<ICreatable<Vector3, Ability>>().Initialize(tileEffectPosition, this);
+        await obj.GetComponent<ICreatable<Vector3, Ability, string>>().Initialize(tileEffectPosition, this, CharacterGameObject.tag);
     }
 }

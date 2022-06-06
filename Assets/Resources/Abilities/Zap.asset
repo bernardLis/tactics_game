@@ -26,7 +26,7 @@ MonoBehaviour:
   WeaponType: 3
   Projectile: {fileID: 0}
   AbilityEffect: {fileID: 7926466856204447407, guid: 8f0ba081f0c8caa44a41a691861c483b, type: 3}
-  StatModifier: {fileID: 0}
+  StatModifier: {fileID: 11400000, guid: 71076f3c6ecbe2b4bbf2e140fd12a2a3, type: 2}
   Status: {fileID: 11400000, guid: a05ceeb634ffb9145ac8fbd75f28443e, type: 2}
   Range: 5
   CanTargetSelf: 0

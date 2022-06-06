@@ -12,15 +12,11 @@ public class FireOnTile : TileEffect
     CharacterStats _characterBurnedThisTurn = null;
     bool _isInitialized;
 
-    public override async Task Initialize(Vector3 pos, Ability ability)
+    public override async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
-        await base.Initialize(pos, ability);
-
-        transform.position = transform.position;
-
+        await base.Initialize(pos, ability, tag);
         _battleCharacterController = BattleCharacterController.Instance;
 
-        _ability = ability;
         _numberOfTurnsLeft = 1; // TODO: hardcoded
         CheckCollision(ability, pos);
         _isInitialized = true;
@@ -50,21 +46,33 @@ public class FireOnTile : TileEffect
         }
     }
 
-    protected override async void DecrementTurnsLeft()
+    protected override async Task DecrementTurnsLeft()
     {
-        //Debug.Log("before spread");
+        if (!gameObject.activeSelf)
+        {
+            Debug.Log("!gameObject.activeSelf works");
+            return;
+
+        }
+        Debug.Log($"before spread for: {transform.position}");
         await Spread();
-        //Debug.Log("after spread");
+        Debug.Log($"after spread for: {transform.position}");
         //await Task.Delay(10); // without that it throws an error sometimes...
-        base.DecrementTurnsLeft();
+        await base.DecrementTurnsLeft();
+        Debug.Log($"after decrement turns: {transform.position}");
+
     }
 
     async Task Spread()
     {
+        Debug.Log("in spread");
         if (gameObject == null)
+        {
+            Debug.Log("gameobject is null");
             return;
+        }
 
-       // Debug.Log($"transform.position {transform.position}");
+        // Debug.Log($"transform.position {transform.position}");
         Vector3 pos = ChooseSpreadPosition();
 
         GameObject sEffect = Instantiate(_spreadEffect, transform.position, Quaternion.identity);
@@ -91,11 +99,12 @@ public class FireOnTile : TileEffect
         if (canSpread)
         {
             GameObject newFire = Instantiate(this.gameObject, pos, Quaternion.identity);
-            await newFire.GetComponent<FireOnTile>().Initialize(pos, _ability);
+            await newFire.GetComponent<FireOnTile>().Initialize(pos, _ability, _createdByTag);
         }
-       // Debug.Log($"end of spread for: {transform.position}");
 
         await Task.Yield();
+        Debug.Log($"end of spread for: {transform.position}");
+
     }
 
     Vector3 ChooseSpreadPosition()
@@ -149,7 +158,7 @@ public class FireOnTile : TileEffect
 
     public override string DisplayText()
     {
-        return $"Spreads. Burns anyone who walks through it. Lasts for {_numberOfTurnsLeft} turns.";
+        return $"Spreads. Burns anyone who walks through it. Lasts for {_numberOfTurnsLeft} turn/s.";
     }
 
     public override void DestroySelf()

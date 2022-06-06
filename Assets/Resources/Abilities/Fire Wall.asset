@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97aacd41b9031fb47ad1877f7ddb50eb, type: 3}
+  m_Name: Fire Wall
+  m_EditorClassIdentifier: 
+  Id: 9d9cfadc-de07-4b99-8a29-85ce60f0e59f
+  ReferenceID: 
+  Description: Create a wall of fire.
+  Icon: {fileID: 21300000, guid: 93f6712cb339b1c428ad96113407a1de, type: 3}
+  Sound: {fileID: 8300000, guid: 5560fa00424abaa4e97ab61849525bd5, type: 3}
+  BasePower: 10
+  ManaCost: 10
+  AreaOfEffect: 0
+  LineAreaOfEffect: 1
+  AbilityType: 6
+  MultiplerStat: 1
+  WeaponType: 3
+  Projectile: {fileID: 1613285421381310477, guid: e4d6c4ae802d0764dabe798941ea9b41, type: 3}
+  AbilityEffect: {fileID: 0}
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 5
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 1, g: 0.4696433, b: 0, a: 1}
+  CharacterGameObject: {fileID: 0}
+  CreatedObject: {fileID: 7161441197566874422, guid: ead7ef28ffc61f1458e9a283673c9625, type: 3}

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-public interface ICreatable<Vector3, T>
+public interface ICreatable<Vector3, T, Y>
 {
-    public Task Initialize(Vector3 pos, T ability);
+    public Task Initialize(Vector3 pos, T ability, string tag);
 }

@@ -14,7 +14,7 @@ public class CreateAbility : Ability
         _stats.Character.GetExp(10);
 
         GameObject obj = Instantiate(CreatedObject, pos, Quaternion.identity);
-        await obj.GetComponent<ICreatable<Vector3, Ability>>().Initialize(pos, this);
+        await obj.GetComponent<ICreatable<Vector3, Ability, string>>().Initialize(pos, this, CharacterGameObject.tag);
     }
 }
 

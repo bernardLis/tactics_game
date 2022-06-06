@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, Ability>
+public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, Ability, string>
 {
     protected BoxCollider2D _selfCollider;
 
     protected Ability _ability;
     protected int _numberOfTurnsLeft;
+    protected string _createdByTag; // if character dies and his tileEffect is still on it throws an error
 
-    public virtual async Task Initialize(Vector3 pos, Ability ability)
+    public virtual async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
         _selfCollider = GetComponent<BoxCollider2D>();
+        
+        _ability = Instantiate(ability); // clone it for safety
+        if (_ability.CharacterGameObject != null)
+            _createdByTag = _ability.CharacterGameObject.tag;
+        else
+            _createdByTag = tag;
+
+
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
         await Task.Yield();
@@ -34,17 +43,18 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
         // meant to be overwritten
     }
 
-    void TurnManager_OnBattleStateChanged(BattleState state)
+    async void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if (_ability.CharacterGameObject.CompareTag(Tags.Player) && state == BattleState.PlayerTurn)
-            DecrementTurnsLeft();
+        if (_createdByTag == Tags.Player && state == BattleState.PlayerTurn)
+            await DecrementTurnsLeft();
 
-        if (_ability.CharacterGameObject.CompareTag(Tags.Enemy) && state == BattleState.EnemyTurn)
-            DecrementTurnsLeft();
+        if (_createdByTag == Tags.Enemy && state == BattleState.EnemyTurn)
+            await DecrementTurnsLeft();
     }
 
-    protected virtual void DecrementTurnsLeft()
+    protected virtual async Task DecrementTurnsLeft()
     {
+        await Task.Delay(10);
         Debug.Log("in decreement turns");
         _numberOfTurnsLeft -= 1;
         if (_numberOfTurnsLeft <= 0)
@@ -55,9 +65,9 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
     {
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
         Debug.Log("in destory self");
-
+        gameObject.SetActive(false);
         if (gameObject != null)
-            Destroy(gameObject);
+            Destroy(gameObject, 1f);
     }
 
     public virtual string DisplayText()

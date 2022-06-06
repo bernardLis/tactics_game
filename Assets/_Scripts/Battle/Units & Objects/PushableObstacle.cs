@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, IUITextDisplayable, ICreatable<Vector3, Ability>
+public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, IUITextDisplayable, ICreatable<Vector3, Ability, string>
 {
     // global
     BattleManager _battleManager;
@@ -27,7 +27,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         _selfCollider = GetComponent<BoxCollider2D>();
     }
 
-    public async Task Initialize(Vector3 pos, Ability ability)
+    public async Task Initialize(Vector3 pos, Ability ability, string tag="")
     {
         await Fall(pos);
 
