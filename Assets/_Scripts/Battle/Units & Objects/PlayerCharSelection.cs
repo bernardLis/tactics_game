@@ -40,6 +40,7 @@ public class PlayerCharSelection : CharacterSelection
     public void SelectCharacter()
     {
         GetComponent<SortingGroup>().sortingOrder = 99;
+        _myStats.Select();
         ToggleSelectionArrow(true);
     }
 

@@ -27,7 +27,7 @@ MonoBehaviour:
   Projectile: {fileID: 0}
   AbilityEffect: {fileID: 0}
   StatModifier: {fileID: 0}
-  Status: {fileID: 11400000, guid: 99e571dd8e6871d43b0da23c508db010, type: 2}
+  Status: {fileID: 0}
   Range: 5
   CanTargetSelf: 0
   CanTargetDiagonally: 1

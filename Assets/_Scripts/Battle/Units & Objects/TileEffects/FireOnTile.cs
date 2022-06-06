@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using Pathfinding;
 using DG.Tweening;
 
 public class FireOnTile : TileEffect
 {
     BattleCharacterController _battleCharacterController;
 
+    [SerializeField] Status _status;
     [SerializeField] GameObject _spreadEffect;
 
     CharacterStats _characterBurnedThisTurn = null;
     bool _isInitialized;
-    bool _wasDestroyed;
 
     public override async Task Initialize(Vector3 pos, Ability ability)
     {
@@ -40,7 +37,7 @@ public class FireOnTile : TileEffect
             if (c.gameObject == gameObject)
                 continue;
 
-            if (c.CompareTag(Tags.FireOnTile))
+            if (c.CompareTag(Tags.FireOnTile) || c.CompareTag(Tags.Obstacle))
             {
                 Destroy(gameObject);
                 continue;
@@ -55,23 +52,20 @@ public class FireOnTile : TileEffect
 
     protected override async void DecrementTurnsLeft()
     {
+        //Debug.Log("before spread");
         await Spread();
+        //Debug.Log("after spread");
         //await Task.Delay(10); // without that it throws an error sometimes...
         base.DecrementTurnsLeft();
     }
 
     async Task Spread()
     {
+        if (gameObject == null)
+            return;
 
-        Debug.Log($"transform.position {transform.position}");
-        int change = 1;
-        if (Random.Range(0, 2) == 0)
-            change = -1;
-        Vector3 pos = Vector3.zero;
-        if (Random.Range(0, 2) == 0)
-            pos = new Vector3(transform.position.x + change, transform.position.y);
-        else
-            pos = new Vector3(transform.position.x, transform.position.y + change);
+       // Debug.Log($"transform.position {transform.position}");
+        Vector3 pos = ChooseSpreadPosition();
 
         GameObject sEffect = Instantiate(_spreadEffect, transform.position, Quaternion.identity);
         sEffect.transform.DOMove(pos, 0.5f);
@@ -99,8 +93,24 @@ public class FireOnTile : TileEffect
             GameObject newFire = Instantiate(this.gameObject, pos, Quaternion.identity);
             await newFire.GetComponent<FireOnTile>().Initialize(pos, _ability);
         }
+       // Debug.Log($"end of spread for: {transform.position}");
 
         await Task.Yield();
+    }
+
+    Vector3 ChooseSpreadPosition()
+    {
+        Vector3 pos = Vector3.zero;
+
+        int change = 1;
+        if (Random.Range(0, 2) == 0)
+            change = -1;
+
+        pos = new Vector3(transform.position.x, transform.position.y + change);
+        if (Random.Range(0, 2) == 0)
+            pos = new Vector3(transform.position.x + change, transform.position.y);
+
+        return pos;
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
@@ -132,8 +142,9 @@ public class FireOnTile : TileEffect
     void Burn(CharacterStats stats)
     {
         _characterBurnedThisTurn = stats;
-        stats.AddStatus(_ability.Status, _ability.CharacterGameObject);
-        stats.WalkedThroughFire(_ability.Status);
+        stats.AddStatus(_status, _ability.CharacterGameObject);
+        if (_battleCharacterController.HasCharacterStartedMoving)
+            stats.WalkedThroughFire(_status);
     }
 
     public override string DisplayText()

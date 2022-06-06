@@ -22,6 +22,4 @@ public class AttackCreateAbility : AttackAbility
         GameObject obj = Instantiate(CreatedObject, tileEffectPosition, Quaternion.identity);
         await obj.GetComponent<ICreatable<Vector3, Ability>>().Initialize(tileEffectPosition, this);
     }
-
-
 }

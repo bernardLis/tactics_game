@@ -16,8 +16,6 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
         await Task.Yield();
-
-
     }
 
     protected virtual void CheckCollision(Ability ability, Vector3 pos)
@@ -47,6 +45,7 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
 
     protected virtual void DecrementTurnsLeft()
     {
+        Debug.Log("in decreement turns");
         _numberOfTurnsLeft -= 1;
         if (_numberOfTurnsLeft <= 0)
             DestroySelf();
@@ -55,6 +54,7 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
     public virtual void DestroySelf()
     {
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+        Debug.Log("in destory self");
 
         if (gameObject != null)
             Destroy(gameObject);

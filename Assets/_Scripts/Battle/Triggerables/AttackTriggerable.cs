@@ -31,6 +31,10 @@ public class AttackTriggerable : BaseTriggerable
         if (target == null)
             return null;
 
+        // you hit something but it's not damagable
+        if (!target.TryGetComponent(out CharacterStats stats))
+            return target;
+
         DisplayBattleLog(target, ability);
 
         // damage target // TODO: ugh... this -1 is killing me...
@@ -51,13 +55,7 @@ public class AttackTriggerable : BaseTriggerable
         if (ability.Projectile != null)
         {
             GameObject projectile = Instantiate(ability.Projectile, transform.position, Quaternion.identity);
-            Transform hit = await projectile.GetComponent<Projectile>().Shoot(transform, pos);
-            if (hit == null)
-                return null;
-            if (hit.TryGetComponent(out CharacterStats stats))
-                return hit.gameObject; // you could have hit someone else, not the one you were aiming at.
-            else
-                return null;
+            return await projectile.GetComponent<Projectile>().Shoot(transform, pos);
         }
 
         // looking for a target

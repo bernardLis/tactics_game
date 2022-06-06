@@ -19,7 +19,7 @@ public class Status : BaseScriptableObject
     protected BattleCharacterController _battleCharacterController;
     protected DamageUI _damageUI;
 
-    protected GameObject _attacker;
+    public GameObject Attacker;
 
     public virtual void Create(Dictionary<string, object> item)
     {
@@ -41,7 +41,7 @@ public class Status : BaseScriptableObject
         _battleCharacterController = BattleCharacterController.Instance;
 
         if (attacker != null)
-            _attacker = attacker;
+            Attacker = attacker;
     }
 
     public virtual void FirstTrigger()

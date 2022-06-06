@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float _impactDuration = 1f;
 
 
-    public virtual async Task<Transform> Shoot(Transform shooter, Vector3 targetPos)
+    public virtual async Task<GameObject> Shoot(Transform shooter, Vector3 targetPos)
     {
         _shooter = shooter;
         // spawn projectile in the tile in the direction towards the target
@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
         // look at the target;
         transform.right = -(_adjustedTargetPosition - transform.position); // https://answers.unity.com/questions/585035/lookat-2d-equivalent-.html
 
-        Transform hit = CheckCollisions();
+        GameObject hit = CheckCollisions();
         if (hit != null)
         {
             HitSomething();
@@ -54,7 +54,7 @@ public class Projectile : MonoBehaviour
         return null;
     }
 
-    Transform CheckCollisions()
+    GameObject CheckCollisions()
     {
         // Check whether we are hitting something
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.1f);
@@ -65,9 +65,10 @@ public class Projectile : MonoBehaviour
             || c.CompareTag(Tags.Player) || c.CompareTag(Tags.Enemy)
             || c.CompareTag(Tags.PushableObstacle)))
             {
-                return c.transform;
+                return c.gameObject;
             }
         }
+
         return null;
     }
 

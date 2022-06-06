@@ -289,11 +289,11 @@ public class CharacterCardVisual : VisualElement
         ModifierVisual elToRemove = null;
         foreach (ModifierVisual el in _portrait.Children())
         {
-            Debug.Log($"el {el}");
+            Debug.Log($"el.Status {el.Status}");
+            Debug.Log($"el.Status.ReferenceID {el.Status.ReferenceID}");
             Debug.Log($"status.ReferenceID {status.ReferenceID}");
             if (el.Status.ReferenceID == status.ReferenceID)
                 elToRemove = el;
-
         }
 
         if (elToRemove != null)

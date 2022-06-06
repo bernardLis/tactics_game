@@ -54,8 +54,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     [HideInInspector] public List<Status> Statuses = new();
     public bool IsStunned { get; private set; }
     public bool IsElectrified { get; private set; }
-    Status _burnStatusAddedThisTurn;
     public int DamageReceivedWhenWalking { get; private set; }
+    [SerializeField] List<Status> _statusesBeforeWalking = new();
+    [SerializeField] List<Status> _statusesAddedWhenWalking = new();
 
     // absorbers/shields
     List<Absorber> _absorbers = new();
@@ -99,7 +100,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         GainMana(10);
 
         // resetting status flags
-        _burnStatusAddedThisTurn = null;
+        _statusesAddedWhenWalking.Clear();
         DamageReceivedWhenWalking = 0;
 
     }
@@ -213,6 +214,11 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         Stats.Add(MovementRange);
     }
 
+    public void Select()
+    {
+        _statusesBeforeWalking = new(Statuses);
+    }
+
     public async Task<bool> TakeDamage(int damage, GameObject attacker, Ability ability)
     {
         bool wasAttackSuccesful = false;
@@ -301,12 +307,8 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         float duration = 0.5f;
         float strength = 0.8f;
 
-        // TODO: character shakes itself out of a tile
         _body.transform.DOShakePosition(duration, strength, 0, 0, false, true);
         await Task.Delay(500);
-
-        //transform.DOShakePosition(duration, strength, 0, 0, false, true)
-        //         
     }
 
     void ShieldDamage()
@@ -340,7 +342,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         DisableAILerp();
         _body.transform.DOShakePosition(duration, strength, 0, 0, false, true).SetLoops(2)
                        .OnComplete(() => EnableAILerp());
-        await Task.Delay(300);               
+        await Task.Delay(300);
     }
 
     public void GetBuffed(GameObject attacker, Ability ability)
@@ -459,7 +461,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         CurrentMana += amount;
         CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
         OnManaChange?.Invoke(Character.MaxMana, manaBeforeChange, amount);
-
     }
 
     public void UseMana(int amount)
@@ -606,7 +607,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public void SetIsElectrified(bool isElectrified) { IsElectrified = isElectrified; }
     public void WalkedThroughFire(Status s)
     {
-        _burnStatusAddedThisTurn = s;
+        _statusesAddedWhenWalking.Add(s);
         DamageReceivedWhenWalking += s.Value;
     }
 
@@ -624,15 +625,23 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     public void AddStatus(Status s, GameObject attacker)
     {
+        Status clone = AddStatusWithoutTrigger(s, attacker);
+
+        // status triggers right away
+        clone.FirstTrigger();
+    }
+
+    Status AddStatusWithoutTrigger(Status s, GameObject attacker)
+    {
         // statuses don't stack, they are refreshed
         RemoveStatus(s);
 
         Status clone = Instantiate(s);
         Statuses.Add(clone);
         clone.Initialize(gameObject, attacker);
-        // status triggers right away
-        clone.FirstTrigger();
         OnStatusAdded?.Invoke(clone);
+
+        return clone;
     }
 
     void RemoveStatus(Status s)
@@ -666,8 +675,13 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         CurrentHealth += DamageReceivedWhenWalking;
         DamageReceivedWhenWalking = 0;
 
-        if (_burnStatusAddedThisTurn != null)
-            RemoveStatus(_burnStatusAddedThisTurn);
+        foreach (Status s in _statusesAddedWhenWalking)
+            RemoveStatus(s);
+
+        _statusesAddedWhenWalking.Clear();
+
+        foreach (Status s in _statusesBeforeWalking)
+            AddStatusWithoutTrigger(s, s.Attacker);
     }
 
     protected void DisableAILerp()

@@ -44,7 +44,7 @@ public class ElectryficationStatus : Status
         foreach (Collider2D c in cols)
             if (c.TryGetComponent(out CharacterStats stats))
                 if (!stats.IsElectrified)
-                    stats.AddStatus(this, _attacker);
+                    stats.AddStatus(this, Attacker);
     }
     
     public override void ResetFlag()

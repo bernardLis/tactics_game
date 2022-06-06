@@ -709,7 +709,7 @@ namespace Pathfinding
 
             // HERE: my code, don't know if this is correct, but it works well :) almost....
             myDirection = new Vector2(nextPosition.x - tr.position.x, nextPosition.y - tr.position.y) * 100;
-
+            
             if (enableRotation) nextRotation = SimulateRotationTowards(direction, deltaTime);
             else nextRotation = simulatedRotation;
         }

@@ -42,7 +42,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     // movement
     GameObject _tempObject;
-    bool _hasCharacterStartedMoving;
+    public bool HasCharacterStartedMoving { get; private set; }
     public bool IsMovingBack { get; private set; }
 
     LineRenderer _pathRenderer;
@@ -81,7 +81,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         if (SelectedCharacter == null)
             return;
 
-        if (_hasCharacterStartedMoving && _tempObject != null
+        if (HasCharacterStartedMoving && _tempObject != null
             && Vector3.Distance(SelectedCharacter.transform.position, _tempObject.transform.position) <= 0.1f)
             CharacterReachedDestination();
     }
@@ -184,7 +184,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             return false;
         if (_playerCharSelection.HasFinishedTurn)
             return false;
-        if (_hasCharacterStartedMoving) // don't allow button click when character is moving;
+        if (HasCharacterStartedMoving) // don't allow button click when character is moving;
             return false;
         return true;
     }
@@ -227,7 +227,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     {
         ClearPathRenderer();
 
-        _hasCharacterStartedMoving = true;
+        HasCharacterStartedMoving = true;
 
         // TODO: should I make it all async?
         _highlighter.ClearHighlightedTiles().GetAwaiter();
@@ -250,7 +250,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _movePointController.UpdateDisplayInformation();
 
         // if back is called during character movement return
-        if (_hasCharacterStartedMoving)
+        if (HasCharacterStartedMoving)
             return;
 
         if (SelectedCharacter == null)
@@ -284,7 +284,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerCharSelection.SetCharacterMoved(false);
 
         IsMovingBack = true;
-        _hasCharacterStartedMoving = true;
+        HasCharacterStartedMoving = true;
 
         // move character to character's starting position quickly.
         _aiLerp.speed = 15;
@@ -310,7 +310,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             Destroy(_tempObject);
 
         // reset flag
-        _hasCharacterStartedMoving = false;
+        HasCharacterStartedMoving = false;
 
         // TODO: maybe here check if there is interaction target that we are standing on and allow that interaction
 
