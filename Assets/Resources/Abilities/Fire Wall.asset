@@ -24,7 +24,7 @@ MonoBehaviour:
   AbilityType: 6
   MultiplerStat: 1
   WeaponType: 3
-  Projectile: {fileID: 1613285421381310477, guid: e4d6c4ae802d0764dabe798941ea9b41, type: 3}
+  Projectile: {fileID: 0}
   AbilityEffect: {fileID: 0}
   StatModifier: {fileID: 0}
   Status: {fileID: 0}
