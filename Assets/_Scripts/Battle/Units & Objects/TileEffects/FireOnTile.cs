@@ -33,7 +33,7 @@ public class FireOnTile : TileEffect
             if (c.gameObject == gameObject)
                 continue;
 
-            if (c.CompareTag(Tags.FireOnTile) || c.CompareTag(Tags.Obstacle))
+            if (c.CompareTag(Tags.FireOnTile) || c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.BoundCollider))
             {
                 Destroy(gameObject);
                 continue;

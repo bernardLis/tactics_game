@@ -34,16 +34,14 @@ public class FireBoltEffect : Effect
 
             Vector3 skyPos = new Vector3(tilePosition.x + Random.Range(1f, 2f), tilePosition.y + 20f);
             GameObject bolt = Instantiate(_bolt, skyPos, Quaternion.identity);
-            // look at the target;
-            bolt.transform.forward = -(tilePosition - transform.position); // https://answers.unity.com/questions/585035/lookat-2d-equivalent-.html
-            bolt.transform.DOMove(tilePosition, 1f).OnComplete(() =>
+            // look at the target; // forward makes it dissapear // right does not look right
+            bolt.transform.right = tilePosition - skyPos; // https://answers.unity.com/questions/585035/lookat-2d-equivalent-.html
+            bolt.transform.DOMove(tilePosition, 0.4f).OnComplete(() =>
             {
-                Debug.Log("in on complete");
                 bolt.SetActive(false);
                 Destroy(Instantiate(_smoke, bolt.transform.position, Quaternion.identity), 0.5f);
             });
-            Debug.Log("in on complete");
-            await Task.Delay(1000);
+            await Task.Delay(500);
 
             _tempObjects.Add(bolt);
             _tempObjects.Add(temp);
@@ -57,7 +55,6 @@ public class FireBoltEffect : Effect
 
     void CleanUp()
     {
-        Debug.Log("cleanbup");
         for (int i = _tempObjects.Count - 1; i >= 0; i--)
             Destroy(_tempObjects[i]);
     }

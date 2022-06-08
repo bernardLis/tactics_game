@@ -50,7 +50,7 @@ public static class Helpers
           );
 
         text = r.Replace(text, " "); // pascal case
-        text = text.Replace("  ", " "); // double space
+        text = Regex.Replace(text, @"\s+", " "); // whitespace clean-up
         return text;
     }
 

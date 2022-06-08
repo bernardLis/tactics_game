@@ -49,6 +49,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     // shake body
     [SerializeField] GameObject _body;
+    Path _latPath;
 
     // statuses
     [HideInInspector] public List<Status> Statuses = new();
@@ -342,6 +343,7 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         DisableAILerp();
         _body.transform.DOShakePosition(duration, strength, 0, 0, false, true).SetLoops(2)
                        .OnComplete(() => EnableAILerp());
+
         await Task.Delay(300);
     }
 
@@ -686,17 +688,12 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
     protected void DisableAILerp()
     {
-        _aiLerp.enabled = false;
-        _aiLerp.canMove = false;
+        _aiLerp.isStopped = true;
     }
 
     protected void EnableAILerp()
     {
-        _aiLerp.enabled = true;
-        _aiLerp.canMove = true;
-        _aiLerp.canSearch = true;
-
-        Invoke("DisableAiLerpSearch", 1f);
+        _aiLerp.isStopped = false;
     }
 
     void DisableAiLerpSearch()
