@@ -27,7 +27,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         _selfCollider = GetComponent<BoxCollider2D>();
     }
 
-    public async Task Initialize(Vector3 pos, Ability ability, string tag="")
+    public async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
         await Fall(pos);
 
@@ -139,6 +139,13 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
                 await CollideWithFire(ability, c);
                 continue;
             }
+
+            if (c.CompareTag(Tags.WaterOnTile))
+            {
+                await CollideWithWater(ability, c);
+                continue;
+            }
+
         }
     }
 
@@ -167,6 +174,16 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
             await Task.Yield();
         }
     }
+
+    public async Task CollideWithWater(Ability ability, Collider2D col)
+    {
+        if (col.TryGetComponent(out WaterOnTile waterOnTile))
+        {
+            waterOnTile.DestroySelf();
+            await Task.Yield();
+        }
+    }
+
 
     async Task DestroySelf()
     {

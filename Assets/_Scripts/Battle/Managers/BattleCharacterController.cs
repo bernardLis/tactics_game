@@ -296,13 +296,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _aiLerp.SetPath(path);
         _aiLerp.destination = _tempObject.transform.position;
 
-        // remove statuses that were applied when moving
-        _playerStats.ResolveGoingBack();
-
         _characterUI.DisableSkillButtons();
     }
 
-    void CharacterReachedDestination()
+    async void CharacterReachedDestination()
     {
         _characterUI.EnableSkillButtons();
 
@@ -320,8 +317,11 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // highlight movement range if character was going back
         IsMovingBack = false;
+        // remove statuses that were applied when moving
+        _playerStats.ResolveGoingBack();
+
         _battleInputController.SetInputAllowed(false);
-        _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy).GetAwaiter(); // TODO:
+        await _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy); // TODO:
         _battleInputController.SetInputAllowed(true);
     }
 

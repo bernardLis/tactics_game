@@ -44,6 +44,12 @@ public static class Tags
         get { return "FireOnTile"; }
         private set { }
     }
+    public static string WaterOnTile
+    {
+        get { return "WaterOnTile"; }
+        private set { }
+    }
+
 
     public static int CharacterLayer
     {

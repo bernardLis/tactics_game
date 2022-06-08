@@ -11,7 +11,7 @@ public class ElectryficationStatus : Status
     public override async void FirstTrigger()
     {
         base.FirstTrigger();
-        _characterStats.SetIsElectrified(true);
+        AddFlag();
         GameObject effectInstance = Instantiate(Effect, _characterGameObject.transform.position, Quaternion.identity);
         ElectricLineController effectController = effectInstance.GetComponent<ElectricLineController>();
         Vector3 startPositionRandomized = new Vector3(_characterGameObject.transform.position.x + Random.Range(0, 0.5f),
@@ -24,7 +24,6 @@ public class ElectryficationStatus : Status
         {
             for (int y = -1; y <= 1; y++)
             {
-
                 Vector3 pos = new Vector3(_characterGameObject.transform.position.x + x, _characterGameObject.transform.position.y + y);
                 Vector3 endPosistionRandomized = new Vector3(pos.x + Random.Range(0, 0.5f),
                                              pos.y + Random.Range(0, 0.5f));
@@ -38,6 +37,15 @@ public class ElectryficationStatus : Status
             Destroy(effectInstance, 1f);
     }
 
+    public override void TriggerStatus()
+    {
+        base.TriggerStatus();
+        int dmg = Value;
+        if (_characterStats.IsWet)
+            dmg *= 2;
+        _characterStats.TakeDamageNoDodgeNoRetaliation(dmg).GetAwaiter();
+    }
+
     void SpreadElectrification(Vector3 pos)
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
@@ -47,6 +55,11 @@ public class ElectryficationStatus : Status
                     stats.AddStatus(this, Attacker);
     }
     
+    public override void AddFlag()
+    {
+        _characterStats.SetIsElectrified(true);
+    }
+
     public override void ResetFlag()
     {
         _characterStats.SetIsElectrified(false);

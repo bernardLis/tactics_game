@@ -47,9 +47,9 @@ public class HighlightManager : Singleton<HighlightManager>
     }
 
     // TODO: this
-    public void HighlightRectanglePlayer(Vector2 SWcorner, int width, int height, Color col)
+    public async Task HighlightRectanglePlayer(Vector2 SWcorner, int width, int height, Color col)
     {
-        ClearHighlightedTiles().GetAwaiter();
+        await ClearHighlightedTiles();
 
         for (int i = 0; i < width; i++)
         {

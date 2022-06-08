@@ -15,6 +15,7 @@ TagManager:
   - BoundCollider
   - Flasher
   - FireOnTile
+  - WaterOnTile
   layers:
   - Default
   - TransparentFX

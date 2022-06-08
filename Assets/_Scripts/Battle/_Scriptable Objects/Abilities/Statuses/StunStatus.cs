@@ -17,6 +17,11 @@ public class StunStatus : Status
     {
         base.TriggerStatus();
         _characterSelection.GrayOutCharacter();
+        AddFlag();
+    }
+
+    public override void AddFlag()
+    {
         _characterStats.SetIsStunned(true);
     }
 

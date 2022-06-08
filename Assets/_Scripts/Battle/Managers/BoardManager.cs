@@ -906,7 +906,7 @@ public class BoardManager : Singleton<BoardManager>
         mr.transform.parent = _envObjectsHolder.transform;
     }
 
-    void CreatePlayerStartingArea()
+    async void CreatePlayerStartingArea()
     {
         Vector2 SWCorner = Vector2.zero;
         int width = 0;
@@ -936,10 +936,10 @@ public class BoardManager : Singleton<BoardManager>
             SWCorner = new Vector2(0, GetMostTopRowIndex() - height + 1);
         }
 
-        _highlighter.HighlightRectanglePlayer(SWCorner, width, height, Color.blue);
+        await _highlighter.HighlightRectanglePlayer(SWCorner, width, height, Color.blue);
         // TODO: this is wrong
         if (!IsEnoughSpaceToDeploy())
-            _highlighter.HighlightRectanglePlayer(SWCorner, width + 2, height + 2, Color.blue);
+            await _highlighter.HighlightRectanglePlayer(SWCorner, width + 2, height + 2, Color.blue);
 
         _turnManager.UpdateBattleState(BattleState.Deployment);
     }

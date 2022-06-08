@@ -33,6 +33,13 @@ public class FireOnTile : TileEffect
             if (c.gameObject == gameObject)
                 continue;
 
+            if (c.CompareTag(Tags.WaterOnTile))
+            {
+                Destroy(c.gameObject);
+                Destroy(gameObject);
+                continue;
+            }
+
             if (c.CompareTag(Tags.FireOnTile) || c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.BoundCollider))
             {
                 Destroy(gameObject);
@@ -49,30 +56,17 @@ public class FireOnTile : TileEffect
     protected override async Task DecrementTurnsLeft()
     {
         if (!gameObject.activeSelf)
-        {
-            Debug.Log("!gameObject.activeSelf works");
             return;
-
-        }
-        Debug.Log($"before spread for: {transform.position}");
         await Spread();
-        Debug.Log($"after spread for: {transform.position}");
-        //await Task.Delay(10); // without that it throws an error sometimes...
         await base.DecrementTurnsLeft();
-        Debug.Log($"after decrement turns: {transform.position}");
 
     }
 
     async Task Spread()
     {
-        Debug.Log("in spread");
         if (gameObject == null)
-        {
-            Debug.Log("gameobject is null");
             return;
-        }
 
-        // Debug.Log($"transform.position {transform.position}");
         Vector3 pos = ChooseSpreadPosition();
 
         GameObject sEffect = Instantiate(_spreadEffect, transform.position, Quaternion.identity);
@@ -103,7 +97,6 @@ public class FireOnTile : TileEffect
         }
 
         await Task.Yield();
-        Debug.Log($"end of spread for: {transform.position}");
 
     }
 
@@ -148,12 +141,33 @@ public class FireOnTile : TileEffect
         _characterBurnedThisTurn = null;
     }
 
-    void Burn(CharacterStats stats)
+    async void Burn(CharacterStats stats)
     {
         _characterBurnedThisTurn = stats;
+
+        if (stats.IsWet)
+        {
+            RemoveWetStatus(stats);
+            await stats.ShakeOnDamageTaken();
+            return;
+        }
+
         stats.AddStatus(_status, _ability.CharacterGameObject);
         if (_battleCharacterController.HasCharacterStartedMoving)
             stats.WalkedThroughFire(_status);
+    }
+
+
+    void RemoveWetStatus(CharacterStats stats)
+    {
+        string wetReferenceId = "WetStatus";
+
+        foreach (Status s in stats.Statuses)
+            if (s.ReferenceID == wetReferenceId)
+            {
+                stats.RemoveStatus(s);
+                return;
+            }
     }
 
     public override string DisplayText()

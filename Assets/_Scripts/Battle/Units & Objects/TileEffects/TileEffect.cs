@@ -14,7 +14,7 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
     public virtual async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
         _selfCollider = GetComponent<BoxCollider2D>();
-        
+
         _ability = Instantiate(ability); // clone it for safety
         if (_ability.CharacterGameObject != null)
             _createdByTag = _ability.CharacterGameObject.tag;
@@ -55,7 +55,6 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
     protected virtual async Task DecrementTurnsLeft()
     {
         await Task.Delay(10);
-        Debug.Log("in decreement turns");
         _numberOfTurnsLeft -= 1;
         if (_numberOfTurnsLeft <= 0)
             DestroySelf();
@@ -64,11 +63,15 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
     public virtual void DestroySelf()
     {
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
-        Debug.Log("in destory self");
         gameObject.SetActive(false);
         if (gameObject != null)
             Destroy(gameObject, 1f);
     }
+    void OnDestroy()
+    {
+        DestroySelf();
+    }
+
 
     public virtual string DisplayText()
     {

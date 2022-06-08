@@ -19,7 +19,8 @@ public class Status : BaseScriptableObject
     protected BattleCharacterController _battleCharacterController;
     protected DamageUI _damageUI;
 
-    public GameObject Attacker;
+    [HideInInspector] public GameObject Attacker;
+
 
     public virtual void Create(Dictionary<string, object> item)
     {
@@ -32,14 +33,14 @@ public class Status : BaseScriptableObject
     }
 
     public virtual void Initialize(GameObject self, GameObject attacker)
-    {       
+    {
         _characterGameObject = self;
         _characterSelection = self.GetComponent<CharacterSelection>();
         _characterStats = self.GetComponent<CharacterStats>();
 
         _damageUI = self.GetComponent<DamageUI>();
         _battleCharacterController = BattleCharacterController.Instance;
-
+        AddFlag();
         if (attacker != null)
             Attacker = attacker;
     }
@@ -70,6 +71,10 @@ public class Status : BaseScriptableObject
     }
 
     protected virtual void HandleFirstTurn()
+    {
+        // meant to be overwritten; 
+    }
+    public virtual void AddFlag()
     {
         // meant to be overwritten; 
     }
