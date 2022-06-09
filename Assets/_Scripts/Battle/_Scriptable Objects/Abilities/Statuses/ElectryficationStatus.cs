@@ -12,10 +12,10 @@ public class ElectryficationStatus : Status
     {
         base.FirstTrigger();
         AddFlag();
-        GameObject effectInstance = Instantiate(Effect, _characterGameObject.transform.position, Quaternion.identity);
+        GameObject effectInstance = Instantiate(Effect, _selfGameObject.transform.position, Quaternion.identity);
         ElectricLineController effectController = effectInstance.GetComponent<ElectricLineController>();
-        Vector3 startPositionRandomized = new Vector3(_characterGameObject.transform.position.x + Random.Range(0, 0.5f),
-                                              _characterGameObject.transform.position.y + Random.Range(0, 0.5f));
+        Vector3 startPositionRandomized = new Vector3(_selfGameObject.transform.position.x + Random.Range(0, 0.5f),
+                                              _selfGameObject.transform.position.y + Random.Range(0, 0.5f));
 
         effectController.Electrify(startPositionRandomized);
 
@@ -24,7 +24,7 @@ public class ElectryficationStatus : Status
         {
             for (int y = -1; y <= 1; y++)
             {
-                Vector3 pos = new Vector3(_characterGameObject.transform.position.x + x, _characterGameObject.transform.position.y + y);
+                Vector3 pos = new Vector3(_selfGameObject.transform.position.x + x, _selfGameObject.transform.position.y + y);
                 Vector3 endPosistionRandomized = new Vector3(pos.x + Random.Range(0, 0.5f),
                                              pos.y + Random.Range(0, 0.5f));
                 effectController.AddPosition(endPosistionRandomized);
@@ -40,6 +40,10 @@ public class ElectryficationStatus : Status
     public override void TriggerStatus()
     {
         base.TriggerStatus();
+
+        if (_characterStats == null)
+            return;
+
         int dmg = Value;
         if (_characterStats.IsWet)
             dmg *= 2;
@@ -50,19 +54,32 @@ public class ElectryficationStatus : Status
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
         foreach (Collider2D c in cols)
-            if (c.TryGetComponent(out CharacterStats stats))
+        {
+            if (c.TryGetComponent(out CharacterStats stats)) // electrify characters
                 if (!stats.IsElectrified)
                     stats.AddStatus(this, Attacker);
+            if (c.TryGetComponent(out WaterOnTile waterOnTile))
+            {
+                Debug.Log("elkectrifying water");
+                waterOnTile.ElectrifyWater(_selfGameObject, this);
+            } // electrify water puddles
+        }
     }
-    
+
     public override void AddFlag()
     {
-        _characterStats.SetIsElectrified(true);
+        if (_baseStats == null)
+            return;
+
+        _baseStats.SetIsElectrified(true);
     }
 
     public override void ResetFlag()
     {
-        _characterStats.SetIsElectrified(false);
+        if (_baseStats == null)
+            return;
+            
+        _baseStats.SetIsElectrified(false);
     }
 
     public override string GetDescription()

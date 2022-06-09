@@ -7,13 +7,12 @@ using Pathfinding;
 using System.Threading.Tasks;
 using Random = UnityEngine.Random;
 
-public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, GameObject, Ability>, IBuffable<GameObject, Ability>
+public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, GameObject, Ability>, IBuffable<GameObject, Ability>
 {
     // global
-    HighlightManager _highlighter;
+    BattleCharacterController _battleCharacterController;
 
     // local
-    DamageUI _damageUI;
     CharacterRendererManager _characterRendererManager;
     AILerp _aiLerp;
 
@@ -52,10 +51,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     Path _latPath;
 
     // statuses
-    [HideInInspector] public List<Status> Statuses = new();
-    public bool IsStunned { get; private set; }
-    public bool IsElectrified { get; private set; }
-    public bool IsWet { get; private set; }
     public int DamageReceivedWhenWalking { get; private set; }
     [SerializeField] List<Status> _statusesBeforeWalking = new();
     [SerializeField] List<Status> _statusesAddedWhenWalking = new();
@@ -72,18 +67,16 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     public event Action<int, int, int> OnHealthChange; // total,  value before change, change 
     public event Action<int, int, int> OnManaChange;
     public event Action<StatModifier> OnModifierAdded;
-    public event Action<Status> OnStatusAdded;
-    public event Action<Status> OnStatusRemoved;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        _battleCharacterController = BattleCharacterController.Instance;
+
         // local
-        _damageUI = GetComponent<DamageUI>();
         _characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
         _aiLerp = GetComponent<AILerp>();
 
-        // global
-        _highlighter = HighlightManager.Instance;
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
@@ -104,7 +97,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
         // resetting status flags
         _statusesAddedWhenWalking.Clear();
         DamageReceivedWhenWalking = 0;
-
     }
 
     protected void ResolveModifiersTurnEnd()
@@ -327,6 +319,9 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
 
         OnHealthChange?.Invoke(Character.MaxHealth, CurrentHealth, -damage);
         CurrentHealth -= damage;
+
+        if (_battleCharacterController.HasCharacterStartedMoving)
+            DamageReceivedWhenWalking += damage;
 
         // don't shake on death
         if (CurrentHealth <= 0)
@@ -612,15 +607,6 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
     }
 
     public void SetAttacker(bool isAttacker) { IsAttacker = isAttacker; }
-    public void SetIsStunned(bool isStunned) { IsStunned = isStunned; }
-    public void SetIsElectrified(bool isElectrified) { IsElectrified = isElectrified; }
-    public void SetIsWet(bool isWet) { IsWet = isWet; }
-
-    public void WalkedThroughFire(Status s)
-    {
-        //_statusesAddedWhenWalking.Add(s);
-        DamageReceivedWhenWalking += s.Value;
-    }
 
     void AddModifier(Ability ability)
     {
@@ -634,43 +620,14 @@ public class CharacterStats : MonoBehaviour, IHealable<GameObject, Ability>, IAt
             }
     }
 
-    public void AddStatus(Status s, GameObject attacker)
+    public override Status AddStatus(Status s, GameObject attacker)
     {
-        Status clone = AddStatusWithoutTrigger(s, attacker);
-        if (BattleCharacterController.Instance.HasCharacterStartedMoving)
-            _statusesAddedWhenWalking.Add(clone);
+        Status addedStatus = base.AddStatus(s, attacker);
+        if (_battleCharacterController.HasCharacterStartedMoving)
+            _statusesAddedWhenWalking.Add(addedStatus);
 
-        // status triggers right away
-        clone.FirstTrigger();
-    }
-
-    Status AddStatusWithoutTrigger(Status s, GameObject attacker)
-    {
-        // statuses don't stack, they are refreshed
-        RemoveStatus(s);
-
-        Status clone = Instantiate(s);
-        Statuses.Add(clone);
-        clone.Initialize(gameObject, attacker);
-        OnStatusAdded?.Invoke(clone);
-
-        return clone;
-    }
-
-
-    public void RemoveStatus(Status s)
-    {
-        Status toRemove = null;
-        foreach (Status status in Statuses)
-            if (status.ReferenceID == s.ReferenceID)
-                toRemove = status;
-
-        if (toRemove != null)
-        {
-            toRemove.ResetFlag();
-            Statuses.Remove(toRemove);
-            OnStatusRemoved?.Invoke(toRemove);
-        }
+        // noone cares?
+        return addedStatus;
     }
 
     public void AddAbsorber(Absorber absorber)

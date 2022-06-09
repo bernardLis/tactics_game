@@ -12,8 +12,9 @@ public class Status : BaseScriptableObject
     public string DisplayText;
     public Color DisplayColor;
 
-    protected GameObject _characterGameObject;
+    protected GameObject _selfGameObject;
     protected CharacterSelection _characterSelection;
+    protected BaseStats _baseStats;
     protected CharacterStats _characterStats;
 
     protected BattleCharacterController _battleCharacterController;
@@ -34,13 +35,16 @@ public class Status : BaseScriptableObject
 
     public virtual void Initialize(GameObject self, GameObject attacker)
     {
-        _characterGameObject = self;
+        _selfGameObject = self;
         _characterSelection = self.GetComponent<CharacterSelection>();
+        // TODO: ugh... 
+        _baseStats = self.GetComponent<BaseStats>();
         _characterStats = self.GetComponent<CharacterStats>();
 
         _damageUI = self.GetComponent<DamageUI>();
         _battleCharacterController = BattleCharacterController.Instance;
-        AddFlag();
+        if (_characterStats != null)
+            AddFlag();
         if (attacker != null)
             Attacker = attacker;
     }
@@ -76,12 +80,10 @@ public class Status : BaseScriptableObject
     }
     public virtual void AddFlag()
     {
-        // meant to be overwritten; 
     }
 
     public virtual void ResetFlag()
     {
-        // meant to be overwritten; 
     }
 
     public virtual string GetDescription()

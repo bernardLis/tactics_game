@@ -153,8 +153,6 @@ public class FireOnTile : TileEffect
         }
 
         stats.AddStatus(_status, _ability.CharacterGameObject);
-        if (_battleCharacterController.HasCharacterStartedMoving)
-            stats.WalkedThroughFire(_status);
     }
 
 

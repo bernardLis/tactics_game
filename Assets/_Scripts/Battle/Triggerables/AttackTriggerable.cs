@@ -31,18 +31,25 @@ public class AttackTriggerable : BaseTriggerable
         if (target == null)
             return null;
 
-        // you hit something but it's not damagable
-        if (!target.TryGetComponent(out CharacterStats stats))
-            return target;
+        Debug.Log($"target: {target}");
+        if (target.TryGetComponent(out CharacterStats stats))
+        {
+            DisplayBattleLog(target, ability);
 
-        DisplayBattleLog(target, ability);
+            // damage target // TODO: ugh... this -1 is killing me...
+            int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
+            bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
 
-        // damage target // TODO: ugh... this -1 is killing me...
-        int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
-        bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
+            if (wasAttackSuccesful)
+                _myStats.Character.GetExp(target);
+        }
 
-        if (wasAttackSuccesful)
-            _myStats.Character.GetExp(target);
+        if (target.TryGetComponent(out ObjectStats objectStats))
+        {
+            Debug.Log(":hiut object");
+            if (ability.Status != null)
+                objectStats.AddStatus(ability.Status, gameObject);
+        }
 
         // return what you hit
         return target;
@@ -62,7 +69,7 @@ public class AttackTriggerable : BaseTriggerable
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
         // looking for attackable target
         foreach (Collider2D c in cols)
-            if (c.TryGetComponent(out IAttackable<GameObject, Ability> attackable))
+            if (c.TryGetComponent(out BaseStats stats))
                 return c.gameObject;
         return null;
     }

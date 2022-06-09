@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 6608514780787156810}
   - component: {fileID: 7399418893421278667}
   - component: {fileID: 8405335843484974915}
+  - component: {fileID: 8533876140636415019}
+  - component: {fileID: 2770356429701626535}
   - component: {fileID: 310961612306390686}
+  - component: {fileID: 8864157766387359041}
   m_Layer: 0
   m_Name: WaterOnTile
   m_TagString: WaterOnTile
@@ -112,6 +115,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8533876140636415019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389397590401772879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 09d4ed2fde4c49c40b5c9c3b190f6959, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &2770356429701626535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389397590401772879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee9cc88b11dcf74d8748c532a284917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &310961612306390686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,4 +155,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744df6ec31eac83468ea64b1b34f9025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _status: {fileID: 11400000, guid: bc1af3fcdd88e184ba52996cc0f0ac60, type: 2}
+  _wetStatus: {fileID: 11400000, guid: bc1af3fcdd88e184ba52996cc0f0ac60, type: 2}
+  _electrifiedWaterPuddleSprite: {fileID: 21300000, guid: 01ccf638740c16f40b79da5114d94d7b, type: 3}
+--- !u!114 &8864157766387359041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389397590401772879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98dd47056056ec549958bf74ce3a8689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Statuses: []

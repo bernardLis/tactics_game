@@ -15,12 +15,18 @@ public class WetStatus : Status
 
     public override void AddFlag()
     {
-        _characterStats.SetIsWet(true);
+        if (_baseStats == null)
+            return;
+
+        _baseStats.SetIsWet(true);
     }
 
     public override void ResetFlag()
     {
-        _characterStats.SetIsWet(false);
+        if (_baseStats == null)
+            return;
+
+        _baseStats.SetIsWet(false);
     }
 
     public override string GetDescription()

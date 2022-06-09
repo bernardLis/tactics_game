@@ -5,13 +5,19 @@ using System.Threading.Tasks;
 
 public class WaterOnTile : TileEffect
 {
-    [SerializeField] Status _status;
+    ObjectStats _objectStats;
 
+    [SerializeField] Status _wetStatus;
+
+    bool _isElectrified;
+    [SerializeField] Sprite _electrifiedWaterPuddleSprite;
+    Status _electrificationStatus;
+    GameObject _characterThatElectrified;
 
     public override async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
         await base.Initialize(pos, ability, tag);
-
+        _objectStats = GetComponent<ObjectStats>();
         CheckCollision(ability, pos);
 
         await Task.Yield();
@@ -19,7 +25,6 @@ public class WaterOnTile : TileEffect
 
     protected override void CheckCollision(Ability ability, Vector3 pos)
     {
-        Debug.Log($"pos: {pos}");
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.1f);
 
         foreach (Collider2D c in cols)
@@ -52,20 +57,26 @@ public class WaterOnTile : TileEffect
     {
         //Debug.Log("on trigger enter");
         if (other.TryGetComponent(out CharacterStats stats))
-            Wet(stats);
+            if (_isElectrified)
+                ElectrifyCharacter(stats);
+            else
+                Wet(stats);
     }
-
 
     void Wet(CharacterStats stats)
     {
-        Debug.Log($"wet {stats.gameObject.name}");
-
         // if burning, remove bruning
         if (ResolveBurnStatus(stats))
             return;
 
         // else add wet
-        stats.AddStatus(_status, _ability.CharacterGameObject);
+        stats.AddStatus(_wetStatus, _ability.CharacterGameObject);
+    }
+
+    void ElectrifyCharacter(CharacterStats stats)
+    {
+        stats.AddStatus(_electrificationStatus, _characterThatElectrified);
+
     }
 
     bool ResolveBurnStatus(CharacterStats stats)
@@ -81,15 +92,38 @@ public class WaterOnTile : TileEffect
 
         return false;
     }
+
+    public void ElectrifyWater(GameObject character, Status status)
+    {
+        Debug.Log($"electrify water puddle: {transform.position}!");
+
+        _isElectrified = true;
+
+        GetComponentInChildren<SpriteRenderer>().sprite = _electrifiedWaterPuddleSprite;
+
+        _createdByTag = character.tag;
+        _numberOfTurnsLeft = 3; // TODO: hardcoded
+        _electrificationStatus = status;
+        _characterThatElectrified = character;
+ 
+        if (!_objectStats.IsElectrified)
+            _objectStats.AddStatus(status, character);
+    }
+
     protected override async Task DecrementTurnsLeft()
     {
-        // I want it to last forever. 
-        await Task.Yield();
-        return;
+        // normal water puddles last forever. 
+        if (!_isElectrified)
+            return;
+
+        await base.DecrementTurnsLeft();
     }
+
     public override string DisplayText()
     {
-        return $"Makes characters walking through it wet.";
+        if (_isElectrified)
+            return "Electrifies characters walking through it.";
+        return "Makes characters walking through it wet. Can be electrified.";
     }
 
     public override void DestroySelf()
@@ -97,6 +131,5 @@ public class WaterOnTile : TileEffect
         // TODO: an effect;
         base.DestroySelf();
     }
-
 
 }

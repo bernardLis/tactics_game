@@ -47,7 +47,6 @@ public class FireBoltEffect : Effect
             _tempObjects.Add(temp);
         }
 
-
         DOTween.To(() => globalLight.color, x => globalLight.color = x, startColor, 0.5f).SetTarget(globalLight);
         await Task.Delay(500);
         CleanUp();
