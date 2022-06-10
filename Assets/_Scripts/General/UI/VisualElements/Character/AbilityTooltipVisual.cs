@@ -18,6 +18,7 @@ public class AbilityTooltipVisual : VisualWithTooltip
 
         _description = new(ability.Description);
         _description.AddToClassList("secondaryText");
+        _description.style.whiteSpace = WhiteSpace.Normal;
 
         _range = new("Range: " + ability.Range);
         _range.AddToClassList("secondaryText");

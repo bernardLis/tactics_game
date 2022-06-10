@@ -7,6 +7,7 @@ public class CheatManager : MonoBehaviour
 
     [SerializeField] GameObject _boulder;
 
+
     void Start()
     {
         _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
@@ -46,7 +47,6 @@ public class CheatManager : MonoBehaviour
 
     void DoSomething(InputAction.CallbackContext ctx)
     {
-
     }
 
     [ContextMenu("Kill All Enemies")]

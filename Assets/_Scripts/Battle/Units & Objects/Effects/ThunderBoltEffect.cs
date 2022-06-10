@@ -33,5 +33,7 @@ public class ThunderBoltEffect : Effect
         await Task.Delay(300);
         DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, startIntensity, 0.5f);
         await Task.Delay(500);
+
+        DestroySelf();
     }
 }

@@ -9,7 +9,7 @@ public class ResponsiveCamera : MonoBehaviour
 {
     float _buffer = 2f;
     Camera _cam;
-    
+
     void Start()
     {
         _cam = GetComponent<Camera>();
@@ -30,9 +30,10 @@ public class ResponsiveCamera : MonoBehaviour
         float size = Mathf.Max(horizontal, vertical) * 0.5f;
         Vector3 center = bounds.center + new Vector3(0, 0, -10);
 
-        transform.DOMove(center,1f);
+        transform.DOMove(center, 1f);
         DOTween.To(() => _cam.orthographicSize, x => _cam.orthographicSize = x, size, 1f)
             .SetEase(Ease.InSine);
     }
+
 
 }

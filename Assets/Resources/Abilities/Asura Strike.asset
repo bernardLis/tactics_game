@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b900adeff1432cc4baa20ae6bb2be92c, type: 3}
+  m_Name: Asura Strike
+  m_EditorClassIdentifier: 
+  Id: 282f5c17-1699-4204-a466-90d128ee9a4f
+  ReferenceID: 
+  Description: Deals a tremendus amount of damage. It costs all your health and mana.
+    The momentum of the attack moves you.
+  Icon: {fileID: 21300000, guid: bb6358bf481206e4190a3424b0a5031d, type: 3}
+  Sound: {fileID: 8300000, guid: 302ad6c081876fd4d8ffe4df0ed46010, type: 3}
+  BasePower: 999999
+  ManaCost: 0
+  AreaOfEffect: 0
+  LineAreaOfEffect: 0
+  AbilityType: 0
+  MultiplerStat: 0
+  WeaponType: 3
+  Projectile: {fileID: 0}
+  AbilityEffect: {fileID: 2429390979696459085, guid: 5245de517d59c9a43b01930e23da025c, type: 3}
+  SpellcastAnimation: 1
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 1
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
+  CharacterGameObject: {fileID: 0}

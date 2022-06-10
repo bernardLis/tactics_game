@@ -11,4 +11,9 @@ public class Effect : MonoBehaviour
         await Task.Yield();
     }
 
+    public virtual void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
+
 }

@@ -9,7 +9,7 @@ public class AttackTriggerable : BaseTriggerable
         if (!_myStats.IsAttacker)
         {
             // TODO: may be problematic, play spellcast animation on spell abilities
-            if (ability.MultiplerStat == StatType.Intelligence)
+            if (ability.MultiplerStat == StatType.Intelligence || ability.SpellcastAnimation)
                 await _characterRendererManager.SpellcastAnimation();
             else
                 await _characterRendererManager.AttackAnimation();
@@ -18,7 +18,7 @@ public class AttackTriggerable : BaseTriggerable
             {
                 Effect e = Instantiate(ability.AbilityEffect, pos, Quaternion.identity).GetComponent<Effect>();
                 await e.Play(ability, pos);
-                Destroy(e.gameObject);
+                //e.DestroySelf();
             }
 
             _myStats.UseMana(ability.ManaCost);
@@ -31,7 +31,6 @@ public class AttackTriggerable : BaseTriggerable
         if (target == null)
             return null;
 
-        Debug.Log($"target: {target}");
         if (target.TryGetComponent(out CharacterStats stats))
         {
             DisplayBattleLog(target, ability);
@@ -46,7 +45,6 @@ public class AttackTriggerable : BaseTriggerable
 
         if (target.TryGetComponent(out ObjectStats objectStats))
         {
-            Debug.Log(":hiut object");
             if (ability.Status != null)
                 objectStats.AddStatus(ability.Status, gameObject);
         }

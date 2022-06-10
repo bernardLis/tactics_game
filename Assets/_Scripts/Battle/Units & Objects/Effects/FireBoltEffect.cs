@@ -56,5 +56,7 @@ public class FireBoltEffect : Effect
     {
         for (int i = _tempObjects.Count - 1; i >= 0; i--)
             Destroy(_tempObjects[i]);
+
+        DestroySelf();
     }
 }

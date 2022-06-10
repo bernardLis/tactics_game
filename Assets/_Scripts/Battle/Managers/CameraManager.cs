@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Threading.Tasks;
+using DG.Tweening;
 
 public class CameraManager : MonoBehaviour
 {
@@ -78,6 +79,10 @@ public class CameraManager : MonoBehaviour
             _cam.orthographicSize = Mathf.Lerp(oldSize, newSize, t);
             await Task.Yield();
         }
+    }
+    public void Shake()
+    {
+        transform.DOShakePosition(0.5f, 0.5f);
     }
 
 }

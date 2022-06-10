@@ -20,6 +20,8 @@ public class ZapEffect : Effect
         }
 
         await Task.Delay(500);
+
+        DestroySelf();
     }
 
 }

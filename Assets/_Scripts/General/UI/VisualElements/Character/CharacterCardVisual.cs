@@ -52,6 +52,7 @@ public class CharacterCardVisual : VisualElement
         _stats.OnModifierAdded += OnModiferAdded;
         _stats.OnStatusAdded += OnStatusAdded;
         _stats.OnStatusRemoved += OnStatusRemoved;
+        _stats.CharacterDeathEvent += OnCharacterDeath;
 
         _character.OnCharacterExpGain += OnExpGain;
         _character.OnCharacterLevelUp += OnLevelUp;
@@ -78,6 +79,7 @@ public class CharacterCardVisual : VisualElement
         _stats.OnModifierAdded -= OnModiferAdded;
         _stats.OnStatusAdded -= OnStatusAdded;
         _stats.OnStatusRemoved -= OnStatusRemoved;
+        _stats.CharacterDeathEvent += OnCharacterDeath;
 
         if (_character == null)
             return;
@@ -295,6 +297,12 @@ public class CharacterCardVisual : VisualElement
 
         if (elToRemove != null)
             elToRemove.RemoveSelf(_portrait);
+    }
+
+    void OnCharacterDeath(GameObject obj)
+    {
+        // TODO: destroy the card in a cool way
+        InfoCardUI.Instance.HideCharacterCard();
     }
 
     // clicks

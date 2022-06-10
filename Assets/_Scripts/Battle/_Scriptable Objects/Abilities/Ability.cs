@@ -27,6 +27,7 @@ public abstract class Ability : BaseScriptableObject
     public WeaponType WeaponType; // abilities have weapons that can use them
     public GameObject Projectile; // TODO: is this a correct impementation, should it be a Scriptable Object?
     public GameObject AbilityEffect;
+    public bool SpellcastAnimation;
 
     [Header("Abilities can add modifiers and statuses on interaction")]
     public StatModifier StatModifier;
