@@ -62,7 +62,7 @@ public class AsuraStrikeEffect : Effect
 
     void MoveCharacter(Ability ability, Vector3 pos)
     {
-        Vector3 dir = pos - ability.CharacterGameObject.transform.position;
+        Vector3 dir = (pos - ability.CharacterGameObject.transform.position).normalized;
         _newPos = ability.CharacterGameObject.transform.position + dir * 2;
         // need to check whether the position is free if not just move to the characters pos
         Collider2D[] cols = Physics2D.OverlapCircleAll(_newPos, 0.2f);

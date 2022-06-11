@@ -230,7 +230,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         {
             wasAttackSuccesful = true;
             _lastAttacker = attacker.GetComponent<CharacterStats>();
-            await TakeDamageNoDodgeNoRetaliation(damage);
+            await TakeDamageFinal(damage);
             HandleModifier(ability);
             HandleStatus(attacker, ability);
         }
@@ -309,7 +309,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _damageUI.DisplayOnCharacter("Shielded!", 24, Color.magenta);
     }
 
-    public async Task TakeDamageNoDodgeNoRetaliation(int damage)
+    public async Task TakeDamageFinal(int damage)
     {
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
@@ -336,6 +336,12 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task ShakeOnDamageTaken()
     {
+        // flash color
+        // TODO: cache
+        SpriteRenderer sr = _body.GetComponent<SpriteRenderer>();
+        sr.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo);
+
+
         // shake a character;
         float duration = 0.15f;
         float strength = 0.1f;
@@ -561,10 +567,10 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task CollideWithCharacter(Ability ability, Collider2D col)
     {
-        await TakeDamageNoDodgeNoRetaliation(ability.BasePower);
+        await TakeDamageFinal(ability.BasePower);
 
         CharacterStats targetStats = col.GetComponent<CharacterStats>();
-        await targetStats.TakeDamageNoDodgeNoRetaliation(ability.BasePower);
+        await targetStats.TakeDamageFinal(ability.BasePower);
 
         if (_tempObject != null)
             Destroy(_tempObject);
@@ -574,7 +580,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task CollideWithIndestructible(Ability ability, Collider2D col)
     {
-        await TakeDamageNoDodgeNoRetaliation(ability.BasePower);
+        await TakeDamageFinal(ability.BasePower);
         if (_tempObject != null)
             Destroy(_tempObject);
 
@@ -585,7 +591,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         Destroy(col.transform.parent.gameObject); // TODO: call destroy self right?
 
-        await TakeDamageNoDodgeNoRetaliation(ability.BasePower);
+        await TakeDamageFinal(ability.BasePower);
     }
 
     public async Task Die()

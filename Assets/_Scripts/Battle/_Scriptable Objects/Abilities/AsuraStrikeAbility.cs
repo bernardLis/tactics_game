@@ -11,7 +11,7 @@ public class AsuraStrikeAbility : AttackAbility
         await base.AbilityLogic(pos);
         // lose all mana, lose all health-1, get teleported to the tile behind pos
         _stats.UseMana(_stats.CurrentMana);
-        await _stats.TakeDamageNoDodgeNoRetaliation(_stats.CurrentHealth - 1);
+        await _stats.TakeDamageFinal(_stats.CurrentHealth - 1);
     }
 
 }

@@ -47,7 +47,7 @@ public class ElectryficationStatus : Status
         int dmg = Value;
         if (_characterStats.IsWet)
             dmg *= 2;
-        _characterStats.TakeDamageNoDodgeNoRetaliation(dmg).GetAwaiter();
+        _characterStats.TakeDamageFinal(dmg).GetAwaiter();
     }
 
     void SpreadElectrification(Vector3 pos)

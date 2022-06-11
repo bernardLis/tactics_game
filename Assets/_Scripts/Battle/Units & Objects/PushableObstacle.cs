@@ -152,7 +152,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     public async Task CollideWithCharacter(Ability ability, Collider2D col)
     {
         _targetStats = col.GetComponent<CharacterStats>();
-        await _targetStats.TakeDamageNoDodgeNoRetaliation(_damage);
+        await _targetStats.TakeDamageFinal(_damage);
         await DestroySelf();
     }
 

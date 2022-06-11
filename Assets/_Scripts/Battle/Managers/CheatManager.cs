@@ -68,7 +68,7 @@ public class CheatManager : MonoBehaviour
         GameObject target = toKill[Random.Range(0, toKill.Length)];
         CharacterStats stats = target.GetComponent<CharacterStats>();
         int currentHealth = stats.CurrentHealth;
-        stats.TakeDamageNoDodgeNoRetaliation(currentHealth).GetAwaiter();
+        stats.TakeDamageFinal(currentHealth).GetAwaiter();
 
     }
 
@@ -79,7 +79,7 @@ public class CheatManager : MonoBehaviour
         {
             CharacterStats stats = target.GetComponent<CharacterStats>();
             int currentHealth = stats.CurrentHealth;
-            stats.TakeDamageNoDodgeNoRetaliation(currentHealth + 1).GetAwaiter();
+            stats.TakeDamageFinal(currentHealth + 1).GetAwaiter();
         }
 
     }

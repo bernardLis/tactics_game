@@ -7,7 +7,7 @@ public class DamageStatus : Status
     {
         base.TriggerStatus();
         if (_characterStats != null)
-            _characterStats.TakeDamageNoDodgeNoRetaliation(Value).GetAwaiter();
+            _characterStats.TakeDamageFinal(Value).GetAwaiter();
     }
 
     public override string GetDescription()
