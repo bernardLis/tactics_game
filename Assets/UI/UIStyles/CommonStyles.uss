@@ -29,8 +29,8 @@
 .menuButton {
     font-size: 36px;
     background-color: rgb(51, 51, 51);
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
     color: rgb(255, 255, 255);
     border-left-color: rgb(255, 133, 125);
     border-right-color: rgb(255, 133, 125);
@@ -45,6 +45,8 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     transition-duration: 1s;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .barMissingAmount {
@@ -151,10 +153,10 @@
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
-    border-left-color: rgba(0, 0, 0, 255);
-    border-right-color: rgba(0, 0, 0, 255);
-    border-top-color: rgba(0, 0, 0, 255);
-    border-bottom-color: rgba(0, 0, 0, 255);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
 }
 
 .abilityButtonIcon {

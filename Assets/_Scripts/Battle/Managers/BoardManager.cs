@@ -57,9 +57,6 @@ public class BoardManager : Singleton<BoardManager>
     List<GameObject> _pushableObstacles;
     List<Vector3Int> _openOuterPositions = new();
 
-    // accessible vars
-    public Light2D GlobalLight { get; private set; }
-
     protected override void Awake()
     {
         base.Awake();
@@ -158,13 +155,13 @@ public class BoardManager : Singleton<BoardManager>
                                                     _mapVariant.TerrainIrregularitiesPercent.y);
         _outerAdditionsPercent = Random.Range(_biome.OuterAdditionsPercent.x, _biome.OuterAdditionsPercent.y);
 
-        GlobalLight = Instantiate(_globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
-        GlobalLight.transform.parent = _envObjectsHolder.transform;
-        GlobalLight.color = _biome.LightColor;
-        GlobalLight.intensity = _biome.LightIntensity;
+        Light2D globalLight = Instantiate(_globalLightPrefab, Vector3.zero, Quaternion.identity).GetComponent<Light2D>();
+        globalLight.transform.parent = _envObjectsHolder.transform;
+        globalLight.color = _biome.LightColor;
+        globalLight.intensity = _biome.LightIntensity;
+        LightManager.Instance.Initialize(globalLight);
 
         // TODO: Correct? I want to remove some values on some map types - river / hourglass
-
         _allowedEnemySpawnDirections = System.Enum.GetValues(typeof(EnemySpawnDirection)).Cast<EnemySpawnDirection>().ToList();
 
         if (_mapVariant.MapType == MapType.Circle)

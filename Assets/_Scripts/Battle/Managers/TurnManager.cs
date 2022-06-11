@@ -77,9 +77,9 @@ public class TurnManager : Singleton<TurnManager>
 
         // subscribe to death events
         foreach (GameObject enemy in _enemies)
-            enemy.GetComponent<CharacterStats>().CharacterDeathEvent += OnEnemyDeath;
+            enemy.GetComponent<CharacterStats>().OnCharacterDeath += OnEnemyDeath;
         foreach (GameObject player in _playerCharacters)
-            player.GetComponent<CharacterStats>().CharacterDeathEvent += OnPlayerCharDeath;
+            player.GetComponent<CharacterStats>().OnCharacterDeath += OnPlayerCharDeath;
     }
     void HandlePlayerTurn()
     {

@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class HighlightManager : Singleton<HighlightManager>
 {
-
     // global
     BattleInputController _battleInputController;
 
@@ -237,7 +236,6 @@ public class HighlightManager : Singleton<HighlightManager>
     }
 
     /* Ability */
-
     public async Task HighlightAbilityRange(Ability ability)
     {
         await ClearHighlightedTiles();

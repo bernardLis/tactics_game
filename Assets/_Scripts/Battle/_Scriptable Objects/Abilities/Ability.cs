@@ -216,4 +216,19 @@ public abstract class Ability : BaseScriptableObject
                 selection.ToggleSelectionArrow(true, Color.white);
         }
     }
+
+    /* UI Helpers */
+    public string GetAOEDescription()
+    {
+        if (LineAreaOfEffect)
+            return $"{Range} tiles in a line";
+
+        if (AreaOfEffect == 0)
+            return "1 tile";
+
+        if (AreaOfEffect == 1)
+            return "5 tiles in a cross";
+
+        return $"Yes, scale: {AreaOfEffect}";
+    }
 }

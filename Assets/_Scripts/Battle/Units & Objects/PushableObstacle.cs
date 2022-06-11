@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, IUITextDisplayable, ICreatable<Vector3, Ability, string>
+public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, ICreatable<Vector3, Ability, string>
 {
     // global
     BattleManager _battleManager;
@@ -201,6 +201,6 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     }
 
 
-    public string DisplayText() { return _displayText; }
+    public override string DisplayText() { return _displayText; }
 
 }

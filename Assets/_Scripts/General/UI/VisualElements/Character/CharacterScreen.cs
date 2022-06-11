@@ -8,8 +8,8 @@ public class CharacterScreen : FullScreenVisual
     // TODO: many repetitions in the next 4 functions
     public CharacterScreen(CharacterStats stats, VisualElement root)
     {
-        Initialize(root);
-        style.backgroundColor = Color.gray;
+        BaseCharacterScreen(root);
+
         AddCharacterCard(stats);
         AddAbilityContainer(stats.Character);
         AddBackButton();
@@ -17,11 +17,17 @@ public class CharacterScreen : FullScreenVisual
 
     public CharacterScreen(Character character, VisualElement root)
     {
-        Initialize(root);
-        style.backgroundColor = Color.gray;
+        BaseCharacterScreen(root);
+
         AddCharacterCard(character);
         AddAbilityContainer(character);
         AddBackButton();
+    }
+
+    void BaseCharacterScreen(VisualElement root)
+    {
+        Initialize(root);
+        style.backgroundColor = Color.gray;
     }
 
     void AddCharacterCard(CharacterStats stats)
@@ -62,7 +68,7 @@ public class CharacterScreen : FullScreenVisual
             aContainer.style.width = Length.Percent(20);
             aContainer.AddToClassList("uiContainer");
             aContainer.style.alignItems = Align.Center;
-            aContainer.style.alignSelf = Align.FlexStart;
+            aContainer.style.alignSelf = Align.Auto;
 
             AbilityButton button = new(a, null);
             aContainer.Add(button);

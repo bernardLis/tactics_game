@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using Pathfinding;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Asura Strike")]
 public class AsuraStrikeAbility : AttackAbility

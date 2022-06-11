@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 
 public class FireBoltEffect : Effect
@@ -11,18 +9,14 @@ public class FireBoltEffect : Effect
     [SerializeField] GameObject _smoke;
     [SerializeField] Color _targetColor;
 
-
     List<GameObject> _tempObjects = new();
-
 
     // I just want the bolt to be instantiated up high and fall on the highlighted tiles (yeah, multiple if the hightlight is multiple)
     public override async Task Play(Ability ability, Vector3 targetPos)
     {
-        BoardManager bm = BoardManager.Instance;
-        Light2D globalLight = bm.GlobalLight;
-        Color startColor = globalLight.color;
+        LightManager lightManager = LightManager.Instance;
 
-        DOTween.To(() => globalLight.color, x => globalLight.color = x, _targetColor, 0.5f).SetTarget(globalLight);
+        lightManager.ChangeGlobalLightColor(_targetColor, 0.5f);
         await Task.Delay(500);
 
         HighlightManager highlightManager = HighlightManager.Instance;
@@ -47,7 +41,7 @@ public class FireBoltEffect : Effect
             _tempObjects.Add(temp);
         }
 
-        DOTween.To(() => globalLight.color, x => globalLight.color = x, startColor, 0.5f).SetTarget(globalLight);
+        lightManager.ResetGlobalLightColor(0.5f);
         await Task.Delay(500);
         CleanUp();
     }

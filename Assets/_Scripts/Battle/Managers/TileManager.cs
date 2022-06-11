@@ -61,7 +61,7 @@ public class TileManager : MonoBehaviour
                 // create gameobject with collider at it's position
                 GameObject col = new("col");
                 col.tag = Tags.BoundCollider;
-                col.layer = 3; // unpassable layer
+                col.layer = 3; // Impassable layer
                 col.transform.position = new Vector3(PosTile.Key.x + 0.5f, PosTile.Key.y + 0.5f, 0f);
 
                 BoxCollider2D bc = col.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;

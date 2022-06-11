@@ -63,7 +63,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     [SerializeField] GameObject _levelUpEffect;
 
     // delegates
-    public event Action<GameObject> CharacterDeathEvent;
+    public event Action<GameObject> OnCharacterDeath;
     public event Action<int, int, int> OnHealthChange; // total,  value before change, change 
     public event Action<int, int, int> OnManaChange;
     public event Action<StatModifier> OnModifierAdded;
@@ -76,7 +76,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         // local
         _characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
         _aiLerp = GetComponent<AILerp>();
-
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
@@ -598,8 +597,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         transform.DOKill();
 
         // movement script needs to clear the highlight 
-        if (CharacterDeathEvent != null)
-            CharacterDeathEvent(gameObject);
+        if (OnCharacterDeath != null)
+            OnCharacterDeath(gameObject);
 
         // die in some way
         // this method is meant to be overwirtten

@@ -106,8 +106,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6105715623576548086}
-  - component: {fileID: 7932605302489743500}
   - component: {fileID: 6105715623576548080}
+  - component: {fileID: 7932605302489743500}
   - component: {fileID: 3973885797857289481}
   - component: {fileID: 1384944250223896114}
   - component: {fileID: 1864993293436626187}
@@ -147,6 +147,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &6105715623576548080
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105715623576548083}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!61 &7932605302489743500
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,27 +194,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &6105715623576548080
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6105715623576548083}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!210 &3973885797857289481
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -303,10 +303,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93fcf6f467bff8e44a97e3b68bc4832b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Statuses: []
   BasicAbilities: []
   Abilities: []
   _body: {fileID: 7495358995766541934}
-  Statuses: []
+  _statusesBeforeWalking: []
+  _statusesAddedWhenWalking: []
   _levelUpEffect: {fileID: 2060092509515171908, guid: f588a433e409706429d8a018f347526c, type: 3}
 --- !u!114 &1864993292968118660
 MonoBehaviour:

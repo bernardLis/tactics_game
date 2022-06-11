@@ -138,24 +138,18 @@ public class MovePointController : Singleton<MovePointController>
         UpdateAbilityResult();
     }
 
-    // TODO: needs a rewrite
     void UpdateTileInfoUI()
     {
-        // tile info
-        Vector3Int tilePos = _tilemap.WorldToCell(transform.position);
         string tileUIText = "";
-
-        // if it is not a tile, return
-        if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
-            return;
-
-        if (_tile.IsObstacle)
-            tileUIText = "Obstacle. ";
 
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
         foreach (Collider2D c in cols)
+        {
             if (c.TryGetComponent(out IUITextDisplayable uiText))
                 tileUIText += uiText.DisplayText();
+            if (c.CompareTag(Tags.BoundCollider))
+                tileUIText += "Impassable map bounds.";
+        }
 
         // hide/show the whole panel
         if (tileUIText == "")

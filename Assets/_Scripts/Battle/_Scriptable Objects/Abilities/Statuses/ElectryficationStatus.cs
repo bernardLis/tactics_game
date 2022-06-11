@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
@@ -7,13 +5,14 @@ using System.Threading.Tasks;
 public class ElectryficationStatus : Status
 {
     public GameObject Effect;
+    GameObject _effectInstance;
 
     public override async void FirstTrigger()
     {
         base.FirstTrigger();
         AddFlag();
-        GameObject effectInstance = Instantiate(Effect, _selfGameObject.transform.position, Quaternion.identity);
-        ElectricLineController effectController = effectInstance.GetComponent<ElectricLineController>();
+        _effectInstance = Instantiate(Effect, _selfGameObject.transform.position, Quaternion.identity);
+        ElectricLineController effectController = _effectInstance.GetComponent<ElectricLineController>();
         Vector3 startPositionRandomized = new Vector3(_selfGameObject.transform.position.x + Random.Range(0, 0.5f),
                                               _selfGameObject.transform.position.y + Random.Range(0, 0.5f));
 
@@ -33,8 +32,9 @@ public class ElectryficationStatus : Status
                 await Task.Delay(50);
             }
         }
-        if (effectInstance != null)
-            Destroy(effectInstance, 1f);
+
+        if (_effectInstance != null)
+            Destroy(_effectInstance, 1f);
     }
 
     public override void TriggerStatus()
@@ -59,10 +59,7 @@ public class ElectryficationStatus : Status
                 if (!stats.IsElectrified)
                     stats.AddStatus(this, Attacker);
             if (c.TryGetComponent(out WaterOnTile waterOnTile))
-            {
-                Debug.Log("elkectrifying water");
-                waterOnTile.ElectrifyWater(_selfGameObject, this);
-            } // electrify water puddles
+                waterOnTile.ElectrifyWater(this, _selfGameObject);
         }
     }
 
@@ -78,7 +75,7 @@ public class ElectryficationStatus : Status
     {
         if (_baseStats == null)
             return;
-            
+
         _baseStats.SetIsElectrified(false);
     }
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7512957698282176493}
   - component: {fileID: 7512957698282176491}
+  - component: {fileID: 1417603764495335820}
   - component: {fileID: 7716697212794855699}
   m_Layer: 3
   m_Name: Obstacle
@@ -56,6 +57,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &1417603764495335820
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7512957698282176492}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &7716697212794855699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20871fdd860b2554288fc3ed52b5e08b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spotLightPrefab: {fileID: 3155923102404573503, guid: cf71252f1081ac5479358c2ec3bc3e57, type: 3}
+  _spotLightPrefab: {fileID: 0}
 --- !u!1 &7512957699131220223
 GameObject:
   m_ObjectHideFlags: 0

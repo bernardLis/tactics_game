@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
@@ -76,7 +74,6 @@ public class WaterOnTile : TileEffect
     void ElectrifyCharacter(CharacterStats stats)
     {
         stats.AddStatus(_electrificationStatus, _characterThatElectrified);
-
     }
 
     bool ResolveBurnStatus(CharacterStats stats)
@@ -93,10 +90,8 @@ public class WaterOnTile : TileEffect
         return false;
     }
 
-    public void ElectrifyWater(GameObject character, Status status)
+    public void ElectrifyWater(Status status, GameObject character)
     {
-        Debug.Log($"electrify water puddle: {transform.position}!");
-
         _isElectrified = true;
 
         GetComponentInChildren<SpriteRenderer>().sprite = _electrifiedWaterPuddleSprite;
@@ -108,6 +103,9 @@ public class WaterOnTile : TileEffect
  
         if (!_objectStats.IsElectrified)
             _objectStats.AddStatus(status, character);
+
+        //refresh card
+        InfoCardUI.Instance.ShowTileInfo(DisplayText());
     }
 
     protected override async Task DecrementTurnsLeft()

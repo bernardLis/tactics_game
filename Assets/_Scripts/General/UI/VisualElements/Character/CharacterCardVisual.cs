@@ -45,46 +45,17 @@ public class CharacterCardVisual : VisualElement
 
         _characteristics.Add(HandleCharacterStats(null, stats));
 
-        RegisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
-
+        // delegates
         _stats.OnHealthChange += HealthBar.OnValueChange;
         _stats.OnManaChange += ManaBar.OnValueChange;
         _stats.OnModifierAdded += OnModiferAdded;
         _stats.OnStatusAdded += OnStatusAdded;
         _stats.OnStatusRemoved += OnStatusRemoved;
-        _stats.CharacterDeathEvent += OnCharacterDeath;
+        _stats.OnCharacterDeath += OnCharacterDeath;
 
         _character.OnCharacterExpGain += OnExpGain;
         _character.OnCharacterLevelUp += OnLevelUp;
 
-        RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
-    }
-
-    private void GeometryChangedCallback(GeometryChangedEvent evt)
-    {
-        //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/
-        UnregisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
-        // Do what you need to do here, as geometry should be calculated.
-        HealthBar.DisplayMissingAmount(_stats.MaxHealth.GetValue(), _stats.CurrentHealth);
-        ManaBar.DisplayMissingAmount(_stats.MaxMana.GetValue(), _stats.CurrentMana);
-    }
-
-
-    void OnPanelDetached(DetachFromPanelEvent evt)
-    {
-        if (_stats == null)
-            return;
-        _stats.OnHealthChange -= HealthBar.OnValueChange;
-        _stats.OnManaChange -= ManaBar.OnValueChange;
-        _stats.OnModifierAdded -= OnModiferAdded;
-        _stats.OnStatusAdded -= OnStatusAdded;
-        _stats.OnStatusRemoved -= OnStatusRemoved;
-        _stats.CharacterDeathEvent += OnCharacterDeath;
-
-        if (_character == null)
-            return;
-        _character.OnCharacterExpGain -= OnExpGain;
-        _character.OnCharacterLevelUp -= OnLevelUp;
     }
 
     void BaseCharacterCardVisual(Character character, bool clickable)
@@ -122,9 +93,43 @@ public class CharacterCardVisual : VisualElement
         _characteristics.Add(CreateExpGroup(character));
         Add(_characteristics);
 
+        RegisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
+        RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
+
         if (clickable)
             RegisterCallback<PointerDownEvent>(OnPointerDown);
     }
+
+    private void GeometryChangedCallback(GeometryChangedEvent evt)
+    {
+        //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/
+        UnregisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
+
+        if (_stats == null)
+            return;
+        // Do what you need to do here, as geometry should be calculated.
+        HealthBar.DisplayMissingAmount(_stats.MaxHealth.GetValue(), _stats.CurrentHealth);
+        ManaBar.DisplayMissingAmount(_stats.MaxMana.GetValue(), _stats.CurrentMana);
+    }
+
+
+    void OnPanelDetached(DetachFromPanelEvent evt)
+    {
+        if (_stats == null)
+            return;
+        _stats.OnHealthChange -= HealthBar.OnValueChange;
+        _stats.OnManaChange -= ManaBar.OnValueChange;
+        _stats.OnModifierAdded -= OnModiferAdded;
+        _stats.OnStatusAdded -= OnStatusAdded;
+        _stats.OnStatusRemoved -= OnStatusRemoved;
+        _stats.OnCharacterDeath += OnCharacterDeath;
+
+        if (_character == null)
+            return;
+        _character.OnCharacterExpGain -= OnExpGain;
+        _character.OnCharacterLevelUp -= OnLevelUp;
+    }
+
 
     VisualElement CreateHealthGroup(Character character)
     {
@@ -261,6 +266,12 @@ public class CharacterCardVisual : VisualElement
         return els;
     }
 
+    void ResizeAbilityElements()
+    {
+
+    }
+
+
     // Delegates
     void OnExpGain(int gain)
     {
@@ -317,4 +328,5 @@ public class CharacterCardVisual : VisualElement
         else
             new CharacterScreen(_character, root);
     }
+
 }

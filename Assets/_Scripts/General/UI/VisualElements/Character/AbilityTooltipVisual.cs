@@ -6,15 +6,19 @@ public class AbilityTooltipVisual : VisualWithTooltip
     Label _name;
     Label _description;
     Label _range;
+    Label _aoe;
     Label _manaCost;
     VisualElement _modifierContainer;
 
     public AbilityTooltipVisual(Ability ability)
     {
+        style.alignSelf = Align.Stretch;
+
         _ability = ability;
 
         _name = new(Helpers.ParseScriptableObjectCloneName(ability.name));
         _name.AddToClassList("primaryText");
+        _name.style.alignSelf = Align.Center;
 
         _description = new(ability.Description);
         _description.AddToClassList("secondaryText");
@@ -22,6 +26,9 @@ public class AbilityTooltipVisual : VisualWithTooltip
 
         _range = new("Range: " + ability.Range);
         _range.AddToClassList("secondaryText");
+
+        _aoe = new("AOE: " + ability.GetAOEDescription());
+        _aoe.AddToClassList("secondaryText");
 
         _manaCost = new("Mana cost: " + ability.ManaCost.ToString());
         _manaCost.AddToClassList("secondaryText");
@@ -33,6 +40,7 @@ public class AbilityTooltipVisual : VisualWithTooltip
         Add(_name);
         Add(_description);
         Add(_range);
+        Add(_aoe);
         Add(_manaCost);
         Add(_modifierContainer);
     }

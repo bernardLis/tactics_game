@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : MonoBehaviour, IUITextDisplayable
 {
     BoxCollider2D _col;
     [SerializeField] Light2D _spotLightPrefab;
@@ -11,7 +11,7 @@ public class Obstacle : MonoBehaviour
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
         sr.sprite = obj.Sprite;
 
-        _col = GetComponentInChildren<BoxCollider2D>();
+        _col = GetComponent<BoxCollider2D>();
         if (_col != null)
             _col.size = obj.Size;
 
@@ -25,6 +25,8 @@ public class Obstacle : MonoBehaviour
             l.pointLightInnerRadius = Random.Range(obj.InnerRadius.x, obj.InnerRadius.y);
             l.pointLightOuterRadius = Random.Range(obj.OuterRadius.x, obj.OuterRadius.y);
         }
-
     }
+
+    public virtual string DisplayText() { return "Obstacle. Impassable, immovable, unstoppable!"; }
+
 }
