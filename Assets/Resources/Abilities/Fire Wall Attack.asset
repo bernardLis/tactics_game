@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
+  m_Name: Fire Wall Attack
+  m_EditorClassIdentifier: 
+  Id: 26b43ccc-7ad6-4a04-950b-acb55e337f66
+  ReferenceID: 
+  Description: Create a wall of fire.
+  Icon: {fileID: 21300000, guid: 93f6712cb339b1c428ad96113407a1de, type: 3}
+  Sound: {fileID: 8300000, guid: 2b67de8b312f81545b6d3d8af92f78e3, type: 3}
+  BasePower: 10
+  ManaCost: 10
+  AreaOfEffect: 0
+  LineAreaOfEffect: 1
+  AbilityType: 0
+  MultiplerStat: 1
+  WeaponType: 3
+  Projectile: {fileID: 0}
+  AbilityEffect: {fileID: 2338742358438674460, guid: dd75f6241f0d8834e8370d1da7ee4af1, type: 3}
+  SpellcastAnimation: 1
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Range: 5
+  CanTargetSelf: 0
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 1, g: 0.47058824, b: 0, a: 1}
+  CharacterGameObject: {fileID: 0}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Chest : MonoBehaviour, IItemUsable<UtilityAbility>
+public class Chest : MonoBehaviour, IItemUsable<UtilityAbility>, IUITextDisplayable
 {
     [SerializeField] Sprite _openedChest;
     SpriteRenderer _spriteRenderer;
@@ -24,4 +24,7 @@ public class Chest : MonoBehaviour, IItemUsable<UtilityAbility>
         _spriteRenderer.sprite = _openedChest;
         // TODO: maybe disable the light?
     }
+
+    public virtual string DisplayText() { return "Chest, you can open it if you have a key."; }
+
 }

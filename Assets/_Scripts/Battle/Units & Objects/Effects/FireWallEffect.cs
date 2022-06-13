@@ -7,25 +7,51 @@ using DG.Tweening;
 public class FireWallEffect : Effect
 {
     Animator _animator;
+    [SerializeField] GameObject _fireOnTile;
 
     string[] _animations = { "FireLionN", "FireLionW", "FireLionS", "FireLionE" };
 
+    bool _animationFinished;
+
     public override async Task Play(Ability ability, Vector3 targetPos)
     {
+        HighlightManager highlightManager = HighlightManager.Instance;
+        List<WorldTile> highlightedTiles = new(highlightManager.HighlightedTiles);
+
         _animator = GetComponent<Animator>();
 
         // target pos is the first tile
         Vector3 dir = (targetPos - ability.CharacterGameObject.transform.position).normalized;
-        Debug.Log($"dir: {dir}");
         _animator.Play(_animations[DirectionToIndex(dir, 4)]);
-        Debug.Log($"target pos {targetPos} ");
+        foreach (WorldTile tile in highlightedTiles)
+        {
+            Vector3 endPos = tile.GetMiddleOfTile();
+            transform.position = endPos;
 
-        Vector3 endOfTheLine = MovePointController.Instance.gameObject.transform.position;
-        // TODO: that's wrong
-        // and move to target pos
-        transform.DOMove(endOfTheLine, 3f).OnComplete(DestroySelf);
-        await Task.Delay(3000);
-        Debug.Log("after delay");
+
+            await WaitForAnimation();
+            _animationFinished = false;
+
+            GameObject fot = Instantiate(_fireOnTile, endPos, Quaternion.identity);
+            await fot.GetComponent<FireOnTile>().Initialize(endPos, ability);
+        }
+        _animator.enabled = false;
+        GetComponent<SpriteRenderer>().sprite = null;
+
+        await Task.Delay(100);
+        DestroySelf();
+    }
+
+    async Task WaitForAnimation()
+    {
+        while (!_animationFinished)
+            await Task.Yield();
+    }
+    
+    // animation event
+    void AnimationFinished()
+    {
+        _animationFinished = true;
     }
 
     // from character renderer by Unity
@@ -54,6 +80,4 @@ public class FireWallEffect : Effect
         //round it, and we have the answer!
         return Mathf.FloorToInt(stepCount);
     }
-
-
 }

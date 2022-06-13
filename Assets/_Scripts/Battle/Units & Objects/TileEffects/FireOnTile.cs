@@ -69,9 +69,10 @@ public class FireOnTile : TileEffect
 
         Vector3 pos = ChooseSpreadPosition();
 
-        GameObject sEffect = Instantiate(_spreadEffect, transform.position, Quaternion.identity);
-        sEffect.transform.DOMove(pos, 0.5f);
-        Destroy(sEffect, 1f);
+        //GameObject sEffect = Instantiate(_spreadEffect, transform.position, Quaternion.identity);
+        //sEffect.transform.DOMove(pos, 0.5f);
+        //Destroy(sEffect, 1f);
+        // TODO: good looking fire spread effect
 
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
 

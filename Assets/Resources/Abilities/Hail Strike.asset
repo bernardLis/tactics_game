@@ -19,7 +19,7 @@ MonoBehaviour:
   Sound: {fileID: 8300000, guid: dcd503766e3f1c04281fbcce3462da18, type: 3}
   BasePower: 10
   ManaCost: 10
-  AreaOfEffect: 3
+  AreaOfEffect: 1
   LineAreaOfEffect: 0
   AbilityType: 6
   MultiplerStat: 1

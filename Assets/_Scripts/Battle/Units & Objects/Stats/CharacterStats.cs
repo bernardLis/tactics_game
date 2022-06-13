@@ -341,7 +341,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         SpriteRenderer sr = _body.GetComponent<SpriteRenderer>();
         sr.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo);
 
-
         // shake a character;
         float duration = 0.15f;
         float strength = 0.1f;
@@ -350,8 +349,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _body.transform.DOShakePosition(duration, strength, 0, 0, false, true).SetLoops(2)
                        .OnComplete(() => EnableAILerp());
 
-        await Task.Delay(300);
+        await Task.Delay(500);
 
+        sr.color = Color.white;
     }
 
     public void GetBuffed(GameObject attacker, Ability ability)

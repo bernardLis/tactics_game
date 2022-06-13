@@ -19,4 +19,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 7767b2ae7ebe14d498401b0cca068540, type: 3}
   DisplayText: Electrified
   DisplayColor: {r: 0.2396226, g: 0.67996794, b: 1, a: 1}
+  AnimationEffectOnBody: ElectrifiedEffect
+  Attacker: {fileID: 0}
   Effect: {fileID: 5398777744129767860, guid: d58d43c7246dcb94884d6fd4663b2c99, type: 3}

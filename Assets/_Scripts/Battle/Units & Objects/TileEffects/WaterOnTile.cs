@@ -53,12 +53,12 @@ public class WaterOnTile : TileEffect
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("on trigger enter");
         if (other.TryGetComponent(out CharacterStats stats))
+        {
+            Wet(stats);
             if (_isElectrified)
                 ElectrifyCharacter(stats);
-            else
-                Wet(stats);
+        }
     }
 
     void Wet(CharacterStats stats)
@@ -100,7 +100,7 @@ public class WaterOnTile : TileEffect
         _numberOfTurnsLeft = 3; // TODO: hardcoded
         _electrificationStatus = status;
         _characterThatElectrified = character;
- 
+
         if (!_objectStats.IsElectrified)
             _objectStats.AddStatus(status, character);
 

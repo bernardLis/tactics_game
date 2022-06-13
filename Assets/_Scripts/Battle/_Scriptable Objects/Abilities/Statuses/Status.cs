@@ -11,6 +11,7 @@ public class Status : BaseScriptableObject
 
     public string DisplayText;
     public Color DisplayColor;
+    public string AnimationEffectOnBody;
 
     protected GameObject _selfGameObject;
     protected CharacterSelection _characterSelection;

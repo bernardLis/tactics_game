@@ -18,7 +18,6 @@ public class AttackTriggerable : BaseTriggerable
             {
                 Effect e = Instantiate(ability.AbilityEffect, pos, Quaternion.identity).GetComponent<Effect>();
                 await e.Play(ability, pos);
-                //e.DestroySelf();
             }
 
             _myStats.UseMana(ability.ManaCost);
@@ -59,8 +58,11 @@ public class AttackTriggerable : BaseTriggerable
         // spawn and fire a projectile if the ability has one
         if (ability.Projectile != null)
         {
+            GameObject hit = null;
             GameObject projectile = Instantiate(ability.Projectile, transform.position, Quaternion.identity);
-            return await projectile.GetComponent<Projectile>().Shoot(transform, pos);
+            hit = await projectile.GetComponent<Projectile>().Shoot(transform, pos);
+            if (hit != null)
+                return hit;
         }
 
         // looking for a target
