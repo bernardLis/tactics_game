@@ -16,14 +16,8 @@ public class AudioManager : Singleton<AudioManager>
 
         _audioSource = GetComponent<AudioSource>();
 
-        foreach (Sound s in sounds)
-        {
-            s.source = gameObject.AddComponent<AudioSource>(); // TODO: sound this does not work
-            s.source.clip = s.clip;
-
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-        }
+        foreach (Sound sound in sounds)
+            CreateAudioSource(sound);
     }
 
     public void PlaySound(string soundName)
@@ -34,11 +28,39 @@ public class AudioManager : Singleton<AudioManager>
             Debug.LogError($"No sound {soundName} in library");
             return;
         }
+        sound.Play();
         /*MissingComponentException: There is no 'AudioSource' attached to the "GameManager" game object, but a script is trying to access it.
         _audioSource.clip = sound.clip;
         _audioSource.Play();
         */
     }
 
+    public void PlaySound(Sound sound)
+    {
+        if (sounds.Contains(sound))
+        {
+            sound.Play();
+            return;
+        }
 
+        sounds.Add(sound);
+        CreateAudioSource(sound);
+        sound.Play();
+    }
+
+    public void CreateAudioSource(Sound sound)
+    {
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        sound.Source = source; // TODO: sound this does not work
+        Debug.Log($"sound.clip: {sound.Clip}");
+        source.clip = sound.Clip;
+        source.volume = sound.Volume;
+        source.pitch = sound.Pitch;
+    }
+
+    public void RequestSource(Sound sound)
+    {
+        // it should be different
+        // return gameObject.AddComponent<AudioSource>(); // TODO: sound this does not work
+    }
 }

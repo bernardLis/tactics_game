@@ -13,7 +13,7 @@ public abstract class Ability : BaseScriptableObject
     [Header("Characteristics")]
     public string Description = "New Description";
     public Sprite Icon;
-    public AudioClip Sound;
+    public Sound Sound;
 
     [Tooltip("Base strength of attack / heal")]
     public int BasePower; // TODO: better name? AbilityStrength? Ability..?
@@ -65,7 +65,7 @@ public abstract class Ability : BaseScriptableObject
         Projectile = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/Battle/Projectiles/{item["Projectile"]}.prefab", typeof(GameObject));
         AbilityEffect = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/Battle/Effects/AbilityEffects/{item["AbilityEffect"]}.prefab", typeof(GameObject));
         Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
-        Sound = (AudioClip)AssetDatabase.LoadAssetAtPath($"Assets/Sounds/Ability/{item["Sound"]}", typeof(AudioClip));
+        Sound = (Sound)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/General/Sounds/{item["Sound"]}.asset", typeof(Sound));
         BasePower = int.Parse(item["BasePower"].ToString());
         ManaCost = int.Parse(item["ManaCost"].ToString());
         AreaOfEffect = int.Parse(item["AreaOfEffect"].ToString());
@@ -135,18 +135,16 @@ public abstract class Ability : BaseScriptableObject
             if (c.gameObject == CharacterGameObject && CharacterGameObject.CompareTag(Tags.Player))
                 if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction TODO: it does not work
                     return;
+                    
+        Sound.Play(); // TODO: is that a correct place for sound
 
         foreach (WorldTile t in targetTiles)
         {
             // check if there is an object there and try to attack it
             Vector3 pos = t.GetMiddleOfTile();
-
-            // TODO: sound
-            _audioSource.clip = Sound;
-            _audioSource.Play();
-
             await AbilityLogic(pos);
         }
+
 
         ClearAffectedCharacters();
     }

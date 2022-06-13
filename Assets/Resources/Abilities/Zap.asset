@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: 
   Description: Zap all targets in line
   Icon: {fileID: 21300000, guid: d0fb20503269f0247846511b79604ef0, type: 3}
-  Sound: {fileID: 8300000, guid: 302ad6c081876fd4d8ffe4df0ed46010, type: 3}
+  Sound: {fileID: 11400000, guid: c21632ae8c33b3140b07d97ce05fdbdc, type: 2}
   BasePower: 10
   ManaCost: 10
   AreaOfEffect: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
   WeaponType: 3
   Projectile: {fileID: 0}
   AbilityEffect: {fileID: 7926466856204447407, guid: 8f0ba081f0c8caa44a41a691861c483b, type: 3}
+  SpellcastAnimation: 0
   StatModifier: {fileID: 11400000, guid: 71076f3c6ecbe2b4bbf2e140fd12a2a3, type: 2}
   Status: {fileID: 11400000, guid: a05ceeb634ffb9145ac8fbd75f28443e, type: 2}
   Range: 5

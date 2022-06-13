@@ -5,11 +5,23 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class Sound : BaseScriptableObject
 {
-    public AudioClip clip;
+    public AudioClip Clip;
     [Range(0f, 1f)]
-    public float volume;
+    public float Volume;
     [Range(0.1f, 3f)]
-    public float pitch;
+    public float Pitch;
 
-    [HideInInspector] public AudioSource source;
+    [HideInInspector] public AudioSource Source;
+
+    public void Play()
+    {
+        
+        Debug.Log($"in play clip: {Clip}");
+        if (Source == null)
+        {
+            AudioManager.Instance.CreateAudioSource(this);
+            Debug.Log($"source after creation: {Source}");            
+        }
+        Source.Play();
+    }
 }
