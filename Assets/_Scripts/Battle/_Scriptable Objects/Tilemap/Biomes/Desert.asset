@@ -34,14 +34,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cd46838dd4c11794b91dc38f7f62c4e9, type: 2}
   - {fileID: 11400000, guid: 71188d3f46e0f494c9bca97946e66a57, type: 2}
   - {fileID: 11400000, guid: 8ca235a16b95add48a5ac8df95ec614c, type: 2}
-  FloorAdditions: 
+  FloorAdditions:
   - {fileID: 11400000, guid: 0efeec264ab582b48a729eac4f5bd181, type: 2}
   - {fileID: 11400000, guid: 0a6e7b042d67c2c408dc14bb50580787, type: 2}
   - {fileID: 11400000, guid: 354ad62c608133c4c9a7cb8ad8ff0445, type: 2}
   - {fileID: 11400000, guid: 1d8831cb3c42e0a4886cdaf8464495ce, type: 2}
   - {fileID: 11400000, guid: a3a77b9c85a5eb64f81f0817503b9702, type: 2}
   - {fileID: 11400000, guid: 1bb04a28be1d4fd4f95b75d8722b6019, type: 2}
-  OuterTiles: 
+  OuterTiles:
   - {fileID: 11400000, guid: abbef812cd0cab2468727c937eb7f1f7, type: 2}
   Obstacles:
   - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
@@ -83,3 +83,5 @@ MonoBehaviour:
   InlandCornerSW: {fileID: 11400000, guid: bdd3d5bf11219fd42a54cc72ccb1bdda, type: 2}
   LightColor: {r: 0.83137256, g: 0.8117647, b: 0.7254902, a: 1}
   LightIntensity: 1
+  Music: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
+  Ambience: {fileID: 11400000, guid: cd9c57f2f5587b94fb13b3f501fe7f16, type: 2}

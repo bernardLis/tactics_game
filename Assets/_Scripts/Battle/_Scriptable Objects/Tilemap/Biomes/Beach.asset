@@ -72,11 +72,13 @@ MonoBehaviour:
   EdgeW: {fileID: 11400000, guid: bda59fba30dd6a24fb097cb921d93a53, type: 2}
   CornerNE: {fileID: 11400000, guid: 3fca8f5cc5d11d646b14e475b20484da, type: 2}
   CornerNW: {fileID: 11400000, guid: 4f5728bca7d61f64f994b17a7d4e1476, type: 2}
-  CornerSW: {fileID: 11400000, guid: 0e1801769bb92d243a76bfbb59fdd104, type: 2}
   CornerSE: {fileID: 11400000, guid: 27730e50f15410d4fb813912834d7b98, type: 2}
+  CornerSW: {fileID: 11400000, guid: 0e1801769bb92d243a76bfbb59fdd104, type: 2}
   InlandCornerNE: {fileID: 11400000, guid: 809171dd382c11d4b84b5aece8c31cc5, type: 2}
   InlandCornerNW: {fileID: 11400000, guid: ca0fe9d836efe51449da86126a9595c6, type: 2}
   InlandCornerSE: {fileID: 11400000, guid: 157806c71a430284493733cb5a837b40, type: 2}
   InlandCornerSW: {fileID: 11400000, guid: 4d465cf83136a2843aa6edb4759e9913, type: 2}
   LightColor: {r: 0.91764706, g: 0.7294118, b: 0.9254902, a: 1}
   LightIntensity: 1
+  Music: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
+  Ambience: {fileID: 11400000, guid: cd9c57f2f5587b94fb13b3f501fe7f16, type: 2}

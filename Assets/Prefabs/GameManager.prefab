@@ -60,6 +60,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - {fileID: 11400000, guid: 4066d41b1b6ca054caf73688f39e110d, type: 2}
+  - {fileID: 11400000, guid: 12757db0fbb355d469f43f99831f348a, type: 2}
+  - {fileID: 11400000, guid: 17298d10bd1a3424d85267d774b2bdc6, type: 2}
+  - {fileID: 11400000, guid: 3e76dd7eac7572746a4440aa797a7a08, type: 2}
+  - {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
+  - {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
 --- !u!81 &329089867633818112
 AudioListener:
   m_ObjectHideFlags: 0
@@ -180,6 +185,7 @@ MonoBehaviour:
   JourneyPaths: []
   VisitedJourneyNodes: []
   PlayerTroops: []
+  CurrentNode: {fileID: 11400000, guid: ee21cf630b27ea54187d1e80d2d970c3, type: 2}
 --- !u!114 &2154333484900981473
 MonoBehaviour:
   m_ObjectHideFlags: 0

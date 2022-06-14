@@ -27,6 +27,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     [SerializeField] GameObject _journeyNodePrefab;
     [SerializeField] Material _journeyLine;
     [SerializeField] Material _pathTravelledLine;
+    [SerializeField] Sound _journeyTheme;
 
     GameManager _gameManager;
     JourneyMapUI _journeyMapUI;
@@ -53,6 +54,8 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
         _journeyMapUI = GetComponent<JourneyMapUI>();
         GenerateJourney();
+
+        AudioManager.Instance.PlayMusic(_journeyTheme);
     }
 
     /* JOURNEY GENERATION */

@@ -38,4 +38,9 @@ public class TilemapBiome : BaseScriptableObject
     public Color LightColor;
     public float LightIntensity;
 
+    [Header("Audio")]
+    public Sound Music;
+    public Sound Ambience;
+
+
 }

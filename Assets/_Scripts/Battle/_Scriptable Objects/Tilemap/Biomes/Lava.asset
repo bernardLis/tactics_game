@@ -68,4 +68,5 @@ MonoBehaviour:
   InlandCornerSW: {fileID: 11400000, guid: 17262dac4b11f1f4ba8be46f7cf384d3, type: 2}
   LightColor: {r: 0.8679245, g: 0.6501246, b: 0.6501246, a: 1}
   LightIntensity: 1
-
+  Music: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
+  Ambience: {fileID: 11400000, guid: 4dac586f2dde4934696774b5d1144a75, type: 2}

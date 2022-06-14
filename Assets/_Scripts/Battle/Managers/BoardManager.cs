@@ -18,6 +18,7 @@ public class BoardManager : Singleton<BoardManager>
     HighlightManager _highlighter;
     TurnManager _turnManager;
     BattleManager _battleManger;
+    AudioManager _audioManager;
 
     [Header("Map Setup")]
     BattleNode _battleNode;
@@ -68,6 +69,7 @@ public class BoardManager : Singleton<BoardManager>
         _highlighter = HighlightManager.Instance;
         _turnManager = TurnManager.Instance;
         _battleManger = BattleManager.Instance;
+        _audioManager = AudioManager.Instance;
 
         _battleNode = (BattleNode)_gameManager.CurrentNode;
         _biome = _battleNode.Biome;
@@ -85,6 +87,7 @@ public class BoardManager : Singleton<BoardManager>
         // preparation is called before map building, I just need a few miliseconds to set everything up.
         InitialSetup();
         BoardSetup();
+        PlayAmbience();
         await Task.Delay(100);
         InitialiseOpenPositions();
         ResolveMapVariant();
@@ -109,6 +112,7 @@ public class BoardManager : Singleton<BoardManager>
         PlaceMapReset();
         await Task.Delay(250);
         CreatePlayerStartingArea();
+        PlayMusic();
     }
 
     void InitialSetup()
@@ -989,5 +993,15 @@ public class BoardManager : Singleton<BoardManager>
     public void AddEnvObject(Transform t)
     {
         t.parent = _envObjectsHolder.transform;
+    }
+    
+    public void PlayAmbience()
+    {
+        _audioManager.PlayAmbience(_biome.Ambience);
+    }
+
+    public void PlayMusic()
+    {
+        _audioManager.PlayMusic(_biome.Music);
     }
 }

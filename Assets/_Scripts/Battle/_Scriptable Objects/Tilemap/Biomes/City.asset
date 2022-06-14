@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: City
   m_EditorClassIdentifier: 
   Id: 2bd60f07-e74e-4e9c-b0fb-7ce20fe570ae
-  FloorTiles: 
+  FloorTiles:
   - {fileID: 11400000, guid: 7fff049502ccb354d8b6f3c85b900ae7, type: 2}
   - {fileID: 11400000, guid: e9e3e3028a30bed428683228aca88e0f, type: 2}
   - {fileID: 11400000, guid: bbc3b2eff85b2104dad728bcf21f09d5, type: 2}
@@ -28,7 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 161798581a49fac439285de54b6202d4, type: 2}
   - {fileID: 11400000, guid: 03e30d086d3f4934f968d65c1fa40b12, type: 2}
   - {fileID: 11400000, guid: 423122d57d837364c932af120c1a9257, type: 2}
-  FloorAdditions: 
+  FloorAdditions:
   - {fileID: 11400000, guid: ccb4adaf305f4a04da279b69c1c23a44, type: 2}
   - {fileID: 11400000, guid: f8723568b10d191488c19e65cb33c767, type: 2}
   - {fileID: 11400000, guid: fa5f02cfede355341a830cb070c0ccbb, type: 2}
@@ -42,7 +42,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d36fbe1cf7b3a23429be0a6c8966d357, type: 2}
   - {fileID: 11400000, guid: 9aefb45896797934ebc2447e5b01d54f, type: 2}
   - {fileID: 11400000, guid: 0956d8f28fe9aff48b34f577de733625, type: 2}
-  OuterTiles: 
+  OuterTiles:
   - {fileID: 11400000, guid: 59e03d24f655b144d8438f5d3745cae1, type: 2}
   Obstacles:
   - {fileID: 11400000, guid: c033cc5d9a0acf64f93acca0a4a158db, type: 2}
@@ -85,3 +85,5 @@ MonoBehaviour:
   InlandCornerSW: {fileID: 11400000, guid: 47c283ea8b887dc44883bb1ac44f5527, type: 2}
   LightColor: {r: 0.7294118, g: 0.8156863, b: 0.9254902, a: 1}
   LightIntensity: 1
+  Music: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
+  Ambience: {fileID: 11400000, guid: cd9c57f2f5587b94fb13b3f501fe7f16, type: 2}

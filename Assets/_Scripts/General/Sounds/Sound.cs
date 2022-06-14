@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class Sound : BaseScriptableObject
 {
-    public AudioClip Clip;
+    public AudioClip[] Clips;
     [Range(0f, 1f)]
     public float Volume;
     [Range(0.1f, 3f)]
@@ -13,15 +13,18 @@ public class Sound : BaseScriptableObject
 
     [HideInInspector] public AudioSource Source;
 
-    public void Play()
+    public void Play(AudioSource audioSource)
     {
-        
-        Debug.Log($"in play clip: {Clip}");
+        /*
+        Debug.Log($"in play clip: {Clips}");
         if (Source == null)
         {
             AudioManager.Instance.CreateAudioSource(this);
             Debug.Log($"source after creation: {Source}");            
         }
-        Source.Play();
+        */
+
+        audioSource.clip = Clips[Random.Range(0, Clips.Length)];
+        audioSource.Play();
     }
 }

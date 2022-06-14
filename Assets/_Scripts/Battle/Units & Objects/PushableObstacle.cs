@@ -189,7 +189,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     {
         Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
 
-        AudioManager.Instance.PlaySound("Stone Breaking");
+        AudioManager.Instance.PlaySFX("Stone Breaking", transform.position);
         Animator anim = GetComponent<Animator>();
         if (anim != null)
             anim.Play("Stone Breaking");

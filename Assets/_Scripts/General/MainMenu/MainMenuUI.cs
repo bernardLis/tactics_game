@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class MainMenuUI : MonoBehaviour
 {
+    [SerializeField] Sound _mainMenuTheme;
+
     GameManager _gameManager;
 
     VisualElement _root;
@@ -42,6 +41,8 @@ public class MainMenuUI : MonoBehaviour
         _loadGameButton.clickable.clicked += LoadGame;
         _settingsButton.clickable.clicked += Settings;
         _quitButton.clickable.clicked += ConfirmQuit;
+
+        AudioManager.Instance.PlayMusic(_mainMenuTheme);
     }
 
     void ResolveContinueButton()

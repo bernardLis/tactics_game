@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f7c28b973b9e14f8d51edaf581d9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainMenuTheme: {fileID: 11400000, guid: 3f0563fe08e815243a3e1d5eb5c22a8e, type: 2}
 --- !u!114 &775720510
 MonoBehaviour:
   m_ObjectHideFlags: 0

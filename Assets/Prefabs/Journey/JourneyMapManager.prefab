@@ -87,6 +87,7 @@ MonoBehaviour:
   _journeyNodePrefab: {fileID: 4605823331722979178, guid: 570daa297cd33394b92bc6c18457866b, type: 3}
   _journeyLine: {fileID: 2100000, guid: e43d44a79a4deea4abc8506261f5e070, type: 2}
   _pathTravelledLine: {fileID: 2100000, guid: 27f04035a37086a44b904547debdfaf4, type: 2}
+  _journeyTheme: {fileID: 11400000, guid: 3b4c440e081e0504faeacf6d173f503c, type: 2}
   AvailableNodes: []
 --- !u!114 &7252322758523318540
 MonoBehaviour:
