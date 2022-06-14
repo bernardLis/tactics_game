@@ -3,6 +3,8 @@ using UnityEngine.Tilemaps;
 
 public class MovePointController : Singleton<MovePointController>
 {
+    AudioManager _audioManager;
+
     // TODO: movepoint should only be using battle ui
     InfoCardUI _infoCardUI;
     CharacterUI _characterUI;
@@ -18,6 +20,7 @@ public class MovePointController : Singleton<MovePointController>
     protected override void Awake()
     {
         base.Awake();
+        _audioManager = AudioManager.Instance;
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
@@ -62,10 +65,13 @@ public class MovePointController : Singleton<MovePointController>
 
     public void Move(Vector3 _pos)
     {
-        // block moving out form tile map
+        // block moving out of tile map
         Vector3Int tilePos = _tilemap.WorldToCell(_pos);
         if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
             return;
+
+
+        _audioManager.PlaySound("Clicks");
 
         transform.position = _pos;
 

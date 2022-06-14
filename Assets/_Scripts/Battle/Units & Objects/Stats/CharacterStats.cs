@@ -11,6 +11,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 {
     // global
     BattleCharacterController _battleCharacterController;
+    AudioManager _audioManager;
 
     // local
     CharacterRendererManager _characterRendererManager;
@@ -72,6 +73,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         base.Awake();
         _battleCharacterController = BattleCharacterController.Instance;
+        _audioManager = AudioManager.Instance;
 
         // local
         _characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
@@ -295,6 +297,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _characterRendererManager.Face((attacker.transform.position - transform.position).normalized);
 
         _damageUI.DisplayOnCharacter("Dodged!", 24, Color.black);
+        _audioManager.PlaySound("Dodge");
 
         // shake yourself
         float duration = 0.5f;
@@ -340,6 +343,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         // TODO: cache
         SpriteRenderer sr = _body.GetComponent<SpriteRenderer>();
         sr.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo);
+
+        _audioManager.PlaySound("Hit"); // TODO: it should be more like 'hurt' then 'hit'
 
         // shake a character;
         float duration = 0.15f;

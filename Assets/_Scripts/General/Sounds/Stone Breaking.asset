@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Stone Breaking
   m_EditorClassIdentifier: 
   Id: 784365c7-63ad-4384-a9b2-d755efbdafca
-  Clip: {fileID: 8300000, guid: 45e8a7b077e42f1428829bbab924ea36, type: 3}
+  Clips:
+  - {fileID: 8300000, guid: 45e8a7b077e42f1428829bbab924ea36, type: 3}
   Volume: 0.501
   Pitch: 0.76
   Source: {fileID: 0}

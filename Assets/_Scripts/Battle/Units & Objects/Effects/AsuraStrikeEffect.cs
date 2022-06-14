@@ -7,6 +7,7 @@ using Pathfinding;
 public class AsuraStrikeEffect : Effect
 {
     LightManager _lightManager;
+    AudioManager _audioManager;
 
     [SerializeField] Sprite[] _kanjis;
     Camera _cam;
@@ -21,6 +22,8 @@ public class AsuraStrikeEffect : Effect
     public override async Task Play(Ability ability, Vector3 targetPos)
     {
         _lightManager = LightManager.Instance;
+
+        _audioManager = AudioManager.Instance;
 
         // lower the light intensity for the effect
         _lightManager.ChangeGlobalLightIntensity(0.8f, 0.2f);
@@ -49,11 +52,14 @@ public class AsuraStrikeEffect : Effect
             kanjiElement.style.marginRight = 30;
             kanjiElement.style.backgroundImage = _kanjis[i].texture;
             _container.Add(kanjiElement);
-            await Task.Delay(200);
+            _audioManager.PlaySound("Bang");
+
+            await Task.Delay(400);
         }
         // screen shake 
         _cam = Helpers.Camera;
         _cam.GetComponent<CameraManager>().Shake();
+        _audioManager.PlaySound("Asura Strike");
 
         MoveCharacter(ability, targetPos);
 
@@ -75,7 +81,7 @@ public class AsuraStrikeEffect : Effect
     }
 
     async Task Cleanup()
-    {        
+    {
         _root.Remove(_container);
         _aiLerp.Teleport(_newPos);
         _aiLerp.canMove = true;

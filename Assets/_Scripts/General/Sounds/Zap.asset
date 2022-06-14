@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Zap
   m_EditorClassIdentifier: 
   Id: 784365c7-63ad-4384-a9b2-d755efbdafca
-  Clip: {fileID: 8300000, guid: 3d96ffe5bfae1e74189fbbfeaf87ee22, type: 3}
+  Clips:
+  - {fileID: 8300000, guid: 3d96ffe5bfae1e74189fbbfeaf87ee22, type: 3}
   Volume: 0.489
   Pitch: 1.01
   Source: {fileID: 0}

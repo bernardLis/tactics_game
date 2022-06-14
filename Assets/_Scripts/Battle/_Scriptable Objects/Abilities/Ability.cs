@@ -135,8 +135,9 @@ public abstract class Ability : BaseScriptableObject
             if (c.gameObject == CharacterGameObject && CharacterGameObject.CompareTag(Tags.Player))
                 if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction TODO: it does not work
                     return;
-                    
-        Sound.Play(); // TODO: is that a correct place for sound
+        
+        if (Sound != null)
+            Sound.Play(); // TODO: is that a correct place for sound
 
         foreach (WorldTile t in targetTiles)
         {
