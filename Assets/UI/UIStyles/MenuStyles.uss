@@ -1,0 +1,27 @@
+.newGameName {
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-center;
+}
+
+.unity-base-text-field__input {
+    color: rgb(255, 255, 255);
+    background-image: url('project://database/Assets/Sprites/UI/inputBox.png?fileID=2800000&guid=ff220ce5a67e1ac4c9f76c1eaffd9b4e&type=3#inputBox');
+    width: 400px;
+    -unity-text-align: middle-center;
+
+}
+
+.unity-base-slider__tracker {
+    background-image: url('project://database/Assets/Sprites/UI/sliderTracker.png?fileID=2800000&guid=f7721e346583f084287cfbac6a70a5c9&type=3#sliderTracker');
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-base-slider__dragger {
+    background-image: url('project://database/Assets/Sprites/UI/sliderGrabber.png?fileID=2800000&guid=9139b1a7a5562464087ae4ecf64525a9&type=3#sliderGrabber');
+    border-radius: 0;
+    border-width: 0;
+    height: 15px;
+    margin: -7px 0 0 0;
+    background-color: rgba(0, 0, 0, 0);
+}
