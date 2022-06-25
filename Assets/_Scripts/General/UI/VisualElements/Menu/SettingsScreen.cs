@@ -4,41 +4,92 @@ using UnityEngine.UIElements;
 
 public class SettingsScreen : FullScreenVisual
 {
+    AudioManager _audioManger;
+
     Toggle _fullScreenToggle;
 
     public SettingsScreen(VisualElement root)
     {
+        _audioManger = AudioManager.Instance;
         Initialize(root);
         AddToClassList("menuScreen");
 
-        AddVolumeSlider();
+        AddVolumeSliders();
         AddFullScreenToggle();
         AddRadioResolutionGroup();
         AddBackButton();
     }
 
-    void AddVolumeSlider()
+    void AddVolumeSliders()
     {
-        VisualElement container = CreateContainer("Volume");
-        SliderInt volumeSlider = new SliderInt();
+        Slider master = AddVolumeSlider("Master");
+        master.value = PlayerPrefs.GetFloat("MasterVolume", 1);
+        master.RegisterValueChangedCallback(MasterVolumeChange);
+
+        Slider music = AddVolumeSlider("Music");
+        music.value = PlayerPrefs.GetFloat("MusicVolume", 1);
+        music.RegisterValueChangedCallback(MusicVolumeChange);
+
+        Slider ambience = AddVolumeSlider("Ambience");
+        ambience.value = PlayerPrefs.GetFloat("AmbienceVolume", 1);
+        ambience.RegisterValueChangedCallback(AmbienceVolumeChange);
+
+        Slider dialogue = AddVolumeSlider("Dialogue");
+        dialogue.value = PlayerPrefs.GetFloat("DialogueVolume", 1);
+        dialogue.RegisterValueChangedCallback(DialogueVolumeChange);
+
+        Slider SFX = AddVolumeSlider("SFX");
+        SFX.value = PlayerPrefs.GetFloat("SFXVolume", 1);
+        SFX.RegisterValueChangedCallback(SFXVolumeChange);
+    }
+
+    Slider AddVolumeSlider(string name)
+    {
+        //https://forum.unity.com/threads/changing-audio-mixer-group-volume-with-ui-slider.297884/
+        VisualElement container = CreateContainer(name);
+        Slider volumeSlider = new Slider();
+        volumeSlider.lowValue = 0.001f;
+        volumeSlider.highValue = 1f;
+
         container.Add(volumeSlider);
         volumeSlider.style.width = 200;
-        volumeSlider.value = PlayerPrefs.GetInt("volume", 50);
-        SetVolume(PlayerPrefs.GetInt("volume", 50));
-        volumeSlider.RegisterValueChangedCallback(VolumeChange);
+        volumeSlider.value = PlayerPrefs.GetFloat(name, 1);
+        return volumeSlider;
     }
 
-    void VolumeChange(ChangeEvent<int> evt)
+    void MasterVolumeChange(ChangeEvent<float> evt)
     {
-        PlayerPrefs.SetInt("volume", evt.newValue);
+        PlayerPrefs.SetFloat("MasterVolume", evt.newValue);
         PlayerPrefs.Save();
-
-        SetVolume(evt.newValue);
+        _audioManger.SetMasterVolume(evt.newValue);
     }
 
-    void SetVolume(int value)
+    void MusicVolumeChange(ChangeEvent<float> evt)
     {
-        AudioListener.volume = value;
+        PlayerPrefs.SetFloat("MusicVolume", evt.newValue);
+        PlayerPrefs.Save();
+        _audioManger.SetMusicVolume(evt.newValue);
+    }
+
+    void AmbienceVolumeChange(ChangeEvent<float> evt)
+    {
+        PlayerPrefs.SetFloat("AmbienceVolume", evt.newValue);
+        PlayerPrefs.Save();
+        _audioManger.SetAmbienceVolume(evt.newValue);
+    }
+
+    void DialogueVolumeChange(ChangeEvent<float> evt)
+    {
+        PlayerPrefs.SetFloat("DialogueVolume", evt.newValue);
+        PlayerPrefs.Save();
+        _audioManger.SetDialogueVolume(evt.newValue);
+    }
+
+    void SFXVolumeChange(ChangeEvent<float> evt)
+    {
+        PlayerPrefs.SetFloat("SFXVolume", evt.newValue);
+        PlayerPrefs.Save();
+        _audioManger.SetSFXVolume(evt.newValue);
     }
 
     void AddFullScreenToggle()

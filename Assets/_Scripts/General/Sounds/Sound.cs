@@ -15,15 +15,6 @@ public class Sound : BaseScriptableObject
 
     public void Play(AudioSource audioSource)
     {
-        /*
-        Debug.Log($"in play clip: {Clips}");
-        if (Source == null)
-        {
-            AudioManager.Instance.CreateAudioSource(this);
-            Debug.Log($"source after creation: {Source}");            
-        }
-        */
-
         audioSource.clip = Clips[Random.Range(0, Clips.Length)];
         audioSource.Play();
     }

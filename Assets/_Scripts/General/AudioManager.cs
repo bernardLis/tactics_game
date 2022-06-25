@@ -10,6 +10,8 @@ public class AudioManager : Singleton<AudioManager>
 {
     public List<Sound> sounds = new();
 
+    [SerializeField] AudioMixer _mixer;
+
     AudioSource _musicAudioSource;
     AudioSource _ambienceAudioSource;
     AudioSource _dialogueAudioSource;
@@ -21,6 +23,7 @@ public class AudioManager : Singleton<AudioManager>
         base.Awake();
 
         PopulateAudioSources();
+        SetPlayerPrefVolume();
     }
 
     void PopulateAudioSources()
@@ -28,21 +31,27 @@ public class AudioManager : Singleton<AudioManager>
         GameObject musicGameObject = new("Music");
         musicGameObject.transform.parent = transform;
         _musicAudioSource = musicGameObject.AddComponent<AudioSource>();
+        _musicAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Music")[0];
 
         GameObject ambienceGameObject = new("Ambience");
         ambienceGameObject.transform.parent = transform;
         _ambienceAudioSource = ambienceGameObject.AddComponent<AudioSource>();
         _ambienceAudioSource.loop = true;
+        _ambienceAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Ambience")[0];
+
 
         GameObject dialogueGameObject = new("Dialogue");
         dialogueGameObject.transform.parent = transform;
         _dialogueAudioSource = dialogueGameObject.AddComponent<AudioSource>();
+        _dialogueAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Dialogue")[0];
 
         for (int i = 0; i < 11; i++)
         {
             GameObject sfxGameObject = new("SFX" + i);
             sfxGameObject.transform.parent = transform;
             AudioSource a = sfxGameObject.AddComponent<AudioSource>();
+            a.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
+
             _sfxAudioSources.Add(a);
         }
     }
@@ -152,4 +161,39 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
+    /* volume setters */
+    void SetPlayerPrefVolume()
+    {
+        SetMasterVolume(PlayerPrefs.GetFloat("Master", 1));
+        SetMusicVolume(PlayerPrefs.GetFloat("Master", 1));
+        SetAmbienceVolume(PlayerPrefs.GetFloat("Master", 1));
+        SetDialogueVolume(PlayerPrefs.GetFloat("Master", 1));
+        SetSFXVolume(PlayerPrefs.GetFloat("Master", 1));
+    }
+
+    // https://forum.unity.com/threads/changing-audio-mixer-group-volume-with-ui-slider.297884/ 
+    public void SetMasterVolume(float volume)
+    {
+        _mixer.SetFloat("MasterVolume", Mathf.Log(volume) * 20);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        _mixer.SetFloat("MusicVolume", Mathf.Log(volume) * 20);
+    }
+
+    public void SetAmbienceVolume(float volume)
+    {
+        _mixer.SetFloat("AmbienceVolume", Mathf.Log(volume) * 20);
+    }
+
+    public void SetDialogueVolume(float volume)
+    {
+        _mixer.SetFloat("DialogueVolume", Mathf.Log(volume) * 20);
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        _mixer.SetFloat("SFXVolume", Mathf.Log(volume) * 20);
+    }
 }

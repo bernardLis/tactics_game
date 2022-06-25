@@ -6,15 +6,15 @@
             <ui:Label text="TURN 0 - PLAYER" display-tooltip-when-elided="true" name="turnText" style="font-size: 64px; color: rgb(255, 255, 255); -unity-text-align: upper-center; -unity-font-style: bold; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="infoCardContainer" style="width: 400px; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto; padding-bottom: 20px;">
+    <ui:VisualElement name="infoCardContainer" style="width: 500px; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto; padding-bottom: 20px;">
         <ui:VisualElement name="tileInfoCard" class="uiContainer" style="height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%; margin-bottom: 10px; padding-bottom: 20px;">
             <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
         </ui:VisualElement>
-        <ui:VisualElement name="characterCard" class="uiContainer" style="align-items: stretch; justify-content: flex-start; width: 100%; height: 60%; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%;">
+        <ui:VisualElement name="characterCard" class="uiContainer" style="align-items: stretch; justify-content: flex-start; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%;">
             <ui:VisualElement name="characterCardBasicInfo" class="characterCard">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 30%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterCardName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
-                    <ui:VisualElement name="characterCardPortrait" class="characterCardPortrait" style="width: auto; height: auto; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); min-width: 150px; min-height: 150px; -unity-background-scale-mode: scale-and-crop;">
+                    <ui:VisualElement name="characterCardPortrait" class="characterCardPortrait" style="width: auto; height: auto; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); -unity-background-scale-mode: scale-and-crop;">
                         <ui:VisualElement name="characterCardPortraitSkull" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/death-skull.png?fileID=2800000&amp;guid=e749b49a826e4ae42b6fb0a1a499bbdd&amp;type=3#death-skull&apos;); width: 50%; height: 50%; display: none;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="characterCardModifierContainer" class="modifierContainer">
