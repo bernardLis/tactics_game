@@ -10,22 +10,23 @@ public class TooltipVisual : VisualElement
 
     public TooltipVisual(VisualElement element, string text)
     {
-        style.backgroundColor = Color.black;
-        
-        _text = new(text);
-        _text.style.color = Color.white;
-        _text.style.fontSize = 32;
-        Add(_text);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetCommonStyles();
+        styleSheets.Add(ss);
 
         //https://forum.unity.com/threads/how-can-i-move-a-visualelement-to-the-position-of-the-mouse.1187890/
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector2 pos = UnityEngine.UIElements.RuntimePanelUtils.ScreenToPanel(element.panel,
                         new Vector2(mousePosition.x, Screen.height - mousePosition.y));
 
+        style.backgroundColor = Color.black;
         style.position = Position.Absolute;
         style.left = pos.x + offsetX;
         style.top = pos.y + offsetY - resolvedStyle.height;
         OnPostVisualCreation();
+
+        _text = new(text);
+        _text.AddToClassList("primaryText");
+        Add(_text);
     }
 
     public void UpdatePosition(VisualElement element)

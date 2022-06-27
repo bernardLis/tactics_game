@@ -12,7 +12,7 @@ public class StatModifier : BaseScriptableObject
     public int Value;
 
     GameObject _characterGameObject;
-    DamageUI _damageUI;
+    ObjectUI _damageUI;
 
     // called from editor using table data
     public virtual void Create(Dictionary<string, object> item)
@@ -27,7 +27,7 @@ public class StatModifier : BaseScriptableObject
     public virtual void Initialize(GameObject self)
     {
         _characterGameObject = self;
-        _damageUI = self.GetComponent<DamageUI>();
+        _damageUI = self.GetComponent<ObjectUI>();
 
         string str = "";
 

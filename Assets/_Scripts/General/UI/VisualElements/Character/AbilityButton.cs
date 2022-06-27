@@ -1,4 +1,5 @@
 using UnityEngine.UIElements;
+using UnityEngine;
 
 public class AbilityButton : Button
 {
@@ -20,6 +21,7 @@ public class AbilityButton : Button
         _icon.style.backgroundImage = ability.Icon.texture;
 
         _keyTooltip = new(key);
+        _keyTooltip.AddToClassList("primaryText");
 
         Add(_icon);
         Add(_keyTooltip);

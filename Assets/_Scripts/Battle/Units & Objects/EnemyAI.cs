@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     Seeker _seeker;
     AILerp _aiLerp;
     EnemyCharSelection _characterSelection;
-    DamageUI _damageUI;
+    ObjectUI _damageUI;
 
     EnemyStats _enemyStats;
 
@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
         _characterSelection = GetComponent<EnemyCharSelection>();
         _enemyStats = GetComponent<EnemyStats>();
 
-        _damageUI = GetComponent<DamageUI>();
+        _damageUI = GetComponent<ObjectUI>();
     }
 
     public void SetBrain(Brain brain)

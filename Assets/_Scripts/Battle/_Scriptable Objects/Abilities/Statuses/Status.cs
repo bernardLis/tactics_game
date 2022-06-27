@@ -19,7 +19,7 @@ public class Status : BaseScriptableObject
     protected CharacterStats _characterStats;
 
     protected BattleCharacterController _battleCharacterController;
-    protected DamageUI _damageUI;
+    protected ObjectUI _damageUI;
 
     [HideInInspector] public GameObject Attacker;
 
@@ -42,7 +42,7 @@ public class Status : BaseScriptableObject
         _baseStats = self.GetComponent<BaseStats>();
         _characterStats = self.GetComponent<CharacterStats>();
 
-        _damageUI = self.GetComponent<DamageUI>();
+        _damageUI = self.GetComponent<ObjectUI>();
         _battleCharacterController = BattleCharacterController.Instance;
         if (_characterStats != null)
             AddFlag();

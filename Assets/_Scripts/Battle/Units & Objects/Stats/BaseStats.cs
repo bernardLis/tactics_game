@@ -9,7 +9,7 @@ public class BaseStats : MonoBehaviour
     protected HighlightManager _highlighter;
 
     // local
-    protected DamageUI _damageUI;
+    protected ObjectUI _damageUI;
 
     // statuses
     [HideInInspector] public List<Status> Statuses = new();
@@ -29,7 +29,7 @@ public class BaseStats : MonoBehaviour
         _highlighter = HighlightManager.Instance;
 
         // local
-        _damageUI = GetComponent<DamageUI>();
+        _damageUI = GetComponent<ObjectUI>();
     }
 
     public virtual Status AddStatus(Status s, GameObject attacker)
