@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class FullScreenVisual : VisualElement
 {
     protected VisualElement _root;
 
+    public event Action OnHide;
     public void Initialize(VisualElement root)
     {
         style.width = Length.Percent(100);
@@ -40,6 +42,7 @@ public class FullScreenVisual : VisualElement
 
     public virtual void Hide()
     {
+        OnHide?.Invoke();
         this.SetEnabled(false);
         _root.Remove(this);
     }

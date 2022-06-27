@@ -37,7 +37,8 @@ public class ConfirmPopUp : VisualElement
     {
         VisualElement container = new VisualElement();
         container.style.flexDirection = FlexDirection.Row;
-        container.style.backgroundColor = Color.gray;
+        container.style.width = Length.Percent(100);
+        container.style.justifyContent = Justify.Center;
         Add(container);
 
         Button confirm = new Button();
@@ -46,6 +47,10 @@ public class ConfirmPopUp : VisualElement
         confirm.text = "Yaasss Queen";
         confirm.clickable.clicked += callback;
         confirm.clickable.clicked += Hide;
+
+        VisualElement spacer = new VisualElement();
+        spacer.style.width = 50;
+        container.Add(spacer);
 
         Button cancel = new Button();
         container.Add(cancel);

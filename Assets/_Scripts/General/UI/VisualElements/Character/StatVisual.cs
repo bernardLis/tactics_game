@@ -29,7 +29,6 @@ public class StatVisual : VisualWithTooltip
 
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
 
-
         _tooltipText = _stat.Type.ToString();
 
         HandleStatValue();

@@ -19,6 +19,8 @@ public class MainMenuUI : MonoBehaviour
     VisualElement _newGameScreen;
     VisualElement _settingsContainer;
 
+    LoadGameScreenVisual loadGameScreenVisual;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -49,10 +51,7 @@ public class MainMenuUI : MonoBehaviour
     {
         string lastSave = PlayerPrefs.GetString("lastSave");
         if (lastSave == null || !FileManager.FileExists(lastSave))
-        {
             _continueButton.SetEnabled(false);
-            _continueButton.style.backgroundColor = Color.gray;
-        }
     }
 
     void Continue()
@@ -82,13 +81,21 @@ public class MainMenuUI : MonoBehaviour
             return;
 
         _loadGameButton.SetEnabled(false);
-        _loadGameButton.style.backgroundColor = Color.gray;
     }
 
     void LoadGame()
     {
         string[] saveFiles = FileManager.LoadALlSaveFiles();
-        new LoadGameScreenVisual(_root, saveFiles);
+        loadGameScreenVisual = new LoadGameScreenVisual(_root, saveFiles);
+        loadGameScreenVisual.OnHide += OnLoadScreenHide;
+    }
+
+    void OnLoadScreenHide()
+    {
+        loadGameScreenVisual.OnHide -= OnLoadScreenHide;
+        loadGameScreenVisual = null;
+        ResolveContinueButton();
+        ResolveLoadGameButton();
     }
 
     void Settings()
