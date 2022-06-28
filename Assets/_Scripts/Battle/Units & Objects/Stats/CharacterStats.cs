@@ -161,7 +161,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         // TODO: starting mana is for testing purposes 
         CurrentHealth = MaxHealth.GetValue();
-        CurrentMana = 20;
+        CurrentMana = 0;
 
         // set weapon for animations & deactivate the game object
         WeaponHolder wh = GetComponentInChildren<WeaponHolder>();
@@ -342,7 +342,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         // flash color
         // TODO: cache
         SpriteRenderer sr = _body.GetComponent<SpriteRenderer>();
-        sr.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo);
+        Color initialColor = sr.color;
+        sr.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo).OnComplete(() => sr.color = initialColor);
 
         _audioManager.PlaySFX("Hurt", transform.position);
 
@@ -355,8 +356,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
                        .OnComplete(() => EnableAILerp());
 
         await Task.Delay(500);
-
-        sr.color = Color.white;
     }
 
     public void GetBuffed(GameObject attacker, Ability ability)
@@ -558,15 +557,24 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             // player/enemy get damaged  and are moved back to their starting position
             // character colliders are children
             if (c.CompareTag(Tags.Player) || c.transform.gameObject.CompareTag(Tags.Enemy))
+            {
                 await CollideWithCharacter(ability, c);
+                continue;
+            }
 
             // character bounces back from being pushed into obstacle (and takes damage)
             if (c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.BoundCollider))
+            {
                 await CollideWithIndestructible(ability, c);
+                continue;
+            }
 
             // character destroys boulder when they are pushed into it
             if (c.CompareTag(Tags.PushableObstacle))
+            {
                 await CollideWithDestructible(ability, c);
+                continue;
+            }
         }
     }
 

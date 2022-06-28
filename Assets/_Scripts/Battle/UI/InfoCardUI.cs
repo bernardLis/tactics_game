@@ -97,6 +97,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _characterCard.Add(_characterCardVisual);
 
         // show the card
+        _characterCard.style.display = DisplayStyle.Flex;
         DOTween.To(() => _characterCard.style.left.value.value, x => _characterCard.style.left = Length.Percent(x), _cardShowValue, 0.5f)
                .SetEase(Ease.InOutSine);
     }
@@ -110,6 +111,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     public void ShowInteractionSummary(CharacterStats attacker, CharacterStats defender, Ability ability)
     {
+        _interactionSummary.style.display = DisplayStyle.Flex;
         DOTween.To(() => _interactionSummary.style.left.value.value, x => _interactionSummary.style.left = Length.Percent(x), _cardShowValue, 0.5f)
                .SetEase(Ease.InOutSine);
 

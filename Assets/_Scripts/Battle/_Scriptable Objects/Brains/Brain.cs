@@ -113,6 +113,7 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Interact()
     {
+        Debug.Log($"in interact {_selectedAbility}");
         _infoCardUI.ShowManaChange(_enemyStats, -_selectedAbility.ManaCost);
         await _selectedAbility.HighlightTargetable(_characterGameObject);
         await Task.Delay(300);
@@ -125,8 +126,10 @@ public class Brain : BaseScriptableObject
 
     protected void Defend()
     {
-        // TODO: this is wrong way to select defend ability, but it let's keep it for now.
+
+        // TODO: this is wrong way to select defend ability, but let's keep it for now.
         _selectedAbility = Abilities.FirstOrDefault(a => a.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f");
+        Debug.Log($"selected ability: {_selectedAbility.CharacterGameObject.name}");
         Target = _characterGameObject;
     }
 

@@ -53,11 +53,20 @@ public class CharacterScreen : FullScreenVisual
     void AddAbilityContainer(Character character)
     {
         // add a container for abilities;
-        VisualElement abilityContainer = new();
-        abilityContainer.AddToClassList("uiContainer");
+        VisualElement container = new();
+        container.AddToClassList("uiContainer");
+        container.style.alignItems = Align.Center;
+        Add(container);
 
+        Label label = new Label("Abilities:");
+        label.AddToClassList("primaryText");
+        container.Add(label);
+
+        VisualElement abilityContainer = new();
         abilityContainer.style.flexDirection = FlexDirection.Row;
-        Add(abilityContainer);
+        abilityContainer.style.alignItems = Align.Stretch;
+        abilityContainer.style.width = Length.Percent(100);
+        container.Add(abilityContainer);
 
         List<Ability> allAbilities = new(character.BasicAbilities);
         allAbilities.AddRange(character.Abilities);

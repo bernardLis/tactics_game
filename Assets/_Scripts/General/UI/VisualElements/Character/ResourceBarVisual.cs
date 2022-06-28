@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public class ResourceBarVisual : VisualWithTooltip
 {
+    VisualElement _resourceBar;
     VisualElement _missing;
     VisualElement _interactionResult;
     Label _text;
@@ -19,26 +20,31 @@ public class ResourceBarVisual : VisualWithTooltip
 
     public ResourceBarVisual(Color color, string tooltipText, int thickness = 0) : base()
     {
+        AddToClassList("barContainer");
+
         _tooltipText = tooltipText;
 
         _missing = new();
         _interactionResult = new();
         _text = new();
 
-        style.backgroundColor = color;
 
-        AddToClassList("resourceBar");
+        _resourceBar = new();
+        _resourceBar.AddToClassList("resourceBar");
+        _resourceBar.style.backgroundColor = color;
+        Add(_resourceBar);
+
         _missing.AddToClassList("barMissingAmount");
         _interactionResult.AddToClassList("barInteractionResult");
         _text.AddToClassList("barText");
-        _text.AddToClassList("primaryText");
+        _text.AddToClassList("secondaryText");
 
         if (thickness != 0)
             style.height = thickness;
 
-        Add(_missing);
-        Add(_interactionResult);
-        Add(_text);
+        _resourceBar.Add(_missing);
+        _resourceBar.Add(_interactionResult);
+        _resourceBar.Add(_text);
 
         _tweenID = Guid.NewGuid().ToString();
     }

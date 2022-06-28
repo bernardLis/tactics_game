@@ -98,10 +98,12 @@ public class MeeleBrain : Brain
                 continue;
             if (a.ManaCost > _enemyStats.CurrentMana)
                 continue;
-
+            if (a.AbilityType == AbilityType.Buff)
+                continue;
             bestAbility = a;
         }
         _selectedAbility = bestAbility;
+        Debug.Log($"selected ability{_selectedAbility} ");
     }
 
 }

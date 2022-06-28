@@ -27,7 +27,7 @@ public class CharacterUI : Singleton<CharacterUI>
 
     // animate ui up/down on show/hide
     float _UIShowValue = 0f;
-    float _UIHideValue = -20f;
+    float _UIHideValue = -22f;
 
     // buttons management
     Queue<IEnumerator> _buttonClickQueue = new();
@@ -167,6 +167,9 @@ public class CharacterUI : Singleton<CharacterUI>
         if (!_battleCharacterController.CanSelectAbility())
             return;
 
+        if (button.Ability.ManaCost > _selectedPlayerStats.CurrentMana)
+            return;
+
         _buttonClickQueue.Enqueue(HandleButtonClick(button.Ability));
     }
 
@@ -188,7 +191,7 @@ public class CharacterUI : Singleton<CharacterUI>
         foreach (var el in _characterAbilitiesContainer.Children())
         {
             AbilityButton ab = (AbilityButton)el;
-            if (ab.Ability.ManaCost >= _selectedPlayerStats.CurrentMana)
+            if (ab.Ability.ManaCost > _selectedPlayerStats.CurrentMana)
                 continue;
             if (ab.Ability.WeaponType != _selectedPlayerStats.Character.Weapon.WeaponType && ab.Ability.WeaponType != WeaponType.Any)
                 continue;

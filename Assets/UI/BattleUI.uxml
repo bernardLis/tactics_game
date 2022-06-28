@@ -7,10 +7,10 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="infoCardContainer" style="width: 500px; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto; padding-bottom: 20px;">
-        <ui:VisualElement name="tileInfoCard" class="uiContainer" style="height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%; margin-bottom: 10px; padding-bottom: 20px;">
+        <ui:VisualElement name="tileInfoCard" class="uiContainer" style="height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: none; left: -100%; margin-bottom: 10px; padding-bottom: 20px;">
             <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" class="primaryText" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
         </ui:VisualElement>
-        <ui:VisualElement name="characterCard" class="uiContainer" style="align-items: stretch; justify-content: flex-start; background-color: rgba(0, 0, 0, 0.4); display: flex; left: -100%;">
+        <ui:VisualElement name="characterCard" class="uiContainer" style="align-items: stretch; justify-content: flex-start; background-color: rgba(0, 0, 0, 0.4); display: none; left: -100%;">
             <ui:VisualElement name="characterCardBasicInfo" class="characterCard">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 30%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterCardName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
@@ -66,7 +66,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="interactionSummary" class="uiContainer" style="width: auto; left: -100%; height: auto; background-color: rgba(0, 0, 0, 0.4); margin-top: 10px;">
+        <ui:VisualElement name="interactionSummary" class="uiContainer" style="width: auto; left: -100%; height: auto; background-color: rgba(0, 0, 0, 0.4); margin-top: 10px; display: none;">
             <ui:VisualElement name="attackSummary" style="color: rgb(253, 253, 253);">
                 <ui:Label text="Attack:" display-tooltip-when-elided="true" name="attackLabel" class="primaryText" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;" />
                 <ui:VisualElement name="attackDamageGroup" class="secondaryText" style="flex-direction: row; align-items: center;">
@@ -93,9 +93,9 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 20%; align-items: flex-end; justify-content: flex-start; visibility: visible; display: flex; top: auto; flex-direction: row; flex-wrap: nowrap; position: absolute; bottom: -20%;">
-        <ui:VisualElement name="characterUI" style="width: 80%; height: auto; background-color: rgba(0, 0, 0, 0.55); flex-direction: row; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); overflow: visible; top: auto; bottom: auto; display: flex;">
-            <ui:VisualElement name="characterUICharacterCard" style="height: 100%; width: 45%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: flex-start;">
+    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 22%; align-items: stretch; justify-content: flex-start; visibility: visible; display: flex; top: auto; flex-direction: row; flex-wrap: nowrap; position: absolute; bottom: -22%;">
+        <ui:VisualElement name="characterUI" style="width: 80%; height: auto; flex-direction: row; overflow: visible; top: auto; bottom: auto; display: flex;">
+            <ui:VisualElement name="characterUICharacterCard" class="uiContainer" style="height: 100%; width: 45%; flex-direction: row; justify-content: flex-start;">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 50%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
                     <ui:VisualElement name="characterPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center; display: flex;">
@@ -108,10 +108,12 @@
                 <ui:VisualElement name="characterBasicInfoGroup2" style="width: 50%; align-items: flex-start; justify-content: center; flex-grow: 1; flex-shrink: 0; flex-basis: initial; flex-wrap: nowrap; flex-direction: column;">
                     <ui:VisualElement name="characterHealthGroup" style="flex-direction: row; width: 100%;">
                         <ui:Label display-tooltip-when-elided="true" name="characterHealthLabel" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/cure.png?fileID=2800000&amp;guid=74c108c1392ffdb4eb4e79bd11f34e57&amp;type=3#cure&apos;); width: 32px; height: 32px;" />
-                        <ui:VisualElement name="characterHealthBar" class="characterHealthBar" style="width: 100%; background-color: rgb(135, 41, 41); -unity-slice-left: 0; -unity-background-scale-mode: stretch-to-fill; align-items: center; padding-left: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; height: 32px; flex-direction: row; justify-content: flex-start;">
-                            <ui:VisualElement name="characterHealthBarMissingHealth" class="healthBarMissing" style="width: 0; height: 32px; background-color: rgb(56, 56, 56); justify-content: center;" />
-                            <ui:VisualElement name="characterHealthBarRetaliationResult" class="healthBarInteractionResult" />
-                            <ui:Label text="100/100" display-tooltip-when-elided="true" name="characterHealth" style="font-size: 18px; color: rgb(255, 255, 255); -unity-text-align: middle-left; position: absolute;" />
+                        <ui:VisualElement class="barContainer">
+                            <ui:VisualElement name="characterHealthBar" class="characterHealthBar" style="width: 92%; background-color: rgb(135, 41, 41); -unity-slice-left: 0; align-items: center; padding-left: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; height: 15px; flex-direction: row; justify-content: flex-start; background-image: none; padding-right: 0; margin-left: 4%; margin-right: 4%; padding-top: 0; padding-bottom: 0;">
+                                <ui:VisualElement name="characterHealthBarMissingHealth" class="healthBarMissing" style="width: 0; height: 32px; background-color: rgb(56, 56, 56); justify-content: center;" />
+                                <ui:VisualElement name="characterHealthBarRetaliationResult" class="healthBarInteractionResult" />
+                                <ui:Label text="100/100" display-tooltip-when-elided="true" name="characterHealth" style="font-size: 18px; color: rgb(255, 255, 255); -unity-text-align: middle-left; position: absolute;" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="characterManaGroup" style="flex-direction: row; justify-content: center; width: 100%; margin-top: 5px; height: auto;">
@@ -150,13 +152,13 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="basicActions">
+            <ui:VisualElement name="basicActions" style="display: none;">
                 <ui:Button display-tooltip-when-elided="true" name="openInventory">
                     <ui:VisualElement name="inventoryIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Items/healthPotion.png?fileID=21300000&amp;guid=8b98bfed039ed294294c2f26d778c79b&amp;type=3#healthPotion&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
                     <ui:Label text="I" display-tooltip-when-elided="true" name="inventoryTooltip" style="-unity-text-align: upper-center;" />
                 </ui:Button>
             </ui:VisualElement>
-            <ui:VisualElement name="characterAbilities" style="height: 100%; width: 70%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; justify-content: space-around; align-items: center;">
+            <ui:VisualElement name="characterAbilities" class="uiContainer" style="height: 100%; width: 70%; flex-direction: row; justify-content: space-around; align-items: center;">
                 <ui:Button display-tooltip-when-elided="true" name="characterAButton">
                     <ui:VisualElement name="characterASkillIcon" class="abilityButtonIcon" />
                     <ui:Label text="A" display-tooltip-when-elided="true" name="characterASkillTooltip" style="-unity-text-align: upper-center;" />
@@ -183,7 +185,7 @@
                 </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="abilityTooltipContainer" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgba(0, 0, 0, 0.53); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 133, 125); border-right-color: rgb(255, 133, 125); border-top-color: rgb(255, 133, 125); border-bottom-color: rgb(255, 133, 125); visibility: visible; display: none; max-width: 300px;">
+        <ui:VisualElement name="abilityTooltipContainer" class="uiContainer" style="visibility: visible; display: none; flex-grow: 1; flex-shrink: 0;">
             <ui:Label text="Very Strong Ability" display-tooltip-when-elided="true" name="characterUITooltipAbilityName" class="primaryText" />
             <ui:Label text="This is a very stong skill, it will deal 50dmg." display-tooltip-when-elided="true" name="characterUITooltipAbilityDescription" class="abilityDescription" />
             <ui:Label text="Mana cost: 50" display-tooltip-when-elided="true" name="characterUITooltipAbilityManaCost" class="abilityManaCost" style="color: rgb(255, 255, 255);" />

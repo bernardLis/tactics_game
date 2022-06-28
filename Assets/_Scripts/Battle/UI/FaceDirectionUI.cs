@@ -68,9 +68,7 @@ public class FaceDirectionUI : MonoBehaviour
         _isDirectionPicked = false;
         _breakTask = false;
 
-        // disable selection arrow
         _playerCharSelection.ToggleSelectionArrow(false);
-
         _battleCharacterController.UpdateCharacterState(CharacterState.SelectingFaceDir);
 
         while (!_isDirectionPicked)

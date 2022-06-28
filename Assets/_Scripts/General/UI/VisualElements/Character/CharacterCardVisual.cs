@@ -137,13 +137,13 @@ public class CharacterCardVisual : VisualElement
         healthGroup.style.flexDirection = FlexDirection.Row;
         healthGroup.style.width = Length.Percent(100);
 
-        Label healthLabel = new Label();
-        healthLabel.AddToClassList("healthLabel");
+        //Label healthLabel = new Label();
+        //healthLabel.AddToClassList("healthLabel");
 
         HealthBar = new(Helpers.GetColor("healthBarRed"), "Health");
         HealthBar.SetText(character.MaxHealth + "/" + character.MaxHealth);
 
-        healthGroup.Add(healthLabel);
+        //healthGroup.Add(healthLabel);
         healthGroup.Add(HealthBar);
 
         return healthGroup;
@@ -155,13 +155,13 @@ public class CharacterCardVisual : VisualElement
         manaGroup.style.flexDirection = FlexDirection.Row;
         manaGroup.style.width = Length.Percent(100);
 
-        Label manaLabel = new Label();
-        manaLabel.AddToClassList("manaLabel");
+        // Label manaLabel = new Label();
+        // manaLabel.AddToClassList("manaLabel");
 
         ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana");
         ManaBar.SetText(character.MaxMana + "/" + character.MaxMana);
 
-        manaGroup.Add(manaLabel);
+        //manaGroup.Add(manaLabel);
         manaGroup.Add(ManaBar);
 
         return manaGroup;
@@ -170,6 +170,7 @@ public class CharacterCardVisual : VisualElement
     VisualElement CreateExpGroup(Character character)
     {
         VisualElement container = new();
+        container.style.alignSelf = Align.Center;
 
         VisualElement el = new();
         el.style.flexDirection = FlexDirection.Row;

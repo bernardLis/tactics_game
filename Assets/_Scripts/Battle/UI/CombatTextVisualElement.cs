@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
@@ -7,25 +5,25 @@ using DG.Tweening;
 
 public class CombatTextVisualElement : VisualElement
 {
-    float _offsetY = 0.5f;
-
     Camera _cam;
     VisualElement _root;
-    Transform _characterTransform;
+
+    float _offsetY = 0.5f;
+
+    Vector3 _middleOfTheTile;
 
     public CombatTextVisualElement(string text, Color col, Transform tr, VisualElement root)
     {
         _cam = Camera.main;
         _root = root;
-        _characterTransform = tr;
-        Debug.Log($"trpos: {tr.position}");
+        _middleOfTheTile = new Vector3(tr.position.x, tr.position.y + _offsetY, tr.position.z);
 
         Label textLabel = new Label(text);
         textLabel.AddToClassList("primaryText");
         textLabel.style.color = col;
+        style.position = Position.Absolute;
         Add(textLabel);
-
-        OnPostVisualCreation();
+        OnPostVisualCreation(); // it is necessary, otherwise null reference errror on panel
     }
 
     //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/
@@ -48,53 +46,40 @@ public class CombatTextVisualElement : VisualElement
         // Do any measurements, size adjustments you need (NaNs not an issue now)
         MarkDirtyRepaint();
         visible = true;
-        Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(this.panel, _characterTransform.position, _cam);
-        transform.position = new Vector3(newPosition.x, newPosition.y + _offsetY, transform.position.z);
-        Debug.Log($"transform.position: {transform.position}");
 
-        Debug.Log("asyncMove");
+        UpdatePosition();
         await Move();
+        await FadeOut();
+        DestroySelf();
+    }
+
+    async void UpdatePosition()
+    {
+        while (this.enabledInHierarchy)
+        {
+            if (panel == null)
+                return;
+
+            Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(panel, _middleOfTheTile, _cam);
+            transform.position = new Vector3(newPosition.x, newPosition.y - _offsetY);
+            await Task.Yield();
+        }
     }
 
     async Task Move()
     {
-        Debug.Log("move");
-
-        // set position of the element 
-        Vector3 middleOfTheTile;
-        Vector2 newPosition;
-        float x;
-        float y;
-
-        // move up
-        float waitTime = 0;
-        float fadeTime = 10f;
-        float i = 0.01f;
-
-        while (waitTime < 10f)
-        {
-            middleOfTheTile = new Vector3(_characterTransform.position.x, _characterTransform.position.y + _offsetY, _characterTransform.position.z);
-            newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(panel, middleOfTheTile, _cam);
-            Debug.Log($"new position: {newPosition}");
-
-            x = newPosition.x;
-            y = newPosition.y - i;
-            i += 0.01f;
-
-            transform.position = new Vector3(x, y, transform.position.z);
-
-            await Task.Yield();
-            waitTime += Time.deltaTime / fadeTime;
-        }
-
-        //Hide();
+        int endOffestY = Random.Range(70, 90);
+        await DOTween.To(x => _offsetY = x, 0.5f, endOffestY, 1).SetEase(Ease.OutSine).AsyncWaitForCompletion();
     }
 
-    void Hide()
+    async Task FadeOut()
+    {
+        await DOTween.To(x => style.opacity = x, 1, 0, 1).AsyncWaitForCompletion();
+    }
+
+    void DestroySelf()
     {
         this.SetEnabled(false);
         _root.Remove(this);
     }
-
-
 }

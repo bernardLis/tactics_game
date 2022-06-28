@@ -19,6 +19,8 @@ public class RangedBrain : Brain
                 continue;
             if (a.ManaCost > _enemyStats.CurrentMana)
                 continue;
+            if (a.AbilityType == AbilityType.Buff)
+                continue;
             if (!IsTargetWithinAttackRange(a, selectedTarget.GameObj.transform))
                 continue;
             bestAbility = a;
