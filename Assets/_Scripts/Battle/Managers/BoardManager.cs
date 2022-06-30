@@ -17,7 +17,7 @@ public class BoardManager : Singleton<BoardManager>
     GameManager _gameManager;
     HighlightManager _highlighter;
     TurnManager _turnManager;
-    BattleManager _battleManger;
+    BattleManager _battleManager;
     AudioManager _audioManager;
 
     [Header("Map Setup")]
@@ -68,7 +68,7 @@ public class BoardManager : Singleton<BoardManager>
         _gameManager = GameManager.Instance;
         _highlighter = HighlightManager.Instance;
         _turnManager = TurnManager.Instance;
-        _battleManger = BattleManager.Instance;
+        _battleManager = BattleManager.Instance;
         _audioManager = AudioManager.Instance;
 
         _battleNode = (BattleNode)_gameManager.CurrentNode;
@@ -76,7 +76,7 @@ public class BoardManager : Singleton<BoardManager>
         _mapVariant = _battleNode.MapVariant;
         MapSize = _battleNode.MapSize;
 
-        GenerateMap();
+        // GenerateMap();
     }
 
     public async void GenerateMap()
@@ -105,7 +105,7 @@ public class BoardManager : Singleton<BoardManager>
         await Task.Delay(100);
         DrawOuter();
         await Task.Delay(100);
-        _battleManger.GetComponent<TileManager>().SetUp();
+        _battleManager.GetComponent<TileManager>().SetUp();
         PlaceOuterAdditions();
         await SetupAstar();
         await SpawnEnemies();
@@ -994,7 +994,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         t.parent = _envObjectsHolder.transform;
     }
-    
+
     public void PlayAmbience()
     {
         _audioManager.PlayAmbience(_biome.Ambience);
