@@ -16,10 +16,10 @@ MonoBehaviour:
   BrainIcon: {fileID: 21300000, guid: 64e29a7dee046c448b82b1c27419f427, type: 3}
   Name: Rat
   Portrait: {fileID: 21300000, guid: 5001163f02d03a7419bcca7c1d67b6a0, type: 3}
-  StrengthMultiplier: 1.2
-  IntelligenceMultiplier: 0.8
-  AgilityMultiplier: 0.8
-  StaminaMultiplier: 0.8
+  StrengthMultiplier: 0.1
+  IntelligenceMultiplier: 0.1
+  AgilityMultiplier: 0.1
+  StaminaMultiplier: 0.1
   Body: {fileID: 11400000, guid: 017f3f0d6106afe4d93046ae90bd5c2d, type: 2}
   Weapon: {fileID: 0}
   Target: {fileID: 0}

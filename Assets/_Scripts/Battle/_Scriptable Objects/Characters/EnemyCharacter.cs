@@ -7,7 +7,7 @@ public class EnemyCharacter : Character
 {
     public Brain EnemyBrain;
 
-    public void CreateEnemy(int level, Brain brain)
+    public virtual void CreateEnemy(int level, Brain brain)
     {
         CharacterName = brain.Name;
         Portrait = brain.Portrait;

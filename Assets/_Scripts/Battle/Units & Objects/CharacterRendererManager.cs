@@ -51,9 +51,13 @@ public class CharacterRendererManager : MonoBehaviour
 
     public async Task AttackAnimation()
     {
+        Debug.Log($"_weaponHolder.Weapon {_weaponHolder.Weapon == null}");
         // if character does not have a weapon
         if (_weaponHolder.Weapon == null)
-            await Thrust(_faceDir); // TODO: punch animation
+        {
+            await Spellcast(_faceDir); // TODO: punch animation
+            return;
+        }
 
         if (_weaponHolder.Weapon.WeaponType == WeaponType.Slash)
             await Slash(_faceDir);

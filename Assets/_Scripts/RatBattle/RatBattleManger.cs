@@ -6,16 +6,27 @@ using System.Threading.Tasks;
 
 public class RatBattleManger : MonoBehaviour
 {
+    GameManager _gameManager;
     BattleManager _battleManager;
+    TurnManager _turnManager;
 
+    [Header("General")]
     [SerializeField] GameObject _envObjectsHolder;
     [SerializeField] TextAsset _graphData;
+
+    [Header("Rats")]
     [SerializeField] GameObject _ratPrefab;
     [SerializeField] Brain[] _ratBrains;
 
+    [Header("Player")]
+    [SerializeField] GameObject _playerPrefab;
+
+
     void Start()
     {
+        _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
+        _turnManager = TurnManager.Instance;
         MapSetUp();
     }
 
@@ -25,6 +36,7 @@ public class RatBattleManger : MonoBehaviour
 
         await SetupAstar();
         await SpawnEnemies();
+        await SpawnPlayer();
     }
 
     async Task SetupAstar()
@@ -74,13 +86,33 @@ public class RatBattleManger : MonoBehaviour
             newCharacter.transform.parent = _envObjectsHolder.transform;
 
             newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+            newCharacter.GetComponent<CharacterStats>().MovementRange.BaseValue = 1;
+
             CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();
-            
+
             characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
             characterRendererManager.Face(Vector2.left);
         }
 
         await Task.Delay(10);
+    }
+
+    async Task SpawnPlayer()
+    {
+        Character playerCharacter = _gameManager.PlayerTroops[0];
+        Vector3 placementPosition = new Vector3(-3.5f, 5.5f);
+        GameObject playerGO = Instantiate(_playerPrefab, placementPosition, Quaternion.identity);
+
+        playerGO.name = playerCharacter.CharacterName;
+        Character instantiatedSO = Instantiate(playerCharacter);
+        instantiatedSO.Initialize(playerGO);
+        playerGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+
+        playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
+
+        await Task.Delay(10);
+
+        _turnManager.UpdateBattleState(BattleState.PlayerTurn);
     }
 
 

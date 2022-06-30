@@ -159,18 +159,17 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         Armor.Initialize(StatType.Armor, Character.Armor, Character);
         MovementRange.Initialize(StatType.MovementRange, Character.MovementRange, Character);
 
-        // TODO: starting mana is for testing purposes 
         CurrentHealth = MaxHealth.GetValue();
         CurrentMana = 0;
-
-        // set weapon for animations & deactivate the game object
-        WeaponHolder wh = GetComponentInChildren<WeaponHolder>();
-        wh.SetWeapon(Character.Weapon);
-        wh.gameObject.SetActive(false);
 
         // adding basic attack from weapon to basic abilities to be instantiated
         if (Character.Weapon != null)
         {
+            // set weapon for animations & deactivate the game object
+            WeaponHolder wh = GetComponentInChildren<WeaponHolder>();
+            wh.SetWeapon(Character.Weapon);
+            wh.gameObject.SetActive(false);
+
             var clone = Instantiate(Character.Weapon.BasicAttack);
             BasicAbilities.Add(clone);
             clone.Initialize(gameObject);
