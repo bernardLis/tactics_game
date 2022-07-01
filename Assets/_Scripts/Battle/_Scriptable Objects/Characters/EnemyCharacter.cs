@@ -30,4 +30,10 @@ public class EnemyCharacter : Character
         var clone = Instantiate(EnemyBrain);
         clone.Initialize(obj, this);
     }
+
+    protected override void BaseExpGain(int gain)
+    {
+        // Enemies don't get exp
+        return;
+    }
 }

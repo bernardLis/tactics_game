@@ -142,7 +142,7 @@ public class Character : BaseScriptableObject
         BaseExpGain(exp);
     }
 
-    void BaseExpGain(int gain)
+    protected virtual void BaseExpGain(int gain)
     {
         Experience += gain;
         OnCharacterExpGain?.Invoke(gain);

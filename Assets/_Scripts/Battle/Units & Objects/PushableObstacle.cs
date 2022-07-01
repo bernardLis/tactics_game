@@ -14,8 +14,8 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     // push
     BoxCollider2D _selfCollider;
     Vector3 _finalPos;
-    CharacterStats _targetStats;
-    int _damage = 50;
+    protected CharacterStats _targetStats;
+    protected int _damage = 50;
 
     // display info
     string _displayText = "Boulder, you can move if you know the technique. You can learn it in Celadon City. ";
@@ -149,7 +149,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
         }
     }
 
-    public async Task CollideWithCharacter(Ability ability, Collider2D col)
+    public virtual async Task CollideWithCharacter(Ability ability, Collider2D col)
     {
         _targetStats = col.GetComponent<CharacterStats>();
         await _targetStats.TakeDamageFinal(_damage);

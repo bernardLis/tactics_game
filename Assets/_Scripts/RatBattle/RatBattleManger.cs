@@ -4,7 +4,7 @@ using UnityEngine;
 using Pathfinding;
 using System.Threading.Tasks;
 
-public class RatBattleManger : MonoBehaviour
+public class RatBattleManger : Singleton<RatBattleManger>
 {
     GameManager _gameManager;
     BattleManager _battleManager;
@@ -21,6 +21,28 @@ public class RatBattleManger : MonoBehaviour
     [Header("Player")]
     [SerializeField] GameObject _playerPrefab;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+
+    }
+
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+    }
+
+    void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        if (TurnManager.BattleState == BattleState.Deployment)
+            HandleDeployment();
+    }
+
+    void HandleDeployment()
+    {
+        _turnManager.UpdateBattleState(BattleState.PlayerTurn);
+    }
 
     void Start()
     {
@@ -63,38 +85,44 @@ public class RatBattleManger : MonoBehaviour
 
     async Task SpawnEnemies()
     {
-        Vector3Int[] ratSpawnPositions = new Vector3Int[]{
-            new Vector3Int(2,1,1),
-            new Vector3Int(3,2,1),
-            new Vector3Int(7,2,1),
-            new Vector3Int(7,4,1)
+        Vector3[] ratSpawnPositions = new Vector3[]{
+            new Vector3(2.5f,1.5f,0),
+            new Vector3(3.5f,2.5f,0),
+            new Vector3(7.5f,2.5f,0),
+            new Vector3(7.5f,4.5f,0)
         };
 
         for (int i = 0; i < 4; i++)
-        {
-
-            EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
-
-            enemySO.CreateEnemy(1, _ratBrains[Random.Range(0, _ratBrains.Length)]);
-
-            Vector3 spawnPos = new Vector3(ratSpawnPositions[i].x + 0.5f, ratSpawnPositions[i].y + 0.5f);
-            Character instantiatedSO = Instantiate(enemySO);
-            GameObject newCharacter = Instantiate(_ratPrefab, spawnPos, Quaternion.identity);
-
-            instantiatedSO.Initialize(newCharacter);
-            newCharacter.name = instantiatedSO.CharacterName;
-            newCharacter.transform.parent = _envObjectsHolder.transform;
-
-            newCharacter.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
-            newCharacter.GetComponent<CharacterStats>().MovementRange.BaseValue = 1;
-
-            CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();
-
-            characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
-            characterRendererManager.Face(Vector2.left);
-        }
+            SpawnRat(ratSpawnPositions[i]);
 
         await Task.Delay(10);
+    }
+
+    public void SpawnRat(Vector3 pos)
+    {
+        EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
+
+        enemySO.CreateEnemy(1, _ratBrains[Random.Range(0, _ratBrains.Length)]);
+
+        Character instantiatedSO = Instantiate(enemySO);
+        GameObject newCharacter = Instantiate(_ratPrefab, pos, Quaternion.identity);
+
+        instantiatedSO.Initialize(newCharacter);
+        newCharacter.name = instantiatedSO.CharacterName;
+        newCharacter.transform.parent = _envObjectsHolder.transform;
+
+        // rat specific stat machinations
+        CharacterStats stats = newCharacter.GetComponent<CharacterStats>();
+        stats.SetCharacteristics(instantiatedSO);
+        stats.MovementRange.BaseValue = 1;
+        stats.MaxHealth.BaseValue = 10;
+        stats.MaxMana.BaseValue = 0;
+        stats.SetCurrentHealth(10);
+
+        CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();
+
+        characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
+        characterRendererManager.Face(Vector2.left);
     }
 
     async Task SpawnPlayer()
@@ -112,9 +140,8 @@ public class RatBattleManger : MonoBehaviour
 
         await Task.Delay(10);
 
-        _turnManager.UpdateBattleState(BattleState.PlayerTurn);
+        _turnManager.UpdateBattleState(BattleState.Deployment); // 'hack' coz I don't have deployment here.
     }
-
 
 
 }

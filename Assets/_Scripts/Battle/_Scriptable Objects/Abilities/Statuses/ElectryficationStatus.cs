@@ -23,7 +23,7 @@ public class ElectryficationStatus : Status
         {
             for (int y = -1; y <= 1; y++)
             {
-                Vector3 pos = new Vector3(_selfGameObject.transform.position.x + x, _selfGameObject.transform.position.y + y);
+                Vector3 pos = new Vector3(startPositionRandomized.x + x, startPositionRandomized.y + y);
                 Vector3 endPosistionRandomized = new Vector3(pos.x + Random.Range(0, 0.5f),
                                              pos.y + Random.Range(0, 0.5f));
                 effectController.AddPosition(endPosistionRandomized);

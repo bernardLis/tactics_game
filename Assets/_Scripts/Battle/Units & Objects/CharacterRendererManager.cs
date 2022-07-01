@@ -51,7 +51,6 @@ public class CharacterRendererManager : MonoBehaviour
 
     public async Task AttackAnimation()
     {
-        Debug.Log($"_weaponHolder.Weapon {_weaponHolder.Weapon == null}");
         // if character does not have a weapon
         if (_weaponHolder.Weapon == null)
         {

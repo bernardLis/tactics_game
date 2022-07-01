@@ -193,6 +193,11 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         }
     }
 
+    public void SetCurrentHealth(int health)
+    {
+        CurrentHealth = health;
+    }
+
     void AddStatsToList()
     {
         Stats.Clear();
