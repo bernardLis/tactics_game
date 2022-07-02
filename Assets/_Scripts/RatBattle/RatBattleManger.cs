@@ -9,6 +9,8 @@ public class RatBattleManger : Singleton<RatBattleManger>
     GameManager _gameManager;
     BattleManager _battleManager;
     TurnManager _turnManager;
+    CameraManager _cameraManager;
+    ConversationManager _conversationManager;
 
     [Header("General")]
     [SerializeField] GameObject _envObjectsHolder;
@@ -20,28 +22,14 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     [Header("Player")]
     [SerializeField] GameObject _playerPrefab;
+    GameObject _playerGO;
+
+    [Header("Conversation")]
+    [SerializeField] Conversation _beginningMonologue;
 
     protected override void Awake()
     {
         base.Awake();
-        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
-
-    }
-
-    void OnDestroy()
-    {
-        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
-    }
-
-    void TurnManager_OnBattleStateChanged(BattleState state)
-    {
-        if (TurnManager.BattleState == BattleState.Deployment)
-            HandleDeployment();
-    }
-
-    void HandleDeployment()
-    {
-        _turnManager.UpdateBattleState(BattleState.PlayerTurn);
     }
 
     void Start()
@@ -49,6 +37,8 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _turnManager = TurnManager.Instance;
+        _cameraManager = CameraManager.Instance;
+        _conversationManager = ConversationManager.Instance;
         MapSetUp();
     }
 
@@ -59,6 +49,10 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await SetupAstar();
         await SpawnEnemies();
         await SpawnPlayer();
+        await WalkPlayerDownStairs();
+        await _cameraManager.LerpOrthographicSize(7, 1);
+        await PlayConversation();
+        _turnManager.UpdateBattleState(BattleState.PlayerTurn);
     }
 
     async Task SetupAstar()
@@ -122,25 +116,47 @@ public class RatBattleManger : Singleton<RatBattleManger>
         CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();
 
         characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
-        characterRendererManager.Face(Vector2.left);
+        characterRendererManager.Face(Vector2.down);
     }
 
     async Task SpawnPlayer()
     {
         Character playerCharacter = _gameManager.PlayerTroops[0];
-        Vector3 placementPosition = new Vector3(-3.5f, 5.5f);
-        GameObject playerGO = Instantiate(_playerPrefab, placementPosition, Quaternion.identity);
-
-        playerGO.name = playerCharacter.CharacterName;
+        Vector3 placementPosition = new Vector3(-3.5f, 8.5f);
+        _playerGO = Instantiate(_playerPrefab, placementPosition, Quaternion.identity);
+        _playerGO.SetActive(false);
+        _playerGO.name = playerCharacter.CharacterName;
         Character instantiatedSO = Instantiate(playerCharacter);
-        instantiatedSO.Initialize(playerGO);
-        playerGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+        instantiatedSO.Initialize(_playerGO);
+        _playerGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
 
-        playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
+        _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.down);
 
         await Task.Delay(10);
+    }
 
-        _turnManager.UpdateBattleState(BattleState.Deployment); // 'hack' coz I don't have deployment here.
+    async Task WalkPlayerDownStairs()
+    {
+        _cameraManager.SetTarget(_playerGO.transform);
+        // TODO: I should have a component that I can call to move someone from place to place (awaitable ideally)
+        AILerp aiLerp = _playerGO.GetComponent<AILerp>();
+        aiLerp.speed = 2;
+        // Create a new Path object
+        ABPath path = ABPath.Construct(_playerGO.transform.position, MovePointController.Instance.transform.position, null);
+        // Calculate the path
+        AstarPath.StartPath(path);
+        AstarPath.BlockUntilCalculated(path);
+
+        _playerGO.SetActive(true);
+        aiLerp.SetPath(path);
+        aiLerp.destination = MovePointController.Instance.transform.position;
+
+        await Task.Delay(1000);
+    }
+
+    async Task PlayConversation()
+    {
+        await _conversationManager.PlayConversation(_beginningMonologue);
     }
 
 

@@ -92,8 +92,9 @@ public class MovePointController : Singleton<MovePointController>
             HandleBattlePrepSelectClick();
             return;
         }
-
-        Select();
+        
+        if (TurnManager.BattleState == BattleState.PlayerTurn)  
+            Select();
     }
 
     void HandleBattlePrepSelectClick()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RatSpawner : MonoBehaviour
+public class RatSpawner : MonoBehaviour, IUITextDisplayable
 {
 
     RatBattleManger _ratBattleManger;
@@ -39,12 +39,14 @@ public class RatSpawner : MonoBehaviour
     bool IsSpawnCovered()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
-        Debug.Log($"cols.Lenght: {cols.Length}");
-        if (cols.Length > 0)
+        if (cols.Length > 1) // 1 is self
             return true;
-        foreach (Collider2D c in cols)
-            Debug.Log($"c.name: {c.name}");
 
         return false;
+    }
+
+    public string DisplayText()
+    {
+        return "Grate. Perhaps that's were the rats come from?";
     }
 }

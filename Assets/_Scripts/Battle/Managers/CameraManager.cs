@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DG.Tweening;
 
-public class CameraManager : MonoBehaviour
+public class CameraManager : Singleton<CameraManager>
 {
     BoardManager _boardManager;
 
@@ -13,8 +13,9 @@ public class CameraManager : MonoBehaviour
 
     Vector3 _targetPos;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _cam = GetComponent<Camera>();
         _boardManager = BattleManager.Instance.GetComponent<BoardManager>();
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
@@ -67,7 +68,7 @@ public class CameraManager : MonoBehaviour
         _followTarget = t;
     }
 
-    async Task LerpOrthographicSize(float newSize, float time)
+    public async Task LerpOrthographicSize(float newSize, float time)
     {
         float oldSize = _cam.orthographicSize;
         float elapsed = 0;

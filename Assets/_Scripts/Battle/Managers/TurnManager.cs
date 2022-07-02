@@ -35,7 +35,6 @@ public class TurnManager : Singleton<TurnManager>
 
         CurrentTurn = 0;
 
-        UpdateBattleState(BattleState.MapBuilding);
     }
 
     // https://www.youtube.com/watch?v=4I0vonyqMi8&t=193s

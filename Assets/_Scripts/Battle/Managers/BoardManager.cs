@@ -76,12 +76,13 @@ public class BoardManager : Singleton<BoardManager>
         _mapVariant = _battleNode.MapVariant;
         MapSize = _battleNode.MapSize;
 
-        // GenerateMap();
+        GenerateMap();
     }
 
     public async void GenerateMap()
     {
         _seed = System.DateTime.Now.Millisecond;
+        _turnManager.UpdateBattleState(BattleState.MapBuilding);
 
         // TODO: without the delays it breaks the game, 
         // preparation is called before map building, I just need a few miliseconds to set everything up.
