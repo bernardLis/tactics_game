@@ -531,6 +531,7 @@ MonoBehaviour:
   Statuses: []
   BasicAbilities: []
   Abilities: []
+  _deathEffect: {fileID: 3995280285463602700, guid: 38158bd1b5c5bf947a683a111b415c82, type: 3}
   _body: {fileID: 7495358995766541934}
   _statusesBeforeWalking: []
   _statusesAddedWhenWalking: []

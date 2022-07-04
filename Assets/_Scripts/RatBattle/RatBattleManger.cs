@@ -13,12 +13,8 @@ public class RatBattleManger : Singleton<RatBattleManger>
     ConversationManager _conversationManager;
 
     [Header("General")]
-    [SerializeField] GameObject _envObjectsHolder;
     [SerializeField] TextAsset _graphData;
 
-    [Header("Rats")]
-    [SerializeField] GameObject _ratPrefab;
-    [SerializeField] Brain[] _ratBrains;
 
     [Header("Player")]
     [SerializeField] GameObject _playerPrefab;
@@ -47,7 +43,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _battleManager.GetComponent<TileManager>().SetUp();
 
         await SetupAstar();
-        await SpawnEnemies();
         await SpawnPlayer();
         await WalkPlayerDownStairs();
         await _cameraManager.LerpOrthographicSize(7, 1);
@@ -75,48 +70,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
         AstarPath.active.Scan();
 
         await Task.Delay(10);
-    }
-
-    async Task SpawnEnemies()
-    {
-        Vector3[] ratSpawnPositions = new Vector3[]{
-            new Vector3(2.5f,1.5f,0),
-            new Vector3(3.5f,2.5f,0),
-            new Vector3(7.5f,2.5f,0),
-            new Vector3(7.5f,4.5f,0)
-        };
-
-        for (int i = 0; i < 4; i++)
-            SpawnRat(ratSpawnPositions[i]);
-
-        await Task.Delay(10);
-    }
-
-    public void SpawnRat(Vector3 pos)
-    {
-        EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
-
-        enemySO.CreateEnemy(1, _ratBrains[Random.Range(0, _ratBrains.Length)]);
-
-        Character instantiatedSO = Instantiate(enemySO);
-        GameObject newCharacter = Instantiate(_ratPrefab, pos, Quaternion.identity);
-
-        instantiatedSO.Initialize(newCharacter);
-        newCharacter.name = instantiatedSO.CharacterName;
-        newCharacter.transform.parent = _envObjectsHolder.transform;
-
-        // rat specific stat machinations
-        CharacterStats stats = newCharacter.GetComponent<CharacterStats>();
-        stats.SetCharacteristics(instantiatedSO);
-        stats.MovementRange.BaseValue = 1;
-        stats.MaxHealth.BaseValue = 10;
-        stats.MaxMana.BaseValue = 0;
-        stats.SetCurrentHealth(10);
-
-        CharacterRendererManager characterRendererManager = newCharacter.GetComponentInChildren<CharacterRendererManager>();
-
-        characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
-        characterRendererManager.Face(Vector2.down);
     }
 
     async Task SpawnPlayer()

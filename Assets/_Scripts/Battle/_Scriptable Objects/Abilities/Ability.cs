@@ -146,7 +146,6 @@ public abstract class Ability : BaseScriptableObject
             await AbilityLogic(pos);
         }
 
-
         ClearAffectedCharacters();
     }
 

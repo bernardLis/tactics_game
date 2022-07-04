@@ -60,8 +60,21 @@ public class MovePointController : Singleton<MovePointController>
 
     void HandleEnemyTurn()
     {
+        _infoCardUI.HideTileInfo();
         _spriteRenderer.enabled = false;
     }
+
+    void HandlePlayerTurn()
+    {
+        _spriteRenderer.enabled = true;
+
+        GameObject[] playerChars = GameObject.FindGameObjectsWithTag("Player");
+        if (playerChars.Length > 0)
+            transform.position = playerChars[0].transform.position;
+
+        UpdateDisplayInformation();
+    }
+
 
     public void Move(Vector3 _pos)
     {
@@ -92,8 +105,8 @@ public class MovePointController : Singleton<MovePointController>
             HandleBattlePrepSelectClick();
             return;
         }
-        
-        if (TurnManager.BattleState == BattleState.PlayerTurn)  
+
+        if (TurnManager.BattleState == BattleState.PlayerTurn)
             Select();
     }
 
@@ -126,16 +139,6 @@ public class MovePointController : Singleton<MovePointController>
         _battleCharacterController.Select(cols);
     }
 
-    void HandlePlayerTurn()
-    {
-        _spriteRenderer.enabled = true;
-
-        GameObject[] playerChars = GameObject.FindGameObjectsWithTag("Player");
-        if (playerChars.Length > 0)
-            transform.position = playerChars[0].transform.position;
-
-        UpdateDisplayInformation();
-    }
 
     public void UpdateDisplayInformation()
     {

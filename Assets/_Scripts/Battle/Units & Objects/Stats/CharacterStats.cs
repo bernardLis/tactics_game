@@ -47,7 +47,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     Vector3 _finalPos;
     GameObject _tempObject;
 
-    // shake body
+    // dmg
+    [SerializeField] GameObject _deathEffect;
     [SerializeField] GameObject _body;
     Path _latPath;
 
@@ -615,6 +616,10 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         // playing death animation
         await _characterRendererManager.Die();
+        GameObject effect = Instantiate(_deathEffect, transform.position, Quaternion.identity);
+        effect.transform.DOLocalMoveY(transform.position.y + 0.5f, 1f).SetEase(Ease.InOutSine);
+        await transform.DOScale(Vector3.zero, 1f).AsyncWaitForCompletion();
+        Destroy(effect);
 
         // kill all tweens TODO: is that OK?
         transform.DOKill();

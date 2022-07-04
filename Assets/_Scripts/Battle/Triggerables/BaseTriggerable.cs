@@ -17,8 +17,12 @@ public abstract class BaseTriggerable : MonoBehaviour
     {
         string abilityName = Helpers.ParseScriptableObjectCloneName(ability.name);
         string targetName = Helpers.ParseScriptableObjectCloneName(target.name);
-        _battleUI.DisplayBattleLog($"{gameObject.name} uses {abilityName} on {targetName}.");
-    }
+        if (target == gameObject)
+            _battleUI.DisplayBattleLog($"{gameObject.name.Trim()} uses {abilityName}.");
+        else
+            _battleUI.DisplayBattleLog($"{gameObject.name.Trim()} uses {abilityName} on {targetName}.");
+
+    } 
 
 
 }

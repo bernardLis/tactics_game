@@ -78,8 +78,8 @@ public class BattleUI : Singleton<BattleUI>
     public void DisplayBattleLog(string text)
     {
         _coroutineQueue.Enqueue(DisplayBattleLogCoroutine(text));
-
     }
+
     IEnumerator DisplayBattleLogCoroutine(string text)
     {
         DOTween.Kill(_battleLogTweenID);

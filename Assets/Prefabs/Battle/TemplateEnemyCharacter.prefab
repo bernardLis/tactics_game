@@ -321,6 +321,7 @@ MonoBehaviour:
   Statuses: []
   BasicAbilities: []
   Abilities: []
+  _deathEffect: {fileID: 3995280285463602700, guid: 38158bd1b5c5bf947a683a111b415c82, type: 3}
   _body: {fileID: 1238285344993743450}
   _statusesBeforeWalking: []
   _statusesAddedWhenWalking: []
@@ -608,7 +609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e07bd9c672f7f94fa16dae35100bd70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextTime: 0
 --- !u!1001 &9199590524805037080
 PrefabInstance:
   m_ObjectHideFlags: 0
