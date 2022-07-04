@@ -113,17 +113,18 @@ public class ConversationManager : Singleton<ConversationManager>
     }
 
 
-    void PlayLine(Line line)
+    async void PlayLine(Line line)
     {
         // known bug )by unity(
         // ArgumentException: Event must be a StateEvent or DeltaStateEvent but is a TEXT instead
         _conversationPortrait.style.backgroundImage = new StyleBackground(line.SpeakerCharacter.Portrait);
 
-        InputSystem.onAnyButtonPress.CallOnce((key) => KeyPressed());
-
         ShowUI(line.DisplayQuadrant);
         _currentText = line.Text;
         SetText();
+
+        await Task.Delay(200); // to prevent skipping multiple steps on one click
+        InputSystem.onAnyButtonPress.CallOnce((key) => KeyPressed());
     }
 
     public void SetText()
@@ -139,15 +140,16 @@ public class ConversationManager : Singleton<ConversationManager>
         _printTextCoroutineFinished = false;
     }
 
-    void SkipTextTyping()
+    async void SkipTextTyping()
     {
-        InputSystem.onAnyButtonPress.CallOnce((key) => KeyPressed());
-
         if (_typeTextCoroutine != null)
             StopCoroutine(_typeTextCoroutine);
 
         _conversationText.text = _currentText;
         _printTextCoroutineFinished = true;
+
+        await Task.Delay(200); // to prevent skipping multiple steps on one click
+        InputSystem.onAnyButtonPress.CallOnce((key) => KeyPressed());
     }
 
     bool IsLinePrinted()
@@ -166,7 +168,7 @@ public class ConversationManager : Singleton<ConversationManager>
             if (i == charArray.Length - 1)
                 _printTextCoroutineFinished = true;
 
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.09f);
         }
     }
 }

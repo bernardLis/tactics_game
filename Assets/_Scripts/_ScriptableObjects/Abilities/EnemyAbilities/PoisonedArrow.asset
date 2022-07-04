@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
+  m_Name: PoisonedArrow
+  m_EditorClassIdentifier: 
+  Id: ba5f4820-223c-404c-a152-c6b8e95a1658
+  ReferenceID: ABILITY-3
+  Description: Poison and debuff target for 3 turns.
+  Icon: {fileID: 21300000, guid: 73f056cc1d394b544bcc85a99d6488d6, type: 3}
+  Sound: {fileID: 8300000, guid: f0180443af161364eb8f4ee688b5ed82, type: 3}
+  BasePower: 0
+  ManaCost: 20
+  AreaOfEffect: 0
+  AbilityType: 0
+  MultiplerStat: 2
+  WeaponType: 2
+  Projectile: {fileID: 930043242252355895, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
+  StatModifier: {fileID: 11400000, guid: 0b3befe40f5e4bc4a91c09e135ed8401, type: 2}
+  Status: {fileID: 11400000, guid: 1468796ffbb600c499423279fb089246, type: 2}
+  Range: 4
+  CanTargetSelf: 0
+  CanTargetDiagonally: 1
+  HighlightColor: {r: 0.1254902, g: 0.5294118, b: 0.16078432, a: 1}
+  CharacterGameObject: {fileID: 0}

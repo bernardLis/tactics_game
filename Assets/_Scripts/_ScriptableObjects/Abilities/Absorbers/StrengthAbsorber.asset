@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd5070ba19e81c469bf6cc3e4993190, type: 3}
+  m_Name: StrengthAbsorber
+  m_EditorClassIdentifier: 
+  Id: e8fd2301-0db2-43a6-bfd4-591d0d18ce91
+  Icon: {fileID: 21300000, guid: 9c498454d8c5c214890f3ba50d63dbf2, type: 3}
+  AbsorbedStatAttacks: 0
+  Description: Absorbs damage from attacks that derive power from strength.
