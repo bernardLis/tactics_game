@@ -1,17 +1,18 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Statuses/Stun")]
 public class StunStatus : Status
 {
-    public override void FirstTrigger()
+    public override async Task FirstTrigger()
     {
         // this is when you apply stun on your mate
-        if (Attacker.CompareTag(_selfGameObject.tag) && !_characterSelection.HasFinishedTurn)
+        if (Attacker.CompareTag(_characterGameObject.tag) && !_characterSelection.HasFinishedTurn)
             _characterSelection.FinishCharacterTurn();
 
         // this is normal situation, when you apply stun on person from opposite team
-        base.FirstTrigger();
-    }
+       await  base.FirstTrigger();
+    }//asd
 
     public override void TriggerStatus()
     {

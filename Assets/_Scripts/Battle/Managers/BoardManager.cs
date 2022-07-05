@@ -870,8 +870,9 @@ public class BoardManager : Singleton<BoardManager>
             }
 
             EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
-
-            int playerLevel = _gameManager.PlayerTroops[0].Level;
+            List<Character> sortedPlayerCharacters = _gameManager.PlayerTroops.OrderBy(o=>o.Level).ToList();
+            sortedPlayerCharacters.Reverse(); // highest first
+            int playerLevel = sortedPlayerCharacters[0].Level;
             enemySO.CreateEnemy(playerLevel + 2, brain);
 
             Vector3 spawnPos = new Vector3(chosenPos.x + 0.5f, chosenPos.y + 0.5f);

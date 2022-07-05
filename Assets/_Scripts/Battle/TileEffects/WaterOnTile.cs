@@ -7,18 +7,17 @@ public class WaterOnTile : TileEffect
 
     [SerializeField] Status _wetStatus;
 
-    bool _isElectrified;
-    [SerializeField] Sprite _electrifiedWaterPuddleSprite;
-    Status _electrificationStatus;
-    GameObject _characterThatElectrified;
+    public bool _isElectrified { get; private set; }
+    [SerializeField] GameObject _electrifiedWaterEffect;
+    public Status _electrificationStatus { get; private set; }
+    public GameObject _characterThatElectrified;
 
     public override async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
         await base.Initialize(pos, ability, tag);
         _objectStats = GetComponent<ObjectStats>();
         CheckCollision(ability, pos);
-
-        await Task.Yield();
+        await CheckAround(); //if there is electrified water around, electrify yourself
     }
 
     protected override void CheckCollision(Ability ability, Vector3 pos)
@@ -37,7 +36,8 @@ public class WaterOnTile : TileEffect
                 continue;
             }
 
-            if (c.CompareTag(Tags.WaterOnTile) || c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.BoundCollider))
+            if (c.CompareTag(Tags.WaterOnTile) || c.CompareTag(Tags.PushableObstacle)
+             || c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.BoundCollider))
             {
                 Destroy(gameObject);
                 continue;
@@ -51,6 +51,37 @@ public class WaterOnTile : TileEffect
         }
     }
 
+    async Task CheckAround()
+    {
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                Vector3 pos = new Vector3(transform.position.x + x, transform.position.y + y);
+                if (await ResolveElectrify(pos))
+                    return;
+            }
+        }
+    }
+
+    async Task<bool> ResolveElectrify(Vector3 pos)
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.1f);
+        foreach (Collider2D c in cols)
+        {
+            if (c.TryGetComponent(out WaterOnTile water))
+            {
+                if (water._isElectrified)
+                {
+                    await ElectrifyWater(water._electrificationStatus, _ability.CharacterGameObject);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent(out CharacterStats stats))
@@ -61,19 +92,19 @@ public class WaterOnTile : TileEffect
         }
     }
 
-    void Wet(CharacterStats stats)
+    async void Wet(CharacterStats stats)
     {
         // if burning, remove bruning
         if (ResolveBurnStatus(stats))
             return;
 
         // else add wet
-        stats.AddStatus(_wetStatus, _ability.CharacterGameObject);
+        await stats.AddStatus(_wetStatus, _ability.CharacterGameObject);
     }
 
-    void ElectrifyCharacter(CharacterStats stats)
+    async void ElectrifyCharacter(CharacterStats stats)
     {
-        stats.AddStatus(_electrificationStatus, _characterThatElectrified);
+        await stats.AddStatus(_electrificationStatus, _characterThatElectrified);
     }
 
     bool ResolveBurnStatus(CharacterStats stats)
@@ -90,11 +121,14 @@ public class WaterOnTile : TileEffect
         return false;
     }
 
-    public void ElectrifyWater(Status status, GameObject character)
+    public async Task ElectrifyWater(Status status, GameObject character)
     {
+        if (_isElectrified)
+            return;
+
         _isElectrified = true;
 
-        GetComponentInChildren<SpriteRenderer>().sprite = _electrifiedWaterPuddleSprite;
+        _electrifiedWaterEffect.SetActive(true);
 
         _createdByTag = character.tag;
         _numberOfTurnsLeft = 3; // TODO: hardcoded
@@ -102,9 +136,9 @@ public class WaterOnTile : TileEffect
         _characterThatElectrified = character;
 
         if (!_objectStats.IsElectrified)
-            _objectStats.AddStatus(status, character);
+            await _objectStats.AddStatus(status, character);
 
-        //refresh card
+        // refresh card
         InfoCardUI.Instance.ShowTileInfo(DisplayText());
     }
 

@@ -153,7 +153,7 @@ public class FireOnTile : TileEffect
             return;
         }
 
-        stats.AddStatus(_status, _ability.CharacterGameObject);
+        await stats.AddStatus(_status, _ability.CharacterGameObject);
     }
 
 

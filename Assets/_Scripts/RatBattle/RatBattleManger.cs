@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using System.Threading.Tasks;
+using UnityEngine.Rendering.Universal;
 
 public class RatBattleManger : Singleton<RatBattleManger>
 {
@@ -14,6 +15,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     [Header("General")]
     [SerializeField] TextAsset _graphData;
+    [SerializeField] Light2D _globalLight;
 
 
     [Header("Player")]
@@ -35,6 +37,8 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _turnManager = TurnManager.Instance;
         _cameraManager = CameraManager.Instance;
         _conversationManager = ConversationManager.Instance;
+        LightManager.Instance.Initialize(_globalLight);
+
         MapSetUp();
     }
 
@@ -74,15 +78,15 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     async Task SpawnPlayer()
     {
-        Character playerCharacter = _gameManager.PlayerTroops[0];
-        Vector3 placementPosition = new Vector3(-3.5f, 8.5f);
-        _playerGO = Instantiate(_playerPrefab, placementPosition, Quaternion.identity);
+        Vector3 pos = new Vector3(-3.5f, 8.5f);
+        _playerGO = Instantiate(_playerPrefab, pos, Quaternion.identity);
         _playerGO.SetActive(false);
+
+        Character playerCharacter = _gameManager.PlayerTroops[0];
         _playerGO.name = playerCharacter.CharacterName;
         Character instantiatedSO = Instantiate(playerCharacter);
         instantiatedSO.Initialize(_playerGO);
         _playerGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
-
         _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.down);
 
         await Task.Delay(10);

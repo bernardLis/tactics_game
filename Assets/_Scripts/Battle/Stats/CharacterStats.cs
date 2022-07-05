@@ -378,10 +378,10 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             AddModifier(ability);
     }
 
-    void HandleStatus(GameObject attacker, Ability ability)
+    async void HandleStatus(GameObject attacker, Ability ability)
     {
         if (ability.Status != null)
-            AddStatus(ability.Status, attacker);
+            await AddStatus(ability.Status, attacker);
     }
 
     public int CalculateAttackDir(Vector3 attackerPos)
@@ -647,9 +647,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             }
     }
 
-    public override Status AddStatus(Status s, GameObject attacker)
+    public override async Task<Status> AddStatus(Status s, GameObject attacker)
     {
-        Status addedStatus = base.AddStatus(s, attacker);
+        Status addedStatus = await base.AddStatus(s, attacker);
         if (_battleCharacterController.HasCharacterStartedMoving)
             _statusesAddedWhenWalking.Add(addedStatus);
 

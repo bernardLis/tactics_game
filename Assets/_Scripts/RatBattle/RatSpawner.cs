@@ -68,12 +68,9 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
     public void SpawnRat()
     {
         EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
-
         enemySO.CreateEnemy(1, _ratBrains[Random.Range(0, _ratBrains.Length)]);
-
         Character instantiatedSO = Instantiate(enemySO);
         GameObject enemyGO = Instantiate(_ratPrefab, transform.position, Quaternion.identity);
-
         instantiatedSO.Initialize(enemyGO);
         enemyGO.name = instantiatedSO.CharacterName;
         enemyGO.transform.parent = _envObjectsHolder.transform;
@@ -87,12 +84,10 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         stats.SetCurrentHealth(10);
 
         CharacterRendererManager characterRendererManager = enemyGO.GetComponentInChildren<CharacterRendererManager>();
-
         characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
         characterRendererManager.Face(Vector2.down);
 
         _turnManager.AddEnemy(enemyGO);
-
         AudioManager.Instance.PlaySFX(_ratSpawnSound, transform.position);
         Destroy(Instantiate(_ratSpawnEffect, transform.position, Quaternion.identity), 0.6f);
     }

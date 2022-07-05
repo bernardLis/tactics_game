@@ -45,7 +45,7 @@ public class AttackTriggerable : BaseTriggerable
         if (target.TryGetComponent(out ObjectStats objectStats))
         {
             if (ability.Status != null)
-                objectStats.AddStatus(ability.Status, gameObject);
+                await objectStats.AddStatus(ability.Status, gameObject);
         }
 
         // return what you hit

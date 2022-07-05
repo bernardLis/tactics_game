@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor;
+using System.Threading.Tasks;
 
 public class Status : BaseScriptableObject
 {
@@ -13,7 +14,7 @@ public class Status : BaseScriptableObject
     public Color DisplayColor;
     public string AnimationEffectOnBody;
 
-    protected GameObject _selfGameObject;
+    protected GameObject _characterGameObject;
     protected CharacterSelection _characterSelection;
     protected BaseStats _baseStats;
     protected CharacterStats _characterStats;
@@ -36,7 +37,7 @@ public class Status : BaseScriptableObject
 
     public virtual void Initialize(GameObject self, GameObject attacker)
     {
-        _selfGameObject = self;
+        _characterGameObject = self;
         _characterSelection = self.GetComponent<CharacterSelection>();
         // TODO: ugh... 
         _baseStats = self.GetComponent<BaseStats>();
@@ -50,11 +51,12 @@ public class Status : BaseScriptableObject
             Attacker = attacker;
     }
 
-    public virtual void FirstTrigger()
+    public async virtual Task FirstTrigger()
     {
         // "normal" status application and triggering is when you apply status on character from opposite team, then it works fine! 
         // TODO: but when you apply it on person from your team, it is a bit weird. 
         TriggerStatus();
+        await Task.Yield();
     }
 
     public virtual void TriggerStatus()

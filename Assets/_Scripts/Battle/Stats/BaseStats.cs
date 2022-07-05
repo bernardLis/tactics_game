@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 public class BaseStats : MonoBehaviour
 {
@@ -32,11 +33,11 @@ public class BaseStats : MonoBehaviour
         _damageUI = GetComponent<ObjectUI>();
     }
 
-    public virtual Status AddStatus(Status s, GameObject attacker)
+    public async virtual Task<Status> AddStatus(Status s, GameObject attacker)
     {
         Status clone = AddStatusWithoutTrigger(s, attacker);
         // status triggers right away
-        clone.FirstTrigger();
+        await clone.FirstTrigger();
         return clone;
     }
 

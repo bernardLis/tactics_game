@@ -8,7 +8,7 @@ public class HealStatus : Status
         base.TriggerStatus();
         if (_characterStats == null)
             return;
-        _characterStats.GainHealth(Value, _selfGameObject, null);
+        _characterStats.GainHealth(Value, _characterGameObject, null);
     }
 
     public override string GetDescription()

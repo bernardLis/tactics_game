@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 [CreateAssetMenu(menuName = "ScriptableObject/Statuses/Wet")]
 public class WetStatus : Status
 {
-    public override async void FirstTrigger()
+    public override async Task FirstTrigger()
     {
-        base.FirstTrigger();
-
+        await base.FirstTrigger();
         await Task.Yield();
     }
 

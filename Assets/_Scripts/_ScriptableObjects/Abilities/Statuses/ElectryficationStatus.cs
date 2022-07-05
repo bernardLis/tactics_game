@@ -7,14 +7,14 @@ public class ElectryficationStatus : Status
     public GameObject Effect;
     GameObject _effectInstance;
 
-    public override async void FirstTrigger()
+    public override async Task FirstTrigger()
     {
-        base.FirstTrigger();
+        await base.FirstTrigger();
         AddFlag();
-        _effectInstance = Instantiate(Effect, _selfGameObject.transform.position, Quaternion.identity);
+        _effectInstance = Instantiate(Effect, _characterGameObject.transform.position, Quaternion.identity);
         ElectricLineController effectController = _effectInstance.GetComponent<ElectricLineController>();
-        Vector3 startPositionRandomized = new Vector3(_selfGameObject.transform.position.x + Random.Range(0, 0.5f),
-                                              _selfGameObject.transform.position.y + Random.Range(0, 0.5f));
+        Vector3 startPositionRandomized = new Vector3(_characterGameObject.transform.position.x + Random.Range(0, 0.5f),
+                                              _characterGameObject.transform.position.y + Random.Range(0, 0.5f));
 
         effectController.Electrify(startPositionRandomized);
 
@@ -28,7 +28,7 @@ public class ElectryficationStatus : Status
                                              pos.y + Random.Range(0, 0.5f));
                 effectController.AddPosition(endPosistionRandomized);
 
-                SpreadElectrification(pos);
+                await SpreadElectrification(pos);
                 await Task.Delay(50);
             }
         }
@@ -50,16 +50,16 @@ public class ElectryficationStatus : Status
         _characterStats.TakeDamageFinal(dmg).GetAwaiter();
     }
 
-    void SpreadElectrification(Vector3 pos)
+    async Task SpreadElectrification(Vector3 pos)
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
         foreach (Collider2D c in cols)
         {
             if (c.TryGetComponent(out CharacterStats stats)) // electrify characters
                 if (!stats.IsElectrified)
-                    stats.AddStatus(this, Attacker);
+                    await stats.AddStatus(this, Attacker);
             if (c.TryGetComponent(out WaterOnTile waterOnTile))
-                waterOnTile.ElectrifyWater(this, _selfGameObject);
+                await waterOnTile.ElectrifyWater(this, Attacker); 
         }
     }
 

@@ -87,6 +87,8 @@ public class InfoCardUI : Singleton<InfoCardUI>
     /* character card */
     public void ShowCharacterCard(CharacterStats stats)
     {
+        if (stats == null)
+            return;
         if (_displayedCharacter == stats.gameObject)
             return;
 
