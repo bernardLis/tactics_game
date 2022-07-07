@@ -103,9 +103,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -841411547
-  m_SortingLayer: 3
-  m_SortingOrder: 50
+  m_SortingLayerID: -441805081
+  m_SortingLayer: 2
+  m_SortingOrder: 40
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_FlipX: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wetStatus: {fileID: 11400000, guid: bc1af3fcdd88e184ba52996cc0f0ac60, type: 2}
   _electrifiedWaterEffect: {fileID: 6647246848958561218}
+  _characterThatElectrified: {fileID: 0}
 --- !u!114 &8864157766387359041
 MonoBehaviour:
   m_ObjectHideFlags: 0

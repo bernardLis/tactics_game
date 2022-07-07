@@ -241,6 +241,8 @@ public class BattleInputController : Singleton<BattleInputController>
 
     void SelectClick(InputAction.CallbackContext ctx)
     {
+        if (!AllowInput)
+            return;
         _movePointController.HandleSelectClick();
     }
 

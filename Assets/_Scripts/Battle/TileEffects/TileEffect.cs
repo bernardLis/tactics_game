@@ -15,12 +15,13 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
     {
         _selfCollider = GetComponent<BoxCollider2D>();
 
-        _ability = Instantiate(ability); // clone it for safety
-        if (_ability.CharacterGameObject != null)
+        if (ability != null)
+            _ability = Instantiate(ability); // clone it for safety
+
+        if (_ability != null && _ability.CharacterGameObject != null)
             _createdByTag = _ability.CharacterGameObject.tag;
         else
             _createdByTag = tag;
-
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 

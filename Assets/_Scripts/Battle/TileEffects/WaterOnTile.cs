@@ -99,7 +99,11 @@ public class WaterOnTile : TileEffect
             return;
 
         // else add wet
-        await stats.AddStatus(_wetStatus, _ability.CharacterGameObject);
+        if (_ability != null)
+            await stats.AddStatus(_wetStatus, _ability.CharacterGameObject);
+        else
+            await stats.AddStatus(_wetStatus, null);
+
     }
 
     async void ElectrifyCharacter(CharacterStats stats)
@@ -154,8 +158,8 @@ public class WaterOnTile : TileEffect
     public override string DisplayText()
     {
         if (_isElectrified)
-            return "Electrifies characters walking through it.";
-        return "Makes characters walking through it wet. Can be electrified.";
+            return "Electrified Water. Electrifies characters walking through it.";
+        return "Water. Makes characters walking through it wet. Can be electrified.";
     }
 
     public override void DestroySelf()

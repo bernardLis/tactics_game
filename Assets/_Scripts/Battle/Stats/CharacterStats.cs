@@ -127,6 +127,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public void SetCharacteristics(Character character)
     {
+        gameObject.name = character.CharacterName;
         Character = character;
         Character.OnCharacterLevelUp += OnCharacterLevelUp;
         Character.OnCharacterExpGain += OnCharacterExpGain;

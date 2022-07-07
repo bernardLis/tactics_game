@@ -4,6 +4,7 @@ using UnityEngine;
 using Pathfinding;
 using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
+using DG.Tweening;
 
 public class RatBattleManger : Singleton<RatBattleManger>
 {
@@ -12,22 +13,38 @@ public class RatBattleManger : Singleton<RatBattleManger>
     TurnManager _turnManager;
     CameraManager _cameraManager;
     ConversationManager _conversationManager;
+    BattleCutSceneManager _battleCutSceneManager;
 
     [Header("General")]
     [SerializeField] TextAsset _graphData;
     [SerializeField] Light2D _globalLight;
+    [SerializeField] GameObject _waterOnTile;
+    [SerializeField] GameObject _envObjectsHolder;
 
 
     [Header("Player")]
     [SerializeField] GameObject _playerPrefab;
     GameObject _playerGO;
 
+
+    [Header("Friend")]
+    GameObject _friendGO;
+
+
     [Header("Conversation")]
     [SerializeField] Conversation _beginningMonologue;
+    [SerializeField] Conversation _friendComes;
+
 
     protected override void Awake()
     {
         base.Awake();
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
     void Start()
@@ -37,9 +54,29 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _turnManager = TurnManager.Instance;
         _cameraManager = CameraManager.Instance;
         _conversationManager = ConversationManager.Instance;
+        _battleCutSceneManager = BattleCutSceneManager.Instance;
         LightManager.Instance.Initialize(_globalLight);
 
         MapSetUp();
+    }
+
+    void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        if (TurnManager.BattleState == BattleState.PlayerTurn)
+            HandlePlayerTurn();
+    }
+
+    async void HandlePlayerTurn()
+    {
+        // water spreads every turn
+        GameObject[] water = GameObject.FindGameObjectsWithTag(Tags.WaterOnTile);
+        foreach (var w in water)
+            for (int x = -1; x <= 1; x++)
+                for (int y = -1; y < 1; y++)
+                    InstantiateWater(new Vector3(w.transform.position.x + x, w.transform.position.y + y));
+
+        if (TurnManager.CurrentTurn == 2) // TODO: normally 5th turn? 
+            await SpawnFriend();
     }
 
     async void MapSetUp()
@@ -48,9 +85,9 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
         await SetupAstar();
         await SpawnPlayer();
-        await WalkPlayerDownStairs();
+        await WalkPlayer();
         await _cameraManager.LerpOrthographicSize(7, 1);
-        await PlayConversation();
+        await _conversationManager.PlayConversation(_beginningMonologue);
         _turnManager.UpdateBattleState(BattleState.PlayerTurn);
     }
 
@@ -83,7 +120,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _playerGO.SetActive(false);
 
         Character playerCharacter = _gameManager.PlayerTroops[0];
-        _playerGO.name = playerCharacter.CharacterName;
         Character instantiatedSO = Instantiate(playerCharacter);
         instantiatedSO.Initialize(_playerGO);
         _playerGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
@@ -92,29 +128,52 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await Task.Delay(10);
     }
 
-    async Task WalkPlayerDownStairs()
+    async Task WalkPlayer()
     {
-        _cameraManager.SetTarget(_playerGO.transform);
-        // TODO: I should have a component that I can call to move someone from place to place (awaitable ideally)
-        AILerp aiLerp = _playerGO.GetComponent<AILerp>();
-        aiLerp.speed = 2;
-        // Create a new Path object
-        ABPath path = ABPath.Construct(_playerGO.transform.position, MovePointController.Instance.transform.position, null);
-        // Calculate the path
-        AstarPath.StartPath(path);
-        AstarPath.BlockUntilCalculated(path);
-
-        _playerGO.SetActive(true);
-        aiLerp.SetPath(path);
-        aiLerp.destination = MovePointController.Instance.transform.position;
-
-        await Task.Delay(1000);
+        await _battleCutSceneManager.WalkCharacterTo(_playerGO, new Vector3(-3.5f, 3.5f));
+        await Task.Delay(10);
+        _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
     }
 
-    async Task PlayConversation()
+
+    async void InstantiateWater(Vector3 pos)
     {
-        await _conversationManager.PlayConversation(_beginningMonologue);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.CompareTag(Tags.WaterOnTile) || c.CompareTag(Tags.BoundCollider))
+                return;
+
+        GameObject w = Instantiate(_waterOnTile, pos, Quaternion.identity);
+        await w.GetComponent<WaterOnTile>().Initialize(pos, null, Tags.Player);
+        SpriteRenderer sr = w.GetComponent<SpriteRenderer>();
+        sr.color = new Color(1f, 1f, 1f, 0f);
+        w.transform.parent = _envObjectsHolder.transform;
+
+        Color targetColor = new Color(1f, 1f, 1f, 0.5f);
+        if (w != null)
+            sr.DOColor(targetColor, 10f);
+
     }
 
+    async Task SpawnFriend()
+    {
+        Vector3 pos = new Vector3(-3.5f, 8.5f);
+        _friendGO = Instantiate(_playerPrefab, pos, Quaternion.identity);
+        _friendGO.SetActive(false);
+
+        Character playerCharacter = _gameManager.PlayerTroops[1];
+        Character instantiatedSO = Instantiate(playerCharacter);
+        instantiatedSO.Initialize(_friendGO);
+        _friendGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
+        _friendGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.down);
+
+        await Task.Delay(10);
+        BattleInputController.Instance.SetInputAllowed(false);
+        await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-3.5f, 6.5f));
+        await _conversationManager.PlayConversation(_friendComes);
+        Debug.Log("after convo");
+        BattleInputController.Instance.SetInputAllowed(true);
+        _cameraManager.SetTarget(MovePointController.Instance.transform);
+    }
 
 }
