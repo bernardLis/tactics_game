@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 public class PlayerCharSelection : CharacterSelection
 {
     public bool HasMovedThisTurn { get; private set; }
-    public Vector3 PositionTurnStart { get; private set; }
+    public Vector3 PositionTurnStart; //{ get; private set; }
 
 
     public override void Awake()
@@ -65,6 +65,11 @@ public class PlayerCharSelection : CharacterSelection
     public void SetCharacterMoved(bool hasMoved)
     {
         HasMovedThisTurn = hasMoved;
+    }
+
+    public void SetPositionTurnStart(Vector3 pos)
+    {
+        PositionTurnStart = pos;
     }
 }
 

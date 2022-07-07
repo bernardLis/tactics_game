@@ -82,3 +82,4 @@ MonoBehaviour:
   _playerPrefab: {fileID: 6105715623576548083, guid: 5292bfb2a93455445be59d39c398d325, type: 3}
   _beginningMonologue: {fileID: 11400000, guid: ccae3ac0b4966c74580731904f3879bf, type: 2}
   _friendComes: {fileID: 11400000, guid: 4c5d2edb6ed56314b87a99edf05feb8d, type: 2}
+  _friendElectrifies: {fileID: 11400000, guid: 0e4de90d0bcd9fc418db6f051156c5d3, type: 2}

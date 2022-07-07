@@ -14,6 +14,9 @@ public class RatBattleManger : Singleton<RatBattleManger>
     CameraManager _cameraManager;
     ConversationManager _conversationManager;
     BattleCutSceneManager _battleCutSceneManager;
+    MovePointController _movePointController;
+    BattleInputController _battleInputController;
+    HighlightManager _highlightManager;
 
     [Header("General")]
     [SerializeField] TextAsset _graphData;
@@ -21,20 +24,17 @@ public class RatBattleManger : Singleton<RatBattleManger>
     [SerializeField] GameObject _waterOnTile;
     [SerializeField] GameObject _envObjectsHolder;
 
-
     [Header("Player")]
     [SerializeField] GameObject _playerPrefab;
     GameObject _playerGO;
 
-
     [Header("Friend")]
     GameObject _friendGO;
-
 
     [Header("Conversation")]
     [SerializeField] Conversation _beginningMonologue;
     [SerializeField] Conversation _friendComes;
-
+    [SerializeField] Conversation _friendElectrifies;
 
     protected override void Awake()
     {
@@ -55,6 +55,9 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _cameraManager = CameraManager.Instance;
         _conversationManager = ConversationManager.Instance;
         _battleCutSceneManager = BattleCutSceneManager.Instance;
+        _movePointController = MovePointController.Instance;
+        _battleInputController = BattleInputController.Instance;
+        _highlightManager = HighlightManager.Instance;
         LightManager.Instance.Initialize(_globalLight);
 
         MapSetUp();
@@ -69,14 +72,16 @@ public class RatBattleManger : Singleton<RatBattleManger>
     async void HandlePlayerTurn()
     {
         // water spreads every turn
-        GameObject[] water = GameObject.FindGameObjectsWithTag(Tags.WaterOnTile);
-        foreach (var w in water)
-            for (int x = -1; x <= 1; x++)
-                for (int y = -1; y < 1; y++)
-                    InstantiateWater(new Vector3(w.transform.position.x + x, w.transform.position.y + y));
+        await SpreadWater();
+
+        if (TurnManager.CurrentTurn == 1)
+            InstantiateWater(new Vector3(4.5f, 4.5f));
 
         if (TurnManager.CurrentTurn == 2) // TODO: normally 5th turn? 
             await SpawnFriend();
+
+        if (TurnManager.CurrentTurn == 3) // TODO: normally 7th turn? 
+            await FriendElectrifies();
     }
 
     async void MapSetUp()
@@ -131,11 +136,23 @@ public class RatBattleManger : Singleton<RatBattleManger>
     async Task WalkPlayer()
     {
         await _battleCutSceneManager.WalkCharacterTo(_playerGO, new Vector3(-3.5f, 3.5f));
-        await Task.Delay(10);
+        await Task.Delay(200);
         _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
     }
 
+    async Task SpreadWater()
+    {
+        GameObject[] water = GameObject.FindGameObjectsWithTag(Tags.WaterOnTile);
+        if (water.Length == 0)
+            return;
 
+        foreach (GameObject w in water)
+            for (int x = -1; x <= 1; x++)
+                for (int y = -1; y < 1; y++)
+                    InstantiateWater(new Vector3(w.transform.position.x + x, w.transform.position.y + y));
+
+        await Task.Yield(); // to silnce the warning
+    }
     async void InstantiateWater(Vector3 pos)
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
@@ -152,11 +169,18 @@ public class RatBattleManger : Singleton<RatBattleManger>
         Color targetColor = new Color(1f, 1f, 1f, 0.5f);
         if (w != null)
             sr.DOColor(targetColor, 10f);
-
     }
 
     async Task SpawnFriend()
     {
+        Vector3[] forbiddenPositions = new Vector3[] {
+            new Vector3(-3.5f, 7.5f),
+            new Vector3(-3.5f, 6.5f)
+         };
+        await MovePlayer(forbiddenPositions);
+
+        _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.up);
+
         Vector3 pos = new Vector3(-3.5f, 8.5f);
         _friendGO = Instantiate(_playerPrefab, pos, Quaternion.identity);
         _friendGO.SetActive(false);
@@ -168,12 +192,47 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _friendGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.down);
 
         await Task.Delay(10);
-        BattleInputController.Instance.SetInputAllowed(false);
+        _battleInputController.SetInputAllowed(false);
         await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-3.5f, 6.5f));
         await _conversationManager.PlayConversation(_friendComes);
-        Debug.Log("after convo");
-        BattleInputController.Instance.SetInputAllowed(true);
-        _cameraManager.SetTarget(MovePointController.Instance.transform);
+        _battleInputController.SetInputAllowed(true);
+        _cameraManager.SetTarget(_movePointController.transform);
     }
 
+    async Task FriendElectrifies()
+    {
+        Vector3[] forbiddenPositions = new Vector3[] {
+            new Vector3(-3.5f, 5.5f),
+            new Vector3(-3.5f, 4.5f),
+            new Vector3(-3.5f, 3.5f)
+         };
+
+        await MovePlayer(forbiddenPositions);
+        _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.left);
+
+        Debug.Log("friend electrifies");
+        _battleInputController.SetInputAllowed(false);
+        await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-3.5f, 3.5f));
+        await _conversationManager.PlayConversation(_friendElectrifies);
+
+        _cameraManager.SetTarget(_movePointController.transform);
+
+        // use ability
+        CharacterStats stats = _friendGO.GetComponent<CharacterStats>();
+        Vector3 attackPos = new Vector3(4.5f, 3.5f);
+        await Task.Delay(200);
+        _friendGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
+
+        _movePointController.transform.position = attackPos;
+        await stats.Abilities[0].HighlightAreaOfEffect(attackPos);
+        await Task.Delay(200);
+        await stats.Abilities[0].TriggerAbility(_highlightManager.HighlightedTiles);
+    }
+
+    async Task MovePlayer(Vector3[] forbiddenPositions)
+    {
+        foreach (Vector3 pos in forbiddenPositions)
+            if (Vector3.Distance(_playerGO.transform.position, pos) < 0.1f)
+                await _battleCutSceneManager.WalkCharacterTo(_playerGO, new Vector3(-2.5f, 4.5f));
+    }
 }

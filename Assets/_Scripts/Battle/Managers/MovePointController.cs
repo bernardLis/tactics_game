@@ -76,16 +76,24 @@ public class MovePointController : Singleton<MovePointController>
     }
 
 
-    public void Move(Vector3 _pos)
+    public void Move(Vector3 pos)
     {
         // block moving out of tile map
-        Vector3Int tilePos = _tilemap.WorldToCell(_pos);
+        Vector3Int tilePos = _tilemap.WorldToCell(pos);
         if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
             return;
 
+        // snap movepoint to 0.5 0.5
+        Debug.Log($"x: {pos.x}");
+        Debug.Log($"y: {pos.y}");
+        float snappedX = Mathf.Round(pos.x * 2) * 0.5f;
+        float snappedY = Mathf.Round(pos.y * 2) * 0.5f;
+        Debug.Log($"snappedX: {snappedX}");
+        Debug.Log($"snappedY: {snappedY}");
+
         _audioManager.PlaySFX("Clicks", transform.position);
 
-        transform.position = _pos;
+        transform.position = new Vector3(snappedX, snappedY);
 
         // TODO: dunno if this is the correct way to handle this.
         _battleCharacterController.DrawPath();

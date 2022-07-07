@@ -28,6 +28,10 @@ public class BattleCutSceneManager : Singleton<BattleCutSceneManager>
         AstarPath.BlockUntilCalculated(path);
 
         character.SetActive(true);
+
+        if (TryGetComponent(out PlayerCharSelection selection))
+            selection.SetPositionTurnStart(endPos); // without this if you move character after they are walked, and click back they go back to the old position
+
         aiLerp.SetPath(path);
         aiLerp.destination = endPos;
 

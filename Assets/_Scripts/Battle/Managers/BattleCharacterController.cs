@@ -42,8 +42,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     // movement
     GameObject _tempObject;
-    public bool HasCharacterStartedMoving { get; private set; }
-    public bool IsMovingBack { get; private set; }
+    public bool HasCharacterStartedMoving;// { get; private set; }
+    public bool IsMovingBack;// { get; private set; }
 
     LineRenderer _pathRenderer;
 
@@ -301,6 +301,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     async void CharacterReachedDestination()
     {
+        Debug.Log("CharacterReachedDestination");
         _characterUI.EnableSkillButtons();
 
         if (_tempObject != null)
