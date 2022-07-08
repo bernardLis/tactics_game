@@ -38,6 +38,7 @@ public class ConversationManager : Singleton<ConversationManager>
 
     public async Task PlayConversation(Conversation conversation)
     {
+        GameManager.Instance.GetComponent<GameUIManager>().DisableMenuButton(); // TODO: ugh...
         _conversation = conversation;
         _isConversationOn = true;
         _currentLineIndex = 0;
@@ -46,6 +47,8 @@ public class ConversationManager : Singleton<ConversationManager>
 
         while (_isConversationOn)
             await Task.Yield();
+
+        GameManager.Instance.GetComponent<GameUIManager>().EnableMenuButton(); // TODO: ugh...
     }
 
     void KeyPressed()

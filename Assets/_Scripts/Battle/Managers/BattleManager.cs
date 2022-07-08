@@ -7,6 +7,8 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] JourneyNodeReward _rewardScriptableObject;
     JourneyNodeReward _reward;
 
+    public bool IsGamePaused { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -31,14 +33,17 @@ public class BattleManager : Singleton<BattleManager>
 
     public void PauseGame()
     {
+        IsGamePaused = true;
         Time.timeScale = 0;
-        _battleInputController.SetInputAllowed(false);
+        //_/battleInputController.SetInputAllowed(false);
     }
 
     public void ResumeGame()
     {
+        Debug.Log("resume");
+        IsGamePaused = false;
         Time.timeScale = 1;
-        _battleInputController.SetInputAllowed(true);
+        //_battleInputController.SetInputAllowed(true);
     }
 
     public void SnapToGrid(Transform t)

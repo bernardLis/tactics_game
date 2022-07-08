@@ -100,7 +100,7 @@ public class MainMenuUI : MonoBehaviour
 
     void Settings()
     {
-        new SettingsScreen(_root);
+        new SettingsScreen(_root, _root);
     }
 
     void ConfirmQuit()

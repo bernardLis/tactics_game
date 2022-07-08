@@ -28,34 +28,47 @@ public class GameUIManager : MonoBehaviour
 
     void SubscribeInputActions()
     {
-        _playerInput.actions["OpenMenuClick"].performed += ShowMenu;
+        EnableMenuButton();
         _playerInput.actions["ViewTroopsClick"].performed += ShowTroopsScreen;
 
     }
 
     public void UnsubscribeInputActions()
     {
-        _playerInput.actions["OpenMenuClick"].performed -= ShowMenu;
+        DisableMenuButton();
         _playerInput.actions["ViewTroopsClick"].performed -= ShowTroopsScreen;
-
     }
 
-    void ShowMenu(InputAction.CallbackContext ctx)
+    public void EnableMenuButton()
+    {
+        if (_menuScreen != null)
+            return;
+
+        _playerInput.actions["OpenMenuClick"].performed += ToggleMenu;
+    }
+
+    public void DisableMenuButton()
+    {
+        _playerInput.actions["OpenMenuClick"].performed -= ToggleMenu;
+    }
+
+    void ToggleMenu(InputAction.CallbackContext ctx)
     {
         if (SceneManager.GetActiveScene().name == "Main Menu")
             return;
 
-        if (_menuScreen != null)
-            _menuScreen.Hide();
-
         _menuScreen = new MenuScreen(_uiDocument.rootVisualElement);
         _menuScreen.OnClose += MenuScreenClosed;
+        _playerInput.actions["OpenMenuClick"].performed -= ToggleMenu;
+
     }
 
     void MenuScreenClosed()
     {
         _menuScreen.OnClose -= MenuScreenClosed;
+
         _menuScreen = null;
+        _playerInput.actions["OpenMenuClick"].performed += ToggleMenu;
     }
 
     public void ShowTroopsScreen(InputAction.CallbackContext ctx)
@@ -67,7 +80,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Main Menu")
             return;
-        
+
         if (_viewTroopsScreen != null)
             _viewTroopsScreen.Hide();
 

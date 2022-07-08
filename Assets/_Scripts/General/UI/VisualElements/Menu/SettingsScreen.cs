@@ -8,8 +8,12 @@ public class SettingsScreen : FullScreenVisual
 
     Toggle _fullScreenToggle;
 
-    public SettingsScreen(VisualElement root)
+    VisualElement _parent;
+
+    public SettingsScreen(VisualElement root, VisualElement parent)
     {
+        _parent = parent;
+
         _audioManger = AudioManager.Instance;
         Initialize(root);
         AddToClassList("menuScreen");
@@ -177,4 +181,11 @@ public class SettingsScreen : FullScreenVisual
         container.Add(label);
         return container;
     }
+
+    public override void Hide()
+    {
+        _parent.Focus();
+        base.Hide();
+    }
+
 }

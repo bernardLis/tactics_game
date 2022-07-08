@@ -29,7 +29,7 @@ public class BattleCutSceneManager : Singleton<BattleCutSceneManager>
 
         character.SetActive(true);
 
-        if (TryGetComponent(out PlayerCharSelection selection))
+        if (character.TryGetComponent(out PlayerCharSelection selection))
             selection.SetPositionTurnStart(endPos); // without this if you move character after they are walked, and click back they go back to the old position
 
         aiLerp.SetPath(path);
@@ -37,8 +37,6 @@ public class BattleCutSceneManager : Singleton<BattleCutSceneManager>
 
         while (!aiLerp.reachedEndOfPath)
             await Task.Yield();
-
-        //        await Task.Delay(1000); // TODO: wrong, need to wait for character to get there...
     }
 
 }
