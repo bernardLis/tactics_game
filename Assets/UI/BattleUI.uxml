@@ -7,10 +7,10 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="infoCardContainer" style="width: 500px; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto; padding-bottom: 20px;">
-        <ui:VisualElement name="tileInfoCard" class="uiContainer" style="height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: none; left: -100%; margin-bottom: 10px; padding-bottom: 20px;">
+        <ui:VisualElement name="tileInfoCard" class="uiContainer" style="height: auto; width: 100%; display: none; left: -100%; margin-bottom: 10px; padding-bottom: 20px;">
             <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" class="primaryText" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
         </ui:VisualElement>
-        <ui:VisualElement name="characterCard" class="uiContainer" style="align-items: stretch; justify-content: flex-start; background-color: rgba(0, 0, 0, 0.4); display: none; left: -100%;">
+        <ui:VisualElement name="characterCard" class="uiContainer" style="align-items: stretch; justify-content: flex-start; display: none; left: -100%;">
             <ui:VisualElement name="characterCardBasicInfo" class="characterCard">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 30%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterCardName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
@@ -66,7 +66,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="interactionSummary" class="uiContainer" style="width: auto; left: -100%; height: auto; background-color: rgba(0, 0, 0, 0.4); margin-top: 10px; display: none;">
+        <ui:VisualElement name="interactionSummary" class="uiContainer" style="width: auto; left: -100%; height: auto; margin-top: 10px; display: none;">
             <ui:VisualElement name="attackSummary" style="color: rgb(253, 253, 253);">
                 <ui:Label text="Attack:" display-tooltip-when-elided="true" name="attackLabel" class="primaryText" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;" />
                 <ui:VisualElement name="attackDamageGroup" class="secondaryText" style="flex-direction: row; align-items: center;">

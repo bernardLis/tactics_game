@@ -143,7 +143,7 @@ public class WaterOnTile : TileEffect
             await _objectStats.AddStatus(status, character);
 
         // refresh card
-        InfoCardUI.Instance.ShowTileInfo(DisplayText());
+        InfoCardUI.Instance.ShowTileInfo(transform.position);
     }
 
     protected override async Task DecrementTurnsLeft()

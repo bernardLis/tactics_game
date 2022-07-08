@@ -60,12 +60,71 @@ public class CharacterUI : Singleton<CharacterUI>
         _battleInputController = BattleInputController.Instance;
         _battleCharacterController = BattleCharacterController.Instance;
 
+        MovePointController.OnMove += MovePointController_OnMove;
+        BattleCharacterController.OnCharacterStateChanged += BattleCharacterController_OnCharacterStateChange;
+
         //https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
         StartCoroutine(CoroutineCoordinator());
     }
 
-    public void ShowCharacterUI(CharacterStats playerStats)
+    void OnDestroy()
     {
+        MovePointController.OnMove -= MovePointController_OnMove;
+        BattleCharacterController.OnCharacterStateChanged -= BattleCharacterController_OnCharacterStateChange;
+    }
+
+    void MovePointController_OnMove(Vector3 pos)
+    {
+        ResolveManaChange();
+    }
+
+    void BattleCharacterController_OnCharacterStateChange(CharacterState state)
+    {
+        if (state == CharacterState.None)
+            HandleCharacterStateNone();
+        if (state == CharacterState.Selected)
+            HandleCharacterSelected();
+        if (state == CharacterState.SelectingInteractionTarget)
+            return;
+        if (state == CharacterState.SelectingFaceDir)
+            HandleSelectingFaceDir();
+        if (state == CharacterState.ConfirmingInteraction)
+            return;
+    }
+    void HandleCharacterStateNone()
+    {
+        HideCharacterUI();
+    }
+
+    void HandleCharacterSelected()
+    {
+        ShowCharacterUI();
+        HideAbilityTooltip();
+    }
+
+    void HandleSelectingFaceDir()
+    {
+        DisableSkillButtons();
+    }
+
+    void ResolveManaChange()
+    {
+        //HideHealthChange();
+        HideManaChange();
+
+        if (_battleCharacterController.SelectedAbility == null)
+            return;
+        Ability selectedAbility = _battleCharacterController.SelectedAbility;
+
+        // mana use
+        if (selectedAbility.ManaCost != 0)
+            ShowManaChange(-1 * selectedAbility.ManaCost);
+    }
+
+    void ShowCharacterUI()
+    {
+        PlayerStats playerStats = _battleCharacterController.SelectedCharacter.GetComponent<PlayerStats>();
+
         InfoCardUI.Instance.HideCharacterCard();
 
         _selectedPlayerStats = playerStats;

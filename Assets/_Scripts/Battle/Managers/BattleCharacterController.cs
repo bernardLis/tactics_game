@@ -6,7 +6,6 @@ using Pathfinding;
 using System.Threading.Tasks;
 
 public enum CharacterState { None, Selected, SelectingInteractionTarget, SelectingFaceDir, ConfirmingInteraction }
-
 public class BattleCharacterController : Singleton<BattleCharacterController>
 {
     // global utilities
@@ -73,6 +72,18 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _pathRenderer = GetComponent<LineRenderer>();
 
         _blockManager = FindObjectOfType<BlockManager>();
+
+        MovePointController.OnMove += MovePointController_OnMove;
+    }
+
+    void OnDestroy()
+    {
+        MovePointController.OnMove -= MovePointController_OnMove;
+    }
+
+    void MovePointController_OnMove(Vector3 pos)
+    {
+        DrawPath();
     }
 
     void Update()
@@ -109,7 +120,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         }
         OnCharacterStateChanged?.Invoke(newState);
     }
-
 
     public void Select(Collider2D[] cols)
     {
@@ -192,7 +202,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     async void SelectCharacter(GameObject character)
     {
         _isSelectionBlocked = true;
-        UpdateCharacterState(CharacterState.Selected);
 
         if (character.GetComponent<PlayerCharSelection>().HasMovedThisTurn)
             return;
@@ -212,15 +221,14 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // character specific ui
         _playerCharSelection.SelectCharacter();
 
-        // UI
-        _characterUI.ShowCharacterUI(_playerStats);
-
         // highlight
         _battleInputController.SetInputAllowed(false);
         await _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy);
         _battleInputController.SetInputAllowed(true);
 
         _isSelectionBlocked = false;
+
+        UpdateCharacterState(CharacterState.Selected);
     }
 
     void Move()
@@ -247,7 +255,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     public async void Back()
     {
         ClearPathRenderer();
-        _movePointController.UpdateDisplayInformation();
 
         // if back is called during character movement return
         if (HasCharacterStartedMoving)
@@ -301,7 +308,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     async void CharacterReachedDestination()
     {
-        Debug.Log("CharacterReachedDestination");
         _characterUI.EnableSkillButtons();
 
         if (_tempObject != null)
@@ -330,8 +336,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     {
         ClearPathRenderer();
         SelectedAbility = ability;
-
-        _movePointController.UpdateDisplayInformation();
+        UpdateCharacterState(CharacterState.SelectingInteractionTarget);
     }
 
     public async void Interact()
@@ -349,7 +354,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             await SelectedAbility.HighlightAreaOfEffect(transform.position);
             _battleInputController.SetInputAllowed(true);
 
-            _movePointController.UpdateDisplayInformation();
             _isInteracting = false;
             return;
         }
@@ -373,13 +377,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     void BackFromAbilitySelection()
     {
         _isInteracting = false;
+        SelectedAbility = null;
+        _highlighter.ClearHighlightedTiles().GetAwaiter();
 
         UpdateCharacterState(CharacterState.Selected);
-
-        SelectedAbility = null;
-        _characterUI.HideAbilityTooltip();
-
-        _highlighter.ClearHighlightedTiles().GetAwaiter();
     }
 
     async Task BackFromFaceDirSelection()
@@ -409,22 +410,17 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     async Task BackFromConfirmingInteraction()
     {
         _isInteracting = false;
-        UpdateCharacterState(CharacterState.SelectingInteractionTarget);
         _battleInputController.SetInputAllowed(false);
         await SelectedAbility.HighlightTargetable(SelectedCharacter);
         GetViableTargets();
         _battleInputController.SetInputAllowed(true);
+
+        UpdateCharacterState(CharacterState.SelectingInteractionTarget);
     }
 
     void FinishCharacterTurn()
     {
         _isInteracting = false;
-
-        // necessary for movepoint to correctly update UI;
-        UpdateCharacterState(CharacterState.None);
-
-        // update ui through movepoint
-        _movePointController.UpdateAbilityResult();
 
         // set flags in player char selection
         if (_playerCharSelection != null)
@@ -432,12 +428,12 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // clearing the cache here
         UnselectCharacter();
+
+        UpdateCharacterState(CharacterState.None);
     }
 
     public void UnselectCharacter()
     {
-        UpdateCharacterState(CharacterState.None);
-
         // character specific ui
         if (_playerCharSelection != null)
             _playerCharSelection.DeselectCharacter();
@@ -447,11 +443,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerCharSelection = null;
         SelectedAbility = null;
 
-        // UI
-        _characterUI.HideCharacterUI();
-
         // highlight
         _highlighter.ClearHighlightedTiles().GetAwaiter();
+
+        UpdateCharacterState(CharacterState.None);
     }
 
     // TODO: this probably shouldn't be here 

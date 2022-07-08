@@ -194,7 +194,7 @@ public class InventoryUI : Singleton<InventoryUI>
         _inventoryContainer.style.display = DisplayStyle.None;
 
         // TODO: maybe battle controller can have a method for that; that's nasty
-        CharacterUI.Instance.ShowCharacterUI(BattleCharacterController.Instance.SelectedCharacter.GetComponent<CharacterStats>());
+       // CharacterUI.Instance.ShowCharacterUI(BattleCharacterController.Instance.SelectedCharacter.GetComponent<CharacterStats>());
 
         _playerInput.SwitchCurrentActionMap("Player");
     }

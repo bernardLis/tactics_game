@@ -7,36 +7,44 @@ public class BattleDeploymentController : MonoBehaviour
     GameManager _gameManager;
     HighlightManager _highlighter;
     InfoCardUI _infoCardUI;
+    MovePointController _movePointController;
 
     List<Character> _charactersToPlace;
     public GameObject CharacterTemplate;
     public GameObject CharacterBeingPlaced { get; private set; }
     int _characterBeingPlacedIndex = 0;
 
-    void Awake()
-    {
-        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
-    }
-    void OnDestroy()
-    {
-        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
-    }
-
     void Start()
     {
         _gameManager = GameManager.Instance;
         _highlighter = HighlightManager.Instance;
         _infoCardUI = InfoCardUI.Instance;
+        _movePointController = MovePointController.Instance;
+
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+        MovePointController.OnMove += MovePointController_OnMove;
 
         // TODO: here I can actually create characters from save data
         // no, actually characters are created by journey manager by loading save data, so you should just use them;
         _charactersToPlace = new(_gameManager.PlayerTroops);
     }
 
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+        MovePointController.OnMove -= MovePointController_OnMove;
+    }
+
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
         if (TurnManager.BattleState == BattleState.MapBuilding)
             HandleMapBuilding();
+    }
+
+    void MovePointController_OnMove(Vector3 pos)
+    {
+        if (CharacterBeingPlaced != null)
+            UpdateCharacterBeingPlacedPosition();
     }
 
     void HandleMapBuilding()

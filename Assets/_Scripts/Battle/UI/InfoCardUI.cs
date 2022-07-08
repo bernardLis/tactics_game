@@ -1,11 +1,19 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using UnityEngine.Tilemaps;
 
 public class InfoCardUI : Singleton<InfoCardUI>
 {
     // global
     CharacterUI _characterUI;
+    BattleCharacterController _battleCharacterController;
+    MovePointController _movePointController;
+
+    // tilemap
+    Tilemap _tilemap;
+    WorldTile _tile;
+
 
     // tile info
     VisualElement _tileInfoCard;
@@ -61,13 +69,82 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     void Start()
     {
+        // This is our Dictionary of tiles
+        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
+
         _characterUI = CharacterUI.Instance;
+        _battleCharacterController = BattleCharacterController.Instance;
+        _movePointController = MovePointController.Instance;
+
+        MovePointController.OnMove += MovePointController_OnMove;
+        BattleCharacterController.OnCharacterStateChanged += BattleCharacterController_OnCharacterStateChange;
+    }
+
+    void OnDestroy()
+    {
+        MovePointController.OnMove -= MovePointController_OnMove;
+        BattleCharacterController.OnCharacterStateChanged -= BattleCharacterController_OnCharacterStateChange;
+    }
+
+    void MovePointController_OnMove(Vector3 pos)
+    {
+        ShowTileInfo(pos);
+        ResolveCharacterCard(pos);
+        ResolveInteractionSummary(pos);
+    }
+
+    void BattleCharacterController_OnCharacterStateChange(CharacterState state)
+    {
+        if (state == CharacterState.None)
+            HandleCharacterStateNone();
+        if (state == CharacterState.Selected)
+            HandleCharacterSelected();
+        if (state == CharacterState.SelectingInteractionTarget)
+            HandleCharacterSelectingInteractionTarget();
+        if (state == CharacterState.SelectingFaceDir)
+            return;
+        if (state == CharacterState.ConfirmingInteraction)
+            return;
+    }
+
+    void HandleCharacterStateNone()
+    {
+        ResolveInteractionSummary(_movePointController.transform.position);
+    }
+
+    void HandleCharacterSelected()
+    {
+        ResolveInteractionSummary(_movePointController.transform.position);
+    }
+
+    void HandleCharacterSelectingInteractionTarget()
+    {
+        ResolveCharacterCard(_movePointController.transform.position);
+        ResolveInteractionSummary(_movePointController.transform.position);
     }
 
     /* tile info */
-    public void ShowTileInfo(string info)
+    public void ShowTileInfo(Vector3 pos)
     {
-        _tileInfoText.text = info;
+        string text = "";
+
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        foreach (Collider2D c in cols)
+        {
+            if (c.TryGetComponent(out IUITextDisplayable uiText))
+                text += uiText.DisplayText();
+            if (c.CompareTag(Tags.BoundCollider))
+                text += "Impassable map bounds. ";
+        }
+
+        // hide/show the whole panel
+        if (text == "")
+        {
+            HideTileInfo();
+            return;
+        }
+
+        _tileInfoText.text = text;
         _tileInfoCard.style.display = DisplayStyle.Flex;
 
         DOTween.Pause(_hideTileInfoTweenID);
@@ -82,6 +159,25 @@ public class InfoCardUI : Singleton<InfoCardUI>
                .SetEase(Ease.InOutSine)
                .OnComplete(() => DisplayNone(_tileInfoCard))
                .SetId(_hideTileInfoTweenID);
+    }
+
+    void ResolveCharacterCard(Vector3 pos)
+    {
+        // show character card if there is character standing there
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        foreach (Collider2D c in cols)
+            if (_battleCharacterController.SelectedCharacter != c.gameObject
+                && c.TryGetComponent(out CharacterStats stats))
+            {
+                ShowCharacterCard(stats);
+                return;
+            }
+
+        // hide if it is something else
+        if (TurnManager.BattleState == BattleState.Deployment) // show card is called from deployment controller
+            return;
+
+        HideCharacterCard();
     }
 
     /* character card */
@@ -109,6 +205,33 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _displayedCharacter = null;
         DOTween.To(() => _characterCard.style.left.value.value, x => _characterCard.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
+    }
+
+    void ResolveInteractionSummary(Vector3 pos)
+    {
+        HideInteractionSummary();
+
+        if (_battleCharacterController.SelectedAbility == null)
+            return;
+        Ability selectedAbility = _battleCharacterController.SelectedAbility;
+
+        // don't show interaction summary if not in range of interaction
+        Vector3Int tilePos = _tilemap.WorldToCell(pos);
+        if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
+            return;
+        if (!_tile.WithinRange)
+            return;
+
+        // check if there is a character standing there
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.TryGetComponent(out CharacterStats stats))
+            {
+                CharacterStats attacker = _battleCharacterController.SelectedCharacter.GetComponent<CharacterStats>();
+                CharacterStats defender = c.GetComponent<CharacterStats>();
+
+                ShowInteractionSummary(attacker, defender, selectedAbility);
+            }
     }
 
     public void ShowInteractionSummary(CharacterStats attacker, CharacterStats defender, Ability ability)
