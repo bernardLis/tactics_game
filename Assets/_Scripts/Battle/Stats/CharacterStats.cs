@@ -54,11 +54,14 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     // statuses
     public int DamageReceivedWhenWalking { get; private set; }
-    [SerializeField] List<Status> _statusesBeforeWalking = new();
-    [SerializeField] List<Status> _statusesAddedWhenWalking = new();
+    List<Status> _statusesBeforeWalking = new();
+    List<Status> _statusesAddedWhenWalking = new();
 
     // absorbers/shields
     List<Absorber> _absorbers = new();
+
+    // place of power
+    Ability _replacedAbility;
 
     // character progression
     CharacterStats _lastAttacker;
@@ -69,6 +72,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public event Action<int, int, int> OnHealthChange; // total,  value before change, change 
     public event Action<int, int, int> OnManaChange;
     public event Action<StatModifier> OnModifierAdded;
+    public event Action<Ability> OnAbilityAdded;
 
     protected override void Awake()
     {
@@ -677,9 +681,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         foreach (Status s in _statusesAddedWhenWalking)
             RemoveStatus(s);
-
         _statusesAddedWhenWalking.Clear();
-
         foreach (Status s in _statusesBeforeWalking)
             AddStatusWithoutTrigger(s, s.Attacker);
     }
@@ -697,5 +699,21 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     void DisableAiLerpSearch()
     {
         _aiLerp.canSearch = false;
+    }
+
+    public void ReplaceAbility(Ability ability)
+    {
+        _replacedAbility = Abilities[0];
+        Abilities[0] = Instantiate(ability);
+        ability.Initialize(gameObject);
+        
+        OnAbilityAdded?.Invoke(ability);
+    }
+
+    public void RevertAbilityReplace()
+    {
+        Abilities[0] = _replacedAbility;
+        _replacedAbility = null;
+        OnAbilityAdded?.Invoke(_replacedAbility);
     }
 }

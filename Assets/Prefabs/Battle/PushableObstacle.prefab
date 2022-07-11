@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 1026173747825292159}
   - component: {fileID: 3750554321697331491}
   m_Layer: 3
-  m_Name: Boulder
+  m_Name: PushableObstacle
   m_TagString: PushableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

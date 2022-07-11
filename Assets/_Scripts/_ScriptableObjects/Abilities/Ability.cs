@@ -39,6 +39,9 @@ public abstract class Ability : BaseScriptableObject
     public bool CanTargetDiagonally;
     public Color HighlightColor;
 
+    [Header("Animation (temp)")]
+    public Sprite[] UIAnimationSprites;
+
 
     [HideInInspector] public GameObject CharacterGameObject;
     protected CharacterStats _stats;

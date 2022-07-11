@@ -13,6 +13,7 @@ public class CharacterUI : Singleton<CharacterUI>
     BattleCharacterController _battleCharacterController;
 
     // UI Elements
+    VisualElement _root;
     VisualElement _container;
     VisualElement _characterCardContainer;
     CharacterCardVisual _characterCardVisual;
@@ -41,17 +42,17 @@ public class CharacterUI : Singleton<CharacterUI>
         base.Awake();
 
         // getting ui elements
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        _root = GetComponent<UIDocument>().rootVisualElement;
 
-        _container = root.Q<VisualElement>("characterUIContainer");
-        _characterCardContainer = root.Q<VisualElement>("characterUICharacterCard");
+        _container = _root.Q<VisualElement>("characterUIContainer");
+        _characterCardContainer = _root.Q<VisualElement>("characterUICharacterCard");
 
-        _abilityTooltipContainer = root.Q<VisualElement>("abilityTooltipContainer");
+        _abilityTooltipContainer = _root.Q<VisualElement>("abilityTooltipContainer");
 
-        _openInventoryButton = root.Q<Button>("openInventory");
+        _openInventoryButton = _root.Q<Button>("openInventory");
         _openInventoryButton.clickable.clicked += OpenInventoryClicked;
 
-        _characterAbilitiesContainer = root.Q<VisualElement>("characterAbilities");
+        _characterAbilitiesContainer = _root.Q<VisualElement>("characterAbilities");
         _characterAbilitiesContainer.Clear();
     }
 
@@ -91,14 +92,20 @@ public class CharacterUI : Singleton<CharacterUI>
         if (state == CharacterState.ConfirmingInteraction)
             return;
     }
-    void HandleCharacterStateNone()
+    async void HandleCharacterStateNone()
     {
-        HideCharacterUI();
+        _selectedPlayerStats.OnAbilityAdded -= OnAbilityAdded;
+        _selectedPlayerStats = null;
+
+        await HideCharacterUI();
     }
 
-    void HandleCharacterSelected()
+    async void HandleCharacterSelected()
     {
-        ShowCharacterUI();
+        _selectedPlayerStats = _battleCharacterController.SelectedCharacter.GetComponent<PlayerStats>();
+        _selectedPlayerStats.OnAbilityAdded += OnAbilityAdded;
+
+        await ShowCharacterUI();
         HideAbilityTooltip();
     }
 
@@ -109,7 +116,6 @@ public class CharacterUI : Singleton<CharacterUI>
 
     void ResolveManaChange()
     {
-        //HideHealthChange();
         HideManaChange();
 
         if (_battleCharacterController.SelectedAbility == null)
@@ -121,36 +127,37 @@ public class CharacterUI : Singleton<CharacterUI>
             ShowManaChange(-1 * selectedAbility.ManaCost);
     }
 
-    void ShowCharacterUI()
+    async Task ShowCharacterUI()
     {
-        PlayerStats playerStats = _battleCharacterController.SelectedCharacter.GetComponent<PlayerStats>();
-
-        InfoCardUI.Instance.HideCharacterCard();
-
-        _selectedPlayerStats = playerStats;
-
         _characterCardContainer.Clear();
-        _characterCardVisual = new(playerStats);
+        _characterCardVisual = new(_selectedPlayerStats);
         _characterCardContainer.Add(_characterCardVisual);
 
         HandleAbilityButtons();
         DisableSkillButtons();
-        EnableSkillButtons();
 
         DOTween.Kill(_hideCharacterUIID);
-        DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x),
+        await DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x),
                          _UIShowValue, 0.5f)
-                    .SetEase(Ease.InOutSine);
+                    .SetEase(Ease.InOutSine).AsyncWaitForCompletion();
+
+        EnableSkillButtons();
     }
 
-    public void HideCharacterUI()
+    async void OnAbilityAdded(Ability ability)
+    {
+        await HideCharacterUI();
+        await ShowCharacterUI();
+    }
+
+    public async Task HideCharacterUI()
     {
         HideAbilityTooltip();
-        _selectedPlayerStats = null;
-        DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x),
+
+        await DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x),
                          _UIHideValue, 0.5f)
                 .SetEase(Ease.InOutSine)
-                .SetId(_hideCharacterUIID);
+                .SetId(_hideCharacterUIID).AsyncWaitForCompletion();
     }
 
     public void ShowHealthChange(int val)
@@ -193,16 +200,15 @@ public class CharacterUI : Singleton<CharacterUI>
 
     void HandleAbilityButtons()
     {
-
         // TODO: I think that the idea with buttons remembering their input key is not so good
         // but I don't have any other ideas... maybe in the future I will come up with something
         // it's for simulating button clicks with the keyboard;
         string[] buttons = { "Q", "W", "E", "R" };
 
-        AbilityButton basicAttack = new(_selectedPlayerStats.BasicAbilities[0], "A");
+        AbilityButton basicAttack = new(_selectedPlayerStats.BasicAbilities[0], "A", _root);
         basicAttack.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicAttack));
 
-        AbilityButton basicDefend = new(_selectedPlayerStats.BasicAbilities[1], "S");
+        AbilityButton basicDefend = new(_selectedPlayerStats.BasicAbilities[1], "S", _root);
         basicDefend.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicDefend));
 
         _characterAbilitiesContainer.Clear();
@@ -211,7 +217,7 @@ public class CharacterUI : Singleton<CharacterUI>
 
         for (int i = 0; i < _selectedPlayerStats.Abilities.Count; i++)
         {
-            AbilityButton button = new(_selectedPlayerStats.Abilities[i], buttons[i]);
+            AbilityButton button = new(_selectedPlayerStats.Abilities[i], buttons[i], _root);
             button.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(button));
 
             _characterAbilitiesContainer.Add(button);
@@ -243,6 +249,9 @@ public class CharacterUI : Singleton<CharacterUI>
     public void EnableSkillButtons()
     {
         if (_characterAbilitiesContainer.childCount == 0)
+            return;
+
+        if (_container.style.bottom.value.value < _UIShowValue)
             return;
 
         _areButtonEnabled = true;

@@ -14,7 +14,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
     Tilemap _tilemap;
     WorldTile _tile;
 
-
     // tile info
     VisualElement _tileInfoCard;
     Label _tileInfoText;
@@ -114,7 +113,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     void HandleCharacterSelected()
     {
+        HideCharacterCard();
         ResolveInteractionSummary(_movePointController.transform.position);
+        ShowTileInfo(_movePointController.transform.position);
     }
 
     void HandleCharacterSelectingInteractionTarget()

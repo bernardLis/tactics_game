@@ -81,9 +81,9 @@ public class WaterOnTile : TileEffect
         return false;
     }
 
-
     protected override void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("OnTriggerEnter2D");
         if (other.TryGetComponent(out CharacterStats stats))
         {
             Wet(stats);

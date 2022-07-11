@@ -159,10 +159,6 @@
                 </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement name="characterAbilities" class="uiContainer" style="height: 100%; width: 70%; flex-direction: row; justify-content: space-around; align-items: center;">
-                <ui:Button display-tooltip-when-elided="true" name="characterAButton">
-                    <ui:VisualElement name="characterASkillIcon" class="abilityButtonIcon" />
-                    <ui:Label text="A" display-tooltip-when-elided="true" name="characterASkillTooltip" style="-unity-text-align: upper-center;" />
-                </ui:Button>
                 <ui:Button display-tooltip-when-elided="true" name="characterSButton">
                     <ui:VisualElement name="characterSSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/shield.png?fileID=21300000&amp;guid=46fdae8c04a550547a6bef44d81553d0&amp;type=3#shield&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
                     <ui:Label text="S" display-tooltip-when-elided="true" name="characterSSkillTooltip" style="-unity-text-align: upper-center;" />

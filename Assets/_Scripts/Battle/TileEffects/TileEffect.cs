@@ -73,13 +73,9 @@ public class TileEffect : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3,
         DestroySelf();
     }
 
-
     public virtual string DisplayText()
     {
         // meant to be overwritten
         return null;
     }
-
-
-
 }

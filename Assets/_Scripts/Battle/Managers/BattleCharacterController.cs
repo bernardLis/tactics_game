@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Pathfinding;
 using System.Threading.Tasks;
 
-public enum CharacterState { None, Selected, SelectingInteractionTarget, SelectingFaceDir, ConfirmingInteraction }
+public enum CharacterState { None, Selected, Moved, SelectingInteractionTarget, SelectingFaceDir, ConfirmingInteraction }
 public class BattleCharacterController : Singleton<BattleCharacterController>
 {
     // global utilities
@@ -107,6 +107,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             case CharacterState.None:
                 break;
             case CharacterState.Selected:
+                break;
+            case CharacterState.Moved:
                 break;
             case CharacterState.SelectingInteractionTarget:
                 break;
@@ -320,7 +322,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // check if it was back or normal move
         if (!IsMovingBack)
+        {
+            UpdateCharacterState(CharacterState.Moved);
             return;
+        }
 
         // highlight movement range if character was going back
         IsMovingBack = false;
@@ -330,6 +335,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _battleInputController.SetInputAllowed(false);
         await _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy); // TODO:
         _battleInputController.SetInputAllowed(true);
+        UpdateCharacterState(CharacterState.Selected);
+
     }
 
     public void SetSelectedAbility(Ability ability)
