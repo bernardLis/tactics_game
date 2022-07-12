@@ -29,30 +29,5 @@ public class AbilityButton : Button
 
         Add(_icon);
         Add(_keyTooltip);
-
-        Debug.Log($"name: {ability.name}");
-        // animation
-        if (ability.UIAnimationSprites.Length == 0)
-            return;
-        _animationElement = new VisualElement();
-        _animationElement.style.position = Position.Absolute;
-
-        root.Add(_animationElement);
-
-        _currentAnimIndex = 0;
-        _animationSprites = ability.UIAnimationSprites;
-        schedule.Execute(Animate).Every(50);
-    }
-
-    void Animate()
-    {
-        // TODO: need to destroy the element when this ability buttons is destroyed
-        _animationElement.style.left = this.resolvedStyle.left;
-        _animationElement.style.top = this.resolvedStyle.top;
-
-        _animationElement.style.backgroundImage = new StyleBackground(_animationSprites[_currentAnimIndex]);
-        _currentAnimIndex++;
-        if (_currentAnimIndex >= _animationSprites.Length) // am I losing 1 frame here? 
-            _currentAnimIndex = 0;
     }
 }

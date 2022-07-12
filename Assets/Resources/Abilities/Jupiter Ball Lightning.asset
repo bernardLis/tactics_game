@@ -18,7 +18,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 7767b2ae7ebe14d498401b0cca068540, type: 3}
   Sound: {fileID: 8300000, guid: dcd503766e3f1c04281fbcce3462da18, type: 3}
   BasePower: 20
-  ManaCost: 10
+  ManaCost: 0
   AreaOfEffect: 0
   LineAreaOfEffect: 0
   AbilityType: 0
@@ -33,50 +33,4 @@ MonoBehaviour:
   CanTargetSelf: 0
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.33312562, g: 0.72568893, b: 0.8962264, a: 1}
-  UIAnimationSprites:
-  - {fileID: 1085411372, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -754554517, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 903098058, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 453809573, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1810788762, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 324829046, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 412678524, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 352184483, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1507415074, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1827338710, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -1083364421, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 326579308, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1742991104, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1561422832, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 495058069, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1464513228, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -556518894, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -1167362961, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -782708625, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -897171778, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 2087032109, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -433518272, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -550242943, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -1094881274, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -1142012303, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -950515576, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -1494883893, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -46971476, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -158686432, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -109837230, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1943699220, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -2027650571, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 392553510, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -1731335656, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1506347882, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 33394715, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 450671017, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 548262423, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -752224174, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -705554428, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: 1515457833, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -971862979, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -227478336, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -464200689, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
-  - {fileID: -1196904747, guid: 6c8dacd6419ea464eb7bb3771307a964, type: 3}
   CharacterGameObject: {fileID: 0}

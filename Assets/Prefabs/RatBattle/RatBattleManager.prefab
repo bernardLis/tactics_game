@@ -80,6 +80,22 @@ MonoBehaviour:
   _waterOnTile: {fileID: 2389397590401772879, guid: d8e2fd09323c0504caed8a395dd232d1, type: 3}
   _envObjectsHolder: {fileID: 0}
   _playerPrefab: {fileID: 6105715623576548083, guid: 5292bfb2a93455445be59d39c398d325, type: 3}
-  _beginningMonologue: {fileID: 11400000, guid: ccae3ac0b4966c74580731904f3879bf, type: 2}
+  _helloRats: {fileID: 11400000, guid: ccae3ac0b4966c74580731904f3879bf, type: 2}
+  _move: {fileID: 11400000, guid: f029c7669a47c4d4f92d3e9cbfc5de32, type: 2}
   _friendComes: {fileID: 11400000, guid: 4c5d2edb6ed56314b87a99edf05feb8d, type: 2}
   _friendElectrifies: {fileID: 11400000, guid: 0e4de90d0bcd9fc418db6f051156c5d3, type: 2}
+--- !u!114 &7545687572183000468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461571229676209144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da04a8d06c5a2646ac67ec0ab44c75b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arrowsToMove: {fileID: 11400000, guid: daa98cfe0f9be6841abc803602191312, type: 2}
+  _fToSelect: {fileID: 11400000, guid: a66a273cf2b8e6b44b402bc6254f1b22, type: 2}
+  _selected: {fileID: 11400000, guid: 683ebce395a997444980b6d9b3aecc15, type: 2}

@@ -32,7 +32,8 @@ public class RatBattleManger : Singleton<RatBattleManger>
     GameObject _friendGO;
 
     [Header("Conversation")]
-    [SerializeField] Conversation _beginningMonologue;
+    [SerializeField] Conversation _helloRats;
+    [SerializeField] Conversation _move;
     [SerializeField] Conversation _friendComes;
     [SerializeField] Conversation _friendElectrifies;
 
@@ -77,10 +78,10 @@ public class RatBattleManger : Singleton<RatBattleManger>
         if (TurnManager.CurrentTurn == 1)
             InstantiateWater(new Vector3(4.5f, 4.5f));
 
-        if (TurnManager.CurrentTurn == 2) // TODO: normally 5th turn? 
+        if (TurnManager.CurrentTurn == 4) // TODO: normally 5th turn? 
             await SpawnFriend();
 
-        if (TurnManager.CurrentTurn == 3) // TODO: normally 7th turn? 
+        if (TurnManager.CurrentTurn == 6) // TODO: normally 7th turn? 
             await FriendElectrifies();
     }
 
@@ -92,7 +93,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await SpawnPlayer();
         await WalkPlayer();
         await _cameraManager.LerpOrthographicSize(7, 1);
-        await _conversationManager.PlayConversation(_beginningMonologue);
+        await _conversationManager.PlayConversation(_helloRats);
         _turnManager.UpdateBattleState(BattleState.PlayerTurn);
     }
 
@@ -233,6 +234,9 @@ public class RatBattleManger : Singleton<RatBattleManger>
     {
         foreach (Vector3 pos in forbiddenPositions)
             if (Vector3.Distance(_playerGO.transform.position, pos) < 0.1f)
+            {
+                await _conversationManager.PlayConversation(_move);
                 await _battleCutSceneManager.WalkCharacterTo(_playerGO, new Vector3(-2.5f, 4.5f));
+            }
     }
 }

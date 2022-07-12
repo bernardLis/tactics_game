@@ -74,6 +74,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public event Action<StatModifier> OnModifierAdded;
     public event Action<Ability> OnAbilityAdded;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -704,9 +705,11 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public void ReplaceAbility(Ability ability)
     {
         _replacedAbility = Abilities[0];
-        Abilities[0] = Instantiate(ability);
-        ability.Initialize(gameObject);
-        
+
+        Ability clone = Instantiate(ability);
+        clone.Initialize(gameObject);
+        Abilities[0] = clone;
+
         OnAbilityAdded?.Invoke(ability);
     }
 
@@ -714,6 +717,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         Abilities[0] = _replacedAbility;
         _replacedAbility = null;
-        OnAbilityAdded?.Invoke(_replacedAbility);
+        OnAbilityAdded?.Invoke(Abilities[0]);
     }
 }

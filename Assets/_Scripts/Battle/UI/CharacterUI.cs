@@ -94,6 +94,8 @@ public class CharacterUI : Singleton<CharacterUI>
     }
     async void HandleCharacterStateNone()
     {
+        if (_selectedPlayerStats == null)
+            return;
         _selectedPlayerStats.OnAbilityAdded -= OnAbilityAdded;
         _selectedPlayerStats = null;
 
