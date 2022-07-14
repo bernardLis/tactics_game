@@ -119,13 +119,10 @@ public class Brain : BaseScriptableObject
         await _selectedAbility.HighlightAreaOfEffect(Target.transform.position);
         await Task.Delay(500);
         await _selectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
-
-        _infoCardUI.ShowCharacterCard(_enemyStats);
     }
 
     protected void Defend()
     {
-
         // TODO: this is wrong way to select defend ability, but let's keep it for now.
         _selectedAbility = Abilities.FirstOrDefault(a => a.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f");
         Target = _characterGameObject;

@@ -103,7 +103,6 @@ public class MeeleBrain : Brain
             bestAbility = a;
         }
         _selectedAbility = bestAbility;
-        Debug.Log($"selected ability{_selectedAbility} ");
     }
 
 }

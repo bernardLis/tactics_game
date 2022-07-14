@@ -57,18 +57,17 @@ public class EnemyAI : MonoBehaviour
 
         // wait for character to reach destination
         while (!_aiLerp.reachedDestination)
-            await Task.Delay(25); // TODO: does this work? should move be async await all the way? 
+            await Task.Delay(25);
 
         await Task.Delay(500);
         await _brain.Interact();
+        if (_enemyStats.CurrentHealth <= 0) // if you die during your turn
+            return;
 
-        // TODO: what happens if you die during your turn;
         await Task.Delay(500);
         await _highlighter.ClearHighlightedTiles();
 
         await Task.Delay(500);
         _characterSelection.FinishCharacterTurn();
-
-        return;
     }
 }

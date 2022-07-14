@@ -357,6 +357,9 @@ public class HighlightManager : Singleton<HighlightManager>
         if (!self && _charTile.LocalPlace == worldPoint)
             return false;
 
+        if (_tile.IsObstacle)
+            return false;
+
         return true;
     }
 

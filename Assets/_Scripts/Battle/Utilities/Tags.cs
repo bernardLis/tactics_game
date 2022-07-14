@@ -11,6 +11,13 @@ public static class Tags
         private set { }
     }
 
+    public static string IdleCharacter
+    {
+        get { return "IdleCharacter"; }
+        private set { }
+    }
+
+
     public static string Weapon
     {
         get { return "Weapon"; }

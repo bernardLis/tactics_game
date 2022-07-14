@@ -199,12 +199,14 @@ public class BattleInputController : Singleton<BattleInputController>
             return false;
         _battleUI.Root.panel.PickAll(pointerUiPos, picked);
         foreach (var ve in picked)
+        {
             if (ve != null)
             {
                 Color32 bcol = ve.resolvedStyle.backgroundColor;
                 if (bcol.a != 0 && ve.enabledInHierarchy)
                     return true;
             }
+        }
         return false;
     }
 

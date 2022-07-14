@@ -20,16 +20,15 @@ MonoBehaviour:
   Experience: 0
   Strength: 5
   Intelligence: 5
-  Agility: 7
+  Agility: 6
   Stamina: 5
   MaxHealth: 0
   MaxMana: 0
   Armor: 0
   MovementRange: 0
   Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
-  Weapon: {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
+  Weapon: {fileID: 11400000, guid: afe2c78e7d3b7f14f82976bc31f26153, type: 2}
   BasicAbilities:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities:
   - {fileID: 11400000, guid: b203184cb4195254f96a32e912135937, type: 2}
-  - {fileID: 11400000, guid: 1795d5fe550f40e479e8196acc297e21, type: 2}

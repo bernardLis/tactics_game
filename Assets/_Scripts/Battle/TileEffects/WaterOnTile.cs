@@ -83,7 +83,6 @@ public class WaterOnTile : TileEffect
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTriggerEnter2D");
         if (other.TryGetComponent(out CharacterStats stats))
         {
             Wet(stats);
@@ -158,8 +157,8 @@ public class WaterOnTile : TileEffect
     public override string DisplayText()
     {
         if (_isElectrified)
-            return "Electrified Water. Electrifies characters walking through it.";
-        return "Water. Makes characters walking through it wet. Can be electrified.";
+            return "Electrified Water. Electrifies characters.";
+        return "Water. Makes characters wet. Can be electrified.";
     }
 
     public override void DestroySelf()

@@ -16,6 +16,7 @@ TagManager:
   - Flasher
   - FireOnTile
   - WaterOnTile
+  - IdleCharacter
   layers:
   - Default
   - TransparentFX

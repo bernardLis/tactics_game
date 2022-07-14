@@ -8,7 +8,7 @@ public class Flasher : MonoBehaviour
 
     public void StartFlashing(Color col)
     {
-        Color startColor = col * 0.7f;
+        Color startColor = col * 0.5f;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteRenderer.color = startColor;
 

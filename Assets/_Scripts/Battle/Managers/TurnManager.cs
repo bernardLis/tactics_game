@@ -18,7 +18,7 @@ public class TurnManager : Singleton<TurnManager>
     List<GameObject> _playerCharacters;
     List<GameObject> _enemies;
 
-    List<GameObject> _playerCharactersLeftToTakeTurn;
+    public List<GameObject> _playerCharactersLeftToTakeTurn;
     List<GameObject> _enemyCharactersLeftToTakeTurn;
 
     public static event Action<BattleState> OnBattleStateChanged;

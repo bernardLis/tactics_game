@@ -81,7 +81,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         if (TurnManager.CurrentTurn == 4) // TODO: normally 5th turn? 
             await SpawnFriend();
 
-        if (TurnManager.CurrentTurn == 6) // TODO: normally 7th turn? 
+        if (TurnManager.CurrentTurn == 7) // TODO: normally 7th turn? 
             await FriendElectrifies();
     }
 
@@ -186,11 +186,12 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _friendGO = Instantiate(_playerPrefab, pos, Quaternion.identity);
         _friendGO.SetActive(false);
 
-        Character playerCharacter = _gameManager.PlayerTroops[1];
-        Character instantiatedSO = Instantiate(playerCharacter);
+        Character friendCharacter = _gameManager.PlayerTroops[1];
+        Character instantiatedSO = Instantiate(friendCharacter);
         instantiatedSO.Initialize(_friendGO);
         _friendGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
         _friendGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.down);
+        _friendGO.tag = Tags.IdleCharacter;
 
         await Task.Delay(10);
         _battleInputController.SetInputAllowed(false);

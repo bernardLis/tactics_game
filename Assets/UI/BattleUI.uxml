@@ -100,10 +100,11 @@
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
                     <ui:VisualElement name="characterPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center; display: flex;">
                         <ui:VisualElement name="characterPortraitSkull" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/death-skull.png?fileID=2800000&amp;guid=e749b49a826e4ae42b6fb0a1a499bbdd&amp;type=3#death-skull&apos;); width: 50%; height: 50%; display: none;" />
+                        <ui:VisualElement name="modifierContainer" style="width: 100%; height: 32px; flex-wrap: wrap; flex-direction: row;">
+                            <ui:VisualElement name="modifierIconContainer" class="modifierIconContainer" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="modifierContainer" style="width: 100%; height: 32px; flex-wrap: wrap; flex-direction: row;">
-                        <ui:VisualElement name="modifierIconContainer" class="modifierIconContainer" />
-                    </ui:VisualElement>
+                    <ui:Button text="Details" display-tooltip-when-elided="true" class="menuButton" style="width: 50px; height: 25px; font-size: 12px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="characterBasicInfoGroup2" style="width: 50%; align-items: flex-start; justify-content: center; flex-grow: 1; flex-shrink: 0; flex-basis: initial; flex-wrap: nowrap; flex-direction: column;">
                     <ui:VisualElement name="characterHealthGroup" style="flex-direction: row; width: 100%;">

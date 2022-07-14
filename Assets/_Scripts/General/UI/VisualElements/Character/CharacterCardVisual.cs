@@ -55,7 +55,6 @@ public class CharacterCardVisual : VisualElement
 
         _character.OnCharacterExpGain += OnExpGain;
         _character.OnCharacterLevelUp += OnLevelUp;
-
     }
 
     void BaseCharacterCardVisual(Character character, bool clickable)
@@ -82,7 +81,6 @@ public class CharacterCardVisual : VisualElement
 
         Add(_information);
         _information.Add(_name);
-
         _information.Add(_portrait);
 
         _characteristics = new();
@@ -97,7 +95,18 @@ public class CharacterCardVisual : VisualElement
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
 
         if (clickable)
+        {
             RegisterCallback<PointerDownEvent>(OnPointerDown);
+            Button b = new Button();
+            b.clicked += DisplayCharacterScreen;
+            b.text = "Details";
+            b.AddToClassList("menuButton");
+            b.style.width = 80;
+            b.style.height = 40;
+            b.style.fontSize = 18;
+
+            _information.Add(b);
+        }
     }
 
     private void GeometryChangedCallback(GeometryChangedEvent evt)
@@ -137,13 +146,9 @@ public class CharacterCardVisual : VisualElement
         healthGroup.style.flexDirection = FlexDirection.Row;
         healthGroup.style.width = Length.Percent(100);
 
-        //Label healthLabel = new Label();
-        //healthLabel.AddToClassList("healthLabel");
-
         HealthBar = new(Helpers.GetColor("healthBarRed"), "Health");
         HealthBar.SetText(character.MaxHealth + "/" + character.MaxHealth);
 
-        //healthGroup.Add(healthLabel);
         healthGroup.Add(HealthBar);
 
         return healthGroup;
@@ -155,13 +160,9 @@ public class CharacterCardVisual : VisualElement
         manaGroup.style.flexDirection = FlexDirection.Row;
         manaGroup.style.width = Length.Percent(100);
 
-        // Label manaLabel = new Label();
-        // manaLabel.AddToClassList("manaLabel");
-
         ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana");
         ManaBar.SetText(character.MaxMana + "/" + character.MaxMana);
 
-        //manaGroup.Add(manaLabel);
         manaGroup.Add(ManaBar);
 
         return manaGroup;
@@ -267,12 +268,6 @@ public class CharacterCardVisual : VisualElement
         return els;
     }
 
-    void ResizeAbilityElements()
-    {
-
-    }
-
-
     // Delegates
     void OnExpGain(int gain)
     {
@@ -322,12 +317,17 @@ public class CharacterCardVisual : VisualElement
     {
         if (evt.button != 0) // only left mouse click
             return;
+        DisplayCharacterScreen();
+    }
 
+    void DisplayCharacterScreen()
+    {
         var root = panel.visualTree;
         if (_stats != null)
             new CharacterScreen(_stats, root);
         else
             new CharacterScreen(_character, root);
+
     }
 
 }

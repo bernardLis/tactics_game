@@ -540,6 +540,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _aiLerp.destination = _tempObject.transform.position;
         DisableAILerp();
 
+        if (gameObject == null)
+            return;
+
         Vector3 startingPos = transform.position;
 
         float elapsedTime = 0;
@@ -599,6 +602,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         if (_tempObject != null)
             Destroy(_tempObject);
 
+        if (CurrentHealth <= 0)
+            return;
+            
         await MoveToPosition(_startingPos, 0.5f);
     }
 

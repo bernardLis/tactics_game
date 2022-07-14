@@ -42,7 +42,6 @@ public class ModifierVisual : VisualWithTooltip
 
     public void RemoveSelf(VisualElement parent)
     {
-        Debug.Log($"remove self status name: {Status.name}");
         this.SetEnabled(false);
         parent.Remove(this);
     }

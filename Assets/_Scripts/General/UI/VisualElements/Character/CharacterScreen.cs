@@ -68,7 +68,11 @@ public class CharacterScreen : FullScreenVisual
         abilityContainer.style.width = Length.Percent(100);
         container.Add(abilityContainer);
 
-        List<Ability> allAbilities = new(character.BasicAbilities);
+        List<Ability> allAbilities = new();
+        if (character.Weapon != null)
+            allAbilities.Add(character.Weapon.BasicAttack);
+
+        allAbilities.AddRange(character.BasicAbilities);
         allAbilities.AddRange(character.Abilities);
 
         foreach (Ability a in allAbilities)

@@ -135,7 +135,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
             if (c.TryGetComponent(out IUITextDisplayable uiText))
                 text += uiText.DisplayText();
             if (c.CompareTag(Tags.BoundCollider))
-                text += "Impassable map bounds. ";
+                text += "Impassable map bounds.";
+            if (text != "")
+                text += " ";
         }
 
         // hide/show the whole panel
@@ -191,6 +193,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         _displayedCharacter = stats.gameObject;
         _characterCard.Clear();
+        stats.OnCharacterDeath += OnCharacterDeath;
 
         _characterCardVisual = new(stats);
         _characterCard.Add(_characterCardVisual);
@@ -201,8 +204,16 @@ public class InfoCardUI : Singleton<InfoCardUI>
                .SetEase(Ease.InOutSine);
     }
 
+    void OnCharacterDeath(GameObject g)
+    {
+        HideCharacterCard();
+    }
+
     public void HideCharacterCard()
     {
+        if (_displayedCharacter != null)
+            _displayedCharacter.GetComponent<CharacterStats>().OnCharacterDeath -= OnCharacterDeath;
+
         _displayedCharacter = null;
         DOTween.To(() => _characterCard.style.left.value.value, x => _characterCard.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
