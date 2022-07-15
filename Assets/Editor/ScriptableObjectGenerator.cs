@@ -143,9 +143,6 @@ public static class ScriptableObjectGenerator
             case "Buff":
                 ability = (BuffAbility)ScriptableObject.CreateInstance<BuffAbility>();
                 break;
-            case "Utility":
-                ability = (UtilityAbility)ScriptableObject.CreateInstance<UtilityAbility>();
-                break;
             default:
                 Debug.LogError($"Wrong Ability Type {item["AbilityType"].ToString()}");
                 break;

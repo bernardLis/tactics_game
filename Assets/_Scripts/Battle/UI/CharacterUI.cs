@@ -32,7 +32,6 @@ public class CharacterUI : Singleton<CharacterUI>
 
     // buttons management
     Queue<IEnumerator> _buttonClickQueue = new();
-    bool _areButtonEnabled;
     bool _wasClickEnqueued;
 
     string _hideCharacterUIID = "hideCharacterUIID";
@@ -239,8 +238,6 @@ public class CharacterUI : Singleton<CharacterUI>
 
     public void DisableSkillButtons()
     {
-        _areButtonEnabled = false;
-
         foreach (var el in _characterAbilitiesContainer.Children())
             el.SetEnabled(false);
     }
@@ -252,8 +249,6 @@ public class CharacterUI : Singleton<CharacterUI>
 
         if (_container.style.bottom.value.value < _UIShowValue)
             return;
-
-        _areButtonEnabled = true;
 
         foreach (var el in _characterAbilitiesContainer.Children())
         {

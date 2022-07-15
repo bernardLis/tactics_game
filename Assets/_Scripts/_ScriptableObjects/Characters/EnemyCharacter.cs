@@ -13,10 +13,8 @@ public class EnemyCharacter : Character
         Portrait = brain.Portrait;
         Level = level;
 
-        Strength = Mathf.FloorToInt(level * brain.StrengthMultiplier) + 5;
-        Intelligence = Mathf.FloorToInt(level * brain.IntelligenceMultiplier) + 5;
+        Power = Mathf.FloorToInt(level * brain.PowerMultiplier) + 5;
         Agility = Mathf.FloorToInt(level * brain.AgilityMultiplier) + 5;
-        Stamina = Mathf.FloorToInt(level * brain.StaminaMultiplier) + 5;
 
         Body = brain.Body;
         Weapon = brain.Weapon;

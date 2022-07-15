@@ -24,7 +24,6 @@ public class BattleInputController : Singleton<BattleInputController>
     MovePointController _movePointController;
     BattleCharacterController _battleCharacterController;
     BattleDeploymentController _battleDeploymentController;
-    OscilateScale _oscilateScale;
 
     [HideInInspector] public bool AllowInput { get; private set; }
 
@@ -51,7 +50,6 @@ public class BattleInputController : Singleton<BattleInputController>
 
         _battleCharacterController = GetComponent<BattleCharacterController>();
         _battleDeploymentController = GetComponent<BattleDeploymentController>();
-        _oscilateScale = GetComponentInChildren<OscilateScale>();
     }
 
     void OnEnable()
@@ -99,13 +97,11 @@ public class BattleInputController : Singleton<BattleInputController>
     void HandlePlayerTurn()
     {
         SetInputAllowed(true);
-        _oscilateScale.SetOscilation(true);
     }
 
     void HandleEnemyTurn()
     {
         SetInputAllowed(false);
-        _oscilateScale.SetOscilation(false);
     }
 
     void SubscribeInputActions()

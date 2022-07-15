@@ -19,14 +19,17 @@ MonoBehaviour:
   Sound: {fileID: 8300000, guid: f0180443af161364eb8f4ee688b5ed82, type: 3}
   BasePower: 0
   ManaCost: 8
-  AreaOfEffect: 0
   AbilityType: 3
-  MultiplerStat: 1
-  WeaponType: 3
-  Projectile: {fileID: 0}
+  WeaponType: 0
+  AreaOfEffect: 0
+  LineAreaOfEffect: 0
+  SpellcastAnimation: 0
   StatModifier: {fileID: 11400000, guid: 71076f3c6ecbe2b4bbf2e140fd12a2a3, type: 2}
   Status: {fileID: 0}
+  Projectile: {fileID: 0}
+  AbilityEffect: {fileID: 0}
   Range: 4
   CanTargetSelf: 1
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.7411765, g: 0.70980394, b: 0.15686275, a: 1}
+  CharacterGameObject: {fileID: 0}

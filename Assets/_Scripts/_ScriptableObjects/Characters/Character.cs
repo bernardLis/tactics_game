@@ -17,10 +17,8 @@ public class Character : BaseScriptableObject
     public int Level;
     public int Experience;
 
-    public int Strength;
-    public int Intelligence;
+    public int Power;
     public int Agility;
-    public int Stamina;
 
     int _baseMaxHealth = 100;
     int _baseMaxMana = 50;
@@ -54,10 +52,8 @@ public class Character : BaseScriptableObject
 
         Level = int.Parse(item["Level"].ToString());
         Experience = int.Parse(item["Experience"].ToString());
-        Strength = int.Parse(item["Strength"].ToString());
-        Intelligence = int.Parse(item["Intelligence"].ToString());
+        Power = int.Parse(item["Power"].ToString());
         Agility = int.Parse(item["Agility"].ToString());
-        Stamina = int.Parse(item["Stamina"].ToString());
 
         Body = (Equipment)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/{item["Body"]}.asset", typeof(Equipment));
         Weapon = (Weapon)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/Weapon/{item["Weapon"]}.asset", typeof(Weapon));
@@ -76,10 +72,8 @@ public class Character : BaseScriptableObject
 
         Level = data.Level;
         Experience = data.Experience;
-        Strength = data.Strength;
-        Intelligence = data.Intelligence;
+        Power = data.Power;
         Agility = data.Agility;
-        Stamina = data.Stamina;
 
         Body = CharacterDatabase.GetBodyByName(data.Body);
         Weapon = CharacterDatabase.GetWeaponByName(data.Weapon);
@@ -103,22 +97,18 @@ public class Character : BaseScriptableObject
 
     public void UpdateDerivativeStats()
     {
-        MaxHealth = _baseMaxHealth + Stamina * 5;
-        MaxMana = _baseMaxMana + Intelligence * 5;
-        Armor = _baseArmor; // TODO: should take eq into consideration 
+        MaxHealth = _baseMaxHealth;
+        MaxMana = _baseMaxMana;
+        Armor = _baseArmor;
         MovementRange = Mathf.Clamp(_baseMovementRange + Mathf.FloorToInt(Agility / 3), 1, 8);
     }
 
     public int GetStatValue(string stat)
     {
-        if (stat == "Strength")
-            return Strength;
-        if (stat == "Intelligence")
-            return Intelligence;
+        if (stat == "Power")
+            return Power;
         if (stat == "Agility")
             return Agility;
-        if (stat == "Stamina")
-            return Stamina;
         if (stat == "MaxHealth")
             return MaxHealth;
         if (stat == "MaxMana")
@@ -172,10 +162,8 @@ public class Character : BaseScriptableObject
         Experience = 0;
 
         Level++;
-        Strength += Random.Range(0, 2);
-        Intelligence += Random.Range(0, 2); ;
+        Power += Random.Range(0, 2); ;
         Agility += Random.Range(0, 2);
-        Stamina += Random.Range(0, 2);
         UpdateDerivativeStats();
 
         OnCharacterLevelUp?.Invoke();
@@ -190,10 +178,8 @@ public struct CharacterData
     public string Portrait;
     public int Level;
     public int Experience;
-    public int Strength;
-    public int Intelligence;
+    public int Power;
     public int Agility;
-    public int Stamina;
     public string Body;
     public string Weapon;
     public List<string> AbilityReferenceIds;

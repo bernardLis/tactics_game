@@ -21,10 +21,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     // Stats are accessed by other scripts need to be public.
     // TODO: I could make them private and use only list to get info about stats
-    [HideInInspector] public Stat Strength = new();
-    [HideInInspector] public Stat Intelligence = new();
+    [HideInInspector] public Stat Power = new();
     [HideInInspector] public Stat Agility = new();
-    [HideInInspector] public Stat Stamina = new();
     [HideInInspector] public Stat MaxHealth = new();
     [HideInInspector] public Stat MaxMana = new();
     [HideInInspector] public Stat Armor = new();
@@ -56,9 +54,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public int DamageReceivedWhenWalking { get; private set; }
     List<Status> _statusesBeforeWalking = new();
     List<Status> _statusesAddedWhenWalking = new();
-
-    // absorbers/shields
-    List<Absorber> _absorbers = new();
 
     // place of power
     Ability _replacedAbility;
@@ -155,10 +150,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     void SetCharacteristics()
     {
         // taking values from scriptable object to c#
-        Strength.Initialize(StatType.Strength, Character.Strength, Character);
-        Intelligence.Initialize(StatType.Intelligence, Character.Intelligence, Character);
+        Power.Initialize(StatType.Power, Character.Power, Character);
         Agility.Initialize(StatType.Agility, Character.Agility, Character);
-        Stamina.Initialize(StatType.Stamina, Character.Stamina, Character);
 
         Character.UpdateDerivativeStats();
         MaxHealth.Initialize(StatType.MaxHealth, Character.MaxHealth, Character);
@@ -209,10 +202,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         Stats.Clear();
 
-        Stats.Add(Strength);
-        Stats.Add(Intelligence);
+        Stats.Add(Power);
         Stats.Add(Agility);
-        Stats.Add(Stamina);
 
         Stats.Add(MaxHealth);
         Stats.Add(MaxMana);
@@ -237,8 +228,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         // dodgeChance% of time <- TODO: is that correct?
         if (randomVal < dodgeChance && !IsStunned)
             Dodge(attacker);
-        else if (IsDamageAbsorbed(ability))
-            ShieldDamage();
         else
         {
             wasAttackSuccesful = true;
@@ -292,14 +281,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         await retaliationAbility.TriggerAbility(tiles);
         return wasAttackSuccesful;
-    }
-
-    public bool IsDamageAbsorbed(Ability ability)
-    {
-        foreach (Absorber a in _absorbers)
-            if (a.AbsorbedStatAttacks == ability.MultiplerStat)
-                return true;
-        return false;
     }
 
     async void Dodge(GameObject attacker)
@@ -442,7 +423,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         foreach (Ability a in BasicAbilities)
         {
             // no retaliation with ranged attacks 
-            if (a.WeaponType == WeaponType.Shoot)
+            if (a.WeaponType == WeaponType.Ranged)
                 continue;
 
             if (a.AbilityType != AbilityType.Attack)
@@ -667,18 +648,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         // noone cares?
         return addedStatus;
-    }
-
-    public void AddAbsorber(Absorber absorber)
-    {
-        if (_absorbers.Contains(absorber))
-            return;
-        _absorbers.Add(absorber);
-    }
-
-    public void RemoveAbsorber(Absorber absorber)
-    {
-        _absorbers.Remove(absorber);
     }
 
     public void ResolveGoingBack()

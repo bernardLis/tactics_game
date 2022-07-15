@@ -24,8 +24,6 @@ public class BattleDeploymentController : MonoBehaviour
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
         MovePointController.OnMove += MovePointController_OnMove;
 
-        // TODO: here I can actually create characters from save data
-        // no, actually characters are created by journey manager by loading save data, so you should just use them;
         _charactersToPlace = new(_gameManager.PlayerTroops);
     }
 

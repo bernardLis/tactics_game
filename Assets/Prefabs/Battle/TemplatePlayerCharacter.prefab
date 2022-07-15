@@ -240,7 +240,6 @@ GameObject:
   - component: {fileID: 1864993293436626181}
   - component: {fileID: 2624438210781941185}
   - component: {fileID: 2727775403500498410}
-  - component: {fileID: -2183359834462256654}
   m_Layer: 6
   m_Name: TemplatePlayerCharacter
   m_TagString: Player
@@ -533,8 +532,6 @@ MonoBehaviour:
   Abilities: []
   _deathEffect: {fileID: 3995280285463602700, guid: 38158bd1b5c5bf947a683a111b415c82, type: 3}
   _body: {fileID: 7495358995766541934}
-  _statusesBeforeWalking: []
-  _statusesAddedWhenWalking: []
   _levelUpEffect: {fileID: 2060092509515171908, guid: f588a433e409706429d8a018f347526c, type: 3}
 --- !u!114 &1864993292968118660
 MonoBehaviour:
@@ -549,6 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectionArrow: {fileID: 6628598217306585581}
+  PositionTurnStart: {x: 0, y: 0, z: 0}
 --- !u!114 &1864993293436626183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,18 +593,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7d00e56168786243b0f68a5728954b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-2183359834462256654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6105715623576548083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 891e9154304e5cb4daa9dd58db58b0a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &468403402713354284

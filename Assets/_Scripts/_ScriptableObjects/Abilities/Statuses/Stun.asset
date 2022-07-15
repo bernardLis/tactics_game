@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00691759a43c03242972e1bd5bf0e126, type: 3}
   m_Name: Stun
   m_EditorClassIdentifier: 
-  Id: c51dfda8-a3c4-4d3a-83a5-a7248d1cf090
-  numberOfTurns: 4
-  value: 0
-  icon: {fileID: 21300000, guid: 1a3910e3b66340440a040e0c7663f734, type: 3}
-  displayOnCharacterText: Stunned!
-  displayOnCharacterColor: {r: 0.3962264, g: 0, b: 0, a: 1}
+  Id: 145a8a4e-3bb7-43d8-a2e7-84500ed87009
+  ReferenceID: STATUS-1
+  NumberOfTurns: 1
+  Value: 0
+  Icon: {fileID: 21300000, guid: 1a3910e3b66340440a040e0c7663f734, type: 3}
+  DisplayText: Stunned
+  DisplayColor: {r: 0.9716981, g: 0.51135045, b: 0.21450691, a: 1}

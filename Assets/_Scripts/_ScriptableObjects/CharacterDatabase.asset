@@ -75,14 +75,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a243f441764e07547a084f72af92621c, type: 2}
   - {fileID: 11400000, guid: b203184cb4195254f96a32e912135937, type: 2}
   StatIcons:
-  - StatName: Strength
+  - StatName: Power
     Sprite: {fileID: 21300000, guid: c1181cbabffb1da4cbfd479b065b8e49, type: 3}
-  - StatName: Intelligence
-    Sprite: {fileID: 21300000, guid: 3a72c8a5fa788c04da48de94f0db4ad7, type: 3}
   - StatName: Agility
     Sprite: {fileID: 21300000, guid: 52cb209ce500f824f99e187564067219, type: 3}
-  - StatName: Stamina
-    Sprite: {fileID: 21300000, guid: 174230f77630a924cb5a9ac7825dc90d, type: 3}
   - StatName: MovementRange
     Sprite: {fileID: 21300000, guid: 9064011653d24ba499c5478200bdf71e, type: 3}
   - StatName: Armor

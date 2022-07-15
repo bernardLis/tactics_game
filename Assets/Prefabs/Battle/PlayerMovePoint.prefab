@@ -233,6 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedCharacter: {fileID: 0}
+  HasCharacterStartedMoving: 0
+  IsMovingBack: 0
 --- !u!1 &7569243889959606447
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +245,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7569243889959606446}
   - component: {fileID: 7569243889959606441}
-  - component: {fileID: 281838226}
   m_Layer: 0
   m_Name: GFX
   m_TagString: Untagged
@@ -318,17 +319,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &281838226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7569243889959606447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1788cd6727830b44bac30ee1527f713c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetScaleMultiplier: 1.2
-  _duration: 1

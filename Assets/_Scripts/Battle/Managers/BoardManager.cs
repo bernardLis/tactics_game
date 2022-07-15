@@ -39,7 +39,6 @@ public class BoardManager : Singleton<BoardManager>
     [SerializeField] GameObject _pushableObstaclePrefab;
     [SerializeField] GameObject _outerObjectPrefab;
     [SerializeField] GameObject _collectiblePrefab;
-    [SerializeField] GameObject _chestPrefab;
     [SerializeField] GameObject _mapResetPrefab;
     [SerializeField] GameObject _globalLightPrefab;
     [SerializeField] TextAsset _graphData;
@@ -308,25 +307,7 @@ public class BoardManager : Singleton<BoardManager>
 
     void PlaceSpecialObjects()
     {
-        PlaceChest();
         PlaceCollectible();
-    }
-
-    void PlaceChest()
-    {
-        List<GameObject> shuffledObstacles = Utility.ShuffleList(_pushableObstacles, _seed);
-        foreach (GameObject obs in shuffledObstacles)
-        {
-            Vector3Int tileSouth = new Vector3Int((int)obs.transform.position.x, (int)obs.transform.position.y - 1);
-            if (!_openGridPositions.Contains(tileSouth))
-                continue;
-
-            GameObject chest = Instantiate(_chestPrefab, obs.transform.position, Quaternion.identity);
-            chest.transform.parent = _envObjectsHolder.transform;
-            _pushableObstacles.Remove(obs);
-            Destroy(obs);
-            return;
-        }
     }
 
     void PlaceCollectible()

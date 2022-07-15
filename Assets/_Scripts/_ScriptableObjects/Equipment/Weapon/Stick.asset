@@ -15,5 +15,5 @@ MonoBehaviour:
   Id: 5760797a-6fca-405c-a759-7288764dcf2f
   Icon: {fileID: 0}
   AnimatorController: {fileID: 22100000, guid: 4c0747f92caa61a48b96de408a9d9cfd, type: 2}
-  WeaponType: 0
+  WeaponType: 1
   BasicAttack: {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}

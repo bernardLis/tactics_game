@@ -281,8 +281,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackLabel.text = "Attack";
 
         int attackValue = ability.CalculateInteractionResult(attacker, defender);
-        if (defender.IsDamageAbsorbed(ability))
-            attackValue = 0;
+        //TODO: safety wall summary
+        //if (defender.IsDamageAbsorbed(ability))
+        //    attackValue = 0;
         Label value = new("" + (-1 * attackValue)); // it looks weird when it is negative.
         _attackDamageValue.Add(value);
         HandleStatusesAbilitySummary(ability);

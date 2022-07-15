@@ -9,14 +9,14 @@ public class AttackTriggerable : BaseTriggerable
         if (!_myStats.IsAttacker)
         {
             // TODO: may be problematic, play spellcast animation on spell abilities
-            if (ability.MultiplerStat == StatType.Intelligence || ability.SpellcastAnimation)
+            if (ability.SpellcastAnimation)
                 await _characterRendererManager.SpellcastAnimation();
             else
                 await _characterRendererManager.AttackAnimation();
 
             if (ability.AbilityEffect != null)
             {
-                Effect e = Instantiate(ability.AbilityEffect, pos, Quaternion.identity).GetComponent<Effect>();
+                AbilityEffect e = Instantiate(ability.AbilityEffect, pos, Quaternion.identity).GetComponent<AbilityEffect>();
                 await e.Play(ability, pos);
             }
 

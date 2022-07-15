@@ -58,11 +58,12 @@ public class CharacterRendererManager : MonoBehaviour
             return;
         }
 
-        if (_weaponHolder.Weapon.WeaponType == WeaponType.Slash)
+        if (_weaponHolder.Weapon.WeaponType == WeaponType.Melee)
             await Slash(_faceDir);
-        if (_weaponHolder.Weapon.WeaponType == WeaponType.Thrust)
-            await Thrust(_faceDir);
-        if (_weaponHolder.Weapon.WeaponType == WeaponType.Shoot)
+        // TODO: weapon Thrust animation
+       // if (_weaponHolder.Weapon.WeaponType == WeaponType.Thrust)
+       //     await Thrust(_faceDir);
+        if (_weaponHolder.Weapon.WeaponType == WeaponType.Ranged)
             await Shoot(_faceDir);
     }
 

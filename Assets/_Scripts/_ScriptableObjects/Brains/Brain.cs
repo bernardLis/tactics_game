@@ -14,10 +14,8 @@ public class Brain : BaseScriptableObject
     public Sprite Portrait;
 
     // TODO: curves instead of floats
-    public float StrengthMultiplier;
-    public float IntelligenceMultiplier;
+    public float PowerMultiplier;
     public float AgilityMultiplier;
-    public float StaminaMultiplier;
 
     public Equipment Body;
     public Weapon Weapon;
