@@ -49,9 +49,6 @@ public class CharacterUI : Singleton<CharacterUI>
 
         _abilityTooltipContainer = _root.Q<VisualElement>("abilityTooltipContainer");
 
-        _openInventoryButton = _root.Q<Button>("openInventory");
-        _openInventoryButton.clickable.clicked += OpenInventoryClicked;
-
         _characterAbilitiesContainer = _root.Q<VisualElement>("characterAbilities");
         _characterAbilitiesContainer.Clear();
     }
@@ -282,28 +279,6 @@ public class CharacterUI : Singleton<CharacterUI>
     public void HideAbilityTooltip()
     {
         _abilityTooltipContainer.style.display = DisplayStyle.None;
-    }
-
-    void OpenInventoryClicked()
-    {
-        if (!_battleCharacterController.CanSelectAbility())
-            return;
-        if (!_areButtonEnabled)
-            return;
-
-        OpenInventory();
-    }
-
-    void OpenInventory()
-    {
-        _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
-        InventoryUI.Instance.EnableInventoryUI();
-    }
-
-    public void UseItem(Item item)
-    {
-        item.Ability.Initialize(_battleCharacterController.SelectedCharacter);
-        _buttonClickQueue.Enqueue(HandleButtonClick(item.Ability));
     }
 
     // TODO: Hey future Bernard, I know you are looking at this and thinking: "damn... mixing coroutines and async await sucks, what was I thinking"
