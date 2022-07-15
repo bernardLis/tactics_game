@@ -39,6 +39,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     // retaliation on interaction
     public bool IsAttacker { get; private set; }
+    public bool IsShielded;
 
     // pushable variables
     Vector3 _startingPos;
@@ -48,7 +49,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     // dmg
     [SerializeField] GameObject _deathEffect;
     [SerializeField] GameObject _body;
-    Path _latPath;
 
     // statuses
     public int DamageReceivedWhenWalking { get; private set; }
@@ -68,7 +68,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public event Action<int, int, int> OnManaChange;
     public event Action<StatModifier> OnModifierAdded;
     public event Action<Ability> OnAbilityAdded;
-
 
     protected override void Awake()
     {
@@ -228,6 +227,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         // dodgeChance% of time <- TODO: is that correct?
         if (randomVal < dodgeChance && !IsStunned)
             Dodge(attacker);
+        else if (IsShielded)
+            ShieldDamage();
         else
         {
             wasAttackSuccesful = true;
@@ -585,7 +586,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         if (CurrentHealth <= 0)
             return;
-            
+
         await MoveToPosition(_startingPos, 0.5f);
     }
 

@@ -18,7 +18,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 38be24e6963aad24ea21a9f0f1304f8d, type: 3}
   Sound: {fileID: 8300000, guid: 5560fa00424abaa4e97ab61849525bd5, type: 3}
   BasePower: 1
-  ManaCost: 10
+  ManaCost: 0
   AbilityType: 5
   WeaponType: 0
   AreaOfEffect: 0

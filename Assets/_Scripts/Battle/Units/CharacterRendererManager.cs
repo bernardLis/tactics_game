@@ -1,5 +1,6 @@
 using UnityEngine;
 using Pathfinding;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
 
@@ -59,10 +60,10 @@ public class CharacterRendererManager : MonoBehaviour
         }
 
         if (_weaponHolder.Weapon.WeaponType == WeaponType.Melee)
-            await Slash(_faceDir);
+            await Melee(_faceDir);
         // TODO: weapon Thrust animation
-       // if (_weaponHolder.Weapon.WeaponType == WeaponType.Thrust)
-       //     await Thrust(_faceDir);
+        // if (_weaponHolder.Weapon.WeaponType == WeaponType.Thrust)
+        //     await Thrust(_faceDir);
         if (_weaponHolder.Weapon.WeaponType == WeaponType.Ranged)
             await Shoot(_faceDir);
     }
@@ -160,56 +161,35 @@ public class CharacterRendererManager : MonoBehaviour
         _noIdleAnimation = false;
     }
 
-    async Task Slash(Vector2 dir)
+    async Task Melee(Vector2 dir)
     {
         _noIdleAnimation = true;
 
         _weaponHolder.gameObject.SetActive(true);
         _animator.SetFloat("Last Horizontal", dir.x);
         _animator.SetFloat("Last Vertical", dir.y);
-        _animator.Play("Slash");
 
-        foreach (Transform child in transform)
+        Animator _weaponAnimator = _weaponHolder.GetComponent<Animator>();
+        _weaponAnimator.SetFloat("Last Horizontal", dir.x);
+        _weaponAnimator.SetFloat("Last Vertical", dir.y);
+
+        AnimatorOverrideController overrideController = (AnimatorOverrideController)_weaponHolder.GetComponent<Animator>().runtimeAnimatorController;
+        List<KeyValuePair<AnimationClip, AnimationClip>> acs = new();
+        overrideController.GetOverrides(acs);
+        bool isSlash = false;
+        foreach (KeyValuePair<AnimationClip, AnimationClip> ac in acs)
+            if (ac.Key.name == "Slash N" && ac.Value != null) // TODO: I am assuming this exact name exists
+                isSlash = true;
+
+        if (isSlash)
         {
-            Animator an = child.GetComponent<Animator>();
-            if (an != null && an.runtimeAnimatorController != null && an.gameObject.activeSelf)
-            {
-                an.SetFloat("Last Horizontal", dir.x);
-                an.SetFloat("Last Vertical", dir.y);
-                an.Play("Slash");
-            }
+            _animator.Play("Slash");
+            _weaponAnimator.Play("Slash");
         }
-
-        // TODO: this is not perfect, waiting for animation to finish
-        // this looks good, I am punching in the middle of animation
-        await PunchEffect(dir, 800);
-
-        _weaponHolder.gameObject.SetActive(false);
-        _weaponRenderer.sprite = null;
-        Face(dir);
-
-        _noIdleAnimation = false;
-    }
-
-    async Task Thrust(Vector2 dir)
-    {
-        _noIdleAnimation = true;
-
-        _weaponHolder.gameObject.SetActive(true);
-
-        _animator.SetFloat("Last Horizontal", dir.x);
-        _animator.SetFloat("Last Vertical", dir.y);
-        _animator.Play("Thrust");
-
-        foreach (Transform child in transform)
+        else
         {
-            Animator an = child.GetComponent<Animator>();
-            if (an != null && an.runtimeAnimatorController != null && an.gameObject.activeSelf)
-            {
-                an.SetFloat("Last Horizontal", dir.x);
-                an.SetFloat("Last Vertical", dir.y);
-                an.Play("Thrust");
-            }
+            _animator.Play("Thrust");
+            _weaponAnimator.Play("Thrust");
         }
 
         // TODO: this is not perfect, waiting for animation to finish
@@ -263,7 +243,7 @@ public class CharacterRendererManager : MonoBehaviour
     async Task PunchEffect(Vector2 dir, int delay)
     {
         await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
-        transform.DOPunchPosition(dir * 0.2f, 0.4f, 1, 0, false);
+        transform.DOPunchPosition(dir * 0.5f, 0.4f, 1, 0, false);
         await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
     }
 }

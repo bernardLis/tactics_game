@@ -18,10 +18,8 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: a613d81a423cf24429b03929c1678cad, type: 3}
   Level: 5
   Experience: 0
-  Strength: 5
-  Intelligence: 5
+  Power: 0
   Agility: 6
-  Stamina: 5
   MaxHealth: 0
   MaxMana: 0
   Armor: 0
@@ -32,3 +30,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities:
   - {fileID: 11400000, guid: b203184cb4195254f96a32e912135937, type: 2}
+  - {fileID: 11400000, guid: 2548c920de5716240ae5e1c66758fdfb, type: 2}

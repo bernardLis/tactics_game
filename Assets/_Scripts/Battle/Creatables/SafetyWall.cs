@@ -50,11 +50,13 @@ public class SafetyWall : Creatable, ICreatable<Vector3, Ability, string>
     void Shield(CharacterStats stats)
     {
         _shieldedCharacter = stats;
+        stats.IsShielded = true;
     }
 
     void RemoveShield(CharacterStats stats)
     {
         _shieldedCharacter = null;
+        stats.IsShielded = false;
     }
 
     public override void DestroySelf()
