@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: c3ff2e74-64d4-42af-914a-387b8f447a33
   ReferenceID: MODIFIER-1
   Icon: {fileID: 21300000, guid: 4423a289550647844a78597afcd999ea, type: 3}
-  StatType: 5
+  StatType: 4
   NumberOfTurns: 2
   Value: 1

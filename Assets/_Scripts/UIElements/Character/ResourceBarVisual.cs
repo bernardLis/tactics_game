@@ -28,7 +28,6 @@ public class ResourceBarVisual : VisualWithTooltip
         _interactionResult = new();
         _text = new();
 
-
         _resourceBar = new();
         _resourceBar.AddToClassList("resourceBar");
         _resourceBar.style.backgroundColor = color;
@@ -142,23 +141,11 @@ public class ResourceBarVisual : VisualWithTooltip
         SetText($"{resultText}/{total}");
     }
 
-    public void HideInteractionResult()
-    {
-        BaseHideInteractionResult();
-        DisplayMissingAmount(_lastTotalValue, _lastCurrentValue);
-    }
-
     public void HideInteractionResult(int total, int current)
     {
-        BaseHideInteractionResult();
-        DisplayMissingAmount(total, current);
-    }
-
-    void BaseHideInteractionResult()
-    {
         DOTween.Pause(_tweenID);
-
         _interactionResult.style.display = DisplayStyle.None;
+        DisplayMissingAmount(total, current);
     }
 
     public void SetText(string newText)

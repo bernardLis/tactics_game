@@ -215,10 +215,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         bool wasAttackSuccesful = false;
 
-        // in the side 1, face to face 2, from the back 0, 
-        int attackDir = CalculateAttackDir(attacker);
-        int bonusDamage = CalculateBonusAttackDamage(damage, attackDir, false);
-        damage += bonusDamage;
 
         if (IsShielded)
         {
@@ -234,6 +230,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             HandleStatus(attacker, ability);
         }
 
+        // in the side 1, face to face 2, from the back 0, 
+        int attackDir = CalculateAttackDir(attacker);
         if (attackDir == 0)
             return wasAttackSuccesful;
 
@@ -379,22 +377,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             attackDir = 0;
 
         return attackDir;
-    }
-
-    public int CalculateBonusAttackDamage(int dmg, int attackDir, bool isRetaliation)
-    {
-        // retaliation is always face to face (which may not be true, but let's simplify for now)
-        if (isRetaliation)
-            attackDir = 2;
-
-        if (attackDir == 2)
-            return 0;
-        if (attackDir == 1)
-            return Mathf.FloorToInt(dmg * 0.25f);
-        if (attackDir == 0)
-            return Mathf.FloorToInt(dmg * 0.50f);
-
-        return 0;
     }
 
     public AttackAbility GetRetaliationAbility()

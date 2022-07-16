@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEditor;
 
-public enum AbilityType { Attack, Heal, Push, Buff, Utility, Create, AttackCreate }
+public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
 
 public abstract class Ability : BaseScriptableObject
 {
@@ -102,9 +102,6 @@ public abstract class Ability : BaseScriptableObject
     {
         ClearAffectedCharacters();
 
-        if (CharacterGameObject.CompareTag(Tags.Player))
-            _battleCharacterController.UpdateCharacterState(CharacterState.SelectingInteractionTarget);
-
         await _highlighter.HighlightAbilityRange(this);
     }
 
@@ -159,11 +156,51 @@ public abstract class Ability : BaseScriptableObject
         await Task.Yield(); // to get rid of errors;
     }
 
-    public virtual int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
+    public virtual int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender, bool isRetaliation = false)
     {
-        // TODO: need to add bonus for face dir
+        int damage = (BasePower + attacker.Power.GetValue() - defender.Armor.GetValue());
+
+        // bonus for face dir
+        if (AbilityType == AbilityType.Attack)
+        {
+            float bonusDamagePercent = CalculateBonusDamagePercent(attacker, defender, isRetaliation);
+            damage += Mathf.FloorToInt(damage * bonusDamagePercent);
+        }
+
         // -1 coz it is attack and has to be negative... TODO: this is very imperfect.
-        return -1 * (BasePower + attacker.Power.GetValue() - defender.Armor.GetValue());
+        return -1 * damage;
+    }
+
+    public int GetAttackDir(CharacterStats attacker, CharacterStats defender, bool isRetaliation)
+    {
+        Vector2 attackerFaceDir = _characterRendererManager.GetFaceDir();
+        Vector2 defenderFaceDir = defender.GetComponentInChildren<CharacterRendererManager>().GetFaceDir();
+
+        // side attack 1, face to face 2, from the back 0, 
+        int attackDir = 1;
+        if (attackerFaceDir + defenderFaceDir == Vector2.zero)
+            attackDir = 2;
+        if (attackerFaceDir + defenderFaceDir == attackerFaceDir * 2)
+            attackDir = 0;
+        // retaliation is always face to face (which may not be true, but let's simplify for now)
+        if (isRetaliation)
+            attackDir = 2;
+
+        return attackDir;
+    }
+
+    float CalculateBonusDamagePercent(CharacterStats attacker, CharacterStats defender, bool isRetaliation)
+    {
+        int attackDir = GetAttackDir(attacker, defender, isRetaliation);
+
+        if (attackDir == 2)
+            return 0;
+        if (attackDir == 1)
+            return 0.25f;
+        if (attackDir == 0)
+            return 0.50f;
+
+        return 0;
     }
 
     protected async Task<bool> PlayerFaceDirSelection()

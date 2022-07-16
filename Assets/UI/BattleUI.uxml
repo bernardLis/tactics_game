@@ -66,7 +66,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="interactionSummary" class="uiContainer" style="width: auto; left: -100%; height: auto; margin-top: 10px; display: none;">
+        <ui:VisualElement name="interactionSummary" class="uiContainer" style="width: 50%; left: -100%; height: auto; margin-top: 10px; display: none;">
             <ui:VisualElement name="attackSummary" style="color: rgb(253, 253, 253);">
                 <ui:Label text="Attack:" display-tooltip-when-elided="true" name="attackLabel" class="primaryText" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;" />
                 <ui:VisualElement name="attackDamageGroup" class="secondaryText" style="flex-direction: row; align-items: center;">
@@ -75,20 +75,12 @@
                         <ui:Label text="XX" display-tooltip-when-elided="true" name="asd" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="attackHitGroup" class="secondaryText" style="flex-direction: row;">
-                    <ui:Label text="Hit chance:" display-tooltip-when-elided="true" name="attackHitLabel" />
-                    <ui:Label text="XX" display-tooltip-when-elided="true" name="attackHitValue" />
-                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="retaliationSummary" style="color: rgb(255, 255, 255);">
                 <ui:Label text="Retaliation:" display-tooltip-when-elided="true" name="retaliationLabel" class="primaryText" style="border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);" />
                 <ui:VisualElement name="retaliationDamageGroup" class="secondaryText" style="flex-direction: row;">
                     <ui:Label text="Value:" display-tooltip-when-elided="true" name="retaliationDamageLabel" />
                     <ui:Label text="XX" display-tooltip-when-elided="true" name="retaliationDamageValue" />
-                </ui:VisualElement>
-                <ui:VisualElement name="retaliationHitGroup" class="secondaryText" style="flex-direction: row;">
-                    <ui:Label text="Hit chance:" display-tooltip-when-elided="true" name="retaliationHitLabel" />
-                    <ui:Label text="XX" display-tooltip-when-elided="true" name="retaliationHitValue" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

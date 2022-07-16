@@ -35,7 +35,7 @@ public class AttackTriggerable : BaseTriggerable
             DisplayBattleLog(target, ability);
 
             // damage target // TODO: ugh... this -1 is killing me...
-            int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
+            int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>(), isRetaliation);
             bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
 
             if (wasAttackSuccesful)

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using UnityEngine.Tilemaps;
+using System.Threading.Tasks;
 
 public class InfoCardUI : Singleton<InfoCardUI>
 {
@@ -28,11 +29,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     Label _attackLabel;
     VisualElement _attackDamageValue;
-    Label _attackHitValue;
 
     VisualElement _retaliationSummary;
     Label _retaliationDamageValue;
-    Label _retaliationHitValue;
 
     // animate card left right on show/hide
     float _cardShowValue = 0f;
@@ -59,11 +58,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         _attackLabel = root.Q<Label>("attackLabel");
         _attackDamageValue = root.Q<VisualElement>("attackDamageValue");
-        _attackHitValue = root.Q<Label>("attackHitValue");
 
         _retaliationSummary = root.Q<VisualElement>("retaliationSummary");
         _retaliationDamageValue = root.Q<Label>("retaliationDamageValue");
-        _retaliationHitValue = root.Q<Label>("retaliationHitValue");
     }
 
     void Start()
@@ -271,21 +268,31 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         if (ability.AbilityType == AbilityType.Create)
             HandleCreateAbilitySummary(attacker, defender, ability);
-
-        if (ability.AbilityType == AbilityType.Utility)
-            Debug.Log("Utlity summary not implemented");
     }
 
-    void HandleAttackAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
+    async void HandleAttackAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
     {
         _attackLabel.text = "Attack";
+        _attackDamageValue.Clear();
 
+        await Task.Delay(100);
         int attackValue = ability.CalculateInteractionResult(attacker, defender);
 
         if (defender.IsShielded)
             attackValue = 0;
-     
-        Label value = new("" + (-1 * attackValue)); // it looks weird when it is negative.
+
+        TextWithTooltip value = new("" + (-1 * attackValue), "Attacking from the back +50% dmg, from the side +25% dmg");
+        // color if bonus attack
+        if (attackValue != 0)
+        {
+            int attackDir = ability.GetAttackDir(attacker, defender, false);
+            // side attack 1, face to face 2, from the back 0, 
+            if (attackDir == 0)
+                value.style.backgroundColor = Color.red;
+            if (attackDir == 1)
+                value.style.backgroundColor = new Color(1f, 0.55f, 0f);
+        }
+
         _attackDamageValue.Add(value);
         HandleStatusesAbilitySummary(ability);
 
@@ -307,14 +314,12 @@ public class InfoCardUI : Singleton<InfoCardUI>
         HandleStatusesAbilitySummary(ability);
 
         ShowHealthChange(defender, attackValue);
-        _attackHitValue.text = "100%";
     }
 
     void HandleHealAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
     {
         _attackLabel.text = "Heal";
-
-        int healValue = ability.CalculateInteractionResult(attacker, defender);
+        int healValue = ability.CalculateInteractionResult(attacker, defender, false);
         Label value = new("" + healValue); // it looks weird when it is negative.
         _attackDamageValue.Add(value);
         HandleStatusesAbilitySummary(ability);
@@ -323,7 +328,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
             _characterUI.ShowHealthChange(healValue);
 
         ShowHealthChange(defender, healValue);
-        _attackHitValue.text = 100 + "%";
     }
 
     void HandleBuffAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
@@ -331,8 +335,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackLabel.text = "Buff";
 
         HandleStatusesAbilitySummary(ability);
-
-        _attackHitValue.text = 100 + "%";
     }
 
     void HandleCreateAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
@@ -345,7 +347,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
             value.style.whiteSpace = WhiteSpace.Normal;
             _attackDamageValue.Add(value);
         }
-        _attackHitValue.text = 100 + "%";
     }
 
     void HandleStatusesAbilitySummary(Ability ability)
@@ -378,7 +379,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
         // show change in attackers health after they get retaliated on
         _retaliationSummary.style.display = DisplayStyle.Flex;
 
-        int relatiationResult = retaliationAbility.CalculateInteractionResult(defender, attacker); // correct defender, attacker
+        int relatiationResult = retaliationAbility.CalculateInteractionResult(defender, attacker, true); // correct defender, attacker
         _retaliationDamageValue.text = "" + (-1 * relatiationResult);
 
         _characterUI.ShowHealthChange(relatiationResult);
@@ -386,9 +387,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     public void HideInteractionSummary()
     {
-        _characterCardVisual.HealthBar.HideInteractionResult();
-        _characterCardVisual.ManaBar.HideInteractionResult();
-
         DOTween.To(() => _interactionSummary.style.left.value.value, x => _interactionSummary.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
     }

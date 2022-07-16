@@ -219,6 +219,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _aiLerp = SelectedCharacter.GetComponent<AILerp>();
         _aiLerp.canSearch = false;
         _characterRendererManager = SelectedCharacter.GetComponentInChildren<CharacterRendererManager>();
+        _characterRendererManager.SetSelected(true);
 
         // character specific ui
         _playerCharSelection.SelectCharacter();
@@ -449,6 +450,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerStats = null;
         _playerCharSelection = null;
         SelectedAbility = null;
+        _characterRendererManager.SetSelected(false);
+        _characterRendererManager = null;
 
         // highlight
         _highlighter.ClearHighlightedTiles().GetAwaiter();

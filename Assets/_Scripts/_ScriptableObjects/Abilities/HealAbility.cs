@@ -28,7 +28,7 @@ public class HealAbility : Ability
         await _healTriggerable.Heal(pos, this, CharacterGameObject);
     }
 
-    public override int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
+    public override int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender, bool isRetaliation = false)
     {
         // return positive value coz it is heal // TODO: this is not a perfect way to do it...
         return -1 * base.CalculateInteractionResult(attacker, defender);

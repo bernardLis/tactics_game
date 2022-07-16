@@ -39,7 +39,6 @@ public class BoardManager : Singleton<BoardManager>
     [SerializeField] GameObject _pushableObstaclePrefab;
     [SerializeField] GameObject _outerObjectPrefab;
     [SerializeField] GameObject _collectiblePrefab;
-    [SerializeField] GameObject _mapResetPrefab;
     [SerializeField] GameObject _globalLightPrefab;
     [SerializeField] TextAsset _graphData;
 
@@ -109,7 +108,6 @@ public class BoardManager : Singleton<BoardManager>
         PlaceOuterAdditions();
         await SetupAstar();
         await SpawnEnemies();
-        PlaceMapReset();
         await Task.Delay(250);
         CreatePlayerStartingArea();
         PlayMusic();
@@ -882,12 +880,6 @@ public class BoardManager : Singleton<BoardManager>
         }
 
         await Task.Delay(10);
-    }
-
-    void PlaceMapReset()
-    {
-        GameObject mr = Instantiate(_mapResetPrefab, new Vector3(-MapSize.x + 0.5f, -MapSize.y + 0.5f), Quaternion.identity);
-        mr.transform.parent = _envObjectsHolder.transform;
     }
 
     async void CreatePlayerStartingArea()

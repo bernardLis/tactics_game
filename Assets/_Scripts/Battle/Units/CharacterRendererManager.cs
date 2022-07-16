@@ -7,7 +7,7 @@ using DG.Tweening;
 public class CharacterRendererManager : MonoBehaviour
 {
     Vector2 _direction;
-    Vector2 _faceDir;
+    public Vector2 _faceDir;
 
     Animator _animator;
     CharacterRenderer _characterRenderer;
@@ -18,6 +18,7 @@ public class CharacterRendererManager : MonoBehaviour
     AILerp _aiLerp;
 
     bool _noIdleAnimation;
+    bool _isSelected;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,10 +28,27 @@ public class CharacterRendererManager : MonoBehaviour
         _aiLerp = GetComponentInParent<AILerp>();
         _weaponHolder = GetComponentInChildren<WeaponHolder>();
         _weaponRenderer = _weaponHolder.transform.GetComponent<SpriteRenderer>();
+
+        MovePointController.OnMove += MovePointController_OnMove;
     }
 
-    // Update is called once per frame
+    void OnDestroy()
+    {
+        MovePointController.OnMove -= MovePointController_OnMove;
+    }
+
+    void MovePointController_OnMove(Vector3 pos)
+    {
+        if (!_isSelected)
+            return;
+
+        Vector2 dir = (pos - transform.position).normalized; // now it can be 0.7, 0.3 and I would like to keep the stornger
+        Vector2 faceDir = new Vector2(Mathf.RoundToInt(dir.x), Mathf.RoundToInt(dir.y));
+        Face(faceDir);
+    }
+
     // TODO: something smarter I probably don't need to set direction when character movement is not active
+    // and I could know when character is moving from battlecharacter controller delegates
     void Update()
     {
         if (_aiLerp.canMove)
@@ -61,15 +79,14 @@ public class CharacterRendererManager : MonoBehaviour
 
         if (_weaponHolder.Weapon.WeaponType == WeaponType.Melee)
             await Melee(_faceDir);
-        // TODO: weapon Thrust animation
-        // if (_weaponHolder.Weapon.WeaponType == WeaponType.Thrust)
-        //     await Thrust(_faceDir);
         if (_weaponHolder.Weapon.WeaponType == WeaponType.Ranged)
             await Shoot(_faceDir);
     }
 
     public Vector2 GetFaceDir()
     {
+        return _faceDir;
+        /*
         // https://forum.unity.com/threads/current-animator-state-name.331803/
         var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
         AnimationClip clip = clipInfo[0].clip;
@@ -86,6 +103,7 @@ public class CharacterRendererManager : MonoBehaviour
             return Vector2.left;
 
         return Vector2.zero;
+        */
     }
 
 
@@ -246,4 +264,6 @@ public class CharacterRendererManager : MonoBehaviour
         transform.DOPunchPosition(dir * 0.5f, 0.4f, 1, 0, false);
         await Task.Delay(Mathf.FloorToInt(delay * 0.5f));
     }
+
+    public void SetSelected(bool isSelected) { _isSelected = isSelected; }
 }
