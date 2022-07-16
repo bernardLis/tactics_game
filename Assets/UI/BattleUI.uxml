@@ -96,7 +96,6 @@
                             <ui:VisualElement name="modifierIconContainer" class="modifierIconContainer" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:Button text="Details" display-tooltip-when-elided="true" class="menuButton" style="width: 50px; height: 25px; font-size: 12px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="characterBasicInfoGroup2" style="width: 50%; align-items: flex-start; justify-content: center; flex-grow: 1; flex-shrink: 0; flex-basis: initial; flex-wrap: nowrap; flex-direction: column;">
                     <ui:VisualElement name="characterHealthGroup" style="flex-direction: row; width: 100%;">
@@ -144,6 +143,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:Button display-tooltip-when-elided="true" class="characterCardDetailsButton" />
             </ui:VisualElement>
             <ui:VisualElement name="basicActions" style="display: none;">
                 <ui:Button display-tooltip-when-elided="true" name="openInventory">

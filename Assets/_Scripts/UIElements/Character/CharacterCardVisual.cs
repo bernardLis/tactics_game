@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,10 +9,8 @@ public class CharacterCardVisual : VisualElement
     Character _character;
     VisualElement _portrait;
     Label _name;
-    Label _level;
-    Label _exp;
 
-    VisualElement _characteristics;
+    protected VisualElement _characteristics;
 
     public ResourceBarVisual HealthBar;
     public ResourceBarVisual ManaBar;
@@ -49,9 +46,6 @@ public class CharacterCardVisual : VisualElement
         _stats.OnStatusAdded += OnStatusAdded;
         _stats.OnStatusRemoved += OnStatusRemoved;
         _stats.OnCharacterDeath += OnCharacterDeath;
-
-        _character.OnCharacterExpGain += OnExpGain;
-        _character.OnCharacterLevelUp += OnLevelUp;
     }
 
     void BaseCharacterCardVisual(Character character, bool clickable)
@@ -59,6 +53,8 @@ public class CharacterCardVisual : VisualElement
         AddToClassList("characterCard");
 
         // group 1
+        VisualElement nameContainer = new VisualElement(); // will hold name and more info button
+
         _information = new();
         _portrait = new();
         _name = new();
@@ -75,15 +71,20 @@ public class CharacterCardVisual : VisualElement
         _name.text = character.CharacterName;
 
         Add(_information);
-        _information.Add(_name);
         _information.Add(_portrait);
 
         _characteristics = new();
         _characteristics.AddToClassList("characteristicGroup");
 
+        nameContainer.Add(_name);
+        nameContainer.style.flexDirection = FlexDirection.Row;
+        nameContainer.style.alignItems = Align.Center;
+        nameContainer.style.width = Length.Percent(100);
+        nameContainer.style.justifyContent = Justify.SpaceBetween;
+
+        _characteristics.Add(nameContainer);
         _characteristics.Add(CreateHealthGroup(character));
         _characteristics.Add(CreateManaGroup(character));
-        _characteristics.Add(CreateExpGroup(character));
         Add(_characteristics);
 
         RegisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
@@ -92,15 +93,8 @@ public class CharacterCardVisual : VisualElement
         if (clickable)
         {
             RegisterCallback<PointerDownEvent>(OnPointerDown);
-            Button b = new Button();
-            b.clicked += DisplayCharacterScreen;
-            b.text = "Details";
-            b.AddToClassList("menuButton");
-            b.style.width = 80;
-            b.style.height = 40;
-            b.style.fontSize = 18;
-
-            _information.Add(b);
+            ButtonWithTooltip b = new ButtonWithTooltip("characterCardDetailsButton", "See more info", DisplayCharacterScreen);
+            nameContainer.Add(b);
         }
     }
 
@@ -116,7 +110,6 @@ public class CharacterCardVisual : VisualElement
         ManaBar.DisplayMissingAmount(_stats.MaxMana.GetValue(), _stats.CurrentMana);
     }
 
-
     void OnPanelDetached(DetachFromPanelEvent evt)
     {
         if (_stats == null)
@@ -130,10 +123,7 @@ public class CharacterCardVisual : VisualElement
 
         if (_character == null)
             return;
-        _character.OnCharacterExpGain -= OnExpGain;
-        _character.OnCharacterLevelUp -= OnLevelUp;
     }
-
 
     VisualElement CreateHealthGroup(Character character)
     {
@@ -162,32 +152,6 @@ public class CharacterCardVisual : VisualElement
 
         return manaGroup;
     }
-
-    VisualElement CreateExpGroup(Character character)
-    {
-        VisualElement container = new();
-        container.style.alignSelf = Align.Center;
-
-        VisualElement el = new();
-        el.style.flexDirection = FlexDirection.Row;
-
-        _level = new();
-        _exp = new();
-
-        _level.AddToClassList("secondaryText");
-        _exp.AddToClassList("secondaryText");
-
-        _level.text = $"Level {character.Level}";
-        _exp.text = $"Exp: {character.Experience}/100";
-
-        el.Add(_level);
-        el.Add(_exp);
-
-        container.Add(el);
-
-        return container;
-    }
-
 
     VisualElement HandleCharacterStats(Character character, CharacterStats characterStats)
     {
@@ -254,17 +218,6 @@ public class CharacterCardVisual : VisualElement
         return els;
     }
 
-    // Delegates
-    void OnExpGain(int gain)
-    {
-        _exp.text = $"Exp: {_character.Experience}/100";
-    }
-
-    void OnLevelUp()
-    {
-        _level.text = $"Level {_character.Level}";
-    }
-
     void OnModiferAdded(StatModifier mod)
     {
         ModifierVisual mElement = new ModifierVisual(mod);
@@ -313,7 +266,6 @@ public class CharacterCardVisual : VisualElement
             new CharacterScreen(_stats, root);
         else
             new CharacterScreen(_character, root);
-
     }
 
 }

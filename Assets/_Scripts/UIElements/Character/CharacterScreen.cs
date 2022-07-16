@@ -4,7 +4,6 @@ using UnityEngine.UIElements;
 
 public class CharacterScreen : FullScreenVisual
 {
-
     // TODO: many repetitions in the next 4 functions
     public CharacterScreen(CharacterStats stats, VisualElement root)
     {
@@ -34,7 +33,7 @@ public class CharacterScreen : FullScreenVisual
     {
         VisualElement characterCardContainer = new();
         characterCardContainer.AddToClassList("uiContainer");
-        CharacterCardVisual card = new CharacterCardVisual(stats, false);
+        CharacterCardVisualExtended card = new CharacterCardVisualExtended(stats);
 
         characterCardContainer.Add(card);
         Add(characterCardContainer);
@@ -44,7 +43,7 @@ public class CharacterScreen : FullScreenVisual
     {
         VisualElement characterCardContainer = new();
         characterCardContainer.AddToClassList("uiContainer");
-        CharacterCardVisual card = new CharacterCardVisual(character, false);
+        CharacterCardVisualExtended card = new CharacterCardVisualExtended(character);
 
         characterCardContainer.Add(card);
         Add(characterCardContainer);
