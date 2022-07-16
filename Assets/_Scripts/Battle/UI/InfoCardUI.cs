@@ -281,9 +281,10 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackLabel.text = "Attack";
 
         int attackValue = ability.CalculateInteractionResult(attacker, defender);
-        //TODO: safety wall summary
-        //if (defender.IsDamageAbsorbed(ability))
-        //    attackValue = 0;
+
+        if (defender.IsShielded)
+            attackValue = 0;
+     
         Label value = new("" + (-1 * attackValue)); // it looks weird when it is negative.
         _attackDamageValue.Add(value);
         HandleStatusesAbilitySummary(ability);
@@ -293,12 +294,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
             _characterUI.ShowHealthChange(attackValue);
 
         ShowHealthChange(defender, attackValue);
-
-        float hitChance = (1 - defender.GetDodgeChance(attacker.gameObject, false)) * 100;
-        hitChance = Mathf.Clamp(hitChance, 0, 100);
-
-        _attackHitValue.text = hitChance + "%";
-
         ShowRetaliationSummary(attacker, defender, ability);
     }
 
@@ -385,10 +380,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         int relatiationResult = retaliationAbility.CalculateInteractionResult(defender, attacker); // correct defender, attacker
         _retaliationDamageValue.text = "" + (-1 * relatiationResult);
-
-        float retaliationChance = (1 - attacker.GetDodgeChance(defender.gameObject, true)) * 100;
-        retaliationChance = Mathf.Clamp(retaliationChance, 0, 100);
-        _retaliationHitValue.text = retaliationChance + "%";
 
         _characterUI.ShowHealthChange(relatiationResult);
     }

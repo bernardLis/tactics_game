@@ -14,7 +14,6 @@ public class EnemyCharacter : Character
         Level = level;
 
         Power = Mathf.FloorToInt(level * brain.PowerMultiplier) + 5;
-        Agility = Mathf.FloorToInt(level * brain.AgilityMultiplier) + 5;
 
         Body = brain.Body;
         Weapon = brain.Weapon;

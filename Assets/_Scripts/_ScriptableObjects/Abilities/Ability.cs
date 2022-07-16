@@ -161,6 +161,7 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual int CalculateInteractionResult(CharacterStats attacker, CharacterStats defender)
     {
+        // TODO: need to add bonus for face dir
         // -1 coz it is attack and has to be negative... TODO: this is very imperfect.
         return -1 * (BasePower + attacker.Power.GetValue() - defender.Armor.GetValue());
     }

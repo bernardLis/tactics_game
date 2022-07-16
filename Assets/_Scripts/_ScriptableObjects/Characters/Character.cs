@@ -18,17 +18,11 @@ public class Character : BaseScriptableObject
     public int Experience;
 
     public int Power;
-    public int Agility;
 
-    int _baseMaxHealth = 100;
-    int _baseMaxMana = 50;
-    int _baseArmor = 0;
-    int _baseMovementRange = 3;
-
-    public int MaxHealth;
-    public int MaxMana;
-    public int Armor;
-    public int MovementRange;
+    public int MaxHealth = 100;
+    public int MaxMana = 50;
+    public int Armor = 0;
+    public int MovementRange = 4;
 
     [Header("Equipment")]
     public Equipment Body;
@@ -38,7 +32,6 @@ public class Character : BaseScriptableObject
     [Tooltip("For now just defend, basic attack is from the weapon")]
     public List<Ability> BasicAbilities = new();
     public List<Ability> Abilities = new();
-
 
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
@@ -53,7 +46,6 @@ public class Character : BaseScriptableObject
         Level = int.Parse(item["Level"].ToString());
         Experience = int.Parse(item["Experience"].ToString());
         Power = int.Parse(item["Power"].ToString());
-        Agility = int.Parse(item["Agility"].ToString());
 
         Body = (Equipment)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/{item["Body"]}.asset", typeof(Equipment));
         Weapon = (Weapon)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/Weapon/{item["Weapon"]}.asset", typeof(Weapon));
@@ -73,7 +65,6 @@ public class Character : BaseScriptableObject
         Level = data.Level;
         Experience = data.Experience;
         Power = data.Power;
-        Agility = data.Agility;
 
         Body = CharacterDatabase.GetBodyByName(data.Body);
         Weapon = CharacterDatabase.GetWeaponByName(data.Weapon);
@@ -95,20 +86,10 @@ public class Character : BaseScriptableObject
             Weapon.Initialize(weaponObj.gameObject);
     }
 
-    public void UpdateDerivativeStats()
-    {
-        MaxHealth = _baseMaxHealth;
-        MaxMana = _baseMaxMana;
-        Armor = _baseArmor;
-        MovementRange = Mathf.Clamp(_baseMovementRange + Mathf.FloorToInt(Agility / 3), 1, 8);
-    }
-
     public int GetStatValue(string stat)
     {
         if (stat == "Power")
             return Power;
-        if (stat == "Agility")
-            return Agility;
         if (stat == "MaxHealth")
             return MaxHealth;
         if (stat == "MaxMana")
@@ -163,8 +144,6 @@ public class Character : BaseScriptableObject
 
         Level++;
         Power += Random.Range(0, 2); ;
-        Agility += Random.Range(0, 2);
-        UpdateDerivativeStats();
 
         OnCharacterLevelUp?.Invoke();
     }
@@ -179,7 +158,6 @@ public struct CharacterData
     public int Level;
     public int Experience;
     public int Power;
-    public int Agility;
     public string Body;
     public string Weapon;
     public List<string> AbilityReferenceIds;

@@ -19,7 +19,6 @@ public class CharacterCardVisual : VisualElement
     public ResourceBarVisual ManaBar;
 
     StatVisual _power;
-    StatVisual _agility;
     StatVisual _armor;
     StatVisual _range;
 
@@ -58,8 +57,6 @@ public class CharacterCardVisual : VisualElement
     void BaseCharacterCardVisual(Character character, bool clickable)
     {
         AddToClassList("characterCard");
-
-        character.UpdateDerivativeStats();
 
         // group 1
         _information = new();
@@ -203,7 +200,6 @@ public class CharacterCardVisual : VisualElement
             CreateCharacterStats(characterStats);
 
         statsGroup.Add(_power);
-        statsGroup.Add(_agility);
         statsGroup.Add(_armor);
         statsGroup.Add(_range);
 
@@ -214,7 +210,6 @@ public class CharacterCardVisual : VisualElement
     {
         CharacterDatabase db = GameManager.Instance.CharacterDatabase;
         _power = new(db.GetStatIconByName("Power"), character.Power, "Power");
-        _agility = new(db.GetStatIconByName("Agility"), character.Agility, "Agility");
         _armor = new(db.GetStatIconByName("Armor"), character.Armor, "Armor");
         _range = new(db.GetStatIconByName("MovementRange"), character.MovementRange, "Movement Range");
     }
@@ -223,7 +218,6 @@ public class CharacterCardVisual : VisualElement
     {
         CharacterDatabase db = GameManager.Instance.CharacterDatabase;
         _power = new(db.GetStatIconByName("Power"), characterStats.Power);
-        _agility = new(db.GetStatIconByName("Agility"), characterStats.Agility);
         _armor = new(db.GetStatIconByName("Armor"), characterStats.Armor);
         _range = new(db.GetStatIconByName("MovementRange"), characterStats.MovementRange);
     }

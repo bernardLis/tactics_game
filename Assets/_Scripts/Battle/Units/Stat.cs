@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum StatType { Power, Agility, MaxHealth, MaxMana, Armor, MovementRange }
+public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 
 public class Stat
 {

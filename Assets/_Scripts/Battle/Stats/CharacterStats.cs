@@ -22,7 +22,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     // Stats are accessed by other scripts need to be public.
     // TODO: I could make them private and use only list to get info about stats
     [HideInInspector] public Stat Power = new();
-    [HideInInspector] public Stat Agility = new();
     [HideInInspector] public Stat MaxHealth = new();
     [HideInInspector] public Stat MaxMana = new();
     [HideInInspector] public Stat Armor = new();
@@ -150,9 +149,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         // taking values from scriptable object to c#
         Power.Initialize(StatType.Power, Character.Power, Character);
-        Agility.Initialize(StatType.Agility, Character.Agility, Character);
 
-        Character.UpdateDerivativeStats();
         MaxHealth.Initialize(StatType.MaxHealth, Character.MaxHealth, Character);
         MaxMana.Initialize(StatType.MaxMana, Character.MaxMana, Character);
         Armor.Initialize(StatType.Armor, Character.Armor, Character);
@@ -202,7 +199,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         Stats.Clear();
 
         Stats.Add(Power);
-        Stats.Add(Agility);
 
         Stats.Add(MaxHealth);
         Stats.Add(MaxMana);
@@ -221,14 +217,14 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         // in the side 1, face to face 2, from the back 0, 
         int attackDir = CalculateAttackDir(attacker);
-        float dodgeChance = CalculateDodgeChance(attackDir, attacker, false);
-        float randomVal = Random.value;
+        int bonusDamage = CalculateBonusAttackDamage(damage, attackDir, false);
+        damage += bonusDamage;
 
-        // dodgeChance% of time <- TODO: is that correct?
-        if (randomVal < dodgeChance && !IsStunned)
-            Dodge(attacker);
-        else if (IsShielded)
+        if (IsShielded)
+        {
             ShieldDamage();
+            return wasAttackSuccesful;
+        }
         else
         {
             wasAttackSuccesful = true;
@@ -282,22 +278,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         await retaliationAbility.TriggerAbility(tiles);
         return wasAttackSuccesful;
-    }
-
-    async void Dodge(GameObject attacker)
-    {
-        // face the attacker
-        _characterRendererManager.Face((attacker.transform.position - transform.position).normalized);
-
-        _damageUI.DisplayOnCharacter("Dodged!", 24, Color.black);
-        _audioManager.PlaySFX("Dodge", transform.position);
-
-        // shake yourself
-        float duration = 0.5f;
-        float strength = 0.8f;
-
-        _body.transform.DOShakePosition(duration, strength, 0, 0, false, true);
-        await Task.Delay(500);
     }
 
     void ShieldDamage()
@@ -401,22 +381,20 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         return attackDir;
     }
 
-    float CalculateDodgeChance(int attackDir, GameObject attacker, bool isRetaliation)
+    public int CalculateBonusAttackDamage(int dmg, int attackDir, bool isRetaliation)
     {
         // retaliation is always face to face (which may not be true, but let's simplify for now)
         if (isRetaliation)
             attackDir = 2;
 
-        // base 50% chance of dodging when being attacked face to face
-        // base 25% chance of dodging when being attacked from the side
-        // base 0% chance of dodging when being attacked from the back
+        if (attackDir == 2)
+            return 0;
+        if (attackDir == 1)
+            return Mathf.FloorToInt(dmg * 0.25f);
+        if (attackDir == 0)
+            return Mathf.FloorToInt(dmg * 0.50f);
 
-        // additionally, every point difference in agi between characters is worth 2%
-        // if it is negative, than attacker is more agile than us, so higher chance to hit.
-
-        int agiDiff = Agility.GetValue() - attacker.GetComponent<CharacterStats>().Agility.GetValue();
-
-        return (float)(0.25 * attackDir) + (float)(0.02 * agiDiff);
+        return 0;
     }
 
     public AttackAbility GetRetaliationAbility()
@@ -451,14 +429,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             return false;
 
         return true;
-    }
-
-    public float GetDodgeChance(GameObject attacker, bool retaliation)
-    {
-        if (IsStunned)
-            return 0;
-
-        return CalculateDodgeChance(CalculateAttackDir(attacker), attacker, retaliation);
     }
 
     public void GainMana(int amount)

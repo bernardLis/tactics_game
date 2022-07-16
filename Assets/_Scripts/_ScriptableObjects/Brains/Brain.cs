@@ -15,7 +15,6 @@ public class Brain : BaseScriptableObject
 
     // TODO: curves instead of floats
     public float PowerMultiplier;
-    public float AgilityMultiplier;
 
     public Equipment Body;
     public Weapon Weapon;

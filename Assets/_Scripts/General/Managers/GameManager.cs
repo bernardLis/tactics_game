@@ -157,7 +157,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             data.Level = c.Level;
             data.Experience = c.Experience;
             data.Power = c.Power;
-            data.Agility = c.Agility;
             data.Body = c.Body.name;
             data.Weapon = c.Weapon.name;
 
