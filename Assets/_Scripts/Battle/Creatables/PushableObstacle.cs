@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.Rendering.Universal;
+using DG.Tweening;
 
 public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, ICreatable<Vector3, Ability, string>
 {
@@ -9,7 +11,6 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     // summon (falling) boulder
     [SerializeField] GameObject _shadow;
     [SerializeField] GameObject _poofEffect;
-
 
     // push
     BoxCollider2D _selfCollider;
@@ -25,6 +26,13 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     {
         _battleManager = BattleManager.Instance;
         _selfCollider = GetComponent<BoxCollider2D>();
+        FlickerLight();
+    }
+
+    void FlickerLight()
+    {
+        Light2D l = GetComponentInChildren<Light2D>();
+        DOTween.To(() => l.intensity, x => l.intensity = x, 0.2f, 4f).SetLoops(-1, LoopType.Yoyo);
     }
 
     public async Task Initialize(Vector3 pos, Ability ability, string tag = "")

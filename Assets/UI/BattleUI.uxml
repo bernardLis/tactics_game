@@ -85,9 +85,9 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 22%; align-items: stretch; justify-content: flex-start; visibility: visible; display: flex; top: auto; flex-direction: row; flex-wrap: nowrap; position: absolute; bottom: -22%;">
+    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 200px; align-items: stretch; justify-content: flex-start; visibility: visible; display: flex; top: auto; flex-direction: row; flex-wrap: nowrap; position: absolute; bottom: -22%;">
         <ui:VisualElement name="characterUI" style="width: 80%; height: auto; flex-direction: row; overflow: visible; top: auto; bottom: auto; display: flex;">
-            <ui:VisualElement name="characterUICharacterCard" class="uiContainer" style="height: 100%; width: 45%; flex-direction: row; justify-content: flex-start;">
+            <ui:VisualElement name="characterUICharacterCard" class="uiContainer" style="height: 100%; width: 500px; flex-direction: row; justify-content: flex-start;">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 50%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
                     <ui:VisualElement name="characterPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center; display: flex;">
@@ -195,5 +195,8 @@
     </ui:VisualElement>
     <ui:VisualElement name="tutorialTextContainer" style="position: absolute; top: 30%; width: 80%; justify-content: flex-end; align-items: center; left: 10%; display: none;">
         <ui:Label text="Label" display-tooltip-when-elided="true" name="tutorialText" class="primaryText" style="font-size: 48px; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="battleGoalContainer" style="position: absolute; right: 10px; top: 10px; display: none;">
+        <ui:Label text="Goal: Defeat all enemies" display-tooltip-when-elided="true" class="primaryText" />
     </ui:VisualElement>
 </ui:UXML>

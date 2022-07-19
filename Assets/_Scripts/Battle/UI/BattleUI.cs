@@ -16,6 +16,8 @@ public class BattleUI : Singleton<BattleUI>
     Label _battleLogText;
     Queue<IEnumerator> _coroutineQueue = new();
 
+    VisualElement _battleGoalContainer;
+
     VisualElement _battleEndContainer;
     Label _battleEndText;
     VisualElement _battleEndCharacters;
@@ -40,6 +42,8 @@ public class BattleUI : Singleton<BattleUI>
         _battleLogContainer = Root.Q<VisualElement>("battleLogContainer");
         _battleLogText = Root.Q<Label>("battleLogText");
 
+        _battleGoalContainer = Root.Q<VisualElement>("battleGoalContainer");
+
         _battleEndContainer = Root.Q<VisualElement>("battleEndContainer");
         _battleEndText = Root.Q<Label>("battleEndText");
         _battleEndCharacters = Root.Q<VisualElement>("battleEndCharacters");
@@ -63,7 +67,7 @@ public class BattleUI : Singleton<BattleUI>
         if (state == BattleState.EnemyTurn)
             DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - ENEMY");
         if (state == BattleState.PlayerTurn)
-            DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
+            HandlePlayerTurn();
         if (state == BattleState.Won)
             ShowBattleWonScreen();
         if (state == BattleState.Lost)
@@ -73,6 +77,19 @@ public class BattleUI : Singleton<BattleUI>
     void OnDestroy()
     {
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+    }
+
+    void HandlePlayerTurn()
+    {
+        if (TurnManager.CurrentTurn == 1)
+            DisplayBattleGoal();
+
+        DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
+    }
+
+    void DisplayBattleGoal()
+    {
+        _battleGoalContainer.style.display = DisplayStyle.Flex;
     }
 
     public void DisplayBattleLog(string text)

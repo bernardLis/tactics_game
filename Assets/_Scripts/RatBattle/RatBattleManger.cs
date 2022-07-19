@@ -136,7 +136,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     async Task WalkPlayer()
     {
-        await _battleCutSceneManager.WalkCharacterTo(_playerGO, new Vector3(-3.5f, 3.5f));
+        await _battleCutSceneManager.WalkCharacterTo(_playerGO, new Vector3(-3.5f, 2.5f));
         await Task.Delay(200);
         _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
     }

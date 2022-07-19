@@ -579,7 +579,7 @@ public class BoardManager : Singleton<BoardManager>
 
         GameObject ob = Instantiate(selectedPrefab, placingPos, Quaternion.identity);
         if (_obj.ObjectType == TileMapObjectType.Obstacle)
-            ob.GetComponent<Obstacle>().Initialise(_obj);
+            ob.GetComponent<Obstacle>().Initialize(_obj);
         if (_obj.ObjectType == TileMapObjectType.Outer)
             ob.GetComponent<OuterObject>().Initialise(_obj);
 

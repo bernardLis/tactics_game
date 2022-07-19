@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BattleGoal { DefeatAllEnemies } // TODO: implement other battle goals (defeat the leader, hold position, ...)
+
 
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/BattleNode")]
 public class BattleNode : JourneyNode
@@ -12,7 +14,7 @@ public class BattleNode : JourneyNode
     public MapVariant MapVariant;
     public List<Brain> Enemies;
     public Vector2Int MapSize;
-
+    public BattleGoal BattleGoal; 
 
     public override void Initialize(GameObject self)
     {

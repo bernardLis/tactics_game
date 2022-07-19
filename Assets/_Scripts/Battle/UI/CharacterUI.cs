@@ -27,8 +27,8 @@ public class CharacterUI : Singleton<CharacterUI>
     CharacterStats _selectedPlayerStats;
 
     // animate ui up/down on show/hide
-    float _UIShowValue = 0f;
-    float _UIHideValue = -22f;
+    float _UIShowValue = 0;
+    float _UIHideValue = -200;
 
     // buttons management
     Queue<IEnumerator> _buttonClickQueue = new();
@@ -135,7 +135,7 @@ public class CharacterUI : Singleton<CharacterUI>
         DisableSkillButtons();
 
         DOTween.Kill(_hideCharacterUIID);
-        await DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x),
+        await DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = x,
                          _UIShowValue, 0.5f)
                     .SetEase(Ease.InOutSine).AsyncWaitForCompletion();
 
@@ -152,7 +152,7 @@ public class CharacterUI : Singleton<CharacterUI>
     {
         HideAbilityTooltip();
 
-        await DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = Length.Percent(x),
+        await DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = x,
                          _UIHideValue, 0.5f)
                 .SetEase(Ease.InOutSine)
                 .SetId(_hideCharacterUIID).AsyncWaitForCompletion();

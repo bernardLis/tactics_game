@@ -23,5 +23,7 @@ public class Collectible : MonoBehaviour
         _isCollected = true;
         _spriteRenderer.color = Color.red;
         _boxCollider2D.enabled = false;
+
+        BattleUI.Instance.DisplayBattleLog("Collectible fox found!");
     }
 }

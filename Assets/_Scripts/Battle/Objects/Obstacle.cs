@@ -5,8 +5,17 @@ public class Obstacle : MonoBehaviour, IUITextDisplayable
 {
     BoxCollider2D _col;
     [SerializeField] Light2D _spotLightPrefab;
+    [SerializeField] TilemapObject _tileMapObject;
 
-    public void Initialise(TilemapObject obj)
+    void Start()
+    {
+        // I want it to throw an error if there is no tileMapObject.
+        Initialize(_tileMapObject);
+    }
+
+
+    // can be initialized from code;
+    public void Initialize(TilemapObject obj)
     {
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
         sr.sprite = obj.Sprite;
@@ -26,7 +35,5 @@ public class Obstacle : MonoBehaviour, IUITextDisplayable
             l.pointLightOuterRadius = Random.Range(obj.OuterRadius.x, obj.OuterRadius.y);
         }
     }
-
     public virtual string DisplayText() { return "Obstacle. Impassable, immovable, unstoppable!"; }
-
 }
