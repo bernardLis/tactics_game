@@ -168,7 +168,8 @@ public class RatBattleManger : Singleton<RatBattleManger>
         w.transform.parent = _envObjectsHolder.transform;
 
         Color targetColor = new Color(1f, 1f, 1f, 0.5f);
-        if (w != null)
+        await Task.Delay(50);
+        if (w != null && sr != null)
             sr.DOColor(targetColor, 10f);
     }
 

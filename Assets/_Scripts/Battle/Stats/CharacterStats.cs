@@ -215,7 +215,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         bool wasAttackSuccesful = false;
 
-
         if (IsShielded)
         {
             ShieldDamage();
@@ -225,9 +224,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         {
             wasAttackSuccesful = true;
             _lastAttacker = attacker.GetComponent<CharacterStats>();
-            await TakeDamageFinal(damage);
             HandleModifier(ability);
-            HandleStatus(attacker, ability);
+            await HandleStatus(attacker, ability);
+            await TakeDamageFinal(damage);
         }
 
         // in the side 1, face to face 2, from the back 0, 
@@ -329,13 +328,13 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         await Task.Delay(500);
     }
 
-    public void GetBuffed(GameObject attacker, Ability ability)
+    public async void GetBuffed(GameObject attacker, Ability ability)
     {
         if (attacker.TryGetComponent(out CharacterStats stats))
             stats.Character.GetExp(gameObject);
 
         HandleModifier(ability);
-        HandleStatus(attacker, ability);
+        await HandleStatus(attacker, ability);
     }
 
     void HandleModifier(Ability ability)
@@ -344,7 +343,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             AddModifier(ability);
     }
 
-    async void HandleStatus(GameObject attacker, Ability ability)
+    async Task HandleStatus(GameObject attacker, Ability ability)
     {
         if (ability.Status != null)
             await AddStatus(ability.Status, attacker);
@@ -433,7 +432,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         OnManaChange?.Invoke(Character.MaxMana, manaBeforeChange, -amount);
     }
 
-    public void GainHealth(int healthGain, GameObject attacker, Ability ability)
+    public async void GainHealth(int healthGain, GameObject attacker, Ability ability)
     {
         if (attacker.TryGetComponent(out CharacterStats stats))
             stats.Character.GetExp(gameObject);
@@ -443,7 +442,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         CurrentHealth += healthGain;
 
         HandleModifier(ability);
-        HandleStatus(attacker, ability);
+        await HandleStatus(attacker, ability);
 
         _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
     }
@@ -454,7 +453,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _finalPos = transform.position + dir;
 
         HandleModifier(ability);
-        HandleStatus(attacker, ability);
+        await HandleStatus(attacker, ability);
 
         BoxCollider2D selfCollider = transform.GetComponentInChildren<BoxCollider2D>();
         selfCollider.enabled = false;

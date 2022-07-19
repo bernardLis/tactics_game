@@ -23,7 +23,7 @@ MonoBehaviour:
   WeaponType: 0
   AreaOfEffect: 0
   LineAreaOfEffect: 0
-  SpellcastAnimation: 0
+  SpellcastAnimation: 1
   StatModifier: {fileID: 0}
   Status: {fileID: 11400000, guid: a05ceeb634ffb9145ac8fbd75f28443e, type: 2}
   Projectile: {fileID: 5427894526150769421, guid: 286840ff05f793544b036acdcb7564fb, type: 3}

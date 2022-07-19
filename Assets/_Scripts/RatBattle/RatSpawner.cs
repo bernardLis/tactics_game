@@ -65,6 +65,16 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         return false;
     }
 
+    public bool IsSpawnCoveredWithBoulder()
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.CompareTag(Tags.PushableObstacle))
+                return true;
+
+        return false;
+    }
+
     public void SpawnRat()
     {
         EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();

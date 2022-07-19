@@ -152,6 +152,8 @@ public class BattleUI : Singleton<BattleUI>
 
     void ShowBattleWonScreen()
     {
+        Debug.Log("ShowBattleWonScreen");
+
         ShowBattleEndScreen();
         foreach (Character character in _gameManager.PlayerTroops)
         {
@@ -159,7 +161,7 @@ public class BattleUI : Singleton<BattleUI>
             _battleEndCharacters.Add(visual);
         }
 
-        _battleEndText.text = "WON!!";
+        _battleEndText.text = $"You won in {TurnManager.CurrentTurn} turns!";
     }
 
     void ShowBattleLostScreen()
@@ -170,6 +172,8 @@ public class BattleUI : Singleton<BattleUI>
 
     void ShowBattleEndScreen()
     {
+        Debug.Log("show battle end screen");
+
         _turnTextContainer.style.display = DisplayStyle.None;
 
         _battleEndContainer.style.display = DisplayStyle.Flex;
@@ -191,6 +195,12 @@ public class BattleUI : Singleton<BattleUI>
                 yield return StartCoroutine(_coroutineQueue.Dequeue());
             yield return null;
         }
+    }
+
+    public void AddElementToBattleEnd(VisualElement el)
+    {
+        Debug.Log("add add");
+        _battleEndContainer.Add(el);
     }
 
 }

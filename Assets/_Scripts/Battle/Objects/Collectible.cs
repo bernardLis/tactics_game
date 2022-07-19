@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    bool _isCollected;
+    public bool IsCollected { get; private set; }
     SpriteRenderer _spriteRenderer;
     BoxCollider2D _boxCollider2D;
 
@@ -14,13 +14,13 @@ public class Collectible : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!_isCollected && other.CompareTag(Tags.PushableObstacle))
+        if (!IsCollected && other.CompareTag(Tags.PushableObstacle))
             Collect();
     }
 
     void Collect()
     {
-        _isCollected = true;
+        IsCollected = true;
         _spriteRenderer.color = Color.red;
         _boxCollider2D.enabled = false;
 

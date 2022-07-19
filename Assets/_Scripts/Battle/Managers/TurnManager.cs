@@ -34,7 +34,6 @@ public class TurnManager : Singleton<TurnManager>
         _gameManager = GameManager.Instance;
 
         CurrentTurn = 0;
-
     }
 
     // https://www.youtube.com/watch?v=4I0vonyqMi8&t=193s
@@ -139,9 +138,6 @@ public class TurnManager : Singleton<TurnManager>
         Debug.Log("Congratz player! You win!!!");
 
         _gameManager.SetNodeReward(BattleManager.Instance.GetReward());
-
-        // TODO: maybe show a win screen, where you get reward, 
-        // you characters level up and stuff and there is a button to go back to journey
 
         List<Character> playerCharactersAlive = new();
         foreach (GameObject p in _playerCharacters)

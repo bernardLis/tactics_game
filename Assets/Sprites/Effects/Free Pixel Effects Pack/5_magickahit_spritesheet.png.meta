@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -955,20 +955,19 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       5_magickahit_spritesheet_13: -493062634
-      5_magickahit_spritesheet_28: 514349045
+      5_magickahit_spritesheet_9: 1785082518
       5_magickahit_spritesheet_7: 1737689895
       5_magickahit_spritesheet_11: -1502858964
       5_magickahit_spritesheet_2: 1024881283
       5_magickahit_spritesheet_5: -2090342610
       5_magickahit_spritesheet_25: 900109043
       5_magickahit_spritesheet_1: -81228892
-      5_magickahit_spritesheet_39: 1715348489
+      5_magickahit_spritesheet_30: -1483329262
       5_magickahit_spritesheet_8: -623379007
       5_magickahit_spritesheet_15: -1215563746
       5_magickahit_spritesheet_31: -1067820444
       5_magickahit_spritesheet_16: -719247620
       5_magickahit_spritesheet_14: 353099199
-      5_magickahit_spritesheet_38: -468672430
       5_magickahit_spritesheet_32: 577758241
       5_magickahit_spritesheet_22: -1092680651
       5_magickahit_spritesheet_3: -1054782266
@@ -990,10 +989,11 @@ TextureImporter:
       5_magickahit_spritesheet_12: 262030464
       5_magickahit_spritesheet_29: 2079793810
       5_magickahit_spritesheet_18: 1390345864
-      5_magickahit_spritesheet_9: 1785082518
+      5_magickahit_spritesheet_28: 514349045
+      5_magickahit_spritesheet_38: -468672430
       5_magickahit_spritesheet_21: 341238625
+      5_magickahit_spritesheet_39: 1715348489
       5_magickahit_spritesheet_4: -1567137962
-      5_magickahit_spritesheet_30: -1483329262
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

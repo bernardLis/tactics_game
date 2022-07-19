@@ -58,8 +58,8 @@ public class ElectryficationStatus : Status
             if (c.TryGetComponent(out CharacterStats stats)) // electrify characters
                 if (!stats.IsElectrified)
                     await stats.AddStatus(this, Attacker);
-            if (c.TryGetComponent(out WaterOnTile waterOnTile))
-                await waterOnTile.ElectrifyWater(this, Attacker); 
+            if (c != null && c.TryGetComponent(out WaterOnTile waterOnTile))
+                await waterOnTile.ElectrifyWater(this, Attacker);
         }
     }
 

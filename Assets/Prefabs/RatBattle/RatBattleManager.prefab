@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3110995401688889203, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
       propertyPath: m_Name
-      value: RatBattleManager (1)
+      value: RatBattleManager
       objectReference: {fileID: 0}
     - target: {fileID: 3110995401688889204, guid: cae4521089191f14db10c0f3d77ed2f6, type: 3}
       propertyPath: m_RootOrder
@@ -96,6 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da04a8d06c5a2646ac67ec0ab44c75b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arrowsToMove: {fileID: 11400000, guid: daa98cfe0f9be6841abc803602191312, type: 2}
-  _fToSelect: {fileID: 11400000, guid: a66a273cf2b8e6b44b402bc6254f1b22, type: 2}
-  _selected: {fileID: 11400000, guid: 683ebce395a997444980b6d9b3aecc15, type: 2}
+--- !u!114 &437183081351449335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461571229676209144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4323b47beef275e4f8e950dcda9c7e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
