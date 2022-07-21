@@ -274,7 +274,6 @@ public class BattleInputController : Singleton<BattleInputController>
             _battleUI.HideCharacterScreen();
 
         _battleCharacterController.Back();
-        //_movePointController.UpdateDisplayInformation();
     }
 
     void SelectNextCharacter(InputAction.CallbackContext ctx)

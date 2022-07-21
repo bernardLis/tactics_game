@@ -5,41 +5,54 @@ using UnityEngine.UIElements;
 
 public class RatWinScreenManager : MonoBehaviour
 {
-
-
     BattleUI _battleUI;
 
-    // TODO: maybe battle UI has a method where you can add text to battle end container...
-    void Awake()
+    [SerializeField] Texture2D _check;
+
+    void Start()
     {
-        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
         _battleUI = BattleUI.Instance;
+        _battleUI.OnBattleEndScreenShown += BattleUI_OnBattleEndScreenShown;
     }
 
     void OnDestroy()
     {
-        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+        _battleUI.OnBattleEndScreenShown -= BattleUI_OnBattleEndScreenShown;
     }
 
-    void TurnManager_OnBattleStateChanged(BattleState state)
+    void BattleUI_OnBattleEndScreenShown()
     {
-        if (TurnManager.BattleState == BattleState.PlayerTurn)
-            HandlePlayerTurn();
-        if (state == BattleState.Won)
-            HandleWinning();
-    }
-
-    void HandlePlayerTurn()
-    {
-
-    }
-
-    void HandleWinning()
-    {
-        Debug.Log("in rat win screen manager");
+        DefeatedAllEnemies();
         WasElectrified();
         CoveredRatSpawners();
         FoundCollectible();
+    }
+
+    VisualElement GetCheckElement(bool isCompleted)
+    {
+        VisualElement el = new VisualElement();
+        if (isCompleted)
+            el.style.backgroundImage = _check;
+
+        el.AddToClassList("battleGoalCheck");
+        return el;
+    }
+
+    VisualElement GetGoalContainer()
+    {
+        VisualElement el = new VisualElement();
+        el.AddToClassList("primaryText");
+        el.style.flexDirection = FlexDirection.Row;
+        return el;
+    }
+
+    void DefeatedAllEnemies()
+    {
+        VisualElement container = GetGoalContainer();
+        container.Add(GetCheckElement(true));
+        TextWithTooltip l = new TextWithTooltip("Defeat all enemies.", "Rats!");
+        container.Add(l);
+        _battleUI.AddGoalToBattleEndScreen(container);
     }
 
     void WasElectrified()
@@ -47,55 +60,57 @@ public class RatWinScreenManager : MonoBehaviour
         GameObject player = TurnManager.Instance.GetPlayerCharacters()[0];
         CharacterStats stats = player.GetComponent<CharacterStats>();
 
-        Label l = new Label();
-        l.AddToClassList("primaryText");
-        l.text = "Unpowered!";
+        VisualElement container = GetGoalContainer();
+
+        bool isElectrified = false;
         foreach (Status s in stats.Statuses)
             if (s.ReferenceID == "ElectrifyStatus")
-                l.text = "Power nap!";
+                isElectrified = true;
 
-        _battleUI.AddElementToBattleEnd(l);
+        if (!isElectrified)
+            container.Add(GetCheckElement(true));
+        else
+            container.Add(GetCheckElement(false));
+
+        TextWithTooltip l = new TextWithTooltip("I don't need a power nap.", "Don't get electrified.");
+        container.Add(l);
+        _battleUI.AddGoalToBattleEndScreen(container);
     }
 
     void CoveredRatSpawners()
     {
+        VisualElement container = GetGoalContainer();
+
         RatSpawner[] ratSpawners = GameObject.FindObjectsOfType<RatSpawner>();
-        Label l = new Label();
-        l.AddToClassList("primaryText");
-
         int gratesCovered = 0;
-
         foreach (RatSpawner s in ratSpawners)
-        {
             if (s.IsSpawnCoveredWithBoulder())
                 gratesCovered++;
 
-        }
-
-        l.text = $"Grates covered: {gratesCovered}!";
         if (gratesCovered == 2)
-            l.text += " Strongman!";
+            container.Add(GetCheckElement(true));
+        else
+            container.Add(GetCheckElement(false));
 
-        _battleUI.AddElementToBattleEnd(l);
+        TextWithTooltip l = new TextWithTooltip("Strongman!", "Cover both grates with boulders.");
+        container.Add(l);
+
+        _battleUI.AddGoalToBattleEndScreen(container);
     }
 
     void FoundCollectible()
     {
         Collectible c = GameObject.FindObjectOfType<Collectible>();
 
-        Label l = new Label();
-        l.AddToClassList("primaryText");
-        l.text = "Fox is missing.";
+        VisualElement container = GetGoalContainer();
+        TextWithTooltip l = new TextWithTooltip("Fox collector!", "Find a fox collectible.");
 
         if (c.IsCollected)
-            l.text = "Fox collector.";
+            container.Add(GetCheckElement(true));
+        else
+            container.Add(GetCheckElement(false));
 
-
-        _battleUI.AddElementToBattleEnd(l);
-
-
+        container.Add(l);
+        _battleUI.AddGoalToBattleEndScreen(container);
     }
-
-
-
 }

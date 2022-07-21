@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class BattleUI : Singleton<BattleUI>
 
     VisualElement _battleEndContainer;
     Label _battleEndText;
+    VisualElement _battleEndGoalContainer;
     VisualElement _battleEndCharacters;
     Button _backToJourney;
 
@@ -27,6 +29,8 @@ public class BattleUI : Singleton<BattleUI>
     string _battleLogTweenID = "battleLogTweenID";
 
     public CharacterScreen CharacterScreen { get; private set; }
+
+    public event Action OnBattleEndScreenShown;
 
     protected override void Awake()
     {
@@ -47,6 +51,7 @@ public class BattleUI : Singleton<BattleUI>
         _battleEndContainer = Root.Q<VisualElement>("battleEndContainer");
         _battleEndText = Root.Q<Label>("battleEndText");
         _battleEndCharacters = Root.Q<VisualElement>("battleEndCharacters");
+        _battleEndGoalContainer = Root.Q<VisualElement>("battleEndGoalContainer");
         _backToJourney = Root.Q<Button>("backToJourney");
 
         _backToJourney.clickable.clicked += BackToJourney;
@@ -58,6 +63,11 @@ public class BattleUI : Singleton<BattleUI>
     void Start()
     {
         StartCoroutine(CoroutineCoordinator());
+    }
+
+    void OnDestroy()
+    {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
@@ -72,11 +82,6 @@ public class BattleUI : Singleton<BattleUI>
             ShowBattleWonScreen();
         if (state == BattleState.Lost)
             ShowBattleLostScreen();
-    }
-
-    void OnDestroy()
-    {
-        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
     void HandlePlayerTurn()
@@ -136,7 +141,6 @@ public class BattleUI : Singleton<BattleUI>
             .SetId(_turnTextTweenID);
     }
 
-
     public void ShowCharacterScreen(Character character)
     {
         BattleManager.Instance.PauseGame();
@@ -152,8 +156,6 @@ public class BattleUI : Singleton<BattleUI>
 
     void ShowBattleWonScreen()
     {
-        Debug.Log("ShowBattleWonScreen");
-
         ShowBattleEndScreen();
         foreach (Character character in _gameManager.PlayerTroops)
         {
@@ -167,19 +169,26 @@ public class BattleUI : Singleton<BattleUI>
     void ShowBattleLostScreen()
     {
         ShowBattleEndScreen();
-        _battleEndText.text = "LOST!!";
+        _battleEndText.text = "You lost!";
     }
 
     void ShowBattleEndScreen()
     {
-        Debug.Log("show battle end screen");
-
         _turnTextContainer.style.display = DisplayStyle.None;
+        _battleGoalContainer.style.display = DisplayStyle.None;
+        
+        _battleEndGoalContainer.Clear();
 
         _battleEndContainer.style.display = DisplayStyle.Flex;
         _battleEndContainer.style.opacity = 0f;
         DOTween.To(() => _battleEndContainer.style.opacity.value, x => _battleEndContainer.style.opacity = x, 1f, 2f)
-            .OnComplete(() => _backToJourney.style.display = DisplayStyle.Flex);
+            .OnComplete(OnShowBattleEndScreenCompleted);
+    }
+
+    void OnShowBattleEndScreenCompleted()
+    {
+        _backToJourney.style.display = DisplayStyle.Flex;
+        OnBattleEndScreenShown?.Invoke();
     }
 
     void BackToJourney()
@@ -197,10 +206,9 @@ public class BattleUI : Singleton<BattleUI>
         }
     }
 
-    public void AddElementToBattleEnd(VisualElement el)
+    public void AddGoalToBattleEndScreen(VisualElement el)
     {
-        Debug.Log("add add");
-        _battleEndContainer.Add(el);
+        _battleEndGoalContainer.Add(el);
     }
 
 }

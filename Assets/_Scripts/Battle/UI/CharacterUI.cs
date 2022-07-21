@@ -57,6 +57,7 @@ public class CharacterUI : Singleton<CharacterUI>
         _battleInputController = BattleInputController.Instance;
         _battleCharacterController = BattleCharacterController.Instance;
 
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
         MovePointController.OnMove += MovePointController_OnMove;
         BattleCharacterController.OnCharacterStateChanged += BattleCharacterController_OnCharacterStateChange;
 
@@ -66,8 +67,15 @@ public class CharacterUI : Singleton<CharacterUI>
 
     void OnDestroy()
     {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
         MovePointController.OnMove -= MovePointController_OnMove;
         BattleCharacterController.OnCharacterStateChanged -= BattleCharacterController_OnCharacterStateChange;
+    }
+
+    async void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        if (state == BattleState.Won || state == BattleState.Lost)
+            await HideCharacterUI();
     }
 
     void MovePointController_OnMove(Vector3 pos)

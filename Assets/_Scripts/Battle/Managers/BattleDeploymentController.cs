@@ -35,7 +35,7 @@ public class BattleDeploymentController : MonoBehaviour
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if (TurnManager.BattleState == BattleState.MapBuilding)
+        if (state == BattleState.MapBuilding)
             HandleMapBuilding();
     }
 

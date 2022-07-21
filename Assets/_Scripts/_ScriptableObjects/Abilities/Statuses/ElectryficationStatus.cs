@@ -29,7 +29,7 @@ public class ElectryficationStatus : Status
                 effectController.AddPosition(endPosistionRandomized);
 
                 await SpreadElectrification(pos);
-                await Task.Delay(50);
+                await Task.Delay(20);
             }
         }
 

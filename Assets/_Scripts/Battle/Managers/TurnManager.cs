@@ -53,7 +53,7 @@ public class TurnManager : Singleton<TurnManager>
                 HandleEnemyTurn();
                 break;
             case BattleState.Won:
-                HandleWinning();
+                //HandleWinning();
                 break;
             case BattleState.Lost:
                 HandleLosing();
@@ -144,6 +144,8 @@ public class TurnManager : Singleton<TurnManager>
             playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);
 
         _gameManager.SetPlayerTroops(playerCharactersAlive);
+        Debug.Log("handle winnign at the end = are there errors that are eaten?");
+
     }
 
     void HandleLosing()

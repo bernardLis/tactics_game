@@ -66,7 +66,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if (TurnManager.BattleState == BattleState.PlayerTurn)
+        if (state == BattleState.PlayerTurn)
             HandlePlayerTurn();
     }
 

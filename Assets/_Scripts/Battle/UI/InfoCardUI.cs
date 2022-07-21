@@ -72,14 +72,22 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _battleCharacterController = BattleCharacterController.Instance;
         _movePointController = MovePointController.Instance;
 
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
         MovePointController.OnMove += MovePointController_OnMove;
         BattleCharacterController.OnCharacterStateChanged += BattleCharacterController_OnCharacterStateChange;
     }
 
     void OnDestroy()
     {
+        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
         MovePointController.OnMove -= MovePointController_OnMove;
         BattleCharacterController.OnCharacterStateChanged -= BattleCharacterController_OnCharacterStateChange;
+    }
+
+    void TurnManager_OnBattleStateChanged(BattleState state)
+    {
+        if (state == BattleState.Won || state == BattleState.Lost)
+            HideAll();
     }
 
     void MovePointController_OnMove(Vector3 pos)
@@ -406,4 +414,11 @@ public class InfoCardUI : Singleton<InfoCardUI>
     }
 
     void DisplayNone(VisualElement el) { el.style.display = DisplayStyle.None; }
+
+    void HideAll()
+    {
+        HideCharacterCard();
+        HideTileInfo();
+        HideInteractionSummary();
+    }
 }

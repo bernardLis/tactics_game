@@ -34,7 +34,7 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if (TurnManager.BattleState == BattleState.PlayerTurn)
+        if (state == BattleState.PlayerTurn)
             HandlePlayerTurn();
     }
 

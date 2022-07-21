@@ -187,9 +187,22 @@
             <ui:Label text="First uses Heal on Second. " display-tooltip-when-elided="true" name="battleLogText" class="primaryText" style="font-size: 36px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="battleEndContainer" style="width: 100%; height: 100%; background-color: rgb(0, 0, 0); display: none; opacity: 1; position: absolute; justify-content: flex-start; align-items: center;">
-        <ui:Label text="Battle is finished! " display-tooltip-when-elided="true" style="color: rgb(210, 210, 210); font-size: 100px; -unity-text-align: upper-center;" />
-        <ui:Label text="Battle is finished! " display-tooltip-when-elided="true" name="battleEndText" style="color: rgb(210, 210, 210); font-size: 100px; -unity-text-align: upper-center;" />
+    <ui:VisualElement name="battleEndContainer" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: none; opacity: 1; justify-content: space-around; align-items: center; background-image: none; position: absolute;">
+        <ui:Label text="Battle is finished! " display-tooltip-when-elided="true" name="battleEndText" class="primaryText" style="color: rgb(210, 210, 210); font-size: 100px; -unity-text-align: upper-center;" />
+        <ui:VisualElement name="battleEndGoalContainer">
+            <ui:VisualElement class="primaryText" style="flex-direction: row;">
+                <ui:VisualElement class="battleGoalCheck" />
+                <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+            <ui:VisualElement class="primaryText" style="flex-direction: row;">
+                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/UI/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&amp;guid=1400ee94531d8e74c98f3ee11827f3bf&amp;type=3#check&apos;); width: 24px; height: 24px;" />
+                <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+            <ui:VisualElement class="primaryText" style="flex-direction: row;">
+                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/UI/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&amp;guid=1400ee94531d8e74c98f3ee11827f3bf&amp;type=3#check&apos;); width: 24px; height: 24px;" />
+                <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
         <ui:VisualElement name="battleEndCharacters" style="flex-direction: row;" />
         <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" class="menuButton" style="font-size: 35px; width: 30%; display: flex;" />
     </ui:VisualElement>

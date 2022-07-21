@@ -53,9 +53,9 @@ public class TutorialManager : MonoBehaviour
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if (TurnManager.BattleState == BattleState.PlayerTurn)
+        if (state == BattleState.PlayerTurn)
             HandlePlayerTurn();
-        if (TurnManager.BattleState == BattleState.EnemyTurn)
+        if (state == BattleState.EnemyTurn)
             HandleEnemyTurn();
 
     }
