@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 6cebee43-34b7-4684-a235-e84f536d3549
   SpeakerCharacter: {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
-  Text: Ugh... smells here.
+  Text: 'Hm... Are there any rats here? '
   Clip: {fileID: 0}
   DisplayQuadrant: 2

@@ -6,7 +6,7 @@ public class CameraManager : Singleton<CameraManager>
 {
     BoardManager _boardManager;
 
-    Camera _cam;
+    protected Camera _cam;
 
     Transform _followTarget;
     Vector3 velocity = Vector3.zero;
@@ -17,6 +17,10 @@ public class CameraManager : Singleton<CameraManager>
     {
         base.Awake();
         _cam = GetComponent<Camera>();
+    }
+
+    protected virtual void Start()
+    {
         _boardManager = BattleManager.Instance.GetComponent<BoardManager>();
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
@@ -68,6 +72,7 @@ public class CameraManager : Singleton<CameraManager>
         _followTarget = t;
     }
 
+    //TODO: DOOrthoSize(float to, float duration)
     public async Task LerpOrthographicSize(float newSize, float time)
     {
         float oldSize = _cam.orthographicSize;

@@ -70280,6 +70280,10 @@ PrefabInstance:
       propertyPath: _envObjectsHolder
       value: 
       objectReference: {fileID: 911840050}
+    - target: {fileID: 7545687572183000468, guid: 8f9ec9572987b5e42ba7617bf7aaef64, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f9ec9572987b5e42ba7617bf7aaef64, type: 3}
 --- !u!1 &4428027255933462479
@@ -70399,11 +70403,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7569243889877751803, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5
+      value: -3.5000002
       objectReference: {fileID: 0}
     - target: {fileID: 7569243889877751803, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7569243889877751803, guid: fb69a7f2e01f5544aa51f2a4f70dc37d, type: 3}
       propertyPath: m_LocalPosition.z
