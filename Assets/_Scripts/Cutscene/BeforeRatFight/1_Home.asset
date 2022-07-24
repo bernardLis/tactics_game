@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 122b18e6-1588-4b92-8f4c-c8e9c78cd569
   Picture: {fileID: 21300000, guid: 9fd8a8e9655d1a64daeeb4bfa2141bf2, type: 3}
   Text: Hello! That's your villa. You live with your uncle. He is nice. Your life
-    is nice too and you will go on an adventure!
-  DisplayDuration: 7
+    is nice too. You will go on an adventure!
   CameraPanDirection: {x: 1, y: 1}
   ZoomCameraIn: 1
+  TextToSpeech: {fileID: 11400000, guid: d0488ce096ec7794c866fb38ad3c33b6, type: 2}

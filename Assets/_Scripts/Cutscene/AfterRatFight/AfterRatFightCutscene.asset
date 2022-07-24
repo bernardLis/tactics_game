@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025846512458ee94a8ecca62f7a1f9e0, type: 3}
+  m_Name: AfterRatFightCutscene
+  m_EditorClassIdentifier: 
+  Id: 9fbffba8-115f-469b-8286-7ce53813cdae
+  Pictures:
+  - {fileID: 11400000, guid: daac696b541153e449debe3c90660398, type: 2}
+  - {fileID: 11400000, guid: 1496db4b16f90aa4ea8da9a9d74cc2b1, type: 2}
+  - {fileID: 11400000, guid: 025d8f8b4f96b4e429393ffd82628ebc, type: 2}
+  - {fileID: 11400000, guid: d710873beed00c64eb8a50ce0c5ec255, type: 2}
+  NextLevelName: Journey
+  Music: {fileID: 11400000, guid: edd87ecced1d4734baf5d5590fc53361, type: 2}

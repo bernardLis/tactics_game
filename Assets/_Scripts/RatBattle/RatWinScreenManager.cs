@@ -13,6 +13,8 @@ public class RatWinScreenManager : MonoBehaviour
     {
         _battleUI = BattleUI.Instance;
         _battleUI.OnBattleEndScreenShown += BattleUI_OnBattleEndScreenShown;
+
+        _battleUI.SetUpContinueButton("Continue", "Cutscene");
     }
 
     void OnDestroy()

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 122b18e6-1588-4b92-8f4c-c8e9c78cd569
   Picture: {fileID: 21300000, guid: 0e5451e46ee316c4fae62d055977b3d8, type: 3}
-  Text: 'Day like any other, last week you had to get rid of moles from the garden,
-    today it is the basement rats. '
-  DisplayDuration: 7
+  Text: Day like any other, last week you had to get rid of moles from the garden,
+    today it is the basement rats. You descent to the basement certain you can handle
+    the task.
   CameraPanDirection: {x: -1, y: 1}
   ZoomCameraIn: 1
+  TextToSpeech: {fileID: 11400000, guid: 9d9b725bd46dd6948abe4ce58ea4e369, type: 2}

@@ -16,19 +16,19 @@ public class CutsceneCameraManager : CameraManager
 
     }
 
-    public void PanCamera(Vector3 direction, int duration)
+    public void PanCamera(Vector3 direction, float duration)
     {
         Vector3 newPos = transform.position + direction;
         transform.DOMove(newPos, duration);
     }
 
-    public void ZoomCameraIn(int duration)
+    public void ZoomCameraIn(float duration)
     {
         float orthoSize = _cam.orthographicSize;
         _cam.DOOrthoSize(orthoSize - 1, duration);
     }
 
-    public void ZoomCameraOut(int duration)
+    public void ZoomCameraOut(float duration)
     {
         float orthoSize = _cam.orthographicSize;
         _cam.DOOrthoSize(orthoSize + 1, duration);

@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
     LevelLoader _levelLoader;
+
+    // TODO: better set-up, something needs to track where you are in the game and save/load the info
+    public Cutscene[] Cutscenes;
+    int _currentCutSceneIndex = 0;
 
     [Header("Unity Setup")]
     public CharacterDatabase CharacterDatabase;
@@ -26,6 +31,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public string PlayerName { get; private set; }
     string _activeSave;
+    string _currentLevel;
 
     protected override void Awake()
     {
@@ -43,7 +49,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void StartNewGame(string activeSave, string playerName)
     {
         PlayerName = playerName;
-
+        
+        _currentLevel = "Cutscene";
         StartGameFromSave(activeSave, true);
     }
 
@@ -57,7 +64,17 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         _activeSave = fileName;
 
-        LoadLevel("Journey");
+        // TODO: here you need to know what level to load...
+        LoadLevel(_currentLevel);
+    }
+
+
+    public Cutscene GetCurrentCutScene()
+    {
+        Cutscene c = Cutscenes[_currentCutSceneIndex];
+        _currentCutSceneIndex++;
+
+        return c;
     }
 
     public void LoadLevel(string level)
@@ -137,6 +154,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void PopulateSaveData(SaveData saveData)
     {
+        saveData.LastLevel = SceneManager.GetActiveScene().name;
+        saveData.CutSceneIndex = _currentCutSceneIndex;
         saveData.PlayerName = PlayerName;
         saveData.Obols = Obols;
         saveData.JourneySeed = JourneySeed;
@@ -185,6 +204,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadFromSaveData(SaveData saveData)
     {
+        _currentLevel = saveData.LastLevel;
+        _currentCutSceneIndex = saveData.CutSceneIndex;
         PlayerName = saveData.PlayerName;
         Obols = saveData.Obols;
         JourneySeed = saveData.JourneySeed;

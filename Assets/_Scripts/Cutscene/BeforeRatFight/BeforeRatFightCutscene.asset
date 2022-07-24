@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025846512458ee94a8ecca62f7a1f9e0, type: 3}
+  m_Name: BeforeRatFightCutscene
+  m_EditorClassIdentifier: 
+  Id: 9fbffba8-115f-469b-8286-7ce53813cdae
+  Pictures:
+  - {fileID: 11400000, guid: bfb792b6ae0139b449065e61e76380b1, type: 2}
+  - {fileID: 11400000, guid: 8e5fa8f7aee437e4eab9141bdb7e9d98, type: 2}
+  - {fileID: 11400000, guid: d8868e752ed40934ca847b769081fcb1, type: 2}
+  NextLevelName: Rat
+  Music: {fileID: 11400000, guid: edd87ecced1d4734baf5d5590fc53361, type: 2}

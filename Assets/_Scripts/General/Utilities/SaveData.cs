@@ -6,6 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    public string LastLevel;
+    public int CutSceneIndex; // TODO: I doubt it is the correct way yo handle it.
     public string PlayerName;
     public int JourneySeed; // this reproduces paths with bridges and nodes 
     public int Obols;

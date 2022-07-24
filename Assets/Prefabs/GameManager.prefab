@@ -188,6 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a5a222abe45dc40bc3e638135b656c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cutscenes:
+  - {fileID: 11400000, guid: 68e749ab2331d26429c8b481dc4023e3, type: 2}
+  - {fileID: 11400000, guid: 348e94e2b7bcb344682551f7fc4bb50b, type: 2}
   CharacterDatabase: {fileID: 11400000, guid: b6ffd5f1a1266304c8caa0325f27f668, type: 2}
   AllEvents:
   - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}

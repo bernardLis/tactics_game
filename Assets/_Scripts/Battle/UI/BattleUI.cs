@@ -32,6 +32,8 @@ public class BattleUI : Singleton<BattleUI>
 
     public event Action OnBattleEndScreenShown;
 
+    string _levelToLoadAfterFight = "Journey";
+
     protected override void Awake()
     {
         base.Awake();
@@ -176,7 +178,7 @@ public class BattleUI : Singleton<BattleUI>
     {
         _turnTextContainer.style.display = DisplayStyle.None;
         _battleGoalContainer.style.display = DisplayStyle.None;
-        
+
         _battleEndGoalContainer.Clear();
 
         _battleEndContainer.style.display = DisplayStyle.Flex;
@@ -193,7 +195,15 @@ public class BattleUI : Singleton<BattleUI>
 
     void BackToJourney()
     {
-        _gameManager.LoadLevel("Journey");
+        _gameManager.LoadLevel(_levelToLoadAfterFight);
+        // reseting level to load to journey as it is the default
+        _levelToLoadAfterFight = "Journey";
+    }
+
+    public void SetUpContinueButton(string newText, string newLevel)
+    {
+        _backToJourney.text = newText;
+        _levelToLoadAfterFight = newLevel;
     }
 
     IEnumerator CoroutineCoordinator()

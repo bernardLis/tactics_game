@@ -98,6 +98,12 @@ public class AudioManager : Singleton<AudioManager>
     {
         PlaySound(_dialogueAudioSource, soundName);
     }
+    public void PlayDialogue(Sound sound)
+    {
+        _dialogueAudioSource.pitch = sound.Pitch;
+        _dialogueAudioSource.volume = sound.Volume;
+        sound.Play(_dialogueAudioSource);
+    }
 
     public void PlaySFX(string soundName, Vector3 pos)
     {
