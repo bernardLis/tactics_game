@@ -1,13 +1,49 @@
 using UnityEngine;
 using DG.Tweening;
+using Shapes;
 
-public class Flasher : MonoBehaviour
+public class Flasher : ImmediateModeShapeDrawer
 {
     //BoxCollider2D _selfCollider;
     SpriteRenderer _spriteRenderer;
+    Color _col = Color.black;
+
+    public override void DrawShapes(Camera cam)
+    {
+        using (Draw.Command(cam))
+        {
+            Draw.Disc(GetDiscPosition(1), 0.05f, _col);
+        }
+    }
+
+    Vector3 GetDiscPosition(float t)
+    {
+        float ang = t * ShapesMath.TAU; // base angle
+        ang += ShapesMath.TAU * Time.time * 0.25f; // add constant spin rate
+        ang += Mathf.Cos(ang * 2 + Time.time * ShapesMath.TAU * 0.5f) * 0.16f; // add wave offsets~
+
+        Vector3 dir = ShapesMath.AngToDir(ang); // convert angle to a direction/position
+
+        //https://gamedev.stackexchange.com/questions/167750/how-do-i-move-an-object-in-a-square-pattern
+        float square = (transform.localScale.x * transform.localScale.x + transform.localScale.y * transform.localScale.y);
+        float radius = 0.5f * Mathf.Sqrt(square);
+
+        dir *= radius;
+        dir += transform.position;
+
+        //TODO: constrain it to the square
+        dir.x = Mathf.Min(dir.x, transform.position.x + transform.localScale.x * 0.5f);
+        dir.x = Mathf.Max(dir.x, transform.position.x - transform.localScale.x * 0.5f);
+        dir.y = Mathf.Min(dir.y, transform.position.y + transform.localScale.y * 0.5f);
+        dir.y = Mathf.Max(dir.y, transform.position.y - transform.localScale.y * 0.5f);
+
+        return dir;
+    }
+
 
     public void StartFlashing(Color col)
     {
+        _col = col;
         Color startColor = col * 0.5f;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteRenderer.color = startColor;

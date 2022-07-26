@@ -171,7 +171,7 @@ public class FireOnTile : Creatable
 
     public override string DisplayText()
     {
-        return $"Spreads. Burns anyone who walks through it. Lasts for {_numberOfTurnsLeft} turn/s.";
+        return $"Fire. Spreads. Burns when walking through it. Lasts for {_numberOfTurnsLeft} turn/s.";
     }
 
     public override void DestroySelf()

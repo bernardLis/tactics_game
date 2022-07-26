@@ -50,7 +50,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         PlayerName = playerName;
         
-        _currentLevel = "Cutscene";
+        _currentLevel = Scenes.Cutscene;
         StartGameFromSave(activeSave, true);
     }
 
@@ -68,7 +68,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         LoadLevel(_currentLevel);
     }
 
-
     public Cutscene GetCurrentCutScene()
     {
         Cutscene c = Cutscenes[_currentCutSceneIndex];
@@ -79,7 +78,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadLevel(string level)
     {
-        if (level == "Journey") // TODO: I want to save only on coming back to Journey, does it make sense?
+        if (level == Scenes.Journey) // TODO: I want to save only on coming back to Journey, does it make sense?
             SaveJsonData();
 
         _levelLoader.LoadLevel(level);

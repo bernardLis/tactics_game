@@ -70273,6 +70273,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2353031149344744160}
     - target: {fileID: 3439563075464766531, guid: 8f9ec9572987b5e42ba7617bf7aaef64, type: 3}
+      propertyPath: _ambience
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c9a6afcf04e3f04ca204cc3f56be5bb, type: 2}
+    - target: {fileID: 3439563075464766531, guid: 8f9ec9572987b5e42ba7617bf7aaef64, type: 3}
       propertyPath: _globalLight
       value: 
       objectReference: {fileID: 1475033173}

@@ -197,7 +197,7 @@ public class BattleUI : Singleton<BattleUI>
     {
         _gameManager.LoadLevel(_levelToLoadAfterFight);
         // reseting level to load to journey as it is the default
-        _levelToLoadAfterFight = "Journey";
+        _levelToLoadAfterFight = Scenes.Journey;
     }
 
     public void SetUpContinueButton(string newText, string newLevel)

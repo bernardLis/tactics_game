@@ -19,6 +19,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
     HighlightManager _highlightManager;
 
     [Header("General")]
+    [SerializeField] Sound _ambience;
     [SerializeField] TextAsset _graphData;
     [SerializeField] Light2D _globalLight;
     [SerializeField] GameObject _waterOnTile;
@@ -88,7 +89,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
     async void MapSetUp()
     {
         _battleManager.GetComponent<TileManager>().SetUp();
-
+        AudioManager.Instance.PlayAmbience(_ambience);
         await SetupAstar();
         await SpawnPlayer();
         await WalkPlayer();
@@ -154,6 +155,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
         await Task.Yield(); // to silnce the warning
     }
+
     async void InstantiateWater(Vector3 pos)
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);

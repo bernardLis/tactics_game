@@ -54,7 +54,7 @@ public class MenuScreen : FullScreenVisual
 
     void GoToMainMenu()
     {
-        GameManager.Instance.LoadLevel("Main Menu");
+        GameManager.Instance.LoadLevel(Scenes.MainMenu);
         Hide();
     }
 

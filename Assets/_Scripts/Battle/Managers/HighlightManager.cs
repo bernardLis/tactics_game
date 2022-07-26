@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Shapes;
 
 public class HighlightManager : Singleton<HighlightManager>
 {
@@ -258,15 +259,16 @@ public class HighlightManager : Singleton<HighlightManager>
             await HandleAbilityHighlighting(ability, false);
     }
 
+
     public async Task HighlightAbilityLineAOE(Ability ability, Vector3 targetPos)
     {
         await ClearHighlightedTiles();
 
-        // TOOD: incorrect
-
         Vector3 characterPos = ability.CharacterGameObject.transform.position;
         Vector3 dir = (targetPos - characterPos).normalized;
-        float distance = Vector3.Distance(characterPos, targetPos);
+        float dist = Vector3.Distance(characterPos, targetPos);
+
+        float distance = Mathf.RoundToInt(Vector3.Distance(characterPos, targetPos));
 
         for (int i = 1; i <= distance; i++)
         {
@@ -274,9 +276,10 @@ public class HighlightManager : Singleton<HighlightManager>
             Vector3Int tilePos = _tilemap.WorldToCell(pos);
 
             // obstacles block lines
-            if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
-                if (IsThereObstacleGameObject(_tile))
-                    return;
+            if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
+                return;
+            if (IsThereObstacleGameObject(_tile))
+                return;
 
             if (CanAbilityTargetTile(ability, tilePos))
                 AddTileForHighlighting(tilePos, ability.HighlightColor);

@@ -43,6 +43,9 @@ public class EnemyAI : MonoBehaviour
         if (_characterSelection.HasFinishedTurn)
             return;
 
+        if (_enemyStats.CurrentHealth <= 0)
+            return;
+
         // wait for statuses to resolve. 
         // TODO: there is an argument to implement it differently:
         // status triggers should be async-await and everything in between too. 

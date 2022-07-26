@@ -9,8 +9,8 @@ public class Obstacle : MonoBehaviour, IUITextDisplayable
 
     void Start()
     {
-        // I want it to throw an error if there is no tileMapObject.
-        Initialize(_tileMapObject);
+        if (_tileMapObject != null)
+            Initialize(_tileMapObject);
     }
 
 

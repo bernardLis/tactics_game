@@ -258,7 +258,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
 
     void BackToJourney()
     {
-        _gameManager.LoadLevel("Journey");
+        _gameManager.LoadLevel(Scenes.Journey);
     }
 
 }

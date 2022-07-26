@@ -48,6 +48,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     // dmg
     [SerializeField] GameObject _deathEffect;
     [SerializeField] GameObject _body;
+    SpriteRenderer _bodySpriteRenderer;
+    Color _initialBodyColor;
+    Vector3 _initialBodyPosition;
 
     // statuses
     public int DamageReceivedWhenWalking { get; private set; }
@@ -76,7 +79,11 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         // local
         _characterRendererManager = GetComponentInChildren<CharacterRendererManager>();
+        _bodySpriteRenderer = _body.GetComponent<SpriteRenderer>();
+        _initialBodyColor = _bodySpriteRenderer.color;
+        _initialBodyPosition = _body.transform.localPosition;
         _aiLerp = GetComponent<AILerp>();
+
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
@@ -305,15 +312,13 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         }
 
         await ShakeOnDamageTaken();
+        _body.transform.localPosition = _initialBodyPosition;
     }
 
     public async Task ShakeOnDamageTaken()
     {
         // flash color
-        // TODO: cache
-        SpriteRenderer sr = _body.GetComponent<SpriteRenderer>();
-        Color initialColor = sr.color;
-        sr.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo).OnComplete(() => sr.color = initialColor);
+        _bodySpriteRenderer.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo).OnComplete(() => _bodySpriteRenderer.color = _initialBodyColor);
 
         _audioManager.PlaySFX("Hurt", transform.position);
 
@@ -552,8 +557,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task CollideWithDestructible(Ability ability, Collider2D col)
     {
-        Destroy(col.transform.parent.gameObject); // TODO: call destroy self right?
-
+        // https://stackoverflow.com/questions/22629951/suppressing-warning-cs4014-because-this-call-is-not-awaited-execution-of-the
+        _ = col.GetComponent<IDestroyable>().DestroySelf();
         await TakeDamageFinal(ability.BasePower);
     }
 

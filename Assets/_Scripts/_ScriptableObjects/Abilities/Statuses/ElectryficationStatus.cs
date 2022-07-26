@@ -13,8 +13,8 @@ public class ElectryficationStatus : Status
         AddFlag();
         _effectInstance = Instantiate(Effect, _characterGameObject.transform.position, Quaternion.identity);
         ElectricLineController effectController = _effectInstance.GetComponent<ElectricLineController>();
-        Vector3 startPositionRandomized = new Vector3(_characterGameObject.transform.position.x + Random.Range(0, 0.5f),
-                                              _characterGameObject.transform.position.y + Random.Range(0, 0.5f));
+        Vector3 startPositionRandomized = new Vector3(_characterGameObject.transform.position.x + Random.Range(-0.5f, 0.5f),
+                                              _characterGameObject.transform.position.y + Random.Range(-0.5f, 0.5f));
 
         effectController.Electrify(startPositionRandomized);
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 
-public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, ICreatable<Vector3, Ability, string>
+public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, ICreatable<Vector3, Ability, string>, IDestroyable
 {
     // global
     BattleManager _battleManager;
@@ -21,6 +21,8 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     // display info
     string _displayText = "Boulder. You can move it if you know the technique. You can learn it in Celadon City.";
 
+    string _lightFlickerTweenId = "_lightFlickerTweenId";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +34,9 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     void FlickerLight()
     {
         Light2D l = GetComponentInChildren<Light2D>();
-        DOTween.To(() => l.intensity, x => l.intensity = x, 0.2f, 4f).SetLoops(-1, LoopType.Yoyo);
+        if (l == null)
+            return;
+        DOTween.To(() => l.intensity, x => l.intensity = x, 0.2f, 4f).SetLoops(-1, LoopType.Yoyo).SetId(_lightFlickerTweenId);
     }
 
     public async Task Initialize(Vector3 pos, Ability ability, string tag = "")
@@ -50,6 +54,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
             _selfCollider.enabled = true;
 
         FindObjectOfType<BoardManager>().AddEnvObject(transform);
+        FlickerLight();
     }
 
     public async Task Fall(Vector3 pos)
@@ -153,7 +158,6 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
                 await CollideWithWater(ability, c);
                 continue;
             }
-
         }
     }
 
@@ -193,11 +197,13 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     }
 
 
-    async Task DestroySelf()
+    public async Task DestroySelf()
     {
         Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
+        //DOTween.KillAll(false, )
+        transform.DOKill();
 
-        AudioManager.Instance.PlaySFX("Stone Breaking", transform.position);
+        AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);
         Animator anim = GetComponent<Animator>();
         if (anim != null)
             anim.Play("Stone Breaking");

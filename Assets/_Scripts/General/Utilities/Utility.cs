@@ -27,7 +27,7 @@ public static class Utility
         Color color;
         if (ColorUtility.TryParseHtmlString(hex, out color))
             return color;
-    
+
         Debug.LogError($"Couldn't parse color: {hex}");
         return Color.black;
     }
