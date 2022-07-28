@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: PUSH-1
   Description: Push push
   Icon: {fileID: 21300000, guid: 6677e6c62567ff14a8b7a2bd48729855, type: 3}
-  Sound: {fileID: 8300000, guid: f0180443af161364eb8f4ee688b5ed82, type: 3}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 15
   ManaCost: 0
   AbilityType: 2

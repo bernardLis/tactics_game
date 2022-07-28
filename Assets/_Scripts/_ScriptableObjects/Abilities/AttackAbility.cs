@@ -26,6 +26,7 @@ public class AttackAbility : Ability
 
     public async override Task AbilityLogic(Vector3 pos)
     {
+        Debug.Log("in abbility logic: ");
         // interact
         await _attackTriggerable.Attack(pos, this, IsRetaliation);
 

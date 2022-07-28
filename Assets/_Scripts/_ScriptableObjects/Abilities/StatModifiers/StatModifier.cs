@@ -14,16 +14,6 @@ public class StatModifier : BaseScriptableObject
     GameObject _characterGameObject;
     ObjectUI _damageUI;
 
-    // called from editor using table data
-    public virtual void Create(Dictionary<string, object> item)
-    {
-        ReferenceID = item["ReferenceID"].ToString();
-        StatType = (StatType)System.Enum.Parse(typeof(StatType), item["StatType"].ToString());
-        NumberOfTurns = int.Parse(item["NumberOfTurns"].ToString());
-        Value = int.Parse(item["Value"].ToString());
-        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
-    }
-
     public virtual void Initialize(GameObject self)
     {
         _characterGameObject = self;

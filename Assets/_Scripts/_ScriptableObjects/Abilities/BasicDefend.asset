@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: 
   Description: Increases armor by 1 for 1 turn
   Icon: {fileID: 21300000, guid: 9c498454d8c5c214890f3ba50d63dbf2, type: 3}
-  Sound: {fileID: 0}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 0
   ManaCost: 0
   AbilityType: 3

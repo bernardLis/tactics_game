@@ -117,7 +117,7 @@ public static class ScriptableObjectGenerator
         foreach (string s in arr)
             abilities.Add(GetAbilityFromReferenceID(s));
 
-        character.CreateFromSheetData(item, abilities);
+        //character.CreateFromSheetData(item, abilities);
 
         // Now flag the object as "dirty" in the editor so it will be saved
         EditorUtility.SetDirty(character);
@@ -165,7 +165,7 @@ public static class ScriptableObjectGenerator
         if (item["StatusReferenceID"].ToString() != "")
             status = GetStatusFromReferenceID(item["StatusReferenceID"].ToString()) as Status;
 
-        ability.Create(item, statModifier, status);
+        //ability.Create(item, statModifier, status);
 
         // Now flag the object as "dirty" in the editor so it will be saved
         EditorUtility.SetDirty(ability);
@@ -203,7 +203,7 @@ public static class ScriptableObjectGenerator
         string path = $"Assets/Resources/Abilities/Statuses/{item["SOName"]}.asset";
         AssetDatabase.CreateAsset(status, path);
 
-        status.Create(item);
+        //status.Create(item);
 
         // Now flag the object as "dirty" in the editor so it will be saved
         EditorUtility.SetDirty(status);
@@ -216,7 +216,7 @@ public static class ScriptableObjectGenerator
         string path = $"Assets/Resources/Abilities/StatModifiers/{item["SOName"]}.asset";
         StatModifier mod = (StatModifier)ScriptableObject.CreateInstance<StatModifier>();
         AssetDatabase.CreateAsset(mod, path);
-        mod.Create(item);
+        //mod.Create(item);
 
         // Now flag the object as "dirty" in the editor so it will be saved
         EditorUtility.SetDirty(mod);
@@ -285,3 +285,49 @@ public static class ScriptableObjectGenerator
     }
 
 }
+
+
+/*Ability
+    // called from editor using table data
+    public virtual void Create(Dictionary<string, object> item, StatModifier statModifier, Status status)
+    {
+        ReferenceID = item["ReferenceID"].ToString();
+        Description = item["Description"].ToString();
+        AbilityType = (AbilityType)System.Enum.Parse(typeof(AbilityType), item["AbilityType"].ToString());
+        WeaponType = (WeaponType)System.Enum.Parse(typeof(WeaponType), item["WeaponType"].ToString());
+        Projectile = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/Battle/Projectiles/{item["Projectile"]}.prefab", typeof(GameObject));
+        AbilityEffect = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/Battle/Effects/AbilityEffects/{item["AbilityEffect"]}.prefab", typeof(GameObject));
+        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
+        Sound = (Sound)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/General/Sounds/{item["Sound"]}.asset", typeof(Sound));
+        BasePower = int.Parse(item["BasePower"].ToString());
+        ManaCost = int.Parse(item["ManaCost"].ToString());
+        AreaOfEffect = int.Parse(item["AreaOfEffect"].ToString());
+        LineAreaOfEffect = item["LineAreaOfEffect"].ToString() == "TRUE" ? true : false;
+        StatModifier = statModifier;
+        Status = status;
+        Range = int.Parse(item["Range"].ToString());
+        CanTargetSelf = item["CanTargetSelf"].ToString() == "TRUE" ? true : false;
+        CanTargetDiagonally = item["CanTargetDiagonally"].ToString() == "TRUE" ? true : false;
+        HighlightColor = Utility.HexToColor(item["HighlightColor"].ToString());
+    }
+
+character
+    // creates character from google sheet data in editor
+    public virtual void CreateFromSheetData(Dictionary<string, object> item, List<Ability> abilities)
+    {
+        ReferenceID = item["ReferenceID"].ToString();
+        CharacterName = item["CharacterName"].ToString();
+        Portrait = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Character/Portrait/{item["Portrait"]}", typeof(Sprite));
+
+        Level = int.Parse(item["Level"].ToString());
+        Experience = int.Parse(item["Experience"].ToString());
+        Power = int.Parse(item["Power"].ToString());
+
+        Body = (Equipment)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/{item["Body"]}.asset", typeof(Equipment));
+        Weapon = (Weapon)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/Weapon/{item["Weapon"]}.asset", typeof(Weapon));
+        BasicAbilities.Add((Ability)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Abilities/BasicDefend.asset", typeof(Ability)));
+        Abilities = new(abilities);
+    }
+
+
+*/

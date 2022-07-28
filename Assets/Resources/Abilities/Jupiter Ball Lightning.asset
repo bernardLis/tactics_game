@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: 
   Description: Shoots a lightning projectile
   Icon: {fileID: 21300000, guid: 7767b2ae7ebe14d498401b0cca068540, type: 3}
-  Sound: {fileID: 8300000, guid: dcd503766e3f1c04281fbcce3462da18, type: 3}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 20
   ManaCost: 0
   AbilityType: 0

@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: ABILITY-0
   Description: Super effective!
   Icon: {fileID: 21300000, guid: 4764e7f41a22ee143b920b64c5a3092f, type: 3}
-  Sound: {fileID: 8300000, guid: 1d0fda77619fcb44dbe97d9fc252a92e, type: 3}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 12
   ManaCost: 0
   AbilityType: 0

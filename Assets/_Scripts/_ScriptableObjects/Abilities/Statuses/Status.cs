@@ -24,17 +24,6 @@ public class Status : BaseScriptableObject
 
     [HideInInspector] public GameObject Attacker;
 
-
-    public virtual void Create(Dictionary<string, object> item)
-    {
-        ReferenceID = item["ReferenceID"].ToString();
-        NumberOfTurns = int.Parse(item["NumberOfTurns"].ToString());
-        Value = int.Parse(item["Value"].ToString());
-        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
-        DisplayText = item["DisplayText"].ToString();
-        DisplayColor = Utility.HexToColor(item["DisplayColor"].ToString());
-    }
-
     public virtual void Initialize(GameObject self, GameObject attacker)
     {
         _characterGameObject = self;

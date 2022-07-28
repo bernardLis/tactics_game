@@ -105,6 +105,11 @@ public class AudioManager : Singleton<AudioManager>
         sound.Play(_dialogueAudioSource);
     }
 
+    public void StopDialogue()
+    {
+        _dialogueAudioSource.Stop();
+    }
+
     public void PlaySFX(string soundName, Vector3 pos)
     {
         AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);

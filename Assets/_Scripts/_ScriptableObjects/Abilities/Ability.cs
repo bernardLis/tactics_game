@@ -53,28 +53,6 @@ public abstract class Ability : BaseScriptableObject
 
     List<CharacterSelection> affectedCharacters = new();
 
-    // called from editor using table data
-    public virtual void Create(Dictionary<string, object> item, StatModifier statModifier, Status status)
-    {
-        ReferenceID = item["ReferenceID"].ToString();
-        Description = item["Description"].ToString();
-        AbilityType = (AbilityType)System.Enum.Parse(typeof(AbilityType), item["AbilityType"].ToString());
-        WeaponType = (WeaponType)System.Enum.Parse(typeof(WeaponType), item["WeaponType"].ToString());
-        Projectile = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/Battle/Projectiles/{item["Projectile"]}.prefab", typeof(GameObject));
-        AbilityEffect = (GameObject)AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/Battle/Effects/AbilityEffects/{item["AbilityEffect"]}.prefab", typeof(GameObject));
-        Icon = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Ability/{item["Icon"]}", typeof(Sprite));
-        Sound = (Sound)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/General/Sounds/{item["Sound"]}.asset", typeof(Sound));
-        BasePower = int.Parse(item["BasePower"].ToString());
-        ManaCost = int.Parse(item["ManaCost"].ToString());
-        AreaOfEffect = int.Parse(item["AreaOfEffect"].ToString());
-        LineAreaOfEffect = item["LineAreaOfEffect"].ToString() == "TRUE" ? true : false;
-        StatModifier = statModifier;
-        Status = status;
-        Range = int.Parse(item["Range"].ToString());
-        CanTargetSelf = item["CanTargetSelf"].ToString() == "TRUE" ? true : false;
-        CanTargetDiagonally = item["CanTargetDiagonally"].ToString() == "TRUE" ? true : false;
-        HighlightColor = Utility.HexToColor(item["HighlightColor"].ToString());
-    }
 
     public virtual void Initialize(GameObject self)
     {
@@ -121,6 +99,7 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task TriggerAbility(List<WorldTile> tiles)
     {
+        Debug.Log("in trigger ability");
         // copy the list for safety
         List<WorldTile> targetTiles = new(tiles);
 
@@ -133,6 +112,8 @@ public abstract class Ability : BaseScriptableObject
 
         if (Sound != null)
             AudioManager.Instance.PlaySFX(Sound, CharacterGameObject.transform.position); // TODO: is that a correct place for sound
+        
+        Debug.Log("after sound");
 
         foreach (WorldTile t in targetTiles)
         {

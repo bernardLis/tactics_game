@@ -36,22 +36,6 @@ public class Character : BaseScriptableObject
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
 
-    // creates character from google sheet data in editor
-    public virtual void CreateFromSheetData(Dictionary<string, object> item, List<Ability> abilities)
-    {
-        ReferenceID = item["ReferenceID"].ToString();
-        CharacterName = item["CharacterName"].ToString();
-        Portrait = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Sprites/Character/Portrait/{item["Portrait"]}", typeof(Sprite));
-
-        Level = int.Parse(item["Level"].ToString());
-        Experience = int.Parse(item["Experience"].ToString());
-        Power = int.Parse(item["Power"].ToString());
-
-        Body = (Equipment)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/{item["Body"]}.asset", typeof(Equipment));
-        Weapon = (Weapon)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Equipment/Weapon/{item["Weapon"]}.asset", typeof(Weapon));
-        BasicAbilities.Add((Ability)AssetDatabase.LoadAssetAtPath($"Assets/_Scripts/Battle/_Scriptable Objects/Abilities/BasicDefend.asset", typeof(Ability)));
-        Abilities = new(abilities);
-    }
 
     // creates character at runtime from saved data
     public virtual void Create(CharacterData data)

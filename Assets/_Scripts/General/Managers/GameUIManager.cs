@@ -54,13 +54,25 @@ public class GameUIManager : MonoBehaviour
 
     void ToggleMenu(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == "Main Menu")
+        if (SceneManager.GetActiveScene().name == Scenes.Cutscene)
+        {
+            SkipCutscene();
+            return;
+        }
+        if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
             return;
 
         _menuScreen = new MenuScreen(_uiDocument.rootVisualElement);
         _menuScreen.OnClose += MenuScreenClosed;
         _playerInput.actions["OpenMenuClick"].performed -= ToggleMenu;
 
+    }
+
+    void SkipCutscene()
+    {
+        AudioManager.Instance.StopDialogue();
+        _gameManager.LoadLevel(_gameManager.GetCurrentCutScene().NextLevelName);
+        _gameManager.CutscenePlayed();
     }
 
     void MenuScreenClosed()

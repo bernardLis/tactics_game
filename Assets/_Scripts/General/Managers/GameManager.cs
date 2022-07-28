@@ -49,7 +49,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void StartNewGame(string activeSave, string playerName)
     {
         PlayerName = playerName;
-        
+
         _currentLevel = Scenes.Cutscene;
         StartGameFromSave(activeSave, true);
     }
@@ -68,12 +68,17 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         LoadLevel(_currentLevel);
     }
 
+
+
     public Cutscene GetCurrentCutScene()
     {
         Cutscene c = Cutscenes[_currentCutSceneIndex];
-        _currentCutSceneIndex++;
-
         return c;
+    }
+
+    public void CutscenePlayed() // TODO: this for sure is not correct
+    {
+        _currentCutSceneIndex++;
     }
 
     public void LoadLevel(string level)

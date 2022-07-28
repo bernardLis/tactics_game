@@ -16,16 +16,18 @@ MonoBehaviour:
   ReferenceID: ABILITY-4
   Description: Shoots an arrow
   Icon: {fileID: 21300000, guid: e4fcd2647aed9334cb59278b307542e6, type: 3}
-  Sound: {fileID: 0}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 10
   ManaCost: 10
-  AreaOfEffect: 0
   AbilityType: 0
-  MultiplerStat: 2
   WeaponType: 2
-  Projectile: {fileID: 930043242252355895, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
+  AreaOfEffect: 0
+  LineAreaOfEffect: 0
+  SpellcastAnimation: 0
   StatModifier: {fileID: 0}
   Status: {fileID: 0}
+  Projectile: {fileID: 930043242252355895, guid: 2112016c4c1204141a62241c64eedf84, type: 3}
+  AbilityEffect: {fileID: 0}
   Range: 4
   CanTargetSelf: 0
   CanTargetDiagonally: 1

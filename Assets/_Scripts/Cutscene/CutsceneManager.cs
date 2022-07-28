@@ -29,8 +29,6 @@ public class CutsceneManager : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
         _text = root.Q<Label>("text");
 
-        
-
         RunScene();
     }
 
@@ -45,6 +43,7 @@ public class CutsceneManager : MonoBehaviour
             await DisplayCutscene(c);
 
         await Task.Delay(1000);
+        _gameManager.CutscenePlayed();
         _gameManager.LoadLevel(_cutscene.NextLevelName);
     }
 
@@ -79,6 +78,7 @@ public class CutsceneManager : MonoBehaviour
         renderer.color = new Color(1f, 1f, 1f, 0f);
         renderer.DOFade(1f, 2f);
     }
+
     void FadeOutOldPicture(SpriteRenderer renderer)
     {
         renderer.DOFade(0f, 2f);

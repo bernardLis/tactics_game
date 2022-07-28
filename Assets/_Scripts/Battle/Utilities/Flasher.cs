@@ -31,7 +31,6 @@ public class Flasher : ImmediateModeShapeDrawer
         dir *= radius;
         dir += transform.position;
 
-        //TODO: constrain it to the square
         dir.x = Mathf.Min(dir.x, transform.position.x + transform.localScale.x * 0.5f);
         dir.x = Mathf.Max(dir.x, transform.position.x - transform.localScale.x * 0.5f);
         dir.y = Mathf.Min(dir.y, transform.position.y + transform.localScale.y * 0.5f);
