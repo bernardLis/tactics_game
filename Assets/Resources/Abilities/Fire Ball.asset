@@ -19,7 +19,7 @@ MonoBehaviour:
   Sound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   BasePower: 10
   ManaCost: 10
-  AbilityType: 6
+  AbilityType: 5
   WeaponType: 0
   AreaOfEffect: 0
   LineAreaOfEffect: 0

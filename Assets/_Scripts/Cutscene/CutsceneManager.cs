@@ -24,7 +24,7 @@ public class CutsceneManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
-        _cameraManager = (CutsceneCameraManager)CameraManager.Instance;
+        _cameraManager = (CutsceneCameraManager)BattleCameraManager.Instance;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
         _text = root.Q<Label>("text");

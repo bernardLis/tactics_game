@@ -28,7 +28,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
     VisualElement _interactionSummary;
 
     Label _attackLabel;
-    VisualElement _attackDamageValue;
+    VisualElement _attackDamageGroup;
 
     VisualElement _retaliationSummary;
     Label _retaliationDamageValue;
@@ -55,9 +55,10 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         // interaction summary
         _interactionSummary = root.Q<VisualElement>("interactionSummary");
+        _interactionSummary.style.alignSelf = Align.FlexStart; // idk where which button it is in gui
 
         _attackLabel = root.Q<Label>("attackLabel");
-        _attackDamageValue = root.Q<VisualElement>("attackDamageValue");
+        _attackDamageGroup = root.Q<VisualElement>("attackDamageGroup");
 
         _retaliationSummary = root.Q<VisualElement>("retaliationSummary");
         _retaliationDamageValue = root.Q<Label>("retaliationDamageValue");
@@ -259,7 +260,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         _characterUI.HideHealthChange();
         DisplayNone(_retaliationSummary); // flexing it when it is necessary
-        _attackDamageValue.Clear();
+        _attackDamageGroup.Clear();
 
         // different labels and UI for heal / attack
         if (ability.AbilityType == AbilityType.Attack)
@@ -276,12 +277,14 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         if (ability.AbilityType == AbilityType.Create)
             HandleCreateAbilitySummary(attacker, defender, ability);
+
+        if (ability.AbilityType == AbilityType.AttackCreate)
+            HandleAttackCreateAbilitySummary(attacker, defender, ability);
     }
 
     async void HandleAttackAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
     {
         _attackLabel.text = "Attack";
-        _attackDamageValue.Clear();
 
         await Task.Delay(100);
         int attackValue = ability.CalculateInteractionResult(attacker, defender);
@@ -289,7 +292,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
         if (defender.IsShielded)
             attackValue = 0;
 
-        TextWithTooltip value = new("" + (-1 * attackValue), "Attacking from the back +50% dmg, from the side +25% dmg");
+        TextWithTooltip value = new("Damage: " + (-1 * attackValue), "Attacking from the back +50% dmg, from the side +25% dmg");
         // color if bonus attack
         if (attackValue != 0)
         {
@@ -301,7 +304,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
                 value.style.backgroundColor = new Color(1f, 0.55f, 0f);
         }
 
-        _attackDamageValue.Add(value);
+        _attackDamageGroup.Add(value);
         HandleStatusesAbilitySummary(ability);
 
         // self dmg
@@ -317,8 +320,8 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackLabel.text = "Push";
 
         int attackValue = ability.CalculateInteractionResult(attacker, defender);
-        Label value = new("" + (-1 * attackValue)); // it looks weird when it is negative.
-        _attackDamageValue.Add(value);
+        Label value = new("Damage: " + (-1 * attackValue)); // it looks weird when it is negative.
+        _attackDamageGroup.Add(value);
         HandleStatusesAbilitySummary(ability);
 
         ShowHealthChange(defender, attackValue);
@@ -328,8 +331,8 @@ public class InfoCardUI : Singleton<InfoCardUI>
     {
         _attackLabel.text = "Heal";
         int healValue = ability.CalculateInteractionResult(attacker, defender, false);
-        Label value = new("" + healValue); // it looks weird when it is negative.
-        _attackDamageValue.Add(value);
+        Label value = new("Heal: " + healValue); // it looks weird when it is negative.
+        _attackDamageGroup.Add(value);
         HandleStatusesAbilitySummary(ability);
 
         if (attacker.gameObject == defender.gameObject)
@@ -351,10 +354,30 @@ public class InfoCardUI : Singleton<InfoCardUI>
         CreateAbility a = (CreateAbility)ability;
         if (a.CreatedObject.TryGetComponent(out IUITextDisplayable uiText))
         {
-            Label value = new("" + uiText.DisplayText());
+            Label value = new("Create: " + a.CreatedObject.GetComponent<Creatable>().GetCreatedObjectDescription());
             value.style.whiteSpace = WhiteSpace.Normal;
-            _attackDamageValue.Add(value);
+            _attackDamageGroup.Add(value);
         }
+    }
+
+    void HandleAttackCreateAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
+    {
+        _attackLabel.text = "Attack & Create";
+        AttackCreateAbility a = (AttackCreateAbility)ability;
+
+        int attackValue = ability.CalculateInteractionResult(attacker, defender);
+        Label value = new("Damage: " + (-1 * attackValue)); // it looks weird when it is negative.
+        _attackDamageGroup.Add(value);
+
+        // handle created object
+        Creatable creatable = a.CreatedObject.GetComponent<Creatable>();
+        Label createdObjectDesc = new("Creates: " + creatable.GetCreatedObjectDescription());
+        _attackDamageGroup.Add(createdObjectDesc);
+
+        if (creatable.Status == null)
+            return;
+        ModifierVisual mElement = new ModifierVisual(a.CreatedObject.GetComponent<Creatable>().Status);
+        _attackDamageGroup.Add(mElement);
     }
 
     void HandleStatusesAbilitySummary(Ability ability)
@@ -362,13 +385,13 @@ public class InfoCardUI : Singleton<InfoCardUI>
         if (ability.StatModifier != null)
         {
             ModifierVisual mElement = new ModifierVisual(ability.StatModifier);
-            _attackDamageValue.Add(mElement);
+            _attackDamageGroup.Add(mElement);
         }
 
         if (ability.Status != null)
         {
             ModifierVisual mElement = new ModifierVisual(ability.Status);
-            _attackDamageValue.Add(mElement);
+            _attackDamageGroup.Add(mElement);
         }
     }
 
@@ -395,6 +418,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     public void HideInteractionSummary()
     {
+        _attackDamageGroup.Clear();
         DOTween.To(() => _interactionSummary.style.left.value.value, x => _interactionSummary.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
     }

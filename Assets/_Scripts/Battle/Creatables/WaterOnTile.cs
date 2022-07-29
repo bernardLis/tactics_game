@@ -5,8 +5,6 @@ public class WaterOnTile : Creatable
 {
     ObjectStats _objectStats;
 
-    [SerializeField] Status _wetStatus;
-
     public bool _isElectrified { get; private set; }
     [SerializeField] GameObject _electrifiedWaterEffect;
     public Status _electrificationStatus { get; private set; }
@@ -99,9 +97,9 @@ public class WaterOnTile : Creatable
 
         // else add wet
         if (_ability != null)
-            await stats.AddStatus(_wetStatus, _ability.CharacterGameObject);
+            await stats.AddStatus(Status, _ability.CharacterGameObject);
         else
-            await stats.AddStatus(_wetStatus, null);
+            await stats.AddStatus(Status, null);
 
     }
 

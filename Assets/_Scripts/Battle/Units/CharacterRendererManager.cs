@@ -6,8 +6,10 @@ using DG.Tweening;
 
 public class CharacterRendererManager : MonoBehaviour
 {
+    BattleCharacterController _battleCharacterController;
+
     Vector2 _direction;
-    public Vector2 _faceDir;
+    public Vector2 _faceDir; // HERE: public to see in editor
 
     Animator _animator;
     CharacterRenderer _characterRenderer;
@@ -23,6 +25,8 @@ public class CharacterRendererManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        _battleCharacterController = BattleCharacterController.Instance;
+
         _animator = GetComponent<Animator>();
         _characterRenderer = GetComponent<CharacterRenderer>();
         _aiLerp = GetComponentInParent<AILerp>();
@@ -30,11 +34,13 @@ public class CharacterRendererManager : MonoBehaviour
         _weaponRenderer = _weaponHolder.transform.GetComponent<SpriteRenderer>();
 
         MovePointController.OnMove += MovePointController_OnMove;
+        BattleCharacterController.OnCharacterStateChanged += BattleCharacterController_OnCharacterStateChanged;
     }
 
     void OnDestroy()
     {
         MovePointController.OnMove -= MovePointController_OnMove;
+        BattleCharacterController.OnCharacterStateChanged -= BattleCharacterController_OnCharacterStateChanged;
     }
 
     void MovePointController_OnMove(Vector3 pos)
@@ -42,9 +48,48 @@ public class CharacterRendererManager : MonoBehaviour
         if (!_isSelected)
             return;
 
-        Vector2 dir = (pos - transform.position).normalized; // now it can be 0.7, 0.3 and I would like to keep the stornger
-        Vector2 faceDir = new Vector2(Mathf.RoundToInt(dir.x), Mathf.RoundToInt(dir.y));
-        Face(faceDir);
+        if (_battleCharacterController.CharacterState == CharacterState.ConfirmingInteraction)
+            return;
+
+        Vector2 dir = (pos - transform.position).normalized;
+        ResolveFaceDir(dir);
+    }
+
+    void BattleCharacterController_OnCharacterStateChanged(CharacterState state)
+    {
+        if (_battleCharacterController.SelectedCharacter == gameObject.transform.parent.gameObject)
+            SetSelected(true);
+
+        if (!_isSelected)
+            return;
+
+        if (state == CharacterState.None)
+            HandleCharacterStateNone();
+        if (state == CharacterState.Selected)
+            HandleCharacterSelected();
+        if (state == CharacterState.SelectingInteractionTarget)
+            return;
+        if (state == CharacterState.SelectingFaceDir)
+            HandleSelectingFaceDir();
+        if (state == CharacterState.ConfirmingInteraction)
+            return;
+    }
+
+    void HandleCharacterStateNone()
+    {
+        SetSelected(false);
+    }
+
+    void HandleCharacterSelected()
+    {
+
+        ResolveFaceDir(Vector2.one); // emm... a bit hacky but should sufice
+
+    }
+
+    void HandleSelectingFaceDir()
+    {
+
     }
 
     // TODO: something smarter I probably don't need to set direction when character movement is not active
@@ -83,29 +128,32 @@ public class CharacterRendererManager : MonoBehaviour
             await Shoot(_faceDir);
     }
 
-    public Vector2 GetFaceDir()
+    void ResolveFaceDir(Vector2 dir)
     {
-        return _faceDir;
-        /*
-        // https://forum.unity.com/threads/current-animator-state-name.331803/
-        var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
-        AnimationClip clip = clipInfo[0].clip;
+        Vector2 faceDir = new Vector2(Mathf.RoundToInt(dir.x), Mathf.RoundToInt(dir.y));
+        // TODO: ugh... idk how to solve it
+        if (Mathf.Abs(faceDir.x) == 1 && Mathf.Abs(faceDir.y) == 1)
+        {
+            // https://forum.unity.com/threads/current-animator-state-name.331803/
+            var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
+            AnimationClip clip = clipInfo[0].clip;
 
-        // TODO: it assumes that animation names are "BlaBla N", it's a risky assumption
-        string dir = clip.name.Split(" ")[1];
-        if (dir == "N")
-            return Vector2.up;
-        if (dir == "S")
-            return Vector2.down;
-        if (dir == "W")
-            return Vector2.right;
-        if (dir == "E")
-            return Vector2.left;
+            // TODO: it assumes that animation names are "BlaBla N", it's a risky assumption
+            string anim = clip.name.Split(" ")[1];
+            if (anim == "N")
+                faceDir = Vector2.up;
+            if (anim == "S")
+                faceDir = Vector2.down;
+            if (anim == "W")
+                faceDir = Vector2.left;
+            if (anim == "E")
+                faceDir = Vector2.right;
+        }
 
-        return Vector2.zero;
-        */
+        Face(faceDir);
     }
 
+    public Vector2 GetFaceDir() { return _faceDir; }
 
     public async Task SpellcastAnimation()
     {

@@ -6,7 +6,6 @@ public class FireOnTile : Creatable
 {
     BattleCharacterController _battleCharacterController;
 
-    [SerializeField] Status _status;
     [SerializeField] GameObject _spreadEffect;
 
     CharacterStats _characterBurnedThisTurn = null;
@@ -153,7 +152,7 @@ public class FireOnTile : Creatable
             return;
         }
 
-        await stats.AddStatus(_status, _ability.CharacterGameObject);
+        await stats.AddStatus(Status, _ability.CharacterGameObject);
     }
 
 
@@ -173,6 +172,12 @@ public class FireOnTile : Creatable
     {
         return $"Fire. Spreads. Burns when walking through it. Lasts for {_numberOfTurnsLeft} turn/s.";
     }
+
+    public override string GetCreatedObjectDescription()
+    {
+        return "Fire.";
+    }
+
 
     public override void DestroySelf()
     {

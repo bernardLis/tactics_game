@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using DG.Tweening;
 
-public class CameraManager : Singleton<CameraManager>
+public class BattleCameraManager : Singleton<BattleCameraManager>
 {
     BoardManager _boardManager;
+    MovePointController _movePointController;
 
     protected Camera _cam;
 
@@ -17,12 +18,13 @@ public class CameraManager : Singleton<CameraManager>
     {
         base.Awake();
         _cam = GetComponent<Camera>();
+        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+        _boardManager = BoardManager.Instance;
     }
 
     protected virtual void Start()
     {
-        _boardManager = BattleManager.Instance.GetComponent<BoardManager>();
-        TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+        _movePointController = MovePointController.Instance;
     }
 
     void Update()
@@ -40,31 +42,31 @@ public class CameraManager : Singleton<CameraManager>
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
     }
 
-    void TurnManager_OnBattleStateChanged(BattleState _state)
+    void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        if (_state == BattleState.MapBuilding)
+        if (state == BattleState.MapBuilding)
             HandleMapBuilding();
-        if (_state == BattleState.Deployment)
+        if (state == BattleState.Deployment)
             HandleDeployment();
-        if (_state == BattleState.PlayerTurn)
+        if (state == BattleState.PlayerTurn)
             HandlePlayerTurn();
     }
 
     void HandleMapBuilding()
     {
         _cam.orthographicSize = 12;
-        transform.position = new Vector3(_boardManager.MapSize.x / 2, _boardManager.MapSize.y / 2, -2); // TODO:
+        transform.position = new Vector3(_boardManager.MapSize.x / 2, _boardManager.MapSize.y / 2, -2);
     }
 
     async void HandleDeployment()
     {
-        _followTarget = MovePointController.Instance.transform;
-        await LerpOrthographicSize(7, 1);
+        _followTarget = _movePointController.transform;
+        await LerpOrthographicSize(6, 1);
     }
 
     void HandlePlayerTurn()
     {
-        _followTarget = MovePointController.Instance.transform;
+        _followTarget = _movePointController.transform;
     }
 
     public void SetTarget(Transform t)

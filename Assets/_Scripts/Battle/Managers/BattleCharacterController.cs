@@ -20,13 +20,12 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     WorldTile _tile;
     WorldTile _selectedTile;
 
-
     // I will be caching them for selected character
     [HideInInspector] public GameObject SelectedCharacter;
     CharacterStats _playerStats;
     PlayerCharSelection _playerCharSelection;
     AILerp _aiLerp;
-    CharacterRendererManager _characterRendererManager;
+    //HERE: CharacterRendererManager _characterRendererManager;
 
     // state
     public CharacterState CharacterState { get; private set; }
@@ -218,8 +217,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerCharSelection = SelectedCharacter.GetComponent<PlayerCharSelection>();
         _aiLerp = SelectedCharacter.GetComponent<AILerp>();
         _aiLerp.canSearch = false;
-        _characterRendererManager = SelectedCharacter.GetComponentInChildren<CharacterRendererManager>();
-        _characterRendererManager.SetSelected(true);
+        // HERE:
+      //  _characterRendererManager = SelectedCharacter.GetComponentInChildren<CharacterRendererManager>();
+       // _characterRendererManager.SetSelected(true);
 
         // character specific ui
         _playerCharSelection.SelectCharacter();
@@ -337,7 +337,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         await _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy); // TODO:
         _battleInputController.SetInputAllowed(true);
         UpdateCharacterState(CharacterState.Selected);
-
     }
 
     public void SetSelectedAbility(Ability ability)
@@ -357,7 +356,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // highlight aoe
         if (CharacterState == CharacterState.SelectingInteractionTarget)
         {
-            _characterRendererManager.Face((transform.position - SelectedCharacter.transform.position).normalized);
+        // HERE:    _characterRendererManager.Face((transform.position - SelectedCharacter.transform.position).normalized);
             _battleInputController.SetInputAllowed(false);
             await SelectedAbility.HighlightAreaOfEffect(transform.position);
             _battleInputController.SetInputAllowed(true);
@@ -449,8 +448,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerStats = null;
         _playerCharSelection = null;
         SelectedAbility = null;
-        _characterRendererManager.SetSelected(false);
-        _characterRendererManager = null;
+     // HERE:   _characterRendererManager.SetSelected(false);
+     //   _characterRendererManager = null;
 
         // highlight
         _highlighter.ClearHighlightedTiles().GetAwaiter();

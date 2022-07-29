@@ -58,7 +58,7 @@ public class AsuraStrikeEffect : AbilityEffect
         }
         // screen shake 
         _cam = Helpers.Camera;
-        _cam.GetComponent<CameraManager>().Shake();
+        _cam.GetComponent<BattleCameraManager>().Shake();
         _audioManager.PlaySFX("AsuraStrike", transform.position);
 
         MoveCharacter(ability, targetPos);

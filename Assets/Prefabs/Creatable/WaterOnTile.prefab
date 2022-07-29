@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744df6ec31eac83468ea64b1b34f9025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Status: {fileID: 11400000, guid: bc1af3fcdd88e184ba52996cc0f0ac60, type: 2}
   _wetStatus: {fileID: 11400000, guid: bc1af3fcdd88e184ba52996cc0f0ac60, type: 2}
   _electrifiedWaterEffect: {fileID: 6647246848958561218}
   _characterThatElectrified: {fileID: 0}

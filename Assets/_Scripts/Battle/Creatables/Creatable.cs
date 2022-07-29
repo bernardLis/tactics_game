@@ -7,6 +7,8 @@ public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, 
 {
     protected BoxCollider2D _selfCollider;
 
+    public Status Status;
+
     protected Ability _ability;
     protected int _numberOfTurnsLeft;
     protected string _createdByTag; // if character dies and his tileEffect is still on it throws an error
@@ -74,6 +76,12 @@ public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, 
     }
 
     public virtual string DisplayText()
+    {
+        // meant to be overwritten
+        return null;
+    }
+
+    public virtual string GetCreatedObjectDescription()
     {
         // meant to be overwritten
         return null;

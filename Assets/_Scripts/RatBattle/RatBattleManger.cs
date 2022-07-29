@@ -11,7 +11,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
     GameManager _gameManager;
     BattleManager _battleManager;
     TurnManager _turnManager;
-    CameraManager _cameraManager;
+    BattleCameraManager _cameraManager;
     ConversationManager _conversationManager;
     BattleCutSceneManager _battleCutSceneManager;
     MovePointController _movePointController;
@@ -54,7 +54,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _turnManager = TurnManager.Instance;
-        _cameraManager = CameraManager.Instance;
+        _cameraManager = BattleCameraManager.Instance;
         _conversationManager = ConversationManager.Instance;
         _battleCutSceneManager = BattleCutSceneManager.Instance;
         _movePointController = MovePointController.Instance;

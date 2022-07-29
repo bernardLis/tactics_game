@@ -87,7 +87,6 @@ public class MovePointController : Singleton<MovePointController>
         if (!TileManager.Tiles.TryGetValue(tilePos, out _tile))
             return;
 
-        
         // snap movepoint to 0.5 0.5
         float snappedX = Mathf.Round(pos.x * 2) * 0.5f;
         float snappedY = Mathf.Round(pos.y * 2) * 0.5f;

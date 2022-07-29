@@ -84,7 +84,7 @@ public class BoardManager : Singleton<BoardManager>
 
         // TODO: without the delays it breaks the game, 
         // preparation is called before map building, I just need a few miliseconds to set everything up.
-        InitialSetup();
+        await InitialSetup();
         BoardSetup();
         PlayAmbience();
         await Task.Delay(100);
@@ -113,16 +113,12 @@ public class BoardManager : Singleton<BoardManager>
         PlayMusic();
     }
 
-    void InitialSetup()
+    async Task InitialSetup()
     {
         Random.InitState(_seed);
 
-        _highlighter.ClearHighlightedTiles().GetAwaiter();
+        await _highlighter.ClearHighlightedTiles();
         _turnManager.UpdateBattleState(BattleState.MapBuilding);
-
-        // TODO: they could react to update battle state really... no need for that code here.
-        MovePointController.Instance.transform.position = new Vector3(MapSize.x / 2, MapSize.y / 2);
-        Camera.main.transform.position = new Vector3(MapSize.x / 2, MapSize.y / 2, -2);
 
         _pushableObstacles = new();
 

@@ -21,7 +21,7 @@ public class Brain : BaseScriptableObject
 
     // global
     protected HighlightManager _highlighter;
-    CameraManager _cameraManager;
+    BattleCameraManager _cameraManager;
     protected TurnManager _turnManager;
     InfoCardUI _infoCardUI;
 
@@ -55,7 +55,7 @@ public class Brain : BaseScriptableObject
     public virtual void Initialize(GameObject self, Character character)
     {
         _highlighter = BattleManager.Instance.GetComponent<HighlightManager>();
-        _cameraManager = Helpers.Camera.GetComponent<CameraManager>();
+        _cameraManager = Helpers.Camera.GetComponent<BattleCameraManager>();
         _turnManager = TurnManager.Instance;
         _infoCardUI = InfoCardUI.Instance;
         _blockManager = FindObjectOfType<BlockManager>();

@@ -217,4 +217,8 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
     public override string DisplayText() { return _displayText; }
 
+    public string GetCreatedObjectDescription()
+    {
+        return "Boulder.";
+    }
 }

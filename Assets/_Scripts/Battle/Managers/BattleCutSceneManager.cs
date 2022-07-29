@@ -7,12 +7,12 @@ using Pathfinding;
 public class BattleCutSceneManager : Singleton<BattleCutSceneManager>
 {
 
-    CameraManager _cameraManager;
+    BattleCameraManager _cameraManager;
 
     protected override void Awake()
     {
         base.Awake();
-        _cameraManager = Camera.main.GetComponent<CameraManager>();
+        _cameraManager = Camera.main.GetComponent<BattleCameraManager>();
     }
 
     public async Task WalkCharacterTo(GameObject character, Vector3 endPos)
