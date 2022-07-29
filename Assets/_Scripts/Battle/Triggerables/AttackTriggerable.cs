@@ -5,7 +5,6 @@ public class AttackTriggerable : BaseTriggerable
 {
     public async Task<GameObject> Attack(Vector3 pos, Ability ability, bool isRetaliation)
     {
-        Debug.Log("AttackTriggerable in attack");
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
         {

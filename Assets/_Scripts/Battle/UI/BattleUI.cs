@@ -8,6 +8,7 @@ using DG.Tweening;
 public class BattleUI : Singleton<BattleUI>
 {
     GameManager _gameManager;
+    BattleManager _battleManager;
 
     public VisualElement Root { get; private set; }
     VisualElement _turnTextContainer;
@@ -39,6 +40,7 @@ public class BattleUI : Singleton<BattleUI>
         base.Awake();
 
         _gameManager = GameManager.Instance;
+        _battleManager = BattleManager.Instance;
 
         // getting ui elements
         Root = GetComponent<UIDocument>().rootVisualElement;
@@ -145,13 +147,13 @@ public class BattleUI : Singleton<BattleUI>
 
     public void ShowCharacterScreen(Character character)
     {
-        BattleManager.Instance.PauseGame();
+        _battleManager.PauseGame();
         CharacterScreen = new CharacterScreen(character, Root);
     }
 
     public void HideCharacterScreen()
     {
-        BattleManager.Instance.ResumeGame();
+        _battleManager.ResumeGame();
         CharacterScreen.Hide();
         CharacterScreen = null;
     }
@@ -159,6 +161,7 @@ public class BattleUI : Singleton<BattleUI>
     void ShowBattleWonScreen()
     {
         ShowBattleEndScreen();
+        _battleEndCharacters.Clear();
         foreach (Character character in _gameManager.PlayerTroops)
         {
             CharacterCardVisual visual = new CharacterCardVisual(character);

@@ -116,7 +116,8 @@ public class CharacterRendererManager : MonoBehaviour
     public void Face(Vector2 dir)
     {
         _direction = dir;
-        _faceDir = dir;
+        if (dir != Vector2.zero)
+            _faceDir = dir;
 
         _characterRenderer.SetDirection(_direction);
 

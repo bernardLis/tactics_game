@@ -372,7 +372,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             _isInteracting = false;
             return;
         }
-        Debug.Log("battle controller Interact");
         _battleInputController.SetInputAllowed(false);
         await SelectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
         _battleInputController.SetInputAllowed(true);

@@ -119,7 +119,10 @@ public class BoardManager : Singleton<BoardManager>
 
         _highlighter.ClearHighlightedTiles().GetAwaiter();
         _turnManager.UpdateBattleState(BattleState.MapBuilding);
+
+        // TODO: they could react to update battle state really... no need for that code here.
         MovePointController.Instance.transform.position = new Vector3(MapSize.x / 2, MapSize.y / 2);
+        Camera.main.transform.position = new Vector3(MapSize.x / 2, MapSize.y / 2, -2);
 
         _pushableObstacles = new();
 
@@ -849,7 +852,7 @@ public class BoardManager : Singleton<BoardManager>
             }
 
             EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
-            List<Character> sortedPlayerCharacters = _gameManager.PlayerTroops.OrderBy(o=>o.Level).ToList();
+            List<Character> sortedPlayerCharacters = _gameManager.PlayerTroops.OrderBy(o => o.Level).ToList();
             sortedPlayerCharacters.Reverse(); // highest first
             int playerLevel = sortedPlayerCharacters[0].Level;
             enemySO.CreateEnemy(playerLevel + 2, brain);

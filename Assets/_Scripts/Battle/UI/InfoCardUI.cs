@@ -293,7 +293,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
         // color if bonus attack
         if (attackValue != 0)
         {
-            int attackDir = ability.GetAttackDir(attacker, defender, false);
+            int attackDir = defender.CalculateAttackDir(attacker.gameObject.transform.position);
             // side attack 1, face to face 2, from the back 0, 
             if (attackDir == 0)
                 value.style.backgroundColor = Color.red;

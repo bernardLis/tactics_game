@@ -237,7 +237,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         }
 
         // in the side 1, face to face 2, from the back 0, 
-        int attackDir = CalculateAttackDir(attacker);
+        int attackDir = CalculateAttackDir(attacker.gameObject.transform.position);
         if (attackDir == 0)
             return wasAttackSuccesful;
 
@@ -356,32 +356,28 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public int CalculateAttackDir(Vector3 attackerPos)
     {
-        Vector2 attackerFaceDir = (attackerPos - transform.position).normalized; // i swapped attacker pos with transform.pos
-        Vector2 defenderFaceDir = _characterRendererManager.GetFaceDir();
-        // side attack 1, face to face 2, from the back 0, 
-        int attackDir = 1;
-        if (attackerFaceDir + defenderFaceDir == Vector2.zero)
-            attackDir = 2;
-        if (attackerFaceDir + defenderFaceDir == attackerFaceDir * 2)
-            attackDir = 0;
-
-        return attackDir;
+        Vector2 attackerDir = (attackerPos - transform.position).normalized; // i swapped attacker pos with transform.pos
+        return BaseCalculateAttackDir(attackerDir);
     }
 
-    public int CalculateAttackDir(GameObject attacker)
+    int BaseCalculateAttackDir(Vector2 attackerDir)
     {
-        Vector2 attackerFaceDir = attacker.GetComponentInChildren<CharacterRendererManager>().GetFaceDir(); // i swapped attacker pos with transform.pos
         Vector2 defenderFaceDir = _characterRendererManager.GetFaceDir();
 
+        // let's do it with a dot product
+        float dot = Vector2.Dot(defenderFaceDir, attackerDir);
+
+        // https://twitter.com/freyaholmer/status/1200807790580768768?lang=en
         // side attack 1, face to face 2, from the back 0, 
         int attackDir = 1;
-        if (attackerFaceDir + defenderFaceDir == Vector2.zero)
+        if (dot > 0.75f)
             attackDir = 2;
-        if (attackerFaceDir + defenderFaceDir == attackerFaceDir * 2)
+        if (dot < -0.75f)
             attackDir = 0;
 
         return attackDir;
     }
+
 
     public AttackAbility GetRetaliationAbility()
     {
@@ -407,7 +403,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             return false;
 
         // if attacked from the back, don't retaliate
-        if (CalculateAttackDir(attacker) == 0)
+        if (CalculateAttackDir(attacker.transform.position) == 0)
             return false;
 
         // if attacker is yourself, don't retaliate

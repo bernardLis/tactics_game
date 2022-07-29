@@ -99,7 +99,6 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task TriggerAbility(List<WorldTile> tiles)
     {
-        Debug.Log("in trigger ability");
         // copy the list for safety
         List<WorldTile> targetTiles = new(tiles);
 
@@ -112,8 +111,6 @@ public abstract class Ability : BaseScriptableObject
 
         if (Sound != null)
             AudioManager.Instance.PlaySFX(Sound, CharacterGameObject.transform.position); // TODO: is that a correct place for sound
-        
-        Debug.Log("after sound");
 
         foreach (WorldTile t in targetTiles)
         {
@@ -152,27 +149,11 @@ public abstract class Ability : BaseScriptableObject
         return -1 * damage;
     }
 
-    public int GetAttackDir(CharacterStats attacker, CharacterStats defender, bool isRetaliation)
-    {
-        Vector2 attackerFaceDir = _characterRendererManager.GetFaceDir();
-        Vector2 defenderFaceDir = defender.GetComponentInChildren<CharacterRendererManager>().GetFaceDir();
-
-        // side attack 1, face to face 2, from the back 0, 
-        int attackDir = 1;
-        if (attackerFaceDir + defenderFaceDir == Vector2.zero)
-            attackDir = 2;
-        if (attackerFaceDir + defenderFaceDir == attackerFaceDir * 2)
-            attackDir = 0;
-        // retaliation is always face to face (which may not be true, but let's simplify for now)
-        if (isRetaliation)
-            attackDir = 2;
-
-        return attackDir;
-    }
-
     float CalculateBonusDamagePercent(CharacterStats attacker, CharacterStats defender, bool isRetaliation)
     {
-        int attackDir = GetAttackDir(attacker, defender, isRetaliation);
+        int attackDir = defender.CalculateAttackDir(attacker.gameObject.transform.position);
+        if (isRetaliation)
+            attackDir = 2;
 
         if (attackDir == 2)
             return 0;
