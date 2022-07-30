@@ -15,6 +15,7 @@ public class HighlightManager : Singleton<HighlightManager>
 
     WorldTile _charTile;
     public List<WorldTile> HighlightedTiles = new();
+    List<CharacterSelection> _affectedCharacters = new();
 
     List<WorldTile> _markedTiles = new();
 
@@ -44,6 +45,8 @@ public class HighlightManager : Singleton<HighlightManager>
         Vector3Int tilePos = _tilemap.WorldToCell(position);
         if (TileManager.Tiles.TryGetValue(tilePos, out _tile))
             HighlightTile(_tile, col);
+
+        MarkAffectedCharacters(col);
     }
 
     // TODO: this
@@ -213,15 +216,14 @@ public class HighlightManager : Singleton<HighlightManager>
 
         // clear highlights 
         foreach (WorldTile tile in HighlightedTiles)
-        {
             tile.ClearHighlightAndTags();
-        }
 
         // clear the lists
         _flashers.Clear();
         HighlightedTiles.Clear();
         _markedTiles.Clear();
 
+        ClearAffectedCharacters();
         await Task.Yield();
     }
 
@@ -284,6 +286,8 @@ public class HighlightManager : Singleton<HighlightManager>
             if (CanAbilityTargetTile(ability, tilePos))
                 AddTileForHighlighting(tilePos, ability.HighlightColor);
         }
+
+        MarkAffectedCharacters(ability.HighlightColor);
     }
 
     public async Task HighlightAbilityAOE(Ability ability, Vector3 middlePos)
@@ -305,6 +309,8 @@ public class HighlightManager : Singleton<HighlightManager>
 
         for (int i = 0; i < ability.AreaOfEffect; i++)
             await HandleAbilityHighlighting(ability, true);
+
+        MarkAffectedCharacters(ability.HighlightColor);
     }
 
 
@@ -376,5 +382,36 @@ public class HighlightManager : Singleton<HighlightManager>
         if (!_markedTiles.Contains(_tile))
             _markedTiles.Add(_tile);
     }
+
+    void MarkAffectedCharacters(Color color)
+    {
+        _affectedCharacters.Clear();
+        foreach (WorldTile tile in HighlightedTiles)
+        {
+            Collider2D[] cols = Physics2D.OverlapCircleAll(tile.GetMiddleOfTile(), 0.2f);
+            foreach (Collider2D c in cols)
+                if (c.TryGetComponent(out CharacterSelection selection))
+                {
+                    selection.ToggleSelectionArrow(true, color);
+                    _affectedCharacters.Add(selection);
+                }
+        }
+    }
+
+    void ClearAffectedCharacters()
+    {
+        foreach (CharacterSelection selection in _affectedCharacters)
+        {
+            if (selection == null)
+                return;
+
+            selection.ToggleSelectionArrow(false);
+            if (selection.gameObject == BattleCharacterController.Instance.SelectedCharacter) // self
+                selection.ToggleSelectionArrow(true, Color.white);
+        }
+
+        _affectedCharacters.Clear();
+    }
+
 
 }

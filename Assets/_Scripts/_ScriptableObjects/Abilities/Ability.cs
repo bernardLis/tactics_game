@@ -78,8 +78,6 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightTargetable(GameObject self)
     {
-        ClearAffectedCharacters();
-
         await _highlighter.HighlightAbilityRange(this);
     }
 
@@ -93,8 +91,6 @@ public abstract class Ability : BaseScriptableObject
             await _highlighter.HighlightAbilityLineAOE(this, middlePos);
         else
             await _highlighter.HighlightAbilityAOE(this, middlePos);
-
-        MarkAffectedCharacters();
     }
 
     public virtual async Task TriggerAbility(List<WorldTile> tiles)
@@ -118,8 +114,6 @@ public abstract class Ability : BaseScriptableObject
             Vector3 pos = t.GetMiddleOfTile();
             await AbilityLogic(pos);
         }
-
-        ClearAffectedCharacters();
     }
 
     public virtual bool IsTargetViable(GameObject target)
@@ -178,34 +172,6 @@ public abstract class Ability : BaseScriptableObject
         _characterRendererManager.Face(dir.normalized);
 
         return true;
-    }
-
-    void MarkAffectedCharacters()
-    {
-        affectedCharacters.Clear();
-        foreach (WorldTile tile in _highlighter.HighlightedTiles)
-        {
-            Collider2D[] cols = Physics2D.OverlapCircleAll(tile.GetMiddleOfTile(), 0.2f);
-            foreach (Collider2D c in cols)
-                if (c.TryGetComponent(out CharacterSelection selection))
-                {
-                    selection.ToggleSelectionArrow(true, HighlightColor);
-                    affectedCharacters.Add(selection);
-                }
-        }
-    }
-
-    void ClearAffectedCharacters()
-    {
-        foreach (CharacterSelection selection in affectedCharacters)
-        {
-            if (selection == null)
-                return;
-
-            selection.ToggleSelectionArrow(false);
-            if (selection.gameObject == _battleCharacterController.SelectedCharacter)
-                selection.ToggleSelectionArrow(true, Color.white);
-        }
     }
 
     /* UI Helpers */
