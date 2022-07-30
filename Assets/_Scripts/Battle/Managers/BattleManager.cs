@@ -35,15 +35,12 @@ public class BattleManager : Singleton<BattleManager>
     {
         IsGamePaused = true;
         Time.timeScale = 0;
-        //_/battleInputController.SetInputAllowed(false);
     }
 
     public void ResumeGame()
     {
-        Debug.Log("resume");
         IsGamePaused = false;
         Time.timeScale = 1;
-        //_battleInputController.SetInputAllowed(true);
     }
 
     public void SnapToGrid(Transform t)

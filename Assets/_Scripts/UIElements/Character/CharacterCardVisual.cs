@@ -64,7 +64,7 @@ public class CharacterCardVisual : VisualElement
         _information.style.flexShrink = 0;
         _information.style.width = Length.Percent(30);
 
-        _name.AddToClassList("primaryText");
+        _name.AddToClassList("textPrimary");
         _portrait.AddToClassList("characterCardPortrait");
 
         _portrait.style.backgroundImage = character.Portrait.texture;

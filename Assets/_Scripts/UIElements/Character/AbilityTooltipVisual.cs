@@ -17,21 +17,21 @@ public class AbilityTooltipVisual : VisualWithTooltip
         _ability = ability;
 
         _name = new(Helpers.ParseScriptableObjectCloneName(ability.name));
-        _name.AddToClassList("primaryText");
+        _name.AddToClassList("textPrimary");
         _name.style.alignSelf = Align.Center;
 
         _description = new(ability.Description);
-        _description.AddToClassList("secondaryText");
+        _description.AddToClassList("textSecondary");
         _description.style.whiteSpace = WhiteSpace.Normal;
 
         _range = new("Range: " + ability.Range);
-        _range.AddToClassList("secondaryText");
+        _range.AddToClassList("textSecondary");
 
         _aoe = new("AOE: " + ability.GetAOEDescription());
-        _aoe.AddToClassList("secondaryText");
+        _aoe.AddToClassList("textSecondary");
 
         _manaCost = new("Mana cost: " + ability.ManaCost.ToString());
-        _manaCost.AddToClassList("secondaryText");
+        _manaCost.AddToClassList("textSecondary");
 
         _modifierContainer = new();
         _modifierContainer.AddToClassList("modifierContainer");

@@ -36,7 +36,7 @@ public class ResourceBarVisual : VisualWithTooltip
         _missing.AddToClassList("barMissingAmount");
         _interactionResult.AddToClassList("barInteractionResult");
         _text.AddToClassList("barText");
-        _text.AddToClassList("secondaryText");
+        _text.AddToClassList("textSecondary");
 
         if (thickness != 0)
             style.height = thickness;

@@ -18,9 +18,6 @@ public class CharacterUI : Singleton<CharacterUI>
     VisualElement _characterCardContainer;
     CharacterCardVisual _characterCardVisual;
 
-    VisualElement _abilityTooltipContainer;
-
-    Button _openInventoryButton;
     VisualElement _characterAbilitiesContainer;
 
     // local
@@ -45,8 +42,6 @@ public class CharacterUI : Singleton<CharacterUI>
 
         _container = _root.Q<VisualElement>("characterUIContainer");
         _characterCardContainer = _root.Q<VisualElement>("characterUICharacterCard");
-
-        _abilityTooltipContainer = _root.Q<VisualElement>("abilityTooltipContainer");
 
         _characterAbilitiesContainer = _root.Q<VisualElement>("characterAbilities");
         _characterAbilitiesContainer.Clear();
@@ -112,7 +107,6 @@ public class CharacterUI : Singleton<CharacterUI>
         _selectedPlayerStats.OnAbilityAdded += OnAbilityAdded;
 
         await ShowCharacterUI();
-        HideAbilityTooltip();
     }
 
     void HandleSelectingFaceDir()
@@ -158,8 +152,6 @@ public class CharacterUI : Singleton<CharacterUI>
 
     public async Task HideCharacterUI()
     {
-        HideAbilityTooltip();
-
         await DOTween.To(() => _container.style.bottom.value.value, x => _container.style.bottom = x,
                          _UIHideValue, 0.5f)
                 .SetEase(Ease.InOutSine)
@@ -270,28 +262,12 @@ public class CharacterUI : Singleton<CharacterUI>
         }
     }
 
-    void ShowAbilityTooltip(Ability ability)
-    {
-        _abilityTooltipContainer.style.display = DisplayStyle.Flex;
-        _abilityTooltipContainer.Clear();
-
-        AbilityTooltipVisual visual = new(ability);
-        _abilityTooltipContainer.Add(visual);
-    }
-
-    public void HideAbilityTooltip()
-    {
-        _abilityTooltipContainer.style.display = DisplayStyle.None;
-    }
-
     // TODO: Hey future Bernard, I know you are looking at this and thinking: "damn... mixing coroutines and async await sucks, what was I thinking"
-    // I, past Bernard would like to tell you that I tried hard to make it work and I left coroutines and async await not because I don't like you but
+    // I, past Bernard would like to tell you that I have tried to make something better and I left coroutines and async await not because I don't like you but
     // because I am not skilled enough to rewrite everything to use only async await. 
     IEnumerator HandleButtonClick(Ability ability)
     {
         _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
-
-        ShowAbilityTooltip(ability);
 
         // when clicked multiple times on the same ability treat it as if clicked select
         if (ability == _battleCharacterController.SelectedAbility)
@@ -335,12 +311,6 @@ public class CharacterUI : Singleton<CharacterUI>
     }
 
     /* Keyboard input */
-    public void SimulateOpenInventoryClicked()
-    {
-        using (var e = new NavigationSubmitEvent() { target = _openInventoryButton })
-            _openInventoryButton.SendEvent(e);
-    }
-
     public void SimulateAbilityButtonClicked(InputAction.CallbackContext ctx)
     {
         if (_characterAbilitiesContainer.childCount == 0)

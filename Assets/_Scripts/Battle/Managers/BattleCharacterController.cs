@@ -25,7 +25,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     CharacterStats _playerStats;
     PlayerCharSelection _playerCharSelection;
     AILerp _aiLerp;
-    //HERE: CharacterRendererManager _characterRendererManager;
 
     // state
     public CharacterState CharacterState { get; private set; }
@@ -40,8 +39,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     // movement
     GameObject _tempObject;
-    public bool HasCharacterStartedMoving;// { get; private set; }
-    public bool IsMovingBack;// { get; private set; }
+    public bool HasCharacterStartedMoving { get; private set; }
+    public bool IsMovingBack { get; private set; }
 
     LineRenderer _pathRenderer;
 
@@ -50,7 +49,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     List<GameObject> _viableTargets = new();
     bool _isInteracting;
 
-    // TODO: I am currently, not using that, but I have a feeling that it will be useful.
     public static event Action<CharacterState> OnCharacterStateChanged;
 
     protected override void Awake()
@@ -217,9 +215,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerCharSelection = SelectedCharacter.GetComponent<PlayerCharSelection>();
         _aiLerp = SelectedCharacter.GetComponent<AILerp>();
         _aiLerp.canSearch = false;
-        // HERE:
-      //  _characterRendererManager = SelectedCharacter.GetComponentInChildren<CharacterRendererManager>();
-       // _characterRendererManager.SetSelected(true);
 
         // character specific ui
         _playerCharSelection.SelectCharacter();
@@ -356,7 +351,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // highlight aoe
         if (CharacterState == CharacterState.SelectingInteractionTarget)
         {
-        // HERE:    _characterRendererManager.Face((transform.position - SelectedCharacter.transform.position).normalized);
             _battleInputController.SetInputAllowed(false);
             await SelectedAbility.HighlightAreaOfEffect(transform.position);
             _battleInputController.SetInputAllowed(true);
@@ -448,8 +442,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerStats = null;
         _playerCharSelection = null;
         SelectedAbility = null;
-     // HERE:   _characterRendererManager.SetSelected(false);
-     //   _characterRendererManager = null;
 
         // highlight
         _highlighter.ClearHighlightedTiles().GetAwaiter();

@@ -8,7 +8,7 @@ public class JourneyNodeInfoVisual : VisualElement
     public JourneyNodeInfoVisual(JourneyNode node)
     {
         Label nodeType = new Label(node.NodeType.ToString());
-        nodeType.AddToClassList("primaryText");
+        nodeType.AddToClassList("textPrimary");
         Add(nodeType);
 
         if (node.NodeType == JourneyNodeType.Battle)
@@ -33,10 +33,10 @@ public class JourneyNodeInfoVisual : VisualElement
         }
 
         //Label numberOfEnemies = new Label("Number of enemies: " + .Count); // TODO: brains could hold icons that represent enemy type and I could be displaying them
-        variant.AddToClassList("secondaryText");
-        biome.AddToClassList("secondaryText");
+        variant.AddToClassList("textSecondary");
+        biome.AddToClassList("textSecondary");
         enemyIconContainer.AddToClassList("uiContainer");
-        mapSize.AddToClassList("secondaryText");
+        mapSize.AddToClassList("textSecondary");
 
         Add(variant);
         Add(biome);

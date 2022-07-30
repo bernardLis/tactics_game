@@ -3,12 +3,12 @@
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <ui:VisualElement name="turnTextContainer" style="position: absolute; top: 20%; height: auto; display: none; opacity: 1; width: 100%; align-items: center; justify-content: flex-end;">
         <ui:VisualElement name="wrapper" class="uiContainer">
-            <ui:Label text="TURN 0 - PLAYER" display-tooltip-when-elided="true" name="turnText" class="primaryText" style="font-size: 64px; color: rgb(255, 255, 255); -unity-text-align: upper-center; -unity-font-style: bold; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+            <ui:Label text="TURN 0 - PLAYER" display-tooltip-when-elided="true" name="turnText" class="textPrimary" style="font-size: 64px; color: rgb(255, 255, 255); -unity-text-align: upper-center; -unity-font-style: bold; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="infoCardContainer" style="width: 500px; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto; padding-bottom: 20px;">
         <ui:VisualElement name="tileInfoCard" class="uiContainer" style="height: auto; width: 100%; display: none; left: -100%; margin-bottom: 10px; padding-bottom: 20px;">
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" class="primaryText" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" class="textPrimary" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
         </ui:VisualElement>
         <ui:VisualElement name="characterCard" class="uiContainer" style="align-items: stretch; justify-content: flex-start; display: none; left: -100%;">
             <ui:VisualElement name="characterCardBasicInfo" class="characterCard">
@@ -68,8 +68,8 @@
         </ui:VisualElement>
         <ui:VisualElement name="interactionSummary" class="uiContainer" style="left: -100%; margin-top: 10px; display: none;">
             <ui:VisualElement name="attackSummary" style="color: rgb(253, 253, 253);">
-                <ui:Label text="Attack:" display-tooltip-when-elided="true" name="attackLabel" class="primaryText" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;" />
-                <ui:VisualElement name="attackDamageGroup" class="secondaryText" style="flex-direction: column;">
+                <ui:Label text="Attack:" display-tooltip-when-elided="true" name="attackLabel" class="textPrimary" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;" />
+                <ui:VisualElement name="attackDamageGroup" class="textSecondary" style="flex-direction: column;">
                     <ui:Label text="Value:" display-tooltip-when-elided="true" name="attackDamageLabel" />
                     <ui:VisualElement name="attackDamageValue" style="flex-direction: row; flex-wrap: wrap;">
                         <ui:Label text="XX" display-tooltip-when-elided="true" name="asd" />
@@ -77,8 +77,8 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="retaliationSummary" style="color: rgb(255, 255, 255);">
-                <ui:Label text="Retaliation:" display-tooltip-when-elided="true" name="retaliationLabel" class="primaryText" style="border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);" />
-                <ui:VisualElement name="retaliationDamageGroup" class="secondaryText" style="flex-direction: row;">
+                <ui:Label text="Retaliation:" display-tooltip-when-elided="true" name="retaliationLabel" class="textPrimary" style="border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="retaliationDamageGroup" class="textSecondary" style="flex-direction: row;">
                     <ui:Label text="Value:" display-tooltip-when-elided="true" name="retaliationDamageLabel" />
                     <ui:Label text="XX" display-tooltip-when-elided="true" name="retaliationDamageValue" />
                 </ui:VisualElement>
@@ -145,12 +145,6 @@
                 </ui:VisualElement>
                 <ui:Button display-tooltip-when-elided="true" class="characterCardDetailsButton" />
             </ui:VisualElement>
-            <ui:VisualElement name="basicActions" style="display: none;">
-                <ui:Button display-tooltip-when-elided="true" name="openInventory">
-                    <ui:VisualElement name="inventoryIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Items/healthPotion.png?fileID=21300000&amp;guid=8b98bfed039ed294294c2f26d778c79b&amp;type=3#healthPotion&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
-                    <ui:Label text="I" display-tooltip-when-elided="true" name="inventoryTooltip" style="-unity-text-align: upper-center;" />
-                </ui:Button>
-            </ui:VisualElement>
             <ui:VisualElement name="characterAbilities" class="uiContainer" style="height: 100%; width: 70%; flex-direction: row; justify-content: space-around; align-items: center;">
                 <ui:Button display-tooltip-when-elided="true" name="characterSButton">
                     <ui:VisualElement name="characterSSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/shield.png?fileID=21300000&amp;guid=46fdae8c04a550547a6bef44d81553d0&amp;type=3#shield&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
@@ -174,31 +168,24 @@
                 </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="abilityTooltipContainer" class="uiContainer" style="visibility: visible; display: none; flex-grow: 1; flex-shrink: 0;">
-            <ui:Label text="Very Strong Ability" display-tooltip-when-elided="true" name="characterUITooltipAbilityName" class="primaryText" />
-            <ui:Label text="This is a very stong skill, it will deal 50dmg." display-tooltip-when-elided="true" name="characterUITooltipAbilityDescription" class="abilityDescription" />
-            <ui:Label text="Mana cost: 50" display-tooltip-when-elided="true" name="characterUITooltipAbilityManaCost" class="abilityManaCost" style="color: rgb(255, 255, 255);" />
-            <ui:Label text="It modifiers targets AGI by -3" display-tooltip-when-elided="true" name="characterUITooltipModifierDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
-            <ui:Label text="It stuns the target." display-tooltip-when-elided="true" name="characterUITooltipStatusDescription" style="white-space: normal; font-size: 18px; color: rgb(255, 255, 255);" />
-        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="battleLogContainer" style="top: 5%; align-items: center; display: none; flex-direction: row; justify-content: center;">
         <ui:VisualElement name="wrapper" class="uiContainer" style="align-items: center; justify-content: space-between; padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px;">
-            <ui:Label text="First uses Heal on Second. " display-tooltip-when-elided="true" name="battleLogText" class="primaryText" style="font-size: 36px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+            <ui:Label text="First uses Heal on Second. " display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" style="font-size: 36px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="battleEndContainer" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: none; opacity: 1; justify-content: space-around; align-items: center; background-image: none; position: absolute;">
-        <ui:Label text="Battle is finished! " display-tooltip-when-elided="true" name="battleEndText" class="primaryText" style="color: rgb(210, 210, 210); font-size: 100px; -unity-text-align: upper-center;" />
+        <ui:Label text="Battle is finished! " display-tooltip-when-elided="true" name="battleEndText" class="textPrimary" style="color: rgb(210, 210, 210); font-size: 100px; -unity-text-align: upper-center;" />
         <ui:VisualElement name="battleEndGoalContainer">
-            <ui:VisualElement class="primaryText" style="flex-direction: row;">
+            <ui:VisualElement class="textPrimary" style="flex-direction: row;">
                 <ui:VisualElement class="battleGoalCheck" />
                 <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
             </ui:VisualElement>
-            <ui:VisualElement class="primaryText" style="flex-direction: row;">
+            <ui:VisualElement class="textPrimary" style="flex-direction: row;">
                 <ui:VisualElement style="background-image: url(&apos;project://database/Assets/UI/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&amp;guid=1400ee94531d8e74c98f3ee11827f3bf&amp;type=3#check&apos;); width: 24px; height: 24px;" />
                 <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
             </ui:VisualElement>
-            <ui:VisualElement class="primaryText" style="flex-direction: row;">
+            <ui:VisualElement class="textPrimary" style="flex-direction: row;">
                 <ui:VisualElement style="background-image: url(&apos;project://database/Assets/UI/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&amp;guid=1400ee94531d8e74c98f3ee11827f3bf&amp;type=3#check&apos;); width: 24px; height: 24px;" />
                 <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
             </ui:VisualElement>
@@ -207,9 +194,9 @@
         <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" class="menuButton" style="font-size: 35px; width: 30%; display: flex;" />
     </ui:VisualElement>
     <ui:VisualElement name="tutorialTextContainer" style="position: absolute; top: 30%; width: 80%; justify-content: flex-end; align-items: center; left: 10%; display: none;">
-        <ui:Label text="Label" display-tooltip-when-elided="true" name="tutorialText" class="primaryText" style="font-size: 48px; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0);" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="tutorialText" class="textPrimary" style="font-size: 48px; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0);" />
     </ui:VisualElement>
     <ui:VisualElement name="battleGoalContainer" style="position: absolute; right: 10px; top: 10px; display: none;">
-        <ui:Label text="Goal: Defeat all enemies" display-tooltip-when-elided="true" class="primaryText" />
+        <ui:Label text="Goal: Defeat all enemies" display-tooltip-when-elided="true" class="textPrimary" />
     </ui:VisualElement>
 </ui:UXML>

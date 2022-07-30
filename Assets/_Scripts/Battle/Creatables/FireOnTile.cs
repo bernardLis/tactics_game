@@ -179,11 +179,11 @@ public class FireOnTile : Creatable
     }
 
 
-    public override void DestroySelf()
+    public override async Task DestroySelf()
     {
         // TODO: different effect;
         Destroy(Instantiate(_spreadEffect, transform.position, Quaternion.identity), 1f);
-        base.DestroySelf();
+        await base.DestroySelf();
     }
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, Ability, string>
+public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, Ability, string>, IDestroyable
 {
     protected BoxCollider2D _selfCollider;
 
@@ -60,19 +60,21 @@ public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, 
         await Task.Delay(10);
         _numberOfTurnsLeft -= 1;
         if (_numberOfTurnsLeft <= 0)
-            DestroySelf();
+            await DestroySelf();
     }
 
-    public virtual void DestroySelf()
+    public virtual async Task DestroySelf()
     {
+        await Task.Delay(10);
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
         gameObject.SetActive(false);
         if (gameObject != null)
             Destroy(gameObject, 1f);
+        
     }
     void OnDestroy()
     {
-        DestroySelf();
+        DestroySelf().GetAwaiter();
     }
 
     public virtual string DisplayText()

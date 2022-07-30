@@ -59,10 +59,10 @@ public class SafetyWall : Creatable, ICreatable<Vector3, Ability, string>
         stats.IsShielded = false;
     }
 
-    public override void DestroySelf()
+    public override async Task DestroySelf()
     {
         if (_shieldedCharacter != null)
             RemoveShield(_shieldedCharacter);
-        base.DestroySelf();
+        await base.DestroySelf();
     }
 }

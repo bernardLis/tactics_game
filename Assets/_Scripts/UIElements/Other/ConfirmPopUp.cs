@@ -28,7 +28,7 @@ public class ConfirmPopUp : VisualElement
         style.backgroundColor = new Color(0.3f, 0.3f, 0.3f, 0.5f);
 
         Label confirm = new Label("Are you sure?");
-        confirm.AddToClassList("primaryText");
+        confirm.AddToClassList("textPrimary");
         Add(confirm);
         AddButtons(callback);
     }

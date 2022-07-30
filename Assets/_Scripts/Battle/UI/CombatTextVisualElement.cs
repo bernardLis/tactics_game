@@ -19,7 +19,7 @@ public class CombatTextVisualElement : VisualElement
         _middleOfTheTile = new Vector3(tr.position.x, tr.position.y + _offsetY, tr.position.z);
 
         Label textLabel = new Label(text);
-        textLabel.AddToClassList("primaryText");
+        textLabel.AddToClassList("textPrimary");
         textLabel.style.color = col;
         style.position = Position.Absolute;
         Add(textLabel);

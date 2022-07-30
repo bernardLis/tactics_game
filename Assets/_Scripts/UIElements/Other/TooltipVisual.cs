@@ -25,7 +25,7 @@ public class TooltipVisual : VisualElement
         OnPostVisualCreation();
 
         _text = new(text);
-        _text.AddToClassList("primaryText");
+        _text.AddToClassList("textPrimary");
         Add(_text);
     }
 

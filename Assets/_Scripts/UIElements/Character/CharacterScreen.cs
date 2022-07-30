@@ -58,7 +58,7 @@ public class CharacterScreen : FullScreenVisual
         Add(container);
 
         Label label = new Label("Abilities:");
-        label.AddToClassList("primaryText");
+        label.AddToClassList("textPrimary");
         container.Add(label);
 
         VisualElement abilityContainer = new();

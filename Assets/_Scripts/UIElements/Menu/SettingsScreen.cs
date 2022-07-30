@@ -21,7 +21,7 @@ public class SettingsScreen : FullScreenVisual
         VisualElement soundContainer = new VisualElement();
         soundContainer.AddToClassList("uiContainer");
         Label sound = new Label("Sound");
-        sound.AddToClassList("primaryText");
+        sound.AddToClassList("textPrimary");
         soundContainer.Add(sound);
         Add(soundContainer);
         AddVolumeSliders(soundContainer);
@@ -29,7 +29,7 @@ public class SettingsScreen : FullScreenVisual
         VisualElement graphicsContainer = new VisualElement();
         graphicsContainer.AddToClassList("uiContainer");
         Label graphics = new Label("Graphics");
-        graphics.AddToClassList("primaryText");
+        graphics.AddToClassList("textPrimary");
         graphicsContainer.Add(graphics);
         Add(graphicsContainer);
 
@@ -177,7 +177,7 @@ public class SettingsScreen : FullScreenVisual
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         Label label = new Label(labelText);
-        label.AddToClassList("primaryText");
+        label.AddToClassList("textPrimary");
         container.Add(label);
         return container;
     }

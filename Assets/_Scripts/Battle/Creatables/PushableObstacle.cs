@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 
-public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability>, ICreatable<Vector3, Ability, string>, IDestroyable
+public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Ability>, ICreatable<Vector3, Ability, string>
 {
     // global
     BattleManager _battleManager;
@@ -13,7 +13,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     [SerializeField] GameObject _poofEffect;
 
     // push
-    BoxCollider2D _selfCollider;
+    //BoxCollider2D _selfCollider;
     Vector3 _finalPos;
     protected CharacterStats _targetStats;
     protected int _damage = 50;
@@ -38,8 +38,8 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
             return;
         DOTween.To(() => l.intensity, x => l.intensity = x, 0.2f, 4f).SetLoops(-1, LoopType.Yoyo).SetId(_lightFlickerTweenId);
     }
-
-    public async Task Initialize(Vector3 pos, Ability ability, string tag = "")
+    
+    public override async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
         await Fall(pos);
 
@@ -181,23 +181,17 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
     public async Task CollideWithFire(Ability ability, Collider2D col)
     {
         if (col.TryGetComponent(out FireOnTile fireOnTile))
-        {
-            fireOnTile.DestroySelf();
-            await Task.Yield();
-        }
+            await fireOnTile.DestroySelf();
     }
 
     public async Task CollideWithWater(Ability ability, Collider2D col)
     {
         if (col.TryGetComponent(out WaterOnTile waterOnTile))
-        {
-            waterOnTile.DestroySelf();
-            await Task.Yield();
-        }
+            await waterOnTile.DestroySelf();
     }
 
 
-    public async Task DestroySelf()
+    public override async Task DestroySelf()
     {
         Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
         //DOTween.KillAll(false, )
@@ -217,7 +211,7 @@ public class PushableObstacle : Obstacle, IPushable<Vector3, GameObject, Ability
 
     public override string DisplayText() { return _displayText; }
 
-    public string GetCreatedObjectDescription()
+    public override string GetCreatedObjectDescription()
     {
         return "Boulder.";
     }

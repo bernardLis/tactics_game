@@ -51,7 +51,7 @@ public class StatVisual : VisualWithTooltip
 
         Value = new();
         Value.AddToClassList("statValue");
-        Value.AddToClassList("primaryText");
+        Value.AddToClassList("textPrimary");
         Add(Value);
     }
 

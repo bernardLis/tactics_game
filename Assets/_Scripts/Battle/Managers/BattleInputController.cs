@@ -116,8 +116,6 @@ public class BattleInputController : Singleton<BattleInputController>
         _playerInput.actions["SelectClick"].performed += SelectClick;
         _playerInput.actions["DetailsClick"].performed += DetailsClick;
 
-        _playerInput.actions["OpenInventoryClick"].performed += OpenInventoryClicked;
-
         _playerInput.actions["BasicAttackClick"].performed += AbilityButtonClicked;
         _playerInput.actions["BasicDefenseClick"].performed += AbilityButtonClicked;
 
@@ -140,8 +138,6 @@ public class BattleInputController : Singleton<BattleInputController>
 
         _playerInput.actions["SelectClick"].performed -= SelectClick;
         _playerInput.actions["DetailsClick"].performed -= DetailsClick;
-
-        _playerInput.actions["OpenInventoryClick"].performed -= OpenInventoryClicked;
 
         _playerInput.actions["BasicAttackClick"].performed -= AbilityButtonClicked;
         _playerInput.actions["BasicDefenseClick"].performed -= AbilityButtonClicked;
@@ -293,11 +289,6 @@ public class BattleInputController : Singleton<BattleInputController>
         AllowInput = true;
         _battleCharacterController.Back();
         _battleCharacterController.UnselectCharacter();
-    }
-
-    void OpenInventoryClicked(InputAction.CallbackContext ctx)
-    {
-        _characterUI.SimulateOpenInventoryClicked();
     }
 
     void AbilityButtonClicked(InputAction.CallbackContext ctx)

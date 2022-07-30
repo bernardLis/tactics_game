@@ -35,8 +35,8 @@ public class CharacterCardVisualExtended : CharacterCardVisual
         _level = new();
         _exp = new();
 
-        _level.AddToClassList("secondaryText");
-        _exp.AddToClassList("secondaryText");
+        _level.AddToClassList("textSecondary");
+        _exp.AddToClassList("textSecondary");
 
         _level.text = $"Level {character.Level}";
         _exp.text = $"Exp: {character.Experience}/100";

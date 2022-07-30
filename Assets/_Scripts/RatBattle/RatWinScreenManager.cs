@@ -43,7 +43,7 @@ public class RatWinScreenManager : MonoBehaviour
     VisualElement GetGoalContainer()
     {
         VisualElement el = new VisualElement();
-        el.AddToClassList("primaryText");
+        el.AddToClassList("textPrimary");
         el.style.flexDirection = FlexDirection.Row;
         return el;
     }

@@ -466,24 +466,24 @@ public class BoardManager : Singleton<BoardManager>
         }
     }
 
-    Vector3Int GetRandomOuterPosition(Vector2Int _size)
+    Vector3Int GetRandomOuterPosition(Vector2Int size)
     {
         Vector3Int randPos = _openOuterPositions[Random.Range(0, _openOuterPositions.Count)];
 
         // outer positions are not shuffled
         // + 1 coz if size is '1' I don't want to move any tiles down
-        if (Array.IndexOf(_biome.OuterTiles, _backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y))) == -1)
+        if (Array.IndexOf(_biome.OuterTiles, _backgroundTilemap.GetTile(new Vector3Int(randPos.x - size.x + 1, randPos.y))) == -1)
             return Vector3Int.zero;
-        if (Array.IndexOf(_biome.OuterTiles, _backgroundTilemap.GetTile(new Vector3Int(randPos.x, randPos.y - _size.y + 1))) == -1)
+        if (Array.IndexOf(_biome.OuterTiles, _backgroundTilemap.GetTile(new Vector3Int(randPos.x, randPos.y - size.y + 1))) == -1)
             return Vector3Int.zero;
-        if (Array.IndexOf(_biome.OuterTiles, _backgroundTilemap.GetTile(new Vector3Int(randPos.x - _size.x + 1, randPos.y - _size.y + 1))) == -1)
+        if (Array.IndexOf(_biome.OuterTiles, _backgroundTilemap.GetTile(new Vector3Int(randPos.x - size.x + 1, randPos.y - size.y + 1))) == -1)
             return Vector3Int.zero;
 
         _openOuterPositions.Remove(randPos);
         // remove positions from open outer positions;
-        for (int x = 0; x < _size.x; x++)
+        for (int x = 0; x < size.x; x++)
         {
-            for (int y = 0; y < _size.y; y++)
+            for (int y = 0; y < size.y; y++)
             {
                 if (x == 0 && y == 0)
                     continue;
@@ -534,9 +534,9 @@ public class BoardManager : Singleton<BoardManager>
     }
 
     // supports only 1x1 objects and GameObjects not tilemap objects
-    void LayoutObjectAtRandom(GameObject _obj, float _density)
+    void LayoutObjectAtRandom(GameObject obj, float density)
     {
-        int objectCount = Mathf.FloorToInt(_openGridPositions.Count * _density);
+        int objectCount = Mathf.FloorToInt(_openGridPositions.Count * density);
         for (int i = 0; i < objectCount; i++)
         {
             if (_openGridPositions.Count <= 0)
@@ -546,46 +546,46 @@ public class BoardManager : Singleton<BoardManager>
             if (randomPosition == null)
                 return;
 
-            GameObject o = Instantiate(_obj, new Vector3(randomPosition[0].x + 0.5f, randomPosition[0].y + 0.5f), Quaternion.identity);
+            GameObject o = Instantiate(obj, new Vector3(randomPosition[0].x + 0.5f, randomPosition[0].y + 0.5f), Quaternion.identity);
             o.transform.parent = _envObjectsHolder.transform;
         }
     }
 
     /* --- HELPERS --- */
-    void PlaceObject(TilemapObject _obj, Vector3Int _pos)
+    void PlaceObject(TilemapObject obj, Vector3Int pos)
     {
         GameObject selectedPrefab = _obstaclePrefab;
-        if (_obj.IsPushable)
+        if (obj.IsPushable)
             selectedPrefab = _pushableObstaclePrefab;
-        if (_obj.ObjectType == TileMapObjectType.Outer)
+        if (obj.ObjectType == TileMapObjectType.Outer)
             selectedPrefab = _outerObjectPrefab;
 
         // we are getting SE corner of the most NW tile of all positions and need to adjust the position to fit the tilemap
-        float posX = _pos.x;
-        float posY = _pos.y;
+        float posX = pos.x;
+        float posY = pos.y;
 
-        if (_obj.Size.x == 1)
+        if (obj.Size.x == 1)
             posX += 0.5f;
-        if (_obj.Size.y == 1)
+        if (obj.Size.y == 1)
             posY += 0.5f;
 
-        if (_obj.Size.x >= 3)
-            posX -= 0.5f * (_obj.Size.x - 2);
-        if (_obj.Size.y >= 3)
-            posY -= 0.5f * (_obj.Size.y - 2);
+        if (obj.Size.x >= 3)
+            posX -= 0.5f * (obj.Size.x - 2);
+        if (obj.Size.y >= 3)
+            posY -= 0.5f * (obj.Size.y - 2);
 
-        Vector3 placingPos = new Vector3(posX, posY, _pos.z);
+        Vector3 placingPos = new Vector3(posX, posY, pos.z);
 
         GameObject ob = Instantiate(selectedPrefab, placingPos, Quaternion.identity);
-        if (_obj.ObjectType == TileMapObjectType.Obstacle)
-            ob.GetComponent<Obstacle>().Initialize(_obj);
-        if (_obj.ObjectType == TileMapObjectType.Outer)
-            ob.GetComponent<OuterObject>().Initialise(_obj);
+        if (obj.ObjectType == TileMapObjectType.Obstacle)
+            ob.GetComponent<Obstacle>().Initialize(obj);
+        if (obj.ObjectType == TileMapObjectType.Outer)
+            ob.GetComponent<OuterObject>().Initialise(obj);
 
-        if (_obj.IsPushable)
+        if (obj.IsPushable)
             _pushableObstacles.Add(ob);
 
-        ob.name = _obj.name;
+        ob.name = obj.name;
         ob.transform.parent = _envObjectsHolder.transform;
     }
 

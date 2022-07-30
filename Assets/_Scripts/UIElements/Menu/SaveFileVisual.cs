@@ -24,7 +24,7 @@ public class SaveFileVisual : VisualElement
             sd.LoadFromJson(json);
 
             Label playerName = new Label(sd.PlayerName);
-            playerName.AddToClassList("primaryText");
+            playerName.AddToClassList("textPrimary");
             Add(playerName);
 
             VisualElement portraitContainer = new VisualElement();
