@@ -104,6 +104,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             case CharacterState.None:
                 break;
             case CharacterState.Selected:
+                HandleCharacterSelected();
                 break;
             case CharacterState.Moved:
                 break;
@@ -118,6 +119,16 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         }
         OnCharacterStateChanged?.Invoke(newState);
+    }
+
+    async void HandleCharacterSelected()
+    {
+        // highlight
+        _battleInputController.SetInputAllowed(false);
+        await _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy);
+        _battleInputController.SetInputAllowed(true);
+
+        _isSelectionBlocked = false;
     }
 
     public void Select(Collider2D[] cols)
@@ -198,12 +209,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         return true;
     }
 
-    async void SelectCharacter(GameObject character)
+    void SelectCharacter(GameObject character)
     {
         _isSelectionBlocked = true;
-
-        if (character.GetComponent<PlayerCharSelection>().HasMovedThisTurn)
-            return;
 
         // character specific ui
         if (_playerCharSelection != null)
@@ -218,13 +226,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // character specific ui
         _playerCharSelection.SelectCharacter();
-
-        // highlight
-        _battleInputController.SetInputAllowed(false);
-        await _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy);
-        _battleInputController.SetInputAllowed(true);
-
-        _isSelectionBlocked = false;
 
         UpdateCharacterState(CharacterState.Selected);
     }
@@ -313,8 +314,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // reset flag
         HasCharacterStartedMoving = false;
-
-        // TODO: maybe here check if there is interaction target that we are standing on and allow that interaction
 
         // check if it was back or normal move
         if (!IsMovingBack)

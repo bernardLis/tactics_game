@@ -4,16 +4,18 @@ using Shapes;
 
 public class Flasher : ImmediateModeShapeDrawer
 {
-    //BoxCollider2D _selfCollider;
     SpriteRenderer _spriteRenderer;
     Color _col = Color.black;
 
+    bool _currentTile;
+
     public override void DrawShapes(Camera cam)
     {
-        using (Draw.Command(cam))
-        {
-            Draw.Disc(GetDiscPosition(1), 0.05f, _col);
-        }
+        if (_currentTile)
+            using (Draw.Command(cam))
+            {
+                Draw.Disc(GetDiscPosition(1), 0.05f, _col);
+            }
     }
 
     Vector3 GetDiscPosition(float t)
@@ -38,7 +40,6 @@ public class Flasher : ImmediateModeShapeDrawer
 
         return dir;
     }
-
 
     public void StartFlashing(Color col)
     {
@@ -70,10 +71,23 @@ public class Flasher : ImmediateModeShapeDrawer
         {
             if (!controller.AllowInput)
                 return;
+
+            _currentTile = true;
             Vector3 rotate = new Vector3(0, 0, 90f);
             transform.DORotate(rotate, 0.5f).SetEase(Ease.InOutBack).OnComplete(RotateBack);
         }
     }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.TryGetComponent(out BattleInputController controller))
+        {
+            if (!controller.AllowInput)
+                return;
+
+            _currentTile = false;
+        }
+    }
+
 
     void RotateBack()
     {

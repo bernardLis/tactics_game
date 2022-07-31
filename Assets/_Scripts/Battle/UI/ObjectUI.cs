@@ -7,9 +7,9 @@ public class ObjectUI : MonoBehaviour
 {
     Camera _cam;
 
-    VisualElement _root;
-
     Queue<IEnumerator> _coroutineQueue = new();
+
+    VisualElement _root;
 
     void Start()
     {
@@ -22,7 +22,6 @@ public class ObjectUI : MonoBehaviour
 
     // TODO: I could be displaying some effects on character - poison cloud or something 
     // and add it to the queue as well...
-
     public void DisplayOnCharacter(string txt, int fontSize, Color col)
     {
         _coroutineQueue.Enqueue(DisplayOnCharacterCoroutine(txt, fontSize, col));

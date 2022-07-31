@@ -12,12 +12,12 @@ public class StatModifier : BaseScriptableObject
     public int Value;
 
     GameObject _characterGameObject;
-    ObjectUI _damageUI;
+    ObjectUI _objectUI;
 
     public virtual void Initialize(GameObject self)
     {
         _characterGameObject = self;
-        _damageUI = self.GetComponent<ObjectUI>();
+        _objectUI = self.GetComponent<ObjectUI>();
 
         string str = "";
 
@@ -26,7 +26,7 @@ public class StatModifier : BaseScriptableObject
         if (Value > 0)
             str = $"+{Value} {StatType.ToString()}";
 
-        _damageUI.DisplayOnCharacter(str, 24, Color.white);
+        _objectUI.DisplayOnCharacter(str, 24, Color.white);
     }
 
     public string GetDescription()

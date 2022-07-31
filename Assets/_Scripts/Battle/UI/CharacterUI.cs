@@ -96,6 +96,7 @@ public class CharacterUI : Singleton<CharacterUI>
         if (_selectedPlayerStats == null)
             return;
         _selectedPlayerStats.OnAbilityAdded -= OnAbilityAdded;
+        _selectedPlayerStats.OnCharacterDeath -= OnCharacterDeath;
         _selectedPlayerStats = null;
 
         await HideCharacterUI();
@@ -105,6 +106,7 @@ public class CharacterUI : Singleton<CharacterUI>
     {
         _selectedPlayerStats = _battleCharacterController.SelectedCharacter.GetComponent<PlayerStats>();
         _selectedPlayerStats.OnAbilityAdded += OnAbilityAdded;
+        _selectedPlayerStats.OnCharacterDeath += OnCharacterDeath;
 
         await ShowCharacterUI();
     }
@@ -148,6 +150,11 @@ public class CharacterUI : Singleton<CharacterUI>
     {
         await HideCharacterUI();
         await ShowCharacterUI();
+    }
+
+    async void OnCharacterDeath(GameObject obj)
+    {
+        await HideCharacterUI();
     }
 
     public async Task HideCharacterUI()
