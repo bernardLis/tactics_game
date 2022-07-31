@@ -9,7 +9,7 @@ public class CharacterRendererManager : MonoBehaviour
     BattleCharacterController _battleCharacterController;
 
     Vector2 _direction;
-    public Vector2 _faceDir; // HERE: public to see in editor
+    Vector2 _faceDir;
 
     Animator _animator;
     CharacterRenderer _characterRenderer;

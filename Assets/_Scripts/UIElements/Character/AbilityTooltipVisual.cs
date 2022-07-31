@@ -5,9 +5,10 @@ public class AbilityTooltipVisual : VisualWithTooltip
 
     Label _name;
     Label _description;
+    Label _baseDamage;
+    Label _manaCost;
     Label _range;
     Label _aoe;
-    Label _manaCost;
     VisualElement _modifierContainer;
 
     public AbilityTooltipVisual(Ability ability)
@@ -24,14 +25,18 @@ public class AbilityTooltipVisual : VisualWithTooltip
         _description.AddToClassList("textSecondary");
         _description.style.whiteSpace = WhiteSpace.Normal;
 
+        _baseDamage = new("Base damage: " + ability.BasePower);
+        _baseDamage.AddToClassList("textSecondary");
+
+        _manaCost = new("Mana cost: " + ability.ManaCost.ToString());
+        _manaCost.AddToClassList("textSecondary");
+
         _range = new("Range: " + ability.Range);
         _range.AddToClassList("textSecondary");
 
         _aoe = new("AOE: " + ability.GetAOEDescription());
         _aoe.AddToClassList("textSecondary");
 
-        _manaCost = new("Mana cost: " + ability.ManaCost.ToString());
-        _manaCost.AddToClassList("textSecondary");
 
         _modifierContainer = new();
         _modifierContainer.AddToClassList("modifierContainer");
@@ -39,9 +44,10 @@ public class AbilityTooltipVisual : VisualWithTooltip
 
         Add(_name);
         Add(_description);
+        Add(_baseDamage);
+        Add(_manaCost);
         Add(_range);
         Add(_aoe);
-        Add(_manaCost);
         Add(_modifierContainer);
     }
 

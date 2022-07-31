@@ -79,6 +79,7 @@ public class CharacterScreen : FullScreenVisual
             VisualElement aContainer = new();
             aContainer.style.width = Length.Percent(20);
             aContainer.AddToClassList("uiContainer");
+            aContainer.style.flexDirection = FlexDirection.Row;
             aContainer.style.alignItems = Align.Center;
             aContainer.style.alignSelf = Align.Auto;
 

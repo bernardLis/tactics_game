@@ -22,8 +22,15 @@ public class AbilityButton : Button
         _icon.style.backgroundImage = ability.Icon.texture;
         Add(_icon);
 
-        TextWithTooltip keyTooltip = new(key, "Hotkey");
-        keyTooltip.AddToClassList("abilityButtonStat");
+        if (key != null)
+        {
+            TextWithTooltip keyTooltip = new(key, "Hotkey");
+            keyTooltip.AddToClassList("abilityButtonStat");
+            keyTooltip.style.position = Position.Absolute;
+            keyTooltip.style.backgroundColor = Color.black;
+            keyTooltip.style.right = 0;
+            _icon.Add(keyTooltip);
+        }
 
         TextWithTooltip baseDamage = new TextWithTooltip("" + Ability.BasePower, "Base damage");
         baseDamage.AddToClassList("abilityButtonStat");
@@ -33,9 +40,9 @@ public class AbilityButton : Button
 
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
+        container.style.justifyContent = Justify.SpaceAround;
         Add(container);
 
-        container.Add(keyTooltip);
         container.Add(baseDamage);
         container.Add(manaCost);
 
