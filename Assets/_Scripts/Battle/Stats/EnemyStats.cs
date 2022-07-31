@@ -8,4 +8,13 @@ public class EnemyStats : CharacterStats
         if (state == BattleState.EnemyTurn)
             base.TurnManager_OnBattleStateChanged(state);
     }
+
+    protected override void HandleBodyColor()
+    {
+        if (GetComponent<CharacterSelection>().HasFinishedTurn && TurnManager.BattleState == BattleState.EnemyTurn)
+            _bodySpriteRenderer.color = Helpers.GetColor("gray");
+        else
+            base.HandleBodyColor();
+    }
+
 }

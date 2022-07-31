@@ -1,3 +1,5 @@
+using UnityEngine;
+using System.Threading.Tasks;
 public class EnemyCharSelection : CharacterSelection
 {
     protected override void HandleEnemyTurn()
@@ -5,17 +7,21 @@ public class EnemyCharSelection : CharacterSelection
         if (!_myStats.IsStunned)
         {
             SetHasFinishedTurn(false);
-            ReturnCharacterColor();
+            SetCharacterColor(Color.white);
         }
         else
             FinishCharacterTurn();
     }
 
-    protected override void HandlePlayerTurn()
+    protected override async void HandlePlayerTurn()
     {
-        if (!_myStats.IsStunned)
-            Invoke("ReturnCharacterColor", 1f);
+        if (_myStats.IsStunned)
+            return;
+
+        await Task.Delay(1000);
+        SetCharacterColor(Color.white);
     }
+    
     public override void FinishCharacterTurn()
     {
         base.FinishCharacterTurn();

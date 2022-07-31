@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.Threading.Tasks;
 
 public class PlayerCharSelection : CharacterSelection
 {
@@ -31,10 +32,13 @@ public class PlayerCharSelection : CharacterSelection
         PositionTurnStart = transform.position;
     }
 
-    protected override void HandleEnemyTurn()
+    protected override async void HandleEnemyTurn()
     {
-        if (!_myStats.IsStunned)
-            Invoke("ReturnCharacterColor", 1f);
+        if (_myStats.IsStunned)
+            return;
+        
+        await Task.Delay(1000);
+        SetCharacterColor(Color.white);
     }
 
     public void SelectCharacter()

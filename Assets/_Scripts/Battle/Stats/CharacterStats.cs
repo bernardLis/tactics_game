@@ -48,7 +48,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     // dmg
     [SerializeField] GameObject _deathEffect;
     [SerializeField] GameObject _body;
-    SpriteRenderer _bodySpriteRenderer;
+    protected SpriteRenderer _bodySpriteRenderer;
     Color _initialBodyColor;
     Vector3 _initialBodyPosition;
 
@@ -318,7 +318,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public async Task ShakeOnDamageTaken()
     {
         // flash color
-        _bodySpriteRenderer.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo).OnComplete(() => _bodySpriteRenderer.color = _initialBodyColor);
+        _bodySpriteRenderer.DOColor(Color.black, 0.1f).SetLoops(4, LoopType.Yoyo).OnComplete(HandleBodyColor);
 
         _audioManager.PlaySFX("Hurt", transform.position);
 
@@ -331,6 +331,11 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
                        .OnComplete(() => EnableAILerp());
 
         await Task.Delay(500);
+    }
+
+    protected virtual void HandleBodyColor()
+    {
+        _bodySpriteRenderer.color = _initialBodyColor;
     }
 
     public async void GetBuffed(GameObject attacker, Ability ability)

@@ -17,7 +17,7 @@ public class StunStatus : Status
     public override void TriggerStatus()
     {
         base.TriggerStatus();
-        _characterSelection.GrayOutCharacter();
+        _characterSelection.SetCharacterColor(Helpers.GetColor("gray"));
         AddFlag();
     }
 

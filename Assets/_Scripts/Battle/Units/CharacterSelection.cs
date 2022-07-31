@@ -66,22 +66,14 @@ public class CharacterSelection : MonoBehaviour
     {
         _myStats.SetAttacker(false);
         SetHasFinishedTurn(true);
-        GrayOutCharacter();
+        SetCharacterColor(_grayOutColor);
     }
 
-    public void GrayOutCharacter()
+    public void SetCharacterColor(Color color)
     {
         foreach (SpriteRenderer rend in _spriteRenderers)
             if (rend != null)
-                rend.DOColor(_grayOutColor, 1f);
-    }
-
-    protected void ReturnCharacterColor()
-    {
-        // shieet that looks way better than changing it right away;
-        foreach (SpriteRenderer rend in _spriteRenderers)
-            if (rend != null)
-                rend.DOColor(Color.white, 2f);
+                rend.DOColor(color, 1f);
     }
 
     public void SetHasFinishedTurn(bool has) { HasFinishedTurn = has; }
@@ -95,7 +87,6 @@ public class CharacterSelection : MonoBehaviour
     }
 
     /* A* node blocker*/
-
     public void ActivateSingleNodeBlocker()
     {
         _blocker.BlockAtCurrentPosition();
