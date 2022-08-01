@@ -91,10 +91,12 @@ MonoBehaviour:
   _envObjectsHolder: {fileID: 0}
   _obstaclePrefab: {fileID: 7512957698282176492, guid: fdb07fdc2b9ea38459129c53f992df49, type: 3}
   _pushableObstaclePrefab: {fileID: 7512957698282176492, guid: a549c98ce7982e049a7ea6344afcc711, type: 3}
+  _placesOf:
+  - {fileID: 4945010139267689787, guid: 9a98d7ba04a0b7041b8b6e4a1e807a08, type: 3}
+  - {fileID: 497132065980243911, guid: f28040496c455c34ca93c7130dad710b, type: 3}
+  - {fileID: 2879750093845894445, guid: 9fe1723429d772d4fa3c75d278c3379a, type: 3}
   _outerObjectPrefab: {fileID: 2250858329478428567, guid: 1026ff98a9efe9a488bf119986ab6561, type: 3}
   _collectiblePrefab: {fileID: 702634473209585991, guid: a360c64badc8f0a498531a16771efffa, type: 3}
-  _chestPrefab: {fileID: 5247648617231209867, guid: 9a16a01a8c5aeea449e0d2fa07156386, type: 3}
-  _mapResetPrefab: {fileID: 3194072178464128800, guid: 6cde0f3af0e5b954eb3e57c3707b8127, type: 3}
   _globalLightPrefab: {fileID: 2082967730658958768, guid: 1adf34ae1f6f620438325a9f51e6a6aa, type: 3}
   _graphData: {fileID: 4900000, guid: b51911a0e223f2d459dd65eaabbf2dee, type: 3}
 --- !u!114 &515482019

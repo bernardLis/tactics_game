@@ -223,22 +223,25 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             ShieldDamage();
             return wasAttackSuccesful;
         }
-        else
-        {
-            wasAttackSuccesful = true;
-            _lastAttacker = attacker.GetComponent<CharacterStats>();
-            HandleModifier(ability);
-            await HandleStatus(attacker, ability);
-            await TakeDamageFinal(damage);
-        }
+
+        wasAttackSuccesful = true;
+        _lastAttacker = attacker.GetComponent<CharacterStats>();
+        HandleModifier(ability);
+        await TakeDamageFinal(damage);
+
+        if (CurrentHealth <= 0) // for safety
+            return wasAttackSuccesful;
+
+        await HandleStatus(attacker, ability);
+
+        if (CurrentHealth <= 0) // for safety
+            return wasAttackSuccesful;
 
         // in the side 1, face to face 2, from the back 0, 
         int attackDir = CalculateAttackDir(attacker.gameObject.transform.position);
         if (attackDir == 0)
             return wasAttackSuccesful;
 
-        if (CurrentHealth <= 0)
-            return wasAttackSuccesful;
 
         if (!WillRetaliate(attacker))
             return wasAttackSuccesful;
@@ -443,10 +446,13 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         OnHealthChange?.Invoke(Character.MaxHealth, CurrentHealth, healthGain);
         CurrentHealth += healthGain;
 
+        _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
+
+        if (ability == null)
+            return;
+
         HandleModifier(ability);
         await HandleStatus(attacker, ability);
-
-        _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
     }
 
     public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
@@ -594,9 +600,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             }
     }
 
-    public override async Task<Status> AddStatus(Status s, GameObject attacker)
+    public override async Task<Status> AddStatus(Status s, GameObject attacker, bool trigger = true)
     {
-        Status addedStatus = await base.AddStatus(s, attacker);
+        Status addedStatus = await base.AddStatus(s, attacker, trigger);
         if (_battleCharacterController.HasCharacterStartedMoving)
             _statusesAddedWhenWalking.Add(addedStatus);
 

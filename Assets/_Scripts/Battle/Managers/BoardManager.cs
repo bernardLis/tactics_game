@@ -41,6 +41,7 @@ public class BoardManager : Singleton<BoardManager>
     [SerializeField] GameObject _collectiblePrefab;
     [SerializeField] GameObject _globalLightPrefab;
     [SerializeField] TextAsset _graphData;
+    [SerializeField] GameObject[] _placesOf;
 
     // other map vars
     Vector3Int _emptyTile;
@@ -304,7 +305,23 @@ public class BoardManager : Singleton<BoardManager>
 
     void PlaceSpecialObjects()
     {
+        PlacePlacesOf();
         PlaceCollectible();
+    }
+
+    void PlacePlacesOf()
+    {
+        int amount = Random.Range(0, 4);
+
+        for (int i = 0; i < amount; i++)
+        {
+            if (_openGridPositions.Count <= 0)
+                return;
+
+            List<Vector3Int> pos = GetRandomOpenPosition(Vector2.one, _openGridPositions);
+            Vector3 placementPos = new Vector3(pos[0].x + 0.5f, pos[0].y + 0.5f);
+            Instantiate(_placesOf[Random.Range(0, _placesOf.Length)], placementPos, Quaternion.identity);
+        }
     }
 
     void PlaceCollectible()
@@ -325,8 +342,8 @@ public class BoardManager : Singleton<BoardManager>
             if (_openGridPositions.Count <= 0)
                 return;
 
-            List<Vector3Int> randomPosiiton = GetRandomOpenPosition(Vector2.one, _openGridPositions);
-            _middlegroundTilemap.SetTile(randomPosiiton[0], tiles[Random.Range(0, tiles.Length)]);
+            List<Vector3Int> pos = GetRandomOpenPosition(Vector2.one, _openGridPositions);
+            _middlegroundTilemap.SetTile(pos[0], tiles[Random.Range(0, tiles.Length)]);
         }
     }
 

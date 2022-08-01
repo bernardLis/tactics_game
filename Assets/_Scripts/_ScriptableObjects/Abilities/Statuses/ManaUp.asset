@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: ManaUp10For1Turn
   NumberOfTurns: 1
   Value: 10
-  Icon: {fileID: 21300000, guid: 38be24e6963aad24ea21a9f0f1304f8d, type: 3}
+  Icon: {fileID: 21300000, guid: 0c348d4728d2ae743b8ee10a7b81a8d3, type: 3}
   DisplayText: Mana Up
   DisplayColor: {r: 0.168, g: 0.149, b: 0.85, a: 1}
   AnimationEffectOnBody: 

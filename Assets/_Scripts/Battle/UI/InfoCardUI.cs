@@ -141,7 +141,11 @@ public class InfoCardUI : Singleton<InfoCardUI>
             if (c.CompareTag(Tags.BoundCollider))
                 _tileInfoCard.Add(new Label("Impassable map bounds."));
             if (c.TryGetComponent(out IUITextDisplayable uiText))
-                _tileInfoCard.Add(uiText.DisplayText());
+            {
+                VisualElement l = uiText.DisplayText();
+                l.style.whiteSpace = WhiteSpace.Normal;
+                _tileInfoCard.Add(l);
+            }
         }
 
         // hide/show the whole panel

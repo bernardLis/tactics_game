@@ -15,7 +15,7 @@ public class PlaceOfRestoration : PlaceOf
     protected override void EnterPlaceOf(CharacterStats stats)
     {
         base.EnterPlaceOf(stats);
-        stats.AddStatus(Status, null).GetAwaiter();
+        stats.AddStatus(Status, null, false).GetAwaiter();
     }
 
     protected override void ExitPlaceOf(CharacterStats stats)

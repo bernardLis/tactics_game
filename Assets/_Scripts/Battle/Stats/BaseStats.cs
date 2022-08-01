@@ -33,11 +33,12 @@ public class BaseStats : MonoBehaviour
         _damageUI = GetComponent<ObjectUI>();
     }
 
-    public async virtual Task<Status> AddStatus(Status s, GameObject attacker)
+    public async virtual Task<Status> AddStatus(Status s, GameObject attacker, bool trigger = true)
     {
         Status clone = AddStatusWithoutTrigger(s, attacker);
         // status triggers right away
-        await clone.FirstTrigger();
+        if (trigger)
+            await clone.FirstTrigger();
         return clone;
     }
 
