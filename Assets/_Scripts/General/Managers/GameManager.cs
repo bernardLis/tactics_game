@@ -186,8 +186,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             List<string> abilityReferenceIds = new();
             foreach (Ability a in c.Abilities)
                 abilityReferenceIds.Add(a.ReferenceID);
-
             data.AbilityReferenceIds = new(abilityReferenceIds);
+
+            List<string> itemReferenceIds = new();
+            foreach (Item i in c.Items)
+                itemReferenceIds.Add(i.ReferenceID);
+            data.ItemReferenceIds = new(itemReferenceIds);
 
             charData.Add(data);
         }

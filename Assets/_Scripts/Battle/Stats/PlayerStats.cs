@@ -1,5 +1,8 @@
 public class PlayerStats : CharacterStats
 {
+    
+
+
 
     protected override void TurnManager_OnBattleStateChanged(BattleState state)
     {

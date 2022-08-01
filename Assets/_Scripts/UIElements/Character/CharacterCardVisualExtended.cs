@@ -22,6 +22,7 @@ public class CharacterCardVisualExtended : CharacterCardVisual
     {
         style.width = Length.Percent(50);
         _characteristics.Add(CreateExpGroup(character));
+        Add(CreateItems(character));
     }
 
     VisualElement CreateExpGroup(Character character)
@@ -45,6 +46,19 @@ public class CharacterCardVisualExtended : CharacterCardVisual
         el.Add(_exp);
 
         container.Add(el);
+
+        return container;
+    }
+
+    VisualElement CreateItems(Character character)
+    {
+
+        VisualElement container = new();
+        foreach (Item item in character.Items)
+        {
+            ItemVisual iv = new ItemVisual(item);
+            container.Add(iv);
+        }
 
         return container;
     }

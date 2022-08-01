@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Pathfinding;
 using System.Threading.Tasks;
-using Random = UnityEngine.Random;
+using System.Linq;
 
 public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, GameObject, Ability>, IBuffable<GameObject, Ability>
 {
@@ -133,7 +132,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         Character = character;
         Character.OnCharacterLevelUp += OnCharacterLevelUp;
         Character.OnCharacterExpGain += OnCharacterExpGain;
-        SetCharacteristics();
+        InitializeCharacter();
     }
 
     void OnCharacterLevelUp()
@@ -148,15 +147,16 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _damageUI.DisplayOnCharacter($"+{gain} exp", 24, Color.white);
     }
 
-    void SetCharacteristics()
+    void InitializeCharacter()
     {
-        // taking values from scriptable object to c#
+        // taking values from scriptable object to game
         Power.Initialize(StatType.Power, Character.Power, Character);
-
         MaxHealth.Initialize(StatType.MaxHealth, Character.MaxHealth, Character);
         MaxMana.Initialize(StatType.MaxMana, Character.MaxMana, Character);
         Armor.Initialize(StatType.Armor, Character.Armor, Character);
         MovementRange.Initialize(StatType.MovementRange, Character.MovementRange, Character);
+
+        ResolveItems();
 
         CurrentHealth = MaxHealth.GetValue();
         CurrentMana = MaxMana.GetValue();
@@ -189,6 +189,15 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             var clone = Instantiate(ability);
             Abilities.Add(clone);
             clone.Initialize(gameObject);
+        }
+    }
+
+    void ResolveItems()
+    {
+        foreach (Item item in Character.Items)
+        {
+            Stat s = Stats.FirstOrDefault(x => x.Type == item.InfluencedStat);
+            s.BaseValue += item.Value; // TODO: dunno if correct
         }
     }
 

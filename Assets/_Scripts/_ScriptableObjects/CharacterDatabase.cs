@@ -4,35 +4,41 @@ using System.Linq;
 [CreateAssetMenu(menuName = "ScriptableObject/CharacterDatabase")]
 public class CharacterDatabase : BaseScriptableObject
 {
-    public PortraitEntry[] PortraitDatabase;
-    public Equipment[] BodyDatabase;
-    public Weapon[] WeaponDatabase;
-    public Ability[] AbilityDatabase;
+    public PortraitEntry[] Portraits;
+    public Equipment[] Bodies;
+    public Weapon[] Weapons;
+    public Ability[] Abilities;
+    public Item[] Items;
     public StatIcon[] StatIcons;
 
     public Sprite GetPortraitByID(string id)
     {
-        return PortraitDatabase.FirstOrDefault(x => x.ReferenceID == id).Sprite;
+        return Portraits.FirstOrDefault(x => x.ReferenceID == id).Sprite;
     }
 
     public Equipment GetBodyByName(string name)
     {
-        return BodyDatabase.FirstOrDefault(x => x.name == name);
+        return Bodies.FirstOrDefault(x => x.name == name);
     }
 
     public Weapon GetWeaponByName(string name)
     {
-        return WeaponDatabase.FirstOrDefault(x => x.name == name);
+        return Weapons.FirstOrDefault(x => x.name == name);
     }
 
     public Ability GetAbilityByID(string id)
     {
-        return AbilityDatabase.FirstOrDefault(x => x.Id == id);
+        return Abilities.FirstOrDefault(x => x.Id == id);
     }
 
     public Ability GetAbilityByReferenceID(string id) // TODO: I am not certain if this reference ID and normal ID is a smart move.
     {
-        return AbilityDatabase.FirstOrDefault(x => x.ReferenceID == id);
+        return Abilities.FirstOrDefault(x => x.ReferenceID == id);
+    }
+
+    public Item GetItemByReference(string id)
+    {
+        return Items.FirstOrDefault(x => x.ReferenceID == id);
     }
 
     public Sprite GetStatIconByName(string name) // TODO: I am not certain if this reference ID and normal ID is a smart move.

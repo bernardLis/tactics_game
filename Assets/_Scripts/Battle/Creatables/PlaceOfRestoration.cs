@@ -27,12 +27,13 @@ public class PlaceOfRestoration : PlaceOf
     public override VisualElement DisplayText()
     {
         VisualElement container = new VisualElement();
-        Label txt = new Label("Place of restoration. Gives you ");
-        Label txt1 = new Label("As long as you stand on it. ");
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.flexWrap = Wrap.Wrap;
+        Label txt = new Label("Place of restoration. As long as you stand on it you get: ");
+        txt.style.whiteSpace = WhiteSpace.Normal;
         ModifierVisual mod = new(Status);
         container.Add(txt);
         container.Add(mod);
-        container.Add(txt1);
 
         return container;
     }

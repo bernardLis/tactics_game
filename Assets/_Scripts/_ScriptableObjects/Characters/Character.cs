@@ -27,6 +27,7 @@ public class Character : BaseScriptableObject
     [Header("Equipment")]
     public Equipment Body;
     public Weapon Weapon;
+    public List<Item> Items = new();
 
     [Header("Abilities")]
     [Tooltip("For now just defend, basic attack is from the weapon")]
@@ -57,6 +58,9 @@ public class Character : BaseScriptableObject
 
         foreach (string id in data.AbilityReferenceIds)
             Abilities.Add(CharacterDatabase.GetAbilityByReferenceID(id));
+
+        foreach (string id in data.ItemReferenceIds)
+            Items.Add(CharacterDatabase.GetItemByReference(id));
     }
 
     public virtual void Initialize(GameObject obj)
@@ -145,4 +149,5 @@ public struct CharacterData
     public string Body;
     public string Weapon;
     public List<string> AbilityReferenceIds;
+    public List<string> ItemReferenceIds;
 }

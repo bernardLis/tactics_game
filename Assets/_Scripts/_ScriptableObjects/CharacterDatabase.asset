@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CharacterDatabase
   m_EditorClassIdentifier: 
   Id: e656fcaf-7167-4db8-82bb-e32109d915ae
-  PortraitDatabase:
+  Portraits:
   - ReferenceID: Coubert
     Sprite: {fileID: 21300000, guid: afd309c482f885140af9ed07152aa6f0, type: 3}
   - ReferenceID: Degas
@@ -42,9 +42,14 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: f7497f4b4c9e84248ae4aed09f491cb9, type: 3}
   - ReferenceID: opm2
     Sprite: {fileID: 21300000, guid: f4b17f1f358194043b70125cf5eac90b, type: 3}
-  BodyDatabase:
+  Bodies:
   - {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
-  WeaponDatabase:
+  - {fileID: 11400000, guid: 1f5961a24b5dae049a5e1b0c10eed423, type: 2}
+  - {fileID: 11400000, guid: 02f6d0eed96c6d64294e084e81767413, type: 2}
+  - {fileID: 11400000, guid: 945a301fbd3b29449866629b1c53c83d, type: 2}
+  - {fileID: 11400000, guid: 88fc7d6307f320042bd5d6fb356701a1, type: 2}
+  - {fileID: 11400000, guid: 017f3f0d6106afe4d93046ae90bd5c2d, type: 2}
+  Weapons:
   - {fileID: 11400000, guid: b3756de8953f75e4e8b992726567dc45, type: 2}
   - {fileID: 11400000, guid: afe2c78e7d3b7f14f82976bc31f26153, type: 2}
   - {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
@@ -55,25 +60,36 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4804546585f86f84bbb8971d56cdf806, type: 2}
   - {fileID: 11400000, guid: b8d7856ec8dc5b64b81faae0877206c8, type: 2}
   - {fileID: 11400000, guid: 6b248cac7f7f3b6408dfbf7491ff607e, type: 2}
-  AbilityDatabase:
-  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
-  - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
-  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
+  Abilities:
   - {fileID: 11400000, guid: be100a4f0916a2540ac5204f36080cf0, type: 2}
-  - {fileID: 11400000, guid: 71eb9a23c9bd59541aa731d910be2c7e, type: 2}
-  - {fileID: 11400000, guid: 25b2707a95fb3714097cee91ecc49145, type: 2}
-  - {fileID: 11400000, guid: 1f052522ee014704fb5982cc3a1d11c6, type: 2}
-  - {fileID: 11400000, guid: cf63e334ccdeebd43945bb0a77632b96, type: 2}
-  - {fileID: 11400000, guid: 9ce26d022665d4b4682acf00cfd4af44, type: 2}
-  - {fileID: 11400000, guid: f1adf215aef72934aaf79ac6996e1ff7, type: 2}
-  - {fileID: 11400000, guid: 2548c920de5716240ae5e1c66758fdfb, type: 2}
-  - {fileID: 11400000, guid: 160355c14bdb039479a79a8669b0aca7, type: 2}
+  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
+  - {fileID: 11400000, guid: 9d6316e1979fc9642b13607334186ac3, type: 2}
+  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
+  - {fileID: 11400000, guid: 506c6b01a05d40140a23518fb9667747, type: 2}
   - {fileID: 11400000, guid: a4ec92f1b7074f84ab21417c0aaa2ec6, type: 2}
+  - {fileID: 11400000, guid: 160355c14bdb039479a79a8669b0aca7, type: 2}
+  - {fileID: 11400000, guid: 6b9ab2a07a29ae3428847c93b7a3d030, type: 2}
   - {fileID: 11400000, guid: 997dbbcb0769e524c892ed23602e5b6f, type: 2}
   - {fileID: 11400000, guid: 7afbe107d25cc6c4682e85d08c541365, type: 2}
-  - {fileID: 11400000, guid: 7afbe107d25cc6c4682e85d08c541365, type: 2}
   - {fileID: 11400000, guid: a243f441764e07547a084f72af92621c, type: 2}
+  - {fileID: 11400000, guid: 985bd44d1dabcac4c96cf70535e14b77, type: 2}
+  - {fileID: 11400000, guid: f882a25a35513b749a7917148febd85c, type: 2}
+  - {fileID: 11400000, guid: ce07841eac1abbc419d271b681979bb3, type: 2}
+  - {fileID: 11400000, guid: bfa7258571b89a34d9ca9eb4d89a42ce, type: 2}
+  - {fileID: 11400000, guid: 98a3f351b11042f4f8b6ae05c5a95f22, type: 2}
+  - {fileID: 11400000, guid: 1795d5fe550f40e479e8196acc297e21, type: 2}
   - {fileID: 11400000, guid: b203184cb4195254f96a32e912135937, type: 2}
+  - {fileID: 11400000, guid: 2548c920de5716240ae5e1c66758fdfb, type: 2}
+  - {fileID: 11400000, guid: cf63e334ccdeebd43945bb0a77632b96, type: 2}
+  - {fileID: 11400000, guid: d25453a4a2ccb574fbf5c89feb138ea1, type: 2}
+  - {fileID: 11400000, guid: f1adf215aef72934aaf79ac6996e1ff7, type: 2}
+  - {fileID: 11400000, guid: 0adb4a7c87b26e14b9353ad0333020ac, type: 2}
+  - {fileID: 11400000, guid: e7962be5a45baee428e6783c36394466, type: 2}
+  Items:
+  - {fileID: 11400000, guid: daef64c9c9eccb648be50ea4a4e5f9de, type: 2}
+  - {fileID: 11400000, guid: 33f8e2c6905680a43aef9268c59fafae, type: 2}
+  - {fileID: 11400000, guid: 99cb218141598814b8aa8ac1a39a7303, type: 2}
+  - {fileID: 11400000, guid: 2aeb94181c038f044ae88fd9cae056f3, type: 2}
   StatIcons:
   - StatName: Power
     Sprite: {fileID: 21300000, guid: c1181cbabffb1da4cbfd479b065b8e49, type: 3}
