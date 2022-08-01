@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.UIElements;
 
 public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, Ability, string>, IDestroyable
 {
@@ -77,7 +78,7 @@ public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, 
         DestroySelf().GetAwaiter();
     }
 
-    public virtual string DisplayText()
+    public virtual VisualElement DisplayText()
     {
         // meant to be overwritten
         return null;

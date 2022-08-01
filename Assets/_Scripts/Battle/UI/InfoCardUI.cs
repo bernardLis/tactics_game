@@ -133,27 +133,24 @@ public class InfoCardUI : Singleton<InfoCardUI>
     /* tile info */
     public void ShowTileInfo(Vector3 pos)
     {
-        string text = "";
+        _tileInfoCard.Clear();
 
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
         foreach (Collider2D c in cols)
         {
-            if (c.TryGetComponent(out IUITextDisplayable uiText))
-                text += uiText.DisplayText();
             if (c.CompareTag(Tags.BoundCollider))
-                text += "Impassable map bounds.";
-            if (text != "")
-                text += " ";
+                _tileInfoCard.Add(new Label("Impassable map bounds."));
+            if (c.TryGetComponent(out IUITextDisplayable uiText))
+                _tileInfoCard.Add(uiText.DisplayText());
         }
 
         // hide/show the whole panel
-        if (text == "")
+        if (_tileInfoCard.childCount == 0)
         {
             HideTileInfo();
             return;
         }
 
-        _tileInfoText.text = text;
         _tileInfoCard.style.display = DisplayStyle.Flex;
 
         DOTween.Pause(_hideTileInfoTweenID);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.UIElements;
 
 public class SafetyWall : Creatable, ICreatable<Vector3, Ability, string>
 {
@@ -19,10 +20,6 @@ public class SafetyWall : Creatable, ICreatable<Vector3, Ability, string>
         CheckCollision(ability, pos);
     }
 
-    public override string DisplayText()
-    {
-        return "Blocks damage.";
-    }
 
     protected override void CheckCollision(Ability ability, Vector3 pos)
     {
@@ -65,4 +62,10 @@ public class SafetyWall : Creatable, ICreatable<Vector3, Ability, string>
             RemoveShield(_shieldedCharacter);
         await base.DestroySelf();
     }
+
+    public override VisualElement DisplayText()
+    {
+        return new Label("Blocks damage.");
+    }
+
 }

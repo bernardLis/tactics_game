@@ -18,12 +18,12 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: d0fb20503269f0247846511b79604ef0, type: 3}
   Sound: {fileID: 11400000, guid: c21632ae8c33b3140b07d97ce05fdbdc, type: 2}
   BasePower: 10
-  ManaCost: 0
+  ManaCost: 10
   AbilityType: 0
   WeaponType: 0
   AreaOfEffect: 0
   LineAreaOfEffect: 1
-  SpellcastAnimation: 0
+  SpellcastAnimation: 1
   StatModifier: {fileID: 0}
   Status: {fileID: 11400000, guid: a05ceeb634ffb9145ac8fbd75f28443e, type: 2}
   Projectile: {fileID: 0}

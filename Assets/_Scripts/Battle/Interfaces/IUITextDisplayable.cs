@@ -1,4 +1,6 @@
+using UnityEngine.UIElements;
+
 public interface IUITextDisplayable
 {
-    public string DisplayText();
+    public VisualElement DisplayText();
 }

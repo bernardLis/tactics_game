@@ -23,7 +23,7 @@ MonoBehaviour:
   WeaponType: 0
   AreaOfEffect: 2
   LineAreaOfEffect: 0
-  SpellcastAnimation: 0
+  SpellcastAnimation: 1
   StatModifier: {fileID: 0}
   Status: {fileID: 0}
   Projectile: {fileID: 0}

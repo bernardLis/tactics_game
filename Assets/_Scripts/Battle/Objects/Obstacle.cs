@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
 
 public class Obstacle : MonoBehaviour, IUITextDisplayable
 {
@@ -35,5 +36,5 @@ public class Obstacle : MonoBehaviour, IUITextDisplayable
             l.pointLightOuterRadius = Random.Range(obj.OuterRadius.x, obj.OuterRadius.y);
         }
     }
-    public virtual string DisplayText() { return "Obstacle. Impassable, immovable, unstoppable!"; }
+    public virtual VisualElement DisplayText() { return new Label("Obstacle. Impassable, immovable, unstoppable!"); }
 }

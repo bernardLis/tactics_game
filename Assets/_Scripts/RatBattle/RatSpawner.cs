@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RatSpawner : MonoBehaviour, IUITextDisplayable
 {
@@ -102,8 +103,8 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         Destroy(Instantiate(_ratSpawnEffect, transform.position, Quaternion.identity), 0.6f);
     }
 
-    public string DisplayText()
+    public VisualElement DisplayText()
     {
-        return "Grate. Perhaps that's were the rats come from?";
+        return new Label("Grate. Perhaps that's were the rats come from?");
     }
 }

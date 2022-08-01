@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Ability>, ICreatable<Vector3, Ability, string>
 {
@@ -209,7 +210,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
     }
 
 
-    public override string DisplayText() { return _displayText; }
+    public override VisualElement DisplayText() { return new Label(_displayText); }
 
     public override string GetCreatedObjectDescription()
     {

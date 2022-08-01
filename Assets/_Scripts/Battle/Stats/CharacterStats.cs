@@ -84,7 +84,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _initialBodyPosition = _body.transform.localPosition;
         _aiLerp = GetComponent<AILerp>();
 
-
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
 
         AddStatsToList();
@@ -98,8 +97,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         if (TurnManager.CurrentTurn <= 1)
             return;
-
-        GainMana(10);
 
         // resetting status flags
         _statusesAddedWhenWalking.Clear();
@@ -143,7 +140,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         // spawn effect
         Destroy(Instantiate(_levelUpEffect, transform.position + Vector3.up, Quaternion.identity), 2f);
-        CurrentHealth = Character.MaxHealth;
         _damageUI.DisplayOnCharacter("Level up!", 24, Color.black);
     }
 
@@ -163,7 +159,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         MovementRange.Initialize(StatType.MovementRange, Character.MovementRange, Character);
 
         CurrentHealth = MaxHealth.GetValue();
-        CurrentMana = 0;
+        CurrentMana = MaxMana.GetValue();
 
         // adding basic attack from weapon to basic abilities to be instantiated
         if (Character.Weapon != null)

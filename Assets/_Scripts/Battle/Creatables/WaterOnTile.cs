@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.UIElements;
 
 public class WaterOnTile : Creatable
 {
@@ -152,11 +153,11 @@ public class WaterOnTile : Creatable
         await base.DecrementTurnsLeft();
     }
 
-    public override string DisplayText()
+    public override VisualElement DisplayText()
     {
         if (_isElectrified)
-            return "Electrified Water. Electrifies characters.";
-        return "Water. Makes characters wet. Can be electrified.";
+            return new Label("Electrified Water. Electrifies characters.");
+        return new Label("Water. Makes characters wet. Can be electrified.");
     }
 
     public override async Task DestroySelf()

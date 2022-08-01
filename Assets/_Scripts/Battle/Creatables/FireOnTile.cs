@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class FireOnTile : Creatable
 {
@@ -168,9 +169,9 @@ public class FireOnTile : Creatable
             }
     }
 
-    public override string DisplayText()
+    public override VisualElement DisplayText()
     {
-        return $"Fire. Spreads. Burns when walking through it. Lasts for {_numberOfTurnsLeft} turn/s.";
+        return new Label($"Fire. Spreads. Burns when walking through it. Lasts for {_numberOfTurnsLeft} turn/s.");
     }
 
     public override string GetCreatedObjectDescription()

@@ -7,9 +7,7 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="infoCardContainer" style="width: 500px; height: auto; display: flex; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0); right: auto; padding-bottom: 20px;">
-        <ui:VisualElement name="tileInfoCard" class="uiContainer" style="height: auto; width: 100%; display: none; left: -100%; margin-bottom: 10px; padding-bottom: 20px;">
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="tileInfoText" class="textPrimary" style="font-size: 18px; color: rgb(255, 255, 255); white-space: normal;" />
-        </ui:VisualElement>
+        <ui:VisualElement name="tileInfoCard" class="uiContainer textPrimary" style="height: auto; width: 100%; display: none; left: -100%; margin-bottom: 10px; padding-bottom: 20px; white-space: normal;" />
         <ui:VisualElement name="characterCard" class="uiContainer" style="align-items: stretch; justify-content: flex-start; display: none; left: -100%;">
             <ui:VisualElement name="characterCardBasicInfo" class="characterCard">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 30%; align-items: center; justify-content: center;">
