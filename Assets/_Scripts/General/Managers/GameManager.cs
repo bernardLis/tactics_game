@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
+using Object = UnityEngine.Object;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
@@ -24,6 +26,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [HideInInspector] public List<JourneyNodeData> VisitedJourneyNodes = new();
 
     [HideInInspector] public List<Character> PlayerTroops = new();
+    public List<Item> PlayerItemPouch = new(); // HERE: normally [HideInInspector] and empty
 
     public int Obols { get; private set; }
     public JourneyNode CurrentNode; //TODO: //{ get; private set; }
@@ -32,6 +35,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public string PlayerName { get; private set; }
     string _activeSave;
     string _currentLevel;
+
+
+    public event Action<int> OnObolsChanged;
 
     protected override void Awake()
     {
@@ -44,6 +50,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // TODO: eee... I need a place to set player troops before the battle/journey start and then this should be gone
         if (PlayerTroops.Count == 0)
             CreatePlayerTroops();
+
+        // HERE: test
+        Obols = 10;
     }
 
     public void StartNewGame(string activeSave, string playerName)
@@ -67,8 +76,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // TODO: here you need to know what level to load...
         LoadLevel(_currentLevel);
     }
-
-
 
     public Cutscene GetCurrentCutScene()
     {
@@ -128,6 +135,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void SetObols(int o)
     {
         Obols = o;
+        OnObolsChanged?.Invoke(o);
         SaveJsonData();
     }
 
@@ -148,7 +156,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     * https://www.youtube.com/watch?v=uD7y4T4PVk0
     */
 
-    void SaveJsonData()
+    public void SaveJsonData()
     {
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
@@ -166,6 +174,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.CurrentJourneyNode = CurrentJourneyNode;
         saveData.VisitedJourneyNodes = VisitedJourneyNodes;
         saveData.Characters = PopulateCharacters();
+        saveData.Items = PopulateItems();
     }
 
     List<CharacterData> PopulateCharacters()
@@ -199,6 +208,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         return charData;
     }
 
+    List<string> PopulateItems()
+    {
+        List<string> itemReferenceIds = new();
+        foreach (Item i in PlayerItemPouch)
+            itemReferenceIds.Add(i.ReferenceID);
+
+        return itemReferenceIds;
+    }
+
     void LoadJsonData(string fileName)
     {
         if (FileManager.LoadFromFile(fileName, out var json))
@@ -226,6 +244,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             playerCharacter.Create(data);
             PlayerTroops.Add(playerCharacter);
         }
+
+        PlayerItemPouch = new();
+        foreach (string itemReferenceId in saveData.Items)
+            PlayerItemPouch.Add(CharacterDatabase.GetItemByReference(itemReferenceId));
+
     }
 
     // TODO:

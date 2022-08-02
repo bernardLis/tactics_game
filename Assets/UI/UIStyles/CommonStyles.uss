@@ -269,3 +269,31 @@
 
 .abilityButtonStat {
 }
+
+.itemSlot {
+    border-left-color: rgba(89, 91, 147, 255);
+    border-right-color: rgba(89, 91, 147, 255);
+    border-top-color: rgba(89, 91, 147, 255);
+    border-bottom-color: rgba(89, 91, 147, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(65, 54, 54, 255);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.itemSlot:hover {
+    border-left-color: rgba(130, 116, 63, 255);
+    border-right-color: rgba(130, 116, 63, 255);
+    border-top-color: rgba(130, 116, 63, 255);
+    border-bottom-color: rgba(130, 116, 63, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    transition-duration: 0.5s;
+}

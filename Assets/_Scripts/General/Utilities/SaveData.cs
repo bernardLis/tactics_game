@@ -14,6 +14,7 @@ public class SaveData
     public List<JourneyNodeData> VisitedJourneyNodes = new();
     public JourneyNodeData CurrentJourneyNode;
     public List<CharacterData> Characters = new();
+    public List<string> Items = new();
 
     public string ToJson()
     {

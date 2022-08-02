@@ -6,14 +6,16 @@ using UnityEngine.UIElements;
 public class ItemVisual : VisualWithTooltip
 {
     string _tooltipText;
+    public Item Item;
     public ItemVisual(Item item) : base()
     {
+        Item = item;
+        
         style.backgroundImage = item.Icon.texture;
         style.width = 50;
         style.height = 50;
         _tooltipText = item.InfluencedStat.ToString() + " +" + item.Value.ToString();
     }
-
 
     protected override void DisplayTooltip()
     {

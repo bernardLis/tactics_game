@@ -29,6 +29,9 @@ public static class FileManager
 
     public static bool WriteToFile(string fileName, string fileContents)
     {
+        if (fileName == null)
+            return false;
+
         var fullPath = Path.Combine(Application.persistentDataPath, fileName);
         try
         {
