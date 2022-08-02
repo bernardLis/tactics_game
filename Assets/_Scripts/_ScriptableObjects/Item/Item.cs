@@ -9,4 +9,5 @@ public class Item : BaseScriptableObject
     public Sprite Icon;
     public StatType InfluencedStat;
     public int Value;
+    public int Price;
 }

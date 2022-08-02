@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
+    <Style src="project://database/Assets/UI/UIStyles/ShopStyles.uss?fileID=7433441132597879392&amp;guid=4f3e1d4c86ad20d41919877b730bf95a&amp;type=3#ShopStyles" />
+    <ui:VisualElement name="shopsContainer" style="width: 100%; height: 100%; flex-direction: row; display: flex;">
+        <ui:VisualElement name="blacksmithPicture" class="shopPicture" style="width: 33.3%; background-image: url(&apos;project://database/Assets/Sprites/Shop/pexels-jmtphotography-3680094.jpg?fileID=2800000&amp;guid=45a8ce4dee024eb40a862728e05ee89c&amp;type=3#pexels-jmtphotography-3680094&apos;); align-items: center;">
+            <ui:Label text="Blacksmith" display-tooltip-when-elided="true" class="textPrimary" />
+        </ui:VisualElement>
+        <ui:VisualElement name="abilitysmithPicture" class="shopPicture" style="width: 33.3%; background-image: url(&apos;project://database/Assets/Sprites/Shop/pexels-marek-piwnicki-11032560.jpg?fileID=2800000&amp;guid=e7f3485d9eb3b9c4b810f38935941845&amp;type=3#pexels-marek-piwnicki-11032560&apos;); align-items: center;">
+            <ui:Label text="Abilitysmith" display-tooltip-when-elided="true" class="textPrimary" />
+        </ui:VisualElement>
+        <ui:VisualElement name="bankPicture" class="shopPicture" style="width: 33.4%; background-image: url(&apos;project://database/Assets/Sprites/Shop/pexels-karolina-grabowska-4968636.jpg?fileID=2800000&amp;guid=3c071d567c831814ea041ba0f187a590&amp;type=3#pexels-karolina-grabowska-4968636&apos;); align-items: center;">
+            <ui:Label text="Bank" display-tooltip-when-elided="true" class="textPrimary" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="blacksmith" style="display: none; width: 100%; height: 100%;">
+        <ui:Label text="Blacksmith" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
+        <ui:VisualElement name="blacksmithItemContainer" style="flex-direction: row; justify-content: space-around;" />
+        <ui:Button text="Reroll" display-tooltip-when-elided="true" name="blacksmithRerollButton" />
+        <ui:Button text="Back" display-tooltip-when-elided="true" name="blacksmithBackButton" />
+    </ui:VisualElement>
+</ui:UXML>

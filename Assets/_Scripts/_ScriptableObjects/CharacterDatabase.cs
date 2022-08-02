@@ -41,6 +41,11 @@ public class CharacterDatabase : BaseScriptableObject
         return Items.FirstOrDefault(x => x.ReferenceID == id);
     }
 
+    public Item GetRandomItem()
+    {
+        return Items[Random.Range(0, Items.Length)];
+    }
+
     public Sprite GetStatIconByName(string name) // TODO: I am not certain if this reference ID and normal ID is a smart move.
     {
         return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite;
