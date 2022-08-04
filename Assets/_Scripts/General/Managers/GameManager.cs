@@ -132,10 +132,16 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         CurrentJourneyNode = n;
     }
 
-    public void SetObols(int o)
+    public void ChangeObolsValue(int o)
     {
-        Obols = o;
-        OnObolsChanged?.Invoke(o);
+        Obols += o;
+        OnObolsChanged?.Invoke(Obols);
+        SaveJsonData();
+    }
+
+    public void AddItemToPouch(Item item)
+    {
+        PlayerItemPouch.Add(item);
         SaveJsonData();
     }
 

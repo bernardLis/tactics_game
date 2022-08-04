@@ -10,4 +10,8 @@ public class Item : BaseScriptableObject
     public StatType InfluencedStat;
     public int Value;
     public int Price;
+
+    public int GetSellValue() { return Mathf.FloorToInt(Price * 0.5f); }
+
+    
 }

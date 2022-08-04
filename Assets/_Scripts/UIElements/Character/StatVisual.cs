@@ -76,11 +76,16 @@ public class StatVisual : VisualWithTooltip
             Value.style.color = Color.red;
     }
 
-
     protected override void DisplayTooltip()
     {
         _tooltip = new(this, _tooltipText);
         base.DisplayTooltip();
+    }
+
+    public void OnValueChanged(int newValue)
+    {
+        Debug.Log($"stat visual: {_tooltipText} value: {newValue}");
+        Value.text = "" + newValue;
     }
 
 }

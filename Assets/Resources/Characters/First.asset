@@ -22,7 +22,7 @@ MonoBehaviour:
   MaxHealth: 100
   MaxMana: 50
   Armor: 0
-  MovementRange: 4
+  MovementRange: 3
   Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
   Weapon: {fileID: 11400000, guid: afe2c78e7d3b7f14f82976bc31f26153, type: 2}
   Items:

@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 public class ItemSlotVisual : VisualElement
 {
     public ItemVisual ItemVisual;
+    public Character Character;
+    
     public ItemSlotVisual(ItemVisual item = null)
     {
         AddToClassList("itemSlot");

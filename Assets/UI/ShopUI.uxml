@@ -14,33 +14,43 @@
     </ui:VisualElement>
     <ui:VisualElement name="blacksmith" style="display: flex; width: 100%; height: 100%;">
         <ui:Label text="Blacksmith" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
-        <ui:VisualElement name="blacksmithItemContainer" style="flex-direction: row; justify-content: space-around; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
-            <ui:VisualElement name="itemSlot" class="itemSlot" style="align-items: center; justify-content: center;">
-                <ui:VisualElement style="width: 50px; height: 50px; background-color: rgb(0, 0, 0);" />
+        <ui:VisualElement name="blacksmithWrapper" style="flex-direction: row;">
+            <ui:VisualElement style="width: 30%;">
+                <ui:VisualElement name="blacksmithItemContainer" style="align-items: center;">
+                    <ui:Label text="Shop" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
+                    <ui:VisualElement name="itemSlot" class="itemSlot" style="align-items: center; justify-content: center;">
+                        <ui:VisualElement style="width: 50px; height: 50px; background-color: rgb(0, 0, 0);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
+                    <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
-            <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
-        </ui:VisualElement>
-        <ui:VisualElement name="blacksmithUtilities" style="flex-direction: row; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); align-items: center; justify-content: space-around;">
-            <ui:VisualElement name="blacksmithRerollContainer">
-                <ui:Button text="Reroll" display-tooltip-when-elided="true" name="blacksmithRerollButton" />
-                <ui:Label text="Price: 1" display-tooltip-when-elided="true" class="textSecondary" />
-            </ui:VisualElement>
-            <ui:VisualElement name="blacksmithSellContainer">
-                <ui:Label text="Sell item" display-tooltip-when-elided="true" name="Label" class="textSecondary" />
-                <ui:VisualElement name="sellItemZone" class="itemSlot" style="align-items: center; justify-content: center;">
-                    <ui:VisualElement style="width: 50px; height: 50px; background-color: rgb(0, 0, 0);" />
+            <ui:VisualElement name="blacksmithUtilities" style="flex-direction: column; align-items: center; justify-content: space-around; width: 70%;">
+                <ui:VisualElement name="blacksmithRerollContainer" style="align-items: center;">
+                    <ui:Button text="Reroll Shop" display-tooltip-when-elided="true" name="blacksmithRerollButton" class="menuButton" style="width: 200px; font-size: 24px;" />
+                    <ui:Label text="Price: 1" display-tooltip-when-elided="true" class="textSecondary" />
+                </ui:VisualElement>
+                <ui:VisualElement name="blacksmithSellContainer" style="align-items: center;">
+                    <ui:Label text="Sell item" display-tooltip-when-elided="true" name="Label" class="textSecondary" style="align-items: center;" />
+                    <ui:VisualElement name="sellItemZone" class="itemSlot" style="align-items: center; justify-content: center; width: 100px; height: 100px;">
+                        <ui:VisualElement name="VisualElement" style="width: 50px; height: 50px; background-color: rgb(0, 0, 0);" />
+                    </ui:VisualElement>
+                    <ui:Label display-tooltip-when-elided="true" name="sellItemValueTooltip" class="textSecondary" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="playerContainer" style="flex-direction: row;">
-            <ui:VisualElement name="playerItemPouch" />
-            <ui:VisualElement name="playerObolsContainer" style="flex-direction: row;">
-                <ui:Label text="Obols: " display-tooltip-when-elided="true" class="textSecondary" />
-                <ui:Label text="12" display-tooltip-when-elided="true" name="blacksmithPlayerObolsAmount" class="textSecondary" />
+        <ui:VisualElement name="playerContainer" style="flex-direction: column;">
+            <ui:VisualElement>
+                <ui:Label text="Inventory" display-tooltip-when-elided="true" class="textPrimary" />
+                <ui:VisualElement name="playerObolsContainer" class="textPrimary" style="flex-direction: row;">
+                    <ui:Label text="Obols: " display-tooltip-when-elided="true" />
+                    <ui:Label text="12" display-tooltip-when-elided="true" name="blacksmithPlayerObolsAmount" />
+                </ui:VisualElement>
+                <ui:VisualElement name="playerItemPouch" style="flex-direction: row;" />
             </ui:VisualElement>
+            <ui:VisualElement name="characterCardsContainer" style="flex-direction: row; justify-content: space-around; width: 100%; padding-left: 100px; padding-right: 100px;" />
         </ui:VisualElement>
-        <ui:Button text="Back" display-tooltip-when-elided="true" name="blacksmithBackButton" />
+        <ui:Button text="Back" display-tooltip-when-elided="true" name="blacksmithBackButton" class="menuButton" style="bottom: 0; position: absolute;" />
     </ui:VisualElement>
     <ui:VisualElement name="dragDropContainer" style="visibility: hidden; position: absolute; width: 50px; height: 50px;" />
 </ui:UXML>

@@ -23,5 +23,4 @@ public class ItemVisual : VisualWithTooltip
         base.DisplayTooltip();
     }
 
-
 }

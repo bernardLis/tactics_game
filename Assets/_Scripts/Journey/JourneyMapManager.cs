@@ -382,9 +382,8 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     public void ChangeObols(int _amount)
     {
         int obols = _gameManager.Obols;
-        obols += _amount;
         Mathf.Clamp(obols, 0, Mathf.Infinity);
-        _gameManager.SetObols(obols);
-        _journeyMapUI.ChangeObols(obols - _amount, obols);
+        _gameManager.ChangeObolsValue(_amount);
+        _journeyMapUI.ChangeObols(obols - _amount, _amount);
     }
 }

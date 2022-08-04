@@ -65,8 +65,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     // delegates
     public event Action<GameObject> OnCharacterDeath;
-    public event Action<int, int, int> OnHealthChange; // total,  value before change, change 
-    public event Action<int, int, int> OnManaChange;
+    public event Action<int, int, int> OnHealthChanged; // total,  value before change, change 
+    public event Action<int, int, int> OnManaChanged;
     public event Action<StatModifier> OnModifierAdded;
     public event Action<Ability> OnAbilityAdded;
 
@@ -304,7 +304,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         // displaying damage UI
         _damageUI.DisplayOnCharacter(damage.ToString(), 36, Helpers.GetColor("damageRed"));
 
-        OnHealthChange?.Invoke(Character.MaxHealth, CurrentHealth, -damage);
+        OnHealthChanged?.Invoke(Character.MaxHealth, CurrentHealth, -damage);
         CurrentHealth -= damage;
 
         if (_battleCharacterController.HasCharacterStartedMoving)
@@ -431,7 +431,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         int manaBeforeChange = CurrentMana;
         CurrentMana += amount;
         CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
-        OnManaChange?.Invoke(Character.MaxMana, manaBeforeChange, amount);
+        OnManaChanged?.Invoke(Character.MaxMana, manaBeforeChange, amount);
     }
 
     public void UseMana(int amount)
@@ -443,7 +443,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         CurrentMana -= amount;
         CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana.GetValue());
-        OnManaChange?.Invoke(Character.MaxMana, manaBeforeChange, -amount);
+        OnManaChanged?.Invoke(Character.MaxMana, manaBeforeChange, -amount);
     }
 
     public async void GainHealth(int healthGain, GameObject attacker, Ability ability)
@@ -452,7 +452,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             stats.Character.GetExp(gameObject);
 
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
-        OnHealthChange?.Invoke(Character.MaxHealth, CurrentHealth, healthGain);
+        OnHealthChanged?.Invoke(Character.MaxHealth, CurrentHealth, healthGain);
         CurrentHealth += healthGain;
 
         _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));

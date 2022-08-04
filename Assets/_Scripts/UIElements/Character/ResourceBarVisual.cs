@@ -63,7 +63,12 @@ public class ResourceBarVisual : VisualWithTooltip
         SetText($"{current}/{total}");
     }
 
-    public async void OnValueChange(int total, int beforeChange, int change)
+    public void OnTotalChanged(int total)
+    {
+        OnValueChanged(total, total, 0);
+    }
+
+    public async void OnValueChanged(int total, int beforeChange, int change)
     {
         HideInteractionResult(total, beforeChange);
         if (change == 0)

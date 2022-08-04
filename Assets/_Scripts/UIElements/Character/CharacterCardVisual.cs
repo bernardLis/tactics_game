@@ -6,7 +6,7 @@ public class CharacterCardVisual : VisualElement
 {
     VisualElement _information;
     CharacterStats _stats;
-    Character _character;
+    public Character Character;
     VisualElement _portrait;
     Label _name;
 
@@ -21,16 +21,24 @@ public class CharacterCardVisual : VisualElement
 
     public CharacterCardVisual(Character character, bool clickable = true)
     {
+        character.ResolveItems();
         BaseCharacterCardVisual(character, clickable);
-        _character = character;
+        Character = character;
         _characteristics.Add(HandleCharacterStats(character, null));
+
+        // delegates
+        character.OnMaxHealthChanged += HealthBar.OnTotalChanged;
+        character.OnMaxManaChanged += ManaBar.OnTotalChanged;
+        character.OnPowerChanged += _power.OnValueChanged;
+        character.OnArmorChanged += _armor.OnValueChanged;
+        character.OnMovementRangeChanged += _range.OnValueChanged;
     }
 
     public CharacterCardVisual(CharacterStats stats, bool clickable = true)
     {
         BaseCharacterCardVisual(stats.Character, clickable);
         _stats = stats;
-        _character = stats.Character;
+        Character = stats.Character;
 
         List<VisualElement> elements = new(HandleStatModifiers(stats));
         elements.AddRange(HandleStatuses(stats));
@@ -40,8 +48,8 @@ public class CharacterCardVisual : VisualElement
         _characteristics.Add(HandleCharacterStats(null, stats));
 
         // delegates
-        _stats.OnHealthChange += HealthBar.OnValueChange;
-        _stats.OnManaChange += ManaBar.OnValueChange;
+        _stats.OnHealthChanged += HealthBar.OnValueChanged;
+        _stats.OnManaChanged += ManaBar.OnValueChanged;
         _stats.OnModifierAdded += OnModiferAdded;
         _stats.OnStatusAdded += OnStatusAdded;
         _stats.OnStatusRemoved += OnStatusRemoved;
@@ -114,14 +122,14 @@ public class CharacterCardVisual : VisualElement
     {
         if (_stats == null)
             return;
-        _stats.OnHealthChange -= HealthBar.OnValueChange;
-        _stats.OnManaChange -= ManaBar.OnValueChange;
+        _stats.OnHealthChanged -= HealthBar.OnValueChanged;
+        _stats.OnManaChanged -= ManaBar.OnValueChanged;
         _stats.OnModifierAdded -= OnModiferAdded;
         _stats.OnStatusAdded -= OnStatusAdded;
         _stats.OnStatusRemoved -= OnStatusRemoved;
         _stats.OnCharacterDeath += OnCharacterDeath;
 
-        if (_character == null)
+        if (Character == null)
             return;
     }
 
@@ -132,7 +140,7 @@ public class CharacterCardVisual : VisualElement
         healthGroup.style.width = Length.Percent(100);
 
         HealthBar = new(Helpers.GetColor("healthBarRed"), "Health");
-        HealthBar.SetText(character.MaxHealth + "/" + character.MaxHealth);
+        HealthBar.SetText(character.GetStatValue("MaxHealth") + "/" + character.GetStatValue("MaxHealth"));
 
         healthGroup.Add(HealthBar);
 
@@ -146,7 +154,7 @@ public class CharacterCardVisual : VisualElement
         manaGroup.style.width = Length.Percent(100);
 
         ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana");
-        ManaBar.SetText(character.MaxMana + "/" + character.MaxMana);
+        ManaBar.SetText(character.GetStatValue("MaxMana") + "/" + character.GetStatValue("MaxMana"));
 
         manaGroup.Add(ManaBar);
 
@@ -173,9 +181,9 @@ public class CharacterCardVisual : VisualElement
     void CreateCharacterStatsChar(Character character)
     {
         CharacterDatabase db = GameManager.Instance.CharacterDatabase;
-        _power = new(db.GetStatIconByName("Power"), character.Power, "Power");
-        _armor = new(db.GetStatIconByName("Armor"), character.Armor, "Armor");
-        _range = new(db.GetStatIconByName("MovementRange"), character.MovementRange, "Movement Range");
+        _power = new(db.GetStatIconByName("Power"), character.GetStatValue("Power"), "Power");
+        _armor = new(db.GetStatIconByName("Armor"), character.GetStatValue("Armor"), "Armor");
+        _range = new(db.GetStatIconByName("MovementRange"), character.GetStatValue("MovementRange"), "Movement Range");
     }
 
     void CreateCharacterStats(CharacterStats characterStats)
@@ -265,7 +273,7 @@ public class CharacterCardVisual : VisualElement
         if (_stats != null)
             new CharacterScreen(_stats, root);
         else
-            new CharacterScreen(_character, root);
+            new CharacterScreen(Character, root);
     }
 
 }

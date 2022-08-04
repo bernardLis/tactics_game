@@ -17,12 +17,18 @@ public class Character : BaseScriptableObject
     public int Level;
     public int Experience;
 
-    public int Power;
-
     public int MaxHealth = 100;
     public int MaxMana = 50;
+    public int Power = 10;
     public int Armor = 0;
     public int MovementRange = 4;
+
+    // set by items, for now used only in the shop
+    public int PowerBonus;
+    public int MaxHealthBonus;
+    public int MaxManaBonus;
+    public int ArmorBonus;
+    public int MovementRangeBonus;
 
     [Header("Equipment")]
     public Equipment Body;
@@ -37,6 +43,12 @@ public class Character : BaseScriptableObject
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
 
+
+    public event Action<int> OnMaxHealthChanged;
+    public event Action<int> OnMaxManaChanged;
+    public event Action<int> OnPowerChanged;
+    public event Action<int> OnArmorChanged;
+    public event Action<int> OnMovementRangeChanged;
 
     // creates character at runtime from saved data
     public virtual void Create(CharacterData data)
@@ -76,16 +88,16 @@ public class Character : BaseScriptableObject
 
     public int GetStatValue(string stat)
     {
-        if (stat == "Power")
-            return Power;
         if (stat == "MaxHealth")
-            return MaxHealth;
+            return MaxHealth + MaxHealthBonus;
         if (stat == "MaxMana")
-            return MaxMana;
+            return MaxMana + MaxManaBonus;
+        if (stat == "Power")
+            return Power + PowerBonus;
         if (stat == "Armor")
-            return Armor;
+            return Armor + ArmorBonus;
         if (stat == "MovementRange")
-            return MovementRange;
+            return MovementRange + MovementRangeBonus;
 
         return 0;
     }
@@ -135,6 +147,59 @@ public class Character : BaseScriptableObject
 
         OnCharacterLevelUp?.Invoke();
     }
+
+    public void AddItem(Item item)
+    {
+        Items.Add(item);
+        ResolveItems();
+        InformSubscribers(item);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        Items.Remove(item);
+        ResolveItems();
+        InformSubscribers(item);
+    }
+
+    void InformSubscribers(Item item)
+    {
+        if (item.InfluencedStat == StatType.MaxHealth)
+            OnMaxHealthChanged?.Invoke(GetStatValue("MaxHealth"));
+        if (item.InfluencedStat == StatType.MaxMana)
+            OnMaxManaChanged?.Invoke(GetStatValue("MaxMana"));
+        if (item.InfluencedStat == StatType.Power)
+            OnPowerChanged?.Invoke(GetStatValue("Power"));
+        if (item.InfluencedStat == StatType.Armor)
+            OnArmorChanged?.Invoke(GetStatValue("Armor"));
+        if (item.InfluencedStat == StatType.MovementRange)
+            OnMovementRangeChanged?.Invoke(GetStatValue("MovementRange"));
+    }
+
+    public void ResolveItems()
+    {
+        MaxHealthBonus = 0;
+        MaxManaBonus = 0;
+        PowerBonus = 0;
+        ArmorBonus = 0;
+        MovementRangeBonus = 0;
+
+        foreach (Item item in Items)
+        {
+            if (item.InfluencedStat == StatType.MaxHealth)
+                MaxHealthBonus += item.Value;
+            if (item.InfluencedStat == StatType.MaxMana)
+                MaxManaBonus += item.Value;
+            if (item.InfluencedStat == StatType.Power)
+                PowerBonus += item.Value;
+            if (item.InfluencedStat == StatType.Armor)
+                ArmorBonus += item.Value;
+            if (item.InfluencedStat == StatType.MovementRange)
+                MovementRangeBonus += item.Value;
+        }
+
+    }
+
 }
 
 [System.Serializable]

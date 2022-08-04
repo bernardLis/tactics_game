@@ -43,8 +43,5 @@ public class ObjectUI : MonoBehaviour
         }
     }
 
-    public bool IsQueueEmpty()
-    {
-        return _coroutineQueue.Count == 0;
-    }
+    public bool IsQueueEmpty() { return _coroutineQueue.Count == 0; }
 }
