@@ -84,7 +84,6 @@ public class StatVisual : VisualWithTooltip
 
     public void OnValueChanged(int newValue)
     {
-        Debug.Log($"stat visual: {_tooltipText} value: {newValue}");
         Value.text = "" + newValue;
     }
 

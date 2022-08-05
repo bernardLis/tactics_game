@@ -281,7 +281,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         if (_gameManager.Reward == null)
             return;
 
-        ChangeObols(_gameManager.Reward.obols);
+        ChangeGold(_gameManager.Reward.gold);
         _gameManager.SetNodeReward(null);
     }
 
@@ -379,11 +379,11 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
             n.JourneyNodeBehaviour.AnimateAvailableNode();
     }
 
-    public void ChangeObols(int _amount)
+    public void ChangeGold(int _amount)
     {
-        int obols = _gameManager.Obols;
-        Mathf.Clamp(obols, 0, Mathf.Infinity);
-        _gameManager.ChangeObolsValue(_amount);
-        _journeyMapUI.ChangeObols(obols - _amount, _amount);
+        int gold = _gameManager.Gold;
+        Mathf.Clamp(gold, 0, Mathf.Infinity);
+        _gameManager.ChangeGoldValue(_amount);
+        _journeyMapUI.ChangeGold(gold - _amount, _amount);
     }
 }

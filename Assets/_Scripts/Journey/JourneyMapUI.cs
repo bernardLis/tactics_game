@@ -36,15 +36,15 @@ public class JourneyMapUI : MonoBehaviour
     void Start()
     {
         _playerName.text = "Welcome King " + _gameManager.PlayerName;
-        _currencyAmount.text = _gameManager.Obols.ToString();
+        _currencyAmount.text = _gameManager.Gold.ToString();
     }
 
-    public void ChangeObols(int start, int end)
+    public void ChangeGold(int start, int end)
     {
-        StartCoroutine(ChangeObolsCoroutine(start, end));
+        StartCoroutine(ChangeGoldCoroutine(start, end));
     }
 
-    IEnumerator ChangeObolsCoroutine(int start, int end)
+    IEnumerator ChangeGoldCoroutine(int start, int end)
     {
         int current = start;
         int amount = Mathf.Abs(end - start);
@@ -54,7 +54,7 @@ public class JourneyMapUI : MonoBehaviour
             if (end > start)
             {
                 current++;
-                SpawnObol(1);
+                SpawnGold(1);
             }
             else
             {
@@ -63,7 +63,7 @@ public class JourneyMapUI : MonoBehaviour
 
                 current--;
 
-                SpawnObol(-1);
+                SpawnGold(-1);
             }
 
             yield return new WaitForSeconds(0.1f);
@@ -71,13 +71,13 @@ public class JourneyMapUI : MonoBehaviour
         }
     }
 
-    void SpawnObol(int dir)
+    void SpawnGold(int dir)
     {
         Vector3 spawnPos = _journeyMapManager.CurrentNode.GameObject.transform.position;
         Vector3 travelToPos = Camera.main.ScreenToWorldPoint(new Vector3(0f, Screen.height));
         if (dir == -1)
         {
-            // if we are subtracting obols, they should be flying the other way
+            // if we are subtracting gold, they should be flying the other way
             spawnPos = Camera.main.ScreenToWorldPoint(new Vector3(0f, Screen.height));
             travelToPos = _journeyMapManager.CurrentNode.GameObject.transform.position;
         }

@@ -5,7 +5,7 @@
             <ui:Button text="+" display-tooltip-when-elided="true" name="increaseDifficulty" style="font-size: 24px; width: 50px; height: 50px;" />
             <ui:Button text="-" display-tooltip-when-elided="true" name="decreaseDifficulty" style="font-size: 24px; width: 50px; height: 50px;" />
         </ui:VisualElement>
-        <ui:Label text="3" display-tooltip-when-elided="true" name="playingForObols" style="font-size: 48px; -unity-text-align: middle-center; color: rgb(255, 255, 255);" />
+        <ui:Label text="3" display-tooltip-when-elided="true" name="playingForGold" style="font-size: 48px; -unity-text-align: middle-center; color: rgb(255, 255, 255);" />
         <ui:Label display-tooltip-when-elided="true" name="obolIcon" style="background-image: url(&apos;project://database/Assets/Sprites/Journey/obol.png?fileID=2800000&amp;guid=ad5c4b9d1e718544886f737b294085c5&amp;type=3#obol&apos;); width: 100px; height: 100px;" />
     </ui:VisualElement>
     <ui:VisualElement name="resultWrapper" style="display: none; top: 50%;">

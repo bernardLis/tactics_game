@@ -28,7 +28,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [HideInInspector] public List<Character> PlayerTroops = new();
     public List<Item> PlayerItemPouch = new(); // HERE: normally [HideInInspector] and empty
 
-    public int Obols { get; private set; }
+    public int Gold { get; private set; }
     public JourneyNode CurrentNode; //TODO: //{ get; private set; }
     public JourneyNodeReward Reward { get; private set; }
 
@@ -37,7 +37,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     string _currentLevel;
 
 
-    public event Action<int> OnObolsChanged;
+    public event Action<int> OnGoldChanged;
 
     protected override void Awake()
     {
@@ -52,7 +52,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             CreatePlayerTroops();
 
         // HERE: test
-        Obols = 10;
+        Gold = 10;
     }
 
     public void StartNewGame(string activeSave, string playerName)
@@ -132,10 +132,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         CurrentJourneyNode = n;
     }
 
-    public void ChangeObolsValue(int o)
+    public void ChangeGoldValue(int o)
     {
-        Obols += o;
-        OnObolsChanged?.Invoke(Obols);
+        Gold += o;
+        OnGoldChanged?.Invoke(Gold);
         SaveJsonData();
     }
 
@@ -175,7 +175,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.LastLevel = SceneManager.GetActiveScene().name;
         saveData.CutSceneIndex = _currentCutSceneIndex;
         saveData.PlayerName = PlayerName;
-        saveData.Obols = Obols;
+        saveData.Gold = Gold;
         saveData.JourneySeed = JourneySeed;
         saveData.CurrentJourneyNode = CurrentJourneyNode;
         saveData.VisitedJourneyNodes = VisitedJourneyNodes;
@@ -239,7 +239,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         _currentLevel = saveData.LastLevel;
         _currentCutSceneIndex = saveData.CutSceneIndex;
         PlayerName = saveData.PlayerName;
-        Obols = saveData.Obols;
+        Gold = saveData.Gold;
         JourneySeed = saveData.JourneySeed;
         CurrentJourneyNode = saveData.CurrentJourneyNode;
         VisitedJourneyNodes = saveData.VisitedJourneyNodes;

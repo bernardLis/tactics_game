@@ -10,10 +10,10 @@ public class ItemVisual : VisualWithTooltip
     public ItemVisual(Item item) : base()
     {
         Item = item;
-        
+
         style.backgroundImage = item.Icon.texture;
-        style.width = 50;
-        style.height = 50;
+        style.width = 75;
+        style.height = 75;
         _tooltipText = item.InfluencedStat.ToString() + " +" + item.Value.ToString();
     }
 

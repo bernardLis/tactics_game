@@ -149,14 +149,14 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     void InitializeCharacter()
     {
+        Character.ResolveItems();
+        
         // taking values from scriptable object to game
-        Power.Initialize(StatType.Power, Character.Power, Character);
-        MaxHealth.Initialize(StatType.MaxHealth, Character.MaxHealth, Character);
-        MaxMana.Initialize(StatType.MaxMana, Character.MaxMana, Character);
-        Armor.Initialize(StatType.Armor, Character.Armor, Character);
-        MovementRange.Initialize(StatType.MovementRange, Character.MovementRange, Character);
-
-        ResolveItems();
+        Power.Initialize(StatType.Power, Character.GetStatValue("Power"), Character);
+        MaxHealth.Initialize(StatType.MaxHealth, Character.GetStatValue("MaxHealth"), Character);
+        MaxMana.Initialize(StatType.MaxMana, Character.GetStatValue("MaxMana"), Character);
+        Armor.Initialize(StatType.Armor, Character.GetStatValue("Armor"), Character);
+        MovementRange.Initialize(StatType.MovementRange, Character.GetStatValue("MovementRange"), Character);
 
         CurrentHealth = MaxHealth.GetValue();
         CurrentMana = MaxMana.GetValue();
@@ -189,15 +189,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             var clone = Instantiate(ability);
             Abilities.Add(clone);
             clone.Initialize(gameObject);
-        }
-    }
-
-    void ResolveItems()
-    {
-        foreach (Item item in Character.Items)
-        {
-            Stat s = Stats.FirstOrDefault(x => x.Type == item.InfluencedStat);
-            s.BaseValue += item.Value; // TODO: dunno if correct
         }
     }
 

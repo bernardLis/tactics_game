@@ -15,6 +15,8 @@ public class CharacterCardVisualShop : CharacterCardVisual
     public CharacterCardVisualShop(Character character) : base(character, false)
     {
         BaseCharacterCardVisualExtended(character);
+        AddToClassList("uiContainer");
+
     }
 
     void BaseCharacterCardVisualExtended(Character character)

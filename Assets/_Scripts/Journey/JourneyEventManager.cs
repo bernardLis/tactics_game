@@ -59,7 +59,7 @@ public class JourneyEventManager : MonoBehaviour
             Button b = new Button();
             _optionsWrapper.Add(b);
 
-            b.text = _journeyEvent.Options[i].Text + "(" + _journeyEvent.Options[i].Reward.obols + ")";
+            b.text = _journeyEvent.Options[i].Text + "(" + _journeyEvent.Options[i].Reward.gold + ")";
             b.userData = i;
             b.clickable.clickedWithEventInfo += OptionChosen;
             b.AddToClassList("optionButton");
@@ -78,7 +78,7 @@ public class JourneyEventManager : MonoBehaviour
         _gameManager.SetNodeReward(_journeyEvent.Options[index].Reward);
 
         _responseLabel.text = _journeyEvent.Options[index].Response;
-        _obolAmountLabel.text = _journeyEvent.Options[index].Reward.obols.ToString();
+        _obolAmountLabel.text = _journeyEvent.Options[index].Reward.gold.ToString();
 
         _responseWrapper.style.opacity = 0;
         _responseWrapper.style.display = DisplayStyle.Flex;

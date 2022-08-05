@@ -21,9 +21,9 @@ public class BattleManager : Singleton<BattleManager>
         _battleInputController = BattleInputController.Instance;
     }
 
-    public void AddRewardObols(int n)
+    public void AddRewardGold(int n)
     {
-        _reward.obols += n;
+        _reward.gold += n;
     }
 
     public JourneyNodeReward GetReward()

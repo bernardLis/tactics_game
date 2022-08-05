@@ -23,7 +23,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
     VisualElement _difficultyAdjustWrapper;
     Button _increaseDifficultyButton;
     Button _decreaseDifficultyButton;
-    Label _playingForObolsLabel;
+    Label _playingForGoldLabel;
 
     VisualElement _resultWrapper;
     Label _result;
@@ -33,7 +33,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
 
     // mini game
     int _numberOfChests = 3;
-    int _obolsReward = 3;
+    int _goldReward = 3;
     int _cursorDelay = 500;
 
     List<JourneyChestBehaviour> _chestBehaviours = new();
@@ -55,7 +55,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         _difficultyAdjustWrapper = root.Q<VisualElement>("difficultyAdjustWrapper");
-        _playingForObolsLabel = root.Q<Label>("playingForObols");
+        _playingForGoldLabel = root.Q<Label>("playingForGold");
         _increaseDifficultyButton = root.Q<Button>("increaseDifficulty");
         _decreaseDifficultyButton = root.Q<Button>("decreaseDifficulty");
 
@@ -137,20 +137,20 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
             _result.text = "Winner winner chicken dinner";
             _result.style.color = Color.white;
             _chestBehaviour.Chest.Won();
-            rewardInstance.obols = _obolsReward;
+            rewardInstance.gold = _goldReward;
         }
         else
         {
             _result.text = "Better luck next time";
             _result.style.color = Color.red;
             _chestBehaviour.Chest.Lost();
-            rewardInstance.obols = 0;
+            rewardInstance.gold = 0;
         }
 
         _obolAmountLabel.text = "0";
 
         _gameManager.SetNodeReward(rewardInstance);
-        StartCoroutine(ChangeObolsCoroutine(rewardInstance.obols));
+        StartCoroutine(ChangeGoldCoroutine(rewardInstance.gold));
 
         _difficultyAdjustWrapper.style.display = DisplayStyle.None;
 
@@ -160,19 +160,19 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
             .SetEase(Ease.InSine);
     }
 
-    IEnumerator ChangeObolsCoroutine(int _amount)
+    IEnumerator ChangeGoldCoroutine(int _amount)
     {
         int current = 0;
         for (int i = 0; i < _amount; i++)
         {
             current++;
-            SpawnObol();
+            SpawnGold();
             yield return new WaitForSeconds(0.2f);
             _obolAmountLabel.text = current.ToString();
         }
     }
 
-    void SpawnObol()
+    void SpawnGold()
     {
         Vector3 spawnPos = _selectedChest.gameObject.transform.position;
         Vector3 randomVector = new Vector3(Random.Range(0f, 3f), Random.Range(0f, 3f));
@@ -186,13 +186,13 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
     /* BUTTONS */
     void IncreaseDifficulty()
     {
-        if (_obolsReward == 10)
+        if (_goldReward == 10)
             return;
 
-        _obolsReward++;
-        _playingForObolsLabel.text = _obolsReward.ToString();
+        _goldReward++;
+        _playingForGoldLabel.text = _goldReward.ToString();
         // we add a chest or decrease delay every second obol, starting with adding a chest
-        if (_obolsReward % 2 == 0)
+        if (_goldReward % 2 == 0)
             AddChest();
         else
             DecreaseDelay();
@@ -200,13 +200,13 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
 
     void DecreaseDifficulty()
     {
-        if (_obolsReward == 1)
+        if (_goldReward == 1)
             return;
 
-        _obolsReward--;
-        _playingForObolsLabel.text = _obolsReward.ToString();
+        _goldReward--;
+        _playingForGoldLabel.text = _goldReward.ToString();
         // we add a chest or decrease delay every second obol, starting with adding a chest
-        if (_obolsReward % 2 == 0)
+        if (_goldReward % 2 == 0)
             IncreaseDelay();
         else
             RemoveChest();

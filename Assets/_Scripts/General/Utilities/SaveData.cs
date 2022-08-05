@@ -10,7 +10,7 @@ public class SaveData
     public int CutSceneIndex; // TODO: I doubt it is the correct way yo handle it.
     public string PlayerName;
     public int JourneySeed; // this reproduces paths with bridges and nodes 
-    public int Obols;
+    public int Gold;
     public List<JourneyNodeData> VisitedJourneyNodes = new();
     public JourneyNodeData CurrentJourneyNode;
     public List<CharacterData> Characters = new();
