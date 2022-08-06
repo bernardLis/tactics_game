@@ -36,6 +36,11 @@ public class CharacterDatabase : BaseScriptableObject
         return Abilities.FirstOrDefault(x => x.ReferenceID == id);
     }
 
+    public Ability GetRandomAbility()
+    {
+        return Abilities[Random.Range(0, Abilities.Length)];
+    }
+
     public Item GetItemByReference(string id)
     {
         return Items.FirstOrDefault(x => x.ReferenceID == id);

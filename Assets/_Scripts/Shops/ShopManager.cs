@@ -13,6 +13,7 @@ public class ShopManager : MonoBehaviour
     VisualElement _root;
 
     VisualElement _shopItemContainer;
+    VisualElement _shopAbilityContainer;
 
     VisualElement _shopSellContainer;
     Label _sellItemValueTooltip;
@@ -20,6 +21,8 @@ public class ShopManager : MonoBehaviour
 
     VisualElement _characterCardsContainer;
     VisualElement _playerItemPouch;
+    VisualElement _playerAbilityPouch;
+
     Label _shopPlayerGoldAmount;
 
     bool _wasVisited;
@@ -36,6 +39,8 @@ public class ShopManager : MonoBehaviour
     List<ItemSlotVisual> _allPlayerItemSlotVisuals = new();
     List<ItemSlotVisual> _playerPouchItemSlotVisuals = new();
 
+    List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
+
     List<CharacterCardVisualShop> _characterCards = new();
 
     void Awake()
@@ -46,6 +51,7 @@ public class ShopManager : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         _shopItemContainer = _root.Q<VisualElement>("shopItemContainer");
+        _shopAbilityContainer = _root.Q<VisualElement>("shopAbilityContainer");
         _shopSellContainer = _root.Q<VisualElement>("shopSellContainer");
         _sellItemValueTooltip = _root.Q<Label>("sellItemValueTooltip");
 
@@ -53,7 +59,10 @@ public class ShopManager : MonoBehaviour
         _shopRerollButton.clickable.clicked += Reroll;
 
         _characterCardsContainer = _root.Q<VisualElement>("characterCardsContainer");
+
         _playerItemPouch = _root.Q<VisualElement>("playerItemPouch");
+        _playerAbilityPouch = _root.Q<VisualElement>("playerAbilityPouch");
+
         _shopPlayerGoldAmount = _root.Q<Label>("shopPlayerGoldAmount");
         _shopPlayerGoldAmount.text = "" + _gameManager.Gold;
 
@@ -82,13 +91,16 @@ public class ShopManager : MonoBehaviour
     public void Initialize()
     {
         if (!_wasVisited)
+        {
             PopulateItems();
+            PopulateAbilities();
+        }
 
         _wasVisited = true;
 
         _allPlayerItemSlotVisuals.Clear();
         PopulateCharacterCards();
-        PopulatePlayerPouch();
+        PopulatePlayerPouches();
     }
 
     void Reroll()
@@ -117,7 +129,7 @@ public class ShopManager : MonoBehaviour
             ItemSlotVisual itemSlot = new(iv);
 
             //https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
-            iv.RegisterCallback<PointerDownEvent>(OnBlacksmithItemPointerDown);
+            iv.RegisterCallback<PointerDownEvent>(OnShopItemPointerDown);
 
             container.Add(itemSlot);
             Label price = new Label("Price: " + item.Price);
@@ -125,6 +137,31 @@ public class ShopManager : MonoBehaviour
             container.Add(price); // TODO: coin logo instead of word "price" 
 
             _shopItemContainer.Add(container);
+        }
+    }
+
+    void PopulateAbilities()
+    {
+        _shopAbilityContainer.Clear();
+        for (int i = 0; i < 3; i++)
+        {
+            // so here I want 3 item slots that are filled with items 
+            VisualElement container = new();
+            container.style.alignItems = Align.Center;
+
+            Ability ability = _gameManager.CharacterDatabase.GetRandomAbility();
+            AbilityButton abilityButton = new(ability, null, _root);
+            AbilitySlotVisual abilitySlot = new(abilityButton);
+
+            //https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
+            abilityButton.RegisterCallback<PointerDownEvent>(OnShopAbilityPointerDown);
+
+            container.Add(abilitySlot);
+            Label price = new Label("Price: " + ability.Price);
+            price.AddToClassList("textSecondary");
+            container.Add(price); // TODO: coin logo instead of word "price" 
+
+            _shopAbilityContainer.Add(container);
         }
     }
 
@@ -149,7 +186,14 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void PopulatePlayerPouch()
+    void PopulatePlayerPouches()
+    {
+
+        PopulatePlayerItemPouch();
+        PopulatePlayerAbilityPouch();
+    }
+
+    void PopulatePlayerItemPouch()
     {
         _playerItemPouch.Clear();
         _playerPouchItemSlotVisuals.Clear();
@@ -170,13 +214,36 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    void PopulatePlayerAbilityPouch()
+    {
+        _playerAbilityPouch.Clear();
+        _playerPouchAbilitySlotVisuals.Clear();
+
+        for (int i = 0; i < 3; i++)
+        {
+            AbilitySlotVisual slot = new AbilitySlotVisual();
+            _playerAbilityPouch.Add(slot);
+            //                        _allPlayerItemSlotVisuals.Add(slot);
+            _playerPouchAbilitySlotVisuals.Add(slot);
+        }
+
+        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count; i++)
+        {
+            AbilityButton abilityButton = new(_gameManager.PlayerAbilityPouch[i], null, _root);
+            _playerPouchAbilitySlotVisuals[i].Add(abilityButton);
+
+            // abilityButton.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
+        }
+
+    }
+
     void Back()
     {
         VillageManager.Instance.ShowVillage();
         _gameManager.SaveJsonData();
     }
 
-    void OnBlacksmithItemPointerDown(PointerDownEvent evt)
+    void OnShopItemPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
             return;
@@ -208,6 +275,12 @@ public class ShopManager : MonoBehaviour
 
         StartDrag(evt.position, itemSlotVisual, itemVisual);
     }
+
+    void OnShopAbilityPointerDown(PointerDownEvent evt)
+    {
+        Debug.Log($"shop ability pointer down");
+    }
+
 
     //drag & drop
     public void StartDrag(Vector2 position, ItemSlotVisual originalSlot, ItemVisual draggedItem)
@@ -293,7 +366,7 @@ public class ShopManager : MonoBehaviour
             _gameManager.PlayerItemPouch.Add(_draggedItem.Item);
 
         // unregister buy pointer and register sell pointer
-        _draggedItem.UnregisterCallback<PointerDownEvent>(OnBlacksmithItemPointerDown);
+        _draggedItem.UnregisterCallback<PointerDownEvent>(OnShopItemPointerDown);
         _draggedItem.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
     }
 

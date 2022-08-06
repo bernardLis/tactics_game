@@ -12,19 +12,28 @@ public class CharacterCardVisualShop : CharacterCardVisual
     public List<ItemSlotVisual> ItemSlots = new();
     public List<ItemVisual> ItemVisuals = new();
 
+    public List<AbilitySlotVisual> AbilitySlots = new();
+    public List<AbilityButton> AbilityButtons = new();
+
     public CharacterCardVisualShop(Character character) : base(character, false)
     {
-        BaseCharacterCardVisualExtended(character);
         AddToClassList("uiContainer");
 
+        _characteristics.Add(CreateExpGroup(character));
+        
+        VisualElement wrapper = new();
+        wrapper.style.flexDirection = FlexDirection.Row;
+        wrapper.style.width = Length.Percent(100);
+        wrapper.Add(_portrait);
+        _portrait.style.minWidth = 200;
+        wrapper.Add(_characteristics);
+        wrapper.Add(CreateItems(character));
+        Add(wrapper);
+
+        style.flexDirection = FlexDirection.Column;
+        Add(CreateAbilities(character));
     }
 
-    void BaseCharacterCardVisualExtended(Character character)
-    {
-        style.width = Length.Percent(50);
-        _characteristics.Add(CreateExpGroup(character));
-        Add(CreateItems(character));
-    }
 
     VisualElement CreateExpGroup(Character character)
     {
@@ -67,6 +76,29 @@ public class CharacterCardVisualShop : CharacterCardVisual
             ItemVisual itemVisual = new ItemVisual(character.Items[i]);
             ItemSlots[i].AddItem(itemVisual);
             ItemVisuals.Add(itemVisual);
+        }
+
+        return container;
+    }
+
+    VisualElement CreateAbilities(Character character)
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        for (int i = 0; i < character.Abilities.Count; i++)
+        {
+            AbilitySlotVisual abilitySlot = new();
+            abilitySlot.Character = character;
+            AbilitySlots.Add(abilitySlot);
+            container.Add(abilitySlot);
+        }
+
+
+        for (int i = 0; i < character.Abilities.Count; i++)
+        {
+            AbilityButton abilityButton = new AbilityButton(character.Abilities[i], null, null);
+            AbilitySlots[i].AddButton(abilityButton);
+            AbilityButtons.Add(abilityButton);
         }
 
         return container;

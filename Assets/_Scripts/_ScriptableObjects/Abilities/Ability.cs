@@ -39,6 +39,9 @@ public abstract class Ability : BaseScriptableObject
     public bool CanTargetDiagonally;
     public Color HighlightColor;
 
+    [Header("Shop")]
+    public int Price = 1;
+
     [HideInInspector] public GameObject CharacterGameObject;
     protected CharacterStats _stats;
     protected FaceDirectionUI _faceDirectionUI;

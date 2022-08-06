@@ -135,9 +135,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: PlayerAbilityPouch.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: PlayerItemPouch.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 33f8e2c6905680a43aef9268c59fafae, type: 2}
+    - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: PlayerAbilityPouch.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2548c920de5716240ae5e1c66758fdfb, type: 2}
     - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -280,10 +288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a047c34c06dc449b34c0e81531d7da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 0}
-  _wasVisited: 0
-  _isDragging: 0
-  _buying: 0
 --- !u!1 &1636606492
 GameObject:
   m_ObjectHideFlags: 0

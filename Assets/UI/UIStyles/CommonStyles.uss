@@ -245,7 +245,7 @@
 
 .abilityButton {
     height: 100%;
-    width: 120px;
+    width: 100px;
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
@@ -303,6 +303,38 @@
     border-right-color: rgb(130, 116, 63);
     border-top-color: rgb(130, 116, 63);
     border-bottom-color: rgb(130, 116, 63);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    transition-duration: 0.5s;
+}
+
+.abilitySlot {
+    border-left-color: rgb(176, 72, 79);
+    border-right-color: rgb(176, 72, 79);
+    border-top-color: rgb(176, 72, 79);
+    border-bottom-color: rgb(176, 72, 79);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    width: 105px;
+    height: 120px;
+    background-color: rgb(72, 72, 72);
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.abilitySlot:hover {
+    border-left-color: rgb(59, 164, 142);
+    border-right-color: rgb(59, 164, 142);
+    border-top-color: rgb(59, 164, 142);
+    border-bottom-color: rgb(59, 164, 142);
     border-left-width: 4px;
     border-right-width: 4px;
     border-top-width: 4px;

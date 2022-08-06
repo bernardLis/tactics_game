@@ -7,7 +7,7 @@ public class CharacterCardVisual : VisualElement
     VisualElement _information;
     CharacterStats _stats;
     public Character Character;
-    VisualElement _portrait;
+    protected VisualElement _portrait;
     Label _name;
 
     protected VisualElement _characteristics;

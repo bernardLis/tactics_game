@@ -27,6 +27,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     [HideInInspector] public List<Character> PlayerTroops = new();
     public List<Item> PlayerItemPouch = new(); // HERE: normally [HideInInspector] and empty
+    public List<Ability> PlayerAbilityPouch = new(); // HERE: normally [HideInInspector] and empty
 
     public int Gold { get; private set; }
     public JourneyNode CurrentNode; //TODO: //{ get; private set; }
@@ -180,7 +181,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.CurrentJourneyNode = CurrentJourneyNode;
         saveData.VisitedJourneyNodes = VisitedJourneyNodes;
         saveData.Characters = PopulateCharacters();
-        saveData.Items = PopulateItems();
+        saveData.ItemPouch = PopulateItemPouch();
+        saveData.AbilityPouch = PopulateAbilityPouch();
     }
 
     List<CharacterData> PopulateCharacters()
@@ -214,7 +216,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         return charData;
     }
 
-    List<string> PopulateItems()
+    List<string> PopulateItemPouch()
     {
         List<string> itemReferenceIds = new();
         foreach (Item i in PlayerItemPouch)
@@ -222,6 +224,16 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         return itemReferenceIds;
     }
+
+    List<string> PopulateAbilityPouch()
+    {
+        List<string> abilityReferenceIds = new();
+        foreach (Ability a in PlayerAbilityPouch)
+            abilityReferenceIds.Add(a.ReferenceID);
+
+        return abilityReferenceIds;
+    }
+
 
     void LoadJsonData(string fileName)
     {
@@ -252,9 +264,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         }
 
         PlayerItemPouch = new();
-        foreach (string itemReferenceId in saveData.Items)
+        foreach (string itemReferenceId in saveData.ItemPouch)
             PlayerItemPouch.Add(CharacterDatabase.GetItemByReference(itemReferenceId));
 
+        PlayerAbilityPouch = new();
+        foreach (string abilityReferenceId in saveData.AbilityPouch)
+            PlayerAbilityPouch.Add(CharacterDatabase.GetAbilityByReferenceID(abilityReferenceId));
     }
 
     // TODO:
