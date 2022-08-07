@@ -1,14 +1,14 @@
 using UnityEngine.UIElements;
 using UnityEngine;
 
-public class AbilityButton : Button
+public class AbilityButton : VisualWithTooltip
 {
     VisualElement _icon;
 
     public string Key;
     public Ability Ability;
 
-    public AbilityButton(Ability ability, string key, VisualElement root)
+    public AbilityButton(Ability ability, string key) : base()
     {
         Ability = ability;
         Key = key;
@@ -57,4 +57,11 @@ public class AbilityButton : Button
             container.Add(status);
         }
     }
+
+    protected override void DisplayTooltip()
+    {
+        _tooltip = new(this, Ability.name);
+        base.DisplayTooltip();
+    }
+
 }

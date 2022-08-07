@@ -83,7 +83,7 @@ public class CharacterScreen : FullScreenVisual
             aContainer.style.alignItems = Align.Center;
             aContainer.style.alignSelf = Align.Auto;
 
-            AbilityButton button = new(a, null, _root);
+            AbilityButton button = new(a, null);
             aContainer.Add(button);
             AbilityTooltipVisual tooltip = new(a);
             aContainer.Add(tooltip);

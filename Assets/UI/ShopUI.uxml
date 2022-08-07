@@ -9,10 +9,9 @@
             <ui:Label text="Bank" display-tooltip-when-elided="true" class="textPrimary" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="shop" style="display: flex; width: 100%; height: 100%;">
-        <ui:Label text="Shop" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center; font-size: 48px;" />
-        <ui:VisualElement name="shopWrapper" style="flex-direction: row; border-bottom-width: 4px;">
-            <ui:VisualElement name="shopBuyContainer" style="width: 70%;">
+    <ui:VisualElement name="shop" style="display: flex; width: 100%; height: 100%; flex-direction: row;">
+        <ui:VisualElement name="shopWrapper" style="flex-direction: column; border-bottom-width: 4px; width: 30%; align-items: center;">
+            <ui:VisualElement name="shopBuyContainer" class="uiContainer" style="width: 70%; align-items: center;">
                 <ui:Label text="Buy" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center;" />
                 <ui:VisualElement name="shopItemContainer" style="align-items: center; flex-direction: row; justify-content: space-around;">
                     <ui:VisualElement name="itemSlot" class="itemSlot" style="align-items: center; justify-content: center;">
@@ -32,30 +31,40 @@
                     <ui:Button text="Reroll Shop&#10;price: 1" display-tooltip-when-elided="true" name="shopRerollButton" class="menuButton" style="width: 200px; font-size: 24px; flex-wrap: nowrap; align-items: stretch; justify-content: flex-end; height: 100px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="shopSellContainer" style="align-items: center; width: 30%;">
+            <ui:VisualElement name="shopSellContainer" style="align-items: center; width: 100%;">
                 <ui:Label text="Sell" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="align-items: center;" />
                 <ui:VisualElement name="sellItemZone" class="itemSlot" style="align-items: center; justify-content: center; width: 100%; height: 200px; flex-grow: 1; flex-shrink: 0;" />
                 <ui:Label display-tooltip-when-elided="true" name="sellItemValueTooltip" class="textSecondary" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="playerContainer" style="flex-direction: column;">
-            <ui:VisualElement style="flex-direction: row;">
-                <ui:VisualElement style="flex-grow: 1; flex-shrink: 0;">
+        <ui:VisualElement name="div" style="width: 50px;" />
+        <ui:VisualElement name="playerContainer" style="flex-direction: column; flex-grow: 1; flex-shrink: 0;">
+            <ui:VisualElement name="playerGoldContainer" class="textPrimary" style="flex-direction: row; position: relative;">
+                <ui:Label text="Gold: " display-tooltip-when-elided="true" style="font-size: 48px;" />
+                <ui:Label text="12" display-tooltip-when-elided="true" name="shopPlayerGoldAmount" style="font-size: 48px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="pouchContainer" class="uiContainer" style="flex-direction: row; justify-content: flex-start; width: auto; min-height: 200px;">
+                <ui:VisualElement style="margin-left: 10px;">
                     <ui:Label text="Item pouch" display-tooltip-when-elided="true" class="textSecondary" />
-                    <ui:VisualElement name="playerItemPouch" class="uiContainer" style="flex-direction: row;" />
+                    <ui:VisualElement name="playerItemPouch" style="flex-direction: row;">
+                        <ui:VisualElement class="itemSlot" />
+                        <ui:VisualElement class="itemSlot" />
+                        <ui:VisualElement class="itemSlot" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1; flex-shrink: 0;">
+                <ui:VisualElement>
                     <ui:Label text="Ability pouch" display-tooltip-when-elided="true" class="textSecondary" />
-                    <ui:VisualElement name="playerAbilityPouch" class="uiContainer" style="flex-direction: row; flex-grow: 1; flex-shrink: 0;" />
+                    <ui:VisualElement name="playerAbilityPouch" style="flex-direction: row;">
+                        <ui:VisualElement class="abilitySlot" />
+                        <ui:VisualElement class="abilitySlot" />
+                        <ui:VisualElement class="abilitySlot" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="characterCardsContainer" style="flex-direction: row; justify-content: space-between; width: 100%; padding-right: 100px;" />
+            <ui:VisualElement name="characterCardsContainer" style="flex-direction: column; justify-content: flex-start; width: 100%; padding-right: 100px; flex-wrap: wrap;" />
         </ui:VisualElement>
         <ui:Button text="Back" display-tooltip-when-elided="true" name="shopBackButton" class="menuButton" style="bottom: 0; position: absolute;" />
-        <ui:VisualElement name="playerGoldContainer" class="textPrimary" style="flex-direction: row; position: absolute;">
-            <ui:Label text="Gold: " display-tooltip-when-elided="true" style="font-size: 48px;" />
-            <ui:Label text="12" display-tooltip-when-elided="true" name="shopPlayerGoldAmount" style="font-size: 48px;" />
-        </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="dragDropContainer" style="visibility: hidden; position: absolute; width: 75px; height: 75px;" />
+    <ui:VisualElement name="itemDragDropContainer" style="visibility: hidden; position: absolute; width: 75px; height: 75px;" />
+    <ui:VisualElement name="abilityDragDropContainer" style="visibility: hidden; position: absolute; width: 120px; height: 120px;" />
 </ui:UXML>

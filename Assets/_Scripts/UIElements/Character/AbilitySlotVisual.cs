@@ -25,4 +25,10 @@ public class AbilitySlotVisual : VisualElement
         Add(abilityButton);
     }
 
+    public void RemoveButton()
+    {
+        Clear();
+        AbilityButton = null;
+    }
+
 }

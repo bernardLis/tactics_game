@@ -18,11 +18,16 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: a613d81a423cf24429b03929c1678cad, type: 3}
   Level: 1
   Experience: 0
-  Power: 10
   MaxHealth: 100
   MaxMana: 50
+  Power: 10
   Armor: 0
   MovementRange: 3
+  PowerBonus: 0
+  MaxHealthBonus: 50
+  MaxManaBonus: 0
+  ArmorBonus: 0
+  MovementRangeBonus: 1
   Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
   Weapon: {fileID: 11400000, guid: afe2c78e7d3b7f14f82976bc31f26153, type: 2}
   Items:
@@ -32,4 +37,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities:
   - {fileID: 11400000, guid: b203184cb4195254f96a32e912135937, type: 2}
-  - {fileID: 11400000, guid: e7962be5a45baee428e6783c36394466, type: 2}

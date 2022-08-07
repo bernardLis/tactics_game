@@ -148,6 +148,21 @@ public class Character : BaseScriptableObject
         OnCharacterLevelUp?.Invoke();
     }
 
+    public int GetNumberOfAbilitySlots()
+    {
+        return Mathf.Clamp(Level, 1, 4);
+    }
+
+    public void AddAbility(Ability ability)
+    {
+        Abilities.Add(ability);
+    }
+
+    public void RemoveAbility(Ability ability)
+    {
+        Abilities.Remove(ability);
+    }
+
     public void AddItem(Item item)
     {
         Items.Add(item);

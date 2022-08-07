@@ -7,7 +7,7 @@ public class ItemSlotVisual : VisualElement
 {
     public ItemVisual ItemVisual;
     public Character Character;
-    
+
     public ItemSlotVisual(ItemVisual item = null)
     {
         AddToClassList("itemSlot");
@@ -23,5 +23,11 @@ public class ItemSlotVisual : VisualElement
     {
         ItemVisual = item;
         Add(item);
+    }
+
+    public void RemoveItem()
+    {
+        Clear();
+        ItemVisual = null;
     }
 }

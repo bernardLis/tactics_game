@@ -16,13 +16,18 @@ MonoBehaviour:
   ReferenceID: CHARACTER-1
   CharacterName: Saitama
   Portrait: {fileID: 21300000, guid: f7497f4b4c9e84248ae4aed09f491cb9, type: 3}
-  Level: 1
+  Level: 10
   Experience: 0
-  Power: 10
   MaxHealth: 100
   MaxMana: 50
+  Power: 10
   Armor: 0
   MovementRange: 3
+  PowerBonus: 0
+  MaxHealthBonus: 0
+  MaxManaBonus: 10
+  ArmorBonus: 0
+  MovementRangeBonus: 0
   Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
   Weapon: {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
   Items:
@@ -31,6 +36,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities:
   - {fileID: 11400000, guid: 0adb4a7c87b26e14b9353ad0333020ac, type: 2}
-  - {fileID: 11400000, guid: 985bd44d1dabcac4c96cf70535e14b77, type: 2}
-  - {fileID: 11400000, guid: f1adf215aef72934aaf79ac6996e1ff7, type: 2}
-  - {fileID: 11400000, guid: bfa7258571b89a34d9ca9eb4d89a42ce, type: 2}

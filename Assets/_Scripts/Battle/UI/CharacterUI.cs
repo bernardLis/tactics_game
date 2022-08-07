@@ -210,10 +210,10 @@ public class CharacterUI : Singleton<CharacterUI>
         // it's for simulating button clicks with the keyboard;
         string[] buttons = { "Q", "W", "E", "R" };
 
-        AbilityButton basicAttack = new(_selectedPlayerStats.BasicAbilities[0], "A", _root);
+        AbilityButton basicAttack = new(_selectedPlayerStats.BasicAbilities[0], "A");
         basicAttack.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicAttack));
 
-        AbilityButton basicDefend = new(_selectedPlayerStats.BasicAbilities[1], "S", _root);
+        AbilityButton basicDefend = new(_selectedPlayerStats.BasicAbilities[1], "S");
         basicDefend.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicDefend));
 
         _characterAbilitiesContainer.Clear();
@@ -222,7 +222,7 @@ public class CharacterUI : Singleton<CharacterUI>
 
         for (int i = 0; i < _selectedPlayerStats.Abilities.Count; i++)
         {
-            AbilityButton button = new(_selectedPlayerStats.Abilities[i], buttons[i], _root);
+            AbilityButton button = new(_selectedPlayerStats.Abilities[i], buttons[i]);
             button.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(button));
 
             _characterAbilitiesContainer.Add(button);

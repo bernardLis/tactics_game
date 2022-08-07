@@ -30,16 +30,26 @@ public class ShopManager : MonoBehaviour
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
     bool _isDragging;
-    bool _buying;
-    ItemSlotVisual _originalSlot;
-    ItemSlotVisual _newSlot;
-    VisualElement _dragDropContainer;
-    ItemVisual _draggedItem;
 
+    // Item drag & drop
+    bool _buyingItem;
+    ItemSlotVisual _originalItemSlot;
+    ItemSlotVisual _newItemSlot;
+    VisualElement _itemDragDropContainer;
+    ItemVisual _draggedItem;
     List<ItemSlotVisual> _allPlayerItemSlotVisuals = new();
     List<ItemSlotVisual> _playerPouchItemSlotVisuals = new();
 
+    // Ability drag & drop
+    bool _buyingAbility;
+    AbilitySlotVisual _originalAbilitySlot;
+    AbilitySlotVisual _newAbilitySlot;
+    VisualElement _abilityDragDropContainer;
+    AbilityButton _draggedAbility;
+
+    List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
+
 
     List<CharacterCardVisualShop> _characterCards = new();
 
@@ -58,13 +68,16 @@ public class ShopManager : MonoBehaviour
         _shopRerollButton = _root.Q<Button>("shopRerollButton");
         _shopRerollButton.clickable.clicked += Reroll;
 
-        _characterCardsContainer = _root.Q<VisualElement>("characterCardsContainer");
-
-        _playerItemPouch = _root.Q<VisualElement>("playerItemPouch");
-        _playerAbilityPouch = _root.Q<VisualElement>("playerAbilityPouch");
 
         _shopPlayerGoldAmount = _root.Q<Label>("shopPlayerGoldAmount");
         _shopPlayerGoldAmount.text = "" + _gameManager.Gold;
+
+        VisualElement pouchContainer = _root.Q<VisualElement>("pouchContainer");
+        pouchContainer.style.alignSelf = Align.FlexStart;
+        _playerItemPouch = _root.Q<VisualElement>("playerItemPouch");
+        _playerAbilityPouch = _root.Q<VisualElement>("playerAbilityPouch");
+
+        _characterCardsContainer = _root.Q<VisualElement>("characterCardsContainer");
 
         Button shopBackButton = _root.Q<Button>("shopBackButton");
         shopBackButton.clickable.clicked += Back;
@@ -72,7 +85,8 @@ public class ShopManager : MonoBehaviour
         Initialize();
 
         //drag and drop
-        _dragDropContainer = _root.Q<VisualElement>("dragDropContainer");
+        _itemDragDropContainer = _root.Q<VisualElement>("itemDragDropContainer");
+        _abilityDragDropContainer = _root.Q<VisualElement>("abilityDragDropContainer");
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -92,8 +106,8 @@ public class ShopManager : MonoBehaviour
     {
         if (!_wasVisited)
         {
-            PopulateItems();
-            PopulateAbilities();
+            PopulateShopItems();
+            PopulateShopAbilities();
         }
 
         _wasVisited = true;
@@ -109,13 +123,14 @@ public class ShopManager : MonoBehaviour
         {
             DisplayText(_shopRerollButton, "Insufficient funds", Color.red);
             return;
-
         }
+
         _gameManager.ChangeGoldValue(-1);
-        PopulateItems();
+        PopulateShopItems();
+        PopulateShopAbilities();
     }
 
-    void PopulateItems()
+    void PopulateShopItems()
     {
         _shopItemContainer.Clear();
         for (int i = 0; i < 3; i++)
@@ -125,11 +140,11 @@ public class ShopManager : MonoBehaviour
             container.style.alignItems = Align.Center;
 
             Item item = _gameManager.CharacterDatabase.GetRandomItem();
-            ItemVisual iv = new(item);
-            ItemSlotVisual itemSlot = new(iv);
+            ItemVisual itemVisual = new(item);
+            ItemSlotVisual itemSlot = new(itemVisual);
 
             //https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
-            iv.RegisterCallback<PointerDownEvent>(OnShopItemPointerDown);
+            itemVisual.RegisterCallback<PointerDownEvent>(OnShopItemPointerDown);
 
             container.Add(itemSlot);
             Label price = new Label("Price: " + item.Price);
@@ -140,7 +155,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void PopulateAbilities()
+    void PopulateShopAbilities()
     {
         _shopAbilityContainer.Clear();
         for (int i = 0; i < 3; i++)
@@ -150,10 +165,9 @@ public class ShopManager : MonoBehaviour
             container.style.alignItems = Align.Center;
 
             Ability ability = _gameManager.CharacterDatabase.GetRandomAbility();
-            AbilityButton abilityButton = new(ability, null, _root);
+            AbilityButton abilityButton = new(ability, null);
             AbilitySlotVisual abilitySlot = new(abilityButton);
 
-            //https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
             abilityButton.RegisterCallback<PointerDownEvent>(OnShopAbilityPointerDown);
 
             container.Add(abilitySlot);
@@ -183,12 +197,18 @@ public class ShopManager : MonoBehaviour
 
             foreach (ItemSlotVisual item in card.ItemSlots)
                 _allPlayerItemSlotVisuals.Add(item);
+
+            // allow moving character abilities
+            foreach (AbilityButton ability in card.AbilityButtons)
+                ability.RegisterCallback<PointerDownEvent>(OnPlayerAbilityPointerDown);
+
+            foreach (AbilitySlotVisual slot in card.AbilitySlots)
+                _allPlayerAbilitySlotVisuals.Add(slot);
         }
     }
 
     void PopulatePlayerPouches()
     {
-
         PopulatePlayerItemPouch();
         PopulatePlayerAbilityPouch();
     }
@@ -209,7 +229,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < _gameManager.PlayerItemPouch.Count; i++)
         {
             ItemVisual itemVisual = new(_gameManager.PlayerItemPouch[i]);
-            _playerPouchItemSlotVisuals[i].Add(itemVisual);
+            _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
             itemVisual.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
         }
     }
@@ -223,16 +243,15 @@ public class ShopManager : MonoBehaviour
         {
             AbilitySlotVisual slot = new AbilitySlotVisual();
             _playerAbilityPouch.Add(slot);
-            //                        _allPlayerItemSlotVisuals.Add(slot);
+            _allPlayerAbilitySlotVisuals.Add(slot);
             _playerPouchAbilitySlotVisuals.Add(slot);
         }
 
         for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count; i++)
         {
-            AbilityButton abilityButton = new(_gameManager.PlayerAbilityPouch[i], null, _root);
-            _playerPouchAbilitySlotVisuals[i].Add(abilityButton);
-
-            // abilityButton.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
+            AbilityButton abilityButton = new(_gameManager.PlayerAbilityPouch[i], null);
+            _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
+            abilityButton.RegisterCallback<PointerDownEvent>(OnPlayerAbilityPointerDown);
         }
 
     }
@@ -256,10 +275,10 @@ public class ShopManager : MonoBehaviour
         }
 
         ItemSlotVisual itemSlotVisual = (ItemSlotVisual)itemVisual.parent;
-        itemSlotVisual.Remove(itemVisual);
+        itemSlotVisual.RemoveItem();
 
-        _buying = true;
-        StartDrag(evt.position, itemSlotVisual, itemVisual);
+        _buyingItem = true;
+        StartItemDrag(evt.position, itemSlotVisual, itemVisual);
     }
 
     void OnPlayerItemPointerDown(PointerDownEvent evt)
@@ -269,45 +288,98 @@ public class ShopManager : MonoBehaviour
 
         ItemVisual itemVisual = (ItemVisual)evt.target;
         ItemSlotVisual itemSlotVisual = (ItemSlotVisual)itemVisual.parent;
-        itemSlotVisual.Remove(itemVisual);
+        itemSlotVisual.RemoveItem();
 
         _sellItemValueTooltip.text = $"Value: {itemVisual.Item.GetSellValue()}"; // TODO: money icon instead of "Value"
 
-        StartDrag(evt.position, itemSlotVisual, itemVisual);
+        StartItemDrag(evt.position, itemSlotVisual, itemVisual);
     }
 
     void OnShopAbilityPointerDown(PointerDownEvent evt)
     {
-        Debug.Log($"shop ability pointer down");
+        if (evt.button != 0)
+            return;
+
+        AbilityButton abilityButton = (AbilityButton)evt.currentTarget;
+        if (abilityButton.Ability.Price > _gameManager.Gold)
+        {
+            DisplayText(abilityButton, "Insufficient funds", Color.red);
+            return;
+        }
+        AbilitySlotVisual slotVisual = (AbilitySlotVisual)abilityButton.parent;
+        slotVisual.RemoveButton();
+
+        _buyingAbility = true;
+        StartAbilityDrag(evt.position, slotVisual, abilityButton);
+    }
+
+    void OnPlayerAbilityPointerDown(PointerDownEvent evt)
+    {
+        if (evt.button != 0)
+            return;
+
+        AbilityButton abilityButton = (AbilityButton)evt.currentTarget;
+        AbilitySlotVisual slotVisual = (AbilitySlotVisual)abilityButton.parent;
+        slotVisual.RemoveButton();
+
+        _sellItemValueTooltip.text = $"Value: {1}"; // TODO: money icon instead of "Value"
+
+        StartAbilityDrag(evt.position, slotVisual, abilityButton);
     }
 
 
     //drag & drop
-    public void StartDrag(Vector2 position, ItemSlotVisual originalSlot, ItemVisual draggedItem)
+    void StartItemDrag(Vector2 position, ItemSlotVisual originalSlot, ItemVisual draggedItem)
     {
         _draggedItem = draggedItem;
 
         //Set tracking variables
         _isDragging = true;
-        _originalSlot = originalSlot;
+        _originalItemSlot = originalSlot;
         //Set the new position
-        _dragDropContainer.style.top = position.y - _dragDropContainer.layout.height / 2;
-        _dragDropContainer.style.left = position.x - _dragDropContainer.layout.width / 2;
+        _itemDragDropContainer.style.top = position.y - _itemDragDropContainer.layout.height / 2;
+        _itemDragDropContainer.style.left = position.x - _itemDragDropContainer.layout.width / 2;
         //Set the image
-        _dragDropContainer.Add(draggedItem);
+        _itemDragDropContainer.Add(draggedItem);
         //Flip the visibility on
-        _dragDropContainer.style.visibility = Visibility.Visible;
+        _itemDragDropContainer.style.visibility = Visibility.Visible;
     }
 
-    private void OnPointerMove(PointerMoveEvent evt)
+    void StartAbilityDrag(Vector2 position, AbilitySlotVisual originalSlot, AbilityButton draggedAbility)
+    {
+        _draggedAbility = draggedAbility;
+
+        //Set tracking variables
+        _isDragging = true;
+        _originalAbilitySlot = originalSlot;
+        //Set the new position
+        _abilityDragDropContainer.style.top = position.y - _abilityDragDropContainer.layout.height / 2;
+        _abilityDragDropContainer.style.left = position.x - _abilityDragDropContainer.layout.width / 2;
+        //Set the image
+        _abilityDragDropContainer.Add(_draggedAbility);
+        //Flip the visibility on
+        _abilityDragDropContainer.style.visibility = Visibility.Visible;
+    }
+
+    void OnPointerMove(PointerMoveEvent evt)
     {
         //Only take action if the player is dragging an item around the screen
         if (!_isDragging)
             return;
 
-        //Set the new position
-        _dragDropContainer.style.top = evt.position.y - _dragDropContainer.layout.height / 2;
-        _dragDropContainer.style.left = evt.position.x - _dragDropContainer.layout.width / 2;
+        if (_draggedItem != null)
+        {
+            //Set the new position
+            _itemDragDropContainer.style.top = evt.position.y - _itemDragDropContainer.layout.height / 2;
+            _itemDragDropContainer.style.left = evt.position.x - _itemDragDropContainer.layout.width / 2;
+        }
+
+        if (_draggedAbility != null)
+        {
+            //Set the new position
+            _abilityDragDropContainer.style.top = evt.position.y - _abilityDragDropContainer.layout.height / 2;
+            _abilityDragDropContainer.style.left = evt.position.x - _abilityDragDropContainer.layout.width / 2;
+        }
     }
 
     private void OnPointerUp(PointerUpEvent evt)
@@ -315,7 +387,16 @@ public class ShopManager : MonoBehaviour
         if (!_isDragging)
             return;
 
-        if (_shopSellContainer.worldBound.Overlaps(_dragDropContainer.worldBound) && !_buying)
+        if (_draggedItem != null)
+            HandleItemPointerUp();
+
+        if (_draggedAbility != null)
+            HandleAbilityPointerUp();
+    }
+
+    void HandleItemPointerUp()
+    {
+        if (_shopSellContainer.worldBound.Overlaps(_itemDragDropContainer.worldBound) && !_buyingItem)
         {
             ItemSold();
             DragCleanUp();
@@ -324,22 +405,30 @@ public class ShopManager : MonoBehaviour
 
         //Check to see if they are dropping the ghost icon over any inventory slots.
         IEnumerable<ItemSlotVisual> slots = _allPlayerItemSlotVisuals.Where(x =>
-               x.worldBound.Overlaps(_dragDropContainer.worldBound));
+               x.worldBound.Overlaps(_itemDragDropContainer.worldBound));
 
         //Didn't find any (dragged off the window)
         if (slots.Count() == 0)
         {
-            _originalSlot.AddItem(_draggedItem);
+            _originalItemSlot.AddItem(_draggedItem);
             DragCleanUp();
             return;
         }
 
         //Found at least one
-        _newSlot = slots.OrderBy(x => Vector2.Distance
-           (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
+        _newItemSlot = slots.OrderBy(x => Vector2.Distance
+           (x.worldBound.position, _itemDragDropContainer.worldBound.position)).First();
+
+        if (_newItemSlot.ItemVisual != null)
+        {
+            _originalItemSlot.AddItem(_draggedItem);
+            DragCleanUp();
+            return;
+        }
+
         //Set the new inventory slot with the data
-        _newSlot.AddItem(_draggedItem);
-        if (_buying)
+        _newItemSlot.AddItem(_draggedItem);
+        if (_buyingItem)
             ItemBought();
         else
             ItemMoved();
@@ -350,8 +439,8 @@ public class ShopManager : MonoBehaviour
     {
         _gameManager.ChangeGoldValue(_draggedItem.Item.GetSellValue());
 
-        if (_originalSlot.Character != null)
-            _originalSlot.Character.RemoveItem(_draggedItem.Item);
+        if (_originalItemSlot.Character != null)
+            _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         else
             _gameManager.PlayerItemPouch.Remove(_draggedItem.Item);
     }
@@ -360,8 +449,8 @@ public class ShopManager : MonoBehaviour
     {
         _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
 
-        if (_newSlot.Character != null)
-            _newSlot.Character.AddItem(_draggedItem.Item);
+        if (_newItemSlot.Character != null)
+            _newItemSlot.Character.AddItem(_draggedItem.Item);
         else
             _gameManager.PlayerItemPouch.Add(_draggedItem.Item);
 
@@ -372,27 +461,114 @@ public class ShopManager : MonoBehaviour
 
     void ItemMoved()
     {
-        if (_originalSlot.Character != null)
-            _originalSlot.Character.RemoveItem(_draggedItem.Item);
+        if (_originalItemSlot.Character != null)
+            _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         else
             _gameManager.PlayerItemPouch.Remove(_draggedItem.Item);
 
-        if (_newSlot.Character != null)
-            _newSlot.Character.AddItem(_draggedItem.Item);
+        if (_newItemSlot.Character != null)
+            _newItemSlot.Character.AddItem(_draggedItem.Item);
 
         foreach (CharacterCardVisualShop card in _characterCards)
             card.Character.ResolveItems();
     }
 
+    void HandleAbilityPointerUp()
+    {
+        if (_shopSellContainer.worldBound.Overlaps(_abilityDragDropContainer.worldBound) && !_buyingAbility)
+        {
+            AbilitySold();
+            DragCleanUp();
+            return;
+        }
+
+        //Check to see if they are dropping the ghost icon over any inventory slots.
+        IEnumerable<AbilitySlotVisual> slots = _allPlayerAbilitySlotVisuals.Where(x =>
+               x.worldBound.Overlaps(_abilityDragDropContainer.worldBound));
+
+        //Didn't find any (dragged off the window)
+        if (slots.Count() == 0)
+        {
+            _originalAbilitySlot.AddButton(_draggedAbility);
+            DragCleanUp();
+            return;
+        }
+
+        //Found at least one
+        _newAbilitySlot = slots.OrderBy(x => Vector2.Distance
+           (x.worldBound.position, _abilityDragDropContainer.worldBound.position)).First();
+
+        if (_newAbilitySlot.AbilityButton != null)
+        {
+            _originalAbilitySlot.AddButton(_draggedAbility);
+            DragCleanUp();
+            return;
+        }
+
+        //Set the new inventory slot with the data
+        _newAbilitySlot.AddButton(_draggedAbility);
+
+        if (_buyingAbility)
+            AbilityBought();
+        else
+            AbilityMoved();
+        DragCleanUp();
+    }
+
+    void AbilitySold()
+    {
+        _gameManager.ChangeGoldValue(1);
+
+        if (_originalAbilitySlot.Character != null)
+            _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
+        else
+            _gameManager.PlayerAbilityPouch.Remove(_draggedAbility.Ability);
+    }
+
+    void AbilityBought()
+    {
+        _gameManager.ChangeGoldValue(-_draggedAbility.Ability.Price);
+
+        if (_newAbilitySlot.Character != null)
+            _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);
+        else
+            _gameManager.PlayerAbilityPouch.Add(_draggedAbility.Ability);
+
+        // unregister buy pointer and register sell pointer
+        _draggedAbility.UnregisterCallback<PointerDownEvent>(OnShopAbilityPointerDown);
+        _draggedAbility.RegisterCallback<PointerDownEvent>(OnPlayerAbilityPointerDown);
+    }
+
+    void AbilityMoved()
+    {
+        if (_originalAbilitySlot.Character != null)
+            _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
+        else
+            _gameManager.PlayerAbilityPouch.Remove(_draggedAbility.Ability);
+
+        if (_newAbilitySlot.Character != null)
+            _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);
+    }
+
     void DragCleanUp()
     {
         //Clear dragging related visuals and data
-        _buying = false;
         _isDragging = false;
-        _originalSlot = null;
+
+        _buyingItem = false;
+        _buyingAbility = false;
+
+        _originalItemSlot = null;
         _draggedItem = null;
-        _dragDropContainer.Clear();
-        _dragDropContainer.style.visibility = Visibility.Hidden;
+
+        _originalAbilitySlot = null;
+        _draggedAbility = null;
+
+        _itemDragDropContainer.Clear();
+        _itemDragDropContainer.style.visibility = Visibility.Hidden;
+
+        _abilityDragDropContainer.Clear();
+        _abilityDragDropContainer.style.visibility = Visibility.Hidden;
 
         _sellItemValueTooltip.text = "";
     }

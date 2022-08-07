@@ -18,9 +18,12 @@ public class CharacterCardVisualShop : CharacterCardVisual
     public CharacterCardVisualShop(Character character) : base(character, false)
     {
         AddToClassList("uiContainer");
+        style.maxHeight = 400;
+        style.maxWidth = 600;
+
 
         _characteristics.Add(CreateExpGroup(character));
-        
+
         VisualElement wrapper = new();
         wrapper.style.flexDirection = FlexDirection.Row;
         wrapper.style.width = Length.Percent(100);
@@ -85,7 +88,7 @@ public class CharacterCardVisualShop : CharacterCardVisual
     {
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
-        for (int i = 0; i < character.Abilities.Count; i++)
+        for (int i = 0; i < character.GetNumberOfAbilitySlots(); i++)
         {
             AbilitySlotVisual abilitySlot = new();
             abilitySlot.Character = character;
@@ -96,7 +99,7 @@ public class CharacterCardVisualShop : CharacterCardVisual
 
         for (int i = 0; i < character.Abilities.Count; i++)
         {
-            AbilityButton abilityButton = new AbilityButton(character.Abilities[i], null, null);
+            AbilityButton abilityButton = new AbilityButton(character.Abilities[i], null);
             AbilitySlots[i].AddButton(abilityButton);
             AbilityButtons.Add(abilityButton);
         }
