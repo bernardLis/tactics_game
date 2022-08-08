@@ -28,24 +28,18 @@ public class NewGameUI : MonoBehaviour
         _menuContainer = root.Q<VisualElement>("menuContainer");
         _newGameScreen = root.Q<VisualElement>("newGameContainer");
 
-        _confirmButton.clickable.clicked += StartNewGame;
+        _confirmButton.clickable.clicked += StartNewRun;
         _backButton.clickable.clicked += Back;
     }
 
-    void StartNewGame()
+    // TODO: this should be start a new run
+    void StartNewRun()
     {
         string txt = _nameField.text;
         if (txt == null)
             return; //TODO: display a tooltip that it can't be null;
 
-        // new save
-        string guid = System.Guid.NewGuid().ToString();
-        string fileName = guid + ".dat";
-        FileManager.CreateFile(fileName);
-        PlayerPrefs.SetString("lastSave", fileName);
-        PlayerPrefs.Save();
-
-        _gameManager.StartNewGame(fileName, txt);
+        _gameManager.StartNewRun(txt);
     }
 
     void Back()

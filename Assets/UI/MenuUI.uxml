@@ -3,7 +3,6 @@
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <ui:VisualElement name="menuContainer" class="menuScreen">
         <ui:Button text="Continue" display-tooltip-when-elided="true" name="continueButton" class="menuButton" />
-        <ui:Button text="Load Game" display-tooltip-when-elided="true" name="loadGameButton" class="menuButton" />
         <ui:Button text="Settings" display-tooltip-when-elided="true" name="settingsButton" class="menuButton" />
         <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="mainMenuButton" class="menuButton" />
         <ui:Button text="Quit" display-tooltip-when-elided="true" name="quitButton" class="menuButton" />

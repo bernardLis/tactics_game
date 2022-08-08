@@ -36,6 +36,8 @@ public class SettingsScreen : FullScreenVisual
         AddFullScreenToggle(graphicsContainer);
         AddRadioResolutionGroup(graphicsContainer);
 
+        AddClearSaveButton();
+
         AddBackButton();
     }
 
@@ -186,6 +188,24 @@ public class SettingsScreen : FullScreenVisual
     {
         _parent.Focus();
         base.Hide();
+    }
+
+    void AddClearSaveButton()
+    {
+
+        Button button = new();
+        button.AddToClassList("menuButton");
+        button.text = "Clear Save Data";
+        Add(button);
+        ConfirmPopUp popUp = new ConfirmPopUp();
+        button.clickable.clicked += () => popUp.Initialize(_root, ClearSaveData);
+    }
+
+    void ClearSaveData()
+    {
+        FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), "");
+        GameManager.Instance.LoadLevel(Scenes.MainMenu);
+        GameManager.Instance.LoadFromSaveFile(); // TODO: a better schema.
     }
 
 }

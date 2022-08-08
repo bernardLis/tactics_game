@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +14,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public Cutscene[] Cutscenes;
     int _currentCutSceneIndex = 0;
 
+    public int Obols { get; private set; }
+
+
     [Header("Unity Setup")]
+    public List<GlobalUpgrade> AllGlobalUpgrades;
+    List<GlobalUpgrade> _purchasedGlobalUpgrades;
+
     public CharacterDatabase CharacterDatabase;
     [SerializeField] JourneyEvent[] AllEvents;
 
@@ -37,18 +44,25 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     string _activeSave;
     string _currentLevel;
 
-
     public event Action<int> OnGoldChanged;
+    public event Action<int> OnObolsChanged;
 
     protected override void Awake()
     {
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
 
+        // global save per 'game'
+        if (PlayerPrefs.GetString("saveName").Length == 0)
+            CreateNewSaveFile();
+        else
+            LoadFromSaveFile();
+
         // copy array to list;
-        _availableEvents = new(AllEvents); // TODO: this should be membered per save
+        _availableEvents = new(AllEvents); // TODO: this should be membered per run
 
         // TODO: eee... I need a place to set player troops before the battle/journey start and then this should be gone
+        // keeping it for now but I can create player troops when starting new run, taking into consideration all bonuses
         if (PlayerTroops.Count == 0)
             CreatePlayerTroops();
 
@@ -56,27 +70,52 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10;
     }
 
-    public void StartNewGame(string activeSave, string playerName)
+    void CreateNewSaveFile()
+    {
+        // new save
+        string guid = System.Guid.NewGuid().ToString();
+        string fileName = guid + ".dat";
+        FileManager.CreateFile(fileName);
+        PlayerPrefs.SetString("saveName", fileName);
+        PlayerPrefs.Save();
+
+        SaveJsonData();
+    }
+
+    public void LoadFromSaveFile()
+    {
+        Debug.Log("loading from save file");
+        LoadJsonData(PlayerPrefs.GetString("saveName"));
+    }
+
+    public void PurchaseGlobalUpgrade(GlobalUpgrade upgrade)
+    {
+        _purchasedGlobalUpgrades.Add(upgrade);
+        SaveJsonData();
+    }
+
+    public void StartNewRun(string playerName)
     {
         PlayerName = playerName;
 
         _currentLevel = Scenes.Cutscene;
-        StartGameFromSave(activeSave, true);
+        //StartGameFromSave(true);
     }
+    /*
+        public void StartGameFromSave(bool isNewGame = false)
+        {
+            if (!isNewGame)
+                LoadJsonData(fileName);
 
-    public void StartGameFromSave(string fileName, bool isNewGame = false)
-    {
-        if (!isNewGame)
-            LoadJsonData(fileName);
+            if (JourneySeed == 0)
+                JourneySeed = System.DateTime.Now.Millisecond;
 
-        if (JourneySeed == 0)
-            JourneySeed = System.DateTime.Now.Millisecond;
+            _activeSave = fileName;
 
-        _activeSave = fileName;
-
-        // TODO: here you need to know what level to load...
-        LoadLevel(_currentLevel);
-    }
+            // TODO: here you need to know what level to load...
+            LoadLevel(_currentLevel);
+        }
+        */
 
     public Cutscene GetCurrentCutScene()
     {
@@ -108,8 +147,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         string path = "Characters";
         Object[] playerCharacters = Resources.LoadAll(path, typeof(Character));
         PlayerTroops = new();
-        foreach (Character character in playerCharacters)// TODO: should I clone them?
-            PlayerTroops.Add(character);
+        foreach (Character character in playerCharacters)
+        {
+            Character instance = Instantiate(character);
+            foreach (GlobalUpgrade item in _purchasedGlobalUpgrades)
+                item.Initialize(instance); // adding global upgrades to characters
+            PlayerTroops.Add(instance);
+        }
     }
 
     public void SetPlayerTroops(List<Character> troops)
@@ -131,6 +175,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         VisitedJourneyNodes.Add(n);
         CurrentJourneyNode = n;
+    }
+
+    public void ChangeObolValue(int o)
+    {
+        Obols += o;
+        OnObolsChanged?.Invoke(Obols);
+        SaveJsonData();
     }
 
     public void ChangeGoldValue(int o)
@@ -167,15 +218,20 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
-        if (FileManager.WriteToFile(_activeSave, sd.ToJson()))
+        if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
             Debug.Log("Save successful");
     }
 
     public void PopulateSaveData(SaveData saveData)
     {
+        // global data
+        saveData.Obols = Obols;
+        saveData.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
+
+
+        // run data
         saveData.LastLevel = SceneManager.GetActiveScene().name;
         saveData.CutSceneIndex = _currentCutSceneIndex;
-        saveData.PlayerName = PlayerName;
         saveData.Gold = Gold;
         saveData.JourneySeed = JourneySeed;
         saveData.CurrentJourneyNode = CurrentJourneyNode;
@@ -183,6 +239,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.Characters = PopulateCharacters();
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
+    }
+
+    List<string> PopulatePurchasedGlobalUpgrades()
+    {
+        List<string> ids = new();
+        foreach (GlobalUpgrade upgrade in _purchasedGlobalUpgrades)
+            ids.Add(upgrade.Id);
+
+        return ids;
     }
 
     List<CharacterData> PopulateCharacters()
@@ -248,9 +313,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadFromSaveData(SaveData saveData)
     {
+        // global data
+        Obols = saveData.Obols;
+        foreach (string savedId in saveData.PurchasedGlobalUpgrades)
+            _purchasedGlobalUpgrades.Add(AllGlobalUpgrades.First(x => x.Id == savedId));
+
+        // run data
         _currentLevel = saveData.LastLevel;
         _currentCutSceneIndex = saveData.CutSceneIndex;
-        PlayerName = saveData.PlayerName;
         Gold = saveData.Gold;
         JourneySeed = saveData.JourneySeed;
         CurrentJourneyNode = saveData.CurrentJourneyNode;

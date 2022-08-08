@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 //https://github.com/UnityTechnologies/UniteNow20-Persistent-Data/blob/main/FileManager.cs
+//C:\Users\blis\AppData\LocalLow\DefaultCompany\Tactics Bu
 public static class FileManager
 {
     public static bool CreateFile(string fileName)
@@ -32,6 +33,7 @@ public static class FileManager
         if (fileName == null)
             return false;
 
+        Debug.Log($"writing to file: {fileContents}");
         var fullPath = Path.Combine(Application.persistentDataPath, fileName);
         try
         {
@@ -60,18 +62,6 @@ public static class FileManager
             result = "";
             return false;
         }
-    }
-
-    public static string[] LoadALlSaveFiles()
-    {
-        string path = Application.persistentDataPath;
-
-        string[] filesWithPath = Directory.GetFiles(path);
-        string[] files = new string[filesWithPath.Length];
-        for (int i = 0; i < filesWithPath.Length; i++)
-            files[i] = Path.GetFileName(filesWithPath[i]);
-
-        return files;
     }
 
     public static bool DeleteFile(string fileName)

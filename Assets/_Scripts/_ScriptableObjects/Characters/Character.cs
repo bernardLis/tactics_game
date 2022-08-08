@@ -86,6 +86,20 @@ public class Character : BaseScriptableObject
             Weapon.Initialize(weaponObj.gameObject);
     }
 
+    public void ChangeStat(string stat, int value)
+    {
+        if (stat == "MaxHealth")
+            MaxHealth += value;
+        if (stat == "MaxMana")
+            MaxMana += value;
+        if (stat == "Power")
+            Power += value;
+        if (stat == "Armor")
+            Armor += value;
+        if (stat == "MovementRange")
+            MovementRange += value;
+    }
+
     public int GetStatValue(string stat)
     {
         if (stat == "MaxHealth")

@@ -6,6 +6,11 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    // global data
+    public int Obols;
+    public List<string> PurchasedGlobalUpgrades = new();
+
+    // run data
     public string LastLevel;
     public int CutSceneIndex; // TODO: I doubt it is the correct way yo handle it.
     public string PlayerName;
