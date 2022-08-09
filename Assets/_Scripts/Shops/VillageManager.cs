@@ -22,6 +22,9 @@ public class VillageManager : Singleton<VillageManager>
         VisualElement shopPicture = _root.Q<VisualElement>("shopPicture");
         _shop = _root.Q<VisualElement>("shop");
 
+        Button b = _root.Q<Button>("backToJourney");
+        b.clickable.clicked += BackToJourney;
+
         shopPicture.RegisterCallback<MouseDownEvent>(ShowShop);
     }
 
@@ -42,6 +45,11 @@ public class VillageManager : Singleton<VillageManager>
         _shop.style.display = DisplayStyle.None;
 
         _mainScreen.style.display = DisplayStyle.Flex;
+    }
+
+    void BackToJourney()
+    {
+        GameManager.Instance.LoadLevel(Scenes.Journey);
     }
 
 }

@@ -63,7 +63,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void PurchaseGlobalUpgrade(GlobalUpgrade upgrade)
     {
         PurchasedGlobalUpgrades.Add(upgrade);
-        ChangeObolValue(upgrade.Price);
+        ChangeObolValue(-upgrade.Price);
         SaveJsonData();
     }
 
@@ -74,6 +74,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void StartNewRun()
     {
+        ClearRunData();
         _runManager.InitializeNewRun();
         // check whether player beat tutorial or not
         if (WasTutorialPlayed)
@@ -245,7 +246,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         _runManager.PlayerAbilityPouch = new();
         foreach (string abilityReferenceId in saveData.AbilityPouch)
             _runManager.PlayerAbilityPouch.Add(CharacterDatabase.GetAbilityByReferenceID(abilityReferenceId));
-
 
         _currentLevel = saveData.LastLevel;
     }

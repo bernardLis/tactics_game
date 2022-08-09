@@ -37,9 +37,23 @@ public class RunManager : Singleton<RunManager>
         _availableEvents = new(_gameManager.AllEvents);
 
         JourneySeed = System.DateTime.Now.Millisecond;
+        WasJourneySetUp = false;
+        CurrentJourneyNode = new JourneyNodeData();
+        JourneyPaths = new();
+        VisitedJourneyNodes = new();
 
         CreatePlayerTroops();
         Gold = 0;
+        PlayerItemPouch = new();
+        PlayerAbilityPouch = new();
+
+        CurrentNode = null;
+        Reward = null;
+
+        foreach (GlobalUpgrade item in _gameManager.PurchasedGlobalUpgrades)
+            if (item.UpgradeType == UpgradeType.Run)
+                item.Initialize();
+
         _gameManager.SaveJsonData();
     }
 
@@ -59,7 +73,11 @@ public class RunManager : Singleton<RunManager>
         {
             Character instance = Instantiate(character);
             foreach (GlobalUpgrade item in _gameManager.PurchasedGlobalUpgrades)
-                item.Initialize(instance);
+                if (item is GlobalCharacterUpgrade)
+                {
+                    GlobalCharacterUpgrade i = (GlobalCharacterUpgrade)item;
+                    i.Initialize(instance);
+                }
             PlayerTroops.Add(instance);
         }
     }

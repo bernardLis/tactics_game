@@ -229,8 +229,8 @@ public class SettingsScreen : FullScreenVisual
     void ClearSaveData()
     {
         FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), "");
-        GameManager.Instance.LoadLevel(Scenes.MainMenu);
         GameManager.Instance.LoadFromSaveFile(); // TODO: a better schema.
+        GameManager.Instance.LoadLevel(Scenes.MainMenu);
     }
 
 }

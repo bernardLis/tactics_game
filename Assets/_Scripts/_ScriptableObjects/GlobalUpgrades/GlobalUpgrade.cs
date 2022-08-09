@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UpgradeType { Character, Run }
+
 public class GlobalUpgrade : BaseScriptableObject
 {
     public int Price;
     public Sprite Sprite;
     public string Tooltip;
+    public UpgradeType UpgradeType;
 
+    public virtual void Initialize()
+    {
+
+    }
     public virtual void Initialize(Character character)
     {
-        // meant to be overwritten;
-    }
 
+    }
 
 }

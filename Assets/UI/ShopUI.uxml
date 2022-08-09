@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <Style src="project://database/Assets/UI/UIStyles/ShopStyles.uss?fileID=7433441132597879392&amp;guid=4f3e1d4c86ad20d41919877b730bf95a&amp;type=3#ShopStyles" />
-    <ui:VisualElement name="mainScreen" style="width: 100%; height: 100%; flex-direction: row; display: none;">
+    <ui:VisualElement name="mainScreen" style="width: 100%; height: 100%; flex-direction: row; display: flex;">
         <ui:VisualElement name="shopPicture" class="shopPicture" style="background-image: url(&apos;project://database/Assets/Sprites/Shop/pexels-jmtphotography-3680094.jpg?fileID=2800000&amp;guid=45a8ce4dee024eb40a862728e05ee89c&amp;type=3#pexels-jmtphotography-3680094&apos;); align-items: center; flex-grow: 1; flex-shrink: 0;">
             <ui:Label text="Shop" display-tooltip-when-elided="true" class="textPrimary" />
         </ui:VisualElement>
@@ -9,7 +9,7 @@
             <ui:Label text="Bank" display-tooltip-when-elided="true" class="textPrimary" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="shop" style="display: flex; width: 100%; height: 100%; flex-direction: row;">
+    <ui:VisualElement name="shop" style="display: none; width: 100%; height: 100%; flex-direction: row;">
         <ui:VisualElement name="shopWrapper" style="flex-direction: column; border-bottom-width: 4px; width: 30%; align-items: center;">
             <ui:VisualElement name="shopBuyContainer" class="uiContainer" style="width: 70%; align-items: center;">
                 <ui:Label text="Buy" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center;" />
@@ -67,4 +67,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="itemDragDropContainer" style="visibility: hidden; position: absolute; width: 75px; height: 75px;" />
     <ui:VisualElement name="abilityDragDropContainer" style="visibility: hidden; position: absolute; width: 120px; height: 120px;" />
+    <ui:VisualElement style="position: absolute; bottom: 0;">
+        <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" class="menuButton" />
+    </ui:VisualElement>
 </ui:UXML>

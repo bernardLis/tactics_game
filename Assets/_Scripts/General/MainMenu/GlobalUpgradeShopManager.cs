@@ -39,7 +39,7 @@ public class GlobalUpgradeShopManager : MonoBehaviour
     void BuyUpgrade(PointerDownEvent evt)
     {
         GlobalUpgradeVisual visual = (GlobalUpgradeVisual)evt.currentTarget;
-        if (_gameManager.Obols <= visual.Upgrade.Price)
+        if (_gameManager.Obols < visual.Upgrade.Price)
         {
             DisplayText(visual, "Insufficient funds", Color.red);
             return;
