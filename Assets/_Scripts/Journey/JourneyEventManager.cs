@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class JourneyEventManager : MonoBehaviour
 {
     GameManager _gameManager;
+    RunManager _runManager;
 
     Label _eventDescription;
     VisualElement _eventWrapper;
@@ -24,6 +25,7 @@ public class JourneyEventManager : MonoBehaviour
     void Awake()
     {
         _gameManager = GameManager.Instance;
+        _runManager = RunManager.Instance;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
         _eventWrapper = root.Q<VisualElement>("eventWrapper");
@@ -44,7 +46,7 @@ public class JourneyEventManager : MonoBehaviour
 
     void SetupEvent()
     {
-        _journeyEvent = _gameManager.ChooseEvent();
+        _journeyEvent = _runManager.ChooseEvent();
 
         _eventWrapper.style.backgroundImage = _journeyEvent.Background.texture;
         _eventDescription.text = _journeyEvent.Description;
@@ -75,7 +77,7 @@ public class JourneyEventManager : MonoBehaviour
         Button clickedButton = _evt.target as Button;
         clickedButton.style.backgroundColor = Color.black;
         int index = int.Parse(clickedButton.userData.ToString()); // TODO: dunno if a good idea 
-        _gameManager.SetNodeReward(_journeyEvent.Options[index].Reward);
+        _runManager.SetNodeReward(_journeyEvent.Options[index].Reward);
 
         _responseLabel.text = _journeyEvent.Options[index].Response;
         _obolAmountLabel.text = _journeyEvent.Options[index].Reward.gold.ToString();

@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class GameUIManager : MonoBehaviour
 {
     GameManager _gameManager;
+    RunManager _runManager;
+
     PlayerInput _playerInput;
 
     UIDocument _uiDocument;
@@ -19,6 +21,7 @@ public class GameUIManager : MonoBehaviour
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _runManager = RunManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         UnsubscribeInputActions();
         SubscribeInputActions();
@@ -56,7 +59,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == Scenes.Cutscene)
         {
-            SkipCutscene();
+            CutsceneManager.Instance.SkipCutscene();
             return;
         }
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
@@ -66,13 +69,6 @@ public class GameUIManager : MonoBehaviour
         _menuScreen.OnClose += MenuScreenClosed;
         _playerInput.actions["OpenMenuClick"].performed -= ToggleMenu;
 
-    }
-
-    void SkipCutscene()
-    {
-        AudioManager.Instance.StopDialogue();
-        _gameManager.LoadLevel(_gameManager.GetCurrentCutScene().NextLevelName);
-        _gameManager.CutscenePlayed();
     }
 
     void MenuScreenClosed()
@@ -90,13 +86,13 @@ public class GameUIManager : MonoBehaviour
 
     public void ShowTroopsScreenNoContext()
     {
-        if (SceneManager.GetActiveScene().name == "Main Menu")
+        if (SceneManager.GetActiveScene().name == "MainMenu")
             return;
 
         if (_viewTroopsScreen != null)
             _viewTroopsScreen.Hide();
 
-        _viewTroopsScreen = new ViewTroopsScreen(_gameManager.PlayerTroops, _uiDocument.rootVisualElement);
+        _viewTroopsScreen = new ViewTroopsScreen(_runManager.PlayerTroops, _uiDocument.rootVisualElement);
         _viewTroopsScreen.AddToClassList("menuScreen");
         _viewTroopsScreen.OnClose += TroopsScreenClosed;
     }

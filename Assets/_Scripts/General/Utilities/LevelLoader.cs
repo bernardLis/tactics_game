@@ -16,6 +16,8 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(string newScene)
     {
+        GameManager.Instance.SetPreviousLevel(SceneManager.GetActiveScene().name);
+
         DOTween.KillAll();
 
         // fade out opacity 0 -> 1

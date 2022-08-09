@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine.UIElements;
 
-public class CutsceneManager : MonoBehaviour
+public class CutsceneManager : Singleton<CutsceneManager>
 {
     GameManager _gameManager;
     AudioManager _audioManager;
     CutsceneCameraManager _cameraManager;
 
+    public Cutscene[] AllCutscenes;
     Cutscene _cutscene;
 
     Label _text;
@@ -19,6 +20,13 @@ public class CutsceneManager : MonoBehaviour
     int _activeRendererIndex = 0;
 
     float _additionalDelay = 1.2f;
+
+    bool _skippingCutscene; // to block clicks
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     void Start()
     {
@@ -29,12 +37,22 @@ public class CutsceneManager : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
         _text = root.Q<Label>("text");
 
+        _skippingCutscene = false;
+
+        _cutscene = ChooseCutscene();
         RunScene();
+    }
+
+    // TODO: this is wrong but for now it is fine.
+    Cutscene ChooseCutscene()
+    {
+        if (_gameManager.PreviousLevel == Scenes.MainMenu)
+            return AllCutscenes[0];
+        return AllCutscenes[0];
     }
 
     async void RunScene()
     {
-        _cutscene = _gameManager.GetCurrentCutScene();
         _audioManager.PlayMusic(_cutscene.Music);
 
         await Task.Delay(500);
@@ -43,7 +61,6 @@ public class CutsceneManager : MonoBehaviour
             await DisplayCutscene(c);
 
         await Task.Delay(1000);
-        _gameManager.CutscenePlayed();
         _gameManager.LoadLevel(_cutscene.NextLevelName);
     }
 
@@ -99,5 +116,15 @@ public class CutsceneManager : MonoBehaviour
         }
     }
 
+
+    public void SkipCutscene()
+    {
+        if (_skippingCutscene)
+            return;
+        _skippingCutscene = true;
+
+        AudioManager.Instance.StopDialogue();
+        _gameManager.LoadLevel(_cutscene.NextLevelName);
+    }
 
 }

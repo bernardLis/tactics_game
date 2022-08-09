@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class ConfirmPopUp : VisualElement
 {
     VisualElement _root;
-    public void Initialize(VisualElement root, Action callback)
+    public void Initialize(VisualElement root, Action callback, string displayText = null)
     {
         _root = root;
         root.Add(this);
@@ -27,7 +27,10 @@ public class ConfirmPopUp : VisualElement
 
         style.backgroundColor = new Color(0.3f, 0.3f, 0.3f, 0.5f);
 
-        Label confirm = new Label("Are you sure?");
+        if (displayText == null)
+            displayText = "Are you sure?";
+
+        Label confirm = new Label(displayText);
         confirm.AddToClassList("textPrimary");
         Add(confirm);
         AddButtons(callback);

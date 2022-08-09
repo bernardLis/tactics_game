@@ -4,7 +4,8 @@ using UnityEngine;
 public class BattleDeploymentController : MonoBehaviour
 {
     // global utility
-    GameManager _gameManager;
+    RunManager _runManager;
+
     HighlightManager _highlighter;
     InfoCardUI _infoCardUI;
     MovePointController _movePointController;
@@ -16,7 +17,7 @@ public class BattleDeploymentController : MonoBehaviour
 
     void Start()
     {
-        _gameManager = GameManager.Instance;
+        _runManager = RunManager.Instance;
         _highlighter = HighlightManager.Instance;
         _infoCardUI = InfoCardUI.Instance;
         _movePointController = MovePointController.Instance;
@@ -24,7 +25,7 @@ public class BattleDeploymentController : MonoBehaviour
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
         MovePointController.OnMove += MovePointController_OnMove;
 
-        _charactersToPlace = new(_gameManager.PlayerTroops);
+        _charactersToPlace = new(_runManager.PlayerTroops);
     }
 
     void OnDestroy()

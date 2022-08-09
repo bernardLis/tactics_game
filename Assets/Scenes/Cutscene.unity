@@ -294,6 +294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef37a7a6aafc5468a9a1cb467d9215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllCutscenes:
+  - {fileID: 11400000, guid: 68e749ab2331d26429c8b481dc4023e3, type: 2}
+  - {fileID: 11400000, guid: 348e94e2b7bcb344682551f7fc4bb50b, type: 2}
   _pictureRenderers:
   - {fileID: 1713072204}
   - {fileID: 324872480}

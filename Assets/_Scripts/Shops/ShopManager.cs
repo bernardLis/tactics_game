@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 public class ShopManager : MonoBehaviour
 {
     GameManager _gameManager;
+    RunManager _runManager;
 
     VisualElement _root;
 
@@ -56,7 +57,8 @@ public class ShopManager : MonoBehaviour
     void Awake()
     {
         _gameManager = GameManager.Instance;
-        _gameManager.OnGoldChanged += OnGoldChanged;
+        _runManager = RunManager.Instance;
+        _runManager.OnGoldChanged += OnGoldChanged;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -70,7 +72,7 @@ public class ShopManager : MonoBehaviour
 
 
         _shopPlayerGoldAmount = _root.Q<Label>("shopPlayerGoldAmount");
-        _shopPlayerGoldAmount.text = "" + _gameManager.Gold;
+        _shopPlayerGoldAmount.text = "" + _runManager.Gold;
 
         VisualElement pouchContainer = _root.Q<VisualElement>("pouchContainer");
         pouchContainer.style.alignSelf = Align.FlexStart;
@@ -94,7 +96,7 @@ public class ShopManager : MonoBehaviour
 
     void OnDestroy()
     {
-        _gameManager.OnGoldChanged -= OnGoldChanged;
+        _runManager.OnGoldChanged -= OnGoldChanged;
     }
 
     void OnGoldChanged(int amount)
@@ -119,13 +121,13 @@ public class ShopManager : MonoBehaviour
 
     void Reroll()
     {
-        if (_gameManager.Gold <= 0)
+        if (_runManager.Gold <= 0)
         {
             DisplayText(_shopRerollButton, "Insufficient funds", Color.red);
             return;
         }
 
-        _gameManager.ChangeGoldValue(-1);
+        _runManager.ChangeGoldValue(-1);
         PopulateShopItems();
         PopulateShopAbilities();
     }
@@ -183,7 +185,7 @@ public class ShopManager : MonoBehaviour
     {
         _characterCards.Clear();
         _characterCardsContainer.Clear();
-        List<Character> characters = new(_gameManager.PlayerTroops);
+        List<Character> characters = new(_runManager.PlayerTroops);
 
         foreach (Character c in characters)
         {
@@ -226,9 +228,9 @@ public class ShopManager : MonoBehaviour
             _playerPouchItemSlotVisuals.Add(slot);
         }
 
-        for (int i = 0; i < _gameManager.PlayerItemPouch.Count; i++)
+        for (int i = 0; i < _runManager.PlayerItemPouch.Count; i++)
         {
-            ItemVisual itemVisual = new(_gameManager.PlayerItemPouch[i]);
+            ItemVisual itemVisual = new(_runManager.PlayerItemPouch[i]);
             _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
             itemVisual.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
         }
@@ -247,9 +249,9 @@ public class ShopManager : MonoBehaviour
             _playerPouchAbilitySlotVisuals.Add(slot);
         }
 
-        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count; i++)
+        for (int i = 0; i < _runManager.PlayerAbilityPouch.Count; i++)
         {
-            AbilityButton abilityButton = new(_gameManager.PlayerAbilityPouch[i], null);
+            AbilityButton abilityButton = new(_runManager.PlayerAbilityPouch[i], null);
             _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
             abilityButton.RegisterCallback<PointerDownEvent>(OnPlayerAbilityPointerDown);
         }
@@ -268,7 +270,7 @@ public class ShopManager : MonoBehaviour
             return;
 
         ItemVisual itemVisual = (ItemVisual)evt.target;
-        if (itemVisual.Item.Price > _gameManager.Gold)
+        if (itemVisual.Item.Price > _runManager.Gold)
         {
             DisplayText(itemVisual, "Insufficient funds", Color.red);
             return;
@@ -301,7 +303,7 @@ public class ShopManager : MonoBehaviour
             return;
 
         AbilityButton abilityButton = (AbilityButton)evt.currentTarget;
-        if (abilityButton.Ability.Price > _gameManager.Gold)
+        if (abilityButton.Ability.Price > _runManager.Gold)
         {
             DisplayText(abilityButton, "Insufficient funds", Color.red);
             return;
@@ -437,22 +439,22 @@ public class ShopManager : MonoBehaviour
 
     void ItemSold()
     {
-        _gameManager.ChangeGoldValue(_draggedItem.Item.GetSellValue());
+        _runManager.ChangeGoldValue(_draggedItem.Item.GetSellValue());
 
         if (_originalItemSlot.Character != null)
             _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         else
-            _gameManager.PlayerItemPouch.Remove(_draggedItem.Item);
+            _runManager.RemoveItemFromPouch(_draggedItem.Item);
     }
 
     void ItemBought()
     {
-        _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
+        _runManager.ChangeGoldValue(-_draggedItem.Item.Price);
 
         if (_newItemSlot.Character != null)
             _newItemSlot.Character.AddItem(_draggedItem.Item);
         else
-            _gameManager.PlayerItemPouch.Add(_draggedItem.Item);
+            _runManager.AddItemToPouch(_draggedItem.Item);
 
         // unregister buy pointer and register sell pointer
         _draggedItem.UnregisterCallback<PointerDownEvent>(OnShopItemPointerDown);
@@ -464,7 +466,7 @@ public class ShopManager : MonoBehaviour
         if (_originalItemSlot.Character != null)
             _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         else
-            _gameManager.PlayerItemPouch.Remove(_draggedItem.Item);
+            _runManager.RemoveItemFromPouch(_draggedItem.Item);
 
         if (_newItemSlot.Character != null)
             _newItemSlot.Character.AddItem(_draggedItem.Item);
@@ -517,22 +519,22 @@ public class ShopManager : MonoBehaviour
 
     void AbilitySold()
     {
-        _gameManager.ChangeGoldValue(1);
+        _runManager.ChangeGoldValue(1);
 
         if (_originalAbilitySlot.Character != null)
             _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
         else
-            _gameManager.PlayerAbilityPouch.Remove(_draggedAbility.Ability);
+            _runManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
     }
 
     void AbilityBought()
     {
-        _gameManager.ChangeGoldValue(-_draggedAbility.Ability.Price);
+        _runManager.ChangeGoldValue(-_draggedAbility.Ability.Price);
 
         if (_newAbilitySlot.Character != null)
             _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);
         else
-            _gameManager.PlayerAbilityPouch.Add(_draggedAbility.Ability);
+            _runManager.AddAbilityToPouch(_draggedAbility.Ability);
 
         // unregister buy pointer and register sell pointer
         _draggedAbility.UnregisterCallback<PointerDownEvent>(OnShopAbilityPointerDown);
@@ -544,7 +546,7 @@ public class ShopManager : MonoBehaviour
         if (_originalAbilitySlot.Character != null)
             _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
         else
-            _gameManager.PlayerAbilityPouch.Remove(_draggedAbility.Ability);
+            _runManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
 
         if (_newAbilitySlot.Character != null)
             _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);

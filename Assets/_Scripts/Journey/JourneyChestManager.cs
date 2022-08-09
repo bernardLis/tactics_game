@@ -9,6 +9,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
 {
     // global
     GameManager _gameManager;
+    RunManager _runManger;
 
     ResponsiveCamera _cam;
 
@@ -49,6 +50,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
 
         // global
         _gameManager = GameManager.Instance;
+        _runManger = RunManager.Instance;
         _cam = Camera.main.GetComponent<ResponsiveCamera>();
 
         // UI
@@ -149,7 +151,7 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
 
         _obolAmountLabel.text = "0";
 
-        _gameManager.SetNodeReward(rewardInstance);
+        _runManger.SetNodeReward(rewardInstance);
         StartCoroutine(ChangeGoldCoroutine(rewardInstance.gold));
 
         _difficultyAdjustWrapper.style.display = DisplayStyle.None;

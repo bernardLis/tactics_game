@@ -4,6 +4,7 @@ using System.Linq;
 [CreateAssetMenu(menuName = "ScriptableObject/CharacterDatabase")]
 public class CharacterDatabase : BaseScriptableObject
 {
+    public Character[] StarterTroops;
     public PortraitEntry[] Portraits;
     public Equipment[] Bodies;
     public Weapon[] Weapons;

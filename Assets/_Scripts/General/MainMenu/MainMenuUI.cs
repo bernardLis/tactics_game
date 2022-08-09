@@ -16,7 +16,6 @@ public class MainMenuUI : MonoBehaviour
     Button _quitButton;
 
     VisualElement _menuContainer;
-    VisualElement _newGameScreen;
     VisualElement _shopContainer;
     VisualElement _settingsContainer;
 
@@ -35,7 +34,6 @@ public class MainMenuUI : MonoBehaviour
         _quitButton = _root.Q<Button>("quitButton");
 
         _menuContainer = _root.Q<VisualElement>("menuContainer");
-        _newGameScreen = _root.Q<VisualElement>("newGameContainer");
         _shopContainer = _root.Q<VisualElement>("shopContainer");
         _settingsContainer = _root.Q<VisualElement>("settingsContainer");
 
@@ -74,33 +72,25 @@ public class MainMenuUI : MonoBehaviour
 
     void ResolveContinueButton()
     {
-        // TODO: continue only works if there is a run in progress;
-
-        /*
-        string lastSave = PlayerPrefs.GetString("lastSave");
-        if (lastSave == null || !FileManager.FileExists(lastSave))
+        if (!_gameManager.IsRunActive())
             _continueButton.SetEnabled(false);
-        */
     }
 
     void Continue()
     {
-        /*
-        string lastSave = PlayerPrefs.GetString("lastSave");
-
-        if (lastSave == null)
-            return;
-        if (!FileManager.FileExists(lastSave))
-            return;
-        */
-        // _gameManager.StartGameFromSave(lastSave);
+        _gameManager.ResumeLastRun();
     }
 
     void StartNewGame()
     {
-        // TODO: I could make a transition with dotween
-        _menuContainer.style.display = DisplayStyle.None;
-        _newGameScreen.style.display = DisplayStyle.Flex;
+        if (!_gameManager.IsRunActive())
+        {
+            _gameManager.StartNewRun();
+            return;
+        }
+
+        ConfirmPopUp popUp = new ConfirmPopUp();
+        popUp.Initialize(_root, () => _gameManager.StartNewRun(), "Are you sure? It will clear run that is in progress.");
     }
 
     void OpenShop()
@@ -109,6 +99,7 @@ public class MainMenuUI : MonoBehaviour
         _menuContainer.style.display = DisplayStyle.None;
         _shopContainer.style.display = DisplayStyle.Flex;
     }
+
 
     void Settings()
     {

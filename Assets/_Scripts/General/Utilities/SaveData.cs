@@ -7,17 +7,17 @@ using UnityEngine;
 public class SaveData
 {
     // global data
+    public bool WasTutorialPlayed;
     public int Obols;
     public List<string> PurchasedGlobalUpgrades = new();
 
     // run data
     public string LastLevel;
-    public int CutSceneIndex; // TODO: I doubt it is the correct way yo handle it.
-    public string PlayerName;
     public int JourneySeed; // this reproduces paths with bridges and nodes 
     public int Gold;
     public List<JourneyNodeData> VisitedJourneyNodes = new();
     public JourneyNodeData CurrentJourneyNode;
+    
     public List<CharacterData> Characters = new();
     public List<string> ItemPouch = new();
     public List<string> AbilityPouch = new();

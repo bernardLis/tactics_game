@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3e401684ba21fd46b4f6e1837529da0, type: 3}
-  m_Name: Battle
+  m_Name: Shop
   m_EditorClassIdentifier: 
   Id: 8dae5fa0-122f-43a3-8ac7-bc28051dee85
-  NodeIndexRange: {x: 1, y: 2}
+  NodeIndexRange: {x: 0, y: 1}
   Nodes:
-  - {fileID: 11400000, guid: acf1dce2041a6b44da3848b421aebe7c, type: 2}
+  - {fileID: 11400000, guid: 5a64553ae8853d140b8b3de236d5677d, type: 2}
   ChanceToIgnore: 0

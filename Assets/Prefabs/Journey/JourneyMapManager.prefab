@@ -66,6 +66,7 @@ MonoBehaviour:
   _numberOfRows: 7
   _numberOfBridges: 5
   _basicConfigs:
+  - {fileID: 11400000, guid: 9199ec4c3a877f745886e2c14f22fdbe, type: 2}
   - {fileID: 11400000, guid: 48b63e31052747e439be636f588bd7b8, type: 2}
   - {fileID: 11400000, guid: e5776c8dc62eacf4d8be1de62bd97cca, type: 2}
   - {fileID: 11400000, guid: d45fee76690705842bd937e929c708b7, type: 2}
@@ -77,7 +78,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7ed25c6cd159ffa4dae0300caebb88d4, type: 3}
   _journeyNodes:
   - {fileID: 11400000, guid: acf1dce2041a6b44da3848b421aebe7c, type: 2}
-  - {fileID: 11400000, guid: 3df89724e51fe5542b597a2b6b5998e1, type: 2}
+  - {fileID: 11400000, guid: 5a64553ae8853d140b8b3de236d5677d, type: 2}
   - {fileID: 11400000, guid: cc0d04158ce232a46832bad9060d07ec, type: 2}
   - {fileID: 11400000, guid: 8dbb94a5cdc6ec547902bb1eecaa5aa8, type: 2}
   - {fileID: 11400000, guid: d219158be8803d243a25d93b40f5d925, type: 2}

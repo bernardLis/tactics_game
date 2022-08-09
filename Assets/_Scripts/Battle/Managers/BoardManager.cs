@@ -14,7 +14,7 @@ public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 public class BoardManager : Singleton<BoardManager>
 {
     // global
-    GameManager _gameManager;
+    RunManager _runManager;
     HighlightManager _highlighter;
     TurnManager _turnManager;
     BattleManager _battleManager;
@@ -64,13 +64,13 @@ public class BoardManager : Singleton<BoardManager>
 
     void Start()
     {
-        _gameManager = GameManager.Instance;
+        _runManager = RunManager.Instance;
         _highlighter = HighlightManager.Instance;
         _turnManager = TurnManager.Instance;
         _battleManager = BattleManager.Instance;
         _audioManager = AudioManager.Instance;
 
-        _battleNode = (BattleNode)_gameManager.CurrentNode;
+        _battleNode = (BattleNode)_runManager.CurrentNode;
         _biome = _battleNode.Biome;
         _mapVariant = _battleNode.MapVariant;
         MapSize = _battleNode.MapSize;
@@ -865,7 +865,7 @@ public class BoardManager : Singleton<BoardManager>
             }
 
             EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
-            List<Character> sortedPlayerCharacters = _gameManager.PlayerTroops.OrderBy(o => o.Level).ToList();
+            List<Character> sortedPlayerCharacters = _runManager.PlayerTroops.OrderBy(o => o.Level).ToList();
             sortedPlayerCharacters.Reverse(); // highest first
             int playerLevel = sortedPlayerCharacters[0].Level;
             enemySO.CreateEnemy(playerLevel + 2, brain);

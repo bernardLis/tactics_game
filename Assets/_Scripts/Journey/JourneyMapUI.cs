@@ -35,8 +35,7 @@ public class JourneyMapUI : MonoBehaviour
 
     void Start()
     {
-        _playerName.text = "Welcome King " + _gameManager.PlayerName;
-        _currencyAmount.text = _gameManager.Gold.ToString();
+        _currencyAmount.text = RunManager.Instance.Gold.ToString();
     }
 
     public void ChangeGold(int start, int end)

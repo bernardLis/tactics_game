@@ -3,71 +3,44 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
-using Object = UnityEngine.Object;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
     LevelLoader _levelLoader;
+    RunManager _runManager;
 
     // TODO: better set-up, something needs to track where you are in the game and save/load the info
-    public Cutscene[] Cutscenes;
-    int _currentCutSceneIndex = 0;
+    public bool WasTutorialPlayed { get; private set; }
+    bool _isRunActive;
 
     public int Obols { get; private set; }
 
 
     [Header("Unity Setup")]
     public List<GlobalUpgrade> AllGlobalUpgrades;
-    List<GlobalUpgrade> _purchasedGlobalUpgrades;
+    public List<GlobalUpgrade> PurchasedGlobalUpgrades;
 
     public CharacterDatabase CharacterDatabase;
-    [SerializeField] JourneyEvent[] AllEvents;
+    public JourneyEvent[] AllEvents;
 
-    List<JourneyEvent> _availableEvents;
-
-    public bool WasJourneySetUp { get; private set; }
-    public int JourneySeed { get; private set; } = 0; // TODO: this is a bad idea, probably
-    public JourneyNodeData CurrentJourneyNode { get; private set; }
-    [HideInInspector] public List<JourneyPath> JourneyPaths = new();
-    [HideInInspector] public List<JourneyNodeData> VisitedJourneyNodes = new();
-
-    [HideInInspector] public List<Character> PlayerTroops = new();
-    public List<Item> PlayerItemPouch = new(); // HERE: normally [HideInInspector] and empty
-    public List<Ability> PlayerAbilityPouch = new(); // HERE: normally [HideInInspector] and empty
-
-    public int Gold { get; private set; }
-    public JourneyNode CurrentNode; //TODO: //{ get; private set; }
-    public JourneyNodeReward Reward { get; private set; }
-
-    public string PlayerName { get; private set; }
-    string _activeSave;
+    public string PreviousLevel { get; private set; }
     string _currentLevel;
 
-    public event Action<int> OnGoldChanged;
     public event Action<int> OnObolsChanged;
 
     protected override void Awake()
     {
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
+        _runManager = GetComponent<RunManager>();
+
+        PreviousLevel = Scenes.MainMenu;
 
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
             CreateNewSaveFile();
         else
             LoadFromSaveFile();
-
-        // copy array to list;
-        _availableEvents = new(AllEvents); // TODO: this should be membered per run
-
-        // TODO: eee... I need a place to set player troops before the battle/journey start and then this should be gone
-        // keeping it for now but I can create player troops when starting new run, taking into consideration all bonuses
-        if (PlayerTroops.Count == 0)
-            CreatePlayerTroops();
-
-        // HERE: test
-        Gold = 10;
     }
 
     void CreateNewSaveFile()
@@ -84,48 +57,36 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadFromSaveFile()
     {
-        Debug.Log("loading from save file");
         LoadJsonData(PlayerPrefs.GetString("saveName"));
     }
 
     public void PurchaseGlobalUpgrade(GlobalUpgrade upgrade)
     {
-        _purchasedGlobalUpgrades.Add(upgrade);
+        PurchasedGlobalUpgrades.Add(upgrade);
+        ChangeObolValue(upgrade.Price);
         SaveJsonData();
     }
 
-    public void StartNewRun(string playerName)
+    public bool IsGlobalUpgradePurchased(GlobalUpgrade upgrade)
     {
-        PlayerName = playerName;
-
-        _currentLevel = Scenes.Cutscene;
-        //StartGameFromSave(true);
-    }
-    /*
-        public void StartGameFromSave(bool isNewGame = false)
-        {
-            if (!isNewGame)
-                LoadJsonData(fileName);
-
-            if (JourneySeed == 0)
-                JourneySeed = System.DateTime.Now.Millisecond;
-
-            _activeSave = fileName;
-
-            // TODO: here you need to know what level to load...
-            LoadLevel(_currentLevel);
-        }
-        */
-
-    public Cutscene GetCurrentCutScene()
-    {
-        Cutscene c = Cutscenes[_currentCutSceneIndex];
-        return c;
+        return PurchasedGlobalUpgrades.Contains(upgrade);
     }
 
-    public void CutscenePlayed() // TODO: this for sure is not correct
+    public void StartNewRun()
     {
-        _currentCutSceneIndex++;
+        _runManager.InitializeNewRun();
+        // check whether player beat tutorial or not
+        if (WasTutorialPlayed)
+            _levelLoader.LoadLevel(Scenes.Journey);
+        else
+            _levelLoader.LoadLevel(Scenes.Cutscene);
+    }
+
+    public bool IsRunActive() { return _isRunActive; }
+
+    public void ResumeLastRun()
+    {
+        _levelLoader.LoadLevel(Scenes.Journey);
     }
 
     public void LoadLevel(string level)
@@ -136,47 +97,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         _levelLoader.LoadLevel(level);
     }
 
-    public void LoadLevelFromNode(JourneyNode node)
-    {
-        CurrentNode = node;
-        _levelLoader.LoadLevel(node.SceneToLoad);
-    }
-
-    void CreatePlayerTroops()
-    {
-        string path = "Characters";
-        Object[] playerCharacters = Resources.LoadAll(path, typeof(Character));
-        PlayerTroops = new();
-        foreach (Character character in playerCharacters)
-        {
-            Character instance = Instantiate(character);
-            foreach (GlobalUpgrade item in _purchasedGlobalUpgrades)
-                item.Initialize(instance); // adding global upgrades to characters
-            PlayerTroops.Add(instance);
-        }
-    }
-
-    public void SetPlayerTroops(List<Character> troops)
-    {
-        PlayerTroops = new(troops);
-    }
-
-    public void JourneyWasSetUp(bool was) // TODO: better naming
-    {
-        WasJourneySetUp = was;
-    }
-
-    public void SetJourneySeed(int s)
-    {
-        JourneySeed = s;
-    }
-
-    public void SetCurrentJourneyNode(JourneyNodeData n)
-    {
-        VisitedJourneyNodes.Add(n);
-        CurrentJourneyNode = n;
-    }
-
     public void ChangeObolValue(int o)
     {
         Obols += o;
@@ -184,29 +104,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    public void ChangeGoldValue(int o)
+    public void SetPreviousLevel(string level) { PreviousLevel = level; }
+
+    public void SetWasTutorialPlayer(bool was)
     {
-        Gold += o;
-        OnGoldChanged?.Invoke(Gold);
+        WasTutorialPlayed = was;
         SaveJsonData();
-    }
-
-    public void AddItemToPouch(Item item)
-    {
-        PlayerItemPouch.Add(item);
-        SaveJsonData();
-    }
-
-    public void SetNodeReward(JourneyNodeReward r)
-    {
-        Reward = r;
-    }
-
-    public JourneyEvent ChooseEvent()
-    {
-        JourneyEvent ev = _availableEvents[Random.Range(0, _availableEvents.Count)];
-        _availableEvents.Remove(ev);
-        return ev;
     }
 
     /*************
@@ -226,16 +129,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         // global data
         saveData.Obols = Obols;
+        saveData.WasTutorialPlayed = WasTutorialPlayed;
         saveData.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
-
 
         // run data
         saveData.LastLevel = SceneManager.GetActiveScene().name;
-        saveData.CutSceneIndex = _currentCutSceneIndex;
-        saveData.Gold = Gold;
-        saveData.JourneySeed = JourneySeed;
-        saveData.CurrentJourneyNode = CurrentJourneyNode;
-        saveData.VisitedJourneyNodes = VisitedJourneyNodes;
+        saveData.Gold = _runManager.Gold;
+        saveData.JourneySeed = _runManager.JourneySeed;
+        saveData.CurrentJourneyNode = _runManager.CurrentJourneyNode;
+        saveData.VisitedJourneyNodes = _runManager.VisitedJourneyNodes;
         saveData.Characters = PopulateCharacters();
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
@@ -244,7 +146,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     List<string> PopulatePurchasedGlobalUpgrades()
     {
         List<string> ids = new();
-        foreach (GlobalUpgrade upgrade in _purchasedGlobalUpgrades)
+        foreach (GlobalUpgrade upgrade in PurchasedGlobalUpgrades)
             ids.Add(upgrade.Id);
 
         return ids;
@@ -253,7 +155,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     List<CharacterData> PopulateCharacters()
     {
         List<CharacterData> charData = new();
-        foreach (Character c in PlayerTroops)
+        foreach (Character c in _runManager.PlayerTroops)
         {
             CharacterData data = new();
             data.ReferenceID = c.ReferenceID;
@@ -284,7 +186,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     List<string> PopulateItemPouch()
     {
         List<string> itemReferenceIds = new();
-        foreach (Item i in PlayerItemPouch)
+        foreach (Item i in _runManager.PlayerItemPouch)
             itemReferenceIds.Add(i.ReferenceID);
 
         return itemReferenceIds;
@@ -293,7 +195,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     List<string> PopulateAbilityPouch()
     {
         List<string> abilityReferenceIds = new();
-        foreach (Ability a in PlayerAbilityPouch)
+        foreach (Ability a in _runManager.PlayerAbilityPouch)
             abilityReferenceIds.Add(a.ReferenceID);
 
         return abilityReferenceIds;
@@ -316,36 +218,64 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // global data
         Obols = saveData.Obols;
         foreach (string savedId in saveData.PurchasedGlobalUpgrades)
-            _purchasedGlobalUpgrades.Add(AllGlobalUpgrades.First(x => x.Id == savedId));
+            PurchasedGlobalUpgrades.Add(AllGlobalUpgrades.First(x => x.Id == savedId));
+
+        WasTutorialPlayed = saveData.WasTutorialPlayed;
 
         // run data
-        _currentLevel = saveData.LastLevel;
-        _currentCutSceneIndex = saveData.CutSceneIndex;
-        Gold = saveData.Gold;
-        JourneySeed = saveData.JourneySeed;
-        CurrentJourneyNode = saveData.CurrentJourneyNode;
-        VisitedJourneyNodes = saveData.VisitedJourneyNodes;
-        PlayerTroops = new();
+        if (saveData.JourneySeed != 0 && saveData.WasTutorialPlayed)
+            _isRunActive = true;
+
+        _runManager.Gold = saveData.Gold;
+        _runManager.JourneySeed = saveData.JourneySeed;
+        _runManager.CurrentJourneyNode = saveData.CurrentJourneyNode;
+        _runManager.VisitedJourneyNodes = saveData.VisitedJourneyNodes;
+        _runManager.PlayerTroops = new();
         foreach (CharacterData data in saveData.Characters)
         {
             Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
             playerCharacter.Create(data);
-            PlayerTroops.Add(playerCharacter);
+            _runManager.PlayerTroops.Add(playerCharacter);
         }
 
-        PlayerItemPouch = new();
+        _runManager.PlayerItemPouch = new();
         foreach (string itemReferenceId in saveData.ItemPouch)
-            PlayerItemPouch.Add(CharacterDatabase.GetItemByReference(itemReferenceId));
+            _runManager.PlayerItemPouch.Add(CharacterDatabase.GetItemByReference(itemReferenceId));
 
-        PlayerAbilityPouch = new();
+        _runManager.PlayerAbilityPouch = new();
         foreach (string abilityReferenceId in saveData.AbilityPouch)
-            PlayerAbilityPouch.Add(CharacterDatabase.GetAbilityByReferenceID(abilityReferenceId));
+            _runManager.PlayerAbilityPouch.Add(CharacterDatabase.GetAbilityByReferenceID(abilityReferenceId));
+
+
+        _currentLevel = saveData.LastLevel;
     }
 
-    // TODO:
+    public void ClearRunData()
+    {
+        SaveData sd = new SaveData();
+
+        // global data
+        sd.Obols = Obols;
+        sd.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
+
+        // run data
+        sd.LastLevel = "";
+        sd.Gold = 0;
+        sd.JourneySeed = 0;
+        sd.CurrentJourneyNode = new JourneyNodeData();
+        sd.VisitedJourneyNodes = null;
+        sd.Characters = null;
+        sd.ItemPouch = null;
+        sd.AbilityPouch = null;
+
+        if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
+            Debug.Log("Save successful");
+    }
+
+
     public void ClearSaveData()
     {
-        if (FileManager.WriteToFile(_activeSave, ""))
+        if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");
     }
 

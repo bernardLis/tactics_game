@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class SettingsScreen : FullScreenVisual
 {
     AudioManager _audioManger;
 
     Toggle _fullScreenToggle;
+    Toggle _tutorialToggle;
 
     VisualElement _parent;
 
@@ -36,7 +38,11 @@ public class SettingsScreen : FullScreenVisual
         AddFullScreenToggle(graphicsContainer);
         AddRadioResolutionGroup(graphicsContainer);
 
-        AddClearSaveButton();
+        if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
+        {
+            AddPlayTutorialContainer();
+            AddClearSaveButton();
+        }
 
         AddBackButton();
     }
@@ -188,6 +194,25 @@ public class SettingsScreen : FullScreenVisual
     {
         _parent.Focus();
         base.Hide();
+    }
+
+    void AddPlayTutorialContainer()
+    {
+        VisualElement container = CreateContainer("Play Tutorial");
+        _tutorialToggle = new Toggle();
+        _tutorialToggle.value = !GameManager.Instance.WasTutorialPlayed;
+        _tutorialToggle.RegisterValueChangedCallback(PlayTutorialToggleClick);
+        container.Add(_tutorialToggle);
+        Add(container);
+    }
+
+    void PlayTutorialToggleClick(ChangeEvent<bool> evt)
+    {
+        _tutorialToggle.value = evt.newValue;
+        if (evt.newValue)
+            GameManager.Instance.SetWasTutorialPlayer(false);
+        else
+            GameManager.Instance.SetWasTutorialPlayer(true);
     }
 
     void AddClearSaveButton()

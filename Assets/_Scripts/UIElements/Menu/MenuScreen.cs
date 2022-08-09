@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class MenuScreen : FullScreenVisual
 {
@@ -16,7 +17,8 @@ public class MenuScreen : FullScreenVisual
         tempColor.a = 0.5f;
         style.backgroundColor = tempColor;
 
-        BattleManager.Instance.PauseGame();
+        if (BattleManager.Instance != null)
+            BattleManager.Instance.PauseGame();
     }
 
     void AddButtons()
@@ -71,7 +73,9 @@ public class MenuScreen : FullScreenVisual
 
     public override void Hide()
     {
-        BattleManager.Instance.ResumeGame();
+        if (BattleManager.Instance != null)
+            BattleManager.Instance.ResumeGame();
+
         base.Hide();
         OnClose?.Invoke();
     }

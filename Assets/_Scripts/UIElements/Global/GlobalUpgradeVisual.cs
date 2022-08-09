@@ -4,31 +4,41 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class GlobalUpgradeVisual : VisualWithTooltip
 {
-    GlobalUpgrade _globalUpgrade;
+    public GlobalUpgrade Upgrade;
     string _tooltipText;
+
+    VisualElement _icon;
+    Label _price;
     public GlobalUpgradeVisual(GlobalUpgrade upgrade, bool bought = false) : base()
     {
-        _globalUpgrade = upgrade;
+        Upgrade = upgrade;
         _tooltipText = upgrade.Tooltip;
 
         style.alignSelf = Align.FlexStart;
 
-        VisualElement icon = new VisualElement();
-        icon.style.backgroundImage = upgrade.Sprite.texture;
-        icon.style.width = 200;
-        icon.style.height = 200;
+        _icon = new VisualElement();
+        _icon.style.backgroundImage = upgrade.Sprite.texture;
+        _icon.style.backgroundColor = Color.gray;
+        _icon.style.width = 200;
+        _icon.style.height = 200;
 
-        Label price = new Label($"Price: {upgrade.Price}");
-        price.AddToClassList("textSecondary");
+        _price = new Label($"Price: {upgrade.Price}");
+        _price.AddToClassList("textSecondary");
 
         if (bought)
         {
-            icon.style.color = Color.green;
-            price.text = "Bought!";
+            _icon.style.backgroundColor = Color.green;
+            _price.text = "Bought!";
         }
 
-        Add(icon);
-        Add(price);
+        Add(_icon);
+        Add(_price);
+    }
+
+    public void PurchaseUpgrade()
+    {
+        _icon.style.backgroundColor = Color.green;
+        _price.text = "Bought!";
     }
 
     protected override void DisplayTooltip()

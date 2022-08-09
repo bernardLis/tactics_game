@@ -9,6 +9,7 @@ public class TurnManager : Singleton<TurnManager>
 {
     // global
     GameManager _gameManager;
+    RunManager _runManager;
 
     public static BattleState BattleState;
     public static int CurrentTurn = 0;
@@ -137,15 +138,14 @@ public class TurnManager : Singleton<TurnManager>
     {
         Debug.Log("Congratz player! You win!!!");
 
-        _gameManager.SetNodeReward(BattleManager.Instance.GetReward());
+        _runManager.SetNodeReward(BattleManager.Instance.GetReward());
 
         List<Character> playerCharactersAlive = new();
         foreach (GameObject p in _playerCharacters)
             playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);
 
-        _gameManager.SetPlayerTroops(playerCharactersAlive);
+        _runManager.SetPlayerTroops(playerCharactersAlive);
         Debug.Log("handle winnign at the end = are there errors that are eaten?");
-
     }
 
     void HandleLosing()
@@ -154,7 +154,8 @@ public class TurnManager : Singleton<TurnManager>
         // for now game over screen
         // load home 
         Debug.Log("Ugh... you lost!");
-        _gameManager.ClearSaveData(); // TODO: this is not how it should be handled.
+        _gameManager.ClearRunData();
+        _gameManager.LoadLevel(Scenes.MainMenu);
     }
 
     public async void PlayerCharacterTurnFinished(GameObject obj)

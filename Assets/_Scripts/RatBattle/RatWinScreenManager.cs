@@ -28,6 +28,8 @@ public class RatWinScreenManager : MonoBehaviour
         WasElectrified();
         CoveredRatSpawners();
         FoundCollectible();
+
+        GameManager.Instance.SetWasTutorialPlayer(true);
     }
 
     VisualElement GetCheckElement(bool isCompleted)
