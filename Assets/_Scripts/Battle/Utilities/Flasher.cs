@@ -13,9 +13,7 @@ public class Flasher : ImmediateModeShapeDrawer
     {
         if (_currentTile)
             using (Draw.Command(cam))
-            {
                 Draw.Disc(GetDiscPosition(1), 0.05f, _col);
-            }
     }
 
     Vector3 GetDiscPosition(float t)
@@ -63,7 +61,6 @@ public class Flasher : ImmediateModeShapeDrawer
     {
         Destroy(gameObject);
     }
-
 
     void OnTriggerEnter2D(Collider2D other)
     {

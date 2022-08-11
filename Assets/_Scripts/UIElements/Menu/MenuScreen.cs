@@ -5,13 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuScreen : FullScreenVisual
 {
+    GameManager _gameManager;
     public event Action OnClose;
 
     public MenuScreen(VisualElement root)
     {
+        _gameManager = GameManager.Instance;
+
         Initialize(root);
         AddToClassList("menuScreen");
         AddButtons();
+        AddGlobals();
 
         var tempColor = style.backgroundColor.value;
         tempColor.a = 0.5f;
@@ -47,6 +51,22 @@ public class MenuScreen : FullScreenVisual
         Add(settingsButton);
         Add(mainMenuButton);
         Add(quitButton);
+    }
+
+    void AddGlobals()
+    {
+        Label obols = new Label($"Obols: {_gameManager.Obols}");
+        obols.AddToClassList("textPrimary");
+
+        VisualElement container = new VisualElement();
+        foreach (GlobalUpgrade u in _gameManager.PurchasedGlobalUpgrades)
+        {
+            GlobalUpgradeVisual visual = new(u, true, false);
+            container.Add(visual);
+        }
+
+        Add(obols);
+        Add(container);
     }
 
     void ShowSettingsScreen()

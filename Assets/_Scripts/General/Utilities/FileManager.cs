@@ -33,7 +33,6 @@ public static class FileManager
         if (fileName == null)
             return false;
 
-        Debug.Log($"writing to file: {fileContents}");
         var fullPath = Path.Combine(Application.persistentDataPath, fileName);
         try
         {

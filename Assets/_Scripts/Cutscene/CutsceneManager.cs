@@ -94,6 +94,8 @@ public class CutsceneManager : Singleton<CutsceneManager>
 
     void FadeInNewPicture(Sprite s, SpriteRenderer renderer)
     {
+        if (renderer == null)
+            return;
         renderer.sprite = s;
         renderer.color = new Color(1f, 1f, 1f, 0f);
         renderer.DOFade(1f, 2f);

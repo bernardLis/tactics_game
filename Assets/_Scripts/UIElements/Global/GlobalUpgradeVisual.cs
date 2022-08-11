@@ -9,7 +9,7 @@ public class GlobalUpgradeVisual : VisualWithTooltip
 
     VisualElement _icon;
     Label _price;
-    public GlobalUpgradeVisual(GlobalUpgrade upgrade, bool bought = false) : base()
+    public GlobalUpgradeVisual(GlobalUpgrade upgrade, bool bought = false, bool showPrice = true) : base()
     {
         Upgrade = upgrade;
         _tooltipText = upgrade.Tooltip;
@@ -32,7 +32,8 @@ public class GlobalUpgradeVisual : VisualWithTooltip
         }
 
         Add(_icon);
-        Add(_price);
+        if (showPrice)
+            Add(_price);
     }
 
     public void PurchaseUpgrade()

@@ -30,6 +30,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         _runManager = GetComponent<RunManager>();
 
         PreviousLevel = Scenes.MainMenu;
+        PurchasedGlobalUpgrades = new();
 
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)

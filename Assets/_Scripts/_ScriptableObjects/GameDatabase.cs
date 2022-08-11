@@ -11,7 +11,6 @@ public class GameDatabase : BaseScriptableObject
     [Header("Global Upgrades")]
     [SerializeField] GlobalUpgrade[] GlobalUpgrades;
     public GlobalUpgrade[] GetAllGlobalUpgrades() { return GlobalUpgrades; }
-
     public GlobalUpgrade GetGlobalUpgradeById(string id)
     {
         GlobalUpgrade gu = GlobalUpgrades.First(x => x.Id == id);
@@ -48,7 +47,7 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] StatIcon[] StatIcons;
 
     public Character[] GetAllStarterTroops() { return StarterTroops; }
-    
+
     public Sprite GetPortraitByID(string id) { return Portraits.FirstOrDefault(x => x.ReferenceID == id).Sprite; }
 
     public Equipment GetBodyByName(string name) { return Bodies.FirstOrDefault(x => x.name == name); }
