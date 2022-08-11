@@ -180,7 +180,7 @@ public class CharacterCardVisual : VisualElement
 
     void CreateCharacterStatsChar(Character character)
     {
-        CharacterDatabase db = GameManager.Instance.CharacterDatabase;
+        GameDatabase db = GameManager.Instance.GameDatabase;
         _power = new(db.GetStatIconByName("Power"), character.GetStatValue("Power"), "Power");
         _armor = new(db.GetStatIconByName("Armor"), character.GetStatValue("Armor"), "Armor");
         _range = new(db.GetStatIconByName("MovementRange"), character.GetStatValue("MovementRange"), "Movement Range");
@@ -188,7 +188,7 @@ public class CharacterCardVisual : VisualElement
 
     void CreateCharacterStats(CharacterStats characterStats)
     {
-        CharacterDatabase db = GameManager.Instance.CharacterDatabase;
+        GameDatabase db = GameManager.Instance.GameDatabase;
         _power = new(db.GetStatIconByName("Power"), characterStats.Power);
         _armor = new(db.GetStatIconByName("Armor"), characterStats.Armor);
         _range = new(db.GetStatIconByName("MovementRange"), characterStats.MovementRange);

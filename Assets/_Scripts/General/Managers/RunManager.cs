@@ -34,7 +34,7 @@ public class RunManager : Singleton<RunManager>
 
     public void InitializeNewRun()
     {
-        _availableEvents = new(_gameManager.AllEvents);
+        _availableEvents = new(_gameManager.GameDatabase.GetAllEvents());
 
         JourneySeed = System.DateTime.Now.Millisecond;
         WasJourneySetUp = false;
@@ -66,7 +66,7 @@ public class RunManager : Singleton<RunManager>
 
     void CreatePlayerTroops()
     {
-        List<Character> playerCharacters = new(_gameManager.CharacterDatabase.StarterTroops);
+        List<Character> playerCharacters = new(_gameManager.GameDatabase.GetAllStarterTroops());
         PlayerTroops = new();
         // adding global upgrades to characters
         foreach (Character character in playerCharacters)
@@ -124,12 +124,10 @@ public class RunManager : Singleton<RunManager>
         CurrentJourneyNode = n;
     }
 
-
     public void SetNodeReward(JourneyNodeReward r)
     {
         Reward = r;
     }
-
 
     public JourneyEvent ChooseEvent()
     {

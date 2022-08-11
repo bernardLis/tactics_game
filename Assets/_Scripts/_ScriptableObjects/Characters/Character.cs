@@ -53,26 +53,26 @@ public class Character : BaseScriptableObject
     // creates character at runtime from saved data
     public virtual void Create(CharacterData data)
     {
-        CharacterDatabase CharacterDatabase = GameManager.Instance.CharacterDatabase;
+        GameDatabase gameDatabase = GameManager.Instance.GameDatabase;
 
         ReferenceID = data.ReferenceID;
         CharacterName = data.CharacterName;
-        Portrait = CharacterDatabase.GetPortraitByID(data.Portrait);
+        Portrait = gameDatabase.GetPortraitByID(data.Portrait);
 
         Level = data.Level;
         Experience = data.Experience;
         Power = data.Power;
 
-        Body = CharacterDatabase.GetBodyByName(data.Body);
-        Weapon = CharacterDatabase.GetWeaponByName(data.Weapon);
+        Body = gameDatabase.GetBodyByName(data.Body);
+        Weapon = gameDatabase.GetWeaponByName(data.Weapon);
 
-        BasicAbilities.Add(CharacterDatabase.GetAbilityByID("5f7d8c47-7ec1-4abf-b8ec-74ea82be327f")); // basic defend id
+        BasicAbilities.Add(gameDatabase.GetAbilityByID("5f7d8c47-7ec1-4abf-b8ec-74ea82be327f")); // basic defend id
 
         foreach (string id in data.AbilityReferenceIds)
-            Abilities.Add(CharacterDatabase.GetAbilityByReferenceID(id));
+            Abilities.Add(gameDatabase.GetAbilityByReferenceID(id));
 
         foreach (string id in data.ItemReferenceIds)
-            Items.Add(CharacterDatabase.GetItemByReference(id));
+            Items.Add(gameDatabase.GetItemByReference(id));
     }
 
     public virtual void Initialize(GameObject obj)

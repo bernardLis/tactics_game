@@ -1,0 +1,83 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class GameDatabase : BaseScriptableObject
+{
+
+    [Header("Global Upgrades")]
+    [SerializeField] GlobalUpgrade[] GlobalUpgrades;
+    public GlobalUpgrade[] GetAllGlobalUpgrades() { return GlobalUpgrades; }
+
+    public GlobalUpgrade GetGlobalUpgradeById(string id)
+    {
+        GlobalUpgrade gu = GlobalUpgrades.First(x => x.Id == id);
+        if (gu == null)
+            Debug.LogError($"Global upgrade with id: {id} does not exist");
+        return gu;
+    }
+
+    [Header("Events")]
+    [SerializeField] JourneyEvent[] AllEvents;
+    public JourneyEvent[] GetAllEvents() { return AllEvents; }
+
+    [Header("Cutscenes")]
+    [SerializeField] Cutscene[] Cutscenes;
+    public Cutscene[] GetAllCutscenes() { return Cutscenes; }
+
+
+    [Header("Board")]
+    [SerializeField] TilemapBiome[] Biomes;
+    [SerializeField] MapVariant[] MapVariants;
+    [SerializeField] Brain[] EnemyBrains;
+
+    public TilemapBiome GetRandomBiome() { return Biomes[Random.Range(0, Biomes.Length)]; }
+    public MapVariant GetRandomMapVariant() { return MapVariants[Random.Range(0, MapVariants.Length)]; }
+    public Brain GetRandomEnemyBrain() { return EnemyBrains[Random.Range(0, EnemyBrains.Length)]; }
+
+    [Header("Characters")]
+    [SerializeField] Character[] StarterTroops;
+    [SerializeField] PortraitEntry[] Portraits;
+    [SerializeField] Equipment[] Bodies;
+    [SerializeField] Weapon[] Weapons;
+    [SerializeField] Ability[] Abilities;
+    [SerializeField] Item[] Items;
+    [SerializeField] StatIcon[] StatIcons;
+
+    public Character[] GetAllStarterTroops() { return StarterTroops; }
+    
+    public Sprite GetPortraitByID(string id) { return Portraits.FirstOrDefault(x => x.ReferenceID == id).Sprite; }
+
+    public Equipment GetBodyByName(string name) { return Bodies.FirstOrDefault(x => x.name == name); }
+
+    public Weapon GetWeaponByName(string name) { return Weapons.FirstOrDefault(x => x.name == name); }
+
+    // TODO: I am not certain if this reference ID and normal ID is a smart move.
+    public Ability GetAbilityByID(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
+    public Ability GetAbilityByReferenceID(string id) { return Abilities.FirstOrDefault(x => x.ReferenceID == id); }
+    public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
+
+    public Item GetItemByReference(string id) { return Items.FirstOrDefault(x => x.ReferenceID == id); }
+    public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
+
+    public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
+
+}
+
+[System.Serializable]
+public struct PortraitEntry
+{
+    public string ReferenceID;
+    public Sprite Sprite;
+}
+
+[System.Serializable]
+public struct StatIcon
+{
+    public string StatName;
+    public Sprite Sprite;
+}
+

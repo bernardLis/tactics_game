@@ -24,7 +24,6 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
 
     [Header("Unity Setup")]
-    public BattleDatabase BattleDatabase;
     [SerializeField] Sprite[] _backgrounds;
     [SerializeField] JourneyNode[] _journeyNodes;
     [SerializeField] JourneyNode _startNodeScriptableObject;

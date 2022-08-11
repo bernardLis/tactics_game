@@ -9,20 +9,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     LevelLoader _levelLoader;
     RunManager _runManager;
 
-    // TODO: better set-up, something needs to track where you are in the game and save/load the info
+    public GameDatabase GameDatabase;
+
+    // global data
+    public int Obols { get; private set; }
+    public List<GlobalUpgrade> PurchasedGlobalUpgrades { get; private set; }
     public bool WasTutorialPlayed { get; private set; }
     bool _isRunActive;
 
-    public int Obols { get; private set; }
-
-
-    [Header("Unity Setup")]
-    public List<GlobalUpgrade> AllGlobalUpgrades;
-    public List<GlobalUpgrade> PurchasedGlobalUpgrades;
-
-    public CharacterDatabase CharacterDatabase;
-    public JourneyEvent[] AllEvents;
-
+    // game data
     public string PreviousLevel { get; private set; }
     string _currentLevel;
 
@@ -43,6 +38,57 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             LoadFromSaveFile();
     }
 
+    public void ChangeObolValue(int o)
+    {
+        Obols += o;
+        OnObolsChanged?.Invoke(Obols);
+        SaveJsonData();
+    }
+
+    public void PurchaseGlobalUpgrade(GlobalUpgrade upgrade)
+    {
+        PurchasedGlobalUpgrades.Add(upgrade);
+        ChangeObolValue(-upgrade.Price);
+        SaveJsonData();
+    }
+
+    public bool IsGlobalUpgradePurchased(GlobalUpgrade upgrade) { return PurchasedGlobalUpgrades.Contains(upgrade); }
+
+    public void StartNewRun()
+    {
+        ClearRunData();
+        _runManager.InitializeNewRun();
+        if (WasTutorialPlayed)
+            _levelLoader.LoadLevel(Scenes.Journey);
+        else
+            _levelLoader.LoadLevel(Scenes.Cutscene);
+    }
+
+    public bool IsRunActive() { return _isRunActive; }
+
+    public void ResumeLastRun() { _levelLoader.LoadLevel(Scenes.Journey); }
+
+    public void SetPreviousLevel(string level) { PreviousLevel = level; }
+
+    public void SetWasTutorialPlayer(bool was)
+    {
+        WasTutorialPlayed = was;
+        SaveJsonData();
+    }
+
+    public void LoadLevel(string level)
+    {
+        if (level == Scenes.Journey) // TODO: I want to save only on coming back to Journey, does it make sense?
+            SaveJsonData();
+
+        _levelLoader.LoadLevel(level);
+    }
+
+    /*************
+    * Saving and Loading
+    * https://www.youtube.com/watch?v=uD7y4T4PVk0
+    */
+
     void CreateNewSaveFile()
     {
         // new save
@@ -54,69 +100,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         SaveJsonData();
     }
-
-    public void LoadFromSaveFile()
-    {
-        LoadJsonData(PlayerPrefs.GetString("saveName"));
-    }
-
-    public void PurchaseGlobalUpgrade(GlobalUpgrade upgrade)
-    {
-        PurchasedGlobalUpgrades.Add(upgrade);
-        ChangeObolValue(-upgrade.Price);
-        SaveJsonData();
-    }
-
-    public bool IsGlobalUpgradePurchased(GlobalUpgrade upgrade)
-    {
-        return PurchasedGlobalUpgrades.Contains(upgrade);
-    }
-
-    public void StartNewRun()
-    {
-        ClearRunData();
-        _runManager.InitializeNewRun();
-        // check whether player beat tutorial or not
-        if (WasTutorialPlayed)
-            _levelLoader.LoadLevel(Scenes.Journey);
-        else
-            _levelLoader.LoadLevel(Scenes.Cutscene);
-    }
-
-    public bool IsRunActive() { return _isRunActive; }
-
-    public void ResumeLastRun()
-    {
-        _levelLoader.LoadLevel(Scenes.Journey);
-    }
-
-    public void LoadLevel(string level)
-    {
-        if (level == Scenes.Journey) // TODO: I want to save only on coming back to Journey, does it make sense?
-            SaveJsonData();
-
-        _levelLoader.LoadLevel(level);
-    }
-
-    public void ChangeObolValue(int o)
-    {
-        Obols += o;
-        OnObolsChanged?.Invoke(Obols);
-        SaveJsonData();
-    }
-
-    public void SetPreviousLevel(string level) { PreviousLevel = level; }
-
-    public void SetWasTutorialPlayer(bool was)
-    {
-        WasTutorialPlayed = was;
-        SaveJsonData();
-    }
-
-    /*************
-    * Saving and Loading
-    * https://www.youtube.com/watch?v=uD7y4T4PVk0
-    */
+    public void LoadFromSaveFile() { LoadJsonData(PlayerPrefs.GetString("saveName")); }
 
     public void SaveJsonData()
     {
@@ -219,7 +203,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // global data
         Obols = saveData.Obols;
         foreach (string savedId in saveData.PurchasedGlobalUpgrades)
-            PurchasedGlobalUpgrades.Add(AllGlobalUpgrades.First(x => x.Id == savedId));
+            PurchasedGlobalUpgrades.Add(GameDatabase.GetGlobalUpgradeById(savedId));
 
         WasTutorialPlayed = saveData.WasTutorialPlayed;
 
@@ -241,11 +225,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         _runManager.PlayerItemPouch = new();
         foreach (string itemReferenceId in saveData.ItemPouch)
-            _runManager.PlayerItemPouch.Add(CharacterDatabase.GetItemByReference(itemReferenceId));
+            _runManager.PlayerItemPouch.Add(GameDatabase.GetItemByReference(itemReferenceId));
 
         _runManager.PlayerAbilityPouch = new();
         foreach (string abilityReferenceId in saveData.AbilityPouch)
-            _runManager.PlayerAbilityPouch.Add(CharacterDatabase.GetAbilityByReferenceID(abilityReferenceId));
+            _runManager.PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceID(abilityReferenceId));
 
         _currentLevel = saveData.LastLevel;
     }
@@ -271,7 +255,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
             Debug.Log("Save successful");
     }
-
 
     public void ClearSaveData()
     {

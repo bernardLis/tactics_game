@@ -141,7 +141,7 @@ public class ShopManager : MonoBehaviour
             VisualElement container = new();
             container.style.alignItems = Align.Center;
 
-            Item item = _gameManager.CharacterDatabase.GetRandomItem();
+            Item item = _gameManager.GameDatabase.GetRandomItem();
             ItemVisual itemVisual = new(item);
             ItemSlotVisual itemSlot = new(itemVisual);
 
@@ -166,7 +166,7 @@ public class ShopManager : MonoBehaviour
             VisualElement container = new();
             container.style.alignItems = Align.Center;
 
-            Ability ability = _gameManager.CharacterDatabase.GetRandomAbility();
+            Ability ability = _gameManager.GameDatabase.GetRandomAbility();
             AbilityButton abilityButton = new(ability, null);
             AbilitySlotVisual abilitySlot = new(abilityButton);
 

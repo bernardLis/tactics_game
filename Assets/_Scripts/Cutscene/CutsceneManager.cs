@@ -47,8 +47,11 @@ public class CutsceneManager : Singleton<CutsceneManager>
     Cutscene ChooseCutscene()
     {
         if (_gameManager.PreviousLevel == Scenes.MainMenu)
-            return AllCutscenes[0];
-        return AllCutscenes[0];
+            return _gameManager.GameDatabase.GetAllCutscenes()[0];
+        if (_gameManager.PreviousLevel == Scenes.Rat)
+            return _gameManager.GameDatabase.GetAllCutscenes()[1];
+
+        return _gameManager.GameDatabase.GetAllCutscenes()[0];
     }
 
     async void RunScene()
@@ -116,7 +119,6 @@ public class CutsceneManager : Singleton<CutsceneManager>
         }
     }
 
-
     public void SkipCutscene()
     {
         if (_skippingCutscene)
@@ -126,5 +128,4 @@ public class CutsceneManager : Singleton<CutsceneManager>
         AudioManager.Instance.StopDialogue();
         _gameManager.LoadLevel(_cutscene.NextLevelName);
     }
-
 }

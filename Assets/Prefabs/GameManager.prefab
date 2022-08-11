@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
@@ -125,6 +126,7 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!114 &2154333484900981473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,12 +192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a5a222abe45dc40bc3e638135b656c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cutscenes:
-  - {fileID: 11400000, guid: 68e749ab2331d26429c8b481dc4023e3, type: 2}
-  - {fileID: 11400000, guid: 348e94e2b7bcb344682551f7fc4bb50b, type: 2}
   AllGlobalUpgrades:
   - {fileID: 11400000, guid: 080ec040857f7344ebc2df7f9322b4cb, type: 2}
+  - {fileID: 11400000, guid: 4ce818e8aa11f1a49a7ff10d6a6807b6, type: 2}
   PurchasedGlobalUpgrades: []
+  GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
   CharacterDatabase: {fileID: 11400000, guid: b6ffd5f1a1266304c8caa0325f27f668, type: 2}
   AllEvents:
   - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
@@ -203,12 +204,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a05ff19afa1a3ec4da7c1041436e074f, type: 2}
   - {fileID: 11400000, guid: c4797b46d258a8944848dd5522d53c6e, type: 2}
   - {fileID: 11400000, guid: 2e89f4ef24faa294aaabbeb33d5215c3, type: 2}
-  JourneyPaths: []
-  VisitedJourneyNodes: []
-  PlayerTroops: []
-  PlayerItemPouch: []
-  PlayerAbilityPouch: []
-  CurrentNode: {fileID: 11400000, guid: ee21cf630b27ea54187d1e80d2d970c3, type: 2}
 --- !u!114 &3852275862531487839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +216,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60acd8610a6f1e24ea529bc3ba1276d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WasJourneySetUp: 0
+  JourneySeed: 0
+  CurrentJourneyNode:
+    PathIndex: 0
+    NodeIndex: 0
+  JourneyPaths: []
+  VisitedJourneyNodes: []
+  Gold: 0
+  PlayerTroops: []
+  PlayerItemPouch: []
+  PlayerAbilityPouch: []
+  CurrentNode: {fileID: 0}
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

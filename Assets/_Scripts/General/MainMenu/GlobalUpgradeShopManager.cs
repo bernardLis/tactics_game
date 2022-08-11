@@ -26,7 +26,7 @@ public class GlobalUpgradeShopManager : MonoBehaviour
     void PopulateShop()
     {
         _shopContainer.Clear();
-        foreach (GlobalUpgrade upgrade in _gameManager.AllGlobalUpgrades)
+        foreach (GlobalUpgrade upgrade in _gameManager.GameDatabase.GetAllGlobalUpgrades())
         {
             bool isPurchased = _gameManager.IsGlobalUpgradePurchased(upgrade);
             GlobalUpgradeVisual visual = new(upgrade, isPurchased);
