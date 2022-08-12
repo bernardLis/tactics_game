@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SettingsScreen : FullScreenVisual
 {
+    GameManager _gameManager;
     AudioManager _audioManger;
 
     Toggle _fullScreenToggle;
@@ -16,6 +17,7 @@ public class SettingsScreen : FullScreenVisual
     {
         _parent = parent;
 
+        _gameManager = GameManager.Instance;
         _audioManger = AudioManager.Instance;
         Initialize(root);
         AddToClassList("menuScreen");
@@ -200,7 +202,7 @@ public class SettingsScreen : FullScreenVisual
     {
         VisualElement container = CreateContainer("Play Tutorial");
         _tutorialToggle = new Toggle();
-        _tutorialToggle.value = !GameManager.Instance.WasTutorialPlayed;
+        _tutorialToggle.value = !_gameManager.WasTutorialPlayed;
         _tutorialToggle.RegisterValueChangedCallback(PlayTutorialToggleClick);
         container.Add(_tutorialToggle);
         Add(container);
@@ -210,9 +212,9 @@ public class SettingsScreen : FullScreenVisual
     {
         _tutorialToggle.value = evt.newValue;
         if (evt.newValue)
-            GameManager.Instance.SetWasTutorialPlayer(false);
+            _gameManager.SetWasTutorialPlayer(false);
         else
-            GameManager.Instance.SetWasTutorialPlayer(true);
+            _gameManager.SetWasTutorialPlayer(true);
     }
 
     void AddClearSaveButton()
@@ -228,9 +230,7 @@ public class SettingsScreen : FullScreenVisual
 
     void ClearSaveData()
     {
-        FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), "");
-        GameManager.Instance.LoadFromSaveFile(); // TODO: a better schema.
-        GameManager.Instance.LoadLevel(Scenes.MainMenu);
+        _gameManager.ClearSaveData();
     }
 
 }

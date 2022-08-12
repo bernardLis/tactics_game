@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
@@ -27,6 +28,12 @@ public class MenuScreen : FullScreenVisual
 
     void AddButtons()
     {
+        VisualElement container = new();
+        container.style.width = Length.Percent(100);
+        container.style.height = Length.Percent(70);
+        container.style.alignItems = Align.Center;
+        container.style.justifyContent = Justify.Center;
+
         Button continueButton = new Button();
         Button settingsButton = new Button();
         Button mainMenuButton = new Button();
@@ -47,25 +54,34 @@ public class MenuScreen : FullScreenVisual
         mainMenuButton.clickable.clicked += GoToMainMenu;
         quitButton.clickable.clicked += ConfirmQuit;
 
-        Add(continueButton);
-        Add(settingsButton);
-        Add(mainMenuButton);
-        Add(quitButton);
+        container.Add(continueButton);
+        container.Add(settingsButton);
+        container.Add(mainMenuButton);
+        container.Add(quitButton);
+
+        Add(container);
     }
 
     void AddGlobals()
     {
+        VisualElement container = new();
+        container.style.width = Length.Percent(100);
+        container.style.height = Length.Percent(30);
+
         Label obols = new Label($"Obols: {_gameManager.Obols}");
         obols.AddToClassList("textPrimary");
 
-        VisualElement container = new VisualElement();
+        VisualElement upgradeContainer = new VisualElement();
+        upgradeContainer.style.flexDirection = FlexDirection.Row;
         foreach (GlobalUpgrade u in _gameManager.PurchasedGlobalUpgrades)
         {
             GlobalUpgradeVisual visual = new(u, true, false);
-            container.Add(visual);
+            upgradeContainer.Add(visual);
         }
 
-        Add(obols);
+        container.Add(obols);
+        container.Add(upgradeContainer);
+
         Add(container);
     }
 

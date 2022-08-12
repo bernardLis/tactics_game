@@ -52,25 +52,25 @@ public class EnemyAI : MonoBehaviour
         while (!_damageUI.IsQueueEmpty())
             await Task.Delay(25); //https://stackoverflow.com/questions/29089417/c-sharp-wait-until-condition-is-true
 
-        await Task.Delay(500);
+        await Task.Delay(250);
         await _brain.Select();
-        await Task.Delay(500);
+        await Task.Delay(250);
         await _brain.Move();
-        await Task.Delay(500);
+        await Task.Delay(250);
 
         // wait for character to reach destination
         while (!_aiLerp.reachedDestination)
             await Task.Delay(25);
 
-        await Task.Delay(500);
+        await Task.Delay(250);
         await _brain.Interact();
         if (_enemyStats.CurrentHealth <= 0) // if you die during your turn
             return;
 
-        await Task.Delay(500);
+        await Task.Delay(250);
         await _highlighter.ClearHighlightedTiles();
 
-        await Task.Delay(500);
+        await Task.Delay(250);
         _characterSelection.FinishCharacterTurn();
     }
 }

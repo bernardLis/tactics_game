@@ -11,13 +11,8 @@ public class CutsceneCameraManager : BattleCameraManager
         _cam = GetComponent<Camera>();
     }
 
-    protected override void Start()
-    {
-
-    }
-
     public void PanCamera(Vector3 direction, float duration)
-    {
+    {            
         Vector3 newPos = transform.position + direction;
         transform.DOMove(newPos, duration);
     }

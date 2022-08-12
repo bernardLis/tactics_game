@@ -98,6 +98,7 @@ public class MainMenuUI : MonoBehaviour
         // TODO: I could make a transition with dotween
         _menuContainer.style.display = DisplayStyle.None;
         _shopContainer.style.display = DisplayStyle.Flex;
+        GetComponent<GlobalUpgradeShopManager>().SetupShop();
     }
 
 

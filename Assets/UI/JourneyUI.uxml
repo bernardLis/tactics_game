@@ -11,4 +11,8 @@
         <ui:Button text="View troops" display-tooltip-when-elided="true" name="viewTroops" style="font-size: 14px; margin-top: 20px;" />
         <ui:VisualElement name="nodeInfo" style="margin-top: 20px; display: flex; visibility: visible;" />
     </ui:VisualElement>
+    <ui:VisualElement class="menuScreen" style="position: absolute;">
+        <ui:VisualElement style="width: 100%; height: 70%;" />
+        <ui:VisualElement style="width: 100%; height: 30%;" />
+    </ui:VisualElement>
 </ui:UXML>

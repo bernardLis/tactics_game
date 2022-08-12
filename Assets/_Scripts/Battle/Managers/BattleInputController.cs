@@ -19,7 +19,6 @@ public class BattleInputController : Singleton<BattleInputController>
     Tilemap _tilemap;
     WorldTile _tile;
 
-
     // local
     MovePointController _movePointController;
     BattleCharacterController _battleCharacterController;

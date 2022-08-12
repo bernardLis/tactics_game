@@ -33,6 +33,7 @@ public class TurnManager : Singleton<TurnManager>
     {
         _infoCardUI = InfoCardUI.Instance;
         _gameManager = GameManager.Instance;
+        _runManager = RunManager.Instance;
 
         CurrentTurn = 0;
     }
@@ -54,7 +55,7 @@ public class TurnManager : Singleton<TurnManager>
                 HandleEnemyTurn();
                 break;
             case BattleState.Won:
-                //HandleWinning();
+                HandleWinning();
                 break;
             case BattleState.Lost:
                 HandleLosing();
@@ -155,7 +156,6 @@ public class TurnManager : Singleton<TurnManager>
         // load home 
         Debug.Log("Ugh... you lost!");
         _gameManager.ClearRunData();
-        _gameManager.LoadLevel(Scenes.MainMenu);
     }
 
     public async void PlayerCharacterTurnFinished(GameObject obj)

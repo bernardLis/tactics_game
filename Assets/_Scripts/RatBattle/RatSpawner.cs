@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class RatSpawner : MonoBehaviour, IUITextDisplayable
 {
@@ -76,8 +77,12 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         return false;
     }
 
-    public void SpawnRat()
+    void SpawnRat()
     {
+        Vector3 pos = ChooseSpawnPosition();
+        if (pos == Vector3.zero)
+            return;
+
         EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
         enemySO.CreateEnemy(1, _ratBrains[Random.Range(0, _ratBrains.Length)]);
         Character instantiatedSO = Instantiate(enemySO);
@@ -100,7 +105,31 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
 
         _turnManager.AddEnemy(enemyGO);
         AudioManager.Instance.PlaySFX(_ratSpawnSound, transform.position);
-        Destroy(Instantiate(_ratSpawnEffect, transform.position, Quaternion.identity), 0.6f);
+        GameObject spawnEffect = Instantiate(_ratSpawnEffect, transform.position, Quaternion.identity);
+        
+        enemyGO.transform.DOMove(pos, 1f);
+        spawnEffect.transform.DOMove(pos, 1f).OnComplete(() => Destroy(spawnEffect));
+    }
+
+    public Vector3 ChooseSpawnPosition()
+    {
+        //spawn in position adjecent to transorm that is not taken
+        Vector3[] positions = new Vector3[4] {
+            new Vector3(transform.position.x + 1, transform.position.y),
+            new Vector3(transform.position.x - 1, transform.position.y),
+            new Vector3(transform.position.x, transform.position.y + 1),
+            new Vector3(transform.position.x, transform.position.y - 1)
+        };
+
+        foreach (Vector3 pos in positions)
+        {
+            Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+            if (cols.Length > 0)
+                continue;
+
+            return pos;
+        }
+        return Vector3.zero;
     }
 
     public VisualElement DisplayText()

@@ -35,7 +35,7 @@ public class EnemyManager : MonoBehaviour
 
             await enemy.GetComponent<EnemyAI>().RunAI();
 
-            await Task.Delay(1000);
+            await Task.Delay(500);
         }
     }
 }

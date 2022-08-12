@@ -24,6 +24,9 @@ public class RatWinScreenManager : MonoBehaviour
 
     void BattleUI_OnBattleEndScreenShown()
     {
+        if (TurnManager.BattleState == BattleState.Lost)
+            return;
+            
         DefeatedAllEnemies();
         WasElectrified();
         CoveredRatSpawners();

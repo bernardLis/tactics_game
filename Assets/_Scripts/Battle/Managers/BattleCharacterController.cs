@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -80,7 +81,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     void MovePointController_OnMove(Vector3 pos)
     {
-        DrawPath();
+
+        StartCoroutine(DrawPath());
     }
 
     void Update()
@@ -230,6 +232,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         UpdateCharacterState(CharacterState.Selected);
     }
 
+
     void Move()
     {
         ClearPathRenderer();
@@ -305,7 +308,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _characterUI.DisableSkillButtons();
     }
 
-    async void CharacterReachedDestination()
+    void CharacterReachedDestination()
     {
         _characterUI.EnableSkillButtons();
 
@@ -327,9 +330,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // remove statuses that were applied when moving
         _playerStats.ResolveGoingBack();
 
-        _battleInputController.SetInputAllowed(false);
-        await _highlighter.HighlightCharacterMovementRange(_playerStats, Tags.Enemy); // TODO:
-        _battleInputController.SetInputAllowed(true);
         UpdateCharacterState(CharacterState.Selected);
     }
 
@@ -427,6 +427,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // clearing the cache here
         UnselectCharacter();
+        AstarPath.active.ScanAsync();
 
         UpdateCharacterState(CharacterState.None);
     }
@@ -449,29 +450,30 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     }
 
     // TODO: this probably shouldn't be here 
-    public void DrawPath()
+    IEnumerator DrawPath()
     {
         ClearPathRenderer();
 
         // only draw path when character is selected
         if (SelectedCharacter == null)
-            return;
+            yield break;
 
         // don't draw path if ability is selected
         if (SelectedAbility != null)
-            return;
+            yield break;
 
         // get the tile movepoint is on
         if (!TileManager.Tiles.TryGetValue(_tilemap.WorldToCell(transform.position), out _tile))
-            return;
+            yield break;
         // don't draw path to tiles you can't reach
         if (!_tile.WithinRange)
-            return;
+            yield break;
 
         ABPath path = GetPathTo(transform);
+        yield return StartCoroutine(path.WaitForPath());
 
         if (path.error)
-            return;
+            yield break;
 
         for (int i = 0; i < path.vectorPath.Count; i++)
         {
@@ -487,7 +489,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     ABPath GetPathTo(Transform t)
     {
-        AstarPath.active.Scan();
         // Scanning graph breaks node blockers. Whenever I scan graph I need to add node blockers again.
         // https://arongranberg.com/astar/documentation/dev_4_0_6_e07eb1b/class_single_node_blocker.php
         _nodeBlockers = new();

@@ -18,7 +18,12 @@ public class GlobalUpgradeShopManager : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
         _menuContainer = _root.Q<VisualElement>("menuContainer");
         _shopContainer = _root.Q<VisualElement>("shopContainer");
+        
+        SetupShop();
+    }
 
+    public void SetupShop()
+    {
         PopulateShop();
         AddBackButton();
     }

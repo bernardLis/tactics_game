@@ -85,14 +85,13 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Select()
     {
+        AstarPath.active.ScanAsync();
+
         _infoCardUI.ShowCharacterCard(_enemyStats);
 
         Target = null;
         _cameraManager.SetTarget(_characterGameObject.transform);
         await _highlighter.HighlightCharacterMovementRange(_enemyStats, Tags.Player);
-
-        // node blockers
-        AstarPath.active.Scan();
 
         _nodeBlockers = new();
         foreach (GameObject e in _turnManager.GetPlayerCharacters())
@@ -112,9 +111,9 @@ public class Brain : BaseScriptableObject
     {
         _infoCardUI.ShowManaChange(_enemyStats, -_selectedAbility.ManaCost);
         await _selectedAbility.HighlightTargetable(_characterGameObject);
-        await Task.Delay(300);
+        await Task.Delay(200);
         await _selectedAbility.HighlightAreaOfEffect(Target.transform.position);
-        await Task.Delay(500);
+        await Task.Delay(200);
         await _selectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
     }
 

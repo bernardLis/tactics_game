@@ -63,12 +63,18 @@ public class CutsceneManager : Singleton<CutsceneManager>
         foreach (CutscenePicture c in _cutscene.Pictures)
             await DisplayCutscene(c);
 
+        if (_skippingCutscene)
+            return;
+
         await Task.Delay(1000);
         _gameManager.LoadLevel(_cutscene.NextLevelName);
     }
 
     async Task DisplayCutscene(CutscenePicture c)
     {
+        if (_skippingCutscene)
+            return;
+
         FadeOutOldPicture(_pictureRenderers[_activeRendererIndex]);
 
         // swap active renderers
@@ -80,6 +86,9 @@ public class CutsceneManager : Singleton<CutsceneManager>
 
         float duration = c.TextToSpeech.Clips[0].length + _additionalDelay;
         _audioManager.PlayDialogue(c.TextToSpeech);
+
+        if (_cameraManager == null)
+            return;
 
         _cameraManager.PanCamera(c.CameraPanDirection, duration);
         if (c.ZoomCameraIn)

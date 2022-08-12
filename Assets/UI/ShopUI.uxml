@@ -67,7 +67,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="itemDragDropContainer" style="visibility: hidden; position: absolute; width: 75px; height: 75px;" />
     <ui:VisualElement name="abilityDragDropContainer" style="visibility: hidden; position: absolute; width: 120px; height: 120px;" />
-    <ui:VisualElement style="position: absolute; bottom: 0;">
+    <ui:VisualElement name="backToJourneyContainer" style="position: absolute; bottom: 0;">
         <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" class="menuButton" />
     </ui:VisualElement>
 </ui:UXML>

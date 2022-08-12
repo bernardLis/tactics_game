@@ -21,7 +21,6 @@ public class MovePointController : Singleton<MovePointController>
     // delegates
     public static event Action<Vector3> OnMove;
 
-
     protected override void Awake()
     {
         base.Awake();

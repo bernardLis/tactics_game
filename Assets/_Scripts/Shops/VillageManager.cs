@@ -9,6 +9,7 @@ public class VillageManager : Singleton<VillageManager>
 
     VisualElement _root;
     VisualElement _mainScreen;
+    VisualElement _backToJourneyContainer;
     VisualElement _shop;
     protected override void Awake()
     {
@@ -22,6 +23,7 @@ public class VillageManager : Singleton<VillageManager>
         VisualElement shopPicture = _root.Q<VisualElement>("shopPicture");
         _shop = _root.Q<VisualElement>("shop");
 
+        _backToJourneyContainer = _root.Q<VisualElement>("backToJourneyContainer");
         Button b = _root.Q<Button>("backToJourney");
         b.clickable.clicked += BackToJourney;
 
@@ -37,13 +39,14 @@ public class VillageManager : Singleton<VillageManager>
 
     void HideVillage()
     {
+        _backToJourneyContainer.style.display = DisplayStyle.None;
         _mainScreen.style.display = DisplayStyle.None;
     }
 
     public void ShowVillage()
     {
         _shop.style.display = DisplayStyle.None;
-
+        _backToJourneyContainer.style.display = DisplayStyle.Flex;
         _mainScreen.style.display = DisplayStyle.Flex;
     }
 

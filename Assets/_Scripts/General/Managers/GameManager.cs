@@ -259,8 +259,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void ClearSaveData()
     {
+        PurchasedGlobalUpgrades = new();
+        Obols = 0;
+        WasTutorialPlayed = false;
+        _isRunActive = false;
+
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");
+
+        LoadLevel(Scenes.MainMenu);
     }
 
 }

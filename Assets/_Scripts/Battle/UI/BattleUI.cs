@@ -61,8 +61,6 @@ public class BattleUI : Singleton<BattleUI>
         _battleEndGoalContainer = Root.Q<VisualElement>("battleEndGoalContainer");
         _backToJourney = Root.Q<Button>("backToJourney");
 
-        _backToJourney.clickable.clicked += BackToJourney;
-
         // subscribing to Actions
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
@@ -172,12 +170,17 @@ public class BattleUI : Singleton<BattleUI>
         }
 
         _battleEndText.text = $"You won in {TurnManager.CurrentTurn} turns!";
+
+        _backToJourney.clickable.clicked += BackToJourney;
     }
 
     void ShowBattleLostScreen()
     {
         ShowBattleEndScreen();
         _battleEndText.text = "You lost!";
+
+        _backToJourney.text = "Continue";
+        _backToJourney.clickable.clicked += BackToMainMenu;
     }
 
     void ShowBattleEndScreen()
@@ -204,6 +207,11 @@ public class BattleUI : Singleton<BattleUI>
         _gameManager.LoadLevel(_levelToLoadAfterFight);
         // reseting level to load to journey as it is the default
         _levelToLoadAfterFight = Scenes.Journey;
+    }
+
+    void BackToMainMenu()
+    {
+        _gameManager.LoadLevel(Scenes.MainMenu);
     }
 
     public void SetUpContinueButton(string newText, string newLevel)
