@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class JourneyEventManager : MonoBehaviour
 {
     GameManager _gameManager;
+    AudioManager _audioManager;
     RunManager _runManager;
 
     Label _eventDescription;
@@ -15,7 +16,6 @@ public class JourneyEventManager : MonoBehaviour
     VisualElement _responseWrapper;
     Label _responseLabel;
     VisualElement _rewardWrapper;
-    Label _obolAmountLabel;
     Button _backToJourneyButton;
 
     JourneyEvent _journeyEvent;
@@ -25,6 +25,7 @@ public class JourneyEventManager : MonoBehaviour
     void Awake()
     {
         _gameManager = GameManager.Instance;
+        _audioManager = AudioManager.Instance;
         _runManager = RunManager.Instance;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
@@ -34,10 +35,10 @@ public class JourneyEventManager : MonoBehaviour
 
         _responseWrapper = root.Q<VisualElement>("responseWrapper");
         _responseLabel = root.Q<Label>("response");
-        _rewardWrapper = root.Q<VisualElement>("rewardWrapper");
-        _obolAmountLabel = root.Q<Label>("obolAmount");
-        _backToJourneyButton = root.Q<Button>("backToJourney");
 
+        _rewardWrapper = root.Q<VisualElement>("rewardWrapper");
+
+        _backToJourneyButton = root.Q<Button>("backToJourney");
         _backToJourneyButton.clickable.clicked += BackToJourney;
 
         SetupEvent();
@@ -50,6 +51,8 @@ public class JourneyEventManager : MonoBehaviour
 
         _eventWrapper.style.backgroundImage = _journeyEvent.Background.texture;
         _eventDescription.text = _journeyEvent.Description;
+
+        _audioManager.PlayDialogue(_journeyEvent.VoiceOver);
     }
 
     void CreateOptions()
@@ -61,7 +64,7 @@ public class JourneyEventManager : MonoBehaviour
             Button b = new Button();
             _optionsWrapper.Add(b);
 
-            b.text = _journeyEvent.Options[i].Text + "(" + _journeyEvent.Options[i].Reward.gold + ")";
+            b.text = _journeyEvent.Options[i].Text;
             b.userData = i;
             b.clickable.clickedWithEventInfo += OptionChosen;
             b.AddToClassList("optionButton");
@@ -80,14 +83,30 @@ public class JourneyEventManager : MonoBehaviour
         _runManager.SetNodeReward(_journeyEvent.Options[index].Reward);
 
         _responseLabel.text = _journeyEvent.Options[index].Response;
-        _obolAmountLabel.text = _journeyEvent.Options[index].Reward.gold.ToString();
+
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        Label txt = new Label("You get: ");
+        container.Add(txt);
+        if (_journeyEvent.Options[index].Reward.Gold != 0)
+        {
+            Label gold = new(_journeyEvent.Options[index].Reward.Gold.ToString() + "Gold"); // TODO: gold icon
+            container.Add(gold);
+        }
+        if (_journeyEvent.Options[index].Reward.Item != null)
+        {
+            ItemVisual item = new(_journeyEvent.Options[index].Reward.Item);
+            container.Add(item);
+        }
+        _rewardWrapper.Add(container);
+
+        _audioManager.PlayDialogue(_journeyEvent.Options[index].ResponseVoiceOver);
 
         _responseWrapper.style.opacity = 0;
         _responseWrapper.style.display = DisplayStyle.Flex;
         DOTween.To(() => _responseWrapper.style.opacity.value, x => _responseWrapper.style.opacity = x, 1f, 1f)
             .SetEase(Ease.InSine);
     }
-
 
     void BackToJourney()
     {

@@ -1,19 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/JourneyEventUIStyles.uss?fileID=7433441132597879392&amp;guid=7e44c691ad9dde445b842759737adfb1&amp;type=3#JourneyEventUIStyles" />
-    <ui:VisualElement name="eventWrapper" style="width: 100%; height: 100%;">
-        <ui:Label text="Label" display-tooltip-when-elided="true" name="eventDescription" class="description" />
+    <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
+    <ui:VisualElement name="eventWrapper" class="textPrimary" style="width: 100%; height: 100%;">
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="eventDescription" class="description" style="font-size: 64px;" />
         <ui:VisualElement name="optionsWrapper" style="padding-left: 20%; padding-right: 20%; padding-top: 20px; padding-bottom: 20px;">
             <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionTwo" class="optionButton" style="background-color: rgba(88, 88, 88, 0.36);" />
             <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionThree" class="optionButton" />
             <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionOne" class="optionButton" />
         </ui:VisualElement>
-        <ui:VisualElement name="responseWrapper" style="display: none;">
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="response" class="description" />
-            <ui:VisualElement name="rewardWrapper" style="justify-content: center; flex-direction: row;">
-                <ui:Label text="2" display-tooltip-when-elided="true" name="obolAmount" style="font-size: 24px; -unity-text-align: middle-center; color: rgba(255, 255, 255, 255);" />
-                <ui:Label display-tooltip-when-elided="true" name="obolIcon" style="background-image: url(&apos;project://database/Assets/Sprites/Journey/obol.png?fileID=2800000&amp;guid=ad5c4b9d1e718544886f737b294085c5&amp;type=3#obol&apos;); width: 50px; height: 50px;" />
-            </ui:VisualElement>
-            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" class="optionButton" />
+        <ui:VisualElement name="responseWrapper" style="display: none; align-items: center;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="response" class="description" style="font-size: 64px;" />
+            <ui:VisualElement name="rewardWrapper" style="justify-content: center; flex-direction: row; font-size: 48px;" />
+            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" class="optionButton" style="width: 30%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

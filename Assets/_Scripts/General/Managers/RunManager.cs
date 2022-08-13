@@ -21,7 +21,7 @@ public class RunManager : Singleton<RunManager>
     public List<Ability> PlayerAbilityPouch = new(); // HERE: normally [HideInInspector] and empty
 
     public JourneyNode CurrentNode; //TODO: //{ get; private set; }
-    public JourneyNodeReward Reward { get; private set; }
+    public JourneyNodeReward JourneyNodeReward { get; private set; }
 
 
     public event Action<int> OnGoldChanged;
@@ -48,7 +48,7 @@ public class RunManager : Singleton<RunManager>
         PlayerAbilityPouch = new();
 
         CurrentNode = null;
-        Reward = null;
+        JourneyNodeReward = null;
 
         foreach (GlobalUpgrade item in _gameManager.PurchasedGlobalUpgrades)
             if (item.UpgradeType == UpgradeType.Run)
@@ -126,12 +126,29 @@ public class RunManager : Singleton<RunManager>
 
     public void SetNodeReward(JourneyNodeReward r)
     {
-        Reward = r;
+        JourneyNodeReward = r;
+    }
+
+    public void GetReward()
+    {
+        Debug.Log("get reward!");
+        if (JourneyNodeReward != null)
+            JourneyNodeReward.GetReward();
+
+        JourneyNodeReward = null;
     }
 
     public JourneyEvent ChooseEvent()
     {
-        JourneyEvent ev = _availableEvents[Random.Range(0, _availableEvents.Count)];
+        JourneyEvent ev = null;
+        Debug.Log($"_availableEvents.Count: {_availableEvents.Count}");
+        Debug.Log($"_gameManager.GameDatabase.GetAllEvents().Length: {_gameManager.GameDatabase.GetAllEvents().Length}");
+
+        if (_availableEvents.Count == _gameManager.GameDatabase.GetAllEvents().Length)
+            ev = _availableEvents[0];
+        if (ev == null)
+            ev = _availableEvents[Random.Range(0, _availableEvents.Count)];
+
         _availableEvents.Remove(ev);
         return ev;
     }

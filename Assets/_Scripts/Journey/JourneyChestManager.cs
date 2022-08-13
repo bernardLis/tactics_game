@@ -139,20 +139,20 @@ public class JourneyChestManager : Singleton<JourneyChestManager>
             _result.text = "Winner winner chicken dinner";
             _result.style.color = Color.white;
             _chestBehaviour.Chest.Won();
-            rewardInstance.gold = _goldReward;
+            rewardInstance.Gold = _goldReward;
         }
         else
         {
             _result.text = "Better luck next time";
             _result.style.color = Color.red;
             _chestBehaviour.Chest.Lost();
-            rewardInstance.gold = 0;
+            rewardInstance.Gold = 0;
         }
 
         _obolAmountLabel.text = "0";
 
         _runManger.SetNodeReward(rewardInstance);
-        StartCoroutine(ChangeGoldCoroutine(rewardInstance.gold));
+        StartCoroutine(ChangeGoldCoroutine(rewardInstance.Gold));
 
         _difficultyAdjustWrapper.style.display = DisplayStyle.None;
 

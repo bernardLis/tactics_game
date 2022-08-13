@@ -66,11 +66,12 @@ MonoBehaviour:
   _numberOfRows: 7
   _numberOfBridges: 5
   _basicConfigs:
-  - {fileID: 11400000, guid: 9199ec4c3a877f745886e2c14f22fdbe, type: 2}
+  - {fileID: 11400000, guid: 6a553f0038769bf4f9429f9e2060f0b8, type: 2}
   - {fileID: 11400000, guid: 48b63e31052747e439be636f588bd7b8, type: 2}
-  - {fileID: 11400000, guid: e5776c8dc62eacf4d8be1de62bd97cca, type: 2}
+  - {fileID: 11400000, guid: 9199ec4c3a877f745886e2c14f22fdbe, type: 2}
+  - {fileID: 11400000, guid: 95263576d9278cc4c9a97109891510bd, type: 2}
   - {fileID: 11400000, guid: d45fee76690705842bd937e929c708b7, type: 2}
-  BattleDatabase: {fileID: 11400000, guid: f13568fe508ebb34bb075c2b6cff746e, type: 2}
+  - {fileID: 11400000, guid: be9334ae8e3f32947a4cf0ec239f0642, type: 2}
   _backgrounds:
   - {fileID: 21300000, guid: 5ed7bae907d9bdf4481ac157fa16c084, type: 3}
   - {fileID: 21300000, guid: 1feec931a9118d540b30c7c34e2e5517, type: 3}

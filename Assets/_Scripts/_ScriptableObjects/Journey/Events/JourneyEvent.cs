@@ -6,7 +6,9 @@ using UnityEngine;
 public class JourneyEvent : BaseScriptableObject
 {
     public Sprite Background;
+    [TextArea]
     public string Description;
+    public Sound VoiceOver;
     public List<JourneyEventOption> Options = new();
-	
+
 }

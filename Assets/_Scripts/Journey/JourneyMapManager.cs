@@ -274,11 +274,10 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
     void ResolveRewards()
     {
-        if (_runManager.Reward == null)
+        if (_runManager.JourneyNodeReward == null)
             return;
 
-        ChangeGold(_runManager.Reward.gold);
-        _runManager.SetNodeReward(null);
+        _runManager.GetReward();
     }
 
     void UpdateAvailableNodes()
@@ -380,6 +379,5 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         int gold = _runManager.Gold;
         Mathf.Clamp(gold, 0, Mathf.Infinity);
         _runManager.ChangeGoldValue(_amount);
-        _journeyMapUI.ChangeGold(gold - _amount, _amount);
     }
 }

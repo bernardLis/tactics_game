@@ -23,7 +23,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void AddRewardGold(int n)
     {
-        _reward.gold += n;
+        _reward.Gold += n;
     }
 
     public JourneyNodeReward GetReward()

@@ -68,6 +68,9 @@ public class MenuScreen : FullScreenVisual
         container.style.width = Length.Percent(100);
         container.style.height = Length.Percent(30);
 
+        Label gold = new Label($"Gold: {RunManager.Instance.Gold}");
+        gold.AddToClassList("textPrimary");
+
         Label obols = new Label($"Obols: {_gameManager.Obols}");
         obols.AddToClassList("textPrimary");
 
@@ -79,6 +82,7 @@ public class MenuScreen : FullScreenVisual
             upgradeContainer.Add(visual);
         }
 
+        container.Add(gold);
         container.Add(obols);
         container.Add(upgradeContainer);
 

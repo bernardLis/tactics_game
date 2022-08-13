@@ -30,8 +30,7 @@ MonoBehaviour:
   MovementRangeBonus: 0
   Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
   Weapon: {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
-  Items:
-  - {fileID: 11400000, guid: 2aeb94181c038f044ae88fd9cae056f3, type: 2}
+  Items: []
   BasicAbilities:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities:
