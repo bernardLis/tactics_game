@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7252322758523318543}
   - component: {fileID: 7252322758523318536}
   - component: {fileID: 7252322758523318540}
+  - component: {fileID: 2424927172154544189}
   m_Layer: 0
   m_Name: JourneyMapManager
   m_TagString: Untagged
@@ -104,3 +105,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obolObject: {fileID: 4198658476046925160, guid: 766bc13060cef0c4196303962a9eb56c, type: 3}
+--- !u!114 &2424927172154544189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252322758523318539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c563e9e632585b241af95a72306ad39c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

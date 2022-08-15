@@ -19,7 +19,4 @@ public class JourneyBridge
         lr.SetPosition(0, From.GameObject.transform.position);
         lr.SetPosition(1, To.GameObject.transform.position);
     }
-
-
-
 }

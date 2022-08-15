@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: 
   Id: b03f957e-67c5-46aa-9322-f71e99d4a4fe
-  Icon: {fileID: 21300000, guid: 6d220d0fead5c4844a5dd1c7252aaca6, type: 3}
+  Icon: {fileID: 21300000, guid: 90163a964e249154788c68c0f9be51b4, type: 3}
   NodeType: 0
   SceneToLoad: 
   GameObject: {fileID: 0}

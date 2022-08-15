@@ -40,7 +40,7 @@ public class HealerBrain : Brain
         PotentialTarget target = null;
         foreach (PotentialTarget t in potentialTargets)
         {
-            Debug.Log($"potential target: {t.GameObj.name} disntace: t {t.DistanceToTarget}" );
+            Debug.Log($"potential target: {t.GameObj.name} disntace: t {t.DistanceToTarget}");
             CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
             if (stats.CurrentHealth < stats.MaxHealth.GetValue() && stats.CurrentHealth < lowestHealth)
             {
@@ -125,6 +125,9 @@ public class HealerBrain : Brain
         int lowestHealth = int.MaxValue;
         foreach (PotentialTarget t in potentialTargets)
         {
+            if (t.GameObj == null)
+                continue;
+                
             CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
 
             if (stats.CurrentHealth < stats.MaxHealth.GetValue()

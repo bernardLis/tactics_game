@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: End
   m_EditorClassIdentifier: 
   Id: ea8e7e51-21ee-45c8-bb00-50d2a6c3901f
-  Icon: {fileID: 21300000, guid: 69556d3833f6a4144bdb3dc8f234b270, type: 3}
+  Icon: {fileID: 21300000, guid: e2248b674c286c444b60b8e029265f08, type: 3}
   NodeType: 1
   SceneToLoad: End
   GameObject: {fileID: 0}

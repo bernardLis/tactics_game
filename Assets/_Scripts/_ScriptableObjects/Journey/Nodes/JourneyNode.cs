@@ -12,6 +12,7 @@ public class JourneyNode : BaseScriptableObject
     [HideInInspector] public GameObject GameObject;
     SpriteRenderer _spriteRenderer;
     [HideInInspector] public JourneyNodeBehaviour JourneyNodeBehaviour;
+    public bool WasVisited { get; private set; }
 
     public virtual void Initialize(GameObject self)
     {
@@ -28,6 +29,7 @@ public class JourneyNode : BaseScriptableObject
     public void Select()
     {
         _spriteRenderer.color = Color.black;
+        WasVisited = true;
     }
 }
 
