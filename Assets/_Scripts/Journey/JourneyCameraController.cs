@@ -17,25 +17,36 @@ public class JourneyCameraController : MonoBehaviour
         _cam = GetComponent<Camera>();
 
         _journeyMapManager = JourneyMapManager.Instance;
-        _journeyMapManager.OnInitialJourneySetup += OnInitialJourneySetup;
+        _journeyMapManager.OnJourneyWasSetup += OnJourneyWasSetup;
         _journeyMapManager.OnNodeSelection += OnNodeSelection;
     }
 
     void Start()
     {
+        Debug.Log("start");
         _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
         UnsubscribeInputActions();
         SubscribeInputActions();
-
-        // showing the whole journey
-        Vector3 endPos = _journeyMapManager.EndNode.transform.position;
-        transform.position = new Vector3(endPos.x, endPos.y * 0.5f, -10);
-        _cam.orthographicSize = 270;
     }
 
-    void OnInitialJourneySetup()
+    void OnJourneyWasSetup(bool isInitial)
     {
-        MoveCameraToStart();
+        Debug.Log($"initial {isInitial}");
+        if (isInitial)
+        {
+            // showing the whole journey
+            Vector3 endPos = _journeyMapManager.EndNode.transform.position;
+            transform.position = new Vector3(endPos.x, endPos.y * 0.5f, -10);
+            _cam.orthographicSize = 270;
+            MoveCameraToStart();
+        }
+        else
+        {
+            Vector3 currentNodePos = _journeyMapManager.CurrentNode.GameObject.transform.position;
+            transform.position = new Vector3(currentNodePos.x, currentNodePos.y, -10);
+            _cam.orthographicSize = 80;
+        }
+
     }
 
     void OnNodeSelection()
@@ -93,7 +104,7 @@ public class JourneyCameraController : MonoBehaviour
         float duration = 3f;
         Vector3 endPos = _journeyMapManager.EndNode.transform.position;
         transform.DOMoveY(endPos.y, duration);
-        _cam.DOOrthoSize(60, duration);
+        _cam.DOOrthoSize(80, duration);
         await Task.Delay(Mathf.RoundToInt(duration * 1000));
         Vector3 startPos = _journeyMapManager.StartNode.transform.position;
         transform.DOMoveY(startPos.y, duration).OnComplete(() => _allowInput = true);

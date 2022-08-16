@@ -20,7 +20,6 @@ public class JourneyLineDrawer : ImmediateModeShapeDrawer
         if (_paths == null || _paths.Count == 0)
             return;
 
-
         // start gets line renderer per path and renders a line
         foreach (JourneyPath p in _paths)
         {
@@ -55,6 +54,33 @@ public class JourneyLineDrawer : ImmediateModeShapeDrawer
                 //offset
                 Vector3 startPosition = startNode.GameObject.transform.position;
                 Vector3 endPosition = endNode.GameObject.transform.position;
+                startPosition += new Vector3(0, 5, 0);
+                endPosition += new Vector3(0, -5, 0);
+
+                using (Draw.Command(cam))
+                {
+                    Draw.DashSnap = DashSnapping.Tiling;
+                    Draw.UseDashes = true;
+                    Draw.Line(startPosition, endPosition, 1f, pathColor);
+                }
+            }
+        }
+
+        foreach (JourneyPath p in _paths)
+        {
+            foreach (JourneyBridge b in p.Bridges)
+            {
+                JourneyNode fromNode = b.FromNode;
+                JourneyNode toNode = b.ToNode;
+
+                Color pathColor = Color.black;
+
+                if (toNode.WasVisited)
+                    pathColor = Color.blue;
+
+                //offset
+                Vector3 startPosition = fromNode.GameObject.transform.position;
+                Vector3 endPosition = toNode.GameObject.transform.position;
                 startPosition += new Vector3(0, 5, 0);
                 endPosition += new Vector3(0, -5, 0);
 

@@ -12,7 +12,7 @@ public class JourneyNode : BaseScriptableObject
     [HideInInspector] public GameObject GameObject;
     SpriteRenderer _spriteRenderer;
     [HideInInspector] public JourneyNodeBehaviour JourneyNodeBehaviour;
-    public bool WasVisited { get; private set; }
+    public bool WasVisited;
 
     public virtual void Initialize(GameObject self)
     {

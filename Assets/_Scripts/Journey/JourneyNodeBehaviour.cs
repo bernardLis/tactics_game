@@ -72,6 +72,7 @@ public class JourneyNodeBehaviour : MonoBehaviour, IPointerClickHandler, IPointe
     {
         _spriteRenderer.color = Color.black;
         _visitedGFX.enabled = true;
+        JourneyNode.WasVisited = true;
     }
 
 }

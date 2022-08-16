@@ -46,7 +46,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
     bool _isInitialSetup = true;
 
-    public event Action OnInitialJourneySetup;
+    public event Action<bool> OnJourneyWasSetup;
     public event Action OnNodeSelection;
     protected override void Awake()
     {
@@ -75,11 +75,9 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         DrawConnections();
         AddJourneyBridges();
         SetBackground();
-        SetUpTraversal();
         LoadData();
 
-        if (_isInitialSetup)
-            OnInitialJourneySetup?.Invoke();
+        OnJourneyWasSetup?.Invoke(_isInitialSetup);
     }
 
     void InitialSetup()
@@ -98,7 +96,6 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         if (_runManager.WasJourneySetUp)
         {
             _journeyPaths = _runManager.JourneyPaths;
-            _isInitialSetup = false;
             return;
         }
 
@@ -114,7 +111,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     void DisplayNodes()
     {
         // start node
-        float centerX = _numberOfPaths * 30 * 0.5f; // TODO: magic number in between what I add to x for each path
+        float centerX = _numberOfPaths * 50 * 0.5f; // TODO: magic number in between what I add to x for each path
         JourneyNode startNodeInstance = Instantiate(_startNodeScriptableObject);
         InstantiateNode(startNodeInstance, new Vector3(centerX, 0f));
         StartNode = startNodeInstance.GameObject;
@@ -136,7 +133,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
                 if (y > maxY)
                     maxY = y;
             }
-            x += Random.Range(20, 40);
+            x += Random.Range(40, 80);
         }
 
         // end node 
@@ -182,8 +179,9 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
                 continue;
             JourneyNode toNode = toPath.Nodes[fromNodeIndex + 1];
 
-            JourneyBridge bridge = new JourneyBridge();
-            bridge.Initialize(fromNode, toNode, _journeyLine);
+            JourneyBridge bridge = new();
+            bridge.Initialize(fromNode, toNode);
+
             fromPath.Bridges.Add(bridge);
         }
     }
@@ -195,7 +193,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
             foreach (JourneyBridge b in p.Bridges)
             {
                 JourneyBridge bridge = new JourneyBridge();
-                bridge.Initialize(b.From, b.To, _journeyLine);
+                bridge.Initialize(b.FromNode, b.ToNode);
             }
         }
     }
@@ -208,20 +206,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         g.AddComponent<SpriteRenderer>().sprite = _backgrounds[Random.Range(0, _backgrounds.Length)];
         float x = GetMostRightNode().GameObject.transform.position.x * 0.5f;
         g.transform.position = new Vector3(x, EndNode.transform.position.y * 0.5f, 1f); // TODO: magic numbers
-        g.transform.localScale = new Vector3(_numberOfPaths + 2f, EndNode.transform.position.y * 0.05f); // TODO: magic numbers
-    }
-
-    void SetUpTraversal()
-    {
-        // line renderer
-        GameObject g = new GameObject("PathTravelledLineRenderer");
-        g.transform.parent = StartNode.gameObject.transform;
-        _pathTravelledLineRenderer = g.AddComponent<LineRenderer>();
-        _pathTravelledLineRenderer.material = _pathTravelledLine;
-        _pathTravelledLineRenderer.startWidth = 1f;
-        _pathTravelledLineRenderer.material.color = Color.red;
-        _pathTravelledLineRenderer.positionCount = 1;
-        _pathTravelledLineRenderer.SetPosition(0, StartNode.gameObject.transform.position);
+        g.transform.localScale = new Vector3(_numberOfPaths + 5f, EndNode.transform.position.y * 0.05f); // TODO: magic numbers
     }
 
     void LoadData()
@@ -240,7 +225,8 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
             return;
         }
-
+        
+        _isInitialSetup = false;
         StartNode.GetComponent<JourneyNodeBehaviour>().MarkAsVisited();
 
         JourneyNodeData data = _runManager.CurrentJourneyNode;

@@ -39,8 +39,8 @@ public class JourneyPath : BaseScriptableObject // needed for instantiate
     public JourneyNode CheckBridge(JourneyNode current)
     {
         foreach (JourneyBridge b in Bridges)
-            if (b.From == current)
-                return b.To;
+            if (b.FromNode == current)
+                return b.ToNode;
         return null;
     }
 }
