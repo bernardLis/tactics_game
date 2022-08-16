@@ -33,7 +33,7 @@ public class CharacterScreen : FullScreenVisual
     {
         VisualElement characterCardContainer = new();
         characterCardContainer.AddToClassList("uiContainer");
-        CharacterCardVisualExtended card = new CharacterCardVisualExtended(stats);
+        CharacterCardVisualExtended card = new CharacterCardVisualExtended(stats.Character);
 
         characterCardContainer.Add(card);
         Add(characterCardContainer);

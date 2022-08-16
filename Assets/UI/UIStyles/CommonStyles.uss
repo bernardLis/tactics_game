@@ -341,3 +341,17 @@
     border-bottom-width: 4px;
     transition-duration: 0.5s;
 }
+
+.itemDragDropContainer {
+    visibility: hidden;
+    position: absolute;
+    width: 75px;
+    height: 75px;
+}
+
+.abilityDragDropContainer {
+    visibility: hidden;
+    position: absolute;
+    width: 120px;
+    height: 120px;
+}

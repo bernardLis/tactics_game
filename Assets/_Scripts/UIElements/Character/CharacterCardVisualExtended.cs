@@ -5,25 +5,36 @@ using UnityEngine.UIElements;
 
 public class CharacterCardVisualExtended : CharacterCardVisual
 {
-
     Label _level;
     Label _exp;
 
+    public List<ItemSlotVisual> ItemSlots = new();
+    public List<ItemVisual> ItemVisuals = new();
+
+    public List<AbilitySlotVisual> AbilitySlots = new();
+    public List<AbilityButton> AbilityButtons = new();
+
     public CharacterCardVisualExtended(Character character) : base(character, false)
     {
-        BaseCharacterCardVisualExtended(character);
-    }
-    public CharacterCardVisualExtended(CharacterStats stats) : base(stats, false)
-    {
-        BaseCharacterCardVisualExtended(stats.Character);
+        AddToClassList("uiContainer");
+        style.maxHeight = 400;
+        style.maxWidth = 600;
+
+        _characteristics.Add(CreateExpGroup(character));
+
+        VisualElement wrapper = new();
+        wrapper.style.flexDirection = FlexDirection.Row;
+        wrapper.style.width = Length.Percent(100);
+        wrapper.Add(_portrait);
+        _portrait.style.minWidth = 200;
+        wrapper.Add(_characteristics);
+        wrapper.Add(CreateItems(character));
+        Add(wrapper);
+
+        style.flexDirection = FlexDirection.Column;
+        Add(CreateAbilities(character));
     }
 
-    void BaseCharacterCardVisualExtended(Character character)
-    {
-        style.width = Length.Percent(50);
-        _characteristics.Add(CreateExpGroup(character));
-        Add(CreateItems(character));
-    }
 
     VisualElement CreateExpGroup(Character character)
     {
@@ -52,16 +63,45 @@ public class CharacterCardVisualExtended : CharacterCardVisual
 
     VisualElement CreateItems(Character character)
     {
-
         VisualElement container = new();
-        foreach (Item item in character.Items)
+        for (int i = 0; i < 3; i++)
         {
-            ItemVisual iv = new ItemVisual(item);
-            container.Add(iv);
+            ItemSlotVisual itemSlot = new();
+            itemSlot.Character = character;
+            ItemSlots.Add(itemSlot);
+            container.Add(itemSlot);
+        }
+
+        for (int i = 0; i < character.Items.Count; i++)
+        {
+            ItemVisual itemVisual = new ItemVisual(character.Items[i]);
+            ItemSlots[i].AddItem(itemVisual);
+            ItemVisuals.Add(itemVisual);
         }
 
         return container;
     }
 
+    VisualElement CreateAbilities(Character character)
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        for (int i = 0; i < character.GetNumberOfAbilitySlots(); i++)
+        {
+            AbilitySlotVisual abilitySlot = new();
+            abilitySlot.Character = character;
+            AbilitySlots.Add(abilitySlot);
+            container.Add(abilitySlot);
+        }
 
+
+        for (int i = 0; i < character.Abilities.Count; i++)
+        {
+            AbilityButton abilityButton = new AbilityButton(character.Abilities[i], null);
+            AbilitySlots[i].AddButton(abilityButton);
+            AbilityButtons.Add(abilityButton);
+        }
+
+        return container;
+    }
 }

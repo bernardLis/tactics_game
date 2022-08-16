@@ -51,8 +51,7 @@ public class ShopManager : MonoBehaviour
     List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
-
-    List<CharacterCardVisualShop> _characterCards = new();
+    List<CharacterCardVisualExtended> _characterCards = new();
 
     void Awake()
     {
@@ -69,7 +68,6 @@ public class ShopManager : MonoBehaviour
 
         _shopRerollButton = _root.Q<Button>("shopRerollButton");
         _shopRerollButton.clickable.clicked += Reroll;
-
 
         _shopPlayerGoldAmount = _root.Q<Label>("shopPlayerGoldAmount");
         _shopPlayerGoldAmount.text = "" + _runManager.Gold;
@@ -189,7 +187,7 @@ public class ShopManager : MonoBehaviour
 
         foreach (Character c in characters)
         {
-            CharacterCardVisualShop card = new(c);
+            CharacterCardVisualExtended card = new(c);
             _characterCardsContainer.Add(card);
             _characterCards.Add(card);
 
@@ -470,8 +468,10 @@ public class ShopManager : MonoBehaviour
 
         if (_newItemSlot.Character != null)
             _newItemSlot.Character.AddItem(_draggedItem.Item);
+        else
+            _runManager.AddItemToPouch(_draggedItem.Item);
 
-        foreach (CharacterCardVisualShop card in _characterCards)
+        foreach (CharacterCardVisualExtended card in _characterCards)
             card.Character.ResolveItems();
     }
 
@@ -550,6 +550,9 @@ public class ShopManager : MonoBehaviour
 
         if (_newAbilitySlot.Character != null)
             _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);
+        else
+            _runManager.AddAbilityToPouch(_draggedAbility.Ability);
+
     }
 
     void DragCleanUp()

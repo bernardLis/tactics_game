@@ -10,7 +10,7 @@ public class JourneyCameraController : MonoBehaviour
     JourneyMapManager _journeyMapManager;
     PlayerInput _playerInput;
 
-    bool _allowInput;
+    bool _allowInput = true;
 
     void Awake()
     {
@@ -23,7 +23,6 @@ public class JourneyCameraController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("start");
         _playerInput = GameManager.Instance.GetComponent<PlayerInput>();
         UnsubscribeInputActions();
         SubscribeInputActions();
@@ -31,9 +30,9 @@ public class JourneyCameraController : MonoBehaviour
 
     void OnJourneyWasSetup(bool isInitial)
     {
-        Debug.Log($"initial {isInitial}");
         if (isInitial)
         {
+            _allowInput = false;
             // showing the whole journey
             Vector3 endPos = _journeyMapManager.EndNode.transform.position;
             transform.position = new Vector3(endPos.x, endPos.y * 0.5f, -10);
