@@ -36,7 +36,7 @@ public class ModifierVisual : VisualWithTooltip
         if (Status != null)
             text = Status.GetDescription();
 
-        _tooltip = new(this, text);
+        _tooltip = new(this, new Label(text));
         base.DisplayTooltip();
     }
 

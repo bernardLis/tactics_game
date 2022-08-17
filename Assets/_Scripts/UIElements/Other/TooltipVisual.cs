@@ -4,17 +4,22 @@ using UnityEngine.InputSystem;
 
 public class TooltipVisual : VisualElement
 {
-    Label _text;
     int offsetX = 5;
     int offsetY = -10;
 
-    public TooltipVisual(VisualElement element, string text)
+    VisualElement _parentElement;
+
+    public TooltipVisual(VisualElement element, VisualElement tooltipElement)
     {
+        _parentElement = element;
+
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetCommonStyles();
         styleSheets.Add(ss);
 
         //https://forum.unity.com/threads/how-can-i-move-a-visualelement-to-the-position-of-the-mouse.1187890/
         Vector2 mousePosition = Mouse.current.position.ReadValue();
+        if (element == null)
+            return;
         Vector2 pos = UnityEngine.UIElements.RuntimePanelUtils.ScreenToPanel(element.panel,
                         new Vector2(mousePosition.x, Screen.height - mousePosition.y));
 
@@ -24,9 +29,9 @@ public class TooltipVisual : VisualElement
         style.top = pos.y + offsetY - resolvedStyle.height;
         OnPostVisualCreation();
 
-        _text = new(text);
-        _text.AddToClassList("textPrimary");
-        Add(_text);
+        AddToClassList("textPrimary");
+
+        Add(tooltipElement);
     }
 
     public void UpdatePosition(VisualElement element)
@@ -60,6 +65,7 @@ public class TooltipVisual : VisualElement
         // Do any measurements, size adjustments you need (NaNs not an issue now)
         MarkDirtyRepaint();
         visible = true;
+        UpdatePosition(_parentElement);
     }
 
 }

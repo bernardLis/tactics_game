@@ -19,7 +19,8 @@ public class ItemVisual : VisualWithTooltip
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, _tooltipText);
+        Label tooltip = new(_tooltipText);
+        _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }
 

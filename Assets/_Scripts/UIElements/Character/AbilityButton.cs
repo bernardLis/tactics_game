@@ -60,7 +60,9 @@ public class AbilityButton : VisualWithTooltip
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, Ability.name);
+        HideTooltip();
+        AbilityTooltipVisual tooltip = new(Ability);
+        _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }
 

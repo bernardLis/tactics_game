@@ -131,7 +131,6 @@ public class RunManager : Singleton<RunManager>
 
     public void GetReward()
     {
-        Debug.Log("get reward!");
         if (JourneyNodeReward != null)
             JourneyNodeReward.GetReward();
 
@@ -141,8 +140,6 @@ public class RunManager : Singleton<RunManager>
     public JourneyEvent ChooseEvent()
     {
         JourneyEvent ev = null;
-        Debug.Log($"_availableEvents.Count: {_availableEvents.Count}");
-        Debug.Log($"_gameManager.GameDatabase.GetAllEvents().Length: {_gameManager.GameDatabase.GetAllEvents().Length}");
 
         if (_availableEvents.Count == _gameManager.GameDatabase.GetAllEvents().Length)
             ev = _availableEvents[0];

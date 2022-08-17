@@ -552,7 +552,6 @@ public class ShopManager : MonoBehaviour
             _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);
         else
             _runManager.AddAbilityToPouch(_draggedAbility.Ability);
-
     }
 
     void DragCleanUp()

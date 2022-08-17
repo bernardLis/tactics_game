@@ -75,7 +75,7 @@ public class JourneyLineDrawer : ImmediateModeShapeDrawer
 
                 Color pathColor = Color.black;
 
-                if (toNode.WasVisited)
+                if (fromNode.WasVisited && toNode.WasVisited)
                     pathColor = Color.blue;
 
                 //offset

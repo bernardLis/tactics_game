@@ -78,7 +78,7 @@ public class StatVisual : VisualWithTooltip
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, _tooltipText);
+        _tooltip = new(this, new Label(_tooltipText));
         base.DisplayTooltip();
     }
 

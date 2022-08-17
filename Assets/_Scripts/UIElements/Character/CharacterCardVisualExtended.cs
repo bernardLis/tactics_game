@@ -94,7 +94,6 @@ public class CharacterCardVisualExtended : CharacterCardVisual
             container.Add(abilitySlot);
         }
 
-
         for (int i = 0; i < character.Abilities.Count; i++)
         {
             AbilityButton abilityButton = new AbilityButton(character.Abilities[i], null);

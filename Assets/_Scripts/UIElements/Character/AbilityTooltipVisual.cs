@@ -37,7 +37,6 @@ public class AbilityTooltipVisual : VisualWithTooltip
         _aoe = new("AOE: " + ability.GetAOEDescription());
         _aoe.AddToClassList("textSecondary");
 
-
         _modifierContainer = new();
         _modifierContainer.AddToClassList("modifierContainer");
         HandleModifiers(ability);
@@ -49,6 +48,7 @@ public class AbilityTooltipVisual : VisualWithTooltip
         Add(_range);
         Add(_aoe);
         Add(_modifierContainer);
+        Add(new Label());
     }
 
     void HandleModifiers(Ability ability)
