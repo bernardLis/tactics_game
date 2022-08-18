@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hail Strike
   m_EditorClassIdentifier: 
   Id: 7ed93f27-098e-4b5a-a7f3-f1a86bc82696
-  ReferenceID: 
+  ReferenceID: HailStrike
   Description: Water attack from the sky!
   Icon: {fileID: 21300000, guid: 8e173f4730316134291330400716c085, type: 3}
   Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
@@ -32,5 +32,6 @@ MonoBehaviour:
   CanTargetSelf: 1
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.08235294, g: 0.42352942, b: 0.6, a: 1}
+  Price: 1
   CharacterGameObject: {fileID: 0}
   CreatedObject: {fileID: 2389397590401772879, guid: d8e2fd09323c0504caed8a395dd232d1, type: 3}

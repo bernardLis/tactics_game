@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Jupiter Ball Lightning
   m_EditorClassIdentifier: 
   Id: 982821dd-5034-4456-a329-a1171db5d913
-  ReferenceID: 
+  ReferenceID: JupiterBallLightning
   Description: Shoots a lightning projectile
   Icon: {fileID: 21300000, guid: 7767b2ae7ebe14d498401b0cca068540, type: 3}
   Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
@@ -32,4 +32,5 @@ MonoBehaviour:
   CanTargetSelf: 0
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.33312562, g: 0.72568893, b: 0.8962264, a: 1}
+  Price: 1
   CharacterGameObject: {fileID: 0}

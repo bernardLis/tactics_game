@@ -104,8 +104,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
             HandleCharacterStateNone();
         if (state == CharacterState.Selected)
             HandleCharacterSelected();
-        if (state == CharacterState.SelectingInteractionTarget)
-            HandleCharacterSelectingInteractionTarget();
         if (state == CharacterState.SelectingFaceDir)
             return;
         if (state == CharacterState.ConfirmingInteraction)
@@ -122,12 +120,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
         HideCharacterCard();
         ResolveInteractionSummary(_movePointController.transform.position);
         ShowTileInfo(_movePointController.transform.position);
-    }
-
-    void HandleCharacterSelectingInteractionTarget()
-    {
-        ResolveCharacterCard(_movePointController.transform.position);
-        ResolveInteractionSummary(_movePointController.transform.position);
     }
 
     /* tile info */
@@ -228,6 +220,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     void ResolveInteractionSummary(Vector3 pos)
     {
+        Debug.Log($"resolve interaction summary");
         HideInteractionSummary();
 
         if (_battleCharacterController.SelectedAbility == null)
@@ -244,13 +237,16 @@ public class InfoCardUI : Singleton<InfoCardUI>
         // check if there is a character standing there
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
         foreach (Collider2D c in cols)
+        {
             if (c.TryGetComponent(out CharacterStats stats))
             {
+                Debug.Log($"stats defender: {stats}");
                 CharacterStats attacker = _battleCharacterController.SelectedCharacter.GetComponent<CharacterStats>();
                 CharacterStats defender = c.GetComponent<CharacterStats>();
 
                 ShowInteractionSummary(attacker, defender, selectedAbility);
             }
+        }
     }
 
     public void ShowInteractionSummary(CharacterStats attacker, CharacterStats defender, Ability ability)
@@ -285,6 +281,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     async void HandleAttackAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
     {
+        _attackDamageGroup.Clear();
         _attackLabel.text = "Attack";
 
         await Task.Delay(100);

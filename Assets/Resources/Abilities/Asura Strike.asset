@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Asura Strike
   m_EditorClassIdentifier: 
   Id: 282f5c17-1699-4204-a466-90d128ee9a4f
-  ReferenceID: 
+  ReferenceID: AsuraStrike
   Description: Deals a tremendus amount of damage. It costs all your health and mana.
     The momentum of the attack moves you.
   Icon: {fileID: 21300000, guid: bb6358bf481206e4190a3424b0a5031d, type: 3}
@@ -33,4 +33,5 @@ MonoBehaviour:
   CanTargetSelf: 0
   CanTargetDiagonally: 0
   HighlightColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
+  Price: 1
   CharacterGameObject: {fileID: 0}
