@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public class AttackTriggerable : BaseTriggerable
@@ -26,35 +27,38 @@ public class AttackTriggerable : BaseTriggerable
         if (!isRetaliation)
             _myStats.SetAttacker(true);
 
-        GameObject target = await GetTarget(pos, ability);
-        if (target == null)
+        List<GameObject> targets = await GetTarget(pos, ability);
+        if (targets.Count == 0)
             return null;
 
-        if (target.TryGetComponent(out CharacterStats stats))
+        foreach (GameObject target in targets)
         {
-            DisplayBattleLog(target, ability);
+            if (target.TryGetComponent(out CharacterStats stats))
+            {
+                DisplayBattleLog(target, ability);
 
-            // damage target // TODO: ugh... this -1 is killing me...
-            int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>(), isRetaliation);
-            bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
+                // damage target // TODO: ugh... this -1 is killing me...
+                int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>(), isRetaliation);
+                bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
 
-            if (wasAttackSuccesful)
-                _myStats.Character.GetExp(target);
+                if (wasAttackSuccesful)
+                    _myStats.Character.GetExp(target);
+            }
+
+            if (target.TryGetComponent(out ObjectStats objectStats))
+                if (ability.Status != null)
+                    await objectStats.AddStatus(ability.Status, gameObject);
         }
 
-        if (target.TryGetComponent(out ObjectStats objectStats))
-        {
-            if (ability.Status != null)
-                await objectStats.AddStatus(ability.Status, gameObject);
-        }
-
-        // return what you hit
-        return target;
+        // return what you hit - it is only used for position so no worries xDDDDD
+        return targets[0];
     }
 
 
-    async Task<GameObject> GetTarget(Vector3 pos, Ability ability)
+    async Task<List<GameObject>> GetTarget(Vector3 pos, Ability ability)
     {
+        List<GameObject> targets = new();
+
         // spawn and fire a projectile if the ability has one
         if (ability.Projectile != null)
         {
@@ -62,15 +66,22 @@ public class AttackTriggerable : BaseTriggerable
             GameObject projectile = Instantiate(ability.Projectile, transform.position, Quaternion.identity);
             hit = await projectile.GetComponent<Projectile>().Shoot(transform, pos);
             if (hit != null)
-                return hit;
+            {
+                targets.Add(hit);
+                return targets;
+            }
         }
 
         // looking for a target
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
-        // looking for attackable target
         foreach (Collider2D c in cols)
             if (c.TryGetComponent(out BaseStats stats))
-                return c.gameObject;
-        return null;
+            {
+                // HERE: I think sometimes I am attacking water.
+                Debug.Log($"adding to targets: {stats.gameObject.name}");
+
+                targets.Add(c.gameObject);
+            }
+        return targets;
     }
 }

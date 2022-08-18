@@ -20,7 +20,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
     protected int _damage = 50;
 
     // display info
-    string _displayText = "Boulder. You can move it if you know the technique. You can learn it in Celadon City.";
+    string _displayText = "Boulder. You can push it with an ability.";
 
     string _lightFlickerTweenId = "_lightFlickerTweenId";
 

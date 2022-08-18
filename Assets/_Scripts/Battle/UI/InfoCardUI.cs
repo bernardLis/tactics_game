@@ -220,7 +220,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     void ResolveInteractionSummary(Vector3 pos)
     {
-        Debug.Log($"resolve interaction summary");
         HideInteractionSummary();
 
         if (_battleCharacterController.SelectedAbility == null)
@@ -240,7 +239,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
         {
             if (c.TryGetComponent(out CharacterStats stats))
             {
-                Debug.Log($"stats defender: {stats}");
                 CharacterStats attacker = _battleCharacterController.SelectedCharacter.GetComponent<CharacterStats>();
                 CharacterStats defender = c.GetComponent<CharacterStats>();
 
@@ -281,7 +279,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     async void HandleAttackAbilitySummary(CharacterStats attacker, CharacterStats defender, Ability ability)
     {
-        _attackDamageGroup.Clear();
         _attackLabel.text = "Attack";
 
         await Task.Delay(100);

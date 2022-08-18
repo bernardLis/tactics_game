@@ -106,7 +106,7 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         _turnManager.AddEnemy(enemyGO);
         AudioManager.Instance.PlaySFX(_ratSpawnSound, transform.position);
         GameObject spawnEffect = Instantiate(_ratSpawnEffect, transform.position, Quaternion.identity);
-        
+
         enemyGO.transform.DOMove(pos, 1f);
         spawnEffect.transform.DOMove(pos, 1f).OnComplete(() => Destroy(spawnEffect));
     }
@@ -121,15 +121,24 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
             new Vector3(transform.position.x, transform.position.y - 1)
         };
 
+        List<Vector3> openPositions = new();
         foreach (Vector3 pos in positions)
         {
+            bool isPosTaken = false;
+            
             Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
-            if (cols.Length > 0)
-                continue;
+            foreach (Collider2D c in cols)
+                if (c.CompareTag(Tags.Player) || c.CompareTag(Tags.Enemy) || c.CompareTag(Tags.PushableObstacle))
+                    isPosTaken = true;
 
-            return pos;
+            if (!isPosTaken)
+                openPositions.Add(pos);
         }
-        return Vector3.zero;
+
+        if (openPositions.Count == 0)
+            return Vector3.zero;
+
+        return openPositions[Random.Range(0, openPositions.Count)];
     }
 
     public VisualElement DisplayText()

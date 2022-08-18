@@ -379,7 +379,11 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         SelectedAbility = null;
         _highlighter.ClearHighlightedTiles().GetAwaiter();
 
-        UpdateCharacterState(CharacterState.Selected);
+        if (_playerCharSelection.HasMovedThisTurn)
+            UpdateCharacterState(CharacterState.Moved);
+        else
+            UpdateCharacterState(CharacterState.Selected);
+
     }
 
     async Task BackFromFaceDirSelection()
@@ -403,7 +407,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // deselect ability if it was an ability that goes straight to facing dir;
         BackFromAbilitySelection();
-        UpdateCharacterState(CharacterState.Selected);
     }
 
     async Task BackFromConfirmingInteraction()
