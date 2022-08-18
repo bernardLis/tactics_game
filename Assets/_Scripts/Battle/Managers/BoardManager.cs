@@ -61,7 +61,6 @@ public class BoardManager : Singleton<BoardManager>
     {
         base.Awake();
     }
-
     void Start()
     {
         _runManager = RunManager.Instance;
@@ -78,26 +77,32 @@ public class BoardManager : Singleton<BoardManager>
         GenerateMap();
     }
 
-    public async void GenerateMap()
+    async void GenerateMap()
     {
+        Debug.Log($"Generate map is called");
+        // HERE: seed should be taken from run manager
         _seed = System.DateTime.Now.Millisecond;
-        _turnManager.UpdateBattleState(BattleState.MapBuilding);
 
         // TODO: without the delays it breaks the game, 
         // preparation is called before map building, I just need a few miliseconds to set everything up.
         await InitialSetup();
-        BoardSetup();
+        await BoardSetup();
         PlayAmbience();
         await Task.Delay(100);
-        InitialiseOpenPositions();
-        ResolveMapVariant();
+        await InitializeOpenPositions();
+        await ResolveMapVariant();
         await Task.Delay(100);
-        PlaceTerrainIrregularities();
+        await PlaceTerrainIrregularities();
         await Task.Delay(100);
-        HandleLooseTiles();
+        await HandleLooseTiles();
         await Task.Delay(100);
-        HandleEdge();
+        await HandleEdge();
         await Task.Delay(100);
+        if (!await FloodFillCheck()) // checks whether the map is accessible before laying out obstacles
+        {
+            GenerateMap();
+            return;
+        }
         await LayoutObstacles();
         PlaceSpecialObjects();
         await Task.Delay(100);
@@ -116,11 +121,11 @@ public class BoardManager : Singleton<BoardManager>
 
     async Task InitialSetup()
     {
+        Debug.Log($"initial setup");
         Random.InitState(_seed);
 
         await _highlighter.ClearHighlightedTiles();
         _turnManager.UpdateBattleState(BattleState.MapBuilding);
-
         _pushableObstacles = new();
 
         _backgroundTilemap.ClearAllTiles();
@@ -129,17 +134,20 @@ public class BoardManager : Singleton<BoardManager>
         var tempList = _envObjectsHolder.transform.Cast<Transform>().ToList();
         foreach (Transform child in tempList)
             Destroy(child.gameObject);
+        await Task.Yield();
     }
 
-    void BoardSetup()
+    async Task BoardSetup()
     {
         // +-1 because I am setting edge tiles to unwalkable edges
         for (int x = -1; x < MapSize.x + 1; x++)
             for (int y = -1; y < MapSize.y + 1; y++)
                 _backgroundTilemap.SetTile(new Vector3Int(x, y), _biome.FloorTiles[Random.Range(0, _biome.FloorTiles.Length)]);
+
+        await Task.Yield();
     }
 
-    void InitialiseOpenPositions()
+    async Task InitializeOpenPositions()
     {
         _openGridPositions.Clear();
 
@@ -148,9 +156,10 @@ public class BoardManager : Singleton<BoardManager>
                 _openGridPositions.Add(new Vector3Int(x, y, 0));
 
         _openGridPositions = Utility.ShuffleList<Vector3Int>(_openGridPositions, _seed);
+        await Task.Yield();
     }
 
-    void ResolveMapVariant()
+    async Task ResolveMapVariant()
     {
         _obstaclePercent = Random.Range(_mapVariant.ObstaclePercent.x, _mapVariant.ObstaclePercent.y);
         _terrainIrregularitiesPercent = Random.Range(_mapVariant.TerrainIrregularitiesPercent.x,
@@ -174,9 +183,11 @@ public class BoardManager : Singleton<BoardManager>
             PlaceLake();
         if (_mapVariant.MapType == MapType.Hourglass)
             CarveHourglass();
+
+        await Task.Yield();
     }
 
-    void PlaceTerrainIrregularities()
+    async Task PlaceTerrainIrregularities()
     {
         int irrCount = Mathf.FloorToInt((MapSize.x * 2 + MapSize.y * 2) * _terrainIrregularitiesPercent);
 
@@ -202,6 +213,8 @@ public class BoardManager : Singleton<BoardManager>
             if (CanPlaceTerrainIrregularity(tileToClear))
                 ClearTile(tileToClear);
         }
+
+        await Task.Yield();
     }
 
     bool CanPlaceTerrainIrregularity(Vector3Int tile)
@@ -223,20 +236,10 @@ public class BoardManager : Singleton<BoardManager>
         if (tile.y == 2 || tile.y == MapSize.y - 2)
             return false;
 
-        // TODO: https://www.notion.so/455f7c47ef3747d68f1daf1bb00dcb16?v=f18df9eaf80e4f258bef240b3b9e1ed5&p=9169adc9288840569e8a315aec224f6d
-        // also, characters can get stuck because of terrain irregularities 
-        // so, I need to check whether map is fully accessible before placing irregularity;
-        // so, to place I need to check whether there are at least 4 tiles in the row / column where irregularity will be placed
-        // but it can be a bit smarter coz I am placing them on the edges so I will only need to check up/down left/right
-        // depending on which edge
-        // ok, ok, ok
-        // need to check 
-
         return true;
-
     }
 
-    void HandleEdge()
+    async Task HandleEdge()
     {
         for (int x = -1; x < MapSize.x + 1; x++)
             for (int y = -1; y < MapSize.y + 1; y++)
@@ -245,27 +248,44 @@ public class BoardManager : Singleton<BoardManager>
         for (int x = -1; x < MapSize.x + 1; x++)
             for (int y = -1; y < MapSize.y + 1; y++)
                 SetInlandCorners(new Vector3Int(x, y));
+        await Task.Yield();
     }
 
-    void HandleLooseTiles()
+    async Task HandleLooseTiles()
     {
         // go twice to smooth things over TODO: I am not certain if that's correct
         for (int i = 0; i < 2; i++)
             for (int x = -1; x < MapSize.x + 1; x++)
                 for (int y = -1; y < MapSize.y + 1; y++)
                     ClearLooseTile(new Vector3Int(x, y));
+
+        await Task.Yield();
+    }
+
+    async Task<bool> FloodFillCheck()
+    {
+        // one of the tiles is always empty
+        _emptyTile = GetRandomOpenPosition(Vector2.one, _openGridPositions)[0];
+        _openGridPositions.Remove(_emptyTile);
+
+        _floorTileCount = 0;
+        for (int x = 0; x <= MapSize.x; x++)
+            for (int y = 0; y <= MapSize.y; y++)
+                if (IsFloorTile(new Vector3Int(x, y)))
+                    _floorTileCount++;
+
+        _obstacleMap = new bool[MapSize.x, MapSize.y];
+
+        await Task.Yield();
+
+        // check whether the map is accessible, if not regenerate it
+        return MapIsFullyAccessible(_obstacleMap, 0);
     }
 
     async Task LayoutObstacles()
     {
         if (_biome.Obstacles.Length == 0)
             return;
-
-        _obstacleMap = new bool[MapSize.x, MapSize.y];
-
-        // one of the tiles is always empty
-        _emptyTile = GetRandomOpenPosition(Vector2.one, _openGridPositions)[0];
-        _openGridPositions.Remove(_emptyTile);
 
         _floorTileCount = 0;
         for (int x = 0; x <= MapSize.x; x++)
@@ -320,7 +340,8 @@ public class BoardManager : Singleton<BoardManager>
 
             List<Vector3Int> pos = GetRandomOpenPosition(Vector2.one, _openGridPositions);
             Vector3 placementPos = new Vector3(pos[0].x + 0.5f, pos[0].y + 0.5f);
-            Instantiate(_placesOf[Random.Range(0, _placesOf.Length)], placementPos, Quaternion.identity);
+            GameObject obj = Instantiate(_placesOf[Random.Range(0, _placesOf.Length)], placementPos, Quaternion.identity);
+            obj.transform.parent = _envObjectsHolder.transform;
         }
     }
 
@@ -350,7 +371,7 @@ public class BoardManager : Singleton<BoardManager>
     /* --- MAP TYPES --- */
     void PlaceRiver()
     {
-        // TODO: is there a way to write one function for both rivers?
+        //TODO: is there a way to write one function for both rivers?
         if (Random.Range(0, 2) == 0)
             PlaceVerticalRiver();
         else
@@ -364,11 +385,11 @@ public class BoardManager : Singleton<BoardManager>
 
         int middleOfMap = Mathf.RoundToInt(MapSize.x * 0.5f);
         int riverWidth = Mathf.RoundToInt(Random.Range(1, MapSize.x * 0.2f));
-        int min = middleOfMap - riverWidth;
-        int max = middleOfMap + riverWidth;
+        int min = Mathf.RoundToInt(middleOfMap - riverWidth * 0.5f);
+        int max = Mathf.RoundToInt(middleOfMap + riverWidth * 0.5f);
 
         // river
-        for (int x = min; x <= max; x++)
+        for (int x = min + 1; x < max; x++)
             for (int y = -1; y < MapSize.y + 1; y++) // -+1 to cover the edges
                 ClearTile(new Vector3Int(x, y));
 
@@ -388,11 +409,11 @@ public class BoardManager : Singleton<BoardManager>
 
         int middleOfMap = Mathf.RoundToInt(MapSize.y * 0.5f);
         int riverWidth = Mathf.RoundToInt(Random.Range(1, MapSize.y * 0.2f));
-        int min = middleOfMap - riverWidth;
-        int max = middleOfMap + riverWidth;
+        int min = Mathf.RoundToInt(middleOfMap - riverWidth * 0.5f);
+        int max = Mathf.RoundToInt(middleOfMap + riverWidth * 0.5f);
 
         // river
-        for (int y = min; y <= max; y++)
+        for (int y = min + 1; y < max; y++)
             for (int x = -1; x < MapSize.x + 1; x++) // -+1 to cover the edges
                 ClearTile(new Vector3Int(x, y));
 

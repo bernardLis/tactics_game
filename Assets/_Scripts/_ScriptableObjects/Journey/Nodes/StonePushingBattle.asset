@@ -18,10 +18,12 @@ MonoBehaviour:
   SceneToLoad: Battle
   GameObject: {fileID: 0}
   JourneyNodeBehaviour: {fileID: 0}
+  WasVisited: 0
   Biome: {fileID: 11400000, guid: 1e36ccc6e7e024441b0416d06801257c, type: 2}
-  MapVariant: {fileID: 11400000, guid: ebc48c573e25c2b4ab8f7288a5008429, type: 2}
+  MapVariant: {fileID: 11400000, guid: 97d8524dc97d414438e24efbc74f523f, type: 2}
   Enemies:
   - {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
   - {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
   - {fileID: 11400000, guid: 8bc22a1c29683204e9f24870b11baac8, type: 2}
-  MapSize: {x: 10, y: 10}
+  MapSize: {x: 100, y: 100}
+  BattleGoal: 0
