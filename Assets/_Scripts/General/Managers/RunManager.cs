@@ -17,10 +17,10 @@ public class RunManager : Singleton<RunManager>
 
     public int Gold;
     [HideInInspector] public List<Character> PlayerTroops = new();
-    public List<Item> PlayerItemPouch = new(); // HERE: normally [HideInInspector] and empty
-    public List<Ability> PlayerAbilityPouch = new(); // HERE: normally [HideInInspector] and empty
+    [HideInInspector] public List<Item> PlayerItemPouch = new();
+    [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
-    public JourneyNode CurrentNode; //TODO: //{ get; private set; }
+    public JourneyNode CurrentNode { get; private set; }
     public JourneyNodeReward JourneyNodeReward { get; private set; }
 
 

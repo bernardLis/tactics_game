@@ -79,10 +79,6 @@ public class BoardManager : Singleton<BoardManager>
 
     async void GenerateMap()
     {
-        Debug.Log($"Generate map is called");
-        // HERE: seed should be taken from run manager
-        _seed = System.DateTime.Now.Millisecond;
-
         // TODO: without the delays it breaks the game, 
         // preparation is called before map building, I just need a few miliseconds to set everything up.
         await InitialSetup();
@@ -98,7 +94,7 @@ public class BoardManager : Singleton<BoardManager>
         await Task.Delay(100);
         await HandleEdge();
         await Task.Delay(100);
-        if (!await FloodFillCheck()) // checks whether the map is accessible before laying out obstacles
+        if (!await FloodFillCheck()) // checks whether the map is accessible before laying out obstacle
         {
             GenerateMap();
             return;
@@ -106,7 +102,8 @@ public class BoardManager : Singleton<BoardManager>
         await LayoutObstacles();
         PlaceSpecialObjects();
         await Task.Delay(100);
-        LayoutFloorAdditions(Mathf.RoundToInt(_floorTileCount * 0.1f), Mathf.RoundToInt(_floorTileCount * 0.2f)); // TODO: chagne to per flavour 
+        // TODO: chagne to per flavour
+        LayoutFloorAdditions(Mathf.RoundToInt(_floorTileCount * 0.1f), Mathf.RoundToInt(_floorTileCount * 0.2f));
         await Task.Delay(100);
         DrawOuter();
         await Task.Delay(100);
@@ -121,7 +118,7 @@ public class BoardManager : Singleton<BoardManager>
 
     async Task InitialSetup()
     {
-        Debug.Log($"initial setup");
+        _seed = _runManager.JourneySeed;
         Random.InitState(_seed);
 
         await _highlighter.ClearHighlightedTiles();
@@ -331,7 +328,7 @@ public class BoardManager : Singleton<BoardManager>
 
     void PlacePlacesOf()
     {
-        int amount = Random.Range(0, 4);
+        int amount = 40;//Random.Range(0, 4);
 
         for (int i = 0; i < amount; i++)
         {
@@ -864,26 +861,9 @@ public class BoardManager : Singleton<BoardManager>
 
         foreach (Brain brain in _battleNode.Enemies)
         {
-            // TODO: this is wrong
-            Vector3Int randomPos = GetRandomOpenPosition(Vector2.one, _openGridPositions)[0];
-            Vector3Int chosenPos = randomPos;
-            foreach (Vector3Int pos in _openGridPositions)
-            {
-                if (EnemySpawnDirection == EnemySpawnDirection.Left && pos.x <= GetLeftmostColumnIndex() + 3)
-                    chosenPos = pos;
-                if (EnemySpawnDirection == EnemySpawnDirection.Top && pos.y >= GetMostTopRowIndex() - 3)
-                    chosenPos = pos;
-                if (EnemySpawnDirection == EnemySpawnDirection.Right && pos.x >= GetRightmostColumnIndex() - 3)
-                    chosenPos = pos;
-                if (EnemySpawnDirection == EnemySpawnDirection.Bottom && pos.y <= GetMostBottomRowIndex() + 3)
-                    chosenPos = pos;
 
-                if (chosenPos != randomPos)
-                {
-                    _openGridPositions.Remove(chosenPos);
-                    break;
-                }
-            }
+            Vector3 spawnPosition = GetEnemySpawnPosition();
+            spawnPosition = new Vector3(spawnPosition.x + 0.5f, spawnPosition.y + 0.5f);
 
             EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
             List<Character> sortedPlayerCharacters = _runManager.PlayerTroops.OrderBy(o => o.Level).ToList();
@@ -891,9 +871,8 @@ public class BoardManager : Singleton<BoardManager>
             int playerLevel = sortedPlayerCharacters[0].Level;
             enemySO.CreateEnemy(playerLevel + 2, brain);
 
-            Vector3 spawnPos = new Vector3(chosenPos.x + 0.5f, chosenPos.y + 0.5f);
             Character instantiatedSO = Instantiate(enemySO);
-            GameObject newCharacter = Instantiate(_enemyGO, spawnPos, Quaternion.identity);
+            GameObject newCharacter = Instantiate(_enemyGO, spawnPosition, Quaternion.identity);
 
             instantiatedSO.Initialize(newCharacter);
             newCharacter.name = instantiatedSO.CharacterName;
@@ -917,6 +896,91 @@ public class BoardManager : Singleton<BoardManager>
         }
 
         await Task.Delay(10);
+    }
+
+    Vector3Int GetEnemySpawnPosition()
+    {
+        List<Vector3Int> availablePositions = new();
+        if (EnemySpawnDirection == EnemySpawnDirection.Left)
+        {
+            for (int x = 0; x < MapSize.x; x++)
+            {
+                for (int y = 0; y < MapSize.y; y++)
+                {
+                    Vector3Int testedPosition = new Vector3Int(x, y, 0);
+
+                    if (CanEnemyBeSpawned(testedPosition))
+                        availablePositions.Add(testedPosition);
+
+                    if (availablePositions.Count > 5)
+                        return availablePositions[Random.Range(0, 5)];
+                }
+            }
+
+        }
+        if (EnemySpawnDirection == EnemySpawnDirection.Top)
+        {
+            for (int y = MapSize.y; y > 0; y--)
+            {
+                for (int x = 0; x < MapSize.x; x++)
+                {
+                    Vector3Int testedPosition = new Vector3Int(x, y, 0);
+
+                    if (CanEnemyBeSpawned(testedPosition))
+                        availablePositions.Add(testedPosition);
+
+                    if (availablePositions.Count > 5)
+                        return availablePositions[Random.Range(0, 5)];
+                }
+            }
+        }
+        if (EnemySpawnDirection == EnemySpawnDirection.Right)
+        {
+            for (int x = MapSize.x; x > 0; x--)
+            {
+                for (int y = 0; y < MapSize.y; y++)
+                {
+                    Vector3Int testedPosition = new Vector3Int(x, y, 0);
+
+                    if (CanEnemyBeSpawned(testedPosition))
+                        availablePositions.Add(testedPosition);
+
+                    if (availablePositions.Count > 5)
+                        return availablePositions[Random.Range(0, 5)];
+                }
+            }
+        }
+
+        if (EnemySpawnDirection == EnemySpawnDirection.Bottom)
+        {
+            for (int y = 0; y < MapSize.y; y++)
+            {
+                for (int x = 0; x < MapSize.x; x++)
+                {
+                    Vector3Int testedPosition = new Vector3Int(x, y, 0);
+
+                    if (CanEnemyBeSpawned(testedPosition))
+                        availablePositions.Add(testedPosition);
+
+                    if (availablePositions.Count > 5)
+                        return availablePositions[Random.Range(0, 5)];
+                }
+            }
+        }
+        return Vector3Int.zero;
+    }
+
+    bool CanEnemyBeSpawned(Vector3Int pos)
+    {
+        if (!IsFloorTile(pos))
+            return false;
+
+        Collider2D[] cols = Physics2D.OverlapCircleAll(new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0), 0.2f);
+        foreach (Collider2D c in cols)
+            if (c.CompareTag(Tags.PushableObstacle) || c.CompareTag(Tags.Obstacle) || c.CompareTag(Tags.Enemy))
+                return false;
+
+        return true;
     }
 
     async void CreatePlayerStartingArea()

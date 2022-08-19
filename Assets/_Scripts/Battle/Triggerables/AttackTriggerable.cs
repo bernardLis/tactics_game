@@ -76,12 +76,8 @@ public class AttackTriggerable : BaseTriggerable
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
         foreach (Collider2D c in cols)
             if (c.TryGetComponent(out BaseStats stats))
-            {
-                // HERE: I think sometimes I am attacking water.
-                Debug.Log($"adding to targets: {stats.gameObject.name}");
-
                 targets.Add(c.gameObject);
-            }
+
         return targets;
     }
 }

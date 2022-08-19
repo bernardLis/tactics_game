@@ -25,5 +25,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
   - {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
   - {fileID: 11400000, guid: 8bc22a1c29683204e9f24870b11baac8, type: 2}
-  MapSize: {x: 100, y: 100}
+  MapSize: {x: 10, y: 10}
   BattleGoal: 0
