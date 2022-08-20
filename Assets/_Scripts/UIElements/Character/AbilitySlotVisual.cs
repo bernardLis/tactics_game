@@ -5,11 +5,16 @@ using UnityEngine.UIElements;
 
 public class AbilitySlotVisual : VisualElement
 {
+    AudioManager _audioManager;
+
     public AbilityButton AbilityButton;
     public Character Character;
 
     public AbilitySlotVisual(AbilityButton abilityButton = null)
     {
+        _audioManager = AudioManager.Instance;
+        RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
+
         AddToClassList("abilitySlot");
 
         if (abilityButton == null)
@@ -23,6 +28,7 @@ public class AbilitySlotVisual : VisualElement
     {
         AbilityButton = abilityButton;
         Add(abilityButton);
+        PlayClick();
     }
 
     public void RemoveButton()
@@ -31,4 +37,8 @@ public class AbilitySlotVisual : VisualElement
         AbilityButton = null;
     }
 
+    void PlayClick()
+    {
+        _audioManager.PlaySFX("uiClick", Vector3.zero);
+    }
 }

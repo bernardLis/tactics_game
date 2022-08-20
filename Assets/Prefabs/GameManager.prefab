@@ -179,6 +179,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3e76dd7eac7572746a4440aa797a7a08, type: 2}
   - {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
   - {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  - {fileID: 11400000, guid: 2c24b60935cc15d4f861a9964fa929f0, type: 2}
   _mixer: {fileID: 24100000, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}
 --- !u!114 &1475728751920290888
 MonoBehaviour:
@@ -192,18 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a5a222abe45dc40bc3e638135b656c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllGlobalUpgrades:
-  - {fileID: 11400000, guid: 080ec040857f7344ebc2df7f9322b4cb, type: 2}
-  - {fileID: 11400000, guid: 4ce818e8aa11f1a49a7ff10d6a6807b6, type: 2}
-  PurchasedGlobalUpgrades: []
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
-  CharacterDatabase: {fileID: 11400000, guid: b6ffd5f1a1266304c8caa0325f27f668, type: 2}
-  AllEvents:
-  - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
-  - {fileID: 11400000, guid: 97ae7081e296d9d41b7dc13d84772c77, type: 2}
-  - {fileID: 11400000, guid: a05ff19afa1a3ec4da7c1041436e074f, type: 2}
-  - {fileID: 11400000, guid: c4797b46d258a8944848dd5522d53c6e, type: 2}
-  - {fileID: 11400000, guid: 2e89f4ef24faa294aaabbeb33d5215c3, type: 2}
+  Obols: 0
 --- !u!114 &3852275862531487839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,10 +215,10 @@ MonoBehaviour:
   JourneyPaths: []
   VisitedJourneyNodes: []
   Gold: 0
+  SavingsAccountGold: 0
   PlayerTroops: []
   PlayerItemPouch: []
   PlayerAbilityPouch: []
-  CurrentNode: {fileID: 0}
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

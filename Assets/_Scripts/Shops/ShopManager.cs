@@ -141,7 +141,8 @@ public class ShopManager : MonoBehaviour
 
             Item item = _gameManager.GameDatabase.GetRandomItem();
             ItemVisual itemVisual = new(item);
-            ItemSlotVisual itemSlot = new(itemVisual);
+            ItemSlotVisual itemSlot = new();
+            itemSlot.AddItem(itemVisual);
 
             //https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
             itemVisual.RegisterCallback<PointerDownEvent>(OnShopItemPointerDown);
@@ -166,7 +167,8 @@ public class ShopManager : MonoBehaviour
 
             Ability ability = _gameManager.GameDatabase.GetRandomAbility();
             AbilityButton abilityButton = new(ability, null);
-            AbilitySlotVisual abilitySlot = new(abilityButton);
+            AbilitySlotVisual abilitySlot = new();
+            abilitySlot.AddButton(abilityButton);
 
             abilityButton.RegisterCallback<PointerDownEvent>(OnShopAbilityPointerDown);
 

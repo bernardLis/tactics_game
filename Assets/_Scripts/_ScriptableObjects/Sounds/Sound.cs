@@ -11,10 +11,15 @@ public class Sound : BaseScriptableObject
     [Range(0.1f, 3f)]
     public float Pitch;
 
+    public bool isPitchRandomized;
+
     [HideInInspector] public AudioSource Source;
 
     public void Play(AudioSource audioSource)
     {
+        if (isPitchRandomized)
+            audioSource.pitch = Random.Range(0.1f, 3f);
+            
         audioSource.clip = Clips[Random.Range(0, Clips.Length)];
         audioSource.Play();
     }

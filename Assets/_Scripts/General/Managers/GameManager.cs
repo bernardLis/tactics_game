@@ -12,7 +12,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public GameDatabase GameDatabase;
 
     // global data
-    public int Obols { get; private set; }
+    public int Obols; //{ get; private set; }
     public List<GlobalUpgrade> PurchasedGlobalUpgrades { get; private set; }
     public bool WasTutorialPlayed { get; private set; }
     bool _isRunActive;
@@ -121,6 +121,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // run data
         saveData.LastLevel = SceneManager.GetActiveScene().name;
         saveData.Gold = _runManager.Gold;
+        saveData.SavingsAccountGold = _runManager.SavingsAccountGold;
         saveData.JourneySeed = _runManager.JourneySeed;
         saveData.CurrentJourneyNode = _runManager.CurrentJourneyNode;
         saveData.VisitedJourneyNodes = _runManager.VisitedJourneyNodes;
@@ -213,6 +214,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             _isRunActive = true;
 
         _runManager.Gold = saveData.Gold;
+        _runManager.SavingsAccountGold = saveData.SavingsAccountGold;
         _runManager.JourneySeed = saveData.JourneySeed;
         _runManager.CurrentJourneyNode = saveData.CurrentJourneyNode;
         _runManager.VisitedJourneyNodes = saveData.VisitedJourneyNodes;
@@ -246,6 +248,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // run data
         sd.LastLevel = "";
         sd.Gold = 0;
+        sd.SavingsAccountGold = 0;
         sd.JourneySeed = 0;
         sd.CurrentJourneyNode = new JourneyNodeData();
         sd.VisitedJourneyNodes = null;

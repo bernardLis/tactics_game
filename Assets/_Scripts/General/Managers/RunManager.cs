@@ -16,6 +16,7 @@ public class RunManager : Singleton<RunManager>
     [HideInInspector] public List<JourneyNodeData> VisitedJourneyNodes = new();
 
     public int Gold;
+    public int SavingsAccountGold;
     [HideInInspector] public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
@@ -25,6 +26,8 @@ public class RunManager : Singleton<RunManager>
 
 
     public event Action<int> OnGoldChanged;
+    public event Action<int> OnSavingsAccountChanged;
+
 
     protected override void Awake()
     {
@@ -63,6 +66,14 @@ public class RunManager : Singleton<RunManager>
         OnGoldChanged?.Invoke(Gold);
         _gameManager.SaveJsonData();
     }
+
+    public void ChangeSavingsAccountValue(int o)
+    {
+        SavingsAccountGold += o;
+        OnSavingsAccountChanged?.Invoke(SavingsAccountGold);
+        _gameManager.SaveJsonData();
+    }
+
 
     void CreatePlayerTroops()
     {
