@@ -17,6 +17,7 @@ public class RunManager : Singleton<RunManager>
 
     public int Gold;
     public int SavingsAccountGold;
+    public int InterestEarned;
     [HideInInspector] public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
@@ -31,6 +32,8 @@ public class RunManager : Singleton<RunManager>
     {
         base.Awake();
         _gameManager = GameManager.Instance;
+
+        _gameManager.OnLevelLoaded += OnLevelLoaded;
     }
 
     public void InitializeNewRun()
@@ -45,6 +48,8 @@ public class RunManager : Singleton<RunManager>
 
         CreatePlayerTroops();
         Gold = 0;
+        SavingsAccountGold = 0;
+        InterestEarned = 0;
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();
 
@@ -56,6 +61,20 @@ public class RunManager : Singleton<RunManager>
                 item.Initialize();
 
         _gameManager.SaveJsonData();
+    }
+
+    void OnLevelLoaded(string level)
+    {
+        if (level == Scenes.Journey)
+            PayInterest();
+    }
+
+    void PayInterest()
+    {
+        Debug.Log("paying interest");
+        int interest = Mathf.CeilToInt(SavingsAccountGold * 0.1f); // TODO: interest could be a variable
+        InterestEarned += interest;
+        ChangeSavingsAccountValue(interest);
     }
 
     public void ChangeGoldValue(int o)

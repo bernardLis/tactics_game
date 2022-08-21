@@ -59,7 +59,7 @@ public class BattleUI : Singleton<BattleUI>
         _battleEndText = Root.Q<Label>("battleEndText");
         _battleEndCharacters = Root.Q<VisualElement>("battleEndCharacters");
         _battleEndGoalContainer = Root.Q<VisualElement>("battleEndGoalContainer");
-        _backToJourneyButton = new MyButton(null, "menuButton", null);
+        _backToJourneyButton = new MyButton("Continue", "menuButton", null);
         _battleEndContainer.Add(_backToJourneyButton);
         
         // subscribing to Actions

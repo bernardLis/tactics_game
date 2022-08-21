@@ -22,6 +22,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     string _currentLevel;
 
     public event Action<int> OnObolsChanged;
+    public event Action<string> OnLevelLoaded;
 
     protected override void Awake()
     {
@@ -83,6 +84,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             SaveJsonData();
 
         _levelLoader.LoadLevel(level);
+        OnLevelLoaded?.Invoke(level);
     }
 
     /*************
