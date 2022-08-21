@@ -83,16 +83,17 @@ public class BankManager : MonoBehaviour
     {
         _currentAccountContainer.Clear();
         _savingsAccountContainer.Clear();
+        _totalInterestEarnedContainer.Clear();
 
         Label gold = new Label($"Gold: {_runManager.Gold}");
-        Label savings = new Label($"Saved Gold: {_runManager.SavingsAccountGold}");
-
         Label obols = new Label($"Obols: {_gameManager.Obols}");
+        Label savings = new Label($"Saved Gold: {_runManager.SavingsAccountGold}");
+        Label interests = new Label($"Gold earned through interests: {_runManager.InterestEarned}");
 
         _currentAccountContainer.Add(gold);
         _currentAccountContainer.Add(obols);
-
         _savingsAccountContainer.Add(savings);
+        _totalInterestEarnedContainer.Add(interests);
     }
 
     void AddToSavings()

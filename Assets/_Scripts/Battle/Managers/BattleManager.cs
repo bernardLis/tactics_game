@@ -4,31 +4,16 @@ public class BattleManager : Singleton<BattleManager>
 {
     BattleInputController _battleInputController;
 
-    [SerializeField] JourneyNodeReward _rewardScriptableObject;
-    JourneyNodeReward _reward;
-
     public bool IsGamePaused { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
-
-        _reward = Instantiate(_rewardScriptableObject);
     }
 
     void Start()
     {
         _battleInputController = BattleInputController.Instance;
-    }
-
-    public void AddRewardGold(int n)
-    {
-        _reward.Gold += n;
-    }
-
-    public JourneyNodeReward GetReward()
-    {
-        return _reward;
     }
 
     public void PauseGame()

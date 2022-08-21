@@ -139,8 +139,6 @@ public class TurnManager : Singleton<TurnManager>
     {
         Debug.Log("Congratz player! You win!!!");
 
-        _runManager.SetNodeReward(BattleManager.Instance.GetReward());
-
         List<Character> playerCharactersAlive = new();
         foreach (GameObject p in _playerCharacters)
             playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);

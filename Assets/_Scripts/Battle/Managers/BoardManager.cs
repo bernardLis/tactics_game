@@ -120,6 +120,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         _seed = _runManager.JourneySeed;
         Random.InitState(_seed);
+        _runManager.SetNodeReward(_battleNode.Reward);
 
         await _highlighter.ClearHighlightedTiles();
         _turnManager.UpdateBattleState(BattleState.MapBuilding);

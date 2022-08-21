@@ -8,9 +8,13 @@ public class JourneyNodeReward : BaseScriptableObject
     public int Gold;
     public Item Item;
 
+    public virtual void Initialize()
+    {
+        // meant to be overwritten
+    }
+
     public void GetReward()
     {
-        Debug.Log($"getting reward: {Gold}, {Item}");
         _runManager = RunManager.Instance;
         if (Gold != 0)
             _runManager.ChangeGoldValue(Gold);

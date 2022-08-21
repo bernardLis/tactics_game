@@ -71,10 +71,11 @@ public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, 
         gameObject.SetActive(false);
         if (gameObject != null)
             Destroy(gameObject, 1f);
-        
+
     }
     void OnDestroy()
     {
+        if (!this.gameObject.scene.isLoaded) return;
         DestroySelf().GetAwaiter();
     }
 

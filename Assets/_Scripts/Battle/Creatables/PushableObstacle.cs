@@ -195,7 +195,6 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
     public override async Task DestroySelf()
     {
         Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
-        //DOTween.KillAll(false, )
         transform.DOKill();
 
         AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);

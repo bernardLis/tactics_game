@@ -15,9 +15,9 @@ public class RunManager : Singleton<RunManager>
     [HideInInspector] public List<JourneyPath> JourneyPaths = new();
     [HideInInspector] public List<JourneyNodeData> VisitedJourneyNodes = new();
 
-    public int Gold;
-    public int SavingsAccountGold;
-    public int InterestEarned;
+    public int Gold { get; private set; }
+    public int SavingsAccountGold { get; private set; }
+    public int InterestEarned { get; private set; }
     [HideInInspector] public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
@@ -77,18 +77,25 @@ public class RunManager : Singleton<RunManager>
         ChangeSavingsAccountValue(interest);
     }
 
+    public void ChangeTotalInterestValue(int i)
+    {
+        InterestEarned += i;
+    }
+
     public void ChangeGoldValue(int o)
     {
         Gold += o;
         OnGoldChanged?.Invoke(Gold);
-        _gameManager.SaveJsonData();
+        if (_gameManager != null)
+            _gameManager.SaveJsonData();
     }
 
     public void ChangeSavingsAccountValue(int o)
     {
         SavingsAccountGold += o;
         OnSavingsAccountChanged?.Invoke(SavingsAccountGold);
-        _gameManager.SaveJsonData();
+        if (_gameManager != null)
+            _gameManager.SaveJsonData();
     }
 
 
@@ -154,7 +161,10 @@ public class RunManager : Singleton<RunManager>
 
     public void SetNodeReward(JourneyNodeReward r)
     {
-        JourneyNodeReward = r;
+        JourneyNodeReward clone = Instantiate(r);
+        Debug.Log($"Settingh node reward: {clone.Gold}");
+        clone.Initialize();
+        JourneyNodeReward = clone;
     }
 
     public void GetReward()

@@ -25,6 +25,7 @@ public class BattleUI : Singleton<BattleUI>
     Label _battleEndText;
     VisualElement _battleEndGoalContainer;
     VisualElement _battleEndCharacters;
+    VisualElement _battleEndRewardContainer;
     MyButton _backToJourneyButton;
 
     string _turnTextTweenID = "turnTextTweenID";
@@ -59,9 +60,11 @@ public class BattleUI : Singleton<BattleUI>
         _battleEndText = Root.Q<Label>("battleEndText");
         _battleEndCharacters = Root.Q<VisualElement>("battleEndCharacters");
         _battleEndGoalContainer = Root.Q<VisualElement>("battleEndGoalContainer");
+        _battleEndRewardContainer = Root.Q<VisualElement>("battleEndRewardContainer");
+
         _backToJourneyButton = new MyButton("Continue", "menuButton", null);
         _battleEndContainer.Add(_backToJourneyButton);
-        
+
         // subscribing to Actions
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
@@ -171,6 +174,18 @@ public class BattleUI : Singleton<BattleUI>
         }
 
         _battleEndText.text = $"You won in {TurnManager.CurrentTurn} turns!";
+
+        VisualElement container = new();
+
+        container.AddToClassList("textPrimary");
+        container.style.flexDirection = FlexDirection.Row;
+        if (_runManager.JourneyNodeReward.Gold != 0)
+            container.Add(new Label($"Gold: {_runManager.JourneyNodeReward.Gold}"));
+        if (_runManager.JourneyNodeReward.Item != null)
+            container.Add(new ItemVisual(_runManager.JourneyNodeReward.Item));
+
+        _battleEndRewardContainer.Add(new Label("Your reward:"));
+        _battleEndRewardContainer.Add(container);
 
         _backToJourneyButton.clickable.clicked += BackToJourney;
     }

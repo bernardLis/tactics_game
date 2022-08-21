@@ -14,11 +14,12 @@ public class SaveData
     // run data
     public string LastLevel;
     public int JourneySeed; // this reproduces paths with bridges and nodes 
-    public int SavingsAccountGold;
     public int Gold;
+    public int SavingsAccountGold;
+    public int TotalInterestEarned;
     public List<JourneyNodeData> VisitedJourneyNodes = new();
     public JourneyNodeData CurrentJourneyNode;
-    
+
     public List<CharacterData> Characters = new();
     public List<string> ItemPouch = new();
     public List<string> AbilityPouch = new();
