@@ -13,12 +13,13 @@ public class ShopManager : MonoBehaviour
 
     VisualElement _root;
 
+    VisualElement _shopContainer;
     VisualElement _shopItemContainer;
     VisualElement _shopAbilityContainer;
 
     VisualElement _shopSellContainer;
     Label _sellItemValueTooltip;
-    Button _shopRerollButton;
+    VisualElement _shopRerollContainer;
 
     VisualElement _characterCardsContainer;
     VisualElement _playerItemPouch;
@@ -61,13 +62,16 @@ public class ShopManager : MonoBehaviour
 
         _root = GetComponent<UIDocument>().rootVisualElement;
 
+        _shopContainer = _root.Q<VisualElement>("shop");
         _shopItemContainer = _root.Q<VisualElement>("shopItemContainer");
         _shopAbilityContainer = _root.Q<VisualElement>("shopAbilityContainer");
         _shopSellContainer = _root.Q<VisualElement>("shopSellContainer");
         _sellItemValueTooltip = _root.Q<Label>("sellItemValueTooltip");
 
-        _shopRerollButton = _root.Q<Button>("shopRerollButton");
-        _shopRerollButton.clickable.clicked += Reroll;
+        _shopRerollContainer = _root.Q<VisualElement>("shopRerollContainer");
+        MyButton rerollButton = new MyButton("Reroll Shop  price: 1", "menuButton", Reroll);
+        rerollButton.AddToClassList("rerollButton");
+        _shopRerollContainer.Add(rerollButton);
 
         _shopPlayerGoldAmount = _root.Q<Label>("shopPlayerGoldAmount");
         _shopPlayerGoldAmount.text = "" + _runManager.Gold;
@@ -79,8 +83,10 @@ public class ShopManager : MonoBehaviour
 
         _characterCardsContainer = _root.Q<VisualElement>("characterCardsContainer");
 
-        Button shopBackButton = _root.Q<Button>("shopBackButton");
-        shopBackButton.clickable.clicked += Back;
+        MyButton shopBackButton = new MyButton("Back", "menuButton", Back);
+        shopBackButton.style.position = Position.Absolute;
+        shopBackButton.style.bottom = 0;
+        _shopContainer.Add(shopBackButton);
 
         Initialize();
 
@@ -121,7 +127,7 @@ public class ShopManager : MonoBehaviour
     {
         if (_runManager.Gold <= 0)
         {
-            DisplayText(_shopRerollButton, "Insufficient funds", Color.red);
+            DisplayText(_shopRerollContainer, "Insufficient funds", Color.red);
             return;
         }
 

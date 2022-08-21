@@ -24,10 +24,8 @@ public class RunManager : Singleton<RunManager>
     public JourneyNode CurrentNode { get; private set; }
     public JourneyNodeReward JourneyNodeReward { get; private set; }
 
-
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSavingsAccountChanged;
-
 
     protected override void Awake()
     {

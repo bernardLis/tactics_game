@@ -34,25 +34,10 @@ public class MenuScreen : FullScreenVisual
         container.style.alignItems = Align.Center;
         container.style.justifyContent = Justify.Center;
 
-        Button continueButton = new Button();
-        Button settingsButton = new Button();
-        Button mainMenuButton = new Button();
-        Button quitButton = new Button();
-
-        continueButton.text = "Continue";
-        settingsButton.text = "Settings";
-        mainMenuButton.text = "Main Menu";
-        quitButton.text = "Quit";
-
-        continueButton.AddToClassList("menuButton");
-        settingsButton.AddToClassList("menuButton");
-        mainMenuButton.AddToClassList("menuButton");
-        quitButton.AddToClassList("menuButton");
-
-        continueButton.clickable.clicked += Hide;
-        settingsButton.clickable.clicked += ShowSettingsScreen;
-        mainMenuButton.clickable.clicked += GoToMainMenu;
-        quitButton.clickable.clicked += ConfirmQuit;
+        MyButton continueButton = new("Continue", "menuButton", Hide);
+        MyButton settingsButton = new("Settings", "menuButton", ShowSettingsScreen);
+        MyButton mainMenuButton = new("Main Menu", "menuButton", GoToMainMenu);
+        MyButton quitButton = new("Quit", "menuButton", ConfirmQuit);
 
         container.Add(continueButton);
         container.Add(settingsButton);

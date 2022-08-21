@@ -172,7 +172,7 @@
             <ui:Label text="First uses Heal on Second. " display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" style="font-size: 36px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="battleEndContainer" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: none; opacity: 1; justify-content: space-around; align-items: center; background-image: none; position: absolute;">
+    <ui:VisualElement name="battleEndContainer" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: none; opacity: 1; justify-content: space-around; align-items: center; background-image: none; position: absolute; top: 0; left: -2px;">
         <ui:Label text="Battle is finished! " display-tooltip-when-elided="true" name="battleEndText" class="textPrimary" style="color: rgb(210, 210, 210); font-size: 100px; -unity-text-align: upper-center;" />
         <ui:VisualElement name="battleEndGoalContainer">
             <ui:VisualElement class="textPrimary" style="flex-direction: row;">
@@ -189,7 +189,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="battleEndCharacters" style="flex-direction: row;" />
-        <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" class="menuButton" style="font-size: 35px; width: 30%; display: flex;" />
     </ui:VisualElement>
     <ui:VisualElement name="tutorialTextContainer" style="position: absolute; top: 30%; width: 80%; justify-content: flex-end; align-items: center; left: 10%; display: none;">
         <ui:Label text="Label" display-tooltip-when-elided="true" name="tutorialText" class="textPrimary" style="font-size: 48px; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0);" />

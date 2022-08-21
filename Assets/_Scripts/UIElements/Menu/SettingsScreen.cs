@@ -219,13 +219,9 @@ public class SettingsScreen : FullScreenVisual
 
     void AddClearSaveButton()
     {
-
-        Button button = new();
-        button.AddToClassList("menuButton");
-        button.text = "Clear Save Data";
-        Add(button);
         ConfirmPopUp popUp = new ConfirmPopUp();
-        button.clickable.clicked += () => popUp.Initialize(_root, ClearSaveData);
+        MyButton button = new("Clear Save Data", "menuButton", () => popUp.Initialize(_root, ClearSaveData));
+        Add(button);
     }
 
     void ClearSaveData()

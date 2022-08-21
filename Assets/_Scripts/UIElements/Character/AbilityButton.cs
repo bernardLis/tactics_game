@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class AbilityButton : VisualWithTooltip
 {
+    AudioManager _audioManager;
+
     VisualElement _icon;
 
     public string Key;
@@ -10,6 +12,8 @@ public class AbilityButton : VisualWithTooltip
 
     public AbilityButton(Ability ability, string key) : base()
     {
+        _audioManager = AudioManager.Instance;
+
         Ability = ability;
         Key = key;
 
@@ -56,6 +60,8 @@ public class AbilityButton : VisualWithTooltip
             ModifierVisual status = new(ability.Status);
             container.Add(status);
         }
+
+        RegisterCallback<MouseEnterEvent>((evt) => PlayClick()); // HERE:
     }
 
     protected override void DisplayTooltip()
@@ -65,5 +71,12 @@ public class AbilityButton : VisualWithTooltip
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }
+
+    void PlayClick()
+    {
+        if (_audioManager != null)
+            _audioManager.PlaySFX("uiClick", Vector3.zero);
+    }
+
 
 }

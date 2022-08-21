@@ -16,11 +16,11 @@ public class JourneyEventManager : MonoBehaviour
     VisualElement _responseWrapper;
     Label _responseLabel;
     VisualElement _rewardWrapper;
-    Button _backToJourneyButton;
+    MyButton _backToJourneyButton;
 
     JourneyEvent _journeyEvent;
 
-    List<Button> _optionButtons = new();
+    List<MyButton> _optionButtons = new();
 
     void Awake()
     {
@@ -35,11 +35,10 @@ public class JourneyEventManager : MonoBehaviour
 
         _responseWrapper = root.Q<VisualElement>("responseWrapper");
         _responseLabel = root.Q<Label>("response");
-
         _rewardWrapper = root.Q<VisualElement>("rewardWrapper");
 
-        _backToJourneyButton = root.Q<Button>("backToJourney");
-        _backToJourneyButton.clickable.clicked += BackToJourney;
+        _backToJourneyButton = new MyButton("Continue", "menuButton", BackToJourney);
+        _responseWrapper.Add(_backToJourneyButton);
 
         SetupEvent();
         CreateOptions();
@@ -61,23 +60,21 @@ public class JourneyEventManager : MonoBehaviour
 
         for (int i = 0; i < _journeyEvent.Options.Count; i++)
         {
-            Button b = new Button();
+            MyButton b = new(_journeyEvent.Options[i].Text, "optionButton", null);
             _optionsWrapper.Add(b);
 
-            b.text = _journeyEvent.Options[i].Text;
             b.userData = i;
             b.clickable.clickedWithEventInfo += OptionChosen;
-            b.AddToClassList("optionButton");
             _optionButtons.Add(b);
         }
     }
 
     void OptionChosen(EventBase _evt)
     {
-        foreach (Button b in _optionButtons)
+        foreach (MyButton b in _optionButtons)
             b.SetEnabled(false);
 
-        Button clickedButton = _evt.target as Button;
+        MyButton clickedButton = _evt.target as MyButton;
         clickedButton.style.backgroundColor = Color.black;
         int index = int.Parse(clickedButton.userData.ToString()); // TODO: dunno if a good idea 
         _runManager.SetNodeReward(_journeyEvent.Options[index].Reward);

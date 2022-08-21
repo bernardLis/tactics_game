@@ -9,11 +9,11 @@ public class MainMenuUI : MonoBehaviour
     GameManager _gameManager;
 
     VisualElement _root;
-    Button _continueButton;
-    Button _startNewGameButton;
-    Button _globalUpgradeShopButton;
-    Button _settingsButton;
-    Button _quitButton;
+    MyButton _continueButton;
+    MyButton _startNewGameButton;
+    MyButton _globalUpgradeShopButton;
+    MyButton _settingsButton;
+    MyButton _quitButton;
 
     VisualElement _menuContainer;
     VisualElement _shopContainer;
@@ -26,22 +26,22 @@ public class MainMenuUI : MonoBehaviour
         _gameManager = GameManager.Instance;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
-        _continueButton = _root.Q<Button>("continueButton");
+        _continueButton = new MyButton("Continue", "menuButton", Continue);
         ResolveContinueButton();
-        _startNewGameButton = _root.Q<Button>("startNewGameButton");
-        _globalUpgradeShopButton = _root.Q<Button>("globalUpgradeShopButton");
-        _settingsButton = _root.Q<Button>("settingsButton");
-        _quitButton = _root.Q<Button>("quitButton");
+        _startNewGameButton = new MyButton("New Run", "menuButton", StartNewGame);
+        _globalUpgradeShopButton = new MyButton("Spend Obols", "menuButton", OpenShop);
+        _settingsButton = new MyButton("Settings", "menuButton", Settings);
+        _quitButton = new MyButton("Quit", "menuButton", ConfirmQuit);
 
         _menuContainer = _root.Q<VisualElement>("menuContainer");
+        _menuContainer.Add(_continueButton);
+        _menuContainer.Add(_startNewGameButton);
+        _menuContainer.Add(_globalUpgradeShopButton);
+        _menuContainer.Add(_settingsButton);
+        _menuContainer.Add(_quitButton);
+
         _shopContainer = _root.Q<VisualElement>("shopContainer");
         _settingsContainer = _root.Q<VisualElement>("settingsContainer");
-
-        _continueButton.clickable.clicked += Continue;
-        _startNewGameButton.clickable.clicked += StartNewGame;
-        _globalUpgradeShopButton.clickable.clicked += OpenShop;
-        _settingsButton.clickable.clicked += Settings;
-        _quitButton.clickable.clicked += ConfirmQuit;
 
         _menuObolsLabel = _root.Q<Label>("menuObolsLabel");
         _menuObolsLabel.text = $"Obols: {_gameManager.Obols}";

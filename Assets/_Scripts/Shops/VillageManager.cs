@@ -31,8 +31,7 @@ public class VillageManager : Singleton<VillageManager>
         _bank = _root.Q<VisualElement>("bank");
 
         _backToJourneyContainer = _root.Q<VisualElement>("backToJourneyContainer");
-        Button b = _root.Q<Button>("backToJourney");
-        b.clickable.clicked += BackToJourney;
+        _backToJourneyContainer.Add(new MyButton("Back To Journey", "menuButton", BackToJourney));
 
         shopPicture.RegisterCallback<MouseDownEvent>(ShowShop);
         bankPicture.RegisterCallback<MouseDownEvent>(ShowBank);

@@ -355,3 +355,12 @@
     width: 120px;
     height: 120px;
 }
+
+.rerollButton {
+    width: 200px;
+    font-size: 24px;
+    align-items: stretch;
+    justify-content: flex-end;
+    height: 100px;
+    white-space: normal;
+}

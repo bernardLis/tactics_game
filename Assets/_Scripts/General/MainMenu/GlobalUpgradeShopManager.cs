@@ -56,10 +56,7 @@ public class GlobalUpgradeShopManager : MonoBehaviour
 
     void AddBackButton()
     {
-        Button b = new Button();
-        b.text = "Back";
-        b.AddToClassList("menuButton");
-        b.clickable.clicked += BackToMenu;
+        MyButton b = new MyButton("Back", "menuButton", BackToMenu);
         _shopContainer.Add(b);
     }
 

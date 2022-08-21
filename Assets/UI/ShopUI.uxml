@@ -1,16 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <Style src="project://database/Assets/UI/UIStyles/ShopStyles.uss?fileID=7433441132597879392&amp;guid=4f3e1d4c86ad20d41919877b730bf95a&amp;type=3#ShopStyles" />
-    <ui:VisualElement name="mainScreen" style="width: 100%; height: 100%; flex-direction: row; display: flex;">
+    <ui:VisualElement name="mainScreen" style="width: 100%; height: 100%; flex-direction: row; display: none;">
         <ui:VisualElement name="shopPicture" class="shopPicture" style="background-image: url(&apos;project://database/Assets/Sprites/Shop/pexels-jmtphotography-3680094.jpg?fileID=2800000&amp;guid=45a8ce4dee024eb40a862728e05ee89c&amp;type=3#pexels-jmtphotography-3680094&apos;); align-items: center; flex-grow: 1; flex-shrink: 0;">
             <ui:Label text="Shop" display-tooltip-when-elided="true" class="textPrimary" />
         </ui:VisualElement>
         <ui:VisualElement name="bankPicture" class="shopPicture" style="background-image: url(&apos;project://database/Assets/Sprites/Shop/pexels-karolina-grabowska-4968636.jpg?fileID=2800000&amp;guid=3c071d567c831814ea041ba0f187a590&amp;type=3#pexels-karolina-grabowska-4968636&apos;); align-items: center; flex-shrink: 0; flex-grow: 1;">
             <ui:Label text="Bank" display-tooltip-when-elided="true" class="textPrimary" />
         </ui:VisualElement>
-        <ui:VisualElement name="backToJourneyContainer" style="position: absolute; bottom: 0; display: flex;">
-            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="backToJourney" class="menuButton" />
-        </ui:VisualElement>
+        <ui:VisualElement name="backToJourneyContainer" style="position: absolute; bottom: 0; display: flex;" />
     </ui:VisualElement>
     <ui:VisualElement name="shop" style="display: none; width: 100%; height: 100%; flex-direction: row;">
         <ui:VisualElement name="shopWrapper" style="flex-direction: column; border-bottom-width: 4px; width: 30%; align-items: center;">
@@ -30,9 +28,7 @@
                     <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
                     <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="shopRerollContainer" style="align-items: center; flex-direction: row; justify-content: center;">
-                    <ui:Button text="Reroll Shop&#10;price: 1" display-tooltip-when-elided="true" name="shopRerollButton" class="menuButton" style="width: 200px; font-size: 24px; flex-wrap: nowrap; align-items: stretch; justify-content: flex-end; height: 100px;" />
-                </ui:VisualElement>
+                <ui:VisualElement name="shopRerollContainer" style="align-items: center; flex-direction: row; justify-content: center;" />
             </ui:VisualElement>
             <ui:VisualElement name="shopSellContainer" style="align-items: center; width: 100%;">
                 <ui:Label text="Sell" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="align-items: center;" />
@@ -66,9 +62,8 @@
             </ui:VisualElement>
             <ui:VisualElement name="characterCardsContainer" style="flex-direction: column; justify-content: flex-start; width: 100%; padding-right: 100px; flex-wrap: wrap;" />
         </ui:VisualElement>
-        <ui:Button text="Back" display-tooltip-when-elided="true" name="shopBackButton" class="menuButton" style="bottom: 0; position: absolute;" />
     </ui:VisualElement>
-    <ui:VisualElement name="bank" style="width: 100%; height: 100%; display: none;">
+    <ui:VisualElement name="bank" style="width: 100%; height: 100%; display: flex;">
         <ui:VisualElement name="accountContainer" class="uiContainer" style="height: 40%; align-items: center; justify-content: center;">
             <ui:Label text="Account" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center; font-size: 60px;" />
             <ui:VisualElement style="flex-direction: row; align-items: stretch; justify-content: space-between;">
@@ -76,10 +71,7 @@
                     <ui:Label text="Current Account" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center;" />
                     <ui:VisualElement name="currentAccountContainer" class="textPrimary" />
                 </ui:VisualElement>
-                <ui:VisualElement name="accountButtonsContainer" style="width: 25%;">
-                    <ui:Button text="Deposit" display-tooltip-when-elided="true" name="addToSavingsButton" class="menuButton" style="width: 200px;" />
-                    <ui:Button text="Withdraw" display-tooltip-when-elided="true" name="withdrawFromSavingsButton" class="menuButton" style="width: 200px;" />
-                </ui:VisualElement>
+                <ui:VisualElement name="accountButtonsContainer" style="width: 25%;" />
                 <ui:VisualElement name="VisualElement" class="textPrimary" style="width: 25%;">
                     <ui:Label text="Savings Account" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center;" />
                     <ui:VisualElement name="savingsAccountContainer" class="textPrimary" />
@@ -94,12 +86,9 @@
         <ui:VisualElement name="exchangeContainer" class="uiContainer" style="height: 40%; align-items: center; justify-content: center;">
             <ui:Label text="Exchange" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center; font-size: 60px;" />
             <ui:Label text="10 gold &lt;&gt; 1 Obol" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
-            <ui:VisualElement style="flex-direction: row; align-items: stretch; justify-content: space-between; padding-top: 50px;">
-                <ui:Button text="Buy Gold" display-tooltip-when-elided="true" name="buyGoldButton" class="menuButton" />
-                <ui:Button text="Buy Obol" display-tooltip-when-elided="true" name="buyObolsButton" class="menuButton" />
-            </ui:VisualElement>
+            <ui:VisualElement name="exchangeButtonsContainer" style="flex-direction: row; align-items: stretch; justify-content: space-between; padding-top: 50px;" />
         </ui:VisualElement>
-        <ui:Button text="Back" display-tooltip-when-elided="true" name="bankBackButton" class="menuButton" style="bottom: 0; position: absolute;" />
+        <ui:VisualElement name="bankBackButtonContainer" style="position: absolute; bottom: 0;" />
     </ui:VisualElement>
     <ui:VisualElement name="itemDragDropContainer" class="itemDragDropContainer" />
     <ui:VisualElement name="abilityDragDropContainer" class="abilityDragDropContainer" />

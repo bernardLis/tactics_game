@@ -25,7 +25,7 @@ public class BattleUI : Singleton<BattleUI>
     Label _battleEndText;
     VisualElement _battleEndGoalContainer;
     VisualElement _battleEndCharacters;
-    Button _backToJourney;
+    MyButton _backToJourneyButton;
 
     string _turnTextTweenID = "turnTextTweenID";
     string _battleLogTweenID = "battleLogTweenID";
@@ -59,8 +59,9 @@ public class BattleUI : Singleton<BattleUI>
         _battleEndText = Root.Q<Label>("battleEndText");
         _battleEndCharacters = Root.Q<VisualElement>("battleEndCharacters");
         _battleEndGoalContainer = Root.Q<VisualElement>("battleEndGoalContainer");
-        _backToJourney = Root.Q<Button>("backToJourney");
-
+        _backToJourneyButton = new MyButton(null, "menuButton", null);
+        _battleEndContainer.Add(_backToJourneyButton);
+        
         // subscribing to Actions
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
@@ -171,7 +172,7 @@ public class BattleUI : Singleton<BattleUI>
 
         _battleEndText.text = $"You won in {TurnManager.CurrentTurn} turns!";
 
-        _backToJourney.clickable.clicked += BackToJourney;
+        _backToJourneyButton.clickable.clicked += BackToJourney;
     }
 
     void ShowBattleLostScreen()
@@ -179,8 +180,8 @@ public class BattleUI : Singleton<BattleUI>
         ShowBattleEndScreen();
         _battleEndText.text = "You lost!";
 
-        _backToJourney.text = "Continue";
-        _backToJourney.clickable.clicked += BackToMainMenu;
+        _backToJourneyButton.text = "Continue";
+        _backToJourneyButton.clickable.clicked += BackToMainMenu;
     }
 
     void ShowBattleEndScreen()
@@ -198,7 +199,7 @@ public class BattleUI : Singleton<BattleUI>
 
     void OnShowBattleEndScreenCompleted()
     {
-        _backToJourney.style.display = DisplayStyle.Flex;
+        _backToJourneyButton.style.display = DisplayStyle.Flex;
         OnBattleEndScreenShown?.Invoke();
     }
 
@@ -216,7 +217,7 @@ public class BattleUI : Singleton<BattleUI>
 
     public void SetUpContinueButton(string newText, string newLevel)
     {
-        _backToJourney.text = newText;
+        _backToJourneyButton.text = newText;
         _levelToLoadAfterFight = newLevel;
     }
 

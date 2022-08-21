@@ -8,9 +8,7 @@ public class ButtonWithTooltip : VisualWithTooltip
     public ButtonWithTooltip(string className, string tooltipText, Action callback) : base()
     {
         _tooltipText = tooltipText;
-        Button button = new Button();
-        button.AddToClassList(className);
-        button.clicked += callback;
+        MyButton button = new MyButton(null, className, callback);
         Add(button);
     }
 

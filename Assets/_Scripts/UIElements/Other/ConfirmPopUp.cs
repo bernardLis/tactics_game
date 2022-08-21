@@ -44,22 +44,16 @@ public class ConfirmPopUp : VisualElement
         container.style.justifyContent = Justify.Center;
         Add(container);
 
-        Button confirm = new Button();
+        MyButton confirm = new MyButton("Yaasss Queen", "menuButton", callback);
         container.Add(confirm);
-        confirm.AddToClassList("menuButton");
-        confirm.text = "Yaasss Queen";
-        confirm.clickable.clicked += callback;
         confirm.clickable.clicked += Hide;
 
         VisualElement spacer = new VisualElement();
         spacer.style.width = 50;
         container.Add(spacer);
 
-        Button cancel = new Button();
+        MyButton cancel = new MyButton("Cancel!@!", "menuButton", Hide);
         container.Add(cancel);
-        cancel.AddToClassList("menuButton");
-        cancel.text = "Cancel!@!";
-        cancel.clickable.clicked += Hide;
     }
 
     void Hide()

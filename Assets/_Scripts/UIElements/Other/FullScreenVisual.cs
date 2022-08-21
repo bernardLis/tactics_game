@@ -47,11 +47,8 @@ public class FullScreenVisual : VisualElement
 
     public void AddBackButton()
     {
-        Button backButton = new Button();
-        backButton.text = "Back";
-        backButton.AddToClassList("menuButton");
+        MyButton backButton = new("Back", "menuButton", Hide);
         backButton.style.width = 200;
-        backButton.clickable.clicked += Hide;
         Add(backButton);
     }
 

@@ -9,9 +9,10 @@ public class JourneyMapUI : MonoBehaviour
     JourneyMapManager _journeyMapManager;
 
     VisualElement _root;
+    VisualElement _viewTroopsContainer;
     VisualElement _nodeInfo;
 
-    Button _viewTroopsButton;
+    MyButton _viewTroopsButton;
 
     [Header("Unity Setup")]
     [SerializeField] GameObject obolObject;
@@ -22,10 +23,11 @@ public class JourneyMapUI : MonoBehaviour
         _journeyMapManager = JourneyMapManager.Instance;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
+        _viewTroopsContainer = _root.Q<VisualElement>("viewTroopsContainer");
         _nodeInfo = _root.Q<VisualElement>("nodeInfo");
 
-        _viewTroopsButton = _root.Q<Button>("viewTroops");
-        _viewTroopsButton.clickable.clicked += ViewTroopsClick;
+        _viewTroopsButton = new("View Troops", "menuButton", ViewTroopsClick);
+        _viewTroopsContainer.Add(_viewTroopsButton);
     }
 
     public void ShowNodeInfo(JourneyNode node)

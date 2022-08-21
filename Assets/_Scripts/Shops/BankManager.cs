@@ -13,8 +13,13 @@ public class BankManager : MonoBehaviour
     VisualElement _bank;
 
     VisualElement _currentAccountContainer;
+    VisualElement _accountButtonsContainer;
     VisualElement _savingsAccountContainer;
     VisualElement _totalInterestEarnedContainer;
+
+    VisualElement _exchangeButtonsContainer;
+
+    VisualElement _bankBackButtonContainer;
 
     bool _isInitialized;
 
@@ -35,25 +40,29 @@ public class BankManager : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
         _bank = _root.Q<VisualElement>("bank");
         _currentAccountContainer = _root.Q<VisualElement>("currentAccountContainer");
+        _accountButtonsContainer = _root.Q<VisualElement>("accountButtonsContainer");
         _savingsAccountContainer = _root.Q<VisualElement>("savingsAccountContainer");
         _totalInterestEarnedContainer = _root.Q<VisualElement>("totalInterestEarnedContainer");
 
+        _exchangeButtonsContainer = _root.Q<VisualElement>("exchangeButtonsContainer");
+
+        _bankBackButtonContainer = _root.Q<VisualElement>("bankBackButtonContainer");
+
         PopulateAccounts();
 
-        Button addToSavingsButton = _root.Q<Button>("addToSavingsButton");
-        Button withdrawFromSavingsButton = _root.Q<Button>("withdrawFromSavingsButton");
-        addToSavingsButton.clickable.clicked += AddToSavings;
-        withdrawFromSavingsButton.clickable.clicked += WithdrawFromSavings;
+        MyButton addToSavingsButton = new("Deposit", "menuButton", AddToSavings);
+        MyButton withdrawFromSavingsButton = new("Withdraw", "menuButton", WithdrawFromSavings);
+        addToSavingsButton.style.width = Length.Percent(90);
+        withdrawFromSavingsButton.style.width = Length.Percent(90);
+        _accountButtonsContainer.Add(addToSavingsButton);
+        _accountButtonsContainer.Add(withdrawFromSavingsButton);
 
-        Button buyGoldButton = _root.Q<Button>("buyGoldButton");
-        Button buyObolsButton = _root.Q<Button>("buyObolsButton");
-        buyGoldButton.clickable.clicked += BuyGold;
-        buyObolsButton.clickable.clicked += BuyObols;
-        buyGoldButton.RegisterCallback<MouseEnterEvent>((evt) => PlayClick()); // HERE:
-        buyObolsButton.RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
+        MyButton buyGoldButton = new("Buy Gold", "menuButton", BuyGold);
+        MyButton buyObolsButton = new("Buy Obols", "menuButton", BuyObols);
+        _exchangeButtonsContainer.Add(buyGoldButton);
+        _exchangeButtonsContainer.Add(buyObolsButton);
 
-        Button bankBackButton = _root.Q<Button>("bankBackButton");
-        bankBackButton.clickable.clicked += Back;
+        _bankBackButtonContainer.Add(new MyButton("Back", "menuButton", Back));
 
         _runManager.OnGoldChanged += HandleCurrencyChange;
         _runManager.OnSavingsAccountChanged += HandleCurrencyChange;
