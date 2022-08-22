@@ -49,19 +49,6 @@ public class CheatManager : MonoBehaviour
     {
     }
 
-    [ContextMenu("Kill All Enemies")]
-    void KillAllEnemies()
-    {
-
-        KillAllWithTag("Enemy");
-    }
-
-    [ContextMenu("Kill A Friend")]
-    void KillAFriend()
-    {
-        KillRandomWithTag("Player");
-    }
-
     void KillRandomWithTag(string _tag)
     {
         GameObject[] toKill = GameObject.FindGameObjectsWithTag(_tag);
@@ -84,7 +71,20 @@ public class CheatManager : MonoBehaviour
 
     }
 
+#if UNITY_EDITOR
 
+    [ContextMenu("Kill All Enemies")]
+    void KillAllEnemies()
+    {
+        KillAllWithTag("Enemy");
+    }
 
+    [ContextMenu("Kill A Friend")]
+    void KillAFriend()
+    {
+        KillRandomWithTag("Player");
+    }
+
+#endif
 
 }

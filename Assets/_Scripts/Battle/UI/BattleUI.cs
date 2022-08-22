@@ -234,6 +234,7 @@ public class BattleUI : Singleton<BattleUI>
     {
         _backToJourneyButton.text = newText;
         _levelToLoadAfterFight = newLevel;
+        _backToJourneyButton.clickable.clicked += BackToJourney;
     }
 
     IEnumerator CoroutineCoordinator()

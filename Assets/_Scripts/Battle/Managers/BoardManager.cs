@@ -21,7 +21,7 @@ public class BoardManager : Singleton<BoardManager>
     AudioManager _audioManager;
 
     [Header("Map Setup")]
-    BattleNode _battleNode;
+    public BattleNode _battleNode; // HERE:
     MapVariant _mapVariant;
     int _seed;
     public Vector2Int MapSize;
@@ -69,7 +69,7 @@ public class BoardManager : Singleton<BoardManager>
         _battleManager = BattleManager.Instance;
         _audioManager = AudioManager.Instance;
 
-        _battleNode = (BattleNode)_runManager.CurrentNode;
+        //  _battleNode = (BattleNode)_runManager.CurrentNode; HERE:
         _biome = _battleNode.Biome;
         _mapVariant = _battleNode.MapVariant;
         MapSize = _battleNode.MapSize;
@@ -118,7 +118,8 @@ public class BoardManager : Singleton<BoardManager>
 
     async Task InitialSetup()
     {
-        _seed = _runManager.JourneySeed;
+        // _seed = _runManager.JourneySeed; HERE:
+        _seed = Mathf.FloorToInt(Time.deltaTime * 1000);
         Random.InitState(_seed);
         _runManager.SetNodeReward(_battleNode.Reward);
 
@@ -329,7 +330,7 @@ public class BoardManager : Singleton<BoardManager>
 
     void PlacePlacesOf()
     {
-        int amount = 40;//Random.Range(0, 4);
+        int amount = 40;//Random.Range(0, 4); HERE:
 
         for (int i = 0; i < amount; i++)
         {

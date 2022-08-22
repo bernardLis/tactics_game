@@ -50,19 +50,6 @@ public class MainMenuUI : MonoBehaviour
 
         _gameManager.OnObolsChanged += OnObolsChanged;
 
-        // HERE: to clean
-        _root.Q<Button>("addObol").clickable.clicked += AddObol;
-        _root.Q<Button>("removeObol").clickable.clicked += RemoveObol;
-    }
-
-    // HERE: to clean
-    void AddObol()
-    {
-        _gameManager.ChangeObolValue(1);
-    }
-    void RemoveObol()
-    {
-        _gameManager.ChangeObolValue(-1);
     }
 
     void OnObolsChanged(int total)

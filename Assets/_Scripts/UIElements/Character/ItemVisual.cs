@@ -12,6 +12,7 @@ public class ItemVisual : VisualWithTooltip
         Item = item;
 
         style.backgroundImage = item.Icon.texture;
+        style.unityBackgroundImageTintColor = Helpers.GetColor(item.Raririty.ToString());
         style.width = 75;
         style.height = 75;
         _tooltipText = item.InfluencedStat.ToString() + " +" + item.Value.ToString();

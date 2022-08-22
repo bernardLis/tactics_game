@@ -11,7 +11,11 @@ public static class Helpers
         { "movementBlue", new Color(0.53f, 0.52f, 1f, 1f) },
         { "healthGainGreen", new Color(0.42f, 1f, 0.42f, 1f) },
         { "damageRed", new Color(1f, 0.42f, 0.42f, 1f) },
-        { "gray", new Color(0.22f, 0.22f, 0.22f, 1f) }
+        { "gray", new Color(0.22f, 0.22f, 0.22f, 1f) },
+        { ItemRaririty.Common.ToString(), new Color(1f,1f,1f,1f) },
+        { ItemRaririty.Magic.ToString(), new Color(0.31f,1f,0.69f,1f) },
+        { ItemRaririty.Rare.ToString(), new Color(0.38f,0.51f,0.84f,1f) },
+        { ItemRaririty.Epic.ToString(), new Color(0.32f,0.22f,0.44f,1f) },
     };
 
     static Camera _camera;

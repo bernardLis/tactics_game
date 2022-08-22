@@ -24,7 +24,7 @@ public class PlaceOf : Creatable
         _sr = GetComponentInChildren<SpriteRenderer>();
         _ps = GetComponent<ParticleSystem>();
 
-        SetUpVisuals();
+        Initialize();
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
@@ -45,7 +45,7 @@ public class PlaceOf : Creatable
     }
 
 
-    protected virtual void SetUpVisuals()
+    protected virtual void Initialize()
     {
         //meant to be overwritten
     }

@@ -13,6 +13,18 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
+  GlobalUpgrades:
+  - {fileID: 11400000, guid: 4ce818e8aa11f1a49a7ff10d6a6807b6, type: 2}
+  - {fileID: 11400000, guid: 080ec040857f7344ebc2df7f9322b4cb, type: 2}
+  AllEvents:
+  - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
+  - {fileID: 11400000, guid: 97ae7081e296d9d41b7dc13d84772c77, type: 2}
+  - {fileID: 11400000, guid: a05ff19afa1a3ec4da7c1041436e074f, type: 2}
+  - {fileID: 11400000, guid: c4797b46d258a8944848dd5522d53c6e, type: 2}
+  - {fileID: 11400000, guid: 2e89f4ef24faa294aaabbeb33d5215c3, type: 2}
+  Cutscenes:
+  - {fileID: 11400000, guid: 68e749ab2331d26429c8b481dc4023e3, type: 2}
+  - {fileID: 11400000, guid: 348e94e2b7bcb344682551f7fc4bb50b, type: 2}
   Biomes:
   - {fileID: 11400000, guid: a53d5abe5308c3d499efac31c14882cf, type: 2}
   - {fileID: 11400000, guid: 31bb81b2ebd793344bcbe3b01809c164, type: 2}
@@ -30,18 +42,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
   - {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
   - {fileID: 11400000, guid: 8bc22a1c29683204e9f24870b11baac8, type: 2}
-  GlobalUpgrades:
-  - {fileID: 11400000, guid: 4ce818e8aa11f1a49a7ff10d6a6807b6, type: 2}
-  - {fileID: 11400000, guid: 080ec040857f7344ebc2df7f9322b4cb, type: 2}
-  AllEvents:
-  - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
-  - {fileID: 11400000, guid: 97ae7081e296d9d41b7dc13d84772c77, type: 2}
-  - {fileID: 11400000, guid: a05ff19afa1a3ec4da7c1041436e074f, type: 2}
-  - {fileID: 11400000, guid: c4797b46d258a8944848dd5522d53c6e, type: 2}
-  - {fileID: 11400000, guid: 2e89f4ef24faa294aaabbeb33d5215c3, type: 2}
-  Cutscenes:
-  - {fileID: 11400000, guid: 68e749ab2331d26429c8b481dc4023e3, type: 2}
-  - {fileID: 11400000, guid: 348e94e2b7bcb344682551f7fc4bb50b, type: 2}
   StarterTroops:
   - {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
   - {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
@@ -119,10 +119,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0adb4a7c87b26e14b9353ad0333020ac, type: 2}
   - {fileID: 11400000, guid: e7962be5a45baee428e6783c36394466, type: 2}
   Items:
-  - {fileID: 11400000, guid: daef64c9c9eccb648be50ea4a4e5f9de, type: 2}
+  - {fileID: 11400000, guid: 653ed2c41395a0d4b8e6453cafff0f00, type: 2}
+  - {fileID: 11400000, guid: 1f4b32a79e11845419f1b8ddea037b28, type: 2}
+  - {fileID: 11400000, guid: 456dbaa7a77f72a4eb5b7a36f121556b, type: 2}
   - {fileID: 11400000, guid: 33f8e2c6905680a43aef9268c59fafae, type: 2}
-  - {fileID: 11400000, guid: 99cb218141598814b8aa8ac1a39a7303, type: 2}
+  - {fileID: 11400000, guid: e2ae84c9098a17541b16d6b4c38af97a, type: 2}
+  - {fileID: 11400000, guid: 96e8516842fbbf24baa445f76b024262, type: 2}
+  - {fileID: 11400000, guid: c99842b22cbb6444c81b574b1d01ef65, type: 2}
   - {fileID: 11400000, guid: 2aeb94181c038f044ae88fd9cae056f3, type: 2}
+  - {fileID: 11400000, guid: fd310e1f51ede2047bf2c672e55721f4, type: 2}
+  - {fileID: 11400000, guid: b3264555a8281774d80c503dec6b48d0, type: 2}
+  - {fileID: 11400000, guid: 32d9c135d7e711047b6a359ed7d7dfc5, type: 2}
+  - {fileID: 11400000, guid: daef64c9c9eccb648be50ea4a4e5f9de, type: 2}
+  - {fileID: 11400000, guid: 1f0632a91b9587044bac4a2d2d564b5a, type: 2}
+  - {fileID: 11400000, guid: b09ee58957b83344399309d681c50151, type: 2}
+  - {fileID: 11400000, guid: 0d85a0c12c2c0dd48b3e8715894054c8, type: 2}
+  - {fileID: 11400000, guid: 99cb218141598814b8aa8ac1a39a7303, type: 2}
   StatIcons:
   - StatName: Power
     Sprite: {fileID: 21300000, guid: c1181cbabffb1da4cbfd479b065b8e49, type: 3}

@@ -10,7 +10,7 @@ public class AbilityButton : VisualWithTooltip
     public string Key;
     public Ability Ability;
 
-    public AbilityButton(Ability ability, string key) : base()
+    public AbilityButton(Ability ability, string key = null) : base()
     {
         _audioManager = AudioManager.Instance;
 

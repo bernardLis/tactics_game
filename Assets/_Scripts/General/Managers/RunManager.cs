@@ -162,7 +162,6 @@ public class RunManager : Singleton<RunManager>
     public void SetNodeReward(JourneyNodeReward r)
     {
         JourneyNodeReward clone = Instantiate(r);
-        Debug.Log($"Settingh node reward: {clone.Gold}");
         clone.Initialize();
         JourneyNodeReward = clone;
     }
@@ -187,5 +186,33 @@ public class RunManager : Singleton<RunManager>
         _availableEvents.Remove(ev);
         return ev;
     }
+
+#if UNITY_EDITOR
+
+    [ContextMenu("Add 10 gold")]
+    void Add10Gold()
+    {
+        ChangeGoldValue(10);
+    }
+
+    [ContextMenu("Remove 10 gold")]
+    void Remove10Gold()
+    {
+        ChangeGoldValue(-10);
+    }
+
+    [ContextMenu("Add 10 obols")]
+    void Add10Obols()
+    {
+        _gameManager.ChangeObolValue(10);
+    }
+
+    [ContextMenu("Remove 10 obols")]
+    void Remove10Obols()
+    {
+        _gameManager.ChangeObolValue(-10);
+    }
+
+#endif
 
 }

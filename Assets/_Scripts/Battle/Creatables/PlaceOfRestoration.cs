@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class PlaceOfRestoration : PlaceOf
 {
-    protected override void SetUpVisuals()
+    protected override void Initialize()
     {
         _sr.sprite = Status.Icon;
         _ps.textureSheetAnimation.SetSprite(0, Status.Icon);
