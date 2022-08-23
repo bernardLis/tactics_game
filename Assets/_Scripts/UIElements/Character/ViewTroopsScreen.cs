@@ -59,23 +59,16 @@ public class ViewTroopsScreen : FullScreenVisual
 
     void InitializePouches()
     {
+        VisualElement c = new();
+        Add(c);
+
+        Label txt = new Label("Inventory:");
+        txt.AddToClassList("textPrimary");
+        c.Add(txt);
+
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
-        Add(container);
-        //items
-        for (int i = 0; i < 3; i++)
-        {
-            ItemSlotVisual slot = new ItemSlotVisual();
-            container.Add(slot);
-            _allPlayerItemSlotVisuals.Add(slot);
-            _playerPouchItemSlotVisuals.Add(slot);
-        }
-        for (int i = 0; i < _runManager.PlayerItemPouch.Count; i++)
-        {
-            ItemVisual itemVisual = new(_runManager.PlayerItemPouch[i]);
-            _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
-            itemVisual.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
-        }
+        c.Add(container);
 
         //abilities
         for (int i = 0; i < 3; i++)
@@ -92,6 +85,22 @@ public class ViewTroopsScreen : FullScreenVisual
             _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
             abilityButton.RegisterCallback<PointerDownEvent>(OnPlayerAbilityPointerDown);
         }
+
+        //items
+        for (int i = 0; i < 3; i++)
+        {
+            ItemSlotVisual slot = new ItemSlotVisual();
+            container.Add(slot);
+            _allPlayerItemSlotVisuals.Add(slot);
+            _playerPouchItemSlotVisuals.Add(slot);
+        }
+        for (int i = 0; i < _runManager.PlayerItemPouch.Count; i++)
+        {
+            ItemVisual itemVisual = new(_runManager.PlayerItemPouch[i]);
+            _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
+            itemVisual.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
+        }
+
 
     }
 

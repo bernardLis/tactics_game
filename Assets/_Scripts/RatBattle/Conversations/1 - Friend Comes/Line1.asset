@@ -16,4 +16,4 @@ MonoBehaviour:
   SpeakerCharacter: {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
   Text: What favour?
   Clip: {fileID: 0}
-  DisplayQuadrant: 0
+  DisplayQuadrant: 3

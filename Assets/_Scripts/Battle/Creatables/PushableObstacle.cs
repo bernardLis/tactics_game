@@ -39,7 +39,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
             return;
         DOTween.To(() => l.intensity, x => l.intensity = x, 0.2f, 4f).SetLoops(-1, LoopType.Yoyo).SetId(_lightFlickerTweenId);
     }
-    
+
     public override async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
         await Fall(pos);
@@ -160,6 +160,13 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
                 continue;
             }
         }
+        // TODO: nastiness that works.
+        Invoke("ScanAstar", 1f);
+    }
+
+    void ScanAstar()
+    {
+        AstarPath.active.Scan(); 
     }
 
     public virtual async Task CollideWithCharacter(Ability ability, Collider2D col)

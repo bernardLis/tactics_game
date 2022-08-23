@@ -150,7 +150,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     void InitializeCharacter()
     {
         Character.ResolveItems();
-        
+
         // taking values from scriptable object to game
         Power.Initialize(StatType.Power, Character.GetStatValue("Power"), Character);
         MaxHealth.Initialize(StatType.MaxHealth, Character.GetStatValue("MaxHealth"), Character);
@@ -569,7 +569,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         // playing death animation
         await _characterRendererManager.Die();
-        GameObject effect = Instantiate(_deathEffect, transform.position, Quaternion.identity);
+        Vector3 offset = new Vector3(0f, 0.5f, 0f);
+        GameObject effect = Instantiate(_deathEffect, transform.position + offset, Quaternion.identity);
         effect.transform.DOLocalMoveY(transform.position.y + 0.5f, 1f).SetEase(Ease.InOutSine);
         await transform.DOScale(Vector3.zero, 1f).AsyncWaitForCompletion();
         Destroy(effect);

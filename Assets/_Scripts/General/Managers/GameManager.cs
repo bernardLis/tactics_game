@@ -246,11 +246,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         SaveData sd = new SaveData();
 
+        // run data
+        _isRunActive = false;
+
         // global data
         sd.Obols = Obols;
         sd.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
+        sd.WasTutorialPlayed = WasTutorialPlayed;
 
-        // run data
+        // save data
         sd.LastLevel = "";
         sd.Gold = 0;
         sd.SavingsAccountGold = 0;
@@ -264,6 +268,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
             Debug.Log("Save successful");
+
     }
 
     public void ClearSaveData()

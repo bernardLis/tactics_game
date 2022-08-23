@@ -42,6 +42,7 @@ public class FullScreenVisual : VisualElement
     {
         if (evt.keyCode != KeyCode.Escape)
             return;
+            
         Hide();
     }
 
@@ -58,6 +59,7 @@ public class FullScreenVisual : VisualElement
         GameManager.Instance.GetComponent<GameUIManager>().EnableMenuButton(); // TODO: ugh...
 
         this.SetEnabled(false);
-        _root.Remove(this);
+        if (this.parent == _root)
+            _root.Remove(this);
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class TooltipVisual : VisualElement
 {
-    int offsetX = 5;
-    int offsetY = -10;
+    int offsetX = 20;
+    int offsetY = 30;
 
     VisualElement _parentElement;
 

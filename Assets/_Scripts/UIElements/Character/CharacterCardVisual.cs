@@ -271,9 +271,9 @@ public class CharacterCardVisual : VisualElement
     {
         var root = panel.visualTree;
         if (_stats != null)
-            new CharacterScreen(_stats, root);
+            BattleUI.Instance.ShowCharacterScreen(_stats.Character);
         else
-            new CharacterScreen(Character, root);
+            BattleUI.Instance.ShowCharacterScreen(Character);
     }
 
 }

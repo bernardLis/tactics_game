@@ -71,7 +71,6 @@ public class RunManager : Singleton<RunManager>
 
     void PayInterest()
     {
-        Debug.Log("paying interest");
         int interest = Mathf.CeilToInt(SavingsAccountGold * 0.1f); // TODO: interest could be a variable
         InterestEarned += interest;
         ChangeSavingsAccountValue(interest);

@@ -21,7 +21,7 @@ public class BoardManager : Singleton<BoardManager>
     AudioManager _audioManager;
 
     [Header("Map Setup")]
-    public BattleNode _battleNode; // HERE:
+    BattleNode _battleNode;
     MapVariant _mapVariant;
     int _seed;
     public Vector2Int MapSize;
@@ -69,7 +69,7 @@ public class BoardManager : Singleton<BoardManager>
         _battleManager = BattleManager.Instance;
         _audioManager = AudioManager.Instance;
 
-        //  _battleNode = (BattleNode)_runManager.CurrentNode; HERE:
+        _battleNode = (BattleNode)_runManager.CurrentNode;
         _biome = _battleNode.Biome;
         _mapVariant = _battleNode.MapVariant;
         MapSize = _battleNode.MapSize;
@@ -118,8 +118,7 @@ public class BoardManager : Singleton<BoardManager>
 
     async Task InitialSetup()
     {
-        // _seed = _runManager.JourneySeed; HERE:
-        _seed = Mathf.FloorToInt(Time.deltaTime * 1000);
+        _seed = _runManager.JourneySeed;
         Random.InitState(_seed);
         _runManager.SetNodeReward(_battleNode.Reward);
 
@@ -330,7 +329,7 @@ public class BoardManager : Singleton<BoardManager>
 
     void PlacePlacesOf()
     {
-        int amount = 40;//Random.Range(0, 4); HERE:
+        int amount = Random.Range(0, 4);
 
         for (int i = 0; i < amount; i++)
         {
@@ -863,7 +862,6 @@ public class BoardManager : Singleton<BoardManager>
 
         foreach (Brain brain in _battleNode.Enemies)
         {
-
             Vector3 spawnPosition = GetEnemySpawnPosition();
             spawnPosition = new Vector3(spawnPosition.x + 0.5f, spawnPosition.y + 0.5f);
 
@@ -871,7 +869,7 @@ public class BoardManager : Singleton<BoardManager>
             List<Character> sortedPlayerCharacters = _runManager.PlayerTroops.OrderBy(o => o.Level).ToList();
             sortedPlayerCharacters.Reverse(); // highest first
             int playerLevel = sortedPlayerCharacters[0].Level;
-            enemySO.CreateEnemy(playerLevel + 2, brain);
+            enemySO.CreateEnemy(playerLevel + 5, brain);
 
             Character instantiatedSO = Instantiate(enemySO);
             GameObject newCharacter = Instantiate(_enemyGO, spawnPosition, Quaternion.identity);

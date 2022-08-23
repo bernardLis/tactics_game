@@ -33,6 +33,9 @@ public class AttackTriggerable : BaseTriggerable
 
         foreach (GameObject target in targets)
         {
+            if (target == null)
+                return null;
+
             if (target.TryGetComponent(out CharacterStats stats))
             {
                 DisplayBattleLog(target, ability);

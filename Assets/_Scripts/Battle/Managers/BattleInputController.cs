@@ -247,17 +247,10 @@ public class BattleInputController : Singleton<BattleInputController>
             return;
         }
 
-        // this is niche: on the ocassion when there are 2 characters on the tile (troops deployment), 
-        // I want to show the second character; 
-        List<CharacterStats> statsList = new();
-
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.2f);
         foreach (Collider2D c in cols)
             if (c.TryGetComponent(out CharacterStats stats))
-                statsList.Add(stats);
-
-        _battleUI.ShowCharacterScreen(statsList[statsList.Count - 1].Character);
-
+                _battleUI.ShowCharacterScreen(stats.Character);
     }
 
     void BackClick(InputAction.CallbackContext ctx)

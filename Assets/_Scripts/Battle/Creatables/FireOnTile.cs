@@ -152,8 +152,11 @@ public class FireOnTile : Creatable
             await stats.ShakeOnDamageTaken();
             return;
         }
+        if (_ability != null)
+            await stats.AddStatus(Status, _ability.CharacterGameObject);
+        else
+            await stats.AddStatus(Status, null);
 
-        await stats.AddStatus(Status, _ability.CharacterGameObject);
     }
 
 

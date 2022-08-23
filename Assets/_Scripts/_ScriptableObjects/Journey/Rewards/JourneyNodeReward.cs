@@ -25,6 +25,12 @@ public class JourneyNodeReward : BaseScriptableObject
 
     void AddItem()
     {
+        if (_runManager.PlayerItemPouch.Count < 3) // TODO: hardcoded value
+        {
+            _runManager.AddItemToPouch(Item);
+            return;
+        }
+
         // TODO: this is very crude
         foreach (Character character in _runManager.PlayerTroops)
         {
@@ -35,8 +41,6 @@ public class JourneyNodeReward : BaseScriptableObject
             }
         }
 
-        if (_runManager.PlayerItemPouch.Count < 3) // TODO: hardcoded value
-            _runManager.AddItemToPouch(Item);
 
     }
 }

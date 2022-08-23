@@ -16,4 +16,4 @@ MonoBehaviour:
   SpeakerCharacter: {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
   Text: Hurry up, I need a favour.
   Clip: {fileID: 0}
-  DisplayQuadrant: 0
+  DisplayQuadrant: 2

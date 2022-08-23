@@ -12,6 +12,10 @@ public class BattleUI : Singleton<BattleUI>
     BattleManager _battleManager;
 
     public VisualElement Root { get; private set; }
+
+    VisualElement _battleHelperTextContainer;
+    Label _battleHelperText;
+
     VisualElement _turnTextContainer;
     Label _turnText;
 
@@ -31,7 +35,7 @@ public class BattleUI : Singleton<BattleUI>
     string _turnTextTweenID = "turnTextTweenID";
     string _battleLogTweenID = "battleLogTweenID";
 
-    public CharacterScreen CharacterScreen { get; private set; }
+    public CharacterScreen CharacterScreen; // HERE: { get; private set; }
 
     public event Action OnBattleEndScreenShown;
 
@@ -49,12 +53,14 @@ public class BattleUI : Singleton<BattleUI>
         // getting ui elements
         Root = GetComponent<UIDocument>().rootVisualElement;
 
+        _battleHelperTextContainer = Root.Q<VisualElement>("battleHelperTextContainer");
+        _battleHelperText = Root.Q<Label>("battleHelperText");
+        _battleGoalContainer = Root.Q<VisualElement>("battleGoalContainer");
+
         _turnTextContainer = Root.Q<VisualElement>("turnTextContainer");
         _turnText = Root.Q<Label>("turnText");
         _battleLogContainer = Root.Q<VisualElement>("battleLogContainer");
         _battleLogText = Root.Q<Label>("battleLogText");
-
-        _battleGoalContainer = Root.Q<VisualElement>("battleGoalContainer");
 
         _battleEndContainer = Root.Q<VisualElement>("battleEndContainer");
         _battleEndText = Root.Q<Label>("battleEndText");
@@ -67,6 +73,7 @@ public class BattleUI : Singleton<BattleUI>
 
         // subscribing to Actions
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
+        BattleCharacterController.OnCharacterStateChanged += OnCharacterStateChanged;
     }
 
     void Start()
@@ -77,20 +84,56 @@ public class BattleUI : Singleton<BattleUI>
     void OnDestroy()
     {
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
+        BattleCharacterController.OnCharacterStateChanged -= OnCharacterStateChanged;
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
         if (state == BattleState.Deployment)
-            DisplayTurnText("DEPLOY TROOPS");
+            HandleDeployment();
         if (state == BattleState.EnemyTurn)
             DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - ENEMY");
         if (state == BattleState.PlayerTurn)
             HandlePlayerTurn();
+        if (state == BattleState.EnemyTurn)
+            HandleEnemyTurn();
         if (state == BattleState.Won)
             ShowBattleWonScreen();
         if (state == BattleState.Lost)
             ShowBattleLostScreen();
+    }
+
+    void OnCharacterStateChanged(CharacterState state)
+    {
+        switch (state)
+        {
+            case CharacterState.None:
+                UpdateBattleHelperText("Select a character.");
+                break;
+            case CharacterState.Selected:
+                UpdateBattleHelperText("Select a destination.");
+                break;
+            case CharacterState.Moved:
+                UpdateBattleHelperText("Select an ability.");
+                break;
+            case CharacterState.SelectingInteractionTarget:
+                UpdateBattleHelperText("Choose a target.");
+                break;
+            case CharacterState.SelectingFaceDir:
+                UpdateBattleHelperText("Select face direction.");
+                break;
+            case CharacterState.ConfirmingInteraction:
+                UpdateBattleHelperText("Confirm interaction.");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+        }
+    }
+
+    void HandleDeployment()
+    {
+        DisplayTurnText("DEPLOY TROOPS");
+        UpdateBattleHelperText("Deployment phase. Place your characters.");
     }
 
     void HandlePlayerTurn()
@@ -98,7 +141,18 @@ public class BattleUI : Singleton<BattleUI>
         if (TurnManager.CurrentTurn == 1)
             DisplayBattleGoal();
 
+        _battleHelperTextContainer.style.display = DisplayStyle.Flex;
         DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
+    }
+
+    void HandleEnemyTurn()
+    {
+        UpdateBattleHelperText($"Turn {TurnManager.CurrentTurn.ToString()}. Enemy turn.");
+    }
+
+    void UpdateBattleHelperText(string txt)
+    {
+        _battleHelperText.text = txt;
     }
 
     void DisplayBattleGoal()
@@ -152,14 +206,17 @@ public class BattleUI : Singleton<BattleUI>
 
     public void ShowCharacterScreen(Character character)
     {
+        if (CharacterScreen != null)
+            return;
         _battleManager.PauseGame();
         CharacterScreen = new CharacterScreen(character, Root);
+        CharacterScreen.OnHide += HideCharacterScreen;
     }
 
     public void HideCharacterScreen()
     {
         _battleManager.ResumeGame();
-        CharacterScreen.Hide();
+        CharacterScreen.OnHide -= HideCharacterScreen;
         CharacterScreen = null;
     }
 
@@ -175,8 +232,12 @@ public class BattleUI : Singleton<BattleUI>
 
         _battleEndText.text = $"You won in {TurnManager.CurrentTurn} turns!";
 
-        VisualElement container = new();
+        _backToJourneyButton.clickable.clicked += OnContinueButtonClick;
 
+        if (_runManager.JourneyNodeReward == null)
+            return;
+
+        VisualElement container = new();
         container.AddToClassList("textPrimary");
         container.style.flexDirection = FlexDirection.Row;
         if (_runManager.JourneyNodeReward.Gold != 0)
@@ -186,8 +247,6 @@ public class BattleUI : Singleton<BattleUI>
 
         _battleEndRewardContainer.Add(new Label("Your reward:"));
         _battleEndRewardContainer.Add(container);
-
-        _backToJourneyButton.clickable.clicked += BackToJourney;
     }
 
     void ShowBattleLostScreen()
@@ -203,6 +262,7 @@ public class BattleUI : Singleton<BattleUI>
     {
         _turnTextContainer.style.display = DisplayStyle.None;
         _battleGoalContainer.style.display = DisplayStyle.None;
+        _battleHelperTextContainer.style.display = DisplayStyle.None;
 
         _battleEndGoalContainer.Clear();
 
@@ -218,11 +278,11 @@ public class BattleUI : Singleton<BattleUI>
         OnBattleEndScreenShown?.Invoke();
     }
 
-    void BackToJourney()
+    void OnContinueButtonClick()
     {
+        if (_levelToLoadAfterFight == null)
+            _levelToLoadAfterFight = Scenes.Journey;
         _gameManager.LoadLevel(_levelToLoadAfterFight);
-        // reseting level to load to journey as it is the default
-        _levelToLoadAfterFight = Scenes.Journey;
     }
 
     void BackToMainMenu()
@@ -234,7 +294,6 @@ public class BattleUI : Singleton<BattleUI>
     {
         _backToJourneyButton.text = newText;
         _levelToLoadAfterFight = newLevel;
-        _backToJourneyButton.clickable.clicked += BackToJourney;
     }
 
     IEnumerator CoroutineCoordinator()

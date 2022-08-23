@@ -137,14 +137,14 @@ public class TurnManager : Singleton<TurnManager>
 
     void HandleWinning()
     {
-        Debug.Log("Congratz player! You win!!!");
-
+        if (_runManager.CurrentNode == null)
+            return;
+            
         List<Character> playerCharactersAlive = new();
         foreach (GameObject p in _playerCharacters)
             playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);
 
         _runManager.SetPlayerTroops(playerCharactersAlive);
-        Debug.Log("handle winnign at the end = are there errors that are eaten?");
     }
 
     void HandleLosing()

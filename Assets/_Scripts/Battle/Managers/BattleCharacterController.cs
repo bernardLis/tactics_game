@@ -81,7 +81,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     void MovePointController_OnMove(Vector3 pos)
     {
-
         StartCoroutine(DrawPath());
     }
 
@@ -118,7 +117,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
-
         }
         OnCharacterStateChanged?.Invoke(newState);
     }
@@ -135,6 +133,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     public void Select(Collider2D[] cols)
     {
+        if (TurnManager.BattleState != BattleState.PlayerTurn)
+            return;
+
         ClearPathRenderer();
         foreach (Collider2D c in cols)
         {

@@ -45,7 +45,6 @@ MonoBehaviour:
   StarterTroops:
   - {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
   - {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
-  - {fileID: 11400000, guid: 71f1ec4e613341648837c919a0e85a50, type: 2}
   Portraits:
   - ReferenceID: Coubert
     Sprite: {fileID: 21300000, guid: afd309c482f885140af9ed07152aa6f0, type: 3}

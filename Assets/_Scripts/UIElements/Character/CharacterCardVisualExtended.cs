@@ -86,7 +86,8 @@ public class CharacterCardVisualExtended : CharacterCardVisual
     {
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
-        for (int i = 0; i < character.GetNumberOfAbilitySlots(); i++)
+        int slotCount = character.GetNumberOfAbilitySlots();
+        for (int i = 0; i < slotCount; i++)
         {
             AbilitySlotVisual abilitySlot = new();
             abilitySlot.Character = character;
@@ -96,6 +97,8 @@ public class CharacterCardVisualExtended : CharacterCardVisual
 
         for (int i = 0; i < character.Abilities.Count; i++)
         {
+            if (i > slotCount)
+                break;
             AbilityButton abilityButton = new AbilityButton(character.Abilities[i], null);
             AbilitySlots[i].AddButton(abilityButton);
             AbilityButtons.Add(abilityButton);
