@@ -17,12 +17,10 @@ public class JourneyNodeInfoVisual : VisualElement
 
     void HandleBattleNode(BattleNode node)
     {
-        Label variant = new Label(node.MapVariant.name);
-        Label biome = new Label(node.Biome.name);
-        Label mapSize = new Label($"Map size: {node.MapSize.x} x {node.MapSize.y}");
+        Label mapInfo = new Label($"{node.MapVariant.name}, {node.Biome.name}, {node.MapSize.x}x{node.MapSize.y}");
         VisualElement enemyIconContainer = new VisualElement();
         enemyIconContainer.style.flexDirection = FlexDirection.Row;
-        
+
         foreach (var e in node.Enemies)
         {
             Label l = new Label();
@@ -32,16 +30,9 @@ public class JourneyNodeInfoVisual : VisualElement
             enemyIconContainer.Add(l);
         }
 
-        //Label numberOfEnemies = new Label("Number of enemies: " + .Count); // TODO: brains could hold icons that represent enemy type and I could be displaying them
-        variant.AddToClassList("textSecondary");
-        biome.AddToClassList("textSecondary");
-        enemyIconContainer.AddToClassList("uiContainer");
-        mapSize.AddToClassList("textSecondary");
+        mapInfo.AddToClassList("textPrimary");
 
-        Add(variant);
-        Add(biome);
+        Add(mapInfo);
         Add(enemyIconContainer);
-        //Add(numberOfEnemies);
-        Add(mapSize);
     }
 }

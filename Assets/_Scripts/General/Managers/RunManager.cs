@@ -160,6 +160,8 @@ public class RunManager : Singleton<RunManager>
 
     public void SetNodeReward(JourneyNodeReward r)
     {
+        if (r == null)
+            return;
         JourneyNodeReward clone = Instantiate(r);
         clone.Initialize();
         JourneyNodeReward = clone;

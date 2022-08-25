@@ -18,7 +18,7 @@ public class JourneyEventManager : MonoBehaviour
     VisualElement _rewardWrapper;
     MyButton _backToJourneyButton;
 
-    JourneyEvent _journeyEvent;
+    public JourneyEvent _journeyEvent; // HERE:
 
     List<MyButton> _optionButtons = new();
 
@@ -46,7 +46,7 @@ public class JourneyEventManager : MonoBehaviour
 
     void SetupEvent()
     {
-        _journeyEvent = _runManager.ChooseEvent();
+        // HERE: _journeyEvent = _runManager.ChooseEvent();
 
         _eventWrapper.style.backgroundImage = _journeyEvent.Background.texture;
         _eventDescription.text = _journeyEvent.Description;
@@ -85,6 +85,11 @@ public class JourneyEventManager : MonoBehaviour
         container.style.flexDirection = FlexDirection.Row;
         Label txt = new Label("You get: ");
         container.Add(txt);
+        if (_journeyEvent.Options[index].Reward.Obols != 0)
+        {
+            Label obols = new(_journeyEvent.Options[index].Reward.Obols.ToString() + "Obols"); // TODO: gold icon
+            container.Add(obols);
+        }
         if (_journeyEvent.Options[index].Reward.Gold != 0)
         {
             Label gold = new(_journeyEvent.Options[index].Reward.Gold.ToString() + "Gold"); // TODO: gold icon

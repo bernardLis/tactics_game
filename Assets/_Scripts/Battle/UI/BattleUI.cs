@@ -108,7 +108,7 @@ public class BattleUI : Singleton<BattleUI>
         switch (state)
         {
             case CharacterState.None:
-                UpdateBattleHelperText("Select a character.");
+                UpdateBattleHelperText($"Turn {TurnManager.CurrentTurn.ToString()}. Your turn. Select a character");
                 break;
             case CharacterState.Selected:
                 UpdateBattleHelperText("Select a destination.");
@@ -142,6 +142,7 @@ public class BattleUI : Singleton<BattleUI>
             DisplayBattleGoal();
 
         _battleHelperTextContainer.style.display = DisplayStyle.Flex;
+        UpdateBattleHelperText($"Turn {TurnManager.CurrentTurn.ToString()}. Your turn. Select a character");
         DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
     }
 

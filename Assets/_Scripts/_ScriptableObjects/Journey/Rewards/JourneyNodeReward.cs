@@ -3,8 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/Reward")]
 public class JourneyNodeReward : BaseScriptableObject
 {
-    RunManager _runManager;
-
+    protected GameManager _gameManager;
+    protected RunManager _runManager;
+    public int Obols;
     public int Gold;
     public Item Item;
 
@@ -13,9 +14,14 @@ public class JourneyNodeReward : BaseScriptableObject
         // meant to be overwritten
     }
 
-    public void GetReward()
+    public virtual void GetReward()
     {
+        _gameManager = GameManager.Instance;
         _runManager = RunManager.Instance;
+
+        if (Obols != 0)
+            _gameManager.ChangeObolValue(Obols);
+
         if (Gold != 0)
             _runManager.ChangeGoldValue(Gold);
 
