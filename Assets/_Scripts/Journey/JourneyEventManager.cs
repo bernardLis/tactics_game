@@ -80,6 +80,15 @@ public class JourneyEventManager : MonoBehaviour
         _runManager.SetNodeReward(_journeyEvent.Options[index].Reward);
 
         _responseLabel.text = _journeyEvent.Options[index].Response;
+        _audioManager.PlayDialogue(_journeyEvent.Options[index].ResponseVoiceOver);
+
+        _responseWrapper.style.opacity = 0;
+        _responseWrapper.style.display = DisplayStyle.Flex;
+        DOTween.To(() => _responseWrapper.style.opacity.value, x => _responseWrapper.style.opacity = x, 1f, 1f)
+            .SetEase(Ease.InSine);
+
+        if (_journeyEvent.Options[index].Reward == null)
+            return;
 
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
@@ -100,14 +109,13 @@ public class JourneyEventManager : MonoBehaviour
             ItemVisual item = new(_journeyEvent.Options[index].Reward.Item);
             container.Add(item);
         }
+        if (_journeyEvent.Options[index].Reward.Recruit != null)
+        {
+            CharacterCardVisualExtended card = new(_journeyEvent.Options[index].Reward.Recruit);
+            container.Add(card);
+        }
+
         _rewardWrapper.Add(container);
-
-        _audioManager.PlayDialogue(_journeyEvent.Options[index].ResponseVoiceOver);
-
-        _responseWrapper.style.opacity = 0;
-        _responseWrapper.style.display = DisplayStyle.Flex;
-        DOTween.To(() => _responseWrapper.style.opacity.value, x => _responseWrapper.style.opacity = x, 1f, 1f)
-            .SetEase(Ease.InSine);
     }
 
     void BackToJourney()

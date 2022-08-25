@@ -122,6 +122,28 @@ public class RunManager : Singleton<RunManager>
         _gameManager.SaveJsonData();
     }
 
+    public void AddCharacterToTroops(Character character)
+    {
+        PlayerTroops.Add(character);
+        _gameManager.SaveJsonData();
+    }
+
+    public void AddEnemyToAllBattleNodes(Brain b)
+    {
+        foreach (JourneyPath path in JourneyPaths)
+        {
+            foreach (JourneyNode node in path.Nodes)
+            {
+                if (node.NodeType == JourneyNodeType.Battle)
+                {
+                    BattleNode n = (BattleNode)node;
+                    n.AddEnemy(b);
+                }
+            }
+        }
+
+    }
+
     public void AddItemToPouch(Item item)
     {
         PlayerItemPouch.Add(item);

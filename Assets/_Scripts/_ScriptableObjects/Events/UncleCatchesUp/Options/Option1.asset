@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6790c7ad75ef53e46ba03163b3bf89bd, type: 3}
+  m_Name: Option1
+  m_EditorClassIdentifier: 
+  Id: 143fca83-b6b6-4fa8-927d-af78feed6484
+  Text: I will take the shoes. Mine are old and slow!
+  Response: Safe travels!
+  Reward: {fileID: 11400000, guid: 04f1e49d07ab65c42bb28e6848e9e523, type: 2}
+  ResponseVoiceOver: {fileID: 11400000, guid: e12507ac0ba57dd41b32ba9b1520c458, type: 2}

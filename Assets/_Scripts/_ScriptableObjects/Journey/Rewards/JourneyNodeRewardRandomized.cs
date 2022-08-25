@@ -10,8 +10,6 @@ public class JourneyNodeRewardRandomized : JourneyNodeReward
     {
         // meant to be overwritten
         Gold = Random.Range(GoldRange.x, GoldRange.y);
-        Debug.Log($"initialize reward gold: {Gold}");
-
         Item = GameManager.Instance.GameDatabase.GetRandomItem();
     }
 

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd61444f4df06a4c9ad730f053bfeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _journeyEvent: {fileID: 11400000, guid: 09802dd2131dbed41ae54052fd657dc4, type: 2}
+  _journeyEvent: {fileID: 11400000, guid: eff3b18c1480fe44b9f82a5ba3641d9a, type: 2}
 --- !u!114 &376385098
 MonoBehaviour:
   m_ObjectHideFlags: 0

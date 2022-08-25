@@ -36,4 +36,9 @@ public class BattleNode : JourneyNode
         MapSize = new Vector2Int(Random.Range(5, 20), Random.Range(5, 20));
     }
 
+    public void AddEnemy(Brain b)
+    {
+        Enemies.Add(b);
+    }
+
 }

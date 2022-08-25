@@ -18,10 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 080ec040857f7344ebc2df7f9322b4cb, type: 2}
   AllEvents:
   - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
-  - {fileID: 11400000, guid: 97ae7081e296d9d41b7dc13d84772c77, type: 2}
-  - {fileID: 11400000, guid: a05ff19afa1a3ec4da7c1041436e074f, type: 2}
-  - {fileID: 11400000, guid: c4797b46d258a8944848dd5522d53c6e, type: 2}
-  - {fileID: 11400000, guid: 2e89f4ef24faa294aaabbeb33d5215c3, type: 2}
+  - {fileID: 11400000, guid: 09802dd2131dbed41ae54052fd657dc4, type: 2}
   Cutscenes:
   - {fileID: 11400000, guid: 68e749ab2331d26429c8b481dc4023e3, type: 2}
   - {fileID: 11400000, guid: 348e94e2b7bcb344682551f7fc4bb50b, type: 2}

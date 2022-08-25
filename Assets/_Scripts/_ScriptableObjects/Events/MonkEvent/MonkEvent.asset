@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5dd9c7f2eb223488303bde0b7f5101, type: 3}
+  m_Name: MonkEvent
+  m_EditorClassIdentifier: 
+  Id: b3f58bbb-a46f-492b-8926-564dc9584577
+  Background: {fileID: 21300000, guid: 12964487b47f33b41a9246b1019f35d5, type: 3}
+  Description: "Hello, I am a monk. I have lived and trained in a Monastery On A
+    Hill for many years. I have realized that they are evil and stole a Ring of Safety
+    from them. Now, other monks want to capture me. I need help. Can I join you?\r"
+  VoiceOver: {fileID: 11400000, guid: 76221ab363210d94b8f1fc0e69895be8, type: 2}
+  Options:
+  - {fileID: 11400000, guid: 0981b5bdd3040124791bd355446c3535, type: 2}
+  - {fileID: 11400000, guid: 46e6048b4f7c7884c8e25f1dcde9c8d9, type: 2}

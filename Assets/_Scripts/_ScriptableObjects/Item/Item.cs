@@ -16,4 +16,10 @@ public class Item : BaseScriptableObject
     public int Price;
 
     public int GetSellValue() { return Mathf.FloorToInt(Price * 0.5f); }
+
+    public void InitializeBattleStart(CharacterStats stats)
+    {
+        
+
+    }
 }
