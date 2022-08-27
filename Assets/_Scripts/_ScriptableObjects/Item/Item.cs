@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemRaririty { Common, Magic, Rare, Epic }
-
-
 [CreateAssetMenu(menuName = "ScriptableObject/Item")]
 public class Item : BaseScriptableObject
 {
@@ -14,12 +12,10 @@ public class Item : BaseScriptableObject
     public ItemRaririty Raririty;
     public int Value;
     public int Price;
+    public Status Status;
+    public string TooltipText;
 
     public int GetSellValue() { return Mathf.FloorToInt(Price * 0.5f); }
 
-    public void InitializeBattleStart(CharacterStats stats)
-    {
-        
-
-    }
+    public virtual void Initialize(CharacterStats stats) { }
 }

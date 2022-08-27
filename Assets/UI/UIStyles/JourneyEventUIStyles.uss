@@ -26,3 +26,14 @@
     color: rgb(255, 255, 255);
     white-space: normal;
 }
+
+.optionButton:hover {
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-color: rgba(47, 108, 159, 255);
+    border-right-color: rgba(47, 108, 159, 255);
+    border-top-color: rgba(47, 108, 159, 255);
+    border-bottom-color: rgba(47, 108, 159, 255);
+}

@@ -12,7 +12,7 @@ public class MyButton : Button
         _audioManager = AudioManager.Instance;
 
         text = buttonText;
-        
+
         if (className != null)
             AddToClassList(className);
         if (callback != null)
@@ -23,6 +23,8 @@ public class MyButton : Button
 
     void PlayClick()
     {
+        if (!enabledSelf)
+            return;
         if (_audioManager != null)
             _audioManager.PlaySFX("uiClick", Vector3.zero);
     }

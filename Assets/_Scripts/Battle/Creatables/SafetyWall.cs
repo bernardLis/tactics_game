@@ -44,16 +44,16 @@ public class SafetyWall : Creatable, ICreatable<Vector3, Ability, string>
             RemoveShield(stats);
     }
 
-    void Shield(CharacterStats stats)
+    async void Shield(CharacterStats stats)
     {
         _shieldedCharacter = stats;
-        stats.IsShielded = true;
+        await stats.AddStatus(Status, null);
     }
 
     void RemoveShield(CharacterStats stats)
     {
         _shieldedCharacter = null;
-        stats.IsShielded = false;
+        stats.RemoveStatus(Status);
     }
 
     public override async Task DestroySelf()

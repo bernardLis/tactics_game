@@ -11,8 +11,8 @@ public class StunStatus : Status
             _characterSelection.FinishCharacterTurn();
 
         // this is normal situation, when you apply stun on person from opposite team
-       await  base.FirstTrigger();
-    }//asd
+        await base.FirstTrigger();
+    }
 
     public override void TriggerStatus()
     {

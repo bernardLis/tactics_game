@@ -15,7 +15,11 @@ public class ItemVisual : VisualWithTooltip
         style.unityBackgroundImageTintColor = Helpers.GetColor(item.Raririty.ToString());
         style.width = 75;
         style.height = 75;
-        _tooltipText = item.InfluencedStat.ToString() + " +" + item.Value.ToString();
+        if (item.TooltipText.Length == 0)
+            _tooltipText = item.InfluencedStat.ToString() + " +" + item.Value.ToString();
+        else
+            _tooltipText = item.TooltipText;
+
     }
 
     protected override void DisplayTooltip()

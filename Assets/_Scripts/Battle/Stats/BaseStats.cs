@@ -18,7 +18,7 @@ public class BaseStats : MonoBehaviour
     public bool IsStunned { get; private set; }
     public bool IsWet { get; private set; }
     public bool IsFocused { get; private set; }
-
+    public bool IsShielded { get; private set; }
 
     // actions
     [HideInInspector] public event Action<Status> OnStatusAdded;
@@ -74,5 +74,5 @@ public class BaseStats : MonoBehaviour
     public void SetIsStunned(bool isStunned) { IsStunned = isStunned; }
     public void SetIsWet(bool isWet) { IsWet = isWet; }
     public void SetIsFocused(bool isFocused) { IsFocused = isFocused; }
-
+    public void SetIsShielded(bool isShielded) { IsShielded = isShielded; }
 }

@@ -37,7 +37,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     // retaliation on interaction
     public bool IsAttacker { get; private set; }
-    public bool IsShielded;
 
     // pushable variables
     Vector3 _startingPos;
@@ -190,6 +189,13 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             Abilities.Add(clone);
             clone.Initialize(gameObject);
         }
+
+        foreach (Item item in Character.Items)
+        {
+            var clone = Instantiate(item);
+            // hmmm... i probably need to clone it now.
+            clone.Initialize(this);
+        }
     }
 
     public void SetCurrentHealth(int health)
@@ -285,6 +291,14 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     void ShieldDamage()
     {
+        ShieldStatus shieldStatus = null;
+        foreach (Status s in Statuses)
+            if (s is ShieldStatus)
+                shieldStatus = s as ShieldStatus;
+
+        if (shieldStatus != null)
+            RemoveStatus(shieldStatus);
+        
         _damageUI.DisplayOnCharacter("Shielded!", 24, Color.magenta);
     }
 
@@ -655,4 +669,5 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _replacedAbility = null;
         OnAbilityAdded?.Invoke(Abilities[0]);
     }
+
 }
