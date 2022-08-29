@@ -87,11 +87,11 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         AddStatsToList();
     }
 
-    protected virtual void TurnManager_OnBattleStateChanged(BattleState state)
+    protected virtual async void TurnManager_OnBattleStateChanged(BattleState state)
     {
         foreach (Status s in Statuses)
             if (s.ShouldTrigger())
-                s.TriggerStatus();
+                await s.TriggerStatus();
 
         if (TurnManager.CurrentTurn <= 1)
             return;

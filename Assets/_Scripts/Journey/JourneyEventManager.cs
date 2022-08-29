@@ -18,7 +18,7 @@ public class JourneyEventManager : MonoBehaviour
     VisualElement _rewardWrapper;
     MyButton _backToJourneyButton;
 
-    public JourneyEvent _journeyEvent; // HERE:
+    JourneyEvent _journeyEvent;
 
     List<MyButton> _optionButtons = new();
 
@@ -46,7 +46,7 @@ public class JourneyEventManager : MonoBehaviour
 
     void SetupEvent()
     {
-        // HERE: _journeyEvent = _runManager.ChooseEvent();
+        _journeyEvent = _runManager.ChooseEvent();
 
         _eventWrapper.style.backgroundImage = _journeyEvent.Background.texture;
         _eventDescription.text = _journeyEvent.Description;

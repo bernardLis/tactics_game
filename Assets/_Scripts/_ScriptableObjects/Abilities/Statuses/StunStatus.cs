@@ -14,9 +14,9 @@ public class StunStatus : Status
         await base.FirstTrigger();
     }
 
-    public override void TriggerStatus()
+    public async override Task TriggerStatus()
     {
-        base.TriggerStatus();
+        await base.TriggerStatus();
         _characterSelection.SetCharacterColor(Helpers.GetColor("gray"));
         AddFlag();
     }

@@ -44,13 +44,14 @@ public class Status : BaseScriptableObject
     {
         // "normal" status application and triggering is when you apply status on character from opposite team, then it works fine! 
         // TODO: but when you apply it on person from your team, it is a bit weird. 
-        TriggerStatus();
+        await TriggerStatus();
         await Task.Yield();
     }
 
-    public virtual void TriggerStatus()
+    public async virtual Task TriggerStatus()
     {
         _damageUI.DisplayOnCharacter(DisplayText, 24, DisplayColor);
+        await Task.Yield();
     }
 
     public virtual void ResolveTurnEnd()

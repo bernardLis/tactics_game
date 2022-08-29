@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b4a662168220f549a4cdedaf621fc1e, type: 3}
-  m_Name: Shield 1
+  m_Name: Shield 2
   m_EditorClassIdentifier: 
   Id: 5eaab409-397e-476b-9511-edb46674385b
   ReferenceID: shield1
-  NumberOfTurns: 1
+  NumberOfTurns: 2
   Value: 1
   Icon: {fileID: -919537863, guid: 6368afbca9f902848a44469618168e48, type: 3}
   DisplayText: Shielded

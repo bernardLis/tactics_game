@@ -1,13 +1,15 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Statuses/Damage")]
 public class DamageStatus : Status
 {
-    public override void TriggerStatus()
+    public async override Task TriggerStatus()
     {
-        base.TriggerStatus();
+        await base.TriggerStatus();
         if (_characterStats != null)
-            _characterStats.TakeDamageFinal(Value).GetAwaiter();
+            await _characterStats.TakeDamageFinal(Value);
+        await Task.Yield();
     }
 
     public override string GetDescription()

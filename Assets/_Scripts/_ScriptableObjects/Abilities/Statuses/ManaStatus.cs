@@ -1,11 +1,12 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Statuses/Mana")]
 public class ManaStatus : Status
 {
-    public override void TriggerStatus()
+    public override async Task TriggerStatus()
     {
-        base.TriggerStatus();
+        await base.TriggerStatus();
         if (_characterStats == null)
             return;
         _characterStats.GainMana(Value);

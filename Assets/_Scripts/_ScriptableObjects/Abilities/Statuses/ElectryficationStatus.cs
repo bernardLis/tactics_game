@@ -37,9 +37,9 @@ public class ElectryficationStatus : Status
             Destroy(_effectInstance, 1f);
     }
 
-    public override void TriggerStatus()
+    public async override Task TriggerStatus()
     {
-        base.TriggerStatus();
+        await base.TriggerStatus();
 
         if (_characterStats == null)
             return;
@@ -47,7 +47,7 @@ public class ElectryficationStatus : Status
         int dmg = Value;
         if (_characterStats.IsWet)
             dmg *= 2;
-        _characterStats.TakeDamageFinal(dmg).GetAwaiter();
+        await _characterStats.TakeDamageFinal(dmg);
     }
 
     async Task SpreadElectrification(Vector3 pos)

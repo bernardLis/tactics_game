@@ -138,7 +138,8 @@ public class Brain : BaseScriptableObject
             // https://arongranberg.com/astar/docs_dev/class_pathfinding_1_1_path.php#a1076ed6812e2b4f98dca64b74dabae5d
             float distance = p.GetTotalLength();
             PotentialTarget potentialTarget = new PotentialTarget(targetChar, distance);
-            potentialTargets.Add(potentialTarget);
+            if (distance > 0) // 0 == no path
+                potentialTargets.Add(potentialTarget);
 
             targetChar.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
         }
@@ -172,6 +173,9 @@ public class Brain : BaseScriptableObject
 
     protected Vector3 GetDestinationCloserTo(PotentialTarget target)
     {
+        if (target == null)
+            return Vector3.zero;
+
         ABPath p = GetPathTo(target.GameObj.transform);
 
         // The path is calculated now
