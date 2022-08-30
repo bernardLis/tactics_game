@@ -121,9 +121,10 @@ public class Character : BaseScriptableObject
         BaseExpGain(gain);
     }
 
-    public void GetExp(GameObject target, bool isKill = false)
+    public void GetExp(Character opponent, bool isKill = false)
     {
-        int exp = CalculateExpGain(target, isKill);
+        int opponentLevel = opponent.Level;
+        int exp = CalculateExpGain(opponentLevel, isKill);
         BaseExpGain(exp);
     }
 
@@ -138,14 +139,13 @@ public class Character : BaseScriptableObject
         LevelUp();
     }
 
-    int CalculateExpGain(GameObject target, bool isKill)
+    int CalculateExpGain(int opponentLevel, bool isKill)
     {
         int expGain = 10;
         if (isKill)
             expGain += 20;
 
-        int targetLevel = target.GetComponent<CharacterStats>().Character.Level;
-        int levelExpGain = (targetLevel - Level) * 6;
+        int levelExpGain = (opponentLevel - Level) * 6;
         levelExpGain = Mathf.Clamp(levelExpGain, 0, 100);
         expGain += levelExpGain;
 

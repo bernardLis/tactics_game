@@ -148,8 +148,13 @@ public class CharacterUI : Singleton<CharacterUI>
 
     async void OnAbilityAdded(Ability ability)
     {
-        await HideCharacterUI();
-        await ShowCharacterUI();
+        // if character is pushed into the place of it will throw an error without this if
+        if (_battleCharacterController.CharacterState == CharacterState.Selected
+            && _battleCharacterController.SelectedCharacter == _selectedPlayerStats.gameObject)
+        {
+            await HideCharacterUI();
+            await ShowCharacterUI();
+        }
     }
 
     async void OnCharacterDeath(GameObject obj)

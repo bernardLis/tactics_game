@@ -1,12 +1,11 @@
 public class EnemyStats : CharacterStats
 {
-    protected override void TurnManager_OnBattleStateChanged(BattleState state)
+    protected async override void TurnManager_OnBattleStateChanged(BattleState state)
     {
         if (state == BattleState.PlayerTurn)
             ResolveModifiersTurnEnd();
-
         if (state == BattleState.EnemyTurn)
-            base.TurnManager_OnBattleStateChanged(state);
+            await ResolveStatuses();
     }
 
     protected override void HandleBodyColor()

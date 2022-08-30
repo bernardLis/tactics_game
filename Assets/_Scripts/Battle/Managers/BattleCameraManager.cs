@@ -64,34 +64,13 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         await LerpOrthographicSize(6, 1);
     }
 
-    void HandlePlayerTurn()
-    {
-        _followTarget = _movePointController.transform;
-    }
+    void HandlePlayerTurn() { _followTarget = _movePointController.transform; }
 
-    public void SetTarget(Transform t)
-    {
-        _followTarget = t;
-    }
+    public void SetTarget(Transform t) { _followTarget = t; }
 
-    //TODO: DOOrthoSize(float to, float duration)
-    public async Task LerpOrthographicSize(float newSize, float time)
-    {
-        float oldSize = _cam.orthographicSize;
-        float elapsed = 0;
-        while (elapsed <= time)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / time);
+    public async Task LerpOrthographicSize(float newSize, float duration) { await _cam.DOOrthoSize(newSize, duration).AsyncWaitForCompletion(); }
 
-            _cam.orthographicSize = Mathf.Lerp(oldSize, newSize, t);
-            await Task.Yield();
-        }
-    }
-    public void Shake()
-    {
-        transform.DOShakePosition(0.5f, 0.5f);
-    }
+    public void Shake() { transform.DOShakePosition(0.5f, 0.5f); }
 
 }
 

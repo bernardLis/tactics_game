@@ -89,9 +89,20 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     protected virtual async void TurnManager_OnBattleStateChanged(BattleState state)
     {
-        foreach (Status s in Statuses)
-            if (s.ShouldTrigger())
-                await s.TriggerStatus();
+        await Task.Yield();
+    }
+
+    protected async Task ResolveStatuses()
+    {
+        for (int i = Statuses.Count - 1; i >= 0; i--)
+        {
+            if (Statuses[i].ShouldTrigger())
+            {
+                await Statuses[i].TriggerStatus();
+                if (CurrentHealth <= 0)
+                    return;
+            }
+        }
 
         if (TurnManager.CurrentTurn <= 1)
             return;
@@ -298,7 +309,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
         if (shieldStatus != null)
             RemoveStatus(shieldStatus);
-        
+
         _damageUI.DisplayOnCharacter("Shielded!", 24, Color.magenta);
     }
 
@@ -319,7 +330,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         if (CurrentHealth <= 0)
         {
             if (_lastAttacker != null)
-                _lastAttacker.Character.GetExp(gameObject, true);
+                _lastAttacker.Character.GetExp(Character, true);
             await Die();
             return;
         }
@@ -354,7 +365,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public async void GetBuffed(GameObject attacker, Ability ability)
     {
         if (attacker.TryGetComponent(out CharacterStats stats))
-            stats.Character.GetExp(gameObject);
+            stats.Character.GetExp(Character);
 
         HandleModifier(ability);
         await HandleStatus(attacker, ability);
@@ -454,7 +465,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public async void GainHealth(int healthGain, GameObject attacker, Ability ability)
     {
         if (attacker.TryGetComponent(out CharacterStats stats))
-            stats.Character.GetExp(gameObject);
+            stats.Character.GetExp(Character);
 
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
         OnHealthChanged?.Invoke(Character.MaxHealth, CurrentHealth, healthGain);

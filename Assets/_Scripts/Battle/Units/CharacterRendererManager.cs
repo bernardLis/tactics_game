@@ -82,9 +82,7 @@ public class CharacterRendererManager : MonoBehaviour
 
     void HandleCharacterSelected()
     {
-
-        ResolveFaceDir(Vector2.one); // emm... a bit hacky but should sufice
-
+        ResolveFaceDir(Vector2.down);
     }
 
     void HandleSelectingFaceDir()
@@ -130,24 +128,21 @@ public class CharacterRendererManager : MonoBehaviour
 
     void ResolveFaceDir(Vector2 dir)
     {
-        Vector2 faceDir = new Vector2(Mathf.RoundToInt(dir.x), Mathf.RoundToInt(dir.y));
-        // TODO: ugh... idk how to solve it
-        if (Mathf.Abs(faceDir.x) == 1 && Mathf.Abs(faceDir.y) == 1)
-        {
-            // https://forum.unity.com/threads/current-animator-state-name.331803/
-            var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
-            AnimationClip clip = clipInfo[0].clip;
+        Vector2 faceDir = Vector2.zero;
 
-            // TODO: it assumes that animation names are "BlaBla N", it's a risky assumption
-            string anim = clip.name.Split(" ")[1];
-            if (anim == "N")
-                faceDir = Vector2.up;
-            if (anim == "S")
-                faceDir = Vector2.down;
-            if (anim == "W")
-                faceDir = Vector2.left;
-            if (anim == "E")
+        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y)) // left or right
+        {
+            if (dir.x > 0)
                 faceDir = Vector2.right;
+            else
+                faceDir = Vector2.left;
+        }
+        else // up or down
+        {
+            if (dir.y > 0)
+                faceDir = Vector2.up;
+            else
+                faceDir = Vector2.down;
         }
 
         Face(faceDir);

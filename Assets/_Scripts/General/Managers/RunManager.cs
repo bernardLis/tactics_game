@@ -97,7 +97,6 @@ public class RunManager : Singleton<RunManager>
             _gameManager.SaveJsonData();
     }
 
-
     void CreatePlayerTroops()
     {
         List<Character> playerCharacters = new(_gameManager.GameDatabase.GetAllStarterTroops());
@@ -200,7 +199,9 @@ public class RunManager : Singleton<RunManager>
     public JourneyEvent ChooseEvent()
     {
         JourneyEvent ev = null;
-
+        Debug.Log($"_availableEvents.Count: {_availableEvents.Count}");
+        Debug.Log($"_gameManager.GameDatabase.GetAllEvents().Length: {_gameManager.GameDatabase.GetAllEvents().Length}");
+        // TODO: temporary solution for uncle to always catch up with you as a first event
         if (_availableEvents.Count == _gameManager.GameDatabase.GetAllEvents().Length)
             ev = _availableEvents[0];
         if (ev == null)

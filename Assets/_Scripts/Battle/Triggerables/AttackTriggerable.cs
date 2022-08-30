@@ -44,9 +44,13 @@ public class AttackTriggerable : BaseTriggerable
                 int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>(), isRetaliation);
                 bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
 
+                Character opponentCharacter = Instantiate(stats.Character);
                 if (wasAttackSuccesful)
-                    _myStats.Character.GetExp(target);
+                    _myStats.Character.GetExp(opponentCharacter);
             }
+
+            if (target == null) // if it dies when taking damage
+                return null; 
 
             if (target.TryGetComponent(out ObjectStats objectStats))
                 if (ability.Status != null)

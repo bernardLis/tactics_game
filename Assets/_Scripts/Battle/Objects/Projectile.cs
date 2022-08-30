@@ -17,6 +17,8 @@ public class Projectile : MonoBehaviour
 
     public virtual async Task<GameObject> Shoot(Transform shooter, Vector3 targetPos)
     {
+        BattleCameraManager.Instance.SetTarget(transform);
+
         _shooter = shooter;
         // spawn projectile in the tile in the direction towards the target
         Vector3 dirToTarget = (targetPos - transform.position).normalized;
@@ -24,7 +26,6 @@ public class Projectile : MonoBehaviour
         transform.position = spawnLocation;
 
         _adjustedTargetPosition = targetPos;
-        Debug.DrawLine(spawnLocation, _adjustedTargetPosition, Color.magenta, 3f);
         // look at the target;
         transform.right = -(_adjustedTargetPosition - transform.position); // https://answers.unity.com/questions/585035/lookat-2d-equivalent-.html
 
@@ -79,6 +80,9 @@ public class Projectile : MonoBehaviour
 
     void DestroySelf()
     {
+        if (_shooter.CompareTag(Tags.Player))
+            BattleCameraManager.Instance.SetTarget(MovePointController.Instance.transform);
+
         Destroy(Instantiate(_impactEffect, transform.position, Quaternion.identity), _impactDuration);
         Destroy(gameObject);
     }
