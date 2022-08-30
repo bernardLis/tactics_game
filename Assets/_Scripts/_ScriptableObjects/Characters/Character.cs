@@ -57,7 +57,7 @@ public class Character : BaseScriptableObject
 
         ReferenceID = data.ReferenceID;
         CharacterName = data.CharacterName;
-        Portrait = gameDatabase.GetPortraitByID(data.Portrait);
+        Portrait = gameDatabase.GetPortraitById(data.Portrait);
 
         Level = data.Level;
         Experience = data.Experience;
@@ -66,10 +66,10 @@ public class Character : BaseScriptableObject
         Body = gameDatabase.GetBodyByName(data.Body);
         Weapon = gameDatabase.GetWeaponByName(data.Weapon);
 
-        BasicAbilities.Add(gameDatabase.GetAbilityByID("5f7d8c47-7ec1-4abf-b8ec-74ea82be327f")); // basic defend id
+        BasicAbilities.Add(gameDatabase.GetAbilityById("5f7d8c47-7ec1-4abf-b8ec-74ea82be327f")); // basic defend id
 
         foreach (string id in data.AbilityReferenceIds)
-            Abilities.Add(gameDatabase.GetAbilityByReferenceID(id));
+            Abilities.Add(gameDatabase.GetAbilityByReferenceId(id));
 
         foreach (string id in data.ItemReferenceIds)
             Items.Add(gameDatabase.GetItemByReference(id));

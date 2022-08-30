@@ -114,6 +114,7 @@ public class HealerBrain : Brain
             _selectedAbility = Abilities.FirstOrDefault(a => a.AbilityType == AbilityType.Buff); // this is buff
             List<PotentialTarget> buffableTargets = GetWithinReachBuffableTargets(_potentialTargets, _selectedAbility);
             // it will always return someone, because you are within reach
+            Debug.Log($"buffableTargets.Count: {buffableTargets.Count}");
             Target = buffableTargets[Random.Range(0, buffableTargets.Count - 1)].GameObj;
         }
     }
@@ -127,7 +128,7 @@ public class HealerBrain : Brain
         {
             if (t.GameObj == null)
                 continue;
-                
+
             CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
 
             if (stats.CurrentHealth < stats.MaxHealth.GetValue()
@@ -142,7 +143,7 @@ public class HealerBrain : Brain
     }
 
     List<PotentialTarget> GetWithinReachBuffableTargets(List<PotentialTarget> potentialTargets, Ability selectedAbility)
-    {
+    {            
         List<PotentialTarget> buffableTargets = new();
         foreach (PotentialTarget t in potentialTargets)
         {

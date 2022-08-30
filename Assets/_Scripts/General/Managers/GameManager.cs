@@ -121,6 +121,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
 
         // run data
+        saveData.AvailableEvents = PopulateAvailableEvents();
         saveData.LastLevel = SceneManager.GetActiveScene().name;
         saveData.Gold = _runManager.Gold;
         saveData.SavingsAccountGold = _runManager.SavingsAccountGold;
@@ -140,6 +141,18 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             ids.Add(upgrade.Id);
 
         return ids;
+    }
+
+    List<string> PopulateAvailableEvents()
+    {
+        List<string> availableEventIds = new();
+        foreach (JourneyEvent e in _runManager.AvailableEvents)
+        {
+            Debug.Log($"e.name: {e.name}");
+            availableEventIds.Add(e.Id);
+        }
+
+        return availableEventIds;
     }
 
     List<CharacterData> PopulateCharacters()
@@ -231,13 +244,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             _runManager.PlayerTroops.Add(playerCharacter);
         }
 
-        _runManager.PlayerItemPouch = new();
-        foreach (string itemReferenceId in saveData.ItemPouch)
-            _runManager.PlayerItemPouch.Add(GameDatabase.GetItemByReference(itemReferenceId));
-
-        _runManager.PlayerAbilityPouch = new();
-        foreach (string abilityReferenceId in saveData.AbilityPouch)
-            _runManager.PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceID(abilityReferenceId));
+        _runManager.PopulateAvailableEvents(saveData.AvailableEvents);
+        _runManager.PopulateItemPouch(saveData.ItemPouch);
+        _runManager.PopulateAbilityPouch(saveData.AbilityPouch);
 
         _currentLevel = saveData.LastLevel;
     }

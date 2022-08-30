@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class RunManager : Singleton<RunManager>
 {
     GameManager _gameManager;
-    List<JourneyEvent> _availableEvents;
+    public List<JourneyEvent> AvailableEvents { get; private set; }
 
     public bool WasJourneySetUp;
     public int JourneySeed = 0; // TODO: this is a bad idea, probably
@@ -38,7 +38,7 @@ public class RunManager : Singleton<RunManager>
 
     public void InitializeNewRun()
     {
-        _availableEvents = new(_gameManager.GameDatabase.GetAllEvents());
+        AvailableEvents = new(_gameManager.GameDatabase.GetAllEvents());
 
         JourneySeed = System.DateTime.Now.Millisecond;
         WasJourneySetUp = false;
@@ -61,6 +61,30 @@ public class RunManager : Singleton<RunManager>
                 item.Initialize();
 
         _gameManager.SaveJsonData();
+    }
+
+    public void PopulateAvailableEvents(List<string> eventIds)
+    {
+        if (_gameManager == null)
+            _gameManager = GameManager.Instance;
+
+        AvailableEvents = new();
+        foreach (string id in eventIds)
+            AvailableEvents.Add(_gameManager.GameDatabase.GetEventById(id));
+    }
+
+    public void PopulateItemPouch(List<string> itemIds)
+    {
+        PlayerItemPouch = new();
+        foreach (string itemReferenceId in itemIds)
+            PlayerItemPouch.Add(_gameManager.GameDatabase.GetItemByReference(itemReferenceId));
+    }
+
+    public void PopulateAbilityPouch(List<string> abilityIds)
+    {
+        PlayerAbilityPouch = new();
+        foreach (string abilityReferenceId in abilityIds)
+            PlayerAbilityPouch.Add(_gameManager.GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
     }
 
     void OnLevelLoaded(string level)
@@ -140,7 +164,6 @@ public class RunManager : Singleton<RunManager>
                 }
             }
         }
-
     }
 
     public void AddItemToPouch(Item item)
@@ -196,18 +219,19 @@ public class RunManager : Singleton<RunManager>
         JourneyNodeReward = null;
     }
 
+
     public JourneyEvent ChooseEvent()
     {
         JourneyEvent ev = null;
-        Debug.Log($"_availableEvents.Count: {_availableEvents.Count}");
+        Debug.Log($"_availableEvents.Count: {AvailableEvents.Count}");
         Debug.Log($"_gameManager.GameDatabase.GetAllEvents().Length: {_gameManager.GameDatabase.GetAllEvents().Length}");
         // TODO: temporary solution for uncle to always catch up with you as a first event
-        if (_availableEvents.Count == _gameManager.GameDatabase.GetAllEvents().Length)
-            ev = _availableEvents[0];
+        if (AvailableEvents.Count == _gameManager.GameDatabase.GetAllEvents().Length)
+            ev = AvailableEvents[0];
         if (ev == null)
-            ev = _availableEvents[Random.Range(0, _availableEvents.Count)];
+            ev = AvailableEvents[Random.Range(0, AvailableEvents.Count)];
 
-        _availableEvents.Remove(ev);
+        AvailableEvents.Remove(ev);
         return ev;
     }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5dd9c7f2eb223488303bde0b7f5101, type: 3}
   m_Name: MonkEvent
   m_EditorClassIdentifier: 
-  Id: b3f58bbb-a46f-492b-8926-564dc9584577
+  Id: 3f58bbb-a46f-492b-8926-asd123
   Background: {fileID: 21300000, guid: 12964487b47f33b41a9246b1019f35d5, type: 3}
   Description: "Hello, I am a monk. I have lived and trained in a Monastery On A
     Hill for many years. I have realized that they are evil and stole a Ring of Safety

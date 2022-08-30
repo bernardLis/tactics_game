@@ -12,6 +12,7 @@ public class SaveData
     public List<string> PurchasedGlobalUpgrades = new();
 
     // run data
+    public List<string> AvailableEvents = new();
     public string LastLevel;
     public int JourneySeed; // this reproduces paths with bridges and nodes 
     public int Gold;

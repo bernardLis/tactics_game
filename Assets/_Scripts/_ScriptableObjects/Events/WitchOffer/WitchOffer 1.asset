@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef5dd9c7f2eb223488303bde0b7f5101, type: 3}
-  m_Name: WitchOffer
+  m_Name: WitchOffer 1
   m_EditorClassIdentifier: 
   Id: b3f58bbb-a46f-492b-8926-987987asd
   Background: {fileID: 21300000, guid: 329d370e357592e4a970cd801425aa4b, type: 3}

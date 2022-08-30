@@ -138,7 +138,7 @@ public class Brain : BaseScriptableObject
             // https://arongranberg.com/astar/docs_dev/class_pathfinding_1_1_path.php#a1076ed6812e2b4f98dca64b74dabae5d
             float distance = p.GetTotalLength();
             PotentialTarget potentialTarget = new PotentialTarget(targetChar, distance);
-            if (distance > 0) // 0 == no path
+            if (distance > 0 || _characterGameObject.CompareTag(targetTag)) // need path or be friends
                 potentialTargets.Add(potentialTarget);
 
             targetChar.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();
