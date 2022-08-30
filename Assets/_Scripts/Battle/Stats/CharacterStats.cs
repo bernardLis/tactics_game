@@ -313,7 +313,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         _damageUI.DisplayOnCharacter("Shielded!", 24, Color.magenta);
     }
 
-    public async Task TakeDamageFinal(int damage)
+    public async Task TakeDamageFinal(int damage, bool shake = true)
     {
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
@@ -334,8 +334,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             await Die();
             return;
         }
+        if (shake)
+            await ShakeOnDamageTaken();
 
-        await ShakeOnDamageTaken();
         _body.transform.localPosition = _initialBodyPosition;
     }
 
@@ -563,7 +564,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         await TakeDamageFinal(ability.BasePower);
 
         CharacterStats targetStats = col.GetComponent<CharacterStats>();
-        await targetStats.TakeDamageFinal(ability.BasePower);
+        await targetStats.TakeDamageFinal(ability.BasePower, false);
 
         if (_tempObject != null)
             Destroy(_tempObject);
@@ -576,7 +577,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task CollideWithIndestructible(Ability ability, Collider2D col)
     {
-        await TakeDamageFinal(ability.BasePower);
+        await TakeDamageFinal(ability.BasePower, false);
         if (_tempObject != null)
             Destroy(_tempObject);
 
@@ -587,7 +588,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         // https://stackoverflow.com/questions/22629951/suppressing-warning-cs4014-because-this-call-is-not-awaited-execution-of-the
         _ = col.GetComponent<IDestroyable>().DestroySelf();
-        await TakeDamageFinal(ability.BasePower);
+        await TakeDamageFinal(ability.BasePower, false);
     }
 
     public async Task Die()

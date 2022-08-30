@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class RingOfSafety : Item
+[CreateAssetMenu(menuName = "ScriptableObject/Items/Item With Status On Battle Start")]
+public class ItemWithStatusOnBattleStart : Item
 {
 
     CharacterStats _stats;

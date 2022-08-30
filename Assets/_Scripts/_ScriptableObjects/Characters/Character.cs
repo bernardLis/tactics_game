@@ -17,11 +17,11 @@ public class Character : BaseScriptableObject
     public int Level;
     public int Experience;
 
-    public int MaxHealth = 100;
-    public int MaxMana = 50;
-    public int Power = 10;
-    public int Armor = 0;
-    public int MovementRange = 4;
+    public int MaxHealth;
+    public int MaxMana;
+    public int Power;
+    public int Armor;
+    public int MovementRange;
 
     // set by items, for now used only in the shop
     public int PowerBonus;
@@ -62,6 +62,10 @@ public class Character : BaseScriptableObject
         Level = data.Level;
         Experience = data.Experience;
         Power = data.Power;
+        MaxHealth = data.MaxHealth;
+        MaxMana = data.MaxMana;
+        Armor = data.Armor;
+        MovementRange = data.MovementRange;
 
         Body = gameDatabase.GetBodyByName(data.Body);
         Weapon = gameDatabase.GetWeaponByName(data.Weapon);
@@ -240,6 +244,10 @@ public struct CharacterData
     public int Level;
     public int Experience;
     public int Power;
+    public int MaxHealth;
+    public int MaxMana;
+    public int Armor;
+    public int MovementRange;
     public string Body;
     public string Weapon;
     public List<string> AbilityReferenceIds;

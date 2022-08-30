@@ -66,10 +66,11 @@ public class JourneyNodeReward : BaseScriptableObject
     {
         foreach (Character c in _runManager.PlayerTroops)
         {
-            int newStatVal = Mathf.CeilToInt(c.GetStatValue(SacrificedStat.ToString()) * (1 - PercentSacrificed));
-            c.ChangeStat(SacrificedStat.ToString(), newStatVal);
+            int val = Mathf.FloorToInt(c.GetStatValue(SacrificedStat.ToString()) * PercentSacrificed);
+            c.ChangeStat(SacrificedStat.ToString(), -val);
         }
 
+        _gameManager.SaveJsonData();
     }
 
     void HandleRecruit()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634522ee4600de64a981262116c52ae7, type: 3}
   m_Name: Obol 2
   m_EditorClassIdentifier: 
-  Id: 14523700-4e7e-4ff3-9564-87bbbed7106b
+  Id: obol2-4e7e-4ff3-9564-87bbbed7106b
   Obols: 7
   Gold: 0
   Item: {fileID: 0}

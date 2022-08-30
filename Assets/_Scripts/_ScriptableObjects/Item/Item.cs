@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemRaririty { Common, Magic, Rare, Epic }
-[CreateAssetMenu(menuName = "ScriptableObject/Item")]
+[CreateAssetMenu(menuName = "ScriptableObject/Items/Item")]
 public class Item : BaseScriptableObject
 {
     public string ReferenceID;

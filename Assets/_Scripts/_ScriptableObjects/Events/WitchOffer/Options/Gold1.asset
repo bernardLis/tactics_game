@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634522ee4600de64a981262116c52ae7, type: 3}
   m_Name: Gold1
   m_EditorClassIdentifier: 
-  Id: 14523700-4e7e-4ff3-9564-87bbbed7106b
+  Id: gold-4e7e-4ff3-9564-87bbbed7106b
   Obols: 0
   Gold: 1
   Item: {fileID: 0}
+  SacrificedStat: 0
+  PercentSacrificed: 0
+  Recruit: {fileID: 0}
+  PursuingEnemy: {fileID: 0}

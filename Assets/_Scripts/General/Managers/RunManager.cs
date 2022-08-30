@@ -18,7 +18,7 @@ public class RunManager : Singleton<RunManager>
     public int Gold { get; private set; }
     public int SavingsAccountGold { get; private set; }
     public int InterestEarned { get; private set; }
-    [HideInInspector] public List<Character> PlayerTroops = new();
+    public List<Character> PlayerTroops = new(); //[HideInInspector] 
     [HideInInspector] public List<Item> PlayerItemPouch = new();
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
@@ -223,8 +223,7 @@ public class RunManager : Singleton<RunManager>
     public JourneyEvent ChooseEvent()
     {
         JourneyEvent ev = null;
-        Debug.Log($"_availableEvents.Count: {AvailableEvents.Count}");
-        Debug.Log($"_gameManager.GameDatabase.GetAllEvents().Length: {_gameManager.GameDatabase.GetAllEvents().Length}");
+
         // TODO: temporary solution for uncle to always catch up with you as a first event
         if (AvailableEvents.Count == _gameManager.GameDatabase.GetAllEvents().Length)
             ev = AvailableEvents[0];

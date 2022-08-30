@@ -147,10 +147,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         List<string> availableEventIds = new();
         foreach (JourneyEvent e in _runManager.AvailableEvents)
-        {
-            Debug.Log($"e.name: {e.name}");
             availableEventIds.Add(e.Id);
-        }
 
         return availableEventIds;
     }
@@ -160,6 +157,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         List<CharacterData> charData = new();
         foreach (Character c in _runManager.PlayerTroops)
         {
+            Debug.Log($"{c.name} maxhealth: {c.MaxHealth} ");
             CharacterData data = new();
             data.ReferenceID = c.ReferenceID;
             data.CharacterName = c.CharacterName;
@@ -167,6 +165,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             data.Level = c.Level;
             data.Experience = c.Experience;
             data.Power = c.Power;
+            data.MaxHealth = c.MaxHealth;
+            data.MaxMana = c.MaxMana;
+            data.Armor = c.Armor;
+            data.MovementRange = c.MovementRange;
             data.Body = c.Body.name;
             data.Weapon = c.Weapon.name;
 
