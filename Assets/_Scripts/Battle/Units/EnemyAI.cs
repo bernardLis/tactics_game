@@ -35,6 +35,7 @@ public class EnemyAI : MonoBehaviour
 
     public async Task RunAI()
     {
+        Debug.Log("running ai");
         // exit if battle is over
         if (TurnManager.BattleState == BattleState.Won || TurnManager.BattleState == BattleState.Lost)
             return;
@@ -51,6 +52,7 @@ public class EnemyAI : MonoBehaviour
         // status triggers should be async-await and everything in between too. 
         while (!_damageUI.IsQueueEmpty())
             await Task.Delay(25); //https://stackoverflow.com/questions/29089417/c-sharp-wait-until-condition-is-true
+        Debug.Log("after quueue is empty");
 
         await Task.Delay(250);
         await _brain.Select();

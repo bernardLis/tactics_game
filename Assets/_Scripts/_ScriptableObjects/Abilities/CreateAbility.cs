@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Create Ability")]
 public class CreateAbility : Ability
@@ -10,7 +11,7 @@ public class CreateAbility : Ability
 
     public async override Task AbilityLogic(Vector3 pos)
     {
-        _battleUI.DisplayBattleLog($"{CharacterGameObject.name} creates {CreatedObject.name}.");
+        _battleUI.DisplayBattleLog(new Label($"{CharacterGameObject.name} creates {CreatedObject.name}."));
         _stats.Character.GetExp(10);
 
         GameObject obj = Instantiate(CreatedObject, pos, Quaternion.identity);

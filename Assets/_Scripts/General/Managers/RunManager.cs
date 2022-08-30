@@ -22,7 +22,7 @@ public class RunManager : Singleton<RunManager>
     [HideInInspector] public List<Item> PlayerItemPouch = new();
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
-    public JourneyNode CurrentNode { get; private set; }
+    public JourneyNode CurrentNode; // HERE: for tests { get; private set; }
     public JourneyNodeReward JourneyNodeReward { get; private set; }
 
     public event Action<int> OnGoldChanged;

@@ -20,8 +20,7 @@ public class BattleUI : Singleton<BattleUI>
     Label _turnText;
 
     VisualElement _battleLogContainer;
-    Label _battleLogText;
-    Queue<IEnumerator> _coroutineQueue = new();
+    //    Queue<IEnumerator> _coroutineQueue = new();
 
     VisualElement _battleGoalContainer;
 
@@ -33,7 +32,6 @@ public class BattleUI : Singleton<BattleUI>
     MyButton _backToJourneyButton;
 
     string _turnTextTweenID = "turnTextTweenID";
-    string _battleLogTweenID = "battleLogTweenID";
 
     public CharacterScreen CharacterScreen; // HERE: { get; private set; }
 
@@ -60,7 +58,6 @@ public class BattleUI : Singleton<BattleUI>
         _turnTextContainer = Root.Q<VisualElement>("turnTextContainer");
         _turnText = Root.Q<Label>("turnText");
         _battleLogContainer = Root.Q<VisualElement>("battleLogContainer");
-        _battleLogText = Root.Q<Label>("battleLogText");
 
         _battleEndContainer = Root.Q<VisualElement>("battleEndContainer");
         _battleEndText = Root.Q<Label>("battleEndText");
@@ -78,7 +75,7 @@ public class BattleUI : Singleton<BattleUI>
 
     void Start()
     {
-        StartCoroutine(CoroutineCoordinator());
+        _battleLogContainer.Clear();
     }
 
     void OnDestroy()
@@ -161,28 +158,15 @@ public class BattleUI : Singleton<BattleUI>
         _battleGoalContainer.style.display = DisplayStyle.Flex;
     }
 
-    public void DisplayBattleLog(string text)
+    public void DisplayBattleLog(VisualElement element)
     {
-        _coroutineQueue.Enqueue(DisplayBattleLogCoroutine(text));
-    }
-
-    IEnumerator DisplayBattleLogCoroutine(string text)
-    {
-        DOTween.Kill(_battleLogTweenID);
-
-        _battleLogText.text = text;
-        _battleLogContainer.style.display = DisplayStyle.Flex;
-        _battleLogContainer.style.opacity = 1f;
-
-        yield return new WaitForSeconds(2);
-        HideBattleLog();
-    }
-
-    void HideBattleLog()
-    {
-        DOTween.To(() => _battleLogContainer.style.opacity.value, x => _battleLogContainer.style.opacity = x, 0f, 0.5f)
-            .OnComplete(() => _battleLogContainer.style.display = DisplayStyle.None)
-            .SetId(_battleLogTweenID);
+        _battleLogContainer.Add(element);
+        if (_battleLogContainer.childCount > 5)
+        {
+            List<VisualElement> ch = new(_battleLogContainer.Children());
+            Debug.Log($"ch.count: {ch.Count}");
+            _battleLogContainer.RemoveAt(0);
+        }
     }
 
     async void DisplayTurnText(string text)
@@ -295,16 +279,6 @@ public class BattleUI : Singleton<BattleUI>
     {
         _backToJourneyButton.text = newText;
         _levelToLoadAfterFight = newLevel;
-    }
-
-    IEnumerator CoroutineCoordinator()
-    {
-        while (true)
-        {
-            while (_coroutineQueue.Count > 0)
-                yield return StartCoroutine(_coroutineQueue.Dequeue());
-            yield return null;
-        }
     }
 
     public void AddGoalToBattleEndScreen(VisualElement el)
