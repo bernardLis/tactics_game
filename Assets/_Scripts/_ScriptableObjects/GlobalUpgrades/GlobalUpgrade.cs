@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UpgradeType { Character, Run }
 
 public class GlobalUpgrade : BaseScriptableObject
 {

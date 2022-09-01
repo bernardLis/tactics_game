@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 using Pathfinding;
 
-public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 
 // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 public class BoardManager : Singleton<BoardManager>

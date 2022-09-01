@@ -6,7 +6,6 @@ using UnityEngine.Tilemaps;
 using Pathfinding;
 using System.Threading.Tasks;
 
-public enum CharacterState { None, Selected, Moved, SelectingInteractionTarget, SelectingFaceDir, ConfirmingInteraction }
 public class BattleCharacterController : Singleton<BattleCharacterController>
 {
     // global utilities

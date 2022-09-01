@@ -25,6 +25,6 @@ public class Collectible : MonoBehaviour
         _spriteRenderer.color = Color.red;
         _boxCollider2D.enabled = false;
 
-        BattleUI.Instance.DisplayBattleLog(new Label("Collectible fox found!"));
+        BattleUI.Instance.DisplayBattleLog(new BattleLogLine(new Label("Collectible fox found!"), BattleLogLineType.Info));
     }
 }

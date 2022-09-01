@@ -328,7 +328,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         if (_battleCharacterController.HasCharacterStartedMoving)
             DamageReceivedWhenWalking += damage;
 
-        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} takes {damage} damage."));
+        _battleUI.DisplayBattleLog(new BattleLogLine(new Label($"{Character.CharacterName} takes {damage} damage."), BattleLogLineType.Damage));
         // don't shake on death
         if (CurrentHealth <= 0)
         {
@@ -475,7 +475,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         OnHealthChanged?.Invoke(Character.MaxHealth, CurrentHealth, healthGain);
         CurrentHealth += healthGain;
 
-        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} gains {healthGain} health."));
+        _battleUI.DisplayBattleLog(new BattleLogLine(new Label($"{Character.CharacterName} gains {healthGain} health."), BattleLogLineType.Damage));
         _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
 
         if (ability == null)
@@ -487,7 +487,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
     {
-        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} is pushed."));
+        _battleUI.DisplayBattleLog(new BattleLogLine(new Label($"{Character.CharacterName} is pushed."), BattleLogLineType.Damage));
 
         _startingPos = transform.position;
         _finalPos = transform.position + dir;
@@ -599,7 +599,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task Die()
     {
-        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} dies."));
+        _battleUI.DisplayBattleLog(new BattleLogLine(new Label($"{Character.CharacterName} dies."), BattleLogLineType.Death));
 
         // playing death animation
         await _characterRendererManager.Die();
@@ -634,7 +634,11 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
                 if (isAdded)
                 {
                     OnModifierAdded?.Invoke(mod);
-                    _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} gets {mod.name} modifier."));
+                    VisualElement el = new();
+                    el.style.flexDirection = FlexDirection.Row;
+                    el.Add(new Label($"{Character.CharacterName} gets "));
+                    el.Add(new ModifierVisual(mod));
+                    _battleUI.DisplayBattleLog(new BattleLogLine(el, BattleLogLineType.Status));
                 }
             }
     }
@@ -645,7 +649,11 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         if (_battleCharacterController.HasCharacterStartedMoving)
             _statusesAddedWhenWalking.Add(addedStatus);
 
-        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} gets {s.name} status."));
+        VisualElement el = new();
+        el.style.flexDirection = FlexDirection.Row;
+        el.Add(new Label($"{Character.CharacterName} gets "));
+        el.Add(new ModifierVisual(s));
+        _battleUI.DisplayBattleLog(new BattleLogLine(el, BattleLogLineType.Status));
 
         // noone cares?
         return addedStatus;

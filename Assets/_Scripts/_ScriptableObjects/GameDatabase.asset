@@ -143,3 +143,14 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 9064011653d24ba499c5478200bdf71e, type: 3}
   - StatName: Armor
     Sprite: {fileID: 21300000, guid: 9c498454d8c5c214890f3ba50d63dbf2, type: 3}
+  BattleLogLineIcons:
+  - BattleLogLineType: 0
+    Sprite: {fileID: 21300000, guid: 0f0bc21bf10d1c840bfab404f3f939d2, type: 3}
+  - BattleLogLineType: 1
+    Sprite: {fileID: 21300000, guid: 253373ae6c9433648b843a3bdeb057de, type: 3}
+  - BattleLogLineType: 2
+    Sprite: {fileID: 21300000, guid: a34f19eb65f29584a98246ab1894729b, type: 3}
+  - BattleLogLineType: 3
+    Sprite: {fileID: 21300000, guid: 663a57727e4288644a17ae1e179bd9bf, type: 3}
+  - BattleLogLineType: 4
+    Sprite: {fileID: 21300000, guid: 6ef794cf9af0fd54b93f34beaa0ed3cb, type: 3}

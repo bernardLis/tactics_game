@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemRaririty { Common, Magic, Rare, Epic }
 [CreateAssetMenu(menuName = "ScriptableObject/Items/Item")]
 public class Item : BaseScriptableObject
 {

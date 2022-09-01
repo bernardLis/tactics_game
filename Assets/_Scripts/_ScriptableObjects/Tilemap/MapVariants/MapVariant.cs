@@ -1,6 +1,5 @@
 using UnityEngine;
 
-public enum MapType { None, Circle, River, Lake, Hourglass }
 
 [CreateAssetMenu(menuName = "ScriptableObject/Tilemap/MapVariant")]
 public class MapVariant : BaseScriptableObject

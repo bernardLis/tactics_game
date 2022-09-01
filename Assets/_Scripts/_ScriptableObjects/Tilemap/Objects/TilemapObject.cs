@@ -1,6 +1,5 @@
 using UnityEngine;
 
-public enum TileMapObjectType { Outer, Obstacle, PushableObstacle }
 
 [CreateAssetMenu(menuName = "ScriptableObject/Tilemap/Object")]
 public class TilemapObject : BaseScriptableObject

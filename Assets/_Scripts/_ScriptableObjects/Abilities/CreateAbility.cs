@@ -11,7 +11,7 @@ public class CreateAbility : Ability
 
     public async override Task AbilityLogic(Vector3 pos)
     {
-        _battleUI.DisplayBattleLog(new Label($"{CharacterGameObject.name} creates {CreatedObject.name}."));
+        _battleUI.DisplayBattleLog(new BattleLogLine(new Label($"{CharacterGameObject.name} creates {CreatedObject.name}."), BattleLogLineType.Ability));
         _stats.Character.GetExp(10);
 
         GameObject obj = Instantiate(CreatedObject, pos, Quaternion.identity);

@@ -16,7 +16,15 @@ public abstract class BaseTriggerable : MonoBehaviour
 
     protected void DisplayBattleLog(Ability ability)
     {
-        string abilityName = Helpers.ParseScriptableObjectCloneName(ability.name);
-        _battleUI.DisplayBattleLog(new Label($"{gameObject.name.Trim()} uses {abilityName}."));
+        VisualElement container = new();
+        container.AddToClassList("textPrimary");
+        container.style.flexDirection = FlexDirection.Row;
+        Label txt = new($"{gameObject.name.Trim()} uses ");
+        AbilityNameWithTooltip abilityNameWithTooltip = new(ability);
+
+        container.Add(txt);
+        container.Add(abilityNameWithTooltip);
+
+        _battleUI.DisplayBattleLog(new BattleLogLine(container, BattleLogLineType.Ability));
     }
 }

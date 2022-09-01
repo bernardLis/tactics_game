@@ -11,3 +11,9 @@
     border-top-width: 2px;
     border-bottom-width: 2px;
 }
+
+.battleLogLine {
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-top: 2px;
+    margin-bottom: 2px;
+}

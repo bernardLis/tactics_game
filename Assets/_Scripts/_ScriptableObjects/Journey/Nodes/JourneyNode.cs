@@ -1,7 +1,6 @@
 using UnityEngine;
 
 
-public enum JourneyNodeType { Start, End, Battle, Knowledge, Chest, Shop, Fire, Boss, Event }
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/Node")]
 public class JourneyNode : BaseScriptableObject
 {

@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEditor;
 
-public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
-
 public abstract class Ability : BaseScriptableObject
 {
     [Tooltip("Used for saving and character creation")]

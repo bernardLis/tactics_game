@@ -38,6 +38,8 @@ public class BattleUI : Singleton<BattleUI>
 
     string _levelToLoadAfterFight = "Journey";
     List<VisualElement> _battleLogs = new();
+    List<VisualElement> _battleLogsCopy = new();
+    BattleLogVisual _battleLogVisual;
 
     protected override void Awake()
     {
@@ -58,6 +60,7 @@ public class BattleUI : Singleton<BattleUI>
         _turnTextContainer = Root.Q<VisualElement>("turnTextContainer");
         _turnText = Root.Q<Label>("turnText");
         _battleLogContainer = Root.Q<VisualElement>("battleLogContainer");
+        _battleLogContainer.RegisterCallback<PointerUpEvent>(OnBattleLogClick);
 
         _battleEndContainer = Root.Q<VisualElement>("battleEndContainer");
         _battleEndText = Root.Q<Label>("battleEndText");
@@ -158,16 +161,64 @@ public class BattleUI : Singleton<BattleUI>
         _battleGoalContainer.style.display = DisplayStyle.Flex;
     }
 
-    public void DisplayBattleLog(VisualElement element)
+    public void DisplayBattleLog(BattleLogLine element)
     {
         _battleLogs.Add(element);
         _battleLogContainer.Add(element);
-        if (_battleLogContainer.childCount > 5)
-        {
-            List<VisualElement> ch = new(_battleLogContainer.Children());
-            Debug.Log($"ch.count: {ch.Count}");
+        if (_battleLogContainer.childCount > 7)
             _battleLogContainer.RemoveAt(0);
+
+        GrayOutOldLogs();
+    }
+
+    void PopulateBattleLog()
+    {
+        _battleLogVisual.OnHide -= PopulateBattleLog;
+        _battleLogVisual = null;
+
+        List<VisualElement> ch = new(_battleLogContainer.Children());
+        ch.Reverse();
+        for (int i = 0; i < _battleLogs.Count; i++)
+        {
+            if (i > 7)
+                break;
+            _battleLogContainer.Add(_battleLogs[i]);
         }
+        /*
+        they need to be reversed
+                int counter = 0;
+                for (int i = _battleLogs.Count - 1; i >= 0; i--)
+                {
+                    _battleLogContainer.Add(_battleLogs[i]);
+
+                    if (counter >= 7)
+                        break;
+                    counter++;
+                }
+        */
+        GrayOutOldLogs();
+    }
+
+    void GrayOutOldLogs()
+    {
+        List<VisualElement> ch = new(_battleLogContainer.Children());
+        ch.Reverse();
+
+        for (int i = 0; i < ch.Count; i++)
+        {
+            float op = 1 - i * 0.08f;
+            ch[i].style.opacity = op;
+        }
+
+    }
+
+    void OnBattleLogClick(PointerUpEvent evt)
+    {
+        if (evt.button != 0) // only left mouse click
+            return;
+        _battleLogVisual = new BattleLogVisual(new List<VisualElement>(_battleLogs));
+        _battleLogVisual.Initialize(Root);
+        _battleLogVisual.OnHide += PopulateBattleLog;
     }
 
     async void DisplayTurnText(string text)
@@ -176,7 +227,7 @@ public class BattleUI : Singleton<BattleUI>
             await DOTween.TweensById(_turnTextTweenID)[0].AsyncWaitForCompletion();
 
         _turnText.text = text;
-        DisplayBattleLog(new Label(text));
+        DisplayBattleLog(new BattleLogLine(new Label(text), BattleLogLineType.Info));
         _turnTextContainer.style.display = DisplayStyle.Flex;
 
         DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 1f, 2f)

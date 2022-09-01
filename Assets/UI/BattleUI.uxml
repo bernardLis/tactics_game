@@ -195,11 +195,24 @@
     <ui:VisualElement name="battleGoalContainer" style="position: absolute; right: 0; display: none;">
         <ui:Label text="Goal: Defeat all enemies" display-tooltip-when-elided="true" class="textPrimary" />
     </ui:VisualElement>
-    <ui:VisualElement name="battleLogContainer" class="textPrimary" style="top: auto; align-items: center; display: flex; flex-direction: column-reverse; justify-content: center; bottom: 200px; position: absolute; background-color: rgba(0, 0, 0, 0.3); left: 15px;">
-        <ui:Label text="First uses Heal on Second. 3" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        <ui:Label text="First uses Heal on Second. 4" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        <ui:Label text="First uses Heal on Second. 5" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        <ui:Label text="First uses Heal on Second. 1" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        <ui:Label text="First uses Heal on Second. 2" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+    <ui:VisualElement name="battleLogContainer" class="textPrimary" style="top: auto; align-items: stretch; display: flex; flex-direction: column-reverse; justify-content: flex-end; bottom: 200px; position: absolute; background-color: rgba(0, 0, 0, 0.2); left: 15px; min-width: 20%; min-height: 270px;">
+        <ui:VisualElement class="battleLogLine">
+            <ui:Label text="haba aba abab ba aba " display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        </ui:VisualElement>
+        <ui:VisualElement class="battleLogLine">
+            <ui:Label text="one two three 123 asdasd" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        </ui:VisualElement>
+        <ui:VisualElement class="battleLogLine">
+            <ui:Label text="short one" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        </ui:VisualElement>
+        <ui:VisualElement class="battleLogLine">
+            <ui:Label text="loooong one, or is it a short one?" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        </ui:VisualElement>
+        <ui:VisualElement class="battleLogLine">
+            <ui:Label text="short - 1" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        </ui:VisualElement>
+        <ui:VisualElement class="battleLogLine">
+            <ui:Label text="another lopng one!!@#!@$ with some symbols" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

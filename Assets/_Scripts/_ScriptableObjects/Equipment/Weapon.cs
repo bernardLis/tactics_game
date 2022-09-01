@@ -1,5 +1,4 @@
 using UnityEngine;
-public enum WeaponType { Any, Melee, Ranged }
 
 [CreateAssetMenu(menuName = "ScriptableObject/Weapon")]
 public class Weapon : Equipment

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 
 public class TurnManager : Singleton<TurnManager>
 {
