@@ -5,6 +5,8 @@ public class HealTriggerable : BaseTriggerable
 {
     public async Task Heal(Vector3 pos, Ability ability, GameObject attacker)
     {
+        DisplayBattleLog(ability);
+
         GameObject target;
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
@@ -18,7 +20,6 @@ public class HealTriggerable : BaseTriggerable
         target = GetTarget(pos);
         if (target == null)
             return;
-        DisplayBattleLog(target, ability);
 
         int healAmount = ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>());
         target.GetComponent<IHealable<GameObject, Ability>>().GainHealth(healAmount, gameObject, ability);

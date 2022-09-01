@@ -196,10 +196,10 @@
         <ui:Label text="Goal: Defeat all enemies" display-tooltip-when-elided="true" class="textPrimary" />
     </ui:VisualElement>
     <ui:VisualElement name="battleLogContainer" class="textPrimary" style="top: auto; align-items: center; display: flex; flex-direction: column-reverse; justify-content: center; bottom: 200px; position: absolute; background-color: rgba(0, 0, 0, 0.3); left: 15px;">
-        <ui:Label text="First uses Heal on Second. 1" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        <ui:Label text="First uses Heal on Second. 2" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
         <ui:Label text="First uses Heal on Second. 3" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
         <ui:Label text="First uses Heal on Second. 4" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
         <ui:Label text="First uses Heal on Second. 5" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        <ui:Label text="First uses Heal on Second. 1" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        <ui:Label text="First uses Heal on Second. 2" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
     </ui:VisualElement>
 </ui:UXML>

@@ -6,6 +6,8 @@ public class AttackTriggerable : BaseTriggerable
 {
     public async Task<GameObject> Attack(Vector3 pos, Ability ability, bool isRetaliation)
     {
+        DisplayBattleLog(ability);
+
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
         {
@@ -36,10 +38,9 @@ public class AttackTriggerable : BaseTriggerable
             if (target == null)
                 return null;
 
+
             if (target.TryGetComponent(out CharacterStats stats))
             {
-                DisplayBattleLog(target, ability);
-
                 // damage target // TODO: ugh... this -1 is killing me...
                 int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>(), isRetaliation);
                 bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
@@ -50,7 +51,7 @@ public class AttackTriggerable : BaseTriggerable
             }
 
             if (target == null) // if it dies when taking damage
-                return null; 
+                return null;
 
             if (target.TryGetComponent(out ObjectStats objectStats))
                 if (ability.Status != null)

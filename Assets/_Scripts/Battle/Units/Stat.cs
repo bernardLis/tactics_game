@@ -43,14 +43,15 @@ public class Stat
         return finalValue;
     }
 
-    public void AddModifier(StatModifier modifier)
+    public bool AddModifier(StatModifier modifier)
     {
         foreach (StatModifier s in Modifiers)
             if (s.Id == modifier.Id)
-                return; // prevents stacking of the same modifier
+                return false; // prevents stacking of the same modifier
 
         Modifiers.Add(modifier);
         OnModifierAdded?.Invoke(modifier);
+        return true;
     }
 
     public void RemoveModifier(StatModifier modifier)

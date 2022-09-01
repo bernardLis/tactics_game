@@ -20,7 +20,6 @@ public class BattleUI : Singleton<BattleUI>
     Label _turnText;
 
     VisualElement _battleLogContainer;
-    //    Queue<IEnumerator> _coroutineQueue = new();
 
     VisualElement _battleGoalContainer;
 
@@ -38,6 +37,7 @@ public class BattleUI : Singleton<BattleUI>
     public event Action OnBattleEndScreenShown;
 
     string _levelToLoadAfterFight = "Journey";
+    List<VisualElement> _battleLogs = new();
 
     protected override void Awake()
     {
@@ -160,6 +160,7 @@ public class BattleUI : Singleton<BattleUI>
 
     public void DisplayBattleLog(VisualElement element)
     {
+        _battleLogs.Add(element);
         _battleLogContainer.Add(element);
         if (_battleLogContainer.childCount > 5)
         {
@@ -175,6 +176,7 @@ public class BattleUI : Singleton<BattleUI>
             await DOTween.TweensById(_turnTextTweenID)[0].AsyncWaitForCompletion();
 
         _turnText.text = text;
+        DisplayBattleLog(new Label(text));
         _turnTextContainer.style.display = DisplayStyle.Flex;
 
         DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 1f, 2f)

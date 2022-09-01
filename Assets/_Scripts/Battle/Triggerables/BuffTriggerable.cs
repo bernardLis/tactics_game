@@ -6,6 +6,8 @@ public class BuffTriggerable : BaseTriggerable
 {
     public async Task Buff(Vector3 pos, Ability ability, GameObject attacker)
     {
+        DisplayBattleLog(ability);
+
         GameObject target;
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
@@ -19,7 +21,6 @@ public class BuffTriggerable : BaseTriggerable
         if (target == null)
             return;
 
-        DisplayBattleLog(target, ability);
 
         target.GetComponent<IBuffable<GameObject, Ability>>().GetBuffed(attacker, ability);
     }

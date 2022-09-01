@@ -5,6 +5,8 @@ public class PushTriggerable : BaseTriggerable
 {
     public async Task Push(Vector3 pos, Ability ability)
     {
+        DisplayBattleLog(ability);
+
         GameObject target;
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
@@ -18,8 +20,6 @@ public class PushTriggerable : BaseTriggerable
         target = GetTarget(pos);
         if (target == null)
             return;
-
-        DisplayBattleLog(target, ability);
 
         // player can push characters/PushableObstacle
         Vector3 pushDir = (target.transform.position - transform.position).normalized;

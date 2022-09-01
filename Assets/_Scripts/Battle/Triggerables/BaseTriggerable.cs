@@ -14,16 +14,9 @@ public abstract class BaseTriggerable : MonoBehaviour
         _battleUI = BattleUI.Instance;
     }
 
-    protected void DisplayBattleLog(GameObject target, Ability ability)
+    protected void DisplayBattleLog(Ability ability)
     {
         string abilityName = Helpers.ParseScriptableObjectCloneName(ability.name);
-        string targetName = Helpers.ParseScriptableObjectCloneName(target.name);
-        if (target == gameObject)
-            _battleUI.DisplayBattleLog(new Label($"{gameObject.name.Trim()} uses {abilityName}."));
-        else
-            _battleUI.DisplayBattleLog(new Label($"{gameObject.name.Trim()} uses {abilityName} on {targetName}."));
-
+        _battleUI.DisplayBattleLog(new Label($"{gameObject.name.Trim()} uses {abilityName}."));
     }
-
-
 }

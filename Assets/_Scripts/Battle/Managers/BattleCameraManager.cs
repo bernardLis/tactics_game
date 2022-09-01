@@ -54,6 +54,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
 
     void HandleMapBuilding()
     {
+        _boardManager = BoardManager.Instance;
         _cam.orthographicSize = 12;
         transform.position = new Vector3(_boardManager.MapSize.x / 2, _boardManager.MapSize.y / 2, -2);
     }

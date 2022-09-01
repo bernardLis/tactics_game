@@ -5,11 +5,12 @@ using DG.Tweening;
 using Pathfinding;
 using System.Threading.Tasks;
 using System.Linq;
-
+using UnityEngine.UIElements;
 public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttackable<GameObject, Ability>, IPushable<Vector3, GameObject, Ability>, IBuffable<GameObject, Ability>
 {
     // global
     BattleCharacterController _battleCharacterController;
+    BattleUI _battleUI;
     AudioManager _audioManager;
 
     // local
@@ -73,6 +74,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         base.Awake();
         _battleCharacterController = BattleCharacterController.Instance;
+        _battleUI = BattleUI.Instance;
         _audioManager = AudioManager.Instance;
 
         // local
@@ -326,6 +328,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         if (_battleCharacterController.HasCharacterStartedMoving)
             DamageReceivedWhenWalking += damage;
 
+        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} takes {damage} damage."));
         // don't shake on death
         if (CurrentHealth <= 0)
         {
@@ -472,6 +475,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         OnHealthChanged?.Invoke(Character.MaxHealth, CurrentHealth, healthGain);
         CurrentHealth += healthGain;
 
+        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} gains {healthGain} health."));
         _damageUI.DisplayOnCharacter(healthGain.ToString(), 36, Helpers.GetColor("healthGainGreen"));
 
         if (ability == null)
@@ -483,6 +487,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
     {
+        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} is pushed."));
+
         _startingPos = transform.position;
         _finalPos = transform.position + dir;
 
@@ -593,6 +599,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async Task Die()
     {
+        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} dies."));
+
         // playing death animation
         await _characterRendererManager.Die();
         Vector3 offset = new Vector3(0f, 0.5f, 0f);
@@ -622,8 +630,12 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             {
                 StatModifier mod = Instantiate(ability.StatModifier);
                 mod.Initialize(gameObject);
-                s.AddModifier(mod); // stat checks if modifier is a dupe, to prevent stacking
-                OnModifierAdded?.Invoke(mod);
+                bool isAdded = s.AddModifier(mod); // stat checks if modifier is a dupe, to prevent stacking
+                if (isAdded)
+                {
+                    OnModifierAdded?.Invoke(mod);
+                    _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} gets {mod.name} modifier."));
+                }
             }
     }
 
@@ -632,6 +644,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         Status addedStatus = await base.AddStatus(s, attacker, trigger);
         if (_battleCharacterController.HasCharacterStartedMoving)
             _statusesAddedWhenWalking.Add(addedStatus);
+
+        _battleUI.DisplayBattleLog(new Label($"{Character.CharacterName} gets {s.name} status."));
 
         // noone cares?
         return addedStatus;
