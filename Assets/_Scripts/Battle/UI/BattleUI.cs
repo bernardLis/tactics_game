@@ -30,8 +30,6 @@ public class BattleUI : Singleton<BattleUI>
     VisualElement _battleEndRewardContainer;
     MyButton _backToJourneyButton;
 
-    string _turnTextTweenID = "turnTextTweenID";
-
     public CharacterScreen CharacterScreen; // HERE: { get; private set; }
 
     public event Action OnBattleEndScreenShown;
@@ -132,6 +130,7 @@ public class BattleUI : Singleton<BattleUI>
 
     void HandleDeployment()
     {
+        _battleHelperTextContainer.style.display = DisplayStyle.Flex;
         DisplayTurnText("DEPLOY TROOPS");
         UpdateBattleHelperText("Deployment phase. Place your characters.");
     }
@@ -141,8 +140,7 @@ public class BattleUI : Singleton<BattleUI>
         if (TurnManager.CurrentTurn == 1)
             DisplayBattleGoal();
 
-        _battleHelperTextContainer.style.display = DisplayStyle.Flex;
-        UpdateBattleHelperText($"Turn {TurnManager.CurrentTurn.ToString()}. Your turn. Select a character");
+        UpdateBattleHelperText($"Your turn. Select a character");
         DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
     }
 
@@ -184,18 +182,6 @@ public class BattleUI : Singleton<BattleUI>
                 break;
             _battleLogContainer.Add(_battleLogs[i]);
         }
-        /*
-        they need to be reversed
-                int counter = 0;
-                for (int i = _battleLogs.Count - 1; i >= 0; i--)
-                {
-                    _battleLogContainer.Add(_battleLogs[i]);
-
-                    if (counter >= 7)
-                        break;
-                    counter++;
-                }
-        */
         GrayOutOldLogs();
     }
 
@@ -221,31 +207,17 @@ public class BattleUI : Singleton<BattleUI>
         _battleLogVisual.OnHide += PopulateBattleLog;
     }
 
-    async void DisplayTurnText(string text)
+    void DisplayTurnText(string text)
     {
-        if (DOTween.TweensById(_turnTextTweenID) != null)
-            await DOTween.TweensById(_turnTextTweenID)[0].AsyncWaitForCompletion();
-
-        _turnText.text = text;
         DisplayBattleLog(new BattleLogLine(new Label(text), BattleLogLineType.Info));
-        _turnTextContainer.style.display = DisplayStyle.Flex;
-
-        DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 1f, 2f)
-            .OnComplete(HideTurnText)
-            .SetId(_turnTextTweenID);
-    }
-
-    void HideTurnText()
-    {
-        DOTween.To(() => _turnTextContainer.style.opacity.value, x => _turnTextContainer.style.opacity = x, 0f, 2f)
-            .OnComplete(() => _turnTextContainer.style.display = DisplayStyle.None)
-            .SetId(_turnTextTweenID);
     }
 
     public void ShowCharacterScreen(Character character)
     {
+        Debug.Log($"show character screen is called {CharacterScreen} ");
         if (CharacterScreen != null)
             return;
+
         _battleManager.PauseGame();
         CharacterScreen = new CharacterScreen(character, Root);
         CharacterScreen.OnHide += HideCharacterScreen;
@@ -253,8 +225,11 @@ public class BattleUI : Singleton<BattleUI>
 
     public void HideCharacterScreen()
     {
+        Debug.Log($"hide character screen is called ");
+
         _battleManager.ResumeGame();
         CharacterScreen.OnHide -= HideCharacterScreen;
+        CharacterScreen.Hide();
         CharacterScreen = null;
     }
 

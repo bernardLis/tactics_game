@@ -6,6 +6,11 @@ public class BattleLogVisual : FullScreenVisual
 {
     public BattleLogVisual(List<VisualElement> battleLogs)
     {
+        Label header = new Label("Battle Log");
+        header.AddToClassList("textPrimary");
+        header.style.fontSize = 48;
+        Add(header);
+
         style.backgroundColor = Color.black;
         BattleManager.Instance.PauseGame();
         ScrollView view = new();
