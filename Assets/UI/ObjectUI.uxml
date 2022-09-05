@@ -13,4 +13,5 @@
             <ui:Button display-tooltip-when-elided="true" name="faceDown" class="faceDirButton" style="rotate: 180deg;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:Label text="Seitama" display-tooltip-when-elided="true" name="characterName" class="textSecondary" style="display: none;" />
 </ui:UXML>

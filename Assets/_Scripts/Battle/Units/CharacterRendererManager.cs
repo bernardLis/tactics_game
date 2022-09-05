@@ -111,12 +111,20 @@ public class CharacterRendererManager : MonoBehaviour
         }
     }
 
-    public async Task AttackAnimation()
+    public async Task AttackAnimation(Ability ability, Vector3 targetPos)
     {
+        if (ability.SpellcastAnimation)
+        {
+            await SpellcastAnimation();
+            return;
+        }
         // if character does not have a weapon
         if (_weaponHolder.Weapon == null)
         {
-            await Spellcast(_faceDir); // TODO: punch animation
+            Debug.Log($"punching: {targetPos}");
+            Vector3 dir = (targetPos - transform.position).normalized;
+            await transform.DOPunchPosition(dir, 0.4f, 0, 0).AsyncWaitForCompletion();
+            //await Spellcast(_faceDir); // TODO: punch animation
             return;
         }
 

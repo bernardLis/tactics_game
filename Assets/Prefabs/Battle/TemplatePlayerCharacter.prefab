@@ -347,6 +347,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -429,6 +430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee9cc88b11dcf74d8748c532a284917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _offsetY: -0.25
+  _offsetX: -1
 --- !u!114 &4212650218818044008
 MonoBehaviour:
   m_ObjectHideFlags: 0

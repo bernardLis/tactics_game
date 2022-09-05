@@ -25,6 +25,8 @@ public class ElectricLineController : MonoBehaviour
 
     public void AddPosition(Vector3 pos)
     {
+        if (_lineRenderer == null)
+            return;
         currentPosition++;
         _lineRenderer.positionCount = currentPosition + 1;
         _lineRenderer.SetPosition(currentPosition, pos);

@@ -22,7 +22,6 @@ public class EnemyManager : MonoBehaviour
 
     async Task ForEachEnemy()
     {
-        Debug.Log($"for each enemyt");
         await Task.Delay(500);
         if (TurnManager.BattleState != BattleState.EnemyTurn)
             return;

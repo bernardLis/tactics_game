@@ -609,17 +609,18 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         await transform.DOScale(Vector3.zero, 1f).AsyncWaitForCompletion();
         Destroy(effect);
 
-        // kill all tweens TODO: is that OK?
+        // kill all tweens
         transform.DOKill();
 
         // movement script needs to clear the highlight 
         if (OnCharacterDeath != null)
             OnCharacterDeath(gameObject);
 
-        // die in some way
-        // this method is meant to be overwirtten
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        Invoke("DestroySelf", 3);
     }
+
+    void DestroySelf() { Destroy(gameObject); }
 
     public void SetAttacker(bool isAttacker) { IsAttacker = isAttacker; }
 

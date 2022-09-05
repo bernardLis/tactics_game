@@ -86,7 +86,6 @@ public class FaceDirectionUI : MonoBehaviour
 
     void ShowUI()
     {
-        // TODO: place it on the character
         Vector3 middleOfTheTile = new Vector3(transform.position.x + _offsetX, transform.position.y + _offsetY, transform.position.z);
         Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(_container.panel, middleOfTheTile, _cam);
 

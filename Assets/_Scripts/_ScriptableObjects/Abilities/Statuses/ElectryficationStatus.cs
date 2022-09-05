@@ -55,6 +55,8 @@ public class ElectryficationStatus : Status
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
         foreach (Collider2D c in cols)
         {
+            if (c == null)
+                return;
             if (c.TryGetComponent(out CharacterStats stats)) // electrify characters
                 if (!stats.IsElectrified)
                     await stats.AddStatus(this, Attacker);

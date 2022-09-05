@@ -234,6 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee9cc88b11dcf74d8748c532a284917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _offsetY: -0.25
+  _offsetX: -1
 --- !u!114 &3387775229403623846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,8 +325,6 @@ MonoBehaviour:
   Abilities: []
   _deathEffect: {fileID: 3995280285463602700, guid: 38158bd1b5c5bf947a683a111b415c82, type: 3}
   _body: {fileID: 1238285344993743450}
-  _statusesBeforeWalking: []
-  _statusesAddedWhenWalking: []
   _levelUpEffect: {fileID: 2060092509515171908, guid: f588a433e409706429d8a018f347526c, type: 3}
 --- !u!114 &3387775229403623841
 MonoBehaviour:
@@ -423,6 +423,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2

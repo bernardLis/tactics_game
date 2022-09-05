@@ -11,11 +11,7 @@ public class AttackTriggerable : BaseTriggerable
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
         {
-            // TODO: may be problematic, play spellcast animation on spell abilities
-            if (ability.SpellcastAnimation)
-                await _characterRendererManager.SpellcastAnimation();
-            else
-                await _characterRendererManager.AttackAnimation();
+            await _characterRendererManager.AttackAnimation(ability, pos);               
 
             if (ability.AbilityEffect != null)
             {

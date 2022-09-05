@@ -157,7 +157,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         List<CharacterData> charData = new();
         foreach (Character c in _runManager.PlayerTroops)
         {
-            Debug.Log($"{c.name} maxhealth: {c.MaxHealth} ");
             CharacterData data = new();
             data.ReferenceID = c.ReferenceID;
             data.CharacterName = c.CharacterName;

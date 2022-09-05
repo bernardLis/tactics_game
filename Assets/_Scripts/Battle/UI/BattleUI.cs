@@ -74,16 +74,16 @@ public class BattleUI : Singleton<BattleUI>
         BattleCharacterController.OnCharacterStateChanged += OnCharacterStateChanged;
     }
 
-    void Start()
-    {
-        _battleLogContainer.Clear();
-    }
+    void Start() { _battleLogContainer.Clear(); }
 
     void OnDestroy()
     {
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
         BattleCharacterController.OnCharacterStateChanged -= OnCharacterStateChanged;
     }
+    public void HideAllUI() { Root.style.visibility = Visibility.Hidden; }
+
+    public void ShowAllUI() { Root.style.visibility = Visibility.Visible; }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
     {
