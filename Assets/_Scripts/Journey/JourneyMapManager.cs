@@ -103,6 +103,7 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
         for (int i = 0; i < _numberOfPaths; i++)
         {
             JourneyPath jp = ScriptableObject.CreateInstance<JourneyPath>();
+            jp.PathIndex = i;
             jp.CreatePath(_numberOfRows, _journeyNodes, _basicConfigs);
             _journeyPaths.Add(jp);
             _runManager.JourneyPaths.Add(jp);
@@ -225,12 +226,12 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
 
             return;
         }
-        
+
         _isInitialSetup = false;
         StartNode.GetComponent<JourneyNodeBehaviour>().MarkAsVisited();
 
-        JourneyNodeData data = _runManager.CurrentJourneyNode;
-        CurrentNode = _journeyPaths[data.PathIndex].Nodes[data.NodeIndex];
+        JourneyNodeData lastVisitedNode = _runManager.VisitedJourneyNodes[_runManager.VisitedJourneyNodes.Count - 1];
+        CurrentNode = _journeyPaths[lastVisitedNode.PathIndex].Nodes[lastVisitedNode.NodeIndex];
 
         foreach (JourneyNodeData n in _runManager.VisitedJourneyNodes)
         {
@@ -293,17 +294,9 @@ public class JourneyMapManager : Singleton<JourneyMapManager>
     void SelectNode(JourneyNodeBehaviour _node)
     {
         _node.DrawCircle();
-        _node.JourneyNode.Select(); // after n.journeyNodeBehaviour.StopAnimating(); to keep the color
+        _node.JourneyNode.Select();
         CurrentNode = _node.JourneyNode;
 
-        JourneyNodeData data = new JourneyNodeData();
-        JourneyPath currentPath = GetCurrentPath(_node.JourneyNode);
-        data.PathIndex = _journeyPaths.IndexOf(currentPath);
-        data.NodeIndex = currentPath.Nodes.IndexOf(CurrentNode);
-        _runManager.SetCurrentJourneyNode(data);
-
-        // So, here I would like to transition to a scene depending on the node
-        // I also need to make sure this journey and all data is remembered between scene transitions 
         _runManager.LoadLevelFromNode(CurrentNode);
 
         OnNodeSelection?.Invoke();

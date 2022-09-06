@@ -19,7 +19,6 @@ public class SaveData
     public int SavingsAccountGold;
     public int TotalInterestEarned;
     public List<JourneyNodeData> VisitedJourneyNodes = new();
-    public JourneyNodeData CurrentJourneyNode;
 
     public List<CharacterData> Characters = new();
     public List<string> ItemPouch = new();

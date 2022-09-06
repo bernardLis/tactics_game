@@ -69,6 +69,7 @@ public class VillageManager : Singleton<VillageManager>
 
     void BackToJourney()
     {
+        RunManager.Instance.VisitedJourneyNodes.Add(RunManager.Instance.CurrentNode.Serialize());
         GameManager.Instance.LoadLevel(Scenes.Journey);
     }
 

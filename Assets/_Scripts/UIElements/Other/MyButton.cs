@@ -18,7 +18,7 @@ public class MyButton : Button
         if (callback != null)
             clicked += callback;
 
-        RegisterCallback<MouseEnterEvent>((evt) => PlayClick()); // HERE:
+        RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
     }
 
     void PlayClick()

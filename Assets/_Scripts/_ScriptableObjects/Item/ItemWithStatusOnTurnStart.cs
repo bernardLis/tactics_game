@@ -17,6 +17,9 @@ public class ItemWithStatusOnTurnStart : Item
 
     void OnBattleStateChanged(BattleState state)
     {
+        if (_stats == null)
+            return;
+            
         if (_stats.CompareTag(Tags.Player) && state == BattleState.PlayerTurn)
             AddStatus();
         if (_stats.CompareTag(Tags.Enemy) && state == BattleState.EnemyTurn)

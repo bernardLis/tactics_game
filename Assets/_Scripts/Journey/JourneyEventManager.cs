@@ -120,6 +120,7 @@ public class JourneyEventManager : MonoBehaviour
 
     void BackToJourney()
     {
+        _runManager.VisitedJourneyNodes.Add(_runManager.CurrentNode.Serialize());
         _gameManager.LoadLevel(Scenes.Journey);
     }
 }

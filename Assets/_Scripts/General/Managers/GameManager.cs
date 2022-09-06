@@ -60,6 +60,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         ClearRunData();
         _runManager.InitializeNewRun();
+        _isRunActive = true;
         if (WasTutorialPlayed)
             _levelLoader.LoadLevel(Scenes.Journey);
         else
@@ -127,7 +128,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.SavingsAccountGold = _runManager.SavingsAccountGold;
         saveData.TotalInterestEarned = _runManager.InterestEarned;
         saveData.JourneySeed = _runManager.JourneySeed;
-        saveData.CurrentJourneyNode = _runManager.CurrentJourneyNode;
         saveData.VisitedJourneyNodes = _runManager.VisitedJourneyNodes;
         saveData.Characters = PopulateCharacters();
         saveData.ItemPouch = PopulateItemPouch();
@@ -230,24 +230,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         if (saveData.JourneySeed != 0 && saveData.WasTutorialPlayed)
             _isRunActive = true;
 
-        _runManager.ChangeGoldValue(saveData.Gold);
-        _runManager.ChangeSavingsAccountValue(saveData.SavingsAccountGold);
-        _runManager.ChangeTotalInterestValue(saveData.TotalInterestEarned);
-
-        _runManager.JourneySeed = saveData.JourneySeed;
-        _runManager.CurrentJourneyNode = saveData.CurrentJourneyNode;
-        _runManager.VisitedJourneyNodes = saveData.VisitedJourneyNodes;
-        _runManager.PlayerTroops = new();
-        foreach (CharacterData data in saveData.Characters)
-        {
-            Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
-            playerCharacter.Create(data);
-            _runManager.PlayerTroops.Add(playerCharacter);
-        }
-
-        _runManager.PopulateAvailableEvents(saveData.AvailableEvents);
-        _runManager.PopulateItemPouch(saveData.ItemPouch);
-        _runManager.PopulateAbilityPouch(saveData.AbilityPouch);
+        _runManager.PopulateRunFromSaveData(saveData);
 
         _currentLevel = saveData.LastLevel;
     }
@@ -270,7 +253,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         sd.SavingsAccountGold = 0;
         sd.TotalInterestEarned = 0;
         sd.JourneySeed = 0;
-        sd.CurrentJourneyNode = new JourneyNodeData();
         sd.VisitedJourneyNodes = null;
         sd.Characters = null;
         sd.ItemPouch = null;

@@ -121,10 +121,8 @@ public class CharacterRendererManager : MonoBehaviour
         // if character does not have a weapon
         if (_weaponHolder.Weapon == null)
         {
-            Debug.Log($"punching: {targetPos}");
             Vector3 dir = (targetPos - transform.position).normalized;
             await transform.DOPunchPosition(dir, 0.4f, 0, 0).AsyncWaitForCompletion();
-            //await Spellcast(_faceDir); // TODO: punch animation
             return;
         }
 

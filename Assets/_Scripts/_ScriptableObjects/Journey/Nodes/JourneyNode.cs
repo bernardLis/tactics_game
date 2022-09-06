@@ -15,6 +15,9 @@ public class JourneyNode : BaseScriptableObject
     [HideInInspector] public JourneyNodeBehaviour JourneyNodeBehaviour;
     public bool WasVisited;
 
+    [HideInInspector] public int PathIndex;
+    [HideInInspector] public int NodeIndex;
+
     public virtual void Initialize(GameObject self)
     {
         GameObject = self;
@@ -32,6 +35,12 @@ public class JourneyNode : BaseScriptableObject
         _spriteRenderer.color = Color.black;
         WasVisited = true;
     }
+
+    public JourneyNodeData Serialize()
+    {
+        return new JourneyNodeData(PathIndex, NodeIndex);
+
+    }
 }
 
 [System.Serializable]
@@ -39,6 +48,12 @@ public struct JourneyNodeData
 {
     public int PathIndex;
     public int NodeIndex;
+
+    public JourneyNodeData(int pathIndex, int nodeIndex)
+    {
+        PathIndex = pathIndex;
+        NodeIndex = nodeIndex;
+    }
 }
 
 

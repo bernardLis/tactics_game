@@ -22,7 +22,7 @@ public class BoardManager : Singleton<BoardManager>
     [Header("Map Setup")]
     BattleNode _battleNode;
     MapVariant _mapVariant;
-    int _seed;
+    int _seed = -1;
     public Vector2Int MapSize;
 
     [Header("Enemies")]
@@ -95,6 +95,8 @@ public class BoardManager : Singleton<BoardManager>
         await Task.Delay(100);
         if (!await FloodFillCheck()) // checks whether the map is accessible before laying out obstacle
         {
+
+            _seed += 1; // TODO: ugh...
             GenerateMap();
             return;
         }
@@ -117,8 +119,11 @@ public class BoardManager : Singleton<BoardManager>
 
     async Task InitialSetup()
     {
-        _seed = _runManager.JourneySeed;
-        Random.InitState(_seed);
+        if (_seed == -1)
+        {
+            _seed = _runManager.JourneySeed;
+            Random.InitState(_seed);
+        }
         _runManager.SetNodeReward(_battleNode.Reward);
 
         await _highlighter.ClearHighlightedTiles();

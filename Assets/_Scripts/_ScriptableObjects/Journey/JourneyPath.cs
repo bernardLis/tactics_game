@@ -6,6 +6,7 @@ public class JourneyPath : BaseScriptableObject // needed for instantiate
 {
     public List<JourneyNode> Nodes = new();
     public List<JourneyBridge> Bridges = new();
+    [HideInInspector] public int PathIndex;
 
     public void CreatePath(int numberOfRows, JourneyNode[] nodes, JourneyPathConfig[] configs)
     {
@@ -20,6 +21,8 @@ public class JourneyPath : BaseScriptableObject // needed for instantiate
                 nodeToInstantiate = nodes[Random.Range(0, nodes.Length)];
 
             JourneyNode n = Instantiate(nodeToInstantiate);
+            n.PathIndex = PathIndex;
+            n.NodeIndex = i;
             Nodes.Add(n);
         }
     }

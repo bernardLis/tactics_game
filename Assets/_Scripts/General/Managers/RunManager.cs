@@ -11,18 +11,18 @@ public class RunManager : Singleton<RunManager>
 
     public bool WasJourneySetUp;
     public int JourneySeed = 0; // TODO: this is a bad idea, probably
-    public JourneyNodeData CurrentJourneyNode;
+
     [HideInInspector] public List<JourneyPath> JourneyPaths = new();
     [HideInInspector] public List<JourneyNodeData> VisitedJourneyNodes = new();
 
     public int Gold { get; private set; }
     public int SavingsAccountGold { get; private set; }
     public int InterestEarned { get; private set; }
-    public List<Character> PlayerTroops = new(); //[HideInInspector] 
+    [HideInInspector] public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
-    public JourneyNode CurrentNode; // HERE: for tests { get; private set; }
+    public JourneyNode CurrentNode { get; private set; }
     public JourneyNodeReward JourneyNodeReward { get; private set; }
 
     public event Action<int> OnGoldChanged;
@@ -41,8 +41,10 @@ public class RunManager : Singleton<RunManager>
         AvailableEvents = new(_gameManager.GameDatabase.GetAllEvents());
 
         JourneySeed = System.DateTime.Now.Millisecond;
+        Random.InitState(JourneySeed);
+
         WasJourneySetUp = false;
-        CurrentJourneyNode = new JourneyNodeData();
+        //  CurrentNodeData = new JourneyNodeData();
         JourneyPaths = new();
         VisitedJourneyNodes = new();
 
@@ -61,6 +63,30 @@ public class RunManager : Singleton<RunManager>
                 item.Initialize();
 
         _gameManager.SaveJsonData();
+    }
+
+    public void PopulateRunFromSaveData(SaveData saveData)
+    {
+        ChangeGoldValue(saveData.Gold);
+        ChangeSavingsAccountValue(saveData.SavingsAccountGold);
+        ChangeTotalInterestValue(saveData.TotalInterestEarned);
+
+        JourneySeed = saveData.JourneySeed;
+        Random.InitState(JourneySeed);
+
+        //    CurrentNodeData = saveData.VisitedJourneyNodes[VisitedJourneyNodes.Count - 1];
+        VisitedJourneyNodes = saveData.VisitedJourneyNodes;
+        PlayerTroops = new();
+        foreach (CharacterData data in saveData.Characters)
+        {
+            Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
+            playerCharacter.Create(data);
+            PlayerTroops.Add(playerCharacter);
+        }
+
+        PopulateAvailableEvents(saveData.AvailableEvents);
+        PopulateItemPouch(saveData.ItemPouch);
+        PopulateAbilityPouch(saveData.AbilityPouch);
     }
 
     public void PopulateAvailableEvents(List<string> eventIds)
@@ -194,12 +220,6 @@ public class RunManager : Singleton<RunManager>
     {
         CurrentNode = node;
         _gameManager.LoadLevel(node.SceneToLoad);
-    }
-
-    public void SetCurrentJourneyNode(JourneyNodeData n)
-    {
-        VisitedJourneyNodes.Add(n);
-        CurrentJourneyNode = n;
     }
 
     public void SetNodeReward(JourneyNodeReward r)

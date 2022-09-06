@@ -30,7 +30,7 @@ public class BattleUI : Singleton<BattleUI>
     VisualElement _battleEndRewardContainer;
     MyButton _backToJourneyButton;
 
-    public CharacterScreen CharacterScreen; // HERE: { get; private set; }
+    public CharacterScreen CharacterScreen { get; private set; }
 
     public event Action OnBattleEndScreenShown;
 

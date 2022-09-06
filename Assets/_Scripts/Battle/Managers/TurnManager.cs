@@ -138,12 +138,13 @@ public class TurnManager : Singleton<TurnManager>
     {
         if (_runManager.CurrentNode == null)
             return;
-            
+
         List<Character> playerCharactersAlive = new();
         foreach (GameObject p in _playerCharacters)
             playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);
 
         _runManager.SetPlayerTroops(playerCharactersAlive);
+        _runManager.VisitedJourneyNodes.Add(_runManager.CurrentNode.Serialize());
     }
 
     void HandleLosing()

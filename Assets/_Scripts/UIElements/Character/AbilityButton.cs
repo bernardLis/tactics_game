@@ -61,7 +61,7 @@ public class AbilityButton : VisualWithTooltip
             container.Add(status);
         }
 
-        RegisterCallback<MouseEnterEvent>((evt) => PlayClick()); // HERE:
+        RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
     }
 
     protected override void DisplayTooltip()
