@@ -300,6 +300,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         tiles.Add(tile);
 
         await retaliationAbility.TriggerAbility(tiles);
+
+        _battleUI.DisplayBattleLog(new BattleLogLine(new Label($"{Character.name} retaliates."), BattleLogLineType.Damage));
         _hasRetaliatedThisTurn = true;
         return wasAttackSuccesful;
     }

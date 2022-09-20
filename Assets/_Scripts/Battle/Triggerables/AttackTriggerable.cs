@@ -11,7 +11,7 @@ public class AttackTriggerable : BaseTriggerable
         // triggered only once if AOE
         if (!_myStats.IsAttacker)
         {
-            await _characterRendererManager.AttackAnimation(ability, pos);               
+            await _characterRendererManager.AttackAnimation(ability, pos);
 
             if (ability.AbilityEffect != null)
             {
@@ -34,25 +34,28 @@ public class AttackTriggerable : BaseTriggerable
             if (target == null)
                 return null;
 
-
             if (target.TryGetComponent(out CharacterStats stats))
             {
                 // damage target // TODO: ugh... this -1 is killing me...
                 int damage = -1 * ability.CalculateInteractionResult(_myStats, target.GetComponent<CharacterStats>(), isRetaliation);
                 bool wasAttackSuccesful = await target.GetComponent<IAttackable<GameObject, Ability>>().TakeDamage(damage, gameObject, ability);
+                // 
 
-                Character opponentCharacter = Instantiate(stats.Character);
+                Character opponentCharacter = Instantiate(stats.Character); // in case we killed it
                 if (wasAttackSuccesful)
                     _myStats.Character.GetExp(opponentCharacter);
             }
-
-            if (target == null) // if it dies when taking damage
+            // if it dies when taking damage
+            if (target == null)
                 return null;
 
             if (target.TryGetComponent(out ObjectStats objectStats))
                 if (ability.Status != null)
                     await objectStats.AddStatus(ability.Status, gameObject);
         }
+
+        if (_myStats.CurrentHealth <= 0) // if we died due to retaliation
+            await HighlightManager.Instance.ClearHighlightedTiles();
 
         // return what you hit - it is only used for position so no worries xDDDDD
         return targets[0];

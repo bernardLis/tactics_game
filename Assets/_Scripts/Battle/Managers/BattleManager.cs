@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BattleManager : Singleton<BattleManager>
@@ -5,6 +6,9 @@ public class BattleManager : Singleton<BattleManager>
     BattleInputController _battleInputController;
 
     public bool IsGamePaused { get; private set; }
+
+    public event Action OnGamePaused;
+    public event Action OnGameResumed;
 
     protected override void Awake()
     {
@@ -20,12 +24,14 @@ public class BattleManager : Singleton<BattleManager>
     {
         IsGamePaused = true;
         Time.timeScale = 0;
+        OnGamePaused?.Invoke();
     }
 
     public void ResumeGame()
     {
         IsGamePaused = false;
         Time.timeScale = 1;
+        OnGameResumed?.Invoke();
     }
 
     public void SnapToGrid(Transform t)

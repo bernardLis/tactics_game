@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class ObjectUI : MonoBehaviour
 {
     Camera _cam;
+    BattleManager _battleManager;
 
     Queue<IEnumerator> _coroutineQueue = new();
 
@@ -18,6 +19,7 @@ public class ObjectUI : MonoBehaviour
     void Start()
     {
         _cam = Helpers.Camera;
+        _battleManager = BattleManager.Instance;
 
         // getting ui elements
         _root = GetComponent<UIDocument>().rootVisualElement;
@@ -27,7 +29,14 @@ public class ObjectUI : MonoBehaviour
         DisplayName();
 
         StartCoroutine(CoroutineCoordinator());
+        _battleManager.OnGamePaused += OnGamePaused;
+        _battleManager.OnGameResumed += OnGameResumed;
+
     }
+
+    void OnGamePaused() { _characterNameLabel.style.display = DisplayStyle.None; }
+
+    void OnGameResumed() { _characterNameLabel.style.display = DisplayStyle.Flex; }
 
     void SetNameLabelColor()
     {
