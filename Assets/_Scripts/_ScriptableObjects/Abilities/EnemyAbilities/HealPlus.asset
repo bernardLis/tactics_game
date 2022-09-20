@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: ABILITY-4
   Description: Heals targets in a cross.
   Icon: {fileID: 21300000, guid: 61f04667f8411b04e9264a0a14b025ce, type: 3}
-  Sound: {fileID: 8300000, guid: f0180443af161364eb8f4ee688b5ed82, type: 3}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 20
   ManaCost: 12
   AbilityType: 1
@@ -32,4 +32,5 @@ MonoBehaviour:
   CanTargetSelf: 1
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.33333334, g: 1, b: 0.39607844, a: 1}
+  Price: 1
   CharacterGameObject: {fileID: 0}

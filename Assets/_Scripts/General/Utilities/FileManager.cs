@@ -33,6 +33,9 @@ public static class FileManager
         if (fileName == null)
             return false;
 
+        if (!FileExists(fileName))
+            CreateFile(fileName);
+
         var fullPath = Path.Combine(Application.persistentDataPath, fileName);
         try
         {

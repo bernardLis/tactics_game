@@ -87,6 +87,10 @@ public class CharacterCardVisualExtended : CharacterCardVisual
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         int slotCount = character.GetNumberOfAbilitySlots();
+
+        if (slotCount < character.Abilities.Count)
+            slotCount = character.Abilities.Count;
+        
         for (int i = 0; i < slotCount; i++)
         {
             AbilitySlotVisual abilitySlot = new();

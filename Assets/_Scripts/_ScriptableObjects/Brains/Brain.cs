@@ -51,6 +51,13 @@ public class Brain : BaseScriptableObject
     public List<Ability> Abilities;
     protected Ability _selectedAbility;
 
+    public bool ManualStats;
+    public int Level;
+    public int Power;
+    public int MaxHealth;
+    public int MaxMana;
+    public int Armor;
+    public int MovementRange;
 
     public virtual void Initialize(GameObject self, Character character)
     {

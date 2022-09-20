@@ -3,9 +3,9 @@ public class PlayerStats : CharacterStats
     protected async override void TurnManager_OnBattleStateChanged(BattleState state)
     {
         if (state == BattleState.PlayerTurn)
-            await ResolveStatuses();
+            await HandleYourTeamTurn();
         if (state == BattleState.EnemyTurn)
-            ResolveModifiersTurnEnd();
+            HandleOppositTeamTurn();
     }
 
     protected override void HandleBodyColor()

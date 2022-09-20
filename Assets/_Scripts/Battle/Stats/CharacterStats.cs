@@ -38,6 +38,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     // retaliation on interaction
     public bool IsAttacker { get; private set; }
+    bool _hasRetaliatedThisTurn;
 
     // pushable variables
     Vector3 _startingPos;
@@ -299,6 +300,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         tiles.Add(tile);
 
         await retaliationAbility.TriggerAbility(tiles);
+        _hasRetaliatedThisTurn = true;
         return wasAttackSuccesful;
     }
 
@@ -433,6 +435,9 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     public bool WillRetaliate(GameObject attacker)
     {
         if (IsStunned)
+            return false;
+
+        if (_hasRetaliatedThisTurn)
             return false;
 
         // if attacked from the back, don't retaliate
@@ -703,6 +708,17 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         Abilities[0] = _replacedAbility;
         _replacedAbility = null;
         OnAbilityAdded?.Invoke(Abilities[0]);
+    }
+
+    protected async Task HandleYourTeamTurn()
+    {
+        await ResolveStatuses();
+        _hasRetaliatedThisTurn = false;
+    }
+
+    protected void HandleOppositTeamTurn()
+    {
+        ResolveModifiersTurnEnd();
     }
 
 }
