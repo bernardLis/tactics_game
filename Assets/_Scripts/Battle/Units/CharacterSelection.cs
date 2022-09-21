@@ -87,15 +87,11 @@ public class CharacterSelection : MonoBehaviour
     }
 
     /* A* node blocker*/
-    public void ActivateSingleNodeBlocker()
-    {
-        _blocker.BlockAtCurrentPosition();
-    }
+    public void ActivateSingleNodeBlocker() { _blocker.BlockAtCurrentPosition(); }
 
-    public void DeactivateSingleNodeBlocker()
-    {
-        _blocker.Unblock();
-    }
+    public void DeactivateSingleNodeBlocker() { _blocker.Unblock(); }
+
+    public void FlipSelectionArrow() { _selectionArrow.FlipArrow(); }
 
     public void ToggleSelectionArrow(bool isActive, Color? color = null)
     {

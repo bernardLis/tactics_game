@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public class PlayerCharSelection : CharacterSelection
 {
     public bool HasMovedThisTurn { get; private set; }
-    public Vector3 PositionTurnStart; //{ get; private set; }
+    public Vector3 PositionTurnStart { get; private set; }
 
 
     public override void Awake()
@@ -24,6 +24,7 @@ public class PlayerCharSelection : CharacterSelection
         {
             HasMovedThisTurn = false;
             SetHasFinishedTurn(false);
+            ToggleSelectionArrow(true);
         }
         else
             FinishCharacterTurn();
@@ -36,7 +37,7 @@ public class PlayerCharSelection : CharacterSelection
     {
         if (_myStats.IsStunned)
             return;
-        
+
         await Task.Delay(1000);
         SetCharacterColor(Color.white);
     }
@@ -45,15 +46,14 @@ public class PlayerCharSelection : CharacterSelection
     {
         GetComponent<SortingGroup>().sortingOrder = 99;
         _myStats.Select();
-        ToggleSelectionArrow(true);
+        FlipSelectionArrow();
     }
 
     public void DeselectCharacter()
     {
         GetComponent<SortingGroup>().sortingOrder = 90;
 
-        // hide the arrow
-        ToggleSelectionArrow(false);
+        FlipSelectionArrow();
     }
 
 
@@ -61,6 +61,7 @@ public class PlayerCharSelection : CharacterSelection
     {
         base.FinishCharacterTurn();
         DeselectCharacter();
+        ToggleSelectionArrow(false);
 
         // finish character's turn after the interaction is performed
         _turnManager.PlayerCharacterTurnFinished(gameObject);

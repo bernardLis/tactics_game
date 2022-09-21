@@ -36,8 +36,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
     GameObject _friendGO;
 
     [Header("Conversation")]
-    [SerializeField] Conversation _helloRats;
-    [SerializeField] Conversation _move;
     [SerializeField] Conversation _friendComes;
     [SerializeField] Conversation _friendElectrifies;
 
@@ -107,7 +105,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await SpawnPlayer();
         await WalkPlayer();
         await _cameraManager.LerpOrthographicSize(7, 1);
-        await _conversationManager.PlayConversation(_helloRats);
         _turnManager.UpdateBattleState(BattleState.PlayerTurn);
     }
 
@@ -219,12 +216,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     async Task SpawnFriend()
     {
-        Vector3[] forbiddenPositions = new Vector3[] {
-            new Vector3(-3.5f, 7.5f),
-            new Vector3(-3.5f, 6.5f)
-         };
-        await MovePlayer(forbiddenPositions);
-
         _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.up);
 
         Vector3 pos = new Vector3(-3.5f, 8.5f);
@@ -248,13 +239,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     async Task FriendElectrifies()
     {
-        Vector3[] forbiddenPositions = new Vector3[] {
-            new Vector3(-3.5f, 5.5f),
-            new Vector3(-3.5f, 4.5f),
-            new Vector3(-3.5f, 3.5f)
-         };
-
-        await MovePlayer(forbiddenPositions);
         _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.left);
 
         Debug.Log("friend electrifies");
@@ -274,15 +258,5 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await stats.Abilities[0].HighlightAreaOfEffect(attackPos);
         await Task.Delay(200);
         await stats.Abilities[0].TriggerAbility(_highlightManager.HighlightedTiles);
-    }
-
-    async Task MovePlayer(Vector3[] forbiddenPositions)
-    {
-        foreach (Vector3 pos in forbiddenPositions)
-            if (Vector3.Distance(_playerGO.transform.position, pos) < 0.1f)
-            {
-                await _conversationManager.PlayConversation(_move);
-                await _battleCutSceneManager.WalkCharacterTo(_playerGO, new Vector3(-2.5f, 4.5f));
-            }
     }
 }

@@ -13,6 +13,15 @@ public class SelectionArrow : MonoBehaviour
         _startPositon = transform.localPosition;
         _startScale = transform.localScale;
     }
+
+    public void FlipArrow()
+    {
+        if (transform.rotation.eulerAngles.x != 0)
+            transform.DOLocalRotate(new Vector3(0, 0, 0), 0.4f);
+        else
+            transform.DOLocalRotate(new Vector3(180, 0, 0), 0.4f);
+    }
+
     void OnEnable()
     {
         transform.DOScale(_endScale, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);

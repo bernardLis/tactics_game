@@ -145,21 +145,11 @@ public class BattleUI : Singleton<BattleUI>
         DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
     }
 
-    void HandleEnemyTurn()
-    {
-        UpdateBattleHelperText($"Turn {TurnManager.CurrentTurn.ToString()}. Enemy turn.");
-    }
+    void HandleEnemyTurn() { UpdateBattleHelperText($"Turn {TurnManager.CurrentTurn.ToString()}. Enemy turn."); }
 
-    void UpdateBattleHelperText(string txt)
-    {
-        Debug.Log("update");
-        _battleHelperText.text = txt;
-    }
+    void UpdateBattleHelperText(string txt) { _battleHelperText.text = txt; }
 
-    void DisplayBattleGoal()
-    {
-        _battleGoalContainer.style.display = DisplayStyle.Flex;
-    }
+    void DisplayBattleGoal() { _battleGoalContainer.style.display = DisplayStyle.Flex; }
 
     public void DisplayBattleLog(BattleLogLine element)
     {
@@ -216,7 +206,6 @@ public class BattleUI : Singleton<BattleUI>
 
     public void ShowCharacterScreen(Character character)
     {
-        Debug.Log($"show character screen is called {CharacterScreen} ");
         if (CharacterScreen != null)
             return;
 
@@ -227,8 +216,6 @@ public class BattleUI : Singleton<BattleUI>
 
     public void HideCharacterScreen()
     {
-        Debug.Log($"hide character screen is called ");
-
         _battleManager.ResumeGame();
         CharacterScreen.OnHide -= HideCharacterScreen;
         CharacterScreen.Hide();
@@ -300,10 +287,7 @@ public class BattleUI : Singleton<BattleUI>
         _gameManager.LoadLevel(_levelToLoadAfterFight);
     }
 
-    void BackToMainMenu()
-    {
-        _gameManager.LoadLevel(Scenes.MainMenu);
-    }
+    void BackToMainMenu() { _gameManager.LoadLevel(Scenes.MainMenu); }
 
     public void SetUpContinueButton(string newText, string newLevel)
     {
@@ -311,9 +295,6 @@ public class BattleUI : Singleton<BattleUI>
         _levelToLoadAfterFight = newLevel;
     }
 
-    public void AddGoalToBattleEndScreen(VisualElement el)
-    {
-        _battleEndGoalContainer.Add(el);
-    }
+    public void AddGoalToBattleEndScreen(VisualElement el) { _battleEndGoalContainer.Add(el); }
 
 }

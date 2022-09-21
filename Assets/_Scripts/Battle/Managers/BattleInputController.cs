@@ -26,10 +26,7 @@ public class BattleInputController : Singleton<BattleInputController>
 
     [HideInInspector] public bool AllowInput { get; private set; }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
+    protected override void Awake() { base.Awake(); }
 
     void Start()
     {
@@ -78,30 +75,18 @@ public class BattleInputController : Singleton<BattleInputController>
         if (_state == BattleState.EnemyTurn)
             HandleEnemyTurn();
         if (_state == BattleState.Won)
-            AllowInput = false;
+            SetInputAllowed(false);
         if (_state == BattleState.Lost)
-            AllowInput = false;
+            SetInputAllowed(false);
     }
 
-    void OnDestroy()
-    {
-        TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
-    }
+    void OnDestroy() { TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged; }
 
-    void HandleDeployment()
-    {
-        AllowInput = true;
-    }
+    void HandleDeployment() { SetInputAllowed(true); }
 
-    void HandlePlayerTurn()
-    {
-        SetInputAllowed(true);
-    }
+    void HandlePlayerTurn() { SetInputAllowed(true); }
 
-    void HandleEnemyTurn()
-    {
-        SetInputAllowed(false);
-    }
+    void HandleEnemyTurn() { SetInputAllowed(false); }
 
     void SubscribeInputActions()
     {
@@ -149,15 +134,9 @@ public class BattleInputController : Singleton<BattleInputController>
         _playerInput.actions["BackClick"].performed -= BackClick;
     }
 
-    public bool IsInputAllowed()
-    {
-        return AllowInput;
-    }
+    public bool IsInputAllowed() { return AllowInput; }
 
-    public void SetInputAllowed(bool isAllowed)
-    {
-        AllowInput = isAllowed;
-    }
+    public void SetInputAllowed(bool isAllowed) { AllowInput = isAllowed; }
 
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
@@ -278,13 +257,10 @@ public class BattleInputController : Singleton<BattleInputController>
 
     void CancelEverything(InputAction.CallbackContext ctx)
     {
-        AllowInput = true;
+        SetInputAllowed(true);
         _battleCharacterController.Back();
         _battleCharacterController.UnselectCharacter();
     }
 
-    void AbilityButtonClicked(InputAction.CallbackContext ctx)
-    {
-        _characterUI.SimulateAbilityButtonClicked(ctx);
-    }
+    void AbilityButtonClicked(InputAction.CallbackContext ctx) { _characterUI.SimulateAbilityButtonClicked(ctx); }
 }
