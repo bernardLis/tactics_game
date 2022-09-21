@@ -94,12 +94,6 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         // rat specific stat machinations
         CharacterStats stats = enemyGO.GetComponent<CharacterStats>();
         stats.SetCharacteristics(instantiatedSO);
-        /*
-        stats.MovementRange.BaseValue = 1;
-        stats.MaxHealth.BaseValue = 10;
-        stats.MaxMana.BaseValue = 0;
-        stats.SetCurrentHealth(10);
-*/
         CharacterRendererManager characterRendererManager = enemyGO.GetComponentInChildren<CharacterRendererManager>();
         characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
         characterRendererManager.Face(Vector2.down);

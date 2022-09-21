@@ -18,6 +18,8 @@ public class RatBattleManger : Singleton<RatBattleManger>
     MovePointController _movePointController;
     BattleInputController _battleInputController;
     HighlightManager _highlightManager;
+    RatBattleShapesPainter _ratBattleShapesPainter;
+
 
     [Header("General")]
     [SerializeField] Sound _ambience;
@@ -38,6 +40,11 @@ public class RatBattleManger : Singleton<RatBattleManger>
     [SerializeField] Conversation _move;
     [SerializeField] Conversation _friendComes;
     [SerializeField] Conversation _friendElectrifies;
+
+
+    [Header("Rats")]
+    [SerializeField] GameObject _ratPrefab;
+    [SerializeField] Brain[] _ratBrains;
 
     protected override void Awake()
     {
@@ -62,9 +69,12 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _movePointController = MovePointController.Instance;
         _battleInputController = BattleInputController.Instance;
         _highlightManager = HighlightManager.Instance;
+        _ratBattleShapesPainter = GetComponent<RatBattleShapesPainter>();
+        
         LightManager.Instance.Initialize(_globalLight);
 
         MapSetUp();
+        SpawnFirstRats();
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
@@ -75,17 +85,18 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     async void HandlePlayerTurn()
     {
+        await Task.Yield();
         // water spreads every turn
-        await SpreadWater();
+        // await SpreadWater();
 
-        if (TurnManager.CurrentTurn == 1)
-            InstantiateWater(new Vector3(4.5f, 4.5f));
+        // if (TurnManager.CurrentTurn == 1)
+        //     InstantiateWater(new Vector3(4.5f, 4.5f));
 
-        if (TurnManager.CurrentTurn == 4) // TODO: normally 5th turn? 
-            await SpawnFriend();
+        // if (TurnManager.CurrentTurn == 4) // TODO: normally 5th turn? 
+        //     await SpawnFriend();
 
-        if (TurnManager.CurrentTurn == 7) // TODO: normally 7th turn? 
-            await FriendElectrifies();
+        //  if (TurnManager.CurrentTurn == 7) // TODO: normally 7th turn? 
+        //        await FriendElectrifies();
     }
 
     async void MapSetUp()
@@ -98,6 +109,35 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await _cameraManager.LerpOrthographicSize(7, 1);
         await _conversationManager.PlayConversation(_helloRats);
         _turnManager.UpdateBattleState(BattleState.PlayerTurn);
+    }
+
+    void SpawnFirstRats()
+    {
+        Vector3[] positions = new Vector3[]{
+            new Vector3(2.5f, -3.5f),
+            new Vector3(8.5f, -4.5f),
+        };
+
+        foreach (Vector3 pos in positions)
+            SpawnRat(pos);
+    }
+
+    void SpawnRat(Vector3 pos)
+    {
+        EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
+        enemySO.CreateEnemy(1, _ratBrains[Random.Range(0, _ratBrains.Length)]);
+        Character instantiatedSO = Instantiate(enemySO);
+        GameObject enemyGO = Instantiate(_ratPrefab, pos, Quaternion.identity);
+        instantiatedSO.Initialize(enemyGO);
+        enemyGO.name = instantiatedSO.CharacterName;
+        enemyGO.transform.parent = _envObjectsHolder.transform;
+
+        // rat specific stat machinations
+        CharacterStats stats = enemyGO.GetComponent<CharacterStats>();
+        stats.SetCharacteristics(instantiatedSO);
+        CharacterRendererManager characterRendererManager = enemyGO.GetComponentInChildren<CharacterRendererManager>();
+        characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
+        characterRendererManager.Face(Vector2.down);
     }
 
     async Task SetupAstar()

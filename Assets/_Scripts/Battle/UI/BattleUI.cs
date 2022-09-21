@@ -140,6 +140,7 @@ public class BattleUI : Singleton<BattleUI>
         if (TurnManager.CurrentTurn == 1)
             DisplayBattleGoal();
 
+        _battleHelperTextContainer.style.display = DisplayStyle.Flex;
         UpdateBattleHelperText($"Your turn. Select a character");
         DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
     }
@@ -151,6 +152,7 @@ public class BattleUI : Singleton<BattleUI>
 
     void UpdateBattleHelperText(string txt)
     {
+        Debug.Log("update");
         _battleHelperText.text = txt;
     }
 

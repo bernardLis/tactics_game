@@ -15,9 +15,4 @@ MonoBehaviour:
   Id: 891263a1-13e1-4d0f-a39e-6eb6016ed9ad
   Seen: 0
   Lines:
-  - {fileID: 11400000, guid: 2240fee94c9579a48bf173df680ebf6c, type: 2}
   - {fileID: 11400000, guid: d88aab9f7e5c69042b95655585f46774, type: 2}
-  Quest: {fileID: 0}
-  QuestTrigger: 0
-  QuestCompleted: 0
-  QuestFailed: 0

@@ -66,7 +66,6 @@ public class ObjectUI : MonoBehaviour
 
     void CenterNameLabel()
     {
-
         Vector3 middleOfTheTile = new Vector3(transform.position.x + _offsetX, transform.position.y + _offsetY, transform.position.z);
         Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(_characterNameLabel.panel, middleOfTheTile, _cam);
 

@@ -16,4 +16,4 @@ MonoBehaviour:
   SpeakerCharacter: {fileID: 11400000, guid: f9b32bc96f570e04abc2dbe28c5be78c, type: 2}
   Text: <Squeeek>
   Clip: {fileID: 0}
-  DisplayQuadrant: 3
+  DisplayQuadrant: 1

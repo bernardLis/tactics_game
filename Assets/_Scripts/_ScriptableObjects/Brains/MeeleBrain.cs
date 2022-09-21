@@ -69,16 +69,7 @@ public class MeeleBrain : Brain
         if (_tempObject != null)
             Destroy(_tempObject);
 
-        Vector2 faceDir;
-        if (Target == null)
-            faceDir = (_potentialTargets[0].GameObj.transform.position - _characterGameObject.transform.position).normalized;
-        else
-            faceDir = (Target.transform.position - _characterGameObject.transform.position).normalized;
-
-        // face 'stronger direction'
-        faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
-
-        _characterRendererManager.Face(faceDir);
+        _characterRendererManager.Face(ChooseFaceDirection());
 
         if (Target != null)
             ChooseAbility();
@@ -86,6 +77,23 @@ public class MeeleBrain : Brain
             Defend();
 
         await base.Interact();
+    }
+
+    Vector2 ChooseFaceDirection()
+    {
+        Vector2 faceDir = Vector2.up;
+
+        if (Target)
+            faceDir = (Target.transform.position - _characterGameObject.transform.position).normalized;
+
+        if (Target == null && _potentialTargets.Count > 0)
+            faceDir = (_potentialTargets[0].GameObj.transform.position - _characterGameObject.transform.position).normalized;
+
+        // face 'stronger direction'
+        faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
+
+
+        return faceDir;
     }
 
     void ChooseAbility()
