@@ -16,9 +16,4 @@ MonoBehaviour:
   Seen: 0
   Lines:
   - {fileID: 11400000, guid: 348768d8ab798ff44bb44fd3c6e0c052, type: 2}
-  - {fileID: 11400000, guid: bd2eed79e9bcaa245b4a9c835afd5ed9, type: 2}
   - {fileID: 11400000, guid: ec900df2c643e6045abbe5a4c1a6bf8a, type: 2}
-  Quest: {fileID: 0}
-  QuestTrigger: 0
-  QuestCompleted: 0
-  QuestFailed: 0

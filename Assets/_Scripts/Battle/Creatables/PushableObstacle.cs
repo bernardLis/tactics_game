@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Ability>, ICreatable<Vector3, Ability, string>
 {
@@ -23,6 +25,8 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
     string _displayText = "Boulder. You can push it with an ability.";
 
     string _lightFlickerTweenId = "_lightFlickerTweenId";
+
+    public event Action OnPushed;
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +101,8 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
         _finalPos = transform.position + dir;
 
         _selfCollider.enabled = false;
+        
+        OnPushed?.Invoke();
 
         await MoveToPosition(_finalPos, 0.5f);
         await CheckCollision(ability);
@@ -166,7 +172,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     void ScanAstar()
     {
-        AstarPath.active.Scan(); 
+        AstarPath.active.Scan();
     }
 
     public virtual async Task CollideWithCharacter(Ability ability, Collider2D col)

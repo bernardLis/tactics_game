@@ -87,6 +87,12 @@ public class TurnManager : Singleton<TurnManager>
         enemy.GetComponent<CharacterStats>().OnCharacterDeath += OnEnemyDeath;
     }
 
+    public void AddPlayer(GameObject player)
+    {
+        _playerCharacters.Add(player);
+        player.GetComponent<CharacterStats>().OnCharacterDeath += OnPlayerCharDeath;
+    }
+
     void HandlePlayerTurn()
     {
         // TODO: I don't think there is a need to get rid of this, but it is kinda sucky.

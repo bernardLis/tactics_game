@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 55702295-66f4-4296-8e5e-8afaac1962cb
   SpeakerCharacter: {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
-  Text: Hurry up, I need a favour.
+  Text: Hey, I am your friend and I need a favour.
   Clip: {fileID: 0}
   DisplayQuadrant: 2

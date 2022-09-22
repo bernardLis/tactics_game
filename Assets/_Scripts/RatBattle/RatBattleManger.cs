@@ -34,6 +34,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     [Header("Friend")]
     GameObject _friendGO;
+    bool _isFriendSpawned;
 
     [Header("Conversation")]
     [SerializeField] Conversation _friendComes;
@@ -43,6 +44,8 @@ public class RatBattleManger : Singleton<RatBattleManger>
     [Header("Rats")]
     [SerializeField] GameObject _ratPrefab;
     [SerializeField] Brain[] _ratBrains;
+    [SerializeField] Brain _bossBrain;
+    int _ratsKilled = 0;
 
     protected override void Awake()
     {
@@ -68,7 +71,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _battleInputController = BattleInputController.Instance;
         _highlightManager = HighlightManager.Instance;
         _ratBattleShapesPainter = GetComponent<RatBattleShapesPainter>();
-        
+
         LightManager.Instance.Initialize(_globalLight);
 
         MapSetUp();
@@ -86,9 +89,11 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await Task.Yield();
         // water spreads every turn
         // await SpreadWater();
-
-        // if (TurnManager.CurrentTurn == 1)
-        //     InstantiateWater(new Vector3(4.5f, 4.5f));
+        if (_ratsKilled >= 1 && !_isFriendSpawned)
+        {
+            await SpawnFriend();
+            _isFriendSpawned = true;
+        }
 
         // if (TurnManager.CurrentTurn == 4) // TODO: normally 5th turn? 
         //     await SpawnFriend();
@@ -115,26 +120,49 @@ public class RatBattleManger : Singleton<RatBattleManger>
             new Vector3(8.5f, -4.5f),
         };
 
-        foreach (Vector3 pos in positions)
-            SpawnRat(pos);
-    }
-
-    void SpawnRat(Vector3 pos)
-    {
         EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
         enemySO.CreateEnemy(1, _ratBrains[Random.Range(0, _ratBrains.Length)]);
-        Character instantiatedSO = Instantiate(enemySO);
+
+        foreach (Vector3 pos in positions)
+            SpawnEnemy(pos, enemySO, Vector3.one);
+    }
+
+    GameObject SpawnEnemy(Vector3 pos, EnemyCharacter enemyCharacter, Vector3 scale)
+    {
+        Character instantiatedSO = Instantiate(enemyCharacter);
         GameObject enemyGO = Instantiate(_ratPrefab, pos, Quaternion.identity);
         instantiatedSO.Initialize(enemyGO);
         enemyGO.name = instantiatedSO.CharacterName;
         enemyGO.transform.parent = _envObjectsHolder.transform;
+        enemyGO.GetComponent<CharacterStats>().OnCharacterDeath += OnRatDeath;
 
         // rat specific stat machinations
         CharacterStats stats = enemyGO.GetComponent<CharacterStats>();
         stats.SetCharacteristics(instantiatedSO);
         CharacterRendererManager characterRendererManager = enemyGO.GetComponentInChildren<CharacterRendererManager>();
         characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
+        characterRendererManager.transform.localScale = scale;
         characterRendererManager.Face(Vector2.down);
+
+        return enemyGO;
+    }
+
+    void OnRatDeath(GameObject obj)
+    {
+        _ratsKilled++;
+        if (_ratsKilled == 1)
+            SpawnBoss();
+    }
+
+    void SpawnBoss()
+    {
+        Vector3 bossSpawnPosition = new Vector3(18.5f, -11.5f);
+        EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
+        enemySO.CreateEnemy(1, _bossBrain);
+
+        GameObject boss = SpawnEnemy(bossSpawnPosition, enemySO, Vector3.one * 3f);
+        boss.GetComponentInChildren<CharacterRendererManager>().transform.localPosition = new Vector3(0, 0.3f); // moving it to be more centered
+        _turnManager.AddEnemy(boss);
     }
 
     async Task SetupAstar()
@@ -145,10 +173,10 @@ public class RatBattleManger : Singleton<RatBattleManger>
         GridGraph gg = data.gridGraph;
 
         // Setup a grid graph with some values
-        int width = 20;
-        int depth = 20;
+        int width = 40;
+        int depth = 40;
         float nodeSize = 1;
-        gg.center = new Vector3(5, 5, 0);
+        gg.center = new Vector3(10, 0, 0);
 
         // Updates internal size from the above values
         gg.SetDimensions(width, depth, nodeSize);
@@ -227,14 +255,15 @@ public class RatBattleManger : Singleton<RatBattleManger>
         instantiatedSO.Initialize(_friendGO);
         _friendGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
         _friendGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.down);
-        _friendGO.tag = Tags.IdleCharacter;
+        _turnManager.AddPlayer(_friendGO);
 
         await Task.Delay(10);
         _battleInputController.SetInputAllowed(false);
-        await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-3.5f, 6.5f));
+        await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-0.5f, 2.5f));
         await _conversationManager.PlayConversation(_friendComes);
         _battleInputController.SetInputAllowed(true);
         _cameraManager.SetTarget(_movePointController.transform);
+        _friendGO.GetComponent<CharacterSelection>().ToggleSelectionArrow(true);
     }
 
     async Task FriendElectrifies()

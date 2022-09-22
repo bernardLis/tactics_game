@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 55702295-66f4-4296-8e5e-8afaac1962cb
   SpeakerCharacter: {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
-  Text: I'll tell you once you deal with this mess.
+  Text: I will help you with those nasty rats and then I will tell you about my quest.
   Clip: {fileID: 0}
   DisplayQuadrant: 2

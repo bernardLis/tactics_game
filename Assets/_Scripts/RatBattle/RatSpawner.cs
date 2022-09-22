@@ -53,7 +53,7 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
     {
         // get all with tag enemy, if there are less than 4, spawn rats
         GameObject[] rats = GameObject.FindGameObjectsWithTag("Enemy");
-        if (rats.Length < 4 && !IsSpawnCovered())
+        if (rats.Length < 2 && !IsSpawnCovered())
             SpawnRat();
     }
 
