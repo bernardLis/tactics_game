@@ -58,7 +58,10 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
         if (_selfCollider != null)
             _selfCollider.enabled = true;
 
-        FindObjectOfType<BoardManager>().AddEnvObject(transform);
+        BoardManager bm = FindObjectOfType<BoardManager>();
+        if (bm)
+            bm.AddEnvObject(transform);
+
         FlickerLight();
     }
 
@@ -101,7 +104,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
         _finalPos = transform.position + dir;
 
         _selfCollider.enabled = false;
-        
+
         OnPushed?.Invoke();
 
         await MoveToPosition(_finalPos, 0.5f);
@@ -147,7 +150,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
                 continue;
             }
 
-            // character destroys boulder when they are pushed into it
+            // both boulders are destoryed
             if (c.CompareTag(Tags.PushableObstacle))
             {
                 await CollideWithDestructible(ability, c);
@@ -189,6 +192,9 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public async Task CollideWithDestructible(Ability ability, Collider2D col)
     {
+        if (col.TryGetComponent(out PushableObstacle pushable))
+            await pushable.DestroySelf();
+
         await DestroySelf();
     }
 

@@ -192,9 +192,6 @@
     <ui:VisualElement name="battleHelperTextContainer" class="textPrimary" style="position: absolute; width: 100%; height: 50px; flex-direction: row; align-items: stretch; justify-content: center; display: none;">
         <ui:Label text="Select a character" display-tooltip-when-elided="true" name="battleHelperText" />
     </ui:VisualElement>
-    <ui:VisualElement name="battleGoalContainer" style="position: absolute; right: 0; display: none;">
-        <ui:Label text="Goal: Defeat all enemies" display-tooltip-when-elided="true" class="textPrimary" />
-    </ui:VisualElement>
     <ui:VisualElement name="battleLogContainer" class="textPrimary" style="top: auto; align-items: stretch; display: flex; flex-direction: column-reverse; justify-content: flex-end; bottom: 200px; position: absolute; background-color: rgba(0, 0, 0, 0.2); left: 15px; min-width: 20%; min-height: 270px;">
         <ui:VisualElement class="battleLogLine">
             <ui:Label text="haba aba abab ba aba " display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />

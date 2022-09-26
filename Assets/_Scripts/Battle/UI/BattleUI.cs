@@ -21,8 +21,6 @@ public class BattleUI : Singleton<BattleUI>
 
     VisualElement _battleLogContainer;
 
-    VisualElement _battleGoalContainer;
-
     VisualElement _battleEndContainer;
     Label _battleEndText;
     VisualElement _battleEndGoalContainer;
@@ -53,7 +51,6 @@ public class BattleUI : Singleton<BattleUI>
 
         _battleHelperTextContainer = Root.Q<VisualElement>("battleHelperTextContainer");
         _battleHelperText = Root.Q<Label>("battleHelperText");
-        _battleGoalContainer = Root.Q<VisualElement>("battleGoalContainer");
 
         _turnTextContainer = Root.Q<VisualElement>("turnTextContainer");
         _turnText = Root.Q<Label>("turnText");
@@ -137,9 +134,6 @@ public class BattleUI : Singleton<BattleUI>
 
     void HandlePlayerTurn()
     {
-        if (TurnManager.CurrentTurn == 1)
-            DisplayBattleGoal();
-
         _battleHelperTextContainer.style.display = DisplayStyle.Flex;
         UpdateBattleHelperText($"Your turn. Select a character");
         DisplayTurnText("TURN " + TurnManager.CurrentTurn.ToString() + " - PLAYER");
@@ -148,8 +142,6 @@ public class BattleUI : Singleton<BattleUI>
     void HandleEnemyTurn() { UpdateBattleHelperText($"Turn {TurnManager.CurrentTurn.ToString()}. Enemy turn."); }
 
     void UpdateBattleHelperText(string txt) { _battleHelperText.text = txt; }
-
-    void DisplayBattleGoal() { _battleGoalContainer.style.display = DisplayStyle.Flex; }
 
     public void DisplayBattleLog(BattleLogLine element)
     {
@@ -263,7 +255,6 @@ public class BattleUI : Singleton<BattleUI>
     void ShowBattleEndScreen()
     {
         _turnTextContainer.style.display = DisplayStyle.None;
-        _battleGoalContainer.style.display = DisplayStyle.None;
         _battleHelperTextContainer.style.display = DisplayStyle.None;
 
         _battleEndGoalContainer.Clear();

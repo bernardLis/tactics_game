@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ba5f980ebd23c408a51d28bddd5bf9, type: 3}
-  m_Name: FriendElectrifies
+  m_Name: FriendCommentsOnRatBoss
   m_EditorClassIdentifier: 
   Id: ca4fb6b9-c001-4de9-bdfe-3617e3496292
   Seen: 0

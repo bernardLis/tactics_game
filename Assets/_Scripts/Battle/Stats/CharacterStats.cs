@@ -65,6 +65,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     [SerializeField] GameObject _levelUpEffect;
 
     // delegates
+    public event Action OnCharacterInitialized;
     public event Action<GameObject> OnCharacterDeath;
     public event Action<int, int, int> OnHealthChanged; // total,  value before change, change 
     public event Action<int, int, int> OnManaChanged;
@@ -146,6 +147,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         Character.OnCharacterLevelUp += OnCharacterLevelUp;
         Character.OnCharacterExpGain += OnCharacterExpGain;
         InitializeCharacter();
+        OnCharacterInitialized?.Invoke();
     }
 
     void OnCharacterLevelUp()

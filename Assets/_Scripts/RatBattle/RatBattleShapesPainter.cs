@@ -198,14 +198,14 @@ public class RatBattleShapesPainter : ImmediateModeShapeDrawer
 
             if (DrawPushAgainText())
             {
-                Draw.Text(new Vector3(3.5f, -0.5f), "Good job!", TextAlign.Left, 4, Color.white);
-                Draw.Text(new Vector3(7.5f, -0.5f), "Push it one more time.", TextAlign.Left, 4, Color.white);
+                Draw.Text(new Vector3(1f,-0.5f), "Good job!", TextAlign.Left, 4, Color.white);
+                Draw.Text(new Vector3(4.5f,-0.5f), "Push it one more time.", TextAlign.Left, 4, Color.white);
             }
 
             if (DrawBattleText())
             {
                 // Draw.Text(testVector1, "Attacking from the front or sides allows opponent to retaliate.", TextAlign.Left, 4, Color.black);
-                //  Draw.Text(testVector2, "Each character has one retaliation per turn.", TextAlign.Left, 4, Color.black);
+                Draw.Text(new Vector3(4.5f,-0.5f), "Now deal with those pesky critters.", TextAlign.Left, 4, Color.white);
             }
         }
     }

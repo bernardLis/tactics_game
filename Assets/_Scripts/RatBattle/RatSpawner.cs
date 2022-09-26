@@ -77,7 +77,7 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         return false;
     }
 
-    void SpawnRat()
+    public void SpawnRat()
     {
         Vector3 pos = ChooseSpawnPosition();
         if (pos == Vector3.zero)

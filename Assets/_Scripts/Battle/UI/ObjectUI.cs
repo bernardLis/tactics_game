@@ -31,12 +31,19 @@ public class ObjectUI : MonoBehaviour
         StartCoroutine(CoroutineCoordinator());
         _battleManager.OnGamePaused += OnGamePaused;
         _battleManager.OnGameResumed += OnGameResumed;
-
     }
 
     void OnGamePaused() { _characterNameLabel.style.display = DisplayStyle.None; }
 
     void OnGameResumed() { _characterNameLabel.style.display = DisplayStyle.Flex; }
+
+    public void ToggleCharacterNameDisplay(bool isDisplayed)
+    {
+        if (isDisplayed)
+            _characterNameLabel.style.display = DisplayStyle.Flex;
+        else
+            _characterNameLabel.style.display = DisplayStyle.None;
+    }
 
     void SetNameLabelColor()
     {

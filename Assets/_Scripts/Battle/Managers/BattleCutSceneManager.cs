@@ -15,12 +15,12 @@ public class BattleCutSceneManager : Singleton<BattleCutSceneManager>
         _cameraManager = Camera.main.GetComponent<BattleCameraManager>();
     }
 
-    public async Task WalkCharacterTo(GameObject character, Vector3 endPos)
+    public async Task WalkCharacterTo(GameObject character, Vector3 endPos, float speed = 2)
     {
         _cameraManager.SetTarget(character.transform);
         // TODO: I should have a component that I can call to move someone from place to place (awaitable ideally)
         AILerp aiLerp = character.GetComponent<AILerp>();
-        aiLerp.speed = 2;
+        aiLerp.speed = speed;
         // Create a new Path object
         ABPath path = ABPath.Construct(character.transform.position, endPos, null);
         // Calculate the path

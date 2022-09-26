@@ -27,6 +27,10 @@ public class RatBattleManger : Singleton<RatBattleManger>
     [SerializeField] Light2D _globalLight;
     [SerializeField] GameObject _waterOnTile;
     [SerializeField] GameObject _envObjectsHolder;
+    [SerializeField] GameObject _boulderBlockingRats;
+    [SerializeField] GameObject _boulderBlockingBoss;
+    [SerializeField] GameObject _fogOfWarRats;
+    [SerializeField] GameObject _fogOfWarBoss;
 
     [Header("Player")]
     [SerializeField] GameObject _playerPrefab;
@@ -38,13 +42,15 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     [Header("Conversation")]
     [SerializeField] Conversation _friendComes;
-    [SerializeField] Conversation _friendElectrifies;
-
+    [SerializeField] Conversation _friendComments;
 
     [Header("Rats")]
     [SerializeField] GameObject _ratPrefab;
     [SerializeField] Brain[] _ratBrains;
     [SerializeField] Brain _bossBrain;
+    [SerializeField] RatSpawner _ratSpawner;
+    List<GameObject> _spawnedRats = new();
+    GameObject _boss;
     int _ratsKilled = 0;
 
     protected override void Awake()
@@ -76,6 +82,9 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
         MapSetUp();
         SpawnFirstRats();
+        SpawnBoss();
+
+        _boulderBlockingRats.GetComponent<PushableObstacle>().OnPushed += OnBoulderBlockingRatsPushed;
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
@@ -87,19 +96,11 @@ public class RatBattleManger : Singleton<RatBattleManger>
     async void HandlePlayerTurn()
     {
         await Task.Yield();
-        // water spreads every turn
-        // await SpreadWater();
-        if (_ratsKilled >= 1 && !_isFriendSpawned)
+        if (_ratsKilled == 2 && !_isFriendSpawned)
         {
             await SpawnFriend();
             _isFriendSpawned = true;
         }
-
-        // if (TurnManager.CurrentTurn == 4) // TODO: normally 5th turn? 
-        //     await SpawnFriend();
-
-        //  if (TurnManager.CurrentTurn == 7) // TODO: normally 7th turn? 
-        //        await FriendElectrifies();
     }
 
     async void MapSetUp()
@@ -108,6 +109,10 @@ public class RatBattleManger : Singleton<RatBattleManger>
         AudioManager.Instance.PlayAmbience(_ambience);
         await SetupAstar();
         await SpawnPlayer();
+
+        foreach (GameObject rat in _spawnedRats)
+            rat.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false);
+
         await WalkPlayer();
         await _cameraManager.LerpOrthographicSize(7, 1);
         _turnManager.UpdateBattleState(BattleState.PlayerTurn);
@@ -124,7 +129,11 @@ public class RatBattleManger : Singleton<RatBattleManger>
         enemySO.CreateEnemy(1, _ratBrains[Random.Range(0, _ratBrains.Length)]);
 
         foreach (Vector3 pos in positions)
-            SpawnEnemy(pos, enemySO, Vector3.one);
+        {
+            GameObject rat = SpawnEnemy(pos, enemySO, Vector3.one * 1.5f);
+            //   rat.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false);
+            _spawnedRats.Add(rat);
+        }
     }
 
     GameObject SpawnEnemy(Vector3 pos, EnemyCharacter enemyCharacter, Vector3 scale)
@@ -147,22 +156,15 @@ public class RatBattleManger : Singleton<RatBattleManger>
         return enemyGO;
     }
 
-    void OnRatDeath(GameObject obj)
-    {
-        _ratsKilled++;
-        if (_ratsKilled == 1)
-            SpawnBoss();
-    }
-
     void SpawnBoss()
     {
         Vector3 bossSpawnPosition = new Vector3(18.5f, -11.5f);
         EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
         enemySO.CreateEnemy(1, _bossBrain);
 
-        GameObject boss = SpawnEnemy(bossSpawnPosition, enemySO, Vector3.one * 3f);
-        boss.GetComponentInChildren<CharacterRendererManager>().transform.localPosition = new Vector3(0, 0.3f); // moving it to be more centered
-        _turnManager.AddEnemy(boss);
+        _boss = SpawnEnemy(bossSpawnPosition, enemySO, Vector3.one * 3f);
+        _boss.GetComponentInChildren<CharacterRendererManager>().transform.localPosition = new Vector3(0, 0.3f); // moving it to be more centered
+        _boss.SetActive(false);
     }
 
     async Task SetupAstar()
@@ -208,38 +210,31 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await Task.Delay(200);
         _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
     }
-
-    async Task SpreadWater()
+    void OnBoulderBlockingRatsPushed()
     {
-        GameObject[] water = GameObject.FindGameObjectsWithTag(Tags.WaterOnTile);
-        if (water.Length == 0)
-            return;
+        SpriteRenderer sr = _fogOfWarRats.GetComponentInChildren<SpriteRenderer>();
+        sr.DOColor(new Color(0f, 0f, 0f, 0f), 1f);
 
-        foreach (GameObject w in water)
-            for (int x = -1; x <= 1; x++)
-                for (int y = -1; y < 1; y++)
-                    InstantiateWater(new Vector3(w.transform.position.x + x, w.transform.position.y + y));
-
-        await Task.Yield(); // to silnce the warning
+        foreach (GameObject rat in _spawnedRats)
+            rat.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(true);
     }
 
-    async void InstantiateWater(Vector3 pos)
+    void OnRatDeath(GameObject obj)
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
-        foreach (Collider2D c in cols)
-            if (c.CompareTag(Tags.WaterOnTile) || c.CompareTag(Tags.BoundCollider))
-                return;
+        _ratsKilled++;
+        if (_ratsKilled == 1)
+            ActivateSecondRoom();
+    }
 
-        GameObject w = Instantiate(_waterOnTile, pos, Quaternion.identity);
-        await w.GetComponent<WaterOnTile>().Initialize(pos, null, Tags.Player);
-        SpriteRenderer sr = w.GetComponent<SpriteRenderer>();
-        sr.color = new Color(1f, 1f, 1f, 0f);
-        w.transform.parent = _envObjectsHolder.transform;
+    async void ActivateSecondRoom()
+    {
+        _boss.SetActive(true);
+        TurnManager.Instance.AddEnemy(_boss);
+        await Task.Delay(10);
+        _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false);
+        // TODO: prolly need to add it to the enemy roster
 
-        Color targetColor = new Color(1f, 1f, 1f, 0.5f);
-        await Task.Delay(50);
-        if (w != null && sr != null)
-            sr.DOColor(targetColor, 10f);
+        _ratSpawner.gameObject.SetActive(true);
     }
 
     async Task SpawnFriend()
@@ -259,33 +254,39 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
         await Task.Delay(10);
         _battleInputController.SetInputAllowed(false);
-        await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-0.5f, 2.5f));
+        await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-0.5f, 2.5f), 5);
         await _conversationManager.PlayConversation(_friendComes);
+        await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(4.5f, -6.5f), 5);
+        await FriendDestroysBoulder();
+        await _conversationManager.PlayConversation(_friendComments);
+        _ratSpawner.SpawnRat();
+        _ratSpawner.SpawnRat();
+
         _battleInputController.SetInputAllowed(true);
         _cameraManager.SetTarget(_movePointController.transform);
-        _friendGO.GetComponent<CharacterSelection>().ToggleSelectionArrow(true);
     }
 
-    async Task FriendElectrifies()
+    async Task FriendDestroysBoulder()
     {
-        _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.left);
+        Debug.Log("friend destroys");
 
-        Debug.Log("friend electrifies");
-        _battleInputController.SetInputAllowed(false);
-        await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-3.5f, 3.5f));
-        await _conversationManager.PlayConversation(_friendElectrifies);
-
+        _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.down);
         _cameraManager.SetTarget(_movePointController.transform);
 
         // use ability
         CharacterStats stats = _friendGO.GetComponent<CharacterStats>();
-        Vector3 attackPos = new Vector3(4.5f, 3.5f);
-        await Task.Delay(200);
+        Vector3 attackPos = _boulderBlockingBoss.transform.position;
+        await Task.Delay(300);
         _friendGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
 
         _movePointController.transform.position = attackPos;
-        await stats.Abilities[0].HighlightAreaOfEffect(attackPos);
-        await Task.Delay(200);
+        await stats.Abilities[0].HighlightAreaOfEffect(attackPos);//TODO: risky bisquits
+        await Task.Delay(500);
         await stats.Abilities[0].TriggerAbility(_highlightManager.HighlightedTiles);
+        await _highlightManager.ClearHighlightedTiles();
+        _friendGO.GetComponent<CharacterSelection>().FinishCharacterTurn();
+        SpriteRenderer sr = _fogOfWarBoss.GetComponentInChildren<SpriteRenderer>();
+        _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(true);
+        sr.DOColor(new Color(0f, 0f, 0f, 0f), 1f);
     }
 }

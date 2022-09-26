@@ -56,6 +56,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -340,10 +341,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828762d5ac4a249429400973d63803ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spotLightPrefab: {fileID: 0}
-  _tileMapObject: {fileID: 0}
+  Status: {fileID: 0}
   _shadow: {fileID: 0}
-  _poofEffect: {fileID: 0}
+  _poofEffect: {fileID: 6199452303025352576, guid: 9dc785d8caff2f9498a74a906c904e01, type: 3}
 --- !u!4 &304524141997925783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7512957698282176493, guid: a549c98ce7982e049a7ea6344afcc711, type: 3}
