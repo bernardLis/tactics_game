@@ -97,8 +97,8 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
             await Task.Yield();
         }
         Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
-
         Destroy(_shadow);
+        AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);
 
         boulderRenderer.sortingOrder = 50;
     }
@@ -197,10 +197,10 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public async Task CollideWithDestructible(Ability ability, Collider2D col)
     {
+        await DestroySelf(false, false);
+
         if (col.TryGetComponent(out PushableObstacle pushable))
             await pushable.DestroySelf();
-
-        await DestroySelf();
     }
 
     public async Task CollideWithFire(Ability ability, Collider2D col)
@@ -215,23 +215,24 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
             await waterOnTile.DestroySelf();
     }
 
-
-    public override async Task DestroySelf()
+    public override async Task DestroySelf(bool playEffects = true, bool scanAstar = true)
     {
-        Debug.Log($"destroy self");
-        _selfCollider.enabled = false; // HERE: astar graph is not updated after the boulder falls and destorys
-        ScanAstar();
+        _selfCollider.enabled = false;
+        if (scanAstar)
+            ScanAstar();
 
-        Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
         transform.DOKill();
-
-        AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);
-        Animator anim = GetComponent<Animator>();
-        if (anim != null)
-            anim.Play("Stone Breaking");
-        // TODO: waiting for animation to finish... too hard for now.
-        // I think the animation is too short, I don't get it when I ask anim - I get new state
-        await Task.Delay(500);
+        if (playEffects == false)
+        {
+            Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
+            AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);
+            Animator anim = GetComponent<Animator>();
+            if (anim != null)
+                anim.Play("Stone Breaking");
+            // TODO: waiting for animation to finish... too hard for now.
+            // I think the animation is too short, I don't get it when I ask anim - I get new state
+            await Task.Delay(500);
+        }
 
         Destroy(gameObject);
     }

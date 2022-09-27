@@ -248,6 +248,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await Task.Delay(10);
         _battleInputController.SetInputAllowed(false);
         await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(-0.5f, 2.5f), 5);
+        _friendGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
         await _conversationManager.PlayConversation(_friendComes);
         await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(4.5f, -6.5f), 5);
         await FriendDestroysBoulder();

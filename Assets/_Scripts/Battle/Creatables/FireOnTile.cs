@@ -183,7 +183,7 @@ public class FireOnTile : Creatable
     }
 
 
-    public override async Task DestroySelf()
+    public override async Task DestroySelf(bool playEffects = true, bool scanAstar = true)
     {
         // TODO: different effect;
         Destroy(Instantiate(_spreadEffect, transform.position, Quaternion.identity), 1f);

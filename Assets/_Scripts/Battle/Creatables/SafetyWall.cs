@@ -56,7 +56,7 @@ public class SafetyWall : Creatable, ICreatable<Vector3, Ability, string>
         stats.RemoveStatus(Status);
     }
 
-    public override async Task DestroySelf()
+    public override async Task DestroySelf(bool playEffects = true, bool scanAstar = true)
     {
         if (_shieldedCharacter != null)
             RemoveShield(_shieldedCharacter);

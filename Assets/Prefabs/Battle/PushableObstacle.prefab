@@ -206,8 +206,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -441805081
-  m_SortingLayer: 2
+  m_SortingLayerID: -841411547
+  m_SortingLayer: 3
   m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: 399fcb7fde9ef0d44b4aa1b77d3e855c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -252,7 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c031f926b01d2749b556862f0229f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spotLightPrefab: {fileID: 0}
-  _tileMapObject: {fileID: 0}
+  Status: {fileID: 0}
   _shadow: {fileID: 1876863170238891852}
   _poofEffect: {fileID: 6199452303025352576, guid: 9dc785d8caff2f9498a74a906c904e01, type: 3}

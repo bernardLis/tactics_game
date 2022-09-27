@@ -17,6 +17,7 @@ public class BattleCutSceneManager : Singleton<BattleCutSceneManager>
 
     public async Task WalkCharacterTo(GameObject character, Vector3 endPos, float speed = 2)
     {
+        Vector3 finalPos = CheckPosition(endPos); // checks if position is taken
         _cameraManager.SetTarget(character.transform);
         // TODO: I should have a component that I can call to move someone from place to place (awaitable ideally)
         AILerp aiLerp = character.GetComponent<AILerp>();
@@ -38,5 +39,26 @@ public class BattleCutSceneManager : Singleton<BattleCutSceneManager>
         while (!aiLerp.reachedEndOfPath)
             await Task.Yield();
     }
+
+    Vector3 CheckPosition(Vector3 pos)
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, 0.2f);
+        if (cols.Length == 0)
+            return pos;
+
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                Vector3 newPos = pos + new Vector3(x, y);
+                Collider2D[] newCols = Physics2D.OverlapCircleAll(newPos, 0.2f);
+                if (newCols.Length == 0)
+                    return newPos;
+            }
+        }
+
+        return Vector3.zero;
+    }
+
 
 }

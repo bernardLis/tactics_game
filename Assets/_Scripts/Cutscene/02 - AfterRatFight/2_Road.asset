@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29659518cc3fdcf4288754c6009f9813, type: 3}
+  m_Name: 2_Road
+  m_EditorClassIdentifier: 
+  Id: 122b18e6-1588-4b92-8f4c-c8e9c78cd569
+  Picture: {fileID: 21300000, guid: ea75b9592f1ec4a49b0e5082d67ede95, type: 3}
+  Text: "You knew that road to the city is full of bandits and other various dangers.
+    You knew you could not let your friend go alone. Therefore, you have promptly
+    packed a few essentials and set out to deliver a parcel.\r"
+  CameraPanDirection: {x: 1, y: 1}
+  ZoomCameraIn: 1
+  TextToSpeech: {fileID: 11400000, guid: f1c2f9cbbe51f4444a089f895a076156, type: 2}

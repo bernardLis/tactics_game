@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4323b47beef275e4f8e950dcda9c7e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _check: {fileID: 0}
+  _check: {fileID: -6090568113533005507, guid: 1400ee94531d8e74c98f3ee11827f3bf, type: 3}
 --- !u!114 &3439563075464766531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,13 +88,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c131624a6a1d747a0f205f26471128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ambience: {fileID: 0}
+  _ambience: {fileID: 11400000, guid: 4c9a6afcf04e3f04ca204cc3f56be5bb, type: 2}
   _graphData: {fileID: 4900000, guid: b51911a0e223f2d459dd65eaabbf2dee, type: 3}
   _globalLight: {fileID: 0}
   _waterOnTile: {fileID: 2389397590401772879, guid: d8e2fd09323c0504caed8a395dd232d1, type: 3}
   _envObjectsHolder: {fileID: 0}
+  _boulderBlockingRats: {fileID: 0}
+  _boulderBlockingBoss: {fileID: 0}
+  _fogOfWarRats: {fileID: 0}
+  _fogOfWarBoss: {fileID: 0}
   _playerPrefab: {fileID: 6105715623576548083, guid: 5292bfb2a93455445be59d39c398d325, type: 3}
-  _helloRats: {fileID: 11400000, guid: ccae3ac0b4966c74580731904f3879bf, type: 2}
-  _move: {fileID: 11400000, guid: f029c7669a47c4d4f92d3e9cbfc5de32, type: 2}
   _friendComes: {fileID: 11400000, guid: 4c5d2edb6ed56314b87a99edf05feb8d, type: 2}
-  _friendElectrifies: {fileID: 11400000, guid: 0e4de90d0bcd9fc418db6f051156c5d3, type: 2}
+  _friendComments: {fileID: 11400000, guid: 0e4de90d0bcd9fc418db6f051156c5d3, type: 2}
+  _ratPrefab: {fileID: 3387775229403623854, guid: b81a4c5ec70160849a703e08180495d1, type: 3}
+  _ratBrains:
+  - {fileID: 11400000, guid: 2f4cdddfb54061f4daccdacf5bbd5806, type: 2}
+  - {fileID: 11400000, guid: 2031575a5efb1e3448e5eaef2edd666a, type: 2}
+  _bossBrain: {fileID: 11400000, guid: 6bbb58bb77afbf748bb2dd097d69e6c6, type: 2}
+  _ratSpawner: {fileID: 0}
+--- !u!114 &98134241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461571229676209144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01f956b3310d594aad19ff9f7c17a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useCullingMasks: 0
+  _boulderBlockingRats: {fileID: 0}
+  testVector1: {x: 0, y: 0, z: 0}
+  testVector2: {x: 0, y: 0, z: 0}

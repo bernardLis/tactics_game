@@ -20,6 +20,7 @@ public class CharacterSelection : MonoBehaviour
     Color _grayOutColor;
 
     [SerializeField] protected SelectionArrow _selectionArrow;
+    SpriteRenderer _selectionArrowRenderer;
 
     public bool HasFinishedTurn { get; protected set; }
 
@@ -36,6 +37,7 @@ public class CharacterSelection : MonoBehaviour
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 
         _grayOutColor = Helpers.GetColor("gray");
+        _selectionArrowRenderer = _selectionArrow.GetComponent<SpriteRenderer>();
 
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
     }
@@ -95,10 +97,12 @@ public class CharacterSelection : MonoBehaviour
     {
         if (gameObject == null)
             return;
-        // https://stackoverflow.com/questions/2804395/c-sharp-4-0-can-i-use-a-color-as-an-optional-parameter-with-a-default-value
         Color c = color ?? Color.white;
+        SetSelectionArrowColor(c);
+        // https://stackoverflow.com/questions/2804395/c-sharp-4-0-can-i-use-a-color-as-an-optional-parameter-with-a-default-value
         _selectionArrow.gameObject.SetActive(isActive);
-        _selectionArrow.GetComponent<SpriteRenderer>().color = c;
     }
+
+    public void SetSelectionArrowColor(Color color) { _selectionArrowRenderer.color = color; }
 
 }

@@ -20,11 +20,14 @@ MonoBehaviour:
   Body: {fileID: 11400000, guid: 017f3f0d6106afe4d93046ae90bd5c2d, type: 2}
   Weapon: {fileID: 0}
   Target: {fileID: 0}
-  AbilitiesToInstantiate: []
+  AbilitiesToInstantiate:
+  - {fileID: 11400000, guid: f28e9d3fc11ddb941b818253e0a818e4, type: 2}
+  - {fileID: 11400000, guid: 506c6b01a05d40140a23518fb9667747, type: 2}
+  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities: []
   ManualStats: 1
   Level: 3
-  Power: 10
+  Power: 5
   MaxHealth: 100
   MaxMana: 30
   Armor: 0

@@ -115,6 +115,7 @@ public class ConversationManager : Singleton<ConversationManager>
         _conversationTooltip.transform.scale = Vector3.one;
 
         _conversationContainer.style.display = DisplayStyle.None;
+        AudioManager.Instance.StopDialogue();
     }
 
 
@@ -124,15 +125,27 @@ public class ConversationManager : Singleton<ConversationManager>
         // ArgumentException: Event must be a StateEvent or DeltaStateEvent but is a TEXT instead
         _conversationPortrait.style.backgroundImage = new StyleBackground(line.SpeakerCharacter.Portrait);
 
+        float letterPrintingDelay = 0.05f;
+        if (line.VO)
+        {
+            AudioManager.Instance.StopDialogue();
+            AudioManager.Instance.PlayDialogue(line.VO);
+            char[] charArray = line.Text.ToCharArray();
+
+            float duration = line.VO.Clips[0].length * 1000; // magic 1 second ....
+            letterPrintingDelay = Mathf.FloorToInt(duration) / charArray.Length;//- 10; // magic -10
+            letterPrintingDelay *= 0.001f;
+        }
+
         ShowUI(line.DisplayQuadrant);
         _currentText = line.Text;
-        SetText();
+        SetText(letterPrintingDelay);
 
         await Task.Delay(200); // to prevent skipping multiple steps on one click
         InputSystem.onAnyButtonPress.CallOnce((key) => KeyPressed());
     }
 
-    public void SetText()
+    public void SetText(float letterPrintingDelay)
     {
         _conversationText.Clear();
         _conversationText.style.color = Color.white;
@@ -140,7 +153,9 @@ public class ConversationManager : Singleton<ConversationManager>
         if (_typeTextCoroutine != null)
             StopCoroutine(_typeTextCoroutine);
 
-        _typeTextCoroutine = TypeText(_currentText);
+        Debug.Log($"letter printing delay {letterPrintingDelay}");
+
+        _typeTextCoroutine = TypeText(_currentText, letterPrintingDelay);
         StartCoroutine(_typeTextCoroutine);
         _printTextCoroutineFinished = false;
     }
@@ -162,7 +177,7 @@ public class ConversationManager : Singleton<ConversationManager>
         return _printTextCoroutineFinished;
     }
 
-    IEnumerator TypeText(string text)
+    IEnumerator TypeText(string text, float letterPrintingDelay)
     {
         _conversationText.text = "";
         char[] charArray = text.ToCharArray();
@@ -173,7 +188,7 @@ public class ConversationManager : Singleton<ConversationManager>
             if (i == charArray.Length - 1)
                 _printTextCoroutineFinished = true;
 
-            yield return new WaitForSeconds(0.09f);
+            yield return new WaitForSeconds(letterPrintingDelay);
         }
     }
 }

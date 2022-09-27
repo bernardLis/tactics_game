@@ -59,8 +59,6 @@ public abstract class VisualWithTooltip : VisualElement
         _tooltip.SetEnabled(false);
         if (_tooltip.parent == root)
             root.Remove(_tooltip);
-        else
-            Debug.Log($"whose my daddy? {_tooltip.parent}");
         _tooltip = null;
     }
 

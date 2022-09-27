@@ -160,7 +160,7 @@ public class WaterOnTile : Creatable
         return new Label("Water. Makes characters wet. Can be electrified.");
     }
 
-    public override async Task DestroySelf()
+    public override async Task DestroySelf(bool playEffects = true, bool scanAstar = true)
     {
         // TODO: an effect;
         await base.DestroySelf();

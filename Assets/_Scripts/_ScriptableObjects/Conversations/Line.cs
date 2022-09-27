@@ -8,7 +8,7 @@ public class Line : BaseScriptableObject
 	public Character SpeakerCharacter;
 	[TextArea(2,5)]
 	public string Text;
-	public AudioClip Clip;
+	public Sound VO;
 
     [Tooltip("0: bottom left, 1: bottom right, 2: top left, 3: top right")]
     public int DisplayQuadrant = 0;

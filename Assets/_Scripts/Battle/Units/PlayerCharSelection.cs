@@ -52,6 +52,7 @@ public class PlayerCharSelection : CharacterSelection
     public void DeselectCharacter()
     {
         GetComponent<SortingGroup>().sortingOrder = 90;
+        SetSelectionArrowColor(Color.white);
     }
 
 

@@ -28,7 +28,6 @@ public class RatWinScreenManager : MonoBehaviour
             return;
             
         DefeatedAllEnemies();
-        WasElectrified();
         CoveredRatSpawners();
         FoundCollectible();
 
@@ -62,28 +61,6 @@ public class RatWinScreenManager : MonoBehaviour
         _battleUI.AddGoalToBattleEndScreen(container);
     }
 
-    void WasElectrified()
-    {
-        GameObject player = TurnManager.Instance.GetPlayerCharacters()[0];
-        CharacterStats stats = player.GetComponent<CharacterStats>();
-
-        VisualElement container = GetGoalContainer();
-
-        bool isElectrified = false;
-        foreach (Status s in stats.Statuses)
-            if (s.ReferenceID == "ElectrifyStatus")
-                isElectrified = true;
-
-        if (!isElectrified)
-            container.Add(GetCheckElement(true));
-        else
-            container.Add(GetCheckElement(false));
-
-        TextWithTooltip l = new TextWithTooltip("I don't need a power nap.", "Don't get electrified.");
-        container.Add(l);
-        _battleUI.AddGoalToBattleEndScreen(container);
-    }
-
     void CoveredRatSpawners()
     {
         VisualElement container = GetGoalContainer();
@@ -99,7 +76,7 @@ public class RatWinScreenManager : MonoBehaviour
         else
             container.Add(GetCheckElement(false));
 
-        TextWithTooltip l = new TextWithTooltip("Strongman!", "Cover both grates with boulders.");
+        TextWithTooltip l = new TextWithTooltip("Better safe than sorry!", "Cover grate with boulder.");
         container.Add(l);
 
         _battleUI.AddGoalToBattleEndScreen(container);

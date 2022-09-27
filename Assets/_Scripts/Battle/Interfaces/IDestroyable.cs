@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 
 public interface IDestroyable
 {
-    public Task DestroySelf();
+    public Task DestroySelf(bool playEffects = true, bool scanAstar = true);
 }

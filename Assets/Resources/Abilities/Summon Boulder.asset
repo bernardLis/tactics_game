@@ -19,7 +19,7 @@ MonoBehaviour:
   Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 10
   ManaCost: 10
-  AbilityType: 5
+  AbilityType: 4
   WeaponType: 0
   AreaOfEffect: 0
   LineAreaOfEffect: 0
@@ -32,5 +32,6 @@ MonoBehaviour:
   CanTargetSelf: 0
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.8301887, g: 0.6209077, b: 0.33207545, a: 1}
+  Price: 1
   CharacterGameObject: {fileID: 0}
   CreatedObject: {fileID: 7512957698282176492, guid: a549c98ce7982e049a7ea6344afcc711, type: 3}

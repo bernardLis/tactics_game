@@ -64,7 +64,7 @@ public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, 
             await DestroySelf();
     }
 
-    public virtual async Task DestroySelf()
+    public virtual async Task DestroySelf(bool playEffects = true, bool scanAstar = true)
     {
         await Task.Delay(10);
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
@@ -76,7 +76,7 @@ public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, 
     void OnDestroy()
     {
         if (!this.gameObject.scene.isLoaded) return;
-        if (!this.gameObject.CompareTag(Tags.PushableObstacle)) return;
+        if (this.gameObject.CompareTag(Tags.PushableObstacle)) return;
         DestroySelf().GetAwaiter();
     }
 
