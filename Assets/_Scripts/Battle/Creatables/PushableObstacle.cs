@@ -16,7 +16,6 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
     [SerializeField] GameObject _poofEffect;
 
     // push
-    //BoxCollider2D _selfCollider;
     Vector3 _finalPos;
     protected CharacterStats _targetStats;
     protected int _damage = 50;
@@ -67,6 +66,9 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public async Task Fall(Vector3 pos)
     {
+        SpriteRenderer boulderRenderer = GetComponent<SpriteRenderer>();
+        boulderRenderer.sortingOrder = 99;
+
         _finalPos = pos;
 
         _shadow.SetActive(true);
@@ -97,6 +99,8 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
         Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
 
         Destroy(_shadow);
+
+        boulderRenderer.sortingOrder = 50;
     }
 
     public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
@@ -175,6 +179,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     void ScanAstar()
     {
+        Debug.Log($"Scanning astar");
         AstarPath.active.Scan();
     }
 
@@ -213,6 +218,10 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public override async Task DestroySelf()
     {
+        Debug.Log($"destroy self");
+        _selfCollider.enabled = false; // HERE: astar graph is not updated after the boulder falls and destorys
+        ScanAstar();
+
         Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
         transform.DOKill();
 
@@ -230,8 +239,5 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public override VisualElement DisplayText() { return new Label(_displayText); }
 
-    public override string GetCreatedObjectDescription()
-    {
-        return "Boulder.";
-    }
+    public override string GetCreatedObjectDescription() { return "Boulder."; }
 }

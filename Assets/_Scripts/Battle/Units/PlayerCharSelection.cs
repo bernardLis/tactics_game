@@ -46,14 +46,12 @@ public class PlayerCharSelection : CharacterSelection
     {
         GetComponent<SortingGroup>().sortingOrder = 99;
         _myStats.Select();
-        FlipSelectionArrow();
+        ToggleSelectionArrow(true, Helpers.GetColor("movementBlue")); // HERE: Selection arrow - different for characters waiting to take a turn and different for active character
     }
 
     public void DeselectCharacter()
     {
         GetComponent<SortingGroup>().sortingOrder = 90;
-
-        FlipSelectionArrow();
     }
 
 

@@ -19,7 +19,7 @@ public class CharacterSelection : MonoBehaviour
     SpriteRenderer[] _spriteRenderers;
     Color _grayOutColor;
 
-    [SerializeField] SelectionArrow _selectionArrow;
+    [SerializeField] protected SelectionArrow _selectionArrow;
 
     public bool HasFinishedTurn { get; protected set; }
 
@@ -90,8 +90,6 @@ public class CharacterSelection : MonoBehaviour
     public void ActivateSingleNodeBlocker() { _blocker.BlockAtCurrentPosition(); }
 
     public void DeactivateSingleNodeBlocker() { _blocker.Unblock(); }
-
-    public void FlipSelectionArrow() { _selectionArrow.FlipArrow(); }
 
     public void ToggleSelectionArrow(bool isActive, Color? color = null)
     {

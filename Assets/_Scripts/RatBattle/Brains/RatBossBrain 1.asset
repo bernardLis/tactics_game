@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6604eea773e90a24981a185c1ca0c6aa, type: 3}
+  m_Name: RatBossBrain 1
+  m_EditorClassIdentifier: 
+  Id: fc05ff97-4c00-4f82-9fb8-54d6f290e442
+  BrainIcon: {fileID: 21300000, guid: 00338184db25825479c17098d3b66630, type: 3}
+  Name: Unusually Large Rat
+  Portrait: {fileID: 21300000, guid: 00338184db25825479c17098d3b66630, type: 3}
+  PowerMultiplier: 0
+  Body: {fileID: 11400000, guid: 017f3f0d6106afe4d93046ae90bd5c2d, type: 2}
+  Weapon: {fileID: 0}
+  Target: {fileID: 0}
+  AbilitiesToInstantiate: []
+  Abilities: []
+  ManualStats: 1
+  Level: 3
+  Power: 10
+  MaxHealth: 100
+  MaxMana: 30
+  Armor: 0
+  MovementRange: 3

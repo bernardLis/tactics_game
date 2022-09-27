@@ -76,6 +76,7 @@ public class Creatable : MonoBehaviour, IUITextDisplayable, ICreatable<Vector3, 
     void OnDestroy()
     {
         if (!this.gameObject.scene.isLoaded) return;
+        if (!this.gameObject.CompareTag(Tags.PushableObstacle)) return;
         DestroySelf().GetAwaiter();
     }
 

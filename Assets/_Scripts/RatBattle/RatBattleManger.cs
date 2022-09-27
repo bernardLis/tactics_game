@@ -116,6 +116,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await WalkPlayer();
         await _cameraManager.LerpOrthographicSize(7, 1);
         _turnManager.UpdateBattleState(BattleState.PlayerTurn);
+        _turnManager.AddEnemy(_boss); // HERE: spawn 2 rats
     }
 
     void SpawnFirstRats()
@@ -131,7 +132,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
         foreach (Vector3 pos in positions)
         {
             GameObject rat = SpawnEnemy(pos, enemySO, Vector3.one * 1.5f);
-            //   rat.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false);
             _spawnedRats.Add(rat);
         }
     }
@@ -145,11 +145,10 @@ public class RatBattleManger : Singleton<RatBattleManger>
         enemyGO.transform.parent = _envObjectsHolder.transform;
         enemyGO.GetComponent<CharacterStats>().OnCharacterDeath += OnRatDeath;
 
-        // rat specific stat machinations
         CharacterStats stats = enemyGO.GetComponent<CharacterStats>();
         stats.SetCharacteristics(instantiatedSO);
         CharacterRendererManager characterRendererManager = enemyGO.GetComponentInChildren<CharacterRendererManager>();
-        characterRendererManager.transform.localPosition = Vector3.zero; // normally, characters are moved by 0.5 on y axis
+        characterRendererManager.transform.localPosition = new Vector3(0f, 0.1f); // normally, characters are moved by 0.5 on y axis
         characterRendererManager.transform.localScale = scale;
         characterRendererManager.Face(Vector2.down);
 
@@ -175,10 +174,10 @@ public class RatBattleManger : Singleton<RatBattleManger>
         GridGraph gg = data.gridGraph;
 
         // Setup a grid graph with some values
-        int width = 40;
-        int depth = 40;
+        int width = 30;
+        int depth = 26;
         float nodeSize = 1;
-        gg.center = new Vector3(10, 0, 0);
+        gg.center = new Vector3(10, -4, 0);
 
         // Updates internal size from the above values
         gg.SetDimensions(width, depth, nodeSize);
@@ -219,27 +218,21 @@ public class RatBattleManger : Singleton<RatBattleManger>
             rat.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(true);
     }
 
-    void OnRatDeath(GameObject obj)
+    async void OnRatDeath(GameObject obj)
     {
         _ratsKilled++;
-        if (_ratsKilled == 1)
-            ActivateSecondRoom();
+        if (_ratsKilled == 2)
+        {
+            _boss.SetActive(true);
+            await Task.Delay(10);
+            _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false); // HERE: boss has name right away
+        }
     }
 
-    async void ActivateSecondRoom()
-    {
-        _boss.SetActive(true);
-        TurnManager.Instance.AddEnemy(_boss);
-        await Task.Delay(10);
-        _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false);
-        // TODO: prolly need to add it to the enemy roster
-
-        _ratSpawner.gameObject.SetActive(true);
-    }
 
     async Task SpawnFriend()
     {
-        _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.up);
+        _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.left);
 
         Vector3 pos = new Vector3(-3.5f, 8.5f);
         _friendGO = Instantiate(_playerPrefab, pos, Quaternion.identity);
@@ -258,9 +251,13 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await _conversationManager.PlayConversation(_friendComes);
         await _battleCutSceneManager.WalkCharacterTo(_friendGO, new Vector3(4.5f, -6.5f), 5);
         await FriendDestroysBoulder();
+        await RevealThirdRoom();
         await _conversationManager.PlayConversation(_friendComments);
-        _ratSpawner.SpawnRat();
-        _ratSpawner.SpawnRat();
+        _movePointController.transform.position = _ratSpawner.transform.position;
+        await Task.Delay(200);
+        await _ratSpawner.SpawnRat(); // HERE: 2 rats are spawned in the same place - need to await
+        await _ratSpawner.SpawnRat();
+        _friendGO.GetComponent<CharacterSelection>().FinishCharacterTurn();
 
         _battleInputController.SetInputAllowed(true);
         _cameraManager.SetTarget(_movePointController.transform);
@@ -268,10 +265,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     async Task FriendDestroysBoulder()
     {
-        Debug.Log("friend destroys");
-
         _playerGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.down);
-        _cameraManager.SetTarget(_movePointController.transform);
 
         // use ability
         CharacterStats stats = _friendGO.GetComponent<CharacterStats>();
@@ -280,13 +274,20 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _friendGO.GetComponentInChildren<CharacterRendererManager>().Face(Vector2.right);
 
         _movePointController.transform.position = attackPos;
-        await stats.Abilities[0].HighlightAreaOfEffect(attackPos);//TODO: risky bisquits
+        _cameraManager.SetTarget(_movePointController.transform);
+
+        await stats.Abilities[0].HighlightAreaOfEffect(attackPos); //TODO: risky bisquits
         await Task.Delay(500);
         await stats.Abilities[0].TriggerAbility(_highlightManager.HighlightedTiles);
         await _highlightManager.ClearHighlightedTiles();
-        _friendGO.GetComponent<CharacterSelection>().FinishCharacterTurn();
-        SpriteRenderer sr = _fogOfWarBoss.GetComponentInChildren<SpriteRenderer>();
-        _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(true);
-        sr.DOColor(new Color(0f, 0f, 0f, 0f), 1f);
     }
+
+    async Task RevealThirdRoom()
+    {
+        _ratSpawner.gameObject.SetActive(true);
+        SpriteRenderer sr = _fogOfWarBoss.GetComponentInChildren<SpriteRenderer>();
+        await sr.DOColor(new Color(0f, 0f, 0f, 0f), 1f).AsyncWaitForCompletion();
+        _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(true);
+    }
+
 }

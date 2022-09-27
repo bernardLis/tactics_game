@@ -15,8 +15,5 @@ MonoBehaviour:
   Id: ca4fb6b9-c001-4de9-bdfe-3617e3496292
   Seen: 0
   Lines:
+  - {fileID: 11400000, guid: 0aaf6e4240762e245b267f9a147339e7, type: 2}
   - {fileID: 11400000, guid: fea53ab443b73f0409914ca3d0149c52, type: 2}
-  Quest: {fileID: 0}
-  QuestTrigger: 0
-  QuestCompleted: 0
-  QuestFailed: 0

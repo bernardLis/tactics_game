@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 public class RatSpawner : MonoBehaviour, IUITextDisplayable
 {
@@ -49,12 +50,12 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
             _spawnerEffect.SetActive(true);
     }
 
-    void HandlePlayerTurn()
+    async void HandlePlayerTurn()
     {
         // get all with tag enemy, if there are less than 4, spawn rats
         GameObject[] rats = GameObject.FindGameObjectsWithTag("Enemy");
         if (rats.Length < 2 && !IsSpawnCovered())
-            SpawnRat();
+            await SpawnRat();
     }
 
     bool IsSpawnCovered()
@@ -77,7 +78,7 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         return false;
     }
 
-    public void SpawnRat()
+    public async Task SpawnRat()
     {
         Vector3 pos = ChooseSpawnPosition();
         if (pos == Vector3.zero)
@@ -103,7 +104,7 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         GameObject spawnEffect = Instantiate(_ratSpawnEffect, transform.position, Quaternion.identity);
 
         enemyGO.transform.DOMove(pos, 1f);
-        spawnEffect.transform.DOMove(pos, 1f).OnComplete(() => Destroy(spawnEffect));
+        await spawnEffect.transform.DOMove(pos, 1f).OnComplete(() => Destroy(spawnEffect)).AsyncWaitForCompletion();
     }
 
     public Vector3 ChooseSpawnPosition()

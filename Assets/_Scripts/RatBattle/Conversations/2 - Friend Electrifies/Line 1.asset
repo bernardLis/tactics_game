@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Line 1
   m_EditorClassIdentifier: 
   Id: 55702295-66f4-4296-8e5e-8afaac1962cb
-  SpeakerCharacter: {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
+  SpeakerCharacter: {fileID: 11400000, guid: f9b32bc96f570e04abc2dbe28c5be78c, type: 2}
   Text: <Squeeek>
-  Clip: {fileID: 8300000, guid: ee6f3a3d5bac15741851aadc7a5557a5, type: 3}
+  Clip: {fileID: 0}
   DisplayQuadrant: 1

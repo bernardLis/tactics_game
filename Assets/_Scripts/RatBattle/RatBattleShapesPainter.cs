@@ -192,20 +192,20 @@ public class RatBattleShapesPainter : ImmediateModeShapeDrawer
 
             if (DrawPushBoulderText())
             {
-              //  Draw.Text(new Vector3(3.5f, -0.5f), "Boulder >>>>", TextAlign.Left, 4, Color.white);
-              //  Draw.Text(new Vector3(7.5f, -0.5f), "Push it with 'Push' ability.", TextAlign.Left, 4, Color.white);
+                //  Draw.Text(new Vector3(3.5f, -0.5f), "Boulder >>>>", TextAlign.Left, 4, Color.white);
+                //  Draw.Text(new Vector3(7.5f, -0.5f), "Push it with 'Push' ability.", TextAlign.Left, 4, Color.white);
             }
 
             if (DrawPushAgainText())
             {
-                Draw.Text(new Vector3(1f,-0.5f), "Good job!", TextAlign.Left, 4, Color.white);
-                Draw.Text(new Vector3(4.5f,-0.5f), "Push it one more time.", TextAlign.Left, 4, Color.white);
+                Draw.Text(new Vector3(1f, -0.5f), "Good job!", TextAlign.Left, 4, Color.white);
+                Draw.Text(new Vector3(4.5f, -0.5f), "Push it one more time.", TextAlign.Left, 4, Color.white);
             }
 
             if (DrawBattleText())
             {
                 // Draw.Text(testVector1, "Attacking from the front or sides allows opponent to retaliate.", TextAlign.Left, 4, Color.black);
-                Draw.Text(new Vector3(4.5f,-0.5f), "Now deal with those pesky critters.", TextAlign.Left, 4, Color.white);
+                // Draw.Text(new Vector3(4.5f,-0.5f), "Now deal with those pesky critters.", TextAlign.Left, 4, Color.white);
             }
         }
     }

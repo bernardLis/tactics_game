@@ -8,18 +8,10 @@ public class SelectionArrow : MonoBehaviour
     Vector3 _startScale;
     Vector3 _endScale = new Vector3(0.35f, 0.35f, 0.35f);
 
-    public void Start()
+    void Start()
     {
         _startPositon = transform.localPosition;
         _startScale = transform.localScale;
-    }
-
-    public void FlipArrow()
-    {
-        if (transform.rotation.eulerAngles.x != 0)
-            transform.DOLocalRotate(new Vector3(0, 0, 0), 0.4f);
-        else
-            transform.DOLocalRotate(new Vector3(180, 0, 0), 0.4f);
     }
 
     void OnEnable()
