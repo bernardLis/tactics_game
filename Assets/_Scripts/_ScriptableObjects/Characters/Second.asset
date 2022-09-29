@@ -28,7 +28,7 @@ MonoBehaviour:
   MaxManaBonus: 10
   ArmorBonus: 0
   MovementRangeBonus: 0
-  Body: {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
+  Body: {fileID: 11400000, guid: 1c3406ce133c90346b0829088f09efd4, type: 2}
   Weapon: {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
   Items:
   - {fileID: 11400000, guid: 92ecf3a68f41ba340a83203ae4dbd589, type: 2}

@@ -1,16 +1,16 @@
 using UnityEngine.UIElements;
 using UnityEngine;
 
-public class AbilityButton : VisualWithTooltip
+public class AbilityButton : VisualElement
 {
     AudioManager _audioManager;
 
-    VisualElement _icon;
+    AbilityIcon _icon;
 
     public string Key;
     public Ability Ability;
 
-    public AbilityButton(Ability ability, string key = null) : base()
+    public AbilityButton(Ability ability, string key = null)
     {
         _audioManager = AudioManager.Instance;
 
@@ -21,20 +21,8 @@ public class AbilityButton : VisualWithTooltip
         AddToClassList("abilityButton");
         AddToClassList("textPrimary");
 
-        _icon = new();
-        _icon.AddToClassList("abilityButtonIcon");
-        _icon.style.backgroundImage = ability.Icon.texture;
+        _icon = new AbilityIcon(ability, key);
         Add(_icon);
-
-        if (key != null)
-        {
-            TextWithTooltip keyTooltip = new(key, "Hotkey");
-            keyTooltip.AddToClassList("abilityButtonStat");
-            keyTooltip.style.position = Position.Absolute;
-            keyTooltip.style.backgroundColor = Color.black;
-            keyTooltip.style.right = 0;
-            _icon.Add(keyTooltip);
-        }
 
         TextWithTooltip baseDamage = new TextWithTooltip("" + Ability.BasePower, "Base damage");
         baseDamage.AddToClassList("abilityButtonStat");
@@ -43,7 +31,8 @@ public class AbilityButton : VisualWithTooltip
         manaCost.AddToClassList("abilityButtonStat");
 
         VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
+
+        container.style.flexDirection = FlexDirection.Column;
         container.style.justifyContent = Justify.SpaceAround;
         Add(container);
 
@@ -64,19 +53,9 @@ public class AbilityButton : VisualWithTooltip
         RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
     }
 
-    protected override void DisplayTooltip()
-    {
-        HideTooltip();
-        AbilityTooltipVisual tooltip = new(Ability);
-        _tooltip = new(this, tooltip);
-        base.DisplayTooltip();
-    }
-
     void PlayClick()
     {
         if (_audioManager != null)
             _audioManager.PlaySFX("uiClick", Vector3.zero);
     }
-
-
 }

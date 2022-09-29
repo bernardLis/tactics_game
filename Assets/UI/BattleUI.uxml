@@ -83,8 +83,8 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 200px; align-items: stretch; justify-content: flex-start; visibility: visible; display: flex; top: auto; flex-direction: row; flex-wrap: nowrap; position: absolute; bottom: -22%;">
-        <ui:VisualElement name="characterUI" style="width: 80%; height: auto; flex-direction: row; overflow: visible; top: auto; bottom: auto; display: flex;">
+    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 200px; align-items: stretch; justify-content: center; visibility: visible; display: flex; top: auto; flex-direction: row; flex-wrap: nowrap; position: absolute; bottom: -22%;">
+        <ui:VisualElement name="characterUI" style="width: 100%; height: auto; flex-direction: row; overflow: visible; top: auto; bottom: auto; display: flex;">
             <ui:VisualElement name="characterUICharacterCard" class="uiContainer" style="height: 100%; width: 500px; flex-direction: row; justify-content: flex-start;">
                 <ui:VisualElement name="characterBasicInfoGroup1" style="width: 50%; align-items: center; justify-content: center;">
                     <ui:Label text="First" display-tooltip-when-elided="true" name="characterName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
@@ -143,27 +143,21 @@
                 </ui:VisualElement>
                 <ui:Button display-tooltip-when-elided="true" class="characterCardDetailsButton" />
             </ui:VisualElement>
-            <ui:VisualElement name="characterAbilities" class="uiContainer" style="height: 100%; width: 70%; flex-direction: row; justify-content: space-around; align-items: center;">
-                <ui:Button display-tooltip-when-elided="true" name="characterSButton">
-                    <ui:VisualElement name="characterSSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/shield.png?fileID=21300000&amp;guid=46fdae8c04a550547a6bef44d81553d0&amp;type=3#shield&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
-                    <ui:Label text="S" display-tooltip-when-elided="true" name="characterSSkillTooltip" style="-unity-text-align: upper-center;" />
-                </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterQButton" style="display: none;">
-                    <ui:VisualElement name="characterQSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/charm.png?fileID=21300000&amp;guid=15968a194dfe51b49bc2a583a4957492&amp;type=3#charm&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
-                    <ui:Label text="Q" display-tooltip-when-elided="true" name="characterQSkillTooltip" style="-unity-text-align: upper-center;" />
-                </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterWButton" style="display: none;">
-                    <ui:VisualElement name="characterWSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/battle.png?fileID=21300000&amp;guid=a80a197cf1bbc9846b1faf238203f16d&amp;type=3#battle&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
-                    <ui:Label text="W" display-tooltip-when-elided="true" name="characterWSkillTooltip" style="-unity-text-align: upper-center;" />
-                </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterEButton" style="display: none;">
-                    <ui:VisualElement name="characterESkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/cross.png?fileID=21300000&amp;guid=b51c8ea1d2298f849a9ad9b3f74a9359&amp;type=3#cross&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
-                    <ui:Label text="E" display-tooltip-when-elided="true" name="characterESkillTooltip" style="-unity-text-align: upper-center;" />
-                </ui:Button>
-                <ui:Button display-tooltip-when-elided="true" name="characterRButton" style="display: none;">
-                    <ui:VisualElement name="characterRSkillIcon" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Sprites/Icons/hourglass.png?fileID=21300000&amp;guid=add71f5399e78894590af1adbd8e0c75&amp;type=3#hourglass&apos;); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
-                    <ui:Label text="R" display-tooltip-when-elided="true" name="characterRSkillTooltip" style="-unity-text-align: upper-center;" />
-                </ui:Button>
+            <ui:VisualElement name="characterAbilities" class="uiContainer" style="height: 100%; width: auto; flex-direction: row; justify-content: flex-start; align-items: center;">
+                <ui:VisualElement>
+                    <ui:Label text="Basic Actions" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
+                    <ui:VisualElement name="basicActionContainer" style="flex-direction: row;">
+                        <ui:VisualElement class="abilitySlot" />
+                        <ui:VisualElement class="abilitySlot" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement style="padding-left: 20px;">
+                    <ui:Label text="Abilities" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
+                    <ui:VisualElement name="abilityContainer" style="flex-direction: row;">
+                        <ui:VisualElement class="abilitySlot" />
+                        <ui:VisualElement class="abilitySlot" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
@@ -189,8 +183,8 @@
     <ui:VisualElement name="tutorialTextContainer" style="position: absolute; top: 30%; width: 80%; justify-content: flex-end; align-items: center; left: 10%; display: none;">
         <ui:Label text="Label" display-tooltip-when-elided="true" name="tutorialText" class="textPrimary" style="font-size: 48px; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0);" />
     </ui:VisualElement>
-    <ui:VisualElement name="battleHelperTextContainer" class="textPrimary" style="position: absolute; width: 100%; height: 50px; flex-direction: row; align-items: stretch; justify-content: center; display: none;">
-        <ui:Label text="Select a character" display-tooltip-when-elided="true" name="battleHelperText" />
+    <ui:VisualElement name="battleHelperTextContainer" class="textPrimary" style="position: absolute; width: 100%; height: 50px; flex-direction: row; align-items: stretch; justify-content: center; display: flex;">
+        <ui:Label text="Select a character" display-tooltip-when-elided="true" name="battleHelperText" style="background-image: url(&apos;project://database/Assets/Sprites/UI/uiGradient.png?fileID=2800000&amp;guid=ef97ccaa474ba254082c5782da314509&amp;type=3#uiGradient&apos;); -unity-text-align: middle-left; margin-left: 0; margin-right: 0; padding-left: 50px; padding-right: 50px;" />
     </ui:VisualElement>
     <ui:VisualElement name="battleLogContainer" class="textPrimary" style="top: auto; align-items: stretch; display: flex; flex-direction: column-reverse; justify-content: flex-end; bottom: 200px; position: absolute; background-color: rgba(0, 0, 0, 0.2); left: 15px; min-width: 20%; min-height: 270px;">
         <ui:VisualElement class="battleLogLine">

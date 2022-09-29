@@ -22,6 +22,8 @@ public class BattleLogVisual : FullScreenVisual
             log.style.opacity = 1;
         foreach (VisualElement log in logsCopy)
             view.Add(log);
+        
+        AddBackButton();
     }
     public override void Hide()
     {

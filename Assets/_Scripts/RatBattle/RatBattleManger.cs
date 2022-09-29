@@ -116,7 +116,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await WalkPlayer();
         await _cameraManager.LerpOrthographicSize(7, 1);
         _turnManager.UpdateBattleState(BattleState.PlayerTurn);
-        _turnManager.AddEnemy(_boss); // HERE: spawn 2 rats
+        _turnManager.AddEnemy(_boss);
     }
 
     void SpawnFirstRats()
@@ -225,7 +225,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         {
             _boss.SetActive(true);
             await Task.Delay(10);
-            _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false); // HERE: boss has name right away
+            _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false);
         }
     }
 
@@ -256,7 +256,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         await _conversationManager.PlayConversation(_friendComments);
         _movePointController.transform.position = _ratSpawner.transform.position;
         await Task.Delay(200);
-        await _ratSpawner.SpawnRat(); // HERE: 2 rats are spawned in the same place - need to await
+        await _ratSpawner.SpawnRat();
         await _ratSpawner.SpawnRat();
         _friendGO.GetComponent<CharacterSelection>().FinishCharacterTurn();
 

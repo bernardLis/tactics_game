@@ -155,7 +155,7 @@
 }
 
 .uiContainer {
-    background-image: url('project://database/Assets/Sprites/UI/confirm_bg.png?fileID=21300000&guid=569d6618661c80748874fc29de25b9c1&type=3#confirm_bg');
+    background-image: url('project://database/Assets/Sprites/UI/uiGradient.png?fileID=21300000&guid=ef97ccaa474ba254082c5782da314509&type=3#uiGradient');
     -unity-background-scale-mode: stretch-to-fill;
     padding-left: 25px;
     padding-right: 25px;
@@ -245,7 +245,7 @@
 
 .abilityButton {
     height: 100%;
-    width: 100px;
+    width: 145px;
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
@@ -255,10 +255,13 @@
     margin-top: 0;
     margin-bottom: 0;
     max-height: 150px;
+    flex-direction: row;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 .abilityButtonIcon {
-    width: 100%;
+    width: auto;
     height: 100%;
     background-image: url('project://database/Assets/Sprites/Icons/sword.png?fileID=21300000&guid=64e29a7dee046c448b82b1c27419f427&type=3#sword');
     border-left-color: rgb(255, 255, 255);
@@ -273,6 +276,8 @@
     padding-right: 2px;
     padding-top: 2px;
     padding-bottom: 2px;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 .abilityButtonStat {
@@ -319,7 +324,7 @@
     border-right-width: 4px;
     border-top-width: 4px;
     border-bottom-width: 4px;
-    width: 105px;
+    width: 150px;
     height: 120px;
     background-color: rgb(72, 72, 72);
     align-items: center;

@@ -12,7 +12,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public GameDatabase GameDatabase;
 
     // global data
-    public int Obols; //{ get; private set; }
+    public int Obols;
     public List<GlobalUpgrade> PurchasedGlobalUpgrades { get; private set; }
     public bool WasTutorialPlayed { get; private set; }
     bool _isRunActive;
@@ -38,6 +38,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             CreateNewSaveFile();
         else
             LoadFromSaveFile();
+
     }
 
     public void ChangeObolValue(int o)

@@ -11,6 +11,9 @@ public class SettingsScreen : FullScreenVisual
     Toggle _fullScreenToggle;
     Toggle _tutorialToggle;
 
+    Toggle _battleLogToggle;
+    Toggle _battleHelperTextToggle;
+
     VisualElement _parent;
 
     public SettingsScreen(VisualElement root, VisualElement parent)
@@ -22,6 +25,7 @@ public class SettingsScreen : FullScreenVisual
         Initialize(root);
         AddToClassList("menuScreen");
 
+        // sound
         VisualElement soundContainer = new VisualElement();
         soundContainer.AddToClassList("uiContainer");
         Label sound = new Label("Sound");
@@ -30,6 +34,7 @@ public class SettingsScreen : FullScreenVisual
         Add(soundContainer);
         AddVolumeSliders(soundContainer);
 
+        // graphics
         VisualElement graphicsContainer = new VisualElement();
         graphicsContainer.AddToClassList("uiContainer");
         Label graphics = new Label("Graphics");
@@ -39,6 +44,14 @@ public class SettingsScreen : FullScreenVisual
 
         AddFullScreenToggle(graphicsContainer);
         AddRadioResolutionGroup(graphicsContainer);
+
+        // UI
+        VisualElement uiOptionsContainer = new VisualElement();
+        uiOptionsContainer.AddToClassList("uiContainer");
+        Label uiOptions = new Label("UI Options");
+        uiOptions.AddToClassList("textPrimary");
+        Add(uiOptions);
+        AddUIOptions(uiOptionsContainer);
 
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
         {
@@ -228,5 +241,63 @@ public class SettingsScreen : FullScreenVisual
     {
         _gameManager.ClearSaveData();
     }
+
+
+    void AddUIOptions(VisualElement parent)
+    {
+        VisualElement container = CreateContainer("Hide Battle Log");
+        parent.Add(container);
+
+        _battleLogToggle = new Toggle();
+        container.Add(_battleLogToggle);
+        ToggleBattleLog(PlayerPrefs.GetInt("HideBattleLog", 0) != 0);
+        _battleLogToggle.RegisterValueChangedCallback(BattleLogToggleClick);
+
+
+        VisualElement container1 = CreateContainer("Hide Battle Helper Text");
+        parent.Add(container1);
+
+        _battleHelperTextToggle = new Toggle();
+        container1.Add(_battleHelperTextToggle);
+        ToggleBattleHelperText(PlayerPrefs.GetInt("HideBattleHelperText", 0) != 0);
+        _battleHelperTextToggle.RegisterValueChangedCallback(BattleHelperTextToggleClick);
+    }
+
+    void ToggleBattleLog(bool hide)
+    {
+        _battleLogToggle.value = hide;
+
+        if (BattleUI.Instance == null)
+            return;
+        if (hide)
+            BattleUI.Instance.ToggleBattleLog(true);
+        else
+            BattleUI.Instance.ToggleBattleLog(false);
+    }
+
+    void ToggleBattleHelperText(bool hide)
+    {
+        _battleHelperTextToggle.value = hide;
+
+        if (BattleUI.Instance == null)
+            return;
+        if (hide)
+            BattleUI.Instance.ToggleBattleHelperText(true);
+        else
+            BattleUI.Instance.ToggleBattleHelperText(false);
+    }
+
+    void BattleLogToggleClick(ChangeEvent<bool> evt)
+    {
+        PlayerPrefs.SetInt("HideBattleLog", (evt.newValue ? 1 : 0));
+        ToggleBattleLog(evt.newValue);
+    }
+
+    void BattleHelperTextToggleClick(ChangeEvent<bool> evt)
+    {
+        PlayerPrefs.SetInt("HideBattleHelperText", (evt.newValue ? 1 : 0));
+        ToggleBattleHelperText(evt.newValue);
+    }
+
 
 }

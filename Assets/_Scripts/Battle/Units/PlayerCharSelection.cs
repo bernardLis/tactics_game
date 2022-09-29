@@ -46,7 +46,7 @@ public class PlayerCharSelection : CharacterSelection
     {
         GetComponent<SortingGroup>().sortingOrder = 99;
         _myStats.Select();
-        ToggleSelectionArrow(true, Helpers.GetColor("movementBlue")); // HERE: Selection arrow - different for characters waiting to take a turn and different for active character
+        ToggleSelectionArrow(true, Helpers.GetColor("movementBlue"));
     }
 
     public void DeselectCharacter()
@@ -54,7 +54,6 @@ public class PlayerCharSelection : CharacterSelection
         GetComponent<SortingGroup>().sortingOrder = 90;
         SetSelectionArrowColor(Color.white);
     }
-
 
     public override void FinishCharacterTurn()
     {

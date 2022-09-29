@@ -20,7 +20,7 @@ public class BoardManager : Singleton<BoardManager>
     AudioManager _audioManager;
 
     [Header("Map Setup")]
-    BattleNode _battleNode;
+    [SerializeField] BattleNode _battleNode; // HERE: for testing
     MapVariant _mapVariant;
     int _seed = -1;
     public Vector2Int MapSize;
@@ -68,7 +68,7 @@ public class BoardManager : Singleton<BoardManager>
         _battleManager = BattleManager.Instance;
         _audioManager = AudioManager.Instance;
 
-        _battleNode = (BattleNode)_runManager.CurrentNode;
+        // HERE: for tests _battleNode = (BattleNode)_runManager.CurrentNode;
         _biome = _battleNode.Biome;
         _mapVariant = _battleNode.MapVariant;
         MapSize = _battleNode.MapSize;

@@ -13,6 +13,9 @@ public class BattleUI : Singleton<BattleUI>
 
     public VisualElement Root { get; private set; }
 
+    public bool ShowBattleHelperText { get; private set; }
+    public bool ShowBattleLog { get; private set; }
+
     VisualElement _battleHelperTextContainer;
     Label _battleHelperText;
 
@@ -65,6 +68,10 @@ public class BattleUI : Singleton<BattleUI>
 
         _backToJourneyButton = new MyButton("Continue", "menuButton", null);
         _battleEndContainer.Add(_backToJourneyButton);
+
+        // show / hide UI
+        ToggleBattleHelperText(PlayerPrefs.GetInt("HideBattleHelperText") != 0);
+        ToggleBattleLog(PlayerPrefs.GetInt("HideBattleLog") != 0);
 
         // subscribing to Actions
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
@@ -179,7 +186,6 @@ public class BattleUI : Singleton<BattleUI>
             float op = 1 - i * 0.08f;
             ch[i].style.opacity = op;
         }
-
     }
 
     void OnBattleLogClick(PointerUpEvent evt)
@@ -288,4 +294,19 @@ public class BattleUI : Singleton<BattleUI>
 
     public void AddGoalToBattleEndScreen(VisualElement el) { _battleEndGoalContainer.Add(el); }
 
+    public void ToggleBattleHelperText(bool hide)
+    {
+        if (hide)
+            _battleHelperTextContainer.style.display = DisplayStyle.None;
+        else
+            _battleHelperTextContainer.style.display = DisplayStyle.Flex;
+    }
+
+    public void ToggleBattleLog(bool hide)
+    {
+        if (hide)
+            _battleLogContainer.style.display = DisplayStyle.None;
+        else
+            _battleLogContainer.style.display = DisplayStyle.Flex;
+    }
 }

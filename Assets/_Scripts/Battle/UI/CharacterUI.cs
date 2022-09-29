@@ -19,6 +19,10 @@ public class CharacterUI : Singleton<CharacterUI>
     CharacterCardVisual _characterCardVisual;
 
     VisualElement _characterAbilitiesContainer;
+    VisualElement _basicActionContainer;
+    List<AbilitySlotVisual> _basicActionSlots = new();
+    List<AbilitySlotVisual> _abilitySlots = new();
+    List<AbilityButton> _allButtons = new();
 
     // local
     CharacterStats _selectedPlayerStats;
@@ -42,9 +46,6 @@ public class CharacterUI : Singleton<CharacterUI>
 
         _container = _root.Q<VisualElement>("characterUIContainer");
         _characterCardContainer = _root.Q<VisualElement>("characterUICharacterCard");
-
-        _characterAbilitiesContainer = _root.Q<VisualElement>("characterAbilities");
-        _characterAbilitiesContainer.Clear();
     }
 
     void Start()
@@ -55,6 +56,8 @@ public class CharacterUI : Singleton<CharacterUI>
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
         MovePointController.OnMove += MovePointController_OnMove;
         BattleCharacterController.OnCharacterStateChanged += BattleCharacterController_OnCharacterStateChange;
+
+        AddAbilitySlots();
 
         //https://answers.unity.com/questions/1590871/how-to-stack-coroutines-and-call-each-one-till-all.html
         StartCoroutine(CoroutineCoordinator());
@@ -71,6 +74,7 @@ public class CharacterUI : Singleton<CharacterUI>
     {
         if (state == BattleState.Won || state == BattleState.Lost)
             await HideCharacterUI();
+
     }
 
     void MovePointController_OnMove(Vector3 pos)
@@ -114,6 +118,28 @@ public class CharacterUI : Singleton<CharacterUI>
     void HandleSelectingFaceDir()
     {
         DisableSkillButtons();
+    }
+
+    void AddAbilitySlots()
+    {
+        VisualElement basicActionContainer = _root.Q<VisualElement>("basicActionContainer");
+        basicActionContainer.Clear();
+        for (int i = 0; i < 2; i++)
+        {
+            AbilitySlotVisual abilitySlot = new();
+            basicActionContainer.Add(abilitySlot);
+            _basicActionSlots.Add(abilitySlot);
+        }
+
+        VisualElement abilityContainer = _root.Q<VisualElement>("abilityContainer");
+        abilityContainer.Clear();
+        for (int i = 0; i < 2; i++)
+        {
+            AbilitySlotVisual abilitySlot = new();
+            abilityContainer.Add(abilitySlot);
+            _abilitySlots.Add(abilitySlot);
+        }
+
     }
 
     void ResolveManaChange()
@@ -210,6 +236,12 @@ public class CharacterUI : Singleton<CharacterUI>
 
     void HandleAbilityButtons()
     {
+        _allButtons.Clear();
+        foreach (AbilitySlotVisual slot in _basicActionSlots)
+            slot.RemoveButton();
+        foreach (AbilitySlotVisual slot in _abilitySlots)
+            slot.RemoveButton();
+
         // TODO: I think that the idea with buttons remembering their input key is not so good
         // but I don't have any other ideas... maybe in the future I will come up with something
         // it's for simulating button clicks with the keyboard;
@@ -217,20 +249,22 @@ public class CharacterUI : Singleton<CharacterUI>
 
         AbilityButton basicAttack = new(_selectedPlayerStats.BasicAbilities[0], "A");
         basicAttack.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicAttack));
+        _allButtons.Add(basicAttack);
 
         AbilityButton basicDefend = new(_selectedPlayerStats.BasicAbilities[1], "S");
         basicDefend.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicDefend));
+        _allButtons.Add(basicDefend);
 
-        _characterAbilitiesContainer.Clear();
-        _characterAbilitiesContainer.Add(basicAttack);
-        _characterAbilitiesContainer.Add(basicDefend);
+        // TODO: code could be improved
+        _basicActionSlots[0].AddButton(basicAttack);
+        _basicActionSlots[1].AddButton(basicDefend);
 
         for (int i = 0; i < _selectedPlayerStats.Abilities.Count; i++)
         {
             AbilityButton button = new(_selectedPlayerStats.Abilities[i], buttons[i]);
             button.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(button));
-
-            _characterAbilitiesContainer.Add(button);
+            _abilitySlots[i].AddButton(button);
+            _allButtons.Add(button);
         }
     }
 
@@ -250,27 +284,22 @@ public class CharacterUI : Singleton<CharacterUI>
 
     public void DisableSkillButtons()
     {
-        foreach (var el in _characterAbilitiesContainer.Children())
-            el.SetEnabled(false);
+        foreach (AbilityButton button in _allButtons)
+            button.SetEnabled(false);
     }
 
     public void EnableSkillButtons()
     {
-        if (_characterAbilitiesContainer.childCount == 0)
-            return;
-
         if (_container.style.bottom.value.value < _UIShowValue)
             return;
-
-        foreach (var el in _characterAbilitiesContainer.Children())
+        foreach (AbilityButton button in _allButtons)
         {
-            AbilityButton ab = (AbilityButton)el;
-            if (ab.Ability.ManaCost > _selectedPlayerStats.CurrentMana)
+            if (button.Ability.ManaCost > _selectedPlayerStats.CurrentMana)
                 continue;
-            if (ab.Ability.WeaponType != _selectedPlayerStats.Character.Weapon.WeaponType && ab.Ability.WeaponType != WeaponType.Any)
+            if (button.Ability.WeaponType != _selectedPlayerStats.Character.Weapon.WeaponType && button.Ability.WeaponType != WeaponType.Any)
                 continue;
 
-            ab.SetEnabled(true);
+            button.SetEnabled(true);
         }
     }
 
@@ -325,19 +354,15 @@ public class CharacterUI : Singleton<CharacterUI>
     /* Keyboard input */
     public void SimulateAbilityButtonClicked(InputAction.CallbackContext ctx)
     {
-        if (_characterAbilitiesContainer.childCount == 0)
-            return;
-
-        foreach (var el in _characterAbilitiesContainer.Children())
+        foreach (AbilityButton button in _allButtons)
         {
-            AbilityButton ab = (AbilityButton)el;
-            if (ab.Key == ctx.control.name.ToUpper())
+            if (button.Key == ctx.control.name.ToUpper())
             {
                 // https://forum.unity.com/threads/trigger-button-click-from-code.1124356/
-                using (var e = new NavigationSubmitEvent() { target = ab })
-                    ab.SendEvent(e);
+                using (var e = new NavigationSubmitEvent() { target = button })
+                    button.SendEvent(e);
 
-                AbilityButtonClicked(ab);
+                AbilityButtonClicked(button);
             }
         }
     }
