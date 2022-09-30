@@ -24,6 +24,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
     [HideInInspector] public GameObject SelectedCharacter;
     CharacterStats _playerStats;
     PlayerCharSelection _playerCharSelection;
+    ObjectUI _playerObjectUI;
     AILerp _aiLerp;
 
     // state
@@ -175,9 +176,15 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // character allows selection
         if (!col.GetComponentInParent<PlayerCharSelection>().CanBeSelected())
             return false;
+        // same character
+        if (SelectedCharacter != null && col.gameObject == SelectedCharacter)
+            return false;
         // don't allow to select another character if you have moved this character and did not take the action
         if (SelectedCharacter != null && _playerCharSelection.HasMovedThisTurn && !_playerCharSelection.HasFinishedTurn)
+        {
+            _playerObjectUI.DisplayOnCharacter("Select Ability", 24, Color.red);
             return false;
+        }
         // don't allow to select another character if you are triggering ability;
         if (SelectedAbility != null)
             return false;
@@ -223,6 +230,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         SelectedCharacter = character;
         _playerStats = SelectedCharacter.GetComponent<CharacterStats>();
         _playerCharSelection = SelectedCharacter.GetComponent<PlayerCharSelection>();
+        _playerObjectUI = SelectedCharacter.GetComponent<ObjectUI>();
         _aiLerp = SelectedCharacter.GetComponent<AILerp>();
         _aiLerp.canSearch = false;
 
@@ -444,6 +452,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         SelectedCharacter = null;
         _playerStats = null;
         _playerCharSelection = null;
+        _playerObjectUI = null;
         SelectedAbility = null;
 
         // highlight

@@ -120,7 +120,6 @@ public class RangedBrain : Brain
 
     PotentialTarget GetClosestTarget(List<PotentialTarget> potentialTargets, Ability ability)
     {
-        Debug.Log($"potentialTargets.Count {potentialTargets.Count}");
         List<PotentialTarget> pTargets = new();
         pTargets = potentialTargets.OrderBy(entry => entry.DistanceToTarget).ToList();
         return pTargets[0];

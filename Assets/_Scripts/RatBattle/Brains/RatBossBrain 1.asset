@@ -28,7 +28,7 @@ MonoBehaviour:
   ManualStats: 1
   Level: 3
   Power: 5
-  MaxHealth: 100
+  MaxHealth: 75
   MaxMana: 30
   Armor: 0
   MovementRange: 3

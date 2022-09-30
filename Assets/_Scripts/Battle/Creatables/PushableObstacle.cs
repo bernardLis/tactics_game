@@ -181,11 +181,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
         Invoke("ScanAstar", 1f);
     }
 
-    void ScanAstar()
-    {
-        Debug.Log($"Scanning astar");
-        AstarPath.active.Scan();
-    }
+    void ScanAstar() { AstarPath.active.Scan(); }
 
     public virtual async Task CollideWithCharacter(Ability ability, Collider2D col)
     {
@@ -194,10 +190,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
         await _targetStats.TakeDamageFinal(_damage);
     }
 
-    public async Task CollideWithIndestructible(Ability ability, Collider2D col)
-    {
-        await DestroySelf(true, false);
-    }
+    public async Task CollideWithIndestructible(Ability ability, Collider2D col) { await DestroySelf(true, false); }
 
     public async Task CollideWithDestructible(Ability ability, Collider2D col)
     {

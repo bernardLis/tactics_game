@@ -25,7 +25,7 @@ public class AbilityTooltipVisual : VisualWithTooltip
         _description.AddToClassList("textSecondary");
         _description.style.whiteSpace = WhiteSpace.Normal;
 
-        _baseDamage = new("Base damage: " + ability.BasePower);
+        _baseDamage = new("Base power: " + ability.BasePower);
         _baseDamage.AddToClassList("textSecondary");
 
         _manaCost = new("Mana cost: " + ability.ManaCost.ToString());
