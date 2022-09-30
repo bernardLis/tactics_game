@@ -43,7 +43,6 @@ public class Character : BaseScriptableObject
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
 
-
     public event Action<int> OnMaxHealthChanged;
     public event Action<int> OnMaxManaChanged;
     public event Action<int> OnPowerChanged;
@@ -120,10 +119,7 @@ public class Character : BaseScriptableObject
         return 0;
     }
 
-    public void GetExp(int gain)
-    {
-        BaseExpGain(gain);
-    }
+    public void GetExp(int gain) { BaseExpGain(gain); }
 
     public void GetExp(Character opponent, bool isKill = false)
     {
@@ -166,20 +162,11 @@ public class Character : BaseScriptableObject
         OnCharacterLevelUp?.Invoke();
     }
 
-    public int GetNumberOfAbilitySlots()
-    {
-        return Mathf.Clamp(Level, 1, 4);
-    }
+    public int GetNumberOfAbilitySlots() { return 2; }
 
-    public void AddAbility(Ability ability)
-    {
-        Abilities.Add(ability);
-    }
+    public void AddAbility(Ability ability) { Abilities.Add(ability); }
 
-    public void RemoveAbility(Ability ability)
-    {
-        Abilities.Remove(ability);
-    }
+    public void RemoveAbility(Ability ability) { Abilities.Remove(ability); }
 
     public void AddItem(Item item)
     {

@@ -48,7 +48,6 @@ public class AbilityTooltipVisual : VisualWithTooltip
         Add(_range);
         Add(_aoe);
         Add(_modifierContainer);
-        Add(new Label());
     }
 
     void HandleModifiers(Ability ability)

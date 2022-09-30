@@ -217,6 +217,7 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public override async Task DestroySelf(bool playEffects = true, bool scanAstar = true)
     {
+
         _selfCollider.enabled = false;
         if (scanAstar)
             ScanAstar();
@@ -227,8 +228,14 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
             Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
             AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);
             Animator anim = GetComponent<Animator>();
+            Debug.Log($"anim {anim}");
             if (anim != null)
+            {
+                Debug.Log($"animnot null ");
+
                 anim.Play("Stone Breaking");
+
+            }
             // TODO: waiting for animation to finish... too hard for now.
             // I think the animation is too short, I don't get it when I ask anim - I get new state
             await Task.Delay(500);

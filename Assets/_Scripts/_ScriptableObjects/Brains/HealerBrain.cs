@@ -79,8 +79,8 @@ public class HealerBrain : Brain
         _characterRendererManager.Face(faceDir);
 
         // defend if there is not target to interact
-        if (Target == null || _selectedAbility == null)
-            Defend();
+        // if (Target == null || _selectedAbility == null) // HERE: 
+        //     Defend();
 
         // heal/buff
         await base.Interact();
@@ -89,10 +89,24 @@ public class HealerBrain : Brain
 
     void SelectInteraction()
     {
+        if (CanHealSomeone())
+            return;
+        if (CanBuffSomeone())
+            return;
+
+        Defend();
+    }
+
+    bool CanHealSomeone()
+    {
         // so, you have moved closer to lowest health boi, but you are not sure whether you can reach him
         // for all heal abilities, check if there is one that can reach someone harmed, starting with the most costly one
         List<Ability> healAbilities = Abilities.Where(a => a.AbilityType == AbilityType.Heal).ToList();
         healAbilities.Sort((p1, p2) => p2.ManaCost.CompareTo(p1.ManaCost)); //order by mana cost (https://i.redd.it/iuy9fxt300811.png)
+        healAbilities.RemoveAll(x => x.ManaCost > _enemyStats.CurrentMana);// remove ones that you don't have mana for
+
+        if (healAbilities.Count == 0)
+            return false;
 
         PotentialTarget pTarget = null;
         _selectedAbility = null;
@@ -103,20 +117,36 @@ public class HealerBrain : Brain
             {
                 Target = pTarget.GameObj;
                 _selectedAbility = a;
-                break;
+                return true;
             }
         }
 
-        // there is no within reach healable targets
-        if (Target == null)
+        return false;
+    }
+
+    bool CanBuffSomeone()
+    {
+        List<Ability> buffAbilities = Abilities.Where(a => a.AbilityType == AbilityType.Buff).ToList();
+        buffAbilities.Sort((p1, p2) => p2.ManaCost.CompareTo(p1.ManaCost)); //order by mana cost (https://i.redd.it/iuy9fxt300811.png)
+        buffAbilities.RemoveAll(x => x.ManaCost > _enemyStats.CurrentMana);// remove ones that you don't have mana for
+        buffAbilities.RemoveAll(x => x.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f");// remove defend, it will be reworked TODO: end turn rework
+
+        if (buffAbilities.Count == 0)
+            return false;
+
+        PotentialTarget pTarget = null;
+        _selectedAbility = null;
+        foreach (Ability a in buffAbilities)
         {
-            // buff someone
-            _selectedAbility = Abilities.FirstOrDefault(a => a.AbilityType == AbilityType.Buff); // this is buff
-            List<PotentialTarget> buffableTargets = GetWithinReachBuffableTargets(_potentialTargets, _selectedAbility);
-            // it will always return someone, because you are within reach
-            Debug.Log($"buffableTargets.Count: {buffableTargets.Count}");
-            Target = buffableTargets[Random.Range(0, buffableTargets.Count - 1)].GameObj;
+            pTarget = GetWithinReachBuffableTargets(_potentialTargets, a);
+            if (pTarget != null)
+            {
+                Target = pTarget.GameObj;
+                _selectedAbility = a;
+                return true;
+            }
         }
+        return false;
     }
 
     PotentialTarget GetWithinReachHealableTarget(List<PotentialTarget> potentialTargets, Ability selectedAbility)
@@ -142,14 +172,13 @@ public class HealerBrain : Brain
         return target;
     }
 
-    List<PotentialTarget> GetWithinReachBuffableTargets(List<PotentialTarget> potentialTargets, Ability selectedAbility)
-    {            
+    PotentialTarget GetWithinReachBuffableTargets(List<PotentialTarget> potentialTargets, Ability selectedAbility)
+    {
         List<PotentialTarget> buffableTargets = new();
         foreach (PotentialTarget t in potentialTargets)
-        {
             if (Helpers.GetManhattanDistance(_characterGameObject.transform.position, t.GameObj.transform.position) < selectedAbility.Range)
                 buffableTargets.Add(t);
-        }
-        return buffableTargets;
+
+        return buffableTargets[Random.Range(0, buffableTargets.Count - 1)];
     }
 }

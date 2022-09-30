@@ -873,7 +873,7 @@ public class BoardManager : Singleton<BoardManager>
             List<Character> sortedPlayerCharacters = _runManager.PlayerTroops.OrderBy(o => o.Level).ToList();
             sortedPlayerCharacters.Reverse(); // highest first
             int playerLevel = sortedPlayerCharacters[0].Level;
-            enemySO.CreateEnemy(playerLevel + 5, brain);
+            enemySO.CreateEnemy(playerLevel + 2, brain);
 
             Character instantiatedSO = Instantiate(enemySO);
             GameObject newCharacter = Instantiate(_enemyGO, spawnPosition, Quaternion.identity);
