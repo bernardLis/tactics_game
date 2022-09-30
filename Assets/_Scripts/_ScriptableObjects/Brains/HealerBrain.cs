@@ -40,7 +40,6 @@ public class HealerBrain : Brain
         PotentialTarget target = null;
         foreach (PotentialTarget t in potentialTargets)
         {
-            Debug.Log($"potential target: {t.GameObj.name} disntace: t {t.DistanceToTarget}");
             CharacterStats stats = t.GameObj.GetComponent<CharacterStats>();
             if (stats.CurrentHealth < stats.MaxHealth.GetValue() && stats.CurrentHealth < lowestHealth)
             {
@@ -48,8 +47,6 @@ public class HealerBrain : Brain
                 target = t;
             }
         }
-
-        Debug.Log($"chhose target: {target}");
 
         return target;
     }
@@ -67,7 +64,6 @@ public class HealerBrain : Brain
         {
             // facing the closest opponent
             PotentialTarget opponentToFace = GetClosestPotentialTargetWithTag(Tags.Player);
-
             faceDir = (opponentToFace.GameObj.transform.position -
                         _characterGameObject.transform.position).normalized;
         }
@@ -77,10 +73,6 @@ public class HealerBrain : Brain
         // face 'stronger direction'
         faceDir = Mathf.Abs(faceDir.x) > Mathf.Abs(faceDir.y) ? new Vector2(faceDir.x, 0f) : new Vector2(0f, faceDir.y);
         _characterRendererManager.Face(faceDir);
-
-        // defend if there is not target to interact
-        // if (Target == null || _selectedAbility == null) // HERE: 
-        //     Defend();
 
         // heal/buff
         await base.Interact();

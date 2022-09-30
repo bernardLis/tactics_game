@@ -116,7 +116,6 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Interact()
     {
-        _infoCardUI.ShowManaChange(_enemyStats, -_selectedAbility.ManaCost);
         await _selectedAbility.HighlightTargetable(_characterGameObject);
         await Task.Delay(200);
         await _selectedAbility.HighlightAreaOfEffect(Target.transform.position);
@@ -131,7 +130,7 @@ public class Brain : BaseScriptableObject
         Target = _characterGameObject;
     }
 
-    protected List<PotentialTarget> GetPotentialTargets(string targetTag)
+    protected List<PotentialTarget> GetPotentialTargets(string targetTag, bool isPathRequired = true)
     {
         GameObject[] targetCharacters = GameObject.FindGameObjectsWithTag(targetTag);
         List<PotentialTarget> potentialTargets = new();
@@ -145,7 +144,9 @@ public class Brain : BaseScriptableObject
             // https://arongranberg.com/astar/docs_dev/class_pathfinding_1_1_path.php#a1076ed6812e2b4f98dca64b74dabae5d
             float distance = p.GetTotalLength();
             PotentialTarget potentialTarget = new PotentialTarget(targetChar, distance);
-            if (distance > 0 || _characterGameObject.CompareTag(targetTag)) // need path or be friends
+            if (!isPathRequired) // need path or be friends
+                potentialTargets.Add(potentialTarget);
+            if (isPathRequired && distance > 0)
                 potentialTargets.Add(potentialTarget);
 
             targetChar.GetComponent<CharacterSelection>().ActivateSingleNodeBlocker();

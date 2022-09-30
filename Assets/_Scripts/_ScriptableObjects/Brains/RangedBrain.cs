@@ -9,14 +9,9 @@ public class RangedBrain : Brain
 {
     public override async Task Move()
     {
-        _potentialTargets = GetPotentialTargets("Player");
-        foreach (PotentialTarget t in _potentialTargets)
-        {
-            Debug.Log($"distance to {t.GameObj.name}: {t.DistanceToTarget}");
-        }
+        _potentialTargets = GetPotentialTargets("Player", false);
 
         PotentialTarget selectedTarget = GetClosestTarget(_potentialTargets, _selectedAbility);
-        Debug.Log($"selectedTarget: {selectedTarget.GameObj.name}");
         Ability bestAbility = Abilities[0];
         foreach (Ability a in Abilities)
         {

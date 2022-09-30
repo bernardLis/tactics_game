@@ -45,9 +45,10 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public override async Task Initialize(Vector3 pos, Ability ability, string tag = "")
     {
-        await Fall(pos);
+        SpriteRenderer boulderRenderer = GetComponent<SpriteRenderer>();
+        boulderRenderer.sortingOrder = 99;
 
-        AstarPath.active.Scan();
+        await Fall(pos);
 
         _selfCollider = GetComponent<BoxCollider2D>();
         _selfCollider.enabled = false;
@@ -62,13 +63,12 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
             bm.AddEnvObject(transform);
 
         FlickerLight();
+
+        boulderRenderer.sortingOrder = 50;
     }
 
     public async Task Fall(Vector3 pos)
     {
-        SpriteRenderer boulderRenderer = GetComponent<SpriteRenderer>();
-        boulderRenderer.sortingOrder = 99;
-
         _finalPos = pos;
 
         _shadow.SetActive(true);
@@ -100,11 +100,13 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
         Destroy(_shadow);
         AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);
 
-        boulderRenderer.sortingOrder = 50;
     }
 
     public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
     {
+        SpriteRenderer boulderRenderer = GetComponent<SpriteRenderer>();
+        boulderRenderer.sortingOrder = 99;
+
         _finalPos = transform.position + dir;
 
         _selfCollider.enabled = false;
@@ -116,6 +118,8 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
         if (_selfCollider != null)
             _selfCollider.enabled = true;
+
+        boulderRenderer.sortingOrder = 50;
     }
 
     public async Task MoveToPosition(Vector3 finalPos, float time)
@@ -186,13 +190,13 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
     public virtual async Task CollideWithCharacter(Ability ability, Collider2D col)
     {
         _targetStats = col.GetComponent<CharacterStats>();
+        await DestroySelf(true, false);
         await _targetStats.TakeDamageFinal(_damage);
-        await DestroySelf();
     }
 
     public async Task CollideWithIndestructible(Ability ability, Collider2D col)
     {
-        await DestroySelf();
+        await DestroySelf(true, false);
     }
 
     public async Task CollideWithDestructible(Ability ability, Collider2D col)
@@ -217,33 +221,29 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public override async Task DestroySelf(bool playEffects = true, bool scanAstar = true)
     {
+        Debug.Log($"destroy self, playeffects: {playEffects}");
 
         _selfCollider.enabled = false;
         if (scanAstar)
             ScanAstar();
 
         transform.DOKill();
-        if (playEffects == false)
+        if (playEffects)
         {
             Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
             AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);
             Animator anim = GetComponent<Animator>();
-            Debug.Log($"anim {anim}");
             if (anim != null)
-            {
-                Debug.Log($"animnot null ");
-
                 anim.Play("Stone Breaking");
 
-            }
             // TODO: waiting for animation to finish... too hard for now.
             // I think the animation is too short, I don't get it when I ask anim - I get new state
             await Task.Delay(500);
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        Destroy(gameObject, 2f); // because I am scanning astar 1second after this is called
     }
-
 
     public override VisualElement DisplayText() { return new Label(_displayText); }
 
