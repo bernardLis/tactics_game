@@ -48,9 +48,10 @@ public class SettingsScreen : FullScreenVisual
         // UI
         VisualElement uiOptionsContainer = new VisualElement();
         uiOptionsContainer.AddToClassList("uiContainer");
-        Label uiOptions = new Label("UI Options");
-        uiOptions.AddToClassList("textPrimary");
-        Add(uiOptions);
+        Label uiOptionsLabel = new Label("UI Options");
+        uiOptionsLabel.AddToClassList("textPrimary");
+        uiOptionsContainer.Add(uiOptionsLabel);
+        Add(uiOptionsContainer);
         AddUIOptions(uiOptionsContainer);
 
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
@@ -237,26 +238,17 @@ public class SettingsScreen : FullScreenVisual
         Add(button);
     }
 
-    void ClearSaveData()
-    {
-        _gameManager.ClearSaveData();
-    }
-
-
     void AddUIOptions(VisualElement parent)
     {
         VisualElement container = CreateContainer("Hide Battle Log");
         parent.Add(container);
-
         _battleLogToggle = new Toggle();
         container.Add(_battleLogToggle);
         ToggleBattleLog(PlayerPrefs.GetInt("HideBattleLog", 0) != 0);
         _battleLogToggle.RegisterValueChangedCallback(BattleLogToggleClick);
 
-
         VisualElement container1 = CreateContainer("Hide Battle Helper Text");
         parent.Add(container1);
-
         _battleHelperTextToggle = new Toggle();
         container1.Add(_battleHelperTextToggle);
         ToggleBattleHelperText(PlayerPrefs.GetInt("HideBattleHelperText", 0) != 0);
@@ -299,5 +291,6 @@ public class SettingsScreen : FullScreenVisual
         ToggleBattleHelperText(evt.newValue);
     }
 
+    void ClearSaveData() { _gameManager.ClearSaveData(); }
 
 }

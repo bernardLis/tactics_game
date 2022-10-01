@@ -416,6 +416,9 @@ public class InfoCardUI : Singleton<InfoCardUI>
         _attackDamageGroup.Clear();
         DOTween.To(() => _interactionSummary.style.left.value.value, x => _interactionSummary.style.left = Length.Percent(x), _cardHideValue, 0.5f)
                .SetEase(Ease.InOutSine);
+
+        // HERE:
+
     }
 
     void ShowHealthChange(CharacterStats stats, int val)

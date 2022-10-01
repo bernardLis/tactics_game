@@ -70,7 +70,6 @@ public class ObjectUI : ImmediateModeShapeDrawer
             if (CompareTag(Tags.Enemy))
                 _color = Color.red;
         }
-
     }
 
     // TODO: I could be displaying some effects on character - poison cloud or something 

@@ -46,8 +46,7 @@ public class RatBattleShapesPainter : ImmediateModeShapeDrawer
     {
         TurnManager.OnBattleStateChanged -= TurnManager_OnBattleStateChanged;
         BattleCharacterController.OnCharacterStateChanged -= OnCharacterStateChanged;
-        MovePointController.OnMove += OnMovePointControllerMove;
-
+        MovePointController.OnMove -= OnMovePointControllerMove;
     }
 
     void TurnManager_OnBattleStateChanged(BattleState state)
