@@ -162,7 +162,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         enemySO.CreateEnemy(1, _bossBrain);
 
         _boss = SpawnEnemy(bossSpawnPosition, enemySO, Vector3.one * 3f);
-        _boss.GetComponentInChildren<CharacterRendererManager>().transform.localPosition = new Vector3(0, 0.3f); // moving it to be more centered
+        _boss.GetComponentInChildren<CharacterRendererManager>().transform.localPosition = new Vector3(0, 0.4f); // moving it to be more centered
         _boss.SetActive(false);
     }
 

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Shapes;
 
-public class ObjectUI : MonoBehaviour
+public class ObjectUI : ImmediateModeShapeDrawer
 {
     Camera _cam;
     BattleManager _battleManager;
@@ -11,11 +12,21 @@ public class ObjectUI : MonoBehaviour
     Queue<IEnumerator> _coroutineQueue = new();
 
     VisualElement _root;
-    Label _characterNameLabel;
-    bool _isNameDisplayed;
 
-    [SerializeField] float _offsetY = -0.25f;
-    [SerializeField] float _offsetX = -0.25f;
+    GameObject _body;
+    [SerializeField] bool _isNameDisplayed;
+    [SerializeField] bool _blockNameDisplay;
+    [SerializeField] string _name;
+    [SerializeField] int _fontSize;
+    [SerializeField] Color _color;
+
+    [SerializeField] Vector3 _nameLabelOffset = new();
+
+    void Awake()
+    {
+        _body = GetComponentInChildren<CharacterRendererManager>().gameObject;
+    }
+
     void Start()
     {
         _cam = Helpers.Camera;
@@ -23,9 +34,7 @@ public class ObjectUI : MonoBehaviour
 
         // getting ui elements
         _root = GetComponent<UIDocument>().rootVisualElement;
-        _characterNameLabel = _root.Q<Label>("characterName");
 
-        SetNameLabelColor();
         DisplayName();
 
         StartCoroutine(CoroutineCoordinator());
@@ -33,52 +42,36 @@ public class ObjectUI : MonoBehaviour
         _battleManager.OnGameResumed += OnGameResumed;
     }
 
-    void OnGamePaused() { _characterNameLabel.style.display = DisplayStyle.None; }
 
-    void OnGameResumed() { _characterNameLabel.style.display = DisplayStyle.Flex; }
-
-    public void ToggleCharacterNameDisplay(bool isDisplayed)
+    public override void DrawShapes(Camera cam)
     {
-        if (isDisplayed)
-            _characterNameLabel.style.display = DisplayStyle.Flex;
-        else
-            _characterNameLabel.style.display = DisplayStyle.None;
+        using (Draw.Command(cam))
+            if (_isNameDisplayed && !_blockNameDisplay && _name != null)
+                Draw.Text(_body.transform.position + _nameLabelOffset, _name, _fontSize, _color);
     }
 
-    void SetNameLabelColor()
-    {
-        if (CompareTag(Tags.Enemy))
-            _characterNameLabel.style.color = Color.red;
-    }
+
+    void OnGamePaused() { _isNameDisplayed = false; }
+
+    void OnGameResumed() { _isNameDisplayed = true; }
+
+    public void ToggleCharacterNameDisplay(bool isDisplayed) { _blockNameDisplay = !isDisplayed; }
 
     void DisplayName()
     {
         if (TryGetComponent(out CharacterStats stats))
         {
-            _characterNameLabel.style.display = DisplayStyle.Flex;
-            _characterNameLabel.style.alignSelf = Align.FlexStart;
-            _characterNameLabel.text = stats.Character.CharacterName;
-            // TODO: this is imperfect coz it depends on the camera zoom really...
-            _offsetX = stats.Character.CharacterName.Length * -0.06f; // magic number!! 
             _isNameDisplayed = true;
+            _name = stats.Character.CharacterName;
+            _color = Color.white;
+            _fontSize = 3;
+            _nameLabelOffset = new(0, -0.4f - _body.transform.localPosition.y);
+
+            if (CompareTag(Tags.Enemy))
+                _color = Color.red;
         }
 
     }
-
-    void Update()
-    {
-        if (_isNameDisplayed)
-            CenterNameLabel();
-    }
-
-    void CenterNameLabel()
-    {
-        Vector3 middleOfTheTile = new Vector3(transform.position.x + _offsetX, transform.position.y + _offsetY, transform.position.z);
-        Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(_characterNameLabel.panel, middleOfTheTile, _cam);
-
-        _characterNameLabel.transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
-    }
-
 
     // TODO: I could be displaying some effects on character - poison cloud or something 
     // and add it to the queue as well...

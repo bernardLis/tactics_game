@@ -9,6 +9,8 @@ using UnityEngine.InputSystem.Utilities;
 
 public class ConversationManager : Singleton<ConversationManager>
 {
+    AudioManager _audioManager;
+
     VisualElement _conversationContainer;
     VisualElement _conversationPortrait;
     Label _conversationTooltip;
@@ -28,12 +30,18 @@ public class ConversationManager : Singleton<ConversationManager>
     {
         base.Awake();
 
+
         // getting ui elements
         var root = GetComponent<UIDocument>().rootVisualElement;
         _conversationContainer = root.Q<VisualElement>("conversationContainer");
         _conversationPortrait = root.Q<VisualElement>("conversationPortrait");
         _conversationText = root.Q<Label>("conversationText");
         _conversationTooltip = root.Q<Label>("conversationTooltip");
+    }
+
+    void Start()
+    {
+        _audioManager = AudioManager.Instance;
     }
 
     public async Task PlayConversation(Conversation conversation)
@@ -115,7 +123,7 @@ public class ConversationManager : Singleton<ConversationManager>
         _conversationTooltip.transform.scale = Vector3.one;
 
         _conversationContainer.style.display = DisplayStyle.None;
-        AudioManager.Instance.StopDialogue();
+        _audioManager.StopDialogue();
     }
 
 
@@ -128,8 +136,8 @@ public class ConversationManager : Singleton<ConversationManager>
         float letterPrintingDelay = 0.05f;
         if (line.VO)
         {
-            AudioManager.Instance.StopDialogue();
-            AudioManager.Instance.PlayDialogue(line.VO);
+            _audioManager.StopDialogue();
+            _audioManager.PlayDialogue(line.VO);
             char[] charArray = line.Text.ToCharArray();
 
             float duration = line.VO.Clips[0].length * 1000; // magic 1 second ....
@@ -152,8 +160,6 @@ public class ConversationManager : Singleton<ConversationManager>
 
         if (_typeTextCoroutine != null)
             StopCoroutine(_typeTextCoroutine);
-
-        Debug.Log($"letter printing delay {letterPrintingDelay}");
 
         _typeTextCoroutine = TypeText(_currentText, letterPrintingDelay);
         StartCoroutine(_typeTextCoroutine);

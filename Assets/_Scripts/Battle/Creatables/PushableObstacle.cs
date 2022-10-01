@@ -99,7 +99,6 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
         Destroy(Instantiate(_poofEffect, transform.position, Quaternion.identity), 1f);
         Destroy(_shadow);
         AudioManager.Instance.PlaySFX("StoneBreaking", transform.position);
-
     }
 
     public async Task GetPushed(Vector3 dir, GameObject attacker, Ability ability)
@@ -214,8 +213,6 @@ public class PushableObstacle : Creatable, IPushable<Vector3, GameObject, Abilit
 
     public override async Task DestroySelf(bool playEffects = true, bool scanAstar = true)
     {
-        Debug.Log($"destroy self, playeffects: {playEffects}");
-
         _selfCollider.enabled = false;
         if (scanAstar)
             ScanAstar();
