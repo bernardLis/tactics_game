@@ -121,9 +121,6 @@ public class BattleUI : Singleton<BattleUI>
             case CharacterState.SelectingInteractionTarget:
                 UpdateBattleHelperText("Choose a target.");
                 break;
-            case CharacterState.ConfirmingInteraction:
-                UpdateBattleHelperText("Confirm interaction.");
-                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }

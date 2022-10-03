@@ -111,8 +111,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
                 break;
             case CharacterState.SelectingInteractionTarget:
                 break;
-            case CharacterState.ConfirmingInteraction:
-                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
@@ -260,7 +258,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerCharSelection.SetCharacterMoved(true);
     }
 
-    public async void Back()
+    public void Back()
     {
         ClearPathRenderer();
 
@@ -270,12 +268,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         if (SelectedCharacter == null)
             return;
-
-        if (CharacterState == CharacterState.ConfirmingInteraction)
-        {
-            await BackFromConfirmingInteraction();
-            return;
-        }
 
         if (SelectedAbility != null)
         {
@@ -306,6 +298,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _aiLerp.destination = _tempObject.transform.position;
 
         _characterUI.DisableSkillButtons();
+
     }
 
     void CharacterReachedDestination()
@@ -347,24 +340,15 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             return;
         _isInteracting = true;
 
-        // highlight aoe
-        if (CharacterState == CharacterState.SelectingInteractionTarget)
-        {
-            _battleInputController.SetInputAllowed(false);
-            await SelectedAbility.HighlightAreaOfEffect(transform.position);
-            _battleInputController.SetInputAllowed(true);
-
-            _isInteracting = false;
-            return;
-        }
-
         // fixes a bug where when you walked and clicked on yourself you ended your turn
         if (SelectedAbility == null)
         {
             _isInteracting = false;
             return;
         }
+
         _battleInputController.SetInputAllowed(false);
+        await SelectedAbility.HighlightAreaOfEffect(transform.position);
         await SelectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
         _battleInputController.SetInputAllowed(true);
         _isInteracting = false;
@@ -384,17 +368,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         else
             UpdateCharacterState(CharacterState.Selected);
 
-    }
-    
-    async Task BackFromConfirmingInteraction()
-    {
-        _isInteracting = false;
-        _battleInputController.SetInputAllowed(false);
-        await SelectedAbility.HighlightTargetable(SelectedCharacter);
-        GetViableTargets();
-        _battleInputController.SetInputAllowed(true);
-
-        UpdateCharacterState(CharacterState.SelectingInteractionTarget);
     }
 
     void FinishCharacterTurn()

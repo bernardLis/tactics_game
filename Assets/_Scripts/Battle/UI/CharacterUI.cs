@@ -90,8 +90,6 @@ public class CharacterUI : Singleton<CharacterUI>
             HandleCharacterSelected();
         if (state == CharacterState.SelectingInteractionTarget)
             return;
-        if (state == CharacterState.ConfirmingInteraction)
-            return;
     }
     async void HandleCharacterStateNone()
     {

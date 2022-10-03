@@ -82,9 +82,6 @@ public abstract class Ability : BaseScriptableObject
 
     public virtual async Task HighlightAreaOfEffect(Vector3 middlePos)
     {
-        if (CharacterGameObject.CompareTag(Tags.Player))
-            _battleCharacterController.UpdateCharacterState(CharacterState.ConfirmingInteraction);
-
         _middleOfTargeting = middlePos;
         if (LineAreaOfEffect)
             await _highlighter.HighlightAbilityLineAOE(this, middlePos);

@@ -48,9 +48,6 @@ public class CharacterRendererManager : MonoBehaviour
         if (!_isSelected)
             return;
 
-        if (_battleCharacterController.CharacterState == CharacterState.ConfirmingInteraction)
-            return;
-
         Vector2 dir = (pos - transform.position).normalized;
         ResolveFaceDir(dir);
     }
@@ -68,8 +65,6 @@ public class CharacterRendererManager : MonoBehaviour
         if (state == CharacterState.Selected)
             HandleCharacterSelected();
         if (state == CharacterState.SelectingInteractionTarget)
-            return;
-        if (state == CharacterState.ConfirmingInteraction)
             return;
     }
 

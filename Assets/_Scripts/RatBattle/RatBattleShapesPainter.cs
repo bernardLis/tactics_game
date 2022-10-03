@@ -95,9 +95,6 @@ public class RatBattleShapesPainter : ImmediateModeShapeDrawer
             case CharacterState.SelectingInteractionTarget:
                 HandleSelectingInteractionTarget();
                 break;
-            case CharacterState.ConfirmingInteraction:
-                HandleConfirmingInteraction();
-                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
@@ -158,15 +155,6 @@ public class RatBattleShapesPainter : ImmediateModeShapeDrawer
         {
             _textToDraw1 = "You can change selected ability ";
             _textToDraw2 = "or hover over tile you want to interact with and press 'f'.";
-        }
-    }
-
-    void HandleConfirmingInteraction()
-    {
-        if (TurnManager.CurrentTurn == 1)
-        {
-            _textToDraw1 = "Press 'f' to confirm interaction.";
-            _textToDraw2 = "You can back out by clicking 'b'.";
         }
     }
 

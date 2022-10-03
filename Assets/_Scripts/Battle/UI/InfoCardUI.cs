@@ -104,8 +104,6 @@ public class InfoCardUI : Singleton<InfoCardUI>
             HandleCharacterStateNone();
         if (state == CharacterState.Selected)
             HandleCharacterSelected();
-        if (state == CharacterState.ConfirmingInteraction)
-            return;
     }
 
     void HandleCharacterStateNone()
