@@ -121,9 +121,6 @@ public class BattleUI : Singleton<BattleUI>
             case CharacterState.SelectingInteractionTarget:
                 UpdateBattleHelperText("Choose a target.");
                 break;
-            case CharacterState.SelectingFaceDir:
-                UpdateBattleHelperText("Select face direction.");
-                break;
             case CharacterState.ConfirmingInteraction:
                 UpdateBattleHelperText("Confirm interaction.");
                 break;

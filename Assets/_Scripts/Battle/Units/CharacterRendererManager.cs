@@ -69,8 +69,6 @@ public class CharacterRendererManager : MonoBehaviour
             HandleCharacterSelected();
         if (state == CharacterState.SelectingInteractionTarget)
             return;
-        if (state == CharacterState.SelectingFaceDir)
-            HandleSelectingFaceDir();
         if (state == CharacterState.ConfirmingInteraction)
             return;
     }
@@ -83,11 +81,6 @@ public class CharacterRendererManager : MonoBehaviour
     void HandleCharacterSelected()
     {
         ResolveFaceDir(Vector2.down);
-    }
-
-    void HandleSelectingFaceDir()
-    {
-
     }
 
     // TODO: something smarter I probably don't need to set direction when character movement is not active

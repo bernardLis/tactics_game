@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEditor;
-
+using Pathfinding;
 public abstract class Ability : BaseScriptableObject
 {
     [Tooltip("Used for saving and character creation")]
@@ -42,7 +42,6 @@ public abstract class Ability : BaseScriptableObject
 
     [HideInInspector] public GameObject CharacterGameObject;
     protected CharacterStats _stats;
-    protected FaceDirectionUI _faceDirectionUI;
     protected CharacterRendererManager _characterRendererManager;
 
     protected AudioSource _audioSource;
@@ -59,7 +58,6 @@ public abstract class Ability : BaseScriptableObject
     {
         CharacterGameObject = self;
         _stats = self.GetComponent<CharacterStats>();
-        _faceDirectionUI = self.GetComponent<FaceDirectionUI>();
         _characterRendererManager = self.GetComponentInChildren<CharacterRendererManager>();
 
         _highlighter = BattleManager.Instance.GetComponent<HighlightManager>();
@@ -103,8 +101,7 @@ public abstract class Ability : BaseScriptableObject
         Collider2D[] cols = Physics2D.OverlapCircleAll(_middleOfTargeting, 0.2f);
         foreach (Collider2D c in cols)
             if (c.gameObject == CharacterGameObject && CharacterGameObject.CompareTag(Tags.Player))
-                if (!await PlayerFaceDirSelection()) // allows to break out from selecing face direction TODO: it does not work
-                    return;
+                PlayerFaceDirSelection();
 
         if (Sound != null)
             AudioManager.Instance.PlaySFX(Sound, CharacterGameObject.transform.position); // TODO: is that a correct place for sound
@@ -160,19 +157,23 @@ public abstract class Ability : BaseScriptableObject
         return 0;
     }
 
-    protected async Task<bool> PlayerFaceDirSelection()
+    protected void PlayerFaceDirSelection()
     {
-        Vector2 dir = Vector2.zero;
-        if (_faceDirectionUI != null)
-            dir = await _faceDirectionUI.PickDirection();
+        // face the nearest enemy
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(Tags.Enemy);
+        float distanceToClosestEnemy = Vector3.Distance(CharacterGameObject.transform.position, enemies[0].transform.position);
+        GameObject closestEnemy = enemies[0];
 
-        // TODO: is that correct? facedir returns vector2.zero when it's broken out of
-        if (dir == Vector2.zero)
-            return false;
+        foreach (GameObject enemy in enemies)
+        {
+            float dist = Vector3.Distance(CharacterGameObject.transform.position, enemy.transform.position);
+            if (dist < distanceToClosestEnemy)
+                closestEnemy = enemy;
+        }
 
-        _characterRendererManager.Face(dir.normalized);
+        Vector2 dir = (closestEnemy.transform.position - CharacterGameObject.transform.position).normalized;
 
-        return true;
+        _characterRendererManager.Face(dir);
     }
 
     /* UI Helpers */

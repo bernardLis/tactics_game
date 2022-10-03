@@ -111,8 +111,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
                 break;
             case CharacterState.SelectingInteractionTarget:
                 break;
-            case CharacterState.SelectingFaceDir:
-                break;
             case CharacterState.ConfirmingInteraction:
                 break;
             default:
@@ -279,12 +277,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             return;
         }
 
-        if (CharacterState == CharacterState.SelectingFaceDir)
-        {
-            await BackFromFaceDirSelection();
-            return;
-        }
-
         if (SelectedAbility != null)
         {
             BackFromAbilitySelection();
@@ -393,30 +385,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             UpdateCharacterState(CharacterState.Selected);
 
     }
-
-    async Task BackFromFaceDirSelection()
-    {
-        _isInteracting = false;
-
-        // TODO:cache face direction ui if it is the right approach
-        SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
-        _playerCharSelection.ToggleSelectionArrow(true);
-
-        // abilities that can target self should go back to Select target
-        if (SelectedAbility.CanTargetSelf)
-        {
-            // it changes the state too
-            _battleInputController.SetInputAllowed(false);
-            await SelectedAbility.HighlightTargetable(SelectedCharacter);
-            GetViableTargets();
-            _battleInputController.SetInputAllowed(true);
-            return;
-        }
-
-        // deselect ability if it was an ability that goes straight to facing dir;
-        BackFromAbilitySelection();
-    }
-
+    
     async Task BackFromConfirmingInteraction()
     {
         _isInteracting = false;

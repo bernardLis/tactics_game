@@ -95,9 +95,6 @@ public class RatBattleShapesPainter : ImmediateModeShapeDrawer
             case CharacterState.SelectingInteractionTarget:
                 HandleSelectingInteractionTarget();
                 break;
-            case CharacterState.SelectingFaceDir:
-                HandleSelectingFaceDir();
-                break;
             case CharacterState.ConfirmingInteraction:
                 HandleConfirmingInteraction();
                 break;
@@ -170,15 +167,6 @@ public class RatBattleShapesPainter : ImmediateModeShapeDrawer
         {
             _textToDraw1 = "Press 'f' to confirm interaction.";
             _textToDraw2 = "You can back out by clicking 'b'.";
-        }
-    }
-
-    void HandleSelectingFaceDir()
-    {
-        if (TurnManager.CurrentTurn == 1)
-        {
-            _textToDraw1 = "Select face direction with arrows";
-            _textToDraw2 = "or click on the thingy.";
         }
     }
 

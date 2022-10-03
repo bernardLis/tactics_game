@@ -78,7 +78,7 @@ public enum BattleGoal { DefeatAllEnemies } // TODO: implement other battle goal
 public enum JourneyNodeType { Start, End, Battle, Knowledge, Chest, Shop, Fire, Boss, Event }
 public enum MapType { None, Circle, River, Lake, Hourglass }
 public enum TileMapObjectType { Outer, Obstacle, PushableObstacle }
-public enum CharacterState { None, Selected, Moved, SelectingInteractionTarget, SelectingFaceDir, ConfirmingInteraction }
+public enum CharacterState { None, Selected, Moved, SelectingInteractionTarget, ConfirmingInteraction }
 public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }

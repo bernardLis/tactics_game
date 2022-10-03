@@ -230,7 +230,6 @@ GameObject:
   - component: {fileID: 1712415301602900234}
   - component: {fileID: 1384944250223896114}
   - component: {fileID: 1864993293436626187}
-  - component: {fileID: 4212650218818044008}
   - component: {fileID: 6105715623576548095}
   - component: {fileID: 6105715623576548089}
   - component: {fileID: 6872036329818720946}
@@ -430,22 +429,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee9cc88b11dcf74d8748c532a284917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offsetY: -0.25
-  _offsetX: -1
---- !u!114 &4212650218818044008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6105715623576548083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a4ba4d7fbf2394288672d4319167c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offsetY: 1.45
-  _offsetX: -1.15
+  useCullingMasks: 0
+  _isNameDisplayed: 0
+  _blockNameDisplay: 0
+  _name: 
+  _fontSize: 0
+  _color: {r: 0, g: 0, b: 0, a: 0}
+  _nameLabelOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &6105715623576548095
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -140,9 +140,6 @@ public class BattleInputController : Singleton<BattleInputController>
 
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
-        if (_battleCharacterController.CharacterState == CharacterState.SelectingFaceDir)
-            return;
-
         if (!AllowInput) // TODO: ||EventSystem.current.IsPointerOverGameObject() << throws an error;
             return;
 
@@ -183,21 +180,6 @@ public class BattleInputController : Singleton<BattleInputController>
     void Move(InputAction.CallbackContext ctx)
     {
         Vector2 direction = ctx.ReadValue<Vector2>();
-
-        // Selecting face direction with arrows
-        if (_battleCharacterController.CharacterState == CharacterState.SelectingFaceDir)
-        {
-            if (direction == Vector2.up)
-                _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().SimulateUpButtonClicked();
-            if (direction == Vector2.left)
-                _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().SimulateLeftButtonClicked();
-            if (direction == Vector2.right)
-                _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().SimulateRightButtonClicked();
-            if (direction == Vector2.down)
-                _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().SimulateDownButtonClicked();
-
-            return;
-        }
 
         if (!AllowInput)
             return;

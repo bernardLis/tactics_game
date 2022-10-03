@@ -90,8 +90,6 @@ public class CharacterUI : Singleton<CharacterUI>
             HandleCharacterSelected();
         if (state == CharacterState.SelectingInteractionTarget)
             return;
-        if (state == CharacterState.SelectingFaceDir)
-            HandleSelectingFaceDir();
         if (state == CharacterState.ConfirmingInteraction)
             return;
     }
@@ -113,11 +111,6 @@ public class CharacterUI : Singleton<CharacterUI>
         _selectedPlayerStats.OnCharacterDeath += OnCharacterDeath;
 
         await ShowCharacterUI();
-    }
-
-    void HandleSelectingFaceDir()
-    {
-        DisableSkillButtons();
     }
 
     void AddAbilitySlots()
@@ -308,8 +301,6 @@ public class CharacterUI : Singleton<CharacterUI>
     // because I am not skilled enough to rewrite everything to use only async await. 
     IEnumerator HandleButtonClick(Ability ability)
     {
-        _battleCharacterController.SelectedCharacter.GetComponent<FaceDirectionUI>().HideUI();
-
         // when clicked multiple times on the same ability treat it as if clicked select
         if (ability == _battleCharacterController.SelectedAbility)
         {
