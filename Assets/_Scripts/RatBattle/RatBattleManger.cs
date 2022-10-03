@@ -220,6 +220,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
 
     async void OnRatDeath(GameObject obj)
     {
+        _spawnedRats.Remove(obj);
         _ratsKilled++;
         if (_ratsKilled == 2)
         {
@@ -228,7 +229,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
             _boss.GetComponent<ObjectUI>().ToggleCharacterNameDisplay(false);
         }
     }
-
 
     async Task SpawnFriend()
     {

@@ -368,7 +368,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             UpdateCharacterState(CharacterState.Selected);
     }
 
-    void FinishCharacterTurn()
+    public void FinishCharacterTurn()
     {
         _isInteracting = false;
 

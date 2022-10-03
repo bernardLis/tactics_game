@@ -101,7 +101,7 @@ public class BattleInputController : Singleton<BattleInputController>
         _playerInput.actions["DetailsClick"].performed += DetailsClick;
 
         _playerInput.actions["BasicAttackClick"].performed += AbilityButtonClicked;
-        _playerInput.actions["BasicDefenseClick"].performed += AbilityButtonClicked;
+        _playerInput.actions["BasicDefenseClick"].performed += Defend;
 
         _playerInput.actions["FirstAbilityClick"].performed += AbilityButtonClicked;
         _playerInput.actions["SecondAbilityClick"].performed += AbilityButtonClicked;
@@ -124,7 +124,7 @@ public class BattleInputController : Singleton<BattleInputController>
         _playerInput.actions["DetailsClick"].performed -= DetailsClick;
 
         _playerInput.actions["BasicAttackClick"].performed -= AbilityButtonClicked;
-        _playerInput.actions["BasicDefenseClick"].performed -= AbilityButtonClicked;
+        _playerInput.actions["BasicDefenseClick"].performed -= Defend;
 
         _playerInput.actions["FirstAbilityClick"].performed -= AbilityButtonClicked;
         _playerInput.actions["SecondAbilityClick"].performed -= AbilityButtonClicked;
@@ -245,4 +245,18 @@ public class BattleInputController : Singleton<BattleInputController>
     }
 
     void AbilityButtonClicked(InputAction.CallbackContext ctx) { _characterUI.SimulateAbilityButtonClicked(ctx); }
+
+    void Defend(InputAction.CallbackContext ctx)
+    {
+        if (!IsInputAllowed())
+            return;
+
+        if (!_battleCharacterController.CanSelectAbility())
+            return;
+
+        Debug.Log($"_battleCharacterController.SelectedCharacter {_battleCharacterController.SelectedCharacter}");
+        Vector2 dir = Helpers.GetDirectionToClosestWithTag(_battleCharacterController.SelectedCharacter, Tags.Enemy);
+        _battleCharacterController.SelectedCharacter.GetComponentInChildren<CharacterRendererManager>().Face(dir);
+        _battleCharacterController.FinishCharacterTurn();
+    }
 }

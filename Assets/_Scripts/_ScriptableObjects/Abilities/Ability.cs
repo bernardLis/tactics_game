@@ -90,11 +90,11 @@ public abstract class Ability : BaseScriptableObject
         // copy the list for safety
         List<WorldTile> targetTiles = new(tiles);
 
-        // targeting self, you should be able to choose what direction to face
+        // targeting self, face closest enemy
         Collider2D[] cols = Physics2D.OverlapCircleAll(_middleOfTargeting, 0.2f);
         foreach (Collider2D c in cols)
             if (c.gameObject == CharacterGameObject && CharacterGameObject.CompareTag(Tags.Player))
-                PlayerFaceDirSelection();
+                _characterRendererManager.Face(Helpers.GetDirectionToClosestWithTag(CharacterGameObject, Tags.Enemy));
 
         if (Sound != null)
             AudioManager.Instance.PlaySFX(Sound, CharacterGameObject.transform.position); // TODO: is that a correct place for sound
@@ -148,25 +148,6 @@ public abstract class Ability : BaseScriptableObject
             return 0.50f;
 
         return 0;
-    }
-
-    protected void PlayerFaceDirSelection()
-    {
-        // face the nearest enemy
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(Tags.Enemy);
-        float distanceToClosestEnemy = Vector3.Distance(CharacterGameObject.transform.position, enemies[0].transform.position);
-        GameObject closestEnemy = enemies[0];
-
-        foreach (GameObject enemy in enemies)
-        {
-            float dist = Vector3.Distance(CharacterGameObject.transform.position, enemy.transform.position);
-            if (dist < distanceToClosestEnemy)
-                closestEnemy = enemy;
-        }
-
-        Vector2 dir = (closestEnemy.transform.position - CharacterGameObject.transform.position).normalized;
-
-        _characterRendererManager.Face(dir);
     }
 
     /* UI Helpers */

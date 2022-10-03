@@ -58,4 +58,23 @@ public static class Helpers
         return text;
     }
 
+    public static Vector2 GetDirectionToClosestWithTag(GameObject self, string tag)
+    {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
+        if (targets.Length == 0)
+            return Vector2.zero;
+        
+        float distanceToClosestTarget = Vector3.Distance(self.transform.position, targets[0].transform.position);
+        GameObject closestTarget = targets[0];
+
+        foreach (GameObject target in targets)
+        {
+            float dist = Vector3.Distance(self.transform.position, target.transform.position);
+            if (dist < distanceToClosestTarget)
+                closestTarget = target;
+        }
+
+        return (closestTarget.transform.position - self.transform.position).normalized;
+    }
+
 }

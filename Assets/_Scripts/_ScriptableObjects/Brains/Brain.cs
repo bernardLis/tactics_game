@@ -125,21 +125,7 @@ public class Brain : BaseScriptableObject
 
     protected void DoNothing()
     {
-        // face the closest player character and end turn
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(Tags.Player);
-        float distanceToClosestPlayer = Vector3.Distance(_characterGameObject.transform.position, enemies[0].transform.position);
-        GameObject closestPlayer = enemies[0];
-
-        foreach (GameObject enemy in enemies)
-        {
-            float dist = Vector3.Distance(_characterGameObject.transform.position, enemy.transform.position);
-            if (dist < distanceToClosestPlayer)
-                closestPlayer = enemy;
-        }
-
-        Vector2 dir = (closestPlayer.transform.position - _characterGameObject.transform.position).normalized;
-
-        _characterRendererManager.Face(dir);
+        _characterRendererManager.Face(Helpers.GetDirectionToClosestWithTag(_characterGameObject, Tags.Player));
     }
 
     protected List<PotentialTarget> GetPotentialTargets(string targetTag, bool isPathRequired = true)
