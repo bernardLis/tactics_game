@@ -113,7 +113,10 @@ public class RangedBrain : Brain
 
         _characterRendererManager.Face(faceDir);
         if (Target == null)
-            Defend();
+        {
+            DoNothing();
+            return;
+        }
 
         await base.Interact();
     }

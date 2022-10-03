@@ -298,7 +298,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _aiLerp.destination = _tempObject.transform.position;
 
         _characterUI.DisableSkillButtons();
-
     }
 
     void CharacterReachedDestination()
@@ -367,7 +366,6 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
             UpdateCharacterState(CharacterState.Moved);
         else
             UpdateCharacterState(CharacterState.Selected);
-
     }
 
     void FinishCharacterTurn()

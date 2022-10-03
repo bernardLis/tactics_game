@@ -86,7 +86,7 @@ public class HealerBrain : Brain
         if (CanBuffSomeone())
             return;
 
-        Defend();
+        DoNothing();
     }
 
     bool CanHealSomeone()

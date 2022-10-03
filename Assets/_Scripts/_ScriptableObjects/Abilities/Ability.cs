@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using UnityEditor;
-using Pathfinding;
+
 public abstract class Ability : BaseScriptableObject
 {
     [Tooltip("Used for saving and character creation")]
@@ -50,9 +49,6 @@ public abstract class Ability : BaseScriptableObject
     protected BattleUI _battleUI;
 
     Vector3 _middleOfTargeting;
-
-    List<CharacterSelection> affectedCharacters = new();
-
 
     public virtual void Initialize(GameObject self)
     {

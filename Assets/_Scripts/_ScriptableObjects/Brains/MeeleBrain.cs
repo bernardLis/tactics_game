@@ -74,7 +74,10 @@ public class MeeleBrain : Brain
         if (Target != null)
             ChooseAbility();
         else
-            Defend();
+        {
+            DoNothing();
+            return;
+        }
 
         await base.Interact();
     }

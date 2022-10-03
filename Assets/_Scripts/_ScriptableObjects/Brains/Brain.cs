@@ -123,11 +123,23 @@ public class Brain : BaseScriptableObject
         await _selectedAbility.TriggerAbility(_highlighter.HighlightedTiles);
     }
 
-    protected void Defend()
+    protected void DoNothing()
     {
-        // TODO: this is wrong way to select defend ability, but let's keep it for now.
-        _selectedAbility = Abilities.FirstOrDefault(a => a.Id == "5f7d8c47-7ec1-4abf-b8ec-74ea82be327f");
-        Target = _characterGameObject;
+        // face the closest player character and end turn
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(Tags.Player);
+        float distanceToClosestPlayer = Vector3.Distance(_characterGameObject.transform.position, enemies[0].transform.position);
+        GameObject closestPlayer = enemies[0];
+
+        foreach (GameObject enemy in enemies)
+        {
+            float dist = Vector3.Distance(_characterGameObject.transform.position, enemy.transform.position);
+            if (dist < distanceToClosestPlayer)
+                closestPlayer = enemy;
+        }
+
+        Vector2 dir = (closestPlayer.transform.position - _characterGameObject.transform.position).normalized;
+
+        _characterRendererManager.Face(dir);
     }
 
     protected List<PotentialTarget> GetPotentialTargets(string targetTag, bool isPathRequired = true)
