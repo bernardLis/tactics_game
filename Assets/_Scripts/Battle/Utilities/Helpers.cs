@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using UnityEngine.SceneManagement;
 
 public static class Helpers
 {
@@ -63,7 +64,7 @@ public static class Helpers
         GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
         if (targets.Length == 0)
             return Vector2.zero;
-        
+
         float distanceToClosestTarget = Vector3.Distance(self.transform.position, targets[0].transform.position);
         GameObject closestTarget = targets[0];
 
@@ -76,5 +77,24 @@ public static class Helpers
 
         return (closestTarget.transform.position - self.transform.position).normalized;
     }
+
+    public static List<GameObject> FindGameObjectsWithInterfaces<T>()
+    {
+        List<GameObject> objectsWithInterfaces = new();
+        GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>(); // TODO: I am worried this lags unity.
+
+        foreach (GameObject g in gameObjects)
+        {
+            if (!g.activeInHierarchy)
+                continue;
+
+            T[] childrenInterfaces = g.GetComponentsInChildren<T>();
+            if (childrenInterfaces.Length > 0)
+                objectsWithInterfaces.Add(g);
+        }
+        return objectsWithInterfaces;
+    }
+
+
 
 }

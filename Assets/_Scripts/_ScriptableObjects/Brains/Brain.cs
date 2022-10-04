@@ -131,19 +131,25 @@ public class Brain : BaseScriptableObject
     protected List<PotentialTarget> GetPotentialTargets(string targetTag, bool isPathRequired = true)
     {
         GameObject[] targetCharacters = GameObject.FindGameObjectsWithTag(targetTag);
+        Debug.Log($"targetCharacters.len {targetCharacters.Length}");
         List<PotentialTarget> potentialTargets = new();
         // check distance between self and each player character,
         foreach (GameObject targetChar in targetCharacters)
         {
             targetChar.GetComponent<CharacterSelection>().DeactivateSingleNodeBlocker();
             ABPath p = GetPathTo(targetChar.transform);
+            p.BlockUntilCalculated();
 
             // distance is the path length 
             // https://arongranberg.com/astar/docs_dev/class_pathfinding_1_1_path.php#a1076ed6812e2b4f98dca64b74dabae5d
             float distance = p.GetTotalLength();
+            Debug.Log($"distance: {distance} to: {targetChar.name}");
             PotentialTarget potentialTarget = new PotentialTarget(targetChar, distance);
-            if (!isPathRequired) // need path or be friends
-                potentialTargets.Add(potentialTarget);
+            if (!isPathRequired)
+            {
+                // need path or be friends
+            }
+            potentialTargets.Add(potentialTarget);
             if (isPathRequired && distance > 0)
                 potentialTargets.Add(potentialTarget);
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Pathfinding;
 using System.Threading.Tasks;
+using UnityEngine.InputSystem;
 
 public class BattleCharacterController : Singleton<BattleCharacterController>
 {
@@ -258,6 +259,20 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _playerCharSelection.SetCharacterMoved(true);
     }
 
+    bool CanAct()
+    {
+        // can basic attack hit someone?
+        if (_playerStats.BasicAbilities[0].CanBeUsed()) // TODO: [0] bad idea 
+            return true;
+
+        // can one of the abilities hit someone?
+        foreach (Ability a in _playerStats.Abilities)
+            if (a.CanBeUsed())
+                return true;
+
+        return false;
+    }
+
     public void Back()
     {
         ClearPathRenderer();
@@ -300,7 +315,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         _characterUI.DisableSkillButtons();
     }
 
-    void CharacterReachedDestination()
+    async void CharacterReachedDestination()
     {
         _characterUI.EnableSkillButtons();
 
@@ -313,7 +328,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // check if it was back or normal move
         if (!IsMovingBack)
         {
+            await Task.Delay(50); 
             UpdateCharacterState(CharacterState.Moved);
+            if (!CanAct())
+                _battleInputController.Defend();
             return;
         }
 

@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Push Ability")]
 public class PushAbility : Ability
@@ -11,6 +13,30 @@ public class PushAbility : Ability
         base.Initialize(obj);
         _pushTriggerable = obj.GetComponent<PushTriggerable>();
     }
+
+    public override bool CanBeUsed() { return ManaCheck() && PushableCheck(); }
+
+    bool PushableCheck()
+    {
+        List<GameObject> pushables = Helpers.FindGameObjectsWithInterfaces<IPushable<Vector3, GameObject, Ability>>();
+        Debug.Log($"pushables.count {pushables.Count}");
+        foreach (GameObject target in pushables)
+        {
+            if (target == CharacterGameObject)
+                continue;
+
+            int dist = Helpers.GetManhattanDistance(CharacterGameObject.transform.position, target.transform.position);
+            if (dist <= Range + AreaOfEffect)
+            {
+                Debug.Log($"Can push: {target.name} dist: {dist} range + aoe {Range + AreaOfEffect}");
+                return true;
+
+            }
+        }
+        Debug.Log("retruning false");
+        return false;
+    }
+
 
     public override bool IsTargetViable(GameObject target)
     {

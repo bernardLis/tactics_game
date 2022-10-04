@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BattleManager : Singleton<BattleManager>
 {
@@ -10,15 +11,9 @@ public class BattleManager : Singleton<BattleManager>
     public event Action OnGamePaused;
     public event Action OnGameResumed;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
+    protected override void Awake() { base.Awake(); }
 
-    void Start()
-    {
-        _battleInputController = BattleInputController.Instance;
-    }
+    void Start() { _battleInputController = BattleInputController.Instance; }
 
     public void PauseGame()
     {

@@ -71,6 +71,40 @@ public abstract class Ability : BaseScriptableObject
         return manDist <= Range;
     }
 
+    public virtual bool CanBeUsed() { return ManaCheck(); }
+
+    protected bool ManaCheck()
+    {
+        if (_stats.CurrentMana >= ManaCost)
+            return true;
+
+        // meant to be overwritten;
+        return false;
+    }
+
+    protected bool TargetCheck()
+    {
+        List<GameObject> characters = TurnManager.Instance.GetPlayerCharacters();
+        characters.AddRange(TurnManager.Instance.GetEnemies());
+
+        foreach (GameObject target in characters)
+        {
+            int dist = Helpers.GetManhattanDistance(CharacterGameObject.transform.position, target.transform.position);
+
+            // self check
+            if (CanTargetSelf)
+                return true;
+            if (target == CharacterGameObject)
+                continue;
+
+            // others check
+            if (dist <= Range + AreaOfEffect)
+                return true;
+        }
+
+        return false;
+    }
+
     public virtual async Task HighlightTargetable(GameObject self)
     {
         await _highlighter.HighlightAbilityRange(this);

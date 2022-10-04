@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Buff Ability")]
 public class BuffAbility : Ability
@@ -12,6 +11,8 @@ public class BuffAbility : Ability
         base.Initialize(obj);
         _buffTriggerable = obj.GetComponent<BuffTriggerable>();
     }
+
+    public override bool CanBeUsed() { return ManaCheck() && TargetCheck(); }
 
     public override bool IsTargetViable(GameObject target)
     {

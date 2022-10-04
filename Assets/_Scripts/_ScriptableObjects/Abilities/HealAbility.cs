@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Abilities/Heal Ability")]
 public class HealAbility : Ability
@@ -12,6 +11,8 @@ public class HealAbility : Ability
         base.Initialize(obj);
         _healTriggerable = obj.GetComponent<HealTriggerable>();
     }
+
+    public override bool CanBeUsed() { return ManaCheck() && TargetCheck(); }
 
     public override bool IsTargetViable(GameObject target)
     {

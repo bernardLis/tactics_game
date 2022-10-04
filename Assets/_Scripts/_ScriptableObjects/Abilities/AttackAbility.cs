@@ -15,6 +15,8 @@ public class AttackAbility : Ability
         _attackTriggerable = obj.GetComponent<AttackTriggerable>();
     }
 
+    public override bool CanBeUsed() { return ManaCheck() && TargetCheck(); }
+
     public override bool IsTargetViable(GameObject target)
     {
         // you can attack friens but I am not going to return them as viable targets
@@ -28,7 +30,6 @@ public class AttackAbility : Ability
     {
         // interact
         await _attackTriggerable.Attack(pos, this, IsRetaliation);
-
         SetIsRetaliation(false);
     }
 

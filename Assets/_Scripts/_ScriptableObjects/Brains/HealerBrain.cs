@@ -10,7 +10,9 @@ public class HealerBrain : Brain
     public override async Task Move()
     {
         // healer looks for damaged friend with lowest health
+        Debug.Log($"_characterGameObject.tag: {_characterGameObject.tag}");
         _potentialTargets = GetPotentialTargets(_characterGameObject.tag); // get guys from your team
+        Debug.Log($"_potentialTargets.len {_potentialTargets.Count}");
         PotentialTarget selectedTarget = ChooseTarget(_potentialTargets);
         if (selectedTarget != null)
             Target = selectedTarget.GameObj; // for interaction
