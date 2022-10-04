@@ -148,7 +148,7 @@ public class BattleUI : Singleton<BattleUI>
     {
         _battleLogs.Add(element);
         _battleLogContainer.Add(element);
-        if (_battleLogContainer.childCount > 7)
+        if (_battleLogContainer.childCount > 5)
             _battleLogContainer.RemoveAt(0);
 
         GrayOutOldLogs();

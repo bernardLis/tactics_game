@@ -83,84 +83,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="characterUIContainer" style="width: 100%; height: 200px; align-items: stretch; justify-content: center; visibility: visible; display: flex; top: auto; flex-direction: row; flex-wrap: nowrap; position: absolute; bottom: -22%;">
-        <ui:VisualElement name="characterUI" style="width: 100%; height: auto; flex-direction: row; overflow: visible; top: auto; bottom: auto; display: flex;">
-            <ui:VisualElement name="characterUICharacterCard" class="uiContainer" style="height: 100%; width: 500px; flex-direction: row; justify-content: flex-start;">
-                <ui:VisualElement name="characterBasicInfoGroup1" style="width: 50%; align-items: center; justify-content: center;">
-                    <ui:Label text="First" display-tooltip-when-elided="true" name="characterName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
-                    <ui:VisualElement name="characterPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center; display: flex;">
-                        <ui:VisualElement name="characterPortraitSkull" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/death-skull.png?fileID=2800000&amp;guid=e749b49a826e4ae42b6fb0a1a499bbdd&amp;type=3#death-skull&apos;); width: 50%; height: 50%; display: none;" />
-                        <ui:VisualElement name="modifierContainer" style="width: 100%; height: 32px; flex-wrap: wrap; flex-direction: row;">
-                            <ui:VisualElement name="modifierIconContainer" class="modifierIconContainer" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="characterBasicInfoGroup2" style="width: 50%; align-items: flex-start; justify-content: center; flex-grow: 1; flex-shrink: 0; flex-basis: initial; flex-wrap: nowrap; flex-direction: column;">
-                    <ui:VisualElement name="characterHealthGroup" style="flex-direction: row; width: 100%;">
-                        <ui:Label display-tooltip-when-elided="true" name="characterHealthLabel" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/cure.png?fileID=2800000&amp;guid=74c108c1392ffdb4eb4e79bd11f34e57&amp;type=3#cure&apos;); width: 32px; height: 32px;" />
-                        <ui:VisualElement class="barContainer">
-                            <ui:VisualElement name="characterHealthBar" class="characterHealthBar" style="width: 92%; background-color: rgb(135, 41, 41); -unity-slice-left: 0; align-items: center; padding-left: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; height: 15px; flex-direction: row; justify-content: flex-start; background-image: none; padding-right: 0; margin-left: 4%; margin-right: 4%; padding-top: 0; padding-bottom: 0;">
-                                <ui:VisualElement name="characterHealthBarMissingHealth" class="healthBarMissing" style="width: 0; height: 32px; background-color: rgb(56, 56, 56); justify-content: center;" />
-                                <ui:VisualElement name="characterHealthBarRetaliationResult" class="healthBarInteractionResult" />
-                                <ui:Label text="100/100" display-tooltip-when-elided="true" name="characterHealth" style="font-size: 18px; color: rgb(255, 255, 255); -unity-text-align: middle-left; position: absolute;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="characterManaGroup" style="flex-direction: row; justify-content: center; width: 100%; margin-top: 5px; height: auto;">
-                        <ui:Label display-tooltip-when-elided="true" name="characterManaLabel" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/charm.png?fileID=2800000&amp;guid=15968a194dfe51b49bc2a583a4957492&amp;type=3#charm&apos;); width: 32px; height: 32px;" />
-                        <ui:VisualElement name="characterManaBar" class="characterHealthBar" style="height: 32px; width: 100%; background-color: rgb(43, 38, 217);">
-                            <ui:VisualElement name="characterManaBarMissingMana" class="healthBarMissing" style="height: 32px; width: 0; justify-content: center; background-color: rgb(56, 56, 56);" />
-                            <ui:VisualElement name="characterManaBarInteractionResult" class="healthBarInteractionResult" style="width: 0; background-color: rgb(82, 82, 82);" />
-                            <ui:Label text="20/50" display-tooltip-when-elided="true" name="characterMana" style="font-size: 18px; color: rgb(255, 255, 255); position: absolute;" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="characterStatsGroup" style="flex-direction: row; justify-content: center; width: 100%; margin-top: 5px; height: auto; flex-wrap: wrap;">
-                        <ui:VisualElement name="characterStrength" style="flex-direction: row;">
-                            <ui:Label display-tooltip-when-elided="true" name="characterStrengthIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/gorilla.png?fileID=2800000&amp;guid=c1181cbabffb1da4cbfd479b065b8e49&amp;type=3#gorilla&apos;); width: 32px; height: 32px;" />
-                            <ui:Label display-tooltip-when-elided="true" name="characterStrengthAmount" text="5" class="basicStatAmountText" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="characterIntelligence" style="flex-direction: row;">
-                            <ui:Label display-tooltip-when-elided="true" name="characterIntelligenceIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/owl.png?fileID=2800000&amp;guid=3a72c8a5fa788c04da48de94f0db4ad7&amp;type=3#owl&apos;); width: 32px; height: 32px;" />
-                            <ui:Label display-tooltip-when-elided="true" name="characterIntelligenceAmount" text="5" class="basicStatAmountText" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="characterAgility" style="flex-direction: row;">
-                            <ui:Label display-tooltip-when-elided="true" name="characterAgilityIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/fox.png?fileID=2800000&amp;guid=52cb209ce500f824f99e187564067219&amp;type=3#fox&apos;); width: 32px; height: 32px;" />
-                            <ui:Label display-tooltip-when-elided="true" name="characterAgilityAmount" text="5" class="basicStatAmountText" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="characterStamina" style="flex-direction: row;">
-                            <ui:Label display-tooltip-when-elided="true" name="characterStaminaIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/camel.png?fileID=2800000&amp;guid=174230f77630a924cb5a9ac7825dc90d&amp;type=3#camel&apos;); width: 32px; height: 32px;" />
-                            <ui:Label display-tooltip-when-elided="true" name="characterStaminaAmount" text="5" class="basicStatAmountText" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="characterArmor" style="flex-direction: row;">
-                            <ui:Label display-tooltip-when-elided="true" name="characterArmorIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/turtle-shell.png?fileID=2800000&amp;guid=9c498454d8c5c214890f3ba50d63dbf2&amp;type=3#turtle-shell&apos;); width: 32px; height: 32px;" />
-                            <ui:Label display-tooltip-when-elided="true" name="characterArmorAmount" text="5" class="basicStatAmountText" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="characterRange" style="flex-direction: row;">
-                            <ui:Label display-tooltip-when-elided="true" name="characterRangeIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/kangaroo.png?fileID=2800000&amp;guid=9064011653d24ba499c5478200bdf71e&amp;type=3#kangaroo&apos;); width: 32px; height: 32px;" />
-                            <ui:Label display-tooltip-when-elided="true" name="characterRangeAmount" text="5" class="basicStatAmountText" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:Button display-tooltip-when-elided="true" class="characterCardDetailsButton" />
-            </ui:VisualElement>
-            <ui:VisualElement name="characterAbilities" class="uiContainer" style="height: 100%; width: auto; flex-direction: row; justify-content: flex-start; align-items: center;">
-                <ui:VisualElement>
-                    <ui:Label text="Basic Actions" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
-                    <ui:VisualElement name="basicActionContainer" style="flex-direction: row;">
-                        <ui:VisualElement class="abilitySlot" />
-                        <ui:VisualElement class="abilitySlot" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement style="padding-left: 20px;">
-                    <ui:Label text="Abilities" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
-                    <ui:VisualElement name="abilityContainer" style="flex-direction: row;">
-                        <ui:VisualElement class="abilitySlot" />
-                        <ui:VisualElement class="abilitySlot" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-        </ui:VisualElement>
-    </ui:VisualElement>
     <ui:VisualElement name="battleEndContainer" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: none; opacity: 1; justify-content: space-around; align-items: center; background-image: none; position: absolute; top: 0; left: 0;">
         <ui:Label text="Battle is finished! " display-tooltip-when-elided="true" name="battleEndText" class="textPrimary" style="color: rgb(210, 210, 210); font-size: 100px; -unity-text-align: upper-center;" />
         <ui:VisualElement name="battleEndGoalContainer">
@@ -186,24 +108,107 @@
     <ui:VisualElement name="battleHelperTextContainer" class="textPrimary" style="position: absolute; width: 100%; height: 50px; flex-direction: row; align-items: stretch; justify-content: center; display: flex;">
         <ui:Label text="Select a character" display-tooltip-when-elided="true" name="battleHelperText" style="background-image: url(&apos;project://database/Assets/Sprites/UI/uiGradient.png?fileID=2800000&amp;guid=ef97ccaa474ba254082c5782da314509&amp;type=3#uiGradient&apos;); -unity-text-align: middle-left; margin-left: 0; margin-right: 0; padding-left: 50px; padding-right: 50px;" />
     </ui:VisualElement>
-    <ui:VisualElement name="battleLogContainer" class="textPrimary" style="top: auto; align-items: stretch; display: flex; flex-direction: column-reverse; justify-content: flex-end; bottom: 200px; position: absolute; background-color: rgba(0, 0, 0, 0.2); left: 15px; min-width: 20%; min-height: 270px;">
-        <ui:VisualElement class="battleLogLine">
-            <ui:Label text="haba aba abab ba aba " display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+    <ui:VisualElement name="bottomPanel" style="bottom: 0; position: absolute; width: 100%; flex-direction: row;">
+        <ui:VisualElement name="battleLogContainer" class="textPrimary" style="top: auto; align-items: flex-start; display: flex; flex-direction: column-reverse; justify-content: flex-end; bottom: auto; position: relative; background-color: rgba(0, 0, 0, 0.2); left: auto; width: 30%; height: auto; min-height: 190px;">
+            <ui:VisualElement class="battleLogLine" style="height: auto; width: 100%;">
+                <ui:Label text="haba aba abab ba aba " display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement class="battleLogLine">
+                <ui:Label text="one two three 123 asdasd" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement class="battleLogLine">
+                <ui:Label text="short one" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement class="battleLogLine">
+                <ui:Label text="loooong one, or is it a short one?" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement class="battleLogLine">
+                <ui:Label text="short - 1" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement class="battleLogLine">
+                <ui:Label text="another lopng one!!@#!@$ with some symbols" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement class="battleLogLine">
+                <ui:Label text="another lopng one!!@#!@$ with some symbols" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement class="battleLogLine">
-            <ui:Label text="one two three 123 asdasd" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        </ui:VisualElement>
-        <ui:VisualElement class="battleLogLine">
-            <ui:Label text="short one" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        </ui:VisualElement>
-        <ui:VisualElement class="battleLogLine">
-            <ui:Label text="loooong one, or is it a short one?" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        </ui:VisualElement>
-        <ui:VisualElement class="battleLogLine">
-            <ui:Label text="short - 1" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
-        </ui:VisualElement>
-        <ui:VisualElement class="battleLogLine">
-            <ui:Label text="another lopng one!!@#!@$ with some symbols" display-tooltip-when-elided="true" name="battleLogText" class="textPrimary" />
+        <ui:VisualElement name="characterUIContainer" style="width: 70%; height: 200px; align-items: stretch; justify-content: center; visibility: visible; display: flex; flex-direction: row; flex-wrap: nowrap; position: absolute; bottom: -200px; left: 30%;">
+            <ui:VisualElement name="characterUI" style="width: 100%; height: auto; flex-direction: row; overflow: visible; top: auto; bottom: auto; display: flex;">
+                <ui:VisualElement name="characterUICharacterCard" class="uiContainer" style="height: 100%; width: 500px; flex-direction: row; justify-content: flex-start;">
+                    <ui:VisualElement name="characterBasicInfoGroup1" style="width: 50%; align-items: center; justify-content: center;">
+                        <ui:Label text="First" display-tooltip-when-elided="true" name="characterName" style="font-size: 18px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+                        <ui:VisualElement name="characterPortrait" style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/Character/Portrait/Coubert.jpg?fileID=21300000&amp;guid=afd309c482f885140af9ed07152aa6f0&amp;type=3#Coubert&apos;); align-items: center; justify-content: center; display: flex;">
+                            <ui:VisualElement name="characterPortraitSkull" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/death-skull.png?fileID=2800000&amp;guid=e749b49a826e4ae42b6fb0a1a499bbdd&amp;type=3#death-skull&apos;); width: 50%; height: 50%; display: none;" />
+                            <ui:VisualElement name="modifierContainer" style="width: 100%; height: 32px; flex-wrap: wrap; flex-direction: row;">
+                                <ui:VisualElement name="modifierIconContainer" class="modifierIconContainer" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="characterBasicInfoGroup2" style="width: 50%; align-items: flex-start; justify-content: center; flex-grow: 1; flex-shrink: 0; flex-basis: initial; flex-wrap: nowrap; flex-direction: column;">
+                        <ui:VisualElement name="characterHealthGroup" style="flex-direction: row; width: 100%;">
+                            <ui:Label display-tooltip-when-elided="true" name="characterHealthLabel" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/cure.png?fileID=2800000&amp;guid=74c108c1392ffdb4eb4e79bd11f34e57&amp;type=3#cure&apos;); width: 32px; height: 32px;" />
+                            <ui:VisualElement class="barContainer">
+                                <ui:VisualElement name="characterHealthBar" class="characterHealthBar" style="width: 92%; background-color: rgb(135, 41, 41); -unity-slice-left: 0; align-items: center; padding-left: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; height: 15px; flex-direction: row; justify-content: flex-start; background-image: none; padding-right: 0; margin-left: 4%; margin-right: 4%; padding-top: 0; padding-bottom: 0;">
+                                    <ui:VisualElement name="characterHealthBarMissingHealth" class="healthBarMissing" style="width: 0; height: 32px; background-color: rgb(56, 56, 56); justify-content: center;" />
+                                    <ui:VisualElement name="characterHealthBarRetaliationResult" class="healthBarInteractionResult" />
+                                    <ui:Label text="100/100" display-tooltip-when-elided="true" name="characterHealth" style="font-size: 18px; color: rgb(255, 255, 255); -unity-text-align: middle-left; position: absolute;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="characterManaGroup" style="flex-direction: row; justify-content: center; width: 100%; margin-top: 5px; height: auto;">
+                            <ui:Label display-tooltip-when-elided="true" name="characterManaLabel" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/charm.png?fileID=2800000&amp;guid=15968a194dfe51b49bc2a583a4957492&amp;type=3#charm&apos;); width: 32px; height: 32px;" />
+                            <ui:VisualElement name="characterManaBar" class="characterHealthBar" style="height: 32px; width: 100%; background-color: rgb(43, 38, 217);">
+                                <ui:VisualElement name="characterManaBarMissingMana" class="healthBarMissing" style="height: 32px; width: 0; justify-content: center; background-color: rgb(56, 56, 56);" />
+                                <ui:VisualElement name="characterManaBarInteractionResult" class="healthBarInteractionResult" style="width: 0; background-color: rgb(82, 82, 82);" />
+                                <ui:Label text="20/50" display-tooltip-when-elided="true" name="characterMana" style="font-size: 18px; color: rgb(255, 255, 255); position: absolute;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="characterStatsGroup" style="flex-direction: row; justify-content: center; width: 100%; margin-top: 5px; height: auto; flex-wrap: wrap;">
+                            <ui:VisualElement name="characterStrength" style="flex-direction: row;">
+                                <ui:Label display-tooltip-when-elided="true" name="characterStrengthIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/gorilla.png?fileID=2800000&amp;guid=c1181cbabffb1da4cbfd479b065b8e49&amp;type=3#gorilla&apos;); width: 32px; height: 32px;" />
+                                <ui:Label display-tooltip-when-elided="true" name="characterStrengthAmount" text="5" class="basicStatAmountText" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="characterIntelligence" style="flex-direction: row;">
+                                <ui:Label display-tooltip-when-elided="true" name="characterIntelligenceIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/owl.png?fileID=2800000&amp;guid=3a72c8a5fa788c04da48de94f0db4ad7&amp;type=3#owl&apos;); width: 32px; height: 32px;" />
+                                <ui:Label display-tooltip-when-elided="true" name="characterIntelligenceAmount" text="5" class="basicStatAmountText" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="characterAgility" style="flex-direction: row;">
+                                <ui:Label display-tooltip-when-elided="true" name="characterAgilityIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/fox.png?fileID=2800000&amp;guid=52cb209ce500f824f99e187564067219&amp;type=3#fox&apos;); width: 32px; height: 32px;" />
+                                <ui:Label display-tooltip-when-elided="true" name="characterAgilityAmount" text="5" class="basicStatAmountText" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="characterStamina" style="flex-direction: row;">
+                                <ui:Label display-tooltip-when-elided="true" name="characterStaminaIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/camel.png?fileID=2800000&amp;guid=174230f77630a924cb5a9ac7825dc90d&amp;type=3#camel&apos;); width: 32px; height: 32px;" />
+                                <ui:Label display-tooltip-when-elided="true" name="characterStaminaAmount" text="5" class="basicStatAmountText" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="characterArmor" style="flex-direction: row;">
+                                <ui:Label display-tooltip-when-elided="true" name="characterArmorIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/turtle-shell.png?fileID=2800000&amp;guid=9c498454d8c5c214890f3ba50d63dbf2&amp;type=3#turtle-shell&apos;); width: 32px; height: 32px;" />
+                                <ui:Label display-tooltip-when-elided="true" name="characterArmorAmount" text="5" class="basicStatAmountText" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="characterRange" style="flex-direction: row;">
+                                <ui:Label display-tooltip-when-elided="true" name="characterRangeIcon" style="font-size: 18px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Icons/kangaroo.png?fileID=2800000&amp;guid=9064011653d24ba499c5478200bdf71e&amp;type=3#kangaroo&apos;); width: 32px; height: 32px;" />
+                                <ui:Label display-tooltip-when-elided="true" name="characterRangeAmount" text="5" class="basicStatAmountText" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:Button display-tooltip-when-elided="true" class="characterCardDetailsButton" />
+                </ui:VisualElement>
+                <ui:VisualElement name="characterAbilities" class="uiContainer" style="height: 100%; width: auto; flex-direction: row; justify-content: flex-start; align-items: center;">
+                    <ui:VisualElement>
+                        <ui:Label text="Basic Actions" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
+                        <ui:VisualElement name="basicActionContainer" style="flex-direction: row;">
+                            <ui:VisualElement class="abilitySlot" />
+                            <ui:VisualElement class="abilitySlot" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="padding-left: 20px;">
+                        <ui:Label text="Abilities" display-tooltip-when-elided="true" class="textPrimary" style="-unity-text-align: upper-center;" />
+                        <ui:VisualElement name="abilityContainer" style="flex-direction: row;">
+                            <ui:VisualElement class="abilitySlot" />
+                            <ui:VisualElement class="abilitySlot" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

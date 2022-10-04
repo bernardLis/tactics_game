@@ -47,7 +47,7 @@ public class CharacterRenderer : MonoBehaviour
     }
 
     //helper functions
-
+    
     //this function converts a Vector2 direction to an index to a slice around a circle
     //this goes in a counter-clockwise direction.
     public static int DirectionToIndex(Vector2 dir, int sliceCount)
