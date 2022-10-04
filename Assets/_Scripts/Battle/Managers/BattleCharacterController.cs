@@ -328,7 +328,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         // check if it was back or normal move
         if (!IsMovingBack)
         {
-            await Task.Delay(50); 
+            await Task.Delay(50);
             UpdateCharacterState(CharacterState.Moved);
             if (!CanAct())
                 _battleInputController.Defend();
@@ -452,10 +452,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
         }
     }
 
-    void ClearPathRenderer()
-    {
-        _pathRenderer.positionCount = 0;
-    }
+    public void ClearPathRenderer() { _pathRenderer.positionCount = 0; }
 
     ABPath GetPathTo(Transform t)
     {

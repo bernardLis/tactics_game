@@ -10,9 +10,7 @@ public class HealerBrain : Brain
     public override async Task Move()
     {
         // healer looks for damaged friend with lowest health
-        Debug.Log($"_characterGameObject.tag: {_characterGameObject.tag}");
-        _potentialTargets = GetPotentialTargets(_characterGameObject.tag); // get guys from your team
-        Debug.Log($"_potentialTargets.len {_potentialTargets.Count}");
+        _potentialTargets = GetPotentialTargets(_characterGameObject.tag, false); // get guys from your team
         PotentialTarget selectedTarget = ChooseTarget(_potentialTargets);
         if (selectedTarget != null)
             Target = selectedTarget.GameObj; // for interaction
@@ -30,6 +28,7 @@ public class HealerBrain : Brain
         _tempObject = new GameObject("Enemy Destination");
         _tempObject.transform.position = destinationPos;
         ABPath path = GetPathTo(_tempObject.transform);
+        path.BlockUntilCalculated();
         SetPath(path);
 
         await _highlighter.HighlightSingle(_tempObject.transform.position, Helpers.GetColor("movementBlue"));

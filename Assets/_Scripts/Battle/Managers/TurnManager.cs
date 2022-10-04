@@ -186,13 +186,7 @@ public class TurnManager : Singleton<TurnManager>
         UpdateBattleState(_state);
     }
 
-    public List<GameObject> GetEnemies()
-    {
-        return _enemies;
-    }
+    public List<GameObject> GetEnemies() { return _enemies; }
 
-    public List<GameObject> GetPlayerCharacters()
-    {
-        return _playerCharacters;
-    }
+    public List<GameObject> GetPlayerCharacters() { return _playerCharacters; }
 }

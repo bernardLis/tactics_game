@@ -84,7 +84,7 @@ public abstract class Ability : BaseScriptableObject
 
     protected bool TargetCheck()
     {
-        List<GameObject> characters = TurnManager.Instance.GetPlayerCharacters();
+        List<GameObject> characters = new(TurnManager.Instance.GetPlayerCharacters());
         characters.AddRange(TurnManager.Instance.GetEnemies());
 
         foreach (GameObject target in characters)

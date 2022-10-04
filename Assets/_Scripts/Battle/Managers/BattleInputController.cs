@@ -248,7 +248,6 @@ public class BattleInputController : Singleton<BattleInputController>
 
     void DefendClick(InputAction.CallbackContext ctx)
     {
-        Debug.Log($"defend click");
         if (!IsInputAllowed())
             return;
 
@@ -260,9 +259,9 @@ public class BattleInputController : Singleton<BattleInputController>
 
     public void Defend()
     {
-        Debug.Log($"defend after checks");
         Vector2 dir = Helpers.GetDirectionToClosestWithTag(_battleCharacterController.SelectedCharacter, Tags.Enemy);
         _battleCharacterController.SelectedCharacter.GetComponentInChildren<CharacterRendererManager>().Face(dir);
         _battleCharacterController.FinishCharacterTurn();
+        _battleCharacterController.ClearPathRenderer();
     }
 }

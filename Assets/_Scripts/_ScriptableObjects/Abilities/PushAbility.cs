@@ -18,8 +18,7 @@ public class PushAbility : Ability
 
     bool PushableCheck()
     {
-        List<GameObject> pushables = Helpers.FindGameObjectsWithInterfaces<IPushable<Vector3, GameObject, Ability>>();
-        Debug.Log($"pushables.count {pushables.Count}");
+        List<GameObject> pushables = Helpers.FindGameObjectsWithInterface<IPushable<Vector3, GameObject, Ability>>();
         foreach (GameObject target in pushables)
         {
             if (target == CharacterGameObject)
@@ -27,13 +26,8 @@ public class PushAbility : Ability
 
             int dist = Helpers.GetManhattanDistance(CharacterGameObject.transform.position, target.transform.position);
             if (dist <= Range + AreaOfEffect)
-            {
-                Debug.Log($"Can push: {target.name} dist: {dist} range + aoe {Range + AreaOfEffect}");
                 return true;
-
-            }
         }
-        Debug.Log("retruning false");
         return false;
     }
 

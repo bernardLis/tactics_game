@@ -78,7 +78,7 @@ public static class Helpers
         return (closestTarget.transform.position - self.transform.position).normalized;
     }
 
-    public static List<GameObject> FindGameObjectsWithInterfaces<T>()
+    public static List<GameObject> FindGameObjectsWithInterface<T>()
     {
         List<GameObject> objectsWithInterfaces = new();
         GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>(); // TODO: I am worried this lags unity.

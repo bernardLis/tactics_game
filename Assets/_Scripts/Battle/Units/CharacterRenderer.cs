@@ -40,10 +40,7 @@ public class CharacterRenderer : MonoBehaviour
         if (_animator.runtimeAnimatorController != null && _animator.gameObject.activeSelf)
         {
             if (_lastDirection >= directionArray.Length)
-            {
-                Debug.LogWarning($"omg what is ahppening, lastDirection: {_lastDirection}, directionArray.Length: {directionArray.Length}");
                 _lastDirection = 3;
-            }
             _animator.Play(directionArray[_lastDirection]);
 
         }
