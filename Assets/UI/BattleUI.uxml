@@ -85,22 +85,31 @@
     </ui:VisualElement>
     <ui:VisualElement name="battleEndContainer" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: none; opacity: 1; justify-content: space-around; align-items: center; background-image: none; position: absolute; top: 0; left: 0;">
         <ui:Label text="Battle is finished! " display-tooltip-when-elided="true" name="battleEndText" class="textPrimary" style="color: rgb(210, 210, 210); font-size: 100px; -unity-text-align: upper-center;" />
-        <ui:VisualElement name="battleEndGoalContainer">
-            <ui:VisualElement class="textPrimary" style="flex-direction: row;">
-                <ui:VisualElement class="battleGoalCheck" />
-                <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
-            </ui:VisualElement>
-            <ui:VisualElement class="textPrimary" style="flex-direction: row;">
-                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/UI/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&amp;guid=1400ee94531d8e74c98f3ee11827f3bf&amp;type=3#check&apos;); width: 24px; height: 24px;" />
-                <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
-            </ui:VisualElement>
-            <ui:VisualElement class="textPrimary" style="flex-direction: row;">
-                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/UI/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&amp;guid=1400ee94531d8e74c98f3ee11827f3bf&amp;type=3#check&apos;); width: 24px; height: 24px;" />
-                <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
+        <ui:VisualElement>
+            <ui:Label text="Goals:" display-tooltip-when-elided="true" class="textPrimary" style="margin-bottom: 15px;" />
+            <ui:VisualElement name="battleEndGoalContainer">
+                <ui:VisualElement class="textPrimary" style="flex-direction: row;">
+                    <ui:VisualElement class="battleGoalCheck" />
+                    <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
+                </ui:VisualElement>
+                <ui:VisualElement class="textPrimary" style="flex-direction: row;">
+                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/UI/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&amp;guid=1400ee94531d8e74c98f3ee11827f3bf&amp;type=3#check&apos;); width: 24px; height: 24px;" />
+                    <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
+                </ui:VisualElement>
+                <ui:VisualElement class="textPrimary" style="flex-direction: row;">
+                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/UI/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&amp;guid=1400ee94531d8e74c98f3ee11827f3bf&amp;type=3#check&apos;); width: 24px; height: 24px;" />
+                    <ui:Label text="Eat 3 mushrooms." display-tooltip-when-elided="true" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="battleEndRewardContainer" class="textPrimary" style="display: flex;" />
-        <ui:VisualElement name="battleEndCharacters" style="flex-direction: row;" />
+        <ui:VisualElement>
+            <ui:Label text="Rewards:" display-tooltip-when-elided="true" class="textPrimary" />
+            <ui:VisualElement name="battleEndRewardContainer" class="textPrimary" style="display: flex;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; flex-shrink: 0; width: 100%;">
+            <ui:Label text="Troops:" display-tooltip-when-elided="true" class="textPrimary" />
+            <ui:VisualElement name="battleEndCharacters" style="flex-direction: row; height: 100%;" />
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="tutorialTextContainer" style="position: absolute; top: 30%; width: 80%; justify-content: flex-end; align-items: center; left: 10%; display: none;">
         <ui:Label text="Label" display-tooltip-when-elided="true" name="tutorialText" class="textPrimary" style="font-size: 48px; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0);" />

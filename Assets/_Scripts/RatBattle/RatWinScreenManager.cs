@@ -71,7 +71,7 @@ public class RatWinScreenManager : MonoBehaviour
             if (s.IsSpawnCoveredWithBoulder())
                 gratesCovered++;
 
-        if (gratesCovered == 2)
+        if (gratesCovered == ratSpawners.Length)
             container.Add(GetCheckElement(true));
         else
             container.Add(GetCheckElement(false));

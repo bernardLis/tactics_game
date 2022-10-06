@@ -8,7 +8,7 @@ public class FullScreenVisual : VisualElement
     protected VisualElement _root;
 
     public event Action OnHide;
-    public async void Initialize(VisualElement root)
+    public async void Initialize(VisualElement root, bool enableNavigation = true)
     {
         style.width = Length.Percent(100);
         style.height = Length.Percent(100);
@@ -26,8 +26,11 @@ public class FullScreenVisual : VisualElement
         focusable = true;
         Focus();
 
-        RegisterCallback<PointerDownEvent>(OnPointerDown);
-        RegisterCallback<KeyDownEvent>(OnKeyDown);
+        if (enableNavigation)
+        {
+            RegisterCallback<PointerDownEvent>(OnPointerDown);
+            RegisterCallback<KeyDownEvent>(OnKeyDown);
+        }
     }
 
     void OnPointerDown(PointerDownEvent evt)
@@ -42,7 +45,7 @@ public class FullScreenVisual : VisualElement
     {
         if (evt.keyCode != KeyCode.Escape)
             return;
-            
+
         Hide();
     }
 

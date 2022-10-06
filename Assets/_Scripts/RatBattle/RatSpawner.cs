@@ -40,21 +40,26 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
         if (state == BattleState.PlayerTurn)
             HandlePlayerTurn();
     }
+    void OnEnable() { _spawnerEffect.SetActive(true); }
 
-    void Update()
-    {
-        // TODO: is it too much to check it in update?
-        if (IsSpawnCovered() && _spawnerEffect.activeInHierarchy)
-            _spawnerEffect.SetActive(false);
-        if (!IsSpawnCovered() && !_spawnerEffect.activeInHierarchy)
-            _spawnerEffect.SetActive(true);
-    }
+    void OnDisable() { _spawnerEffect.SetActive(false); }
 
+    void OnCollisionEnter2D(Collision2D other) { _spawnerEffect.SetActive(false); }
+    void OnCollisionExit2D(Collision2D other) { _spawnerEffect.SetActive(true); }
+
+    /* // HERE:
+        void Update()
+        {
+            // TODO: is it too much to check it in update?
+            if (IsSpawnCovered() && _spawnerEffect.activeInHierarchy)
+                if (!IsSpawnCovered() && !_spawnerEffect.activeInHierarchy)
+        }
+    */
     async void HandlePlayerTurn()
     {
         // get all with tag enemy, if there are less than 4, spawn rats
         GameObject[] rats = GameObject.FindGameObjectsWithTag("Enemy");
-        if (rats.Length < 2 && !IsSpawnCovered())
+        if (!IsSpawnCovered()) // rats.Length < 2 &&  // HERE:
             await SpawnRat();
     }
 
@@ -141,4 +146,6 @@ public class RatSpawner : MonoBehaviour, IUITextDisplayable
     {
         return new Label("Grate. Perhaps that's were the rats come from?");
     }
+
+
 }

@@ -1,14 +1,11 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 
-public class ViewTroopsScreen : FullScreenVisual
+public class ScreenWithDraggables : FullScreenVisual
 {
     RunManager _runManager;
-    public event Action OnClose;
 
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
@@ -34,17 +31,12 @@ public class ViewTroopsScreen : FullScreenVisual
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
 
-    public ViewTroopsScreen(List<Character> troops, VisualElement root, bool enableNavigation = true)
+    public ScreenWithDraggables(VisualElement root, bool enableNavigation = true)
     {
+        style.backgroundColor = Color.black;
         style.flexDirection = FlexDirection.Column;
         _runManager = RunManager.Instance;
         Initialize(root, enableNavigation);
-
-        InitializePouches();
-        InitializeCharacters(troops);
-
-        if (enableNavigation)
-            AddBackButton();
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -58,7 +50,9 @@ public class ViewTroopsScreen : FullScreenVisual
         Add(_abilityDragDropContainer);
     }
 
-    void InitializePouches()
+    public void AddElement(VisualElement el) { Add(el); }
+
+    public void AddPouches()
     {
         VisualElement c = new();
         Add(c);
@@ -103,7 +97,7 @@ public class ViewTroopsScreen : FullScreenVisual
         }
     }
 
-    void InitializeCharacters(List<Character> troops)
+    public void AddCharacters(List<Character> troops)
     {
 
         VisualElement container = new();
@@ -131,6 +125,7 @@ public class ViewTroopsScreen : FullScreenVisual
                 _allPlayerAbilitySlotVisuals.Add(slot);
         }
     }
+
 
     void OnPlayerItemPointerDown(PointerDownEvent evt)
     {
@@ -165,6 +160,7 @@ public class ViewTroopsScreen : FullScreenVisual
         _isDragging = true;
         _originalItemSlot = originalSlot;
         //Set the new position
+        _itemDragDropContainer.BringToFront();
         _itemDragDropContainer.style.top = position.y - _itemDragDropContainer.layout.height / 2;
         _itemDragDropContainer.style.left = position.x - _itemDragDropContainer.layout.width / 2;
         //Set the image
@@ -181,6 +177,7 @@ public class ViewTroopsScreen : FullScreenVisual
         _isDragging = true;
         _originalAbilitySlot = originalSlot;
         //Set the new position
+        _abilityDragDropContainer.BringToFront();
         _abilityDragDropContainer.style.top = position.y - _abilityDragDropContainer.layout.height / 2;
         _abilityDragDropContainer.style.left = position.x - _abilityDragDropContainer.layout.width / 2;
         //Set the image
@@ -333,10 +330,6 @@ public class ViewTroopsScreen : FullScreenVisual
         _abilityDragDropContainer.style.visibility = Visibility.Hidden;
     }
 
-    public override void Hide()
-    {
-        base.Hide();
-        OnClose?.Invoke();
-    }
+
 
 }
