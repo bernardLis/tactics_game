@@ -72,21 +72,4 @@ public class VillageManager : Singleton<VillageManager>
         RunManager.Instance.VisitedJourneyNodes.Add(RunManager.Instance.CurrentNode.Serialize());
         GameManager.Instance.LoadLevel(Scenes.Journey);
     }
-
-    public async void DisplayText(VisualElement element, string text, Color color)
-    {
-        Label l = new Label(text);
-        l.AddToClassList("textSecondary");
-        l.style.color = color;
-        l.style.position = Position.Absolute;
-        l.style.left = element.worldBound.xMin - element.worldBound.width / 2;
-        l.style.top = element.worldBound.yMax;
-
-        _root.Add(l);
-        float end = element.worldBound.yMin + 100;
-        await DOTween.To(x => l.style.top = x, element.worldBound.yMax, end, 1).SetEase(Ease.OutSine).AsyncWaitForCompletion();
-        await DOTween.To(x => l.style.opacity = x, 1, 0, 1).AsyncWaitForCompletion();
-        _root.Remove(l);
-    }
-
 }

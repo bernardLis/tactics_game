@@ -24,6 +24,7 @@ public class BattleUI : Singleton<BattleUI>
 
 
     BattleEndScreen _battleEndScreen;
+    BattleRewardsContainer _battleRewardsContainer;
     bool _wasRewardWarningDisplayed;
     VisualElement _battleEndGoalContainer;
 
@@ -225,8 +226,8 @@ public class BattleUI : Singleton<BattleUI>
         _battleEndScreen.AddElement(_battleEndGoalContainer);
 
         // rewards TODO: draggable reward
-        BattleRewardsContainer rewardsContainer = new(_runManager.JourneyNodeReward, _battleEndScreen);
-        _battleEndScreen.AddElement(rewardsContainer);
+        _battleRewardsContainer = new(_runManager.JourneyNodeReward, _battleEndScreen);
+        _battleEndScreen.AddElement(_battleRewardsContainer);
 
         _battleEndScreen.AddPouches();
         _battleEndScreen.AddCharacters(_runManager.PlayerTroops);
@@ -263,6 +264,9 @@ public class BattleUI : Singleton<BattleUI>
 
     void OnContinueButtonClick()
     {
+        if (!_battleRewardsContainer.IsChestOpen())
+            return;
+
         if (!_battleEndScreen.AreAllRewardsTaken() && !_wasRewardWarningDisplayed)
         {
             _wasRewardWarningDisplayed = true;

@@ -104,7 +104,7 @@ public class BankManager : MonoBehaviour
             _runManager.ChangeSavingsAccountValue(1);
             return;
         }
-        _villageManager.DisplayText(_currentAccountContainer, "Insufficient funds", Color.red);
+        Helpers.DisplayTextOnElement(_root, _currentAccountContainer, "Insufficient funds", Color.red);
     }
 
     void WithdrawFromSavings()
@@ -115,7 +115,7 @@ public class BankManager : MonoBehaviour
             _runManager.ChangeSavingsAccountValue(-1);
             return;
         }
-        _villageManager.DisplayText(_savingsAccountContainer, "Insufficient funds", Color.red);
+        Helpers.DisplayTextOnElement(_root, _savingsAccountContainer, "Insufficient funds", Color.red);
     }
 
     void BuyGold()
@@ -127,7 +127,7 @@ public class BankManager : MonoBehaviour
             return;
         }
 
-        _villageManager.DisplayText(_root.Q<Button>("buyGoldButton"), "Insufficient funds", Color.red);
+        Helpers.DisplayTextOnElement(_root, _root.Q<Button>("buyGoldButton"), "Insufficient funds", Color.red);
         PlayClick();
     }
 
@@ -140,7 +140,7 @@ public class BankManager : MonoBehaviour
             return;
         }
 
-        _villageManager.DisplayText(_root.Q<Button>("buyObolsButton"), "Insufficient funds", Color.red);
+        Helpers.DisplayTextOnElement(_root, _root.Q<Button>("buyObolsButton"), "Insufficient funds", Color.red);
         PlayClick();
     }
 

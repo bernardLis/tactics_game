@@ -32,6 +32,7 @@ public class BattleEndScreen : FullScreenVisual
     List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
+    
 
     public BattleEndScreen(VisualElement root, bool enableNavigation = true)
     {
