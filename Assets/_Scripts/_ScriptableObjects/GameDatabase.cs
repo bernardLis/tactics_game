@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-
     [Header("Global Upgrades")]
     [SerializeField] GlobalUpgrade[] GlobalUpgrades;
     public GlobalUpgrade[] GetAllGlobalUpgrades() { return GlobalUpgrades; }
@@ -45,7 +44,11 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] Ability[] Abilities;
     [SerializeField] Item[] Items;
     [SerializeField] StatIcon[] StatIcons;
+    [Header("Battle")]
     [SerializeField] BattleLogLineIcon[] BattleLogLineIcons;
+    [SerializeField] public Sprite[] RewardChestIdle; // HERE: a list of different chests
+    [SerializeField] public Sprite[] RewardChestOpen;// HERE: a list of different chests
+
 
     public Character[] GetAllStarterTroops() { return StarterTroops; }
 

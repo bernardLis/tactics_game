@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 
-public class ScreenWithDraggables : FullScreenVisual
+public class BattleEndScreen : FullScreenVisual
 {
     RunManager _runManager;
 
@@ -16,6 +16,8 @@ public class ScreenWithDraggables : FullScreenVisual
     ItemSlotVisual _newItemSlot;
     VisualElement _itemDragDropContainer;
     ItemVisual _draggedItem;
+
+    List<ItemSlotVisual> _rewardItemSlotVisuals = new();
     List<ItemSlotVisual> _allPlayerItemSlotVisuals = new();
     List<ItemSlotVisual> _playerPouchItemSlotVisuals = new();
 
@@ -31,10 +33,11 @@ public class ScreenWithDraggables : FullScreenVisual
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
 
-    public ScreenWithDraggables(VisualElement root, bool enableNavigation = true)
+    public BattleEndScreen(VisualElement root, bool enableNavigation = true)
     {
         style.backgroundColor = Color.black;
         style.flexDirection = FlexDirection.Column;
+        style.alignItems = Align.Center;
         _runManager = RunManager.Instance;
         Initialize(root, enableNavigation);
 
@@ -51,6 +54,24 @@ public class ScreenWithDraggables : FullScreenVisual
     }
 
     public void AddElement(VisualElement el) { Add(el); }
+
+    public void AddNewDraggableItem(ItemSlotVisual itemSlotVisual)
+    {
+        _rewardItemSlotVisuals.Add(itemSlotVisual);
+        itemSlotVisual.ItemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+    }
+
+    public bool AreAllRewardsTaken()
+    {
+        foreach (ItemSlotVisual slot in _rewardItemSlotVisuals)
+            if (slot.ItemVisual != null)
+            {
+                Helpers.DisplayTextOnElement(this, slot, "Take me with you", Color.red);
+                return false;
+            }
+
+        return true;
+    }
 
     public void AddPouches()
     {
@@ -78,7 +99,7 @@ public class ScreenWithDraggables : FullScreenVisual
         {
             AbilityButton abilityButton = new(_runManager.PlayerAbilityPouch[i], null);
             _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
-            abilityButton.RegisterCallback<PointerDownEvent>(OnPlayerAbilityPointerDown);
+            abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
         }
 
         //items
@@ -93,7 +114,7 @@ public class ScreenWithDraggables : FullScreenVisual
         {
             ItemVisual itemVisual = new(_runManager.PlayerItemPouch[i]);
             _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
-            itemVisual.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
+            itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
         }
     }
 
@@ -112,22 +133,21 @@ public class ScreenWithDraggables : FullScreenVisual
 
             // allow moving character items
             foreach (ItemVisual item in card.ItemVisuals)
-                item.RegisterCallback<PointerDownEvent>(OnPlayerItemPointerDown);
+                item.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
 
             foreach (ItemSlotVisual item in card.ItemSlots)
                 _allPlayerItemSlotVisuals.Add(item);
 
             // allow moving character abilities
             foreach (AbilityButton ability in card.AbilityButtons)
-                ability.RegisterCallback<PointerDownEvent>(OnPlayerAbilityPointerDown);
+                ability.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
 
             foreach (AbilitySlotVisual slot in card.AbilitySlots)
                 _allPlayerAbilitySlotVisuals.Add(slot);
         }
     }
 
-
-    void OnPlayerItemPointerDown(PointerDownEvent evt)
+    void OnItemPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
             return;
@@ -139,7 +159,7 @@ public class ScreenWithDraggables : FullScreenVisual
         StartItemDrag(evt.position, itemSlotVisual, itemVisual);
     }
 
-    void OnPlayerAbilityPointerDown(PointerDownEvent evt)
+    void OnAbilityPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
             return;
@@ -252,15 +272,26 @@ public class ScreenWithDraggables : FullScreenVisual
 
     void ItemMoved()
     {
+        // removing
         if (_originalItemSlot.Character != null)
             _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
-        else
+        if (_playerPouchItemSlotVisuals.Contains(_originalItemSlot))
             _runManager.RemoveItemFromPouch(_draggedItem.Item);
+        if (_rewardItemSlotVisuals.Contains(_originalItemSlot))
+            _originalItemSlot.parent.Remove(_originalItemSlot);
 
+        // adding
         if (_newItemSlot.Character != null)
+        {
             _newItemSlot.Character.AddItem(_draggedItem.Item);
-        else
+            Debug.Log($"Adding item to {_newItemSlot.Character}");
+        }
+        if (_playerPouchItemSlotVisuals.Contains(_newItemSlot))
+        {
             _runManager.AddItemToPouch(_draggedItem.Item);
+            Debug.Log($"Adding item to pouch");
+
+        }
 
         foreach (CharacterCardVisualExtended card in _characterCards)
             card.Character.ResolveItems();
@@ -302,12 +333,12 @@ public class ScreenWithDraggables : FullScreenVisual
     {
         if (_originalAbilitySlot.Character != null)
             _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
-        else
+        if (_playerPouchAbilitySlotVisuals.Contains(_originalAbilitySlot))
             _runManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
 
         if (_newAbilitySlot.Character != null)
             _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);
-        else
+        if (_playerPouchAbilitySlotVisuals.Contains(_newAbilitySlot))
             _runManager.AddAbilityToPouch(_draggedAbility.Ability);
 
     }

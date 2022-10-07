@@ -48,10 +48,9 @@ public class JourneyCameraController : MonoBehaviour
 
     }
 
-    void OnNodeSelection()
-    {
-        UnsubscribeInputActions();
-    }
+    void OnNodeSelection() { UnsubscribeInputActions(); }
+
+    void OnDestroy() { UnsubscribeInputActions(); }
 
     void Update()
     {
@@ -66,15 +65,16 @@ public class JourneyCameraController : MonoBehaviour
     }
 
     /* INPUT */
+    void SubscribeInputActions()
+    {
+        _playerInput.actions["ArrowMovement"].performed += Move;
+    }
+
     void UnsubscribeInputActions()
     {
         _playerInput.actions["ArrowMovement"].performed -= Move;
     }
 
-    void SubscribeInputActions()
-    {
-        _playerInput.actions["ArrowMovement"].performed += Move;
-    }
 
     // TODO: this should be better
     void Move(InputAction.CallbackContext ctx)

@@ -155,3 +155,13 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 663a57727e4288644a17ae1e179bd9bf, type: 3}
   - BattleLogLineType: 4
     Sprite: {fileID: 21300000, guid: 6ef794cf9af0fd54b93f34beaa0ed3cb, type: 3}
+  RewardChestIdle:
+  - {fileID: 571803524, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
+  - {fileID: -297933185, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
+  - {fileID: -674665604, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
+  - {fileID: -937213738, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
+  RewardChestOpen:
+  - {fileID: 46247795, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
+  - {fileID: 1643831901, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
+  - {fileID: -564760219, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
+  - {fileID: 833030447, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
+using DG.Tweening;
 
 public static class Helpers
 {
@@ -95,6 +97,21 @@ public static class Helpers
         return objectsWithInterfaces;
     }
 
+    public static async void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
+    {
+        Label l = new Label(text);
+        l.AddToClassList("textSecondary");
+        l.style.color = color;
+        l.style.position = Position.Absolute;
+        l.style.left = element.worldBound.xMin - element.worldBound.width / 2;
+        l.style.top = element.worldBound.yMax;
+
+        root.Add(l);
+        float end = element.worldBound.yMin + 100;
+        await DOTween.To(x => l.style.top = x, element.worldBound.yMax, end, 1).SetEase(Ease.OutSine).AsyncWaitForCompletion();
+        await DOTween.To(x => l.style.opacity = x, 1, 0, 1).AsyncWaitForCompletion();
+        root.Remove(l);
+    }
 
 
 }
