@@ -53,6 +53,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     public static event Action<CharacterState> OnCharacterStateChanged;
 
+    [SerializeField] Sound _footsteps;
+    AudioSource _footstepsSource;
+
     protected override void Awake()
     {
         base.Awake();
@@ -256,6 +259,8 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         _characterUI.DisableSkillButtons();
 
+        _footstepsSource = AudioManager.Instance.PlaySFX(_footsteps, transform.position, true); // HERE:
+
         _playerCharSelection.SetCharacterMoved(true);
     }
 
@@ -298,6 +303,7 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
         // flag reset
         _playerCharSelection.SetCharacterMoved(false);
+        _footstepsSource = AudioManager.Instance.PlaySFX(_footsteps, transform.position, true);
 
         IsMovingBack = true;
         HasCharacterStartedMoving = true;
@@ -317,6 +323,10 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     async void CharacterReachedDestination()
     {
+
+        _footstepsSource.Stop();
+        _footstepsSource = null;
+
         _characterUI.EnableSkillButtons();
 
         if (_tempObject != null)

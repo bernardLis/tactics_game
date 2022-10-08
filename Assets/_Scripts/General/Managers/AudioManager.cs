@@ -115,19 +115,24 @@ public class AudioManager : Singleton<AudioManager>
         AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
         if (a == null)
             return;
+        
+        a.loop = false;
         a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
         PlaySound(a, soundName);
     }
 
-    public void PlaySFX(Sound sound, Vector3 pos)
+    public AudioSource PlaySFX(Sound sound, Vector3 pos, bool isLooping = false)
     {
         AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
         if (a == null)
-            return;
+            return null;
         a.pitch = sound.Pitch;
         a.volume = sound.Volume;
         a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
+        a.loop = isLooping;
         sound.Play(a);
+
+        return a;
     }
 
     public void PlaySound(AudioSource audioSource, string soundName)

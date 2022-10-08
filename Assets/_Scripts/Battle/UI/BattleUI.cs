@@ -24,7 +24,7 @@ public class BattleUI : Singleton<BattleUI>
 
 
     BattleEndScreen _battleEndScreen;
-    BattleRewardsContainer _battleRewardsContainer;
+    RewardsContainer _battleRewardsContainer;
     bool _wasRewardWarningDisplayed;
     VisualElement _battleEndGoalContainer;
 

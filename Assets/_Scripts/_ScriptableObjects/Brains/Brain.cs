@@ -59,6 +59,10 @@ public class Brain : BaseScriptableObject
     public int Armor;
     public int MovementRange;
 
+    [Header("Sounds")]
+    public Sound Footsteps;
+    AudioSource _footstepsSource;
+
     public virtual void Initialize(GameObject self, Character character)
     {
         _highlighter = BattleManager.Instance.GetComponent<HighlightManager>();
@@ -116,6 +120,9 @@ public class Brain : BaseScriptableObject
 
     public virtual async Task Interact()
     {
+        _footstepsSource.Stop();
+        _footstepsSource = null;
+
         await _selectedAbility.HighlightTargetable(_characterGameObject);
         await Task.Delay(200);
         await _selectedAbility.HighlightAreaOfEffect(Target.transform.position);
@@ -125,6 +132,9 @@ public class Brain : BaseScriptableObject
 
     protected void DoNothing()
     {
+        _footstepsSource.Stop();
+        _footstepsSource = null;
+
         _characterRendererManager.Face(Helpers.GetDirectionToClosestWithTag(_characterGameObject, Tags.Player));
     }
 
@@ -231,6 +241,7 @@ public class Brain : BaseScriptableObject
 
     protected void SetPath(ABPath p)
     {
+        _footstepsSource = AudioManager.Instance.PlaySFX(Footsteps, _characterGameObject.transform.position, true);
         _aiLerp.SetPath(p);
         _aiLerp.destination = _tempObject.transform.position;
     }

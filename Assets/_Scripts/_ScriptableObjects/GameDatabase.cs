@@ -46,8 +46,8 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] StatIcon[] StatIcons;
     [Header("Battle")]
     [SerializeField] BattleLogLineIcon[] BattleLogLineIcons;
-    [SerializeField] public Sprite[] RewardChestIdle; // HERE: a list of different chests
-    [SerializeField] public Sprite[] RewardChestOpen;// HERE: a list of different chests
+
+    [SerializeField] public RewardChest[] RewardChests;
 
 
     public Character[] GetAllStarterTroops() { return StarterTroops; }
@@ -71,6 +71,8 @@ public class GameDatabase : BaseScriptableObject
     public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
 
     public Sprite GetBattleLogLineIconByType(BattleLogLineType type) { return BattleLogLineIcons.FirstOrDefault(x => x.BattleLogLineType == type).Sprite; }
+
+    public RewardChest GetRandomRewardChest() { return RewardChests[Random.Range(0, RewardChests.Length)]; }
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
@@ -108,5 +110,13 @@ public struct BattleLogLineIcon
     public BattleLogLineType BattleLogLineType;
     public Sprite Sprite;
 }
+
+[System.Serializable]
+public struct RewardChest
+{
+    public Sprite[] Idle;
+    public Sprite[] Open;
+}
+
 
 

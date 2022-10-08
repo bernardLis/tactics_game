@@ -31,3 +31,4 @@ MonoBehaviour:
   MaxMana: 5
   Armor: 0
   MovementRange: 1
+  Footsteps: {fileID: 11400000, guid: 91fcaade33397e449ba3dd4476a41660, type: 2}

@@ -17,7 +17,6 @@ MonoBehaviour:
   Name: Ranger Kurt
   Portrait: {fileID: 21300000, guid: 2c59ce9a31dd52748a30bf53367bf85b, type: 3}
   PowerMultiplier: 1
-  AgilityMultiplier: 1.2
   Body: {fileID: 11400000, guid: 88fc7d6307f320042bd5d6fb356701a1, type: 2}
   Weapon: {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
   Target: {fileID: 0}
@@ -27,3 +26,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7afbe107d25cc6c4682e85d08c541365, type: 2}
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities: []
+  ManualStats: 0
+  Level: 0
+  Power: 0
+  MaxHealth: 0
+  MaxMana: 0
+  Armor: 0
+  MovementRange: 0
+  Footsteps: {fileID: 11400000, guid: 9081e6e23f65f244bb59833f33603508, type: 2}

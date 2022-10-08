@@ -92,8 +92,12 @@ public class JourneyEventManager : MonoBehaviour
 
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
-        Label txt = new Label("You get: ");
+        Label txt = new Label("Reward: ");
         container.Add(txt);
+
+        //        RewardsContainer rewardsContainer = new();
+
+        /*
         if (_journeyEvent.Options[index].Reward.Obols != 0)
         {
             Label obols = new(_journeyEvent.Options[index].Reward.Obols.ToString() + "Obols"); // TODO: gold icon
@@ -114,6 +118,7 @@ public class JourneyEventManager : MonoBehaviour
             CharacterCardVisualExtended card = new(_journeyEvent.Options[index].Reward.Recruit);
             container.Add(card);
         }
+        */
 
         _rewardWrapper.Add(container);
     }

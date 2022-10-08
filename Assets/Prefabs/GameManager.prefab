@@ -180,6 +180,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
   - {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   - {fileID: 11400000, guid: 2c24b60935cc15d4f861a9964fa929f0, type: 2}
+  - {fileID: 11400000, guid: fe41d377ea0d99a4996feeff347def12, type: 2}
   _mixer: {fileID: 24100000, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}
 --- !u!114 &1475728751920290888
 MonoBehaviour:
@@ -209,13 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WasJourneySetUp: 0
   JourneySeed: 0
-  CurrentJourneyNode:
-    PathIndex: 0
-    NodeIndex: 0
   JourneyPaths: []
   VisitedJourneyNodes: []
-  Gold: 0
-  SavingsAccountGold: 0
   PlayerTroops: []
   PlayerItemPouch: []
   PlayerAbilityPouch: []

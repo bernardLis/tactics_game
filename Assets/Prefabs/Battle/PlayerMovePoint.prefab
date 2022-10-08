@@ -233,8 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedCharacter: {fileID: 0}
-  HasCharacterStartedMoving: 0
-  IsMovingBack: 0
+  _footsteps: {fileID: 11400000, guid: 9081e6e23f65f244bb59833f33603508, type: 2}
 --- !u!1 &7569243889959606447
 GameObject:
   m_ObjectHideFlags: 0

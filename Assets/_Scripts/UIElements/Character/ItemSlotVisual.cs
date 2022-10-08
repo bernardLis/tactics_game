@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Threading.Tasks;
 
 public class ItemSlotVisual : VisualElement
 {
@@ -9,6 +10,8 @@ public class ItemSlotVisual : VisualElement
 
     public ItemVisual ItemVisual;
     public Character Character;
+
+    bool _isHighlighted;
 
     public ItemSlotVisual(ItemVisual item = null)
     {
@@ -41,5 +44,25 @@ public class ItemSlotVisual : VisualElement
     void PlayClick()
     {
         _audioManager.PlaySFX("uiClick", Vector3.zero);
+    }
+
+    public async void Highlight()
+    {
+        _isHighlighted = true;
+
+        while (_isHighlighted)
+        {
+            ToggleInClassList("itemSlotHighlighted");
+            ToggleInClassList("itemSlot");
+            await Task.Delay(500);
+        }
+    }
+
+    public void ClearHighlight()
+    {
+        _isHighlighted = false;
+
+        AddToClassList("itemSlot");
+        RemoveFromClassList("itemSlotHighlighted");
     }
 }

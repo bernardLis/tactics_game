@@ -33,33 +33,12 @@ public class JourneyNodeReward : BaseScriptableObject
             _gameManager.ChangeObolValue(Obols);
         if (Gold != 0)
             _runManager.ChangeGoldValue(Gold);
-        if (Item != null)
-            AddItem();
 
         if (PercentSacrificed != 0)
             HandleSacrifice();
 
         if (Recruit != null)
             HandleRecruit();
-    }
-
-    void AddItem()
-    {
-        if (_runManager.PlayerItemPouch.Count < 3) // TODO: hardcoded value
-        {
-            _runManager.AddItemToPouch(Item);
-            return;
-        }
-
-        // TODO: this is very crude
-        foreach (Character character in _runManager.PlayerTroops)
-        {
-            if (character.Items.Count < 3) // TODO: hardcoded value
-            {
-                character.AddItem(Item);
-                return;
-            }
-        }
     }
 
     void HandleSacrifice()

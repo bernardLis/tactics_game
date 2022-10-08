@@ -32,8 +32,6 @@ public class BattleEndScreen : FullScreenVisual
     List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
-    
-
     public BattleEndScreen(VisualElement root, bool enableNavigation = true)
     {
         style.backgroundColor = Color.black;
@@ -175,6 +173,10 @@ public class BattleEndScreen : FullScreenVisual
     //drag & drop
     void StartItemDrag(Vector2 position, ItemSlotVisual originalSlot, ItemVisual draggedItem)
     {
+        foreach (ItemSlotVisual slot in _allPlayerItemSlotVisuals)
+            if (slot.ItemVisual == null)
+                slot.Highlight();
+
         _draggedItem = draggedItem;
 
         //Set tracking variables
@@ -346,6 +348,9 @@ public class BattleEndScreen : FullScreenVisual
 
     void DragCleanUp()
     {
+        foreach (ItemSlotVisual slot in _allPlayerItemSlotVisuals)
+            slot.ClearHighlight();
+
         //Clear dragging related visuals and data
         _isDragging = false;
 
