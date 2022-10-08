@@ -8,7 +8,7 @@ using DG.Tweening;
 public class RewardsContainer : VisualElement
 {
 
-    BattleEndScreen _screenWithDraggables;
+    ScreenWithDraggables _screenWithDraggables;
 
     //Sprite[] _chestIdleSprites;
     RewardChest _rewardChest;
@@ -23,7 +23,7 @@ public class RewardsContainer : VisualElement
     IVisualElementScheduledItem _idleAnimation;
     int _flyLeft = -1;
 
-    public RewardsContainer(JourneyNodeReward journeyNodeReward, BattleEndScreen screenWithDraggables)
+    public RewardsContainer(JourneyNodeReward journeyNodeReward, ScreenWithDraggables screenWithDraggables)
     {
         style.flexGrow = 1;
         style.flexShrink = 0;

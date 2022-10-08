@@ -23,7 +23,7 @@ public class BattleUI : Singleton<BattleUI>
     VisualElement _battleLogContainer;
 
 
-    BattleEndScreen _battleEndScreen;
+    ScreenWithDraggables _battleEndScreen;
     RewardsContainer _battleRewardsContainer;
     bool _wasRewardWarningDisplayed;
     VisualElement _battleEndGoalContainer;
@@ -212,7 +212,7 @@ public class BattleUI : Singleton<BattleUI>
 
     void ShowBattleWonScreen()
     {
-        _battleEndScreen = new(Root, false);
+        _battleEndScreen = new(Root);
         _battleEndScreen.style.opacity = 0f;
         ShowBattleEndScreen();
 

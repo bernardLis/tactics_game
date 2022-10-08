@@ -92,7 +92,7 @@ public class GameUIManager : MonoBehaviour
         if (_viewTroopsScreen != null)
             _viewTroopsScreen.Hide();
 
-        _viewTroopsScreen = new ViewTroopsScreen(_runManager.PlayerTroops, _uiDocument.rootVisualElement);
+        _viewTroopsScreen = new ViewTroopsScreen(_uiDocument.rootVisualElement);
         _viewTroopsScreen.AddToClassList("menuScreen");
         _viewTroopsScreen.OnClose += TroopsScreenClosed;
     }

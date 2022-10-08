@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 
-public class BattleEndScreen : FullScreenVisual
+public class ScreenWithDraggables : FullScreenVisual
 {
     RunManager _runManager;
 
@@ -32,13 +32,13 @@ public class BattleEndScreen : FullScreenVisual
     List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
-    public BattleEndScreen(VisualElement root, bool enableNavigation = true)
+    public ScreenWithDraggables(VisualElement root)
     {
         style.backgroundColor = Color.black;
         style.flexDirection = FlexDirection.Column;
         style.alignItems = Align.Center;
         _runManager = RunManager.Instance;
-        Initialize(root, enableNavigation);
+        Initialize(root, false);
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
