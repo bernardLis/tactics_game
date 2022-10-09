@@ -54,10 +54,17 @@ public class ScreenWithDraggables : FullScreenVisual
 
     public void AddElement(VisualElement el) { Add(el); }
 
-    public void AddNewDraggableItem(ItemSlotVisual itemSlotVisual)
+
+    public VisualElement CreateDraggableItem(Item item)
     {
-        _rewardItemSlotVisuals.Add(itemSlotVisual);
-        itemSlotVisual.ItemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+        ItemSlotVisual slot = new ItemSlotVisual();
+        ItemVisual itemVisual = new(item);
+        slot.AddItem(itemVisual);
+
+        _rewardItemSlotVisuals.Add(slot);
+        slot.ItemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+
+        return slot;
     }
 
     public bool AreAllRewardsTaken()

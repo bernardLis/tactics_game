@@ -9,6 +9,6 @@ public class JourneyEvent : BaseScriptableObject
     [TextArea]
     public string Description;
     public Sound VoiceOver;
-    public List<JourneyEventOption> Options = new();
+    public List<EventOption> Options = new();
 
 }

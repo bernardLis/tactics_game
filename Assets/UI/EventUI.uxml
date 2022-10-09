@@ -3,10 +3,28 @@
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <ui:VisualElement name="eventWrapper" class="textPrimary" style="width: 100%; height: 100%;">
         <ui:Label text="Label" display-tooltip-when-elided="true" name="eventDescription" class="description" style="font-size: 64px;" />
-        <ui:VisualElement name="optionsWrapper" style="padding-left: 20%; padding-right: 20%; padding-top: 20px; padding-bottom: 20px;">
-            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionTwo" class="optionButton" style="background-color: rgba(88, 88, 88, 0.36);" />
-            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionThree" class="optionButton" />
-            <ui:Button text="Back To Journey" display-tooltip-when-elided="true" name="optionOne" class="optionButton" />
+        <ui:VisualElement name="optionsWrapper" style="flex-direction: row; justify-content: space-around;">
+            <ui:VisualElement name="VisualElement" class="eventOptionElement">
+                <ui:Label text="Oh m G! This reward seems awesome!" display-tooltip-when-elided="true" style="white-space: normal; flex-wrap: nowrap;" />
+                <ui:VisualElement style="flex-direction: row; align-items: center;">
+                    <ui:VisualElement class="itemSlot" />
+                    <ui:Label text="Gold: 13" display-tooltip-when-elided="true" style="white-space: normal;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="VisualElement" class="eventOptionElement">
+                <ui:Label text="Oh m G! This reward seems awesome!" display-tooltip-when-elided="true" style="white-space: normal; flex-wrap: nowrap;" />
+                <ui:VisualElement style="flex-direction: row; align-items: center;">
+                    <ui:VisualElement class="itemSlot" />
+                    <ui:Label text="Gold: 13" display-tooltip-when-elided="true" style="white-space: normal;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="VisualElement" class="eventOptionElement">
+                <ui:Label text="Oh m G! This reward seems awesome!" display-tooltip-when-elided="true" style="white-space: normal; flex-wrap: nowrap;" />
+                <ui:VisualElement style="flex-direction: row; align-items: center;">
+                    <ui:VisualElement class="itemSlot" />
+                    <ui:Label text="Gold: 13" display-tooltip-when-elided="true" style="white-space: normal;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="responseWrapper" style="display: none; align-items: center;">
             <ui:Label text="Label" display-tooltip-when-elided="true" name="response" class="description" style="font-size: 64px;" />

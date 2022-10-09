@@ -2,7 +2,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/EventOption")]
-public class JourneyEventOption : BaseScriptableObject
+public class EventOption : BaseScriptableObject
 {
     public string Text;
     public string Response;

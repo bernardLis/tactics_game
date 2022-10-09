@@ -32,8 +32,51 @@
     border-right-width: 3px;
     border-top-width: 3px;
     border-bottom-width: 3px;
-    border-left-color: rgba(47, 108, 159, 255);
-    border-right-color: rgba(47, 108, 159, 255);
-    border-top-color: rgba(47, 108, 159, 255);
-    border-bottom-color: rgba(47, 108, 159, 255);
+    border-left-color: rgb(47, 108, 159);
+    border-right-color: rgb(47, 108, 159);
+    border-top-color: rgb(47, 108, 159);
+    border-bottom-color: rgb(47, 108, 159);
+}
+
+.eventOptionElement {
+    align-items: center;
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    max-width: 25%;
+    background-color: rgba(0, 0, 0, 255);
+}
+
+.eventOptionElementHover {
+    align-items: center;
+    border-left-color: rgb(85, 98, 178);
+    border-right-color: rgb(85, 98, 178);
+    border-top-color: rgb(85, 98, 178);
+    border-bottom-color: rgb(85, 98, 178);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    max-width: 25%;
+    background-color: rgb(48, 48, 48);
+    transition-property: background-color, border-left-color, border-right-color, border-top-color, border-bottom-color;
+    transition-duration: 0.5s, 0.5s, 0.5s, 0.5s, 0.5s;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out, ease-in-out;
 }

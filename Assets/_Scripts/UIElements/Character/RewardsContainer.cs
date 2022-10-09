@@ -1,20 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
-using DG.Tweening;
-
 public class RewardsContainer : VisualElement
 {
-
     ScreenWithDraggables _screenWithDraggables;
 
-    //Sprite[] _chestIdleSprites;
     RewardChest _rewardChest;
     int _idleSpriteIndex = 0;
-
-    // Sprite[] _chestOpenSprites;
 
     VisualElement _chest;
     bool _isChestOpened;
@@ -33,8 +25,6 @@ public class RewardsContainer : VisualElement
         _journeyNodeReward = journeyNodeReward;
 
         _rewardChest = GameManager.Instance.GameDatabase.GetRandomRewardChest();
-        //_chestIdleSprites = GameManager.Instance.GameDatabase.RewardChestIdle;
-        //_chestOpenSprites = GameManager.Instance.GameDatabase.RewardChestOpen;
 
         // first it is hidden in a chest or something that you have to click
         _chest = new();
@@ -87,7 +77,7 @@ public class RewardsContainer : VisualElement
         await Task.Delay(300);
 
         if (_journeyNodeReward.Item != null)
-            FlyingReward(CreateDraggableItem(_journeyNodeReward.Item));
+            FlyingReward(_screenWithDraggables.CreateDraggableItem(_journeyNodeReward.Item));
 
 
         // TODO: deal with obols, deal with recruits
@@ -95,15 +85,6 @@ public class RewardsContainer : VisualElement
 
     }
 
-    VisualElement CreateDraggableItem(Item item)
-    {
-        ItemSlotVisual slot = new ItemSlotVisual();
-        ItemVisual itemVisual = new(item);
-        slot.AddItem(itemVisual);
-        _screenWithDraggables.AddNewDraggableItem(slot);
-
-        return slot;
-    }
 
     void FlyingReward(VisualElement el)
     {

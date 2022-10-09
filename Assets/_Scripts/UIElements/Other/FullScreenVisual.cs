@@ -18,7 +18,8 @@ public class FullScreenVisual : VisualElement
         root.Add(this);
 
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetCommonStyles();
-        styleSheets.Add(ss);
+        if (ss != null)
+            styleSheets.Add(ss);
 
         GameManager.Instance.GetComponent<GameUIManager>().DisableMenuButton(); // TODO: ugh...
 
