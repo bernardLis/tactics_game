@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UIElements;
+using System.Threading.Tasks;
 
 public class JourneyEventManager : MonoBehaviour
 {
@@ -28,6 +29,11 @@ public class JourneyEventManager : MonoBehaviour
 
     List<EventOptionElement> _eventOptionElements = new();
 
+
+    EventOptionElement _selectedOption;
+    bool _wasWarned;
+
+
     void Awake()
     {
         _gameManager = GameManager.Instance;
@@ -44,24 +50,28 @@ public class JourneyEventManager : MonoBehaviour
         _rewardWrapper = _root.Q<VisualElement>("rewardWrapper");
 
         _backToJourneyButton = new MyButton("Continue", "menuButton", BackToJourney);
-        //_responseWrapper.Add(_backToJourneyButton);
 
         SetupEvent();
         // CreateOptions();
     }
 
-    void SetupEvent()
+    async void SetupEvent()
     {
         // HERE: _journeyEvent = _runManager.ChooseEvent();
-
-        // HERE: Do all elements have to be in screen with draggables...
-        _eventWrapper.style.backgroundImage = _journeyEvent.Background.texture;
-        _eventDescription.text = _journeyEvent.Description;
-
         _audioManager.PlayDialogue(_journeyEvent.VoiceOver);
 
         _screenWithDraggables = new(_root);
+        _screenWithDraggables.style.backgroundImage = _journeyEvent.Background.texture;
+        _screenWithDraggables.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
 
+        Label eventDescription = new Label(_journeyEvent.Description);
+        eventDescription.AddToClassList("description");
+        _screenWithDraggables.AddElement(eventDescription);
+
+        int delay = Mathf.CeilToInt(_journeyEvent.VoiceOver.Clips[0].length * 1000);
+        Debug.Log($"delay: {delay}");
+        await Task.Delay(delay);
+        Debug.Log("after delay");
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         container.style.justifyContent = Justify.SpaceAround;
@@ -70,16 +80,35 @@ public class JourneyEventManager : MonoBehaviour
         foreach (EventOption option in _journeyEvent.Options)
         {
             EventOptionElement element = new EventOptionElement(option, _screenWithDraggables);
+            element.style.visibility = Visibility.Hidden;
             _eventOptionElements.Add(element);
             container.Add(element);
             element.OnMouseEnter += OnMouseEnterOptionElement;
             element.OnMouseLeave += OnMouseLeaveOptionElement;
-
+            element.OnPointerUp += OnPointerUpOptionElement;
         }
 
-        _screenWithDraggables.AddPouches();
-        _screenWithDraggables.AddCharacters(_runManager.PlayerTroops);
+        foreach (EventOptionElement element in _eventOptionElements)
+            await FadeIn(element);
+
+
+        await FadeIn(_screenWithDraggables.AddPouches());
+        await FadeIn(_screenWithDraggables.AddCharacters(_runManager.PlayerTroops));
+
+        _backToJourneyButton.style.visibility = Visibility.Hidden;
         _screenWithDraggables.AddElement(_backToJourneyButton);
+    }
+
+    async Task FadeIn(VisualElement element)
+    {
+        element.style.visibility = Visibility.Visible;
+        float o = 0;
+        while (o < 1f)
+        {
+            element.style.opacity = o;
+            o += 0.01f;
+            await Task.Delay(5);
+        }
     }
 
     void OnMouseEnterOptionElement(EventOptionElement activeOption)
@@ -99,81 +128,36 @@ public class JourneyEventManager : MonoBehaviour
             option.style.opacity = 1f;
 
     }
-    /*
-        void CreateOptions()
+
+    void OnPointerUpOptionElement(EventOptionElement activeOption)
+    {
+        FadeIn(_backToJourneyButton).GetAwaiter();
+
+        _selectedOption = activeOption;
+        _screenWithDraggables.UnlockItem(_selectedOption.ItemSlotVisual.ItemVisual);
+        _selectedOption.AddToClassList("eventOptionElementClicked");
+
+        foreach (EventOptionElement option in _eventOptionElements)
         {
-            _optionsWrapper.Clear();
+            option.UnregisterCallbacks();
 
-            for (int i = 0; i < _journeyEvent.Options.Count; i++)
-            {
-                MyButton b = new(_journeyEvent.Options[i].Text, "optionButton", null);
-                _optionsWrapper.Add(b);
+            if (activeOption == option)
+                continue;
 
-                b.userData = i;
-                b.clickable.clickedWithEventInfo += OptionChosen;
-                _optionButtons.Add(b);
-            }
+            option.LockRewards();
+
         }
 
-            void OptionChosen(EventBase _evt)
-            {
-                foreach (MyButton b in _optionButtons)
-                    b.SetEnabled(false);
-
-                MyButton clickedButton = _evt.target as MyButton;
-                clickedButton.style.backgroundColor = Color.black;
-                int index = int.Parse(clickedButton.userData.ToString()); // TODO: dunno if a good idea 
-                _runManager.SetNodeReward(_journeyEvent.Options[index].Reward);
-
-                _responseLabel.text = _journeyEvent.Options[index].Response;
-                _audioManager.PlayDialogue(_journeyEvent.Options[index].ResponseVoiceOver);
-
-                _responseWrapper.style.opacity = 0;
-                _responseWrapper.style.display = DisplayStyle.Flex;
-                DOTween.To(() => _responseWrapper.style.opacity.value, x => _responseWrapper.style.opacity = x, 1f, 1f)
-                    .SetEase(Ease.InSine);
-
-                if (_journeyEvent.Options[index].Reward == null)
-                    return;
-
-                VisualElement container = new();
-                container.style.flexDirection = FlexDirection.Row;
-                Label txt = new Label("Reward: ");
-                container.Add(txt);
-
-
-
-                //        RewardsContainer rewardsContainer = new();
-
-
-                if (_journeyEvent.Options[index].Reward.Obols != 0)
-                {
-                    Label obols = new(_journeyEvent.Options[index].Reward.Obols.ToString() + "Obols"); // TODO: gold icon
-                    container.Add(obols);
-                }
-                if (_journeyEvent.Options[index].Reward.Gold != 0)
-                {
-                    Label gold = new(_journeyEvent.Options[index].Reward.Gold.ToString() + "Gold"); // TODO: gold icon
-                    container.Add(gold);
-                }
-                if (_journeyEvent.Options[index].Reward.Item != null)
-                {
-                    ItemVisual item = new(_journeyEvent.Options[index].Reward.Item);
-                    container.Add(item);
-                }
-                if (_journeyEvent.Options[index].Reward.Recruit != null)
-                {
-                    CharacterCardVisualExtended card = new(_journeyEvent.Options[index].Reward.Recruit);
-                    container.Add(card);
-                }
-
-
-                _rewardWrapper.Add(container);
-            }
-            */
+    }
 
     void BackToJourney()
     {
+        if (!_selectedOption.WasRewardTaken() && !_wasWarned)
+        {
+            _wasWarned = true;
+            return;
+        }
+
         _runManager.VisitedJourneyNodes.Add(_runManager.CurrentNode.Serialize());
         _gameManager.LoadLevel(Scenes.Journey);
     }

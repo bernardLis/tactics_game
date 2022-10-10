@@ -206,3 +206,9 @@ MonoBehaviour:
     - {fileID: -1529983679, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
     - {fileID: 730016207, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
     - {fileID: -758821132, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
+  CoinSprites:
+  - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: -1827811568, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: 1029492290, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: 987951257, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

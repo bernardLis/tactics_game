@@ -65,11 +65,10 @@ public class JourneyMapUI : MonoBehaviour
         _currencyContainer.Clear();
 
         Label obols = new Label($"Obols: {_gameManager.Obols}");
-        Label gold = new Label($"Gold: {_runManager.Gold}");
         Label savings = new Label($"Savings: {_runManager.SavingsAccountGold}");
 
         _currencyContainer.Add(obols);
-        _currencyContainer.Add(gold);
+        _currencyContainer.Add(new GoldElement(_runManager.Gold));
         _currencyContainer.Add(savings);
     }
 

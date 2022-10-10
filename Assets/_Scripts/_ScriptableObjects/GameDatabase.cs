@@ -48,7 +48,7 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] BattleLogLineIcon[] BattleLogLineIcons;
 
     [SerializeField] public RewardChest[] RewardChests;
-
+    [SerializeField] Sprite[] CoinSprites;
 
     public Character[] GetAllStarterTroops() { return StarterTroops; }
 
@@ -73,6 +73,24 @@ public class GameDatabase : BaseScriptableObject
     public Sprite GetBattleLogLineIconByType(BattleLogLineType type) { return BattleLogLineIcons.FirstOrDefault(x => x.BattleLogLineType == type).Sprite; }
 
     public RewardChest GetRandomRewardChest() { return RewardChests[Random.Range(0, RewardChests.Length)]; }
+
+    public Sprite GetCoinSprite(int amount)
+    {
+        int index = 0;
+        // TODO: something smarter
+        if (amount >= 0 && amount <= 3)
+            index = 0; 
+        if (amount >= 4 && amount <= 6)
+            index = 1; 
+        if (amount >= 7 && amount <= 9)
+            index = 2; 
+        if (amount >= 10 && amount <= 12)
+            index = 3; 
+        if (amount >= 13)
+            index = 4; 
+
+        return CoinSprites[index];
+    }
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }

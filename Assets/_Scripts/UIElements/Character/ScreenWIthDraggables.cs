@@ -55,16 +55,22 @@ public class ScreenWithDraggables : FullScreenVisual
     public void AddElement(VisualElement el) { Add(el); }
 
 
-    public VisualElement CreateDraggableItem(Item item)
+    public ItemSlotVisual CreateDraggableItem(Item item, bool isDraggable = true)
     {
         ItemSlotVisual slot = new ItemSlotVisual();
         ItemVisual itemVisual = new(item);
         slot.AddItem(itemVisual);
 
         _rewardItemSlotVisuals.Add(slot);
-        slot.ItemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+        if (isDraggable)
+            slot.ItemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
 
         return slot;
+    }
+
+    public void UnlockItem(ItemVisual itemVisual)
+    {
+        itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
     }
 
     public bool AreAllRewardsTaken()
@@ -79,7 +85,7 @@ public class ScreenWithDraggables : FullScreenVisual
         return true;
     }
 
-    public void AddPouches()
+    public VisualElement AddPouches()
     {
         VisualElement c = new();
         Add(c);
@@ -122,11 +128,12 @@ public class ScreenWithDraggables : FullScreenVisual
             _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
             itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
         }
+
+        return c;
     }
 
-    public void AddCharacters(List<Character> troops)
+    public VisualElement AddCharacters(List<Character> troops)
     {
-
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         Add(container);
@@ -151,6 +158,8 @@ public class ScreenWithDraggables : FullScreenVisual
             foreach (AbilitySlotVisual slot in card.AbilitySlots)
                 _allPlayerAbilitySlotVisuals.Add(slot);
         }
+
+        return container;
     }
 
     void OnItemPointerDown(PointerDownEvent evt)

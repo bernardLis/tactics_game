@@ -26,6 +26,7 @@ public class ShopManager : MonoBehaviour
     VisualElement _playerAbilityPouch;
 
     Label _shopPlayerGoldAmount;
+    GoldElement _goldElement;
 
     bool _wasVisited;
 
@@ -74,7 +75,8 @@ public class ShopManager : MonoBehaviour
         _shopRerollContainer.Add(rerollButton);
 
         _shopPlayerGoldAmount = _root.Q<Label>("shopPlayerGoldAmount");
-        _shopPlayerGoldAmount.text = "" + _runManager.Gold;
+        _goldElement = new GoldElement(_runManager.Gold);
+        _shopPlayerGoldAmount.Add(_goldElement);
 
         VisualElement pouchContainer = _root.Q<VisualElement>("pouchContainer");
         pouchContainer.style.alignSelf = Align.FlexStart;
@@ -105,7 +107,7 @@ public class ShopManager : MonoBehaviour
 
     void OnGoldChanged(int amount)
     {
-        _shopPlayerGoldAmount.text = "" + amount;
+        _goldElement.ChangeAmount(amount);
     }
 
     public void Initialize()
