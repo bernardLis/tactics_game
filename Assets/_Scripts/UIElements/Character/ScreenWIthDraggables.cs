@@ -32,6 +32,9 @@ public class ScreenWithDraggables : FullScreenVisual
     List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
+    // gold
+    GoldElement _goldElement;
+
     public ScreenWithDraggables(VisualElement root)
     {
         style.backgroundColor = Color.black;
@@ -97,6 +100,10 @@ public class ScreenWithDraggables : FullScreenVisual
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         c.Add(container);
+
+        GoldElement _goldElement = new(_runManager.Gold);
+        _runManager.OnGoldChanged += _goldElement.ChangeAmount; // HERE: does it make a drama if I don't unsubcribe from it on destory?
+        container.Add(_goldElement);
 
         //abilities
         for (int i = 0; i < 3; i++)

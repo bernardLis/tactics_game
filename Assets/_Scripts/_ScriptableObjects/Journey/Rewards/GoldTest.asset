@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ce32ab4bb443b428878a0b10ef84f1, type: 3}
-  m_Name: RandomReward
+  m_Script: {fileID: 11500000, guid: 634522ee4600de64a981262116c52ae7, type: 3}
+  m_Name: GoldTest
   m_EditorClassIdentifier: 
-  Id: 8bd2aca2-c233-44ba-bbeb-d32f89ee2755
+  Id: d691fe9d-aa62-4b69-8b05-db97a4bd7bdf
   Obols: 0
-  Gold: 9
-  Item: {fileID: 0}
+  Gold: 5
+  Item: {fileID: 11400000, guid: fd310e1f51ede2047bf2c672e55721f4, type: 2}
   SacrificedStat: 0
   PercentSacrificed: 0
   Recruit: {fileID: 0}
   PursuingEnemy: {fileID: 0}
-  GoldRange: {x: 5, y: 10}
-  hasItem: 1

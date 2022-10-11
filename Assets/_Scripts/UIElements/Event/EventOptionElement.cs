@@ -9,19 +9,20 @@ public class EventOptionElement : VisualElement
 {
     ScreenWithDraggables _screenWithDraggables;
 
-    EventOption _eventOption;
+    public EventOption EventOption;
 
     public event Action<EventOptionElement> OnMouseEnter;
     public event Action OnMouseLeave;
     public event Action<EventOptionElement> OnPointerUp;
 
 
-    public ItemSlotVisual ItemSlotVisual;
+    ItemSlotVisual _itemSlotVisual;
+    GoldElement _goldElement;
 
 
     public EventOptionElement(EventOption option, ScreenWithDraggables screenWithDraggables)
     {
-        _eventOption = option;
+        EventOption = option;
 
         AddToClassList("textPrimary");
         AddToClassList("eventOptionElement");
@@ -44,13 +45,13 @@ public class EventOptionElement : VisualElement
         }
         if (option.Reward.Gold != 0)
         {
-            Label gold = new($"Gold: {option.Reward.Gold}");
-            rewardContainer.Add(gold);
+            _goldElement = new(option.Reward.Gold);
+            rewardContainer.Add(_goldElement);
         }
         if (option.Reward.Item != null)
         {
-            ItemSlotVisual = _screenWithDraggables.CreateDraggableItem(option.Reward.Item, false);
-            rewardContainer.Add(ItemSlotVisual);
+            _itemSlotVisual = _screenWithDraggables.CreateDraggableItem(option.Reward.Item, false);
+            rewardContainer.Add(_itemSlotVisual);
         }
 
         RegisterCallback<MouseEnterEvent>(MouseEnter);
@@ -82,6 +83,16 @@ public class EventOptionElement : VisualElement
         UnregisterCallback<PointerUpEvent>(PointerUp);
     }
 
+    public void UnlockRewards()
+    {
+        AddToClassList("eventOptionElementClicked");
+
+        if (_itemSlotVisual != null)
+            _screenWithDraggables.UnlockItem(_itemSlotVisual.ItemVisual);
+        if (_goldElement != null)
+            _goldElement.MakeClickable();
+    }
+
     public void LockRewards()
     {
         style.opacity = 0.5f;
@@ -95,9 +106,9 @@ public class EventOptionElement : VisualElement
 
     public bool WasRewardTaken()
     {
-        if (_eventOption.Reward.Item != null && ItemSlotVisual != null)
+        if (EventOption.Reward.Item != null && _itemSlotVisual != null)
         {
-            Helpers.DisplayTextOnElement(_screenWithDraggables, ItemSlotVisual, "Take me with you", Color.red);
+            Helpers.DisplayTextOnElement(_screenWithDraggables, _itemSlotVisual, "Take me with you", Color.red);
             return false;
         }
 

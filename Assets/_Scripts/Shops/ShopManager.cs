@@ -265,7 +265,6 @@ public class ShopManager : MonoBehaviour
         }
 
     }
-
     void Back()
     {
         VillageManager.Instance.ShowVillage();

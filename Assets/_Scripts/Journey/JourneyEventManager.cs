@@ -134,8 +134,7 @@ public class JourneyEventManager : MonoBehaviour
         FadeIn(_backToJourneyButton).GetAwaiter();
 
         _selectedOption = activeOption;
-        _screenWithDraggables.UnlockItem(_selectedOption.ItemSlotVisual.ItemVisual);
-        _selectedOption.AddToClassList("eventOptionElementClicked");
+        _selectedOption.UnlockRewards();
 
         foreach (EventOptionElement option in _eventOptionElements)
         {

@@ -14,6 +14,7 @@ public class RewardsContainer : VisualElement
     JourneyNodeReward _journeyNodeReward;
     IVisualElementScheduledItem _idleAnimation;
     int _flyLeft = -1;
+    int _offsetX = 0;
 
     public RewardsContainer(JourneyNodeReward journeyNodeReward, ScreenWithDraggables screenWithDraggables)
     {
@@ -72,40 +73,35 @@ public class RewardsContainer : VisualElement
         }
 
         if (_journeyNodeReward.Gold != 0)
-            FlyingReward(new Label($"Gold {_journeyNodeReward.Gold}"));
+            FlyingReward(new GoldElement(_journeyNodeReward.Gold, true));
 
-        await Task.Delay(300);
+        await Task.Delay(200);
 
         if (_journeyNodeReward.Item != null)
             FlyingReward(_screenWithDraggables.CreateDraggableItem(_journeyNodeReward.Item));
-
-
-        // TODO: deal with obols, deal with recruits
-
-
     }
-
 
     void FlyingReward(VisualElement el)
     {
-        Debug.Log($"flying reward {el}");
-        Add(el);
-        el.AddToClassList("textPrimary");
+        VisualElement flyingContainer = new(); // without container the animation transition breaks flying
+        flyingContainer.style.visibility = Visibility.Hidden;
+        flyingContainer.style.position = Position.Absolute;
+        flyingContainer.transform.position = _chest.transform.position;
+        Add(flyingContainer);
+        flyingContainer.Add(el);
 
-        el.style.position = Position.Absolute;
-        el.transform.position = _chest.transform.position;
-        float endx = _chest.transform.position.x + 150f;
-        float endy = _chest.transform.position.y - 150f;
-
-        Vector3 offset = new Vector3(250f * _flyLeft + Random.Range(-50, 50), Random.Range(-10, 10));
+        Vector3 offset = new Vector3(250f * _flyLeft + Random.Range(-50, 50) + _offsetX * _flyLeft, Random.Range(-10, 10));
         Vector3 endPosition = _chest.transform.position + offset;
         _flyLeft *= -1; // swapping left and right each time it is called
-        MoveElementOnArc(el, _chest.transform.position, endPosition);
-        // TODO: throw every second element a bit further so they don't interfere
+        if (_flyLeft == 1)
+            _offsetX += 100; // TODO: throw every "2nd" element a bit further so they don't interfere
+        MoveElementOnArc(flyingContainer, _chest.transform.position, endPosition);
     }
 
     async void MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPositon)
     {
+        el.style.visibility = Visibility.Visible;
+
         Vector3 p0 = startPosition;
         float newX = startPosition.x + (endPositon.x - startPosition.x) * 0.5f;
         float newY = startPosition.y - 200f;
@@ -123,6 +119,7 @@ public class RewardsContainer : VisualElement
 
             //Vector3 pointOnArc = DOCurve.CubicBezier.GetPointOnSegment(startPosition, startPosition, endPositon, endPositon, percent);
             el.transform.position = result;
+
             percent += 0.01f;
             await Task.Delay(5);
         }

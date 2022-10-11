@@ -210,7 +210,7 @@ public class BattleUI : Singleton<BattleUI>
         CharacterScreen = null;
     }
 
-    void ShowBattleWonScreen()
+    public void ShowBattleWonScreen() // HERE: no need for public
     {
         _battleEndScreen = new(Root);
         _battleEndScreen.style.opacity = 0f;
@@ -225,7 +225,12 @@ public class BattleUI : Singleton<BattleUI>
         // goals
         _battleEndScreen.AddElement(_battleEndGoalContainer);
 
-        // rewards TODO: draggable reward
+        // HERE: runManager does not exist
+        _runManager = RunManager.Instance;
+        _runManager.JourneyNodeReward.Initialize();
+        Debug.Log($"_runManager {_runManager}");
+
+        Debug.Log($"_runManager.JourneyNodeReward {_runManager.JourneyNodeReward}");
         _battleRewardsContainer = new(_runManager.JourneyNodeReward, _battleEndScreen);
         _battleEndScreen.AddElement(_battleRewardsContainer);
 

@@ -23,7 +23,7 @@ public class RunManager : Singleton<RunManager>
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
     public JourneyNode CurrentNode { get; private set; }
-    public JourneyNodeReward JourneyNodeReward { get; private set; }
+    public JourneyNodeReward JourneyNodeReward; // HERE: RunManager has a set reward.  //{ get; private set; }
 
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSavingsAccountChanged;

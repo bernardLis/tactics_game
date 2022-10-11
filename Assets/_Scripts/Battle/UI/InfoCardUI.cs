@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 public class InfoCardUI : Singleton<InfoCardUI>
 {
     // global
+    BattleManager _battleManager;
     CharacterUI _characterUI;
     BattleCharacterController _battleCharacterController;
     MovePointController _movePointController;
@@ -66,8 +67,10 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
     void Start()
     {
+        _battleManager = BattleManager.Instance;
         // This is our Dictionary of tiles
-        _tilemap = BattleManager.Instance.GetComponent<TileManager>().Tilemap;
+        if (_battleManager != null)
+            _tilemap = _battleManager.GetComponent<TileManager>().Tilemap;
 
         _characterUI = CharacterUI.Instance;
         _battleCharacterController = BattleCharacterController.Instance;
