@@ -1,11 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Linq;
 
-public class ScreenWithDraggables : FullScreenVisual
+public class UIDraggables : MonoBehaviour
 {
     RunManager _runManager;
+    List<CharacterCardVisualExtended> _characterCards = new();
+
+    VisualElement _root;
 
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
@@ -17,11 +21,9 @@ public class ScreenWithDraggables : FullScreenVisual
     VisualElement _itemDragDropContainer;
     ItemVisual _draggedItem;
 
-    List<ItemSlotVisual> _rewardItemSlotVisuals = new();
     List<ItemSlotVisual> _allPlayerItemSlotVisuals = new();
     List<ItemSlotVisual> _playerPouchItemSlotVisuals = new();
 
-    List<CharacterCardVisualExtended> _characterCards = new();
 
     // Ability drag & drop
     AbilitySlotVisual _originalAbilitySlot;
@@ -32,117 +34,33 @@ public class ScreenWithDraggables : FullScreenVisual
     List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
     List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
-    // gold
-    GoldElement _goldElement;
-
-    public ScreenWithDraggables(VisualElement root)
+    public void Initialize(VisualElement root)
     {
-        style.backgroundColor = Color.black;
-        style.flexDirection = FlexDirection.Column;
-        style.alignItems = Align.Center;
         _runManager = RunManager.Instance;
-        Initialize(root, false);
 
+        _allPlayerItemSlotVisuals = new();
+        _playerPouchItemSlotVisuals = new();
+
+        _allPlayerAbilitySlotVisuals = new();
+        _playerPouchAbilitySlotVisuals = new();
+
+        _root = root;
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
 
         _itemDragDropContainer = new VisualElement();
         _itemDragDropContainer.AddToClassList("itemDragDropContainer");
-        Add(_itemDragDropContainer);
+        _root.Add(_itemDragDropContainer);
 
         _abilityDragDropContainer = new VisualElement();
         _abilityDragDropContainer.AddToClassList("abilityDragDropContainer");
-        Add(_abilityDragDropContainer);
+        _root.Add(_abilityDragDropContainer);
     }
 
-    public void AddElement(VisualElement el) { Add(el); }
-
-    public ItemSlotVisual CreateDraggableItem(Item item, bool isDraggable = true)
+    public VisualElement CreateCharacterCards(List<Character> troops)
     {
-        ItemSlotVisual slot = new ItemSlotVisual();
-        ItemVisual itemVisual = new(item);
-        slot.AddItem(itemVisual);
-
-        _rewardItemSlotVisuals.Add(slot);
-        if (isDraggable)
-            slot.ItemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
-
-        return slot;
-    }
-
-    public void UnlockItem(ItemVisual itemVisual)
-    {
-        itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
-    }
-
-    public bool AreAllRewardsTaken()
-    {
-        foreach (ItemSlotVisual slot in _rewardItemSlotVisuals)
-            if (slot.ItemVisual != null)
-            {
-                Helpers.DisplayTextOnElement(this, slot, "Take me with you", Color.red);
-                return false;
-            }
-
-        return true;
-    }
-
-    public VisualElement AddPouches()
-    {
-        VisualElement c = new();
-        Add(c);
-
-        Label txt = new Label("Inventory:");
-        txt.AddToClassList("textPrimary");
-        c.Add(txt);
-
+        // TODO: probably make it a scroll view
         VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        c.Add(container);
-
-        GoldElement _goldElement = new(_runManager.Gold);
-        _runManager.OnGoldChanged += _goldElement.ChangeAmount; // HERE: does it make a drama if I don't unsubcribe from it on destory?
-        container.Add(_goldElement);
-
-        //abilities
-        for (int i = 0; i < 3; i++)
-        {
-            AbilitySlotVisual slot = new AbilitySlotVisual();
-            container.Add(slot);
-            _allPlayerAbilitySlotVisuals.Add(slot);
-            _playerPouchAbilitySlotVisuals.Add(slot);
-        }
-
-        for (int i = 0; i < _runManager.PlayerAbilityPouch.Count; i++)
-        {
-            AbilityButton abilityButton = new(_runManager.PlayerAbilityPouch[i], null);
-            _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
-            abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
-        }
-
-        //items
-        for (int i = 0; i < 3; i++)
-        {
-            ItemSlotVisual slot = new ItemSlotVisual();
-            container.Add(slot);
-            _allPlayerItemSlotVisuals.Add(slot);
-            _playerPouchItemSlotVisuals.Add(slot);
-        }
-        for (int i = 0; i < _runManager.PlayerItemPouch.Count; i++)
-        {
-            ItemVisual itemVisual = new(_runManager.PlayerItemPouch[i]);
-            _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
-            itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
-        }
-
-        return c;
-    }
-
-    public VisualElement AddCharacters(List<Character> troops)
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        Add(container);
 
         foreach (Character character in troops)
         {
@@ -166,6 +84,72 @@ public class ScreenWithDraggables : FullScreenVisual
         }
 
         return container;
+    }
+
+    public VisualElement CreateItemPouch()
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.flexWrap = Wrap.Wrap;
+
+        // TODO: probably make it a scroll view
+        for (int i = 0; i < _runManager.PlayerItemPouch.Count + 10; i++)
+        {
+            ItemSlotVisual slot = new ItemSlotVisual();
+            container.Add(slot);
+            _allPlayerItemSlotVisuals.Add(slot);
+            _playerPouchItemSlotVisuals.Add(slot);
+        }
+        for (int i = 0; i < _runManager.PlayerItemPouch.Count; i++)
+        {
+            ItemVisual itemVisual = new(_runManager.PlayerItemPouch[i]);
+            _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
+            itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+        }
+
+        return container;
+    }
+
+    public VisualElement CreateAbilityPouch()
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.flexWrap = Wrap.Wrap;
+
+        // TODO: probably make it a scroll view
+        //abilities
+        for (int i = 0; i < _runManager.PlayerItemPouch.Count + 10; i++)
+        {
+            AbilitySlotVisual slot = new AbilitySlotVisual();
+            container.Add(slot);
+            _allPlayerAbilitySlotVisuals.Add(slot);
+            _playerPouchAbilitySlotVisuals.Add(slot);
+        }
+
+        for (int i = 0; i < _runManager.PlayerAbilityPouch.Count; i++)
+        {
+            AbilityButton abilityButton = new(_runManager.PlayerAbilityPouch[i], null);
+            _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
+            abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
+        }
+
+        return container;
+    }
+
+    public void ClearDraggables()
+    {
+        Debug.Log($"clearing draggables...");
+
+        if (_itemDragDropContainer == null) // it was not initialized
+            return;
+
+
+        _root.Remove(_itemDragDropContainer);
+        _root.Remove(_abilityDragDropContainer);
+
+        _root.UnregisterCallback<PointerMoveEvent>(OnPointerMove);
+        _root.UnregisterCallback<PointerUpEvent>(OnPointerUp);
+
     }
 
     void OnItemPointerDown(PointerDownEvent evt)
@@ -302,21 +286,12 @@ public class ScreenWithDraggables : FullScreenVisual
             _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         if (_playerPouchItemSlotVisuals.Contains(_originalItemSlot))
             _runManager.RemoveItemFromPouch(_draggedItem.Item);
-        if (_rewardItemSlotVisuals.Contains(_originalItemSlot))
-            _originalItemSlot.parent.Remove(_originalItemSlot);
 
         // adding
         if (_newItemSlot.Character != null)
-        {
             _newItemSlot.Character.AddItem(_draggedItem.Item);
-            Debug.Log($"Adding item to {_newItemSlot.Character}");
-        }
         if (_playerPouchItemSlotVisuals.Contains(_newItemSlot))
-        {
             _runManager.AddItemToPouch(_draggedItem.Item);
-            Debug.Log($"Adding item to pouch");
-
-        }
 
         foreach (CharacterCardVisualExtended card in _characterCards)
             card.Character.ResolveItems();
@@ -388,7 +363,5 @@ public class ScreenWithDraggables : FullScreenVisual
         _abilityDragDropContainer.Clear();
         _abilityDragDropContainer.style.visibility = Visibility.Hidden;
     }
-
-
 
 }

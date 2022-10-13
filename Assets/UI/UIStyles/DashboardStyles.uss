@@ -1,0 +1,50 @@
+.navTabActive {
+    border-left-color: rgb(255, 6, 6);
+    border-right-color: rgb(255, 6, 6);
+    border-top-color: rgb(255, 6, 6);
+    border-bottom-color: rgb(255, 6, 6);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    justify-content: center;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+    flex-shrink: 0;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.navTab {
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    justify-content: center;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+    flex-grow: 1;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+.navTab:hover {
+    border-left-color: rgb(125, 125, 125);
+    border-right-color: rgb(125, 125, 125);
+    border-top-color: rgb(125, 125, 125);
+    border-bottom-color: rgb(125, 125, 125);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    justify-content: center;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+    flex-shrink: 0;
+    flex-grow: 1;
+    align-items: center;
+}
