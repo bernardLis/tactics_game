@@ -6,12 +6,9 @@ using System.Linq;
 using DG.Tweening;
 using System.Threading.Tasks;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : UIDraggables
 {
     GameManager _gameManager;
-    RunManager _runManager;
-
-    VisualElement _root;
 
     VisualElement _shopContainer;
     VisualElement _shopItemContainer;
@@ -30,30 +27,12 @@ public class ShopManager : MonoBehaviour
 
     bool _wasVisited;
 
-    // drag & drop
-    // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
-    bool _isDragging;
 
     // Item drag & drop
     bool _buyingItem;
-    ItemSlotVisual _originalItemSlot;
-    ItemSlotVisual _newItemSlot;
-    VisualElement _itemDragDropContainer;
-    ItemVisual _draggedItem;
-    List<ItemSlotVisual> _allPlayerItemSlotVisuals = new();
-    List<ItemSlotVisual> _playerPouchItemSlotVisuals = new();
 
     // Ability drag & drop
     bool _buyingAbility;
-    AbilitySlotVisual _originalAbilitySlot;
-    AbilitySlotVisual _newAbilitySlot;
-    VisualElement _abilityDragDropContainer;
-    AbilityButton _draggedAbility;
-
-    List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
-    List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
-
-    List<CharacterCardVisualExtended> _characterCards = new();
 
     void Awake()
     {
@@ -129,7 +108,7 @@ public class ShopManager : MonoBehaviour
     {
         if (_runManager.Gold <= 0)
         {
-            DisplayText(_shopRerollContainer, "Insufficient funds", Color.red);
+            Helpers.DisplayTextOnElement(_root, _shopRerollContainer, "Insufficient funds", Color.red);
             return;
         }
 
@@ -279,7 +258,7 @@ public class ShopManager : MonoBehaviour
         ItemVisual itemVisual = (ItemVisual)evt.target;
         if (itemVisual.Item.Price > _runManager.Gold)
         {
-            DisplayText(itemVisual, "Insufficient funds", Color.red);
+            Helpers.DisplayTextOnElement(_root, itemVisual, "Insufficient funds", Color.red);
             return;
         }
 
@@ -312,7 +291,7 @@ public class ShopManager : MonoBehaviour
         AbilityButton abilityButton = (AbilityButton)evt.currentTarget;
         if (abilityButton.Ability.Price > _runManager.Gold)
         {
-            DisplayText(abilityButton, "Insufficient funds", Color.red);
+            Helpers.DisplayTextOnElement(_root, abilityButton, "Insufficient funds", Color.red);
             return;
         }
         AbilitySlotVisual slotVisual = (AbilitySlotVisual)abilityButton.parent;
@@ -335,74 +314,6 @@ public class ShopManager : MonoBehaviour
 
         StartAbilityDrag(evt.position, slotVisual, abilityButton);
     }
-
-
-    //drag & drop
-    void StartItemDrag(Vector2 position, ItemSlotVisual originalSlot, ItemVisual draggedItem)
-    {
-        _draggedItem = draggedItem;
-
-        //Set tracking variables
-        _isDragging = true;
-        _originalItemSlot = originalSlot;
-        //Set the new position
-        _itemDragDropContainer.style.top = position.y - _itemDragDropContainer.layout.height / 2;
-        _itemDragDropContainer.style.left = position.x - _itemDragDropContainer.layout.width / 2;
-        //Set the image
-        _itemDragDropContainer.Add(draggedItem);
-        //Flip the visibility on
-        _itemDragDropContainer.style.visibility = Visibility.Visible;
-    }
-
-    void StartAbilityDrag(Vector2 position, AbilitySlotVisual originalSlot, AbilityButton draggedAbility)
-    {
-        _draggedAbility = draggedAbility;
-
-        //Set tracking variables
-        _isDragging = true;
-        _originalAbilitySlot = originalSlot;
-        //Set the new position
-        _abilityDragDropContainer.style.top = position.y - _abilityDragDropContainer.layout.height / 2;
-        _abilityDragDropContainer.style.left = position.x - _abilityDragDropContainer.layout.width / 2;
-        //Set the image
-        _abilityDragDropContainer.Add(_draggedAbility);
-        //Flip the visibility on
-        _abilityDragDropContainer.style.visibility = Visibility.Visible;
-    }
-
-    void OnPointerMove(PointerMoveEvent evt)
-    {
-        //Only take action if the player is dragging an item around the screen
-        if (!_isDragging)
-            return;
-
-        if (_draggedItem != null)
-        {
-            //Set the new position
-            _itemDragDropContainer.style.top = evt.position.y - _itemDragDropContainer.layout.height / 2;
-            _itemDragDropContainer.style.left = evt.position.x - _itemDragDropContainer.layout.width / 2;
-        }
-
-        if (_draggedAbility != null)
-        {
-            //Set the new position
-            _abilityDragDropContainer.style.top = evt.position.y - _abilityDragDropContainer.layout.height / 2;
-            _abilityDragDropContainer.style.left = evt.position.x - _abilityDragDropContainer.layout.width / 2;
-        }
-    }
-
-    private void OnPointerUp(PointerUpEvent evt)
-    {
-        if (!_isDragging)
-            return;
-
-        if (_draggedItem != null)
-            HandleItemPointerUp();
-
-        if (_draggedAbility != null)
-            HandleAbilityPointerUp();
-    }
-
     void HandleItemPointerUp()
     {
         if (_shopSellContainer.worldBound.Overlaps(_itemDragDropContainer.worldBound) && !_buyingItem)
@@ -584,21 +495,5 @@ public class ShopManager : MonoBehaviour
         _abilityDragDropContainer.style.visibility = Visibility.Hidden;
 
         _sellItemValueTooltip.text = "";
-    }
-
-    async void DisplayText(VisualElement element, string text, Color color)
-    {
-        Label l = new Label(text);
-        l.AddToClassList("textSecondary");
-        l.style.color = color;
-        l.style.position = Position.Absolute;
-        l.style.left = element.worldBound.xMin - element.worldBound.width / 2;
-        l.style.top = element.worldBound.yMax;
-
-        _root.Add(l);
-        float end = element.worldBound.yMin + 100;
-        await DOTween.To(x => l.style.top = x, element.worldBound.yMax, end, 1).SetEase(Ease.OutSine).AsyncWaitForCompletion();
-        await DOTween.To(x => l.style.opacity = x, 1, 0, 1).AsyncWaitForCompletion();
-        _root.Remove(l);
     }
 }

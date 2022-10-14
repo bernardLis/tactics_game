@@ -4,14 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Dashboard : MonoBehaviour
+public class DashboardManager : MonoBehaviour
 {
+    public int StartGold = 100; // HERE: for tests
+
     public VisualElement Root { get; private set; }
 
     VisualElement _navQuests;
     VisualElement _navArmory;
     VisualElement _navAbilities;
     VisualElement _navShop;
+    VisualElement _navGold;
+
+    GoldElement _goldElement;
+
 
     VisualElement _mainQuests;
     VisualElement _mainArmory;
@@ -32,6 +38,7 @@ public class Dashboard : MonoBehaviour
         _navArmory = Root.Q<VisualElement>("navArmory");
         _navAbilities = Root.Q<VisualElement>("navAbilities");
         _navShop = Root.Q<VisualElement>("navShop");
+        _navGold = Root.Q<VisualElement>("navGold");
 
         _navQuests.RegisterCallback<PointerUpEvent>(NavQuestsClick);
         _navArmory.RegisterCallback<PointerUpEvent>(NavArmoryClick);
@@ -42,6 +49,8 @@ public class Dashboard : MonoBehaviour
         _mainArmory = Root.Q<VisualElement>("mainArmory");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
         _mainShop = Root.Q<VisualElement>("mainShop");
+
+        AddGoldElement();
     }
 
     void NavQuestsClick(PointerUpEvent e)
@@ -113,5 +122,30 @@ public class Dashboard : MonoBehaviour
         _mainShop.style.display = DisplayStyle.None;
     }
 
+    void AddGoldElement()
+    {
+        RunManager.Instance.ChangeGoldValue(StartGold); // HERE: for tests;
+        _goldElement = new(StartGold);
+        RunManager.Instance.OnGoldChanged += _goldElement.ChangeAmount;
+
+        _navGold.Add(_goldElement);
+    }
+
+#if UNITY_EDITOR
+
+    [ContextMenu("Add 100 Gold")]
+    void Add100Gold()
+    {
+        RunManager.Instance.ChangeGoldValue(100);
+    }
+
+    [ContextMenu("Remove 50 Gold")]
+    void Remove50Gold()
+    {
+        RunManager.Instance.ChangeGoldValue(-50);
+    }
+
+
+#endif
 
 }

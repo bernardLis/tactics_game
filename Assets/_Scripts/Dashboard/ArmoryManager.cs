@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-public class Armory : MonoBehaviour
+public class ArmoryManager : MonoBehaviour
 {
-    Dashboard _dashboard;
+    DashboardManager _dashboard;
     UIDraggables _uiDraggables;
     VisualElement _root;
 
@@ -15,7 +15,7 @@ public class Armory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _dashboard = GetComponent<Dashboard>();
+        _dashboard = GetComponent<DashboardManager>();
         _uiDraggables = GetComponent<UIDraggables>();
 
         _root = _dashboard.Root;
