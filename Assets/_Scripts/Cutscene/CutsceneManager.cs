@@ -46,12 +46,7 @@ public class CutsceneManager : Singleton<CutsceneManager>
     // TODO: this is wrong but for now it is fine.
     Cutscene ChooseCutscene()
     {
-        if (_gameManager.PreviousLevel == Scenes.MainMenu)
-            return _gameManager.GameDatabase.GetAllCutscenes()[0];
-        if (_gameManager.PreviousLevel == Scenes.Rat)
-            return _gameManager.GameDatabase.GetAllCutscenes()[1];
-
-        return _gameManager.GameDatabase.GetAllCutscenes()[0];
+        return _gameManager.GameDatabase.GetAllCutscenes()[_gameManager.CutsceneIndexToPlay];
     }
 
     async void RunScene()

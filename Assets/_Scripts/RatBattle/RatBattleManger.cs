@@ -9,7 +9,6 @@ using DG.Tweening;
 public class RatBattleManger : Singleton<RatBattleManger>
 {
     GameManager _gameManager;
-    RunManager _runManager;
     BattleManager _battleManager;
     TurnManager _turnManager;
     BattleCameraManager _cameraManager;
@@ -67,7 +66,6 @@ public class RatBattleManger : Singleton<RatBattleManger>
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _runManager = RunManager.Instance;
         _battleManager = BattleManager.Instance;
         _turnManager = TurnManager.Instance;
         _cameraManager = BattleCameraManager.Instance;
@@ -194,7 +192,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _playerGO = Instantiate(_playerPrefab, pos, Quaternion.identity);
         _playerGO.SetActive(false);
 
-        Character playerCharacter = _runManager.PlayerTroops[0];
+        Character playerCharacter = _gameManager.PlayerTroops[0];
         Character instantiatedSO = Instantiate(playerCharacter);
         instantiatedSO.Initialize(_playerGO);
         _playerGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);
@@ -238,7 +236,7 @@ public class RatBattleManger : Singleton<RatBattleManger>
         _friendGO = Instantiate(_playerPrefab, pos, Quaternion.identity);
         _friendGO.SetActive(false);
 
-        Character friendCharacter = _runManager.PlayerTroops[1];
+        Character friendCharacter = _gameManager.PlayerTroops[1];
         Character instantiatedSO = Instantiate(friendCharacter);
         instantiatedSO.Initialize(_friendGO);
         _friendGO.GetComponent<CharacterStats>().SetCharacteristics(instantiatedSO);

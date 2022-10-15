@@ -7,36 +7,34 @@ using UnityEngine.SceneManagement;
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
     LevelLoader _levelLoader;
-    RunManager _runManager;
 
     public GameDatabase GameDatabase;
 
     // global data
-    public int Day { get; private set; }
-    public int ShopRerollPrice { get; private set; }
-    public int Obols;
-    public List<GlobalUpgrade> PurchasedGlobalUpgrades { get; private set; }
     public bool WasTutorialPlayed { get; private set; }
-    bool _isRunActive;
+    public int Seed { get; private set; }
 
-    // game data
-    public string PreviousLevel { get; private set; }
-    string _currentLevel;
+    public int Day { get; private set; }
+    public int Gold { get; private set; }
+
+    public List<Item> ShopItems = new();
+    public int ShopRerollPrice { get; private set; }
+
+    public List<Character> PlayerTroops = new();
+    [HideInInspector] public List<Item> PlayerItemPouch = new();
+    [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
+
+    public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
     public event Action<int> OnDayPassed;
+    public event Action<int> OnGoldChanged;
     public event Action<int> OnShopRerollPriceChanged;
-
-    public event Action<int> OnObolsChanged;
     public event Action<string> OnLevelLoaded;
 
     protected override void Awake()
     {
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
-        _runManager = GetComponent<RunManager>();
-
-        PreviousLevel = Scenes.MainMenu;
-        PurchasedGlobalUpgrades = new();
 
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
@@ -45,12 +43,51 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             LoadFromSaveFile();
     }
 
+    public void Play()
+    {
+        if (PlayerPrefs.GetString("saveName").Length == 0)
+            LoadLevel(Scenes.Cutscene);
+        else
+            LoadLevel(Scenes.Dashboard);
+    }
+
+    /* RESOURCES */
     public void PassDay()
     {
         Day += 1;
+
+        ChooseShopItems();
         ChangeShopRerollPrice(2);
+
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
+    }
+
+    public void ChangeGoldValue(int o)
+    {
+        if (o == 0)
+            return;
+
+        Gold += o;
+        OnGoldChanged?.Invoke(Gold);
+        SaveJsonData();
+    }
+
+
+    public void RemoveItemFromShop(Item item)
+    {
+        ShopItems.Remove(item);
+        SaveJsonData();
+    }
+
+    public void ChooseShopItems()
+    {
+        ShopItems = new();
+        for (int i = 0; i < 6; i++)
+        {
+            Item item = GameDatabase.GetRandomItem();
+            ShopItems.Add(item);
+        }
     }
 
     public void ChangeShopRerollPrice(int newValue)
@@ -60,40 +97,38 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    public void ChangeObolValue(int o)
+    public void AddCharacterToTroops(Character character)
     {
-        Obols += o;
-        OnObolsChanged?.Invoke(Obols);
+        PlayerTroops.Add(character);
         SaveJsonData();
     }
 
-    public void PurchaseGlobalUpgrade(GlobalUpgrade upgrade)
+    public void AddItemToPouch(Item item)
     {
-        PurchasedGlobalUpgrades.Add(upgrade);
-        ChangeObolValue(-upgrade.Price);
+        PlayerItemPouch.Add(item);
         SaveJsonData();
     }
 
-    public bool IsGlobalUpgradePurchased(GlobalUpgrade upgrade) { return PurchasedGlobalUpgrades.Contains(upgrade); }
-
-    public void StartNewRun()
+    public void RemoveItemFromPouch(Item item)
     {
-        ClearRunData();
-        _runManager.InitializeNewRun();
-        _isRunActive = true;
-        if (WasTutorialPlayed)
-            _levelLoader.LoadLevel(Scenes.Journey);
-        else
-            _levelLoader.LoadLevel(Scenes.Cutscene);
+        PlayerItemPouch.Remove(item);
+        SaveJsonData();
     }
 
-    public bool IsRunActive() { return _isRunActive; }
+    public void AddAbilityToPouch(Ability ability)
+    {
+        PlayerAbilityPouch.Add(ability);
+        SaveJsonData();
+    }
 
-    public void ResumeLastRun() { _levelLoader.LoadLevel(Scenes.Journey); }
+    public void RemoveAbilityFromPouch(Ability ability)
+    {
+        PlayerAbilityPouch.Remove(ability);
+        SaveJsonData();
+    }
 
-    public void SetPreviousLevel(string level) { PreviousLevel = level; }
-
-    public void SetWasTutorialPlayer(bool was)
+    /* LEVELS */
+    public void SetWasTutorialPlayed(bool was)
     {
         WasTutorialPlayed = was;
         SaveJsonData();
@@ -101,11 +136,26 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadLevel(string level)
     {
-        if (level == Scenes.Journey) // TODO: I want to save only on coming back to Journey, does it make sense?
+        if (level == Scenes.Dashboard)
             SaveJsonData();
 
         _levelLoader.LoadLevel(level);
         OnLevelLoaded?.Invoke(level);
+    }
+
+    List<Character> CreatePlayerTroops()
+    {
+        List<Character> instantiatedTroops = new();
+
+        List<Character> playerCharacters = new(GameDatabase.GetAllStarterTroops());
+        PlayerTroops = new();
+        foreach (Character character in playerCharacters)
+        {
+            Character instance = Instantiate(character);
+            instantiatedTroops.Add(instance);
+        }
+
+        return instantiatedTroops;
     }
 
     /*************
@@ -115,6 +165,16 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     void CreateNewSaveFile()
     {
+        Seed = System.Environment.TickCount;
+
+        Day = 0;
+        Gold = 0;
+
+        ChooseShopItems();
+        ShopRerollPrice = 2;
+
+        PlayerTroops = CreatePlayerTroops();
+
         // new save
         string guid = System.Guid.NewGuid().ToString();
         string fileName = guid + ".dat";
@@ -124,6 +184,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         SaveJsonData();
     }
+
     public void LoadFromSaveFile() { LoadJsonData(PlayerPrefs.GetString("saveName")); }
 
     public void SaveJsonData()
@@ -137,47 +198,24 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void PopulateSaveData(SaveData saveData)
     {
         // global data
-        saveData.Day = Day;
-        saveData.ShopRerollPrice = ShopRerollPrice;
-        saveData.Obols = Obols;
         saveData.WasTutorialPlayed = WasTutorialPlayed;
-        saveData.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
+        saveData.Seed = Seed;
 
-        // run data
-        saveData.AvailableEvents = PopulateAvailableEvents();
-        saveData.LastLevel = SceneManager.GetActiveScene().name;
-        saveData.Gold = _runManager.Gold;
-        saveData.SavingsAccountGold = _runManager.SavingsAccountGold;
-        saveData.TotalInterestEarned = _runManager.InterestEarned;
-        saveData.JourneySeed = _runManager.JourneySeed;
-        saveData.VisitedJourneyNodes = _runManager.VisitedJourneyNodes;
-        saveData.Characters = PopulateCharacters();
+        saveData.Day = Day;
+        saveData.Gold = Gold;
+
+        saveData.ShopItems = PopulateShopItems();
+        saveData.ShopRerollPrice = ShopRerollPrice;
+
+        saveData.PlayerTroops = PopulateCharacters();
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
-    }
-
-    List<string> PopulatePurchasedGlobalUpgrades()
-    {
-        List<string> ids = new();
-        foreach (GlobalUpgrade upgrade in PurchasedGlobalUpgrades)
-            ids.Add(upgrade.Id);
-
-        return ids;
-    }
-
-    List<string> PopulateAvailableEvents()
-    {
-        List<string> availableEventIds = new();
-        foreach (JourneyEvent e in _runManager.AvailableEvents)
-            availableEventIds.Add(e.Id);
-
-        return availableEventIds;
     }
 
     List<CharacterData> PopulateCharacters()
     {
         List<CharacterData> charData = new();
-        foreach (Character c in _runManager.PlayerTroops)
+        foreach (Character c in PlayerTroops)
         {
             CharacterData data = new();
             data.ReferenceID = c.ReferenceID;
@@ -209,10 +247,19 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         return charData;
     }
 
+    List<string> PopulateShopItems()
+    {
+        List<string> itemReferenceIds = new();
+        foreach (Item i in ShopItems)
+            itemReferenceIds.Add(i.ReferenceID);
+
+        return itemReferenceIds;
+    }
+
     List<string> PopulateItemPouch()
     {
         List<string> itemReferenceIds = new();
-        foreach (Item i in _runManager.PlayerItemPouch)
+        foreach (Item i in PlayerItemPouch)
             itemReferenceIds.Add(i.ReferenceID);
 
         return itemReferenceIds;
@@ -221,12 +268,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     List<string> PopulateAbilityPouch()
     {
         List<string> abilityReferenceIds = new();
-        foreach (Ability a in _runManager.PlayerAbilityPouch)
+        foreach (Ability a in PlayerAbilityPouch)
             abilityReferenceIds.Add(a.ReferenceID);
 
         return abilityReferenceIds;
     }
-
 
     void LoadJsonData(string fileName)
     {
@@ -234,7 +280,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         {
             SaveData sd = new SaveData();
             sd.LoadFromJson(json);
-
             LoadFromSaveData(sd);
         }
     }
@@ -242,58 +287,49 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void LoadFromSaveData(SaveData saveData)
     {
         // global data
-        Day = saveData.Day;
-        ShopRerollPrice = saveData.ShopRerollPrice;
-        Obols = saveData.Obols;
-        foreach (string savedId in saveData.PurchasedGlobalUpgrades)
-            PurchasedGlobalUpgrades.Add(GameDatabase.GetGlobalUpgradeById(savedId));
-
         WasTutorialPlayed = saveData.WasTutorialPlayed;
+        Seed = saveData.Seed;
 
-        // run data
-        if (saveData.JourneySeed != 0 && saveData.WasTutorialPlayed)
-            _isRunActive = true;
+        Day = saveData.Day;
+        Gold = saveData.Gold;
+        ShopRerollPrice = saveData.ShopRerollPrice;
+        ShopItems = new();
+        foreach (string itemReferenceId in saveData.ShopItems)
+            ShopItems.Add(GameDatabase.GetItemByReference(itemReferenceId));
 
-        _runManager.PopulateRunFromSaveData(saveData);
+        PlayerTroops = new();
+        foreach (CharacterData data in saveData.PlayerTroops)
+        {
+            Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
+            playerCharacter.Create(data);
+            PlayerTroops.Add(playerCharacter);
+        }
 
-        _currentLevel = saveData.LastLevel;
-    }
+        PlayerItemPouch = new();
+        foreach (string itemReferenceId in saveData.ItemPouch)
+            PlayerItemPouch.Add(GameDatabase.GetItemByReference(itemReferenceId));
 
-    public void ClearRunData()
-    {
-        SaveData sd = new SaveData();
-
-        // run data
-        _isRunActive = false;
-
-        // global data
-        sd.Day = Day;
-        sd.Obols = Obols;
-        sd.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
-        sd.WasTutorialPlayed = WasTutorialPlayed;
-
-        // save data
-        sd.LastLevel = "";
-        sd.Gold = 0;
-        sd.SavingsAccountGold = 0;
-        sd.TotalInterestEarned = 0;
-        sd.JourneySeed = 0;
-        sd.VisitedJourneyNodes = null;
-        sd.Characters = null;
-        sd.ItemPouch = null;
-        sd.AbilityPouch = null;
-
-        if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
-            Debug.Log("Save successful");
-
+        PlayerAbilityPouch = new();
+        foreach (string abilityReferenceId in saveData.AbilityPouch)
+            PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
     }
 
     public void ClearSaveData()
     {
-        PurchasedGlobalUpgrades = new();
-        Day = 0;
         WasTutorialPlayed = false;
-        _isRunActive = false;
+        Seed = System.Environment.TickCount;
+
+        Day = 0;
+        Gold = 0;
+
+        ChooseShopItems();
+        ShopRerollPrice = 2;
+
+        PlayerTroops = CreatePlayerTroops();
+        PlayerItemPouch = new();
+        PlayerAbilityPouch = new();
+
+        CutsceneIndexToPlay = 0; // TODO: wrong but it's ok for now.
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

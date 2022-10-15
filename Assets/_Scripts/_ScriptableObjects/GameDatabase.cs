@@ -7,17 +7,6 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-    [Header("Global Upgrades")]
-    [SerializeField] GlobalUpgrade[] GlobalUpgrades;
-    public GlobalUpgrade[] GetAllGlobalUpgrades() { return GlobalUpgrades; }
-    public GlobalUpgrade GetGlobalUpgradeById(string id)
-    {
-        GlobalUpgrade gu = GlobalUpgrades.First(x => x.Id == id);
-        if (gu == null)
-            Debug.LogError($"Global upgrade with id: {id} does not exist");
-        return gu;
-    }
-
     [Header("Events")]
     [SerializeField] JourneyEvent[] AllEvents;
     public JourneyEvent[] GetAllEvents() { return AllEvents; }

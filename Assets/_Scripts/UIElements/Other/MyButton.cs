@@ -19,7 +19,15 @@ public class MyButton : Button
             clicked += callback;
 
         RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
+        RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
+
+    void OnPointerUp(PointerUpEvent evt)
+    {
+        this.Blur();
+    }
+
+
 
     void PlayClick()
     {

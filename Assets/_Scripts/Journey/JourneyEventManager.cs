@@ -8,7 +8,6 @@ public class JourneyEventManager : MonoBehaviour
 {
     GameManager _gameManager;
     AudioManager _audioManager;
-    RunManager _runManager;
 
     VisualElement _root;
 
@@ -38,7 +37,6 @@ public class JourneyEventManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
-        _runManager = RunManager.Instance;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _eventWrapper = _root.Q<VisualElement>("eventWrapper");
@@ -93,7 +91,6 @@ public class JourneyEventManager : MonoBehaviour
 
 
         await FadeIn(_screenWithDraggables.AddPouches());
-        await FadeIn(_screenWithDraggables.AddCharacters(_runManager.PlayerTroops));
 
         _backToJourneyButton.style.visibility = Visibility.Hidden;
         _screenWithDraggables.AddElement(_backToJourneyButton);
@@ -151,13 +148,12 @@ public class JourneyEventManager : MonoBehaviour
 
     void BackToJourney()
     {
+        // HERE: take the reward instead of warning
         if (!_selectedOption.WasRewardTaken() && !_wasWarned)
         {
             _wasWarned = true;
             return;
         }
-
-        _runManager.VisitedJourneyNodes.Add(_runManager.CurrentNode.Serialize());
-        _gameManager.LoadLevel(Scenes.Journey);
+        _gameManager.LoadLevel(Scenes.Dashboard);
     }
 }

@@ -33,9 +33,10 @@ public class ArmoryManager : MonoBehaviour
 
     void InitializeArmory()
     {
+        CleanArmory();
         _uiDraggables.Initialize(_root);
-        
-        _armoryCharacters.Add(_uiDraggables.CreateCharacterCards(RunManager.Instance.PlayerTroops));
+
+        _armoryCharacters.Add(_uiDraggables.CreateCharacterCards(GameManager.Instance.PlayerTroops));
         _armoryItems.Add(_uiDraggables.CreateItemPouch());
         _armoryAbilities.Add(_uiDraggables.CreateAbilityPouch());
     }

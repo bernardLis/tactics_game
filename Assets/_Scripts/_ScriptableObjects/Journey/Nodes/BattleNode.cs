@@ -8,7 +8,6 @@ using UnityEngine;
 public class BattleNode : JourneyNode
 {
     GameManager _gameManager;
-    JourneyMapManager _journeyMapManager;
 
     public TilemapBiome Biome;
     public MapVariant MapVariant;
@@ -19,7 +18,6 @@ public class BattleNode : JourneyNode
     public override void Initialize(GameObject self)
     {
         base.Initialize(self);
-        _journeyMapManager = JourneyMapManager.Instance;
         _gameManager = GameManager.Instance;
 
         Biome = _gameManager.GameDatabase.GetRandomBiome();

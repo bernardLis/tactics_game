@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 public class DashboardManager : MonoBehaviour
 {
     GameManager _gameManager;
-    RunManager _runManager;
 
     public VisualElement Root { get; private set; }
 
@@ -37,7 +36,6 @@ public class DashboardManager : MonoBehaviour
 
     void Awake()
     {
-        _runManager = RunManager.Instance;
         _gameManager = GameManager.Instance;
 
         _gameManager.OnDayPassed += UpdateDay;
@@ -116,6 +114,11 @@ public class DashboardManager : MonoBehaviour
     void NavPassDay(PointerUpEvent e)
     {
         HideAllPanels();
+        if (_activeNavTab != null)
+        {
+            _activeNavTab.RemoveFromClassList("navTabActive");
+            _activeNavTab.AddToClassList("navTab");
+        }
         _activeNavTab = null;
 
         _gameManager.PassDay();
@@ -154,8 +157,8 @@ public class DashboardManager : MonoBehaviour
 
     void AddGoldElement()
     {
-        _goldElement = new(_runManager.Gold);
-        _runManager.OnGoldChanged += _goldElement.ChangeAmount;
+        _goldElement = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += _goldElement.ChangeAmount;
         _navGold.Add(_goldElement);
     }
 
@@ -164,13 +167,13 @@ public class DashboardManager : MonoBehaviour
     [ContextMenu("Add 100 Gold")]
     void Add100Gold()
     {
-        RunManager.Instance.ChangeGoldValue(100);
+        _gameManager.ChangeGoldValue(100);
     }
 
     [ContextMenu("Remove 50 Gold")]
     void Remove50Gold()
     {
-        RunManager.Instance.ChangeGoldValue(-50);
+        _gameManager.ChangeGoldValue(-50);
     }
 
 

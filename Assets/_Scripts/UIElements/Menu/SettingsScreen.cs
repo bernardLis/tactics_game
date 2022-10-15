@@ -226,9 +226,9 @@ public class SettingsScreen : FullScreenVisual
     {
         _tutorialToggle.value = evt.newValue;
         if (evt.newValue)
-            _gameManager.SetWasTutorialPlayer(false);
+            _gameManager.SetWasTutorialPlayed(false);
         else
-            _gameManager.SetWasTutorialPlayer(true);
+            _gameManager.SetWasTutorialPlayed(true);
     }
 
     void AddClearSaveButton()

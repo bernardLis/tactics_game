@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 public class ShopManager : UIDraggables
 {
-    GameManager _gameManager;
     DashboardManager _dashboardManager;
 
     VisualElement _shopItemContainer;
@@ -21,21 +20,16 @@ public class ShopManager : UIDraggables
 
     VisualElement _pouchContainer;
 
-    List<Item> _shopItems = new();
-
     // Item drag & drop
     bool _buyingItem;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _gameManager.OnDayPassed += OnDayPassed;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _root = _dashboardManager.Root;
         _dashboardManager.OnShopClicked += OnShopClicked;
-
-        ChooseShopItems();
 
         _shopItemContainer = _root.Q<VisualElement>("shopItemContainer");
         _shopRerollContainer = _root.Q<VisualElement>("shopRerollContainer");
@@ -52,8 +46,6 @@ public class ShopManager : UIDraggables
         _pouchContainer = _root.Q<VisualElement>("pouchContainer");
     }
 
-    void OnDayPassed(int dayNumber) { ChooseShopItems(); }
-
     void OnShopClicked() { Initialize(_root); }
 
     public override void Initialize(VisualElement root)
@@ -69,44 +61,33 @@ public class ShopManager : UIDraggables
         _pouchContainer.Add(CreateItemPouch());
     }
 
-    void ChooseShopItems()
-    {
-        _shopItems.Clear();
-        for (int i = 0; i < 6; i++)
-        {
-            Item item = _gameManager.GameDatabase.GetRandomItem();
-            _shopItems.Add(item);
-        }
-    }
-
     void Reroll()
     {
-        if (_runManager.Gold < _gameManager.ShopRerollPrice)
+        if (_gameManager.Gold < _gameManager.ShopRerollPrice)
         {
             Helpers.DisplayTextOnElement(_root, _shopRerollContainer, "Insufficient funds", Color.red);
             return;
         }
         int lastPrice = _gameManager.ShopRerollPrice;
 
-        _runManager.ChangeGoldValue(-lastPrice);
         AudioManager.Instance.PlaySFX("DiceRoll", Vector3.zero);
-
+        _gameManager.ChangeGoldValue(-lastPrice);
         _gameManager.ChangeShopRerollPrice(lastPrice *= 2);
+        _gameManager.ChooseShopItems();
 
-        ChooseShopItems();
         DisplayShopItems();
     }
 
     void DisplayShopItems()
     {
         _shopItemContainer.Clear();
-        for (int i = 0; i < _shopItems.Count; i++)
+        foreach (var item in _gameManager.ShopItems)
         {
             // so here I want 3 item slots that are filled with items 
             VisualElement container = new();
             container.AddToClassList("shopItem");
 
-            ItemVisual itemVisual = new(_shopItems[i]);
+            ItemVisual itemVisual = new(item);
             ItemSlotVisual itemSlot = new();
             itemSlot.AddItem(itemVisual);
 
@@ -114,7 +95,7 @@ public class ShopManager : UIDraggables
             itemVisual.RegisterCallback<PointerDownEvent>(OnShopItemPointerDown);
 
             container.Add(itemSlot);
-            container.Add(new GoldElement(_shopItems[i].Price));
+            container.Add(new GoldElement(item.Price));
 
             _shopItemContainer.Add(container);
         }
@@ -122,11 +103,12 @@ public class ShopManager : UIDraggables
 
     void OnShopItemPointerDown(PointerDownEvent evt)
     {
+        Debug.Log($"on shop intem pointer down");
         if (evt.button != 0)
             return;
 
         ItemVisual itemVisual = (ItemVisual)evt.target;
-        if (itemVisual.Item.Price > _runManager.Gold)
+        if (itemVisual.Item.Price > base._gameManager.Gold)
         {
             Helpers.DisplayTextOnElement(_root, itemVisual, "Insufficient funds", Color.red);
             return;
@@ -160,32 +142,27 @@ public class ShopManager : UIDraggables
             return;
         }
 
-        base.HandleItemPointerUp();
         // buying
         if (_buyingItem)
             ItemBought();
+
+        base.HandleItemPointerUp();
     }
 
     void ItemSold()
     {
-        _runManager.ChangeGoldValue(_draggedItem.Item.GetSellValue());
+        _gameManager.ChangeGoldValue(_draggedItem.Item.GetSellValue());
 
         if (_originalItemSlot.Character != null)
             _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         else
-            _runManager.RemoveItemFromPouch(_draggedItem.Item);
+            _gameManager.RemoveItemFromPouch(_draggedItem.Item);
     }
 
     void ItemBought()
     {
-        _runManager.ChangeGoldValue(-_draggedItem.Item.Price);
-        _shopItems.Remove(_draggedItem.Item);
-
-        // TODO: does it double the item
-        if (_newItemSlot.Character != null)
-            _newItemSlot.Character.AddItem(_draggedItem.Item);
-        else
-            _runManager.AddItemToPouch(_draggedItem.Item);
+        _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
+        _gameManager.RemoveItemFromShop(_draggedItem.Item);
 
         // unregister buy pointer and register sell pointer
         _draggedItem.UnregisterCallback<PointerDownEvent>(OnShopItemPointerDown);

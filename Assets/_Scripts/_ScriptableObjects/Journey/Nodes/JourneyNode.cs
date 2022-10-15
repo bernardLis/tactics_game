@@ -12,7 +12,7 @@ public class JourneyNode : BaseScriptableObject
 
     [HideInInspector] public GameObject GameObject;
     SpriteRenderer _spriteRenderer;
-    [HideInInspector] public JourneyNodeBehaviour JourneyNodeBehaviour;
+    //[HideInInspector] public JourneyNodeBehaviour JourneyNodeBehaviour;
     public bool WasVisited;
 
     [HideInInspector] public int PathIndex;
@@ -25,7 +25,7 @@ public class JourneyNode : BaseScriptableObject
         GameObject.transform.localScale = new Vector3(3f, 3f);
 
         _spriteRenderer = GameObject.GetComponentInChildren<SpriteRenderer>();
-        JourneyNodeBehaviour = GameObject.GetComponent<JourneyNodeBehaviour>();
+       // JourneyNodeBehaviour = GameObject.GetComponent<JourneyNodeBehaviour>();
         _spriteRenderer.sprite = Icon;
     }
 

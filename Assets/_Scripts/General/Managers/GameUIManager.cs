@@ -9,19 +9,16 @@ using UnityEngine.SceneManagement;
 public class GameUIManager : MonoBehaviour
 {
     GameManager _gameManager;
-    RunManager _runManager;
 
     PlayerInput _playerInput;
 
     UIDocument _uiDocument;
 
     MenuScreen _menuScreen;
-    ViewTroopsScreen _viewTroopsScreen;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _runManager = RunManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         UnsubscribeInputActions();
         SubscribeInputActions();
@@ -32,14 +29,11 @@ public class GameUIManager : MonoBehaviour
     void SubscribeInputActions()
     {
         EnableMenuButton();
-        _playerInput.actions["ViewTroopsClick"].performed += ShowTroopsScreen;
-
     }
 
     public void UnsubscribeInputActions()
     {
         DisableMenuButton();
-        _playerInput.actions["ViewTroopsClick"].performed -= ShowTroopsScreen;
     }
 
     public void EnableMenuButton()
@@ -68,7 +62,6 @@ public class GameUIManager : MonoBehaviour
         _menuScreen = new MenuScreen(_uiDocument.rootVisualElement);
         _menuScreen.OnClose += MenuScreenClosed;
         _playerInput.actions["OpenMenuClick"].performed -= ToggleMenu;
-
     }
 
     void MenuScreenClosed()
@@ -79,27 +72,4 @@ public class GameUIManager : MonoBehaviour
         _playerInput.actions["OpenMenuClick"].performed += ToggleMenu;
     }
 
-    public void ShowTroopsScreen(InputAction.CallbackContext ctx)
-    {
-        ShowTroopsScreenNoContext();
-    }
-
-    public void ShowTroopsScreenNoContext()
-    {
-        if (SceneManager.GetActiveScene().name == "MainMenu")
-            return;
-
-        if (_viewTroopsScreen != null)
-            _viewTroopsScreen.Hide();
-
-        _viewTroopsScreen = new ViewTroopsScreen(_uiDocument.rootVisualElement);
-        _viewTroopsScreen.AddToClassList("menuScreen");
-        _viewTroopsScreen.OnClose += TroopsScreenClosed;
-    }
-
-    void TroopsScreenClosed()
-    {
-        _viewTroopsScreen.OnClose -= TroopsScreenClosed;
-        _viewTroopsScreen = null;
-    }
 }

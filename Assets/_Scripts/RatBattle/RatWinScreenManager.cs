@@ -26,12 +26,13 @@ public class RatWinScreenManager : MonoBehaviour
     {
         if (TurnManager.BattleState == BattleState.Lost)
             return;
-            
+
         DefeatedAllEnemies();
         CoveredRatSpawners();
         FoundCollectible();
 
-        GameManager.Instance.SetWasTutorialPlayer(true);
+        GameManager.Instance.CutsceneIndexToPlay = 1;
+        GameManager.Instance.SetWasTutorialPlayed(true);
     }
 
     VisualElement GetCheckElement(bool isCompleted)

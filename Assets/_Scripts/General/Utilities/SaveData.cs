@@ -8,21 +8,17 @@ public class SaveData
 {
     // global data
     public bool WasTutorialPlayed;
+    public int Seed;
+
+    public int Gold;
     public int Day;
+    
+    public List<string> ShopItems = new();
     public int ShopRerollPrice;
-    public int Obols;
-    public List<string> PurchasedGlobalUpgrades = new();
 
     // run data
-    public List<string> AvailableEvents = new();
-    public string LastLevel;
-    public int JourneySeed; // this reproduces paths with bridges and nodes 
-    public int Gold;
-    public int SavingsAccountGold;
-    public int TotalInterestEarned;
-    public List<JourneyNodeData> VisitedJourneyNodes = new();
 
-    public List<CharacterData> Characters = new();
+    public List<CharacterData> PlayerTroops = new();
     public List<string> ItemPouch = new();
     public List<string> AbilityPouch = new();
 

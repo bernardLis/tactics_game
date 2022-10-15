@@ -182,7 +182,8 @@ PrefabInstance:
       propertyPath: SavingsAccountGold
       value: 30
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3852275862531487839, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
 --- !u!1 &775720506
 GameObject:
@@ -195,7 +196,6 @@ GameObject:
   - component: {fileID: 775720511}
   - component: {fileID: 775720510}
   - component: {fileID: 775720509}
-  - component: {fileID: 775720512}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -247,18 +247,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &775720512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 775720506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32696149d26d5804b9810d8f4a1186a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1453939035
 GameObject:
   m_ObjectHideFlags: 0

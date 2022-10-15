@@ -4,7 +4,6 @@ using UnityEngine;
 public class JourneyNodeReward : BaseScriptableObject
 {
     protected GameManager _gameManager;
-    protected RunManager _runManager;
     [Header("Main")]
     public int Obols;
     public int Gold;
@@ -27,12 +26,9 @@ public class JourneyNodeReward : BaseScriptableObject
     public virtual void GetReward()
     {
         _gameManager = GameManager.Instance;
-        _runManager = RunManager.Instance;
 
-        if (Obols != 0)
-            _gameManager.ChangeObolValue(Obols);
         if (Gold != 0)
-            _runManager.ChangeGoldValue(Gold);
+            _gameManager.ChangeGoldValue(Gold);
 
         if (PercentSacrificed != 0)
             HandleSacrifice();
@@ -43,7 +39,7 @@ public class JourneyNodeReward : BaseScriptableObject
 
     void HandleSacrifice()
     {
-        foreach (Character c in _runManager.PlayerTroops)
+        foreach (Character c in _gameManager.PlayerTroops)
         {
             int val = Mathf.FloorToInt(c.GetStatValue(SacrificedStat.ToString()) * PercentSacrificed);
             c.ChangeStat(SacrificedStat.ToString(), -val);
@@ -52,9 +48,5 @@ public class JourneyNodeReward : BaseScriptableObject
         _gameManager.SaveJsonData();
     }
 
-    void HandleRecruit()
-    {
-        _runManager.AddCharacterToTroops(Recruit);
-        _runManager.AddEnemyToAllBattleNodes(PursuingEnemy);
-    }
+    void HandleRecruit() { _gameManager.AddCharacterToTroops(Recruit); }
 }

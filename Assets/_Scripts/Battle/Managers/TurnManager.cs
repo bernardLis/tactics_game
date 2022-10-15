@@ -8,7 +8,6 @@ public class TurnManager : Singleton<TurnManager>
 {
     // global
     GameManager _gameManager;
-    RunManager _runManager;
 
     public static BattleState BattleState;
     public static int CurrentTurn = 0;
@@ -32,7 +31,6 @@ public class TurnManager : Singleton<TurnManager>
     {
         _infoCardUI = InfoCardUI.Instance;
         _gameManager = GameManager.Instance;
-        _runManager = RunManager.Instance;
 
         CurrentTurn = 0;
     }
@@ -142,15 +140,8 @@ public class TurnManager : Singleton<TurnManager>
 
     void HandleWinning()
     {
-        if (_runManager.CurrentNode == null)
-            return;
-
-        List<Character> playerCharactersAlive = new();
-        foreach (GameObject p in _playerCharacters)
-            playerCharactersAlive.Add(p.GetComponent<CharacterStats>().Character);
-
-        _runManager.SetPlayerTroops(playerCharactersAlive);
-        _runManager.VisitedJourneyNodes.Add(_runManager.CurrentNode.Serialize());
+        // TODO: this
+        Debug.Log("You won!");
     }
 
     void HandleLosing()
@@ -159,7 +150,6 @@ public class TurnManager : Singleton<TurnManager>
         // for now game over screen
         // load home 
         Debug.Log("Ugh... you lost!");
-        _gameManager.ClearRunData();
     }
 
     public async void PlayerCharacterTurnFinished(GameObject obj)

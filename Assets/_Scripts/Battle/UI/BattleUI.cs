@@ -8,7 +8,6 @@ using DG.Tweening;
 public class BattleUI : Singleton<BattleUI>
 {
     GameManager _gameManager;
-    RunManager _runManager;
     BattleManager _battleManager;
 
     public VisualElement Root { get; private set; }
@@ -44,7 +43,6 @@ public class BattleUI : Singleton<BattleUI>
         base.Awake();
 
         _gameManager = GameManager.Instance;
-        _runManager = RunManager.Instance;
 
         _battleManager = BattleManager.Instance;
 
@@ -225,17 +223,12 @@ public class BattleUI : Singleton<BattleUI>
         // goals
         _battleEndScreen.AddElement(_battleEndGoalContainer);
 
-        // HERE: runManager does not exist
-        _runManager = RunManager.Instance;
-        _runManager.JourneyNodeReward.Initialize();
-        Debug.Log($"_runManager {_runManager}");
-
-        Debug.Log($"_runManager.JourneyNodeReward {_runManager.JourneyNodeReward}");
-        _battleRewardsContainer = new(_runManager.JourneyNodeReward, _battleEndScreen);
+        // HERE: it should be handled differently
+       // _battleRewardsContainer = new(_runManager.JourneyNodeReward, _battleEndScreen);
         _battleEndScreen.AddElement(_battleRewardsContainer);
 
         _battleEndScreen.AddPouches();
-        _battleEndScreen.AddCharacters(_runManager.PlayerTroops);
+       // _battleEndScreen.AddCharacters(_runManager.PlayerTroops);
         _backToJourneyButton.clickable.clicked += OnContinueButtonClick;
         _battleEndScreen.Add(_backToJourneyButton);
     }
@@ -247,7 +240,7 @@ public class BattleUI : Singleton<BattleUI>
         //_battleEndText.text = "You lost!";
 
         _backToJourneyButton.text = "Continue";
-        _backToJourneyButton.clickable.clicked += BackToMainMenu;
+        _backToJourneyButton.clickable.clicked += BackToDashboard;
     }
 
     void ShowBattleEndScreen()
@@ -283,7 +276,7 @@ public class BattleUI : Singleton<BattleUI>
         _gameManager.LoadLevel(_levelToLoadAfterFight);
     }
 
-    void BackToMainMenu() { _gameManager.LoadLevel(Scenes.MainMenu); }
+    void BackToDashboard() { _gameManager.LoadLevel(Scenes.Dashboard); }
 
     public void SetUpContinueButton(string newText, string newLevel)
     {

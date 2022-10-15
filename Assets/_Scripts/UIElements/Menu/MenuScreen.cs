@@ -53,30 +53,13 @@ public class MenuScreen : FullScreenVisual
         container.style.width = Length.Percent(100);
         container.style.height = Length.Percent(30);
 
-        GoldElement gold = new(RunManager.Instance.Gold, false);
-
-        Label obols = new Label($"Obols: {_gameManager.Obols}");
-        obols.AddToClassList("textPrimary");
-
-        VisualElement upgradeContainer = new VisualElement();
-        upgradeContainer.style.flexDirection = FlexDirection.Row;
-        foreach (GlobalUpgrade u in _gameManager.PurchasedGlobalUpgrades)
-        {
-            GlobalUpgradeVisual visual = new(u, true, false);
-            upgradeContainer.Add(visual);
-        }
-
+        GoldElement gold = new(GameManager.Instance.Gold, false);
         container.Add(gold);
-        container.Add(obols);
-        container.Add(upgradeContainer);
 
         Add(container);
     }
 
-    void ShowSettingsScreen()
-    {
-        new SettingsScreen(_root, this);
-    }
+    void ShowSettingsScreen() { new SettingsScreen(_root, this); }
 
     void GoToMainMenu()
     {
@@ -90,10 +73,7 @@ public class MenuScreen : FullScreenVisual
         pop.Initialize(_root, Quit);
     }
 
-    void Quit()
-    {
-        Application.Quit();
-    }
+    void Quit() { Application.Quit(); }
 
     public override void Hide()
     {

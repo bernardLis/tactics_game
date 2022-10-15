@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 1093261390}
   - component: {fileID: 544190253530085464}
   - component: {fileID: 1475728751920290888}
-  - component: {fileID: 3852275862531487839}
   - component: {fileID: 2154333484900981486}
   - component: {fileID: 1448303728}
   - component: {fileID: 5249205173230839339}
@@ -196,27 +195,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
-  Obols: 0
---- !u!114 &3852275862531487839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154333484900981485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60acd8610a6f1e24ea529bc3ba1276d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WasJourneySetUp: 0
-  JourneySeed: 0
-  JourneyPaths: []
-  VisitedJourneyNodes: []
   PlayerTroops: []
   PlayerItemPouch: []
   PlayerAbilityPouch: []
-  JourneyNodeReward: {fileID: 0}
+  CutsceneIndexToPlay: 0
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

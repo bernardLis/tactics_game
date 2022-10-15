@@ -13,7 +13,7 @@ using Pathfinding;
 public class BoardManager : Singleton<BoardManager>
 {
     // global
-    RunManager _runManager;
+    GameManager _gameManager;
     HighlightManager _highlighter;
     TurnManager _turnManager;
     BattleManager _battleManager;
@@ -62,7 +62,7 @@ public class BoardManager : Singleton<BoardManager>
     }
     void Start()
     {
-        _runManager = RunManager.Instance;
+        _gameManager = GameManager.Instance;
         _highlighter = HighlightManager.Instance;
         _turnManager = TurnManager.Instance;
         _battleManager = BattleManager.Instance;
@@ -121,10 +121,9 @@ public class BoardManager : Singleton<BoardManager>
     {
         if (_seed == -1)
         {
-            _seed = _runManager.JourneySeed;
+            _seed = _gameManager.Seed;
             Random.InitState(_seed);
         }
-        _runManager.SetNodeReward(_battleNode.Reward);
 
         await _highlighter.ClearHighlightedTiles();
         _turnManager.UpdateBattleState(BattleState.MapBuilding);
@@ -870,7 +869,7 @@ public class BoardManager : Singleton<BoardManager>
             spawnPosition = new Vector3(spawnPosition.x + 0.5f, spawnPosition.y + 0.5f);
 
             EnemyCharacter enemySO = (EnemyCharacter)ScriptableObject.CreateInstance<EnemyCharacter>();
-            List<Character> sortedPlayerCharacters = _runManager.PlayerTroops.OrderBy(o => o.Level).ToList();
+            List<Character> sortedPlayerCharacters = _gameManager.PlayerTroops.OrderBy(o => o.Level).ToList();
             sortedPlayerCharacters.Reverse(); // highest first
             int playerLevel = sortedPlayerCharacters[0].Level;
             enemySO.CreateEnemy(playerLevel + 2, brain);

@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class UIDraggables : MonoBehaviour
 {
-    protected RunManager _runManager;
+    protected GameManager _gameManager;
     protected List<CharacterCardVisualExtended> _characterCards = new();
 
     protected VisualElement _root;
@@ -40,7 +40,7 @@ public class UIDraggables : MonoBehaviour
     {
         _wasInitialized = true;
 
-        _runManager = RunManager.Instance;
+        _gameManager = GameManager.Instance;
 
         _allPlayerItemSlotVisuals = new();
         _playerPouchItemSlotVisuals = new();
@@ -97,16 +97,16 @@ public class UIDraggables : MonoBehaviour
         container.style.flexWrap = Wrap.Wrap;
 
         // TODO: probably make it a scroll view
-        for (int i = 0; i < _runManager.PlayerItemPouch.Count + 10; i++)
+        for (int i = 0; i < _gameManager.PlayerItemPouch.Count + 10; i++)
         {
             ItemSlotVisual slot = new ItemSlotVisual();
             container.Add(slot);
             _allPlayerItemSlotVisuals.Add(slot);
             _playerPouchItemSlotVisuals.Add(slot);
         }
-        for (int i = 0; i < _runManager.PlayerItemPouch.Count; i++)
+        for (int i = 0; i < _gameManager.PlayerItemPouch.Count; i++)
         {
-            ItemVisual itemVisual = new(_runManager.PlayerItemPouch[i]);
+            ItemVisual itemVisual = new(_gameManager.PlayerItemPouch[i]);
             _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
             itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
         }
@@ -122,7 +122,7 @@ public class UIDraggables : MonoBehaviour
 
         // TODO: probably make it a scroll view
         //abilities
-        for (int i = 0; i < _runManager.PlayerItemPouch.Count + 10; i++)
+        for (int i = 0; i < _gameManager.PlayerItemPouch.Count + 10; i++)
         {
             AbilitySlotVisual slot = new AbilitySlotVisual();
             container.Add(slot);
@@ -130,9 +130,9 @@ public class UIDraggables : MonoBehaviour
             _playerPouchAbilitySlotVisuals.Add(slot);
         }
 
-        for (int i = 0; i < _runManager.PlayerAbilityPouch.Count; i++)
+        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count; i++)
         {
-            AbilityButton abilityButton = new(_runManager.PlayerAbilityPouch[i], null);
+            AbilityButton abilityButton = new(_gameManager.PlayerAbilityPouch[i], null);
             _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
             abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
         }
@@ -152,7 +152,7 @@ public class UIDraggables : MonoBehaviour
 
         _root.UnregisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.UnregisterCallback<PointerUpEvent>(OnPointerUp);
-        
+
         _wasInitialized = false;
     }
 
@@ -289,13 +289,13 @@ public class UIDraggables : MonoBehaviour
         if (_originalItemSlot.Character != null)
             _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         if (_playerPouchItemSlotVisuals.Contains(_originalItemSlot))
-            _runManager.RemoveItemFromPouch(_draggedItem.Item);
+            _gameManager.RemoveItemFromPouch(_draggedItem.Item);
 
         // adding
         if (_newItemSlot.Character != null)
             _newItemSlot.Character.AddItem(_draggedItem.Item);
         if (_playerPouchItemSlotVisuals.Contains(_newItemSlot))
-            _runManager.AddItemToPouch(_draggedItem.Item);
+            _gameManager.AddItemToPouch(_draggedItem.Item);
 
         foreach (CharacterCardVisualExtended card in _characterCards)
             card.Character.ResolveItems();
@@ -338,12 +338,12 @@ public class UIDraggables : MonoBehaviour
         if (_originalAbilitySlot.Character != null)
             _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
         if (_playerPouchAbilitySlotVisuals.Contains(_originalAbilitySlot))
-            _runManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
+            _gameManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
 
         if (_newAbilitySlot.Character != null)
             _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);
         if (_playerPouchAbilitySlotVisuals.Contains(_newAbilitySlot))
-            _runManager.AddAbilityToPouch(_draggedAbility.Ability);
+            _gameManager.AddAbilityToPouch(_draggedAbility.Ability);
 
     }
 

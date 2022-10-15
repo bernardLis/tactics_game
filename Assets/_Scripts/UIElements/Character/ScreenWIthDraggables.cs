@@ -5,7 +5,7 @@ using System.Linq;
 
 public class ScreenWithDraggables : FullScreenVisual
 {
-    RunManager _runManager;
+    GameManager _gameManager;
 
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
@@ -40,7 +40,7 @@ public class ScreenWithDraggables : FullScreenVisual
         style.backgroundColor = Color.black;
         style.flexDirection = FlexDirection.Column;
         style.alignItems = Align.Center;
-        _runManager = RunManager.Instance;
+        _gameManager = GameManager.Instance;
         Initialize(root, false);
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
@@ -100,8 +100,8 @@ public class ScreenWithDraggables : FullScreenVisual
         container.style.flexDirection = FlexDirection.Row;
         c.Add(container);
 
-        GoldElement _goldElement = new(_runManager.Gold);
-        _runManager.OnGoldChanged += _goldElement.ChangeAmount; // HERE: does it make a drama if I don't unsubcribe from it on destory?
+        GoldElement _goldElement = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += _goldElement.ChangeAmount; // HERE: does it make a drama if I don't unsubcribe from it on destory?
         container.Add(_goldElement);
 
         //abilities
@@ -113,9 +113,9 @@ public class ScreenWithDraggables : FullScreenVisual
             _playerPouchAbilitySlotVisuals.Add(slot);
         }
 
-        for (int i = 0; i < _runManager.PlayerAbilityPouch.Count; i++)
+        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count; i++)
         {
-            AbilityButton abilityButton = new(_runManager.PlayerAbilityPouch[i], null);
+            AbilityButton abilityButton = new(_gameManager.PlayerAbilityPouch[i], null);
             _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
             abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
         }
@@ -128,9 +128,9 @@ public class ScreenWithDraggables : FullScreenVisual
             _allPlayerItemSlotVisuals.Add(slot);
             _playerPouchItemSlotVisuals.Add(slot);
         }
-        for (int i = 0; i < _runManager.PlayerItemPouch.Count; i++)
+        for (int i = 0; i < _gameManager.PlayerItemPouch.Count; i++)
         {
-            ItemVisual itemVisual = new(_runManager.PlayerItemPouch[i]);
+            ItemVisual itemVisual = new(_gameManager.PlayerItemPouch[i]);
             _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
             itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
         }
@@ -301,7 +301,7 @@ public class ScreenWithDraggables : FullScreenVisual
         if (_originalItemSlot.Character != null)
             _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         if (_playerPouchItemSlotVisuals.Contains(_originalItemSlot))
-            _runManager.RemoveItemFromPouch(_draggedItem.Item);
+            _gameManager.RemoveItemFromPouch(_draggedItem.Item);
         if (_rewardItemSlotVisuals.Contains(_originalItemSlot))
             _originalItemSlot.parent.Remove(_originalItemSlot);
 
@@ -313,7 +313,7 @@ public class ScreenWithDraggables : FullScreenVisual
         }
         if (_playerPouchItemSlotVisuals.Contains(_newItemSlot))
         {
-            _runManager.AddItemToPouch(_draggedItem.Item);
+            _gameManager.AddItemToPouch(_draggedItem.Item);
             Debug.Log($"Adding item to pouch");
 
         }
@@ -359,12 +359,12 @@ public class ScreenWithDraggables : FullScreenVisual
         if (_originalAbilitySlot.Character != null)
             _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
         if (_playerPouchAbilitySlotVisuals.Contains(_originalAbilitySlot))
-            _runManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
+            _gameManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
 
         if (_newAbilitySlot.Character != null)
             _newAbilitySlot.Character.AddAbility(_draggedAbility.Ability);
         if (_playerPouchAbilitySlotVisuals.Contains(_newAbilitySlot))
-            _runManager.AddAbilityToPouch(_draggedAbility.Ability);
+            _gameManager.AddAbilityToPouch(_draggedAbility.Ability);
 
     }
 
