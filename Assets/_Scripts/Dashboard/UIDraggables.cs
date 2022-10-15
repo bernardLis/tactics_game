@@ -34,8 +34,12 @@ public class UIDraggables : MonoBehaviour
     protected List<AbilitySlotVisual> _allPlayerAbilitySlotVisuals = new();
     protected List<AbilitySlotVisual> _playerPouchAbilitySlotVisuals = new();
 
-    public void Initialize(VisualElement root)
+    bool _wasInitialized;
+
+    public virtual void Initialize(VisualElement root)
     {
+        _wasInitialized = true;
+
         _runManager = RunManager.Instance;
 
         _allPlayerItemSlotVisuals = new();
@@ -138,21 +142,21 @@ public class UIDraggables : MonoBehaviour
 
     public void ClearDraggables()
     {
-        Debug.Log($"clearing draggables...");
-
-        if (_itemDragDropContainer == null) // it was not initialized
+        if (!_wasInitialized)
             return;
-
-
-        _root.Remove(_itemDragDropContainer);
-        _root.Remove(_abilityDragDropContainer);
+        Debug.Log($"clearing draggables...");
+        if (_itemDragDropContainer != null)
+            _root.Remove(_itemDragDropContainer);
+        if (_abilityDragDropContainer != null)
+            _root.Remove(_abilityDragDropContainer);
 
         _root.UnregisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.UnregisterCallback<PointerUpEvent>(OnPointerUp);
-
+        
+        _wasInitialized = false;
     }
 
-    protected void OnItemPointerDown(PointerDownEvent evt)
+    protected virtual void OnItemPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
             return;
@@ -164,7 +168,7 @@ public class UIDraggables : MonoBehaviour
         StartItemDrag(evt.position, itemSlotVisual, itemVisual);
     }
 
-    protected void OnAbilityPointerDown(PointerDownEvent evt)
+    protected virtual void OnAbilityPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
             return;
@@ -236,7 +240,7 @@ public class UIDraggables : MonoBehaviour
         }
     }
 
-    protected void OnPointerUp(PointerUpEvent evt)
+    protected virtual void OnPointerUp(PointerUpEvent evt)
     {
         if (!_isDragging)
             return;
@@ -248,7 +252,7 @@ public class UIDraggables : MonoBehaviour
             HandleAbilityPointerUp();
     }
 
-    protected void HandleItemPointerUp()
+    protected virtual void HandleItemPointerUp()
     {
         //Check to see if they are dropping the ghost icon over any inventory slots.
         IEnumerable<ItemSlotVisual> slots = _allPlayerItemSlotVisuals.Where(x =>
@@ -279,7 +283,7 @@ public class UIDraggables : MonoBehaviour
         DragCleanUp();
     }
 
-    protected void ItemMoved()
+    protected virtual void ItemMoved()
     {
         // removing
         if (_originalItemSlot.Character != null)
@@ -297,7 +301,7 @@ public class UIDraggables : MonoBehaviour
             card.Character.ResolveItems();
     }
 
-    protected void HandleAbilityPointerUp()
+    protected virtual void HandleAbilityPointerUp()
     {
         //Check to see if they are dropping the ghost icon over any inventory slots.
         IEnumerable<AbilitySlotVisual> slots = _allPlayerAbilitySlotVisuals.Where(x =>
@@ -329,7 +333,7 @@ public class UIDraggables : MonoBehaviour
         DragCleanUp();
     }
 
-    protected void AbilityMoved()
+    protected virtual void AbilityMoved()
     {
         if (_originalAbilitySlot.Character != null)
             _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
@@ -343,7 +347,7 @@ public class UIDraggables : MonoBehaviour
 
     }
 
-    protected void DragCleanUp()
+    protected virtual void DragCleanUp()
     {
         foreach (ItemSlotVisual slot in _allPlayerItemSlotVisuals)
             slot.ClearHighlight();

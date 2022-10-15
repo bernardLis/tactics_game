@@ -8,6 +8,8 @@ public class SaveData
 {
     // global data
     public bool WasTutorialPlayed;
+    public int Day;
+    public int ShopRerollPrice;
     public int Obols;
     public List<string> PurchasedGlobalUpgrades = new();
 

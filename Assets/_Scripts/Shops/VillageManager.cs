@@ -42,7 +42,7 @@ public class VillageManager : Singleton<VillageManager>
     {
         HideVillage();
         _shop.style.display = DisplayStyle.Flex;
-        _shopManager.Initialize();
+       // _shopManager.Initialize();
     }
 
     void ShowBank(MouseDownEvent evt)

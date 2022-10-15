@@ -181,6 +181,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   - {fileID: 11400000, guid: 2c24b60935cc15d4f861a9964fa929f0, type: 2}
   - {fileID: 11400000, guid: fe41d377ea0d99a4996feeff347def12, type: 2}
+  - {fileID: 11400000, guid: 9bcc249c3b28fba4caf829c91f1b27c9, type: 2}
   _mixer: {fileID: 24100000, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}
 --- !u!114 &1475728751920290888
 MonoBehaviour:
@@ -215,6 +216,7 @@ MonoBehaviour:
   PlayerTroops: []
   PlayerItemPouch: []
   PlayerAbilityPouch: []
+  JourneyNodeReward: {fileID: 0}
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

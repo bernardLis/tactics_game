@@ -12,6 +12,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public GameDatabase GameDatabase;
 
     // global data
+    public int Day { get; private set; }
+    public int ShopRerollPrice { get; private set; }
     public int Obols;
     public List<GlobalUpgrade> PurchasedGlobalUpgrades { get; private set; }
     public bool WasTutorialPlayed { get; private set; }
@@ -20,6 +22,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     // game data
     public string PreviousLevel { get; private set; }
     string _currentLevel;
+
+    public event Action<int> OnDayPassed;
+    public event Action<int> OnShopRerollPriceChanged;
 
     public event Action<int> OnObolsChanged;
     public event Action<string> OnLevelLoaded;
@@ -38,7 +43,21 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             CreateNewSaveFile();
         else
             LoadFromSaveFile();
+    }
 
+    public void PassDay()
+    {
+        Day += 1;
+        ChangeShopRerollPrice(2);
+        OnDayPassed?.Invoke(Day);
+        SaveJsonData();
+    }
+
+    public void ChangeShopRerollPrice(int newValue)
+    {
+        ShopRerollPrice = newValue;
+        OnShopRerollPriceChanged?.Invoke(newValue);
+        SaveJsonData();
     }
 
     public void ChangeObolValue(int o)
@@ -118,6 +137,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void PopulateSaveData(SaveData saveData)
     {
         // global data
+        saveData.Day = Day;
+        saveData.ShopRerollPrice = ShopRerollPrice;
         saveData.Obols = Obols;
         saveData.WasTutorialPlayed = WasTutorialPlayed;
         saveData.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
@@ -221,6 +242,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void LoadFromSaveData(SaveData saveData)
     {
         // global data
+        Day = saveData.Day;
+        ShopRerollPrice = saveData.ShopRerollPrice;
         Obols = saveData.Obols;
         foreach (string savedId in saveData.PurchasedGlobalUpgrades)
             PurchasedGlobalUpgrades.Add(GameDatabase.GetGlobalUpgradeById(savedId));
@@ -244,6 +267,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         _isRunActive = false;
 
         // global data
+        sd.Day = Day;
         sd.Obols = Obols;
         sd.PurchasedGlobalUpgrades = PopulatePurchasedGlobalUpgrades();
         sd.WasTutorialPlayed = WasTutorialPlayed;
@@ -267,7 +291,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void ClearSaveData()
     {
         PurchasedGlobalUpgrades = new();
-        Obols = 0;
+        Day = 0;
         WasTutorialPlayed = false;
         _isRunActive = false;
 

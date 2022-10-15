@@ -56,6 +56,9 @@ public class GoldElement : VisualElement
     public async void ChangeAmount(int newValue)
     {
         Debug.Log($"gold element changing the amount {newValue}");
+        int steps = Mathf.Abs(Mathf.Abs(Amount) - Mathf.Abs(newValue));
+        int delay = 1000 / steps;
+
         while (Amount != newValue)
         {
             if (Amount < newValue)
@@ -65,9 +68,7 @@ public class GoldElement : VisualElement
 
             _icon.style.backgroundImage = new StyleBackground(GameManager.Instance.GameDatabase.GetCoinSprite(Amount));
             _text.text = Amount.ToString();
-            await Task.Delay(100);
+            await Task.Delay(delay);
         }
-
-
     }
 }
