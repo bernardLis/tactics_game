@@ -144,7 +144,7 @@ public class UIDraggables : MonoBehaviour
     {
         if (!_wasInitialized)
             return;
-        Debug.Log($"clearing draggables...");
+
         if (_itemDragDropContainer != null)
             _root.Remove(_itemDragDropContainer);
         if (_abilityDragDropContainer != null)

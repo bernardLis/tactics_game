@@ -11,11 +11,11 @@ public class JourneyNodeInfoVisual : VisualElement
         nodeType.AddToClassList("textPrimary");
         Add(nodeType);
 
-        if (node.NodeType == JourneyNodeType.Battle)
-            HandleBattleNode((BattleNode)node);
+    //    if (node.NodeType == JourneyNodeType.Battle)
+           // HandleBattleNode((BattleNode)node);
     }
 
-    void HandleBattleNode(BattleNode node)
+    void HandleBattleNode(Quest node)
     {
         Label mapInfo = new Label($"{node.MapVariant.name}, {node.Biome.name}, {node.MapSize.x}x{node.MapSize.y}");
         VisualElement enemyIconContainer = new VisualElement();

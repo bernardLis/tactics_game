@@ -1,13 +1,18 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/Reward")]
-public class JourneyNodeReward : BaseScriptableObject
+public class Reward : BaseScriptableObject
 {
     protected GameManager _gameManager;
     [Header("Main")]
     public int Obols;
     public int Gold;
     public Item Item;
+
+    [Header("Randomized")]
+    public bool IsRandomized;
+    public Vector2Int GoldRange;
+    public bool HasItem;
 
     [Header("Sacrifice")]
     public StatType SacrificedStat;
@@ -20,7 +25,12 @@ public class JourneyNodeReward : BaseScriptableObject
 
     public virtual void Initialize()
     {
-        // meant to be overwritten
+        if (IsRandomized)
+        {
+            // meant to be overwritten
+            Gold = Random.Range(GoldRange.x, GoldRange.y);
+            Item = GameManager.Instance.GameDatabase.GetRandomItem();
+        }
     }
 
     public virtual void GetReward()

@@ -20,7 +20,7 @@ public class BoardManager : Singleton<BoardManager>
     AudioManager _audioManager;
 
     [Header("Map Setup")]
-    [SerializeField] BattleNode _battleNode; // HERE: for testing
+    [SerializeField] Quest _battleNode; // HERE: for testing
     MapVariant _mapVariant;
     int _seed = -1;
     public Vector2Int MapSize;

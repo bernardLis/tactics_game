@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
-  GlobalUpgrades:
-  - {fileID: 11400000, guid: 4ce818e8aa11f1a49a7ff10d6a6807b6, type: 2}
-  - {fileID: 11400000, guid: 080ec040857f7344ebc2df7f9322b4cb, type: 2}
   AllEvents:
   - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
   - {fileID: 11400000, guid: 09802dd2131dbed41ae54052fd657dc4, type: 2}
@@ -23,6 +20,14 @@ MonoBehaviour:
   Cutscenes:
   - {fileID: 11400000, guid: 68e749ab2331d26429c8b481dc4023e3, type: 2}
   - {fileID: 11400000, guid: 348e94e2b7bcb344682551f7fc4bb50b, type: 2}
+  BattleNodeIcons:
+  - {fileID: 21300000, guid: 174230f77630a924cb5a9ac7825dc90d, type: 3}
+  - {fileID: 21300000, guid: 15968a194dfe51b49bc2a583a4957492, type: 3}
+  - {fileID: 21300000, guid: b51c8ea1d2298f849a9ad9b3f74a9359, type: 3}
+  - {fileID: 21300000, guid: 74c108c1392ffdb4eb4e79bd11f34e57, type: 3}
+  - {fileID: 21300000, guid: e749b49a826e4ae42b6fb0a1a499bbdd, type: 3}
+  - {fileID: 21300000, guid: ae52f3097c4192c479ed56c6be6b8ea3, type: 3}
+  - {fileID: 21300000, guid: 50452134c5e00274790a19f4c5236a2e, type: 3}
   Biomes:
   - {fileID: 11400000, guid: a53d5abe5308c3d499efac31c14882cf, type: 2}
   - {fileID: 11400000, guid: 31bb81b2ebd793344bcbe3b01809c164, type: 2}

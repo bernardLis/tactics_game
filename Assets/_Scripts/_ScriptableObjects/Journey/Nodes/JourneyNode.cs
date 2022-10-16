@@ -8,7 +8,7 @@ public class JourneyNode : BaseScriptableObject
     public JourneyNodeType NodeType;
     public string SceneToLoad;
 
-    public JourneyNodeReward Reward;
+    public Reward Reward;
 
     [HideInInspector] public GameObject GameObject;
     SpriteRenderer _spriteRenderer;

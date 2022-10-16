@@ -17,12 +17,16 @@ public class GameDatabase : BaseScriptableObject
 
 
     [Header("Board")]
+    [SerializeField] Sprite[] BattleNodeIcons;
     [SerializeField] TilemapBiome[] Biomes;
     [SerializeField] MapVariant[] MapVariants;
     [SerializeField] Brain[] EnemyBrains;
-
+    public Sprite GetRandomBattleNodeIcon() { return BattleNodeIcons[Random.Range(0, BattleNodeIcons.Length)]; }
+    public TilemapBiome GetTilemapBiomeById(string id) { return Biomes.FirstOrDefault(x => x.Id == id); }
     public TilemapBiome GetRandomBiome() { return Biomes[Random.Range(0, Biomes.Length)]; }
+    public MapVariant GetMapVariantById(string id) { return MapVariants.FirstOrDefault(x => x.Id == id); }
     public MapVariant GetRandomMapVariant() { return MapVariants[Random.Range(0, MapVariants.Length)]; }
+    public Brain GetEnemyBrainById(string id) { return EnemyBrains.FirstOrDefault(x => x.Id == id); }
     public Brain GetRandomEnemyBrain() { return EnemyBrains[Random.Range(0, EnemyBrains.Length)]; }
 
     [Header("Characters")]
@@ -68,15 +72,15 @@ public class GameDatabase : BaseScriptableObject
         int index = 0;
         // TODO: something smarter
         if (amount >= 0 && amount <= 3)
-            index = 0; 
+            index = 0;
         if (amount >= 4 && amount <= 6)
-            index = 1; 
+            index = 1;
         if (amount >= 7 && amount <= 9)
-            index = 2; 
+            index = 2;
         if (amount >= 10 && amount <= 12)
-            index = 3; 
+            index = 3;
         if (amount >= 13)
-            index = 4; 
+            index = 4;
 
         return CoinSprites[index];
     }

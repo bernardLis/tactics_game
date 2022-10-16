@@ -17,6 +17,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Day { get; private set; }
     public int Gold { get; private set; }
 
+    public List<Quest> AvailableQuests = new();
+
     public List<Item> ShopItems = new();
     public int ShopRerollPrice { get; private set; }
 
@@ -35,6 +37,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
+
+        // HERE: for now
+        for (int i = 0; i < 3; i++)
+        {
+            Quest q = ScriptableObject.CreateInstance<Quest>();
+            q.CreateRandom();
+            AvailableQuests.Add(q);
+        }
 
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
@@ -59,6 +69,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         ChooseShopItems();
         ChangeShopRerollPrice(2);
         PayMaintenance();
+        AddRandomQuest();
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
@@ -67,6 +78,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     void PayMaintenance() { ChangeGoldValue(-GetCurrentMaintenanceCost()); }
 
     public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 2; }
+
+    void AddRandomQuest()
+    {
+        Quest q = ScriptableObject.CreateInstance<Quest>();
+        q.CreateRandom();
+        AvailableQuests.Add(q);
+    }
 
     public void ChangeGoldValue(int o)
     {

@@ -6,7 +6,7 @@ public class EventOption : BaseScriptableObject
 {
     public string Text;
     public string Response;
-    public JourneyNodeReward Reward;
+    public Reward Reward;
     public Sound ResponseVoiceOver;
 
 }

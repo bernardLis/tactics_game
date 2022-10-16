@@ -11,19 +11,19 @@ public class RewardsContainer : VisualElement
     VisualElement _chest;
     bool _isChestOpened;
 
-    JourneyNodeReward _journeyNodeReward;
+    Reward _reward;
     IVisualElementScheduledItem _idleAnimation;
     int _flyLeft = -1;
     int _offsetX = 0;
 
-    public RewardsContainer(JourneyNodeReward journeyNodeReward, ScreenWithDraggables screenWithDraggables)
+    public RewardsContainer(Reward reward, ScreenWithDraggables screenWithDraggables)
     {
         style.flexGrow = 1;
         style.flexShrink = 0;
         style.justifyContent = Justify.Center;
 
         _screenWithDraggables = screenWithDraggables;
-        _journeyNodeReward = journeyNodeReward;
+        _reward = reward;
 
         _rewardChest = GameManager.Instance.GameDatabase.GetRandomRewardChest();
 
@@ -72,13 +72,13 @@ public class RewardsContainer : VisualElement
             await Task.Delay(200);
         }
 
-        if (_journeyNodeReward.Gold != 0)
-            FlyingReward(new GoldElement(_journeyNodeReward.Gold, true));
+        if (_reward.Gold != 0)
+            FlyingReward(new GoldElement(_reward.Gold, true));
 
         await Task.Delay(200);
 
-        if (_journeyNodeReward.Item != null)
-            FlyingReward(_screenWithDraggables.CreateDraggableItem(_journeyNodeReward.Item));
+        if (_reward.Item != null)
+            FlyingReward(_screenWithDraggables.CreateDraggableItem(_reward.Item));
     }
 
     void FlyingReward(VisualElement el)
