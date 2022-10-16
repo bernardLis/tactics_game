@@ -11,14 +11,15 @@ public class DashboardManager : MonoBehaviour
     public VisualElement Root { get; private set; }
 
     // buttons
+    VisualElement _navDaySummary;
+    Label _dayNumberLabel;
+
     VisualElement _navQuests;
     VisualElement _navArmory;
     VisualElement _navAbilities;
     VisualElement _navShop;
-    VisualElement _navPassDay;
 
     // resources
-    VisualElement _navDay;
     VisualElement _navGold;
     GoldElement _goldElement;
 
@@ -26,9 +27,11 @@ public class DashboardManager : MonoBehaviour
     VisualElement _mainArmory;
     VisualElement _mainAbilities;
     VisualElement _mainShop;
+    VisualElement _mainDaySummary;
 
     VisualElement _activeNavTab;
 
+    public event Action OnDaySummaryClicked;
     public event Action OnQuestsClicked;
     public event Action OnArmoryClicked;
     public event Action OnAbilitiesClicked;
@@ -41,22 +44,24 @@ public class DashboardManager : MonoBehaviour
         _gameManager.OnDayPassed += UpdateDay;
 
         Root = GetComponent<UIDocument>().rootVisualElement;
+        _navDaySummary = Root.Q<VisualElement>("navDaySummary");
+        _dayNumberLabel = Root.Q<Label>("dayNumberLabel");
+
         _navQuests = Root.Q<VisualElement>("navQuests");
         _navArmory = Root.Q<VisualElement>("navArmory");
         _navAbilities = Root.Q<VisualElement>("navAbilities");
         _navShop = Root.Q<VisualElement>("navShop");
-        _navPassDay = Root.Q<VisualElement>("navPassDay");
 
         // resources
-        _navDay = Root.Q<VisualElement>("navDay");
         _navGold = Root.Q<VisualElement>("navGold");
 
+        _navDaySummary.RegisterCallback<PointerUpEvent>(NavDaySummaryClick);
         _navQuests.RegisterCallback<PointerUpEvent>(NavQuestsClick);
         _navArmory.RegisterCallback<PointerUpEvent>(NavArmoryClick);
         _navAbilities.RegisterCallback<PointerUpEvent>(NavAbilitiesClick);
         _navShop.RegisterCallback<PointerUpEvent>(NavShopClick);
-        _navPassDay.RegisterCallback<PointerUpEvent>(NavPassDay);
 
+        _mainDaySummary = Root.Q<VisualElement>("mainDaySummary");
         _mainQuests = Root.Q<VisualElement>("mainQuests");
         _mainArmory = Root.Q<VisualElement>("mainArmory");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
@@ -75,7 +80,6 @@ public class DashboardManager : MonoBehaviour
 
         _mainQuests.style.display = DisplayStyle.Flex;
         OnQuestsClicked?.Invoke();
-
     }
 
     void NavArmoryClick(PointerUpEvent e)
@@ -111,17 +115,15 @@ public class DashboardManager : MonoBehaviour
         OnShopClicked?.Invoke();
     }
 
-    void NavPassDay(PointerUpEvent e)
+    void NavDaySummaryClick(PointerUpEvent e)
     {
-        HideAllPanels();
-        if (_activeNavTab != null)
-        {
-            _activeNavTab.RemoveFromClassList("navTabActive");
-            _activeNavTab.AddToClassList("navTab");
-        }
-        _activeNavTab = null;
+        if (_activeNavTab == _navDaySummary)
+            return;
 
-        _gameManager.PassDay();
+        NavClick(e);
+
+        _mainDaySummary.style.display = DisplayStyle.Flex;
+        OnDaySummaryClicked?.Invoke();
     }
 
     void NavClick(PointerUpEvent e)
@@ -145,14 +147,14 @@ public class DashboardManager : MonoBehaviour
         _mainArmory.style.display = DisplayStyle.None;
         _mainAbilities.style.display = DisplayStyle.None;
         _mainShop.style.display = DisplayStyle.None;
+        _mainDaySummary.style.display = DisplayStyle.None;
     }
 
     void UpdateDay(int dayNumber)
     {
-        _navDay.Clear();
-
-        Label day = new Label($"Day: {dayNumber}");
-        _navDay.Add(day);
+        _dayNumberLabel.text = $"Day: {dayNumber}";
+        HideAllPanels();
+        _mainDaySummary.style.display = DisplayStyle.Flex;
     }
 
     void AddGoldElement()

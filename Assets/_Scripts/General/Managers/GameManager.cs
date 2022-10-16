@@ -58,10 +58,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         ChooseShopItems();
         ChangeShopRerollPrice(2);
+        PayMaintenance();
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
     }
+
+    void PayMaintenance() { ChangeGoldValue(-GetCurrentMaintenanceCost()); }
+
+    public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 2; }
 
     public void ChangeGoldValue(int o)
     {

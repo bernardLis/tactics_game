@@ -2,6 +2,9 @@
     <Style src="project://database/Assets/UI/UIStyles/DashboardStyles.uss?fileID=7433441132597879392&amp;guid=3d872669deb721f44bdfa6897d1dc942&amp;type=3#DashboardStyles" />
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <ui:VisualElement name="nav" style="height: 10%; flex-direction: row; width: 100%; align-items: stretch; justify-content: flex-start;">
+        <ui:VisualElement name="navDaySummary" class="navTab">
+            <ui:Label text="Day: 0" display-tooltip-when-elided="true" enable-rich-text="true" name="dayNumberLabel" class="textPrimary" />
+        </ui:VisualElement>
         <ui:VisualElement name="navQuests" class="navTab">
             <ui:Label text="Quests" display-tooltip-when-elided="true" class="textPrimary" />
         </ui:VisualElement>
@@ -14,18 +17,12 @@
         <ui:VisualElement name="navShop" class="navTab">
             <ui:Label text="Shop" display-tooltip-when-elided="true" class="textPrimary" />
         </ui:VisualElement>
-        <ui:VisualElement name="navPassDay" class="navTab" style="background-color: rgb(106, 63, 63);">
-            <ui:Label text="Pass Day" display-tooltip-when-elided="true" class="textPrimary" />
-        </ui:VisualElement>
-        <ui:VisualElement name="navResources">
-            <ui:VisualElement name="navDay" class="textPrimary">
-                <ui:Label text="Day: 0" display-tooltip-when-elided="true" class="textPrimary" />
-            </ui:VisualElement>
+        <ui:VisualElement name="navResources" style="width: 100px;">
             <ui:VisualElement name="navGold" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="main" style="width: 100%; height: 90%; flex-direction: row;">
-        <ui:VisualElement name="mainQuests" style="width: 100%; flex-direction: row; display: flex;">
+        <ui:VisualElement name="mainQuests" style="width: 100%; flex-direction: row; display: none;">
             <ui:VisualElement name="questsMap" style="width: 70%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
                 <ui:Label text="Map" display-tooltip-when-elided="true" class="textPrimary" />
             </ui:VisualElement>
@@ -68,5 +65,6 @@
             </ui:VisualElement>
             <ui:VisualElement name="pouchContainer" />
         </ui:VisualElement>
+        <ui:VisualElement name="mainDaySummary" class="textPrimary" style="width: 100%; align-items: center;" />
     </ui:VisualElement>
 </ui:UXML>
