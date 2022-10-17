@@ -7,6 +7,9 @@ using System;
 public class MyButton : Button
 {
     AudioManager _audioManager;
+
+    Action _currentCallback;
+
     public MyButton(string buttonText = null, string className = null, Action callback = null)
     {
         _audioManager = AudioManager.Instance;
@@ -16,7 +19,10 @@ public class MyButton : Button
         if (className != null)
             AddToClassList(className);
         if (callback != null)
+        {
+            _currentCallback = callback;
             clicked += callback;
+        }
 
         RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
         RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -27,7 +33,12 @@ public class MyButton : Button
         this.Blur();
     }
 
-
+    public void ChangeCallback(Action newCallback)
+    {
+        Debug.Log($"changing callback to {newCallback}");
+        clicked -= _currentCallback;
+        clicked += newCallback;
+    }
 
     void PlayClick()
     {

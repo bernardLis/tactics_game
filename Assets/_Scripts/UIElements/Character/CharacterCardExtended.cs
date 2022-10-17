@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CharacterCardVisualExtended : CharacterCardVisual
+public class CharacterCardExtended : CharacterCard
 {
     Label _level;
     Label _exp;
@@ -14,7 +14,7 @@ public class CharacterCardVisualExtended : CharacterCardVisual
     public List<AbilitySlotVisual> AbilitySlots = new();
     public List<AbilityButton> AbilityButtons = new();
 
-    public CharacterCardVisualExtended(Character character) : base(character, false)
+    public CharacterCardExtended(Character character) : base(character, false)
     {
         AddToClassList("uiContainer");
         style.maxHeight = 400;

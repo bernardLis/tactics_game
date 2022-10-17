@@ -7,9 +7,11 @@ public class QuestManager : MonoBehaviour
 {
     GameManager _gameManager;
     DashboardManager _dashboardManager;
+    DraggableCharacters _draggableCharacters;
     VisualElement _root;
 
     VisualElement _questsList;
+    VisualElement _questTroopsContainer;
 
     void Start()
     {
@@ -19,7 +21,10 @@ public class QuestManager : MonoBehaviour
         _root = _dashboardManager.Root;
         _dashboardManager.OnQuestsClicked += Initialize;
 
+        _draggableCharacters = GetComponent<DraggableCharacters>();
+
         _questsList = _root.Q<VisualElement>("questsList");
+        _questTroopsContainer = _root.Q<VisualElement>("questTroopsContainer");
 
         Initialize();
     }
@@ -27,9 +32,17 @@ public class QuestManager : MonoBehaviour
     void Initialize()
     {
         _questsList.Clear();
-        
+        _questTroopsContainer.Clear();
+
         foreach (Quest q in _gameManager.AvailableQuests)
             _questsList.Add(new QuestVisualElement(q));
+
+        foreach (Character character in _gameManager.PlayerTroops)
+            _questTroopsContainer.Add(new CharacterCardMiniSlot(new CharacterCardMini(character)));
+
+        _questTroopsContainer.Add(new CharacterCardMiniSlot());
+
+        _draggableCharacters.Initialize(_root);
     }
 
 }

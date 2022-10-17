@@ -4,18 +4,16 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
 
-public class ItemSlotVisual : VisualElement
+public class ItemSlotVisual : VisualElementWithSound
 {
-    AudioManager _audioManager;
 
     public ItemVisual ItemVisual;
     public Character Character;
 
     bool _isHighlighted;
 
-    public ItemSlotVisual(ItemVisual item = null)
+    public ItemSlotVisual(ItemVisual item = null) : base()
     {
-        _audioManager = AudioManager.Instance;
         RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
 
         AddToClassList("itemSlot");
@@ -39,11 +37,6 @@ public class ItemSlotVisual : VisualElement
     {
         Clear();
         ItemVisual = null;
-    }
-
-    void PlayClick()
-    {
-        _audioManager.PlaySFX("uiClick", Vector3.zero);
     }
 
     public async void Highlight()

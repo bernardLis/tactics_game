@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class UIDraggables : MonoBehaviour
 {
     protected GameManager _gameManager;
-    protected List<CharacterCardVisualExtended> _characterCards = new();
+    protected List<CharacterCardExtended> _characterCards = new();
 
     protected VisualElement _root;
 
@@ -68,7 +68,7 @@ public class UIDraggables : MonoBehaviour
 
         foreach (Character character in troops)
         {
-            CharacterCardVisualExtended card = new CharacterCardVisualExtended(character);
+            CharacterCardExtended card = new CharacterCardExtended(character);
             _characterCards.Add(card);
             container.Add(card);
 
@@ -297,7 +297,7 @@ public class UIDraggables : MonoBehaviour
         if (_playerPouchItemSlotVisuals.Contains(_newItemSlot))
             _gameManager.AddItemToPouch(_draggedItem.Item);
 
-        foreach (CharacterCardVisualExtended card in _characterCards)
+        foreach (CharacterCardExtended card in _characterCards)
             card.Character.ResolveItems();
     }
 

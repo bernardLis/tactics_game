@@ -1,19 +1,16 @@
 using UnityEngine.UIElements;
 using UnityEngine;
 
-public class AbilityButton : VisualElement
+public class AbilityButton : VisualElementWithSound
 {
-    AudioManager _audioManager;
 
     AbilityIcon _icon;
 
     public string Key;
     public Ability Ability;
 
-    public AbilityButton(Ability ability, string key = null)
+    public AbilityButton(Ability ability, string key = null) : base()
     {
-        _audioManager = AudioManager.Instance;
-
         Ability = ability;
         Key = key;
 
@@ -49,13 +46,6 @@ public class AbilityButton : VisualElement
             ModifierVisual status = new(ability.Status);
             container.Add(status);
         }
-
-        RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
     }
 
-    void PlayClick()
-    {
-        if (_audioManager != null)
-            _audioManager.PlaySFX("uiClick", Vector3.zero);
-    }
 }

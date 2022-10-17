@@ -23,26 +23,34 @@
     </ui:VisualElement>
     <ui:VisualElement name="main" style="width: 100%; height: 90%; flex-direction: row;">
         <ui:VisualElement name="mainQuests" style="width: 100%; flex-direction: row; display: flex;">
-            <ui:VisualElement name="questsMap" style="width: 70%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
+            <ui:VisualElement name="questsMap" style="width: 50%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; transition-timing-function: ease-in-out; transition-duration: 0.5s;">
                 <ui:Label text="Map" display-tooltip-when-elided="true" class="textPrimary" />
             </ui:VisualElement>
-            <ui:VisualElement name="questsList" style="height: auto; width: 30%; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);">
-                <ui:Label text="List" display-tooltip-when-elided="true" class="textPrimary" />
-                <ui:VisualElement name="QuestVisualElement" class="questElement">
-                    <ui:VisualElement name="basicInfo" class="questBasicInfoContainer">
-                        <ui:Label display-tooltip-when-elided="true" name="icon" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/fox-head.png?fileID=2800000&amp;guid=50452134c5e00274790a19f4c5236a2e&amp;type=3#fox-head&apos;); width: 50px; height: 50px;" />
-                        <ui:Label text="Quest Title" display-tooltip-when-elided="true" class="textPrimary" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="mapInfo" class="textPrimary">
-                        <ui:Label text="Biome: Lava" display-tooltip-when-elided="true" name="Label" />
-                        <ui:Label text="Variant: Circle" display-tooltip-when-elided="true" name="Label" />
-                        <ui:Label text="Size: 16x16" display-tooltip-when-elided="true" />
-                        <ui:VisualElement name="enemyContainer">
-                            <ui:Label text="enemy1, enemy2, enemy3" display-tooltip-when-elided="true" />
+            <ui:VisualElement name="container" style="width: 50%;">
+                <ui:VisualElement name="questsList" style="height: 80%; width: 100%; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);">
+                    <ui:Label text="List" display-tooltip-when-elided="true" class="textPrimary" />
+                    <ui:VisualElement name="QuestVisualElement" class="questElement">
+                        <ui:VisualElement name="basicInfo" class="questBasicInfoContainer">
+                            <ui:Label display-tooltip-when-elided="true" name="icon" style="background-image: url(&apos;project://database/Assets/Sprites/Icons/fox-head.png?fileID=2800000&amp;guid=50452134c5e00274790a19f4c5236a2e&amp;type=3#fox-head&apos;); width: 50px; height: 50px;" />
+                            <ui:Label text="Quest Title" display-tooltip-when-elided="true" class="textPrimary" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="mapInfo" class="textPrimary">
+                            <ui:Label text="Biome: Lava" display-tooltip-when-elided="true" name="Label" />
+                            <ui:Label text="Variant: Circle" display-tooltip-when-elided="true" name="Label" />
+                            <ui:Label text="Size: 16x16" display-tooltip-when-elided="true" />
+                            <ui:VisualElement name="enemyContainer">
+                                <ui:Label text="enemy1, enemy2, enemy3" display-tooltip-when-elided="true" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="rewardInfo" class="textPrimary">
+                            <ui:Label text="5 gold and an item" display-tooltip-when-elided="true" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="rewardInfo" class="textPrimary">
-                        <ui:Label text="5 gold and an item" display-tooltip-when-elided="true" />
+                </ui:VisualElement>
+                <ui:VisualElement name="questTroopsContainer" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; height: 20%; width: 100%; transition-duration: 0.5s; flex-direction: row;">
+                    <ui:Label text="Troops" display-tooltip-when-elided="true" name="Label" class="textPrimary" />
+                    <ui:VisualElement name="characterCardMiniSlot" class="characterCardMiniSlot" style="width: 100px; height: 100px;">
+                        <ui:VisualElement name="characterCardMini" class="characterCardMini" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

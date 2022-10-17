@@ -23,7 +23,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
     // character card
     GameObject _displayedCharacter;
     VisualElement _characterCard;
-    CharacterCardVisual _characterCardVisual;
+    CharacterCard _characterCardVisual;
 
     // interaction summary
     VisualElement _interactionSummary;

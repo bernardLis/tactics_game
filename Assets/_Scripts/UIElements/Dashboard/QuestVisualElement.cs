@@ -8,10 +8,15 @@ public class QuestVisualElement : VisualElement
     Quest _quest;
 
     VisualElement _additionalInfo;
+    VisualElement _characterSlotContainer;
+    MyButton _startAssignementButton;
+
+    List<CharacterCardMiniSlot> _cardSlots = new();
+
+    Label _successChance;
+
     bool _isAdditionalInfoShown;
 
-    // TODO: would be cool if it was showing only icon and title and on click you would get more information
-    // and there would be a button to commence / assign people
     public QuestVisualElement(Quest quest)
     {
         _quest = quest;
@@ -34,20 +39,31 @@ public class QuestVisualElement : VisualElement
         basicInfoContainer.Add(title);
 
         CreateAdditionalInfo();
+        CreateCharacterSlots();
 
-        RegisterCallback<PointerDownEvent>(OnPointerDown);
+        _successChance = new();
+        Add(_successChance);
+        _successChance.style.display = DisplayStyle.None;
+
+        _startAssignementButton = new("Battle it out!", "menuButton", StartBattle);
+        _characterSlotContainer.Add(_startAssignementButton);
+        _startAssignementButton.style.display = DisplayStyle.None;
+
+        RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    void OnPointerDown(PointerDownEvent evt)
+    void OnPointerUp(PointerUpEvent evt)
     {
         if (_isAdditionalInfoShown)
         {
             _isAdditionalInfoShown = false;
-            Remove(_additionalInfo);
+            _additionalInfo.style.display = DisplayStyle.None;
+            _characterSlotContainer.style.display = DisplayStyle.None;
             return;
         }
 
-        Add(_additionalInfo);
+        _additionalInfo.style.display = DisplayStyle.Flex;
+        _characterSlotContainer.style.display = DisplayStyle.Flex;
         _isAdditionalInfoShown = true;
     }
 
@@ -93,6 +109,93 @@ public class QuestVisualElement : VisualElement
             rewardContainer.Add(new GoldElement(_quest.Reward.Gold));
         if (_quest.Reward.Item != null)
             rewardContainer.Add(new ItemSlotVisual(new ItemVisual(_quest.Reward.Item)));
+
+        Add(_additionalInfo);
+        _additionalInfo.style.display = DisplayStyle.None;
+    }
+
+    void CreateCharacterSlots()
+    {
+        _characterSlotContainer = new();
+        _characterSlotContainer.style.flexDirection = FlexDirection.Row;
+        for (int i = 0; i < 3; i++)
+        {
+            CharacterCardMiniSlot slot = new CharacterCardMiniSlot();
+            _cardSlots.Add(slot);
+            slot.OnCardAdded += OnCardAdded;
+            slot.OnCardRemoved += OnCardRemoved;
+            _characterSlotContainer.Add(slot);
+        }
+
+        Add(_characterSlotContainer);
+        _characterSlotContainer.style.display = DisplayStyle.None;
+
+    }
+
+    void OnCardAdded(CharacterCardMini card) { UpdateAssignement(); }
+
+    void OnCardRemoved() { UpdateAssignement(); }
+
+    void UpdateAssignement()
+    {
+        _startAssignementButton.ChangeCallback(null);
+        
+        if (CountAssignedCharacters() == 0)
+        {
+            Debug.Log($"0 characters");
+            _successChance.style.display = DisplayStyle.None;
+            _startAssignementButton.style.display = DisplayStyle.None;
+            return;
+        }
+
+        _startAssignementButton.style.display = DisplayStyle.Flex;
+        _successChance.style.display = DisplayStyle.Flex;
+
+        if (IsPlayerAssigned())
+        {
+            Debug.Log($"player assigned");
+            _successChance.text = "player char assigned";
+            _startAssignementButton.ChangeCallback(StartBattle);
+            _startAssignementButton.text = "Battle It Out!";
+            return;
+        }
+
+        Debug.Log($"no player");
+        _successChance.text = $"Success chance: {CountAssignedCharacters() * 25}% ";
+        _startAssignementButton.ChangeCallback(DelegateBattle);
+        _startAssignementButton.text = "Delegate It Out!";
+    }
+
+    int CountAssignedCharacters()
+    {
+        int assignedCharacters = 0;
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+            if (slot.Card != null)
+                assignedCharacters++;
+
+        return assignedCharacters;
+    }
+
+    bool IsPlayerAssigned()
+    {
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+        {
+            if (slot.Card == null)
+                continue;
+            if (slot.Card.Character == GameManager.Instance.PlayerTroops[0])
+                return true;
+        }
+        return false;
+    }
+
+    void StartBattle()
+    {
+        Debug.Log($"lets go to battle!");
+    }
+
+    void DelegateBattle()
+    {
+        Debug.Log($"I am delegating this battle to you!!!@!#$!");
 
     }
 

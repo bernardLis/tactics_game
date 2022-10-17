@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CharacterCardVisual : VisualElement
+public class CharacterCard : VisualElement
 {
     VisualElement _information;
     CharacterStats _stats;
@@ -19,7 +19,7 @@ public class CharacterCardVisual : VisualElement
     StatVisual _armor;
     StatVisual _range;
 
-    public CharacterCardVisual(Character character, bool clickable = true)
+    public CharacterCard(Character character, bool clickable = true)
     {
         character.ResolveItems();
         BaseCharacterCardVisual(character, clickable);
@@ -34,7 +34,7 @@ public class CharacterCardVisual : VisualElement
         character.OnMovementRangeChanged += _range.OnValueChanged;
     }
 
-    public CharacterCardVisual(CharacterStats stats, bool clickable = true)
+    public CharacterCard(CharacterStats stats, bool clickable = true)
     {
         BaseCharacterCardVisual(stats.Character, clickable);
         _stats = stats;

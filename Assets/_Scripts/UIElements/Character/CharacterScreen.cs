@@ -31,13 +31,13 @@ public class CharacterScreen : FullScreenVisual
 
     void AddCharacterCard(CharacterStats stats)
     {
-        CharacterCardVisualExtended card = new CharacterCardVisualExtended(stats.Character);
+        CharacterCardExtended card = new CharacterCardExtended(stats.Character);
         Add(card);
     }
 
     void AddCharacterCard(Character character)
     {
-        CharacterCardVisualExtended card = new CharacterCardVisualExtended(character);
+        CharacterCardExtended card = new CharacterCardExtended(character);
         Add(card);
     }
 }
