@@ -20,7 +20,7 @@ public class BoardManager : Singleton<BoardManager>
     AudioManager _audioManager;
 
     [Header("Map Setup")]
-    [SerializeField] Quest _battleNode; // HERE: for testing
+    [SerializeField] Quest _activeQuest; // HERE: for testing
     MapVariant _mapVariant;
     int _seed = -1;
     public Vector2Int MapSize;
@@ -68,10 +68,10 @@ public class BoardManager : Singleton<BoardManager>
         _battleManager = BattleManager.Instance;
         _audioManager = AudioManager.Instance;
 
-        // HERE: for tests _battleNode = (BattleNode)_runManager.CurrentNode;
-        _biome = _battleNode.Biome;
-        _mapVariant = _battleNode.MapVariant;
-        MapSize = _battleNode.MapSize;
+        _activeQuest = _gameManager.ActiveQuest;
+        _biome = _activeQuest.Biome;
+        _mapVariant = _activeQuest.MapVariant;
+        MapSize = _activeQuest.MapSize;
 
         GenerateMap();
     }
@@ -863,7 +863,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         EnemySpawnDirection = _allowedEnemySpawnDirections[Random.Range(0, _allowedEnemySpawnDirections.Count)];
 
-        foreach (Brain brain in _battleNode.Enemies)
+        foreach (Brain brain in _activeQuest.Enemies)
         {
             Vector3 spawnPosition = GetEnemySpawnPosition();
             spawnPosition = new Vector3(spawnPosition.x + 0.5f, spawnPosition.y + 0.5f);

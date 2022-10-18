@@ -24,7 +24,7 @@ public class BattleDeploymentController : MonoBehaviour
         TurnManager.OnBattleStateChanged += TurnManager_OnBattleStateChanged;
         MovePointController.OnMove += MovePointController_OnMove;
 
-        _charactersToPlace = new(_gameManager.PlayerTroops);
+        _charactersToPlace = new(_gameManager.ActiveQuest.AssignedCharacters);
     }
 
     void OnDestroy()

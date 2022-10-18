@@ -28,6 +28,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
+    public Quest ActiveQuest;
+
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
     public event Action<int> OnShopRerollPriceChanged;
@@ -66,8 +68,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         Day += 1;
 
-        ChooseShopItems();
-        ChangeShopRerollPrice(2);
+        if (Day % 7 == 0) // shop resets every 7th day
+        {
+            ChooseShopItems();
+            ChangeShopRerollPrice(2);
+        }
+
         PayMaintenance();
         AddRandomQuest();
 
@@ -96,7 +102,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-
+    /* Shop */
     public void RemoveItemFromShop(Item item)
     {
         ShopItems.Remove(item);
@@ -120,6 +126,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
+    /* Troops & pouches */
     public void AddCharacterToTroops(Character character)
     {
         PlayerTroops.Add(character);
@@ -157,6 +164,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
+    public void StartBattle(Quest quest)
+    {
+        ActiveQuest = quest;
+        LoadLevel(ActiveQuest.SceneToLoad);
+    }
+
     public void LoadLevel(string level)
     {
         if (level == Scenes.Dashboard)
@@ -166,7 +179,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         OnLevelLoaded?.Invoke(level);
     }
 
-    List<Character> CreatePlayerTroops()
+
+    /*************
+    * Saving and Loading
+    * https://www.youtube.com/watch?v=uD7y4T4PVk0
+    */
+
+    List<Character> CreatePlayerTroops() // for the new save
     {
         List<Character> instantiatedTroops = new();
 
@@ -180,11 +199,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         return instantiatedTroops;
     }
-
-    /*************
-    * Saving and Loading
-    * https://www.youtube.com/watch?v=uD7y4T4PVk0
-    */
 
     void CreateNewSaveFile()
     {

@@ -10,7 +10,7 @@ public class CharacterCardMiniSlot : VisualElementWithSound
 
 
     public event Action<CharacterCardMini> OnCardAdded;
-    public event Action OnCardRemoved;
+    public event Action<CharacterCardMini> OnCardRemoved;
 
     public CharacterCardMiniSlot(CharacterCardMini card = null) : base()
     {
@@ -35,8 +35,7 @@ public class CharacterCardMiniSlot : VisualElementWithSound
     public void RemoveCard()
     {
         Clear();
+        OnCardRemoved?.Invoke(Card);
         Card = null;
-
-        OnCardRemoved?.Invoke();
     }
 }

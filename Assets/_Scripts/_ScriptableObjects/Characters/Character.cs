@@ -40,6 +40,9 @@ public class Character : BaseScriptableObject
     public List<Ability> BasicAbilities = new();
     public List<Ability> Abilities = new();
 
+    [Header("Quest")]
+    [HideInInspector] public bool IsOnQuest = false;
+
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
 

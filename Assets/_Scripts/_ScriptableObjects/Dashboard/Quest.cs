@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
-
+using System.Linq;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Quest")]
 public class Quest : BaseScriptableObject
 {
+    [Header("Basics")]
     public Sprite Icon;
     public string Title;
-    public string SceneToLoad = Scenes.Battle;
 
+    [Header("Battle")]
+    public string SceneToLoad = Scenes.Battle;
     public TilemapBiome Biome;
     public MapVariant MapVariant;
     public Vector2Int MapSize;
     public BattleGoal BattleGoal;
     public List<Brain> Enemies = new();
     public Reward Reward;
+
+    [Header("Management")]
+    [HideInInspector] public bool IsDelegated;
+    public int Duration;
+    public int DayStarted;
+    [HideInInspector] public List<Character> AssignedCharacters = new();
+
 
     GameManager _gameManager;
 
@@ -44,6 +53,9 @@ public class Quest : BaseScriptableObject
         Reward.GoldRange = new Vector2Int(4, 10);
         Reward.HasItem = true;
         Reward.Initialize();
+
+        Duration = Random.Range(1, 6);
+        AssignedCharacters = new();
     }
 
     public void CreateFromData(BattleNodeData data)
@@ -68,6 +80,27 @@ public class Quest : BaseScriptableObject
         Reward.IsRandomized = true;
         Reward.GoldRange = new Vector2Int(4, 10);
         Reward.HasItem = true;
+
+        IsDelegated = data.IsDelegated;
+        Duration = data.Duration;
+        DayStarted = data.DayStarted;
+
+        AssignedCharacters = new();
+        foreach (string id in data.AssignedCharacters)
+            AssignedCharacters.Add(_gameManager.PlayerTroops.First(x => x.Id == id));
+    }
+
+    public void AssignCharacter(Character character) { AssignedCharacters.Add(character); }
+
+    public void RemoveAssignedCharacter(Character character) { AssignedCharacters.Remove(character); }
+
+    public void DelegateQuest()
+    {
+        DayStarted = _gameManager.Day;
+        foreach (Character character in AssignedCharacters)
+        {
+            character.IsOnQuest = true;
+        }
     }
 }
 
@@ -82,6 +115,12 @@ public struct BattleNodeData
     public Vector2Int MapSize;
     public List<string> Enemies;
     // TODO: make reward serializable
+
+    public bool IsDelegated;
+    public int Duration;
+    public int DayStarted;
+
+    public List<string> AssignedCharacters;
 
 }
 

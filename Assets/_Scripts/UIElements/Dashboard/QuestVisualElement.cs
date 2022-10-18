@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class QuestVisualElement : VisualElement
 {
+    GameManager _gameManager;
     Quest _quest;
 
     VisualElement _additionalInfo;
@@ -19,6 +20,7 @@ public class QuestVisualElement : VisualElement
 
     public QuestVisualElement(Quest quest)
     {
+        _gameManager = GameManager.Instance;
         _quest = quest;
         AddToClassList("questElement");
         AddToClassList("textPrimary");
@@ -132,14 +134,22 @@ public class QuestVisualElement : VisualElement
 
     }
 
-    void OnCardAdded(CharacterCardMini card) { UpdateAssignement(); }
+    void OnCardAdded(CharacterCardMini card)
+    {
+        _quest.AssignCharacter(card.Character);
+        UpdateVisual();
+    }
 
-    void OnCardRemoved() { UpdateAssignement(); }
+    void OnCardRemoved(CharacterCardMini card)
+    {
+        _quest.RemoveAssignedCharacter(card.Character);
+        UpdateVisual();
+    }
 
-    void UpdateAssignement()
+    void UpdateVisual()
     {
         _startAssignementButton.ChangeCallback(null);
-        
+
         if (CountAssignedCharacters() == 0)
         {
             Debug.Log($"0 characters");
@@ -154,14 +164,14 @@ public class QuestVisualElement : VisualElement
         if (IsPlayerAssigned())
         {
             Debug.Log($"player assigned");
-            _successChance.text = "player char assigned";
+            _successChance.text = "It takes 1 day.";
             _startAssignementButton.ChangeCallback(StartBattle);
             _startAssignementButton.text = "Battle It Out!";
             return;
         }
 
         Debug.Log($"no player");
-        _successChance.text = $"Success chance: {CountAssignedCharacters() * 25}% ";
+        _successChance.text = $"Success chance: {CountAssignedCharacters() * 25}%. Duration: {_quest.Duration} ";
         _startAssignementButton.ChangeCallback(DelegateBattle);
         _startAssignementButton.text = "Delegate It Out!";
     }
@@ -182,7 +192,7 @@ public class QuestVisualElement : VisualElement
         {
             if (slot.Card == null)
                 continue;
-            if (slot.Card.Character == GameManager.Instance.PlayerTroops[0])
+            if (slot.Card.Character == _gameManager.PlayerTroops[0]) // TODO: incorrect
                 return true;
         }
         return false;
@@ -191,12 +201,12 @@ public class QuestVisualElement : VisualElement
     void StartBattle()
     {
         Debug.Log($"lets go to battle!");
+        _gameManager.StartBattle(_quest);
     }
 
     void DelegateBattle()
     {
-        Debug.Log($"I am delegating this battle to you!!!@!#$!");
-
+        _quest.DelegateQuest();
     }
 
 }
