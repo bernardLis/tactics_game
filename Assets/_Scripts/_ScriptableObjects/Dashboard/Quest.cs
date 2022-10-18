@@ -33,8 +33,7 @@ public class Quest : BaseScriptableObject
     {
         _gameManager = GameManager.Instance;
         Icon = _gameManager.GameDatabase.GetRandomQuestIcon();
-        Debug.Log($"creating random Icon: {Icon}");
-        Title = "Title of The Quest";
+        Title = "Quest Title";
 
         Biome = _gameManager.GameDatabase.GetRandomBiome();
         MapVariant = _gameManager.GameDatabase.GetRandomMapVariant();
@@ -94,10 +93,14 @@ public class Quest : BaseScriptableObject
     public void DelegateQuest()
     {
         DayStarted = _gameManager.Day;
+        IsDelegated = true;
+
         foreach (Character character in AssignedCharacters)
         {
             character.IsOnQuest = true;
         }
+
+        _gameManager.SaveJsonData();
     }
 
     public QuestData SerializeSelf()

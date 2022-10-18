@@ -24,7 +24,7 @@ public class MyButton : Button
             clicked += callback;
         }
 
-        RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
+        RegisterCallback<MouseEnterEvent>(PlayClick);
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
@@ -35,17 +35,35 @@ public class MyButton : Button
 
     public void ChangeCallback(Action newCallback)
     {
-        Debug.Log($"changing callback to {newCallback}");
         clicked -= _currentCallback;
         clicked += newCallback;
     }
 
-    void PlayClick()
+    void PlayClick(MouseEnterEvent evt)
     {
         if (!enabledSelf)
             return;
         if (_audioManager != null)
             _audioManager.PlaySFX("uiClick", Vector3.zero);
+    }
+
+    void PreventInteraction(MouseEnterEvent evt)
+    {
+        evt.PreventDefault();
+        evt.StopImmediatePropagation();
+    }
+
+    void OnDisable()
+    {
+        UnregisterCallback<MouseEnterEvent>(PlayClick);
+        // https://forum.unity.com/threads/hover-state-control-from-code.914504/
+        RegisterCallback<MouseEnterEvent>(PreventInteraction);
+    }
+
+    void OnEnable()
+    {
+        RegisterCallback<MouseEnterEvent>(PlayClick);
+        UnregisterCallback<MouseEnterEvent>(PreventInteraction);
     }
 
 }

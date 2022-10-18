@@ -41,7 +41,7 @@ public class Character : BaseScriptableObject
     public List<Ability> Abilities = new();
 
     [Header("Quest")]
-    [HideInInspector] public bool IsOnQuest = false;
+    [HideInInspector] public bool IsOnQuest;
 
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
@@ -52,34 +52,6 @@ public class Character : BaseScriptableObject
     public event Action<int> OnArmorChanged;
     public event Action<int> OnMovementRangeChanged;
 
-    // creates character at runtime from saved data
-    public virtual void Create(CharacterData data)
-    {
-        GameDatabase gameDatabase = GameManager.Instance.GameDatabase;
-
-        ReferenceID = data.ReferenceID;
-        CharacterName = data.CharacterName;
-        Portrait = gameDatabase.GetPortraitById(data.Portrait);
-
-        Level = data.Level;
-        Experience = data.Experience;
-        Power = data.Power;
-        MaxHealth = data.MaxHealth;
-        MaxMana = data.MaxMana;
-        Armor = data.Armor;
-        MovementRange = data.MovementRange;
-
-        Body = gameDatabase.GetBodyByName(data.Body);
-        Weapon = gameDatabase.GetWeaponByName(data.Weapon);
-
-        BasicAbilities.Add(gameDatabase.GetAbilityById("5f7d8c47-7ec1-4abf-b8ec-74ea82be327f")); // basic defend id
-
-        foreach (string id in data.AbilityReferenceIds)
-            Abilities.Add(gameDatabase.GetAbilityByReferenceId(id));
-
-        foreach (string id in data.ItemReferenceIds)
-            Items.Add(gameDatabase.GetItemByReferenceId(id));
-    }
 
     public virtual void Initialize(GameObject obj)
     {
@@ -223,11 +195,76 @@ public class Character : BaseScriptableObject
 
     }
 
+    // creates character at runtime from saved data
+    public virtual void CreateFromData(CharacterData data)
+    {
+        GameDatabase gameDatabase = GameManager.Instance.GameDatabase;
+        Id = data.Id;
+        ReferenceID = data.ReferenceID;
+        CharacterName = data.CharacterName;
+        Portrait = gameDatabase.GetPortraitById(data.Portrait);
+
+        Level = data.Level;
+        Experience = data.Experience;
+        Power = data.Power;
+        MaxHealth = data.MaxHealth;
+        MaxMana = data.MaxMana;
+        Armor = data.Armor;
+        MovementRange = data.MovementRange;
+
+        Body = gameDatabase.GetBodyByName(data.Body);
+        Weapon = gameDatabase.GetWeaponByName(data.Weapon);
+
+        BasicAbilities.Add(gameDatabase.GetAbilityById("5f7d8c47-7ec1-4abf-b8ec-74ea82be327f")); // basic defend id
+
+        foreach (string id in data.AbilityReferenceIds)
+            Abilities.Add(gameDatabase.GetAbilityByReferenceId(id));
+
+        foreach (string id in data.ItemReferenceIds)
+            Items.Add(gameDatabase.GetItemByReferenceId(id));
+
+        IsOnQuest = data.IsOnQuest;
+    }
+
+
+    public CharacterData SerializeSelf()
+    {
+        CharacterData data = new();
+        data.Id = Id;
+        data.ReferenceID = ReferenceID;
+        data.CharacterName = CharacterName;
+        data.Portrait = Portrait.name;
+        data.Level = Level;
+        data.Experience = Experience;
+        data.Power = Power;
+        data.MaxHealth = MaxHealth;
+        data.MaxMana = MaxMana;
+        data.Armor = Armor;
+        data.MovementRange = MovementRange;
+        data.Body = Body.name;
+        data.Weapon = Weapon.name;
+
+        List<string> abilityReferenceIds = new();
+        foreach (Ability a in Abilities)
+            abilityReferenceIds.Add(a.ReferenceID);
+        data.AbilityReferenceIds = new(abilityReferenceIds);
+
+        List<string> itemReferenceIds = new();
+        foreach (Item i in Items)
+            itemReferenceIds.Add(i.ReferenceID);
+        data.ItemReferenceIds = new(itemReferenceIds);
+
+        data.IsOnQuest = IsOnQuest;
+
+        return data;
+    }
+
 }
 
 [System.Serializable]
 public struct CharacterData
 {
+    public string Id;
     public string ReferenceID;
     public string CharacterName;
     public string Portrait;
@@ -242,4 +279,6 @@ public struct CharacterData
     public string Weapon;
     public List<string> AbilityReferenceIds;
     public List<string> ItemReferenceIds;
+
+    public bool IsOnQuest;
 }

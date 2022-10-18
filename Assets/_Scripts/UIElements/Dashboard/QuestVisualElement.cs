@@ -8,6 +8,7 @@ public class QuestVisualElement : VisualElement
     GameManager _gameManager;
     Quest _quest;
 
+    VisualElement _basicInfoContainer;
     VisualElement _additionalInfo;
     VisualElement _characterSlotContainer;
     MyButton _startAssignementButton;
@@ -25,20 +26,7 @@ public class QuestVisualElement : VisualElement
         AddToClassList("questElement");
         AddToClassList("textPrimary");
 
-        // basics
-        VisualElement basicInfoContainer = new();
-        basicInfoContainer.AddToClassList("questBasicInfoContainer");
-        Add(basicInfoContainer);
-
-        Label icon = new();
-        icon.style.backgroundImage = new StyleBackground(quest.Icon.Icon);
-        icon.style.width = 50;
-        icon.style.height = 50;
-        basicInfoContainer.Add(icon);
-
-        Label title = new(quest.Title);
-        title.AddToClassList("textPrimary");
-        basicInfoContainer.Add(title);
+        AddBasicInfo();
 
         CreateAdditionalInfo();
         CreateCharacterSlots();
@@ -54,6 +42,36 @@ public class QuestVisualElement : VisualElement
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
+    void AddBasicInfo()
+    {
+        _basicInfoContainer = new();
+        _basicInfoContainer.AddToClassList("questBasicInfoContainer");
+        _basicInfoContainer.AddToClassList("textPrimary");
+        Add(_basicInfoContainer);
+
+        Label icon = new();
+        icon.style.backgroundImage = new StyleBackground(_quest.Icon.Icon);
+        icon.style.width = 50;
+        icon.style.height = 50;
+        _basicInfoContainer.Add(icon);
+
+        Label title = new(_quest.Title);
+        _basicInfoContainer.Add(title);
+
+        if (!_quest.IsDelegated)
+            return;
+
+        AddDaysLeftLabel();
+    }
+
+    void AddDaysLeftLabel()
+    {
+        int daysLeft = _quest.Duration - _gameManager.Day - _quest.DayStarted;
+        Label daysLeftLabel = new($"{daysLeft} days left.");
+        _basicInfoContainer.Add(daysLeftLabel);
+    }
+
+
     void OnPointerUp(PointerUpEvent evt)
     {
         if (_isAdditionalInfoShown)
@@ -68,7 +86,6 @@ public class QuestVisualElement : VisualElement
         _characterSlotContainer.style.display = DisplayStyle.Flex;
         _isAdditionalInfoShown = true;
     }
-
 
     void CreateAdditionalInfo()
     {
@@ -120,13 +137,20 @@ public class QuestVisualElement : VisualElement
     {
         _characterSlotContainer = new();
         _characterSlotContainer.style.flexDirection = FlexDirection.Row;
+        _cardSlots = new();
         for (int i = 0; i < 3; i++)
         {
-            CharacterCardMiniSlot slot = new CharacterCardMiniSlot();
+            CharacterCardMiniSlot slot = new CharacterCardMiniSlot(null, _quest.IsDelegated);
             _cardSlots.Add(slot);
             slot.OnCardAdded += OnCardAdded;
             slot.OnCardRemoved += OnCardRemoved;
             _characterSlotContainer.Add(slot);
+        }
+
+        for (int i = 0; i < _quest.AssignedCharacters.Count; i++)
+        {
+            CharacterCardMini card = new(_quest.AssignedCharacters[i]);
+            _cardSlots[i].Add(card);
         }
 
         Add(_characterSlotContainer);
@@ -148,11 +172,13 @@ public class QuestVisualElement : VisualElement
 
     void UpdateVisual()
     {
+        if (_startAssignementButton == null)
+            return;
+
         _startAssignementButton.ChangeCallback(null);
 
         if (CountAssignedCharacters() == 0)
         {
-            Debug.Log($"0 characters");
             _successChance.style.display = DisplayStyle.None;
             _startAssignementButton.style.display = DisplayStyle.None;
             return;
@@ -163,15 +189,13 @@ public class QuestVisualElement : VisualElement
 
         if (IsPlayerAssigned())
         {
-            Debug.Log($"player assigned");
             _successChance.text = "It takes 1 day.";
             _startAssignementButton.ChangeCallback(StartBattle);
             _startAssignementButton.text = "Battle It Out!";
             return;
         }
 
-        Debug.Log($"no player");
-        _successChance.text = $"Success chance: {CountAssignedCharacters() * 25}%. Duration: {_quest.Duration} ";
+        _successChance.text = $"Success chance: {CountAssignedCharacters() * 25}%. Duration: {_quest.Duration} days. ";
         _startAssignementButton.ChangeCallback(DelegateBattle);
         _startAssignementButton.text = "Delegate It Out!";
     }
@@ -198,14 +222,18 @@ public class QuestVisualElement : VisualElement
         return false;
     }
 
-    void StartBattle()
-    {
-        Debug.Log($"lets go to battle!");
-        _gameManager.StartBattle(_quest);
-    }
+    void StartBattle() { _gameManager.StartBattle(_quest); }
 
     void DelegateBattle()
     {
         _quest.DelegateQuest();
+
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+            slot.Lock();
+
+        _startAssignementButton.text = "Assigned!";
+        _startAssignementButton.SetEnabled(false);
+
+        AddDaysLeftLabel();
     }
 }

@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class CharacterCardMini : VisualWithTooltip
 {
     public Character Character;
+
+    public event Action<CharacterCardMini> OnLocked;
+
     public CharacterCardMini(Character character)
     {
         Character = character;
@@ -20,6 +24,11 @@ public class CharacterCardMini : VisualWithTooltip
         CharacterCardExtended tooltip = new CharacterCardExtended(Character);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
+    }
+
+    public void Lock()
+    {
+        OnLocked?.Invoke(this);
     }
 
 }

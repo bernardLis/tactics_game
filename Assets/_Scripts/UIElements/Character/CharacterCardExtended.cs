@@ -33,6 +33,8 @@ public class CharacterCardExtended : CharacterCard
 
         style.flexDirection = FlexDirection.Column;
         Add(CreateAbilities(character));
+
+        AvailablityCheck(); // for armory
     }
 
 
@@ -90,7 +92,7 @@ public class CharacterCardExtended : CharacterCard
 
         if (slotCount < character.Abilities.Count)
             slotCount = character.Abilities.Count;
-        
+
         for (int i = 0; i < slotCount; i++)
         {
             AbilitySlotVisual abilitySlot = new();
@@ -109,5 +111,27 @@ public class CharacterCardExtended : CharacterCard
         }
 
         return container;
+    }
+
+    void AvailablityCheck()
+    {
+        if (!Character.IsOnQuest)
+            return;
+
+        VisualElement overlay = new VisualElement();
+        Add(overlay);
+        overlay.BringToFront();
+        overlay.style.position = Position.Absolute;
+        overlay.style.width = Length.Percent(100);
+        overlay.style.height = Length.Percent(100);
+        overlay.style.alignItems = Align.Center;
+        overlay.style.justifyContent = Justify.Center;
+        overlay.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
+
+        Label text = new("Unavailable!");
+        text.AddToClassList("textPrimary");
+        text.style.fontSize = 60;
+        text.transform.rotation *= Quaternion.Euler(0f, 0f, 45f);
+        overlay.Add(text);
     }
 }

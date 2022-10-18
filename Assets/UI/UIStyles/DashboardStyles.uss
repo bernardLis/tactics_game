@@ -186,3 +186,14 @@
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
 }
+
+.characterCardMiniSlotLocked {
+    width: 100px;
+    height: 100px;
+    background-image: none;
+    background-color: rgba(72, 72, 72, 255);
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
+}

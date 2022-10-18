@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
+    SaveData _originalSaveData;
+
     LevelLoader _levelLoader;
 
     public GameDatabase GameDatabase;
@@ -49,11 +51,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void Play()
     {
-        if (PlayerPrefs.GetString("saveName").Length == 0)
+        if (PlayerPrefs.GetString("saveName").Length == 0) // TODO: this does not work...
             LoadLevel(Scenes.Cutscene);
         else
             LoadLevel(Scenes.Dashboard);
     }
+
 
     /* RESOURCES */
     public void PassDay()
@@ -164,9 +167,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadLevel(string level)
     {
-        //      if (level == Scenes.Dashboard)
-        //            SaveJsonData();
-
         _levelLoader.LoadLevel(level);
         OnLevelLoaded?.Invoke(level);
     }
@@ -262,37 +262,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     List<CharacterData> PopulateCharacters()
     {
-        List<CharacterData> charData = new();
+        List<CharacterData> charDatas = new();
         foreach (Character c in PlayerTroops)
-        {
-            CharacterData data = new();
-            data.ReferenceID = c.ReferenceID;
-            data.CharacterName = c.CharacterName;
-            data.Portrait = c.Portrait.name;
-            data.Level = c.Level;
-            data.Experience = c.Experience;
-            data.Power = c.Power;
-            data.MaxHealth = c.MaxHealth;
-            data.MaxMana = c.MaxMana;
-            data.Armor = c.Armor;
-            data.MovementRange = c.MovementRange;
-            data.Body = c.Body.name;
-            data.Weapon = c.Weapon.name;
+            charDatas.Add(c.SerializeSelf());
 
-            List<string> abilityReferenceIds = new();
-            foreach (Ability a in c.Abilities)
-                abilityReferenceIds.Add(a.ReferenceID);
-            data.AbilityReferenceIds = new(abilityReferenceIds);
-
-            List<string> itemReferenceIds = new();
-            foreach (Item i in c.Items)
-                itemReferenceIds.Add(i.ReferenceID);
-            data.ItemReferenceIds = new(itemReferenceIds);
-
-            charData.Add(data);
-        }
-
-        return charData;
+        return charDatas;
     }
 
     List<string> PopulateItemPouch()
@@ -333,6 +307,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadFromSaveData(SaveData saveData)
     {
+        _originalSaveData = saveData; // stored for later
+
         // global data
         WasTutorialPlayed = saveData.WasTutorialPlayed;
         Seed = saveData.Seed;
@@ -349,7 +325,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (CharacterData data in saveData.PlayerTroops)
         {
             Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
-            playerCharacter.Create(data);
+            playerCharacter.CreateFromData(data);
             PlayerTroops.Add(playerCharacter);
         }
 
@@ -361,14 +337,20 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (string abilityReferenceId in saveData.AbilityPouch)
             PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
 
+        LoadQuests();
+    }
+
+    void LoadQuests()
+    {
         AvailableQuests = new();
-        foreach (QuestData qd in saveData.AvailableQuests)
+        foreach (QuestData qd in _originalSaveData.AvailableQuests)
         {
             Quest quest = ScriptableObject.CreateInstance<Quest>();
             quest.CreateFromData(qd);
             AvailableQuests.Add(quest);
         }
     }
+
 
     public void ClearSaveData()
     {
