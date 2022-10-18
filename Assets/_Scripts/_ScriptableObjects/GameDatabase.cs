@@ -10,6 +10,8 @@ public class GameDatabase : BaseScriptableObject
     [Header("Events")]
     [SerializeField] JourneyEvent[] AllEvents;
     public JourneyEvent[] GetAllEvents() { return AllEvents; }
+    public JourneyEvent GetEventById(string id) { return AllEvents.FirstOrDefault(x => x.Id == id); }
+
 
     [Header("Cutscenes")]
     [SerializeField] Cutscene[] Cutscenes;
@@ -17,11 +19,9 @@ public class GameDatabase : BaseScriptableObject
 
 
     [Header("Board")]
-    [SerializeField] Sprite[] BattleNodeIcons;
     [SerializeField] TilemapBiome[] Biomes;
     [SerializeField] MapVariant[] MapVariants;
     [SerializeField] Brain[] EnemyBrains;
-    public Sprite GetRandomBattleNodeIcon() { return BattleNodeIcons[Random.Range(0, BattleNodeIcons.Length)]; }
     public TilemapBiome GetTilemapBiomeById(string id) { return Biomes.FirstOrDefault(x => x.Id == id); }
     public TilemapBiome GetRandomBiome() { return Biomes[Random.Range(0, Biomes.Length)]; }
     public MapVariant GetMapVariantById(string id) { return MapVariants.FirstOrDefault(x => x.Id == id); }
@@ -37,35 +37,26 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] Ability[] Abilities;
     [SerializeField] Item[] Items;
     [SerializeField] StatIcon[] StatIcons;
-    [Header("Battle")]
-    [SerializeField] BattleLogLineIcon[] BattleLogLineIcons;
-
-    [SerializeField] public RewardChest[] RewardChests;
-    [SerializeField] Sprite[] CoinSprites;
-
     public Character[] GetAllStarterTroops() { return StarterTroops; }
-
     public Sprite GetPortraitById(string id) { return Portraits.FirstOrDefault(x => x.ReferenceID == id).Sprite; }
-
     public Equipment GetBodyByName(string name) { return Bodies.FirstOrDefault(x => x.name == name); }
-
     public Weapon GetWeaponByName(string name) { return Weapons.FirstOrDefault(x => x.name == name); }
-
-    public JourneyEvent GetEventById(string id) { return AllEvents.FirstOrDefault(x => x.Id == id); }
-
-    // TODO: I am not certain if this reference ID and normal ID is a smart move.
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetAbilityByReferenceId(string id) { return Abilities.FirstOrDefault(x => x.ReferenceID == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
-
-    public Item GetItemByReference(string id) { return Items.FirstOrDefault(x => x.ReferenceID == id); }
+    public Item GetItemByReferenceId(string id) { return Items.FirstOrDefault(x => x.ReferenceID == id); }
     public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
-
     public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
 
+
+    [Header("Battle")]
+    [SerializeField] BattleLogLineIcon[] BattleLogLineIcons;
     public Sprite GetBattleLogLineIconByType(BattleLogLineType type) { return BattleLogLineIcons.FirstOrDefault(x => x.BattleLogLineType == type).Sprite; }
 
-    public RewardChest GetRandomRewardChest() { return RewardChests[Random.Range(0, RewardChests.Length)]; }
+    [Header("Dashboard")]
+    [SerializeField] Sprite[] CoinSprites;
+    [SerializeField] QuestIcon[] QuestIcons;
+    [SerializeField] RewardChest[] RewardChests;
 
     public Sprite GetCoinSprite(int amount)
     {
@@ -84,6 +75,12 @@ public class GameDatabase : BaseScriptableObject
 
         return CoinSprites[index];
     }
+
+    public QuestIcon GetQuestIconById(string id) { return QuestIcons.FirstOrDefault(x => x.Id == id); }
+    public QuestIcon GetRandomQuestIcon() { return QuestIcons[Random.Range(0, QuestIcons.Length)]; }
+
+    public RewardChest GetRandomRewardChest() { return RewardChests[Random.Range(0, RewardChests.Length)]; }
+
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
@@ -128,6 +125,8 @@ public struct RewardChest
     public Sprite[] Idle;
     public Sprite[] Open;
 }
+
+
 
 
 

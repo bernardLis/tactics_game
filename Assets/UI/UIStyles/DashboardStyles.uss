@@ -124,11 +124,11 @@
 .characterCardMiniSlot {
     width: 100px;
     height: 100px;
-    background-color: rgba(65, 77, 63, 255);
-    border-left-color: rgba(164, 164, 164, 255);
-    border-right-color: rgba(164, 164, 164, 255);
-    border-top-color: rgba(164, 164, 164, 255);
-    border-bottom-color: rgba(164, 164, 164, 255);
+    background-color: rgb(65, 77, 63);
+    border-left-color: rgb(164, 164, 164);
+    border-right-color: rgb(164, 164, 164);
+    border-top-color: rgb(164, 164, 164);
+    border-bottom-color: rgb(164, 164, 164);
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 2px;
@@ -172,4 +172,17 @@
     position: absolute;
     width: 100px;
     height: 100px;
+}
+
+.questList {
+    height: 80%;
+    width: 100%;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
 }

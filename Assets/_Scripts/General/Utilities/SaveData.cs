@@ -12,15 +12,15 @@ public class SaveData
 
     public int Gold;
     public int Day;
-    
+
     public List<string> ShopItems = new();
     public int ShopRerollPrice;
-
-    // run data
 
     public List<CharacterData> PlayerTroops = new();
     public List<string> ItemPouch = new();
     public List<string> AbilityPouch = new();
+
+    public List<QuestData> AvailableQuests = new();
 
     public string ToJson()
     {

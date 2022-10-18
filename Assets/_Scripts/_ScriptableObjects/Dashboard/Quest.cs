@@ -9,7 +9,7 @@ using System.Linq;
 public class Quest : BaseScriptableObject
 {
     [Header("Basics")]
-    public Sprite Icon;
+    public QuestIcon Icon;
     public string Title;
 
     [Header("Battle")]
@@ -27,13 +27,13 @@ public class Quest : BaseScriptableObject
     public int DayStarted;
     [HideInInspector] public List<Character> AssignedCharacters = new();
 
-
     GameManager _gameManager;
 
     public void CreateRandom()
     {
         _gameManager = GameManager.Instance;
-        Icon = _gameManager.GameDatabase.GetRandomBattleNodeIcon();
+        Icon = _gameManager.GameDatabase.GetRandomQuestIcon();
+        Debug.Log($"creating random Icon: {Icon}");
         Title = "Title of The Quest";
 
         Biome = _gameManager.GameDatabase.GetRandomBiome();
@@ -58,12 +58,11 @@ public class Quest : BaseScriptableObject
         AssignedCharacters = new();
     }
 
-    public void CreateFromData(BattleNodeData data)
+    public void CreateFromData(QuestData data)
     {
         _gameManager = GameManager.Instance;
 
-        // TODO: need icon with id
-        Icon = _gameManager.GameDatabase.GetRandomBattleNodeIcon();
+        Icon = _gameManager.GameDatabase.GetQuestIconById(data.QuestIconId);
         Title = data.Title;
         SceneToLoad = data.SceneToLoad;
 
@@ -75,11 +74,9 @@ public class Quest : BaseScriptableObject
         foreach (string e in data.Enemies)
             Enemies.Add(_gameManager.GameDatabase.GetEnemyBrainById(e));
 
-        // TODO: make reward serializable
         Reward = ScriptableObject.CreateInstance<Reward>();
-        Reward.IsRandomized = true;
-        Reward.GoldRange = new Vector2Int(4, 10);
-        Reward.HasItem = true;
+        Reward.Gold = data.RewardData.Gold;
+        Reward.Item = _gameManager.GameDatabase.GetItemByReferenceId(data.RewardData.ItemReferenceId);
 
         IsDelegated = data.IsDelegated;
         Duration = data.Duration;
@@ -102,19 +99,46 @@ public class Quest : BaseScriptableObject
             character.IsOnQuest = true;
         }
     }
+
+    public QuestData SerializeSelf()
+    {
+        QuestData qd = new();
+
+        qd.QuestIconId = Icon.Id;
+        qd.Title = Title;
+        qd.SceneToLoad = SceneToLoad;
+        qd.Biome = Biome.Id;
+        qd.MapVariant = MapVariant.Id;
+        qd.MapSize = MapSize;
+        qd.Enemies = new();
+        foreach (Brain e in Enemies)
+            qd.Enemies.Add(e.Id);
+
+        qd.RewardData = Reward.SerializeSelf();
+
+        qd.IsDelegated = IsDelegated;
+        qd.Duration = Duration;
+        qd.DayStarted = DayStarted;
+
+        qd.AssignedCharacters = new();
+        foreach (Character c in AssignedCharacters)
+            qd.AssignedCharacters.Add(c.Id);
+
+        return qd;
+    }
 }
 
 [Serializable]
-public struct BattleNodeData
+public struct QuestData
 {
-    // TODO: need icon with id
+    public string QuestIconId;
     public string Title;
     public string SceneToLoad;
     public string Biome;
     public string MapVariant;
     public Vector2Int MapSize;
     public List<string> Enemies;
-    // TODO: make reward serializable
+    public RewardData RewardData;
 
     public bool IsDelegated;
     public int Duration;

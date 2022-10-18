@@ -40,14 +40,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
 
-        // HERE: for now
-        for (int i = 0; i < 3; i++)
-        {
-            Quest q = ScriptableObject.CreateInstance<Quest>();
-            q.CreateRandom();
-            AvailableQuests.Add(q);
-        }
-
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
             CreateNewSaveFile();
@@ -172,8 +164,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadLevel(string level)
     {
-        if (level == Scenes.Dashboard)
-            SaveJsonData();
+        //      if (level == Scenes.Dashboard)
+        //            SaveJsonData();
 
         _levelLoader.LoadLevel(level);
         OnLevelLoaded?.Invoke(level);
@@ -212,6 +204,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         PlayerTroops = CreatePlayerTroops();
 
+        // TODO: HERE: for now, I could hand craft 3 first quests or somethinmg...
+        for (int i = 0; i < 3; i++)
+        {
+            Quest q = ScriptableObject.CreateInstance<Quest>();
+            q.CreateRandom();
+            AvailableQuests.Add(q);
+        }
+
         // new save
         string guid = System.Guid.NewGuid().ToString();
         string fileName = guid + ".dat";
@@ -247,6 +247,17 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.PlayerTroops = PopulateCharacters();
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
+
+        saveData.AvailableQuests = PopulateAvailableQuests();
+    }
+
+    List<string> PopulateShopItems()
+    {
+        List<string> itemReferenceIds = new();
+        foreach (Item i in ShopItems)
+            itemReferenceIds.Add(i.ReferenceID);
+
+        return itemReferenceIds;
     }
 
     List<CharacterData> PopulateCharacters()
@@ -284,15 +295,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         return charData;
     }
 
-    List<string> PopulateShopItems()
-    {
-        List<string> itemReferenceIds = new();
-        foreach (Item i in ShopItems)
-            itemReferenceIds.Add(i.ReferenceID);
-
-        return itemReferenceIds;
-    }
-
     List<string> PopulateItemPouch()
     {
         List<string> itemReferenceIds = new();
@@ -309,6 +311,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             abilityReferenceIds.Add(a.ReferenceID);
 
         return abilityReferenceIds;
+    }
+
+    List<QuestData> PopulateAvailableQuests()
+    {
+        List<QuestData> quests = new();
+        foreach (Quest q in AvailableQuests)
+            quests.Add(q.SerializeSelf());
+        return quests;
     }
 
     void LoadJsonData(string fileName)
@@ -329,10 +339,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Day = saveData.Day;
         Gold = saveData.Gold;
+
         ShopRerollPrice = saveData.ShopRerollPrice;
         ShopItems = new();
         foreach (string itemReferenceId in saveData.ShopItems)
-            ShopItems.Add(GameDatabase.GetItemByReference(itemReferenceId));
+            ShopItems.Add(GameDatabase.GetItemByReferenceId(itemReferenceId));
 
         PlayerTroops = new();
         foreach (CharacterData data in saveData.PlayerTroops)
@@ -344,15 +355,25 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         PlayerItemPouch = new();
         foreach (string itemReferenceId in saveData.ItemPouch)
-            PlayerItemPouch.Add(GameDatabase.GetItemByReference(itemReferenceId));
+            PlayerItemPouch.Add(GameDatabase.GetItemByReferenceId(itemReferenceId));
 
         PlayerAbilityPouch = new();
         foreach (string abilityReferenceId in saveData.AbilityPouch)
             PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
+
+        AvailableQuests = new();
+        foreach (QuestData qd in saveData.AvailableQuests)
+        {
+            Quest quest = ScriptableObject.CreateInstance<Quest>();
+            quest.CreateFromData(qd);
+            AvailableQuests.Add(quest);
+        }
     }
 
     public void ClearSaveData()
     {
+        PlayerPrefs.DeleteAll();
+
         WasTutorialPlayed = false;
         Seed = System.Environment.TickCount;
 
@@ -367,6 +388,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerAbilityPouch = new();
 
         CutsceneIndexToPlay = 0; // TODO: wrong but it's ok for now.
+
+        AvailableQuests = new();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

@@ -78,7 +78,7 @@ public class Character : BaseScriptableObject
             Abilities.Add(gameDatabase.GetAbilityByReferenceId(id));
 
         foreach (string id in data.ItemReferenceIds)
-            Items.Add(gameDatabase.GetItemByReference(id));
+            Items.Add(gameDatabase.GetItemByReferenceId(id));
     }
 
     public virtual void Initialize(GameObject obj)

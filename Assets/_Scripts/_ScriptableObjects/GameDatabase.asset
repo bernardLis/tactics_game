@@ -20,14 +20,6 @@ MonoBehaviour:
   Cutscenes:
   - {fileID: 11400000, guid: 68e749ab2331d26429c8b481dc4023e3, type: 2}
   - {fileID: 11400000, guid: 348e94e2b7bcb344682551f7fc4bb50b, type: 2}
-  BattleNodeIcons:
-  - {fileID: 21300000, guid: 174230f77630a924cb5a9ac7825dc90d, type: 3}
-  - {fileID: 21300000, guid: 15968a194dfe51b49bc2a583a4957492, type: 3}
-  - {fileID: 21300000, guid: b51c8ea1d2298f849a9ad9b3f74a9359, type: 3}
-  - {fileID: 21300000, guid: 74c108c1392ffdb4eb4e79bd11f34e57, type: 3}
-  - {fileID: 21300000, guid: e749b49a826e4ae42b6fb0a1a499bbdd, type: 3}
-  - {fileID: 21300000, guid: ae52f3097c4192c479ed56c6be6b8ea3, type: 3}
-  - {fileID: 21300000, guid: 50452134c5e00274790a19f4c5236a2e, type: 3}
   Biomes:
   - {fileID: 11400000, guid: a53d5abe5308c3d499efac31c14882cf, type: 2}
   - {fileID: 11400000, guid: 31bb81b2ebd793344bcbe3b01809c164, type: 2}
@@ -160,6 +152,33 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 663a57727e4288644a17ae1e179bd9bf, type: 3}
   - BattleLogLineType: 4
     Sprite: {fileID: 21300000, guid: 6ef794cf9af0fd54b93f34beaa0ed3cb, type: 3}
+  CoinSprites:
+  - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: -1827811568, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: 1029492290, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: 987951257, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  QuestIcons:
+  - {fileID: 11400000, guid: 0b2cc4bb2399e2d47b0be85bfee6fab5, type: 2}
+  - {fileID: 11400000, guid: c675ea081b9a1be47a46b6d06d6423df, type: 2}
+  - {fileID: 11400000, guid: 2facd72f0272b844dbd6c4725f3226f7, type: 2}
+  - {fileID: 11400000, guid: 6157b5c741522d34e92afd4919903dad, type: 2}
+  - {fileID: 11400000, guid: 3741209df5c0cf146863b81127e1fc96, type: 2}
+  - {fileID: 11400000, guid: 9cdab1cc5a86f3a40959a7154485dbcd, type: 2}
+  - {fileID: 11400000, guid: 59c0b4dc42158164b93b53002d841dc1, type: 2}
+  - {fileID: 11400000, guid: 4b90b45e6103a16468a68a0f99cee442, type: 2}
+  - {fileID: 11400000, guid: b608c3e015b36484bb8fa9036b473496, type: 2}
+  - {fileID: 11400000, guid: 8f972098733079e4386da281e5346685, type: 2}
+  - {fileID: 11400000, guid: ca40d2dbc6be03643abbed748f423b9d, type: 2}
+  - {fileID: 11400000, guid: b32cfd8acf59ab44792a3de81dd5aee5, type: 2}
+  - {fileID: 11400000, guid: fb26c7bd14e42e649acfa7151e22f2e8, type: 2}
+  - {fileID: 11400000, guid: 6433705628b251e409cc7d2b090cc31e, type: 2}
+  - {fileID: 11400000, guid: 6df885e1cce11f2409136dfd40809de1, type: 2}
+  - {fileID: 11400000, guid: 7e94607b52a3b134cb1498c604da18be, type: 2}
+  - {fileID: 11400000, guid: 9f8884225cd70aa41911ef4465c9189c, type: 2}
+  - {fileID: 11400000, guid: 1c53a0e27386bb54e98289545d8b83c6, type: 2}
+  - {fileID: 11400000, guid: 7c1657f6d85c6dc4a81e8af348e002f2, type: 2}
+  - {fileID: 11400000, guid: 8716ab055c6a43643aa056e0c5feffcc, type: 2}
   RewardChests:
   - Idle:
     - {fileID: 571803524, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
@@ -209,9 +228,3 @@ MonoBehaviour:
     - {fileID: -1529983679, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
     - {fileID: 730016207, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
     - {fileID: -758821132, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-  CoinSprites:
-  - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - {fileID: -1827811568, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - {fileID: 1029492290, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - {fileID: 987951257, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

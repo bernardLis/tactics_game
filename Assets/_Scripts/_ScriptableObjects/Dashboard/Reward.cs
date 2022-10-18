@@ -1,11 +1,12 @@
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Journey/Reward")]
 public class Reward : BaseScriptableObject
 {
     protected GameManager _gameManager;
     [Header("Main")]
-    public int Obols;
     public int Gold;
     public Item Item;
 
@@ -59,4 +60,24 @@ public class Reward : BaseScriptableObject
     }
 
     void HandleRecruit() { _gameManager.AddCharacterToTroops(Recruit); }
+
+
+    public RewardData SerializeSelf()
+    {
+        RewardData rd = new();
+        rd.Gold = Gold;
+        rd.ItemReferenceId = Item.ReferenceID;
+
+        return rd;
+    }
+
+}
+
+
+[Serializable]
+public struct RewardData
+{
+    // TODO: need icon with id
+    public int Gold;
+    public string ItemReferenceId;
 }

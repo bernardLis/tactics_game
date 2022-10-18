@@ -14,6 +14,7 @@ public class ShopManager : UIDraggables
 
     VisualElement _shopRerollContainer;
     GoldElement _rerollPriceGoldElement;
+    Label _shopResetInfo;
 
     VisualElement _shopSellContainer;
     VisualElement _sellItemValueTooltip;
@@ -39,6 +40,7 @@ public class ShopManager : UIDraggables
 
         _shopRerollContainer.Add(rerollButton);
         _shopRerollContainer.Add(_rerollPriceGoldElement);
+        _shopResetInfo = _root.Q<Label>("shopResetInfo");
 
         _shopSellContainer = _root.Q<VisualElement>("shopSellContainer");
         _sellItemValueTooltip = _root.Q<VisualElement>("sellItemValueTooltip");
@@ -59,6 +61,8 @@ public class ShopManager : UIDraggables
         header.AddToClassList("textPrimary");
         _pouchContainer.Add(header);
         _pouchContainer.Add(CreateItemPouch());
+
+        UpdateShopResetInfo();
     }
 
     void Reroll()
@@ -101,9 +105,20 @@ public class ShopManager : UIDraggables
         }
     }
 
+    void UpdateShopResetInfo()
+    {
+
+        int daysUntilReset = 7 - _gameManager.Day % 7;
+        if (daysUntilReset == 0)
+            daysUntilReset = 7;
+
+        _shopResetInfo.text = $"Shop resets in {daysUntilReset} days";
+
+
+    }
+
     void OnShopItemPointerDown(PointerDownEvent evt)
     {
-        Debug.Log($"on shop intem pointer down");
         if (evt.button != 0)
             return;
 

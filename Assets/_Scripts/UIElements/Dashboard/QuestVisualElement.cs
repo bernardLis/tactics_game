@@ -31,7 +31,7 @@ public class QuestVisualElement : VisualElement
         Add(basicInfoContainer);
 
         Label icon = new();
-        icon.style.backgroundImage = new StyleBackground(quest.Icon);
+        icon.style.backgroundImage = new StyleBackground(quest.Icon.Icon);
         icon.style.width = 50;
         icon.style.height = 50;
         basicInfoContainer.Add(icon);
@@ -208,5 +208,4 @@ public class QuestVisualElement : VisualElement
     {
         _quest.DelegateQuest();
     }
-
 }

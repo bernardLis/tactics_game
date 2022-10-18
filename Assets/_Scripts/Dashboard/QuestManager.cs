@@ -10,7 +10,7 @@ public class QuestManager : MonoBehaviour
     DraggableCharacters _draggableCharacters;
     VisualElement _root;
 
-    VisualElement _questsList;
+    ScrollView _questsList;
     VisualElement _questTroopsContainer;
 
     void Start()
@@ -23,7 +23,7 @@ public class QuestManager : MonoBehaviour
 
         _draggableCharacters = GetComponent<DraggableCharacters>();
 
-        _questsList = _root.Q<VisualElement>("questsList");
+        _questsList = _root.Q<ScrollView>("questList");
         _questTroopsContainer = _root.Q<VisualElement>("questTroopsContainer");
 
         Initialize();

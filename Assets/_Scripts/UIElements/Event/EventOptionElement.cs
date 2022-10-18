@@ -38,11 +38,6 @@ public class EventOptionElement : VisualElement
         rewardContainer.style.alignItems = Align.Center;
         Add(rewardContainer);
 
-        if (option.Reward.Obols != 0)
-        {
-            Label obols = new($"Obols: {option.Reward.Obols}");
-            rewardContainer.Add(obols);
-        }
         if (option.Reward.Gold != 0)
         {
             _goldElement = new(option.Reward.Gold);
