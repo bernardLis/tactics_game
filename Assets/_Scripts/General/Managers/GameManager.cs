@@ -71,6 +71,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         PayMaintenance();
         AddRandomQuest();
+        ResolveDelegatedQuests();
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
@@ -85,6 +86,23 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
         AvailableQuests.Add(q);
+    }
+
+    void ResolveDelegatedQuests()
+    {
+        foreach (Quest q in AvailableQuests)
+        {
+            if (!q.IsDelegated)
+                continue;
+
+            if (q.CountDaysLeft() > 0)
+                continue;
+            
+            // roll for success // HERE: 
+                // if success get rewards, unlock characters
+                // else no rewards, characters are locked for x days
+        }   
+
     }
 
     public void ChangeGoldValue(int o)
@@ -186,6 +204,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (Character character in playerCharacters)
         {
             Character instance = Instantiate(character);
+            OnDayPassed += instance.OnDayPassed;
             instantiatedTroops.Add(instance);
         }
 

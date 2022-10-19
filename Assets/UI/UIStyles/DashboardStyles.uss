@@ -141,6 +141,23 @@
     margin-bottom: 10px;
 }
 
+.characterCardMiniSlotLocked {
+    width: 100px;
+    height: 100px;
+    background-image: none;
+    background-color: rgb(72, 72, 72);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .characterCardMiniSlot:hover {
     width: 100px;
     height: 100px;
@@ -185,15 +202,4 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
-}
-
-.characterCardMiniSlotLocked {
-    width: 100px;
-    height: 100px;
-    background-image: none;
-    background-color: rgba(72, 72, 72, 255);
-    border-left-color: rgba(0, 0, 0, 255);
-    border-right-color: rgba(0, 0, 0, 255);
-    border-top-color: rgba(0, 0, 0, 255);
-    border-bottom-color: rgba(0, 0, 0, 255);
 }

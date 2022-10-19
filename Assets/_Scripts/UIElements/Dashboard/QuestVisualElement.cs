@@ -66,11 +66,10 @@ public class QuestVisualElement : VisualElement
 
     void AddDaysLeftLabel()
     {
-        int daysLeft = _quest.Duration - _gameManager.Day - _quest.DayStarted;
-        Label daysLeftLabel = new($"{daysLeft} days left.");
+        int daysLeft = _quest.CountDaysLeft();
+        Label daysLeftLabel = new($"{daysLeft} days left. Success chance: {_quest.GetSuccessChance()}%.");
         _basicInfoContainer.Add(daysLeftLabel);
     }
-
 
     void OnPointerUp(PointerUpEvent evt)
     {
@@ -195,7 +194,7 @@ public class QuestVisualElement : VisualElement
             return;
         }
 
-        _successChance.text = $"Success chance: {CountAssignedCharacters() * 25}%. Duration: {_quest.Duration} days. ";
+        _successChance.text = $"Duration: {_quest.Duration} days. Success chance: {_quest.GetSuccessChance()}%. ";
         _startAssignementButton.ChangeCallback(DelegateBattle);
         _startAssignementButton.text = "Delegate It Out!";
     }
@@ -235,5 +234,6 @@ public class QuestVisualElement : VisualElement
         _startAssignementButton.SetEnabled(false);
 
         AddDaysLeftLabel();
+        Remove(_successChance);
     }
 }

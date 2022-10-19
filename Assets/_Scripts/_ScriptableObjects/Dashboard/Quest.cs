@@ -29,6 +29,30 @@ public class Quest : BaseScriptableObject
 
     GameManager _gameManager;
 
+
+    public void AssignCharacter(Character character) { AssignedCharacters.Add(character); }
+
+    public void RemoveAssignedCharacter(Character character) { AssignedCharacters.Remove(character); }
+
+    public int GetSuccessChance() { return AssignedCharacters.Count * 25; } // TODO: ofc, something cooler!
+
+    public void DelegateQuest()
+    {
+        DayStarted = _gameManager.Day;
+        IsDelegated = true;
+
+        foreach (Character character in AssignedCharacters)
+        {
+            character.IsUnavailable = true;
+            character.DayStartedBeingUnavailable = DayStarted;
+            character.UnavailabilityDuration = Duration;
+        }
+
+        _gameManager.SaveJsonData();
+    }
+
+    public int CountDaysLeft() { return Duration - (_gameManager.Day - DayStarted); }
+
     public void CreateRandom()
     {
         _gameManager = GameManager.Instance;
@@ -84,23 +108,6 @@ public class Quest : BaseScriptableObject
         AssignedCharacters = new();
         foreach (string id in data.AssignedCharacters)
             AssignedCharacters.Add(_gameManager.PlayerTroops.First(x => x.Id == id));
-    }
-
-    public void AssignCharacter(Character character) { AssignedCharacters.Add(character); }
-
-    public void RemoveAssignedCharacter(Character character) { AssignedCharacters.Remove(character); }
-
-    public void DelegateQuest()
-    {
-        DayStarted = _gameManager.Day;
-        IsDelegated = true;
-
-        foreach (Character character in AssignedCharacters)
-        {
-            character.IsOnQuest = true;
-        }
-
-        _gameManager.SaveJsonData();
     }
 
     public QuestData SerializeSelf()

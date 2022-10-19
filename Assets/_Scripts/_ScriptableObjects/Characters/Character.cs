@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "ScriptableObject/Character/Player")]
 public class Character : BaseScriptableObject
 {
+    GameManager _gameManager;
+
     // character scriptable object holds stats & abilities of a character.
     // it passes these values to CharacterStats script where they can be used in game.
     public string ReferenceID;
@@ -41,7 +43,9 @@ public class Character : BaseScriptableObject
     public List<Ability> Abilities = new();
 
     [Header("Quest")]
-    [HideInInspector] public bool IsOnQuest;
+    [HideInInspector] public bool IsUnavailable;
+    [HideInInspector] public int DayStartedBeingUnavailable;
+    [HideInInspector] public int UnavailabilityDuration;
 
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
@@ -195,10 +199,23 @@ public class Character : BaseScriptableObject
 
     }
 
+    public void OnDayPassed(int day)
+    {
+        if (!IsUnavailable)
+            return;
+
+        UnavailabilityDuration--;
+        if (UnavailabilityDuration <= 0)
+            IsUnavailable = false;
+    }
+
     // creates character at runtime from saved data
     public virtual void CreateFromData(CharacterData data)
     {
-        GameDatabase gameDatabase = GameManager.Instance.GameDatabase;
+        _gameManager = GameManager.Instance;
+        GameDatabase gameDatabase = _gameManager.GameDatabase;
+        _gameManager.OnDayPassed += OnDayPassed;
+
         Id = data.Id;
         ReferenceID = data.ReferenceID;
         CharacterName = data.CharacterName;
@@ -223,9 +240,10 @@ public class Character : BaseScriptableObject
         foreach (string id in data.ItemReferenceIds)
             Items.Add(gameDatabase.GetItemByReferenceId(id));
 
-        IsOnQuest = data.IsOnQuest;
+        IsUnavailable = data.IsOnUnavailable;
+        DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
+        UnavailabilityDuration = data.UnavailabilityDuration;
     }
-
 
     public CharacterData SerializeSelf()
     {
@@ -254,7 +272,9 @@ public class Character : BaseScriptableObject
             itemReferenceIds.Add(i.ReferenceID);
         data.ItemReferenceIds = new(itemReferenceIds);
 
-        data.IsOnQuest = IsOnQuest;
+        data.IsOnUnavailable = IsUnavailable;
+        data.DayStartedBeingUnavailable = DayStartedBeingUnavailable;
+        data.UnavailabilityDuration = UnavailabilityDuration;
 
         return data;
     }
@@ -280,5 +300,8 @@ public struct CharacterData
     public List<string> AbilityReferenceIds;
     public List<string> ItemReferenceIds;
 
-    public bool IsOnQuest;
+    public bool IsOnUnavailable;
+    public int DayStartedBeingUnavailable;
+    public int UnavailabilityDuration;
+
 }

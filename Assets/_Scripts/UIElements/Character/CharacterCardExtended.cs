@@ -17,8 +17,9 @@ public class CharacterCardExtended : CharacterCard
     public CharacterCardExtended(Character character) : base(character, false)
     {
         AddToClassList("uiContainer");
+        style.minWidth = 600;
         style.maxHeight = 400;
-        style.maxWidth = 600;
+        style.maxWidth = 700;
 
         _characteristics.Add(CreateExpGroup(character));
 
@@ -36,7 +37,6 @@ public class CharacterCardExtended : CharacterCard
 
         AvailablityCheck(); // for armory
     }
-
 
     VisualElement CreateExpGroup(Character character)
     {
@@ -115,20 +115,21 @@ public class CharacterCardExtended : CharacterCard
 
     void AvailablityCheck()
     {
-        if (!Character.IsOnQuest)
+        if (!Character.IsUnavailable)
             return;
 
         VisualElement overlay = new VisualElement();
         Add(overlay);
         overlay.BringToFront();
         overlay.style.position = Position.Absolute;
-        overlay.style.width = Length.Percent(100);
-        overlay.style.height = Length.Percent(100);
+        overlay.style.width = Length.Percent(105);
+        overlay.style.height = Length.Percent(105);
+        overlay.style.alignSelf = Align.Center;
         overlay.style.alignItems = Align.Center;
         overlay.style.justifyContent = Justify.Center;
         overlay.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
 
-        Label text = new("Unavailable!");
+        Label text = new($"Unavailable! ({Character.UnavailabilityDuration})");
         text.AddToClassList("textPrimary");
         text.style.fontSize = 60;
         text.transform.rotation *= Quaternion.Euler(0f, 0f, 45f);

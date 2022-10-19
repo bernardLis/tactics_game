@@ -72,7 +72,7 @@ public class UIDraggables : MonoBehaviour
             _characterCards.Add(card);
             container.Add(card);
 
-            if (character.IsOnQuest) // can't change items when on quest
+            if (character.IsUnavailable) // can't change items when on quest
                 continue;
 
             // allow moving character items

@@ -38,7 +38,7 @@ public class QuestManager : MonoBehaviour
             _questsList.Add(new QuestVisualElement(q));
 
         foreach (Character character in _gameManager.PlayerTroops)
-            if (!character.IsOnQuest)
+            if (!character.IsUnavailable)
                 _questTroopsContainer.Add(new CharacterCardMiniSlot(new CharacterCardMini(character)));
 
         _questTroopsContainer.Add(new CharacterCardMiniSlot());
