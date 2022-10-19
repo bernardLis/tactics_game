@@ -85,7 +85,6 @@ public class GameDatabase : BaseScriptableObject
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
 public enum WeaponType { Any, Melee, Ranged }
-public enum UpgradeType { Character, Run }
 public enum ItemRaririty { Common, Magic, Rare, Epic }
 public enum BattleGoal { DefeatAllEnemies } // TODO: implement other battle goals (defeat the leader, hold position, ...)
 public enum JourneyNodeType { Start, End, Battle, Knowledge, Chest, Shop, Fire, Boss, Event }
@@ -96,7 +95,7 @@ public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
-
+public enum ReportType { NewQuest, FinishedQuest, Recruit, Maintenance, }
 
 [System.Serializable]
 public struct PortraitEntry

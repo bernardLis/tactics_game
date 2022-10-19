@@ -19,6 +19,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Day { get; private set; }
     public int Gold { get; private set; }
 
+    public List<Quest> NewQuests = new();
     public List<Quest> AvailableQuests = new();
 
     public List<Item> ShopItems = new();
@@ -27,6 +28,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
+
+    public List<Report> Reports = new();
 
     public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
@@ -85,7 +88,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
-        AvailableQuests.Add(q);
+        NewQuests.Add(q);
     }
 
     void ResolveDelegatedQuests()
@@ -97,11 +100,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
             if (q.CountDaysLeft() > 0)
                 continue;
-            
+
             // roll for success // HERE: 
-                // if success get rewards, unlock characters
-                // else no rewards, characters are locked for x days
-        }   
+            // if success get rewards, unlock characters
+            // else no rewards, characters are locked for x days
+        }
 
     }
 
@@ -189,7 +192,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         OnLevelLoaded?.Invoke(level);
     }
 
-
     /*************
     * Saving and Loading
     * https://www.youtube.com/watch?v=uD7y4T4PVk0
@@ -267,6 +269,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
 
+        saveData.NewQuests = PopulateNewQuests();
         saveData.AvailableQuests = PopulateAvailableQuests();
     }
 
@@ -304,6 +307,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             abilityReferenceIds.Add(a.ReferenceID);
 
         return abilityReferenceIds;
+    }
+
+    List<QuestData> PopulateNewQuests()
+    {
+        List<QuestData> quests = new();
+        foreach (Quest q in NewQuests)
+            quests.Add(q.SerializeSelf());
+        return quests;
     }
 
     List<QuestData> PopulateAvailableQuests()
@@ -356,13 +367,21 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (string abilityReferenceId in saveData.AbilityPouch)
             PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
 
-        LoadQuests();
+        LoadQuests(saveData);
     }
 
-    void LoadQuests()
+    void LoadQuests(SaveData saveData)
     {
+        NewQuests = new();
+        foreach (QuestData qd in saveData.NewQuests)
+        {
+            Quest quest = ScriptableObject.CreateInstance<Quest>();
+            quest.CreateFromData(qd);
+            NewQuests.Add(quest);
+        }
+
         AvailableQuests = new();
-        foreach (QuestData qd in _originalSaveData.AvailableQuests)
+        foreach (QuestData qd in saveData.AvailableQuests)
         {
             Quest quest = ScriptableObject.CreateInstance<Quest>();
             quest.CreateFromData(qd);
@@ -390,6 +409,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         CutsceneIndexToPlay = 0; // TODO: wrong but it's ok for now.
 
+        NewQuests = new();
         AvailableQuests = new();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))

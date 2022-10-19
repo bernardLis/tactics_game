@@ -77,7 +77,6 @@ public class Reward : BaseScriptableObject
 [Serializable]
 public struct RewardData
 {
-    // TODO: need icon with id
     public int Gold;
     public string ItemReferenceId;
 }

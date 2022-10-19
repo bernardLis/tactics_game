@@ -12,9 +12,8 @@ public class DaySummaryManager : MonoBehaviour
 
     VisualElement _root;
     VisualElement _mainDaySummary;
-    VisualElement _daySummaryContent;
+    Label _daySummaryDayLabel;
 
-    VisualElement _questsList;
 
     void Start()
     {
@@ -26,6 +25,7 @@ public class DaySummaryManager : MonoBehaviour
         _root = _dashboardManager.Root;
 
         _mainDaySummary = _root.Q<VisualElement>("mainDaySummary");
+        _daySummaryDayLabel = _root.Q<Label>("daySummaryDayLabel");
 
         _dashboardManager.OnDaySummaryClicked += Initialize;
 
@@ -36,12 +36,10 @@ public class DaySummaryManager : MonoBehaviour
     {
         _mainDaySummary.Clear();
 
-
-        Label newDay = new($"Day: {_gameManager.Day}");
-        newDay.style.opacity = 0;
-        newDay.style.fontSize = 76;
-        _mainDaySummary.Add(newDay);
-        DOTween.To(() => newDay.style.opacity.value, x => newDay.style.opacity = x, 1f, 1f);
+        _daySummaryDayLabel = new($"Day: {_gameManager.Day}");
+        _daySummaryDayLabel.style.opacity = 0;
+        _daySummaryDayLabel.style.fontSize = 76;
+        DOTween.To(() => _daySummaryDayLabel.style.opacity.value, x => _daySummaryDayLabel.style.opacity = x, 1f, 1f);
 
         await Task.Delay(200);
 
