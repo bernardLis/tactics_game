@@ -13,6 +13,9 @@ public class DaySummaryManager : MonoBehaviour
     VisualElement _root;
     VisualElement _mainDaySummary;
     Label _daySummaryDayLabel;
+    VisualElement _reportsContainer;
+
+    MyButton _passDayButton;
 
 
     void Start()
@@ -26,44 +29,75 @@ public class DaySummaryManager : MonoBehaviour
 
         _mainDaySummary = _root.Q<VisualElement>("mainDaySummary");
         _daySummaryDayLabel = _root.Q<Label>("daySummaryDayLabel");
+        _reportsContainer = _root.Q<VisualElement>("reportsContainer");
 
         _dashboardManager.OnDaySummaryClicked += Initialize;
+        _dashboardManager.OnHideAllPanels += HidePassDay;
+
+        _passDayButton = new("Pass Day", "menuButton", PassDay);
+        _passDayButton.style.opacity = 0;
+        _passDayButton.style.display = DisplayStyle.None;
+        _mainDaySummary.Add(_passDayButton);
 
         Initialize();
     }
 
     async void Initialize()
     {
-        _mainDaySummary.Clear();
-
-        _daySummaryDayLabel = new($"Day: {_gameManager.Day}");
+        _daySummaryDayLabel.text = $"Day: {_gameManager.Day}";
         _daySummaryDayLabel.style.opacity = 0;
         _daySummaryDayLabel.style.fontSize = 76;
         DOTween.To(() => _daySummaryDayLabel.style.opacity.value, x => _daySummaryDayLabel.style.opacity = x, 1f, 1f);
 
         await Task.Delay(200);
 
-        Label maintenance = new($"Maintenance cost: {_gameManager.GetCurrentMaintenanceCost()}");
-        maintenance.style.opacity = 0;
-        maintenance.style.fontSize = 36;
-        _mainDaySummary.Add(maintenance);
-        DOTween.To(() => maintenance.style.opacity.value, x => maintenance.style.opacity = x, 1f, 1f);
+        _reportsContainer.Clear();
+        int marginLeftValue = 25; // percent
+        int marginTopValue = 0; // pixels  yeah! 
 
-        await Task.Delay(200);
+        foreach (Report report in _gameManager.Reports)
+        {
+            // TODO: here I can move them to look better.
+            ReportVisualElement el = new(_reportsContainer, report);
 
-        Label rewards = new($"Rewards: ");
-        rewards.style.opacity = 0;
-        maintenance.style.fontSize = 48;
-        _mainDaySummary.Add(rewards);
-        DOTween.To(() => rewards.style.opacity.value, x => rewards.style.opacity = x, 1f, 1f);
+            el.style.marginLeft = Length.Percent(0);
+            el.style.marginTop = marginTopValue;
 
-        await Task.Delay(200);
+            el.OnReportDismissed += OnReportDimissed;
+            _reportsContainer.Add(el);
 
-        MyButton passDayButton = new("Pass Day", "menuButton", PassDay);
-        passDayButton.style.opacity = 0;
-        _mainDaySummary.Add(passDayButton);
-        DOTween.To(() => passDayButton.style.opacity.value, x => passDayButton.style.opacity = x, 1f, 1f);
+            // move from the elft quickly
+            //            DOTween.To(() => el.style.marginLeft.value.value, x => el.style.marginLeft.value.value = x, 1f, 1f);
+
+            marginLeftValue--;
+            marginTopValue -= 10;
+
+        }
+
+        if (_gameManager.Reports.Count == 0)
+            ShowPassDayButton();
     }
+
+    void OnReportDimissed()
+    {
+        if (_reportsContainer.childCount > 0)
+            return;
+
+        ShowPassDayButton();
+    }
+
+    void ShowPassDayButton()
+    {
+        _passDayButton.style.display = DisplayStyle.Flex;
+        DOTween.To(() => _passDayButton.style.opacity.value, x => _passDayButton.style.opacity = x, 1f, 1f);
+    }
+
+    void HidePassDay()
+    {
+        _passDayButton.style.display = DisplayStyle.None;
+        _passDayButton.style.opacity = 0;
+    }
+
 
     void PassDay() { _gameManager.PassDay(); }
 

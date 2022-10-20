@@ -41,6 +41,9 @@ public class Reward : BaseScriptableObject
         if (Gold != 0)
             _gameManager.ChangeGoldValue(Gold);
 
+        if (Item != null)
+            _gameManager.AddItemToPouch(Item);
+
         if (PercentSacrificed != 0)
             HandleSacrifice();
 

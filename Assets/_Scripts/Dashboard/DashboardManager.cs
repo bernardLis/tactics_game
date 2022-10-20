@@ -36,6 +36,7 @@ public class DashboardManager : MonoBehaviour
     public event Action OnArmoryClicked;
     public event Action OnAbilitiesClicked;
     public event Action OnShopClicked;
+    public event Action OnHideAllPanels;
 
     void Awake()
     {
@@ -148,6 +149,8 @@ public class DashboardManager : MonoBehaviour
         _mainAbilities.style.display = DisplayStyle.None;
         _mainShop.style.display = DisplayStyle.None;
         _mainDaySummary.style.display = DisplayStyle.None;
+
+        OnHideAllPanels?.Invoke();
     }
 
     void UpdateDay(int dayNumber)

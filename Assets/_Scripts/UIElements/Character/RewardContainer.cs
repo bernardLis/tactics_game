@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
-public class RewardsContainer : VisualElement
+using System;
+using Random = UnityEngine.Random;
+
+public class RewardContainer : VisualElement
 {
-    ScreenWithDraggables _screenWithDraggables;
+    //   ScreenWithDraggables _screenWithDraggables;
 
     RewardChest _rewardChest;
     int _idleSpriteIndex = 0;
@@ -16,13 +19,16 @@ public class RewardsContainer : VisualElement
     int _flyLeft = -1;
     int _offsetX = 0;
 
-    public RewardsContainer(Reward reward, ScreenWithDraggables screenWithDraggables)
+
+    public event Action OnChestOpen;
+
+    public RewardContainer(Reward reward)// ScreenWithDraggables screenWithDraggables)
     {
         style.flexGrow = 1;
         style.flexShrink = 0;
         style.justifyContent = Justify.Center;
 
-        _screenWithDraggables = screenWithDraggables;
+        // _screenWithDraggables = screenWithDraggables;
         _reward = reward;
 
         _rewardChest = GameManager.Instance.GameDatabase.GetRandomRewardChest();
@@ -62,6 +68,8 @@ public class RewardsContainer : VisualElement
 
     async void PlayChestOpenAnimation()
     {
+        OnChestOpen?.Invoke();
+
         // TODO: I could play some nice effect here
         // both sound and fx
         _isChestOpened = true;
@@ -73,12 +81,12 @@ public class RewardsContainer : VisualElement
         }
 
         if (_reward.Gold != 0)
-            FlyingReward(new GoldElement(_reward.Gold, true));
+            FlyingReward(new GoldElement(_reward.Gold));
 
         await Task.Delay(200);
 
-        if (_reward.Item != null)
-            FlyingReward(_screenWithDraggables.CreateDraggableItem(_reward.Item));
+        //   if (_reward.Item != null)
+        //     FlyingReward(_screenWithDraggables.CreateDraggableItem(_reward.Item));
     }
 
     void FlyingReward(VisualElement el)

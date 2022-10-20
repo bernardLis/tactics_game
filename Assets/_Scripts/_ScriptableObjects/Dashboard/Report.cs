@@ -9,7 +9,13 @@ public class Report : BaseScriptableObject
 
     public Quest Quest;
     public Character Recruit;
-    public int MaintenanceCost;
+    public string Text;
+
+    public Report(string text)
+    {
+        ReportType = ReportType.Text;
+        Text = text;
+    }
 
     public void CreateFromData(ReportData data)
     {
@@ -30,9 +36,8 @@ public class Report : BaseScriptableObject
             return;
         }
 
-        if (ReportType == ReportType.Maintenance)
-            MaintenanceCost = data.MaintenanceCost;
-
+        if (ReportType == ReportType.Text)
+            Text = data.Text;
     }
 
     public ReportData SerializeSelf()
@@ -46,12 +51,11 @@ public class Report : BaseScriptableObject
         if (Recruit != null)
             rd.Recruit = Recruit.SerializeSelf();
 
-        if (MaintenanceCost != 0)
-            rd.MaintenanceCost = MaintenanceCost;
+        if (Text != null)
+            rd.Text = Text;
 
         return rd;
     }
-
 }
 
 
@@ -64,5 +68,5 @@ public struct ReportData
 
     public CharacterData Recruit;
 
-    public int MaintenanceCost;
+    public string Text;
 }

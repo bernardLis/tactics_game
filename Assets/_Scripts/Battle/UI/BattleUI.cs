@@ -23,7 +23,7 @@ public class BattleUI : Singleton<BattleUI>
 
 
     ScreenWithDraggables _battleEndScreen;
-    RewardsContainer _battleRewardsContainer;
+    RewardContainer _battleRewardsContainer;
     bool _wasRewardWarningDisplayed;
     VisualElement _battleEndGoalContainer;
 

@@ -141,6 +141,7 @@ public class TurnManager : Singleton<TurnManager>
     void HandleWinning()
     {
         // TODO: this
+        _gameManager.BattleWon();
         Debug.Log("You won!");
     }
 
@@ -149,6 +150,8 @@ public class TurnManager : Singleton<TurnManager>
         // TODO: this
         // for now game over screen
         // load home 
+        _gameManager.BattleLost();
+
         Debug.Log("Ugh... you lost!");
     }
 

@@ -66,9 +66,6 @@ public class GoldElement : VisualElement
         int steps = Mathf.Abs(displayAmount - newValue);
         int delay = 1000 / steps;
 
-
-        Debug.Log($"gold element changing the amount {newValue}");
-
         while (displayAmount != newValue)
         {
             if (displayAmount < newValue)

@@ -30,6 +30,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
     public List<Report> Reports = new();
+    public List<Report> ReportArchive = new();
 
     public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
@@ -60,6 +61,32 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             LoadLevel(Scenes.Dashboard);
     }
 
+    public void BattleWon()
+    {
+        LoadLevel(Scenes.Dashboard);
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Quest = ActiveQuest;
+        r.ReportType = ReportType.FinishedQuest;
+        Reports.Add(r);
+        ActiveQuest.Won();
+        ActiveQuest = null;
+        PassDay();
+    }
+
+    public void BattleLost()
+    {
+        LoadLevel(Scenes.Dashboard);
+
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Quest = ActiveQuest;
+        r.ReportType = ReportType.FinishedQuest;
+        Reports.Add(r);
+
+        ActiveQuest.Lost();
+        ActiveQuest = null;
+        PassDay();
+    }
+
 
     /* RESOURCES */
     public void PassDay()
@@ -67,20 +94,28 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Day += 1;
 
         if (Day % 7 == 0) // shop resets every 7th day
-        {
-            ChooseShopItems();
-            ChangeShopRerollPrice(2);
-        }
+            ResetShop();
 
         PayMaintenance();
         AddRandomQuest();
         ResolveDelegatedQuests();
+        // chance for new recruit to arrive
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
     }
 
-    void PayMaintenance() { ChangeGoldValue(-GetCurrentMaintenanceCost()); }
+    void PayMaintenance()
+    {
+        ChangeGoldValue(-GetCurrentMaintenanceCost());
+
+        int cost = GetCurrentMaintenanceCost();
+
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Text = $"Maintenance is paid: {cost}";
+        r.ReportType = ReportType.Text;
+        Reports.Add(r);
+    }
 
     public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 2; }
 
@@ -89,10 +124,16 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
         NewQuests.Add(q);
+
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Quest = q;
+        r.ReportType = ReportType.NewQuest;
+        Reports.Add(r);
     }
 
     void ResolveDelegatedQuests()
     {
+        List<Quest> questsToRemove = new();
         foreach (Quest q in AvailableQuests)
         {
             if (!q.IsDelegated)
@@ -101,11 +142,19 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             if (q.CountDaysLeft() > 0)
                 continue;
 
-            // roll for success // HERE: 
+
+            // roll for success // HERE:
+            questsToRemove.Add(q);
             // if success get rewards, unlock characters
             // else no rewards, characters are locked for x days
+            Report r = ScriptableObject.CreateInstance<Report>();
+            r.Quest = q;
+            r.ReportType = ReportType.FinishedQuest;
+            Reports.Add(r);
         }
 
+        foreach (Quest q in questsToRemove)
+            AvailableQuests.Remove(q);
     }
 
     public void ChangeGoldValue(int o)
@@ -123,6 +172,17 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         ShopItems.Remove(item);
         SaveJsonData();
+    }
+
+    void ResetShop()
+    {
+        ChooseShopItems();
+        ChangeShopRerollPrice(2);
+
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Text = "New inventory in the shop! Visit us!";
+        r.ReportType = ReportType.Text;
+        Reports.Add(r);
     }
 
     public void ChooseShopItems()

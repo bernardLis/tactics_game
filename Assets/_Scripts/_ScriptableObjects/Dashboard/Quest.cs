@@ -27,6 +27,8 @@ public class Quest : BaseScriptableObject
     public int DayStarted;
     [HideInInspector] public List<Character> AssignedCharacters = new();
 
+    public bool IsWon;
+
     GameManager _gameManager;
 
 
@@ -52,6 +54,17 @@ public class Quest : BaseScriptableObject
     }
 
     public int CountDaysLeft() { return Duration - (_gameManager.Day - DayStarted); }
+
+    public void Won()
+    {
+        IsWon = true;
+    }
+
+    public void Lost()
+    {
+        IsWon = false;
+
+    }
 
     public void CreateRandom()
     {
@@ -108,6 +121,8 @@ public class Quest : BaseScriptableObject
         AssignedCharacters = new();
         foreach (string id in data.AssignedCharacters)
             AssignedCharacters.Add(_gameManager.PlayerTroops.First(x => x.Id == id));
+
+        IsWon = data.IsWon;
     }
 
     public QuestData SerializeSelf()
@@ -134,6 +149,8 @@ public class Quest : BaseScriptableObject
         foreach (Character c in AssignedCharacters)
             qd.AssignedCharacters.Add(c.Id);
 
+        qd.IsWon = IsWon;
+
         return qd;
     }
 }
@@ -155,6 +172,8 @@ public struct QuestData
     public int DayStarted;
 
     public List<string> AssignedCharacters;
+
+    public bool IsWon;
 
 }
 
