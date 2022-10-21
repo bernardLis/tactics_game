@@ -85,8 +85,8 @@ public class RewardContainer : VisualElement
 
         await Task.Delay(200);
 
-        //   if (_reward.Item != null)
-        //     FlyingReward(_screenWithDraggables.CreateDraggableItem(_reward.Item));
+        if (_reward.Item != null)
+             FlyingReward(new ItemVisual(_reward.Item));
     }
 
     void FlyingReward(VisualElement el)

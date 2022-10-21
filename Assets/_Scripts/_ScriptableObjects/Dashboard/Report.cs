@@ -11,18 +11,27 @@ public class Report : BaseScriptableObject
     public Character Recruit;
     public string Text;
 
+    public bool IsSigned;
+    public int DaySigned;
+    public bool WasAccepted;
+
     public Report(string text)
     {
         ReportType = ReportType.Text;
         Text = text;
     }
 
+    public void Sign()
+    {
+        IsSigned = true;
+        DaySigned = GameManager.Instance.Day;
+    }
+
     public void CreateFromData(ReportData data)
     {
         ReportType = (ReportType)System.Enum.Parse(typeof(ReportType), data.ReportType);
 
-        // TODO: should game manager hold quest info and this is only id ?
-        if (ReportType == ReportType.NewQuest || ReportType == ReportType.FinishedQuest)
+        if (ReportType == ReportType.NewQuest || ReportType == ReportType.FinishedQuest || ReportType == ReportType.ExpiredQuest)
         {
             Quest = ScriptableObject.CreateInstance<Quest>();
             Quest.CreateFromData(data.Quest);
@@ -38,6 +47,10 @@ public class Report : BaseScriptableObject
 
         if (ReportType == ReportType.Text)
             Text = data.Text;
+
+        IsSigned = data.IsSigned;
+        DaySigned = data.DaySigned;
+        WasAccepted = data.WasAccepted;
     }
 
     public ReportData SerializeSelf()
@@ -54,6 +67,10 @@ public class Report : BaseScriptableObject
         if (Text != null)
             rd.Text = Text;
 
+        rd.IsSigned = IsSigned;
+        rd.DaySigned = DaySigned;
+        rd.WasAccepted = WasAccepted;
+
         return rd;
     }
 }
@@ -69,4 +86,9 @@ public struct ReportData
     public CharacterData Recruit;
 
     public string Text;
+
+    public bool IsSigned;
+    public int DaySigned;
+    public bool WasAccepted;
+
 }

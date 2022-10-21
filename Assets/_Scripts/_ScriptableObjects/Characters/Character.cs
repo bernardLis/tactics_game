@@ -201,6 +201,8 @@ public class Character : BaseScriptableObject
 
     public void SetUnavailable(int days)
     {
+        _gameManager = GameManager.Instance;
+
         IsUnavailable = true;
         DayStartedBeingUnavailable = _gameManager.Day;
         UnavailabilityDuration = days;

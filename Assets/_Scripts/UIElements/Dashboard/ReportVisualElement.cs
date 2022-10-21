@@ -9,8 +9,9 @@ public class ReportVisualElement : ScrollView
     GameManager _gameManager;
     VisualElement _parent;
     Report _report;
+    bool _isArchived;
 
-    public event Action OnReportDismissed;
+    public event Action<ReportVisualElement> OnReportDismissed;
     public ReportVisualElement(VisualElement parent, Report report)
     {
         _gameManager = GameManager.Instance;
@@ -40,7 +41,6 @@ public class ReportVisualElement : ScrollView
         style.backgroundColor = new Color(0.27f, 0.4f, 0.56f);
 
         Add(new QuestVisualElement(_report.Quest));
-
         AddAcceptRejectButtons(AcceptNewQuest, RejectNewQuest);
     }
 
@@ -48,6 +48,7 @@ public class ReportVisualElement : ScrollView
     {
         _gameManager.AvailableQuests.Add(_report.Quest);
         _gameManager.NewQuests.Remove(_report.Quest);
+        _report.WasAccepted = true;
 
         DismissReport();
     }
@@ -55,6 +56,7 @@ public class ReportVisualElement : ScrollView
     void RejectNewQuest()
     {
         _gameManager.NewQuests.Remove(_report.Quest);
+        _report.WasAccepted = false;
 
         DismissReport();
     }
@@ -72,7 +74,7 @@ public class ReportVisualElement : ScrollView
 
         Add(new QuestVisualElement(_report.Quest, true));
 
-        if (_report.Quest.IsWon)
+        if (_report.Quest.IsWon && !_isArchived)
         {
             RewardContainer rc = new RewardContainer(_report.Quest.Reward);
             rc.OnChestOpen += OnRewardChestOpen;
@@ -80,7 +82,6 @@ public class ReportVisualElement : ScrollView
         }
 
         VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
         Add(container);
 
         foreach (Character character in _report.Quest.AssignedCharacters)
@@ -134,15 +135,35 @@ public class ReportVisualElement : ScrollView
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         container.style.alignItems = Align.Center;
-
-        container.Add(new MyButton("Accept", "menuButton", acceptCallback));
-        container.Add(new MyButton("Reject", "menuButton", rejectCallback));
-
+        MyButton acceptButton = new MyButton("Accept", "menuButton", acceptCallback);
+        MyButton rejectButton = new MyButton("Reject", "menuButton", rejectCallback);
+        container.Add(acceptButton);
+        container.Add(rejectButton);
         Add(container);
+
+        if (!_report.IsSigned)
+            return;
+
+
+        acceptButton.SetEnabled(false);
+        rejectButton.SetEnabled(false);
+
+
+        if (_report.WasAccepted)
+            acceptButton.style.backgroundColor = Color.green;
+        else
+            rejectButton.style.backgroundColor = Color.red;
     }
 
     void AddSignButton()
     {
+        if (_report.IsSigned)
+        {
+            Label signed = new($"Signed on day {_report.DaySigned}");
+            Add(signed);
+            return;
+        }
+
         Button sign = new();
         sign.AddToClassList("menuButton");
         sign.text = "Sign";
@@ -153,14 +174,15 @@ public class ReportVisualElement : ScrollView
 
     void DismissReport()
     {
-        OnReportDismissed?.Invoke();
-        // TODO: turn it around and go to archive pile.
+        OnReportDismissed?.Invoke(this);
         Blur();
-        _parent.Remove(this);
+
+        _report.Sign();
 
         // archive report
         _gameManager.Reports.Remove(_report);
         _gameManager.ReportsArchived.Add(_report);
+        _gameManager.SaveJsonData();
     }
 
 }

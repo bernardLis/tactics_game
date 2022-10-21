@@ -62,7 +62,6 @@ public class Quest : BaseScriptableObject
     public void Lost()
     {
         IsWon = false;
-        Reward = null;
         foreach (Character character in AssignedCharacters)
         {
             if (Random.value < 0.5f) // 50% chance to disable a character 

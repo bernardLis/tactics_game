@@ -78,9 +78,32 @@ public class DaySummaryManager : MonoBehaviour
         ShowPassDayButton();
     }
 
-    void OnReportDimissed()
+    async void OnReportDimissed(ReportVisualElement element)
     {
-        Debug.Log("report dismissed");
+        DOTween.To(x => element.transform.scale = x * Vector3.one, 1, 0.1f, 1f);
+        // DOTween.To(x => element.transform.rotation = x, 0, 360, 1f);
+        await MoveReportToArchive(element, _reportsArchive);
+
+        _reportsContainer.Remove(element);
+    }
+
+    async Task MoveReportToArchive(VisualElement element, VisualElement destinationElement)
+    {
+        Vector2 start = new(element.style.left.value.value, element.style.top.value.value);
+        // TODO: i'd like it to fly to reports archive but dunno how to do it.
+        Vector2 destination = new(element.style.left.value.value + 1000, element.style.top.value.value + 200);
+
+        float percent = 0;
+        while (percent < 1)
+        {
+            Vector3 result = Vector3.Lerp(start, destination, percent); // lerp between the 2 for the result
+            element.style.left = result.x;
+            element.style.top = result.y;
+
+            percent += 0.01f;
+            await Task.Delay(10);
+        }
+
     }
 
     void ShowPassDayButton()
@@ -95,7 +118,6 @@ public class DaySummaryManager : MonoBehaviour
         _passDayButton.style.opacity = 0;
     }
 
-
     void PassDay() { _gameManager.PassDay(); }
 
     void DayPassed(int day) { Initialize(); }
@@ -105,6 +127,10 @@ public class DaySummaryManager : MonoBehaviour
         FullScreenVisual visual = new FullScreenVisual();
         visual.AddToClassList("textPrimary");
         visual.style.backgroundColor = Color.black;
+        visual.style.left = Screen.width;
+
+        DOTween.To(x => visual.style.left = x, Screen.width, 0f, 1f);
+
         foreach (Report report in _gameManager.ReportsArchived)
         {
             Label r = new Label($"{report.ReportType}");
@@ -113,11 +139,16 @@ public class DaySummaryManager : MonoBehaviour
             r.RegisterCallback<PointerUpEvent, Report>(OnArchivedReportClick, report);
         }
         visual.Initialize(_root);
+        visual.AddBackButton();
     }
 
     void OnArchivedReportClick(PointerUpEvent evt, Report report)
     {
+        Debug.Log($"OnArchivedReportClick {report.name}");
         FullScreenVisual visual = new FullScreenVisual();
+        visual.style.backgroundColor = Color.black;
         visual.Add(new ReportVisualElement(visual, report));
+        visual.Initialize(_root);
+        visual.AddBackButton();
     }
 }
