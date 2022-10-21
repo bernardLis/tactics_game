@@ -155,7 +155,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             if (Random.value < q.GetSuccessChance() * 0.01)
             {
                 q.Won();
-                return;
+                continue;
             }
             q.Lost();
         }
