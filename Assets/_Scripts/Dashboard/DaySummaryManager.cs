@@ -14,6 +14,7 @@ public class DaySummaryManager : MonoBehaviour
     VisualElement _mainDaySummary;
     Label _daySummaryDayLabel;
     VisualElement _reportsContainer;
+    VisualElement _reportsArchive;
 
     MyButton _passDayButton;
 
@@ -30,6 +31,8 @@ public class DaySummaryManager : MonoBehaviour
         _mainDaySummary = _root.Q<VisualElement>("mainDaySummary");
         _daySummaryDayLabel = _root.Q<Label>("daySummaryDayLabel");
         _reportsContainer = _root.Q<VisualElement>("reportsContainer");
+        _reportsArchive = _root.Q<VisualElement>("reportsArchive");
+        _reportsArchive.RegisterCallback<PointerUpEvent>(OnArchiveClick);
 
         _dashboardManager.OnDaySummaryClicked += Initialize;
         _dashboardManager.OnHideAllPanels += HidePassDay;
@@ -52,38 +55,32 @@ public class DaySummaryManager : MonoBehaviour
         await Task.Delay(200);
 
         _reportsContainer.Clear();
-        int marginLeftValue = 25; // percent
-        int marginTopValue = 0; // pixels  yeah! 
-
+        float left = 0.25f;
+        int top = 0;
+        int screenWidth = Screen.width;
         foreach (Report report in _gameManager.Reports)
         {
-            // TODO: here I can move them to look better.
             ReportVisualElement el = new(_reportsContainer, report);
-
-            el.style.marginLeft = Length.Percent(0);
-            el.style.marginTop = marginTopValue;
-
             el.OnReportDismissed += OnReportDimissed;
             _reportsContainer.Add(el);
 
-            // move from the elft quickly
-            //            DOTween.To(() => el.style.marginLeft.value.value, x => el.style.marginLeft.value.value = x, 1f, 1f);
+            el.style.left = -1000;
+            el.style.top = top + Random.Range(-2, 3);
 
-            marginLeftValue--;
-            marginTopValue -= 10;
+            int leftPx = Mathf.FloorToInt(left * screenWidth) + Random.Range(-10, 11);
+            DOTween.To(() => el.style.left.value.value, x => el.style.left = x, leftPx, Random.Range(0.5f, 0.7f)).SetEase(Ease.InOutCubic);
 
+            left -= 0.01f;
+            top -= 10;
+            await Task.Delay(200);
         }
 
-        if (_gameManager.Reports.Count == 0)
-            ShowPassDayButton();
+        ShowPassDayButton();
     }
 
     void OnReportDimissed()
     {
-        if (_reportsContainer.childCount > 0)
-            return;
-
-        ShowPassDayButton();
+        Debug.Log("report dismissed");
     }
 
     void ShowPassDayButton()
@@ -102,4 +99,25 @@ public class DaySummaryManager : MonoBehaviour
     void PassDay() { _gameManager.PassDay(); }
 
     void DayPassed(int day) { Initialize(); }
+
+    void OnArchiveClick(PointerUpEvent evt)
+    {
+        FullScreenVisual visual = new FullScreenVisual();
+        visual.AddToClassList("textPrimary");
+        visual.style.backgroundColor = Color.black;
+        foreach (Report report in _gameManager.ReportsArchived)
+        {
+            Label r = new Label($"{report.ReportType}");
+            visual.Add(r);
+            // https://forum.unity.com/threads/send-additional-parameters-to-callback.777029/
+            r.RegisterCallback<PointerUpEvent, Report>(OnArchivedReportClick, report);
+        }
+        visual.Initialize(_root);
+    }
+
+    void OnArchivedReportClick(PointerUpEvent evt, Report report)
+    {
+        FullScreenVisual visual = new FullScreenVisual();
+        visual.Add(new ReportVisualElement(visual, report));
+    }
 }

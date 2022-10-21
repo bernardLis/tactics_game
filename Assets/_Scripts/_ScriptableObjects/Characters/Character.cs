@@ -199,6 +199,13 @@ public class Character : BaseScriptableObject
 
     }
 
+    public void SetUnavailable(int days)
+    {
+        IsUnavailable = true;
+        DayStartedBeingUnavailable = _gameManager.Day;
+        UnavailabilityDuration = days;
+    }
+
     public void OnDayPassed(int day)
     {
         if (!IsUnavailable)

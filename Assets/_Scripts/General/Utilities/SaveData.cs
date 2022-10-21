@@ -23,6 +23,9 @@ public class SaveData
     public List<QuestData> NewQuests = new();
     public List<QuestData> AvailableQuests = new();
 
+    public List<ReportData> Reports = new();
+    public List<ReportData> ReportsArchived = new();
+
     public string ToJson()
     {
         return JsonUtility.ToJson(this);

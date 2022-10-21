@@ -21,9 +21,12 @@ public class Quest : BaseScriptableObject
     public List<Brain> Enemies = new();
     public Reward Reward;
 
+
     [Header("Management")]
-    [HideInInspector] public bool IsDelegated;
+    public int ExpiryDay;
     public int Duration;
+
+    [HideInInspector] public bool IsDelegated;
     public int DayStarted;
     [HideInInspector] public List<Character> AssignedCharacters = new();
 
@@ -44,11 +47,7 @@ public class Quest : BaseScriptableObject
         IsDelegated = true;
 
         foreach (Character character in AssignedCharacters)
-        {
-            character.IsUnavailable = true;
-            character.DayStartedBeingUnavailable = DayStarted;
-            character.UnavailabilityDuration = Duration;
-        }
+            character.SetUnavailable(Duration);
 
         _gameManager.SaveJsonData();
     }
@@ -63,7 +62,14 @@ public class Quest : BaseScriptableObject
     public void Lost()
     {
         IsWon = false;
+        Reward = null;
+        foreach (Character character in AssignedCharacters)
+        {
+            if (Random.value < 0.5f) // 50% chance to disable a character 
+                continue;
 
+            character.SetUnavailable(Random.Range(1, 5));
+        }
     }
 
     public void CreateRandom()
@@ -90,6 +96,7 @@ public class Quest : BaseScriptableObject
         Reward.HasItem = true;
         Reward.Initialize();
 
+        ExpiryDay = _gameManager.Day + Random.Range(3, 7);
         Duration = Random.Range(1, 6);
         AssignedCharacters = new();
     }
@@ -115,6 +122,7 @@ public class Quest : BaseScriptableObject
         Reward.Item = _gameManager.GameDatabase.GetItemByReferenceId(data.RewardData.ItemReferenceId);
 
         IsDelegated = data.IsDelegated;
+        ExpiryDay = data.ExpiryDay;
         Duration = data.Duration;
         DayStarted = data.DayStarted;
 
@@ -142,6 +150,7 @@ public class Quest : BaseScriptableObject
         qd.RewardData = Reward.SerializeSelf();
 
         qd.IsDelegated = IsDelegated;
+        qd.ExpiryDay = ExpiryDay;
         qd.Duration = Duration;
         qd.DayStarted = DayStarted;
 
@@ -168,6 +177,7 @@ public struct QuestData
     public RewardData RewardData;
 
     public bool IsDelegated;
+    public int ExpiryDay;
     public int Duration;
     public int DayStarted;
 

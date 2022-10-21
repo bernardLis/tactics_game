@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 
-public class ReportVisualElement : VisualElement
+public class ReportVisualElement : ScrollView
 {
     GameManager _gameManager;
     VisualElement _parent;
@@ -25,6 +25,8 @@ public class ReportVisualElement : VisualElement
             HandleNewQuest();
         if (report.ReportType == ReportType.FinishedQuest)
             HandleFinishedQuest();
+        if (report.ReportType == ReportType.ExpiredQuest)
+            HandleExpiredQuest();
         if (report.ReportType == ReportType.Recruit)
             HandleRecruit();
         if (report.ReportType == ReportType.Text)
@@ -64,15 +66,38 @@ public class ReportVisualElement : VisualElement
         AddHeader("Quest Finished!");
         style.backgroundColor = new Color(0.18f, 0.2f, 0.21f);
 
-        Add(new QuestVisualElement(_report.Quest));
-        RewardContainer rc = new RewardContainer(_report.Quest.Reward);
-        rc.OnChestOpen += OnRewardChestOpen;
-        Add(rc);
+        Label result = new();
+        Add(result);
+        result.text = _report.Quest.IsWon ? "Won! :)" : "Lost! :(";
+
+        Add(new QuestVisualElement(_report.Quest, true));
+
+        if (_report.Quest.IsWon)
+        {
+            RewardContainer rc = new RewardContainer(_report.Quest.Reward);
+            rc.OnChestOpen += OnRewardChestOpen;
+            Add(rc);
+        }
+
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        Add(container);
+
+        foreach (Character character in _report.Quest.AssignedCharacters)
+            container.Add(new CharacterCardExtended(character));
     }
 
     void OnRewardChestOpen()
     {
         _report.Quest.Reward.GetReward();
+        AddSignButton();
+    }
+
+    void HandleExpiredQuest()
+    {
+        AddHeader("Quest Expired!");
+        style.backgroundColor = new Color(0.55f, 0.2f, 0.21f);
+        Add(new QuestVisualElement(_report.Quest));
         AddSignButton();
     }
 
@@ -135,7 +160,7 @@ public class ReportVisualElement : VisualElement
 
         // archive report
         _gameManager.Reports.Remove(_report);
-        _gameManager.ReportArchive.Add(_report);
+        _gameManager.ReportsArchived.Add(_report);
     }
 
 }

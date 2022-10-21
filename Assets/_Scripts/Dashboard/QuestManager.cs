@@ -20,6 +20,7 @@ public class QuestManager : MonoBehaviour
         _dashboardManager = GetComponent<DashboardManager>();
         _root = _dashboardManager.Root;
         _dashboardManager.OnQuestsClicked += Initialize;
+        _dashboardManager.OnHideAllPanels += CleanDraggables;
 
         _draggableCharacters = GetComponent<DraggableCharacters>();
 
@@ -45,5 +46,7 @@ public class QuestManager : MonoBehaviour
 
         _draggableCharacters.Initialize(_root);
     }
+
+    void CleanDraggables() { _draggableCharacters.RemoveDragContainer(); }
 
 }

@@ -19,7 +19,7 @@ public class Report : BaseScriptableObject
 
     public void CreateFromData(ReportData data)
     {
-        ReportType = (ReportType)System.Enum.Parse(typeof(ReportData), data.ReportType);
+        ReportType = (ReportType)System.Enum.Parse(typeof(ReportType), data.ReportType);
 
         // TODO: should game manager hold quest info and this is only id ?
         if (ReportType == ReportType.NewQuest || ReportType == ReportType.FinishedQuest)

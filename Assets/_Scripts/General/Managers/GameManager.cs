@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
@@ -30,7 +31,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
     public List<Report> Reports = new();
-    public List<Report> ReportArchive = new();
+    public List<Report> ReportsArchived = new();
 
     public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
@@ -64,10 +65,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void BattleWon()
     {
         LoadLevel(Scenes.Dashboard);
+
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Quest = ActiveQuest;
         r.ReportType = ReportType.FinishedQuest;
         Reports.Add(r);
+
         ActiveQuest.Won();
         ActiveQuest = null;
         PassDay();
@@ -99,7 +102,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PayMaintenance();
         AddRandomQuest();
         ResolveDelegatedQuests();
-        // chance for new recruit to arrive
+        ResolveExpiredQuests();
+        // TODO: chance for new recruit to arrive
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
@@ -142,15 +146,39 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             if (q.CountDaysLeft() > 0)
                 continue;
 
-
-            // roll for success // HERE:
             questsToRemove.Add(q);
-            // if success get rewards, unlock characters
-            // else no rewards, characters are locked for x days
             Report r = ScriptableObject.CreateInstance<Report>();
             r.Quest = q;
             r.ReportType = ReportType.FinishedQuest;
             Reports.Add(r);
+
+            if (Random.value < q.GetSuccessChance() * 0.01)
+            {
+                q.Won();
+                return;
+            }
+            q.Lost();
+        }
+
+        foreach (Quest q in questsToRemove)
+            AvailableQuests.Remove(q);
+    }
+
+    public void ResolveExpiredQuests()
+    {
+        List<Quest> questsToRemove = new();
+        foreach (Quest q in AvailableQuests)
+        {
+            if (q.IsDelegated)
+                continue;
+            if (Day == q.ExpiryDay)
+            {
+                questsToRemove.Add(q);
+                Report r = ScriptableObject.CreateInstance<Report>();
+                r.Quest = q;
+                r.ReportType = ReportType.ExpiredQuest;
+                Reports.Add(r);
+            }
         }
 
         foreach (Quest q in questsToRemove)
@@ -313,6 +341,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             Debug.Log("Save successful");
     }
 
+    // TODO: prime suspsect for a rewrite
     public void PopulateSaveData(SaveData saveData)
     {
         // global data
@@ -331,6 +360,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.NewQuests = PopulateNewQuests();
         saveData.AvailableQuests = PopulateAvailableQuests();
+
+        saveData.Reports = PopulateReports();
+        saveData.ReportsArchived = PopulateArchivedReports();
     }
 
     List<string> PopulateShopItems()
@@ -385,6 +417,22 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         return quests;
     }
 
+    List<ReportData> PopulateReports()
+    {
+        List<ReportData> reports = new();
+        foreach (Report r in Reports)
+            reports.Add(r.SerializeSelf());
+        return reports;
+    }
+
+    List<ReportData> PopulateArchivedReports()
+    {
+        List<ReportData> reports = new();
+        foreach (Report r in ReportsArchived)
+            reports.Add(r.SerializeSelf());
+        return reports;
+    }
+
     void LoadJsonData(string fileName)
     {
         if (FileManager.LoadFromFile(fileName, out var json))
@@ -428,6 +476,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
 
         LoadQuests(saveData);
+        LoadReports(saveData);
     }
 
     void LoadQuests(SaveData saveData)
@@ -448,6 +497,26 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             AvailableQuests.Add(quest);
         }
     }
+
+    void LoadReports(SaveData saveData)
+    {
+        Reports = new();
+        foreach (ReportData rd in saveData.Reports)
+        {
+            Report report = ScriptableObject.CreateInstance<Report>();
+            report.CreateFromData(rd);
+            Reports.Add(report);
+        }
+
+        ReportsArchived = new();
+        foreach (ReportData rd in saveData.ReportsArchived)
+        {
+            Report report = ScriptableObject.CreateInstance<Report>();
+            report.CreateFromData(rd);
+            ReportsArchived.Add(report);
+        }
+    }
+
 
 
     public void ClearSaveData()
@@ -471,6 +540,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         NewQuests = new();
         AvailableQuests = new();
+
+        Reports = new();
+        ReportsArchived = new();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

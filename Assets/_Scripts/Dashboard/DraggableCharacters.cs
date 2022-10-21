@@ -149,4 +149,12 @@ public class DraggableCharacters : MonoBehaviour
 
     public void OnSlotLocked(CharacterCardMiniSlot slot) { _allSlots.Remove(slot); }
 
+    public void RemoveDragContainer()
+    {
+        if (_dragDropContainer != null)
+        {
+            _root.Remove(_dragDropContainer);
+            _dragDropContainer = null;
+        }
+    }
 }

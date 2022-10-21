@@ -95,7 +95,7 @@ public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
-public enum ReportType { NewQuest, FinishedQuest, Recruit, Text }
+public enum ReportType { NewQuest, FinishedQuest, ExpiredQuest, Recruit, Text }
 
 [System.Serializable]
 public struct PortraitEntry

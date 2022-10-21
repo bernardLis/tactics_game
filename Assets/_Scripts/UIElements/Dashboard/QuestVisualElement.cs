@@ -19,7 +19,7 @@ public class QuestVisualElement : VisualElement
 
     bool _isAdditionalInfoShown;
 
-    public QuestVisualElement(Quest quest)
+    public QuestVisualElement(Quest quest, bool isOnClickDisabled = false)
     {
         _gameManager = GameManager.Instance;
         _quest = quest;
@@ -38,6 +38,9 @@ public class QuestVisualElement : VisualElement
         _startAssignementButton = new("Battle it out!", "menuButton", StartBattle);
         _characterSlotContainer.Add(_startAssignementButton);
         _startAssignementButton.style.display = DisplayStyle.None;
+
+        if (isOnClickDisabled)
+            return;
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
@@ -67,7 +70,9 @@ public class QuestVisualElement : VisualElement
     void AddDaysLeftLabel()
     {
         int daysLeft = _quest.CountDaysLeft();
-        Label daysLeftLabel = new($"{daysLeft} days left. Success chance: {_quest.GetSuccessChance()}%.");
+        string text = daysLeft == 0 ? $"Success chance: {_quest.GetSuccessChance()}%"
+                                    : $"{daysLeft} days left. Success chance: {_quest.GetSuccessChance()}%";
+        Label daysLeftLabel = new(text);
         _basicInfoContainer.Add(daysLeftLabel);
     }
 
@@ -90,23 +95,21 @@ public class QuestVisualElement : VisualElement
     {
         _additionalInfo = new();
         _additionalInfo.AddToClassList("questBasicInfoContainer");
+        Add(_additionalInfo);
+        _additionalInfo.style.display = DisplayStyle.None;
 
         // map info
-        VisualElement mapInfoContainer = new();
-        _additionalInfo.Add(mapInfoContainer);
+        VisualElement managementInfoContainer = new();
+        _additionalInfo.Add(managementInfoContainer);
 
-        Label biome = new($"Biome: {_quest.Biome.name}");
-        mapInfoContainer.Add(biome);
+        managementInfoContainer.Add(new TextWithTooltip($"Expires in: {_quest.ExpiryDay - _gameManager.Day} days", "Has to be delegated or taken before it expiries."));
 
-        Label variant = new($"Variant: {_quest.MapVariant.name}");
-        mapInfoContainer.Add(variant);
-
-        Label mapSize = new($"Map size: {_quest.MapSize.x} x {_quest.MapSize.y}");
-        mapInfoContainer.Add(mapSize);
+        Label duration = new($"If delegated it takes: {_quest.Duration} days");
+        managementInfoContainer.Add(duration);
 
         VisualElement enemyIconContainer = new VisualElement();
         enemyIconContainer.style.flexDirection = FlexDirection.Row;
-        mapInfoContainer.Add(enemyIconContainer);
+        managementInfoContainer.Add(enemyIconContainer);
 
         foreach (var e in _quest.Enemies)
         {
@@ -116,6 +119,9 @@ public class QuestVisualElement : VisualElement
             l.style.height = 32;
             enemyIconContainer.Add(l);
         }
+
+        if (_quest.Reward == null) // TODO: handle battle lost better cross out the reward or something
+            return;
 
         // reward
         VisualElement rewardContainer = new();
@@ -128,8 +134,6 @@ public class QuestVisualElement : VisualElement
         if (_quest.Reward.Item != null)
             rewardContainer.Add(new ItemSlotVisual(new ItemVisual(_quest.Reward.Item)));
 
-        Add(_additionalInfo);
-        _additionalInfo.style.display = DisplayStyle.None;
     }
 
     void CreateCharacterSlots()
