@@ -6,6 +6,31 @@ using System.IO;
 
 public static class ScriptableObjectGenerator
 {
+    [MenuItem("Utilities/SOGenerator/Generate Portraits")]
+    public static void GeneratePortraits()
+    {
+        object[] loadedSprites = Resources.LoadAll("Portraits", typeof(Sprite));
+        Sprite[] Portraits = new Sprite[loadedSprites.Length];
+        loadedSprites.CopyTo(Portraits, 0);
+
+        foreach (Sprite s in Portraits)
+        {
+
+            CharacterPortrait characterPortrait = ScriptableObject.CreateInstance<CharacterPortrait>();
+            characterPortrait.Sprite = s;
+
+            string path = $"Assets/Resources/Portraits/SO/{s.name}.asset";
+
+            AssetDatabase.CreateAsset(characterPortrait, path);
+
+            // Now flag the object as "dirty" in the editor so it will be saved
+            EditorUtility.SetDirty(characterPortrait);
+            // And finally, prompt the editor database to save dirty assets, committing your changes to disk.
+            AssetDatabase.SaveAssets();
+        }
+    }
+
+
 
     [MenuItem("Utilities/SOGenerator/Generate Characters")]
     public static void GenerateCharacters()

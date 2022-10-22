@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 0bb2b244-0ec2-4dd3-9cb1-cb0d855f9105
   BrainIcon: {fileID: 21300000, guid: 64e29a7dee046c448b82b1c27419f427, type: 3}
   Name: Meele Jason
-  Portrait: {fileID: 21300000, guid: e9ebbda9a47e27343a1441e94d6e2d85, type: 3}
+  Portrait: {fileID: 11400000, guid: 180c910d289c9684c8c5034d03b7dab0, type: 2}
   PowerMultiplier: 1.2
   Body: {fileID: 11400000, guid: 02f6d0eed96c6d64294e084e81767413, type: 2}
   Weapon: {fileID: 11400000, guid: ee0c100ca9742414d9e8b23ad0811a2e, type: 2}

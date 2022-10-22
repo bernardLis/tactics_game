@@ -14,7 +14,7 @@ public class CharacterCardMini : VisualWithTooltip
     {
         Character = character;
         AddToClassList("characterCardMini");
-        style.backgroundImage = new StyleBackground(character.Portrait);
+        style.backgroundImage = new StyleBackground(character.Portrait.Sprite);
     }
 
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 37152021-3dcc-4017-b526-0f952744961e
   ReferenceID: CHARACTER-2
   CharacterName: Mr. Monk
-  Portrait: {fileID: 21300000, guid: f4b17f1f358194043b70125cf5eac90b, type: 3}
+  Portrait: {fileID: 11400000, guid: d4b342cf15a8aae4dbcc63fb304eb322, type: 2}
   Level: 6
   Experience: 0
   MaxHealth: 100
@@ -37,3 +37,6 @@ MonoBehaviour:
   Abilities:
   - {fileID: 11400000, guid: e7962be5a45baee428e6783c36394466, type: 2}
   - {fileID: 11400000, guid: 0adb4a7c87b26e14b9353ad0333020ac, type: 2}
+  IsUnavailable: 0
+  DayStartedBeingUnavailable: 0
+  UnavailabilityDuration: 0

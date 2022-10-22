@@ -11,7 +11,7 @@ public class Brain : BaseScriptableObject
     public Sprite BrainIcon;
 
     public string Name;
-    public Sprite Portrait;
+    public CharacterPortrait Portrait;
 
     // TODO: curves instead of floats
     public float PowerMultiplier;

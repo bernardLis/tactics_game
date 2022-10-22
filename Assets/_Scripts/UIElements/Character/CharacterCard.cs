@@ -75,7 +75,7 @@ public class CharacterCard : VisualElement
         _name.AddToClassList("textPrimary");
         _portrait.AddToClassList("characterCardPortrait");
 
-        _portrait.style.backgroundImage = character.Portrait.texture;
+        _portrait.style.backgroundImage = new StyleBackground(character.Portrait.Sprite);
         _name.text = character.CharacterName;
 
         Add(_information);

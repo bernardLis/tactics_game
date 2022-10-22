@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: eecd892e-210e-4c3d-ac18-846d963c4283
   ReferenceID: CHARACTER-0
   CharacterName: 'One-Punch Man '
-  Portrait: {fileID: 21300000, guid: a613d81a423cf24429b03929c1678cad, type: 3}
+  Portrait: {fileID: 11400000, guid: 5fea93cd0bc0922489d8deaa012df480, type: 2}
   Level: 1
   Experience: 0
   MaxHealth: 100
@@ -35,3 +35,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
   Abilities:
   - {fileID: 11400000, guid: b203184cb4195254f96a32e912135937, type: 2}
+  IsUnavailable: 0
+  DayStartedBeingUnavailable: 0
+  UnavailabilityDuration: 0

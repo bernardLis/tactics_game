@@ -30,16 +30,16 @@ public class GameDatabase : BaseScriptableObject
     public Brain GetRandomEnemyBrain() { return EnemyBrains[Random.Range(0, EnemyBrains.Length)]; }
 
     [Header("Characters")]
+    public CharacterDatabase CharacterDatabase;
     [SerializeField] Character[] StarterTroops;
-    [SerializeField] PortraitEntry[] Portraits;
     [SerializeField] Equipment[] Bodies;
     [SerializeField] Weapon[] Weapons;
     [SerializeField] Ability[] Abilities;
     [SerializeField] Item[] Items;
     [SerializeField] StatIcon[] StatIcons;
     public Character[] GetAllStarterTroops() { return StarterTroops; }
-    public Sprite GetPortraitById(string id) { return Portraits.FirstOrDefault(x => x.ReferenceID == id).Sprite; }
     public Equipment GetBodyByName(string name) { return Bodies.FirstOrDefault(x => x.name == name); }
+    public Weapon GetRandomWeapon() { return Weapons[Random.Range(0, Weapons.Length)]; }
     public Weapon GetWeaponByName(string name) { return Weapons.FirstOrDefault(x => x.name == name); }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetAbilityByReferenceId(string id) { return Abilities.FirstOrDefault(x => x.ReferenceID == id); }
@@ -124,7 +124,6 @@ public struct RewardChest
     public Sprite[] Idle;
     public Sprite[] Open;
 }
-
 
 
 

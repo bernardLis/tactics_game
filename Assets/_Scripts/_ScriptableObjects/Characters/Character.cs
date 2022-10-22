@@ -11,9 +11,8 @@ public class Character : BaseScriptableObject
 
     // character scriptable object holds stats & abilities of a character.
     // it passes these values to CharacterStats script where they can be used in game.
-    public string ReferenceID;
     public string CharacterName = "Default";
-    public Sprite Portrait;
+    public CharacterPortrait Portrait;
 
     [Header("Stats")]
     public int Level;
@@ -39,7 +38,7 @@ public class Character : BaseScriptableObject
 
     [Header("Abilities")]
     [Tooltip("For now just defend, basic attack is from the weapon")]
-    public List<Ability> BasicAbilities = new();
+    public List<Ability> BasicAbilities = new(); // TODO: do I need basic abilities?
     public List<Ability> Abilities = new();
 
     [Header("Quest")]
@@ -218,6 +217,34 @@ public class Character : BaseScriptableObject
             IsUnavailable = false;
     }
 
+    public virtual void CreateRandom()
+    {
+        _gameManager = GameManager.Instance;
+        GameDatabase gameDatabase = _gameManager.GameDatabase;
+        CharacterDatabase characterDatabase = gameDatabase.CharacterDatabase;
+        bool isMale = Random.value > 0.5f;
+
+
+        CharacterName = isMale ? characterDatabase.GetRandomNameMale() : characterDatabase.GetRandomNameFemale();
+        Portrait = isMale ? characterDatabase.GetRandomPortraitMale() : characterDatabase.GetRandomPortraitFemale();
+
+        Level = 1;
+        Experience = 0;
+
+        MaxHealth = 100;
+        MaxMana = 30;
+        Power = 5;
+        Armor = 0;
+        MovementRange = 3;
+
+        Body = gameDatabase.GetBodyByName("OnePunchMan");
+        Weapon = gameDatabase.GetRandomWeapon();
+        List<Item> Items = new();
+
+        BasicAbilities = new();
+        Abilities = new();
+    }
+
     // creates character at runtime from saved data
     public virtual void CreateFromData(CharacterData data)
     {
@@ -226,9 +253,8 @@ public class Character : BaseScriptableObject
         _gameManager.OnDayPassed += OnDayPassed;
 
         Id = data.Id;
-        ReferenceID = data.ReferenceID;
         CharacterName = data.CharacterName;
-        Portrait = gameDatabase.GetPortraitById(data.Portrait);
+        Portrait = gameDatabase.CharacterDatabase.GetPortraitById(data.Portrait);
 
         Level = data.Level;
         Experience = data.Experience;
@@ -258,7 +284,6 @@ public class Character : BaseScriptableObject
     {
         CharacterData data = new();
         data.Id = Id;
-        data.ReferenceID = ReferenceID;
         data.CharacterName = CharacterName;
         data.Portrait = Portrait.name;
         data.Level = Level;

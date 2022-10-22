@@ -131,7 +131,7 @@ public class ConversationManager : Singleton<ConversationManager>
     {
         // known bug )by unity(
         // ArgumentException: Event must be a StateEvent or DeltaStateEvent but is a TEXT instead
-        _conversationPortrait.style.backgroundImage = new StyleBackground(line.SpeakerCharacter.Portrait);
+        _conversationPortrait.style.backgroundImage = new StyleBackground(line.SpeakerCharacter.Portrait.Sprite);
 
         float letterPrintingDelay = 0.05f;
         if (line.VO)
