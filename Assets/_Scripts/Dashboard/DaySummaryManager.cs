@@ -55,27 +55,38 @@ public class DaySummaryManager : MonoBehaviour
         await Task.Delay(200);
 
         _reportsContainer.Clear();
+
         float left = 0.25f;
         int top = 0;
-        int screenWidth = Screen.width;
+
         foreach (Report report in _gameManager.Reports)
         {
             ReportVisualElement el = new(_reportsContainer, report);
             el.OnReportDismissed += OnReportDimissed;
             _reportsContainer.Add(el);
 
-            el.style.left = -1000;
-            el.style.top = top + Random.Range(-2, 3);
-
-            int leftPx = Mathf.FloorToInt(left * screenWidth) + Random.Range(-10, 11);
-            DOTween.To(() => el.style.left.value.value, x => el.style.left = x, leftPx, Random.Range(0.5f, 0.7f)).SetEase(Ease.InOutCubic);
+            await AnimateReport(el, left, top);
 
             left -= 0.01f;
             top -= 10;
-            await Task.Delay(200);
         }
 
+
         ShowPassDayButton();
+    }
+
+    async Task AnimateReport(VisualElement el, float left, int top)
+    {
+        int screenWidth = Screen.width;
+        int leftPx = Mathf.FloorToInt(left * screenWidth) + Random.Range(-10, 11);
+
+        el.style.left = -1000;
+        el.style.top = top + Random.Range(-2, 3);
+
+        DOTween.To(() => el.style.left.value.value, x => el.style.left = x, leftPx, Random.Range(0.5f, 0.7f)).SetEase(Ease.InOutCubic);
+        DOTween.To(x => el.transform.scale = x * Vector3.one, 0, 1, 0.5f);
+
+        await Task.Delay(100);
     }
 
     async void OnReportDimissed(ReportVisualElement element)
@@ -144,7 +155,6 @@ public class DaySummaryManager : MonoBehaviour
 
     void OnArchivedReportClick(PointerUpEvent evt, Report report)
     {
-        Debug.Log($"OnArchivedReportClick {report.name}");
         FullScreenVisual visual = new FullScreenVisual();
         visual.style.backgroundColor = Color.black;
         visual.Add(new ReportVisualElement(visual, report));

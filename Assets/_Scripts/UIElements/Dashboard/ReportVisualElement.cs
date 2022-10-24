@@ -136,6 +136,12 @@ public class ReportVisualElement : ScrollView
 
     void AddAcceptRejectButtons(Action acceptCallback, Action rejectCallback)
     {
+        if (_report.IsSigned)
+        {
+            HandleSignedReportWithDecision();
+            return;
+        }
+
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         container.style.alignItems = Align.Center;
@@ -144,17 +150,14 @@ public class ReportVisualElement : ScrollView
         container.Add(acceptButton);
         container.Add(rejectButton);
         Add(container);
+    }
 
-        if (!_report.IsSigned)
-            return;
-
-        acceptButton.SetEnabled(false);
-        rejectButton.SetEnabled(false);
-
-        if (_report.WasAccepted)
-            acceptButton.style.backgroundColor = Color.green;
-        else
-            rejectButton.style.backgroundColor = Color.red;
+    void HandleSignedReportWithDecision()
+    {
+        Label l = new();
+        l.text = _report.WasAccepted ? $"Accepted on day {_report.DaySigned}" : $"Rejected on day {_report.DaySigned}";
+        l.style.color = _report.WasAccepted ? Color.green : Color.red;
+        Add(l);
     }
 
     void AddSignButton()

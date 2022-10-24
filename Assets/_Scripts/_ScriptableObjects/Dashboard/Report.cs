@@ -15,12 +15,6 @@ public class Report : BaseScriptableObject
     public int DaySigned;
     public bool WasAccepted;
 
-    public Report(string text)
-    {
-        ReportType = ReportType.Text;
-        Text = text;
-    }
-
     public void Sign()
     {
         IsSigned = true;
@@ -35,14 +29,12 @@ public class Report : BaseScriptableObject
         {
             Quest = ScriptableObject.CreateInstance<Quest>();
             Quest.CreateFromData(data.Quest);
-            return;
         }
 
         if (ReportType == ReportType.Recruit)
         {
             Recruit = ScriptableObject.CreateInstance<Character>();
             Recruit.CreateFromData(data.Recruit);
-            return;
         }
 
         if (ReportType == ReportType.Text)
