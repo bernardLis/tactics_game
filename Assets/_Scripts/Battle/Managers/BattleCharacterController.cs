@@ -266,11 +266,9 @@ public class BattleCharacterController : Singleton<BattleCharacterController>
 
     bool CanAct()
     {
-        // can basic attack hit someone?
-        if (_playerStats.BasicAbilities[0].CanBeUsed()) // TODO: [0] bad idea 
+        if (_playerStats.BasicAttack.CanBeUsed())
             return true;
 
-        // can one of the abilities hit someone?
         foreach (Ability a in _playerStats.Abilities)
             if (a.CanBeUsed())
                 return true;

@@ -30,8 +30,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     // lists of abilities
     [Header("Filled on character init")]
     [HideInInspector] public List<Stat> Stats = new();
-    [HideInInspector] public List<Ability> BasicAbilities = new();
     [HideInInspector] public List<Ability> Abilities = new();
+    [HideInInspector] public AttackAbility BasicAttack;
 
     public int CurrentHealth { get; private set; }
     public int CurrentMana { get; private set; }
@@ -184,17 +184,10 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
             wh.SetWeapon(Character.Weapon);
             wh.gameObject.SetActive(false);
 
-            var clone = Instantiate(Character.Weapon.BasicAttack);
-            BasicAbilities.Add(clone);
-            clone.Initialize(gameObject);
+            BasicAttack = (AttackAbility)Instantiate(Character.Weapon.BasicAttack);
+            BasicAttack.Initialize(gameObject);
         }
 
-        foreach (Ability ability in Character.BasicAbilities)
-        {
-            var clone = Instantiate(ability);
-            BasicAbilities.Add(clone);
-            clone.Initialize(gameObject);
-        }
 
         foreach (Ability ability in Character.Abilities)
         {
@@ -420,19 +413,11 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public AttackAbility GetRetaliationAbility()
     {
-        foreach (Ability a in BasicAbilities)
-        {
-            // no retaliation with ranged attacks 
-            if (a.WeaponType == WeaponType.Ranged)
-                continue;
+        // no retaliation with ranged attacks 
+        if (BasicAttack.WeaponType == WeaponType.Ranged)
+            return null;
 
-            if (a.AbilityType != AbilityType.Attack)
-                continue;
-
-            return (AttackAbility)a;
-        }
-
-        return null;
+        return (AttackAbility)BasicAttack;
     }
 
     // used by info card ui

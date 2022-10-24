@@ -37,8 +37,6 @@ public class Character : BaseScriptableObject
     public List<Item> Items = new();
 
     [Header("Abilities")]
-    [Tooltip("For now just defend, basic attack is from the weapon")]
-    public List<Ability> BasicAbilities = new(); // TODO: do I need basic abilities?
     public List<Ability> Abilities = new();
 
     [Header("Quest")]
@@ -241,7 +239,6 @@ public class Character : BaseScriptableObject
         Weapon = gameDatabase.GetRandomWeapon();
         List<Item> Items = new();
 
-        BasicAbilities = new();
         Abilities = new();
     }
 
@@ -256,7 +253,6 @@ public class Character : BaseScriptableObject
         Id = data.Id;
         CharacterName = data.CharacterName;
         Portrait = gameDatabase.CharacterDatabase.GetPortraitById(data.Portrait);
-        Debug.Log($"portrait: {Portrait}");
         
         Level = data.Level;
         Experience = data.Experience;
@@ -268,8 +264,6 @@ public class Character : BaseScriptableObject
 
         Body = gameDatabase.GetBodyByName(data.Body);
         Weapon = gameDatabase.GetWeaponByName(data.Weapon);
-
-        BasicAbilities.Add(gameDatabase.GetAbilityById("5f7d8c47-7ec1-4abf-b8ec-74ea82be327f")); // basic defend id
 
         foreach (string id in data.AbilityReferenceIds)
             Abilities.Add(gameDatabase.GetAbilityByReferenceId(id));

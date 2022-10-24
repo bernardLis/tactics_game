@@ -18,6 +18,7 @@ public class QuestVisualElement : VisualElement
     Label _successChance;
 
     bool _isAdditionalInfoShown;
+    bool _isDelegated; // TODO: dunno why I get multiple callbacks when assigning and removing characters.
 
     public QuestVisualElement(Quest quest, bool isOnClickDisabled = false)
     {
@@ -175,6 +176,7 @@ public class QuestVisualElement : VisualElement
 
     void UpdateVisual()
     {
+        Debug.Log($"update visual ");
         if (_startAssignementButton == null)
             return;
 
@@ -229,6 +231,10 @@ public class QuestVisualElement : VisualElement
 
     void DelegateBattle()
     {
+        if (_isDelegated)
+            return;
+        _isDelegated = true;
+
         _quest.DelegateQuest();
 
         foreach (CharacterCardMiniSlot slot in _cardSlots)

@@ -12,6 +12,8 @@ public class CharacterUI : Singleton<CharacterUI>
     BattleInputController _battleInputController;
     BattleCharacterController _battleCharacterController;
 
+    public Ability BasicDefend;
+
     // UI Elements
     VisualElement _root;
     VisualElement _container;
@@ -238,15 +240,14 @@ public class CharacterUI : Singleton<CharacterUI>
         // it's for simulating button clicks with the keyboard;
         string[] buttons = { "Q", "W", "E", "R" };
 
-        AbilityButton basicAttack = new(_selectedPlayerStats.BasicAbilities[0], "A");
+        AbilityButton basicAttack = new(_selectedPlayerStats.BasicAttack, "A");
         basicAttack.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicAttack));
         _allButtons.Add(basicAttack);
 
-        AbilityButton basicDefend = new(_selectedPlayerStats.BasicAbilities[1], "S");
+        AbilityButton basicDefend = new(BasicDefend, "S");
         basicDefend.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicDefend));
         _allButtons.Add(basicDefend);
 
-        // TODO: code could be improved
         _basicActionSlots[0].AddButton(basicAttack);
         _basicActionSlots[1].AddButton(basicDefend);
 
