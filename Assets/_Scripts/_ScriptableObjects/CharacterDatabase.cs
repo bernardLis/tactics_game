@@ -7,7 +7,31 @@ public class CharacterDatabase : ScriptableObject
     public List<CharacterPortrait> PortraitsMale = new();
     public List<CharacterPortrait> PortraitsFemale = new();
 
-    public CharacterPortrait GetPortraitById(string id) { return PortraitsMale.FirstOrDefault(x => x.Id == id); }
+    public CharacterPortrait GetPortraitById(string id)
+    {
+        Debug.Log($"id {id}");
+
+        List<CharacterPortrait> allPortraits = new();
+        allPortraits.AddRange(PortraitsMale);
+        allPortraits.AddRange(PortraitsFemale);
+        Debug.Log($"allPortraits.count {allPortraits.Count}");
+        Debug.Log($"allPortraits.count {PortraitsMale.Count}");
+
+        CharacterPortrait p = null; //allPortraits.FirstOrDefault(x => x.Id == id);
+        foreach (CharacterPortrait portrait in allPortraits)
+        {
+            Debug.Log(portrait.Id);
+            if (portrait.Id == id)
+            {
+                p = portrait;
+            }
+        }
+        Debug.Log($"p {p}");
+        Debug.Log($"p.id {p.Id}");
+        Debug.Log($"p.Sprite {p.Sprite}");
+
+        return p;
+    }
     public CharacterPortrait GetRandomPortraitMale() { return PortraitsMale[Random.Range(0, PortraitsMale.Count)]; }
     public CharacterPortrait GetRandomPortraitFemale() { return PortraitsFemale[Random.Range(0, PortraitsFemale.Count)]; }
 

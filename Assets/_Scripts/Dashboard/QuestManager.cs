@@ -26,8 +26,6 @@ public class QuestManager : MonoBehaviour
 
         _questsList = _root.Q<ScrollView>("questList");
         _questTroopsContainer = _root.Q<VisualElement>("questTroopsContainer");
-
-        Initialize();
     }
 
     void Initialize()

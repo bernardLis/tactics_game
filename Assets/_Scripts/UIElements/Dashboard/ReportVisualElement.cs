@@ -48,17 +48,13 @@ public class ReportVisualElement : ScrollView
     {
         _gameManager.AvailableQuests.Add(_report.Quest);
         _gameManager.NewQuests.Remove(_report.Quest);
-        _report.WasAccepted = true;
-
-        DismissReport();
+        BaseAcceptReport();
     }
 
     void RejectNewQuest()
     {
         _gameManager.NewQuests.Remove(_report.Quest);
-        _report.WasAccepted = false;
-
-        DismissReport();
+        BaseRejectReport();
     }
 
     void HandleFinishedQuest()
@@ -104,11 +100,19 @@ public class ReportVisualElement : ScrollView
 
     void HandleRecruit()
     {
-        // TODO:
-        // i need to create a random character generator
-        // accept reject buttons
-
+        AddHeader($"{_report.Recruit.CharacterName} wants to join!");
+        style.backgroundColor = new Color(0.2f, 0.2f, 0.55f);
+        Add(new CharacterCardExtended(_report.Recruit));
+        AddAcceptRejectButtons(AcceptRecruit, RejectRecruit);
     }
+
+    void AcceptRecruit()
+    {
+        _gameManager.AddCharacterToTroops(_report.Recruit);
+        BaseAcceptReport();
+    }
+
+    void RejectRecruit() { BaseRejectReport(); }
 
     void HandleText()
     {
@@ -144,10 +148,8 @@ public class ReportVisualElement : ScrollView
         if (!_report.IsSigned)
             return;
 
-
         acceptButton.SetEnabled(false);
         rejectButton.SetEnabled(false);
-
 
         if (_report.WasAccepted)
             acceptButton.style.backgroundColor = Color.green;
@@ -170,6 +172,17 @@ public class ReportVisualElement : ScrollView
         Add(sign);
 
         sign.clickable.clicked += DismissReport;
+    }
+
+    void BaseAcceptReport()
+    {
+        _report.WasAccepted = true;
+        DismissReport();
+    }
+    void BaseRejectReport()
+    {
+        _report.WasAccepted = false;
+        DismissReport();
     }
 
     void DismissReport()

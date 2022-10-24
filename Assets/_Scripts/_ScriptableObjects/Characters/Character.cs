@@ -224,8 +224,8 @@ public class Character : BaseScriptableObject
         CharacterDatabase characterDatabase = gameDatabase.CharacterDatabase;
         bool isMale = Random.value > 0.5f;
 
-
         CharacterName = isMale ? characterDatabase.GetRandomNameMale() : characterDatabase.GetRandomNameFemale();
+        name = CharacterName;
         Portrait = isMale ? characterDatabase.GetRandomPortraitMale() : characterDatabase.GetRandomPortraitFemale();
 
         Level = 1;
@@ -251,11 +251,13 @@ public class Character : BaseScriptableObject
         _gameManager = GameManager.Instance;
         GameDatabase gameDatabase = _gameManager.GameDatabase;
         _gameManager.OnDayPassed += OnDayPassed;
+        name = data.CharacterName;
 
         Id = data.Id;
         CharacterName = data.CharacterName;
         Portrait = gameDatabase.CharacterDatabase.GetPortraitById(data.Portrait);
-
+        Debug.Log($"portrait: {Portrait}");
+        
         Level = data.Level;
         Experience = data.Experience;
         Power = data.Power;
@@ -285,7 +287,7 @@ public class Character : BaseScriptableObject
         CharacterData data = new();
         data.Id = Id;
         data.CharacterName = CharacterName;
-        data.Portrait = Portrait.name;
+        data.Portrait = Portrait.Id;
         data.Level = Level;
         data.Experience = Experience;
         data.Power = Power;

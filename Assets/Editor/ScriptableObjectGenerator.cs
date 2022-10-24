@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System;
+using Object = UnityEngine.Object;
 
 public static class ScriptableObjectGenerator
 {
-    [MenuItem("Utilities/SOGenerator/Generate Portraits")]
-    public static void GeneratePortraits()
+    [MenuItem("Utilities/SOGenerator/Generate Portraits Male")]
+    public static void GeneratePortraitsMale()
     {
-        object[] loadedSprites = Resources.LoadAll("Portraits", typeof(Sprite));
+        object[] loadedSprites = Resources.LoadAll("Portraits/male", typeof(Sprite));
         Sprite[] Portraits = new Sprite[loadedSprites.Length];
         loadedSprites.CopyTo(Portraits, 0);
 
@@ -17,9 +19,10 @@ public static class ScriptableObjectGenerator
         {
 
             CharacterPortrait characterPortrait = ScriptableObject.CreateInstance<CharacterPortrait>();
+            characterPortrait.Id = Guid.NewGuid().ToString();
             characterPortrait.Sprite = s;
 
-            string path = $"Assets/Resources/Portraits/SO/{s.name}.asset";
+            string path = $"Assets/Resources/Portraits/SO/male/{s.name}.asset";
 
             AssetDatabase.CreateAsset(characterPortrait, path);
 
@@ -29,6 +32,32 @@ public static class ScriptableObjectGenerator
             AssetDatabase.SaveAssets();
         }
     }
+
+    [MenuItem("Utilities/SOGenerator/Generate Portraits Female")]
+    public static void GeneratePortraitsFemale()
+    {
+        object[] loadedSprites = Resources.LoadAll("Portraits/female", typeof(Sprite));
+        Sprite[] Portraits = new Sprite[loadedSprites.Length];
+        loadedSprites.CopyTo(Portraits, 0);
+
+        foreach (Sprite s in Portraits)
+        {
+
+            CharacterPortrait characterPortrait = ScriptableObject.CreateInstance<CharacterPortrait>();
+            characterPortrait.Id = Guid.NewGuid().ToString();
+            characterPortrait.Sprite = s;
+
+            string path = $"Assets/Resources/Portraits/SO/female/{s.name}.asset";
+
+            AssetDatabase.CreateAsset(characterPortrait, path);
+
+            // Now flag the object as "dirty" in the editor so it will be saved
+            EditorUtility.SetDirty(characterPortrait);
+            // And finally, prompt the editor database to save dirty assets, committing your changes to disk.
+            AssetDatabase.SaveAssets();
+        }
+    }
+
 
 
 

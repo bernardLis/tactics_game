@@ -37,38 +37,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
   - {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
   - {fileID: 11400000, guid: 8bc22a1c29683204e9f24870b11baac8, type: 2}
+  CharacterDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   StarterTroops:
   - {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
   - {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
-  Portraits:
-  - ReferenceID: Coubert
-    Sprite: {fileID: 21300000, guid: afd309c482f885140af9ed07152aa6f0, type: 3}
-  - ReferenceID: Degas
-    Sprite: {fileID: 21300000, guid: 042bba8feed89874eb8479b155720a93, type: 3}
-  - ReferenceID: Empedokles
-    Sprite: {fileID: 21300000, guid: dbf44b9143af7bb48b39083ce21d0615, type: 3}
-  - ReferenceID: Eyck
-    Sprite: {fileID: 21300000, guid: 3bf5cfa5ff6fff04cb2f1e323618711b, type: 3}
-  - ReferenceID: Hans
-    Sprite: {fileID: 21300000, guid: bf1a24868c083c74780056cc41a22ba0, type: 3}
-  - ReferenceID: Modigliani
-    Sprite: {fileID: 21300000, guid: 9f42cd2b1756ad349bf8e18b87ab3cf4, type: 3}
-  - ReferenceID: Mona
-    Sprite: {fileID: 21300000, guid: f9cfb7fa4e56f16488d0ac809a225e60, type: 3}
-  - ReferenceID: Monet
-    Sprite: {fileID: 21300000, guid: e9ebbda9a47e27343a1441e94d6e2d85, type: 3}
-  - ReferenceID: Pearl
-    Sprite: {fileID: 21300000, guid: c10d0c3d65130624e89209b936de9e2f, type: 3}
-  - ReferenceID: Rembrandt
-    Sprite: {fileID: 21300000, guid: 6b4c65901b114044789b283cc1083832, type: 3}
-  - ReferenceID: Straw
-    Sprite: {fileID: 21300000, guid: 2c59ce9a31dd52748a30bf53367bf85b, type: 3}
-  - ReferenceID: opm
-    Sprite: {fileID: 21300000, guid: a613d81a423cf24429b03929c1678cad, type: 3}
-  - ReferenceID: opm1
-    Sprite: {fileID: 21300000, guid: f7497f4b4c9e84248ae4aed09f491cb9, type: 3}
-  - ReferenceID: opm2
-    Sprite: {fileID: 21300000, guid: f4b17f1f358194043b70125cf5eac90b, type: 3}
   Bodies:
   - {fileID: 11400000, guid: 3466d2cddfc0dd3429f963319fcfa45e, type: 2}
   - {fileID: 11400000, guid: 1c3406ce133c90346b0829088f09efd4, type: 2}

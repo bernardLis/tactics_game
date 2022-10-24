@@ -103,7 +103,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         AddRandomQuest();
         ResolveDelegatedQuests();
         ResolveExpiredQuests();
-        // TODO: chance for new recruit to arrive
+        ResolveRecruit();
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
@@ -185,6 +185,20 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             AvailableQuests.Remove(q);
     }
 
+    void ResolveRecruit()
+    {
+        if (Random.value > 0.5f) // 50/50 recruit 
+            return;
+
+        Character newChar = ScriptableObject.CreateInstance<Character>();
+        newChar.CreateRandom();
+
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Recruit = newChar;
+        r.ReportType = ReportType.Recruit;
+        Reports.Add(r);
+    }
+
     public void ChangeGoldValue(int o)
     {
         if (o == 0)
@@ -234,6 +248,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void AddCharacterToTroops(Character character)
     {
         PlayerTroops.Add(character);
+        OnDayPassed += character.OnDayPassed;
         SaveJsonData();
     }
 
@@ -516,8 +531,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             ReportsArchived.Add(report);
         }
     }
-
-
 
     public void ClearSaveData()
     {
