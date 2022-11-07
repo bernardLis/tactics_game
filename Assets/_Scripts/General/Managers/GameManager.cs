@@ -20,7 +20,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Day { get; private set; }
     public int Gold { get; private set; }
 
-    public List<Quest> NewQuests = new();
     public List<Quest> AvailableQuests = new();
 
     public List<Item> ShopItems = new();
@@ -67,8 +66,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         LoadLevel(Scenes.Dashboard);
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Quest = ActiveQuest;
-        r.ReportType = ReportType.FinishedQuest;
+        r.Initialize(ReportType.FinishedQuest, ActiveQuest);
         Reports.Add(r);
 
         ActiveQuest.Won();
@@ -81,8 +79,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         LoadLevel(Scenes.Dashboard);
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Quest = ActiveQuest;
-        r.ReportType = ReportType.FinishedQuest;
+        r.Initialize(ReportType.FinishedQuest, ActiveQuest);
         Reports.Add(r);
 
         ActiveQuest.Lost();
@@ -116,8 +113,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         int cost = GetCurrentMaintenanceCost();
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Text = $"Maintenance is paid: {cost}";
-        r.ReportType = ReportType.Text;
+        r.Initialize(ReportType.Text, null, null, $"Maintenance is paid: {cost}");
         Reports.Add(r);
     }
 
@@ -127,11 +123,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
-        NewQuests.Add(q);
+        AvailableQuests.Add(q);
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Quest = q;
-        r.ReportType = ReportType.NewQuest;
+        r.Initialize(ReportType.Quest, q);
         Reports.Add(r);
     }
 
@@ -148,8 +143,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
             questsToRemove.Add(q);
             Report r = ScriptableObject.CreateInstance<Report>();
-            r.Quest = q;
-            r.ReportType = ReportType.FinishedQuest;
+            r.Initialize(ReportType.FinishedQuest, q);
             Reports.Add(r);
 
             if (Random.value < q.GetSuccessChance() * 0.01)
@@ -175,8 +169,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             {
                 questsToRemove.Add(q);
                 Report r = ScriptableObject.CreateInstance<Report>();
-                r.Quest = q;
-                r.ReportType = ReportType.ExpiredQuest;
+                r.Initialize(ReportType.ExpiredQuest, q);
                 Reports.Add(r);
             }
         }
@@ -194,8 +187,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         newChar.CreateRandom();
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Recruit = newChar;
-        r.ReportType = ReportType.Recruit;
+        r.Initialize(ReportType.Recruit, null, newChar);
         Reports.Add(r);
     }
 
@@ -222,8 +214,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         ChangeShopRerollPrice(2);
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Text = "New inventory in the shop! Visit us!";
-        r.ReportType = ReportType.Text;
+        r.Initialize(ReportType.Text, null, null, "New inventory in the shop! Visit us!");
         Reports.Add(r);
     }
 
@@ -373,7 +364,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
 
-        saveData.NewQuests = PopulateNewQuests();
         saveData.AvailableQuests = PopulateAvailableQuests();
 
         saveData.Reports = PopulateReports();
@@ -414,14 +404,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             abilityReferenceIds.Add(a.ReferenceID);
 
         return abilityReferenceIds;
-    }
-
-    List<QuestData> PopulateNewQuests()
-    {
-        List<QuestData> quests = new();
-        foreach (Quest q in NewQuests)
-            quests.Add(q.SerializeSelf());
-        return quests;
     }
 
     List<QuestData> PopulateAvailableQuests()
@@ -496,14 +478,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     void LoadQuests(SaveData saveData)
     {
-        NewQuests = new();
-        foreach (QuestData qd in saveData.NewQuests)
-        {
-            Quest quest = ScriptableObject.CreateInstance<Quest>();
-            quest.CreateFromData(qd);
-            NewQuests.Add(quest);
-        }
-
         AvailableQuests = new();
         foreach (QuestData qd in saveData.AvailableQuests)
         {
@@ -551,7 +525,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         CutsceneIndexToPlay = 0; // TODO: wrong but it's ok for now.
 
-        NewQuests = new();
         AvailableQuests = new();
 
         Reports = new();

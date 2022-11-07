@@ -5,16 +5,19 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using System.Threading.Tasks;
 
-public class DaySummaryManager : MonoBehaviour
+public class DeskManager : MonoBehaviour
 {
     GameManager _gameManager;
     DashboardManager _dashboardManager;
+    DraggableCharacters _draggableCharacters;
 
     VisualElement _root;
-    VisualElement _mainDaySummary;
+    VisualElement _mainDesk;
     Label _daySummaryDayLabel;
     VisualElement _reportsContainer;
     VisualElement _reportsArchive;
+
+    VisualElement _deskTroopsContainer;
 
     MyButton _passDayButton;
 
@@ -25,36 +28,33 @@ public class DaySummaryManager : MonoBehaviour
         _gameManager.OnDayPassed += DayPassed;
 
         _dashboardManager = GetComponent<DashboardManager>();
+        _draggableCharacters = GetComponent<DraggableCharacters>();
 
         _root = _dashboardManager.Root;
 
-        _mainDaySummary = _root.Q<VisualElement>("mainDaySummary");
-        _daySummaryDayLabel = _root.Q<Label>("daySummaryDayLabel");
+        _mainDesk = _root.Q<VisualElement>("mainDesk");
         _reportsContainer = _root.Q<VisualElement>("reportsContainer");
         _reportsArchive = _root.Q<VisualElement>("reportsArchive");
         _reportsArchive.RegisterCallback<PointerUpEvent>(OnArchiveClick);
 
-        _dashboardManager.OnDaySummaryClicked += Initialize;
+        _dashboardManager.OnDeskClicked += Initialize;
         _dashboardManager.OnHideAllPanels += HidePassDay;
+        _dashboardManager.OnHideAllPanels += CleanDraggables;
 
         _passDayButton = new("Pass Day", "menuButton", PassDay);
         _passDayButton.style.opacity = 0;
         _passDayButton.style.display = DisplayStyle.None;
-        _mainDaySummary.Add(_passDayButton);
+
+        _deskTroopsContainer = _root.Q<VisualElement>("deskTroopsContainer");
 
         Initialize();
     }
 
     async void Initialize()
     {
-        _daySummaryDayLabel.text = $"Day: {_gameManager.Day}";
-        _daySummaryDayLabel.style.opacity = 0;
-        _daySummaryDayLabel.style.fontSize = 76;
-        DOTween.To(() => _daySummaryDayLabel.style.opacity.value, x => _daySummaryDayLabel.style.opacity = x, 1f, 1f);
-
-        await Task.Delay(200);
-
         _reportsContainer.Clear();
+        _reportsContainer.Add(_passDayButton);
+        _deskTroopsContainer.Clear();
 
         float left = 0.25f;
         int top = 0;
@@ -71,6 +71,12 @@ public class DaySummaryManager : MonoBehaviour
             top -= 10;
         }
 
+        foreach (Character character in _gameManager.PlayerTroops)
+            if (!character.IsUnavailable)
+                _deskTroopsContainer.Add(new CharacterCardMiniSlot(new CharacterCardMini(character)));
+
+        _deskTroopsContainer.Add(new CharacterCardMiniSlot());
+        _draggableCharacters.Initialize(_root);
 
         ShowPassDayButton();
     }
@@ -161,4 +167,7 @@ public class DaySummaryManager : MonoBehaviour
         visual.Initialize(_root);
         visual.AddBackButton();
     }
+
+    void CleanDraggables() { _draggableCharacters.RemoveDragContainer(); }
+
 }

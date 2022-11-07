@@ -57,6 +57,7 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] Sprite[] CoinSprites;
     [SerializeField] QuestIcon[] QuestIcons;
     [SerializeField] RewardChest[] RewardChests;
+    [SerializeField] ReportPaper[] ReportPapers;
 
     public Sprite GetCoinSprite(int amount)
     {
@@ -81,6 +82,9 @@ public class GameDatabase : BaseScriptableObject
 
     public RewardChest GetRandomRewardChest() { return RewardChests[Random.Range(0, RewardChests.Length)]; }
 
+    public ReportPaper GetRandomReportPaper() { return ReportPapers[Random.Range(0, ReportPapers.Length)]; }
+    public ReportPaper GetReportPaperById(string id) { return ReportPapers.FirstOrDefault(x => x.Id == id); }
+
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
@@ -95,7 +99,7 @@ public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
-public enum ReportType { NewQuest, FinishedQuest, ExpiredQuest, Recruit, Text }
+public enum ReportType { Quest, FinishedQuest, ExpiredQuest, Recruit, Text }
 
 [System.Serializable]
 public struct PortraitEntry

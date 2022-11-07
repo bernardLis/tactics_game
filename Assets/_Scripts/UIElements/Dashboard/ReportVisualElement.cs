@@ -22,8 +22,8 @@ public class ReportVisualElement : ScrollView
         AddToClassList("textPrimary");
 
         // depending on type it will look differently
-        if (report.ReportType == ReportType.NewQuest)
-            HandleNewQuest();
+        if (report.ReportType == ReportType.Quest)
+            HandleQuest();
         if (report.ReportType == ReportType.FinishedQuest)
             HandleFinishedQuest();
         if (report.ReportType == ReportType.ExpiredQuest)
@@ -34,35 +34,19 @@ public class ReportVisualElement : ScrollView
             HandleText();
     }
 
-    void HandleNewQuest()
+    void HandleQuest()
     {
         // report removes quest from new quests and adds it to available quests
-        AddHeader("New Quest");
-        style.backgroundColor = new Color(0.27f, 0.4f, 0.56f);
+        AddHeader("Quest", new Color(0.27f, 0.4f, 0.56f));
 
         Add(new QuestVisualElement(_report.Quest));
-        AddAcceptRejectButtons(AcceptNewQuest, RejectNewQuest);
-    }
-
-    void AcceptNewQuest()
-    {
-        _gameManager.AvailableQuests.Add(_report.Quest);
-        _gameManager.NewQuests.Remove(_report.Quest);
-        BaseAcceptReport();
-    }
-
-    void RejectNewQuest()
-    {
-        _gameManager.NewQuests.Remove(_report.Quest);
-        BaseRejectReport();
     }
 
     void HandleFinishedQuest()
     {
         // distinction between delegated quest and player quest
         // display the quest, the characters that partook and clickable reward
-        AddHeader("Quest Finished!");
-        style.backgroundColor = new Color(0.18f, 0.2f, 0.21f);
+        AddHeader("Quest Finished!", new Color(0.18f, 0.2f, 0.21f));
 
         Label result = new();
         Add(result);
@@ -92,16 +76,14 @@ public class ReportVisualElement : ScrollView
 
     void HandleExpiredQuest()
     {
-        AddHeader("Quest Expired!");
-        style.backgroundColor = new Color(0.55f, 0.2f, 0.21f);
+        AddHeader("Quest Expired!", new Color(0.55f, 0.2f, 0.21f));
         Add(new QuestVisualElement(_report.Quest));
         AddSignButton();
     }
 
     void HandleRecruit()
     {
-        AddHeader($"{_report.Recruit.CharacterName} wants to join!");
-        style.backgroundColor = new Color(0.2f, 0.2f, 0.55f);
+        AddHeader($"{_report.Recruit.CharacterName} wants to join!", new Color(0.2f, 0.2f, 0.55f));
         Add(new CharacterCardExtended(_report.Recruit));
         AddAcceptRejectButtons(AcceptRecruit, RejectRecruit);
     }
@@ -116,8 +98,7 @@ public class ReportVisualElement : ScrollView
 
     void HandleText()
     {
-        AddHeader("New Message");
-        style.backgroundColor = new Color(0.27f, 0.56f, 0.34f);
+        AddHeader("New Message", new Color(0.27f, 0.56f, 0.34f));
 
         Label text = new(_report.Text);
         text.style.fontSize = 36;
@@ -127,10 +108,12 @@ public class ReportVisualElement : ScrollView
     }
 
     // HELPERS
-    void AddHeader(string text)
+    void AddHeader(string text, Color color)
     {
         Label header = new(text);
         header.style.fontSize = 48;
+        header.style.backgroundColor = color;
+        header.style.unityTextAlign = TextAnchor.MiddleCenter;
         Add(header);
     }
 
@@ -159,7 +142,7 @@ public class ReportVisualElement : ScrollView
         l.style.color = _report.WasAccepted ? Color.green : Color.red;
         Add(l);
     }
- 
+
     void AddSignButton()
     {
         if (_report.IsSigned)

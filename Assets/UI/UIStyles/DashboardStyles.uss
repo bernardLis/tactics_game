@@ -219,4 +219,9 @@
     border-bottom-color: rgb(0, 0, 0);
     color: rgb(0, 0, 0);
     left: 25%;
+    background-image: url('project://database/Assets/Sprites/Journey/Backgrounds/brown_age_by_darkwood67.jpg?fileID=2800000&guid=5ed7bae907d9bdf4481ac157fa16c084&type=3#brown_age_by_darkwood67');
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

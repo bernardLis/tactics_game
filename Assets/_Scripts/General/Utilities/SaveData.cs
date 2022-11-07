@@ -20,7 +20,6 @@ public class SaveData
     public List<string> ItemPouch = new();
     public List<string> AbilityPouch = new();
 
-    public List<QuestData> NewQuests = new();
     public List<QuestData> AvailableQuests = new();
 
     public List<ReportData> Reports = new();

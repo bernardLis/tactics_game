@@ -11,10 +11,9 @@ public class DashboardManager : MonoBehaviour
     public VisualElement Root { get; private set; }
 
     // buttons
-    VisualElement _navDaySummary;
-    Label _dayNumberLabel;
+    VisualElement _navDesk;
+    Label _navDay;
 
-    VisualElement _navQuests;
     VisualElement _navArmory;
     VisualElement _navAbilities;
     VisualElement _navShop;
@@ -23,15 +22,14 @@ public class DashboardManager : MonoBehaviour
     VisualElement _navGold;
     GoldElement _goldElement;
 
-    VisualElement _mainQuests;
     VisualElement _mainArmory;
     VisualElement _mainAbilities;
     VisualElement _mainShop;
-    VisualElement _mainDaySummary;
+    VisualElement _mainDesk;
 
     VisualElement _activeNavTab;
 
-    public event Action OnDaySummaryClicked;
+    public event Action OnDeskClicked;
     public event Action OnQuestsClicked;
     public event Action OnArmoryClicked;
     public event Action OnAbilitiesClicked;
@@ -45,10 +43,9 @@ public class DashboardManager : MonoBehaviour
         _gameManager.OnDayPassed += UpdateDay;
 
         Root = GetComponent<UIDocument>().rootVisualElement;
-        _navDaySummary = Root.Q<VisualElement>("navDaySummary");
-        _dayNumberLabel = Root.Q<Label>("dayNumberLabel");
+        _navDesk = Root.Q<VisualElement>("navDesk");
+        _navDay = Root.Q<Label>("navDay");
 
-        _navQuests = Root.Q<VisualElement>("navQuests");
         _navArmory = Root.Q<VisualElement>("navArmory");
         _navAbilities = Root.Q<VisualElement>("navAbilities");
         _navShop = Root.Q<VisualElement>("navShop");
@@ -56,14 +53,12 @@ public class DashboardManager : MonoBehaviour
         // resources
         _navGold = Root.Q<VisualElement>("navGold");
 
-        _navDaySummary.RegisterCallback<PointerUpEvent>(NavDaySummaryClick);
-        _navQuests.RegisterCallback<PointerUpEvent>(NavQuestsClick);
+        _navDesk.RegisterCallback<PointerUpEvent>(NavDeskClick);
         _navArmory.RegisterCallback<PointerUpEvent>(NavArmoryClick);
         _navAbilities.RegisterCallback<PointerUpEvent>(NavAbilitiesClick);
         _navShop.RegisterCallback<PointerUpEvent>(NavShopClick);
 
-        _mainDaySummary = Root.Q<VisualElement>("mainDaySummary");
-        _mainQuests = Root.Q<VisualElement>("mainQuests");
+        _mainDesk = Root.Q<VisualElement>("mainDesk");
         _mainArmory = Root.Q<VisualElement>("mainArmory");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
         _mainShop = Root.Q<VisualElement>("mainShop");
@@ -72,16 +67,6 @@ public class DashboardManager : MonoBehaviour
         AddGoldElement();
     }
 
-    void NavQuestsClick(PointerUpEvent e)
-    {
-        if (_activeNavTab == _navQuests)
-            return;
-
-        NavClick(e);
-
-        _mainQuests.style.display = DisplayStyle.Flex;
-        OnQuestsClicked?.Invoke();
-    }
 
     void NavArmoryClick(PointerUpEvent e)
     {
@@ -116,15 +101,15 @@ public class DashboardManager : MonoBehaviour
         OnShopClicked?.Invoke();
     }
 
-    void NavDaySummaryClick(PointerUpEvent e)
+    void NavDeskClick(PointerUpEvent e)
     {
-        if (_activeNavTab == _navDaySummary)
+        if (_activeNavTab == _navDesk)
             return;
 
         NavClick(e);
 
-        _mainDaySummary.style.display = DisplayStyle.Flex;
-        OnDaySummaryClicked?.Invoke();
+        _mainDesk.style.display = DisplayStyle.Flex;
+        OnDeskClicked?.Invoke();
     }
 
     void NavClick(PointerUpEvent e)
@@ -144,20 +129,19 @@ public class DashboardManager : MonoBehaviour
 
     void HideAllPanels()
     {
-        _mainQuests.style.display = DisplayStyle.None;
         _mainArmory.style.display = DisplayStyle.None;
         _mainAbilities.style.display = DisplayStyle.None;
         _mainShop.style.display = DisplayStyle.None;
-        _mainDaySummary.style.display = DisplayStyle.None;
+        _mainDesk.style.display = DisplayStyle.None;
 
         OnHideAllPanels?.Invoke();
     }
 
     void UpdateDay(int dayNumber)
     {
-        _dayNumberLabel.text = $"Day: {dayNumber}";
+        _navDay.text = $"Day: {dayNumber}";
         HideAllPanels();
-        _mainDaySummary.style.display = DisplayStyle.Flex;
+        _mainDesk.style.display = DisplayStyle.Flex;
     }
 
     void AddGoldElement()

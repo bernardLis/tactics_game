@@ -25,6 +25,7 @@ public class TooltipVisual : VisualElement
 
         style.backgroundColor = Color.black;
         style.position = Position.Absolute;
+
         style.left = pos.x + offsetX;
         style.top = pos.y + offsetY - resolvedStyle.height;
         OnPostVisualCreation();
@@ -37,12 +38,18 @@ public class TooltipVisual : VisualElement
     public void UpdatePosition(VisualElement element)
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
-
         Vector2 pos = UnityEngine.UIElements.RuntimePanelUtils.ScreenToPanel(element.panel,
                         new Vector2(mousePosition.x, Screen.height - mousePosition.y));
 
-        style.left = pos.x + offsetX;
-        style.top = pos.y + offsetY - resolvedStyle.height;
+        if (pos.x + offsetX + resolvedStyle.width > Screen.width)
+            style.left = pos.x - (resolvedStyle.width + offsetX);
+        else
+            style.left = pos.x + offsetX;
+
+        if (pos.y - resolvedStyle.height + offsetY < 0)
+            style.top = Screen.height - (pos.y + resolvedStyle.height + offsetY); // TODO: wrong but I can't math.
+        else
+            style.top = pos.y - resolvedStyle.height + offsetY;
     }
 
     //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/

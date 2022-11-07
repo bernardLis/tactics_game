@@ -6,6 +6,7 @@ using System;
 public class Report : BaseScriptableObject
 {
     public ReportType ReportType;
+    public ReportPaper ReportPaper;
 
     public Quest Quest;
     public Character Recruit;
@@ -14,6 +15,16 @@ public class Report : BaseScriptableObject
     public bool IsSigned;
     public int DaySigned;
     public bool WasAccepted;
+
+    public void Initialize(ReportType type, Quest quest = null, Character recruit = null, string text = null)
+    {
+        ReportType = type;
+        ReportPaper = GameManager.Instance.GameDatabase.GetRandomReportPaper();
+
+        Quest = quest;
+        Recruit = recruit;
+        Text = text;
+    }
 
     public void Sign()
     {
@@ -24,8 +35,9 @@ public class Report : BaseScriptableObject
     public void CreateFromData(ReportData data)
     {
         ReportType = (ReportType)System.Enum.Parse(typeof(ReportType), data.ReportType);
+        ReportPaper = GameManager.Instance.GameDatabase.GetReportPaperById(data.ReportPaperId);
 
-        if (ReportType == ReportType.NewQuest || ReportType == ReportType.FinishedQuest || ReportType == ReportType.ExpiredQuest)
+        if (ReportType == ReportType.Quest || ReportType == ReportType.FinishedQuest || ReportType == ReportType.ExpiredQuest)
         {
             Quest = ScriptableObject.CreateInstance<Quest>();
             Quest.CreateFromData(data.Quest);
@@ -50,6 +62,7 @@ public class Report : BaseScriptableObject
         ReportData rd = new ReportData();
 
         rd.ReportType = ReportType.ToString();
+        rd.ReportPaperId = ReportPaper.Id;
         if (Quest != null)
             rd.Quest = Quest.SerializeSelf();
 
@@ -67,11 +80,11 @@ public class Report : BaseScriptableObject
     }
 }
 
-
 [Serializable]
 public struct ReportData
 {
     public string ReportType;
+    public string ReportPaperId;
 
     public QuestData Quest;
 
@@ -82,5 +95,4 @@ public struct ReportData
     public bool IsSigned;
     public int DaySigned;
     public bool WasAccepted;
-
 }
