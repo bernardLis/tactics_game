@@ -159,7 +159,7 @@ public class ReportVisualElement : ScrollView
         l.style.color = _report.WasAccepted ? Color.green : Color.red;
         Add(l);
     }
-
+ 
     void AddSignButton()
     {
         if (_report.IsSigned)
