@@ -54,6 +54,8 @@ public class Quest : BaseScriptableObject
 
     public int CountDaysLeft() { return Duration - (_gameManager.Day - DayStarted); }
 
+    public bool IsExpired() { return ExpiryDay - _gameManager.Day <= 0; }
+
     public void Won()
     {
         IsWon = true;

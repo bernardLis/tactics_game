@@ -166,12 +166,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             if (q.IsDelegated)
                 continue;
             if (Day == q.ExpiryDay)
-            {
                 questsToRemove.Add(q);
-                Report r = ScriptableObject.CreateInstance<Report>();
-                r.Initialize(ReportType.ExpiredQuest, q);
-                Reports.Add(r);
-            }
         }
 
         foreach (Quest q in questsToRemove)

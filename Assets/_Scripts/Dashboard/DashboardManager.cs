@@ -30,7 +30,6 @@ public class DashboardManager : MonoBehaviour
     VisualElement _activeNavTab;
 
     public event Action OnDeskClicked;
-    public event Action OnQuestsClicked;
     public event Action OnArmoryClicked;
     public event Action OnAbilitiesClicked;
     public event Action OnShopClicked;
@@ -137,12 +136,7 @@ public class DashboardManager : MonoBehaviour
         OnHideAllPanels?.Invoke();
     }
 
-    void UpdateDay(int dayNumber)
-    {
-        _navDay.text = $"Day: {dayNumber}";
-        HideAllPanels();
-        _mainDesk.style.display = DisplayStyle.Flex;
-    }
+    void UpdateDay(int day) { _navDay.text = $"Day: {day}"; }
 
     void AddGoldElement()
     {

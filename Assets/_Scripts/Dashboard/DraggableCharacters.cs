@@ -90,7 +90,6 @@ public class DraggableCharacters : MonoBehaviour
             _dragDropContainer.style.top = evt.position.y - _dragDropContainer.layout.height / 2;
             _dragDropContainer.style.left = evt.position.x - _dragDropContainer.layout.width / 2;
         }
-
     }
 
     void OnPointerUp(PointerUpEvent evt)

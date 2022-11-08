@@ -27,7 +27,6 @@ public class ArmoryManager : MonoBehaviour
         _dashboard.OnArmoryClicked += InitializeArmory;
 
         _dashboard.OnAbilitiesClicked += CleanArmory;
-        _dashboard.OnQuestsClicked += CleanArmory;
         _dashboard.OnShopClicked += CleanArmory;
     }
 

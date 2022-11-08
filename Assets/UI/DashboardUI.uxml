@@ -74,10 +74,10 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="deskRightPanel" style="height: 100%;">
-                <ui:VisualElement name="reportsArchive" style="width: auto; height: 10%; background-color: rgb(0, 0, 0); align-items: center; justify-content: space-around; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);">
-                    <ui:Label text="Archive" display-tooltip-when-elided="true" style="rotate: 0;" />
+                <ui:VisualElement name="reportsArchive" style="width: 200px; height: 250px; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Dashboard/paperStack.png?fileID=2800000&amp;guid=9ca336630f0090b419849128959d08aa&amp;type=3#paperStack&apos;);">
+                    <ui:Label text="Archive" display-tooltip-when-elided="true" style="rotate: 0; color: rgb(0, 0, 0);" />
                 </ui:VisualElement>
-                <ui:ScrollView name="deskTroopsContainer" vertical-page-size="-1" style="flex-direction: row;">
+                <ui:ScrollView name="deskTroopsContainer" vertical-page-size="-1" style="flex-direction: row; border-left-color: rgba(255, 255, 255, 255); border-right-color: rgba(255, 255, 255, 255); border-top-color: rgba(255, 255, 255, 255); border-bottom-color: rgba(255, 255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
                     <ui:VisualElement name="characterCardMiniSlot" class="characterCardMiniSlot characterCardMiniSlotLocked" />
                     <ui:VisualElement name="characterCardMiniSlot" class="characterCardMiniSlot" style="width: 100px; height: 100px;">
                         <ui:VisualElement name="characterCardMini" class="characterCardMini" />

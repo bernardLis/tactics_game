@@ -7,6 +7,7 @@ public class Report : BaseScriptableObject
 {
     public ReportType ReportType;
     public ReportPaper ReportPaper;
+    public Vector2 Position;
 
     public Quest Quest;
     public Character Recruit;
@@ -36,8 +37,9 @@ public class Report : BaseScriptableObject
     {
         ReportType = (ReportType)System.Enum.Parse(typeof(ReportType), data.ReportType);
         ReportPaper = GameManager.Instance.GameDatabase.GetReportPaperById(data.ReportPaperId);
+        Position = data.Position;
 
-        if (ReportType == ReportType.Quest || ReportType == ReportType.FinishedQuest || ReportType == ReportType.ExpiredQuest)
+        if (ReportType == ReportType.Quest || ReportType == ReportType.FinishedQuest)
         {
             Quest = ScriptableObject.CreateInstance<Quest>();
             Quest.CreateFromData(data.Quest);
@@ -63,6 +65,8 @@ public class Report : BaseScriptableObject
 
         rd.ReportType = ReportType.ToString();
         rd.ReportPaperId = ReportPaper.Id;
+        rd.Position = Position;
+
         if (Quest != null)
             rd.Quest = Quest.SerializeSelf();
 
@@ -85,6 +89,7 @@ public struct ReportData
 {
     public string ReportType;
     public string ReportPaperId;
+    public Vector2 Position;
 
     public QuestData Quest;
 

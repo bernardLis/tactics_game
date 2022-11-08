@@ -21,6 +21,8 @@ public class DeskManager : MonoBehaviour
 
     MyButton _passDayButton;
 
+    List<Report> VisibleReports = new();
+
 
     void Start()
     {
@@ -55,21 +57,10 @@ public class DeskManager : MonoBehaviour
         _reportsContainer.Clear();
         _reportsContainer.Add(_passDayButton);
         _deskTroopsContainer.Clear();
-
-        float left = 0.25f;
-        int top = 0;
+        VisibleReports = new();
 
         foreach (Report report in _gameManager.Reports)
-        {
-            ReportVisualElement el = new(_reportsContainer, report);
-            el.OnReportDismissed += OnReportDimissed;
-            _reportsContainer.Add(el);
-
-            await AnimateReport(el, left, top);
-
-            left -= 0.01f;
-            top -= 10;
-        }
+            await CreateReport(report);
 
         foreach (Character character in _gameManager.PlayerTroops)
             if (!character.IsUnavailable)
@@ -81,13 +72,29 @@ public class DeskManager : MonoBehaviour
         ShowPassDayButton();
     }
 
-    async Task AnimateReport(VisualElement el, float left, int top)
+    async Task CreateReport(Report report)
     {
-        int screenWidth = Screen.width;
-        int leftPx = Mathf.FloorToInt(left * screenWidth) + Random.Range(-10, 11);
+        VisibleReports.Add(report);
+        ReportVisualElement el = new(_reportsContainer, report);
+        el.style.position = Position.Absolute;
+        el.OnReportDismissed += OnReportDimissed;
+        _reportsContainer.Add(el);
+
+        if (report.Position != Vector2.zero)
+        {
+            el.style.left = report.Position.x;
+            el.style.top = report.Position.y;
+            return;
+        }
+        await AnimateReport(el);
+    }
+
+    async Task AnimateReport(VisualElement el)
+    {
+        int leftPx = Mathf.FloorToInt(0.25f * Screen.width) + Random.Range(-10, 11);
 
         el.style.left = -1000;
-        el.style.top = top + Random.Range(-2, 3);
+        el.style.top = 0 + Random.Range(-10, 0);
 
         DOTween.To(() => el.style.left.value.value, x => el.style.left = x, leftPx, Random.Range(0.5f, 0.7f)).SetEase(Ease.InOutCubic);
         DOTween.To(x => el.transform.scale = x * Vector3.one, 0, 1, 0.5f);
@@ -98,7 +105,6 @@ public class DeskManager : MonoBehaviour
     async void OnReportDimissed(ReportVisualElement element)
     {
         DOTween.To(x => element.transform.scale = x * Vector3.one, 1, 0.1f, 1f);
-        // DOTween.To(x => element.transform.rotation = x, 0, 360, 1f);
         await MoveReportToArchive(element, _reportsArchive);
 
         _reportsContainer.Remove(element);
@@ -108,7 +114,7 @@ public class DeskManager : MonoBehaviour
     {
         Vector2 start = new(element.style.left.value.value, element.style.top.value.value);
         // TODO: i'd like it to fly to reports archive but dunno how to do it.
-        Vector2 destination = new(element.style.left.value.value + 1000, element.style.top.value.value + 200);
+        Vector2 destination = new(Screen.width - element.layout.width, -100);
 
         float percent = 0;
         while (percent < 1)
@@ -118,9 +124,8 @@ public class DeskManager : MonoBehaviour
             element.style.top = result.y;
 
             percent += 0.01f;
-            await Task.Delay(10);
+            await Task.Delay(5);
         }
-
     }
 
     void ShowPassDayButton()
@@ -137,7 +142,15 @@ public class DeskManager : MonoBehaviour
 
     void PassDay() { _gameManager.PassDay(); }
 
-    void DayPassed(int day) { Initialize(); }
+    async void DayPassed(int day)
+    {
+        foreach (Report report in _gameManager.Reports)
+        {
+            if (VisibleReports.Contains(report))
+                continue;
+            await CreateReport(report);
+        }
+    }
 
     void OnArchiveClick(PointerUpEvent evt)
     {
