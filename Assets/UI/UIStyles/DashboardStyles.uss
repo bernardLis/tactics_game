@@ -219,9 +219,90 @@
     border-bottom-color: rgb(0, 0, 0);
     color: rgb(0, 0, 0);
     left: auto;
-    background-image: url('project://database/Assets/Sprites/Journey/Backgrounds/brown_age_by_darkwood67.jpg?fileID=2800000&guid=5ed7bae907d9bdf4481ac157fa16c084&type=3#brown_age_by_darkwood67');
+    background-image: url('project://database/Assets/Sprites/Dashboard/Paper/brown_age_by_darkwood67.jpg?fileID=2800000&guid=5ed7bae907d9bdf4481ac157fa16c084&type=3#brown_age_by_darkwood67');
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.acceptButton {
+    background-image: url('project://database/Assets/Sprites/UI/confirmed.png?fileID=2800000&guid=14038e25812d1a240af2e1d1cc5fd89f&type=3#confirmed');
+    width: 50px;
+    height: 50px;
+    color: rgb(210, 210, 210);
+    -unity-background-image-tint-color: rgb(59, 219, 57);
+}
+
+.acceptButton:hover {
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    background-color: rgb(125, 122, 122);
+    -unity-background-image-tint-color: rgb(32, 173, 19);
+    scale: 1.05 1.05;
+}
+
+.rejectButton {
+    background-image: url('project://database/Assets/Sprites/UI/cancel.png?fileID=2800000&guid=eed27dc4f9a4c474a9c58a06b12e6305&type=3#cancel');
+    width: 50px;
+    height: 50px;
+    -unity-background-image-tint-color: rgb(173, 32, 32);
+}
+
+.rejectButton:hover {
+    transition-duration: 0.5s;
+    scale: 1.05 1.05;
+    -unity-background-image-tint-color: rgb(241, 74, 74);
+    background-color: rgb(173, 173, 173);
+}
+
+.signButton {
+    background-image: url('project://database/Assets/Sprites/Dashboard/stamper.png?fileID=2800000&guid=4f70cbf0523601a44b60e34bdda93bee&type=3#stamper');
+    width: 100px;
+    height: 100px;
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    background-color: rgba(72, 72, 72, 255);
+}
+
+.signButton:hover {
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    scale: 1.05 1.05;
+    background-color: rgba(0, 0, 0, 255);
+}
+
+.signedText {
+    color: rgba(255, 0, 0, 255);
+    border-left-color: rgba(255, 0, 0, 255);
+    border-right-color: rgba(255, 0, 0, 255);
+    border-top-color: rgba(255, 0, 0, 255);
+    border-bottom-color: rgba(255, 0, 0, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    -unity-text-align: upper-center;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out-elastic;
+    rotate: 45deg;
+    position: absolute;
+    font-size: 36px;
+    left: 10%;
+    top: 50%;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.signedTextBefore {
+    scale: 0 0;
+    position: absolute;
+    left: 10%;
+    top: 50%;
 }

@@ -37,13 +37,15 @@ public class QuestVisualElement : VisualElement
         _successChance.style.display = DisplayStyle.None;
 
         _startAssignementButton = new("Battle it out!", "menuButton", StartBattle);
-        _characterSlotContainer.Add(_startAssignementButton);
+        Add(_startAssignementButton);
         _startAssignementButton.style.display = DisplayStyle.None;
 
         if (isOnClickDisabled)
             return;
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
+
+        ExpiredCheck();
     }
 
     void AddBasicInfo()
@@ -95,22 +97,23 @@ public class QuestVisualElement : VisualElement
     void CreateAdditionalInfo()
     {
         _additionalInfo = new();
-        _additionalInfo.AddToClassList("questBasicInfoContainer");
+        _additionalInfo.AddToClassList("textPrimary");
+
         Add(_additionalInfo);
         _additionalInfo.style.display = DisplayStyle.None;
 
-        // map info
-        VisualElement managementInfoContainer = new();
-        _additionalInfo.Add(managementInfoContainer);
-
-        managementInfoContainer.Add(new TextWithTooltip($"Expires in: {_quest.ExpiryDay - _gameManager.Day} days", "Has to be delegated or taken before it expiries."));
+        if (_quest.IsExpired())
+            _additionalInfo.Add(new Label("Expired!"));
+        else
+            _additionalInfo.Add(new TextWithTooltip($"Expires in: {_quest.ExpiryDay - _gameManager.Day} days", "Has to be delegated or taken before it expiries."));
 
         Label duration = new($"If delegated it takes: {_quest.Duration} days");
-        managementInfoContainer.Add(duration);
+        _additionalInfo.Add(duration);
 
         VisualElement enemyIconContainer = new VisualElement();
+        enemyIconContainer.Add(new Label("Threat: "));
         enemyIconContainer.style.flexDirection = FlexDirection.Row;
-        managementInfoContainer.Add(enemyIconContainer);
+        _additionalInfo.Add(enemyIconContainer);
 
         foreach (var e in _quest.Enemies)
         {
@@ -121,7 +124,7 @@ public class QuestVisualElement : VisualElement
             enemyIconContainer.Add(l);
         }
 
-        if (_quest.Reward == null) // TODO: handle battle lost better cross out the reward or something
+        if (_quest.Reward == null)
             return;
 
         // reward
@@ -176,7 +179,7 @@ public class QuestVisualElement : VisualElement
 
     void UpdateVisual()
     {
-        Debug.Log($"update visual ");
+        Debug.Log($"update visual");
         if (_startAssignementButton == null)
             return;
 
@@ -245,5 +248,34 @@ public class QuestVisualElement : VisualElement
 
         AddDaysLeftLabel();
         Remove(_successChance);
+    }
+
+    void ExpiredCheck()
+    {
+        if (!_quest.IsExpired())
+            return;
+
+        UnregisterCallback<PointerUpEvent>(OnPointerUp);
+        _additionalInfo.style.display = DisplayStyle.Flex;
+
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+            slot.Lock();
+
+        VisualElement overlay = new VisualElement();
+        Add(overlay);
+        overlay.BringToFront();
+        overlay.style.position = Position.Absolute;
+        overlay.style.width = Length.Percent(105);
+        overlay.style.height = Length.Percent(105);
+        overlay.style.alignSelf = Align.Center;
+        overlay.style.alignItems = Align.Center;
+        overlay.style.justifyContent = Justify.Center;
+        overlay.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
+
+        Label text = new($"Expired! ({_quest.ExpiryDay})");
+        text.AddToClassList("textPrimary");
+        text.style.fontSize = 32;
+        text.transform.rotation *= Quaternion.Euler(0f, 0f, 45f);
+        overlay.Add(text);
     }
 }

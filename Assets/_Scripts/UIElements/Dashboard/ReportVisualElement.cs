@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
+using System.Threading.Tasks;
+using DG.Tweening;
 
 public class ReportVisualElement : ScrollView
 {
@@ -171,12 +173,8 @@ public class ReportVisualElement : ScrollView
             return;
         }
 
-        Button sign = new();
-        sign.AddToClassList("menuButton");
-        sign.text = "Sign";
-        Add(sign);
-
-        sign.clickable.clicked += DismissReport;
+        MyButton signButton = new MyButton(null, "signButton", DismissReport);
+        Add(signButton);
     }
 
     void BaseAcceptReport()
@@ -190,12 +188,25 @@ public class ReportVisualElement : ScrollView
         DismissReport();
     }
 
-    void DismissReport()
+    async void DismissReport()
     {
-        OnReportDismissed?.Invoke(this);
         Blur();
 
         _report.Sign();
+        AudioManager.Instance.PlaySFX("Stamp", Vector3.zero);
+
+        Label signed = new($"Signed on day {_gameManager.Day}");
+        Add(signed);
+        // TODO: a better way? XD
+        await Task.Delay(50);
+        signed.AddToClassList("signedBefore");
+        await Task.Delay(50);
+        signed.ToggleInClassList("signedBefore");
+        signed.AddToClassList("signedText");
+
+
+        await Task.Delay(400);
+        OnReportDismissed?.Invoke(this);
 
         // archive report
         _gameManager.Reports.Remove(_report);
