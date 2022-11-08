@@ -29,14 +29,7 @@ public class DraggableCharacters : MonoBehaviour
         foreach (VisualElement item in elements)
         {
             CharacterCardMiniSlot slot = (CharacterCardMiniSlot)item;
-            slot.OnLocked += OnSlotLocked;
-            _allSlots.Add(slot);
-
-            if (slot.Card != null)
-            {
-                slot.Card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
-                slot.Card.OnLocked += OnCardLocked;
-            }
+            AddDraggableSlot(slot);
         }
 
         _dragDropContainer = new VisualElement();
@@ -45,6 +38,17 @@ public class DraggableCharacters : MonoBehaviour
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
+    }
+
+    public void AddDraggableSlot(CharacterCardMiniSlot slot)
+    {
+        slot.OnLocked += OnSlotLocked;
+        _allSlots.Add(slot);
+        if (slot.Card != null)
+        {
+            slot.Card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
+            slot.Card.OnLocked += OnCardLocked;
+        }
     }
 
 
@@ -59,7 +63,6 @@ public class DraggableCharacters : MonoBehaviour
 
         StartCardDrag(evt.position, slotVisual, card);
     }
-
 
     void StartCardDrag(Vector2 position, CharacterCardMiniSlot originalSlot, CharacterCardMini draggedCard)
     {

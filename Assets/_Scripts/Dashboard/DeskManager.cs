@@ -28,6 +28,7 @@ public class DeskManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += DayPassed;
+        _gameManager.OnCharacterAddedToTroops += OnCharacterAddedToTroops;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
@@ -50,6 +51,23 @@ public class DeskManager : MonoBehaviour
         _deskTroopsContainer = _root.Q<VisualElement>("deskTroopsContainer");
 
         Initialize();
+    }
+
+    async void DayPassed(int day)
+    {
+        foreach (Report report in _gameManager.Reports)
+        {
+            if (VisibleReports.Contains(report))
+                continue;
+            await CreateReport(report);
+        }
+    }
+
+    void OnCharacterAddedToTroops(Character character)
+    {
+        CharacterCardMiniSlot slot = new(new CharacterCardMini(character));
+        _deskTroopsContainer.Add(slot);
+        _draggableCharacters.AddDraggableSlot(slot);
     }
 
     async void Initialize()
@@ -141,16 +159,6 @@ public class DeskManager : MonoBehaviour
     }
 
     void PassDay() { _gameManager.PassDay(); }
-
-    async void DayPassed(int day)
-    {
-        foreach (Report report in _gameManager.Reports)
-        {
-            if (VisibleReports.Contains(report))
-                continue;
-            await CreateReport(report);
-        }
-    }
 
     void OnArchiveClick(PointerUpEvent evt)
     {

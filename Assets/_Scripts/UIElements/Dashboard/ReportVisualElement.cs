@@ -58,6 +58,13 @@ public class ReportVisualElement : ScrollView
         Add(new QuestVisualElement(_report.Quest));
     }
 
+    void HandleExpiredQuest()
+    {
+        AddHeader("Quest Expired!", new Color(0.55f, 0.2f, 0.21f));
+        Add(new QuestVisualElement(_report.Quest));
+        AddSignButton();
+    }
+
     void HandleFinishedQuest()
     {
         // distinction between delegated quest and player quest
@@ -87,13 +94,6 @@ public class ReportVisualElement : ScrollView
     void OnRewardChestOpen()
     {
         _report.Quest.Reward.GetReward();
-        AddSignButton();
-    }
-
-    void HandleExpiredQuest()
-    {
-        AddHeader("Quest Expired!", new Color(0.55f, 0.2f, 0.21f));
-        Add(new QuestVisualElement(_report.Quest));
         AddSignButton();
     }
 
@@ -243,7 +243,6 @@ public class ReportVisualElement : ScrollView
         _isDragging = false;
 
         _report.Position = new Vector2(style.left.value.value, style.top.value.value);
-        Debug.Log($"report positon {_report.Position}");
         _gameManager.SaveJsonData();
     }
 

@@ -38,6 +38,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
+    public event Action<Character> OnCharacterAddedToTroops;
     public event Action<int> OnShopRerollPriceChanged;
     public event Action<string> OnLevelLoaded;
 
@@ -235,6 +236,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         PlayerTroops.Add(character);
         OnDayPassed += character.OnDayPassed;
+        OnCharacterAddedToTroops?.Invoke(character);
         SaveJsonData();
     }
 
