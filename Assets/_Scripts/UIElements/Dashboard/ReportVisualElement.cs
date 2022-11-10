@@ -57,25 +57,28 @@ public class ReportVisualElement : VisualElement
 
     void OnDayPassed(int day)
     {
-        if (_report.ReportType == ReportType.Quest)
-            HandleQuest();
     }
 
     void HandleQuest()
     {
+        _report.Quest.OnQuestStateChanged += OnQuestStateChanged;
         _reportContents.Clear();
-        if (_report.Quest.IsExpired())
-        {
-            HandleExpiredQuest();
-            return;
-        }
-
         AddHeader("Quest", new Color(0.27f, 0.4f, 0.56f));
         _reportContents.Add(new QuestVisualElement(_report.Quest));
     }
 
+    void OnQuestStateChanged(QuestState state)
+    {
+        if (state == QuestState.Expired)
+            HandleExpiredQuest();
+
+        if (state == QuestState.Won || state == QuestState.Lost)
+            HandleFinishedQuest();
+    }
+
     void HandleExpiredQuest()
     {
+        _reportContents.Clear();
         AddHeader("Quest Expired!", new Color(0.55f, 0.2f, 0.21f));
         _reportContents.Add(new QuestVisualElement(_report.Quest));
         AddSignButton();
@@ -83,17 +86,18 @@ public class ReportVisualElement : VisualElement
 
     void HandleFinishedQuest()
     {
+        _reportContents.Clear();
         // distinction between delegated quest and player quest
         // display the quest, the characters that partook and clickable reward
         AddHeader("Quest Finished!", new Color(0.18f, 0.2f, 0.21f));
 
         Label result = new();
         _reportContents.Add(result);
-        result.text = _report.Quest.IsWon ? "Won! :)" : "Lost! :(";
+        result.text = _report.Quest.QuestState == QuestState.Won ? "Won! :)" : "Lost! :(";
 
-        _reportContents.Add(new QuestVisualElement(_report.Quest, true));
+        _reportContents.Add(new QuestVisualElement(_report.Quest));
 
-        if (_report.Quest.IsWon && !_isArchived)
+        if (_report.Quest.QuestState == QuestState.Won && !_isArchived)
         {
             RewardContainer rc = new RewardContainer(_report.Quest.Reward);
             rc.OnChestOpen += OnRewardChestOpen;

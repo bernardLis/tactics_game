@@ -100,6 +100,7 @@ public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, L
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
 public enum ReportType { Quest, FinishedQuest, Recruit, Text }
+public enum QuestState { Pending, Delegated, Won, Lost, Expired}
 
 [System.Serializable]
 public struct PortraitEntry

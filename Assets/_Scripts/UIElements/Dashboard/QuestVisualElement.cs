@@ -20,7 +20,7 @@ public class QuestVisualElement : VisualElement
     bool _isAdditionalInfoShown;
     bool _isDelegated; // TODO: dunno why I get multiple callbacks when assigning and removing characters.
 
-    public QuestVisualElement(Quest quest, bool isOnClickDisabled = false)
+    public QuestVisualElement(Quest quest)
     {
         _gameManager = GameManager.Instance;
         _quest = quest;
@@ -40,12 +40,7 @@ public class QuestVisualElement : VisualElement
         Add(_startAssignementButton);
         _startAssignementButton.style.display = DisplayStyle.None;
 
-        if (isOnClickDisabled)
-            return;
-
-        RegisterCallback<PointerUpEvent>(OnPointerUp);
-
-        ExpiredCheck();
+        ExpiryCheck();
     }
 
     void AddBasicInfo()
@@ -64,7 +59,7 @@ public class QuestVisualElement : VisualElement
         Label title = new(_quest.Title);
         _basicInfoContainer.Add(title);
 
-        if (!_quest.IsDelegated)
+        if (_quest.QuestState != QuestState.Delegated)
             return;
 
         AddDaysLeftLabel();
@@ -79,28 +74,11 @@ public class QuestVisualElement : VisualElement
         _basicInfoContainer.Add(daysLeftLabel);
     }
 
-    void OnPointerUp(PointerUpEvent evt)
-    {
-        if (_isAdditionalInfoShown)
-        {
-            _isAdditionalInfoShown = false;
-            _additionalInfo.style.display = DisplayStyle.None;
-            _characterSlotContainer.style.display = DisplayStyle.None;
-            return;
-        }
-
-        _additionalInfo.style.display = DisplayStyle.Flex;
-        _characterSlotContainer.style.display = DisplayStyle.Flex;
-        _isAdditionalInfoShown = true;
-    }
-
     void CreateAdditionalInfo()
     {
         _additionalInfo = new();
         _additionalInfo.AddToClassList("textPrimary");
-
         Add(_additionalInfo);
-        _additionalInfo.style.display = DisplayStyle.None;
 
         if (_quest.IsExpired())
             _additionalInfo.Add(new Label("Expired!"));
@@ -147,7 +125,8 @@ public class QuestVisualElement : VisualElement
         _cardSlots = new();
         for (int i = 0; i < 3; i++)
         {
-            CharacterCardMiniSlot slot = new CharacterCardMiniSlot(null, _quest.IsDelegated);
+            bool isLocked = _quest.QuestState == QuestState.Delegated;
+            CharacterCardMiniSlot slot = new CharacterCardMiniSlot(null, isLocked);
             _cardSlots.Add(slot);
             slot.OnCardAdded += OnCardAdded;
             slot.OnCardRemoved += OnCardRemoved;
@@ -161,8 +140,6 @@ public class QuestVisualElement : VisualElement
         }
 
         Add(_characterSlotContainer);
-        _characterSlotContainer.style.display = DisplayStyle.None;
-
     }
 
     void OnCardAdded(CharacterCardMini card)
@@ -250,13 +227,10 @@ public class QuestVisualElement : VisualElement
         Remove(_successChance);
     }
 
-    void ExpiredCheck()
+    void ExpiryCheck()
     {
         if (!_quest.IsExpired())
             return;
-
-        UnregisterCallback<PointerUpEvent>(OnPointerUp);
-        _additionalInfo.style.display = DisplayStyle.Flex;
 
         foreach (CharacterCardMiniSlot slot in _cardSlots)
             slot.Lock();

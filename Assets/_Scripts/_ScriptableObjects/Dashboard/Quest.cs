@@ -11,6 +11,7 @@ public class Quest : BaseScriptableObject
     [Header("Basics")]
     public QuestIcon Icon;
     public string Title;
+    public QuestState QuestState;
 
     [Header("Battle")]
     public string SceneToLoad = Scenes.Battle;
@@ -26,14 +27,43 @@ public class Quest : BaseScriptableObject
     public int ExpiryDay;
     public int Duration;
 
-    [HideInInspector] public bool IsDelegated;
     public int DayStarted;
     [HideInInspector] public List<Character> AssignedCharacters = new();
 
-    public bool IsWon;
-
     GameManager _gameManager;
 
+    public event Action<QuestState> OnQuestStateChanged;
+    public void UpdateQuestState(QuestState newState)
+    {
+        QuestState = newState;
+        switch (newState)
+        {
+            case QuestState.Pending:
+                break;
+            case QuestState.Delegated:
+                break;
+            case QuestState.Won:
+                Won();
+                break;
+            case QuestState.Lost:
+                Lost();
+                break;
+            case QuestState.Expired:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
+        OnQuestStateChanged?.Invoke(newState);
+    }
+
+    public void OnDayPassed(int day)
+    {
+        if (QuestState == QuestState.Delegated)
+            HandleDelegatedQuest();
+
+        if (IsExpired())
+            UpdateQuestState(QuestState.Expired);
+    }
 
     public void AssignCharacter(Character character) { AssignedCharacters.Add(character); }
 
@@ -43,8 +73,8 @@ public class Quest : BaseScriptableObject
 
     public void DelegateQuest()
     {
+        UpdateQuestState(QuestState.Delegated);
         DayStarted = _gameManager.Day;
-        IsDelegated = true;
 
         foreach (Character character in AssignedCharacters)
             character.SetUnavailable(Duration);
@@ -52,18 +82,35 @@ public class Quest : BaseScriptableObject
         _gameManager.SaveJsonData();
     }
 
+    void HandleDelegatedQuest()
+    {
+        if (CountDaysLeft() > 0)
+            return;
+
+        if (Random.value < GetSuccessChance() * 0.01)
+            UpdateQuestState(QuestState.Won);
+        else
+            UpdateQuestState(QuestState.Lost);
+    }
+
     public int CountDaysLeft() { return Duration - (_gameManager.Day - DayStarted); }
 
-    public bool IsExpired() { return ExpiryDay - _gameManager.Day <= 0; }
+    public bool IsExpired()
+    {
+        if (QuestState != QuestState.Pending)
+            return false;
+
+        return ExpiryDay - _gameManager.Day <= 0;
+    }
 
     public void Won()
     {
-        IsWon = true;
+        Debug.Log($"Quest won");
     }
 
     public void Lost()
     {
-        IsWon = false;
+        Debug.Log($"Quest lost");
         foreach (Character character in AssignedCharacters)
         {
             if (Random.value < 0.5f) // 50% chance to disable a character 
@@ -78,6 +125,7 @@ public class Quest : BaseScriptableObject
         _gameManager = GameManager.Instance;
         Icon = _gameManager.GameDatabase.GetRandomQuestIcon();
         Title = "Quest Title";
+        QuestState = QuestState.Pending;
 
         Biome = _gameManager.GameDatabase.GetRandomBiome();
         MapVariant = _gameManager.GameDatabase.GetRandomMapVariant();
@@ -108,6 +156,8 @@ public class Quest : BaseScriptableObject
 
         Icon = _gameManager.GameDatabase.GetQuestIconById(data.QuestIconId);
         Title = data.Title;
+        QuestState = (QuestState)Enum.Parse(typeof(QuestState), data.QuestState);
+
         SceneToLoad = data.SceneToLoad;
 
         Biome = _gameManager.GameDatabase.GetTilemapBiomeById(data.Biome);
@@ -122,7 +172,6 @@ public class Quest : BaseScriptableObject
         Reward.Gold = data.RewardData.Gold;
         Reward.Item = _gameManager.GameDatabase.GetItemByReferenceId(data.RewardData.ItemReferenceId);
 
-        IsDelegated = data.IsDelegated;
         ExpiryDay = data.ExpiryDay;
         Duration = data.Duration;
         DayStarted = data.DayStarted;
@@ -130,8 +179,6 @@ public class Quest : BaseScriptableObject
         AssignedCharacters = new();
         foreach (string id in data.AssignedCharacters)
             AssignedCharacters.Add(_gameManager.PlayerTroops.First(x => x.Id == id));
-
-        IsWon = data.IsWon;
     }
 
     public QuestData SerializeSelf()
@@ -140,6 +187,8 @@ public class Quest : BaseScriptableObject
 
         qd.QuestIconId = Icon.Id;
         qd.Title = Title;
+        qd.QuestState = QuestState.ToString();
+
         qd.SceneToLoad = SceneToLoad;
         qd.Biome = Biome.Id;
         qd.MapVariant = MapVariant.Id;
@@ -150,7 +199,6 @@ public class Quest : BaseScriptableObject
 
         qd.RewardData = Reward.SerializeSelf();
 
-        qd.IsDelegated = IsDelegated;
         qd.ExpiryDay = ExpiryDay;
         qd.Duration = Duration;
         qd.DayStarted = DayStarted;
@@ -158,8 +206,6 @@ public class Quest : BaseScriptableObject
         qd.AssignedCharacters = new();
         foreach (Character c in AssignedCharacters)
             qd.AssignedCharacters.Add(c.Id);
-
-        qd.IsWon = IsWon;
 
         return qd;
     }
@@ -170,6 +216,8 @@ public struct QuestData
 {
     public string QuestIconId;
     public string Title;
+    public string QuestState;
+
     public string SceneToLoad;
     public string Biome;
     public string MapVariant;
@@ -177,7 +225,6 @@ public struct QuestData
     public List<string> Enemies;
     public RewardData RewardData;
 
-    public bool IsDelegated;
     public int ExpiryDay;
     public int Duration;
     public int DayStarted;
