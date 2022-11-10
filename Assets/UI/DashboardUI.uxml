@@ -20,62 +20,25 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="main" style="width: 100%; height: 90%; flex-direction: row;">
-        <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: flex; flex-direction: row;">
-            <ui:VisualElement name="reportsContainer" style="width: auto; height: 100%; flex-grow: 1; flex-shrink: 0;">
-                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); background-color: rgb(144, 60, 60); margin-top: 0; margin-left: 0; margin-right: 0; margin-bottom: 0; top: 0; left: 25%;">
-                    <ui:Label text="New Quest" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    <ui:VisualElement>
-                        <ui:Label text="Quest Element" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
+        <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: flex; flex-direction: row; background-color: rgb(255, 255, 255); background-image: none;">
+            <ui:VisualElement name="reportsContainer" style="width: 20%; height: 100%; flex-grow: 1; flex-shrink: 0; background-image: url(&apos;project://database/Assets/Hand%20Painted%20Seamless%20Wood%20Texture/Textures/Wood2.tga?fileID=2800000&amp;guid=fa79f310fc4924e4cabca0791e343bfb&amp;type=3#Wood2&apos;);">
+                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); top: 412px; left: 418px;">
+                    <ui:VisualElement name="shadow" class="reportShadow" />
+                    <ui:VisualElement name="contents" class="reportContents">
+                        <ui:VisualElement>
+                            <ui:Label text="Quest Element" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: center;">
+                            <ui:Button text="Accept" display-tooltip-when-elided="true" />
+                            <ui:Button text="Reject" display-tooltip-when-elided="true" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="signButton" />
+                        <ui:Label text="Signed on day 52." display-tooltip-when-elided="true" class="signedText signedTextBefore" />
+                        <ui:Label text="New Quest" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
                     </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: center;">
-                        <ui:Button text="Accept" display-tooltip-when-elided="true" />
-                        <ui:Button text="Reject" display-tooltip-when-elided="true" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); background-color: rgb(144, 60, 60); margin-top: 0; margin-left: 0; margin-bottom: 0; margin-right: 0; top: -10px; left: 24%;">
-                    <ui:Label text="New Quest" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    <ui:VisualElement>
-                        <ui:Label text="Quest Element" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: center;">
-                        <ui:Button text="Accept" display-tooltip-when-elided="true" />
-                        <ui:Button text="Reject" display-tooltip-when-elided="true" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); background-color: rgb(144, 60, 60); margin-top: 0; margin-left: 0; margin-bottom: 0; margin-right: 0; top: -20px; left: 23%;">
-                    <ui:Label text="New Quest" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    <ui:VisualElement>
-                        <ui:Label text="Quest Element" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: center;">
-                        <ui:Button text="Accept" display-tooltip-when-elided="true" />
-                        <ui:Button text="Reject" display-tooltip-when-elided="true" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); background-color: rgb(144, 60, 60); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; top: -30px; left: 22%;">
-                    <ui:Label text="New Quest" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    <ui:VisualElement>
-                        <ui:Label text="Quest Element" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: center;">
-                        <ui:Button text="Accept" display-tooltip-when-elided="true" />
-                        <ui:Button text="Reject" display-tooltip-when-elided="true" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); background-color: rgb(144, 60, 60); top: -40px; left: 12%; scale: 0.5 0.5; rotate: 0; transform-origin: center;">
-                    <ui:Label text="New Quest" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    <ui:VisualElement>
-                        <ui:Label text="Quest Element" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: center;">
-                        <ui:Button text="Accept" display-tooltip-when-elided="true" />
-                        <ui:Button text="Reject" display-tooltip-when-elided="true" />
-                    </ui:VisualElement>
-                    <ui:VisualElement class="signButton" />
-                    <ui:Label text="Signed on day 52." display-tooltip-when-elided="true" class="signedText signedTextBefore" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="deskRightPanel" style="height: 100%;">
+            <ui:VisualElement name="deskRightPanel" style="height: 100%; background-image: url(&apos;project://database/Assets/Hand%20Painted%20Seamless%20Wood%20Texture/Textures/Wood3.tga?fileID=2800000&amp;guid=3c63e2e318876fc4ebc6ba149de82007&amp;type=3#Wood3&apos;);">
                 <ui:VisualElement name="reportsArchive" style="width: 200px; height: 250px; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Dashboard/paperStack.png?fileID=2800000&amp;guid=9ca336630f0090b419849128959d08aa&amp;type=3#paperStack&apos;);">
                     <ui:Label text="Archive" display-tooltip-when-elided="true" style="rotate: 0; color: rgb(0, 0, 0);" />
                 </ui:VisualElement>

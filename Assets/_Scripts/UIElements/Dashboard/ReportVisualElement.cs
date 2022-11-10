@@ -6,10 +6,14 @@ using System;
 using System.Threading.Tasks;
 using DG.Tweening;
 
-public class ReportVisualElement : ScrollView
+public class ReportVisualElement : VisualElement
 {
     GameManager _gameManager;
+    AudioManager _audioManager;
+
     VisualElement _parent;
+    ScrollView _reportContents;
+    VisualElement _reportShadow;
     Report _report;
     bool _isArchived;
 
@@ -19,6 +23,7 @@ public class ReportVisualElement : ScrollView
     public ReportVisualElement(VisualElement parent, Report report)
     {
         _gameManager = GameManager.Instance;
+        _audioManager = AudioManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
 
         _parent = parent;
@@ -26,6 +31,15 @@ public class ReportVisualElement : ScrollView
 
         AddToClassList("report");
         AddToClassList("textPrimary");
+
+        _reportShadow = new();
+        _reportShadow.AddToClassList("reportShadow");
+        _reportShadow.style.display = DisplayStyle.None;
+        Add(_reportShadow);
+
+        _reportContents = new();
+        _reportContents.AddToClassList("reportContents");
+        Add(_reportContents);
 
         // depending on type it will look differently
         if (report.ReportType == ReportType.Quest)
@@ -49,7 +63,7 @@ public class ReportVisualElement : ScrollView
 
     void HandleQuest()
     {
-        Clear();
+        _reportContents.Clear();
         if (_report.Quest.IsExpired())
         {
             HandleExpiredQuest();
@@ -57,13 +71,13 @@ public class ReportVisualElement : ScrollView
         }
 
         AddHeader("Quest", new Color(0.27f, 0.4f, 0.56f));
-        Add(new QuestVisualElement(_report.Quest));
+        _reportContents.Add(new QuestVisualElement(_report.Quest));
     }
 
     void HandleExpiredQuest()
     {
         AddHeader("Quest Expired!", new Color(0.55f, 0.2f, 0.21f));
-        Add(new QuestVisualElement(_report.Quest));
+        _reportContents.Add(new QuestVisualElement(_report.Quest));
         AddSignButton();
     }
 
@@ -74,20 +88,20 @@ public class ReportVisualElement : ScrollView
         AddHeader("Quest Finished!", new Color(0.18f, 0.2f, 0.21f));
 
         Label result = new();
-        Add(result);
+        _reportContents.Add(result);
         result.text = _report.Quest.IsWon ? "Won! :)" : "Lost! :(";
 
-        Add(new QuestVisualElement(_report.Quest, true));
+        _reportContents.Add(new QuestVisualElement(_report.Quest, true));
 
         if (_report.Quest.IsWon && !_isArchived)
         {
             RewardContainer rc = new RewardContainer(_report.Quest.Reward);
             rc.OnChestOpen += OnRewardChestOpen;
-            Add(rc);
+            _reportContents.Add(rc);
         }
 
         VisualElement container = new();
-        Add(container);
+        _reportContents.Add(container);
 
         foreach (Character character in _report.Quest.AssignedCharacters)
             container.Add(new CharacterCardExtended(character));
@@ -102,7 +116,7 @@ public class ReportVisualElement : ScrollView
     void HandleRecruit()
     {
         AddHeader($"{_report.Recruit.CharacterName} wants to join!", new Color(0.2f, 0.2f, 0.55f));
-        Add(new CharacterCardMini(_report.Recruit));
+        _reportContents.Add(new CharacterCardMini(_report.Recruit));
         AddAcceptRejectButtons(AcceptRecruit, RejectRecruit);
     }
 
@@ -120,7 +134,7 @@ public class ReportVisualElement : ScrollView
 
         Label text = new(_report.Text);
         text.style.fontSize = 36;
-        Add(text);
+        _reportContents.Add(text);
 
         AddSignButton();
     }
@@ -135,7 +149,7 @@ public class ReportVisualElement : ScrollView
 
         header.RegisterCallback<PointerDownEvent>(OnHeaderPointerDown);
 
-        Add(header);
+        _reportContents.Add(header);
     }
 
     void AddAcceptRejectButtons(Action acceptCallback, Action rejectCallback)
@@ -153,7 +167,7 @@ public class ReportVisualElement : ScrollView
         MyButton rejectButton = new MyButton(null, "rejectButton", rejectCallback);
         container.Add(acceptButton);
         container.Add(rejectButton);
-        Add(container);
+        _reportContents.Add(container);
     }
 
     void HandleSignedReportWithDecision()
@@ -161,7 +175,7 @@ public class ReportVisualElement : ScrollView
         Label l = new();
         l.text = _report.WasAccepted ? $"Accepted on day {_report.DaySigned}" : $"Rejected on day {_report.DaySigned}";
         l.style.color = _report.WasAccepted ? Color.green : Color.red;
-        Add(l);
+        _reportContents.Add(l);
     }
 
     void AddSignButton()
@@ -169,12 +183,12 @@ public class ReportVisualElement : ScrollView
         if (_report.IsSigned)
         {
             Label signed = new($"Signed on day {_report.DaySigned}");
-            Add(signed);
+            _reportContents.Add(signed);
             return;
         }
 
         MyButton signButton = new MyButton(null, "signButton", DismissReport);
-        Add(signButton);
+        _reportContents.Add(signButton);
     }
 
     void BaseAcceptReport()
@@ -193,10 +207,10 @@ public class ReportVisualElement : ScrollView
         Blur();
 
         _report.Sign();
-        AudioManager.Instance.PlaySFX("Stamp", Vector3.zero);
+        _audioManager.PlaySFX("Stamp", Vector3.zero);
 
         Label signed = new($"Signed on day {_gameManager.Day}");
-        Add(signed);
+        _reportContents.Add(signed);
         // TODO: a better way? XD
         await Task.Delay(50);
         signed.AddToClassList("signedBefore");
@@ -207,6 +221,7 @@ public class ReportVisualElement : ScrollView
 
         await Task.Delay(400);
         OnReportDismissed?.Invoke(this);
+        _audioManager.PlaySFX("PaperFlying", Vector3.zero);
 
         // archive report
         _gameManager.Reports.Remove(_report);
@@ -231,6 +246,9 @@ public class ReportVisualElement : ScrollView
     {
         BringToFront();
 
+        AddToClassList("reportPickedUp");
+        _audioManager.PlaySFX("Paper", Vector3.zero);
+        _reportShadow.style.display = DisplayStyle.Flex;
         style.left = position.x - layout.width / 2;
         style.top = position.y - layout.height / 4;
     }
@@ -252,7 +270,10 @@ public class ReportVisualElement : ScrollView
             return;
 
         _isDragging = false;
+        _audioManager.PlaySFX("PlacingPaper", Vector3.zero);
+        RemoveFromClassList("reportPickedUp");
 
+        _reportShadow.style.display = DisplayStyle.None;
         _report.Position = new Vector2(style.left.value.value, style.top.value.value);
         _gameManager.SaveJsonData();
     }
