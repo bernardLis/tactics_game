@@ -39,7 +39,7 @@ public class Report : BaseScriptableObject
         ReportPaper = GameManager.Instance.GameDatabase.GetReportPaperById(data.ReportPaperId);
         Position = data.Position;
 
-        if (ReportType == ReportType.Quest || ReportType == ReportType.FinishedQuest)
+        if (ReportType == ReportType.Quest)
         {
             Quest = ScriptableObject.CreateInstance<Quest>();
             Quest.CreateFromData(data.Quest);

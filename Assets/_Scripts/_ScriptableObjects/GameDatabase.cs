@@ -99,7 +99,7 @@ public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
-public enum ReportType { Quest, FinishedQuest, Recruit, Text }
+public enum ReportType { Quest, Recruit, Text }
 public enum QuestState { Pending, Delegated, Won, Lost, Expired}
 
 [System.Serializable]

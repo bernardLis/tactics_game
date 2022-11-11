@@ -20,8 +20,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Day { get; private set; }
     public int Gold { get; private set; }
 
-    //public List<Quest> AvailableQuests = new();
-
     public List<Item> ShopItems = new();
     public int ShopRerollPrice { get; private set; }
 
@@ -65,12 +63,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void BattleWon()
     {
         LoadLevel(Scenes.Dashboard);
-        /*
-                // HERE: report changes itself by subscribing to the quest
-                Report r = ScriptableObject.CreateInstance<Report>();
-                r.Initialize(ReportType.FinishedQuest, ActiveQuest);
-                Reports.Add(r);
-        */
         ActiveQuest.UpdateQuestState(QuestState.Won);
         ActiveQuest = null;
         PassDay();
@@ -79,12 +71,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void BattleLost()
     {
         LoadLevel(Scenes.Dashboard);
-        /*
-                // HERE: report changes itself by subscribing to the quest
-                Report r = ScriptableObject.CreateInstance<Report>();
-                r.Initialize(ReportType.FinishedQuest, ActiveQuest);
-                Reports.Add(r);
-        */
         ActiveQuest.UpdateQuestState(QuestState.Lost);
         ActiveQuest = null;
         PassDay();
@@ -97,13 +83,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Day += 1;
 
         if (Day % 7 == 0) // shop resets every 7th day
+        {
             ResetShop();
-
-        PayMaintenance();
-        AddRandomQuest();
-        //   ResolveDelegatedQuests();
-        //  ResolveExpiredQuests();
-        ResolveRecruit();
+            PayMaintenance();
+        }
+        
+        if (Random.value > 0.5f)
+            AddRandomQuest();
+        if (Random.value > 0.5f)
+            AddRecruit();
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
@@ -120,65 +108,21 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Reports.Add(r);
     }
 
-    public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 2; }
+    public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 2 * 7; }
 
     void AddRandomQuest()
     {
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
         OnDayPassed += q.OnDayPassed;
-        //  AvailableQuests.Add(q);
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Quest, q);
         Reports.Add(r);
     }
-    /*
-        void ResolveDelegatedQuests()
-        {
-            List<Quest> questsToRemove = new();
-            foreach (Quest q in AvailableQuests)
-            {
-                if (q.QuestState != QuestState.Delegated)
-                    continue;
 
-                if (q.CountDaysLeft() > 0)
-                    continue;
-
-                questsToRemove.Add(q);
-                Report r = ScriptableObject.CreateInstance<Report>();
-                r.Initialize(ReportType.FinishedQuest, q);
-                Reports.Add(r);
-
-            }
-
-            foreach (Quest q in questsToRemove)
-                AvailableQuests.Remove(q);
-        }
-        */
-    /*
-        public void ResolveExpiredQuests()
-        {
-            List<Quest> questsToRemove = new();
-            foreach (Quest q in AvailableQuests)
-            {
-                if (q.IsDelegated)
-                    continue;
-                if (Day == q.ExpiryDay)
-                    questsToRemove.Add(q);
-            }
-
-            foreach (Quest q in questsToRemove)
-                AvailableQuests.Remove(q);
-        }
-
-        */
-
-    void ResolveRecruit()
+    void AddRecruit()
     {
-        if (Random.value > 0.5f) // 50/50 recruit 
-            return;
-
         Character newChar = ScriptableObject.CreateInstance<Character>();
         newChar.CreateRandom();
 
@@ -357,8 +301,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
 
-        //    saveData.AvailableQuests = PopulateAvailableQuests();
-
         saveData.Reports = PopulateReports();
         saveData.ReportsArchived = PopulateArchivedReports();
     }
@@ -398,15 +340,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         return abilityReferenceIds;
     }
-    /*
-        List<QuestData> PopulateAvailableQuests()
-        {
-            List<QuestData> quests = new();
-            foreach (Quest q in AvailableQuests)
-                quests.Add(q.SerializeSelf());
-            return quests;
-        }
-        */
 
     List<ReportData> PopulateReports()
     {
@@ -466,21 +399,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (string abilityReferenceId in saveData.AbilityPouch)
             PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
 
-        //   LoadQuests(saveData);
         LoadReports(saveData);
     }
-    /*
-        void LoadQuests(SaveData saveData)
-        {
-            AvailableQuests = new();
-            foreach (QuestData qd in saveData.AvailableQuests)
-            {
-                Quest quest = ScriptableObject.CreateInstance<Quest>();
-                quest.CreateFromData(qd);
-                AvailableQuests.Add(quest);
-            }
-        }
-        */
 
     void LoadReports(SaveData saveData)
     {
@@ -519,8 +439,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerAbilityPouch = new();
 
         CutsceneIndexToPlay = 0; // TODO: wrong but it's ok for now.
-
-        //  AvailableQuests = new();
 
         Reports = new();
         ReportsArchived = new();

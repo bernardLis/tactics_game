@@ -36,6 +36,7 @@ public class Quest : BaseScriptableObject
     public void UpdateQuestState(QuestState newState)
     {
         QuestState = newState;
+        Debug.Log($"updating quest state: {newState}");
         switch (newState)
         {
             case QuestState.Pending:
@@ -58,6 +59,7 @@ public class Quest : BaseScriptableObject
 
     public void OnDayPassed(int day)
     {
+        Debug.Log($"on day passed");
         if (QuestState == QuestState.Delegated)
             HandleDelegatedQuest();
 
@@ -68,6 +70,7 @@ public class Quest : BaseScriptableObject
     public void AssignCharacter(Character character) { AssignedCharacters.Add(character); }
 
     public void RemoveAssignedCharacter(Character character) { AssignedCharacters.Remove(character); }
+    public int AssignedCharacterCount() { return AssignedCharacters.Count; }
 
     public int GetSuccessChance() { return AssignedCharacters.Count * 25; } // TODO: ofc, something cooler!
 
@@ -97,6 +100,9 @@ public class Quest : BaseScriptableObject
 
     public bool IsExpired()
     {
+        if (QuestState == QuestState.Expired)
+            return true;
+
         if (QuestState != QuestState.Pending)
             return false;
 
@@ -153,9 +159,11 @@ public class Quest : BaseScriptableObject
     public void CreateFromData(QuestData data)
     {
         _gameManager = GameManager.Instance;
+        _gameManager.OnDayPassed += OnDayPassed;
 
         Icon = _gameManager.GameDatabase.GetQuestIconById(data.QuestIconId);
         Title = data.Title;
+
         QuestState = (QuestState)Enum.Parse(typeof(QuestState), data.QuestState);
 
         SceneToLoad = data.SceneToLoad;

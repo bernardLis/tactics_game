@@ -12,8 +12,11 @@ public class ReportVisualElement : VisualElement
     AudioManager _audioManager;
 
     VisualElement _parent;
-    ScrollView _reportContents;
     VisualElement _reportShadow;
+
+    VisualElement _reportContents;
+    Label _header;
+
     Report _report;
     bool _isArchived;
 
@@ -41,11 +44,12 @@ public class ReportVisualElement : VisualElement
         _reportContents.AddToClassList("reportContents");
         Add(_reportContents);
 
+        _header = new();
+        _reportContents.Add(_header);
+
         // depending on type it will look differently
         if (report.ReportType == ReportType.Quest)
             HandleQuest();
-        if (report.ReportType == ReportType.FinishedQuest)
-            HandleFinishedQuest();
         if (report.ReportType == ReportType.Recruit)
             HandleRecruit();
         if (report.ReportType == ReportType.Text)
@@ -61,35 +65,42 @@ public class ReportVisualElement : VisualElement
 
     void HandleQuest()
     {
-        _report.Quest.OnQuestStateChanged += OnQuestStateChanged;
-        _reportContents.Clear();
-        AddHeader("Quest", new Color(0.27f, 0.4f, 0.56f));
         _reportContents.Add(new QuestVisualElement(_report.Quest));
+        _report.Quest.OnQuestStateChanged += OnQuestStateChanged;
+        UpdateHeader();
+
+        if (_report.Quest.QuestState == QuestState.Won || _report.Quest.QuestState == QuestState.Lost)
+            HandleFinishedQuest(); // HERE: finished quest
+        if (_report.Quest.QuestState == QuestState.Expired)
+            AddSignButton();
+    }
+
+    void UpdateHeader()
+    {
+        if (_report.Quest.QuestState == QuestState.Pending)
+            AddHeader("Quest", new Color(0.27f, 0.4f, 0.56f));
+        if (_report.Quest.QuestState == QuestState.Delegated)
+            AddHeader("Quest In Progress", new Color(0.55f, 0.7f, 0.21f));
+        if (_report.Quest.QuestState == QuestState.Won || _report.Quest.QuestState == QuestState.Lost)
+            AddHeader("Quest Finished!", new Color(0.18f, 0.2f, 0.21f));
+        if (_report.Quest.QuestState == QuestState.Expired)
+            AddHeader("Quest Expired", new Color(0.55f, 0.2f, 0.21f));
     }
 
     void OnQuestStateChanged(QuestState state)
     {
+        UpdateHeader();
         if (state == QuestState.Expired)
-            HandleExpiredQuest();
-
+            AddSignButton();
         if (state == QuestState.Won || state == QuestState.Lost)
-            HandleFinishedQuest();
+            HandleFinishedQuest(); // HERE: finished quest
     }
 
-    void HandleExpiredQuest()
-    {
-        _reportContents.Clear();
-        AddHeader("Quest Expired!", new Color(0.55f, 0.2f, 0.21f));
-        _reportContents.Add(new QuestVisualElement(_report.Quest));
-        AddSignButton();
-    }
-
+    // HERE: finished quest
     void HandleFinishedQuest()
     {
-        _reportContents.Clear();
         // distinction between delegated quest and player quest
         // display the quest, the characters that partook and clickable reward
-        AddHeader("Quest Finished!", new Color(0.18f, 0.2f, 0.21f));
 
         Label result = new();
         _reportContents.Add(result);
@@ -138,6 +149,7 @@ public class ReportVisualElement : VisualElement
 
         Label text = new(_report.Text);
         text.style.fontSize = 36;
+        text.style.whiteSpace = WhiteSpace.Normal;
         _reportContents.Add(text);
 
         AddSignButton();
@@ -146,14 +158,13 @@ public class ReportVisualElement : VisualElement
     // HELPERS
     void AddHeader(string text, Color color)
     {
-        Label header = new(text);
-        header.style.fontSize = 48;
-        header.style.backgroundColor = color;
-        header.style.unityTextAlign = TextAnchor.MiddleCenter;
+        _header.text = text;
+        _header.style.fontSize = 48;
+        _header.style.backgroundColor = color;
+        _header.style.unityTextAlign = TextAnchor.MiddleCenter;
+        _header.style.whiteSpace = WhiteSpace.Normal;
 
-        header.RegisterCallback<PointerDownEvent>(OnHeaderPointerDown);
-
-        _reportContents.Add(header);
+        _header.RegisterCallback<PointerDownEvent>(OnHeaderPointerDown);
     }
 
     void AddAcceptRejectButtons(Action acceptCallback, Action rejectCallback)
@@ -215,13 +226,14 @@ public class ReportVisualElement : VisualElement
 
         Label signed = new($"Signed on day {_gameManager.Day}");
         _reportContents.Add(signed);
-        // TODO: a better way? XD
-        await Task.Delay(50);
-        signed.AddToClassList("signedBefore");
-        await Task.Delay(50);
-        signed.ToggleInClassList("signedBefore");
-        signed.AddToClassList("signedText");
 
+        // TODO: a better way? XD
+        signed.AddToClassList("signedBefore");
+        signed.style.display = DisplayStyle.None;
+        await Task.Delay(50); // this makes transitions from class to class to work.
+        signed.AddToClassList("signedText");
+        await Task.Delay(10); // TODO: nasty nasty nasty, but without it the text appears on the bottom of the element without styling for a few frames
+        signed.style.display = DisplayStyle.Flex;
 
         await Task.Delay(400);
         OnReportDismissed?.Invoke(this);

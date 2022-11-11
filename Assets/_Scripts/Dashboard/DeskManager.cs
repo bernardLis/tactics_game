@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using System.Threading.Tasks;
 
-public class DeskManager : MonoBehaviour
+public class DeskManager : Singleton<DeskManager>
 {
     GameManager _gameManager;
     DashboardManager _dashboardManager;
@@ -23,12 +23,16 @@ public class DeskManager : MonoBehaviour
 
     List<Report> VisibleReports = new();
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     void Start()
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += DayPassed;
-        _gameManager.OnCharacterAddedToTroops += OnCharacterAddedToTroops;
+        _gameManager.OnCharacterAddedToTroops += AddCharacterToDraggableTroops;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
@@ -63,7 +67,7 @@ public class DeskManager : MonoBehaviour
         }
     }
 
-    void OnCharacterAddedToTroops(Character character)
+    public void AddCharacterToDraggableTroops(Character character)
     {
         CharacterCardMiniSlot slot = new(new CharacterCardMini(character));
         _deskTroopsContainer.Add(slot);

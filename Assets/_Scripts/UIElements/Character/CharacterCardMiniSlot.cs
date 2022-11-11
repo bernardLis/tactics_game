@@ -40,8 +40,10 @@ public class CharacterCardMiniSlot : VisualElementWithSound
     public void RemoveCard()
     {
         Clear();
-        OnCardRemoved?.Invoke(Card);
+        CharacterCardMini previousCard = Card;
         Card = null;
+        Debug.Log($"previous card: {previousCard.Character.CharacterName}");
+        OnCardRemoved?.Invoke(previousCard);
     }
 
     public void Lock()
