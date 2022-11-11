@@ -59,17 +59,24 @@ public class Quest : BaseScriptableObject
 
     public void OnDayPassed(int day)
     {
-        Debug.Log($"on day passed");
         if (QuestState == QuestState.Delegated)
             HandleDelegatedQuest();
 
-        if (IsExpired())
+        if (IsExpired() && QuestState != QuestState.Expired)
             UpdateQuestState(QuestState.Expired);
     }
 
-    public void AssignCharacter(Character character) { AssignedCharacters.Add(character); }
+    public void AssignCharacter(Character character)
+    {
+        character.IsAssigned = true;
+        AssignedCharacters.Add(character);
+    }
 
-    public void RemoveAssignedCharacter(Character character) { AssignedCharacters.Remove(character); }
+    public void RemoveAssignedCharacter(Character character)
+    {
+        character.IsAssigned = false;
+        AssignedCharacters.Remove(character);
+    }
     public int AssignedCharacterCount() { return AssignedCharacters.Count; }
 
     public int GetSuccessChance() { return AssignedCharacters.Count * 25; } // TODO: ofc, something cooler!

@@ -40,6 +40,7 @@ public class Character : BaseScriptableObject
     public List<Ability> Abilities = new();
 
     [Header("Quest")]
+    [HideInInspector] public bool IsAssigned;
     [HideInInspector] public bool IsUnavailable;
     [HideInInspector] public int DayStartedBeingUnavailable;
     [HideInInspector] public int UnavailabilityDuration;
@@ -217,10 +218,13 @@ public class Character : BaseScriptableObject
 
     public virtual void CreateRandom()
     {
+
         _gameManager = GameManager.Instance;
         GameDatabase gameDatabase = _gameManager.GameDatabase;
         CharacterDatabase characterDatabase = gameDatabase.CharacterDatabase;
         bool isMale = Random.value > 0.5f;
+
+        Id = Guid.NewGuid().ToString();
 
         CharacterName = isMale ? characterDatabase.GetRandomNameMale() : characterDatabase.GetRandomNameFemale();
         name = CharacterName;
@@ -253,7 +257,7 @@ public class Character : BaseScriptableObject
         Id = data.Id;
         CharacterName = data.CharacterName;
         Portrait = gameDatabase.CharacterDatabase.GetPortraitById(data.Portrait);
-        
+
         Level = data.Level;
         Experience = data.Experience;
         Power = data.Power;
@@ -271,6 +275,7 @@ public class Character : BaseScriptableObject
         foreach (string id in data.ItemReferenceIds)
             Items.Add(gameDatabase.GetItemByReferenceId(id));
 
+        IsAssigned = data.IsAssigned;
         IsUnavailable = data.IsOnUnavailable;
         DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
         UnavailabilityDuration = data.UnavailabilityDuration;
@@ -302,6 +307,7 @@ public class Character : BaseScriptableObject
             itemReferenceIds.Add(i.ReferenceID);
         data.ItemReferenceIds = new(itemReferenceIds);
 
+        data.IsAssigned = IsAssigned;
         data.IsOnUnavailable = IsUnavailable;
         data.DayStartedBeingUnavailable = DayStartedBeingUnavailable;
         data.UnavailabilityDuration = UnavailabilityDuration;
@@ -330,6 +336,7 @@ public struct CharacterData
     public List<string> AbilityReferenceIds;
     public List<string> ItemReferenceIds;
 
+    public bool IsAssigned;
     public bool IsOnUnavailable;
     public int DayStartedBeingUnavailable;
     public int UnavailabilityDuration;

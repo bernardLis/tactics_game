@@ -7,6 +7,7 @@ public class QuestVisualElement : VisualElement
 {
     GameManager _gameManager;
     DeskManager _deskManager;
+    DraggableCharacters _draggableCharacters;
     Quest _quest;
 
     VisualElement _basicInfoContainer;
@@ -30,6 +31,7 @@ public class QuestVisualElement : VisualElement
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
         _deskManager = DeskManager.Instance;
+        _draggableCharacters = _deskManager.GetComponent<DraggableCharacters>();
 
         _quest = quest;
         _quest.OnQuestStateChanged += OnQuestStateChanged;
@@ -56,37 +58,23 @@ public class QuestVisualElement : VisualElement
 
     void OnDayPassed(int day)
     {
-        //ReturnCharacters();
         UpdateExpiryDateLabel();
         UpdateDaysUntilFinishedLabel();
     }
-    /*
-        void ReturnCharacters()
-        {
-            if (_quest.QuestState != QuestState.Pending)
-                return;
-
-            foreach (CharacterCardMiniSlot slot in _cardSlots)
-            {
-                if (slot.Card == null)
-                    continue;
-
-                _deskManager.AddCharacterToDraggableTroops(slot.Card.Character);
-                slot.RemoveCard();
-            }
-        }
-        */
 
     void OnQuestStateChanged(QuestState state)
     {
+        UpdateExpiryDateLabel();
+        UpdateDaysUntilFinishedLabel();
+
         if (state == QuestState.Pending)
             Debug.Log($"pending");
         if (state == QuestState.Delegated)
-            Debug.Log($"Delegated");
+            HandleDelegatedQuest();
         if (state == QuestState.Won || state == QuestState.Lost)
             Debug.Log($"Finished");
         if (state == QuestState.Expired)
-            Debug.Log($"Expired");
+            HandleExpiredQuest();
     }
 
     void PopulateAdditionalInfo()
@@ -140,7 +128,37 @@ public class QuestVisualElement : VisualElement
 
     void HandleExpiredQuest()
     {
-        ExpiryCheck();
+        ReturnAssignedCharacters();
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+            slot.Lock();
+
+        VisualElement overlay = new VisualElement();
+        Add(overlay);
+        overlay.BringToFront();
+        overlay.style.position = Position.Absolute;
+        overlay.style.width = Length.Percent(105);
+        overlay.style.height = Length.Percent(105);
+        overlay.style.alignSelf = Align.Center;
+        overlay.style.alignItems = Align.Center;
+        overlay.style.justifyContent = Justify.Center;
+        overlay.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
+
+        Label text = new($"Expired! ({_quest.ExpiryDay})");
+        text.AddToClassList("textPrimary");
+        text.style.fontSize = 32;
+        text.transform.rotation *= Quaternion.Euler(0f, 0f, 45f);
+        overlay.Add(text);
+    }
+
+    void ReturnAssignedCharacters()
+    {
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+        {
+            if (slot.Card == null)
+                continue;
+            _deskManager.AddCharacterToDraggableTroops(slot.Card.Character);
+            slot.RemoveCard();
+        }
     }
 
     void AddBasicInfo()
@@ -248,6 +266,8 @@ public class QuestVisualElement : VisualElement
         // after adding cards to not trigger delegates prematurely.
         foreach (CharacterCardMiniSlot slot in _cardSlots)
         {
+            _draggableCharacters.AddDraggableSlot(slot); // after cards were added to make them draggable
+
             slot.OnCardAdded += OnCardAdded;
             slot.OnCardRemoved += OnCardRemoved;
         }
@@ -290,15 +310,16 @@ public class QuestVisualElement : VisualElement
 
     void OnCardAdded(CharacterCardMini card)
     {
-        Debug.Log($"on card added {card.Character.CharacterName}");
         _quest.AssignCharacter(card.Character);
         OnCardChange();
+        _gameManager.SaveJsonData();
     }
 
     void OnCardRemoved(CharacterCardMini card)
     {
         _quest.RemoveAssignedCharacter(card.Character);
         OnCardChange();
+        _gameManager.SaveJsonData();
     }
 
     void OnCardChange()
@@ -329,31 +350,5 @@ public class QuestVisualElement : VisualElement
         _isDelegated = true;
 
         _quest.DelegateQuest();
-    }
-
-    void ExpiryCheck()
-    {
-        if (!_quest.IsExpired())
-            return;
-
-        foreach (CharacterCardMiniSlot slot in _cardSlots)
-            slot.Lock();
-
-        VisualElement overlay = new VisualElement();
-        Add(overlay);
-        overlay.BringToFront();
-        overlay.style.position = Position.Absolute;
-        overlay.style.width = Length.Percent(105);
-        overlay.style.height = Length.Percent(105);
-        overlay.style.alignSelf = Align.Center;
-        overlay.style.alignItems = Align.Center;
-        overlay.style.justifyContent = Justify.Center;
-        overlay.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
-
-        Label text = new($"Expired! ({_quest.ExpiryDay})");
-        text.AddToClassList("textPrimary");
-        text.style.fontSize = 32;
-        text.transform.rotation *= Quaternion.Euler(0f, 0f, 45f);
-        overlay.Add(text);
     }
 }

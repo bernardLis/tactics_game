@@ -18,6 +18,8 @@ public class ReportVisualElement : VisualElement
     Label _header;
 
     Report _report;
+
+    MyButton _signButton;
     bool _isArchived;
 
     bool _isDragging;
@@ -55,6 +57,7 @@ public class ReportVisualElement : VisualElement
         if (report.ReportType == ReportType.Text)
             HandleText();
 
+
         parent.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         parent.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
@@ -68,11 +71,12 @@ public class ReportVisualElement : VisualElement
         _reportContents.Add(new QuestVisualElement(_report.Quest));
         _report.Quest.OnQuestStateChanged += OnQuestStateChanged;
         UpdateHeader();
+        AddSignButton();
 
+        if (_report.Quest.QuestState == QuestState.Expired)
+            ShowSignButton();
         if (_report.Quest.QuestState == QuestState.Won || _report.Quest.QuestState == QuestState.Lost)
             HandleFinishedQuest(); // HERE: finished quest
-        if (_report.Quest.QuestState == QuestState.Expired)
-            AddSignButton();
     }
 
     void UpdateHeader()
@@ -91,7 +95,7 @@ public class ReportVisualElement : VisualElement
     {
         UpdateHeader();
         if (state == QuestState.Expired)
-            AddSignButton();
+            ShowSignButton();
         if (state == QuestState.Won || state == QuestState.Lost)
             HandleFinishedQuest(); // HERE: finished quest
     }
@@ -125,7 +129,7 @@ public class ReportVisualElement : VisualElement
     void OnRewardChestOpen()
     {
         _report.Quest.Reward.GetReward();
-        AddSignButton();
+        ShowSignButton();
     }
 
     void HandleRecruit()
@@ -153,6 +157,7 @@ public class ReportVisualElement : VisualElement
         _reportContents.Add(text);
 
         AddSignButton();
+        ShowSignButton();
     }
 
     // HELPERS
@@ -202,9 +207,12 @@ public class ReportVisualElement : VisualElement
             return;
         }
 
-        MyButton signButton = new MyButton(null, "signButton", DismissReport);
-        _reportContents.Add(signButton);
+        _signButton = new MyButton(null, "signButton", DismissReport);
+        _signButton.style.visibility = Visibility.Hidden;
+        _reportContents.Add(_signButton);
     }
+
+    void ShowSignButton() { _signButton.style.visibility = Visibility.Visible; }
 
     void BaseAcceptReport()
     {

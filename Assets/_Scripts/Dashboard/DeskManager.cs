@@ -18,6 +18,7 @@ public class DeskManager : Singleton<DeskManager>
     VisualElement _reportsArchive;
 
     VisualElement _deskTroopsContainer;
+    List<CharacterCardMiniSlot> _characterCardSlots = new();
 
     MyButton _passDayButton;
 
@@ -67,31 +68,54 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
-    public void AddCharacterToDraggableTroops(Character character)
-    {
-        CharacterCardMiniSlot slot = new(new CharacterCardMini(character));
-        _deskTroopsContainer.Add(slot);
-        _draggableCharacters.AddDraggableSlot(slot);
-    }
-
     async void Initialize()
     {
         _reportsContainer.Clear();
         _reportsContainer.Add(_passDayButton);
         _deskTroopsContainer.Clear();
+        _characterCardSlots = new();
         VisibleReports = new();
 
         foreach (Report report in _gameManager.Reports)
             await CreateReport(report);
 
         foreach (Character character in _gameManager.PlayerTroops)
-            if (!character.IsUnavailable)
-                _deskTroopsContainer.Add(new CharacterCardMiniSlot(new CharacterCardMini(character)));
+        {
+            if (character.IsUnavailable)
+                continue;
+            if (character.IsAssigned)
+                continue;
+            AddNewCharacterSlot(character);
+        }
 
         _deskTroopsContainer.Add(new CharacterCardMiniSlot());
         _draggableCharacters.Initialize(_root);
 
         ShowPassDayButton();
+    }
+
+    public void AddCharacterToDraggableTroops(Character character)
+    {
+        List<CharacterCardMiniSlot> emptySlots = new();
+        foreach (CharacterCardMiniSlot slot in _characterCardSlots)
+            if (slot.Card == null)
+                emptySlots.Add(slot);
+
+        if (emptySlots.Count > 2)
+        {
+            emptySlots[0].AddCard(new CharacterCardMini(character));
+            return;
+        }
+
+        AddNewCharacterSlot(character);
+    }
+
+    void AddNewCharacterSlot(Character character)
+    {
+        CharacterCardMiniSlot slot = new(new CharacterCardMini(character));
+        _characterCardSlots.Add(slot);
+        _deskTroopsContainer.Add(slot);
+        _draggableCharacters.AddDraggableSlot(slot);
     }
 
     async Task CreateReport(Report report)

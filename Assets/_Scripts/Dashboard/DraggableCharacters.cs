@@ -42,15 +42,17 @@ public class DraggableCharacters : MonoBehaviour
 
     public void AddDraggableSlot(CharacterCardMiniSlot slot)
     {
-        slot.OnLocked += OnSlotLocked;
+        if (_allSlots.Contains(slot))
+            return;
+
         _allSlots.Add(slot);
+        slot.OnLocked += OnSlotLocked;
         if (slot.Card != null)
         {
             slot.Card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
             slot.Card.OnLocked += OnCardLocked;
         }
     }
-
 
     void OnCardPointerDown(PointerDownEvent evt)
     {
