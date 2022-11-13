@@ -195,12 +195,15 @@ public class DeskManager : Singleton<DeskManager>
         visual.style.backgroundColor = Color.black;
         visual.style.left = Screen.width;
 
+        ScrollView container = new();
+        visual.Add(container);
+
         DOTween.To(x => visual.style.left = x, Screen.width, 0f, 1f);
 
         foreach (Report report in _gameManager.ReportsArchived)
         {
             Label r = new Label($"{report.ReportType}");
-            visual.Add(r);
+            container.Add(r);
             // https://forum.unity.com/threads/send-additional-parameters-to-callback.777029/
             r.RegisterCallback<PointerUpEvent, Report>(OnArchivedReportClick, report);
         }

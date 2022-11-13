@@ -301,6 +301,4 @@ public class ReportVisualElement : VisualElement
         _report.Position = new Vector2(style.left.value.value, style.top.value.value);
         _gameManager.SaveJsonData();
     }
-
-
 }

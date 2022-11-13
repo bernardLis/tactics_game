@@ -24,8 +24,6 @@ public class QuestVisualElement : VisualElement
 
     List<CharacterCardMiniSlot> _cardSlots = new();
 
-    bool _isDelegated; // TODO: dunno why I get multiple callbacks when assigning and removing characters.
-
     public QuestVisualElement(Quest quest)
     {
         _gameManager = GameManager.Instance;
@@ -103,6 +101,7 @@ public class QuestVisualElement : VisualElement
         _additionalInfo.Add(_assignedCharactersContainer);
 
         _startAssignementButton = CreateStartAssignmentButton();
+        UpdateStartAssignmentButton();
         _additionalInfo.Add(_startAssignementButton);
     }
 
@@ -342,13 +341,5 @@ public class QuestVisualElement : VisualElement
 
     void StartBattle() { _gameManager.StartBattle(_quest); }
 
-    void DelegateBattle()
-    {
-        Debug.Log($"Delegate!");
-        if (_isDelegated)
-            return;
-        _isDelegated = true;
-
-        _quest.DelegateQuest();
-    }
+    void DelegateBattle()   {        _quest.DelegateQuest();    }
 }

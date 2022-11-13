@@ -42,7 +42,6 @@ public class CharacterCardMiniSlot : VisualElementWithSound
         Clear();
         CharacterCardMini previousCard = Card;
         Card = null;
-        Debug.Log($"previous card: {previousCard.Character.CharacterName}");
         OnCardRemoved?.Invoke(previousCard);
     }
 

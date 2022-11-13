@@ -83,12 +83,12 @@ public class Quest : BaseScriptableObject
 
     public void DelegateQuest()
     {
-        UpdateQuestState(QuestState.Delegated);
         DayStarted = _gameManager.Day;
 
         foreach (Character character in AssignedCharacters)
             character.SetUnavailable(Duration);
 
+        UpdateQuestState(QuestState.Delegated);
         _gameManager.SaveJsonData();
     }
 
