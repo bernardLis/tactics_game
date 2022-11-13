@@ -63,7 +63,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void BattleWon()
     {
         LoadLevel(Scenes.Dashboard);
-        ActiveQuest.UpdateQuestState(QuestState.Won);
+        ActiveQuest.UpdateQuestState(QuestState.Finished);
+        ActiveQuest.IsWon = true;
         ActiveQuest = null;
         PassDay();
     }
@@ -71,7 +72,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void BattleLost()
     {
         LoadLevel(Scenes.Dashboard);
-        ActiveQuest.UpdateQuestState(QuestState.Lost);
+        ActiveQuest.UpdateQuestState(QuestState.Finished);
         ActiveQuest = null;
         PassDay();
     }
@@ -87,12 +88,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             ResetShop();
             PayMaintenance();
         }
-        
+/* HERE:
         if (Random.value > 0.5f)
             AddRandomQuest();
         if (Random.value > 0.5f)
             AddRecruit();
-
+*/
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
     }
@@ -260,8 +261,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         PlayerTroops = CreatePlayerTroops();
 
-        // TODO: HERE: for now, I could hand craft 3 first quests or somethinmg...
-        for (int i = 0; i < 3; i++)
+        // TODO: // HERE: for now, I could hand craft 3 first quests or somethinmg...
+        for (int i = 0; i < 1; i++) // HERE: 1
             AddRandomQuest();
 
         // new save

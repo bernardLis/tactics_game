@@ -50,7 +50,7 @@ public class QuestVisualElement : VisualElement
             HandleExpiredQuest();
         if (_quest.QuestState == QuestState.Delegated)
             HandleDelegatedQuest();
-        if (_quest.QuestState == QuestState.Won || _quest.QuestState == QuestState.Lost)
+        if (_quest.QuestState == QuestState.Finished)
             HandleFinishedQuest();
     }
 
@@ -64,13 +64,14 @@ public class QuestVisualElement : VisualElement
     {
         UpdateExpiryDateLabel();
         UpdateDaysUntilFinishedLabel();
+        UpdateStartAssignmentButton();
 
         if (state == QuestState.Pending)
             Debug.Log($"pending");
         if (state == QuestState.Delegated)
             HandleDelegatedQuest();
-        if (state == QuestState.Won || state == QuestState.Lost)
-            Debug.Log($"Finished");
+        if (state == QuestState.Finished)
+            HandleFinishedQuest();
         if (state == QuestState.Expired)
             HandleExpiredQuest();
     }
@@ -116,13 +117,12 @@ public class QuestVisualElement : VisualElement
         foreach (CharacterCardMiniSlot slot in _cardSlots)
             slot.Lock();
 
-        _startAssignementButton.text = "Assigned!";
+        _startAssignementButton.UpdateButtonText("Assigned!");
         _startAssignementButton.SetEnabled(false);
     }
 
     void HandleFinishedQuest()
     {
-
     }
 
     void HandleExpiredQuest()
@@ -183,7 +183,7 @@ public class QuestVisualElement : VisualElement
             _expiryDateLabel.UpdateText($"Expires in: {_quest.ExpiryDay - _gameManager.Day} days.");
         if (_quest.QuestState == QuestState.Delegated)
             _expiryDateLabel.UpdateText($"Does not expire.");
-        if (_quest.QuestState == QuestState.Won || _quest.QuestState == QuestState.Lost)
+        if (_quest.QuestState == QuestState.Finished)
             _expiryDateLabel.UpdateText($"Does not expire.");
         if (_quest.QuestState == QuestState.Expired)
             _expiryDateLabel.UpdateText($"Expired.");
@@ -195,7 +195,7 @@ public class QuestVisualElement : VisualElement
             _daysUntilFinishedLabel.UpdateText($"Waiting for assignement.");
         if (_quest.QuestState == QuestState.Delegated)
             _daysUntilFinishedLabel.UpdateText($"Finished in: {_quest.CountDaysLeft()} days.");
-        if (_quest.QuestState == QuestState.Won || _quest.QuestState == QuestState.Lost)
+        if (_quest.QuestState == QuestState.Finished)
             _daysUntilFinishedLabel.UpdateText($"Finished.");
         if (_quest.QuestState == QuestState.Expired)
             _expiryDateLabel.UpdateText($"Expired.");
@@ -276,7 +276,7 @@ public class QuestVisualElement : VisualElement
 
     MyButton CreateStartAssignmentButton()
     {
-        MyButton button = new("Assign Characters!", "questActionButton", StartBattle);
+        MyButton button = new("Assign Characters!", "questActionButton", null);
         button.SetEnabled(false);
         Add(button);
 
@@ -285,25 +285,42 @@ public class QuestVisualElement : VisualElement
 
     void UpdateStartAssignmentButton()
     {
+        Debug.Log($"UpdateStartAssignmentButton ");
+        Debug.Log($"quest state: {_quest.QuestState}");
+        Debug.Log($"IsPlayerAssigned() {IsPlayerAssigned()}");
+        Debug.Log($"_quest.AssignedCharacterCount() {_quest.AssignedCharacterCount()}");
+
         if (_startAssignementButton == null)
             return;
         _startAssignementButton.ChangeCallback(null);
         _startAssignementButton.SetEnabled(false);
-        _startAssignementButton.text = "Assign Characters!";
+        _startAssignementButton.UpdateButtonText("Assign Characters!");
+        _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Pending.ToString()));
+
+        if (_quest.QuestState == QuestState.Finished)
+        {
+            _startAssignementButton.ChangeCallback(SeeResults);
+            _startAssignementButton.SetEnabled(true);
+            _startAssignementButton.UpdateButtonText("See Results!");
+            _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Finished.ToString()));
+            return;
+        }
 
         if (IsPlayerAssigned())
         {
             _startAssignementButton.ChangeCallback(StartBattle);
-            _startAssignementButton.text = "Battle It Out!";
             _startAssignementButton.SetEnabled(true);
+            _startAssignementButton.UpdateButtonText("Battle It Out!");
+            _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Delegated.ToString()));
             return;
         }
 
         if (_quest.AssignedCharacterCount() > 0)
         {
             _startAssignementButton.ChangeCallback(DelegateBattle);
-            _startAssignementButton.text = "Delegate It Out!";
             _startAssignementButton.SetEnabled(true);
+            _startAssignementButton.UpdateButtonText("Delegate It Out!");
+            _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Delegated.ToString()));
         }
     }
 
@@ -341,5 +358,10 @@ public class QuestVisualElement : VisualElement
 
     void StartBattle() { _gameManager.StartBattle(_quest); }
 
-    void DelegateBattle()   {        _quest.DelegateQuest();    }
+    void DelegateBattle() { _quest.DelegateQuest(); }
+
+    void SeeResults()
+    {
+        Debug.Log($"see results clicked");
+    }
 }

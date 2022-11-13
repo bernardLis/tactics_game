@@ -26,6 +26,7 @@ public class Quest : BaseScriptableObject
     [Header("Management")]
     public int ExpiryDay;
     public int Duration;
+    public bool IsWon;
 
     public int DayStarted;
     [HideInInspector] public List<Character> AssignedCharacters = new();
@@ -43,13 +44,11 @@ public class Quest : BaseScriptableObject
                 break;
             case QuestState.Delegated:
                 break;
-            case QuestState.Won:
-                Won();
-                break;
-            case QuestState.Lost:
-                Lost();
+            case QuestState.Finished:
                 break;
             case QuestState.Expired:
+                break;
+            case QuestState.RewardCollected:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -98,9 +97,10 @@ public class Quest : BaseScriptableObject
             return;
 
         if (Random.value < GetSuccessChance() * 0.01)
-            UpdateQuestState(QuestState.Won);
+            Won();
         else
-            UpdateQuestState(QuestState.Lost);
+            Lost();
+        UpdateQuestState(QuestState.Finished);
     }
 
     public int CountDaysLeft() { return Duration - (_gameManager.Day - DayStarted); }
@@ -119,6 +119,7 @@ public class Quest : BaseScriptableObject
     public void Won()
     {
         Debug.Log($"Quest won");
+        IsWon = true;
     }
 
     public void Lost()
@@ -190,6 +191,7 @@ public class Quest : BaseScriptableObject
         ExpiryDay = data.ExpiryDay;
         Duration = data.Duration;
         DayStarted = data.DayStarted;
+        IsWon = data.IsWon;
 
         AssignedCharacters = new();
         foreach (string id in data.AssignedCharacters)
@@ -217,6 +219,7 @@ public class Quest : BaseScriptableObject
         qd.ExpiryDay = ExpiryDay;
         qd.Duration = Duration;
         qd.DayStarted = DayStarted;
+        qd.IsWon = IsWon;
 
         qd.AssignedCharacters = new();
         foreach (Character c in AssignedCharacters)
@@ -243,10 +246,8 @@ public struct QuestData
     public int ExpiryDay;
     public int Duration;
     public int DayStarted;
-
-    public List<string> AssignedCharacters;
-
     public bool IsWon;
 
+    public List<string> AssignedCharacters;
 }
 

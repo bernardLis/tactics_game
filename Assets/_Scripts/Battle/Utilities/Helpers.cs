@@ -15,6 +15,13 @@ public static class Helpers
         { "healthGainGreen", new Color(0.42f, 1f, 0.42f, 1f) },
         { "damageRed", new Color(1f, 0.42f, 0.42f, 1f) },
         { "gray", new Color(0.22f, 0.22f, 0.22f, 1f) },
+
+        {QuestState.Pending.ToString(), new Color(0.27f, 0.4f, 0.56f)},
+        {QuestState.Delegated.ToString(), new Color(0.55f, 0.7f, 0.21f)},
+        {QuestState.Finished.ToString(), new Color(0.18f, 0.2f, 0.21f)},
+        {QuestState.Expired.ToString(), new Color(0.55f, 0.2f, 0.21f)},
+        {QuestState.RewardCollected.ToString(), new Color(0.55f, 0.2f, 0.7f)},
+
         { ItemRaririty.Common.ToString(), new Color(1f,1f,1f,1f) },
         { ItemRaririty.Magic.ToString(), new Color(0.31f,1f,0.69f,1f) },
         { ItemRaririty.Rare.ToString(), new Color(0.38f,0.51f,0.84f,1f) },

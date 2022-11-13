@@ -39,6 +39,10 @@ public class MyButton : Button
         clicked += newCallback;
     }
 
+    public void UpdateButtonText(string newText) { text = newText; }
+
+    public void UpdateButtonColor(Color color) { style.backgroundColor = color; }
+
     void PlayClick(MouseEnterEvent evt)
     {
         if (!enabledSelf)

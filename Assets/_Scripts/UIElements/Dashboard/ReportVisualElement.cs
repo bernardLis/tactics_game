@@ -75,20 +75,22 @@ public class ReportVisualElement : VisualElement
 
         if (_report.Quest.QuestState == QuestState.Expired)
             ShowSignButton();
-        if (_report.Quest.QuestState == QuestState.Won || _report.Quest.QuestState == QuestState.Lost)
-            HandleFinishedQuest(); // HERE: finished quest
+        if (_report.Quest.QuestState == QuestState.RewardCollected)
+            ShowSignButton();
     }
 
     void UpdateHeader()
     {
         if (_report.Quest.QuestState == QuestState.Pending)
-            AddHeader("Quest", new Color(0.27f, 0.4f, 0.56f));
+            AddHeader("Quest Pending", Helpers.GetColor(QuestState.Pending.ToString()));
         if (_report.Quest.QuestState == QuestState.Delegated)
-            AddHeader("Quest In Progress", new Color(0.55f, 0.7f, 0.21f));
-        if (_report.Quest.QuestState == QuestState.Won || _report.Quest.QuestState == QuestState.Lost)
-            AddHeader("Quest Finished!", new Color(0.18f, 0.2f, 0.21f));
+            AddHeader("Quest In Progress", Helpers.GetColor(QuestState.Delegated.ToString()));
+        if (_report.Quest.QuestState == QuestState.Finished)
+            AddHeader("See Quest Results", Helpers.GetColor(QuestState.Finished.ToString()));
         if (_report.Quest.QuestState == QuestState.Expired)
-            AddHeader("Quest Expired", new Color(0.55f, 0.2f, 0.21f));
+            AddHeader("Quest Expired", Helpers.GetColor(QuestState.Expired.ToString()));
+        if (_report.Quest.QuestState == QuestState.RewardCollected)
+            AddHeader("Quest Finished", Helpers.GetColor(QuestState.RewardCollected.ToString()));
     }
 
     void OnQuestStateChanged(QuestState state)
@@ -96,40 +98,8 @@ public class ReportVisualElement : VisualElement
         UpdateHeader();
         if (state == QuestState.Expired)
             ShowSignButton();
-        if (state == QuestState.Won || state == QuestState.Lost)
-            HandleFinishedQuest(); // HERE: finished quest
-    }
-
-    // HERE: finished quest
-    void HandleFinishedQuest()
-    {
-        // distinction between delegated quest and player quest
-        // display the quest, the characters that partook and clickable reward
-
-        Label result = new();
-        _reportContents.Add(result);
-        result.text = _report.Quest.QuestState == QuestState.Won ? "Won! :)" : "Lost! :(";
-
-        _reportContents.Add(new QuestVisualElement(_report.Quest));
-
-        if (_report.Quest.QuestState == QuestState.Won && !_isArchived)
-        {
-            RewardContainer rc = new RewardContainer(_report.Quest.Reward);
-            rc.OnChestOpen += OnRewardChestOpen;
-            _reportContents.Add(rc);
-        }
-
-        VisualElement container = new();
-        _reportContents.Add(container);
-
-        foreach (Character character in _report.Quest.AssignedCharacters)
-            container.Add(new CharacterCardExtended(character));
-    }
-
-    void OnRewardChestOpen()
-    {
-        _report.Quest.Reward.GetReward();
-        ShowSignButton();
+        if (state == QuestState.RewardCollected)
+            ShowSignButton();
     }
 
     void HandleRecruit()
