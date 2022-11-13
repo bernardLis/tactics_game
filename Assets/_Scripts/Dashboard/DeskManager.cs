@@ -11,7 +11,7 @@ public class DeskManager : Singleton<DeskManager>
     DashboardManager _dashboardManager;
     DraggableCharacters _draggableCharacters;
 
-    VisualElement _root;
+    public VisualElement Root { get; private set; }
     VisualElement _mainDesk;
     Label _daySummaryDayLabel;
     VisualElement _reportsContainer;
@@ -38,11 +38,11 @@ public class DeskManager : Singleton<DeskManager>
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
 
-        _root = _dashboardManager.Root;
+        Root = _dashboardManager.Root;
 
-        _mainDesk = _root.Q<VisualElement>("mainDesk");
-        _reportsContainer = _root.Q<VisualElement>("reportsContainer");
-        _reportsArchive = _root.Q<VisualElement>("reportsArchive");
+        _mainDesk = Root.Q<VisualElement>("mainDesk");
+        _reportsContainer = Root.Q<VisualElement>("reportsContainer");
+        _reportsArchive = Root.Q<VisualElement>("reportsArchive");
         _reportsArchive.RegisterCallback<PointerUpEvent>(OnArchiveClick);
 
         _dashboardManager.OnDeskClicked += Initialize;
@@ -53,7 +53,7 @@ public class DeskManager : Singleton<DeskManager>
         _passDayButton.style.opacity = 0;
         _passDayButton.style.display = DisplayStyle.None;
 
-        _deskTroopsContainer = _root.Q<VisualElement>("deskTroopsContainer");
+        _deskTroopsContainer = Root.Q<VisualElement>("deskTroopsContainer");
 
         Initialize();
     }
@@ -89,7 +89,7 @@ public class DeskManager : Singleton<DeskManager>
         }
 
         _deskTroopsContainer.Add(new CharacterCardMiniSlot());
-        _draggableCharacters.Initialize(_root);
+        _draggableCharacters.Initialize(Root);
 
         ShowPassDayButton();
     }
@@ -207,7 +207,7 @@ public class DeskManager : Singleton<DeskManager>
             // https://forum.unity.com/threads/send-additional-parameters-to-callback.777029/
             r.RegisterCallback<PointerUpEvent, Report>(OnArchivedReportClick, report);
         }
-        visual.Initialize(_root);
+        visual.Initialize(Root);
         visual.AddBackButton();
     }
 
@@ -216,7 +216,7 @@ public class DeskManager : Singleton<DeskManager>
         FullScreenVisual visual = new FullScreenVisual();
         visual.style.backgroundColor = Color.black;
         visual.Add(new ReportVisualElement(visual, report));
-        visual.Initialize(_root);
+        visual.Initialize(Root);
         visual.AddBackButton();
     }
 

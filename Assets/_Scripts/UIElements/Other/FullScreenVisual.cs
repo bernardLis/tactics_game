@@ -28,10 +28,13 @@ public class FullScreenVisual : VisualElement
         Focus();
 
         if (enableNavigation)
-        {
-            RegisterCallback<PointerDownEvent>(OnPointerDown);
-            RegisterCallback<KeyDownEvent>(OnKeyDown);
-        }
+            EnableNavigation();
+    }
+
+    protected void EnableNavigation()
+    {
+        RegisterCallback<PointerDownEvent>(OnPointerDown);
+        RegisterCallback<KeyDownEvent>(OnKeyDown);
     }
 
     void OnPointerDown(PointerDownEvent evt)

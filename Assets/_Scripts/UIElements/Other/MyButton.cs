@@ -39,6 +39,8 @@ public class MyButton : Button
         clicked += newCallback;
     }
 
+    public void ClearCallbacks() { clickable = null; }
+
     public void UpdateButtonText(string newText) { text = newText; }
 
     public void UpdateButtonColor(Color color) { style.backgroundColor = color; }

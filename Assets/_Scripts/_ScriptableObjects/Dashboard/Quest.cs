@@ -26,6 +26,7 @@ public class Quest : BaseScriptableObject
     [Header("Management")]
     public int ExpiryDay;
     public int Duration;
+    public float Roll;
     public bool IsWon;
 
     public int DayStarted;
@@ -37,7 +38,6 @@ public class Quest : BaseScriptableObject
     public void UpdateQuestState(QuestState newState)
     {
         QuestState = newState;
-        Debug.Log($"updating quest state: {newState}");
         switch (newState)
         {
             case QuestState.Pending:
@@ -96,7 +96,7 @@ public class Quest : BaseScriptableObject
         if (CountDaysLeft() > 0)
             return;
 
-        if (Random.value < GetSuccessChance() * 0.01)
+        if (Roll < GetSuccessChance() * 0.01)
             Won();
         else
             Lost();
@@ -162,6 +162,8 @@ public class Quest : BaseScriptableObject
         ExpiryDay = _gameManager.Day + Random.Range(3, 7);
         Duration = Random.Range(1, 6);
         AssignedCharacters = new();
+
+        Roll = Random.value;
     }
 
     public void CreateFromData(QuestData data)
@@ -191,6 +193,7 @@ public class Quest : BaseScriptableObject
         ExpiryDay = data.ExpiryDay;
         Duration = data.Duration;
         DayStarted = data.DayStarted;
+        Roll = data.Roll;
         IsWon = data.IsWon;
 
         AssignedCharacters = new();
@@ -219,6 +222,7 @@ public class Quest : BaseScriptableObject
         qd.ExpiryDay = ExpiryDay;
         qd.Duration = Duration;
         qd.DayStarted = DayStarted;
+        qd.Roll = Roll;
         qd.IsWon = IsWon;
 
         qd.AssignedCharacters = new();
@@ -246,6 +250,7 @@ public struct QuestData
     public int ExpiryDay;
     public int Duration;
     public int DayStarted;
+    public float Roll;
     public bool IsWon;
 
     public List<string> AssignedCharacters;

@@ -88,4 +88,7 @@
             <ui:VisualElement name="pouchContainer" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="questResultContainer" class="questResultContainer" style="display: none;">
+        <ui:VisualElement name="questResultContent" class="questResultContent" />
+    </ui:VisualElement>
 </ui:UXML>

@@ -292,7 +292,7 @@ public class QuestVisualElement : VisualElement
 
         if (_startAssignementButton == null)
             return;
-        _startAssignementButton.ChangeCallback(null);
+        _startAssignementButton.ClearCallbacks();
         _startAssignementButton.SetEnabled(false);
         _startAssignementButton.UpdateButtonText("Assign Characters!");
         _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Pending.ToString()));
@@ -363,5 +363,6 @@ public class QuestVisualElement : VisualElement
     void SeeResults()
     {
         Debug.Log($"see results clicked");
+        new QuestResultsVisualElement(_deskManager.Root, _quest);
     }
 }
