@@ -12,28 +12,23 @@ public class BattleUI : Singleton<BattleUI>
 
     public VisualElement Root { get; private set; }
 
-    public bool ShowBattleHelperText { get; private set; }
-    public bool ShowBattleLog { get; private set; }
-
     VisualElement _battleHelperTextContainer;
     Label _battleHelperText;
 
-    VisualElement _bottomPanel;
     VisualElement _battleLogContainer;
 
-
-    ScreenWithDraggables _battleEndScreen;
+    FullScreenVisual _battleEndScreen;
     RewardContainer _battleRewardsContainer;
     bool _wasRewardWarningDisplayed;
     VisualElement _battleEndGoalContainer;
 
-    MyButton _backToJourneyButton;
+    MyButton _backToDashboardButton;
 
     public CharacterScreen CharacterScreen { get; private set; }
 
     public event Action OnBattleEndScreenShown;
 
-    string _levelToLoadAfterFight = "Journey";
+    string _levelToLoadAfterFight = Scenes.Dashboard;
     List<VisualElement> _battleLogs = new();
     List<VisualElement> _battleLogsCopy = new();
     BattleLogVisual _battleLogVisual;
@@ -52,7 +47,6 @@ public class BattleUI : Singleton<BattleUI>
         _battleHelperTextContainer = Root.Q<VisualElement>("battleHelperTextContainer");
         _battleHelperText = Root.Q<Label>("battleHelperText");
 
-        _bottomPanel = Root.Q<VisualElement>("bottomPanel");
         _battleLogContainer = Root.Q<VisualElement>("battleLogContainer");
         _battleLogContainer.RegisterCallback<PointerUpEvent>(OnBattleLogClick);
 
@@ -61,7 +55,7 @@ public class BattleUI : Singleton<BattleUI>
         goalHeader.AddToClassList("textPrimary");
         _battleEndGoalContainer.Add(goalHeader);
 
-        _backToJourneyButton = new MyButton("Continue", "menuButton", null);
+        _backToDashboardButton = new MyButton("Continue", "menuButton", null);
 
         // show / hide UI
         ToggleBattleHelperText(PlayerPrefs.GetInt("HideBattleHelperText") != 0);
@@ -208,46 +202,42 @@ public class BattleUI : Singleton<BattleUI>
         CharacterScreen = null;
     }
 
-    public void ShowBattleWonScreen() // HERE: no need for public
+    void BaseBattleEndScreen()
     {
-        _battleEndScreen = new(Root);
+        _battleEndScreen = new();
+        _battleEndScreen.Initialize(Root, false);
         _battleEndScreen.style.opacity = 0f;
+        _battleEndScreen.style.justifyContent = Justify.Center;
+        _battleEndScreen.style.alignItems = Align.Center;
+
         ShowBattleEndScreen();
 
         // header
-        Label battleEndText = new($"You won in {TurnManager.CurrentTurn} turns!");
+        string txt = "";
+        if (TurnManager.BattleState == BattleState.Won)
+            txt = $"You won in {TurnManager.CurrentTurn} turns!";
+        else
+            txt = "You lost.";
+
+        Label battleEndText = new(txt);
         battleEndText.AddToClassList("textPrimary");
         battleEndText.style.fontSize = 48;
-        _battleEndScreen.AddElement(battleEndText);
+        _battleEndScreen.Add(battleEndText);
 
         // goals
-        _battleEndScreen.AddElement(_battleEndGoalContainer);
+        _battleEndScreen.Add(_battleEndGoalContainer);
 
-        // HERE: it should be handled differently
-       // _battleRewardsContainer = new(_runManager.JourneyNodeReward, _battleEndScreen);
-        _battleEndScreen.AddElement(_battleRewardsContainer);
+        _backToDashboardButton.clickable.clicked += BackToDashboard;
+        _battleEndScreen.Add(_backToDashboardButton);
 
-        _battleEndScreen.AddPouches();
-       // _battleEndScreen.AddCharacters(_runManager.PlayerTroops);
-        _backToJourneyButton.clickable.clicked += OnContinueButtonClick;
-        _battleEndScreen.Add(_backToJourneyButton);
     }
 
-    void ShowBattleLostScreen()
-    {
-        // TODO: this in the new schema
-        ShowBattleEndScreen();
-        //_battleEndText.text = "You lost!";
+    void ShowBattleWonScreen() { BaseBattleEndScreen(); }
 
-        _backToJourneyButton.text = "Continue";
-        _backToJourneyButton.clickable.clicked += BackToDashboard;
-    }
+    void ShowBattleLostScreen() { BaseBattleEndScreen(); }
 
     void ShowBattleEndScreen()
     {
-        _bottomPanel.style.display = DisplayStyle.None;
-        _battleHelperTextContainer.style.display = DisplayStyle.None;
-
         _battleEndGoalContainer.Clear();
 
         DOTween.To(() => _battleEndScreen.style.opacity.value, x => _battleEndScreen.style.opacity = x, 1f, 2f)
@@ -256,31 +246,15 @@ public class BattleUI : Singleton<BattleUI>
 
     void OnShowBattleEndScreenCompleted()
     {
-        _backToJourneyButton.style.display = DisplayStyle.Flex;
+        _backToDashboardButton.style.display = DisplayStyle.Flex;
         OnBattleEndScreenShown?.Invoke();
-    }
-
-    void OnContinueButtonClick()
-    {
-        if (!_battleRewardsContainer.IsChestOpen())
-            return;
-
-        if (!_battleEndScreen.AreAllRewardsTaken() && !_wasRewardWarningDisplayed)
-        {
-            _wasRewardWarningDisplayed = true;
-            return;
-        }
-
-        if (_levelToLoadAfterFight == null)
-            _levelToLoadAfterFight = Scenes.Journey;
-        _gameManager.LoadLevel(_levelToLoadAfterFight);
     }
 
     void BackToDashboard() { _gameManager.LoadLevel(Scenes.Dashboard); }
 
     public void SetUpContinueButton(string newText, string newLevel)
     {
-        _backToJourneyButton.text = newText;
+        _backToDashboardButton.text = newText;
         _levelToLoadAfterFight = newLevel;
     }
 

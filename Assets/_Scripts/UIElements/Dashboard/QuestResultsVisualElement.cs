@@ -50,7 +50,7 @@ public class QuestResultsVisualElement : FullScreenVisual
     VisualElement GetSuccessLabel()
     {
         Label success = new();
-        success.text = $"Quest roll: {_quest.Roll} Quest success chance: {_quest.GetSuccessChance()}";
+        success.text = $"Quest roll: {_quest.Roll} Quest success chance: {_quest.GetSuccessChance() * 0.01}, roll needs to be less then success chance to win.";
         return success;
     }
 

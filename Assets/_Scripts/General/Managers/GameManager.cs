@@ -62,7 +62,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void BattleWon()
     {
-        LoadLevel(Scenes.Dashboard);
         ActiveQuest.UpdateQuestState(QuestState.Finished);
         ActiveQuest.IsWon = true;
         ActiveQuest = null;
@@ -71,7 +70,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void BattleLost()
     {
-        LoadLevel(Scenes.Dashboard);
         ActiveQuest.UpdateQuestState(QuestState.Finished);
         ActiveQuest = null;
         PassDay();

@@ -22,7 +22,6 @@ public class Quest : BaseScriptableObject
     public List<Brain> Enemies = new();
     public Reward Reward;
 
-
     [Header("Management")]
     public int ExpiryDay;
     public int Duration;
@@ -96,7 +95,7 @@ public class Quest : BaseScriptableObject
         if (CountDaysLeft() > 0)
             return;
 
-        if (Roll < GetSuccessChance() * 0.01)
+        if (Roll <= GetSuccessChance() * 0.01)
             Won();
         else
             Lost();
@@ -195,6 +194,7 @@ public class Quest : BaseScriptableObject
         DayStarted = data.DayStarted;
         Roll = data.Roll;
         IsWon = data.IsWon;
+
 
         AssignedCharacters = new();
         foreach (string id in data.AssignedCharacters)
