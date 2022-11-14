@@ -14,7 +14,15 @@ public class CharacterCardMini : VisualWithTooltip
     {
         Character = character;
         AddToClassList("characterCardMini");
-        style.backgroundImage = new StyleBackground(character.Portrait.Sprite);
+
+        VisualElement content = new();
+        content.style.width = Length.Percent(100);
+        content.style.height = Length.Percent(100);
+        content.style.backgroundImage = new StyleBackground(character.Portrait.Sprite);
+        Add(content);
+
+        if (character.IsUnavailable)
+            Lock();
     }
 
 
@@ -29,6 +37,20 @@ public class CharacterCardMini : VisualWithTooltip
     public void Lock()
     {
         OnLocked?.Invoke(this);
+        AddLockOverlay();
+    }
+
+    void AddLockOverlay()
+    {
+        VisualElement el = new();
+        el.style.position = Position.Absolute;
+        el.style.width = Length.Percent(100);
+        el.style.height = Length.Percent(100);
+        el.style.backgroundColor = new Color(0, 0, 0, 0.3f);
+        Label l = new($"{Character.UnavailabilityDuration}");
+        l.AddToClassList("textSecondary");
+        el.Add(l);
+        Add(el);
     }
 
 }

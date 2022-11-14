@@ -382,8 +382,9 @@
     height: 90%;
     left: 10%;
     top: 5%;
-    background-color: rgba(29, 29, 29, 255);
+    background-color: rgb(29, 29, 29);
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    background-image: url('project://database/Assets/Sprites/Dashboard/Paper/vintage_paper_by_darkwood67.jpg?fileID=2800000&guid=7ed25c6cd159ffa4dae0300caebb88d4&type=3#vintage_paper_by_darkwood67');
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class QuestVisualElement : VisualElement
     GameManager _gameManager;
     DeskManager _deskManager;
     DraggableCharacters _draggableCharacters;
+    Report _report;
     Quest _quest;
 
     VisualElement _basicInfoContainer;
@@ -24,14 +26,15 @@ public class QuestVisualElement : VisualElement
 
     List<CharacterCardMiniSlot> _cardSlots = new();
 
-    public QuestVisualElement(Quest quest)
+    public QuestVisualElement(Report report)
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
         _deskManager = DeskManager.Instance;
         _draggableCharacters = _deskManager.GetComponent<DraggableCharacters>();
-
-        _quest = quest;
+        
+        _report = report;
+        _quest = report.Quest;
         _quest.OnQuestStateChanged += OnQuestStateChanged;
         AddToClassList("questElement");
         AddToClassList("textPrimary");
@@ -248,9 +251,10 @@ public class QuestVisualElement : VisualElement
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         _cardSlots = new();
+        bool isLocked = AreCharacterCardsLocked();
+
         for (int i = 0; i < 3; i++)
         {
-            bool isLocked = _quest.QuestState == QuestState.Delegated;
             CharacterCardMiniSlot slot = new CharacterCardMiniSlot(null, isLocked);
             _cardSlots.Add(slot);
             container.Add(slot);
@@ -274,6 +278,20 @@ public class QuestVisualElement : VisualElement
         return container;
     }
 
+    bool AreCharacterCardsLocked()
+    {
+        if (_quest.QuestState == QuestState.Delegated)
+            return true;
+        if (_quest.QuestState == QuestState.Finished)
+            return true;
+        if (_quest.QuestState == QuestState.Expired)
+            return true;
+        if (_quest.QuestState == QuestState.RewardCollected)
+            return true;
+
+        return false;
+    }
+
     MyButton CreateStartAssignmentButton()
     {
         MyButton button = new("Assign Characters!", "questActionButton", null);
@@ -283,19 +301,21 @@ public class QuestVisualElement : VisualElement
         return button;
     }
 
+    // TODO: oh nasty nasty function
     void UpdateStartAssignmentButton()
     {
-        Debug.Log($"UpdateStartAssignmentButton ");
-        Debug.Log($"quest state: {_quest.QuestState}");
-        Debug.Log($"IsPlayerAssigned() {IsPlayerAssigned()}");
-        Debug.Log($"_quest.AssignedCharacterCount() {_quest.AssignedCharacterCount()}");
-
         if (_startAssignementButton == null)
             return;
         _startAssignementButton.ClearCallbacks();
         _startAssignementButton.SetEnabled(false);
         _startAssignementButton.UpdateButtonText("Assign Characters!");
         _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Pending.ToString()));
+
+        if (_quest.QuestState == QuestState.RewardCollected)
+        {
+            _startAssignementButton.UpdateButtonText("-");
+            return;
+        }
 
         if (_quest.QuestState == QuestState.Finished)
         {
@@ -363,6 +383,15 @@ public class QuestVisualElement : VisualElement
     void SeeResults()
     {
         Debug.Log($"see results clicked");
-        new QuestResultsVisualElement(_deskManager.Root, _quest);
+        QuestResultsVisualElement el = new QuestResultsVisualElement(_deskManager.Root, _report);
+        el.OnHide += OnResultsClosed;
     }
+
+    void OnResultsClosed()
+    {
+        _quest.UpdateQuestState(QuestState.RewardCollected);
+        // character are returned to player troops after reward is collected and window closed
+        ReturnAssignedCharacters();
+    }
+
 }

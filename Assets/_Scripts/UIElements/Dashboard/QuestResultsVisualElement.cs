@@ -6,15 +6,16 @@ using UnityEngine.UIElements;
 public class QuestResultsVisualElement : FullScreenVisual
 {
     GameManager _gameManager;
+    Report _report;
     Quest _quest;
 
     VisualElement _content;
     MyButton _backButton;
 
-    public QuestResultsVisualElement(VisualElement root, Quest quest)
+    public QuestResultsVisualElement(VisualElement root, Report report)
     {
         Initialize(root, false);
-        _quest = quest;
+        _quest = report.Quest;
 
         _gameManager = GameManager.Instance;
         AddToClassList("textPrimary");
@@ -85,7 +86,6 @@ public class QuestResultsVisualElement : FullScreenVisual
     VisualElement GetBackButton()
     {
         _backButton = new("Back", "menuButton", Hide);
-        EnableNavigation();
         if (_quest.IsWon)
         {
             _backButton.UpdateButtonText("Open the chest!");

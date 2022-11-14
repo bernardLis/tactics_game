@@ -44,6 +44,7 @@ public class ReportVisualElement : VisualElement
 
         _reportContents = new();
         _reportContents.AddToClassList("reportContents");
+        _reportContents.style.backgroundImage = new StyleBackground(report.ReportPaper.Sprite);
         Add(_reportContents);
 
         _header = new();
@@ -57,7 +58,6 @@ public class ReportVisualElement : VisualElement
         if (report.ReportType == ReportType.Text)
             HandleText();
 
-
         parent.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         parent.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
@@ -68,7 +68,9 @@ public class ReportVisualElement : VisualElement
 
     void HandleQuest()
     {
-        _reportContents.Add(new QuestVisualElement(_report.Quest));
+        QuestVisualElement q = new QuestVisualElement(_report);
+        _reportContents.Add(q);
+
         _report.Quest.OnQuestStateChanged += OnQuestStateChanged;
         UpdateHeader();
         AddSignButton();
@@ -90,7 +92,11 @@ public class ReportVisualElement : VisualElement
         if (_report.Quest.QuestState == QuestState.Expired)
             AddHeader("Quest Expired", Helpers.GetColor(QuestState.Expired.ToString()));
         if (_report.Quest.QuestState == QuestState.RewardCollected)
-            AddHeader("Quest Finished", Helpers.GetColor(QuestState.RewardCollected.ToString()));
+        {
+            string txt = _report.Quest.IsWon ? "Quest won!" : "Quest lost!";
+            Color col = _report.Quest.IsWon ? Helpers.GetColor("healthGainGreen") : Helpers.GetColor("damageRed");
+            AddHeader(txt, col);
+        }
     }
 
     void OnQuestStateChanged(QuestState state)

@@ -48,6 +48,7 @@ public abstract class VisualWithTooltip : VisualElement
     protected void OnMouseLeave()
     {
         HideTooltip();
+        _isPointerDown = false; // reset otherwise you need to click on it to display tooltip again.
     }
 
     protected void HideTooltip()

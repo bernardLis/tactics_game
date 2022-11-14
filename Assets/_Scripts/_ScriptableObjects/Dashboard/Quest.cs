@@ -195,7 +195,6 @@ public class Quest : BaseScriptableObject
         Roll = data.Roll;
         IsWon = data.IsWon;
 
-
         AssignedCharacters = new();
         foreach (string id in data.AssignedCharacters)
             AssignedCharacters.Add(_gameManager.PlayerTroops.First(x => x.Id == id));
@@ -224,7 +223,7 @@ public class Quest : BaseScriptableObject
         qd.DayStarted = DayStarted;
         qd.Roll = Roll;
         qd.IsWon = IsWon;
-
+        
         qd.AssignedCharacters = new();
         foreach (Character c in AssignedCharacters)
             qd.AssignedCharacters.Add(c.Id);
@@ -252,7 +251,6 @@ public struct QuestData
     public int DayStarted;
     public float Roll;
     public bool IsWon;
-
     public List<string> AssignedCharacters;
 }
 

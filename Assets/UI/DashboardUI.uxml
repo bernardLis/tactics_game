@@ -22,9 +22,9 @@
     <ui:VisualElement name="main" style="width: 100%; height: 90%; flex-direction: row;">
         <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: flex; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Hand%20Painted%20Seamless%20Wood%20Texture/Textures/Wood2.tga?fileID=2800000&amp;guid=fa79f310fc4924e4cabca0791e343bfb&amp;type=3#Wood2&apos;);">
             <ui:VisualElement name="reportsContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%;">
-                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); top: 412px; left: 418px;">
+                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); top: 412px; left: 418px; background-image: url(&apos;project://database/Assets/Sprites/Dashboard/Paper/old_paper_by_darkwood67.jpg?fileID=2800000&amp;guid=fd2829fbb18039045bec996992fb3c17&amp;type=3#old_paper_by_darkwood67&apos;);">
                     <ui:VisualElement name="shadow" class="reportShadow" />
-                    <ui:VisualElement name="contents" class="reportContents">
+                    <ui:VisualElement name="contents" class="reportContents" style="background-image: url(&apos;project://database/Assets/Sprites/Dashboard/Paper/vintage_paper_by_darkwood67.jpg?fileID=2800000&amp;guid=7ed25c6cd159ffa4dae0300caebb88d4&amp;type=3#vintage_paper_by_darkwood67&apos;);">
                         <ui:VisualElement>
                             <ui:Label text="Quest Element" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
                         </ui:VisualElement>

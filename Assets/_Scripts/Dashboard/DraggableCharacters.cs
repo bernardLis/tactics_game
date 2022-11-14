@@ -44,7 +44,9 @@ public class DraggableCharacters : MonoBehaviour
     {
         if (_allSlots.Contains(slot))
             return;
-
+        if (slot.IsLocked)
+            return;
+            
         _allSlots.Add(slot);
         slot.OnLocked += OnSlotLocked;
         if (slot.Card != null)

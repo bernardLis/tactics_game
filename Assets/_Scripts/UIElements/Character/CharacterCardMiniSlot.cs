@@ -8,6 +8,7 @@ public class CharacterCardMiniSlot : VisualElementWithSound
 {
     public CharacterCardMini Card;
 
+    public bool IsLocked { get; private set; }
 
     public event Action<CharacterCardMini> OnCardAdded;
     public event Action<CharacterCardMini> OnCardRemoved;
@@ -47,6 +48,7 @@ public class CharacterCardMiniSlot : VisualElementWithSound
 
     public void Lock()
     {
+        IsLocked = true;
         OnLocked?.Invoke(this);
         if (Card != null)
             Card.Lock();
