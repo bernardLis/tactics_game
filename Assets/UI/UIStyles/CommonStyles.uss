@@ -12,7 +12,6 @@
     background-color: rgb(135, 41, 41);
     align-items: center;
     height: 15px;
-    flex-direction: row;
     margin-left: 4%;
     margin-right: 4%;
     margin-top: 0;

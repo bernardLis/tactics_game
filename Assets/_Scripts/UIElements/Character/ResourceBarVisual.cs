@@ -11,15 +11,20 @@ public class ResourceBarVisual : VisualWithTooltip
     VisualElement _interactionResult;
     Label _text;
 
-    int _lastTotalValue;
-    int _lastCurrentValue;
+    int _total;
+    int _current;
+    bool _isGaining;
 
     string _tweenID;
 
     string _tooltipText;
 
-    public ResourceBarVisual(Color color, string tooltipText, int thickness = 0) : base()
+    public ResourceBarVisual(Color color, string tooltipText, int total, int current, int thickness = 0, bool isGaining = false) : base()
     {
+        _total = total;
+        _current = current;
+        _isGaining = isGaining;
+
         AddToClassList("barContainer");
 
         _tooltipText = tooltipText;
@@ -30,6 +35,12 @@ public class ResourceBarVisual : VisualWithTooltip
 
         _resourceBar = new();
         _resourceBar.AddToClassList("resourceBar");
+
+        if (_isGaining)
+            _resourceBar.style.flexDirection = FlexDirection.RowReverse;
+        else
+            _resourceBar.style.flexDirection = FlexDirection.Row;
+
         _resourceBar.style.backgroundColor = color;
         Add(_resourceBar);
 
@@ -46,67 +57,79 @@ public class ResourceBarVisual : VisualWithTooltip
         _resourceBar.Add(_text);
 
         _tweenID = Guid.NewGuid().ToString();
+
+        DisplayMissingAmount();
     }
 
-    public void DisplayMissingAmount(int total, int current)
+    public void UpdateBarValues(int total, int current)
     {
-        _lastTotalValue = total;
-        _lastCurrentValue = current;
+        _total = total;
+        _current = current;
 
+        DisplayMissingAmount();
+    }
+
+    public void DisplayMissingAmount()
+    {
         _missing.style.display = DisplayStyle.Flex;
-        float missingPercent = (float)current / (float)total;
+
+        float missingPercent = (float)_current / (float)_total;
         missingPercent = Mathf.Clamp(missingPercent, 0, 1);
 
-        float targetWidth = localBound.width * (1 - missingPercent);
-        _missing.style.width = targetWidth;
+        _missing.style.width = Length.Percent((1 - missingPercent) * 100); //targetWidth;
 
-        SetText($"{current}/{total}");
+        SetText($"{_current}/{_total}");
     }
 
     public void OnTotalChanged(int total)
     {
-        OnValueChanged(total, total, 0);
+        _total = total;
+        UpdateBarValues(_total, _current);
     }
 
-    public async void OnValueChanged(int total, int beforeChange, int change)
+    public async void OnValueChanged(int change) { await BaseOnValueChanged(change, 1000); }
+
+    public async void OnValueChanged(int change, int totalDelay) { await BaseOnValueChanged(change, totalDelay); }
+
+    async Task BaseOnValueChanged(int change, int totalDelay)
     {
-        HideInteractionResult(total, beforeChange);
+        HideInteractionResult();
+
         if (change == 0)
             return;
-        float missingPercent = ((float)beforeChange + (float)change) / (float)total;
-        missingPercent = Mathf.Clamp(missingPercent, 0, 1);
 
-        float targetWidth = localBound.width * (1 - missingPercent);// * 100;
-        DOTween.To(() => _missing.style.width.value.value, x => _missing.style.width = x, targetWidth, 1f);
-
-        int current = beforeChange;
-        int goal = beforeChange + change;
-        goal = Mathf.Clamp(goal, 0, total);
+        int goal = Mathf.Clamp(_current + change, 0, _total);
         int delay = Mathf.FloorToInt(1000 / Mathf.Abs(change)); // do it in 1second
 
         if (change < 0)
-        {
-            while (current > goal)
-            {
-                current--;
-                SetText($"{current}/{total}");
-                await Task.Delay(delay);
-            }
-        }
+            await HandleLose(goal, delay);
         else
+            await HandleGain(goal, delay);
+    }
+
+    async Task HandleLose(int goal, int delay)
+    {
+        while (_current > goal)
         {
-            while (current < goal)
-            {
-                current++;
-                SetText($"{current}/{total}");
-                await Task.Delay(delay);
-            }
+            _current--;
+            DisplayMissingAmount();
+            await Task.Delay(delay);
+        }
+    }
+
+    async Task HandleGain(int goal, int delay)
+    {
+        while (_current < goal)
+        {
+            _current++;
+            DisplayMissingAmount();
+            await Task.Delay(delay);
         }
     }
 
     public void DisplayInteractionResult(int total, int current, int value)
     {
-        DisplayMissingAmount(total, current);
+        UpdateBarValues(total, current);
 
         // nothing to heal
         if (value > 0 && current >= total)
@@ -146,17 +169,14 @@ public class ResourceBarVisual : VisualWithTooltip
         SetText($"{resultText}/{total}");
     }
 
-    public void HideInteractionResult(int total, int current)
+    public void HideInteractionResult()
     {
         DOTween.Pause(_tweenID);
         _interactionResult.style.display = DisplayStyle.None;
-        DisplayMissingAmount(total, current);
+        UpdateBarValues(_total, _current);
     }
 
-    public void SetText(string newText)
-    {
-        _text.text = newText;
-    }
+    public void SetText(string newText) { _text.text = newText; }
 
     void AnimateInteractionResult(Color color)
     {

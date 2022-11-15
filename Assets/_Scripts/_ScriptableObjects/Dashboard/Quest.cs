@@ -124,11 +124,18 @@ public class Quest : BaseScriptableObject
     {
         foreach (Character character in AssignedCharacters)
         {
-            //if (Random.value < 0.5f) // 50% chance to disable a character 
-            //    continue;
+            if (Random.value < 0.5f) // 50% chance to disable a character 
+                continue;
 
             character.SetUnavailable(Random.Range(1, 5));
         }
+    }
+
+    public void AwardExp()
+    {
+        int expGain = IsWon ? 50 : 10;
+        foreach (Character character in AssignedCharacters)
+            character.GetExp(expGain);
     }
 
     public void CreateRandom()

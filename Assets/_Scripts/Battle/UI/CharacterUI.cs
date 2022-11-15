@@ -214,8 +214,7 @@ public class CharacterUI : Singleton<CharacterUI>
         if (_selectedPlayerStats == null)
             return;
 
-        _characterCardVisual.HealthBar.HideInteractionResult(_selectedPlayerStats.MaxHealth.GetValue(),
-                                                            _selectedPlayerStats.CurrentHealth);
+        _characterCardVisual.HealthBar.HideInteractionResult();
     }
 
     public void HideManaChange()
@@ -223,8 +222,7 @@ public class CharacterUI : Singleton<CharacterUI>
         if (_selectedPlayerStats == null)
             return;
 
-        _characterCardVisual.ManaBar.HideInteractionResult(_selectedPlayerStats.MaxMana.GetValue(),
-                                                            _selectedPlayerStats.CurrentMana);
+        _characterCardVisual.ManaBar.HideInteractionResult();
     }
 
     void HandleAbilityButtons()

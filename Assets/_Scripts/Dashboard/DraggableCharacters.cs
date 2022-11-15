@@ -133,7 +133,11 @@ public class DraggableCharacters : MonoBehaviour
 
         if (_newSlot.Card != null)
         {
-            _originalSlot.AddCard(_draggedCard);
+            CharacterCardMini copy = _newSlot.Card;
+            _newSlot.RemoveCard();
+
+            _newSlot.AddCard(_draggedCard);
+            _originalSlot.AddCard(copy);
             DragCleanUp();
             return;
         }

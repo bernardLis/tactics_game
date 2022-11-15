@@ -28,6 +28,7 @@ public class QuestResultsVisualElement : FullScreenVisual
         _content.Add(GetHeader());
         _content.Add(GetSuccessLabel());
         _content.Add(GetTroopsContainer());
+        _quest.AwardExp();
 
         // HERE: 
         // if quest won: on open you should see the exp bar increase - animation with happy sound

@@ -114,8 +114,8 @@ public class CharacterCard : VisualElement
         if (_stats == null)
             return;
         // Do what you need to do here, as geometry should be calculated.
-        HealthBar.DisplayMissingAmount(_stats.MaxHealth.GetValue(), _stats.CurrentHealth);
-        ManaBar.DisplayMissingAmount(_stats.MaxMana.GetValue(), _stats.CurrentMana);
+        HealthBar.UpdateBarValues(_stats.MaxHealth.GetValue(), _stats.CurrentHealth);
+        ManaBar.UpdateBarValues(_stats.MaxMana.GetValue(), _stats.CurrentMana);
     }
 
     void OnPanelDetached(DetachFromPanelEvent evt)
@@ -139,9 +139,7 @@ public class CharacterCard : VisualElement
         healthGroup.style.flexDirection = FlexDirection.Row;
         healthGroup.style.width = Length.Percent(100);
 
-        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health");
-        HealthBar.SetText(character.GetStatValue("MaxHealth") + "/" + character.GetStatValue("MaxHealth"));
-
+        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", character.GetStatValue("MaxHealth"), character.GetStatValue("MaxHealth"));
         healthGroup.Add(HealthBar);
 
         return healthGroup;
@@ -153,9 +151,7 @@ public class CharacterCard : VisualElement
         manaGroup.style.flexDirection = FlexDirection.Row;
         manaGroup.style.width = Length.Percent(100);
 
-        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana");
-        ManaBar.SetText(character.GetStatValue("MaxMana") + "/" + character.GetStatValue("MaxMana"));
-
+        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", character.GetStatValue("MaxMana"), character.GetStatValue("MaxMana"));
         manaGroup.Add(ManaBar);
 
         return manaGroup;

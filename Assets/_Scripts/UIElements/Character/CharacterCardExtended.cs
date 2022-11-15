@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class CharacterCardExtended : CharacterCard
 {
     Label _level;
-    Label _exp;
+    public ResourceBarVisual ExpBar;
 
     public List<ItemSlotVisual> ItemSlots = new();
     public List<ItemVisual> ItemVisuals = new();
@@ -41,27 +41,27 @@ public class CharacterCardExtended : CharacterCard
     VisualElement CreateExpGroup(Character character)
     {
         VisualElement container = new();
-        container.style.alignSelf = Align.Center;
-
-        VisualElement el = new();
-        el.style.flexDirection = FlexDirection.Row;
+        container.style.alignContent = Align.Center;
+        container.style.width = Length.Percent(100);
 
         _level = new();
-        _exp = new();
+        ExpBar = new(Color.black, "Experiance", 100, character.Experience, 0, true);
 
-        _level.AddToClassList("textSecondary");
-        _exp.AddToClassList("textSecondary");
-
+        _level.AddToClassList("textPrimary");
         _level.text = $"Level {character.Level}";
-        _exp.text = $"Exp: {character.Experience}/100";
 
-        el.Add(_level);
-        el.Add(_exp);
+        character.OnCharacterExpGain += OnExpChange;
+        character.OnCharacterLevelUp += OnLevelUp;
 
-        container.Add(el);
+        container.Add(_level);
+        container.Add(ExpBar);
 
         return container;
     }
+
+    void OnExpChange(int expGain) { ExpBar.OnValueChanged(expGain, 3000); }
+
+    void OnLevelUp() { _level.text = $"Level {Character.Level}"; }
 
     VisualElement CreateItems(Character character)
     {
