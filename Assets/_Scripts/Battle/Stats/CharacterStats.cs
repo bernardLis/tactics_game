@@ -331,8 +331,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         // don't shake on death
         if (CurrentHealth <= 0)
         {
-            if (_lastAttacker != null)
-                _lastAttacker.Character.GetExp(Character, true);
             await Die();
             return;
         }
@@ -367,9 +365,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async void GetBuffed(GameObject attacker, Ability ability)
     {
-        if (attacker.TryGetComponent(out CharacterStats stats))
-            stats.Character.GetExp(Character);
-
         HandleModifier(ability);
         await HandleStatus(attacker, ability);
     }
@@ -462,9 +457,6 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
 
     public async void GainHealth(int healthGain, GameObject attacker, Ability ability)
     {
-        if (attacker.TryGetComponent(out CharacterStats stats))
-            stats.Character.GetExp(Character);
-
         healthGain = Mathf.Clamp(healthGain, 0, MaxHealth.GetValue() - CurrentHealth);
         OnHealthChanged?.Invoke(Character.MaxHealth, CurrentHealth, healthGain);
         CurrentHealth += healthGain;

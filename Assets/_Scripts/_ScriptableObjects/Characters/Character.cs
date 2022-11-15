@@ -98,13 +98,6 @@ public class Character : BaseScriptableObject
 
     public void GetExp(int gain) { BaseExpGain(gain); }
 
-    public void GetExp(Character opponent, bool isKill = false)
-    {
-        int opponentLevel = opponent.Level;
-        int exp = CalculateExpGain(opponentLevel, isKill);
-        BaseExpGain(exp);
-    }
-
     protected virtual void BaseExpGain(int gain)
     {
         Experience += gain;

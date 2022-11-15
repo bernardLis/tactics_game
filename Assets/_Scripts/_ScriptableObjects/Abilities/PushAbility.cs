@@ -44,7 +44,6 @@ public class PushAbility : Ability
     public async override Task AbilityLogic(Vector3 pos)
     {
         // push if successful play sound and retrun true;
-        _stats.Character.GetExp(10);
         await _pushTriggerable.Push(pos, this);
     }
 }

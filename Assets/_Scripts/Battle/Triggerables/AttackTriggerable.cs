@@ -42,8 +42,6 @@ public class AttackTriggerable : BaseTriggerable
                 // 
 
                 Character opponentCharacter = Instantiate(stats.Character); // in case we killed it
-                if (wasAttackSuccesful)
-                    _myStats.Character.GetExp(opponentCharacter);
             }
             // if it dies when taking damage
             if (target == null)
