@@ -12,7 +12,6 @@ public class RewardContainer : VisualElement
     int _idleSpriteIndex = 0;
 
     VisualElement _chest;
-    bool _isChestOpened;
 
     Reward _reward;
     IVisualElementScheduledItem _idleAnimation;
@@ -22,15 +21,13 @@ public class RewardContainer : VisualElement
 
     public event Action OnChestOpen;
 
-    public RewardContainer(Reward reward)// ScreenWithDraggables screenWithDraggables)
+    public RewardContainer(Reward reward)
     {
         style.flexGrow = 1;
         style.flexShrink = 0;
         style.justifyContent = Justify.Center;
 
-        // _screenWithDraggables = screenWithDraggables;
         _reward = reward;
-
         _rewardChest = GameManager.Instance.GameDatabase.GetRandomRewardChest();
 
         // first it is hidden in a chest or something that you have to click
@@ -41,14 +38,6 @@ public class RewardContainer : VisualElement
         Add(_chest);
         _idleAnimation = _chest.schedule.Execute(IdleAnimation).Every(100);
         _chest.RegisterCallback<PointerUpEvent>(OnPointerUp);
-    }
-
-    public bool IsChestOpen()
-    {
-        if (!_isChestOpened)
-            Helpers.DisplayTextOnElement(this, _chest, "Open the chest before going.", Color.red);
-
-        return _isChestOpened;
     }
 
     void IdleAnimation()
@@ -68,11 +57,8 @@ public class RewardContainer : VisualElement
 
     async void PlayChestOpenAnimation()
     {
-        OnChestOpen?.Invoke();
-
         // TODO: I could play some nice effect here
         // both sound and fx
-        _isChestOpened = true;
         AudioManager.Instance.PlaySFX("ChestOpening", Vector3.zero);
         foreach (Sprite sprite in _rewardChest.Open)
         {
@@ -86,7 +72,9 @@ public class RewardContainer : VisualElement
         await Task.Delay(200);
 
         if (_reward.Item != null)
-             FlyingReward(new ItemVisual(_reward.Item));
+            FlyingReward(new ItemVisual(_reward.Item));
+
+        OnChestOpen?.Invoke();
     }
 
     void FlyingReward(VisualElement el)

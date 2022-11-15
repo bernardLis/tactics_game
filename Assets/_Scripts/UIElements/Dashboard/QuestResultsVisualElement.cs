@@ -34,8 +34,8 @@ public class QuestResultsVisualElement : FullScreenVisual
         // if level up, even happier sound.
         // btw. characters should not get exp in the battle.
         // if quest lost: you should see characters getting disabled - animation with sad sound
-
-        _content.Add(GetRewardChest());
+        if (_quest.IsWon)
+            _content.Add(GetRewardChest());
         _content.Add(GetBackButton());
     }
 
@@ -78,6 +78,8 @@ public class QuestResultsVisualElement : FullScreenVisual
 
     void OnChestOpen()
     {
+        _quest.Reward.GetReward();
+
         _backButton.UpdateButtonText("Back");
         _backButton.SetEnabled(true);
         EnableNavigation();
@@ -94,6 +96,4 @@ public class QuestResultsVisualElement : FullScreenVisual
 
         return _backButton;
     }
-
-
 }

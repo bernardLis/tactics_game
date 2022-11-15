@@ -382,7 +382,6 @@ public class QuestVisualElement : VisualElement
 
     void SeeResults()
     {
-        Debug.Log($"see results clicked");
         QuestResultsVisualElement el = new QuestResultsVisualElement(_deskManager.Root, _report);
         el.OnHide += OnResultsClosed;
     }
@@ -390,7 +389,6 @@ public class QuestVisualElement : VisualElement
     void OnResultsClosed()
     {
         _quest.UpdateQuestState(QuestState.RewardCollected);
-        // character are returned to player troops after reward is collected and window closed
         ReturnAssignedCharacters();
     }
 

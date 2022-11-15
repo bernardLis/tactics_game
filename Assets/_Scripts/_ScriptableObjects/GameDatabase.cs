@@ -12,11 +12,9 @@ public class GameDatabase : BaseScriptableObject
     public JourneyEvent[] GetAllEvents() { return AllEvents; }
     public JourneyEvent GetEventById(string id) { return AllEvents.FirstOrDefault(x => x.Id == id); }
 
-
     [Header("Cutscenes")]
     [SerializeField] Cutscene[] Cutscenes;
     public Cutscene[] GetAllCutscenes() { return Cutscenes; }
-
 
     [Header("Board")]
     [SerializeField] TilemapBiome[] Biomes;
