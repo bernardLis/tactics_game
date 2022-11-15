@@ -24,10 +24,7 @@ public class DeskManager : Singleton<DeskManager>
 
     List<Report> VisibleReports = new();
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
+    protected override void Awake() { base.Awake(); }
 
     void Start()
     {
@@ -81,8 +78,6 @@ public class DeskManager : Singleton<DeskManager>
 
         foreach (Character character in _gameManager.PlayerTroops)
         {
-            if (character.IsUnavailable)
-                continue;
             if (character.IsAssigned)
                 continue;
             AddNewCharacterSlot(character);

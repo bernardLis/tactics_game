@@ -46,13 +46,15 @@ public class DraggableCharacters : MonoBehaviour
             return;
         if (slot.IsLocked)
             return;
-            
+
         _allSlots.Add(slot);
+        slot.OnCardAdded += OnCardAdded;
         slot.OnLocked += OnSlotLocked;
         if (slot.Card != null)
         {
             slot.Card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
             slot.Card.OnLocked += OnCardLocked;
+            slot.Card.OnUnlocked += OnCardUnlocked;
         }
     }
 
@@ -62,6 +64,9 @@ public class DraggableCharacters : MonoBehaviour
             return;
 
         CharacterCardMini card = (CharacterCardMini)evt.currentTarget;
+        if (card.IsLocked)
+            return;
+
         CharacterCardMiniSlot slotVisual = (CharacterCardMiniSlot)card.parent;
         slotVisual.RemoveCard();
 
@@ -151,9 +156,11 @@ public class DraggableCharacters : MonoBehaviour
         _dragDropContainer.style.visibility = Visibility.Hidden;
     }
 
-    public void OnCardLocked(CharacterCardMini card) { card.UnregisterCallback<PointerDownEvent>(OnCardPointerDown); }
-
+    void OnCardAdded(CharacterCardMini card) { card.RegisterCallback<PointerDownEvent>(OnCardPointerDown); }
     public void OnSlotLocked(CharacterCardMiniSlot slot) { _allSlots.Remove(slot); }
+
+    public void OnCardLocked(CharacterCardMini card) { card.UnregisterCallback<PointerDownEvent>(OnCardPointerDown); }
+    public void OnCardUnlocked(CharacterCardMini card) { card.RegisterCallback<PointerDownEvent>(OnCardPointerDown); }
 
     public void RemoveDragContainer()
     {

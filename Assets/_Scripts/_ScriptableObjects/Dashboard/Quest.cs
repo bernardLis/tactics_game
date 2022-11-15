@@ -117,17 +117,15 @@ public class Quest : BaseScriptableObject
 
     public void Won()
     {
-        Debug.Log($"Quest won");
         IsWon = true;
     }
 
     public void Lost()
     {
-        Debug.Log($"Quest lost");
         foreach (Character character in AssignedCharacters)
         {
-            if (Random.value < 0.5f) // 50% chance to disable a character 
-                continue;
+            //if (Random.value < 0.5f) // 50% chance to disable a character 
+            //    continue;
 
             character.SetUnavailable(Random.Range(1, 5));
         }
@@ -223,7 +221,7 @@ public class Quest : BaseScriptableObject
         qd.DayStarted = DayStarted;
         qd.Roll = Roll;
         qd.IsWon = IsWon;
-        
+
         qd.AssignedCharacters = new();
         foreach (Character c in AssignedCharacters)
             qd.AssignedCharacters.Add(c.Id);
