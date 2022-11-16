@@ -44,7 +44,7 @@ public class RewardContainer : VisualElement
     {
         _chest.style.backgroundImage = new StyleBackground(_rewardChest.Idle[_idleSpriteIndex]);
         _idleSpriteIndex++;
-        if (_idleSpriteIndex == 4)
+        if (_idleSpriteIndex == _rewardChest.Idle.Length)
             _idleSpriteIndex = 0;
     }
 
@@ -59,7 +59,7 @@ public class RewardContainer : VisualElement
     {
         // TODO: I could play some nice effect here
         // both sound and fx
-        AudioManager.Instance.PlaySFX("ChestOpening", Vector3.zero);
+        AudioManager.Instance.PlaySFX("ChestOpen", Vector3.zero);
         foreach (Sprite sprite in _rewardChest.Open)
         {
             _chest.style.backgroundImage = new StyleBackground(sprite);

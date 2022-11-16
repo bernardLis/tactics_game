@@ -144,22 +144,8 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
     {
         gameObject.name = character.CharacterName;
         Character = character;
-        Character.OnCharacterLevelUp += OnCharacterLevelUp;
-        Character.OnCharacterExpGain += OnCharacterExpGain;
         InitializeCharacter();
         OnCharacterInitialized?.Invoke();
-    }
-
-    void OnCharacterLevelUp()
-    {
-        // spawn effect
-        Destroy(Instantiate(_levelUpEffect, transform.position + Vector3.up, Quaternion.identity), 2f);
-        _damageUI.DisplayOnCharacter("Level up!", 24, Color.black);
-    }
-
-    void OnCharacterExpGain(int gain)
-    {
-        _damageUI.DisplayOnCharacter($"+{gain} exp", 24, Color.white);
     }
 
     void InitializeCharacter()

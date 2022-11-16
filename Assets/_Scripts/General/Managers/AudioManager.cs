@@ -110,15 +110,17 @@ public class AudioManager : Singleton<AudioManager>
         _dialogueAudioSource.Stop();
     }
 
-    public void PlaySFX(string soundName, Vector3 pos)
+    public AudioSource PlaySFX(string soundName, Vector3 pos)
     {
         AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
         if (a == null)
-            return;
-        
+            return null;
+
         a.loop = false;
         a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
         PlaySound(a, soundName);
+
+        return a;
     }
 
     public AudioSource PlaySFX(Sound sound, Vector3 pos, bool isLooping = false)

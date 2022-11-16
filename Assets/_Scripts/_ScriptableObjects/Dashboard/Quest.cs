@@ -131,11 +131,9 @@ public class Quest : BaseScriptableObject
         }
     }
 
-    public void AwardExp()
+    public int CalculateAwardExp()
     {
-        int expGain = IsWon ? 50 : 10;
-        foreach (Character character in AssignedCharacters)
-            character.GetExp(expGain);
+        return IsWon ? 100 : 10;
     }
 
     public void CreateRandom()
@@ -159,7 +157,7 @@ public class Quest : BaseScriptableObject
 
         Reward = ScriptableObject.CreateInstance<Reward>();
         Reward.IsRandomized = true;
-        Reward.GoldRange = new Vector2Int(4, 10);
+        Reward.GoldRange = new Vector2Int(400, 1000);
         Reward.HasItem = true;
         Reward.Initialize();
 

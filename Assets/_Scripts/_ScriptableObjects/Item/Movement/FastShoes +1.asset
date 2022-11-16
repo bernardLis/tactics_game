@@ -18,4 +18,6 @@ MonoBehaviour:
   InfluencedStat: 4
   Raririty: 1
   Value: 2
-  Price: 7
+  Price: 700
+  Status: {fileID: 0}
+  TooltipText: 

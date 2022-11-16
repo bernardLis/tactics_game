@@ -16,7 +16,7 @@ public class GoldElement : VisualElement
     {
         _gameManager = GameManager.Instance;
 
-        Amount = amount;
+        Amount = 0;
         AddToClassList("goldElement");
 
         _icon = new();
@@ -25,12 +25,14 @@ public class GoldElement : VisualElement
         _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(amount));
         Add(_icon);
 
-        _text = new(amount.ToString());
+        _text = new();
         _text.AddToClassList("textPrimary");
         Add(_text);
 
         if (isClickable)
             MakeClickable();
+
+        ChangeAmount(amount);
     }
 
     public void MakeClickable()

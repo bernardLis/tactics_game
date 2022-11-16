@@ -32,7 +32,7 @@ public class QuestVisualElement : VisualElement
         _gameManager.OnDayPassed += OnDayPassed;
         _deskManager = DeskManager.Instance;
         _draggableCharacters = _deskManager.GetComponent<DraggableCharacters>();
-        
+
         _report = report;
         _quest = report.Quest;
         _quest.OnQuestStateChanged += OnQuestStateChanged;
@@ -339,7 +339,7 @@ public class QuestVisualElement : VisualElement
         {
             _startAssignementButton.ChangeCallback(DelegateBattle);
             _startAssignementButton.SetEnabled(true);
-            _startAssignementButton.UpdateButtonText("Delegate It Out!");
+            _startAssignementButton.UpdateButtonText("Delegate It!");
             _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Delegated.ToString()));
         }
     }

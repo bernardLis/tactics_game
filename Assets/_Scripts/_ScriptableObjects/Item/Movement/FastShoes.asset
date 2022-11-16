@@ -16,6 +16,8 @@ MonoBehaviour:
   ReferenceID: fastShoes0
   Icon: {fileID: 21300000, guid: d0d6d72fb7a3a7c49aa0e8039180f6b6, type: 3}
   InfluencedStat: 4
-  Color: {r: 1, g: 1, b: 1, a: 1}
+  Raririty: 0
   Value: 1
-  Price: 5
+  Price: 500
+  Status: {fileID: 0}
+  TooltipText: 

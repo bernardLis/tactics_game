@@ -16,6 +16,8 @@ MonoBehaviour:
   ReferenceID: healthHelmet0
   Icon: {fileID: 21300000, guid: 67e022ae39f3eba47ae49be6c06ec61a, type: 3}
   InfluencedStat: 1
-  Color: {r: 1, g: 1, b: 1, a: 1}
+  Raririty: 0
   Value: 30
-  Price: 3
+  Price: 300
+  Status: {fileID: 0}
+  TooltipText: 

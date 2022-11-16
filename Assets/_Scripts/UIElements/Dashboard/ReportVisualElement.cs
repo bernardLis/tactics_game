@@ -58,6 +58,7 @@ public class ReportVisualElement : VisualElement
         if (report.ReportType == ReportType.Text)
             HandleText();
 
+        RegisterCallback<PointerDownEvent>(OnPointerDown);
         parent.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         parent.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
@@ -253,6 +254,8 @@ public class ReportVisualElement : VisualElement
         style.top = position.y - layout.height / 4;
     }
 
+    void OnPointerDown(PointerDownEvent evt) { BringToFront(); }
+
     void OnPointerMove(PointerMoveEvent evt)
     {
         // Only take action if the player is dragging an item around the screen
@@ -277,4 +280,6 @@ public class ReportVisualElement : VisualElement
         _report.Position = new Vector2(style.left.value.value, style.top.value.value);
         _gameManager.SaveJsonData();
     }
+
+
 }

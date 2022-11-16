@@ -2,22 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Threading.Tasks;
+using DG.Tweening;
 
 public class QuestResultsVisualElement : FullScreenVisual
 {
     GameManager _gameManager;
+    AudioManager _audioManager;
+
     Report _report;
     Quest _quest;
 
     VisualElement _content;
+    VisualElement _troopsContainer;
+    List<CharacterCardExtended> _characterCards = new();
+    RewardContainer _rewardContainer;
+    AudioSource _openSfxAudioSource;
+
     MyButton _backButton;
 
     public QuestResultsVisualElement(VisualElement root, Report report)
     {
+        _gameManager = GameManager.Instance;
+        _audioManager = AudioManager.Instance;
+
         Initialize(root, false);
         _quest = report.Quest;
 
-        _gameManager = GameManager.Instance;
         AddToClassList("textPrimary");
         AddToClassList("questResultContainer");
 
@@ -28,16 +39,47 @@ public class QuestResultsVisualElement : FullScreenVisual
         _content.Add(GetHeader());
         _content.Add(GetSuccessLabel());
         _content.Add(GetTroopsContainer());
-        _quest.AwardExp();
 
-        // HERE: 
-        // if quest won: on open you should see the exp bar increase - animation with happy sound
-        // if level up, even happier sound.
-        // btw. characters should not get exp in the battle.
-        // if quest lost: you should see characters getting disabled - animation with sad sound
         if (_quest.IsWon)
             _content.Add(GetRewardChest());
         _content.Add(GetBackButton());
+
+        HandleSpectacle();
+    }
+
+    async void HandleSpectacle()
+    {
+        if (_quest.IsWon)
+            _openSfxAudioSource = _audioManager.PlaySFX("QuestWon", Vector3.one);
+        else
+            _openSfxAudioSource = _audioManager.PlaySFX("QuestLost", Vector3.one);
+
+        await HandleCharacterExp();
+        await DOTween.To(x => _rewardContainer.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
+        await DOTween.To(x => _backButton.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
+    }
+
+    async Task HandleCharacterExp()
+    {
+
+        foreach (Character c in _quest.AssignedCharacters)
+        {
+            CharacterCardExtended card = new(c);
+            _characterCards.Add(card);
+            card.style.opacity = 0;
+            _troopsContainer.Add(card);
+        }
+        await Task.Delay(100);
+        ScaleCharacterCards();
+
+        int expReward = _quest.CalculateAwardExp();
+        await Task.Delay(1000);
+        foreach (CharacterCardExtended card in _characterCards)
+        {
+            await DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
+            card.Character.GetExp(expReward);
+        }
+
     }
 
     VisualElement GetHeader()
@@ -58,23 +100,31 @@ public class QuestResultsVisualElement : FullScreenVisual
 
     VisualElement GetTroopsContainer()
     {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
+        _troopsContainer = new();
+        _troopsContainer.style.flexDirection = FlexDirection.Row;
+        _troopsContainer.style.width = Length.Percent(100);
+        return _troopsContainer;
+    }
 
-        foreach (Character c in _quest.AssignedCharacters)
-        {
-            CharacterCardExtended card = new(c);
-            container.Add(card);
-        }
+    void ScaleCharacterCards()
+    {
+        VisualElement container = _characterCards[0].parent;
+        float parentWidth = container.layout.width;
+        float targetChildWidth = (parentWidth - 100) / _characterCards.Count;
+        if (_characterCards[0].layout.width < targetChildWidth)
+            return;
 
-        return container;
+        float targetScale = targetChildWidth / _characterCards[0].layout.width;
+        foreach (CharacterCardExtended c in _characterCards)
+            c.transform.scale = new Vector3(targetScale, targetScale, targetScale);
     }
 
     VisualElement GetRewardChest()
     {
-        RewardContainer rewardContainer = new(_quest.Reward);
-        rewardContainer.OnChestOpen += OnChestOpen;
-        return rewardContainer;
+        _rewardContainer = new(_quest.Reward);
+        _rewardContainer.style.opacity = 0;
+        _rewardContainer.OnChestOpen += OnChestOpen;
+        return _rewardContainer;
     }
 
     void OnChestOpen()
@@ -89,6 +139,8 @@ public class QuestResultsVisualElement : FullScreenVisual
     VisualElement GetBackButton()
     {
         _backButton = new("Back", "menuButton", Hide);
+        _backButton.style.opacity = 0;
+
         if (_quest.IsWon)
         {
             _backButton.UpdateButtonText("Open the chest!");
@@ -97,4 +149,11 @@ public class QuestResultsVisualElement : FullScreenVisual
 
         return _backButton;
     }
+
+    public override void Hide()
+    {
+        base.Hide();
+        _openSfxAudioSource.Stop();
+    }
+
 }

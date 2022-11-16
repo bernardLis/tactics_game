@@ -56,6 +56,7 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] QuestIcon[] QuestIcons;
     [SerializeField] RewardChest[] RewardChests;
     [SerializeField] ReportPaper[] ReportPapers;
+    public Sprite[] LevelUpAnimationSprites;
 
     public Sprite GetCoinSprite(int amount)
     {
@@ -98,7 +99,7 @@ public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, L
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
 public enum ReportType { Quest, Recruit, Text }
-public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected}
+public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
 
 [System.Serializable]
 public struct PortraitEntry

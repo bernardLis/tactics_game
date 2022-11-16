@@ -106,7 +106,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Reports.Add(r);
     }
 
-    public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 2 * 7; }
+    public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 200 * 7; }
 
     void AddRandomQuest()
     {
@@ -149,7 +149,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     void ResetShop()
     {
         ChooseShopItems();
-        ChangeShopRerollPrice(2);
+        ChangeShopRerollPrice(200);
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Text, null, null, "New inventory in the shop! Visit us!");
@@ -254,7 +254,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
 
         ChooseShopItems();
-        ShopRerollPrice = 2;
+        ShopRerollPrice = 200;
 
         PlayerTroops = CreatePlayerTroops();
 

@@ -109,25 +109,14 @@ public class Character : BaseScriptableObject
         LevelUp();
     }
 
-    int CalculateExpGain(int opponentLevel, bool isKill)
-    {
-        int expGain = 10;
-        if (isKill)
-            expGain += 20;
-
-        int levelExpGain = (opponentLevel - Level) * 6;
-        levelExpGain = Mathf.Clamp(levelExpGain, 0, 100);
-        expGain += levelExpGain;
-
-        return expGain;
-    }
-
     public void LevelUp()
     {
         Experience = 0;
+        OnCharacterExpGain?.Invoke(0);
 
         Level++;
-        Power += Random.Range(0, 2); ;
+        Power += Random.Range(0, 2);
+        AudioManager.Instance.PlaySFX("LevelUp", Vector3.one);
 
         OnCharacterLevelUp?.Invoke();
     }
@@ -211,8 +200,8 @@ public class Character : BaseScriptableObject
 
     public virtual void CreateRandom()
     {
-
         _gameManager = GameManager.Instance;
+
         GameDatabase gameDatabase = _gameManager.GameDatabase;
         CharacterDatabase characterDatabase = gameDatabase.CharacterDatabase;
         bool isMale = Random.value > 0.5f;
@@ -243,6 +232,7 @@ public class Character : BaseScriptableObject
     public virtual void CreateFromData(CharacterData data)
     {
         _gameManager = GameManager.Instance;
+
         GameDatabase gameDatabase = _gameManager.GameDatabase;
         _gameManager.OnDayPassed += OnDayPassed;
         name = data.CharacterName;

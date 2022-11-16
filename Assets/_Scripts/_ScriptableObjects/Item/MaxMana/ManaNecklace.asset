@@ -16,6 +16,8 @@ MonoBehaviour:
   ReferenceID: manaNecklace0
   Icon: {fileID: 21300000, guid: 4e853a92297111f4d969bca787191652, type: 3}
   InfluencedStat: 2
-  Color: {r: 1, g: 1, b: 1, a: 1}
+  Raririty: 0
   Value: 10
-  Price: 2
+  Price: 200
+  Status: {fileID: 0}
+  TooltipText: 

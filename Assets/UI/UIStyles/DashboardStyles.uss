@@ -378,9 +378,9 @@
 }
 
 .questResultContent {
-    width: 80%;
+    width: 90%;
     height: 90%;
-    left: 10%;
+    left: 5%;
     top: 5%;
     background-color: rgb(29, 29, 29);
     flex-wrap: wrap;

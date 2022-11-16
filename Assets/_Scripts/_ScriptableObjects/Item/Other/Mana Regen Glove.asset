@@ -18,6 +18,6 @@ MonoBehaviour:
   InfluencedStat: 0
   Raririty: 3
   Value: 0
-  Price: 12
+  Price: 1200
   Status: {fileID: 11400000, guid: f0f737cbd39852a4a959136ae6a07447, type: 2}
   TooltipText: Regen 10 mana every turn
