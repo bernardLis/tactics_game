@@ -57,6 +57,8 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] RewardChest[] RewardChests;
     [SerializeField] ReportPaper[] ReportPapers;
     public Sprite[] LevelUpAnimationSprites;
+    public Sprite[] TroopsElementAnimationSprites;
+
 
     public Sprite GetCoinSprite(int amount)
     {

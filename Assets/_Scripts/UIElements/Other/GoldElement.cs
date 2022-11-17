@@ -17,6 +17,7 @@ public class GoldElement : VisualElement
         _gameManager = GameManager.Instance;
 
         Amount = 0;
+
         AddToClassList("goldElement");
 
         _icon = new();
@@ -27,6 +28,7 @@ public class GoldElement : VisualElement
 
         _text = new();
         _text.AddToClassList("textPrimary");
+        _text.text = Amount.ToString();
         Add(_text);
 
         if (isClickable)

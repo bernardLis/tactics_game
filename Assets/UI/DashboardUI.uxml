@@ -1,22 +1,34 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/DashboardStyles.uss?fileID=7433441132597879392&amp;guid=3d872669deb721f44bdfa6897d1dc942&amp;type=3#DashboardStyles" />
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
-    <ui:VisualElement name="nav" style="height: 10%; flex-direction: row; width: 100%; align-items: stretch; justify-content: flex-start;">
-        <ui:VisualElement name="navDesk" class="navTab">
-            <ui:Label text="Desk" display-tooltip-when-elided="true" class="textPrimary" />
+    <ui:VisualElement name="nav" style="height: 10%; flex-direction: column; width: 100%; align-items: stretch; justify-content: flex-start;">
+        <ui:VisualElement name="navResources" class="textPrimary" style="width: 100%; flex-direction: row; height: 50%;">
+            <ui:VisualElement name="navDay" class="navResourceElement">
+                <ui:Label text="Day: 0" display-tooltip-when-elided="true" enable-rich-text="true" name="navDayLabel" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navGold" class="navResourceElement">
+                <ui:Label text="Gold: 15" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navTroops" class="navResourceElement">
+                <ui:Label text="Troops: 2/5" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="navArmory" class="navTab">
-            <ui:Label text="Armory" display-tooltip-when-elided="true" class="textPrimary" />
-        </ui:VisualElement>
-        <ui:VisualElement name="navAbilities" class="navTab">
-            <ui:Label text="Abilities" display-tooltip-when-elided="true" class="textPrimary" />
-        </ui:VisualElement>
-        <ui:VisualElement name="navShop" class="navTab">
-            <ui:Label text="Shop" display-tooltip-when-elided="true" class="textPrimary" />
-        </ui:VisualElement>
-        <ui:VisualElement name="navResources" style="width: 200px;">
-            <ui:Label text="Day: 0" display-tooltip-when-elided="true" enable-rich-text="true" name="navDay" class="textPrimary" />
-            <ui:VisualElement name="navGold" />
+        <ui:VisualElement name="navContainer" style="flex-direction: row; width: 100%; height: 50%;">
+            <ui:VisualElement name="navDesk" class="navTab">
+                <ui:Label text="Desk" display-tooltip-when-elided="true" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navArmory" class="navTab">
+                <ui:Label text="Armory" display-tooltip-when-elided="true" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navBase" class="navTab">
+                <ui:Label text="Base" display-tooltip-when-elided="true" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navShop" class="navTab">
+                <ui:Label text="Shop" display-tooltip-when-elided="true" class="textPrimary" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navAbilities" class="navTab">
+                <ui:Label text="Abilities" display-tooltip-when-elided="true" class="textPrimary" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="main" style="width: 100%; height: 90%; flex-direction: row;">
@@ -86,6 +98,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="pouchContainer" />
+        </ui:VisualElement>
+        <ui:VisualElement name="mainBase" style="width: 100%; flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; display: none;">
+            <ui:Label text="Base" display-tooltip-when-elided="true" class="textPrimary" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="questResultContainer" class="questResultContainer" style="display: none;">

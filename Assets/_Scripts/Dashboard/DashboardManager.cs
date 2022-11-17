@@ -10,22 +10,27 @@ public class DashboardManager : MonoBehaviour
 
     public VisualElement Root { get; private set; }
 
-    // buttons
-    VisualElement _navDesk;
+    // resources
     Label _navDay;
+    VisualElement _navGold;
+    GoldElement _goldElement;
+    VisualElement _navTroops;
+    TroopsLimitVisualElement _troopsLimitVisualElement;
 
+    // buttons
     VisualElement _navArmory;
     VisualElement _navAbilities;
     VisualElement _navShop;
+    VisualElement _navDesk;
+    VisualElement _navBase;
 
-    // resources
-    VisualElement _navGold;
-    GoldElement _goldElement;
+
 
     VisualElement _mainArmory;
     VisualElement _mainAbilities;
     VisualElement _mainShop;
     VisualElement _mainDesk;
+    VisualElement _mainBase;
 
     VisualElement _activeNavTab;
 
@@ -33,6 +38,7 @@ public class DashboardManager : MonoBehaviour
     public event Action OnArmoryClicked;
     public event Action OnAbilitiesClicked;
     public event Action OnShopClicked;
+    public event Action OnBaseClicked;
     public event Action OnHideAllPanels;
 
     void Awake()
@@ -42,28 +48,32 @@ public class DashboardManager : MonoBehaviour
         _gameManager.OnDayPassed += UpdateDay;
 
         Root = GetComponent<UIDocument>().rootVisualElement;
-        _navDesk = Root.Q<VisualElement>("navDesk");
-        _navDay = Root.Q<Label>("navDay");
+        // resources
+        _navDay = Root.Q<Label>("navDayLabel");
+        _navGold = Root.Q<VisualElement>("navGold");
+        _navTroops = Root.Q<VisualElement>("navTroops");
 
+        _navDesk = Root.Q<VisualElement>("navDesk");
         _navArmory = Root.Q<VisualElement>("navArmory");
         _navAbilities = Root.Q<VisualElement>("navAbilities");
         _navShop = Root.Q<VisualElement>("navShop");
-
-        // resources
-        _navGold = Root.Q<VisualElement>("navGold");
+        _navBase = Root.Q<VisualElement>("navBase");
 
         _navDesk.RegisterCallback<PointerUpEvent>(NavDeskClick);
         _navArmory.RegisterCallback<PointerUpEvent>(NavArmoryClick);
         _navAbilities.RegisterCallback<PointerUpEvent>(NavAbilitiesClick);
         _navShop.RegisterCallback<PointerUpEvent>(NavShopClick);
+        _navBase.RegisterCallback<PointerUpEvent>(NavBaseClick);
 
         _mainDesk = Root.Q<VisualElement>("mainDesk");
         _mainArmory = Root.Q<VisualElement>("mainArmory");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
         _mainShop = Root.Q<VisualElement>("mainShop");
+        _mainBase = Root.Q<VisualElement>("mainBase");
 
         UpdateDay(_gameManager.Day);
         AddGoldElement();
+        AddTroopsElement();
     }
 
 
@@ -111,6 +121,15 @@ public class DashboardManager : MonoBehaviour
         OnDeskClicked?.Invoke();
     }
 
+    void NavBaseClick(PointerUpEvent e)
+    {
+        if (_activeNavTab == _navBase)
+            return;
+        NavClick(e);
+        _mainBase.style.display = DisplayStyle.Flex;
+        OnBaseClicked?.Invoke();
+    }
+
     void NavClick(PointerUpEvent e)
     {
         VisualElement target = (VisualElement)e.currentTarget;
@@ -140,9 +159,17 @@ public class DashboardManager : MonoBehaviour
 
     void AddGoldElement()
     {
+        _navGold.Clear();
         _goldElement = new(_gameManager.Gold);
         _gameManager.OnGoldChanged += _goldElement.ChangeAmount;
         _navGold.Add(_goldElement);
+    }
+
+    void AddTroopsElement()
+    {
+        _navTroops.Clear();
+        _troopsLimitVisualElement = new();
+        _navTroops.Add(_troopsLimitVisualElement);
     }
 
 #if UNITY_EDITOR

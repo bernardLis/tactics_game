@@ -16,11 +16,11 @@ public class SaveData
     public List<string> ShopItems = new();
     public int ShopRerollPrice;
 
+    public int TroopsLimit;
     public List<CharacterData> PlayerTroops = new();
     public List<string> ItemPouch = new();
     public List<string> AbilityPouch = new();
 
-   // public List<QuestData> AvailableQuests = new();
 
     public List<ReportData> Reports = new();
     public List<ReportData> ReportsArchived = new();

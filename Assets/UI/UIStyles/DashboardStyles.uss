@@ -388,3 +388,19 @@
     justify-content: space-between;
     background-image: url('project://database/Assets/Sprites/Dashboard/Paper/vintage_paper_by_darkwood67.jpg?fileID=2800000&guid=7ed25c6cd159ffa4dae0300caebb88d4&type=3#vintage_paper_by_darkwood67');
 }
+
+.navResourceElement {
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    padding-left: 10px;
+    padding-right: 10px;
+}

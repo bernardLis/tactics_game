@@ -236,3 +236,9 @@ MonoBehaviour:
   - {fileID: 4250905434592981719, guid: f2090e7888e3f3043b1f5aeeff2e3b79, type: 3}
   - {fileID: -9048297590822408200, guid: f2090e7888e3f3043b1f5aeeff2e3b79, type: 3}
   - {fileID: 7814668252725691194, guid: f2090e7888e3f3043b1f5aeeff2e3b79, type: 3}
+  TroopsElementAnimationSprites:
+  - {fileID: 1354025392, guid: e4da207c4e614bd4692db927253a703c, type: 3}
+  - {fileID: 916528270, guid: e4da207c4e614bd4692db927253a703c, type: 3}
+  - {fileID: 1803947089, guid: e4da207c4e614bd4692db927253a703c, type: 3}
+  - {fileID: -2055436937, guid: e4da207c4e614bd4692db927253a703c, type: 3}
+  - {fileID: -1502597863, guid: e4da207c4e614bd4692db927253a703c, type: 3}

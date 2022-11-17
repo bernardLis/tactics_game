@@ -23,6 +23,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public List<Item> ShopItems = new();
     public int ShopRerollPrice { get; private set; }
 
+    public int TroopsLimit { get; private set; }
     public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
@@ -256,10 +257,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         ChooseShopItems();
         ShopRerollPrice = 200;
 
+        TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
 
         // TODO: // HERE: for now, I could hand craft 3 first quests or somethinmg...
-        for (int i = 0; i < 3; i++) 
+        for (int i = 0; i < 3; i++)
             AddRandomQuest();
 
         // new save
@@ -295,6 +297,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.ShopItems = PopulateShopItems();
         saveData.ShopRerollPrice = ShopRerollPrice;
 
+        saveData.TroopsLimit = TroopsLimit;
         saveData.PlayerTroops = PopulateCharacters();
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
@@ -381,6 +384,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (string itemReferenceId in saveData.ShopItems)
             ShopItems.Add(GameDatabase.GetItemByReferenceId(itemReferenceId));
 
+        TroopsLimit = saveData.TroopsLimit;
         PlayerTroops = new();
         foreach (CharacterData data in saveData.PlayerTroops)
         {
@@ -430,8 +434,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
 
         ChooseShopItems();
-        ShopRerollPrice = 2;
+        ShopRerollPrice = 200;
 
+        TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();

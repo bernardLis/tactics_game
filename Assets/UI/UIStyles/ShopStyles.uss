@@ -1,9 +1,0 @@
-.shopPicture {
-    -unity-background-image-tint-color: rgba(188, 188, 188, 255);
-}
-
-.shopPicture:hover {
-    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
-    transition-property: -unity-background-image-tint-color, ignored;
-    transition-duration: 0.5s, 0s;
-}
