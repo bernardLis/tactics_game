@@ -76,41 +76,40 @@ public class DeskManager : Singleton<DeskManager>
         foreach (Report report in _gameManager.Reports)
             await CreateReport(report);
 
+        for (int i = 0; i < _gameManager.TroopsLimit; i++)
+            AddNewCharacterSlot();
+
         foreach (Character character in _gameManager.PlayerTroops)
         {
             if (character.IsAssigned)
                 continue;
-            AddNewCharacterSlot(character);
+            AddCharacterToDraggableTroops(character);
         }
 
-        _deskTroopsContainer.Add(new CharacterCardMiniSlot());
         _draggableCharacters.Initialize(Root);
-
         ShowPassDayButton();
+    }
+
+    void AddNewCharacterSlot()
+    {
+        CharacterCardMiniSlot slot = new();
+        _characterCardSlots.Add(slot);
+        _deskTroopsContainer.Add(slot);
+        _draggableCharacters.AddDraggableSlot(slot);
     }
 
     public void AddCharacterToDraggableTroops(Character character)
     {
-        List<CharacterCardMiniSlot> emptySlots = new();
         foreach (CharacterCardMiniSlot slot in _characterCardSlots)
-            if (slot.Card == null)
-                emptySlots.Add(slot);
-
-        if (emptySlots.Count > 2)
         {
-            emptySlots[0].AddCard(new CharacterCardMini(character));
-            return;
+            if (slot.Card == null)
+            {
+                slot.AddCard(new CharacterCardMini(character));
+                return;
+            }
         }
 
-        AddNewCharacterSlot(character);
-    }
-
-    void AddNewCharacterSlot(Character character)
-    {
-        CharacterCardMiniSlot slot = new(new CharacterCardMini(character));
-        _characterCardSlots.Add(slot);
-        _deskTroopsContainer.Add(slot);
-        _draggableCharacters.AddDraggableSlot(slot);
+        Debug.LogError($"No character slots for character: {character.CharacterName}");
     }
 
     async Task CreateReport(Report report)

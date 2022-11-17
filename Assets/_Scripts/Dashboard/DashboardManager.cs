@@ -24,8 +24,6 @@ public class DashboardManager : MonoBehaviour
     VisualElement _navDesk;
     VisualElement _navBase;
 
-
-
     VisualElement _mainArmory;
     VisualElement _mainAbilities;
     VisualElement _mainShop;

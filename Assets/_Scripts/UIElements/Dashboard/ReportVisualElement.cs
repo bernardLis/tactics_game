@@ -118,6 +118,12 @@ public class ReportVisualElement : VisualElement
 
     void AcceptRecruit()
     {
+        if (_gameManager.PlayerTroops.Count >= _gameManager.TroopsLimit)
+        {
+            Helpers.DisplayTextOnElement(this, this, "Troops Limit Exceeded", Color.red);
+            return;
+        }
+
         _gameManager.AddCharacterToTroops(_report.Recruit);
         BaseAcceptReport();
     }
