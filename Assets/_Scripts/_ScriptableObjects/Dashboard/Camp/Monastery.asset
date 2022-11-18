@@ -17,7 +17,8 @@ MonoBehaviour:
   BuiltSprite: {fileID: 21300000, guid: 38ee95e772b15654d825aa787502fc76, type: 3}
   CostToBuild: 200
   DaysToBuild: 3
-  DaysLeftToBuild: 0
+  DaysLeftToBuild: 3
   DayStartedBuilding: 0
+  IsBuildingStarted: 0
   IsBuilt: 0
   LimitIncrease: 3

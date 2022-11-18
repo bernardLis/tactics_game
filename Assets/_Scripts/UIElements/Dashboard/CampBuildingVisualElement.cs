@@ -10,8 +10,10 @@ public class CampBuildingVisualElement : VisualElement
     CampBuilding _campBuilding;
 
     VisualElement _sprite;
-    Label _timeToBuilt;
+    Label _timeToBuild;
     MyButton _buildButton;
+    VisualElement _upgradeCostContainer;
+    GoldElement _costGoldElement;
 
     public CampBuildingVisualElement(CampBuilding campBuilding)
     {
@@ -26,20 +28,26 @@ public class CampBuildingVisualElement : VisualElement
         Label header = new($"{_campBuilding.name}");
         Add(header);
 
+        HandleUpgradeReward();
+
         _sprite = new();
         _sprite.AddToClassList("campBuildingSprite");
+        Add(_sprite);
         UpdateBuildingSprite();
 
-        HandleUpgradeCost();
-        HandleUpgradeReward();
         HandleTimeToBuild();
+        HandleUpgradeCost();
         HandleBuildButton();
     }
 
     void OnDayPassed(int day)
     {
-        HandleTimeToBuild();
+        UpdateTimeToBuild();
         UpdateBuildingSprite();
+
+        if (_campBuilding.IsBuilt)
+            BuildingFinished();
+
     }
 
     void OnGoldChanged(int gold)
@@ -57,17 +65,18 @@ public class CampBuildingVisualElement : VisualElement
         if (_campBuilding.IsBuilt)
             return;
 
-        VisualElement upgradeCostContainer = new();
-        upgradeCostContainer.style.flexDirection = FlexDirection.Row;
-        upgradeCostContainer.Add(new Label("Cost: "));
-        upgradeCostContainer.Add(new GoldElement(_campBuilding.CostToBuild));
-        Add(upgradeCostContainer);
+        _upgradeCostContainer = new();
+        _upgradeCostContainer.style.flexDirection = FlexDirection.Row;
+        _upgradeCostContainer.style.alignItems = Align.Center;
+
+        _upgradeCostContainer.Add(new Label("Cost: "));
+        _costGoldElement = new GoldElement(_campBuilding.CostToBuild);
+        _upgradeCostContainer.Add(_costGoldElement);
+        Add(_upgradeCostContainer);
     }
 
     void HandleUpgradeReward()
     {
-        Debug.Log($"_campBuilding.GetType() {_campBuilding.GetType()}");
-        Debug.Log($"type check {_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit))}");
         VisualElement upgradeContainer = new();
         upgradeContainer.style.flexDirection = FlexDirection.Row;
 
@@ -81,31 +90,56 @@ public class CampBuildingVisualElement : VisualElement
 
     void HandleTimeToBuild()
     {
-        _timeToBuilt = new($"Time to build: {_campBuilding.DaysLeftToBuild} days");
+        _timeToBuild = new();
+        Add(_timeToBuild);
+        UpdateTimeToBuild();
+    }
+
+    void UpdateTimeToBuild()
+    {
+        if (_campBuilding.IsBuilt)
+        {
+            _timeToBuild.text = "";
+            return;
+        }
+
+        if (_campBuilding.IsBuildingStarted)
+            _timeToBuild.text = $"Finished in: {_campBuilding.DaysLeftToBuild} days";
+        else
+            _timeToBuild.text = $"Time to build: {_campBuilding.DaysToBuild} days";
     }
 
     void HandleBuildButton()
     {
         _buildButton = new("Build", "", Build);
+        Add(_buildButton);
         UpdateBuildButton();
     }
 
     void UpdateBuildButton()
     {
+        if (_buildButton == null)
+            return;
+
         _buildButton.SetEnabled(false);
 
-        if (_gameManager.Gold < _campBuilding.CostToBuild)
+        if (_campBuilding.IsBuilt)
         {
-            _buildButton.text = "Insufficient funds";
+            Remove(_buildButton);
             return;
         }
-        if (_campBuilding.DayStartedBuilding != 0)
+        if (_campBuilding.IsBuildingStarted)
         {
-            _buildButton.text = "Already building";
+            _buildButton.UpdateButtonText("Already building");
+            return;
+        }
+        if (_gameManager.Gold < _campBuilding.CostToBuild)
+        {
+            _buildButton.UpdateButtonText("Insufficient funds");
             return;
         }
 
-        _buildButton.text = "Build";
+        _buildButton.UpdateButtonText("Build");
         _buildButton.SetEnabled(true);
     }
 
@@ -114,5 +148,14 @@ public class CampBuildingVisualElement : VisualElement
         _campBuilding.StartBuilding();
         _gameManager.ChangeGoldValue(-_campBuilding.CostToBuild);
         UpdateBuildButton();
+        UpdateTimeToBuild();
+        _costGoldElement.ChangeAmount(0);
+        _gameManager.OnGoldChanged -= OnGoldChanged;
+    }
+
+    void BuildingFinished()
+    {
+        Remove(_upgradeCostContainer);
+        Remove(_buildButton);
     }
 }

@@ -9,6 +9,7 @@ public class CampManager : MonoBehaviour
     DashboardManager _dashboardManager;
 
     VisualElement _root;
+    VisualElement _mainCamp;
 
     void Start()
     {
@@ -17,6 +18,17 @@ public class CampManager : MonoBehaviour
 
         _dashboardManager = GetComponent<DashboardManager>();
         _root = _dashboardManager.Root;
+        _mainCamp = _root.Q<VisualElement>("mainCamp");
+
+        Initialize();
+    }
+
+    void Initialize()
+    {
+        _mainCamp.Clear();
+        List<CampBuilding> buildings = new(_gameManager.GetCampBuildings());
+        foreach (CampBuilding b in buildings)
+            _mainCamp.Add(new CampBuildingVisualElement(b));
     }
 
     void DayPassed(int day)

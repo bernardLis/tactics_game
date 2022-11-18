@@ -10,6 +10,7 @@ public class TroopsLimitVisualElement : VisualWithTooltip
     VisualElement _animationContainer;
     VisualElement _countContainer;
 
+
     Sprite[] _animationSprites;
     IVisualElementScheduledItem _animationScheduler;
     int _animationSpriteIndex = 0;
@@ -21,7 +22,12 @@ public class TroopsLimitVisualElement : VisualWithTooltip
         _isGeneral = isGeneral;
 
         _gameManager = GameManager.Instance;
-        _gameManager.OnCharacterAddedToTroops += OnCharacterAddedToTroops;
+        if (isGeneral)
+        {
+            _gameManager.OnTroopsLimitChanged += OnTroopsLimitChanged;
+            _gameManager.OnCharacterAddedToTroops += OnCharacterAddedToTroops;
+        }
+
         _animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
 
         style.flexDirection = FlexDirection.Row;
@@ -40,6 +46,8 @@ public class TroopsLimitVisualElement : VisualWithTooltip
     }
 
     void OnCharacterAddedToTroops(Character character) { UpdateCountContainer(); }
+
+    void OnTroopsLimitChanged(int change) { UpdateCountContainer(); }
 
     void UpdateCountContainer(string text = null)
     {

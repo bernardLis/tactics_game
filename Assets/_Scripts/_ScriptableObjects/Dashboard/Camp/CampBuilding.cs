@@ -15,34 +15,57 @@ public class CampBuilding : BaseScriptableObject
 
     [HideInInspector] public int DaysLeftToBuild;
     [HideInInspector] public int DayStartedBuilding;
-
+    [HideInInspector] public bool IsBuildingStarted;
     [HideInInspector] public bool IsBuilt;
 
     public void Initialize()
     {
+        Debug.Log($"Initialize {IsBuildingStarted}");
+        if (IsBuilt)
+            return;
 
+        _gameManager = GameManager.Instance;
+        _gameManager.OnDayPassed += OnDayPassed;
     }
+
 
     public void StartBuilding()
     {
+        Debug.Log($"start building");
+        IsBuildingStarted = true;
         DaysLeftToBuild = DaysToBuild;
         DayStartedBuilding = _gameManager.Day;
     }
 
     public void OnDayPassed(int day)
     {
+        Debug.Log($"on day passed");
+        if (!IsBuildingStarted || IsBuilt)
+            return;
+
         DaysLeftToBuild--;
         if (DaysLeftToBuild == 0)
             FinishBuilding();
     }
 
-    public virtual void FinishBuilding() { IsBuilt = true; } // TODO: here I need to fire the effect
+    public virtual void FinishBuilding()
+    {
+        IsBuilt = true;
+        _gameManager.OnDayPassed -= OnDayPassed;
+    }
+
+    public void ResetSelf()
+    {
+        DaysLeftToBuild = DaysToBuild;
+        DayStartedBuilding = 0;
+        IsBuildingStarted = false;
+        IsBuilt = false;
+    }
 
     public void LoadFromData(CampBuildingData data)
     {
-        _gameManager = GameManager.Instance;
-        _gameManager.OnDayPassed += OnDayPassed;
-
+        Initialize();
+        IsBuildingStarted = data.IsBuildingStarted;
         DaysLeftToBuild = data.DaysLeftToBuild;
         DayStartedBuilding = data.DayStartedBuilding;
         IsBuilt = data.IsBuilt;
@@ -53,6 +76,7 @@ public class CampBuilding : BaseScriptableObject
         CampBuildingData data = new();
 
         data.Id = Id;
+        data.IsBuildingStarted = IsBuildingStarted;
         data.DaysLeftToBuild = DaysLeftToBuild;
         data.DayStartedBuilding = DayStartedBuilding;
         data.IsBuilt = IsBuilt;
@@ -66,6 +90,7 @@ public struct CampBuildingData
 {
     public string Id;
 
+    public bool IsBuildingStarted;
     public int DaysLeftToBuild;
     public int DayStartedBuilding;
 

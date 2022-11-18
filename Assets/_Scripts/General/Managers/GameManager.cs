@@ -150,6 +150,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         OnTroopsLimitChanged?.Invoke(change);
     }
 
+    public List<CampBuilding> GetCampBuildings() { return _campBuildings; }
+
     /* Shop */
     public void RemoveItemFromShop(Item item)
     {
@@ -261,7 +263,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         Seed = System.Environment.TickCount;
 
-        Day = 0;
+        Day = 1;
         Gold = 0;
 
         ChooseShopItems();
@@ -273,6 +275,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // TODO: // HERE: for now, I could hand craft 3 first quests or somethinmg...
         for (int i = 0; i < 3; i++)
             AddRandomQuest();
+
+        foreach (CampBuilding b in _campBuildings)
+        {
+            b.ResetSelf();
+            b.Initialize();
+        }
 
         // new save
         string guid = System.Guid.NewGuid().ToString();
@@ -454,7 +462,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         WasTutorialPlayed = false;
         Seed = System.Environment.TickCount;
 
-        Day = 0;
+        Day = 1;
         Gold = 0;
 
         ChooseShopItems();
@@ -469,6 +477,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Reports = new();
         ReportsArchived = new();
+
+        foreach (CampBuilding b in _campBuildings)
+            b.ResetSelf();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

@@ -31,6 +31,7 @@ public class DeskManager : Singleton<DeskManager>
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += DayPassed;
         _gameManager.OnCharacterAddedToTroops += AddCharacterToDraggableTroops;
+        _gameManager.OnTroopsLimitChanged += OnTroopsLimitChanged;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
@@ -110,6 +111,12 @@ public class DeskManager : Singleton<DeskManager>
         }
 
         Debug.LogError($"No character slots for character: {character.CharacterName}");
+    }
+    
+    void OnTroopsLimitChanged(int change)
+    {
+        for (int i = 0; i < change; i++)
+            AddNewCharacterSlot();
     }
 
     async Task CreateReport(Report report)
