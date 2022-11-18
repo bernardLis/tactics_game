@@ -208,6 +208,8 @@ MonoBehaviour:
   PlayerAbilityPouch: []
   Reports: []
   ReportsArchived: []
+  _campBuildings:
+  - {fileID: 11400000, guid: 3ef022ffec38f8543b289d6a700da1fe, type: 2}
   CutsceneIndexToPlay: 0
   ActiveQuest: {fileID: 0}
 --- !u!114 &2154333484900981486

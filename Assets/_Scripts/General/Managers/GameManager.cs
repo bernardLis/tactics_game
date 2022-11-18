@@ -31,12 +31,16 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public List<Report> Reports = new();
     public List<Report> ReportsArchived = new();
 
+    [SerializeField]
+    List<CampBuilding> _campBuildings = new();
+
     public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
     public Quest ActiveQuest;
 
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
+    public event Action<int> OnTroopsLimitChanged;
     public event Action<Character> OnCharacterAddedToTroops;
     public event Action<int> OnShopRerollPriceChanged;
     public event Action<string> OnLevelLoaded;
@@ -138,6 +142,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold += o;
         OnGoldChanged?.Invoke(Gold);
         SaveJsonData();
+    }
+
+    public void ChangeTroopsLimit(int change)
+    {
+        TroopsLimit += change;
+        OnTroopsLimitChanged?.Invoke(change);
     }
 
     /* Shop */
@@ -304,6 +314,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.Reports = PopulateReports();
         saveData.ReportsArchived = PopulateArchivedReports();
+
+        saveData.CampBuildings = PopulateCampBuildings();
     }
 
     List<string> PopulateShopItems()
@@ -358,6 +370,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         return reports;
     }
 
+    List<CampBuildingData> PopulateCampBuildings()
+    {
+        List<CampBuildingData> buildings = new();
+        foreach (CampBuilding b in _campBuildings)
+            buildings.Add(b.SerializeSelf());
+        return buildings;
+    }
+
+
     void LoadJsonData(string fileName)
     {
         if (FileManager.LoadFromFile(fileName, out var json))
@@ -402,6 +423,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
 
         LoadReports(saveData);
+
+        foreach (CampBuildingData data in saveData.CampBuildings)
+            _campBuildings.FirstOrDefault(x => x.Id == data.Id).LoadFromData(data);
     }
 
     void LoadReports(SaveData saveData)

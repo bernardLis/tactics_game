@@ -14,8 +14,12 @@ public class TroopsLimitVisualElement : VisualWithTooltip
     IVisualElementScheduledItem _animationScheduler;
     int _animationSpriteIndex = 0;
 
-    public TroopsLimitVisualElement()
+    bool _isGeneral;
+
+    public TroopsLimitVisualElement(bool isGeneral = true, string text = null)
     {
+        _isGeneral = isGeneral;
+
         _gameManager = GameManager.Instance;
         _gameManager.OnCharacterAddedToTroops += OnCharacterAddedToTroops;
         _animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
@@ -30,18 +34,23 @@ public class TroopsLimitVisualElement : VisualWithTooltip
 
         _countContainer = new();
         Add(_countContainer);
-        UpdateCountContainer();
+        UpdateCountContainer(text);
 
         _animationScheduler = _animationContainer.schedule.Execute(CharacterAnimation).Every(100);
     }
 
     void OnCharacterAddedToTroops(Character character) { UpdateCountContainer(); }
 
-    void UpdateCountContainer()
+    void UpdateCountContainer(string text = null)
     {
         _countContainer.Clear();
-        Label l = new($"{_gameManager.PlayerTroops.Count} / {_gameManager.TroopsLimit}");
+        Label l = new();
         _countContainer.Add(l);
+
+        if (_isGeneral)
+            l.text = $"{_gameManager.PlayerTroops.Count} / {_gameManager.TroopsLimit}";
+        else
+            l.text = text;
     }
 
     void CharacterAnimation()

@@ -22,13 +22,13 @@ public class DashboardManager : MonoBehaviour
     VisualElement _navAbilities;
     VisualElement _navShop;
     VisualElement _navDesk;
-    VisualElement _navBase;
+    VisualElement _navCamp;
 
     VisualElement _mainArmory;
     VisualElement _mainAbilities;
     VisualElement _mainShop;
     VisualElement _mainDesk;
-    VisualElement _mainBase;
+    VisualElement _mainCamp;
 
     VisualElement _activeNavTab;
 
@@ -55,25 +55,24 @@ public class DashboardManager : MonoBehaviour
         _navArmory = Root.Q<VisualElement>("navArmory");
         _navAbilities = Root.Q<VisualElement>("navAbilities");
         _navShop = Root.Q<VisualElement>("navShop");
-        _navBase = Root.Q<VisualElement>("navBase");
+        _navCamp = Root.Q<VisualElement>("navCamp");
 
         _navDesk.RegisterCallback<PointerUpEvent>(NavDeskClick);
         _navArmory.RegisterCallback<PointerUpEvent>(NavArmoryClick);
         _navAbilities.RegisterCallback<PointerUpEvent>(NavAbilitiesClick);
         _navShop.RegisterCallback<PointerUpEvent>(NavShopClick);
-        _navBase.RegisterCallback<PointerUpEvent>(NavBaseClick);
+        _navCamp.RegisterCallback<PointerUpEvent>(NavCampClick);
 
-        _mainDesk = Root.Q<VisualElement>("mainDesk");
         _mainArmory = Root.Q<VisualElement>("mainArmory");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
         _mainShop = Root.Q<VisualElement>("mainShop");
-        _mainBase = Root.Q<VisualElement>("mainBase");
+        _mainDesk = Root.Q<VisualElement>("mainDesk");
+        _mainCamp = Root.Q<VisualElement>("mainCamp");
 
         UpdateDay(_gameManager.Day);
         AddGoldElement();
         AddTroopsElement();
     }
-
 
     void NavArmoryClick(PointerUpEvent e)
     {
@@ -119,12 +118,12 @@ public class DashboardManager : MonoBehaviour
         OnDeskClicked?.Invoke();
     }
 
-    void NavBaseClick(PointerUpEvent e)
+    void NavCampClick(PointerUpEvent e)
     {
-        if (_activeNavTab == _navBase)
+        if (_activeNavTab == _navCamp)
             return;
         NavClick(e);
-        _mainBase.style.display = DisplayStyle.Flex;
+        _mainCamp.style.display = DisplayStyle.Flex;
         OnBaseClicked?.Invoke();
     }
 
@@ -149,6 +148,7 @@ public class DashboardManager : MonoBehaviour
         _mainAbilities.style.display = DisplayStyle.None;
         _mainShop.style.display = DisplayStyle.None;
         _mainDesk.style.display = DisplayStyle.None;
+        _mainCamp.style.display = DisplayStyle.None;
 
         OnHideAllPanels?.Invoke();
     }
@@ -172,16 +172,16 @@ public class DashboardManager : MonoBehaviour
 
 #if UNITY_EDITOR
 
-    [ContextMenu("Add 100 Gold")]
+    [ContextMenu("Add 10000 Gold")]
     void Add100Gold()
     {
-        _gameManager.ChangeGoldValue(100);
+        _gameManager.ChangeGoldValue(10000);
     }
 
-    [ContextMenu("Remove 50 Gold")]
+    [ContextMenu("Remove 5000 Gold")]
     void Remove50Gold()
     {
-        _gameManager.ChangeGoldValue(-50);
+        _gameManager.ChangeGoldValue(-5000);
     }
 
 

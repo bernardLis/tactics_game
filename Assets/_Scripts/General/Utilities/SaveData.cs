@@ -21,9 +21,10 @@ public class SaveData
     public List<string> ItemPouch = new();
     public List<string> AbilityPouch = new();
 
-
     public List<ReportData> Reports = new();
     public List<ReportData> ReportsArchived = new();
+
+    public List<CampBuildingData> CampBuildings = new();
 
     public string ToJson()
     {

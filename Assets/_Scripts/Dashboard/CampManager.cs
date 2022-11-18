@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BaseManager : MonoBehaviour
+public class CampManager : MonoBehaviour
 {
     GameManager _gameManager;
     DashboardManager _dashboardManager;
@@ -17,10 +17,6 @@ public class BaseManager : MonoBehaviour
 
         _dashboardManager = GetComponent<DashboardManager>();
         _root = _dashboardManager.Root;
-
-        
-
-
     }
 
     void DayPassed(int day)

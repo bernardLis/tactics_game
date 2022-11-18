@@ -20,7 +20,7 @@
             <ui:VisualElement name="navArmory" class="navTab">
                 <ui:Label text="Armory" display-tooltip-when-elided="true" class="textPrimary" />
             </ui:VisualElement>
-            <ui:VisualElement name="navBase" class="navTab">
+            <ui:VisualElement name="navCamp" class="navTab">
                 <ui:Label text="Base" display-tooltip-when-elided="true" class="textPrimary" />
             </ui:VisualElement>
             <ui:VisualElement name="navShop" class="navTab">
@@ -32,7 +32,7 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="main" style="width: 100%; height: 90%; flex-direction: row;">
-        <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: flex; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Hand%20Painted%20Seamless%20Wood%20Texture/Textures/Wood2.tga?fileID=2800000&amp;guid=fa79f310fc4924e4cabca0791e343bfb&amp;type=3#Wood2&apos;);">
+        <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: none; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Hand%20Painted%20Seamless%20Wood%20Texture/Textures/Wood2.tga?fileID=2800000&amp;guid=fa79f310fc4924e4cabca0791e343bfb&amp;type=3#Wood2&apos;);">
             <ui:VisualElement name="reportsContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%;">
                 <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); top: 412px; left: 418px; background-image: url(&apos;project://database/Assets/Sprites/Dashboard/Paper/old_paper_by_darkwood67.jpg?fileID=2800000&amp;guid=fd2829fbb18039045bec996992fb3c17&amp;type=3#old_paper_by_darkwood67&apos;);">
                     <ui:VisualElement name="shadow" class="reportShadow" />
@@ -99,8 +99,16 @@
             </ui:VisualElement>
             <ui:VisualElement name="pouchContainer" />
         </ui:VisualElement>
-        <ui:VisualElement name="mainBase" style="width: 100%; flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; display: none;">
-            <ui:Label text="Base" display-tooltip-when-elided="true" class="textPrimary" />
+        <ui:VisualElement name="mainCamp" style="width: 100%; flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; display: flex; align-items: center;">
+            <ui:Label text="Camp" display-tooltip-when-elided="true" class="textPrimary" />
+            <ui:VisualElement name="CampBuildingVisualElement" class="textPrimary campBuildingVisualElement">
+                <ui:Label text="Monastery" display-tooltip-when-elided="true" />
+                <ui:VisualElement name="sprite" class="campBuildingSprite" />
+                <ui:Label text="Upgrade cost: 200" display-tooltip-when-elided="true" />
+                <ui:Label text="Troops limit +3" display-tooltip-when-elided="true" />
+                <ui:Label text="Time to build: 3 days" display-tooltip-when-elided="true" />
+                <ui:Button text="Upgrade" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="questResultContainer" class="questResultContainer" style="display: none;">
