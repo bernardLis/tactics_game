@@ -47,7 +47,6 @@ public class CampBuildingVisualElement : VisualElement
 
         if (_campBuilding.IsBuilt)
             BuildingFinished();
-
     }
 
     void OnGoldChanged(int gold)
@@ -155,7 +154,16 @@ public class CampBuildingVisualElement : VisualElement
 
     void BuildingFinished()
     {
-        Remove(_upgradeCostContainer);
-        Remove(_buildButton);
+        if (_upgradeCostContainer != null)
+            Remove(_upgradeCostContainer);
+        if (_buildButton != null)
+            Remove(_buildButton);
+
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Initialize(ReportType.CampBuilding, null, null, null, _campBuilding.Id);
+        _gameManager.AddNewReport(r);
+
+        _gameManager.OnDayPassed -= OnDayPassed;
+
     }
 }

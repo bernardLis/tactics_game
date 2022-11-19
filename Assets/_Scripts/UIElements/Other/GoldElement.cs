@@ -59,7 +59,9 @@ public class GoldElement : VisualElement
         ChangeAmount(0);
     }
 
-    public async void ChangeAmount(int newValue)
+    public async void ChangeAmount(int newValue) { await AwaitableChangeAmount(newValue); }
+
+    public async Task AwaitableChangeAmount(int newValue)
     {
         if (newValue == Amount)
             return;
@@ -81,5 +83,6 @@ public class GoldElement : VisualElement
             _text.text = displayAmount.ToString();
             await Task.Delay(delay);
         }
+
     }
 }

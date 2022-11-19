@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb1280c852ba06245a95c7ed510f2866, type: 3}
+  m_Name: Farm
+  m_EditorClassIdentifier: 
+  Id: 7776c57b-7c26-4513-aa1c-854c78ce3898
+  OutlineSprite: {fileID: 21300000, guid: cbd549d11e092da4ea529495fa673fda, type: 3}
+  BuiltSprite: {fileID: 21300000, guid: 152189da2b2d57d4cbaf9e9e8208a8e1, type: 3}
+  CostToBuild: 600
+  DaysToBuild: 6
+  DaysLeftToBuild: 0
+  DayStartedBuilding: 0
+  IsBuildingStarted: 0
+  IsBuilt: 0
+  LimitIncrease: 6

@@ -80,6 +80,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PassDay();
     }
 
+    public void AddNewReport(Report r) { Reports.Add(r); }
+
 
     /* RESOURCES */
     public void PassDay()
@@ -108,7 +110,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Text, null, null, $"Maintenance is paid: {cost}");
-        Reports.Add(r);
+        AddNewReport(r);
     }
 
     public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 200 * 7; }
@@ -121,7 +123,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Quest, q);
-        Reports.Add(r);
+        AddNewReport(r);
     }
 
     void AddRecruit()
@@ -131,7 +133,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Recruit, null, newChar);
-        Reports.Add(r);
+        AddNewReport(r);
     }
 
     public void ChangeGoldValue(int o)
@@ -151,6 +153,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     }
 
     public List<CampBuilding> GetCampBuildings() { return _campBuildings; }
+    public CampBuilding GetCampBuildingById(string id) { return _campBuildings.FirstOrDefault(x => x.Id == id); }
 
     /* Shop */
     public void RemoveItemFromShop(Item item)
@@ -166,7 +169,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Text, null, null, "New inventory in the shop! Visit us!");
-        Reports.Add(r);
+        AddNewReport(r);
     }
 
     public void ChooseShopItems()
@@ -433,7 +436,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         LoadReports(saveData);
 
         foreach (CampBuildingData data in saveData.CampBuildings)
-            _campBuildings.FirstOrDefault(x => x.Id == data.Id).LoadFromData(data);
+            GetCampBuildingById(data.Id).LoadFromData(data);
     }
 
     void LoadReports(SaveData saveData)

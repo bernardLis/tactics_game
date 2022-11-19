@@ -12,12 +12,13 @@ public class Report : BaseScriptableObject
     public Quest Quest;
     public Character Recruit;
     public string Text;
+    public string CampBuildingId;
 
     public bool IsSigned;
     public int DaySigned;
     public bool WasAccepted;
 
-    public void Initialize(ReportType type, Quest quest = null, Character recruit = null, string text = null)
+    public void Initialize(ReportType type, Quest quest = null, Character recruit = null, string text = null, string campBuildingId = null)
     {
         ReportType = type;
         ReportPaper = GameManager.Instance.GameDatabase.GetRandomReportPaper();
@@ -25,6 +26,7 @@ public class Report : BaseScriptableObject
         Quest = quest;
         Recruit = recruit;
         Text = text;
+        CampBuildingId = campBuildingId;
     }
 
     public void Sign()
@@ -54,6 +56,11 @@ public class Report : BaseScriptableObject
         if (ReportType == ReportType.Text)
             Text = data.Text;
 
+        if (ReportType == ReportType.CampBuilding)
+        {
+            CampBuildingId = data.CampBuildingId;
+        }
+
         IsSigned = data.IsSigned;
         DaySigned = data.DaySigned;
         WasAccepted = data.WasAccepted;
@@ -76,6 +83,9 @@ public class Report : BaseScriptableObject
         if (Text != null)
             rd.Text = Text;
 
+        if (CampBuildingId != null)
+            rd.CampBuildingId = CampBuildingId;
+
         rd.IsSigned = IsSigned;
         rd.DaySigned = DaySigned;
         rd.WasAccepted = WasAccepted;
@@ -92,10 +102,9 @@ public struct ReportData
     public Vector2 Position;
 
     public QuestData Quest;
-
     public CharacterData Recruit;
-
     public string Text;
+    public string CampBuildingId;
 
     public bool IsSigned;
     public int DaySigned;

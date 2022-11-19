@@ -58,6 +58,7 @@ public class DeskManager : Singleton<DeskManager>
 
     async void DayPassed(int day)
     {
+        await Task.Delay(100); // TODO: ugh...I need to make sure other scripts manage their things...
         foreach (Report report in _gameManager.Reports)
         {
             if (VisibleReports.Contains(report))

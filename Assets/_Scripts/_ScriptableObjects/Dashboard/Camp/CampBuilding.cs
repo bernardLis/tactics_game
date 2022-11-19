@@ -20,7 +20,6 @@ public class CampBuilding : BaseScriptableObject
 
     public void Initialize()
     {
-        Debug.Log($"Initialize {IsBuildingStarted}");
         if (IsBuilt)
             return;
 
@@ -31,7 +30,6 @@ public class CampBuilding : BaseScriptableObject
 
     public void StartBuilding()
     {
-        Debug.Log($"start building");
         IsBuildingStarted = true;
         DaysLeftToBuild = DaysToBuild;
         DayStartedBuilding = _gameManager.Day;
