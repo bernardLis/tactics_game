@@ -397,7 +397,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             SaveData sd = new SaveData();
             sd.LoadFromJson(json);
             LoadFromSaveData(sd);
+            return;
         }
+        CreateNewSaveFile();
     }
 
     public void LoadFromSaveData(SaveData saveData)
