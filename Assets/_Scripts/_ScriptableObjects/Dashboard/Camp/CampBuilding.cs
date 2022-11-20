@@ -13,32 +13,47 @@ public class CampBuilding : BaseScriptableObject
     public int CostToBuild; // static
     public int DaysToBuild; // static
 
+    [HideInInspector] public CampBuildingState CampBuildingState;
     [HideInInspector] public int DaysLeftToBuild;
     [HideInInspector] public int DayStartedBuilding;
-    [HideInInspector] public bool IsBuildingStarted;
-    [HideInInspector] public bool IsBuilt;
+
+    public event Action<CampBuildingState> OnCampBuildingStateChanged;
+    public void UpdateCampBuildingState(CampBuildingState newState)
+    {
+        CampBuildingState = newState;
+        switch (newState)
+        {
+            case CampBuildingState.Pending:
+                break;
+            case CampBuildingState.Started:
+                break;
+            case CampBuildingState.Finished:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
+        OnCampBuildingStateChanged?.Invoke(newState);
+    }
 
     public void Initialize()
     {
-        if (IsBuilt)
+        if (CampBuildingState == CampBuildingState.Finished)
             return;
 
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
     }
 
-
     public void StartBuilding()
     {
-        IsBuildingStarted = true;
+        UpdateCampBuildingState(CampBuildingState.Started);
         DaysLeftToBuild = DaysToBuild;
         DayStartedBuilding = _gameManager.Day;
     }
 
     public void OnDayPassed(int day)
     {
-        Debug.Log($"on day passed");
-        if (!IsBuildingStarted || IsBuilt)
+        if (CampBuildingState != CampBuildingState.Started)
             return;
 
         DaysLeftToBuild--;
@@ -48,7 +63,7 @@ public class CampBuilding : BaseScriptableObject
 
     public virtual void FinishBuilding()
     {
-        IsBuilt = true;
+        UpdateCampBuildingState(CampBuildingState.Finished);
         _gameManager.OnDayPassed -= OnDayPassed;
     }
 
@@ -56,17 +71,16 @@ public class CampBuilding : BaseScriptableObject
     {
         DaysLeftToBuild = DaysToBuild;
         DayStartedBuilding = 0;
-        IsBuildingStarted = false;
-        IsBuilt = false;
+        CampBuildingState = CampBuildingState.Pending;
     }
 
     public void LoadFromData(CampBuildingData data)
     {
         Initialize();
-        IsBuildingStarted = data.IsBuildingStarted;
+        Enum.TryParse(data.CampBuildingState, out CampBuildingState CampBuildingState);
+
         DaysLeftToBuild = data.DaysLeftToBuild;
         DayStartedBuilding = data.DayStartedBuilding;
-        IsBuilt = data.IsBuilt;
     }
 
     public CampBuildingData SerializeSelf()
@@ -74,10 +88,9 @@ public class CampBuilding : BaseScriptableObject
         CampBuildingData data = new();
 
         data.Id = Id;
-        data.IsBuildingStarted = IsBuildingStarted;
+        data.CampBuildingState = CampBuildingState.ToString();
         data.DaysLeftToBuild = DaysLeftToBuild;
         data.DayStartedBuilding = DayStartedBuilding;
-        data.IsBuilt = IsBuilt;
 
         return data;
     }
@@ -88,9 +101,7 @@ public struct CampBuildingData
 {
     public string Id;
 
-    public bool IsBuildingStarted;
+    public string CampBuildingState;
     public int DaysLeftToBuild;
     public int DayStartedBuilding;
-
-    public bool IsBuilt;
 }
