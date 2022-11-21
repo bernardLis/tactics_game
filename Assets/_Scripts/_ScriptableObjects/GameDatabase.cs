@@ -103,7 +103,7 @@ public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
 public enum ReportType { Quest, Recruit, Text, CampBuilding }
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
 public enum CampBuildingState { Pending, Started, Finished, }
-
+public enum RecruitState { Pending, Resolved, Expired, }
 
 [System.Serializable]
 public struct PortraitEntry

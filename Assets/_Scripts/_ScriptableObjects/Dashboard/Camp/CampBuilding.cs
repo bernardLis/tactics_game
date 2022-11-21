@@ -77,7 +77,7 @@ public class CampBuilding : BaseScriptableObject
     public void LoadFromData(CampBuildingData data)
     {
         Initialize();
-        Enum.TryParse(data.CampBuildingState, out CampBuildingState CampBuildingState);
+        CampBuildingState = (CampBuildingState)System.Enum.Parse(typeof(CampBuildingState), data.CampBuildingState);
 
         DaysLeftToBuild = data.DaysLeftToBuild;
         DayStartedBuilding = data.DayStartedBuilding;

@@ -128,11 +128,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     void AddRecruit()
     {
-        Character newChar = ScriptableObject.CreateInstance<Character>();
-        newChar.CreateRandom();
+        Recruit newRecruit = ScriptableObject.CreateInstance<Recruit>();
+        newRecruit.CreateRandom();
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Recruit, null, newChar);
+        r.Initialize(ReportType.Recruit, null, newRecruit);
         AddNewReport(r);
     }
 

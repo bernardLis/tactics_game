@@ -18,7 +18,7 @@ public class ReportVisualElement : VisualElement
     Label _header;
 
     Report _report;
-
+    VisualElement _acceptRejectContainer;
     MyButton _signButton;
     bool _isArchived;
 
@@ -75,7 +75,7 @@ public class ReportVisualElement : VisualElement
         _reportContents.Add(q);
 
         _report.Quest.OnQuestStateChanged += OnQuestStateChanged;
-        UpdateHeader();
+        UpdateQuestHeader();
         AddSignButton();
 
         if (_report.Quest.QuestState == QuestState.Expired)
@@ -84,7 +84,7 @@ public class ReportVisualElement : VisualElement
             ShowSignButton();
     }
 
-    void UpdateHeader()
+    void UpdateQuestHeader()
     {
         if (_report.Quest.QuestState == QuestState.Pending)
             AddHeader("Quest Pending", Helpers.GetColor(QuestState.Pending.ToString()));
@@ -104,7 +104,7 @@ public class ReportVisualElement : VisualElement
 
     void OnQuestStateChanged(QuestState state)
     {
-        UpdateHeader();
+        UpdateQuestHeader();
         if (state == QuestState.Expired)
             ShowSignButton();
         if (state == QuestState.RewardCollected)
@@ -113,9 +113,33 @@ public class ReportVisualElement : VisualElement
 
     void HandleRecruit()
     {
-        AddHeader($"{_report.Recruit.CharacterName} wants to join!", new Color(0.2f, 0.2f, 0.55f));
-        _reportContents.Add(new CharacterCardMini(_report.Recruit));
-        AddAcceptRejectButtons(AcceptRecruit, RejectRecruit);
+        if (_report.Recruit.RecruitState == RecruitState.Pending)
+        {
+            AddHeader($"{_report.Recruit.Character.CharacterName} wants to join!", new Color(0.2f, 0.2f, 0.55f));
+            _reportContents.Add(new RecruitVisualElement(_report.Recruit));
+            _report.Recruit.OnRecruitStateChanged += OnRecruitStateChanged;
+            AddAcceptRejectButtons(AcceptRecruit, RejectRecruit);
+        }
+
+        if (_report.Recruit.RecruitState == RecruitState.Expired)
+        {
+            AddHeader($"{_report.Recruit.Character.CharacterName} left!", Helpers.GetColor(QuestState.Expired.ToString()));
+            _reportContents.Add(new RecruitVisualElement(_report.Recruit));
+            AddSignButton();
+            ShowSignButton();
+        }
+    }
+
+    void OnRecruitStateChanged(RecruitState newState)
+    {
+        Debug.Log($"OnRecruitStateChanged state: {newState}");
+        if (newState == RecruitState.Expired)
+        {
+            AddHeader($"{_report.Recruit.Character.CharacterName} left!", Helpers.GetColor(QuestState.Expired.ToString()));
+            RemoveAcceptRejectButtons();
+            AddSignButton();
+            ShowSignButton();
+        }
     }
 
     void AcceptRecruit()
@@ -126,11 +150,16 @@ public class ReportVisualElement : VisualElement
             return;
         }
 
-        _gameManager.AddCharacterToTroops(_report.Recruit);
+        _gameManager.AddCharacterToTroops(_report.Recruit.Character);
+        _report.Recruit.UpdateRecruitState(RecruitState.Resolved);
         BaseAcceptReport();
     }
 
-    void RejectRecruit() { BaseRejectReport(); }
+    void RejectRecruit()
+    {
+        _report.Recruit.UpdateRecruitState(RecruitState.Resolved);
+        BaseRejectReport();
+    }
 
     void HandleText()
     {
@@ -153,7 +182,7 @@ public class ReportVisualElement : VisualElement
         CampBuildingVisualElement el = new CampBuildingVisualElement(b);
         el.style.backgroundImage = null; // looks weird coz report already has paper bg
         _reportContents.Add(el);
-        
+
         AddSignButton();
         ShowSignButton();
     }
@@ -178,14 +207,19 @@ public class ReportVisualElement : VisualElement
             return;
         }
 
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.alignItems = Align.Center;
+        _acceptRejectContainer = new();
+        _acceptRejectContainer.style.flexDirection = FlexDirection.Row;
+        _acceptRejectContainer.style.alignItems = Align.Center;
         MyButton acceptButton = new MyButton(null, "acceptButton", acceptCallback);
         MyButton rejectButton = new MyButton(null, "rejectButton", rejectCallback);
-        container.Add(acceptButton);
-        container.Add(rejectButton);
-        _reportContents.Add(container);
+        _acceptRejectContainer.Add(acceptButton);
+        _acceptRejectContainer.Add(rejectButton);
+        _reportContents.Add(_acceptRejectContainer);
+    }
+
+    void RemoveAcceptRejectButtons()
+    {
+        _acceptRejectContainer.Clear();
     }
 
     void HandleSignedReportWithDecision()

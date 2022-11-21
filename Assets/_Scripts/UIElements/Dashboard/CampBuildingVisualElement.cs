@@ -127,8 +127,6 @@ public class CampBuildingVisualElement : VisualElement
         _buildButtonContainer.Add(_buildButton);
         _buildButton.SetEnabled(false);
 
-        Debug.Log($"campbuilkding.name {_campBuilding.name} state: {_campBuilding.CampBuildingState}");
-
         if (_campBuilding.CampBuildingState == CampBuildingState.Finished)
         {
             _buildButtonContainer.Clear();

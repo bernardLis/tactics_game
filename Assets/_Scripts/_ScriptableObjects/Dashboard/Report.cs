@@ -10,7 +10,7 @@ public class Report : BaseScriptableObject
     public Vector2 Position;
 
     public Quest Quest;
-    public Character Recruit;
+    public Recruit Recruit;
     public string Text;
     public string CampBuildingId;
 
@@ -18,7 +18,7 @@ public class Report : BaseScriptableObject
     public int DaySigned;
     public bool WasAccepted;
 
-    public void Initialize(ReportType type, Quest quest = null, Character recruit = null, string text = null, string campBuildingId = null)
+    public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null, string campBuildingId = null)
     {
         ReportType = type;
         ReportPaper = GameManager.Instance.GameDatabase.GetRandomReportPaper();
@@ -49,8 +49,8 @@ public class Report : BaseScriptableObject
 
         if (ReportType == ReportType.Recruit)
         {
-            Recruit = ScriptableObject.CreateInstance<Character>();
-            Recruit.CreateFromData(data.Recruit);
+            Recruit = ScriptableObject.CreateInstance<Recruit>();
+            Recruit.LoadFromData(data.Recruit);
         }
 
         if (ReportType == ReportType.Text)
@@ -102,7 +102,7 @@ public struct ReportData
     public Vector2 Position;
 
     public QuestData Quest;
-    public CharacterData Recruit;
+    public RecruitData Recruit;
     public string Text;
     public string CampBuildingId;
 
