@@ -69,20 +69,29 @@ public class GoldElement : VisualElement
         int displayAmount = Amount;
         Amount = newValue;
 
-        int steps = Mathf.Abs(displayAmount - newValue);
-        int delay = 1000 / steps;
+        int step = 1;
+        int change = Mathf.Abs(displayAmount - newValue);
 
+        // TODO: there has to be a better way
+        if (change >= 1000)
+            step = 10;
+        if (change >= 10000)
+            step = 100;
+        if (change >= 100000)
+            step = 1000;
+
+        int numberOfSteps = Mathf.FloorToInt(change / step);
+        int delay = 1000 / numberOfSteps;
         while (displayAmount != newValue)
         {
             if (displayAmount < newValue)
-                displayAmount++;
+                displayAmount += step;
             if (displayAmount > newValue)
-                displayAmount--;
+                displayAmount -= step;
 
             _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(Amount));
             _text.text = displayAmount.ToString();
             await Task.Delay(delay);
         }
-
     }
 }
