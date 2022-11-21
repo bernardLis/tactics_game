@@ -58,6 +58,9 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] ReportPaper[] ReportPapers;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
+    public Sprite[] YellowSpiceAnimationSprites;
+    public Sprite[] BlueSpiceAnimationSprites;
+    public Sprite[] RedSpiceAnimationSprites;
 
 
     public Sprite GetCoinSprite(int amount)
@@ -102,8 +105,10 @@ public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
 public enum ReportType { Quest, Recruit, Text, CampBuilding }
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
-public enum CampBuildingState { Pending, Started, Finished, }
-public enum RecruitState { Pending, Resolved, Expired, }
+public enum CampBuildingState { Pending, Started, Finished }
+public enum RecruitState { Pending, Resolved, Expired }
+public enum SpiceColor { Yellow, Blue, Red }
+
 
 [System.Serializable]
 public struct PortraitEntry

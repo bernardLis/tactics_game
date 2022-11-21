@@ -6,11 +6,20 @@
             <ui:VisualElement name="navDay" class="navResourceElement">
                 <ui:Label text="Day: 0" display-tooltip-when-elided="true" enable-rich-text="true" name="navDayLabel" class="textPrimary" />
             </ui:VisualElement>
-            <ui:VisualElement name="navGold" class="navResourceElement">
+            <ui:VisualElement name="navGold" class="navResourceElement" style="width: 200px;">
                 <ui:Label text="Gold: 15" display-tooltip-when-elided="true" />
             </ui:VisualElement>
             <ui:VisualElement name="navTroops" class="navResourceElement">
                 <ui:Label text="Troops: 2/5" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navSpiceYellow" class="navResourceElement">
+                <ui:Label text="Yellow Spice: 0" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navSpiceBlue" class="navResourceElement">
+                <ui:Label text="Blue Spice: 0" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navSpiceRed" class="navResourceElement">
+                <ui:Label text="Red Spice: 0" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="navContainer" style="flex-direction: row; width: 100%; height: 50%;">

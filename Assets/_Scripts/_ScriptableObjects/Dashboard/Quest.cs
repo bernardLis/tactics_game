@@ -156,10 +156,7 @@ public class Quest : BaseScriptableObject
         }
 
         Reward = ScriptableObject.CreateInstance<Reward>();
-        Reward.IsRandomized = true;
-        Reward.GoldRange = new Vector2Int(400, 1000);
-        Reward.HasItem = true;
-        Reward.Initialize();
+        Reward.CreateRandom();
 
         ExpiryDay = _gameManager.Day + Random.Range(3, 7);
         Duration = Random.Range(1, 6);

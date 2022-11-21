@@ -59,6 +59,7 @@ public class RewardContainer : VisualElement
     {
         // TODO: I could play some nice effect here
         // both sound and fx
+        // TODO: there has to be better way to ahndle reward
         AudioManager.Instance.PlaySFX("ChestOpen", Vector3.zero);
         foreach (Sprite sprite in _rewardChest.Open)
         {
@@ -73,6 +74,21 @@ public class RewardContainer : VisualElement
 
         if (_reward.Item != null)
             FlyingReward(new ItemVisual(_reward.Item));
+
+        await Task.Delay(200);
+
+        if (_reward.YellowSpice != 0)
+            FlyingReward(new SpiceElement(_reward.YellowSpice, SpiceColor.Yellow));
+
+        await Task.Delay(200);
+
+        if (_reward.BlueSpice != 0)
+            FlyingReward(new SpiceElement(_reward.BlueSpice, SpiceColor.Blue));
+
+        await Task.Delay(200);
+
+        if (_reward.RedSpice != 0)
+            FlyingReward(new SpiceElement(_reward.RedSpice, SpiceColor.Red));
 
         OnChestOpen?.Invoke();
     }

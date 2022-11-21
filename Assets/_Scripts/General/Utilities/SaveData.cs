@@ -10,8 +10,12 @@ public class SaveData
     public bool WasTutorialPlayed;
     public int Seed;
 
-    public int Gold;
     public int Day;
+    public int Gold;
+
+    public int YellowSpice;
+    public int BlueSpice;
+    public int RedSpice;
 
     public List<string> ShopItems = new();
     public int ShopRerollPrice;

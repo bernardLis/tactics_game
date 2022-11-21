@@ -15,6 +15,10 @@ public class DashboardManager : MonoBehaviour
     VisualElement _navGold;
     GoldElement _goldElement;
     VisualElement _navTroops;
+    VisualElement _navSpiceYellow;
+    VisualElement _navSpiceBlue;
+    VisualElement _navSpiceRed;
+
     TroopsLimitVisualElement _troopsLimitVisualElement;
 
     // buttons
@@ -50,6 +54,9 @@ public class DashboardManager : MonoBehaviour
         _navDay = Root.Q<Label>("navDayLabel");
         _navGold = Root.Q<VisualElement>("navGold");
         _navTroops = Root.Q<VisualElement>("navTroops");
+        _navSpiceYellow = Root.Q<VisualElement>("navSpiceYellow");
+        _navSpiceBlue = Root.Q<VisualElement>("navSpiceBlue");
+        _navSpiceRed = Root.Q<VisualElement>("navSpiceRed");
 
         _navDesk = Root.Q<VisualElement>("navDesk");
         _navArmory = Root.Q<VisualElement>("navArmory");
@@ -72,6 +79,7 @@ public class DashboardManager : MonoBehaviour
         UpdateDay(_gameManager.Day);
         AddGoldElement();
         AddTroopsElement();
+        AddSpiceElements();
     }
 
     void NavArmoryClick(PointerUpEvent e)
@@ -170,6 +178,25 @@ public class DashboardManager : MonoBehaviour
         _navTroops.Add(_troopsLimitVisualElement);
     }
 
+    void AddSpiceElements()
+    {
+        _navSpiceYellow.Clear();
+        _navSpiceBlue.Clear();
+        _navSpiceRed.Clear();
+
+        SpiceElement y = new(_gameManager.YellowSpice, SpiceColor.Yellow);
+        _gameManager.OnYellowSpiceChanged += y.OnValueChanged;
+        _navSpiceYellow.Add(y);
+
+        SpiceElement b = new(_gameManager.BlueSpice, SpiceColor.Blue);
+        _gameManager.OnBlueSpiceChanged += b.OnValueChanged;
+        _navSpiceBlue.Add(b);
+
+        SpiceElement r = new(_gameManager.RedSpice, SpiceColor.Red);
+        _gameManager.OnRedSpiceChanged += r.OnValueChanged;
+        _navSpiceRed.Add(r);
+    }
+
 #if UNITY_EDITOR
 
     [ContextMenu("Add 10000 Gold")]
@@ -183,6 +210,24 @@ public class DashboardManager : MonoBehaviour
     {
         _gameManager.ChangeGoldValue(-5000);
     }
+
+    [ContextMenu("Add 500 yellow spice")]
+    void Add500YellowSpice()
+    {
+        _gameManager.ChangeGoldValue(10000);
+    }
+
+    [ContextMenu("Add 500 blue spice")]
+    void Add500BlueSpice()
+    {
+        _gameManager.ChangeGoldValue(10000);
+    }
+    [ContextMenu("Add 500 red spice")]
+    void Add500RedSpice()
+    {
+        _gameManager.ChangeGoldValue(10000);
+    }
+
 
 
 #endif
