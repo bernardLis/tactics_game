@@ -33,6 +33,7 @@ public class DashboardManager : MonoBehaviour
     VisualElement _mainShop;
     VisualElement _mainDesk;
     VisualElement _mainCamp;
+    VisualElement _mainAbilities;
 
     VisualElement _activeNavTab;
 
@@ -75,6 +76,7 @@ public class DashboardManager : MonoBehaviour
         _mainShop = Root.Q<VisualElement>("mainShop");
         _mainDesk = Root.Q<VisualElement>("mainDesk");
         _mainCamp = Root.Q<VisualElement>("mainCamp");
+        _mainAbilities = Root.Q<VisualElement>("mainAbilities");
 
         UpdateDay(_gameManager.Day);
         AddGoldElement();
@@ -99,8 +101,8 @@ public class DashboardManager : MonoBehaviour
             return;
 
         NavClick(e);
-        _main.style.display = DisplayStyle.None;
 
+        _mainAbilities.style.display = DisplayStyle.Flex;
         OnAbilitiesClicked?.Invoke();
     }
 
@@ -130,7 +132,9 @@ public class DashboardManager : MonoBehaviour
     {
         if (_activeNavTab == _navCamp)
             return;
+
         NavClick(e);
+
         _mainCamp.style.display = DisplayStyle.Flex;
         OnBaseClicked?.Invoke();
     }
@@ -139,8 +143,6 @@ public class DashboardManager : MonoBehaviour
     {
         VisualElement target = (VisualElement)e.currentTarget;
         HideAllPanels();
-
-        _main.style.display = DisplayStyle.Flex;
 
         if (_activeNavTab != null)
         {
@@ -159,6 +161,7 @@ public class DashboardManager : MonoBehaviour
         _mainShop.style.display = DisplayStyle.None;
         _mainDesk.style.display = DisplayStyle.None;
         _mainCamp.style.display = DisplayStyle.None;
+        _mainAbilities.style.display = DisplayStyle.None;
 
         OnHideAllPanels?.Invoke();
     }

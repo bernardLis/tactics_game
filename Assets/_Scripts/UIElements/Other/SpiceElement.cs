@@ -44,7 +44,11 @@ public class SpiceElement : VisualElement
         _text = new();
         _text.AddToClassList("textPrimary");
         _text.text = Amount.ToString();
+        _text.style.unityTextAlign = TextAnchor.MiddleCenter;
+        _text.style.height = 50;
+        _text.style.width = 25;
         Add(_text);
+
 
         ChangeAmount(amount);
 
@@ -96,7 +100,6 @@ public class SpiceElement : VisualElement
             if (displayAmount > newValue)
                 displayAmount -= step;
 
-            _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(Amount));
             _text.text = displayAmount.ToString();
             await Task.Delay(delay);
         }

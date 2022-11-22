@@ -29,6 +29,7 @@ public class GoldElement : VisualElement
         _text = new();
         _text.AddToClassList("textPrimary");
         _text.text = Amount.ToString();
+        _text.style.width = 60;
         Add(_text);
 
         if (isClickable)

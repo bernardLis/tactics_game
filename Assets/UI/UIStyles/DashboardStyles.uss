@@ -421,3 +421,36 @@
     width: 256px;
     height: 256px;
 }
+
+.abilityNodeIcon {
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+}
+
+.graphContainer {
+    align-items: center;
+}
+
+.abilityNodeContent {
+    align-items: center;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(209, 206, 206, 255);
+    border-right-color: rgba(209, 206, 206, 255);
+    border-top-color: rgba(209, 206, 206, 255);
+    border-bottom-color: rgba(209, 206, 206, 255);
+}

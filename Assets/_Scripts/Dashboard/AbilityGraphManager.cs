@@ -1,19 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AbilityGraphManager : MonoBehaviour
 {
     GameManager _gameManager;
     DashboardManager _dashboardManager;
 
-    [SerializeField] GameObject _abilityGraphHolder;
-
-    [SerializeField] GameObject _abilityNodePrefab;
     [SerializeField] AbilityNodeGraph[] _abilityNodeGraphs;
 
-    List<AbilityNodeScript> _nodeScripts = new();
-    List<ShapesPainter> _shapesPainters = new();
+    VisualElement _root;
+    VisualElement _abilityGraphs;
 
     void Start()
     {
@@ -21,6 +19,10 @@ public class AbilityGraphManager : MonoBehaviour
 
         _dashboardManager = GetComponent<DashboardManager>();
         _dashboardManager.OnAbilitiesClicked += OnAbilitiesClicked;
+        _root = _dashboardManager.Root;
+
+        _abilityGraphs = _root.Q<VisualElement>("abilityGraphs");
+        _abilityGraphs.Clear();
 
         CreateGraphs();
     }
@@ -30,32 +32,23 @@ public class AbilityGraphManager : MonoBehaviour
 
     }
 
-    [ContextMenu("Create graphs")]
     void CreateGraphs()
     {
-        foreach (Transform child in _abilityGraphHolder.transform)
-            GameObject.Destroy(child.gameObject);
+        VisualElement graphContainer = new();
+        graphContainer.AddToClassList("graphContainer");
+        graphContainer.AddToClassList("textPrimary");
+        Label title = new(_abilityNodeGraphs[0].Title);
+        title.style.fontSize = 48;
+        graphContainer.Add(title);
 
-        float startX = -7f;
-        float startY = 1.5f;
+        _abilityGraphs.Add(graphContainer);
 
         // HERE: for now, only 1 graph
         for (int i = 0; i < _abilityNodeGraphs[0].AbilityNodes.Length; i++)
         {
             AbilityNode n = _abilityNodeGraphs[0].AbilityNodes[i];
-            Vector3 position = new(startX + 4 * i, startY);
-            GameObject g = Instantiate(_abilityNodePrefab, position, Quaternion.identity);
-            g.transform.parent = _abilityGraphHolder.transform;
-            AbilityNodeScript script = g.GetComponent<AbilityNodeScript>();
-            script.InitializeScript(n);
-            _nodeScripts.Add(script);
-        }
-
-        for (int i = 0; i < _nodeScripts.Count; i++)
-        {
-            if (i + 1 == _nodeScripts.Count)
-                break;
-            _nodeScripts[i].PaintLine(_nodeScripts[i + 1]);
+            AbilityNodeVisualElement el = new(n);
+            graphContainer.Add(el);
         }
     }
 }
