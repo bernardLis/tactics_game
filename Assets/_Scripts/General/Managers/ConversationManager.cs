@@ -127,7 +127,7 @@ public class ConversationManager : Singleton<ConversationManager>
     }
 
 
-    async void PlayLine(Line line)
+    async void PlayLine(ConversationLine line)
     {
         // known bug )by unity(
         // ArgumentException: Event must be a StateEvent or DeltaStateEvent but is a TEXT instead

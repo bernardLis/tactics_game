@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2154333484900981487, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_LocalPosition.x
@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 1528180488}
   - component: {fileID: 1528180492}
   - component: {fileID: 1528180491}
+  - component: {fileID: 1528180493}
   m_Layer: 0
   m_Name: Dashboard
   m_TagString: Untagged
@@ -428,3 +429,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6b52755ab0d9e4790a5004439945e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1528180493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528180482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f6dc66ab57aac4692afaff05aaa046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _abilityGraphHolder: {fileID: 2136713705}
+  _abilityNodePrefab: {fileID: 4136886873334183696, guid: ad89c01763c7d7144a75f019f8454641, type: 3}
+  _abilityNodeGraphs:
+  - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
+--- !u!1 &2136713705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2136713706}
+  m_Layer: 0
+  m_Name: AbilityGraphHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2136713706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136713705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

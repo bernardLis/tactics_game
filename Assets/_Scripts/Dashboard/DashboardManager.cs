@@ -28,8 +28,8 @@ public class DashboardManager : MonoBehaviour
     VisualElement _navDesk;
     VisualElement _navCamp;
 
+    VisualElement _main;
     VisualElement _mainArmory;
-    VisualElement _mainAbilities;
     VisualElement _mainShop;
     VisualElement _mainDesk;
     VisualElement _mainCamp;
@@ -70,8 +70,8 @@ public class DashboardManager : MonoBehaviour
         _navShop.RegisterCallback<PointerUpEvent>(NavShopClick);
         _navCamp.RegisterCallback<PointerUpEvent>(NavCampClick);
 
+        _main = Root.Q<VisualElement>("main");
         _mainArmory = Root.Q<VisualElement>("mainArmory");
-        _mainAbilities = Root.Q<VisualElement>("mainAbilities");
         _mainShop = Root.Q<VisualElement>("mainShop");
         _mainDesk = Root.Q<VisualElement>("mainDesk");
         _mainCamp = Root.Q<VisualElement>("mainCamp");
@@ -99,8 +99,8 @@ public class DashboardManager : MonoBehaviour
             return;
 
         NavClick(e);
+        _main.style.display = DisplayStyle.None;
 
-        _mainAbilities.style.display = DisplayStyle.Flex;
         OnAbilitiesClicked?.Invoke();
     }
 
@@ -139,6 +139,9 @@ public class DashboardManager : MonoBehaviour
     {
         VisualElement target = (VisualElement)e.currentTarget;
         HideAllPanels();
+
+        _main.style.display = DisplayStyle.Flex;
+
         if (_activeNavTab != null)
         {
             _activeNavTab.RemoveFromClassList("navTabActive");
@@ -153,7 +156,6 @@ public class DashboardManager : MonoBehaviour
     void HideAllPanels()
     {
         _mainArmory.style.display = DisplayStyle.None;
-        _mainAbilities.style.display = DisplayStyle.None;
         _mainShop.style.display = DisplayStyle.None;
         _mainDesk.style.display = DisplayStyle.None;
         _mainCamp.style.display = DisplayStyle.None;

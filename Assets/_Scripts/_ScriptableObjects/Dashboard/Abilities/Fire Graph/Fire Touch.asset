@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5944d5cfc9b4e4d44ac510a95728dde5, type: 3}
+  m_Name: Fire Touch
+  m_EditorClassIdentifier: 
+  Id: 26b03ab4-cc89-4de8-8ab7-e523f60bf890
+  Icon: {fileID: 21300000, guid: 4cbeec9d2a9e19c4fb5a92131537e1ec, type: 3}
+  Title: Fire Touch
+  Description: Novice fire magic. Set target in close range on fire.
+  AbilityNodeUnlockCost:
+    YellowSpiceCost: 10
+    BlueSpiceCost: 5
+    RedSpiceCost: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 public class Conversation : BaseScriptableObject
 {
 	public bool Seen = false;
-	public Line[] Lines;
+	public ConversationLine[] Lines;
 
 	public void EndConversation()
 	{
