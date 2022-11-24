@@ -20,13 +20,14 @@ public class CharacterCardExtended : CharacterCard
     int _levelUpSpriteIndex = 0;
 
 
-    public CharacterCardExtended(Character character) : base(character, false)
+    public CharacterCardExtended(Character character, bool showExp = true, bool showAbilities = true, bool showItems = true) : base(character, false)
     {
         AddToClassList("uiContainer");
         style.width = 600;
         style.height = 400;
 
-        _characteristics.Add(CreateExpGroup(character));
+        if (showExp)
+            _characteristics.Add(CreateExpGroup(character));
 
         VisualElement wrapper = new();
         wrapper.style.flexDirection = FlexDirection.Row;
@@ -34,11 +35,13 @@ public class CharacterCardExtended : CharacterCard
         wrapper.Add(_portrait);
         _portrait.style.minWidth = 200;
         wrapper.Add(_characteristics);
-        wrapper.Add(CreateItems(character));
+        if (showItems)
+            wrapper.Add(CreateItems(character));
         Add(wrapper);
 
         style.flexDirection = FlexDirection.Column;
-        Add(CreateAbilities(character));
+        if (showAbilities)
+            Add(CreateAbilities(character));
 
         AvailablityCheck(); // for armory
     }

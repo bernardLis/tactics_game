@@ -30,19 +30,32 @@ public class QuestResultsVisualElement : FullScreenVisual
         _quest = report.Quest;
 
         AddToClassList("textPrimary");
-        AddToClassList("questResultContainer");
+        if (_quest.IsWon)
+            AddToClassList("questResultContainerWon");
+        else
+            AddToClassList("questResultContainerLost");
 
         _content = new();
         Add(_content);
         _content.AddToClassList("questResultContent");
 
-        _content.Add(GetHeader());
-        _content.Add(GetSuccessLabel());
-        _content.Add(GetTroopsContainer());
 
+        VisualElement topContainer = new();
+        _content.Add(topContainer);
+        topContainer.Add(GetHeader());
+        topContainer.Add(GetSuccessLabel());
+
+        VisualElement midContainer = new();
+        midContainer.style.flexDirection = FlexDirection.Row;
+        midContainer.style.width = Length.Percent(100);
+        _content.Add(midContainer);
+        midContainer.Add(GetTroopsContainer());
         if (_quest.IsWon)
-            _content.Add(GetRewardChest());
-        _content.Add(GetBackButton());
+            midContainer.Add(GetRewardChest());
+
+        VisualElement bottomContainer = new();
+        _content.Add(bottomContainer);
+        bottomContainer.Add(GetBackButton());
 
         HandleSpectacle();
     }
@@ -61,14 +74,14 @@ public class QuestResultsVisualElement : FullScreenVisual
 
     async Task HandleCharacterExp()
     {
-
         foreach (Character c in _quest.AssignedCharacters)
         {
-            CharacterCardExtended card = new(c);
+            CharacterCardExtended card = new(c, true, false, false);
             _characterCards.Add(card);
             card.style.opacity = 0;
             _troopsContainer.Add(card);
         }
+
         await Task.Delay(100);
         ScaleCharacterCards();
 
@@ -102,27 +115,42 @@ public class QuestResultsVisualElement : FullScreenVisual
     {
         _troopsContainer = new();
         _troopsContainer.style.flexDirection = FlexDirection.Row;
-        _troopsContainer.style.width = Length.Percent(100);
+        _troopsContainer.style.width = Length.Percent(50);
         return _troopsContainer;
     }
 
     void ScaleCharacterCards()
     {
         VisualElement container = _characterCards[0].parent;
+        container.style.flexDirection = FlexDirection.Column;
+
+        // TODO: improve this, this countainer thing could be a seperate object that does that by itself.
+        // width
         float parentWidth = container.layout.width;
         float targetChildWidth = (parentWidth - 100) / _characterCards.Count;
         if (_characterCards[0].layout.width < targetChildWidth)
             return;
+        float targetScaleWidth = targetChildWidth / _characterCards[0].layout.width;
 
-        float targetScale = targetChildWidth / _characterCards[0].layout.width;
+        // height
+        float parentHeight = container.layout.height;
+        float targetChildHeight = (parentWidth - 100) / _characterCards.Count;
+        if (_characterCards[0].layout.height < targetChildHeight)
+            return;
+        float targetScaleHeight = targetChildHeight / _characterCards[0].layout.height;
+
+        float smallerScale = targetScaleWidth < targetScaleHeight ? targetScaleHeight : targetScaleWidth;
+
         foreach (CharacterCardExtended c in _characterCards)
-            c.transform.scale = new Vector3(targetScale, targetScale, targetScale);
+            c.transform.scale = new Vector3(smallerScale, smallerScale, smallerScale);
     }
 
     VisualElement GetRewardChest()
     {
         _rewardContainer = new(_quest.Reward);
         _rewardContainer.style.opacity = 0;
+        _rewardContainer.style.width = Length.Percent(50);
+        _rewardContainer.style.alignItems = Align.Center;
         _rewardContainer.OnChestOpen += OnChestOpen;
         return _rewardContainer;
     }

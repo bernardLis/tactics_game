@@ -191,10 +191,8 @@ public class ReportVisualElement : VisualElement
     void AddHeader(string text, Color color)
     {
         _header.text = text;
-        _header.style.fontSize = 48;
-        _header.style.backgroundColor = color;
-        _header.style.unityTextAlign = TextAnchor.MiddleCenter;
-        _header.style.whiteSpace = WhiteSpace.Normal;
+        _header.AddToClassList("reportHeader");
+        _header.style.unityBackgroundImageTintColor = color;
 
         _header.RegisterCallback<PointerDownEvent>(OnHeaderPointerDown);
     }
@@ -208,8 +206,8 @@ public class ReportVisualElement : VisualElement
         }
 
         _acceptRejectContainer = new();
-        _acceptRejectContainer.style.flexDirection = FlexDirection.Row;
-        _acceptRejectContainer.style.alignItems = Align.Center;
+        _acceptRejectContainer.AddToClassList("acceptRejectContainer");
+
         MyButton acceptButton = new MyButton(null, "acceptButton", acceptCallback);
         MyButton rejectButton = new MyButton(null, "rejectButton", rejectCallback);
         _acceptRejectContainer.Add(acceptButton);
@@ -239,7 +237,11 @@ public class ReportVisualElement : VisualElement
             return;
         }
 
-        _signButton = new MyButton(null, "signButton", DismissReport);
+        // TODO: this could look better.
+        _signButton = new MyButton(null, "signButtonContainer", DismissReport);
+        VisualElement signButtonInside = new();
+        signButtonInside.AddToClassList("signButton");
+        _signButton.Add(signButtonInside);
         _signButton.style.visibility = Visibility.Hidden;
         _reportContents.Add(_signButton);
     }
@@ -259,6 +261,9 @@ public class ReportVisualElement : VisualElement
 
     async void DismissReport()
     {
+        if (_signButton != null)
+            _signButton.style.visibility = Visibility.Hidden;
+
         Blur();
 
         _report.Sign();

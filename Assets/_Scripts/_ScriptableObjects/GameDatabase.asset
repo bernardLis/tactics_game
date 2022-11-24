@@ -203,8 +203,9 @@ MonoBehaviour:
   ReportPapers:
   - {fileID: 11400000, guid: ef179574ccac47e42aef73b2607fe575, type: 2}
   - {fileID: 11400000, guid: 229b391159767b14e88a9c374891d60e, type: 2}
-  - {fileID: 11400000, guid: 75cd30ee3664d3049b5f0bdf5327c68b, type: 2}
+  - {fileID: 11400000, guid: e50eca87b4f4f2f468fd04cd700c7474, type: 2}
   - {fileID: 11400000, guid: f129289192ffdb34b88ebd8e492eda5c, type: 2}
+  - {fileID: 11400000, guid: b3310462d1342fd4ea8252eaa6126eec, type: 2}
   LevelUpAnimationSprites:
   - {fileID: 5199979006384268662, guid: f2090e7888e3f3043b1f5aeeff2e3b79, type: 3}
   - {fileID: -7978211336232270038, guid: f2090e7888e3f3043b1f5aeeff2e3b79, type: 3}

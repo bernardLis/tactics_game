@@ -17,7 +17,6 @@ public class Recruit : BaseScriptableObject
     public event Action<RecruitState> OnRecruitStateChanged;
     public void UpdateRecruitState(RecruitState newState)
     {
-        Debug.Log($"UpdateRecruitState: {newState} for {Character.CharacterName}");
         RecruitState = newState;
         switch (newState)
         {
@@ -63,7 +62,6 @@ public class Recruit : BaseScriptableObject
 
         DayAdded = _gameManager.Day;
         DaysUntilExpired = Random.Range(2, 5);
-        Debug.Log($"DaysUntilExpired: {DaysUntilExpired}");
     }
 
     public void LoadFromData(RecruitData data)

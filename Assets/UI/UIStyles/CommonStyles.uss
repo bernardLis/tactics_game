@@ -133,14 +133,14 @@
 
 .textPrimary {
     color: rgb(255, 255, 255);
-    font-size: 24px;
+    font-size: 16px;
     -unity-font: url('project://database/Assets/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
 .textSecondary {
     color: rgb(255, 255, 255);
-    font-size: 18px;
+    font-size: 12px;
     -unity-font: url('project://database/Assets/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
@@ -201,6 +201,7 @@
     -unity-font-style: normal;
     -unity-font: url('project://database/Assets/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
+    -unity-text-align: middle-center;
 }
 
 .menuButton:hover {

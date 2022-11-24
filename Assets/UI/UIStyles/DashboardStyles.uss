@@ -20,16 +20,18 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
     justify-content: center;
     transition-duration: 1s;
     transition-timing-function: ease-in-out;
     flex-grow: 1;
     flex-shrink: 0;
     align-items: center;
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Settings_elements/paper_top_1.png?fileID=2800000&guid=4913489a90f0118448f22bd7ae275e84&type=3#paper_top_1');
+    -unity-background-scale-mode: scale-and-crop;
 }
 
 .navTab:hover {
@@ -66,52 +68,13 @@
 .questElement {
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 10px;
+    padding-top: 0;
     padding-bottom: 10px;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    background-color: rgb(84, 70, 70);
     transition-duration: 1s;
-    transition-timing-function: ease-in-out;
-}
-
-.questElement:hover {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-left-color: rgb(149, 149, 149);
-    border-right-color: rgb(149, 149, 149);
-    border-top-color: rgb(149, 149, 149);
-    border-bottom-color: rgb(149, 149, 149);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    background-color: rgb(128, 88, 88);
-    transition-duration: 4s;
     transition-timing-function: ease-in-out;
 }
 
@@ -214,56 +177,58 @@
     min-height: 600px;
 }
 
+.reportContents {
+    width: auto;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 0;
+    padding-bottom: 20px;
+    background-image: url('project://database/Assets/Sprites/Dashboard/Paper/brown_age_by_darkwood67.jpg?fileID=2800000&guid=5ed7bae907d9bdf4481ac157fa16c084&type=3#brown_age_by_darkwood67');
+    flex-grow: 1;
+    flex-shrink: 0;
+    align-items: center;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.reportHeader {
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Skill_stroke.png?fileID=2800000&guid=53284bf02b094fe4c8bf79367fafa1d2&type=3#Skill_stroke');
+    font-size: 36px;
+    -unity-text-align: middle-center;
+    color: rgb(255, 255, 255);
+    -unity-background-scale-mode: scale-to-fit;
+    width: 100%;
+    height: 100px;
+}
+
 .acceptButton {
-    background-image: url('project://database/Assets/Sprites/UI/confirmed.png?fileID=2800000&guid=14038e25812d1a240af2e1d1cc5fd89f&type=3#confirmed');
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Classic/gray_37_accept.png?fileID=2800000&guid=f9e9f73aeacec3741a801809269ab655&type=3#gray_37_accept');
     width: 50px;
     height: 50px;
     color: rgb(210, 210, 210);
-    -unity-background-image-tint-color: rgb(59, 219, 57);
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
 }
 
 .acceptButton:hover {
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-    background-color: rgb(125, 122, 122);
-    -unity-background-image-tint-color: rgb(32, 173, 19);
     scale: 1.05 1.05;
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/37_accept.png?fileID=2800000&guid=26b44eca4309ac74c9658e1a6ac1357a&type=3#37_accept');
 }
 
 .rejectButton {
-    background-image: url('project://database/Assets/Sprites/UI/cancel.png?fileID=2800000&guid=eed27dc4f9a4c474a9c58a06b12e6305&type=3#cancel');
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Classic/gray_21_close.png?fileID=2800000&guid=b24a2524e8578634a8c8dd465f870bd9&type=3#gray_21_close');
     width: 50px;
     height: 50px;
-    -unity-background-image-tint-color: rgb(173, 32, 32);
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
 }
 
 .rejectButton:hover {
     transition-duration: 0.5s;
     scale: 1.05 1.05;
-    -unity-background-image-tint-color: rgb(241, 74, 74);
-    background-color: rgb(173, 173, 173);
-}
-
-.signButton {
-    background-image: url('project://database/Assets/Sprites/Dashboard/stamper.png?fileID=2800000&guid=4f70cbf0523601a44b60e34bdda93bee&type=3#stamper');
-    width: 100px;
-    height: 100px;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    background-color: rgb(72, 72, 72);
-}
-
-.signButton:hover {
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-    scale: 1.05 1.05;
-    background-color: rgb(0, 0, 0);
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/21_close.png?fileID=2800000&guid=9cf17f0fad3df3742b98708fa5a46f46&type=3#21_close');
 }
 
 .signedText {
@@ -305,19 +270,6 @@
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-.reportContents {
-    width: auto;
-    height: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-image: url('project://database/Assets/Sprites/Dashboard/Paper/brown_age_by_darkwood67.jpg?fileID=2800000&guid=5ed7bae907d9bdf4481ac157fa16c084&type=3#brown_age_by_darkwood67');
-    flex-grow: 1;
-    flex-shrink: 0;
-    align-items: center;
-}
-
 .reportPickedUp {
     scale: 1.1 1.1;
 }
@@ -340,6 +292,8 @@
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
 }
 
 .questActionButton:hover {
@@ -370,24 +324,38 @@
     transition-timing-function: ease-in-out;
 }
 
-.questResultContainer {
+.questResultContainerWon {
     position: absolute;
     width: 100%;
     height: 100%;
     left: auto;
-    background-color: rgba(103, 103, 103, 0.53);
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Victory_window.png?fileID=2800000&guid=ad6f6ab8938b42341829d59aef51c365&type=3#Victory_window');
+    background-color: rgb(0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.questResultContainerLost {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: auto;
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Defeat_window.png?fileID=2800000&guid=cf8bbdf9fdb025c4888b8d122048380c&type=3#Defeat_window');
+    background-color: rgb(0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .questResultContent {
-    width: 90%;
-    height: 90%;
-    left: 5%;
-    top: 5%;
-    background-color: rgb(29, 29, 29);
-    flex-wrap: wrap;
+    width: 60%;
+    height: 70%;
+    left: auto;
+    top: auto;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    background-image: url('project://database/Assets/Sprites/Dashboard/Paper/vintage_paper_by_darkwood67.jpg?fileID=2800000&guid=7ed25c6cd159ffa4dae0300caebb88d4&type=3#vintage_paper_by_darkwood67');
+    background-image: none;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-left: 20%;
+    margin-top: 9%;
 }
 
 .navResourceElement {
@@ -449,8 +417,74 @@
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
-    border-left-color: rgba(209, 206, 206, 255);
-    border-right-color: rgba(209, 206, 206, 255);
-    border-top-color: rgba(209, 206, 206, 255);
-    border-bottom-color: rgba(209, 206, 206, 255);
+    border-left-color: rgb(209, 206, 206);
+    border-right-color: rgb(209, 206, 206);
+    border-top-color: rgb(209, 206, 206);
+    border-bottom-color: rgb(209, 206, 206);
+}
+
+.reportArchive {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0);
+    align-items: center;
+    justify-content: center;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/72_paper.png?fileID=2800000&guid=a0fdcee38a47c674bbec14c9dcd63608&type=3#72_paper');
+    flex-grow: 1;
+    flex-shrink: 0;
+    max-height: 200px;
+    max-width: 200px;
+    margin-top: 20px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.reportArchive:hover {
+    scale: 1.05 1.05;
+    rotate: 10deg;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.signButtonContainer {
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_round_red.png?fileID=2800000&guid=95d1e7bf437d0ef4888b4aa952223797&type=3#Button_round_red');
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.signButtonContainer:hover {
+    scale: 1.1 1.1;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.signButtonContainer:active {
+    scale: 0.95 0.95;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.signButton {
+    background-image: resource('Profession_icons/Blacksmith/Blacksmith_40_lever');
+    width: 70px;
+    height: 70px;
+}
+
+.acceptRejectContainer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
 }

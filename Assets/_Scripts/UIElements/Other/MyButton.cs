@@ -17,7 +17,10 @@ public class MyButton : Button
         text = buttonText;
 
         if (className != null)
+        {
             AddToClassList(className);
+            RemoveFromClassList("unity-button");
+        }
         if (callback != null)
         {
             _currentCallback = callback;

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0fabc243fdfca4f9956c094fe57260, type: 3}
   m_Name: Paper 3
   m_EditorClassIdentifier: 
-  Id: d84b14a1-227a-46c2-8638-644cc1677a49
-  Sprite: {fileID: 21300000, guid: 7ed25c6cd159ffa4dae0300caebb88d4, type: 3}
+  Id: 1d9a1cf4-7a68-4509-bb79-cac1d8c18d4f
+  Sprite: {fileID: 21300000, guid: d18faaa0e0a4ea841a2c86f55d838358, type: 3}
