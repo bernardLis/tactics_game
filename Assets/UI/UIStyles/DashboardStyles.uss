@@ -87,58 +87,43 @@
 .characterCardMiniSlot {
     width: 100px;
     height: 100px;
-    background-color: rgb(65, 77, 63);
-    border-left-color: rgb(164, 164, 164);
-    border-right-color: rgb(164, 164, 164);
-    border-top-color: rgb(164, 164, 164);
-    border-bottom-color: rgb(164, 164, 164);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
     align-items: center;
     justify-content: center;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    background-image: url('project://database/Assets/Sprites/UI%20Elements/Dashboard/characterCardMiniSlotBg.png?fileID=2800000&guid=bf1ad88748c8be648ae81369ed69a45b&type=3#characterCardMiniSlotBg');
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    opacity: 0.8;
 }
 
 .characterCardMiniSlotLocked {
     width: 100px;
     height: 100px;
-    background-image: none;
-    background-color: rgb(72, 72, 72);
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    background-image: url('project://database/Assets/Sprites/UI%20Elements/Dashboard/characterCardMiniSlotBgLocked%201.png?fileID=2800000&guid=5a442567ab32bd7458de96c302f2af4d&type=3#characterCardMiniSlotBgLocked 1');
     align-items: center;
     justify-content: center;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    opacity: 0.7;
 }
 
 .characterCardMiniSlot:hover {
     width: 100px;
     height: 100px;
-    background-color: rgb(84, 115, 79);
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
     align-items: center;
     justify-content: center;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    opacity: 1;
 }
 
 .characterCardMini {
@@ -274,52 +259,14 @@
     scale: 1.1 1.1;
 }
 
-.questActionButton {
-    background-color: rgb(87, 87, 87);
-    min-width: 100px;
-    min-height: 40px;
-    align-items: center;
-    justify-content: center;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-}
-
 .questActionButton:hover {
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    border-left-color: rgb(152, 152, 152);
-    border-right-color: rgb(152, 152, 152);
-    border-top-color: rgb(152, 152, 152);
-    border-bottom-color: rgb(152, 152, 152);
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-    background-color: rgb(103, 103, 103);
+    scale: 1.1 1.1;
 }
 
 .questActionButton:active {
     scale: 0.95 0.95;
-    border-left-color: rgb(77, 77, 77);
-    border-right-color: rgb(77, 77, 77);
-    border-top-color: rgb(77, 77, 77);
-    border-bottom-color: rgb(77, 77, 77);
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
 }
@@ -487,4 +434,31 @@
     align-items: center;
     justify-content: space-around;
     width: 100%;
+}
+
+.questActionButton {
+    min-width: 100px;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle.png?fileID=2800000&guid=7624455960081ed449991cbf052c3326&type=3#Button_middle');
+    -unity-text-align: middle-center;
+}
+
+.questActionButtonPending {
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_Fr.png?fileID=2800000&guid=fdda5932bb1aeeb408f9c5c348b9e019&type=3#Button_middle_Fr');
+}
+
+.questActionButtonFinished {
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
+}
+
+.questActionButtonPlayer {
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_middle.png?fileID=2800000&guid=ae2a146511765114faf9818658b957d6&type=3#Button_middle');
+}
+
+.questActionButtonDelegate {
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle.png?fileID=2800000&guid=7624455960081ed449991cbf052c3326&type=3#Button_middle');
 }

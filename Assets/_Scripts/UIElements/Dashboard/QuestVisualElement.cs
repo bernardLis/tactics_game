@@ -55,6 +55,13 @@ public class QuestVisualElement : VisualElement
             HandleDelegatedQuest();
         if (_quest.QuestState == QuestState.Finished)
             HandleFinishedQuest();
+
+        RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
+    }
+
+    void OnPointerDown(PointerDownEvent e)
+    {
+        e.StopImmediatePropagation();
     }
 
     void OnDayPassed(int day)
@@ -306,14 +313,18 @@ public class QuestVisualElement : VisualElement
     {
         if (_startAssignementButton == null)
             return;
+
         _startAssignementButton.ClearCallbacks();
         _startAssignementButton.SetEnabled(false);
         _startAssignementButton.UpdateButtonText("Assign Characters!");
-        _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Pending.ToString()));
+        _startAssignementButton.RemoveFromClassList("questActionButtonFinished");
+        _startAssignementButton.RemoveFromClassList("questActionButtonPlayer");
+        _startAssignementButton.RemoveFromClassList("questActionButtonDelegate");
+        _startAssignementButton.AddToClassList("questActionButtonPending");
 
         if (_quest.QuestState == QuestState.RewardCollected)
         {
-            _startAssignementButton.UpdateButtonText("-");
+            _startAssignementButton.style.visibility = Visibility.Hidden;
             return;
         }
 
@@ -322,7 +333,8 @@ public class QuestVisualElement : VisualElement
             _startAssignementButton.ChangeCallback(SeeResults);
             _startAssignementButton.SetEnabled(true);
             _startAssignementButton.UpdateButtonText("See Results!");
-            _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Finished.ToString()));
+            _startAssignementButton.RemoveFromClassList("questActionButtonPending");
+            _startAssignementButton.AddToClassList("questActionButtonFinished");
             return;
         }
 
@@ -331,7 +343,8 @@ public class QuestVisualElement : VisualElement
             _startAssignementButton.ChangeCallback(StartBattle);
             _startAssignementButton.SetEnabled(true);
             _startAssignementButton.UpdateButtonText("Battle It Out!");
-            _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Delegated.ToString()));
+            _startAssignementButton.RemoveFromClassList("questActionButtonPending");
+            _startAssignementButton.AddToClassList("questActionButtonPlayer");
             return;
         }
 
@@ -340,7 +353,8 @@ public class QuestVisualElement : VisualElement
             _startAssignementButton.ChangeCallback(DelegateBattle);
             _startAssignementButton.SetEnabled(true);
             _startAssignementButton.UpdateButtonText("Delegate It!");
-            _startAssignementButton.UpdateButtonColor(Helpers.GetColor(QuestState.Delegated.ToString()));
+            _startAssignementButton.RemoveFromClassList("questActionButtonPending");
+            _startAssignementButton.AddToClassList("questActionButtonDelegate");
         }
     }
 

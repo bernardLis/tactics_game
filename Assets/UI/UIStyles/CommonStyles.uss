@@ -82,6 +82,19 @@
     width: 100%;
 }
 
+.characterCardExtended {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    background-image: url('project://database/Assets/Sprites/4000_Fantasy_Icons/Z_Other/fr_bg/A_Inventory_frame2_back.png?fileID=2800000&guid=7d257a609eb2ffa458be6c69ccb99bed&type=3#A_Inventory_frame2_back');
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
 .statsGroup {
     flex-direction: row;
     justify-content: center;
@@ -244,8 +257,6 @@
 }
 
 .abilityButton {
-    height: 100%;
-    width: 145px;
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
@@ -254,15 +265,17 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    max-height: 150px;
     flex-direction: row;
     flex-shrink: 0;
     flex-grow: 1;
+    width: 135px;
+    height: 100px;
+    max-height: 100px;
 }
 
 .abilityButtonIcon {
     width: auto;
-    height: 100%;
+    height: 100px;
     background-image: url('project://database/Assets/Sprites/Icons/sword.png?fileID=21300000&guid=64e29a7dee046c448b82b1c27419f427&type=3#sword');
     border-left-color: rgb(255, 255, 255);
     border-right-color: rgb(255, 255, 255);
@@ -284,66 +297,57 @@
 }
 
 .itemSlot {
-    border-left-color: rgb(89, 91, 147);
-    border-right-color: rgb(89, 91, 147);
-    border-top-color: rgb(89, 91, 147);
-    border-bottom-color: rgb(89, 91, 147);
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-top-width: 4px;
-    border-bottom-width: 4px;
     width: 75px;
     height: 75px;
-    background-color: rgb(0, 0, 0);
     align-items: center;
     justify-content: space-between;
     margin-left: 2px;
     margin-right: 2px;
     margin-top: 2px;
     margin-bottom: 2px;
+    opacity: 0.8;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+    background-image: url('project://database/Assets/Sprites/UI%20Elements/itemSlot.png?fileID=2800000&guid=0fc24819390d6fb42a92eb5288500087&type=3#itemSlot');
+}
+
+.itemSlotHighlighted {
+    width: 75px;
+    height: 75px;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    opacity: 1;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+    background-image: url('project://database/Assets/Sprites/UI%20Elements/itemSlot.png?fileID=2800000&guid=0fc24819390d6fb42a92eb5288500087&type=3#itemSlot');
 }
 
 .itemSlot:hover {
-    border-left-color: rgb(130, 116, 63);
-    border-right-color: rgb(130, 116, 63);
-    border-top-color: rgb(130, 116, 63);
-    border-bottom-color: rgb(130, 116, 63);
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-top-width: 4px;
-    border-bottom-width: 4px;
     transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
 }
 
 .abilitySlot {
-    border-left-color: rgb(176, 72, 79);
-    border-right-color: rgb(176, 72, 79);
-    border-top-color: rgb(176, 72, 79);
-    border-bottom-color: rgb(176, 72, 79);
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-top-width: 4px;
-    border-bottom-width: 4px;
     width: 150px;
     height: 120px;
-    background-color: rgb(72, 72, 72);
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-left: 2px;
     margin-right: 2px;
     margin-top: 2px;
     margin-bottom: 2px;
+    background-image: url('project://database/Assets/Sprites/UI%20Elements/abilitySlot.png?fileID=2800000&guid=3f76426e922609142b20f220df61c8ce&type=3#abilitySlot');
+    opacity: 0.8;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    -unity-background-scale-mode: stretch-to-fill;
 }
 
 .abilitySlot:hover {
-    border-left-color: rgb(59, 164, 142);
-    border-right-color: rgb(59, 164, 142);
-    border-top-color: rgb(59, 164, 142);
-    border-bottom-color: rgb(59, 164, 142);
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-top-width: 4px;
-    border-bottom-width: 4px;
     transition-duration: 0.5s;
 }
 
@@ -359,29 +363,6 @@
     position: absolute;
     width: 120px;
     height: 120px;
-}
-
-.itemSlotHighlighted {
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 6px;
-    border-right-width: 6px;
-    border-top-width: 6px;
-    border-bottom-width: 6px;
-    width: 75px;
-    height: 75px;
-    background-color: rgb(70, 70, 70);
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    transition-property: background-color, border-left-color, border-right-color, border-top-color, border-bottom-color;
-    transition-duration: 0.5s, 0.5s, 0.5s, 0.5s, 0.5s;
-    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out, ease-in-out;
 }
 
 .goldElement {

@@ -61,7 +61,7 @@ public class ReportVisualElement : VisualElement
         if (report.ReportType == ReportType.CampBuilding)
             HandleCampBuilding();
 
-        _reportContents.RegisterCallback<PointerDownEvent>(OnHeaderPointerDown);
+        _reportContents.RegisterCallback<PointerDownEvent>(OnReportContentPointerDown);
         RegisterCallback<PointerDownEvent>(OnPointerDown);
         parent.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         parent.RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -134,7 +134,6 @@ public class ReportVisualElement : VisualElement
 
     void OnRecruitStateChanged(RecruitState newState)
     {
-        Debug.Log($"OnRecruitStateChanged state: {newState}");
         if (newState == RecruitState.Expired)
         {
             AddHeader($"{_report.Recruit.Character.CharacterName} left!", Helpers.GetColor(QuestState.Expired.ToString()));
@@ -196,8 +195,6 @@ public class ReportVisualElement : VisualElement
         _header.text = text;
         _header.AddToClassList("reportHeader");
         _header.style.unityBackgroundImageTintColor = color;
-
-        _header.RegisterCallback<PointerDownEvent>(OnHeaderPointerDown);
     }
 
     void AddAcceptRejectButtons(Action acceptCallback, Action rejectCallback)
@@ -294,7 +291,7 @@ public class ReportVisualElement : VisualElement
     }
 
     /* DRAG & DROP */
-    void OnHeaderPointerDown(PointerDownEvent evt)
+    void OnReportContentPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
             return;

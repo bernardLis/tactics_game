@@ -22,7 +22,7 @@ public class CharacterCardExtended : CharacterCard
 
     public CharacterCardExtended(Character character, bool showExp = true, bool showAbilities = true, bool showItems = true) : base(character, false)
     {
-        AddToClassList("uiContainer");
+        AddToClassList("characterCardExtended");
         style.width = 600;
         style.height = 400;
 
