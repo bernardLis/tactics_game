@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
-public class DashboardManager : MonoBehaviour
+public class DashboardManager : Singleton<DashboardManager>
 {
     GameManager _gameManager;
 
@@ -21,13 +22,6 @@ public class DashboardManager : MonoBehaviour
 
     TroopsLimitVisualElement _troopsLimitVisualElement;
 
-    // buttons
-    VisualElement _navArmory;
-    VisualElement _navAbilities;
-    VisualElement _navShop;
-    VisualElement _navDesk;
-    VisualElement _navCamp;
-
     VisualElement _main;
     VisualElement _mainArmory;
     VisualElement _mainShop;
@@ -35,17 +29,22 @@ public class DashboardManager : MonoBehaviour
     VisualElement _mainCamp;
     VisualElement _mainAbilities;
 
+    VisualElement _mainExit;
+
     VisualElement _activeNavTab;
 
-    public event Action OnDeskClicked;
-    public event Action OnArmoryClicked;
-    public event Action OnAbilitiesClicked;
-    public event Action OnShopClicked;
-    public event Action OnBaseClicked;
+    DashboardPlayer _dashboardPlayer;
+
+    public event Action OnDeskOpened;
+    public event Action OnArmoryOpened;
+    public event Action OnAbilitiesOpened;
+    public event Action OnShopOpened;
+    public event Action OnCampOpened;
     public event Action OnHideAllPanels;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _gameManager = GameManager.Instance;
 
         _gameManager.OnDayPassed += UpdateDay;
@@ -59,18 +58,6 @@ public class DashboardManager : MonoBehaviour
         _navSpiceBlue = Root.Q<VisualElement>("navSpiceBlue");
         _navSpiceRed = Root.Q<VisualElement>("navSpiceRed");
 
-        _navDesk = Root.Q<VisualElement>("navDesk");
-        _navArmory = Root.Q<VisualElement>("navArmory");
-        _navAbilities = Root.Q<VisualElement>("navAbilities");
-        _navShop = Root.Q<VisualElement>("navShop");
-        _navCamp = Root.Q<VisualElement>("navCamp");
-
-        _navDesk.RegisterCallback<PointerUpEvent>(NavDeskClick);
-        _navArmory.RegisterCallback<PointerUpEvent>(NavArmoryClick);
-        _navAbilities.RegisterCallback<PointerUpEvent>(NavAbilitiesClick);
-        _navShop.RegisterCallback<PointerUpEvent>(NavShopClick);
-        _navCamp.RegisterCallback<PointerUpEvent>(NavCampClick);
-
         _main = Root.Q<VisualElement>("main");
         _mainArmory = Root.Q<VisualElement>("mainArmory");
         _mainShop = Root.Q<VisualElement>("mainShop");
@@ -78,81 +65,108 @@ public class DashboardManager : MonoBehaviour
         _mainCamp = Root.Q<VisualElement>("mainCamp");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
 
+        _mainExit = Root.Q<VisualElement>("mainExit");
+        _mainExit.RegisterCallback<PointerUpEvent>(HideMain);
+
         UpdateDay(_gameManager.Day);
         AddGoldElement();
         AddTroopsElement();
         AddSpiceElements();
     }
 
-    void NavArmoryClick(PointerUpEvent e)
+    void Start()
     {
-        if (_activeNavTab == _navArmory)
-            return;
-
-        NavClick(e);
-
-        _mainArmory.style.display = DisplayStyle.Flex;
-        OnArmoryClicked?.Invoke();
+        _dashboardPlayer = GameObject.FindObjectOfType<DashboardPlayer>();
     }
 
-    void NavAbilitiesClick(PointerUpEvent e)
+    public void OpenDashboardBuilding(DashboardBuildingType db)
     {
-        if (_activeNavTab == _navAbilities)
-            return;
+        // new InputAction.CallbackContext() - coz it is hooked up in editor to open ui with f keys
+        InputAction.CallbackContext a = new InputAction.CallbackContext();
 
-        NavClick(e);
-
-        _mainAbilities.style.display = DisplayStyle.Flex;
-        OnAbilitiesClicked?.Invoke();
+        if (db == DashboardBuildingType.Desk)
+            ShowDeskUI(a);
+        if (db == DashboardBuildingType.Armory)
+            ShowArmoryUI(a);
+        if (db == DashboardBuildingType.Shop)
+            ShowShopUI(a);
+        if (db == DashboardBuildingType.Camp)
+            ShowCampUI(a);
+        if (db == DashboardBuildingType.Abilities)
+            ShowAbilitiesUI(a);
     }
 
-    void NavShopClick(PointerUpEvent e)
+    public void ShowDeskUI(InputAction.CallbackContext ctx)
     {
-        if (_activeNavTab == _navShop)
+        if (!IsValidAction(ctx))
             return;
-
-        NavClick(e);
-
-        _mainShop.style.display = DisplayStyle.Flex;
-        OnShopClicked?.Invoke();
-    }
-
-    void NavDeskClick(PointerUpEvent e)
-    {
-        if (_activeNavTab == _navDesk)
-            return;
-
-        NavClick(e);
+        BaseBuildingOpened();
 
         _mainDesk.style.display = DisplayStyle.Flex;
-        OnDeskClicked?.Invoke();
+        OnDeskOpened?.Invoke();
     }
 
-    void NavCampClick(PointerUpEvent e)
+    public void ShowArmoryUI(InputAction.CallbackContext ctx)
     {
-        if (_activeNavTab == _navCamp)
+        if (!IsValidAction(ctx))
             return;
 
-        NavClick(e);
+        BaseBuildingOpened();
 
-        _mainCamp.style.display = DisplayStyle.Flex;
-        OnBaseClicked?.Invoke();
+        _mainArmory.style.display = DisplayStyle.Flex;
+        OnArmoryOpened?.Invoke();
     }
 
-    void NavClick(PointerUpEvent e)
+    public void ShowAbilitiesUI(InputAction.CallbackContext ctx)
     {
-        VisualElement target = (VisualElement)e.currentTarget;
+        if (!IsValidAction(ctx))
+            return;
+
+        BaseBuildingOpened();
+
+        _mainAbilities.style.display = DisplayStyle.Flex;
+        OnAbilitiesOpened?.Invoke();
+    }
+
+    public void ShowShopUI(InputAction.CallbackContext ctx)
+    {
+        if (!IsValidAction(ctx))
+            return;
+
+        BaseBuildingOpened();
+
+        _mainShop.style.display = DisplayStyle.Flex;
+        OnShopOpened?.Invoke();
+
+    }
+
+    public void ShowCampUI(InputAction.CallbackContext ctx)
+    {
+        if (!IsValidAction(ctx))
+            return;
+
+        BaseBuildingOpened();
+
+        _mainCamp.style.display = DisplayStyle.Flex;
+        OnCampOpened?.Invoke();
+    }
+
+    bool IsValidAction(InputAction.CallbackContext ctx)
+    {
+        // otherwise it triggers 3 times: https://forum.unity.com/threads/player-input-component-triggering-events-multiple-times.851959/
+        // disabled is for my empty event action.
+
+        if (ctx.performed || ctx.phase == InputActionPhase.Disabled)
+            return true;
+        return false;
+    }
+
+    void BaseBuildingOpened()
+    {
+        _main.style.display = DisplayStyle.Flex;
         HideAllPanels();
-
-        if (_activeNavTab != null)
-        {
-            _activeNavTab.RemoveFromClassList("navTabActive");
-            _activeNavTab.AddToClassList("navTab");
-        }
-
-        _activeNavTab = target;
-        target.AddToClassList("navTabActive");
-        target.RemoveFromClassList("navTab");
+        if (_dashboardPlayer != null)
+            _dashboardPlayer.SetInputAllowed(false);
     }
 
     void HideAllPanels()
@@ -165,6 +179,14 @@ public class DashboardManager : MonoBehaviour
 
         OnHideAllPanels?.Invoke();
     }
+
+    void HideMain(PointerUpEvent e)
+    {
+        _main.style.display = DisplayStyle.None;
+        if (_dashboardPlayer != null)
+            _dashboardPlayer.SetInputAllowed(true);
+    }
+
 
     void UpdateDay(int day) { _navDay.text = $"Day: {day}"; }
 

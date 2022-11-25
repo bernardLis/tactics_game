@@ -30,7 +30,7 @@ public class ShopManager : UIDraggables
 
         _dashboardManager = GetComponent<DashboardManager>();
         _root = _dashboardManager.Root;
-        _dashboardManager.OnShopClicked += OnShopClicked;
+        _dashboardManager.OnShopOpened += OnShopClicked;
 
         _shopItemContainer = _root.Q<VisualElement>("shopItemContainer");
         _shopRerollContainer = _root.Q<VisualElement>("shopRerollContainer");

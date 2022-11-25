@@ -24,10 +24,10 @@ public class ArmoryManager : MonoBehaviour
         _armoryItems = _root.Q<VisualElement>("armoryItems");
         _armoryAbilities = _root.Q<VisualElement>("armoryAbilities");
 
-        _dashboard.OnArmoryClicked += InitializeArmory;
+        _dashboard.OnArmoryOpened += InitializeArmory;
 
-        _dashboard.OnAbilitiesClicked += CleanArmory;
-        _dashboard.OnShopClicked += CleanArmory;
+        _dashboard.OnAbilitiesOpened += CleanArmory;
+        _dashboard.OnShopOpened += CleanArmory;
     }
 
     void InitializeArmory()

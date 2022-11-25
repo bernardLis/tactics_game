@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 492f15df5a88df641b1f4b8ead40333f, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -75,7 +75,179 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70892e3d-250f-4237-a502-b1321820c988
+    m_ActionName: Player/ArrowMovement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a73f7fa-bf06-4d7e-ac53-fa6e2c526e46
+    m_ActionName: Player/LeftMouseClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 581d02ac-c4e3-418e-ac16-a6dbc3bbc39e
+    m_ActionName: Player/SelectClick[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c78f711-47be-47b3-b3e1-04865a1d14a7
+    m_ActionName: Player/BackClick[/Keyboard/b]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3347af0d-ef8c-411e-9d54-1c9c10f93e73
+    m_ActionName: Player/DetailsClick[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 51f2f3c9-941f-43b6-b626-7404acbbd970
+    m_ActionName: Player/BasicAttackClick[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fc5387e7-b010-406f-85a3-2780fd031eef
+    m_ActionName: Player/BasicDefenseClick[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 618f08ab-7a07-40cf-a3c8-0f92bedb73d3
+    m_ActionName: Player/FirstAbilityClick[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8b102efc-3ce3-44f2-aa6b-63c50c2f0bcb
+    m_ActionName: Player/SecondAbilityClick[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9dee79f0-db68-4c3e-933b-afcafc5a5a5c
+    m_ActionName: Player/ThirdAbilityClick[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3dd55fee-0310-480a-951e-d111f267683f
+    m_ActionName: Player/FourthAbilityClick[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79e89792-4d70-4dc4-8931-4f9cbe20547f
+    m_ActionName: Player/OpenMenuClick[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b888122d-1bce-4588-b547-98ff38c43f38
+    m_ActionName: Player/ViewTroopsClick[/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7fd84d31-94b6-4e68-bbde-10667712e605
+    m_ActionName: Player/OpenInventoryClick[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9d5f88cd-7b60-4de9-bafd-87df0f29f18a
+    m_ActionName: Player/SelectNextCharacter[/Keyboard/o]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ea3b674b-df29-4a25-be2d-2c204c9d6ea3
+    m_ActionName: Player/SelectPreviousCharacter[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aa374c6e-812f-4485-a8d7-6d6667728253
+    m_ActionName: Player/Cheat1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 042fa219-57b1-4f92-8d4d-2c163e89d3d6
+    m_ActionName: Player/Cheat2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 727d1062-3fd9-402e-9e81-4c31dc72bd7d
+    m_ActionName: Conversation/ConversationInteract[/Keyboard/space,/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: DashboardPlayer, NewAssembly
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: c5f6c6b2-b7ba-41fa-842c-bd527ef87bc0
+    m_ActionName: Dashboard/ArrowMovement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
+        m_MethodName: ShowDeskUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0e794bfa-e59e-486d-b295-4c0ffb1d2ca3
+    m_ActionName: Dashboard/OpenDesk[/Keyboard/f1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
+        m_MethodName: ShowArmoryUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d61f6162-5931-4dd6-8712-21a44fba2217
+    m_ActionName: Dashboard/OpenArmory[/Keyboard/f2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
+        m_MethodName: ShowShopUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 252b3569-2181-4715-b632-ec8a46a5e167
+    m_ActionName: Dashboard/OpenShop[/Keyboard/f3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
+        m_MethodName: ShowCampUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4d73cc88-7be5-4377-bc88-2cfa7dbe75ac
+    m_ActionName: Dashboard/OpenCamp[/Keyboard/f4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
+        m_MethodName: ShowAbilitiesUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d220e32f-b253-4ff5-a151-a7cc4ab60a40
+    m_ActionName: Dashboard/OpenAbilities[/Keyboard/f5]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -18,7 +18,7 @@ public class AbilityGraphManager : MonoBehaviour
         _gameManager = GameManager.Instance;
 
         _dashboardManager = GetComponent<DashboardManager>();
-        _dashboardManager.OnAbilitiesClicked += OnAbilitiesClicked;
+        _dashboardManager.OnAbilitiesOpened += OnAbilitiesClicked;
         _root = _dashboardManager.Root;
 
         _abilityGraphs = _root.Q<VisualElement>("abilityGraphs");

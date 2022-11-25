@@ -54,6 +54,7 @@ public class BattleInputController : Singleton<BattleInputController>
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
+        _playerInput.SwitchCurrentActionMap("Player");
 
         SubscribeInputActions();
     }

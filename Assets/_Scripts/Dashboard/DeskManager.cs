@@ -43,7 +43,7 @@ public class DeskManager : Singleton<DeskManager>
         _reportsArchive = Root.Q<VisualElement>("reportsArchive");
         _reportsArchive.RegisterCallback<PointerUpEvent>(OnArchiveClick);
 
-        _dashboardManager.OnDeskClicked += Initialize;
+        _dashboardManager.OnDeskOpened += Initialize;
         _dashboardManager.OnHideAllPanels += HidePassDay;
         _dashboardManager.OnHideAllPanels += CleanDraggables;
 
