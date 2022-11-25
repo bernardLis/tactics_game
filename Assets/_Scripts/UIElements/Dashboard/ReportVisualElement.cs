@@ -22,6 +22,7 @@ public class ReportVisualElement : VisualElement
     MyButton _signButton;
     bool _isArchived;
 
+    Vector2 _dragOffset;
     bool _isDragging;
 
     public event Action<ReportVisualElement> OnReportDismissed;
@@ -60,6 +61,7 @@ public class ReportVisualElement : VisualElement
         if (report.ReportType == ReportType.CampBuilding)
             HandleCampBuilding();
 
+        _reportContents.RegisterCallback<PointerDownEvent>(OnHeaderPointerDown);
         RegisterCallback<PointerDownEvent>(OnPointerDown);
         parent.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         parent.RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -166,6 +168,7 @@ public class ReportVisualElement : VisualElement
         AddHeader("New Message", new Color(0.27f, 0.56f, 0.34f));
 
         Label text = new(_report.Text);
+        text.style.width = Length.Percent(70f);
         text.style.fontSize = 36;
         text.style.whiteSpace = WhiteSpace.Normal;
         _reportContents.Add(text);
@@ -299,6 +302,7 @@ public class ReportVisualElement : VisualElement
             return;
 
         _isDragging = true;
+        _dragOffset = new Vector2(evt.localPosition.x, evt.localPosition.y);
 
         StartReportDrag(evt.position);
     }
@@ -310,8 +314,8 @@ public class ReportVisualElement : VisualElement
         AddToClassList("reportPickedUp");
         _audioManager.PlaySFX("Paper", Vector3.zero);
         _reportShadow.style.display = DisplayStyle.Flex;
-        style.left = position.x - layout.width / 2;
-        style.top = position.y - layout.height / 4;
+        style.left = position.x - _dragOffset.x;
+        style.top = position.y - _dragOffset.y;
     }
 
     void OnPointerDown(PointerDownEvent evt) { BringToFront(); }
@@ -323,8 +327,8 @@ public class ReportVisualElement : VisualElement
             return;
 
         // Set the new position
-        style.left = evt.position.x - layout.width / 2;
-        style.top = evt.position.y - layout.height / 4;
+        style.left = evt.position.x - _dragOffset.x;
+        style.top = evt.position.y - _dragOffset.y;
     }
 
     void OnPointerUp(PointerUpEvent evt)

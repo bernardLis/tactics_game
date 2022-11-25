@@ -180,8 +180,8 @@
 .reportContents {
     width: auto;
     height: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
     padding-top: 0;
     padding-bottom: 20px;
     background-image: url('project://database/Assets/Sprites/Dashboard/Paper/brown_age_by_darkwood67.jpg?fileID=2800000&guid=5ed7bae907d9bdf4481ac157fa16c084&type=3#brown_age_by_darkwood67');
