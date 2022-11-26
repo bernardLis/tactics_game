@@ -14,11 +14,7 @@ public class CharacterCardExtended : CharacterCard
     public List<AbilitySlotVisual> AbilitySlots = new();
     public List<AbilityButton> AbilityButtons = new();
 
-    Sprite[] _levelUpAnimationSprites;
     VisualElement _levelUpAnimationContainer;
-    IVisualElementScheduledItem _levelUpAnimation;
-    int _levelUpSpriteIndex = 0;
-
 
     public CharacterCardExtended(Character character, bool showExp = true, bool showAbilities = true, bool showItems = true) : base(character, false)
     {
@@ -150,27 +146,13 @@ public class CharacterCardExtended : CharacterCard
 
     public void PlayLevelUpAnimation()
     {
-        _levelUpAnimationSprites = GameManager.Instance.GameDatabase.LevelUpAnimationSprites;
+        Sprite[] animationSprites = GameManager.Instance.GameDatabase.LevelUpAnimationSprites;
 
         _levelUpAnimationContainer = new();
         _levelUpAnimationContainer.style.position = Position.Absolute;
         _levelUpAnimationContainer.style.width = Length.Percent(100);
         _levelUpAnimationContainer.style.height = Length.Percent(100);
+        _levelUpAnimationContainer.Add(new AnimationVisualElement(animationSprites, 100, false));
         Add(_levelUpAnimationContainer);
-
-        _levelUpAnimation = _levelUpAnimationContainer.schedule.Execute(LevelUpAnimation).Every(100);
     }
-
-    void LevelUpAnimation()
-    {
-        _levelUpAnimationContainer.style.backgroundImage = new StyleBackground(_levelUpAnimationSprites[_levelUpSpriteIndex]);
-        _levelUpSpriteIndex++;
-        if (_levelUpSpriteIndex == _levelUpAnimationSprites.Length)
-        {
-            _levelUpAnimation.Pause();
-            Remove(_levelUpAnimationContainer);
-        }
-    }
-
-
 }

@@ -10,11 +10,6 @@ public class TroopsLimitVisualElement : VisualWithTooltip
     VisualElement _animationContainer;
     VisualElement _countContainer;
 
-
-    Sprite[] _animationSprites;
-    IVisualElementScheduledItem _animationScheduler;
-    int _animationSpriteIndex = 0;
-
     bool _isGeneral;
 
     public TroopsLimitVisualElement(bool isGeneral = true, string text = null)
@@ -28,21 +23,20 @@ public class TroopsLimitVisualElement : VisualWithTooltip
             _gameManager.OnCharacterAddedToTroops += OnCharacterAddedToTroops;
         }
 
-        _animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
-
         style.flexDirection = FlexDirection.Row;
         AddToClassList("textPrimary");
 
         _animationContainer = new();
         _animationContainer.style.width = 32;
         _animationContainer.style.height = 32;
+        
+        Sprite[] animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
+        _animationContainer.Add(new AnimationVisualElement(animationSprites, 100, true));
         Add(_animationContainer);
 
         _countContainer = new();
         Add(_countContainer);
         UpdateCountContainer(text);
-
-        _animationScheduler = _animationContainer.schedule.Execute(CharacterAnimation).Every(100);
     }
 
     void OnCharacterAddedToTroops(Character character) { UpdateCountContainer(); }
@@ -60,13 +54,4 @@ public class TroopsLimitVisualElement : VisualWithTooltip
         else
             l.text = text;
     }
-
-    void CharacterAnimation()
-    {
-        _animationContainer.style.backgroundImage = new StyleBackground(_animationSprites[_animationSpriteIndex]);
-        _animationSpriteIndex++;
-        if (_animationSpriteIndex == _animationSprites.Length)
-            _animationSpriteIndex = 0;
-    }
-
 }

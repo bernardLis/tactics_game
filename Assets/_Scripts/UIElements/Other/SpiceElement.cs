@@ -14,21 +14,18 @@ public class SpiceElement : VisualElement
     Label _icon;
     Label _text;
 
-    Sprite[] _animationSprites;
-    int _spriteIndex;
-    IVisualElementScheduledItem _animationScheduler;
-
     public SpiceElement(int amount, SpiceColor spiceColor)
     {
         _gameManager = GameManager.Instance;
 
+        Sprite[] animationSprites = null;
         // TODO: could be improved
         if (spiceColor == SpiceColor.Yellow)
-            _animationSprites = _gameManager.GameDatabase.YellowSpiceAnimationSprites;
+            animationSprites = _gameManager.GameDatabase.YellowSpiceAnimationSprites;
         if (spiceColor == SpiceColor.Blue)
-            _animationSprites = _gameManager.GameDatabase.BlueSpiceAnimationSprites;
+            animationSprites = _gameManager.GameDatabase.BlueSpiceAnimationSprites;
         if (spiceColor == SpiceColor.Red)
-            _animationSprites = _gameManager.GameDatabase.RedSpiceAnimationSprites;
+            animationSprites = _gameManager.GameDatabase.RedSpiceAnimationSprites;
 
         _spiceColor = spiceColor;
         Amount = 0;
@@ -36,9 +33,9 @@ public class SpiceElement : VisualElement
         AddToClassList("spiceElement");
 
         _icon = new();
-        _icon.style.backgroundImage = new StyleBackground(_animationSprites[_spriteIndex]);
         _icon.style.width = 50;
         _icon.style.height = 50;
+        _icon.Add(new AnimationVisualElement(animationSprites, 100, true));
         Add(_icon);
 
         _text = new();
@@ -52,20 +49,11 @@ public class SpiceElement : VisualElement
 
         ChangeAmount(amount);
 
-        _animationScheduler = _icon.schedule.Execute(IdleAnimation).Every(100);
         float startScale = Random.Range(0.8f, 1f);
         float endScale = Random.Range(1f, 1.2f);
         float duration = Random.Range(1.5f, 3f);
 
         DOTween.To(x => _icon.transform.scale = x * Vector3.one, startScale, endScale, duration).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
-    }
-
-    void IdleAnimation()
-    {
-        _icon.style.backgroundImage = new StyleBackground(_animationSprites[_spriteIndex]);
-        _spriteIndex++;
-        if (_spriteIndex == _animationSprites.Length)
-            _spriteIndex = 0;
     }
 
     public void OnValueChanged(int change) { ChangeAmount(Amount + change); }

@@ -18,7 +18,6 @@ public class RewardContainer : VisualElement
     int _flyLeft = -1;
     int _offsetX = 0;
 
-
     public event Action OnChestOpen;
 
     public RewardContainer(Reward reward)

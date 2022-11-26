@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 public class AbilityNodeVisualElement : VisualWithTooltip
 {
@@ -11,10 +12,7 @@ public class AbilityNodeVisualElement : VisualWithTooltip
     VisualElement _icon;
     VisualElement _tooltipElement;
 
-    Sprite[] _unlockAnimationSprites;
     VisualElement _unlockAnimationContainer;
-    IVisualElementScheduledItem _unlockAnimation;
-    int _unlockSpriteIndex = 0;
 
     public AbilityNodeVisualElement(AbilityNode abilityNode)
     {
@@ -41,35 +39,24 @@ public class AbilityNodeVisualElement : VisualWithTooltip
         PlayUnlockAnimation();
     }
 
-    void PlayUnlockAnimation()
+    async void PlayUnlockAnimation()
     {
-        _unlockAnimationSprites = GameManager.Instance.GameDatabase.AbilityUnlockAnimationSprites;
 
         _unlockAnimationContainer = new();
         _unlockAnimationContainer.style.position = Position.Absolute;
         _unlockAnimationContainer.style.width = Length.Percent(100);
         _unlockAnimationContainer.style.height = Length.Percent(100);
+        Sprite[] animationSprites = GameManager.Instance.GameDatabase.AbilityUnlockAnimationSprites;
+        _unlockAnimationContainer.Add(new AnimationVisualElement(animationSprites, 20, false));
         Add(_unlockAnimationContainer);
 
-        _unlockAnimation = _unlockAnimationContainer.schedule.Execute(UnlockAnimation).Every(20);
-    }
-
-    void UnlockAnimation()
-    {
-        _unlockAnimationContainer.style.backgroundImage = new StyleBackground(_unlockAnimationSprites[_unlockSpriteIndex]);
-        _unlockSpriteIndex++;
-        if (_unlockSpriteIndex == _unlockAnimationSprites.Length)
-        {
-            _unlockAnimation.Pause();
-            Remove(_unlockAnimationContainer);
-
-            _icon.style.backgroundImage = new(_abilityNode.IconUnlocked);
-        }
+        await Task.Delay(animationSprites.Length * 20); // for animation to finish
+        _icon.style.backgroundImage = new(_abilityNode.IconUnlocked);
+        Remove(_unlockAnimationContainer);
     }
 
     void ShakeNode()
     {
-        Debug.Log($"shaking node, can't be bought");
         DOTween.Shake(() => transform.position, x => transform.position = x, 1f, 6f);
     }
 
