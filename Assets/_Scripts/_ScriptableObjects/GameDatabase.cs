@@ -61,6 +61,8 @@ public class GameDatabase : BaseScriptableObject
     public Sprite[] YellowSpiceAnimationSprites;
     public Sprite[] BlueSpiceAnimationSprites;
     public Sprite[] RedSpiceAnimationSprites;
+    public Sprite[] AbilityUnlockAnimationSprites;
+
 
 
     public Sprite GetCoinSprite(int amount)

@@ -238,24 +238,13 @@ public class DashboardManager : Singleton<DashboardManager>
         _gameManager.ChangeGoldValue(-5000);
     }
 
-    [ContextMenu("Add 500 yellow spice")]
-    void Add500YellowSpice()
+    [ContextMenu("Add 500 spices")]
+    void Add500Spices()
     {
-        _gameManager.ChangeGoldValue(10000);
+        _gameManager.ChangeYellowSpiceValue(500);
+        _gameManager.ChangeBlueSpiceValue(500);
+        _gameManager.ChangeRedSpiceValue(500);
     }
-
-    [ContextMenu("Add 500 blue spice")]
-    void Add500BlueSpice()
-    {
-        _gameManager.ChangeGoldValue(10000);
-    }
-    [ContextMenu("Add 500 red spice")]
-    void Add500RedSpice()
-    {
-        _gameManager.ChangeGoldValue(10000);
-    }
-
-
 
 #endif
 
