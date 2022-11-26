@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Journey/Event")]
+[CreateAssetMenu(menuName = "ScriptableObject/Event/Event")]
 
 public class JourneyEvent : BaseScriptableObject
 {

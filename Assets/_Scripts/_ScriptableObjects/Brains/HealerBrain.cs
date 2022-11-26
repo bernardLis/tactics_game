@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Pathfinding;
 using System.Linq;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Brain/Healer")]
+[CreateAssetMenu(menuName = "ScriptableObject/Character/Brain/Healer")]
 public class HealerBrain : Brain
 {
     public override async Task Move()

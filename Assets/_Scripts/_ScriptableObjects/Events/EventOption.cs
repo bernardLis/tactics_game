@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "ScriptableObject/Journey/EventOption")]
+[CreateAssetMenu(menuName = "ScriptableObject/Event/EventOption")]
 public class EventOption : BaseScriptableObject
 {
     public string Text;

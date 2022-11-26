@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Brain/Brain")]
+[CreateAssetMenu(menuName = "ScriptableObject/Character/Brain/Brain")]
 public class Brain : BaseScriptableObject
 {
     public Sprite BrainIcon;

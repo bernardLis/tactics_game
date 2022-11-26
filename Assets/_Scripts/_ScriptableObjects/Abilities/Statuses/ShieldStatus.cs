@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Shield")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Statuses/Shield")]
 public class ShieldStatus : Status
 {
     public override void AddFlag()

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Mana")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Statuses/Mana")]
 public class ManaStatus : Status
 {
     public override async Task TriggerStatus()

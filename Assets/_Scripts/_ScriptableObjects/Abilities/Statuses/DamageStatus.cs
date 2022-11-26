@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Damage")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Statuses/Damage")]
 public class DamageStatus : Status
 {
     public async override Task TriggerStatus()

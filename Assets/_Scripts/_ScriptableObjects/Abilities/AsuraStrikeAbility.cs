@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Abilities/Asura Strike")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Asura Strike")]
 public class AsuraStrikeAbility : AttackAbility
 {
     public async override Task AbilityLogic(Vector3 pos)

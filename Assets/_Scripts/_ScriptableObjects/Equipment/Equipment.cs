@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "ScriptableObject/Equipment/NewEquipment")]
+[CreateAssetMenu(menuName = "ScriptableObject/Character/Equipment")]
 public class Equipment : BaseScriptableObject
 {
 	public Sprite Icon;

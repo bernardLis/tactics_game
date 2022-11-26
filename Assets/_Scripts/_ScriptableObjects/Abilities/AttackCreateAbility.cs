@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Abilities/AttackCreate Ability")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/AttackCreate Ability")]
 public class AttackCreateAbility : AttackAbility
 {
     [Header("Create Ability")]

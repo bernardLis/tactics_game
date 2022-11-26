@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Conversations/Conversation")]
+[CreateAssetMenu(menuName = "ScriptableObject/Cutscene/Conversation")]
 public class Conversation : BaseScriptableObject
 {
 	public bool Seen = false;

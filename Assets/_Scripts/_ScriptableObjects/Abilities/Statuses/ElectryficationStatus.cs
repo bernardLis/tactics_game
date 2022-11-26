@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Electryfication")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Statuses/Electryfication")]
 public class ElectryficationStatus : Status
 {
     public GameObject Effect;

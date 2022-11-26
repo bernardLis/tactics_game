@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Reward")]
+[CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Reward")]
 public class Reward : BaseScriptableObject
 {
     protected GameManager _gameManager;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Stats/Modifiers/Modifier")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Statuses/Stat Modifier")]
 public class StatModifier : BaseScriptableObject
 {
     public string ReferenceID;

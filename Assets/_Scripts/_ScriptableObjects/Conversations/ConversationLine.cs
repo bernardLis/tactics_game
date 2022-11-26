@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Conversations/Conversation Line")]
+[CreateAssetMenu(menuName = "ScriptableObject/Cutscene/Conversation Line")]
 public class ConversationLine : BaseScriptableObject
 {
 	public Character SpeakerCharacter;

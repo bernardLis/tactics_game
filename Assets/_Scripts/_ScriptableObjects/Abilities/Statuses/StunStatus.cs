@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Stun")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Statuses/Stun")]
 public class StunStatus : Status
 {
     public override async Task FirstTrigger()

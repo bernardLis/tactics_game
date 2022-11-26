@@ -5,7 +5,7 @@ using System;
 using Random = UnityEngine.Random;
 using System.Linq;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Quest")]
+[CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Quest")]
 public class Quest : BaseScriptableObject
 {
     [Header("Basics")]

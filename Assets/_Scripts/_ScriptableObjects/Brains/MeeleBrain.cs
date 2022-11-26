@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Pathfinding;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Brain/Meele")]
+[CreateAssetMenu(menuName = "ScriptableObject/Character/Brain/Meele")]
 public class MeeleBrain : Brain
 {
     // Find a position where you can attack from the back

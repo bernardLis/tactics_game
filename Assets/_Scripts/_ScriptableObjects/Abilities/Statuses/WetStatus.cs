@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Statuses/Wet")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Statuses/Wet")]
 public class WetStatus : Status
 {
     public override async Task FirstTrigger()

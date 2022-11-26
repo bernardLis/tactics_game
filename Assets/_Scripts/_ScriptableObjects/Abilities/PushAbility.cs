@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Abilities/Push Ability")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Push Ability")]
 public class PushAbility : Ability
 {
     PushTriggerable _pushTriggerable;

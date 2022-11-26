@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Abilities/Create Ability")]
+[CreateAssetMenu(menuName = "ScriptableObject/Ability/Create Ability")]
 public class CreateAbility : Ability
 {
 
