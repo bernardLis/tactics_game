@@ -46,8 +46,29 @@ public class AbilityNode : BaseScriptableObject
         // pay return true
     }
 
+    public void LoadFromData(AbilityNodeData data)
+    {
+        IsUnlocked = data.IsUnlocked;
+    }
+
+    public AbilityNodeData SerializeSelf()
+    {
+        AbilityNodeData data = new();
+
+        data.Id = Id;
+        data.IsUnlocked = IsUnlocked;
+
+        return data;
+    }
 }
 
+
+[Serializable]
+public struct AbilityNodeData
+{
+    public string Id;
+    public bool IsUnlocked;
+}
 
 [Serializable]
 public struct AbilityNodeUnlockCost

@@ -38,6 +38,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [SerializeField]
     List<CampBuilding> _campBuildings = new();
 
+    [SerializeField]
+    List<AbilityNodeGraph> _abilityNodeGraphs = new();
+
     public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
     public Quest ActiveQuest;
@@ -192,6 +195,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public List<CampBuilding> GetCampBuildings() { return _campBuildings; }
     public CampBuilding GetCampBuildingById(string id) { return _campBuildings.FirstOrDefault(x => x.Id == id); }
 
+    public List<AbilityNodeGraph> GetAbilityNodeGraphs() { return _abilityNodeGraphs; }
+    public AbilityNodeGraph GetAbilityNodeGraphById(string id) { return _abilityNodeGraphs.FirstOrDefault(x => x.Id == id); }
+
     /* Shop */
     public void RemoveItemFromShop(Item item)
     {
@@ -305,6 +311,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Day = 1;
         Gold = 0;
+        YellowSpice = 0;
+        BlueSpice = 0;
+        RedSpice = 0;
 
         ChooseShopItems();
         ShopRerollPrice = 200;
@@ -321,6 +330,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             b.ResetSelf();
             b.Initialize();
         }
+
+        foreach (AbilityNodeGraph g in _abilityNodeGraphs)
+            g.ResetNodes();
 
         // new save
         string guid = System.Guid.NewGuid().ToString();
@@ -368,6 +380,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.ReportsArchived = PopulateArchivedReports();
 
         saveData.CampBuildings = PopulateCampBuildings();
+        saveData.AbilityNodeGraphs = PopulateAbilityNodeGraphs();
     }
 
     List<string> PopulateShopItems()
@@ -424,12 +437,19 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     List<CampBuildingData> PopulateCampBuildings()
     {
-        List<CampBuildingData> buildings = new();
+        List<CampBuildingData> data = new();
         foreach (CampBuilding b in _campBuildings)
-            buildings.Add(b.SerializeSelf());
-        return buildings;
+            data.Add(b.SerializeSelf());
+        return data;
     }
 
+    List<AbilityNodeGraphData> PopulateAbilityNodeGraphs()
+    {
+        List<AbilityNodeGraphData> data = new();
+        foreach (AbilityNodeGraph g in _abilityNodeGraphs)
+            data.Add(g.SerializeSelf());
+        return data;
+    }
 
     void LoadJsonData(string fileName)
     {
@@ -484,6 +504,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         foreach (CampBuildingData data in saveData.CampBuildings)
             GetCampBuildingById(data.Id).LoadFromData(data);
+
+        foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
+            GetAbilityNodeGraphById(data.Id).LoadFromData(data);
     }
 
     void LoadReports(SaveData saveData)
@@ -534,6 +557,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         foreach (CampBuilding b in _campBuildings)
             b.ResetSelf();
+        foreach (AbilityNodeGraph g in _abilityNodeGraphs)
+            g.ResetNodes();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

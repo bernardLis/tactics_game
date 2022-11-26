@@ -8,7 +8,7 @@ public class AbilityGraphManager : MonoBehaviour
     GameManager _gameManager;
     DashboardManager _dashboardManager;
 
-    [SerializeField] AbilityNodeGraph[] _abilityNodeGraphs;
+    List<AbilityNodeGraph> _abilityNodeGraphs;
 
     VisualElement _root;
     VisualElement _abilityGraphs;
@@ -16,6 +16,7 @@ public class AbilityGraphManager : MonoBehaviour
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _abilityNodeGraphs = _gameManager.GetAbilityNodeGraphs();
 
         _dashboardManager = GetComponent<DashboardManager>();
         _dashboardManager.OnAbilitiesOpened += OnAbilitiesClicked;

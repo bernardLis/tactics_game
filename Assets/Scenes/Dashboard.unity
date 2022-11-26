@@ -551,6 +551,14 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[24].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1528180484}
+    - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _abilityNodeGraphs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _abilityNodeGraphs.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
     - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1273,5 +1281,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f6dc66ab57aac4692afaff05aaa046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _abilityNodeGraphs:
-  - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}

@@ -29,6 +29,7 @@ public class SaveData
     public List<ReportData> ReportsArchived = new();
 
     public List<CampBuildingData> CampBuildings = new();
+    public List<AbilityNodeGraphData> AbilityNodeGraphs = new();
 
     public string ToJson()
     {

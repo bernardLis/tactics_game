@@ -63,8 +63,6 @@ public class GameDatabase : BaseScriptableObject
     public Sprite[] RedSpiceAnimationSprites;
     public Sprite[] AbilityUnlockAnimationSprites;
 
-
-
     public Sprite GetCoinSprite(int amount)
     {
         int index = 0;
