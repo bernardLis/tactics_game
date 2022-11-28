@@ -113,8 +113,6 @@ public class ShopManager : UIDraggables
             daysUntilReset = 7;
 
         _shopResetInfo.text = $"Shop resets in {daysUntilReset} days";
-
-
     }
 
     void OnShopItemPointerDown(PointerDownEvent evt)

@@ -59,10 +59,10 @@
                 <ui:VisualElement name="armoryAbilities" style="flex-direction: row; flex-wrap: wrap;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="mainShop" style="width: 100%; flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; display: none; background-image: url(&apos;project://database/Assets/Sprites/4000_Fantasy_Icons/Z_Other/fr_bg/bg_green.png?fileID=2800000&amp;guid=23edd2c0a714f8448bb8d7e472920ba3&amp;type=3#bg_green&apos;);">
-            <ui:VisualElement name="shopWrapper" class="textPrimary" style="flex-direction: column; border-bottom-width: 4px; width: 50%; align-items: center;">
-                <ui:VisualElement name="shopBuyContainer" class="uiContainer" style="align-items: center; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
-                    <ui:Label text="Buy" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center;" />
+        <ui:VisualElement name="mainShop" style="width: 100%; flex-direction: row; display: flex; -unity-background-scale-mode: stretch-to-fill; background-color: rgb(0, 0, 0);">
+            <ui:VisualElement name="shopWrapper" class="textPrimary" style="flex-direction: column; width: 50%; align-items: center;">
+                <ui:VisualElement name="shopBuyContainer" style="align-items: center; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Login_bar.png?fileID=2800000&amp;guid=9e73dfeeb2b076a45b9f4f939bc1cd58&amp;type=3#Login_bar&apos;); padding-left: 100px; padding-right: 100px; padding-top: 25px; padding-bottom: 25px;">
+                    <ui:Label text="Buy" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center; font-size: 24px; width: 200px; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&amp;guid=719587235c52756429cfbea86a7e8082&amp;type=3#horizontal_flag&apos;);" />
                     <ui:VisualElement name="shopItemContainer" style="align-items: center; flex-direction: row; justify-content: space-around; flex-wrap: wrap; margin-bottom: 20px;">
                         <ui:VisualElement name="itemSlot" class="itemSlot" style="align-items: center; justify-content: center;">
                             <ui:VisualElement style="width: 50px; height: 50px; background-color: rgb(0, 0, 0);" />
@@ -70,12 +70,12 @@
                         <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
                         <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="shopRerollContainer" style="align-items: center; flex-direction: column; justify-content: center; padding-bottom: 10px; border-bottom-width: 2px; border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" />
+                    <ui:VisualElement name="shopRerollContainer" style="align-items: center; flex-direction: column; justify-content: center; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" />
                     <ui:Label text="Shop resets in 5 days" display-tooltip-when-elided="true" name="shopResetInfo" />
                 </ui:VisualElement>
-                <ui:VisualElement name="shopSellContainer" style="align-items: center; width: 50%;">
-                    <ui:VisualElement name="sellItemZone" class="itemSlot" style="align-items: center; justify-content: center; width: 100%; height: 200px; flex-grow: 1; flex-shrink: 0; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;">
-                        <ui:Label text="Sell" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="align-items: center;" />
+                <ui:VisualElement name="shopSellContainer" style="align-items: flex-start; width: 50%; justify-content: flex-start; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/dialog_frame_a.png?fileID=2800000&amp;guid=9ad8f801bcce43249b04b6e8ba959a08&amp;type=3#dialog_frame_a&apos;);">
+                    <ui:VisualElement name="sellItemZone" style="align-items: center; justify-content: flex-start; width: 100%; height: 200px; flex-grow: 1; flex-shrink: 0; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; background-image: none;">
+                        <ui:Label text="Drop here to sell" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="align-items: center; font-size: 24px; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&amp;guid=719587235c52756429cfbea86a7e8082&amp;type=3#horizontal_flag&apos;); width: 300px; justify-content: center; -unity-text-align: middle-center;" />
                         <ui:VisualElement name="sellItemValueTooltip" />
                     </ui:VisualElement>
                 </ui:VisualElement>
@@ -93,8 +93,8 @@
                 <ui:Button text="Upgrade" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; display: none; height: 100%; background-image: url(&apos;project://database/Assets/Sprites/4000_Fantasy_Icons/Z_Other/fr_bg/bg_purple.png?fileID=2800000&amp;guid=0ba146e7a3a8d1b41b93222a735a538c&amp;type=3#bg_purple&apos;);">
-            <ui:VisualElement name="abilityGraphs" style="width: 70%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; align-items: flex-start; flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;">
+        <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; display: none; height: 100%; background-image: none; background-color: rgb(0, 0, 0);">
+            <ui:VisualElement name="abilityGraphs" style="width: 70%; align-items: flex-start; flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;">
                 <ui:VisualElement name="graphContainer" class="textPrimary graphContainer">
                     <ui:Label text="Fire" display-tooltip-when-elided="true" style="font-size: 48px;" />
                     <ui:VisualElement name="abilityNodeContainer" class="abilityNodeContent">
@@ -109,7 +109,7 @@
                 <ui:Label text="Craft Abilities" display-tooltip-when-elided="true" class="textPrimary" style="font-size: 48px; -unity-text-align: upper-center;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="mainExit" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/08_door.png?fileID=2800000&amp;guid=19c3c0bdaeea8d64daa59b9b96a3cd92&amp;type=3#08_door&apos;); width: 200px; height: 200px; top: 80%; left: 1%;" />
+        <ui:VisualElement name="mainExit" class="mainExit" />
     </ui:VisualElement>
     <ui:VisualElement name="questResultContainer" class="questResultContainer" style="display: none; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Victory_window.png?fileID=2800000&amp;guid=ad6f6ab8938b42341829d59aef51c365&amp;type=3#Victory_window&apos;); -unity-background-scale-mode: scale-to-fit;">
         <ui:VisualElement name="questResultContent" class="questResultContentWon" style="-unity-background-scale-mode: scale-to-fit; padding-left: 0; width: 60%; background-image: none; margin-left: 20%; height: 70%; margin-top: 10%;" />

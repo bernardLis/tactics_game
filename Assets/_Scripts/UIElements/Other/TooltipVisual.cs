@@ -23,14 +23,15 @@ public class TooltipVisual : VisualElement
         Vector2 pos = UnityEngine.UIElements.RuntimePanelUtils.ScreenToPanel(element.panel,
                         new Vector2(mousePosition.x, Screen.height - mousePosition.y));
 
-        style.backgroundColor = Color.black;
         style.position = Position.Absolute;
-
         style.left = pos.x + offsetX;
         style.top = pos.y + offsetY - resolvedStyle.height;
         OnPostVisualCreation();
 
         AddToClassList("textPrimary");
+        AddToClassList("tooltipElement");
+// HERE:                style.backgroundColor = Color.black;
+
 
         Add(tooltipElement);
     }

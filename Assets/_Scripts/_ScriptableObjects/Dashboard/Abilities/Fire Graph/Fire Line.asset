@@ -17,8 +17,5 @@ MonoBehaviour:
   IconLocked: {fileID: 21300000, guid: 877de3f3d6844784baef5582c63bcca2, type: 3}
   Title: Fire Wave
   Description: Expert fire magic. Create a wall of fire.
-  AbilityNodeUnlockCost:
-    YellowSpiceCost: 40
-    BlueSpiceCost: 20
-    RedSpiceCost: 10
+  SpiceCost: 80
   IsUnlocked: 0

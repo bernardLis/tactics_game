@@ -23,7 +23,7 @@ public static class Helpers
         {QuestState.RewardCollected.ToString(), new Color(0.55f, 0.2f, 0.7f)},
 
         { ItemRaririty.Common.ToString(), new Color(1f,1f,1f,1f) },
-        { ItemRaririty.Magic.ToString(), new Color(0.31f,1f,0.69f,1f) },
+        { ItemRaririty.Uncommon.ToString(), new Color(0.31f,1f,0.69f,1f) },
         { ItemRaririty.Rare.ToString(), new Color(0.38f,0.51f,0.84f,1f) },
         { ItemRaririty.Epic.ToString(), new Color(0.32f,0.22f,0.44f,1f) },
     };

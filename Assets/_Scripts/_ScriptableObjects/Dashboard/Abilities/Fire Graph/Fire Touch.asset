@@ -17,8 +17,5 @@ MonoBehaviour:
   IconLocked: {fileID: 21300000, guid: 2e29a6ed4af338c45a02f112324cde62, type: 3}
   Title: Fire Touch
   Description: Novice fire magic. Set target in close range on fire.
-  AbilityNodeUnlockCost:
-    YellowSpiceCost: 10
-    BlueSpiceCost: 5
-    RedSpiceCost: 0
-  IsUnlocked: 0
+  SpiceCost: 20
+  IsUnlocked: 1

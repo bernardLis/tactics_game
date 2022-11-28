@@ -6,6 +6,7 @@ using UnityEngine;
 public class Item : BaseScriptableObject
 {
     public string ReferenceID;
+    public string ItemName;
     public Sprite Icon;
     public StatType InfluencedStat;
     public ItemRaririty Raririty;

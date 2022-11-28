@@ -38,18 +38,22 @@ public class AbilityGraphManager : MonoBehaviour
         VisualElement graphContainer = new();
         graphContainer.AddToClassList("graphContainer");
         graphContainer.AddToClassList("textPrimary");
+        _abilityGraphs.Add(graphContainer);
+
         Label title = new(_abilityNodeGraphs[0].Title);
         title.style.fontSize = 48;
         graphContainer.Add(title);
 
-        _abilityGraphs.Add(graphContainer);
 
+        VisualElement wrapper = new();
+        wrapper.style.flexDirection = FlexDirection.Row;
+        graphContainer.Add(wrapper);
         // HERE: for now, only 1 graph
         for (int i = 0; i < _abilityNodeGraphs[0].AbilityNodes.Length; i++)
         {
             AbilityNode n = _abilityNodeGraphs[0].AbilityNodes[i];
             AbilityNodeVisualElement el = new(n);
-            graphContainer.Add(el);
+            wrapper.Add(el);
         }
     }
 }

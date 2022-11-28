@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 23f564d3-ab88-495e-9cbb-23bee2885605
   ReferenceID: fastShoes2
-  Icon: {fileID: 21300000, guid: d0d6d72fb7a3a7c49aa0e8039180f6b6, type: 3}
+  ItemName: Fast Shoes II
+  Icon: {fileID: 21300000, guid: 237f2c9caec55b74b8e13cb6ce63fd7b, type: 3}
   InfluencedStat: 4
   Raririty: 2
   Value: 3

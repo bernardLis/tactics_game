@@ -119,7 +119,7 @@ public class GameDatabase : BaseScriptableObject
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
 public enum WeaponType { Any, Melee, Ranged }
-public enum ItemRaririty { Common, Magic, Rare, Epic }
+public enum ItemRaririty { Common, Uncommon, Rare, Epic }
 public enum BattleGoal { DefeatAllEnemies } // TODO: implement other battle goals (defeat the leader, hold position, ...)
 public enum JourneyNodeType { Start, End, Battle, Knowledge, Chest, Shop, Fire, Boss, Event }
 public enum MapType { None, Circle, River, Lake, Hourglass }

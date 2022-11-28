@@ -12,19 +12,29 @@ public class ItemVisual : VisualWithTooltip
         Item = item;
 
         style.backgroundImage = item.Icon.texture;
-        style.unityBackgroundImageTintColor = Helpers.GetColor(item.Raririty.ToString());
         style.width = 75;
         style.height = 75;
         if (item.TooltipText.Length == 0)
             _tooltipText = item.InfluencedStat.ToString() + " +" + item.Value.ToString();
         else
             _tooltipText = item.TooltipText;
-
     }
 
     protected override void DisplayTooltip()
     {
-        Label tooltip = new(_tooltipText);
+        VisualElement tooltip = new();
+
+        Label name = new(Item.ItemName);
+        Label tooltipText = new(_tooltipText);
+        Label rarity = new($"Rarity: {Item.Raririty}");
+        rarity.style.color = Helpers.GetColor(Item.Raririty.ToString());
+        Label value = new($"Price: {Item.Price}");
+
+        tooltip.Add(name);
+        tooltip.Add(tooltipText);
+        tooltip.Add(rarity);
+        tooltip.Add(value);
+
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }

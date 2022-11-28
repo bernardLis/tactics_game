@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 24e84506-ba1d-43d2-a023-66a86096af56
   ReferenceID: ringOfSafety
-  Icon: {fileID: 21300000, guid: 6ade75ffc548e074891f7cb1bd30f6ed, type: 3}
+  ItemName: Ring Of Safety
+  Icon: {fileID: 21300000, guid: 71f449e7b5230434abedc3e09be20a6a, type: 3}
   InfluencedStat: 0
   Raririty: 3
   Value: 0
