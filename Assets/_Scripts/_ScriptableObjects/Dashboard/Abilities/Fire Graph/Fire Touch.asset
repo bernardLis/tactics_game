@@ -18,4 +18,5 @@ MonoBehaviour:
   Title: Fire Touch
   Description: Novice fire magic. Set target in close range on fire.
   SpiceCost: 20
-  IsUnlocked: 1
+  IsUnlocked: 0
+  UnlockSound: {fileID: 11400000, guid: 84af90206e9ccce428adf1e72c7f89e5, type: 2}

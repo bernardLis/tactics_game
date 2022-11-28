@@ -13,6 +13,8 @@ public class CampBuilding : BaseScriptableObject
     public int CostToBuild; // static
     public int DaysToBuild; // static
 
+    public Sound BuildingSound;
+
     [HideInInspector] public CampBuildingState CampBuildingState;
     [HideInInspector] public int DaysLeftToBuild;
     [HideInInspector] public int DayStartedBuilding;
@@ -49,6 +51,7 @@ public class CampBuilding : BaseScriptableObject
         UpdateCampBuildingState(CampBuildingState.Started);
         DaysLeftToBuild = DaysToBuild;
         DayStartedBuilding = _gameManager.Day;
+        _gameManager.GetComponent<AudioManager>().PlaySFX(BuildingSound, Vector3.one);
     }
 
     public void OnDayPassed(int day)

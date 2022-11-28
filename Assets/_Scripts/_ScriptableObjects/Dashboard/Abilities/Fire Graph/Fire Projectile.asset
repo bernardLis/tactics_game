@@ -19,3 +19,4 @@ MonoBehaviour:
   Description: Advanced fire magic. Shoot a fiery projectile.
   SpiceCost: 40
   IsUnlocked: 0
+  UnlockSound: {fileID: 11400000, guid: 84af90206e9ccce428adf1e72c7f89e5, type: 2}

@@ -12,6 +12,8 @@ public class AbilityNode : BaseScriptableObject
     public string Description;
     public int SpiceCost;
     public bool IsUnlocked;
+    public Sound UnlockSound;
+
 
     // HERE: possibly range of range of ability created through this node 
     // HERE: possibly range of damage of ability created through this node 
@@ -24,6 +26,7 @@ public class AbilityNode : BaseScriptableObject
         if (!PayForUnlocking())
             return false;
 
+        AudioManager.Instance.PlaySFX(UnlockSound, Vector3.zero);
         IsUnlocked = true;
         return true;
     }

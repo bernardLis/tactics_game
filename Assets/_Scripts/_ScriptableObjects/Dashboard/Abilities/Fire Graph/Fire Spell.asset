@@ -19,3 +19,4 @@ MonoBehaviour:
   Description: Master fire magic. Manifest fire at range.
   SpiceCost: 200
   IsUnlocked: 0
+  UnlockSound: {fileID: 11400000, guid: 84af90206e9ccce428adf1e72c7f89e5, type: 2}
