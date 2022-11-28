@@ -13,9 +13,7 @@ public class SaveData
     public int Day;
     public int Gold;
 
-    public int YellowSpice;
-    public int BlueSpice;
-    public int RedSpice;
+    public int Spice;
 
     public List<string> ShopItems = new();
     public int ShopRerollPrice;

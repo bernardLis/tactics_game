@@ -12,14 +12,8 @@
             <ui:VisualElement name="navTroops" class="navResourceElement">
                 <ui:Label text="Troops: 2/5" display-tooltip-when-elided="true" />
             </ui:VisualElement>
-            <ui:VisualElement name="navSpiceYellow" class="navResourceElement">
+            <ui:VisualElement name="navSpice" class="navResourceElement">
                 <ui:Label text="Yellow Spice: 0" display-tooltip-when-elided="true" />
-            </ui:VisualElement>
-            <ui:VisualElement name="navSpiceBlue" class="navResourceElement">
-                <ui:Label text="Blue Spice: 0" display-tooltip-when-elided="true" />
-            </ui:VisualElement>
-            <ui:VisualElement name="navSpiceRed" class="navResourceElement">
-                <ui:Label text="Red Spice: 0" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

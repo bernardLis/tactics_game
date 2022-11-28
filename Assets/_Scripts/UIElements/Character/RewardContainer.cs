@@ -6,8 +6,6 @@ using Random = UnityEngine.Random;
 
 public class RewardContainer : VisualElement
 {
-    //   ScreenWithDraggables _screenWithDraggables;
-
     RewardChest _rewardChest;
     int _idleSpriteIndex = 0;
 
@@ -76,18 +74,10 @@ public class RewardContainer : VisualElement
 
         await Task.Delay(200);
 
-        if (_reward.YellowSpice != 0)
-            FlyingReward(new SpiceElement(_reward.YellowSpice, SpiceColor.Yellow));
+        if (_reward.Spice != 0)
+            FlyingReward(new SpiceElement(_reward.Spice));
 
         await Task.Delay(200);
-
-        if (_reward.BlueSpice != 0)
-            FlyingReward(new SpiceElement(_reward.BlueSpice, SpiceColor.Blue));
-
-        await Task.Delay(200);
-
-        if (_reward.RedSpice != 0)
-            FlyingReward(new SpiceElement(_reward.RedSpice, SpiceColor.Red));
 
         OnChestOpen?.Invoke();
     }
@@ -128,7 +118,6 @@ public class RewardContainer : VisualElement
             Vector3 i2 = Vector3.Lerp(p1, p2, percent);
             Vector3 result = Vector3.Lerp(i1, i2, percent); // lerp between the 2 for the result
 
-            //Vector3 pointOnArc = DOCurve.CubicBezier.GetPointOnSegment(startPosition, startPosition, endPositon, endPositon, percent);
             el.transform.position = result;
 
             percent += 0.01f;

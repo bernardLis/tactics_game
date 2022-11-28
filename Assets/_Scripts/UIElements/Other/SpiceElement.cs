@@ -10,32 +10,23 @@ public class SpiceElement : VisualElement
     GameManager _gameManager;
 
     public int Amount;
-    SpiceColor _spiceColor;
     Label _icon;
+    AnimationVisualElement _animationElement;
     Label _text;
 
-    public SpiceElement(int amount, SpiceColor spiceColor)
+    public SpiceElement(int amount)
     {
         _gameManager = GameManager.Instance;
 
-        Sprite[] animationSprites = null;
-        // TODO: could be improved
-        if (spiceColor == SpiceColor.Yellow)
-            animationSprites = _gameManager.GameDatabase.YellowSpiceAnimationSprites;
-        if (spiceColor == SpiceColor.Blue)
-            animationSprites = _gameManager.GameDatabase.BlueSpiceAnimationSprites;
-        if (spiceColor == SpiceColor.Red)
-            animationSprites = _gameManager.GameDatabase.RedSpiceAnimationSprites;
-
-        _spiceColor = spiceColor;
-        Amount = 0;
-
         AddToClassList("spiceElement");
 
+        Sprite[] animationSprites = null;
+        animationSprites = _gameManager.GameDatabase.GetSpiceSprites(amount);
         _icon = new();
         _icon.style.width = 50;
         _icon.style.height = 50;
-        _icon.Add(new AnimationVisualElement(animationSprites, 100, true));
+        _animationElement = new AnimationVisualElement(animationSprites, 100, true);
+        _icon.Add(_animationElement);
         Add(_icon);
 
         _text = new();
@@ -46,7 +37,7 @@ public class SpiceElement : VisualElement
         _text.style.width = 25;
         Add(_text);
 
-
+        Amount = 0;
         ChangeAmount(amount);
 
         float startScale = Random.Range(0.8f, 1f);
@@ -91,5 +82,9 @@ public class SpiceElement : VisualElement
             _text.text = displayAmount.ToString();
             await Task.Delay(delay);
         }
+
+        SwapSprites();
     }
+
+    void SwapSprites() { _animationElement.SwapAnimationSprites(_gameManager.GameDatabase.GetSpiceSprites(Amount)); }
 }

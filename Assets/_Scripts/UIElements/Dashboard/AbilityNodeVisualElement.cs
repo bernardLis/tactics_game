@@ -73,9 +73,7 @@ public class AbilityNodeVisualElement : VisualWithTooltip
     {
         VisualElement cost = new();
         cost.style.flexDirection = FlexDirection.Row;
-        cost.Add(new SpiceElement(_abilityNode.AbilityNodeUnlockCost.YellowSpiceCost, SpiceColor.Yellow));
-        cost.Add(new SpiceElement(_abilityNode.AbilityNodeUnlockCost.BlueSpiceCost, SpiceColor.Blue));
-        cost.Add(new SpiceElement(_abilityNode.AbilityNodeUnlockCost.RedSpiceCost, SpiceColor.Red));
+        cost.Add(new SpiceElement(_abilityNode.SpiceCost));
         Add(cost);
     }
 

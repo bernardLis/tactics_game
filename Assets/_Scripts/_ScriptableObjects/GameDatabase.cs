@@ -58,27 +58,53 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] ReportPaper[] ReportPapers;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
-    public Sprite[] YellowSpiceAnimationSprites;
-    public Sprite[] BlueSpiceAnimationSprites;
-    public Sprite[] RedSpiceAnimationSprites;
     public Sprite[] AbilityUnlockAnimationSprites;
+    [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
+
+    [Serializable]
+    public class SpiceAnimations
+    {
+        public Sprite[] sprites;
+    }
+
 
     public Sprite GetCoinSprite(int amount)
     {
         int index = 0;
         // TODO: something smarter
-        if (amount >= 0 && amount <= 3)
+        if (amount >= 0 && amount <= 100)
             index = 0;
-        if (amount >= 4 && amount <= 6)
+        if (amount >= 101 && amount <= 500)
             index = 1;
-        if (amount >= 7 && amount <= 9)
+        if (amount >= 501 && amount <= 1000)
             index = 2;
-        if (amount >= 10 && amount <= 12)
+        if (amount >= 1001 && amount <= 3000)
             index = 3;
-        if (amount >= 13)
+        if (amount >= 3001)
             index = 4;
 
         return CoinSprites[index];
+    }
+
+    public Sprite[] GetSpiceSprites(int amount)
+    {
+        int index = 0;
+        // TODO: something smarter
+        if (amount >= 0 && amount <= 20)
+            index = 0;
+        if (amount >= 21 && amount <= 50)
+            index = 1;
+        if (amount >= 51 && amount <= 100)
+            index = 2;
+        if (amount >= 101 && amount <= 200)
+            index = 3;
+        if (amount >= 201 && amount <= 300)
+            index = 4;
+        if (amount >= 301)
+            index = 5;
+
+        return SpiceAnimationSprites[index].sprites;
+
     }
 
     public QuestIcon GetQuestIconById(string id) { return QuestIcons.FirstOrDefault(x => x.Id == id); }
@@ -107,7 +133,6 @@ public enum ReportType { Quest, Recruit, Text, CampBuilding }
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
 public enum CampBuildingState { Pending, Started, Finished }
 public enum RecruitState { Pending, Resolved, Expired }
-public enum SpiceColor { Yellow, Blue, Red }
 public enum DashboardBuildingType { Desk, Armory, Shop, Camp, Abilities }
 
 

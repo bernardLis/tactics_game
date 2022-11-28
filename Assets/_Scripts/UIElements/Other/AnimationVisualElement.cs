@@ -22,6 +22,12 @@ public class AnimationVisualElement : VisualElement
         _animationScheduler = schedule.Execute(Animation).Every(delay);
     }
 
+    public void SwapAnimationSprites(Sprite[] animationSprites)
+    {
+        _animationSprites = animationSprites;
+        _animationSpriteIndex = 0;
+    }
+
     void Animation()
     {
         style.backgroundImage = new StyleBackground(_animationSprites[_animationSpriteIndex]);

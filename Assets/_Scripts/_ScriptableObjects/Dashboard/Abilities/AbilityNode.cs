@@ -10,7 +10,7 @@ public class AbilityNode : BaseScriptableObject
     public Sprite IconLocked;
     public string Title;
     public string Description;
-    public AbilityNodeUnlockCost AbilityNodeUnlockCost;
+    public int SpiceCost;
     public bool IsUnlocked;
 
     // HERE: possibly range of range of ability created through this node 
@@ -32,16 +32,10 @@ public class AbilityNode : BaseScriptableObject
     {
         GameManager gameManager = GameManager.Instance;
 
-        if (gameManager.YellowSpice < AbilityNodeUnlockCost.YellowSpiceCost)
-            return false;
-        if (gameManager.BlueSpice < AbilityNodeUnlockCost.BlueSpiceCost)
-            return false;
-        if (gameManager.RedSpice < AbilityNodeUnlockCost.RedSpiceCost)
+        if (gameManager.Spice < SpiceCost)
             return false;
 
-        gameManager.ChangeYellowSpiceValue(-AbilityNodeUnlockCost.YellowSpiceCost);
-        gameManager.ChangeBlueSpiceValue(-AbilityNodeUnlockCost.BlueSpiceCost);
-        gameManager.ChangeRedSpiceValue(-AbilityNodeUnlockCost.RedSpiceCost);
+        gameManager.ChangeSpiceValue(-SpiceCost);
         return true;
         // pay return true
     }
@@ -68,12 +62,4 @@ public struct AbilityNodeData
 {
     public string Id;
     public bool IsUnlocked;
-}
-
-[Serializable]
-public struct AbilityNodeUnlockCost
-{
-    public int YellowSpiceCost;
-    public int BlueSpiceCost;
-    public int RedSpiceCost;
 }

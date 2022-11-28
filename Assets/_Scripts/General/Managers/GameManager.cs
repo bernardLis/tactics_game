@@ -20,9 +20,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Day { get; private set; }
     public int Gold { get; private set; }
 
-    public int YellowSpice { get; private set; }
-    public int BlueSpice { get; private set; }
-    public int RedSpice { get; private set; }
+    public int Spice { get; private set; }
 
     public List<Item> ShopItems = new();
     public int ShopRerollPrice { get; private set; }
@@ -47,9 +45,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
-    public event Action<int> OnYellowSpiceChanged;
-    public event Action<int> OnBlueSpiceChanged;
-    public event Action<int> OnRedSpiceChanged;
+    public event Action<int> OnSpiceChanged;
     public event Action<int> OnTroopsLimitChanged;
     public event Action<Character> OnCharacterAddedToTroops;
     public event Action<int> OnShopRerollPriceChanged;
@@ -156,33 +152,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    public void ChangeYellowSpiceValue(int o)
+    public void ChangeSpiceValue(int o)
     {
         if (o == 0)
             return;
 
-        YellowSpice += o;
-        OnYellowSpiceChanged?.Invoke(o);
-        SaveJsonData();
-    }
-
-    public void ChangeBlueSpiceValue(int o)
-    {
-        if (o == 0)
-            return;
-
-        BlueSpice += o;
-        OnBlueSpiceChanged?.Invoke(o);
-        SaveJsonData();
-    }
-
-    public void ChangeRedSpiceValue(int o)
-    {
-        if (o == 0)
-            return;
-
-        RedSpice += o;
-        OnRedSpiceChanged?.Invoke(o);
+        Spice += o;
+        OnSpiceChanged?.Invoke(o);
         SaveJsonData();
     }
 
@@ -311,9 +287,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Day = 1;
         Gold = 0;
-        YellowSpice = 0;
-        BlueSpice = 0;
-        RedSpice = 0;
+        Spice = 0;
 
         ChooseShopItems();
         ShopRerollPrice = 200;
@@ -364,9 +338,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.Day = Day;
         saveData.Gold = Gold;
 
-        saveData.YellowSpice = YellowSpice;
-        saveData.BlueSpice = BlueSpice;
-        saveData.RedSpice = RedSpice;
+        saveData.Spice = Spice;
 
         saveData.ShopItems = PopulateShopItems();
         saveData.ShopRerollPrice = ShopRerollPrice;
@@ -474,9 +446,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Day = saveData.Day;
         Gold = saveData.Gold;
 
-        YellowSpice = saveData.YellowSpice;
-        BlueSpice = saveData.BlueSpice;
-        RedSpice = saveData.RedSpice;
+        Spice = saveData.Spice;
 
         ShopRerollPrice = saveData.ShopRerollPrice;
         ShopItems = new();
@@ -538,9 +508,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Day = 1;
         Gold = 0;
 
-        YellowSpice = 0;
-        BlueSpice = 0;
-        RedSpice = 0;
+        Spice = 0;
 
         ChooseShopItems();
         ShopRerollPrice = 200;
