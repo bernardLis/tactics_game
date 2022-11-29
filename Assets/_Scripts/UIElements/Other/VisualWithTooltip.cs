@@ -5,6 +5,7 @@ public abstract class VisualWithTooltip : VisualElement
 {
     protected TooltipVisual _tooltip;
 
+    bool _blockTooltip;
     bool _isPointerDown;
 
     public VisualWithTooltip()
@@ -25,11 +26,19 @@ public abstract class VisualWithTooltip : VisualElement
         RegisterCallback<DetachFromPanelEvent>((evt) => HideTooltip());
     }
 
+    public void BlockTooltip()
+    {
+        _blockTooltip = true;
+        HideTooltip();
+    }
+
     void OnPointerDown() { _isPointerDown = true; }
     void OnPointerUp() { _isPointerDown = false; }
 
     protected virtual void DisplayTooltip()
     {
+        if (_blockTooltip)
+            return;
         if (_isPointerDown)
             return;
         if (panel == null)

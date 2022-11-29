@@ -8,12 +8,10 @@ public class DraggableCharacters : MonoBehaviour
 {
     VisualElement _root;
 
-
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
     bool _isDragging;
 
-    // Item drag & drop
     CharacterCardMiniSlot _originalSlot;
     CharacterCardMiniSlot _newSlot;
     VisualElement _dragDropContainer;

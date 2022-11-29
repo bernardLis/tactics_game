@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public class AbilityNodeVisualElement : VisualWithTooltip
 {
-    AbilityNode _abilityNode;
+    public AbilityNode AbilityNode;
 
     VisualElement _icon;
     VisualElement _tooltipElement;
@@ -16,7 +16,7 @@ public class AbilityNodeVisualElement : VisualWithTooltip
 
     public AbilityNodeVisualElement(AbilityNode abilityNode)
     {
-        _abilityNode = abilityNode;
+        AbilityNode = abilityNode;
         AddToClassList("abilityNodeContent");
 
         AddIcon();
@@ -27,7 +27,7 @@ public class AbilityNodeVisualElement : VisualWithTooltip
 
     void OnPointerUp(PointerUpEvent evt)
     {
-        if (_abilityNode.Unlock())
+        if (AbilityNode.Unlock())
             UnlockNode();
         else
             ShakeNode();
@@ -50,7 +50,7 @@ public class AbilityNodeVisualElement : VisualWithTooltip
         Add(_unlockAnimationContainer);
 
         await Task.Delay(animationSprites.Length * 20); // for animation to finish
-        _icon.style.backgroundImage = new(_abilityNode.IconUnlocked);
+        _icon.style.backgroundImage = new(AbilityNode.IconUnlocked);
         Remove(_unlockAnimationContainer);
     }
 
@@ -63,7 +63,7 @@ public class AbilityNodeVisualElement : VisualWithTooltip
     {
         _icon = new();
         _icon.AddToClassList("abilityNodeIcon");
-        StyleBackground s = _abilityNode.IsUnlocked ? new(_abilityNode.IconUnlocked) : new(_abilityNode.IconLocked);
+        StyleBackground s = AbilityNode.IsUnlocked ? new(AbilityNode.IconUnlocked) : new(AbilityNode.IconLocked);
         _icon.style.backgroundImage = s;
         Add(_icon);
     }
@@ -73,7 +73,7 @@ public class AbilityNodeVisualElement : VisualWithTooltip
     {
         _tooltipElement = new();
         _tooltipElement.AddToClassList("textPrimary");
-        Label description = new(_abilityNode.Description);
+        Label description = new(AbilityNode.Description);
         _tooltipElement.Add(description);
     }
 

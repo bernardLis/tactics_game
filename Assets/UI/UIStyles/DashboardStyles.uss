@@ -431,3 +431,10 @@
     padding-left: 30px;
     padding-right: 30px;
 }
+
+.abilityNodeDragAndDrop {
+    position: absolute;
+    visibility: hidden;
+    width: 120px;
+    height: 120px;
+}

@@ -25,7 +25,7 @@ public class AbilityNodeSlotVisualElement : VisualElement
             Lock();
     }
 
-    void AddNode(AbilityNodeVisualElement node)
+    public void AddNode(AbilityNodeVisualElement node)
     {
         Node = node;
         Add(node);
