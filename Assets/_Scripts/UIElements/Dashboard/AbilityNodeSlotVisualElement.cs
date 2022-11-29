@@ -10,9 +10,7 @@ public class AbilityNodeSlotVisualElement : VisualElement
     public bool IsLocked { get; private set; }
 
     public event Action<AbilityNodeVisualElement> OnNodeAdded;
-    public event Action<AbilityNodeVisualElement> OnNodeRemoved;
     public event Action<AbilityNodeSlotVisualElement> OnLocked;
-
 
     public AbilityNodeSlotVisualElement(AbilityNodeVisualElement node = null, bool isLocked = false) : base()
     {
@@ -27,6 +25,9 @@ public class AbilityNodeSlotVisualElement : VisualElement
 
     public void AddNode(AbilityNodeVisualElement node)
     {
+        if (Node != null)
+            Remove(Node);
+
         Node = node;
         Add(node);
 
@@ -37,12 +38,6 @@ public class AbilityNodeSlotVisualElement : VisualElement
     {
         IsLocked = true;
         OnLocked?.Invoke(this);
-        //if (Node != null)
-        //     Node.Lock();
-
-        //RemoveFromClassList("characterCardMiniSlot");
-        // AddToClassList("characterCardMiniSlotLocked");
-
     }
 
 

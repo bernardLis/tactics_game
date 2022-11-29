@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class UIDraggables : MonoBehaviour
 {
@@ -282,6 +283,7 @@ public class UIDraggables : MonoBehaviour
 
         //Set the new inventory slot with the data
         _newItemSlot.AddItem(_draggedItem);
+
         ItemMoved();
         DragCleanUp();
     }

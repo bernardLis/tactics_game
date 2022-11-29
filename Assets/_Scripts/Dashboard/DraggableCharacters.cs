@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
+using DG.Tweening;
 
 public class DraggableCharacters : MonoBehaviour
 {
@@ -159,6 +160,7 @@ public class DraggableCharacters : MonoBehaviour
     }
 
     void OnCardAdded(CharacterCardMini card) { card.RegisterCallback<PointerDownEvent>(OnCardPointerDown); }
+
     public void OnSlotLocked(CharacterCardMiniSlot slot) { _allSlots.Remove(slot); }
 
     public void OnCardLocked(CharacterCardMini card) { card.UnregisterCallback<PointerDownEvent>(OnCardPointerDown); }
