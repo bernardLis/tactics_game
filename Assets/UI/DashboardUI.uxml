@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/UIStyles/DashboardStyles.uss?fileID=7433441132597879392&amp;guid=3d872669deb721f44bdfa6897d1dc942&amp;type=3#DashboardStyles" />
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <ui:VisualElement name="nav" style="height: 5%; flex-direction: column; width: 100%; align-items: stretch; justify-content: flex-start;">
-        <ui:VisualElement name="navResources" class="textPrimary" style="width: 100%; flex-direction: row; height: 100%;">
+        <ui:VisualElement name="navResources" class="textPrimary" style="width: 100%; flex-direction: row; height: 100%; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&amp;guid=64327707a8db5e8429fdd9cc2a5e2916&amp;type=3#long_shadow_light&apos;); padding-left: 30px; padding-right: 0; padding-top: 0; padding-bottom: 0;">
             <ui:VisualElement name="navDay" class="navResourceElement">
                 <ui:Label text="Day: 0" display-tooltip-when-elided="true" enable-rich-text="true" name="navDayLabel" class="textPrimary" />
             </ui:VisualElement>
@@ -17,7 +17,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="main" style="width: 100%; height: 95%; flex-direction: row; display: none; background-image: none;">
+    <ui:VisualElement name="main" style="width: 100%; height: 95%; flex-direction: row; display: flex; background-image: none;">
         <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: none; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Settings_elements/Settings_desk2.png?fileID=2800000&amp;guid=e3f95d85514224047b9f45ec4d397b2c&amp;type=3#Settings_desk2&apos;); -unity-background-scale-mode: stretch-to-fill;">
             <ui:VisualElement name="reportsContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Settings_elements/Settings_paper.png?fileID=2800000&amp;guid=c08f526d69c65df4b96e4c48c9b49f43&amp;type=3#Settings_paper&apos;); display: flex;">
                 <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); top: 412px; left: 418px;">
@@ -59,7 +59,7 @@
                 <ui:VisualElement name="armoryAbilities" style="flex-direction: row; flex-wrap: wrap;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="mainShop" style="width: 100%; flex-direction: row; display: flex; -unity-background-scale-mode: stretch-to-fill; background-color: rgb(0, 0, 0);">
+        <ui:VisualElement name="mainShop" style="width: 100%; flex-direction: row; display: none; -unity-background-scale-mode: stretch-to-fill; background-color: rgb(0, 0, 0);">
             <ui:VisualElement name="shopWrapper" class="textPrimary" style="flex-direction: column; width: 50%; align-items: center;">
                 <ui:VisualElement name="shopBuyContainer" style="align-items: center; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Login_bar.png?fileID=2800000&amp;guid=9e73dfeeb2b076a45b9f4f939bc1cd58&amp;type=3#Login_bar&apos;); padding-left: 100px; padding-right: 100px; padding-top: 25px; padding-bottom: 25px;">
                     <ui:Label text="Buy" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center; font-size: 24px; width: 200px; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&amp;guid=719587235c52756429cfbea86a7e8082&amp;type=3#horizontal_flag&apos;);" />
@@ -93,20 +93,23 @@
                 <ui:Button text="Upgrade" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; display: none; height: 100%; background-image: none; background-color: rgb(0, 0, 0);">
-            <ui:VisualElement name="abilityGraphs" style="width: 70%; align-items: flex-start; flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;">
-                <ui:VisualElement name="graphContainer" class="textPrimary graphContainer">
-                    <ui:Label text="Fire" display-tooltip-when-elided="true" style="font-size: 48px;" />
-                    <ui:VisualElement name="abilityNodeContainer" class="abilityNodeContent">
-                        <ui:VisualElement name="abilityIconNode" />
-                        <ui:VisualElement>
-                            <ui:Label text="cost: yellow, blue, red" display-tooltip-when-elided="true" />
+        <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; display: flex; height: 100%; background-image: none; background-color: rgb(0, 0, 0);">
+            <ui:VisualElement name="wrapper" style="width: 70%; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform.png?fileID=2800000&amp;guid=f4253f90b6c2ddb45a07370acacd03b5&amp;type=3#trade_platform&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center;">
+                <ui:Label text="Unlock Nodes" display-tooltip-when-elided="true" class="textPrimary abilityCraftingHeader" style="font-size: 36px;" />
+                <ui:VisualElement name="abilityGraphs" style="align-items: flex-start; flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;">
+                    <ui:VisualElement name="graphContainer" class="textPrimary graphContainer">
+                        <ui:Label text="Fire" display-tooltip-when-elided="true" style="font-size: 48px;" />
+                        <ui:VisualElement name="abilityNodeContainer" class="abilityNodeContent">
+                            <ui:VisualElement name="abilityIconNode" />
+                            <ui:VisualElement>
+                                <ui:Label text="cost: yellow, blue, red" display-tooltip-when-elided="true" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="abilityCreate" style="height: auto; width: 30%;">
-                <ui:Label text="Craft Abilities" display-tooltip-when-elided="true" class="textPrimary" style="font-size: 48px; -unity-text-align: upper-center;" />
+            <ui:VisualElement name="abilityCreate" style="height: auto; width: 30%; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform_2.png?fileID=2800000&amp;guid=ce55ae0c4fd119b419ec8005cb2dc949&amp;type=3#trade_platform_2&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center;">
+                <ui:Label text="Craft Abilities" display-tooltip-when-elided="true" class="textPrimary abilityCraftingHeader" style="font-size: 36px;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="mainExit" class="mainExit" />

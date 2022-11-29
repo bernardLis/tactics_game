@@ -51,17 +51,29 @@ public class AbilityGraphManager : MonoBehaviour
         // HERE: for now, only 1 graph
         for (int i = 0; i < _abilityNodeGraphs[0].AbilityNodes.Length; i++)
         {
-            VisualElement slot = new();
-            slot.AddToClassList("abilityNodeSlot");
+            VisualElement container = new();
 
             AbilityNode n = _abilityNodeGraphs[0].AbilityNodes[i];
             AbilityNodeVisualElement el = new(n);
 
-            slot.Add(el);
+            AbilityNodeSlotVisualElement slot = new(el, n.IsUnlocked);
 
-            wrapper.Add(slot);
+            container.Add(slot);
+            container.Add(GetNodeCostElement(n));
+
+            wrapper.Add(container);
         }
     }
+
+    VisualElement GetNodeCostElement(AbilityNode abilityNode)
+    {
+        VisualElement cost = new();
+        cost.style.flexDirection = FlexDirection.Row;
+        cost.style.justifyContent = Justify.Center;
+        cost.Add(new SpiceElement(abilityNode.SpiceCost));
+        return cost;
+    }
+
 }
 
 

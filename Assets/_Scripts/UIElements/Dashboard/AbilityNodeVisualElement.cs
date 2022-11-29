@@ -20,7 +20,6 @@ public class AbilityNodeVisualElement : VisualWithTooltip
         AddToClassList("abilityNodeContent");
 
         AddIcon();
-        AddCost();
         AddTooltip();
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -69,13 +68,6 @@ public class AbilityNodeVisualElement : VisualWithTooltip
         Add(_icon);
     }
 
-    void AddCost()
-    {
-        VisualElement cost = new();
-        cost.style.flexDirection = FlexDirection.Row;
-        cost.Add(new SpiceElement(_abilityNode.SpiceCost));
-        Add(cost);
-    }
 
     void AddTooltip()
     {

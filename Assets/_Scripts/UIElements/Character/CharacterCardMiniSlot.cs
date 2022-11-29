@@ -19,10 +19,7 @@ public class CharacterCardMiniSlot : VisualElementWithSound
     {
         AddToClassList("characterCardMiniSlot");
         if (card != null)
-        {
-            Card = card;
             AddCard(card);
-        }
 
         if (isLocked)
             Lock();

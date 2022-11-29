@@ -27,9 +27,9 @@ public class TroopsLimitVisualElement : VisualWithTooltip
         AddToClassList("textPrimary");
 
         _animationContainer = new();
-        _animationContainer.style.width = 32;
-        _animationContainer.style.height = 32;
-        
+        _animationContainer.style.width = 50;
+        _animationContainer.style.height = 50;
+
         Sprite[] animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
         _animationContainer.Add(new AnimationVisualElement(animationSprites, 100, true));
         Add(_animationContainer);
@@ -48,6 +48,7 @@ public class TroopsLimitVisualElement : VisualWithTooltip
         _countContainer.Clear();
         Label l = new();
         _countContainer.Add(l);
+        _countContainer.style.justifyContent = Justify.Center;
 
         if (_isGeneral)
             l.text = $"{_gameManager.PlayerTroops.Count} / {_gameManager.TroopsLimit}";
