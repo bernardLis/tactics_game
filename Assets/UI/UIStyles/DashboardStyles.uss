@@ -450,3 +450,33 @@
     width: 25px;
     height: 25px;
 }
+
+.craftCraftButton {
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/13_skills.png?fileID=2800000&guid=d6eebf509a4b56544b0e56d2b488957d&type=3#13_skills');
+    width: 100px;
+    height: 100px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.craftCraftButton:hover {
+    scale: 1.1 1.1;
+    rotate: 10deg;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.craftDiscardButton {
+    width: 50px;
+    height: 50px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Classic/gray_65_trash_can.png?fileID=2800000&guid=552f751ed38758c43a0823bb8cd70e8d&type=3#gray_65_trash_can');
+}
+
+.craftDiscardButton:hover {
+    scale: 1.1 1.1;
+    transition-duration: 0.5s;
+    rotate: -10deg;
+    transition-timing-function: ease-in-out;
+}

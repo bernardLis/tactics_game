@@ -93,7 +93,7 @@
                 <ui:Button text="Upgrade" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; display: flex; height: 100%; background-image: none; background-color: rgb(0, 0, 0);">
+        <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; display: flex; height: 100%; background-image: none; background-color: rgb(0, 0, 0); align-items: stretch;">
             <ui:VisualElement name="wrapper" style="width: 70%; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform.png?fileID=2800000&amp;guid=f4253f90b6c2ddb45a07370acacd03b5&amp;type=3#trade_platform&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center;">
                 <ui:Label text="Unlock Nodes" display-tooltip-when-elided="true" class="textPrimary abilityCraftingHeader" style="font-size: 36px;" />
                 <ui:VisualElement name="abilityGraphs" style="align-items: flex-start; flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;">
@@ -129,17 +129,18 @@
                         <ui:Button text="+" display-tooltip-when-elided="true" name="craftAbilityAOEPlus" />
                         <ui:Button text="-" display-tooltip-when-elided="true" name="craftAbilityAOEMinus" />
                     </ui:VisualElement>
-                    <ui:Toggle label="Add random status:" name="craftAbilityStatus" />
+                    <ui:Toggle label="Add status:" name="craftAbilityStatus" />
                     <ui:VisualElement name="craftAbilityManaCostContainer" style="flex-direction: row;">
                         <ui:Label text="Mana cost: 0" display-tooltip-when-elided="true" name="craftAbilityManaCost" />
                     </ui:VisualElement>
                     <ui:VisualElement name="craftAbilityCostContainer">
                         <ui:Label text="Total spice cost: 50 spice element" display-tooltip-when-elided="true" name="craftAbilityCost" style="flex-direction: row;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="craftAbilityButtonsContainer" style="flex-direction: row;">
-                        <ui:Button text="Craft" display-tooltip-when-elided="true" name="craftAbilityCraftButton" />
-                        <ui:Button text="Discard" display-tooltip-when-elided="true" name="craftAbilityDiscardButton" />
+                    <ui:VisualElement name="craftAbilityButtonsContainer" style="flex-direction: row; align-items: center; width: 100%; justify-content: space-around;">
+                        <ui:VisualElement name="craftActionButton" class="craftCraftButton" />
+                        <ui:VisualElement name="craftActionButton" class="craftDiscardButton" />
                     </ui:VisualElement>
+                    <ui:VisualElement name="craftAbilityCraftedAbilityContainer" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

@@ -19,7 +19,7 @@ public class AttackAbility : Ability
 
     public override bool IsTargetViable(GameObject target)
     {
-        // you can attack friens but I am not going to return them as viable targets
+        // you can attack friends but I am not going to return them as viable targets
         if (target.TryGetComponent(out IAttackable<GameObject, Ability> attackable)
             && !target.CompareTag(CharacterGameObject.tag))
             return true;

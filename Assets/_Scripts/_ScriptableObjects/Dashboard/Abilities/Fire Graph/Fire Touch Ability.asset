@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97aacd41b9031fb47ad1877f7ddb50eb, type: 3}
+  m_Name: Fire Touch Ability
+  m_EditorClassIdentifier: 
+  Id: 0d9956f1-b7c8-4ba2-a9aa-e46dad9e99b1
+  ReferenceID: 
+  Description: Fire Touch Ability
+  Icon: {fileID: 21300000, guid: b05a991ca30c9c84f8cc27235af3b0d9, type: 3}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  BasePower: 0
+  ManaCost: 0
+  AbilityType: 5
+  WeaponType: 0
+  AreaOfEffect: 0
+  LineAreaOfEffect: 0
+  SpellcastAnimation: 1
+  StatModifier: {fileID: 0}
+  Status: {fileID: 11400000, guid: 99e571dd8e6871d43b0da23c508db010, type: 2}
+  Projectile: {fileID: 0}
+  AbilityEffect: {fileID: 2429390979696459085, guid: 5245de517d59c9a43b01930e23da025c, type: 3}
+  Range: 0
+  CanTargetSelf: 0
+  CanTargetDiagonally: 1
+  HighlightColor: {r: 0.6792453, g: 0.33895588, b: 0, a: 1}
+  Price: 1
+  CharacterGameObject: {fileID: 0}
+  CreatedObject: {fileID: 7161441197566874422, guid: ead7ef28ffc61f1458e9a283673c9625, type: 3}

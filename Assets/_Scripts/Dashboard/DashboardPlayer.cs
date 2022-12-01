@@ -35,8 +35,8 @@ public class DashboardPlayer : MonoBehaviour
     public void SetInputAllowed(bool isAllowed) { IsInputAllowed = isAllowed; }
 
     // Assigned in editor... :(
-    void Move(InputAction.CallbackContext ctx) { moveInput = ctx.ReadValue<Vector2>(); }
-
-
-
+    public void Move(InputAction.CallbackContext ctx)
+    {
+        moveInput = ctx.ReadValue<Vector2>();
+    }
 }

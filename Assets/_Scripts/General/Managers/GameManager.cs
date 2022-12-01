@@ -295,7 +295,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
 
-        // TODO: // HERE: for now, I could hand craft 3 first quests or somethinmg...
+        // TODO: // HERE: for now, I could hand craft 3 first quests or something...
         for (int i = 0; i < 3; i++)
             AddRandomQuest();
 
@@ -328,7 +328,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             Debug.Log("Save successful");
     }
 
-    // TODO: prime suspsect for a rewrite
+    // TODO: prime suspect for a rewrite
     public void PopulateSaveData(SaveData saveData)
     {
         // global data
@@ -366,11 +366,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     List<CharacterData> PopulateCharacters()
     {
-        List<CharacterData> charDatas = new();
+        List<CharacterData> charData = new();
         foreach (Character c in PlayerTroops)
-            charDatas.Add(c.SerializeSelf());
+            charData.Add(c.SerializeSelf());
 
-        return charDatas;
+        return charData;
     }
 
     List<string> PopulateItemPouch()

@@ -20,3 +20,13 @@ MonoBehaviour:
   SpiceCost: 20
   IsUnlocked: 0
   UnlockSound: {fileID: 11400000, guid: 84af90206e9ccce428adf1e72c7f89e5, type: 2}
+  RangeMinMax: {x: 1, y: 1}
+  DamageMinMax: {x: 10, y: 100}
+  AOEMinMax: {x: 0, y: 2}
+  ManaCostRangePoint: 10
+  ManaCostDamagePoint: 5
+  ManaCostAOEPoint: 10
+  ManaCostMinMax: {x: 0, y: 50}
+  Status: {fileID: 11400000, guid: 99e571dd8e6871d43b0da23c508db010, type: 2}
+  ManaCostStatus: 5
+  AbilityTemplate: {fileID: 11400000, guid: 5c32271d331b2174cba7d4b21d0ec638, type: 2}

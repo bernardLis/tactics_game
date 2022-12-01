@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,41 +11,12 @@ public class AbilityGraphManager : MonoBehaviour
 
     List<AbilityNodeGraph> _abilityNodeGraphs;
 
+
     VisualElement _root;
     VisualElement _abilityGraphs;
-
-    VisualElement _abilityCraft;
-    Label _craftTooltip;
     VisualElement _craftAbilityNodeSlotContainer;
     AbilityNodeSlotVisualElement _craftAbilityNodeSlot;
-    TextField _craftAbilityName;
 
-    VisualElement _craftAbilityRangeContainer;
-    VisualElement _craftAbilityDamageContainer;
-    VisualElement _craftAbilityAOEContainer;
-
-    Label _craftAbilityRange;
-    MyButton _rangePlus;
-    MyButton _rangeMinus;
-
-    Label _craftAbilityDamage;
-    Label _craftAbilityAOE;
-
-    Toggle _craftAbilityStatus;
-
-    Label _craftAbilityManaCost;
-
-    VisualElement _craftAbilityCostContainer;
-    SpiceElement _craftSpiceElement;
-
-    VisualElement _craftAbilityButtonsContainer;
-
-    AbilityNode _craftCurrentAbilityNode;
-
-    int _range;
-    int _damage;
-    int _aoe;
-    int _manaCost;
 
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
@@ -53,7 +25,7 @@ public class AbilityGraphManager : MonoBehaviour
     VisualElement _dragDropContainer;
     AbilityNodeVisualElement _draggedNode;
 
-
+    public event Action<AbilityNodeVisualElement> OnCraftNodeAdded;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -66,12 +38,12 @@ public class AbilityGraphManager : MonoBehaviour
         _abilityGraphs = _root.Q<VisualElement>("abilityGraphs");
         _abilityGraphs.Clear();
 
-        _abilityCraft = _root.Q<VisualElement>("abilityCraft");
-
-
         CreateGraphs();
-        GetCraftContainerElements();
-        SetupCraftContainer();
+
+        _craftAbilityNodeSlotContainer = _root.Q<VisualElement>("craftAbilityNodeSlotContainer");
+        _craftAbilityNodeSlot = new();
+        _craftAbilityNodeSlotContainer.Add(_craftAbilityNodeSlot);
+        _craftAbilityNodeSlot.OnNodeAdded += CraftNodeAdded; // HERE:
 
         // drag & drop
         _dragDropContainer = new VisualElement();
@@ -82,11 +54,17 @@ public class AbilityGraphManager : MonoBehaviour
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
+    void CraftNodeAdded(AbilityNodeVisualElement nodeVisualElement) { OnCraftNodeAdded?.Invoke(nodeVisualElement); }
+
     void OnAbilitiesClicked()
     {
 
     }
 
+    public void ClearCraftSlot()
+    {
+        _craftAbilityNodeSlot.RemoveNode();
+    }
 
     void CreateGraphs()
     {
@@ -194,106 +172,8 @@ public class AbilityGraphManager : MonoBehaviour
         return cost;
     }
 
-    void GetCraftContainerElements()
-    {
-        _craftTooltip = _root.Q<Label>("craftTooltip");
-        _craftAbilityNodeSlotContainer = _root.Q<VisualElement>("craftAbilityNodeSlotContainer");
-        _craftAbilityName = _root.Q<TextField>("craftAbilityName");
 
-        _craftAbilityRangeContainer = _root.Q<VisualElement>("craftAbilityRangeContainer");
-        _craftAbilityDamageContainer = _root.Q<VisualElement>("craftAbilityDamageContainer");
-        _craftAbilityAOEContainer = _root.Q<VisualElement>("craftAbilityAOEContainer");
 
-        _craftAbilityStatus = _root.Q<Toggle>("craftAbilityStatus");
-        _craftAbilityManaCost = _root.Q<Label>("craftAbilityManaCost");
-        _craftAbilityCostContainer = _root.Q<VisualElement>("craftAbilityCostContainer");
-
-        _craftAbilityButtonsContainer = _root.Q<VisualElement>("craftAbilityButtonsContainer");
-    }
-
-    void SetupCraftContainer()
-    {
-        _craftTooltip.text = ("Drag & drop unlocked node to start ability crafting");
-
-        _craftAbilityNodeSlot = new();
-        _craftAbilityNodeSlotContainer.Add(_craftAbilityNodeSlot);
-        _craftAbilityNodeSlot.OnNodeAdded += OnCraftNodeAdded;
-
-        SetUpRangeContainer();
-
-        ResetCraftValues();
-        CreateCraftSpiceElement();
-    }
-
-    void SetUpRangeContainer()
-    {
-        _craftAbilityRange = new("Range: 0");
-        _rangePlus = new("", "craftButtonPlus", RangePlus);
-        _rangeMinus = new("", "craftButtonMinus", RangeMinus);
-
-        _rangePlus.SetEnabled(false);
-        _rangeMinus.SetEnabled(false);
-
-        _craftAbilityRangeContainer.Clear();
-        _craftAbilityRangeContainer.Add(_craftAbilityRange);
-        _craftAbilityRangeContainer.Add(_rangePlus);
-        _craftAbilityRangeContainer.Add(_rangeMinus);
-    }
-
-    void RangePlus()
-    {
-        _range++;
-        BaseRangeChange();
-    }
-
-    void RangeMinus()
-    {
-        _range--;
-        BaseRangeChange();
-    }
-
-    void BaseRangeChange()
-    {
-        _craftAbilityRange.text = $"Range: {_range}";
-    }
-
-    void EnableCraftButtons()
-    {
-        _rangePlus.SetEnabled(true);
-        _rangeMinus.SetEnabled(true);
-    }
-
-    void ResetCraftValues()
-    {
-        _range = 0;
-        _damage = 0;
-        _aoe = 0;
-        _manaCost = 0;
-        _craftSpiceElement.ChangeAmount(0);
-
-        _craftAbilityName.value = "Name your ability";
-        _craftAbilityRange.text = $"Range: {0}";
-
-        _craftAbilityStatus.value = false;
-        _craftAbilityManaCost.text = "Mana cost: 0";
-    }
-
-    void CreateCraftSpiceElement()
-    {
-        _craftAbilityCostContainer.Clear();
-
-        Label cost = new("Cost to craft: ");
-        _craftAbilityCostContainer.Add(cost);
-
-        _craftSpiceElement = new(0);
-        _craftAbilityCostContainer.Add(_craftSpiceElement);
-    }
-
-    void OnCraftNodeAdded(AbilityNodeVisualElement nodeVisualElement)
-    {
-        _craftTooltip.text = "Change some values and hit the craft button to get a new ability.";
-        EnableCraftButtons();
-    }
 }
 
 

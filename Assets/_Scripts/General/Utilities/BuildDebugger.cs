@@ -30,12 +30,13 @@ public class BuildDebugger : MonoBehaviour
         
         FileManager.WriteToFile("log", myLog);
     }
-
+/*
     void OnGUI()
     {
         if (!Application.isEditor) //Do not display in editor ( or you can use the UNITY_EDITOR macro to also disable the rest)
             myLog = GUI.TextArea(new Rect(Screen.width *0.5f, 10, Screen.width *0.5f, Screen.height * 0.1f), myLog);
     }
+    */  
 #endif
 }
 

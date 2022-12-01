@@ -7,7 +7,7 @@ public abstract class Ability : BaseScriptableObject
     [Tooltip("Used for saving and character creation")]
     public string ReferenceID;
 
-    [Header("Base Characterstics")]
+    [Header("Base Characteristics")]
     public string Description = "New Description";
     public Sprite Icon;
     public Sound Sound;
@@ -17,13 +17,13 @@ public abstract class Ability : BaseScriptableObject
     public WeaponType WeaponType; // abilities have weapons that can use them
 
 
-    [Header("AOE Characterstics")]
+    [Header("AOE Characteristics")]
     [Tooltip("0 is one tile, 1 is a cross.")]
     public int AreaOfEffect;
     [Tooltip("Range determines how long the line is.")]
     public bool LineAreaOfEffect;
 
-    [Header("Other Characterstics")]
+    [Header("Other Characteristics")]
     public bool SpellcastAnimation;
     public StatModifier StatModifier;
     public Status Status;
@@ -31,6 +31,7 @@ public abstract class Ability : BaseScriptableObject
     public GameObject AbilityEffect;
 
     [Header("Highlight")]
+    [Tooltip("0 is self only, 1 is 4 tiles on sides.")]
     public int Range;
     public bool CanTargetSelf;
     public bool CanTargetDiagonally;

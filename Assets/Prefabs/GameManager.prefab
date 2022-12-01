@@ -154,7 +154,7 @@ MonoBehaviour:
     m_ActionName: Conversation/ConversationInteract[/Keyboard/space,/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4399539985816504220, guid: f7d2f3d4fe2cebd47b7279121aa8f94e, type: 3}
         m_TargetAssemblyTypeName: DashboardPlayer, NewAssembly
         m_MethodName: Move
         m_Mode: 0
@@ -249,8 +249,8 @@ MonoBehaviour:
     m_ActionId: d220e32f-b253-4ff5-a151-a7cc4ab60a40
     m_ActionName: Dashboard/OpenAbilities[/Keyboard/f5]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultControlScheme: Keyboard & Mouse
+  m_DefaultActionMap: Dashboard
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &5701485283632035560
@@ -386,6 +386,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c9ea9ec9adf92f46b6a0b89a6525cbd, type: 2}
   - {fileID: 11400000, guid: 3ef022ffec38f8543b289d6a700da1fe, type: 2}
   - {fileID: 11400000, guid: af0b86e8d19c8d54c9138e013d2eace1, type: 2}
+  _abilityNodeGraphs:
+  - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
   CutsceneIndexToPlay: 0
   ActiveQuest: {fileID: 0}
 --- !u!114 &2154333484900981486
