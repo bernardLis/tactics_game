@@ -17,6 +17,7 @@ TagManager:
   - FireOnTile
   - WaterOnTile
   - IdleCharacter
+  - UI VFX Camera
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Water
   - UI
   - Character
-  - 
+  - UI VFX
   - 
   - 
   - 

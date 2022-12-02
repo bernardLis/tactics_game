@@ -25,7 +25,6 @@ public class AbilityNodeSlotVisualElement : VisualElement
 
     public void AddNode(AbilityNodeVisualElement node)
     {
-        Debug.Log($"node added {node.name}");
         if (Node != null)
             Remove(Node);
 

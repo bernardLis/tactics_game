@@ -1,0 +1,7 @@
+You will need to change some of your project settings 
+for some effects to be displayed in the game view as seen in the scene view.
+To do this, follow these steps.
+
+Edit > Project Settings... > Graphics > High(Tier3) > Uncheck "Use Defaults" Toggle > Toggle on "Use HDR"
+
+The VFX should now look as intended in both the scene view and game view.

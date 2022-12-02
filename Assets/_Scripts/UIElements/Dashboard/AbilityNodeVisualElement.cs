@@ -40,18 +40,39 @@ public class AbilityNodeVisualElement : VisualWithTooltip
 
     async void PlayUnlockAnimation()
     {
+        Debug.Log($"play unlock animation");
+        VisualElement el = new();
+        el.style.position = Position.Absolute;
+        el.style.width = 500;
+        el.style.height = 500;
+        el.style.top = -150;
 
-        _unlockAnimationContainer = new();
-        _unlockAnimationContainer.style.position = Position.Absolute;
-        _unlockAnimationContainer.style.width = Length.Percent(100);
-        _unlockAnimationContainer.style.height = Length.Percent(100);
-        Sprite[] animationSprites = GameManager.Instance.GameDatabase.AbilityUnlockAnimationSprites;
-        _unlockAnimationContainer.Add(new AnimationVisualElement(animationSprites, 20, false));
-        Add(_unlockAnimationContainer);
+        el.AddToClassList("vfx");
+        Add(el);
 
-        await Task.Delay(animationSprites.Length * 20); // for animation to finish
-        _icon.style.backgroundImage = new(AbilityNode.IconUnlocked);
-        Remove(_unlockAnimationContainer);
+        GameObject effect = GameObject.Instantiate(AbilityNode.UnlockEffect.VisualEffectPrefab, Vector3.zero, Quaternion.identity);
+        effect.layer = Tags.UIVFXLayer;
+        foreach (Transform child in effect.transform)
+            child.gameObject.layer = Tags.UIVFXLayer;
+
+        await Task.Delay(1000);
+        GameObject.Destroy(effect);
+        _icon.style.backgroundImage = new StyleBackground(AbilityNode.IconUnlocked);
+        Remove(el);
+        /* // HERE:
+                _unlockAnimationContainer = new();
+                _unlockAnimationContainer.style.position = Position.Absolute;
+                _unlockAnimationContainer.style.width = Length.Percent(100);
+                _unlockAnimationContainer.style.height = Length.Percent(100);
+
+                Sprite[] animationSprites = GameManager.Instance.GameDatabase.AbilityUnlockAnimationSprites;
+                _unlockAnimationContainer.Add(new AnimationVisualElement(animationSprites, 20, false));
+                Add(_unlockAnimationContainer);
+
+                await Task.Delay(animationSprites.Length * 20); // for animation to finish
+                _icon.style.backgroundImage = new(AbilityNode.IconUnlocked);
+                Remove(_unlockAnimationContainer);
+                */
     }
 
     void ShakeNode()
@@ -67,7 +88,6 @@ public class AbilityNodeVisualElement : VisualWithTooltip
         _icon.style.backgroundImage = s;
         Add(_icon);
     }
-
 
     void AddTooltip()
     {

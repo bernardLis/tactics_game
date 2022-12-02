@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class AbilityCraftManager : MonoBehaviour
 {
-
     GameManager _gameManager;
     DashboardManager _dashboardManager;
     AbilityGraphManager _abilityGraphManager;
@@ -53,6 +52,12 @@ public class AbilityCraftManager : MonoBehaviour
     bool _isStatusAdded;
     int _manaCost;
 
+    public GameObject[] TestEffects; // HERE:
+    GameObject _instantiatedEffect;
+
+    VisualElement _vfxDisplayer;
+
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -67,7 +72,6 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityCraft = _root.Q<VisualElement>("abilityCraft");
         GetCraftContainerElements();
         SetupCraftContainer();
-
     }
 
     void OnAbilitiesClicked()
@@ -338,6 +342,9 @@ public class AbilityCraftManager : MonoBehaviour
 
     void CraftAbility()
     {
+        if (_instantiatedEffect != null)
+            Destroy(_instantiatedEffect);
+
         // probably some noise and animation
         // probably need to show the created ability
         // probably need to signal that it will be available in armory
@@ -354,8 +361,31 @@ public class AbilityCraftManager : MonoBehaviour
 
     void DiscardAbility()
     {
+        _gameManager.ChangeSpiceValue(500);
+
         _abilityGraphManager.ClearCraftSlot();
         ResetCraftValues();
+        // instantiate effect
+        if (_instantiatedEffect != null)
+            Destroy(_instantiatedEffect);
+
+        _instantiatedEffect = Instantiate(TestEffects[Random.Range(0, TestEffects.Length)], Vector3.zero, Quaternion.identity);
+        _instantiatedEffect.layer = Tags.UIVFXLayer;
+        foreach (Transform child in _instantiatedEffect.transform)
+            child.gameObject.layer = Tags.UIVFXLayer;
+        // VisualElement el = new();
+        if (_vfxDisplayer == null)
+        {
+            _vfxDisplayer = new();
+            _vfxDisplayer.pickingMode = PickingMode.Ignore;
+            _vfxDisplayer.AddToClassList("vfx");
+            _vfxDisplayer.style.position = Position.Absolute;
+            _vfxDisplayer.style.width = Length.Percent(100);
+            _vfxDisplayer.style.height = Length.Percent(100);
+            _root.Add(_vfxDisplayer);
+        }
+        // el.Add(item);
+
     }
 
 }

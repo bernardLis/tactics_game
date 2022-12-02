@@ -19,7 +19,7 @@ MonoBehaviour:
   Description: Novice fire magic. Set target in close range on fire.
   SpiceCost: 20
   IsUnlocked: 0
-  UnlockSound: {fileID: 11400000, guid: 84af90206e9ccce428adf1e72c7f89e5, type: 2}
+  UnlockEffect: {fileID: 11400000, guid: 0030b4f32205952438ae463e881f2a1a, type: 2}
   RangeMinMax: {x: 1, y: 1}
   DamageMinMax: {x: 10, y: 100}
   AOEMinMax: {x: 0, y: 2}

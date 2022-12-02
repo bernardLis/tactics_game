@@ -60,12 +60,7 @@ public class GameDatabase : BaseScriptableObject
     public Sprite[] TroopsElementAnimationSprites;
     public Sprite[] AbilityUnlockAnimationSprites;
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
-
-    [Serializable]
-    public class SpiceAnimations
-    {
-        public Sprite[] sprites;
-    }
+    [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
 
 
     public Sprite GetCoinSprite(int amount)
@@ -115,11 +110,12 @@ public class GameDatabase : BaseScriptableObject
     public ReportPaper GetRandomReportPaper() { return ReportPapers[Random.Range(0, ReportPapers.Length)]; }
     public ReportPaper GetReportPaperById(string id) { return ReportPapers.FirstOrDefault(x => x.Id == id); }
 
+
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
 public enum WeaponType { Any, Melee, Ranged }
-public enum ItemRaririty { Common, Uncommon, Rare, Epic }
+public enum ItemRarity { Common, Uncommon, Rare, Epic }
 public enum BattleGoal { DefeatAllEnemies } // TODO: implement other battle goals (defeat the leader, hold position, ...)
 public enum JourneyNodeType { Start, End, Battle, Knowledge, Chest, Shop, Fire, Boss, Event }
 public enum MapType { None, Circle, River, Lake, Hourglass }

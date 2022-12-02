@@ -224,10 +224,10 @@ public class DashboardManager : Singleton<DashboardManager>
         _gameManager.ChangeGoldValue(-5000);
     }
 
-    [ContextMenu("Add 50 spice")]
+    [ContextMenu("Add 500 spice")]
     void Add500Spice()
     {
-        _gameManager.ChangeSpiceValue(50);
+        _gameManager.ChangeSpiceValue(500);
     }
 
 #endif

@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/UIStyles/DashboardStyles.uss?fileID=7433441132597879392&amp;guid=3d872669deb721f44bdfa6897d1dc942&amp;type=3#DashboardStyles" />
     <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
-    <ui:VisualElement name="nav" style="height: 5%; flex-direction: column; width: 100%; align-items: stretch; justify-content: flex-start;">
+    <ui:VisualElement name="nav" style="height: 5%; flex-direction: column; width: 100%; align-items: stretch; justify-content: flex-start; opacity: 1; background-color: rgb(0, 0, 0);">
         <ui:VisualElement name="navResources" class="textPrimary" style="width: 100%; flex-direction: row; height: 100%; background-image: url(&apos;project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&amp;guid=64327707a8db5e8429fdd9cc2a5e2916&amp;type=3#long_shadow_light&apos;); padding-left: 30px; padding-right: 0; padding-top: 0; padding-bottom: 0;">
             <ui:VisualElement name="navDay" class="navResourceElement">
                 <ui:Label text="Day: 0" display-tooltip-when-elided="true" enable-rich-text="true" name="navDayLabel" class="textPrimary" />

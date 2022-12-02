@@ -19,4 +19,14 @@ MonoBehaviour:
   Description: Master fire magic. Manifest fire at range.
   SpiceCost: 200
   IsUnlocked: 0
-  UnlockSound: {fileID: 11400000, guid: 84af90206e9ccce428adf1e72c7f89e5, type: 2}
+  UnlockEffect: {fileID: 11400000, guid: 0030b4f32205952438ae463e881f2a1a, type: 2}
+  RangeMinMax: {x: 0, y: 0}
+  DamageMinMax: {x: 0, y: 0}
+  AOEMinMax: {x: 0, y: 0}
+  ManaCostRangePoint: 0
+  ManaCostDamagePoint: 0
+  ManaCostAOEPoint: 0
+  ManaCostMinMax: {x: 0, y: 0}
+  Status: {fileID: 0}
+  ManaCostStatus: 0
+  AbilityTemplate: {fileID: 0}

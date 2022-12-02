@@ -12,7 +12,7 @@ public class AbilityNode : BaseScriptableObject
     public string Description;
     public int SpiceCost;
     public bool IsUnlocked;
-    public Sound UnlockSound;
+    public EffectHolder UnlockEffect;
 
     [Header("Ability crafting values")]
     public Vector2Int RangeMinMax;
@@ -36,7 +36,7 @@ public class AbilityNode : BaseScriptableObject
         if (!PayForUnlocking())
             return false;
 
-        AudioManager.Instance.PlaySFX(UnlockSound, Vector3.zero);
+        AudioManager.Instance.PlaySFX(UnlockEffect.Sound, Vector3.zero);
         IsUnlocked = true;
         return true;
     }
