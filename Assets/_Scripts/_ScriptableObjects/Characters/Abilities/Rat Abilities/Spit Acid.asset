@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47af80bef6a9a32468213e1a3810fe61, type: 3}
+  m_Name: Spit Acid
+  m_EditorClassIdentifier: 
+  Id: 2ff9d8fa-75ec-46e2-ba46-f9918b8b55a8
+  ReferenceID: Spit Acid
+  Description: It burns.
+  Icon: {fileID: 21300000, guid: 7bc1afffce318914a9936028603d1217, type: 3}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  BasePower: 5
+  ManaCost: 8
+  AbilityType: 0
+  WeaponType: 2
+  AreaOfEffect: 0
+  LineAreaOfEffect: 0
+  SpellcastAnimation: 1
+  StatModifier: {fileID: 0}
+  Status: {fileID: 11400000, guid: 7c132253b05ff23438944fee1dfdd74c, type: 2}
+  Projectile: {fileID: 6091584744667921387, guid: d9209c6832204a34484359541f1a16cd, type: 3}
+  AbilityEffect: {fileID: 0}
+  Range: 4
+  CanTargetSelf: 0
+  CanTargetDiagonally: 1
+  HighlightColor: {r: 0.3580714, g: 0.8113208, b: 0.18675685, a: 1}
+  Price: 1
+  CharacterGameObject: {fileID: 0}

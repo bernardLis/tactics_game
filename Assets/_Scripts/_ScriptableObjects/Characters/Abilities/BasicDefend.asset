@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018ad17c77358ed42987a1d291c190e5, type: 3}
+  m_Name: BasicDefend
+  m_EditorClassIdentifier: 
+  Id: 5f7d8c47-7ec1-4abf-b8ec-74ea82be327f
+  ReferenceID: 
+  Description: Ends your turn. You will face the closest enemy.
+  Icon: {fileID: 21300000, guid: 8d0111175fbaf2b4fb80eb0ffcb55de8, type: 3}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  BasePower: 0
+  ManaCost: 0
+  AbilityType: 3
+  WeaponType: 0
+  AreaOfEffect: 0
+  LineAreaOfEffect: 0
+  SpellcastAnimation: 0
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Projectile: {fileID: 0}
+  AbilityEffect: {fileID: 0}
+  Range: 0
+  CanTargetSelf: 1
+  CanTargetDiagonally: 0
+  HighlightColor: {r: 0.5660378, g: 0.18321536, b: 0, a: 1}
+  Price: 1
+  CharacterGameObject: {fileID: 0}

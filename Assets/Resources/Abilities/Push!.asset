@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 37ccbe92-aabd-4761-b441-96a397642a91
   ReferenceID: PUSH-1
   Description: Push push
-  Icon: {fileID: 21300000, guid: 6677e6c62567ff14a8b7a2bd48729855, type: 3}
+  Icon: {fileID: 21300000, guid: 4925d07524881f146b6adaba4b0a7398, type: 3}
   Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 15
   ManaCost: 10
@@ -32,4 +32,5 @@ MonoBehaviour:
   CanTargetSelf: 0
   CanTargetDiagonally: 0
   HighlightColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
+  Price: 1
   CharacterGameObject: {fileID: 0}

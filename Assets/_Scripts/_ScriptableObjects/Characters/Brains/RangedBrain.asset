@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6604eea773e90a24981a185c1ca0c6aa, type: 3}
+  m_Name: RangedBrain
+  m_EditorClassIdentifier: 
+  Id: 187f2893-3547-4c8f-9f30-d6253c01c157
+  BrainIcon: {fileID: 21300000, guid: 125fda99a2c0f254f9ea720f6d733ace, type: 3}
+  Name: Ranger Kurt
+  Portrait: {fileID: 11400000, guid: e012563fec285ca43b66283939edf857, type: 2}
+  PowerMultiplier: 1
+  Body: {fileID: 11400000, guid: 88fc7d6307f320042bd5d6fb356701a1, type: 2}
+  Weapon: {fileID: 11400000, guid: 70e6cee2593c88a4697e51bd199d5e8c, type: 2}
+  Target: {fileID: 0}
+  AbilitiesToInstantiate:
+  - {fileID: 11400000, guid: 8d9d75da7a0ed544eb3edbeb29c00fae, type: 2}
+  - {fileID: 11400000, guid: 160355c14bdb039479a79a8669b0aca7, type: 2}
+  - {fileID: 11400000, guid: 7afbe107d25cc6c4682e85d08c541365, type: 2}
+  - {fileID: 11400000, guid: 3d0f4a4f7732cee439d049bb86f6499a, type: 2}
+  Abilities: []
+  ManualStats: 0
+  Level: 0
+  Power: 0
+  MaxHealth: 0
+  MaxMana: 0
+  Armor: 0
+  MovementRange: 0
+  Footsteps: {fileID: 11400000, guid: 9081e6e23f65f244bb59833f33603508, type: 2}

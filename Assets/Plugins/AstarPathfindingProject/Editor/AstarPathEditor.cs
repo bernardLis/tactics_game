@@ -722,7 +722,7 @@ namespace Pathfinding {
 				// Find a valid file name
 				int i = 0;
 				do {
-					path = "Assets/GraphCaches/GraphCache" + (i == 0 ? "" : i.ToString()) + ".bytes";
+					path = "Assets/Unity/GraphCaches/GraphCache" + (i == 0 ? "" : i.ToString()) + ".bytes";
 					i++;
 				} while (System.IO.File.Exists(projectPath+path));
 			}
