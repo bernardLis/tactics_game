@@ -43,7 +43,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public Quest ActiveQuest;
 
-    public RenderTexture VFXRenderTexture;
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;
@@ -63,6 +62,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         else
             LoadFromSaveFile();
     }
+
 
     public void Play()
     {

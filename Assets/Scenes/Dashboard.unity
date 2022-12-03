@@ -327,6 +327,10 @@ PrefabInstance:
       value: ShowAbilitiesUI
       objectReference: {fileID: 0}
     - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: UIVFXCamera
+      value: 
+      objectReference: {fileID: 1047356516}
+    - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: VFXRenderTexture
       value: 
       objectReference: {fileID: 8400000, guid: 136053425ac46cf4db1aeec74e7d3839, type: 2}
@@ -802,6 +806,7 @@ GameObject:
   - component: {fileID: 1047356517}
   - component: {fileID: 1047356516}
   - component: {fileID: 1047356515}
+  - component: {fileID: 1047356518}
   m_Layer: 0
   m_Name: UI VFX Camera
   m_TagString: Untagged
@@ -868,7 +873,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -900,6 +905,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1047356518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047356514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea375ab25b69014aa39b3ec1e0f9b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1391833047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1355,7 @@ MonoBehaviour:
   - {fileID: 7332994980687465894, guid: 1b608907281ecf742b2366cb71ece313, type: 3}
   - {fileID: 4776709881072914966, guid: f3353f9150c28724c8b6c175619d80ad, type: 3}
   - {fileID: 7624176867312385903, guid: e185241be1487c24889cd153b76c72ab, type: 3}
+  TestEffect: {fileID: 11400000, guid: b3550fb426b47d845bf06373fb2c7e30, type: 2}
 --- !u!1001 &4399539985597099877
 PrefabInstance:
   m_ObjectHideFlags: 0

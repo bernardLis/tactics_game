@@ -150,4 +150,5 @@
         <ui:VisualElement name="questResultContent" class="questResultContentWon" style="-unity-background-scale-mode: scale-to-fit; padding-left: 0; width: 60%; background-image: none; margin-left: 20%; height: 70%; margin-top: 10%;" />
     </ui:VisualElement>
     <ui:VisualElement name="abilityNodeDragAndDrop" class="abilityNodeDragAndDrop" />
+    <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: 100%; height: 100%;" />
 </ui:UXML>

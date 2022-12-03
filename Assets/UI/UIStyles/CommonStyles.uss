@@ -405,4 +405,5 @@
 
 .vfx {
     background-image: url('project://database/Assets/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');
+    position: absolute;
 }

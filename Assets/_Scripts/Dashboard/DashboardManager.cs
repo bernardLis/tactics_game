@@ -64,6 +64,8 @@ public class DashboardManager : Singleton<DashboardManager>
         _mainExit = Root.Q<VisualElement>("mainExit");
         _mainExit.RegisterCallback<PointerUpEvent>(HideMain);
 
+        Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+
         UpdateDay(_gameManager.Day);
         AddGoldElement();
         AddTroopsElement();

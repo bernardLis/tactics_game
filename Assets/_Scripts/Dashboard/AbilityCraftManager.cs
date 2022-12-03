@@ -58,6 +58,8 @@ public class AbilityCraftManager : MonoBehaviour
     VisualElement _vfxDisplayer;
 
 
+    public EffectHolder TestEffect;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -72,6 +74,8 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityCraft = _root.Q<VisualElement>("abilityCraft");
         GetCraftContainerElements();
         SetupCraftContainer();
+
+        TestEffect.PlayEffect(new Vector3(6.3f, -3.6f), Vector3.one);
     }
 
     void OnAbilitiesClicked()

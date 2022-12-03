@@ -58,7 +58,6 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] ReportPaper[] ReportPapers;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
-    public Sprite[] AbilityUnlockAnimationSprites;
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
     [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
 

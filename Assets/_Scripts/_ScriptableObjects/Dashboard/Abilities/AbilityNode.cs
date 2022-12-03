@@ -36,7 +36,6 @@ public class AbilityNode : BaseScriptableObject
         if (!PayForUnlocking())
             return false;
 
-        AudioManager.Instance.PlaySFX(UnlockEffect.Sound, Vector3.zero);
         IsUnlocked = true;
         return true;
     }

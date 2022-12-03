@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6b7c518f57a51640a498dbd5c3f1fb2, type: 3}
-  m_Name: FireNodeUnlock
+  m_Name: TestEffect
   m_EditorClassIdentifier: 
-  Id: c0ee1c4e-d4f5-46e6-a295-e5ddf34d3929
-  VisualEffectPrefab: {fileID: 2759831802629223351, guid: 383604ebbb152514b9165f1f260349ae, type: 3}
-  DurationSeconds: 1
-  Sound: {fileID: 11400000, guid: 84af90206e9ccce428adf1e72c7f89e5, type: 2}
+  Id: 79bbca0c-921f-45a6-9cf0-ee19482e6951
+  VisualEffectPrefab: {fileID: 7687000568328229227, guid: c12ecfa8260108f40a325abe2f89431b, type: 3}
+  WorldPosition: {x: 6.3, y: -3.6, z: 0}
+  PositionOffset: {x: 0, y: 3.6, z: 0}
+  Scale: {x: 0.7, y: 0.7, z: 0.7}
+  DurationSeconds: -1
+  Sound: {fileID: 0}
