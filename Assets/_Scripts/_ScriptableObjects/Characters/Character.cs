@@ -54,7 +54,6 @@ public class Character : BaseScriptableObject
     public event Action<int> OnArmorChanged;
     public event Action<int> OnMovementRangeChanged;
 
-
     public virtual void Initialize(GameObject obj)
     {
         Transform bodyObj = obj.transform.Find("Body");

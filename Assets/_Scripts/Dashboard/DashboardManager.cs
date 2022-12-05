@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class DashboardManager : Singleton<DashboardManager>
 {
     GameManager _gameManager;
+    PlayerInput _playerInput;
 
     public VisualElement Root { get; private set; }
 
@@ -44,7 +45,6 @@ public class DashboardManager : Singleton<DashboardManager>
     {
         base.Awake();
         _gameManager = GameManager.Instance;
-
         _gameManager.OnDayPassed += UpdateDay;
 
         Root = GetComponent<UIDocument>().rootVisualElement;
@@ -77,6 +77,47 @@ public class DashboardManager : Singleton<DashboardManager>
         _dashboardPlayer = GameObject.FindObjectOfType<DashboardPlayer>();
     }
 
+    void SubscribeInputActions()
+    {
+        _playerInput.actions["OpenDesk"].performed += ShowDeskUI;
+        _playerInput.actions["OpenArmory"].performed += ShowArmoryUI;
+        _playerInput.actions["OpenShop"].performed += ShowShopUI;
+        _playerInput.actions["OpenCamp"].performed += ShowCampUI;
+        _playerInput.actions["OpenAbilities"].performed += ShowAbilitiesUI;
+
+        _playerInput.actions["CloseCurrentTab"].performed += HideAllPanels;
+    }
+
+    void UnsubscribeInputActions()
+    {
+        _playerInput.actions["OpenDesk"].performed -= ShowDeskUI;
+        _playerInput.actions["OpenArmory"].performed -= ShowArmoryUI;
+        _playerInput.actions["OpenShop"].performed -= ShowShopUI;
+        _playerInput.actions["OpenCamp"].performed -= ShowCampUI;
+        _playerInput.actions["OpenAbilities"].performed -= ShowAbilitiesUI;
+
+        _playerInput.actions["CloseCurrentTab"].performed -= HideAllPanels;
+    }
+
+    void OnEnable()
+    {
+        // inputs
+        if (_gameManager == null)
+            _gameManager = GameManager.Instance;
+        _playerInput = _gameManager.GetComponent<PlayerInput>();
+        _playerInput.SwitchCurrentActionMap("Dashboard");
+
+        SubscribeInputActions();
+    }
+
+    void OnDisable()
+    {
+        if (_playerInput == null)
+            return;
+
+        UnsubscribeInputActions();
+    }
+
     public void OpenDashboardBuilding(DashboardBuildingType db)
     {
         // new InputAction.CallbackContext() - coz it is hooked up in editor to open ui with f keys
@@ -94,7 +135,7 @@ public class DashboardManager : Singleton<DashboardManager>
             ShowAbilitiesUI(a);
     }
 
-    public void ShowDeskUI(InputAction.CallbackContext ctx)
+    void ShowDeskUI(InputAction.CallbackContext ctx)
     {
         if (!IsValidAction(ctx))
             return;
@@ -104,7 +145,7 @@ public class DashboardManager : Singleton<DashboardManager>
         OnDeskOpened?.Invoke();
     }
 
-    public void ShowArmoryUI(InputAction.CallbackContext ctx)
+    void ShowArmoryUI(InputAction.CallbackContext ctx)
     {
         if (!IsValidAction(ctx))
             return;
@@ -115,7 +156,7 @@ public class DashboardManager : Singleton<DashboardManager>
         OnArmoryOpened?.Invoke();
     }
 
-    public void ShowAbilitiesUI(InputAction.CallbackContext ctx)
+    void ShowAbilitiesUI(InputAction.CallbackContext ctx)
     {
         if (!IsValidAction(ctx))
             return;
@@ -126,7 +167,7 @@ public class DashboardManager : Singleton<DashboardManager>
         OnAbilitiesOpened?.Invoke();
     }
 
-    public void ShowShopUI(InputAction.CallbackContext ctx)
+    void ShowShopUI(InputAction.CallbackContext ctx)
     {
         if (!IsValidAction(ctx))
             return;
@@ -138,7 +179,7 @@ public class DashboardManager : Singleton<DashboardManager>
 
     }
 
-    public void ShowCampUI(InputAction.CallbackContext ctx)
+    void ShowCampUI(InputAction.CallbackContext ctx)
     {
         if (!IsValidAction(ctx))
             return;
@@ -161,12 +202,15 @@ public class DashboardManager : Singleton<DashboardManager>
 
     void BaseBuildingOpened()
     {
-        _main.style.display = DisplayStyle.Flex;
         HideAllPanels();
+        
+        _main.style.display = DisplayStyle.Flex;
+        _mainExit.style.display = DisplayStyle.Flex;
         if (_dashboardPlayer != null)
             _dashboardPlayer.SetInputAllowed(false);
     }
 
+    void HideAllPanels(InputAction.CallbackContext ctx) { HideAllPanels(); }
     void HideAllPanels()
     {
         _mainArmory.style.display = DisplayStyle.None;
@@ -174,6 +218,8 @@ public class DashboardManager : Singleton<DashboardManager>
         _mainDesk.style.display = DisplayStyle.None;
         _mainCamp.style.display = DisplayStyle.None;
         _mainAbilities.style.display = DisplayStyle.None;
+
+        _mainExit.style.display = DisplayStyle.None;
 
         OnHideAllPanels?.Invoke();
     }
@@ -184,7 +230,6 @@ public class DashboardManager : Singleton<DashboardManager>
         if (_dashboardPlayer != null)
             _dashboardPlayer.SetInputAllowed(true);
     }
-
 
     void UpdateDay(int day) { _navDay.text = $"Day: {day}"; }
 

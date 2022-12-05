@@ -18,10 +18,50 @@ public class DashboardPlayer : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
-        _playerInput.SwitchCurrentActionMap("Dashboard");
 
         rb = GetComponent<Rigidbody2D>();
         IsInputAllowed = true;
+    }
+
+    void OnEnable()
+    {
+        // inputs
+        if (_gameManager == null)
+            _gameManager = GameManager.Instance;
+        _playerInput = _gameManager.GetComponent<PlayerInput>();
+        _playerInput.SwitchCurrentActionMap("Dashboard");
+
+        SubscribeInputActions();
+    }
+
+    void OnDisable()
+    {
+        if (_playerInput == null)
+            return;
+
+        UnsubscribeInputActions();
+    }
+
+    void SubscribeInputActions()
+    {
+        _playerInput.actions["ArrowMovement"].performed += Move;
+        _playerInput.actions["ArrowMovement"].canceled += MoveCanceled;
+    }
+
+    void UnsubscribeInputActions()
+    {
+        _playerInput.actions["ArrowMovement"].performed -= Move;
+        _playerInput.actions["ArrowMovement"].canceled -= MoveCanceled;
+    }
+
+    void Move(InputAction.CallbackContext ctx)
+    {
+        moveInput = ctx.ReadValue<Vector2>();
+    }
+
+    void MoveCanceled(InputAction.CallbackContext ctx)
+    {
+        moveInput = ctx.ReadValue<Vector2>();
     }
 
     void FixedUpdate()
@@ -33,10 +73,4 @@ public class DashboardPlayer : MonoBehaviour
     }
 
     public void SetInputAllowed(bool isAllowed) { IsInputAllowed = isAllowed; }
-
-    // Assigned in editor... :(
-    public void Move(InputAction.CallbackContext ctx)
-    {
-        moveInput = ctx.ReadValue<Vector2>();
-    }
 }

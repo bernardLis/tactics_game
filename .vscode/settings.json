@@ -58,5 +58,8 @@
     "editor.tokenColorCustomizations": {
         "[One Dark Pro]": {
         }
-    }
+    },
+    "cSpell.words": [
+        "Rigidbody"
+    ]
 }
