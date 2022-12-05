@@ -18,7 +18,7 @@ public class CharacterUI : Singleton<CharacterUI>
     VisualElement _root;
     VisualElement _container;
     VisualElement _characterCardContainer;
-    CharacterCard _characterCardVisual;
+    CharacterCardBattle _characterCardVisual;
 
     VisualElement _characterAbilitiesContainer;
     VisualElement _basicActionContainer;

@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: AsuraStrike
   Description: Deals a tremendus amount of damage. It costs all your health and mana.
     The momentum of the attack moves you.
-  Icon: {fileID: 21300000, guid: bb6358bf481206e4190a3424b0a5031d, type: 3}
+  Icon: {fileID: 21300000, guid: 3234f4f268d9e8344bd35a36d231867c, type: 3}
   Sound: {fileID: 0}
   BasePower: 500
   ManaCost: 0

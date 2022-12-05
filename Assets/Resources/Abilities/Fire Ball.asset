@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 9d9cfadc-de07-4b99-8a29-85ce60f0e59f
   ReferenceID: FireBall
   Description: Shoots a firey projectile.
-  Icon: {fileID: 21300000, guid: 0fc457c24ed73d44b9f98d2cd5de5676, type: 3}
+  Icon: {fileID: 21300000, guid: 3234f4f268d9e8344bd35a36d231867c, type: 3}
   Sound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   BasePower: 10
   ManaCost: 10

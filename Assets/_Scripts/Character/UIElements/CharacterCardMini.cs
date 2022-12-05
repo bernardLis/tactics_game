@@ -45,8 +45,8 @@ public class CharacterCardMini : VisualWithTooltip
     protected override void DisplayTooltip()
     {
         HideTooltip();
-        CharacterCardExtended tooltip = new CharacterCardExtended(Character);
-        _tooltip = new(this, tooltip);
+        CharacterCard tooltip = new CharacterCard(Character);
+        _tooltip = new(this, tooltip, true);
         base.DisplayTooltip();
     }
 

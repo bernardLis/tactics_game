@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class AbilityIcon : VisualWithTooltip
 {
-
     Ability _ability;
 
     public AbilityIcon(Ability ability, string key = null) : base()

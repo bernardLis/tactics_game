@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: e1ed95ef-1ea3-497f-b756-d0cbecaf9f2b
   ReferenceID: CREATE-2
   Description: Summons a pushable boulder
-  Icon: {fileID: 21300000, guid: 1567b1330c060d14da8567a0984cf1d1, type: 3}
+  Icon: {fileID: 21300000, guid: 3234f4f268d9e8344bd35a36d231867c, type: 3}
   Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 10
   ManaCost: 10

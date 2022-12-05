@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: a5ef8c11-0fbf-4f82-a39a-2e1e904891ac
   ReferenceID: ABILITY-4
   Description: Shoots an arrow
-  Icon: {fileID: 21300000, guid: e4fcd2647aed9334cb59278b307542e6, type: 3}
+  Icon: {fileID: 21300000, guid: 3234f4f268d9e8344bd35a36d231867c, type: 3}
   Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 10
   ManaCost: 10
@@ -32,4 +32,5 @@ MonoBehaviour:
   CanTargetSelf: 0
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.9882353, g: 0.88235295, b: 0.2784314, a: 1}
+  Price: 1
   CharacterGameObject: {fileID: 0}

@@ -1,275 +1,237 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class CharacterCard : VisualElement
 {
-    VisualElement _information;
-    CharacterStats _stats;
     public Character Character;
-    protected VisualElement _portrait;
-    Label _name;
 
-    protected VisualElement _characteristics;
-
-    public ResourceBarVisual HealthBar;
-    public ResourceBarVisual ManaBar;
-
+    CharacterPortraitVisualElement _portraitVisualElement;
+    Label _level;
     StatVisual _power;
     StatVisual _armor;
     StatVisual _range;
 
-    public CharacterCard(Character character, bool clickable = true)
+    public ResourceBarVisual ExpBar;
+    public ResourceBarVisual HealthBar;
+    public ResourceBarVisual ManaBar;
+
+    public List<ItemSlotVisual> ItemSlots = new();
+    public List<ItemVisual> ItemVisuals = new();
+
+    public List<AbilitySlotVisual> AbilitySlots = new();
+    public List<AbilityButton> AbilityButtons = new();
+
+    VisualElement _levelUpAnimationContainer;
+
+    public CharacterCard(Character character, bool showExp = true, bool showAbilities = true, bool showItems = true)
     {
-        character.ResolveItems();
-        BaseCharacterCardVisual(character, clickable);
         Character = character;
-        _characteristics.Add(HandleCharacterStats(character, null));
 
-        // delegates
-        character.OnMaxHealthChanged += HealthBar.OnTotalChanged;
-        character.OnMaxManaChanged += ManaBar.OnTotalChanged;
-        character.OnPowerChanged += _power.OnValueChanged;
-        character.OnArmorChanged += _armor.OnValueChanged;
-        character.OnMovementRangeChanged += _range.OnValueChanged;
-    }
-
-    public CharacterCard(CharacterStats stats, bool clickable = true)
-    {
-        BaseCharacterCardVisual(stats.Character, clickable);
-        _stats = stats;
-        Character = stats.Character;
-
-        List<VisualElement> elements = new(HandleStatModifiers(stats));
-        elements.AddRange(HandleStatuses(stats));
-        foreach (VisualElement el in elements)
-            _portrait.Add(el);
-
-        _characteristics.Add(HandleCharacterStats(null, stats));
-
-        // delegates
-        _stats.OnHealthChanged += HealthBar.OnValueChanged;
-        _stats.OnManaChanged += ManaBar.OnValueChanged;
-        _stats.OnModifierAdded += OnModiferAdded;
-        _stats.OnStatusAdded += OnStatusAdded;
-        _stats.OnStatusRemoved += OnStatusRemoved;
-        _stats.OnCharacterDeath += OnCharacterDeath;
-    }
-
-    void BaseCharacterCardVisual(Character character, bool clickable)
-    {
         AddToClassList("characterCard");
+        AddToClassList("textPrimary");
 
-        // group 1
-        VisualElement nameContainer = new VisualElement(); // will hold name and more info button
+        VisualElement topPanel = new();
+        topPanel.style.flexDirection = FlexDirection.Row;
+        topPanel.style.alignItems = Align.Center;
+        topPanel.style.justifyContent = Justify.Center;
 
-        _information = new();
-        _portrait = new();
-        _name = new();
+        VisualElement portraitContainer = new();
+        portraitContainer.style.alignItems = Align.Center;
+        portraitContainer.style.marginRight = 20;
 
-        _information.style.alignItems = Align.Center;
-        _information.style.flexGrow = 1;
-        _information.style.flexShrink = 0;
-        _information.style.width = Length.Percent(30);
+        _portraitVisualElement = new(character);
+        Label name = new($"{character.CharacterName}");
 
-        _name.AddToClassList("textPrimary");
-        _portrait.AddToClassList("characterCardPortrait");
+        portraitContainer.Add(_portraitVisualElement);
+        portraitContainer.Add(name);
 
-        _portrait.style.backgroundImage = new StyleBackground(character.Portrait.Sprite);
-        _name.text = character.CharacterName;
+        VisualElement barsContainer = new();
+        barsContainer.Add(CreateLevelLabel());
+        barsContainer.Add(CreateStatGroup());
+        barsContainer.Add(CreateExpGroup());
+        barsContainer.Add(CreateHealthGroup());
+        barsContainer.Add(CreateManaGroup());
 
-        Add(_information);
-        _information.Add(_portrait);
+        topPanel.Add(portraitContainer);
+        topPanel.Add(barsContainer);
 
-        _characteristics = new();
-        _characteristics.AddToClassList("characteristicGroup");
+        VisualElement bottomPanel = new();
+        bottomPanel.style.flexDirection = FlexDirection.Row;
+        bottomPanel.style.alignItems = Align.Center;
+        bottomPanel.style.justifyContent = Justify.Center;
 
-        nameContainer.Add(_name);
-        nameContainer.style.flexDirection = FlexDirection.Row;
-        nameContainer.style.alignItems = Align.Center;
-        nameContainer.style.width = Length.Percent(100);
-        nameContainer.style.justifyContent = Justify.SpaceBetween;
+        if (showAbilities)
+            bottomPanel.Add(CreateAbilities());
+        if (showItems)
+            bottomPanel.Add(CreateItems());
 
-        _characteristics.Add(nameContainer);
-        _characteristics.Add(CreateHealthGroup(character));
-        _characteristics.Add(CreateManaGroup(character));
-        Add(_characteristics);
+        Add(topPanel);
+        Add(bottomPanel);
 
-        RegisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
-        RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
-
-        if (clickable)
-        {
-            RegisterCallback<PointerDownEvent>(OnPointerDown);
-            ButtonWithTooltip b = new ButtonWithTooltip("characterCardDetailsButton", "See more info", DisplayCharacterScreen);
-            nameContainer.Add(b);
-        }
+        AvailabilityCheck(); // for armory
     }
 
-    private void GeometryChangedCallback(GeometryChangedEvent evt)
+    VisualElement CreateLevelLabel()
     {
-        //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/
-        UnregisterCallback<GeometryChangedEvent>(GeometryChangedCallback);
+        _level = new();
+        _level.text = $"Level {Character.Level}";
 
-        if (_stats == null)
-            return;
-        // Do what you need to do here, as geometry should be calculated.
-        HealthBar.UpdateBarValues(_stats.MaxHealth.GetValue(), _stats.CurrentHealth);
-        ManaBar.UpdateBarValues(_stats.MaxMana.GetValue(), _stats.CurrentMana);
+        return _level;
     }
 
-    void OnPanelDetached(DetachFromPanelEvent evt)
+    VisualElement CreateStatGroup()
     {
-        if (_stats == null)
-            return;
-        _stats.OnHealthChanged -= HealthBar.OnValueChanged;
-        _stats.OnManaChanged -= ManaBar.OnValueChanged;
-        _stats.OnModifierAdded -= OnModiferAdded;
-        _stats.OnStatusAdded -= OnStatusAdded;
-        _stats.OnStatusRemoved -= OnStatusRemoved;
-        _stats.OnCharacterDeath += OnCharacterDeath;
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.alignContent = Align.Center;
+        container.style.width = Length.Percent(100);
 
-        if (Character == null)
-            return;
+
+        GameDatabase db = GameManager.Instance.GameDatabase;
+        _power = new(db.GetStatIconByName("Power"), Character.GetStatValue("Power"), "Power");
+        _armor = new(db.GetStatIconByName("Armor"), Character.GetStatValue("Armor"), "Armor");
+        _range = new(db.GetStatIconByName("MovementRange"), Character.GetStatValue("MovementRange"), "Movement Range");
+
+        container.Add(_power);
+        container.Add(_armor);
+        container.Add(_range);
+
+        return container;
+
     }
 
-    VisualElement CreateHealthGroup(Character character)
+    VisualElement CreateExpGroup()
+    {
+        VisualElement container = new();
+        container.style.alignContent = Align.Center;
+        container.style.width = Length.Percent(100);
+
+        ExpBar = new(Color.black, "Experience", 100, Character.Experience, 0, true);
+
+        Character.OnCharacterExpGain += OnExpChange;
+        Character.OnCharacterLevelUp += OnLevelUp;
+
+        container.Add(ExpBar);
+        return container;
+    }
+
+    VisualElement CreateHealthGroup()
     {
         VisualElement healthGroup = new();
         healthGroup.style.flexDirection = FlexDirection.Row;
         healthGroup.style.width = Length.Percent(100);
 
-        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", character.GetStatValue("MaxHealth"), character.GetStatValue("MaxHealth"));
+        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", Character.GetStatValue("MaxHealth"), Character.GetStatValue("MaxHealth"));
         healthGroup.Add(HealthBar);
 
         return healthGroup;
     }
 
-    VisualElement CreateManaGroup(Character character)
+    VisualElement CreateManaGroup()
     {
         VisualElement manaGroup = new();
         manaGroup.style.flexDirection = FlexDirection.Row;
         manaGroup.style.width = Length.Percent(100);
 
-        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", character.GetStatValue("MaxMana"), character.GetStatValue("MaxMana"));
+        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", Character.GetStatValue("MaxMana"), Character.GetStatValue("MaxMana"));
         manaGroup.Add(ManaBar);
 
         return manaGroup;
     }
 
-    VisualElement HandleCharacterStats(Character character, CharacterStats characterStats)
+    void OnExpChange(int expGain) { ExpBar.OnValueChanged(expGain, 3000); }
+
+    void OnLevelUp()
     {
-        VisualElement statsGroup = new();
-        statsGroup.AddToClassList("statsGroup");
-
-        if (characterStats == null)
-            CreateCharacterStatsChar(character);
-        else
-            CreateCharacterStats(characterStats);
-
-        statsGroup.Add(_power);
-        statsGroup.Add(_armor);
-        statsGroup.Add(_range);
-
-        return statsGroup;
+        _level.text = $"Level {Character.Level}";
+        PlayLevelUpAnimation();
     }
 
-    void CreateCharacterStatsChar(Character character)
+    VisualElement CreateItems()
     {
-        GameDatabase db = GameManager.Instance.GameDatabase;
-        _power = new(db.GetStatIconByName("Power"), character.GetStatValue("Power"), "Power");
-        _armor = new(db.GetStatIconByName("Armor"), character.GetStatValue("Armor"), "Armor");
-        _range = new(db.GetStatIconByName("MovementRange"), character.GetStatValue("MovementRange"), "Movement Range");
-    }
-
-    void CreateCharacterStats(CharacterStats characterStats)
-    {
-        GameDatabase db = GameManager.Instance.GameDatabase;
-        _power = new(db.GetStatIconByName("Power"), characterStats.Power);
-        _armor = new(db.GetStatIconByName("Armor"), characterStats.Armor);
-        _range = new(db.GetStatIconByName("MovementRange"), characterStats.MovementRange);
-    }
-
-    public List<ModifierVisual> HandleStatuses(CharacterStats stats)
-    {
-        List<ModifierVisual> els = new();
-        if (stats.Statuses.Count == 0)
-            return els;
-
-        foreach (Status s in stats.Statuses)
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        for (int i = 0; i < 2; i++)
         {
-            ModifierVisual mElement = new ModifierVisual(s);
-            els.Add(mElement);
-        }
-        return els;
-    }
-
-    public List<ModifierVisual> HandleStatModifiers(CharacterStats stats)
-    {
-        List<ModifierVisual> els = new();
-        foreach (Stat s in stats.Stats)
-        {
-            List<StatModifier> modifiers = s.GetActiveModifiers();
-            if (modifiers.Count == 0)
-                continue;
-
-            foreach (StatModifier m in modifiers)
-            {
-                ModifierVisual mElement = new ModifierVisual(m);
-                els.Add(mElement);
-            }
-        }
-        return els;
-    }
-
-    void OnModiferAdded(StatModifier mod)
-    {
-        ModifierVisual mElement = new ModifierVisual(mod);
-        _portrait.Add(mElement);
-    }
-
-    void OnStatusAdded(Status status)
-    {
-        ModifierVisual mElement = new ModifierVisual(status);
-        _portrait.Add(mElement);
-    }
-
-    void OnStatusRemoved(Status status)
-    {
-        ModifierVisual elToRemove = null;
-        foreach (ModifierVisual el in _portrait.Children())
-        {
-            if (el.Status == null) // some elements are stat modifier elements... duh...
-                continue;
-            if (el.Status.ReferenceID == status.ReferenceID)
-                elToRemove = el;
+            ItemSlotVisual itemSlot = new();
+            itemSlot.Character = Character;
+            ItemSlots.Add(itemSlot);
+            container.Add(itemSlot);
         }
 
-        if (elToRemove != null)
-            elToRemove.RemoveSelf(_portrait);
+        for (int i = 0; i < Character.Items.Count; i++)
+        {
+            ItemVisual itemVisual = new ItemVisual(Character.Items[i]);
+            ItemSlots[i].AddItem(itemVisual);
+            ItemVisuals.Add(itemVisual);
+        }
+
+        return container;
     }
 
-    void OnCharacterDeath(GameObject obj)
+    VisualElement CreateAbilities()
     {
-        // TODO: destroy the card in a cool way
-        InfoCardUI.Instance.HideCharacterCard();
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        int slotCount = Character.GetNumberOfAbilitySlots();
+
+        if (slotCount < Character.Abilities.Count)
+            slotCount = Character.Abilities.Count;
+
+        for (int i = 0; i < slotCount; i++)
+        {
+            AbilitySlotVisual abilitySlot = new();
+            abilitySlot.Character = Character;
+            AbilitySlots.Add(abilitySlot);
+            container.Add(abilitySlot);
+        }
+
+        for (int i = 0; i < Character.Abilities.Count; i++)
+        {
+            if (i > slotCount)
+                break;
+            AbilityButton abilityButton = new AbilityButton(Character.Abilities[i], null);
+            AbilitySlots[i].AddButton(abilityButton);
+            AbilityButtons.Add(abilityButton);
+        }
+
+        return container;
     }
 
-    // clicks
-    void OnPointerDown(PointerDownEvent evt)
+    void AvailabilityCheck()
     {
-        if (evt.button != 0) // only left mouse click
+        if (!Character.IsUnavailable)
             return;
-        DisplayCharacterScreen();
+
+        VisualElement overlay = new VisualElement();
+        Add(overlay);
+        overlay.BringToFront();
+        overlay.style.position = Position.Absolute;
+        overlay.style.width = Length.Percent(105);
+        overlay.style.height = Length.Percent(105);
+        overlay.style.alignSelf = Align.Center;
+        overlay.style.alignItems = Align.Center;
+        overlay.style.justifyContent = Justify.Center;
+        overlay.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
+
+        Label text = new($"Unavailable! ({Character.UnavailabilityDuration})");
+        text.AddToClassList("textPrimary");
+        text.style.fontSize = 60;
+        text.transform.rotation *= Quaternion.Euler(0f, 0f, 45f);
+        overlay.Add(text);
     }
 
-    void DisplayCharacterScreen()
+    public void PlayLevelUpAnimation()
     {
-        var root = panel.visualTree;
-        if (_stats != null)
-            BattleUI.Instance.ShowCharacterScreen(_stats.Character);
-        else
-            BattleUI.Instance.ShowCharacterScreen(Character);
-    }
+        Sprite[] animationSprites = GameManager.Instance.GameDatabase.LevelUpAnimationSprites;
 
+        _levelUpAnimationContainer = new();
+        _levelUpAnimationContainer.style.position = Position.Absolute;
+        _levelUpAnimationContainer.style.width = Length.Percent(100);
+        _levelUpAnimationContainer.style.height = Length.Percent(100);
+        _levelUpAnimationContainer.Add(new AnimationVisualElement(animationSprites, 100, false));
+        Add(_levelUpAnimationContainer);
+    }
 }

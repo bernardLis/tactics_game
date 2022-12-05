@@ -11,13 +11,13 @@
 }
 
 .volumeSlider .unity-base-slider__tracker {
-    background-image: url('project://database/Assets/Sprites/UI/sliderTracker.png?fileID=2800000&guid=f7721e346583f084287cfbac6a70a5c9&type=3#sliderTracker');
+    background-image: url('project://database/Assets/Plugins/Medival Kingdom Package/Classic_Skin/UI_elements_C/Bar_separator_little.png');
     height: 6px;
     background-color: rgba(0, 0, 0, 0);
 }
 
 .volumeSlider .unity-base-slider__dragger {
-    background-image: url('project://database/Assets/Sprites/UI/sliderGrabber.png?fileID=2800000&guid=9139b1a7a5562464087ae4ecf64525a9&type=3#sliderGrabber');
+    background-image: url('project://database/Assets/Plugins/Medival Kingdom Package/Settings_elements/Metal_frame_options_arrow.png');
     border-radius: 0;
     border-width: 0;
     height: 15px;

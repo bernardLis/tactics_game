@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: ef09e833-3ce1-4246-80df-d272c4ed2443
   ReferenceID: CREATE-1
   Description: Shields whoever stands on it from meele damage
-  Icon: {fileID: 21300000, guid: 38be24e6963aad24ea21a9f0f1304f8d, type: 3}
+  Icon: {fileID: 21300000, guid: 3234f4f268d9e8344bd35a36d231867c, type: 3}
   Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   BasePower: 1
   ManaCost: 10
@@ -32,5 +32,6 @@ MonoBehaviour:
   CanTargetSelf: 1
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.6698113, g: 0.28056246, b: 0.6430607, a: 1}
+  Price: 1
   CharacterGameObject: {fileID: 0}
   CreatedObject: {fileID: 1171220210199182926, guid: 93cf7b6f072b6c24696c02aed304365c, type: 3}

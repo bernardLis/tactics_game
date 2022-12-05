@@ -9,7 +9,7 @@ public class TooltipVisual : VisualElement
 
     VisualElement _parentElement;
 
-    public TooltipVisual(VisualElement element, VisualElement tooltipElement)
+    public TooltipVisual(VisualElement element, VisualElement tooltipElement, bool disableTooltipStyle = false)
     {
         _parentElement = element;
 
@@ -29,9 +29,8 @@ public class TooltipVisual : VisualElement
         OnPostVisualCreation();
 
         AddToClassList("textPrimary");
-        AddToClassList("tooltipElement");
-// HERE:                style.backgroundColor = Color.black;
-
+        if (!disableTooltipStyle)
+            AddToClassList("tooltipElement");
 
         Add(tooltipElement);
     }

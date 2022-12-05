@@ -8,7 +8,7 @@ using DG.Tweening;
 public class UIDraggables : MonoBehaviour
 {
     protected GameManager _gameManager;
-    protected List<CharacterCardExtended> _characterCards = new();
+    protected List<CharacterCard> _characterCards = new();
 
     protected VisualElement _root;
 
@@ -69,7 +69,7 @@ public class UIDraggables : MonoBehaviour
 
         foreach (Character character in troops)
         {
-            CharacterCardExtended card = new CharacterCardExtended(character);
+            CharacterCard card = new CharacterCard(character);
             _characterCards.Add(card);
             container.Add(card);
 
@@ -302,7 +302,7 @@ public class UIDraggables : MonoBehaviour
         if (_playerPouchItemSlotVisuals.Contains(_newItemSlot))
             _gameManager.AddItemToPouch(_draggedItem.Item);
 
-        foreach (CharacterCardExtended card in _characterCards)
+        foreach (CharacterCard card in _characterCards)
             card.Character.ResolveItems();
     }
 

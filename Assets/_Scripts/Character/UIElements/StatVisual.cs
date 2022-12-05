@@ -46,7 +46,7 @@ public class StatVisual : VisualWithTooltip
 
         Icon = new();
         Icon.AddToClassList("statIcon");
-        Icon.style.backgroundImage = icon.texture;
+        Icon.style.backgroundImage = new StyleBackground(icon);
         Add(Icon);
 
         Value = new();

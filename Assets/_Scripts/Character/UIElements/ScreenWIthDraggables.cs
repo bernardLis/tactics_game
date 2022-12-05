@@ -21,7 +21,7 @@ public class ScreenWithDraggables : FullScreenVisual
     List<ItemSlotVisual> _allPlayerItemSlotVisuals = new();
     List<ItemSlotVisual> _playerPouchItemSlotVisuals = new();
 
-    List<CharacterCardExtended> _characterCards = new();
+    List<CharacterCard> _characterCards = new();
 
     // Ability drag & drop
     AbilitySlotVisual _originalAbilitySlot;
@@ -146,7 +146,7 @@ public class ScreenWithDraggables : FullScreenVisual
 
         foreach (Character character in troops)
         {
-            CharacterCardExtended card = new CharacterCardExtended(character);
+            CharacterCard card = new CharacterCard(character);
             _characterCards.Add(card);
             container.Add(card);
 
@@ -318,7 +318,7 @@ public class ScreenWithDraggables : FullScreenVisual
 
         }
 
-        foreach (CharacterCardExtended card in _characterCards)
+        foreach (CharacterCard card in _characterCards)
             card.Character.ResolveItems();
     }
 

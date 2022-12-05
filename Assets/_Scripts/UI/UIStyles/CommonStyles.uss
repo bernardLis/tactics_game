@@ -20,7 +20,7 @@
 
 .barContainer {
     width: 100%;
-    background-image: url('project://database/Assets/Sprites/UI/bar.png?fileID=2800000&guid=a3134fd38065d07469d6656123260a7e&type=3#bar');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_long.png?fileID=2800000&guid=f719a95b6a295394f93036e4c2603c85&type=3#Button_long');
     -unity-background-scale-mode: stretch-to-fill;
     height: 32px;
     background-color: rgb(0, 0, 0);
@@ -75,24 +75,26 @@
     flex-direction: column;
 }
 
-.characterCard {
+.characterCardBattle {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
 }
 
-.characterCardExtended {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    background-image: url('project://database/Assets/Sprites/4000_Fantasy_Icons/Z_Other/fr_bg/A_Inventory_frame2_back.png?fileID=2800000&guid=7d257a609eb2ffa458be6c69ccb99bed&type=3#A_Inventory_frame2_back');
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    -unity-background-scale-mode: scale-and-crop;
+.characterCard {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Flag2_bar2.png?fileID=2800000&guid=fb276f3f6f3cfe94fbf7dbc103e074ae&type=3#Flag2_bar2');
+    -unity-background-scale-mode: stretch-to-fill;
+    width: 550px;
+    height: 300px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .statsGroup {
@@ -147,14 +149,14 @@
 .textPrimary {
     color: rgb(255, 255, 255);
     font-size: 16px;
-    -unity-font: url('project://database/Assets/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
 .textSecondary {
     color: rgb(255, 255, 255);
     font-size: 12px;
-    -unity-font: url('project://database/Assets/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
@@ -167,17 +169,15 @@
 }
 
 .uiContainer {
-    background-image: none;
-    -unity-background-scale-mode: stretch-to-fill;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    min-width: 90px;
-    min-height: 90px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2');
+    -unity-background-scale-mode: scale-to-fit;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     align-items: flex-start;
     justify-content: center;
-    background-color: rgba(147, 147, 147, 0.69);
+    width: auto;
 }
 
 .menuButton {
@@ -201,48 +201,39 @@
     transition-duration: 0.5s;
     margin-left: 0;
     margin-right: 0;
-    background-image: url('project://database/Assets/Sprites/UI/button.png?fileID=21300000&guid=d4853c58909ab054aa116dca71859aca&type=3#button');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_little.png?fileID=2800000&guid=b0f16d180a490934686f65df10e187a3&type=3#Button_little');
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
     width: 400px;
     height: 90px;
-    transition-property: scale;
+    transition-property: all;
     -unity-text-outline-color: rgb(255, 255, 255);
     -unity-text-outline-width: 0;
     -unity-font-style: normal;
-    -unity-font: url('project://database/Assets/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
     -unity-text-align: middle-center;
+    transition-timing-function: ease-in-out;
 }
 
 .menuButton:hover {
-    transition-property: scale;
+    transition-property: all;
     scale: 1.05 1.05;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out-sine;
-    background-image: url('project://database/Assets/Sprites/UI/button.png?fileID=21300000&guid=d4853c58909ab054aa116dca71859aca&type=3#button');
 }
 
 .menuButton:active {
-    transition-property: scale;
+    transition-property: all;
     scale: 0.95 0.95;
     transition-duration: 0.5s;
-    transition-timing-function: ease-in-out-sine;
-    background-image: url('project://database/Assets/Sprites/UI/buttonHover.png?fileID=21300000&guid=812248e78729459499b34488a1dd541a&type=3#buttonHover');
+    transition-timing-function: ease-in-out;
 }
 
 .menuButton:disabled {
-    background-image: url('project://database/Assets/Sprites/UI/buttonDisabled.png?fileID=2800000&guid=ef69fcec9e4ee184881eaa7d860ca33e&type=3#buttonDisabled');
-}
-
-.characterCardPortrait {
-    -unity-background-scale-mode: scale-and-crop;
-    flex-direction: row;
-    align-items: flex-end;
-    min-width: 120px;
-    min-height: 120px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark');
 }
 
 .disabledMenuButton {
@@ -252,7 +243,7 @@
 .characterCardDetailsButton {
     width: 25px;
     height: 25px;
-    background-image: url('project://database/Assets/Sprites/UI/info.png?fileID=2800000&guid=ea6c8c25a5d12f4478c249fcb1d701f2&type=3#info');
+    background-image: url('project://database/Assets/Art/Sprites/Battle/info.png?fileID=2800000&guid=ea6c8c25a5d12f4478c249fcb1d701f2&type=3#info');
     background-color: rgb(255, 255, 255);
 }
 
@@ -304,7 +295,7 @@
     opacity: 0.6;
     transition-duration: 1s;
     transition-timing-function: ease-in-out;
-    background-image: url('project://database/Assets/Sprites/UI%20Elements/itemSlotGray.png?fileID=2800000&guid=f2ebc7e94a6a03444847edc4ec63828b&type=3#itemSlotGray');
+    background-image: url('project://database/Assets/Art/Sprites/UI%20Elements/itemSlotGray.png?fileID=2800000&guid=f2ebc7e94a6a03444847edc4ec63828b&type=3#itemSlotGray');
 }
 
 .itemSlotHighlighted {
@@ -315,7 +306,7 @@
     opacity: 1;
     transition-duration: 1s;
     transition-timing-function: ease-in-out;
-    background-image: url('project://database/Assets/Sprites/UI%20Elements/itemSlotGray.png?fileID=2800000&guid=f2ebc7e94a6a03444847edc4ec63828b&type=3#itemSlotGray');
+    background-image: url('project://database/Assets/Art/Sprites/UI%20Elements/itemSlotGray.png?fileID=2800000&guid=f2ebc7e94a6a03444847edc4ec63828b&type=3#itemSlotGray');
 }
 
 .itemSlot:hover {
@@ -333,7 +324,7 @@
     margin-right: 2px;
     margin-top: 2px;
     margin-bottom: 2px;
-    background-image: url('project://database/Assets/Sprites/UI%20Elements/abilitySlot.png?fileID=2800000&guid=3f76426e922609142b20f220df61c8ce&type=3#abilitySlot');
+    background-image: url('project://database/Assets/Art/Sprites/UI%20Elements/abilitySlot.png?fileID=2800000&guid=3f76426e922609142b20f220df61c8ce&type=3#abilitySlot');
     opacity: 0.8;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
@@ -396,7 +387,7 @@
 
 .tooltipElement {
     position: absolute;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag_vert.png?fileID=2800000&guid=f7f4c53029691c14590b260b68c02ff7&type=3#Flag_vert');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag_vert.png?fileID=2800000&guid=f7f4c53029691c14590b260b68c02ff7&type=3#Flag_vert');
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
@@ -404,6 +395,32 @@
 }
 
 .vfx {
-    background-image: url('project://database/Assets/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');
+    background-image: url('project://database/Assets/Unity/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');
     position: absolute;
+}
+
+.characterPortrait {
+    background-image: url('project://database/Assets/Art/Sprites/Character/Portrait/female/alessandro_allori1.png?fileID=2800000&guid=246a3439518a32740ad1d83cd1dbf8b8&type=3#alessandro_allori1');
+    width: 130px;
+    height: 130px;
+    -unity-background-scale-mode: scale-to-fit;
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+    margin-left: 5px;
+    margin-top: 5px;
+    position: absolute;
+}
+
+.characterPortraitContainer {
+    width: 140px;
+    height: 140px;
+}
+
+.characterPortraitFrame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/icon_frame_round.png?fileID=2800000&guid=673d130a45e82e94d95b65f1ee0121bf&type=3#icon_frame_round');
 }
