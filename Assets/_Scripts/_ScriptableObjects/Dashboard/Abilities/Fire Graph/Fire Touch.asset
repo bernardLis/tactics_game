@@ -20,6 +20,12 @@ MonoBehaviour:
   SpiceCost: 20
   IsUnlocked: 1
   UnlockEffect: {fileID: 11400000, guid: 0030b4f32205952438ae463e881f2a1a, type: 2}
+  AddedToCraftingEffect: {fileID: 11400000, guid: b3550fb426b47d845bf06373fb2c7e30, type: 2}
+  AddedToCraftingEffectPosition: {x: 6.2, y: 3, z: 0}
+  AddedToCraftingEffectScale: {x: 2, y: 2, z: 2}
+  AbilityCraftedEffect: {fileID: 11400000, guid: e055c3fc8df2e144db60e0d29d87e0b7, type: 2}
+  AbilityCraftedEffectPosition: {x: 0, y: 0, z: 0}
+  AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
   StarRange: {x: 0, y: 3}
   AbilityNodeTemplates:
   - Stars: 0

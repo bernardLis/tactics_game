@@ -141,7 +141,7 @@
                         <ui:VisualElement name="craftActionButton" class="craftCraftButton" />
                         <ui:VisualElement name="craftActionButton" class="craftDiscardButton" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="craftAbilityCraftedAbilityContainer" />
+                    <ui:VisualElement name="craftAbilityCraftedAbilityContainer" style="align-items: center;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

@@ -46,8 +46,7 @@ public class AbilityCraftManager : MonoBehaviour
 
     VisualElement _craftAbilityCraftedAbilityContainer;
 
-
-    public EffectHolder TestEffect;
+    EffectHolder _addedToCraftingEffect;
 
     void Start()
     {
@@ -55,6 +54,7 @@ public class AbilityCraftManager : MonoBehaviour
 
         _dashboardManager = GetComponent<DashboardManager>();
         _dashboardManager.OnAbilitiesOpened += OnAbilitiesClicked;
+        _dashboardManager.OnHideAllPanels += OnHideAllPanels;
         _root = _dashboardManager.Root;
 
         _abilityGraphManager = GetComponent<AbilityGraphManager>();
@@ -63,18 +63,21 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityCraft = _root.Q<VisualElement>("abilityCraft");
         GetCraftContainerElements();
         SetupCraftContainer();
-
-        TestEffect.PlayEffect(new Vector3(6.3f, -3.6f), Vector3.one);
     }
 
     void OnAbilitiesClicked()
     {
-
+        if (_addedToCraftingEffect)
+            _addedToCraftingEffect.PlayEffect(_abilityNode.AddedToCraftingEffectPosition, _abilityNode.AddedToCraftingEffectScale);
+    }
+    void OnHideAllPanels()
+    {
+        if (_addedToCraftingEffect)
+            _addedToCraftingEffect.DestroyEffect();
     }
 
     void OnCraftNodeAdded(AbilityNodeVisualElement nodeVisualElement)
     {
-        Debug.Log($"added");
         _craftTooltip.text = "Add stars to get stronger abilities.";
         _abilityNode = nodeVisualElement.AbilityNode;
         _numberOfStars = _abilityNode.StarRange.x;
@@ -84,6 +87,9 @@ public class AbilityCraftManager : MonoBehaviour
         UpdateStars();
 
         _spiceElement.ChangeAmount(_abilityNode.SpiceCost);
+
+        _addedToCraftingEffect = _abilityNode.AddedToCraftingEffect;
+        _addedToCraftingEffect.PlayEffect(_abilityNode.AddedToCraftingEffectPosition, _abilityNode.AddedToCraftingEffectScale);
     }
 
     void GetCraftContainerElements()
@@ -251,24 +257,39 @@ public class AbilityCraftManager : MonoBehaviour
 
     void CraftAbility()
     {
-        // probably some noise and animation
-        // probably need to show the created ability
-        // probably need to signal that it will be available in armory
-        // TODO: get the name
+        if (_gameManager.Spice < _abilityNode.GetSpiceCostByStars(_numberOfStars))
+        {
+            Helpers.DisplayTextOnElement(_root, _craftAbilityCraftedAbilityContainer, "Not enough spice", Color.red);
+            return;
+        }
+
+        _gameManager.ChangeSpiceValue(-_abilityNode.GetSpiceCostByStars(_numberOfStars));
+
         Ability craftedAbility = _abilityNode.CreateAbility(_numberOfStars, _craftAbilityName.value);
         _gameManager.AddAbilityToPouch(craftedAbility);
 
         _craftAbilityCraftedAbilityContainer.Clear();
         Label header = new("Your ability will be available in armory. This is what you have created:");
+        header.style.whiteSpace = WhiteSpace.Normal;
         AbilityButton button = new(craftedAbility);
         _craftAbilityCraftedAbilityContainer.Add(header);
         _craftAbilityCraftedAbilityContainer.Add(button);
+
+        // vfx
+        Vector3 pos = _craftAbilityCraftedAbilityContainer.worldTransform.GetPosition();
+        pos.x = pos.x + _craftAbilityCraftedAbilityContainer.resolvedStyle.width / 2;
+        pos.y = Camera.main.pixelHeight - pos.y - _craftAbilityCraftedAbilityContainer.resolvedStyle.height; // inverted, plus play on bottom of element
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
+        worldPos.z = 0;
+
+        _abilityNode.AbilityCraftedEffect.PlayEffect(worldPos, _abilityNode.AbilityCraftedEffectScale);
     }
 
     void DiscardAbility()
     {
         _abilityGraphManager.ClearCraftSlot();
         ResetCraftValues();
+        _addedToCraftingEffect.DestroyEffect();
     }
 
 }

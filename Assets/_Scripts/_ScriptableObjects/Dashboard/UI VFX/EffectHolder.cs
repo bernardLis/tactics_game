@@ -39,13 +39,18 @@ public class EffectHolder : BaseScriptableObject
         _effect.transform.localScale = Vector3.zero;
         _effect.layer = Tags.UIVFXLayer;
         foreach (Transform child in _effect.transform)
+        {
             child.gameObject.layer = Tags.UIVFXLayer;
+            child.transform.DOScale(scale, 0.3f);
+        }
 
         _effect.transform.DOScale(scale, 0.3f);
     }
 
     public async void DestroyEffect()
     {
+        if (!_effect)
+            return;
         await _effect.transform.DOScale(0, 0.3f).AsyncWaitForCompletion();
         GameObject.Destroy(_effect);
     }

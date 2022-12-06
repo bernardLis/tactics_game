@@ -12,7 +12,17 @@ public class AbilityNode : BaseScriptableObject
     public string Description;
     public int SpiceCost;
     public bool IsUnlocked;
+
+    [Header("VFX")]
     public EffectHolder UnlockEffect;
+
+    public EffectHolder AddedToCraftingEffect;
+    public Vector3 AddedToCraftingEffectPosition;
+    public Vector3 AddedToCraftingEffectScale;
+
+    public EffectHolder AbilityCraftedEffect;
+    public Vector3 AbilityCraftedEffectScale;
+
 
     [Header("Ability crafting values")]
     [Tooltip("Inclusive, inclusive")]

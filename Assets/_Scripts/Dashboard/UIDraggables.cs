@@ -126,7 +126,7 @@ public class UIDraggables : MonoBehaviour
 
         // TODO: probably make it a scroll view
         //abilities
-        for (int i = 0; i < _gameManager.PlayerItemPouch.Count + 10; i++)
+        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count + 10; i++)
         {
             AbilitySlotVisual slot = new AbilitySlotVisual();
             container.Add(slot);
