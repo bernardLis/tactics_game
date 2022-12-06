@@ -1,7 +1,8 @@
 .rerollButton {
     width: 100px;
     height: 100px;
-    background-image: url('project://database/Assets/Sprites/Icons/perspective-dice-six-faces-random.png?fileID=2800000&guid=d049546a5f414264c8235f83e7658098&type=3#perspective-dice-six-faces-random');
+    background-image: resource('500_resources/Quest_85');
+    transition-duration: 0.5s;
 }
 
 .shopItem {
@@ -40,7 +41,7 @@
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-image: url('project://database/Assets/Sprites/UI%20Elements/Dashboard/characterCardMiniSlotBg.png?fileID=2800000&guid=bf1ad88748c8be648ae81369ed69a45b&type=3#characterCardMiniSlotBg');
+    background-image: url('project://database/Assets/Art/Sprites/UI%20Elements/Dashboard/characterCardMiniSlotBg.png?fileID=2800000&guid=bf1ad88748c8be648ae81369ed69a45b&type=3#characterCardMiniSlotBg');
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
     opacity: 0.8;
@@ -49,7 +50,7 @@
 .characterCardMiniSlotLocked {
     width: 100px;
     height: 100px;
-    background-image: url('project://database/Assets/Sprites/UI%20Elements/Dashboard/characterCardMiniSlotBgLocked%201.png?fileID=2800000&guid=5a442567ab32bd7458de96c302f2af4d&type=3#characterCardMiniSlotBgLocked 1');
+    background-image: url('project://database/Assets/Art/Sprites/UI%20Elements/Dashboard/characterCardMiniSlotBgLocked%201.png?fileID=2800000&guid=5a442567ab32bd7458de96c302f2af4d&type=3#characterCardMiniSlotBgLocked 1');
     align-items: center;
     justify-content: center;
     margin-left: 10px;
@@ -74,7 +75,7 @@
 }
 
 .characterCardMini {
-    background-image: url('project://database/Assets/Sprites/Character/Portrait/opm.jpg?fileID=2800000&guid=a613d81a423cf24429b03929c1678cad&type=3#opm');
+    background-image: url('project://database/Assets/Art/Sprites/Character/Portrait/opm.jpg?fileID=2800000&guid=a613d81a423cf24429b03929c1678cad&type=3#opm');
     width: 80px;
     height: 80px;
 }
@@ -116,7 +117,7 @@
     padding-right: 40px;
     padding-top: 0;
     padding-bottom: 20px;
-    background-image: url('project://database/Assets/Sprites/Dashboard/Paper/brown_age_by_darkwood67.jpg?fileID=2800000&guid=5ed7bae907d9bdf4481ac157fa16c084&type=3#brown_age_by_darkwood67');
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/Paper/brown_age_by_darkwood67.jpg?fileID=2800000&guid=5ed7bae907d9bdf4481ac157fa16c084&type=3#brown_age_by_darkwood67');
     flex-grow: 1;
     flex-shrink: 0;
     align-items: center;
@@ -124,7 +125,7 @@
 }
 
 .reportHeader {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Skill_stroke.png?fileID=2800000&guid=53284bf02b094fe4c8bf79367fafa1d2&type=3#Skill_stroke');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Skill_stroke.png?fileID=2800000&guid=53284bf02b094fe4c8bf79367fafa1d2&type=3#Skill_stroke');
     font-size: 36px;
     -unity-text-align: middle-center;
     color: rgb(255, 255, 255);
@@ -134,7 +135,7 @@
 }
 
 .acceptButton {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Classic/gray_37_accept.png?fileID=2800000&guid=f9e9f73aeacec3741a801809269ab655&type=3#gray_37_accept');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_37_accept.png?fileID=2800000&guid=f9e9f73aeacec3741a801809269ab655&type=3#gray_37_accept');
     width: 50px;
     height: 50px;
     color: rgb(210, 210, 210);
@@ -146,11 +147,11 @@
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
     scale: 1.05 1.05;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/37_accept.png?fileID=2800000&guid=26b44eca4309ac74c9658e1a6ac1357a&type=3#37_accept');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/37_accept.png?fileID=2800000&guid=26b44eca4309ac74c9658e1a6ac1357a&type=3#37_accept');
 }
 
 .rejectButton {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Classic/gray_21_close.png?fileID=2800000&guid=b24a2524e8578634a8c8dd465f870bd9&type=3#gray_21_close');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_21_close.png?fileID=2800000&guid=b24a2524e8578634a8c8dd465f870bd9&type=3#gray_21_close');
     width: 50px;
     height: 50px;
     transition-duration: 0.5s;
@@ -160,7 +161,7 @@
 .rejectButton:hover {
     transition-duration: 0.5s;
     scale: 1.05 1.05;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/21_close.png?fileID=2800000&guid=9cf17f0fad3df3742b98708fa5a46f46&type=3#21_close');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/21_close.png?fileID=2800000&guid=9cf17f0fad3df3742b98708fa5a46f46&type=3#21_close');
 }
 
 .signedText {
@@ -223,7 +224,7 @@
     width: 100%;
     height: 100%;
     left: auto;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Victory_window.png?fileID=2800000&guid=ad6f6ab8938b42341829d59aef51c365&type=3#Victory_window');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Victory_window.png?fileID=2800000&guid=ad6f6ab8938b42341829d59aef51c365&type=3#Victory_window');
     background-color: rgb(0, 0, 0);
     -unity-background-scale-mode: scale-to-fit;
 }
@@ -233,7 +234,7 @@
     width: 100%;
     height: 100%;
     left: auto;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Defeat_window.png?fileID=2800000&guid=cf8bbdf9fdb025c4888b8d122048380c&type=3#Defeat_window');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Defeat_window.png?fileID=2800000&guid=cf8bbdf9fdb025c4888b8d122048380c&type=3#Defeat_window');
     background-color: rgb(0, 0, 0);
     -unity-background-scale-mode: scale-to-fit;
 }
@@ -264,7 +265,7 @@
 }
 
 .campBuildingVisualElement {
-    background-image: url('project://database/Assets/Sprites/Dashboard/Paper/old_paper_by_darkwood67.jpg?fileID=2800000&guid=fd2829fbb18039045bec996992fb3c17&type=3#old_paper_by_darkwood67');
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/Paper/old_paper_by_darkwood67.jpg?fileID=2800000&guid=fd2829fbb18039045bec996992fb3c17&type=3#old_paper_by_darkwood67');
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
@@ -274,7 +275,7 @@
 }
 
 .campBuildingSprite {
-    background-image: url('project://database/Assets/Sprites/Dashboard/Camp/monastery_outline.png?fileID=2800000&guid=ea99704b19bcb3449982b70ba3b0ba8f&type=3#monastery_outline');
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/Camp/monastery_outline.png?fileID=2800000&guid=ea99704b19bcb3449982b70ba3b0ba8f&type=3#monastery_outline');
     width: 256px;
     height: 256px;
 }
@@ -288,7 +289,7 @@
 
 .graphContainer {
     align-items: center;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Main_bar_story_hori.png?fileID=2800000&guid=47f4f8cbb6da8ba4992023b7cbf0f0c0&type=3#Main_bar_story_hori');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Main_bar_story_hori.png?fileID=2800000&guid=47f4f8cbb6da8ba4992023b7cbf0f0c0&type=3#Main_bar_story_hori');
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
@@ -314,7 +315,7 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/72_paper.png?fileID=2800000&guid=a0fdcee38a47c674bbec14c9dcd63608&type=3#72_paper');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/72_paper.png?fileID=2800000&guid=a0fdcee38a47c674bbec14c9dcd63608&type=3#72_paper');
     flex-grow: 1;
     flex-shrink: 0;
     max-height: 200px;
@@ -332,7 +333,7 @@
 }
 
 .signButtonContainer {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_round_red.png?fileID=2800000&guid=95d1e7bf437d0ef4888b4aa952223797&type=3#Button_round_red');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_round_red.png?fileID=2800000&guid=95d1e7bf437d0ef4888b4aa952223797&type=3#Button_round_red');
     align-items: center;
     justify-content: center;
     width: 100px;
@@ -373,29 +374,29 @@
     justify-content: center;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle.png?fileID=2800000&guid=7624455960081ed449991cbf052c3326&type=3#Button_middle');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle.png?fileID=2800000&guid=7624455960081ed449991cbf052c3326&type=3#Button_middle');
     -unity-text-align: middle-center;
 }
 
 .questActionButtonPending {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_Fr.png?fileID=2800000&guid=fdda5932bb1aeeb408f9c5c348b9e019&type=3#Button_middle_Fr');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_Fr.png?fileID=2800000&guid=fdda5932bb1aeeb408f9c5c348b9e019&type=3#Button_middle_Fr');
 }
 
 .questActionButtonFinished {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
 }
 
 .questActionButtonPlayer {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_middle.png?fileID=2800000&guid=ae2a146511765114faf9818658b957d6&type=3#Button_middle');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_middle.png?fileID=2800000&guid=ae2a146511765114faf9818658b957d6&type=3#Button_middle');
 }
 
 .questActionButtonDelegate {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle.png?fileID=2800000&guid=7624455960081ed449991cbf052c3326&type=3#Button_middle');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle.png?fileID=2800000&guid=7624455960081ed449991cbf052c3326&type=3#Button_middle');
 }
 
 .mainExit {
     position: absolute;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/08_door.png?fileID=2800000&guid=19c3c0bdaeea8d64daa59b9b96a3cd92&type=3#08_door');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/08_door.png?fileID=2800000&guid=19c3c0bdaeea8d64daa59b9b96a3cd92&type=3#08_door');
     width: 200px;
     height: 200px;
     top: 80%;
@@ -407,7 +408,7 @@
 .abilityNodeSlot {
     width: 120px;
     height: 120px;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/icon_frame_square_elite.png?fileID=2800000&guid=098213c38021a93418280a26fc050e39&type=3#icon_frame_square_elite');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/icon_frame_square_elite.png?fileID=2800000&guid=098213c38021a93418280a26fc050e39&type=3#icon_frame_square_elite');
     align-items: center;
     justify-content: center;
     padding-left: 10px;
@@ -424,7 +425,7 @@
 .abilityCraftingHeader {
     font-size: 64px;
     -unity-text-align: upper-center;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&guid=719587235c52756429cfbea86a7e8082&type=3#horizontal_flag');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&guid=719587235c52756429cfbea86a7e8082&type=3#horizontal_flag');
     margin-top: 0;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -442,17 +443,17 @@
 .craftButtonPlus {
     width: 25px;
     height: 25px;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/19_plus.png?fileID=2800000&guid=08ee60743facc5547b76014a44059547&type=3#19_plus');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/19_plus.png?fileID=2800000&guid=08ee60743facc5547b76014a44059547&type=3#19_plus');
 }
 
 .craftButtonMinus {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/20_plus.png?fileID=2800000&guid=744bd8bc45c7c3a46b8db8eeda933d76&type=3#20_plus');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/20_plus.png?fileID=2800000&guid=744bd8bc45c7c3a46b8db8eeda933d76&type=3#20_plus');
     width: 25px;
     height: 25px;
 }
 
 .craftCraftButton {
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Colored/13_skills.png?fileID=2800000&guid=d6eebf509a4b56544b0e56d2b488957d&type=3#13_skills');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/13_skills.png?fileID=2800000&guid=d6eebf509a4b56544b0e56d2b488957d&type=3#13_skills');
     width: 100px;
     height: 100px;
     transition-duration: 0.5s;
@@ -471,7 +472,7 @@
     height: 50px;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-    background-image: url('project://database/Assets/Sprites/Medival%20Kingdom%20Package/UI_icons/Classic/gray_65_trash_can.png?fileID=2800000&guid=552f751ed38758c43a0823bb8cd70e8d&type=3#gray_65_trash_can');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_65_trash_can.png?fileID=2800000&guid=552f751ed38758c43a0823bb8cd70e8d&type=3#gray_65_trash_can');
 }
 
 .craftDiscardButton:hover {
@@ -479,4 +480,29 @@
     transition-duration: 0.5s;
     rotate: -10deg;
     transition-timing-function: ease-in-out;
+}
+
+.rerollButton:hover {
+    scale: 1.1 1.1;
+    rotate: 50deg;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.rerollButton:active {
+    transition-duration: 0.5s;
+    rotate: 270deg;
+    scale: 0.95 0.95;
+}
+
+.craftAbilityStarGray {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star%20gray.png?fileID=2800000&guid=204ed0df78deaba409499a6fe38c363b&type=3#star gray');
+}
+
+.craftAbilityStar {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star.png?fileID=2800000&guid=c44d1eb6f24e7ab41a257d01f6bf793a&type=3#star');
 }

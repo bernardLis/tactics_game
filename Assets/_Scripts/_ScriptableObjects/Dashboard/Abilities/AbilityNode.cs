@@ -15,19 +15,10 @@ public class AbilityNode : BaseScriptableObject
     public EffectHolder UnlockEffect;
 
     [Header("Ability crafting values")]
-    public Vector2Int RangeMinMax;
-    public Vector2Int DamageMinMax;
-    public Vector2Int AOEMinMax;
+    [Tooltip("Inclusive, inclusive")]
+    public Vector2Int StarRange;
+    public AbilityNodeTemplate[] AbilityNodeTemplates;
 
-    public int ManaCostRangePoint;
-    public int ManaCostDamagePoint;
-    public int ManaCostAOEPoint;
-    public Vector2Int ManaCostMinMax;
-
-    public Status Status;
-    public int ManaCostStatus;
-
-    public Ability AbilityTemplate;
 
     public bool Unlock()
     {
@@ -51,49 +42,35 @@ public class AbilityNode : BaseScriptableObject
         return true;
         // pay return true
     }
-
-    public int CalculateManaCost(int range, int damage, int aoe, bool status)
+    public Ability CreateAbility(int stars, string name)
     {
-        int total = 0;
-        total += range * ManaCostRangePoint;
-        total += Mathf.FloorToInt(damage * 0.1f * ManaCostDamagePoint);
-        total += aoe * ManaCostAOEPoint;
-        if (status)
-            total += ManaCostStatus;
+        Ability abilityToInstantiate = GetAbilityByStars(stars);
 
-        return total;
-    }
-
-    public AbilityCraftingValidity CheckAbilityValidity(int range, int damage, int aoe, bool status)
-    {
-        int manaCost = CalculateManaCost(range, damage, aoe, status);
-        if (manaCost > ManaCostMinMax.y)
-            return new AbilityCraftingValidity(false, manaCost, "Max mana cost exceeded.");
-
-        if (range > RangeMinMax.y || damage > DamageMinMax.y || aoe > AOEMinMax.y)
-            return new AbilityCraftingValidity(false, manaCost, "Max range exceeded.");
-
-        if (range < RangeMinMax.x || damage < DamageMinMax.x || aoe < AOEMinMax.x)
-            return new AbilityCraftingValidity(false, manaCost, "That's too low.");
-
-        AbilityCraftingValidity validity = new(true, manaCost, null);
-        return validity;
-    }
-
-    public Ability CreateAbility(string name, int range, int damage, int aoe, bool status)
-    {
-        int manaCost = CalculateManaCost(range, damage, aoe, status);
-
-        Ability ability = Instantiate(AbilityTemplate);
+        Ability ability = Instantiate(abilityToInstantiate);
         ability.name = name;
-        ability.Range = range;
-        ability.BasePower = damage;
-        ability.AreaOfEffect = aoe;
-        ability.ManaCost = manaCost;
-        if (!status)         // HERE: hmm... something smarter...
-            ability.Status = null;
 
         return ability;
+    }
+
+    public Ability GetAbilityByStars(int stars)
+    {
+        foreach (AbilityNodeTemplate t in AbilityNodeTemplates)
+            if (t.Stars == stars)
+                return t.Ability;
+
+        Debug.LogError($"No ability with {stars} stars in {name}");
+        return null;
+    }
+
+    public int GetSpiceCostByStars(int stars)
+    {
+        foreach (AbilityNodeTemplate t in AbilityNodeTemplates)
+            if (t.Stars == stars)
+                return t.CraftCost;
+
+        Debug.LogError($"No ability with {stars} stars in {name}");
+        return -1;
+
     }
 
     public void LoadFromData(AbilityNodeData data)
@@ -122,15 +99,9 @@ public struct AbilityNodeData
 }
 
 [Serializable]
-public struct AbilityCraftingValidity
+public struct AbilityNodeTemplate
 {
-    public AbilityCraftingValidity(bool isValid, int manaCost, string message)
-    {
-        IsValid = isValid;
-        ManaCost = manaCost;
-        Message = message;
-    }
-    public bool IsValid;
-    public int ManaCost;
-    public string Message;
+    public int Stars;
+    public Ability Ability;
+    public int CraftCost;
 }

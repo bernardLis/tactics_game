@@ -14,7 +14,17 @@ public class AbilityCraftManager : MonoBehaviour
     VisualElement _abilityCraft;
     Label _craftTooltip;
 
-    AbilityNode _currentAbilityNode;
+    AbilityNode _abilityNode;
+    int _numberOfStars = 0;
+    Ability _abilityTemplate;
+
+    VisualElement _starContainer;
+    List<VisualElement> _starElements;
+    MyButton _addStarsButton;
+    MyButton _subtractStarsButton;
+
+    VisualElement _abilityDescriptionContainer;
+    Label _abilityDescription;
     TextField _craftAbilityName;
 
     VisualElement _abilityRangeContainer;
@@ -22,19 +32,9 @@ public class AbilityCraftManager : MonoBehaviour
     VisualElement _abilityAOEContainer;
 
     Label _abilityRange;
-    MyButton _rangePlus;
-    MyButton _rangeMinus;
-
     Label _abilityDamage;
-    MyButton _damagePlus;
-    MyButton _damageMinus;
-
     Label _abilityAOE;
-    MyButton _AOEPlus;
-    MyButton _AOEMinus;
-
-    Toggle _abilityStatus;
-
+    // HERE: status
     Label _abilityManaCost;
 
     VisualElement _abilityCostContainer;
@@ -45,17 +45,6 @@ public class AbilityCraftManager : MonoBehaviour
     MyButton _discardButton;
 
     VisualElement _craftAbilityCraftedAbilityContainer;
-
-    int _range;
-    int _damage;
-    int _aoe;
-    bool _isStatusAdded;
-    int _manaCost;
-
-    public GameObject[] TestEffects; // HERE:
-    GameObject _instantiatedEffect;
-
-    VisualElement _vfxDisplayer;
 
 
     public EffectHolder TestEffect;
@@ -86,32 +75,30 @@ public class AbilityCraftManager : MonoBehaviour
     void OnCraftNodeAdded(AbilityNodeVisualElement nodeVisualElement)
     {
         Debug.Log($"added");
-        _craftTooltip.text = "Change some values and hit the craft button to get a new ability.";
-        _currentAbilityNode = nodeVisualElement.AbilityNode;
-
-        _range = _currentAbilityNode.RangeMinMax.x;
-        _damage = _currentAbilityNode.DamageMinMax.x;
-        _aoe = _currentAbilityNode.AOEMinMax.x;
-        _isStatusAdded = false;
-        _manaCost = _currentAbilityNode.ManaCostMinMax.x;
+        _craftTooltip.text = "Add stars to get stronger abilities.";
+        _abilityNode = nodeVisualElement.AbilityNode;
+        _numberOfStars = _abilityNode.StarRange.x;
+        _abilityTemplate = _abilityNode.AbilityNodeTemplates[0].Ability;
 
         UpdateCraftingValuesDisplayed();
+        UpdateStars();
 
-        _spiceElement.ChangeAmount(_currentAbilityNode.SpiceCost);
-
-        EnableCraftButtons();
+        _spiceElement.ChangeAmount(_abilityNode.SpiceCost);
     }
 
     void GetCraftContainerElements()
     {
         _craftTooltip = _root.Q<Label>("craftTooltip");
+        _starContainer = _root.Q<VisualElement>("craftAbilityStarContainer");
+
         _craftAbilityName = _root.Q<TextField>("craftAbilityName");
+        _abilityDescriptionContainer = _root.Q<VisualElement>("craftAbilityDescriptionContainer");
 
         _abilityRangeContainer = _root.Q<VisualElement>("craftAbilityRangeContainer");
         _abilityDamageContainer = _root.Q<VisualElement>("craftAbilityDamageContainer");
         _abilityAOEContainer = _root.Q<VisualElement>("craftAbilityAOEContainer");
+        // HERE: status
 
-        _abilityStatus = _root.Q<Toggle>("craftAbilityStatus");
         _abilityManaCost = _root.Q<Label>("craftAbilityManaCost");
         _abilityCostContainer = _root.Q<VisualElement>("craftAbilityCostContainer");
 
@@ -122,205 +109,124 @@ public class AbilityCraftManager : MonoBehaviour
     void SetupCraftContainer()
     {
         _craftTooltip.text = ("Drag & drop unlocked node to start ability crafting");
-
+        SetUpStarContainer();
+        SetUpDescriptionContainer();
         SetUpRangeContainer();
         SetUpDamageContainer();
         SetUpAOEContainer();
-        SetUpStatusToggle();
+        // HERE: status set up the container
 
         CreateCraftSpiceElement();
-
         ResetCraftValues();
-
         SetupActionButtons();
+    }
+
+    void SetUpStarContainer()
+    {
+        _starContainer.Clear();
+        _starElements = new();
+
+        _addStarsButton = new("", "craftButtonMinus", SubtractStarsFromAbility);
+        _starContainer.Add(_addStarsButton);
+
+        for (int i = 0; i < 5; i++)
+        {
+            VisualElement star = new();
+            star.AddToClassList("craftAbilityStarGray");
+            _starElements.Add(star);
+            _starContainer.Add(star);
+        }
+
+        _subtractStarsButton = new("", "craftButtonPlus", AddStarsToAbility);
+        _starContainer.Add(_subtractStarsButton);
+    }
+
+    void SubtractStarsFromAbility()
+    {
+        if (_numberOfStars <= 0 || _numberOfStars <= _abilityNode.StarRange.x)
+        {
+            Helpers.DisplayTextOnElement(_root, _starContainer, "Can't be less", Color.red);
+            return;
+        }
+        _numberOfStars--;
+        UpdateStars();
+    }
+
+    void AddStarsToAbility()
+    {
+        if (_numberOfStars >= 5 || _numberOfStars >= _abilityNode.StarRange.y)
+        {
+            Helpers.DisplayTextOnElement(_root, _starContainer, "Can't be more", Color.red);
+            return;
+        }
+        _numberOfStars++;
+        UpdateStars();
+
+    }
+
+    void UpdateStars()
+    {
+        _abilityTemplate = _abilityNode.GetAbilityByStars(_numberOfStars);
+        for (int i = 0; i < _starElements.Count; i++)
+        {
+            _starElements[i].RemoveFromClassList("craftAbilityStar");
+            if (i < _numberOfStars)
+                _starElements[i].AddToClassList("craftAbilityStar");
+        }
+
+        UpdateCraftingValuesDisplayed();
+    }
+
+    void SetUpDescriptionContainer()
+    {
+        _abilityDescription = new("");
+        _abilityDescription.style.whiteSpace = WhiteSpace.Normal;
+        _abilityDescriptionContainer.Clear();
+        _abilityDescriptionContainer.Add(_abilityDescription);
     }
 
     void SetUpRangeContainer()
     {
         _abilityRange = new("Range: 0");
-        _rangePlus = new("", "craftButtonPlus", RangePlus);
-        _rangeMinus = new("", "craftButtonMinus", RangeMinus);
-
-        _rangePlus.SetEnabled(false);
-        _rangeMinus.SetEnabled(false);
-
         _abilityRangeContainer.Clear();
         _abilityRangeContainer.Add(_abilityRange);
-        _abilityRangeContainer.Add(_rangePlus);
-        _abilityRangeContainer.Add(_rangeMinus);
-    }
-
-    void RangePlus()
-    {
-        AbilityCraftingValidity v = _currentAbilityNode.CheckAbilityValidity(_range + 1, _damage, _aoe, _isStatusAdded);
-        if (!v.IsValid)
-        {
-            Helpers.DisplayTextOnElement(_root, _abilityStatus, v.Message, Color.red);
-            return;
-        }
-        _range++;
-        _manaCost = v.ManaCost;
-        UpdateCraftingValuesDisplayed();
-    }
-
-    void RangeMinus()
-    {
-        AbilityCraftingValidity v = _currentAbilityNode.CheckAbilityValidity(_range - 1, _damage, _aoe, _isStatusAdded);
-        if (!v.IsValid)
-        {
-            Helpers.DisplayTextOnElement(_root, _abilityStatus, v.Message, Color.red);
-            return;
-        }
-
-        _range--;
-        _manaCost = v.ManaCost;
-        UpdateCraftingValuesDisplayed();
     }
 
     void SetUpDamageContainer()
     {
         _abilityDamage = new("Damage: 0");
-        _damagePlus = new("", "craftButtonPlus", DamagePlus);
-        _damageMinus = new("", "craftButtonMinus", DamageMinus);
-
-        _damagePlus.SetEnabled(false);
-        _damageMinus.SetEnabled(false);
-
         _abilityDamageContainer.Clear();
         _abilityDamageContainer.Add(_abilityDamage);
-        _abilityDamageContainer.Add(_damagePlus);
-        _abilityDamageContainer.Add(_damageMinus);
-    }
-
-    void DamagePlus()
-    {
-        AbilityCraftingValidity v = _currentAbilityNode.CheckAbilityValidity(_range, _damage + 10, _aoe, _isStatusAdded);
-        if (!v.IsValid)
-        {
-            Helpers.DisplayTextOnElement(_root, _abilityStatus, v.Message, Color.red);
-            return;
-        }
-
-        _damage += 10;
-        _manaCost = v.ManaCost;
-        UpdateCraftingValuesDisplayed();
-    }
-
-    void DamageMinus()
-    {
-        AbilityCraftingValidity v = _currentAbilityNode.CheckAbilityValidity(_range, _damage - 10, _aoe, _isStatusAdded);
-        if (!v.IsValid)
-        {
-            Helpers.DisplayTextOnElement(_root, _abilityStatus, v.Message, Color.red);
-            return;
-        }
-
-        _damage -= 10;
-        _manaCost = v.ManaCost;
-        UpdateCraftingValuesDisplayed();
     }
 
     void SetUpAOEContainer()
     {
         _abilityAOE = new("AOE: 0");
-        _AOEPlus = new("", "craftButtonPlus", AOEPlus);
-        _AOEMinus = new("", "craftButtonMinus", AOEMinus);
-
-        _AOEPlus.SetEnabled(false);
-        _AOEMinus.SetEnabled(false);
-
         _abilityAOEContainer.Clear();
         _abilityAOEContainer.Add(_abilityAOE);
-        _abilityAOEContainer.Add(_AOEPlus);
-        _abilityAOEContainer.Add(_AOEMinus);
-    }
-
-    void AOEPlus()
-    {
-        AbilityCraftingValidity v = _currentAbilityNode.CheckAbilityValidity(_range, _damage, _aoe + 1, _isStatusAdded);
-        if (!v.IsValid)
-        {
-            Helpers.DisplayTextOnElement(_root, _abilityStatus, v.Message, Color.red);
-            return;
-        }
-
-        _aoe++;
-        _manaCost = v.ManaCost;
-        UpdateCraftingValuesDisplayed();
-    }
-
-    void AOEMinus()
-    {
-        AbilityCraftingValidity v = _currentAbilityNode.CheckAbilityValidity(_range, _damage, _aoe - 1, _isStatusAdded);
-        if (!v.IsValid)
-        {
-            Helpers.DisplayTextOnElement(_root, _abilityStatus, v.Message, Color.red);
-            return;
-        }
-
-        _aoe--;
-        _manaCost = v.ManaCost;
-        UpdateCraftingValuesDisplayed();
-    }
-
-    void SetUpStatusToggle() { _abilityStatus.RegisterValueChangedCallback(StatusToggleValueChanged); }
-    void StatusToggleValueChanged(ChangeEvent<bool> evt)
-    {
-        AbilityCraftingValidity v = _currentAbilityNode.CheckAbilityValidity(_range, _damage, _aoe, evt.newValue);
-
-        if (!v.IsValid)
-        {
-            evt.PreventDefault();
-            Helpers.DisplayTextOnElement(_root, _abilityStatus, v.Message, Color.red);
-            return;
-        }
-
-        _isStatusAdded = evt.newValue;
-        _manaCost = v.ManaCost;
-        UpdateCraftingValuesDisplayed();
     }
 
     void UpdateCraftingValuesDisplayed()
     {
-        _abilityRange.text = $"Range: {_range}";
-        _abilityDamage.text = $"Damage: {_damage}";
-        _abilityAOE.text = $"AOE: {_aoe}";
+        _abilityDescription.text = $"{_abilityTemplate.Description}";
+        _abilityRange.text = $"Range: {_abilityTemplate.Range}";
+        _abilityDamage.text = $"Damage: {_abilityTemplate.BasePower}";
+        _abilityAOE.text = $"AOE: {_abilityTemplate.AreaOfEffect}";
+        _abilityManaCost.text = $"Mana cost: {_abilityTemplate.ManaCost}";
 
-        _abilityManaCost.text = $"Mana cost: {_manaCost}";
-    }
-
-    void EnableCraftButtons()
-    {
-        _rangePlus.SetEnabled(true);
-        _rangeMinus.SetEnabled(true);
-        _damagePlus.SetEnabled(true);
-        _damageMinus.SetEnabled(true);
-        _AOEPlus.SetEnabled(true);
-        _AOEMinus.SetEnabled(true);
-
-        _abilityStatus.RegisterValueChangedCallback(StatusToggleValueChanged);
-    }
-
-    void DisableCraftButtons()
-    {
-        _abilityStatus.UnregisterValueChangedCallback(StatusToggleValueChanged);
+        _spiceElement.ChangeAmount(_abilityNode.GetSpiceCostByStars(_numberOfStars));
     }
 
     void ResetCraftValues()
     {
-        _range = 0;
-        _damage = 0;
-        _aoe = 0;
-        _isStatusAdded = false;
-        _manaCost = 0;
         _spiceElement.ChangeAmount(0);
 
         _craftAbilityName.value = "Name your ability";
-        _abilityRange.text = $"Range: {0}";
-
-        _abilityStatus.value = false;
-        _abilityManaCost.text = "Mana cost: 0";
-        DisableCraftButtons();
+        _abilityRange.text = $"Range: 0";
+        _abilityDamage.text = $"Damage: 0";
+        _abilityAOE.text = $"AOE: 0";
+        // HERE: status, clear container
+        _abilityManaCost.text = $"Mana cost: 0";
     }
 
     void CreateCraftSpiceElement()
@@ -334,7 +240,6 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityCostContainer.Add(_spiceElement);
     }
 
-
     void SetupActionButtons()
     {
         _abilityButtonsContainer.Clear();
@@ -346,14 +251,11 @@ public class AbilityCraftManager : MonoBehaviour
 
     void CraftAbility()
     {
-        if (_instantiatedEffect != null)
-            Destroy(_instantiatedEffect);
-
         // probably some noise and animation
         // probably need to show the created ability
         // probably need to signal that it will be available in armory
         // TODO: get the name
-        Ability craftedAbility = _currentAbilityNode.CreateAbility("asd", _range, _damage, _aoe, _isStatusAdded);
+        Ability craftedAbility = _abilityNode.CreateAbility(_numberOfStars, _craftAbilityName.value);
         _gameManager.AddAbilityToPouch(craftedAbility);
 
         _craftAbilityCraftedAbilityContainer.Clear();
@@ -365,31 +267,8 @@ public class AbilityCraftManager : MonoBehaviour
 
     void DiscardAbility()
     {
-        _gameManager.ChangeSpiceValue(500);
-
         _abilityGraphManager.ClearCraftSlot();
         ResetCraftValues();
-        // instantiate effect
-        if (_instantiatedEffect != null)
-            Destroy(_instantiatedEffect);
-
-        _instantiatedEffect = Instantiate(TestEffects[Random.Range(0, TestEffects.Length)], Vector3.zero, Quaternion.identity);
-        _instantiatedEffect.layer = Tags.UIVFXLayer;
-        foreach (Transform child in _instantiatedEffect.transform)
-            child.gameObject.layer = Tags.UIVFXLayer;
-        // VisualElement el = new();
-        if (_vfxDisplayer == null)
-        {
-            _vfxDisplayer = new();
-            _vfxDisplayer.pickingMode = PickingMode.Ignore;
-            _vfxDisplayer.AddToClassList("vfx");
-            _vfxDisplayer.style.position = Position.Absolute;
-            _vfxDisplayer.style.width = Length.Percent(100);
-            _vfxDisplayer.style.height = Length.Percent(100);
-            _root.Add(_vfxDisplayer);
-        }
-        // el.Add(item);
-
     }
 
 }
