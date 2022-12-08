@@ -506,3 +506,9 @@
     height: 50px;
     background-image: url('project://database/Assets/Art/Sprites/Dashboard/star.png?fileID=2800000&guid=c44d1eb6f24e7ab41a257d01f6bf793a&type=3#star');
 }
+
+#craftAbilityName TextInput {
+    background-color: rgba(26, 26, 26, 0.96);
+    color: rgba(255, 255, 255, 255);
+    -unity-font-style: normal;
+}

@@ -19,13 +19,14 @@ public class AbilityCraftManager : MonoBehaviour
     Ability _abilityTemplate;
 
     VisualElement _starContainer;
-    List<VisualElement> _starElements;
+    RankVisualElement _rankVisualElement;
+    //List<VisualElement> _starElements;
     MyButton _addStarsButton;
     MyButton _subtractStarsButton;
+    TextField _craftAbilityName;
 
     VisualElement _abilityDescriptionContainer;
     Label _abilityDescription;
-    TextField _craftAbilityName;
 
     VisualElement _abilityRangeContainer;
     VisualElement _abilityDamageContainer;
@@ -130,18 +131,12 @@ public class AbilityCraftManager : MonoBehaviour
     void SetUpStarContainer()
     {
         _starContainer.Clear();
-        _starElements = new();
 
         _addStarsButton = new("", "craftButtonMinus", SubtractStarsFromAbility);
         _starContainer.Add(_addStarsButton);
 
-        for (int i = 0; i < 5; i++)
-        {
-            VisualElement star = new();
-            star.AddToClassList("craftAbilityStarGray");
-            _starElements.Add(star);
-            _starContainer.Add(star);
-        }
+        _rankVisualElement = new(0);
+        _starContainer.Add(_rankVisualElement);
 
         _subtractStarsButton = new("", "craftButtonPlus", AddStarsToAbility);
         _starContainer.Add(_subtractStarsButton);
@@ -173,13 +168,7 @@ public class AbilityCraftManager : MonoBehaviour
     void UpdateStars()
     {
         _abilityTemplate = _abilityNode.GetAbilityByStars(_numberOfStars);
-        for (int i = 0; i < _starElements.Count; i++)
-        {
-            _starElements[i].RemoveFromClassList("craftAbilityStar");
-            if (i < _numberOfStars)
-                _starElements[i].AddToClassList("craftAbilityStar");
-        }
-
+        _rankVisualElement.SetRank(_numberOfStars);
         UpdateCraftingValuesDisplayed();
     }
 

@@ -114,7 +114,7 @@
                     <ui:Label text="Label" display-tooltip-when-elided="true" name="craftTooltip" />
                     <ui:VisualElement name="craftAbilityNodeSlotContainer" />
                     <ui:VisualElement name="craftAbilityStarContainer" style="flex-direction: row; align-items: center; justify-content: center;">
-                        <ui:VisualElement name="VisualElement" class="craftAbilityStarGray" />
+                        <ui:VisualElement name="VisualElement" class="craftAbilityStarGray rankStar" />
                         <ui:VisualElement name="VisualElement" class="craftAbilityStar" />
                     </ui:VisualElement>
                     <ui:TextField picking-mode="Ignore" label="Ability Name:" value="filler text" text="Name your ability" name="craftAbilityName" />

@@ -16,7 +16,6 @@ public abstract class Ability : BaseScriptableObject
     public AbilityType AbilityType;
     public WeaponType WeaponType; // abilities have weapons that can use them
 
-
     [Header("AOE Characteristics")]
     [Tooltip("0 is one tile, 1 is a cross.")]
     public int AreaOfEffect;
@@ -37,8 +36,9 @@ public abstract class Ability : BaseScriptableObject
     public bool CanTargetDiagonally;
     public Color HighlightColor;
 
-    [Header("Shop")]
+    [Header("Other")]
     public int Price = 1;
+    public int Rank = 0;
 
     [HideInInspector] public GameObject CharacterGameObject;
     protected CharacterStats _stats;

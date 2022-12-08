@@ -9,11 +9,13 @@ public class AbilityTooltipVisual : VisualWithTooltip
     Label _manaCost;
     Label _range;
     Label _aoe;
+    RankVisualElement _rank;
     VisualElement _modifierContainer;
 
     public AbilityTooltipVisual(Ability ability)
     {
         style.alignSelf = Align.Stretch;
+        style.alignItems = Align.Center;
 
         _ability = ability;
 
@@ -37,11 +39,14 @@ public class AbilityTooltipVisual : VisualWithTooltip
         _aoe = new("AOE: " + ability.GetAOEDescription());
         _aoe.AddToClassList("textSecondary");
 
+        _rank = new(ability.Rank, 0.5f);
+
         _modifierContainer = new();
         _modifierContainer.AddToClassList("modifierContainer");
         HandleModifiers(ability);
 
         Add(_name);
+        Add(_rank);
         Add(_description);
         Add(_baseDamage);
         Add(_manaCost);

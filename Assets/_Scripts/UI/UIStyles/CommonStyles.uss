@@ -130,6 +130,7 @@
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .modifierIcon {
@@ -423,4 +424,16 @@
     width: 100%;
     height: 100%;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/icon_frame_round.png?fileID=2800000&guid=673d130a45e82e94d95b65f1ee0121bf&type=3#icon_frame_round');
+}
+
+.rankStarGray {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star%20gray.png?fileID=2800000&guid=204ed0df78deaba409499a6fe38c363b&type=3#star gray');
+}
+
+.rankStar {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star.png?fileID=2800000&guid=c44d1eb6f24e7ab41a257d01f6bf793a&type=3#star');
 }
