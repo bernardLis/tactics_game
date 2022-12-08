@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fire Touch
   m_EditorClassIdentifier: 
   Id: 26b03ab4-cc89-4de8-8ab7-e523f60bf890
-  IconUnlocked: {fileID: 21300000, guid: c95e43e176074c548b752c46fa9b9b25, type: 3}
+  IconUnlocked: {fileID: 21300000, guid: 1e6bd9271f5e1c344a7b56fab4cbc584, type: 3}
   IconLocked: {fileID: 21300000, guid: 2e29a6ed4af338c45a02f112324cde62, type: 3}
   Title: Fire Touch
   Description: Novice fire magic. Set target in close range on fire.
@@ -24,7 +24,6 @@ MonoBehaviour:
   AddedToCraftingEffectPosition: {x: 6.2, y: 3, z: 0}
   AddedToCraftingEffectScale: {x: 2, y: 2, z: 2}
   AbilityCraftedEffect: {fileID: 11400000, guid: e055c3fc8df2e144db60e0d29d87e0b7, type: 2}
-  AbilityCraftedEffectPosition: {x: 0, y: 0, z: 0}
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
   StarRange: {x: 0, y: 3}
   AbilityNodeTemplates:

@@ -94,6 +94,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void PassDay()
     {
         Day += 1;
+        ChangeSpiceValue(500); // HERE: vid
 
         if (Day % 7 == 0) // shop resets every 7th day
         {
@@ -288,7 +289,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Day = 1;
         Gold = 0;
-        Spice = 0;
+        Spice = 500;
 
         ChooseShopItems();
         ShopRerollPrice = 200;

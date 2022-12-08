@@ -16,7 +16,7 @@ MonoBehaviour:
   ReferenceID: 
   Description: Sets target tile on fire.
   Icon: {fileID: 21300000, guid: c95e43e176074c548b752c46fa9b9b25, type: 3}
-  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  Sound: {fileID: 11400000, guid: 5f6cb250e5c50f448b54cfdb6a2702ec, type: 2}
   BasePower: 20
   ManaCost: 10
   AbilityType: 5
@@ -27,8 +27,8 @@ MonoBehaviour:
   StatModifier: {fileID: 0}
   Status: {fileID: 0}
   Projectile: {fileID: 0}
-  AbilityEffect: {fileID: 6091584744667921387, guid: d9209c6832204a34484359541f1a16cd, type: 3}
-  Range: 0
+  AbilityEffect: {fileID: 8824430917687339525, guid: 13845cadcc8e2bf43b8e3f1f89140541, type: 3}
+  Range: 1
   CanTargetSelf: 0
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.6603774, g: 0.26962408, b: 0.071021676, a: 1}
