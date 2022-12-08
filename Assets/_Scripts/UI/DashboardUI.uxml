@@ -130,7 +130,7 @@
                     <ui:VisualElement name="craftAbilityAOEContainer" style="flex-direction: row;">
                         <ui:Label text="AOE: 0" display-tooltip-when-elided="true" name="craftAbilityAOE" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="craftAbilityStatus" />
+                    <ui:VisualElement name="craftAbilityStatusContainer" style="flex-direction: row;" />
                     <ui:VisualElement name="craftAbilityManaCostContainer" style="flex-direction: row;">
                         <ui:Label text="Mana cost: 0" display-tooltip-when-elided="true" name="craftAbilityManaCost" />
                     </ui:VisualElement>

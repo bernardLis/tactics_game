@@ -20,9 +20,9 @@ public class AbilityCraftManager : MonoBehaviour
 
     VisualElement _starContainer;
     RankVisualElement _rankVisualElement;
-    //List<VisualElement> _starElements;
     MyButton _addStarsButton;
     MyButton _subtractStarsButton;
+
     TextField _craftAbilityName;
 
     VisualElement _abilityDescriptionContainer;
@@ -31,11 +31,11 @@ public class AbilityCraftManager : MonoBehaviour
     VisualElement _abilityRangeContainer;
     VisualElement _abilityDamageContainer;
     VisualElement _abilityAOEContainer;
+    VisualElement _abilityStatusContainer;
 
     Label _abilityRange;
     Label _abilityDamage;
     Label _abilityAOE;
-    // HERE: status
     Label _abilityManaCost;
 
     VisualElement _abilityCostContainer;
@@ -84,10 +84,7 @@ public class AbilityCraftManager : MonoBehaviour
         _numberOfStars = _abilityNode.StarRange.x;
         _abilityTemplate = _abilityNode.AbilityNodeTemplates[0].Ability;
 
-        UpdateCraftingValuesDisplayed();
         UpdateStars();
-
-        _spiceElement.ChangeAmount(_abilityNode.SpiceCost);
 
         _addedToCraftingEffect = _abilityNode.AddedToCraftingEffect;
         _addedToCraftingEffect.PlayEffect(_abilityNode.AddedToCraftingEffectPosition, _abilityNode.AddedToCraftingEffectScale);
@@ -104,7 +101,7 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityRangeContainer = _root.Q<VisualElement>("craftAbilityRangeContainer");
         _abilityDamageContainer = _root.Q<VisualElement>("craftAbilityDamageContainer");
         _abilityAOEContainer = _root.Q<VisualElement>("craftAbilityAOEContainer");
-        // HERE: status
+        _abilityStatusContainer = _root.Q<VisualElement>("craftAbilityStatusContainer");
 
         _abilityManaCost = _root.Q<Label>("craftAbilityManaCost");
         _abilityCostContainer = _root.Q<VisualElement>("craftAbilityCostContainer");
@@ -121,7 +118,7 @@ public class AbilityCraftManager : MonoBehaviour
         SetUpRangeContainer();
         SetUpDamageContainer();
         SetUpAOEContainer();
-        // HERE: status set up the container
+        SetUpStatusContainer();
 
         CreateCraftSpiceElement();
         ResetCraftValues();
@@ -201,12 +198,24 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityAOEContainer.Add(_abilityAOE);
     }
 
+    void SetUpStatusContainer()
+    {
+        _abilityStatusContainer.Clear();
+    }
+
     void UpdateCraftingValuesDisplayed()
     {
+        Debug.Log($"UpdateCraftingValuesDisplayed");
         _abilityDescription.text = $"{_abilityTemplate.Description}";
         _abilityRange.text = $"Range: {_abilityTemplate.Range}";
         _abilityDamage.text = $"Damage: {_abilityTemplate.BasePower}";
         _abilityAOE.text = $"AOE: {_abilityTemplate.AreaOfEffect}";
+
+        _abilityStatusContainer.Clear();
+        _abilityStatusContainer.Add(new Label("Status: "));
+        if (_abilityTemplate.Status != null)
+            _abilityStatusContainer.Add(new ModifierVisual(_abilityTemplate.Status));
+
         _abilityManaCost.text = $"Mana cost: {_abilityTemplate.ManaCost}";
 
         _spiceElement.ChangeAmount(_abilityNode.GetSpiceCostByStars(_numberOfStars));
@@ -220,7 +229,8 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityRange.text = $"Range: 0";
         _abilityDamage.text = $"Damage: 0";
         _abilityAOE.text = $"AOE: 0";
-        // HERE: status, clear container
+        _abilityStatusContainer.Clear();
+
         _abilityManaCost.text = $"Mana cost: 0";
     }
 

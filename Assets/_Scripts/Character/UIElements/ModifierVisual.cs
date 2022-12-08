@@ -28,15 +28,27 @@ public class ModifierVisual : VisualWithTooltip
 
     protected override void DisplayTooltip()
     {
-        string text = "";
+        VisualElement container = new();
+        Label statusName = new();
+        statusName.AddToClassList("textPrimary");
+        Label description = new();
+        description.AddToClassList("textSecondary");
+        container.Add(statusName);
+        container.Add(description);
 
         if (Modifier != null)
-            text = Modifier.GetDescription();
+        {
+            statusName.text = Modifier.name;
+            description.text = Modifier.GetDescription();
+        }
 
         if (Status != null)
-            text = Status.GetDescription();
+        {
+            statusName.text = Status.name;
+            description.text = Status.GetDescription();
+        }
 
-        _tooltip = new(this, new Label(text));
+        _tooltip = new(this, container);
         base.DisplayTooltip();
     }
 
