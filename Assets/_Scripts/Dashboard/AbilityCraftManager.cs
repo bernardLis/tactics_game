@@ -266,6 +266,7 @@ public class AbilityCraftManager : MonoBehaviour
 
         Ability craftedAbility = _abilityNode.CreateAbility(_numberOfStars, _craftAbilityName.value);
         _gameManager.AddAbilityToPouch(craftedAbility);
+        _gameManager.SaveJsonData();
 
         _craftAbilityCraftedAbilityContainer.Clear();
         Label header = new("Your ability will be available in armory. This is what you have created:");

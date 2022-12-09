@@ -366,6 +366,7 @@ public class ScreenWithDraggables : FullScreenVisual
         if (_playerPouchAbilitySlotVisuals.Contains(_newAbilitySlot))
             _gameManager.AddAbilityToPouch(_draggedAbility.Ability);
 
+        _gameManager.SaveJsonData();
     }
 
     void DragCleanUp()

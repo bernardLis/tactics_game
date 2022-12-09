@@ -231,17 +231,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    public void AddAbilityToPouch(Ability ability)
-    {
-        PlayerAbilityPouch.Add(ability);
-        SaveJsonData();
-    }
+    public void AddAbilityToPouch(Ability ability) { PlayerAbilityPouch.Add(ability); }
 
-    public void RemoveAbilityFromPouch(Ability ability)
-    {
-        PlayerAbilityPouch.Remove(ability);
-        SaveJsonData();
-    }
+    public void RemoveAbilityFromPouch(Ability ability) { PlayerAbilityPouch.Remove(ability); }
 
     /* LEVELS */
     public void SetWasTutorialPlayed(bool was)
@@ -384,13 +376,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         return itemReferenceIds;
     }
 
-    List<string> PopulateAbilityPouch()
+    List<AbilityData> PopulateAbilityPouch()
     {
-        List<string> abilityReferenceIds = new();
+        List<AbilityData> abilityData = new();
         foreach (Ability a in PlayerAbilityPouch)
-            abilityReferenceIds.Add(a.ReferenceID);
+            abilityData.Add(a.SerializeSelf());
 
-        return abilityReferenceIds;
+        return abilityData;
     }
 
     List<ReportData> PopulateReports()
@@ -469,8 +461,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             PlayerItemPouch.Add(GameDatabase.GetItemByReferenceId(itemReferenceId));
 
         PlayerAbilityPouch = new();
-        foreach (string abilityReferenceId in saveData.AbilityPouch)
-            PlayerAbilityPouch.Add(GameDatabase.GetAbilityByReferenceId(abilityReferenceId));
+        foreach (AbilityData abilityData in saveData.AbilityPouch)
+        {
+            Ability a = Instantiate(GameDatabase.GetAbilityById(abilityData.TemplateId));
+            a.name = abilityData.Name;
+            PlayerAbilityPouch.Add(a);
+        }
 
         LoadReports(saveData);
 

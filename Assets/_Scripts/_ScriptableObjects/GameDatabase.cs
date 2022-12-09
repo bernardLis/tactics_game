@@ -40,7 +40,6 @@ public class GameDatabase : BaseScriptableObject
     public Weapon GetRandomWeapon() { return Weapons[Random.Range(0, Weapons.Length)]; }
     public Weapon GetWeaponByName(string name) { return Weapons.FirstOrDefault(x => x.name == name); }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
-    public Ability GetAbilityByReferenceId(string id) { return Abilities.FirstOrDefault(x => x.ReferenceID == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
     public Item GetItemByReferenceId(string id) { return Items.FirstOrDefault(x => x.ReferenceID == id); }
     public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }

@@ -168,8 +168,8 @@ public static class ScriptableObjectGenerator
         // load abilities
         List<Ability> abilities = new();
         string[] arr = item["AbilitiesReferenceID"].ToString().Split(" ");
-        foreach (string s in arr)
-            abilities.Add(GetAbilityFromReferenceID(s));
+        // foreach (string s in arr)
+        // abilities.Add(GetAbilityFromReferenceID(s));
 
         //character.CreateFromSheetData(item, abilities);
 
@@ -276,19 +276,6 @@ public static class ScriptableObjectGenerator
         EditorUtility.SetDirty(mod);
         // And finally, prompt the editor database to save dirty assets, committing your changes to disk.
         AssetDatabase.SaveAssets();
-    }
-
-    static Ability GetAbilityFromReferenceID(string id)
-    {
-        id = id.Trim();
-        string path = "Abilities";
-        Object[] abilities = Resources.LoadAll(path, typeof(Ability));
-        foreach (Ability a in abilities)
-            if (a.ReferenceID == id)
-                return a;
-
-        Debug.LogError($"Did not find a ability with id: {id}");
-        return null;
     }
 
     static StatModifier GetStatModifierFromReferenceId(string id)

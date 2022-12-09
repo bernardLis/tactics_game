@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 0d9956f1-b7c8-4ba2-a9aa-e46dad9e99b1
   ReferenceID: 
   Description: Weak fire touch.
-  Icon: {fileID: 21300000, guid: c95e43e176074c548b752c46fa9b9b25, type: 3}
+  Icon: {fileID: 21300000, guid: b5dd35b758bb4ee4eb328af6e8f13b6c, type: 3}
   Sound: {fileID: 11400000, guid: 5f6cb250e5c50f448b54cfdb6a2702ec, type: 2}
   BasePower: 10
   ManaCost: 5

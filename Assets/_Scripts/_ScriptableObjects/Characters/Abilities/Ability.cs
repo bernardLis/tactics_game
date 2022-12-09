@@ -1,12 +1,10 @@
+using System;
 using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
 public abstract class Ability : BaseScriptableObject
 {
-    [Tooltip("Used for saving and character creation")]
-    public string ReferenceID;
-
     [Header("Base Characteristics")]
     public string Description = "New Description";
     public Sprite Icon;
@@ -199,4 +197,23 @@ public abstract class Ability : BaseScriptableObject
 
         return $"Yes, scale: {AreaOfEffect}";
     }
+
+
+    public AbilityData SerializeSelf()
+    {
+        AbilityData data = new();
+
+        data.TemplateId = Id;
+        data.Name = name;
+
+        return data;
+    }
+
+}
+
+[Serializable]
+public struct AbilityData
+{
+    public string TemplateId;
+    public string Name;
 }

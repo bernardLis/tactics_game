@@ -350,6 +350,7 @@ public class UIDraggables : MonoBehaviour
         if (_playerPouchAbilitySlotVisuals.Contains(_newAbilitySlot))
             _gameManager.AddAbilityToPouch(_draggedAbility.Ability);
 
+        _gameManager.SaveJsonData();
     }
 
     protected virtual void DragCleanUp()

@@ -122,7 +122,12 @@ public class Character : BaseScriptableObject
 
     public int GetNumberOfAbilitySlots() { return 2; }
 
-    public void AddAbility(Ability ability) { Abilities.Add(ability); }
+    public void AddAbility(Ability ability)
+    {
+        Debug.Log($"Adding ability {ability.name} to {CharacterName}");
+        Abilities.Add(ability);
+        
+    }
 
     public void RemoveAbility(Ability ability) { Abilities.Remove(ability); }
 
@@ -251,8 +256,12 @@ public class Character : BaseScriptableObject
         Body = gameDatabase.GetBodyByName(data.Body);
         Weapon = gameDatabase.GetWeaponByName(data.Weapon);
 
-        foreach (string id in data.AbilityReferenceIds)
-            Abilities.Add(gameDatabase.GetAbilityByReferenceId(id));
+        foreach (AbilityData abilityData in data.AbilityData)
+        {
+            Ability a = Instantiate(gameDatabase.GetAbilityById(abilityData.TemplateId));
+            a.name = abilityData.Name;
+            Abilities.Add(a);
+        }
 
         foreach (string id in data.ItemReferenceIds)
             Items.Add(gameDatabase.GetItemByReferenceId(id));
@@ -279,10 +288,14 @@ public class Character : BaseScriptableObject
         data.Body = Body.name;
         data.Weapon = Weapon.name;
 
-        List<string> abilityReferenceIds = new();
+        List<AbilityData> abilityData = new();
         foreach (Ability a in Abilities)
-            abilityReferenceIds.Add(a.ReferenceID);
-        data.AbilityReferenceIds = new(abilityReferenceIds);
+        {
+            Debug.Log($"a.name: {a.name}");
+            abilityData.Add(a.SerializeSelf());
+        }
+        Debug.Log($"ability data count: {abilityData.Count} for {CharacterName}");
+        data.AbilityData = abilityData;
 
         List<string> itemReferenceIds = new();
         foreach (Item i in Items)
@@ -315,12 +328,11 @@ public struct CharacterData
     public int MovementRange;
     public string Body;
     public string Weapon;
-    public List<string> AbilityReferenceIds;
+    public List<AbilityData> AbilityData;
     public List<string> ItemReferenceIds;
 
     public bool IsAssigned;
     public bool IsOnUnavailable;
     public int DayStartedBeingUnavailable;
     public int UnavailabilityDuration;
-
 }
