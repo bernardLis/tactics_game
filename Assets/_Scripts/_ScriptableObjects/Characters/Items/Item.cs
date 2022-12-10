@@ -9,7 +9,7 @@ public class Item : BaseScriptableObject
     public string ItemName;
     public Sprite Icon;
     public StatType InfluencedStat;
-    public ItemRarity Raririty;
+    public ItemRarity Rarity;
     public int Value;
     public int Price;
     public Status Status;

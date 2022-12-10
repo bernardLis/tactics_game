@@ -18,7 +18,6 @@ public class ItemSlotVisual : VisualElementWithSound
 
         AddToClassList("itemSlot");
 
-
         if (item == null)
             return;
 
@@ -37,25 +36,5 @@ public class ItemSlotVisual : VisualElementWithSound
     {
         Clear();
         ItemVisual = null;
-    }
-
-    public async void Highlight()
-    {
-        _isHighlighted = true;
-
-        while (_isHighlighted)
-        {
-            ToggleInClassList("itemSlotHighlighted");
-            ToggleInClassList("itemSlot");
-            await Task.Delay(500);
-        }
-    }
-
-    public void ClearHighlight()
-    {
-        _isHighlighted = false;
-
-        AddToClassList("itemSlot");
-        RemoveFromClassList("itemSlotHighlighted");
     }
 }

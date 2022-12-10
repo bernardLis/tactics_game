@@ -26,8 +26,8 @@ public class ItemVisual : VisualWithTooltip
 
         Label name = new(Item.ItemName);
         Label tooltipText = new(_tooltipText);
-        Label rarity = new($"Rarity: {Item.Raririty}");
-        rarity.style.color = Helpers.GetColor(Item.Raririty.ToString());
+        Label rarity = new($"Rarity: {Item.Rarity}");
+        rarity.style.color = Helpers.GetColor(Item.Rarity.ToString());
         Label value = new($"Price: {Item.Price}");
 
         tooltip.Add(name);

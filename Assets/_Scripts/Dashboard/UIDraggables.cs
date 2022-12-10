@@ -187,10 +187,6 @@ public class UIDraggables : MonoBehaviour
     //drag & drop
     protected void StartItemDrag(Vector2 position, ItemSlotVisual originalSlot, ItemVisual draggedItem)
     {
-        foreach (ItemSlotVisual slot in _allPlayerItemSlotVisuals)
-            if (slot.ItemVisual == null)
-                slot.Highlight();
-
         _draggedItem = draggedItem;
 
         //Set tracking variables
@@ -355,9 +351,6 @@ public class UIDraggables : MonoBehaviour
 
     protected virtual void DragCleanUp()
     {
-        foreach (ItemSlotVisual slot in _allPlayerItemSlotVisuals)
-            slot.ClearHighlight();
-
         //Clear dragging related visuals and data
         _isDragging = false;
 
