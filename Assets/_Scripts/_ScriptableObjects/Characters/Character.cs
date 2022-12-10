@@ -290,11 +290,7 @@ public class Character : BaseScriptableObject
 
         List<AbilityData> abilityData = new();
         foreach (Ability a in Abilities)
-        {
-            Debug.Log($"a.name: {a.name}");
             abilityData.Add(a.SerializeSelf());
-        }
-        Debug.Log($"ability data count: {abilityData.Count} for {CharacterName}");
         data.AbilityData = abilityData;
 
         List<string> itemReferenceIds = new();

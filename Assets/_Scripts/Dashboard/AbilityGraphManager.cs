@@ -68,34 +68,44 @@ public class AbilityGraphManager : MonoBehaviour
 
     void CreateGraphs()
     {
-        VisualElement graphContainer = new();
-        graphContainer.AddToClassList("graphContainer");
-        graphContainer.AddToClassList("textPrimary");
-        _abilityGraphs.Add(graphContainer);
-
-        Label title = new(_abilityNodeGraphs[0].Title);
-        title.style.fontSize = 48;
-        graphContainer.Add(title);
-
-        VisualElement wrapper = new();
-        wrapper.style.flexDirection = FlexDirection.Row;
-        graphContainer.Add(wrapper);
-        // HERE: for now, only 1 graph
-        for (int i = 0; i < _abilityNodeGraphs[0].AbilityNodes.Length; i++)
+        foreach (AbilityNodeGraph graph in _abilityNodeGraphs)
         {
-            VisualElement container = new();
+            VisualElement graphContainer = new();
+            graphContainer.AddToClassList("graphContainer");
+            graphContainer.AddToClassList("textPrimary");
+            _abilityGraphs.Add(graphContainer);
 
-            AbilityNode n = _abilityNodeGraphs[0].AbilityNodes[i];
-            AbilityNodeVisualElement el = new(n);
-            el.RegisterCallback<PointerDownEvent>(OnNodePointerDown);
+            Label title = new(graph.Title);
+            title.style.fontSize = 48;
+            graphContainer.Add(title);
 
-            AbilityNodeSlotVisualElement slot = new(el, n.IsUnlocked);
+            VisualElement wrapper = new();
+            wrapper.style.flexDirection = FlexDirection.Row;
+            graphContainer.Add(wrapper);
 
-            container.Add(slot);
-            container.Add(GetNodeCostElement(n));
-
-            wrapper.Add(container);
+            for (int i = 0; i < graph.AbilityNodes.Length; i++)
+                wrapper.Add(CreateNodeElement(graph.AbilityNodes[i]));
         }
+    }
+
+    VisualElement CreateNodeElement(AbilityNode node)
+    {
+        VisualElement container = new();
+        AbilityNodeVisualElement el = new(node);
+        el.RegisterCallback<PointerDownEvent>(OnNodePointerDown);
+
+        AbilityNodeSlotVisualElement slot = new(el, node.IsUnlocked);
+
+        container.Add(slot);
+        if (!node.IsUnlocked)
+        {
+            VisualElement spiceElementContainer = GetNodeCostElement(node);
+            container.Add(spiceElementContainer);
+            el.AddCostElement(spiceElementContainer.Q<SpiceElement>());
+        }
+
+        return container;
+
     }
 
     void OnNodePointerDown(PointerDownEvent evt)

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5944d5cfc9b4e4d44ac510a95728dde5, type: 3}
+  m_Name: Safety Wall
+  m_EditorClassIdentifier: 
+  Id: 5aed3069-e26b-4d83-8129-2761c53489a6
+  IconUnlocked: {fileID: 21300000, guid: d680f37d085c91e4c928c15c5cedcb5a, type: 3}
+  IconLocked: {fileID: 21300000, guid: 5ddf571b489174c4fae31b010a09b0fa, type: 3}
+  Title: Safety Wall
+  Description: Expert support magic. Creates impenetrable shield around the target.
+    It will block the next attack fully.
+  SpiceCost: 80
+  IsUnlocked: 0
+  UnlockEffect: {fileID: 0}
+  AddedToCraftingEffect: {fileID: 0}
+  AddedToCraftingEffectPosition: {x: 0, y: 0, z: 0}
+  AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
+  AbilityCraftedEffect: {fileID: 0}
+  AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
+  StarRange: {x: 0, y: 0}
+  AbilityNodeTemplates: []

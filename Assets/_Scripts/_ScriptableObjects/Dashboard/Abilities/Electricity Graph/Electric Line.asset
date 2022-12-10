@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5944d5cfc9b4e4d44ac510a95728dde5, type: 3}
+  m_Name: Electric Line
+  m_EditorClassIdentifier: 
+  Id: 9cc6b6ee-0386-40fc-b469-8d96676d4498
+  IconUnlocked: {fileID: 21300000, guid: 38093eefa189a104b9157acbc6a1b805, type: 3}
+  IconLocked: {fileID: 21300000, guid: 932b7420bc4f6224dba191d6e893aa51, type: 3}
+  Title: Electric Line
+  Description: Expert electricity magic. Create a wall of electricity.
+  SpiceCost: 80
+  IsUnlocked: 0
+  UnlockEffect: {fileID: 0}
+  AddedToCraftingEffect: {fileID: 0}
+  AddedToCraftingEffectPosition: {x: 0, y: 0, z: 0}
+  AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
+  AbilityCraftedEffect: {fileID: 0}
+  AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
+  StarRange: {x: 0, y: 0}
+  AbilityNodeTemplates: []

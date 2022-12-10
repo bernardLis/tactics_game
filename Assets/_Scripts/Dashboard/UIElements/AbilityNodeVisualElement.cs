@@ -12,7 +12,7 @@ public class AbilityNodeVisualElement : VisualWithTooltip
     VisualElement _icon;
     VisualElement _tooltipElement;
 
-    VisualElement _unlockAnimationContainer;
+    SpiceElement _costElement;
 
     public AbilityNodeVisualElement(AbilityNode abilityNode)
     {
@@ -24,6 +24,8 @@ public class AbilityNodeVisualElement : VisualWithTooltip
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
+
+    public void AddCostElement(SpiceElement el) { _costElement = el; }
 
     void OnPointerUp(PointerUpEvent evt)
     {
@@ -37,15 +39,24 @@ public class AbilityNodeVisualElement : VisualWithTooltip
 
     async void PlayUnlockAnimation()
     {
+        RemoveCostElement();
+
         Vector3 pos = this.worldTransform.GetPosition();
         pos.x = pos.x + this.resolvedStyle.width / 2;
         pos.y = Camera.main.pixelHeight - pos.y - this.resolvedStyle.height; // inverted, plus play on bottom of element
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
         worldPos.z = 0;
 
-        await AbilityNode.UnlockEffect.PlayEffectAwaitable(worldPos, new Vector3(0.5f, 1f, 1f));
+        if (AbilityNode.UnlockEffect != null)
+            await AbilityNode.UnlockEffect.PlayEffectAwaitable(worldPos, new Vector3(0.5f, 1f, 1f));
 
         _icon.style.backgroundImage = new StyleBackground(AbilityNode.IconUnlocked);
+    }
+
+    async void RemoveCostElement()
+    {
+        await _costElement.AwaitableChangeAmount(0);
+        _costElement.style.display = DisplayStyle.None;
     }
 
     void ShakeNode()

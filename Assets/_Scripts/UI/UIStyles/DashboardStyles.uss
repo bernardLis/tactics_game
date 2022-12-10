@@ -509,6 +509,19 @@
 
 #craftAbilityName TextInput {
     background-color: rgba(26, 26, 26, 0.96);
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
     -unity-font-style: normal;
+}
+
+.abilityGraphsContainer {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+#abilityGraphs #unity-content-container {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
 }

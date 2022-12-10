@@ -96,17 +96,7 @@
         <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; display: flex; height: 100%; background-image: none; background-color: rgb(0, 0, 0); align-items: stretch;">
             <ui:VisualElement name="wrapper" style="width: 70%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform.png?fileID=2800000&amp;guid=f4253f90b6c2ddb45a07370acacd03b5&amp;type=3#trade_platform&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center;">
                 <ui:Label text="Unlock Nodes" display-tooltip-when-elided="true" class="textPrimary abilityCraftingHeader" style="font-size: 36px;" />
-                <ui:VisualElement name="abilityGraphs" style="align-items: flex-start; flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;">
-                    <ui:VisualElement name="graphContainer" class="textPrimary graphContainer">
-                        <ui:Label text="Fire" display-tooltip-when-elided="true" style="font-size: 48px;" />
-                        <ui:VisualElement name="abilityNodeContainer" class="abilityNodeContent">
-                            <ui:VisualElement name="abilityIconNode" />
-                            <ui:VisualElement>
-                                <ui:Label text="cost: yellow, blue, red" display-tooltip-when-elided="true" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
+                <ui:ScrollView name="abilityGraphs" style="align-items: flex-start; width: 95%; padding-left: 1%;" />
             </ui:VisualElement>
             <ui:VisualElement name="wrapper" style="height: auto; width: 30%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform_2.png?fileID=2800000&amp;guid=ce55ae0c4fd119b419ec8005cb2dc949&amp;type=3#trade_platform_2&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center;">
                 <ui:Label text="Craft Abilities" display-tooltip-when-elided="true" class="textPrimary abilityCraftingHeader" style="font-size: 36px;" />

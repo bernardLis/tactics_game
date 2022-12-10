@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5944d5cfc9b4e4d44ac510a95728dde5, type: 3}
+  m_Name: Water Line
+  m_EditorClassIdentifier: 
+  Id: 5bd5f819-09fb-455b-b031-738da7cc76b0
+  IconUnlocked: {fileID: 21300000, guid: eae9dca21d897154e87b73aabdab517d, type: 3}
+  IconLocked: {fileID: 21300000, guid: 23f5819e808985e479f244aa00ec90aa, type: 3}
+  Title: Water wave
+  Description: Expert water magic. Create a wall of water.
+  SpiceCost: 80
+  IsUnlocked: 0
+  UnlockEffect: {fileID: 0}
+  AddedToCraftingEffect: {fileID: 0}
+  AddedToCraftingEffectPosition: {x: 0, y: 0, z: 0}
+  AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
+  AbilityCraftedEffect: {fileID: 0}
+  AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
+  StarRange: {x: 0, y: 0}
+  AbilityNodeTemplates: []

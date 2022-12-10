@@ -267,10 +267,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 71291725}
@@ -294,50 +290,26 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[24].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1528180484}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowDeskUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowArmoryUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowShopUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowCampUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[24].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowAbilitiesUI
-      objectReference: {fileID: 0}
     - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: UIVFXCamera
+      propertyPath: _abilityNodeGraphs.Array.data[0]
       value: 
-      objectReference: {fileID: 1047356516}
+      objectReference: {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
     - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: VFXRenderTexture
+      propertyPath: _abilityNodeGraphs.Array.data[1]
       value: 
-      objectReference: {fileID: 8400000, guid: 136053425ac46cf4db1aeec74e7d3839, type: 2}
+      objectReference: {fileID: 11400000, guid: ae03a585b2a687e4b825c98728507874, type: 2}
+    - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _abilityNodeGraphs.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: b97fc7782ac380e42a9fd4c607922dc2, type: 2}
+    - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _abilityNodeGraphs.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 838c2e8c07781224c885740e9d3d58a7, type: 2}
+    - target: {fileID: 1475728751920290888, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
+      propertyPath: _abilityNodeGraphs.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
     - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_Name
       value: GameManager

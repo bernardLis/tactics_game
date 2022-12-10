@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a7eaf75f711c6428def7cb959b4124, type: 3}
+  m_Name: Ranged Graph
+  m_EditorClassIdentifier: 
+  Id: 127f7d78-0b31-406b-9f16-8bca8d2134bd
+  Title: Ranged
+  AbilityNodes:
+  - {fileID: 11400000, guid: 82bc847b126339645b414e3717885ace, type: 2}
+  - {fileID: 11400000, guid: 1d53bbe6fb8350d46aacbda902debb83, type: 2}
+  - {fileID: 11400000, guid: 0f1c9c38e1ec7424e8183050d50e71a7, type: 2}
+  - {fileID: 11400000, guid: d5a3bbc73c95f624e95aed78f7aa2b86, type: 2}
