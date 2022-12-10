@@ -43,7 +43,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="deskRightPanel" style="height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_desk.png?fileID=2800000&amp;guid=16b8153d70e7e894190387e170de1093&amp;type=3#Settings_desk&apos;); align-items: center;">
                 <ui:VisualElement name="reportsArchive" class="reportArchive" />
-                <ui:ScrollView name="deskTroopsContainer" vertical-page-size="-1" style="flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+                <ui:ScrollView name="deskTroopsContainer" vertical-page-size="-1" style="flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-bottom: 10%;">
                     <ui:VisualElement name="characterCardMiniSlot" class="characterCardMiniSlot characterCardMiniSlotLocked" />
                     <ui:VisualElement name="characterCardMiniSlot" class="characterCardMiniSlot" style="width: 100px; height: 100px;">
                         <ui:VisualElement name="characterCardMini" class="characterCardMini" />

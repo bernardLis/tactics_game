@@ -123,7 +123,7 @@ public class CampBuildingVisualElement : VisualElement
     {
         _buildButtonContainer.Clear();
 
-        _buildButton = new("Build", "", Build);
+        _buildButton = new("Build", "campBuildButton", Build);
         _buildButtonContainer.Add(_buildButton);
         _buildButton.SetEnabled(false);
 
