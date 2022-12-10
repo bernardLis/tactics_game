@@ -54,15 +54,9 @@ public class DashboardPlayer : MonoBehaviour
         _playerInput.actions["ArrowMovement"].canceled -= MoveCanceled;
     }
 
-    void Move(InputAction.CallbackContext ctx)
-    {
-        moveInput = ctx.ReadValue<Vector2>();
-    }
+    void Move(InputAction.CallbackContext ctx) { moveInput = ctx.ReadValue<Vector2>(); }
 
-    void MoveCanceled(InputAction.CallbackContext ctx)
-    {
-        moveInput = ctx.ReadValue<Vector2>();
-    }
+    void MoveCanceled(InputAction.CallbackContext ctx) { moveInput = ctx.ReadValue<Vector2>(); }
 
     void FixedUpdate()
     {

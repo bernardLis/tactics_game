@@ -25,6 +25,8 @@ public class ReportVisualElement : VisualElement
     Vector2 _dragOffset;
     bool _isDragging;
 
+    bool _signed;
+
     public event Action<ReportVisualElement> OnReportDismissed;
     public ReportVisualElement(VisualElement parent, Report report)
     {
@@ -246,7 +248,12 @@ public class ReportVisualElement : VisualElement
         _reportContents.Add(_signButton);
     }
 
-    void ShowSignButton() { _signButton.style.visibility = Visibility.Visible; }
+    void ShowSignButton()
+    {
+        if (_signButton == null)
+            return;
+        _signButton.style.visibility = Visibility.Visible;
+    }
 
     void BaseAcceptReport()
     {
@@ -261,6 +268,15 @@ public class ReportVisualElement : VisualElement
 
     async void DismissReport()
     {
+        // otherwise you can click multiple times if you are a quick clicker.
+        if (_signed)
+            return;
+        _signed = true;
+
+        _reportContents.UnregisterCallback<PointerDownEvent>(OnReportContentPointerDown);
+
+        if (_acceptRejectContainer != null)
+            _acceptRejectContainer.style.visibility = Visibility.Hidden;
         if (_signButton != null)
             _signButton.style.visibility = Visibility.Hidden;
 
