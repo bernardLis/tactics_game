@@ -68,13 +68,10 @@ public class AbilityCraftManager : MonoBehaviour
 
     void OnAbilitiesClicked()
     {
-        if (_addedToCraftingEffect)
-            _addedToCraftingEffect.PlayEffect(_abilityNode.AddedToCraftingEffectPosition, _abilityNode.AddedToCraftingEffectScale);
     }
     void OnHideAllPanels()
     {
-        if (_addedToCraftingEffect)
-            _addedToCraftingEffect.DestroyEffect();
+        DiscardAbility();
     }
 
     void OnCraftNodeAdded(AbilityNodeVisualElement nodeVisualElement)
@@ -289,7 +286,11 @@ public class AbilityCraftManager : MonoBehaviour
     {
         _abilityGraphManager.ClearCraftSlot();
         ResetCraftValues();
-        _addedToCraftingEffect.DestroyEffect();
+        if (_addedToCraftingEffect)
+        {
+            _addedToCraftingEffect.DestroyEffect();
+            _addedToCraftingEffect = null;
+        }
     }
 
 }

@@ -113,7 +113,7 @@ public class DeskManager : Singleton<DeskManager>
 
         Debug.LogError($"No character slots for character: {character.CharacterName}");
     }
-    
+
     void OnTroopsLimitChanged(int change)
     {
         for (int i = 0; i < change; i++)
@@ -125,7 +125,7 @@ public class DeskManager : Singleton<DeskManager>
         VisibleReports.Add(report);
         ReportVisualElement el = new(_reportsContainer, report);
         el.style.position = Position.Absolute;
-        el.OnReportDismissed += OnReportDimissed;
+        el.OnReportDismissed += OnReportDismissed;
         _reportsContainer.Add(el);
 
         if (report.Position != Vector2.zero)
@@ -150,7 +150,7 @@ public class DeskManager : Singleton<DeskManager>
         await Task.Delay(100);
     }
 
-    async void OnReportDimissed(ReportVisualElement element)
+    async void OnReportDismissed(ReportVisualElement element)
     {
         DOTween.To(x => element.transform.scale = x * Vector3.one, 1, 0.1f, 1f);
         await MoveReportToArchive(element, _reportsArchive);

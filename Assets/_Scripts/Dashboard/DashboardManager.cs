@@ -106,7 +106,7 @@ public class DashboardManager : Singleton<DashboardManager>
             _gameManager = GameManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         _playerInput.SwitchCurrentActionMap("Dashboard");
-
+        UnsubscribeInputActions();
         SubscribeInputActions();
     }
 
@@ -140,7 +140,6 @@ public class DashboardManager : Singleton<DashboardManager>
         if (!IsValidAction(ctx))
             return;
         BaseBuildingOpened();
-
         _mainDesk.style.display = DisplayStyle.Flex;
         OnDeskOpened?.Invoke();
     }
@@ -195,7 +194,7 @@ public class DashboardManager : Singleton<DashboardManager>
         // otherwise it triggers 3 times: https://forum.unity.com/threads/player-input-component-triggering-events-multiple-times.851959/
         // disabled is for my empty event action.
 
-        if (ctx.performed || ctx.phase == InputActionPhase.Disabled)
+        if (!ctx.performed && ctx.phase == InputActionPhase.Canceled)
             return true;
         return false;
     }
@@ -203,7 +202,7 @@ public class DashboardManager : Singleton<DashboardManager>
     void BaseBuildingOpened()
     {
         HideAllPanels();
-        
+
         _main.style.display = DisplayStyle.Flex;
         _mainExit.style.display = DisplayStyle.Flex;
         if (_dashboardPlayer != null)
