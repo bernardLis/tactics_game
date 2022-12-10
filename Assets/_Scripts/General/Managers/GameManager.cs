@@ -207,7 +207,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         ShopRerollPrice = newValue;
         OnShopRerollPriceChanged?.Invoke(newValue);
-        SaveJsonData();
     }
 
     /* Troops & pouches */

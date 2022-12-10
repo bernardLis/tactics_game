@@ -80,6 +80,7 @@ public class ShopManager : UIDraggables
         _gameManager.ChooseShopItems();
 
         DisplayShopItems();
+        _gameManager.SaveJsonData();
     }
 
     void DisplayShopItems()
@@ -155,8 +156,7 @@ public class ShopManager : UIDraggables
             return;
         }
 
-        // buying
-        if (_buyingItem)
+        if (_pouchContainer.worldBound.Overlaps(_itemDragDropContainer.worldBound) && _buyingItem)
             ItemBought();
 
         base.HandleItemPointerUp();
