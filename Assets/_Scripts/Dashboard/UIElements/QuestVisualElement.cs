@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class QuestVisualElement : VisualElement
 {
@@ -13,16 +14,14 @@ public class QuestVisualElement : VisualElement
     Quest _quest;
 
     VisualElement _basicInfoContainer;
+    RankVisualElement _rankVisualElement;
     VisualElement _additionalInfo;
 
     TextWithTooltip _expiryDateLabel;
     TextWithTooltip _durationLabel;
-    TextWithTooltip _daysUntilFinishedLabel;
     TextWithTooltip _successChanceLabel;
-    VisualElement _threatContainer;
-    VisualElement _rewardContainer;
     VisualElement _assignedCharactersContainer;
-    MyButton _startAssignementButton;
+    MyButton _startAssignmentButton;
 
     List<CharacterCardMiniSlot> _cardSlots = new();
 
@@ -40,12 +39,7 @@ public class QuestVisualElement : VisualElement
         AddToClassList("textPrimary");
 
         AddBasicInfo();
-
-        _additionalInfo = new();
-        _additionalInfo.AddToClassList("textPrimary");
-        Add(_additionalInfo);
-
-        PopulateAdditionalInfo();
+        AddAdditionalInfo();
 
         if (_quest.QuestState == QuestState.Expired)
             HandlePendingQuest();
@@ -67,13 +61,13 @@ public class QuestVisualElement : VisualElement
     void OnDayPassed(int day)
     {
         UpdateExpiryDateLabel();
-        UpdateDaysUntilFinishedLabel();
+        UpdateDaysUntilFinished();
     }
 
     void OnQuestStateChanged(QuestState state)
     {
         UpdateExpiryDateLabel();
-        UpdateDaysUntilFinishedLabel();
+        UpdateDaysUntilFinished();
         UpdateStartAssignmentButton();
 
         if (state == QuestState.Pending)
@@ -86,34 +80,32 @@ public class QuestVisualElement : VisualElement
             HandleExpiredQuest();
     }
 
-    void PopulateAdditionalInfo()
+    void AddAdditionalInfo()
     {
+        _additionalInfo = new();
+        _additionalInfo.AddToClassList("textPrimaryBlack");
+        Add(_additionalInfo);
+
         _expiryDateLabel = new TextWithTooltip($"", "Has to be delegated or taken before it expiries.");
         UpdateExpiryDateLabel();
         _additionalInfo.Add(_expiryDateLabel);
 
-        _durationLabel = new TextWithTooltip($"If delegated it takes: {_quest.Duration} days", "");
-        _additionalInfo.Add(_durationLabel);
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
 
-        _daysUntilFinishedLabel = new TextWithTooltip($"{_quest.CountDaysLeft()} days left.", "");
-        UpdateDaysUntilFinishedLabel();
-        _additionalInfo.Add(_daysUntilFinishedLabel);
+        _durationLabel = new TextWithTooltip($"Duration: {_quest.Duration} day(s).", "");
+        container.Add(_durationLabel);
 
-        _successChanceLabel = new TextWithTooltip($"Success chance: {_quest.GetSuccessChance()}%", "");
-        _additionalInfo.Add(_successChanceLabel);
-
-        _threatContainer = CreateThreatContainer();
-        _additionalInfo.Add(_threatContainer);
-
-        _rewardContainer = CreateRewardContainer();
-        _additionalInfo.Add(_rewardContainer);
+        _successChanceLabel = new TextWithTooltip($"Success chance: {_quest.GetSuccessChance()}%.", "");
+        container.Add(_successChanceLabel);
+        _additionalInfo.Add(container);
 
         _assignedCharactersContainer = CreateCharacterSlots();
         _additionalInfo.Add(_assignedCharactersContainer);
 
-        _startAssignementButton = CreateStartAssignmentButton();
+        _startAssignmentButton = CreateStartAssignmentButton();
         UpdateStartAssignmentButton();
-        _additionalInfo.Add(_startAssignementButton);
+        _additionalInfo.Add(_startAssignmentButton);
     }
 
 
@@ -127,8 +119,8 @@ public class QuestVisualElement : VisualElement
         foreach (CharacterCardMiniSlot slot in _cardSlots)
             slot.Lock();
 
-        _startAssignementButton.UpdateButtonText("Assigned!");
-        _startAssignementButton.SetEnabled(false);
+        UpdateDaysUntilFinished();
+        _startAssignmentButton.SetEnabled(false);
     }
 
     void HandleFinishedQuest()
@@ -174,7 +166,7 @@ public class QuestVisualElement : VisualElement
     {
         _basicInfoContainer = new();
         _basicInfoContainer.AddToClassList("questBasicInfoContainer");
-        _basicInfoContainer.AddToClassList("textPrimary");
+        _basicInfoContainer.AddToClassList("textPrimaryBlack");
         Add(_basicInfoContainer);
 
         Label icon = new();
@@ -189,26 +181,21 @@ public class QuestVisualElement : VisualElement
 
     void UpdateExpiryDateLabel()
     {
+        _expiryDateLabel.style.display = DisplayStyle.None;
+
         if (_quest.QuestState == QuestState.Pending)
+        {
+            _expiryDateLabel.style.display = DisplayStyle.Flex;
             _expiryDateLabel.UpdateText($"Expires in: {_quest.ExpiryDay - _gameManager.Day} days.");
-        if (_quest.QuestState == QuestState.Delegated)
-            _expiryDateLabel.UpdateText($"Does not expire.");
-        if (_quest.QuestState == QuestState.Finished)
-            _expiryDateLabel.UpdateText($"Does not expire.");
-        if (_quest.QuestState == QuestState.Expired)
-            _expiryDateLabel.UpdateText($"Expired.");
+        }
     }
 
-    void UpdateDaysUntilFinishedLabel()
+    void UpdateDaysUntilFinished()
     {
-        if (_quest.QuestState == QuestState.Pending)
-            _daysUntilFinishedLabel.UpdateText($"Waiting for assignement.");
         if (_quest.QuestState == QuestState.Delegated)
-            _daysUntilFinishedLabel.UpdateText($"Finished in: {_quest.CountDaysLeft()} days.");
-        if (_quest.QuestState == QuestState.Finished)
-            _daysUntilFinishedLabel.UpdateText($"Finished.");
+            _startAssignmentButton.UpdateButtonText($"Finished in: {_quest.CountDaysLeft()} days.");
         if (_quest.QuestState == QuestState.Expired)
-            _expiryDateLabel.UpdateText($"Expired.");
+            _startAssignmentButton.UpdateButtonText($"Expired.");
     }
 
     void UpdateSuccessChanceLabel()
@@ -311,50 +298,50 @@ public class QuestVisualElement : VisualElement
     // TODO: oh nasty nasty function
     void UpdateStartAssignmentButton()
     {
-        if (_startAssignementButton == null)
+        if (_startAssignmentButton == null)
             return;
 
-        _startAssignementButton.ClearCallbacks();
-        _startAssignementButton.SetEnabled(false);
-        _startAssignementButton.UpdateButtonText("Assign Characters!");
-        _startAssignementButton.RemoveFromClassList("questActionButtonFinished");
-        _startAssignementButton.RemoveFromClassList("questActionButtonPlayer");
-        _startAssignementButton.RemoveFromClassList("questActionButtonDelegate");
-        _startAssignementButton.AddToClassList("questActionButtonPending");
+        _startAssignmentButton.ClearCallbacks();
+        _startAssignmentButton.SetEnabled(false);
+        _startAssignmentButton.UpdateButtonText("Assign Characters!");
+        _startAssignmentButton.RemoveFromClassList("questActionButtonFinished");
+        _startAssignmentButton.RemoveFromClassList("questActionButtonPlayer");
+        _startAssignmentButton.RemoveFromClassList("questActionButtonDelegate");
+        _startAssignmentButton.AddToClassList("questActionButtonPending");
 
         if (_quest.QuestState == QuestState.RewardCollected)
         {
-            _startAssignementButton.style.visibility = Visibility.Hidden;
+            _startAssignmentButton.style.visibility = Visibility.Hidden;
             return;
         }
 
         if (_quest.QuestState == QuestState.Finished)
         {
-            _startAssignementButton.ChangeCallback(SeeResults);
-            _startAssignementButton.SetEnabled(true);
-            _startAssignementButton.UpdateButtonText("See Results!");
-            _startAssignementButton.RemoveFromClassList("questActionButtonPending");
-            _startAssignementButton.AddToClassList("questActionButtonFinished");
+            _startAssignmentButton.ChangeCallback(SeeResults);
+            _startAssignmentButton.SetEnabled(true);
+            _startAssignmentButton.UpdateButtonText("See Results!");
+            _startAssignmentButton.RemoveFromClassList("questActionButtonPending");
+            _startAssignmentButton.AddToClassList("questActionButtonFinished");
             return;
         }
 
         if (IsPlayerAssigned())
         {
-            _startAssignementButton.ChangeCallback(StartBattle);
-            _startAssignementButton.SetEnabled(true);
-            _startAssignementButton.UpdateButtonText("Battle It Out!");
-            _startAssignementButton.RemoveFromClassList("questActionButtonPending");
-            _startAssignementButton.AddToClassList("questActionButtonPlayer");
+            _startAssignmentButton.ChangeCallback(StartBattle);
+            _startAssignmentButton.SetEnabled(true);
+            _startAssignmentButton.UpdateButtonText("Battle It Out!");
+            _startAssignmentButton.RemoveFromClassList("questActionButtonPending");
+            _startAssignmentButton.AddToClassList("questActionButtonPlayer");
             return;
         }
 
         if (_quest.AssignedCharacterCount() > 0)
         {
-            _startAssignementButton.ChangeCallback(DelegateBattle);
-            _startAssignementButton.SetEnabled(true);
-            _startAssignementButton.UpdateButtonText("Delegate It!");
-            _startAssignementButton.RemoveFromClassList("questActionButtonPending");
-            _startAssignementButton.AddToClassList("questActionButtonDelegate");
+            _startAssignmentButton.ChangeCallback(DelegateBattle);
+            _startAssignmentButton.SetEnabled(true);
+            _startAssignmentButton.UpdateButtonText("Delegate It!");
+            _startAssignmentButton.RemoveFromClassList("questActionButtonPending");
+            _startAssignmentButton.AddToClassList("questActionButtonDelegate");
         }
     }
 

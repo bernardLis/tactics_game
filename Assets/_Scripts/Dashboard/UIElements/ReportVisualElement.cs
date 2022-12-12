@@ -38,7 +38,6 @@ public class ReportVisualElement : VisualElement
         _report = report;
 
         AddToClassList("report");
-        AddToClassList("textPrimary");
 
         _reportShadow = new();
         _reportShadow.AddToClassList("reportShadow");
@@ -316,6 +315,7 @@ public class ReportVisualElement : VisualElement
 
         _isDragging = true;
         _dragOffset = new Vector2(evt.localPosition.x, evt.localPosition.y);
+        _dragOffset.y += _parent.worldBound.y; // it needs to be additionally offset by nav bar height
 
         StartReportDrag(evt.position);
     }
@@ -357,6 +357,4 @@ public class ReportVisualElement : VisualElement
         _report.Position = new Vector2(style.left.value.value, style.top.value.value);
         _gameManager.SaveJsonData();
     }
-
-
 }

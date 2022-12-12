@@ -209,8 +209,8 @@ public class CharacterCard : VisualElement
         Add(overlay);
         overlay.BringToFront();
         overlay.style.position = Position.Absolute;
-        overlay.style.width = Length.Percent(105);
-        overlay.style.height = Length.Percent(105);
+        overlay.style.width = Length.Percent(100);
+        overlay.style.height = Length.Percent(100);
         overlay.style.alignSelf = Align.Center;
         overlay.style.alignItems = Align.Center;
         overlay.style.justifyContent = Justify.Center;
@@ -219,7 +219,7 @@ public class CharacterCard : VisualElement
         Label text = new($"Unavailable! ({Character.UnavailabilityDuration})");
         text.AddToClassList("textPrimary");
         text.style.fontSize = 60;
-        text.transform.rotation *= Quaternion.Euler(0f, 0f, 45f);
+        text.transform.rotation *= Quaternion.Euler(0f, 0f, 30f);
         overlay.Add(text);
     }
 

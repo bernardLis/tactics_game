@@ -154,6 +154,14 @@
     -unity-font-definition: none;
 }
 
+.textPrimaryBlack {
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font-definition: none;
+}
+
+
 .textSecondary {
     color: rgb(255, 255, 255);
     font-size: 12px;
