@@ -123,7 +123,17 @@ public class DeskManager : Singleton<DeskManager>
     async Task CreateReport(Report report)
     {
         VisibleReports.Add(report);
-        ReportVisualElement el = new(_reportsContainer, report);
+        ReportVisualElement el = null;
+        // depending on type it will look differently
+        if (report.ReportType == ReportType.Quest)
+            el = (QuestReportVisualElement)new(_reportsContainer, report) as QuestReportVisualElement;
+        if (report.ReportType == ReportType.Recruit)
+            el = (RecruitReportVisualElement)new(_reportsContainer, report) as RecruitReportVisualElement;
+        if (report.ReportType == ReportType.Text)
+            el = (TextReportVisualElement)new(_reportsContainer, report) as TextReportVisualElement;
+        if (report.ReportType == ReportType.CampBuilding)
+            el = (CampReportVisualElement)new(_reportsContainer, report) as CampReportVisualElement;
+
         el.style.position = Position.Absolute;
         el.OnReportDismissed += OnReportDismissed;
         _reportsContainer.Add(el);

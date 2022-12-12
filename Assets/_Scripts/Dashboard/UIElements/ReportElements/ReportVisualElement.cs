@@ -8,24 +8,24 @@ using DG.Tweening;
 
 public class ReportVisualElement : VisualElement
 {
-    GameManager _gameManager;
-    AudioManager _audioManager;
+    protected GameManager _gameManager;
+    protected AudioManager _audioManager;
 
-    VisualElement _parent;
-    VisualElement _reportShadow;
+    protected VisualElement _parent;
+    protected VisualElement _reportShadow;
 
-    VisualElement _reportContents;
-    Label _header;
+    protected VisualElement _reportContents;
+    protected Label _header;
 
-    Report _report;
-    VisualElement _acceptRejectContainer;
-    MyButton _signButton;
-    bool _isArchived;
+    protected Report _report;
+    protected VisualElement _acceptRejectContainer;
+    protected MyButton _signButton;
+    protected bool _isArchived;
 
-    Vector2 _dragOffset;
-    bool _isDragging;
+    protected Vector2 _dragOffset;
+    protected bool _isDragging;
 
-    bool _signed;
+    protected bool _signed;
 
     public event Action<ReportVisualElement> OnReportDismissed;
     public ReportVisualElement(VisualElement parent, Report report)
@@ -52,153 +52,25 @@ public class ReportVisualElement : VisualElement
         _header = new();
         _reportContents.Add(_header);
 
-        // depending on type it will look differently
-        if (report.ReportType == ReportType.Quest)
-            HandleQuest();
-        if (report.ReportType == ReportType.Recruit)
-            HandleRecruit();
-        if (report.ReportType == ReportType.Text)
-            HandleText();
-        if (report.ReportType == ReportType.CampBuilding)
-            HandleCampBuilding();
-
         _reportContents.RegisterCallback<PointerDownEvent>(OnReportContentPointerDown);
         RegisterCallback<PointerDownEvent>(OnPointerDown);
         parent.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         parent.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    void OnDayPassed(int day)
+    protected void OnDayPassed(int day)
     {
-    }
-
-    void HandleQuest()
-    {
-        QuestVisualElement q = new QuestVisualElement(_report);
-        _reportContents.Add(q);
-
-        _report.Quest.OnQuestStateChanged += OnQuestStateChanged;
-        UpdateQuestHeader();
-        AddSignButton();
-
-        if (_report.Quest.QuestState == QuestState.Expired)
-            ShowSignButton();
-        if (_report.Quest.QuestState == QuestState.RewardCollected)
-            ShowSignButton();
-    }
-
-    void UpdateQuestHeader()
-    {
-        if (_report.Quest.QuestState == QuestState.Pending)
-            AddHeader("Quest Pending", Helpers.GetColor(QuestState.Pending.ToString()));
-        if (_report.Quest.QuestState == QuestState.Delegated)
-            AddHeader("Quest In Progress", Helpers.GetColor(QuestState.Delegated.ToString()));
-        if (_report.Quest.QuestState == QuestState.Finished)
-            AddHeader("See Quest Results", Helpers.GetColor(QuestState.Finished.ToString()));
-        if (_report.Quest.QuestState == QuestState.Expired)
-            AddHeader("Quest Expired", Helpers.GetColor(QuestState.Expired.ToString()));
-        if (_report.Quest.QuestState == QuestState.RewardCollected)
-        {
-            string txt = _report.Quest.IsWon ? "Quest won!" : "Quest lost!";
-            Color col = _report.Quest.IsWon ? Helpers.GetColor("healthGainGreen") : Helpers.GetColor("damageRed");
-            AddHeader(txt, col);
-        }
-    }
-
-    void OnQuestStateChanged(QuestState state)
-    {
-        UpdateQuestHeader();
-        if (state == QuestState.Expired)
-            ShowSignButton();
-        if (state == QuestState.RewardCollected)
-            ShowSignButton();
-    }
-
-    void HandleRecruit()
-    {
-        if (_report.Recruit.RecruitState == RecruitState.Pending)
-        {
-            AddHeader($"{_report.Recruit.Character.CharacterName} wants to join!", new Color(0.2f, 0.2f, 0.55f));
-            _reportContents.Add(new RecruitVisualElement(_report.Recruit));
-            _report.Recruit.OnRecruitStateChanged += OnRecruitStateChanged;
-            AddAcceptRejectButtons(AcceptRecruit, RejectRecruit);
-        }
-
-        if (_report.Recruit.RecruitState == RecruitState.Expired)
-        {
-            AddHeader($"{_report.Recruit.Character.CharacterName} left!", Helpers.GetColor(QuestState.Expired.ToString()));
-            _reportContents.Add(new RecruitVisualElement(_report.Recruit));
-            AddSignButton();
-            ShowSignButton();
-        }
-    }
-
-    void OnRecruitStateChanged(RecruitState newState)
-    {
-        if (newState == RecruitState.Expired)
-        {
-            AddHeader($"{_report.Recruit.Character.CharacterName} left!", Helpers.GetColor(QuestState.Expired.ToString()));
-            RemoveAcceptRejectButtons();
-            AddSignButton();
-            ShowSignButton();
-        }
-    }
-
-    void AcceptRecruit()
-    {
-        if (_gameManager.PlayerTroops.Count >= _gameManager.TroopsLimit)
-        {
-            Helpers.DisplayTextOnElement(this, this, "Troops Limit Exceeded", Color.red);
-            return;
-        }
-
-        _gameManager.AddCharacterToTroops(_report.Recruit.Character);
-        _report.Recruit.UpdateRecruitState(RecruitState.Resolved);
-        BaseAcceptReport();
-    }
-
-    void RejectRecruit()
-    {
-        _report.Recruit.UpdateRecruitState(RecruitState.Resolved);
-        BaseRejectReport();
-    }
-
-    void HandleText()
-    {
-        AddHeader("New Message", new Color(0.27f, 0.56f, 0.34f));
-
-        Label text = new(_report.Text);
-        text.style.width = Length.Percent(70f);
-        text.style.fontSize = 36;
-        text.style.whiteSpace = WhiteSpace.Normal;
-        _reportContents.Add(text);
-
-        AddSignButton();
-        ShowSignButton();
-    }
-
-    void HandleCampBuilding()
-    {
-        CampBuilding b = _gameManager.GetCampBuildingById(_report.CampBuildingId);
-        AddHeader("Building Finished!", new Color(0.66f, 0.42f, 0.17f));
-
-        CampBuildingVisualElement el = new CampBuildingVisualElement(b);
-        el.style.backgroundImage = null; // looks weird coz report already has paper bg
-        _reportContents.Add(el);
-
-        AddSignButton();
-        ShowSignButton();
     }
 
     // HELPERS
-    void AddHeader(string text, Color color)
+    protected void AddHeader(string text, Color color)
     {
         _header.text = text;
         _header.AddToClassList("reportHeader");
         _header.style.unityBackgroundImageTintColor = color;
     }
 
-    void AddAcceptRejectButtons(Action acceptCallback, Action rejectCallback)
+    protected void AddAcceptRejectButtons(Action acceptCallback, Action rejectCallback)
     {
         if (_report.IsSigned)
         {
@@ -216,12 +88,9 @@ public class ReportVisualElement : VisualElement
         _reportContents.Add(_acceptRejectContainer);
     }
 
-    void RemoveAcceptRejectButtons()
-    {
-        _acceptRejectContainer.Clear();
-    }
+    protected void RemoveAcceptRejectButtons() { _acceptRejectContainer.Clear(); }
 
-    void HandleSignedReportWithDecision()
+    protected void HandleSignedReportWithDecision()
     {
         Label l = new();
         l.text = _report.WasAccepted ? $"Accepted on day {_report.DaySigned}" : $"Rejected on day {_report.DaySigned}";
@@ -229,7 +98,7 @@ public class ReportVisualElement : VisualElement
         _reportContents.Add(l);
     }
 
-    void AddSignButton()
+    protected void AddSignButton()
     {
         if (_report.IsSigned)
         {
@@ -247,25 +116,25 @@ public class ReportVisualElement : VisualElement
         _reportContents.Add(_signButton);
     }
 
-    void ShowSignButton()
+    protected void ShowSignButton()
     {
         if (_signButton == null)
             return;
         _signButton.style.visibility = Visibility.Visible;
     }
 
-    void BaseAcceptReport()
+    protected void BaseAcceptReport()
     {
         _report.WasAccepted = true;
         DismissReport();
     }
-    void BaseRejectReport()
+    protected void BaseRejectReport()
     {
         _report.WasAccepted = false;
         DismissReport();
     }
 
-    async void DismissReport()
+    protected async void DismissReport()
     {
         // otherwise you can click multiple times if you are a quick clicker.
         if (_signed)
