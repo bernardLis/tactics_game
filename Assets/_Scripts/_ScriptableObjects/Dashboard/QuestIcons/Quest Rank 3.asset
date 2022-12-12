@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edd8d87f44ff0be41bf1e66dad699416, type: 3}
-  m_Name: New Quest Icon 8
+  m_Name: Quest Rank 3
   m_EditorClassIdentifier: 
-  Id: 14c58eac-f45a-43d5-82e6-d23663c05a0f
-  Icon: {fileID: -879196950, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  Id: f1420261-4449-4262-8b34-28a70b91ff5c
+  Rank: 3
+  Icon: {fileID: 1603144976, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  Description: Difficult quest. Without a good training you will be in trouble.

@@ -13,8 +13,8 @@ public class QuestVisualElement : VisualElement
     Report _report;
     Quest _quest;
 
-    VisualElement _basicInfoContainer;
-    RankVisualElement _rankVisualElement;
+    VisualElement _topPanelContainer;
+    StarRankVisualElement _rankVisualElement;
     VisualElement _additionalInfo;
 
     TextWithTooltip _expiryDateLabel;
@@ -38,8 +38,8 @@ public class QuestVisualElement : VisualElement
         AddToClassList("questElement");
         AddToClassList("textPrimary");
 
-        AddBasicInfo();
-        AddAdditionalInfo();
+        AddTopPanel();
+        AddBottomPanel();
 
         if (_quest.QuestState == QuestState.Expired)
             HandlePendingQuest();
@@ -53,10 +53,7 @@ public class QuestVisualElement : VisualElement
         RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
     }
 
-    void OnPointerDown(PointerDownEvent e)
-    {
-        e.StopImmediatePropagation();
-    }
+    void OnPointerDown(PointerDownEvent e) { e.StopImmediatePropagation(); }
 
     void OnDayPassed(int day)
     {
@@ -71,7 +68,7 @@ public class QuestVisualElement : VisualElement
         UpdateStartAssignmentButton();
 
         if (state == QuestState.Pending)
-            Debug.Log($"pending");
+            HandlePendingQuest();
         if (state == QuestState.Delegated)
             HandleDelegatedQuest();
         if (state == QuestState.Finished)
@@ -80,7 +77,18 @@ public class QuestVisualElement : VisualElement
             HandleExpiredQuest();
     }
 
-    void AddAdditionalInfo()
+    void AddTopPanel()
+    {
+        _topPanelContainer = new();
+        _topPanelContainer.AddToClassList("questTopPanelContainer");
+        _topPanelContainer.AddToClassList("textPrimaryBlack");
+        Add(_topPanelContainer);
+
+        _topPanelContainer.Add(new QuestRankVisualElement(_quest.Rank));
+        _topPanelContainer.Add(new TextWithTooltip(_quest.Title, _quest.Description));
+    }
+
+    void AddBottomPanel()
     {
         _additionalInfo = new();
         _additionalInfo.AddToClassList("textPrimaryBlack");
@@ -93,10 +101,10 @@ public class QuestVisualElement : VisualElement
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
 
-        _durationLabel = new TextWithTooltip($"Duration: {_quest.Duration} day(s).", "");
+        _durationLabel = new TextWithTooltip($"Duration: {_quest.Duration} day(s).", $"When delegated it will take {_quest.Duration} day(s)");
         container.Add(_durationLabel);
 
-        _successChanceLabel = new TextWithTooltip($"Success chance: {_quest.GetSuccessChance()}%.", "");
+        _successChanceLabel = new TextWithTooltip($"Success chance: {_quest.GetSuccessChance()}%.", "The stronger/more the characters the higher success chance.");
         container.Add(_successChanceLabel);
         _additionalInfo.Add(container);
 
@@ -125,6 +133,7 @@ public class QuestVisualElement : VisualElement
 
     void HandleFinishedQuest()
     {
+
     }
 
     void HandleExpiredQuest()
@@ -136,13 +145,6 @@ public class QuestVisualElement : VisualElement
         VisualElement overlay = new VisualElement();
         Add(overlay);
         overlay.BringToFront();
-        overlay.style.position = Position.Absolute;
-        overlay.style.width = Length.Percent(105);
-        overlay.style.height = Length.Percent(105);
-        overlay.style.alignSelf = Align.Center;
-        overlay.style.alignItems = Align.Center;
-        overlay.style.justifyContent = Justify.Center;
-        overlay.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
 
         Label text = new($"Expired! ({_quest.ExpiryDay})");
         text.AddToClassList("textPrimary");
@@ -160,23 +162,6 @@ public class QuestVisualElement : VisualElement
             _deskManager.AddCharacterToDraggableTroops(slot.Card.Character);
             slot.RemoveCard();
         }
-    }
-
-    void AddBasicInfo()
-    {
-        _basicInfoContainer = new();
-        _basicInfoContainer.AddToClassList("questBasicInfoContainer");
-        _basicInfoContainer.AddToClassList("textPrimaryBlack");
-        Add(_basicInfoContainer);
-
-        Label icon = new();
-        icon.style.backgroundImage = new StyleBackground(_quest.Icon.Icon);
-        icon.style.width = 50;
-        icon.style.height = 50;
-        _basicInfoContainer.Add(icon);
-
-        Label title = new(_quest.Title);
-        _basicInfoContainer.Add(title);
     }
 
     void UpdateExpiryDateLabel()

@@ -19,7 +19,7 @@ public class AbilityCraftManager : MonoBehaviour
     Ability _abilityTemplate;
 
     VisualElement _starContainer;
-    RankVisualElement _rankVisualElement;
+    StarRankVisualElement _rankVisualElement;
     MyButton _addStarsButton;
     MyButton _subtractStarsButton;
 

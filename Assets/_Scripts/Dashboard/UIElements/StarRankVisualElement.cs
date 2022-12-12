@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class RankVisualElement : VisualWithTooltip
+public class StarRankVisualElement : VisualWithTooltip
 {
     List<VisualElement> stars = new();
     int _rank;
+    VisualElement _tooltipElement;
 
-    public RankVisualElement(int rank, float scale = 1f)
+    public StarRankVisualElement(int rank, float scale = 1f, VisualElement tooltip = null)
     {
         style.flexDirection = FlexDirection.Row;
         transform.scale = Vector3.one * scale;
@@ -22,6 +23,9 @@ public class RankVisualElement : VisualWithTooltip
             stars.Add(star);
         }
         SetRank(rank);
+
+        if (tooltip != null)
+            _tooltipElement = tooltip;
     }
 
     public void AddRank()
@@ -49,7 +53,18 @@ public class RankVisualElement : VisualWithTooltip
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, new Label("rank tooltip to be implemented"));
+        if (_tooltipElement != null)
+        {
+            _tooltip = new(this, _tooltipElement);
+        }
+        else
+        {
+            Label l = new Label("rank tooltip to be implemented");
+            l.style.whiteSpace = WhiteSpace.Normal;
+            _tooltip = new(this, l);
+
+        }
+
         base.DisplayTooltip();
     }
 

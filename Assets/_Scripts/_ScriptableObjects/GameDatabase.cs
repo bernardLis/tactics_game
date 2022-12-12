@@ -52,7 +52,7 @@ public class GameDatabase : BaseScriptableObject
 
     [Header("Dashboard")]
     [SerializeField] Sprite[] CoinSprites;
-    [SerializeField] QuestIcon[] QuestIcons;
+    [SerializeField] QuestRank[] QuestRanks;
     [SerializeField] RewardChest[] RewardChests;
     [SerializeField] ReportPaper[] ReportPapers;
     public Sprite[] LevelUpAnimationSprites;
@@ -100,8 +100,8 @@ public class GameDatabase : BaseScriptableObject
 
     }
 
-    public QuestIcon GetQuestIconById(string id) { return QuestIcons.FirstOrDefault(x => x.Id == id); }
-    public QuestIcon GetRandomQuestIcon() { return QuestIcons[Random.Range(0, QuestIcons.Length)]; }
+    public QuestRank GetQuestRankById(string id) { return QuestRanks.FirstOrDefault(x => x.Id == id); }
+    public QuestRank GetRandomQuestRank() { return QuestRanks[Random.Range(0, QuestRanks.Length)]; }
 
     public RewardChest GetRandomRewardChest() { return RewardChests[Random.Range(0, RewardChests.Length)]; }
 

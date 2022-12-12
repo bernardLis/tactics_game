@@ -9,7 +9,7 @@ public class AbilityTooltipVisual : VisualWithTooltip
     Label _manaCost;
     Label _range;
     Label _aoe;
-    RankVisualElement _rank;
+    StarRankVisualElement _rank;
     VisualElement _modifierContainer;
 
     public AbilityTooltipVisual(Ability ability)

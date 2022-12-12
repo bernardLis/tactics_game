@@ -10,7 +10,6 @@ public class QuestResultsVisualElement : FullScreenVisual
     GameManager _gameManager;
     AudioManager _audioManager;
 
-    Report _report;
     Quest _quest;
 
     VisualElement _content;
@@ -38,7 +37,6 @@ public class QuestResultsVisualElement : FullScreenVisual
         _content = new();
         Add(_content);
         _content.AddToClassList("questResultContent");
-
 
         VisualElement topContainer = new();
         _content.Add(topContainer);
@@ -124,7 +122,7 @@ public class QuestResultsVisualElement : FullScreenVisual
         VisualElement container = _characterCards[0].parent;
         container.style.flexDirection = FlexDirection.Column;
 
-        // TODO: improve this, this countainer thing could be a seperate object that does that by itself.
+        // TODO: improve this, this container thing could be a separate object that does that by itself.
         // width
         float parentWidth = container.layout.width;
         float targetChildWidth = (parentWidth - 100) / _characterCards.Count;

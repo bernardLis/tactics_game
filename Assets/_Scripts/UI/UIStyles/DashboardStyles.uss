@@ -18,10 +18,20 @@
     transition-timing-function: ease-in-out;
 }
 
-.questBasicInfoContainer {
+.questTopPanelContainer {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+}
+
+.questElementOverlay{
+    position: absolute;
+    width: 105%;
+    height: 105%;
+    alignSelf: center;
+    alignItems: center;
+    justifyContent: center;
+    backgroundColor: rgba(0, 0, 0, 0.5);
 }
 
 .characterCardMiniSlot {

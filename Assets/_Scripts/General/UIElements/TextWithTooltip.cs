@@ -20,7 +20,9 @@ public class TextWithTooltip : VisualWithTooltip
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, new Label(_tooltipText));
+        Label t = new(_tooltipText);
+        t.style.whiteSpace = WhiteSpace.Normal;
+        _tooltip = new(this, t);
         base.DisplayTooltip();
     }
 

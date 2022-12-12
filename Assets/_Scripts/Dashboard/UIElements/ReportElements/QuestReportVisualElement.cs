@@ -46,6 +46,4 @@ public class QuestReportVisualElement : ReportVisualElement
         if (state == QuestState.RewardCollected)
             ShowSignButton();
     }
-
-
 }

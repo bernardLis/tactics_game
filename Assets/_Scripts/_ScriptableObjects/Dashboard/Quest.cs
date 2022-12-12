@@ -9,8 +9,9 @@ using System.Linq;
 public class Quest : BaseScriptableObject
 {
     [Header("Basics")]
-    public QuestIcon Icon;
+    public QuestRank Rank;
     public string Title;
+    public string Description;
     public QuestState QuestState;
 
     [Header("Battle")]
@@ -140,8 +141,9 @@ public class Quest : BaseScriptableObject
     public void CreateRandom()
     {
         _gameManager = GameManager.Instance;
-        Icon = _gameManager.GameDatabase.GetRandomQuestIcon();
+        Rank = _gameManager.GameDatabase.GetRandomQuestRank();
         Title = "Quest Title";
+        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
         QuestState = QuestState.Pending;
 
         Biome = _gameManager.GameDatabase.GetRandomBiome();
@@ -171,8 +173,9 @@ public class Quest : BaseScriptableObject
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
 
-        Icon = _gameManager.GameDatabase.GetQuestIconById(data.QuestIconId);
+        Rank = _gameManager.GameDatabase.GetQuestRankById(data.QuestRankId);
         Title = data.Title;
+        Description = data.Description;
 
         QuestState = (QuestState)Enum.Parse(typeof(QuestState), data.QuestState);
 
@@ -205,8 +208,9 @@ public class Quest : BaseScriptableObject
     {
         QuestData qd = new();
 
-        qd.QuestIconId = Icon.Id;
+        qd.QuestRankId = Rank.Id;
         qd.Title = Title;
+        qd.Description = Description;
         qd.QuestState = QuestState.ToString();
 
         qd.SceneToLoad = SceneToLoad;
@@ -236,8 +240,9 @@ public class Quest : BaseScriptableObject
 [Serializable]
 public struct QuestData
 {
-    public string QuestIconId;
+    public string QuestRankId;
     public string Title;
+    public string Description;
     public string QuestState;
 
     public string SceneToLoad;
