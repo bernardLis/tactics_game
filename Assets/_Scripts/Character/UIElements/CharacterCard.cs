@@ -7,7 +7,9 @@ public class CharacterCard : VisualElement
 {
     public Character Character;
 
+
     CharacterPortraitVisualElement _portraitVisualElement;
+    StarRankVisualElement _rankElement;
     Label _level;
     StatVisual _power;
     StatVisual _armor;
@@ -48,7 +50,7 @@ public class CharacterCard : VisualElement
         portraitContainer.Add(name);
 
         VisualElement barsContainer = new();
-        barsContainer.Add(CreateLevelLabel());
+        barsContainer.Add(CreateRankElement());
         barsContainer.Add(CreateStatGroup());
         barsContainer.Add(CreateExpGroup());
         barsContainer.Add(CreateHealthGroup());
@@ -73,12 +75,11 @@ public class CharacterCard : VisualElement
         AvailabilityCheck(); // for armory
     }
 
-    VisualElement CreateLevelLabel()
+    VisualElement CreateRankElement()
     {
-        _level = new();
-        _level.text = $"Level {Character.Level}";
+        _rankElement = new(Random.Range(0, 6), 0.5f);
 
-        return _level;
+        return _rankElement;
     }
 
     VisualElement CreateStatGroup()
@@ -109,7 +110,10 @@ public class CharacterCard : VisualElement
         container.style.width = Length.Percent(100);
 
         ExpBar = new(Color.black, "Experience", 100, Character.Experience, 0, true);
-
+        _level = new Label($"Level {Character.Level}");
+        _level.style.position = Position.Absolute;
+        _level.AddToClassList("textSecondary");
+        ExpBar.Add(_level);
         Character.OnCharacterExpGain += OnExpChange;
         Character.OnCharacterLevelUp += OnLevelUp;
 

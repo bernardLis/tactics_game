@@ -79,7 +79,13 @@ public class Quest : BaseScriptableObject
     }
     public int AssignedCharacterCount() { return AssignedCharacters.Count; }
 
-    public int GetSuccessChance() { return AssignedCharacters.Count * 25; } // TODO: ofc, something cooler!
+    public int GetSuccessChance()
+    {
+        // TODO: I need to define how character rank and quest rank influence success chance.
+        // TODO: ofc, something cooler!
+  
+        return AssignedCharacters.Count * 25;
+    }
 
     public void DelegateQuest()
     {

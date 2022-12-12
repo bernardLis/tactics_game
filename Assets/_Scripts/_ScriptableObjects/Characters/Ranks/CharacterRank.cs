@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterRank : MonoBehaviour
+[CreateAssetMenu(menuName = "ScriptableObject/Character/Character Rank")]
+public class CharacterRank : BaseScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int Rank;
+    public Sprite PortraitBorder;
+
+
 }
