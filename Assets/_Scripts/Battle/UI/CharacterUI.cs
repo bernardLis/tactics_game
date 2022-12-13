@@ -22,8 +22,8 @@ public class CharacterUI : Singleton<CharacterUI>
 
     VisualElement _characterAbilitiesContainer;
     VisualElement _basicActionContainer;
-    List<AbilitySlotVisual> _basicActionSlots = new();
-    List<AbilitySlotVisual> _abilitySlots = new();
+    List<AbilitySlot> _basicActionSlots = new();
+    List<AbilitySlot> _abilitySlots = new();
     List<AbilityButton> _allButtons = new();
 
     // local
@@ -119,7 +119,7 @@ public class CharacterUI : Singleton<CharacterUI>
         basicActionContainer.Clear();
         for (int i = 0; i < 2; i++)
         {
-            AbilitySlotVisual abilitySlot = new();
+            AbilitySlot abilitySlot = new();
             basicActionContainer.Add(abilitySlot);
             _basicActionSlots.Add(abilitySlot);
         }
@@ -128,7 +128,7 @@ public class CharacterUI : Singleton<CharacterUI>
         abilityContainer.Clear();
         for (int i = 0; i < 2; i++)
         {
-            AbilitySlotVisual abilitySlot = new();
+            AbilitySlot abilitySlot = new();
             abilityContainer.Add(abilitySlot);
             _abilitySlots.Add(abilitySlot);
         }
@@ -228,9 +228,9 @@ public class CharacterUI : Singleton<CharacterUI>
     void HandleAbilityButtons()
     {
         _allButtons.Clear();
-        foreach (AbilitySlotVisual slot in _basicActionSlots)
+        foreach (AbilitySlot slot in _basicActionSlots)
             slot.RemoveButton();
-        foreach (AbilitySlotVisual slot in _abilitySlots)
+        foreach (AbilitySlot slot in _abilitySlots)
             slot.RemoveButton();
 
         // TODO: I think that the idea with buttons remembering their input key is not so good

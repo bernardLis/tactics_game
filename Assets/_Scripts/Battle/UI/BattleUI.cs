@@ -17,7 +17,7 @@ public class BattleUI : Singleton<BattleUI>
 
     VisualElement _battleLogContainer;
 
-    FullScreenVisual _battleEndScreen;
+    FullScreenElement _battleEndScreen;
     RewardContainer _battleRewardsContainer;
     bool _wasRewardWarningDisplayed;
     VisualElement _battleEndGoalContainer;
@@ -31,7 +31,7 @@ public class BattleUI : Singleton<BattleUI>
     string _levelToLoadAfterFight = Scenes.Dashboard;
     List<VisualElement> _battleLogs = new();
     List<VisualElement> _battleLogsCopy = new();
-    BattleLogVisual _battleLogVisual;
+    BattleLogScreen _battleLogVisual;
 
     protected override void Awake()
     {
@@ -174,7 +174,7 @@ public class BattleUI : Singleton<BattleUI>
     {
         if (evt.button != 0) // only left mouse click
             return;
-        _battleLogVisual = new BattleLogVisual(new List<VisualElement>(_battleLogs));
+        _battleLogVisual = new BattleLogScreen(new List<VisualElement>(_battleLogs));
         _battleLogVisual.Initialize(Root);
         _battleLogVisual.OnHide += PopulateBattleLog;
     }

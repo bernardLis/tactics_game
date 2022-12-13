@@ -28,7 +28,7 @@ public class CampManager : MonoBehaviour
         _mainCamp.Clear();
         List<CampBuilding> buildings = new(_gameManager.GetCampBuildings());
         foreach (CampBuilding b in buildings)
-        _mainCamp.Add(new CampBuildingVisualElement(b));
+        _mainCamp.Add(new CampBuildingElement(b));
     }
 
     void DayPassed(int day)

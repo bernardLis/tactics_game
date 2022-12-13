@@ -81,7 +81,7 @@ public class ObjectUI : ImmediateModeShapeDrawer
 
     IEnumerator DisplayOnCharacterCoroutine(string txt, int fontSize, Color col)
     {
-        _root.Add(new CombatTextVisualElement(txt, col, transform, _root));
+        _root.Add(new CombatTextElement(txt, col, transform, _root));
         yield return new WaitForSeconds(1);
     }
 

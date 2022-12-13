@@ -92,8 +92,8 @@ public class ShopManager : UIDraggables
             VisualElement container = new();
             container.AddToClassList("shopItem");
 
-            ItemVisual itemVisual = new(item);
-            ItemSlotVisual itemSlot = new();
+            ItemElement itemVisual = new(item);
+            ItemSlot itemSlot = new();
             itemSlot.AddItem(itemVisual);
 
             //https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
@@ -121,14 +121,14 @@ public class ShopManager : UIDraggables
         if (evt.button != 0)
             return;
 
-        ItemVisual itemVisual = (ItemVisual)evt.target;
+        ItemElement itemVisual = (ItemElement)evt.target;
         if (itemVisual.Item.Price > base._gameManager.Gold)
         {
             Helpers.DisplayTextOnElement(_root, itemVisual, "Insufficient funds", Color.red);
             return;
         }
 
-        ItemSlotVisual itemSlotVisual = (ItemSlotVisual)itemVisual.parent;
+        ItemSlot itemSlotVisual = (ItemSlot)itemVisual.parent;
         itemSlotVisual.RemoveItem();
 
         _buyingItem = true;
@@ -142,7 +142,7 @@ public class ShopManager : UIDraggables
         if (_buyingItem)
             return;
 
-        ItemVisual itemVisual = (ItemVisual)evt.target;
+        ItemElement itemVisual = (ItemElement)evt.target;
         _sellItemValueTooltip.Add(new GoldElement(itemVisual.Item.GetSellValue()));
     }
 

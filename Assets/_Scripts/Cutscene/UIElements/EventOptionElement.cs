@@ -16,7 +16,7 @@ public class EventOptionElement : VisualElement
     public event Action<EventOptionElement> OnPointerUp;
 
 
-    ItemSlotVisual _itemSlotVisual;
+    ItemSlot _itemSlotVisual;
     GoldElement _goldElement;
 
 

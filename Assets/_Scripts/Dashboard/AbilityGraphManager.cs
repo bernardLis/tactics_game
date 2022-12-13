@@ -15,7 +15,7 @@ public class AbilityGraphManager : MonoBehaviour
     VisualElement _root;
     VisualElement _abilityGraphs;
     VisualElement _craftAbilityNodeSlotContainer;
-    AbilityNodeSlotVisualElement _craftAbilityNodeSlot;
+    AbilityNodeSlot _craftAbilityNodeSlot;
 
 
     // drag & drop
@@ -23,9 +23,9 @@ public class AbilityGraphManager : MonoBehaviour
     bool _isDragging;
 
     VisualElement _dragDropContainer;
-    AbilityNodeVisualElement _draggedNode;
+    AbilityNodeElement _draggedNode;
 
-    public event Action<AbilityNodeVisualElement> OnCraftNodeAdded;
+    public event Action<AbilityNodeElement> OnCraftNodeAdded;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -54,7 +54,7 @@ public class AbilityGraphManager : MonoBehaviour
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    void CraftNodeAdded(AbilityNodeVisualElement nodeVisualElement) { OnCraftNodeAdded?.Invoke(nodeVisualElement); }
+    void CraftNodeAdded(AbilityNodeElement nodeVisualElement) { OnCraftNodeAdded?.Invoke(nodeVisualElement); }
 
     void OnAbilitiesClicked()
     {
@@ -91,10 +91,10 @@ public class AbilityGraphManager : MonoBehaviour
     VisualElement CreateNodeElement(AbilityNode node)
     {
         VisualElement container = new();
-        AbilityNodeVisualElement el = new(node);
+        AbilityNodeElement el = new(node);
         el.RegisterCallback<PointerDownEvent>(OnNodePointerDown);
 
-        AbilityNodeSlotVisualElement slot = new(el, node.IsUnlocked);
+        AbilityNodeSlot slot = new(el, node.IsUnlocked);
 
         container.Add(slot);
         if (!node.IsUnlocked)
@@ -113,16 +113,16 @@ public class AbilityGraphManager : MonoBehaviour
         if (evt.button != 0)
             return;
 
-        AbilityNodeVisualElement node = (AbilityNodeVisualElement)evt.currentTarget;
+        AbilityNodeElement node = (AbilityNodeElement)evt.currentTarget;
         if (!node.AbilityNode.IsUnlocked)
             return;
 
-        AbilityNodeVisualElement nodeCopy = new(node.AbilityNode);
+        AbilityNodeElement nodeCopy = new(node.AbilityNode);
         nodeCopy.BlockTooltip();
         StartNodeDrag(evt.position, nodeCopy);
     }
 
-    void StartNodeDrag(Vector2 position, AbilityNodeVisualElement draggedNode)
+    void StartNodeDrag(Vector2 position, AbilityNodeElement draggedNode)
     {
         _draggedNode = draggedNode;
 

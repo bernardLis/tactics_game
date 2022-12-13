@@ -370,7 +370,7 @@ public class InfoCardUI : Singleton<InfoCardUI>
 
         if (creatable.Status == null)
             return;
-        ModifierVisual mElement = new ModifierVisual(a.CreatedObject.GetComponent<Creatable>().Status);
+        ModifierElement mElement = new ModifierElement(a.CreatedObject.GetComponent<Creatable>().Status);
         _attackDamageGroup.Add(mElement);
     }
 
@@ -378,13 +378,13 @@ public class InfoCardUI : Singleton<InfoCardUI>
     {
         if (ability.StatModifier != null)
         {
-            ModifierVisual mElement = new ModifierVisual(ability.StatModifier);
+            ModifierElement mElement = new ModifierElement(ability.StatModifier);
             _attackDamageGroup.Add(mElement);
         }
 
         if (ability.Status != null)
         {
-            ModifierVisual mElement = new ModifierVisual(ability.Status);
+            ModifierElement mElement = new ModifierElement(ability.Status);
             _attackDamageGroup.Add(mElement);
         }
     }

@@ -1,80 +1,154 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
-using DG.Tweening;
+using System.Linq;
 
-public class UIDraggables : MonoBehaviour
+public class ScreenWithDraggables : FullScreenElement
 {
-    protected GameManager _gameManager;
-    protected List<CharacterCard> _characterCards = new();
-
-    protected VisualElement _root;
+    GameManager _gameManager;
 
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
-    protected bool _isDragging;
+    bool _isDragging;
 
     // Item drag & drop
-    protected ItemSlot _originalItemSlot;
-    protected ItemSlot _newItemSlot;
-    protected VisualElement _itemDragDropContainer;
-    protected ItemElement _draggedItem;
+    ItemSlot _originalItemSlot;
+    ItemSlot _newItemSlot;
+    VisualElement _itemDragDropContainer;
+    ItemElement _draggedItem;
 
-    protected List<ItemSlot> _allPlayerItemSlotVisuals = new();
-    protected List<ItemSlot> _playerPouchItemSlotVisuals = new();
+    List<ItemSlot> _rewardItemSlotVisuals = new();
+    List<ItemSlot> _allPlayerItemSlotVisuals = new();
+    List<ItemSlot> _playerPouchItemSlotVisuals = new();
 
+    List<CharacterCard> _characterCards = new();
 
     // Ability drag & drop
-    protected AbilitySlot _originalAbilitySlot;
-    protected AbilitySlot _newAbilitySlot;
-    protected VisualElement _abilityDragDropContainer;
-    protected AbilityButton _draggedAbility;
+    AbilitySlot _originalAbilitySlot;
+    AbilitySlot _newAbilitySlot;
+    VisualElement _abilityDragDropContainer;
+    AbilityButton _draggedAbility;
 
-    protected List<AbilitySlot> _allPlayerAbilitySlotVisuals = new();
-    protected List<AbilitySlot> _playerPouchAbilitySlotVisuals = new();
+    List<AbilitySlot> _allPlayerAbilitySlotVisuals = new();
+    List<AbilitySlot> _playerPouchAbilitySlotVisuals = new();
 
-    bool _wasInitialized;
+    // gold
+    GoldElement _goldElement;
 
-    public virtual void Initialize(VisualElement root)
+    public ScreenWithDraggables(VisualElement root)
     {
-        _wasInitialized = true;
-
+        style.backgroundColor = Color.black;
+        style.flexDirection = FlexDirection.Column;
+        style.alignItems = Align.Center;
         _gameManager = GameManager.Instance;
+        Initialize(root, false);
 
-        _allPlayerItemSlotVisuals = new();
-        _playerPouchItemSlotVisuals = new();
-
-        _allPlayerAbilitySlotVisuals = new();
-        _playerPouchAbilitySlotVisuals = new();
-
-        _root = root;
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
 
         _itemDragDropContainer = new VisualElement();
         _itemDragDropContainer.AddToClassList("itemDragDropContainer");
-        _root.Add(_itemDragDropContainer);
+        Add(_itemDragDropContainer);
 
         _abilityDragDropContainer = new VisualElement();
         _abilityDragDropContainer.AddToClassList("abilityDragDropContainer");
-        _root.Add(_abilityDragDropContainer);
+        Add(_abilityDragDropContainer);
     }
 
-    public VisualElement CreateCharacterCards(List<Character> troops)
+    public void AddElement(VisualElement el) { Add(el); }
+
+    public ItemSlot CreateDraggableItem(Item item, bool isDraggable = true)
     {
-        // TODO: probably make it a scroll view
+        ItemSlot slot = new ItemSlot();
+        ItemElement itemVisual = new(item);
+        slot.AddItem(itemVisual);
+
+        _rewardItemSlotVisuals.Add(slot);
+        if (isDraggable)
+            slot.ItemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+
+        return slot;
+    }
+
+    public void UnlockItem(ItemElement itemVisual)
+    {
+        itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+    }
+
+    public bool AreAllRewardsTaken()
+    {
+        foreach (ItemSlot slot in _rewardItemSlotVisuals)
+            if (slot.ItemVisual != null)
+            {
+                Helpers.DisplayTextOnElement(this, slot, "Take me with you", Color.red);
+                return false;
+            }
+
+        return true;
+    }
+
+    public VisualElement AddPouches()
+    {
+        VisualElement c = new();
+        Add(c);
+
+        Label txt = new Label("Inventory:");
+        txt.AddToClassList("textPrimary");
+        c.Add(txt);
+
         VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        c.Add(container);
+
+        GoldElement _goldElement = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += _goldElement.ChangeAmount; // HERE: does it make a drama if I don't unsubcribe from it on destory?
+        container.Add(_goldElement);
+
+        //abilities
+        for (int i = 0; i < 3; i++)
+        {
+            AbilitySlot slot = new AbilitySlot();
+            container.Add(slot);
+            _allPlayerAbilitySlotVisuals.Add(slot);
+            _playerPouchAbilitySlotVisuals.Add(slot);
+        }
+
+        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count; i++)
+        {
+            AbilityButton abilityButton = new(_gameManager.PlayerAbilityPouch[i], null);
+            _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
+            abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
+        }
+
+        //items
+        for (int i = 0; i < 3; i++)
+        {
+            ItemSlot slot = new ItemSlot();
+            container.Add(slot);
+            _allPlayerItemSlotVisuals.Add(slot);
+            _playerPouchItemSlotVisuals.Add(slot);
+        }
+        for (int i = 0; i < _gameManager.PlayerItemPouch.Count; i++)
+        {
+            ItemElement itemVisual = new(_gameManager.PlayerItemPouch[i]);
+            _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
+            itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+        }
+
+        return c;
+    }
+
+    public VisualElement AddCharacters(List<Character> troops)
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        Add(container);
 
         foreach (Character character in troops)
         {
             CharacterCard card = new CharacterCard(character);
             _characterCards.Add(card);
             container.Add(card);
-
-            if (character.IsUnavailable) // can't change items when on quest
-                continue;
 
             // allow moving character items
             foreach (ItemElement item in card.ItemVisuals)
@@ -94,73 +168,7 @@ public class UIDraggables : MonoBehaviour
         return container;
     }
 
-    public VisualElement CreateItemPouch()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.flexWrap = Wrap.Wrap;
-
-        // TODO: probably make it a scroll view
-        for (int i = 0; i < _gameManager.PlayerItemPouch.Count + 10; i++)
-        {
-            ItemSlot slot = new ItemSlot();
-            container.Add(slot);
-            _allPlayerItemSlotVisuals.Add(slot);
-            _playerPouchItemSlotVisuals.Add(slot);
-        }
-        for (int i = 0; i < _gameManager.PlayerItemPouch.Count; i++)
-        {
-            ItemElement itemVisual = new(_gameManager.PlayerItemPouch[i]);
-            _playerPouchItemSlotVisuals[i].AddItem(itemVisual);
-            itemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
-        }
-
-        return container;
-    }
-
-    public VisualElement CreateAbilityPouch()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.flexWrap = Wrap.Wrap;
-
-        // TODO: probably make it a scroll view
-        //abilities
-        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count + 10; i++)
-        {
-            AbilitySlot slot = new AbilitySlot();
-            container.Add(slot);
-            _allPlayerAbilitySlotVisuals.Add(slot);
-            _playerPouchAbilitySlotVisuals.Add(slot);
-        }
-
-        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count; i++)
-        {
-            AbilityButton abilityButton = new(_gameManager.PlayerAbilityPouch[i], null);
-            _playerPouchAbilitySlotVisuals[i].AddButton(abilityButton);
-            abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
-        }
-
-        return container;
-    }
-
-    public void ClearDraggables()
-    {
-        if (!_wasInitialized)
-            return;
-
-        if (_itemDragDropContainer != null)
-            _root.Remove(_itemDragDropContainer);
-        if (_abilityDragDropContainer != null)
-            _root.Remove(_abilityDragDropContainer);
-
-        _root.UnregisterCallback<PointerMoveEvent>(OnPointerMove);
-        _root.UnregisterCallback<PointerUpEvent>(OnPointerUp);
-
-        _wasInitialized = false;
-    }
-
-    protected virtual void OnItemPointerDown(PointerDownEvent evt)
+    void OnItemPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
             return;
@@ -172,7 +180,7 @@ public class UIDraggables : MonoBehaviour
         StartItemDrag(evt.position, itemSlotVisual, itemVisual);
     }
 
-    protected virtual void OnAbilityPointerDown(PointerDownEvent evt)
+    void OnAbilityPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
             return;
@@ -185,7 +193,7 @@ public class UIDraggables : MonoBehaviour
     }
 
     //drag & drop
-    protected void StartItemDrag(Vector2 position, ItemSlot originalSlot, ItemElement draggedItem)
+    void StartItemDrag(Vector2 position, ItemSlot originalSlot, ItemElement draggedItem)
     {
         _draggedItem = draggedItem;
 
@@ -202,7 +210,7 @@ public class UIDraggables : MonoBehaviour
         _itemDragDropContainer.style.visibility = Visibility.Visible;
     }
 
-    protected void StartAbilityDrag(Vector2 position, AbilitySlot originalSlot, AbilityButton draggedAbility)
+    void StartAbilityDrag(Vector2 position, AbilitySlot originalSlot, AbilityButton draggedAbility)
     {
         _draggedAbility = draggedAbility;
 
@@ -219,7 +227,7 @@ public class UIDraggables : MonoBehaviour
         _abilityDragDropContainer.style.visibility = Visibility.Visible;
     }
 
-    protected void OnPointerMove(PointerMoveEvent evt)
+    void OnPointerMove(PointerMoveEvent evt)
     {
         //Only take action if the player is dragging an item around the screen
         if (!_isDragging)
@@ -240,7 +248,7 @@ public class UIDraggables : MonoBehaviour
         }
     }
 
-    protected virtual void OnPointerUp(PointerUpEvent evt)
+    private void OnPointerUp(PointerUpEvent evt)
     {
         if (!_isDragging)
             return;
@@ -252,7 +260,7 @@ public class UIDraggables : MonoBehaviour
             HandleAbilityPointerUp();
     }
 
-    protected virtual void HandleItemPointerUp()
+    void HandleItemPointerUp()
     {
         //Check to see if they are dropping the ghost icon over any inventory slots.
         IEnumerable<ItemSlot> slots = _allPlayerItemSlotVisuals.Where(x =>
@@ -279,30 +287,38 @@ public class UIDraggables : MonoBehaviour
 
         //Set the new inventory slot with the data
         _newItemSlot.AddItem(_draggedItem);
-
         ItemMoved();
         DragCleanUp();
     }
 
-    protected virtual void ItemMoved()
+    void ItemMoved()
     {
         // removing
         if (_originalItemSlot.Character != null)
             _originalItemSlot.Character.RemoveItem(_draggedItem.Item);
         if (_playerPouchItemSlotVisuals.Contains(_originalItemSlot))
             _gameManager.RemoveItemFromPouch(_draggedItem.Item);
+        if (_rewardItemSlotVisuals.Contains(_originalItemSlot))
+            _originalItemSlot.parent.Remove(_originalItemSlot);
 
         // adding
         if (_newItemSlot.Character != null)
+        {
             _newItemSlot.Character.AddItem(_draggedItem.Item);
+            Debug.Log($"Adding item to {_newItemSlot.Character}");
+        }
         if (_playerPouchItemSlotVisuals.Contains(_newItemSlot))
+        {
             _gameManager.AddItemToPouch(_draggedItem.Item);
+            Debug.Log($"Adding item to pouch");
+
+        }
 
         foreach (CharacterCard card in _characterCards)
             card.Character.ResolveItems();
     }
 
-    protected virtual void HandleAbilityPointerUp()
+    void HandleAbilityPointerUp()
     {
         //Check to see if they are dropping the ghost icon over any inventory slots.
         IEnumerable<AbilitySlot> slots = _allPlayerAbilitySlotVisuals.Where(x =>
@@ -334,7 +350,7 @@ public class UIDraggables : MonoBehaviour
         DragCleanUp();
     }
 
-    protected virtual void AbilityMoved()
+    void AbilityMoved()
     {
         if (_originalAbilitySlot.Character != null)
             _originalAbilitySlot.Character.RemoveAbility(_draggedAbility.Ability);
@@ -349,7 +365,7 @@ public class UIDraggables : MonoBehaviour
         _gameManager.SaveJsonData();
     }
 
-    protected virtual void DragCleanUp()
+    void DragCleanUp()
     {
         //Clear dragging related visuals and data
         _isDragging = false;
@@ -366,5 +382,7 @@ public class UIDraggables : MonoBehaviour
         _abilityDragDropContainer.Clear();
         _abilityDragDropContainer.style.visibility = Visibility.Hidden;
     }
+
+
 
 }

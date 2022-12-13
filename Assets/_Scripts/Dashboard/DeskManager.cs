@@ -123,16 +123,16 @@ public class DeskManager : Singleton<DeskManager>
     async Task CreateReport(Report report)
     {
         VisibleReports.Add(report);
-        ReportVisualElement el = null;
+        ReportElement el = null;
         // depending on type it will look differently
         if (report.ReportType == ReportType.Quest)
-            el = (QuestReportVisualElement)new(_reportsContainer, report) as QuestReportVisualElement;
+            el = (QuestReportElement)new(_reportsContainer, report) as QuestReportElement;
         if (report.ReportType == ReportType.Recruit)
-            el = (RecruitReportVisualElement)new(_reportsContainer, report) as RecruitReportVisualElement;
+            el = (RecruitReportElement)new(_reportsContainer, report) as RecruitReportElement;
         if (report.ReportType == ReportType.Text)
-            el = (TextReportVisualElement)new(_reportsContainer, report) as TextReportVisualElement;
+            el = (TextReportElement)new(_reportsContainer, report) as TextReportElement;
         if (report.ReportType == ReportType.CampBuilding)
-            el = (CampReportVisualElement)new(_reportsContainer, report) as CampReportVisualElement;
+            el = (CampReportElement)new(_reportsContainer, report) as CampReportElement;
 
         el.style.position = Position.Absolute;
         el.OnReportDismissed += OnReportDismissed;
@@ -160,7 +160,7 @@ public class DeskManager : Singleton<DeskManager>
         await Task.Delay(100);
     }
 
-    async void OnReportDismissed(ReportVisualElement element)
+    async void OnReportDismissed(ReportElement element)
     {
         DOTween.To(x => element.transform.scale = x * Vector3.one, 1, 0.1f, 1f);
         await MoveReportToArchive(element, _reportsArchive);
@@ -202,7 +202,7 @@ public class DeskManager : Singleton<DeskManager>
 
     void OnArchiveClick(PointerUpEvent evt)
     {
-        FullScreenVisual visual = new FullScreenVisual();
+        FullScreenElement visual = new FullScreenElement();
         visual.AddToClassList("textPrimary");
         visual.style.backgroundColor = Color.black;
         visual.style.left = Screen.width;
@@ -225,9 +225,9 @@ public class DeskManager : Singleton<DeskManager>
 
     void OnArchivedReportClick(PointerUpEvent evt, Report report)
     {
-        FullScreenVisual visual = new FullScreenVisual();
+        FullScreenElement visual = new FullScreenElement();
         visual.style.backgroundColor = Color.black;
-        visual.Add(new ReportVisualElement(visual, report));
+        visual.Add(new ReportElement(visual, report));
         visual.Initialize(Root);
         visual.AddBackButton();
     }

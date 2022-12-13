@@ -19,7 +19,7 @@ public class AbilityCraftManager : MonoBehaviour
     Ability _abilityTemplate;
 
     VisualElement _starContainer;
-    StarRankVisualElement _rankVisualElement;
+    StarRankElement _rankVisualElement;
     MyButton _addStarsButton;
     MyButton _subtractStarsButton;
 
@@ -74,7 +74,7 @@ public class AbilityCraftManager : MonoBehaviour
         DiscardAbility();
     }
 
-    void OnCraftNodeAdded(AbilityNodeVisualElement nodeVisualElement)
+    void OnCraftNodeAdded(AbilityNodeElement nodeVisualElement)
     {
         _craftTooltip.text = "Add stars to get stronger abilities.";
         _abilityNode = nodeVisualElement.AbilityNode;
@@ -211,7 +211,7 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityStatusContainer.Clear();
         _abilityStatusContainer.Add(new Label("Status: "));
         if (_abilityTemplate.Status != null)
-            _abilityStatusContainer.Add(new ModifierVisual(_abilityTemplate.Status));
+            _abilityStatusContainer.Add(new ModifierElement(_abilityTemplate.Status));
 
         _abilityManaCost.text = $"Mana cost: {_abilityTemplate.ManaCost}";
 

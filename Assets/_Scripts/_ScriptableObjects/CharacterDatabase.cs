@@ -11,16 +11,9 @@ public class CharacterDatabase : ScriptableObject
         List<CharacterRank> sorted = CharacterRanks.OrderBy(o => o.Rank).ToList();
         
         CharacterRank r = CharacterRanks[0];
-        Debug.Log($"r {r.Title}");
-        // given the list is ordered it should work;
         foreach (CharacterRank rank in CharacterRanks)
-        {
-
             if (rank.PointsRequired <= points)
                 r = rank;
-
-        }
-        Debug.Log($"r {r.Title}");
 
         return r;
     }

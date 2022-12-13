@@ -610,7 +610,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
                     VisualElement el = new();
                     el.style.flexDirection = FlexDirection.Row;
                     el.Add(new Label($"{Character.CharacterName} gets "));
-                    el.Add(new ModifierVisual(mod));
+                    el.Add(new ModifierElement(mod));
                     _battleUI.DisplayBattleLog(new BattleLogLine(el, BattleLogLineType.Status));
                 }
             }
@@ -625,7 +625,7 @@ public class CharacterStats : BaseStats, IHealable<GameObject, Ability>, IAttack
         VisualElement el = new();
         el.style.flexDirection = FlexDirection.Row;
         el.Add(new Label($"{Character.CharacterName} gets "));
-        el.Add(new ModifierVisual(s));
+        el.Add(new ModifierElement(s));
         _battleUI.DisplayBattleLog(new BattleLogLine(el, BattleLogLineType.Status));
 
         // noone cares?

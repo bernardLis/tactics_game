@@ -31,7 +31,7 @@ public class PlaceOfRestoration : PlaceOf
         container.style.flexWrap = Wrap.Wrap;
         Label txt = new Label("Place of restoration. As long as you stand on it you get: ");
         txt.style.whiteSpace = WhiteSpace.Normal;
-        ModifierVisual mod = new(Status);
+        ModifierElement mod = new(Status);
         container.Add(txt);
         container.Add(mod);
 

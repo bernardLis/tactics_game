@@ -19,7 +19,7 @@ public class DashboardManager : Singleton<DashboardManager>
     VisualElement _navTroops;
     VisualElement _navSpice;
 
-    TroopsLimitVisualElement _troopsLimitVisualElement;
+    TroopsLimitElement _troopsLimitVisualElement;
 
     VisualElement _main;
     VisualElement _mainArmory;
