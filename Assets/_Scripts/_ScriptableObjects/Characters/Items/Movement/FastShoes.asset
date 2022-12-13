@@ -17,7 +17,7 @@ MonoBehaviour:
   ItemName: Fast Shoes
   Icon: {fileID: 21300000, guid: bfd7215dad903e2429c0435ecda6bf31, type: 3}
   InfluencedStat: 4
-  Raririty: 0
+  Rarity: 0
   Value: 1
   Price: 500
   Status: {fileID: 0}

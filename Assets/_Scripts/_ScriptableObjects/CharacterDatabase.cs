@@ -4,6 +4,27 @@ using UnityEngine;
 using System.Linq;
 public class CharacterDatabase : ScriptableObject
 {
+
+    [SerializeField] List<CharacterRank> CharacterRanks = new();
+    public CharacterRank GetRankByPoints(int points)
+    {
+        List<CharacterRank> sorted = CharacterRanks.OrderBy(o => o.Rank).ToList();
+        
+        CharacterRank r = CharacterRanks[0];
+        Debug.Log($"r {r.Title}");
+        // given the list is ordered it should work;
+        foreach (CharacterRank rank in CharacterRanks)
+        {
+
+            if (rank.PointsRequired <= points)
+                r = rank;
+
+        }
+        Debug.Log($"r {r.Title}");
+
+        return r;
+    }
+
     public List<CharacterPortrait> PortraitsMale = new();
     public List<CharacterPortrait> PortraitsFemale = new();
 

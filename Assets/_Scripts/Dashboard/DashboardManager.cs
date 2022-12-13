@@ -276,6 +276,16 @@ public class DashboardManager : Singleton<DashboardManager>
         _gameManager.ChangeSpiceValue(500);
     }
 
+    [ContextMenu("Level Up")]
+    void LevelUpAllCharacters()
+    {
+        foreach (Character c in _gameManager.PlayerTroops)
+            c.LevelUp();
+            
+        
+    }
+
+
 #endif
 
 }

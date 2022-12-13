@@ -107,8 +107,6 @@ public class GameDatabase : BaseScriptableObject
 
     public ReportPaper GetRandomReportPaper() { return ReportPapers[Random.Range(0, ReportPapers.Length)]; }
     public ReportPaper GetReportPaperById(string id) { return ReportPapers.FirstOrDefault(x => x.Id == id); }
-
-
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }

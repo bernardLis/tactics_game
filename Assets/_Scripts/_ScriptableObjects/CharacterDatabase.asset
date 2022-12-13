@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d9b2cef044eec4ca8d6faa247601cf, type: 3}
   m_Name: CharacterDatabase
   m_EditorClassIdentifier: 
+  CharacterRanks:
+  - {fileID: 11400000, guid: ba11998d4c1716d41b7ff7a56468880c, type: 2}
+  - {fileID: 11400000, guid: e2c506d512af45e4e96380801d467420, type: 2}
+  - {fileID: 11400000, guid: 9547b731a4027d248bf6b40dfab6b5f8, type: 2}
+  - {fileID: 11400000, guid: 80ced388a1313ce459c477b40ac1ae50, type: 2}
+  - {fileID: 11400000, guid: b218fa4db8f680a4c8ec5dff68ef5465, type: 2}
+  - {fileID: 11400000, guid: e6ef06986fe9587429dc15536536f460, type: 2}
   PortraitsMale:
   - {fileID: 11400000, guid: 14ced6087fa030d4fab5cd546da3dc65, type: 2}
   - {fileID: 11400000, guid: 729ee4233ce84ae418f5abb43920b82a, type: 2}

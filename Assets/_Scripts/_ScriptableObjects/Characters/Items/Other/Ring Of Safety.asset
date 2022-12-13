@@ -17,7 +17,7 @@ MonoBehaviour:
   ItemName: Ring Of Safety
   Icon: {fileID: 21300000, guid: 71f449e7b5230434abedc3e09be20a6a, type: 3}
   InfluencedStat: 0
-  Raririty: 3
+  Rarity: 3
   Value: 0
   Price: 1200
   Status: {fileID: 11400000, guid: 200e5f230f2ba0946b1eb4bb53bb3cd1, type: 2}

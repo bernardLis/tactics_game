@@ -5,22 +5,29 @@ using UnityEngine.UIElements;
 public class CharacterPortraitVisualElement : VisualElement
 {
     Character _character;
+    VisualElement _frame;
     public CharacterPortraitVisualElement(Character character)
     {
         _character = character;
         AddToClassList("characterPortraitContainer");
-        
+
         VisualElement portrait = new();
         portrait.AddToClassList("characterPortrait");
         portrait.style.backgroundImage = new StyleBackground(character.Portrait.Sprite);
 
-        VisualElement frame = new();
-        frame.AddToClassList("characterPortraitFrame");
+        _frame = new();
+        _frame.AddToClassList("characterPortraitFrame");
 
-        // HERE:ranks request frame depending on character rank
+        UpdateFrame(character.Rank);
+        character.OnRankChanged += UpdateFrame;
 
         Add(portrait);
-        Add(frame);
+        Add(_frame);
+    }
+
+    void UpdateFrame(CharacterRank rank)
+    {
+        _frame.style.backgroundImage = new StyleBackground(rank.PortraitBorder);
     }
 
 }

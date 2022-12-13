@@ -39,6 +39,8 @@ public class Character : BaseScriptableObject
     [Header("Abilities")]
     public List<Ability> Abilities = new();
 
+    public CharacterRank Rank { get; private set; }
+
     [Header("Quest")]
     [HideInInspector] public bool IsAssigned;
     [HideInInspector] public bool IsUnavailable;
@@ -47,6 +49,7 @@ public class Character : BaseScriptableObject
 
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
+    public event Action<CharacterRank> OnRankChanged;
 
     public event Action<int> OnMaxHealthChanged;
     public event Action<int> OnMaxManaChanged;
@@ -118,24 +121,29 @@ public class Character : BaseScriptableObject
         AudioManager.Instance.PlaySFX("LevelUp", Vector3.one);
 
         OnCharacterLevelUp?.Invoke();
+        UpdateRank();
     }
 
     public int GetNumberOfAbilitySlots() { return 2; }
 
     public void AddAbility(Ability ability)
     {
-        Debug.Log($"Adding ability {ability.name} to {CharacterName}");
         Abilities.Add(ability);
-        
+        UpdateRank();
     }
 
-    public void RemoveAbility(Ability ability) { Abilities.Remove(ability); }
+    public void RemoveAbility(Ability ability)
+    {
+        Abilities.Remove(ability);
+        UpdateRank();
+    }
 
     public void AddItem(Item item)
     {
         Items.Add(item);
         ResolveItems();
         InformSubscribers(item);
+        UpdateRank();
     }
 
     public void RemoveItem(Item item)
@@ -143,6 +151,7 @@ public class Character : BaseScriptableObject
         Items.Remove(item);
         ResolveItems();
         InformSubscribers(item);
+        UpdateRank();
     }
 
     void InformSubscribers(Item item)
@@ -202,6 +211,40 @@ public class Character : BaseScriptableObject
             IsUnavailable = false;
     }
 
+    public void UpdateRank()
+    {
+        int points = CountRankPoints();
+        Debug.Log($"points {points} for {name}");
+        CharacterRank newRank = _gameManager.GameDatabase.CharacterDatabase.GetRankByPoints(points);
+        if (newRank == Rank)
+            return;
+
+        Rank = newRank;
+        OnRankChanged?.Invoke(Rank);
+    }
+
+    public int CountRankPoints()
+    {
+        int total = Level;
+
+        foreach (Item i in Items)
+        {
+            if (i.Rarity == ItemRarity.Common)
+                total += 1;
+            if (i.Rarity == ItemRarity.Uncommon)
+                total += 2;
+            if (i.Rarity == ItemRarity.Rare)
+                total += 4;
+            if (i.Rarity == ItemRarity.Epic)
+                total += 8;
+        }
+
+        foreach (Ability a in Abilities)
+            total += a.Rank;
+
+        return total;
+    }
+
     public virtual void CreateRandom()
     {
         _gameManager = GameManager.Instance;
@@ -230,6 +273,8 @@ public class Character : BaseScriptableObject
         List<Item> Items = new();
 
         Abilities = new();
+
+        UpdateRank();
     }
 
     // creates character at runtime from saved data
@@ -270,6 +315,8 @@ public class Character : BaseScriptableObject
         IsUnavailable = data.IsOnUnavailable;
         DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
         UnavailabilityDuration = data.UnavailabilityDuration;
+
+        UpdateRank();
     }
 
     public CharacterData SerializeSelf()

@@ -7,9 +7,9 @@ public class CharacterCard : VisualElement
 {
     public Character Character;
 
-
     CharacterPortraitVisualElement _portraitVisualElement;
     StarRankVisualElement _rankElement;
+    Label _title;
     Label _level;
     StatVisual _power;
     StatVisual _armor;
@@ -46,8 +46,11 @@ public class CharacterCard : VisualElement
         _portraitVisualElement = new(character);
         Label name = new($"{character.CharacterName}");
 
+        _title = new($"{Character.Rank.Title}");
+
         portraitContainer.Add(_portraitVisualElement);
         portraitContainer.Add(name);
+        portraitContainer.Add(_title);
 
         VisualElement barsContainer = new();
         barsContainer.Add(CreateRankElement());
@@ -73,11 +76,18 @@ public class CharacterCard : VisualElement
         Add(bottomPanel);
 
         AvailabilityCheck(); // for armory
+        Character.OnRankChanged += OnRankChanged;
+    }
+
+    void OnRankChanged(CharacterRank rank)
+    {
+        _rankElement.SetRank(rank.Rank);
+        _title.text = $"{rank.Title}";
     }
 
     VisualElement CreateRankElement()
     {
-        _rankElement = new(Random.Range(0, 6), 0.5f);
+        _rankElement = new(Character.Rank.Rank, 0.5f);
 
         return _rankElement;
     }

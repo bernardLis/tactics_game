@@ -17,7 +17,7 @@ MonoBehaviour:
   ItemName: Mana Regen Glove
   Icon: {fileID: 21300000, guid: ceead1a6a7b24a543a0d4ddeb6957ff4, type: 3}
   InfluencedStat: 0
-  Raririty: 3
+  Rarity: 3
   Value: 0
   Price: 1200
   Status: {fileID: 11400000, guid: f0f737cbd39852a4a959136ae6a07447, type: 2}

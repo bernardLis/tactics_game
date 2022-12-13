@@ -17,7 +17,7 @@ MonoBehaviour:
   ItemName: Powerful Pants III
   Icon: {fileID: 21300000, guid: 46101b70cd667c74b8c3a5f8acbe035a, type: 3}
   InfluencedStat: 0
-  Raririty: 3
+  Rarity: 3
   Value: 8
   Price: 1300
   Status: {fileID: 0}

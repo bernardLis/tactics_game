@@ -17,7 +17,7 @@ MonoBehaviour:
   ItemName: Mana Necklace III
   Icon: {fileID: 21300000, guid: 1d6fe4950234d1047b624bda3be11a38, type: 3}
   InfluencedStat: 2
-  Raririty: 3
+  Rarity: 3
   Value: 40
   Price: 500
   Status: {fileID: 0}
