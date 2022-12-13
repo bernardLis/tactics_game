@@ -24,14 +24,14 @@
     justify-content: space-around;
 }
 
-.questElementOverlay{
+.questElementOverlay {
     position: absolute;
     width: 105%;
     height: 105%;
-    alignSelf: center;
-    alignItems: center;
-    justifyContent: center;
-    backgroundColor: rgba(0, 0, 0, 0.5);
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(36, 35, 35, 0.47);
 }
 
 .characterCardMiniSlot {

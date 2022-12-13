@@ -143,13 +143,14 @@ public class QuestVisualElement : VisualElement
             slot.Lock();
 
         VisualElement overlay = new VisualElement();
+        overlay.AddToClassList("questElementOverlay");
         Add(overlay);
         overlay.BringToFront();
 
         Label text = new($"Expired! ({_quest.ExpiryDay})");
         text.AddToClassList("textPrimary");
         text.style.fontSize = 32;
-        text.transform.rotation *= Quaternion.Euler(0f, 0f, 45f);
+        text.transform.rotation *= Quaternion.Euler(0f, 0f, 30f);
         overlay.Add(text);
     }
 

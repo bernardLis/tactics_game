@@ -189,7 +189,6 @@ public class Character : BaseScriptableObject
             if (item.InfluencedStat == StatType.MovementRange)
                 MovementRangeBonus += item.Value;
         }
-
     }
 
     public void SetUnavailable(int days)
@@ -214,7 +213,6 @@ public class Character : BaseScriptableObject
     public void UpdateRank()
     {
         int points = CountRankPoints();
-        Debug.Log($"points {points} for {name}");
         CharacterRank newRank = _gameManager.GameDatabase.CharacterDatabase.GetRankByPoints(points);
         if (newRank == Rank)
             return;

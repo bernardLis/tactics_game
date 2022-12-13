@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Scripts/UI/UIStyles/CharacterCard.uss?fileID=7433441132597879392&amp;guid=0775735fdeffaf543964a3806de2cc2f&amp;type=3#CharacterCard" />
     <Style src="project://database/Assets/_Scripts/UI/UIStyles/DashboardStyles.uss?fileID=7433441132597879392&amp;guid=3d872669deb721f44bdfa6897d1dc942&amp;type=3#DashboardStyles" />
     <Style src="project://database/Assets/_Scripts/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <ui:VisualElement name="nav" style="height: 5%; flex-direction: column; width: 100%; align-items: stretch; justify-content: flex-start; opacity: 1; background-color: rgb(0, 0, 0);">

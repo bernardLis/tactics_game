@@ -81,10 +81,22 @@ public class Quest : BaseScriptableObject
 
     public int GetSuccessChance()
     {
-        // TODO: I need to define how character rank and quest rank influence success chance.
-        // TODO: ofc, something cooler!
-  
-        return AssignedCharacters.Count * 25;
+        int successChance = 0;
+        foreach (Character c in AssignedCharacters)
+        {
+            int rankDiff = c.Rank.Rank - Rank.Rank;
+            if (rankDiff == 0)
+            {
+                successChance += 33;
+                continue;
+            }
+
+            int influence = 33 + rankDiff * 10; // TODO: magic 33 and 10
+            influence = Mathf.Clamp(influence, 0, 100);
+            successChance += influence;
+        }
+
+        return successChance;
     }
 
     public void DelegateQuest()
