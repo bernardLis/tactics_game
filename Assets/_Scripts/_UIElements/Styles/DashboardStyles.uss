@@ -77,9 +77,6 @@
 }
 
 .characterCardMini {
-    background-image: url('project://database/Assets/Art/Sprites/Character/Portrait/opm.jpg?fileID=2800000&guid=a613d81a423cf24429b03929c1678cad&type=3#opm');
-    width: 80px;
-    height: 80px;
 }
 
 .characterDragDropContainer {

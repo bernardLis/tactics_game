@@ -326,8 +326,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871185a95a28a524bb14fc4dedbf8683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _commonStylesAssetReference:
-    m_AssetGUID: d9a86c5788d7b6f4e9a3577d65d2967f
+  StyleSheetReferences:
+  - m_AssetGUID: d9a86c5788d7b6f4e9a3577d65d2967f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 30cb1d7da388bcd46bd5f2295479366d
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -387,11 +391,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ef022ffec38f8543b289d6a700da1fe, type: 2}
   - {fileID: 11400000, guid: af0b86e8d19c8d54c9138e013d2eace1, type: 2}
   _abilityNodeGraphs:
+  - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
   - {fileID: 11400000, guid: ae03a585b2a687e4b825c98728507874, type: 2}
   - {fileID: 11400000, guid: b97fc7782ac380e42a9fd4c607922dc2, type: 2}
   - {fileID: 11400000, guid: 838c2e8c07781224c885740e9d3d58a7, type: 2}
   - {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
-  - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
   - {fileID: 11400000, guid: 6bceff6e2885a224c958a51fe4e78327, type: 2}
   - {fileID: 11400000, guid: b490b888ee688624b9c291aa2a94e28b, type: 2}
   CutsceneIndexToPlay: 0

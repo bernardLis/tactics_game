@@ -6,17 +6,27 @@ public class CharacterPortraitElement : VisualElement
 {
     Character _character;
     VisualElement _frame;
+
+    const string ussClassName = "character-portrait";
+    const string ussContainer = ussClassName + "__container";
+    const string ussMain = ussClassName + "__main";
+    const string ussFrame = ussClassName + "__frame";
+
     public CharacterPortraitElement(Character character)
     {
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterPortraitStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         _character = character;
-        AddToClassList("characterPortraitContainer");
+        AddToClassList(ussContainer);
 
         VisualElement portrait = new();
-        portrait.AddToClassList("characterPortrait");
+        portrait.AddToClassList(ussMain);
         portrait.style.backgroundImage = new StyleBackground(character.Portrait.Sprite);
 
         _frame = new();
-        _frame.AddToClassList("characterPortraitFrame");
+        _frame.AddToClassList(ussFrame);
 
         UpdateFrame(character.Rank);
         character.OnRankChanged += UpdateFrame;

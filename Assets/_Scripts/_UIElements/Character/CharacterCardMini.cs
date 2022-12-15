@@ -23,12 +23,15 @@ public class CharacterCardMini : ElementWithTooltip
 
         Character = character;
         AddToClassList("characterCardMini");
-
+        Add(new CharacterPortraitElement(character));
+/*
         VisualElement content = new();
         content.style.width = Length.Percent(100);
         content.style.height = Length.Percent(100);
         content.style.backgroundImage = new StyleBackground(character.Portrait.Sprite);
+
         Add(content);
+*/
         AddUnavailableOverlay();
 
         if (character.IsUnavailable)

@@ -5,11 +5,16 @@ using System.Threading.Tasks;
 
 public class FullScreenElement : VisualElement
 {
+    GameManager _gameManager;
+
     protected VisualElement _root;
 
     public event Action OnHide;
+
     public async void Initialize(VisualElement root, bool enableNavigation = true)
     {
+        _gameManager = GameManager.Instance;
+
         style.width = Length.Percent(100);
         style.height = Length.Percent(100);
         style.position = Position.Absolute;
@@ -17,11 +22,11 @@ public class FullScreenElement : VisualElement
         _root = root;
         root.Add(this);
 
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetCommonStyles();
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        GameManager.Instance.GetComponent<GameUIManager>().DisableMenuButton(); // TODO: ugh...
+        _gameManager.GetComponent<GameUIManager>().DisableMenuButton(); // TODO: ugh...
 
         await Task.Delay(100);
         focusable = true;
@@ -63,7 +68,7 @@ public class FullScreenElement : VisualElement
     public virtual void Hide()
     {
         OnHide?.Invoke();
-        GameManager.Instance.GetComponent<GameUIManager>().EnableMenuButton(); // TODO: ugh...
+        _gameManager.GetComponent<GameUIManager>().EnableMenuButton(); // TODO: ugh...
 
         this.SetEnabled(false);
         if (this.parent == _root)

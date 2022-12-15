@@ -13,8 +13,9 @@ public class TooltipElement : VisualElement
     {
         _parentElement = element;
 
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetCommonStyles();
-        styleSheets.Add(ss);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
 
         //https://forum.unity.com/threads/how-can-i-move-a-visualelement-to-the-position-of-the-mouse.1187890/
         Vector2 mousePosition = Mouse.current.position.ReadValue();
@@ -55,7 +56,7 @@ public class TooltipElement : VisualElement
     //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/
     void OnPostVisualCreation()
     {
-        // Make invisble so you don't see the size re-adjustment
+        // Make invisible so you don't see the size re-adjustment
         // (Non-visible objects still go through transforms in the layout engine)
         visible = false;
         schedule.Execute(WaitOneFrame);
