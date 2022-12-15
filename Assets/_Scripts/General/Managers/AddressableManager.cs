@@ -35,4 +35,4 @@ public class AddressableManager : MonoBehaviour
     }
 }
 
-public enum StyleSheetType { CommonStyles, CharacterPortraitStyles }
+public enum StyleSheetType { CommonStyles, CharacterPortraitStyles, CharacterCardMiniSlot, CharacterCard }

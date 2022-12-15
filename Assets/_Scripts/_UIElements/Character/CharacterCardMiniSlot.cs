@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 public class CharacterCardMiniSlot : ElementWithSound
 {
+    GameManager _gameManager;
+
     public CharacterCardMini Card;
 
     public bool IsLocked { get; private set; }
@@ -15,9 +17,19 @@ public class CharacterCardMiniSlot : ElementWithSound
 
     public event Action<CharacterCardMiniSlot> OnLocked;
 
+    const string ussClassName = "character-card-mini-slot";
+    const string ussMain = ussClassName + "__main";
+    const string ussLocked = ussClassName + "__locked";
+
+
     public CharacterCardMiniSlot(CharacterCardMini card = null, bool isLocked = false) : base()
     {
-        AddToClassList("characterCardMiniSlot");
+        _gameManager = GameManager.Instance;
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterCardMiniSlot);
+        if (ss != null)
+            styleSheets.Add(ss);
+
+        AddToClassList(ussMain);
         if (card != null)
             AddCard(card);
 
@@ -50,8 +62,8 @@ public class CharacterCardMiniSlot : ElementWithSound
         if (Card != null)
             Card.Lock();
 
-        RemoveFromClassList("characterCardMiniSlot");
-        AddToClassList("characterCardMiniSlotLocked");
+        RemoveFromClassList(ussMain);
+        AddToClassList(ussLocked);
     }
 
 }
