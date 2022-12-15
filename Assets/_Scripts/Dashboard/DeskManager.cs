@@ -90,7 +90,7 @@ public class DeskManager : Singleton<DeskManager>
         ShowPassDayButton();
     }
 
-    public void AddCharacterToDesk(Character character)
+    CharacterCardMini BaseAddCharacterToDesk(Character character)
     {
         CharacterCardMini card = new(character);
         card.style.position = Position.Absolute;
@@ -100,7 +100,58 @@ public class DeskManager : Singleton<DeskManager>
         card.style.left = character.DeskPosition.x;
 
         _draggableCharacters.AddDraggableCard(card);
+        return card;
     }
+
+    public void AddCharacterToDesk(Character character)
+    {
+        BaseAddCharacterToDesk(character);
+    }
+
+    public async void SpitCharacterOntoDesk(Character character)
+    {
+        CharacterCardMini card = BaseAddCharacterToDesk(character);
+        float newX = card.Character.DeskPosition.x + Random.Range(-200, 200);
+        float newY = card.Character.DeskPosition.y + Random.Range(-300, 300);
+        Debug.Log($"card.Character.DeskPosition before {card.Character.DeskPosition}");
+        Debug.Log($"card.worldBound before: {card.worldBound}");
+
+        Vector3 endPosition = new(newX, newY, 0);
+        Debug.Log($"endposition: {endPosition}");
+        await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
+        Debug.Log($"card: {card.worldBound.position}");
+
+    }
+
+    async Task MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)
+    {
+        el.style.visibility = Visibility.Visible;
+
+        Vector3 p0 = startPosition;
+        float newX = startPosition.x + (endPosition.x - startPosition.x) * 0.5f;
+        float newY = startPosition.y - 200f;
+
+        Vector3 p1 = new Vector3(newX, newY);
+        Vector3 p2 = endPosition;
+
+        float percent = 0;
+        while (percent < 1)
+        {
+            // https://www.reddit.com/r/Unity3D/comments/5pyi43/custom_dotween_easetypeeasefunction_based_on_four/
+            Vector3 i1 = Vector3.Lerp(p0, p1, percent); // p1 is the shared handle
+            Vector3 i2 = Vector3.Lerp(p1, p2, percent);
+            Vector3 result = Vector3.Lerp(i1, i2, percent); // lerp between the 2 for the result
+
+            //el.transform.position = result;
+            el.style.left = result.x;
+            el.style.top = result.y;
+            //  Debug.Log($"result {result}");
+
+            percent += 0.01f;
+            await Task.Delay(5);
+        }
+    }
+
 
     async Task CreateReport(Report report)
     {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using System.Threading.Tasks;
 
 public class QuestElement : VisualElement
 {
@@ -154,13 +155,16 @@ public class QuestElement : VisualElement
         overlay.Add(text);
     }
 
-    void ReturnAssignedCharacters()
+    async void ReturnAssignedCharacters()
     {
         foreach (CharacterCardMiniSlot slot in _cardSlots)
         {
             if (slot.Card == null)
                 continue;
-            _deskManager.AddCharacterToDesk(slot.Card.Character);
+            slot.Card.Character.UpdateDeskPosition(new Vector2(slot.worldBound.x, slot.worldBound.y));
+            await Task.Delay(500);
+            _deskManager.SpitCharacterOntoDesk(slot.Card.Character);
+            // TODO: new method that spits out the characters 
             slot.RemoveCard();
         }
     }

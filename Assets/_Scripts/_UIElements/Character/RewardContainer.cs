@@ -56,7 +56,7 @@ public class RewardContainer : VisualElement
     {
         // TODO: I could play some nice effect here
         // both sound and fx
-        // TODO: there has to be better way to ahndle reward
+        // TODO: there has to be better way to handle reward
         AudioManager.Instance.PlaySFX("ChestOpen", Vector3.zero);
         foreach (Sprite sprite in _rewardChest.Open)
         {
@@ -99,16 +99,16 @@ public class RewardContainer : VisualElement
         MoveElementOnArc(flyingContainer, _chest.transform.position, endPosition);
     }
 
-    async void MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPositon)
+    async void MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)
     {
         el.style.visibility = Visibility.Visible;
 
         Vector3 p0 = startPosition;
-        float newX = startPosition.x + (endPositon.x - startPosition.x) * 0.5f;
+        float newX = startPosition.x + (endPosition.x - startPosition.x) * 0.5f;
         float newY = startPosition.y - 200f;
 
         Vector3 p1 = new Vector3(newX, newY);
-        Vector3 p2 = endPositon;
+        Vector3 p2 = endPosition;
 
         float percent = 0;
         while (percent < 1)
