@@ -110,7 +110,7 @@ public static class Helpers
         l.AddToClassList("textSecondary");
         l.style.color = color;
         l.style.position = Position.Absolute;
-        l.style.left = element.worldBound.xMin - element.worldBound.width / 2;
+        l.style.left = element.worldBound.xMin;// - element.worldBound.width / 2;
         l.style.top = element.worldBound.yMax;
 
         root.Add(l);

@@ -10,6 +10,7 @@ public class ReportElement : VisualElement
 {
     protected GameManager _gameManager;
     protected AudioManager _audioManager;
+    protected DeskManager _deskManager;
 
     protected VisualElement _parent;
     protected VisualElement _reportShadow;
@@ -33,6 +34,8 @@ public class ReportElement : VisualElement
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
+
+        _deskManager = DeskManager.Instance;
 
         _parent = parent;
         _report = report;

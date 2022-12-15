@@ -39,10 +39,10 @@ public class RecruitReportElement : ReportElement
     {
         if (_gameManager.PlayerTroops.Count >= _gameManager.TroopsLimit)
         {
-            Helpers.DisplayTextOnElement(this, this, "Troops Limit Exceeded", Color.red);
+            Helpers.DisplayTextOnElement(_deskManager.Root, this, "Troops Limit Exceeded", Color.red);
             return;
         }
-
+        _report.Recruit.Character.UpdateDeskPosition(_report.Position);
         _gameManager.AddCharacterToTroops(_report.Recruit.Character);
         _report.Recruit.UpdateRecruitState(RecruitState.Resolved);
         BaseAcceptReport();

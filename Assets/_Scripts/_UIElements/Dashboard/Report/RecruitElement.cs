@@ -26,6 +26,4 @@ public class RecruitElement : VisualElement
         if (daysLeft <= 0)
             _daysLeftLabel.text = $"Expired.";
     }
-
-
 }

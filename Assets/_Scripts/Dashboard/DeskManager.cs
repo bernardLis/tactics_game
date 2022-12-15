@@ -98,6 +98,8 @@ public class DeskManager : Singleton<DeskManager>
 
         card.style.top = character.DeskPosition.y;
         card.style.left = character.DeskPosition.x;
+
+        _draggableCharacters.AddDraggableCard(card);
     }
 
     async Task CreateReport(Report report)

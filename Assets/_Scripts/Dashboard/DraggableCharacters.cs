@@ -7,6 +7,8 @@ using DG.Tweening;
 
 public class DraggableCharacters : MonoBehaviour
 {
+    GameManager _gameManager;
+
     VisualElement _root;
     VisualElement _cardContainer;
 
@@ -28,19 +30,11 @@ public class DraggableCharacters : MonoBehaviour
 
         List<VisualElement> slots = root.Query(className: "character-card-mini-slot__main").ToList();
         foreach (VisualElement item in slots)
-        {
-            CharacterCardMiniSlot slot = (CharacterCardMiniSlot)item;
-            AddDraggableSlot(slot);
-        }
+            AddDraggableSlot((CharacterCardMiniSlot)item);
 
         List<VisualElement> cards = root.Query(className: "character-card-mini__main").ToList();
         foreach (VisualElement item in cards)
-        {
-            CharacterCardMini card = (CharacterCardMini)item;
-            card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
-            card.OnLocked += OnCardLocked;
-            card.OnUnlocked += OnCardUnlocked;
-        }
+            AddDraggableCard((CharacterCardMini)item);
 
         _dragDropContainer = new VisualElement();
         _dragDropContainer.AddToClassList("characterDragDropContainer");
@@ -60,6 +54,13 @@ public class DraggableCharacters : MonoBehaviour
         _allSlots.Add(slot);
         slot.OnCardAdded += OnCardAdded;
         slot.OnLocked += OnSlotLocked;
+    }
+
+    public void AddDraggableCard(CharacterCardMini card)
+    {
+        card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
+        card.OnLocked += OnCardLocked;
+        card.OnUnlocked += OnCardUnlocked;
     }
 
     void OnCardPointerDown(PointerDownEvent evt)
