@@ -135,6 +135,8 @@ public class DraggableCharacters : MonoBehaviour
             _cardContainer.Add(_draggedCard);
             _draggedCard.style.top = _dragDropContainer.style.top.value.value - _cardContainer.worldBound.y;
             _draggedCard.style.left = _dragDropContainer.style.left;
+            _draggedCard.Character.UpdateDeskPosition(new Vector2(_draggedCard.style.left.value.value,
+                                                              _draggedCard.style.top.value.value));
 
             DragCleanUp();
             return;
@@ -166,13 +168,14 @@ public class DraggableCharacters : MonoBehaviour
     {
         _cardContainer.Add(card);
         card.style.position = Position.Absolute;
-        card.style.top = _newSlot.worldBound.yMin - _dragDropContainer.layout.height / 2;
         card.style.left = _newSlot.worldBound.xMin - _dragDropContainer.layout.height / 2;
-        int endTop = Mathf.CeilToInt(_newSlot.worldBound.yMin) + Random.Range(-200, 200);
+        card.style.top = _newSlot.worldBound.yMin - _dragDropContainer.layout.height / 2;
         int endLeft = Mathf.CeilToInt(_newSlot.worldBound.xMin) + Random.Range(-200, 200);
-        DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f);
+        int endTop = Mathf.CeilToInt(_newSlot.worldBound.yMin) + Random.Range(-200, 200);
         DOTween.To(() => card.style.left.value.value, x => card.style.left = x, endLeft, 0.5f);
+        DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f);
 
+        card.Character.UpdateDeskPosition(new Vector2(endLeft, endTop));
     }
 
     protected virtual void DragCleanUp()

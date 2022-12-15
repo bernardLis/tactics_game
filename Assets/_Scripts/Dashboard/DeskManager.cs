@@ -71,15 +71,12 @@ public class DeskManager : Singleton<DeskManager>
     {
         _reportsContainer.Clear();
         _reportsContainer.Add(_passDayButton);
-        // _deskTroopsContainer.Clear();
         _characterCardSlots = new();
         VisibleReports = new();
 
         foreach (Report report in _gameManager.Reports)
             await CreateReport(report);
 
-        //   for (int i = 0; i < _gameManager.TroopsLimit; i++)
-        //     AddNewCharacterSlot();
 
         foreach (Character character in _gameManager.PlayerTroops)
         {
@@ -87,7 +84,6 @@ public class DeskManager : Singleton<DeskManager>
                 continue;
 
             AddCharacterToDesk(character);
-            //  AddCharacterToDraggableTroops(character);
         }
 
         _draggableCharacters.Initialize(Root, _reportsContainer);
@@ -99,36 +95,11 @@ public class DeskManager : Singleton<DeskManager>
         CharacterCardMini card = new(character);
         card.style.position = Position.Absolute;
         _reportsContainer.Add(card);
-    }
-    /*
-        void AddNewCharacterSlot()
-        {
-            CharacterCardMiniSlot slot = new();
-            _characterCardSlots.Add(slot);
-            //_deskTroopsContainer.Add(slot);
-            _draggableCharacters.AddDraggableSlot(slot);
-        }
-    
-    public void AddCharacterToDraggableTroops(Character character)
-    {
-        foreach (CharacterCardMiniSlot slot in _characterCardSlots)
-        {
-            if (slot.Card == null)
-            {
-                slot.AddCard(new CharacterCardMini(character));
-                return;
-            }
-        }
 
-        Debug.LogError($"No character slots for character: {character.CharacterName}");
+        card.style.top = character.DeskPosition.y;
+        card.style.left = character.DeskPosition.x;
     }
-    
-        void OnTroopsLimitChanged(int change)
-        {
-    //        for (int i = 0; i < change; i++)
-      //          AddNewCharacterSlot();
-        }
-    */
+
     async Task CreateReport(Report report)
     {
         VisibleReports.Add(report);

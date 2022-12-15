@@ -47,6 +47,8 @@ public class Character : BaseScriptableObject
     [HideInInspector] public int DayStartedBeingUnavailable;
     [HideInInspector] public int UnavailabilityDuration;
 
+    public Vector2 DeskPosition;
+
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
     public event Action<CharacterRank> OnRankChanged;
@@ -243,6 +245,13 @@ public class Character : BaseScriptableObject
         return total;
     }
 
+    public void InitializeStarterTroops()
+    {
+        Debug.Log($"initliazie starter troops");
+        _gameManager = GameManager.Instance;
+        UpdateRank();
+    }
+
     public virtual void CreateRandom()
     {
         _gameManager = GameManager.Instance;
@@ -273,6 +282,12 @@ public class Character : BaseScriptableObject
         Abilities = new();
 
         UpdateRank();
+    }
+
+    public void UpdateDeskPosition(Vector2 newPos)
+    {
+        DeskPosition = newPos;
+        _gameManager.SaveJsonData();
     }
 
     // creates character at runtime from saved data
@@ -313,6 +328,8 @@ public class Character : BaseScriptableObject
         IsUnavailable = data.IsOnUnavailable;
         DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
         UnavailabilityDuration = data.UnavailabilityDuration;
+        Debug.Log($"desk position {data.DeskPosition}");
+        DeskPosition = data.DeskPosition;
 
         UpdateRank();
     }
@@ -347,6 +364,7 @@ public class Character : BaseScriptableObject
         data.IsOnUnavailable = IsUnavailable;
         data.DayStartedBeingUnavailable = DayStartedBeingUnavailable;
         data.UnavailabilityDuration = UnavailabilityDuration;
+        data.DeskPosition = DeskPosition;
 
         return data;
     }
@@ -376,4 +394,5 @@ public struct CharacterData
     public bool IsOnUnavailable;
     public int DayStartedBeingUnavailable;
     public int UnavailabilityDuration;
+    public Vector2 DeskPosition;
 }

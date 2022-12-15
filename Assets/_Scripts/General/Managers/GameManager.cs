@@ -267,6 +267,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (Character character in playerCharacters)
         {
             Character instance = Instantiate(character);
+            instance.InitializeStarterTroops();
             OnDayPassed += instance.OnDayPassed;
             instantiatedTroops.Add(instance);
         }
