@@ -8,6 +8,7 @@ using DG.Tweening;
 public class DraggableCharacters : MonoBehaviour
 {
     VisualElement _root;
+    VisualElement _cardContainer;
 
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
@@ -20,15 +21,25 @@ public class DraggableCharacters : MonoBehaviour
 
     List<CharacterCardMiniSlot> _allSlots = new();
 
-    public void Initialize(VisualElement root)
+    public void Initialize(VisualElement root, VisualElement cardContainer)
     {
         _root = root;
+        _cardContainer = cardContainer;
 
-        List<VisualElement> elements = root.Query(className: "characterCardMiniSlot").ToList();
-        foreach (VisualElement item in elements)
+        List<VisualElement> slots = root.Query(className: "character-card-mini-slot__main").ToList();
+        foreach (VisualElement item in slots)
         {
             CharacterCardMiniSlot slot = (CharacterCardMiniSlot)item;
             AddDraggableSlot(slot);
+        }
+
+        List<VisualElement> cards = root.Query(className: "character-card-mini__main").ToList();
+        foreach (VisualElement item in cards)
+        {
+            CharacterCardMini card = (CharacterCardMini)item;
+            card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
+            card.OnLocked += OnCardLocked;
+            card.OnUnlocked += OnCardUnlocked;
         }
 
         _dragDropContainer = new VisualElement();
@@ -49,12 +60,6 @@ public class DraggableCharacters : MonoBehaviour
         _allSlots.Add(slot);
         slot.OnCardAdded += OnCardAdded;
         slot.OnLocked += OnSlotLocked;
-        if (slot.Card != null)
-        {
-            slot.Card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
-            slot.Card.OnLocked += OnCardLocked;
-            slot.Card.OnUnlocked += OnCardUnlocked;
-        }
     }
 
     void OnCardPointerDown(PointerDownEvent evt)
@@ -66,8 +71,12 @@ public class DraggableCharacters : MonoBehaviour
         if (card.IsLocked)
             return;
 
-        CharacterCardMiniSlot slotVisual = (CharacterCardMiniSlot)card.parent;
-        slotVisual.RemoveCard();
+        CharacterCardMiniSlot slotVisual = null;
+        if (card.parent is CharacterCardMiniSlot)
+        {
+            slotVisual = (CharacterCardMiniSlot)card.parent;
+            slotVisual.RemoveCard();
+        }
 
         StartCardDrag(evt.position, slotVisual, card);
     }
@@ -75,6 +84,8 @@ public class DraggableCharacters : MonoBehaviour
     void StartCardDrag(Vector2 position, CharacterCardMiniSlot originalSlot, CharacterCardMini draggedCard)
     {
         _draggedCard = draggedCard;
+        _draggedCard.style.top = 0;
+        _draggedCard.style.left = 0;
 
         //Set tracking variables
         _isDragging = true;
@@ -121,7 +132,10 @@ public class DraggableCharacters : MonoBehaviour
         //Didn't find any (dragged off the window)
         if (slots.Count() == 0)
         {
-            _originalSlot.AddCard(_draggedCard);
+            _cardContainer.Add(_draggedCard);
+            _draggedCard.style.top = _dragDropContainer.style.top.value.value - _cardContainer.worldBound.y;
+            _draggedCard.style.left = _dragDropContainer.style.left;
+
             DragCleanUp();
             return;
         }
@@ -134,17 +148,31 @@ public class DraggableCharacters : MonoBehaviour
         {
             CharacterCardMini copy = _newSlot.Card;
             _newSlot.RemoveCard();
-
             _newSlot.AddCard(_draggedCard);
-            _originalSlot.AddCard(copy);
+
+            ReturnCardToContainer(copy);
+
             DragCleanUp();
             return;
         }
 
-        //Set the new inventory slot with the data
+        //Set the new slot with the data
         _newSlot.AddCard(_draggedCard);
 
         DragCleanUp();
+    }
+
+    void ReturnCardToContainer(CharacterCardMini card)
+    {
+        _cardContainer.Add(card);
+        card.style.position = Position.Absolute;
+        card.style.top = _newSlot.worldBound.yMin - _dragDropContainer.layout.height / 2;
+        card.style.left = _newSlot.worldBound.xMin - _dragDropContainer.layout.height / 2;
+        int endTop = Mathf.CeilToInt(_newSlot.worldBound.yMin) + Random.Range(-200, 200);
+        int endLeft = Mathf.CeilToInt(_newSlot.worldBound.xMin) + Random.Range(-200, 200);
+        DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f);
+        DOTween.To(() => card.style.left.value.value, x => card.style.left = x, endLeft, 0.5f);
+
     }
 
     protected virtual void DragCleanUp()

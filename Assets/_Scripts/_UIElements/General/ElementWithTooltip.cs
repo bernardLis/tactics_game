@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Threading.Tasks;
 
 public abstract class ElementWithTooltip : VisualElement
 {
     protected TooltipElement _tooltip;
 
     bool _blockTooltip;
+    bool _isPointerOn;
     bool _isPointerDown;
 
     public ElementWithTooltip()
@@ -35,14 +37,21 @@ public abstract class ElementWithTooltip : VisualElement
     void OnPointerDown() { _isPointerDown = true; }
     void OnPointerUp() { _isPointerDown = false; }
 
-    protected virtual void DisplayTooltip()
+    protected async virtual void DisplayTooltip()
     {
+        _isPointerOn = true;
+
         if (_blockTooltip)
             return;
         if (_isPointerDown)
             return;
         if (panel == null)
             return;
+
+        await Task.Delay(300); // tooltip delay
+        if (!_isPointerOn)
+            return;
+
         var root = panel.visualTree;
         root.Add(_tooltip);
     }
@@ -57,6 +66,7 @@ public abstract class ElementWithTooltip : VisualElement
     protected void OnMouseLeave()
     {
         HideTooltip();
+        _isPointerOn = false;
         _isPointerDown = false; // reset otherwise you need to click on it to display tooltip again.
     }
 

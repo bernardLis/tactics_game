@@ -160,7 +160,7 @@ public class QuestElement : VisualElement
         {
             if (slot.Card == null)
                 continue;
-            _deskManager.AddCharacterToDraggableTroops(slot.Card.Character);
+            _deskManager.AddCharacterToDesk(slot.Card.Character);
             slot.RemoveCard();
         }
     }

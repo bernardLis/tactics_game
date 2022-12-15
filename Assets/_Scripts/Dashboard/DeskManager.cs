@@ -17,7 +17,7 @@ public class DeskManager : Singleton<DeskManager>
     VisualElement _reportsContainer;
     VisualElement _reportsArchive;
 
-    VisualElement _deskTroopsContainer;
+    //  VisualElement _deskTroopsContainer;
     List<CharacterCardMiniSlot> _characterCardSlots = new();
 
     MyButton _passDayButton;
@@ -30,8 +30,8 @@ public class DeskManager : Singleton<DeskManager>
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += DayPassed;
-        _gameManager.OnCharacterAddedToTroops += AddCharacterToDraggableTroops;
-        _gameManager.OnTroopsLimitChanged += OnTroopsLimitChanged;
+        _gameManager.OnCharacterAddedToTroops += AddCharacterToDesk; //AddCharacterToDraggableTroops;
+        //_gameManager.OnTroopsLimitChanged += OnTroopsLimitChanged;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
@@ -51,7 +51,7 @@ public class DeskManager : Singleton<DeskManager>
         _passDayButton.style.opacity = 0;
         _passDayButton.style.display = DisplayStyle.None;
 
-        _deskTroopsContainer = Root.Q<VisualElement>("deskTroopsContainer");
+        // _deskTroopsContainer = Root.Q<VisualElement>("deskTroopsContainer");
 
         Initialize();
     }
@@ -71,35 +71,44 @@ public class DeskManager : Singleton<DeskManager>
     {
         _reportsContainer.Clear();
         _reportsContainer.Add(_passDayButton);
-        _deskTroopsContainer.Clear();
+        // _deskTroopsContainer.Clear();
         _characterCardSlots = new();
         VisibleReports = new();
 
         foreach (Report report in _gameManager.Reports)
             await CreateReport(report);
 
-        for (int i = 0; i < _gameManager.TroopsLimit; i++)
-            AddNewCharacterSlot();
+        //   for (int i = 0; i < _gameManager.TroopsLimit; i++)
+        //     AddNewCharacterSlot();
 
         foreach (Character character in _gameManager.PlayerTroops)
         {
             if (character.IsAssigned)
                 continue;
-            AddCharacterToDraggableTroops(character);
+
+            AddCharacterToDesk(character);
+            //  AddCharacterToDraggableTroops(character);
         }
 
-        _draggableCharacters.Initialize(Root);
+        _draggableCharacters.Initialize(Root, _reportsContainer);
         ShowPassDayButton();
     }
 
-    void AddNewCharacterSlot()
+    public void AddCharacterToDesk(Character character)
     {
-        CharacterCardMiniSlot slot = new();
-        _characterCardSlots.Add(slot);
-        _deskTroopsContainer.Add(slot);
-        _draggableCharacters.AddDraggableSlot(slot);
+        CharacterCardMini card = new(character);
+        card.style.position = Position.Absolute;
+        _reportsContainer.Add(card);
     }
-
+    /*
+        void AddNewCharacterSlot()
+        {
+            CharacterCardMiniSlot slot = new();
+            _characterCardSlots.Add(slot);
+            //_deskTroopsContainer.Add(slot);
+            _draggableCharacters.AddDraggableSlot(slot);
+        }
+    
     public void AddCharacterToDraggableTroops(Character character)
     {
         foreach (CharacterCardMiniSlot slot in _characterCardSlots)
@@ -113,13 +122,13 @@ public class DeskManager : Singleton<DeskManager>
 
         Debug.LogError($"No character slots for character: {character.CharacterName}");
     }
-
-    void OnTroopsLimitChanged(int change)
-    {
-        for (int i = 0; i < change; i++)
-            AddNewCharacterSlot();
-    }
-
+    
+        void OnTroopsLimitChanged(int change)
+        {
+    //        for (int i = 0; i < change; i++)
+      //          AddNewCharacterSlot();
+        }
+    */
     async Task CreateReport(Report report)
     {
         VisibleReports.Add(report);
