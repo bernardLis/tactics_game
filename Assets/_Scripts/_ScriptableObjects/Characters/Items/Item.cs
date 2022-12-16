@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Character/Items/Item")]
 public class Item : BaseScriptableObject
 {
-    public string ReferenceID;
     public string ItemName;
     public Sprite Icon;
     public StatType InfluencedStat;

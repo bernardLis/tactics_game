@@ -321,8 +321,8 @@ public class Character : BaseScriptableObject
             Abilities.Add(a);
         }
 
-        foreach (string id in data.ItemReferenceIds)
-            Items.Add(gameDatabase.GetItemByReferenceId(id));
+        foreach (string id in data.ItemIds)
+            Items.Add(gameDatabase.GetItemById(id));
 
         IsAssigned = data.IsAssigned;
         IsUnavailable = data.IsOnUnavailable;
@@ -354,10 +354,10 @@ public class Character : BaseScriptableObject
             abilityData.Add(a.SerializeSelf());
         data.AbilityData = abilityData;
 
-        List<string> itemReferenceIds = new();
+        List<string> itemIds = new();
         foreach (Item i in Items)
-            itemReferenceIds.Add(i.ReferenceID);
-        data.ItemReferenceIds = new(itemReferenceIds);
+            itemIds.Add(i.Id);
+        data.ItemIds = new(itemIds);
 
         data.IsAssigned = IsAssigned;
         data.IsOnUnavailable = IsUnavailable;
@@ -387,7 +387,7 @@ public struct CharacterData
     public string Body;
     public string Weapon;
     public List<AbilityData> AbilityData;
-    public List<string> ItemReferenceIds;
+    public List<string> ItemIds;
 
     public bool IsAssigned;
     public bool IsOnUnavailable;

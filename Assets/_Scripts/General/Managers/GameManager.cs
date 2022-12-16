@@ -351,11 +351,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     List<string> PopulateShopItems()
     {
-        List<string> itemReferenceIds = new();
+        List<string> itemIds = new();
         foreach (Item i in ShopItems)
-            itemReferenceIds.Add(i.ReferenceID);
+            itemIds.Add(i.Id);
 
-        return itemReferenceIds;
+        return itemIds;
     }
 
     List<CharacterData> PopulateCharacters()
@@ -369,11 +369,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     List<string> PopulateItemPouch()
     {
-        List<string> itemReferenceIds = new();
+        List<string> itemIds = new();
         foreach (Item i in PlayerItemPouch)
-            itemReferenceIds.Add(i.ReferenceID);
+            itemIds.Add(i.Id);
 
-        return itemReferenceIds;
+        return itemIds;
     }
 
     List<AbilityData> PopulateAbilityPouch()
@@ -445,7 +445,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         ShopRerollPrice = saveData.ShopRerollPrice;
         ShopItems = new();
         foreach (string itemReferenceId in saveData.ShopItems)
-            ShopItems.Add(GameDatabase.GetItemByReferenceId(itemReferenceId));
+            ShopItems.Add(GameDatabase.GetItemById(itemReferenceId));
 
         TroopsLimit = saveData.TroopsLimit;
         PlayerTroops = new();
@@ -458,7 +458,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         PlayerItemPouch = new();
         foreach (string itemReferenceId in saveData.ItemPouch)
-            PlayerItemPouch.Add(GameDatabase.GetItemByReferenceId(itemReferenceId));
+            PlayerItemPouch.Add(GameDatabase.GetItemById(itemReferenceId));
 
         PlayerAbilityPouch = new();
         foreach (AbilityData abilityData in saveData.AbilityPouch)

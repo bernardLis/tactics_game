@@ -41,7 +41,7 @@ public class GameDatabase : BaseScriptableObject
     public Weapon GetWeaponByName(string name) { return Weapons.FirstOrDefault(x => x.name == name); }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
-    public Item GetItemByReferenceId(string id) { return Items.FirstOrDefault(x => x.ReferenceID == id); }
+    public Item GetItemById(string id) { return Items.FirstOrDefault(x => x.Id == id); }
     public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
     public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
 
@@ -121,7 +121,7 @@ public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
-public enum ReportType { Quest, Recruit, Text, CampBuilding }
+public enum ReportType { Quest, Recruit, Text, CampBuilding, Shop }
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
 public enum CampBuildingState { Pending, Started, Finished }
 public enum RecruitState { Pending, Resolved, Expired }

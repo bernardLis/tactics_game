@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa44181f7cb63142b114abdbebde018, type: 3}
   m_Name: ManaNecklace
   m_EditorClassIdentifier: 
-  Id: 23f564d3-ab88-495e-9cbb-23bee2885605
+  Id: 23f564d3-ab88-495e-9cbb-123z
   ReferenceID: manaNecklace0
   ItemName: Mana Necklace
   Icon: {fileID: 21300000, guid: 3cca3fc64f3c7944fae936e72013fd34, type: 3}
   InfluencedStat: 2
-  Raririty: 0
+  Rarity: 0
   Value: 10
   Price: 200
   Status: {fileID: 0}

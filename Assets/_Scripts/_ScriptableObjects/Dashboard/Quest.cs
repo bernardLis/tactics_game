@@ -209,7 +209,7 @@ public class Quest : BaseScriptableObject
 
         Reward = ScriptableObject.CreateInstance<Reward>();
         Reward.Gold = data.RewardData.Gold;
-        Reward.Item = _gameManager.GameDatabase.GetItemByReferenceId(data.RewardData.ItemReferenceId);
+        Reward.Item = _gameManager.GameDatabase.GetItemById(data.RewardData.ItemId);
 
         ExpiryDay = data.ExpiryDay;
         Duration = data.Duration;

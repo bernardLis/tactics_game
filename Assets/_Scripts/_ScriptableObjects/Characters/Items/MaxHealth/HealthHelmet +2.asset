@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa44181f7cb63142b114abdbebde018, type: 3}
   m_Name: HealthHelmet +2
   m_EditorClassIdentifier: 
-  Id: 23f564d3-ab88-495e-9cbb-23bee2885605
+  Id: 23f564d3-ab88-495e-9cbb-1234
   ReferenceID: healthHelmet2
   ItemName: Health Helmet II
   Icon: {fileID: 21300000, guid: 5a270187853c5fa4ea9274fd2f26bd9d, type: 3}

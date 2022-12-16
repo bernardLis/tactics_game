@@ -13,7 +13,7 @@ public class ScriptableObjectIdDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        GUI.enabled = false;
+       // GUI.enabled = false;
         if (string.IsNullOrEmpty(property.stringValue))
         {
             property.stringValue = Guid.NewGuid().ToString();

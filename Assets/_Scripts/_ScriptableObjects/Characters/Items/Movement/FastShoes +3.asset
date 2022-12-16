@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa44181f7cb63142b114abdbebde018, type: 3}
   m_Name: FastShoes +3
   m_EditorClassIdentifier: 
-  Id: 23f564d3-ab88-495e-9cbb-23bee2885605
+  Id: 23f564d3-ab88-495e-9cbb-123xxv
   ReferenceID: fastShoes3
   ItemName: Fast Shoes III
   Icon: {fileID: 21300000, guid: c63ec72e732e57d43b7606a4181d6270, type: 3}

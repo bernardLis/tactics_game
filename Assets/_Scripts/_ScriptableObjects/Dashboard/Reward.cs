@@ -90,7 +90,7 @@ public class Reward : BaseScriptableObject
     {
         RewardData rd = new();
         rd.Gold = Gold;
-        rd.ItemReferenceId = Item.ReferenceID;
+        rd.ItemId = Item.Id;
 
         return rd;
     }
@@ -100,5 +100,5 @@ public class Reward : BaseScriptableObject
 public struct RewardData
 {
     public int Gold;
-    public string ItemReferenceId;
+    public string ItemId;
 }

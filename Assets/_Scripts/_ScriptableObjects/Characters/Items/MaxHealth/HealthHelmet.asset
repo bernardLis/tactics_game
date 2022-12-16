@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa44181f7cb63142b114abdbebde018, type: 3}
   m_Name: HealthHelmet
   m_EditorClassIdentifier: 
-  Id: 23f564d3-ab88-495e-9cbb-23bee2885605
+  Id: 23f564d3-ab88-495e-9cbb-123456
   ReferenceID: healthHelmet0
   ItemName: Health Helmet
   Icon: {fileID: 21300000, guid: 133f6f970d80f6848ad70a77cd9ebb89, type: 3}
   InfluencedStat: 1
-  Raririty: 0
+  Rarity: 0
   Value: 30
   Price: 300
   Status: {fileID: 0}
