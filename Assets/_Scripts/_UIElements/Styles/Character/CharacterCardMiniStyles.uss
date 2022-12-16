@@ -1,6 +1,26 @@
 .character-card-mini__main{
 }
 
+.character-card-mini__shadow {
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: -5%;
+    top: 5%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+.character-card-mini__picked-up {
+    scale: 1.1 1.1;
+}
+
+
 .character-card-mini__overlay{
     border-top-left-radius: 200px;
     border-bottom-left-radius: 200px;

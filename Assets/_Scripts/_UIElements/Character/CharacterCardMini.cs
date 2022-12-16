@@ -10,6 +10,7 @@ public class CharacterCardMini : ElementWithTooltip
     public Character Character;
 
     VisualElement _overlay;
+    VisualElement _shadow;
 
     public bool IsLocked;
 
@@ -19,6 +20,9 @@ public class CharacterCardMini : ElementWithTooltip
     const string _ussClassName = "character-card-mini";
     const string _ussMain = _ussClassName + "__main";
     const string _ussOverlay = _ussClassName + "__overlay";
+    const string _ussShadow = _ussClassName + "__shadow";
+    const string _ussPickedUp = _ussClassName + "__picked-up";
+
 
     const string ussCommonTextSecondary = "common__text-secondary";
 
@@ -37,13 +41,15 @@ public class CharacterCardMini : ElementWithTooltip
 
         AddToClassList(_ussMain);
 
+        _shadow = new();
+        _shadow.AddToClassList(_ussShadow);
+        _shadow.style.display = DisplayStyle.None;
+        Add(_shadow);
+
+
         Add(new CharacterPortraitElement(character));
         AddUnavailableOverlay();
         UpdateUnavailableOverlay();
-        /*
-                if (character.IsUnavailable)
-                    Lock();
-          */
     }
 
     void OnDayPassed(int day)
@@ -51,6 +57,21 @@ public class CharacterCardMini : ElementWithTooltip
         UpdateUnavailableOverlay();
         if (IsLocked)
             Unlock();
+    }
+
+    public void PickedUp()
+    {
+        _shadow.style.display = DisplayStyle.Flex;
+        AddToClassList(_ussPickedUp);
+        AudioManager.Instance.PlaySFX("CharacterCardDropped", Vector3.zero);
+
+    }
+
+    public void Dropped()
+    {
+        _shadow.style.display = DisplayStyle.None;
+        RemoveFromClassList(_ussPickedUp);
+        AudioManager.Instance.PlaySFX("CharacterCardDropped", Vector3.zero);
     }
 
     protected override void DisplayTooltip()

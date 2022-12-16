@@ -85,6 +85,8 @@ public class DraggableCharacters : MonoBehaviour
     void StartCardDrag(Vector2 position, CharacterCardMiniSlot originalSlot, CharacterCardMini draggedCard)
     {
         _draggedCard = draggedCard;
+        _draggedCard.PickedUp();
+        _draggedCard.style.position = Position.Absolute;
         _draggedCard.style.top = 0;
         _draggedCard.style.left = 0;
 
@@ -189,6 +191,7 @@ public class DraggableCharacters : MonoBehaviour
     {
         //Clear dragging related visuals and data
         _isDragging = false;
+        _draggedCard.Dropped();
 
         _originalSlot = null;
         _draggedCard = null;

@@ -38,7 +38,7 @@
 }
 
 .report__picked-up {
-    scale: 1.1 1.05;
+    scale: 1.1 1.1;
 }
 
 .report__decision-container {
