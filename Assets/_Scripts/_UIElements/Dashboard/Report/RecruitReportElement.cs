@@ -42,8 +42,9 @@ public class RecruitReportElement : ReportElement
             Helpers.DisplayTextOnElement(_deskManager.Root, this, "Troops Limit Exceeded", Color.red);
             return;
         }
-        _report.Recruit.Character.UpdateDeskPosition(_report.Position);
+        _report.Recruit.Character.UpdateDeskPosition(new Vector2(this.worldBound.x, this.worldBound.y));
         _gameManager.AddCharacterToTroops(_report.Recruit.Character);
+        _deskManager.SpitCharacterOntoDesk(_report.Recruit.Character);
         _report.Recruit.UpdateRecruitState(RecruitState.Resolved);
         BaseAcceptReport();
     }

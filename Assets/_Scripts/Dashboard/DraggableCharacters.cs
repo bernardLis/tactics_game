@@ -147,6 +147,13 @@ public class DraggableCharacters : MonoBehaviour
         _newSlot = slots.OrderBy(x => Vector2.Distance
            (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
 
+        if (_draggedCard.Character.IsUnavailable)
+        {
+            ReturnCardToContainer(_draggedCard);
+            DragCleanUp();
+            return;
+        }
+
         if (_newSlot.Card != null)
         {
             CharacterCardMini copy = _newSlot.Card;
@@ -159,9 +166,8 @@ public class DraggableCharacters : MonoBehaviour
             return;
         }
 
-        //Set the new slot with the data
-        _newSlot.AddCard(_draggedCard);
 
+        _newSlot.AddCard(_draggedCard);
         DragCleanUp();
     }
 
@@ -171,10 +177,10 @@ public class DraggableCharacters : MonoBehaviour
         card.style.position = Position.Absolute;
         card.style.left = _newSlot.worldBound.xMin - _dragDropContainer.layout.height / 2;
         card.style.top = _newSlot.worldBound.yMin - _dragDropContainer.layout.height / 2;
-        int endLeft = Mathf.CeilToInt(_newSlot.worldBound.xMin) + Random.Range(-200, 200);
-        int endTop = Mathf.CeilToInt(_newSlot.worldBound.yMin) + Random.Range(-200, 200);
-        DOTween.To(() => card.style.left.value.value, x => card.style.left = x, endLeft, 0.5f);
-        DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f);
+        int endLeft = Mathf.CeilToInt(_newSlot.worldBound.xMin) + Random.Range(-50, 50);
+        int endTop = Mathf.CeilToInt(_newSlot.worldBound.yMin) + Random.Range(-50, 50);
+        DOTween.To(() => card.style.left.value.value, x => card.style.left = x, endLeft, 0.5f).SetEase(Ease.OutElastic);
+        DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f).SetEase(Ease.OutElastic);
 
         card.Character.UpdateDeskPosition(new Vector2(endLeft, endTop));
     }

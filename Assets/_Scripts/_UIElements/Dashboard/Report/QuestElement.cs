@@ -164,7 +164,6 @@ public class QuestElement : VisualElement
             slot.Card.Character.UpdateDeskPosition(new Vector2(slot.worldBound.x, slot.worldBound.y));
             await Task.Delay(500);
             _deskManager.SpitCharacterOntoDesk(slot.Card.Character);
-            // TODO: new method that spits out the characters 
             slot.RemoveCard();
         }
     }

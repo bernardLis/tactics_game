@@ -17,7 +17,6 @@ public class DeskManager : Singleton<DeskManager>
     VisualElement _reportsContainer;
     VisualElement _reportsArchive;
 
-    //  VisualElement _deskTroopsContainer;
     List<CharacterCardMiniSlot> _characterCardSlots = new();
 
     MyButton _passDayButton;
@@ -30,8 +29,6 @@ public class DeskManager : Singleton<DeskManager>
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += DayPassed;
-        _gameManager.OnCharacterAddedToTroops += AddCharacterToDesk; //AddCharacterToDraggableTroops;
-        //_gameManager.OnTroopsLimitChanged += OnTroopsLimitChanged;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
@@ -50,8 +47,6 @@ public class DeskManager : Singleton<DeskManager>
         _passDayButton = new("Pass Day", "menuButton", PassDay);
         _passDayButton.style.opacity = 0;
         _passDayButton.style.display = DisplayStyle.None;
-
-        // _deskTroopsContainer = Root.Q<VisualElement>("deskTroopsContainer");
 
         Initialize();
     }
@@ -113,14 +108,9 @@ public class DeskManager : Singleton<DeskManager>
         CharacterCardMini card = BaseAddCharacterToDesk(character);
         float newX = card.Character.DeskPosition.x + Random.Range(-200, 200);
         float newY = card.Character.DeskPosition.y + Random.Range(-300, 300);
-        Debug.Log($"card.Character.DeskPosition before {card.Character.DeskPosition}");
-        Debug.Log($"card.worldBound before: {card.worldBound}");
 
         Vector3 endPosition = new(newX, newY, 0);
-        Debug.Log($"endposition: {endPosition}");
         await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
-        Debug.Log($"card: {card.worldBound.position}");
-
     }
 
     async Task MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)
@@ -128,24 +118,18 @@ public class DeskManager : Singleton<DeskManager>
         el.style.visibility = Visibility.Visible;
 
         Vector3 p0 = startPosition;
-        float newX = startPosition.x + (endPosition.x - startPosition.x) * 0.5f;
-        float newY = startPosition.y - 200f;
-
-        Vector3 p1 = new Vector3(newX, newY);
         Vector3 p2 = endPosition;
+
+        float newX = startPosition.x + (endPosition.x - startPosition.x) * 0.5f;
+        float newY = startPosition.y - 400f;
+        Vector3 p1 = new Vector3(newX, newY);
 
         float percent = 0;
         while (percent < 1)
         {
-            // https://www.reddit.com/r/Unity3D/comments/5pyi43/custom_dotween_easetypeeasefunction_based_on_four/
-            Vector3 i1 = Vector3.Lerp(p0, p1, percent); // p1 is the shared handle
-            Vector3 i2 = Vector3.Lerp(p1, p2, percent);
-            Vector3 result = Vector3.Lerp(i1, i2, percent); // lerp between the 2 for the result
-
-            //el.transform.position = result;
-            el.style.left = result.x;
-            el.style.top = result.y;
-            //  Debug.Log($"result {result}");
+            Vector3 r = DOCurve.CubicBezier.GetPointOnSegment(p0, p1, p2, p1, percent);
+            el.style.left = r.x;
+            el.style.top = r.y;
 
             percent += 0.01f;
             await Task.Delay(5);

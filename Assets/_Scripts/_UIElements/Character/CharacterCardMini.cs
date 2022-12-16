@@ -39,15 +39,17 @@ public class CharacterCardMini : ElementWithTooltip
 
         Add(new CharacterPortraitElement(character));
         AddUnavailableOverlay();
-
-        if (character.IsUnavailable)
-            Lock();
+        UpdateUnavailableOverlay();
+        /*
+                if (character.IsUnavailable)
+                    Lock();
+          */
     }
 
     void OnDayPassed(int day)
     {
         UpdateUnavailableOverlay();
-        if (IsLocked && !Character.IsUnavailable)
+        if (IsLocked)
             Unlock();
     }
 
