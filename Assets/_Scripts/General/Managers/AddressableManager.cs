@@ -38,5 +38,6 @@ public class AddressableManager : MonoBehaviour
 public enum StyleSheetType
 {
     CommonStyles,
-    CharacterPortraitStyles, CharacterCardMiniSlot, CharacterCardMini, CharacterCard
+    ReportStyles,
+    CharacterPortraitStyles, CharacterCardMiniSlotStyles, CharacterCardMiniStyles, CharacterCardStyles
 }

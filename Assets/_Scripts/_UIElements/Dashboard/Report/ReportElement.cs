@@ -28,6 +28,22 @@ public class ReportElement : VisualElement
 
     protected bool _signed;
 
+    const string _ussClassName = "report";
+    const string _ussMain = _ussClassName + "__main";
+    const string _ussShadow = _ussClassName + "__shadow";
+    const string _ussContents = _ussClassName + "__contents";
+    const string _ussHeader = _ussClassName + "__header";
+    const string _ussPickedUp = _ussClassName + "__picked-up";
+
+    const string _ussDecisionContainer = _ussClassName + "__decision-container";
+    const string _ussAccept = _ussClassName + "__accept";
+    const string _ussReject = _ussClassName + "__reject";
+
+    const string _ussSignContainer = _ussClassName + "__sign-container";
+    const string _ussSignButton = _ussClassName + "__sign_button";
+    const string _ussSignedText = _ussClassName + "__signed_text";
+    const string _ussSignedTextBefore = _ussClassName + "__signed-text-before";
+
     public event Action<ReportElement> OnReportDismissed;
     public ReportElement(VisualElement parent, Report report)
     {
@@ -40,15 +56,19 @@ public class ReportElement : VisualElement
         _parent = parent;
         _report = report;
 
-        AddToClassList("report");
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ReportStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
+        AddToClassList(_ussMain);
 
         _reportShadow = new();
-        _reportShadow.AddToClassList("reportShadow");
+        _reportShadow.AddToClassList(_ussShadow);
         _reportShadow.style.display = DisplayStyle.None;
         Add(_reportShadow);
 
         _reportContents = new();
-        _reportContents.AddToClassList("reportContents");
+        _reportContents.AddToClassList(_ussContents);
         _reportContents.style.backgroundImage = new StyleBackground(report.ReportPaper.Sprite);
         Add(_reportContents);
 
@@ -63,13 +83,14 @@ public class ReportElement : VisualElement
 
     protected void OnDayPassed(int day)
     {
+        // meant to be overwritten
     }
 
     // HELPERS
     protected void AddHeader(string text, Color color)
     {
         _header.text = text;
-        _header.AddToClassList("reportHeader");
+        _header.AddToClassList(_ussHeader);
         _header.style.unityBackgroundImageTintColor = color;
     }
 
@@ -82,10 +103,10 @@ public class ReportElement : VisualElement
         }
 
         _acceptRejectContainer = new();
-        _acceptRejectContainer.AddToClassList("acceptRejectContainer");
+        _acceptRejectContainer.AddToClassList(_ussDecisionContainer);
 
-        MyButton acceptButton = new MyButton(null, "acceptButton", acceptCallback);
-        MyButton rejectButton = new MyButton(null, "rejectButton", rejectCallback);
+        MyButton acceptButton = new MyButton(null, _ussAccept, acceptCallback);
+        MyButton rejectButton = new MyButton(null, _ussReject, rejectCallback);
         _acceptRejectContainer.Add(acceptButton);
         _acceptRejectContainer.Add(rejectButton);
         _reportContents.Add(_acceptRejectContainer);
@@ -111,9 +132,9 @@ public class ReportElement : VisualElement
         }
 
         // TODO: this could look better.
-        _signButton = new MyButton(null, "signButtonContainer", DismissReport);
+        _signButton = new MyButton(null, _ussSignContainer, DismissReport);
         VisualElement signButtonInside = new();
-        signButtonInside.AddToClassList("signButton");
+        signButtonInside.AddToClassList(_ussSignButton);
         _signButton.Add(signButtonInside);
         _signButton.style.visibility = Visibility.Hidden;
         _reportContents.Add(_signButton);
@@ -160,10 +181,10 @@ public class ReportElement : VisualElement
         _reportContents.Add(signed);
 
         // TODO: a better way? XD
-        signed.AddToClassList("signedBefore");
+        signed.AddToClassList(_ussSignedTextBefore);
         signed.style.display = DisplayStyle.None;
         await Task.Delay(50); // this makes transitions from class to class to work.
-        signed.AddToClassList("signedText");
+        signed.AddToClassList(_ussSignedText);
         await Task.Delay(10); // TODO: nasty nasty nasty, but without it the text appears on the bottom of the element without styling for a few frames
         signed.style.display = DisplayStyle.Flex;
 
@@ -196,7 +217,7 @@ public class ReportElement : VisualElement
     {
         BringToFront();
 
-        AddToClassList("reportPickedUp");
+        AddToClassList(_ussPickedUp);
         _audioManager.PlaySFX("Paper", Vector3.zero);
         _reportShadow.style.display = DisplayStyle.Flex;
         style.left = position.x - _dragOffset.x;
@@ -223,7 +244,7 @@ public class ReportElement : VisualElement
 
         _isDragging = false;
         _audioManager.PlaySFX("PlacingPaper", Vector3.zero);
-        RemoveFromClassList("reportPickedUp");
+        RemoveFromClassList(_ussPickedUp);
 
         _reportShadow.style.display = DisplayStyle.None;
         _report.Position = new Vector2(style.left.value.value, style.top.value.value);

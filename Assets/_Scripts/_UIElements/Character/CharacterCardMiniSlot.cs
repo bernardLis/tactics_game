@@ -17,19 +17,19 @@ public class CharacterCardMiniSlot : ElementWithSound
 
     public event Action<CharacterCardMiniSlot> OnLocked;
 
-    const string ussClassName = "character-card-mini-slot";
-    const string ussMain = ussClassName + "__main";
-    const string ussLocked = ussClassName + "__locked";
+    const string _ussClassName = "character-card-mini-slot";
+    const string _ussMain = _ussClassName + "__main";
+    const string _ussLocked = _ussClassName + "__locked";
 
 
     public CharacterCardMiniSlot(CharacterCardMini card = null, bool isLocked = false) : base()
     {
         _gameManager = GameManager.Instance;
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterCardMiniSlot);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterCardMiniSlotStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        AddToClassList(ussMain);
+        AddToClassList(_ussMain);
         if (card != null)
             AddCard(card);
 
@@ -62,8 +62,8 @@ public class CharacterCardMiniSlot : ElementWithSound
         if (Card != null)
             Card.Lock();
 
-        RemoveFromClassList(ussMain);
-        AddToClassList(ussLocked);
+        RemoveFromClassList(_ussMain);
+        AddToClassList(_ussLocked);
     }
 
 }

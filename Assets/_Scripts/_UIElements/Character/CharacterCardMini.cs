@@ -16,16 +16,16 @@ public class CharacterCardMini : ElementWithTooltip
     public event Action<CharacterCardMini> OnLocked;
     public event Action<CharacterCardMini> OnUnlocked;
 
-    const string ussClassName = "character-card-mini";
-    const string ussMain = ussClassName + "__main";
-    const string ussOverlay = ussClassName + "__overlay";
+    const string _ussClassName = "character-card-mini";
+    const string _ussMain = _ussClassName + "__main";
+    const string _ussOverlay = _ussClassName + "__overlay";
 
     const string ussCommonTextSecondary = "common__text-secondary";
 
     public CharacterCardMini(Character character)
     {
         _gameManager = GameManager.Instance;
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterPortraitStyles);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterCardMiniStyles);
         if (ss != null)
             styleSheets.Add(ss);
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -35,7 +35,7 @@ public class CharacterCardMini : ElementWithTooltip
         _gameManager.OnDayPassed += OnDayPassed;
         Character = character;
 
-        AddToClassList(ussMain);
+        AddToClassList(_ussMain);
 
         Add(new CharacterPortraitElement(character));
         AddUnavailableOverlay();
@@ -78,7 +78,7 @@ public class CharacterCardMini : ElementWithTooltip
     void AddUnavailableOverlay()
     {
         _overlay = new();
-        _overlay.AddToClassList(ussOverlay);
+        _overlay.AddToClassList(_ussOverlay);
         Add(_overlay);
 
         UpdateUnavailableOverlay();

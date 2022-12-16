@@ -328,7 +328,6 @@ public class Character : BaseScriptableObject
         IsUnavailable = data.IsOnUnavailable;
         DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
         UnavailabilityDuration = data.UnavailabilityDuration;
-        Debug.Log($"desk position {data.DeskPosition}");
         DeskPosition = data.DeskPosition;
 
         UpdateRank();
