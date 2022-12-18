@@ -41,7 +41,7 @@ public class ReportElement : VisualElement
 
     const string _ussSignContainer = _ussClassName + "__sign-container";
     const string _ussSignButton = _ussClassName + "__sign_button";
-    const string _ussSignedText = _ussClassName + "__signed_text";
+    const string _ussSignedText = _ussClassName + "__signed-text";
     const string _ussSignedTextBefore = _ussClassName + "__signed-text-before";
 
     public event Action<ReportElement> OnReportDismissed;
@@ -60,8 +60,8 @@ public class ReportElement : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
 
         AddToClassList(_ussMain);
 
@@ -163,12 +163,17 @@ public class ReportElement : VisualElement
 
     void DismissReportAction() { DismissReport(); } // otherwise, the delegate throws errors
 
-    protected async void DismissReport(bool SoundOn = true)
+    protected async void DismissReport(bool EffectsOn = true)
     {
         // otherwise you can click multiple times if you are a quick clicker.
         if (_signed)
             return;
         _signed = true;
+
+        // archive report
+        _gameManager.Reports.Remove(_report);
+        _gameManager.ReportsArchived.Add(_report);
+        _gameManager.SaveJsonData();
 
         _reportContents.UnregisterCallback<PointerDownEvent>(OnReportContentPointerDown);
 
@@ -180,29 +185,29 @@ public class ReportElement : VisualElement
         Blur();
 
         _report.Sign();
-        if (SoundOn)
+
+
+        // TODO: a better way? 
+        if (EffectsOn)
+        {
             _audioManager.PlaySFX("Stamp", Vector3.zero);
 
-        Label signed = new($"Signed on day {_gameManager.Day}");
-        _reportContents.Add(signed);
+            Label signed = new($"Signed on day {_gameManager.Day}");
+            signed.AddToClassList(_ussSignedTextBefore);
+            // signed.style.display = ;
+            _reportContents.Add(signed);
+            await Task.Delay(50); // this makes transitions from class to class to work.
+            signed.AddToClassList(_ussSignedText);
+            signed.RemoveFromClassList(_ussSignedTextBefore);
+            await Task.Delay(10); // TODO: nasty nasty nasty, but without it the text appears on the bottom of the element without styling for a few frames
+            signed.style.display = DisplayStyle.Flex;
 
-        // TODO: a better way? XD
-        signed.AddToClassList(_ussSignedTextBefore);
-        signed.style.display = DisplayStyle.None;
-        await Task.Delay(50); // this makes transitions from class to class to work.
-        signed.AddToClassList(_ussSignedText);
-        await Task.Delay(10); // TODO: nasty nasty nasty, but without it the text appears on the bottom of the element without styling for a few frames
-        signed.style.display = DisplayStyle.Flex;
-
-        await Task.Delay(400);
-        OnReportDismissed?.Invoke(this);
-        if (SoundOn)
+            await Task.Delay(400);
             _audioManager.PlaySFX("PaperFlying", Vector3.zero);
 
-        // archive report
-        _gameManager.Reports.Remove(_report);
-        _gameManager.ReportsArchived.Add(_report);
-        _gameManager.SaveJsonData();
+        }
+        OnReportDismissed?.Invoke(this);
+
     }
 
     /* DRAG & DROP */

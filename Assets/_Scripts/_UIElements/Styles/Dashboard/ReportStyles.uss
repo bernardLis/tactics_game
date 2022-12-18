@@ -113,10 +113,10 @@
     position: absolute;
     left: 10%;
     top: 50%;
-    visibility: hidden;
+    display: none;
 }
 
-.report__signed_text {
+.report__signed-text {
     color: rgb(255, 0, 0);
     border-left-color: rgb(255, 0, 0);
     border-right-color: rgb(255, 0, 0);

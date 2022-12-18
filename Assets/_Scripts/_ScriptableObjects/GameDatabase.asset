@@ -598,3 +598,4 @@ MonoBehaviour:
     - {fileID: 21300000, guid: dde15f56be9393b41ab81108f7efc0a2, type: 3}
     - {fileID: 21300000, guid: 279f39ddcb117ee4587fc238e5e623ab, type: 3}
     - {fileID: 21300000, guid: d497bd3531bc97140904d19c4c273569, type: 3}
+  <ShopWoodSprite>k__BackingField: {fileID: 21300000, guid: 9e73dfeeb2b076a45b9f4f939bc1cd58, type: 3}

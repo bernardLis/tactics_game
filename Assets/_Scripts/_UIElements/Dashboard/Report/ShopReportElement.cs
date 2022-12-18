@@ -11,7 +11,7 @@ public class ShopReportElement : ReportElement
 
     GoldElement _rerollPriceGoldElement;
 
-    const string ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "shop";
     const string _ussItemContainer = _ussClassName + "__item-container";
@@ -30,6 +30,8 @@ public class ShopReportElement : ReportElement
 
         _shop = report.Shop;
 
+        _reportContents.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.ShopWoodSprite);
+
         AddHeader("Shop", Color.red);
 
         _itemContainer = new();
@@ -43,6 +45,7 @@ public class ShopReportElement : ReportElement
         _reportContents.Add(bottomPanel);
 
         _durationLabel = new();
+        _durationLabel.AddToClassList(_ussCommonTextPrimary);
         _reportContents.Add(_durationLabel);
         UpdateDuration();
         _shop.OnDurationChanged += UpdateDuration;

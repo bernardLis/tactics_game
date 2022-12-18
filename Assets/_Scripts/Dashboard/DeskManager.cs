@@ -28,7 +28,7 @@ public class DeskManager : Singleton<DeskManager>
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _gameManager.OnDayPassed += DayPassed;
+        _gameManager.OnReportAdded += OnReportAdded;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
@@ -51,15 +51,11 @@ public class DeskManager : Singleton<DeskManager>
         Initialize();
     }
 
-    async void DayPassed(int day)
+    async void OnReportAdded(Report report)
     {
-        await Task.Delay(100); // TODO: ugh...I need to make sure other scripts manage their things...
-        foreach (Report report in _gameManager.Reports)
-        {
-            if (VisibleReports.Contains(report))
-                continue;
-            await CreateReport(report);
-        }
+        if (VisibleReports.Contains(report))
+            return;
+        await CreateReport(report);
     }
 
     async void Initialize()
@@ -135,7 +131,6 @@ public class DeskManager : Singleton<DeskManager>
             await Task.Delay(5);
         }
     }
-
 
     async Task CreateReport(Report report)
     {
