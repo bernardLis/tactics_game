@@ -13,12 +13,13 @@ public class Report : BaseScriptableObject
     public Recruit Recruit;
     public string Text;
     public string CampBuildingId;
+    public Shop Shop;
 
     public bool IsSigned;
     public int DaySigned;
     public bool WasAccepted;
 
-    public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null, string campBuildingId = null)
+    public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null, string campBuildingId = null, Shop shop = null)
     {
         ReportType = type;
         ReportPaper = GameManager.Instance.GameDatabase.GetRandomReportPaper();
@@ -27,6 +28,7 @@ public class Report : BaseScriptableObject
         Recruit = recruit;
         Text = text;
         CampBuildingId = campBuildingId;
+        Shop = shop;
     }
 
     public void Sign()
@@ -44,9 +46,8 @@ public class Report : BaseScriptableObject
         if (ReportType == ReportType.Quest)
         {
             Quest = ScriptableObject.CreateInstance<Quest>();
-            Quest.CreateFromData(data.Quest);
+            Quest.LoadFromData(data.Quest);
         }
-
         if (ReportType == ReportType.Recruit)
         {
             Recruit = ScriptableObject.CreateInstance<Recruit>();
@@ -59,6 +60,11 @@ public class Report : BaseScriptableObject
         if (ReportType == ReportType.CampBuilding)
         {
             CampBuildingId = data.CampBuildingId;
+        }
+        if (ReportType == ReportType.Shop)
+        {
+            Shop = ScriptableObject.CreateInstance<Shop>();
+            Shop.LoadFromData(data.ShopData);
         }
 
         IsSigned = data.IsSigned;
@@ -86,6 +92,9 @@ public class Report : BaseScriptableObject
         if (CampBuildingId != null)
             rd.CampBuildingId = CampBuildingId;
 
+        if (Shop != null)
+            rd.ShopData = Shop.SerializeSelf();
+
         rd.IsSigned = IsSigned;
         rd.DaySigned = DaySigned;
         rd.WasAccepted = WasAccepted;
@@ -105,6 +114,7 @@ public struct ReportData
     public RecruitData Recruit;
     public string Text;
     public string CampBuildingId;
+    public ShopData ShopData;
 
     public bool IsSigned;
     public int DaySigned;

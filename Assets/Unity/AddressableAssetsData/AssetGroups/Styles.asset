@@ -45,6 +45,10 @@ MonoBehaviour:
     m_Address: ReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 297779c8578a83f47b73415c817f886b
+    m_Address: ShopReportStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

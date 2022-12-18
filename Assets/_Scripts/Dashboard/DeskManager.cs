@@ -150,6 +150,8 @@ public class DeskManager : Singleton<DeskManager>
             el = (TextReportElement)new(_reportsContainer, report) as TextReportElement;
         if (report.ReportType == ReportType.CampBuilding)
             el = (CampReportElement)new(_reportsContainer, report) as CampReportElement;
+        if (report.ReportType == ReportType.Shop)
+            el = (ShopReportElement)new(_reportsContainer, report) as ShopReportElement;
 
         el.style.position = Position.Absolute;
         el.OnReportDismissed += OnReportDismissed;

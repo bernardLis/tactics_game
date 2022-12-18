@@ -59,6 +59,9 @@ public class ReportElement : VisualElement
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ReportStyles);
         if (ss != null)
             styleSheets.Add(ss);
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
 
         AddToClassList(_ussMain);
 
@@ -132,7 +135,7 @@ public class ReportElement : VisualElement
         }
 
         // TODO: this could look better.
-        _signButton = new MyButton(null, _ussSignContainer, DismissReport);
+        _signButton = new MyButton(null, _ussSignContainer, DismissReportAction);
         VisualElement signButtonInside = new();
         signButtonInside.AddToClassList(_ussSignButton);
         _signButton.Add(signButtonInside);
@@ -158,7 +161,9 @@ public class ReportElement : VisualElement
         DismissReport();
     }
 
-    protected async void DismissReport()
+    void DismissReportAction() { DismissReport(); } // otherwise, the delegate throws errors
+
+    protected async void DismissReport(bool SoundOn = true)
     {
         // otherwise you can click multiple times if you are a quick clicker.
         if (_signed)
@@ -175,7 +180,8 @@ public class ReportElement : VisualElement
         Blur();
 
         _report.Sign();
-        _audioManager.PlaySFX("Stamp", Vector3.zero);
+        if (SoundOn)
+            _audioManager.PlaySFX("Stamp", Vector3.zero);
 
         Label signed = new($"Signed on day {_gameManager.Day}");
         _reportContents.Add(signed);
@@ -190,7 +196,8 @@ public class ReportElement : VisualElement
 
         await Task.Delay(400);
         OnReportDismissed?.Invoke(this);
-        _audioManager.PlaySFX("PaperFlying", Vector3.zero);
+        if (SoundOn)
+            _audioManager.PlaySFX("PaperFlying", Vector3.zero);
 
         // archive report
         _gameManager.Reports.Remove(_report);

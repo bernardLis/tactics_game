@@ -1,17 +1,3 @@
-.rerollButton {
-    width: 100px;
-    height: 100px;
-    background-image: resource('500_resources/Quest_85');
-    transition-duration: 0.5s;
-}
-
-.shopItem {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    align-items: center;
-}
 
 .questElement {
     transition-duration: 1s;
@@ -46,7 +32,6 @@
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
 }
-
 
 .questActionButton:hover {
     transition-duration: 0.5s;
@@ -173,7 +158,6 @@
     transition-timing-function: ease-in-out;
 }
 
-
 .questActionButton {
     min-width: 100px;
     min-height: 40px;
@@ -293,18 +277,6 @@
     transition-timing-function: ease-in-out;
 }
 
-.rerollButton:hover {
-    scale: 1.1 1.1;
-    rotate: 50deg;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-}
-
-.rerollButton:active {
-    transition-duration: 0.5s;
-    rotate: 270deg;
-    scale: 0.95 0.95;
-}
 
 .craftAbilityStarGray {
     width: 50px;

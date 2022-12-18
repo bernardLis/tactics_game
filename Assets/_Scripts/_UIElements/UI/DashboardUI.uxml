@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/DashboardStyles.uss?fileID=7433441132597879392&amp;guid=3d872669deb721f44bdfa6897d1dc942&amp;type=3#DashboardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/ShopReportStyles.uss?fileID=7433441132597879392&amp;guid=297779c8578a83f47b73415c817f886b&amp;type=3#ShopReportStyles" />
     <ui:VisualElement name="nav" style="height: 5%; flex-direction: column; width: 100%; align-items: stretch; justify-content: flex-start; opacity: 1; background-color: rgb(0, 0, 0);">
         <ui:VisualElement name="navResources" class="textPrimary" style="width: 100%; flex-direction: row; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&amp;guid=64327707a8db5e8429fdd9cc2a5e2916&amp;type=3#long_shadow_light&apos;); padding-left: 30px; padding-right: 0; padding-top: 0; padding-bottom: 0;">
             <ui:VisualElement name="navDay" class="navResourceElement">
@@ -62,7 +63,7 @@
                         <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
                         <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="shopRerollContainer" style="align-items: center; flex-direction: column; justify-content: center; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; background-image: none;" />
+                    <ui:VisualElement name="shopRerollContainer" class="shopRerollContainer" />
                     <ui:Label text="Shop resets in 5 days" display-tooltip-when-elided="true" name="shopResetInfo" />
                 </ui:VisualElement>
                 <ui:VisualElement name="shopSellContainer" style="align-items: flex-start; width: 50%; justify-content: flex-start; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/dialog_frame_a.png?fileID=2800000&amp;guid=9ad8f801bcce43249b04b6e8ba959a08&amp;type=3#dialog_frame_a&apos;);">

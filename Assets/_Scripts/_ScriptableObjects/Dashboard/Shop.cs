@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Shop : BaseScriptableObject
 {
@@ -12,17 +13,26 @@ public class Shop : BaseScriptableObject
     public List<Item> Items = new();
 
     GameManager _gameManager;
+
+
+    public event Action OnDurationChanged;
+
     public void CreateShop()
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
         ChooseItems();
 
+        DayAdded = _gameManager.Day;
+        Duration = Random.Range(1, 4);
+        RerollCost = 200;
+        AddDayCost = 200;
     }
 
     void OnDayPassed(int day)
     {
         Duration--;
+        OnDurationChanged?.Invoke();
         if (Duration <= 0)
             CloseShop();
     }
@@ -34,22 +44,17 @@ public class Shop : BaseScriptableObject
 
     void ChooseItems()
     {
-        Debug.Log($"choosing items");
+        Items.Clear();
+        for (int i = 0; i < 2; i++)
+        {
+            Item item = _gameManager.GameDatabase.GetRandomItem();
+            Items.Add(item);
+        }
     }
 
-    public void AddDay()
-    {
-        Duration++;
-        _gameManager.SaveJsonData();
-    }
+    public void RerollItems() { ChooseItems(); }
 
-    public void RerollItems()
-    {
-        ChooseItems();
-
-    }
-
-    public void CreateFromData(ShopData data)
+    public void LoadFromData(ShopData data)
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;

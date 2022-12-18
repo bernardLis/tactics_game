@@ -186,7 +186,7 @@ public class Quest : BaseScriptableObject
         Roll = Random.value;
     }
 
-    public void CreateFromData(QuestData data)
+    public void LoadFromData(QuestData data)
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
