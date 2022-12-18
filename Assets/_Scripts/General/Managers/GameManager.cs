@@ -383,13 +383,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         return charData;
     }
 
-    List<string> PopulateItemPouch()
+    List<ItemData> PopulateItemPouch()
     {
-        List<string> itemIds = new();
+        List<ItemData> data = new();
         foreach (Item i in PlayerItemPouch)
-            itemIds.Add(i.Id);
+            data.Add(i.SerializeSelf());
 
-        return itemIds;
+        return data;
     }
 
     List<AbilityData> PopulateAbilityPouch()
@@ -473,8 +473,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         }
 
         PlayerItemPouch = new();
-        foreach (string itemReferenceId in saveData.ItemPouch)
-            PlayerItemPouch.Add(GameDatabase.GetItemById(itemReferenceId));
+        foreach (ItemData d in saveData.ItemPouch)
+        {
+            Item item = (Item)ScriptableObject.CreateInstance<Item>();
+            item.LoadFromData(d);
+            PlayerItemPouch.Add(item);
+        }
 
         PlayerAbilityPouch = new();
         foreach (AbilityData abilityData in saveData.AbilityPouch)

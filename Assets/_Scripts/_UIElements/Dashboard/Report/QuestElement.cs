@@ -53,7 +53,8 @@ public class QuestElement : VisualElement
 
         RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
     }
-
+    
+    // block report pickup
     void OnPointerDown(PointerDownEvent e) { e.StopImmediatePropagation(); }
 
     void OnDayPassed(int day)

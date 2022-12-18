@@ -1,3 +1,4 @@
+
 .shop__item-container{
     flex-direction: row;
 }

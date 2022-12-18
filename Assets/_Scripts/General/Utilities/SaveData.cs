@@ -20,7 +20,7 @@ public class SaveData
 
     public int TroopsLimit;
     public List<CharacterData> PlayerTroops = new();
-    public List<string> ItemPouch = new();
+    public List<ItemData> ItemPouch = new();
     public List<AbilityData> AbilityPouch = new();
 
     public List<ReportData> Reports = new();

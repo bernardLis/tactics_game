@@ -49,7 +49,14 @@ public class ShopReportElement : ReportElement
         _reportContents.Add(_durationLabel);
         UpdateDuration();
         _shop.OnDurationChanged += UpdateDuration;
+
+        _itemContainer.RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
     }
+
+    // block report pickup
+    void OnPointerDown(PointerDownEvent e) { e.StopImmediatePropagation(); }
+
+    public void ItemBought(Item item) { _shop.ItemBought(item); }
 
     void ShowShopItems()
     {
@@ -60,13 +67,13 @@ public class ShopReportElement : ReportElement
             VisualElement container = new();
             container.AddToClassList(_ussItem);
 
-            ItemElement itemVisual = new(item);
+            ItemElement itemElement = new(item, this);
             ItemSlot itemSlot = new();
-            itemSlot.AddItem(itemVisual);
+            itemSlot.AddItem(itemElement);
 
-            //https://docs.unity3d.com/2020.1/Documentation/Manual/UIE-Events-Handling.html
-            // HERE: drag items
-            //itemVisual.RegisterCallback<PointerDownEvent>(OnShopItemPointerDown);
+            DraggableItems draggables = _deskManager.GetComponent<DraggableItems>();
+            if (draggables != null)
+                draggables.AddDraggableItem(itemElement);
 
             container.Add(itemSlot);
             container.Add(new GoldElement(item.Price));

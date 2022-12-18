@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
 public class ItemElement : ElementWithTooltip
 {
     string _tooltipText;
     public Item Item;
-    public ItemElement(Item item) : base()
+    public bool IsShop;
+    ShopReportElement _shopReportElement;
+    public ItemElement(Item item, ShopReportElement shopReportElement = null) : base()
     {
         Item = item;
+        
+        if (shopReportElement != null)
+        {
+            _shopReportElement = shopReportElement;
+            IsShop = true;
+        }
 
         style.backgroundImage = item.Icon.texture;
         style.width = 75;
@@ -18,6 +27,12 @@ public class ItemElement : ElementWithTooltip
             _tooltipText = item.InfluencedStat.ToString() + " +" + item.Value.ToString();
         else
             _tooltipText = item.TooltipText;
+    }
+
+    public void ItemBought()
+    {
+        _shopReportElement.ItemBought(Item);
+        IsShop = false;
     }
 
     protected override void DisplayTooltip()

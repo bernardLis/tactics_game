@@ -10,6 +10,7 @@ public class DeskManager : Singleton<DeskManager>
     GameManager _gameManager;
     DashboardManager _dashboardManager;
     DraggableCharacters _draggableCharacters;
+    DraggableItems _draggableItems;
 
     public VisualElement Root { get; private set; }
     VisualElement _mainDesk;
@@ -32,6 +33,7 @@ public class DeskManager : Singleton<DeskManager>
 
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
+        _draggableItems = GetComponent<DraggableItems>();
 
         Root = _dashboardManager.Root;
 
@@ -68,7 +70,6 @@ public class DeskManager : Singleton<DeskManager>
         foreach (Report report in _gameManager.Reports)
             await CreateReport(report);
 
-
         foreach (Character character in _gameManager.PlayerTroops)
         {
             if (character.IsAssigned)
@@ -77,26 +78,71 @@ public class DeskManager : Singleton<DeskManager>
             AddCharacterToDesk(character);
         }
 
+        foreach (Item item in _gameManager.PlayerItemPouch)
+            AddItemToDesk(item);
+
         _draggableCharacters.Initialize(Root, _reportsContainer);
+        _draggableItems.Initialize(Root, _reportsContainer);
         ShowPassDayButton();
+    }
+
+    ItemElement AddItemToDesk(Item item)
+    {
+        ItemElement el = new(item);
+        el.style.position = Position.Absolute;
+        el.style.left = item.DeskPosition.x;
+        el.style.top = item.DeskPosition.y;
+
+        _draggableItems.AddDraggableItem(el);
+
+        _reportsContainer.Add(el);
+
+        return el;
     }
 
     CharacterCardMini BaseAddCharacterToDesk(Character character)
     {
         CharacterCardMini card = new(character);
+        card.RegisterCallback<PointerUpEvent>(OnCharacterPointerUp);
         card.style.position = Position.Absolute;
         _reportsContainer.Add(card);
-
         card.style.top = character.DeskPosition.y;
         card.style.left = character.DeskPosition.x;
 
         _draggableCharacters.AddDraggableCard(card);
         return card;
     }
-
     public void AddCharacterToDesk(Character character)
     {
         BaseAddCharacterToDesk(character);
+    }
+
+    void OnCharacterPointerUp(PointerUpEvent evt)
+    {
+        if (evt.button != 1)
+            return;
+        CharacterCardMini card = (CharacterCardMini)evt.currentTarget;
+        if (card.IsLocked)
+            return;
+
+        foreach (Item item in card.Character.Items)
+        {
+            item.DeskPosition = evt.position;
+            SpitItemsOntoDesk(item);
+        }
+
+        card.Character.Items = new();
+    }
+
+    public async void SpitItemsOntoDesk(Item item)
+    {
+        ItemElement el = AddItemToDesk(item);
+        float newX = item.DeskPosition.x + Random.Range(-100, 100);
+        float newY = item.DeskPosition.y + Random.Range(-100, 100);
+
+        Vector3 endPosition = new(newX, newY, 0);
+        await MoveElementOnArc(el, item.DeskPosition, endPosition);
+        item.UpdateDeskPosition(endPosition);
     }
 
     public async void SpitCharacterOntoDesk(Character character)
@@ -107,6 +153,7 @@ public class DeskManager : Singleton<DeskManager>
 
         Vector3 endPosition = new(newX, newY, 0);
         await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
+        card.Character.UpdateDeskPosition(endPosition);
     }
 
     async Task MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)

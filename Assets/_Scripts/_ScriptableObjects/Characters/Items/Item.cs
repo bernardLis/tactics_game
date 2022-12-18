@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,45 @@ public class Item : BaseScriptableObject
     public Status Status;
     public string TooltipText;
 
+    [HideInInspector] public Vector2 DeskPosition;
+
     public int GetSellValue() { return Mathf.FloorToInt(Price * 0.5f); }
 
     public virtual void Initialize(CharacterStats stats) { }
+
+    public void UpdateDeskPosition(Vector2 pos) { DeskPosition = pos; }
+
+    public void LoadFromData(ItemData data)
+    {
+        GameDatabase db = GameManager.Instance.GameDatabase;
+        Item i = db.GetItemById(data.ItemId);
+        Id = data.ItemId;
+        ItemName = i.ItemName;
+        Icon = i.Icon;
+        InfluencedStat = i.InfluencedStat;
+        Rarity = i.Rarity;
+        Value = i.Value;
+        Price = i.Price;
+        Status = i.Status;
+        TooltipText = i.TooltipText;
+
+        DeskPosition = data.DeskPosition;
+    }
+
+    public ItemData SerializeSelf()
+    {
+        ItemData itemData = new();
+        itemData.ItemId = Id;
+        itemData.DeskPosition = DeskPosition;
+
+        return itemData;
+    }
 }
+
+[Serializable]
+public struct ItemData
+{
+    public string ItemId;
+    public Vector2 DeskPosition;
+}
+

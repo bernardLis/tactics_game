@@ -37,6 +37,12 @@ public class Shop : BaseScriptableObject
             CloseShop();
     }
 
+    public void ItemBought(Item item)
+    {
+        Items.Remove(item);
+        _gameManager.SaveJsonData();
+    }
+
     void CloseShop()
     {
         Debug.Log($"closing shop");

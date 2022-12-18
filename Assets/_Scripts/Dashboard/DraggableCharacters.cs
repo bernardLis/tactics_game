@@ -7,8 +7,6 @@ using DG.Tweening;
 
 public class DraggableCharacters : MonoBehaviour
 {
-    GameManager _gameManager;
-
     VisualElement _root;
     VisualElement _cardContainer;
 
@@ -161,9 +159,7 @@ public class DraggableCharacters : MonoBehaviour
             CharacterCardMini copy = _newSlot.Card;
             _newSlot.RemoveCard();
             _newSlot.AddCard(_draggedCard);
-
             ReturnCardToContainer(copy);
-
             DragCleanUp();
             return;
         }
