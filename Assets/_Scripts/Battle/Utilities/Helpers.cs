@@ -114,7 +114,7 @@ public static class Helpers
         l.style.top = element.worldBound.yMax;
 
         root.Add(l);
-        float end = element.worldBound.yMin + 100;
+        float end = element.worldBound.yMin - 100;
         await DOTween.To(x => l.style.top = x, element.worldBound.yMax, end, 1).SetEase(Ease.OutSine).AsyncWaitForCompletion();
         await DOTween.To(x => l.style.opacity = x, 1, 0, 1).AsyncWaitForCompletion();
         root.Remove(l);

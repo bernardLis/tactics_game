@@ -140,6 +140,10 @@ public class Character : BaseScriptableObject
         UpdateRank();
     }
 
+    public bool CanTakeAnotherItem() { return Items.Count < 2; }
+
+    public void ClearItems() { Items = new(); }
+
     public void AddItem(Item item)
     {
         Items.Add(item);

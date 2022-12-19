@@ -121,10 +121,8 @@ public class DraggableItems : MonoBehaviour
         if (_draggedItem.IsShop && overlappingReports.Count() == 0)
         {
             _itemContainer.Add(_draggedItem);
-            _draggedItem.style.left = _dragDropContainer.style.left;
-            _draggedItem.style.top = _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y;
-            _draggedItem.Item.UpdateDeskPosition(new Vector2(_draggedItem.style.left.value.value,
-                                                               _draggedItem.style.top.value.value));
+            SetDraggedItemPosition(new Vector2(_dragDropContainer.style.left.value.value,
+                    _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y));
             _gameManager.AddItemToPouch(_draggedItem.Item);
             _draggedItem.ItemBought();
             DragCleanUp();
@@ -150,11 +148,10 @@ public class DraggableItems : MonoBehaviour
             VisualElement closesEl = overlappingCards.OrderBy(x => Vector2.Distance
                                      (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
             CharacterCardMini closestCard = (CharacterCardMini)closesEl;
-            if (closestCard.Character.Items.Count < 2)
+            if (closestCard.Character.CanTakeAnotherItem())
             {
                 closestCard.Character.AddItem(_draggedItem.Item);
                 _gameManager.RemoveItemFromPouch(_draggedItem.Item);
-
                 DragCleanUp();
                 return;
             }
@@ -164,13 +161,10 @@ public class DraggableItems : MonoBehaviour
             return;
         }
 
-
         // move item around the desk - update & remember position
         _itemContainer.Add(_draggedItem);
-        _draggedItem.style.left = _dragDropContainer.style.left;
-        _draggedItem.style.top = _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y;
-        _draggedItem.Item.UpdateDeskPosition(new Vector2(_draggedItem.style.left.value.value,
-                                           _draggedItem.style.top.value.value));
+        SetDraggedItemPosition(new Vector2(_dragDropContainer.style.left.value.value,
+             _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y));
         _gameManager.SaveJsonData();
         DragCleanUp();
 
@@ -178,7 +172,14 @@ public class DraggableItems : MonoBehaviour
 
     }
 
-    void ShakeReturnItemToContainer(ItemElement itemElement)
+    void SetDraggedItemPosition(Vector2 newPos)
+    {
+        _draggedItem.style.left = newPos.x;
+        _draggedItem.style.top = newPos.y;
+        _draggedItem.Item.UpdateDeskPosition(newPos);
+    }
+
+    async void ShakeReturnItemToContainer(ItemElement itemElement)
     {
         _itemContainer.Add(itemElement);
         itemElement.style.position = Position.Absolute;
@@ -186,13 +187,17 @@ public class DraggableItems : MonoBehaviour
         itemElement.style.top = _dragDropContainer.worldBound.yMin - _itemContainer.worldBound.y; ;
         int endLeft = Mathf.CeilToInt(_dragDropContainer.worldBound.xMin) + Random.Range(-50, 50);
         int endTop = Mathf.CeilToInt(_dragDropContainer.worldBound.yMin) + Random.Range(-50, 50);
-        DOTween.To(() => itemElement.style.left.value.value, x => itemElement.style.left = x, endLeft, 0.5f).SetEase(Ease.OutElastic);
-        DOTween.To(() => itemElement.style.top.value.value, x => itemElement.style.top = x, endTop, 0.5f).SetEase(Ease.OutElastic);
+
+        // when item is shaking and you grab it it behaves weirdly.
+        itemElement.UnregisterCallback<PointerDownEvent>(OnItemPointerDown);
+        DOTween.To(() => itemElement.style.left.value.value, x => itemElement.style.left = x, endLeft, 0.5f)
+                .SetEase(Ease.OutElastic);
+        await DOTween.To(() => itemElement.style.top.value.value, x => itemElement.style.top = x, endTop, 0.5f)
+                .SetEase(Ease.OutElastic).AsyncWaitForCompletion();
+        itemElement.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
 
         itemElement.Item.UpdateDeskPosition(new Vector2(endLeft, endTop));
     }
-
-
 
     void DragCleanUp()
     {
@@ -206,7 +211,5 @@ public class DraggableItems : MonoBehaviour
         _dragDropContainer.Clear();
         _dragDropContainer.style.visibility = Visibility.Hidden;
     }
-
-
 
 }

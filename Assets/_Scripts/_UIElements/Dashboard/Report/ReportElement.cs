@@ -28,6 +28,10 @@ public class ReportElement : VisualElement
 
     protected bool _signed;
 
+    protected const string _ussCommonTextPrimary = "common__text-primary";
+    protected const string _ussCommonTransitionBasic = "common__transition-basic";
+
+
     const string _ussClassName = "report";
     const string _ussMain = _ussClassName + "__main";
     const string _ussShadow = _ussClassName + "__shadow";
@@ -230,6 +234,8 @@ public class ReportElement : VisualElement
         BringToFront();
 
         AddToClassList(_ussPickedUp);
+        AddToClassList(_ussCommonTransitionBasic);
+
         _audioManager.PlaySFX("Paper", Vector3.zero);
         _reportShadow.style.display = DisplayStyle.Flex;
         style.left = position.x - _dragOffset.x;
@@ -243,6 +249,7 @@ public class ReportElement : VisualElement
         // Only take action if the player is dragging an item around the screen
         if (!_isDragging)
             return;
+        RemoveFromClassList(_ussCommonTransitionBasic);
 
         // Set the new position
         style.left = evt.position.x - _dragOffset.x;

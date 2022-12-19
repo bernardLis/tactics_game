@@ -100,16 +100,20 @@ public class DeskManager : Singleton<DeskManager>
         return el;
     }
 
+    public void RegisterDeskCard(CharacterCardMini card)
+    {
+        card.RegisterCallback<PointerUpEvent>(OnCharacterPointerUp);
+    }
+
     CharacterCardMini BaseAddCharacterToDesk(Character character)
     {
         CharacterCardMini card = new(character);
-        card.RegisterCallback<PointerUpEvent>(OnCharacterPointerUp);
         card.style.position = Position.Absolute;
         _reportsContainer.Add(card);
         card.style.top = character.DeskPosition.y;
         card.style.left = character.DeskPosition.x;
-
         _draggableCharacters.AddDraggableCard(card);
+        RegisterDeskCard(card);
         return card;
     }
     public void AddCharacterToDesk(Character character)
@@ -124,6 +128,9 @@ public class DeskManager : Singleton<DeskManager>
         CharacterCardMini card = (CharacterCardMini)evt.currentTarget;
         if (card.IsLocked)
             return;
+        if (card.Character.IsAssigned)
+            return;
+
 
         foreach (Item item in card.Character.Items)
         {
@@ -131,7 +138,7 @@ public class DeskManager : Singleton<DeskManager>
             SpitItemsOntoDesk(item);
         }
 
-        card.Character.Items = new();
+        card.Character.ClearItems();
     }
 
     public async void SpitItemsOntoDesk(Item item)

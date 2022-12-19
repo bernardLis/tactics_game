@@ -87,14 +87,15 @@ public class Quest : BaseScriptableObject
             int rankDiff = c.Rank.Rank - Rank.Rank;
             if (rankDiff == 0)
             {
-                successChance += 33;
+                successChance += 40;
                 continue;
             }
 
-            int influence = 33 + rankDiff * 10; // TODO: magic 33 and 10
+            int influence = 40 + rankDiff * 10; // TODO: magic 33 and 10
             influence = Mathf.Clamp(influence, 0, 100);
             successChance += influence;
         }
+        successChance = Mathf.Clamp(successChance, 0, 100);
 
         return successChance;
     }

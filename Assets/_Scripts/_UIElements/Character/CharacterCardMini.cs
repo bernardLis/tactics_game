@@ -17,22 +17,22 @@ public class CharacterCardMini : ElementWithTooltip
     public event Action<CharacterCardMini> OnLocked;
     public event Action<CharacterCardMini> OnUnlocked;
 
+    const string ussCommonTextSecondary = "common__text-secondary";
+    const string _ussCommonTransitionBasic = "common__transition-basic";
+
     const string _ussClassName = "character-card-mini";
     const string _ussMain = _ussClassName + "__main";
     const string _ussOverlay = _ussClassName + "__overlay";
     const string _ussShadow = _ussClassName + "__shadow";
     const string _ussPickedUp = _ussClassName + "__picked-up";
 
-
-    const string ussCommonTextSecondary = "common__text-secondary";
-
     public CharacterCardMini(Character character)
     {
         _gameManager = GameManager.Instance;
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterCardMiniStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (common != null)
+            styleSheets.Add(common);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterCardMiniStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

@@ -107,12 +107,12 @@ public class DraggableCharacters : MonoBehaviour
         if (!_isDragging)
             return;
 
-        if (_draggedCard != null)
-        {
-            //Set the new position
-            _dragDropContainer.style.top = evt.position.y - _dragDropContainer.layout.height / 2;
-            _dragDropContainer.style.left = evt.position.x - _dragDropContainer.layout.width / 2;
-        }
+        if (_draggedCard == null)
+            return;
+
+        //Set the new position
+        _dragDropContainer.style.top = evt.position.y - _dragDropContainer.layout.height / 2;
+        _dragDropContainer.style.left = evt.position.x - _dragDropContainer.layout.width / 2;
     }
 
     void OnPointerUp(PointerUpEvent evt)
@@ -164,12 +164,11 @@ public class DraggableCharacters : MonoBehaviour
             return;
         }
 
-
         _newSlot.AddCard(_draggedCard);
         DragCleanUp();
     }
 
-    void ReturnCardToContainer(CharacterCardMini card)
+    async void ReturnCardToContainer(CharacterCardMini card)
     {
         _cardContainer.Add(card);
         card.style.position = Position.Absolute;
@@ -177,8 +176,14 @@ public class DraggableCharacters : MonoBehaviour
         card.style.top = _newSlot.worldBound.yMin - _dragDropContainer.layout.height / 2;
         int endLeft = Mathf.CeilToInt(_newSlot.worldBound.xMin) + Random.Range(-50, 50);
         int endTop = Mathf.CeilToInt(_newSlot.worldBound.yMin) + Random.Range(-50, 50);
-        DOTween.To(() => card.style.left.value.value, x => card.style.left = x, endLeft, 0.5f).SetEase(Ease.OutElastic);
-        DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f).SetEase(Ease.OutElastic);
+
+        // when card is shaking and you grab it it behaves weirdly.
+        card.UnregisterCallback<PointerDownEvent>(OnCardPointerDown);
+        DOTween.To(() => card.style.left.value.value, x => card.style.left = x, endLeft, 0.5f)
+                .SetEase(Ease.OutElastic);
+        await DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f)
+                .SetEase(Ease.OutElastic).AsyncWaitForCompletion(); ;
+        card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
 
         card.Character.UpdateDeskPosition(new Vector2(endLeft, endTop));
     }

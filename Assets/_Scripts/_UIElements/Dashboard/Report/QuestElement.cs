@@ -53,7 +53,7 @@ public class QuestElement : VisualElement
 
         RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
     }
-    
+
     // block report pickup
     void OnPointerDown(PointerDownEvent e) { e.StopImmediatePropagation(); }
 
@@ -247,6 +247,7 @@ public class QuestElement : VisualElement
         for (int i = 0; i < _quest.AssignedCharacters.Count; i++)
         {
             CharacterCardMini card = new(_quest.AssignedCharacters[i]);
+            _deskManager.RegisterDeskCard(card);
             _cardSlots[i].AddCard(card);
         }
 
@@ -254,7 +255,6 @@ public class QuestElement : VisualElement
         foreach (CharacterCardMiniSlot slot in _cardSlots)
         {
             _draggableCharacters.AddDraggableSlot(slot); // after cards were added to make them draggable
-
             slot.OnCardAdded += OnCardAdded;
             slot.OnCardRemoved += OnCardRemoved;
         }

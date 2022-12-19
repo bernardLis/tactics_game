@@ -11,7 +11,6 @@ public class ShopReportElement : ReportElement
 
     GoldElement _rerollPriceGoldElement;
 
-    const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "shop";
     const string _ussItemContainer = _ussClassName + "__item-container";
