@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Threading.Tasks;
 
 public class CharacterCardMiniSlot : ElementWithSound
 {
@@ -39,7 +40,9 @@ public class CharacterCardMiniSlot : ElementWithSound
 
     public void AddCard(CharacterCardMini card)
     {
+        Debug.Log($"add card to slot");
         Card = card;
+        card.Slotted();
         Add(card);
 
         PlayClick();
@@ -47,12 +50,16 @@ public class CharacterCardMiniSlot : ElementWithSound
         OnCardAdded?.Invoke(card);
     }
 
+
+
     public void RemoveCard()
     {
-        Clear();
-        CharacterCardMini previousCard = Card;
+        Debug.Log($"remove card from slot");
+
+        Card.Unslotted();
+        OnCardRemoved?.Invoke(Card);
         Card = null;
-        OnCardRemoved?.Invoke(previousCard);
+        Clear();
     }
 
     public void Lock()

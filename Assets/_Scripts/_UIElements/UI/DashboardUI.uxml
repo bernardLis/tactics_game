@@ -3,6 +3,8 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/ShopReportStyles.uss?fileID=7433441132597879392&amp;guid=297779c8578a83f47b73415c817f886b&amp;type=3#ShopReportStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/ReportStyles.uss?fileID=7433441132597879392&amp;guid=9763af7dad1233145acb77b63af6c8db&amp;type=3#ReportStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Character/CharacterCardMiniStyles.uss?fileID=7433441132597879392&amp;guid=6592743390324724eba0b66a33b0dc93&amp;type=3#CharacterCardMiniStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Character/CharacterPortraitStyles.uss?fileID=7433441132597879392&amp;guid=30cb1d7da388bcd46bd5f2295479366d&amp;type=3#CharacterPortraitStyles" />
     <ui:VisualElement name="nav" style="height: 5%; flex-direction: column; width: 100%; align-items: stretch; justify-content: flex-start; opacity: 1; background-color: rgb(0, 0, 0);">
         <ui:VisualElement name="navResources" class="textPrimary" style="width: 100%; flex-direction: row; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&amp;guid=64327707a8db5e8429fdd9cc2a5e2916&amp;type=3#long_shadow_light&apos;); padding-left: 30px; padding-right: 0; padding-top: 0; padding-bottom: 0;">
             <ui:VisualElement name="navDay" class="navResourceElement">
@@ -21,28 +23,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="main" style="width: 100%; height: 95%; flex-direction: row; display: flex; background-image: none;">
         <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: flex; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_desk2.png?fileID=2800000&amp;guid=e3f95d85514224047b9f45ec4d397b2c&amp;type=3#Settings_desk2&apos;); -unity-background-scale-mode: stretch-to-fill; height: 100%;">
-            <ui:VisualElement name="reportsContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_paper.png?fileID=2800000&amp;guid=c08f526d69c65df4b96e4c48c9b49f43&amp;type=3#Settings_paper&apos;); display: flex;">
-                <ui:VisualElement name="report" class="textPrimary report" style="color: rgb(255, 255, 255); top: 412px; left: 418px;">
-                    <ui:VisualElement name="shadow" class="reportShadow" />
-                    <ui:VisualElement name="contents" class="reportContents" style="background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Popup_window_paper.png?fileID=2800000&amp;guid=594e9c41c31245046a19374f8754c2d7&amp;type=3#Popup_window_paper&apos;); padding-left: 40px; padding-right: 40px; padding-top: 40px; padding-bottom: 40px;">
-                        <ui:VisualElement>
-                            <ui:Label text="Quest Element" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                        </ui:VisualElement>
-                        <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: center;">
-                            <ui:Button text="Accept" display-tooltip-when-elided="true" />
-                            <ui:Button text="Reject" display-tooltip-when-elided="true" />
-                        </ui:VisualElement>
-                        <ui:VisualElement class="signButtonContainer" style="background-color: rgba(0, 0, 0, 0); border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0);">
-                            <ui:VisualElement class="signButton" />
-                        </ui:VisualElement>
-                        <ui:Label text="Signed on day 52." display-tooltip-when-elided="true" class="signedText signedTextBefore" />
-                        <ui:Label text="New Quest" display-tooltip-when-elided="true" style="color: rgb(0, 0, 0); -unity-text-align: upper-center;" />
-                        <ui:VisualElement class="questActionButton">
-                            <ui:Label text="Delegate it!" display-tooltip-when-elided="true" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
+            <ui:VisualElement name="reportsContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_paper.png?fileID=2800000&amp;guid=c08f526d69c65df4b96e4c48c9b49f43&amp;type=3#Settings_paper&apos;); display: flex;" />
             <ui:VisualElement name="reportsArchive" class="reportArchive" style="position: absolute; right: 10px; display: flex; top: 10px;" />
         </ui:VisualElement>
         <ui:VisualElement name="mainArmory" style="width: 100%; flex-direction: row; display: none; background-image: url(&apos;project://database/Assets/Plugins/4000_Fantasy_Icons/Z_Other/fr_bg/bg_blue.png?fileID=2800000&amp;guid=cff02a8ecf38859498fb7219031fe83a&amp;type=3#bg_blue&apos;);">

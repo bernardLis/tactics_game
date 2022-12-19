@@ -9,6 +9,7 @@ public class CharacterCardMini : ElementWithTooltip
     GameManager _gameManager;
     public Character Character;
 
+    CharacterPortraitElement _portrait;
     VisualElement _overlay;
     VisualElement _shadow;
 
@@ -17,7 +18,7 @@ public class CharacterCardMini : ElementWithTooltip
     public event Action<CharacterCardMini> OnLocked;
     public event Action<CharacterCardMini> OnUnlocked;
 
-    const string ussCommonTextSecondary = "common__text-secondary";
+    const string _ussCommonTextSecondary = "common__text-secondary";
     const string _ussCommonTransitionBasic = "common__transition-basic";
 
     const string _ussClassName = "character-card-mini";
@@ -25,6 +26,8 @@ public class CharacterCardMini : ElementWithTooltip
     const string _ussOverlay = _ussClassName + "__overlay";
     const string _ussShadow = _ussClassName + "__shadow";
     const string _ussPickedUp = _ussClassName + "__picked-up";
+    const string _ussSlotted = _ussClassName + "__slotted";
+
 
     public CharacterCardMini(Character character)
     {
@@ -46,8 +49,8 @@ public class CharacterCardMini : ElementWithTooltip
         _shadow.style.display = DisplayStyle.None;
         Add(_shadow);
 
-
-        Add(new CharacterPortraitElement(character));
+        _portrait = new CharacterPortraitElement(character);
+        Add(_portrait);
         AddUnavailableOverlay();
         UpdateUnavailableOverlay();
     }
@@ -115,8 +118,23 @@ public class CharacterCardMini : ElementWithTooltip
         _overlay.style.display = DisplayStyle.Flex;
         _overlay.Clear();
         Label l = new($"{Character.UnavailabilityDuration}");
-        l.AddToClassList(ussCommonTextSecondary);
+        l.AddToClassList(_ussCommonTextSecondary);
         _overlay.Add(l);
+    }
+
+    public void Slotted()
+    {
+        _portrait.Slotted();
+        // AddToClassList(_ussCommonTransitionBasic);
+        //AddToClassList(_ussSlotted);
+    }
+
+    public void Unslotted()
+    {
+        _portrait.Unslotted();
+
+        // RemoveFromClassList(_ussCommonTransitionBasic);
+        //RemoveFromClassList(_ussSlotted);
     }
 
 }

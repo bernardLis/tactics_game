@@ -134,10 +134,8 @@ public class DraggableCharacters : MonoBehaviour
         if (slots.Count() == 0)
         {
             _cardContainer.Add(_draggedCard);
-            _draggedCard.style.top = _dragDropContainer.style.top.value.value - _cardContainer.worldBound.y;
-            _draggedCard.style.left = _dragDropContainer.style.left;
-            _draggedCard.Character.UpdateDeskPosition(new Vector2(_draggedCard.style.left.value.value,
-                                                              _draggedCard.style.top.value.value));
+            SetDraggedCardPosition(new Vector2(_dragDropContainer.style.left.value.value,
+                _dragDropContainer.style.top.value.value - _cardContainer.worldBound.y));
 
             DragCleanUp();
             return;
@@ -146,7 +144,6 @@ public class DraggableCharacters : MonoBehaviour
         //Found at least one
         _newSlot = slots.OrderBy(x => Vector2.Distance
            (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
-
         if (_draggedCard.Character.IsUnavailable)
         {
             ReturnCardToContainer(_draggedCard);
@@ -156,10 +153,9 @@ public class DraggableCharacters : MonoBehaviour
 
         if (_newSlot.Card != null)
         {
-            CharacterCardMini copy = _newSlot.Card;
+            ReturnCardToContainer(_newSlot.Card);
             _newSlot.RemoveCard();
             _newSlot.AddCard(_draggedCard);
-            ReturnCardToContainer(copy);
             DragCleanUp();
             return;
         }
@@ -167,6 +163,14 @@ public class DraggableCharacters : MonoBehaviour
         _newSlot.AddCard(_draggedCard);
         DragCleanUp();
     }
+
+    void SetDraggedCardPosition(Vector2 newPos)
+    {
+        _draggedCard.style.left = newPos.x;
+        _draggedCard.style.top = newPos.y;
+        _draggedCard.Character.UpdateDeskPosition(newPos);
+    }
+
 
     async void ReturnCardToContainer(CharacterCardMini card)
     {
@@ -187,6 +191,8 @@ public class DraggableCharacters : MonoBehaviour
 
         card.Character.UpdateDeskPosition(new Vector2(endLeft, endTop));
     }
+
+
 
     protected virtual void DragCleanUp()
     {

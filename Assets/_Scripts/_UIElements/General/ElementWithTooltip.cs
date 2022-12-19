@@ -52,6 +52,10 @@ public abstract class ElementWithTooltip : VisualElement
         if (!_isPointerOn)
             return;
 
+        if (panel == null)
+            return;
+        if (panel.visualTree == null)
+            return;
         var root = panel.visualTree;
         root.Add(_tooltip);
     }
