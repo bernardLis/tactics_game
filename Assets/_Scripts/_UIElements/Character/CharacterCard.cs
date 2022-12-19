@@ -110,7 +110,6 @@ public class CharacterCard : VisualElement
         container.Add(_range);
 
         return container;
-
     }
 
     VisualElement CreateExpGroup()

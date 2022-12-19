@@ -51,9 +51,12 @@ public class CharacterCardMini : ElementWithTooltip
 
         _portrait = new CharacterPortraitElement(character);
         Add(_portrait);
+
         AddUnavailableOverlay();
         UpdateUnavailableOverlay();
     }
+
+
 
     void OnDayPassed(int day)
     {
@@ -61,6 +64,7 @@ public class CharacterCardMini : ElementWithTooltip
         if (IsLocked)
             Unlock();
     }
+
 
     public void PickedUp()
     {
@@ -136,5 +140,7 @@ public class CharacterCardMini : ElementWithTooltip
         // RemoveFromClassList(_ussCommonTransitionBasic);
         //RemoveFromClassList(_ussSlotted);
     }
+
+
 
 }

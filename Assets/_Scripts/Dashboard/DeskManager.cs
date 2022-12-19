@@ -102,7 +102,7 @@ public class DeskManager : Singleton<DeskManager>
 
     public void RegisterDeskCard(CharacterCardMini card)
     {
-        card.RegisterCallback<PointerUpEvent>(OnCharacterPointerUp);
+        card.RegisterCallback<PointerUpEvent>(OnMiniCardPointerUp);
     }
 
     CharacterCardMini BaseAddCharacterToDesk(Character character)
@@ -121,10 +121,11 @@ public class DeskManager : Singleton<DeskManager>
         BaseAddCharacterToDesk(character);
     }
 
-    void OnCharacterPointerUp(PointerUpEvent evt)
+    void OnMiniCardPointerUp(PointerUpEvent evt)
     {
         if (evt.button != 1)
             return;
+
         CharacterCardMini card = (CharacterCardMini)evt.currentTarget;
         if (card.IsLocked)
             return;

@@ -40,7 +40,6 @@ public class CharacterCardMiniSlot : ElementWithSound
 
     public void AddCard(CharacterCardMini card)
     {
-        Debug.Log($"add card to slot");
         Card = card;
         card.Slotted();
         Add(card);
@@ -54,8 +53,6 @@ public class CharacterCardMiniSlot : ElementWithSound
 
     public void RemoveCard()
     {
-        Debug.Log($"remove card from slot");
-
         Card.Unslotted();
         OnCardRemoved?.Invoke(Card);
         Card = null;
