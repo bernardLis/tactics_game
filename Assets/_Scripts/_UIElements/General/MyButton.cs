@@ -8,10 +8,17 @@ public class MyButton : Button
 {
     AudioManager _audioManager;
 
-    Action _currentCallback;
 
+    const string _ussCommonButtonBasic = "common__button-basic";
+
+
+    Action _currentCallback;
     public MyButton(string buttonText = null, string className = null, Action callback = null)
     {
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         _audioManager = AudioManager.Instance;
 
         text = buttonText;
@@ -19,8 +26,10 @@ public class MyButton : Button
         if (className != null)
         {
             AddToClassList(className);
+            AddToClassList(_ussCommonButtonBasic);
             RemoveFromClassList("unity-button");
         }
+
         if (callback != null)
         {
             _currentCallback = callback;

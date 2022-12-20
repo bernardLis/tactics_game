@@ -1,53 +1,72 @@
-.common__text-primary{
+.common__text-primary {
     color: rgb(255, 255, 255);
     font-size: 16px;
-    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
-.common__text-primary-black{
+.common__text-primary-black {
     color: rgb(0, 0, 0);
     font-size: 16px;
-    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
-
-.common__text-secondary{
+.common__text-secondary {
     color: rgb(255, 255, 255);
     font-size: 12px;
-    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
-.common__transition-basic{
+.common__transition-basic {
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
 }
 
+.common__button-basic {
+    opacity: 0.8;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-sine;
+    -unity-text-align: middle-center;
+}
+
+.common__button-basic:hover {
+    opacity: 1;
+    scale: 1.05 1.05;
+}
+
+.common__button-basic:active {
+    opacity: 1;
+    scale: 0.95 0.95;
+}
+
+.common__button-basic:disabled {
+    opacity: 0.5;
+    scale: 0.8 0.8;
+}
 
 .textSecondary {
     color: rgb(255, 255, 255);
     font-size: 12px;
-    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
 .textPrimary {
     color: rgb(255, 255, 255);
     font-size: 16px;
-    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
 .textPrimaryBlack {
     color: rgb(0, 0, 0);
     font-size: 16px;
-    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
-
-
 
 .menuScreen {
     width: 100%;
@@ -198,12 +217,10 @@
     border-bottom-color: rgb(0, 0, 0);
 }
 
-
-
 .textSecondary {
     color: rgb(255, 255, 255);
     font-size: 12px;
-    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
@@ -259,7 +276,7 @@
     -unity-text-outline-color: rgb(255, 255, 255);
     -unity-text-outline-width: 0;
     -unity-font-style: normal;
-    -unity-font: url('project://database/Assets/_Scripts/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
     -unity-text-align: middle-center;
     transition-timing-function: ease-in-out;
@@ -447,7 +464,6 @@
     background-image: url('project://database/Assets/Unity/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');
     position: absolute;
 }
-
 
 .rankStarGray {
     width: 50px;

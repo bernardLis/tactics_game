@@ -65,7 +65,7 @@ public class ScreenWithDraggables : FullScreenElement
 
         _rewardItemSlotVisuals.Add(slot);
         if (isDraggable)
-            slot.ItemVisual.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+            slot.ItemElement.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
 
         return slot;
     }
@@ -78,7 +78,7 @@ public class ScreenWithDraggables : FullScreenElement
     public bool AreAllRewardsTaken()
     {
         foreach (ItemSlot slot in _rewardItemSlotVisuals)
-            if (slot.ItemVisual != null)
+            if (slot.ItemElement != null)
             {
                 Helpers.DisplayTextOnElement(this, slot, "Take me with you", Color.red);
                 return false;
@@ -278,7 +278,7 @@ public class ScreenWithDraggables : FullScreenElement
         _newItemSlot = slots.OrderBy(x => Vector2.Distance
            (x.worldBound.position, _itemDragDropContainer.worldBound.position)).First();
 
-        if (_newItemSlot.ItemVisual != null)
+        if (_newItemSlot.ItemElement != null)
         {
             _originalItemSlot.AddItem(_draggedItem);
             DragCleanUp();

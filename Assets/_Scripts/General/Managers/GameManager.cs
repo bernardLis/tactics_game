@@ -111,6 +111,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         if (Random.value > 0.5f)
             AddRecruit();
         AddShop();
+        AddPawnshop();
+
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
@@ -157,6 +159,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Shop, null, null, null, null, newShop);
+        AddNewReport(r);
+    }
+
+    void AddPawnshop()
+    {
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Initialize(ReportType.Pawnshop, null, null, null, null, null);
         AddNewReport(r);
     }
 

@@ -17,9 +17,7 @@ public class ShopReportElement : ReportElement
     const string _ussItem = _ussClassName + "__item";
     const string _ussBottomPanel = _ussClassName + "__bottom-panel";
     const string _ussRerollContainer = _ussClassName + "__reroll-container";
-
     const string _ussRerollButton = _ussClassName + "__reroll-button";
-
 
     public ShopReportElement(VisualElement parent, Report report) : base(parent, report)
     {

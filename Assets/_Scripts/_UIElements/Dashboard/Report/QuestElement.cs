@@ -280,7 +280,6 @@ public class QuestElement : VisualElement
             return;
 
         HandleActionButtonDefault();
-        Debug.Log($"action button update char count: {_quest.AssignedCharacterCount()}");
 
         if (_quest.QuestState == QuestState.RewardCollected)
         {
@@ -306,8 +305,6 @@ public class QuestElement : VisualElement
 
     void HandleActionButtonDefault()
     {
-        Debug.Log($"default");
-
         _actionButton.ClearCallbacks();
         _actionButton.SetEnabled(false);
         _actionButton.UpdateButtonText("Assign Characters!");

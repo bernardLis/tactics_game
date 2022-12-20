@@ -83,7 +83,7 @@ public class EventOptionElement : VisualElement
         AddToClassList("eventOptionElementClicked");
 
         if (_itemSlotVisual != null)
-            _screenWithDraggables.UnlockItem(_itemSlotVisual.ItemVisual);
+            _screenWithDraggables.UnlockItem(_itemSlotVisual.ItemElement);
         if (_goldElement != null)
             _goldElement.MakeClickable();
     }

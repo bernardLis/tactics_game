@@ -43,6 +43,10 @@ public class DraggableItems : MonoBehaviour
         ItemElement.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
     }
 
+    public void AddSellSlot(ItemSlot slot) { _allSlots.Add(slot); }
+
+    public void RemoveSellSlot(ItemSlot slot) { _allSlots.Remove(slot); }
+
     void OnItemPointerDown(PointerDownEvent evt)
     {
         if (evt.button != 0)
@@ -111,8 +115,24 @@ public class DraggableItems : MonoBehaviour
             HandleItemPointerUp();
     }
 
+    // TODO: nasty nasty function
     void HandleItemPointerUp()
     {
+        // drag item from desk to sell shop to sell it
+        IEnumerable<ItemSlot> slots = _allSlots.Where(x =>
+               x.worldBound.Overlaps(_dragDropContainer.worldBound));
+
+        if (slots.Count() != 0)
+        {
+            _newSlot = slots.OrderBy(x => Vector2.Distance
+               (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
+
+            // HERE: what if there is something in the slot
+            _newSlot.AddItem(_draggedItem);
+            DragCleanUp();
+            return;
+        }
+
         List<VisualElement> reportElements = _root.Query(className: "report__main").ToList();
         IEnumerable<VisualElement> overlappingReports = reportElements.Where(x =>
                     x.worldBound.Overlaps(_dragDropContainer.worldBound));
@@ -124,6 +144,7 @@ public class DraggableItems : MonoBehaviour
             SetDraggedItemPosition(new Vector2(_dragDropContainer.style.left.value.value,
                     _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y));
             _gameManager.AddItemToPouch(_draggedItem.Item);
+            _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
             _draggedItem.ItemBought();
             DragCleanUp();
             return;
@@ -167,9 +188,6 @@ public class DraggableItems : MonoBehaviour
              _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y));
         _gameManager.SaveJsonData();
         DragCleanUp();
-
-        // drag item from desk to sell shop to sell it
-
     }
 
     void SetDraggedItemPosition(Vector2 newPos)

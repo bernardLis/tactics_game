@@ -31,7 +31,6 @@ public class ReportElement : VisualElement
     protected const string _ussCommonTextPrimary = "common__text-primary";
     protected const string _ussCommonTransitionBasic = "common__transition-basic";
 
-
     const string _ussClassName = "report";
     const string _ussMain = _ussClassName + "__main";
     const string _ussShadow = _ussClassName + "__shadow";

@@ -1,4 +1,3 @@
-
 .navResourceElement {
     align-items: center;
     justify-content: center;
@@ -77,8 +76,6 @@
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
 }
-
-
 
 .mainExit {
     position: absolute;
@@ -231,7 +228,6 @@
     height: 150px;
 }
 
-
 .questResultContainerWon {
     position: absolute;
     width: 100%;
@@ -265,4 +261,3 @@
     margin-left: 20%;
     margin-top: 9%;
 }
-

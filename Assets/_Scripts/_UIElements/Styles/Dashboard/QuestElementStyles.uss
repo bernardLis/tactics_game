@@ -30,7 +30,6 @@
     transition-timing-function: ease-in-out;
 }
 
-
 .quest-element__action-button-pending {
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_Fr.png?fileID=2800000&guid=fdda5932bb1aeeb408f9c5c348b9e019&type=3#Button_middle_Fr');
     color: rgb(255, 255, 255);

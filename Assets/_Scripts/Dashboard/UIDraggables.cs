@@ -270,7 +270,7 @@ public class UIDraggables : MonoBehaviour
         _newItemSlot = slots.OrderBy(x => Vector2.Distance
            (x.worldBound.position, _itemDragDropContainer.worldBound.position)).First();
 
-        if (_newItemSlot.ItemVisual != null)
+        if (_newItemSlot.ItemElement != null)
         {
             _originalItemSlot.AddItem(_draggedItem);
             DragCleanUp();

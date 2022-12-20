@@ -122,7 +122,7 @@ public enum EnemySpawnDirection { Left, Right, Top, Bottom }
 public enum BattleState { MapBuilding, Deployment, PlayerTurn, EnemyTurn, Won, Lost }
 public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum BattleLogLineType { Ability, Damage, Death, Info, Status }
-public enum ReportType { Quest, Recruit, Text, CampBuilding, Shop }
+public enum ReportType { Quest, Recruit, Text, CampBuilding, Shop, Pawnshop }
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
 public enum CampBuildingState { Pending, Started, Finished }
 public enum RecruitState { Pending, Resolved, Expired }
