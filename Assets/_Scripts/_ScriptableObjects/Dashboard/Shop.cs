@@ -24,7 +24,7 @@ public class Shop : BaseScriptableObject
         ChooseItems();
 
         DayAdded = _gameManager.Day;
-        Duration = Random.Range(1, 4);
+        Duration = Random.Range(2, 5);
         RerollCost = 200;
         AddDayCost = 200;
     }

@@ -87,7 +87,7 @@ public class ReportElement : VisualElement
         parent.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    protected void OnDayPassed(int day)
+    protected virtual void OnDayPassed(int day)
     {
         // meant to be overwritten
     }

@@ -10,13 +10,14 @@ public class PawnshopReportElement : ReportElement
     ItemSlot _sellSlot;
     GoldElement _goldElement;
     MyButton _sellButton;
-
+    int _dayAdded;
 
     const string _ussClassName = "pawnshop";
     const string _ussSellButton = _ussClassName + "__sell-button";
 
     public PawnshopReportElement(VisualElement parent, Report report) : base(parent, report)
     {
+        _dayAdded = _gameManager.Day;
         _draggableItems = _deskManager.GetComponent<DraggableItems>();
 
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.PawnshopReportStyles);
@@ -42,7 +43,15 @@ public class PawnshopReportElement : ReportElement
         _sellButton.AddToClassList(_ussCommonTextPrimary);
         _sellButton.SetEnabled(false);
         _reportContents.Add(_sellButton);
+    }
 
+    protected override void OnDayPassed(int day)
+    {
+        if (_dayAdded == day)
+            return;
+        if (_sellSlot.ItemElement != null)
+            Sell();
+        DismissReport();
     }
 
     void BlockReportPickup(PointerDownEvent e) { e.StopImmediatePropagation(); }
