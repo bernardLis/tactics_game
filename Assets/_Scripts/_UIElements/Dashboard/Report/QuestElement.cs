@@ -22,9 +22,24 @@ public class QuestElement : VisualElement
     TextWithTooltip _durationLabel;
     TextWithTooltip _successChanceLabel;
     VisualElement _assignedCharactersContainer;
-    MyButton _startAssignmentButton;
+    MyButton _actionButton;
 
     List<CharacterCardMiniSlot> _cardSlots = new();
+
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
+
+    const string _ussClassName = "quest-element";
+    const string _ussMain = _ussClassName + "__main";
+    const string _ussTopPanelContainer = _ussClassName + "__top-panel-container";
+    const string _ussOverlay = _ussClassName + "__overlay";
+
+    const string _ussActionButton = _ussClassName + "__action-button";
+    const string _ussActionButtonPending = _ussClassName + "__action-button-pending";
+    const string _ussActionButtonFinished = _ussClassName + "__action-button-finished";
+    const string _ussActionButtonPlayer = _ussClassName + "__action-button-player";
+    const string _ussActionButtonDelegate = _ussClassName + "__action-button-delegate";
 
     public QuestElement(Report report)
     {
@@ -36,8 +51,16 @@ public class QuestElement : VisualElement
         _report = report;
         _quest = report.Quest;
         _quest.OnQuestStateChanged += OnQuestStateChanged;
-        AddToClassList("questElement");
-        AddToClassList("textPrimary");
+
+        var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (common != null)
+            styleSheets.Add(common);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.QuestElementStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
+        AddToClassList(_ussMain);
+        AddToClassList(_ussCommonTextPrimary);
 
         AddTopPanel();
         AddBottomPanel();
@@ -67,7 +90,7 @@ public class QuestElement : VisualElement
     {
         UpdateExpiryDateLabel();
         UpdateDaysUntilFinished();
-        UpdateStartAssignmentButton();
+        UpdateActionButton();
 
         if (state == QuestState.Pending)
             HandlePendingQuest();
@@ -82,8 +105,8 @@ public class QuestElement : VisualElement
     void AddTopPanel()
     {
         _topPanelContainer = new();
-        _topPanelContainer.AddToClassList("questTopPanelContainer");
-        _topPanelContainer.AddToClassList("textPrimaryBlack");
+        _topPanelContainer.AddToClassList(_ussTopPanelContainer);
+        _topPanelContainer.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_topPanelContainer);
 
         _topPanelContainer.Add(new QuestRankElement(_quest.Rank));
@@ -93,7 +116,7 @@ public class QuestElement : VisualElement
     void AddBottomPanel()
     {
         _additionalInfo = new();
-        _additionalInfo.AddToClassList("textPrimaryBlack");
+        _additionalInfo.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_additionalInfo);
 
         _expiryDateLabel = new TextWithTooltip($"", "Has to be delegated or taken before it expiries.");
@@ -113,9 +136,9 @@ public class QuestElement : VisualElement
         _assignedCharactersContainer = CreateCharacterSlots();
         _additionalInfo.Add(_assignedCharactersContainer);
 
-        _startAssignmentButton = CreateStartAssignmentButton();
-        UpdateStartAssignmentButton();
-        _additionalInfo.Add(_startAssignmentButton);
+        _actionButton = CreateActionButton();
+        UpdateActionButton();
+        _additionalInfo.Add(_actionButton);
     }
 
 
@@ -130,7 +153,7 @@ public class QuestElement : VisualElement
             slot.Lock();
 
         UpdateDaysUntilFinished();
-        _startAssignmentButton.SetEnabled(false);
+        _actionButton.SetEnabled(false);
     }
 
     void HandleFinishedQuest()
@@ -145,12 +168,12 @@ public class QuestElement : VisualElement
             slot.Lock();
 
         VisualElement overlay = new VisualElement();
-        overlay.AddToClassList("questElementOverlay");
+        overlay.AddToClassList(_ussOverlay);
         Add(overlay);
         overlay.BringToFront();
 
         Label text = new($"Expired! ({_quest.ExpiryDay})");
-        text.AddToClassList("textPrimary");
+        text.AddToClassList(_ussCommonTextPrimary);
         text.style.fontSize = 32;
         text.transform.rotation *= Quaternion.Euler(0f, 0f, 30f);
         overlay.Add(text);
@@ -183,51 +206,17 @@ public class QuestElement : VisualElement
     void UpdateDaysUntilFinished()
     {
         if (_quest.QuestState == QuestState.Delegated)
-            _startAssignmentButton.UpdateButtonText($"Finished in: {_quest.CountDaysLeft()} days.");
+            _actionButton.UpdateButtonText($"Finished in: {_quest.CountDaysLeft()} days.");
         if (_quest.QuestState == QuestState.Expired)
-            _startAssignmentButton.UpdateButtonText($"Expired.");
+            _actionButton.UpdateButtonText($"Expired.");
     }
 
     void UpdateSuccessChanceLabel()
     {
-        if (IsPlayerAssigned())
+        if (_quest.IsPlayerAssigned())
             _successChanceLabel.UpdateText("Success is in your hands.");
         else
             _successChanceLabel.UpdateText($"Success chance: {_quest.GetSuccessChance()}%.");
-    }
-
-    VisualElement CreateThreatContainer()
-    {
-        VisualElement container = new VisualElement();
-        container.Add(new Label("Threat: "));
-        container.style.flexDirection = FlexDirection.Row;
-        _additionalInfo.Add(container);
-
-        foreach (var e in _quest.Enemies)
-        {
-            Label l = new Label();
-            l.style.backgroundImage = e.BrainIcon.texture;
-            l.style.width = 32;
-            l.style.height = 32;
-            container.Add(l);
-        }
-
-        return container;
-    }
-
-    VisualElement CreateRewardContainer()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.alignContent = Align.Center;
-        _additionalInfo.Add(container);
-
-        if (_quest.Reward.Gold != 0)
-            container.Add(new GoldElement(_quest.Reward.Gold));
-        if (_quest.Reward.Item != null)
-            container.Add(new ItemSlot(new ItemElement(_quest.Reward.Item)));
-
-        return container;
     }
 
     VisualElement CreateCharacterSlots()
@@ -276,63 +265,66 @@ public class QuestElement : VisualElement
         return false;
     }
 
-    MyButton CreateStartAssignmentButton()
+    MyButton CreateActionButton()
     {
-        MyButton button = new("Assign Characters!", "questActionButton", null);
+        MyButton button = new("Assign Characters!", _ussActionButton, null);
         button.SetEnabled(false);
         Add(button);
 
         return button;
     }
 
-    // TODO: oh nasty nasty function
-    void UpdateStartAssignmentButton()
+    void UpdateActionButton()
     {
-        if (_startAssignmentButton == null)
+        if (_actionButton == null)
             return;
 
-        _startAssignmentButton.ClearCallbacks();
-        _startAssignmentButton.SetEnabled(false);
-        _startAssignmentButton.UpdateButtonText("Assign Characters!");
-        _startAssignmentButton.RemoveFromClassList("questActionButtonFinished");
-        _startAssignmentButton.RemoveFromClassList("questActionButtonPlayer");
-        _startAssignmentButton.RemoveFromClassList("questActionButtonDelegate");
-        _startAssignmentButton.AddToClassList("questActionButtonPending");
+        HandleActionButtonDefault();
+        Debug.Log($"action button update char count: {_quest.AssignedCharacterCount()}");
 
         if (_quest.QuestState == QuestState.RewardCollected)
         {
-            _startAssignmentButton.style.visibility = Visibility.Hidden;
+            _actionButton.style.visibility = Visibility.Hidden;
             return;
         }
 
         if (_quest.QuestState == QuestState.Finished)
         {
-            _startAssignmentButton.ChangeCallback(SeeResults);
-            _startAssignmentButton.SetEnabled(true);
-            _startAssignmentButton.UpdateButtonText("See Results!");
-            _startAssignmentButton.RemoveFromClassList("questActionButtonPending");
-            _startAssignmentButton.AddToClassList("questActionButtonFinished");
+            HandleActionButton(SeeResults, "See Results!", _ussActionButtonFinished);
             return;
         }
 
-        if (IsPlayerAssigned())
+        if (_quest.IsPlayerAssigned())
         {
-            _startAssignmentButton.ChangeCallback(StartBattle);
-            _startAssignmentButton.SetEnabled(true);
-            _startAssignmentButton.UpdateButtonText("Battle It Out!");
-            _startAssignmentButton.RemoveFromClassList("questActionButtonPending");
-            _startAssignmentButton.AddToClassList("questActionButtonPlayer");
+            HandleActionButton(StartBattle, "Battle It Out!", _ussActionButtonPlayer);
             return;
         }
 
         if (_quest.AssignedCharacterCount() > 0)
-        {
-            _startAssignmentButton.ChangeCallback(DelegateBattle);
-            _startAssignmentButton.SetEnabled(true);
-            _startAssignmentButton.UpdateButtonText("Delegate It!");
-            _startAssignmentButton.RemoveFromClassList("questActionButtonPending");
-            _startAssignmentButton.AddToClassList("questActionButtonDelegate");
-        }
+            HandleActionButton(DelegateBattle, "Delegate It!", _ussActionButtonDelegate);
+    }
+
+    void HandleActionButtonDefault()
+    {
+        Debug.Log($"default");
+
+        _actionButton.ClearCallbacks();
+        _actionButton.SetEnabled(false);
+        _actionButton.UpdateButtonText("Assign Characters!");
+        _actionButton.RemoveFromClassList(_ussActionButtonFinished);
+        _actionButton.RemoveFromClassList(_ussActionButtonPlayer);
+        _actionButton.RemoveFromClassList(_ussActionButtonDelegate);
+        _actionButton.AddToClassList(_ussActionButtonPending);
+    }
+
+    void HandleActionButton(Action callback, string text, string className)
+    {
+        _actionButton.SetEnabled(true);
+        _actionButton.RemoveFromClassList(_ussActionButtonPending);
+
+        _actionButton.ChangeCallback(callback);
+        _actionButton.UpdateButtonText(text);
+        _actionButton.AddToClassList(className);
     }
 
     void OnCardAdded(CharacterCardMini card)
@@ -352,20 +344,23 @@ public class QuestElement : VisualElement
     void OnCardChange()
     {
         UpdateSuccessChanceLabel();
-        UpdateStartAssignmentButton();
+        UpdateActionButton();
     }
-
-    bool IsPlayerAssigned()
-    {
-        foreach (CharacterCardMiniSlot slot in _cardSlots)
+    /*
+        bool IsPlayerAssigned()
         {
-            if (slot.Card == null)
-                continue;
-            if (slot.Card.Character == _gameManager.PlayerTroops[0]) // TODO: incorrect
-                return true;
+            foreach (CharacterCardMiniSlot slot in _cardSlots)
+            {
+                if (slot.Card == null)
+                    continue;
+                Debug.Log($"slot.Card.Character.name: {}");
+
+                if (slot.Card.Character == _gameManager.PlayerTroops[0]) // TODO: incorrect
+                    return true;
+            }
+            return false;
         }
-        return false;
-    }
+        */
 
     void StartBattle() { _gameManager.StartBattle(_quest); }
 
@@ -382,5 +377,4 @@ public class QuestElement : VisualElement
         _quest.UpdateQuestState(QuestState.RewardCollected);
         ReturnAssignedCharacters();
     }
-
 }

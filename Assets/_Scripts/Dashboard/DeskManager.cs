@@ -302,5 +302,4 @@ public class DeskManager : Singleton<DeskManager>
     }
 
     void CleanDraggables() { _draggableCharacters.RemoveDragContainer(); }
-
 }

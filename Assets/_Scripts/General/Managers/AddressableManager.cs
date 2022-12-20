@@ -39,5 +39,6 @@ public enum StyleSheetType
 {
     CommonStyles,
     ReportStyles, ShopReportStyles,
+    QuestElementStyles,
     CharacterPortraitStyles, CharacterCardMiniSlotStyles, CharacterCardMiniStyles, CharacterCardStyles
 }

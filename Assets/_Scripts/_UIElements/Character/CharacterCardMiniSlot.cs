@@ -49,8 +49,6 @@ public class CharacterCardMiniSlot : ElementWithSound
         OnCardAdded?.Invoke(card);
     }
 
-
-
     public void RemoveCard()
     {
         Card.Unslotted();
@@ -69,5 +67,4 @@ public class CharacterCardMiniSlot : ElementWithSound
         RemoveFromClassList(_ussMain);
         AddToClassList(_ussLocked);
     }
-
 }

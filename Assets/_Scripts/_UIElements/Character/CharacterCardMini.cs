@@ -28,7 +28,6 @@ public class CharacterCardMini : ElementWithTooltip
     const string _ussPickedUp = _ussClassName + "__picked-up";
     const string _ussSlotted = _ussClassName + "__slotted";
 
-
     public CharacterCardMini(Character character)
     {
         _gameManager = GameManager.Instance;
