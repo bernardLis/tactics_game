@@ -9,11 +9,9 @@ public class Shop : BaseScriptableObject
     public int DayAdded;
     public int Duration;
     public int RerollCost;
-    public int AddDayCost;
     public List<Item> Items = new();
 
     GameManager _gameManager;
-
 
     public event Action OnDurationChanged;
 
@@ -26,26 +24,18 @@ public class Shop : BaseScriptableObject
         DayAdded = _gameManager.Day;
         Duration = Random.Range(2, 5);
         RerollCost = 200;
-        AddDayCost = 200;
     }
 
     void OnDayPassed(int day)
     {
         Duration--;
         OnDurationChanged?.Invoke();
-        if (Duration <= 0)
-            CloseShop();
     }
 
     public void ItemBought(Item item)
     {
         Items.Remove(item);
         _gameManager.SaveJsonData();
-    }
-
-    void CloseShop()
-    {
-        Debug.Log($"closing shop");
     }
 
     void ChooseItems()
@@ -68,7 +58,6 @@ public class Shop : BaseScriptableObject
         DayAdded = data.DayAdded;
         Duration = data.Duration;
         RerollCost = data.RerollCost;
-        AddDayCost = data.AddDayCost;
         Items = new();
         foreach (var item in data.ItemIds)
             Items.Add(_gameManager.GameDatabase.GetItemById(item));
@@ -80,7 +69,6 @@ public class Shop : BaseScriptableObject
         sd.DayAdded = DayAdded;
         sd.Duration = Duration;
         sd.RerollCost = RerollCost;
-        sd.AddDayCost = AddDayCost;
         sd.ItemIds = new();
         foreach (var item in Items)
             sd.ItemIds.Add(item.Id);
@@ -94,6 +82,5 @@ public struct ShopData
     public int DayAdded;
     public int Duration;
     public int RerollCost;
-    public int AddDayCost;
     public List<string> ItemIds;
 }

@@ -22,9 +22,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public int Spice { get; private set; }
 
-    public List<Item> ShopItems = new();
-    public int ShopRerollPrice { get; private set; }
-
     public int TroopsLimit { get; private set; }
     public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
@@ -33,11 +30,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public List<Report> Reports = new();
     public List<Report> ReportsArchived = new();
 
-    [SerializeField]
-    List<CampBuilding> _campBuildings = new();
+    [SerializeField] List<CampBuilding> _campBuildings = new();
 
-    [SerializeField]
-    List<AbilityNodeGraph> _abilityNodeGraphs = new();
+    [SerializeField] List<AbilityNodeGraph> _abilityNodeGraphs = new();
 
     public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
@@ -49,7 +44,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action<int> OnSpiceChanged;
     public event Action<int> OnTroopsLimitChanged;
     public event Action<Character> OnCharacterAddedToTroops;
-    public event Action<int> OnShopRerollPriceChanged;
     public event Action<string> OnLevelLoaded;
 
     protected override void Awake()
@@ -99,13 +93,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void PassDay()
     {
         Day += 1;
-        ChangeSpiceValue(500); // HERE: vid
 
-        if (Day % 7 == 0) // shop resets every 7th day
-        {
-            ResetShop();
+        if (Day % 7 == 0)
             PayMaintenance();
-        }
+
         if (Random.value > 0.5f)
             AddRandomQuest();
         if (Random.value > 0.5f)
@@ -201,39 +192,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public List<AbilityNodeGraph> GetAbilityNodeGraphs() { return _abilityNodeGraphs; }
     public AbilityNodeGraph GetAbilityNodeGraphById(string id) { return _abilityNodeGraphs.FirstOrDefault(x => x.Id == id); }
 
-    /* Shop */
-    public void RemoveItemFromShop(Item item)
-    {
-        ShopItems.Remove(item);
-        SaveJsonData();
-    }
-
-    void ResetShop()
-    {
-        ChooseShopItems();
-        ChangeShopRerollPrice(200);
-
-        Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Text, null, null, "New inventory in the shop! Visit us!");
-        AddNewReport(r);
-    }
-
-    public void ChooseShopItems()
-    {
-        ShopItems = new();
-        for (int i = 0; i < 6; i++)
-        {
-            Item item = GameDatabase.GetRandomItem();
-            ShopItems.Add(item);
-        }
-    }
-
-    public void ChangeShopRerollPrice(int newValue)
-    {
-        ShopRerollPrice = newValue;
-        OnShopRerollPriceChanged?.Invoke(newValue);
-    }
-
     /* Troops & pouches */
     public void AddCharacterToTroops(Character character)
     {
@@ -308,9 +266,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
         Spice = 500;
 
-        ChooseShopItems();
-        ShopRerollPrice = 200;
-
         TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
 
@@ -359,9 +314,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.Spice = Spice;
 
-        saveData.ShopItems = PopulateShopItems();
-        saveData.ShopRerollPrice = ShopRerollPrice;
-
         saveData.TroopsLimit = TroopsLimit;
         saveData.PlayerTroops = PopulateCharacters();
         saveData.ItemPouch = PopulateItemPouch();
@@ -372,15 +324,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.CampBuildings = PopulateCampBuildings();
         saveData.AbilityNodeGraphs = PopulateAbilityNodeGraphs();
-    }
-
-    List<string> PopulateShopItems()
-    {
-        List<string> itemIds = new();
-        foreach (Item i in ShopItems)
-            itemIds.Add(i.Id);
-
-        return itemIds;
     }
 
     List<CharacterData> PopulateCharacters()
@@ -467,11 +410,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Spice = saveData.Spice;
 
-        ShopRerollPrice = saveData.ShopRerollPrice;
-        ShopItems = new();
-        foreach (string itemReferenceId in saveData.ShopItems)
-            ShopItems.Add(GameDatabase.GetItemById(itemReferenceId));
-
         TroopsLimit = saveData.TroopsLimit;
         PlayerTroops = new();
         foreach (CharacterData data in saveData.PlayerTroops)
@@ -536,9 +474,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
 
         Spice = 0;
-
-        ChooseShopItems();
-        ShopRerollPrice = 200;
 
         TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();

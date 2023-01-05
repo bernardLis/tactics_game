@@ -8,7 +8,7 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/QuestElementStyles.uss?fileID=7433441132597879392&amp;guid=6bfb1f21ffcb4344e8a629ceb16d40d1&amp;type=3#QuestElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/PawnshopReportStyles.uss?fileID=7433441132597879392&amp;guid=6c69c08530476f340ac9030ac672e9f6&amp;type=3#PawnshopReportStyles" />
     <ui:VisualElement name="nav" style="height: 5%; flex-direction: column; width: 100%; align-items: stretch; justify-content: flex-start; opacity: 1; background-color: rgb(0, 0, 0);">
-        <ui:VisualElement name="navResources" class="textPrimary" style="width: 100%; flex-direction: row; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&amp;guid=64327707a8db5e8429fdd9cc2a5e2916&amp;type=3#long_shadow_light&apos;); padding-left: 30px; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+        <ui:VisualElement name="navResources" class="textPrimary" style="width: 100%; flex-direction: row; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&amp;guid=64327707a8db5e8429fdd9cc2a5e2916&amp;type=3#long_shadow_light&apos;); padding-left: 30px; padding-right: 0; padding-top: 0; padding-bottom: 0; align-items: center; justify-content: center;">
             <ui:VisualElement name="navDay" class="navResourceElement">
                 <ui:Label text="Day: 0" display-tooltip-when-elided="true" enable-rich-text="true" name="navDayLabel" class="textPrimary" />
             </ui:VisualElement>
@@ -27,37 +27,6 @@
         <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: flex; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_desk2.png?fileID=2800000&amp;guid=e3f95d85514224047b9f45ec4d397b2c&amp;type=3#Settings_desk2&apos;); -unity-background-scale-mode: stretch-to-fill; height: 100%; -unity-background-image-tint-color: rgb(255, 255, 255);">
             <ui:VisualElement name="reportsContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_paper.png?fileID=2800000&amp;guid=c08f526d69c65df4b96e4c48c9b49f43&amp;type=3#Settings_paper&apos;); display: flex;" />
             <ui:VisualElement name="reportsArchive" class="reportArchive" style="position: absolute; right: 10px; display: flex; top: 10px;" />
-        </ui:VisualElement>
-        <ui:VisualElement name="mainArmory" style="width: 100%; flex-direction: row; display: none; background-image: url(&apos;project://database/Assets/Plugins/4000_Fantasy_Icons/Z_Other/fr_bg/bg_blue.png?fileID=2800000&amp;guid=cff02a8ecf38859498fb7219031fe83a&amp;type=3#bg_blue&apos;);">
-            <ui:ScrollView name="armoryCharacters" style="width: 70%;" />
-            <ui:VisualElement name="armoryPouches" style="flex-shrink: 1; width: 50%;">
-                <ui:Label text="Pouches" display-tooltip-when-elided="true" class="textPrimary" />
-                <ui:VisualElement name="armoryItems" style="flex-direction: row; flex-wrap: wrap;" />
-                <ui:VisualElement name="armoryAbilities" style="flex-direction: row; flex-wrap: wrap;" />
-            </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement name="mainShop" style="width: 100%; flex-direction: row; display: none; -unity-background-scale-mode: stretch-to-fill; background-color: rgb(0, 0, 0);">
-            <ui:VisualElement name="shopWrapper" class="textPrimary" style="flex-direction: column; width: 50%; align-items: center;">
-                <ui:VisualElement name="shopBuyContainer" style="align-items: center; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Login_bar.png?fileID=2800000&amp;guid=9e73dfeeb2b076a45b9f4f939bc1cd58&amp;type=3#Login_bar&apos;); padding-left: 100px; padding-right: 100px; padding-top: 25px; padding-bottom: 25px;">
-                    <ui:Label text="Buy" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="-unity-text-align: upper-center; font-size: 24px; width: 200px; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&amp;guid=719587235c52756429cfbea86a7e8082&amp;type=3#horizontal_flag&apos;);" />
-                    <ui:VisualElement name="shopItemContainer" style="align-items: center; flex-direction: row; justify-content: space-around; flex-wrap: wrap; margin-bottom: 20px;">
-                        <ui:VisualElement name="itemSlot" class="itemSlot" style="align-items: center; justify-content: center;">
-                            <ui:VisualElement style="width: 50px; height: 50px; background-color: rgb(0, 0, 0);" />
-                        </ui:VisualElement>
-                        <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
-                        <ui:VisualElement style="border-left-color: rgb(46, 48, 118); border-right-color: rgb(46, 48, 118); border-top-color: rgb(46, 48, 118); border-bottom-color: rgb(46, 48, 118); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; width: 50px; height: 50px;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="shopRerollContainer" class="shopRerollContainer" />
-                    <ui:Label text="Shop resets in 5 days" display-tooltip-when-elided="true" name="shopResetInfo" />
-                </ui:VisualElement>
-                <ui:VisualElement name="shopSellContainer" style="align-items: flex-start; width: 50%; justify-content: flex-start; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/dialog_frame_a.png?fileID=2800000&amp;guid=9ad8f801bcce43249b04b6e8ba959a08&amp;type=3#dialog_frame_a&apos;);">
-                    <ui:VisualElement name="sellItemZone" style="align-items: center; justify-content: flex-start; width: 100%; height: 200px; flex-grow: 1; flex-shrink: 0; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; background-image: none;">
-                        <ui:Label text="Drop here to sell" display-tooltip-when-elided="true" name="Label" class="textPrimary" style="align-items: center; font-size: 24px; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&amp;guid=719587235c52756429cfbea86a7e8082&amp;type=3#horizontal_flag&apos;); width: 300px; justify-content: center; -unity-text-align: middle-center;" />
-                        <ui:VisualElement name="sellItemValueTooltip" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="pouchContainer" />
         </ui:VisualElement>
         <ui:VisualElement name="mainCamp" style="width: 100%; flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; display: none; align-items: center; background-image: url(&apos;project://database/Assets/Plugins/4000_Fantasy_Icons/Z_Other/fr_bg/bg_grey.png?fileID=2800000&amp;guid=b9f60ba94a46eaa4f9dfba22cbb3f002&amp;type=3#bg_grey&apos;);">
             <ui:Label text="Camp" display-tooltip-when-elided="true" class="textPrimary" />

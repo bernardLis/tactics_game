@@ -475,24 +475,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenArmory",
-                    "type": "Button",
-                    "id": "d61f6162-5931-4dd6-8712-21a44fba2217",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "OpenShop",
-                    "type": "Button",
-                    "id": "252b3569-2181-4715-b632-ec8a46a5e167",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "OpenCamp",
                     "type": "Button",
                     "id": "4d73cc88-7be5-4377-bc88-2cfa7dbe75ac",
@@ -589,19 +571,8 @@
                 },
                 {
                     "name": "",
-                    "id": "d229fedf-8144-4730-b3bf-3f6ff82f1a1c",
-                    "path": "<Keyboard>/f2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenArmory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "37cbebb5-9842-4562-9e7b-3fe357c3eea2",
-                    "path": "<Keyboard>/f4",
+                    "path": "<Keyboard>/f2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -612,22 +583,11 @@
                 {
                     "name": "",
                     "id": "42ff2eb8-2fd2-4e57-9976-2ae1ee826fbb",
-                    "path": "<Keyboard>/f5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenAbilities",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4bb78c5c-9a94-46a4-86dc-b577e47bb602",
                     "path": "<Keyboard>/f3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "OpenShop",
+                    "action": "OpenAbilities",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

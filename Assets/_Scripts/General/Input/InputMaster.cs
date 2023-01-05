@@ -497,24 +497,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenArmory"",
-                    ""type"": ""Button"",
-                    ""id"": ""d61f6162-5931-4dd6-8712-21a44fba2217"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""OpenShop"",
-                    ""type"": ""Button"",
-                    ""id"": ""252b3569-2181-4715-b632-ec8a46a5e167"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""OpenCamp"",
                     ""type"": ""Button"",
                     ""id"": ""4d73cc88-7be5-4377-bc88-2cfa7dbe75ac"",
@@ -611,19 +593,8 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d229fedf-8144-4730-b3bf-3f6ff82f1a1c"",
-                    ""path"": ""<Keyboard>/f2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenArmory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""37cbebb5-9842-4562-9e7b-3fe357c3eea2"",
-                    ""path"": ""<Keyboard>/f4"",
+                    ""path"": ""<Keyboard>/f2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -634,22 +605,11 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""42ff2eb8-2fd2-4e57-9976-2ae1ee826fbb"",
-                    ""path"": ""<Keyboard>/f5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenAbilities"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4bb78c5c-9a94-46a4-86dc-b577e47bb602"",
                     ""path"": ""<Keyboard>/f3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""OpenShop"",
+                    ""action"": ""OpenAbilities"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -713,8 +673,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Dashboard = asset.FindActionMap("Dashboard", throwIfNotFound: true);
         m_Dashboard_ArrowMovement = m_Dashboard.FindAction("ArrowMovement", throwIfNotFound: true);
         m_Dashboard_OpenDesk = m_Dashboard.FindAction("OpenDesk", throwIfNotFound: true);
-        m_Dashboard_OpenArmory = m_Dashboard.FindAction("OpenArmory", throwIfNotFound: true);
-        m_Dashboard_OpenShop = m_Dashboard.FindAction("OpenShop", throwIfNotFound: true);
         m_Dashboard_OpenCamp = m_Dashboard.FindAction("OpenCamp", throwIfNotFound: true);
         m_Dashboard_OpenAbilities = m_Dashboard.FindAction("OpenAbilities", throwIfNotFound: true);
         m_Dashboard_CloseCurrentTab = m_Dashboard.FindAction("CloseCurrentTab", throwIfNotFound: true);
@@ -981,8 +939,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private IDashboardActions m_DashboardActionsCallbackInterface;
     private readonly InputAction m_Dashboard_ArrowMovement;
     private readonly InputAction m_Dashboard_OpenDesk;
-    private readonly InputAction m_Dashboard_OpenArmory;
-    private readonly InputAction m_Dashboard_OpenShop;
     private readonly InputAction m_Dashboard_OpenCamp;
     private readonly InputAction m_Dashboard_OpenAbilities;
     private readonly InputAction m_Dashboard_CloseCurrentTab;
@@ -992,8 +948,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public DashboardActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @ArrowMovement => m_Wrapper.m_Dashboard_ArrowMovement;
         public InputAction @OpenDesk => m_Wrapper.m_Dashboard_OpenDesk;
-        public InputAction @OpenArmory => m_Wrapper.m_Dashboard_OpenArmory;
-        public InputAction @OpenShop => m_Wrapper.m_Dashboard_OpenShop;
         public InputAction @OpenCamp => m_Wrapper.m_Dashboard_OpenCamp;
         public InputAction @OpenAbilities => m_Wrapper.m_Dashboard_OpenAbilities;
         public InputAction @CloseCurrentTab => m_Wrapper.m_Dashboard_CloseCurrentTab;
@@ -1012,12 +966,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @OpenDesk.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
                 @OpenDesk.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
                 @OpenDesk.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
-                @OpenArmory.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenArmory;
-                @OpenArmory.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenArmory;
-                @OpenArmory.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenArmory;
-                @OpenShop.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenShop;
-                @OpenShop.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenShop;
-                @OpenShop.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenShop;
                 @OpenCamp.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenCamp;
                 @OpenCamp.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenCamp;
                 @OpenCamp.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenCamp;
@@ -1037,12 +985,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @OpenDesk.started += instance.OnOpenDesk;
                 @OpenDesk.performed += instance.OnOpenDesk;
                 @OpenDesk.canceled += instance.OnOpenDesk;
-                @OpenArmory.started += instance.OnOpenArmory;
-                @OpenArmory.performed += instance.OnOpenArmory;
-                @OpenArmory.canceled += instance.OnOpenArmory;
-                @OpenShop.started += instance.OnOpenShop;
-                @OpenShop.performed += instance.OnOpenShop;
-                @OpenShop.canceled += instance.OnOpenShop;
                 @OpenCamp.started += instance.OnOpenCamp;
                 @OpenCamp.performed += instance.OnOpenCamp;
                 @OpenCamp.canceled += instance.OnOpenCamp;
@@ -1094,8 +1036,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     {
         void OnArrowMovement(InputAction.CallbackContext context);
         void OnOpenDesk(InputAction.CallbackContext context);
-        void OnOpenArmory(InputAction.CallbackContext context);
-        void OnOpenShop(InputAction.CallbackContext context);
         void OnOpenCamp(InputAction.CallbackContext context);
         void OnOpenAbilities(InputAction.CallbackContext context);
         void OnCloseCurrentTab(InputAction.CallbackContext context);

@@ -22,23 +22,17 @@ public class DashboardManager : Singleton<DashboardManager>
     TroopsLimitElement _troopsLimitVisualElement;
 
     VisualElement _main;
-    VisualElement _mainArmory;
-    VisualElement _mainShop;
     VisualElement _mainDesk;
     VisualElement _mainCamp;
     VisualElement _mainAbilities;
 
     VisualElement _mainExit;
 
-    VisualElement _activeNavTab;
-
     DashboardPlayer _dashboardPlayer;
 
     public event Action OnDeskOpened;
-    public event Action OnArmoryOpened;
-    public event Action OnAbilitiesOpened;
-    public event Action OnShopOpened;
     public event Action OnCampOpened;
+    public event Action OnAbilitiesOpened;
     public event Action OnHideAllPanels;
 
     protected override void Awake()
@@ -55,8 +49,6 @@ public class DashboardManager : Singleton<DashboardManager>
         _navSpice = Root.Q<VisualElement>("navSpice");
 
         _main = Root.Q<VisualElement>("main");
-        _mainArmory = Root.Q<VisualElement>("mainArmory");
-        _mainShop = Root.Q<VisualElement>("mainShop");
         _mainDesk = Root.Q<VisualElement>("mainDesk");
         _mainCamp = Root.Q<VisualElement>("mainCamp");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
@@ -80,8 +72,6 @@ public class DashboardManager : Singleton<DashboardManager>
     void SubscribeInputActions()
     {
         _playerInput.actions["OpenDesk"].performed += ShowDeskUI;
-        _playerInput.actions["OpenArmory"].performed += ShowArmoryUI;
-        _playerInput.actions["OpenShop"].performed += ShowShopUI;
         _playerInput.actions["OpenCamp"].performed += ShowCampUI;
         _playerInput.actions["OpenAbilities"].performed += ShowAbilitiesUI;
 
@@ -91,8 +81,6 @@ public class DashboardManager : Singleton<DashboardManager>
     void UnsubscribeInputActions()
     {
         _playerInput.actions["OpenDesk"].performed -= ShowDeskUI;
-        _playerInput.actions["OpenArmory"].performed -= ShowArmoryUI;
-        _playerInput.actions["OpenShop"].performed -= ShowShopUI;
         _playerInput.actions["OpenCamp"].performed -= ShowCampUI;
         _playerInput.actions["OpenAbilities"].performed -= ShowAbilitiesUI;
 
@@ -125,10 +113,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
         if (db == DashboardBuildingType.Desk)
             ShowDeskUI(a);
-        if (db == DashboardBuildingType.Armory)
-            ShowArmoryUI(a);
-        if (db == DashboardBuildingType.Shop)
-            ShowShopUI(a);
         if (db == DashboardBuildingType.Camp)
             ShowCampUI(a);
         if (db == DashboardBuildingType.Abilities)
@@ -144,16 +128,6 @@ public class DashboardManager : Singleton<DashboardManager>
         OnDeskOpened?.Invoke();
     }
 
-    void ShowArmoryUI(InputAction.CallbackContext ctx)
-    {
-        if (!IsValidAction(ctx))
-            return;
-
-        BaseBuildingOpened();
-
-        _mainArmory.style.display = DisplayStyle.Flex;
-        OnArmoryOpened?.Invoke();
-    }
 
     void ShowAbilitiesUI(InputAction.CallbackContext ctx)
     {
@@ -164,18 +138,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
         _mainAbilities.style.display = DisplayStyle.Flex;
         OnAbilitiesOpened?.Invoke();
-    }
-
-    void ShowShopUI(InputAction.CallbackContext ctx)
-    {
-        if (!IsValidAction(ctx))
-            return;
-
-        BaseBuildingOpened();
-
-        _mainShop.style.display = DisplayStyle.Flex;
-        OnShopOpened?.Invoke();
-
     }
 
     void ShowCampUI(InputAction.CallbackContext ctx)
@@ -212,8 +174,6 @@ public class DashboardManager : Singleton<DashboardManager>
     void HideAllPanels(InputAction.CallbackContext ctx) { HideAllPanels(); }
     void HideAllPanels()
     {
-        _mainArmory.style.display = DisplayStyle.None;
-        _mainShop.style.display = DisplayStyle.None;
         _mainDesk.style.display = DisplayStyle.None;
         _mainCamp.style.display = DisplayStyle.None;
         _mainAbilities.style.display = DisplayStyle.None;
@@ -259,33 +219,20 @@ public class DashboardManager : Singleton<DashboardManager>
 #if UNITY_EDITOR
 
     [ContextMenu("Add 10000 Gold")]
-    void Add100Gold()
-    {
-        _gameManager.ChangeGoldValue(10000);
-    }
+    void Add100Gold() { _gameManager.ChangeGoldValue(10000); }
 
     [ContextMenu("Remove 5000 Gold")]
-    void Remove50Gold()
-    {
-        _gameManager.ChangeGoldValue(-5000);
-    }
+    void Remove50Gold() { _gameManager.ChangeGoldValue(-5000); }
 
     [ContextMenu("Add 500 spice")]
-    void Add500Spice()
-    {
-        _gameManager.ChangeSpiceValue(500);
-    }
+    void Add500Spice() { _gameManager.ChangeSpiceValue(500); }
 
     [ContextMenu("Level Up")]
     void LevelUpAllCharacters()
     {
         foreach (Character c in _gameManager.PlayerTroops)
             c.LevelUp();
-            
-        
     }
-
-
 #endif
 
 }

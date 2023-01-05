@@ -15,9 +15,6 @@ public class SaveData
 
     public int Spice;
 
-    public List<string> ShopItems = new();
-    public int ShopRerollPrice;
-
     public int TroopsLimit;
     public List<CharacterData> PlayerTroops = new();
     public List<ItemData> ItemPouch = new();
@@ -29,15 +26,9 @@ public class SaveData
     public List<CampBuildingData> CampBuildings = new();
     public List<AbilityNodeGraphData> AbilityNodeGraphs = new();
 
-    public string ToJson()
-    {
-        return JsonUtility.ToJson(this);
-    }
+    public string ToJson() { return JsonUtility.ToJson(this); }
 
-    public void LoadFromJson(string jsonString)
-    {
-        JsonUtility.FromJsonOverwrite(jsonString, this);
-    }
+    public void LoadFromJson(string jsonString) { JsonUtility.FromJsonOverwrite(jsonString, this); }
 }
 
 public interface ISavable
