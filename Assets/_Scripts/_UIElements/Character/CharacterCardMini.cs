@@ -55,22 +55,18 @@ public class CharacterCardMini : ElementWithTooltip
         UpdateUnavailableOverlay();
     }
 
-
-
     void OnDayPassed(int day)
     {
         UpdateUnavailableOverlay();
-        if (IsLocked)
+        if (!Character.IsUnavailable && IsLocked)
             Unlock();
     }
-
 
     public void PickedUp()
     {
         _shadow.style.display = DisplayStyle.Flex;
         AddToClassList(_ussPickedUp);
         AudioManager.Instance.PlaySFX("CharacterCardDropped", Vector3.zero);
-
     }
 
     public void Dropped()
@@ -125,21 +121,7 @@ public class CharacterCardMini : ElementWithTooltip
         _overlay.Add(l);
     }
 
-    public void Slotted()
-    {
-        _portrait.Slotted();
-        // AddToClassList(_ussCommonTransitionBasic);
-        //AddToClassList(_ussSlotted);
-    }
+    public void Slotted() { _portrait.Slotted(); }
 
-    public void Unslotted()
-    {
-        _portrait.Unslotted();
-
-        // RemoveFromClassList(_ussCommonTransitionBasic);
-        //RemoveFromClassList(_ussSlotted);
-    }
-
-
-
+    public void Unslotted() { _portrait.Unslotted(); }
 }

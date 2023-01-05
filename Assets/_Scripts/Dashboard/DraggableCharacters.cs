@@ -30,10 +30,6 @@ public class DraggableCharacters : MonoBehaviour
         foreach (VisualElement item in slots)
             AddDraggableSlot((CharacterCardMiniSlot)item);
 
-        List<VisualElement> cards = root.Query(className: "character-card-mini__main").ToList();
-        foreach (VisualElement item in cards)
-            AddDraggableCard((CharacterCardMini)item);
-
         _dragDropContainer = new VisualElement();
         _dragDropContainer.AddToClassList("characterDragDropContainer");
         _root.Add(_dragDropContainer);
@@ -171,7 +167,6 @@ public class DraggableCharacters : MonoBehaviour
         _draggedCard.Character.UpdateDeskPosition(newPos);
     }
 
-
     async void ReturnCardToContainer(CharacterCardMini card)
     {
         _cardContainer.Add(card);
@@ -191,8 +186,6 @@ public class DraggableCharacters : MonoBehaviour
 
         card.Character.UpdateDeskPosition(new Vector2(endLeft, endTop));
     }
-
-
 
     protected virtual void DragCleanUp()
     {

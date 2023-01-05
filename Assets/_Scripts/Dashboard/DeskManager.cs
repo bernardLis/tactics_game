@@ -54,6 +54,9 @@ public class DeskManager : Singleton<DeskManager>
 
     async void Initialize()
     {
+        _draggableCharacters.Initialize(Root, _reportsContainer);
+        _draggableItems.Initialize(Root, _reportsContainer);
+
         _reportsContainer.Clear();
         _characterCardSlots = new();
         VisibleReports = new();
@@ -71,9 +74,6 @@ public class DeskManager : Singleton<DeskManager>
 
         foreach (Item item in _gameManager.PlayerItemPouch)
             AddItemToDesk(item);
-
-        _draggableCharacters.Initialize(Root, _reportsContainer);
-        _draggableItems.Initialize(Root, _reportsContainer);
     }
 
     ItemElement AddItemToDesk(Item item)
@@ -95,7 +95,7 @@ public class DeskManager : Singleton<DeskManager>
         card.RegisterCallback<PointerUpEvent>(OnMiniCardPointerUp);
     }
 
-    CharacterCardMini BaseAddCharacterToDesk(Character character)
+    CharacterCardMini AddCharacterToDesk(Character character)
     {
         CharacterCardMini card = new(character);
         card.style.position = Position.Absolute;
@@ -105,10 +105,6 @@ public class DeskManager : Singleton<DeskManager>
         _draggableCharacters.AddDraggableCard(card);
         RegisterDeskCard(card);
         return card;
-    }
-    public void AddCharacterToDesk(Character character)
-    {
-        BaseAddCharacterToDesk(character);
     }
 
     void OnMiniCardPointerUp(PointerUpEvent evt)
@@ -145,7 +141,7 @@ public class DeskManager : Singleton<DeskManager>
 
     public async void SpitCharacterOntoDesk(Character character)
     {
-        CharacterCardMini card = BaseAddCharacterToDesk(character);
+        CharacterCardMini card = AddCharacterToDesk(character);
         float newX = card.Character.DeskPosition.x + Random.Range(-200, 200);
         float newY = card.Character.DeskPosition.y + Random.Range(-300, 300);
 
@@ -247,9 +243,6 @@ public class DeskManager : Singleton<DeskManager>
             await Task.Delay(5);
         }
     }
-
-
-
     void OnArchiveClick(PointerUpEvent evt)
     {
         FullScreenElement visual = new FullScreenElement();
