@@ -261,3 +261,35 @@
     margin-left: 20%;
     margin-top: 9%;
 }
+
+.passDayButton {
+    font-size: 24px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square');
+    position: relative;
+    width: auto;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.navDesk {
+    background-image: resource('500_resources/Quest_17');
+}
+
+.navCamp {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/30_build.png?fileID=2800000&guid=c2db1093fe3a67644a3752a079fdf0b8&type=3#30_build');
+}
+
+.navIcon {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.navAbilities {
+    background-image: url('project://database/Assets/Plugins/4000_Fantasy_Icons/Armor/500_armor_vol_2/Cloth/2_Cloth_Head.png?fileID=2800000&guid=95f10dc60232cd3498b446d16718ee9b&type=3#2_Cloth_Head');
+}

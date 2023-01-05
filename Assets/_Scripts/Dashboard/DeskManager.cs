@@ -14,13 +14,10 @@ public class DeskManager : Singleton<DeskManager>
 
     public VisualElement Root { get; private set; }
     VisualElement _mainDesk;
-    Label _daySummaryDayLabel;
     VisualElement _reportsContainer;
     VisualElement _reportsArchive;
 
     List<CharacterCardMiniSlot> _characterCardSlots = new();
-
-    MyButton _passDayButton;
 
     List<Report> VisibleReports = new();
 
@@ -43,12 +40,7 @@ public class DeskManager : Singleton<DeskManager>
         _reportsArchive.RegisterCallback<PointerUpEvent>(OnArchiveClick);
 
         _dashboardManager.OnDeskOpened += Initialize;
-        _dashboardManager.OnHideAllPanels += HidePassDay;
         _dashboardManager.OnHideAllPanels += CleanDraggables;
-
-        _passDayButton = new("Pass Day", "menuButton", PassDay);
-        _passDayButton.style.opacity = 0;
-        _passDayButton.style.display = DisplayStyle.None;
 
         Initialize();
     }
@@ -63,7 +55,6 @@ public class DeskManager : Singleton<DeskManager>
     async void Initialize()
     {
         _reportsContainer.Clear();
-        _reportsContainer.Add(_passDayButton);
         _characterCardSlots = new();
         VisibleReports = new();
 
@@ -83,7 +74,6 @@ public class DeskManager : Singleton<DeskManager>
 
         _draggableCharacters.Initialize(Root, _reportsContainer);
         _draggableItems.Initialize(Root, _reportsContainer);
-        ShowPassDayButton();
     }
 
     ItemElement AddItemToDesk(Item item)
@@ -236,7 +226,8 @@ public class DeskManager : Singleton<DeskManager>
         DOTween.To(x => element.transform.scale = x * Vector3.one, 1, 0.1f, 1f);
         await MoveReportToArchive(element, _reportsArchive);
 
-        _reportsContainer.Remove(element);
+        if (element.parent == _reportsContainer)
+            _reportsContainer.Remove(element);
     }
 
     async Task MoveReportToArchive(VisualElement element, VisualElement destinationElement)
@@ -257,19 +248,7 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
-    void ShowPassDayButton()
-    {
-        _passDayButton.style.display = DisplayStyle.Flex;
-        DOTween.To(() => _passDayButton.style.opacity.value, x => _passDayButton.style.opacity = x, 1f, 1f);
-    }
 
-    void HidePassDay()
-    {
-        _passDayButton.style.display = DisplayStyle.None;
-        _passDayButton.style.opacity = 0;
-    }
-
-    void PassDay() { _gameManager.PassDay(); }
 
     void OnArchiveClick(PointerUpEvent evt)
     {

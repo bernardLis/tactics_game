@@ -126,7 +126,7 @@ public enum ReportType { Quest, Recruit, Text, CampBuilding, Shop, Pawnshop }
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
 public enum CampBuildingState { Pending, Started, Finished }
 public enum RecruitState { Pending, Resolved, Expired }
-public enum DashboardBuildingType { Desk, Armory, Shop, Camp, Abilities }
+public enum DashboardBuildingType { Desk, Camp, Abilities }
 
 
 [System.Serializable]

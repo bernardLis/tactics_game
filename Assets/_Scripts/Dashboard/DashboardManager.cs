@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class DashboardManager : Singleton<DashboardManager>
 {
@@ -11,6 +12,8 @@ public class DashboardManager : Singleton<DashboardManager>
     PlayerInput _playerInput;
 
     public VisualElement Root { get; private set; }
+
+    MyButton _passDayButton;
 
     // resources
     Label _navDay;
@@ -26,10 +29,6 @@ public class DashboardManager : Singleton<DashboardManager>
     VisualElement _mainCamp;
     VisualElement _mainAbilities;
 
-    VisualElement _mainExit;
-
-    DashboardPlayer _dashboardPlayer;
-
     public event Action OnDeskOpened;
     public event Action OnCampOpened;
     public event Action OnAbilitiesOpened;
@@ -42,6 +41,9 @@ public class DashboardManager : Singleton<DashboardManager>
         _gameManager.OnDayPassed += UpdateDay;
 
         Root = GetComponent<UIDocument>().rootVisualElement;
+
+        AddPassDayButton();
+
         // resources
         _navDay = Root.Q<Label>("navDayLabel");
         _navGold = Root.Q<VisualElement>("navGold");
@@ -53,22 +55,18 @@ public class DashboardManager : Singleton<DashboardManager>
         _mainCamp = Root.Q<VisualElement>("mainCamp");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
 
-        _mainExit = Root.Q<VisualElement>("mainExit");
-        _mainExit.RegisterCallback<PointerUpEvent>(HideMain);
-
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         UpdateDay(_gameManager.Day);
         AddGoldElement();
         AddTroopsElement();
         AddSpiceElements();
+
+        ShowPassDayButton();
+        AddNavigationButtons();
     }
 
-    void Start()
-    {
-        _dashboardPlayer = GameObject.FindObjectOfType<DashboardPlayer>();
-    }
-
+    /* INPUT */
     void SubscribeInputActions()
     {
         _playerInput.actions["OpenDesk"].performed += ShowDeskUI;
@@ -89,7 +87,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
     void OnEnable()
     {
-        // inputs
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
@@ -106,90 +103,31 @@ public class DashboardManager : Singleton<DashboardManager>
         UnsubscribeInputActions();
     }
 
-    public void OpenDashboardBuilding(DashboardBuildingType db)
-    {
-        // new InputAction.CallbackContext() - coz it is hooked up in editor to open ui with f keys
-        InputAction.CallbackContext a = new InputAction.CallbackContext();
 
-        if (db == DashboardBuildingType.Desk)
-            ShowDeskUI(a);
-        if (db == DashboardBuildingType.Camp)
-            ShowCampUI(a);
-        if (db == DashboardBuildingType.Abilities)
-            ShowAbilitiesUI(a);
+    /* PASS DAY BUTTON */
+    void AddPassDayButton()
+    {
+        _passDayButton = new("Pass Day", "passDayButton", PassDay);
+        _passDayButton.AddToClassList("textPrimary");
+        Root.Q<VisualElement>("navLeft").Add(_passDayButton);
+        HidePassDay();
     }
 
-    void ShowDeskUI(InputAction.CallbackContext ctx)
+    void PassDay() { _gameManager.PassDay(); }
+
+    void ShowPassDayButton()
     {
-        if (!IsValidAction(ctx))
-            return;
-        BaseBuildingOpened();
-        _mainDesk.style.display = DisplayStyle.Flex;
-        OnDeskOpened?.Invoke();
+        _passDayButton.style.display = DisplayStyle.Flex;
+        DOTween.To(() => _passDayButton.style.opacity.value, x => _passDayButton.style.opacity = x, 1f, 1f);
     }
 
-
-    void ShowAbilitiesUI(InputAction.CallbackContext ctx)
+    void HidePassDay()
     {
-        if (!IsValidAction(ctx))
-            return;
-
-        BaseBuildingOpened();
-
-        _mainAbilities.style.display = DisplayStyle.Flex;
-        OnAbilitiesOpened?.Invoke();
+        _passDayButton.style.display = DisplayStyle.None;
+        _passDayButton.style.opacity = 0;
     }
 
-    void ShowCampUI(InputAction.CallbackContext ctx)
-    {
-        if (!IsValidAction(ctx))
-            return;
-
-        BaseBuildingOpened();
-
-        _mainCamp.style.display = DisplayStyle.Flex;
-        OnCampOpened?.Invoke();
-    }
-
-    bool IsValidAction(InputAction.CallbackContext ctx)
-    {
-        // otherwise it triggers 3 times: https://forum.unity.com/threads/player-input-component-triggering-events-multiple-times.851959/
-        // disabled is for my empty event action.
-
-        if (!ctx.performed && ctx.phase == InputActionPhase.Canceled)
-            return true;
-        return false;
-    }
-
-    void BaseBuildingOpened()
-    {
-        HideAllPanels();
-
-        _main.style.display = DisplayStyle.Flex;
-        _mainExit.style.display = DisplayStyle.Flex;
-        if (_dashboardPlayer != null)
-            _dashboardPlayer.SetInputAllowed(false);
-    }
-
-    void HideAllPanels(InputAction.CallbackContext ctx) { HideAllPanels(); }
-    void HideAllPanels()
-    {
-        _mainDesk.style.display = DisplayStyle.None;
-        _mainCamp.style.display = DisplayStyle.None;
-        _mainAbilities.style.display = DisplayStyle.None;
-
-        _mainExit.style.display = DisplayStyle.None;
-
-        OnHideAllPanels?.Invoke();
-    }
-
-    void HideMain(PointerUpEvent e)
-    {
-        _main.style.display = DisplayStyle.None;
-        if (_dashboardPlayer != null)
-            _dashboardPlayer.SetInputAllowed(true);
-    }
-
+    /* RESOURCES */
     void UpdateDay(int day) { _navDay.text = $"Day: {day}"; }
 
     void AddGoldElement()
@@ -215,6 +153,99 @@ public class DashboardManager : Singleton<DashboardManager>
         _gameManager.OnSpiceChanged += y.OnValueChanged;
         _navSpice.Add(y);
     }
+
+    /* NAVIGATION */
+    void AddNavigationButtons()
+    {
+        VisualElement navRight = Root.Q<VisualElement>("navRight");
+        MyButton navDesk = new(null, "navDesk", OpenDesk);
+        MyButton navCamp = new(null, "navCamp", OpenCamp);
+        MyButton navAbilities = new(null, "navAbilities", OpenAbilities);
+
+        navDesk.AddToClassList("navIcon");
+        navCamp.AddToClassList("navIcon");
+        navAbilities.AddToClassList("navIcon");
+
+        navRight.Add(navDesk);
+        navRight.Add(navCamp);
+        navRight.Add(navAbilities);
+    }
+
+    void OpenDesk() { OpenDashboardBuilding(DashboardBuildingType.Desk); }
+    void OpenCamp() { OpenDashboardBuilding(DashboardBuildingType.Camp); }
+    void OpenAbilities() { OpenDashboardBuilding(DashboardBuildingType.Abilities); }
+
+
+    public void OpenDashboardBuilding(DashboardBuildingType db)
+    {
+        // new InputAction.CallbackContext() - coz it is hooked up in editor to open ui with f keys
+        InputAction.CallbackContext a = new InputAction.CallbackContext();
+
+        if (db == DashboardBuildingType.Desk)
+            ShowDeskUI(a);
+        if (db == DashboardBuildingType.Camp)
+            ShowCampUI(a);
+        if (db == DashboardBuildingType.Abilities)
+            ShowAbilitiesUI(a);
+    }
+
+    void ShowDeskUI(InputAction.CallbackContext ctx)
+    {
+        if (!IsValidAction(ctx))
+            return;
+        BaseBuildingOpened();
+        _mainDesk.style.display = DisplayStyle.Flex;
+        OnDeskOpened?.Invoke();
+    }
+
+    void ShowAbilitiesUI(InputAction.CallbackContext ctx)
+    {
+        if (!IsValidAction(ctx))
+            return;
+        BaseBuildingOpened();
+
+        _mainAbilities.style.display = DisplayStyle.Flex;
+        OnAbilitiesOpened?.Invoke();
+    }
+
+    void ShowCampUI(InputAction.CallbackContext ctx)
+    {
+        if (!IsValidAction(ctx))
+            return;
+
+        BaseBuildingOpened();
+
+        _mainCamp.style.display = DisplayStyle.Flex;
+        OnCampOpened?.Invoke();
+    }
+
+    bool IsValidAction(InputAction.CallbackContext ctx)
+    {
+        if (ctx.time == 0)
+            return true; // for buttons
+        // otherwise it triggers 3 times: https://forum.unity.com/threads/player-input-component-triggering-events-multiple-times.851959/
+        // disabled is for my empty event action.
+        if (!ctx.performed && ctx.phase == InputActionPhase.Canceled)
+            return true;
+        return false;
+    }
+
+    void BaseBuildingOpened()
+    {
+        HideAllPanels();
+        _main.style.display = DisplayStyle.Flex;
+    }
+
+    void HideAllPanels(InputAction.CallbackContext ctx) { HideAllPanels(); }
+    void HideAllPanels()
+    {
+        _mainDesk.style.display = DisplayStyle.None;
+        _mainCamp.style.display = DisplayStyle.None;
+        _mainAbilities.style.display = DisplayStyle.None;
+
+        OnHideAllPanels?.Invoke();
+    }
+
 
 #if UNITY_EDITOR
 
