@@ -122,13 +122,13 @@ public class DeskManager : Singleton<DeskManager>
         foreach (Item item in card.Character.Items)
         {
             item.DeskPosition = evt.position;
-            SpitItemsOntoDesk(item);
+            SpitItemOntoDesk(item);
         }
 
         card.Character.ClearItems();
     }
 
-    public async void SpitItemsOntoDesk(Item item)
+    public async void SpitItemOntoDesk(Item item)
     {
         ItemElement el = AddItemToDesk(item);
         float newX = item.DeskPosition.x + Random.Range(-100, 100);

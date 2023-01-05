@@ -41,6 +41,5 @@ public class ItemSlot : ElementWithSound
         Clear();
         OnItemRemoved?.Invoke(ItemElement);
         ItemElement = null;
-
     }
 }

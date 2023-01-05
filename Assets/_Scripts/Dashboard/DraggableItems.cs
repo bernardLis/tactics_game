@@ -8,6 +8,7 @@ using DG.Tweening;
 public class DraggableItems : MonoBehaviour
 {
     GameManager _gameManager;
+    DeskManager _deskManager;
 
     VisualElement _root;
     VisualElement _itemContainer;
@@ -26,6 +27,7 @@ public class DraggableItems : MonoBehaviour
     public void Initialize(VisualElement root, VisualElement itemContainer)
     {
         _gameManager = GameManager.Instance;
+        _deskManager = DeskManager.Instance;
 
         _root = root;
         _itemContainer = itemContainer;
@@ -69,7 +71,6 @@ public class DraggableItems : MonoBehaviour
         StartItemDrag(evt.position, itemSlot, itemElement);
     }
 
-
     void StartItemDrag(Vector2 position, ItemSlot originalSlot, ItemElement draggedItem)
     {
         _draggedItem = draggedItem;
@@ -90,7 +91,6 @@ public class DraggableItems : MonoBehaviour
         //Flip the visibility on
         _dragDropContainer.style.visibility = Visibility.Visible;
     }
-
 
     void OnPointerMove(PointerMoveEvent evt)
     {
@@ -115,70 +115,44 @@ public class DraggableItems : MonoBehaviour
             HandleItemPointerUp();
     }
 
-    // TODO: nasty nasty function
     void HandleItemPointerUp()
     {
-        // drag item from desk to sell shop to sell it
         IEnumerable<ItemSlot> slots = _allSlots.Where(x =>
                x.worldBound.Overlaps(_dragDropContainer.worldBound));
-
-        if (slots.Count() != 0)
-        {
-            _newSlot = slots.OrderBy(x => Vector2.Distance
-               (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
-
-            // HERE: what if there is something in the slot
-            _newSlot.AddItem(_draggedItem);
-            DragCleanUp();
-            return;
-        }
 
         List<VisualElement> reportElements = _root.Query(className: "report__main").ToList();
         IEnumerable<VisualElement> overlappingReports = reportElements.Where(x =>
                     x.worldBound.Overlaps(_dragDropContainer.worldBound));
 
-        // drag item from shop to desk to buy it
-        if (_draggedItem.IsShop && overlappingReports.Count() == 0)
+        List<VisualElement> characterCards = _root.Query(className: "character-card-mini__main").ToList();
+        IEnumerable<VisualElement> overlappingCards = characterCards.Where(x =>
+                    x.worldBound.Overlaps(_dragDropContainer.worldBound));
+
+        // drag item from desk to sell shop to sell it
+        if (slots.Count() != 0)
         {
-            _itemContainer.Add(_draggedItem);
-            SetDraggedItemPosition(new Vector2(_dragDropContainer.style.left.value.value,
-                    _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y));
-            _gameManager.AddItemToPouch(_draggedItem.Item);
-            _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
-            _draggedItem.ItemBought();
-            DragCleanUp();
+            AddItemToClosestSlot(slots);
             return;
         }
-        // when you change your mind when buying
-        if (_draggedItem.IsShop && overlappingReports.Count() != 0)
+
+        // buying item logic
+        if (_draggedItem.IsShop)
         {
-            _draggedItem.style.top = 0;
-            _draggedItem.style.left = 0;
-            _draggedItem.style.position = Position.Relative;
-            _originalSlot.AddItem(_draggedItem);
-            DragCleanUp();
+            // drag item from shop to desk to buy it
+            if (overlappingReports.Count() == 0)
+                BuyItem();
+
+            // when you change your mind when buying
+            if (overlappingReports.Count() != 0)
+                ReturnItemToShop();
+
             return;
         }
 
         // drag item from desk to character to add it to character
-        List<VisualElement> characterCards = _root.Query(className: "character-card-mini__main").ToList();
-        IEnumerable<VisualElement> overlappingCards = characterCards.Where(x =>
-                    x.worldBound.Overlaps(_dragDropContainer.worldBound));
         if (overlappingCards.Count() != 0)
         {
-            VisualElement closesEl = overlappingCards.OrderBy(x => Vector2.Distance
-                                     (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
-            CharacterCardMini closestCard = (CharacterCardMini)closesEl;
-            if (closestCard.Character.CanTakeAnotherItem())
-            {
-                closestCard.Character.AddItem(_draggedItem.Item);
-                _gameManager.RemoveItemFromPouch(_draggedItem.Item);
-                DragCleanUp();
-                return;
-            }
-
-            ShakeReturnItemToContainer(_draggedItem);
-            DragCleanUp();
+            AddItemToCharacter(overlappingCards);
             return;
         }
 
@@ -190,11 +164,64 @@ public class DraggableItems : MonoBehaviour
         DragCleanUp();
     }
 
+    void AddItemToClosestSlot(IEnumerable<ItemSlot> slots)
+    {
+        _newSlot = slots.OrderBy(x => Vector2.Distance
+           (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
+
+        if (_newSlot.ItemElement != null)
+        {
+            _newSlot.ItemElement.Item.UpdateDeskPosition(_dragDropContainer.worldBound.position);
+            _deskManager.SpitItemOntoDesk(_newSlot.ItemElement.Item);
+            _newSlot.RemoveItem();
+        }
+
+        _newSlot.AddItem(_draggedItem);
+        DragCleanUp();
+    }
+
+    void BuyItem()
+    {
+        _itemContainer.Add(_draggedItem);
+        SetDraggedItemPosition(new Vector2(_dragDropContainer.style.left.value.value,
+                _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y));
+        _gameManager.AddItemToPouch(_draggedItem.Item);
+        _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
+        _draggedItem.ItemBought();
+        DragCleanUp();
+    }
+
+    void ReturnItemToShop()
+    {
+        _draggedItem.style.top = 0;
+        _draggedItem.style.left = 0;
+        _draggedItem.style.position = Position.Relative;
+        _originalSlot.AddItem(_draggedItem);
+        DragCleanUp();
+    }
+
     void SetDraggedItemPosition(Vector2 newPos)
     {
         _draggedItem.style.left = newPos.x;
         _draggedItem.style.top = newPos.y;
         _draggedItem.Item.UpdateDeskPosition(newPos);
+    }
+
+    void AddItemToCharacter(IEnumerable<VisualElement> overlappingCards)
+    {
+        VisualElement closesEl = overlappingCards.OrderBy(x => Vector2.Distance
+                         (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
+        CharacterCardMini closestCard = (CharacterCardMini)closesEl;
+        if (closestCard.Character.CanTakeAnotherItem())
+        {
+            closestCard.Character.AddItem(_draggedItem.Item);
+            _gameManager.RemoveItemFromPouch(_draggedItem.Item);
+            DragCleanUp();
+            return;
+        }
+
+        ShakeReturnItemToContainer(_draggedItem);
+        DragCleanUp();
     }
 
     async void ShakeReturnItemToContainer(ItemElement itemElement)
