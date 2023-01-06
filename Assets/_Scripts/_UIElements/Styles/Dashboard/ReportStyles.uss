@@ -8,11 +8,18 @@
 
 .report__shadow {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    left: -5%;
-    top: 5%;
+    width: 90%;
+    top: 80%;
+    left: 4%;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.report__shadow-hover {
+    height: 21%;
+}
+
+.report__shadow-picked-up {
+    height: 22%;
 }
 
 .report__contents {
@@ -37,8 +44,13 @@
     width: 100%;
 }
 
+.report__hover {
+    scale: 1.02 1.02;
+}
+
+
 .report__picked-up {
-    scale: 1.1 1.1;
+    scale: 1.05 1.05;
 }
 
 .report__decision-container {

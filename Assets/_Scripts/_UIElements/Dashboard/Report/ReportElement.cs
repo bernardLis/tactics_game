@@ -34,8 +34,12 @@ public class ReportElement : VisualElement
     const string _ussClassName = "report";
     const string _ussMain = _ussClassName + "__main";
     const string _ussShadow = _ussClassName + "__shadow";
+    const string _ussShadowHover = _ussClassName + "__shadow-hover";
+    const string _ussShadowPickedUp = _ussClassName + "__shadow-picked-up";
+
     const string _ussContents = _ussClassName + "__contents";
     const string _ussHeader = _ussClassName + "__header";
+    const string _ussHover = _ussClassName + "__hover";
     const string _ussPickedUp = _ussClassName + "__picked-up";
 
     const string _ussDecisionContainer = _ussClassName + "__decision-container";
@@ -80,6 +84,9 @@ public class ReportElement : VisualElement
 
         _header = new();
         _reportContents.Add(_header);
+
+        RegisterCallback<PointerEnterEvent>(OnPointerEnter);
+        RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
 
         _reportContents.RegisterCallback<PointerDownEvent>(OnReportContentPointerDown);
         RegisterCallback<PointerDownEvent>(OnPointerDown);
@@ -213,6 +220,22 @@ public class ReportElement : VisualElement
 
     }
 
+
+    /* HOVER */
+    void OnPointerEnter(PointerEnterEvent evt)
+    {
+        AddToClassList(_ussHover);
+
+        _reportShadow.style.display = DisplayStyle.Flex;
+        _reportShadow.AddToClassList(_ussShadowHover);
+    }
+
+    void OnPointerLeave(PointerLeaveEvent evt)
+    {
+        RemoveFromClassList(_ussHover);
+        _reportShadow.style.display = DisplayStyle.None;
+    }
+
     /* DRAG & DROP */
     void OnReportContentPointerDown(PointerDownEvent evt)
     {
@@ -237,6 +260,7 @@ public class ReportElement : VisualElement
 
         _audioManager.PlaySFX("Paper", Vector3.zero);
         _reportShadow.style.display = DisplayStyle.Flex;
+        _reportShadow.AddToClassList(_ussShadowPickedUp);
         style.left = position.x - _dragOffset.x;
         style.top = position.y - _dragOffset.y;
     }
@@ -263,8 +287,8 @@ public class ReportElement : VisualElement
         _isDragging = false;
         _audioManager.PlaySFX("PlacingPaper", Vector3.zero);
         RemoveFromClassList(_ussPickedUp);
+        _reportShadow.RemoveFromClassList(_ussShadowPickedUp);
 
-        _reportShadow.style.display = DisplayStyle.None;
         _report.Position = new Vector2(style.left.value.value, style.top.value.value);
         _gameManager.SaveJsonData();
     }
