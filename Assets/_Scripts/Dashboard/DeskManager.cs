@@ -209,13 +209,14 @@ public class DeskManager : Singleton<DeskManager>
         el.style.top = 0 + Random.Range(-10, 0);
 
         DOTween.To(() => el.style.left.value.value, x => el.style.left = x, leftPx, Random.Range(0.5f, 0.7f)).SetEase(Ease.InOutCubic);
-        DOTween.To(x => el.transform.scale = x * Vector3.one, 0, 1, 0.5f);
 
         await Task.Delay(100);
     }
 
     async void OnReportDismissed(ReportElement element)
     {
+        // clearing transition styles
+        element.style.transitionProperty = new List<StylePropertyName>() { new StylePropertyName("none") };
         DOTween.To(x => element.transform.scale = x * Vector3.one, 1, 0.1f, 1f);
         await MoveReportToArchive(element);
 
@@ -226,9 +227,7 @@ public class DeskManager : Singleton<DeskManager>
     async Task MoveReportToArchive(VisualElement element)
     {
         Vector2 start = new(element.style.left.value.value, element.style.top.value.value);
-        // TODO: i'd like it to fly to reports archive but dunno how to do it.
         Vector2 destination = new(Screen.width + 100, -100);
-
         float percent = 0;
         while (percent < 1)
         {

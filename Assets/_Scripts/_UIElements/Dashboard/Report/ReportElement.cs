@@ -220,7 +220,6 @@ public class ReportElement : VisualElement
 
     }
 
-
     /* HOVER */
     void OnPointerEnter(PointerEnterEvent evt)
     {
