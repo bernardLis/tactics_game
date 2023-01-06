@@ -114,6 +114,8 @@ public class DeskManager : Singleton<DeskManager>
         bigCard.style.left = card.Character.DeskPosition.x;
         _reportsContainer.Add(bigCard);
 
+        _draggableItems.AddCharacterCard(bigCard);
+
         card.parent.Remove(card);
     }
 
@@ -123,11 +125,13 @@ public class DeskManager : Singleton<DeskManager>
             return;
 
         CharacterPortraitElement portraitElement = (CharacterPortraitElement)evt.currentTarget;
-        portraitElement.Card.parent.Remove(portraitElement.Card);
+        _draggableItems.RemoveCharacterCard(portraitElement.Card);
 
         CharacterCardMini card = AddMiniCardToDesk(portraitElement.Character);
         card.BlockTooltip();
         _draggableCharacters.StartCardDrag(evt.position, null, card);
+
+        portraitElement.Card.parent.Remove(portraitElement.Card);
     }
 
     void OnBigCardPointerUp(PointerUpEvent evt)
@@ -139,6 +143,7 @@ public class DeskManager : Singleton<DeskManager>
         if (card.Character.IsAssigned)
             return;
 
+        _draggableItems.RemoveCharacterCard(card);
         AddMiniCardToDesk(card.Character);
         card.parent.Remove(card);
     }

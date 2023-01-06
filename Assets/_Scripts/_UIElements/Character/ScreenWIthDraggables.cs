@@ -151,7 +151,7 @@ public class ScreenWithDraggables : FullScreenElement
             container.Add(card);
 
             // allow moving character items
-            foreach (ItemElement item in card.ItemVisuals)
+            foreach (ItemElement item in card.ItemElements)
                 item.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
 
             foreach (ItemSlot item in card.ItemSlots)

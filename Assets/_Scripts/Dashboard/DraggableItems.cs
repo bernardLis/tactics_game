@@ -21,8 +21,11 @@ public class DraggableItems : MonoBehaviour
     ItemSlot _newSlot;
     VisualElement _dragDropContainer;
     ItemElement _draggedItem;
+    bool _isItemPouch;
 
     List<ItemSlot> _allSlots = new();
+
+    List<CharacterCard> _allCards = new();
 
     public void Initialize(VisualElement root, VisualElement itemContainer)
     {
@@ -40,14 +43,25 @@ public class DraggableItems : MonoBehaviour
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    public void AddDraggableItem(ItemElement ItemElement)
+    public void AddDraggableItem(ItemElement ItemElement) { ItemElement.RegisterCallback<PointerDownEvent>(OnItemPointerDown); }
+    public void AddSellSlot(ItemSlot slot) { _allSlots.Add(slot); }
+    public void RemoveSellSlot(ItemSlot slot) { _allSlots.Remove(slot); }
+
+    public void AddCharacterCard(CharacterCard card)
     {
-        ItemElement.RegisterCallback<PointerDownEvent>(OnItemPointerDown);
+        _allCards.Add(card);
+        _allSlots.AddRange(card.ItemSlots);
+        foreach (ItemElement el in card.ItemElements)
+            AddDraggableItem(el);
     }
 
-    public void AddSellSlot(ItemSlot slot) { _allSlots.Add(slot); }
+    public void RemoveCharacterCard(CharacterCard card)
+    {
+        foreach (ItemSlot slot in card.ItemSlots)
+            _allSlots.Remove(slot);
 
-    public void RemoveSellSlot(ItemSlot slot) { _allSlots.Remove(slot); }
+        _allCards.Remove(card);
+    }
 
     void OnItemPointerDown(PointerDownEvent evt)
     {
@@ -67,6 +81,10 @@ public class DraggableItems : MonoBehaviour
         {
             itemSlot = (ItemSlot)itemElement.parent;
             itemSlot.RemoveItem();
+        }
+        else
+        {
+            _isItemPouch = true;
         }
         StartItemDrag(evt.position, itemSlot, itemElement);
     }
@@ -157,10 +175,12 @@ public class DraggableItems : MonoBehaviour
         }
 
         // move item around the desk - update & remember position
+        if (_originalSlot != null)
+            _gameManager.AddItemToPouch(_draggedItem.Item);
+
         _itemContainer.Add(_draggedItem);
         SetDraggedItemPosition(new Vector2(_dragDropContainer.style.left.value.value,
              _dragDropContainer.style.top.value.value - _itemContainer.worldBound.y));
-        _gameManager.SaveJsonData();
         DragCleanUp();
     }
 
@@ -178,6 +198,8 @@ public class DraggableItems : MonoBehaviour
 
         _newSlot.AddItem(_draggedItem);
         DragCleanUp();
+
+        _gameManager.SaveJsonData();
     }
 
     void BuyItem()
@@ -246,11 +268,15 @@ public class DraggableItems : MonoBehaviour
 
     void DragCleanUp()
     {
+        if (_isItemPouch)
+            _gameManager.RemoveItemFromPouch(_draggedItem.Item);
+
         //Clear dragging related visuals and data
         _isDragging = false;
 
         _originalSlot = null;
         _draggedItem = null;
+        _isItemPouch = false;
 
         _dragDropContainer.Clear();
         _dragDropContainer.style.visibility = Visibility.Hidden;

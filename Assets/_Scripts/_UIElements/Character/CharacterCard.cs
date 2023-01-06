@@ -20,7 +20,7 @@ public class CharacterCard : VisualElement
     public ResourceBarElement ManaBar;
 
     public List<ItemSlot> ItemSlots = new();
-    public List<ItemElement> ItemVisuals = new();
+    public List<ItemElement> ItemElements = new();
 
     public List<AbilitySlot> AbilitySlots = new();
     public List<AbilityButton> AbilityButtons = new();
@@ -77,6 +77,7 @@ public class CharacterCard : VisualElement
 
         AvailabilityCheck(); // for armory
         Character.OnRankChanged += OnRankChanged;
+        SubscribeToStatChanges();
     }
 
     void OnRankChanged(CharacterRank rank)
@@ -99,7 +100,6 @@ public class CharacterCard : VisualElement
         container.style.alignContent = Align.Center;
         container.style.width = Length.Percent(100);
 
-
         GameDatabase db = GameManager.Instance.GameDatabase;
         _power = new(db.GetStatIconByName("Power"), Character.GetStatValue("Power"), "Power");
         _armor = new(db.GetStatIconByName("Armor"), Character.GetStatValue("Armor"), "Armor");
@@ -111,6 +111,8 @@ public class CharacterCard : VisualElement
 
         return container;
     }
+
+
 
     VisualElement CreateExpGroup()
     {
@@ -169,6 +171,9 @@ public class CharacterCard : VisualElement
         for (int i = 0; i < 2; i++)
         {
             ItemSlot itemSlot = new();
+            itemSlot.OnItemAdded += OnItemAdded;
+            itemSlot.OnItemRemoved += OnItemRemoved;
+
             itemSlot.Character = Character;
             ItemSlots.Add(itemSlot);
             container.Add(itemSlot);
@@ -177,12 +182,22 @@ public class CharacterCard : VisualElement
         for (int i = 0; i < Character.Items.Count; i++)
         {
             ItemElement itemVisual = new ItemElement(Character.Items[i]);
-            ItemSlots[i].AddItem(itemVisual);
-            ItemVisuals.Add(itemVisual);
+            ItemSlots[i].AddItemNoDelegates(itemVisual);
+            ItemElements.Add(itemVisual);
         }
 
         return container;
     }
+
+    void OnItemAdded(ItemElement itemElement) { Character.AddItem(itemElement.Item); }
+
+    void OnItemRemoved(ItemElement itemElement)
+    {
+        Debug.Log($"item removed {itemElement.Item.ItemName}");
+
+        Character.RemoveItem(itemElement.Item);
+    }
+
 
     VisualElement CreateAbilities()
     {
@@ -247,4 +262,18 @@ public class CharacterCard : VisualElement
         _levelUpAnimationContainer.Add(new AnimationElement(animationSprites, 100, false));
         Add(_levelUpAnimationContainer);
     }
+
+    void SubscribeToStatChanges()
+    {
+        Character.OnMaxHealthChanged += OnMaxHealthChanged;
+        Character.OnMaxManaChanged += OnMaxManaChanged;
+
+        Character.OnPowerChanged += _power.UpdateBaseValue;
+        Character.OnArmorChanged += _armor.UpdateBaseValue;
+        Character.OnMovementRangeChanged += _range.UpdateBaseValue;
+    }
+
+    void OnMaxHealthChanged(int value) { HealthBar.UpdateBarValues(value, value); }
+
+    void OnMaxManaChanged(int value) { ManaBar.UpdateBarValues(value, value); }
 }

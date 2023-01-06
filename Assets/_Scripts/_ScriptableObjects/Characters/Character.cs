@@ -195,6 +195,8 @@ public class Character : BaseScriptableObject
             if (item.InfluencedStat == StatType.MovementRange)
                 MovementRangeBonus += item.Value;
         }
+
+        
     }
 
     public void SetUnavailable(int days)

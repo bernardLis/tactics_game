@@ -29,17 +29,22 @@ public class ItemSlot : ElementWithSound
 
     public void AddItem(ItemElement item)
     {
-        ItemElement = item;
-        item.style.position = Position.Relative;
-        Add(item);
+        AddItemNoDelegates(item);
         PlayClick();
         OnItemAdded?.Invoke(item);
     }
 
+    public void AddItemNoDelegates(ItemElement item)
+    {
+        ItemElement = item;
+        item.style.position = Position.Relative;
+        Add(item);
+    }
+
     public void RemoveItem()
     {
-        Clear();
         OnItemRemoved?.Invoke(ItemElement);
+        Clear();
         ItemElement = null;
     }
 }

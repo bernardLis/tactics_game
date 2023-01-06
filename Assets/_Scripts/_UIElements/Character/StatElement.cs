@@ -18,13 +18,15 @@ public class StatElement : ElementWithTooltip
         Value.text = value.ToString();
     }
 
+    public void UpdateBaseValue(int value) { Value.text = value.ToString(); }
+
     // when there are Stats
     public StatElement(Sprite icon, Stat stat) : base()
     {
         BaseStatVisual(icon);
 
         _stat = stat;
-        _stat.OnModifierAdded += OnModiferAdded;
+        _stat.OnModifierAdded += OnModifierAdded;
         _stat.OnModifierRemoved += OnModifierRemoved;
 
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
@@ -36,7 +38,7 @@ public class StatElement : ElementWithTooltip
 
     void OnPanelDetached(DetachFromPanelEvent evt)
     {
-        _stat.OnModifierAdded -= OnModiferAdded;
+        _stat.OnModifierAdded -= OnModifierAdded;
         _stat.OnModifierRemoved -= OnModifierRemoved;
     }
 
@@ -55,15 +57,9 @@ public class StatElement : ElementWithTooltip
         Add(Value);
     }
 
-    void OnModiferAdded(StatModifier modifier)
-    {
-        HandleStatValue();
-    }
+    void OnModifierAdded(StatModifier modifier) { HandleStatValue(); }
 
-    void OnModifierRemoved(StatModifier modifier)
-    {
-        HandleStatValue();
-    }
+    void OnModifierRemoved(StatModifier modifier) { HandleStatValue(); }
 
     void HandleStatValue()
     {
@@ -76,15 +72,13 @@ public class StatElement : ElementWithTooltip
             Value.style.color = Color.red;
     }
 
+
     protected override void DisplayTooltip()
     {
         _tooltip = new(this, new Label(_tooltipText));
         base.DisplayTooltip();
     }
 
-    public void OnValueChanged(int newValue)
-    {
-        Value.text = "" + newValue;
-    }
+    public void OnValueChanged(int newValue) { Value.text = "" + newValue; }
 
 }
