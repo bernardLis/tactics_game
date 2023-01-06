@@ -197,6 +197,12 @@ public class DraggableItems : MonoBehaviour
         }
 
         _newSlot.AddItem(_draggedItem);
+        if (_draggedItem.IsShop)
+        {
+            _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
+            _draggedItem.ItemBought();
+        }
+
         DragCleanUp();
 
         _gameManager.SaveJsonData();
@@ -281,5 +287,4 @@ public class DraggableItems : MonoBehaviour
         _dragDropContainer.Clear();
         _dragDropContainer.style.visibility = Visibility.Hidden;
     }
-
 }
