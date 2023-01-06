@@ -66,13 +66,9 @@ public class QuestElement : VisualElement
         AddBottomPanel();
 
         if (_quest.QuestState == QuestState.Expired)
-            HandlePendingQuest();
-        if (_quest.QuestState == QuestState.Expired)
             HandleExpiredQuest();
         if (_quest.QuestState == QuestState.Delegated)
             HandleDelegatedQuest();
-        if (_quest.QuestState == QuestState.Finished)
-            HandleFinishedQuest();
 
         RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
     }
@@ -92,12 +88,8 @@ public class QuestElement : VisualElement
         UpdateDaysUntilFinished();
         UpdateActionButton();
 
-        if (state == QuestState.Pending)
-            HandlePendingQuest();
         if (state == QuestState.Delegated)
             HandleDelegatedQuest();
-        if (state == QuestState.Finished)
-            HandleFinishedQuest();
         if (state == QuestState.Expired)
             HandleExpiredQuest();
     }
@@ -141,12 +133,6 @@ public class QuestElement : VisualElement
         _additionalInfo.Add(_actionButton);
     }
 
-
-    void HandlePendingQuest()
-    {
-
-    }
-
     void HandleDelegatedQuest()
     {
         foreach (CharacterCardMiniSlot slot in _cardSlots)
@@ -154,11 +140,6 @@ public class QuestElement : VisualElement
 
         UpdateDaysUntilFinished();
         _actionButton.SetEnabled(false);
-    }
-
-    void HandleFinishedQuest()
-    {
-
     }
 
     void HandleExpiredQuest()
@@ -236,7 +217,7 @@ public class QuestElement : VisualElement
         for (int i = 0; i < _quest.AssignedCharacters.Count; i++)
         {
             CharacterCardMini card = new(_quest.AssignedCharacters[i]);
-            _deskManager.RegisterDeskCard(card);
+            _deskManager.RegisterCardMiniDrag(card);
             _cardSlots[i].AddCard(card);
         }
 

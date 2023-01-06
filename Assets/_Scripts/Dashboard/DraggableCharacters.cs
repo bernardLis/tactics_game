@@ -12,7 +12,7 @@ public class DraggableCharacters : MonoBehaviour
 
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
-    bool _isDragging;
+    public bool IsDragging { get; private set; }
 
     CharacterCardMiniSlot _originalSlot;
     CharacterCardMiniSlot _newSlot;
@@ -76,7 +76,7 @@ public class DraggableCharacters : MonoBehaviour
         StartCardDrag(evt.position, slotVisual, card);
     }
 
-    void StartCardDrag(Vector2 position, CharacterCardMiniSlot originalSlot, CharacterCardMini draggedCard)
+    public void StartCardDrag(Vector2 position, CharacterCardMiniSlot originalSlot, CharacterCardMini draggedCard)
     {
         _draggedCard = draggedCard;
         _draggedCard.PickedUp();
@@ -85,7 +85,7 @@ public class DraggableCharacters : MonoBehaviour
         _draggedCard.style.left = 0;
 
         //Set tracking variables
-        _isDragging = true;
+        IsDragging = true;
         _originalSlot = originalSlot;
         //Set the new position
         _dragDropContainer.BringToFront();
@@ -100,7 +100,7 @@ public class DraggableCharacters : MonoBehaviour
     void OnPointerMove(PointerMoveEvent evt)
     {
         //Only take action if the player is dragging an item around the screen
-        if (!_isDragging)
+        if (!IsDragging)
             return;
 
         if (_draggedCard == null)
@@ -113,7 +113,7 @@ public class DraggableCharacters : MonoBehaviour
 
     void OnPointerUp(PointerUpEvent evt)
     {
-        if (!_isDragging)
+        if (!IsDragging)
             return;
 
         if (_draggedCard != null)
@@ -190,7 +190,7 @@ public class DraggableCharacters : MonoBehaviour
     protected virtual void DragCleanUp()
     {
         //Clear dragging related visuals and data
-        _isDragging = false;
+        IsDragging = false;
         _draggedCard.Dropped();
 
         _originalSlot = null;

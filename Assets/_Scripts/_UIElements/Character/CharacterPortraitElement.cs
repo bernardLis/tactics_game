@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class CharacterPortraitElement : VisualElement
 {
-    Character _character;
+    public CharacterCard Card;
+    public Character Character;
     VisualElement _portrait;
     VisualElement _frame;
 
@@ -18,13 +19,14 @@ public class CharacterPortraitElement : VisualElement
     const string _ussFrameSlotted = _ussClassName + "__frame-slotted";
 
 
-    public CharacterPortraitElement(Character character)
+    public CharacterPortraitElement(Character character, CharacterCard card = null)
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterPortraitStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        _character = character;
+        Character = character;
+        Card = card;
         AddToClassList(_ussContainer);
 
         _portrait = new();
@@ -59,5 +61,4 @@ public class CharacterPortraitElement : VisualElement
         _portrait.RemoveFromClassList(_ussMainSlotted);
         _frame.RemoveFromClassList(_ussFrameSlotted);
     }
-
 }

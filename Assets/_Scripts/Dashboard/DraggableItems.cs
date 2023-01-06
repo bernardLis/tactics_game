@@ -248,7 +248,6 @@ public class DraggableItems : MonoBehaviour
     {
         //Clear dragging related visuals and data
         _isDragging = false;
-        // _draggedCard.Dropped();
 
         _originalSlot = null;
         _draggedItem = null;

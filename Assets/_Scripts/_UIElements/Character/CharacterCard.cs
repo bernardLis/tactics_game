@@ -7,7 +7,7 @@ public class CharacterCard : VisualElement
 {
     public Character Character;
 
-    CharacterPortraitElement _portraitVisualElement;
+    public CharacterPortraitElement PortraitVisualElement;
     StarRankElement _rankElement;
     Label _title;
     Label _level;
@@ -43,12 +43,12 @@ public class CharacterCard : VisualElement
         portraitContainer.style.alignItems = Align.Center;
         portraitContainer.style.marginRight = 20;
 
-        _portraitVisualElement = new(character);
+        PortraitVisualElement = new(character, this);
         Label name = new($"{character.CharacterName}");
 
         _title = new($"{Character.Rank.Title}");
 
-        portraitContainer.Add(_portraitVisualElement);
+        portraitContainer.Add(PortraitVisualElement);
         portraitContainer.Add(name);
         portraitContainer.Add(_title);
 

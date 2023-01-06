@@ -66,11 +66,104 @@ public class DeskManager : Singleton<DeskManager>
             if (character.IsAssigned)
                 continue;
 
-            AddCharacterToDesk(character);
+            AddMiniCardToDesk(character);
         }
 
         foreach (Item item in _gameManager.PlayerItemPouch)
             AddItemToDesk(item);
+    }
+
+    void CleanDraggables() { _draggableCharacters.RemoveDragContainer(); }
+
+    /* CHARACTERS */
+
+    CharacterCardMini AddMiniCardToDesk(Character character)
+    {
+        CharacterCardMini card = new(character);
+        card.style.position = Position.Absolute;
+        card.style.top = character.DeskPosition.y;
+        card.style.left = character.DeskPosition.x;
+        _reportsContainer.Add(card);
+        RegisterCardMiniDrag(card);
+        return card;
+    }
+
+    public void RegisterCardMiniDrag(CharacterCardMini card)
+    {
+        card.RegisterCallback<PointerUpEvent>(OnMiniCardPointerUp);
+        _draggableCharacters.AddDraggableCard(card);
+    }
+
+    void OnMiniCardPointerUp(PointerUpEvent evt)
+    {
+        if (evt.button != 1)
+            return;
+        if (_draggableCharacters.IsDragging)
+            return;
+
+        CharacterCardMini card = (CharacterCardMini)evt.currentTarget;
+        if (card.IsLocked)
+            return;
+        if (card.Character.IsAssigned)
+            return;
+
+        CharacterCard bigCard = new(card.Character);
+        bigCard.RegisterCallback<PointerUpEvent>(OnBigCardPointerUp);
+        bigCard.PortraitVisualElement.RegisterCallback<PointerDownEvent>(OnPortraitPointerDown);
+        bigCard.style.top = card.Character.DeskPosition.y;
+        bigCard.style.left = card.Character.DeskPosition.x;
+        _reportsContainer.Add(bigCard);
+
+        card.parent.Remove(card);
+    }
+
+    void OnPortraitPointerDown(PointerDownEvent evt)
+    {
+        if (evt.button != 0)
+            return;
+
+        CharacterPortraitElement portraitElement = (CharacterPortraitElement)evt.currentTarget;
+        portraitElement.Card.parent.Remove(portraitElement.Card);
+
+        CharacterCardMini card = AddMiniCardToDesk(portraitElement.Character);
+        card.BlockTooltip();
+        _draggableCharacters.StartCardDrag(evt.position, null, card);
+    }
+
+    void OnBigCardPointerUp(PointerUpEvent evt)
+    {
+        if (evt.button != 1)
+            return;
+
+        CharacterCard card = (CharacterCard)evt.currentTarget;
+        if (card.Character.IsAssigned)
+            return;
+
+        AddMiniCardToDesk(card.Character);
+        card.parent.Remove(card);
+    }
+
+    public async void SpitCharacterOntoDesk(Character character)
+    {
+        CharacterCardMini card = AddMiniCardToDesk(character);
+        float newX = card.Character.DeskPosition.x + Random.Range(-200, 200);
+        float newY = card.Character.DeskPosition.y + Random.Range(-300, 300);
+
+        Vector3 endPosition = new(newX, newY, 0);
+        await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
+        card.Character.UpdateDeskPosition(endPosition);
+    }
+
+    /* ITEMS */
+    public async void SpitItemOntoDesk(Item item)
+    {
+        ItemElement el = AddItemToDesk(item);
+        float newX = item.DeskPosition.x + Random.Range(-100, 100);
+        float newY = item.DeskPosition.y + Random.Range(-100, 100);
+
+        Vector3 endPosition = new(newX, newY, 0);
+        await MoveElementOnArc(el, item.DeskPosition, endPosition);
+        item.UpdateDeskPosition(endPosition);
     }
 
     ItemElement AddItemToDesk(Item item)
@@ -85,66 +178,6 @@ public class DeskManager : Singleton<DeskManager>
         _reportsContainer.Add(el);
 
         return el;
-    }
-
-    public void RegisterDeskCard(CharacterCardMini card)
-    {
-        card.RegisterCallback<PointerUpEvent>(OnMiniCardPointerUp);
-    }
-
-    CharacterCardMini AddCharacterToDesk(Character character)
-    {
-        CharacterCardMini card = new(character);
-        card.style.position = Position.Absolute;
-        _reportsContainer.Add(card);
-        card.style.top = character.DeskPosition.y;
-        card.style.left = character.DeskPosition.x;
-        _draggableCharacters.AddDraggableCard(card);
-        RegisterDeskCard(card);
-        return card;
-    }
-
-    void OnMiniCardPointerUp(PointerUpEvent evt)
-    {
-        if (evt.button != 1)
-            return;
-
-        CharacterCardMini card = (CharacterCardMini)evt.currentTarget;
-        if (card.IsLocked)
-            return;
-        if (card.Character.IsAssigned)
-            return;
-
-
-        foreach (Item item in card.Character.Items)
-        {
-            item.DeskPosition = evt.position;
-            SpitItemOntoDesk(item);
-        }
-
-        card.Character.ClearItems();
-    }
-
-    public async void SpitItemOntoDesk(Item item)
-    {
-        ItemElement el = AddItemToDesk(item);
-        float newX = item.DeskPosition.x + Random.Range(-100, 100);
-        float newY = item.DeskPosition.y + Random.Range(-100, 100);
-
-        Vector3 endPosition = new(newX, newY, 0);
-        await MoveElementOnArc(el, item.DeskPosition, endPosition);
-        item.UpdateDeskPosition(endPosition);
-    }
-
-    public async void SpitCharacterOntoDesk(Character character)
-    {
-        CharacterCardMini card = AddCharacterToDesk(character);
-        float newX = card.Character.DeskPosition.x + Random.Range(-200, 200);
-        float newY = card.Character.DeskPosition.y + Random.Range(-300, 300);
-
-        Vector3 endPosition = new(newX, newY, 0);
-        await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
-        card.Character.UpdateDeskPosition(endPosition);
     }
 
     async Task MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)
@@ -170,6 +203,7 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
+    /* REPORTS */
     async Task CreateReport(Report report)
     {
         VisibleReports.Add(report);
@@ -215,7 +249,7 @@ public class DeskManager : Singleton<DeskManager>
 
     async void OnReportDismissed(ReportElement element)
     {
-        // clearing transition styles
+        // clearing transition
         element.style.transitionProperty = new List<StylePropertyName>() { new StylePropertyName("none") };
         DOTween.To(x => element.transform.scale = x * Vector3.one, 1, 0.1f, 1f);
         await MoveReportToArchive(element);
@@ -240,5 +274,4 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
-    void CleanDraggables() { _draggableCharacters.RemoveDragContainer(); }
 }
