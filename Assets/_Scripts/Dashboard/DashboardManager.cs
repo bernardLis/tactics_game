@@ -161,20 +161,54 @@ public class DashboardManager : Singleton<DashboardManager>
         MyButton navDesk = new(null, "navDesk", OpenDesk);
         MyButton navCamp = new(null, "navCamp", OpenCamp);
         MyButton navAbilities = new(null, "navAbilities", OpenAbilities);
+        MyButton navArchive = new(null, "navArchive", OnArchiveClick);
 
         navDesk.AddToClassList("navIcon");
         navCamp.AddToClassList("navIcon");
         navAbilities.AddToClassList("navIcon");
+        navArchive.AddToClassList("navIcon");
 
         navRight.Add(navDesk);
         navRight.Add(navCamp);
         navRight.Add(navAbilities);
+        navRight.Add(navArchive);
     }
 
     void OpenDesk() { OpenDashboardBuilding(DashboardBuildingType.Desk); }
     void OpenCamp() { OpenDashboardBuilding(DashboardBuildingType.Camp); }
     void OpenAbilities() { OpenDashboardBuilding(DashboardBuildingType.Abilities); }
 
+    void OnArchiveClick()
+    {
+        FullScreenElement visual = new FullScreenElement();
+        visual.AddToClassList("textPrimary");
+        visual.style.backgroundColor = Color.black;
+        visual.style.left = Screen.width;
+
+        ScrollView container = new();
+        visual.Add(container);
+
+        DOTween.To(x => visual.style.left = x, Screen.width, 0f, 1f);
+
+        foreach (Report report in _gameManager.ReportsArchived)
+        {
+            Label r = new Label($"{report.ReportType}");
+            container.Add(r);
+            // https://forum.unity.com/threads/send-additional-parameters-to-callback.777029/
+            r.RegisterCallback<PointerUpEvent, Report>(OnArchivedReportClick, report);
+        }
+        visual.Initialize(Root);
+        visual.AddBackButton();
+    }
+
+    void OnArchivedReportClick(PointerUpEvent evt, Report report)
+    {
+        FullScreenElement visual = new FullScreenElement();
+        visual.style.backgroundColor = Color.black;
+        visual.Add(new ReportElement(visual, report));
+        visual.Initialize(Root);
+        visual.AddBackButton();
+    }
 
     public void OpenDashboardBuilding(DashboardBuildingType db)
     {
