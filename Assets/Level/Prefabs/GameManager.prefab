@@ -188,38 +188,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DashboardManager, NewAssembly
-        m_MethodName: ShowArmoryUI
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_ActionId: d61f6162-5931-4dd6-8712-21a44fba2217
-    m_ActionName: Dashboard/OpenArmory[/Keyboard/f2]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
-        m_MethodName: ShowShopUI
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_ActionId: 252b3569-2181-4715-b632-ec8a46a5e167
-    m_ActionName: Dashboard/OpenShop[/Keyboard/f3]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
         m_MethodName: ShowCampUI
         m_Mode: 0
         m_Arguments:
@@ -380,6 +348,10 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 73a23192c66321b49874edb0a26a5d1b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 3c7abefaad358754e9e3c40e171398d2
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

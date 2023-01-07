@@ -13,12 +13,19 @@ public class ItemSlot : ElementWithSound
 
     bool _isHighlighted;
 
+    const string _ussClassName = "item-slot";
+    const string _ussMain = _ussClassName + "__main";
+
     public event Action<ItemElement> OnItemAdded;
     public event Action<ItemElement> OnItemRemoved;
     public ItemSlot(ItemElement item = null) : base()
     {
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ItemSlotStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
-        AddToClassList("itemSlot");
+        AddToClassList(_ussMain);
 
         if (item == null)
             return;

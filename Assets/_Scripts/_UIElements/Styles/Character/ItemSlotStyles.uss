@@ -1,0 +1,16 @@
+.item-slot__main {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+    background-image: url('project://database/Assets/Art/Sprites/UI%20Elements/itemSlotGray.png?fileID=2800000&guid=f2ebc7e94a6a03444847edc4ec63828b&type=3#itemSlotGray');
+}
+
+.item-slot__main:hover {
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    opacity: 1;
+}
