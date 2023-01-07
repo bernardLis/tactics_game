@@ -11,8 +11,6 @@ public class ItemSlot : ElementWithSound
     public ItemElement ItemElement;
     public Character Character;
 
-    bool _isHighlighted;
-
     const string _ussClassName = "item-slot";
     const string _ussMain = _ussClassName + "__main";
 
