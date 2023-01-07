@@ -8,30 +8,33 @@ public class TooltipElement : VisualElement
     int offsetY = 30;
 
     VisualElement _parentElement;
+    VisualElement _tooltipElement;
 
-    public TooltipElement(VisualElement element, VisualElement tooltipElement, bool disableTooltipStyle = false)
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "tooltip-element";
+    const string _ussMain = _ussClassName + "__main";
+
+    public TooltipElement(VisualElement parent, VisualElement tooltipElement, bool disableTooltipStyle = false)
     {
-        _parentElement = element;
-
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TooltipElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        //https://forum.unity.com/threads/how-can-i-move-a-visualelement-to-the-position-of-the-mouse.1187890/
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        if (element == null)
-            return;
-        Vector2 pos = UnityEngine.UIElements.RuntimePanelUtils.ScreenToPanel(element.panel,
-                        new Vector2(mousePosition.x, Screen.height - mousePosition.y));
-
-        style.position = Position.Absolute;
-        style.left = pos.x + offsetX;
-        style.top = pos.y + offsetY - resolvedStyle.height;
+        _parentElement = parent;
+        _tooltipElement = tooltipElement;
         OnPostVisualCreation();
 
-        AddToClassList("textPrimary");
+        style.position = Position.Absolute;
+
         if (!disableTooltipStyle)
-            AddToClassList("tooltipElement");
+        {
+            AddToClassList(_ussCommonTextPrimary);
+            AddToClassList(_ussMain);
+        }
 
         Add(tooltipElement);
     }
@@ -42,15 +45,19 @@ public class TooltipElement : VisualElement
         Vector2 pos = UnityEngine.UIElements.RuntimePanelUtils.ScreenToPanel(element.panel,
                         new Vector2(mousePosition.x, Screen.height - mousePosition.y));
 
-        if (pos.x + offsetX + resolvedStyle.width > Screen.width)
-            style.left = pos.x - (resolvedStyle.width + offsetX);
+        // TODO: inelegant solution, when character card is tooltip element it does not resolve style for some reason. 
+        float elWidth = resolvedStyle.width == 0 ? _tooltipElement.resolvedStyle.width : resolvedStyle.width;
+        float elHeight = resolvedStyle.height == 0 ? _tooltipElement.resolvedStyle.height : resolvedStyle.height;
+
+        if (pos.x + offsetX + elWidth > Screen.width)
+            style.left = pos.x - (elWidth + offsetX);
         else
             style.left = pos.x + offsetX;
 
-        if (pos.y - resolvedStyle.height + offsetY < 0)
+        if (pos.y - elHeight + offsetY < 0)
             style.top = pos.y;
         else
-            style.top = pos.y - resolvedStyle.height + offsetY;
+            style.top = pos.y - elHeight + offsetY;
     }
 
     //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/
@@ -75,5 +82,4 @@ public class TooltipElement : VisualElement
         visible = true;
         UpdatePosition(_parentElement);
     }
-
 }

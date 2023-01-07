@@ -37,7 +37,7 @@ public class AddressableManager : MonoBehaviour
 
 public enum StyleSheetType
 {
-    CommonStyles,
+    CommonStyles, TooltipElementStyles,
     ReportStyles, ShopReportStyles, PawnshopReportStyles,
     QuestElementStyles,
     StarRankElementStyles,

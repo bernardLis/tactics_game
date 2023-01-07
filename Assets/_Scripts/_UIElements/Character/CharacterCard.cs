@@ -71,7 +71,6 @@ public class CharacterCard : VisualElement
         portraitContainer.Add(CreateRankElement());
 
         VisualElement barsContainer = new();
-        // barsContainer.Add(CreateRankElement());
         barsContainer.Add(CreateStatGroup());
         barsContainer.Add(CreateExpGroup());
         barsContainer.Add(CreateHealthGroup());

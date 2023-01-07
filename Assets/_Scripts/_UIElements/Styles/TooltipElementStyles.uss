@@ -1,0 +1,9 @@
+.tooltip-element__main{
+    max-width: 400px;
+    white-space: normal;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag_vert.png?fileID=2800000&guid=f7f4c53029691c14590b260b68c02ff7&type=3#Flag_vert');
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

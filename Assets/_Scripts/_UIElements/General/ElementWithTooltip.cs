@@ -10,10 +10,7 @@ public abstract class ElementWithTooltip : VisualElement
     bool _isPointerOn;
     bool _isPointerDown;
 
-    public ElementWithTooltip()
-    {
-        RegisterTooltipCallbacks();
-    }
+    public ElementWithTooltip() { RegisterTooltipCallbacks(); }
 
     protected void RegisterTooltipCallbacks()
     {
