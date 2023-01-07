@@ -12,24 +12,37 @@ public class GoldElement : VisualElement
     Label _text;
 
     bool _clicked;
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "gold-element";
+    const string _ussMain = _ussClassName + "__main";
+    const string _ussIcon = _ussClassName + "__icon";
+    const string _ussClickable = _ussClassName + "__clickable";
+
     public GoldElement(int amount, bool isClickable = false)
     {
         _gameManager = GameManager.Instance;
 
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GoldElementStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         Amount = 0;
 
-        AddToClassList("goldElement");
+        AddToClassList(_ussMain);
 
         _icon = new();
-        _icon.style.width = 50;
-        _icon.style.height = 50;
+        _icon.AddToClassList(_ussIcon);
         _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(amount));
         Add(_icon);
 
         _text = new();
-        _text.AddToClassList("textPrimary");
+        _text.AddToClassList(_ussCommonTextPrimary);
         _text.text = Amount.ToString();
-        _text.style.width = 60;
         Add(_text);
 
         if (isClickable)
@@ -48,7 +61,7 @@ public class GoldElement : VisualElement
     {
         while (!_clicked)
         {
-            ToggleInClassList("goldElementClickable");
+            ToggleInClassList(_ussClickable);
             await Task.Delay(1000);
         }
     }

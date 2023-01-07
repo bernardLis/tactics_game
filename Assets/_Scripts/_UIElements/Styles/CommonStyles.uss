@@ -244,33 +244,6 @@
     height: 120px;
 }
 
-.goldElement {
-    flex-direction: row;
-    align-items: center;
-    scale: 1 1;
-    transition-property: all;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
-}
-
-.goldElementClickable {
-    flex-direction: row;
-    align-items: center;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    scale: 1.1 1.1;
-    background-color: rgb(60, 60, 60);
-    transition-property: all;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
-}
-
 .spiceElement {
     flex-direction: row;
     align-items: center;
