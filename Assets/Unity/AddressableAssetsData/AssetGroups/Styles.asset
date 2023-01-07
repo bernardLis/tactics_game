@@ -65,6 +65,10 @@ MonoBehaviour:
     m_Address: StatElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1dcb0d843bcae2d4cb844a89c93bd82d
+    m_Address: AbilityButtonStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:
