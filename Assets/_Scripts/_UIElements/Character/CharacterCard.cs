@@ -30,6 +30,7 @@ public class CharacterCard : VisualElement
     public CharacterCard(Character character, bool showExp = true, bool showAbilities = true, bool showItems = true)
     {
         Character = character;
+        Character.ResolveItems();
 
         AddToClassList("characterCard");
         AddToClassList("textPrimary");
@@ -112,8 +113,6 @@ public class CharacterCard : VisualElement
         return container;
     }
 
-
-
     VisualElement CreateExpGroup()
     {
         VisualElement container = new();
@@ -191,13 +190,7 @@ public class CharacterCard : VisualElement
 
     void OnItemAdded(ItemElement itemElement) { Character.AddItem(itemElement.Item); }
 
-    void OnItemRemoved(ItemElement itemElement)
-    {
-        Debug.Log($"item removed {itemElement.Item.ItemName}");
-
-        Character.RemoveItem(itemElement.Item);
-    }
-
+    void OnItemRemoved(ItemElement itemElement) { Character.RemoveItem(itemElement.Item); }
 
     VisualElement CreateAbilities()
     {

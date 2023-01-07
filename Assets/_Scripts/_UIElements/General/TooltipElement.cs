@@ -48,7 +48,7 @@ public class TooltipElement : VisualElement
             style.left = pos.x + offsetX;
 
         if (pos.y - resolvedStyle.height + offsetY < 0)
-            style.top = Screen.height - (pos.y + resolvedStyle.height + offsetY); // TODO: wrong but I can't math.
+            style.top = pos.y;
         else
             style.top = pos.y - resolvedStyle.height + offsetY;
     }
