@@ -19,7 +19,6 @@ public class ResourceBarElement : ElementWithTooltip
 
     string _tooltipText;
 
-
     const string _ussCommonTextSecondary = "common__text-secondary";
 
     const string _ussClassName = "resource-bar";
@@ -35,7 +34,6 @@ public class ResourceBarElement : ElementWithTooltip
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
         if (ss != null)
             styleSheets.Add(ss);

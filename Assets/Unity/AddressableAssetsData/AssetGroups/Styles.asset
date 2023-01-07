@@ -61,6 +61,10 @@ MonoBehaviour:
     m_Address: ResourceBarStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 00c44fd568fbaa74f8d441924bb2f493
+    m_Address: StatElementStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

@@ -10,9 +10,23 @@ public class StatElement : ElementWithTooltip
 
     string _tooltipText;
 
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "stat-element";
+
+    const string _ussIcon = _ussClassName + "__icon";
+    const string _ussValue = _ussClassName + "__value";
+
     // when there are no Stats => stats won't be interacted with
     public StatElement(Sprite icon, int value, string tooltipText) : base()
     {
+        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StatElementStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         BaseStatVisual(icon);
         _tooltipText = tooltipText;
         Value.text = value.ToString();
@@ -47,13 +61,13 @@ public class StatElement : ElementWithTooltip
         style.flexDirection = FlexDirection.Row;
 
         Icon = new();
-        Icon.AddToClassList("statIcon");
+        Icon.AddToClassList(_ussIcon);
         Icon.style.backgroundImage = new StyleBackground(icon);
         Add(Icon);
 
         Value = new();
-        Value.AddToClassList("statValue");
-        Value.AddToClassList("textPrimary");
+        Value.AddToClassList(_ussValue);
+        Value.AddToClassList(_ussCommonTextPrimary);
         Add(Value);
     }
 
