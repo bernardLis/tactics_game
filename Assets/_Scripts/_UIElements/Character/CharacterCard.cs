@@ -11,6 +11,7 @@ public class CharacterCard : VisualElement
     StarRankElement _rankElement;
     Label _title;
     Label _level;
+
     StatElement _power;
     StatElement _armor;
     StatElement _range;
@@ -30,7 +31,6 @@ public class CharacterCard : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonTransitionBasic = "common__transition-basic";
 
-
     const string _ussClassName = "character-card";
     const string _ussMain = _ussClassName + "__main";
     const string _ussTopPanel = _ussClassName + "__top-panel";
@@ -41,7 +41,6 @@ public class CharacterCard : VisualElement
     const string _ussHealthContainer = _ussClassName + "__health-container";
     const string _ussManaContainer = _ussClassName + "__mana-container";
     const string _ussOverlay = _ussClassName + "__overlay";
-
 
     public CharacterCard(Character character, bool showExp = true, bool showAbilities = true, bool showItems = true)
     {
@@ -70,8 +69,10 @@ public class CharacterCard : VisualElement
         _title = new($"[{Character.Rank.Title}] {character.CharacterName}");
         portraitContainer.Add(_title);
 
+        portraitContainer.Add(CreateRankElement());
+
         VisualElement barsContainer = new();
-        barsContainer.Add(CreateRankElement());
+        // barsContainer.Add(CreateRankElement());
         barsContainer.Add(CreateStatGroup());
         barsContainer.Add(CreateExpGroup());
         barsContainer.Add(CreateHealthGroup());

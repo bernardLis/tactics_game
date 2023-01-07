@@ -76,13 +76,13 @@ public class DeskManager : Singleton<DeskManager>
     void CleanDraggables() { _draggableCharacters.RemoveDragContainer(); }
 
     /* CHARACTERS */
-
     CharacterCardMini AddMiniCardToDesk(Character character)
     {
         CharacterCardMini card = new(character);
         card.style.position = Position.Absolute;
-        card.style.top = character.DeskPosition.y;
         card.style.left = character.DeskPosition.x;
+        card.style.top = character.DeskPosition.y;
+
         _reportsContainer.Add(card);
         RegisterCardMiniDrag(card);
         return card;
@@ -110,8 +110,8 @@ public class DeskManager : Singleton<DeskManager>
         CharacterCard bigCard = new(card.Character);
         bigCard.RegisterCallback<PointerUpEvent>(OnBigCardPointerUp);
         bigCard.PortraitVisualElement.RegisterCallback<PointerDownEvent>(OnPortraitPointerDown);
-        bigCard.style.top = card.Character.DeskPosition.y;
-        bigCard.style.left = card.Character.DeskPosition.x;
+        bigCard.style.left = evt.position.x - 100;
+        bigCard.style.top = evt.position.y - 100;
         _reportsContainer.Add(bigCard);
 
         _draggableItems.AddCharacterCard(bigCard);
@@ -278,5 +278,4 @@ public class DeskManager : Singleton<DeskManager>
             await Task.Delay(5);
         }
     }
-
 }
