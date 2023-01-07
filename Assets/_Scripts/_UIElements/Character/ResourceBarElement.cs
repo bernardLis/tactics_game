@@ -19,13 +19,32 @@ public class ResourceBarElement : ElementWithTooltip
 
     string _tooltipText;
 
+
+    const string _ussCommonTextSecondary = "common__text-secondary";
+
+    const string _ussClassName = "resource-bar";
+    const string _ussContainer = _ussClassName + "__container";
+    const string _ussMain = _ussClassName + "__main";
+    const string _ussMissing = _ussClassName + "__missing";
+    const string _ussInteraction = _ussClassName + "__interaction";
+    const string _ussBarText = _ussClassName + "__bar-text";
+
+
     public ResourceBarElement(Color color, string tooltipText, int total, int current, int thickness = 0, bool isGaining = false) : base()
     {
+        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         _total = total;
         _current = current;
         _isGaining = isGaining;
 
-        AddToClassList("barContainer");
+        AddToClassList(_ussContainer);
 
         _tooltipText = tooltipText;
 
@@ -34,7 +53,7 @@ public class ResourceBarElement : ElementWithTooltip
         _text = new();
 
         _resourceBar = new();
-        _resourceBar.AddToClassList("resourceBar");
+        _resourceBar.AddToClassList(_ussMain);
 
         if (_isGaining)
             _resourceBar.style.flexDirection = FlexDirection.RowReverse;
@@ -44,10 +63,10 @@ public class ResourceBarElement : ElementWithTooltip
         _resourceBar.style.backgroundColor = color;
         Add(_resourceBar);
 
-        _missing.AddToClassList("barMissingAmount");
-        _interactionResult.AddToClassList("barInteractionResult");
-        _text.AddToClassList("barText");
-        _text.AddToClassList("textSecondary");
+        _missing.AddToClassList(_ussMissing);
+        _interactionResult.AddToClassList(_ussInteraction);
+        _text.AddToClassList(_ussBarText);
+        _text.AddToClassList(_ussCommonTextSecondary);
 
         if (thickness != 0)
             style.height = thickness;
@@ -183,10 +202,10 @@ public class ResourceBarElement : ElementWithTooltip
         _interactionResult.style.backgroundColor = color;
 
         DOTween.ToAlpha(() => _interactionResult.style.backgroundColor.value,
-                         x => _interactionResult.style.backgroundColor = x,
-                         0f, 0.8f)
-                    .SetLoops(-1, LoopType.Yoyo)
-                    .SetId(_tweenID);
+                x => _interactionResult.style.backgroundColor = x,
+                0f, 0.8f)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetId(_tweenID);
     }
 
     protected override void DisplayTooltip()

@@ -29,7 +29,6 @@ public class CharacterCard : VisualElement
     VisualElement _levelUpAnimationContainer;
 
     const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonTransitionBasic = "common__transition-basic";
 
     const string _ussClassName = "character-card";
     const string _ussMain = _ussClassName + "__main";

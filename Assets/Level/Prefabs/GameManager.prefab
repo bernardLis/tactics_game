@@ -363,6 +363,14 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: 6c69c08530476f340ac9030ac672e9f6
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: fd3c461a5e9409b40a91dec9c08cf28a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +415,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
-  ShopItems: []
   PlayerTroops: []
   PlayerItemPouch: []
   PlayerAbilityPouch: []
@@ -421,12 +428,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af0b86e8d19c8d54c9138e013d2eace1, type: 2}
   _abilityNodeGraphs:
   - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
-  - {fileID: 11400000, guid: ae03a585b2a687e4b825c98728507874, type: 2}
-  - {fileID: 11400000, guid: b97fc7782ac380e42a9fd4c607922dc2, type: 2}
-  - {fileID: 11400000, guid: 838c2e8c07781224c885740e9d3d58a7, type: 2}
-  - {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
-  - {fileID: 11400000, guid: 6bceff6e2885a224c958a51fe4e78327, type: 2}
   - {fileID: 11400000, guid: b490b888ee688624b9c291aa2a94e28b, type: 2}
+  - {fileID: 11400000, guid: 6bceff6e2885a224c958a51fe4e78327, type: 2}
+  - {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
   CutsceneIndexToPlay: 0
   ActiveQuest: {fileID: 0}
 --- !u!114 &2154333484900981486

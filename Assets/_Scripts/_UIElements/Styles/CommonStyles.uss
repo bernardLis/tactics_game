@@ -77,46 +77,6 @@
     background-color: rgb(0, 0, 0);
 }
 
-.resourceBar {
-    width: 92%;
-    background-color: rgb(135, 41, 41);
-    align-items: center;
-    height: 15px;
-    margin-left: 4%;
-    margin-right: 4%;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.barContainer {
-    width: 100%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_long.png?fileID=2800000&guid=f719a95b6a295394f93036e4c2603c85&type=3#Button_long');
-    -unity-background-scale-mode: stretch-to-fill;
-    height: 32px;
-    background-color: rgb(0, 0, 0);
-    justify-content: center;
-    align-items: center;
-}
-
-.barMissingAmount {
-    width: 0;
-    height: 15px;
-    background-color: rgb(56, 56, 56);
-    justify-content: center;
-    overflow: visible;
-}
-
-.barInteractionResult {
-    width: 0;
-    height: 15px;
-    background-color: rgb(255, 0, 0);
-    justify-content: center;
-    visibility: visible;
-}
-
-.barText {
-    position: absolute;
-}
 
 .healthLabel {
     font-size: 18px;
