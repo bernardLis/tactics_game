@@ -6,19 +6,24 @@ public class AbilityIcon : ElementWithTooltip
 {
     Ability _ability;
 
+    const string _ussClassName = "ability-icon";
+    const string _ussMain = _ussClassName + "__main";
+    const string _ussHotkey = _ussClassName + "__hotkey";
+
     public AbilityIcon(Ability ability, string key = null) : base()
     {
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityIconStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         _ability = ability;
-        AddToClassList("abilityButtonIcon");
+        AddToClassList(_ussMain);
         style.backgroundImage = ability.Icon.texture;
 
         if (key != null)
         {
             TextWithTooltip keyTooltip = new(key, "Hotkey");
-            keyTooltip.style.position = Position.Absolute;
-            keyTooltip.style.backgroundColor = Color.black;
-            keyTooltip.style.left = 0;
-            keyTooltip.style.bottom = 0;
+            keyTooltip.AddToClassList(_ussHotkey);
             Add(keyTooltip);
         }
     }

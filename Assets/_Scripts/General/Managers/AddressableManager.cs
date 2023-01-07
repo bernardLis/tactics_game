@@ -40,7 +40,8 @@ public enum StyleSheetType
     CommonStyles,
     ReportStyles, ShopReportStyles, PawnshopReportStyles,
     QuestElementStyles,
-    CharacterPortraitStyles, ResourceBarStyles, StatElementStyles, AbilityButtonStyles,
+    CharacterPortraitStyles, ResourceBarStyles, StatElementStyles, 
+    AbilityButtonStyles, AbilityIconStyles,
     CharacterCardStyles,
     CharacterCardMiniSlotStyles, CharacterCardMiniStyles,
 }

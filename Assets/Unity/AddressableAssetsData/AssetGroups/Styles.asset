@@ -69,6 +69,10 @@ MonoBehaviour:
     m_Address: AbilityButtonStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 73a23192c66321b49874edb0a26a5d1b
+    m_Address: AbilityIconStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:
