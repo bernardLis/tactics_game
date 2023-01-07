@@ -1,0 +1,62 @@
+.character-card__main {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Flag2_bar2.png?fileID=2800000&guid=fb276f3f6f3cfe94fbf7dbc103e074ae&type=3#Flag2_bar2');
+    -unity-background-scale-mode: stretch-to-fill;
+    width: 550px;
+    height: 300px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.character-card__top-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.character-card__portrait-container {
+    align-items: center;
+    margin-right: 20px;
+}
+
+.character-card__bottom-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.character-card__stat-container {
+    flex-direction: row;
+    align-content: center;
+    width: 100%;
+}
+
+.character-card__exp-container {
+    align-content: center;
+    width: 100%;
+}
+
+.character-card__health-container {
+    flex-direction: row;
+    width: 100%;
+}
+
+.character-card__mana-container {
+    flex-direction: row;
+    width: 100%;
+}
+
+.character-card__overlay {
+    position: Absolute;
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}

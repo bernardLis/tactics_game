@@ -8,7 +8,7 @@
 .common__text-primary-black {
     color: rgb(0, 0, 0);
     font-size: 16px;
-    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+-unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
 
@@ -150,21 +150,6 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-}
-
-.characterCard {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Flag2_bar2.png?fileID=2800000&guid=fb276f3f6f3cfe94fbf7dbc103e074ae&type=3#Flag2_bar2');
-    -unity-background-scale-mode: stretch-to-fill;
-    width: 550px;
-    height: 300px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
 }
 
 .statsGroup {
