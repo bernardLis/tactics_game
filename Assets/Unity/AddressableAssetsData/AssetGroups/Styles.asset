@@ -85,6 +85,10 @@ MonoBehaviour:
     m_Address: GoldElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d7df27be43e873a44b6156bc8a574926
+    m_Address: StarRankElementStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

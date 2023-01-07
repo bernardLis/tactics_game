@@ -269,14 +269,3 @@
     position: absolute;
 }
 
-.rankStarGray {
-    width: 50px;
-    height: 50px;
-    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star%20gray.png?fileID=2800000&guid=204ed0df78deaba409499a6fe38c363b&type=3#star gray');
-}
-
-.rankStar {
-    width: 50px;
-    height: 50px;
-    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star.png?fileID=2800000&guid=c44d1eb6f24e7ab41a257d01f6bf793a&type=3#star');
-}

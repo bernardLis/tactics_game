@@ -9,8 +9,16 @@ public class StarRankElement : ElementWithTooltip
     int _rank;
     VisualElement _tooltipElement;
 
+    const string _ussClassName = "star-rank-element";
+    const string _ussStar = _ussClassName + "__star";
+    const string _ussStarGray = _ussClassName + "__star-gray";
+
     public StarRankElement(int rank, float scale = 1f, VisualElement tooltip = null)
     {
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StarRankElementStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         style.flexDirection = FlexDirection.Row;
         transform.scale = Vector3.one * scale;
 
@@ -18,7 +26,7 @@ public class StarRankElement : ElementWithTooltip
         for (int i = 0; i < 5; i++)
         {
             VisualElement star = new();
-            star.AddToClassList("rankStarGray");
+            star.AddToClassList(_ussStarGray);
             Add(star);
             stars.Add(star);
         }
@@ -45,9 +53,12 @@ public class StarRankElement : ElementWithTooltip
         for (int i = 0; i < stars.Count; i++)
         {
             VisualElement star = stars[i];
-            star.RemoveFromClassList("rankStar");
+            star.RemoveFromClassList(_ussStar);
             if (i < rank)
-                star.AddToClassList("rankStar");
+            {
+                star.RemoveFromClassList(_ussStarGray);
+                star.AddToClassList(_ussStar);
+            }
         }
     }
 
@@ -62,7 +73,6 @@ public class StarRankElement : ElementWithTooltip
             Label l = new Label("rank tooltip to be implemented");
             l.style.whiteSpace = WhiteSpace.Normal;
             _tooltip = new(this, l);
-
         }
 
         base.DisplayTooltip();
