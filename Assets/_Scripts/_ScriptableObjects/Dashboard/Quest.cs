@@ -93,6 +93,13 @@ public class Quest : BaseScriptableObject
         int successChance = 0;
         foreach (Character c in AssignedCharacters)
         {
+            // element
+            if (c.Element == ThreatElement.WeakAgainst)
+                successChance += 10;
+            if (c.Element == ThreatElement.StrongAgainst)
+                successChance -= 10;
+
+            // rank
             int rankDiff = c.Rank.Rank - Rank.Rank;
             if (rankDiff == 0)
             {
@@ -100,7 +107,7 @@ public class Quest : BaseScriptableObject
                 continue;
             }
 
-            int influence = 40 + rankDiff * 10; // TODO: magic 33 and 10
+            int influence = 40 + rankDiff * 10; // TODO: magic 40 and 10
             influence = Mathf.Clamp(influence, 0, 100);
             successChance += influence;
         }
