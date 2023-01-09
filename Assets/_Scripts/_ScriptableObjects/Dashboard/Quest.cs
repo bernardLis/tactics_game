@@ -12,6 +12,7 @@ public class Quest : BaseScriptableObject
     public QuestRank Rank;
     public string Title;
     public string Description;
+    public Element ThreatElement;
     public QuestState QuestState;
 
     [Header("Battle")]
@@ -144,10 +145,7 @@ public class Quest : BaseScriptableObject
         return ExpiryDay - _gameManager.Day <= 0;
     }
 
-    public void Won()
-    {
-        IsWon = true;
-    }
+    public void Won() { IsWon = true; }
 
     public void Lost()
     {
@@ -160,17 +158,15 @@ public class Quest : BaseScriptableObject
         }
     }
 
-    public int CalculateAwardExp()
-    {
-        return IsWon ? 100 : 10;
-    }
+    public int CalculateAwardExp() { return IsWon ? 100 : 10; }
 
     public void CreateRandom()
     {
         _gameManager = GameManager.Instance;
         Rank = _gameManager.GameDatabase.GetRandomQuestRank();
-        Title = "Quest Title";
+        Title = _gameManager.GameDatabase.QuestDatabase.GetRandomQuestTitle();
         Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        ThreatElement = _gameManager.GameDatabase.GetRandomElement();
         QuestState = QuestState.Pending;
 
         Biome = _gameManager.GameDatabase.GetRandomBiome();
@@ -201,6 +197,7 @@ public class Quest : BaseScriptableObject
         _gameManager.OnDayPassed += OnDayPassed;
 
         Rank = _gameManager.GameDatabase.GetQuestRankById(data.QuestRankId);
+        ThreatElement = _gameManager.GameDatabase.GetElementByName((ElementName)System.Enum.Parse(typeof(ElementName), data.ThreatElement));
         Title = data.Title;
         Description = data.Description;
 
@@ -238,6 +235,7 @@ public class Quest : BaseScriptableObject
         qd.QuestRankId = Rank.Id;
         qd.Title = Title;
         qd.Description = Description;
+        qd.ThreatElement = ThreatElement.ElementName.ToString();
         qd.QuestState = QuestState.ToString();
 
         qd.SceneToLoad = SceneToLoad;
@@ -270,6 +268,7 @@ public struct QuestData
     public string QuestRankId;
     public string Title;
     public string Description;
+    public string ThreatElement;
     public string QuestState;
 
     public string SceneToLoad;

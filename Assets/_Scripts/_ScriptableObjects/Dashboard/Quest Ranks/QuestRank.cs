@@ -9,6 +9,5 @@ public class QuestRank : BaseScriptableObject
     public int Rank;
     public Sprite Icon;
     public string Description;
-
  
 }

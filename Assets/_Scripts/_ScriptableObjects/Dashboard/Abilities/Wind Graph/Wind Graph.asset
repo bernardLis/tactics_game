@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97a7eaf75f711c6428def7cb959b4124, type: 3}
-  m_Name: Electricity Graph
+  m_Name: Wind Graph
   m_EditorClassIdentifier: 
   Id: 6663f2e7-3cd4-4f42-8eb0-b57ad68f3b76
-  Title: Electricity
+  Title: Wind
   AbilityNodes:
   - {fileID: 11400000, guid: 357a36d4c5a91b74284f3ba3897a2193, type: 2}
   - {fileID: 11400000, guid: 5d9e02799f5e7d44d92e360d5c32b7e6, type: 2}

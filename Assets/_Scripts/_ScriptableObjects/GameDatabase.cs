@@ -7,6 +7,9 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
+    public CharacterDatabase CharacterDatabase;
+    public QuestDatabase QuestDatabase;
+
     [Header("Events")]
     [SerializeField] JourneyEvent[] AllEvents;
     public JourneyEvent[] GetAllEvents() { return AllEvents; }
@@ -28,7 +31,6 @@ public class GameDatabase : BaseScriptableObject
     public Brain GetRandomEnemyBrain() { return EnemyBrains[Random.Range(0, EnemyBrains.Length)]; }
 
     [Header("Characters")]
-    public CharacterDatabase CharacterDatabase;
     [SerializeField] Character[] StarterTroops;
     [SerializeField] Equipment[] Bodies;
     [SerializeField] Weapon[] Weapons;
@@ -55,6 +57,7 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] QuestRank[] QuestRanks;
     [SerializeField] RewardChest[] RewardChests;
     [SerializeField] ReportPaper[] ReportPapers;
+    [SerializeField] Element[] Elements;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
@@ -98,8 +101,10 @@ public class GameDatabase : BaseScriptableObject
             index = 5;
 
         return SpiceAnimationSprites[index].sprites;
-
     }
+
+    public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
+    public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
 
     public QuestRank GetQuestRankById(string id) { return QuestRanks.FirstOrDefault(x => x.Id == id); }
     public QuestRank GetRandomQuestRank() { return QuestRanks[Random.Range(0, QuestRanks.Length)]; }
@@ -127,7 +132,7 @@ public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected 
 public enum CampBuildingState { Pending, Started, Finished }
 public enum RecruitState { Pending, Resolved, Expired }
 public enum DashboardBuildingType { Desk, Camp, Abilities }
-
+public enum ElementName { Fire, Water, Wind, Earth }
 
 [System.Serializable]
 public struct PortraitEntry

@@ -101,8 +101,8 @@ public class QuestElement : VisualElement
         _topPanelContainer.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_topPanelContainer);
 
-        _topPanelContainer.Add(new QuestRankElement(_quest.Rank));
         _topPanelContainer.Add(new TextWithTooltip(_quest.Title, _quest.Description));
+        _topPanelContainer.Add(new QuestRankElement(_quest));
     }
 
     void AddBottomPanel()

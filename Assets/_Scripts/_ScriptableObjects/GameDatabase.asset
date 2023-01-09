@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
+  CharacterDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
+  QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   AllEvents:
   - {fileID: 11400000, guid: 028ccc48a13d78d43ace7d0a7a681e65, type: 2}
   - {fileID: 11400000, guid: 09802dd2131dbed41ae54052fd657dc4, type: 2}
@@ -37,7 +39,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0baeb0d6e92eed54697bfc318935f91b, type: 2}
   - {fileID: 11400000, guid: a919a151d9386eb45b16adc0cc7c7341, type: 2}
   - {fileID: 11400000, guid: 8bc22a1c29683204e9f24870b11baac8, type: 2}
-  CharacterDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   StarterTroops:
   - {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
   - {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
@@ -194,6 +195,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e50eca87b4f4f2f468fd04cd700c7474, type: 2}
   - {fileID: 11400000, guid: f129289192ffdb34b88ebd8e492eda5c, type: 2}
   - {fileID: 11400000, guid: b3310462d1342fd4ea8252eaa6126eec, type: 2}
+  Elements:
+  - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   LevelUpAnimationSprites:
   - {fileID: 5199979006384268662, guid: f2090e7888e3f3043b1f5aeeff2e3b79, type: 3}
   - {fileID: -7978211336232270038, guid: f2090e7888e3f3043b1f5aeeff2e3b79, type: 3}

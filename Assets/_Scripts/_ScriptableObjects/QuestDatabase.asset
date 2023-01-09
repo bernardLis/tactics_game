@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5785404b751ad547b7e1f4b7fa690ad, type: 3}
+  m_Name: QuestDatabase
+  m_EditorClassIdentifier: 
+  Id: 0dbf2bc7-2489-45b7-9e83-843089b148ba
+  QuestTitles:
+  - Are You Kitten Me?
+  - Community Feast
+  - Shaking Our Foundations
+  - Encroaching Heat
+  - What a Long, Sweet Trip It's Been
+  - 'The Nokhud Offensive: Founders Keepers'
+  - To Dragonbane Keep!
+  - Calming the Land
+  - The Shadow of His Wings
+  - A Dryadic Remedy
+  - A Head for Metal
+  - Hard Lock Life
+  - To Tame A Thunderspine
+  - Bleeding Hearts
+  - Balance of Power
+  - One Bad Apple
+  - A Dragon's Day Off
+  - Ruriq's River Rapids Ride
+  - An Infusion of Materials
+  - That's My Specialty
+  - 'The Field of Ferocity Redux: Master of the Hunt!'
+  - A Fizzy Fusion
+  - Good Things in Large Boxes
+  - A Whispering Breeze
+  - A Gift for Miguel
+  - 'Sparks of Life: The Waking Shores'
+  - Crystal Quill Pens
+  - 'Artisan''s Supply: Salamanther Scale'
+  - Whack-a-Gnoll
+  - The Master of Their Craft
+  - Hollow
+  - The Ruby Feast!
+  - New Kid on the Clock
+  - Eyes on the Prizes
+  - In Memory of Ysera
+  - 'Aiding the Accord: The Hunt is On'
+  - Tarjin's Tales
+  - Banners, Banners Everywhere!
+  - To Give One's Heart
+  - 'The Nokhud Offensive: The Final Ancestor'
+  - A Finishing Touch
+  - Clans of the Plains
+  - Aiding the Accord
+  - 'Aiding the Accord: A Feast For All'
+  - 'The Field of Ferocity: Terror of the Swamp!'
+  - Artisan's Courier
+  - A Worthy Hunt
+  - Putting the Crunch in the Frog
+  - For The Love of Others
+  - Beyond the Barrier
+  - Theory in Practice
+  - Stay a While
+  - A Ruby Lifecalling
+  - 'Wanted: Ruby Lifeband'
+  - A Cultist's Misgivings
+  - The Power Within
+  - The Bitter End
+  - The Great Shellkhan
+  - 'Vault of the Incarnates: Fury of the Storm-Eater'
+  - By Royal Decree
+  - Targeted Ads
+  - More Than a Prison?
+  - Professionally Equipped
+  - A Quack in Time
+  - The Vigilance of Tyr
+  - Show Your Mettle
+  - Ice Fishing
+  - Retrieve the Discs
+  - Baby Needs Two Pair of Shoes
+  - A Dying World
+  - Climb Every Mountain
+  - The Fields of Ferocity
+  - Jump-Start? Jump-Starting!
+  - Kill the Queen
+  - Loose Ends
+  - 'Sparks of Life: Thaldraszus'
+  - Draconic Defensive
+  - They Took the Kits
+  - The Magic Within
+  - Assault on Broken Shore
+  - A Message Most Dire
+  - Allegiance to One
+  - Keys of Loyalty
+  - Champions of Legionfall
+  - Setting Your Very Own Net
+  - To Fly a Kite
+  - Nowhere to Hide
+  - Storm Surge
+  - 'Sparks of Life: The Azure Span'
+  - A Titan Relic
+  - Eye of the Stormling
+  - Uniting the Isles
+  - Armies of Legionfall
+  - Power Procurement
+  - Tale of Tapionnuq
+  - Home Is Where the Frogs Are
+  - Find Theramus
+  - The Day is Won
+  - The Silver Purpose
+  - Untold Regrets

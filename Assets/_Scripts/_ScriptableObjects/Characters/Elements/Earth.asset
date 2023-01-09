@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 303cc20ba1ecef34aba314b3fc919c7f, type: 3}
+  m_Name: Earth
+  m_EditorClassIdentifier: 
+  Id: f4db1ecb-775a-49a6-b5f0-812dabc79594
+  ElementName: 3
+  Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
+  Color: {r: 0, g: 0.5283019, b: 0.005859393, a: 1}
+  Description: Earth - neutral element.
+  StrongAgainst: {fileID: 0}
+  WeakAgainst: {fileID: 0}

@@ -5,21 +5,29 @@ using UnityEngine.UIElements;
 
 public class QuestRankElement : VisualElement
 {
-    QuestRank _questRank;
-    public QuestRankElement(QuestRank questRank)
+    Quest _quest;
+    public QuestRankElement(Quest quest)
     {
-        _questRank = questRank;
+        _quest = quest;
+        QuestRank questRank = _quest.Rank;
         style.alignItems = Align.Center;
+
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        Add(container);
+
         Label icon = new();
         icon.style.backgroundImage = new StyleBackground(questRank.Icon);
         icon.style.width = 48;
         icon.style.height = 48;
+        container.Add(icon);
 
-        Add(icon);
+        ElementElement element = new(quest.ThreatElement);
+        container.Add(element);
 
-        Label rankTooltip = new($"{_questRank.Description}");
+        Label rankTooltip = new($"{questRank.Description}");
         rankTooltip.style.whiteSpace = WhiteSpace.Normal;
-        Add(new StarRankElement(_questRank.Rank, 0.5f, rankTooltip));
+        Add(new StarRankElement(questRank.Rank, 0.5f, rankTooltip));
     }
 
 }
