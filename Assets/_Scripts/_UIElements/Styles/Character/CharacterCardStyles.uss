@@ -26,6 +26,12 @@
     margin-bottom: 50px;
 }
 
+.character-card__element-position {
+    position: absolute;
+    top: 90px;
+    left: 150px;
+}
+
 .character-card__bottom-panel {
     flex-direction: row;
     align-items: center;

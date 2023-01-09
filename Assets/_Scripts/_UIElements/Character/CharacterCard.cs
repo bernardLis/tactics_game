@@ -30,16 +30,17 @@ public class CharacterCard : VisualElement
 
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "character-card";
-    const string _ussMain = _ussClassName + "__main";
-    const string _ussTopPanel = _ussClassName + "__top-panel";
-    const string _ussPortraitContainer = _ussClassName + "__portrait-container";
-    const string _ussBottomPanel = _ussClassName + "__bottom-panel";
-    const string _ussStatContainer = _ussClassName + "__stat-container";
-    const string _ussExpContainer = _ussClassName + "__exp-container";
-    const string _ussHealthContainer = _ussClassName + "__health-container";
-    const string _ussManaContainer = _ussClassName + "__mana-container";
-    const string _ussOverlay = _ussClassName + "__overlay";
+    const string _ussClassName = "character-card__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussTopPanel = _ussClassName + "top-panel";
+    const string _ussPortraitContainer = _ussClassName + "portrait-container";
+    const string _ussElementPosition = _ussClassName + "element-position";
+    const string _ussBottomPanel = _ussClassName + "bottom-panel";
+    const string _ussStatContainer = _ussClassName + "stat-container";
+    const string _ussExpContainer = _ussClassName + "exp-container";
+    const string _ussHealthContainer = _ussClassName + "health-container";
+    const string _ussManaContainer = _ussClassName + "mana-container";
+    const string _ussOverlay = _ussClassName + "overlay";
 
     public CharacterCard(Character character, bool showExp = true, bool showAbilities = true, bool showItems = true)
     {
@@ -64,21 +65,19 @@ public class CharacterCard : VisualElement
 
         PortraitVisualElement = new(character, this);
         portraitContainer.Add(PortraitVisualElement);
+        ElementElement e = new ElementElement(Character.Element);
+        e.AddToClassList(_ussElementPosition);
+        portraitContainer.Add(e);
 
         _title = new($"[{Character.Rank.Title}] {character.CharacterName}");
-        portraitContainer.Add(_title);
-
-        VisualElement rankAndElementContainer = new();
-        rankAndElementContainer.style.flexDirection = FlexDirection.Row;
-        rankAndElementContainer.Add(new ElementElement(Character.Element));
-        rankAndElementContainer.Add(CreateRankElement());
+        portraitContainer.Add(CreateRankElement());
 
         VisualElement barsContainer = new();
-        barsContainer.Add(rankAndElementContainer);
-        barsContainer.Add(CreateStatGroup());
-        barsContainer.Add(CreateExpGroup());
+        barsContainer.Add(_title);
         barsContainer.Add(CreateHealthGroup());
         barsContainer.Add(CreateManaGroup());
+        barsContainer.Add(CreateExpGroup());
+        barsContainer.Add(CreateStatGroup());
 
         topPanel.Add(portraitContainer);
         topPanel.Add(barsContainer);
@@ -102,7 +101,7 @@ public class CharacterCard : VisualElement
     void OnRankChanged(CharacterRank rank)
     {
         _rankElement.SetRank(rank.Rank);
-        _title.text = $"{rank.Title}";
+        _title.text = $"[{rank.Title}] {Character.CharacterName}";
     }
 
     VisualElement CreateRankElement()

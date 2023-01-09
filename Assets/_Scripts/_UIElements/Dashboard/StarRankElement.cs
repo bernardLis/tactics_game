@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Threading.Tasks;
 
 public class StarRankElement : ElementWithTooltip
 {
@@ -11,7 +12,11 @@ public class StarRankElement : ElementWithTooltip
 
     const string _ussClassName = "star-rank-element";
     const string _ussStar = _ussClassName + "__star";
+    const string _ussStarGold = _ussClassName + "__star-gold";
     const string _ussStarGray = _ussClassName + "__star-gray";
+
+    const string _ussEffect = _ussClassName + "__effect";
+
 
     public StarRankElement(int rank, float scale = 1f, VisualElement tooltip = null)
     {
@@ -26,6 +31,7 @@ public class StarRankElement : ElementWithTooltip
         for (int i = 0; i < 5; i++)
         {
             VisualElement star = new();
+            star.AddToClassList(_ussStar);
             star.AddToClassList(_ussStarGray);
             Add(star);
             stars.Add(star);
@@ -48,17 +54,21 @@ public class StarRankElement : ElementWithTooltip
         SetRank(_rank);
     }
 
-    public void SetRank(int rank)
+    public async void SetRank(int rank)
     {
         for (int i = 0; i < stars.Count; i++)
         {
             VisualElement star = stars[i];
-            star.RemoveFromClassList(_ussStar);
+            star.AddToClassList(_ussStarGray);
+            star.RemoveFromClassList(_ussStarGold);
+            star.AddToClassList(_ussEffect);
             if (i < rank)
             {
                 star.RemoveFromClassList(_ussStarGray);
-                star.AddToClassList(_ussStar);
+                star.AddToClassList(_ussStarGold);
             }
+            await Task.Delay(100);
+            star.RemoveFromClassList(_ussEffect);
         }
     }
 
