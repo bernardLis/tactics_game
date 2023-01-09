@@ -17,6 +17,7 @@ public class Character : BaseScriptableObject
     [Header("Stats")]
     public int Level;
     public int Experience;
+    public Element Element;
 
     public int MaxHealth;
     public int MaxMana;
@@ -25,11 +26,11 @@ public class Character : BaseScriptableObject
     public int MovementRange;
 
     // set by items, for now used only in the shop
-    public int PowerBonus;
-    public int MaxHealthBonus;
-    public int MaxManaBonus;
-    public int ArmorBonus;
-    public int MovementRangeBonus;
+    public int PowerBonus { get; private set; }
+    public int MaxHealthBonus { get; private set; }
+    public int MaxManaBonus { get; private set; }
+    public int ArmorBonus { get; private set; }
+    public int MovementRangeBonus { get; private set; }
 
     [Header("Equipment")]
     public Equipment Body;
@@ -196,7 +197,7 @@ public class Character : BaseScriptableObject
                 MovementRangeBonus += item.Value;
         }
 
-        
+
     }
 
     public void SetUnavailable(int days)
@@ -253,7 +254,6 @@ public class Character : BaseScriptableObject
 
     public void InitializeStarterTroops()
     {
-        Debug.Log($"initliazie starter troops");
         _gameManager = GameManager.Instance;
         UpdateRank();
     }
@@ -274,6 +274,7 @@ public class Character : BaseScriptableObject
 
         Level = 1;
         Experience = 0;
+        Element = _gameManager.GameDatabase.GetRandomElement();
 
         MaxHealth = 100;
         MaxMana = 30;
@@ -311,6 +312,7 @@ public class Character : BaseScriptableObject
 
         Level = data.Level;
         Experience = data.Experience;
+        Element = _gameManager.GameDatabase.GetElementByName((ElementName)System.Enum.Parse(typeof(ElementName), data.Element));
         Power = data.Power;
         MaxHealth = data.MaxHealth;
         MaxMana = data.MaxMana;
@@ -347,6 +349,8 @@ public class Character : BaseScriptableObject
         data.Portrait = Portrait.Id;
         data.Level = Level;
         data.Experience = Experience;
+        data.Element = Element.ElementName.ToString();
+
         data.Power = Power;
         data.MaxHealth = MaxHealth;
         data.MaxMana = MaxMana;
@@ -385,6 +389,7 @@ public struct CharacterData
     public string Portrait;
     public int Level;
     public int Experience;
+    public string Element;
     public int Power;
     public int MaxHealth;
     public int MaxMana;

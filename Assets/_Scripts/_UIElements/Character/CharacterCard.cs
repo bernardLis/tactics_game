@@ -68,9 +68,13 @@ public class CharacterCard : VisualElement
         _title = new($"[{Character.Rank.Title}] {character.CharacterName}");
         portraitContainer.Add(_title);
 
-        portraitContainer.Add(CreateRankElement());
+        VisualElement rankAndElementContainer = new();
+        rankAndElementContainer.style.flexDirection = FlexDirection.Row;
+        rankAndElementContainer.Add(new ElementElement(Character.Element));
+        rankAndElementContainer.Add(CreateRankElement());
 
         VisualElement barsContainer = new();
+        barsContainer.Add(rankAndElementContainer);
         barsContainer.Add(CreateStatGroup());
         barsContainer.Add(CreateExpGroup());
         barsContainer.Add(CreateHealthGroup());
