@@ -12,6 +12,11 @@
     height: 50px;
 }
 
+.gold-element__value {
+    width: 50px;
+}
+
+
 .gold-element__clickable {
     flex-direction: row;
     align-items: center;

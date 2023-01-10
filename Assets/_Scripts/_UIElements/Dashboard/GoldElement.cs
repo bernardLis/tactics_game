@@ -15,10 +15,12 @@ public class GoldElement : VisualElement
 
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "gold-element";
-    const string _ussMain = _ussClassName + "__main";
-    const string _ussIcon = _ussClassName + "__icon";
-    const string _ussClickable = _ussClassName + "__clickable";
+    const string _ussClassName = "gold-element__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussIcon = _ussClassName + "icon";
+    const string _ussValue = _ussClassName + "value";
+
+    const string _ussClickable = _ussClassName + "clickable";
 
     public GoldElement(int amount, bool isClickable = false)
     {
@@ -42,6 +44,7 @@ public class GoldElement : VisualElement
 
         _text = new();
         _text.AddToClassList(_ussCommonTextPrimary);
+        _text.AddToClassList(_ussValue);
         _text.text = Amount.ToString();
         Add(_text);
 
