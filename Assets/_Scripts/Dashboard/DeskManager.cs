@@ -226,6 +226,8 @@ public class DeskManager : Singleton<DeskManager>
             el = (ShopReportElement)new(_reportsContainer, report) as ShopReportElement;
         if (report.ReportType == ReportType.Pawnshop)
             el = (PawnshopReportElement)new(_reportsContainer, report) as PawnshopReportElement;
+        if (report.ReportType == ReportType.Ability)
+            el = (AbilityReportElement)new(_reportsContainer, report) as AbilityReportElement;
 
         el.style.position = Position.Absolute;
         el.OnReportDismissed += OnReportDismissed;

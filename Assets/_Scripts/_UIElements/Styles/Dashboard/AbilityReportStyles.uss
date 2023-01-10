@@ -1,0 +1,53 @@
+
+.shop__item-container{
+    flex-direction: row;
+}
+
+.shop__item {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.shop__bottom-panel{
+    flex-direction: row;
+}
+
+.shop__reroll-container {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-image: none;
+}
+
+.shop__reroll-button {
+    width: 100px;
+    height: 100px;
+    background-image: resource('500_resources/Quest_85');
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.shop__reroll-button:hover {
+    scale: 1.1 1.1;
+    rotate: 50deg;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.shop__reroll-button:active {
+    transition-duration: 0.5s;
+    rotate: 270deg;
+    scale: 0.95 0.95;
+    transition-timing-function: ease-in-out;
+}

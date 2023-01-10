@@ -5,6 +5,8 @@ using System;
 
 public class Report : BaseScriptableObject
 {
+    GameManager _gameManager;
+
     public ReportType ReportType;
     public ReportPaper ReportPaper;
     public Vector2 Position;
@@ -14,12 +16,13 @@ public class Report : BaseScriptableObject
     public string Text;
     public string CampBuildingId;
     public Shop Shop;
+    public Ability Ability;
 
     public bool IsSigned;
     public int DaySigned;
     public bool WasAccepted;
 
-    public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null, string campBuildingId = null, Shop shop = null)
+    public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null, string campBuildingId = null, Shop shop = null, Ability ability = null)
     {
         ReportType = type;
         ReportPaper = GameManager.Instance.GameDatabase.GetRandomReportPaper();
@@ -29,6 +32,7 @@ public class Report : BaseScriptableObject
         Text = text;
         CampBuildingId = campBuildingId;
         Shop = shop;
+        Ability = ability;
     }
 
     public void Sign()
@@ -39,6 +43,8 @@ public class Report : BaseScriptableObject
 
     public void CreateFromData(ReportData data)
     {
+        _gameManager = GameManager.Instance;
+
         ReportType = (ReportType)System.Enum.Parse(typeof(ReportType), data.ReportType);
         ReportPaper = GameManager.Instance.GameDatabase.GetReportPaperById(data.ReportPaperId);
         Position = data.Position;
@@ -65,6 +71,11 @@ public class Report : BaseScriptableObject
         {
             Shop = ScriptableObject.CreateInstance<Shop>();
             Shop.LoadFromData(data.ShopData);
+        }
+        if (ReportType == ReportType.Ability)
+        {
+            Ability = Instantiate(_gameManager.GameDatabase.GetAbilityById(data.AbilityData.TemplateId));
+            Ability.name = data.AbilityData.Name;
         }
 
         IsSigned = data.IsSigned;
@@ -95,6 +106,9 @@ public class Report : BaseScriptableObject
         if (Shop != null)
             rd.ShopData = Shop.SerializeSelf();
 
+        if (Ability != null)
+            rd.AbilityData = Ability.SerializeSelf();
+
         rd.IsSigned = IsSigned;
         rd.DaySigned = DaySigned;
         rd.WasAccepted = WasAccepted;
@@ -115,6 +129,7 @@ public struct ReportData
     public string Text;
     public string CampBuildingId;
     public ShopData ShopData;
+    public AbilityData AbilityData;
 
     public bool IsSigned;
     public int DaySigned;

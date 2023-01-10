@@ -262,11 +262,10 @@ public class AbilityCraftManager : MonoBehaviour
         _gameManager.ChangeSpiceValue(-_abilityNode.GetSpiceCostByStars(_numberOfStars));
 
         Ability craftedAbility = _abilityNode.CreateAbility(_numberOfStars, _craftAbilityName.value);
-        _gameManager.AddAbilityToPouch(craftedAbility);
-        _gameManager.SaveJsonData();
+        CreateReport(craftedAbility);
 
         _craftAbilityCraftedAbilityContainer.Clear();
-        Label header = new("Your ability will be available in armory. This is what you have created:");
+        Label header = new("Your ability will be available in desk. This is what you have created:");
         header.style.whiteSpace = WhiteSpace.Normal;
         AbilityButton button = new(craftedAbility);
         _craftAbilityCraftedAbilityContainer.Add(header);
@@ -280,6 +279,15 @@ public class AbilityCraftManager : MonoBehaviour
         worldPos.z = 0;
 
         _abilityNode.AbilityCraftedEffect.PlayEffect(worldPos, _abilityNode.AbilityCraftedEffectScale);
+    }
+
+    void CreateReport(Ability craftedAbility)
+    {
+        Report report = ScriptableObject.CreateInstance<Report>();
+        report.Initialize(ReportType.Ability, null, null, null, null, null, craftedAbility);
+        _gameManager.AddNewReport(report);
+        _gameManager.SaveJsonData();
+
     }
 
     void DiscardAbility()

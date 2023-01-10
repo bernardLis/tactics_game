@@ -199,7 +199,6 @@ public abstract class Ability : BaseScriptableObject
         return $"Yes, scale: {AreaOfEffect}";
     }
 
-
     public AbilityData SerializeSelf()
     {
         AbilityData data = new();
@@ -209,7 +208,6 @@ public abstract class Ability : BaseScriptableObject
 
         return data;
     }
-
 }
 
 [Serializable]
