@@ -31,8 +31,7 @@ public class Quest : BaseScriptableObject
     public bool IsWon;
 
     public int DayStarted;
-    //[HideInInspector] // HERE: test battle
-    public List<Character> AssignedCharacters = new();
+    [HideInInspector] public List<Character> AssignedCharacters = new();
 
     GameManager _gameManager;
 

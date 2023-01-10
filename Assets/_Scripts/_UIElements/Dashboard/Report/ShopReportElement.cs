@@ -7,10 +7,14 @@ public class ShopReportElement : ReportElement
 {
     Shop _shop;
     VisualElement _itemContainer;
+    List<VisualElement> _shopItemContainers = new();
+    List<ItemSlot> _itemSlots = new();
+
     Label _durationLabel;
 
     GoldElement _rerollPriceGoldElement;
 
+    int _numberOfItems = 2;
 
     const string _ussClassName = "shop";
     const string _ussItemContainer = _ussClassName + "__item-container";
@@ -34,6 +38,8 @@ public class ShopReportElement : ReportElement
         _itemContainer = new();
         _itemContainer.AddToClassList(_ussItemContainer);
         _reportContents.Add(_itemContainer);
+
+
         ShowShopItems();
 
         VisualElement bottomPanel = new();
@@ -58,24 +64,33 @@ public class ShopReportElement : ReportElement
     void ShowShopItems()
     {
         _itemContainer.Clear();
-        foreach (var item in _report.Shop.Items)
+        _itemSlots.Clear();
+        _shopItemContainers.Clear();
+
+        for (int i = 0; i < _numberOfItems; i++)
         {
-            // so here I want 3 item slots that are filled with items 
+            ItemSlot slot = new();
+            _itemSlots.Add(slot);
+
             VisualElement container = new();
             container.AddToClassList(_ussItem);
+            container.Add(slot);
+            _shopItemContainers.Add(container);
+            _itemContainer.Add(container);
+        }
 
-            ItemElement itemElement = new(item, this);
-            ItemSlot itemSlot = new();
-            itemSlot.AddItem(itemElement);
+        for (int i = 0; i < _report.Shop.Items.Count; i++)
+        {
+            if (i > _numberOfItems) // only so much space in the shop
+                return;
+
+            ItemElement itemElement = new(_report.Shop.Items[i], this);
+            _itemSlots[i].AddItem(itemElement);
+            _shopItemContainers[i].Add(new GoldElement(_report.Shop.Items[i].Price));
 
             DraggableItems draggables = _deskManager.GetComponent<DraggableItems>();
             if (draggables != null)
                 draggables.AddDraggableItem(itemElement);
-
-            container.Add(itemSlot);
-            container.Add(new GoldElement(item.Price));
-
-            _itemContainer.Add(container);
         }
     }
 
