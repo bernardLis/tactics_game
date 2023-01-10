@@ -22,7 +22,7 @@ public class QuestRankElement : VisualElement
         icon.style.height = 48;
         container.Add(icon);
 
-        ElementElement element = new(quest.ThreatElement);
+        ElementalElement element = new(quest.ThreatElement);
         container.Add(element);
 
         Label rankTooltip = new($"{questRank.Description}");

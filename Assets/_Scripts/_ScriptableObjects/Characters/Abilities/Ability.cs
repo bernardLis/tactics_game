@@ -12,6 +12,7 @@ public abstract class Ability : BaseScriptableObject
     public int BasePower;
     public int ManaCost;
     public AbilityType AbilityType;
+    public Element Element;
     public WeaponType WeaponType; // abilities have weapons that can use them
 
     [Header("AOE Characteristics")]

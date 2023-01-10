@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Fire Touch 1
   m_EditorClassIdentifier: 
   Id: 213124fb-071c-4436-afd0-2a03722d1d99
-  ReferenceID: 
   Description: Sets target tile on fire.
   Icon: {fileID: 21300000, guid: b5dd35b758bb4ee4eb328af6e8f13b6c, type: 3}
   Sound: {fileID: 11400000, guid: 5f6cb250e5c50f448b54cfdb6a2702ec, type: 2}
   BasePower: 20
   ManaCost: 10
   AbilityType: 5
+  Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   WeaponType: 0
   AreaOfEffect: 0
   LineAreaOfEffect: 0

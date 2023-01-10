@@ -94,7 +94,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 06dac8c48602d3f4e859c4ff45cfa55f
-    m_Address: ElementElementStyles
+    m_Address: ElementalElementStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 27b95a083abeef74588b14faf61ce37e
+    m_Address: AbilityTooltipElement
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

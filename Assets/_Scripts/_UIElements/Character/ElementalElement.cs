@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ElementElement : ElementWithTooltip
+public class ElementalElement : ElementWithTooltip
 {
     Element _element;
 
-    const string _ussClassName = "element-element";
-    const string _ussIcon = _ussClassName + "__icon";
+    const string _ussClassName = "elemental-element__";
+    const string _ussIcon = _ussClassName + "icon";
 
-    public ElementElement(Element element)
+    public ElementalElement(Element element)
     {
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ElementElementStyles);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ElementalElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

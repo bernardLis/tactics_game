@@ -65,7 +65,7 @@ public class CharacterCard : VisualElement
 
         PortraitVisualElement = new(character, this);
         portraitContainer.Add(PortraitVisualElement);
-        ElementElement e = new ElementElement(Character.Element);
+        ElementalElement e = new ElementalElement(Character.Element);
         e.AddToClassList(_ussElementPosition);
         portraitContainer.Add(e);
 

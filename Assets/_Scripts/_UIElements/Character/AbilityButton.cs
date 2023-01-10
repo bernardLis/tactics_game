@@ -10,11 +10,8 @@ public class AbilityButton : ElementWithSound
 
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "ability-button";
-
-    const string _ussMain = _ussClassName + "__main";
-    const string _ussStat = _ussClassName + "__stat";
-    const string _ussContainer = _ussClassName + "__container";
+    const string _ussClassName = "ability-button__";
+    const string _ussMain = _ussClassName + "main";
 
     public AbilityButton(Ability ability, string key = null) : base()
     {
@@ -34,30 +31,6 @@ public class AbilityButton : ElementWithSound
 
         _icon = new AbilityIcon(ability, key);
         Add(_icon);
-
-        TextWithTooltip baseDamage = new TextWithTooltip("" + Ability.BasePower, "Base damage");
-        baseDamage.AddToClassList(_ussStat);
-
-        TextWithTooltip manaCost = new TextWithTooltip("" + Ability.ManaCost, "Mana cost");
-        manaCost.AddToClassList(_ussStat);
-
-        VisualElement container = new();
-        container.AddToClassList(_ussContainer);
-        Add(container);
-
-        container.Add(baseDamage);
-        container.Add(manaCost);
-
-        if (ability.StatModifier != null)
-        {
-            ModifierElement modifier = new(ability.StatModifier);
-            container.Add(modifier);
-        }
-        if (ability.Status != null)
-        {
-            ModifierElement status = new(ability.Status);
-            container.Add(status);
-        }
     }
 
 }

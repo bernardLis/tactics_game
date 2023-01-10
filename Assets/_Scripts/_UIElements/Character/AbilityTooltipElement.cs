@@ -2,56 +2,64 @@ using UnityEngine.UIElements;
 public class AbilityTooltipElement : ElementWithTooltip
 {
     Ability _ability;
-
-    Label _name;
-    Label _description;
-    Label _baseDamage;
-    Label _manaCost;
-    Label _range;
-    Label _aoe;
-    StarRankElement _rank;
     VisualElement _modifierContainer;
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonTextSecondary = "common__text-secondary";
+
+    const string _ussClassName = "ability-tooltip-element__";
+    const string _ussMain = _ussClassName + "main";
 
     public AbilityTooltipElement(Ability ability)
     {
-        style.alignSelf = Align.Stretch;
-        style.alignItems = Align.Center;
+        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityTooltipElementStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
 
         _ability = ability;
+        AddToClassList(_ussMain);
 
-        _name = new(Helpers.ParseScriptableObjectCloneName(ability.name));
-        _name.AddToClassList("textPrimary");
-        _name.style.alignSelf = Align.Center;
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
 
-        _description = new(ability.Description);
-        _description.AddToClassList("textSecondary");
-        _description.style.whiteSpace = WhiteSpace.Normal;
+        Label name = new(Helpers.ParseScriptableObjectCloneName(ability.name));
+        name.AddToClassList(_ussCommonTextPrimary);
+        name.style.alignSelf = Align.Center;
+        container.Add(new ElementalElement(ability.Element));
+        container.Add(name);
 
-        _baseDamage = new("Base power: " + ability.BasePower);
-        _baseDamage.AddToClassList("textSecondary");
+        Label description = new(ability.Description);
+        description.AddToClassList(_ussCommonTextSecondary);
+        description.style.whiteSpace = WhiteSpace.Normal;
 
-        _manaCost = new("Mana cost: " + ability.ManaCost.ToString());
-        _manaCost.AddToClassList("textSecondary");
+        Label baseDamage = new("Base power: " + ability.BasePower);
+        baseDamage.AddToClassList(_ussCommonTextSecondary);
 
-        _range = new("Range: " + ability.Range);
-        _range.AddToClassList("textSecondary");
+        Label manaCost = new("Mana cost: " + ability.ManaCost.ToString());
+        manaCost.AddToClassList(_ussCommonTextSecondary);
 
-        _aoe = new("AOE: " + ability.GetAOEDescription());
-        _aoe.AddToClassList("textSecondary");
+        Label range = new("Range: " + ability.Range);
+        range.AddToClassList(_ussCommonTextSecondary);
 
-        _rank = new(ability.Rank, 0.5f);
+        Label aoe = new("AOE: " + ability.GetAOEDescription());
+        aoe.AddToClassList(_ussCommonTextSecondary);
+
+        StarRankElement rank = new(ability.Rank, 0.5f);
 
         _modifierContainer = new();
         _modifierContainer.AddToClassList("modifierContainer");
         HandleModifiers(ability);
 
-        Add(_name);
-        Add(_rank);
-        Add(_description);
-        Add(_baseDamage);
-        Add(_manaCost);
-        Add(_range);
-        Add(_aoe);
+        Add(container);
+        Add(rank);
+        Add(description);
+        Add(baseDamage);
+        Add(manaCost);
+        Add(range);
+        Add(aoe);
         Add(_modifierContainer);
     }
 
