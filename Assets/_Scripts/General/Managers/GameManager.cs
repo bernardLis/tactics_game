@@ -24,10 +24,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public int TroopsLimit { get; private set; }
     public List<Character> PlayerTroops = new();
-    //[HideInInspector] 
-    public List<Item> PlayerItemPouch = new();
-    //[HideInInspector] 
-    public List<Ability> PlayerAbilityPouch = new();
+    [HideInInspector] public List<Item> PlayerItemPouch = new();
+
+    [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
+
 
     public List<Report> Reports = new();
     public List<Report> ReportsArchived = new();
@@ -217,6 +217,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void AddAbilityToPouch(Ability ability)
     {
+        ability.IsPouch = true;
         PlayerAbilityPouch.Add(ability);
         SaveJsonData();
     }
@@ -442,6 +443,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         {
             Ability a = Instantiate(GameDatabase.GetAbilityById(abilityData.TemplateId));
             a.name = abilityData.Name;
+            a.DeskPosition = abilityData.DeskPosition;
+            a.IsPouch = true;
             PlayerAbilityPouch.Add(a);
         }
 

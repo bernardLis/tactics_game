@@ -245,7 +245,6 @@ public class DraggableItems : MonoBehaviour
         if (closestCard.Character.CanTakeAnotherItem())
         {
             closestCard.Character.AddItem(_draggedItem.Item);
-            _gameManager.RemoveItemFromPouch(_draggedItem.Item);
             DragCleanUp();
             return;
         }

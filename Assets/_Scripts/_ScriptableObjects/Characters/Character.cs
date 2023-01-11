@@ -131,6 +131,7 @@ public class Character : BaseScriptableObject
 
     public void AddAbility(Ability ability)
     {
+        ability.IsPouch = false;
         Abilities.Add(ability);
         UpdateRank();
     }
@@ -142,6 +143,8 @@ public class Character : BaseScriptableObject
     }
 
     public bool CanTakeAnotherItem() { return Items.Count < 2; }
+
+    public bool CanTakeAnotherAbility() { return Abilities.Count < 2; }
 
     public void ClearItems() { Items = new(); }
 
@@ -196,8 +199,6 @@ public class Character : BaseScriptableObject
             if (item.InfluencedStat == StatType.MovementRange)
                 MovementRangeBonus += item.Value;
         }
-
-
     }
 
     public void SetUnavailable(int days)

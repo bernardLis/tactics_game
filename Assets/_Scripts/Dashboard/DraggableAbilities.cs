@@ -153,6 +153,7 @@ public class DraggableAbilities : MonoBehaviour
         SetDraggedAbilityPosition(new Vector2(_dragDropContainer.style.left.value.value,
              _dragDropContainer.style.top.value.value - _abilityContainer.worldBound.y));
         DragCleanUp();
+        _gameManager.SaveJsonData();
     }
 
     void AddAbilityToClosestSlot(IEnumerable<AbilitySlot> slots)
@@ -185,10 +186,9 @@ public class DraggableAbilities : MonoBehaviour
         VisualElement closesEl = overlappingCards.OrderBy(x => Vector2.Distance
                          (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
         CharacterCardMini closestCard = (CharacterCardMini)closesEl;
-        if (closestCard.Character.CanTakeAnotherItem())
+        if (closestCard.Character.CanTakeAnotherAbility())
         {
             closestCard.Character.AddAbility(_draggedAbility.Ability);
-            _gameManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
             DragCleanUp();
             return;
         }

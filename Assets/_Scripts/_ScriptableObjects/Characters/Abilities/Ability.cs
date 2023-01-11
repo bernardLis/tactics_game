@@ -15,6 +15,7 @@ public abstract class Ability : BaseScriptableObject
     public Element Element;
     public WeaponType WeaponType; // abilities have weapons that can use them
     public Vector2 DeskPosition;
+    public bool IsPouch;
 
     [Header("AOE Characteristics")]
     [Tooltip("0 is one tile, 1 is a cross.")]
@@ -205,7 +206,6 @@ public abstract class Ability : BaseScriptableObject
     public AbilityData SerializeSelf()
     {
         AbilityData data = new();
-
         data.TemplateId = Id;
         data.DeskPosition = DeskPosition;
         data.Name = name;
