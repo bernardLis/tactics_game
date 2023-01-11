@@ -29,6 +29,8 @@ public class DashboardManager : Singleton<DashboardManager>
     VisualElement _mainCamp;
     VisualElement _mainAbilities;
 
+    DashboardBuildingType _openBuilding = DashboardBuildingType.Desk;
+
     public event Action OnDeskOpened;
     public event Action OnCampOpened;
     public event Action OnAbilitiesOpened;
@@ -227,6 +229,11 @@ public class DashboardManager : Singleton<DashboardManager>
     {
         if (!IsValidAction(ctx))
             return;
+
+        if (_openBuilding == DashboardBuildingType.Desk)
+            return;
+        _openBuilding = DashboardBuildingType.Desk;
+
         BaseBuildingOpened();
         _mainDesk.style.display = DisplayStyle.Flex;
         OnDeskOpened?.Invoke();
@@ -236,6 +243,11 @@ public class DashboardManager : Singleton<DashboardManager>
     {
         if (!IsValidAction(ctx))
             return;
+
+        if (_openBuilding == DashboardBuildingType.Abilities)
+            return;
+        _openBuilding = DashboardBuildingType.Abilities;
+
         BaseBuildingOpened();
 
         _mainAbilities.style.display = DisplayStyle.Flex;
@@ -246,6 +258,10 @@ public class DashboardManager : Singleton<DashboardManager>
     {
         if (!IsValidAction(ctx))
             return;
+
+        if (_openBuilding == DashboardBuildingType.Camp)
+            return;
+        _openBuilding = DashboardBuildingType.Camp;
 
         BaseBuildingOpened();
 

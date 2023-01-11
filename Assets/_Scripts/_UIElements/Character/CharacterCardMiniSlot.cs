@@ -12,6 +12,7 @@ public class CharacterCardMiniSlot : ElementWithSound
     public CharacterCardMini Card;
 
     public bool IsLocked { get; private set; }
+    bool _hasCard;
 
     public event Action<CharacterCardMini> OnCardAdded;
     public event Action<CharacterCardMini> OnCardRemoved;
@@ -21,7 +22,6 @@ public class CharacterCardMiniSlot : ElementWithSound
     const string _ussClassName = "character-card-mini-slot";
     const string _ussMain = _ussClassName + "__main";
     const string _ussLocked = _ussClassName + "__locked";
-
 
     public CharacterCardMiniSlot(CharacterCardMini card = null, bool isLocked = false) : base()
     {
@@ -38,10 +38,12 @@ public class CharacterCardMiniSlot : ElementWithSound
             Lock();
     }
 
+    public bool IsSlotEmpty() { return !_hasCard; }
+
     public void AddCard(CharacterCardMini card)
     {
-        Debug.Log($"add card: {card.Character.name}");
         Card = card;
+        _hasCard = true;
         card.Slotted();
         Add(card);
 
@@ -54,7 +56,7 @@ public class CharacterCardMiniSlot : ElementWithSound
     {
         Card.Unslotted();
         OnCardRemoved?.Invoke(Card);
-        Card = null;
+        _hasCard = false;
         Clear();
     }
 
@@ -62,7 +64,7 @@ public class CharacterCardMiniSlot : ElementWithSound
     {
         IsLocked = true;
         OnLocked?.Invoke(this);
-        if (Card != null)
+        if (Card != null && _hasCard)
             Card.Lock();
 
         RemoveFromClassList(_ussMain);

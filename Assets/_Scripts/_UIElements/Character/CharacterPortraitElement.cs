@@ -43,10 +43,7 @@ public class CharacterPortraitElement : VisualElement
         Add(_frame);
     }
 
-    void UpdateFrame(CharacterRank rank)
-    {
-        _frame.style.backgroundImage = new StyleBackground(rank.PortraitBorder);
-    }
+    void UpdateFrame(CharacterRank rank) { _frame.style.backgroundImage = new StyleBackground(rank.PortraitBorder); }
 
     public void Slotted()
     {

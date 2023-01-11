@@ -307,7 +307,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
-            Debug.Log("Save successful");
+            return;//Debug.Log("Save successful");
     }
 
     // TODO: prime suspect for a rewrite

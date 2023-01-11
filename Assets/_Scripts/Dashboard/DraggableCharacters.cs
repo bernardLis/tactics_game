@@ -20,13 +20,14 @@ public class DraggableCharacters : MonoBehaviour
     CharacterCardMini _draggedCard;
 
     List<CharacterCardMiniSlot> _allSlots = new();
+    bool _wasInitialized;
 
     public void Initialize(VisualElement root, VisualElement cardContainer)
     {
-        Debug.Log($"initialize");
         _root = root;
         _cardContainer = cardContainer;
 
+        _allSlots = new();
         List<VisualElement> slots = root.Query(className: "character-card-mini-slot__main").ToList();
         foreach (VisualElement item in slots)
             AddDraggableSlot((CharacterCardMiniSlot)item);
@@ -114,7 +115,6 @@ public class DraggableCharacters : MonoBehaviour
 
     void OnPointerUp(PointerUpEvent evt)
     {
-        Debug.Log($"pointer up character");
         if (!IsDragging)
             return;
 
@@ -131,8 +131,6 @@ public class DraggableCharacters : MonoBehaviour
         //Didn't find any (dragged off the window)
         if (slots.Count() == 0)
         {
-            if (_originalSlot != null)
-                _originalSlot.RemoveCard();
             _cardContainer.Add(_draggedCard);
             SetDraggedCardPosition(new Vector2(_dragDropContainer.style.left.value.value,
                 _dragDropContainer.style.top.value.value - _cardContainer.worldBound.y));
@@ -151,7 +149,7 @@ public class DraggableCharacters : MonoBehaviour
             return;
         }
 
-        if (_newSlot.Card != null)
+        if (!_newSlot.IsSlotEmpty())
         {
             ReturnCardToContainer(_newSlot.Card);
             _newSlot.RemoveCard();
@@ -159,7 +157,6 @@ public class DraggableCharacters : MonoBehaviour
             DragCleanUp();
             return;
         }
-
         _newSlot.AddCard(_draggedCard);
         DragCleanUp();
     }
@@ -197,6 +194,7 @@ public class DraggableCharacters : MonoBehaviour
         IsDragging = false;
         _draggedCard.Dropped();
 
+        _newSlot = null;
         _originalSlot = null;
         _draggedCard = null;
 

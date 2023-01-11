@@ -324,21 +324,6 @@ public class QuestElement : VisualElement
         UpdateSuccessChanceLabel();
         UpdateActionButton();
     }
-    /*
-        bool IsPlayerAssigned()
-        {
-            foreach (CharacterCardMiniSlot slot in _cardSlots)
-            {
-                if (slot.Card == null)
-                    continue;
-                Debug.Log($"slot.Card.Character.name: {}");
-
-                if (slot.Card.Character == _gameManager.PlayerTroops[0]) // TODO: incorrect
-                    return true;
-            }
-            return false;
-        }
-        */
 
     void StartBattle() { _gameManager.StartBattle(_quest); }
 
