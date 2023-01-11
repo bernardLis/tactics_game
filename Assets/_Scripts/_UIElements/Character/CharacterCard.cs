@@ -211,26 +211,28 @@ public class CharacterCard : VisualElement
         container.style.flexDirection = FlexDirection.Row;
         int slotCount = Character.GetNumberOfAbilitySlots();
 
-        if (slotCount < Character.Abilities.Count)
-            slotCount = Character.Abilities.Count;
-
         for (int i = 0; i < slotCount; i++)
         {
             AbilitySlot abilitySlot = new();
             abilitySlot.Character = Character;
             AbilitySlots.Add(abilitySlot);
             container.Add(abilitySlot);
+            abilitySlot.OnAbilityAdded += OnAbilityAdded;
+            abilitySlot.OnAbilityRemoved += OnAbilityRemoved;
         }
 
         for (int i = 0; i < Character.Abilities.Count; i++)
         {
             AbilityButton abilityButton = new AbilityButton(Character.Abilities[i], null);
-            AbilitySlots[i].AddButton(abilityButton);
+            AbilitySlots[i].AddButtonNoDelegates(abilityButton);
             AbilityButtons.Add(abilityButton);
         }
 
         return container;
     }
+
+    void OnAbilityAdded(AbilityButton abilityButton) { Character.AddAbility(abilityButton.Ability); }
+    void OnAbilityRemoved(AbilityButton abilityButton) { Character.RemoveAbility(abilityButton.Ability); }
 
     void AvailabilityCheck()
     {

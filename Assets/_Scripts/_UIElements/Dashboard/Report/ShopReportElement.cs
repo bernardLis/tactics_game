@@ -39,7 +39,6 @@ public class ShopReportElement : ReportElement
         _itemContainer.AddToClassList(_ussItemContainer);
         _reportContents.Add(_itemContainer);
 
-
         ShowShopItems();
 
         VisualElement bottomPanel = new();

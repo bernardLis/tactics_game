@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class AbilitySlot : ElementWithSound
     const string _ussClassName = "ability-slot";
     const string _ussMain = _ussClassName + "__main";
 
+    public event Action<AbilityButton> OnAbilityAdded;
+    public event Action<AbilityButton> OnAbilityRemoved;
     public AbilitySlot(AbilityButton abilityButton = null) : base()
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilitySlotStyles);
@@ -29,13 +32,22 @@ public class AbilitySlot : ElementWithSound
 
     public void AddButton(AbilityButton abilityButton)
     {
-        AbilityButton = abilityButton;
-        Add(abilityButton);
+        AddButtonNoDelegates(abilityButton);
         PlayClick();
+        OnAbilityAdded?.Invoke(abilityButton);
+    }
+
+    public void AddButtonNoDelegates(AbilityButton abilityButton)
+    {
+        AbilityButton = abilityButton;
+        PlayClick();
+        abilityButton.style.position = Position.Relative;
+        Add(abilityButton);
     }
 
     public void RemoveButton()
     {
+        OnAbilityRemoved?.Invoke(AbilityButton);
         Clear();
         AbilityButton = null;
     }

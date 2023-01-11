@@ -213,9 +213,17 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    public void AddAbilityToPouch(Ability ability) { PlayerAbilityPouch.Add(ability); }
+    public void AddAbilityToPouch(Ability ability)
+    {
+        PlayerAbilityPouch.Add(ability);
+        SaveJsonData();
+    }
 
-    public void RemoveAbilityFromPouch(Ability ability) { PlayerAbilityPouch.Remove(ability); }
+    public void RemoveAbilityFromPouch(Ability ability)
+    {
+        PlayerAbilityPouch.Remove(ability);
+        SaveJsonData();
+    }
 
     /* LEVELS */
     public void SetWasTutorialPlayed(bool was)

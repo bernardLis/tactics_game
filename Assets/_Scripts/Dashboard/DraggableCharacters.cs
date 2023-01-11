@@ -23,6 +23,7 @@ public class DraggableCharacters : MonoBehaviour
 
     public void Initialize(VisualElement root, VisualElement cardContainer)
     {
+        Debug.Log($"initialize");
         _root = root;
         _cardContainer = cardContainer;
 
@@ -113,6 +114,7 @@ public class DraggableCharacters : MonoBehaviour
 
     void OnPointerUp(PointerUpEvent evt)
     {
+        Debug.Log($"pointer up character");
         if (!IsDragging)
             return;
 
@@ -129,6 +131,8 @@ public class DraggableCharacters : MonoBehaviour
         //Didn't find any (dragged off the window)
         if (slots.Count() == 0)
         {
+            if (_originalSlot != null)
+                _originalSlot.RemoveCard();
             _cardContainer.Add(_draggedCard);
             SetDraggedCardPosition(new Vector2(_dragDropContainer.style.left.value.value,
                 _dragDropContainer.style.top.value.value - _cardContainer.worldBound.y));

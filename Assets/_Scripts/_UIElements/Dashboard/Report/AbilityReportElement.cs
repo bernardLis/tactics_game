@@ -13,12 +13,18 @@ public class AbilityReportElement : ReportElement
 
         AddHeader("New Ability", Color.cyan);
 
-        AbilitySlot slot = new(new AbilityButton(report.Ability));
+        AbilityButton abilityButton = new AbilityButton(report.Ability);
+        AbilitySlot slot = new(abilityButton);
         _reportContents.Add(slot);
 
-        AddSignButton();
-        ShowSignButton();
+        DraggableAbilities draggables = DeskManager.Instance.GetComponent<DraggableAbilities>();
+        if (draggables != null)
+            draggables.AddDraggableAbility(abilityButton);
+
+        slot.OnAbilityRemoved += OnAbilityRemoved;
     }
+
+    void OnAbilityRemoved(AbilityButton button) { DismissReport(); }
 
 
 }

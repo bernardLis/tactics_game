@@ -10,6 +10,7 @@ public class DeskManager : Singleton<DeskManager>
     GameManager _gameManager;
     DashboardManager _dashboardManager;
     DraggableCharacters _draggableCharacters;
+    DraggableAbilities _draggableAbilities;
     DraggableItems _draggableItems;
 
     public VisualElement Root { get; private set; }
@@ -30,6 +31,7 @@ public class DeskManager : Singleton<DeskManager>
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
         _draggableItems = GetComponent<DraggableItems>();
+        _draggableAbilities = GetComponent<DraggableAbilities>();
 
         Root = _dashboardManager.Root;
 
@@ -53,6 +55,7 @@ public class DeskManager : Singleton<DeskManager>
     {
         _draggableCharacters.Initialize(Root, _reportsContainer);
         _draggableItems.Initialize(Root, _reportsContainer);
+        _draggableAbilities.Initialize(Root, _reportsContainer);
 
         _reportsContainer.Clear();
         _characterCardSlots = new();
@@ -71,9 +74,17 @@ public class DeskManager : Singleton<DeskManager>
 
         foreach (Item item in _gameManager.PlayerItemPouch)
             AddItemToDesk(item);
+
+        foreach (Ability ability in _gameManager.PlayerAbilityPouch)
+            AddAbilityToDesk(ability);
     }
 
-    void CleanDraggables() { _draggableCharacters.RemoveDragContainer(); }
+    void CleanDraggables()
+    {
+        _draggableCharacters.RemoveDragContainer();
+        _draggableItems.RemoveDragContainer();
+        _draggableAbilities.RemoveDragContainer();
+    }
 
     /* CHARACTERS */
     CharacterCardMini AddMiniCardToDesk(Character character)
@@ -115,6 +126,7 @@ public class DeskManager : Singleton<DeskManager>
         _reportsContainer.Add(bigCard);
 
         _draggableItems.AddCharacterCard(bigCard);
+        _draggableAbilities.AddCharacterCard(bigCard);
 
         card.parent.Remove(card);
     }
@@ -144,6 +156,7 @@ public class DeskManager : Singleton<DeskManager>
             return;
 
         _draggableItems.RemoveCharacterCard(card);
+        _draggableAbilities.RemoveCharacterCard(card);
         AddMiniCardToDesk(card.Character);
         card.parent.Remove(card);
     }
@@ -157,6 +170,18 @@ public class DeskManager : Singleton<DeskManager>
         Vector3 endPosition = new(newX, newY, 0);
         await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
         card.Character.UpdateDeskPosition(endPosition);
+    }
+
+    /*ABILITIES*/
+    public async void SpitAbilityOntoDesk(Ability ability)
+    {
+        AbilityButton el = AddAbilityToDesk(ability);
+        float newX = ability.DeskPosition.x + Random.Range(-100, 100);
+        float newY = ability.DeskPosition.y + Random.Range(-100, 100);
+
+        Vector3 endPosition = new(newX, newY, 0);
+        await MoveElementOnArc(el, ability.DeskPosition, endPosition);
+        ability.UpdateDeskPosition(endPosition);
     }
 
     /* ITEMS */
@@ -184,6 +209,21 @@ public class DeskManager : Singleton<DeskManager>
 
         return el;
     }
+
+    AbilityButton AddAbilityToDesk(Ability ability)
+    {
+        AbilityButton el = new(ability);
+        el.style.position = Position.Absolute;
+        el.style.left = ability.DeskPosition.x;
+        el.style.top = ability.DeskPosition.y;
+
+        _draggableAbilities.AddDraggableAbility(el);
+
+        _reportsContainer.Add(el);
+
+        return el;
+    }
+
 
     async Task MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)
     {

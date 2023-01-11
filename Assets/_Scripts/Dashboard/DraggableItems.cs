@@ -43,7 +43,7 @@ public class DraggableItems : MonoBehaviour
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    public void AddDraggableItem(ItemElement ItemElement) { ItemElement.RegisterCallback<PointerDownEvent>(OnItemPointerDown); }
+    public void AddDraggableItem(ItemElement itemElement) { itemElement.RegisterCallback<PointerDownEvent>(OnItemPointerDown); }
     public void AddSellSlot(ItemSlot slot) { _allSlots.Add(slot); }
     public void RemoveSellSlot(ItemSlot slot) { _allSlots.Remove(slot); }
 
@@ -287,4 +287,14 @@ public class DraggableItems : MonoBehaviour
         _dragDropContainer.Clear();
         _dragDropContainer.style.visibility = Visibility.Hidden;
     }
+
+    public void RemoveDragContainer()
+    {
+        if (_dragDropContainer != null)
+        {
+            _root.Remove(_dragDropContainer);
+            _dragDropContainer = null;
+        }
+    }
+
 }

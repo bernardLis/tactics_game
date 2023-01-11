@@ -40,6 +40,7 @@ public class CharacterCardMiniSlot : ElementWithSound
 
     public void AddCard(CharacterCardMini card)
     {
+        Debug.Log($"add card: {card.Character.name}");
         Card = card;
         card.Slotted();
         Add(card);
