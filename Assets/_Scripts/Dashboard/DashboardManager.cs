@@ -31,11 +31,21 @@ public class DashboardManager : Singleton<DashboardManager>
 
     DashboardBuildingType _openBuilding = DashboardBuildingType.Desk;
 
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "dashboard__";
+    const string _ussPassDayButton = _ussClassName + "pass-day-button";
+    const string _ussNavIcon = _ussClassName + "nav-icon";
+    const string _ussNavDesk = _ussClassName + "nav-desk";
+    const string _ussNavCamp = _ussClassName + "nav-camp";
+    const string _ussNavAbilities = _ussClassName + "nav-abilities";
+    const string _ussNavArchive = _ussClassName + "nav-archive";
+
     public event Action OnDeskOpened;
     public event Action OnCampOpened;
     public event Action OnAbilitiesOpened;
     public event Action OnHideAllPanels;
-
     protected override void Awake()
     {
         base.Awake();
@@ -109,8 +119,8 @@ public class DashboardManager : Singleton<DashboardManager>
     /* PASS DAY BUTTON */
     void AddPassDayButton()
     {
-        _passDayButton = new("Pass Day", "passDayButton", PassDay);
-        _passDayButton.AddToClassList("textPrimary");
+        _passDayButton = new("Pass Day", _ussPassDayButton, PassDay);
+        _passDayButton.AddToClassList(_ussCommonTextPrimary);
         Root.Q<VisualElement>("navLeft").Add(_passDayButton);
         HidePassDay();
     }
@@ -160,15 +170,15 @@ public class DashboardManager : Singleton<DashboardManager>
     void AddNavigationButtons()
     {
         VisualElement navRight = Root.Q<VisualElement>("navRight");
-        MyButton navDesk = new(null, "navDesk", OpenDesk);
-        MyButton navCamp = new(null, "navCamp", OpenCamp);
-        MyButton navAbilities = new(null, "navAbilities", OpenAbilities);
-        MyButton navArchive = new(null, "navArchive", OnArchiveClick);
+        MyButton navDesk = new(null, _ussNavDesk, OpenDesk);
+        MyButton navCamp = new(null, _ussNavCamp, OpenCamp);
+        MyButton navAbilities = new(null, _ussNavAbilities, OpenAbilities);
+        MyButton navArchive = new(null, _ussNavArchive, OnArchiveClick);
 
-        navDesk.AddToClassList("navIcon");
-        navCamp.AddToClassList("navIcon");
-        navAbilities.AddToClassList("navIcon");
-        navArchive.AddToClassList("navIcon");
+        navDesk.AddToClassList(_ussNavIcon);
+        navCamp.AddToClassList(_ussNavIcon);
+        navAbilities.AddToClassList(_ussNavIcon);
+        navArchive.AddToClassList(_ussNavIcon);
 
         navRight.Add(navDesk);
         navRight.Add(navCamp);
@@ -183,7 +193,7 @@ public class DashboardManager : Singleton<DashboardManager>
     void OnArchiveClick()
     {
         FullScreenElement visual = new FullScreenElement();
-        visual.AddToClassList("textPrimary");
+        visual.AddToClassList(_ussCommonTextPrimary);
         visual.style.backgroundColor = Color.black;
         visual.style.left = Screen.width;
 
@@ -273,8 +283,8 @@ public class DashboardManager : Singleton<DashboardManager>
     {
         if (ctx.time == 0)
             return true; // for buttons
-        // otherwise it triggers 3 times: https://forum.unity.com/threads/player-input-component-triggering-events-multiple-times.851959/
-        // disabled is for my empty event action.
+                         // otherwise it triggers 3 times: https://forum.unity.com/threads/player-input-component-triggering-events-multiple-times.851959/
+                         // disabled is for my empty event action.
         if (!ctx.performed && ctx.phase == InputActionPhase.Canceled)
             return true;
         return false;
@@ -300,13 +310,16 @@ public class DashboardManager : Singleton<DashboardManager>
 #if UNITY_EDITOR
 
     [ContextMenu("Add 10000 Gold")]
-    void Add100Gold() { _gameManager.ChangeGoldValue(10000); }
+    void Add100Gold()
+    { _gameManager.ChangeGoldValue(10000); }
 
     [ContextMenu("Remove 5000 Gold")]
-    void Remove50Gold() { _gameManager.ChangeGoldValue(-5000); }
+    void Remove50Gold()
+    { _gameManager.ChangeGoldValue(-5000); }
 
     [ContextMenu("Add 500 spice")]
-    void Add500Spice() { _gameManager.ChangeSpiceValue(500); }
+    void Add500Spice()
+    { _gameManager.ChangeSpiceValue(500); }
 
     [ContextMenu("Level Up")]
     void LevelUpAllCharacters()

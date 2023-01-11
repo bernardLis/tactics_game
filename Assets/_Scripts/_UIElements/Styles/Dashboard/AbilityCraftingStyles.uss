@@ -1,0 +1,128 @@
+.abilityNodeIcon {
+    width: 100px;
+    height: 100px;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.graphContainer {
+    align-items: center;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Main_bar_story_hori.png?fileID=2800000&guid=47f4f8cbb6da8ba4992023b7cbf0f0c0&type=3#Main_bar_story_hori');
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.abilityNodeContent {
+    align-items: center;
+}
+
+.abilityNodeSlot {
+    width: 120px;
+    height: 120px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/icon_frame_square_elite.png?fileID=2800000&guid=098213c38021a93418280a26fc050e39&type=3#icon_frame_square_elite');
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: rgba(0, 0, 0, 0.47);
+}
+
+.abilityCraftingHeader {
+    font-size: 64px;
+    -unity-text-align: upper-center;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&guid=719587235c52756429cfbea86a7e8082&type=3#horizontal_flag');
+    margin-top: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.abilityNodeDragAndDrop {
+    position: absolute;
+    visibility: hidden;
+    width: 120px;
+    height: 120px;
+}
+
+.craftButtonPlus {
+    width: 25px;
+    height: 25px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/19_plus.png?fileID=2800000&guid=08ee60743facc5547b76014a44059547&type=3#19_plus');
+}
+
+.craftButtonMinus {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/20_plus.png?fileID=2800000&guid=744bd8bc45c7c3a46b8db8eeda933d76&type=3#20_plus');
+    width: 25px;
+    height: 25px;
+}
+
+.craftCraftButton {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/13_skills.png?fileID=2800000&guid=d6eebf509a4b56544b0e56d2b488957d&type=3#13_skills');
+    width: 100px;
+    height: 100px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.craftCraftButton:hover {
+    scale: 1.1 1.1;
+    rotate: 10deg;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.craftDiscardButton {
+    width: 50px;
+    height: 50px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_65_trash_can.png?fileID=2800000&guid=552f751ed38758c43a0823bb8cd70e8d&type=3#gray_65_trash_can');
+}
+
+.craftDiscardButton:hover {
+    scale: 1.1 1.1;
+    transition-duration: 0.5s;
+    rotate: -10deg;
+    transition-timing-function: ease-in-out;
+}
+
+.craftAbilityStarGray {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star%20gray.png?fileID=2800000&guid=204ed0df78deaba409499a6fe38c363b&type=3#star gray');
+}
+
+.craftAbilityStar {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star.png?fileID=2800000&guid=c44d1eb6f24e7ab41a257d01f6bf793a&type=3#star');
+}
+
+#craftAbilityName TextInput {
+    background-color: rgba(26, 26, 26, 0.96);
+    color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+}
+
+.abilityGraphsContainer {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+#abilityGraphs #unity-content-container {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}

@@ -9,19 +9,21 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/PawnshopReportStyles.uss?fileID=7433441132597879392&amp;guid=6c69c08530476f340ac9030ac672e9f6&amp;type=3#PawnshopReportStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/GoldElementStyles.uss?fileID=7433441132597879392&amp;guid=6210ce5dd6c012b4da866162ac0c703d&amp;type=3#GoldElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Character/StarRankElementStyles.uss?fileID=7433441132597879392&amp;guid=d7df27be43e873a44b6156bc8a574926&amp;type=3#StarRankElementStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/AbilityCraftingStyles.uss?fileID=7433441132597879392&amp;guid=90a7bf61797fcec4e83cdb041270e5c1&amp;type=3#AbilityCraftingStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/CampStyles.uss?fileID=7433441132597879392&amp;guid=7bb82d1510b17d34a9e527f95c9d8b0d&amp;type=3#CampStyles" />
     <ui:VisualElement name="nav" style="height: 5%; flex-direction: row; width: 100%; align-items: stretch; justify-content: space-around; opacity: 1; background-color: rgb(0, 0, 0);">
         <ui:VisualElement name="navLeft" style="width: 25%; align-items: center; justify-content: center;" />
         <ui:VisualElement name="navResources" class="textPrimary" style="width: 50%; flex-direction: row; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&amp;guid=64327707a8db5e8429fdd9cc2a5e2916&amp;type=3#long_shadow_light&apos;); padding-left: 50px; padding-right: 50px; padding-top: 0; padding-bottom: 0; align-items: center; justify-content: center; left: auto;">
-            <ui:VisualElement name="navDay" class="navResourceElement">
+            <ui:VisualElement name="navDay" class="dashboard__nav-resource-element">
                 <ui:Label text="Day: 0" display-tooltip-when-elided="true" enable-rich-text="true" name="navDayLabel" class="textPrimary" />
             </ui:VisualElement>
-            <ui:VisualElement name="navGold" class="navResourceElement" style="width: auto;">
+            <ui:VisualElement name="navGold" class="dashboard__nav-resource-element" style="width: auto;">
                 <ui:Label text="Gold: 15" display-tooltip-when-elided="true" />
             </ui:VisualElement>
-            <ui:VisualElement name="navTroops" class="navResourceElement">
+            <ui:VisualElement name="navTroops" class="dashboard__nav-resource-element">
                 <ui:Label text="Troops: 2/5" display-tooltip-when-elided="true" />
             </ui:VisualElement>
-            <ui:VisualElement name="navSpice" class="navResourceElement">
+            <ui:VisualElement name="navSpice" class="dashboard__nav-resource-element">
                 <ui:Label text="Spice: 0" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>

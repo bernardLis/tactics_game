@@ -22,10 +22,12 @@ public class DraggableAbilities : MonoBehaviour
     VisualElement _dragDropContainer;
     AbilityButton _draggedAbility;
 
-    bool _isAbilityPouch;
     List<AbilitySlot> _allSlots = new();
 
     List<CharacterCard> _allCards = new();
+
+    const string _ussDragDropContainer = "dashboard__ability-drag-drop-container";
+
 
     public void Initialize(VisualElement root, VisualElement abilityContainer)
     {
@@ -36,7 +38,7 @@ public class DraggableAbilities : MonoBehaviour
         _abilityContainer = abilityContainer;
 
         _dragDropContainer = new VisualElement();
-        _dragDropContainer.AddToClassList("abilityDragDropContainer");
+        _dragDropContainer.AddToClassList(_ussDragDropContainer);
         _root.Add(_dragDropContainer);
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
@@ -73,10 +75,6 @@ public class DraggableAbilities : MonoBehaviour
         {
             abilitySlot = (AbilitySlot)abilityButton.parent;
             abilitySlot.RemoveButton();
-        }
-        else
-        {
-            _isAbilityPouch = true;
         }
         StartAbilityDrag(evt.position, abilitySlot, abilityButton);
     }
@@ -221,15 +219,11 @@ public class DraggableAbilities : MonoBehaviour
 
     void DragCleanUp()
     {
-        if (_isAbilityPouch)
-            _gameManager.RemoveAbilityFromPouch(_draggedAbility.Ability);
-
         //Clear dragging related visuals and data
         _isDragging = false;
 
         _originalSlot = null;
         _draggedAbility = null;
-        _isAbilityPouch = false;
 
         _dragDropContainer.Clear();
         _dragDropContainer.style.visibility = Visibility.Hidden;

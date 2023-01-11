@@ -26,6 +26,8 @@ public class DraggableItems : MonoBehaviour
     List<ItemSlot> _allSlots = new();
 
     List<CharacterCard> _allCards = new();
+    
+    const string _ussDragDropContainer = "dashboard__item-drag-drop-container";
 
     public void Initialize(VisualElement root, VisualElement itemContainer)
     {
@@ -36,7 +38,7 @@ public class DraggableItems : MonoBehaviour
         _itemContainer = itemContainer;
 
         _dragDropContainer = new VisualElement();
-        _dragDropContainer.AddToClassList("itemDragDropContainer");
+        _dragDropContainer.AddToClassList(_ussDragDropContainer);
         _root.Add(_dragDropContainer);
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);

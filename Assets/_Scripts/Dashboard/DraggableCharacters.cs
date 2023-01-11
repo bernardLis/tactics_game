@@ -20,7 +20,9 @@ public class DraggableCharacters : MonoBehaviour
     CharacterCardMini _draggedCard;
 
     List<CharacterCardMiniSlot> _allSlots = new();
-    bool _wasInitialized;
+
+    const string _ussDragDropContainer = "dashboard__character-drag-drop-container";
+    const string _ussCardMiniSlot = "character-card-mini-slot__main";
 
     public void Initialize(VisualElement root, VisualElement cardContainer)
     {
@@ -28,12 +30,12 @@ public class DraggableCharacters : MonoBehaviour
         _cardContainer = cardContainer;
 
         _allSlots = new();
-        List<VisualElement> slots = root.Query(className: "character-card-mini-slot__main").ToList();
+        List<VisualElement> slots = root.Query(className: _ussCardMiniSlot).ToList();
         foreach (VisualElement item in slots)
             AddDraggableSlot((CharacterCardMiniSlot)item);
 
         _dragDropContainer = new VisualElement();
-        _dragDropContainer.AddToClassList("characterDragDropContainer");
+        _dragDropContainer.AddToClassList(_ussDragDropContainer);
         _root.Add(_dragDropContainer);
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);

@@ -138,6 +138,7 @@ public class DeskManager : Singleton<DeskManager>
 
         CharacterPortraitElement portraitElement = (CharacterPortraitElement)evt.currentTarget;
         _draggableItems.RemoveCharacterCard(portraitElement.Card);
+        _draggableAbilities.RemoveCharacterCard(portraitElement.Card);
 
         CharacterCardMini card = AddMiniCardToDesk(portraitElement.Character);
         card.BlockTooltip();

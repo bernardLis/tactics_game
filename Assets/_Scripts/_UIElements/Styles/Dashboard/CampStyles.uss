@@ -1,0 +1,40 @@
+.campBuildingVisualElement {
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/Paper/old_paper_by_darkwood67.jpg?fileID=2800000&guid=fd2829fbb18039045bec996992fb3c17&type=3#old_paper_by_darkwood67');
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    height: auto;
+}
+
+.campBuildingSprite {
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/Camp/monastery_outline.png?fileID=2800000&guid=ea99704b19bcb3449982b70ba3b0ba8f&type=3#monastery_outline');
+    width: 256px;
+    height: 256px;
+}
+
+.campBuildButton {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_middle_red.png?fileID=2800000&guid=fa3695cc709cf15428d83e5447237e45&type=3#Button_middle_red');
+    -unity-background-scale-mode: stretch-to-fill;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.campBuildButton:hover {
+    scale: 1.1 1.1;
+    rotate: 5deg;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.campBuildButton:active {
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    rotate: -5deg;
+    scale: 0.95 1;
+}

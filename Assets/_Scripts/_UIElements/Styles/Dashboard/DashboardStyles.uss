@@ -1,4 +1,17 @@
-.navResourceElement {
+.dashboard__pass-day-button {
+    font-size: 24px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square');
+    position: relative;
+    width: auto;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.dashboard__nav-resource-element {
     align-items: center;
     justify-content: center;
     -unity-text-align: middle-center;
@@ -9,181 +22,49 @@
     padding-bottom: 0;
 }
 
-.campBuildingVisualElement {
-    background-image: url('project://database/Assets/Art/Sprites/Dashboard/Paper/old_paper_by_darkwood67.jpg?fileID=2800000&guid=fd2829fbb18039045bec996992fb3c17&type=3#old_paper_by_darkwood67');
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    align-items: center;
-    height: auto;
-}
-
-.campBuildingSprite {
-    background-image: url('project://database/Assets/Art/Sprites/Dashboard/Camp/monastery_outline.png?fileID=2800000&guid=ea99704b19bcb3449982b70ba3b0ba8f&type=3#monastery_outline');
-    width: 256px;
-    height: 256px;
-}
-
-.abilityNodeIcon {
-    width: 100px;
-    height: 100px;
-    flex-grow: 1;
-    flex-shrink: 0;
-}
-
-.graphContainer {
-    align-items: center;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Main_bar_story_hori.png?fileID=2800000&guid=47f4f8cbb6da8ba4992023b7cbf0f0c0&type=3#Main_bar_story_hori');
-    flex-direction: column;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-}
-
-.abilityNodeContent {
-    align-items: center;
-}
-
-.abilityNodeSlot {
-    width: 120px;
-    height: 120px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/icon_frame_square_elite.png?fileID=2800000&guid=098213c38021a93418280a26fc050e39&type=3#icon_frame_square_elite');
-    align-items: center;
-    justify-content: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    background-color: rgba(0, 0, 0, 0.47);
-}
-
-.abilityCraftingHeader {
-    font-size: 64px;
-    -unity-text-align: upper-center;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&guid=719587235c52756429cfbea86a7e8082&type=3#horizontal_flag');
-    margin-top: 0;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
-}
-
-.abilityNodeDragAndDrop {
-    position: absolute;
-    visibility: hidden;
-    width: 120px;
-    height: 120px;
-}
-
-.craftButtonPlus {
-    width: 25px;
-    height: 25px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/19_plus.png?fileID=2800000&guid=08ee60743facc5547b76014a44059547&type=3#19_plus');
-}
-
-.craftButtonMinus {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/20_plus.png?fileID=2800000&guid=744bd8bc45c7c3a46b8db8eeda933d76&type=3#20_plus');
-    width: 25px;
-    height: 25px;
-}
-
-.craftCraftButton {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/13_skills.png?fileID=2800000&guid=d6eebf509a4b56544b0e56d2b488957d&type=3#13_skills');
-    width: 100px;
-    height: 100px;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-}
-
-.craftCraftButton:hover {
-    scale: 1.1 1.1;
-    rotate: 10deg;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-}
-
-.craftDiscardButton {
+.dashboard__nav-icon {
     width: 50px;
     height: 50px;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_65_trash_can.png?fileID=2800000&guid=552f751ed38758c43a0823bb8cd70e8d&type=3#gray_65_trash_can');
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.craftDiscardButton:hover {
-    scale: 1.1 1.1;
-    transition-duration: 0.5s;
-    rotate: -10deg;
-    transition-timing-function: ease-in-out;
+.dashboard__nav-desk {
+    background-image: resource('500_resources/Quest_17');
 }
 
-.craftAbilityStarGray {
-    width: 50px;
-    height: 50px;
-    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star%20gray.png?fileID=2800000&guid=204ed0df78deaba409499a6fe38c363b&type=3#star gray');
+.dashboard__nav-camp {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/30_build.png?fileID=2800000&guid=c2db1093fe3a67644a3752a079fdf0b8&type=3#30_build');
 }
 
-.craftAbilityStar {
-    width: 50px;
-    height: 50px;
-    background-image: url('project://database/Assets/Art/Sprites/Dashboard/star.png?fileID=2800000&guid=c44d1eb6f24e7ab41a257d01f6bf793a&type=3#star');
+
+.dashboard__nav-abilities {
+    background-image: url('project://database/Assets/Plugins/4000_Fantasy_Icons/Armor/500_armor_vol_2/Cloth/2_Cloth_Head.png?fileID=2800000&guid=95f10dc60232cd3498b446d16718ee9b&type=3#2_Cloth_Head');
 }
 
-#craftAbilityName TextInput {
-    background-color: rgba(26, 26, 26, 0.96);
-    color: rgb(255, 255, 255);
-    -unity-font-style: normal;
+.dashboard__nav-archive {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/72_paper.png?fileID=2800000&guid=a0fdcee38a47c674bbec14c9dcd63608&type=3#72_paper');
 }
 
-.abilityGraphsContainer {
-    align-items: flex-start;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
-
-#abilityGraphs #unity-content-container {
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.campBuildButton {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_middle_red.png?fileID=2800000&guid=fa3695cc709cf15428d83e5447237e45&type=3#Button_middle_red');
-    -unity-background-scale-mode: stretch-to-fill;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-}
-
-.campBuildButton:hover {
-    scale: 1.1 1.1;
-    rotate: 5deg;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-}
-
-.campBuildButton:active {
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-    rotate: -5deg;
-    scale: 0.95 1;
-}
-
-.characterDragDropContainer {
+.dashboard__character-drag-drop-container {
     visibility: hidden;
     position: absolute;
     width: 150px;
     height: 150px;
+}
+
+.dashboard__item-drag-drop-container {
+    visibility: hidden;
+    position: absolute;
+    width: 75px;
+    height: 75px;
+}
+
+.dashboard__ability-drag-drop-container {
+    visibility: hidden;
+    position: absolute;
+    width: 120px;
+    height: 120px;
 }
 
 .questResultContainerWon {
@@ -220,38 +101,3 @@
     margin-top: 9%;
 }
 
-.passDayButton {
-    font-size: 24px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square');
-    position: relative;
-    width: auto;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-    -unity-text-align: middle-center;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-.navDesk {
-    background-image: resource('500_resources/Quest_17');
-}
-
-.navCamp {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/30_build.png?fileID=2800000&guid=c2db1093fe3a67644a3752a079fdf0b8&type=3#30_build');
-}
-
-.navIcon {
-    width: 50px;
-    height: 50px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.navAbilities {
-    background-image: url('project://database/Assets/Plugins/4000_Fantasy_Icons/Armor/500_armor_vol_2/Cloth/2_Cloth_Head.png?fileID=2800000&guid=95f10dc60232cd3498b446d16718ee9b&type=3#2_Cloth_Head');
-}
-
-.navArchive {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/72_paper.png?fileID=2800000&guid=a0fdcee38a47c674bbec14c9dcd63608&type=3#72_paper');
-}

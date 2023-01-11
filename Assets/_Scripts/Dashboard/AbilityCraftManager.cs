@@ -202,7 +202,6 @@ public class AbilityCraftManager : MonoBehaviour
 
     void UpdateCraftingValuesDisplayed()
     {
-        Debug.Log($"UpdateCraftingValuesDisplayed");
         _abilityDescription.text = $"{_abilityTemplate.Description}";
         _abilityRange.text = $"Range: {_abilityTemplate.Range}";
         _abilityDamage.text = $"Damage: {_abilityTemplate.BasePower}";
