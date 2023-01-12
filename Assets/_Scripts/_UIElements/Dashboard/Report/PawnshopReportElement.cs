@@ -34,7 +34,7 @@ public class PawnshopReportElement : ReportElement
         _sellSlot.OnItemRemoved += OnSellItemRemoved;
 
         _reportContents.Add(_sellSlot);
-        _draggableItems.AddSellSlot(_sellSlot);
+        _draggableItems.AddSlot(_sellSlot);
 
         _goldElement = new(0);
         _reportContents.Add(_goldElement);

@@ -45,14 +45,16 @@ public class DraggableAbilities : MonoBehaviour
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    public void AddDraggableAbility(AbilityButton abilityButton) { abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown); }
+    public void AddDraggableAbilityButton(AbilityButton abilityButton) { abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown); }
+    public void AddSlot(AbilitySlot slot) { _allSlots.Add(slot); }
+    public void RemoveSlot(AbilitySlot slot) { _allSlots.Remove(slot); }
 
     public void AddCharacterCard(CharacterCard card)
     {
         _allCards.Add(card);
         _allSlots.AddRange(card.AbilitySlots);
-        foreach (AbilityButton el in card.AbilityButtons)
-            AddDraggableAbility(el);
+        foreach (Ability ability in card.Character.Abilities)
+            AddDraggableAbilityButton(new AbilityButton(ability));
     }
 
     public void RemoveCharacterCard(CharacterCard card)
@@ -145,15 +147,8 @@ public class DraggableAbilities : MonoBehaviour
             return;
         }
 
-        // move item around the desk - update & remember position
-        if (_originalSlot != null)
-            _gameManager.AddAbilityToPouch(_draggedAbility.Ability);
-
-        _abilityContainer.Add(_draggedAbility);
-        SetDraggedAbilityPosition(new Vector2(_dragDropContainer.style.left.value.value,
-             _dragDropContainer.style.top.value.value - _abilityContainer.worldBound.y));
+        _originalSlot.AddDraggableButton(_draggedAbility.Ability, this);
         DragCleanUp();
-        _gameManager.SaveJsonData();
     }
 
     void AddAbilityToClosestSlot(IEnumerable<AbilitySlot> slots)
@@ -163,22 +158,13 @@ public class DraggableAbilities : MonoBehaviour
 
         if (_newSlot.AbilityButton != null)
         {
-            _newSlot.AbilityButton.Ability.UpdateDeskPosition(_dragDropContainer.worldBound.position);
-            _deskManager.SpitAbilityOntoDesk(_newSlot.AbilityButton.Ability);
+            _originalSlot.AddDraggableButton(_draggedAbility.Ability, this);
             _newSlot.RemoveButton();
         }
 
-        _newSlot.AddButton(_draggedAbility);
+        _newSlot.AddDraggableButton(_draggedAbility.Ability, this);
         DragCleanUp();
-
         _gameManager.SaveJsonData();
-    }
-
-    void SetDraggedAbilityPosition(Vector2 newPos)
-    {
-        _draggedAbility.style.left = newPos.x;
-        _draggedAbility.style.top = newPos.y;
-        _draggedAbility.Ability.UpdateDeskPosition(newPos);
     }
 
     void AddAbilityToCharacter(IEnumerable<VisualElement> overlappingCards)
@@ -193,28 +179,8 @@ public class DraggableAbilities : MonoBehaviour
             return;
         }
 
-        ShakeReturnAbilityToContainer(_draggedAbility);
+        _originalSlot.AddDraggableButton(_draggedAbility.Ability, this);
         DragCleanUp();
-    }
-
-    async void ShakeReturnAbilityToContainer(AbilityButton abilityButton)
-    {
-        _abilityContainer.Add(abilityButton);
-        abilityButton.style.position = Position.Absolute;
-        abilityButton.style.left = _dragDropContainer.worldBound.xMin;
-        abilityButton.style.top = _dragDropContainer.worldBound.yMin - _abilityContainer.worldBound.y; ;
-        int endLeft = Mathf.CeilToInt(_dragDropContainer.worldBound.xMin) + Random.Range(-50, 50);
-        int endTop = Mathf.CeilToInt(_dragDropContainer.worldBound.yMin) + Random.Range(-50, 50);
-
-        // when item is shaking and you grab it it behaves weirdly.
-        abilityButton.UnregisterCallback<PointerDownEvent>(OnAbilityPointerDown);
-        DOTween.To(() => abilityButton.style.left.value.value, x => abilityButton.style.left = x, endLeft, 0.5f)
-                .SetEase(Ease.OutElastic);
-        await DOTween.To(() => abilityButton.style.top.value.value, x => abilityButton.style.top = x, endTop, 0.5f)
-                .SetEase(Ease.OutElastic).AsyncWaitForCompletion();
-        abilityButton.RegisterCallback<PointerDownEvent>(OnAbilityPointerDown);
-
-        abilityButton.Ability.UpdateDeskPosition(new Vector2(endLeft, endTop));
     }
 
     void DragCleanUp()

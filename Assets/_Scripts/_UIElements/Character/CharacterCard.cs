@@ -24,7 +24,6 @@ public class CharacterCard : VisualElement
     public List<ItemElement> ItemElements = new();
 
     public List<AbilitySlot> AbilitySlots = new();
-    public List<AbilityButton> AbilityButtons = new();
 
     VisualElement _levelUpAnimationContainer;
 
@@ -223,16 +222,18 @@ public class CharacterCard : VisualElement
 
         for (int i = 0; i < Character.Abilities.Count; i++)
         {
-            AbilityButton abilityButton = new AbilityButton(Character.Abilities[i], null);
-            AbilitySlots[i].AddButtonNoDelegates(abilityButton);
-            AbilityButtons.Add(abilityButton);
+            DraggableAbilities da = null;
+            if (DeskManager.Instance != null)
+                da = DeskManager.Instance.GetComponent<DraggableAbilities>();
+            
+            AbilitySlots[i].AddDraggableButtonNoDelegates(Character.Abilities[i], da);
         }
 
         return container;
     }
 
-    void OnAbilityAdded(AbilityButton abilityButton) { Character.AddAbility(abilityButton.Ability); }
-    void OnAbilityRemoved(AbilityButton abilityButton) { Character.RemoveAbility(abilityButton.Ability); }
+    void OnAbilityAdded(Ability ability) { Character.AddAbility(ability); }
+    void OnAbilityRemoved(Ability ability) { Character.RemoveAbility(ability); }
 
     void AvailabilityCheck()
     {

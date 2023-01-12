@@ -7,8 +7,6 @@ using DG.Tweening;
 
 public class EventOptionElement : VisualElement
 {
-    ScreenWithDraggables _screenWithDraggables;
-
     public EventOption EventOption;
 
     public event Action<EventOptionElement> OnMouseEnter;
@@ -20,13 +18,12 @@ public class EventOptionElement : VisualElement
     GoldElement _goldElement;
 
 
-    public EventOptionElement(EventOption option, ScreenWithDraggables screenWithDraggables)
+    public EventOptionElement(EventOption option)
     {
         EventOption = option;
 
         AddToClassList("textPrimary");
         AddToClassList("eventOptionElement");
-        _screenWithDraggables = screenWithDraggables;
 
         Label text = new(option.Text);
         text.AddToClassList("textPrimary");
@@ -45,7 +42,6 @@ public class EventOptionElement : VisualElement
         }
         if (option.Reward.Item != null)
         {
-            _itemSlotVisual = _screenWithDraggables.CreateDraggableItem(option.Reward.Item, false);
             rewardContainer.Add(_itemSlotVisual);
         }
 
@@ -82,8 +78,6 @@ public class EventOptionElement : VisualElement
     {
         AddToClassList("eventOptionElementClicked");
 
-        if (_itemSlotVisual != null)
-            _screenWithDraggables.UnlockItem(_itemSlotVisual.ItemElement);
         if (_goldElement != null)
             _goldElement.MakeClickable();
     }
@@ -103,7 +97,6 @@ public class EventOptionElement : VisualElement
     {
         if (EventOption.Reward.Item != null && _itemSlotVisual != null)
         {
-            Helpers.DisplayTextOnElement(_screenWithDraggables, _itemSlotVisual, "Take me with you", Color.red);
             return false;
         }
 

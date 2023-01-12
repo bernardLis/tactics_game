@@ -131,7 +131,6 @@ public class Character : BaseScriptableObject
 
     public void AddAbility(Ability ability)
     {
-        ability.IsPouch = false;
         Abilities.Add(ability);
         UpdateRank();
     }

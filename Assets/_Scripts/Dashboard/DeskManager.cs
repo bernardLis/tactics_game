@@ -16,6 +16,12 @@ public class DeskManager : Singleton<DeskManager>
     public VisualElement Root { get; private set; }
     VisualElement _mainDesk;
     VisualElement _reportsContainer;
+    VisualElement _slotsContainer;
+    VisualElement _itemSlotsContainer;
+    VisualElement _abilitySlotsContainer;
+
+    List<ItemSlot> _deskItemSlots = new();
+    List<AbilitySlot> _deskAbilitySlots = new();
 
     List<CharacterCardMiniSlot> _characterCardSlots = new();
 
@@ -38,6 +44,10 @@ public class DeskManager : Singleton<DeskManager>
         _mainDesk = Root.Q<VisualElement>("mainDesk");
         _reportsContainer = Root.Q<VisualElement>("reportsContainer");
 
+        _slotsContainer = Root.Q<VisualElement>("slotsContainer");
+        _itemSlotsContainer = Root.Q<VisualElement>("itemSlotsContainer");
+        _abilitySlotsContainer = Root.Q<VisualElement>("abilitySlotsContainer");
+
         _dashboardManager.OnDeskOpened += Initialize;
         _dashboardManager.OnHideAllPanels += CleanDraggables;
 
@@ -58,11 +68,15 @@ public class DeskManager : Singleton<DeskManager>
         _draggableAbilities.Initialize(Root, _reportsContainer);
 
         _reportsContainer.Clear();
+
         _characterCardSlots = new();
         VisibleReports = new();
 
         foreach (Report report in _gameManager.Reports)
             await CreateReport(report);
+
+        PopulateItemSlots();
+        PopulateAbilitySlots();
 
         foreach (Character character in _gameManager.PlayerTroops)
         {
@@ -71,12 +85,6 @@ public class DeskManager : Singleton<DeskManager>
 
             AddMiniCardToDesk(character);
         }
-
-        foreach (Item item in _gameManager.PlayerItemPouch)
-            AddItemToDesk(item);
-
-        foreach (Ability ability in _gameManager.PlayerAbilityPouch)
-            AddAbilityToDesk(ability);
     }
 
     void CleanDraggables()
@@ -85,6 +93,78 @@ public class DeskManager : Singleton<DeskManager>
         _draggableItems.RemoveDragContainer();
         _draggableAbilities.RemoveDragContainer();
     }
+
+    void PopulateItemSlots()
+    {
+        _itemSlotsContainer.Clear();
+        foreach (ItemSlot slot in _deskItemSlots)
+            _draggableItems.RemoveSlot(slot);
+        _deskItemSlots = new();
+
+        for (int i = 0; i < 5; i++) // TODO: magic 5
+        {
+            ItemSlot slot = new ItemSlot();
+            _itemSlotsContainer.Add(slot);
+            _deskItemSlots.Add(slot);
+            _draggableItems.AddSlot(slot);
+            slot.OnItemAdded += AddItemToPouch;
+            slot.OnItemRemoved += RemoveItemFromPouch;
+        }
+
+        for (int i = 0; i < _gameManager.PlayerItemPouch.Count; i++)
+        {
+            if (i == 5) // TODO: magic 5
+                return;
+            ItemElement itemElement = new(_gameManager.PlayerItemPouch[i]);
+            _deskItemSlots[i].AddItemNoDelegates(itemElement);
+            _draggableItems.AddDraggableItem(itemElement);
+        }
+    }
+
+
+    void AddItemToPouch(ItemElement element) { _gameManager.AddItemToPouch(element.Item); }
+    void RemoveItemFromPouch(ItemElement element) { _gameManager.RemoveItemFromPouch(element.Item); }
+
+    void PopulateAbilitySlots()
+    {
+        _abilitySlotsContainer.Clear();
+        foreach (AbilitySlot slot in _deskAbilitySlots)
+            _draggableAbilities.RemoveSlot(slot);
+        _deskAbilitySlots = new();
+
+        for (int i = 0; i < 5; i++) // TODO: magic 5
+        {
+            AbilitySlot slot = new AbilitySlot();
+            _abilitySlotsContainer.Add(slot);
+            _deskAbilitySlots.Add(slot);
+            _draggableAbilities.AddSlot(slot);
+            slot.OnAbilityAdded += AddAbilityToPouch;
+            slot.OnAbilityRemoved += RemoveAbilityFromPouch;
+        }
+
+        for (int i = 0; i < _gameManager.PlayerAbilityPouch.Count; i++)
+        {
+            if (i == 5) // TODO: magic 5
+                return;
+            _deskAbilitySlots[i].AddDraggableButtonNoDelegates(_gameManager.PlayerAbilityPouch[i], _draggableAbilities);
+        }
+    }
+
+    public void AddAbilityToEmptySlot(AbilityButton b)
+    {
+        foreach (AbilitySlot slot in _deskAbilitySlots)
+        {
+            if (slot.AbilityButton == null)
+            {
+                slot.AddDraggableButton(b.Ability, _draggableAbilities);
+                return;
+            }
+        }
+    }
+
+    void AddAbilityToPouch(Ability ability) { _gameManager.AddAbilityToPouch(ability); }
+
+    void RemoveAbilityFromPouch(Ability ability) { _gameManager.RemoveAbilityFromPouch(ability); }
 
     /* CHARACTERS */
     CharacterCardMini AddMiniCardToDesk(Character character)
@@ -172,59 +252,6 @@ public class DeskManager : Singleton<DeskManager>
         await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
         card.Character.UpdateDeskPosition(endPosition);
     }
-
-    /*ABILITIES*/
-    public async void SpitAbilityOntoDesk(Ability ability)
-    {
-        AbilityButton el = AddAbilityToDesk(ability);
-        float newX = ability.DeskPosition.x + Random.Range(-100, 100);
-        float newY = ability.DeskPosition.y + Random.Range(-100, 100);
-
-        Vector3 endPosition = new(newX, newY, 0);
-        await MoveElementOnArc(el, ability.DeskPosition, endPosition);
-        ability.UpdateDeskPosition(endPosition);
-    }
-
-    /* ITEMS */
-    public async void SpitItemOntoDesk(Item item)
-    {
-        ItemElement el = AddItemToDesk(item);
-        float newX = item.DeskPosition.x + Random.Range(-100, 100);
-        float newY = item.DeskPosition.y + Random.Range(-100, 100);
-
-        Vector3 endPosition = new(newX, newY, 0);
-        await MoveElementOnArc(el, item.DeskPosition, endPosition);
-        item.UpdateDeskPosition(endPosition);
-    }
-
-    ItemElement AddItemToDesk(Item item)
-    {
-        ItemElement el = new(item);
-        el.style.position = Position.Absolute;
-        el.style.left = item.DeskPosition.x;
-        el.style.top = item.DeskPosition.y;
-
-        _draggableItems.AddDraggableItem(el);
-
-        _reportsContainer.Add(el);
-
-        return el;
-    }
-
-    AbilityButton AddAbilityToDesk(Ability ability)
-    {
-        AbilityButton el = new(ability);
-        el.style.position = Position.Absolute;
-        el.style.left = ability.DeskPosition.x;
-        el.style.top = ability.DeskPosition.y;
-
-        _draggableAbilities.AddDraggableAbility(el);
-
-        _reportsContainer.Add(el);
-
-        return el;
-    }
-
 
     async Task MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)
     {

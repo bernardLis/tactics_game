@@ -15,13 +15,9 @@ public class Item : BaseScriptableObject
     public Status Status;
     public string TooltipText;
 
-    [HideInInspector] public Vector2 DeskPosition;
-
     public int GetSellValue() { return Mathf.FloorToInt(Price * 0.5f); }
 
     public virtual void Initialize(CharacterStats stats) { }
-
-    public void UpdateDeskPosition(Vector2 pos) { DeskPosition = pos; }
 
     public void LoadFromData(ItemData data)
     {
@@ -36,15 +32,12 @@ public class Item : BaseScriptableObject
         Price = i.Price;
         Status = i.Status;
         TooltipText = i.TooltipText;
-
-        DeskPosition = data.DeskPosition;
     }
 
     public ItemData SerializeSelf()
     {
         ItemData itemData = new();
         itemData.ItemId = Id;
-        itemData.DeskPosition = DeskPosition;
 
         return itemData;
     }
@@ -54,6 +47,5 @@ public class Item : BaseScriptableObject
 public struct ItemData
 {
     public string ItemId;
-    public Vector2 DeskPosition;
 }
 

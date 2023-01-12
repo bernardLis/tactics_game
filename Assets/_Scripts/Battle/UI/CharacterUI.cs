@@ -246,14 +246,14 @@ public class CharacterUI : Singleton<CharacterUI>
         basicDefend.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(basicDefend));
         _allButtons.Add(basicDefend);
 
-        _basicActionSlots[0].AddButton(basicAttack);
-        _basicActionSlots[1].AddButton(basicDefend);
+        _basicActionSlots[0].AddActionButton(basicAttack);
+        _basicActionSlots[1].AddActionButton(basicDefend);
 
         for (int i = 0; i < _selectedPlayerStats.Abilities.Count; i++)
         {
             AbilityButton button = new(_selectedPlayerStats.Abilities[i], buttons[i]);
             button.RegisterCallback<ClickEvent>(ev => AbilityButtonClicked(button));
-            _abilitySlots[i].AddButton(button);
+            _abilitySlots[i].AddActionButton(button);
             _allButtons.Add(button);
         }
     }

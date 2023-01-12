@@ -8,13 +8,14 @@ public class AbilitySlot : ElementWithSound
 {
 
     public AbilityButton AbilityButton;
+    public Ability Ability;
     public Character Character;
 
     const string _ussClassName = "ability-slot";
     const string _ussMain = _ussClassName + "__main";
 
-    public event Action<AbilityButton> OnAbilityAdded;
-    public event Action<AbilityButton> OnAbilityRemoved;
+    public event Action<Ability> OnAbilityAdded;
+    public event Action<Ability> OnAbilityRemoved;
     public AbilitySlot(AbilityButton abilityButton = null) : base()
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilitySlotStyles);
@@ -30,25 +31,35 @@ public class AbilitySlot : ElementWithSound
         Add(abilityButton);
     }
 
-    public void AddButton(AbilityButton abilityButton)
+    public void AddActionButton(AbilityButton abilityButton)
     {
-        AddButtonNoDelegates(abilityButton);
-        PlayClick();
-        OnAbilityAdded?.Invoke(abilityButton);
+        Add(AbilityButton);
     }
 
-    public void AddButtonNoDelegates(AbilityButton abilityButton)
+    public void AddDraggableButton(Ability ability, DraggableAbilities draggables) // TODO: ugh oh... does not seem correct
     {
-        AbilityButton = abilityButton;
+        AddDraggableButtonNoDelegates(ability, draggables);
         PlayClick();
-        abilityButton.style.position = Position.Relative;
-        Add(abilityButton);
+        OnAbilityAdded?.Invoke(ability);
+    }
+
+    public void AddDraggableButtonNoDelegates(Ability ability, DraggableAbilities draggables)
+    {
+        Ability = ability;
+        AbilityButton = new(ability);
+        if (draggables != null)
+            draggables.AddDraggableAbilityButton(AbilityButton);
+
+        PlayClick();
+        AbilityButton.style.position = Position.Relative;
+        Add(AbilityButton);
     }
 
     public void RemoveButton()
     {
-        OnAbilityRemoved?.Invoke(AbilityButton);
+        OnAbilityRemoved?.Invoke(Ability);
         Clear();
         AbilityButton = null;
+        Ability = null;
     }
 }

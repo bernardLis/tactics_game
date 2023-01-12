@@ -217,7 +217,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void AddAbilityToPouch(Ability ability)
     {
-        ability.IsPouch = true;
         PlayerAbilityPouch.Add(ability);
         SaveJsonData();
     }
@@ -443,8 +442,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         {
             Ability a = Instantiate(GameDatabase.GetAbilityById(abilityData.TemplateId));
             a.name = abilityData.Name;
-            a.DeskPosition = abilityData.DeskPosition;
-            a.IsPouch = true;
             PlayerAbilityPouch.Add(a);
         }
 
