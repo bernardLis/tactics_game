@@ -82,7 +82,7 @@ public class SpiceRecycleReportElement : ReportElement
     void Sell()
     {
         Ability soldAbility = _sellSlot.Ability;
-        _gameManager.ChangeGoldValue(soldAbility.GetAbilityValue());
+        _gameManager.ChangeSpiceValue(soldAbility.GetAbilityValue());
 
         DismissReport();
     }

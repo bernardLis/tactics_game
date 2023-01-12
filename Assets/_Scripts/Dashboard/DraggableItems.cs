@@ -67,7 +67,6 @@ public class DraggableItems : MonoBehaviour
 
     void OnItemPointerDown(PointerDownEvent evt)
     {
-        Debug.Log($"on item pointer down");
         if (evt.button != 0)
             return;
 
