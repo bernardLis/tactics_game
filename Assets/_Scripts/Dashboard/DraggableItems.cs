@@ -67,6 +67,7 @@ public class DraggableItems : MonoBehaviour
 
     void OnItemPointerDown(PointerDownEvent evt)
     {
+        Debug.Log($"on item pointer down");
         if (evt.button != 0)
             return;
 
@@ -140,7 +141,6 @@ public class DraggableItems : MonoBehaviour
         IEnumerable<VisualElement> overlappingCards = characterCards.Where(x =>
                     x.worldBound.Overlaps(_dragDropContainer.worldBound));
 
-        // drag item from desk to sell shop to sell it
         if (slots.Count() != 0)
         {
             AddItemToClosestSlot(slots);

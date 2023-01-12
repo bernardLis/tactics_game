@@ -185,6 +185,11 @@ public abstract class Ability : BaseScriptableObject
     }
 
     /* UI Helpers */
+    public int GetAbilityValue()
+    {
+        return 2;
+    }
+
     public string GetAOEDescription()
     {
         if (LineAreaOfEffect)

@@ -105,6 +105,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             AddRecruit();
         AddShop();
         AddPawnshop();
+        AddSpiceRecycle();
 
 
         OnDayPassed?.Invoke(Day);
@@ -159,6 +160,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Pawnshop, null, null, null, null, null);
+        AddNewReport(r);
+    }
+
+    void AddSpiceRecycle()
+    {
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Initialize(ReportType.SpiceRecycle, null, null, null, null, null);
         AddNewReport(r);
     }
 

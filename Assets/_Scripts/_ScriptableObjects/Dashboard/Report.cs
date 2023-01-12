@@ -17,6 +17,7 @@ public class Report : BaseScriptableObject
     public string CampBuildingId;
     public Shop Shop;
     public Ability Ability;
+    public Item Item;
 
     public bool IsSigned;
     public int DaySigned;
@@ -64,15 +65,18 @@ public class Report : BaseScriptableObject
             Text = data.Text;
 
         if (ReportType == ReportType.CampBuilding)
-        {
             CampBuildingId = data.CampBuildingId;
-        }
+
         if (ReportType == ReportType.Shop)
         {
             Shop = ScriptableObject.CreateInstance<Shop>();
             Shop.LoadFromData(data.ShopData);
         }
-        if (ReportType == ReportType.Ability)
+
+        if (data.ItemData.ItemId.Length != 0)
+            Item = _gameManager.GameDatabase.GetItemById(data.ItemData.ItemId);
+
+        if (data.AbilityData.TemplateId.Length != 0)
         {
             Ability = Instantiate(_gameManager.GameDatabase.GetAbilityById(data.AbilityData.TemplateId));
             Ability.name = data.AbilityData.Name;
@@ -106,8 +110,12 @@ public class Report : BaseScriptableObject
         if (Shop != null)
             rd.ShopData = Shop.SerializeSelf();
 
+        if (Item != null)
+            rd.ItemData = Item.SerializeSelf();
+
         if (Ability != null)
             rd.AbilityData = Ability.SerializeSelf();
+
 
         rd.IsSigned = IsSigned;
         rd.DaySigned = DaySigned;
@@ -129,6 +137,7 @@ public struct ReportData
     public string Text;
     public string CampBuildingId;
     public ShopData ShopData;
+    public ItemData ItemData;
     public AbilityData AbilityData;
 
     public bool IsSigned;

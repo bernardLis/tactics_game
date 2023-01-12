@@ -1,0 +1,5 @@
+.spice-recycle__sell-button {
+    width: 100px;
+    height: 50px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_little_red.png?fileID=2800000&guid=8df298d9356b579408335bf4442a141d&type=3#Button_little_red');
+}

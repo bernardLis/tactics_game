@@ -33,6 +33,14 @@ public class PawnshopReportElement : ReportElement
         _sellSlot.OnItemAdded += OnSellItemAdded;
         _sellSlot.OnItemRemoved += OnSellItemRemoved;
 
+        if (report.Item != null)
+        {
+            ItemElement el = new(report.Item);
+            _draggableItems.AddDraggableItem(el);
+            _sellSlot.AddItemNoDelegates(el);
+            _sellSlot.ItemElement.RegisterCallback<PointerDownEvent>(BlockReportPickup, TrickleDown.NoTrickleDown);
+        }
+
         _reportContents.Add(_sellSlot);
         _draggableItems.AddSlot(_sellSlot);
 
@@ -58,6 +66,7 @@ public class PawnshopReportElement : ReportElement
 
     void OnSellItemAdded(ItemElement el)
     {
+        _report.Item = el.Item;
         _goldElement.ChangeAmount(el.Item.GetSellValue());
         el.RegisterCallback<PointerDownEvent>(BlockReportPickup, TrickleDown.NoTrickleDown);
 
@@ -66,6 +75,7 @@ public class PawnshopReportElement : ReportElement
 
     void OnSellItemRemoved(ItemElement el)
     {
+        _report.Item = null;
         _goldElement.ChangeAmount(0);
         el.UnregisterCallback<PointerDownEvent>(BlockReportPickup, TrickleDown.NoTrickleDown);
 
@@ -76,9 +86,7 @@ public class PawnshopReportElement : ReportElement
     {
         Item soldItem = _sellSlot.ItemElement.Item;
         _gameManager.ChangeGoldValue(soldItem.GetSellValue());
-        _gameManager.RemoveItemFromPouch(soldItem);
 
         DismissReport();
     }
-
 }
