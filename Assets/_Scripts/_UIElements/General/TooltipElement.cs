@@ -42,22 +42,21 @@ public class TooltipElement : VisualElement
     public void UpdatePosition(VisualElement element)
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
-        Vector2 pos = UnityEngine.UIElements.RuntimePanelUtils.ScreenToPanel(element.panel,
-                        new Vector2(mousePosition.x, Screen.height - mousePosition.y));
-
         // TODO: inelegant solution, when character card is tooltip element it does not resolve style for some reason. 
         float elWidth = resolvedStyle.width == 0 ? _tooltipElement.resolvedStyle.width : resolvedStyle.width;
         float elHeight = resolvedStyle.height == 0 ? _tooltipElement.resolvedStyle.height : resolvedStyle.height;
+        float x = element.worldBound.xMin;
+        float y = element.worldBound.yMin;
 
-        if (pos.x + offsetX + elWidth > Screen.width)
-            style.left = pos.x - (elWidth + offsetX);
+        if (x + offsetX + elWidth > Screen.width)
+            style.left = x - elWidth + element.resolvedStyle.width;
         else
-            style.left = pos.x + offsetX;
+            style.left = x;
 
-        if (pos.y - elHeight + offsetY < 0)
-            style.top = pos.y;
+        if (y - elHeight + offsetY < 0)
+            style.top = y + element.resolvedStyle.height;
         else
-            style.top = pos.y - elHeight + offsetY;
+            style.top = y - elHeight;
     }
 
     //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/

@@ -186,8 +186,6 @@ public class DraggableItems : MonoBehaviour
         }
 
         DragCleanUp();
-
-        _gameManager.SaveJsonData();
     }
 
     void AddItemToCharacter(IEnumerable<VisualElement> overlappingCards)
@@ -198,6 +196,11 @@ public class DraggableItems : MonoBehaviour
         if (closestCard.Character.CanTakeAnotherItem())
         {
             closestCard.Character.AddItem(_draggedItem.Item);
+            if (_draggedItem.IsShop)
+            {
+                _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
+                _draggedItem.ItemBought();
+            }
             DragCleanUp();
             return;
         }
@@ -216,6 +219,7 @@ public class DraggableItems : MonoBehaviour
 
         _dragDropContainer.Clear();
         _dragDropContainer.style.visibility = Visibility.Hidden;
+        _gameManager.SaveJsonData();
     }
 
     public void RemoveDragContainer()

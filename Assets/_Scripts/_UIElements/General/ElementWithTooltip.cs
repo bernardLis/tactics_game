@@ -18,7 +18,6 @@ public abstract class ElementWithTooltip : VisualElement
         RegisterCallback<PointerUpEvent>((evt) => OnPointerUp());
 
         RegisterCallback<MouseEnterEvent>((evt) => DisplayTooltip());
-        RegisterCallback<MouseMoveEvent>((evt) => UpdateTooltipPosition());
         RegisterCallback<MouseLeaveEvent>((evt) => OnMouseLeave());
 
         // on destroy https://forum.unity.com/threads/callback-for-destroy-dispose.856948/
