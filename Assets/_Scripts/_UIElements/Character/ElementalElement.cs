@@ -7,6 +7,8 @@ public class ElementalElement : ElementWithTooltip
 {
     Element _element;
 
+    Label _icon;
+
     const string _ussClassName = "elemental-element__";
     const string _ussIcon = _ussClassName + "icon";
 
@@ -18,11 +20,33 @@ public class ElementalElement : ElementWithTooltip
 
         _element = element;
 
-        Label icon = new();
-        icon.AddToClassList(_ussIcon);
-        icon.style.backgroundImage = new StyleBackground(element.Icon);
+        _icon = new();
+        _icon.AddToClassList(_ussIcon);
+        _icon.style.backgroundImage = new StyleBackground(element.Icon);
 
-        Add(icon);
+        Add(_icon);
+    }
+
+    public void ChangeElement(Element newElement)
+    {
+        if (newElement == _element)
+            return;
+        if (float.IsNaN(this.resolvedStyle.width))
+            return;
+
+        Vector3 pos = this.worldTransform.GetPosition();
+        pos.x = pos.x + this.resolvedStyle.width / 2;
+        pos.y = Camera.main.pixelHeight - pos.y - this.resolvedStyle.height; // inverted, plus play on bottom of element
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
+        worldPos.z = 0;
+        Debug.Log($"parent of element: {this.parent}");
+        Debug.Log($"vfx {worldPos}");
+
+
+        newElement.VFXEffect.PlayEffect(worldPos, Vector3.one);
+
+        _element = newElement;
+        _icon.style.backgroundImage = new StyleBackground(newElement.Icon);
     }
 
     protected override void DisplayTooltip()
@@ -32,5 +56,6 @@ public class ElementalElement : ElementWithTooltip
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }
+
 
 }

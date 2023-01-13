@@ -4,9 +4,14 @@ using UnityEngine;
 using UnityEditor;
 using Random = UnityEngine.Random;
 
+
+
 [CreateAssetMenu(menuName = "ScriptableObject/Character/Player")]
 public class Character : BaseScriptableObject
 {
+    public static int MaxCharacterAbilities = 1;
+    public static int MaxCharacterItems = 3;
+
     GameManager _gameManager;
 
     // character scriptable object holds stats & abilities of a character.
@@ -53,6 +58,7 @@ public class Character : BaseScriptableObject
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
     public event Action<CharacterRank> OnRankChanged;
+    public event Action<Element> OnElementChanged;
 
     public event Action<int> OnMaxHealthChanged;
     public event Action<int> OnMaxManaChanged;
@@ -127,23 +133,33 @@ public class Character : BaseScriptableObject
         UpdateRank();
     }
 
-    public int GetNumberOfAbilitySlots() { return 2; }
-
     public void AddAbility(Ability ability)
     {
+        Debug.Log($"Character.name in add ability {name}");
         Abilities.Add(ability);
         UpdateRank();
+        UpdateElement(ability.Element);
     }
 
     public void RemoveAbility(Ability ability)
     {
         Abilities.Remove(ability);
         UpdateRank();
+        UpdateElement(_gameManager.GameDatabase.GetElementByName(ElementName.Earth));
     }
 
-    public bool CanTakeAnotherItem() { return Items.Count < 2; }
+    void UpdateElement(Element element)
+    {
+        if (element == Element)
+            return;
+        Debug.Log($"update element");
+        Element = element;
+        OnElementChanged?.Invoke(element);
+    }
 
-    public bool CanTakeAnotherAbility() { return Abilities.Count < 2; }
+    public bool CanTakeAnotherItem() { return Items.Count < MaxCharacterItems; }
+
+    public bool CanTakeAnotherAbility() { return Abilities.Count < MaxCharacterAbilities; }
 
     public void ClearItems() { Items = new(); }
 
@@ -274,7 +290,7 @@ public class Character : BaseScriptableObject
 
         Level = 1;
         Experience = 0;
-        Element = _gameManager.GameDatabase.GetRandomElement();
+        Element = _gameManager.GameDatabase.GetElementByName(ElementName.Earth);
 
         MaxHealth = 100;
         MaxMana = 30;
@@ -339,6 +355,7 @@ public class Character : BaseScriptableObject
         DeskPosition = data.DeskPosition;
 
         UpdateRank();
+        UpdateElement(Element);
     }
 
     public CharacterData SerializeSelf()

@@ -19,3 +19,4 @@ MonoBehaviour:
   Description: Earth - neutral element.
   StrongAgainst: {fileID: 0}
   WeakAgainst: {fileID: 0}
+  VFXEffect: {fileID: 11400000, guid: 4ee72b03a4dbde54cbc14c993daeb244, type: 2}

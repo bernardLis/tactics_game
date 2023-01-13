@@ -17,7 +17,7 @@ MonoBehaviour:
   Portrait: {fileID: 11400000, guid: 0cd79f2e2cbe26a4b8e4149b372339c4, type: 2}
   Level: 1
   Experience: 0
-  Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   MaxHealth: 100
   MaxMana: 50
   Power: 10

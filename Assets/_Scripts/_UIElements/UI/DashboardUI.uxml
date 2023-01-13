@@ -96,4 +96,5 @@
     </ui:VisualElement>
     <ui:VisualElement name="abilityNodeDragAndDrop" class="abilityNodeDragAndDrop" />
     <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: 100%; height: 100%;" />
+    <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
 </ui:UXML>

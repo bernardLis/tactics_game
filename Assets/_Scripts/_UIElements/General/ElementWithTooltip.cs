@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 public abstract class ElementWithTooltip : VisualElement
 {
+    protected VisualElement _tooltipContainer;
     protected TooltipElement _tooltip;
 
     bool _blockTooltip;
@@ -53,7 +54,8 @@ public abstract class ElementWithTooltip : VisualElement
         if (panel.visualTree == null)
             return;
         var root = panel.visualTree;
-        root.Add(_tooltip);
+        _tooltipContainer = root.Q<VisualElement>("tooltipContainer");
+        _tooltipContainer.Add(_tooltip);
     }
 
     protected void UpdateTooltipPosition()
@@ -74,11 +76,10 @@ public abstract class ElementWithTooltip : VisualElement
     {
         if (_tooltip == null)
             return;
+        if (_tooltipContainer == null)
+            return;
 
-        var root = panel.visualTree;
-        _tooltip.SetEnabled(false);
-        if (_tooltip.parent == root)
-            root.Remove(_tooltip);
+        _tooltipContainer.Clear();
         _tooltip = null;
     }
 

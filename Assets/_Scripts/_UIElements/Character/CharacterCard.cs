@@ -9,6 +9,7 @@ public class CharacterCard : VisualElement
 
     public CharacterPortraitElement PortraitVisualElement;
     StarRankElement _rankElement;
+    ElementalElement _elementalElement;
     Label _title;
     Label _level;
 
@@ -64,9 +65,9 @@ public class CharacterCard : VisualElement
 
         PortraitVisualElement = new(character, this);
         portraitContainer.Add(PortraitVisualElement);
-        ElementalElement e = new ElementalElement(Character.Element);
-        e.AddToClassList(_ussElementPosition);
-        portraitContainer.Add(e);
+        _elementalElement = new ElementalElement(Character.Element);
+        _elementalElement.AddToClassList(_ussElementPosition);
+        portraitContainer.Add(_elementalElement);
 
         _title = new($"[{Character.Rank.Title}] {character.CharacterName}");
         portraitContainer.Add(CreateRankElement());
@@ -94,13 +95,29 @@ public class CharacterCard : VisualElement
 
         AvailabilityCheck();
         Character.OnRankChanged += OnRankChanged;
+        Character.OnElementChanged += OnElementChanged;
         SubscribeToStatChanges();
+
+        RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
 
     void OnRankChanged(CharacterRank rank)
     {
         _rankElement.SetRank(rank.Rank);
         _title.text = $"[{rank.Title}] {Character.CharacterName}";
+    }
+
+    void OnElementChanged(Element element)
+    {
+        Debug.Log($"onm element changed {element.ElementName}");
+        _elementalElement.ChangeElement(element);
+    }
+
+    void OnPanelDetached(DetachFromPanelEvent evt)
+    {
+        Debug.Log($"on panel detached");
+        Character.OnRankChanged -= OnRankChanged;
+        Character.OnElementChanged -= OnElementChanged;
     }
 
     VisualElement CreateRankElement()
@@ -179,7 +196,7 @@ public class CharacterCard : VisualElement
     {
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < Character.MaxCharacterItems; i++)
         {
             ItemSlot itemSlot = new();
             itemSlot.OnItemAdded += OnItemAdded;
@@ -208,9 +225,8 @@ public class CharacterCard : VisualElement
     {
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
-        int slotCount = Character.GetNumberOfAbilitySlots();
 
-        for (int i = 0; i < slotCount; i++)
+        for (int i = 0; i < Character.MaxCharacterAbilities; i++)
         {
             AbilitySlot abilitySlot = new();
             abilitySlot.Character = Character;
@@ -225,7 +241,7 @@ public class CharacterCard : VisualElement
             DraggableAbilities da = null;
             if (DeskManager.Instance != null)
                 da = DeskManager.Instance.GetComponent<DraggableAbilities>();
-            
+
             AbilitySlots[i].AddDraggableButtonNoDelegates(Character.Abilities[i], da);
         }
 
