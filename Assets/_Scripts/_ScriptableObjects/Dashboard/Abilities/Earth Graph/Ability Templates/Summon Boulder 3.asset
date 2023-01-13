@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21f8dad746dfb8479f1b80884919907, type: 3}
+  m_Name: Summon Boulder 3
+  m_EditorClassIdentifier: 
+  Id: eb753112-0e52-44c5-8875-56e4aed39728
+  Description: Summons pushable boulder
+  Icon: {fileID: 21300000, guid: ccf3aacf7168c8040b4e59a13c88a4fb, type: 3}
+  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  BasePower: 0
+  ManaCost: 25
+  AbilityType: 4
+  Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  WeaponType: 0
+  AreaOfEffect: 0
+  LineAreaOfEffect: 0
+  SpellcastAnimation: 1
+  StatModifier: {fileID: 0}
+  Status: {fileID: 0}
+  Projectile: {fileID: 0}
+  AbilityEffect: {fileID: 0}
+  Range: 5
+  CanTargetSelf: 0
+  CanTargetDiagonally: 1
+  HighlightColor: {r: 0.41509432, g: 0.2793701, b: 0, a: 1}
+  Price: 1
+  Rank: 3
+  CharacterGameObject: {fileID: 0}
+  CreatedObject: {fileID: 7512957698282176492, guid: a549c98ce7982e049a7ea6344afcc711, type: 3}

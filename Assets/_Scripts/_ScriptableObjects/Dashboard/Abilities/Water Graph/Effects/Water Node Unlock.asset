@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6b7c518f57a51640a498dbd5c3f1fb2, type: 3}
-  m_Name: Wind Effect
+  m_Name: Water Node Unlock
   m_EditorClassIdentifier: 
-  Id: 67d5537f-8e3e-41c4-bb65-94f6b8c26aeb
-  VisualEffectPrefab: {fileID: 3910270482433990108, guid: e824c368abde97c48934fc582fe160f2, type: 3}
+  Id: c0ee1c4e-d4f5-46e6-a295-e5ddf34d3929
+  VisualEffectPrefab: {fileID: 2307877776657808365, guid: ecb1b872ab254f449b2389f27632b39a, type: 3}
   DurationSeconds: 1
   Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}

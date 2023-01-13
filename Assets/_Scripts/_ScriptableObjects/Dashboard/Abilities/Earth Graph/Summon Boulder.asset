@@ -18,12 +18,18 @@ MonoBehaviour:
   Title: Summon Boulder
   Description: Basic earth magic. Summon a pushable boulder.
   SpiceCost: 20
-  IsUnlocked: 0
-  UnlockEffect: {fileID: 0}
-  AddedToCraftingEffect: {fileID: 0}
-  AddedToCraftingEffectPosition: {x: 0, y: 0, z: 0}
-  AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
-  AbilityCraftedEffect: {fileID: 0}
-  AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  IsUnlocked: 1
+  UnlockEffect: {fileID: 11400000, guid: da5f04ef59d13f149a1c2c5e01736121, type: 2}
+  AddedToCraftingEffect: {fileID: 11400000, guid: 0812822ec8e3f0e47aa95a6e1b703cef, type: 2}
+  AddedToCraftingEffectPosition: {x: 6.2, y: 3, z: 0}
+  AddedToCraftingEffectScale: {x: 2, y: 2, z: 2}
+  AbilityCraftedEffect: {fileID: 11400000, guid: 76a8acab4728f0541a96064605b204cc, type: 2}
+  AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
+  StarRange: {x: 0, y: 1}
+  AbilityNodeTemplates:
+  - Stars: 0
+    Ability: {fileID: 11400000, guid: 9b2309d30543b3e458dba1ce61e2d984, type: 2}
+    CraftCost: 5
+  - Stars: 1
+    Ability: {fileID: 11400000, guid: 9b2309d30543b3e458dba1ce61e2d984, type: 2}
+    CraftCost: 10

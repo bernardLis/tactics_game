@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5944d5cfc9b4e4d44ac510a95728dde5, type: 3}
+  m_Name: Heal
+  m_EditorClassIdentifier: 
+  Id: 52dcf696-c9e1-43ef-a416-f2756b1fc1c5
+  IconUnlocked: {fileID: 21300000, guid: 0d3748f5df9f36040abd552708c84240, type: 3}
+  IconLocked: {fileID: 21300000, guid: 5f85ea25930c2bf4a80117ab63f5b828, type: 3}
+  Title: Heal
+  Description: Basic water magic. Heal target.
+  SpiceCost: 20
+  IsUnlocked: 0
+  UnlockEffect: {fileID: 11400000, guid: 040fd16549cf1494a9f953f63ee37926, type: 2}
+  AddedToCraftingEffect: {fileID: 11400000, guid: 49fe1663ab9b7d44488ce2174287ce46, type: 2}
+  AddedToCraftingEffectPosition: {x: 6.2, y: 3, z: 0}
+  AddedToCraftingEffectScale: {x: 2, y: 2, z: 2}
+  AbilityCraftedEffect: {fileID: 11400000, guid: b58ccc8b242733f41804401901f50337, type: 2}
+  AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
+  StarRange: {x: 0, y: 3}
+  AbilityNodeTemplates:
+  - Stars: 0
+    Ability: {fileID: 11400000, guid: 34d798471a097bd48bbe81cbcb9add95, type: 2}
+    CraftCost: 5
+  - Stars: 1
+    Ability: {fileID: 11400000, guid: 4218401060603424daddf519a7968b80, type: 2}
+    CraftCost: 10
+  - Stars: 2
+    Ability: {fileID: 11400000, guid: 2eac4f5b5e4513340b902056180c9268, type: 2}
+    CraftCost: 15
+  - Stars: 3
+    Ability: {fileID: 11400000, guid: 317f79e3c0d41c745acc8ff60871d7de, type: 2}
+    CraftCost: 20

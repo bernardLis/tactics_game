@@ -19,4 +19,4 @@ MonoBehaviour:
   Description: 'Water - calm element. Douses fire, is spread by wind. '
   StrongAgainst: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   WeakAgainst: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  VFXEffect: {fileID: 11400000, guid: 4ee72b03a4dbde54cbc14c993daeb244, type: 2}
+  VFXEffect: {fileID: 11400000, guid: 4388d7a91a89dc34ab6e8fb61a00f808, type: 2}

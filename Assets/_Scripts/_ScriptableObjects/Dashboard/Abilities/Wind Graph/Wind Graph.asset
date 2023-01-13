@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 6663f2e7-3cd4-4f42-8eb0-b57ad68f3b76
   Title: Wind
   AbilityNodes:
-  - {fileID: 11400000, guid: 357a36d4c5a91b74284f3ba3897a2193, type: 2}
+  - {fileID: 11400000, guid: 632b6d91f9d430140a223120f8892be3, type: 2}
   - {fileID: 11400000, guid: 5d9e02799f5e7d44d92e360d5c32b7e6, type: 2}
   - {fileID: 11400000, guid: 9e45a649c54eead40a99116852f11ad3, type: 2}
   - {fileID: 11400000, guid: c1e0fded68ac7d249ac9912d55ad424d, type: 2}
