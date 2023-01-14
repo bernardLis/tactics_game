@@ -19,6 +19,7 @@ public class SaveData
     public List<CharacterData> PlayerTroops = new();
     public List<ItemData> ItemPouch = new();
     public List<AbilityData> AbilityPouch = new();
+    public List<AbilityData> CraftedAbilities = new();
 
     public List<ReportData> Reports = new();
     public List<ReportData> ReportsArchived = new();

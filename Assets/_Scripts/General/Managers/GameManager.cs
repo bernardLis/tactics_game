@@ -27,6 +27,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [HideInInspector] public List<Item> PlayerItemPouch = new();
 
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
+    [HideInInspector] public List<Ability> CraftedAbilities = new();
 
 
     public List<Report> Reports = new();
@@ -59,7 +60,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         else
             LoadFromSaveFile();
     }
-
 
     public void Play()
     {
@@ -235,6 +235,18 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
+    public void AddCraftedAbility(Ability ability)
+    {
+        CraftedAbilities.Add(ability);
+        SaveJsonData();
+    }
+
+    public void RemoveCraftedAbility(Ability ability)
+    {
+        CraftedAbilities.Remove(ability);
+        SaveJsonData();
+    }
+
     /* LEVELS */
     public void SetWasTutorialPlayed(bool was)
     {
@@ -336,6 +348,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.PlayerTroops = PopulateCharacters();
         saveData.ItemPouch = PopulateItemPouch();
         saveData.AbilityPouch = PopulateAbilityPouch();
+        saveData.CraftedAbilities = PopulateCraftedAbilities();
 
         saveData.Reports = PopulateReports();
         saveData.ReportsArchived = PopulateArchivedReports();
@@ -366,6 +379,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         List<AbilityData> abilityData = new();
         foreach (Ability a in PlayerAbilityPouch)
+            abilityData.Add(a.SerializeSelf());
+
+        return abilityData;
+    }
+
+    List<AbilityData> PopulateCraftedAbilities()
+    {
+        List<AbilityData> abilityData = new();
+        foreach (Ability a in CraftedAbilities)
             abilityData.Add(a.SerializeSelf());
 
         return abilityData;
@@ -451,6 +473,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             Ability a = Instantiate(GameDatabase.GetAbilityById(abilityData.TemplateId));
             a.name = abilityData.Name;
             PlayerAbilityPouch.Add(a);
+        }
+
+        CraftedAbilities = new();
+        foreach (AbilityData abilityData in saveData.CraftedAbilities)
+        {
+            Ability a = Instantiate(GameDatabase.GetAbilityById(abilityData.TemplateId));
+            a.name = abilityData.Name;
+            a.TimeLeftToCrafted = abilityData.TimeLeftToCrafted;
+            CraftedAbilities.Add(a);
         }
 
         LoadReports(saveData);

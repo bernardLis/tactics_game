@@ -36,6 +36,7 @@ public abstract class Ability : BaseScriptableObject
     public Color HighlightColor;
 
     [Header("Other")]
+    public int TimeLeftToCrafted;
     public int Price = 1;
     public int Rank = 0;
 
@@ -209,6 +210,7 @@ public abstract class Ability : BaseScriptableObject
         AbilityData data = new();
         data.TemplateId = Id;
         data.Name = name;
+        data.TimeLeftToCrafted = TimeLeftToCrafted;
 
         return data;
     }
@@ -218,6 +220,6 @@ public abstract class Ability : BaseScriptableObject
 public struct AbilityData
 {
     public string TemplateId;
-    public Vector2 DeskPosition;
     public string Name;
+    public int TimeLeftToCrafted;
 }

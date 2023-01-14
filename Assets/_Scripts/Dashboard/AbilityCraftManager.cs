@@ -45,13 +45,15 @@ public class AbilityCraftManager : MonoBehaviour
     MyButton _craftButton;
     MyButton _discardButton;
 
-    VisualElement _craftAbilityCraftedAbilityContainer;
+    VisualElement _craftedAbilitiesContainer;
+    List<AbilityButton> _craftedAbilityButtons = new();
 
     EffectHolder _addedToCraftingEffect;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _gameManager.OnDayPassed += OnDayPassed;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _dashboardManager.OnAbilitiesOpened += OnAbilitiesClicked;
@@ -62,8 +64,16 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityGraphManager.OnCraftNodeAdded += OnCraftNodeAdded;
 
         _abilityCraft = _root.Q<VisualElement>("abilityCraft");
+        _craftedAbilitiesContainer = _root.Q<VisualElement>("craftedAbilitiesContainer");
+
         GetCraftContainerElements();
         SetupCraftContainer();
+        PopulateCraftedAbilities();
+    }
+
+    void OnDayPassed(int day)
+    {
+        UpdateCraftedAbilities();
     }
 
     void OnAbilitiesClicked()
@@ -107,7 +117,6 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityCostContainer = _root.Q<VisualElement>("craftAbilityCostContainer");
 
         _abilityButtonsContainer = _root.Q<VisualElement>("craftAbilityButtonsContainer");
-        _craftAbilityCraftedAbilityContainer = _root.Q<VisualElement>("craftAbilityCraftedAbilityContainer");
     }
 
     void SetupCraftContainer()
@@ -257,26 +266,25 @@ public class AbilityCraftManager : MonoBehaviour
     {
         if (_gameManager.Spice < _abilityNode.GetSpiceCostByStars(_numberOfStars))
         {
-            Helpers.DisplayTextOnElement(_root, _craftAbilityCraftedAbilityContainer, "Not enough spice", Color.red);
+            Helpers.DisplayTextOnElement(_root, _abilityButtonsContainer, "Not enough spice", Color.red);
             return;
         }
 
         _gameManager.ChangeSpiceValue(-_abilityNode.GetSpiceCostByStars(_numberOfStars));
 
         Ability craftedAbility = _abilityNode.CreateAbility(_numberOfStars, _craftAbilityName.value);
-        CreateReport(craftedAbility);
+        craftedAbility.TimeLeftToCrafted = _abilityNode.DaysOnCooldownRemaining;
+        _gameManager.AddCraftedAbility(craftedAbility);
 
-        _craftAbilityCraftedAbilityContainer.Clear();
-        Label header = new("Your ability will be available in desk. This is what you have created:");
-        header.style.whiteSpace = WhiteSpace.Normal;
         AbilityButton button = new(craftedAbility);
-        _craftAbilityCraftedAbilityContainer.Add(header);
-        _craftAbilityCraftedAbilityContainer.Add(button);
+        _craftedAbilityButtons.Add(button);
+        button.AddCooldownOverlay();
+        _craftedAbilitiesContainer.Add(button);
 
         // vfx
-        Vector3 pos = _craftAbilityCraftedAbilityContainer.worldTransform.GetPosition();
-        pos.x = pos.x + _craftAbilityCraftedAbilityContainer.resolvedStyle.width / 2;
-        pos.y = Camera.main.pixelHeight - pos.y - _craftAbilityCraftedAbilityContainer.resolvedStyle.height; // inverted, plus play on bottom of element
+        Vector3 pos = _abilityButtonsContainer.worldTransform.GetPosition();
+        pos.x = pos.x + _abilityButtonsContainer.resolvedStyle.width / 2;
+        pos.y = Camera.main.pixelHeight - pos.y - _abilityButtonsContainer.resolvedStyle.height; // inverted, plus play on bottom of element
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
         worldPos.z = 0;
 
@@ -284,13 +292,6 @@ public class AbilityCraftManager : MonoBehaviour
         DiscardAbility();
     }
 
-    void CreateReport(Ability craftedAbility)
-    {
-        Report report = ScriptableObject.CreateInstance<Report>();
-        report.Initialize(ReportType.Ability, null, null, null, null, null, craftedAbility);
-        _gameManager.AddNewReport(report);
-        _gameManager.SaveJsonData();
-    }
 
     void DiscardAbility()
     {
@@ -308,4 +309,42 @@ public class AbilityCraftManager : MonoBehaviour
         }
     }
 
+    /* crafted abilities */
+    void PopulateCraftedAbilities()
+    {
+        foreach (Ability ability in _gameManager.CraftedAbilities)
+        {
+            AbilityButton button = new(ability);
+            button.AddCooldownOverlay();
+            _craftedAbilitiesContainer.Add(button);
+            _craftedAbilityButtons.Add(button);
+        }
+    }
+
+    void UpdateCraftedAbilities()
+    {
+        List<AbilityButton> buttonsToRemove = new();
+        foreach (AbilityButton button in _craftedAbilityButtons)
+        {
+            button.Ability.TimeLeftToCrafted--;
+            button.UpdateCooldownOverlay();
+            if (button.Ability.TimeLeftToCrafted <= 0)
+            {
+                CreateReport(button.Ability);
+                buttonsToRemove.Add(button);
+                _craftedAbilitiesContainer.Remove(button);
+            }
+        }
+
+        foreach (AbilityButton button in buttonsToRemove)
+            _craftedAbilityButtons.Remove(button);
+    }
+
+    void CreateReport(Ability craftedAbility)
+    {
+        Report report = ScriptableObject.CreateInstance<Report>();
+        report.Initialize(ReportType.Ability, null, null, null, null, null, craftedAbility);
+        _gameManager.AddNewReport(report);
+        _gameManager.SaveJsonData();
+    }
 }

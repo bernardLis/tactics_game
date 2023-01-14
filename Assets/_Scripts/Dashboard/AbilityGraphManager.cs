@@ -188,6 +188,7 @@ public class AbilityGraphManager : MonoBehaviour
         cost.Add(new SpiceElement(abilityNode.SpiceCost));
         return cost;
     }
+
 }
 
 
