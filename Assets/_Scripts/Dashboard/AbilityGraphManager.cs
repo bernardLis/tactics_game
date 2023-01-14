@@ -58,13 +58,10 @@ public class AbilityGraphManager : MonoBehaviour
 
     void OnAbilitiesClicked()
     {
-
+        // TODO: should I reload?
     }
 
-    public void ClearCraftSlot()
-    {
-        _craftAbilityNodeSlot.RemoveNode();
-    }
+    public void ClearCraftSlot() { _craftAbilityNodeSlot.RemoveNode(); }
 
     void CreateGraphs()
     {

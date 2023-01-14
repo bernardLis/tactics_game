@@ -21,7 +21,10 @@ public class AbilityNodeGraph : BaseScriptableObject
 
     public void LoadFromData(AbilityNodeGraphData data)
     {
-
+        foreach (AbilityNodeData abilityNodeData in data.AbilityNodeDatas)
+            foreach (AbilityNode n in AbilityNodes)
+                if (n.Id == abilityNodeData.Id)
+                    n.LoadFromData(abilityNodeData);
     }
 
     public AbilityNodeGraphData SerializeSelf()
@@ -39,8 +42,6 @@ public class AbilityNodeGraph : BaseScriptableObject
 
         return data;
     }
-
-
 }
 
 [Serializable]

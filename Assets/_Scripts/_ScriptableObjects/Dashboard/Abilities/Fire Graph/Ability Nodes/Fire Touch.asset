@@ -28,17 +28,8 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 2, y: 2, z: 2}
   AbilityCraftedEffect: {fileID: 11400000, guid: e055c3fc8df2e144db60e0d29d87e0b7, type: 2}
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
-  StarRange: {x: 0, y: 3}
-  AbilityNodeTemplates:
-  - Stars: 0
-    Ability: {fileID: 11400000, guid: 5c32271d331b2174cba7d4b21d0ec638, type: 2}
-    CraftCost: 5
-  - Stars: 1
-    Ability: {fileID: 11400000, guid: 325f386d8619ea4408720008a57d012b, type: 2}
-    CraftCost: 10
-  - Stars: 2
-    Ability: {fileID: 11400000, guid: 953f48aa712cdcb489883a9e9ba0e1c1, type: 2}
-    CraftCost: 15
-  - Stars: 3
-    Ability: {fileID: 11400000, guid: dc2befaeebecc9849bd027073796ac58, type: 2}
-    CraftCost: 20
+  Abilities:
+  - {fileID: 11400000, guid: 5c32271d331b2174cba7d4b21d0ec638, type: 2}
+  - {fileID: 11400000, guid: 325f386d8619ea4408720008a57d012b, type: 2}
+  - {fileID: 11400000, guid: 953f48aa712cdcb489883a9e9ba0e1c1, type: 2}
+  - {fileID: 11400000, guid: dc2befaeebecc9849bd027073796ac58, type: 2}

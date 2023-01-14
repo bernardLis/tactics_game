@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5944d5cfc9b4e4d44ac510a95728dde5, type: 3}
   m_Name: Push
   m_EditorClassIdentifier: 
-  Id: 9cc6b6ee-0386-40fc-b469-8d96676d4498
+  Id: 1-0386-40fc-b469-8d96676d4498
   IconUnlocked: {fileID: 21300000, guid: 9bf9be34eac06a146aee83bec4040ce3, type: 3}
   IconLocked: {fileID: 21300000, guid: 4d6dde7a5dda2954e8f7ef3aece830b9, type: 3}
   Title: Push
   Description: Novice wind magic. Push target one tile.
   SpiceCost: 20
   DaysToCraftAbility: 2
-  IsUnlocked: 1
+  IsUnlocked: 0
   IsOnCooldown: 0
   DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 11400000, guid: c953b809299009e4aaa7f8049dec28e3, type: 2}
@@ -28,14 +28,7 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 2, y: 2, z: 2}
   AbilityCraftedEffect: {fileID: 11400000, guid: 05e2f1555aeb4af40aa639898cb23f5c, type: 2}
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
-  StarRange: {x: 0, y: 2}
-  AbilityNodeTemplates:
-  - Stars: 0
-    Ability: {fileID: 11400000, guid: 0b1d1b024186dc24ea2f95d583d64397, type: 2}
-    CraftCost: 5
-  - Stars: 1
-    Ability: {fileID: 11400000, guid: 16d162b023bc5cb41a0519a68bee6320, type: 2}
-    CraftCost: 10
-  - Stars: 2
-    Ability: {fileID: 11400000, guid: 396ddacba91276e4692c95ece21fd8a9, type: 2}
-    CraftCost: 15
+  Abilities:
+  - {fileID: 11400000, guid: 0b1d1b024186dc24ea2f95d583d64397, type: 2}
+  - {fileID: 11400000, guid: 16d162b023bc5cb41a0519a68bee6320, type: 2}
+  - {fileID: 11400000, guid: 396ddacba91276e4692c95ece21fd8a9, type: 2}

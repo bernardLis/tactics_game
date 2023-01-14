@@ -261,7 +261,7 @@ public class Character : BaseScriptableObject
         }
 
         foreach (Ability a in Abilities)
-            total += a.Rank;
+            total += a.StarRank;
 
         return total;
     }

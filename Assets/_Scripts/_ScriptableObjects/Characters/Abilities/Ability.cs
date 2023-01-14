@@ -37,8 +37,8 @@ public abstract class Ability : BaseScriptableObject
 
     [Header("Other")]
     public int TimeLeftToCrafted;
-    public int Price = 1;
-    public int Rank = 0;
+    public int SpiceCost = 1;
+    public int StarRank = 0;
 
     [HideInInspector] public GameObject CharacterGameObject;
     protected CharacterStats _stats;

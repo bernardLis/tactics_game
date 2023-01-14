@@ -47,7 +47,7 @@ public class AbilityTooltipElement : ElementWithTooltip
         Label aoe = new("AOE: " + ability.GetAOEDescription());
         aoe.AddToClassList(_ussCommonTextSecondary);
 
-        StarRankElement rank = new(ability.Rank, 0.5f);
+        StarRankElement rank = new(ability.StarRank, 0.5f);
 
         _modifierContainer = new();
         _modifierContainer.AddToClassList("modifierContainer");

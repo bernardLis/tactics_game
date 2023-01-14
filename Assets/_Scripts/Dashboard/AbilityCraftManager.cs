@@ -91,8 +91,8 @@ public class AbilityCraftManager : MonoBehaviour
 
         _craftTooltip.text = "Add stars to get stronger abilities.";
         _abilityNode = nodeVisualElement.AbilityNode;
-        _numberOfStars = _abilityNode.StarRange.x;
-        _abilityTemplate = _abilityNode.AbilityNodeTemplates[0].Ability;
+        _numberOfStars = (int)_abilityNode.GetStarRange().x;
+        _abilityTemplate = _abilityNode.Abilities[0];
 
         UpdateStars();
 
@@ -150,7 +150,7 @@ public class AbilityCraftManager : MonoBehaviour
 
     void SubtractStarsFromAbility()
     {
-        if (_numberOfStars <= 0 || _numberOfStars <= _abilityNode.StarRange.x)
+        if (_numberOfStars <= 0 || _numberOfStars <= (int)_abilityNode.GetStarRange().x)
         {
             Helpers.DisplayTextOnElement(_root, _starContainer, "Can't be less", Color.red);
             return;
@@ -161,14 +161,13 @@ public class AbilityCraftManager : MonoBehaviour
 
     void AddStarsToAbility()
     {
-        if (_numberOfStars >= 5 || _numberOfStars >= _abilityNode.StarRange.y)
+        if (_numberOfStars >= 5 || _numberOfStars >= (int)_abilityNode.GetStarRange().y)
         {
             Helpers.DisplayTextOnElement(_root, _starContainer, "Can't be more", Color.red);
             return;
         }
         _numberOfStars++;
         UpdateStars();
-
     }
 
     void UpdateStars()
@@ -292,7 +291,6 @@ public class AbilityCraftManager : MonoBehaviour
         DiscardAbility();
     }
 
-
     void DiscardAbility()
     {
         _abilityGraphManager.ClearCraftSlot();
@@ -309,7 +307,7 @@ public class AbilityCraftManager : MonoBehaviour
         }
     }
 
-    /* crafted abilities */
+    /* CRAFTED ABILITIES */
     void PopulateCraftedAbilities()
     {
         foreach (Ability ability in _gameManager.CraftedAbilities)
@@ -332,6 +330,7 @@ public class AbilityCraftManager : MonoBehaviour
             {
                 CreateReport(button.Ability);
                 buttonsToRemove.Add(button);
+                _gameManager.RemoveCraftedAbility(button.Ability);
                 _craftedAbilitiesContainer.Remove(button);
             }
         }

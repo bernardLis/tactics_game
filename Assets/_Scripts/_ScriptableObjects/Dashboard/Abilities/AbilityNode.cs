@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Ability Node")]
@@ -13,10 +14,8 @@ public class AbilityNode : BaseScriptableObject
     public int SpiceCost;
     public int DaysToCraftAbility;
     public bool IsUnlocked;
-    //[HideInInspector]
-    public bool IsOnCooldown;
-    //[HideInInspector]
-    public int DaysOnCooldownRemaining;
+    [HideInInspector] public bool IsOnCooldown;
+    [HideInInspector] public int DaysOnCooldownRemaining;
 
     [Header("VFX")]
     public EffectHolder UnlockEffect;
@@ -30,8 +29,7 @@ public class AbilityNode : BaseScriptableObject
 
     [Header("Ability crafting values")]
     [Tooltip("Inclusive, inclusive")]
-    public Vector2Int StarRange;
-    public AbilityNodeTemplate[] AbilityNodeTemplates;
+    public List<Ability> Abilities = new();
 
     GameManager _gameManager;
 
@@ -91,9 +89,9 @@ public class AbilityNode : BaseScriptableObject
 
     public Ability GetAbilityByStars(int stars)
     {
-        foreach (AbilityNodeTemplate t in AbilityNodeTemplates)
-            if (t.Stars == stars)
-                return t.Ability;
+        foreach (Ability a in Abilities)
+            if (a.StarRank == stars)
+                return a;
 
         Debug.LogError($"No ability with {stars} stars in {name}");
         return null;
@@ -101,13 +99,23 @@ public class AbilityNode : BaseScriptableObject
 
     public int GetSpiceCostByStars(int stars)
     {
-        foreach (AbilityNodeTemplate t in AbilityNodeTemplates)
-            if (t.Stars == stars)
-                return t.CraftCost;
+        foreach (Ability a in Abilities)
+            if (a.StarRank == stars)
+                return a.SpiceCost;
 
         Debug.LogError($"No ability with {stars} stars in {name}");
         return -1;
+    }
 
+    List<Ability> GetOrderedAbilities() { return Abilities.OrderByDescending(a => a.StarRank).ToList(); }
+
+    public Vector2 GetStarRange()
+    {
+        List<Ability> orderedAbilities = GetOrderedAbilities();
+        Ability aMin = orderedAbilities.Last();
+        Ability aMax = orderedAbilities.First();
+
+        return new Vector2(aMin.StarRank, aMax.StarRank);
     }
 
     public void LoadFromData(AbilityNodeData data)
@@ -128,9 +136,7 @@ public class AbilityNode : BaseScriptableObject
 
         return data;
     }
-
 }
-
 
 [Serializable]
 public struct AbilityNodeData
@@ -139,12 +145,4 @@ public struct AbilityNodeData
     public bool IsUnlocked;
     public bool IsOnCooldown;
     public int DaysOnCooldownRemaining;
-}
-
-[Serializable]
-public struct AbilityNodeTemplate
-{
-    public int Stars;
-    public Ability Ability;
-    public int CraftCost;
 }
