@@ -32,14 +32,14 @@
         <ui:VisualElement name="navRight" style="width: 25%; flex-direction: row; align-items: center; justify-content: center;" />
     </ui:VisualElement>
     <ui:VisualElement name="main" style="width: 100%; height: 95%; flex-direction: row; display: flex; background-image: none;">
-        <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: none; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_desk2.png?fileID=2800000&amp;guid=e3f95d85514224047b9f45ec4d397b2c&amp;type=3#Settings_desk2&apos;); -unity-background-scale-mode: stretch-to-fill; height: 100%; -unity-background-image-tint-color: rgb(255, 255, 255);">
+        <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: flex; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_desk2.png?fileID=2800000&amp;guid=e3f95d85514224047b9f45ec4d397b2c&amp;type=3#Settings_desk2&apos;); -unity-background-scale-mode: stretch-to-fill; height: 100%; -unity-background-image-tint-color: rgb(255, 255, 255);">
             <ui:VisualElement name="reportsContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_paper.png?fileID=2800000&amp;guid=c08f526d69c65df4b96e4c48c9b49f43&amp;type=3#Settings_paper&apos;); display: flex;" />
             <ui:VisualElement name="slotsContainer" style="position: absolute; top: 75%; right: 25%; width: 50%; align-items: center;">
                 <ui:VisualElement name="itemSlotsContainer" style="flex-direction: row;" />
                 <ui:VisualElement name="abilitySlotsContainer" style="flex-direction: row;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="mainCamp" style="width: 100%; flex-direction: row; display: none; align-items: center; background-image: url(&apos;project://database/Assets/Plugins/4000_Fantasy_Icons/Z_Other/fr_bg/bg_grey.png?fileID=2800000&amp;guid=b9f60ba94a46eaa4f9dfba22cbb3f002&amp;type=3#bg_grey&apos;);">
+        <ui:VisualElement name="mainCamp" style="width: 100%; flex-direction: row; display: flex; align-items: center; background-image: url(&apos;project://database/Assets/Plugins/4000_Fantasy_Icons/Z_Other/fr_bg/bg_grey.png?fileID=2800000&amp;guid=b9f60ba94a46eaa4f9dfba22cbb3f002&amp;type=3#bg_grey&apos;); position: absolute; top: -110%; height: 100%; justify-content: space-around;">
             <ui:Label text="Camp" display-tooltip-when-elided="true" class="textPrimary" />
             <ui:VisualElement name="CampBuildingVisualElement" class="textPrimary campBuildingVisualElement">
                 <ui:Label text="Monastery" display-tooltip-when-elided="true" />
@@ -50,13 +50,13 @@
                 <ui:Button text="Upgrade" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; display: flex; height: 100%; background-image: none; background-color: rgb(0, 0, 0); align-items: stretch;">
-            <ui:VisualElement name="wrapper" style="width: 70%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform.png?fileID=2800000&amp;guid=f4253f90b6c2ddb45a07370acacd03b5&amp;type=3#trade_platform&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center;">
+        <ui:VisualElement name="mainAbilities" style="width: 100%; flex-direction: row; display: none; height: 100%; align-items: stretch; position: absolute; left: 0;">
+            <ui:VisualElement name="abilitiesWrapperLeft" style="width: 70%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform.png?fileID=2800000&amp;guid=f4253f90b6c2ddb45a07370acacd03b5&amp;type=3#trade_platform&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center; display: flex; position: absolute; height: 100%; left: -70%;">
                 <ui:Label text="Unlock Nodes" display-tooltip-when-elided="true" class="textPrimary abilityCraftingHeader" style="font-size: 36px;" />
                 <ui:ScrollView name="abilityGraphs" style="align-items: flex-start; width: 95%; padding-left: 1%;" />
                 <ui:VisualElement name="craftedAbilitiesContainer" style="width: 100%; flex-direction: row;" />
             </ui:VisualElement>
-            <ui:VisualElement name="wrapper" style="height: auto; width: 30%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform_2.png?fileID=2800000&amp;guid=ce55ae0c4fd119b419ec8005cb2dc949&amp;type=3#trade_platform_2&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center;">
+            <ui:VisualElement name="abilitiesWrapperRight" style="height: 100%; width: 30%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/trade_platform_2.png?fileID=2800000&amp;guid=ce55ae0c4fd119b419ec8005cb2dc949&amp;type=3#trade_platform_2&apos;); padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center; position: absolute; left: 100%;">
                 <ui:Label text="Craft Abilities" display-tooltip-when-elided="true" class="textPrimary abilityCraftingHeader" style="font-size: 36px;" />
                 <ui:VisualElement name="abilityCraft" class="textPrimary" style="width: 100%; height: 100%; padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; align-items: center; font-size: 24px;">
                     <ui:Label text="Label" display-tooltip-when-elided="true" name="craftTooltip" />
@@ -98,6 +98,6 @@
         <ui:VisualElement name="questResultContent" class="questResultContentWon" style="-unity-background-scale-mode: scale-to-fit; padding-left: 0; width: 60%; background-image: none; margin-left: 20%; height: 70%; margin-top: 10%;" />
     </ui:VisualElement>
     <ui:VisualElement name="abilityNodeDragAndDrop" class="abilityNodeDragAndDrop" />
-    <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: 100%; height: 100%;" />
+    <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: 100%; height: 100%; top: 0; left: 4px;" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
 </ui:UXML>

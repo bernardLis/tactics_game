@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 public class DashboardManager : Singleton<DashboardManager>
 {
@@ -12,6 +13,8 @@ public class DashboardManager : Singleton<DashboardManager>
     PlayerInput _playerInput;
 
     public VisualElement Root { get; private set; }
+
+    public EffectHolder AbilityPanelOpenEffect;
 
     MyButton _passDayButton;
 
@@ -28,9 +31,10 @@ public class DashboardManager : Singleton<DashboardManager>
     VisualElement _mainDesk;
     VisualElement _mainCamp;
     VisualElement _mainAbilities;
+    VisualElement _abilitiesWrapperLeft;
+    VisualElement _abilitiesWrapperRight;
 
     DashboardBuildingType _openBuilding = DashboardBuildingType.Desk;
-
 
     const string _ussCommonTextPrimary = "common__text-primary";
 
@@ -66,6 +70,9 @@ public class DashboardManager : Singleton<DashboardManager>
         _mainDesk = Root.Q<VisualElement>("mainDesk");
         _mainCamp = Root.Q<VisualElement>("mainCamp");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
+        _abilitiesWrapperLeft = Root.Q<VisualElement>("abilitiesWrapperLeft");
+        _abilitiesWrapperRight = Root.Q<VisualElement>("abilitiesWrapperRight");
+
 
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
@@ -235,13 +242,18 @@ public class DashboardManager : Singleton<DashboardManager>
             ShowAbilitiesUI(a);
     }
 
-    void ShowDeskUI(InputAction.CallbackContext ctx)
+    async void ShowDeskUI(InputAction.CallbackContext ctx)
     {
         if (!IsValidAction(ctx))
             return;
 
         if (_openBuilding == DashboardBuildingType.Desk)
             return;
+        if (_openBuilding == DashboardBuildingType.Camp)
+            await HideCampUI();
+        if (_openBuilding == DashboardBuildingType.Abilities)
+            await HideAbilityUI();
+
         _openBuilding = DashboardBuildingType.Desk;
 
         BaseBuildingOpened();
@@ -249,35 +261,76 @@ public class DashboardManager : Singleton<DashboardManager>
         OnDeskOpened?.Invoke();
     }
 
-    void ShowAbilitiesUI(InputAction.CallbackContext ctx)
+    async void ShowAbilitiesUI(InputAction.CallbackContext ctx)
     {
         if (!IsValidAction(ctx))
             return;
 
         if (_openBuilding == DashboardBuildingType.Abilities)
             return;
+        if (_openBuilding == DashboardBuildingType.Camp)
+            await HideCampUI();
         _openBuilding = DashboardBuildingType.Abilities;
 
         BaseBuildingOpened();
 
+        _abilitiesWrapperRight.style.left = Length.Percent(100);
         _mainAbilities.style.display = DisplayStyle.Flex;
+        DOTween.To(() => _abilitiesWrapperLeft.style.left.value.value,
+                x => _abilitiesWrapperLeft.style.left = Length.Percent(x), 0, 0.5f)
+                .SetEase(Ease.OutBounce);
+
+        DOTween.To(() => _abilitiesWrapperRight.style.left.value.value,
+                x => _abilitiesWrapperRight.style.left = Length.Percent(x), 70, 0.5f)
+                .SetEase(Ease.OutBounce);
+        await Task.Delay(250);
+        AbilityPanelOpenEffect.PlayEffect(new Vector3(3.5f, 1f, 1f), Vector3.one * 5);
+
         OnAbilitiesOpened?.Invoke();
     }
 
-    void ShowCampUI(InputAction.CallbackContext ctx)
+    async Task HideAbilityUI()
+    {
+        DOTween.To(() => _abilitiesWrapperLeft.style.left.value.value,
+                x => _abilitiesWrapperLeft.style.left = Length.Percent(x), -70, 0.5f);
+        await DOTween.To(() => _abilitiesWrapperRight.style.left.value.value,
+                x => _abilitiesWrapperRight.style.left = Length.Percent(x), 100, 0.5f)
+                .AsyncWaitForCompletion();
+        _mainAbilities.style.display = DisplayStyle.None;
+    }
+
+    async void ShowCampUI(InputAction.CallbackContext ctx)
     {
         if (!IsValidAction(ctx))
             return;
 
         if (_openBuilding == DashboardBuildingType.Camp)
             return;
+        if (_openBuilding == DashboardBuildingType.Abilities)
+            await HideAbilityUI();
+
         _openBuilding = DashboardBuildingType.Camp;
-
         BaseBuildingOpened();
-
         _mainCamp.style.display = DisplayStyle.Flex;
+
+        _mainCamp.style.top = Length.Percent(-110);
+        DOTween.To(() => _mainCamp.style.top.value.value,
+                x => _mainCamp.style.top = Length.Percent(x), 0, 0.5f)
+                .SetEase(Ease.OutBounce);
+        await Task.Delay(250);
+        AbilityPanelOpenEffect.PlayEffect(new Vector3(3.5f, 1f, 1f), Vector3.one * 5);
+
         OnCampOpened?.Invoke();
     }
+
+    async Task HideCampUI()
+    {
+        await DOTween.To(() => _mainCamp.style.top.value.value,
+                x => _mainCamp.style.top = Length.Percent(x), -110, 0.5f)
+                .AsyncWaitForCompletion();
+        _mainCamp.style.display = DisplayStyle.None;
+    }
+
 
     bool IsValidAction(InputAction.CallbackContext ctx)
     {
@@ -299,7 +352,7 @@ public class DashboardManager : Singleton<DashboardManager>
     void HideAllPanels(InputAction.CallbackContext ctx) { HideAllPanels(); }
     void HideAllPanels()
     {
-        _mainDesk.style.display = DisplayStyle.None;
+        //_mainDesk.style.display = DisplayStyle.None;
         _mainCamp.style.display = DisplayStyle.None;
         _mainAbilities.style.display = DisplayStyle.None;
 

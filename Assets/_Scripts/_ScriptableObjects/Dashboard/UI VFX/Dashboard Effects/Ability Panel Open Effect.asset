@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b7c518f57a51640a498dbd5c3f1fb2, type: 3}
+  m_Name: Ability Panel Open Effect
+  m_EditorClassIdentifier: 
+  Id: 463fdf6b-3c3f-4fb1-a3d2-d3f13999110b
+  VisualEffectPrefab: {fileID: 4327275101022869409, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
+  DurationSeconds: 1
+  Sound: {fileID: 0}
