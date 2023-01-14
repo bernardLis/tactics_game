@@ -11,6 +11,7 @@ public class AbilityNode : BaseScriptableObject
     public string Title;
     public string Description;
     public int SpiceCost;
+    public int DaysToCraftAbility;
     public bool IsUnlocked;
 
     [Header("VFX")]

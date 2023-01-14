@@ -281,7 +281,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Seed = System.Environment.TickCount;
 
         Day = 1;
-        Gold = 0;
+        Gold = 10000;
         Spice = 500;
 
         TroopsLimit = 5;

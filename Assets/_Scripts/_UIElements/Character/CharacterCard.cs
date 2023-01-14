@@ -109,13 +109,11 @@ public class CharacterCard : VisualElement
 
     void OnElementChanged(Element element)
     {
-        Debug.Log($"onm element changed {element.ElementName}");
         _elementalElement.ChangeElement(element);
     }
 
     void OnPanelDetached(DetachFromPanelEvent evt)
     {
-        Debug.Log($"on panel detached");
         Character.OnRankChanged -= OnRankChanged;
         Character.OnElementChanged -= OnElementChanged;
     }

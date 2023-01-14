@@ -76,6 +76,8 @@ public class AbilityCraftManager : MonoBehaviour
 
     void OnCraftNodeAdded(AbilityNodeElement nodeVisualElement)
     {
+        ClearEffects();
+
         _craftTooltip.text = "Add stars to get stronger abilities.";
         _abilityNode = nodeVisualElement.AbilityNode;
         _numberOfStars = _abilityNode.StarRange.x;
@@ -286,13 +288,17 @@ public class AbilityCraftManager : MonoBehaviour
         report.Initialize(ReportType.Ability, null, null, null, null, null, craftedAbility);
         _gameManager.AddNewReport(report);
         _gameManager.SaveJsonData();
-
     }
 
     void DiscardAbility()
     {
         _abilityGraphManager.ClearCraftSlot();
         ResetCraftValues();
+        ClearEffects();
+    }
+
+    void ClearEffects()
+    {
         if (_addedToCraftingEffect)
         {
             _addedToCraftingEffect.DestroyEffect();

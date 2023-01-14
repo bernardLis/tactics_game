@@ -45,7 +45,7 @@ public abstract class ElementWithTooltip : VisualElement
         if (panel == null)
             return;
 
-        await Task.Delay(300); // tooltip delay
+        await Task.Delay(500); // tooltip delay
         if (!_isPointerOn)
             return;
 

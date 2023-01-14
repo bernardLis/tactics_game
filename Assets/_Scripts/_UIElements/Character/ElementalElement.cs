@@ -39,9 +39,6 @@ public class ElementalElement : ElementWithTooltip
         pos.y = Camera.main.pixelHeight - pos.y - this.resolvedStyle.height; // inverted, plus play on bottom of element
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
         worldPos.z = 0;
-        Debug.Log($"parent of element: {this.parent}");
-        Debug.Log($"vfx {worldPos}");
-
 
         newElement.VFXEffect.PlayEffect(worldPos, Vector3.one);
 

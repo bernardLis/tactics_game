@@ -135,7 +135,6 @@ public class Character : BaseScriptableObject
 
     public void AddAbility(Ability ability)
     {
-        Debug.Log($"Character.name in add ability {name}");
         Abilities.Add(ability);
         UpdateRank();
         UpdateElement(ability.Element);
@@ -152,7 +151,6 @@ public class Character : BaseScriptableObject
     {
         if (element == Element)
             return;
-        Debug.Log($"update element");
         Element = element;
         OnElementChanged?.Invoke(element);
     }
