@@ -18,7 +18,10 @@ MonoBehaviour:
   Title: Fire Touch
   Description: Novice fire magic. Set target at close range on fire.
   SpiceCost: 20
+  DaysToCraftAbility: 2
   IsUnlocked: 0
+  IsOnCooldown: 0
+  DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 11400000, guid: 0030b4f32205952438ae463e881f2a1a, type: 2}
   AddedToCraftingEffect: {fileID: 11400000, guid: b3550fb426b47d845bf06373fb2c7e30, type: 2}
   AddedToCraftingEffectPosition: {x: 6.2, y: 3, z: 0}

@@ -18,7 +18,10 @@ MonoBehaviour:
   Title: Push
   Description: Novice wind magic. Push target one tile.
   SpiceCost: 20
+  DaysToCraftAbility: 2
   IsUnlocked: 1
+  IsOnCooldown: 0
+  DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 11400000, guid: c953b809299009e4aaa7f8049dec28e3, type: 2}
   AddedToCraftingEffect: {fileID: 11400000, guid: 6a5fba609b385a64b9529b11bb52c328, type: 2}
   AddedToCraftingEffectPosition: {x: 4, y: -5, z: 0}

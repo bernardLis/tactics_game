@@ -12,7 +12,11 @@ public class AbilityNodeGraph : BaseScriptableObject
     public void ResetNodes()
     {
         foreach (AbilityNode n in AbilityNodes)
+        {
             n.IsUnlocked = false;
+            n.IsOnCooldown = false;
+            n.DaysOnCooldownRemaining = 0;
+        }
     }
 
     public void LoadFromData(AbilityNodeGraphData data)

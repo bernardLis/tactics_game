@@ -43,6 +43,7 @@ public enum StyleSheetType
     StarRankElementStyles,
     GoldElementStyles,
     CharacterPortraitStyles, ResourceBarStyles, StatElementStyles, ElementalElementStyles,
+    AbilityNodeStyles,
     AbilityButtonStyles, AbilityIconStyles, AbilityTooltipElementStyles,
     ItemSlotStyles, AbilitySlotStyles,
     CharacterCardStyles,

@@ -69,6 +69,7 @@ public class AbilityCraftManager : MonoBehaviour
     void OnAbilitiesClicked()
     {
     }
+
     void OnHideAllPanels()
     {
         DiscardAbility();
@@ -280,6 +281,7 @@ public class AbilityCraftManager : MonoBehaviour
         worldPos.z = 0;
 
         _abilityNode.AbilityCraftedEffect.PlayEffect(worldPos, _abilityNode.AbilityCraftedEffectScale);
+        DiscardAbility();
     }
 
     void CreateReport(Ability craftedAbility)

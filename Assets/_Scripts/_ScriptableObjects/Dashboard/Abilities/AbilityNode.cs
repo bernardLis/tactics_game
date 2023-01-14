@@ -13,6 +13,10 @@ public class AbilityNode : BaseScriptableObject
     public int SpiceCost;
     public int DaysToCraftAbility;
     public bool IsUnlocked;
+    //[HideInInspector]
+    public bool IsOnCooldown;
+    //[HideInInspector]
+    public int DaysOnCooldownRemaining;
 
     [Header("VFX")]
     public EffectHolder UnlockEffect;
@@ -24,12 +28,30 @@ public class AbilityNode : BaseScriptableObject
     public EffectHolder AbilityCraftedEffect;
     public Vector3 AbilityCraftedEffectScale;
 
-
     [Header("Ability crafting values")]
     [Tooltip("Inclusive, inclusive")]
     public Vector2Int StarRange;
     public AbilityNodeTemplate[] AbilityNodeTemplates;
 
+    GameManager _gameManager;
+
+    public event Action OnCooldownChanged;
+    public void Initialize()
+    {
+        _gameManager = GameManager.Instance;
+        _gameManager.OnDayPassed += OnDayPassed;
+    }
+
+    void OnDayPassed(int day)
+    {
+        if (!IsOnCooldown)
+            return;
+
+        DaysOnCooldownRemaining--;
+        if (DaysOnCooldownRemaining <= 0)
+            IsOnCooldown = false;
+        OnCooldownChanged?.Invoke();
+    }
 
     public bool Unlock()
     {
@@ -51,14 +73,18 @@ public class AbilityNode : BaseScriptableObject
 
         gameManager.ChangeSpiceValue(-SpiceCost);
         return true;
-        // pay return true
     }
+
     public Ability CreateAbility(int stars, string name)
     {
         Ability abilityToInstantiate = GetAbilityByStars(stars);
 
         Ability ability = Instantiate(abilityToInstantiate);
         ability.name = name;
+
+        IsOnCooldown = true;
+        DaysOnCooldownRemaining = DaysToCraftAbility;
+        OnCooldownChanged?.Invoke();
 
         return ability;
     }
@@ -87,6 +113,8 @@ public class AbilityNode : BaseScriptableObject
     public void LoadFromData(AbilityNodeData data)
     {
         IsUnlocked = data.IsUnlocked;
+        IsOnCooldown = data.IsOnCooldown;
+        DaysOnCooldownRemaining = data.DaysOnCooldownRemaining;
     }
 
     public AbilityNodeData SerializeSelf()
@@ -95,6 +123,8 @@ public class AbilityNode : BaseScriptableObject
 
         data.Id = Id;
         data.IsUnlocked = IsUnlocked;
+        data.IsOnCooldown = IsOnCooldown;
+        data.DaysOnCooldownRemaining = DaysOnCooldownRemaining;
 
         return data;
     }
@@ -107,6 +137,8 @@ public struct AbilityNodeData
 {
     public string Id;
     public bool IsUnlocked;
+    public bool IsOnCooldown;
+    public int DaysOnCooldownRemaining;
 }
 
 [Serializable]

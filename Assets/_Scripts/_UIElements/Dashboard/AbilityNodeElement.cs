@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 public class AbilityNodeElement : ElementWithTooltip
 {
+    GameManager _gameManager;
+
     public AbilityNode AbilityNode;
 
     VisualElement _icon;
@@ -14,18 +16,37 @@ public class AbilityNodeElement : ElementWithTooltip
 
     SpiceElement _costElement;
 
+    VisualElement _overlay;
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "ability-node__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussIcon = _ussClassName + "icon";
+    const string _ussOverlay = _ussClassName + "overlay";
+
     public AbilityNodeElement(AbilityNode abilityNode)
     {
+        _gameManager = GameManager.Instance;
+
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityNodeStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         AbilityNode = abilityNode;
-        AddToClassList("abilityNodeContent");
+        abilityNode.OnCooldownChanged += UpdateCooldownOverlay;
+        AddToClassList(_ussMain);
 
         AddIcon();
         AddTooltip();
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
+        AddCooldownOverlay();
     }
 
-    public void AddCostElement(SpiceElement el) { _costElement = el; }
 
     void OnPointerUp(PointerUpEvent evt)
     {
@@ -53,21 +74,20 @@ public class AbilityNodeElement : ElementWithTooltip
         _icon.style.backgroundImage = new StyleBackground(AbilityNode.IconUnlocked);
     }
 
+    public void AddCostElement(SpiceElement el) { _costElement = el; }
+
     async void RemoveCostElement()
     {
         await _costElement.AwaitableChangeAmount(0);
         _costElement.style.display = DisplayStyle.None;
     }
 
-    void ShakeNode()
-    {
-        DOTween.Shake(() => transform.position, x => transform.position = x, 1f, 6f);
-    }
+    public void ShakeNode() { DOTween.Shake(() => transform.position, x => transform.position = x, 1f, 6f); }
 
     void AddIcon()
     {
         _icon = new();
-        _icon.AddToClassList("abilityNodeIcon");
+        _icon.AddToClassList(_ussIcon);
         StyleBackground s = AbilityNode.IsUnlocked ? new(AbilityNode.IconUnlocked) : new(AbilityNode.IconLocked);
         _icon.style.backgroundImage = s;
         Add(_icon);
@@ -76,7 +96,7 @@ public class AbilityNodeElement : ElementWithTooltip
     void AddTooltip()
     {
         _tooltipElement = new();
-        _tooltipElement.AddToClassList("textPrimary");
+        _tooltipElement.AddToClassList(_ussCommonTextPrimary);
         Label description = new(AbilityNode.Description);
         _tooltipElement.Add(description);
     }
@@ -84,9 +104,32 @@ public class AbilityNodeElement : ElementWithTooltip
     protected override void DisplayTooltip()
     {
         HideTooltip();
-
         _tooltip = new(this, _tooltipElement);
 
         base.DisplayTooltip();
     }
+
+    void AddCooldownOverlay()
+    {
+        _overlay = new();
+        _overlay.AddToClassList(_ussOverlay);
+        Add(_overlay);
+
+        UpdateCooldownOverlay();
+    }
+
+    void UpdateCooldownOverlay()
+    {
+        _overlay.style.display = DisplayStyle.None;
+
+        if (!AbilityNode.IsOnCooldown)
+            return;
+
+        _overlay.style.display = DisplayStyle.Flex;
+        _overlay.Clear();
+        Label l = new($"{AbilityNode.DaysOnCooldownRemaining}");
+        l.AddToClassList(_ussCommonTextPrimary);
+        _overlay.Add(l);
+    }
+
 }

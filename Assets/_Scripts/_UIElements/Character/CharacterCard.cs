@@ -93,7 +93,6 @@ public class CharacterCard : VisualElement
         Add(topPanel);
         Add(bottomPanel);
 
-        AvailabilityCheck();
         Character.OnRankChanged += OnRankChanged;
         Character.OnElementChanged += OnElementChanged;
         SubscribeToStatChanges();
@@ -248,23 +247,6 @@ public class CharacterCard : VisualElement
 
     void OnAbilityAdded(Ability ability) { Character.AddAbility(ability); }
     void OnAbilityRemoved(Ability ability) { Character.RemoveAbility(ability); }
-
-    void AvailabilityCheck()
-    {
-        if (!Character.IsUnavailable)
-            return;
-
-        VisualElement overlay = new VisualElement();
-        Add(overlay);
-        overlay.BringToFront();
-        overlay.AddToClassList(_ussOverlay);
-
-        Label text = new($"Unavailable! ({Character.UnavailabilityDuration})");
-        text.AddToClassList(_ussCommonTextPrimary);
-        text.style.fontSize = 60;
-        text.transform.rotation *= Quaternion.Euler(0f, 0f, 30f);
-        overlay.Add(text);
-    }
 
     public void PlayLevelUpAnimation()
     {

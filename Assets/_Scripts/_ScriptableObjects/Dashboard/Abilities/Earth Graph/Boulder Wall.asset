@@ -18,7 +18,10 @@ MonoBehaviour:
   Title: Boulder Wall
   Description: Expert earth magic. Create a wall of pushable boulders.
   SpiceCost: 80
+  DaysToCraftAbility: 6
   IsUnlocked: 0
+  IsOnCooldown: 0
+  DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 0}
   AddedToCraftingEffect: {fileID: 0}
   AddedToCraftingEffectPosition: {x: 0, y: 0, z: 0}

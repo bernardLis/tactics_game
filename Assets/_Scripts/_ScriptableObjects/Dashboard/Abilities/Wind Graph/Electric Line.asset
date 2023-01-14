@@ -18,7 +18,10 @@ MonoBehaviour:
   Title: Electric Line
   Description: Expert electricity magic. Create a wall of electricity.
   SpiceCost: 80
+  DaysToCraftAbility: 6
   IsUnlocked: 0
+  IsOnCooldown: 0
+  DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 0}
   AddedToCraftingEffect: {fileID: 0}
   AddedToCraftingEffectPosition: {x: 0, y: 0, z: 0}

@@ -18,7 +18,10 @@ MonoBehaviour:
   Title: Heal
   Description: Basic water magic. Heal target.
   SpiceCost: 20
+  DaysToCraftAbility: 2
   IsUnlocked: 0
+  IsOnCooldown: 0
+  DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 11400000, guid: 040fd16549cf1494a9f953f63ee37926, type: 2}
   AddedToCraftingEffect: {fileID: 11400000, guid: 49fe1663ab9b7d44488ce2174287ce46, type: 2}
   AddedToCraftingEffectPosition: {x: 6.2, y: 3, z: 0}

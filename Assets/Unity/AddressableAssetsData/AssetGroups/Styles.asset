@@ -113,6 +113,10 @@ MonoBehaviour:
     m_Address: SpiceRecycleStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1dbd63513c7627546afc3aacbe651377
+    m_Address: AbilityNodeStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

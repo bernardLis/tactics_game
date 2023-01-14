@@ -18,7 +18,10 @@ MonoBehaviour:
   Title: Fire Spell
   Description: Master fire magic. Manifest fire at range.
   SpiceCost: 200
+  DaysToCraftAbility: 8
   IsUnlocked: 0
+  IsOnCooldown: 0
+  DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 11400000, guid: 0030b4f32205952438ae463e881f2a1a, type: 2}
   AddedToCraftingEffect: {fileID: 0}
   AddedToCraftingEffectPosition: {x: 6.2, y: 3, z: 0}

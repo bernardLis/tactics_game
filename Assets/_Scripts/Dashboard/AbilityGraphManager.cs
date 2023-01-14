@@ -84,7 +84,10 @@ public class AbilityGraphManager : MonoBehaviour
             graphContainer.Add(wrapper);
 
             for (int i = 0; i < graph.AbilityNodes.Length; i++)
+            {
+                graph.AbilityNodes[i].Initialize();
                 wrapper.Add(CreateNodeElement(graph.AbilityNodes[i]));
+            }
         }
     }
 
@@ -105,7 +108,6 @@ public class AbilityGraphManager : MonoBehaviour
         }
 
         return container;
-
     }
 
     void OnNodePointerDown(PointerDownEvent evt)
@@ -116,6 +118,11 @@ public class AbilityGraphManager : MonoBehaviour
         AbilityNodeElement node = (AbilityNodeElement)evt.currentTarget;
         if (!node.AbilityNode.IsUnlocked)
             return;
+        if (node.AbilityNode.IsOnCooldown)
+        {
+            node.ShakeNode();
+            return;
+        }
 
         AbilityNodeElement nodeCopy = new(node.AbilityNode);
         nodeCopy.BlockTooltip();

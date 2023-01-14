@@ -18,7 +18,10 @@ MonoBehaviour:
   Title: Water Trap
   Description: Basic water magic. Command ground water to raise.
   SpiceCost: 20
+  DaysToCraftAbility: 4
   IsUnlocked: 0
+  IsOnCooldown: 0
+  DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 0}
   AddedToCraftingEffect: {fileID: 0}
   AddedToCraftingEffectPosition: {x: 0, y: 0, z: 0}

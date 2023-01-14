@@ -18,7 +18,10 @@ MonoBehaviour:
   Title: Water projectile
   Description: Advanced water magic. Summon watery projectile.
   SpiceCost: 40
+  DaysToCraftAbility: 4
   IsUnlocked: 0
+  IsOnCooldown: 0
+  DaysOnCooldownRemaining: 0
   UnlockEffect: {fileID: 0}
   AddedToCraftingEffect: {fileID: 0}
   AddedToCraftingEffectPosition: {x: 0, y: 0, z: 0}
