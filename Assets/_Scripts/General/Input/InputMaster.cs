@@ -522,6 +522,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleCommandLine"",
+                    ""type"": ""Button"",
+                    ""id"": ""e71b2f1d-50c9-4568-ac64-6b37d10cd15b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -623,6 +632,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""CloseCurrentTab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e4f3d52-8e89-40ec-87a5-6ba9b29affa3"",
+                    ""path"": ""<Keyboard>/f12"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleCommandLine"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -676,6 +696,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Dashboard_OpenCamp = m_Dashboard.FindAction("OpenCamp", throwIfNotFound: true);
         m_Dashboard_OpenAbilities = m_Dashboard.FindAction("OpenAbilities", throwIfNotFound: true);
         m_Dashboard_CloseCurrentTab = m_Dashboard.FindAction("CloseCurrentTab", throwIfNotFound: true);
+        m_Dashboard_ToggleCommandLine = m_Dashboard.FindAction("ToggleCommandLine", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -942,6 +963,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Dashboard_OpenCamp;
     private readonly InputAction m_Dashboard_OpenAbilities;
     private readonly InputAction m_Dashboard_CloseCurrentTab;
+    private readonly InputAction m_Dashboard_ToggleCommandLine;
     public struct DashboardActions
     {
         private @InputMaster m_Wrapper;
@@ -951,6 +973,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @OpenCamp => m_Wrapper.m_Dashboard_OpenCamp;
         public InputAction @OpenAbilities => m_Wrapper.m_Dashboard_OpenAbilities;
         public InputAction @CloseCurrentTab => m_Wrapper.m_Dashboard_CloseCurrentTab;
+        public InputAction @ToggleCommandLine => m_Wrapper.m_Dashboard_ToggleCommandLine;
         public InputActionMap Get() { return m_Wrapper.m_Dashboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -975,6 +998,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @CloseCurrentTab.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
                 @CloseCurrentTab.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
                 @CloseCurrentTab.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
+                @ToggleCommandLine.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
+                @ToggleCommandLine.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
+                @ToggleCommandLine.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
             }
             m_Wrapper.m_DashboardActionsCallbackInterface = instance;
             if (instance != null)
@@ -994,6 +1020,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @CloseCurrentTab.started += instance.OnCloseCurrentTab;
                 @CloseCurrentTab.performed += instance.OnCloseCurrentTab;
                 @CloseCurrentTab.canceled += instance.OnCloseCurrentTab;
+                @ToggleCommandLine.started += instance.OnToggleCommandLine;
+                @ToggleCommandLine.performed += instance.OnToggleCommandLine;
+                @ToggleCommandLine.canceled += instance.OnToggleCommandLine;
             }
         }
     }
@@ -1039,5 +1068,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnOpenCamp(InputAction.CallbackContext context);
         void OnOpenAbilities(InputAction.CallbackContext context);
         void OnCloseCurrentTab(InputAction.CallbackContext context);
+        void OnToggleCommandLine(InputAction.CallbackContext context);
     }
 }

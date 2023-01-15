@@ -500,6 +500,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleCommandLine",
+                    "type": "Button",
+                    "id": "e71b2f1d-50c9-4568-ac64-6b37d10cd15b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -599,6 +608,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "CloseCurrentTab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e4f3d52-8e89-40ec-87a5-6ba9b29affa3",
+                    "path": "<Keyboard>/f12",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleCommandLine",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

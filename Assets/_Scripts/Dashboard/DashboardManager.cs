@@ -348,28 +348,4 @@ public class DashboardManager : Singleton<DashboardManager>
 
         OnHideAllPanels?.Invoke();
     }
-
-
-#if UNITY_EDITOR
-
-    [ContextMenu("Add 10000 Gold")]
-    void Add100Gold()
-    { _gameManager.ChangeGoldValue(10000); }
-
-    [ContextMenu("Remove 5000 Gold")]
-    void Remove50Gold()
-    { _gameManager.ChangeGoldValue(-5000); }
-
-    [ContextMenu("Add 500 spice")]
-    void Add500Spice()
-    { _gameManager.ChangeSpiceValue(500); }
-
-    [ContextMenu("Level Up")]
-    void LevelUpAllCharacters()
-    {
-        foreach (Character c in _gameManager.PlayerTroops)
-            c.LevelUp();
-    }
-#endif
-
 }
