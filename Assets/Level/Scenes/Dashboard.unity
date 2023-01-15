@@ -130,18 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1528180484}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1528180484}
-    - target: {fileID: 1359743400828135165, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1528180484}
     - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -423,17 +411,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &1528180484 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2536979841821243861, guid: 384471ee8049dfb4b9c6d6eca1802a24, type: 3}
-  m_PrefabInstance: {fileID: 2536979843279673041}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7343b33cea57d8245b32fb4da3b0b527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2536979843279673041
 PrefabInstance:
   m_ObjectHideFlags: 0

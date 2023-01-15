@@ -243,9 +243,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
     async void ShowDeskUI(InputAction.CallbackContext ctx)
     {
-        if (!IsValidAction(ctx))
-            return;
-
         if (_openBuilding == DashboardBuildingType.Desk)
             return;
         if (_openBuilding == DashboardBuildingType.Camp)
@@ -262,9 +259,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
     async void ShowAbilitiesUI(InputAction.CallbackContext ctx)
     {
-        if (!IsValidAction(ctx))
-            return;
-
         if (_openBuilding == DashboardBuildingType.Abilities)
             return;
         if (_openBuilding == DashboardBuildingType.Camp)
@@ -306,9 +300,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
     async void ShowCampUI(InputAction.CallbackContext ctx)
     {
-        if (!IsValidAction(ctx))
-            return;
-
         if (_openBuilding == DashboardBuildingType.Camp)
             return;
         if (_openBuilding == DashboardBuildingType.Abilities)
@@ -341,17 +332,6 @@ public class DashboardManager : Singleton<DashboardManager>
                 x => _mainCamp.style.top = Length.Percent(x), -110, 0.5f)
                 .AsyncWaitForCompletion();
         _mainCamp.style.display = DisplayStyle.None;
-    }
-
-    bool IsValidAction(InputAction.CallbackContext ctx)
-    {
-        if (ctx.time == 0)
-            return true; // for buttons
-                         // otherwise it triggers 3 times: https://forum.unity.com/threads/player-input-component-triggering-events-multiple-times.851959/
-                         // disabled is for my empty event action.
-        if (!ctx.performed && ctx.phase == InputActionPhase.Canceled)
-            return true;
-        return false;
     }
 
     void BaseBuildingOpened()

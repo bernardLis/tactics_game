@@ -169,51 +169,15 @@ MonoBehaviour:
     m_ActionId: c5f6c6b2-b7ba-41fa-842c-bd527ef87bc0
     m_ActionName: Dashboard/ArrowMovement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
-        m_MethodName: ShowDeskUI
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+      m_Calls: []
     m_ActionId: 0e794bfa-e59e-486d-b295-4c0ffb1d2ca3
     m_ActionName: Dashboard/OpenDesk[/Keyboard/f1]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
-        m_MethodName: ShowCampUI
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 4d73cc88-7be5-4377-bc88-2cfa7dbe75ac
     m_ActionName: Dashboard/OpenCamp[/Keyboard/f4]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DashboardManager, NewAssembly
-        m_MethodName: ShowAbilitiesUI
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: d220e32f-b253-4ff5-a151-a7cc4ab60a40
     m_ActionName: Dashboard/OpenAbilities[/Keyboard/f5]
   - m_PersistentCalls:
@@ -438,6 +402,7 @@ MonoBehaviour:
   PlayerTroops: []
   PlayerItemPouch: []
   PlayerAbilityPouch: []
+  CraftedAbilities: []
   Reports: []
   ReportsArchived: []
   _campBuildings:
