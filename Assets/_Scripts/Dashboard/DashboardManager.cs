@@ -122,7 +122,6 @@ public class DashboardManager : Singleton<DashboardManager>
         UnsubscribeInputActions();
     }
 
-
     /* PASS DAY BUTTON */
     void AddPassDayButton()
     {
@@ -343,7 +342,6 @@ public class DashboardManager : Singleton<DashboardManager>
                 .AsyncWaitForCompletion();
         _mainCamp.style.display = DisplayStyle.None;
     }
-
 
     bool IsValidAction(InputAction.CallbackContext ctx)
     {

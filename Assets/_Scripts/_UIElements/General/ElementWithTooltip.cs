@@ -37,32 +37,21 @@ public abstract class ElementWithTooltip : VisualElement
     protected async virtual void DisplayTooltip()
     {
         _isPointerOn = true;
-
+        await Task.Delay(500); // tooltip delay
+        if (!_isPointerOn)
+            return;
         if (_blockTooltip)
             return;
         if (_isPointerDown)
             return;
         if (panel == null)
             return;
-
-        await Task.Delay(500); // tooltip delay
-        if (!_isPointerOn)
-            return;
-
-        if (panel == null)
-            return;
         if (panel.visualTree == null)
             return;
+
         var root = panel.visualTree;
         _tooltipContainer = root.Q<VisualElement>("tooltipContainer");
         _tooltipContainer.Add(_tooltip);
-    }
-
-    protected void UpdateTooltipPosition()
-    {
-        if (_tooltip == null)
-            return;
-        _tooltip.UpdatePosition(this);
     }
 
     protected void OnMouseLeave()
