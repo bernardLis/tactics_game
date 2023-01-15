@@ -14,7 +14,7 @@ public class DashboardManager : Singleton<DashboardManager>
 
     public VisualElement Root { get; private set; }
 
-    public EffectHolder AbilityPanelOpenEffect;
+    public EffectHolder PanelOpenEffect;
 
     MyButton _passDayButton;
 
@@ -283,8 +283,14 @@ public class DashboardManager : Singleton<DashboardManager>
         DOTween.To(() => _abilitiesWrapperRight.style.left.value.value,
                 x => _abilitiesWrapperRight.style.left = Length.Percent(x), 70, 0.5f)
                 .SetEase(Ease.OutBounce);
-        await Task.Delay(250);
-        AbilityPanelOpenEffect.PlayEffect(new Vector3(3.5f, 1f, 1f), Vector3.one * 5);
+        await Task.Delay(150);
+        float y = -3f;
+        for (int i = 0; i < 4; i++)
+        {
+            EffectHolder instance = Instantiate(PanelOpenEffect);
+            instance.PlayEffect(new Vector3(3.5f, y, 1f), Vector3.one * 0.2f);
+            y += 2f;
+        }
 
         OnAbilitiesOpened?.Invoke();
     }
@@ -317,8 +323,15 @@ public class DashboardManager : Singleton<DashboardManager>
         DOTween.To(() => _mainCamp.style.top.value.value,
                 x => _mainCamp.style.top = Length.Percent(x), 0, 0.5f)
                 .SetEase(Ease.OutBounce);
-        await Task.Delay(250);
-        AbilityPanelOpenEffect.PlayEffect(new Vector3(3.5f, 1f, 1f), Vector3.one * 5);
+        await Task.Delay(150);
+
+        float x = -6f;
+        for (int i = 0; i < 5; i++)
+        {
+            EffectHolder instance = Instantiate(PanelOpenEffect);
+            instance.PlayEffect(new Vector3(x, -5f, 1f), Vector3.one * 0.2f);
+            x += 3f;
+        }
 
         OnCampOpened?.Invoke();
     }
@@ -352,7 +365,6 @@ public class DashboardManager : Singleton<DashboardManager>
     void HideAllPanels(InputAction.CallbackContext ctx) { HideAllPanels(); }
     void HideAllPanels()
     {
-        //_mainDesk.style.display = DisplayStyle.None;
         _mainCamp.style.display = DisplayStyle.None;
         _mainAbilities.style.display = DisplayStyle.None;
 

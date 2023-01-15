@@ -192,71 +192,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
---- !u!1001 &721599562
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1739040537049043763, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051357572128906782, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327275101022869409, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_Name
-      value: Smoke_Burst_Blue_v2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7418808287493295847, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
 --- !u!1 &1047356514
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +443,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2536979841821243858, guid: 384471ee8049dfb4b9c6d6eca1802a24, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2536979841821243858, guid: 384471ee8049dfb4b9c6d6eca1802a24, type: 3}
       propertyPath: m_LocalPosition.x
@@ -554,17 +489,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: DashboardManager
       objectReference: {fileID: 0}
-    - target: {fileID: 2536979841821243861, guid: 384471ee8049dfb4b9c6d6eca1802a24, type: 3}
-      propertyPath: LeftEffect
-      value: 
-      objectReference: {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
-    - target: {fileID: 2536979841821243861, guid: 384471ee8049dfb4b9c6d6eca1802a24, type: 3}
-      propertyPath: RightEffect
-      value: 
-      objectReference: {fileID: 11400000, guid: 1e4c63c6a7e9d2142941f893e8dcb238, type: 2}
-    - target: {fileID: 2536979841821243861, guid: 384471ee8049dfb4b9c6d6eca1802a24, type: 3}
-      propertyPath: AbilityPanelOpenEffect
-      value: 
-      objectReference: {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 384471ee8049dfb4b9c6d6eca1802a24, type: 3}

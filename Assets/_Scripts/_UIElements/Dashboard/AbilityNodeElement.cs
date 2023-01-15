@@ -69,7 +69,10 @@ public class AbilityNodeElement : ElementWithTooltip
         worldPos.z = 0;
 
         if (AbilityNode.UnlockEffect != null)
-            await AbilityNode.UnlockEffect.PlayEffectAwaitable(worldPos, new Vector3(0.5f, 1f, 1f));
+        {
+            EffectHolder instance = ScriptableObject.Instantiate(AbilityNode.UnlockEffect);
+            await instance.PlayEffectAwaitable(worldPos, new Vector3(0.5f, 1f, 1f));
+        }
 
         _icon.style.backgroundImage = new StyleBackground(AbilityNode.IconUnlocked);
     }

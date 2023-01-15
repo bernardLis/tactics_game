@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7343b33cea57d8245b32fb4da3b0b527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PanelOpenEffect: {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
 --- !u!114 &2536979841821243867
 MonoBehaviour:
   m_ObjectHideFlags: 0

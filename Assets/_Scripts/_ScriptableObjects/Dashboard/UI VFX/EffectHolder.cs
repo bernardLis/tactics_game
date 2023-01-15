@@ -16,7 +16,6 @@ public class EffectHolder : BaseScriptableObject
     public Sound Sound;
 
     GameObject _effect;
-    Vector3 _scale;
 
     public async void PlayEffect(Vector3 position, Vector3 scale) { await PlayEffectAwaitable(position, scale); }
 
@@ -36,15 +35,10 @@ public class EffectHolder : BaseScriptableObject
     void InstantiateEffect(Vector3 pos, Vector3 scale)
     {
         _effect = GameObject.Instantiate(VisualEffectPrefab, pos, Quaternion.identity);
-        _effect.transform.localScale = Vector3.zero;
         _effect.layer = Tags.UIVFXLayer;
+        _effect.transform.localScale = scale;
         foreach (Transform child in _effect.transform)
-        {
             child.gameObject.layer = Tags.UIVFXLayer;
-            child.transform.DOScale(scale, 0.3f);
-        }
-
-        _effect.transform.DOScale(scale, 0.3f);
     }
 
     public async void DestroyEffect()

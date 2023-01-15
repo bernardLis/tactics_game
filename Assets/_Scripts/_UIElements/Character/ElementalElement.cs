@@ -40,7 +40,8 @@ public class ElementalElement : ElementWithTooltip
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
         worldPos.z = 0;
 
-        newElement.VFXEffect.PlayEffect(worldPos, Vector3.one);
+        EffectHolder instance = ScriptableObject.Instantiate(newElement.VFXEffect);
+        instance.PlayEffect(worldPos, Vector3.one);
 
         _element = newElement;
         _icon.style.backgroundImage = new StyleBackground(newElement.Icon);
