@@ -9,14 +9,25 @@ public class MenuScreen : FullScreenElement
     GameManager _gameManager;
     public event Action OnClose;
 
+    const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonMenuButton = "common__menu-button";
+
+    const string _ussClassName = "menu__";
+    const string _ussMain = _ussClassName + "main";
+
     public MenuScreen(VisualElement root)
     {
         _gameManager = GameManager.Instance;
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.MenuStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
 
         Initialize(root);
-        AddToClassList("menuScreen");
+        AddToClassList(_ussMain);
         AddButtons();
-        AddGlobals();
 
         var tempColor = style.backgroundColor.value;
         tempColor.a = 0.5f;
@@ -34,27 +45,15 @@ public class MenuScreen : FullScreenElement
         container.style.alignItems = Align.Center;
         container.style.justifyContent = Justify.Center;
 
-        MyButton continueButton = new("Continue", "menuButton", Hide);
-        MyButton settingsButton = new("Settings", "menuButton", ShowSettingsScreen);
-        MyButton mainMenuButton = new("Main Menu", "menuButton", GoToMainMenu);
-        MyButton quitButton = new("Quit", "menuButton", ConfirmQuit);
+        MyButton continueButton = new("Continue", _ussCommonMenuButton, Hide);
+        MyButton settingsButton = new("Settings", _ussCommonMenuButton, ShowSettingsScreen);
+        MyButton mainMenuButton = new("Main Menu", _ussCommonMenuButton, GoToMainMenu);
+        MyButton quitButton = new("Quit", _ussCommonMenuButton, ConfirmQuit);
 
         container.Add(continueButton);
         container.Add(settingsButton);
         container.Add(mainMenuButton);
         container.Add(quitButton);
-
-        Add(container);
-    }
-
-    void AddGlobals()
-    {
-        VisualElement container = new();
-        container.style.width = Length.Percent(100);
-        container.style.height = Length.Percent(30);
-
-        GoldElement gold = new(GameManager.Instance.Gold, false);
-        container.Add(gold);
 
         Add(container);
     }

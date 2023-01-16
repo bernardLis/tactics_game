@@ -6,9 +6,19 @@ using UnityEngine.UIElements;
 
 public class ConfirmPopUp : VisualElement
 {
+    GameManager _gameManager;
     VisualElement _root;
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonMenuButton = "common__menu-button";
+
     public void Initialize(VisualElement root, Action callback, string displayText = null)
     {
+        _gameManager = GameManager.Instance;
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+
         _root = root;
         root.Add(this);
 
@@ -31,7 +41,7 @@ public class ConfirmPopUp : VisualElement
             displayText = "Are you sure?";
 
         Label confirm = new Label(displayText);
-        confirm.AddToClassList("textPrimary");
+        confirm.AddToClassList(_ussCommonTextPrimary);
         Add(confirm);
         AddButtons(callback);
     }
@@ -44,7 +54,7 @@ public class ConfirmPopUp : VisualElement
         container.style.justifyContent = Justify.Center;
         Add(container);
 
-        MyButton confirm = new MyButton("Yaasss Queen", "menuButton", callback);
+        MyButton confirm = new MyButton("Yaasss Queen", _ussCommonMenuButton, callback);
         container.Add(confirm);
         confirm.clickable.clicked += Hide;
 
@@ -52,7 +62,7 @@ public class ConfirmPopUp : VisualElement
         spacer.style.width = 50;
         container.Add(spacer);
 
-        MyButton cancel = new MyButton("Cancel!@!", "menuButton", Hide);
+        MyButton cancel = new MyButton("Cancel!@!", _ussCommonMenuButton, Hide);
         container.Add(cancel);
     }
 

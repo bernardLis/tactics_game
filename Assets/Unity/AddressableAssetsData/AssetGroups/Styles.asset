@@ -117,6 +117,14 @@ MonoBehaviour:
     m_Address: AbilityNodeStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 75cc4cb1b795ae34ba2022af2dfc4bbb
+    m_Address: SettingsMenuStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5e55454fed2ddfb4f90604f7fee33a32
+    m_Address: Assets/_Scripts/_UIElements/Styles/MenuStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

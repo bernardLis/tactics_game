@@ -127,7 +127,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenMenuClick"",
+                    ""name"": ""OpenMenu"",
                     ""type"": ""Button"",
                     ""id"": ""79e89792-4d70-4dc4-8931-4f9cbe20547f"",
                     ""expectedControlType"": ""Button"",
@@ -341,7 +341,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""OpenMenuClick"",
+                    ""action"": ""OpenMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -531,6 +531,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""47d0cca9-af75-471d-9fae-1d29668d84a9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -643,6 +652,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""ToggleCommandLine"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5b06460-93de-42cd-b3cd-722160a2e604"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -679,7 +699,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_SecondAbilityClick = m_Player.FindAction("SecondAbilityClick", throwIfNotFound: true);
         m_Player_ThirdAbilityClick = m_Player.FindAction("ThirdAbilityClick", throwIfNotFound: true);
         m_Player_FourthAbilityClick = m_Player.FindAction("FourthAbilityClick", throwIfNotFound: true);
-        m_Player_OpenMenuClick = m_Player.FindAction("OpenMenuClick", throwIfNotFound: true);
+        m_Player_OpenMenu = m_Player.FindAction("OpenMenu", throwIfNotFound: true);
         m_Player_ViewTroopsClick = m_Player.FindAction("ViewTroopsClick", throwIfNotFound: true);
         m_Player_OpenInventoryClick = m_Player.FindAction("OpenInventoryClick", throwIfNotFound: true);
         m_Player_SelectNextCharacter = m_Player.FindAction("SelectNextCharacter", throwIfNotFound: true);
@@ -697,6 +717,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Dashboard_OpenAbilities = m_Dashboard.FindAction("OpenAbilities", throwIfNotFound: true);
         m_Dashboard_CloseCurrentTab = m_Dashboard.FindAction("CloseCurrentTab", throwIfNotFound: true);
         m_Dashboard_ToggleCommandLine = m_Dashboard.FindAction("ToggleCommandLine", throwIfNotFound: true);
+        m_Dashboard_OpenMenu = m_Dashboard.FindAction("OpenMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -767,7 +788,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SecondAbilityClick;
     private readonly InputAction m_Player_ThirdAbilityClick;
     private readonly InputAction m_Player_FourthAbilityClick;
-    private readonly InputAction m_Player_OpenMenuClick;
+    private readonly InputAction m_Player_OpenMenu;
     private readonly InputAction m_Player_ViewTroopsClick;
     private readonly InputAction m_Player_OpenInventoryClick;
     private readonly InputAction m_Player_SelectNextCharacter;
@@ -789,7 +810,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @SecondAbilityClick => m_Wrapper.m_Player_SecondAbilityClick;
         public InputAction @ThirdAbilityClick => m_Wrapper.m_Player_ThirdAbilityClick;
         public InputAction @FourthAbilityClick => m_Wrapper.m_Player_FourthAbilityClick;
-        public InputAction @OpenMenuClick => m_Wrapper.m_Player_OpenMenuClick;
+        public InputAction @OpenMenu => m_Wrapper.m_Player_OpenMenu;
         public InputAction @ViewTroopsClick => m_Wrapper.m_Player_ViewTroopsClick;
         public InputAction @OpenInventoryClick => m_Wrapper.m_Player_OpenInventoryClick;
         public InputAction @SelectNextCharacter => m_Wrapper.m_Player_SelectNextCharacter;
@@ -838,9 +859,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @FourthAbilityClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthAbilityClick;
                 @FourthAbilityClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthAbilityClick;
                 @FourthAbilityClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthAbilityClick;
-                @OpenMenuClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenuClick;
-                @OpenMenuClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenuClick;
-                @OpenMenuClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenuClick;
+                @OpenMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenu;
                 @ViewTroopsClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnViewTroopsClick;
                 @ViewTroopsClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnViewTroopsClick;
                 @ViewTroopsClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnViewTroopsClick;
@@ -896,9 +917,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @FourthAbilityClick.started += instance.OnFourthAbilityClick;
                 @FourthAbilityClick.performed += instance.OnFourthAbilityClick;
                 @FourthAbilityClick.canceled += instance.OnFourthAbilityClick;
-                @OpenMenuClick.started += instance.OnOpenMenuClick;
-                @OpenMenuClick.performed += instance.OnOpenMenuClick;
-                @OpenMenuClick.canceled += instance.OnOpenMenuClick;
+                @OpenMenu.started += instance.OnOpenMenu;
+                @OpenMenu.performed += instance.OnOpenMenu;
+                @OpenMenu.canceled += instance.OnOpenMenu;
                 @ViewTroopsClick.started += instance.OnViewTroopsClick;
                 @ViewTroopsClick.performed += instance.OnViewTroopsClick;
                 @ViewTroopsClick.canceled += instance.OnViewTroopsClick;
@@ -964,6 +985,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Dashboard_OpenAbilities;
     private readonly InputAction m_Dashboard_CloseCurrentTab;
     private readonly InputAction m_Dashboard_ToggleCommandLine;
+    private readonly InputAction m_Dashboard_OpenMenu;
     public struct DashboardActions
     {
         private @InputMaster m_Wrapper;
@@ -974,6 +996,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @OpenAbilities => m_Wrapper.m_Dashboard_OpenAbilities;
         public InputAction @CloseCurrentTab => m_Wrapper.m_Dashboard_CloseCurrentTab;
         public InputAction @ToggleCommandLine => m_Wrapper.m_Dashboard_ToggleCommandLine;
+        public InputAction @OpenMenu => m_Wrapper.m_Dashboard_OpenMenu;
         public InputActionMap Get() { return m_Wrapper.m_Dashboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1001,6 +1024,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @ToggleCommandLine.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
                 @ToggleCommandLine.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
                 @ToggleCommandLine.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
+                @OpenMenu.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
             }
             m_Wrapper.m_DashboardActionsCallbackInterface = instance;
             if (instance != null)
@@ -1023,6 +1049,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @ToggleCommandLine.started += instance.OnToggleCommandLine;
                 @ToggleCommandLine.performed += instance.OnToggleCommandLine;
                 @ToggleCommandLine.canceled += instance.OnToggleCommandLine;
+                @OpenMenu.started += instance.OnOpenMenu;
+                @OpenMenu.performed += instance.OnOpenMenu;
+                @OpenMenu.canceled += instance.OnOpenMenu;
             }
         }
     }
@@ -1049,7 +1078,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnSecondAbilityClick(InputAction.CallbackContext context);
         void OnThirdAbilityClick(InputAction.CallbackContext context);
         void OnFourthAbilityClick(InputAction.CallbackContext context);
-        void OnOpenMenuClick(InputAction.CallbackContext context);
+        void OnOpenMenu(InputAction.CallbackContext context);
         void OnViewTroopsClick(InputAction.CallbackContext context);
         void OnOpenInventoryClick(InputAction.CallbackContext context);
         void OnSelectNextCharacter(InputAction.CallbackContext context);
@@ -1069,5 +1098,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnOpenAbilities(InputAction.CallbackContext context);
         void OnCloseCurrentTab(InputAction.CallbackContext context);
         void OnToggleCommandLine(InputAction.CallbackContext context);
+        void OnOpenMenu(InputAction.CallbackContext context);
     }
 }

@@ -11,34 +11,52 @@ public class SettingsScreen : FullScreenElement
     Toggle _fullScreenToggle;
     Toggle _tutorialToggle;
 
+    Toggle _menuEffectsToggle;
     Toggle _battleLogToggle;
     Toggle _battleHelperTextToggle;
 
     VisualElement _parent;
 
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonUIContainer = "common__ui-container";
+
+    const string _ussClassName = "settings-menu__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussVolumeSlider = _ussClassName + "volume-slider";
+
+
     public SettingsScreen(VisualElement root, VisualElement parent)
     {
-        _parent = parent;
-
         _gameManager = GameManager.Instance;
         _audioManger = AudioManager.Instance;
+
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SettingsMenuStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
+        _parent = parent;
+
         Initialize(root);
-        AddToClassList("menuScreen");
+        AddToClassList(_ussMain);
 
         // sound
         VisualElement soundContainer = new VisualElement();
-        soundContainer.AddToClassList("uiContainer");
+        soundContainer.AddToClassList(_ussCommonUIContainer);
         Label sound = new Label("Sound");
-        sound.AddToClassList("textPrimary");
+        sound.AddToClassList(_ussCommonTextPrimary);
         soundContainer.Add(sound);
         Add(soundContainer);
         AddVolumeSliders(soundContainer);
 
         // graphics
         VisualElement graphicsContainer = new VisualElement();
-        graphicsContainer.AddToClassList("uiContainer");
+        graphicsContainer.AddToClassList(_ussCommonUIContainer);
         Label graphics = new Label("Graphics");
-        graphics.AddToClassList("textPrimary");
+        graphics.AddToClassList(_ussCommonTextPrimary);
         graphicsContainer.Add(graphics);
         Add(graphicsContainer);
 
@@ -47,9 +65,9 @@ public class SettingsScreen : FullScreenElement
 
         // UI
         VisualElement uiOptionsContainer = new VisualElement();
-        uiOptionsContainer.AddToClassList("uiContainer");
+        uiOptionsContainer.AddToClassList(_ussCommonUIContainer);
         Label uiOptionsLabel = new Label("UI Options");
-        uiOptionsLabel.AddToClassList("textPrimary");
+        uiOptionsLabel.AddToClassList(_ussCommonTextPrimary);
         uiOptionsContainer.Add(uiOptionsLabel);
         Add(uiOptionsContainer);
         AddUIOptions(uiOptionsContainer);
@@ -66,27 +84,27 @@ public class SettingsScreen : FullScreenElement
     void AddVolumeSliders(VisualElement parent)
     {
         Slider master = AddVolumeSlider("Master", parent);
-        master.AddToClassList("volumeSlider");
+        master.AddToClassList(_ussVolumeSlider);
         master.value = PlayerPrefs.GetFloat("MasterVolume", 1);
         master.RegisterValueChangedCallback(MasterVolumeChange);
 
         Slider music = AddVolumeSlider("Music", parent);
-        music.AddToClassList("volumeSlider");
+        music.AddToClassList(_ussVolumeSlider);
         music.value = PlayerPrefs.GetFloat("MusicVolume", 1);
         music.RegisterValueChangedCallback(MusicVolumeChange);
 
         Slider ambience = AddVolumeSlider("Ambience", parent);
-        ambience.AddToClassList("volumeSlider");
+        ambience.AddToClassList(_ussVolumeSlider);
         ambience.value = PlayerPrefs.GetFloat("AmbienceVolume", 1);
         ambience.RegisterValueChangedCallback(AmbienceVolumeChange);
 
         Slider dialogue = AddVolumeSlider("Dialogue", parent);
-        dialogue.AddToClassList("volumeSlider");
+        dialogue.AddToClassList(_ussVolumeSlider);
         dialogue.value = PlayerPrefs.GetFloat("DialogueVolume", 1);
         dialogue.RegisterValueChangedCallback(DialogueVolumeChange);
 
         Slider SFX = AddVolumeSlider("SFX", parent);
-        SFX.AddToClassList("volumeSlider");
+        SFX.AddToClassList(_ussVolumeSlider);
         SFX.value = PlayerPrefs.GetFloat("SFXVolume", 1);
         SFX.RegisterValueChangedCallback(SFXVolumeChange);
     }
@@ -201,7 +219,7 @@ public class SettingsScreen : FullScreenElement
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         Label label = new Label(labelText);
-        label.AddToClassList("textPrimary");
+        label.AddToClassList(_ussCommonTextPrimary);
         container.Add(label);
         return container;
     }
@@ -240,43 +258,32 @@ public class SettingsScreen : FullScreenElement
 
     void AddUIOptions(VisualElement parent)
     {
-        VisualElement container = CreateContainer("Hide Battle Log");
-        parent.Add(container);
+        VisualElement menuEffectsToggleContainer = CreateContainer("Disable Menu Transition Effects");
+        parent.Add(menuEffectsToggleContainer);
+        _menuEffectsToggle = new Toggle();
+        menuEffectsToggleContainer.Add(_menuEffectsToggle);
+        ToggleMenuEffects(PlayerPrefs.GetInt("HideMenuEffects", 0) != 0);
+        _menuEffectsToggle.RegisterValueChangedCallback(MenuEffectsToggleClick);
+
+        VisualElement battleLogToggleContainer = CreateContainer("Hide Battle Log");
+        parent.Add(battleLogToggleContainer);
         _battleLogToggle = new Toggle();
-        container.Add(_battleLogToggle);
+        battleLogToggleContainer.Add(_battleLogToggle);
         ToggleBattleLog(PlayerPrefs.GetInt("HideBattleLog", 0) != 0);
         _battleLogToggle.RegisterValueChangedCallback(BattleLogToggleClick);
 
-        VisualElement container1 = CreateContainer("Hide Battle Helper Text");
-        parent.Add(container1);
+        VisualElement battleHelperToggleContainer = CreateContainer("Hide Battle Helper Text");
+        parent.Add(battleHelperToggleContainer);
         _battleHelperTextToggle = new Toggle();
-        container1.Add(_battleHelperTextToggle);
+        battleHelperToggleContainer.Add(_battleHelperTextToggle);
         ToggleBattleHelperText(PlayerPrefs.GetInt("HideBattleHelperText", 0) != 0);
         _battleHelperTextToggle.RegisterValueChangedCallback(BattleHelperTextToggleClick);
     }
 
-    void ToggleBattleLog(bool hide)
+    void MenuEffectsToggleClick(ChangeEvent<bool> evt)
     {
-        _battleLogToggle.value = hide;
-
-        if (BattleUI.Instance == null)
-            return;
-        if (hide)
-            BattleUI.Instance.ToggleBattleLog(true);
-        else
-            BattleUI.Instance.ToggleBattleLog(false);
-    }
-
-    void ToggleBattleHelperText(bool hide)
-    {
-        _battleHelperTextToggle.value = hide;
-
-        if (BattleUI.Instance == null)
-            return;
-        if (hide)
-            BattleUI.Instance.ToggleBattleHelperText(true);
-        else
-            BattleUI.Instance.ToggleBattleHelperText(false);
+        PlayerPrefs.SetInt("HideMenuEffects", (evt.newValue ? 1 : 0));
+        ToggleMenuEffects(evt.newValue);
     }
 
     void BattleLogToggleClick(ChangeEvent<bool> evt)
@@ -289,6 +296,33 @@ public class SettingsScreen : FullScreenElement
     {
         PlayerPrefs.SetInt("HideBattleHelperText", (evt.newValue ? 1 : 0));
         ToggleBattleHelperText(evt.newValue);
+    }
+
+    void ToggleMenuEffects(bool hide)
+    {
+        _menuEffectsToggle.value = hide;
+
+        if (_gameManager == null)
+            return;
+        _gameManager.SetHideMenuEffects(hide);
+    }
+
+    void ToggleBattleLog(bool hide)
+    {
+        _battleLogToggle.value = hide;
+
+        if (BattleUI.Instance == null)
+            return;
+        BattleUI.Instance.ToggleBattleLog(hide);
+    }
+
+    void ToggleBattleHelperText(bool hide)
+    {
+        _battleHelperTextToggle.value = hide;
+
+        if (BattleUI.Instance == null)
+            return;
+        BattleUI.Instance.ToggleBattleHelperText(hide);
     }
 
     void ClearSaveData() { _gameManager.ClearSaveData(); }

@@ -47,6 +47,74 @@
     scale: 0.8 0.8;
 }
 
+.common__ui-container {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2');
+    -unity-background-scale-mode: scale-to-fit;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    width: auto;
+}
+
+.common__menu-button {
+    font-size: 36px;
+    background-color: rgba(255, 255, 255, 0);
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: rgb(255, 255, 255);
+    border-left-color: rgb(255, 133, 125);
+    border-right-color: rgb(255, 133, 125);
+    border-top-color: rgb(255, 133, 125);
+    border-bottom-color: rgb(255, 133, 125);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition-duration: 0.5s;
+    margin-left: 0;
+    margin-right: 0;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_little.png?fileID=2800000&guid=b0f16d180a490934686f65df10e187a3&type=3#Button_little');
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 400px;
+    height: 90px;
+    transition-property: all;
+    -unity-text-outline-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+    -unity-font-style: normal;
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font-definition: none;
+    -unity-text-align: middle-center;
+    transition-timing-function: ease-in-out;
+}
+
+.common__menu-button:hover {
+    transition-property: all;
+    scale: 1.05 1.05;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-sine;
+}
+
+.common__menu-button:active {
+    transition-property: all;
+    scale: 0.95 0.95;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.common__menu-button:disabled {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark');
+}
+
 .textSecondary {
     color: rgb(255, 255, 255);
     font-size: 12px;
@@ -67,16 +135,6 @@
     -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
     -unity-font-definition: none;
 }
-
-.menuScreen {
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    background-color: rgb(0, 0, 0);
-}
-
 
 .healthLabel {
     font-size: 18px;
@@ -151,77 +209,6 @@
     -unity-font-definition: none;
 }
 
-.uiContainer {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2');
-    -unity-background-scale-mode: scale-to-fit;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    align-items: flex-start;
-    justify-content: center;
-    width: auto;
-}
-
-.menuButton {
-    font-size: 36px;
-    background-color: rgba(255, 255, 255, 0);
-    margin-bottom: 5px;
-    margin-top: 5px;
-    color: rgb(255, 255, 255);
-    border-left-color: rgb(255, 133, 125);
-    border-right-color: rgb(255, 133, 125);
-    border-top-color: rgb(255, 133, 125);
-    border-bottom-color: rgb(255, 133, 125);
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition-duration: 0.5s;
-    margin-left: 0;
-    margin-right: 0;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_little.png?fileID=2800000&guid=b0f16d180a490934686f65df10e187a3&type=3#Button_little');
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    width: 400px;
-    height: 90px;
-    transition-property: all;
-    -unity-text-outline-color: rgb(255, 255, 255);
-    -unity-text-outline-width: 0;
-    -unity-font-style: normal;
-    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
-    -unity-font-definition: none;
-    -unity-text-align: middle-center;
-    transition-timing-function: ease-in-out;
-}
-
-.menuButton:hover {
-    transition-property: all;
-    scale: 1.05 1.05;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out-sine;
-}
-
-.menuButton:active {
-    transition-property: all;
-    scale: 0.95 0.95;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-}
-
-.menuButton:disabled {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark');
-}
-
-.disabledMenuButton {
-    background-image: url('project://database/Assets/Sprites/UI/buttonDisabled.png?fileID=2800000&guid=ef69fcec9e4ee184881eaa7d860ca33e&type=3#buttonDisabled');
-}
 
 .characterCardDetailsButton {
     width: 25px;

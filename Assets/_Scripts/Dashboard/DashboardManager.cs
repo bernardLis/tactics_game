@@ -267,8 +267,23 @@ public class DashboardManager : Singleton<DashboardManager>
 
         BaseBuildingOpened();
 
-        _abilitiesWrapperRight.style.left = Length.Percent(100);
         _mainAbilities.style.display = DisplayStyle.Flex;
+        if (!_gameManager.HideMenuEffects)
+        {
+            await PlayAbilityMenuOpenTransition();
+        }
+        else
+        {
+            _abilitiesWrapperLeft.style.left = Length.Percent(0);
+            _abilitiesWrapperRight.style.left = Length.Percent(70);
+        }
+
+        OnAbilitiesOpened?.Invoke();
+    }
+
+    async Task PlayAbilityMenuOpenTransition()
+    {
+        _abilitiesWrapperRight.style.left = Length.Percent(100);
         DOTween.To(() => _abilitiesWrapperLeft.style.left.value.value,
                 x => _abilitiesWrapperLeft.style.left = Length.Percent(x), 0, 0.5f)
                 .SetEase(Ease.OutBounce);
@@ -284,17 +299,19 @@ public class DashboardManager : Singleton<DashboardManager>
             instance.PlayEffect(new Vector3(3.5f, y, 1f), Vector3.one * 0.2f);
             y += 2f;
         }
-
-        OnAbilitiesOpened?.Invoke();
     }
 
     async Task HideAbilityUI()
     {
-        DOTween.To(() => _abilitiesWrapperLeft.style.left.value.value,
-                x => _abilitiesWrapperLeft.style.left = Length.Percent(x), -70, 0.5f);
-        await DOTween.To(() => _abilitiesWrapperRight.style.left.value.value,
-                x => _abilitiesWrapperRight.style.left = Length.Percent(x), 100, 0.5f)
-                .AsyncWaitForCompletion();
+        if (!_gameManager.HideMenuEffects)
+        {
+            DOTween.To(() => _abilitiesWrapperLeft.style.left.value.value,
+                    x => _abilitiesWrapperLeft.style.left = Length.Percent(x), -70, 0.5f);
+            await DOTween.To(() => _abilitiesWrapperRight.style.left.value.value,
+                    x => _abilitiesWrapperRight.style.left = Length.Percent(x), 100, 0.5f)
+                    .AsyncWaitForCompletion();
+        }
+
         _mainAbilities.style.display = DisplayStyle.None;
     }
 
@@ -309,6 +326,16 @@ public class DashboardManager : Singleton<DashboardManager>
         BaseBuildingOpened();
         _mainCamp.style.display = DisplayStyle.Flex;
 
+        if (!_gameManager.HideMenuEffects)
+            await PlayCampMenuOpenTransition();
+        else
+            _mainCamp.style.top = Length.Percent(0);
+
+        OnCampOpened?.Invoke();
+    }
+
+    async Task PlayCampMenuOpenTransition()
+    {
         _mainCamp.style.top = Length.Percent(-110);
         DOTween.To(() => _mainCamp.style.top.value.value,
                 x => _mainCamp.style.top = Length.Percent(x), 0, 0.5f)
@@ -322,15 +349,14 @@ public class DashboardManager : Singleton<DashboardManager>
             instance.PlayEffect(new Vector3(x, -5f, 1f), Vector3.one * 0.2f);
             x += 3f;
         }
-
-        OnCampOpened?.Invoke();
     }
 
     async Task HideCampUI()
     {
-        await DOTween.To(() => _mainCamp.style.top.value.value,
-                x => _mainCamp.style.top = Length.Percent(x), -110, 0.5f)
-                .AsyncWaitForCompletion();
+        if (!_gameManager.HideMenuEffects)
+            await DOTween.To(() => _mainCamp.style.top.value.value,
+                    x => _mainCamp.style.top = Length.Percent(x), -110, 0.5f)
+                    .AsyncWaitForCompletion();
         _mainCamp.style.display = DisplayStyle.None;
     }
 
@@ -341,6 +367,7 @@ public class DashboardManager : Singleton<DashboardManager>
     }
 
     void HideAllPanels(InputAction.CallbackContext ctx) { HideAllPanels(); }
+    
     void HideAllPanels()
     {
         _mainCamp.style.display = DisplayStyle.None;

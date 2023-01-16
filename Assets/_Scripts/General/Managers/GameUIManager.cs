@@ -41,12 +41,12 @@ public class GameUIManager : MonoBehaviour
         if (_menuScreen != null)
             return;
 
-        _playerInput.actions["OpenMenuClick"].performed += ToggleMenu;
+        _playerInput.actions["OpenMenu"].performed += ToggleMenu;
     }
 
     public void DisableMenuButton()
     {
-        _playerInput.actions["OpenMenuClick"].performed -= ToggleMenu;
+        _playerInput.actions["OpenMenu"].performed -= ToggleMenu;
     }
 
     void ToggleMenu(InputAction.CallbackContext ctx)
@@ -61,7 +61,7 @@ public class GameUIManager : MonoBehaviour
 
         _menuScreen = new MenuScreen(_uiDocument.rootVisualElement);
         _menuScreen.OnClose += MenuScreenClosed;
-        _playerInput.actions["OpenMenuClick"].performed -= ToggleMenu;
+        _playerInput.actions["OpenMenu"].performed -= ToggleMenu;
     }
 
     void MenuScreenClosed()
@@ -69,7 +69,7 @@ public class GameUIManager : MonoBehaviour
         _menuScreen.OnClose -= MenuScreenClosed;
 
         _menuScreen = null;
-        _playerInput.actions["OpenMenuClick"].performed += ToggleMenu;
+        _playerInput.actions["OpenMenu"].performed += ToggleMenu;
     }
 
 }

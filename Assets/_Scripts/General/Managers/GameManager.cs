@@ -13,6 +13,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public GameDatabase GameDatabase;
 
+    public bool HideMenuEffects { get; private set; }
+    public void SetHideMenuEffects(bool hide) { HideMenuEffects = hide; }
+
     // global data
     public bool WasTutorialPlayed { get; private set; }
     public int Seed { get; private set; }
@@ -440,6 +443,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void LoadFromSaveData(SaveData saveData)
     {
         _originalSaveData = saveData; // stored for later
+
+        // player prefs
+        SetHideMenuEffects(PlayerPrefs.GetInt("HideMenuEffects") != 0);
 
         // global data
         WasTutorialPlayed = saveData.WasTutorialPlayed;
