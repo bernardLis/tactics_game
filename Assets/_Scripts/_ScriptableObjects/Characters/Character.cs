@@ -53,7 +53,8 @@ public class Character : BaseScriptableObject
     [HideInInspector] public int DayStartedBeingUnavailable;
     [HideInInspector] public int UnavailabilityDuration;
 
-    public Vector2 DeskPosition;
+    public Vector2 DeskPosition { get; private set; }
+    public int WeeklyWage { get; private set; }
 
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
@@ -303,12 +304,19 @@ public class Character : BaseScriptableObject
         Abilities = new();
 
         UpdateRank();
+
+        WeeklyWage = Random.Range(100, 200) * Level;
     }
 
     public void UpdateDeskPosition(Vector2 newPos)
     {
         DeskPosition = newPos;
         _gameManager.SaveJsonData();
+    }
+
+    public void SetWeeklyWage(int wage)
+    {
+        WeeklyWage = wage;
     }
 
     // creates character at runtime from saved data
@@ -351,6 +359,7 @@ public class Character : BaseScriptableObject
         DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
         UnavailabilityDuration = data.UnavailabilityDuration;
         DeskPosition = data.DeskPosition;
+        WeeklyWage = data.WeeklyWage;
 
         UpdateRank();
         UpdateElement(Element);
@@ -389,6 +398,7 @@ public class Character : BaseScriptableObject
         data.DayStartedBeingUnavailable = DayStartedBeingUnavailable;
         data.UnavailabilityDuration = UnavailabilityDuration;
         data.DeskPosition = DeskPosition;
+        data.WeeklyWage = WeeklyWage;
 
         return data;
     }
@@ -420,4 +430,5 @@ public struct CharacterData
     public int DayStartedBeingUnavailable;
     public int UnavailabilityDuration;
     public Vector2 DeskPosition;
+    public int WeeklyWage;
 }

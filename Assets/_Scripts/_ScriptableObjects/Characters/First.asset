@@ -32,4 +32,4 @@ MonoBehaviour:
   IsUnavailable: 0
   DayStartedBeingUnavailable: 0
   UnavailabilityDuration: 0
-  DeskPosition: {x: 1000, y: 100}
+  WeeklyWage: 50

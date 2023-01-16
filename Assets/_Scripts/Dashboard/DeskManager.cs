@@ -16,6 +16,8 @@ public class DeskManager : Singleton<DeskManager>
     public VisualElement Root { get; private set; }
     VisualElement _mainDesk;
     VisualElement _reportsContainer;
+    VisualElement _summonCharactersButton;
+
     VisualElement _slotsContainer;
     VisualElement _itemSlotsContainer;
     VisualElement _abilitySlotsContainer;
@@ -27,8 +29,10 @@ public class DeskManager : Singleton<DeskManager>
 
     List<Report> VisibleReports = new();
 
-    protected override void Awake() { base.Awake(); }
+    const string _ussCardMini = "character-card-mini__main";
 
+
+    protected override void Awake() { base.Awake(); }
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -44,6 +48,9 @@ public class DeskManager : Singleton<DeskManager>
         _mainDesk = Root.Q<VisualElement>("mainDesk");
         _reportsContainer = Root.Q<VisualElement>("reportsContainer");
 
+        _summonCharactersButton = Root.Q<VisualElement>("summonCharacters");
+        _summonCharactersButton.RegisterCallback<PointerUpEvent>(SummonCharacters);
+
         _slotsContainer = Root.Q<VisualElement>("slotsContainer");
         _itemSlotsContainer = Root.Q<VisualElement>("itemSlotsContainer");
         _abilitySlotsContainer = Root.Q<VisualElement>("abilitySlotsContainer");
@@ -52,6 +59,20 @@ public class DeskManager : Singleton<DeskManager>
         _dashboardManager.OnHideAllPanels += CleanDraggables;
 
         Initialize();
+    }
+
+    void SummonCharacters(PointerUpEvent evt)
+    {
+        List<VisualElement> cards = Root.Query(className: _ussCardMini).ToList();
+        foreach (VisualElement item in cards)
+        {
+            CharacterCardMini card = (CharacterCardMini)item;
+            if (card.Character.IsAssigned)
+                continue;
+
+            item.style.left = _summonCharactersButton.style.left;
+            item.style.top = _summonCharactersButton.style.top;
+        }
     }
 
     async void OnReportAdded(Report report)

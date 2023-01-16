@@ -100,7 +100,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Day += 1;
 
         if (Day % 7 == 0)
-            PayMaintenance();
+            PayWages();
 
         if (Random.value > 0.5f)
             AddRandomQuest();
@@ -115,18 +115,24 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    void PayMaintenance()
+    void PayWages()
     {
-        ChangeGoldValue(-GetCurrentMaintenanceCost());
+        ChangeGoldValue(-GetCurrentWages());
 
-        int cost = GetCurrentMaintenanceCost();
+        int cost = GetCurrentWages();
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Text, null, null, $"Maintenance is paid: {cost}");
+        r.Initialize(ReportType.Text, null, null, $"Wages are paid: {cost}");
         AddNewReport(r);
     }
 
-    public int GetCurrentMaintenanceCost() { return PlayerTroops.Count * 200 * 7; }
+    public int GetCurrentWages()
+    {
+        int total = 0;
+        foreach (Character c in PlayerTroops)
+            total += c.WeeklyWage;
+        return total;
+    }
 
     void AddRandomQuest()
     {

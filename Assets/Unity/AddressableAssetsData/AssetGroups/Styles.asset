@@ -129,6 +129,10 @@ MonoBehaviour:
     m_Address: SpiceRecycleReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: c8a5dfc69b360094793cdfec86277192
+    m_Address: RecruitElementStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:
