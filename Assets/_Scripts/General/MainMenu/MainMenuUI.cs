@@ -17,14 +17,16 @@ public class MainMenuUI : MonoBehaviour
     VisualElement _menuContainer;
     VisualElement _settingsContainer;
 
+    const string _ussCommonMenuButton = "common__menu-button";
+
     void Start()
     {
         _gameManager = GameManager.Instance;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
-        _continueButton = new MyButton("Play", "menuButton", Continue);
-        _settingsButton = new MyButton("Settings", "menuButton", Settings);
-        _quitButton = new MyButton("Quit", "menuButton", ConfirmQuit);
+        _continueButton = new MyButton("Play", _ussCommonMenuButton, Continue);
+        _settingsButton = new MyButton("Settings", _ussCommonMenuButton, Settings);
+        _quitButton = new MyButton("Quit", _ussCommonMenuButton, ConfirmQuit);
 
         _menuContainer = _root.Q<VisualElement>("menuContainer");
         _menuContainer.Add(_continueButton);

@@ -1,0 +1,8 @@
+.spice-element__main {
+    flex-direction: row;
+    align-items: center;
+    scale: 1 1;
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+}

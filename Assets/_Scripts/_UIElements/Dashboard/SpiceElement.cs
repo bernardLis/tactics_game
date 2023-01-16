@@ -14,11 +14,22 @@ public class SpiceElement : VisualElement
     AnimationElement _animationElement;
     Label _text;
 
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "spice-element__";
+    const string _ussMain = _ussClassName + "main";
+
     public SpiceElement(int amount)
     {
         _gameManager = GameManager.Instance;
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SpiceElementStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
 
-        AddToClassList("spiceElement");
+        AddToClassList(_ussMain);
 
         Sprite[] animationSprites = null;
         animationSprites = _gameManager.GameDatabase.GetSpiceSprites(amount);
@@ -30,7 +41,7 @@ public class SpiceElement : VisualElement
         Add(_icon);
 
         _text = new();
-        _text.AddToClassList("textPrimary");
+        _text.AddToClassList(_ussCommonTextPrimary);
         _text.text = Amount.ToString();
         _text.style.unityTextAlign = TextAnchor.MiddleCenter;
         _text.style.height = 50;

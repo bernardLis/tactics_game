@@ -217,14 +217,6 @@
     background-color: rgb(255, 255, 255);
 }
 
-.spiceElement {
-    flex-direction: row;
-    align-items: center;
-    scale: 1 1;
-    transition-property: all;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
-}
 
 .vfx {
     background-image: url('project://database/Assets/Unity/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');

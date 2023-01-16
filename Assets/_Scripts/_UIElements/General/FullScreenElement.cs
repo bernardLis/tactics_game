@@ -11,9 +11,14 @@ public class FullScreenElement : VisualElement
 
     public event Action OnHide;
 
+    const string _ussCommonMenuButton = "common__menu-button";
+
     public async void Initialize(VisualElement root, bool enableNavigation = true)
     {
         _gameManager = GameManager.Instance;
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
 
         style.width = Length.Percent(100);
         style.height = Length.Percent(100);
@@ -60,7 +65,7 @@ public class FullScreenElement : VisualElement
 
     public void AddBackButton()
     {
-        MyButton backButton = new("Back", "menuButton", Hide);
+        MyButton backButton = new("Back", _ussCommonMenuButton, Hide);
         backButton.style.width = 200;
         Add(backButton);
     }
