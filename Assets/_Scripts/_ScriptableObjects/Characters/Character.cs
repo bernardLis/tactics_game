@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class Character : BaseScriptableObject
 {
     public static int MaxCharacterAbilities = 1;
-    public static int MaxCharacterItems = 3;
+    public static int MaxCharacterItems = 2;
 
     GameManager _gameManager;
 
@@ -60,6 +60,7 @@ public class Character : BaseScriptableObject
     public event Action<int> OnCharacterExpGain;
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
+    public event Action<int> OnWageChanged;
 
     public event Action<int> OnMaxHealthChanged;
     public event Action<int> OnMaxManaChanged;
@@ -317,6 +318,7 @@ public class Character : BaseScriptableObject
     public void SetWeeklyWage(int wage)
     {
         WeeklyWage = wage;
+        OnWageChanged?.Invoke(wage);
     }
 
     // creates character at runtime from saved data

@@ -25,6 +25,8 @@ public abstract class ElementWithTooltip : VisualElement
         RegisterCallback<DetachFromPanelEvent>((evt) => HideTooltip());
     }
 
+    public void AddTooltip(TooltipElement tooltip) { _tooltip = tooltip; }
+
     public void BlockTooltip()
     {
         _blockTooltip = true;

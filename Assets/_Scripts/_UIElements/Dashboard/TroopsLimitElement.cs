@@ -15,8 +15,8 @@ public class TroopsLimitElement : ElementWithTooltip
     public TroopsLimitElement(bool isGeneral = true, string text = null)
     {
         _isGeneral = isGeneral;
-
         _gameManager = GameManager.Instance;
+        // TODO: no. that's incorrect
         if (isGeneral)
         {
             _gameManager.OnTroopsLimitChanged += OnTroopsLimitChanged;

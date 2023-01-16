@@ -9,6 +9,7 @@ public class CharacterCard : VisualElement
 
     public CharacterPortraitElement PortraitVisualElement;
     StarRankElement _rankElement;
+    GoldElement _wageGoldElement;
     ElementalElement _elementalElement;
     Label _title;
     Label _level;
@@ -33,10 +34,12 @@ public class CharacterCard : VisualElement
     const string _ussClassName = "character-card__";
     const string _ussMain = _ussClassName + "main";
     const string _ussTopPanel = _ussClassName + "top-panel";
-    const string _ussPortraitContainer = _ussClassName + "portrait-container";
-    const string _ussElementPosition = _ussClassName + "element-position";
     const string _ussBottomPanel = _ussClassName + "bottom-panel";
-    const string _ussStatContainer = _ussClassName + "stat-container";
+    const string _ussBottomLeftPanel = _ussClassName + "bottom-left-panel";
+    const string _ussBottomRightPanel = _ussClassName + "bottom-right-panel";
+
+    const string _ussElementPosition = _ussClassName + "element-position";
+    const string _ussRankPosition = _ussClassName + "rank-position";
     const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussHealthContainer = _ussClassName + "health-container";
     const string _ussManaContainer = _ussClassName + "mana-container";
@@ -59,46 +62,34 @@ public class CharacterCard : VisualElement
 
         VisualElement topPanel = new();
         topPanel.AddToClassList(_ussTopPanel);
-
-        VisualElement portraitContainer = new();
-        portraitContainer.AddToClassList(_ussPortraitContainer);
-
-        PortraitVisualElement = new(character, this);
-        portraitContainer.Add(PortraitVisualElement);
-        _elementalElement = new ElementalElement(Character.Element);
-        _elementalElement.AddToClassList(_ussElementPosition);
-        portraitContainer.Add(_elementalElement);
-
-        _title = new($"[{Character.Rank.Title}] {character.CharacterName}");
-        portraitContainer.Add(CreateRankElement());
-
-        VisualElement barsContainer = new();
-        barsContainer.Add(_title);
-        barsContainer.Add(CreateHealthGroup());
-        barsContainer.Add(CreateManaGroup());
-        barsContainer.Add(CreateExpGroup());
-        barsContainer.Add(CreateStatGroup());
-
-        topPanel.Add(portraitContainer);
-        topPanel.Add(barsContainer);
+        VisualElement topLeftPanel = new();
+        VisualElement topRightPanel = new();
+        topPanel.Add(topLeftPanel);
+        topPanel.Add(topRightPanel);
 
         VisualElement bottomPanel = new();
         bottomPanel.AddToClassList(_ussBottomPanel);
+        VisualElement bottomLeftPanel = new();
+        VisualElement bottomRightPanel = new();
+        bottomPanel.Add(bottomLeftPanel);
+        bottomPanel.Add(bottomRightPanel);
 
-        if (showAbilities)
-            bottomPanel.Add(CreateAbilities());
-        if (showItems)
-            bottomPanel.Add(CreateItems());
+        PopulateTopLeftPanel(topLeftPanel);
+        PopulateTopRightPanel(topRightPanel);
+        PopulateBottomLeftPanel(bottomLeftPanel);
+        PopulateBottomRightPanel(bottomRightPanel, showAbilities, showItems);
 
         Add(topPanel);
         Add(bottomPanel);
 
         Character.OnRankChanged += OnRankChanged;
         Character.OnElementChanged += OnElementChanged;
+        Character.OnWageChanged += _wageGoldElement.ChangeAmount;
         SubscribeToStatChanges();
 
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
+
 
     void OnRankChanged(CharacterRank rank)
     {
@@ -106,10 +97,7 @@ public class CharacterCard : VisualElement
         _title.text = $"[{rank.Title}] {Character.CharacterName}";
     }
 
-    void OnElementChanged(Element element)
-    {
-        _elementalElement.ChangeElement(element);
-    }
+    void OnElementChanged(Element element) { _elementalElement.ChangeElement(element); }
 
     void OnPanelDetached(DetachFromPanelEvent evt)
     {
@@ -117,16 +105,31 @@ public class CharacterCard : VisualElement
         Character.OnElementChanged -= OnElementChanged;
     }
 
-    VisualElement CreateRankElement()
+    void PopulateTopLeftPanel(VisualElement container)
     {
-        _rankElement = new(Character.Rank.Rank, 0.5f);
-        return _rankElement;
+        PortraitVisualElement = new(Character, this);
+        container.Add(PortraitVisualElement);
+        container.Add(CreateWageElement());
     }
 
-    VisualElement CreateStatGroup()
+    void PopulateTopRightPanel(VisualElement container)
     {
-        VisualElement container = new();
-        container.AddToClassList(_ussStatContainer);
+        VisualElement elementAndRank = new();
+        elementAndRank.style.flexDirection = FlexDirection.Row;
+        elementAndRank.Add(CreateElementalElement());
+        elementAndRank.Add(CreateRankElement());
+        container.Add(elementAndRank);
+
+        _title = new($"[{Character.Rank.Title}] {Character.CharacterName}");
+        container.Add(_title);
+
+        container.Add(CreateHealthGroup());
+        container.Add(CreateManaGroup());
+        container.Add(CreateExpGroup());
+    }
+    void PopulateBottomLeftPanel(VisualElement container)
+    {
+        container.AddToClassList(_ussBottomLeftPanel);
 
         GameDatabase db = GameManager.Instance.GameDatabase;
         _power = new(db.GetStatIconByName("Power"), Character.GetStatValue("Power"), "Power");
@@ -136,8 +139,38 @@ public class CharacterCard : VisualElement
         container.Add(_power);
         container.Add(_armor);
         container.Add(_range);
+    }
 
-        return container;
+    void PopulateBottomRightPanel(VisualElement container, bool showAbilities, bool showItems)
+    {
+        container.AddToClassList(_ussBottomRightPanel);
+
+        if (showAbilities)
+            container.Add(CreateAbilities());
+        if (showItems)
+            container.Add(CreateItems());
+    }
+
+    VisualElement CreateElementalElement()
+    {
+        _elementalElement = new ElementalElement(Character.Element);
+        _elementalElement.AddToClassList(_ussElementPosition);
+        return _elementalElement;
+    }
+
+    VisualElement CreateRankElement()
+    {
+        _rankElement = new(Character.Rank.Rank, 0.5f);
+        _rankElement.AddToClassList(_ussRankPosition);
+        return _rankElement;
+    }
+
+    VisualElement CreateWageElement()
+    {
+        _wageGoldElement = new(Character.WeeklyWage);
+        _wageGoldElement.style.justifyContent = Justify.FlexEnd;
+        _wageGoldElement.AddTooltip(new TooltipElement(_wageGoldElement, new Label("Weekly wage")));
+        return _wageGoldElement;
     }
 
     VisualElement CreateExpGroup()

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
 
-public class GoldElement : VisualElement
+public class GoldElement : ElementWithTooltip
 {
     GameManager _gameManager;
     public int Amount;
