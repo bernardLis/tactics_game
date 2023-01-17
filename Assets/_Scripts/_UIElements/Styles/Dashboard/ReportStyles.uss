@@ -22,6 +22,8 @@
 .report__contents {
     width: auto;
     height: auto;
+    max-width: 500px;
+    max-height: 700px;
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 40px;
@@ -95,6 +97,8 @@
     justify-content: center;
     width: 100px;
     height: 100px;
+    flex-grow: 1;
+    flex-shrink: 0;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
 }

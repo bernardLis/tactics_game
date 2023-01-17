@@ -319,6 +319,8 @@ public class DeskManager : Singleton<DeskManager>
             el = (AbilityReportElement)new(_reportsContainer, report) as AbilityReportElement;
         if (report.ReportType == ReportType.SpiceRecycle)
             el = (SpiceRecycleReportElement)new(_reportsContainer, report) as SpiceRecycleReportElement;
+        if (report.ReportType == ReportType.Wages)
+            el = (WagesReportElement)new(_reportsContainer, report) as WagesReportElement;
 
         el.style.position = Position.Absolute;
         el.OnReportDismissed += OnReportDismissed;

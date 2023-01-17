@@ -122,7 +122,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         int cost = GetCurrentWages();
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Text, null, null, $"Wages are paid: {cost}");
+        r.Initialize(ReportType.Wages, null, null, null, null, null, null, PlayerTroops);
         AddNewReport(r);
     }
 

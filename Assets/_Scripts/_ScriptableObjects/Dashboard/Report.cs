@@ -18,12 +18,14 @@ public class Report : BaseScriptableObject
     public Shop Shop;
     public Ability Ability;
     public Item Item;
+    public List<Character> Characters = new();
 
     public bool IsSigned;
     public int DaySigned;
     public bool WasAccepted;
 
-    public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null, string campBuildingId = null, Shop shop = null, Ability ability = null)
+    public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null,
+             string campBuildingId = null, Shop shop = null, Ability ability = null, List<Character> characters = null)
     {
         ReportType = type;
         ReportPaper = GameManager.Instance.GameDatabase.GetRandomReportPaper();
@@ -34,6 +36,9 @@ public class Report : BaseScriptableObject
         CampBuildingId = campBuildingId;
         Shop = shop;
         Ability = ability;
+        Characters = new();
+        if (characters != null)
+            Characters.AddRange(characters);
     }
 
     public void Sign()
@@ -82,6 +87,16 @@ public class Report : BaseScriptableObject
             Ability.name = data.AbilityData.Name;
         }
 
+        if (data.CharacterDatas.Count != 0)
+        {
+            foreach (CharacterData cData in data.CharacterDatas)
+            {
+                Character character = ScriptableObject.CreateInstance<Character>();
+                character.CreateFromData(cData);
+                Characters.Add(character);
+            }
+        }
+
         IsSigned = data.IsSigned;
         DaySigned = data.DaySigned;
         WasAccepted = data.WasAccepted;
@@ -116,6 +131,13 @@ public class Report : BaseScriptableObject
         if (Ability != null)
             rd.AbilityData = Ability.SerializeSelf();
 
+        if (Characters.Count != 0)
+        {
+            rd.CharacterDatas = new();
+            foreach (Character c in Characters)
+                rd.CharacterDatas.Add(c.SerializeSelf());
+        }
+
 
         rd.IsSigned = IsSigned;
         rd.DaySigned = DaySigned;
@@ -139,6 +161,7 @@ public struct ReportData
     public ShopData ShopData;
     public ItemData ItemData;
     public AbilityData AbilityData;
+    public List<CharacterData> CharacterDatas;
 
     public bool IsSigned;
     public int DaySigned;
