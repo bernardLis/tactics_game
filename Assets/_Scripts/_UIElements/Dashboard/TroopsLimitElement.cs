@@ -10,21 +10,18 @@ public class TroopsLimitElement : ElementWithTooltip
     VisualElement _animationContainer;
     VisualElement _countContainer;
 
-    bool _isGeneral;
+    const string _ussCommonTextPrimary = "common__text-primary";
 
-    public TroopsLimitElement(bool isGeneral = true, string text = null)
+
+    public TroopsLimitElement(string text)
     {
-        _isGeneral = isGeneral;
         _gameManager = GameManager.Instance;
-        // TODO: no. that's incorrect
-        if (isGeneral)
-        {
-            _gameManager.OnTroopsLimitChanged += OnTroopsLimitChanged;
-            _gameManager.OnCharacterAddedToTroops += OnCharacterAddedToTroops;
-        }
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
 
         style.flexDirection = FlexDirection.Row;
-        AddToClassList("textPrimary");
+        AddToClassList(_ussCommonTextPrimary);
 
         _animationContainer = new();
         _animationContainer.style.width = 50;
@@ -39,20 +36,18 @@ public class TroopsLimitElement : ElementWithTooltip
         UpdateCountContainer(text);
     }
 
-    void OnCharacterAddedToTroops(Character character) { UpdateCountContainer(); }
+    string GetTroopsCount() { return $"{_gameManager.PlayerTroops.Count} / {_gameManager.TroopsLimit}"; }
 
-    void OnTroopsLimitChanged(int change) { UpdateCountContainer(); }
+    public void OnCharacterAddedToTroops(Character character) { UpdateCountContainer(GetTroopsCount()); }
 
-    void UpdateCountContainer(string text = null)
+    public void OnTroopsLimitChanged(int change) { UpdateCountContainer(GetTroopsCount()); }
+
+    void UpdateCountContainer(string text)
     {
         _countContainer.Clear();
         Label l = new();
         _countContainer.Add(l);
         _countContainer.style.justifyContent = Justify.Center;
-
-        if (_isGeneral)
-            l.text = $"{_gameManager.PlayerTroops.Count} / {_gameManager.TroopsLimit}";
-        else
-            l.text = text;
+        l.text = text;
     }
 }

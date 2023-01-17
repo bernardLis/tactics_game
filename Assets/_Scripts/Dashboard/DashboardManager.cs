@@ -159,7 +159,10 @@ public class DashboardManager : Singleton<DashboardManager>
     void AddTroopsElement()
     {
         _navTroops.Clear();
-        _troopsLimitVisualElement = new();
+        _troopsLimitVisualElement = new($"{_gameManager.PlayerTroops.Count} / {_gameManager.TroopsLimit}");
+        _gameManager.OnCharacterAddedToTroops += _troopsLimitVisualElement.OnCharacterAddedToTroops;
+        _gameManager.OnTroopsLimitChanged += _troopsLimitVisualElement.OnTroopsLimitChanged;
+
         _navTroops.Add(_troopsLimitVisualElement);
     }
 
@@ -367,7 +370,7 @@ public class DashboardManager : Singleton<DashboardManager>
     }
 
     void HideAllPanels(InputAction.CallbackContext ctx) { HideAllPanels(); }
-    
+
     void HideAllPanels()
     {
         _mainCamp.style.display = DisplayStyle.None;

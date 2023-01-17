@@ -83,7 +83,7 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
         {
             CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
-            upgradeContainer.Add(new TroopsLimitElement(false, $"+{c.LimitIncrease}"));
+            upgradeContainer.Add(new TroopsLimitElement($"+{c.LimitIncrease}"));
         }
         Add(upgradeContainer);
     }
