@@ -76,8 +76,8 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.ChangeSpiceValue(1000);
         if (_commandTextField.text.ToLower() == "takespice")
             _gameManager.ChangeSpiceValue(-500);
-        if (_commandTextField.text.ToLower() == "giveleveltoeveryone")
-            foreach (Character c in _gameManager.PlayerTroops)
-                c.LevelUp();
+        if (_commandTextField.text.ToLower() == "levelup")
+            for (int i = _gameManager.PlayerTroops.Count - 1; i >= 0; i--)
+                _gameManager.PlayerTroops[i].LevelUp();
     }
 }

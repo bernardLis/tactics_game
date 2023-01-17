@@ -321,6 +321,8 @@ public class DeskManager : Singleton<DeskManager>
             el = (SpiceRecycleReportElement)new(_reportsContainer, report) as SpiceRecycleReportElement;
         if (report.ReportType == ReportType.Wages)
             el = (WagesReportElement)new(_reportsContainer, report) as WagesReportElement;
+        if (report.ReportType == ReportType.RaiseRequest)
+            el = (RaiseRequestReportElement)new(_reportsContainer, report) as RaiseRequestReportElement;
 
         el.style.position = Position.Absolute;
         el.OnReportDismissed += OnReportDismissed;

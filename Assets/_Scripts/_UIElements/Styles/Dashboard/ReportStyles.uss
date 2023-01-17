@@ -59,7 +59,6 @@
     width: 100%;
 }
 
-
 .report__accept {
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_37_accept.png?fileID=2800000&guid=f9e9f73aeacec3741a801809269ab655&type=3#gray_37_accept');
     width: 50px;

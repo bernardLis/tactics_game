@@ -55,6 +55,8 @@ public class Character : BaseScriptableObject
 
     public Vector2 DeskPosition { get; private set; }
     public int WeeklyWage { get; private set; }
+    public int NewWage { get; private set; }
+    public int TimesNegotiated { get; private set; }
 
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
@@ -133,6 +135,7 @@ public class Character : BaseScriptableObject
 
         OnCharacterLevelUp?.Invoke();
         UpdateRank();
+        RaiseCheck();
     }
 
     public void AddAbility(Ability ability)
@@ -321,6 +324,35 @@ public class Character : BaseScriptableObject
         OnWageChanged?.Invoke(wage);
     }
 
+    public void RaiseCheck()
+    {
+        if (!IsAskingForRaise())
+            return;
+
+        _gameManager.RemoveCharacterFromTroops(this);
+        Report r = ScriptableObject.CreateInstance<Report>();
+        r.Initialize(ReportType.RaiseRequest, null, null, null, null, null, null, this);
+        _gameManager.AddNewReport(r);
+    }
+
+    public bool IsAskingForRaise()
+    {
+        if (WeeklyWage / Level >= 150)
+            return false;
+        if (Random.value > 0.5f)
+            return false;
+        NewWage = GetRequestedWage();
+        if (NewWage < WeeklyWage)
+            return false;
+        return true;
+    }
+
+    public void Negotiated() { TimesNegotiated++; }
+
+    public void SetNewWage(int newWage) { NewWage = newWage; }
+
+    public int GetRequestedWage() { return Random.Range(100, 200) * Level; }
+
     // creates character at runtime from saved data
     public virtual void CreateFromData(CharacterData data)
     {
@@ -362,6 +394,8 @@ public class Character : BaseScriptableObject
         UnavailabilityDuration = data.UnavailabilityDuration;
         DeskPosition = data.DeskPosition;
         WeeklyWage = data.WeeklyWage;
+        NewWage = data.NewWage;
+        TimesNegotiated = data.TimesNegotiated;
 
         UpdateRank();
         UpdateElement(Element);
@@ -401,6 +435,8 @@ public class Character : BaseScriptableObject
         data.UnavailabilityDuration = UnavailabilityDuration;
         data.DeskPosition = DeskPosition;
         data.WeeklyWage = WeeklyWage;
+        data.NewWage = NewWage;
+        data.TimesNegotiated = TimesNegotiated;
 
         return data;
     }
@@ -433,4 +469,6 @@ public struct CharacterData
     public int UnavailabilityDuration;
     public Vector2 DeskPosition;
     public int WeeklyWage;
+    public int NewWage;
+    public int TimesNegotiated;
 }

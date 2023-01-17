@@ -39,7 +39,7 @@ public enum StyleSheetType
 {
     CommonStyles, TooltipElementStyles,
     MenuStyles, SettingsMenuStyles,
-    ReportStyles, ShopReportStyles, PawnshopReportStyles, AbilityReportStyles, SpiceRecycleReportStyles,
+    ReportStyles, ShopReportStyles, PawnshopReportStyles, AbilityReportStyles, SpiceRecycleReportStyles, RaiseRequestReportStyles,
     QuestElementStyles, RecruitElementStyles,
     StarRankElementStyles,
     GoldElementStyles, SpiceElementStyles,

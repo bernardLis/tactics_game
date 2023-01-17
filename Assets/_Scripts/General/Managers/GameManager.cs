@@ -50,6 +50,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action<int> OnSpiceChanged;
     public event Action<int> OnTroopsLimitChanged;
     public event Action<Character> OnCharacterAddedToTroops;
+    public event Action<Character> OnCharacterRemovedFromTroops;
     public event Action<string> OnLevelLoaded;
 
     protected override void Awake()
@@ -122,7 +123,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         int cost = GetCurrentWages();
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Wages, null, null, null, null, null, null, PlayerTroops);
+        r.Initialize(ReportType.Wages, null, null, null, null, null, null, null, PlayerTroops);
         AddNewReport(r);
     }
 
@@ -217,6 +218,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerTroops.Add(character);
         OnDayPassed += character.OnDayPassed;
         OnCharacterAddedToTroops?.Invoke(character);
+        SaveJsonData();
+    }
+
+    public void RemoveCharacterFromTroops(Character character)
+    {
+        PlayerTroops.Remove(character);
+        OnDayPassed -= character.OnDayPassed;
+        OnCharacterRemovedFromTroops?.Invoke(character);
         SaveJsonData();
     }
 
