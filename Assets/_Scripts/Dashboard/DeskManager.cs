@@ -25,6 +25,9 @@ public class DeskManager : Singleton<DeskManager>
     List<ItemSlot> _deskItemSlots = new();
     List<AbilitySlot> _deskAbilitySlots = new();
 
+    List<CharacterCardMini> _characterCardsMini = new();
+    List<CharacterCard> _characterCards = new();
+
     List<CharacterCardMiniSlot> _characterCardSlots = new();
 
     List<Report> VisibleReports = new();
@@ -37,6 +40,7 @@ public class DeskManager : Singleton<DeskManager>
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnReportAdded += OnReportAdded;
+        _gameManager.OnCharacterRemovedFromTroops += OnCharacterRemovedFromTroops;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _draggableCharacters = GetComponent<DraggableCharacters>();
@@ -80,6 +84,29 @@ public class DeskManager : Singleton<DeskManager>
         if (VisibleReports.Contains(report))
             return;
         await CreateReport(report);
+    }
+
+    void OnCharacterRemovedFromTroops(Character character)
+    {
+        for (int i = _characterCards.Count - 1; i >= 0; i--)
+        {
+            if (_characterCards[i].Character == character)
+            {
+                _reportsContainer.Remove(_characterCards[i]);
+                _characterCards.Remove(_characterCards[i]);
+                return;
+            }
+        }
+
+        for (int i = _characterCardsMini.Count - 1; i >= 0; i--)
+        {
+            if (_characterCardsMini[i].Character == character)
+            {
+                _reportsContainer.Remove(_characterCardsMini[i]);
+                _characterCardsMini.Remove(_characterCardsMini[i]);
+                return;
+            }
+        }
     }
 
     async void Initialize()
@@ -196,6 +223,7 @@ public class DeskManager : Singleton<DeskManager>
         card.style.top = character.DeskPosition.y;
 
         _reportsContainer.Add(card);
+        _characterCardsMini.Add(card);
         RegisterCardMiniDrag(card);
         return card;
     }
@@ -225,10 +253,12 @@ public class DeskManager : Singleton<DeskManager>
         bigCard.style.left = evt.position.x - 100;
         bigCard.style.top = evt.position.y - 100;
         _reportsContainer.Add(bigCard);
-
+        _characterCards.Add(bigCard);
+        
         _draggableItems.AddCharacterCard(bigCard);
         _draggableAbilities.AddCharacterCard(bigCard);
 
+        _characterCardsMini.Remove(card);
         card.parent.Remove(card);
     }
 

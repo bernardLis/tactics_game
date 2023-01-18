@@ -11,6 +11,8 @@ public class RaiseRequestReportElement : ReportElement
     const string _ussClassName = "raise-request-report__";
     const string _ussNegotiateButton = _ussClassName + "negotiate-button";
 
+    bool _isDecided;
+
     public RaiseRequestReportElement(VisualElement parent, Report report) : base(parent, report)
     {
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -61,11 +63,22 @@ public class RaiseRequestReportElement : ReportElement
 
     void Accept()
     {
+        if (_signed)
+            return;
+
         _report.Character.SetWeeklyWage(_report.Character.NewWage);
         _gameManager.AddCharacterToTroops(_report.Character);
+        _report.Character.UpdateDeskPosition(new Vector2(this.worldBound.x, this.worldBound.y));
+        _deskManager.SpitCharacterOntoDesk(_report.Character);
         BaseAcceptReport();
     }
 
-    void Reject() { BaseRejectReport(); }
+    void Reject()
+    {
+        if (_signed)
+            return;
+
+        BaseRejectReport();
+    }
 
 }

@@ -353,7 +353,6 @@ public class Character : BaseScriptableObject
 
     public int GetRequestedWage() { return Random.Range(100, 200) * Level; }
 
-    // creates character at runtime from saved data
     public virtual void CreateFromData(CharacterData data)
     {
         _gameManager = GameManager.Instance;
