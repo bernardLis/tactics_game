@@ -37,7 +37,6 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/30_build.png?fileID=2800000&guid=c2db1093fe3a67644a3752a079fdf0b8&type=3#30_build');
 }
 
-
 .dashboard__nav-abilities {
     background-image: url('project://database/Assets/Plugins/4000_Fantasy_Icons/Armor/500_armor_vol_2/Cloth/2_Cloth_Head.png?fileID=2800000&guid=95f10dc60232cd3498b446d16718ee9b&type=3#2_Cloth_Head');
 }
@@ -100,4 +99,3 @@
     margin-left: 20%;
     margin-top: 9%;
 }
-

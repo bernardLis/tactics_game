@@ -5,13 +5,16 @@ using UnityEngine.UIElements;
 
 public class RaiseRequestReportElement : ReportElement
 {
+    CharacterCardMini _characterCardMini;
     GoldElement _newWage;
-    MyButton _negotiateButton;
+    Label _numberOfTriesLeftLabel;
+    BarMiniGameElement _barMiniGameElement;
+
+    int _miniGameHitCount = 0;
+    int _miniGameHitLimit = 3;
 
     const string _ussClassName = "raise-request-report__";
     const string _ussNegotiateButton = _ussClassName + "negotiate-button";
-
-    bool _isDecided;
 
     public RaiseRequestReportElement(VisualElement parent, Report report) : base(parent, report)
     {
@@ -24,7 +27,8 @@ public class RaiseRequestReportElement : ReportElement
 
         AddHeader("Raise Request", Color.yellow);
 
-        _reportContents.Add(new CharacterCardMini(report.Character));
+        _characterCardMini = new(report.Character);
+        _reportContents.Add(_characterCardMini);
         _reportContents.Add(new Label($"{report.Character.name} wants more money!"));
 
         VisualElement wageContainer = new();
@@ -36,30 +40,59 @@ public class RaiseRequestReportElement : ReportElement
         wageContainer.Add(_newWage);
         _reportContents.Add(wageContainer);
 
-        _negotiateButton = new("Negotiate", _ussNegotiateButton, Negotiate);
-        _reportContents.Add(_negotiateButton);
+        if (!_report.Character.Negotiated)
+        {
+            _numberOfTriesLeftLabel = new();
+            _reportContents.Add(_numberOfTriesLeftLabel);
+            UpdateNumberOfTriesLabel();
+
+            _barMiniGameElement = new();
+            _reportContents.Add(_barMiniGameElement);
+            _barMiniGameElement.OnHit += OnBarMiniGameHit;
+        }
+        else
+        {
+            _reportContents.Add(new Label("Already negotiated."));
+        }
 
         AddAcceptRejectButtons(Accept, Reject);
     }
 
-    void Negotiate()
+    void OnBarMiniGameHit(int hit)
     {
-        if (_report.Character.TimesNegotiated >= 3)
+        if (IsNegotiationStarted())
         {
-            Helpers.DisplayTextOnElement(_deskManager.Root, _negotiateButton,
-                    "No, no more negotiations.", Color.red);
+            _report.Character.SetNegotiated(true);
+            _gameManager.SaveJsonData();
+        }
+
+        _miniGameHitCount++;
+        UpdateNumberOfTriesLabel();
+        if (IsNegotiationLimitReached())
+        {
+            _barMiniGameElement.StopGame();
+            _gameManager.SaveJsonData();
+        }
+
+        if (hit == 0)
+        {
+            Helpers.DisplayTextOnElement(_deskManager.Root, _characterCardMini,
+                    $"I don't see it that way", Color.red);
             return;
         }
 
-        int negotiatedAmount = Mathf.FloorToInt(_report.Character.NewWage * Random.Range(0.08f, 0.12f));
+        float negotiatedPercent = hit * Random.Range(0.03f, 0.06f);
+        int negotiatedAmount = Mathf.FloorToInt(_report.Character.NewWage * negotiatedPercent);
         int updatedNewWage = _report.Character.NewWage - negotiatedAmount;
         _newWage.ChangeAmount(updatedNewWage);
+        Helpers.DisplayTextOnElement(_deskManager.Root, _characterCardMini, $"Good point!", Color.red);
         Helpers.DisplayTextOnElement(_deskManager.Root, _newWage, $"-{negotiatedAmount}", Color.red);
-
-        _report.Character.Negotiated();
         _report.Character.SetNewWage(updatedNewWage);
-        _gameManager.SaveJsonData();
     }
+
+    bool IsNegotiationStarted() { return _miniGameHitCount == 0; }
+    bool IsNegotiationLimitReached() { return _miniGameHitCount >= _miniGameHitLimit; }
+    void UpdateNumberOfTriesLabel() { _numberOfTriesLeftLabel.text = $"Tries left: {_miniGameHitLimit - _miniGameHitCount}"; }
 
     void Accept()
     {

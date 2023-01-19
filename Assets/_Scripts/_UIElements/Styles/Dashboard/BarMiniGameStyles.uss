@@ -1,0 +1,59 @@
+.bar-mini-game__bar {
+    width: 100%;
+    height: 100px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+}
+
+.bar-mini-game__cursor {
+    width: 10px;
+    height: 100%;
+    background-color: black;
+}
+
+.bar-mini-game__ghost-cursor {
+    top: 75%;
+    height: 25%;
+    width: 10;
+    position: Absolute;
+    background-color: white;
+    opacity: 0.5;
+}
+
+.bar-mini-game__hit-button {
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 60px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little.png?fileID=2800000&guid=7d3b047def79cf4429819bd8e157dbe6&type=3#Button_little');
+}
+
+.bar-mini-game__worst-zone {
+    position: absolute;
+    left: 30%;
+    width: 40%;
+    height: 100%;
+    background-color: rgb(255, 176, 1);
+}
+
+.bar-mini-game__worse-zone {
+    position: absolute;
+    left: 40%;
+    width: 20%;
+    height: 100%;
+    background-color: rgb(255, 137, 0);
+}
+
+.bar-mini-game__best-zone {
+    position: absolute;
+    left: 47.5%;
+    width: 5%;
+    height: 100%;
+    background-color: rgb(161, 28, 28);
+}

@@ -34,7 +34,6 @@ public class DeskManager : Singleton<DeskManager>
 
     const string _ussCardMini = "character-card-mini__main";
 
-
     protected override void Awake() { base.Awake(); }
     void Start()
     {
@@ -254,7 +253,7 @@ public class DeskManager : Singleton<DeskManager>
         bigCard.style.top = evt.position.y - 100;
         _reportsContainer.Add(bigCard);
         _characterCards.Add(bigCard);
-        
+
         _draggableItems.AddCharacterCard(bigCard);
         _draggableAbilities.AddCharacterCard(bigCard);
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public class DashboardManager : Singleton<DashboardManager>
 {
     GameManager _gameManager;
-    PlayerInput _playerInput;
+    public PlayerInput PlayerInput { get; private set; }
 
     public VisualElement Root { get; private set; }
 
@@ -88,35 +88,35 @@ public class DashboardManager : Singleton<DashboardManager>
     /* INPUT */
     void SubscribeInputActions()
     {
-        _playerInput.actions["OpenDesk"].performed += ShowDeskUI;
-        _playerInput.actions["OpenCamp"].performed += ShowCampUI;
-        _playerInput.actions["OpenAbilities"].performed += ShowAbilitiesUI;
+        PlayerInput.actions["OpenDesk"].performed += ShowDeskUI;
+        PlayerInput.actions["OpenCamp"].performed += ShowCampUI;
+        PlayerInput.actions["OpenAbilities"].performed += ShowAbilitiesUI;
 
-        _playerInput.actions["CloseCurrentTab"].performed += HideAllPanels;
+        PlayerInput.actions["CloseCurrentTab"].performed += HideAllPanels;
     }
 
     void UnsubscribeInputActions()
     {
-        _playerInput.actions["OpenDesk"].performed -= ShowDeskUI;
-        _playerInput.actions["OpenCamp"].performed -= ShowCampUI;
-        _playerInput.actions["OpenAbilities"].performed -= ShowAbilitiesUI;
+        PlayerInput.actions["OpenDesk"].performed -= ShowDeskUI;
+        PlayerInput.actions["OpenCamp"].performed -= ShowCampUI;
+        PlayerInput.actions["OpenAbilities"].performed -= ShowAbilitiesUI;
 
-        _playerInput.actions["CloseCurrentTab"].performed -= HideAllPanels;
+        PlayerInput.actions["CloseCurrentTab"].performed -= HideAllPanels;
     }
 
     void OnEnable()
     {
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
-        _playerInput = _gameManager.GetComponent<PlayerInput>();
-        _playerInput.SwitchCurrentActionMap("Dashboard");
+        PlayerInput = _gameManager.GetComponent<PlayerInput>();
+        PlayerInput.SwitchCurrentActionMap("Dashboard");
         UnsubscribeInputActions();
         SubscribeInputActions();
     }
 
     void OnDisable()
     {
-        if (_playerInput == null)
+        if (PlayerInput == null)
             return;
 
         UnsubscribeInputActions();

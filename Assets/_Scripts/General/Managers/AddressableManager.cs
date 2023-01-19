@@ -41,6 +41,7 @@ public enum StyleSheetType
     MenuStyles, SettingsMenuStyles,
     ReportStyles, ShopReportStyles, PawnshopReportStyles, AbilityReportStyles, SpiceRecycleReportStyles, RaiseRequestReportStyles,
     QuestElementStyles, RecruitElementStyles,
+    BarMiniGameStyles,
     StarRankElementStyles,
     GoldElementStyles, SpiceElementStyles,
     CharacterPortraitStyles, ResourceBarStyles, StatElementStyles, ElementalElementStyles,

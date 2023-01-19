@@ -7,6 +7,9 @@ using DG.Tweening;
 
 public static class Helpers
 {
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+
     static Dictionary<string, Color> _colors = new()
     {
         { "healthBarRed", new Color(0.529f, 0.16f, 0.16f) },
@@ -107,15 +110,15 @@ public static class Helpers
     public static async void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
     {
         Label l = new Label(text);
-        l.AddToClassList("textSecondary");
+        l.AddToClassList(_ussCommonTextPrimary);
         l.style.color = color;
         l.style.position = Position.Absolute;
-        l.style.left = element.worldBound.xMin;// - element.worldBound.width / 2;
-        l.style.top = element.worldBound.yMax;
+        l.style.left = element.worldBound.xMin + element.worldBound.width / 2;
+        l.style.top = element.worldBound.yMin;
 
         root.Add(l);
         float end = element.worldBound.yMin - 100;
-        await DOTween.To(x => l.style.top = x, element.worldBound.yMax, end, 1).SetEase(Ease.OutSine).AsyncWaitForCompletion();
+        await DOTween.To(x => l.style.top = x, element.worldBound.yMin, end, 1).SetEase(Ease.OutSine).AsyncWaitForCompletion();
         await DOTween.To(x => l.style.opacity = x, 1, 0, 1).AsyncWaitForCompletion();
         root.Remove(l);
     }

@@ -137,6 +137,10 @@ MonoBehaviour:
     m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/RaiseRequestReportStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 4bba9aca015f7e445805ecebf6b39c78
+    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/BarMiniGameStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

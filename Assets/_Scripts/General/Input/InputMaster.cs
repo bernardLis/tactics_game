@@ -540,6 +540,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""507a58eb-548c-4788-a96d-cf7a1f345c5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -648,7 +657,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/f12"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""ToggleCommandLine"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -659,8 +668,19 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""OpenMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff5d4f36-fbf0-4a3e-a977-06e261e6b308"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Space"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -718,6 +738,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Dashboard_CloseCurrentTab = m_Dashboard.FindAction("CloseCurrentTab", throwIfNotFound: true);
         m_Dashboard_ToggleCommandLine = m_Dashboard.FindAction("ToggleCommandLine", throwIfNotFound: true);
         m_Dashboard_OpenMenu = m_Dashboard.FindAction("OpenMenu", throwIfNotFound: true);
+        m_Dashboard_Space = m_Dashboard.FindAction("Space", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -986,6 +1007,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Dashboard_CloseCurrentTab;
     private readonly InputAction m_Dashboard_ToggleCommandLine;
     private readonly InputAction m_Dashboard_OpenMenu;
+    private readonly InputAction m_Dashboard_Space;
     public struct DashboardActions
     {
         private @InputMaster m_Wrapper;
@@ -997,6 +1019,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @CloseCurrentTab => m_Wrapper.m_Dashboard_CloseCurrentTab;
         public InputAction @ToggleCommandLine => m_Wrapper.m_Dashboard_ToggleCommandLine;
         public InputAction @OpenMenu => m_Wrapper.m_Dashboard_OpenMenu;
+        public InputAction @Space => m_Wrapper.m_Dashboard_Space;
         public InputActionMap Get() { return m_Wrapper.m_Dashboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1027,6 +1050,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @OpenMenu.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
                 @OpenMenu.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
                 @OpenMenu.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
+                @Space.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
             }
             m_Wrapper.m_DashboardActionsCallbackInterface = instance;
             if (instance != null)
@@ -1052,6 +1078,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @OpenMenu.started += instance.OnOpenMenu;
                 @OpenMenu.performed += instance.OnOpenMenu;
                 @OpenMenu.canceled += instance.OnOpenMenu;
+                @Space.started += instance.OnSpace;
+                @Space.performed += instance.OnSpace;
+                @Space.canceled += instance.OnSpace;
             }
         }
     }
@@ -1099,5 +1128,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnCloseCurrentTab(InputAction.CallbackContext context);
         void OnToggleCommandLine(InputAction.CallbackContext context);
         void OnOpenMenu(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
     }
 }

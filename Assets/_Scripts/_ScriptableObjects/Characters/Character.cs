@@ -56,7 +56,7 @@ public class Character : BaseScriptableObject
     public Vector2 DeskPosition { get; private set; }
     public int WeeklyWage { get; private set; }
     public int NewWage { get; private set; }
-    public int TimesNegotiated { get; private set; }
+    public bool Negotiated { get; private set; }
 
     public event Action OnCharacterLevelUp;
     public event Action<int> OnCharacterExpGain;
@@ -321,6 +321,7 @@ public class Character : BaseScriptableObject
     public void SetWeeklyWage(int wage)
     {
         WeeklyWage = wage;
+        Negotiated = false;
         OnWageChanged?.Invoke(wage);
     }
 
@@ -347,7 +348,7 @@ public class Character : BaseScriptableObject
         return true;
     }
 
-    public void Negotiated() { TimesNegotiated++; }
+    public void SetNegotiated(bool has) { Negotiated = has; }
 
     public void SetNewWage(int newWage) { NewWage = newWage; }
 
@@ -394,7 +395,7 @@ public class Character : BaseScriptableObject
         DeskPosition = data.DeskPosition;
         WeeklyWage = data.WeeklyWage;
         NewWage = data.NewWage;
-        TimesNegotiated = data.TimesNegotiated;
+        Negotiated = data.Negotiated;
 
         UpdateRank();
         UpdateElement(Element);
@@ -435,7 +436,7 @@ public class Character : BaseScriptableObject
         data.DeskPosition = DeskPosition;
         data.WeeklyWage = WeeklyWage;
         data.NewWage = NewWage;
-        data.TimesNegotiated = TimesNegotiated;
+        data.Negotiated = Negotiated;
 
         return data;
     }
@@ -469,5 +470,5 @@ public struct CharacterData
     public Vector2 DeskPosition;
     public int WeeklyWage;
     public int NewWage;
-    public int TimesNegotiated;
+    public bool Negotiated;
 }
