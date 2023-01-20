@@ -50,6 +50,12 @@ public class AbilityCraftManager : MonoBehaviour
 
     EffectHolder _addedToCraftingEffect;
 
+    bool _subscribedToNodeActions;
+
+    const string _ussClassName = "ability-crafting__";
+    const string _ussCraftButton = _ussClassName + "craft-button";
+    const string _ussDiscardButton = _ussClassName + "discard-button";
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -61,7 +67,6 @@ public class AbilityCraftManager : MonoBehaviour
         _root = _dashboardManager.Root;
 
         _abilityGraphManager = GetComponent<AbilityGraphManager>();
-        _abilityGraphManager.OnCraftNodeAdded += OnCraftNodeAdded;
 
         _abilityCraft = _root.Q<VisualElement>("abilityCraft");
         _craftedAbilitiesContainer = _root.Q<VisualElement>("craftedAbilitiesContainer");
@@ -71,19 +76,19 @@ public class AbilityCraftManager : MonoBehaviour
         PopulateCraftedAbilities();
     }
 
-    void OnDayPassed(int day)
-    {
-        UpdateCraftedAbilities();
-    }
+    void OnDayPassed(int day) { UpdateCraftedAbilities(); }
 
     void OnAbilitiesClicked()
     {
+        if (_subscribedToNodeActions)
+            return;
+        _subscribedToNodeActions = true;
+
+        _abilityGraphManager.CraftAbilityNodeSlot.OnNodeAdded += OnCraftNodeAdded;
+        _abilityGraphManager.CraftAbilityNodeSlot.OnNodeRemoved += OnCraftNodeRemoved;
     }
 
-    void OnHideAllPanels()
-    {
-        DiscardAbility();
-    }
+    void OnHideAllPanels() { DiscardAbility(); }
 
     void OnCraftNodeAdded(AbilityNodeElement nodeVisualElement)
     {
@@ -98,6 +103,12 @@ public class AbilityCraftManager : MonoBehaviour
 
         _addedToCraftingEffect = _abilityNode.AddedToCraftingEffect;
         _addedToCraftingEffect.PlayEffect(_abilityNode.AddedToCraftingEffectPosition, _abilityNode.AddedToCraftingEffectScale);
+    }
+
+    void OnCraftNodeRemoved()
+    {
+        ResetCraftValues();
+        ClearEffects();
     }
 
     void GetCraftContainerElements()
@@ -255,8 +266,8 @@ public class AbilityCraftManager : MonoBehaviour
     void SetupActionButtons()
     {
         _abilityButtonsContainer.Clear();
-        _craftButton = new("", "craftCraftButton", CraftAbility);
-        _discardButton = new("", "craftDiscardButton", DiscardAbility);
+        _craftButton = new("", _ussCraftButton, CraftAbility);
+        _discardButton = new("", _ussDiscardButton, DiscardAbility);
         _abilityButtonsContainer.Add(_craftButton);
         _abilityButtonsContainer.Add(_discardButton);
     }

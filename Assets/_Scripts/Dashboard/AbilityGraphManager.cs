@@ -11,12 +11,9 @@ public class AbilityGraphManager : MonoBehaviour
 
     List<AbilityNodeGraph> _abilityNodeGraphs;
 
-
     VisualElement _root;
     VisualElement _abilityGraphs;
-    VisualElement _craftAbilityNodeSlotContainer;
-    AbilityNodeSlot _craftAbilityNodeSlot;
-
+    public AbilityNodeSlot CraftAbilityNodeSlot { get; private set; }
 
     // drag & drop
     // https://gamedev-resources.com/create-an-in-game-inventory-ui-with-ui-toolkit/
@@ -25,7 +22,13 @@ public class AbilityGraphManager : MonoBehaviour
     VisualElement _dragDropContainer;
     AbilityNodeElement _draggedNode;
 
-    public event Action<AbilityNodeElement> OnCraftNodeAdded;
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "ability-crafting__";
+    const string _ussGraphContainer = _ussClassName + "graph-container";
+    const string _ussNodeDragAndDrop = _ussClassName + "node-drag-and-drop";
+    const string _ussNodeCostElement = _ussClassName + "node-cost-element";
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -40,36 +43,44 @@ public class AbilityGraphManager : MonoBehaviour
 
         CreateGraphs();
 
-        _craftAbilityNodeSlotContainer = _root.Q<VisualElement>("craftAbilityNodeSlotContainer");
-        _craftAbilityNodeSlot = new();
-        _craftAbilityNodeSlotContainer.Add(_craftAbilityNodeSlot);
-        _craftAbilityNodeSlot.OnNodeAdded += CraftNodeAdded; // HERE:
+        VisualElement craftAbilityNodeSlotContainer = _root.Q<VisualElement>("craftAbilityNodeSlotContainer");
+        CraftAbilityNodeSlot = new();
+        craftAbilityNodeSlotContainer.Add(CraftAbilityNodeSlot);
+        CraftAbilityNodeSlot.OnNodeAdded += CraftNodeAdded;
 
         // drag & drop
         _dragDropContainer = new VisualElement();
-        _dragDropContainer.AddToClassList("abilityNodeDragAndDrop");
+        _dragDropContainer.AddToClassList(_ussNodeDragAndDrop);
         _root.Add(_dragDropContainer);
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    void CraftNodeAdded(AbilityNodeElement nodeVisualElement) { OnCraftNodeAdded?.Invoke(nodeVisualElement); }
+    void CraftNodeAdded(AbilityNodeElement nodeVisualElement) { nodeVisualElement.RegisterCallback<PointerUpEvent>(RightClickToRemove); }
 
     void OnAbilitiesClicked()
     {
         // TODO: should I reload?
     }
 
-    public void ClearCraftSlot() { _craftAbilityNodeSlot.RemoveNode(); }
+    void RightClickToRemove(PointerUpEvent evt)
+    {
+        if (evt.button != 1)
+            return;
+
+        ClearCraftSlot();
+    }
+
+    public void ClearCraftSlot() { CraftAbilityNodeSlot.RemoveNode(); }
 
     void CreateGraphs()
     {
         foreach (AbilityNodeGraph graph in _abilityNodeGraphs)
         {
             VisualElement graphContainer = new();
-            graphContainer.AddToClassList("graphContainer");
-            graphContainer.AddToClassList("textPrimary");
+            graphContainer.AddToClassList(_ussGraphContainer);
+            graphContainer.AddToClassList(_ussCommonTextPrimary);
             _abilityGraphs.Add(graphContainer);
 
             Label title = new(graph.Title);
@@ -168,8 +179,8 @@ public class AbilityGraphManager : MonoBehaviour
 
     void HandleNodePointerUp()
     {
-        if (_dragDropContainer.worldBound.Overlaps(_craftAbilityNodeSlot.worldBound))
-            _craftAbilityNodeSlot.AddNode(_draggedNode);
+        if (_dragDropContainer.worldBound.Overlaps(CraftAbilityNodeSlot.worldBound))
+            CraftAbilityNodeSlot.AddNode(_draggedNode);
 
         _dragDropContainer.Clear();
         _draggedNode = null;
@@ -180,8 +191,7 @@ public class AbilityGraphManager : MonoBehaviour
     VisualElement GetNodeCostElement(AbilityNode abilityNode)
     {
         VisualElement cost = new();
-        cost.style.flexDirection = FlexDirection.Row;
-        cost.style.justifyContent = Justify.Center;
+        cost.AddToClassList(_ussNodeCostElement);
         cost.Add(new SpiceElement(abilityNode.SpiceCost));
         return cost;
     }

@@ -9,12 +9,15 @@ public class AbilityNodeSlot : VisualElement
     public AbilityNodeElement Node;
     public bool IsLocked { get; private set; }
 
-    public event Action<AbilityNodeElement> OnNodeAdded;
-    public event Action<AbilityNodeSlot> OnLocked;
+    const string _ussClassName = "ability-crafting__";
+    const string _ussNodeSlot = _ussClassName + "node-slot";
 
+    public event Action<AbilityNodeElement> OnNodeAdded;
+    public event Action OnNodeRemoved;
+    public event Action<AbilityNodeSlot> OnLocked;
     public AbilityNodeSlot(AbilityNodeElement node = null, bool isLocked = false) : base()
     {
-        AddToClassList("abilityNodeSlot");
+        AddToClassList(_ussNodeSlot);
 
         if (node != null)
             AddNode(node);
@@ -36,9 +39,12 @@ public class AbilityNodeSlot : VisualElement
 
     public void RemoveNode()
     {
-        if (Node != null)
-            Remove(Node);
+        if (Node == null)
+            return;
+
+        Remove(Node);
         Node = null;
+        OnNodeRemoved?.Invoke();
     }
 
     void Lock()
@@ -46,6 +52,4 @@ public class AbilityNodeSlot : VisualElement
         IsLocked = true;
         OnLocked?.Invoke(this);
     }
-
-
 }
