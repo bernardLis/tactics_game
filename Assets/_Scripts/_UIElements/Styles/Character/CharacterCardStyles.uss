@@ -17,13 +17,19 @@
 .character-card__top-panel {
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .character-card__bottom-panel {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.character-card__top-left-panel {
+    position: absolute;
+    left: 0px;
+    top: -30px;
 }
 
 .character-card__bottom-left-panel {

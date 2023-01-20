@@ -34,6 +34,8 @@ public class CharacterCard : VisualElement
     const string _ussClassName = "character-card__";
     const string _ussMain = _ussClassName + "main";
     const string _ussTopPanel = _ussClassName + "top-panel";
+    const string _ussTopLeftPanel = _ussClassName + "top-left-panel";
+
     const string _ussBottomPanel = _ussClassName + "bottom-panel";
     const string _ussBottomLeftPanel = _ussClassName + "bottom-left-panel";
     const string _ussBottomRightPanel = _ussClassName + "bottom-right-panel";
@@ -107,6 +109,7 @@ public class CharacterCard : VisualElement
 
     void PopulateTopLeftPanel(VisualElement container)
     {
+        container.AddToClassList(_ussTopLeftPanel);
         PortraitVisualElement = new(Character, this);
         container.Add(PortraitVisualElement);
         container.Add(CreateWageElement());
