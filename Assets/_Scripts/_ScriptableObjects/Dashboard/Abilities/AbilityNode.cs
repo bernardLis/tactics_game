@@ -114,6 +114,7 @@ public class AbilityNode : BaseScriptableObject
         List<Ability> orderedAbilities = GetOrderedAbilities();
         Ability aMin = orderedAbilities.Last();
         Ability aMax = orderedAbilities.First();
+        Debug.Log($"aMin {aMin}, aMax {aMax}");
 
         return new Vector2(aMin.StarRank, aMax.StarRank);
     }

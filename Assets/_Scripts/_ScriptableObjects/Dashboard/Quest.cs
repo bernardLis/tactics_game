@@ -79,14 +79,6 @@ public class Quest : BaseScriptableObject
     }
     public int AssignedCharacterCount() { return AssignedCharacters.Count; }
 
-    public bool IsPlayerAssigned()
-    {
-        foreach (Character c in AssignedCharacters)
-            if (c == _gameManager.PlayerTroops[0]) // TODO: wrong
-                return true;
-        return false;
-    }
-
     public int GetSuccessChance()
     {
         int successChance = 0;

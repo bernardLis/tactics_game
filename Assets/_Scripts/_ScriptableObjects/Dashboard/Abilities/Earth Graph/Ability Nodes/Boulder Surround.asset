@@ -28,5 +28,8 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
   AbilityCraftedEffect: {fileID: 0}
   AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities:
+  - {fileID: 11400000, guid: 9b2309d30543b3e458dba1ce61e2d984, type: 2}
+  - {fileID: 11400000, guid: 920713611d2c308448464de0586bd365, type: 2}
+  - {fileID: 11400000, guid: 74d66ddf20c33ec428050bedb34c5416, type: 2}
+  - {fileID: 11400000, guid: 7cf93efea0e25c34cac845c473f697bb, type: 2}

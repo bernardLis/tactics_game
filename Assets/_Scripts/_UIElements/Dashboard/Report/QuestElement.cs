@@ -192,13 +192,7 @@ public class QuestElement : VisualElement
             _actionButton.UpdateButtonText($"Expired.");
     }
 
-    void UpdateSuccessChanceLabel()
-    {
-        if (_quest.IsPlayerAssigned())
-            _successChanceLabel.UpdateText("Success is in your hands.");
-        else
-            _successChanceLabel.UpdateText($"Success chance: {_quest.GetSuccessChance()}%.");
-    }
+    void UpdateSuccessChanceLabel() { _successChanceLabel.UpdateText($"Success chance: {_quest.GetSuccessChance()}%."); }
 
     VisualElement CreateCharacterSlots()
     {
@@ -274,12 +268,6 @@ public class QuestElement : VisualElement
             return;
         }
 
-        if (_quest.IsPlayerAssigned())
-        {
-            HandleActionButton(StartBattle, "Battle It Out!", _ussActionButtonPlayer);
-            return;
-        }
-
         if (_quest.AssignedCharacterCount() > 0)
             HandleActionButton(DelegateBattle, "Delegate It!", _ussActionButtonDelegate);
     }
@@ -324,8 +312,6 @@ public class QuestElement : VisualElement
         UpdateSuccessChanceLabel();
         UpdateActionButton();
     }
-
-    void StartBattle() { _gameManager.StartBattle(_quest); }
 
     void DelegateBattle() { _quest.DelegateQuest(); }
 
