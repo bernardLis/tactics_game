@@ -24,6 +24,7 @@ public class AbilityNodeElement : ElementWithTooltip
     const string _ussMain = _ussClassName + "main";
     const string _ussIcon = _ussClassName + "icon";
     const string _ussOverlay = _ussClassName + "overlay";
+    const string _ussPermaLockOverlay = _ussClassName + "perma-lock-overlay";
 
     public AbilityNodeElement(AbilityNode abilityNode)
     {
@@ -45,6 +46,9 @@ public class AbilityNodeElement : ElementWithTooltip
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
         AddCooldownOverlay();
+
+        if (abilityNode.IsPermaLocked)
+            AddPermaLockOverlay();
     }
 
 
@@ -133,6 +137,13 @@ public class AbilityNodeElement : ElementWithTooltip
         Label l = new($"{AbilityNode.DaysOnCooldownRemaining}");
         l.AddToClassList(_ussCommonTextPrimary);
         _overlay.Add(l);
+    }
+
+    void AddPermaLockOverlay()
+    {
+        VisualElement permaLockOverlay = new();
+        permaLockOverlay.AddToClassList(_ussPermaLockOverlay);
+        Add(permaLockOverlay);
     }
 
 }

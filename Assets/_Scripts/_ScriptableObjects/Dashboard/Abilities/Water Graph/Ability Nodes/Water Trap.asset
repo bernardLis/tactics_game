@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Water Trap
   m_EditorClassIdentifier: 
   Id: 683f8667-3278-49db-844b-86625039f0b8
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: 29d9eedd53f239841a1b4146e0a1caf5, type: 3}
   IconLocked: {fileID: 21300000, guid: 09ea2f6a199e7cc4ab1dbfbcaa91896c, type: 3}
   Title: Water Trap
-  Description: Basic water magic. Command ground water to raise.
+  Description: NOT IMPLEMENTED. Basic water magic. Command ground water to raise.
   SpiceCost: 20
   DaysToCraftAbility: 4
   IsUnlocked: 0
@@ -28,5 +29,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
   AbilityCraftedEffect: {fileID: 0}
   AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []

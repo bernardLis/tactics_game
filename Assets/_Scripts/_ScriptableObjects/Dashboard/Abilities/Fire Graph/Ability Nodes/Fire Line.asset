@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Fire Line
   m_EditorClassIdentifier: 
   Id: 2ee324ab-efa6-4cd9-b910-7c8691779cc6
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: d92a881759e513f4fb8e6b3691d6c304, type: 3}
   IconLocked: {fileID: 21300000, guid: 877de3f3d6844784baef5582c63bcca2, type: 3}
   Title: Fire Wave
-  Description: Expert fire magic. Create a wall of fire.
+  Description: NOT IMPLEMENTED. Expert fire magic. Create a wall of fire.
   SpiceCost: 80
   DaysToCraftAbility: 6
   IsUnlocked: 0
@@ -28,5 +29,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 2, y: 2, z: 2}
   AbilityCraftedEffect: {fileID: 11400000, guid: e055c3fc8df2e144db60e0d29d87e0b7, type: 2}
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []

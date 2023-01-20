@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Electric Spell
   m_EditorClassIdentifier: 
   Id: e93a6321-4ac7-4c15-8da9-fd574724e499
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: 00e295a2d4e1fbb4ca447d2e4d503fa7, type: 3}
   IconLocked: {fileID: 21300000, guid: 9b2c79e7d999573428721fe0cb934689, type: 3}
   Title: Electric Spell
-  Description: Master electricity magic. Manipulate electricity at range.
+  Description: NOT IMPLEMENTED. Master electricity magic. Manipulate electricity
+    at range.
   SpiceCost: 200
   DaysToCraftAbility: 8
   IsUnlocked: 0
@@ -28,5 +30,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
   AbilityCraftedEffect: {fileID: 0}
   AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []

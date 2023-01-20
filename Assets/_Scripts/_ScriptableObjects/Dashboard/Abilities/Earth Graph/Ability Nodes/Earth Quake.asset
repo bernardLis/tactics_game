@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Earth Quake
   m_EditorClassIdentifier: 
   Id: 5d512bdf-a41f-44f3-ac6a-a5817004c44c
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: c23fca41c3b19604eb3013a57c3de2f9, type: 3}
   IconLocked: {fileID: 21300000, guid: 377d49ad3b608ab4f8169fd18e2dfaec, type: 3}
   Title: Earth Quake
-  Description: Master earth magic. IDK... WHAT SHOULD IT DO?
+  Description: NOT IMPLEMENTED. Master earth magic. IDK... WHAT SHOULD IT DO?
   SpiceCost: 200
   DaysToCraftAbility: 8
   IsUnlocked: 0
@@ -28,5 +29,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
   AbilityCraftedEffect: {fileID: 0}
   AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []

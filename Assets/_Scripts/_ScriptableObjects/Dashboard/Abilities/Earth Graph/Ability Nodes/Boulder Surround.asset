@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Boulder Surround
   m_EditorClassIdentifier: 
   Id: 6e5bf0d6-dff2-4e62-b39c-394f208968f7
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: a2576351bb5f0424db00aabbf30d094b, type: 3}
   IconLocked: {fileID: 21300000, guid: a643baba0305747478cb47282834cf7b, type: 3}
   Title: Boulder Surround
-  Description: Advanced earth magic. Surround yourself with pushable boulders.
+  Description: NOT IMPLEMENTED. Advanced earth magic. Surround yourself with pushable
+    boulders.
   SpiceCost: 40
   DaysToCraftAbility: 4
   IsUnlocked: 0

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Water Line
   m_EditorClassIdentifier: 
   Id: 5bd5f819-09fb-455b-b031-738da7cc76b0
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: eae9dca21d897154e87b73aabdab517d, type: 3}
   IconLocked: {fileID: 21300000, guid: 23f5819e808985e479f244aa00ec90aa, type: 3}
   Title: Water wave
-  Description: Expert water magic. Create a wall of water.
+  Description: NOT IMPLEMENTED. Expert water magic. Create a wall of water.
   SpiceCost: 80
   DaysToCraftAbility: 6
   IsUnlocked: 0
@@ -28,5 +29,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
   AbilityCraftedEffect: {fileID: 0}
   AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []

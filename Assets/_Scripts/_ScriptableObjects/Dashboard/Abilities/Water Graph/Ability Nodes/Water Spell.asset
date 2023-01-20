@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Water Spell
   m_EditorClassIdentifier: 
   Id: 22a2f861-6c3d-40f0-971b-85a305a33e60
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: 9c0c7a4594e66ab4783dd160e1ed4511, type: 3}
   IconLocked: {fileID: 21300000, guid: 12279798cf98b984c83d856a1d591930, type: 3}
   Title: Water Spell
-  Description: Master water magic. Manipulate water at range.
+  Description: NOT IMPLEMENTED. Master water magic. Manipulate water at range.
   SpiceCost: 200
   DaysToCraftAbility: 8
   IsUnlocked: 0
@@ -28,5 +29,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
   AbilityCraftedEffect: {fileID: 0}
   AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []

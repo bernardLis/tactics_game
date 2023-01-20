@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Fire Projectile
   m_EditorClassIdentifier: 
   Id: 0f4be3f7-555e-4396-b681-112450aa5885
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: 253894924ec640046b4af57c2a56ead0, type: 3}
   IconLocked: {fileID: 21300000, guid: 853c98f5d8e03b944a1c2ea2cc012f67, type: 3}
   Title: Fire Projectile
-  Description: Advanced fire magic. Shoot a fiery projectile.
+  Description: NOT IMPLEMENTED. Advanced fire magic. Shoot a fiery projectile.
   SpiceCost: 40
   DaysToCraftAbility: 4
   IsUnlocked: 0
@@ -28,5 +29,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 2, y: 2, z: 2}
   AbilityCraftedEffect: {fileID: 11400000, guid: e055c3fc8df2e144db60e0d29d87e0b7, type: 2}
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []

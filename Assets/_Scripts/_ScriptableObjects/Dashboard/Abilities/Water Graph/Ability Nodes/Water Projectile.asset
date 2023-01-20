@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Water Projectile
   m_EditorClassIdentifier: 
   Id: dad875e2-a042-4828-bc81-d7cb2cbeff94
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: f67c89ca9e7e4cb4a89392d6750cdaa2, type: 3}
   IconLocked: {fileID: 21300000, guid: 943b6204fb2adc14ca2fab2e13529282, type: 3}
   Title: Water projectile
-  Description: Advanced water magic. Summon watery projectile.
+  Description: NOT IMPLEMENTED. Advanced water magic. Summon watery projectile.
   SpiceCost: 40
   DaysToCraftAbility: 4
   IsUnlocked: 0
@@ -28,5 +29,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
   AbilityCraftedEffect: {fileID: 0}
   AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []

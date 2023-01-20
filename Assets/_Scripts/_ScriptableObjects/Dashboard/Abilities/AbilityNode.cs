@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Ability Node")]
 public class AbilityNode : BaseScriptableObject
 {
+    public bool IsPermaLocked;    
     public Sprite IconUnlocked;
     public Sprite IconLocked;
     public string Title;
@@ -53,6 +54,8 @@ public class AbilityNode : BaseScriptableObject
 
     public bool Unlock()
     {
+        if (IsPermaLocked)
+            return false;
         if (IsUnlocked)
             return false;
         if (!PayForUnlocking())

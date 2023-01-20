@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Boulder Wall
   m_EditorClassIdentifier: 
   Id: 0ffea497-1c73-47b1-8747-cc8846c91a23
+  IsPermaLocked: 1
   IconUnlocked: {fileID: 21300000, guid: 828f0ac1388a486449379a9533798d98, type: 3}
   IconLocked: {fileID: 21300000, guid: 10c8e94132e41dd4d85d0e814d0b61a8, type: 3}
   Title: Boulder Wall
-  Description: Expert earth magic. Create a wall of pushable boulders.
+  Description: NOT IMPLEMENTED. Expert earth magic. Create a wall of pushable boulders.
   SpiceCost: 80
   DaysToCraftAbility: 6
   IsUnlocked: 0
@@ -28,5 +29,4 @@ MonoBehaviour:
   AddedToCraftingEffectScale: {x: 0, y: 0, z: 0}
   AbilityCraftedEffect: {fileID: 0}
   AbilityCraftedEffectScale: {x: 0, y: 0, z: 0}
-  StarRange: {x: 0, y: 0}
-  AbilityNodeTemplates: []
+  Abilities: []
