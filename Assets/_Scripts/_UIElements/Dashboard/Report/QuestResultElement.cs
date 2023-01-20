@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using System.Threading.Tasks;
 using DG.Tweening;
 
-public class QuestResultsElement : FullScreenElement
+public class QuestResultElement : FullScreenElement
 {
     GameManager _gameManager;
     AudioManager _audioManager;
@@ -13,47 +13,79 @@ public class QuestResultsElement : FullScreenElement
     Quest _quest;
 
     VisualElement _content;
-    VisualElement _troopsContainer;
+    VisualElement _topContainer;
+    VisualElement _middleContainer;
+    VisualElement _middleLeftContainer;
+    VisualElement _middleRightContainer;
+    VisualElement _bottomContainer;
+
     List<CharacterCard> _characterCards = new();
     RewardContainer _rewardContainer;
     AudioSource _openSfxAudioSource;
 
     MyButton _backButton;
 
-    public QuestResultsElement(VisualElement root, Report report)
+    const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonMenuButton = "common__menu-button";
+
+    const string _ussClassName = "quest-result__";
+    const string _ussWonMain = _ussClassName + "won-main";
+    const string _ussLostMain = _ussClassName + "lost-main";
+    const string _ussContent = _ussClassName + "content";
+    const string _ussTopContainer = _ussClassName + "top-container";
+    const string _ussMiddleContainer = _ussClassName + "middle-container";
+    const string _ussMiddleLeftContainer = _ussClassName + "middle-left-container";
+    const string _ussMiddleRightContainer = _ussClassName + "middle-right-container";
+    const string _ussBottomContainer = _ussClassName + "bottom-container";
+
+    public QuestResultElement(VisualElement root, Report report)
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
 
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.QuestResultStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         Initialize(root, false);
         _quest = report.Quest;
 
-        AddToClassList("textPrimary");
+        AddToClassList(_ussCommonTextPrimary);
         if (_quest.IsWon)
-            AddToClassList("questResultContainerWon");
+            AddToClassList(_ussWonMain);
         else
-            AddToClassList("questResultContainerLost");
+            AddToClassList(_ussLostMain);
 
         _content = new();
         Add(_content);
-        _content.AddToClassList("questResultContent");
+        _content.AddToClassList(_ussContent);
 
-        VisualElement topContainer = new();
-        _content.Add(topContainer);
-        topContainer.Add(GetHeader());
-        topContainer.Add(GetSuccessLabel());
+        _topContainer = new();
+        _middleContainer = new();
+        _middleLeftContainer = new();
+        _middleRightContainer = new();
+        _bottomContainer = new();
+        _topContainer.AddToClassList(_ussTopContainer);
+        _middleContainer.AddToClassList(_ussMiddleContainer);
+        _middleLeftContainer.AddToClassList(_ussMiddleLeftContainer);
+        _middleRightContainer.AddToClassList(_ussMiddleRightContainer);
+        _bottomContainer.AddToClassList(_ussBottomContainer);
 
-        VisualElement midContainer = new();
-        midContainer.style.flexDirection = FlexDirection.Row;
-        midContainer.style.width = Length.Percent(100);
-        _content.Add(midContainer);
-        midContainer.Add(GetTroopsContainer());
-        if (_quest.IsWon)
-            midContainer.Add(GetRewardChest());
+        _content.Add(_topContainer);
+        _content.Add(_middleContainer);
+        _content.Add(_bottomContainer);
 
-        VisualElement bottomContainer = new();
-        _content.Add(bottomContainer);
-        bottomContainer.Add(GetBackButton());
+        _middleContainer.Add(_middleLeftContainer);
+        _middleContainer.Add(_middleRightContainer);
+
+        _topContainer.Add(GetHeader());
+        _topContainer.Add(GetSuccessLabel());
+
+        _middleRightContainer.Add(GetRewardChest());
+        _bottomContainer.Add(GetBackButton());
 
         HandleSpectacle();
     }
@@ -66,7 +98,8 @@ public class QuestResultsElement : FullScreenElement
             _openSfxAudioSource = _audioManager.PlaySFX("QuestLost", Vector3.one);
 
         await HandleCharacterExp();
-        await DOTween.To(x => _rewardContainer.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
+        if (!_quest.IsWon)
+            await DOTween.To(x => _rewardContainer.style.opacity = x, 1, 0, 2f).AsyncWaitForCompletion();
         await DOTween.To(x => _backButton.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
     }
 
@@ -74,10 +107,12 @@ public class QuestResultsElement : FullScreenElement
     {
         foreach (Character c in _quest.AssignedCharacters)
         {
-            CharacterCard card = new(c, true, false, false);
+            // HERE: show portrait
+            CharacterCard card = new(c);
+            card.style.position = Position.Relative;
             _characterCards.Add(card);
+            _middleLeftContainer.Add(card);
             card.style.opacity = 0;
-            _troopsContainer.Add(card);
         }
 
         await Task.Delay(100);
@@ -90,7 +125,6 @@ public class QuestResultsElement : FullScreenElement
             await DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
             card.Character.GetExp(expReward);
         }
-
     }
 
     VisualElement GetHeader()
@@ -109,22 +143,14 @@ public class QuestResultsElement : FullScreenElement
         return success;
     }
 
-    VisualElement GetTroopsContainer()
-    {
-        _troopsContainer = new();
-        _troopsContainer.style.flexDirection = FlexDirection.Row;
-        _troopsContainer.style.width = Length.Percent(50);
-        return _troopsContainer;
-    }
-
     void ScaleCharacterCards()
     {
         VisualElement container = _characterCards[0].parent;
-        container.style.flexDirection = FlexDirection.Column;
 
         // TODO: improve this, this container thing could be a separate object that does that by itself.
         // width
         float parentWidth = container.layout.width;
+        Debug.Log($"parentWidth {parentWidth}");
         float targetChildWidth = (parentWidth - 100) / _characterCards.Count;
         if (_characterCards[0].layout.width < targetChildWidth)
             return;
@@ -132,6 +158,8 @@ public class QuestResultsElement : FullScreenElement
 
         // height
         float parentHeight = container.layout.height;
+        Debug.Log($"parentHeight {parentHeight}");
+
         float targetChildHeight = (parentWidth - 100) / _characterCards.Count;
         if (_characterCards[0].layout.height < targetChildHeight)
             return;
@@ -145,8 +173,7 @@ public class QuestResultsElement : FullScreenElement
 
     VisualElement GetRewardChest()
     {
-        _rewardContainer = new(_quest.Reward);
-        _rewardContainer.style.opacity = 0;
+        _rewardContainer = new(_quest.Reward, _quest.IsWon);
         _rewardContainer.style.width = Length.Percent(50);
         _rewardContainer.style.alignItems = Align.Center;
         _rewardContainer.OnChestOpen += OnChestOpen;
@@ -164,7 +191,7 @@ public class QuestResultsElement : FullScreenElement
 
     VisualElement GetBackButton()
     {
-        _backButton = new("Back", "menuButton", Hide);
+        _backButton = new("Back", _ussCommonMenuButton, Hide);
         _backButton.style.opacity = 0;
 
         if (_quest.IsWon)

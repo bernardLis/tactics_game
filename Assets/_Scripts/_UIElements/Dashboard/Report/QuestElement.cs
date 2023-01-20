@@ -317,7 +317,7 @@ public class QuestElement : VisualElement
 
     void SeeResults()
     {
-        QuestResultsElement el = new QuestResultsElement(_deskManager.Root, _report);
+        QuestResultElement el = new QuestResultElement(_deskManager.Root, _report);
         el.OnHide += OnResultsClosed;
     }
 

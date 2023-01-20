@@ -92,6 +92,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         Reports.Add(r);
         OnReportAdded?.Invoke(r);
+        SaveJsonData();
     }
 
 
@@ -216,6 +217,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void AddCharacterToTroops(Character character)
     {
         PlayerTroops.Add(character);
+        character.SetDayAddedToTroops(Day);
         OnDayPassed += character.OnDayPassed;
         OnCharacterAddedToTroops?.Invoke(character);
         SaveJsonData();

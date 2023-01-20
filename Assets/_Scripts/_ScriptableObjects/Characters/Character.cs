@@ -53,6 +53,7 @@ public class Character : BaseScriptableObject
     [HideInInspector] public int DayStartedBeingUnavailable;
     [HideInInspector] public int UnavailabilityDuration;
 
+    public int DayAddedToTroops { get; private set; }
     public Vector2 DeskPosition { get; private set; }
     public int WeeklyWage { get; private set; }
     public int NewWage { get; private set; }
@@ -135,7 +136,6 @@ public class Character : BaseScriptableObject
 
         OnCharacterLevelUp?.Invoke();
         UpdateRank();
-        RaiseCheck();
     }
 
     public void AddAbility(Ability ability)
@@ -274,6 +274,7 @@ public class Character : BaseScriptableObject
     public void InitializeStarterTroops()
     {
         _gameManager = GameManager.Instance;
+        DayAddedToTroops = 0;
         UpdateRank();
     }
 
@@ -312,6 +313,8 @@ public class Character : BaseScriptableObject
         WeeklyWage = Random.Range(100, 200) * Level;
     }
 
+    public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
+
     public void UpdateDeskPosition(Vector2 newPos)
     {
         DeskPosition = newPos;
@@ -339,6 +342,8 @@ public class Character : BaseScriptableObject
     public bool IsAskingForRaise()
     {
         if (WeeklyWage / Level >= 150)
+            return false;
+        if (Random.value > (_gameManager.Day - DayAddedToTroops) * 0.1f)
             return false;
         if (Random.value > 0.5f)
             return false;
@@ -392,6 +397,8 @@ public class Character : BaseScriptableObject
         IsUnavailable = data.IsOnUnavailable;
         DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
         UnavailabilityDuration = data.UnavailabilityDuration;
+
+        DayAddedToTroops = data.DayAddedToTroops;
         DeskPosition = data.DeskPosition;
         WeeklyWage = data.WeeklyWage;
         NewWage = data.NewWage;
@@ -433,6 +440,8 @@ public class Character : BaseScriptableObject
         data.IsOnUnavailable = IsUnavailable;
         data.DayStartedBeingUnavailable = DayStartedBeingUnavailable;
         data.UnavailabilityDuration = UnavailabilityDuration;
+        
+        data.DayAddedToTroops = DayAddedToTroops;
         data.DeskPosition = DeskPosition;
         data.WeeklyWage = WeeklyWage;
         data.NewWage = NewWage;
@@ -467,6 +476,8 @@ public struct CharacterData
     public bool IsOnUnavailable;
     public int DayStartedBeingUnavailable;
     public int UnavailabilityDuration;
+
+    public int DayAddedToTroops;
     public Vector2 DeskPosition;
     public int WeeklyWage;
     public int NewWage;

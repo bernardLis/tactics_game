@@ -87,16 +87,6 @@ public class DeskManager : Singleton<DeskManager>
 
     void OnCharacterRemovedFromTroops(Character character)
     {
-        for (int i = _characterCards.Count - 1; i >= 0; i--)
-        {
-            if (_characterCards[i].Character == character)
-            {
-                _reportsContainer.Remove(_characterCards[i]);
-                _characterCards.Remove(_characterCards[i]);
-                return;
-            }
-        }
-
         for (int i = _characterCardsMini.Count - 1; i >= 0; i--)
         {
             if (_characterCardsMini[i].Character == character)
@@ -301,6 +291,8 @@ public class DeskManager : Singleton<DeskManager>
         Vector3 endPosition = new(newX, newY, 0);
         await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
         card.Character.UpdateDeskPosition(endPosition);
+
+        card.Character.RaiseCheck();
     }
 
     async Task MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)

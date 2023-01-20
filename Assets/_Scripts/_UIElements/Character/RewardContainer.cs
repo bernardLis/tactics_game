@@ -18,7 +18,7 @@ public class RewardContainer : VisualElement
 
     public event Action OnChestOpen;
 
-    public RewardContainer(Reward reward)
+    public RewardContainer(Reward reward, bool clickable = true)
     {
         style.flexGrow = 1;
         style.flexShrink = 0;
@@ -34,7 +34,8 @@ public class RewardContainer : VisualElement
 
         Add(_chest);
         _idleAnimation = _chest.schedule.Execute(IdleAnimation).Every(100);
-        _chest.RegisterCallback<PointerUpEvent>(OnPointerUp);
+        if (clickable)
+            _chest.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
     void IdleAnimation()

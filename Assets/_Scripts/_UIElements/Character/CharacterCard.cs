@@ -29,6 +29,8 @@ public class CharacterCard : VisualElement
 
     VisualElement _levelUpAnimationContainer;
 
+    bool _showOnlyExp;
+
     const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "character-card__";
@@ -47,7 +49,7 @@ public class CharacterCard : VisualElement
     const string _ussManaContainer = _ussClassName + "mana-container";
     const string _ussOverlay = _ussClassName + "overlay";
 
-    public CharacterCard(Character character, bool showExp = true, bool showAbilities = true, bool showItems = true)
+    public CharacterCard(Character character)
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -79,7 +81,7 @@ public class CharacterCard : VisualElement
         PopulateTopLeftPanel(topLeftPanel);
         PopulateTopRightPanel(topRightPanel);
         PopulateBottomLeftPanel(bottomLeftPanel);
-        PopulateBottomRightPanel(bottomRightPanel, showAbilities, showItems);
+        PopulateBottomRightPanel(bottomRightPanel);
 
         Add(topPanel);
         Add(bottomPanel);
@@ -144,14 +146,11 @@ public class CharacterCard : VisualElement
         container.Add(_range);
     }
 
-    void PopulateBottomRightPanel(VisualElement container, bool showAbilities, bool showItems)
+    void PopulateBottomRightPanel(VisualElement container)
     {
         container.AddToClassList(_ussBottomRightPanel);
-
-        if (showAbilities)
-            container.Add(CreateAbilities());
-        if (showItems)
-            container.Add(CreateItems());
+        container.Add(CreateAbilities());
+        container.Add(CreateItems());
     }
 
     VisualElement CreateElementalElement()
