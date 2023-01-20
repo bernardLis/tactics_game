@@ -20,6 +20,7 @@ public class SettingsScreen : FullScreenElement
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonUIContainer = "common__ui-container";
+    const string _ussCommonMenuButton = "common__menu-button";
 
     const string _ussClassName = "settings-menu__";
     const string _ussMain = _ussClassName + "main";
@@ -252,7 +253,7 @@ public class SettingsScreen : FullScreenElement
     void AddClearSaveButton()
     {
         ConfirmPopUp popUp = new ConfirmPopUp();
-        MyButton button = new("Clear Save Data", "menuButton", () => popUp.Initialize(_root, ClearSaveData));
+        MyButton button = new("Clear Save Data", _ussCommonMenuButton, () => popUp.Initialize(_root, ClearSaveData));
         Add(button);
     }
 

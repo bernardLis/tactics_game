@@ -12,35 +12,30 @@ public class ConfirmPopUp : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
+    const string _ussClassName = "confirm-popup__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussText = _ussClassName + "text";
+    const string _ussButtonContainer = _ussClassName + "button-container";
+
     public void Initialize(VisualElement root, Action callback, string displayText = null)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ConfirmPopupStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
 
         _root = root;
         root.Add(this);
-
-        style.width = Length.Percent(100);
-        style.height = Length.Percent(100);
-        style.position = Position.Absolute;
-
-        // https://docs.unity3d.com/Packages/com.unity.ui.builder@1.0/manual/uib-styling-ui-positioning.html
-        // center
-        style.left = 0;
-        style.top = 0;
-        style.right = 0;
-        style.bottom = 0;
-        style.alignItems = Align.Center;
-        style.justifyContent = Justify.Center;
-
-        style.backgroundColor = new Color(0.3f, 0.3f, 0.3f, 0.5f);
+        AddToClassList(_ussMain);
 
         if (displayText == null)
             displayText = "Are you sure?";
 
         Label confirm = new Label(displayText);
+        confirm.AddToClassList(_ussText);
         confirm.AddToClassList(_ussCommonTextPrimary);
         Add(confirm);
         AddButtons(callback);
@@ -49,9 +44,7 @@ public class ConfirmPopUp : VisualElement
     void AddButtons(Action callback)
     {
         VisualElement container = new VisualElement();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.width = Length.Percent(100);
-        container.style.justifyContent = Justify.Center;
+        container.AddToClassList(_ussButtonContainer);
         Add(container);
 
         MyButton confirm = new MyButton("Yaasss Queen", _ussCommonMenuButton, callback);
