@@ -161,7 +161,7 @@ public class AbilityCraftManager : MonoBehaviour
 
     void AddStarsToAbility()
     {
-        if (_numberOfStars >= 5 || _numberOfStars >= (int)_abilityNode.GetStarRange().y)
+        if (_numberOfStars >= 5 || _numberOfStars >= _abilityNode.GetStarRange().y)
         {
             Helpers.DisplayTextOnElement(_root, _starContainer, "Can't be more", Color.red);
             return;

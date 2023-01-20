@@ -109,14 +109,12 @@ public class AbilityNode : BaseScriptableObject
 
     List<Ability> GetOrderedAbilities() { return Abilities.OrderByDescending(a => a.StarRank).ToList(); }
 
-    public Vector2 GetStarRange()
+    public Vector2Int GetStarRange()
     {
         List<Ability> orderedAbilities = GetOrderedAbilities();
         Ability aMin = orderedAbilities.Last();
         Ability aMax = orderedAbilities.First();
-        Debug.Log($"aMin {aMin}, aMax {aMax}");
-
-        return new Vector2(aMin.StarRank, aMax.StarRank);
+        return new Vector2Int(aMin.StarRank, aMax.StarRank);
     }
 
     public void LoadFromData(AbilityNodeData data)

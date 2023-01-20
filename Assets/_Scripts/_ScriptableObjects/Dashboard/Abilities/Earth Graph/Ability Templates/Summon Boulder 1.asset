@@ -32,7 +32,8 @@ MonoBehaviour:
   CanTargetSelf: 0
   CanTargetDiagonally: 1
   HighlightColor: {r: 0.41509432, g: 0.2793701, b: 0, a: 1}
-  Price: 1
-  Rank: 1
+  TimeLeftToCrafted: 0
+  SpiceCost: 1
+  StarRank: 1
   CharacterGameObject: {fileID: 0}
   CreatedObject: {fileID: 7512957698282176492, guid: a549c98ce7982e049a7ea6344afcc711, type: 3}
