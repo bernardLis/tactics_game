@@ -32,6 +32,8 @@ public class CharacterCard : VisualElement
     bool _showOnlyExp;
 
     const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonTextSecondary = "common__text-secondary";
+
 
     const string _ussClassName = "character-card__";
     const string _ussMain = _ussClassName + "main";
@@ -43,11 +45,9 @@ public class CharacterCard : VisualElement
     const string _ussBottomRightPanel = _ussClassName + "bottom-right-panel";
 
     const string _ussElementPosition = _ussClassName + "element-position";
-    const string _ussRankPosition = _ussClassName + "rank-position";
     const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussHealthContainer = _ussClassName + "health-container";
     const string _ussManaContainer = _ussClassName + "mana-container";
-    const string _ussOverlay = _ussClassName + "overlay";
 
     public CharacterCard(Character character)
     {
@@ -163,7 +163,6 @@ public class CharacterCard : VisualElement
     VisualElement CreateRankElement()
     {
         _rankElement = new(Character.Rank.Rank, 0.5f);
-        _rankElement.AddToClassList(_ussRankPosition);
         return _rankElement;
     }
 
@@ -184,7 +183,7 @@ public class CharacterCard : VisualElement
 
         _level = new Label($"Level {Character.Level}");
         _level.style.position = Position.Absolute;
-        _level.AddToClassList("textSecondary");
+        _level.AddToClassList(_ussCommonTextSecondary);
         ExpBar.Add(_level);
 
         Character.OnCharacterExpGain += OnExpChange;

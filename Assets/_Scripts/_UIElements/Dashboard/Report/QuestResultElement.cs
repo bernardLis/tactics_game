@@ -19,7 +19,7 @@ public class QuestResultElement : FullScreenElement
     VisualElement _middleRightContainer;
     VisualElement _bottomContainer;
 
-    List<CharacterCard> _characterCards = new();
+    List<CharacterCardExp> _characterCardsExp = new();
     RewardContainer _rewardContainer;
     AudioSource _openSfxAudioSource;
 
@@ -37,6 +37,8 @@ public class QuestResultElement : FullScreenElement
     const string _ussMiddleLeftContainer = _ussClassName + "middle-left-container";
     const string _ussMiddleRightContainer = _ussClassName + "middle-right-container";
     const string _ussBottomContainer = _ussClassName + "bottom-container";
+
+    const string _ussResultLabel = _ussClassName + "result-label";
 
     public QuestResultElement(VisualElement root, Report report)
     {
@@ -82,7 +84,6 @@ public class QuestResultElement : FullScreenElement
         _middleContainer.Add(_middleRightContainer);
 
         _topContainer.Add(GetHeader());
-        _topContainer.Add(GetSuccessLabel());
 
         _middleRightContainer.Add(GetRewardChest());
         _bottomContainer.Add(GetBackButton());
@@ -107,10 +108,8 @@ public class QuestResultElement : FullScreenElement
     {
         foreach (Character c in _quest.AssignedCharacters)
         {
-            // HERE: show portrait
-            CharacterCard card = new(c);
-            card.style.position = Position.Relative;
-            _characterCards.Add(card);
+            CharacterCardExp card = new(c);
+            _characterCardsExp.Add(card);
             _middleLeftContainer.Add(card);
             card.style.opacity = 0;
         }
@@ -120,7 +119,7 @@ public class QuestResultElement : FullScreenElement
 
         int expReward = _quest.CalculateAwardExp();
         await Task.Delay(1000);
-        foreach (CharacterCard card in _characterCards)
+        foreach (CharacterCardExp card in _characterCardsExp)
         {
             await DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
             card.Character.GetExp(expReward);
@@ -131,50 +130,39 @@ public class QuestResultElement : FullScreenElement
     {
         string t = _quest.IsWon ? "Quest won!" : "Quest lost!";
         Label l = new();
+        l.AddToClassList(_ussResultLabel);
         l.text = t;
-        l.style.fontSize = 48;
         return l;
-    }
-
-    VisualElement GetSuccessLabel()
-    {
-        Label success = new();
-        success.text = $"Quest roll: {_quest.Roll} Quest success chance: {_quest.GetSuccessChance() * 0.01}, roll needs to be less then success chance to win.";
-        return success;
     }
 
     void ScaleCharacterCards()
     {
-        VisualElement container = _characterCards[0].parent;
+        VisualElement container = _characterCardsExp[0].parent;
 
         // TODO: improve this, this container thing could be a separate object that does that by itself.
         // width
         float parentWidth = container.layout.width;
-        Debug.Log($"parentWidth {parentWidth}");
-        float targetChildWidth = (parentWidth - 100) / _characterCards.Count;
-        if (_characterCards[0].layout.width < targetChildWidth)
+        float targetChildWidth = (parentWidth - 100) / _characterCardsExp.Count;
+        if (_characterCardsExp[0].layout.width < targetChildWidth)
             return;
-        float targetScaleWidth = targetChildWidth / _characterCards[0].layout.width;
+        float targetScaleWidth = targetChildWidth / _characterCardsExp[0].layout.width;
 
         // height
         float parentHeight = container.layout.height;
-        Debug.Log($"parentHeight {parentHeight}");
-
-        float targetChildHeight = (parentWidth - 100) / _characterCards.Count;
-        if (_characterCards[0].layout.height < targetChildHeight)
+        float targetChildHeight = (parentWidth - 100) / _characterCardsExp.Count;
+        if (_characterCardsExp[0].layout.height < targetChildHeight)
             return;
-        float targetScaleHeight = targetChildHeight / _characterCards[0].layout.height;
+        float targetScaleHeight = targetChildHeight / _characterCardsExp[0].layout.height;
 
         float smallerScale = targetScaleWidth < targetScaleHeight ? targetScaleHeight : targetScaleWidth;
 
-        foreach (CharacterCard c in _characterCards)
+        foreach (CharacterCardExp c in _characterCardsExp)
             c.transform.scale = new Vector3(smallerScale, smallerScale, smallerScale);
     }
 
     VisualElement GetRewardChest()
     {
         _rewardContainer = new(_quest.Reward, _quest.IsWon);
-        _rewardContainer.style.width = Length.Percent(50);
         _rewardContainer.style.alignItems = Align.Center;
         _rewardContainer.OnChestOpen += OnChestOpen;
         return _rewardContainer;

@@ -20,6 +20,7 @@ public class RewardContainer : VisualElement
 
     public RewardContainer(Reward reward, bool clickable = true)
     {
+        style.width = Length.Percent(100);
         style.flexGrow = 1;
         style.flexShrink = 0;
         style.justifyContent = Justify.Center;

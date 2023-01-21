@@ -235,7 +235,7 @@ public class DeskManager : Singleton<DeskManager>
             return;
         if (card.Character.IsAssigned)
             return;
-
+        
         CharacterCard bigCard = new(card.Character);
         bigCard.RegisterCallback<PointerUpEvent>(OnBigCardPointerUp);
         bigCard.PortraitVisualElement.RegisterCallback<PointerDownEvent>(OnPortraitPointerDown);

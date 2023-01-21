@@ -74,6 +74,8 @@ public class DraggableCharacters : MonoBehaviour
         if (card.parent is CharacterCardMiniSlot)
         {
             slotVisual = (CharacterCardMiniSlot)card.parent;
+            if (slotVisual.IsLocked)
+                return;
             slotVisual.RemoveCard();
         }
 

@@ -21,12 +21,12 @@ public class CharacterCardMini : ElementWithTooltip
     const string _ussCommonTextSecondary = "common__text-secondary";
     const string _ussCommonTransitionBasic = "common__transition-basic";
 
-    const string _ussClassName = "character-card-mini";
-    const string _ussMain = _ussClassName + "__main";
-    const string _ussOverlay = _ussClassName + "__overlay";
-    const string _ussShadow = _ussClassName + "__shadow";
-    const string _ussPickedUp = _ussClassName + "__picked-up";
-    const string _ussSlotted = _ussClassName + "__slotted";
+    const string _ussClassName = "character-card-mini__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussOverlay = _ussClassName + "overlay";
+    const string _ussShadow = _ussClassName + "shadow";
+    const string _ussPickedUp = _ussClassName + "picked-up";
+    const string _ussSlotted = _ussClassName + "slotted";
 
     public CharacterCardMini(Character character)
     {
