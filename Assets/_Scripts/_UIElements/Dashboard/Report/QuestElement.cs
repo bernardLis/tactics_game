@@ -92,6 +92,8 @@ public class QuestElement : VisualElement
             HandleDelegatedQuest();
         if (state == QuestState.Expired)
             HandleExpiredQuest();
+        if (state == QuestState.RewardCollected)
+            HandleRewardCollected();
     }
 
     void AddTopPanel()
@@ -158,6 +160,13 @@ public class QuestElement : VisualElement
         text.style.fontSize = 32;
         text.transform.rotation *= Quaternion.Euler(0f, 0f, 30f);
         overlay.Add(text);
+    }
+
+    void HandleRewardCollected()
+    {
+        _expiryDateLabel.Clear();
+        _durationLabel.Clear();
+        _successChanceLabel.Clear();
     }
 
     async void ReturnAssignedCharacters()

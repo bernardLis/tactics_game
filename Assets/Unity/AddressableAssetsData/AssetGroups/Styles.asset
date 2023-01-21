@@ -153,6 +153,10 @@ MonoBehaviour:
     m_Address: Assets/_Scripts/_UIElements/Styles/Character/CharacterCardExpStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1e5fca1dceaeb1f4bab0703760687dd3
+    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/RewardContainerStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

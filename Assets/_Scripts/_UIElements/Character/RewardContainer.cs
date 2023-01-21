@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class RewardContainer : VisualElement
 {
+    GameManager _gameManager;
+
     RewardChest _rewardChest;
     int _idleSpriteIndex = 0;
 
@@ -16,10 +18,22 @@ public class RewardContainer : VisualElement
     int _flyLeft = -1;
     int _offsetX = 0;
 
-    public event Action OnChestOpen;
+    const string _ussClassName = "reward-container__";
+    const string _ussMain = _ussClassName + "main";
 
+    public event Action OnChestOpen;
     public RewardContainer(Reward reward, bool clickable = true)
     {
+
+        _gameManager = GameManager.Instance;
+
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardContainerStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         style.width = Length.Percent(100);
         style.flexGrow = 1;
         style.flexShrink = 0;
@@ -93,11 +107,9 @@ public class RewardContainer : VisualElement
         Add(flyingContainer);
         flyingContainer.Add(el);
 
-        Vector3 offset = new Vector3(250f * _flyLeft + Random.Range(-50, 50) + _offsetX * _flyLeft, Random.Range(-10, 10));
+        Vector3 offset = new Vector3(50f * _flyLeft + Random.Range(-50, 50) + _offsetX * _flyLeft, Random.Range(-150, 150));
         Vector3 endPosition = _chest.transform.position + offset;
         _flyLeft *= -1; // swapping left and right each time it is called
-        if (_flyLeft == 1)
-            _offsetX += 100; // TODO: throw every "2nd" element a bit further so they don't interfere
         MoveElementOnArc(flyingContainer, _chest.transform.position, endPosition);
     }
 

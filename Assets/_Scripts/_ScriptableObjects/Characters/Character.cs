@@ -440,7 +440,7 @@ public class Character : BaseScriptableObject
         data.IsOnUnavailable = IsUnavailable;
         data.DayStartedBeingUnavailable = DayStartedBeingUnavailable;
         data.UnavailabilityDuration = UnavailabilityDuration;
-        
+
         data.DayAddedToTroops = DayAddedToTroops;
         data.DeskPosition = DeskPosition;
         data.WeeklyWage = WeeklyWage;
@@ -478,6 +478,7 @@ public struct CharacterData
     public int UnavailabilityDuration;
 
     public int DayAddedToTroops;
+    public int DayRequestedRaise;
     public Vector2 DeskPosition;
     public int WeeklyWage;
     public int NewWage;

@@ -25,6 +25,8 @@ public class RaiseRequestReportElement : ReportElement
         if (ss != null)
             styleSheets.Add(ss);
 
+        _gameManager.OnDayPassed += OnDayPassed;
+
         AddHeader("Raise Request", Color.yellow);
 
         _characterCardMini = new(report.Character);
@@ -56,6 +58,13 @@ public class RaiseRequestReportElement : ReportElement
         }
 
         AddAcceptRejectButtons(Accept, Reject);
+    }
+
+    protected override void OnDayPassed(int day)
+    {
+        // HERE: time passes automatically
+        // add time left that counts down instead of on day passed
+        DismissReport();
     }
 
     void OnBarMiniGameHit(int hit)
