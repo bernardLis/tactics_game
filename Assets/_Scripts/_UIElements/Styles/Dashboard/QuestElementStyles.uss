@@ -19,8 +19,8 @@
 }
 
 .quest-element__action-button {
-    min-width: 100px;
-    min-height: 40px;
+    min-width: 200px;
+    min-height: 50px;
     align-items: center;
     justify-content: center;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle.png?fileID=2800000&guid=7624455960081ed449991cbf052c3326&type=3#Button_middle');
