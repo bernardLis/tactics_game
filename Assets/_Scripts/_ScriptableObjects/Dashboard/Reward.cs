@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class Reward : BaseScriptableObject
 {
     protected GameManager _gameManager;
+
     [Header("Main")]
     public int Gold;
     public Item Item;
@@ -19,14 +20,6 @@ public class Reward : BaseScriptableObject
 
     public Vector2Int SpiceRange;
 
-    [Header("Sacrifice")]
-    public StatType SacrificedStat;
-    [Range(0, 1)]
-    public float PercentSacrificed;
-
-    [Header("Recruit")]
-    public Character Recruit;
-    public Brain PursuingEnemy;
 
     public virtual void Initialize()
     {
@@ -35,7 +28,6 @@ public class Reward : BaseScriptableObject
             // meant to be overwritten
             Gold = Random.Range(GoldRange.x, GoldRange.y);
             Item = GameManager.Instance.GameDatabase.GetRandomItem();
-
             Spice = Random.Range(SpiceRange.x, SpiceRange.y);
         }
     }
@@ -59,38 +51,16 @@ public class Reward : BaseScriptableObject
         if (Gold != 0)
             _gameManager.ChangeGoldValue(Gold);
 
-        if (Item != null)
-            _gameManager.AddItemToPouch(Item);
-            
         if (Spice != 0)
             _gameManager.ChangeSpiceValue(Spice);
-
-        if (PercentSacrificed != 0)
-            HandleSacrifice();
-
-        if (Recruit != null)
-            HandleRecruit();
     }
-
-    void HandleSacrifice()
-    {
-        foreach (Character c in _gameManager.PlayerTroops)
-        {
-            int val = Mathf.FloorToInt(c.GetStatValue(SacrificedStat.ToString()) * PercentSacrificed);
-            c.ChangeStat(SacrificedStat.ToString(), -val);
-        }
-
-        _gameManager.SaveJsonData();
-    }
-
-    void HandleRecruit() { _gameManager.AddCharacterToTroops(Recruit); }
-
 
     public RewardData SerializeSelf()
     {
         RewardData rd = new();
         rd.Gold = Gold;
-        rd.ItemId = Item.Id;
+
+        rd.ItemId = Item == null ? null : Item.Id;
 
         return rd;
     }

@@ -69,6 +69,8 @@ public class QuestElement : VisualElement
             HandleExpiredQuest();
         if (_quest.QuestState == QuestState.Delegated)
             HandleDelegatedQuest();
+        if (_quest.QuestState == QuestState.RewardCollected)
+            HandleRewardCollected();
 
         RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
     }
@@ -110,6 +112,7 @@ public class QuestElement : VisualElement
     void AddBottomPanel()
     {
         _additionalInfo = new();
+        _additionalInfo.style.alignItems = Align.Center;
         _additionalInfo.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_additionalInfo);
 
@@ -167,7 +170,26 @@ public class QuestElement : VisualElement
         _expiryDateLabel.Clear();
         _durationLabel.Clear();
         _successChanceLabel.Clear();
+        _assignedCharactersContainer.style.display = DisplayStyle.None;
+
+        if (_quest.Reward.Item == null)
+            return;
+
+        // TODO: correct but not nice.
+        ItemElement el = new(_quest.Reward.Item);
+        ItemSlot slot = new(el);
+        slot.OnItemRemoved += OnRewardItemRemoved;
+        slot.OnItemAdded += OnRewardItemAdded;
+
+        _deskManager.GetComponent<DraggableItems>().AddSlot(slot);
+        _deskManager.GetComponent<DraggableItems>().AddDraggableItem(el);
+        
+        _additionalInfo.Add(slot);
+        slot.BringToFront();
     }
+    void OnRewardItemRemoved(ItemElement el) { _quest.Reward.Item = null; }
+
+    void OnRewardItemAdded(ItemElement el) { _quest.Reward.Item = el.Item; }
 
     async void ReturnAssignedCharacters()
     {

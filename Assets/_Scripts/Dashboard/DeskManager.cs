@@ -158,7 +158,6 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
-
     void AddItemToPouch(ItemElement element) { _gameManager.AddItemToPouch(element.Item); }
     void RemoveItemFromPouch(ItemElement element) { _gameManager.RemoveItemFromPouch(element.Item); }
 
