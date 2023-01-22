@@ -37,6 +37,7 @@ public class SpiceElement : VisualElement
         _icon.style.width = 50;
         _icon.style.height = 50;
         _animationElement = new AnimationElement(animationSprites, 100, true);
+        _animationElement.PlayAnimation();
         _icon.Add(_animationElement);
         Add(_icon);
 

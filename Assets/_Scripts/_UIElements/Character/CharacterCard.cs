@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class CharacterCard : VisualElement
 {
+    GameManager _gameManager;
+
     public Character Character;
 
     public CharacterPortraitElement PortraitVisualElement;
@@ -51,10 +53,12 @@ public class CharacterCard : VisualElement
 
     public CharacterCard(Character character)
     {
-        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        _gameManager = GameManager.Instance;
+
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterCardStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CharacterCardStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
@@ -136,7 +140,7 @@ public class CharacterCard : VisualElement
     {
         container.AddToClassList(_ussBottomLeftPanel);
 
-        GameDatabase db = GameManager.Instance.GameDatabase;
+        GameDatabase db = _gameManager.GameDatabase;
         _power = new(db.GetStatIconByName("Power"), Character.GetStatValue("Power"), "Power");
         _armor = new(db.GetStatIconByName("Armor"), Character.GetStatValue("Armor"), "Armor");
         _range = new(db.GetStatIconByName("MovementRange"), Character.GetStatValue("MovementRange"), "Movement Range");
@@ -186,9 +190,6 @@ public class CharacterCard : VisualElement
         _level.AddToClassList(_ussCommonTextSecondary);
         ExpBar.Add(_level);
 
-        Character.OnCharacterExpGain += OnExpChange;
-        Character.OnCharacterLevelUp += OnLevelUp;
-
         container.Add(ExpBar);
         return container;
     }
@@ -213,14 +214,6 @@ public class CharacterCard : VisualElement
         container.Add(ManaBar);
 
         return container;
-    }
-
-    void OnExpChange(int expGain) { ExpBar.OnValueChanged(expGain, 3000); }
-
-    void OnLevelUp()
-    {
-        _level.text = $"Level {Character.Level}";
-        PlayLevelUpAnimation();
     }
 
     VisualElement CreateItems()
@@ -281,18 +274,6 @@ public class CharacterCard : VisualElement
 
     void OnAbilityAdded(Ability ability) { Character.AddAbility(ability); }
     void OnAbilityRemoved(Ability ability) { Character.RemoveAbility(ability); }
-
-    public void PlayLevelUpAnimation()
-    {
-        Sprite[] animationSprites = GameManager.Instance.GameDatabase.LevelUpAnimationSprites;
-
-        _levelUpAnimationContainer = new();
-        _levelUpAnimationContainer.style.position = Position.Absolute;
-        _levelUpAnimationContainer.style.width = Length.Percent(100);
-        _levelUpAnimationContainer.style.height = Length.Percent(100);
-        _levelUpAnimationContainer.Add(new AnimationElement(animationSprites, 100, false));
-        Add(_levelUpAnimationContainer);
-    }
 
     void SubscribeToStatChanges()
     {

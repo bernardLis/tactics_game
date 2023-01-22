@@ -51,5 +51,5 @@ public enum StyleSheetType
     ItemSlotStyles, AbilitySlotStyles,
     CharacterCardStyles,
     CharacterCardMiniSlotStyles, CharacterCardMiniStyles,
-    CharacterCardExpStyles,
+    CharacterCardQuestStyles,
 }

@@ -19,7 +19,7 @@ public class QuestResultElement : FullScreenElement
     VisualElement _middleRightContainer;
     VisualElement _bottomContainer;
 
-    List<CharacterCardExp> _characterCardsExp = new();
+    List<CharacterCardQuest> _characterCardsExp = new();
     RewardContainer _rewardContainer;
     AudioSource _openSfxAudioSource;
 
@@ -108,7 +108,7 @@ public class QuestResultElement : FullScreenElement
     {
         foreach (Character c in _quest.AssignedCharacters)
         {
-            CharacterCardExp card = new(c);
+            CharacterCardQuest card = new(c);
             _characterCardsExp.Add(card);
             _middleLeftContainer.Add(card);
             card.style.opacity = 0;
@@ -119,7 +119,7 @@ public class QuestResultElement : FullScreenElement
 
         int expReward = _quest.CalculateAwardExp();
         await Task.Delay(1000);
-        foreach (CharacterCardExp card in _characterCardsExp)
+        foreach (CharacterCardQuest card in _characterCardsExp)
         {
             await DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
             card.Character.GetExp(expReward);
@@ -156,7 +156,7 @@ public class QuestResultElement : FullScreenElement
 
         float smallerScale = targetScaleWidth < targetScaleHeight ? targetScaleHeight : targetScaleWidth;
 
-        foreach (CharacterCardExp c in _characterCardsExp)
+        foreach (CharacterCardQuest c in _characterCardsExp)
             c.transform.scale = new Vector3(smallerScale, smallerScale, smallerScale);
     }
 

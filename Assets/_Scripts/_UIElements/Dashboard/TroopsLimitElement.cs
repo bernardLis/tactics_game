@@ -28,7 +28,9 @@ public class TroopsLimitElement : ElementWithTooltip
         _animationContainer.style.height = 50;
 
         Sprite[] animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
-        _animationContainer.Add(new AnimationElement(animationSprites, 100, true));
+        AnimationElement el = new AnimationElement(animationSprites, 100, true);
+        el.PlayAnimation();
+        _animationContainer.Add(el);
         Add(_animationContainer);
 
         _countContainer = new();

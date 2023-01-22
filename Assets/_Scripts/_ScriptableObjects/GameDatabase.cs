@@ -7,8 +7,13 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
+    
     public CharacterDatabase CharacterDatabase;
     public QuestDatabase QuestDatabase;
+
+    [Header("General")]
+    [SerializeField] MyIcon[] MyIcons;
+    public Sprite GetMyIconByName(string name) { return MyIcons.FirstOrDefault(x => x.Name == name).Sprite; }
 
     [Header("Events")]
     [SerializeField] JourneyEvent[] AllEvents;

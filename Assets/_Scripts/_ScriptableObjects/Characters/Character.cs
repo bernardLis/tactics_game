@@ -131,11 +131,28 @@ public class Character : BaseScriptableObject
         OnCharacterExpGain?.Invoke(0);
 
         Level++;
-        Power += Random.Range(0, 2);
         AudioManager.Instance.PlaySFX("LevelUp", Vector3.one);
 
         OnCharacterLevelUp?.Invoke();
         UpdateRank();
+    }
+
+    public void AddPower()
+    {
+        Power++;
+        _gameManager.SaveJsonData();
+    }
+
+    public void AddArmor()
+    {
+        Armor++;
+        _gameManager.SaveJsonData();
+    }
+
+    public void AddRange()
+    {
+        MovementRange++;
+        _gameManager.SaveJsonData();
     }
 
     public void AddAbility(Ability ability)
@@ -163,8 +180,6 @@ public class Character : BaseScriptableObject
     public bool CanTakeAnotherItem() { return Items.Count < MaxCharacterItems; }
 
     public bool CanTakeAnotherAbility() { return Abilities.Count < MaxCharacterAbilities; }
-
-    public void ClearItems() { Items = new(); }
 
     public void AddItem(Item item)
     {
