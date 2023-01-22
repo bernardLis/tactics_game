@@ -175,7 +175,9 @@ public class QuestElement : VisualElement
         if (_quest.Reward.Item == null)
             return;
 
-        // TODO: correct but not nice.
+        if (!_quest.IsWon)
+            return;
+
         ItemElement el = new(_quest.Reward.Item);
         ItemSlot slot = new(el);
         slot.OnItemRemoved += OnRewardItemRemoved;
@@ -183,7 +185,7 @@ public class QuestElement : VisualElement
 
         _deskManager.GetComponent<DraggableItems>().AddSlot(slot);
         _deskManager.GetComponent<DraggableItems>().AddDraggableItem(el);
-        
+
         _additionalInfo.Add(slot);
         slot.BringToFront();
     }

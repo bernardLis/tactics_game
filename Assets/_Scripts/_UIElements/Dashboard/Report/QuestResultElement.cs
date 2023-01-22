@@ -116,11 +116,11 @@ public class QuestResultElement : FullScreenElement
 
         await Task.Delay(100);
         ScaleCharacterCards();
-
-        int expReward = _quest.CalculateAwardExp();
         await Task.Delay(1000);
+        
         foreach (CharacterCardQuest card in _characterCardsExp)
         {
+            int expReward = _quest.CalculateRewardExp(card.Character);
             await DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
             card.Character.GetExp(expReward);
         }

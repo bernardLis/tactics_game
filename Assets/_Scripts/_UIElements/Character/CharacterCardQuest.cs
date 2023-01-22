@@ -31,6 +31,8 @@ public class CharacterCardQuest : VisualElement
     MyButton _armorUpButton;
     MyButton _rangeUpButton;
 
+    bool _pointAdded;
+
     const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "character-card-quest__";
@@ -140,6 +142,9 @@ public class CharacterCardQuest : VisualElement
 
     void PowerUp()
     {
+        if (_pointAdded)
+            return;
+
         BaseStatUp();
         Character.AddPower();
         _power.UpdateBaseValue(Character.GetStatValue("Power"));
@@ -147,6 +152,9 @@ public class CharacterCardQuest : VisualElement
 
     void ArmorUp()
     {
+        if (_pointAdded)
+            return;
+
         BaseStatUp();
         Character.AddArmor();
         _armor.UpdateBaseValue(Character.GetStatValue("Armor"));
@@ -154,13 +162,18 @@ public class CharacterCardQuest : VisualElement
 
     void RangeUp()
     {
+        if (_pointAdded)
+            return;
+
         BaseStatUp();
         Character.AddRange();
-        _armor.UpdateBaseValue(Character.GetStatValue("MovementRange"));
+        _range.UpdateBaseValue(Character.GetStatValue("MovementRange"));
     }
 
     void BaseStatUp()
     {
+        _pointAdded = true;
+        
         _powerUpButton.style.display = DisplayStyle.None;
         _armorUpButton.style.display = DisplayStyle.None;
         _rangeUpButton.style.display = DisplayStyle.None;
@@ -173,7 +186,7 @@ public class CharacterCardQuest : VisualElement
         container.style.width = 200;
         container.style.height = 200;
         container.style.position = Position.Absolute;
-        
+
         AnimationElement el = new AnimationElement(animationSprites, 100, false);
         container.Add(el);
 

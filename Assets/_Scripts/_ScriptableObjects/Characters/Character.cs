@@ -137,23 +137,11 @@ public class Character : BaseScriptableObject
         UpdateRank();
     }
 
-    public void AddPower()
-    {
-        Power++;
-        _gameManager.SaveJsonData();
-    }
+    public void AddPower() { Power++; }
 
-    public void AddArmor()
-    {
-        Armor++;
-        _gameManager.SaveJsonData();
-    }
+    public void AddArmor() { Armor++; }
 
-    public void AddRange()
-    {
-        MovementRange++;
-        _gameManager.SaveJsonData();
-    }
+    public void AddRange() { MovementRange++; }
 
     public void AddAbility(Ability ability)
     {

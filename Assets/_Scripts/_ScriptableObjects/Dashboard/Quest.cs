@@ -148,15 +148,11 @@ public class Quest : BaseScriptableObject
     public void Lost()
     {
         foreach (Character character in AssignedCharacters)
-        {
-            if (Random.value < 0.5f) // 50% chance to disable a character 
-                continue;
-
             character.SetUnavailable(Random.Range(1, 5));
-        }
     }
 
-    public int CalculateAwardExp() { return IsWon ? 100 : 10; }
+    // TODO: change reward exp to take into consideration rank difference and winning losing quest
+    public int CalculateRewardExp(Character c) { return IsWon ? 100 : 100; }
 
     public void CreateRandom()
     {
