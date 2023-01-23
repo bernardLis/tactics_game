@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1280c852ba06245a95c7ed510f2866, type: 3}
+  m_Script: {fileID: 11500000, guid: c6a77948fed42c84998cf3af792195ac, type: 3}
   m_Name: Monastery
   m_EditorClassIdentifier: 
-  Id: eb8a394a-123e-40bf-a7c0-a74677fc5955
+  Id: 82a28641-8257-493c-871f-907c059281f2
   OutlineSprite: {fileID: 21300000, guid: ea99704b19bcb3449982b70ba3b0ba8f, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 38ee95e772b15654d825aa787502fc76, type: 3}
-  CostToBuild: 200
-  DaysToBuild: 3
+  CostToBuild: 100
+  DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
+  UpgradeRange: {x: 0, y: 0}
   CampBuildingState: 0
-  DaysLeftToBuild: 3
+  DaysLeftToBuild: 0
   DayStartedBuilding: 0
-  LimitIncrease: 3
+  UpgradeRank: 0

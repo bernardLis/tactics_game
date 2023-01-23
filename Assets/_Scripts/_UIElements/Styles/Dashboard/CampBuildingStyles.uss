@@ -22,7 +22,6 @@
 .camp-building__build-button {
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_middle_red.png?fileID=2800000&guid=fa3695cc709cf15428d83e5447237e45&type=3#Button_middle_red');
     -unity-background-scale-mode: stretch-to-fill;
-    flex-direction: row;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;

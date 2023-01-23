@@ -10,10 +10,11 @@ public class TroopsLimitElement : ElementWithTooltip
     VisualElement _animationContainer;
     VisualElement _countContainer;
 
+    int _fontSize;
+
     const string _ussCommonTextPrimary = "common__text-primary";
 
-
-    public TroopsLimitElement(string text)
+    public TroopsLimitElement(string text, int fontSize = 0)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -22,6 +23,9 @@ public class TroopsLimitElement : ElementWithTooltip
 
         style.flexDirection = FlexDirection.Row;
         AddToClassList(_ussCommonTextPrimary);
+
+        if (fontSize != 0)
+            _fontSize = fontSize;
 
         _animationContainer = new();
         _animationContainer.style.width = 50;
@@ -52,5 +56,10 @@ public class TroopsLimitElement : ElementWithTooltip
         _countContainer.Add(l);
         _countContainer.style.justifyContent = Justify.Center;
         l.text = text;
+        l.style.marginBottom = 0;
+        l.style.paddingBottom = 0;
+        
+        if (_fontSize != 0)
+            l.style.fontSize = _fontSize;
     }
 }

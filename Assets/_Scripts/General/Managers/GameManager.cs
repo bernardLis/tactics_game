@@ -205,6 +205,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         TroopsLimit += change;
         OnTroopsLimitChanged?.Invoke(change);
+        SaveJsonData();
     }
 
     public List<CampBuilding> GetCampBuildings() { return _campBuildings; }

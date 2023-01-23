@@ -208,7 +208,11 @@ public abstract class Ability : BaseScriptableObject
     public AbilityData SerializeSelf()
     {
         AbilityData data = new();
+        if (this == null)
+            return data;
+
         data.TemplateId = Id;
+
         data.Name = name;
         data.TimeLeftToCrafted = TimeLeftToCrafted;
 

@@ -11,6 +11,9 @@ public class CampBuildingElement : VisualElement
 
     VisualElement _sprite;
     Label _timeToBuild;
+    VisualElement _buildingRankContainer;
+    StarRankElement _buildingRankElement;
+
     VisualElement _buildButtonContainer;
     MyButton _buildButton;
     VisualElement _upgradeCostContainer;
@@ -19,6 +22,7 @@ public class CampBuildingElement : VisualElement
     TroopsLimitElement _troopsLimitElement;
 
     const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
 
     const string _ussClassName = "camp-building__";
     const string _ussMain = _ussClassName + "main";
@@ -46,6 +50,7 @@ public class CampBuildingElement : VisualElement
         AddToClassList(_ussCommonTextPrimary);
 
         Label header = new($"{_campBuilding.name}");
+        header.style.fontSize = 36;
         Add(header);
 
         HandleUpgradeReward();
@@ -55,8 +60,13 @@ public class CampBuildingElement : VisualElement
         Add(_sprite);
         UpdateBuildingSprite();
 
-        HandleTimeToBuild();
-        HandleBuildButton();
+        _buildingRankContainer = new();
+        Add(_buildingRankContainer);
+        HandleBuildingRank();
+
+        _buildButtonContainer = new();
+        Add(_buildButtonContainer);
+        UpdateBuildButton();
     }
 
     void OnDayPassed(int day) { UpdateBuildButton(); }
@@ -85,106 +95,107 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
         {
             CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
-            _troopsLimitElement = new TroopsLimitElement($"+{c.LimitIncrease1}");
+            _troopsLimitElement = new TroopsLimitElement($"{_gameManager.TroopsLimit.ToString()}", 24);
             upgradeContainer.Add(_troopsLimitElement);
         }
 
-
         Add(upgradeContainer);
     }
-
-    void HandleTimeToBuild()
+    void HandleBuildingRank()
     {
-        if (_campBuilding.CampBuildingState == CampBuildingState.Built || _campBuilding.CampBuildingState == CampBuildingState.Building)
-            return;
-
-        _timeToBuild = new();
-        _timeToBuild.text = $"Time to build: {_campBuilding.DaysToBuild} days";
-        Add(_timeToBuild);
-    }
-
-    void HandleBuildButton()
-    {
-        _buildButtonContainer = new();
-        Add(_buildButtonContainer);
-        UpdateBuildButton();
+        _buildingRankElement = new(_campBuilding.UpgradeRank, 1, null, _campBuilding.UpgradeRange.y);
+        _buildingRankContainer.Add(_buildingRankElement);
     }
 
     void UpdateBuildButton()
     {
         _buildButtonContainer.Clear();
-        _buildButton = new(null, _ussBuildButton, Build);
-        _buildButtonContainer.Add(_buildButton);
-        _buildButton.SetEnabled(true);
 
         if (_campBuilding.CampBuildingState == CampBuildingState.NotBuilt)
-        {
-            _costGoldElement = new GoldElement(_campBuilding.CostToBuild);
-            _buildButton.Add(_costGoldElement);
-        }
-
-        if (_campBuilding.CampBuildingState == CampBuildingState.Built)
-        {
-            HandleBuildButtonUpgrade();
-            return;
-        }
+            HandleBuildButtonNotBuilt();
 
         if (_campBuilding.CampBuildingState == CampBuildingState.Building)
-        {
-            _buildButton.SetEnabled(false);
-            _timeToBuild = new($"Days left: {_campBuilding.DaysLeftToBuild}");
-            _buildButton.Add(_timeToBuild);
-            return;
-        }
+            HandleBuildButtonBuilding();
 
-        if (_gameManager.Gold < _campBuilding.CostToBuild)
-        {
-            _buildButton.SetEnabled(false);
-            return;
-        }
+        if (_campBuilding.CampBuildingState == CampBuildingState.Built)
+            HandleBuildButtonUpgrade();
+    }
 
-        _buildButton.UpdateButtonText("Build");
-        _buildButton.SetEnabled(true);
+    void HandleBuildButtonNotBuilt()
+    {
+        _buildButton = new(null, _ussBuildButton, Build);
+        _buildButton.RegisterCallback<PointerEnterEvent>(BuildButtonPointerEnter);
+        _buildButton.RegisterCallback<PointerLeaveEvent>(BuildButtonPointerLeave);
+        _costGoldElement = new GoldElement(_campBuilding.CostToBuild);
+        _buildButton.Add(_costGoldElement);
+        _buildButton.SetEnabled(false);
+        
+        _buildButtonContainer.Add(_buildButton);
+        _timeToBuild = new($"Time to build: {_campBuilding.DaysToBuild} days");
+        _buildButtonContainer.Add(_timeToBuild);
+
+        if (_gameManager.Gold >= _campBuilding.CostToBuild)
+            _buildButton.SetEnabled(true);
+    }
+
+    void HandleBuildButtonBuilding()
+    {
+        _buildButton = new(null, _ussBuildButton, Build);
+        _buildButtonContainer.Add(_buildButton);
+        _buildButton.SetEnabled(false);
+
+        _buildButton.SetEnabled(false);
+        _timeToBuild = new($"Days left: {_campBuilding.DaysLeftToBuild}");
+        _buildButton.Add(_timeToBuild);
+        return;
     }
 
     void HandleBuildButtonUpgrade()
     {
-        if (_campBuilding.UpgradeLevel < _campBuilding.UpgradeRange.y)
-        {
-            _buildButton.SetEnabled(false);
-            _buildButton.UpdateButtonText("Upgrade");
-            _costGoldElement = new GoldElement(_campBuilding.GetUpgradeCost());
-            _buildButton.Add(_costGoldElement);
-            _buildButton.RegisterCallback<PointerEnterEvent>(BuildButtonPointerEnter);
-            _buildButton.RegisterCallback<PointerLeaveEvent>(BuildButtonPointerLeave);
-
-            if (_gameManager.Gold < _campBuilding.GetUpgradeCost())
-                _buildButton.SetEnabled(true);
+        if (_campBuilding.UpgradeRank >= _campBuilding.UpgradeRange.y)
             return;
-        }
 
-        _buildButtonContainer.Clear();
+        _buildButton = new(null, _ussBuildButton, Upgrade);
+        _buildButton.RegisterCallback<PointerEnterEvent>(BuildButtonPointerEnter);
+        _buildButton.RegisterCallback<PointerLeaveEvent>(BuildButtonPointerLeave);
+        _buildButton.SetEnabled(false);
 
+        _costGoldElement = new GoldElement(_campBuilding.GetUpgradeCost());
+        _buildButton.Add(_costGoldElement);
+
+        _buildButtonContainer.Add(_buildButton);
+
+        if (_gameManager.Gold >= _campBuilding.GetUpgradeCost())
+            _buildButton.SetEnabled(true);
+    }
+
+    void Upgrade()
+    {
+        _campBuilding.Upgrade();
+        UpdateBuildButton();
+        _buildingRankElement.SetRank(_campBuilding.UpgradeRank);
     }
 
     void BuildButtonPointerEnter(PointerEnterEvent evt)
     {
         if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
         {
-            // TODO: get new value of troops increase
-            _troopsLimitElement.UpdateCountContainer("8", Color.green);
+            CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
+            int newTroopsLimit = _gameManager.TroopsLimit
+                    + c.GetTroopsLimitIncreaseByRank(c.UpgradeRank + 1).LimitIncrease;
+            _troopsLimitElement.UpdateCountContainer(newTroopsLimit.ToString(), Color.green);
         }
-
-
     }
+
     void BuildButtonPointerLeave(PointerLeaveEvent evt)
     {
         if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
         {
-            // TODO: get current value of troops increase
-            _troopsLimitElement.UpdateCountContainer("6", Color.white);
+            CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
+            _troopsLimitElement.UpdateCountContainer(
+                _gameManager.TroopsLimit.ToString()
+                , Color.white);
         }
-
     }
 
     void Build()
@@ -200,6 +211,7 @@ public class CampBuildingElement : VisualElement
         UpdateBuildingSprite();
         UpdateBuildButton();
 
+        _buildingRankElement.SetRank(_campBuilding.UpgradeRank);
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.CampBuilding, null, null, null, _campBuilding.Id);
         _gameManager.AddNewReport(r);

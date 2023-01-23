@@ -12,16 +12,17 @@ public class CampBuilding : BaseScriptableObject
 
     public int CostToBuild; // static
     public int DaysToBuild; // static
+    public Sound BuildingSound; // static 
+
 
     [Tooltip("0 - not built, 1 built and then upgrades")]
-    public Vector2 UpgradeRange; // static
+    public Vector2Int UpgradeRange; // static
 
-    public Sound BuildingSound; // static 
 
     [HideInInspector] public CampBuildingState CampBuildingState;
     [HideInInspector] public int DaysLeftToBuild;
     [HideInInspector] public int DayStartedBuilding;
-    [HideInInspector] public int UpgradeLevel;
+    [HideInInspector] public int UpgradeRank;
 
     public event Action<CampBuildingState> OnCampBuildingStateChanged;
     public void UpdateCampBuildingState(CampBuildingState newState)
@@ -67,18 +68,16 @@ public class CampBuilding : BaseScriptableObject
 
     public virtual void FinishBuilding()
     {
+        Upgrade();
         UpdateCampBuildingState(CampBuildingState.Built);
-        UpgradeLevel = 1;
     }
 
-    public virtual int GetUpgradeCost()
-    {
-        return Mathf.RoundToInt(CostToBuild * UpgradeLevel * 1.5f);
-    }
+    public virtual int GetUpgradeCost() { return Mathf.RoundToInt(CostToBuild * UpgradeRank * 1.5f); }
 
     public virtual void Upgrade()
     {
-        UpgradeLevel++;
+        UpgradeRank++;
+        _gameManager.SaveJsonData();
     }
 
     public void ResetSelf()
@@ -86,7 +85,7 @@ public class CampBuilding : BaseScriptableObject
         DaysLeftToBuild = DaysToBuild;
         DayStartedBuilding = 0;
         CampBuildingState = CampBuildingState.NotBuilt;
-        UpgradeLevel = 0;
+        UpgradeRank = 0;
     }
 
     public void LoadFromData(CampBuildingData data)
@@ -96,7 +95,7 @@ public class CampBuilding : BaseScriptableObject
 
         DaysLeftToBuild = data.DaysLeftToBuild;
         DayStartedBuilding = data.DayStartedBuilding;
-        UpgradeLevel = data.UpgradeLevel;
+        UpgradeRank = data.UpgradeRank;
     }
 
     public CampBuildingData SerializeSelf()
@@ -107,7 +106,7 @@ public class CampBuilding : BaseScriptableObject
         data.CampBuildingState = CampBuildingState.ToString();
         data.DaysLeftToBuild = DaysLeftToBuild;
         data.DayStartedBuilding = DayStartedBuilding;
-        data.UpgradeLevel = UpgradeLevel;
+        data.UpgradeRank = UpgradeRank;
 
         return data;
     }
@@ -121,6 +120,6 @@ public struct CampBuildingData
     public string CampBuildingState;
     public int DaysLeftToBuild;
     public int DayStartedBuilding;
-    public int UpgradeLevel;
+    public int UpgradeRank;
 
 }

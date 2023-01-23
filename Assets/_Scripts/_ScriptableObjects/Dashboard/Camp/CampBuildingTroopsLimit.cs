@@ -1,33 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Troops Limit")]
 public class CampBuildingTroopsLimit : CampBuilding
 {
-    public int LimitIncrease1;
-    public int LimitIncrease2;
-    public int LimitIncrease3;
-    public int LimitIncrease4;
+
+    public List<CampTroopsLimitUpgrade> CampTroopsLimitUpgrades = new();
 
 
-    public override void FinishBuilding()
+    public CampTroopsLimitUpgrade GetTroopsLimitIncreaseByRank(int rank)
     {
-        base.FinishBuilding();
-        _gameManager.ChangeTroopsLimit(LimitIncrease1);
+        return CampTroopsLimitUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
+
+    public override void FinishBuilding() { base.FinishBuilding(); }
 
     public override void Upgrade()
     {
         base.Upgrade();
-        // TODO: obviously something nicer
-        if (UpgradeLevel == 2)
-            _gameManager.ChangeTroopsLimit(LimitIncrease2);
-        if (UpgradeLevel == 3)
-            _gameManager.ChangeTroopsLimit(LimitIncrease3);
-        if (UpgradeLevel == 4)
-            _gameManager.ChangeTroopsLimit(LimitIncrease4);
-
+        _gameManager.ChangeTroopsLimit(GetTroopsLimitIncreaseByRank(UpgradeRank).LimitIncrease);
     }
+}
 
+[System.Serializable]
+public struct CampTroopsLimitUpgrade
+{
+    public int UpgradeRank;
+    public int LimitIncrease;
 }

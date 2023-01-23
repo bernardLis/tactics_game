@@ -456,15 +456,15 @@ MonoBehaviour:
   ReportsArchived: []
   _campBuildings:
   - {fileID: 11400000, guid: 5956f1db0d4f1c44fb36149993d5e40f, type: 2}
-  - {fileID: 11400000, guid: 56f22109bafa60141822342b2268161d, type: 2}
-  - {fileID: 11400000, guid: 59b4274afb93e174c94325c2798d528a, type: 2}
+  - {fileID: 11400000, guid: fddbccbea5136e8438772e12de12fb54, type: 2}
+  - {fileID: 11400000, guid: ffd64ac3b756792469b9a901807d96b5, type: 2}
   - {fileID: 11400000, guid: 8c9ea9ec9adf92f46b6a0b89a6525cbd, type: 2}
   - {fileID: 11400000, guid: 5ce585910074f9a4586f326aaa874e49, type: 2}
   - {fileID: 11400000, guid: 8c4a1cc3f24848d43b4e9949aed43a14, type: 2}
   - {fileID: 11400000, guid: 50916f3c6477363479d2194e56095e9c, type: 2}
-  - {fileID: 11400000, guid: 3ef022ffec38f8543b289d6a700da1fe, type: 2}
+  - {fileID: 11400000, guid: 8eb3e2e11f482874dad364636452226c, type: 2}
   - {fileID: 11400000, guid: ec86fed1a82212049b8ae256213497e9, type: 2}
-  - {fileID: 11400000, guid: af0b86e8d19c8d54c9138e013d2eace1, type: 2}
+  - {fileID: 11400000, guid: ee459f4b36027904880b1e77d5439f37, type: 2}
   - {fileID: 11400000, guid: 9d961d8f4218e234a92bd3834a70e80c, type: 2}
   - {fileID: 11400000, guid: 9ca0d1418db9aec47aec7b2600d668ea, type: 2}
   _abilityNodeGraphs:

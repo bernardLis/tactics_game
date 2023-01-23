@@ -21,9 +21,11 @@ public class MyButton : Button
             styleSheets.Add(ss);
 
         _audioManager = AudioManager.Instance;
-        
+
         _text = new Label(buttonText);
         Add(_text);
+        if (buttonText == null)
+            _text.style.display = DisplayStyle.None;
 
         if (className != null)
         {
@@ -55,7 +57,11 @@ public class MyButton : Button
 
     public void ClearCallbacks() { clickable = null; }
 
-    public void UpdateButtonText(string newText) { _text.text = newText; }
+    public void UpdateButtonText(string newText)
+    {
+        _text.text = newText;
+        _text.style.display = DisplayStyle.Flex;
+    }
 
     void PlayClick(MouseEnterEvent evt)
     {
