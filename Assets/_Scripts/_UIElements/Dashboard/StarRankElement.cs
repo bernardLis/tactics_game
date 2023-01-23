@@ -18,7 +18,7 @@ public class StarRankElement : ElementWithTooltip
     const string _ussEffect = _ussClassName + "__effect";
 
 
-    public StarRankElement(int rank, float scale = 1f, VisualElement tooltip = null)
+    public StarRankElement(int rank, float scale = 1f, VisualElement tooltip = null, int maxRank = 5)
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StarRankElementStyles);
         if (ss != null)
@@ -28,7 +28,7 @@ public class StarRankElement : ElementWithTooltip
         transform.scale = Vector3.one * scale;
 
         _rank = rank;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < maxRank; i++)
         {
             VisualElement star = new();
             star.AddToClassList(_ussStar);
@@ -40,18 +40,6 @@ public class StarRankElement : ElementWithTooltip
 
         if (tooltip != null)
             _tooltipElement = tooltip;
-    }
-
-    public void AddRank()
-    {
-        _rank++;
-        SetRank(_rank);
-    }
-
-    public void SubtractRank()
-    {
-        _rank--;
-        SetRank(_rank);
     }
 
     public async void SetRank(int rank)
@@ -80,7 +68,7 @@ public class StarRankElement : ElementWithTooltip
         }
         else
         {
-            Label l = new Label("rank tooltip to be implemented");
+            Label l = new Label("Rank tooltip to be implemented");
             l.style.whiteSpace = WhiteSpace.Normal;
             _tooltip = new(this, l);
         }

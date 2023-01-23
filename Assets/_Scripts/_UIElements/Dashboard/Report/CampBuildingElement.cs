@@ -16,6 +16,8 @@ public class CampBuildingElement : VisualElement
     VisualElement _upgradeCostContainer;
     GoldElement _costGoldElement;
 
+    TroopsLimitElement _troopsLimitElement;
+
     const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "camp-building__";
@@ -54,17 +56,16 @@ public class CampBuildingElement : VisualElement
         UpdateBuildingSprite();
 
         HandleTimeToBuild();
-        HandleUpgradeCost();
         HandleBuildButton();
     }
 
-    void OnDayPassed(int day) { UpdateTimeToBuild(); }
+    void OnDayPassed(int day) { UpdateBuildButton(); }
 
     void OnGoldChanged(int gold) { UpdateBuildButton(); }
 
     void OnCampBuildingStateChanged(CampBuildingState newState)
     {
-        if (newState == CampBuildingState.Finished)
+        if (newState == CampBuildingState.Built)
             BuildingFinished();
     }
 
@@ -72,21 +73,8 @@ public class CampBuildingElement : VisualElement
     {
         _sprite.style.backgroundImage = new StyleBackground(_campBuilding.OutlineSprite);
 
-        if (_campBuilding.CampBuildingState == CampBuildingState.Finished)
+        if (_campBuilding.CampBuildingState == CampBuildingState.Built)
             _sprite.style.backgroundImage = new StyleBackground(_campBuilding.BuiltSprite);
-    }
-
-    void HandleUpgradeCost()
-    {
-        _upgradeCostContainer = new();
-        if (_campBuilding.CampBuildingState != CampBuildingState.Pending)
-            return;
-        _upgradeCostContainer.AddToClassList(_ussUpgradeCostContainer);
-
-        _upgradeCostContainer.Add(new Label("Cost: "));
-        _costGoldElement = new GoldElement(_campBuilding.CostToBuild);
-        _upgradeCostContainer.Add(_costGoldElement);
-        Add(_upgradeCostContainer);
     }
 
     void HandleUpgradeReward()
@@ -97,35 +85,22 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
         {
             CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
-            upgradeContainer.Add(new TroopsLimitElement($"+{c.LimitIncrease}"));
+            _troopsLimitElement = new TroopsLimitElement($"+{c.LimitIncrease1}");
+            upgradeContainer.Add(_troopsLimitElement);
         }
 
-        
+
         Add(upgradeContainer);
     }
 
     void HandleTimeToBuild()
     {
+        if (_campBuilding.CampBuildingState == CampBuildingState.Built || _campBuilding.CampBuildingState == CampBuildingState.Building)
+            return;
+
         _timeToBuild = new();
-        Add(_timeToBuild);
-        UpdateTimeToBuild();
-    }
-
-    void UpdateTimeToBuild()
-    {
-        if (_campBuilding.CampBuildingState == CampBuildingState.Finished)
-        {
-            _timeToBuild.text = "";
-            return;
-        }
-
-        if (_campBuilding.CampBuildingState == CampBuildingState.Started)
-        {
-            _timeToBuild.text = $"Finished in: {_campBuilding.DaysLeftToBuild} days";
-            return;
-        }
-
         _timeToBuild.text = $"Time to build: {_campBuilding.DaysToBuild} days";
+        Add(_timeToBuild);
     }
 
     void HandleBuildButton()
@@ -138,24 +113,33 @@ public class CampBuildingElement : VisualElement
     void UpdateBuildButton()
     {
         _buildButtonContainer.Clear();
-
-        _buildButton = new("Build", _ussBuildButton, Build);
+        _buildButton = new(null, _ussBuildButton, Build);
         _buildButtonContainer.Add(_buildButton);
-        _buildButton.SetEnabled(false);
+        _buildButton.SetEnabled(true);
 
-        if (_campBuilding.CampBuildingState == CampBuildingState.Finished)
+        if (_campBuilding.CampBuildingState == CampBuildingState.NotBuilt)
         {
-            _buildButtonContainer.Clear();
+            _costGoldElement = new GoldElement(_campBuilding.CostToBuild);
+            _buildButton.Add(_costGoldElement);
+        }
+
+        if (_campBuilding.CampBuildingState == CampBuildingState.Built)
+        {
+            HandleBuildButtonUpgrade();
             return;
         }
-        if (_campBuilding.CampBuildingState == CampBuildingState.Started)
+
+        if (_campBuilding.CampBuildingState == CampBuildingState.Building)
         {
-            _buildButton.UpdateButtonText("Already building");
+            _buildButton.SetEnabled(false);
+            _timeToBuild = new($"Days left: {_campBuilding.DaysLeftToBuild}");
+            _buildButton.Add(_timeToBuild);
             return;
         }
+
         if (_gameManager.Gold < _campBuilding.CostToBuild)
         {
-            _buildButton.UpdateButtonText("Insufficient funds");
+            _buildButton.SetEnabled(false);
             return;
         }
 
@@ -163,12 +147,51 @@ public class CampBuildingElement : VisualElement
         _buildButton.SetEnabled(true);
     }
 
+    void HandleBuildButtonUpgrade()
+    {
+        if (_campBuilding.UpgradeLevel < _campBuilding.UpgradeRange.y)
+        {
+            _buildButton.SetEnabled(false);
+            _buildButton.UpdateButtonText("Upgrade");
+            _costGoldElement = new GoldElement(_campBuilding.GetUpgradeCost());
+            _buildButton.Add(_costGoldElement);
+            _buildButton.RegisterCallback<PointerEnterEvent>(BuildButtonPointerEnter);
+            _buildButton.RegisterCallback<PointerLeaveEvent>(BuildButtonPointerLeave);
+
+            if (_gameManager.Gold < _campBuilding.GetUpgradeCost())
+                _buildButton.SetEnabled(true);
+            return;
+        }
+
+        _buildButtonContainer.Clear();
+
+    }
+
+    void BuildButtonPointerEnter(PointerEnterEvent evt)
+    {
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
+        {
+            // TODO: get new value of troops increase
+            _troopsLimitElement.UpdateCountContainer("8", Color.green);
+        }
+
+
+    }
+    void BuildButtonPointerLeave(PointerLeaveEvent evt)
+    {
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
+        {
+            // TODO: get current value of troops increase
+            _troopsLimitElement.UpdateCountContainer("6", Color.white);
+        }
+
+    }
+
     void Build()
     {
         _campBuilding.StartBuilding();
         _gameManager.ChangeGoldValue(-_campBuilding.CostToBuild);
         UpdateBuildButton();
-        UpdateTimeToBuild();
         _costGoldElement.ChangeAmount(0);
     }
 
@@ -176,7 +199,6 @@ public class CampBuildingElement : VisualElement
     {
         UpdateBuildingSprite();
         UpdateBuildButton();
-        HandleUpgradeCost();
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.CampBuilding, null, null, null, _campBuilding.Id);

@@ -8,6 +8,7 @@ public class MyButton : Button
 {
     AudioManager _audioManager;
 
+    Label _text;
 
     const string _ussCommonButtonBasic = "common__button-basic";
 
@@ -20,8 +21,9 @@ public class MyButton : Button
             styleSheets.Add(ss);
 
         _audioManager = AudioManager.Instance;
-
-        text = buttonText;
+        
+        _text = new Label(buttonText);
+        Add(_text);
 
         if (className != null)
         {
@@ -53,9 +55,7 @@ public class MyButton : Button
 
     public void ClearCallbacks() { clickable = null; }
 
-    public void UpdateButtonText(string newText) { text = newText; }
-
-    public void UpdateButtonColor(Color color) { style.backgroundColor = color; }
+    public void UpdateButtonText(string newText) { _text.text = newText; }
 
     void PlayClick(MouseEnterEvent evt)
     {

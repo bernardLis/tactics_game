@@ -134,7 +134,7 @@ public enum ReportType
     Pawnshop, Ability, SpiceRecycle, Wages, RaiseRequest
 }
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
-public enum CampBuildingState { Pending, Started, Finished }
+public enum CampBuildingState { NotBuilt, Building, Built, Upgrading }
 public enum RecruitState { Pending, Resolved, Expired }
 public enum DashboardBuildingType { Desk, Camp, Abilities }
 public enum ElementName { Fire, Water, Wind, Earth }

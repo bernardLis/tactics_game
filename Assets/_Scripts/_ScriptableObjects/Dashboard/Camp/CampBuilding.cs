@@ -13,11 +13,15 @@ public class CampBuilding : BaseScriptableObject
     public int CostToBuild; // static
     public int DaysToBuild; // static
 
-    public Sound BuildingSound;
+    [Tooltip("0 - not built, 1 built and then upgrades")]
+    public Vector2 UpgradeRange; // static
+
+    public Sound BuildingSound; // static 
 
     [HideInInspector] public CampBuildingState CampBuildingState;
     [HideInInspector] public int DaysLeftToBuild;
     [HideInInspector] public int DayStartedBuilding;
+    [HideInInspector] public int UpgradeLevel;
 
     public event Action<CampBuildingState> OnCampBuildingStateChanged;
     public void UpdateCampBuildingState(CampBuildingState newState)
@@ -25,11 +29,11 @@ public class CampBuilding : BaseScriptableObject
         CampBuildingState = newState;
         switch (newState)
         {
-            case CampBuildingState.Pending:
+            case CampBuildingState.NotBuilt:
                 break;
-            case CampBuildingState.Started:
+            case CampBuildingState.Building:
                 break;
-            case CampBuildingState.Finished:
+            case CampBuildingState.Built:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -39,16 +43,13 @@ public class CampBuilding : BaseScriptableObject
 
     public void Initialize()
     {
-        if (CampBuildingState == CampBuildingState.Finished)
-            return;
-
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
     }
 
     public void StartBuilding()
     {
-        UpdateCampBuildingState(CampBuildingState.Started);
+        UpdateCampBuildingState(CampBuildingState.Building);
         DaysLeftToBuild = DaysToBuild;
         DayStartedBuilding = _gameManager.Day;
         _gameManager.GetComponent<AudioManager>().PlaySFX(BuildingSound, Vector3.one);
@@ -56,25 +57,36 @@ public class CampBuilding : BaseScriptableObject
 
     public void OnDayPassed(int day)
     {
-        if (CampBuildingState != CampBuildingState.Started)
-            return;
-
-        DaysLeftToBuild--;
-        if (DaysLeftToBuild == 0)
-            FinishBuilding();
+        if (CampBuildingState == CampBuildingState.Building)
+        {
+            DaysLeftToBuild--;
+            if (DaysLeftToBuild == 0)
+                FinishBuilding();
+        }
     }
 
     public virtual void FinishBuilding()
     {
-        UpdateCampBuildingState(CampBuildingState.Finished);
-        _gameManager.OnDayPassed -= OnDayPassed;
+        UpdateCampBuildingState(CampBuildingState.Built);
+        UpgradeLevel = 1;
+    }
+
+    public virtual int GetUpgradeCost()
+    {
+        return Mathf.RoundToInt(CostToBuild * UpgradeLevel * 1.5f);
+    }
+
+    public virtual void Upgrade()
+    {
+        UpgradeLevel++;
     }
 
     public void ResetSelf()
     {
         DaysLeftToBuild = DaysToBuild;
         DayStartedBuilding = 0;
-        CampBuildingState = CampBuildingState.Pending;
+        CampBuildingState = CampBuildingState.NotBuilt;
+        UpgradeLevel = 0;
     }
 
     public void LoadFromData(CampBuildingData data)
@@ -84,6 +96,7 @@ public class CampBuilding : BaseScriptableObject
 
         DaysLeftToBuild = data.DaysLeftToBuild;
         DayStartedBuilding = data.DayStartedBuilding;
+        UpgradeLevel = data.UpgradeLevel;
     }
 
     public CampBuildingData SerializeSelf()
@@ -94,6 +107,7 @@ public class CampBuilding : BaseScriptableObject
         data.CampBuildingState = CampBuildingState.ToString();
         data.DaysLeftToBuild = DaysLeftToBuild;
         data.DayStartedBuilding = DayStartedBuilding;
+        data.UpgradeLevel = UpgradeLevel;
 
         return data;
     }
@@ -107,4 +121,6 @@ public struct CampBuildingData
     public string CampBuildingState;
     public int DaysLeftToBuild;
     public int DayStartedBuilding;
+    public int UpgradeLevel;
+
 }

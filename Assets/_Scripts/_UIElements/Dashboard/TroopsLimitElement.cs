@@ -35,19 +35,20 @@ public class TroopsLimitElement : ElementWithTooltip
 
         _countContainer = new();
         Add(_countContainer);
-        UpdateCountContainer(text);
+        UpdateCountContainer(text, Color.white);
     }
 
     string GetTroopsCount() { return $"{_gameManager.PlayerTroops.Count} / {_gameManager.TroopsLimit}"; }
 
-    public void OnCharacterAddedToTroops(Character character) { UpdateCountContainer(GetTroopsCount()); }
+    public void OnCharacterAddedToTroops(Character character) { UpdateCountContainer(GetTroopsCount(), Color.white); }
 
-    public void OnTroopsLimitChanged(int change) { UpdateCountContainer(GetTroopsCount()); }
+    public void OnTroopsLimitChanged(int change) { UpdateCountContainer(GetTroopsCount(), Color.white); }
 
-    void UpdateCountContainer(string text)
+    public void UpdateCountContainer(string text, Color color)
     {
         _countContainer.Clear();
         Label l = new();
+        l.style.color = color;
         _countContainer.Add(l);
         _countContainer.style.justifyContent = Justify.Center;
         l.text = text;
