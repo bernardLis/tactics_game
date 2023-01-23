@@ -134,27 +134,31 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 98d2dc85f24f7ae4395544420536e940
-    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/RaiseRequestReportStyles.uss
+    m_Address: RaiseRequestReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4bba9aca015f7e445805ecebf6b39c78
-    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/BarMiniGameStyles.uss
+    m_Address: BarMiniGameStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 325d4af6710d7534d8c7e736fce169c7
-    m_Address: Assets/_Scripts/_UIElements/Styles/ConfirmPopupStyles.uss
+    m_Address: ConfirmPopupStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: c97e24d9050e57749aee3099e5cbe6a7
-    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/QuestResultStyles.uss
+    m_Address: QuestResultStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4496443c1c70fcf40a4dd27ff7628657
-    m_Address: Assets/_Scripts/_UIElements/Styles/Character/CharacterCardExpStyles.uss
+    m_Address: CharacterCardExpStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 1e5fca1dceaeb1f4bab0703760687dd3
-    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/RewardContainerStyles.uss
+    m_Address: RewardContainerStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 10db60192c1223a4ca8efc531251dc4d
+    m_Address: CampBuildingStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

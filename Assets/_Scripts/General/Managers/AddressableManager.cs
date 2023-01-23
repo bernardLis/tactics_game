@@ -52,4 +52,5 @@ public enum StyleSheetType
     CharacterCardStyles,
     CharacterCardMiniSlotStyles, CharacterCardMiniStyles,
     CharacterCardQuestStyles,
+    CampBuildingStyles,
 }

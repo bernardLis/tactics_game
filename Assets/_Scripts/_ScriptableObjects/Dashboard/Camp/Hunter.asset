@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a77948fed42c84998cf3af792195ac, type: 3}
+  m_Name: Hunter
+  m_EditorClassIdentifier: 
+  Id: 0aed05f9-c91d-4d1b-b5de-1dc7659bab97
+  OutlineSprite: {fileID: 21300000, guid: 7744c86cc85e7ff4da506d2e8f0659fa, type: 3}
+  BuiltSprite: {fileID: 21300000, guid: 4361f502293b74d4c883d78c01a951c6, type: 3}
+  CostToBuild: 100
+  DaysToBuild: 1
+  BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
+  CampBuildingState: 0
+  DaysLeftToBuild: 0
+  DayStartedBuilding: 0

@@ -16,16 +16,32 @@ public class CampBuildingElement : VisualElement
     VisualElement _upgradeCostContainer;
     GoldElement _costGoldElement;
 
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "camp-building__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussSprite = _ussClassName + "sprite";
+    const string _ussUpgradeCostContainer = _ussClassName + "upgrade-cost-container";
+    const string _ussBuildButton = _ussClassName + "build-button";
+
+
     public CampBuildingElement(CampBuilding campBuilding)
     {
         _gameManager = GameManager.Instance;
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (commonStyles != null)
+            styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CampBuildingStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         _gameManager.OnDayPassed += OnDayPassed;
         _gameManager.OnGoldChanged += OnGoldChanged;
 
         _campBuilding = campBuilding;
         _campBuilding.OnCampBuildingStateChanged += OnCampBuildingStateChanged;
-        AddToClassList("campBuildingVisualElement");
-        AddToClassList("textPrimary");
+        AddToClassList(_ussMain);
+        AddToClassList(_ussCommonTextPrimary);
 
         Label header = new($"{_campBuilding.name}");
         Add(header);
@@ -33,7 +49,7 @@ public class CampBuildingElement : VisualElement
         HandleUpgradeReward();
 
         _sprite = new();
-        _sprite.AddToClassList("campBuildingSprite");
+        _sprite.AddToClassList(_ussSprite);
         Add(_sprite);
         UpdateBuildingSprite();
 
@@ -65,9 +81,7 @@ public class CampBuildingElement : VisualElement
         _upgradeCostContainer = new();
         if (_campBuilding.CampBuildingState != CampBuildingState.Pending)
             return;
-
-        _upgradeCostContainer.style.flexDirection = FlexDirection.Row;
-        _upgradeCostContainer.style.alignItems = Align.Center;
+        _upgradeCostContainer.AddToClassList(_ussUpgradeCostContainer);
 
         _upgradeCostContainer.Add(new Label("Cost: "));
         _costGoldElement = new GoldElement(_campBuilding.CostToBuild);
@@ -85,6 +99,8 @@ public class CampBuildingElement : VisualElement
             CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
             upgradeContainer.Add(new TroopsLimitElement($"+{c.LimitIncrease}"));
         }
+
+        
         Add(upgradeContainer);
     }
 
@@ -123,7 +139,7 @@ public class CampBuildingElement : VisualElement
     {
         _buildButtonContainer.Clear();
 
-        _buildButton = new("Build", "campBuildButton", Build);
+        _buildButton = new("Build", _ussBuildButton, Build);
         _buildButtonContainer.Add(_buildButton);
         _buildButton.SetEnabled(false);
 
