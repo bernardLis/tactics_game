@@ -9,15 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6a77948fed42c84998cf3af792195ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 44db9dce1687f5b4faddfaaf14c640cc, type: 3}
   m_Name: Statue
   m_EditorClassIdentifier: 
-  Id: 5d19a2be-3ba2-41c2-82ee-b86d6569f354
+  Id: d86e9c60-a648-42d6-903d-043d9ed7d38f
   OutlineSprite: {fileID: 21300000, guid: ba58f264ce168944383217400d2f9d4c, type: 3}
-  BuiltSprite: {fileID: 21300000, guid: 2e017aa3f5c1db34abd5ceb1757b5ac3, type: 3}
+  BuiltSprite: {fileID: 21300000, guid: ba58f264ce168944383217400d2f9d4c, type: 3}
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
+  UpgradeRange: {x: 0, y: 4}
   CampBuildingState: 0
   DaysLeftToBuild: 0
   DayStartedBuilding: 0
+  UpgradeRank: 0

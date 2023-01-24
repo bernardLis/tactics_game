@@ -99,6 +99,15 @@ public class CampBuildingElement : VisualElement
             upgradeContainer.Add(_troopsLimitElement);
         }
 
+        // HERE:
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
+        {
+            CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
+            _troopsLimitElement = new TroopsLimitElement($"{_gameManager.TroopsLimit.ToString()}", 24);
+            upgradeContainer.Add(_troopsLimitElement);
+        }
+
+
         Add(upgradeContainer);
     }
     void HandleBuildingRank()
@@ -129,7 +138,7 @@ public class CampBuildingElement : VisualElement
         _costGoldElement = new GoldElement(_campBuilding.CostToBuild);
         _buildButton.Add(_costGoldElement);
         _buildButton.SetEnabled(false);
-        
+
         _buildButtonContainer.Add(_buildButton);
         _timeToBuild = new($"Time to build: {_campBuilding.DaysToBuild} days");
         _buildButtonContainer.Add(_timeToBuild);

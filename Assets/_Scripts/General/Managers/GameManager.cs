@@ -32,7 +32,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
     [HideInInspector] public List<Ability> CraftedAbilities = new();
 
-
     public List<Report> Reports = new();
     public List<Report> ReportsArchived = new();
 
@@ -308,6 +307,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
         Spice = 500;
 
+        MaxQuestRank = 1;
+
         TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
 
@@ -355,9 +356,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.Spice = Spice;
 
+        saveData.MaxQuestRank = MaxQuestRank;
+
         saveData.TroopsLimit = TroopsLimit;
         saveData.PlayerTroops = PopulateCharacters();
+
         saveData.ItemPouch = PopulateItemPouch();
+
         saveData.AbilityPouch = PopulateAbilityPouch();
         saveData.CraftedAbilities = PopulateCraftedAbilities();
 
@@ -460,8 +465,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Day = saveData.Day;
         Gold = saveData.Gold;
-
         Spice = saveData.Spice;
+
+        MaxQuestRank = saveData.MaxQuestRank;
 
         TroopsLimit = saveData.TroopsLimit;
         PlayerTroops = new();
@@ -535,6 +541,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
 
         Spice = 0;
+
+        MaxQuestRank = 1;
 
         TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
