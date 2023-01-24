@@ -9,30 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97aacd41b9031fb47ad1877f7ddb50eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Fire Touch 0
   m_EditorClassIdentifier: 
-  Id: 0d9956f1-b7c8-4ba2-a9aa-e46dad9e99b1
-  Description: Weak fire touch.
-  Icon: {fileID: 21300000, guid: b5dd35b758bb4ee4eb328af6e8f13b6c, type: 3}
-  Sound: {fileID: 11400000, guid: 5f6cb250e5c50f448b54cfdb6a2702ec, type: 2}
+  Id: 91ed24c5-cf19-44f2-b813-f0b3e89ee096
+  Description: Your hand gets really hot and I when I mean really hot I mean it.
+    You should not touch it with the other hand because you will get burned.
+  Icon: {fileID: 21300000, guid: 1e6bd9271f5e1c344a7b56fab4cbc584, type: 3}
   BasePower: 10
   ManaCost: 5
-  AbilityType: 0
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  WeaponType: 0
-  AreaOfEffect: 0
-  LineAreaOfEffect: 0
-  SpellcastAnimation: 1
-  StatModifier: {fileID: 0}
-  Status: {fileID: 11400000, guid: 7c132253b05ff23438944fee1dfdd74c, type: 2}
-  Projectile: {fileID: 0}
-  AbilityEffect: {fileID: 8824430917687339525, guid: 13845cadcc8e2bf43b8e3f1f89140541, type: 3}
-  Range: 1
-  CanTargetSelf: 0
-  CanTargetDiagonally: 1
-  HighlightColor: {r: 0.6792453, g: 0.33895588, b: 0, a: 1}
-  Price: 1
-  Rank: 0
-  CharacterGameObject: {fileID: 0}
-  CreatedObject: {fileID: 0}
+  SpiceCost: 10
+  StarRank: 0
+  TimeLeftToCrafted: 0

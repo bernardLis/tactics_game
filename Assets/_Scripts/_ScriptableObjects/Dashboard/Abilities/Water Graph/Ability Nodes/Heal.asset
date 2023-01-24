@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   Id: 52dcf696-c9e1-43ef-a416-f2756b1fc1c5
+  IsPermaLocked: 0
   IconUnlocked: {fileID: 21300000, guid: 0d3748f5df9f36040abd552708c84240, type: 3}
   IconLocked: {fileID: 21300000, guid: 5f85ea25930c2bf4a80117ab63f5b828, type: 3}
   Title: Heal
@@ -30,6 +31,6 @@ MonoBehaviour:
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
   Abilities:
   - {fileID: 11400000, guid: 34d798471a097bd48bbe81cbcb9add95, type: 2}
-  - {fileID: 11400000, guid: 4218401060603424daddf519a7968b80, type: 2}
-  - {fileID: 11400000, guid: 2eac4f5b5e4513340b902056180c9268, type: 2}
-  - {fileID: 11400000, guid: 317f79e3c0d41c745acc8ff60871d7de, type: 2}
+  - {fileID: 11400000, guid: 97d32039525de614495d6369d93ea45a, type: 2}
+  - {fileID: 11400000, guid: 93a28885fd319b248b152d73ffab8512, type: 2}
+  - {fileID: 11400000, guid: 06099217ae6a4c644bfa9cd783b81449, type: 2}

@@ -9,30 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d898f116c1e0c6c4ab7be9cd59f9b50c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Heal 3
   m_EditorClassIdentifier: 
-  Id: 504673d6-acc5-496e-b8bf-3d529666e232
-  Description: Heal target
-  Icon: {fileID: 21300000, guid: 0d3748f5df9f36040abd552708c84240, type: 3}
-  Sound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  Id: 8a2e22211033333
+  Description: Classic video game skill. There was a guy who could do it in the real
+    world too!
+  Icon: {fileID: 21300000, guid: 2c8c65e1a877eef4d93bdd1029b4c847, type: 3}
   BasePower: 30
-  ManaCost: 25
-  AbilityType: 1
+  ManaCost: 15
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  WeaponType: 0
-  AreaOfEffect: 1
-  LineAreaOfEffect: 0
-  SpellcastAnimation: 1
-  StatModifier: {fileID: 0}
-  Status: {fileID: 0}
-  Projectile: {fileID: 0}
-  AbilityEffect: {fileID: 0}
-  Range: 4
-  CanTargetSelf: 1
-  CanTargetDiagonally: 1
-  HighlightColor: {r: 0, g: 0.12954064, b: 0.8018868, a: 1}
+  SpiceCost: 3
+  StarRank: 30
   TimeLeftToCrafted: 0
-  SpiceCost: 1
-  StarRank: 3
-  CharacterGameObject: {fileID: 0}

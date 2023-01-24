@@ -23,14 +23,9 @@ MonoBehaviour:
   Power: 10
   Armor: 0
   MovementRange: 3
-  Body: {fileID: 11400000, guid: 1c3406ce133c90346b0829088f09efd4, type: 2}
-  Weapon: {fileID: 11400000, guid: 1b75b732066643e43adc363f5241ad14, type: 2}
-  Items:
-  - {fileID: 11400000, guid: 92ecf3a68f41ba340a83203ae4dbd589, type: 2}
-  Abilities:
-  - {fileID: 11400000, guid: f1adf215aef72934aaf79ac6996e1ff7, type: 2}
+  Items: []
+  Abilities: []
   IsAssigned: 0
   IsUnavailable: 0
   DayStartedBeingUnavailable: 0
   UnavailabilityDuration: 0
-  WeeklyWage: 50

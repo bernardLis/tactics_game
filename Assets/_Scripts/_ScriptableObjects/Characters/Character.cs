@@ -37,15 +37,13 @@ public class Character : BaseScriptableObject
     public int ArmorBonus { get; private set; }
     public int MovementRangeBonus { get; private set; }
 
-    [Header("Equipment")]
-    public Equipment Body;
-    public Weapon Weapon;
+    public CharacterRank Rank { get; private set; }
+
+    [Header("Items")]
     public List<Item> Items = new();
 
     [Header("Abilities")]
     public List<Ability> Abilities = new();
-
-    public CharacterRank Rank { get; private set; }
 
     [Header("Quest")]
     [HideInInspector] public bool IsAssigned;
@@ -70,17 +68,6 @@ public class Character : BaseScriptableObject
     public event Action<int> OnPowerChanged;
     public event Action<int> OnArmorChanged;
     public event Action<int> OnMovementRangeChanged;
-
-    public virtual void Initialize(GameObject obj)
-    {
-        Transform bodyObj = obj.transform.Find("Body");
-        if (Body != null)
-            Body.Initialize(bodyObj.gameObject);
-
-        Transform weaponObj = bodyObj.transform.Find("Weapon");
-        if (Weapon != null)
-            Weapon.Initialize(weaponObj.gameObject);
-    }
 
     public void ChangeStat(string stat, int value)
     {
@@ -305,8 +292,6 @@ public class Character : BaseScriptableObject
         Armor = 0;
         MovementRange = 3;
 
-        Body = gameDatabase.GetBodyByName("OnePunchMan");
-        Weapon = gameDatabase.GetRandomWeapon();
         List<Item> Items = new();
 
         Abilities = new();
@@ -383,9 +368,6 @@ public class Character : BaseScriptableObject
         Armor = data.Armor;
         MovementRange = data.MovementRange;
 
-        Body = gameDatabase.GetBodyByName(data.Body);
-        Weapon = gameDatabase.GetWeaponByName(data.Weapon);
-
         foreach (AbilityData abilityData in data.AbilityData)
         {
             Ability a = Instantiate(gameDatabase.GetAbilityById(abilityData.TemplateId));
@@ -426,8 +408,6 @@ public class Character : BaseScriptableObject
         data.MaxMana = MaxMana;
         data.Armor = Armor;
         data.MovementRange = MovementRange;
-        data.Body = Body.name;
-        data.Weapon = Weapon.name;
 
         List<AbilityData> abilityData = new();
         foreach (Ability a in Abilities)
@@ -470,8 +450,6 @@ public struct CharacterData
     public int MaxMana;
     public int Armor;
     public int MovementRange;
-    public string Body;
-    public string Weapon;
     public List<AbilityData> AbilityData;
     public List<string> ItemIds;
 

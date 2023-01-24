@@ -13,16 +13,8 @@ public class Quest : BaseScriptableObject
     public string Title;
     public string Description;
     public Element ThreatElement;
-    public QuestState QuestState;
-
-    [Header("Battle")]
-    public string SceneToLoad = Scenes.Battle;
-    public TilemapBiome Biome;
-    public MapVariant MapVariant;
-    public Vector2Int MapSize;
-    public BattleGoal BattleGoal;
-    public List<Brain> Enemies = new();
     public Reward Reward;
+    public QuestState QuestState;
 
     [Header("Management")]
     public int ExpiryDay;
@@ -163,18 +155,6 @@ public class Quest : BaseScriptableObject
         ThreatElement = _gameManager.GameDatabase.GetRandomElement();
         QuestState = QuestState.Pending;
 
-        Biome = _gameManager.GameDatabase.GetRandomBiome();
-        MapVariant = _gameManager.GameDatabase.GetRandomMapVariant();
-        MapSize = new Vector2Int(Random.Range(5, 20), Random.Range(5, 20));
-        BattleGoal = BattleGoal.DefeatAllEnemies;
-
-        int numberOfEnemies = Random.Range(1, 6);
-        for (int i = 0; i < numberOfEnemies; i++)
-        {
-            Brain b = Instantiate(_gameManager.GameDatabase.GetRandomEnemyBrain());
-            Enemies.Add(b);
-        }
-
         Reward = ScriptableObject.CreateInstance<Reward>();
         Reward.CreateRandom();
 
@@ -196,16 +176,6 @@ public class Quest : BaseScriptableObject
         Description = data.Description;
 
         QuestState = (QuestState)Enum.Parse(typeof(QuestState), data.QuestState);
-
-        SceneToLoad = data.SceneToLoad;
-
-        Biome = _gameManager.GameDatabase.GetTilemapBiomeById(data.Biome);
-        MapVariant = _gameManager.GameDatabase.GetMapVariantById(data.MapVariant);
-        MapSize = data.MapSize;
-        BattleGoal = BattleGoal.DefeatAllEnemies;
-        Enemies = new();
-        foreach (string e in data.Enemies)
-            Enemies.Add(_gameManager.GameDatabase.GetEnemyBrainById(e));
 
         Reward = ScriptableObject.CreateInstance<Reward>();
         Reward.Gold = data.RewardData.Gold;
@@ -232,14 +202,6 @@ public class Quest : BaseScriptableObject
         qd.ThreatElement = ThreatElement.ElementName.ToString();
         qd.QuestState = QuestState.ToString();
 
-        qd.SceneToLoad = SceneToLoad;
-        qd.Biome = Biome.Id;
-        qd.MapVariant = MapVariant.Id;
-        qd.MapSize = MapSize;
-        qd.Enemies = new();
-        foreach (Brain e in Enemies)
-            qd.Enemies.Add(e.Id);
-
         qd.RewardData = Reward.SerializeSelf();
 
         qd.ExpiryDay = ExpiryDay;
@@ -264,12 +226,6 @@ public struct QuestData
     public string Description;
     public string ThreatElement;
     public string QuestState;
-
-    public string SceneToLoad;
-    public string Biome;
-    public string MapVariant;
-    public Vector2Int MapSize;
-    public List<string> Enemies;
     public RewardData RewardData;
 
     public int ExpiryDay;

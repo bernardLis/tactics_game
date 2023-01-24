@@ -32,9 +32,6 @@ public class MenuScreen : FullScreenElement
         var tempColor = style.backgroundColor.value;
         tempColor.a = 0.5f;
         style.backgroundColor = tempColor;
-
-        if (BattleManager.Instance != null)
-            BattleManager.Instance.PauseGame();
     }
 
     void AddButtons()
@@ -76,9 +73,6 @@ public class MenuScreen : FullScreenElement
 
     public override void Hide()
     {
-        if (BattleManager.Instance != null)
-            BattleManager.Instance.ResumeGame();
-
         base.Hide();
         OnClose?.Invoke();
     }

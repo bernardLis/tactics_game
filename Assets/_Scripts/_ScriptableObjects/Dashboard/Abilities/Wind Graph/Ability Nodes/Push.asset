@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Push
   m_EditorClassIdentifier: 
   Id: 1-0386-40fc-b469-8d96676d4498
+  IsPermaLocked: 0
   IconUnlocked: {fileID: 21300000, guid: 9bf9be34eac06a146aee83bec4040ce3, type: 3}
   IconLocked: {fileID: 21300000, guid: 4d6dde7a5dda2954e8f7ef3aece830b9, type: 3}
   Title: Push
@@ -29,6 +30,6 @@ MonoBehaviour:
   AbilityCraftedEffect: {fileID: 11400000, guid: 05e2f1555aeb4af40aa639898cb23f5c, type: 2}
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
   Abilities:
-  - {fileID: 11400000, guid: 0b1d1b024186dc24ea2f95d583d64397, type: 2}
-  - {fileID: 11400000, guid: 16d162b023bc5cb41a0519a68bee6320, type: 2}
-  - {fileID: 11400000, guid: 396ddacba91276e4692c95ece21fd8a9, type: 2}
+  - {fileID: 11400000, guid: 42ecaff66c02b8c4d8b336f9c8a2f937, type: 2}
+  - {fileID: 11400000, guid: cec39b3138f24b0489541d3fc1041b0d, type: 2}
+  - {fileID: 11400000, guid: 65c33204802a65744983634f5806c5bc, type: 2}

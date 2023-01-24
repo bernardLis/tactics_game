@@ -28,7 +28,6 @@ public class AbilityButton : ElementWithSound
         Ability = ability;
         Key = key;
 
-        style.backgroundColor = ability.HighlightColor;
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 

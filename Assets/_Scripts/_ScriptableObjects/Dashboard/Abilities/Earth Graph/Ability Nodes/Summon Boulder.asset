@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Summon Boulder
   m_EditorClassIdentifier: 
   Id: 3371c5fb-bb51-4f0a-8331-eb131a6b1f8c
+  IsPermaLocked: 0
   IconUnlocked: {fileID: 21300000, guid: cf83a3e184fc3fd49aa062bb922d067d, type: 3}
   IconLocked: {fileID: 21300000, guid: bcbddd7438904fb4d8031e23f1406eeb, type: 3}
   Title: Summon Boulder
@@ -30,6 +31,7 @@ MonoBehaviour:
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
   Abilities:
   - {fileID: 11400000, guid: 9b2309d30543b3e458dba1ce61e2d984, type: 2}
-  - {fileID: 11400000, guid: 920713611d2c308448464de0586bd365, type: 2}
-  - {fileID: 11400000, guid: 74d66ddf20c33ec428050bedb34c5416, type: 2}
-  - {fileID: 11400000, guid: 7cf93efea0e25c34cac845c473f697bb, type: 2}
+  - {fileID: 11400000, guid: 7826ca5053518cd4cb1bdd310d5c10dd, type: 2}
+  - {fileID: 11400000, guid: e30492f8ad7283543bdac532bc1e1de2, type: 2}
+  - {fileID: 11400000, guid: 125b676c92177aa4f9f20ce62b8207eb, type: 2}
+  - {fileID: 11400000, guid: 3d151dd0bdf5cb44c8495ac983eaf149, type: 2}

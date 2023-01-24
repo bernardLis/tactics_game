@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
-  m_Name: Summon Boulder 3
+  m_Name: Summon Boulder 4
   m_EditorClassIdentifier: 
-  Id: 3e-cdf7-4428-86ae-a3ebcef51af3
+  Id: 4e-cdf7-4428-86ae-a3ebcef51af3
   Description: Boulder falls from the sky.  The higher the rank the bigger the boulder.
     The heavier the boulder. The heavier the boulder the more pain it inflicts.
   Icon: {fileID: 21300000, guid: cf83a3e184fc3fd49aa062bb922d067d, type: 3}
-  BasePower: 30
+  BasePower: 35
   ManaCost: 20
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  SpiceCost: 20
-  StarRank: 3
+  SpiceCost: 25
+  StarRank: 4
   TimeLeftToCrafted: 0

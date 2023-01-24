@@ -47,7 +47,6 @@ public class ConversationManager : Singleton<ConversationManager>
     public async Task PlayConversation(Conversation conversation)
     {
         GameManager.Instance.GetComponent<GameUIManager>().DisableMenuButton(); // TODO: ugh...
-        BattleUI.Instance.HideAllUI();
         _conversation = conversation;
         _isConversationOn = true;
         _currentLineIndex = 0;
@@ -57,7 +56,6 @@ public class ConversationManager : Singleton<ConversationManager>
         while (_isConversationOn)
             await Task.Yield();
 
-        BattleUI.Instance.ShowAllUI();
         GameManager.Instance.GetComponent<GameUIManager>().EnableMenuButton(); // TODO: ugh...
     }
 

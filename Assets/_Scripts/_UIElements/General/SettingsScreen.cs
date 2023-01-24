@@ -7,16 +7,11 @@ public class SettingsScreen : FullScreenElement
 {
     GameManager _gameManager;
     AudioManager _audioManger;
-
     Toggle _fullScreenToggle;
-    Toggle _tutorialToggle;
 
     Toggle _menuEffectsToggle;
-    Toggle _battleLogToggle;
-    Toggle _battleHelperTextToggle;
 
     VisualElement _parent;
-
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonUIContainer = "common__ui-container";
@@ -25,7 +20,6 @@ public class SettingsScreen : FullScreenElement
     const string _ussClassName = "settings-menu__";
     const string _ussMain = _ussClassName + "main";
     const string _ussVolumeSlider = _ussClassName + "volume-slider";
-
 
     public SettingsScreen(VisualElement root, VisualElement parent)
     {
@@ -74,10 +68,7 @@ public class SettingsScreen : FullScreenElement
         AddUIOptions(uiOptionsContainer);
 
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
-        {
-            AddPlayTutorialContainer();
             AddClearSaveButton();
-        }
 
         AddBackButton();
     }
@@ -231,25 +222,6 @@ public class SettingsScreen : FullScreenElement
         base.Hide();
     }
 
-    void AddPlayTutorialContainer()
-    {
-        VisualElement container = CreateContainer("Play Tutorial");
-        _tutorialToggle = new Toggle();
-        //_tutorialToggle.value = !_gameManager.WasTutorialPlayed;
-        _tutorialToggle.RegisterValueChangedCallback(PlayTutorialToggleClick);
-        container.Add(_tutorialToggle);
-        Add(container);
-    }
-
-    void PlayTutorialToggleClick(ChangeEvent<bool> evt)
-    {
-        _tutorialToggle.value = evt.newValue;
-       // if (evt.newValue)
-       //     _gameManager.SetWasTutorialPlayed(false);
-       // else
-      //      _gameManager.SetWasTutorialPlayed(true);
-    }
-
     void AddClearSaveButton()
     {
         ConfirmPopUp popUp = new ConfirmPopUp();
@@ -265,38 +237,12 @@ public class SettingsScreen : FullScreenElement
         menuEffectsToggleContainer.Add(_menuEffectsToggle);
         ToggleMenuEffects(PlayerPrefs.GetInt("HideMenuEffects", 0) != 0);
         _menuEffectsToggle.RegisterValueChangedCallback(MenuEffectsToggleClick);
-
-        VisualElement battleLogToggleContainer = CreateContainer("Hide Battle Log");
-        parent.Add(battleLogToggleContainer);
-        _battleLogToggle = new Toggle();
-        battleLogToggleContainer.Add(_battleLogToggle);
-        ToggleBattleLog(PlayerPrefs.GetInt("HideBattleLog", 0) != 0);
-        _battleLogToggle.RegisterValueChangedCallback(BattleLogToggleClick);
-
-        VisualElement battleHelperToggleContainer = CreateContainer("Hide Battle Helper Text");
-        parent.Add(battleHelperToggleContainer);
-        _battleHelperTextToggle = new Toggle();
-        battleHelperToggleContainer.Add(_battleHelperTextToggle);
-        ToggleBattleHelperText(PlayerPrefs.GetInt("HideBattleHelperText", 0) != 0);
-        _battleHelperTextToggle.RegisterValueChangedCallback(BattleHelperTextToggleClick);
     }
 
     void MenuEffectsToggleClick(ChangeEvent<bool> evt)
     {
         PlayerPrefs.SetInt("HideMenuEffects", (evt.newValue ? 1 : 0));
         ToggleMenuEffects(evt.newValue);
-    }
-
-    void BattleLogToggleClick(ChangeEvent<bool> evt)
-    {
-        PlayerPrefs.SetInt("HideBattleLog", (evt.newValue ? 1 : 0));
-        ToggleBattleLog(evt.newValue);
-    }
-
-    void BattleHelperTextToggleClick(ChangeEvent<bool> evt)
-    {
-        PlayerPrefs.SetInt("HideBattleHelperText", (evt.newValue ? 1 : 0));
-        ToggleBattleHelperText(evt.newValue);
     }
 
     void ToggleMenuEffects(bool hide)
@@ -306,24 +252,6 @@ public class SettingsScreen : FullScreenElement
         if (_gameManager == null)
             return;
         _gameManager.SetHideMenuEffects(hide);
-    }
-
-    void ToggleBattleLog(bool hide)
-    {
-        _battleLogToggle.value = hide;
-
-        if (BattleUI.Instance == null)
-            return;
-        BattleUI.Instance.ToggleBattleLog(hide);
-    }
-
-    void ToggleBattleHelperText(bool hide)
-    {
-        _battleHelperTextToggle.value = hide;
-
-        if (BattleUI.Instance == null)
-            return;
-        BattleUI.Instance.ToggleBattleHelperText(hide);
     }
 
     void ClearSaveData() { _gameManager.ClearSaveData(); }

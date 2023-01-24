@@ -2,7 +2,6 @@ using UnityEngine.UIElements;
 public class AbilityTooltipElement : ElementWithTooltip
 {
     Ability _ability;
-    VisualElement _modifierContainer;
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonTextSecondary = "common__text-secondary";
@@ -41,41 +40,12 @@ public class AbilityTooltipElement : ElementWithTooltip
         Label manaCost = new("Mana cost: " + ability.ManaCost.ToString());
         manaCost.AddToClassList(_ussCommonTextSecondary);
 
-        Label range = new("Range: " + ability.Range);
-        range.AddToClassList(_ussCommonTextSecondary);
-
-        Label aoe = new("AOE: " + ability.GetAOEDescription());
-        aoe.AddToClassList(_ussCommonTextSecondary);
-
         StarRankElement rank = new(ability.StarRank, 0.5f);
-
-        _modifierContainer = new();
-        _modifierContainer.AddToClassList("modifierContainer");
-        HandleModifiers(ability);
 
         Add(container);
         Add(rank);
         Add(description);
         Add(baseDamage);
         Add(manaCost);
-        Add(range);
-        Add(aoe);
-        Add(_modifierContainer);
     }
-
-    void HandleModifiers(Ability ability)
-    {
-        if (ability.StatModifier != null)
-        {
-            ModifierElement mElement = new ModifierElement(ability.StatModifier);
-            _modifierContainer.Add(mElement);
-        }
-
-        if (ability.Status != null)
-        {
-            ModifierElement mElement = new ModifierElement(ability.Status);
-            _modifierContainer.Add(mElement);
-        }
-    }
-
 }

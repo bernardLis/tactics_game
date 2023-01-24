@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CutsceneCameraManager : BattleCameraManager
+public class CutsceneCameraManager : Singleton<CutsceneCameraManager>
 {
+    Camera _cam;
     protected override void Awake()
     {
         base.Awake();
@@ -12,7 +13,7 @@ public class CutsceneCameraManager : BattleCameraManager
     }
 
     public void PanCamera(Vector3 direction, float duration)
-    {            
+    {
         Vector3 newPos = transform.position + direction;
         transform.DOMove(newPos, duration);
     }

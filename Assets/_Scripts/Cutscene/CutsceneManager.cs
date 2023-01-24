@@ -32,7 +32,7 @@ public class CutsceneManager : Singleton<CutsceneManager>
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
-        _cameraManager = (CutsceneCameraManager)BattleCameraManager.Instance;
+        _cameraManager = (CutsceneCameraManager)CutsceneCameraManager.Instance;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
         _text = root.Q<Label>("text");

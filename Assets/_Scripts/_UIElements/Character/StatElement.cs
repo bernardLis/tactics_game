@@ -40,21 +40,12 @@ public class StatElement : ElementWithTooltip
         BaseStatVisual(icon);
 
         _stat = stat;
-        _stat.OnModifierAdded += OnModifierAdded;
-        _stat.OnModifierRemoved += OnModifierRemoved;
-
-        RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
 
         _tooltipText = _stat.Type.ToString();
 
         HandleStatValue();
     }
 
-    void OnPanelDetached(DetachFromPanelEvent evt)
-    {
-        _stat.OnModifierAdded -= OnModifierAdded;
-        _stat.OnModifierRemoved -= OnModifierRemoved;
-    }
 
     void BaseStatVisual(Sprite icon)
     {
@@ -71,10 +62,6 @@ public class StatElement : ElementWithTooltip
         Add(Value);
     }
 
-    void OnModifierAdded(StatModifier modifier) { HandleStatValue(); }
-
-    void OnModifierRemoved(StatModifier modifier) { HandleStatValue(); }
-
     void HandleStatValue()
     {
         Value.text = _stat.GetValue().ToString();
@@ -85,7 +72,6 @@ public class StatElement : ElementWithTooltip
         if (_stat.GetValue() < _stat.BaseValue)
             Value.style.color = Color.red;
     }
-
 
     protected override void DisplayTooltip()
     {

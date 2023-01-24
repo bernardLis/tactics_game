@@ -12,12 +12,10 @@ public class Item : BaseScriptableObject
     public ItemRarity Rarity;
     public int Value;
     public int Price;
-    public Status Status;
     public string TooltipText;
 
     public int GetSellValue() { return Mathf.FloorToInt(Price * 0.5f); }
 
-    public virtual void Initialize(CharacterStats stats) { }
 
     public void LoadFromData(ItemData data)
     {
@@ -30,7 +28,6 @@ public class Item : BaseScriptableObject
         Rarity = i.Rarity;
         Value = i.Value;
         Price = i.Price;
-        Status = i.Status;
         TooltipText = i.TooltipText;
     }
 

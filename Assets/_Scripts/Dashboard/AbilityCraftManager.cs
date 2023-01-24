@@ -28,14 +28,9 @@ public class AbilityCraftManager : MonoBehaviour
     VisualElement _abilityDescriptionContainer;
     Label _abilityDescription;
 
-    VisualElement _abilityRangeContainer;
     VisualElement _abilityDamageContainer;
-    VisualElement _abilityAOEContainer;
-    VisualElement _abilityStatusContainer;
 
-    Label _abilityRange;
     Label _abilityDamage;
-    Label _abilityAOE;
     Label _abilityManaCost;
 
     VisualElement _abilityCostContainer;
@@ -119,10 +114,7 @@ public class AbilityCraftManager : MonoBehaviour
         _craftAbilityName = _root.Q<TextField>("craftAbilityName");
         _abilityDescriptionContainer = _root.Q<VisualElement>("craftAbilityDescriptionContainer");
 
-        _abilityRangeContainer = _root.Q<VisualElement>("craftAbilityRangeContainer");
         _abilityDamageContainer = _root.Q<VisualElement>("craftAbilityDamageContainer");
-        _abilityAOEContainer = _root.Q<VisualElement>("craftAbilityAOEContainer");
-        _abilityStatusContainer = _root.Q<VisualElement>("craftAbilityStatusContainer");
 
         _abilityManaCost = _root.Q<Label>("craftAbilityManaCost");
         _abilityCostContainer = _root.Q<VisualElement>("craftAbilityCostContainer");
@@ -135,10 +127,7 @@ public class AbilityCraftManager : MonoBehaviour
         _craftTooltip.text = ("Drag & drop unlocked node to start ability crafting");
         SetUpStarContainer();
         SetUpDescriptionContainer();
-        SetUpRangeContainer();
         SetUpDamageContainer();
-        SetUpAOEContainer();
-        SetUpStatusContainer();
 
         CreateCraftSpiceElement();
         ResetCraftValues();
@@ -196,13 +185,6 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityDescriptionContainer.Add(_abilityDescription);
     }
 
-    void SetUpRangeContainer()
-    {
-        _abilityRange = new("Range: 0");
-        _abilityRangeContainer.Clear();
-        _abilityRangeContainer.Add(_abilityRange);
-    }
-
     void SetUpDamageContainer()
     {
         _abilityDamage = new("Damage: 0");
@@ -210,29 +192,10 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityDamageContainer.Add(_abilityDamage);
     }
 
-    void SetUpAOEContainer()
-    {
-        _abilityAOE = new("AOE: 0");
-        _abilityAOEContainer.Clear();
-        _abilityAOEContainer.Add(_abilityAOE);
-    }
-
-    void SetUpStatusContainer()
-    {
-        _abilityStatusContainer.Clear();
-    }
-
     void UpdateCraftingValuesDisplayed()
     {
         _abilityDescription.text = $"{_abilityTemplate.Description}";
-        _abilityRange.text = $"Range: {_abilityTemplate.Range}";
         _abilityDamage.text = $"Damage: {_abilityTemplate.BasePower}";
-        _abilityAOE.text = $"AOE: {_abilityTemplate.AreaOfEffect}";
-
-        _abilityStatusContainer.Clear();
-        _abilityStatusContainer.Add(new Label("Status: "));
-        if (_abilityTemplate.Status != null)
-            _abilityStatusContainer.Add(new ModifierElement(_abilityTemplate.Status));
 
         _abilityManaCost.text = $"Mana cost: {_abilityTemplate.ManaCost}";
 
@@ -244,10 +207,7 @@ public class AbilityCraftManager : MonoBehaviour
         _spiceElement.ChangeAmount(0);
 
         _craftAbilityName.value = "Name your ability";
-        _abilityRange.text = $"Range: 0";
         _abilityDamage.text = $"Damage: 0";
-        _abilityAOE.text = $"AOE: 0";
-        _abilityStatusContainer.Clear();
 
         _abilityManaCost.text = $"Mana cost: 0";
     }
