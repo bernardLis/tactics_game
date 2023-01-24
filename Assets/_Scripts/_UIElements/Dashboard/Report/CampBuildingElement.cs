@@ -117,11 +117,19 @@ public class CampBuildingElement : VisualElement
         {
             CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
             string tooltipText = "Chance pawnshop visits.";
-            _upgradeText = new(c.GetPawnshopVisitChance().ToString(), tooltipText);
+            _upgradeText = new(c.GetVisitChance().ToString(), tooltipText);
             _upgradeText.UpdateFontSize(36);
             upgradeContainer.Add(_upgradeText);
         }
 
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
+        {
+            CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
+            string tooltipText = "Chance spice recycler visits.";
+            _upgradeText = new(c.GetVisitChance().ToString(), tooltipText);
+            _upgradeText.UpdateFontSize(36);
+            upgradeContainer.Add(_upgradeText);
+        }
 
         Add(upgradeContainer);
     }
@@ -221,9 +229,17 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
         {
             CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
-            _upgradeText.UpdateText(c.GetNextUpgradePawnshopVisitChance().ToString());
+            _upgradeText.UpdateText(c.GetNextUpgradeVisitChance().ToString());
             _upgradeText.UpdateTextColor(Color.green);
         }
+
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
+        {
+            CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
+            _upgradeText.UpdateText(c.GetNextUpgradeVisitChance().ToString());
+            _upgradeText.UpdateTextColor(Color.green);
+        }
+
     }
 
     void BuildButtonPointerLeave(PointerLeaveEvent evt) { ResetUpgradeContainer(); }
@@ -249,10 +265,16 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
         {
             CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
-            _upgradeText.UpdateText(c.GetPawnshopVisitChance().ToString());
+            _upgradeText.UpdateText(c.GetVisitChance().ToString());
             _upgradeText.UpdateTextColor(Color.white);
         }
 
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
+        {
+            CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
+            _upgradeText.UpdateText(c.GetVisitChance().ToString());
+            _upgradeText.UpdateTextColor(Color.white);
+        }
     }
 
     void Build()

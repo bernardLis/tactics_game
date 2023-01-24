@@ -7,7 +7,7 @@ public class BuildingManager : MonoBehaviour
     GameManager _gameManager;
 
     CampBuildingPawnshop _pawnshopBuilding;
-
+    CampBuildingSpiceRecycler _spiceRecyclerBuilding;
     void Start()
     {
         _gameManager = GetComponent<GameManager>();
@@ -17,6 +17,9 @@ public class BuildingManager : MonoBehaviour
         {
             if (cb.GetType().Equals(typeof(CampBuildingPawnshop)))
                 _pawnshopBuilding = (CampBuildingPawnshop)cb;
+            if (cb.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
+                _spiceRecyclerBuilding = (CampBuildingSpiceRecycler)cb;
+
         }
     }
 
@@ -28,16 +31,17 @@ public class BuildingManager : MonoBehaviour
             AddRecruit();
         if (Random.value < 0.5f)
             AddShop();
-        if (Random.value < _pawnshopBuilding.GetPawnshopVisitChance())
+        if (Random.value < _pawnshopBuilding.GetVisitChance())
             AddPawnshop();
-        AddSpiceRecycle();
+        if (Random.value < _spiceRecyclerBuilding.GetVisitChance())
+            AddSpiceRecycle();
     }
 
     public void AddRandomQuest()
     {
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
-            
+
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
         _gameManager.OnDayPassed += q.OnDayPassed;
@@ -80,7 +84,4 @@ public class BuildingManager : MonoBehaviour
         r.Initialize(ReportType.SpiceRecycle, null, null, null, null, null);
         _gameManager.AddNewReport(r);
     }
-
-
-
 }

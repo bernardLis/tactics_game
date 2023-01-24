@@ -9,24 +9,16 @@ public class CampBuildingPawnshop : CampBuilding
 
     public List<CampPawnshopUpgrade> CampPawnshopUpgrades = new();
 
-    public float GetPawnshopVisitChance()
+    public float GetVisitChance()
     {
         return CampPawnshopUpgrades.FirstOrDefault(x => x.UpgradeRank == UpgradeRank).ChanceToVisit;
     }
 
-    public float GetNextUpgradePawnshopVisitChance()
+    public float GetNextUpgradeVisitChance()
     {
         if (UpgradeRank + 1 > UpgradeRange.y)
-            return GetPawnshopVisitChance();
+            return GetVisitChance();
         return CampPawnshopUpgrades.FirstOrDefault(x => x.UpgradeRank == UpgradeRank + 1).ChanceToVisit;
-    }
-
-
-    public override void FinishBuilding() { base.FinishBuilding(); }
-
-    public override void Upgrade()
-    {
-        base.Upgrade();
     }
 }
 
