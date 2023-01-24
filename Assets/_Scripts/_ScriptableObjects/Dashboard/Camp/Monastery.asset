@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Monastery
   m_EditorClassIdentifier: 
   Id: 82a28641-8257-493c-871f-907c059281f2
+  DisplayName: Monastery
   OutlineSprite: {fileID: 21300000, guid: ea99704b19bcb3449982b70ba3b0ba8f, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 38ee95e772b15654d825aa787502fc76, type: 3}
   CostToBuild: 100

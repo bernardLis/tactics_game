@@ -20,6 +20,7 @@ public class CampBuildingElement : VisualElement
     GoldElement _costGoldElement;
 
     TroopsLimitElement _troopsLimitElement;
+    StarRankElement _betterQuestsRankElement;
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
@@ -49,7 +50,7 @@ public class CampBuildingElement : VisualElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        Label header = new($"{_campBuilding.name}");
+        Label header = new($"{_campBuilding.DisplayName}");
         header.style.fontSize = 36;
         Add(header);
 
@@ -99,12 +100,16 @@ public class CampBuildingElement : VisualElement
             upgradeContainer.Add(_troopsLimitElement);
         }
 
-        // HERE:
         if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
         {
             CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
-            _troopsLimitElement = new TroopsLimitElement($"{_gameManager.TroopsLimit.ToString()}", 24);
-            upgradeContainer.Add(_troopsLimitElement);
+            _betterQuestsRankElement = new(_gameManager.MaxQuestRank, 0.5f, null, 5);
+            Label l = new("Max Quest Rank: ");
+            upgradeContainer.style.flexDirection = FlexDirection.Column;
+            upgradeContainer.style.alignItems = Align.Center;
+
+            upgradeContainer.Add(l);
+            upgradeContainer.Add(_betterQuestsRankElement);
         }
 
 
@@ -135,6 +140,7 @@ public class CampBuildingElement : VisualElement
         _buildButton = new(null, _ussBuildButton, Build);
         _buildButton.RegisterCallback<PointerEnterEvent>(BuildButtonPointerEnter);
         _buildButton.RegisterCallback<PointerLeaveEvent>(BuildButtonPointerLeave);
+        _buildButton.RegisterCallback<PointerUpEvent>(BuildButtonPointerUp);
         _costGoldElement = new GoldElement(_campBuilding.CostToBuild);
         _buildButton.Add(_costGoldElement);
         _buildButton.SetEnabled(false);
@@ -194,9 +200,20 @@ public class CampBuildingElement : VisualElement
                     + c.GetTroopsLimitIncreaseByRank(c.UpgradeRank + 1).LimitIncrease;
             _troopsLimitElement.UpdateCountContainer(newTroopsLimit.ToString(), Color.green);
         }
+
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
+        {
+            CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
+            _betterQuestsRankElement.SetRank(_gameManager.MaxQuestRank + 1);
+        }
+
     }
 
-    void BuildButtonPointerLeave(PointerLeaveEvent evt)
+    void BuildButtonPointerLeave(PointerLeaveEvent evt) { ResetUpgradeContainer(); }
+
+    void BuildButtonPointerUp(PointerUpEvent evt) { ResetUpgradeContainer(); ; }
+
+    void ResetUpgradeContainer()
     {
         if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
         {
@@ -204,6 +221,12 @@ public class CampBuildingElement : VisualElement
             _troopsLimitElement.UpdateCountContainer(
                 _gameManager.TroopsLimit.ToString()
                 , Color.white);
+        }
+
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
+        {
+            CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
+            _betterQuestsRankElement.SetRank(_gameManager.MaxQuestRank);
         }
     }
 
@@ -219,6 +242,7 @@ public class CampBuildingElement : VisualElement
     {
         UpdateBuildingSprite();
         UpdateBuildButton();
+        ResetUpgradeContainer();
 
         _buildingRankElement.SetRank(_campBuilding.UpgradeRank);
         Report r = ScriptableObject.CreateInstance<Report>();

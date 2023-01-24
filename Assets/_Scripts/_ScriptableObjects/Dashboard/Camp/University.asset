@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: University
   m_EditorClassIdentifier: 
   Id: 6daca050-7f23-46fd-a3ed-5fb5a088d20b
+  DisplayName: University
   OutlineSprite: {fileID: 21300000, guid: ad99a51958f8a454bb8ea1e38307e4ef, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 75faa0e90904b2745bcdfd73aaaa7a14, type: 3}
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
+  UpgradeRange: {x: 0, y: 0}
   CampBuildingState: 0
   DaysLeftToBuild: 0
   DayStartedBuilding: 0
+  UpgradeRank: 0

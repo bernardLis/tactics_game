@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cave
   m_EditorClassIdentifier: 
   Id: 755eb1de-3743-42a1-809d-1f58c106629f
+  DisplayName: Cave
   OutlineSprite: {fileID: 21300000, guid: fce99cc90e287974d8039407354704f9, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 284f1a742d62bf540aee89c881485375, type: 3}
   CostToBuild: 100

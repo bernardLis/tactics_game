@@ -13,6 +13,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public GameDatabase GameDatabase;
 
+    // settings
     public bool HideMenuEffects { get; private set; }
     public void SetHideMenuEffects(bool hide) { HideMenuEffects = hide; }
 
@@ -40,8 +41,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [SerializeField] List<AbilityNodeGraph> _abilityNodeGraphs = new();
 
     public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
-
-    public Quest ActiveQuest;
 
     public event Action<Report> OnReportAdded;
     public event Action<int> OnDayPassed;
@@ -72,21 +71,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             LoadLevel(Scenes.Dashboard);
     }
 
-    public void BattleWon()
-    {
-        ActiveQuest.UpdateQuestState(QuestState.Finished);
-        ActiveQuest.IsWon = true;
-        ActiveQuest = null;
-        PassDay();
-    }
-
-    public void BattleLost()
-    {
-        ActiveQuest.UpdateQuestState(QuestState.Finished);
-        ActiveQuest = null;
-        PassDay();
-    }
-
     public void AddNewReport(Report r)
     {
         Reports.Add(r);
@@ -102,15 +86,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         if (Day % 7 == 0)
             PayWages();
-
-        if (Random.value > 0.5f)
-            AddRandomQuest();
-        if (Random.value > 0.5f)
-            AddRecruit();
-        AddShop();
-        AddPawnshop();
-        AddSpiceRecycle();
-
 
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
@@ -133,51 +108,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (Character c in PlayerTroops)
             total += c.WeeklyWage;
         return total;
-    }
-
-    void AddRandomQuest()
-    {
-        Quest q = ScriptableObject.CreateInstance<Quest>();
-        q.CreateRandom();
-        OnDayPassed += q.OnDayPassed;
-
-        Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Quest, q);
-        AddNewReport(r);
-    }
-
-    void AddRecruit()
-    {
-        Recruit newRecruit = ScriptableObject.CreateInstance<Recruit>();
-        newRecruit.CreateRandom();
-
-        Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Recruit, null, newRecruit);
-        AddNewReport(r);
-    }
-
-    void AddShop()
-    {
-        Shop newShop = ScriptableObject.CreateInstance<Shop>();
-        newShop.CreateShop();
-
-        Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Shop, null, null, null, null, newShop);
-        AddNewReport(r);
-    }
-
-    void AddPawnshop()
-    {
-        Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Pawnshop, null, null, null, null, null);
-        AddNewReport(r);
-    }
-
-    void AddSpiceRecycle()
-    {
-        Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.SpiceRecycle, null, null, null, null, null);
-        AddNewReport(r);
     }
 
     public void ChangeGoldValue(int o)
@@ -314,7 +244,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         // TODO: // HERE: for now, I could hand craft 3 first quests or something...
         for (int i = 0; i < 3; i++)
-            AddRandomQuest();
+            GetComponent<BuildingManager>().AddRandomQuest();
 
         foreach (CampBuilding b in _campBuildings)
         {

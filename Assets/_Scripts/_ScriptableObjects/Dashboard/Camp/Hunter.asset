@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Hunter
   m_EditorClassIdentifier: 
   Id: 0aed05f9-c91d-4d1b-b5de-1dc7659bab97
+  DisplayName: Hunter
   OutlineSprite: {fileID: 21300000, guid: 7744c86cc85e7ff4da506d2e8f0659fa, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 4361f502293b74d4c883d78c01a951c6, type: 3}
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
+  UpgradeRange: {x: 0, y: 0}
   CampBuildingState: 0
   DaysLeftToBuild: 0
   DayStartedBuilding: 0
+  UpgradeRank: 0

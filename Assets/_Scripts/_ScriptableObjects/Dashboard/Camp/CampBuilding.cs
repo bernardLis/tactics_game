@@ -7,6 +7,8 @@ public class CampBuilding : BaseScriptableObject
 {
     protected GameManager _gameManager;
 
+    public string DisplayName;
+
     public Sprite OutlineSprite; // static
     public Sprite BuiltSprite; // static
 
@@ -18,13 +20,13 @@ public class CampBuilding : BaseScriptableObject
     [Tooltip("0 - not built, 1 built and then upgrades")]
     public Vector2Int UpgradeRange; // static
 
-
     [HideInInspector] public CampBuildingState CampBuildingState;
     [HideInInspector] public int DaysLeftToBuild;
     [HideInInspector] public int DayStartedBuilding;
     [HideInInspector] public int UpgradeRank;
 
     public event Action<CampBuildingState> OnCampBuildingStateChanged;
+    public event Action<int> OnUpgraded;
     public void UpdateCampBuildingState(CampBuildingState newState)
     {
         CampBuildingState = newState;
@@ -77,6 +79,7 @@ public class CampBuilding : BaseScriptableObject
     public virtual void Upgrade()
     {
         UpgradeRank++;
+        OnUpgraded?.Invoke(UpgradeRank);
         _gameManager.SaveJsonData();
     }
 

@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Fountain
   m_EditorClassIdentifier: 
   Id: 7932d075-9e9f-4386-b1d9-c87923efe7bc
+  DisplayName: Fountain
   OutlineSprite: {fileID: 21300000, guid: 83fe6d905c0b21e41a958ef3d1bbd34f, type: 3}
   BuiltSprite: {fileID: 21300000, guid: f0aad3b0ed0a7f84cb115267977a9334, type: 3}
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
+  UpgradeRange: {x: 0, y: 0}
   CampBuildingState: 0
   DaysLeftToBuild: 0
   DayStartedBuilding: 0
+  UpgradeRank: 0

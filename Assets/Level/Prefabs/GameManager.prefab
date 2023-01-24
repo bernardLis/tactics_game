@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 5249205173230839339}
   - component: {fileID: 228317464156620769}
   - component: {fileID: 3609328160265785649}
-  - component: {fileID: 5369506700100794468}
+  - component: {fileID: 7770821782882906939}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -78,82 +78,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 70892e3d-250f-4237-a502-b1321820c988
-    m_ActionName: Player/ArrowMovement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6a73f7fa-bf06-4d7e-ac53-fa6e2c526e46
-    m_ActionName: Player/LeftMouseClick[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 581d02ac-c4e3-418e-ac16-a6dbc3bbc39e
-    m_ActionName: Player/SelectClick[/Keyboard/f]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7c78f711-47be-47b3-b3e1-04865a1d14a7
-    m_ActionName: Player/BackClick[/Keyboard/b]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3347af0d-ef8c-411e-9d54-1c9c10f93e73
-    m_ActionName: Player/DetailsClick[/Keyboard/g]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 51f2f3c9-941f-43b6-b626-7404acbbd970
-    m_ActionName: Player/BasicAttackClick[/Keyboard/a]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: fc5387e7-b010-406f-85a3-2780fd031eef
-    m_ActionName: Player/BasicDefenseClick[/Keyboard/s]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 618f08ab-7a07-40cf-a3c8-0f92bedb73d3
-    m_ActionName: Player/FirstAbilityClick[/Keyboard/q]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8b102efc-3ce3-44f2-aa6b-63c50c2f0bcb
-    m_ActionName: Player/SecondAbilityClick[/Keyboard/w]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9dee79f0-db68-4c3e-933b-afcafc5a5a5c
-    m_ActionName: Player/ThirdAbilityClick[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3dd55fee-0310-480a-951e-d111f267683f
-    m_ActionName: Player/FourthAbilityClick[/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 79e89792-4d70-4dc4-8931-4f9cbe20547f
-    m_ActionName: Player/OpenMenuClick[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b888122d-1bce-4588-b547-98ff38c43f38
-    m_ActionName: Player/ViewTroopsClick[/Keyboard/t]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7fd84d31-94b6-4e68-bbde-10667712e605
-    m_ActionName: Player/OpenInventoryClick[/Keyboard/i]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9d5f88cd-7b60-4de9-bafd-87df0f29f18a
-    m_ActionName: Player/SelectNextCharacter[/Keyboard/o]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ea3b674b-df29-4a25-be2d-2c204c9d6ea3
-    m_ActionName: Player/SelectPreviousCharacter[/Keyboard/p]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: aa374c6e-812f-4485-a8d7-6d6667728253
-    m_ActionName: Player/Cheat1[/Keyboard/1]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 042fa219-57b1-4f92-8d4d-2c163e89d3d6
-    m_ActionName: Player/Cheat2[/Keyboard/2]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 727d1062-3fd9-402e-9e81-4c31dc72bd7d
-    m_ActionName: Conversation/ConversationInteract[/Keyboard/space,/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
@@ -464,15 +388,15 @@ MonoBehaviour:
   Reports: []
   ReportsArchived: []
   _campBuildings:
+  - {fileID: 11400000, guid: 8c9ea9ec9adf92f46b6a0b89a6525cbd, type: 2}
+  - {fileID: 11400000, guid: f06a203ee4b13e94f9b465035b3b521b, type: 2}
   - {fileID: 11400000, guid: 5956f1db0d4f1c44fb36149993d5e40f, type: 2}
   - {fileID: 11400000, guid: fddbccbea5136e8438772e12de12fb54, type: 2}
   - {fileID: 11400000, guid: ffd64ac3b756792469b9a901807d96b5, type: 2}
-  - {fileID: 11400000, guid: 8c9ea9ec9adf92f46b6a0b89a6525cbd, type: 2}
   - {fileID: 11400000, guid: 5ce585910074f9a4586f326aaa874e49, type: 2}
   - {fileID: 11400000, guid: 8c4a1cc3f24848d43b4e9949aed43a14, type: 2}
   - {fileID: 11400000, guid: 50916f3c6477363479d2194e56095e9c, type: 2}
   - {fileID: 11400000, guid: 8eb3e2e11f482874dad364636452226c, type: 2}
-  - {fileID: 11400000, guid: ec86fed1a82212049b8ae256213497e9, type: 2}
   - {fileID: 11400000, guid: ee459f4b36027904880b1e77d5439f37, type: 2}
   - {fileID: 11400000, guid: 9d961d8f4218e234a92bd3834a70e80c, type: 2}
   - {fileID: 11400000, guid: 9ca0d1418db9aec47aec7b2600d668ea, type: 2}
@@ -482,7 +406,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6bceff6e2885a224c958a51fe4e78327, type: 2}
   - {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
   CutsceneIndexToPlay: 0
-  ActiveQuest: {fileID: 0}
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6da27739bfa18249876a09789a22071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5369506700100794468
+--- !u!114 &7770821782882906939
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

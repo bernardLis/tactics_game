@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Mine
   m_EditorClassIdentifier: 
   Id: 64d20bc8-d3f0-4751-9c25-6109bc5524e3
+  DisplayName: Mine
   OutlineSprite: {fileID: 21300000, guid: eafd63761eed7af4bbb185f47099d27b, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 6245d8f6a9c16064c953bd1d98609203, type: 3}
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
+  UpgradeRange: {x: 0, y: 0}
   CampBuildingState: 0
   DaysLeftToBuild: 0
   DayStartedBuilding: 0
+  UpgradeRank: 0
