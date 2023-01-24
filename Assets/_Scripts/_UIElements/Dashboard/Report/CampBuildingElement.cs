@@ -21,6 +21,7 @@ public class CampBuildingElement : VisualElement
 
     TroopsLimitElement _troopsLimitElement;
     StarRankElement _betterQuestsRankElement;
+    TextWithTooltip _upgradeText;
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
@@ -112,9 +113,19 @@ public class CampBuildingElement : VisualElement
             upgradeContainer.Add(_betterQuestsRankElement);
         }
 
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
+        {
+            CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
+            string tooltipText = "Chance pawnshop visits.";
+            _upgradeText = new(c.GetPawnshopVisitChance().ToString(), tooltipText);
+            _upgradeText.UpdateFontSize(36);
+            upgradeContainer.Add(_upgradeText);
+        }
+
 
         Add(upgradeContainer);
     }
+
     void HandleBuildingRank()
     {
         _buildingRankElement = new(_campBuilding.UpgradeRank, 1, null, _campBuilding.UpgradeRange.y);
@@ -207,6 +218,12 @@ public class CampBuildingElement : VisualElement
             _betterQuestsRankElement.SetRank(_gameManager.MaxQuestRank + 1);
         }
 
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
+        {
+            CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
+            _upgradeText.UpdateText(c.GetNextUpgradePawnshopVisitChance().ToString());
+            _upgradeText.UpdateTextColor(Color.green);
+        }
     }
 
     void BuildButtonPointerLeave(PointerLeaveEvent evt) { ResetUpgradeContainer(); }
@@ -228,6 +245,14 @@ public class CampBuildingElement : VisualElement
             CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
             _betterQuestsRankElement.SetRank(_gameManager.MaxQuestRank);
         }
+
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
+        {
+            CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
+            _upgradeText.UpdateText(c.GetPawnshopVisitChance().ToString());
+            _upgradeText.UpdateTextColor(Color.white);
+        }
+
     }
 
     void Build()

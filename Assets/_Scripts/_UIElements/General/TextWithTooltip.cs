@@ -1,4 +1,5 @@
 using UnityEngine.UIElements;
+using UnityEngine;
 
 public class TextWithTooltip : ElementWithTooltip
 {
@@ -13,10 +14,11 @@ public class TextWithTooltip : ElementWithTooltip
         Add(_text);
     }
 
-    public void UpdateText(string newText)
-    {
-        _text.text = newText;
-    }
+    public void UpdateText(string newText) { _text.text = newText; }
+
+    public void UpdateFontSize(int newSize) { _text.style.fontSize = newSize; }
+
+    public void UpdateTextColor(Color c) { _text.style.color = c; }
 
     protected override void DisplayTooltip()
     {

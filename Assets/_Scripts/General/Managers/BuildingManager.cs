@@ -6,6 +6,8 @@ public class BuildingManager : MonoBehaviour
 {
     GameManager _gameManager;
 
+    CampBuildingPawnshop _pawnshopBuilding;
+
     void Start()
     {
         _gameManager = GetComponent<GameManager>();
@@ -13,28 +15,29 @@ public class BuildingManager : MonoBehaviour
 
         foreach (CampBuilding cb in _gameManager.GetCampBuildings())
         {
-            if (cb.GetType().Equals(typeof(CampBuildingBetterQuests)))
-                Debug.Log($"heyo");
-
-
+            if (cb.GetType().Equals(typeof(CampBuildingPawnshop)))
+                _pawnshopBuilding = (CampBuildingPawnshop)cb;
         }
     }
 
     void OnDayPassed(int day)
     {
-        if (Random.value > 0.5f)
+        if (Random.value < 0.5f)
             AddRandomQuest();
-        if (Random.value > 0.5f)
+        if (Random.value < 0.5f)
             AddRecruit();
-        if (Random.value > 0.5f)
+        if (Random.value < 0.5f)
             AddShop();
-            
-        AddPawnshop();
+        if (Random.value < _pawnshopBuilding.GetPawnshopVisitChance())
+            AddPawnshop();
         AddSpiceRecycle();
     }
 
     public void AddRandomQuest()
     {
+        if (_gameManager == null)
+            _gameManager = GameManager.Instance;
+            
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
         _gameManager.OnDayPassed += q.OnDayPassed;
