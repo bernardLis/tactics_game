@@ -235,7 +235,7 @@ public class SettingsScreen : FullScreenElement
     {
         VisualElement container = CreateContainer("Play Tutorial");
         _tutorialToggle = new Toggle();
-        _tutorialToggle.value = !_gameManager.WasTutorialPlayed;
+        //_tutorialToggle.value = !_gameManager.WasTutorialPlayed;
         _tutorialToggle.RegisterValueChangedCallback(PlayTutorialToggleClick);
         container.Add(_tutorialToggle);
         Add(container);
@@ -244,10 +244,10 @@ public class SettingsScreen : FullScreenElement
     void PlayTutorialToggleClick(ChangeEvent<bool> evt)
     {
         _tutorialToggle.value = evt.newValue;
-        if (evt.newValue)
-            _gameManager.SetWasTutorialPlayed(false);
-        else
-            _gameManager.SetWasTutorialPlayed(true);
+       // if (evt.newValue)
+       //     _gameManager.SetWasTutorialPlayed(false);
+       // else
+      //      _gameManager.SetWasTutorialPlayed(true);
     }
 
     void AddClearSaveButton()

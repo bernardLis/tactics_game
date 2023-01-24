@@ -32,7 +32,6 @@ public class RatWinScreenManager : MonoBehaviour
         FoundCollectible();
 
         GameManager.Instance.CutsceneIndexToPlay = 1;
-        GameManager.Instance.SetWasTutorialPlayed(true);
     }
 
     VisualElement GetCheckElement(bool isCompleted)

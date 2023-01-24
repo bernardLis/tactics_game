@@ -17,13 +17,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void SetHideMenuEffects(bool hide) { HideMenuEffects = hide; }
 
     // global data
-    public bool WasTutorialPlayed { get; private set; }
     public int Seed { get; private set; }
 
     public int Day { get; private set; }
     public int Gold { get; private set; }
 
     public int Spice { get; private set; }
+    public int MaxQuestRank { get; private set; }
 
     public int TroopsLimit { get; private set; }
     public List<Character> PlayerTroops = new();
@@ -208,6 +208,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
+    public void SetMaxQuestRank(int newMaxQuestRank) { MaxQuestRank = newMaxQuestRank; }
+
     public List<CampBuilding> GetCampBuildings() { return _campBuildings; }
     public CampBuilding GetCampBuildingById(string id) { return _campBuildings.FirstOrDefault(x => x.Id == id); }
 
@@ -269,17 +271,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     }
 
     /* LEVELS */
-    public void SetWasTutorialPlayed(bool was)
-    {
-        WasTutorialPlayed = was;
-        SaveJsonData();
-    }
-
-    public void StartBattle(Quest quest)
-    {
-        ActiveQuest = quest;
-        LoadLevel(ActiveQuest.SceneToLoad);
-    }
 
     public void LoadLevel(string level)
     {
@@ -357,7 +348,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void PopulateSaveData(SaveData saveData)
     {
         // global data
-        saveData.WasTutorialPlayed = WasTutorialPlayed;
         saveData.Seed = Seed;
 
         saveData.Day = Day;
@@ -466,7 +456,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SetHideMenuEffects(PlayerPrefs.GetInt("HideMenuEffects") != 0);
 
         // global data
-        WasTutorialPlayed = saveData.WasTutorialPlayed;
         Seed = saveData.Seed;
 
         Day = saveData.Day;
@@ -540,7 +529,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         PlayerPrefs.DeleteAll();
 
-        WasTutorialPlayed = false;
         Seed = System.Environment.TickCount;
 
         Day = 1;

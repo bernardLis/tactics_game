@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-    
+
     public CharacterDatabase CharacterDatabase;
     public QuestDatabase QuestDatabase;
 
@@ -108,6 +108,15 @@ public class GameDatabase : BaseScriptableObject
     public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
 
     public QuestRank GetQuestRankById(string id) { return QuestRanks.FirstOrDefault(x => x.Id == id); }
+    public QuestRank GetRandomQuestRankWithMaxRank(int maxRank)
+    {
+        List<QuestRank> availableRanks = new();
+        foreach (QuestRank r in QuestRanks)
+            if (r.Rank <= maxRank)
+                availableRanks.Add(r);
+        return availableRanks[Random.Range(0, availableRanks.Count)];
+    }
+
     public QuestRank GetRandomQuestRank() { return QuestRanks[Random.Range(0, QuestRanks.Length)]; }
 
     public RewardChest GetRandomRewardChest() { return RewardChests[Random.Range(0, RewardChests.Length)]; }

@@ -7,13 +7,14 @@ using UnityEngine;
 public class SaveData
 {
     // global data
-    public bool WasTutorialPlayed;
     public int Seed;
 
     public int Day;
     public int Gold;
 
     public int Spice;
+
+    public int MaxQuestRank;
 
     public int TroopsLimit;
     public List<CharacterData> PlayerTroops = new();

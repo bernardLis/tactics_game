@@ -157,7 +157,7 @@ public class Quest : BaseScriptableObject
     public void CreateRandom()
     {
         _gameManager = GameManager.Instance;
-        Rank = _gameManager.GameDatabase.GetRandomQuestRank();
+        Rank = _gameManager.GameDatabase.GetRandomQuestRankWithMaxRank(_gameManager.MaxQuestRank);
         Title = _gameManager.GameDatabase.QuestDatabase.GetRandomQuestTitle();
         Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
         ThreatElement = _gameManager.GameDatabase.GetRandomElement();

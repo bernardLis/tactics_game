@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 5249205173230839339}
   - component: {fileID: 228317464156620769}
   - component: {fileID: 3609328160265785649}
+  - component: {fileID: 5369506700100794468}
+  - component: {fileID: 4084474491798258287}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -189,6 +191,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e71b2f1d-50c9-4568-ac64-6b37d10cd15b
     m_ActionName: Dashboard/ToggleCommandLine[/Keyboard/f12]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 47d0cca9-af75-471d-9fae-1d29668d84a9
+    m_ActionName: Dashboard/OpenMenu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 507a58eb-548c-4788-a96d-cf7a1f345c5b
+    m_ActionName: Dashboard/Space[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Dashboard
@@ -532,5 +542,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6da27739bfa18249876a09789a22071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5369506700100794468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154333484900981485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac59c41bca6984941a5a12690c11e8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4084474491798258287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154333484900981485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67ccc24fd2763b47bd96475adec3a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
