@@ -35,6 +35,4 @@ public class AbilityIcon : ElementWithTooltip
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }
-
-
 }
