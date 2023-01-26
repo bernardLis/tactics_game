@@ -43,7 +43,7 @@ public class SheetAnimationUtility : MonoBehaviour
                 }
             }
 
-            ti.spritesheet = newData.ToArray();
+            //ti.spritesheet = newData.ToArray();
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
         }
         Debug.Log("Done Slicing!");

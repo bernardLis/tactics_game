@@ -8,7 +8,6 @@ public class ResourceBarElement : ElementWithTooltip
 {
     VisualElement _resourceBar;
     VisualElement _missing;
-    VisualElement _interactionResult;
     Label _text;
 
     int _total;
@@ -25,9 +24,7 @@ public class ResourceBarElement : ElementWithTooltip
     const string _ussContainer = _ussClassName + "__container";
     const string _ussMain = _ussClassName + "__main";
     const string _ussMissing = _ussClassName + "__missing";
-    const string _ussInteraction = _ussClassName + "__interaction";
     const string _ussBarText = _ussClassName + "__bar-text";
-
 
     public ResourceBarElement(Color color, string tooltipText, int total, int current, int thickness = 0, bool isGaining = false) : base()
     {
@@ -47,7 +44,6 @@ public class ResourceBarElement : ElementWithTooltip
         _tooltipText = tooltipText;
 
         _missing = new();
-        _interactionResult = new();
         _text = new();
 
         _resourceBar = new();
@@ -62,7 +58,6 @@ public class ResourceBarElement : ElementWithTooltip
         Add(_resourceBar);
 
         _missing.AddToClassList(_ussMissing);
-        _interactionResult.AddToClassList(_ussInteraction);
         _text.AddToClassList(_ussBarText);
         _text.AddToClassList(_ussCommonTextSecondary);
 
@@ -70,7 +65,6 @@ public class ResourceBarElement : ElementWithTooltip
             style.height = thickness;
 
         _resourceBar.Add(_missing);
-        _resourceBar.Add(_interactionResult);
         _resourceBar.Add(_text);
 
         _tweenID = Guid.NewGuid().ToString();
@@ -110,8 +104,6 @@ public class ResourceBarElement : ElementWithTooltip
 
     async Task BaseOnValueChanged(int change, int totalDelay)
     {
-        HideInteractionResult();
-
         if (change == 0)
             return;
 
@@ -144,67 +136,7 @@ public class ResourceBarElement : ElementWithTooltip
         }
     }
 
-    public void DisplayInteractionResult(int total, int current, int value)
-    {
-        UpdateBarValues(total, current);
-
-        // nothing to heal
-        if (value > 0 && current >= total)
-            return;
-
-        string resultText = "" + (value + current);
-        float percent = Mathf.Abs(value) / (float)total * 100;
-        // limit percent to current health when damaging
-        if (value < 0 && Mathf.Abs(value) >= current)
-        {
-            resultText = "" + 0;
-            percent = current / (float)total * 100;
-        }
-        // limit percent to missing missing health when healing 
-        if (value > 0 && Mathf.Abs(value) >= total - current)
-        {
-            resultText = "" + total;
-            percent = (total - current) / (float)total * 100;
-        }
-
-        _interactionResult.style.display = DisplayStyle.Flex;
-        _interactionResult.style.width = Length.Percent(percent);
-        Color color = Color.black;
-        if (value < 0)
-        {
-            _interactionResult.style.right = Length.Percent(0);
-            color = Color.black;
-        }
-        else
-        {
-            _interactionResult.style.right = Length.Percent(percent);
-            color = Color.white;
-        }
-
-        AnimateInteractionResult(color);
-
-        SetText($"{resultText}/{total}");
-    }
-
-    public void HideInteractionResult()
-    {
-        DOTween.Pause(_tweenID);
-        _interactionResult.style.display = DisplayStyle.None;
-        UpdateBarValues(_total, _current);
-    }
-
     public void SetText(string newText) { _text.text = newText; }
-
-    void AnimateInteractionResult(Color color)
-    {
-        _interactionResult.style.backgroundColor = color;
-
-        DOTween.ToAlpha(() => _interactionResult.style.backgroundColor.value,
-                x => _interactionResult.style.backgroundColor = x,
-                0f, 0.8f)
-                .SetLoops(-1, LoopType.Yoyo)
-                .SetId(_tweenID);
-    }
 
     protected override void DisplayTooltip()
     {

@@ -27,6 +27,13 @@ public class CampBuilding : BaseScriptableObject
 
     public event Action<CampBuildingState> OnCampBuildingStateChanged;
     public event Action<int> OnUpgraded;
+
+    public virtual void Initialize()
+    {
+        _gameManager = GameManager.Instance;
+        _gameManager.OnDayPassed += OnDayPassed;
+    }
+
     public void UpdateCampBuildingState(CampBuildingState newState)
     {
         CampBuildingState = newState;
@@ -42,12 +49,6 @@ public class CampBuilding : BaseScriptableObject
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
         OnCampBuildingStateChanged?.Invoke(newState);
-    }
-
-    public void Initialize()
-    {
-        _gameManager = GameManager.Instance;
-        _gameManager.OnDayPassed += OnDayPassed;
     }
 
     public void StartBuilding()

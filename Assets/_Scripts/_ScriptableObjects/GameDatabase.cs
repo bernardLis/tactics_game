@@ -25,6 +25,7 @@ public class GameDatabase : BaseScriptableObject
     public Character[] GetAllStarterTroops() { return StarterTroops; }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
+    public List<Item> GetAllItems() { return Items.ToList(); }
     public Item GetItemById(string id) { return Items.FirstOrDefault(x => x.Id == id); }
     public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
     public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }

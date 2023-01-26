@@ -27,14 +27,6 @@
     overflow: visible;
 }
 
-.resource-bar__interaction {
-    width: 0;
-    height: 15px;
-    background-color: rgb(255, 0, 0);
-    justify-content: center;
-    visibility: visible;
-}
-
 .resource-bar__bar-text {
     position: absolute;
 }

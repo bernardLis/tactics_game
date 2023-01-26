@@ -131,12 +131,23 @@ public class CampBuildingElement : VisualElement
             upgradeContainer.Add(_upgradeText);
         }
 
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
+        {
+            CampBuildingShop c = (CampBuildingShop)_campBuilding;
+            string tooltipText = "Chance for uncommon, rare and epic item in the shop.";
+            CampShopUpgrade upgrade = c.GetCurrentUpgrade();
+            string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
+            _upgradeText = new(labelText, tooltipText);
+            _upgradeText.UpdateFontSize(18);
+            upgradeContainer.Add(_upgradeText);
+        }
+
         Add(upgradeContainer);
     }
 
     void HandleBuildingRank()
     {
-        _buildingRankElement = new(_campBuilding.UpgradeRank, 1, null, _campBuilding.UpgradeRange.y);
+        _buildingRankElement = new(_campBuilding.UpgradeRank, 0.7f, null, _campBuilding.UpgradeRange.y);
         _buildingRankContainer.Add(_buildingRankElement);
     }
 
@@ -240,6 +251,14 @@ public class CampBuildingElement : VisualElement
             _upgradeText.UpdateTextColor(Color.green);
         }
 
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
+        {
+            CampBuildingShop c = (CampBuildingShop)_campBuilding;
+            CampShopUpgrade upgrade = c.GetNextUpgrade();
+            string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
+            _upgradeText.UpdateText(labelText);
+            _upgradeText.UpdateTextColor(Color.green);
+        }
     }
 
     void BuildButtonPointerLeave(PointerLeaveEvent evt) { ResetUpgradeContainer(); }
@@ -275,6 +294,16 @@ public class CampBuildingElement : VisualElement
             _upgradeText.UpdateText(c.GetVisitChance().ToString());
             _upgradeText.UpdateTextColor(Color.white);
         }
+
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
+        {
+            CampBuildingShop c = (CampBuildingShop)_campBuilding;
+            CampShopUpgrade upgrade = c.GetCurrentUpgrade();
+            string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
+            _upgradeText.UpdateText(labelText);
+            _upgradeText.UpdateTextColor(Color.white);
+        }
+
     }
 
     void Build()

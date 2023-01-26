@@ -202,8 +202,9 @@ public class SettingsScreen : FullScreenElement
         string[] split1 = split[1].Split(" @ ");
         int height = int.Parse(split1[0]);
         int hz = int.Parse(split1[1].Split("Hz")[0]);
-
-        Screen.SetResolution(width, height, (PlayerPrefs.GetInt("fullScreen", 1) != 0), hz);
+        FullScreenMode fullScreenMode = (PlayerPrefs.GetInt("fullScreen", 1) != 0) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
+        RefreshRate rr = new RefreshRate() { numerator = (uint)hz, denominator = 1 };
+        Screen.SetResolution(width, height, fullScreenMode, rr);
     }
 
     VisualElement CreateContainer(string labelText)

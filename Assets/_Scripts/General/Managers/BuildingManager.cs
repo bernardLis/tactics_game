@@ -8,6 +8,7 @@ public class BuildingManager : MonoBehaviour
 
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
+    CampBuildingShop _shopBuilding;
     void Start()
     {
         _gameManager = GetComponent<GameManager>();
@@ -19,6 +20,8 @@ public class BuildingManager : MonoBehaviour
                 _pawnshopBuilding = (CampBuildingPawnshop)cb;
             if (cb.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
                 _spiceRecyclerBuilding = (CampBuildingSpiceRecycler)cb;
+            if (cb.GetType().Equals(typeof(CampBuildingShop)))
+                _shopBuilding = (CampBuildingShop)cb;
 
         }
     }
@@ -64,7 +67,7 @@ public class BuildingManager : MonoBehaviour
     void AddShop()
     {
         Shop newShop = ScriptableObject.CreateInstance<Shop>();
-        newShop.CreateShop();
+        newShop.CreateShop(_shopBuilding);
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Shop, null, null, null, null, newShop);

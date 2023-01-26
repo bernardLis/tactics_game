@@ -9,16 +9,22 @@ public class Shop : BaseScriptableObject
     public int DayAdded;
     public int Duration;
     public int RerollCost;
+
+    CampBuildingShop _building;
     public List<Item> Items = new();
+
+
 
     GameManager _gameManager;
 
     public event Action OnDurationChanged;
 
-    public void CreateShop()
+    public void CreateShop(CampBuildingShop building)
     {
+        _building = building;
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
+        
         ChooseItems();
 
         DayAdded = _gameManager.Day;
@@ -43,7 +49,7 @@ public class Shop : BaseScriptableObject
         Items.Clear();
         for (int i = 0; i < 2; i++)
         {
-            Item item = _gameManager.GameDatabase.GetRandomItem();
+            Item item = _building.GetRandomItem();
             Items.Add(item);
         }
     }
