@@ -9,16 +9,9 @@ public class CampBuildingSpiceRecycler : CampBuilding
 
     public List<CampSpiceRecyclerUpgrade> CampSpiceRecyclerUpgrades = new();
 
-    public float GetVisitChance()
+    public CampSpiceRecyclerUpgrade GetUpgradeByRank(int rank)
     {
-        return CampSpiceRecyclerUpgrades.FirstOrDefault(x => x.UpgradeRank == UpgradeRank).ChanceToVisit;
-    }
-
-    public float GetNextUpgradeVisitChance()
-    {
-        if (UpgradeRank + 1 > UpgradeRange.y)
-            return GetVisitChance();
-        return CampSpiceRecyclerUpgrades.FirstOrDefault(x => x.UpgradeRank == UpgradeRank + 1).ChanceToVisit;
+        return CampSpiceRecyclerUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
 }
 

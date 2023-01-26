@@ -22,7 +22,6 @@ public class BuildingManager : MonoBehaviour
                 _spiceRecyclerBuilding = (CampBuildingSpiceRecycler)cb;
             if (cb.GetType().Equals(typeof(CampBuildingShop)))
                 _shopBuilding = (CampBuildingShop)cb;
-
         }
     }
 
@@ -32,11 +31,12 @@ public class BuildingManager : MonoBehaviour
             AddRandomQuest();
         if (Random.value < 0.5f)
             AddRecruit();
-        if (Random.value < 0.5f)
+        if (_shopBuilding.CampBuildingState == CampBuildingState.Built
+                && Random.value < 0.3f)
             AddShop();
-        if (Random.value < _pawnshopBuilding.GetVisitChance())
+        if (Random.value < _pawnshopBuilding.GetUpgradeByRank(_pawnshopBuilding.UpgradeRank).ChanceToVisit)
             AddPawnshop();
-        if (Random.value < _spiceRecyclerBuilding.GetVisitChance())
+        if (Random.value < _spiceRecyclerBuilding.GetUpgradeByRank(_pawnshopBuilding.UpgradeRank).ChanceToVisit)
             AddSpiceRecycle();
     }
 

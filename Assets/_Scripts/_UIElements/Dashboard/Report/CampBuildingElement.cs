@@ -19,6 +19,7 @@ public class CampBuildingElement : VisualElement
     VisualElement _upgradeCostContainer;
     GoldElement _costGoldElement;
 
+    VisualElement _upgradeContainer;
     TroopsLimitElement _troopsLimitElement;
     StarRankElement _betterQuestsRankElement;
     TextWithTooltip _upgradeText;
@@ -91,58 +92,106 @@ public class CampBuildingElement : VisualElement
 
     void HandleUpgradeReward()
     {
-        VisualElement upgradeContainer = new();
-        upgradeContainer.style.flexDirection = FlexDirection.Row;
+        _upgradeContainer = new();
+        _upgradeContainer.style.flexDirection = FlexDirection.Row;
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
-        {
-            CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
-            _troopsLimitElement = new TroopsLimitElement($"{_gameManager.TroopsLimit.ToString()}", 24);
-            upgradeContainer.Add(_troopsLimitElement);
-        }
+            AddTroopsLimitUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
-        {
-            CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
-            _betterQuestsRankElement = new(_gameManager.MaxQuestRank, 0.5f, null, 5);
-            Label l = new("Max Quest Rank: ");
-            upgradeContainer.style.flexDirection = FlexDirection.Column;
-            upgradeContainer.style.alignItems = Align.Center;
-
-            upgradeContainer.Add(l);
-            upgradeContainer.Add(_betterQuestsRankElement);
-        }
+            AddBetterQuestsUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
-        {
-            CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
-            string tooltipText = "Chance pawnshop visits.";
-            _upgradeText = new(c.GetVisitChance().ToString(), tooltipText);
-            _upgradeText.UpdateFontSize(36);
-            upgradeContainer.Add(_upgradeText);
-        }
+            AddPawnshopUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
-        {
-            CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
-            string tooltipText = "Chance spice recycler visits.";
-            _upgradeText = new(c.GetVisitChance().ToString(), tooltipText);
-            _upgradeText.UpdateFontSize(36);
-            upgradeContainer.Add(_upgradeText);
-        }
+            AddSpiceRecyclerUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
-        {
-            CampBuildingShop c = (CampBuildingShop)_campBuilding;
-            string tooltipText = "Chance for uncommon, rare and epic item in the shop.";
-            CampShopUpgrade upgrade = c.GetCurrentUpgrade();
-            string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
-            _upgradeText = new(labelText, tooltipText);
-            _upgradeText.UpdateFontSize(18);
-            upgradeContainer.Add(_upgradeText);
-        }
+            AddShopUpgrade();
 
-        Add(upgradeContainer);
+        Add(_upgradeContainer);
+    }
+
+    void AddTroopsLimitUpgrade()
+    {
+        _troopsLimitElement = new TroopsLimitElement($"{_gameManager.TroopsLimit.ToString()}", 24);
+        _upgradeContainer.Add(_troopsLimitElement);
+    }
+
+    void SetTroopsLimitUpgrade()
+    {
+        CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
+        _troopsLimitElement.UpdateCountContainer(
+            _gameManager.TroopsLimit.ToString()
+            , Color.white);
+    }
+
+    void AddBetterQuestsUpgrade()
+    {
+        _betterQuestsRankElement = new(_gameManager.MaxQuestRank, 0.5f, null, 5);
+        Label l = new("Max Quest Rank: ");
+        _upgradeContainer.style.flexDirection = FlexDirection.Column;
+        _upgradeContainer.style.alignItems = Align.Center;
+
+        _upgradeContainer.Add(l);
+        _upgradeContainer.Add(_betterQuestsRankElement);
+    }
+
+    void SetBetterQuestsUpgrade()
+    {
+        CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
+        _betterQuestsRankElement.SetRank(_gameManager.MaxQuestRank);
+    }
+
+    void AddPawnshopUpgrade()
+    {
+        string tooltipText = "Chance pawnshop visits.";
+        _upgradeText = new("TXT", tooltipText);
+        SetPawnshopUpgrade();
+        _upgradeText.UpdateFontSize(36);
+        _upgradeContainer.Add(_upgradeText);
+    }
+
+    void SetPawnshopUpgrade()
+    {
+        CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
+        _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank).ChanceToVisit.ToString());
+        _upgradeText.UpdateTextColor(Color.white);
+    }
+
+    void AddSpiceRecyclerUpgrade()
+    {
+        string tooltipText = "Chance spice recycler visits.";
+        _upgradeText = new("TXT", tooltipText);
+        SetSpiceRecyclerUpgrade();
+        _upgradeText.UpdateFontSize(36);
+        _upgradeContainer.Add(_upgradeText);
+    }
+
+    void SetSpiceRecyclerUpgrade()
+    {
+        CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
+        _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank).ChanceToVisit.ToString());
+        _upgradeText.UpdateTextColor(Color.white);
+    }
+
+    void AddShopUpgrade()
+    {
+        string tooltipText = "Chance for uncommon, rare and epic item in the shop.";
+        _upgradeText = new("TXT", tooltipText);
+        SetShopUpgrade();
+        _upgradeText.UpdateFontSize(18);
+        _upgradeContainer.Add(_upgradeText);
+    }
+
+    void SetShopUpgrade()
+    {
+        CampBuildingShop c = (CampBuildingShop)_campBuilding;
+        CampShopUpgrade upgrade = c.GetUpgradeByRank(c.UpgradeRank);
+        string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
+        _upgradeText.UpdateText(labelText);
+        _upgradeText.UpdateTextColor(Color.white);
     }
 
     void HandleBuildingRank()
@@ -227,7 +276,7 @@ public class CampBuildingElement : VisualElement
         {
             CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
             int newTroopsLimit = _gameManager.TroopsLimit
-                    + c.GetTroopsLimitIncreaseByRank(c.UpgradeRank + 1).LimitIncrease;
+                    + c.GetUpgradeByRank(c.UpgradeRank + 1).LimitIncrease;
             _troopsLimitElement.UpdateCountContainer(newTroopsLimit.ToString(), Color.green);
         }
 
@@ -240,21 +289,21 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
         {
             CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
-            _upgradeText.UpdateText(c.GetNextUpgradeVisitChance().ToString());
+            _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank + 1).ChanceToVisit.ToString());
             _upgradeText.UpdateTextColor(Color.green);
         }
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
         {
             CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
-            _upgradeText.UpdateText(c.GetNextUpgradeVisitChance().ToString());
+            _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank + 1).ChanceToVisit.ToString());
             _upgradeText.UpdateTextColor(Color.green);
         }
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
         {
             CampBuildingShop c = (CampBuildingShop)_campBuilding;
-            CampShopUpgrade upgrade = c.GetNextUpgrade();
+            CampShopUpgrade upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
             string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
             _upgradeText.UpdateText(labelText);
             _upgradeText.UpdateTextColor(Color.green);
@@ -263,47 +312,24 @@ public class CampBuildingElement : VisualElement
 
     void BuildButtonPointerLeave(PointerLeaveEvent evt) { ResetUpgradeContainer(); }
 
-    void BuildButtonPointerUp(PointerUpEvent evt) { ResetUpgradeContainer(); ; }
+    void BuildButtonPointerUp(PointerUpEvent evt) { ResetUpgradeContainer(); }
 
     void ResetUpgradeContainer()
     {
         if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
-        {
-            CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
-            _troopsLimitElement.UpdateCountContainer(
-                _gameManager.TroopsLimit.ToString()
-                , Color.white);
-        }
+            SetTroopsLimitUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
-        {
-            CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
-            _betterQuestsRankElement.SetRank(_gameManager.MaxQuestRank);
-        }
+            SetBetterQuestsUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
-        {
-            CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
-            _upgradeText.UpdateText(c.GetVisitChance().ToString());
-            _upgradeText.UpdateTextColor(Color.white);
-        }
+            SetPawnshopUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
-        {
-            CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
-            _upgradeText.UpdateText(c.GetVisitChance().ToString());
-            _upgradeText.UpdateTextColor(Color.white);
-        }
+            SetSpiceRecyclerUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
-        {
-            CampBuildingShop c = (CampBuildingShop)_campBuilding;
-            CampShopUpgrade upgrade = c.GetCurrentUpgrade();
-            string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
-            _upgradeText.UpdateText(labelText);
-            _upgradeText.UpdateTextColor(Color.white);
-        }
-
+            SetShopUpgrade();
     }
 
     void Build()

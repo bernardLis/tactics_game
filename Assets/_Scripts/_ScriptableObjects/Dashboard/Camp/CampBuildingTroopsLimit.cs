@@ -9,8 +9,7 @@ public class CampBuildingTroopsLimit : CampBuilding
 
     public List<CampTroopsLimitUpgrade> CampTroopsLimitUpgrades = new();
 
-
-    public CampTroopsLimitUpgrade GetTroopsLimitIncreaseByRank(int rank)
+    public CampTroopsLimitUpgrade GetUpgradeByRank(int rank)
     {
         return CampTroopsLimitUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
@@ -20,7 +19,7 @@ public class CampBuildingTroopsLimit : CampBuilding
     public override void Upgrade()
     {
         base.Upgrade();
-        _gameManager.ChangeTroopsLimit(GetTroopsLimitIncreaseByRank(UpgradeRank).LimitIncrease);
+        _gameManager.ChangeTroopsLimit(GetUpgradeByRank(UpgradeRank).LimitIncrease);
     }
 }
 

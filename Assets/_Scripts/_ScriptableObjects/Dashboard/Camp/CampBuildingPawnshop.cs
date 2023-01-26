@@ -6,19 +6,11 @@ using System.Linq;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Pawnshop")]
 public class CampBuildingPawnshop : CampBuilding
 {
-
     public List<CampPawnshopUpgrade> CampPawnshopUpgrades = new();
 
-    public float GetVisitChance()
+    public CampPawnshopUpgrade GetUpgradeByRank(int rank)
     {
-        return CampPawnshopUpgrades.FirstOrDefault(x => x.UpgradeRank == UpgradeRank).ChanceToVisit;
-    }
-
-    public float GetNextUpgradeVisitChance()
-    {
-        if (UpgradeRank + 1 > UpgradeRange.y)
-            return GetVisitChance();
-        return CampPawnshopUpgrades.FirstOrDefault(x => x.UpgradeRank == UpgradeRank + 1).ChanceToVisit;
+        return CampPawnshopUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
 }
 

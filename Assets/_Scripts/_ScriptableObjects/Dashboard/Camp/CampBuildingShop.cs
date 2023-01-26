@@ -28,21 +28,16 @@ public class CampBuildingShop : CampBuilding
                 epicItems.Add(i);
         }
     }
-
-    public CampShopUpgrade GetCurrentUpgrade()
+    
+    public CampShopUpgrade GetUpgradeByRank(int rank)
     {
-        return CampShopUpgrades.FirstOrDefault(x => x.UpgradeRank == UpgradeRank);
-    }
-
-    public CampShopUpgrade GetNextUpgrade()
-    {
-        return CampShopUpgrades.FirstOrDefault(x => x.UpgradeRank == UpgradeRank + 1);
+        return CampShopUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
 
     public Item GetRandomItem()
     {
         float v = Random.value;
-        CampShopUpgrade upgrade = GetCurrentUpgrade();
+        CampShopUpgrade upgrade = GetUpgradeByRank(UpgradeRank);
         if (v < upgrade.EpicItemChance)
             return epicItems[Random.Range(0, epicItems.Count)];
         if (v < upgrade.RareItemChance)
@@ -52,7 +47,6 @@ public class CampBuildingShop : CampBuilding
 
         return commonItems[Random.Range(0, commonItems.Count)];
     }
-
 }
 
 [System.Serializable]
