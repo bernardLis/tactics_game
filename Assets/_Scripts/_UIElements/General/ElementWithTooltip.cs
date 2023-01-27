@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
+using DG.Tweening;
 
 public abstract class ElementWithTooltip : VisualElement
 {
@@ -50,10 +51,16 @@ public abstract class ElementWithTooltip : VisualElement
             return;
         if (panel.visualTree == null)
             return;
+        if (_tooltip == null)
+            return;
 
         var root = panel.visualTree;
         _tooltipContainer = root.Q<VisualElement>("tooltipContainer");
         _tooltipContainer.Add(_tooltip);
+
+        _tooltip.style.opacity = 0;
+        await DOTween.To(x => _tooltip.style.opacity = x, 0, 1, 0.3f).AsyncWaitForCompletion();
+
     }
 
     protected void OnMouseLeave()
@@ -63,12 +70,14 @@ public abstract class ElementWithTooltip : VisualElement
         _isPointerDown = false; // reset otherwise you need to click on it to display tooltip again.
     }
 
-    protected void HideTooltip()
+    protected async void HideTooltip()
     {
         if (_tooltip == null)
             return;
         if (_tooltipContainer == null)
             return;
+
+        await DOTween.To(x => _tooltip.style.opacity = x, 1, 0, 0.3f).AsyncWaitForCompletion();
 
         _tooltipContainer.Clear();
         _tooltip = null;
