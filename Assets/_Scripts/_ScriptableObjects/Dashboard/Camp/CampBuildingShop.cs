@@ -28,7 +28,12 @@ public class CampBuildingShop : CampBuilding
                 epicItems.Add(i);
         }
     }
-    
+
+    public override int GetMaxUpgradeRank()
+    {
+        return Upgrades.OrderByDescending(x => x.UpgradeRank).First().UpgradeRank;
+    }
+
     public CampUpgradeShop GetUpgradeByRank(int rank)
     {
         return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);

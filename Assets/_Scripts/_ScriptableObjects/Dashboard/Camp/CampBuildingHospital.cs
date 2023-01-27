@@ -6,7 +6,12 @@ using System.Linq;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Hospital")]
 public class CampBuildingHospital : CampBuilding
 {
-    public List<CampUpgradeHospital> Upgrades = new();
+    [SerializeField] List<CampUpgradeHospital> Upgrades = new();
+
+    public override int GetMaxUpgradeRank()
+    {
+        return Upgrades.OrderByDescending(x => x.UpgradeRank).First().UpgradeRank;
+    }
 
     public CampUpgradeHospital GetUpgradeByRank(int rank)
     {

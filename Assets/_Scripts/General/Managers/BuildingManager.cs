@@ -47,7 +47,6 @@ public class BuildingManager : MonoBehaviour
 
     void OnNewSaveFileCreation()
     {
-        Debug.Log($"on new save file");
         foreach (CampBuilding b in _campBuildings)
         {
             b.ResetSelf();

@@ -8,6 +8,11 @@ public class CampBuildingSpiceRecycler : CampBuilding
 {
     public List<CampUpgradeSpiceRecycler> Upgrades = new();
 
+    public override int GetMaxUpgradeRank()
+    {
+        return Upgrades.OrderByDescending(x => x.UpgradeRank).First().UpgradeRank;
+    }
+
     public CampUpgradeSpiceRecycler GetUpgradeByRank(int rank)
     {
         return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);

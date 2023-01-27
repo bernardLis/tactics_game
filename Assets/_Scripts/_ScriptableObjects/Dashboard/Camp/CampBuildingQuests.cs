@@ -8,6 +8,11 @@ public class CampBuildingQuests : CampBuilding
 {
     public List<CampUpgradeQuests> Upgrades = new();
 
+    public override int GetMaxUpgradeRank()
+    {
+        return Upgrades.OrderByDescending(x => x.UpgradeRank).First().UpgradeRank;
+    }
+
     public CampUpgradeQuests GetUpgradeByRank(int rank)
     {
         return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);

@@ -95,9 +95,6 @@ public class CampBuildingElement : VisualElement
         SetUpgrade();
 
 
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingQuests)))
-            AddBetterQuestsUpgrade();
-
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
             AddPawnshopUpgrade();
 
@@ -124,15 +121,6 @@ public class CampBuildingElement : VisualElement
     protected virtual void SetUpgrade()
     {
         // meant to be overwritten
-    }
-
-
-    void AddBetterQuestsUpgrade()
-    {
-    }
-
-    void SetBetterQuestsUpgrade()
-    {
     }
 
     void AddPawnshopUpgrade()
@@ -223,7 +211,7 @@ public class CampBuildingElement : VisualElement
 
     void HandleBuildingRank()
     {
-        _buildingRankElement = new(_campBuilding.UpgradeRank, 0.7f, null, _campBuilding.UpgradeRange.y);
+        _buildingRankElement = new(_campBuilding.UpgradeRank, 0.7f, null, _campBuilding.GetMaxUpgradeRank());
         _buildingRankContainer.Add(_buildingRankElement);
     }
 
@@ -273,7 +261,7 @@ public class CampBuildingElement : VisualElement
 
     void HandleBuildButtonUpgrade()
     {
-        if (_campBuilding.UpgradeRank >= _campBuilding.UpgradeRange.y)
+        if (_campBuilding.UpgradeRank >= _campBuilding.GetMaxUpgradeRank())
             return;
 
         _buildButton = new(null, _ussBuildButton, Upgrade);
@@ -349,9 +337,6 @@ public class CampBuildingElement : VisualElement
     void ResetUpgradeContainer()
     {
         SetUpgrade();
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingQuests)))
-            SetBetterQuestsUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
             SetPawnshopUpgrade();

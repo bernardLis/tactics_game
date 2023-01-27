@@ -8,6 +8,11 @@ public class CampBuildingTroopsLimit : CampBuilding
 {
     public List<CampUpgradeTroopsLimit> Upgrades = new();
 
+    public override int GetMaxUpgradeRank()
+    {
+        return Upgrades.OrderByDescending(x => x.UpgradeRank).First().UpgradeRank;
+    }
+
     public CampUpgradeTroopsLimit GetUpgradeByRank(int rank)
     {
         return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);

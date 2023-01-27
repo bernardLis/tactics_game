@@ -16,14 +16,10 @@ public class CampBuilding : BaseScriptableObject
     public int DaysToBuild; // static
     public Sound BuildingSound; // static 
 
-
-    [Tooltip("0 - not built, 1 built and then upgrades")]
-    public Vector2Int UpgradeRange; // static
-
     [HideInInspector] public CampBuildingState CampBuildingState;
     [HideInInspector] public int DaysLeftToBuild;
     [HideInInspector] public int DayStartedBuilding;
-    [HideInInspector] public int UpgradeRank;
+    public int UpgradeRank;
 
     public event Action<CampBuildingState> OnCampBuildingStateChanged;
     public event Action<int> OnUpgraded;
@@ -73,6 +69,12 @@ public class CampBuilding : BaseScriptableObject
     {
         Upgrade();
         UpdateCampBuildingState(CampBuildingState.Built);
+    }
+
+    public virtual int GetMaxUpgradeRank()
+    {
+        // meant to be overwritten
+        return 0;
     }
 
     public virtual int GetUpgradeCost() { return Mathf.RoundToInt(CostToBuild * UpgradeRank * 1.5f); }
