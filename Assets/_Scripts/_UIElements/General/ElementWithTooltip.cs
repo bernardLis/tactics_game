@@ -60,7 +60,6 @@ public abstract class ElementWithTooltip : VisualElement
 
         _tooltip.style.opacity = 0;
         await DOTween.To(x => _tooltip.style.opacity = x, 0, 1, 0.3f).AsyncWaitForCompletion();
-
     }
 
     protected void OnMouseLeave()

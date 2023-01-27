@@ -110,6 +110,9 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
             AddShopUpgrade();
 
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
+            AddRecruitingUpgrade();
+
         Add(_upgradeContainer);
     }
 
@@ -188,8 +191,26 @@ public class CampBuildingElement : VisualElement
     void SetShopUpgrade()
     {
         CampBuildingShop c = (CampBuildingShop)_campBuilding;
-        CampShopUpgrade upgrade = c.GetUpgradeByRank(c.UpgradeRank);
+        CampUpgradeShop upgrade = c.GetUpgradeByRank(c.UpgradeRank);
         string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
+        _upgradeText.UpdateText(labelText);
+        _upgradeText.UpdateTextColor(Color.white);
+    }
+
+    void AddRecruitingUpgrade()
+    {
+        string tooltipText = "Max new recruit level.";
+        _upgradeText = new("TXT", tooltipText);
+        SetRecruitingUpgrade();
+        _upgradeText.UpdateFontSize(36);
+        _upgradeContainer.Add(_upgradeText);
+    }
+
+    void SetRecruitingUpgrade()
+    {
+        CampBuildingRecruiting c = (CampBuildingRecruiting)_campBuilding;
+        CampUpgradeRecruiting upgrade = c.GetUpgradeByRank(c.UpgradeRank);
+        string labelText = $"{upgrade.MaxRecruitLevel}";
         _upgradeText.UpdateText(labelText);
         _upgradeText.UpdateTextColor(Color.white);
     }
@@ -303,8 +324,17 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
         {
             CampBuildingShop c = (CampBuildingShop)_campBuilding;
-            CampShopUpgrade upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
+            CampUpgradeShop upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
             string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
+            _upgradeText.UpdateText(labelText);
+            _upgradeText.UpdateTextColor(Color.green);
+        }
+
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
+        {
+            CampBuildingRecruiting c = (CampBuildingRecruiting)_campBuilding;
+            CampUpgradeRecruiting upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
+            string labelText = $"{upgrade.MaxRecruitLevel}";
             _upgradeText.UpdateText(labelText);
             _upgradeText.UpdateTextColor(Color.green);
         }
@@ -330,6 +360,10 @@ public class CampBuildingElement : VisualElement
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
             SetShopUpgrade();
+
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
+            SetRecruitingUpgrade();
+
     }
 
     void Build()

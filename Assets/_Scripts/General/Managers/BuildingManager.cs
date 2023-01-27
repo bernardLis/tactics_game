@@ -9,6 +9,8 @@ public class BuildingManager : MonoBehaviour
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
     CampBuildingShop _shopBuilding;
+    CampBuildingRecruiting _recruitingBuilding;
+
     void Start()
     {
         _gameManager = GetComponent<GameManager>();
@@ -22,6 +24,9 @@ public class BuildingManager : MonoBehaviour
                 _spiceRecyclerBuilding = (CampBuildingSpiceRecycler)cb;
             if (cb.GetType().Equals(typeof(CampBuildingShop)))
                 _shopBuilding = (CampBuildingShop)cb;
+            if (cb.GetType().Equals(typeof(CampBuildingRecruiting)))
+                _recruitingBuilding = (CampBuildingRecruiting)cb;
+
         }
     }
 
@@ -29,15 +34,19 @@ public class BuildingManager : MonoBehaviour
     {
         if (Random.value < 0.5f)
             AddRandomQuest();
-        if (Random.value < 0.5f)
-            AddRecruit();
-        if (_shopBuilding.CampBuildingState == CampBuildingState.Built
-                && Random.value < 0.3f)
-            AddShop();
+
         if (Random.value < _pawnshopBuilding.GetUpgradeByRank(_pawnshopBuilding.UpgradeRank).ChanceToVisit)
             AddPawnshop();
         if (Random.value < _spiceRecyclerBuilding.GetUpgradeByRank(_pawnshopBuilding.UpgradeRank).ChanceToVisit)
             AddSpiceRecycle();
+
+        if (_shopBuilding.CampBuildingState == CampBuildingState.Built
+                && Random.value < 0.3f)
+            AddShop();
+
+        if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
+                && Random.value < 0.3f)
+            AddRecruit();
     }
 
     public void AddRandomQuest()
@@ -57,7 +66,8 @@ public class BuildingManager : MonoBehaviour
     void AddRecruit()
     {
         Recruit newRecruit = ScriptableObject.CreateInstance<Recruit>();
-        newRecruit.CreateRandom();
+        int level = Random.Range(1, _recruitingBuilding.GetUpgradeByRank(_recruitingBuilding.UpgradeRank).MaxRecruitLevel + 1);
+        newRecruit.CreateRandom(level);
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Recruit, null, newRecruit);

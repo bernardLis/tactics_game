@@ -6,17 +6,16 @@ using System.Linq;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Spice Recycler")]
 public class CampBuildingSpiceRecycler : CampBuilding
 {
+    public List<CampUpgradeSpiceRecycler> Upgrades = new();
 
-    public List<CampSpiceRecyclerUpgrade> CampSpiceRecyclerUpgrades = new();
-
-    public CampSpiceRecyclerUpgrade GetUpgradeByRank(int rank)
+    public CampUpgradeSpiceRecycler GetUpgradeByRank(int rank)
     {
-        return CampSpiceRecyclerUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
+        return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
 }
 
 [System.Serializable]
-public struct CampSpiceRecyclerUpgrade
+public struct CampUpgradeSpiceRecycler
 {
     public int UpgradeRank;
     public float ChanceToVisit;

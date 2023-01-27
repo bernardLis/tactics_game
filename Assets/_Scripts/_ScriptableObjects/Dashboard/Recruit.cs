@@ -50,14 +50,14 @@ public class Recruit : BaseScriptableObject
         OnDaysUntilExpiredChanged?.Invoke(DaysUntilExpired);
     }
 
-    public void CreateRandom()
+    public void CreateRandom(int level)
     {
         Initialize();
 
         RecruitState = RecruitState.Pending;
 
         Character newChar = ScriptableObject.CreateInstance<Character>();
-        newChar.CreateRandom();
+        newChar.CreateRandom(level);
         Character = newChar;
 
         DayAdded = _gameManager.Day;

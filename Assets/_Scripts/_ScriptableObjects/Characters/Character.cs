@@ -11,6 +11,8 @@ public class Character : BaseScriptableObject
 {
     public static int MaxCharacterAbilities = 1;
     public static int MaxCharacterItems = 2;
+    static Vector2Int MaxHealthGainPerLevelRange = new(10, 21);
+    static Vector2Int MaxManaGainPerLevelRange = new(5, 11);
 
     GameManager _gameManager;
 
@@ -118,6 +120,9 @@ public class Character : BaseScriptableObject
         OnCharacterExpGain?.Invoke(0);
 
         Level++;
+        ChangeMaxHealth(Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y));
+        ChangeMaxMana(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
+
         AudioManager.Instance.PlaySFX("LevelUp", Vector3.one);
 
         OnCharacterLevelUp?.Invoke();
@@ -170,6 +175,18 @@ public class Character : BaseScriptableObject
         ResolveItems();
         InformSubscribers(item);
         UpdateRank();
+    }
+
+    void ChangeMaxHealth(int change)
+    {
+        MaxHealth += change;
+        OnMaxHealthChanged?.Invoke(GetStatValue("MaxHealth"));
+    }
+
+    void ChangeMaxMana(int change)
+    {
+        MaxMana += change;
+        OnMaxManaChanged?.Invoke(GetStatValue("MaxMana"));
     }
 
     void InformSubscribers(Item item)
@@ -268,7 +285,7 @@ public class Character : BaseScriptableObject
         UpdateRank();
     }
 
-    public virtual void CreateRandom()
+    public virtual void CreateRandom(int level)
     {
         _gameManager = GameManager.Instance;
 
@@ -282,15 +299,21 @@ public class Character : BaseScriptableObject
         name = CharacterName;
         Portrait = isMale ? characterDatabase.GetRandomPortraitMale() : characterDatabase.GetRandomPortraitFemale();
 
-        Level = 1;
+        Level = level;
         Experience = 0;
         Element = _gameManager.GameDatabase.GetElementByName(ElementName.Earth);
 
-        MaxHealth = 100;
-        MaxMana = 30;
-        Power = 5;
-        Armor = 0;
-        MovementRange = 3;
+        MaxHealth = 100 + Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y) * level;
+        MaxMana = 30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level;
+        
+        int totalPointsLeft = level;
+        int powerLevelBonus = Random.Range(0, totalPointsLeft + 1);
+        totalPointsLeft -= powerLevelBonus;
+        int armorLevelBonus = Random.Range(0, totalPointsLeft + 1);
+        totalPointsLeft -= armorLevelBonus;
+        Power = 5 + powerLevelBonus;
+        Armor = 0 + armorLevelBonus;
+        MovementRange = 3 + totalPointsLeft;
 
         List<Item> Items = new();
 

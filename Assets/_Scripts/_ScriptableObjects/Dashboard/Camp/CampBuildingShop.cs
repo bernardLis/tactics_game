@@ -6,7 +6,7 @@ using System.Linq;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Shop")]
 public class CampBuildingShop : CampBuilding
 {
-    public List<CampShopUpgrade> CampShopUpgrades = new();
+    public List<CampUpgradeShop> Upgrades = new();
 
     List<Item> commonItems = new();
     List<Item> uncommonItems = new();
@@ -29,15 +29,15 @@ public class CampBuildingShop : CampBuilding
         }
     }
     
-    public CampShopUpgrade GetUpgradeByRank(int rank)
+    public CampUpgradeShop GetUpgradeByRank(int rank)
     {
-        return CampShopUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
+        return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
 
     public Item GetRandomItem()
     {
         float v = Random.value;
-        CampShopUpgrade upgrade = GetUpgradeByRank(UpgradeRank);
+        CampUpgradeShop upgrade = GetUpgradeByRank(UpgradeRank);
         if (v < upgrade.EpicItemChance)
             return epicItems[Random.Range(0, epicItems.Count)];
         if (v < upgrade.RareItemChance)
@@ -50,7 +50,7 @@ public class CampBuildingShop : CampBuilding
 }
 
 [System.Serializable]
-public struct CampShopUpgrade
+public struct CampUpgradeShop
 {
     public int UpgradeRank;
     public float UncommonItemChance;

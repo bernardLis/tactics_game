@@ -6,12 +6,11 @@ using System.Linq;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Troops Limit")]
 public class CampBuildingTroopsLimit : CampBuilding
 {
+    public List<CampUpgradeTroopsLimit> Upgrades = new();
 
-    public List<CampTroopsLimitUpgrade> CampTroopsLimitUpgrades = new();
-
-    public CampTroopsLimitUpgrade GetUpgradeByRank(int rank)
+    public CampUpgradeTroopsLimit GetUpgradeByRank(int rank)
     {
-        return CampTroopsLimitUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
+        return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
 
     public override void FinishBuilding() { base.FinishBuilding(); }
@@ -24,7 +23,7 @@ public class CampBuildingTroopsLimit : CampBuilding
 }
 
 [System.Serializable]
-public struct CampTroopsLimitUpgrade
+public struct CampUpgradeTroopsLimit
 {
     public int UpgradeRank;
     public int LimitIncrease;

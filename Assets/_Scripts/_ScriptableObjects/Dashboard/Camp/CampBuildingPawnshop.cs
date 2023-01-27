@@ -6,16 +6,16 @@ using System.Linq;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Pawnshop")]
 public class CampBuildingPawnshop : CampBuilding
 {
-    public List<CampPawnshopUpgrade> CampPawnshopUpgrades = new();
+    public List<CampUpgradePawnshop> Upgrades = new();
 
-    public CampPawnshopUpgrade GetUpgradeByRank(int rank)
+    public CampUpgradePawnshop GetUpgradeByRank(int rank)
     {
-        return CampPawnshopUpgrades.FirstOrDefault(x => x.UpgradeRank == rank);
+        return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
 }
 
 [System.Serializable]
-public struct CampPawnshopUpgrade
+public struct CampUpgradePawnshop
 {
     public int UpgradeRank;
     public float ChanceToVisit;
