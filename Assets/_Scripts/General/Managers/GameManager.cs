@@ -25,7 +25,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public int Spice { get; private set; }
 
-    public int TroopsLimit { get; private set; }
     public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
 
@@ -43,7 +42,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;
-    public event Action<int> OnTroopsLimitChanged;
     public event Action<Character> OnCharacterAddedToTroops;
     public event Action<Character> OnCharacterRemovedFromTroops;
     public event Action<string> OnLevelLoaded;
@@ -128,13 +126,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Spice += o;
         OnSpiceChanged?.Invoke(o);
-        SaveJsonData();
-    }
-
-    public void ChangeTroopsLimit(int change)
-    {
-        TroopsLimit += change;
-        OnTroopsLimitChanged?.Invoke(change);
         SaveJsonData();
     }
 
@@ -233,7 +224,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
         Spice = 500;
 
-        TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
 
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
@@ -271,7 +261,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.Spice = Spice;
 
-        saveData.TroopsLimit = TroopsLimit;
         saveData.PlayerTroops = PopulateCharacters();
 
         saveData.ItemPouch = PopulateItemPouch();
@@ -381,7 +370,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = saveData.Gold;
         Spice = saveData.Spice;
 
-        TroopsLimit = saveData.TroopsLimit;
         PlayerTroops = new();
         foreach (CharacterData data in saveData.PlayerTroops)
         {
@@ -453,7 +441,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Spice = 0;
 
-        TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();

@@ -19,19 +19,18 @@ MonoBehaviour:
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
-  UpgradeRange: {x: 0, y: 4}
   CampBuildingState: 0
   DaysLeftToBuild: 1
   DayStartedBuilding: 0
   UpgradeRank: 0
   Upgrades:
   - UpgradeRank: 0
-    LimitIncrease: 0
+    TroopsLimit: 5
   - UpgradeRank: 1
-    LimitIncrease: 4
+    TroopsLimit: 9
   - UpgradeRank: 2
-    LimitIncrease: 3
+    TroopsLimit: 13
   - UpgradeRank: 3
-    LimitIncrease: 2
+    TroopsLimit: 14
   - UpgradeRank: 4
-    LimitIncrease: 1
+    TroopsLimit: 15

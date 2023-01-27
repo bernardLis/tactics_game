@@ -16,21 +16,23 @@ public class CampBuildingTroopsLimitElement : CampBuildingElement
 
     protected override void AddUpgrade()
     {
-        _troopsLimitElement = new TroopsLimitElement($"{_gameManager.TroopsLimit.ToString()}", 24);
+        _troopsLimitElement = new TroopsLimitElement("0", 24);
+        SetUpgrade();
         _upgradeContainer.Add(_troopsLimitElement);
     }
 
     protected override void SetUpgrade()
     {
+        CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
         _troopsLimitElement.UpdateCountContainer(
-            _gameManager.TroopsLimit.ToString()
+            $"{c.GetUpgradeByRank(c.UpgradeRank).TroopsLimit}"
             , Color.white);
     }
 
     protected override void BuildButtonPointerEnter(PointerEnterEvent evt)
     {
-        int newTroopsLimit = _gameManager.TroopsLimit
-                + _cbTroopsLimit.GetUpgradeByRank(_cbTroopsLimit.UpgradeRank + 1).LimitIncrease;
+        CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
+        int newTroopsLimit = c.GetUpgradeByRank(c.UpgradeRank + 1).TroopsLimit;
         _troopsLimitElement.UpdateCountContainer(newTroopsLimit.ToString(), Color.green);
     }
 

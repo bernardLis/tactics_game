@@ -11,7 +11,7 @@ public class BuildingManager : MonoBehaviour
     public List<CampBuilding> GetAllCampBuildings() { return _campBuildings; }
     public CampBuilding GetCampBuildingById(string id) { return _campBuildings.FirstOrDefault(x => x.Id == id); }
 
-
+    public CampBuildingTroopsLimit TroopsLimitBuilding { get; private set; }
     public CampBuildingQuests QuestsBuilding { get; private set; }
     public CampBuildingHospital HospitalBuilding { get; private set; }
 
@@ -20,11 +20,12 @@ public class BuildingManager : MonoBehaviour
     CampBuildingShop _shopBuilding;
     CampBuildingRecruiting _recruitingBuilding;
 
-
     void Awake()
     {
         foreach (CampBuilding cb in _campBuildings)
         {
+            if (cb.GetType().Equals(typeof(CampBuildingTroopsLimit)))
+                TroopsLimitBuilding = (CampBuildingTroopsLimit)cb;
             if (cb.GetType().Equals(typeof(CampBuildingQuests)))
                 QuestsBuilding = (CampBuildingQuests)cb;
             if (cb.GetType().Equals(typeof(CampBuildingHospital)))

@@ -17,19 +17,11 @@ public class CampBuildingTroopsLimit : CampBuilding
     {
         return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
-
-    public override void FinishBuilding() { base.FinishBuilding(); }
-
-    public override void Upgrade()
-    {
-        base.Upgrade();
-        _gameManager.ChangeTroopsLimit(GetUpgradeByRank(UpgradeRank).LimitIncrease);
-    }
 }
 
 [System.Serializable]
 public struct CampUpgradeTroopsLimit
 {
     public int UpgradeRank;
-    public int LimitIncrease;
+    public int TroopsLimit;
 }

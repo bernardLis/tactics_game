@@ -37,7 +37,9 @@ public class RecruitReportElement : ReportElement
 
     void AcceptRecruit()
     {
-        if (_gameManager.PlayerTroops.Count >= _gameManager.TroopsLimit)
+        CampBuildingTroopsLimit b = _gameManager.GetComponent<BuildingManager>().TroopsLimitBuilding;
+        int limit = b.GetUpgradeByRank(b.UpgradeRank).TroopsLimit;
+        if (_gameManager.PlayerTroops.Count >= limit)
         {
             Helpers.DisplayTextOnElement(_deskManager.Root, this, "Troops Limit Exceeded", Color.red);
             return;

@@ -25,7 +25,8 @@ public class DashboardManager : Singleton<DashboardManager>
     VisualElement _navTroops;
     VisualElement _navSpice;
 
-    TroopsLimitElement _troopsLimitVisualElement;
+    CampBuildingTroopsLimit _troopsLimitBuilding;
+    TroopsLimitElement _troopsLimitElement;
 
     VisualElement _main;
     VisualElement _mainDesk;
@@ -73,9 +74,11 @@ public class DashboardManager : Singleton<DashboardManager>
         _abilitiesWrapperLeft = Root.Q<VisualElement>("abilitiesWrapperLeft");
         _abilitiesWrapperRight = Root.Q<VisualElement>("abilitiesWrapperRight");
 
-
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+    }
 
+    void Start()
+    {
         UpdateDay(_gameManager.Day);
         AddGoldElement();
         AddTroopsElement();
@@ -159,12 +162,27 @@ public class DashboardManager : Singleton<DashboardManager>
     void AddTroopsElement()
     {
         _navTroops.Clear();
-        _troopsLimitVisualElement = new($"{_gameManager.PlayerTroops.Count} / {_gameManager.TroopsLimit}");
-        _gameManager.OnCharacterAddedToTroops += _troopsLimitVisualElement.OnCharacterAddedToTroops;
-        _gameManager.OnTroopsLimitChanged += _troopsLimitVisualElement.OnTroopsLimitChanged;
+        _troopsLimitBuilding = _gameManager.GetComponent<BuildingManager>().TroopsLimitBuilding;
+        _troopsLimitElement = new($"");
+        UpdateTroopsElement();
+        _gameManager.OnCharacterAddedToTroops += UpdateTroopsElement;
+        _troopsLimitBuilding.OnUpgraded += UpdateTroopsElement;
 
-        _navTroops.Add(_troopsLimitVisualElement);
+        _navTroops.Add(_troopsLimitElement);
     }
+
+    // I know it is not nice, but it is also nice, and I don't care about the parameters passed in this case
+    void UpdateTroopsElement(Character c) { UpdateTroopsElement(); }
+    void UpdateTroopsElement(int i) { UpdateTroopsElement(); }
+    void UpdateTroopsElement()
+    {
+        int troopsCount = _gameManager.PlayerTroops.Count;
+        int troopsLimit = _troopsLimitBuilding.GetUpgradeByRank(_troopsLimitBuilding.UpgradeRank).TroopsLimit;
+
+        _troopsLimitElement.UpdateCountContainer($"{troopsCount} / {troopsLimit}", Color.white);
+
+    }
+
 
     void AddSpiceElements()
     {
