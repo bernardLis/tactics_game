@@ -94,39 +94,12 @@ public class CampBuildingElement : VisualElement
         AddUpgrade();
         SetUpgrade();
 
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
-            AddHospitalUpgrade();
-
         Add(_upgradeContainer);
     }
 
-    protected virtual void AddUpgrade()
-    {
-        // meant to be overwritten
-    }
+    protected virtual void AddUpgrade() { }
 
-    protected virtual void SetUpgrade()
-    {
-        // meant to be overwritten
-    }
-
-    void AddHospitalUpgrade()
-    {
-        string tooltipText = "Max days disabled on quest fail.";
-        _upgradeText = new("TXT", tooltipText);
-        SetHospitalUpgrade();
-        _upgradeText.UpdateFontSize(36);
-        _upgradeContainer.Add(_upgradeText);
-    }
-
-    void SetHospitalUpgrade()
-    {
-        CampBuildingHospital c = (CampBuildingHospital)_campBuilding;
-        CampUpgradeHospital upgrade = c.GetUpgradeByRank(c.UpgradeRank);
-        string labelText = $"{upgrade.MaxDaysDisabled}";
-        _upgradeText.UpdateText(labelText);
-        _upgradeText.UpdateTextColor(Color.white);
-    }
+    protected virtual void SetUpgrade() { }
 
     void HandleBuildingRank()
     {
@@ -204,30 +177,13 @@ public class CampBuildingElement : VisualElement
         _buildingRankElement.SetRank(_campBuilding.UpgradeRank);
     }
 
-    protected virtual void BuildButtonPointerEnter(PointerEnterEvent evt)
-    {
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
-        {
-            CampBuildingHospital c = (CampBuildingHospital)_campBuilding;
-            CampUpgradeHospital upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
-            string labelText = $"{upgrade.MaxDaysDisabled}";
-            _upgradeText.UpdateText(labelText);
-            _upgradeText.UpdateTextColor(Color.green);
-        }
-    }
+    protected virtual void BuildButtonPointerEnter(PointerEnterEvent evt) { }
 
     void BuildButtonPointerLeave(PointerLeaveEvent evt) { ResetUpgradeContainer(); }
 
     void BuildButtonPointerUp(PointerUpEvent evt) { ResetUpgradeContainer(); }
 
-    void ResetUpgradeContainer()
-    {
-        SetUpgrade();
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
-            SetHospitalUpgrade();
-    }
+    void ResetUpgradeContainer() { SetUpgrade(); }
 
     void Build()
     {
