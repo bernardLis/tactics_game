@@ -94,9 +94,6 @@ public class CampBuildingElement : VisualElement
         AddUpgrade();
         SetUpgrade();
 
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
-            AddShopUpgrade();
-
         if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
             AddRecruitingUpgrade();
 
@@ -117,23 +114,6 @@ public class CampBuildingElement : VisualElement
     }
 
 
-    void AddShopUpgrade()
-    {
-        string tooltipText = "Chance for uncommon, rare and epic item in the shop.";
-        _upgradeText = new("TXT", tooltipText);
-        SetShopUpgrade();
-        _upgradeText.UpdateFontSize(18);
-        _upgradeContainer.Add(_upgradeText);
-    }
-
-    void SetShopUpgrade()
-    {
-        CampBuildingShop c = (CampBuildingShop)_campBuilding;
-        CampUpgradeShop upgrade = c.GetUpgradeByRank(c.UpgradeRank);
-        string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
-        _upgradeText.UpdateText(labelText);
-        _upgradeText.UpdateTextColor(Color.white);
-    }
 
     void AddRecruitingUpgrade()
     {
@@ -249,15 +229,6 @@ public class CampBuildingElement : VisualElement
 
     protected virtual void BuildButtonPointerEnter(PointerEnterEvent evt)
     {
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
-        {
-            CampBuildingShop c = (CampBuildingShop)_campBuilding;
-            CampUpgradeShop upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
-            string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
-            _upgradeText.UpdateText(labelText);
-            _upgradeText.UpdateTextColor(Color.green);
-        }
-
         if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
         {
             CampBuildingRecruiting c = (CampBuildingRecruiting)_campBuilding;
@@ -285,9 +256,6 @@ public class CampBuildingElement : VisualElement
     void ResetUpgradeContainer()
     {
         SetUpgrade();
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
-            SetShopUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
             SetRecruitingUpgrade();
