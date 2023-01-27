@@ -22,7 +22,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public int Day { get; private set; }
     public int Gold { get; private set; }
-
     public int Spice { get; private set; }
 
     public List<Character> PlayerTroops = new();
@@ -438,7 +437,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Day = 1;
         Gold = 0;
-
         Spice = 0;
 
         PlayerTroops = CreatePlayerTroops();

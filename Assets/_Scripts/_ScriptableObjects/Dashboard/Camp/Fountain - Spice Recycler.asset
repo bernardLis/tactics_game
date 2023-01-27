@@ -19,7 +19,6 @@ MonoBehaviour:
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
-  UpgradeRange: {x: 0, y: 3}
   CampBuildingState: 0
   DaysLeftToBuild: 1
   DayStartedBuilding: 0
@@ -27,3 +26,11 @@ MonoBehaviour:
   Upgrades:
   - UpgradeRank: 0
     ChanceToVisit: 0
+  - UpgradeRank: 0
+    ChanceToVisit: 0.1
+  - UpgradeRank: 0
+    ChanceToVisit: 0.2
+  - UpgradeRank: 0
+    ChanceToVisit: 0.3
+  - UpgradeRank: 0
+    ChanceToVisit: 0.4

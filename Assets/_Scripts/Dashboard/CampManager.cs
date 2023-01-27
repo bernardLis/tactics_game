@@ -33,6 +33,11 @@ public class CampManager : MonoBehaviour
                 _mainCamp.Add(new CampBuildingTroopsLimitElement((CampBuildingTroopsLimit)b));
             if (b.GetType().Equals(typeof(CampBuildingQuests)))
                 _mainCamp.Add(new CampBuildingQuestsElement((CampBuildingQuests)b));
+            if (b.GetType().Equals(typeof(CampBuildingPawnshop)))
+                _mainCamp.Add(new CampBuildingPawnshopElement((CampBuildingPawnshop)b));
+            if (b.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
+                _mainCamp.Add(new CampBuildingSpiceRecyclerElement((CampBuildingSpiceRecycler)b));
+
         }
     }
 

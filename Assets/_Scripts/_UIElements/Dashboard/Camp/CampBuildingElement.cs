@@ -94,13 +94,6 @@ public class CampBuildingElement : VisualElement
         AddUpgrade();
         SetUpgrade();
 
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
-            AddPawnshopUpgrade();
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
-            AddSpiceRecyclerUpgrade();
-
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
             AddShopUpgrade();
 
@@ -123,37 +116,6 @@ public class CampBuildingElement : VisualElement
         // meant to be overwritten
     }
 
-    void AddPawnshopUpgrade()
-    {
-        string tooltipText = "Chance pawnshop visits.";
-        _upgradeText = new("TXT", tooltipText);
-        SetPawnshopUpgrade();
-        _upgradeText.UpdateFontSize(36);
-        _upgradeContainer.Add(_upgradeText);
-    }
-
-    void SetPawnshopUpgrade()
-    {
-        CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
-        _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank).ChanceToVisit.ToString());
-        _upgradeText.UpdateTextColor(Color.white);
-    }
-
-    void AddSpiceRecyclerUpgrade()
-    {
-        string tooltipText = "Chance spice recycler visits.";
-        _upgradeText = new("TXT", tooltipText);
-        SetSpiceRecyclerUpgrade();
-        _upgradeText.UpdateFontSize(36);
-        _upgradeContainer.Add(_upgradeText);
-    }
-
-    void SetSpiceRecyclerUpgrade()
-    {
-        CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
-        _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank).ChanceToVisit.ToString());
-        _upgradeText.UpdateTextColor(Color.white);
-    }
 
     void AddShopUpgrade()
     {
@@ -287,20 +249,6 @@ public class CampBuildingElement : VisualElement
 
     protected virtual void BuildButtonPointerEnter(PointerEnterEvent evt)
     {
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
-        {
-            CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
-            _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank + 1).ChanceToVisit.ToString());
-            _upgradeText.UpdateTextColor(Color.green);
-        }
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
-        {
-            CampBuildingSpiceRecycler c = (CampBuildingSpiceRecycler)_campBuilding;
-            _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank + 1).ChanceToVisit.ToString());
-            _upgradeText.UpdateTextColor(Color.green);
-        }
-
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
         {
             CampBuildingShop c = (CampBuildingShop)_campBuilding;
@@ -337,12 +285,6 @@ public class CampBuildingElement : VisualElement
     void ResetUpgradeContainer()
     {
         SetUpgrade();
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
-            SetPawnshopUpgrade();
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
-            SetSpiceRecyclerUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingShop)))
             SetShopUpgrade();

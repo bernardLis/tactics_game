@@ -15,6 +15,11 @@ public class CampReportElement : ReportElement
             el = (CampBuildingTroopsLimitElement)new CampBuildingTroopsLimitElement((CampBuildingTroopsLimit)b);
         if (b.GetType().Equals(typeof(CampBuildingQuests)))
             el = (CampBuildingQuestsElement)new CampBuildingQuestsElement((CampBuildingQuests)b);
+        if (b.GetType().Equals(typeof(CampBuildingPawnshop)))
+            el = (CampBuildingPawnshopElement)new CampBuildingPawnshopElement((CampBuildingPawnshop)b);
+        if (b.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
+            el = (CampBuildingSpiceRecyclerElement)new CampBuildingSpiceRecyclerElement((CampBuildingSpiceRecycler)b);
+
 
         el.style.backgroundImage = null; // looks weird coz report already has paper bg
         _reportContents.Add(el);

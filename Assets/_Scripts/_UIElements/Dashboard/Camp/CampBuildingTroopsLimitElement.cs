@@ -7,11 +7,9 @@ public class CampBuildingTroopsLimitElement : CampBuildingElement
 {
 
     TroopsLimitElement _troopsLimitElement;
-    CampBuildingTroopsLimit _cbTroopsLimit;
 
     public CampBuildingTroopsLimitElement(CampBuildingTroopsLimit campBuilding) : base(campBuilding)
     {
-        _cbTroopsLimit = campBuilding;
     }
 
     protected override void AddUpgrade()
