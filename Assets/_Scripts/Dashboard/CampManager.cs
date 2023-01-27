@@ -39,6 +39,9 @@ public class CampManager : MonoBehaviour
                 _mainCamp.Add(new CampBuildingSpiceRecyclerElement((CampBuildingSpiceRecycler)b));
             if (b.GetType().Equals(typeof(CampBuildingShop)))
                 _mainCamp.Add(new CampBuildingShopElement((CampBuildingShop)b));
+            if (b.GetType().Equals(typeof(CampBuildingRecruiting)))
+                _mainCamp.Add(new CampBuildingRecruitingElement((CampBuildingRecruiting)b));
+
         }
     }
 

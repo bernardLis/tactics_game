@@ -94,9 +94,6 @@ public class CampBuildingElement : VisualElement
         AddUpgrade();
         SetUpgrade();
 
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
-            AddRecruitingUpgrade();
-
         if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
             AddHospitalUpgrade();
 
@@ -111,26 +108,6 @@ public class CampBuildingElement : VisualElement
     protected virtual void SetUpgrade()
     {
         // meant to be overwritten
-    }
-
-
-
-    void AddRecruitingUpgrade()
-    {
-        string tooltipText = "Max new recruit level.";
-        _upgradeText = new("TXT", tooltipText);
-        SetRecruitingUpgrade();
-        _upgradeText.UpdateFontSize(36);
-        _upgradeContainer.Add(_upgradeText);
-    }
-
-    void SetRecruitingUpgrade()
-    {
-        CampBuildingRecruiting c = (CampBuildingRecruiting)_campBuilding;
-        CampUpgradeRecruiting upgrade = c.GetUpgradeByRank(c.UpgradeRank);
-        string labelText = $"{upgrade.MaxRecruitLevel}";
-        _upgradeText.UpdateText(labelText);
-        _upgradeText.UpdateTextColor(Color.white);
     }
 
     void AddHospitalUpgrade()
@@ -229,14 +206,6 @@ public class CampBuildingElement : VisualElement
 
     protected virtual void BuildButtonPointerEnter(PointerEnterEvent evt)
     {
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
-        {
-            CampBuildingRecruiting c = (CampBuildingRecruiting)_campBuilding;
-            CampUpgradeRecruiting upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
-            string labelText = $"{upgrade.MaxRecruitLevel}";
-            _upgradeText.UpdateText(labelText);
-            _upgradeText.UpdateTextColor(Color.green);
-        }
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
         {
@@ -246,7 +215,6 @@ public class CampBuildingElement : VisualElement
             _upgradeText.UpdateText(labelText);
             _upgradeText.UpdateTextColor(Color.green);
         }
-
     }
 
     void BuildButtonPointerLeave(PointerLeaveEvent evt) { ResetUpgradeContainer(); }
@@ -256,9 +224,6 @@ public class CampBuildingElement : VisualElement
     void ResetUpgradeContainer()
     {
         SetUpgrade();
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
-            SetRecruitingUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
             SetHospitalUpgrade();

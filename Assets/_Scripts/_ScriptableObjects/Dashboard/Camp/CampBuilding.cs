@@ -19,7 +19,7 @@ public class CampBuilding : BaseScriptableObject
     [HideInInspector] public CampBuildingState CampBuildingState;
     [HideInInspector] public int DaysLeftToBuild;
     [HideInInspector] public int DayStartedBuilding;
-    public int UpgradeRank;
+    [HideInInspector] public int UpgradeRank;
 
     public event Action<CampBuildingState> OnCampBuildingStateChanged;
     public event Action<int> OnUpgraded;
