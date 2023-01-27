@@ -139,8 +139,10 @@ public class Quest : BaseScriptableObject
 
     public void Lost()
     {
+        CampBuildingHospital h = _gameManager.GetComponent<BuildingManager>().HospitalBuilding;
+        int maxDaysDisabled = h.GetUpgradeByRank(h.UpgradeRank).MaxDaysDisabled;
         foreach (Character character in AssignedCharacters)
-            character.SetUnavailable(Random.Range(1, 5));
+            character.SetUnavailable(Random.Range(1, maxDaysDisabled + 1));
     }
 
     // TODO: change reward exp to take into consideration rank difference and winning losing quest

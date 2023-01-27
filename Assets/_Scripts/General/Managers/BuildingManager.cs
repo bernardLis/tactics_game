@@ -10,6 +10,7 @@ public class BuildingManager : MonoBehaviour
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
     CampBuildingShop _shopBuilding;
     CampBuildingRecruiting _recruitingBuilding;
+    public CampBuildingHospital HospitalBuilding { get; private set; }
 
     void Start()
     {
@@ -26,7 +27,8 @@ public class BuildingManager : MonoBehaviour
                 _shopBuilding = (CampBuildingShop)cb;
             if (cb.GetType().Equals(typeof(CampBuildingRecruiting)))
                 _recruitingBuilding = (CampBuildingRecruiting)cb;
-
+            if (cb.GetType().Equals(typeof(CampBuildingHospital)))
+                HospitalBuilding = (CampBuildingHospital)cb;
         }
     }
 

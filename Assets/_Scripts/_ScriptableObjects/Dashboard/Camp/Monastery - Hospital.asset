@@ -9,18 +9,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6a77948fed42c84998cf3af792195ac, type: 3}
-  m_Name: Monastery
+  m_Script: {fileID: 11500000, guid: ded77815bb10d16438bd8bbc9d287912, type: 3}
+  m_Name: Monastery - Hospital
   m_EditorClassIdentifier: 
-  Id: 82a28641-8257-493c-871f-907c059281f2
+  Id: d728570b-bb2a-40af-befe-2502f9334954
   DisplayName: Monastery
   OutlineSprite: {fileID: 21300000, guid: ea99704b19bcb3449982b70ba3b0ba8f, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 38ee95e772b15654d825aa787502fc76, type: 3}
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
-  UpgradeRange: {x: 0, y: 0}
+  UpgradeRange: {x: 0, y: 3}
   CampBuildingState: 0
   DaysLeftToBuild: 0
   DayStartedBuilding: 0
   UpgradeRank: 0
+  Upgrades:
+  - UpgradeRank: 0
+    MaxDaysDisabled: 6
+  - UpgradeRank: 1
+    MaxDaysDisabled: 5
+  - UpgradeRank: 2
+    MaxDaysDisabled: 4
+  - UpgradeRank: 3
+    MaxDaysDisabled: 3

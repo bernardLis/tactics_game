@@ -113,6 +113,9 @@ public class CampBuildingElement : VisualElement
         if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
             AddRecruitingUpgrade();
 
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
+            AddHospitalUpgrade();
+
         Add(_upgradeContainer);
     }
 
@@ -211,6 +214,24 @@ public class CampBuildingElement : VisualElement
         CampBuildingRecruiting c = (CampBuildingRecruiting)_campBuilding;
         CampUpgradeRecruiting upgrade = c.GetUpgradeByRank(c.UpgradeRank);
         string labelText = $"{upgrade.MaxRecruitLevel}";
+        _upgradeText.UpdateText(labelText);
+        _upgradeText.UpdateTextColor(Color.white);
+    }
+
+    void AddHospitalUpgrade()
+    {
+        string tooltipText = "Max days disabled on quest fail.";
+        _upgradeText = new("TXT", tooltipText);
+        SetHospitalUpgrade();
+        _upgradeText.UpdateFontSize(36);
+        _upgradeContainer.Add(_upgradeText);
+    }
+
+    void SetHospitalUpgrade()
+    {
+        CampBuildingHospital c = (CampBuildingHospital)_campBuilding;
+        CampUpgradeHospital upgrade = c.GetUpgradeByRank(c.UpgradeRank);
+        string labelText = $"{upgrade.MaxDaysDisabled}";
         _upgradeText.UpdateText(labelText);
         _upgradeText.UpdateTextColor(Color.white);
     }
@@ -338,6 +359,16 @@ public class CampBuildingElement : VisualElement
             _upgradeText.UpdateText(labelText);
             _upgradeText.UpdateTextColor(Color.green);
         }
+
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
+        {
+            CampBuildingHospital c = (CampBuildingHospital)_campBuilding;
+            CampUpgradeHospital upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
+            string labelText = $"{upgrade.MaxDaysDisabled}";
+            _upgradeText.UpdateText(labelText);
+            _upgradeText.UpdateTextColor(Color.green);
+        }
+
     }
 
     void BuildButtonPointerLeave(PointerLeaveEvent evt) { ResetUpgradeContainer(); }
@@ -363,7 +394,9 @@ public class CampBuildingElement : VisualElement
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
             SetRecruitingUpgrade();
-
+        
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
+            SetHospitalUpgrade();
     }
 
     void Build()
