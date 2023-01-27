@@ -21,10 +21,10 @@ MonoBehaviour:
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
   UpgradeRange: {x: 0, y: 4}
   CampBuildingState: 0
-  DaysLeftToBuild: 0
+  DaysLeftToBuild: 1
   DayStartedBuilding: 0
   UpgradeRank: 0
-  CampTroopsLimitUpgrades:
+  Upgrades:
   - UpgradeRank: 0
     LimitIncrease: 0
   - UpgradeRank: 1

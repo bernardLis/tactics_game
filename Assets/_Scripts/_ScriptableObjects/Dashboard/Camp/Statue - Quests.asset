@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44db9dce1687f5b4faddfaaf14c640cc, type: 3}
-  m_Name: Statue - Better Quests
+  m_Name: Statue - Quests
   m_EditorClassIdentifier: 
   Id: d86e9c60-a648-42d6-903d-043d9ed7d38f
   DisplayName: Statue
@@ -19,8 +19,17 @@ MonoBehaviour:
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
-  UpgradeRange: {x: 0, y: 4}
+  UpgradeRange: {x: 0, y: 3}
   CampBuildingState: 0
   DaysLeftToBuild: 0
   DayStartedBuilding: 0
   UpgradeRank: 0
+  Upgrades:
+  - UpgradeRank: 0
+    MaxQuestRank: 1
+  - UpgradeRank: 1
+    MaxQuestRank: 2
+  - UpgradeRank: 2
+    MaxQuestRank: 3
+  - UpgradeRank: 4
+    MaxQuestRank: 5

@@ -26,9 +26,14 @@ public class CampManager : MonoBehaviour
     void Initialize()
     {
         _mainCamp.Clear();
-        List<CampBuilding> buildings = new(_gameManager.GetCampBuildings());
+        List<CampBuilding> buildings = new(_gameManager.GetComponent<BuildingManager>().GetAllCampBuildings());
         foreach (CampBuilding b in buildings)
-        _mainCamp.Add(new CampBuildingElement(b));
+        {
+            if (b.GetType().Equals(typeof(CampBuildingTroopsLimit)))
+                _mainCamp.Add(new CampBuildingTroopsLimitElement((CampBuildingTroopsLimit)b));
+            if (b.GetType().Equals(typeof(CampBuildingQuests)))
+                _mainCamp.Add(new CampBuildingQuestsElement((CampBuildingQuests)b));
+        }
     }
 
     void DayPassed(int day)

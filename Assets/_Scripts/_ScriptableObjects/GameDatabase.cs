@@ -18,11 +18,11 @@ public class GameDatabase : BaseScriptableObject
 
 
     [Header("Characters")]
-    [SerializeField] Character[] StarterTroops;
+    [SerializeField] Character[] StartingTroops;
     [SerializeField] Ability[] Abilities;
     [SerializeField] Item[] Items;
     [SerializeField] StatIcon[] StatIcons;
-    public Character[] GetAllStarterTroops() { return StarterTroops; }
+    public Character[] GetAllStarterTroops() { return StartingTroops; }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
     public List<Item> GetAllItems() { return Items.ToList(); }

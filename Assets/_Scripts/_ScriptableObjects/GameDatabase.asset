@@ -16,9 +16,10 @@ MonoBehaviour:
   CharacterDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   Cutscenes: []
-  StarterTroops:
+  StartingTroops:
   - {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
   - {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
+  StartingQuests: []
   Abilities: []
   Items:
   - {fileID: 11400000, guid: 653ed2c41395a0d4b8e6453cafff0f00, type: 2}

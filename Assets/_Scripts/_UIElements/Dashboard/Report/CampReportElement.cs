@@ -7,10 +7,15 @@ public class CampReportElement : ReportElement
 {
     public CampReportElement(VisualElement parent, Report report) : base(parent, report)
     {
-        CampBuilding b = _gameManager.GetCampBuildingById(_report.CampBuildingId);
+        CampBuilding b = _gameManager.GetComponent<BuildingManager>().GetCampBuildingById(_report.CampBuildingId);
         AddHeader("Building Finished!", new Color(0.66f, 0.42f, 0.17f));
 
-        CampBuildingElement el = new CampBuildingElement(b);
+        CampBuildingElement el = null;
+        if (b.GetType().Equals(typeof(CampBuildingTroopsLimit)))
+            el = (CampBuildingTroopsLimitElement)new CampBuildingTroopsLimitElement((CampBuildingTroopsLimit)b);
+        if (b.GetType().Equals(typeof(CampBuildingQuests)))
+            el = (CampBuildingQuestsElement)new CampBuildingQuestsElement((CampBuildingQuests)b);
+
         el.style.backgroundImage = null; // looks weird coz report already has paper bg
         _reportContents.Add(el);
 

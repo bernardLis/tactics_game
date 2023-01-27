@@ -5,9 +5,9 @@ using UnityEngine.UIElements;
 
 public class CampBuildingElement : VisualElement
 {
-    GameManager _gameManager;
+    protected GameManager _gameManager;
 
-    CampBuilding _campBuilding;
+    protected CampBuilding _campBuilding;
 
     VisualElement _sprite;
     Label _timeToBuild;
@@ -19,9 +19,7 @@ public class CampBuildingElement : VisualElement
     VisualElement _upgradeCostContainer;
     GoldElement _costGoldElement;
 
-    VisualElement _upgradeContainer;
-    TroopsLimitElement _troopsLimitElement;
-    StarRankElement _betterQuestsRankElement;
+    protected VisualElement _upgradeContainer;
     TextWithTooltip _upgradeText;
 
     const string _ussCommonTextPrimary = "common__text-primary";
@@ -32,7 +30,6 @@ public class CampBuildingElement : VisualElement
     const string _ussSprite = _ussClassName + "sprite";
     const string _ussUpgradeCostContainer = _ussClassName + "upgrade-cost-container";
     const string _ussBuildButton = _ussClassName + "build-button";
-
 
     public CampBuildingElement(CampBuilding campBuilding)
     {
@@ -94,11 +91,11 @@ public class CampBuildingElement : VisualElement
     {
         _upgradeContainer = new();
         _upgradeContainer.style.flexDirection = FlexDirection.Row;
+        AddUpgrade();
+        SetUpgrade();
 
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
-            AddTroopsLimitUpgrade();
 
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingQuests)))
             AddBetterQuestsUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
@@ -119,35 +116,23 @@ public class CampBuildingElement : VisualElement
         Add(_upgradeContainer);
     }
 
-    void AddTroopsLimitUpgrade()
+    protected virtual void AddUpgrade()
     {
-        _troopsLimitElement = new TroopsLimitElement($"{_gameManager.TroopsLimit.ToString()}", 24);
-        _upgradeContainer.Add(_troopsLimitElement);
+        // meant to be overwritten
     }
 
-    void SetTroopsLimitUpgrade()
+    protected virtual void SetUpgrade()
     {
-        CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
-        _troopsLimitElement.UpdateCountContainer(
-            _gameManager.TroopsLimit.ToString()
-            , Color.white);
+        // meant to be overwritten
     }
+
 
     void AddBetterQuestsUpgrade()
     {
-        _betterQuestsRankElement = new(_gameManager.MaxQuestRank, 0.5f, null, 5);
-        Label l = new("Max Quest Rank: ");
-        _upgradeContainer.style.flexDirection = FlexDirection.Column;
-        _upgradeContainer.style.alignItems = Align.Center;
-
-        _upgradeContainer.Add(l);
-        _upgradeContainer.Add(_betterQuestsRankElement);
     }
 
     void SetBetterQuestsUpgrade()
     {
-        CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
-        _betterQuestsRankElement.SetRank(_gameManager.MaxQuestRank);
     }
 
     void AddPawnshopUpgrade()
@@ -312,22 +297,8 @@ public class CampBuildingElement : VisualElement
         _buildingRankElement.SetRank(_campBuilding.UpgradeRank);
     }
 
-    void BuildButtonPointerEnter(PointerEnterEvent evt)
+    protected virtual void BuildButtonPointerEnter(PointerEnterEvent evt)
     {
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
-        {
-            CampBuildingTroopsLimit c = (CampBuildingTroopsLimit)_campBuilding;
-            int newTroopsLimit = _gameManager.TroopsLimit
-                    + c.GetUpgradeByRank(c.UpgradeRank + 1).LimitIncrease;
-            _troopsLimitElement.UpdateCountContainer(newTroopsLimit.ToString(), Color.green);
-        }
-
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
-        {
-            CampBuildingBetterQuests c = (CampBuildingBetterQuests)_campBuilding;
-            _betterQuestsRankElement.SetRank(_gameManager.MaxQuestRank + 1);
-        }
-
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
         {
             CampBuildingPawnshop c = (CampBuildingPawnshop)_campBuilding;
@@ -377,10 +348,9 @@ public class CampBuildingElement : VisualElement
 
     void ResetUpgradeContainer()
     {
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingTroopsLimit)))
-            SetTroopsLimitUpgrade();
+        SetUpgrade();
 
-        if (_campBuilding.GetType().Equals(typeof(CampBuildingBetterQuests)))
+        if (_campBuilding.GetType().Equals(typeof(CampBuildingQuests)))
             SetBetterQuestsUpgrade();
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingPawnshop)))
@@ -394,7 +364,7 @@ public class CampBuildingElement : VisualElement
 
         if (_campBuilding.GetType().Equals(typeof(CampBuildingRecruiting)))
             SetRecruitingUpgrade();
-        
+
         if (_campBuilding.GetType().Equals(typeof(CampBuildingHospital)))
             SetHospitalUpgrade();
     }

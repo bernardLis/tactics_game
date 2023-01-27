@@ -24,7 +24,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Gold { get; private set; }
 
     public int Spice { get; private set; }
-    public int MaxQuestRank { get; private set; }
 
     public int TroopsLimit { get; private set; }
     public List<Character> PlayerTroops = new();
@@ -35,8 +34,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public List<Report> Reports = new();
     public List<Report> ReportsArchived = new();
-
-    [SerializeField] List<CampBuilding> _campBuildings = new();
 
     [SerializeField] List<AbilityNodeGraph> _abilityNodeGraphs = new();
 
@@ -50,12 +47,17 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action<Character> OnCharacterAddedToTroops;
     public event Action<Character> OnCharacterRemovedFromTroops;
     public event Action<string> OnLevelLoaded;
+    public event Action OnNewSaveFileCreation;
+    public event Action OnClearSaveData;
 
     protected override void Awake()
     {
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
+    }
 
+    void Start()
+    {
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
             CreateNewSaveFile();
@@ -77,7 +79,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         OnReportAdded?.Invoke(r);
         SaveJsonData();
     }
-
 
     /* RESOURCES */
     public void PassDay()
@@ -136,11 +137,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         OnTroopsLimitChanged?.Invoke(change);
         SaveJsonData();
     }
-
-    public void SetMaxQuestRank(int newMaxQuestRank) { MaxQuestRank = newMaxQuestRank; }
-
-    public List<CampBuilding> GetCampBuildings() { return _campBuildings; }
-    public CampBuilding GetCampBuildingById(string id) { return _campBuildings.FirstOrDefault(x => x.Id == id); }
 
     public List<AbilityNodeGraph> GetAbilityNodeGraphs() { return _abilityNodeGraphs; }
     public AbilityNodeGraph GetAbilityNodeGraphById(string id) { return _abilityNodeGraphs.FirstOrDefault(x => x.Id == id); }
@@ -237,20 +233,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
         Spice = 500;
 
-        MaxQuestRank = 1;
-
         TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
-
-        // TODO: // HERE: for now, I could hand craft 3 first quests or something...
-        for (int i = 0; i < 3; i++)
-            GetComponent<BuildingManager>().AddRandomQuest();
-
-        foreach (CampBuilding b in _campBuildings)
-        {
-            b.ResetSelf();
-            b.Initialize();
-        }
 
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
@@ -262,6 +246,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerPrefs.SetString("saveName", fileName);
         PlayerPrefs.Save();
 
+        OnNewSaveFileCreation?.Invoke();
         SaveJsonData();
     }
 
@@ -285,8 +270,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.Gold = Gold;
 
         saveData.Spice = Spice;
-
-        saveData.MaxQuestRank = MaxQuestRank;
 
         saveData.TroopsLimit = TroopsLimit;
         saveData.PlayerTroops = PopulateCharacters();
@@ -358,7 +341,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     List<CampBuildingData> PopulateCampBuildings()
     {
         List<CampBuildingData> data = new();
-        foreach (CampBuilding b in _campBuildings)
+        List<CampBuilding> buildings = GetComponent<BuildingManager>().GetAllCampBuildings();
+        foreach (CampBuilding b in buildings)
             data.Add(b.SerializeSelf());
         return data;
     }
@@ -397,8 +381,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = saveData.Gold;
         Spice = saveData.Spice;
 
-        MaxQuestRank = saveData.MaxQuestRank;
-
         TroopsLimit = saveData.TroopsLimit;
         PlayerTroops = new();
         foreach (CharacterData data in saveData.PlayerTroops)
@@ -435,8 +417,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         LoadReports(saveData);
 
-        foreach (CampBuildingData data in saveData.CampBuildings)
-            GetCampBuildingById(data.Id).LoadFromData(data);
+        GetComponent<BuildingManager>().LoadAllBuildingsFromData(saveData.CampBuildings);
 
         foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
             GetAbilityNodeGraphById(data.Id).LoadFromData(data);
@@ -472,8 +453,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Spice = 0;
 
-        MaxQuestRank = 1;
-
         TroopsLimit = 5;
         PlayerTroops = CreatePlayerTroops();
         PlayerItemPouch = new();
@@ -484,8 +463,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Reports = new();
         ReportsArchived = new();
 
-        foreach (CampBuilding b in _campBuildings)
-            b.ResetSelf();
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
 
@@ -493,6 +470,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             Debug.Log("Cleared active save");
 
         LoadLevel(Scenes.MainMenu);
+        OnClearSaveData?.Invoke();
     }
 
 }

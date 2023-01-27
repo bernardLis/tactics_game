@@ -1,24 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BuildingManager : MonoBehaviour
 {
     GameManager _gameManager;
 
+    [SerializeField] List<CampBuilding> _campBuildings = new();
+    public List<CampBuilding> GetAllCampBuildings() { return _campBuildings; }
+    public CampBuilding GetCampBuildingById(string id) { return _campBuildings.FirstOrDefault(x => x.Id == id); }
+
+
+    public CampBuildingQuests QuestsBuilding { get; private set; }
+    public CampBuildingHospital HospitalBuilding { get; private set; }
+
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
     CampBuildingShop _shopBuilding;
     CampBuildingRecruiting _recruitingBuilding;
-    public CampBuildingHospital HospitalBuilding { get; private set; }
 
-    void Start()
+
+    void Awake()
     {
-        _gameManager = GetComponent<GameManager>();
-        _gameManager.OnDayPassed += OnDayPassed;
-
-        foreach (CampBuilding cb in _gameManager.GetCampBuildings())
+        foreach (CampBuilding cb in _campBuildings)
         {
+            if (cb.GetType().Equals(typeof(CampBuildingQuests)))
+                QuestsBuilding = (CampBuildingQuests)cb;
+            if (cb.GetType().Equals(typeof(CampBuildingHospital)))
+                HospitalBuilding = (CampBuildingHospital)cb;
             if (cb.GetType().Equals(typeof(CampBuildingPawnshop)))
                 _pawnshopBuilding = (CampBuildingPawnshop)cb;
             if (cb.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
@@ -27,9 +37,38 @@ public class BuildingManager : MonoBehaviour
                 _shopBuilding = (CampBuildingShop)cb;
             if (cb.GetType().Equals(typeof(CampBuildingRecruiting)))
                 _recruitingBuilding = (CampBuildingRecruiting)cb;
-            if (cb.GetType().Equals(typeof(CampBuildingHospital)))
-                HospitalBuilding = (CampBuildingHospital)cb;
         }
+
+        _gameManager = GetComponent<GameManager>();
+        _gameManager.OnNewSaveFileCreation += OnNewSaveFileCreation;
+        _gameManager.OnClearSaveData += OnClearSaveData;
+        _gameManager.OnDayPassed += OnDayPassed;
+    }
+
+    void OnNewSaveFileCreation()
+    {
+        Debug.Log($"on new save file");
+        foreach (CampBuilding b in _campBuildings)
+        {
+            b.ResetSelf();
+            b.Initialize();
+        }
+
+        // TODO: // HERE: for now, I could hand craft 3 first quests or something...
+        for (int i = 0; i < 3; i++)
+            AddRandomQuest();
+    }
+
+    void OnClearSaveData()
+    {
+        foreach (CampBuilding b in _campBuildings)
+            b.ResetSelf();
+    }
+
+    public void LoadAllBuildingsFromData(List<CampBuildingData> datas)
+    {
+        foreach (CampBuildingData d in datas)
+            GetCampBuildingById(d.Id).LoadFromData(d);
     }
 
     void OnDayPassed(int day)
