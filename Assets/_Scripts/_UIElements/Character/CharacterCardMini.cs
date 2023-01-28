@@ -78,7 +78,6 @@ public class CharacterCardMini : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        HideTooltip();
         CharacterCard tooltip = new CharacterCard(Character);
         _tooltip = new(this, tooltip, true);
         base.DisplayTooltip();

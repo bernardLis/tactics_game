@@ -49,7 +49,6 @@ public class ElementalElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        HideTooltip();
         Label tooltip = new(_element.Description);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();

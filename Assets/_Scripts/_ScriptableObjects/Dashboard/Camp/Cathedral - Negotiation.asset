@@ -9,18 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6a77948fed42c84998cf3af792195ac, type: 3}
-  m_Name: Cathedral
+  m_Script: {fileID: 11500000, guid: 25f26035ce97141429b7e6c285edc908, type: 3}
+  m_Name: Cathedral - Negotiation
   m_EditorClassIdentifier: 
-  Id: c980c9b5-25a6-4cbd-b325-bdbc6c86f56c
+  Id: 87045b67-5c5a-41ca-902d-85fc74d84c47
   DisplayName: Cathedral
   OutlineSprite: {fileID: 21300000, guid: 1b447a9fcd7492c4b81a015f7fd337ee, type: 3}
   BuiltSprite: {fileID: 21300000, guid: c0f45819d1dbfd145b645a7ef4a1455c, type: 3}
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
-  UpgradeRange: {x: 0, y: 0}
   CampBuildingState: 0
   DaysLeftToBuild: 0
   DayStartedBuilding: 0
   UpgradeRank: 0
+  Upgrades:
+  - UpgradeRank: 0
+    CursorSpeed: 3
+  - UpgradeRank: 1
+    CursorSpeed: 2
+  - UpgradeRank: 2
+    CursorSpeed: 1

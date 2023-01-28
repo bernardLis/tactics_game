@@ -17,6 +17,7 @@ public class BuildingManager : MonoBehaviour
     public CampBuildingGoldProduction CampBuildingGoldProduction { get; private set; }
     public CampBuildingSpiceProduction CampBuildingSpiceProduction { get; private set; }
     public CampBuildingItemProduction CampBuildingItemProduction { get; private set; }
+    public CampBuildingNegotiation CampBuildingNegotiation { get; private set; }
 
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
@@ -47,6 +48,9 @@ public class BuildingManager : MonoBehaviour
                 CampBuildingSpiceProduction = (CampBuildingSpiceProduction)cb;
             if (cb.GetType().Equals(typeof(CampBuildingItemProduction)))
                 CampBuildingItemProduction = (CampBuildingItemProduction)cb;
+            if (cb.GetType().Equals(typeof(CampBuildingNegotiation)))
+                CampBuildingNegotiation = (CampBuildingNegotiation)cb;
+
         }
 
         _gameManager = GetComponent<GameManager>();

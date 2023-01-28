@@ -110,9 +110,7 @@ public class AbilityNodeElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        HideTooltip();
         _tooltip = new(this, _tooltipElement);
-
         base.DisplayTooltip();
     }
 

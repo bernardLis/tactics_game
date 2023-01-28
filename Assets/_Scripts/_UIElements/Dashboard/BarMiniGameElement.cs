@@ -81,8 +81,14 @@ public class BarMiniGameElement : VisualElement
 
         // move cursor from side to side
         _cursor.style.left = 0;
+        CampBuildingNegotiation b = _gameManager.GetComponent<BuildingManager>().CampBuildingNegotiation;
+        // speeds: 3, 2, 1
+        // seconds: 2, 2.5, 3
+        int cursorSpeed = b.GetUpgradeByRank(b.UpgradeRank).CursorSpeed;
+        float seconds = 3.5f - cursorSpeed * 0.5f;
+        Debug.Log($"secondas: {seconds}");
         DOTween.To(() => _cursor.style.left.value.value,
-                x => _cursor.style.left = Length.Percent(x), 96, 3f)
+                x => _cursor.style.left = Length.Percent(x), 96, seconds)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.Unset)
                 .SetId(_cursorMovementTween);

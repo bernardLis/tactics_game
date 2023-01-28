@@ -467,7 +467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _campBuildings:
   - {fileID: 11400000, guid: 9cf61c05596deda448a9e7ed3aeb4374, type: 2}
-  - {fileID: 11400000, guid: fddbccbea5136e8438772e12de12fb54, type: 2}
+  - {fileID: 11400000, guid: 81be4d27908cc3b43aec0503f6134162, type: 2}
   - {fileID: 11400000, guid: ff8cb3895ea70b84aac0cad38a676693, type: 2}
   - {fileID: 11400000, guid: 8c9ea9ec9adf92f46b6a0b89a6525cbd, type: 2}
   - {fileID: 11400000, guid: 39f0a53358638c14d937e69c62c158cd, type: 2}

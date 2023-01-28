@@ -30,7 +30,6 @@ public class AbilityIcon : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        HideTooltip();
         AbilityTooltipElement tooltip = new(_ability);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
