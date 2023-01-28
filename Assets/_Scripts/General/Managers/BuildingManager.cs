@@ -14,11 +14,15 @@ public class BuildingManager : MonoBehaviour
     public CampBuildingTroopsLimit TroopsLimitBuilding { get; private set; }
     public CampBuildingQuests QuestsBuilding { get; private set; }
     public CampBuildingHospital HospitalBuilding { get; private set; }
+    public CampBuildingGoldProduction CampBuildingGoldProduction { get; private set; }
 
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
     CampBuildingShop _shopBuilding;
     CampBuildingRecruiting _recruitingBuilding;
+
+    public int TotalGoldProduced { get; private set; }
+    public void SetTotalGoldProduced(int value) { TotalGoldProduced = value; }
 
     void Awake()
     {
@@ -38,6 +42,8 @@ public class BuildingManager : MonoBehaviour
                 _shopBuilding = (CampBuildingShop)cb;
             if (cb.GetType().Equals(typeof(CampBuildingRecruiting)))
                 _recruitingBuilding = (CampBuildingRecruiting)cb;
+            if (cb.GetType().Equals(typeof(CampBuildingGoldProduction)))
+                CampBuildingGoldProduction = (CampBuildingGoldProduction)cb;
         }
 
         _gameManager = GetComponent<GameManager>();
@@ -54,6 +60,8 @@ public class BuildingManager : MonoBehaviour
             b.Initialize();
         }
 
+        TotalGoldProduced = 0;
+
         // TODO: // HERE: for now, I could hand craft 3 first quests or something...
         for (int i = 0; i < 3; i++)
             AddRandomQuest();
@@ -63,6 +71,8 @@ public class BuildingManager : MonoBehaviour
     {
         foreach (CampBuilding b in _campBuildings)
             b.ResetSelf();
+
+        TotalGoldProduced = 0;
     }
 
     public void LoadAllBuildingsFromData(List<CampBuildingData> datas)
@@ -88,6 +98,11 @@ public class BuildingManager : MonoBehaviour
         if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
                 && Random.value < 0.3f)
             AddRecruit();
+
+        if (day % 7 == 0)
+        {
+            CampBuildingGoldProduction.Produce();
+        }
     }
 
     public void AddRandomQuest()

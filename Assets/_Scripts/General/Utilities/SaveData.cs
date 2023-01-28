@@ -11,12 +11,11 @@ public class SaveData
 
     public int Day;
     public int Gold;
-
     public int Spice;
 
-    public int MaxQuestRank;
+    // production totals
+    public int TotalGoldProduced;
 
-    public int TroopsLimit;
     public List<CharacterData> PlayerTroops = new();
     public List<ItemData> ItemPouch = new();
     public List<AbilityData> AbilityPouch = new();

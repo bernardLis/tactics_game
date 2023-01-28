@@ -127,5 +127,4 @@ public struct CampBuildingData
     public int DaysLeftToBuild;
     public int DayStartedBuilding;
     public int UpgradeRank;
-
 }

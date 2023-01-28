@@ -7,6 +7,7 @@ public abstract class ElementWithTooltip : VisualElement
 {
     protected VisualElement _tooltipContainer;
     protected TooltipElement _tooltip;
+    TooltipElement _setTooltipElement;
 
     bool _blockTooltip;
     bool _isPointerOn;
@@ -26,7 +27,7 @@ public abstract class ElementWithTooltip : VisualElement
         RegisterCallback<DetachFromPanelEvent>((evt) => HideTooltip());
     }
 
-    public void AddTooltip(TooltipElement tooltip) { _tooltip = tooltip; }
+    public void AddTooltip(TooltipElement tooltip) { _setTooltipElement = tooltip; }
 
     public void BlockTooltip()
     {
@@ -39,6 +40,10 @@ public abstract class ElementWithTooltip : VisualElement
 
     protected async virtual void DisplayTooltip()
     {
+        // for objects that set tooltip on object creation
+        if (_setTooltipElement != null)
+            _tooltip = _setTooltipElement;
+
         _isPointerOn = true;
         await Task.Delay(500); // tooltip delay
         if (!_isPointerOn)
