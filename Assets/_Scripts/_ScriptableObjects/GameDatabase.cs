@@ -111,7 +111,7 @@ public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
 public enum ReportType
 {
     Quest, Recruit, Text, CampBuilding, Shop,
-    Pawnshop, Ability, SpiceRecycle, Wages, RaiseRequest
+    Pawnshop, Ability, Item, SpiceRecycle, Wages, RaiseRequest
 }
 
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }

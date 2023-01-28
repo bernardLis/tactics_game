@@ -21,7 +21,8 @@ public class CampBuildingGoldProduction : CampBuilding
 
     public void Produce()
     {
-        _gameManager.ChangeGoldValue(GetUpgradeByRank(UpgradeRank).GoldPerWeek);
+        if (_gameManager.Day % 7 == 0)
+            _gameManager.ChangeGoldValue(GetUpgradeByRank(UpgradeRank).GoldPerWeek);
     }
 }
 

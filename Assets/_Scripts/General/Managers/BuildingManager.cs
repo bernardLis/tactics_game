@@ -16,6 +16,7 @@ public class BuildingManager : MonoBehaviour
     public CampBuildingHospital HospitalBuilding { get; private set; }
     public CampBuildingGoldProduction CampBuildingGoldProduction { get; private set; }
     public CampBuildingSpiceProduction CampBuildingSpiceProduction { get; private set; }
+    public CampBuildingItemProduction CampBuildingItemProduction { get; private set; }
 
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
@@ -44,7 +45,8 @@ public class BuildingManager : MonoBehaviour
                 CampBuildingGoldProduction = (CampBuildingGoldProduction)cb;
             if (cb.GetType().Equals(typeof(CampBuildingSpiceProduction)))
                 CampBuildingSpiceProduction = (CampBuildingSpiceProduction)cb;
-
+            if (cb.GetType().Equals(typeof(CampBuildingItemProduction)))
+                CampBuildingItemProduction = (CampBuildingItemProduction)cb;
         }
 
         _gameManager = GetComponent<GameManager>();
@@ -80,6 +82,10 @@ public class BuildingManager : MonoBehaviour
 
     void OnDayPassed(int day)
     {
+        CampBuildingItemProduction.Produce();
+        CampBuildingGoldProduction.Produce();
+        CampBuildingSpiceProduction.Produce();
+
         if (Random.value < 0.5f)
             AddRandomQuest();
 
@@ -95,12 +101,6 @@ public class BuildingManager : MonoBehaviour
         if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
                 && Random.value < 0.3f)
             AddRecruit();
-
-        if (day % 7 == 0)
-        {
-            CampBuildingGoldProduction.Produce();
-            CampBuildingSpiceProduction.Produce();
-        }
     }
 
     public void AddRandomQuest()

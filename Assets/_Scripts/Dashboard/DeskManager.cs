@@ -198,6 +198,19 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
+    public void AddItemToEmptySlot(ItemElement e)
+    {
+        foreach (ItemSlot slot in _deskItemSlots)
+        {
+            if (slot.ItemElement == null)
+            {
+                slot.AddItemNoDelegates(e);
+                _draggableItems.AddDraggableItem(e);
+                return;
+            }
+        }
+    }
+
     void AddAbilityToPouch(Ability ability) { _gameManager.AddAbilityToPouch(ability); }
 
     void RemoveAbilityFromPouch(Ability ability) { _gameManager.RemoveAbilityFromPouch(ability); }
@@ -234,7 +247,7 @@ public class DeskManager : Singleton<DeskManager>
             return;
         if (card.Character.IsAssigned)
             return;
-        
+
         CharacterCard bigCard = new(card.Character);
         bigCard.RegisterCallback<PointerUpEvent>(OnBigCardPointerUp);
         bigCard.PortraitVisualElement.RegisterCallback<PointerDownEvent>(OnPortraitPointerDown);
@@ -337,6 +350,8 @@ public class DeskManager : Singleton<DeskManager>
             el = (PawnshopReportElement)new(_reportsContainer, report) as PawnshopReportElement;
         if (report.ReportType == ReportType.Ability)
             el = (AbilityReportElement)new(_reportsContainer, report) as AbilityReportElement;
+        if (report.ReportType == ReportType.Item)
+            el = (ItemReportElement)new(_reportsContainer, report) as ItemReportElement;
         if (report.ReportType == ReportType.SpiceRecycle)
             el = (SpiceRecycleReportElement)new(_reportsContainer, report) as SpiceRecycleReportElement;
         if (report.ReportType == ReportType.Wages)

@@ -27,7 +27,7 @@ public class Report : BaseScriptableObject
 
     public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null,
              string campBuildingId = null, Shop shop = null, Ability ability = null,
-             Character character = null, List<Character> characters = null)
+             Character character = null, List<Character> characters = null, Item item = null)
     {
         ReportType = type;
         ReportPaper = GameManager.Instance.GameDatabase.GetRandomReportPaper();
@@ -42,6 +42,7 @@ public class Report : BaseScriptableObject
         Characters = new();
         if (characters != null)
             Characters.AddRange(characters);
+        Item = item;
     }
 
     public void Sign()

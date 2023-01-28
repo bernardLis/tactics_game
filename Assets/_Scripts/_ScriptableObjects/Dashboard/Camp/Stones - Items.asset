@@ -9,18 +9,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6a77948fed42c84998cf3af792195ac, type: 3}
-  m_Name: Stones
+  m_Script: {fileID: 11500000, guid: d18f756f628e0a04b8c1f8841e8b27e6, type: 3}
+  m_Name: Stones - Items
   m_EditorClassIdentifier: 
-  Id: de6f69f5-ed8d-448f-af22-aaec8f0f855a
+  Id: 1ada940d-3eec-416c-b128-10abc5e7048a
   DisplayName: Stones
   OutlineSprite: {fileID: 21300000, guid: bed1563c0add38a41bf39818f327d401, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 84e08a468199b7040a2978696ed96d3c, type: 3}
   CostToBuild: 100
   DaysToBuild: 1
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
-  UpgradeRange: {x: 0, y: 0}
-  CampBuildingState: 0
+  CampBuildingState: 2
   DaysLeftToBuild: 0
-  DayStartedBuilding: 0
-  UpgradeRank: 0
+  DayStartedBuilding: 1
+  UpgradeRank: 4
+  Upgrades:
+  - UpgradeRank: 0
+    DailyChanceToProduceItem: 0
+  - UpgradeRank: 1
+    DailyChanceToProduceItem: 0.01
+  - UpgradeRank: 2
+    DailyChanceToProduceItem: 0.03
+  - UpgradeRank: 3
+    DailyChanceToProduceItem: 0.07
+  - UpgradeRank: 4
+    DailyChanceToProduceItem: 1

@@ -47,7 +47,8 @@ public class CampManager : MonoBehaviour
                 _mainCamp.Add(new CampBuildingGoldProductionElement((CampBuildingGoldProduction)b));
             if (b.GetType().Equals(typeof(CampBuildingSpiceProduction)))
                 _mainCamp.Add(new CampBuildingSpiceProductionElement((CampBuildingSpiceProduction)b));
-
+            if (b.GetType().Equals(typeof(CampBuildingItemProduction)))
+                _mainCamp.Add(new CampBuildingItemProductionElement((CampBuildingItemProduction)b));
         }
     }
 

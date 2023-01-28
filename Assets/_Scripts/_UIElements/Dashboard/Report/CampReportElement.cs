@@ -29,6 +29,8 @@ public class CampReportElement : ReportElement
             el = (CampBuildingGoldProductionElement)new CampBuildingGoldProductionElement((CampBuildingGoldProduction)b);
         if (b.GetType().Equals(typeof(CampBuildingSpiceProduction)))
             el = (CampBuildingSpiceProductionElement)new CampBuildingSpiceProductionElement((CampBuildingSpiceProduction)b);
+        if (b.GetType().Equals(typeof(CampBuildingItemProduction)))
+            el = (CampBuildingItemProductionElement)new CampBuildingItemProductionElement((CampBuildingItemProduction)b);
 
         el.style.backgroundImage = null; // looks weird coz report already has paper bg
         _reportContents.Add(el);

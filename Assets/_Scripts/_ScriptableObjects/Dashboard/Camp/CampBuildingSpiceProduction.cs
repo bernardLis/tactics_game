@@ -21,7 +21,8 @@ public class CampBuildingSpiceProduction : CampBuilding
 
     public void Produce()
     {
-        _gameManager.ChangeSpiceValue(GetUpgradeByRank(UpgradeRank).SpicePerWeek);
+        if (_gameManager.Day % 7 == 0)
+            _gameManager.ChangeSpiceValue(GetUpgradeByRank(UpgradeRank).SpicePerWeek);
     }
 }
 
