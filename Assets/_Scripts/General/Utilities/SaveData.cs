@@ -13,9 +13,6 @@ public class SaveData
     public int Gold;
     public int Spice;
 
-    // production totals
-    public int TotalGoldProduced;
-
     public List<CharacterData> PlayerTroops = new();
     public List<ItemData> ItemPouch = new();
     public List<AbilityData> AbilityPouch = new();

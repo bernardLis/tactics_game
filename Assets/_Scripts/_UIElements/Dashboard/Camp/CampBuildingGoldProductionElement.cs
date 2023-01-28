@@ -18,8 +18,6 @@ public class CampBuildingGoldProductionElement : CampBuildingElement
         TooltipElement tt = new(_goldPerWeekGoldElement, new Label("Gold produced per week"));
         _goldPerWeekGoldElement.AddTooltip(tt);
 
-        int totalGoldProduced = _gameManager.GetComponent<BuildingManager>().TotalGoldProduced;
-
         SetUpgrade();
         _upgradeContainer.Add(_goldPerWeekGoldElement);
     }

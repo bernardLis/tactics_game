@@ -4,30 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Gold Production")]
-public class CampBuildingGoldProduction : CampBuilding
+[CreateAssetMenu(menuName = "ScriptableObject/Dashboard/Camp Building/Spice Production")]
+public class CampBuildingSpiceProduction : CampBuilding
 {
-    public List<CampUpgradeGoldProduction> Upgrades = new();
+    public List<CampUpgradeSpiceProduction> Upgrades = new();
 
     public override int GetMaxUpgradeRank()
     {
         return Upgrades.OrderByDescending(x => x.UpgradeRank).First().UpgradeRank;
     }
 
-    public CampUpgradeGoldProduction GetUpgradeByRank(int rank)
+    public CampUpgradeSpiceProduction GetUpgradeByRank(int rank)
     {
         return Upgrades.FirstOrDefault(x => x.UpgradeRank == rank);
     }
 
     public void Produce()
     {
-        _gameManager.ChangeGoldValue(GetUpgradeByRank(UpgradeRank).GoldPerWeek);
+        _gameManager.ChangeSpiceValue(GetUpgradeByRank(UpgradeRank).SpicePerWeek);
     }
 }
 
 [System.Serializable]
-public struct CampUpgradeGoldProduction
+public struct CampUpgradeSpiceProduction
 {
     public int UpgradeRank;
-    public int GoldPerWeek;
+    public int SpicePerWeek;
 }

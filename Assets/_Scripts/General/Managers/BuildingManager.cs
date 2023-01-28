@@ -15,14 +15,12 @@ public class BuildingManager : MonoBehaviour
     public CampBuildingQuests QuestsBuilding { get; private set; }
     public CampBuildingHospital HospitalBuilding { get; private set; }
     public CampBuildingGoldProduction CampBuildingGoldProduction { get; private set; }
+    public CampBuildingSpiceProduction CampBuildingSpiceProduction { get; private set; }
 
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
     CampBuildingShop _shopBuilding;
     CampBuildingRecruiting _recruitingBuilding;
-
-    public int TotalGoldProduced { get; private set; }
-    public void SetTotalGoldProduced(int value) { TotalGoldProduced = value; }
 
     void Awake()
     {
@@ -44,6 +42,9 @@ public class BuildingManager : MonoBehaviour
                 _recruitingBuilding = (CampBuildingRecruiting)cb;
             if (cb.GetType().Equals(typeof(CampBuildingGoldProduction)))
                 CampBuildingGoldProduction = (CampBuildingGoldProduction)cb;
+            if (cb.GetType().Equals(typeof(CampBuildingSpiceProduction)))
+                CampBuildingSpiceProduction = (CampBuildingSpiceProduction)cb;
+
         }
 
         _gameManager = GetComponent<GameManager>();
@@ -60,8 +61,6 @@ public class BuildingManager : MonoBehaviour
             b.Initialize();
         }
 
-        TotalGoldProduced = 0;
-
         // TODO: // HERE: for now, I could hand craft 3 first quests or something...
         for (int i = 0; i < 3; i++)
             AddRandomQuest();
@@ -71,8 +70,6 @@ public class BuildingManager : MonoBehaviour
     {
         foreach (CampBuilding b in _campBuildings)
             b.ResetSelf();
-
-        TotalGoldProduced = 0;
     }
 
     public void LoadAllBuildingsFromData(List<CampBuildingData> datas)
@@ -102,6 +99,7 @@ public class BuildingManager : MonoBehaviour
         if (day % 7 == 0)
         {
             CampBuildingGoldProduction.Produce();
+            CampBuildingSpiceProduction.Produce();
         }
     }
 

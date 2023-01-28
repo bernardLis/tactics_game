@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using System.Threading.Tasks;
 using DG.Tweening;
 
-public class SpiceElement : VisualElement
+public class SpiceElement : ElementWithTooltip
 {
     GameManager _gameManager;
 

@@ -262,8 +262,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.Gold = Gold;
         saveData.Spice = Spice;
 
-        saveData.TotalGoldProduced = _buildingManager.TotalGoldProduced;
-
         saveData.PlayerTroops = PopulateCharacters();
 
         saveData.ItemPouch = PopulateItemPouch();
@@ -409,7 +407,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         LoadReports(saveData);
 
         _buildingManager.LoadAllBuildingsFromData(saveData.CampBuildings);
-        _buildingManager.SetTotalGoldProduced(saveData.TotalGoldProduced);
 
         foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
             GetAbilityNodeGraphById(data.Id).LoadFromData(data);
