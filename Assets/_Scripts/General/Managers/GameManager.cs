@@ -7,11 +7,13 @@ using Random = UnityEngine.Random;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
-    SaveData _originalSaveData;
 
     LevelLoader _levelLoader;
+    BuildingManager _buildingManager;
 
     public GameDatabase GameDatabase;
+
+    SaveData _originalSaveData;
 
     // settings
     public bool HideMenuEffects { get; private set; }
@@ -51,6 +53,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
+        _buildingManager = GetComponent<BuildingManager>();
     }
 
     void Start()
@@ -329,7 +332,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     List<CampBuildingData> PopulateCampBuildings()
     {
         List<CampBuildingData> data = new();
-        List<CampBuilding> buildings = GetComponent<BuildingManager>().GetAllCampBuildings();
+        List<CampBuilding> buildings = _buildingManager.GetAllCampBuildings();
         foreach (CampBuilding b in buildings)
             data.Add(b.SerializeSelf());
         return data;
@@ -404,7 +407,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         LoadReports(saveData);
 
-        GetComponent<BuildingManager>().LoadAllBuildingsFromData(saveData.CampBuildings);
+        _buildingManager.LoadAllBuildingsFromData(saveData.CampBuildings);
 
         foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
             GetAbilityNodeGraphById(data.Id).LoadFromData(data);
