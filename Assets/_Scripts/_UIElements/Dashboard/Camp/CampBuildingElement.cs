@@ -103,7 +103,8 @@ public class CampBuildingElement : VisualElement
 
     void HandleBuildingRank()
     {
-        _buildingRankElement = new(_campBuilding.UpgradeRank, 0.7f, null, _campBuilding.GetMaxUpgradeRank());
+        Label tt = new("Building upgrade rank.");
+        _buildingRankElement = new(_campBuilding.UpgradeRank, 0.7f, tt, _campBuilding.GetMaxUpgradeRank());
         _buildingRankContainer.Add(_buildingRankElement);
     }
 

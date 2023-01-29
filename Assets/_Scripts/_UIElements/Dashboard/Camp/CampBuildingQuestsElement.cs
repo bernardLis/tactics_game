@@ -14,12 +14,11 @@ public class CampBuildingQuestsElement : CampBuildingElement
 
     protected override void AddUpgrade()
     {
-        _betterQuestsRankElement = new(1, 0.5f, null, 5);
-        Label l = new("Max Quest Rank: "); // HERE: could be a tooltip
+        Label l = new("Max quest rank."); 
+        _betterQuestsRankElement = new(1, 0.5f, l, 5);
         _upgradeContainer.style.flexDirection = FlexDirection.Column;
         _upgradeContainer.style.alignItems = Align.Center;
 
-        _upgradeContainer.Add(l);
         _upgradeContainer.Add(_betterQuestsRankElement);
         SetUpgrade();
     }
