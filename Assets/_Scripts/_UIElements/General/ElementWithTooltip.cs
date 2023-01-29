@@ -12,6 +12,9 @@ public abstract class ElementWithTooltip : VisualElement
     bool _blockTooltip;
     bool _isPointerOn;
     bool _isPointerDown;
+    bool _isTooltipDisplayed;
+
+    string tooltipTweenId = "tooltipTweenId";
 
     public ElementWithTooltip() { RegisterTooltipCallbacks(); }
 
@@ -58,33 +61,42 @@ public abstract class ElementWithTooltip : VisualElement
             return;
         if (_tooltip == null)
             return;
-
+        
+        _isTooltipDisplayed = true;
         var root = panel.visualTree;
         _tooltipContainer = root.Q<VisualElement>("tooltipContainer");
+        if (_tooltipContainer == null)
+            return;
+        _tooltipContainer.Clear();
         _tooltipContainer.Add(_tooltip);
 
         _tooltip.style.opacity = 0;
-        await DOTween.To(x => _tooltip.style.opacity = x, 0, 1, 0.3f).AsyncWaitForCompletion();
+        DOTween.Kill(tooltipTweenId);
+        await DOTween.To(x => _tooltip.style.opacity = x, 0, 1, 0.3f)
+                .SetId(tooltipTweenId)
+                .AsyncWaitForCompletion();
     }
 
     protected void OnMouseLeave()
     {
-        HideTooltip();
+        if (_isTooltipDisplayed)
+            HideTooltip();
         _isPointerOn = false;
         _isPointerDown = false; // reset otherwise you need to click on it to display tooltip again.
     }
 
     protected async void HideTooltip()
     {
+        DOTween.Kill(tooltipTweenId);
+
         if (_tooltip == null)
             return;
-        if (_tooltipContainer == null)
-            return;
-
-        await DOTween.To(x => _tooltip.style.opacity = x, 1, 0, 0.3f).AsyncWaitForCompletion();
-
-        _tooltipContainer.Clear();
+        await DOTween.To(x => _tooltip.style.opacity = x, 1, 0, 0.3f)
+                .SetId(tooltipTweenId)
+                .AsyncWaitForCompletion();
+        _isTooltipDisplayed = false;
         _tooltip = null;
+
     }
 
 }
