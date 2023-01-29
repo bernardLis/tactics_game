@@ -15,6 +15,7 @@ public class QuestElement : VisualElement
     Quest _quest;
 
     VisualElement _topPanelContainer;
+    QuestRankElement _questRankElement;
     StarRankElement _rankVisualElement;
     VisualElement _additionalInfo;
 
@@ -25,6 +26,8 @@ public class QuestElement : VisualElement
     MyButton _actionButton;
 
     List<CharacterCardMiniSlot> _cardSlots = new();
+
+    CampBuildingQuestInfo _questInfoBuilding;
 
 
     const string _ussCommonTextPrimary = "common__text-primary";
@@ -47,6 +50,10 @@ public class QuestElement : VisualElement
         _gameManager.OnDayPassed += OnDayPassed;
         _deskManager = DeskManager.Instance;
         _draggableCharacters = _deskManager.GetComponent<DraggableCharacters>();
+
+        BuildingManager bm = _gameManager.GetComponent<BuildingManager>();
+        _questInfoBuilding = bm.QuestInfoBuilding;
+        _questInfoBuilding.OnUpgraded += OnQuestInfoBuildingUpgraded;
 
         _report = report;
         _quest = report.Quest;
@@ -98,6 +105,14 @@ public class QuestElement : VisualElement
             HandleRewardCollected();
     }
 
+    void OnQuestInfoBuildingUpgraded(int rank)
+    {
+        // update element
+        // update success chance display
+        UpdateSuccessChanceLabel();
+        _questRankElement.UpdateElementalElement(rank);
+    }
+
     void AddTopPanel()
     {
         _topPanelContainer = new();
@@ -106,7 +121,9 @@ public class QuestElement : VisualElement
         Add(_topPanelContainer);
 
         _topPanelContainer.Add(new TextWithTooltip(_quest.Title, _quest.Description));
-        _topPanelContainer.Add(new QuestRankElement(_quest));
+        _questRankElement = new QuestRankElement(_quest);
+        _questRankElement.UpdateElementalElement(_questInfoBuilding.UpgradeRank);
+        _topPanelContainer.Add(_questRankElement);
     }
 
     void AddBottomPanel()
@@ -126,7 +143,8 @@ public class QuestElement : VisualElement
         _durationLabel = new TextWithTooltip($"Duration: {_quest.Duration} day(s).", $"When delegated it will take {_quest.Duration} day(s)");
         container.Add(_durationLabel);
 
-        _successChanceLabel = new TextWithTooltip($"Success chance: {_quest.GetSuccessChance()}%.", "The stronger/more the characters the higher success chance.");
+        _successChanceLabel = new TextWithTooltip($"", "The stronger/more the characters the higher success chance.");
+        UpdateSuccessChanceLabel();
         container.Add(_successChanceLabel);
         _additionalInfo.Add(container);
 
@@ -225,7 +243,26 @@ public class QuestElement : VisualElement
             _actionButton.UpdateButtonText($"Expired.");
     }
 
-    void UpdateSuccessChanceLabel() { _successChanceLabel.UpdateText($"Success chance: {_quest.GetSuccessChance()}%."); }
+    void UpdateSuccessChanceLabel()
+    {
+        if (_questInfoBuilding.UpgradeRank == 0)
+        {
+            _successChanceLabel.UpdateText($"Success chance: ??.");
+        }
+
+        int percent = _quest.GetSuccessChance();
+        if (_questInfoBuilding.UpgradeRank == 1 || _questInfoBuilding.UpgradeRank == 2)
+        {
+            if (percent <= 50)
+                _successChanceLabel.UpdateText($"Success chance: unlikely.");
+            if (percent > 50)
+                _successChanceLabel.UpdateText($"Success chance: likely.");
+        }
+        if (_questInfoBuilding.UpgradeRank == 3)
+        {
+            _successChanceLabel.UpdateText($"Success chance: {percent}%.");
+        }
+    }
 
     VisualElement CreateCharacterSlots()
     {

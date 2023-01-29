@@ -14,10 +14,11 @@ public class BuildingManager : MonoBehaviour
     public CampBuildingTroopsLimit TroopsLimitBuilding { get; private set; }
     public CampBuildingQuests QuestsBuilding { get; private set; }
     public CampBuildingHospital HospitalBuilding { get; private set; }
-    public CampBuildingGoldProduction CampBuildingGoldProduction { get; private set; }
-    public CampBuildingSpiceProduction CampBuildingSpiceProduction { get; private set; }
-    public CampBuildingItemProduction CampBuildingItemProduction { get; private set; }
-    public CampBuildingNegotiation CampBuildingNegotiation { get; private set; }
+    public CampBuildingGoldProduction GoldProductionBuilding { get; private set; }
+    public CampBuildingSpiceProduction SpiceProductionBuilding { get; private set; }
+    public CampBuildingItemProduction ItemProductionBuilding { get; private set; }
+    public CampBuildingNegotiation NegotiationBuilding { get; private set; }
+    public CampBuildingQuestInfo QuestInfoBuilding { get; private set; }
 
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
@@ -43,14 +44,15 @@ public class BuildingManager : MonoBehaviour
             if (cb.GetType().Equals(typeof(CampBuildingRecruiting)))
                 _recruitingBuilding = (CampBuildingRecruiting)cb;
             if (cb.GetType().Equals(typeof(CampBuildingGoldProduction)))
-                CampBuildingGoldProduction = (CampBuildingGoldProduction)cb;
+                GoldProductionBuilding = (CampBuildingGoldProduction)cb;
             if (cb.GetType().Equals(typeof(CampBuildingSpiceProduction)))
-                CampBuildingSpiceProduction = (CampBuildingSpiceProduction)cb;
+                SpiceProductionBuilding = (CampBuildingSpiceProduction)cb;
             if (cb.GetType().Equals(typeof(CampBuildingItemProduction)))
-                CampBuildingItemProduction = (CampBuildingItemProduction)cb;
+                ItemProductionBuilding = (CampBuildingItemProduction)cb;
             if (cb.GetType().Equals(typeof(CampBuildingNegotiation)))
-                CampBuildingNegotiation = (CampBuildingNegotiation)cb;
-
+                NegotiationBuilding = (CampBuildingNegotiation)cb;
+            if (cb.GetType().Equals(typeof(CampBuildingQuestInfo)))
+                QuestInfoBuilding = (CampBuildingQuestInfo)cb;
         }
 
         _gameManager = GetComponent<GameManager>();
@@ -86,9 +88,9 @@ public class BuildingManager : MonoBehaviour
 
     void OnDayPassed(int day)
     {
-        CampBuildingItemProduction.Produce();
-        CampBuildingGoldProduction.Produce();
-        CampBuildingSpiceProduction.Produce();
+        ItemProductionBuilding.Produce();
+        GoldProductionBuilding.Produce();
+        SpiceProductionBuilding.Produce();
 
         if (Random.value < 0.5f)
             AddRandomQuest();

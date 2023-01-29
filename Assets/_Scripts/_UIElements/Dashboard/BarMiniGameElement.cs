@@ -81,7 +81,7 @@ public class BarMiniGameElement : VisualElement
 
         // move cursor from side to side
         _cursor.style.left = 0;
-        CampBuildingNegotiation b = _gameManager.GetComponent<BuildingManager>().CampBuildingNegotiation;
+        CampBuildingNegotiation b = _gameManager.GetComponent<BuildingManager>().NegotiationBuilding;
         // speeds: 3, 2, 1
         // seconds: 2, 2.5, 3
         int cursorSpeed = b.GetUpgradeByRank(b.UpgradeRank).CursorSpeed;
