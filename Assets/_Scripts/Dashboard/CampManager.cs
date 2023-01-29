@@ -48,9 +48,11 @@ public class CampManager : MonoBehaviour
             if (b.GetType().Equals(typeof(CampBuildingSpiceProduction)))
                 _mainCamp.Add(new CampBuildingSpiceProductionElement((CampBuildingSpiceProduction)b));
             if (b.GetType().Equals(typeof(CampBuildingItemProduction)))
-                _mainCamp.Add(new CampBuildingItemProductionElement((CampBuildingItemProduction)b));        
+                _mainCamp.Add(new CampBuildingItemProductionElement((CampBuildingItemProduction)b));
             if (b.GetType().Equals(typeof(CampBuildingNegotiation)))
                 _mainCamp.Add(new CampBuildingNegotiationElement((CampBuildingNegotiation)b));
+            if (b.GetType().Equals(typeof(CampBuildingQuestInfo)))
+                _mainCamp.Add(new CampBuildingQuestInfoElement((CampBuildingQuestInfo)b));
         }
     }
 
