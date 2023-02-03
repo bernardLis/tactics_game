@@ -111,6 +111,7 @@ public class DashboardManager : Singleton<DashboardManager>
     {
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
+            
         PlayerInput = _gameManager.GetComponent<PlayerInput>();
         PlayerInput.SwitchCurrentActionMap("Dashboard");
         UnsubscribeInputActions();

@@ -94,9 +94,9 @@ public abstract class ElementWithTooltip : VisualElement
     protected async void HideTooltip()
     {
         DOTween.Kill(tooltipTweenId);
-
         if (_tooltip == null)
             return;
+
         await DOTween.To(x => _tooltip.style.opacity = x, 1, 0, 0.3f)
                 .SetId(tooltipTweenId)
                 .AsyncWaitForCompletion();

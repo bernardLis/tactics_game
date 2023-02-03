@@ -203,7 +203,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3e4f3d52-8e89-40ec-87a5-6ba9b29affa3"",
-                    ""path"": ""<Keyboard>/f12"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
