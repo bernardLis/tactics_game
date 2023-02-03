@@ -51,11 +51,11 @@ public class MyButton : Button
 
     public void ChangeCallback(Action newCallback)
     {
-        clicked -= _currentCallback;
+        clickable = new Clickable(() => { });
         clicked += newCallback;
     }
 
-    public void ClearCallbacks() { clickable = null; }
+    public void ClearCallbacks() { clickable = new Clickable(() => { }); }
 
     public void UpdateButtonText(string newText)
     {

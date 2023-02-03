@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildDebugger : MonoBehaviour
 {
 
-#if !UNITY_EDITOR
+    //#if !UNITY_EDITOR
     static string myLog = "";
     private string output;
     private string stack;
@@ -27,16 +27,16 @@ public class BuildDebugger : MonoBehaviour
         myLog = output + "\n" + myLog;
         if (myLog.Length > 5000)
             myLog = myLog.Substring(0, 4000);
-        
+
         FileManager.WriteToFile("log", myLog);
     }
-/*
+
     void OnGUI()
     {
-        if (!Application.isEditor) //Do not display in editor ( or you can use the UNITY_EDITOR macro to also disable the rest)
-            myLog = GUI.TextArea(new Rect(Screen.width *0.5f, 10, Screen.width *0.5f, Screen.height * 0.1f), myLog);
+        //  if (!Application.isEditor) //Do not display in editor ( or you can use the UNITY_EDITOR macro to also disable the rest)
+        myLog = GUI.TextArea(new Rect(Screen.width * 0.5f, 10, Screen.width * 0.5f, Screen.height * 0.1f), myLog);
     }
-    */  
-#endif
+
+    //#endif
 }
 

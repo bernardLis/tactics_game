@@ -1,9 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
-    <ui:VisualElement name="wrapper" style="width: 100%; height: 100%;">
-        <ui:VisualElement name="picture" style="position: absolute; width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Sprites/Cutscenes/1_home.png?fileID=2800000&amp;guid=9fd8a8e9655d1a64daeeb4bfa2141bf2&amp;type=3#1_home&apos;); display: none;" />
-        <ui:VisualElement name="textContainer" style="top: auto; background-color: rgba(0, 0, 0, 0.62); bottom: 0; position: absolute; width: 100%; height: 30%; padding-left: 50px; padding-right: 50px; padding-top: 50px; padding-bottom: 50px;">
-            <ui:Label display-tooltip-when-elided="true" name="text" class="textPrimary" style="font-size: 48px; -unity-text-align: upper-left; -unity-text-outline-color: rgb(0, 0, 0); white-space: normal;" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-</ui:UXML>

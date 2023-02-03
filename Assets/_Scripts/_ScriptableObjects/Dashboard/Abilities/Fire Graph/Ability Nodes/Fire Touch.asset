@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fire Touch
   m_EditorClassIdentifier: 
   Id: 26b03ab4-cc89-4de8-8ab7-e523f60bf890
+  IsPermaLocked: 0
   IconUnlocked: {fileID: 21300000, guid: 1e6bd9271f5e1c344a7b56fab4cbc584, type: 3}
   IconLocked: {fileID: 21300000, guid: 2e29a6ed4af338c45a02f112324cde62, type: 3}
   Title: Fire Touch
@@ -30,6 +31,6 @@ MonoBehaviour:
   AbilityCraftedEffectScale: {x: 2, y: 2, z: 2}
   Abilities:
   - {fileID: 11400000, guid: 5c32271d331b2174cba7d4b21d0ec638, type: 2}
-  - {fileID: 11400000, guid: 325f386d8619ea4408720008a57d012b, type: 2}
-  - {fileID: 11400000, guid: 953f48aa712cdcb489883a9e9ba0e1c1, type: 2}
-  - {fileID: 11400000, guid: dc2befaeebecc9849bd027073796ac58, type: 2}
+  - {fileID: 11400000, guid: c029a2bb01a334047af00a29c19a8f97, type: 2}
+  - {fileID: 11400000, guid: 78234d09aee00654797759a268015eea, type: 2}
+  - {fileID: 11400000, guid: b29d21e0ed8f9ad498675937a50353de, type: 2}

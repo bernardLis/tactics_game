@@ -280,6 +280,7 @@ public class Character : BaseScriptableObject
 
     public void InitializeStarterTroops()
     {
+        Debug.Log($"Character {name} (starter troop) initializes.");
         _gameManager = GameManager.Instance;
         DayAddedToTroops = 0;
         UpdateRank();
@@ -305,7 +306,7 @@ public class Character : BaseScriptableObject
 
         MaxHealth = 100 + Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y) * level;
         MaxMana = 30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level;
-        
+
         int totalPointsLeft = level;
         int powerLevelBonus = Random.Range(0, totalPointsLeft + 1);
         totalPointsLeft -= powerLevelBonus;

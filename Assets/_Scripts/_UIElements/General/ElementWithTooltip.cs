@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
@@ -15,6 +18,8 @@ public abstract class ElementWithTooltip : VisualElement
     bool _isTooltipDisplayed;
 
     string tooltipTweenId = "tooltipTweenId";
+
+    IEnumerator _tooltipDisplayCoroutine;
 
     public ElementWithTooltip() { RegisterTooltipCallbacks(); }
 
@@ -61,7 +66,7 @@ public abstract class ElementWithTooltip : VisualElement
             return;
         if (_tooltip == null)
             return;
-        
+
         _isTooltipDisplayed = true;
         var root = panel.visualTree;
         _tooltipContainer = root.Q<VisualElement>("tooltipContainer");
@@ -76,6 +81,7 @@ public abstract class ElementWithTooltip : VisualElement
                 .SetId(tooltipTweenId)
                 .AsyncWaitForCompletion();
     }
+
 
     protected void OnMouseLeave()
     {

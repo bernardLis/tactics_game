@@ -51,6 +51,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     protected override void Awake()
     {
+        Debug.Log($"Game manager Awake");
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
         _buildingManager = GetComponent<BuildingManager>();
@@ -58,6 +59,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     void Start()
     {
+        Debug.Log($"Game manager Start");
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
             CreateNewSaveFile();
@@ -200,26 +202,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     * Saving and Loading
     * https://www.youtube.com/watch?v=uD7y4T4PVk0
     */
-
-    List<Character> CreatePlayerTroops() // for the new save
-    {
-        List<Character> instantiatedTroops = new();
-
-        List<Character> playerCharacters = new(GameDatabase.GetAllStarterTroops());
-        PlayerTroops = new();
-        foreach (Character character in playerCharacters)
-        {
-            Character instance = Instantiate(character);
-            instance.InitializeStarterTroops();
-            OnDayPassed += instance.OnDayPassed;
-            instantiatedTroops.Add(instance);
-        }
-
-        return instantiatedTroops;
-    }
-
     void CreateNewSaveFile()
     {
+        Debug.Log($"Creating new save file...");
         Seed = System.Environment.TickCount;
 
         Day = 1;
@@ -242,6 +227,24 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
+    List<Character> CreatePlayerTroops() // for the new save
+    {
+        Debug.Log($"Creating player troops...");
+        List<Character> instantiatedTroops = new();
+
+        List<Character> playerCharacters = new(GameDatabase.GetAllStarterTroops());
+        PlayerTroops = new();
+        foreach (Character character in playerCharacters)
+        {
+            Character instance = Instantiate(character);
+            instance.InitializeStarterTroops();
+            OnDayPassed += instance.OnDayPassed;
+            instantiatedTroops.Add(instance);
+        }
+
+        return instantiatedTroops;
+    }
+
     public void LoadFromSaveFile() { LoadJsonData(PlayerPrefs.GetString("saveName")); }
 
     public void SaveJsonData()
@@ -249,7 +252,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
-            return;//Debug.Log("Save successful");
+            Debug.Log("Save successful");
     }
 
     // TODO: prime suspect for a rewrite
