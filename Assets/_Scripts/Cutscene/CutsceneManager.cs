@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine.UIElements;
 
@@ -11,7 +10,6 @@ public class CutsceneManager : Singleton<CutsceneManager>
     AudioManager _audioManager;
     CutsceneCameraManager _cameraManager;
 
-    public Cutscene[] AllCutscenes;
     Cutscene _cutscene;
 
     Label _text;
@@ -23,10 +21,11 @@ public class CutsceneManager : Singleton<CutsceneManager>
 
     bool _skippingCutscene; // to block clicks
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
+    IEnumerator _mainCoroutine;
+    IEnumerator _pictureCoroutine;
+    IEnumerator _printTextCoroutine;
+
+    protected override void Awake() { base.Awake(); }
 
     void Start()
     {
@@ -40,35 +39,42 @@ public class CutsceneManager : Singleton<CutsceneManager>
         _skippingCutscene = false;
 
         _cutscene = ChooseCutscene();
-        RunScene();
+        _mainCoroutine = RunScene();
+        StartCoroutine(_mainCoroutine);
     }
 
     // TODO: this is wrong but for now it is fine.
     Cutscene ChooseCutscene()
     {
+        Debug.Log($"Choosing a cutscene");
         return _gameManager.GameDatabase.GetAllCutscenes()[_gameManager.CutsceneIndexToPlay];
     }
 
-    async void RunScene()
+    IEnumerator RunScene()
     {
+        Debug.Log($"Running cutscene coroutine for {_cutscene.name}.");
         _audioManager.PlayMusic(_cutscene.Music);
 
-        await Task.Delay(500);
+        yield return new WaitForSeconds(0.5f);
 
         foreach (CutscenePicture c in _cutscene.Pictures)
-            await DisplayCutscene(c);
+        {
+            _pictureCoroutine = DisplayCutscene(c);
+            yield return _pictureCoroutine;
+        }
 
         if (_skippingCutscene)
-            return;
+            yield break;
 
-        await Task.Delay(1000);
+        yield return new WaitForSeconds(1f);
         _gameManager.LoadLevel(_cutscene.NextLevelName);
     }
 
-    async Task DisplayCutscene(CutscenePicture c)
+    IEnumerator DisplayCutscene(CutscenePicture c)
     {
+        Debug.Log($"Displaying picture {c.name}.");
         if (_skippingCutscene)
-            return;
+            yield break;
 
         FadeOutOldPicture(_pictureRenderers[_activeRendererIndex]);
 
@@ -79,11 +85,15 @@ public class CutsceneManager : Singleton<CutsceneManager>
 
         FadeInNewPicture(c.Picture, _pictureRenderers[_activeRendererIndex]);
 
-        float duration = c.TextToSpeech.Clips[0].length + _additionalDelay;
-        _audioManager.PlayDialogue(c.TextToSpeech);
+        float duration = c.Duration;
+        if (c.TextToSpeech != null)
+        {
+            duration = c.TextToSpeech.Clips[0].length + _additionalDelay;
+            _audioManager.PlayDialogue(c.TextToSpeech);
+        }
 
         if (_cameraManager == null)
-            return;
+            yield break;
 
         _cameraManager.PanCamera(c.CameraPanDirection, duration);
         if (c.ZoomCameraIn)
@@ -91,9 +101,9 @@ public class CutsceneManager : Singleton<CutsceneManager>
         else
             _cameraManager.ZoomCameraOut(duration);
 
-        await PrintText(c.Text, duration);
-
-        await Task.Delay(Mathf.FloorToInt(_additionalDelay * 1000));
+        _printTextCoroutine = PrintText(c.Text, duration);
+        yield return _printTextCoroutine;
+        yield return new WaitForSeconds(_additionalDelay);
     }
 
     void FadeInNewPicture(Sprite s, SpriteRenderer renderer)
@@ -105,28 +115,25 @@ public class CutsceneManager : Singleton<CutsceneManager>
         renderer.DOFade(1f, 2f);
     }
 
-    void FadeOutOldPicture(SpriteRenderer renderer)
-    {
-        renderer.DOFade(0f, 2f);
-    }
+    void FadeOutOldPicture(SpriteRenderer renderer) { renderer.DOFade(0f, 2f); }
 
-    async Task PrintText(string text, float duration)
+    IEnumerator PrintText(string text, float duration)
     {
+        Debug.Log($"Printing text for {duration} seconds...");
         _text.text = "";
         char[] charArray = text.ToCharArray();
 
-        duration -= 1f;
-        int delay = Mathf.FloorToInt(duration * 1000) / charArray.Length - 10; // magic -10
-
+        float delay = duration / charArray.Length;
         for (int i = 0; i < charArray.Length; i++)
         {
             _text.text += charArray[i];
-            await Task.Delay(delay);
+            yield return new WaitForSeconds(delay);
         }
     }
 
     public void SkipCutscene()
     {
+        Debug.Log($"Skip cutscene invoked.");
         if (_skippingCutscene)
             return;
         _skippingCutscene = true;

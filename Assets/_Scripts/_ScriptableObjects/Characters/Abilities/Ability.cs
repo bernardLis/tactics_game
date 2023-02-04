@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Character/Ability")]
 public class Ability : BaseScriptableObject

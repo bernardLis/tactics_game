@@ -11,8 +11,6 @@ public class GoldElement : ElementWithTooltip
     Label _icon;
     Label _text;
 
-    bool _clicked;
-
     const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "gold-element__";
@@ -20,9 +18,7 @@ public class GoldElement : ElementWithTooltip
     const string _ussIcon = _ussClassName + "icon";
     const string _ussValue = _ussClassName + "value";
 
-    const string _ussClickable = _ussClassName + "clickable";
-
-    public GoldElement(int amount, bool isClickable = false)
+    public GoldElement(int amount)
     {
         _gameManager = GameManager.Instance;
 
@@ -48,32 +44,7 @@ public class GoldElement : ElementWithTooltip
         _text.text = Amount.ToString();
         Add(_text);
 
-        if (isClickable)
-            MakeClickable();
-
         ChangeAmount(amount);
-    }
-
-    public void MakeClickable()
-    {
-        RegisterCallback<PointerUpEvent>(OnClick);
-        AnimateClickablity();
-    }
-
-    async void AnimateClickablity()
-    {
-        while (!_clicked)
-        {
-            ToggleInClassList(_ussClickable);
-            await Task.Delay(1000);
-        }
-    }
-
-    void OnClick(PointerUpEvent e)
-    {
-        _clicked = true;
-        _gameManager.ChangeGoldValue(Amount);
-        ChangeAmount(0);
     }
 
     public async void ChangeAmount(int newValue) { await AwaitableChangeAmount(newValue); }
