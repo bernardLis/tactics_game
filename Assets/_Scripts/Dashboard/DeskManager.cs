@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
-using System.Threading.Tasks;
 
 public class DeskManager : Singleton<DeskManager>
 {
@@ -78,11 +77,11 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
-    async void OnReportAdded(Report report)
+    void OnReportAdded(Report report)
     {
         if (VisibleReports.Contains(report))
             return;
-        await CreateReport(report);
+        CreateReport(report);
     }
 
     void OnCharacterRemovedFromTroops(Character character)
@@ -98,7 +97,7 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
-    async void Initialize()
+    void Initialize()
     {
         _draggableCharacters.Initialize(Root, _reportsContainer);
         _draggableItems.Initialize(Root, _reportsContainer);
@@ -110,7 +109,7 @@ public class DeskManager : Singleton<DeskManager>
         VisibleReports = new();
 
         foreach (Report report in _gameManager.Reports)
-            await CreateReport(report);
+            CreateReport(report);
 
         PopulateItemSlots();
         PopulateAbilitySlots();
@@ -294,20 +293,20 @@ public class DeskManager : Singleton<DeskManager>
         card.parent.Remove(card);
     }
 
-    public async void SpitCharacterOntoDesk(Character character)
+    public void SpitCharacterOntoDesk(Character character)
     {
         CharacterCardMini card = AddMiniCardToDesk(character);
         float newX = card.Character.DeskPosition.x + Random.Range(-200, 200);
         float newY = card.Character.DeskPosition.y + Random.Range(-300, 300);
 
         Vector3 endPosition = new(newX, newY, 0);
-        await MoveElementOnArc(card, card.Character.DeskPosition, endPosition);
+        StartCoroutine(MoveElementOnArc(card, card.Character.DeskPosition, endPosition));
         card.Character.UpdateDeskPosition(endPosition);
 
         card.Character.RaiseCheck();
     }
 
-    async Task MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)
+    IEnumerator MoveElementOnArc(VisualElement el, Vector3 startPosition, Vector3 endPosition)
     {
         el.style.visibility = Visibility.Visible;
 
@@ -326,12 +325,12 @@ public class DeskManager : Singleton<DeskManager>
             el.style.top = r.y;
 
             percent += 0.01f;
-            await Task.Delay(5);
+            yield return null;
         }
     }
 
     /* REPORTS */
-    async Task CreateReport(Report report)
+    void CreateReport(Report report)
     {
         VisibleReports.Add(report);
         ReportElement el = null;
@@ -369,33 +368,29 @@ public class DeskManager : Singleton<DeskManager>
             el.style.top = report.Position.y;
             return;
         }
-        await AnimateReport(el);
+        AnimateReport(el);
     }
 
-    async Task AnimateReport(VisualElement el)
+    void AnimateReport(VisualElement el)
     {
         int leftPx = Mathf.FloorToInt(0.25f * Screen.width) + Random.Range(-10, 11);
 
         el.style.left = -1000;
         el.style.top = 0 + Random.Range(-10, 0);
 
-        DOTween.To(() => el.style.left.value.value, x => el.style.left = x, leftPx, Random.Range(0.5f, 0.7f)).SetEase(Ease.InOutCubic);
-
-        await Task.Delay(100);
+        DOTween.To(() => el.style.left.value.value, x => el.style.left = x, leftPx, Random.Range(0.5f, 0.7f))
+                .SetEase(Ease.InOutCubic);
     }
 
-    async void OnReportDismissed(ReportElement element)
+    void OnReportDismissed(ReportElement element)
     {
         // clearing transition
         element.style.transitionProperty = new List<StylePropertyName>() { new StylePropertyName("none") };
         DOTween.To(x => element.transform.scale = x * Vector3.one, 1, 0.1f, 1f);
-        await MoveReportToArchive(element);
-
-        if (element.parent == _reportsContainer)
-            _reportsContainer.Remove(element);
+        StartCoroutine(MoveReportToArchive(element));
     }
 
-    async Task MoveReportToArchive(VisualElement element)
+    IEnumerator MoveReportToArchive(VisualElement element)
     {
         Vector2 start = new(element.style.left.value.value, element.style.top.value.value);
         Vector2 destination = new(Screen.width + 100, -100);
@@ -407,7 +402,10 @@ public class DeskManager : Singleton<DeskManager>
             element.style.top = result.y;
 
             percent += 0.01f;
-            await Task.Delay(5);
+            yield return new WaitForSeconds(0.01f);
         }
+        if (element.parent == _reportsContainer)
+            _reportsContainer.Remove(element);
+
     }
 }
