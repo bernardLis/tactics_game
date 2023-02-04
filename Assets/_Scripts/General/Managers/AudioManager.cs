@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 //https://www.youtube.com/watch?v=6OT43pvUyfY
 public class AudioManager : Singleton<AudioManager>
@@ -17,6 +16,9 @@ public class AudioManager : Singleton<AudioManager>
     AudioSource _dialogueAudioSource;
 
     List<AudioSource> _sfxAudioSources = new();
+
+    IEnumerator _xFadeMusicCoroutine;
+    IEnumerator _xFadeAmbienceCoroutine;
 
     protected override void Awake()
     {
@@ -56,26 +58,27 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public async void PlayMusic(Sound sound)
+    public void PlayMusic(Sound sound)
     {
         if (sound == null)
         {
-            Debug.LogError("no music to play");
+            Debug.LogError("No music to play");
             return;
         }
 
         if (_musicAudioSource.isPlaying)
         {
-            await FadeOut(_musicAudioSource, 5);
-            await FadeIn(_musicAudioSource, sound, 10);
+            _xFadeMusicCoroutine = CrossFadeCoroutine(_musicAudioSource, 5, 5, sound);
+            StartCoroutine(_xFadeMusicCoroutine);
         }
         else
         {
-            await FadeIn(_musicAudioSource, sound, 10);
+            _xFadeMusicCoroutine = FadeInCoroutine(_musicAudioSource, sound, 5);
+            StartCoroutine(_xFadeMusicCoroutine);
         }
     }
 
-    public async void PlayAmbience(Sound sound)
+    public void PlayAmbience(Sound sound)
     {
         if (sound == null)
         {
@@ -85,19 +88,58 @@ public class AudioManager : Singleton<AudioManager>
 
         if (_ambienceAudioSource.isPlaying)
         {
-            await FadeOut(_ambienceAudioSource, 5);
-            await FadeIn(_ambienceAudioSource, sound, 10);
+            _xFadeAmbienceCoroutine = CrossFadeCoroutine(_ambienceAudioSource, 5, 5, sound);
+            StartCoroutine(_xFadeAmbienceCoroutine);
         }
         else
         {
-            await FadeIn(_ambienceAudioSource, sound, 10);
+            _xFadeAmbienceCoroutine = FadeInCoroutine(_ambienceAudioSource, sound, 5);
+            StartCoroutine(_xFadeAmbienceCoroutine);
         }
     }
 
-    public void PlayDialogue(string soundName)
+    IEnumerator CrossFadeCoroutine(AudioSource audioSource, float fadeOutDuration, float fadeInDuration, Sound newSound)
     {
-        PlaySound(_dialogueAudioSource, soundName);
+        Debug.Log($"Cross fade coroutine started.");
+        yield return FadeOutCoroutine(audioSource, fadeOutDuration);
+        yield return FadeInCoroutine(audioSource, newSound, fadeInDuration);
     }
+
+    IEnumerator FadeOutCoroutine(AudioSource audioSource, float duration)
+    {
+        Debug.Log($"Fading {audioSource.name} out.");
+        float currentTime = 0f;
+        float start = audioSource.volume;
+        float end = 0f;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, end, currentTime / duration);
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeInCoroutine(AudioSource audioSource, Sound sound, float duration)
+    {
+        Debug.Log($"Fading {sound.name} in.");
+        audioSource.pitch = sound.Pitch;
+        audioSource.volume = 0;
+        audioSource.clip = sound.Clips[0];
+        audioSource.Play();
+
+        float currentTime = 0f;
+        float start = 0f;
+        float end = sound.Volume;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, end, currentTime / duration);
+            yield return null;
+        }
+    }
+
     public void PlayDialogue(Sound sound)
     {
         _dialogueAudioSource.pitch = sound.Pitch;
@@ -105,10 +147,7 @@ public class AudioManager : Singleton<AudioManager>
         sound.Play(_dialogueAudioSource);
     }
 
-    public void StopDialogue()
-    {
-        _dialogueAudioSource.Stop();
-    }
+    public void StopDialogue() { _dialogueAudioSource.Stop(); }
 
     public AudioSource PlaySFX(string soundName, Vector3 pos)
     {
@@ -150,38 +189,6 @@ public class AudioManager : Singleton<AudioManager>
         sound.Play(audioSource);
     }
 
-    async Task FadeOut(AudioSource audioSource, int duration)
-    {
-        float currentTime = 0f;
-        float start = audioSource.volume;
-        float end = 0f;
-
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(start, end, currentTime / duration);
-            await Task.Yield();
-        }
-    }
-
-    async Task FadeIn(AudioSource audioSource, Sound sound, int duration)
-    {
-        audioSource.pitch = sound.Pitch;
-        audioSource.volume = 0;
-        audioSource.clip = sound.Clips[0];
-        audioSource.Play();
-
-        float currentTime = 0f;
-        float start = 0f;
-        float end = sound.Volume;
-
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(start, end, currentTime / duration);
-            await Task.Yield();
-        }
-    }
 
     /* volume setters */
     void SetPlayerPrefVolume()

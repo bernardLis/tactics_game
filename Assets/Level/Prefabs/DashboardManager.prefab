@@ -38,7 +38,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2536979841821243860
 MonoBehaviour:
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PanelOpenEffect: {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
+  _dashboardTheme: {fileID: 11400000, guid: 2d8a2a1b6a13ceb4ba90d4d70ed40143, type: 2}
 --- !u!114 &2536979841821243867
 MonoBehaviour:
   m_ObjectHideFlags: 0

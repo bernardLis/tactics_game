@@ -47,6 +47,8 @@ public class DashboardManager : Singleton<DashboardManager>
     const string _ussNavAbilities = _ussClassName + "nav-abilities";
     const string _ussNavArchive = _ussClassName + "nav-archive";
 
+    [SerializeField] Sound _dashboardTheme;
+
     public event Action OnDeskOpened;
     public event Action OnCampOpened;
     public event Action OnAbilitiesOpened;
@@ -86,6 +88,8 @@ public class DashboardManager : Singleton<DashboardManager>
 
         ShowPassDayButton();
         AddNavigationButtons();
+        
+        AudioManager.Instance.PlayMusic(_dashboardTheme);
     }
 
     /* INPUT */
@@ -111,7 +115,7 @@ public class DashboardManager : Singleton<DashboardManager>
     {
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
-            
+
         PlayerInput = _gameManager.GetComponent<PlayerInput>();
         PlayerInput.SwitchCurrentActionMap("Dashboard");
         UnsubscribeInputActions();
