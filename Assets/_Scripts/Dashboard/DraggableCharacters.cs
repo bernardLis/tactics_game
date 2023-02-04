@@ -172,7 +172,7 @@ public class DraggableCharacters : MonoBehaviour
         _draggedCard.Character.UpdateDeskPosition(newPos);
     }
 
-    async void ReturnCardToContainer(CharacterCardMini card)
+    void ReturnCardToContainer(CharacterCardMini card)
     {
         _cardContainer.Add(card);
         card.style.position = Position.Absolute;
@@ -185,8 +185,8 @@ public class DraggableCharacters : MonoBehaviour
         card.UnregisterCallback<PointerDownEvent>(OnCardPointerDown);
         DOTween.To(() => card.style.left.value.value, x => card.style.left = x, endLeft, 0.5f)
                 .SetEase(Ease.OutElastic);
-        await DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f)
-                .SetEase(Ease.OutElastic).AsyncWaitForCompletion(); ;
+        DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f)
+                .SetEase(Ease.OutElastic);
         card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
 
         card.Character.UpdateDeskPosition(new Vector2(endLeft, endTop));

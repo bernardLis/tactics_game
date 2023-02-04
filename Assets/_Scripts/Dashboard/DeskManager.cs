@@ -373,10 +373,10 @@ public class DeskManager : Singleton<DeskManager>
 
     void AnimateReport(VisualElement el)
     {
-        int leftPx = Mathf.FloorToInt(0.25f * Screen.width) + Random.Range(-10, 11);
+        int leftPx = Mathf.FloorToInt(0.25f * Screen.width) + Random.Range(-30, 31);
 
         el.style.left = -1000;
-        el.style.top = 0 + Random.Range(-10, 0);
+        el.style.top = 0 + Random.Range(-20, 20);
 
         DOTween.To(() => el.style.left.value.value, x => el.style.left = x, leftPx, Random.Range(0.5f, 0.7f))
                 .SetEase(Ease.InOutCubic);
