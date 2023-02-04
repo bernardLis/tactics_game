@@ -234,9 +234,15 @@ public class AbilityCraftManager : MonoBehaviour
 
     void CraftAbility()
     {
+        if (_abilityNode == null)
+        {
+            Helpers.DisplayTextOnElement(_root, _abilityButtonsContainer, "Drag an unlocked node.", Color.red);
+            return;
+
+        }
         if (_gameManager.Spice < _abilityNode.GetSpiceCostByStars(_numberOfStars))
         {
-            Helpers.DisplayTextOnElement(_root, _abilityButtonsContainer, "Not enough spice", Color.red);
+            Helpers.DisplayTextOnElement(_root, _abilityButtonsContainer, "Not enough spice.", Color.red);
             return;
         }
 

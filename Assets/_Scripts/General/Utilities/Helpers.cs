@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
@@ -107,19 +106,20 @@ public static class Helpers
         return objectsWithInterfaces;
     }
 
-    public static async void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
+    public static void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
     {
+        Debug.Log($"Displaying '{text}' on element: {element}");
         Label l = new Label(text);
         l.AddToClassList(_ussCommonTextPrimary);
         l.style.color = color;
         l.style.position = Position.Absolute;
-        l.style.left = element.worldBound.xMin + element.worldBound.width / 2;
+        l.style.left = element.worldBound.xMin;
         l.style.top = element.worldBound.yMin;
 
         root.Add(l);
         float end = element.worldBound.yMin - 100;
-        await DOTween.To(x => l.style.top = x, element.worldBound.yMin, end, 1).SetEase(Ease.OutSine).AsyncWaitForCompletion();
-        await DOTween.To(x => l.style.opacity = x, 1, 0, 1).AsyncWaitForCompletion();
-        root.Remove(l);
+        DOTween.To(x => l.style.top = x, element.worldBound.yMin, end, 1).SetEase(Ease.OutSine)
+                .OnComplete(() => DOTween.To(x => l.style.opacity = x, 1, 0, 1)
+                .OnComplete(() => root.Remove(l)));
     }
 }
