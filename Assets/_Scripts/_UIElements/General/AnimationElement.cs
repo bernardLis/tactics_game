@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class AnimationElement : VisualElement
     int _delay;
     int _animationSpriteIndex = 0;
 
+    IVisualElementScheduledItem _animationScheduler;
+
+    bool _isFinished;
+
+    public event Action OnAnimationFinished;
     public AnimationElement(Sprite[] animationSprites, int delay, bool isLoop)
     {
         style.width = Length.Percent(100);
@@ -28,22 +34,29 @@ public class AnimationElement : VisualElement
         _animationSpriteIndex = 0;
     }
 
-    public async void PlayAnimation() { await AwaitablePlayAnimation(); }
+    public bool IsAnimationFinished() { return _isFinished; }
+    public void PlayAnimation() { _animationScheduler = schedule.Execute(Animate).Every(_delay); }
+    public void PauseAnimation() { _animationScheduler.Pause(); }
+    public void ResumeAnimation() { _animationScheduler.Resume(); }
 
-    public async Task AwaitablePlayAnimation()
+    void Animate()
     {
-        while (_animationSpriteIndex <= _animationSprites.Length)
+        if (_animationSpriteIndex == _animationSprites.Length)
         {
-            if (_animationSpriteIndex == _animationSprites.Length)
-                if (_isLoop)
-                    _animationSpriteIndex = 0;
-                else
-                    return;
-            style.backgroundImage = new StyleBackground(_animationSprites[_animationSpriteIndex]);
-            _animationSpriteIndex++;
-
-            await Task.Delay(_delay);
+            if (!_isLoop)
+            {
+                FinishAnimation();
+                return;
+            }
+            _animationSpriteIndex = 0;
         }
+        style.backgroundImage = new StyleBackground(_animationSprites[_animationSpriteIndex]);
+        _animationSpriteIndex++;
     }
 
+    void FinishAnimation()
+    {
+        PauseAnimation();
+        OnAnimationFinished?.Invoke();
+    }
 }

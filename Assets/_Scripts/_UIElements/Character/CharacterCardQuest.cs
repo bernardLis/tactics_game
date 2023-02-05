@@ -173,13 +173,13 @@ public class CharacterCardQuest : VisualElement
     void BaseStatUp()
     {
         _pointAdded = true;
-        
+
         _powerUpButton.style.display = DisplayStyle.None;
         _armorUpButton.style.display = DisplayStyle.None;
         _rangeUpButton.style.display = DisplayStyle.None;
     }
 
-    public async void PlayLevelUpAnimation()
+    public void PlayLevelUpAnimation()
     {
         Sprite[] animationSprites = _gameManager.GameDatabase.LevelUpAnimationSprites;
         VisualElement container = new();
@@ -191,7 +191,7 @@ public class CharacterCardQuest : VisualElement
         container.Add(el);
 
         Add(container);
-        await el.AwaitablePlayAnimation();
-        Remove(container);
+        el.PlayAnimation();
+        el.OnAnimationFinished += () => Remove(container);
     }
 }

@@ -188,7 +188,6 @@ public class DraggableCharacters : MonoBehaviour
         DOTween.To(() => card.style.top.value.value, x => card.style.top = x, endTop, 0.5f)
                 .SetEase(Ease.OutElastic);
         card.RegisterCallback<PointerDownEvent>(OnCardPointerDown);
-
         card.Character.UpdateDeskPosition(new Vector2(endLeft, endTop));
     }
 
