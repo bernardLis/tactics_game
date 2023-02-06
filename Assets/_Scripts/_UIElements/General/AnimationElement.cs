@@ -34,6 +34,7 @@ public class AnimationElement : VisualElement
         _animationSpriteIndex = 0;
     }
 
+    public void SetLoop(bool isLoop) { _isLoop = isLoop; }
     public bool IsAnimationFinished() { return _isFinished; }
     public void PlayAnimation() { _animationScheduler = schedule.Execute(Animate).Every(_delay); }
     public void PauseAnimation() { _animationScheduler.Pause(); }

@@ -5,4 +5,8 @@
     transition-property: all;
     transition-duration: 1s;
     transition-timing-function: ease-in-out;
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    justify-content: center;
 }

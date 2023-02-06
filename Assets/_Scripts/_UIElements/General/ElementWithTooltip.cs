@@ -74,6 +74,7 @@ public abstract class ElementWithTooltip : VisualElement
             return;
         _tooltipContainer.Clear();
         _tooltipContainer.Add(_tooltip);
+        _tooltipContainer.BringToFront();
 
         _tooltip.style.opacity = 0;
         DOTween.Kill(tooltipTweenId);
@@ -102,7 +103,6 @@ public abstract class ElementWithTooltip : VisualElement
                 .AsyncWaitForCompletion();
         _isTooltipDisplayed = false;
         _tooltip = null;
-
     }
 
 }

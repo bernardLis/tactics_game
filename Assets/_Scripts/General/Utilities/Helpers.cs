@@ -4,9 +4,8 @@ using System.Text.RegularExpressions;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public static class Helpers
+public static class Helpers 
 {
-
     const string _ussCommonTextPrimary = "common__text-primary";
 
     static Dictionary<string, Color> _colors = new()
@@ -30,22 +29,6 @@ public static class Helpers
         { ItemRarity.Epic.ToString(), new Color(0.32f,0.22f,0.44f,1f) },
     };
 
-    static Camera _camera;
-    //https://www.youtube.com/watch?v=JOABOQMurZo
-    public static Camera Camera
-    {
-        get
-        {
-            if (_camera == null) _camera = Camera.main;
-            return _camera;
-        }
-    }
-
-    public static int GetManhattanDistance(Vector2 start, Vector2 end)
-    {
-        return Mathf.RoundToInt(Mathf.Abs(start.x - end.x) + Mathf.Abs(start.y - end.y));
-    }
-
     public static Color GetColor(string name)
     {
         Color col;
@@ -68,42 +51,6 @@ public static class Helpers
         text = r.Replace(text, " "); // pascal case
         text = Regex.Replace(text, @"\s+", " "); // whitespace clean-up
         return text;
-    }
-
-    public static Vector2 GetDirectionToClosestWithTag(GameObject self, string tag)
-    {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
-        if (targets.Length == 0)
-            return Vector2.zero;
-
-        float distanceToClosestTarget = Vector3.Distance(self.transform.position, targets[0].transform.position);
-        GameObject closestTarget = targets[0];
-
-        foreach (GameObject target in targets)
-        {
-            float dist = Vector3.Distance(self.transform.position, target.transform.position);
-            if (dist < distanceToClosestTarget)
-                closestTarget = target;
-        }
-
-        return (closestTarget.transform.position - self.transform.position).normalized;
-    }
-
-    public static List<GameObject> FindGameObjectsWithInterface<T>()
-    {
-        List<GameObject> objectsWithInterfaces = new();
-        GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>(); // TODO: I am worried this lags unity.
-
-        foreach (GameObject g in gameObjects)
-        {
-            if (!g.activeInHierarchy)
-                continue;
-
-            T[] childrenInterfaces = g.GetComponentsInChildren<T>();
-            if (childrenInterfaces.Length > 0)
-                objectsWithInterfaces.Add(g);
-        }
-        return objectsWithInterfaces;
     }
 
     public static void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
