@@ -65,6 +65,7 @@
     background-color: rgba(255, 255, 255, 0);
     margin-bottom: 5px;
     margin-top: 5px;
+    margin-left: 1px;
     color: rgb(255, 255, 255);
     border-left-color: rgb(255, 133, 125);
     border-right-color: rgb(255, 133, 125);

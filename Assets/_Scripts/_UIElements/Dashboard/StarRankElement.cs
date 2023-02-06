@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 
 public class StarRankElement : ElementWithTooltip
 {
-    List<VisualElement> stars = new();
-    int _rank;
+    List<VisualElement> _stars = new();
+    int _maxRank;
+    public int Rank;
     VisualElement _tooltipElement;
 
-    const string _ussClassName = "star-rank-element";
-    const string _ussStar = _ussClassName + "__star";
-    const string _ussStarGold = _ussClassName + "__star-gold";
-    const string _ussStarGray = _ussClassName + "__star-gray";
+    const string _ussClassName = "star-rank-element__";
+    const string _ussStar = _ussClassName + "star";
+    const string _ussStarGold = _ussClassName + "star-gold";
+    const string _ussStarGray = _ussClassName + "star-gray";
 
-    const string _ussEffect = _ussClassName + "__effect";
+    const string _ussEffect = _ussClassName + "effect";
 
+    int _currentStarIndex;
+
+    IVisualElementScheduledItem _rankUpdateScheduler;
 
     public StarRankElement(int rank, float scale = 1f, VisualElement tooltip = null, int maxRank = 5)
     {
@@ -27,14 +31,16 @@ public class StarRankElement : ElementWithTooltip
         style.flexDirection = FlexDirection.Row;
         transform.scale = Vector3.one * scale;
 
-        _rank = rank;
+        _maxRank = maxRank;
+        Rank = rank;
+
         for (int i = 0; i < maxRank; i++)
         {
             VisualElement star = new();
             star.AddToClassList(_ussStar);
             star.AddToClassList(_ussStarGray);
             Add(star);
-            stars.Add(star);
+            _stars.Add(star);
         }
         SetRank(rank);
 
@@ -42,22 +48,49 @@ public class StarRankElement : ElementWithTooltip
             _tooltipElement = tooltip;
     }
 
-    public async void SetRank(int rank)
+    public void SetRank(int rank)
     {
-        for (int i = 0; i < stars.Count; i++)
+        if (_rankUpdateScheduler != null)
         {
-            VisualElement star = stars[i];
-            star.AddToClassList(_ussStarGray);
-            star.RemoveFromClassList(_ussStarGold);
-            star.AddToClassList(_ussEffect);
-            if (i < rank)
-            {
-                star.RemoveFromClassList(_ussStarGray);
-                star.AddToClassList(_ussStarGold);
-            }
-            await Task.Delay(100);
-            star.RemoveFromClassList(_ussEffect);
+            _rankUpdateScheduler.Pause();
+            _currentStarIndex = 0;
         }
+        _rankUpdateScheduler = schedule.Execute(UpdateStar).Every(100);
+
+        if (rank < 0)
+            return;
+        if (rank > _maxRank)
+            return;
+        Rank = rank;
+    }
+
+    void UpdateStar()
+    {
+        VisualElement star = _stars[_currentStarIndex];
+        star.AddToClassList(_ussStarGray);
+        star.RemoveFromClassList(_ussStarGold);
+        star.AddToClassList(_ussEffect);
+        if (_currentStarIndex < Rank)
+        {
+            star.RemoveFromClassList(_ussStarGray);
+            star.AddToClassList(_ussStarGold);
+        }
+
+        if (_currentStarIndex > 0)
+            _stars[_currentStarIndex - 1].RemoveFromClassList(_ussEffect);
+        _currentStarIndex++;
+
+        if (_currentStarIndex == _stars.Count)
+        {
+            _rankUpdateScheduler.Pause();
+            _rankUpdateScheduler = schedule.Execute(ResetRankUpdate).StartingIn(100);
+        }
+    }
+
+    void ResetRankUpdate()
+    {
+        _stars[_stars.Count - 1].RemoveFromClassList(_ussEffect);
+        _currentStarIndex = 0;
     }
 
     protected override void DisplayTooltip()
@@ -68,7 +101,7 @@ public class StarRankElement : ElementWithTooltip
         }
         else
         {
-            Label l = new Label("Rank tooltip to be implemented");
+            Label l = new Label("Rank tooltip missing.");
             l.style.whiteSpace = WhiteSpace.Normal;
             _tooltip = new(this, l);
         }
