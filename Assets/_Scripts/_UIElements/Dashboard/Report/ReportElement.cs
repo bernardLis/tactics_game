@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
-using System.Threading.Tasks;
-using DG.Tweening;
 
 public class ReportElement : VisualElement
 {
@@ -173,7 +171,7 @@ public class ReportElement : VisualElement
 
     void DismissReportAction() { DismissReport(); } // otherwise, the delegate throws errors
 
-    protected async void DismissReport(bool EffectsOn = true)
+    protected void DismissReport(bool EffectsOn = true)
     {
         // otherwise you can click multiple times if you are a quick clicker.
         if (_signed)
@@ -186,38 +184,34 @@ public class ReportElement : VisualElement
         _gameManager.SaveJsonData();
 
         _reportContents.UnregisterCallback<PointerDownEvent>(OnReportContentPointerDown);
-
         if (_acceptRejectContainer != null)
             _acceptRejectContainer.style.visibility = Visibility.Hidden;
         if (_signButton != null)
             _signButton.style.visibility = Visibility.Hidden;
-
         Blur();
 
         _report.Sign();
 
-
-        // TODO: a better way? 
         if (EffectsOn)
         {
             _audioManager.PlaySFX("Stamp", Vector3.zero);
 
             Label signed = new($"Signed on day {_gameManager.Day}");
             signed.AddToClassList(_ussSignedTextBefore);
-            // signed.style.display = ;
             _reportContents.Add(signed);
-            await Task.Delay(50); // this makes transitions from class to class to work.
-            signed.AddToClassList(_ussSignedText);
-            signed.RemoveFromClassList(_ussSignedTextBefore);
-            await Task.Delay(10); // TODO: nasty nasty nasty, but without it the text appears on the bottom of the element without styling for a few frames
-            signed.style.display = DisplayStyle.Flex;
-
-            await Task.Delay(400);
-            _audioManager.PlaySFX("PaperFlying", Vector3.zero);
-
+            // TODO: this is nasty af in my opinion, but it works really well xD
+            schedule.Execute(() =>
+            {
+                signed.AddToClassList(_ussSignedText);
+                signed.RemoveFromClassList(_ussSignedTextBefore);
+                signed.style.display = DisplayStyle.Flex;
+                schedule.Execute(() =>
+                {
+                    _audioManager.PlaySFX("PaperFlying", Vector3.zero);
+                    OnReportDismissed?.Invoke(this);
+                }).ExecuteLater(400);
+            }).ExecuteLater(50); // this makes transitions from class to class to work.
         }
-        OnReportDismissed?.Invoke(this);
-
     }
 
     /* HOVER */
