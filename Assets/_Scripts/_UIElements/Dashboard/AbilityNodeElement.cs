@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
-using System.Threading.Tasks;
 
 public class AbilityNodeElement : ElementWithTooltip
 {
@@ -62,7 +61,7 @@ public class AbilityNodeElement : ElementWithTooltip
 
     void UnlockNode() { PlayUnlockAnimation(); }
 
-    async void PlayUnlockAnimation()
+    void PlayUnlockAnimation()
     {
         RemoveCostElement();
 
@@ -75,7 +74,7 @@ public class AbilityNodeElement : ElementWithTooltip
         if (AbilityNode.UnlockEffect != null)
         {
             EffectHolder instance = ScriptableObject.Instantiate(AbilityNode.UnlockEffect);
-            await instance.PlayEffectAwaitable(worldPos, new Vector3(0.5f, 1f, 1f));
+            instance.PlayEffect(worldPos, new Vector3(0.5f, 1f, 1f));
         }
 
         _icon.style.backgroundImage = new StyleBackground(AbilityNode.IconUnlocked);
@@ -83,10 +82,10 @@ public class AbilityNodeElement : ElementWithTooltip
 
     public void AddCostElement(SpiceElement el) { _costElement = el; }
 
-    async void RemoveCostElement()
+    void RemoveCostElement()
     {
-        await _costElement.AwaitableChangeAmount(0);
-        _costElement.style.display = DisplayStyle.None;
+        _costElement.ChangeAmount(0);
+        _costElement.OnAnimationFinished += () => _costElement.style.display = DisplayStyle.None;
     }
 
     public void ShakeNode() { DOTween.Shake(() => transform.position, x => transform.position = x, 1f, 6f); }

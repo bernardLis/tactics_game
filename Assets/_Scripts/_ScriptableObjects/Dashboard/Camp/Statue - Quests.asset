@@ -21,8 +21,8 @@ MonoBehaviour:
   BuildingSound: {fileID: 11400000, guid: 7b82d975d8ca4d24eb6aaf6fce06d376, type: 2}
   CampBuildingState: 2
   DaysLeftToBuild: 0
-  DayStartedBuilding: 4
-  UpgradeRank: 1
+  DayStartedBuilding: 59
+  UpgradeRank: 3
   Upgrades:
   - UpgradeRank: 0
     MaxQuestRank: 1
@@ -30,5 +30,7 @@ MonoBehaviour:
     MaxQuestRank: 2
   - UpgradeRank: 2
     MaxQuestRank: 3
+  - UpgradeRank: 3
+    MaxQuestRank: 4
   - UpgradeRank: 4
     MaxQuestRank: 5

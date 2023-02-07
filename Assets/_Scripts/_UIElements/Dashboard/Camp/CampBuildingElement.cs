@@ -173,6 +173,7 @@ public class CampBuildingElement : VisualElement
 
     void Upgrade()
     {
+        _gameManager.ChangeGoldValue(_campBuilding.GetUpgradeCost());
         _campBuilding.Upgrade();
         UpdateBuildButton();
         _buildingRankElement.SetRank(_campBuilding.UpgradeRank);

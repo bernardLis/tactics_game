@@ -1,15 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Threading.Tasks;
 
-public class GoldElement : ElementWithTooltip
+public class GoldElement : ChangingValueElement
 {
     GameManager _gameManager;
-    public int Amount;
     Label _icon;
-    Label _text;
 
     const string _ussCommonTextPrimary = "common__text-primary";
 
@@ -47,39 +45,9 @@ public class GoldElement : ElementWithTooltip
         ChangeAmount(amount);
     }
 
-    public async void ChangeAmount(int newValue) { await AwaitableChangeAmount(newValue); }
-
-    public async Task AwaitableChangeAmount(int newValue)
+    protected override void NumberAnimation()
     {
-        if (newValue == Amount)
-            return;
-
-        int displayAmount = Amount;
-        Amount = newValue;
-
-        int step = 1;
-        int change = Mathf.Abs(displayAmount - newValue);
-
-        // TODO: there has to be a better way
-        if (change >= 1000)
-            step = 10;
-        if (change >= 10000)
-            step = 100;
-        if (change >= 100000)
-            step = 1000;
-
-        int numberOfSteps = Mathf.FloorToInt(change / step);
-        int delay = 1000 / numberOfSteps;
-        while (displayAmount != newValue)
-        {
-            if (displayAmount < newValue)
-                displayAmount += step;
-            if (displayAmount > newValue)
-                displayAmount -= step;
-
-            _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(Amount));
-            _text.text = displayAmount.ToString();
-            await Task.Delay(delay);
-        }
+        base.NumberAnimation();
+        _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(_currentlyDisplayedAmount));
     }
 }

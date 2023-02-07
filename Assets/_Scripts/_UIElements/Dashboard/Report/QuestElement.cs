@@ -211,14 +211,13 @@ public class QuestElement : VisualElement
 
     void OnRewardItemAdded(ItemElement el) { _quest.Reward.Item = el.Item; }
 
-    async void ReturnAssignedCharacters()
+    void ReturnAssignedCharacters()
     {
         foreach (CharacterCardMiniSlot slot in _cardSlots)
         {
             if (slot.Card == null)
                 continue;
             slot.Card.Character.UpdateDeskPosition(new Vector2(slot.worldBound.x, slot.worldBound.y));
-            await Task.Delay(500);
             _deskManager.SpitCharacterOntoDesk(slot.Card.Character);
             slot.RemoveCard();
         }
