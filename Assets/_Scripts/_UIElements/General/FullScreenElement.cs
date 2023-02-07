@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
-using System.Threading.Tasks;
 
 public class FullScreenElement : VisualElement
 {
@@ -13,7 +12,7 @@ public class FullScreenElement : VisualElement
 
     const string _ussCommonMenuButton = "common__menu-button";
 
-    public async void Initialize(VisualElement root, bool enableNavigation = true)
+    public void Initialize(VisualElement root, bool enableNavigation = true)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -27,13 +26,8 @@ public class FullScreenElement : VisualElement
         _root = root;
         root.Add(this);
 
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
-
         _gameManager.GetComponent<GameUIManager>().DisableMenuButton(); // TODO: ugh...
 
-        await Task.Delay(100);
         focusable = true;
         Focus();
 
