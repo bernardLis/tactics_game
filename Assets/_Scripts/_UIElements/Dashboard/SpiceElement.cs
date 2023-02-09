@@ -33,14 +33,14 @@ public class SpiceElement : ChangingValueElement
 
         Sprite[] animationSprites = null;
         animationSprites = _gameManager.GameDatabase.GetSpiceSprites(amount);
-        _animationElement = new AnimationElement(animationSprites, 100, true);
+        _animationElement = new AnimationElement(animationSprites, 100, true, true);
         _animationElement.AddToClassList(_ussIcon);
         _animationElement.PlayAnimation();
         Add(_animationElement);
 
         _text = new();
         _text.AddToClassList(_ussCommonTextPrimary);
-        _animationElement.AddToClassList(_ussValue);
+        _text.AddToClassList(_ussValue);
         _text.text = Amount.ToString();
         Add(_text);
 

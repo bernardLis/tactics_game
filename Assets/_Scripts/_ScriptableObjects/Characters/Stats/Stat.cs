@@ -2,19 +2,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Stat
+public class Stat : BaseScriptableObject
 {
-    public StatType Type;
+    public StatType StatType;
+
     public int BaseValue;
-    public Character Character;
+    public int BonusValue;
 
-    public int GetValue()
+    public event Action<int> OnValueChanged;
+
+    public int GetValue() { return BaseValue + BonusValue; }
+    public void SetBaseValue(int value)
     {
-        int finalValue = BaseValue;
+        BaseValue = value;
+        OnValueChanged?.Invoke(GetValue());
+    }
 
-        // final value can't be negative
-        finalValue = Mathf.Clamp(finalValue, 0, int.MaxValue);
+    public void ApplyBaseValueChange(int value)
+    {
+        BaseValue += value;
+        OnValueChanged?.Invoke(GetValue());
+    }
 
-        return finalValue;
+    public void ApplyBonusValueChange(int value)
+    {
+        BonusValue += value;
+        OnValueChanged?.Invoke(GetValue());
     }
 }

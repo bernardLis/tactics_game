@@ -18,7 +18,7 @@ public class CharacterCard : VisualElement
 
     StatElement _power;
     StatElement _armor;
-    StatElement _range;
+    StatElement _speed;
 
     public ResourceBarElement ExpBar;
     public ResourceBarElement HealthBar;
@@ -63,7 +63,6 @@ public class CharacterCard : VisualElement
             styleSheets.Add(ss);
 
         Character = character;
-        Character.ResolveItems();
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
@@ -141,13 +140,13 @@ public class CharacterCard : VisualElement
         container.AddToClassList(_ussBottomLeftPanel);
 
         GameDatabase db = _gameManager.GameDatabase;
-        _power = new(db.GetStatIconByName("Power"), Character.GetStatValue("Power"), "Power");
-        _armor = new(db.GetStatIconByName("Armor"), Character.GetStatValue("Armor"), "Armor");
-        _range = new(db.GetStatIconByName("MovementRange"), Character.GetStatValue("MovementRange"), "Movement Range");
+        _power = new(db.GetStatIconByName("Power"), Character.Power);
+        _armor = new(db.GetStatIconByName("Armor"), Character.Armor);
+        _speed = new(db.GetStatIconByName("Speed"), Character.Speed);
 
         container.Add(_power);
         container.Add(_armor);
-        container.Add(_range);
+        container.Add(_speed);
     }
 
     void PopulateBottomRightPanel(VisualElement container)
@@ -183,9 +182,9 @@ public class CharacterCard : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussExpContainer);
 
-        ExpBar = new(Color.black, "Experience", 100, Character.Experience, 0, true);
+        ExpBar = new(Color.black, "Experience", 100, Character.Experience.Value, 0, true);
 
-        _level = new Label($"Level {Character.Level}");
+        _level = new Label($"Level {Character.Level.Value}");
         _level.style.position = Position.Absolute;
         _level.AddToClassList(_ussCommonTextSecondary);
         ExpBar.Add(_level);
@@ -199,7 +198,7 @@ public class CharacterCard : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussHealthContainer);
 
-        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", Character.GetStatValue("MaxHealth"), Character.GetStatValue("MaxHealth"));
+        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", Character.Health.GetValue(), Character.Health.GetValue());
         container.Add(HealthBar);
 
         return container;
@@ -210,7 +209,7 @@ public class CharacterCard : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussManaContainer);
 
-        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", Character.GetStatValue("MaxMana"), Character.GetStatValue("MaxMana"));
+        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", Character.Mana.GetValue(), Character.Mana.GetValue());
         container.Add(ManaBar);
 
         return container;
@@ -277,12 +276,8 @@ public class CharacterCard : VisualElement
 
     void SubscribeToStatChanges()
     {
-        Character.OnMaxHealthChanged += OnMaxHealthChanged;
-        Character.OnMaxManaChanged += OnMaxManaChanged;
-
-        Character.OnPowerChanged += _power.UpdateBaseValue;
-        Character.OnArmorChanged += _armor.UpdateBaseValue;
-        Character.OnMovementRangeChanged += _range.UpdateBaseValue;
+        Character.Health.OnValueChanged += OnMaxHealthChanged;
+        Character.Mana.OnValueChanged += OnMaxManaChanged;
     }
 
     void OnMaxHealthChanged(int value) { HealthBar.UpdateBarValues(value, value); }

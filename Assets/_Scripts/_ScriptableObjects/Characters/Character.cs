@@ -16,29 +16,26 @@ public class Character : BaseScriptableObject
 
     GameManager _gameManager;
 
-    // character scriptable object holds stats & abilities of a character.
-    // it passes these values to CharacterStats script where they can be used in game.
     public string CharacterName = "Default";
     public CharacterPortrait Portrait;
 
     [Header("Stats")]
-    public int Level;
-    public int Experience;
+    public IntVariable Level;
+    public IntVariable Experience;
+
+    public IntVariable BaseHealth;
+    public IntVariable BaseMana;
+    public IntVariable BasePower;
+    public IntVariable BaseArmor;
+    public IntVariable BaseSpeed;
+
+    public Stat Health { get; private set; }
+    public Stat Mana { get; private set; }
+    public Stat Power { get; private set; }
+    public Stat Armor { get; private set; }
+    public Stat Speed { get; private set; }
+
     public Element Element;
-
-    public int MaxHealth;
-    public int MaxMana;
-    public int Power;
-    public int Armor;
-    public int MovementRange;
-
-    // set by items, for now used only in the shop
-    public int PowerBonus { get; private set; }
-    public int MaxHealthBonus { get; private set; }
-    public int MaxManaBonus { get; private set; }
-    public int ArmorBonus { get; private set; }
-    public int MovementRangeBonus { get; private set; }
-
     public CharacterRank Rank { get; private set; }
 
     [Header("Items")]
@@ -59,56 +56,16 @@ public class Character : BaseScriptableObject
     public int NewWage { get; private set; }
     public bool Negotiated { get; private set; }
 
-    public event Action OnCharacterLevelUp;
-    public event Action<int> OnCharacterExpGain;
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
     public event Action<int> OnWageChanged;
-
-    public event Action<int> OnMaxHealthChanged;
-    public event Action<int> OnMaxManaChanged;
-    public event Action<int> OnPowerChanged;
-    public event Action<int> OnArmorChanged;
-    public event Action<int> OnMovementRangeChanged;
-
-    public void ChangeStat(string stat, int value)
-    {
-        if (stat == "MaxHealth")
-            MaxHealth += value;
-        if (stat == "MaxMana")
-            MaxMana += value;
-        if (stat == "Power")
-            Power += value;
-        if (stat == "Armor")
-            Armor += value;
-        if (stat == "MovementRange")
-            MovementRange += value;
-    }
-
-    public int GetStatValue(string stat)
-    {
-        if (stat == "MaxHealth")
-            return MaxHealth + MaxHealthBonus;
-        if (stat == "MaxMana")
-            return MaxMana + MaxManaBonus;
-        if (stat == "Power")
-            return Power + PowerBonus;
-        if (stat == "Armor")
-            return Armor + ArmorBonus;
-        if (stat == "MovementRange")
-            return MovementRange + MovementRangeBonus;
-
-        return 0;
-    }
 
     public void GetExp(int gain) { BaseExpGain(gain); }
 
     protected virtual void BaseExpGain(int gain)
     {
-        Experience += gain;
-        OnCharacterExpGain?.Invoke(gain);
-
-        if (Experience < 100)
+        Experience.ApplyChange(gain);
+        if (Experience.Value < 100)
             return;
 
         LevelUp();
@@ -116,24 +73,22 @@ public class Character : BaseScriptableObject
 
     public void LevelUp()
     {
-        Experience = 0;
-        OnCharacterExpGain?.Invoke(0);
+        Experience.SetValue(0);
+        Level.ApplyChange(1);
 
-        Level++;
-        ChangeMaxHealth(Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y));
-        ChangeMaxMana(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
+        BaseHealth.ApplyChange(Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y));
+        BaseMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
 
         AudioManager.Instance.PlaySFX("LevelUp", Vector3.one);
 
-        OnCharacterLevelUp?.Invoke();
         UpdateRank();
     }
 
-    public void AddPower() { Power++; }
+    public void AddPower() { BasePower.ApplyChange(1); }
 
-    public void AddArmor() { Armor++; }
+    public void AddArmor() { BaseArmor.ApplyChange(1); }
 
-    public void AddRange() { MovementRange++; }
+    public void AddRange() { BaseSpeed.ApplyChange(1); }
 
     public void AddAbility(Ability ability)
     {
@@ -164,66 +119,30 @@ public class Character : BaseScriptableObject
     public void AddItem(Item item)
     {
         Items.Add(item);
-        ResolveItems();
-        InformSubscribers(item);
+        UpdateStat(item.InfluencedStat, item.Value);
         UpdateRank();
     }
 
     public void RemoveItem(Item item)
     {
         Items.Remove(item);
-        ResolveItems();
-        InformSubscribers(item);
+        UpdateStat(item.InfluencedStat, -item.Value);
         UpdateRank();
     }
 
-    void ChangeMaxHealth(int change)
+    void UpdateStat(StatType type, int value)
     {
-        MaxHealth += change;
-        OnMaxHealthChanged?.Invoke(GetStatValue("MaxHealth"));
-    }
-
-    void ChangeMaxMana(int change)
-    {
-        MaxMana += change;
-        OnMaxManaChanged?.Invoke(GetStatValue("MaxMana"));
-    }
-
-    void InformSubscribers(Item item)
-    {
-        if (item.InfluencedStat == StatType.MaxHealth)
-            OnMaxHealthChanged?.Invoke(GetStatValue("MaxHealth"));
-        if (item.InfluencedStat == StatType.MaxMana)
-            OnMaxManaChanged?.Invoke(GetStatValue("MaxMana"));
-        if (item.InfluencedStat == StatType.Power)
-            OnPowerChanged?.Invoke(GetStatValue("Power"));
-        if (item.InfluencedStat == StatType.Armor)
-            OnArmorChanged?.Invoke(GetStatValue("Armor"));
-        if (item.InfluencedStat == StatType.MovementRange)
-            OnMovementRangeChanged?.Invoke(GetStatValue("MovementRange"));
-    }
-
-    public void ResolveItems()
-    {
-        MaxHealthBonus = 0;
-        MaxManaBonus = 0;
-        PowerBonus = 0;
-        ArmorBonus = 0;
-        MovementRangeBonus = 0;
-
-        foreach (Item item in Items)
-        {
-            if (item.InfluencedStat == StatType.MaxHealth)
-                MaxHealthBonus += item.Value;
-            if (item.InfluencedStat == StatType.MaxMana)
-                MaxManaBonus += item.Value;
-            if (item.InfluencedStat == StatType.Power)
-                PowerBonus += item.Value;
-            if (item.InfluencedStat == StatType.Armor)
-                ArmorBonus += item.Value;
-            if (item.InfluencedStat == StatType.MovementRange)
-                MovementRangeBonus += item.Value;
-        }
+        // TODO: this if statement sucks.
+        if (type == StatType.Health)
+            Health.ApplyBonusValueChange(value);
+        if (type == StatType.Mana)
+            Mana.ApplyBonusValueChange(value);
+        if (type == StatType.Power)
+            Power.ApplyBonusValueChange(value);
+        if (type == StatType.Armor)
+            Armor.ApplyBonusValueChange(value);
+        if (type == StatType.Speed)
+            Speed.ApplyBonusValueChange(value);
     }
 
     public void SetUnavailable(int days)
@@ -258,7 +177,7 @@ public class Character : BaseScriptableObject
 
     public int CountRankPoints()
     {
-        int total = Level;
+        int total = Level.Value;
 
         foreach (Item i in Items)
         {
@@ -276,61 +195,6 @@ public class Character : BaseScriptableObject
             total += a.StarRank;
 
         return total;
-    }
-
-    public void InitializeStarterTroops()
-    {
-        Debug.Log($"Character {name} (starter troop) initializes.");
-        _gameManager = GameManager.Instance;
-        DayAddedToTroops = 0;
-        UpdateRank();
-    }
-
-    public virtual void CreateRandom(int level)
-    {
-        _gameManager = GameManager.Instance;
-
-        GameDatabase gameDatabase = _gameManager.GameDatabase;
-        CharacterDatabase characterDatabase = gameDatabase.CharacterDatabase;
-        bool isMale = Random.value > 0.5f;
-
-        Id = Guid.NewGuid().ToString();
-
-        CharacterName = isMale ? characterDatabase.GetRandomNameMale() : characterDatabase.GetRandomNameFemale();
-        name = CharacterName;
-        Portrait = isMale ? characterDatabase.GetRandomPortraitMale() : characterDatabase.GetRandomPortraitFemale();
-
-        Level = level;
-        Experience = 0;
-        Element = _gameManager.GameDatabase.GetElementByName(ElementName.Earth);
-
-        MaxHealth = 100 + Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y) * level;
-        MaxMana = 30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level;
-
-        int totalPointsLeft = level;
-        int powerLevelBonus = Random.Range(0, totalPointsLeft + 1);
-        totalPointsLeft -= powerLevelBonus;
-        int armorLevelBonus = Random.Range(0, totalPointsLeft + 1);
-        totalPointsLeft -= armorLevelBonus;
-        Power = 5 + powerLevelBonus;
-        Armor = 0 + armorLevelBonus;
-        MovementRange = 3 + totalPointsLeft;
-
-        List<Item> Items = new();
-
-        Abilities = new();
-
-        UpdateRank();
-
-        WeeklyWage = Random.Range(100, 200) * Level;
-    }
-
-    public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
-
-    public void UpdateDeskPosition(Vector2 newPos)
-    {
-        DeskPosition = newPos;
-        _gameManager.SaveJsonData();
     }
 
     public void SetWeeklyWage(int wage)
@@ -353,7 +217,7 @@ public class Character : BaseScriptableObject
 
     public bool IsAskingForRaise()
     {
-        if (WeeklyWage / Level >= 150)
+        if (WeeklyWage / Level.Value >= 150)
             return false;
         if (Random.value > (_gameManager.Day - DayAddedToTroops) * 0.1f)
             return false;
@@ -369,7 +233,105 @@ public class Character : BaseScriptableObject
 
     public void SetNewWage(int newWage) { NewWage = newWage; }
 
-    public int GetRequestedWage() { return Random.Range(100, 200) * Level; }
+    public int GetRequestedWage() { return Random.Range(100, 200) * Level.Value; }
+
+    public void InitializeStarterTroops()
+    {
+        Debug.Log($"Character {name} (starter troop) is initialized.");
+        _gameManager = GameManager.Instance;
+        DayAddedToTroops = 0;
+        CreateStats();
+        UpdateRank();
+    }
+
+    public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
+
+    public void UpdateDeskPosition(Vector2 newPos)
+    {
+        DeskPosition = newPos;
+        _gameManager.SaveJsonData();
+    }
+
+    void CreateBaseStats()
+    {
+        Level = ScriptableObject.CreateInstance<IntVariable>();
+        Experience = ScriptableObject.CreateInstance<IntVariable>();
+        BaseHealth = ScriptableObject.CreateInstance<IntVariable>();
+        BaseMana = ScriptableObject.CreateInstance<IntVariable>();
+        BasePower = ScriptableObject.CreateInstance<IntVariable>();
+        BaseArmor = ScriptableObject.CreateInstance<IntVariable>();
+        BaseSpeed = ScriptableObject.CreateInstance<IntVariable>();
+    }
+
+    void CreateStats()
+    {
+        Health = ScriptableObject.CreateInstance<Stat>();
+        Health.StatType = StatType.Health;
+        Health.SetBaseValue(BaseHealth.Value);
+        BaseHealth.OnValueChanged += Health.ApplyBaseValueChange;
+
+        Mana = ScriptableObject.CreateInstance<Stat>();
+        Mana.StatType = StatType.Mana;
+        Mana.SetBaseValue(BaseMana.Value);
+        BaseMana.OnValueChanged += Mana.ApplyBaseValueChange;
+
+        Power = ScriptableObject.CreateInstance<Stat>();
+        Power.StatType = StatType.Power;
+        Power.SetBaseValue(BasePower.Value);
+        BasePower.OnValueChanged += Power.ApplyBaseValueChange;
+
+        Armor = ScriptableObject.CreateInstance<Stat>();
+        Armor.StatType = StatType.Armor;
+        Armor.SetBaseValue(BaseArmor.Value);
+        BaseArmor.OnValueChanged += Armor.ApplyBaseValueChange;
+
+        Speed = ScriptableObject.CreateInstance<Stat>();
+        Speed.StatType = StatType.Speed;
+        Speed.SetBaseValue(BaseSpeed.Value);
+        BaseSpeed.OnValueChanged += Speed.ApplyBaseValueChange;
+    }
+
+    public virtual void CreateRandom(int level)
+    {
+        _gameManager = GameManager.Instance;
+
+        GameDatabase gameDatabase = _gameManager.GameDatabase;
+        CharacterDatabase characterDatabase = gameDatabase.CharacterDatabase;
+        bool isMale = Random.value > 0.5f;
+
+        Id = Guid.NewGuid().ToString();
+
+        CharacterName = isMale ? characterDatabase.GetRandomNameMale() : characterDatabase.GetRandomNameFemale();
+        name = CharacterName;
+        Portrait = isMale ? characterDatabase.GetRandomPortraitMale() : characterDatabase.GetRandomPortraitFemale();
+
+        CreateBaseStats();
+
+        Level.SetValue(level);
+        Experience.SetValue(0);
+        Element = _gameManager.GameDatabase.GetElementByName(ElementName.Earth);
+
+        BaseHealth.SetValue(100 + Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y) * level);
+        BaseMana.SetValue(30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level);
+
+        int totalPointsLeft = level;
+        int powerLevelBonus = Random.Range(0, totalPointsLeft + 1);
+        totalPointsLeft -= powerLevelBonus;
+        int armorLevelBonus = Random.Range(0, totalPointsLeft + 1);
+        totalPointsLeft -= armorLevelBonus;
+        BasePower.SetValue(5 + powerLevelBonus);
+        BaseArmor.SetValue(0 + armorLevelBonus);
+        BaseSpeed.SetValue(3 + totalPointsLeft);
+
+        CreateStats();
+
+        List<Item> Items = new();
+        Abilities = new();
+
+        UpdateRank();
+
+        WeeklyWage = Random.Range(100, 200) * Level.Value;
+    }
 
     public virtual void CreateFromData(CharacterData data)
     {
@@ -383,14 +345,18 @@ public class Character : BaseScriptableObject
         CharacterName = data.CharacterName;
         Portrait = gameDatabase.CharacterDatabase.GetPortraitById(data.Portrait);
 
-        Level = data.Level;
-        Experience = data.Experience;
+        CreateBaseStats();
+
+        Level.SetValue(data.Level);
+        Experience.SetValue(data.Experience);
         Element = _gameManager.GameDatabase.GetElementByName((ElementName)System.Enum.Parse(typeof(ElementName), data.Element));
-        Power = data.Power;
-        MaxHealth = data.MaxHealth;
-        MaxMana = data.MaxMana;
-        Armor = data.Armor;
-        MovementRange = data.MovementRange;
+
+        BaseHealth.SetValue(data.BaseHealth);
+        BaseMana.SetValue(data.BaseMana);
+        BasePower.SetValue(data.BasePower);
+        BaseArmor.SetValue(data.BaseArmor);
+        BaseSpeed.SetValue(data.BaseSpeed);
+        CreateStats();
 
         foreach (AbilityData abilityData in data.AbilityData)
         {
@@ -400,7 +366,7 @@ public class Character : BaseScriptableObject
         }
 
         foreach (string id in data.ItemIds)
-            Items.Add(gameDatabase.GetItemById(id));
+            AddItem(gameDatabase.GetItemById(id));
 
         IsAssigned = data.IsAssigned;
         IsUnavailable = data.IsOnUnavailable;
@@ -423,15 +389,15 @@ public class Character : BaseScriptableObject
         data.Id = Id;
         data.CharacterName = CharacterName;
         data.Portrait = Portrait.Id;
-        data.Level = Level;
-        data.Experience = Experience;
+        data.Level = Level.Value;
+        data.Experience = Experience.Value;
         data.Element = Element.ElementName.ToString();
 
-        data.Power = Power;
-        data.MaxHealth = MaxHealth;
-        data.MaxMana = MaxMana;
-        data.Armor = Armor;
-        data.MovementRange = MovementRange;
+        data.BaseHealth = BaseHealth.Value;
+        data.BaseMana = BaseMana.Value;
+        data.BasePower = BasePower.Value;
+        data.BaseArmor = BaseArmor.Value;
+        data.BaseSpeed = BaseSpeed.Value;
 
         List<AbilityData> abilityData = new();
         foreach (Ability a in Abilities)
@@ -456,24 +422,24 @@ public class Character : BaseScriptableObject
 
         return data;
     }
-
 }
 
 [System.Serializable]
 public struct CharacterData
 {
     public string Id;
-    public string ReferenceID;
     public string CharacterName;
     public string Portrait;
     public int Level;
     public int Experience;
     public string Element;
-    public int Power;
-    public int MaxHealth;
-    public int MaxMana;
-    public int Armor;
-    public int MovementRange;
+
+    public int BaseHealth;
+    public int BaseMana;
+    public int BasePower;
+    public int BaseArmor;
+    public int BaseSpeed;
+
     public List<AbilityData> AbilityData;
     public List<string> ItemIds;
 
@@ -483,7 +449,6 @@ public struct CharacterData
     public int UnavailabilityDuration;
 
     public int DayAddedToTroops;
-    public int DayRequestedRaise;
     public Vector2 DeskPosition;
     public int WeeklyWage;
     public int NewWage;

@@ -43,7 +43,7 @@ MonoBehaviour:
     Sprite: {fileID: 569703415, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - StatName: Armor
     Sprite: {fileID: -1592477203, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - StatName: MovementRange
+  - StatName: Speed
     Sprite: {fileID: -417598653, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

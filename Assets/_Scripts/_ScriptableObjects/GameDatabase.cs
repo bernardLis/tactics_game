@@ -106,7 +106,7 @@ public class GameDatabase : BaseScriptableObject
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
 public enum WeaponType { Any, Melee, Ranged }
 public enum ItemRarity { Common, Uncommon, Rare, Epic }
-public enum StatType { Power, MaxHealth, MaxMana, Armor, MovementRange }
+public enum StatType { Power, Health, Mana, Armor, Speed }
 
 public enum ReportType
 {

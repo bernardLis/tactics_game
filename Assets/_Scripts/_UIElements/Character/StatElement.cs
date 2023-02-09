@@ -18,7 +18,7 @@ public class StatElement : ElementWithTooltip
     const string _ussValue = _ussClassName + "__value";
 
     // when there are no Stats => stats won't be interacted with
-    public StatElement(Sprite icon, int value, string tooltipText) : base()
+    public StatElement(Sprite icon, Stat stat) : base()
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -27,25 +27,10 @@ public class StatElement : ElementWithTooltip
         if (ss != null)
             styleSheets.Add(ss);
 
-        BaseStatVisual(icon);
-        _tooltipText = tooltipText;
-        Value.text = value.ToString();
-    }
-
-    public void UpdateBaseValue(int value) { Value.text = value.ToString(); }
-
-    // when there are Stats
-    public StatElement(Sprite icon, Stat stat) : base()
-    {
-        BaseStatVisual(icon);
-
         _stat = stat;
-
-        _tooltipText = _stat.Type.ToString();
-
-        HandleStatValue();
+        BaseStatVisual(icon);
+        _stat.OnValueChanged += UpdateValue;
     }
-
 
     void BaseStatVisual(Sprite icon)
     {
@@ -59,26 +44,17 @@ public class StatElement : ElementWithTooltip
         Value = new();
         Value.AddToClassList(_ussValue);
         Value.AddToClassList(_ussCommonTextPrimary);
-        Add(Value);
-    }
-
-    void HandleStatValue()
-    {
         Value.text = _stat.GetValue().ToString();
+        Add(Value);
 
-        Value.style.color = Color.white;
-        if (_stat.GetValue() > _stat.BaseValue)
-            Value.style.color = Color.green;
-        if (_stat.GetValue() < _stat.BaseValue)
-            Value.style.color = Color.red;
+        _tooltipText = _stat.StatType.ToString();
     }
+
+    public void UpdateValue(int value) { Value.text = value.ToString(); }
 
     protected override void DisplayTooltip()
     {
         _tooltip = new(this, new Label(_tooltipText));
         base.DisplayTooltip();
     }
-
-    public void OnValueChanged(int newValue) { Value.text = "" + newValue; }
-
 }

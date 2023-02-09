@@ -16,11 +16,17 @@ public class AnimationElement : VisualElement
     bool _isFinished;
 
     public event Action OnAnimationFinished;
-    public AnimationElement(Sprite[] animationSprites, int delay, bool isLoop)
+    public AnimationElement(Sprite[] animationSprites, int delay, bool isLoop, bool noStyles = false)
     {
-        style.width = Length.Percent(100);
-        style.height = Length.Percent(100);
-        style.position = Position.Absolute;
+        Debug.Log($"noStyles {noStyles}");
+
+        if (!noStyles)
+        {
+            Debug.Log($"IN !noStyles    ");
+            style.width = Length.Percent(100);
+            style.height = Length.Percent(100);
+            style.position = Position.Absolute;
+        }
 
         _animationSprites = animationSprites;
         _delay = delay;

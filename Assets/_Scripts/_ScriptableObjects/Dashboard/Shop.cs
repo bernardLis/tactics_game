@@ -13,8 +13,6 @@ public class Shop : BaseScriptableObject
     CampBuildingShop _building;
     public List<Item> Items = new();
 
-
-
     GameManager _gameManager;
 
     public event Action OnDurationChanged;

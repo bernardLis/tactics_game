@@ -83,7 +83,7 @@ public class DashboardManager : Singleton<DashboardManager>
         UpdateDay(_gameManager.Day);
         AddGoldElement();
         AddTroopsElement();
-        AddSpiceElements();
+        AddSpiceElement();
 
         ShowPassDayButton();
         AddNavigationButtons();
@@ -187,8 +187,7 @@ public class DashboardManager : Singleton<DashboardManager>
 
     }
 
-
-    void AddSpiceElements()
+    void AddSpiceElement()
     {
         _navSpice.Clear();
 

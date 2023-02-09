@@ -91,20 +91,18 @@ public class QuestResultElement : FullScreenElement
         HandleSpectacle();
     }
 
-    async void HandleSpectacle()
+    void HandleSpectacle()
     {
         if (_quest.IsWon)
             _openSfxAudioSource = _audioManager.PlaySFX("QuestWon", Vector3.one);
         else
             _openSfxAudioSource = _audioManager.PlaySFX("QuestLost", Vector3.one);
 
-        await HandleCharacterExp();
-        if (!_quest.IsWon)
-            await DOTween.To(x => _rewardContainer.style.opacity = x, 1, 0, 2f).AsyncWaitForCompletion();
-        await DOTween.To(x => _backButton.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
+        HandleCharacterExp();
+
     }
 
-    async Task HandleCharacterExp()
+    void HandleCharacterExp()
     {
         foreach (Character c in _quest.AssignedCharacters)
         {
@@ -113,17 +111,25 @@ public class QuestResultElement : FullScreenElement
             _middleLeftContainer.Add(card);
             card.style.opacity = 0;
         }
-
-        await Task.Delay(100);
-        ScaleCharacterCards();
-        await Task.Delay(1000);
         
-        foreach (CharacterCardQuest card in _characterCardsExp)
+        schedule.Execute(() =>
         {
-            int expReward = _quest.CalculateRewardExp(card.Character);
-            await DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f).AsyncWaitForCompletion();
-            card.Character.GetExp(expReward);
-        }
+            ScaleCharacterCards();
+            foreach (CharacterCardQuest card in _characterCardsExp)
+            {
+                int expReward = _quest.CalculateRewardExp(card.Character);
+                DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
+                     .OnComplete(() => card.Character.GetExp(expReward));
+            }
+        }).ExecuteLater(100); // this makes scale character cards work, as they don't know their container right after they are added
+
+        schedule.Execute(() =>
+        {
+            Debug.Log($"quest is bla bla");
+            if (!_quest.IsWon)
+                DOTween.To(x => _rewardContainer.style.opacity = x, 1, 0, 2f);
+            DOTween.To(x => _backButton.style.opacity = x, 0, 1, 0.5f);
+        }).ExecuteLater(1000);
     }
 
     VisualElement GetHeader()

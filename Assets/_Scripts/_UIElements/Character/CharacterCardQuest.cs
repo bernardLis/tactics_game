@@ -71,14 +71,14 @@ public class CharacterCardQuest : VisualElement
         _title = new($"[{Character.Rank.Title}] {Character.CharacterName}");
         _rankElement = new(Character.Rank.Rank, 0.5f);
 
-        _level = new Label($"Level {Character.Level}");
+        _level = new Label($"Level {Character.Level.Value}");
         _level.AddToClassList(_ussCommonTextPrimary);
 
-        _expBar = new(Color.black, "Experience", 100, Character.Experience, 0, true);
+        _expBar = new(Color.black, "Experience", 100, Character.Experience.Value, 0, true);
 
         Character.OnRankChanged += OnRankChanged;
-        Character.OnCharacterExpGain += OnExpChange;
-        Character.OnCharacterLevelUp += OnLevelUp;
+        Character.Experience.OnValueChanged += OnExpChange;
+        Character.Level.OnValueChanged += OnLevelUp;
 
         container.Add(_title);
         container.Add(_level);
@@ -94,9 +94,9 @@ public class CharacterCardQuest : VisualElement
 
     void OnExpChange(int expGain) { _expBar.OnValueChanged(expGain, 3000); }
 
-    void OnLevelUp()
+    void OnLevelUp(int level)
     {
-        _level.text = $"Level {Character.Level}";
+        _level.text = $"Level {Character.Level.Value}";
         PlayLevelUpAnimation();
         CreateStatUpButtons();
     }
@@ -114,9 +114,9 @@ public class CharacterCardQuest : VisualElement
         _rangeStatContainer.AddToClassList(_ussStatContainer);
 
         GameDatabase db = GameManager.Instance.GameDatabase;
-        _power = new(db.GetStatIconByName("Power"), Character.GetStatValue("Power"), "Power");
-        _armor = new(db.GetStatIconByName("Armor"), Character.GetStatValue("Armor"), "Armor");
-        _range = new(db.GetStatIconByName("MovementRange"), Character.GetStatValue("MovementRange"), "Movement Range");
+        _power = new(db.GetStatIconByName("Power"), Character.Power);
+        _armor = new(db.GetStatIconByName("Armor"), Character.Armor);
+        _range = new(db.GetStatIconByName("Speed"), Character.Speed);
 
         _powerStatContainer.Add(_power);
         _armorStatContainer.Add(_armor);
@@ -147,7 +147,6 @@ public class CharacterCardQuest : VisualElement
 
         BaseStatUp();
         Character.AddPower();
-        _power.UpdateBaseValue(Character.GetStatValue("Power"));
     }
 
     void ArmorUp()
@@ -157,7 +156,6 @@ public class CharacterCardQuest : VisualElement
 
         BaseStatUp();
         Character.AddArmor();
-        _armor.UpdateBaseValue(Character.GetStatValue("Armor"));
     }
 
     void RangeUp()
@@ -167,7 +165,6 @@ public class CharacterCardQuest : VisualElement
 
         BaseStatUp();
         Character.AddRange();
-        _range.UpdateBaseValue(Character.GetStatValue("MovementRange"));
     }
 
     void BaseStatUp()
