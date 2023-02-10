@@ -79,6 +79,11 @@ public class CommandLineManager : MonoBehaviour
 
     void SubmitCommand()
     {
+        if (_commandTextField.text.ToLower() == "quit")
+            Application.Quit();
+        if (_commandTextField.text.ToLower() == "clearsave")
+            _gameManager.ClearSaveData();
+
         if (_commandTextField.text.ToLower() == "gold")
             _gameManager.ChangeGoldValue(10000);
         if (_commandTextField.text.ToLower() == "takegold")

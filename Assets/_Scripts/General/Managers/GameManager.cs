@@ -67,13 +67,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             LoadFromSaveFile();
     }
 
-    public void Play()
-    {
-        if (PlayerPrefs.GetString("saveName").Length == 0) // TODO: this does not work...
-            LoadLevel(Scenes.Cutscene);
-        else
-            LoadLevel(Scenes.Dashboard);
-    }
+    public void Play() { LoadLevel(Scenes.Dashboard); }
 
     public void AddNewReport(Report r)
     {

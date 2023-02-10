@@ -218,7 +218,7 @@ public class CharacterCard : VisualElement
 
         // TODO: this should be handled differently.
         IntVariable currentMana = ScriptableObject.CreateInstance<IntVariable>();
-        currentMana.SetValue(Character.Health.GetValue());
+        currentMana.SetValue(Character.Mana.GetValue());
         Character.Mana.OnValueChanged += currentMana.SetValue;
 
         ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", currentMana, null, Character.Mana);

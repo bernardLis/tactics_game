@@ -250,6 +250,7 @@ public class Character : BaseScriptableObject
 
         CreateStats();
         UpdateRank();
+        UpdateElement(_gameManager.GameDatabase.GetElementByName(ElementName.Earth));
     }
 
     public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
