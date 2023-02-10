@@ -121,7 +121,7 @@ public class QuestResultElement : FullScreenElement
             _currentCard = 0;
             if (_expAwardScheduler != null)
                 _expAwardScheduler.Pause();
-            _expAwardScheduler = schedule.Execute(AwardExp).Every(200);
+            _expAwardScheduler = schedule.Execute(AwardExp).Every(500);
         }).ExecuteLater(100); // this makes scale character cards work, as they don't know their container right after they are added
 
         schedule.Execute(() =>

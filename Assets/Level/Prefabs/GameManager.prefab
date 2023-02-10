@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 1448303728}
   - component: {fileID: 3609328160265785649}
   - component: {fileID: 7770821782882906939}
+  - component: {fileID: 5229503471192617615}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -41,7 +42,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &329089867633818112
 AudioListener:
@@ -452,3 +453,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d4f5ce3046d05c40a8c82e9379291fa, type: 2}
   - {fileID: 11400000, guid: 17546c04599c67c4c9657ad84bcd594b, type: 2}
   - {fileID: 11400000, guid: 80d61e150ae92464da11347aa0348c4c, type: 2}
+--- !u!114 &5229503471192617615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154333484900981485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd59c0f9a1c19874a8a8fd316c9bd5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -285,16 +285,4 @@ public class CharacterCard : VisualElement
 
     void OnAbilityAdded(Ability ability) { Character.AddAbility(ability); }
     void OnAbilityRemoved(Ability ability) { Character.RemoveAbility(ability); }
-
-    /*
-        void SubscribeToStatChanges()
-        {
-            Character.Health.OnValueChanged += OnMaxHealthChanged;
-            Character.Mana.OnValueChanged += OnMaxManaChanged;
-        }
-
-        void OnMaxHealthChanged(int value) { HealthBar.UpdateBarValues(value, value); }
-
-        void OnMaxManaChanged(int value) { ManaBar.UpdateBarValues(value, value); }
-        */
 }

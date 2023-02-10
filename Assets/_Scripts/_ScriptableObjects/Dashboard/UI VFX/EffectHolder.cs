@@ -17,35 +17,24 @@ public class EffectHolder : BaseScriptableObject
 
     GameObject _effect;
 
-    public async void PlayEffect(Vector3 position, Vector3 scale) { await PlayEffectAwaitable(position, scale); }
-
-    public async Task PlayEffectAwaitable(Vector3 position, Vector3 scale)
+    public void PlayEffect(Vector3 position, Vector3 scale)
     {
-        InstantiateEffect(position, scale);
+        EffectManager em = GameManager.Instance.GetComponent<EffectManager>();
+        if (em == null)
+        {
+            Debug.LogWarning($"No effect manager, can't play effect {name}.");
+            return;
+        }
 
         if (Sound != null)
             AudioManager.Instance.PlaySFX(Sound, Vector3.zero);
-
-        if (DurationSeconds == -1)
-            return;
-        await Task.Delay(Mathf.RoundToInt(DurationSeconds * 1000));
-        DestroyEffect();
+        _effect = em.PlayEffect(VisualEffectPrefab, position, scale, DurationSeconds);
     }
 
-    void InstantiateEffect(Vector3 pos, Vector3 scale)
-    {
-        _effect = GameObject.Instantiate(VisualEffectPrefab, pos, Quaternion.identity);
-        _effect.layer = Tags.UIVFXLayer;
-        _effect.transform.localScale = scale;
-        foreach (Transform child in _effect.transform)
-            child.gameObject.layer = Tags.UIVFXLayer;
-    }
-
-    public async void DestroyEffect()
+    public void DestroyEffect()
     {
         if (!_effect)
             return;
-        await _effect.transform.DOScale(0, 0.3f).AsyncWaitForCompletion();
-        GameObject.Destroy(_effect);
+        _effect.transform.DOScale(0, 0.3f).OnComplete(() => GameObject.Destroy(_effect));
     }
 }
