@@ -22,7 +22,7 @@ public class Shop : BaseScriptableObject
         _building = building;
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
-        
+
         ChooseItems();
 
         DayAdded = _gameManager.Day;
@@ -58,6 +58,8 @@ public class Shop : BaseScriptableObject
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
+
+        _building = _gameManager.GetComponent<BuildingManager>().ShopBuilding;
 
         DayAdded = data.DayAdded;
         Duration = data.Duration;

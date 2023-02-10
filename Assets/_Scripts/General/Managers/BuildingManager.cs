@@ -22,7 +22,7 @@ public class BuildingManager : MonoBehaviour
 
     CampBuildingPawnshop _pawnshopBuilding;
     CampBuildingSpiceRecycler _spiceRecyclerBuilding;
-    CampBuildingShop _shopBuilding;
+    public CampBuildingShop ShopBuilding { get; private set; }
     CampBuildingRecruiting _recruitingBuilding;
 
     void Awake()
@@ -40,7 +40,7 @@ public class BuildingManager : MonoBehaviour
             if (cb.GetType().Equals(typeof(CampBuildingSpiceRecycler)))
                 _spiceRecyclerBuilding = (CampBuildingSpiceRecycler)cb;
             if (cb.GetType().Equals(typeof(CampBuildingShop)))
-                _shopBuilding = (CampBuildingShop)cb;
+                ShopBuilding = (CampBuildingShop)cb;
             if (cb.GetType().Equals(typeof(CampBuildingRecruiting)))
                 _recruitingBuilding = (CampBuildingRecruiting)cb;
             if (cb.GetType().Equals(typeof(CampBuildingGoldProduction)))
@@ -100,7 +100,7 @@ public class BuildingManager : MonoBehaviour
         if (Random.value < _spiceRecyclerBuilding.GetUpgradeByRank(_pawnshopBuilding.UpgradeRank).ChanceToVisit)
             AddSpiceRecycle();
 
-        if (_shopBuilding.CampBuildingState == CampBuildingState.Built
+        if (ShopBuilding.CampBuildingState == CampBuildingState.Built
                 && Random.value < 0.3f)
             AddShop();
 
@@ -111,6 +111,8 @@ public class BuildingManager : MonoBehaviour
 
     public void AddRandomQuest()
     {
+        Debug.Log($"Adding a random quest.");
+
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
 
@@ -125,6 +127,8 @@ public class BuildingManager : MonoBehaviour
 
     void AddRecruit()
     {
+        Debug.Log($"Adding new recruit.");
+
         Recruit newRecruit = ScriptableObject.CreateInstance<Recruit>();
         int level = Random.Range(1, _recruitingBuilding.GetUpgradeByRank(_recruitingBuilding.UpgradeRank).MaxRecruitLevel + 1);
         newRecruit.CreateRandom(level);
@@ -136,8 +140,9 @@ public class BuildingManager : MonoBehaviour
 
     void AddShop()
     {
+        Debug.Log($"Adding a shop.");
         Shop newShop = ScriptableObject.CreateInstance<Shop>();
-        newShop.CreateShop(_shopBuilding);
+        newShop.CreateShop(ShopBuilding);
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Shop, null, null, null, null, newShop);
@@ -146,6 +151,8 @@ public class BuildingManager : MonoBehaviour
 
     void AddPawnshop()
     {
+        Debug.Log($"Adding a pawnshop.");
+
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Pawnshop, null, null, null, null, null);
         _gameManager.AddNewReport(r);
@@ -153,6 +160,8 @@ public class BuildingManager : MonoBehaviour
 
     void AddSpiceRecycle()
     {
+        Debug.Log($"Adding spice recycler.");
+
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.SpiceRecycle, null, null, null, null, null);
         _gameManager.AddNewReport(r);

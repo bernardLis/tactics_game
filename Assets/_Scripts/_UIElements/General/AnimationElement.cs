@@ -18,11 +18,8 @@ public class AnimationElement : VisualElement
     public event Action OnAnimationFinished;
     public AnimationElement(Sprite[] animationSprites, int delay, bool isLoop, bool noStyles = false)
     {
-        Debug.Log($"noStyles {noStyles}");
-
         if (!noStyles)
         {
-            Debug.Log($"IN !noStyles    ");
             style.width = Length.Percent(100);
             style.height = Length.Percent(100);
             style.position = Position.Absolute;

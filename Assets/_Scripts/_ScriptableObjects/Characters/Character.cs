@@ -356,6 +356,7 @@ public class Character : BaseScriptableObject
         BasePower.SetValue(data.BasePower);
         BaseArmor.SetValue(data.BaseArmor);
         BaseSpeed.SetValue(data.BaseSpeed);
+        
         CreateStats();
 
         foreach (AbilityData abilityData in data.AbilityData)
