@@ -107,7 +107,6 @@ public class ResourceBarElement : ElementWithTooltip
     void OnValueChanged(int newValue)
     {
         int change = Mathf.Abs(newValue - _current.PreviousValue);
-        Debug.Log($"on value changed, change: {change}");
         if (change == 0)
             return;
 

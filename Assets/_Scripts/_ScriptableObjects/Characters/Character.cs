@@ -64,12 +64,10 @@ public class Character : BaseScriptableObject
 
     protected virtual void BaseExpGain(int gain)
     {
-        Debug.Log($"get exp {gain}");
         int g = Mathf.Clamp(gain, 0, 100);
         Experience.ApplyChange(g);
         if (Experience.Value < 100)
             return;
-
     }
 
     public void LevelUp()
