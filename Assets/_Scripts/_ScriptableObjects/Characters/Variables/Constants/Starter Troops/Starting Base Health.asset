@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Starting Base Health
   m_EditorClassIdentifier: 
   DeveloperDescription: 
-  Value: 100
+  <Value>k__BackingField: 100

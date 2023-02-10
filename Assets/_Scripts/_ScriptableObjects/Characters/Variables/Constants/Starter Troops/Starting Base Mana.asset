@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Starting Base Mana
   m_EditorClassIdentifier: 
   DeveloperDescription: 
-  Value: 30
+  <Value>k__BackingField: 30

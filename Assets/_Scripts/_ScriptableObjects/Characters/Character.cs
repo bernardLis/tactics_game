@@ -64,17 +64,18 @@ public class Character : BaseScriptableObject
 
     protected virtual void BaseExpGain(int gain)
     {
-        Experience.ApplyChange(gain);
+        Debug.Log($"get exp {gain}");
+        int g = Mathf.Clamp(gain, 0, 100);
+        Experience.ApplyChange(g);
         if (Experience.Value < 100)
             return;
 
-        LevelUp();
     }
 
     public void LevelUp()
     {
-        Experience.SetValue(0);
         Level.ApplyChange(1);
+        Experience.SetValue(0);
 
         BaseHealth.ApplyChange(Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y));
         BaseMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
@@ -240,6 +241,15 @@ public class Character : BaseScriptableObject
         Debug.Log($"Character {name} (starter troop) is initialized.");
         _gameManager = GameManager.Instance;
         DayAddedToTroops = 0;
+
+        Level = ScriptableObject.Instantiate(Level);
+        Experience = ScriptableObject.Instantiate(Experience);
+        BaseHealth = ScriptableObject.Instantiate(BaseHealth);
+        BaseMana = ScriptableObject.Instantiate(BaseMana);
+        BasePower = ScriptableObject.Instantiate(BasePower);
+        BaseArmor = ScriptableObject.Instantiate(BaseArmor);
+        BaseSpeed = ScriptableObject.Instantiate(BaseSpeed);
+
         CreateStats();
         UpdateRank();
     }
@@ -268,27 +278,27 @@ public class Character : BaseScriptableObject
         Health = ScriptableObject.CreateInstance<Stat>();
         Health.StatType = StatType.Health;
         Health.SetBaseValue(BaseHealth.Value);
-        BaseHealth.OnValueChanged += Health.ApplyBaseValueChange;
+        BaseHealth.OnValueChanged += Health.SetBaseValue;
 
         Mana = ScriptableObject.CreateInstance<Stat>();
         Mana.StatType = StatType.Mana;
         Mana.SetBaseValue(BaseMana.Value);
-        BaseMana.OnValueChanged += Mana.ApplyBaseValueChange;
+        BaseMana.OnValueChanged += Mana.SetBaseValue;
 
         Power = ScriptableObject.CreateInstance<Stat>();
         Power.StatType = StatType.Power;
         Power.SetBaseValue(BasePower.Value);
-        BasePower.OnValueChanged += Power.ApplyBaseValueChange;
+        BasePower.OnValueChanged += Power.SetBaseValue;
 
         Armor = ScriptableObject.CreateInstance<Stat>();
         Armor.StatType = StatType.Armor;
         Armor.SetBaseValue(BaseArmor.Value);
-        BaseArmor.OnValueChanged += Armor.ApplyBaseValueChange;
+        BaseArmor.OnValueChanged += Armor.SetBaseValue;
 
         Speed = ScriptableObject.CreateInstance<Stat>();
         Speed.StatType = StatType.Speed;
         Speed.SetBaseValue(BaseSpeed.Value);
-        BaseSpeed.OnValueChanged += Speed.ApplyBaseValueChange;
+        BaseSpeed.OnValueChanged += Speed.SetBaseValue;
     }
 
     public virtual void CreateRandom(int level)
@@ -356,7 +366,7 @@ public class Character : BaseScriptableObject
         BasePower.SetValue(data.BasePower);
         BaseArmor.SetValue(data.BaseArmor);
         BaseSpeed.SetValue(data.BaseSpeed);
-        
+
         CreateStats();
 
         foreach (AbilityData abilityData in data.AbilityData)

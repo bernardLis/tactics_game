@@ -74,10 +74,14 @@ public class CharacterCardQuest : VisualElement
         _level = new Label($"Level {Character.Level.Value}");
         _level.AddToClassList(_ussCommonTextPrimary);
 
-        _expBar = new(Color.black, "Experience", 100, Character.Experience.Value, 0, true);
+        // TODO: this should be handled differently.
+        IntVariable totalExp = ScriptableObject.CreateInstance<IntVariable>();
+        totalExp.SetValue(100);
+
+        _expBar = new(Color.black, "Experience", Character.Experience, totalExp, null, 0, true);
 
         Character.OnRankChanged += OnRankChanged;
-        Character.Experience.OnValueChanged += OnExpChange;
+        Character.Experience.OnValueChanged += OnExpValueChanged;
         Character.Level.OnValueChanged += OnLevelUp;
 
         container.Add(_title);
@@ -92,14 +96,16 @@ public class CharacterCardQuest : VisualElement
         _title.text = $"[{rank.Title}] {Character.CharacterName}";
     }
 
-    void OnExpChange(int expGain) { _expBar.OnValueChanged(expGain, 3000); }
-
-    void OnLevelUp(int level)
+    void OnExpValueChanged(int newValue)
     {
-        _level.text = $"Level {Character.Level.Value}";
+        if (newValue < 100)
+            return;
+
         PlayLevelUpAnimation();
         CreateStatUpButtons();
     }
+
+    void OnLevelUp(int level) { _level.text = $"Level {Character.Level.Value}"; }
 
     VisualElement CreateStatGroup()
     {
@@ -144,7 +150,7 @@ public class CharacterCardQuest : VisualElement
     {
         if (_pointAdded)
             return;
-
+        Debug.Log($"power up");
         BaseStatUp();
         Character.AddPower();
     }
@@ -174,6 +180,8 @@ public class CharacterCardQuest : VisualElement
         _powerUpButton.style.display = DisplayStyle.None;
         _armorUpButton.style.display = DisplayStyle.None;
         _rangeUpButton.style.display = DisplayStyle.None;
+
+        Character.LevelUp();
     }
 
     public void PlayLevelUpAnimation()

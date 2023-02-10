@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Starting Base Power
   m_EditorClassIdentifier: 
   DeveloperDescription: 
-  Value: 5
+  <Value>k__BackingField: 5

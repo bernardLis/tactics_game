@@ -92,7 +92,6 @@ public class CharacterCard : VisualElement
         Character.OnRankChanged += OnRankChanged;
         Character.OnElementChanged += OnElementChanged;
         Character.OnWageChanged += _wageGoldElement.ChangeAmount;
-        SubscribeToStatChanges();
 
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
@@ -182,7 +181,10 @@ public class CharacterCard : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussExpContainer);
 
-        ExpBar = new(Color.black, "Experience", 100, Character.Experience.Value, 0, true);
+        // TODO: this should be handled differently.
+        IntVariable totalExp = ScriptableObject.CreateInstance<IntVariable>();
+        totalExp.SetValue(100);
+        ExpBar = new(Color.black, "Experience", Character.Experience, totalExp, null, 0, true);
 
         _level = new Label($"Level {Character.Level.Value}");
         _level.style.position = Position.Absolute;
@@ -198,7 +200,12 @@ public class CharacterCard : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussHealthContainer);
 
-        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", Character.Health.GetValue(), Character.Health.GetValue());
+        // TODO: this should be handled differently.
+        IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
+        currentHealth.SetValue(Character.Health.GetValue());
+        Character.Health.OnValueChanged += currentHealth.SetValue;
+
+        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", currentHealth, null, Character.Health);
         container.Add(HealthBar);
 
         return container;
@@ -209,7 +216,12 @@ public class CharacterCard : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussManaContainer);
 
-        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", Character.Mana.GetValue(), Character.Mana.GetValue());
+        // TODO: this should be handled differently.
+        IntVariable currentMana = ScriptableObject.CreateInstance<IntVariable>();
+        currentMana.SetValue(Character.Health.GetValue());
+        Character.Mana.OnValueChanged += currentMana.SetValue;
+
+        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", currentMana, null, Character.Mana);
         container.Add(ManaBar);
 
         return container;
@@ -274,13 +286,15 @@ public class CharacterCard : VisualElement
     void OnAbilityAdded(Ability ability) { Character.AddAbility(ability); }
     void OnAbilityRemoved(Ability ability) { Character.RemoveAbility(ability); }
 
-    void SubscribeToStatChanges()
-    {
-        Character.Health.OnValueChanged += OnMaxHealthChanged;
-        Character.Mana.OnValueChanged += OnMaxManaChanged;
-    }
+    /*
+        void SubscribeToStatChanges()
+        {
+            Character.Health.OnValueChanged += OnMaxHealthChanged;
+            Character.Mana.OnValueChanged += OnMaxManaChanged;
+        }
 
-    void OnMaxHealthChanged(int value) { HealthBar.UpdateBarValues(value, value); }
+        void OnMaxHealthChanged(int value) { HealthBar.UpdateBarValues(value, value); }
 
-    void OnMaxManaChanged(int value) { ManaBar.UpdateBarValues(value, value); }
+        void OnMaxManaChanged(int value) { ManaBar.UpdateBarValues(value, value); }
+        */
 }

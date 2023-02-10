@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using DG.Tweening;
 using System;
-using System.Threading.Tasks;
 
 public class ResourceBarElement : ElementWithTooltip
 {
@@ -11,10 +9,11 @@ public class ResourceBarElement : ElementWithTooltip
     Label _text;
 
     int _total;
-    int _current;
-    bool _isGaining;
+    int _displayedAmount;
+    IntVariable _current;
+    bool _isIncreasing;
 
-    string _tweenID;
+    IVisualElementScheduledItem _animation;
 
     string _tooltipText;
 
@@ -26,7 +25,9 @@ public class ResourceBarElement : ElementWithTooltip
     const string _ussMissing = _ussClassName + "__missing";
     const string _ussBarText = _ussClassName + "__bar-text";
 
-    public ResourceBarElement(Color color, string tooltipText, int total, int current, int thickness = 0, bool isGaining = false) : base()
+    public ResourceBarElement(Color color, string tooltipText,
+            IntVariable currentIntVar = null, IntVariable totalIntVar = null,
+            Stat stat = null, int thickness = 0, bool isIncreasing = false) : base()
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -35,9 +36,22 @@ public class ResourceBarElement : ElementWithTooltip
         if (ss != null)
             styleSheets.Add(ss);
 
-        _total = total;
-        _current = current;
-        _isGaining = isGaining;
+        if (stat != null)
+        {
+            _total = stat.GetValue();
+            stat.OnValueChanged += OnTotalChanged;
+        }
+        if (totalIntVar != null)
+        {
+            _total = totalIntVar.Value;
+            totalIntVar.OnValueChanged += OnTotalChanged;
+        }
+
+        _current = currentIntVar;
+        _displayedAmount = _current.Value;
+        currentIntVar.OnValueChanged += OnValueChanged;
+
+        _isIncreasing = isIncreasing;
 
         AddToClassList(_ussContainer);
 
@@ -49,7 +63,7 @@ public class ResourceBarElement : ElementWithTooltip
         _resourceBar = new();
         _resourceBar.AddToClassList(_ussMain);
 
-        if (_isGaining)
+        if (_isIncreasing)
             _resourceBar.style.flexDirection = FlexDirection.RowReverse;
         else
             _resourceBar.style.flexDirection = FlexDirection.Row;
@@ -67,16 +81,12 @@ public class ResourceBarElement : ElementWithTooltip
         _resourceBar.Add(_missing);
         _resourceBar.Add(_text);
 
-        _tweenID = Guid.NewGuid().ToString();
-
         DisplayMissingAmount();
     }
 
-    public void UpdateBarValues(int total, int current)
+    public void OnTotalChanged(int total)
     {
         _total = total;
-        _current = current;
-
         DisplayMissingAmount();
     }
 
@@ -84,59 +94,57 @@ public class ResourceBarElement : ElementWithTooltip
     {
         _missing.style.display = DisplayStyle.Flex;
 
-        float missingPercent = (float)_current / (float)_total;
+        float missingPercent = (float)_displayedAmount / (float)_total;
         missingPercent = Mathf.Clamp(missingPercent, 0, 1);
 
-        _missing.style.width = Length.Percent((1 - missingPercent) * 100); //targetWidth;
+        _missing.style.width = Length.Percent((1 - missingPercent) * 100);
 
-        SetText($"{_current}/{_total}");
-    }
-
-    public void OnTotalChanged(int total)
-    {
-        _total = total;
-        UpdateBarValues(_total, _current);
-    }
-
-    public async void OnValueChanged(int change) { await BaseOnValueChanged(change, 1000); }
-
-    public async void OnValueChanged(int change, int totalDelay) { await BaseOnValueChanged(change, totalDelay); }
-
-    async Task BaseOnValueChanged(int change, int totalDelay)
-    {
-        if (change == 0)
-            return;
-
-        int goal = Mathf.Clamp(_current + change, 0, _total);
-        int delay = Mathf.FloorToInt(1000 / Mathf.Abs(change)); // do it in 1second
-
-        if (change < 0)
-            await HandleLose(goal, delay);
-        else
-            await HandleGain(goal, delay);
-    }
-
-    async Task HandleLose(int goal, int delay)
-    {
-        while (_current > goal)
-        {
-            _current--;
-            DisplayMissingAmount();
-            await Task.Delay(delay);
-        }
-    }
-
-    async Task HandleGain(int goal, int delay)
-    {
-        while (_current < goal)
-        {
-            _current++;
-            DisplayMissingAmount();
-            await Task.Delay(delay);
-        }
+        SetText($"{_displayedAmount}/{_total}");
     }
 
     public void SetText(string newText) { _text.text = newText; }
+
+    void OnValueChanged(int newValue)
+    {
+        int change = Mathf.Abs(newValue - _current.PreviousValue);
+        Debug.Log($"on value changed, change: {change}");
+        if (change == 0)
+            return;
+
+        if (_animation != null)
+            _animation.Pause();
+
+        int delay = Mathf.FloorToInt(1000 / change); // do it in 1second
+
+        if (newValue - _current.PreviousValue < 0)
+            _animation = schedule.Execute(HandleDecrease).Every(delay);
+        else
+            _animation = schedule.Execute(HandleIncrease).Every(delay);
+    }
+
+    void HandleDecrease()
+    {
+        if (_current.Value == _displayedAmount)
+        {
+            _animation.Pause();
+            return;
+        }
+
+        _displayedAmount--;
+        DisplayMissingAmount();
+    }
+
+    void HandleIncrease()
+    {
+        if (_current.Value == _displayedAmount)
+        {
+            _animation.Pause();
+            return;
+        }
+
+        _displayedAmount++;
+        DisplayMissingAmount();
+    }
 
     protected override void DisplayTooltip()
     {

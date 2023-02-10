@@ -10,24 +10,32 @@ public class IntVariable : ScriptableObject
 #endif
 
     public event Action<int> OnValueChanged;
-    public int Value;
-    public void SetValue(int value)
+    public int PreviousValue { get; private set; }
+    [field: SerializeField] public int Value { get; private set; }
+    public void SetValue(int newValue)
     {
-        Value = value;
+        PreviousValue = Value;
+        Value = newValue;
         OnValueChanged?.Invoke(Value);
     }
+    
     public void SetValue(IntVariable value)
     {
+        PreviousValue = Value;
         Value = value.Value;
         OnValueChanged?.Invoke(Value);
     }
+
     public void ApplyChange(int amount)
     {
+        PreviousValue = Value;
         Value += amount;
         OnValueChanged?.Invoke(Value);
     }
+
     public void ApplyChange(IntVariable amount)
     {
+        PreviousValue = Value;
         Value += amount.Value;
         OnValueChanged?.Invoke(Value);
     }

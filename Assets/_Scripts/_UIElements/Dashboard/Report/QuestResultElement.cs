@@ -20,6 +20,9 @@ public class QuestResultElement : FullScreenElement
     VisualElement _bottomContainer;
 
     List<CharacterCardQuest> _characterCardsExp = new();
+    int _currentCard;
+    IVisualElementScheduledItem _expAwardScheduler;
+
     RewardContainer _rewardContainer;
     AudioSource _openSfxAudioSource;
 
@@ -111,25 +114,37 @@ public class QuestResultElement : FullScreenElement
             _middleLeftContainer.Add(card);
             card.style.opacity = 0;
         }
-        
+
         schedule.Execute(() =>
         {
             ScaleCharacterCards();
-            foreach (CharacterCardQuest card in _characterCardsExp)
-            {
-                int expReward = _quest.CalculateRewardExp(card.Character);
-                DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
-                     .OnComplete(() => card.Character.GetExp(expReward));
-            }
+            _currentCard = 0;
+            if (_expAwardScheduler != null)
+                _expAwardScheduler.Pause();
+            _expAwardScheduler = schedule.Execute(AwardExp).Every(200);
         }).ExecuteLater(100); // this makes scale character cards work, as they don't know their container right after they are added
 
         schedule.Execute(() =>
         {
-            Debug.Log($"quest is bla bla");
             if (!_quest.IsWon)
                 DOTween.To(x => _rewardContainer.style.opacity = x, 1, 0, 2f);
             DOTween.To(x => _backButton.style.opacity = x, 0, 1, 0.5f);
         }).ExecuteLater(1000);
+    }
+
+    void AwardExp()
+    {
+        if (_currentCard == _characterCardsExp.Count)
+        {
+            _expAwardScheduler.Pause();
+            return;
+        }
+        CharacterCardQuest card = _characterCardsExp[_currentCard];
+        int expReward = _quest.CalculateRewardExp(card.Character);
+        DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
+             .OnComplete(() => card.Character.GetExp(expReward));
+
+        _currentCard++;
     }
 
     VisualElement GetHeader()

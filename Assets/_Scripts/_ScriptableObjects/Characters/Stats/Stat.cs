@@ -12,9 +12,16 @@ public class Stat : BaseScriptableObject
     public event Action<int> OnValueChanged;
 
     public int GetValue() { return BaseValue + BonusValue; }
+
     public void SetBaseValue(int value)
     {
         BaseValue = value;
+        OnValueChanged?.Invoke(GetValue());
+    }
+
+    public void SetBonusValue(int value)
+    {
+        BonusValue = value;
         OnValueChanged?.Invoke(GetValue());
     }
 
