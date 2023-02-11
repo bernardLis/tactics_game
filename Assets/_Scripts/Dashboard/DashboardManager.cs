@@ -45,6 +45,7 @@ public class DashboardManager : Singleton<DashboardManager>
     const string _ussNavCamp = _ussClassName + "nav-camp";
     const string _ussNavAbilities = _ussClassName + "nav-abilities";
     const string _ussNavArchive = _ussClassName + "nav-archive";
+    const string _ussNavMenu = _ussClassName + "nav-menu";
 
     [SerializeField] Sound _dashboardTheme;
 
@@ -204,16 +205,19 @@ public class DashboardManager : Singleton<DashboardManager>
         MyButton navCamp = new(null, _ussNavCamp, OpenCamp);
         MyButton navAbilities = new(null, _ussNavAbilities, OpenAbilities);
         MyButton navArchive = new(null, _ussNavArchive, OnArchiveClick);
+        MyButton navMenu = new(null, _ussNavMenu, OnMenuClick);
 
         navDesk.AddToClassList(_ussNavIcon);
         navCamp.AddToClassList(_ussNavIcon);
         navAbilities.AddToClassList(_ussNavIcon);
         navArchive.AddToClassList(_ussNavIcon);
+        navMenu.AddToClassList(_ussNavIcon);
 
         navRight.Add(navDesk);
         navRight.Add(navCamp);
         navRight.Add(navAbilities);
         navRight.Add(navArchive);
+        navRight.Add(navMenu);
     }
 
     void OpenDesk() { OpenDashboardBuilding(DashboardBuildingType.Desk); }
@@ -241,6 +245,11 @@ public class DashboardManager : Singleton<DashboardManager>
         }
         visual.Initialize(Root);
         visual.AddBackButton();
+    }
+
+    void OnMenuClick()
+    {
+        _gameManager.GetComponent<GameUIManager>().ToggleMenu(new InputAction.CallbackContext());
     }
 
     void OnArchivedReportClick(PointerUpEvent evt, Report report)

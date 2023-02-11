@@ -45,6 +45,10 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/72_paper.png?fileID=2800000&guid=a0fdcee38a47c674bbec14c9dcd63608&type=3#72_paper');
 }
 
+.dashboard__nav-menu {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/70_settings.png?fileID=2800000&guid=32a3467ea79eade4681347bdb0f23155&type=3#70_settings');
+}
+
 .dashboard__character-drag-drop-container {
     visibility: hidden;
     position: absolute;

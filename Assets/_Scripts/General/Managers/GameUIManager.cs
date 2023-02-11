@@ -49,7 +49,7 @@ public class GameUIManager : MonoBehaviour
         _playerInput.actions["OpenMenu"].performed -= ToggleMenu;
     }
 
-    void ToggleMenu(InputAction.CallbackContext ctx)
+    public void ToggleMenu(InputAction.CallbackContext ctx)
     {
         if (SceneManager.GetActiveScene().name == Scenes.Cutscene)
         {
