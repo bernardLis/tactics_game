@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,8 @@ public class CharacterCardQuest : VisualElement
     const string _ussStatContainer = _ussClassName + "stat-container";
     const string _ussStatUpButton = _ussClassName + "stat-up-button";
 
+
+    public event Action OnLeveledUp;
     public CharacterCardQuest(Character character)
     {
         _gameManager = GameManager.Instance;
@@ -182,6 +185,7 @@ public class CharacterCardQuest : VisualElement
         _rangeUpButton.style.display = DisplayStyle.None;
 
         Character.LevelUp();
+        OnLeveledUp?.Invoke();
     }
 
     public void PlayLevelUpAnimation()

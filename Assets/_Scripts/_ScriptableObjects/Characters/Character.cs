@@ -60,9 +60,7 @@ public class Character : BaseScriptableObject
     public event Action<Element> OnElementChanged;
     public event Action<int> OnWageChanged;
 
-    public void GetExp(int gain) { BaseExpGain(gain); }
-
-    protected virtual void BaseExpGain(int gain)
+    public virtual void GetExp(int gain)
     {
         int g = Mathf.Clamp(gain, 0, 100);
         Experience.ApplyChange(g);

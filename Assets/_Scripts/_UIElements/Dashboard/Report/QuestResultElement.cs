@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,11 +23,15 @@ public class QuestResultElement : FullScreenElement
     List<CharacterCardQuest> _characterCardsExp = new();
     int _currentCard;
     IVisualElementScheduledItem _expAwardScheduler;
+    int _levelUpsLeft;
+
 
     RewardContainer _rewardContainer;
     AudioSource _openSfxAudioSource;
 
     MyButton _backButton;
+
+
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
@@ -90,6 +95,7 @@ public class QuestResultElement : FullScreenElement
 
         _middleRightContainer.Add(GetRewardChest());
         _bottomContainer.Add(GetBackButton());
+        UpdateBackButton();
 
         HandleSpectacle();
     }
@@ -140,7 +146,19 @@ public class QuestResultElement : FullScreenElement
             return;
         }
         CharacterCardQuest card = _characterCardsExp[_currentCard];
+
         int expReward = _quest.CalculateRewardExp(card.Character);
+        if (card.Character.Experience.Value + expReward >= 100)
+        {
+            _levelUpsLeft++;
+            UpdateBackButton();
+            card.OnLeveledUp += () =>
+            {
+                _levelUpsLeft--;
+                UpdateBackButton();
+            };
+        }
+
         DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
              .OnComplete(() => card.Character.GetExp(expReward));
 
@@ -203,13 +221,28 @@ public class QuestResultElement : FullScreenElement
         _backButton = new("Back", _ussCommonMenuButton, Hide);
         _backButton.style.opacity = 0;
 
+
+        return _backButton;
+    }
+
+    void UpdateBackButton()
+    {
+        if (_levelUpsLeft > 0)
+        {
+            _backButton.UpdateButtonText("Level ups left!");
+            _backButton.SetEnabled(false);
+            return;
+        }
+
         if (_quest.IsWon)
         {
             _backButton.UpdateButtonText("Open the chest!");
             _backButton.SetEnabled(false);
+            return;
         }
 
-        return _backButton;
+        _backButton.UpdateButtonText("Back");
+        _backButton.SetEnabled(true);
     }
 
     public override void Hide()
