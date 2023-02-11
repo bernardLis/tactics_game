@@ -60,15 +60,18 @@ public class Quest : BaseScriptableObject
 
     public void AssignCharacter(Character character)
     {
+        Debug.Log($"Assigning character: {character} to quest {Title}");
         character.IsAssigned = true;
         AssignedCharacters.Add(character);
     }
 
     public void RemoveAssignedCharacter(Character character)
     {
+        Debug.Log($"Removing assigned character: {character} from quest {Title}");
         character.IsAssigned = false;
         AssignedCharacters.Remove(character);
     }
+
     public int AssignedCharacterCount() { return AssignedCharacters.Count; }
 
     public int GetSuccessChance()
@@ -184,8 +187,9 @@ public class Quest : BaseScriptableObject
 
         QuestState = (QuestState)Enum.Parse(typeof(QuestState), data.QuestState);
 
-        Reward = ScriptableObject.CreateInstance<Reward>();
-        Reward.LoadFromData(data.RewardData);
+        Reward r = _gameManager.GameDatabase.GetRewardByRank(data.RewardRank);
+        Reward = Instantiate(r);
+        Reward.Initialize();
 
         ExpiryDay = data.ExpiryDay;
         Duration = data.Duration;
@@ -208,7 +212,7 @@ public class Quest : BaseScriptableObject
         qd.ThreatElement = ThreatElement.ElementName.ToString();
         qd.QuestState = QuestState.ToString();
 
-        qd.RewardData = Reward.SerializeSelf();
+        qd.RewardRank = Reward.Rank;
 
         qd.ExpiryDay = ExpiryDay;
         qd.Duration = Duration;
@@ -232,7 +236,7 @@ public struct QuestData
     public string Description;
     public string ThreatElement;
     public string QuestState;
-    public RewardData RewardData;
+    public int RewardRank;
 
     public int ExpiryDay;
     public int Duration;

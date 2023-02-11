@@ -52,26 +52,6 @@ public class Reward : BaseScriptableObject
         if (Spice != 0)
             _gameManager.ChangeSpiceValue(Spice);
     }
-
-    public void LoadFromData(RewardData rd)
-    {
-        _gameManager = GameManager.Instance;
-
-        Gold = rd.Gold;
-        Spice = rd.Spice;
-        Item = rd.ItemId == null ? null : _gameManager.GameDatabase.GetItemById(rd.ItemId);
-    }
-
-    public RewardData SerializeSelf()
-    {
-        RewardData rd = new();
-        rd.Gold = Gold;
-        rd.Spice = Spice;
-        rd.ItemId = Item == null ? null : Item.Id;
-
-        return rd;
-    }
-
 }
 
 [Serializable]

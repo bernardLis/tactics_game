@@ -33,12 +33,13 @@ public class RewardContainer : VisualElement
         AddToClassList(_ussMain);
 
         _reward = reward;
+        Debug.Log($"reward {reward.name}");
 
         _chestAnimationElement = new(_reward.ChestIdleSprites, 100, true);
         _chestAnimationElement.style.width = 200;
         _chestAnimationElement.style.height = 200;
-        _chestAnimationElement.PlayAnimation();
         Add(_chestAnimationElement);
+        _chestAnimationElement.PlayAnimation();
         if (clickable)
             _chestAnimationElement.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }

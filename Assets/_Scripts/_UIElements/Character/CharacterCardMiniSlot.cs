@@ -58,6 +58,7 @@ public class CharacterCardMiniSlot : ElementWithSound
         OnCardRemoved?.Invoke(Card);
         _hasCard = false;
         Clear();
+        Card = null;
     }
 
     public void Lock()

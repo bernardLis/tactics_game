@@ -23,15 +23,15 @@ public class QuestResultElement : FullScreenElement
     List<CharacterCardQuest> _characterCardsExp = new();
     int _currentCard;
     IVisualElementScheduledItem _expAwardScheduler;
-    int _levelUpsLeft;
+
 
 
     RewardContainer _rewardContainer;
     AudioSource _openSfxAudioSource;
 
+    bool _chestOpened;
+    int _levelUpsLeft;
     MyButton _backButton;
-
-
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
@@ -65,9 +65,15 @@ public class QuestResultElement : FullScreenElement
 
         AddToClassList(_ussCommonTextPrimary);
         if (_quest.IsWon)
+        {
             AddToClassList(_ussWonMain);
+            _chestOpened = false;
+        }
         else
+        {
             AddToClassList(_ussLostMain);
+            _chestOpened = true;
+        }
 
         _content = new();
         Add(_content);
@@ -210,10 +216,9 @@ public class QuestResultElement : FullScreenElement
     void OnChestOpen()
     {
         _quest.Reward.GetReward();
+        _chestOpened = true;
 
-        _backButton.UpdateButtonText("Back");
-        _backButton.SetEnabled(true);
-        EnableNavigation();
+        UpdateBackButton();
     }
 
     VisualElement GetBackButton()
@@ -234,7 +239,7 @@ public class QuestResultElement : FullScreenElement
             return;
         }
 
-        if (_quest.IsWon)
+        if (!_chestOpened)
         {
             _backButton.UpdateButtonText("Open the chest!");
             _backButton.SetEnabled(false);
@@ -243,6 +248,8 @@ public class QuestResultElement : FullScreenElement
 
         _backButton.UpdateButtonText("Back");
         _backButton.SetEnabled(true);
+        EnableNavigation();
+
     }
 
     public override void Hide()
