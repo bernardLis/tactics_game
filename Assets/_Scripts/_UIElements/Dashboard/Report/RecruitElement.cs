@@ -31,7 +31,7 @@ public class RecruitElement : VisualElement
         VisualElement wageContainer = new();
         wageContainer.AddToClassList(_ussWageContainer);
         wageContainer.Add(new Label("Expected weekly wage:"));
-        wageContainer.Add(new GoldElement(recruit.Character.WeeklyWage));
+        wageContainer.Add(new GoldElement(recruit.Character.WeeklyWage.Value));
         Add(wageContainer);
 
         _daysLeftLabel = new();

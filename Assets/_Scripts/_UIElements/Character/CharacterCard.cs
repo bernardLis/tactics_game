@@ -91,7 +91,7 @@ public class CharacterCard : VisualElement
 
         Character.OnRankChanged += OnRankChanged;
         Character.OnElementChanged += OnElementChanged;
-        Character.OnWageChanged += _wageGoldElement.ChangeAmount;
+        Character.WeeklyWage.OnValueChanged += _wageGoldElement.ChangeAmount;
 
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
@@ -170,7 +170,7 @@ public class CharacterCard : VisualElement
 
     VisualElement CreateWageElement()
     {
-        _wageGoldElement = new(Character.WeeklyWage);
+        _wageGoldElement = new(Character.WeeklyWage.Value);
         _wageGoldElement.style.justifyContent = Justify.FlexEnd;
         _wageGoldElement.AddTooltip(new TooltipElement(_wageGoldElement, new Label("Weekly wage")));
         return _wageGoldElement;
@@ -188,7 +188,7 @@ public class CharacterCard : VisualElement
 
         _level = new Label($"Level {Character.Level.Value}");
         _level.style.position = Position.Absolute;
-        _level.AddToClassList(_ussCommonTextSecondary);
+        _level.AddToClassList(_ussCommonTextPrimary);
         ExpBar.Add(_level);
 
         container.Add(ExpBar);

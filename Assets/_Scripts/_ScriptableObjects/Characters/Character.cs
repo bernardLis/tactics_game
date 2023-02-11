@@ -52,13 +52,39 @@ public class Character : BaseScriptableObject
 
     public int DayAddedToTroops { get; private set; }
     public Vector2 DeskPosition { get; private set; }
-    public int WeeklyWage { get; private set; }
-    public int NewWage { get; private set; }
+    [field: SerializeField] public IntVariable WeeklyWage { get; private set; }
+    public IntVariable NewWage { get; private set; }
     public bool Negotiated { get; private set; }
 
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
-    public event Action<int> OnWageChanged;
+
+    public void OnDayPassed(int day)
+    {
+        if (!IsUnavailable)
+            return;
+
+        UnavailabilityDuration--;
+        if (UnavailabilityDuration <= 0)
+            IsUnavailable = false;
+    }
+
+    public void UpdateDeskPosition(Vector2 newPos)
+    {
+        DeskPosition = newPos;
+        _gameManager.SaveJsonData();
+    }
+
+    public void SetUnavailable(int days)
+    {
+        _gameManager = GameManager.Instance;
+
+        IsUnavailable = true;
+        DayStartedBeingUnavailable = _gameManager.Day;
+        UnavailabilityDuration = days;
+    }
+
+    public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
 
     public virtual void GetExp(int gain)
     {
@@ -87,6 +113,8 @@ public class Character : BaseScriptableObject
 
     public void AddRange() { BaseSpeed.ApplyChange(1); }
 
+    public bool CanTakeAnotherAbility() { return Abilities.Count < MaxCharacterAbilities; }
+
     public void AddAbility(Ability ability)
     {
         Abilities.Add(ability);
@@ -110,8 +138,6 @@ public class Character : BaseScriptableObject
     }
 
     public bool CanTakeAnotherItem() { return Items.Count < MaxCharacterItems; }
-
-    public bool CanTakeAnotherAbility() { return Abilities.Count < MaxCharacterAbilities; }
 
     public void AddItem(Item item)
     {
@@ -140,25 +166,6 @@ public class Character : BaseScriptableObject
             Armor.ApplyBonusValueChange(value);
         if (type == StatType.Speed)
             Speed.ApplyBonusValueChange(value);
-    }
-
-    public void SetUnavailable(int days)
-    {
-        _gameManager = GameManager.Instance;
-
-        IsUnavailable = true;
-        DayStartedBeingUnavailable = _gameManager.Day;
-        UnavailabilityDuration = days;
-    }
-
-    public void OnDayPassed(int day)
-    {
-        if (!IsUnavailable)
-            return;
-
-        UnavailabilityDuration--;
-        if (UnavailabilityDuration <= 0)
-            IsUnavailable = false;
     }
 
     public void UpdateRank()
@@ -196,9 +203,8 @@ public class Character : BaseScriptableObject
 
     public void SetWeeklyWage(int wage)
     {
-        WeeklyWage = wage;
+        WeeklyWage.SetValue(wage);
         Negotiated = false;
-        OnWageChanged?.Invoke(wage);
     }
 
     public void RaiseCheck()
@@ -214,50 +220,23 @@ public class Character : BaseScriptableObject
 
     public bool IsAskingForRaise()
     {
-        if (WeeklyWage / Level.Value >= 150)
+        if (WeeklyWage.Value / Level.Value >= 150)
             return false;
         if (Random.value > (_gameManager.Day - DayAddedToTroops) * 0.1f)
             return false;
         if (Random.value > 0.5f)
             return false;
-        NewWage = GetRequestedWage();
-        if (NewWage < WeeklyWage)
+        NewWage.SetValue(GetRequestedWage());
+        if (NewWage.Value < WeeklyWage.Value)
             return false;
         return true;
     }
 
     public void SetNegotiated(bool has) { Negotiated = has; }
 
-    public void SetNewWage(int newWage) { NewWage = newWage; }
+    public void SetNewWage(int newWage) { NewWage.SetValue(newWage); }
 
     public int GetRequestedWage() { return Random.Range(100, 200) * Level.Value; }
-
-    public void InitializeStarterTroops()
-    {
-        Debug.Log($"Character {name} (starter troop) is initialized.");
-        _gameManager = GameManager.Instance;
-        DayAddedToTroops = 0;
-
-        Level = ScriptableObject.Instantiate(Level);
-        Experience = ScriptableObject.Instantiate(Experience);
-        BaseHealth = ScriptableObject.Instantiate(BaseHealth);
-        BaseMana = ScriptableObject.Instantiate(BaseMana);
-        BasePower = ScriptableObject.Instantiate(BasePower);
-        BaseArmor = ScriptableObject.Instantiate(BaseArmor);
-        BaseSpeed = ScriptableObject.Instantiate(BaseSpeed);
-
-        CreateStats();
-        UpdateRank();
-        UpdateElement(_gameManager.GameDatabase.GetElementByName(ElementName.Earth));
-    }
-
-    public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
-
-    public void UpdateDeskPosition(Vector2 newPos)
-    {
-        DeskPosition = newPos;
-        _gameManager.SaveJsonData();
-    }
 
     void CreateBaseStats()
     {
@@ -296,6 +275,28 @@ public class Character : BaseScriptableObject
         Speed.StatType = StatType.Speed;
         Speed.SetBaseValue(BaseSpeed.Value);
         BaseSpeed.OnValueChanged += Speed.SetBaseValue;
+
+        WeeklyWage = ScriptableObject.CreateInstance<IntVariable>();
+        NewWage = ScriptableObject.CreateInstance<IntVariable>();
+    }
+
+    public void InitializeStarterTroops()
+    {
+        Debug.Log($"Character {name} (starter troop) is initialized.");
+        _gameManager = GameManager.Instance;
+        DayAddedToTroops = 0;
+
+        Level = ScriptableObject.Instantiate(Level);
+        Experience = ScriptableObject.Instantiate(Experience);
+        BaseHealth = ScriptableObject.Instantiate(BaseHealth);
+        BaseMana = ScriptableObject.Instantiate(BaseMana);
+        BasePower = ScriptableObject.Instantiate(BasePower);
+        BaseArmor = ScriptableObject.Instantiate(BaseArmor);
+        BaseSpeed = ScriptableObject.Instantiate(BaseSpeed);
+
+        CreateStats();
+        UpdateRank();
+        UpdateElement(_gameManager.GameDatabase.GetElementByName(ElementName.Earth));
     }
 
     public virtual void CreateRandom(int level)
@@ -337,7 +338,7 @@ public class Character : BaseScriptableObject
 
         UpdateRank();
 
-        WeeklyWage = Random.Range(100, 200) * Level.Value;
+        WeeklyWage.SetValue(Random.Range(100, 200) * Level.Value);
     }
 
     public virtual void CreateFromData(CharacterData data)
@@ -377,14 +378,15 @@ public class Character : BaseScriptableObject
             AddItem(gameDatabase.GetItemById(id));
 
         IsAssigned = data.IsAssigned;
-        IsUnavailable = data.IsOnUnavailable;
+        IsUnavailable = data.IsUnavailable;
         DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
         UnavailabilityDuration = data.UnavailabilityDuration;
 
         DayAddedToTroops = data.DayAddedToTroops;
         DeskPosition = data.DeskPosition;
-        WeeklyWage = data.WeeklyWage;
-        NewWage = data.NewWage;
+
+        WeeklyWage.SetValue(data.WeeklyWage);
+        NewWage.SetValue(data.NewWage);
         Negotiated = data.Negotiated;
 
         UpdateRank();
@@ -418,14 +420,14 @@ public class Character : BaseScriptableObject
         data.ItemIds = new(itemIds);
 
         data.IsAssigned = IsAssigned;
-        data.IsOnUnavailable = IsUnavailable;
+        data.IsUnavailable = IsUnavailable;
         data.DayStartedBeingUnavailable = DayStartedBeingUnavailable;
         data.UnavailabilityDuration = UnavailabilityDuration;
 
         data.DayAddedToTroops = DayAddedToTroops;
         data.DeskPosition = DeskPosition;
-        data.WeeklyWage = WeeklyWage;
-        data.NewWage = NewWage;
+        data.WeeklyWage = WeeklyWage.Value;
+        data.NewWage = NewWage.Value;
         data.Negotiated = Negotiated;
 
         return data;
@@ -452,7 +454,7 @@ public struct CharacterData
     public List<string> ItemIds;
 
     public bool IsAssigned;
-    public bool IsOnUnavailable;
+    public bool IsUnavailable;
     public int DayStartedBeingUnavailable;
     public int UnavailabilityDuration;
 

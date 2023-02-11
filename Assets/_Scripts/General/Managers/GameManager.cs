@@ -103,7 +103,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         int total = 0;
         foreach (Character c in PlayerTroops)
-            total += c.WeeklyWage;
+            total += c.WeeklyWage.Value;
         return total;
     }
 

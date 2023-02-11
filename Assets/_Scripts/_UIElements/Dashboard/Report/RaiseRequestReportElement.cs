@@ -36,9 +36,9 @@ public class RaiseRequestReportElement : ReportElement
         VisualElement wageContainer = new();
         wageContainer.style.flexDirection = FlexDirection.Row;
         wageContainer.style.alignItems = Align.Center;
-        wageContainer.Add(new GoldElement(report.Character.WeeklyWage));
+        wageContainer.Add(new GoldElement(report.Character.WeeklyWage.Value));
         wageContainer.Add(new Label("---->"));
-        _newWage = new(report.Character.NewWage);
+        _newWage = new(report.Character.NewWage.Value);
         wageContainer.Add(_newWage);
         _reportContents.Add(wageContainer);
 
@@ -91,8 +91,8 @@ public class RaiseRequestReportElement : ReportElement
         }
 
         float negotiatedPercent = hit * Random.Range(0.03f, 0.06f);
-        int negotiatedAmount = Mathf.FloorToInt(_report.Character.NewWage * negotiatedPercent);
-        int updatedNewWage = _report.Character.NewWage - negotiatedAmount;
+        int negotiatedAmount = Mathf.FloorToInt(_report.Character.NewWage.Value * negotiatedPercent);
+        int updatedNewWage = _report.Character.NewWage.Value - negotiatedAmount;
         _newWage.ChangeAmount(updatedNewWage);
         Helpers.DisplayTextOnElement(_deskManager.Root, _characterCardMini, $"Good point!", Color.red);
         Helpers.DisplayTextOnElement(_deskManager.Root, _newWage, $"-{negotiatedAmount}", Color.red);
@@ -108,7 +108,7 @@ public class RaiseRequestReportElement : ReportElement
         if (_signed)
             return;
 
-        _report.Character.SetWeeklyWage(_report.Character.NewWage);
+        _report.Character.SetWeeklyWage(_report.Character.NewWage.Value);
         _gameManager.AddCharacterToTroops(_report.Character);
         _report.Character.UpdateDeskPosition(new Vector2(this.worldBound.x, this.worldBound.y));
         _deskManager.SpitCharacterOntoDesk(_report.Character);

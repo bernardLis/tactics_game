@@ -74,21 +74,22 @@ public class CharacterCardQuest : VisualElement
         _title = new($"[{Character.Rank.Title}] {Character.CharacterName}");
         _rankElement = new(Character.Rank.Rank, 0.5f);
 
-        _level = new Label($"Level {Character.Level.Value}");
-        _level.AddToClassList(_ussCommonTextPrimary);
-
         // TODO: this should be handled differently.
         IntVariable totalExp = ScriptableObject.CreateInstance<IntVariable>();
         totalExp.SetValue(100);
 
         _expBar = new(Color.black, "Experience", Character.Experience, totalExp, null, 0, true);
 
+        _level = new Label($"Level {Character.Level.Value}");
+        _level.AddToClassList(_ussCommonTextPrimary);
+        _level.style.position = Position.Absolute;
+        _expBar.Add(_level);
+
         Character.OnRankChanged += OnRankChanged;
         Character.Experience.OnValueChanged += OnExpValueChanged;
         Character.Level.OnValueChanged += OnLevelUp;
 
         container.Add(_title);
-        container.Add(_level);
         container.Add(_expBar);
         return container;
     }
@@ -153,7 +154,6 @@ public class CharacterCardQuest : VisualElement
     {
         if (_pointAdded)
             return;
-        Debug.Log($"power up");
         BaseStatUp();
         Character.AddPower();
     }

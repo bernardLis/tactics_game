@@ -18,7 +18,7 @@ public class WagesReportElement : ReportElement
             container.style.alignItems = Align.Center;
             CharacterPortraitElement portraitElement = new(c);
             Label dots = new(".........................");
-            GoldElement wageGoldElement = new(c.WeeklyWage);
+            GoldElement wageGoldElement = new(c.WeeklyWage.Value);
 
             container.Add(portraitElement);
             container.Add(dots);
