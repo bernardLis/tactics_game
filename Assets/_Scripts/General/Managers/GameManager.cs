@@ -60,11 +60,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     void Start()
     {
         Debug.Log($"Game manager Start");
+        GameDatabase.Initialize();
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
             CreateNewSaveFile();
         else
             LoadFromSaveFile();
+
     }
 
     public void Play() { LoadLevel(Scenes.Dashboard); }

@@ -31,7 +31,8 @@ public class RaiseRequestReportElement : ReportElement
 
         _characterCardMini = new(report.Character);
         _reportContents.Add(_characterCardMini);
-        _reportContents.Add(new Label($"{report.Character.name} wants more money!"));
+        string name = Helpers.ParseScriptableObjectCloneName(report.Character.name);
+        _reportContents.Add(new Label($"{name} wants more money!"));
 
         VisualElement wageContainer = new();
         wageContainer.style.flexDirection = FlexDirection.Row;

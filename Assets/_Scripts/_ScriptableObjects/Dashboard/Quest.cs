@@ -155,14 +155,14 @@ public class Quest : BaseScriptableObject
         CampBuildingQuests b = _gameManager.GetComponent<BuildingManager>().QuestsBuilding;
         int maxQuestRank = b.GetUpgradeByRank(b.UpgradeRank).MaxQuestRank;
         Rank = _gameManager.GameDatabase.GetRandomQuestRankWithMaxRank(maxQuestRank);
-        
+
         Title = _gameManager.GameDatabase.QuestDatabase.GetRandomQuestTitle();
         Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
         ThreatElement = _gameManager.GameDatabase.GetRandomElement();
         QuestState = QuestState.Pending;
 
-        Reward = ScriptableObject.CreateInstance<Reward>();
-        Reward.CreateRandom();
+        Reward = Instantiate(_gameManager.GameDatabase.GetRewardByQuestRank(Rank.Rank));
+        Reward.Initialize();
 
         ExpiryDay = _gameManager.Day + Random.Range(3, 7);
         Duration = Random.Range(1, 6);
@@ -170,6 +170,7 @@ public class Quest : BaseScriptableObject
 
         Roll = Random.value;
     }
+
 
     public void LoadFromData(QuestData data)
     {
@@ -184,8 +185,7 @@ public class Quest : BaseScriptableObject
         QuestState = (QuestState)Enum.Parse(typeof(QuestState), data.QuestState);
 
         Reward = ScriptableObject.CreateInstance<Reward>();
-        Reward.Gold = data.RewardData.Gold;
-        Reward.Item = _gameManager.GameDatabase.GetItemById(data.RewardData.ItemId);
+        Reward.LoadFromData(data.RewardData);
 
         ExpiryDay = data.ExpiryDay;
         Duration = data.Duration;

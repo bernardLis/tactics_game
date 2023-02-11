@@ -9,9 +9,7 @@ public class RewardContainer : VisualElement
 {
     GameManager _gameManager;
 
-    RewardChest _rewardChest;
-
-    AnimationElement _chest;
+    AnimationElement _chestAnimationElement;
 
     Reward _reward;
 
@@ -35,20 +33,19 @@ public class RewardContainer : VisualElement
         AddToClassList(_ussMain);
 
         _reward = reward;
-        _rewardChest = _gameManager.GameDatabase.GetRandomRewardChest();
 
-        _chest = new(_rewardChest.Idle, 100, true);
-        _chest.style.width = 200;
-        _chest.style.height = 200;
-        _chest.PlayAnimation();
-        Add(_chest);
+        _chestAnimationElement = new(_reward.ChestIdleSprites, 100, true);
+        _chestAnimationElement.style.width = 200;
+        _chestAnimationElement.style.height = 200;
+        _chestAnimationElement.PlayAnimation();
+        Add(_chestAnimationElement);
         if (clickable)
-            _chest.RegisterCallback<PointerUpEvent>(OnPointerUp);
+            _chestAnimationElement.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
     void OnPointerUp(PointerUpEvent evt)
     {
-        _chest.UnregisterCallback<PointerUpEvent>(OnPointerUp);
+        _chestAnimationElement.UnregisterCallback<PointerUpEvent>(OnPointerUp);
         RunChestOpenSpectacle();
     }
 
@@ -56,9 +53,9 @@ public class RewardContainer : VisualElement
     {
         // TODO: I could play some nice VFX here
         AudioManager.Instance.PlaySFX("ChestOpen", Vector3.zero);
-        _chest.SwapAnimationSprites(_rewardChest.Open);
-        _chest.SetLoop(false);
-        _chest.OnAnimationFinished += ShowRewards;
+        _chestAnimationElement.SwapAnimationSprites(_reward.ChestOpenSprites);
+        _chestAnimationElement.SetLoop(false);
+        _chestAnimationElement.OnAnimationFinished += ShowRewards;
 
         OnChestOpen?.Invoke();
     }
@@ -95,6 +92,6 @@ public class RewardContainer : VisualElement
         _flyLeft *= -1; // swapping left and right each time it is called
 
         ArcMovementElement flyingContainer = new(el, startPos, endPos);
-        _chest.Add(flyingContainer);
+        _chestAnimationElement.Add(flyingContainer);
     }
 }

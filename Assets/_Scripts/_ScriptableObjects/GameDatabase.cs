@@ -12,10 +12,11 @@ public class GameDatabase : BaseScriptableObject
     public QuestDatabase QuestDatabase;
 
 
+    public void Initialize() { SortItems(); }
+
     [Header("Cutscenes")]
     [SerializeField] Cutscene[] Cutscenes;
     public Cutscene[] GetAllCutscenes() { return Cutscenes; }
-
 
     [Header("Characters")]
     [SerializeField] Character[] StartingTroops;
@@ -28,13 +29,36 @@ public class GameDatabase : BaseScriptableObject
     public List<Item> GetAllItems() { return Items.ToList(); }
     public Item GetItemById(string id) { return Items.FirstOrDefault(x => x.Id == id); }
     public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
+    public Item GetRandomCommonItem() { return _commonItems[Random.Range(0, _commonItems.Count)]; }
+    public Item GetRandomUncommonItem() { return _uncommonItems[Random.Range(0, _uncommonItems.Count)]; }
+    public Item GetRandomRareItem() { return _rareItems[Random.Range(0, _rareItems.Count)]; }
+    public Item GetRandomEpicItem() { return _epicItems[Random.Range(0, _epicItems.Count)]; }
+
     public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
 
+    List<Item> _commonItems = new();
+    List<Item> _uncommonItems = new();
+    List<Item> _rareItems = new();
+    List<Item> _epicItems = new();
+    void SortItems()
+    {
+        foreach (Item i in Items)
+        {
+            if (i.Rarity == ItemRarity.Common)
+                _commonItems.Add(i);
+            if (i.Rarity == ItemRarity.Uncommon)
+                _uncommonItems.Add(i);
+            if (i.Rarity == ItemRarity.Rare)
+                _rareItems.Add(i);
+            if (i.Rarity == ItemRarity.Epic)
+                _epicItems.Add(i);
+        }
+    }
 
     [Header("Dashboard")]
     [SerializeField] Sprite[] CoinSprites;
     [SerializeField] QuestRank[] QuestRanks;
-    [SerializeField] RewardChest[] RewardChests;
+    [SerializeField] Reward[] Rewards;
     [SerializeField] ReportPaper[] ReportPapers;
     [SerializeField] Element[] Elements;
     public Sprite[] LevelUpAnimationSprites;
@@ -43,6 +67,13 @@ public class GameDatabase : BaseScriptableObject
     [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
     [field: SerializeField] public Sprite ShopWoodSprite { get; private set; }
 
+    public Reward GetRewardByRank(int rank) { return Rewards.FirstOrDefault(x => x.Rank == rank); }
+    public Reward GetRewardByQuestRank(int rank)
+    {
+        List<Reward> r = Rewards.OrderBy(o => o.Rank).ToList();
+        int rewardRank = Mathf.Clamp(rank + Random.Range(-1, 2), r.First().Rank, r.Last().Rank);
+        return GetRewardByRank(rewardRank);
+    }
 
     public Sprite GetCoinSprite(int amount)
     {
@@ -97,8 +128,6 @@ public class GameDatabase : BaseScriptableObject
 
     public QuestRank GetRandomQuestRank() { return QuestRanks[Random.Range(0, QuestRanks.Length)]; }
 
-    public RewardChest GetRandomRewardChest() { return RewardChests[Random.Range(0, RewardChests.Length)]; }
-
     public ReportPaper GetRandomReportPaper() { return ReportPapers[Random.Range(0, ReportPapers.Length)]; }
     public ReportPaper GetReportPaperById(string id) { return ReportPapers.FirstOrDefault(x => x.Id == id); }
 }
@@ -126,14 +155,6 @@ public struct StatIcon
     public string StatName;
     public Sprite Sprite;
 }
-
-[System.Serializable]
-public struct RewardChest
-{
-    public Sprite[] Idle;
-    public Sprite[] Open;
-}
-
 
 
 

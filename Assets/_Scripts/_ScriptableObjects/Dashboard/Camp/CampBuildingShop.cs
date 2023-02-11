@@ -8,25 +8,9 @@ public class CampBuildingShop : CampBuilding
 {
     public List<CampUpgradeShop> Upgrades = new();
 
-    List<Item> commonItems = new();
-    List<Item> uncommonItems = new();
-    List<Item> rareItems = new();
-    List<Item> epicItems = new();
-
     public override void Initialize()
     {
         base.Initialize();
-        foreach (Item i in _gameManager.GameDatabase.GetAllItems())
-        {
-            if (i.Rarity == ItemRarity.Common)
-                commonItems.Add(i);
-            if (i.Rarity == ItemRarity.Uncommon)
-                uncommonItems.Add(i);
-            if (i.Rarity == ItemRarity.Rare)
-                rareItems.Add(i);
-            if (i.Rarity == ItemRarity.Epic)
-                epicItems.Add(i);
-        }
     }
 
     public override int GetMaxUpgradeRank()
@@ -44,13 +28,13 @@ public class CampBuildingShop : CampBuilding
         float v = Random.value;
         CampUpgradeShop upgrade = GetUpgradeByRank(UpgradeRank);
         if (v < upgrade.EpicItemChance)
-            return epicItems[Random.Range(0, epicItems.Count)];
+            return _gameManager.GameDatabase.GetRandomEpicItem();
         if (v < upgrade.RareItemChance)
-            return rareItems[Random.Range(0, rareItems.Count)];
+            return _gameManager.GameDatabase.GetRandomRareItem();
         if (v < upgrade.UncommonItemChance)
-            return uncommonItems[Random.Range(0, uncommonItems.Count)];
+            return _gameManager.GameDatabase.GetRandomUncommonItem();
 
-        return commonItems[Random.Range(0, commonItems.Count)];
+        return _gameManager.GameDatabase.GetRandomCommonItem();
     }
 }
 

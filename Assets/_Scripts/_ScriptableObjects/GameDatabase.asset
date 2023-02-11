@@ -58,6 +58,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1afc3460ae804584d82c7e1cd4ada712, type: 2}
   - {fileID: 11400000, guid: 045a8706dba3ba9498d55077f0f00067, type: 2}
   - {fileID: 11400000, guid: d884cb3969b413c41b39b242f36d7e25, type: 2}
+  Rewards:
+  - {fileID: 11400000, guid: a5b991edf42867c44bfb6f3996070d37, type: 2}
+  - {fileID: 11400000, guid: 8dc4b813eccf12644986db7dadf28a85, type: 2}
+  - {fileID: 11400000, guid: 57a2ed5e8781a834b86d012896adbe79, type: 2}
+  - {fileID: 11400000, guid: d39ab990f5e02c545ac454ba7fd618a5, type: 2}
   RewardChests:
   - Idle:
     - {fileID: 571803524, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
