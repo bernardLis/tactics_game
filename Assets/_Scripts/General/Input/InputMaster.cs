@@ -98,6 +98,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""10b3e4dc-1e78-41ac-8502-dae1dec61a1b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""Space"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aaf02242-12d9-4da6-b5e6-0a0b3d52aa4f"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -265,6 +285,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Dashboard_ToggleCommandLine = m_Dashboard.FindAction("ToggleCommandLine", throwIfNotFound: true);
         m_Dashboard_OpenMenu = m_Dashboard.FindAction("OpenMenu", throwIfNotFound: true);
         m_Dashboard_Space = m_Dashboard.FindAction("Space", throwIfNotFound: true);
+        m_Dashboard_Pause = m_Dashboard.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -332,6 +353,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Dashboard_ToggleCommandLine;
     private readonly InputAction m_Dashboard_OpenMenu;
     private readonly InputAction m_Dashboard_Space;
+    private readonly InputAction m_Dashboard_Pause;
     public struct DashboardActions
     {
         private @InputMaster m_Wrapper;
@@ -344,6 +366,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @ToggleCommandLine => m_Wrapper.m_Dashboard_ToggleCommandLine;
         public InputAction @OpenMenu => m_Wrapper.m_Dashboard_OpenMenu;
         public InputAction @Space => m_Wrapper.m_Dashboard_Space;
+        public InputAction @Pause => m_Wrapper.m_Dashboard_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Dashboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -377,6 +400,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Space.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
                 @Space.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
                 @Space.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
+                @Pause.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_DashboardActionsCallbackInterface = instance;
             if (instance != null)
@@ -405,6 +431,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Space.started += instance.OnSpace;
                 @Space.performed += instance.OnSpace;
                 @Space.canceled += instance.OnSpace;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -428,5 +457,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnToggleCommandLine(InputAction.CallbackContext context);
         void OnOpenMenu(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

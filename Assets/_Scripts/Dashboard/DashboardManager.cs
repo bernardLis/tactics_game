@@ -15,10 +15,9 @@ public class DashboardManager : Singleton<DashboardManager>
 
     public EffectHolder PanelOpenEffect;
 
-    MyButton _passDayButton;
+    public TimerElement DayTimer;
 
     // resources
-    Label _navDay;
     VisualElement _navGold;
     GoldElement _goldElement;
     VisualElement _navTroops;
@@ -61,10 +60,9 @@ public class DashboardManager : Singleton<DashboardManager>
 
         Root = GetComponent<UIDocument>().rootVisualElement;
 
-        AddPassDayButton();
+        AddDayTimer();
 
         // resources
-        _navDay = Root.Q<Label>("navDayLabel");
         _navGold = Root.Q<VisualElement>("navGold");
         _navTroops = Root.Q<VisualElement>("navTroops");
         _navSpice = Root.Q<VisualElement>("navSpice");
@@ -86,7 +84,6 @@ public class DashboardManager : Singleton<DashboardManager>
         AddTroopsElement();
         AddSpiceElement();
 
-        ShowPassDayButton();
         AddNavigationButtons();
 
         AudioManager.Instance.PlayMusic(_dashboardTheme);
@@ -95,6 +92,7 @@ public class DashboardManager : Singleton<DashboardManager>
     /* INPUT */
     void SubscribeInputActions()
     {
+        PlayerInput.actions["Pause"].performed += TogglePause;
         PlayerInput.actions["OpenDesk"].performed += ShowDeskUI;
         PlayerInput.actions["OpenCamp"].performed += ShowCampUI;
         PlayerInput.actions["OpenAbilities"].performed += ShowAbilityUI;
@@ -104,6 +102,7 @@ public class DashboardManager : Singleton<DashboardManager>
 
     void UnsubscribeInputActions()
     {
+        PlayerInput.actions["Pause"].performed -= TogglePause;
         PlayerInput.actions["OpenDesk"].performed -= ShowDeskUI;
         PlayerInput.actions["OpenCamp"].performed -= ShowCampUI;
         PlayerInput.actions["OpenAbilities"].performed -= ShowAbilityUI;
@@ -130,31 +129,20 @@ public class DashboardManager : Singleton<DashboardManager>
         UnsubscribeInputActions();
     }
 
-    /* PASS DAY BUTTON */
-    void AddPassDayButton()
-    {
-        _passDayButton = new("Pass Day", _ussPassDayButton, PassDay);
-        _passDayButton.AddToClassList(_ussCommonTextPrimary);
-        Root.Q<VisualElement>("navLeft").Add(_passDayButton);
-        HidePassDay();
-    }
+    void TogglePause(InputAction.CallbackContext ctx) { _gameManager.ToggleTimer(); }
+    void ShowDeskUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowDeskUICoroutine()); }
+    void ShowAbilityUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowAbilityUICoroutine()); }
+    void ShowCampUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowCampUICoroutine()); }
 
-    void PassDay() { _gameManager.PassDay(); }
-
-    void ShowPassDayButton()
+    void AddDayTimer()
     {
-        _passDayButton.style.display = DisplayStyle.Flex;
-        DOTween.To(() => _passDayButton.style.opacity.value, x => _passDayButton.style.opacity = x, 1f, 1f);
-    }
-
-    void HidePassDay()
-    {
-        _passDayButton.style.display = DisplayStyle.None;
-        _passDayButton.style.opacity = 0;
+        DayTimer = new(_gameManager.SecondsLeftInDay, GameManager.SecondsInDay, true, $"Day: {_gameManager.Day}");
+        DayTimer.OnLoopFinished += _gameManager.PassDay;
+        Root.Q<VisualElement>("navLeft").Add(DayTimer);
     }
 
     /* RESOURCES */
-    void UpdateDay(int day) { _navDay.text = $"Day: {day}"; }
+    void UpdateDay(int day) { DayTimer.UpdateLabel($"Day: {day}"); }
 
     void AddGoldElement()
     {
@@ -274,9 +262,6 @@ public class DashboardManager : Singleton<DashboardManager>
             ShowAbilityUI(a);
     }
 
-    void ShowDeskUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowDeskUICoroutine()); }
-    void ShowAbilityUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowAbilityUICoroutine()); }
-    void ShowCampUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowCampUICoroutine()); }
 
     IEnumerator ShowDeskUICoroutine()
     {

@@ -121,6 +121,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 507a58eb-548c-4788-a96d-cf7a1f345c5b
     m_ActionName: Dashboard/Space[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 10b3e4dc-1e78-41ac-8502-dae1dec61a1b
+    m_ActionName: Dashboard/Pause[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Dashboard
@@ -333,6 +337,10 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 10db60192c1223a4ca8efc531251dc4d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 55a2dab2e6ce8254ca54368106c488d6
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

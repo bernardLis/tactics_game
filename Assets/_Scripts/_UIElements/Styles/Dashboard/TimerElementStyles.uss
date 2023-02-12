@@ -1,0 +1,32 @@
+.timer-element__main {
+    height: 50px;
+    width: 100%;
+}
+
+.timer-element__wrapper {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Options_slider.png?fileID=2800000&guid=1e6b61bfd0dcc304dae5b5fb0c710f7e&type=3#Options_slider');
+}
+
+.timer-element__line {
+    margin-right: 10px;
+    height: 100%;
+    width: 100%;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Options_slider_line_blue.png?fileID=2800000&guid=398a2d754e0d56349a4adef98c6da946&type=3#Options_slider_line_blue');
+}
+
+.timer-element__line-mask {
+    height: 100%;
+    width: 0;
+    position: absolute;
+    background-color: black;
+}
+
+.timer-element__label {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -unity-text-align: middle-center;
+}

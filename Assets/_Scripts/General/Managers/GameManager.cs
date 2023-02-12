@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
+    public const float SecondsInDay = 10;
 
     LevelLoader _levelLoader;
     BuildingManager _buildingManager;
@@ -23,8 +24,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Seed { get; private set; }
 
     public int Day { get; private set; }
+    public float SecondsLeftInDay { get; private set; }
     public int Gold { get; private set; }
     public int Spice { get; private set; }
+
+    public bool IsTimerOn { get; private set; }
 
     public List<Character> PlayerTroops = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
@@ -48,7 +52,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action<string> OnLevelLoaded;
     public event Action OnNewSaveFileCreation;
     public event Action OnClearSaveData;
-
+    public event Action<bool> OnTimerStateChanged;
     protected override void Awake()
     {
         Debug.Log($"Game manager Awake");
@@ -66,10 +70,19 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             CreateNewSaveFile();
         else
             LoadFromSaveFile();
-
     }
 
-    public void Play() { LoadLevel(Scenes.Dashboard); }
+    public void Play()
+    {
+        LoadLevel(Scenes.Dashboard);
+        IsTimerOn = true;
+    }
+
+    public void ToggleTimer()
+    {
+        IsTimerOn = !IsTimerOn;
+        OnTimerStateChanged?.Invoke(IsTimerOn);
+    }
 
     public void AddNewReport(Report r)
     {
@@ -203,6 +216,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Creating new save file...");
         Seed = System.Environment.TickCount;
 
+        SecondsLeftInDay = SecondsInDay;
         Day = 1;
         Gold = 10000;
         Spice = 500;
@@ -256,6 +270,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         // global data
         saveData.Seed = Seed;
+
+        if (DashboardManager.Instance != null)
+            saveData.SecondsLeftInDay = DashboardManager.Instance.DayTimer.GetTimeLeft();
 
         saveData.Day = Day;
         saveData.Gold = Gold;
@@ -366,6 +383,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // global data
         Seed = saveData.Seed;
 
+        SecondsLeftInDay = saveData.SecondsLeftInDay;
         Day = saveData.Day;
         Gold = saveData.Gold;
         Spice = saveData.Spice;
@@ -436,6 +454,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Seed = System.Environment.TickCount;
 
+        SecondsLeftInDay = SecondsInDay;
         Day = 1;
         Gold = 0;
         Spice = 0;

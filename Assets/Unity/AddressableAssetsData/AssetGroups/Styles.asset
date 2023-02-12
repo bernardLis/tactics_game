@@ -21,146 +21,187 @@ MonoBehaviour:
     m_Address: CommonStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15b9d2ba76c859c4097a6e3fdb754e84
     m_Address: GameManager
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 30cb1d7da388bcd46bd5f2295479366d
     m_Address: CharacterPortraitStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0775735fdeffaf543964a3806de2cc2f
     m_Address: CharacterCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: efc10c22c963433429ef85038fcb82ee
     m_Address: CharacterCardMiniSlotStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6592743390324724eba0b66a33b0dc93
     m_Address: CharacterCardMiniStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9763af7dad1233145acb77b63af6c8db
     m_Address: ReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 297779c8578a83f47b73415c817f886b
     m_Address: ShopReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6bfb1f21ffcb4344e8a629ceb16d40d1
     m_Address: QuestElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6c69c08530476f340ac9030ac672e9f6
     m_Address: PawnshopReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd3c461a5e9409b40a91dec9c08cf28a
     m_Address: ResourceBarStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 00c44fd568fbaa74f8d441924bb2f493
     m_Address: StatElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1dcb0d843bcae2d4cb844a89c93bd82d
     m_Address: AbilityButtonStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 73a23192c66321b49874edb0a26a5d1b
     m_Address: AbilityIconStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3c7abefaad358754e9e3c40e171398d2
     m_Address: ItemSlotStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1acffc56042b4b42913969a21594f22
     m_Address: AbilitySlotStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6210ce5dd6c012b4da866162ac0c703d
     m_Address: GoldElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d7df27be43e873a44b6156bc8a574926
     m_Address: StarRankElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 345bbfaec402d074496719d46520316d
     m_Address: TooltipElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 06dac8c48602d3f4e859c4ff45cfa55f
     m_Address: ElementalElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 27b95a083abeef74588b14faf61ce37e
     m_Address: AbilityTooltipElement
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 837ea48faac95074ea0bcef04315f50b
     m_Address: AbilityReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d872669deb721f44bdfa6897d1dc942
     m_Address: DashboardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 63f1a6af3aabe544aa3592a0a0d767a6
     m_Address: SpiceElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1dbd63513c7627546afc3aacbe651377
     m_Address: AbilityNodeStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 75cc4cb1b795ae34ba2022af2dfc4bbb
     m_Address: SettingsMenuStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e55454fed2ddfb4f90604f7fee33a32
     m_Address: MenuStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: edaefa917ed2cf64cb937dee7213ae00
     m_Address: SpiceRecycleReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c8a5dfc69b360094793cdfec86277192
     m_Address: RecruitElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 98d2dc85f24f7ae4395544420536e940
     m_Address: RaiseRequestReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4bba9aca015f7e445805ecebf6b39c78
     m_Address: BarMiniGameStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 325d4af6710d7534d8c7e736fce169c7
     m_Address: ConfirmPopupStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c97e24d9050e57749aee3099e5cbe6a7
     m_Address: QuestResultStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4496443c1c70fcf40a4dd27ff7628657
     m_Address: CharacterCardExpStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1e5fca1dceaeb1f4bab0703760687dd3
     m_Address: RewardContainerStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 10db60192c1223a4ca8efc531251dc4d
     m_Address: CampBuildingStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55a2dab2e6ce8254ca54368106c488d6
+    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/TimerElementStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

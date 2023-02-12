@@ -29,7 +29,7 @@
     transition-property: all;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out-sine;
-    -unity-text-align: middle-center;
+    -unity-text-align: nter;
 }
 
 .common__button-basic:hover {

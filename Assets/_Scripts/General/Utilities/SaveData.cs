@@ -9,6 +9,7 @@ public class SaveData
     // global data
     public int Seed;
 
+    public float SecondsLeftInDay;
     public int Day;
     public int Gold;
     public int Spice;
