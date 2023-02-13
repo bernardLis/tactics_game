@@ -10,8 +10,11 @@ public class TimerElement : VisualElement
 
     const string _ussClassName = "timer-element__";
     const string _ussMain = _ussClassName + "main";
+
+    const string _ussLineMaskWrapper = _ussClassName + "line-mask-wrapper";
     const string _ussLine = _ussClassName + "line";
     const string _ussLineMask = _ussClassName + "line-mask";
+
     const string _ussWrapper = _ussClassName + "wrapper";
 
     const string _ussLabelWrapper = _ussClassName + "label-wrapper";
@@ -52,8 +55,12 @@ public class TimerElement : VisualElement
         Add(_line);
         _line.AddToClassList(_ussLine);
 
+        VisualElement lineMaskWrapper = new();
+        Add(lineMaskWrapper);
+        lineMaskWrapper.AddToClassList(_ussLineMaskWrapper);
+
         _lineMask = new();
-        Add(_lineMask);
+        lineMaskWrapper.Add(_lineMask);
         _lineMask.AddToClassList(_ussLineMask);
 
         VisualElement wrapper = new();
@@ -64,7 +71,7 @@ public class TimerElement : VisualElement
         Add(labelWrapper);
         labelWrapper.AddToClassList(_ussLabelWrapper);
 
-        _label = new();
+        _label = new(text);
         labelWrapper.Add(_label);
         _label.AddToClassList(_ussCommonTextPrimary);
         _label.AddToClassList(_ussLabel);
@@ -74,14 +81,20 @@ public class TimerElement : VisualElement
         _secondsLeftLabel.AddToClassList(_ussCommonTextPrimary);
         _secondsLeftLabel.AddToClassList(_ussSecondsLeftLabel);
 
+        _ticksLeft = Mathf.RoundToInt(timeLeft * 10);
+        _totalTicks = Mathf.RoundToInt(totalTime * 10);
+        _isLooping = isLooping;
+
         float w = 100 - (float)_ticksLeft / (float)_totalTicks * 100;
         _lineMask.style.width = Length.Percent(w);
 
-        _totalTicks = Mathf.RoundToInt(totalTime * 10);
-        _ticksLeft = Mathf.RoundToInt(timeLeft * 10);
-        _isLooping = isLooping;
-
         _timer = schedule.Execute(UpdateTimer).Every(100);
+    }
+
+    public void UpdateTimerValues(float timeLeft, float totalTime)
+    {
+        _ticksLeft = Mathf.RoundToInt(timeLeft * 10);
+        _totalTicks = Mathf.RoundToInt(totalTime * 10);
     }
 
     public float GetTimeLeft() { return _ticksLeft * 0.1f; }

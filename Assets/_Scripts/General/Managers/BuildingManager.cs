@@ -118,7 +118,6 @@ public class BuildingManager : MonoBehaviour
 
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
-        _gameManager.OnDayPassed += q.OnDayPassed;
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Quest, q);

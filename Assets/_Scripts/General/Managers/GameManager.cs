@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
-    public const float SecondsInDay = 10;
+    public const float SecondsInDay = 20;
 
     LevelLoader _levelLoader;
     BuildingManager _buildingManager;
@@ -23,6 +23,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     // global data
     public int Seed { get; private set; }
 
+    public float TotalSeconds { get; private set; }
     public int Day { get; private set; }
     public float SecondsLeftInDay { get; private set; }
     public int Gold { get; private set; }
@@ -77,6 +78,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         LoadLevel(Scenes.Dashboard);
         IsTimerOn = true;
     }
+
+    public float GetCurrentTimeInSeconds() { return Day * SecondsInDay + SecondsInDay - SecondsLeftInDay; }
 
     public void ToggleTimer()
     {

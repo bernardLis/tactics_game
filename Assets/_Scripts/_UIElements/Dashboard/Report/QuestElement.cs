@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
-using System.Threading.Tasks;
 
 public class QuestElement : VisualElement
 {
@@ -16,10 +15,9 @@ public class QuestElement : VisualElement
 
     VisualElement _topPanelContainer;
     QuestRankElement _questRankElement;
-    StarRankElement _rankVisualElement;
     VisualElement _additionalInfo;
 
-    TextWithTooltip _expiryDateLabel;
+    TimerElement _timer;
     TextWithTooltip _durationLabel;
     TextWithTooltip _successChanceLabel;
     VisualElement _assignedCharactersContainer;
@@ -28,7 +26,6 @@ public class QuestElement : VisualElement
     List<CharacterCardMiniSlot> _cardSlots = new();
 
     CampBuildingQuestInfo _questInfoBuilding;
-
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
@@ -47,7 +44,6 @@ public class QuestElement : VisualElement
     public QuestElement(Report report)
     {
         _gameManager = GameManager.Instance;
-        _gameManager.OnDayPassed += OnDayPassed;
         _deskManager = DeskManager.Instance;
         _draggableCharacters = _deskManager.GetComponent<DraggableCharacters>();
 
@@ -59,10 +55,10 @@ public class QuestElement : VisualElement
         _quest = report.Quest;
         _quest.OnQuestStateChanged += OnQuestStateChanged;
 
-        var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        var common = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.QuestElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.QuestElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
@@ -71,46 +67,33 @@ public class QuestElement : VisualElement
 
         AddTopPanel();
         AddBottomPanel();
+        HandleQuestState();
 
+        RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
+    }
+
+    void OnPointerDown(PointerDownEvent e) { e.StopImmediatePropagation(); }    // block report pickup
+
+    void OnQuestInfoBuildingUpgraded(int rank)
+    {
+        UpdateSuccessChanceLabel();
+        _questRankElement.UpdateElementalElement(rank);
+    }
+
+    void OnQuestStateChanged(QuestState state)
+    {
+        HandleQuestState();
+        UpdateActionButton();
+    }
+
+    void HandleQuestState()
+    {
         if (_quest.QuestState == QuestState.Expired)
             HandleExpiredQuest();
         if (_quest.QuestState == QuestState.Delegated)
             HandleDelegatedQuest();
         if (_quest.QuestState == QuestState.RewardCollected)
             HandleRewardCollected();
-
-        RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
-    }
-
-    // block report pickup
-    void OnPointerDown(PointerDownEvent e) { e.StopImmediatePropagation(); }
-
-    void OnDayPassed(int day)
-    {
-        UpdateExpiryDateLabel();
-        UpdateDaysUntilFinished();
-    }
-
-    void OnQuestStateChanged(QuestState state)
-    {
-        UpdateExpiryDateLabel();
-        UpdateDaysUntilFinished();
-        UpdateActionButton();
-
-        if (state == QuestState.Delegated)
-            HandleDelegatedQuest();
-        if (state == QuestState.Expired)
-            HandleExpiredQuest();
-        if (state == QuestState.RewardCollected)
-            HandleRewardCollected();
-    }
-
-    void OnQuestInfoBuildingUpgraded(int rank)
-    {
-        // update element
-        // update success chance display
-        UpdateSuccessChanceLabel();
-        _questRankElement.UpdateElementalElement(rank);
     }
 
     void AddTopPanel()
@@ -133,14 +116,12 @@ public class QuestElement : VisualElement
         _additionalInfo.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_additionalInfo);
 
-        _expiryDateLabel = new TextWithTooltip($"", "Has to be delegated or taken before it expiries.");
-        UpdateExpiryDateLabel();
-        _additionalInfo.Add(_expiryDateLabel);
+        AddTimer();
 
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
 
-        _durationLabel = new TextWithTooltip($"Duration: {_quest.Duration} day(s).", $"When delegated it will take {_quest.Duration} day(s)");
+        _durationLabel = new TextWithTooltip($"Duration: {_quest.DurationSeconds}s.", $"When delegated it will take {_quest.DurationSeconds}s");
         container.Add(_durationLabel);
 
         _successChanceLabel = new TextWithTooltip($"", "The stronger/more the characters the higher success chance.");
@@ -156,98 +137,51 @@ public class QuestElement : VisualElement
         _additionalInfo.Add(_actionButton);
     }
 
-    void HandleDelegatedQuest()
+    void AddTimer()
     {
-        foreach (CharacterCardMiniSlot slot in _cardSlots)
-            slot.Lock();
-
-        UpdateDaysUntilFinished();
-        _actionButton.SetEnabled(false);
-    }
-
-    void HandleExpiredQuest()
-    {
-        ReturnAssignedCharacters();
-        foreach (CharacterCardMiniSlot slot in _cardSlots)
-            slot.Lock();
-
-        VisualElement overlay = new VisualElement();
-        overlay.AddToClassList(_ussOverlay);
-        Add(overlay);
-        overlay.BringToFront();
-
-        Label text = new($"Expired! ({_quest.ExpiryDay})");
-        text.AddToClassList(_ussCommonTextPrimary);
-        text.style.fontSize = 32;
-        text.transform.rotation *= Quaternion.Euler(0f, 0f, 30f);
-        overlay.Add(text);
-    }
-
-    void HandleRewardCollected()
-    {
-        _expiryDateLabel.Clear();
-        _durationLabel.Clear();
-        _successChanceLabel.Clear();
-        _assignedCharactersContainer.style.display = DisplayStyle.None;
-
-        if (_quest.Reward.Item == null)
+        if (_quest.QuestState != QuestState.Pending && _quest.QuestState != QuestState.Delegated)
             return;
 
-        if (!_quest.IsWon)
-            return;
-
-        ItemElement el = new(_quest.Reward.Item);
-        ItemSlot slot = new(el);
-        slot.OnItemRemoved += OnRewardItemRemoved;
-        slot.OnItemAdded += OnRewardItemAdded;
-
-        _deskManager.GetComponent<DraggableItems>().AddSlot(slot);
-        _deskManager.GetComponent<DraggableItems>().AddDraggableItem(el);
-
-        _additionalInfo.Add(slot);
-        slot.BringToFront();
-    }
-    void OnRewardItemRemoved(ItemElement el) { _quest.Reward.Item = null; }
-
-    void OnRewardItemAdded(ItemElement el) { _quest.Reward.Item = el.Item; }
-
-    void ReturnAssignedCharacters()
-    {
-        foreach (CharacterCardMiniSlot slot in _cardSlots)
-        {
-            if (slot.Card == null)
-                continue;
-            slot.Card.Character.UpdateDeskPosition(new Vector2(slot.worldBound.x, slot.worldBound.y));
-            _deskManager.SpitCharacterOntoDesk(slot.Card.Character);
-            slot.RemoveCard();
-        }
-    }
-
-    void UpdateExpiryDateLabel()
-    {
-        _expiryDateLabel.style.display = DisplayStyle.None;
+        float totalTime = 0;
+        float remainingTime = 0;
+        string txt = "";
 
         if (_quest.QuestState == QuestState.Pending)
         {
-            _expiryDateLabel.style.display = DisplayStyle.Flex;
-            _expiryDateLabel.UpdateText($"Expires in: {_quest.ExpiryDay - _gameManager.Day} days.");
+            totalTime = (_quest.ExpiryDateTime.Day - _quest.DayAdded) * GameManager.SecondsInDay;
+            float dayDiff = (_quest.ExpiryDateTime.Day - _gameManager.Day) * GameManager.SecondsInDay;
+            float secondsDiff = _gameManager.SecondsLeftInDay; // if we take the whole days into consideration
+            remainingTime = dayDiff - (GameManager.SecondsInDay - secondsDiff);
+            txt = "Expires in:";
         }
+
+        if (_quest.QuestState == QuestState.Delegated)
+        {
+            totalTime = _quest.DurationSeconds;
+            float end = _quest.StartedDateTime.GetTimeInSeconds() + totalTime;
+            remainingTime = end - _gameManager.GetCurrentTimeInSeconds();
+            txt = "Finished in:";
+        }
+
+        _timer = new(remainingTime, totalTime, false, txt);
+        _timer.OnTimerFinished += OnTimerFinished;
+
+        _additionalInfo.Add(_timer);
     }
 
-    void UpdateDaysUntilFinished()
+    void OnTimerFinished()
     {
+        if (_quest.QuestState == QuestState.Pending)
+            _quest.UpdateQuestState(QuestState.Expired);
+
         if (_quest.QuestState == QuestState.Delegated)
-            _actionButton.UpdateButtonText($"Finished in: {_quest.CountDaysLeft()} days.");
-        if (_quest.QuestState == QuestState.Expired)
-            _actionButton.UpdateButtonText($"Expired.");
+            _quest.FinishQuest();
     }
 
     void UpdateSuccessChanceLabel()
     {
         if (_questInfoBuilding.UpgradeRank == 0)
-        {
             _successChanceLabel.UpdateText($"Success chance: ??.");
-        }
 
         int percent = _quest.GetSuccessChance();
         if (_questInfoBuilding.UpgradeRank == 1 || _questInfoBuilding.UpgradeRank == 2)
@@ -257,12 +191,12 @@ public class QuestElement : VisualElement
             if (percent > 50)
                 _successChanceLabel.UpdateText($"Success chance: likely.");
         }
+
         if (_questInfoBuilding.UpgradeRank == 3)
-        {
             _successChanceLabel.UpdateText($"Success chance: {percent}%.");
-        }
     }
 
+    /* CHARACTER SLOT MANAGEMENT */
     VisualElement CreateCharacterSlots()
     {
         VisualElement container = new();
@@ -309,6 +243,39 @@ public class QuestElement : VisualElement
         return false;
     }
 
+    void ReturnAssignedCharacters()
+    {
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+        {
+            if (slot.Card == null)
+                continue;
+            slot.Card.Character.UpdateDeskPosition(new Vector2(slot.worldBound.x, slot.worldBound.y));
+            _deskManager.SpitCharacterOntoDesk(slot.Card.Character);
+            slot.RemoveCard();
+        }
+    }
+
+    void OnCardAdded(CharacterCardMini card)
+    {
+        _quest.AssignCharacter(card.Character);
+        OnCardChange();
+        _gameManager.SaveJsonData();
+    }
+
+    void OnCardRemoved(CharacterCardMini card)
+    {
+        _quest.RemoveAssignedCharacter(card.Character);
+        OnCardChange();
+        _gameManager.SaveJsonData();
+    }
+
+    void OnCardChange()
+    {
+        UpdateSuccessChanceLabel();
+        UpdateActionButton();
+    }
+
+    /* ACTION BUTTON */
     MyButton CreateActionButton()
     {
         MyButton button = new("Assign Characters!", _ussActionButton, null);
@@ -325,7 +292,7 @@ public class QuestElement : VisualElement
 
         HandleActionButtonDefault();
 
-        if (_quest.QuestState == QuestState.RewardCollected)
+        if (_quest.QuestState == QuestState.Expired || _quest.QuestState == QuestState.RewardCollected)
         {
             _actionButton.style.visibility = Visibility.Hidden;
             return;
@@ -362,27 +329,70 @@ public class QuestElement : VisualElement
         _actionButton.AddToClassList(className);
     }
 
-    void OnCardAdded(CharacterCardMini card)
+    void DelegateBattle()
     {
-        _quest.AssignCharacter(card.Character);
-        OnCardChange();
-        _gameManager.SaveJsonData();
+        float totalTime = _quest.DurationSeconds;
+        _timer.UpdateLabel("Finished in: ");
+        _timer.UpdateTimerValues(totalTime, totalTime);
+
+        _quest.DelegateQuest();
     }
 
-    void OnCardRemoved(CharacterCardMini card)
+    /* QUEST STATES */
+    void HandleDelegatedQuest()
     {
-        _quest.RemoveAssignedCharacter(card.Character);
-        OnCardChange();
-        _gameManager.SaveJsonData();
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+            slot.Lock();
+
+        _actionButton.SetEnabled(false);
     }
 
-    void OnCardChange()
+    void HandleExpiredQuest()
     {
-        UpdateSuccessChanceLabel();
-        UpdateActionButton();
+        ReturnAssignedCharacters();
+        foreach (CharacterCardMiniSlot slot in _cardSlots)
+            slot.Lock();
+
+        VisualElement overlay = new VisualElement();
+        overlay.AddToClassList(_ussOverlay);
+        Add(overlay);
+        overlay.BringToFront();
+
+        Label text = new($"Expired! ({_quest.ExpiryDateTime.Day})");
+        text.AddToClassList(_ussCommonTextPrimary);
+        text.style.fontSize = 32;
+        text.transform.rotation *= Quaternion.Euler(0f, 0f, 30f);
+        overlay.Add(text);
     }
 
-    void DelegateBattle() { _quest.DelegateQuest(); }
+    void HandleRewardCollected()
+    {
+        _durationLabel.Clear();
+        _successChanceLabel.Clear();
+        _additionalInfo.Remove(_timer);
+        _assignedCharactersContainer.style.display = DisplayStyle.None;
+
+        if (_quest.Reward.Item == null)
+            return;
+
+        if (!_quest.IsWon)
+            return;
+
+        ItemElement el = new(_quest.Reward.Item);
+        ItemSlot slot = new(el);
+        slot.OnItemRemoved += OnRewardItemRemoved;
+        slot.OnItemAdded += OnRewardItemAdded;
+
+        _deskManager.GetComponent<DraggableItems>().AddSlot(slot);
+        _deskManager.GetComponent<DraggableItems>().AddDraggableItem(el);
+
+        _additionalInfo.Add(slot);
+        slot.BringToFront();
+    }
+
+    void OnRewardItemRemoved(ItemElement el) { _quest.Reward.Item = null; }
+
+    void OnRewardItemAdded(ItemElement el) { _quest.Reward.Item = el.Item; }
 
     void SeeResults()
     {
