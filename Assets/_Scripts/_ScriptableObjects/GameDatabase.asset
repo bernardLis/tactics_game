@@ -20,7 +20,23 @@ MonoBehaviour:
   StartingTroops:
   - {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
   - {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
-  Abilities: []
+  Abilities:
+  - {fileID: 11400000, guid: 5c32271d331b2174cba7d4b21d0ec638, type: 2}
+  - {fileID: 11400000, guid: 78234d09aee00654797759a268015eea, type: 2}
+  - {fileID: 11400000, guid: b29d21e0ed8f9ad498675937a50353de, type: 2}
+  - {fileID: 11400000, guid: c029a2bb01a334047af00a29c19a8f97, type: 2}
+  - {fileID: 11400000, guid: 06099217ae6a4c644bfa9cd783b81449, type: 2}
+  - {fileID: 11400000, guid: 34d798471a097bd48bbe81cbcb9add95, type: 2}
+  - {fileID: 11400000, guid: 93a28885fd319b248b152d73ffab8512, type: 2}
+  - {fileID: 11400000, guid: 97d32039525de614495d6369d93ea45a, type: 2}
+  - {fileID: 11400000, guid: 42ecaff66c02b8c4d8b336f9c8a2f937, type: 2}
+  - {fileID: 11400000, guid: 65c33204802a65744983634f5806c5bc, type: 2}
+  - {fileID: 11400000, guid: cec39b3138f24b0489541d3fc1041b0d, type: 2}
+  - {fileID: 11400000, guid: 125b676c92177aa4f9f20ce62b8207eb, type: 2}
+  - {fileID: 11400000, guid: 3d151dd0bdf5cb44c8495ac983eaf149, type: 2}
+  - {fileID: 11400000, guid: 7826ca5053518cd4cb1bdd310d5c10dd, type: 2}
+  - {fileID: 11400000, guid: 9b2309d30543b3e458dba1ce61e2d984, type: 2}
+  - {fileID: 11400000, guid: e30492f8ad7283543bdac532bc1e1de2, type: 2}
   Items:
   - {fileID: 11400000, guid: 653ed2c41395a0d4b8e6453cafff0f00, type: 2}
   - {fileID: 11400000, guid: 1f4b32a79e11845419f1b8ddea037b28, type: 2}
@@ -63,55 +79,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8dc4b813eccf12644986db7dadf28a85, type: 2}
   - {fileID: 11400000, guid: 57a2ed5e8781a834b86d012896adbe79, type: 2}
   - {fileID: 11400000, guid: d39ab990f5e02c545ac454ba7fd618a5, type: 2}
-  RewardChests:
-  - Idle:
-    - {fileID: 571803524, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -297933185, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -674665604, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -937213738, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 46247795, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    Open:
-    - {fileID: 1643831901, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -564760219, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 833030447, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1217726162, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -1987658434, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-  - Idle:
-    - {fileID: 754270984, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1146023677, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1092990739, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -476280125, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 2133018069, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    Open:
-    - {fileID: 892237590, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1050918956, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1719011617, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 2036811870, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -1480032325, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-  - Idle:
-    - {fileID: 867612144, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -2066475011, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1359299427, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1074289126, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -464879206, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    Open:
-    - {fileID: 2077565659, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -589087751, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -1599717354, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 175287744, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1752607754, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-  - Idle:
-    - {fileID: 1417485009, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 1156205763, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -517423239, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 623661260, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -338340243, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    Open:
-    - {fileID: -594145477, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -1674572029, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -1529983679, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: 730016207, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
-    - {fileID: -758821132, guid: 626ff54eda32c33489fc6ce612a6491f, type: 3}
   ReportPapers:
   - {fileID: 11400000, guid: ef179574ccac47e42aef73b2607fe575, type: 2}
   - {fileID: 11400000, guid: 229b391159767b14e88a9c374891d60e, type: 2}

@@ -13,13 +13,18 @@ public class TimerElement : VisualElement
     const string _ussLine = _ussClassName + "line";
     const string _ussLineMask = _ussClassName + "line-mask";
     const string _ussWrapper = _ussClassName + "wrapper";
+
+    const string _ussLabelWrapper = _ussClassName + "label-wrapper";
     const string _ussLabel = _ussClassName + "label";
+    const string _ussSecondsLeftLabel = _ussClassName + "seconds-left-label";
 
     GameManager _gameManager;
 
     VisualElement _line;
     VisualElement _lineMask;
     Label _label;
+    Label _secondsLeftLabel;
+
 
     int _totalTicks;
     int _ticksLeft;
@@ -55,10 +60,19 @@ public class TimerElement : VisualElement
         Add(wrapper);
         wrapper.AddToClassList(_ussWrapper);
 
-        _label = new(text);
-        Add(_label);
+        VisualElement labelWrapper = new();
+        Add(labelWrapper);
+        labelWrapper.AddToClassList(_ussLabelWrapper);
+
+        _label = new();
+        labelWrapper.Add(_label);
         _label.AddToClassList(_ussCommonTextPrimary);
         _label.AddToClassList(_ussLabel);
+
+        _secondsLeftLabel = new();
+        labelWrapper.Add(_secondsLeftLabel);
+        _secondsLeftLabel.AddToClassList(_ussCommonTextPrimary);
+        _secondsLeftLabel.AddToClassList(_ussSecondsLeftLabel);
 
         float w = 100 - (float)_ticksLeft / (float)_totalTicks * 100;
         _lineMask.style.width = Length.Percent(w);
@@ -89,6 +103,8 @@ public class TimerElement : VisualElement
     {
         float w = 100 - (float)_ticksLeft / (float)_totalTicks * 100;
         _lineMask.style.width = Length.Percent(w);
+        string timeLeft = (_ticksLeft * 0.1f).ToString("F1");
+        _secondsLeftLabel.text = timeLeft;
 
         _ticksLeft--;
         if (_ticksLeft == -1)
