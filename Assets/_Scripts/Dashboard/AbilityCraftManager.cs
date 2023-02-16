@@ -40,9 +40,6 @@ public class AbilityCraftManager : MonoBehaviour
     MyButton _craftButton;
     MyButton _discardButton;
 
-    VisualElement _craftedAbilitiesContainer;
-    List<AbilityButton> _craftedAbilityButtons = new();
-
     EffectHolder _addedToCraftingEffect;
 
     bool _subscribedToNodeActions;
@@ -54,7 +51,6 @@ public class AbilityCraftManager : MonoBehaviour
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _gameManager.OnDayPassed += OnDayPassed;
 
         _dashboardManager = GetComponent<DashboardManager>();
         _dashboardManager.OnAbilitiesOpened += OnAbilitiesClicked;
@@ -64,14 +60,10 @@ public class AbilityCraftManager : MonoBehaviour
         _abilityGraphManager = GetComponent<AbilityGraphManager>();
 
         _abilityCraft = _root.Q<VisualElement>("abilityCraft");
-        _craftedAbilitiesContainer = _root.Q<VisualElement>("craftedAbilitiesContainer");
 
         GetCraftContainerElements();
         SetupCraftContainer();
-        PopulateCraftedAbilities();
     }
-
-    void OnDayPassed(int day) { UpdateCraftedAbilities(); }
 
     void OnAbilitiesClicked()
     {
@@ -249,13 +241,7 @@ public class AbilityCraftManager : MonoBehaviour
         _gameManager.ChangeSpiceValue(-_abilityNode.GetSpiceCostByStars(_numberOfStars));
 
         Ability craftedAbility = _abilityNode.CreateAbility(_numberOfStars, _craftAbilityName.value);
-        craftedAbility.TimeLeftToCrafted = _abilityNode.DaysOnCooldownRemaining;
-        _gameManager.AddCraftedAbility(craftedAbility);
-
-        AbilityButton button = new(craftedAbility);
-        _craftedAbilityButtons.Add(button);
-        button.AddCooldownOverlay();
-        _craftedAbilitiesContainer.Add(button);
+        CreateReport(craftedAbility);
 
         // vfx
         Vector3 pos = _abilityButtonsContainer.worldTransform.GetPosition();
@@ -286,36 +272,6 @@ public class AbilityCraftManager : MonoBehaviour
     }
 
     /* CRAFTED ABILITIES */
-    void PopulateCraftedAbilities()
-    {
-        foreach (Ability ability in _gameManager.CraftedAbilities)
-        {
-            AbilityButton button = new(ability);
-            button.AddCooldownOverlay();
-            _craftedAbilitiesContainer.Add(button);
-            _craftedAbilityButtons.Add(button);
-        }
-    }
-
-    void UpdateCraftedAbilities()
-    {
-        List<AbilityButton> buttonsToRemove = new();
-        foreach (AbilityButton button in _craftedAbilityButtons)
-        {
-            button.Ability.TimeLeftToCrafted--;
-            button.UpdateCooldownOverlay();
-            if (button.Ability.TimeLeftToCrafted <= 0)
-            {
-                CreateReport(button.Ability);
-                buttonsToRemove.Add(button);
-                _gameManager.RemoveCraftedAbility(button.Ability);
-                _craftedAbilitiesContainer.Remove(button);
-            }
-        }
-
-        foreach (AbilityButton button in buttonsToRemove)
-            _craftedAbilityButtons.Remove(button);
-    }
 
     void CreateReport(Ability craftedAbility)
     {

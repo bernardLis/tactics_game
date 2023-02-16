@@ -34,29 +34,4 @@ public class AbilityButton : ElementWithSound
         _icon = new AbilityIcon(ability, key);
         Add(_icon);
     }
-
-    /* Crafting */
-    public void AddCooldownOverlay()
-    {
-        _overlay = new();
-        _overlay.AddToClassList(_ussOverlay);
-        Add(_overlay);
-
-        UpdateCooldownOverlay();
-    }
-
-    public void UpdateCooldownOverlay()
-    {
-        _overlay.style.display = DisplayStyle.None;
-
-        if (Ability.TimeLeftToCrafted <= 0)
-            return;
-
-        _overlay.style.display = DisplayStyle.Flex;
-        _overlay.Clear();
-        Label l = new($"{Ability.TimeLeftToCrafted}");
-        l.AddToClassList(_ussCommonTextPrimary);
-        _overlay.Add(l);
-    }
-
 }

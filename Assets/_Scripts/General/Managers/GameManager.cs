@@ -35,7 +35,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [HideInInspector] public List<Item> PlayerItemPouch = new();
 
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
-    [HideInInspector] public List<Ability> CraftedAbilities = new();
 
     public List<Report> Reports = new();
     public List<Report> ReportsArchived = new();
@@ -200,18 +199,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    public void AddCraftedAbility(Ability ability)
-    {
-        CraftedAbilities.Add(ability);
-        SaveJsonData();
-    }
-
-    public void RemoveCraftedAbility(Ability ability)
-    {
-        CraftedAbilities.Remove(ability);
-        SaveJsonData();
-    }
-
     /* LEVELS */
 
     public void LoadLevel(string level)
@@ -234,8 +221,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
         Spice = 500;
 
-        // PlayerTroops = CreatePlayerTroops();
-
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
 
@@ -250,25 +235,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    /* HERE:
-        List<Character> CreatePlayerTroops() // for the new save
-        {
-            Debug.Log($"Creating player troops...");
-            List<Character> instantiatedTroops = new();
-
-            List<Character> playerCharacters = new(GameDatabase.GetAllStarterTroops());
-            PlayerTroops = new();
-            foreach (Character character in playerCharacters)
-            {
-                Character instance = Instantiate(character);
-                instance.InitializeStarterTroops();
-                OnDayPassed += instance.OnDayPassed;
-                instantiatedTroops.Add(instance);
-            }
-
-            return instantiatedTroops;
-        }
-    */
     public void LoadFromSaveFile() { LoadJsonData(PlayerPrefs.GetString("saveName")); }
 
     public void SaveJsonData()
@@ -297,7 +263,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.ItemPouch = PopulateItemPouch();
 
         saveData.AbilityPouch = PopulateAbilityPouch();
-        saveData.CraftedAbilities = PopulateCraftedAbilities();
 
         saveData.Reports = PopulateReports();
         saveData.ReportsArchived = PopulateArchivedReports();
@@ -328,15 +293,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         List<AbilityData> abilityData = new();
         foreach (Ability a in PlayerAbilityPouch)
-            abilityData.Add(a.SerializeSelf());
-
-        return abilityData;
-    }
-
-    List<AbilityData> PopulateCraftedAbilities()
-    {
-        List<AbilityData> abilityData = new();
-        foreach (Ability a in CraftedAbilities)
             abilityData.Add(a.SerializeSelf());
 
         return abilityData;
@@ -426,15 +382,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             PlayerAbilityPouch.Add(a);
         }
 
-        CraftedAbilities = new();
-        foreach (AbilityData abilityData in saveData.CraftedAbilities)
-        {
-            Ability a = Instantiate(GameDatabase.GetAbilityById(abilityData.TemplateId));
-            a.name = abilityData.Name;
-            a.TimeLeftToCrafted = abilityData.TimeLeftToCrafted;
-            CraftedAbilities.Add(a);
-        }
-
         LoadReports(saveData);
 
         _buildingManager.LoadAllBuildingsFromData(saveData.CampBuildings);
@@ -473,7 +420,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
         Spice = 0;
 
-        //PlayerTroops = CreatePlayerTroops();
+        PlayerTroops = new();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();
 

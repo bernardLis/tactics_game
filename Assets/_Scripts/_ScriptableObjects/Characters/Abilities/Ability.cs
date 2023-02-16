@@ -17,7 +17,6 @@ public class Ability : BaseScriptableObject
     [Header("Other")]
     public int SpiceCost = 1;
     public int StarRank = 0;
-    [HideInInspector] public int TimeLeftToCrafted;
 
     /* UI Helpers */
     public int GetAbilityValue() { return 2; }
@@ -31,8 +30,6 @@ public class Ability : BaseScriptableObject
         data.TemplateId = Id;
 
         data.Name = name;
-        data.TimeLeftToCrafted = TimeLeftToCrafted;
-
         return data;
     }
 }
