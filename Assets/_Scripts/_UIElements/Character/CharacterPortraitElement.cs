@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class CharacterPortraitElement : VisualElement
 {
-    public CharacterCard Card;
-    public Character Character;
-    VisualElement _portrait;
-    VisualElement _frame;
-
     const string _ussClassName = "character-portrait";
     const string _ussContainer = _ussClassName + "__container";
     const string _ussMain = _ussClassName + "__main";
@@ -17,6 +12,12 @@ public class CharacterPortraitElement : VisualElement
     const string _ussContainerSlotted = _ussClassName + "__container-slotted";
     const string _ussMainSlotted = _ussClassName + "__main-slotted";
     const string _ussFrameSlotted = _ussClassName + "__frame-slotted";
+
+
+    public CharacterCard Card;
+    public Character Character;
+    VisualElement _portrait;
+    VisualElement _frame;
 
 
     public CharacterPortraitElement(Character character, CharacterCard card = null)

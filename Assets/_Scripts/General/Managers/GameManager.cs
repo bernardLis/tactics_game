@@ -75,6 +75,16 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void Play()
     {
+        if (PlayerTroops.Count == 0)
+        {
+            LoadLevel(Scenes.CharacterCreation);
+            return;
+        }
+        StartGame();
+    }
+
+    public void StartGame()
+    {
         LoadLevel(Scenes.Dashboard);
         IsTimerOn = true;
     }
@@ -224,7 +234,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
         Spice = 500;
 
-        PlayerTroops = CreatePlayerTroops();
+        // PlayerTroops = CreatePlayerTroops();
 
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
@@ -240,24 +250,25 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    List<Character> CreatePlayerTroops() // for the new save
-    {
-        Debug.Log($"Creating player troops...");
-        List<Character> instantiatedTroops = new();
-
-        List<Character> playerCharacters = new(GameDatabase.GetAllStarterTroops());
-        PlayerTroops = new();
-        foreach (Character character in playerCharacters)
+    /* HERE:
+        List<Character> CreatePlayerTroops() // for the new save
         {
-            Character instance = Instantiate(character);
-            instance.InitializeStarterTroops();
-            OnDayPassed += instance.OnDayPassed;
-            instantiatedTroops.Add(instance);
+            Debug.Log($"Creating player troops...");
+            List<Character> instantiatedTroops = new();
+
+            List<Character> playerCharacters = new(GameDatabase.GetAllStarterTroops());
+            PlayerTroops = new();
+            foreach (Character character in playerCharacters)
+            {
+                Character instance = Instantiate(character);
+                instance.InitializeStarterTroops();
+                OnDayPassed += instance.OnDayPassed;
+                instantiatedTroops.Add(instance);
+            }
+
+            return instantiatedTroops;
         }
-
-        return instantiatedTroops;
-    }
-
+    */
     public void LoadFromSaveFile() { LoadJsonData(PlayerPrefs.GetString("saveName")); }
 
     public void SaveJsonData()
@@ -462,7 +473,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
         Spice = 0;
 
-        PlayerTroops = CreatePlayerTroops();
+        //PlayerTroops = CreatePlayerTroops();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();
 

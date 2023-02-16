@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
+    <ui:VisualElement name="background" class="textPrimaryBlack" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Art/Sprites/Dashboard/Paper/brown_age_by_darkwood67.jpg?fileID=2800000&amp;guid=5ed7bae907d9bdf4481ac157fa16c084&amp;type=3#brown_age_by_darkwood67&apos;);">
+        <ui:VisualElement name="wrapper" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 80%; height: 80%; align-items: center; font-size: 32px; justify-content: center; align-self: center; margin-top: 10%;">
+            <ui:TextField picking-mode="Ignore" label="What&apos;s your name:" value="..." name="nameField" readonly="false" style="flex-direction: column; width: 50%; align-items: center;" />
+            <ui:VisualElement name="portraitGroupContainer" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); margin-top: 50px; align-items: center; justify-content: center;">
+                <ui:Label tabindex="-1" text="How do you look like: " display-tooltip-when-elided="true" name="portraitTextLabel" />
+                <ui:VisualElement name="portraitWrapper" style="flex-grow: 1; width: 100%; align-items: center; height: 300px;">
+                    <ui:VisualElement name="portrait" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/Sprites/Character/Portrait/female/delacroix_eugene_ferdinand_victor1.png?fileID=2800000&amp;guid=0c2d8de7f9695b547bbd59141ce45efd&amp;type=3#delacroix_eugene_ferdinand_victor1&apos;); width: 250px; height: 250px; -unity-background-scale-mode: scale-to-fit; border-top-left-radius: 200px; border-bottom-left-radius: 200px; border-top-right-radius: 200px; border-bottom-right-radius: 200px; margin-left: 25px; position: absolute; margin-top: 25px;" />
+                    <ui:VisualElement name="border" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 300px; height: 300px; position: absolute; background-image: url(&apos;project://database/Assets/Art/Sprites/Character/Borders/icon_frame_round_elite.png?fileID=2800000&amp;guid=8188ce0c5e29bd143a71ca19b3bdaa8b&amp;type=3#icon_frame_round_elite&apos;);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="portraitButtonContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="submitButtonContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

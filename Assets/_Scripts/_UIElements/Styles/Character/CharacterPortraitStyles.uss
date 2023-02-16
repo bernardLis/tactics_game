@@ -3,7 +3,6 @@
     height: 150px;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-
 }
 
 .character-portrait__container-slotted {

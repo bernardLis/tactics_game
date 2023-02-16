@@ -7,10 +7,8 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-
     public CharacterDatabase CharacterDatabase;
     public QuestDatabase QuestDatabase;
-
 
     public void Initialize() { SortItems(); }
 

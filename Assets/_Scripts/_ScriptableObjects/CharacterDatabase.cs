@@ -9,7 +9,7 @@ public class CharacterDatabase : ScriptableObject
     public CharacterRank GetRankByPoints(int points)
     {
         List<CharacterRank> sorted = CharacterRanks.OrderBy(o => o.Rank).ToList();
-        
+
         CharacterRank r = CharacterRanks[0];
         foreach (CharacterRank rank in CharacterRanks)
             if (rank.PointsRequired <= points)
@@ -21,6 +21,13 @@ public class CharacterDatabase : ScriptableObject
     public List<CharacterPortrait> PortraitsMale = new();
     public List<CharacterPortrait> PortraitsFemale = new();
 
+    public List<CharacterPortrait> GetAllPortraits()
+    {
+        List<CharacterPortrait> l = new();
+        l.AddRange(PortraitsMale);
+        l.AddRange(PortraitsFemale);
+        return l;
+    }
     public CharacterPortrait GetPortraitById(string id)
     {
         List<CharacterPortrait> allPortraits = new();

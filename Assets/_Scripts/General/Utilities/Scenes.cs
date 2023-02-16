@@ -6,15 +6,16 @@ public static class Scenes
         private set { }
     }
 
-    public static string Cutscene
+    public static string CharacterCreation
     {
-        get { return "Cutscene"; }
+        get { return "CharacterCreation"; }
         private set { }
     }
 
-    public static string Rat
+
+    public static string Cutscene
     {
-        get { return "Rat"; }
+        get { return "Cutscene"; }
         private set { }
     }
 
@@ -23,21 +24,5 @@ public static class Scenes
         get { return "Dashboard"; }
         private set { }
     }
-
-
-    public static string Battle
-    {
-        get { return "Battle"; }
-        private set { }
-    }
-
-
-    public static string Journey
-    {
-        get { return "Journey"; }
-        private set { }
-    }
-
-
 
 }

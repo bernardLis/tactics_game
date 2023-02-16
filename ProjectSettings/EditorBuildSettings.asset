@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/MainMenu.unity
     guid: a0db0d41080c8ba4db50e5309508edc9
   - enabled: 1
+    path: Assets/Level/Scenes/CharacterCreation.unity
+    guid: 1d15043c6b6a44042a4eb1f2c9a080ef
+  - enabled: 1
     path: Assets/Level/Scenes/Dashboard.unity
     guid: cbd6b73a154d2274392439e3280998ae
   - enabled: 0

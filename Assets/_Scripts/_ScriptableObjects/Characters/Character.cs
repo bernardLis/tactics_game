@@ -299,7 +299,36 @@ public class Character : BaseScriptableObject
         UpdateElement(_gameManager.GameDatabase.GetElementByName(ElementName.Earth));
     }
 
-    public virtual void CreateRandom(int level)
+    public void CreateFromCharacterCreation(string name, CharacterPortrait portrait)
+    {
+        _gameManager = GameManager.Instance;
+        Id = Guid.NewGuid().ToString();
+        CharacterName = name;
+        Portrait = portrait;
+
+        CreateBaseStats();
+
+        Level.SetValue(1);
+        Experience.SetValue(0);
+        Element = _gameManager.GameDatabase.GetElementByName(ElementName.Earth);
+
+        BaseHealth.SetValue(100);
+        BaseMana.SetValue(30);
+
+        BasePower.SetValue(5);
+        BaseArmor.SetValue(0);
+        BaseSpeed.SetValue(3);
+
+        CreateStats();
+
+        List<Item> Items = new();
+        Abilities = new();
+
+        UpdateRank();
+        WeeklyWage.SetValue(0);
+    }
+
+    public void CreateRandom(int level)
     {
         _gameManager = GameManager.Instance;
 
