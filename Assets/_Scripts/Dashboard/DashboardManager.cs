@@ -15,7 +15,7 @@ public class DashboardManager : Singleton<DashboardManager>
 
     public EffectHolder PanelOpenEffect;
 
-    public TimerElement DayTimer;
+    public LineTimerElement DayTimer;
 
     // resources
     VisualElement _navGold;

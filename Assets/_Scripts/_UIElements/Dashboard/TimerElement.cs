@@ -8,12 +8,8 @@ public class TimerElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "timer-element__";
+    protected const string _ussClassName = "timer-element__";
     const string _ussMain = _ussClassName + "main";
-
-    const string _ussLineMaskWrapper = _ussClassName + "line-mask-wrapper";
-    const string _ussLine = _ussClassName + "line";
-    const string _ussLineMask = _ussClassName + "line-mask";
 
     const string _ussWrapper = _ussClassName + "wrapper";
 
@@ -23,15 +19,15 @@ public class TimerElement : VisualElement
 
     GameManager _gameManager;
 
-    VisualElement _line;
-    VisualElement _lineMask;
+    protected VisualElement _wrapper;
+
+    protected VisualElement _labelWrapper;
     Label _label;
     Label _secondsLeftLabel;
 
-
-    int _totalTicks;
-    int _ticksLeft;
-    bool _isLooping;
+    protected int _totalTicks;
+    protected int _ticksLeft;
+    protected bool _isLooping;
 
     IVisualElementScheduledItem _timer;
 
@@ -51,42 +47,27 @@ public class TimerElement : VisualElement
 
         AddToClassList(_ussMain);
 
-        _line = new();
-        Add(_line);
-        _line.AddToClassList(_ussLine);
+        _wrapper = new();
+        Add(_wrapper);
+        _wrapper.AddToClassList(_ussWrapper);
 
-        VisualElement lineMaskWrapper = new();
-        Add(lineMaskWrapper);
-        lineMaskWrapper.AddToClassList(_ussLineMaskWrapper);
-
-        _lineMask = new();
-        lineMaskWrapper.Add(_lineMask);
-        _lineMask.AddToClassList(_ussLineMask);
-
-        VisualElement wrapper = new();
-        Add(wrapper);
-        wrapper.AddToClassList(_ussWrapper);
-
-        VisualElement labelWrapper = new();
-        Add(labelWrapper);
-        labelWrapper.AddToClassList(_ussLabelWrapper);
+        _labelWrapper = new();
+        Add(_labelWrapper);
+        _labelWrapper.AddToClassList(_ussLabelWrapper);
 
         _label = new(text);
-        labelWrapper.Add(_label);
+        _labelWrapper.Add(_label);
         _label.AddToClassList(_ussCommonTextPrimary);
         _label.AddToClassList(_ussLabel);
 
         _secondsLeftLabel = new();
-        labelWrapper.Add(_secondsLeftLabel);
+        _labelWrapper.Add(_secondsLeftLabel);
         _secondsLeftLabel.AddToClassList(_ussCommonTextPrimary);
         _secondsLeftLabel.AddToClassList(_ussSecondsLeftLabel);
 
         _ticksLeft = Mathf.RoundToInt(timeLeft * 10);
         _totalTicks = Mathf.RoundToInt(totalTime * 10);
         _isLooping = isLooping;
-
-        float w = 100 - (float)_ticksLeft / (float)_totalTicks * 100;
-        _lineMask.style.width = Length.Percent(w);
 
         _timer = schedule.Execute(UpdateTimer).Every(100);
     }
@@ -112,10 +93,8 @@ public class TimerElement : VisualElement
             _timer.Pause();
     }
 
-    void UpdateTimer()
+    protected virtual void UpdateTimer()
     {
-        float w = 100 - (float)_ticksLeft / (float)_totalTicks * 100;
-        _lineMask.style.width = Length.Percent(w);
         string timeLeft = (_ticksLeft * 0.1f).ToString("F1");
         _secondsLeftLabel.text = timeLeft;
 

@@ -7,6 +7,27 @@ using Random = UnityEngine.Random;
 
 public class QuestElement : VisualElement
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
+
+    const string _ussClassName = "quest-element__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussTopPanelContainer = _ussClassName + "top-panel-container";
+    const string _ussOverlay = _ussClassName + "overlay";
+
+    const string _ussActionButton = _ussClassName + "action-button";
+    const string _ussActionButtonPending = _ussClassName + "action-button-pending";
+    const string _ussActionButtonFinished = _ussClassName + "action-button-finished";
+    const string _ussActionButtonPlayer = _ussClassName + "action-button-player";
+    const string _ussActionButtonDelegate = _ussClassName + "action-button-delegate";
+
+    const string _ussTimerWrapper = _ussClassName + "timer-element-wrapper";
+    const string _ussTimerLine = _ussClassName + "timer-element-line";
+    const string _ussTimerLineDelegated = _ussClassName + "timer-element-line-delegated";
+    const string _ussTimerLineMaskWrapper = _ussClassName + "timer-element-line-mask-wrapper";
+    const string _ussTimerLineMask = _ussClassName + "timer-element-line-mask";
+
+
     GameManager _gameManager;
     DeskManager _deskManager;
     DraggableCharacters _draggableCharacters;
@@ -17,7 +38,7 @@ public class QuestElement : VisualElement
     QuestRankElement _questRankElement;
     VisualElement _additionalInfo;
 
-    TimerElement _timer;
+    LineTimerElement _timer;
     TextWithTooltip _durationLabel;
     TextWithTooltip _successChanceLabel;
     VisualElement _assignedCharactersContainer;
@@ -27,19 +48,6 @@ public class QuestElement : VisualElement
 
     CampBuildingQuestInfo _questInfoBuilding;
 
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
-
-    const string _ussClassName = "quest-element";
-    const string _ussMain = _ussClassName + "__main";
-    const string _ussTopPanelContainer = _ussClassName + "__top-panel-container";
-    const string _ussOverlay = _ussClassName + "__overlay";
-
-    const string _ussActionButton = _ussClassName + "__action-button";
-    const string _ussActionButtonPending = _ussClassName + "__action-button-pending";
-    const string _ussActionButtonFinished = _ussClassName + "__action-button-finished";
-    const string _ussActionButtonPlayer = _ussClassName + "__action-button-player";
-    const string _ussActionButtonDelegate = _ussClassName + "__action-button-delegate";
 
     public QuestElement(Report report)
     {
@@ -103,6 +111,8 @@ public class QuestElement : VisualElement
         _topPanelContainer.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_topPanelContainer);
 
+        AddTimer();
+
         _topPanelContainer.Add(new TextWithTooltip(_quest.Title, _quest.Description));
         _questRankElement = new QuestRankElement(_quest);
         _questRankElement.UpdateElementalElement(_questInfoBuilding.UpgradeRank);
@@ -115,8 +125,6 @@ public class QuestElement : VisualElement
         _additionalInfo.style.alignItems = Align.Center;
         _additionalInfo.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_additionalInfo);
-
-        AddTimer();
 
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
@@ -146,6 +154,7 @@ public class QuestElement : VisualElement
         float remainingTime = 0;
         string txt = "";
 
+        string lineStyle = "";
         if (_quest.QuestState == QuestState.Pending)
         {
             totalTime = (_quest.ExpiryDateTime.Day - _quest.DayAdded) * GameManager.SecondsInDay;
@@ -153,6 +162,7 @@ public class QuestElement : VisualElement
             float secondsDiff = _gameManager.SecondsLeftInDay; // if we take the whole days into consideration
             remainingTime = dayDiff - (GameManager.SecondsInDay - secondsDiff);
             txt = "Expires in:";
+            lineStyle = _ussTimerLine;
         }
 
         if (_quest.QuestState == QuestState.Delegated)
@@ -161,12 +171,15 @@ public class QuestElement : VisualElement
             float end = _quest.StartedDateTime.GetTimeInSeconds() + totalTime;
             remainingTime = end - _gameManager.GetCurrentTimeInSeconds();
             txt = "Finished in:";
+            lineStyle = _ussTimerLineDelegated;
         }
 
         _timer = new(remainingTime, totalTime, false, txt);
         _timer.OnTimerFinished += OnTimerFinished;
 
-        _additionalInfo.Add(_timer);
+        _timer.SetStyles(_ussTimerWrapper, lineStyle, _ussTimerLineMaskWrapper, _ussTimerLineMask);
+
+        _topPanelContainer.Add(_timer);
     }
 
     void OnTimerFinished()
@@ -334,6 +347,7 @@ public class QuestElement : VisualElement
         float totalTime = _quest.DurationSeconds;
         _timer.UpdateLabel("Finished in: ");
         _timer.UpdateTimerValues(totalTime, totalTime);
+        _timer.UpdateLineStyle(_ussTimerLineDelegated);
 
         _quest.DelegateQuest();
     }
@@ -369,7 +383,8 @@ public class QuestElement : VisualElement
     {
         _durationLabel.Clear();
         _successChanceLabel.Clear();
-        _additionalInfo.Remove(_timer);
+        if (_timer != null)
+            _topPanelContainer.Remove(_timer);
         _assignedCharactersContainer.style.display = DisplayStyle.None;
 
         if (_quest.Reward.Item == null)
