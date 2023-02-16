@@ -129,7 +129,7 @@ public class DashboardManager : Singleton<DashboardManager>
         UnsubscribeInputActions();
     }
 
-    void TogglePause(InputAction.CallbackContext ctx) { _gameManager.ToggleTimer(); }
+    void TogglePause(InputAction.CallbackContext ctx) { _gameManager.ToggleTimer(!_gameManager.IsTimerOn); }
     void ShowDeskUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowDeskUICoroutine()); }
     void ShowAbilityUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowAbilityUICoroutine()); }
     void ShowCampUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowCampUICoroutine()); }

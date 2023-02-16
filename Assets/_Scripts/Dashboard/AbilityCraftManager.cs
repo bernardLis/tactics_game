@@ -5,6 +5,11 @@ using UnityEngine.UIElements;
 
 public class AbilityCraftManager : MonoBehaviour
 {
+    const string _ussClassName = "ability-crafting__";
+    const string _ussCraftButton = _ussClassName + "craft-button";
+    const string _ussDiscardButton = _ussClassName + "discard-button";
+
+
     GameManager _gameManager;
     DashboardManager _dashboardManager;
     AbilityGraphManager _abilityGraphManager;
@@ -44,9 +49,6 @@ public class AbilityCraftManager : MonoBehaviour
 
     bool _subscribedToNodeActions;
 
-    const string _ussClassName = "ability-crafting__";
-    const string _ussCraftButton = _ussClassName + "craft-button";
-    const string _ussDiscardButton = _ussClassName + "discard-button";
 
     void Start()
     {

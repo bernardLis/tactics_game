@@ -90,9 +90,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public float GetCurrentTimeInSeconds() { return Day * SecondsInDay + SecondsInDay - SecondsLeftInDay; }
 
-    public void ToggleTimer()
+    public void ToggleTimer(bool isOn)
     {
-        IsTimerOn = !IsTimerOn;
+        IsTimerOn = isOn;
         OnTimerStateChanged?.Invoke(IsTimerOn);
     }
 

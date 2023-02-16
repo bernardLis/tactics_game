@@ -24,8 +24,6 @@ public class QuestResultElement : FullScreenElement
     int _currentCard;
     IVisualElementScheduledItem _expAwardScheduler;
 
-
-
     RewardContainer _rewardContainer;
     AudioSource _openSfxAudioSource;
 
@@ -108,6 +106,8 @@ public class QuestResultElement : FullScreenElement
 
     void HandleSpectacle()
     {
+        _gameManager.ToggleTimer(false);
+
         if (_quest.IsWon)
             _openSfxAudioSource = _audioManager.PlaySFX("QuestWon", Vector3.one);
         else
@@ -254,6 +254,7 @@ public class QuestResultElement : FullScreenElement
 
     public override void Hide()
     {
+        _gameManager.ToggleTimer(true);
         base.Hide();
         _openSfxAudioSource.Stop();
     }

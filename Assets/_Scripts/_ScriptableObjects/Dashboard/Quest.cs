@@ -100,9 +100,6 @@ public class Quest : BaseScriptableObject
         StartedDateTime.Day = _gameManager.Day;
         StartedDateTime.Seconds = GameManager.SecondsInDay - _gameManager.SecondsLeftInDay;
 
-        foreach (Character character in AssignedCharacters)
-            character.SetUnavailable(DurationSeconds);
-
         UpdateQuestState(QuestState.Delegated);
         _gameManager.SaveJsonData();
     }
@@ -120,6 +117,7 @@ public class Quest : BaseScriptableObject
 
     public void Lost()
     {
+        Debug.Log($"Quest lost");
         CampBuildingHospital h = _gameManager.GetComponent<BuildingManager>().HospitalBuilding;
         int maxDaysDisabled = h.GetUpgradeByRank(h.UpgradeRank).MaxDaysDisabled;
         foreach (Character character in AssignedCharacters)
