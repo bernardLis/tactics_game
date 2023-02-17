@@ -13,6 +13,8 @@ public class CharacterCardMini : ElementWithTooltip
     VisualElement _overlay;
     VisualElement _shadow;
 
+    TimerElement _unavailabilityTimer;
+
     public bool IsLocked;
 
     public event Action<CharacterCardMini> OnLocked;
@@ -38,8 +40,13 @@ public class CharacterCardMini : ElementWithTooltip
         if (ss != null)
             styleSheets.Add(ss);
 
-        _gameManager.OnDayPassed += OnDayPassed;
         Character = character;
+        character.OnSetUnavailable += SetUnavailable;
+        Debug.Log($"Character: {Character.CharacterName} unavailable: {Character.IsUnavailable}");
+        AddUnavailableOverlay();
+
+        if (character.IsUnavailable)
+            LoadUnavailability();
 
         AddToClassList(_ussMain);
 
@@ -51,15 +58,39 @@ public class CharacterCardMini : ElementWithTooltip
         _portrait = new CharacterPortraitElement(character);
         Add(_portrait);
 
-        AddUnavailableOverlay();
         UpdateUnavailableOverlay();
     }
 
-    void OnDayPassed(int day)
+    void SetUnavailable()
     {
-        UpdateUnavailableOverlay();
-        if (!Character.IsUnavailable && IsLocked)
-            Unlock();
+        Lock();
+        _unavailabilityTimer = new(Character.UnavailabilityDuration, Character.UnavailabilityDuration, false, "Sprained ankle");
+        _unavailabilityTimer.OnTimerFinished += UnavailabilityTimerFinished;
+        _overlay.Add(_unavailabilityTimer);
+    }
+
+    void LoadUnavailability()
+    {
+        Lock();
+        int timeLeft = Character.UnavailabilityDuration - (int)_gameManager.GetCurrentTimeInSeconds() - (int)Character.DateTimeUnavailabilityStarted.GetTimeInSeconds();
+        Debug.Log($"time left: {timeLeft}");
+
+        if (timeLeft <= 0)
+        {
+            UnavailabilityTimerFinished();
+            return;
+        }
+
+        _unavailabilityTimer = new(timeLeft, Character.UnavailabilityDuration, false, "Sprained ankle");
+        _unavailabilityTimer.OnTimerFinished += UnavailabilityTimerFinished;
+        _overlay.Add(_unavailabilityTimer);
+    }
+
+
+    void UnavailabilityTimerFinished()
+    {
+        Character.SetAvailable();
+        Unlock();
     }
 
     public void PickedUp()

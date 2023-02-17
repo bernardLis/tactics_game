@@ -96,10 +96,7 @@ public class Quest : BaseScriptableObject
 
     public void DelegateQuest()
     {
-        StartedDateTime = ScriptableObject.CreateInstance<DateTime>();
-        StartedDateTime.Day = _gameManager.Day;
-        StartedDateTime.Seconds = GameManager.SecondsInDay - _gameManager.SecondsLeftInDay;
-
+        StartedDateTime = _gameManager.GetCurrentDateTime();
         UpdateQuestState(QuestState.Delegated);
         _gameManager.SaveJsonData();
     }
@@ -118,10 +115,6 @@ public class Quest : BaseScriptableObject
     public void Lost()
     {
         Debug.Log($"Quest lost");
-        CampBuildingHospital h = _gameManager.GetComponent<BuildingManager>().HospitalBuilding;
-        int maxDaysDisabled = h.GetUpgradeByRank(h.UpgradeRank).MaxDaysDisabled;
-        foreach (Character character in AssignedCharacters)
-            character.SetUnavailable(Random.Range(1, maxDaysDisabled + 1));
     }
 
     // TODO: change reward exp to take into consideration rank difference and winning losing quest

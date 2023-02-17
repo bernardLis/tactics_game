@@ -62,11 +62,11 @@ public class CharacterCardQuest : VisualElement
         _portrait = new CharacterPortraitElement(character);
         Add(_portrait);
 
-        Add(CreateExpGroup());
+        Add(CreateMiddlePanel());
         Add(CreateStatGroup());
     }
 
-    VisualElement CreateExpGroup()
+    VisualElement CreateMiddlePanel()
     {
         VisualElement container = new();
         container.AddToClassList(_ussExpContainer);
@@ -91,6 +91,7 @@ public class CharacterCardQuest : VisualElement
 
         container.Add(_title);
         container.Add(_expBar);
+        container.Add(HandleUnavailability());
         return container;
     }
 
@@ -202,5 +203,16 @@ public class CharacterCardQuest : VisualElement
         Add(container);
         el.PlayAnimation();
         el.OnAnimationFinished += () => Remove(container);
+    }
+
+    VisualElement HandleUnavailability()
+    {
+        if (!Character.IsUnavailable)
+            return new VisualElement();
+
+        //TODO: list of mild injuries character can sustain on quest fail
+        Label l = new($"Sprained ankle, unavailable for: {Character.UnavailabilityDuration}s");
+        l.style.whiteSpace = WhiteSpace.Normal;
+        return l;
     }
 }

@@ -23,5 +23,5 @@ public class CampBuildingHospital : CampBuilding
 public struct CampUpgradeHospital
 {
     public int UpgradeRank;
-    public int MaxDaysDisabled;
+    public int SecondsDisabled;
 }

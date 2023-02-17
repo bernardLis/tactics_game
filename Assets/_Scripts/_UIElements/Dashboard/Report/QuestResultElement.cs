@@ -121,6 +121,12 @@ public class QuestResultElement : FullScreenElement
     {
         foreach (Character c in _quest.AssignedCharacters)
         {
+            // HERE: 
+            //if(!_quest.IsWon)
+            CampBuildingHospital h = _gameManager.GetComponent<BuildingManager>().HospitalBuilding;
+            int secondsDisabled = h.GetUpgradeByRank(h.UpgradeRank).SecondsDisabled;
+            c.SetUnavailable(secondsDisabled);
+
             CharacterCardQuest card = new(c);
             _characterCardsExp.Add(card);
             _middleLeftContainer.Add(card);

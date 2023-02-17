@@ -321,6 +321,13 @@ public class QuestElement : VisualElement
             return;
         }
 
+        if (_quest.QuestState == QuestState.Delegated)
+        {
+            _actionButton.SetEnabled(false);
+            _actionButton.UpdateButtonText("In progress...");
+            return;
+        }
+
         if (_quest.AssignedCharacterCount() > 0)
             HandleActionButton(DelegateBattle, "Delegate It!", _ussActionButtonDelegate);
     }

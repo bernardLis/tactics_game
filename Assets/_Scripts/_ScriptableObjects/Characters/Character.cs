@@ -46,8 +46,8 @@ public class Character : BaseScriptableObject
 
     [Header("Quest")]
     [HideInInspector] public bool IsAssigned;
-    [HideInInspector] public bool IsUnavailable;
-    [HideInInspector] public int DayStartedBeingUnavailable;
+    [HideInInspector] public bool IsUnavailable { get; private set; }
+    [HideInInspector] public DateTime DateTimeUnavailabilityStarted;
     [HideInInspector] public int UnavailabilityDuration;
 
     public int DayAddedToTroops { get; private set; }
@@ -58,16 +58,7 @@ public class Character : BaseScriptableObject
 
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
-
-    public void OnDayPassed(int day)
-    {
-        if (!IsUnavailable)
-            return;
-
-        UnavailabilityDuration--;
-        if (UnavailabilityDuration <= 0)
-            IsUnavailable = false;
-    }
+    public event Action OnSetUnavailable;
 
     public void UpdateDeskPosition(Vector2 newPos)
     {
@@ -75,14 +66,18 @@ public class Character : BaseScriptableObject
         _gameManager.SaveJsonData();
     }
 
-    public void SetUnavailable(int days)
+    public void SetUnavailable(int seconds)
     {
         _gameManager = GameManager.Instance;
 
         IsUnavailable = true;
-        DayStartedBeingUnavailable = _gameManager.Day;
-        UnavailabilityDuration = days;
+        DateTimeUnavailabilityStarted = _gameManager.GetCurrentDateTime();
+        UnavailabilityDuration = seconds;
+        OnSetUnavailable?.Invoke();
+        _gameManager.SaveJsonData();
     }
+
+    public void SetAvailable() { IsUnavailable = false; }
 
     public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
 
@@ -280,25 +275,6 @@ public class Character : BaseScriptableObject
         NewWage = ScriptableObject.CreateInstance<IntVariable>();
     }
 
-    public void InitializeStarterTroops()
-    {
-        Debug.Log($"Character {name} (starter troop) is initialized.");
-        _gameManager = GameManager.Instance;
-        DayAddedToTroops = 0;
-
-        Level = ScriptableObject.Instantiate(Level);
-        Experience = ScriptableObject.Instantiate(Experience);
-        BaseHealth = ScriptableObject.Instantiate(BaseHealth);
-        BaseMana = ScriptableObject.Instantiate(BaseMana);
-        BasePower = ScriptableObject.Instantiate(BasePower);
-        BaseArmor = ScriptableObject.Instantiate(BaseArmor);
-        BaseSpeed = ScriptableObject.Instantiate(BaseSpeed);
-
-        CreateStats();
-        UpdateRank();
-        UpdateElement(_gameManager.GameDatabase.GetElementByName(ElementName.Earth));
-    }
-
     public void CreateFromCharacterCreation(string name, CharacterPortrait portrait)
     {
         _gameManager = GameManager.Instance;
@@ -375,7 +351,6 @@ public class Character : BaseScriptableObject
         _gameManager = GameManager.Instance;
 
         GameDatabase gameDatabase = _gameManager.GameDatabase;
-        _gameManager.OnDayPassed += OnDayPassed;
         name = data.CharacterName;
 
         Id = data.Id;
@@ -408,7 +383,10 @@ public class Character : BaseScriptableObject
 
         IsAssigned = data.IsAssigned;
         IsUnavailable = data.IsUnavailable;
-        DayStartedBeingUnavailable = data.DayStartedBeingUnavailable;
+
+        DateTimeUnavailabilityStarted = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeUnavailabilityStarted.LoadFromData(data.DateTimeUnavailabilityStarted);
+
         UnavailabilityDuration = data.UnavailabilityDuration;
 
         DayAddedToTroops = data.DayAddedToTroops;
@@ -450,7 +428,7 @@ public class Character : BaseScriptableObject
 
         data.IsAssigned = IsAssigned;
         data.IsUnavailable = IsUnavailable;
-        data.DayStartedBeingUnavailable = DayStartedBeingUnavailable;
+        data.DateTimeUnavailabilityStarted = DateTimeUnavailabilityStarted.SerializeSelf();
         data.UnavailabilityDuration = UnavailabilityDuration;
 
         data.DayAddedToTroops = DayAddedToTroops;
@@ -484,7 +462,7 @@ public struct CharacterData
 
     public bool IsAssigned;
     public bool IsUnavailable;
-    public int DayStartedBeingUnavailable;
+    public DateTimeData DateTimeUnavailabilityStarted;
     public int UnavailabilityDuration;
 
     public int DayAddedToTroops;

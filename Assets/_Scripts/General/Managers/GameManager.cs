@@ -88,6 +88,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         IsTimerOn = true;
     }
 
+    public DateTime GetCurrentDateTime()
+    {
+        DateTime d = ScriptableObject.CreateInstance<DateTime>();
+        d.Day = Day;
+        d.Seconds = SecondsInDay - SecondsLeftInDay;
+        return d;
+    }
+
     public float GetCurrentTimeInSeconds() { return Day * SecondsInDay + SecondsInDay - SecondsLeftInDay; }
 
     public void ToggleTimer(bool isOn)
@@ -162,7 +170,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         PlayerTroops.Add(character);
         character.SetDayAddedToTroops(Day);
-        OnDayPassed += character.OnDayPassed;
         OnCharacterAddedToTroops?.Invoke(character);
         SaveJsonData();
     }
@@ -170,7 +177,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void RemoveCharacterFromTroops(Character character)
     {
         PlayerTroops.Remove(character);
-        OnDayPassed -= character.OnDayPassed;
         OnCharacterRemovedFromTroops?.Invoke(character);
         SaveJsonData();
     }

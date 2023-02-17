@@ -69,7 +69,8 @@ public class TimerElement : VisualElement
         _totalTicks = Mathf.RoundToInt(totalTime * 10);
         _isLooping = isLooping;
 
-        _timer = schedule.Execute(UpdateTimer).Every(100);
+        if (_gameManager.IsTimerOn)
+            _timer = schedule.Execute(UpdateTimer).Every(100);
     }
 
     public void UpdateTimerValues(float timeLeft, float totalTime)
