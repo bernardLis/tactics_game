@@ -72,6 +72,7 @@ public class Character : BaseScriptableObject
 
         IsUnavailable = true;
         DateTimeUnavailabilityStarted = _gameManager.GetCurrentDateTime();
+        Debug.Log($"DateTimeUnavailabilityStarted {DateTimeUnavailabilityStarted.GetTimeInSeconds()} , ");
         UnavailabilityDuration = seconds;
         OnSetUnavailable?.Invoke();
         _gameManager.SaveJsonData();

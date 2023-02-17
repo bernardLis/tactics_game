@@ -1,7 +1,9 @@
-.timer-element__main {
+.timer-element__line-main {
     height: 50px;
     width: 100%;
 }
+
+
 
 .timer-element__wrapper {
     height: 100%;
@@ -48,4 +50,25 @@
 
 .timer-element__seconds-left-label {
     -unity-text-align: middle-center;
+}
+
+.timer-element__overlay-main {
+    position: absolute;
+    flex-direction: column-reverse;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+
+}
+
+.timer-element__overlay-mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.3);
 }

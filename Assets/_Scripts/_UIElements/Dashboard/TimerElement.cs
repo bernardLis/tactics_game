@@ -9,9 +9,7 @@ public class TimerElement : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary";
 
     protected const string _ussClassName = "timer-element__";
-    const string _ussMain = _ussClassName + "main";
 
-    const string _ussWrapper = _ussClassName + "wrapper";
 
     const string _ussLabelWrapper = _ussClassName + "label-wrapper";
     const string _ussLabel = _ussClassName + "label";
@@ -19,11 +17,10 @@ public class TimerElement : VisualElement
 
     GameManager _gameManager;
 
-    protected VisualElement _wrapper;
-
     protected VisualElement _labelWrapper;
     Label _label;
     Label _secondsLeftLabel;
+    string _text;
 
     protected int _totalTicks;
     protected int _ticksLeft;
@@ -45,17 +42,23 @@ public class TimerElement : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        AddToClassList(_ussMain);
+        _text = text;
 
-        _wrapper = new();
-        Add(_wrapper);
-        _wrapper.AddToClassList(_ussWrapper);
+        _ticksLeft = Mathf.RoundToInt(timeLeft * 10);
+        _totalTicks = Mathf.RoundToInt(totalTime * 10);
+        _isLooping = isLooping;
 
+        if (_gameManager.IsTimerOn)
+            _timer = schedule.Execute(UpdateTimer).Every(100);
+    }
+
+    protected VisualElement GetLabelWrapper()
+    {
         _labelWrapper = new();
         Add(_labelWrapper);
         _labelWrapper.AddToClassList(_ussLabelWrapper);
 
-        _label = new(text);
+        _label = new(_text);
         _labelWrapper.Add(_label);
         _label.AddToClassList(_ussCommonTextPrimary);
         _label.AddToClassList(_ussLabel);
@@ -65,12 +68,7 @@ public class TimerElement : VisualElement
         _secondsLeftLabel.AddToClassList(_ussCommonTextPrimary);
         _secondsLeftLabel.AddToClassList(_ussSecondsLeftLabel);
 
-        _ticksLeft = Mathf.RoundToInt(timeLeft * 10);
-        _totalTicks = Mathf.RoundToInt(totalTime * 10);
-        _isLooping = isLooping;
-
-        if (_gameManager.IsTimerOn)
-            _timer = schedule.Execute(UpdateTimer).Every(100);
+        return _labelWrapper;
     }
 
     public void UpdateTimerValues(float timeLeft, float totalTime)
@@ -97,7 +95,9 @@ public class TimerElement : VisualElement
     protected virtual void UpdateTimer()
     {
         string timeLeft = (_ticksLeft * 0.1f).ToString("F1");
-        _secondsLeftLabel.text = timeLeft;
+
+        if (_secondsLeftLabel != null)
+            _secondsLeftLabel.text = timeLeft;
 
         _ticksLeft--;
         if (_ticksLeft == -1)

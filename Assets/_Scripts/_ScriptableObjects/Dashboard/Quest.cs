@@ -105,17 +105,10 @@ public class Quest : BaseScriptableObject
     {
         if (Roll <= GetSuccessChance() * 0.01)
             Won();
-        else
-            Lost();
         UpdateQuestState(QuestState.Finished);
     }
 
     public void Won() { IsWon = true; }
-
-    public void Lost()
-    {
-        Debug.Log($"Quest lost");
-    }
 
     // TODO: change reward exp to take into consideration rank difference and winning losing quest
     public int CalculateRewardExp(Character c) { return IsWon ? 100 : 100; }

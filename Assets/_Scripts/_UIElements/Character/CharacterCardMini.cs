@@ -10,10 +10,9 @@ public class CharacterCardMini : ElementWithTooltip
     public Character Character;
 
     CharacterPortraitElement _portrait;
-    VisualElement _overlay;
     VisualElement _shadow;
 
-    TimerElement _unavailabilityTimer;
+    OverlayTimerElement _unavailabilityTimer;
 
     public bool IsLocked;
 
@@ -43,10 +42,6 @@ public class CharacterCardMini : ElementWithTooltip
         Character = character;
         character.OnSetUnavailable += SetUnavailable;
         Debug.Log($"Character: {Character.CharacterName} unavailable: {Character.IsUnavailable}");
-        AddUnavailableOverlay();
-
-        if (character.IsUnavailable)
-            LoadUnavailability();
 
         AddToClassList(_ussMain);
 
@@ -58,7 +53,8 @@ public class CharacterCardMini : ElementWithTooltip
         _portrait = new CharacterPortraitElement(character);
         Add(_portrait);
 
-        UpdateUnavailableOverlay();
+        if (character.IsUnavailable)
+            LoadUnavailability();
     }
 
     void SetUnavailable()
@@ -66,13 +62,17 @@ public class CharacterCardMini : ElementWithTooltip
         Lock();
         _unavailabilityTimer = new(Character.UnavailabilityDuration, Character.UnavailabilityDuration, false, "Sprained ankle");
         _unavailabilityTimer.OnTimerFinished += UnavailabilityTimerFinished;
-        _overlay.Add(_unavailabilityTimer);
+        Add(_unavailabilityTimer);
     }
 
     void LoadUnavailability()
     {
         Lock();
-        int timeLeft = Character.UnavailabilityDuration - (int)_gameManager.GetCurrentTimeInSeconds() - (int)Character.DateTimeUnavailabilityStarted.GetTimeInSeconds();
+        Debug.Log($"Character.UnavailabilityDuration {Character.UnavailabilityDuration}");
+        Debug.Log($"(int)_gameManager.GetCurrentTimeInSeconds() {(int)_gameManager.GetCurrentTimeInSeconds()}");
+        Debug.Log($"(int)Character.DateTimeUnavailabilityStarted.GetTimeInSeconds() {(int)Character.DateTimeUnavailabilityStarted.GetTimeInSeconds()}");
+
+        int timeLeft = Character.UnavailabilityDuration - ((int)_gameManager.GetCurrentTimeInSeconds() - (int)Character.DateTimeUnavailabilityStarted.GetTimeInSeconds());
         Debug.Log($"time left: {timeLeft}");
 
         if (timeLeft <= 0)
@@ -83,9 +83,9 @@ public class CharacterCardMini : ElementWithTooltip
 
         _unavailabilityTimer = new(timeLeft, Character.UnavailabilityDuration, false, "Sprained ankle");
         _unavailabilityTimer.OnTimerFinished += UnavailabilityTimerFinished;
-        _overlay.Add(_unavailabilityTimer);
-    }
+        Add(_unavailabilityTimer);
 
+    }
 
     void UnavailabilityTimerFinished()
     {
@@ -118,37 +118,12 @@ public class CharacterCardMini : ElementWithTooltip
     {
         IsLocked = true;
         OnLocked?.Invoke(this);
-        UpdateUnavailableOverlay();
     }
 
     public void Unlock()
     {
         IsLocked = false;
         OnUnlocked?.Invoke(this);
-        UpdateUnavailableOverlay();
-    }
-
-    void AddUnavailableOverlay()
-    {
-        _overlay = new();
-        _overlay.AddToClassList(_ussOverlay);
-        Add(_overlay);
-
-        UpdateUnavailableOverlay();
-    }
-
-    void UpdateUnavailableOverlay()
-    {
-        _overlay.style.display = DisplayStyle.None;
-
-        if (!Character.IsUnavailable)
-            return;
-
-        _overlay.style.display = DisplayStyle.Flex;
-        _overlay.Clear();
-        Label l = new($"{Character.UnavailabilityDuration}");
-        l.AddToClassList(_ussCommonTextSecondary);
-        _overlay.Add(l);
     }
 
     public void Slotted() { _portrait.Slotted(); }

@@ -370,6 +370,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
             playerCharacter.CreateFromData(data);
             PlayerTroops.Add(playerCharacter);
+            // HERE: testing
+            playerCharacter.SetUnavailable(30);
         }
 
         PlayerItemPouch = new();
