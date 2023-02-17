@@ -11,10 +11,10 @@ public class QuestRankElement : VisualElement
     {
         _quest = quest;
         QuestRank questRank = _quest.Rank;
-        style.alignItems = Align.Center;
 
         _elementalElementContainer = new();
         _elementalElementContainer.style.flexDirection = FlexDirection.Row;
+        _elementalElementContainer.style.alignItems = Align.Center;
         Add(_elementalElementContainer);
 
         Label rankTooltip = new($"{questRank.Description}");

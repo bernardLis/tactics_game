@@ -6,27 +6,8 @@ using System;
 
 public class ReportElement : VisualElement
 {
-    protected GameManager _gameManager;
-    protected AudioManager _audioManager;
-    protected DeskManager _deskManager;
-
-    protected VisualElement _parent;
-    protected VisualElement _reportShadow;
-
-    protected VisualElement _reportContents;
-    protected Label _header;
-
-    protected Report _report;
-    protected VisualElement _acceptRejectContainer;
-    protected MyButton _signButton;
-    protected bool _isArchived;
-
-    protected Vector2 _dragOffset;
-    protected bool _isDragging;
-
-    protected bool _signed;
-
     protected const string _ussCommonTextPrimary = "common__text-primary";
+    protected const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
     protected const string _ussCommonTransitionBasic = "common__transition-basic";
 
     const string _ussClassName = "report";
@@ -48,6 +29,28 @@ public class ReportElement : VisualElement
     const string _ussSignButton = _ussClassName + "__sign_button";
     const string _ussSignedText = _ussClassName + "__signed-text";
     const string _ussSignedTextBefore = _ussClassName + "__signed-text-before";
+
+
+    protected GameManager _gameManager;
+    protected AudioManager _audioManager;
+    protected DeskManager _deskManager;
+
+    protected VisualElement _parent;
+    protected VisualElement _reportShadow;
+
+    protected VisualElement _reportContents;
+    protected Label _header;
+
+    protected Report _report;
+    protected VisualElement _acceptRejectContainer;
+    protected MyButton _signButton;
+    protected bool _isArchived;
+
+    protected Vector2 _dragOffset;
+    protected bool _isDragging;
+
+    protected bool _signed;
+
 
     public event Action<ReportElement> OnReportDismissed;
     public ReportElement(VisualElement parent, Report report)

@@ -23,18 +23,17 @@ public class QuestReportElement : ReportElement
     void UpdateQuestHeader()
     {
         if (_report.Quest.QuestState == QuestState.Pending)
-            AddHeader("Quest Pending", Helpers.GetColor(QuestState.Pending.ToString()));
+            AddHeader(_report.Quest.Title, Helpers.GetColor(QuestState.Pending.ToString()));
         if (_report.Quest.QuestState == QuestState.Delegated)
-            AddHeader("Quest In Progress", Helpers.GetColor(QuestState.Delegated.ToString()));
+            AddHeader(_report.Quest.Title, Helpers.GetColor(QuestState.Delegated.ToString()));
         if (_report.Quest.QuestState == QuestState.Finished)
-            AddHeader("See Quest Results", Helpers.GetColor(QuestState.Finished.ToString()));
+            AddHeader(_report.Quest.Title, Helpers.GetColor(QuestState.Finished.ToString()));
         if (_report.Quest.QuestState == QuestState.Expired)
-            AddHeader("Quest Expired", Helpers.GetColor(QuestState.Expired.ToString()));
+            AddHeader(_report.Quest.Title, Helpers.GetColor(QuestState.Expired.ToString()));
         if (_report.Quest.QuestState == QuestState.RewardCollected)
         {
-            string txt = _report.Quest.IsWon ? "Quest won!" : "Quest lost!";
             Color col = _report.Quest.IsWon ? Helpers.GetColor("healthGainGreen") : Helpers.GetColor("damageRed");
-            AddHeader(txt, col);
+            AddHeader(_report.Quest.Title, col);
         }
     }
 

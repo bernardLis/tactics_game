@@ -34,9 +34,9 @@ public class QuestElement : VisualElement
     Report _report;
     Quest _quest;
 
-    VisualElement _topPanelContainer;
+    VisualElement _topPanel;
     QuestRankElement _questRankElement;
-    VisualElement _additionalInfo;
+    VisualElement _bottomPanel;
 
     LineTimerElement _timer;
     TextWithTooltip _durationLabel;
@@ -47,7 +47,6 @@ public class QuestElement : VisualElement
     List<CharacterCardMiniSlot> _cardSlots = new();
 
     CampBuildingQuestInfo _questInfoBuilding;
-
 
     public QuestElement(Report report)
     {
@@ -106,28 +105,37 @@ public class QuestElement : VisualElement
 
     void AddTopPanel()
     {
-        _topPanelContainer = new();
-        _topPanelContainer.AddToClassList(_ussTopPanelContainer);
-        _topPanelContainer.AddToClassList(_ussCommonTextPrimaryBlack);
-        Add(_topPanelContainer);
+        _topPanel = new();
+        _topPanel.AddToClassList(_ussTopPanelContainer);
+        _topPanel.AddToClassList(_ussCommonTextPrimaryBlack);
+        Add(_topPanel);
 
         AddTimer();
 
-        _topPanelContainer.Add(new TextWithTooltip(_quest.Title, _quest.Description));
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.alignContent = Align.Center;
+
         _questRankElement = new QuestRankElement(_quest);
         _questRankElement.UpdateElementalElement(_questInfoBuilding.UpgradeRank);
-        _topPanelContainer.Add(_questRankElement);
+        container.Add(_questRankElement);
+
+        _topPanel.Add(container);
     }
 
     void AddBottomPanel()
     {
-        _additionalInfo = new();
-        _additionalInfo.style.alignItems = Align.Center;
-        _additionalInfo.AddToClassList(_ussCommonTextPrimaryBlack);
-        Add(_additionalInfo);
+        _bottomPanel = new();
+        _bottomPanel.style.alignItems = Align.Center;
+        _bottomPanel.AddToClassList(_ussCommonTextPrimaryBlack);
+        Add(_bottomPanel);
+
+        _assignedCharactersContainer = CreateCharacterSlots();
+        _bottomPanel.Add(_assignedCharactersContainer);
 
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
+        _bottomPanel.Add(container);
 
         _durationLabel = new TextWithTooltip($"Duration: {_quest.DurationSeconds}s.", $"When delegated it will take {_quest.DurationSeconds}s");
         container.Add(_durationLabel);
@@ -135,14 +143,10 @@ public class QuestElement : VisualElement
         _successChanceLabel = new TextWithTooltip($"", "The stronger/more the characters the higher success chance.");
         UpdateSuccessChanceLabel();
         container.Add(_successChanceLabel);
-        _additionalInfo.Add(container);
-
-        _assignedCharactersContainer = CreateCharacterSlots();
-        _additionalInfo.Add(_assignedCharactersContainer);
 
         _actionButton = CreateActionButton();
         UpdateActionButton();
-        _additionalInfo.Add(_actionButton);
+        _bottomPanel.Add(_actionButton);
     }
 
     void AddTimer()
@@ -179,7 +183,7 @@ public class QuestElement : VisualElement
 
         _timer.SetStyles(_ussTimerWrapper, lineStyle, _ussTimerLineMaskWrapper, _ussTimerLineMask);
 
-        _topPanelContainer.Add(_timer);
+        _topPanel.Add(_timer);
     }
 
     void OnTimerFinished()
@@ -384,7 +388,7 @@ public class QuestElement : VisualElement
         _durationLabel.Clear();
         _successChanceLabel.Clear();
         if (_timer != null)
-            _topPanelContainer.Remove(_timer);
+            _topPanel.Remove(_timer);
         _assignedCharactersContainer.style.display = DisplayStyle.None;
 
         if (_quest.Reward.Item == null)
@@ -401,7 +405,7 @@ public class QuestElement : VisualElement
         _deskManager.GetComponent<DraggableItems>().AddSlot(slot);
         _deskManager.GetComponent<DraggableItems>().AddDraggableItem(el);
 
-        _additionalInfo.Add(slot);
+        _bottomPanel.Add(slot);
         slot.BringToFront();
     }
 
