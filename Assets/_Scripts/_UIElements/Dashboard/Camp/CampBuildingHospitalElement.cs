@@ -25,7 +25,7 @@ public class CampBuildingHospitalElement : CampBuildingElement
     {
         CampBuildingHospital c = (CampBuildingHospital)_campBuilding;
         CampUpgradeHospital upgrade = c.GetUpgradeByRank(c.UpgradeRank);
-        string labelText = $"{upgrade.SecondsDisabled}";
+        string labelText = $"{upgrade.PercentHealingImprovement}%";
         _upgradeText.UpdateText(labelText);
         _upgradeText.UpdateTextColor(Color.white);
     }
@@ -34,7 +34,7 @@ public class CampBuildingHospitalElement : CampBuildingElement
     {
         CampBuildingHospital c = (CampBuildingHospital)_campBuilding;
         CampUpgradeHospital upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
-        string labelText = $"{upgrade.SecondsDisabled}";
+        string labelText = $"{upgrade.PercentHealingImprovement}%";
         _upgradeText.UpdateText(labelText);
         _upgradeText.UpdateTextColor(Color.green);
     }

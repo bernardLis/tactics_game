@@ -207,11 +207,11 @@ public class CharacterCardQuest : VisualElement
 
     VisualElement HandleUnavailability()
     {
-        if (!Character.IsUnavailable)
+        if (!Character.IsUnavailable())
             return new VisualElement();
 
-        //TODO: list of mild injuries character can sustain on quest fail
-        Label l = new($"Sprained ankle, unavailable for: {Character.UnavailabilityDuration}s");
+        Injury i = Character.GetActiveInjury();
+        Label l = new($"{i.name}, unavailable for: {i.GetTotalInjuryTimeInSeconds()}s");
         l.style.whiteSpace = WhiteSpace.Normal;
         return l;
     }

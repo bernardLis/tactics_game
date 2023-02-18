@@ -17,9 +17,6 @@ MonoBehaviour:
   QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   Cutscenes:
   - {fileID: 11400000, guid: 55ad5ffd5bf283d4485798e7df66f245, type: 2}
-  StartingTroops:
-  - {fileID: 11400000, guid: 789992cd3f7e36f4d8c3f049158bfdfe, type: 2}
-  - {fileID: 11400000, guid: 9590f015d0c0ffb4ea1b210761ad4682, type: 2}
   Abilities:
   - {fileID: 11400000, guid: 5c32271d331b2174cba7d4b21d0ec638, type: 2}
   - {fileID: 11400000, guid: 78234d09aee00654797759a268015eea, type: 2}
@@ -61,6 +58,23 @@ MonoBehaviour:
     Sprite: {fileID: -1592477203, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - StatName: Speed
     Sprite: {fileID: -417598653, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  Injuries:
+  - {fileID: 11400000, guid: 3882f24feb7c9a3499c481804ed5dcf7, type: 2}
+  - {fileID: 11400000, guid: 529ffb6b190cf1b458eefc190f680182, type: 2}
+  - {fileID: 11400000, guid: b4a3ab2a331ad4744bda7667b4b8a03b, type: 2}
+  - {fileID: 11400000, guid: c3f85815103c82a47b6b0e23db8150da, type: 2}
+  - {fileID: 11400000, guid: 11fa4ba7830949248bbe84338cbb6866, type: 2}
+  - {fileID: 11400000, guid: b7acc7f656bb3024a847a88d99c5e4c6, type: 2}
+  - {fileID: 11400000, guid: ce651ec35b2fb2842887f54f464a1a1a, type: 2}
+  - {fileID: 11400000, guid: fb5c8da2e5007664ea562c7cfbcbb708, type: 2}
+  - {fileID: 11400000, guid: 24238414ede7a9943bf1fe216d1af774, type: 2}
+  - {fileID: 11400000, guid: 37bb3fccadffd7746881459cd0d19eaa, type: 2}
+  - {fileID: 11400000, guid: 27c46ea45eb4e6a45b0b9287250ae3f7, type: 2}
+  - {fileID: 11400000, guid: 82ccd05c08450c140bc861357b000fb3, type: 2}
+  - {fileID: 11400000, guid: 7245bbe10958dd24f8d262516f8ed811, type: 2}
+  - {fileID: 11400000, guid: ba4d2e2aa5fe1484982a8fa82f874c4a, type: 2}
+  - {fileID: 11400000, guid: c0eddd34029c02b489611b95cce7a9bc, type: 2}
+  - {fileID: 11400000, guid: 1f3d2891d6543404db70a9d8fcb38e81, type: 2}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

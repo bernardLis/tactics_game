@@ -146,7 +146,7 @@ public class DraggableCharacters : MonoBehaviour
         //Found at least one
         _newSlot = slots.OrderBy(x => Vector2.Distance
            (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
-        if (_draggedCard.Character.IsUnavailable)
+        if (_draggedCard.Character.IsUnavailable())
         {
             ReturnCardToContainer(_draggedCard);
             DragCleanUp();

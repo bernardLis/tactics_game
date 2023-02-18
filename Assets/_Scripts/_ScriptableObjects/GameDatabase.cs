@@ -17,22 +17,14 @@ public class GameDatabase : BaseScriptableObject
     public Cutscene[] GetAllCutscenes() { return Cutscenes; }
 
     [Header("Characters")]
-    [SerializeField] Character[] StartingTroops;
     [SerializeField] Ability[] Abilities;
-    [SerializeField] Item[] Items;
-    [SerializeField] StatIcon[] StatIcons;
-    public Character[] GetAllStarterTroops() { return StartingTroops; }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
+
+    [SerializeField] Item[] Items;
     public List<Item> GetAllItems() { return Items.ToList(); }
     public Item GetItemById(string id) { return Items.FirstOrDefault(x => x.Id == id); }
     public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
-    public Item GetRandomCommonItem() { return _commonItems[Random.Range(0, _commonItems.Count)]; }
-    public Item GetRandomUncommonItem() { return _uncommonItems[Random.Range(0, _uncommonItems.Count)]; }
-    public Item GetRandomRareItem() { return _rareItems[Random.Range(0, _rareItems.Count)]; }
-    public Item GetRandomEpicItem() { return _epicItems[Random.Range(0, _epicItems.Count)]; }
-
-    public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
 
     List<Item> _commonItems = new();
     List<Item> _uncommonItems = new();
@@ -52,6 +44,18 @@ public class GameDatabase : BaseScriptableObject
                 _epicItems.Add(i);
         }
     }
+    public Item GetRandomCommonItem() { return _commonItems[Random.Range(0, _commonItems.Count)]; }
+    public Item GetRandomUncommonItem() { return _uncommonItems[Random.Range(0, _uncommonItems.Count)]; }
+    public Item GetRandomRareItem() { return _rareItems[Random.Range(0, _rareItems.Count)]; }
+    public Item GetRandomEpicItem() { return _epicItems[Random.Range(0, _epicItems.Count)]; }
+
+    [SerializeField] StatIcon[] StatIcons;
+    public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
+
+    [SerializeField] Injury[] Injuries;
+    public Injury GetInjuryById(string id) { return Injuries.FirstOrDefault(x => x.Id == id); }
+    public Injury GetRandomInjury() { return Injuries[Random.Range(0, Injuries.Length)]; }
+
 
     [Header("Dashboard")]
     [SerializeField] Sprite[] CoinSprites;

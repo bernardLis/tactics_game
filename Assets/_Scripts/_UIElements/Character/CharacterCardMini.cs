@@ -6,19 +6,6 @@ using System;
 
 public class CharacterCardMini : ElementWithTooltip
 {
-    GameManager _gameManager;
-    public Character Character;
-
-    CharacterPortraitElement _portrait;
-    VisualElement _shadow;
-
-    OverlayTimerElement _unavailabilityTimer;
-
-    public bool IsLocked;
-
-    public event Action<CharacterCardMini> OnLocked;
-    public event Action<CharacterCardMini> OnUnlocked;
-
     const string _ussCommonTextSecondary = "common__text-secondary";
     const string _ussCommonTransitionBasic = "common__transition-basic";
 
@@ -27,8 +14,20 @@ public class CharacterCardMini : ElementWithTooltip
     const string _ussOverlay = _ussClassName + "overlay";
     const string _ussShadow = _ussClassName + "shadow";
     const string _ussPickedUp = _ussClassName + "picked-up";
-    const string _ussSlotted = _ussClassName + "slotted";
 
+    GameManager _gameManager;
+    public Character Character;
+
+    CharacterPortraitElement _portrait;
+    VisualElement _shadow;
+
+    Injury _injury;
+    OverlayTimerElement _unavailabilityTimer;
+
+    public bool IsLocked;
+
+    public event Action<CharacterCardMini> OnLocked;
+    public event Action<CharacterCardMini> OnUnlocked;
     public CharacterCardMini(Character character)
     {
         _gameManager = GameManager.Instance;
@@ -40,8 +39,8 @@ public class CharacterCardMini : ElementWithTooltip
             styleSheets.Add(ss);
 
         Character = character;
-        character.OnSetUnavailable += SetUnavailable;
-        Debug.Log($"Character: {Character.CharacterName} unavailable: {Character.IsUnavailable}");
+        character.OnInjuryAdded += SetUnavailable;
+        Debug.Log($"Character: {Character.CharacterName} unavailable: {Character.IsUnavailable()}");
 
         AddToClassList(_ussMain);
 
@@ -53,43 +52,45 @@ public class CharacterCardMini : ElementWithTooltip
         _portrait = new CharacterPortraitElement(character);
         Add(_portrait);
 
-        if (character.IsUnavailable)
+        if (character.IsUnavailable())
             LoadUnavailability();
     }
 
-    void SetUnavailable()
+    void SetUnavailable(Injury injury)
     {
         Lock();
-        _unavailabilityTimer = new(Character.UnavailabilityDuration, Character.UnavailabilityDuration, false, "Sprained ankle");
-        _unavailabilityTimer.OnTimerFinished += UnavailabilityTimerFinished;
+        _injury = injury;
+        _unavailabilityTimer = new(injury.GetTotalInjuryTimeInSeconds(), injury.GetTotalInjuryTimeInSeconds(), false, injury.name);
+        _unavailabilityTimer.OnTimerFinished += OnUnavailabilityTimerFinished;
         Add(_unavailabilityTimer);
     }
 
     void LoadUnavailability()
     {
+        Injury injury = Character.GetActiveInjury();
+        if (injury == null)
+            return;
         Lock();
-        Debug.Log($"Character.UnavailabilityDuration {Character.UnavailabilityDuration}");
-        Debug.Log($"(int)_gameManager.GetCurrentTimeInSeconds() {(int)_gameManager.GetCurrentTimeInSeconds()}");
-        Debug.Log($"(int)Character.DateTimeUnavailabilityStarted.GetTimeInSeconds() {(int)Character.DateTimeUnavailabilityStarted.GetTimeInSeconds()}");
-
-        int timeLeft = Character.UnavailabilityDuration - ((int)_gameManager.GetCurrentTimeInSeconds() - (int)Character.DateTimeUnavailabilityStarted.GetTimeInSeconds());
+        _injury = injury;
+        int timeLeft = injury.GetTotalInjuryTimeInSeconds() - ((int)_gameManager.GetCurrentTimeInSeconds() - (int)injury.DateTimeStarted.GetTimeInSeconds());
         Debug.Log($"time left: {timeLeft}");
 
         if (timeLeft <= 0)
         {
-            UnavailabilityTimerFinished();
+            injury.Healed();
             return;
         }
 
-        _unavailabilityTimer = new(timeLeft, Character.UnavailabilityDuration, false, "Sprained ankle");
-        _unavailabilityTimer.OnTimerFinished += UnavailabilityTimerFinished;
+        _unavailabilityTimer = new(timeLeft, injury.GetTotalInjuryTimeInSeconds(), false, injury.name);
+        _unavailabilityTimer.OnTimerFinished += OnUnavailabilityTimerFinished;
         Add(_unavailabilityTimer);
-
     }
 
-    void UnavailabilityTimerFinished()
+    void OnUnavailabilityTimerFinished()
     {
-        Character.SetAvailable();
+        // TODO: I could play an effect even!
+        _injury.Healed();
+        Remove(_unavailabilityTimer);
         Unlock();
     }
 

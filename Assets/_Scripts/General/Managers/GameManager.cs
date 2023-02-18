@@ -371,7 +371,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             playerCharacter.CreateFromData(data);
             PlayerTroops.Add(playerCharacter);
             // HERE: testing
-            playerCharacter.SetUnavailable(30);
+            if (!playerCharacter.IsUnavailable())
+                playerCharacter.AddInjury(GameDatabase.GetRandomInjury());
         }
 
         PlayerItemPouch = new();

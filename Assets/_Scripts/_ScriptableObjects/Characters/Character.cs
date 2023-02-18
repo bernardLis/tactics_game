@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEditor;
 using Random = UnityEngine.Random;
 
-
-
 [CreateAssetMenu(menuName = "ScriptableObject/Character/Player")]
 public class Character : BaseScriptableObject
 {
@@ -46,9 +44,7 @@ public class Character : BaseScriptableObject
 
     [Header("Quest")]
     [HideInInspector] public bool IsAssigned;
-    [HideInInspector] public bool IsUnavailable { get; private set; }
-    [HideInInspector] public DateTime DateTimeUnavailabilityStarted;
-    [HideInInspector] public int UnavailabilityDuration;
+    public List<Injury> Injuries = new();
 
     public int DayAddedToTroops { get; private set; }
     public Vector2 DeskPosition { get; private set; }
@@ -58,7 +54,7 @@ public class Character : BaseScriptableObject
 
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
-    public event Action OnSetUnavailable;
+    public event Action<Injury> OnInjuryAdded;
 
     public void UpdateDeskPosition(Vector2 newPos)
     {
@@ -66,19 +62,52 @@ public class Character : BaseScriptableObject
         _gameManager.SaveJsonData();
     }
 
-    public void SetUnavailable(int seconds)
+    public void AddInjury(Injury injury)
     {
-        _gameManager = GameManager.Instance;
+        if (InjuryDramaCheck())
+        {
+            Debug.LogWarning($"Trying to add an injury to character ({CharacterName}) with active injury. It is not supported.");
+            return;
+        }
+        injury.DateTimeStarted = _gameManager.GetCurrentDateTime();
 
-        IsUnavailable = true;
-        DateTimeUnavailabilityStarted = _gameManager.GetCurrentDateTime();
-        Debug.Log($"DateTimeUnavailabilityStarted {DateTimeUnavailabilityStarted.GetTimeInSeconds()} , ");
-        UnavailabilityDuration = seconds;
-        OnSetUnavailable?.Invoke();
-        _gameManager.SaveJsonData();
+        Injuries.Add(injury);
+        OnInjuryAdded?.Invoke(injury);
     }
 
-    public void SetAvailable() { IsUnavailable = false; }
+    public bool IsUnavailable()
+    {
+        foreach (Injury i in Injuries)
+            if (i.IsHealed == false)
+                return true;
+        return false;
+    }
+
+    //TODO: I am currently not handling multiple active injuries
+    public bool InjuryDramaCheck()
+    {
+        int numberOfUnhealedInjuries = 0;
+
+        foreach (Injury i in Injuries)
+            if (i.IsHealed == false)
+                numberOfUnhealedInjuries++;
+
+        if (numberOfUnhealedInjuries > 0)
+        {
+            Debug.Log($"Number of active injuries: {numberOfUnhealedInjuries}");
+            return true;
+        }
+
+        return false;
+    }
+
+    public Injury GetActiveInjury()
+    {
+        foreach (Injury i in Injuries)
+            if (i.IsHealed == false)
+                return i;
+        return null;
+    }
 
     public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
 
@@ -347,7 +376,7 @@ public class Character : BaseScriptableObject
         WeeklyWage.SetValue(Random.Range(100, 200) * Level.Value);
     }
 
-    public virtual void CreateFromData(CharacterData data)
+    public void CreateFromData(CharacterData data)
     {
         _gameManager = GameManager.Instance;
 
@@ -383,13 +412,14 @@ public class Character : BaseScriptableObject
             AddItem(gameDatabase.GetItemById(id));
 
         IsAssigned = data.IsAssigned;
-        IsUnavailable = data.IsUnavailable;
-
-        DateTimeUnavailabilityStarted = ScriptableObject.CreateInstance<DateTime>();
-        DateTimeUnavailabilityStarted.LoadFromData(data.DateTimeUnavailabilityStarted);
-
-        UnavailabilityDuration = data.UnavailabilityDuration;
-
+        Injuries = new();
+        foreach (var i in data.InjuryData)
+        {
+            Injury instance = Instantiate(gameDatabase.GetInjuryById(i.Id));
+            instance.name = Helpers.ParseScriptableObjectCloneName(instance.name);
+            instance.CreateFromData(i);
+            Injuries.Add(instance);
+        }
         DayAddedToTroops = data.DayAddedToTroops;
         DeskPosition = data.DeskPosition;
 
@@ -428,9 +458,9 @@ public class Character : BaseScriptableObject
         data.ItemIds = new(itemIds);
 
         data.IsAssigned = IsAssigned;
-        data.IsUnavailable = IsUnavailable;
-        data.DateTimeUnavailabilityStarted = DateTimeUnavailabilityStarted.SerializeSelf();
-        data.UnavailabilityDuration = UnavailabilityDuration;
+        data.InjuryData = new();
+        foreach (Injury i in Injuries)
+            data.InjuryData.Add(i.SerializeSelf());
 
         data.DayAddedToTroops = DayAddedToTroops;
         data.DeskPosition = DeskPosition;
@@ -462,9 +492,7 @@ public struct CharacterData
     public List<string> ItemIds;
 
     public bool IsAssigned;
-    public bool IsUnavailable;
-    public DateTimeData DateTimeUnavailabilityStarted;
-    public int UnavailabilityDuration;
+    public List<InjuryData> InjuryData;
 
     public int DayAddedToTroops;
     public Vector2 DeskPosition;
