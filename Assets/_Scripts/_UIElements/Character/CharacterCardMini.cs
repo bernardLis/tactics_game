@@ -73,7 +73,6 @@ public class CharacterCardMini : ElementWithTooltip
         Lock();
         _injury = injury;
         int timeLeft = injury.GetTotalInjuryTimeInSeconds() - ((int)_gameManager.GetCurrentTimeInSeconds() - (int)injury.DateTimeStarted.GetTimeInSeconds());
-        Debug.Log($"time left: {timeLeft}");
 
         if (timeLeft <= 0)
         {

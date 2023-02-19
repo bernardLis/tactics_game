@@ -8,6 +8,7 @@ public class CampBuilding : BaseScriptableObject
     protected GameManager _gameManager;
 
     public string DisplayName;
+    public StringVariable TooltipText;
 
     public Sprite OutlineSprite; // static
     public Sprite BuiltSprite; // static
