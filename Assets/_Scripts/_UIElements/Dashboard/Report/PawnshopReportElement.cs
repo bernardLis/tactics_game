@@ -5,15 +5,15 @@ using UnityEngine.UIElements;
 
 public class PawnshopReportElement : ReportElement
 {
+    const string _ussClassName = "pawnshop__";
+    const string _ussSellButton = _ussClassName + "sell-button";
+
     DraggableItems _draggableItems;
 
     ItemSlot _sellSlot;
     GoldElement _goldElement;
     MyButton _sellButton;
     int _dayAdded;
-
-    const string _ussClassName = "pawnshop";
-    const string _ussSellButton = _ussClassName + "__sell-button";
 
     public PawnshopReportElement(VisualElement parent, Report report) : base(parent, report)
     {
