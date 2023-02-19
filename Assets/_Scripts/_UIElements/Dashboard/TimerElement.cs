@@ -99,7 +99,7 @@ public class TimerElement : VisualElement
             _secondsLeftLabel.text = timeLeft;
 
         _ticksLeft--;
-        if (_ticksLeft == -1)
+        if (_ticksLeft <= -1)
         {
             if (_isLooping)
                 FinishLoop();
