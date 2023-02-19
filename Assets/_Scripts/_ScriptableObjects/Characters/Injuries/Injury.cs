@@ -23,10 +23,7 @@ public class Injury : BaseScriptableObject
 
         CampBuildingHospital h = GameManager.Instance.GetComponent<BuildingManager>().HospitalBuilding;
         float improvement = (100 - h.GetUpgradeByRank(h.UpgradeRank).PercentHealingImprovement) * 0.01f;
-        Debug.Log($"Improvement {improvement}");
-
         int totalTime = Mathf.FloorToInt(DaysInjured * GameManager.SecondsInDay * improvement);
-        Debug.Log($"total time {totalTime}");
         return totalTime;
     }
 

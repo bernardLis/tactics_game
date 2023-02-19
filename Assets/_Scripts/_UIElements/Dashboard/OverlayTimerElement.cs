@@ -20,9 +20,18 @@ public class OverlayTimerElement : TimerElement
 
         Add(_overlayMask);
         Add(GetLabelWrapper());
+    }
 
-        _labelWrapper.style.flexDirection = FlexDirection.Column;
-        _labelWrapper.style.justifyContent = Justify.Center;
+    public void SetStyles(string mainStyle, string overlayMaskStyle, string labelWrapperStyles)
+    {
+        ClearClassList();
+        AddToClassList(mainStyle);
+
+        _overlayMask.ClearClassList();
+        _overlayMask.AddToClassList(overlayMaskStyle);
+
+        _labelWrapper.ClearClassList();
+        _labelWrapper.AddToClassList(labelWrapperStyles);
     }
 
     protected override void UpdateTimer()

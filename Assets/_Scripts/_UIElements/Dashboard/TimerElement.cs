@@ -10,7 +10,6 @@ public class TimerElement : VisualElement
 
     protected const string _ussClassName = "timer-element__";
 
-
     const string _ussLabelWrapper = _ussClassName + "label-wrapper";
     const string _ussLabel = _ussClassName + "label";
     const string _ussSecondsLeftLabel = _ussClassName + "seconds-left-label";

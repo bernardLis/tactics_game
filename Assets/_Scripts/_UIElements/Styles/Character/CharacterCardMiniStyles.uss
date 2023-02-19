@@ -15,13 +15,29 @@
     scale: 1.1 1.1;
 }
 
-.character-card-mini__overlay {
+.character-card-mini__timer-element-overlay-main {
+    position: absolute;
+    flex-direction: column-reverse;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
     border-top-left-radius: 200px;
     border-bottom-left-radius: 200px;
     border-top-right-radius: 200px;
     border-bottom-right-radius: 200px;
+}
+
+.character-card-mini__timer-element-overlay-mask {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.character-card-mini__timer-element-label-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }

@@ -212,7 +212,7 @@ public class CharacterCardQuest : VisualElement
 
         Injury i = Character.GetActiveInjury();
         string injuryName = Helpers.ParseScriptableObjectCloneName(i.name);
-        Label l = new($"{injuryName}, unavailable for: {i.GetTotalInjuryTimeInSeconds()}s");
+        Label l = new($"{injuryName}, : {i.GetTotalInjuryTimeInSeconds()}s");
         l.style.whiteSpace = WhiteSpace.Normal;
         return l;
     }

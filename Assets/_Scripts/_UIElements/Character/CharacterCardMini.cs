@@ -11,9 +11,12 @@ public class CharacterCardMini : ElementWithTooltip
 
     const string _ussClassName = "character-card-mini__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussOverlay = _ussClassName + "overlay";
     const string _ussShadow = _ussClassName + "shadow";
     const string _ussPickedUp = _ussClassName + "picked-up";
+
+    const string _ussTimerMain = _ussClassName + "timer-element-overlay-main";
+    const string _ussTimerOverlayMask = _ussClassName + "timer-element-overlay-mask";
+    const string _ussTimerLabelWrapper = _ussClassName + "timer-element-label-wrapper";
 
     GameManager _gameManager;
     public Character Character;
@@ -60,7 +63,10 @@ public class CharacterCardMini : ElementWithTooltip
     {
         Lock();
         _injury = injury;
-        _unavailabilityTimer = new(injury.GetTotalInjuryTimeInSeconds(), injury.GetTotalInjuryTimeInSeconds(), false, injury.name);
+
+        string injuryName = Helpers.ParseScriptableObjectCloneName(injury.name);
+        _unavailabilityTimer = new(injury.GetTotalInjuryTimeInSeconds(), injury.GetTotalInjuryTimeInSeconds(), false, injuryName);
+        _unavailabilityTimer.SetStyles(_ussTimerMain, _ussTimerOverlayMask, _ussTimerLabelWrapper);
         _unavailabilityTimer.OnTimerFinished += OnUnavailabilityTimerFinished;
         Add(_unavailabilityTimer);
     }
@@ -80,7 +86,9 @@ public class CharacterCardMini : ElementWithTooltip
             return;
         }
 
-        _unavailabilityTimer = new(timeLeft, injury.GetTotalInjuryTimeInSeconds(), false, injury.name);
+        string injuryName = Helpers.ParseScriptableObjectCloneName(injury.name);
+        _unavailabilityTimer = new(timeLeft, injury.GetTotalInjuryTimeInSeconds(), false, injuryName);
+        _unavailabilityTimer.SetStyles(_ussTimerMain, _ussTimerOverlayMask, _ussTimerLabelWrapper);
         _unavailabilityTimer.OnTimerFinished += OnUnavailabilityTimerFinished;
         Add(_unavailabilityTimer);
     }
