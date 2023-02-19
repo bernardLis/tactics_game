@@ -14,8 +14,7 @@ public class CampBuildingQuestInfoElement : CampBuildingElement
 
     protected override void AddUpgrade()
     {
-        string tooltipText = "Each upgrade reveals more information.";
-        _upgradeText = new("TXT", tooltipText);
+        _upgradeText = new("TXT", _campBuilding.TooltipText.Value);
         SetUpgrade();
         _upgradeText.UpdateFontSize(16);
         _upgradeContainer.Add(_upgradeText);

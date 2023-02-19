@@ -14,8 +14,7 @@ public class CampBuildingPawnshopElement : CampBuildingElement
 
     protected override void AddUpgrade()
     {
-        string tooltipText = "Chance pawnshop visits.";
-        _upgradeText = new("TXT", tooltipText);
+        _upgradeText = new("TXT", _campBuilding.TooltipText.Value);
         SetUpgrade();
         _upgradeText.UpdateFontSize(36);
         _upgradeContainer.Add(_upgradeText);

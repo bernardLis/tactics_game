@@ -14,8 +14,7 @@ public class CampBuildingShopElement : CampBuildingElement
 
     protected override void AddUpgrade()
     {
-        string tooltipText = "Chance for uncommon, rare and epic item in the shop.";
-        _upgradeText = new("TXT", tooltipText);
+        _upgradeText = new("TXT", _campBuilding.TooltipText.Value);
         SetUpgrade();
         _upgradeText.UpdateFontSize(18);
         _upgradeContainer.Add(_upgradeText);

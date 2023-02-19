@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 87045b67-5c5a-41ca-902d-85fc74d84c47
   DisplayName: Cathedral
+  TooltipText: {fileID: 11400000, guid: 6a9a432201f45294c92aec54fea63ace, type: 2}
   OutlineSprite: {fileID: 21300000, guid: 1b447a9fcd7492c4b81a015f7fd337ee, type: 3}
   BuiltSprite: {fileID: 21300000, guid: c0f45819d1dbfd145b645a7ef4a1455c, type: 3}
   CostToBuild: 100

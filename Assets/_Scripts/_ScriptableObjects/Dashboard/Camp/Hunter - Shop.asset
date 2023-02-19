@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 17db4b05-ec56-4351-b21c-4c5fbacc5128
   DisplayName: Hunter / Shop
+  TooltipText: {fileID: 11400000, guid: aeaf8c8beb6ba234f9b2f05a84d7b392, type: 2}
   OutlineSprite: {fileID: 21300000, guid: 7744c86cc85e7ff4da506d2e8f0659fa, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 4361f502293b74d4c883d78c01a951c6, type: 3}
   CostToBuild: 100
