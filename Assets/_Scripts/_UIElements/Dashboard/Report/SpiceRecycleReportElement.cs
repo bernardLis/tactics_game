@@ -25,6 +25,8 @@ public class SpiceRecycleReportElement : ReportElement
             styleSheets.Add(ss);
 
         AddHeader("Spice recycle", Color.magenta);
+        AddTimer("Leaving in: ");
+        _expiryTimer.OnTimerFinished += OnTimerFinished;
 
         Label instructions = new("Drag ability to recycle it");
         _reportContents.Add(instructions);
@@ -51,10 +53,8 @@ public class SpiceRecycleReportElement : ReportElement
         _reportContents.Add(_sellButton);
     }
 
-    protected override void OnDayPassed(int day)
+    void OnTimerFinished()
     {
-        if (_dayAdded == day)
-            return;
         if (_sellSlot.AbilityButton != null)
             Sell();
         DismissReport();
@@ -74,7 +74,7 @@ public class SpiceRecycleReportElement : ReportElement
     void OnSellAbilityRemoved(Ability ability)
     {
         _report.Ability = null;
-        
+
         _spiceElement.ChangeAmount(0);
         _sellButton.SetEnabled(false);
     }

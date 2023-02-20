@@ -13,11 +13,9 @@ public class PawnshopReportElement : ReportElement
     ItemSlot _sellSlot;
     GoldElement _goldElement;
     MyButton _sellButton;
-    int _dayAdded;
 
     public PawnshopReportElement(VisualElement parent, Report report) : base(parent, report)
     {
-        _dayAdded = _gameManager.Day;
         _draggableItems = _deskManager.GetComponent<DraggableItems>();
 
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.PawnshopReportStyles);
@@ -25,6 +23,8 @@ public class PawnshopReportElement : ReportElement
             styleSheets.Add(ss);
 
         AddHeader("Pawnshop", Color.magenta);
+        AddTimer("Leaving in: ");
+        _expiryTimer.OnTimerFinished += OnTimerFinished;
 
         Label instructions = new("Drag item to sell it");
         _reportContents.Add(instructions);
@@ -53,10 +53,8 @@ public class PawnshopReportElement : ReportElement
         _reportContents.Add(_sellButton);
     }
 
-    protected override void OnDayPassed(int day)
+    void OnTimerFinished()
     {
-        if (_dayAdded == day)
-            return;
         if (_sellSlot.ItemElement != null)
             Sell();
         DismissReport();

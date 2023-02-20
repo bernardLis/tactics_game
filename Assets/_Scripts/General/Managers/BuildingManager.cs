@@ -100,9 +100,9 @@ public class BuildingManager : MonoBehaviour
         if (Random.value < _spiceRecyclerBuilding.GetUpgradeByRank(_pawnshopBuilding.UpgradeRank).ChanceToVisit)
             AddSpiceRecycle();
 
-        // if (ShopBuilding.CampBuildingState == CampBuildingState.Built
-        //           && Random.value < 0.3f)
-        AddShop();
+        if (ShopBuilding.CampBuildingState == CampBuildingState.Built
+                  && Random.value < 0.3f)
+            AddShop();
 
         if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
                    && Random.value < 0.3f)
@@ -147,7 +147,7 @@ public class BuildingManager : MonoBehaviour
         newShop.CreateShop(ShopBuilding);
 
         DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
-        expiry.Day = _gameManager.Day + 1;//Random.Range(1, 3);
+        expiry.Day = _gameManager.Day + Random.Range(1, 3);
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Shop, shop: newShop, expiryDateTime: expiry);
@@ -158,8 +158,11 @@ public class BuildingManager : MonoBehaviour
     {
         Debug.Log($"Adding a pawnshop.");
 
+        DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
+        expiry.Day = _gameManager.Day + Random.Range(1, 3);
+
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Pawnshop, null, null, null, null, null);
+        r.Initialize(ReportType.Pawnshop, expiryDateTime: expiry);
         _gameManager.AddNewReport(r);
     }
 
@@ -167,8 +170,11 @@ public class BuildingManager : MonoBehaviour
     {
         Debug.Log($"Adding spice recycler.");
 
+        DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
+        expiry.Day = _gameManager.Day + Random.Range(1, 3);
+
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.SpiceRecycle, null, null, null, null, null);
+        r.Initialize(ReportType.SpiceRecycle, expiryDateTime: expiry);
         _gameManager.AddNewReport(r);
     }
 }
