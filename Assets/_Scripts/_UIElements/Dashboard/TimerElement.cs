@@ -80,6 +80,9 @@ public class TimerElement : VisualElement
 
     public void UpdateLabel(string txt) { _label.text = txt; }
 
+    public void Pause() { _timer.Pause(); }
+    public void Resume() { _timer.Resume();}
+
     void OnTimerStateChanged(bool isOn)
     {
         if (_timer == null)

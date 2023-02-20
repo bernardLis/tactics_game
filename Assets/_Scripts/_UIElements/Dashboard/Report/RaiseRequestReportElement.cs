@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 public class RaiseRequestReportElement : ReportElement
 {
+    const string _ussClassName = "raise-request-report__";
+    const string _ussNegotiateButton = _ussClassName + "negotiate-button";
+
     CharacterCardMini _characterCardMini;
     GoldElement _newWage;
     Label _numberOfTriesLeftLabel;
@@ -13,21 +16,16 @@ public class RaiseRequestReportElement : ReportElement
     int _miniGameHitCount = 0;
     int _miniGameHitLimit = 3;
 
-    const string _ussClassName = "raise-request-report__";
-    const string _ussNegotiateButton = _ussClassName + "negotiate-button";
 
     public RaiseRequestReportElement(VisualElement parent, Report report) : base(parent, report)
     {
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RaiseRequestReportStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        _gameManager.OnDayPassed += OnDayPassed;
-
         AddHeader("Raise Request", Color.yellow);
+        AddTimer("Leaving in: ");
+        _expiryTimer.OnTimerFinished += DismissReport;
 
         _characterCardMini = new(report.Character);
         _reportContents.Add(_characterCardMini);
@@ -61,17 +59,11 @@ public class RaiseRequestReportElement : ReportElement
         AddAcceptRejectButtons(Accept, Reject);
     }
 
-    protected override void OnDayPassed(int day)
-    {
-        // HERE: time passes automatically
-        // add time left that counts down instead of on day passed
-        DismissReport();
-    }
-
     void OnBarMiniGameHit(int hit)
     {
         if (IsNegotiationStarted())
         {
+            _expiryTimer.Pause();
             _report.Character.SetNegotiated(true);
             _gameManager.SaveJsonData();
         }
@@ -80,6 +72,7 @@ public class RaiseRequestReportElement : ReportElement
         UpdateNumberOfTriesLabel();
         if (IsNegotiationLimitReached())
         {
+            _expiryTimer.Resume();
             _barMiniGameElement.StopGame();
             _gameManager.SaveJsonData();
         }
