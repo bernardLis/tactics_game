@@ -24,7 +24,7 @@ public class PawnshopReportElement : ReportElement
 
         AddHeader("Pawnshop", Color.magenta);
         AddTimer("Leaving in: ");
-        _expiryTimer.OnTimerFinished += OnTimerFinished;
+        _timer.OnTimerFinished += OnTimerFinished;
 
         Label instructions = new("Drag item to sell it");
         _reportContents.Add(instructions);

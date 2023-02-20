@@ -73,6 +73,7 @@ public class LineTimerElement : TimerElement
         base.UpdateTimer();
 
         float w = 100 - (float)_ticksLeft / (float)_totalTicks * 100;
+        w = Mathf.Clamp(w, 0, 100);
         _lineMask.style.width = Length.Percent(w);
     }
 

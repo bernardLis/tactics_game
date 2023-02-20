@@ -12,7 +12,7 @@ public class RecruitReportElement : ReportElement
             AddHeader($"{_report.Recruit.Character.CharacterName} wants to join!", new Color(0.2f, 0.2f, 0.55f));
             AddTimer("Leaving in: ");
             _reportContents.Add(new RecruitElement(_report.Recruit));
-            _expiryTimer.OnTimerFinished += RecruitExpired;
+            _timer.OnTimerFinished += RecruitExpired;
             AddAcceptRejectButtons(AcceptRecruit, RejectRecruit);
         }
 

@@ -119,8 +119,11 @@ public class BuildingManager : MonoBehaviour
         Quest q = ScriptableObject.CreateInstance<Quest>();
         q.CreateRandom();
 
+        DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
+        expiry.Day = _gameManager.Day + Random.Range(2, 5);
+
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Quest, q);
+        r.Initialize(ReportType.Quest, q, expiryDateTime: expiry);
         _gameManager.AddNewReport(r);
     }
 

@@ -35,7 +35,7 @@ public class ShopReportElement : ReportElement
 
         AddHeader("Shop", Color.red);
         AddTimer("Leaving in: ");
-        _expiryTimer.OnTimerFinished += OnTimerFinished;
+        _timer.OnTimerFinished += OnTimerFinished;
 
         _itemContainer = new();
         _itemContainer.AddToClassList(_ussItemContainer);

@@ -21,13 +21,6 @@ public class QuestElement : VisualElement
     const string _ussActionButtonPlayer = _ussClassName + "action-button-player";
     const string _ussActionButtonDelegate = _ussClassName + "action-button-delegate";
 
-    const string _ussTimerWrapper = _ussClassName + "timer-element-wrapper";
-    const string _ussTimerLine = _ussClassName + "timer-element-line";
-    const string _ussTimerLineDelegated = _ussClassName + "timer-element-line-delegated";
-    const string _ussTimerLineMaskWrapper = _ussClassName + "timer-element-line-mask-wrapper";
-    const string _ussTimerLineMask = _ussClassName + "timer-element-line-mask";
-
-
     GameManager _gameManager;
     DeskManager _deskManager;
     DraggableCharacters _draggableCharacters;
@@ -38,7 +31,7 @@ public class QuestElement : VisualElement
     QuestRankElement _questRankElement;
     VisualElement _bottomPanel;
 
-    LineTimerElement _timer;
+  //  LineTimerElement _timer;
     TextWithTooltip _durationLabel;
     TextWithTooltip _successChanceLabel;
     VisualElement _assignedCharactersContainer;
@@ -110,7 +103,7 @@ public class QuestElement : VisualElement
         _topPanel.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_topPanel);
 
-        AddTimer();
+      //  AddTimer();
 
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
@@ -148,7 +141,7 @@ public class QuestElement : VisualElement
         UpdateActionButton();
         _bottomPanel.Add(_actionButton);
     }
-
+/*
     void AddTimer()
     {
         if (_quest.QuestState != QuestState.Pending && _quest.QuestState != QuestState.Delegated)
@@ -186,6 +179,7 @@ public class QuestElement : VisualElement
         _topPanel.Add(_timer);
     }
 
+
     void OnTimerFinished()
     {
         if (_quest.QuestState == QuestState.Pending)
@@ -194,7 +188,7 @@ public class QuestElement : VisualElement
         if (_quest.QuestState == QuestState.Delegated)
             _quest.FinishQuest();
     }
-
+*/
     void UpdateSuccessChanceLabel()
     {
         if (_questInfoBuilding.UpgradeRank == 0)
@@ -355,13 +349,15 @@ public class QuestElement : VisualElement
 
     void DelegateBattle()
     {
+        /*
         float totalTime = _quest.DurationSeconds;
         _timer.UpdateLabel("Finished in: ");
         _timer.UpdateTimerValues(totalTime, totalTime);
         _timer.UpdateLineStyle(_ussTimerLineDelegated);
-
+        */
         _quest.DelegateQuest();
     }
+    
 
     /* QUEST STATES */
     void HandleDelegatedQuest()
@@ -394,8 +390,8 @@ public class QuestElement : VisualElement
     {
         _durationLabel.Clear();
         _successChanceLabel.Clear();
-        if (_timer != null)
-            _topPanel.Remove(_timer);
+     //   if (_timer != null)
+     //       _topPanel.Remove(_timer);
         _assignedCharactersContainer.style.display = DisplayStyle.None;
 
         if (_quest.Reward.Item == null)

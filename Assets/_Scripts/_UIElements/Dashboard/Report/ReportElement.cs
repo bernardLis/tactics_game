@@ -49,7 +49,7 @@ public class ReportElement : VisualElement
     protected Vector2 _dragOffset;
     protected bool _isDragging;
 
-    protected LineTimerElement _expiryTimer;
+    protected LineTimerElement _timer;
 
     protected bool _signed;
 
@@ -58,7 +58,6 @@ public class ReportElement : VisualElement
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
-        _gameManager.OnDayPassed += OnDayPassed;
 
         _deskManager = DeskManager.Instance;
 
@@ -96,19 +95,14 @@ public class ReportElement : VisualElement
         parent.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    protected virtual void OnDayPassed(int day)
-    {
-        // meant to be overwritten
-    }
-
-    // HELPERS
+    /* HELPERS */
     protected void AddTimer(string text)
     {
         float timeTotal = _report.DateTimeExpired.GetTimeInSeconds() - _report.DateTimeAdded.GetTimeInSeconds();
         float timeLeft = _report.DateTimeExpired.GetTimeInSeconds() - _gameManager.GetCurrentTimeInSeconds();
-        _expiryTimer = new(timeLeft, timeTotal, false, text);
+        _timer = new(timeLeft, timeTotal, false, text);
 
-        _reportContents.Add(_expiryTimer);
+        _reportContents.Add(_timer);
     }
 
     protected void AddHeader(string text, Color color)

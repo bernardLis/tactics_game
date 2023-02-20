@@ -25,7 +25,7 @@ public class RaiseRequestReportElement : ReportElement
 
         AddHeader("Raise Request", Color.yellow);
         AddTimer("Leaving in: ");
-        _expiryTimer.OnTimerFinished += DismissReport;
+        _timer.OnTimerFinished += DismissReport;
 
         _characterCardMini = new(report.Character);
         _reportContents.Add(_characterCardMini);
@@ -63,7 +63,7 @@ public class RaiseRequestReportElement : ReportElement
     {
         if (IsNegotiationStarted())
         {
-            _expiryTimer.Pause();
+            _timer.Pause();
             _report.Character.SetNegotiated(true);
             _gameManager.SaveJsonData();
         }
@@ -72,7 +72,7 @@ public class RaiseRequestReportElement : ReportElement
         UpdateNumberOfTriesLabel();
         if (IsNegotiationLimitReached())
         {
-            _expiryTimer.Resume();
+            _timer.Resume();
             _barMiniGameElement.StopGame();
             _gameManager.SaveJsonData();
         }

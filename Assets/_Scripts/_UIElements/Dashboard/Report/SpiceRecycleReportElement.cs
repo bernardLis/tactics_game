@@ -26,7 +26,7 @@ public class SpiceRecycleReportElement : ReportElement
 
         AddHeader("Spice recycle", Color.magenta);
         AddTimer("Leaving in: ");
-        _expiryTimer.OnTimerFinished += OnTimerFinished;
+        _timer.OnTimerFinished += OnTimerFinished;
 
         Label instructions = new("Drag ability to recycle it");
         _reportContents.Add(instructions);
