@@ -10,7 +10,7 @@ public class ShopReportElement : ReportElement
     List<VisualElement> _shopItemContainers = new();
     List<ItemSlot> _itemSlots = new();
 
-    LineTimerElement _expiryTimer;
+   // protected LineTimerElement _expiryTimer;
 
     GoldElement _rerollPriceGoldElement;
 
@@ -45,7 +45,6 @@ public class ShopReportElement : ReportElement
         bottomPanel.AddToClassList(_ussBottomPanel);
         bottomPanel.Add(CreateRerollButton());
         _reportContents.Add(bottomPanel);
-
 
         float timeTotal = _shop.DateTimeExpired.GetTimeInSeconds() - _shop.DateTimeAdded.GetTimeInSeconds();
         float timeLeft = _shop.DateTimeExpired.GetTimeInSeconds() - _gameManager.GetCurrentTimeInSeconds();

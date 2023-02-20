@@ -10,8 +10,9 @@ public class RecruitReportElement : ReportElement
         if (_report.Recruit.RecruitState == RecruitState.Pending)
         {
             AddHeader($"{_report.Recruit.Character.CharacterName} wants to join!", new Color(0.2f, 0.2f, 0.55f));
+            AddTimer("Leaving in: ");
             _reportContents.Add(new RecruitElement(_report.Recruit));
-            _report.Recruit.OnRecruitStateChanged += OnRecruitStateChanged;
+            _expiryTimer.OnTimerFinished += RecruitExpired;
             AddAcceptRejectButtons(AcceptRecruit, RejectRecruit);
         }
 
@@ -24,15 +25,14 @@ public class RecruitReportElement : ReportElement
         }
     }
 
-    void OnRecruitStateChanged(RecruitState newState)
+    void RecruitExpired()
     {
-        if (newState == RecruitState.Expired)
-        {
-            AddHeader($"{_report.Recruit.Character.CharacterName} left!", Helpers.GetColor(QuestState.Expired.ToString()));
-            RemoveAcceptRejectButtons();
-            AddSignButton();
-            ShowSignButton();
-        }
+        _report.Recruit.UpdateRecruitState(RecruitState.Expired);
+        AddHeader($"{_report.Recruit.Character.CharacterName} left!", Helpers.GetColor(QuestState.Expired.ToString()));
+        RemoveAcceptRejectButtons();
+        AddSignButton();
+        ShowSignButton();
+
     }
 
     void AcceptRecruit()

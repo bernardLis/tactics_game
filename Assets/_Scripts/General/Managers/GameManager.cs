@@ -402,7 +402,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (ReportData rd in saveData.Reports)
         {
             Report report = ScriptableObject.CreateInstance<Report>();
-            report.CreateFromData(rd);
+            report.LoadFromData(rd);
             Reports.Add(report);
         }
 
@@ -410,7 +410,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (ReportData rd in saveData.ReportsArchived)
         {
             Report report = ScriptableObject.CreateInstance<Report>();
-            report.CreateFromData(rd);
+            report.LoadFromData(rd);
             ReportsArchived.Add(report);
         }
     }

@@ -49,8 +49,9 @@ public class ReportElement : VisualElement
     protected Vector2 _dragOffset;
     protected bool _isDragging;
 
-    protected bool _signed;
+    protected LineTimerElement _expiryTimer;
 
+    protected bool _signed;
 
     public event Action<ReportElement> OnReportDismissed;
     public ReportElement(VisualElement parent, Report report)
@@ -101,6 +102,15 @@ public class ReportElement : VisualElement
     }
 
     // HELPERS
+    protected void AddTimer(string text)
+    {
+        float timeTotal = _report.DateTimeExpired.GetTimeInSeconds() - _report.DateTimeAdded.GetTimeInSeconds();
+        float timeLeft = _report.DateTimeExpired.GetTimeInSeconds() - _gameManager.GetCurrentTimeInSeconds();
+        _expiryTimer = new(timeLeft, timeTotal, false, text);
+
+        _reportContents.Add(_expiryTimer);
+    }
+
     protected void AddHeader(string text, Color color)
     {
         _header.text = text;
@@ -265,12 +275,10 @@ public class ReportElement : VisualElement
 
     void OnPointerMove(PointerMoveEvent evt)
     {
-        // Only take action if the player is dragging an item around the screen
         if (!_isDragging)
             return;
         RemoveFromClassList(_ussCommonTransitionBasic);
 
-        // Set the new position
         style.left = evt.position.x - _dragOffset.x;
         style.top = evt.position.y - _dragOffset.y;
     }

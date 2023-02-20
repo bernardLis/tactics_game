@@ -104,9 +104,9 @@ public class BuildingManager : MonoBehaviour
                  && Random.value < 0.3f)
             AddShop();
 
-        if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
-                 && Random.value < 0.3f)
-            AddRecruit();
+        //if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
+        //           && Random.value < 0.3f)
+        AddRecruit();
     }
 
     public void AddRandomQuest()
@@ -132,8 +132,11 @@ public class BuildingManager : MonoBehaviour
         int level = Random.Range(1, _recruitingBuilding.GetUpgradeByRank(_recruitingBuilding.UpgradeRank).MaxRecruitLevel + 1);
         newRecruit.CreateRandom(level);
 
+        DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
+        expiry.Day = _gameManager.Day + Random.Range(2, 5);
+
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Recruit, null, newRecruit);
+        r.Initialize(ReportType.Recruit, recruit: newRecruit, expiryDateTime: expiry);
         _gameManager.AddNewReport(r);
     }
 

@@ -21,16 +21,22 @@ public class Report : BaseScriptableObject
     public Character Character;
     public List<Character> Characters = new();
 
+    public DateTime DateTimeAdded;
+    public DateTime DateTimeExpired;
+
     public bool IsSigned;
     public int DaySigned;
     public bool WasAccepted;
 
     public void Initialize(ReportType type, Quest quest = null, Recruit recruit = null, string text = null,
              string campBuildingId = null, Shop shop = null, Ability ability = null,
-             Character character = null, List<Character> characters = null, Item item = null)
+             Character character = null, List<Character> characters = null, Item item = null,
+             DateTime expiryDateTime = null)
     {
+        _gameManager = GameManager.Instance;
+
         ReportType = type;
-        ReportPaper = GameManager.Instance.GameDatabase.GetRandomReportPaper();
+        ReportPaper = _gameManager.GameDatabase.GetRandomReportPaper();
 
         Quest = quest;
         Recruit = recruit;
@@ -43,20 +49,25 @@ public class Report : BaseScriptableObject
         if (characters != null)
             Characters.AddRange(characters);
         Item = item;
+
+        DateTimeAdded = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeAdded = _gameManager.GetCurrentDateTime();
+
+        DateTimeExpired = expiryDateTime;
     }
 
     public void Sign()
     {
         IsSigned = true;
-        DaySigned = GameManager.Instance.Day;
+        DaySigned = _gameManager.Day;
     }
 
-    public void CreateFromData(ReportData data)
+    public void LoadFromData(ReportData data)
     {
         _gameManager = GameManager.Instance;
 
         ReportType = (ReportType)System.Enum.Parse(typeof(ReportType), data.ReportType);
-        ReportPaper = GameManager.Instance.GameDatabase.GetReportPaperById(data.ReportPaperId);
+        ReportPaper = _gameManager.GameDatabase.GetReportPaperById(data.ReportPaperId);
         Position = data.Position;
 
         if (ReportType == ReportType.Quest)
@@ -107,6 +118,12 @@ public class Report : BaseScriptableObject
             Character.CreateFromData(data.CharacterData);
         }
 
+        DateTimeAdded = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeAdded.LoadFromData(data.DateTimeAdded);
+
+        DateTimeExpired = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeExpired.LoadFromData(data.DateTimeExpired);
+
         IsSigned = data.IsSigned;
         DaySigned = data.DaySigned;
         WasAccepted = data.WasAccepted;
@@ -151,6 +168,10 @@ public class Report : BaseScriptableObject
                 rd.CharacterDatas.Add(c.SerializeSelf());
         }
 
+        rd.DateTimeAdded = DateTimeAdded.SerializeSelf();
+        if (DateTimeExpired != null)
+            rd.DateTimeExpired = DateTimeExpired.SerializeSelf();
+
         rd.IsSigned = IsSigned;
         rd.DaySigned = DaySigned;
         rd.WasAccepted = WasAccepted;
@@ -175,6 +196,9 @@ public struct ReportData
     public AbilityData AbilityData;
     public CharacterData CharacterData;
     public List<CharacterData> CharacterDatas;
+
+    public DateTimeData DateTimeAdded;
+    public DateTimeData DateTimeExpired;
 
     public bool IsSigned;
     public int DaySigned;

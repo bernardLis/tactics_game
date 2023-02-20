@@ -238,8 +238,12 @@ public class Character : BaseScriptableObject
             return;
 
         _gameManager.RemoveCharacterFromTroops(this);
+
+        DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
+        expiry.Day = _gameManager.Day + 1;
+
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.RaiseRequest, null, null, null, null, null, null, this);
+        r.Initialize(ReportType.RaiseRequest, character: this, expiryDateTime: expiry);
         _gameManager.AddNewReport(r);
     }
 
