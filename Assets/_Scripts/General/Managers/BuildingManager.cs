@@ -101,12 +101,12 @@ public class BuildingManager : MonoBehaviour
             AddSpiceRecycle();
 
         if (ShopBuilding.CampBuildingState == CampBuildingState.Built
-                && Random.value < 0.3f)
+                 && Random.value < 0.3f)
             AddShop();
 
-        //   if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
-        //            && Random.value < 0.3f)
-        AddRecruit();
+        if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
+                 && Random.value < 0.3f)
+            AddRecruit();
     }
 
     public void AddRandomQuest()

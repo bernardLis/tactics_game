@@ -10,7 +10,7 @@ public class ShopReportElement : ReportElement
     List<VisualElement> _shopItemContainers = new();
     List<ItemSlot> _itemSlots = new();
 
-    Label _durationLabel;
+    LineTimerElement _expiryTimer;
 
     GoldElement _rerollPriceGoldElement;
 
@@ -46,11 +46,12 @@ public class ShopReportElement : ReportElement
         bottomPanel.Add(CreateRerollButton());
         _reportContents.Add(bottomPanel);
 
-        _durationLabel = new();
-        _durationLabel.AddToClassList(_ussCommonTextPrimary);
-        _reportContents.Add(_durationLabel);
-        UpdateDuration();
-        _shop.OnDurationChanged += UpdateDuration;
+
+        float timeTotal = _shop.DateTimeExpired.GetTimeInSeconds() - _shop.DateTimeAdded.GetTimeInSeconds();
+        float timeLeft = _shop.DateTimeExpired.GetTimeInSeconds() - _gameManager.GetCurrentTimeInSeconds();
+        _expiryTimer = new(timeLeft, timeTotal, false, "Leaving in: ");
+        _reportContents.Add(_expiryTimer);
+        _expiryTimer.OnTimerFinished += () => DismissReport(false);
 
         _itemContainer.RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
     }
@@ -91,16 +92,6 @@ public class ShopReportElement : ReportElement
             if (draggables != null)
                 draggables.AddDraggableItem(itemElement);
         }
-    }
-
-    void UpdateDuration()
-    {
-        if (_durationLabel == null)
-            return;
-        _durationLabel.text = ($"Shop is leaving in {_shop.Duration} days");
-
-        if (_shop.Duration <= 0)
-            DismissReport(false);
     }
 
     VisualElement CreateRerollButton()
