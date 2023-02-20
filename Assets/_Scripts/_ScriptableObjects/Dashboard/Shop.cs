@@ -6,9 +6,6 @@ using Random = UnityEngine.Random;
 
 public class Shop : BaseScriptableObject
 {
-    public DateTime DateTimeAdded;
-    public DateTime DateTimeExpired;
-
     public int RerollCost;
 
     CampBuildingShop _building;
@@ -23,11 +20,6 @@ public class Shop : BaseScriptableObject
         _gameManager = GameManager.Instance;
 
         ChooseItems();
-        DateTimeAdded = ScriptableObject.CreateInstance<DateTime>();
-        DateTimeAdded = _gameManager.GetCurrentDateTime();
-
-        DateTimeExpired = ScriptableObject.CreateInstance<DateTime>();
-        DateTimeExpired.Day = _gameManager.Day + Random.Range(2, 5);
 
         RerollCost = 200;
     }
@@ -55,12 +47,6 @@ public class Shop : BaseScriptableObject
         _gameManager = GameManager.Instance;
         _building = _gameManager.GetComponent<BuildingManager>().ShopBuilding;
 
-        DateTimeAdded = ScriptableObject.CreateInstance<DateTime>();
-        DateTimeAdded.LoadFromData(data.DateTimeAdded);
-
-        DateTimeExpired = ScriptableObject.CreateInstance<DateTime>();
-        DateTimeExpired.LoadFromData(data.DateTimeExpired);
-
         RerollCost = data.RerollCost;
 
         Items = new();
@@ -71,8 +57,6 @@ public class Shop : BaseScriptableObject
     public ShopData SerializeSelf()
     {
         ShopData data = new();
-        data.DateTimeAdded = DateTimeAdded.SerializeSelf();
-        data.DateTimeExpired = DateTimeExpired.SerializeSelf();
 
         data.RerollCost = RerollCost;
         data.ItemIds = new();
@@ -85,8 +69,6 @@ public class Shop : BaseScriptableObject
 [Serializable]
 public struct ShopData
 {
-    public DateTimeData DateTimeAdded;
-    public DateTimeData DateTimeExpired;
     public int RerollCost;
     public List<string> ItemIds;
 }

@@ -100,13 +100,13 @@ public class BuildingManager : MonoBehaviour
         if (Random.value < _spiceRecyclerBuilding.GetUpgradeByRank(_pawnshopBuilding.UpgradeRank).ChanceToVisit)
             AddSpiceRecycle();
 
-        if (ShopBuilding.CampBuildingState == CampBuildingState.Built
-                 && Random.value < 0.3f)
-            AddShop();
-
-        //if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
+        // if (ShopBuilding.CampBuildingState == CampBuildingState.Built
         //           && Random.value < 0.3f)
-        AddRecruit();
+        AddShop();
+
+        if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
+                   && Random.value < 0.3f)
+            AddRecruit();
     }
 
     public void AddRandomQuest()
@@ -133,7 +133,7 @@ public class BuildingManager : MonoBehaviour
         newRecruit.CreateRandom(level);
 
         DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
-        expiry.Day = _gameManager.Day + Random.Range(2, 5);
+        expiry.Day = _gameManager.Day + Random.Range(1, 3);
 
         Report r = ScriptableObject.CreateInstance<Report>();
         r.Initialize(ReportType.Recruit, recruit: newRecruit, expiryDateTime: expiry);
@@ -146,8 +146,11 @@ public class BuildingManager : MonoBehaviour
         Shop newShop = ScriptableObject.CreateInstance<Shop>();
         newShop.CreateShop(ShopBuilding);
 
+        DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
+        expiry.Day = _gameManager.Day + 1;//Random.Range(1, 3);
+
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Shop, null, null, null, null, newShop);
+        r.Initialize(ReportType.Shop, shop: newShop, expiryDateTime: expiry);
         _gameManager.AddNewReport(r);
     }
 

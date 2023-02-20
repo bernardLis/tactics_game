@@ -184,7 +184,7 @@ public class ReportElement : VisualElement
 
     void DismissReportAction() { DismissReport(); } // otherwise, the delegate throws errors
 
-    protected void DismissReport(bool EffectsOn = true)
+    protected void DismissReport()
     {
         // otherwise you can click multiple times if you are a quick clicker.
         if (_signed)
@@ -205,26 +205,23 @@ public class ReportElement : VisualElement
 
         _report.Sign();
 
-        if (EffectsOn)
-        {
-            _audioManager.PlaySFX("Stamp", Vector3.zero);
+        _audioManager.PlaySFX("Stamp", Vector3.zero);
 
-            Label signed = new($"Signed on day {_gameManager.Day}");
-            signed.AddToClassList(_ussSignedTextBefore);
-            _reportContents.Add(signed);
-            // TODO: this is nasty af in my opinion, but it works really well xD
+        Label signed = new($"Signed on day {_gameManager.Day}");
+        signed.AddToClassList(_ussSignedTextBefore);
+        _reportContents.Add(signed);
+        // TODO: this is nasty af in my opinion, but it works really well xD
+        schedule.Execute(() =>
+        {
+            signed.AddToClassList(_ussSignedText);
+            signed.RemoveFromClassList(_ussSignedTextBefore);
+            signed.style.display = DisplayStyle.Flex;
             schedule.Execute(() =>
             {
-                signed.AddToClassList(_ussSignedText);
-                signed.RemoveFromClassList(_ussSignedTextBefore);
-                signed.style.display = DisplayStyle.Flex;
-                schedule.Execute(() =>
-                {
-                    _audioManager.PlaySFX("PaperFlying", Vector3.zero);
-                    OnReportDismissed?.Invoke(this);
-                }).ExecuteLater(400);
-            }).ExecuteLater(50); // this makes transitions from class to class to work.
-        }
+                _audioManager.PlaySFX("PaperFlying", Vector3.zero);
+                OnReportDismissed?.Invoke(this);
+            }).ExecuteLater(400);
+        }).ExecuteLater(50); // this makes transitions from class to class to work.
     }
 
     /* HOVER */

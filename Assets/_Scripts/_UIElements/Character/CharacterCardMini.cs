@@ -43,7 +43,6 @@ public class CharacterCardMini : ElementWithTooltip
 
         Character = character;
         character.OnInjuryAdded += SetUnavailable;
-        Debug.Log($"Character: {Character.CharacterName} unavailable: {Character.IsUnavailable()}");
 
         AddToClassList(_ussMain);
 
