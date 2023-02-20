@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public static class Helpers 
+public static class Helpers
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 

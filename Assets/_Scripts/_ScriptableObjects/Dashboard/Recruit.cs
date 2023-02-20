@@ -6,14 +6,12 @@ using Random = UnityEngine.Random;
 
 public class Recruit : BaseScriptableObject
 {
-    GameManager _gameManager;
-
     public RecruitState RecruitState { get; private set; }
     public Character Character;
-    public int DayAdded;
-    public int DaysUntilExpired;
 
-    public event Action<int> OnDaysUntilExpiredChanged;
+    public DateTime DateTimeAdded;
+    public DateTime DateTimeExpired;
+
     public event Action<RecruitState> OnRecruitStateChanged;
     public void UpdateRecruitState(RecruitState newState)
     {
@@ -32,27 +30,9 @@ public class Recruit : BaseScriptableObject
         OnRecruitStateChanged?.Invoke(newState);
     }
 
-    public void Initialize()
-    {
-        _gameManager = GameManager.Instance;
-        _gameManager.OnDayPassed += OnDayPassed;
-    }
-
-    void OnDayPassed(int day)
-    {
-        if (RecruitState != RecruitState.Pending)
-            return;
-
-        DaysUntilExpired--;
-        if (DaysUntilExpired <= 0)
-            UpdateRecruitState(RecruitState.Expired);
-
-        OnDaysUntilExpiredChanged?.Invoke(DaysUntilExpired);
-    }
-
     public void CreateRandom(int level)
     {
-        Initialize();
+        GameManager gm = GameManager.Instance;
 
         RecruitState = RecruitState.Pending;
 
@@ -60,23 +40,33 @@ public class Recruit : BaseScriptableObject
         newChar.CreateRandom(level);
         Character = newChar;
 
-        DayAdded = _gameManager.Day;
-        DaysUntilExpired = Random.Range(2, 5);
+        DateTimeAdded = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeAdded = gm.GetCurrentDateTime();
+
+        DateTimeExpired = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeExpired.Day = gm.Day + Random.Range(2, 5);
     }
 
     public void LoadFromData(RecruitData data)
     {
-        Initialize();
-
         RecruitState = (RecruitState)System.Enum.Parse(typeof(RecruitState), data.RecruitState);
 
         Character character = ScriptableObject.CreateInstance<Character>();
         character.CreateFromData(data.CharacterData);
         Character = character;
 
-        DayAdded = data.DayAdded;
-        DaysUntilExpired = data.DaysUntilExpired;
-        if (DaysUntilExpired <= 0 && RecruitState != RecruitState.Expired)
+        DateTimeAdded = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeAdded.LoadFromData(data.DateTimeAdded);
+
+        DateTimeExpired = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeExpired.LoadFromData(data.DateTimeExpired);
+
+        float diff = DateTimeExpired.GetTimeInSeconds() - GameManager.Instance.GetCurrentTimeInSeconds();
+        Debug.Log($"DateTimeExpired.GetTimeInSeconds() {DateTimeExpired.GetTimeInSeconds()}");
+        Debug.Log($"GameManager.Instance.GetCurrentTimeInSeconds() {GameManager.Instance.GetCurrentTimeInSeconds()}");
+
+        Debug.Log($"diff {diff}");
+        if (diff <= 0 && RecruitState != RecruitState.Expired)
             UpdateRecruitState(RecruitState.Expired);
     }
 
@@ -86,8 +76,9 @@ public class Recruit : BaseScriptableObject
 
         data.RecruitState = RecruitState.ToString();
         data.CharacterData = Character.SerializeSelf();
-        data.DayAdded = DayAdded;
-        data.DaysUntilExpired = DaysUntilExpired;
+
+        data.DateTimeAdded = DateTimeAdded.SerializeSelf();
+        data.DateTimeExpired = DateTimeExpired.SerializeSelf();
 
         return data;
     }
@@ -99,6 +90,6 @@ public struct RecruitData
 {
     public string RecruitState;
     public CharacterData CharacterData;
-    public int DayAdded;
-    public int DaysUntilExpired;
+    public DateTimeData DateTimeAdded;
+    public DateTimeData DateTimeExpired;
 }

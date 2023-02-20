@@ -104,9 +104,9 @@ public class BuildingManager : MonoBehaviour
                 && Random.value < 0.3f)
             AddShop();
 
-        if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
-                && Random.value < 0.3f)
-            AddRecruit();
+        //   if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
+        //            && Random.value < 0.3f)
+        AddRecruit();
     }
 
     public void AddRandomQuest()

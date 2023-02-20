@@ -161,8 +161,8 @@ public class QuestElement : VisualElement
         string lineStyle = "";
         if (_quest.QuestState == QuestState.Pending)
         {
-            totalTime = (_quest.ExpiryDateTime.Day - _quest.DayAdded) * GameManager.SecondsInDay;
-            float dayDiff = (_quest.ExpiryDateTime.Day - _gameManager.Day) * GameManager.SecondsInDay;
+            totalTime = (_quest.DateTimeExpired.GetTimeInSeconds() - _quest.DateTimeAdded.GetTimeInSeconds());
+            float dayDiff = (_quest.DateTimeExpired.Day - _gameManager.Day) * GameManager.SecondsInDay;
             float secondsDiff = _gameManager.SecondsLeftInDay; // if we take the whole days into consideration
             remainingTime = dayDiff - (GameManager.SecondsInDay - secondsDiff);
             txt = "Expires in:";
@@ -172,7 +172,7 @@ public class QuestElement : VisualElement
         if (_quest.QuestState == QuestState.Delegated)
         {
             totalTime = _quest.DurationSeconds;
-            float end = _quest.StartedDateTime.GetTimeInSeconds() + totalTime;
+            float end = _quest.DateTimeStarted.GetTimeInSeconds() + totalTime;
             remainingTime = end - _gameManager.GetCurrentTimeInSeconds();
             txt = "Finished in:";
             lineStyle = _ussTimerLineDelegated;
@@ -383,7 +383,7 @@ public class QuestElement : VisualElement
         Add(overlay);
         overlay.BringToFront();
 
-        Label text = new($"Expired! ({_quest.ExpiryDateTime.Day})");
+        Label text = new($"Expired! ({_quest.DateTimeExpired.Day})");
         text.AddToClassList(_ussCommonTextPrimary);
         text.style.fontSize = 32;
         text.transform.rotation *= Quaternion.Euler(0f, 0f, 30f);

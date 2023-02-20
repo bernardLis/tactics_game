@@ -5,14 +5,15 @@ using UnityEngine.UIElements;
 
 public class RecruitElement : VisualElement
 {
-    GameManager _gameManager;
-    Recruit _recruit;
-    Label _daysLeftLabel;
-
     const string _ussClassName = "recruit-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussWageContainer = _ussClassName + "wage-container";
 
+    GameManager _gameManager;
+    Recruit _recruit;
+    Label _daysLeftLabel;
+
+    LineTimerElement _expiryTimer;
 
     public RecruitElement(Recruit recruit)
     {
@@ -23,7 +24,6 @@ public class RecruitElement : VisualElement
             styleSheets.Add(ss);
 
         _recruit = recruit;
-        recruit.OnDaysUntilExpiredChanged += UpdateDaysLeftLabel;
 
         AddToClassList(_ussMain);
 
@@ -36,7 +36,15 @@ public class RecruitElement : VisualElement
 
         _daysLeftLabel = new();
         Add(_daysLeftLabel);
-        UpdateDaysLeftLabel(_recruit.DaysUntilExpired);
+
+        if (recruit.RecruitState != RecruitState.Pending)
+            return;
+
+        float timeTotal = recruit.DateTimeExpired.GetTimeInSeconds() - recruit.DateTimeAdded.GetTimeInSeconds();
+        float timeLeft = recruit.DateTimeExpired.GetTimeInSeconds() - _gameManager.GetCurrentTimeInSeconds();
+        _expiryTimer = new(timeLeft, timeTotal, false, "Leaving in: ");
+        Add(_expiryTimer);
+        _expiryTimer.OnTimerFinished += () => recruit.UpdateRecruitState(RecruitState.Expired);
     }
 
     void UpdateDaysLeftLabel(int daysLeft)

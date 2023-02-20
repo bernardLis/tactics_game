@@ -17,9 +17,9 @@ public class Quest : BaseScriptableObject
     public QuestState QuestState;
 
     [Header("Management")]
-    public int DayAdded;
-    public DateTime ExpiryDateTime;
-    public DateTime StartedDateTime;
+    public DateTime DateTimeAdded;
+    public DateTime DateTimeExpired;
+    public DateTime DateTimeStarted;
     public int DurationSeconds;
     public float Roll;
     public bool IsWon;
@@ -96,7 +96,7 @@ public class Quest : BaseScriptableObject
 
     public void DelegateQuest()
     {
-        StartedDateTime = _gameManager.GetCurrentDateTime();
+        DateTimeStarted = _gameManager.GetCurrentDateTime();
         UpdateQuestState(QuestState.Delegated);
         _gameManager.SaveJsonData();
     }
@@ -129,10 +129,11 @@ public class Quest : BaseScriptableObject
         Reward = Instantiate(_gameManager.GameDatabase.GetRewardByQuestRank(Rank.Rank));
         Reward.Initialize();
 
-        DayAdded = _gameManager.Day;
-        ExpiryDateTime = ScriptableObject.CreateInstance<DateTime>();
-        ExpiryDateTime.Day = _gameManager.Day + Random.Range(3, 7);
-        StartedDateTime = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeAdded = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeAdded = _gameManager.GetCurrentDateTime();
+        DateTimeExpired = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeExpired.Day = _gameManager.Day + Random.Range(3, 7);
+        DateTimeStarted = ScriptableObject.CreateInstance<DateTime>();
         DurationSeconds = Random.Range(10, 26);
         AssignedCharacters = new();
 
@@ -154,15 +155,16 @@ public class Quest : BaseScriptableObject
         Reward = Instantiate(r);
         Reward.Initialize();
 
-        DayAdded = data.DayAdded;
+        DateTimeAdded = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeAdded.LoadFromData(data.DateTimeAdded);
 
-        ExpiryDateTime = ScriptableObject.CreateInstance<DateTime>();
-        ExpiryDateTime.LoadFromData(data.ExpiryDateTime);
+        DateTimeExpired = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeExpired.LoadFromData(data.DateTimeExpired);
+
+        DateTimeStarted = ScriptableObject.CreateInstance<DateTime>();
+        DateTimeStarted.LoadFromData(data.DateTimeStarted);
 
         DurationSeconds = data.DurationSeconds;
-
-        StartedDateTime = ScriptableObject.CreateInstance<DateTime>();
-        StartedDateTime.LoadFromData(data.StartedDateTime);
 
         Roll = data.Roll;
         IsWon = data.IsWon;
@@ -184,10 +186,10 @@ public class Quest : BaseScriptableObject
 
         qd.RewardRank = Reward.Rank;
 
-        qd.DayAdded = DayAdded;
-        qd.ExpiryDateTime = ExpiryDateTime.SerializeSelf();
+        qd.DateTimeAdded = DateTimeAdded.SerializeSelf();
+        qd.DateTimeExpired = DateTimeExpired.SerializeSelf();
+        qd.DateTimeStarted = DateTimeStarted.SerializeSelf();
         qd.DurationSeconds = DurationSeconds;
-        qd.StartedDateTime = StartedDateTime.SerializeSelf();
         qd.Roll = Roll;
         qd.IsWon = IsWon;
 
@@ -209,12 +211,11 @@ public struct QuestData
     public string QuestState;
     public int RewardRank;
 
-    public int DayAdded;
-    public DateTimeData ExpiryDateTime;
+    public DateTimeData DateTimeAdded;
+    public DateTimeData DateTimeExpired;
+    public DateTimeData DateTimeStarted;
     public int DurationSeconds;
-    public DateTimeData StartedDateTime;
 
-    public int DayStarted;
     public float Roll;
     public bool IsWon;
     public List<string> AssignedCharacters;
