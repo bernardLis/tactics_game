@@ -1,6 +1,7 @@
 .timer-element__line-main {
     height: 50px;
     width: 100%;
+    flex-direction: row-reverse;
 }
 
 .timer-element__wrapper {
@@ -11,25 +12,12 @@
 }
 
 .timer-element__line {
+    -unity-background-scale-mode: scale-and-crop;
+    position: absolute;
     margin-right: 10px;
     height: 100%;
     width: 100%;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Loading_line.png?fileID=2800000&guid=18657c642cc0a9546adc71c0efcdd571&type=3#Loading_line');
-}
-
-.timer-element__line-mask-wrapper {
-    position: absolute;
-    height: 60%;
-    top: 20%;
-    width: 94%;
-    left: 3%;
-}
-
-.timer-element__line-mask {
-    height: 100%;
-    width: 0;
-    position: absolute;
-    background-color: black;
 }
 
 .timer-element__label-wrapper {
@@ -38,7 +26,7 @@
     height: 100%;
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 10%;
+    margin-right: 10%;
     width: 80%;
 }
 
@@ -49,7 +37,6 @@
 .timer-element__seconds-left-label {
     -unity-text-align: middle-center;
 }
-
 
 .timer-element__overlay-main {
     position: absolute;

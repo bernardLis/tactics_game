@@ -234,8 +234,8 @@ public class Character : BaseScriptableObject
 
     public void RaiseCheck()
     {
-        //if (!IsAskingForRaise())
-        //     return;
+        if (!IsAskingForRaise())
+            return;
 
         _gameManager.RemoveCharacterFromTroops(this);
 

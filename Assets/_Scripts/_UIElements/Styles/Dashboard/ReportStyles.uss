@@ -48,7 +48,6 @@
     scale: 1.02 1.02;
 }
 
-
 .report__picked-up {
     scale: 1.05 1.05;
 }
@@ -90,7 +89,6 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/21_close.png?fileID=2800000&guid=9cf17f0fad3df3742b98708fa5a46f46&type=3#21_close');
 }
 
-
 .report__sign-container {
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_round_red.png?fileID=2800000&guid=95d1e7bf437d0ef4888b4aa952223797&type=3#Button_round_red');
     align-items: center;
@@ -116,7 +114,7 @@
 }
 
 .report__sign_button {
-    background-image: resource('Profession_icons/Blacksmith/Blacksmith_40_lever');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_35_save.png?fileID=2800000&guid=6ee05b2f40a3b5347b5d781b72de6e99&type=3#gray_35_save');
     width: 70px;
     height: 70px;
 }

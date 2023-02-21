@@ -103,13 +103,14 @@ public class ReportElement : VisualElement
         _timer = new(timeLeft, timeTotal, false, text);
 
         _reportContents.Add(_timer);
+        _timer.OnTimerFinished += () => _timer.style.visibility = Visibility.Hidden;
     }
 
     protected void AddHeader(string text, Color color)
     {
         _header.text = text;
         _header.AddToClassList(_ussHeader);
-        _header.style.unityBackgroundImageTintColor = color;
+        //  _header.style.unityBackgroundImageTintColor = color;
     }
 
     protected void AddAcceptRejectButtons(Action acceptCallback, Action rejectCallback)

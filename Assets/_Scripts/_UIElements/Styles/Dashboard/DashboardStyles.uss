@@ -11,6 +11,20 @@
     padding-right: 50px;
 }
 
+.dashboard__timer-wrapper {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Loading_frame.png?fileID=2800000&guid=b927f1ba6283e1347bd42800f395fb81&type=3#Loading_frame');
+}
+
+.dashboard__timer-line {
+    margin-right: 10px;
+    height: 100%;
+    width: 100%;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Loading_line.png?fileID=2800000&guid=18657c642cc0a9546adc71c0efcdd571&type=3#Loading_line');
+}
+
 .dashboard__nav-resource-element {
     align-items: center;
     justify-content: center;
@@ -30,7 +44,7 @@
 }
 
 .dashboard__nav-desk {
-    background-image: resource('500_resources/Quest_17');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/72_paper.png?fileID=2800000&guid=a0fdcee38a47c674bbec14c9dcd63608&type=3#72_paper');
 }
 
 .dashboard__nav-camp {
@@ -38,11 +52,11 @@
 }
 
 .dashboard__nav-abilities {
-    background-image: url('project://database/Assets/Plugins/4000_Fantasy_Icons/Armor/500_armor_vol_2/Cloth/2_Cloth_Head.png?fileID=2800000&guid=95f10dc60232cd3498b446d16718ee9b&type=3#2_Cloth_Head');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_36_rune.png?fileID=2800000&guid=7b21099f69a5280408eb27f939e92fe5&type=3#gray_36_rune');
 }
 
 .dashboard__nav-archive {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/72_paper.png?fileID=2800000&guid=a0fdcee38a47c674bbec14c9dcd63608&type=3#72_paper');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/65_trash_can.png?fileID=2800000&guid=b577aa71c8fb87b44ab8950124a9e829&type=3#65_trash_can');
 }
 
 .dashboard__nav-menu {
@@ -69,3 +83,4 @@
     width: 120px;
     height: 120px;
 }
+

@@ -31,7 +31,6 @@ public class QuestElement : VisualElement
     QuestRankElement _questRankElement;
     VisualElement _bottomPanel;
 
-  //  LineTimerElement _timer;
     TextWithTooltip _durationLabel;
     TextWithTooltip _successChanceLabel;
     VisualElement _assignedCharactersContainer;
@@ -103,8 +102,6 @@ public class QuestElement : VisualElement
         _topPanel.AddToClassList(_ussCommonTextPrimaryBlack);
         Add(_topPanel);
 
-      //  AddTimer();
-
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         container.style.alignContent = Align.Center;
@@ -141,54 +138,7 @@ public class QuestElement : VisualElement
         UpdateActionButton();
         _bottomPanel.Add(_actionButton);
     }
-/*
-    void AddTimer()
-    {
-        if (_quest.QuestState != QuestState.Pending && _quest.QuestState != QuestState.Delegated)
-            return;
 
-        float totalTime = 0;
-        float remainingTime = 0;
-        string txt = "";
-
-        string lineStyle = "";
-        if (_quest.QuestState == QuestState.Pending)
-        {
-            totalTime = (_quest.DateTimeExpired.GetTimeInSeconds() - _quest.DateTimeAdded.GetTimeInSeconds());
-            float dayDiff = (_quest.DateTimeExpired.Day - _gameManager.Day) * GameManager.SecondsInDay;
-            float secondsDiff = _gameManager.SecondsLeftInDay; // if we take the whole days into consideration
-            remainingTime = dayDiff - (GameManager.SecondsInDay - secondsDiff);
-            txt = "Expires in:";
-            lineStyle = _ussTimerLine;
-        }
-
-        if (_quest.QuestState == QuestState.Delegated)
-        {
-            totalTime = _quest.DurationSeconds;
-            float end = _quest.DateTimeStarted.GetTimeInSeconds() + totalTime;
-            remainingTime = end - _gameManager.GetCurrentTimeInSeconds();
-            txt = "Finished in:";
-            lineStyle = _ussTimerLineDelegated;
-        }
-
-        _timer = new(remainingTime, totalTime, false, txt);
-        _timer.OnTimerFinished += OnTimerFinished;
-
-        _timer.SetStyles(_ussTimerWrapper, lineStyle, _ussTimerLineMaskWrapper, _ussTimerLineMask);
-
-        _topPanel.Add(_timer);
-    }
-
-
-    void OnTimerFinished()
-    {
-        if (_quest.QuestState == QuestState.Pending)
-            _quest.UpdateQuestState(QuestState.Expired);
-
-        if (_quest.QuestState == QuestState.Delegated)
-            _quest.FinishQuest();
-    }
-*/
     void UpdateSuccessChanceLabel()
     {
         if (_questInfoBuilding.UpgradeRank == 0)
@@ -347,17 +297,8 @@ public class QuestElement : VisualElement
         _actionButton.AddToClassList(className);
     }
 
-    void DelegateBattle()
-    {
-        /*
-        float totalTime = _quest.DurationSeconds;
-        _timer.UpdateLabel("Finished in: ");
-        _timer.UpdateTimerValues(totalTime, totalTime);
-        _timer.UpdateLineStyle(_ussTimerLineDelegated);
-        */
-        _quest.DelegateQuest();
-    }
-    
+    void DelegateBattle() { _quest.DelegateQuest(); }
+
 
     /* QUEST STATES */
     void HandleDelegatedQuest()
@@ -390,8 +331,6 @@ public class QuestElement : VisualElement
     {
         _durationLabel.Clear();
         _successChanceLabel.Clear();
-     //   if (_timer != null)
-     //       _topPanel.Remove(_timer);
         _assignedCharactersContainer.style.display = DisplayStyle.None;
 
         if (_quest.Reward.Item == null)

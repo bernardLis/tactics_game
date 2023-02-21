@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
-    public const float SecondsInDay = 10;
+    public const float SecondsInDay = 30;
 
     LevelLoader _levelLoader;
     BuildingManager _buildingManager;

@@ -8,6 +8,19 @@ using DG.Tweening;
 
 public class DashboardManager : Singleton<DashboardManager>
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "dashboard__";
+    const string _ussPassDayButton = _ussClassName + "pass-day-button";
+    const string _ussNavIcon = _ussClassName + "nav-icon";
+    const string _ussNavDesk = _ussClassName + "nav-desk";
+    const string _ussNavCamp = _ussClassName + "nav-camp";
+    const string _ussNavAbilities = _ussClassName + "nav-abilities";
+    const string _ussNavArchive = _ussClassName + "nav-archive";
+    const string _ussNavMenu = _ussClassName + "nav-menu";
+    const string _ussTimerWrapper = _ussClassName + "timer-wrapper";
+    const string _ussTimerLine = _ussClassName + "timer-line";
+
     GameManager _gameManager;
     public PlayerInput PlayerInput { get; private set; }
 
@@ -35,16 +48,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
     DashboardBuildingType _openBuilding = DashboardBuildingType.Desk;
 
-    const string _ussCommonTextPrimary = "common__text-primary";
-
-    const string _ussClassName = "dashboard__";
-    const string _ussPassDayButton = _ussClassName + "pass-day-button";
-    const string _ussNavIcon = _ussClassName + "nav-icon";
-    const string _ussNavDesk = _ussClassName + "nav-desk";
-    const string _ussNavCamp = _ussClassName + "nav-camp";
-    const string _ussNavAbilities = _ussClassName + "nav-abilities";
-    const string _ussNavArchive = _ussClassName + "nav-archive";
-    const string _ussNavMenu = _ussClassName + "nav-menu";
 
     [SerializeField] Sound _dashboardTheme;
 
@@ -137,6 +140,7 @@ public class DashboardManager : Singleton<DashboardManager>
     void AddDayTimer()
     {
         DayTimer = new(_gameManager.SecondsLeftInDay, GameManager.SecondsInDay, true, $"Day: {_gameManager.Day}");
+        DayTimer.SetStyles(_ussTimerWrapper, _ussTimerLine);
         DayTimer.OnLoopFinished += _gameManager.PassDay;
         Root.Q<VisualElement>("navLeft").Add(DayTimer);
     }

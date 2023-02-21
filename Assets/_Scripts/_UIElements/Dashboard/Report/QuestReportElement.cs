@@ -10,8 +10,6 @@ public class QuestReportElement : ReportElement
     const string _ussTimerWrapper = _ussClassName + "timer-element-wrapper";
     const string _ussTimerLine = _ussClassName + "timer-element-line";
     const string _ussTimerLineDelegated = _ussClassName + "timer-element-line-delegated";
-    const string _ussTimerLineMaskWrapper = _ussClassName + "timer-element-line-mask-wrapper";
-    const string _ussTimerLineMask = _ussClassName + "timer-element-line-mask";
 
     public QuestReportElement(VisualElement parent, Report report) : base(parent, report)
     {
@@ -41,9 +39,7 @@ public class QuestReportElement : ReportElement
     {
         AddTimer("Expires in: ");
         _timer.OnTimerFinished += OnTimerFinished;
-
-        _timer.SetStyles(_ussTimerWrapper, _ussTimerLine, _ussTimerLineMaskWrapper, _ussTimerLineMask);
-
+        _timer.SetStyles(_ussTimerWrapper, _ussTimerLine);
     }
 
     void HandleDelegatedQuest()
@@ -61,7 +57,7 @@ public class QuestReportElement : ReportElement
 
         _timer.UpdateLabel("Finished in: ");
         _timer.UpdateTimerValues(remainingTime, totalTime);
-        _timer.SetStyles(_ussTimerWrapper, _ussTimerLineDelegated, _ussTimerLineMaskWrapper, _ussTimerLineMask);
+        _timer.SetStyles(_ussTimerWrapper, _ussTimerLineDelegated);
     }
 
     void OnTimerFinished()

@@ -7,17 +7,11 @@ public class LineTimerElement : TimerElement
 {
     const string _ussLineMain = _ussClassName + "line-main";
     const string _ussWrapper = _ussClassName + "wrapper";
-    const string _ussLineMaskWrapper = _ussClassName + "line-mask-wrapper";
     const string _ussLine = _ussClassName + "line";
-    const string _ussLineMask = _ussClassName + "line-mask";
-
 
     VisualElement _wrapper;
 
     VisualElement _line;
-    VisualElement _lineMask;
-
-    VisualElement _lineMaskWrapper;
 
     public LineTimerElement(float timeLeft, float totalTime, bool isLooping, string text)
         : base(timeLeft, totalTime, isLooping, text)
@@ -29,16 +23,8 @@ public class LineTimerElement : TimerElement
         Add(_line);
         _line.AddToClassList(_ussLine);
 
-        _lineMaskWrapper = new();
-        Add(_lineMaskWrapper);
-        _lineMaskWrapper.AddToClassList(_ussLineMaskWrapper);
-
-        _lineMask = new();
-        _lineMaskWrapper.Add(_lineMask);
-        _lineMask.AddToClassList(_ussLineMask);
-
-        float w = 100 - (float)_ticksLeft / (float)_totalTicks * 100;
-        _lineMask.style.width = Length.Percent(w);
+        float w = (float)_ticksLeft / (float)_totalTicks * 100;
+        _line.style.width = Length.Percent(w);
 
         _wrapper = new();
         Add(_wrapper);
@@ -47,19 +33,13 @@ public class LineTimerElement : TimerElement
         Add(GetLabelWrapper());
     }
 
-    public void SetStyles(string wrapperClass, string lineClass, string lineMaskWrapperClass, string lineMaskClass)
+    public void SetStyles(string wrapperClass, string lineClass)
     {
         _wrapper.ClearClassList();
         _wrapper.AddToClassList(wrapperClass);
 
         _line.ClearClassList();
         _line.AddToClassList(lineClass);
-
-        _lineMaskWrapper.ClearClassList();
-        _lineMaskWrapper.AddToClassList(lineMaskWrapperClass);
-
-        _lineMask.ClearClassList();
-        _lineMask.AddToClassList(lineMaskClass);
     }
 
     public void UpdateLineStyle(string lineClass)
@@ -72,9 +52,10 @@ public class LineTimerElement : TimerElement
     {
         base.UpdateTimer();
 
-        float w = 100 - (float)_ticksLeft / (float)_totalTicks * 100;
+        float w = (float)_ticksLeft / (float)_totalTicks * 100;
+
         w = Mathf.Clamp(w, 0, 100);
-        _lineMask.style.width = Length.Percent(w);
+        _line.style.width = Length.Percent(w);
     }
 
 }
