@@ -5,19 +5,14 @@ using UnityEngine.UIElements;
 
 public class CampBuildingShopElement : CampBuildingElement
 {
-
-    TextWithTooltip _upgradeText;
-
     public CampBuildingShopElement(CampBuildingShop campBuilding) : base(campBuilding)
     {
     }
 
     protected override void AddUpgrade()
     {
-        _upgradeText = new("TXT", _campBuilding.TooltipText.Value);
+        _upgradeText.text = _campBuilding.TooltipText.Value;
         SetUpgrade();
-        _upgradeText.UpdateFontSize(18);
-        _upgradeContainer.Add(_upgradeText);
     }
 
     protected override void SetUpgrade()
@@ -25,8 +20,8 @@ public class CampBuildingShopElement : CampBuildingElement
         CampBuildingShop c = (CampBuildingShop)_campBuilding;
         CampUpgradeShop upgrade = c.GetUpgradeByRank(c.UpgradeRank);
         string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
-        _upgradeText.UpdateText(labelText);
-        _upgradeText.UpdateTextColor(Color.white);
+        _upgradeValue.text = $"{labelText}";
+        _upgradeValue.style.color = Color.white;
     }
 
     protected override void BuildButtonPointerEnter(PointerEnterEvent evt)
@@ -34,8 +29,8 @@ public class CampBuildingShopElement : CampBuildingElement
         CampBuildingShop c = (CampBuildingShop)_campBuilding;
         CampUpgradeShop upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
         string labelText = $"{upgrade.UncommonItemChance}, {upgrade.RareItemChance}, {upgrade.EpicItemChance}";
-        _upgradeText.UpdateText(labelText);
-        _upgradeText.UpdateTextColor(Color.green);
+        _upgradeValue.text = $"{labelText}";
+        _upgradeValue.style.color = Color.green;
     }
 
 }

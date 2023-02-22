@@ -5,37 +5,30 @@ using UnityEngine.UIElements;
 
 public class CampBuildingRecruitingElement : CampBuildingElement
 {
-
-    TextWithTooltip _upgradeText;
-
     public CampBuildingRecruitingElement(CampBuildingRecruiting campBuilding) : base(campBuilding)
     {
     }
 
     protected override void AddUpgrade()
     {
-        _upgradeText = new("TXT", _campBuilding.TooltipText.Value);
+        _upgradeText.text = _campBuilding.TooltipText.Value;
         SetUpgrade();
-        _upgradeText.UpdateFontSize(36);
-        _upgradeContainer.Add(_upgradeText);
     }
 
     protected override void SetUpgrade()
     {
         CampBuildingRecruiting c = (CampBuildingRecruiting)_campBuilding;
         CampUpgradeRecruiting upgrade = c.GetUpgradeByRank(c.UpgradeRank);
-        string labelText = $"{upgrade.MaxRecruitLevel}";
-        _upgradeText.UpdateText(labelText);
-        _upgradeText.UpdateTextColor(Color.white);
+        _upgradeValue.text = $"{upgrade.MaxRecruitLevel}";
+        _upgradeValue.style.color = Color.white;
     }
 
     protected override void BuildButtonPointerEnter(PointerEnterEvent evt)
     {
         CampBuildingRecruiting c = (CampBuildingRecruiting)_campBuilding;
         CampUpgradeRecruiting upgrade = c.GetUpgradeByRank(c.UpgradeRank + 1);
-        string labelText = $"{upgrade.MaxRecruitLevel}";
-        _upgradeText.UpdateText(labelText);
-        _upgradeText.UpdateTextColor(Color.green);
+        _upgradeValue.text = $"{upgrade.MaxRecruitLevel}";
+        _upgradeValue.style.color = Color.green;
     }
 
 }

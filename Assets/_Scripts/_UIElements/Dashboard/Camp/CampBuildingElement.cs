@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CampBuildingElement : VisualElement
+public class CampBuildingElement : ElementWithTooltip
 {
     protected GameManager _gameManager;
 
@@ -14,13 +14,16 @@ public class CampBuildingElement : VisualElement
     VisualElement _buildingRankContainer;
     StarRankElement _buildingRankElement;
 
+    protected VisualElement _tooltipElement;
+
     VisualElement _buildButtonContainer;
     MyButton _buildButton;
     VisualElement _upgradeCostContainer;
     GoldElement _costGoldElement;
 
+    protected Label _upgradeText;
+    protected Label _upgradeValue;
     protected VisualElement _upgradeContainer;
-    TextWithTooltip _upgradeText;
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
@@ -51,22 +54,28 @@ public class CampBuildingElement : VisualElement
 
         Label header = new($"{_campBuilding.DisplayName}");
         header.style.fontSize = 36;
-        Add(header);
-
-        HandleUpgradeReward();
+        // Add(header);
 
         _sprite = new();
         _sprite.AddToClassList(_ussSprite);
         Add(_sprite);
         UpdateBuildingSprite();
 
+        _tooltipElement = new();
+        _tooltipElement.Add(header);
+
+        HandleUpgradeReward();
+
         _buildingRankContainer = new();
-        Add(_buildingRankContainer);
         HandleBuildingRank();
+        _tooltipElement.Add(_buildingRankContainer);
+
+        _tooltipElement.Add(_timeToBuild);
 
         _buildButtonContainer = new();
         Add(_buildButtonContainer);
         UpdateBuildButton();
+
     }
 
     void OnDayPassed(int day) { UpdateBuildButton(); }
@@ -90,11 +99,27 @@ public class CampBuildingElement : VisualElement
     void HandleUpgradeReward()
     {
         _upgradeContainer = new();
-        _upgradeContainer.style.flexDirection = FlexDirection.Row;
+        //        _upgradeContainer.style.flexDirection = FlexDirection.Row;
+        _upgradeContainer.style.alignItems = Align.Center;
+
+        _upgradeText = new();
+        _upgradeContainer.Add(_upgradeText);
+        _upgradeText.style.fontSize = 18;
+        _upgradeText.style.whiteSpace = WhiteSpace.Normal;
+
+        _upgradeValue = new();
+        _upgradeContainer.Add(_upgradeValue);
+        _upgradeValue.style.fontSize = 36;
+        _upgradeValue.style.whiteSpace = WhiteSpace.Normal;
+
+
+        _tooltipElement.Add(_upgradeContainer);
+
+        Debug.Log($"handle upgrade reward");
         AddUpgrade();
         SetUpgrade();
 
-        Add(_upgradeContainer);
+        // Add(_upgradeContainer);
     }
 
     protected virtual void AddUpgrade() { }
@@ -134,7 +159,6 @@ public class CampBuildingElement : VisualElement
 
         _buildButtonContainer.Add(_buildButton);
         _timeToBuild = new($"Time to build: {_campBuilding.DaysToBuild} days");
-        _buildButtonContainer.Add(_timeToBuild);
 
         if (_gameManager.Gold >= _campBuilding.CostToBuild)
             _buildButton.SetEnabled(true);
@@ -206,4 +230,11 @@ public class CampBuildingElement : VisualElement
         r.Initialize(ReportType.CampBuilding, null, null, null, _campBuilding.Id);
         _gameManager.AddNewReport(r);
     }
+
+    protected override void DisplayTooltip()
+    {
+        _tooltip = new(this, _tooltipElement);
+        base.DisplayTooltip();
+    }
+
 }

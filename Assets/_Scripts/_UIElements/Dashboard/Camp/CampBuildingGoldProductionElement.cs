@@ -15,10 +15,7 @@ public class CampBuildingGoldProductionElement : CampBuildingElement
     protected override void AddUpgrade()
     {
         _goldPerWeekGoldElement = new(0);
-        TooltipElement tt = new(_goldPerWeekGoldElement, new Label(_campBuilding.TooltipText.Value));
-        _goldPerWeekGoldElement.AddTooltip(tt);
-
-        SetUpgrade();
+        _upgradeText.text = _campBuilding.TooltipText.Value;
         _upgradeContainer.Add(_goldPerWeekGoldElement);
     }
 

@@ -14,11 +14,9 @@ public class CampBuildingSpiceProductionElement : CampBuildingElement
     protected override void AddUpgrade()
     {
         _spicePerWeekSpiceElement = new(0);
-        TooltipElement tt = new(_spicePerWeekSpiceElement, new Label(_campBuilding.TooltipText.Value));
-        _spicePerWeekSpiceElement.AddTooltip(tt);
-
-        SetUpgrade();
+        _upgradeText.text = _campBuilding.TooltipText.Value;
         _upgradeContainer.Add(_spicePerWeekSpiceElement);
+        SetUpgrade();
     }
 
     protected override void SetUpgrade()

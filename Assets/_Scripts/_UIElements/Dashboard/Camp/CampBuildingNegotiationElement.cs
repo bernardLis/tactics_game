@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class CampBuildingNegotiationElement : CampBuildingElement
 {
 
-    TextWithTooltip _upgradeText;
 
     public CampBuildingNegotiationElement(CampBuildingNegotiation campBuilding) : base(campBuilding)
     {
@@ -14,24 +13,22 @@ public class CampBuildingNegotiationElement : CampBuildingElement
 
     protected override void AddUpgrade()
     {
-        _upgradeText = new("TXT", _campBuilding.TooltipText.Value);
+        _upgradeText.text = _campBuilding.TooltipText.Value;
         SetUpgrade();
-        _upgradeText.UpdateFontSize(36);
-        _upgradeContainer.Add(_upgradeText);
     }
 
     protected override void SetUpgrade()
     {
         CampBuildingNegotiation c = (CampBuildingNegotiation)_campBuilding;
-        _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank).CursorSpeed.ToString());
-        _upgradeText.UpdateTextColor(Color.white);
+        _upgradeValue.text = c.GetUpgradeByRank(c.UpgradeRank).CursorSpeed.ToString();
+        _upgradeValue.style.color = Color.white;
     }
 
     protected override void BuildButtonPointerEnter(PointerEnterEvent evt)
     {
         CampBuildingNegotiation c = (CampBuildingNegotiation)_campBuilding;
-        _upgradeText.UpdateText(c.GetUpgradeByRank(c.UpgradeRank + 1).CursorSpeed.ToString());
-        _upgradeText.UpdateTextColor(Color.green);
+        _upgradeValue.text = c.GetUpgradeByRank(c.UpgradeRank + 1).CursorSpeed.ToString();
+        _upgradeValue.style.color = Color.green;
     }
 
 }

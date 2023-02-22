@@ -14,11 +14,8 @@ public class CampBuildingQuestsElement : CampBuildingElement
 
     protected override void AddUpgrade()
     {
-        Label l = new(_campBuilding.TooltipText.Value);
-        _betterQuestsRankElement = new(1, 0.5f, l, 5);
-        _upgradeContainer.style.flexDirection = FlexDirection.Column;
-        _upgradeContainer.style.alignItems = Align.Center;
-
+        _upgradeText.text = _campBuilding.TooltipText.Value;
+        _betterQuestsRankElement = new(1, 0.5f, null, 5);
         _upgradeContainer.Add(_betterQuestsRankElement);
         SetUpgrade();
     }
