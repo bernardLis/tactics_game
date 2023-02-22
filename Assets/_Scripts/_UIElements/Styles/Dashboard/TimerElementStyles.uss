@@ -8,16 +8,15 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Loading_frame.png?fileID=2800000&guid=b927f1ba6283e1347bd42800f395fb81&type=3#Loading_frame');
+    background-image: none;
 }
 
 .timer-element__line {
     -unity-background-scale-mode: scale-and-crop;
     position: absolute;
-    margin-right: 10px;
     height: 100%;
     width: 100%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Loading_line.png?fileID=2800000&guid=18657c642cc0a9546adc71c0efcdd571&type=3#Loading_line');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Ex_line.png?fileID=2800000&guid=53b3ae5b52ccce740a2ebcc392ea9822&type=3#Ex_line');
 }
 
 .timer-element__label-wrapper {

@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class CommandLineManager : MonoBehaviour
 {
     GameManager _gameManager;
+    BuildingManager _buildingManager;
     PlayerInput _playerInput;
 
     VisualElement _commandLineContainer;
@@ -33,6 +34,7 @@ public class CommandLineManager : MonoBehaviour
     void Start()
     {
         _gameManager = GetComponent<GameManager>();
+        _buildingManager = GetComponent<BuildingManager>();
         _playerInput = GetComponent<PlayerInput>();
     }
 
@@ -84,17 +86,29 @@ public class CommandLineManager : MonoBehaviour
         if (_commandTextField.text.ToLower() == "clearsave")
             _gameManager.ClearSaveData();
 
-        if (_commandTextField.text.ToLower() == "gold")
+        if (_commandTextField.text.ToLower() == "warren")
             _gameManager.ChangeGoldValue(10000);
         if (_commandTextField.text.ToLower() == "takegold")
             _gameManager.ChangeGoldValue(-5000);
-        if (_commandTextField.text.ToLower() == "spice")
+        if (_commandTextField.text.ToLower() == "diuna")
             _gameManager.ChangeSpiceValue(1000);
         if (_commandTextField.text.ToLower() == "takespice")
             _gameManager.ChangeSpiceValue(-500);
         if (_commandTextField.text.ToLower() == "levelup")
             for (int i = _gameManager.PlayerTroops.Count - 1; i >= 0; i--)
                 _gameManager.PlayerTroops[i].LevelUp();
+
+        if (_commandTextField.text.ToLower() == "quest")
+            _buildingManager.AddRandomQuest();
+        if (_commandTextField.text.ToLower() == "hr")
+            _buildingManager.AddRecruit();
+        if (_commandTextField.text.ToLower() == "shop")
+            _buildingManager.AddShop();
+        if (_commandTextField.text.ToLower() == "pawnshop")
+            _buildingManager.AddPawnshop();
+        if (_commandTextField.text.ToLower() == "spicerecycle")
+            _buildingManager.AddSpiceRecycle();
+
     }
 
     public void Log(string logString, string stackTrace, LogType type)

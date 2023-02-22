@@ -57,9 +57,6 @@ public class DeskManager : Singleton<DeskManager>
         _itemSlotsContainer = Root.Q<VisualElement>("itemSlotsContainer");
         _abilitySlotsContainer = Root.Q<VisualElement>("abilitySlotsContainer");
 
-        _dashboardManager.OnDeskOpened += Initialize;
-        _dashboardManager.OnHideAllPanels += CleanDraggables;
-
         Initialize();
     }
 

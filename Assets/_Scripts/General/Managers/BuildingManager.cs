@@ -100,9 +100,9 @@ public class BuildingManager : MonoBehaviour
         if (Random.value < _spiceRecyclerBuilding.GetUpgradeByRank(_pawnshopBuilding.UpgradeRank).ChanceToVisit)
             AddSpiceRecycle();
 
-        if (ShopBuilding.CampBuildingState == CampBuildingState.Built
-                  && Random.value < 0.3f)
-            AddShop();
+        // if (ShopBuilding.CampBuildingState == CampBuildingState.Built
+        //           && Random.value < 0.3f)
+        AddShop();
 
         if (_recruitingBuilding.CampBuildingState == CampBuildingState.Built
                    && Random.value < 0.3f)
@@ -127,7 +127,7 @@ public class BuildingManager : MonoBehaviour
         _gameManager.AddNewReport(r);
     }
 
-    void AddRecruit()
+    public void AddRecruit()
     {
         Debug.Log($"Adding new recruit.");
 
@@ -143,7 +143,7 @@ public class BuildingManager : MonoBehaviour
         _gameManager.AddNewReport(r);
     }
 
-    void AddShop()
+    public void AddShop()
     {
         Debug.Log($"Adding a shop.");
         Shop newShop = ScriptableObject.CreateInstance<Shop>();
@@ -157,7 +157,7 @@ public class BuildingManager : MonoBehaviour
         _gameManager.AddNewReport(r);
     }
 
-    void AddPawnshop()
+    public void AddPawnshop()
     {
         Debug.Log($"Adding a pawnshop.");
 
@@ -169,7 +169,7 @@ public class BuildingManager : MonoBehaviour
         _gameManager.AddNewReport(r);
     }
 
-    void AddSpiceRecycle()
+    public void AddSpiceRecycle()
     {
         Debug.Log($"Adding spice recycler.");
 
