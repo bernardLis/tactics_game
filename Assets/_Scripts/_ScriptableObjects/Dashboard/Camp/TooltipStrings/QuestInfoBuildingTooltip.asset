@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d6f1abcbc6531428ab01f0da406457, type: 3}
   m_Name: QuestInfoBuildingTooltip
   m_EditorClassIdentifier: 
-  value: Each upgrade reveals more information.
+  value: 'Quest information revealed:'

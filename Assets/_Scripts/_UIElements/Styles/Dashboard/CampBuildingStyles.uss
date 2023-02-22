@@ -14,9 +14,21 @@
     height: 200px;
 }
 
-.camp-building__upgrade-cost-container {
-    flex-direction: row;
-    align-items: center;
+
+.camp-building__header {
+    -unity-text-align: middle-center;
+    font-size: 36px;
+}
+
+
+.camp-building__upgrade-text {
+    font-size: 18px;
+    white-space: normal;
+}
+
+.camp-building__upgrade-value {
+    font-size: 36px;
+    white-space: Normal;
 }
 
 .camp-building__build-button {

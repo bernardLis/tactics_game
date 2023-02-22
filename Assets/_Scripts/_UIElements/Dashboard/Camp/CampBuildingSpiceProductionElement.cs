@@ -15,6 +15,7 @@ public class CampBuildingSpiceProductionElement : CampBuildingElement
     {
         _spicePerWeekSpiceElement = new(0);
         _upgradeText.text = _campBuilding.TooltipText.Value;
+        _upgradeValue.style.display = DisplayStyle.None;
         _upgradeContainer.Add(_spicePerWeekSpiceElement);
         SetUpgrade();
     }

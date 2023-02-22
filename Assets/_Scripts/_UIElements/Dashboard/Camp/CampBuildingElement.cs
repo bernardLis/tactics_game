@@ -5,6 +5,17 @@ using UnityEngine.UIElements;
 
 public class CampBuildingElement : ElementWithTooltip
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "camp-building__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussSprite = _ussClassName + "sprite";
+    const string _ussBuildButton = _ussClassName + "build-button";
+    const string _ussHeader = _ussClassName + "header";
+    const string _ussUpgradeText = _ussClassName + "upgrade-text";
+    const string _ussUpgradeValue = _ussClassName + "upgrade-value";
+
+
     protected GameManager _gameManager;
 
     protected CampBuilding _campBuilding;
@@ -25,14 +36,6 @@ public class CampBuildingElement : ElementWithTooltip
     protected Label _upgradeValue;
     protected VisualElement _upgradeContainer;
 
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
-
-    const string _ussClassName = "camp-building__";
-    const string _ussMain = _ussClassName + "main";
-    const string _ussSprite = _ussClassName + "sprite";
-    const string _ussUpgradeCostContainer = _ussClassName + "upgrade-cost-container";
-    const string _ussBuildButton = _ussClassName + "build-button";
 
     public CampBuildingElement(CampBuilding campBuilding)
     {
@@ -53,8 +56,7 @@ public class CampBuildingElement : ElementWithTooltip
         AddToClassList(_ussCommonTextPrimary);
 
         Label header = new($"{_campBuilding.DisplayName}");
-        header.style.fontSize = 36;
-        // Add(header);
+        header.AddToClassList(_ussHeader);
 
         _sprite = new();
         _sprite.AddToClassList(_ussSprite);
@@ -75,7 +77,6 @@ public class CampBuildingElement : ElementWithTooltip
         _buildButtonContainer = new();
         Add(_buildButtonContainer);
         UpdateBuildButton();
-
     }
 
     void OnDayPassed(int day) { UpdateBuildButton(); }
@@ -99,27 +100,20 @@ public class CampBuildingElement : ElementWithTooltip
     void HandleUpgradeReward()
     {
         _upgradeContainer = new();
-        //        _upgradeContainer.style.flexDirection = FlexDirection.Row;
         _upgradeContainer.style.alignItems = Align.Center;
 
         _upgradeText = new();
+        _upgradeText.AddToClassList(_ussUpgradeText);
         _upgradeContainer.Add(_upgradeText);
-        _upgradeText.style.fontSize = 18;
-        _upgradeText.style.whiteSpace = WhiteSpace.Normal;
 
         _upgradeValue = new();
+        _upgradeValue.AddToClassList(_ussUpgradeValue);
         _upgradeContainer.Add(_upgradeValue);
-        _upgradeValue.style.fontSize = 36;
-        _upgradeValue.style.whiteSpace = WhiteSpace.Normal;
-
 
         _tooltipElement.Add(_upgradeContainer);
 
-        Debug.Log($"handle upgrade reward");
         AddUpgrade();
         SetUpgrade();
-
-        // Add(_upgradeContainer);
     }
 
     protected virtual void AddUpgrade() { }
@@ -131,6 +125,7 @@ public class CampBuildingElement : ElementWithTooltip
         Label tt = new("Building upgrade rank.");
         _buildingRankElement = new(_campBuilding.UpgradeRank, 0.7f, tt, _campBuilding.GetMaxUpgradeRank());
         _buildingRankContainer.Add(_buildingRankElement);
+        _buildingRankContainer.style.alignItems = Align.Center;
     }
 
     void UpdateBuildButton()
@@ -227,7 +222,7 @@ public class CampBuildingElement : ElementWithTooltip
 
         _buildingRankElement.SetRank(_campBuilding.UpgradeRank);
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.CampBuilding, null, null, null, _campBuilding.Id);
+        r.Initialize(ReportType.CampBuilding, campBuildingId: _campBuilding.Id);
         _gameManager.AddNewReport(r);
     }
 
