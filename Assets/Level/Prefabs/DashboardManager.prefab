@@ -167,4 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91caef7e4f809074088551b773ae93ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Banker: {fileID: 11400000, guid: 712ecc6e8280beb4490570cd92ada80d, type: 2}
+  _introConversation: {fileID: 11400000, guid: 1b29159e24682d4418afa91d48a309d8, type: 2}
+  _banker: {fileID: 11400000, guid: 712ecc6e8280beb4490570cd92ada80d, type: 2}
+  _snekSound: {fileID: 11400000, guid: 831b9ba71f2f8e74e9e083cf5f56e2e0, type: 2}
+  _snekSprites:
+  - {fileID: 1001385304, guid: f266a54b73c65c745bf7782171fac5c3, type: 3}
+  - {fileID: -1234445123, guid: f266a54b73c65c745bf7782171fac5c3, type: 3}
+  - {fileID: 49014253, guid: f266a54b73c65c745bf7782171fac5c3, type: 3}
+  - {fileID: 2130010790, guid: f266a54b73c65c745bf7782171fac5c3, type: 3}

@@ -4,16 +4,16 @@ using UnityEngine.InputSystem;
 
 public class TooltipElement : VisualElement
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "tooltip-element";
+    const string _ussMain = _ussClassName + "__main";
+
     int offsetX = 20;
     int offsetY = 30;
 
     VisualElement _parentElement;
     VisualElement _tooltipElement;
-
-    const string _ussCommonTextPrimary = "common__text-primary";
-
-    const string _ussClassName = "tooltip-element";
-    const string _ussMain = _ussClassName + "__main";
 
     public TooltipElement(VisualElement parent, VisualElement tooltipElement, bool disableTooltipStyle = false)
     {

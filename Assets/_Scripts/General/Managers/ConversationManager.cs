@@ -79,41 +79,43 @@ public class ConversationManager : Singleton<ConversationManager>
         HideUI();
         _isConversationOn = false;
     }
-
-    void ShowUI(int quadrant)
-    {
-
-        int randomX = Random.Range(2, 10);
-        int randomY = Random.Range(2, 10);
-        _conversationContainer.style.top = StyleKeyword.Null;
-        _conversationContainer.style.bottom = StyleKeyword.Null;
-        _conversationContainer.style.left = StyleKeyword.Null;
-        _conversationContainer.style.right = StyleKeyword.Null;
-
-        // [Tooltip("0: bottom left, 1: bottom right, 2: top left, 3: top right")]
-        if (quadrant == 0)
+    /*
+        void ShowUI()
         {
-            _conversationContainer.style.bottom = Length.Percent(randomY);
-            _conversationContainer.style.left = Length.Percent(randomX);
-        }
-        if (quadrant == 1)
-        {
-            _conversationContainer.style.bottom = Length.Percent(randomY);
-            _conversationContainer.style.right = Length.Percent(randomX);
-        }
-        if (quadrant == 2)
-        {
-            _conversationContainer.style.top = Length.Percent(randomY);
-            _conversationContainer.style.left = Length.Percent(randomX);
-        }
-        if (quadrant == 3)
-        {
-            _conversationContainer.style.top = Length.Percent(randomY);
-            _conversationContainer.style.right = Length.Percent(randomX);
-        }
+            quadrant = 1
 
-        _conversationContainer.style.display = DisplayStyle.Flex;
-    }
+            int randomX = Random.Range(2, 10);
+            int randomY = Random.Range(2, 10);
+            _conversationContainer.style.top = StyleKeyword.Null;
+            _conversationContainer.style.bottom = StyleKeyword.Null;
+            _conversationContainer.style.left = StyleKeyword.Null;
+            _conversationContainer.style.right = StyleKeyword.Null;
+
+            // [Tooltip("0: bottom left, 1: bottom right, 2: top left, 3: top right")]
+            if (quadrant == 0)
+            {
+                _conversationContainer.style.bottom = Length.Percent(randomY);
+                _conversationContainer.style.left = Length.Percent(randomX);
+            }
+            if (quadrant == 1)
+            {
+                _conversationContainer.style.bottom = Length.Percent(randomY);
+                _conversationContainer.style.right = Length.Percent(randomX);
+            }
+            if (quadrant == 2)
+            {
+                _conversationContainer.style.top = Length.Percent(randomY);
+                _conversationContainer.style.left = Length.Percent(randomX);
+            }
+            if (quadrant == 3)
+            {
+                _conversationContainer.style.top = Length.Percent(randomY);
+                _conversationContainer.style.right = Length.Percent(randomX);
+            }
+
+            _conversationContainer.style.display = DisplayStyle.Flex;
+        }
+        */
 
     void HideUI()
     {
@@ -143,7 +145,7 @@ public class ConversationManager : Singleton<ConversationManager>
             letterPrintingDelay *= 0.001f;
         }
 
-        ShowUI(line.DisplayQuadrant);
+    //  /   ShowUI();
         _currentText = line.Text;
         SetText(letterPrintingDelay);
 

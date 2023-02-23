@@ -41,7 +41,6 @@ public class AudioManager : Singleton<AudioManager>
         _ambienceAudioSource.loop = true;
         _ambienceAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Ambience")[0];
 
-
         GameObject dialogueGameObject = new("Dialogue");
         dialogueGameObject.transform.parent = transform;
         _dialogueAudioSource = dialogueGameObject.AddComponent<AudioSource>();
@@ -131,6 +130,7 @@ public class AudioManager : Singleton<AudioManager>
         float currentTime = 0f;
         float start = 0f;
         float end = sound.Volume;
+        Debug.Log($"end: {end}");
 
         while (currentTime < duration)
         {

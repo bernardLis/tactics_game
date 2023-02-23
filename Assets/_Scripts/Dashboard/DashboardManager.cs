@@ -88,7 +88,7 @@ public class DashboardManager : Singleton<DashboardManager>
 
         AddNavigationButtons();
 
-        AudioManager.Instance.PlayMusic(_dashboardTheme);
+       // AudioManager.Instance.PlayMusic(_dashboardTheme);
     }
 
     /* INPUT */

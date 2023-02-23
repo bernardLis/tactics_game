@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
+  m_Name: 0 Banker
+  m_EditorClassIdentifier: 
+  Id: 63dcbaa3-486a-4904-a15b-0a7301eeab29
+  Player: 0
+  Friend: 0
+  SpeakerCharacter: {fileID: 11400000, guid: 712ecc6e8280beb4490570cd92ada80d, type: 2}
+  Text: 'Hey, you have inherited an adventurer''s guild from your late uncle. '
+  VO: {fileID: 11400000, guid: 96ec6c7fe879d26488616967991794ee, type: 2}
+  DisplayQuadrant: 0

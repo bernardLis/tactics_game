@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Cutscene/Conversation Line")]
 public class ConversationLine : BaseScriptableObject
 {
+    public bool Player;
+    public bool Friend;
 	public Character SpeakerCharacter;
 	[TextArea(2,5)]
 	public string Text;
