@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class DeskManager : Singleton<DeskManager>
 {
@@ -14,7 +16,7 @@ public class DeskManager : Singleton<DeskManager>
 
     public VisualElement Root { get; private set; }
     VisualElement _mainDesk;
-    VisualElement _reportsContainer;
+    VisualElement _reportContainer;
     VisualElement _summonCharactersButton;
 
     VisualElement _slotsContainer;
@@ -33,6 +35,7 @@ public class DeskManager : Singleton<DeskManager>
 
     const string _ussCardMini = "character-card-mini__main";
 
+    public event Action OnDeskInitialized;
     protected override void Awake() { base.Awake(); }
     void Start()
     {
@@ -48,7 +51,7 @@ public class DeskManager : Singleton<DeskManager>
         Root = _dashboardManager.Root;
 
         _mainDesk = Root.Q<VisualElement>("mainDesk");
-        _reportsContainer = Root.Q<VisualElement>("reportsContainer");
+        _reportContainer = Root.Q<VisualElement>("reportContainer");
 
         _summonCharactersButton = Root.Q<VisualElement>("summonCharacters");
         _summonCharactersButton.RegisterCallback<PointerUpEvent>(SummonCharacters);
@@ -74,6 +77,8 @@ public class DeskManager : Singleton<DeskManager>
         }
     }
 
+    public List<CharacterCardMini> GetAllCharacterCardsMini() { return _characterCardsMini; }
+
     void OnReportAdded(Report report)
     {
         if (VisibleReports.Contains(report))
@@ -87,7 +92,7 @@ public class DeskManager : Singleton<DeskManager>
         {
             if (_characterCardsMini[i].Character == character)
             {
-                _reportsContainer.Remove(_characterCardsMini[i]);
+                _reportContainer.Remove(_characterCardsMini[i]);
                 _characterCardsMini.Remove(_characterCardsMini[i]);
                 return;
             }
@@ -96,11 +101,9 @@ public class DeskManager : Singleton<DeskManager>
 
     void Initialize()
     {
-        _draggableCharacters.Initialize(Root, _reportsContainer);
-        _draggableItems.Initialize(Root, _reportsContainer);
-        _draggableAbilities.Initialize(Root, _reportsContainer);
-
-        _reportsContainer.Clear();
+        _draggableCharacters.Initialize(Root, _reportContainer);
+        _draggableItems.Initialize(Root, _reportContainer);
+        _draggableAbilities.Initialize(Root, _reportContainer);
 
         _characterCardSlots = new();
         VisibleReports = new();
@@ -118,13 +121,8 @@ public class DeskManager : Singleton<DeskManager>
 
             AddMiniCardToDesk(character);
         }
-    }
 
-    void CleanDraggables()
-    {
-        _draggableCharacters.RemoveDragContainer();
-        _draggableItems.RemoveDragContainer();
-        _draggableAbilities.RemoveDragContainer();
+        OnDeskInitialized?.Invoke();
     }
 
     void PopulateItemSlots()
@@ -219,7 +217,7 @@ public class DeskManager : Singleton<DeskManager>
         card.style.left = character.DeskPosition.x;
         card.style.top = character.DeskPosition.y;
 
-        _reportsContainer.Add(card);
+        _reportContainer.Add(card);
         _characterCardsMini.Add(card);
         RegisterCardMiniDrag(card);
         return card;
@@ -249,7 +247,7 @@ public class DeskManager : Singleton<DeskManager>
         bigCard.PortraitVisualElement.RegisterCallback<PointerDownEvent>(OnPortraitPointerDown);
         bigCard.style.left = evt.position.x - 100;
         bigCard.style.top = evt.position.y - 100;
-        _reportsContainer.Add(bigCard);
+        _reportContainer.Add(bigCard);
         _characterCards.Add(bigCard);
 
         _draggableItems.AddCharacterCard(bigCard);
@@ -333,31 +331,31 @@ public class DeskManager : Singleton<DeskManager>
         ReportElement el = null;
         // depending on type it will look differently
         if (report.ReportType == ReportType.Quest)
-            el = (QuestReportElement)new(_reportsContainer, report) as QuestReportElement;
+            el = (QuestReportElement)new(_reportContainer, report) as QuestReportElement;
         if (report.ReportType == ReportType.Recruit)
-            el = (RecruitReportElement)new(_reportsContainer, report) as RecruitReportElement;
+            el = (RecruitReportElement)new(_reportContainer, report) as RecruitReportElement;
         if (report.ReportType == ReportType.Text)
-            el = (TextReportElement)new(_reportsContainer, report) as TextReportElement;
+            el = (TextReportElement)new(_reportContainer, report) as TextReportElement;
         if (report.ReportType == ReportType.CampBuilding)
-            el = (CampReportElement)new(_reportsContainer, report) as CampReportElement;
+            el = (CampReportElement)new(_reportContainer, report) as CampReportElement;
         if (report.ReportType == ReportType.Shop)
-            el = (ShopReportElement)new(_reportsContainer, report) as ShopReportElement;
+            el = (ShopReportElement)new(_reportContainer, report) as ShopReportElement;
         if (report.ReportType == ReportType.Pawnshop)
-            el = (PawnshopReportElement)new(_reportsContainer, report) as PawnshopReportElement;
+            el = (PawnshopReportElement)new(_reportContainer, report) as PawnshopReportElement;
         if (report.ReportType == ReportType.Ability)
-            el = (AbilityReportElement)new(_reportsContainer, report) as AbilityReportElement;
+            el = (AbilityReportElement)new(_reportContainer, report) as AbilityReportElement;
         if (report.ReportType == ReportType.Item)
-            el = (ItemReportElement)new(_reportsContainer, report) as ItemReportElement;
+            el = (ItemReportElement)new(_reportContainer, report) as ItemReportElement;
         if (report.ReportType == ReportType.SpiceRecycle)
-            el = (SpiceRecycleReportElement)new(_reportsContainer, report) as SpiceRecycleReportElement;
+            el = (SpiceRecycleReportElement)new(_reportContainer, report) as SpiceRecycleReportElement;
         if (report.ReportType == ReportType.Wages)
-            el = (WagesReportElement)new(_reportsContainer, report) as WagesReportElement;
+            el = (WagesReportElement)new(_reportContainer, report) as WagesReportElement;
         if (report.ReportType == ReportType.RaiseRequest)
-            el = (RaiseRequestReportElement)new(_reportsContainer, report) as RaiseRequestReportElement;
+            el = (RaiseRequestReportElement)new(_reportContainer, report) as RaiseRequestReportElement;
 
         el.style.position = Position.Absolute;
         el.OnReportDismissed += OnReportDismissed;
-        _reportsContainer.Add(el);
+        _reportContainer.Add(el);
 
         if (report.Position != Vector2.zero)
         {
@@ -401,8 +399,8 @@ public class DeskManager : Singleton<DeskManager>
             percent += 0.01f;
             yield return new WaitForSeconds(0.01f);
         }
-        if (element.parent == _reportsContainer)
-            _reportsContainer.Remove(element);
+        if (element.parent == _reportContainer)
+            _reportContainer.Remove(element);
 
     }
 }

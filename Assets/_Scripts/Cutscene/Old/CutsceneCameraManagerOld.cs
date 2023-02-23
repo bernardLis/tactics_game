@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CutsceneCameraManager : Singleton<CutsceneCameraManager>
+public class CutsceneCameraManagerOld : Singleton<CutsceneCameraManagerOld>
 {
     Camera _cam;
     protected override void Awake()

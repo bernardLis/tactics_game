@@ -37,12 +37,13 @@
     </ui:VisualElement>
     <ui:VisualElement name="main" style="width: 100%; height: 95%; flex-direction: row; display: flex; background-image: none;">
         <ui:VisualElement name="mainDesk" class="textPrimary" style="width: 100%; align-items: center; display: flex; flex-direction: row; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_desk2.png?fileID=2800000&amp;guid=e3f95d85514224047b9f45ec4d397b2c&amp;type=3#Settings_desk2&apos;); -unity-background-scale-mode: stretch-to-fill; height: 100%; -unity-background-image-tint-color: rgb(255, 255, 255);">
-            <ui:VisualElement name="reportsContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_paper.png?fileID=2800000&amp;guid=c08f526d69c65df4b96e4c48c9b49f43&amp;type=3#Settings_paper&apos;); display: flex;" />
-            <ui:VisualElement name="slotsContainer" style="position: absolute; top: 75%; right: 25%; width: 50%; align-items: center; justify-content: center;">
-                <ui:VisualElement name="itemSlotsContainer" style="flex-direction: row;" />
-                <ui:VisualElement name="abilitySlotsContainer" style="flex-direction: row;" />
+            <ui:VisualElement name="reportContainer" style="flex-grow: 1; flex-shrink: 0; height: 100%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_paper.png?fileID=2800000&amp;guid=c08f526d69c65df4b96e4c48c9b49f43&amp;type=3#Settings_paper&apos;); display: flex;">
+                <ui:VisualElement name="slotsContainer" style="position: absolute; top: 0; width: auto; align-items: center; justify-content: center; height: 100%; left: auto; right: 0;">
+                    <ui:VisualElement name="itemSlotsContainer" style="flex-direction: column;" />
+                    <ui:VisualElement name="abilitySlotsContainer" style="flex-direction: column;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="summonCharacters" class="common__basic-button" style="background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_59_shield.png?fileID=2800000&amp;guid=66b1dcb771eeae34687dfc1f3dd3d219&amp;type=3#gray_59_shield&apos;); width: 50px; height: 50px; position: absolute; left: 0; top: 0;" />
             </ui:VisualElement>
-            <ui:VisualElement name="summonCharacters" class="common__basic-button" style="background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Classic/gray_59_shield.png?fileID=2800000&amp;guid=66b1dcb771eeae34687dfc1f3dd3d219&amp;type=3#gray_59_shield&apos;); width: 50px; height: 50px; position: absolute; left: 0; top: 0;" />
         </ui:VisualElement>
         <ui:VisualElement name="mainCamp" style="width: 100%; flex-direction: row; display: flex; align-items: center; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Spell_book.png?fileID=2800000&amp;guid=2c8af741adab3264094aca6708cebb08&amp;type=3#Spell_book&apos;); position: absolute; top: -110%; height: 100%; justify-content: center; flex-wrap: wrap; padding-left: 150px; padding-right: 150px; padding-top: 50px; padding-bottom: 50px; align-self: center;">
             <ui:Label text="Camp" display-tooltip-when-elided="true" class="textPrimary" />

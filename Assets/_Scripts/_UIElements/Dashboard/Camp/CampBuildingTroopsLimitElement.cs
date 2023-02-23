@@ -15,6 +15,8 @@ public class CampBuildingTroopsLimitElement : CampBuildingElement
     protected override void AddUpgrade()
     {
         _troopsLimitElement = new TroopsLimitElement("0", 24);
+        _upgradeText.style.display = DisplayStyle.None;
+        _upgradeValue.style.display = DisplayStyle.None;
         SetUpgrade();
         _upgradeContainer.Add(_troopsLimitElement);
     }

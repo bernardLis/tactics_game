@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2536979841821243869}
   - component: {fileID: 2536979841821243868}
   - component: {fileID: 2536979841821243871}
+  - component: {fileID: 1509834548670236861}
   m_Layer: 0
   m_Name: DashboardManager
   m_TagString: Untagged
@@ -154,3 +155,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315fe96e69c7c27499d04e562ed4e069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1509834548670236861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536979841821243859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91caef7e4f809074088551b773ae93ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Banker: {fileID: 11400000, guid: 712ecc6e8280beb4490570cd92ada80d, type: 2}

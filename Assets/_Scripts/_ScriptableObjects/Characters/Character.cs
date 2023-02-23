@@ -56,6 +56,13 @@ public class Character : BaseScriptableObject
     public event Action<Element> OnElementChanged;
     public event Action<Injury> OnInjuryAdded;
 
+    public void InitializeSpecialCharacter()
+    {
+        _gameManager = GameManager.Instance;
+        CreateStats();
+        UpdateRank();
+    }
+
     public void UpdateDeskPosition(Vector2 newPos)
     {
         DeskPosition = newPos;

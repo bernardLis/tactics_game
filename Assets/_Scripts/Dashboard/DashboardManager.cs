@@ -48,7 +48,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
     DashboardBuildingType _openBuilding = DashboardBuildingType.Desk;
 
-
     [SerializeField] Sound _dashboardTheme;
 
     public event Action OnDeskOpened;
@@ -329,7 +328,6 @@ public class DashboardManager : Singleton<DashboardManager>
             y += 2f;
         }
     }
-
 
     IEnumerator ShowCampUICoroutine()
     {

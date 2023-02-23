@@ -51,11 +51,6 @@ public class GameUIManager : MonoBehaviour
 
     public void ToggleMenu(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == Scenes.Cutscene)
-        {
-            CutsceneManager.Instance.SkipCutscene();
-            return;
-        }
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
             return;
 

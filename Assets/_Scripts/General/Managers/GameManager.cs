@@ -21,6 +21,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void SetHideMenuEffects(bool hide) { HideMenuEffects = hide; }
 
     // global data
+    public bool WasIntroCutscenePlayed;
     public int Seed { get; private set; }
 
     public float TotalSeconds { get; private set; }
@@ -40,8 +41,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public List<Report> ReportsArchived = new();
 
     [SerializeField] List<AbilityNodeGraph> _abilityNodeGraphs = new();
-
-    public int CutsceneIndexToPlay = 0; // TODO: this is wrong, but for now it is ok
 
     public event Action<Report> OnReportAdded;
     public event Action<int> OnDayPassed;
@@ -247,14 +246,16 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
-        if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
-            Debug.Log("Save successful");
+        FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson());
+      //  if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
+        //    Debug.Log("Save successful");
     }
 
     // TODO: prime suspect for a rewrite
     public void PopulateSaveData(SaveData saveData)
     {
         // global data
+        saveData.WasIntroCutscenePlayed = WasIntroCutscenePlayed;
         saveData.Seed = Seed;
 
         if (DashboardManager.Instance != null)
@@ -357,6 +358,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SetHideMenuEffects(PlayerPrefs.GetInt("HideMenuEffects") != 0);
 
         // global data
+        WasIntroCutscenePlayed = saveData.WasIntroCutscenePlayed;
         Seed = saveData.Seed;
 
         SecondsLeftInDay = saveData.SecondsLeftInDay;
@@ -419,6 +421,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         PlayerPrefs.DeleteAll();
 
+        WasIntroCutscenePlayed = false;
+
         Seed = System.Environment.TickCount;
 
         SecondsLeftInDay = SecondsInDay;
@@ -429,8 +433,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerTroops = new();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();
-
-        CutsceneIndexToPlay = 0; // TODO: wrong but it's ok for now.
 
         Reports = new();
         ReportsArchived = new();
