@@ -171,7 +171,7 @@ public class Quest : BaseScriptableObject
 
         AssignedCharacters = new();
         foreach (string id in data.AssignedCharacters)
-            AssignedCharacters.Add(_gameManager.PlayerTroops.First(x => x.Id == id));
+            AssignedCharacters.Add(_gameManager.GetAllCharacters().First(x => x.Id == id));
     }
 
     public QuestData SerializeSelf()

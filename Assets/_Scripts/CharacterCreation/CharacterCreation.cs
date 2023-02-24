@@ -104,6 +104,7 @@ public class CharacterCreation : MonoBehaviour
         {
             CreateCharacter();
             StartGame();
+            _gameManager.SaveJsonData();
             return;
         }
 
@@ -116,6 +117,7 @@ public class CharacterCreation : MonoBehaviour
         _portraitTextLabel.text = "How do they look like?";
         _currentPortraitIndex = Random.Range(0, _characterPortraits.Count);
         _portrait.style.backgroundImage = new StyleBackground(_characterPortraits[_currentPortraitIndex].Sprite);
+
     }
 
     void CreateCharacter()
@@ -125,7 +127,13 @@ public class CharacterCreation : MonoBehaviour
         Character newChar = ScriptableObject.CreateInstance<Character>();
         newChar.CreateFromCharacterCreation(_nameField.value, _characterPortraits[_currentPortraitIndex]);
 
-        _gameManager.AddCharacterToTroops(newChar);
+        if (_isPlayerCreated)
+        {
+            Debug.Log($"creating fren");
+            _gameManager.FriendCharacter = newChar;
+            return;
+        }
+        _gameManager.PlayerCharacter = newChar;
     }
 
     void StartGame()

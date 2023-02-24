@@ -32,7 +32,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public bool IsTimerOn { get; private set; }
 
-    public List<Character> PlayerTroops = new();
+    public Character PlayerCharacter;
+    public Character FriendCharacter;
+    public List<Character> Troops { get; private set; } = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
 
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
@@ -73,7 +75,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void Play()
     {
-        if (PlayerTroops.Count == 0)
+        if (PlayerCharacter == null)
         {
             LoadLevel(Scenes.CharacterCreation);
             return;
@@ -129,14 +131,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         int cost = GetCurrentWages();
 
         Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Wages, null, null, null, null, null, null, null, PlayerTroops);
+        r.Initialize(ReportType.Wages, null, null, null, null, null, null, null, Troops);
         AddNewReport(r);
     }
 
     public int GetCurrentWages()
     {
         int total = 0;
-        foreach (Character c in PlayerTroops)
+        foreach (Character c in Troops)
             total += c.WeeklyWage.Value;
         return total;
     }
@@ -165,9 +167,17 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public AbilityNodeGraph GetAbilityNodeGraphById(string id) { return _abilityNodeGraphs.FirstOrDefault(x => x.Id == id); }
 
     /* Troops & pouches */
+    public List<Character> GetAllCharacters()
+    {
+        List<Character> all = new(Troops);
+        all.Add(PlayerCharacter);
+        all.Add(FriendCharacter);
+        return all;
+    }
+
     public void AddCharacterToTroops(Character character)
     {
-        PlayerTroops.Add(character);
+        Troops.Add(character);
         character.SetDayAddedToTroops(Day);
         OnCharacterAddedToTroops?.Invoke(character);
         SaveJsonData();
@@ -175,7 +185,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void RemoveCharacterFromTroops(Character character)
     {
-        PlayerTroops.Remove(character);
+        Troops.Remove(character);
         OnCharacterRemovedFromTroops?.Invoke(character);
         SaveJsonData();
     }
@@ -226,6 +236,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
         Spice = 500;
 
+        PlayerCharacter = null;
+        FriendCharacter = null;
+
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
 
@@ -247,7 +260,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveData sd = new SaveData();
         PopulateSaveData(sd);
         FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson());
-      //  if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
+        //  if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
         //    Debug.Log("Save successful");
     }
 
@@ -265,7 +278,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.Gold = Gold;
         saveData.Spice = Spice;
 
-        saveData.PlayerTroops = PopulateCharacters();
+        if (PlayerCharacter != null)
+            saveData.PlayerCharacter = PlayerCharacter.SerializeSelf();
+        if (FriendCharacter != null)
+            saveData.FriendCharacter = FriendCharacter.SerializeSelf();
+
+        saveData.PlayerTroops = PopulateTroops();
 
         saveData.ItemPouch = PopulateItemPouch();
 
@@ -278,10 +296,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.AbilityNodeGraphs = PopulateAbilityNodeGraphs();
     }
 
-    List<CharacterData> PopulateCharacters()
+    List<CharacterData> PopulateTroops()
     {
         List<CharacterData> charData = new();
-        foreach (Character c in PlayerTroops)
+        foreach (Character c in Troops)
             charData.Add(c.SerializeSelf());
 
         return charData;
@@ -366,12 +384,18 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = saveData.Gold;
         Spice = saveData.Spice;
 
-        PlayerTroops = new();
+        PlayerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
+        PlayerCharacter.CreateFromData(saveData.PlayerCharacter);
+
+        FriendCharacter = (Character)ScriptableObject.CreateInstance<Character>();
+        FriendCharacter.CreateFromData(saveData.FriendCharacter);
+
+        Troops = new();
         foreach (CharacterData data in saveData.PlayerTroops)
         {
-            Character playerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
-            playerCharacter.CreateFromData(data);
-            PlayerTroops.Add(playerCharacter);
+            Character character = (Character)ScriptableObject.CreateInstance<Character>();
+            character.CreateFromData(data);
+            Troops.Add(character);
         }
 
         PlayerItemPouch = new();
@@ -430,7 +454,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
         Spice = 0;
 
-        PlayerTroops = new();
+        PlayerCharacter = null;
+        FriendCharacter = null;
+        Troops = new();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();
 

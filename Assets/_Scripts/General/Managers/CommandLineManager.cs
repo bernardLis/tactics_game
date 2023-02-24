@@ -95,8 +95,8 @@ public class CommandLineManager : MonoBehaviour
         if (_commandTextField.text.ToLower() == "takespice")
             _gameManager.ChangeSpiceValue(-500);
         if (_commandTextField.text.ToLower() == "levelup")
-            for (int i = _gameManager.PlayerTroops.Count - 1; i >= 0; i--)
-                _gameManager.PlayerTroops[i].LevelUp();
+            for (int i = _gameManager.GetAllCharacters().Count - 1; i >= 0; i--)
+                _gameManager.GetAllCharacters()[i].LevelUp();
 
         if (_commandTextField.text.ToLower() == "quest")
             _buildingManager.AddRandomQuest();

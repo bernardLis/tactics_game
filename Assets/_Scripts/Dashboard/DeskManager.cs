@@ -114,7 +114,7 @@ public class DeskManager : Singleton<DeskManager>
         PopulateItemSlots();
         PopulateAbilitySlots();
 
-        foreach (Character character in _gameManager.PlayerTroops)
+        foreach (Character character in _gameManager.GetAllCharacters())
         {
             if (character.IsAssigned)
                 continue;

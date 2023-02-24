@@ -56,6 +56,8 @@ public class CutsceneManager : MonoBehaviour
         _lineLabel = new();
         _lineLabel.AddToClassList(_ussLineLabel);
         _lineBox.Add(_lineLabel);
+
+        _introConversation.Initialize();
     }
 
     void OnDeskInitialized()
@@ -74,6 +76,7 @@ public class CutsceneManager : MonoBehaviour
     IEnumerator PlayIntroCutscene()
     {
         _gameManager.ToggleTimer(false);
+
         _bg = new();
         _bg.AddToClassList(_ussBackground);
         _reportContainer.Add(_bg);
@@ -100,20 +103,21 @@ public class CutsceneManager : MonoBehaviour
         bankerCard.style.position = Position.Absolute;
         bankerCard.transform.position = new Vector3(Screen.width - 300, Screen.height * 0.3f);
         _reportContainer.Add(bankerCard);
-        // display text from banker and you/friend
+
         yield return new WaitForSeconds(0.5f);
 
         foreach (ConversationLine line in _introConversation.Lines)
         {
-            line.Initialize();
             _currentLine = line;
             yield return HandleLineBox(line);
             yield return TypeText(line);
         }
 
+        _reportContainer.Remove(bankerCard);
+        _reportContainer.Remove(_bg);
+        _lineBox.style.visibility = Visibility.Hidden;
+
         yield return null;
-
-
     }
 
     IEnumerator HandleLineBox(ConversationLine line)
@@ -125,20 +129,6 @@ public class CutsceneManager : MonoBehaviour
 
         _lineLabel.style.width = _lineLabel.resolvedStyle.width;
         _lineLabel.style.height = _lineLabel.resolvedStyle.height;
-
-        if (line.Player)
-        {
-            HandleSpeaker(_cardsInConversation[0]);
-            UpdateBoxPosition(_cardsInConversation[0]);
-            yield break;
-        }
-
-        if (line.Friend)
-        {
-            HandleSpeaker(_cardsInConversation[1]);
-            UpdateBoxPosition(_cardsInConversation[1]);
-            yield break;
-        }
 
         foreach (CharacterCardMini c in _cardsInConversation)
         {

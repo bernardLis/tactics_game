@@ -88,7 +88,7 @@ public class DashboardManager : Singleton<DashboardManager>
 
         AddNavigationButtons();
 
-       // AudioManager.Instance.PlayMusic(_dashboardTheme);
+        // AudioManager.Instance.PlayMusic(_dashboardTheme);
     }
 
     /* INPUT */
@@ -172,7 +172,7 @@ public class DashboardManager : Singleton<DashboardManager>
     void UpdateTroopsElement(int i) { UpdateTroopsElement(); }
     void UpdateTroopsElement()
     {
-        int troopsCount = _gameManager.PlayerTroops.Count;
+        int troopsCount = _gameManager.GetAllCharacters().Count;
         int troopsLimit = _troopsLimitBuilding.GetUpgradeByRank(_troopsLimitBuilding.UpgradeRank).TroopsLimit;
 
         _troopsLimitElement.UpdateCountContainer($"{troopsCount} / {troopsLimit}", Color.white);

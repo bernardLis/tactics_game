@@ -15,7 +15,13 @@ public class ConversationLine : BaseScriptableObject
 
     public void Initialize()
     {
-        ParsedText = Text.Replace("{name}", GameManager.Instance.PlayerTroops[0].CharacterName);
-        ParsedText = ParsedText.Replace("{friendName}", GameManager.Instance.PlayerTroops[1].CharacterName);
+        GameManager gm = GameManager.Instance;
+        if (Player)
+            SpeakerCharacter = gm.PlayerCharacter;
+        if (Friend)
+            SpeakerCharacter = gm.FriendCharacter;
+
+        ParsedText = Text.Replace("{name}", gm.PlayerCharacter.CharacterName);
+        ParsedText = ParsedText.Replace("{friendName}", gm.FriendCharacter.CharacterName);
     }
 }
