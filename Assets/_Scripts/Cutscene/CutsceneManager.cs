@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CutsceneManager : MonoBehaviour
     GameManager _gameManager;
     AudioManager _audioManager;
     DeskManager _deskManager;
+    Camera _cam;
 
     [SerializeField] Conversation _introConversation;
     [SerializeField] Character _banker;
@@ -21,6 +23,10 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] Sprite[] _snekSprites;
     int snekIndex = 0;
 
+
+    CharacterCardMini _currentSpeaker;
+    ConversationLine _currentLine;
+    bool _zoomIn;
     List<CharacterCardMini> _cardsInConversation = new();
 
     VisualElement _root;
@@ -29,6 +35,8 @@ public class CutsceneManager : MonoBehaviour
     VisualElement _lineBox;
     Label _lineLabel;
 
+    string _shakyShakyTweenId = "ShakyShakyTweenId";
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -36,6 +44,7 @@ public class CutsceneManager : MonoBehaviour
         _audioManager = AudioManager.Instance;
         _deskManager = DeskManager.Instance;
         _deskManager.OnDeskInitialized += OnDeskInitialized;
+        _cam = Camera.main;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _reportContainer = _root.Q<VisualElement>("reportContainer");
@@ -64,13 +73,12 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator PlayIntroCutscene()
     {
-
-
         _gameManager.ToggleTimer(false);
-        yield return new WaitForSeconds(0.5f);
         _bg = new();
         _bg.AddToClassList(_ussBackground);
         _reportContainer.Add(_bg);
+
+        yield return new WaitForSeconds(0.5f);
 
         List<CharacterCardMini> cards = _deskManager.GetAllCharacterCardsMini();
         Vector3 pos = new Vector3(150, 200);
@@ -93,10 +101,12 @@ public class CutsceneManager : MonoBehaviour
         bankerCard.transform.position = new Vector3(Screen.width - 300, Screen.height * 0.3f);
         _reportContainer.Add(bankerCard);
         // display text from banker and you/friend
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
 
         foreach (ConversationLine line in _introConversation.Lines)
         {
+            line.Initialize();
+            _currentLine = line;
             yield return HandleLineBox(line);
             yield return TypeText(line);
         }
@@ -109,24 +119,23 @@ public class CutsceneManager : MonoBehaviour
     IEnumerator HandleLineBox(ConversationLine line)
     {
         _lineBox.style.visibility = Visibility.Hidden;
-        _lineLabel.text = line.Text;
+        _lineLabel.text = line.ParsedText;
 
         yield return new WaitForSeconds(0.1f);
-        Debug.Log($"width when the label is full: {_lineBox.resolvedStyle.width}");
-        Debug.Log($"height when the label is full: {_lineBox.resolvedStyle.height}");
 
         _lineLabel.style.width = _lineLabel.resolvedStyle.width;
         _lineLabel.style.height = _lineLabel.resolvedStyle.height;
 
         if (line.Player)
         {
+            HandleSpeaker(_cardsInConversation[0]);
             UpdateBoxPosition(_cardsInConversation[0]);
             yield break;
         }
 
         if (line.Friend)
         {
-
+            HandleSpeaker(_cardsInConversation[1]);
             UpdateBoxPosition(_cardsInConversation[1]);
             yield break;
         }
@@ -135,10 +144,31 @@ public class CutsceneManager : MonoBehaviour
         {
             if (c.Character == line.SpeakerCharacter)
             {
+                HandleSpeaker(c);
                 UpdateBoxPosition(c);
             }
         }
+    }
 
+    void HandleSpeaker(CharacterCardMini card)
+    {
+        _currentSpeaker = card;
+        float duration = 1f;
+        if (_currentLine.VO != null)
+            duration = _currentLine.VO.Clips[0].length;
+
+        DOTween.To(x => card.transform.scale = x * Vector3.one, 1, 1.5f, 0.5f).OnComplete(() =>
+        {
+
+            float strength = Random.Range(2, 5);
+            int vibrato = Random.Range(5, 15);
+            float randomness = Random.Range(50, 150);
+
+            DOTween.Shake(() => card.transform.position, x => card.transform.position = x, duration,
+                    strength, vibrato, randomness)
+                        .SetLoops(-1)
+                        .SetId(_shakyShakyTweenId);
+        });
     }
 
     void UpdateBoxPosition(CharacterCardMini card)
@@ -189,7 +219,7 @@ public class CutsceneManager : MonoBehaviour
         _lineBox.style.visibility = Visibility.Visible;
         _lineLabel.text = "";
 
-        char[] charArray = line.Text.ToCharArray();
+        char[] charArray = line.ParsedText.ToCharArray();
 
         float delay = 0.1f;
         if (line.VO != null)
@@ -204,8 +234,10 @@ public class CutsceneManager : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
 
+        DOTween.To(x => _currentSpeaker.transform.scale = x * Vector3.one, _currentSpeaker.transform.scale.x, 1, 0.5f);
+        DOTween.Kill(_shakyShakyTweenId);
+        // reset camera? or not?
         yield return new WaitForSeconds(0.5f);
         snekIndex++;
     }
-
 }

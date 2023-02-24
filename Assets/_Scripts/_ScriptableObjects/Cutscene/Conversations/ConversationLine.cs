@@ -7,11 +7,15 @@ public class ConversationLine : BaseScriptableObject
 {
     public bool Player;
     public bool Friend;
-	public Character SpeakerCharacter;
-	[TextArea(2,5)]
-	public string Text;
-	public Sound VO;
+    public Character SpeakerCharacter;
+    [TextArea(2, 5)]
+    [SerializeField] string Text;
+    [HideInInspector] public string ParsedText;
+    public Sound VO;
 
-    [Tooltip("0: bottom left, 1: bottom right, 2: top left, 3: top right")]
-    public int DisplayQuadrant = 0;
+    public void Initialize()
+    {
+        ParsedText = Text.Replace("{name}", GameManager.Instance.PlayerTroops[0].CharacterName);
+        ParsedText = ParsedText.Replace("{friendName}", GameManager.Instance.PlayerTroops[1].CharacterName);
+    }
 }

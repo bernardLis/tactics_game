@@ -16,6 +16,6 @@ MonoBehaviour:
   Player: 1
   Friend: 0
   SpeakerCharacter: {fileID: 0}
-  Text: 'Omg! Look out, snakes! '
+  Text: 'Omg! Look out {friendName}, snakes! '
   VO: {fileID: 11400000, guid: dde57c9375af723489259fa8029c65aa, type: 2}
   DisplayQuadrant: 0

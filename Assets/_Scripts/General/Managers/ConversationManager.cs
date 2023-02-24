@@ -138,15 +138,15 @@ public class ConversationManager : Singleton<ConversationManager>
         {
             _audioManager.StopDialogue();
             _audioManager.PlayDialogue(line.VO);
-            char[] charArray = line.Text.ToCharArray();
+            char[] charArray = line.ParsedText.ToCharArray();
 
             float duration = line.VO.Clips[0].length * 1000; // magic 1 second ....
             letterPrintingDelay = Mathf.FloorToInt(duration) / charArray.Length;//- 10; // magic -10
             letterPrintingDelay *= 0.001f;
         }
 
-    //  /   ShowUI();
-        _currentText = line.Text;
+        //  /   ShowUI();
+        _currentText = line.ParsedText;
         SetText(letterPrintingDelay);
 
         await Task.Delay(200); // to prevent skipping multiple steps on one click
