@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 2 Friend
   m_EditorClassIdentifier: 
   Id: cd6d5ab6-e27c-4118-89dc-3e4273e92b74
-  Player: 0
-  Friend: 1
+  PlayerIsSpeaker: 0
+  FriendIsSpeaker: 1
   SpeakerCharacter: {fileID: 0}
   Text: 'Snekerinos!  '
+  ParsedText: 'Snekerinos!  '
   VO: {fileID: 11400000, guid: 627316138effae7468d51f2d83d530a1, type: 2}
-  DisplayQuadrant: 0

@@ -23,7 +23,6 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] Sprite[] _snekSprites;
     int snekIndex = 0;
 
-
     CharacterCardMini _currentSpeaker;
     ConversationLine _currentLine;
     bool _zoomIn;
@@ -35,10 +34,14 @@ public class CutsceneManager : MonoBehaviour
     VisualElement _lineBox;
     Label _lineLabel;
 
+    bool _isIntroCutsceneBeingPlayed;
+
+
     string _shakyShakyTweenId = "ShakyShakyTweenId";
 
     void Start()
     {
+        Debug.Log($"cutscene manager start");
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
         _audioManager = AudioManager.Instance;
@@ -58,13 +61,17 @@ public class CutsceneManager : MonoBehaviour
         _lineBox.Add(_lineLabel);
 
         _introConversation.Initialize();
+        OnDeskInitialized();
     }
 
     void OnDeskInitialized()
     {
-        if (_gameManager.WasIntroCutscenePlayed)
+        Debug.Log($"on desk initialized, _gameManager.WasIntroCutscenePlayed: {_gameManager.WasIntroCutscenePlayed}");
+        _deskManager.HideAllReports();
+        if (_gameManager.WasIntroCutscenePlayed || _isIntroCutsceneBeingPlayed)
             return;
         StartCoroutine(PlayIntroCutscene());
+        Debug.Log($"asd");
     }
 
     void OnDayPassed(int day)
@@ -75,6 +82,8 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator PlayIntroCutscene()
     {
+        _isIntroCutsceneBeingPlayed = true;
+        Debug.Log($"start intro cutscene");
         _gameManager.ToggleTimer(false);
 
         _bg = new();
@@ -96,7 +105,6 @@ public class CutsceneManager : MonoBehaviour
 
         // spawn a banker portrait on the right of the desk
         _banker.InitializeSpecialCharacter();
-
         CharacterCardMini bankerCard = new(_banker);
         _cardsInConversation.Add(bankerCard);
 
@@ -106,18 +114,27 @@ public class CutsceneManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        foreach (ConversationLine line in _introConversation.Lines)
+        yield return PlayConversation(_introConversation);
+
+        _reportContainer.Remove(bankerCard);
+        _reportContainer.Remove(_bg);
+        _lineBox.style.visibility = Visibility.Hidden;
+        _deskManager.ShowAllReports();
+        _gameManager.ToggleTimer(true);
+
+        yield return null;
+    }
+
+    IEnumerator PlayConversation(Conversation conversation)
+    {
+        Debug.Log($"play conversation");
+
+        foreach (ConversationLine line in conversation.Lines)
         {
             _currentLine = line;
             yield return HandleLineBox(line);
             yield return TypeText(line);
         }
-
-        _reportContainer.Remove(bankerCard);
-        _reportContainer.Remove(_bg);
-        _lineBox.style.visibility = Visibility.Hidden;
-
-        yield return null;
     }
 
     IEnumerator HandleLineBox(ConversationLine line)
@@ -164,12 +181,10 @@ public class CutsceneManager : MonoBehaviour
     void UpdateBoxPosition(CharacterCardMini card)
     {
         _lineBox.BringToFront();
-        // TODO: inelegant solution, when character card is tooltip element it does not resolve style for some reason. 
         float elWidth = _lineBox.resolvedStyle.width;
         float elHeight = _lineBox.resolvedStyle.height;
         float x = card.worldBound.xMin;
         float y = card.worldBound.yMin;
-
 
         if (x + elWidth + card.resolvedStyle.width > Screen.width)
             _lineBox.style.left = x - elWidth;
@@ -186,6 +201,7 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator TypeText(ConversationLine line)
     {
+        // HERE: joke to remove
         if (snekIndex == 1)
             _audioManager.PlaySFX(_snekSound, Vector3.one);
         if (snekIndex >= 1)
@@ -226,7 +242,6 @@ public class CutsceneManager : MonoBehaviour
 
         DOTween.To(x => _currentSpeaker.transform.scale = x * Vector3.one, _currentSpeaker.transform.scale.x, 1, 0.5f);
         DOTween.Kill(_shakyShakyTweenId);
-        // reset camera? or not?
         yield return new WaitForSeconds(0.5f);
         snekIndex++;
     }

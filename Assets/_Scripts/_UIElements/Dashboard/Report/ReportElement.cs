@@ -101,7 +101,6 @@ public class ReportElement : VisualElement
         float timeTotal = _report.DateTimeExpired.GetTimeInSeconds() - _report.DateTimeAdded.GetTimeInSeconds();
         float timeLeft = _report.DateTimeExpired.GetTimeInSeconds() - _gameManager.GetCurrentTimeInSeconds();
         _timer = new(timeLeft, timeTotal, false, text);
-
         _reportContents.Add(_timer);
         _timer.OnTimerFinished += () => _timer.style.visibility = Visibility.Hidden;
     }

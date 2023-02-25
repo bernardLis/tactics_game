@@ -129,7 +129,6 @@ public class CharacterCreation : MonoBehaviour
 
         if (_isPlayerCreated)
         {
-            Debug.Log($"creating fren");
             _gameManager.FriendCharacter = newChar;
             return;
         }

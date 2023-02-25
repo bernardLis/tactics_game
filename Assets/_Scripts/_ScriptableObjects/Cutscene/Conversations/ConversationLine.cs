@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Cutscene/Conversation Line")]
 public class ConversationLine : BaseScriptableObject
 {
-    public bool Player;
-    public bool Friend;
+    public bool PlayerIsSpeaker;
+    public bool FriendIsSpeaker;
     public Character SpeakerCharacter;
     [TextArea(2, 5)]
     [SerializeField] string Text;
@@ -16,9 +16,9 @@ public class ConversationLine : BaseScriptableObject
     public void Initialize()
     {
         GameManager gm = GameManager.Instance;
-        if (Player)
+        if (PlayerIsSpeaker)
             SpeakerCharacter = gm.PlayerCharacter;
-        if (Friend)
+        if (FriendIsSpeaker)
             SpeakerCharacter = gm.FriendCharacter;
 
         ParsedText = Text.Replace("{name}", gm.PlayerCharacter.CharacterName);

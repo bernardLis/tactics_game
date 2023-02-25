@@ -32,7 +32,6 @@ public class RecruitReportElement : ReportElement
         RemoveAcceptRejectButtons();
         AddSignButton();
         ShowSignButton();
-
     }
 
     void AcceptRecruit()

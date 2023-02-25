@@ -47,8 +47,9 @@ public class TimerElement : VisualElement
         _totalTicks = Mathf.RoundToInt(totalTime * 10);
         _isLooping = isLooping;
 
-        if (_gameManager.IsTimerOn)
-            _timer = schedule.Execute(UpdateTimer).Every(100);
+        _timer = schedule.Execute(UpdateTimer).Every(100);
+        if (!_gameManager.IsTimerOn)
+            _timer.Pause();
     }
 
     protected VisualElement GetLabelWrapper()
@@ -81,7 +82,7 @@ public class TimerElement : VisualElement
     public void UpdateLabel(string txt) { _label.text = txt; }
 
     public void Pause() { _timer.Pause(); }
-    public void Resume() { _timer.Resume();}
+    public void Resume() { _timer.Resume(); }
 
     void OnTimerStateChanged(bool isOn)
     {

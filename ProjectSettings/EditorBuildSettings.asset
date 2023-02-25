@@ -14,9 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/Scenes/Dashboard.unity
     guid: cbd6b73a154d2274392439e3280998ae
-  - enabled: 0
-    path: Assets/Level/Scenes/Cutscene.unity
-    guid: 1390aecae121f88488b8b43361303a9b
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: ca27c83b5049f574f921e445414deb0d, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 08e9aa22577882d4ebc9379ebfe20818, type: 2}

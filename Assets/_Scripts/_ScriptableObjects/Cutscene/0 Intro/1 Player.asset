@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 1 Player
   m_EditorClassIdentifier: 
   Id: f4efe56a-e659-4997-bf5f-b8c5b65153a6
-  Player: 1
-  Friend: 0
+  PlayerIsSpeaker: 1
+  FriendIsSpeaker: 0
   SpeakerCharacter: {fileID: 0}
   Text: 'Omg! Look out {friendName}, snakes! '
+  ParsedText: 'Omg! Look out Fren, snakes! '
   VO: {fileID: 11400000, guid: dde57c9375af723489259fa8029c65aa, type: 2}
-  DisplayQuadrant: 0

@@ -31,7 +31,8 @@ public class DeskManager : Singleton<DeskManager>
 
     List<CharacterCardMiniSlot> _characterCardSlots = new();
 
-    List<Report> VisibleReports = new();
+    List<ReportElement> _reportElements = new();
+    List<Report> _visibleReports = new();
 
     const string _ussCardMini = "character-card-mini__main";
 
@@ -81,10 +82,23 @@ public class DeskManager : Singleton<DeskManager>
 
     void OnReportAdded(Report report)
     {
-        if (VisibleReports.Contains(report))
+        if (_visibleReports.Contains(report))
             return;
         CreateReport(report);
     }
+
+    public void HideAllReports()
+    {
+        foreach (ReportElement r in _reportElements)
+            r.style.visibility = Visibility.Hidden;
+    }
+
+    public void ShowAllReports()
+    {
+        foreach (ReportElement r in _reportElements)
+            r.style.visibility = Visibility.Visible;
+    }
+
 
     void OnCharacterRemovedFromTroops(Character character)
     {
@@ -106,7 +120,7 @@ public class DeskManager : Singleton<DeskManager>
         _draggableAbilities.Initialize(Root, _reportContainer);
 
         _characterCardSlots = new();
-        VisibleReports = new();
+        _visibleReports = new();
 
         foreach (Report report in _gameManager.Reports)
             CreateReport(report);
@@ -122,6 +136,7 @@ public class DeskManager : Singleton<DeskManager>
             AddMiniCardToDesk(character);
         }
 
+        Debug.Log($"Desk initialized...");
         OnDeskInitialized?.Invoke();
     }
 
@@ -327,7 +342,7 @@ public class DeskManager : Singleton<DeskManager>
     /* REPORTS */
     void CreateReport(Report report)
     {
-        VisibleReports.Add(report);
+        _visibleReports.Add(report);
         ReportElement el = null;
         // depending on type it will look differently
         if (report.ReportType == ReportType.Quest)
@@ -353,6 +368,7 @@ public class DeskManager : Singleton<DeskManager>
         if (report.ReportType == ReportType.RaiseRequest)
             el = (RaiseRequestReportElement)new(_reportContainer, report) as RaiseRequestReportElement;
 
+        _reportElements.Add(el);
         el.style.position = Position.Absolute;
         el.OnReportDismissed += OnReportDismissed;
         _reportContainer.Add(el);
