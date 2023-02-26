@@ -90,13 +90,13 @@ public class DeskManager : Singleton<DeskManager>
     public void HideAllReports()
     {
         foreach (ReportElement r in _reportElements)
-            r.style.visibility = Visibility.Hidden;
+            DOTween.To(x => r.style.opacity = x, 1, 0, 0.5f);
     }
 
     public void ShowAllReports()
     {
         foreach (ReportElement r in _reportElements)
-            r.style.visibility = Visibility.Visible;
+            DOTween.To(x => r.style.opacity = x, 0, 1, 0.5f);
     }
 
 

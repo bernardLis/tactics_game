@@ -36,12 +36,10 @@ public class CutsceneManager : MonoBehaviour
 
     bool _isIntroCutsceneBeingPlayed;
 
-
     string _shakyShakyTweenId = "ShakyShakyTweenId";
 
     void Start()
     {
-        Debug.Log($"cutscene manager start");
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
         _audioManager = AudioManager.Instance;
@@ -54,6 +52,7 @@ public class CutsceneManager : MonoBehaviour
 
         _lineBox = new();
         _lineBox.AddToClassList(_ussLineBox);
+        _lineBox.style.visibility = Visibility.Hidden;
         _reportContainer.Add(_lineBox);
 
         _lineLabel = new();
@@ -61,17 +60,15 @@ public class CutsceneManager : MonoBehaviour
         _lineBox.Add(_lineLabel);
 
         _introConversation.Initialize();
-        OnDeskInitialized();
+
+        OnDeskInitialized(); // in webgl the scripts are executed in a weird order, so desk is initialized before i subscribe to it
     }
 
     void OnDeskInitialized()
     {
-        Debug.Log($"on desk initialized, _gameManager.WasIntroCutscenePlayed: {_gameManager.WasIntroCutscenePlayed}");
-        _deskManager.HideAllReports();
         if (_gameManager.WasIntroCutscenePlayed || _isIntroCutsceneBeingPlayed)
             return;
         StartCoroutine(PlayIntroCutscene());
-        Debug.Log($"asd");
     }
 
     void OnDayPassed(int day)
@@ -83,7 +80,6 @@ public class CutsceneManager : MonoBehaviour
     IEnumerator PlayIntroCutscene()
     {
         _isIntroCutsceneBeingPlayed = true;
-        Debug.Log($"start intro cutscene");
         _gameManager.ToggleTimer(false);
 
         _bg = new();
@@ -118,16 +114,14 @@ public class CutsceneManager : MonoBehaviour
 
         _reportContainer.Remove(bankerCard);
         _reportContainer.Remove(_bg);
-        _lineBox.style.visibility = Visibility.Hidden;
-        _deskManager.ShowAllReports();
         _gameManager.ToggleTimer(true);
-
-        yield return null;
+        _gameManager.WasIntroCutscenePlayed = true;
     }
 
     IEnumerator PlayConversation(Conversation conversation)
     {
-        Debug.Log($"play conversation");
+        _deskManager.HideAllReports();
+        _lineBox.style.visibility = Visibility.Visible;
 
         foreach (ConversationLine line in conversation.Lines)
         {
@@ -135,6 +129,9 @@ public class CutsceneManager : MonoBehaviour
             yield return HandleLineBox(line);
             yield return TypeText(line);
         }
+
+        _deskManager.ShowAllReports();
+        _lineBox.style.visibility = Visibility.Hidden;
     }
 
     IEnumerator HandleLineBox(ConversationLine line)
