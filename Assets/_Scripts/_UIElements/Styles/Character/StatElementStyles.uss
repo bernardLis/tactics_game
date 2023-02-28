@@ -1,7 +1,6 @@
 .stat-element__icon {
     font-size: 18px;
     color: rgb(255, 255, 255);
-    background-image: url('project://database/Assets/Sprites/Icons/gorilla.png?fileID=2800000&guid=c1181cbabffb1da4cbfd479b065b8e49&type=3#gorilla');
     width: 32px;
     height: 32px;
 }

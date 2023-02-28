@@ -176,7 +176,6 @@ public class DashboardManager : Singleton<DashboardManager>
         int troopsLimit = _troopsLimitBuilding.GetUpgradeByRank(_troopsLimitBuilding.UpgradeRank).TroopsLimit;
 
         _troopsLimitElement.UpdateCountContainer($"{troopsCount} / {troopsLimit}", Color.white);
-
     }
 
     void AddSpiceElement()

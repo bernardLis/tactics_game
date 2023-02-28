@@ -4,20 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Obstacle
-  - Traversable
-  - Enemy
-  - PlayerCollider
-  - EnemyCollider
-  - ConversationCollider
-  - Weapon
-  - PushableObstacle
-  - BoundCollider
-  - Flasher
-  - FireOnTile
-  - WaterOnTile
-  - IdleCharacter
   - UI VFX Camera
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -25,7 +13,7 @@ TagManager:
   - Unpassable
   - Water
   - UI
-  - Character
+  - 
   - UI VFX
   - 
   - 
