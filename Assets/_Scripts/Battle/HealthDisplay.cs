@@ -23,7 +23,6 @@ public class HealthDisplay : MonoBehaviour
 
         _slider = GetComponent<Slider>();
         _slider.value = _currentHealth / _totalHealth;
-        Debug.Log($"_currentHealth / _totalHealth {_currentHealth / _totalHealth}");
     }
 
     void OnHealthChanged(float currentHealth)

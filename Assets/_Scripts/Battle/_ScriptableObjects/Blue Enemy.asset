@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Blue Enemy
+  m_EditorClassIdentifier: 
+  Id: 3b21cc6e-445c-48b3-8221-381ef06416d8
+  Material: {fileID: 2100000, guid: b0ddfd1fc6ff1f14eb7de1078c47e074, type: 2}
+  Health: 10
+  Power: 2
+  AttackRange: 100
+  AttackCooldown: 3

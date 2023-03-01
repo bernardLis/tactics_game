@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-public class NameDisplay : MonoBehaviour
+
+public class BattleEntityCanvas : MonoBehaviour
 {
     BattleEntity _entity;
-    TextMeshProUGUI _textMesh;
+
+    Canvas _canvas;
+
     // Start is called before the first frame update
     void Start()
     {
         _entity = transform.root.GetComponent<BattleEntity>();
-        _textMesh = GetComponent<TextMeshProUGUI>();
-        _textMesh.text = Helpers.ParseScriptableObjectCloneName(_entity.name);
+        _entity.OnDeath += OnEntityDeath;
+
+        _canvas = GetComponent<Canvas>();
     }
+
+    void OnEntityDeath(BattleEntity be) { _canvas.enabled = false; }
+
 }
