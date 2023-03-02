@@ -1,11 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
+
+    // skybox rotation https://forum.unity.com/threads/rotate-a-skybox.130639/
+    int _rotationProperty;
+    float _initRot;
+    Material _skyMat;
+    [SerializeField] float _skyboxRotationSpeed = 0.2f;
+
+    [SerializeField] TextMeshProUGUI _textMesh; // HERE: something smarter
+
     [SerializeField] List<Stats> _enemyStats = new();
-    [SerializeField] Stats _playerStats;
+    [SerializeField] List<Stats> _playerStats;
 
     [SerializeField] GameObject _playerPrefab;
     [SerializeField] GameObject _enemyPrefab;
@@ -21,16 +31,24 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
+        _rotationProperty = Shader.PropertyToID("_Rotation");
+        _skyMat = RenderSettings.skybox;
+        _initRot = _skyMat.GetFloat(_rotationProperty);
+
+        _textMesh.text = $"{_numberOfPlayersToSpawn} : {_numberOfEnemiesToSpawn}";
+
         for (int i = 0; i < _numberOfPlayersToSpawn; i++)
             InstantiatePlayer();
         for (int i = 0; i < _numberOfEnemiesToSpawn; i++)
             InstantiateEnemy();
 
         foreach (BattleEntity be in PlayerEntities)
-            be.Initialize(_playerStats, ref EnemyEntities);
+            be.Initialize(_playerStats[Random.Range(0, _playerStats.Count)], ref EnemyEntities);
         foreach (BattleEntity be in EnemyEntities)
             be.Initialize(_enemyStats[Random.Range(0, _enemyStats.Count)], ref PlayerEntities);
     }
+
+    void Update() => _skyMat.SetFloat(_rotationProperty, Time.time * _skyboxRotationSpeed);
 
     void InstantiatePlayer()
     {
@@ -51,9 +69,17 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    void OnPlayerDeath(BattleEntity be) { PlayerEntities.Remove(be); }
+    void OnPlayerDeath(BattleEntity be)
+    {
+        PlayerEntities.Remove(be);
+        _textMesh.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
+    }
 
-    void OnEnemyDeath(BattleEntity be) { EnemyEntities.Remove(be); }
+    void OnEnemyDeath(BattleEntity be)
+    {
+        EnemyEntities.Remove(be);
+        _textMesh.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
+    }
 
 
 }

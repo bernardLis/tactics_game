@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7420590150597614921}
   - component: {fileID: 7420590150597614922}
   - component: {fileID: 8225878672215648759}
+  - component: {fileID: -4755456052036825785}
   m_Layer: 0
   m_Name: Battle Camera
   m_TagString: MainCamera
@@ -150,3 +151,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PipelineAsset: {fileID: 11400000, guid: 38ffc354913d6414e9bea08e09ba196b, type: 2}
+--- !u!95 &-4755456052036825785
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420590150597614926}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c8300b9b16a2bd54bb1630e76108e82b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

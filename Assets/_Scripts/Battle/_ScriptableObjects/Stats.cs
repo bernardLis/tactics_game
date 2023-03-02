@@ -12,5 +12,7 @@ public class Stats : BaseScriptableObject
     public float AttackRange;
     public float AttackCooldown;
 
-
+    public float Speed;
+    
+    public GameObject Projectile;
 }

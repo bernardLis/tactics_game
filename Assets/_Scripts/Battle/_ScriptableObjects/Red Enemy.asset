@@ -16,5 +16,7 @@ MonoBehaviour:
   Material: {fileID: 2100000, guid: 648682c2568381d4595031dc35e45713, type: 2}
   Health: 20
   Power: 3
-  AttackRange: 3
+  AttackRange: 2.5
   AttackCooldown: 1
+  Speed: 3.5
+  Projectile: {fileID: 0}

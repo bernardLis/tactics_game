@@ -23,7 +23,6 @@ public class BattleEntity : MonoBehaviour
 
     public event Action<float> OnHealthChanged;
     public event Action<BattleEntity> OnDeath;
-
     void Update()
     {
         if (_currentAttackCooldown >= 0)
@@ -38,6 +37,7 @@ public class BattleEntity : MonoBehaviour
         _gfx.GetComponent<MeshRenderer>().material = stats.Material;
 
         _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = stats.Speed;
         _agent.stoppingDistance = stats.AttackRange;
 
         _opponentList = opponents;
@@ -67,6 +67,8 @@ public class BattleEntity : MonoBehaviour
             {
                 if (_opponent == null)
                     break;
+                if (IsDead)
+                    break;
                 _agent.destination = _opponent.transform.position;
                 transform.LookAt(_opponent.transform);
                 yield return null;
@@ -75,7 +77,12 @@ public class BattleEntity : MonoBehaviour
             // reached destination
             _agent.enabled = false;
 
-            yield return StartCoroutine(Attack());
+            // HERE: something smarter
+            if (_stats.Projectile == null)
+                yield return StartCoroutine(Attack());
+            else
+                yield return StartCoroutine(Shoot());
+
         }
     }
 
@@ -92,15 +99,42 @@ public class BattleEntity : MonoBehaviour
             yield return null;
         if (_opponent == null || _opponent.IsDead)
             yield break;
-        if (Vector3.Distance(transform.position, _opponent.transform.position) > _stats.AttackRange)
+        if (Vector3.Distance(transform.position, _opponent.transform.position) > _stats.AttackRange + 0.5f) // +0.5 wiggle room
             yield break; // target ran away
 
-        transform.LookAt(_opponent.transform.position);
+        transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         Vector3 punchRotation = new(45f, 0f, 0f);
         yield return _gfx.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
         _currentAttackCooldown = _stats.AttackCooldown;
         yield return _opponent.GetHit(_stats.Power);
     }
+
+    IEnumerator Shoot()
+    {
+        while (_currentAttackCooldown > 0)
+            yield return null;
+        while (_gettingHit)
+            yield return null;
+        if (_opponent == null || _opponent.IsDead)
+            yield break;
+        if (Vector3.Distance(transform.position, _opponent.transform.position) > _stats.AttackRange)
+            yield break; // target ran away
+
+        transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
+        Vector3 punchRotation = new(45f, 0f, 0f);
+        _gfx.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
+        //    / yield return new WaitForSeconds(0.3f);
+        _currentAttackCooldown = _stats.AttackCooldown;
+
+        // spawn projectile
+        GameObject projectileInstance = Instantiate(_stats.Projectile, transform.position, Quaternion.identity);
+        projectileInstance.transform.LookAt(_opponent.transform);
+        //  int speed = 20;
+        //  float duration = Vector3.Distance(transform.position, _opponent.transform.position) / speed;
+        Projectile projectile = projectileInstance.GetComponent<Projectile>();
+        projectile.Shoot(_opponent, 20, _stats.Power);
+    }
+
 
     void Celebrate()
     {
@@ -134,10 +168,15 @@ public class BattleEntity : MonoBehaviour
 
     public IEnumerator Die()
     {
+        //  _agent.enabled = false;
+
         IsDead = true;
         OnDeath?.Invoke(this);
         yield return new WaitForSeconds(0.2f);
         yield return transform.DORotate(new Vector3(90, 0, 0), 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
+        yield return _gfx.GetComponent<MeshRenderer>().material.DOFade(0, 1f).WaitForCompletion();
+
+
         Destroy(gameObject);
     }
 }
