@@ -46,7 +46,7 @@ public class AudioManager : Singleton<AudioManager>
         _dialogueAudioSource = dialogueGameObject.AddComponent<AudioSource>();
         _dialogueAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Dialogue")[0];
 
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < 50; i++)
         {
             GameObject sfxGameObject = new("SFX" + i);
             sfxGameObject.transform.parent = transform;
@@ -165,10 +165,10 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource PlaySFX(Sound sound, Vector3 pos, bool isLooping = false)
     {
         AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
+
         if (a == null)
             return null;
-        a.pitch = sound.Pitch;
-        a.volume = sound.Volume;
+
         a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
         a.loop = isLooping;
         sound.Play(a);

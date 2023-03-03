@@ -7,9 +7,10 @@ using DG.Tweening;
 using Random = UnityEngine.Random;
 public class BattleEntity : MonoBehaviour
 {
+    [SerializeField] Sound _hurtSound;
     List<BattleEntity> _opponentList = new();
 
-    [SerializeField] GameObject _gfx;
+    public GameObject GFX;
     Stats _stats;
     float _currentHealth;
 
@@ -34,7 +35,7 @@ public class BattleEntity : MonoBehaviour
         _stats = stats;
         _currentHealth = stats.Health;
 
-        _gfx.GetComponent<MeshRenderer>().material = stats.Material;
+        GFX.GetComponent<MeshRenderer>().material = stats.Material;
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = stats.Speed;
@@ -48,6 +49,7 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator RunEntity()
     {
+        yield return new WaitForSeconds(Random.Range(0f, 1f)); // random delay at the beginning
         while (!IsDead)
         {
             if (_opponentList.Count == 0)
@@ -104,7 +106,7 @@ public class BattleEntity : MonoBehaviour
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         Vector3 punchRotation = new(45f, 0f, 0f);
-        yield return _gfx.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
+        yield return GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
         _currentAttackCooldown = _stats.AttackCooldown;
         yield return _opponent.GetHit(_stats.Power);
     }
@@ -122,12 +124,12 @@ public class BattleEntity : MonoBehaviour
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         Vector3 punchRotation = new(45f, 0f, 0f);
-        _gfx.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
+        GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
         //    / yield return new WaitForSeconds(0.3f);
         _currentAttackCooldown = _stats.AttackCooldown;
 
         // spawn projectile
-        GameObject projectileInstance = Instantiate(_stats.Projectile, transform.position, Quaternion.identity);
+        GameObject projectileInstance = Instantiate(_stats.Projectile, GFX.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
         //  int speed = 20;
         //  float duration = Vector3.Distance(transform.position, _opponent.transform.position) / speed;
@@ -162,6 +164,8 @@ public class BattleEntity : MonoBehaviour
             yield return Die();
             yield break;
         }
+        //      if (Random.value > 0.5f)
+        //         AudioManager.Instance.PlaySFX(_hurtSound, transform.position);
         yield return transform.DOShakePosition(0.2f, 0.5f).WaitForCompletion();
         _gettingHit = false;
     }
@@ -173,10 +177,9 @@ public class BattleEntity : MonoBehaviour
         IsDead = true;
         OnDeath?.Invoke(this);
         yield return new WaitForSeconds(0.2f);
-        yield return transform.DORotate(new Vector3(90, 0, 0), 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
-        yield return _gfx.GetComponent<MeshRenderer>().material.DOFade(0, 1f).WaitForCompletion();
-
-
-        Destroy(gameObject);
+        transform.DORotate(new Vector3(-90, 0, 0), 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
+        yield return transform.DOMoveY(0, 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
+        //yield return GFX.GetComponent<MeshRenderer>().material.DOFade(0, 2f).WaitForCompletion();
+        // Destroy(gameObject);
     }
 }

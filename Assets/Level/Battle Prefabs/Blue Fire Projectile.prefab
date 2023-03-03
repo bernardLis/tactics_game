@@ -29435,6 +29435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482738062e218ef4c9899f461d3419fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explosionSound: {fileID: 11400000, guid: c8f9e2e1b2ccb1d42909a9afd2e6b5cf, type: 2}
+  _shootSound: {fileID: 11400000, guid: a41a84a3e51ec19419cd9591cd62e362, type: 2}
   _gfx: {fileID: 4130068332624222837}
   _explosion: {fileID: 8419843720528653689}
 --- !u!1 &6698951157331500395

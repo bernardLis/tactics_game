@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Id: b49fadd3-f94b-4090-b1df-2cbd81abd683
+  GFX:
+  - {fileID: 4212755269954776405, guid: 8d9b418592a87a048b0297edec6c7e2b, type: 3}
   Material: {fileID: 2100000, guid: 2b6a718ff1952fe45bec3c6b8c3fd56d, type: 2}
   Health: 100
   Power: 10

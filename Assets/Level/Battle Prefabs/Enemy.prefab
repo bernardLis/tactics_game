@@ -202,7 +202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6108c4e99733c4c40943183fedaa4b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gfx: {fileID: 6020162713353402662}
+  _hurtSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
+  GFX: {fileID: 6020162713353402662}
 --- !u!1 &6020162713353402662
 GameObject:
   m_ObjectHideFlags: 0

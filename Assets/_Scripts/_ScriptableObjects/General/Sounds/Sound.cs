@@ -18,6 +18,9 @@ public class Sound : BaseScriptableObject
 
     public void Play(AudioSource audioSource)
     {
+        audioSource.volume = Volume;
+
+        audioSource.pitch = Pitch;
         if (isPitchRandomized)
             audioSource.pitch = Random.Range(PitchRange.x, PitchRange.y);
 

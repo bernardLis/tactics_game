@@ -23,6 +23,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bd04ee6ccadfb8e4981e4c71abbfbba4, type: 3}
   - {fileID: 8300000, guid: b31e545efed58ac439caafe400426364, type: 3}
   - {fileID: 8300000, guid: 4fd9887f221a57543930b83c98034775, type: 3}
-  Volume: 0.501
+  Volume: 0.1
   Pitch: 0.76
+  isPitchRandomized: 1
+  PitchRange: {x: 0.9, y: 1.1}
   Source: {fileID: 0}
