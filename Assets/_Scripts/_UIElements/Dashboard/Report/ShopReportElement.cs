@@ -51,11 +51,7 @@ public class ShopReportElement : ReportElement
         _itemContainer.RegisterCallback<PointerDownEvent>(OnPointerDown, TrickleDown.NoTrickleDown);
     }
 
-    void OnTimerFinished()
-    {
-        Debug.Log($"on timer finished");
-        DismissReport();
-    }
+    void OnTimerFinished() { DismissReport(); }
 
     // block report pickup
     void OnPointerDown(PointerDownEvent e) { e.StopImmediatePropagation(); }

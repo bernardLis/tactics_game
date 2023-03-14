@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LeftMouseClick",
+                    "type": "Button",
+                    "id": "ed617f9f-5f71-4804-8ba5-cadc58ab9c9e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -228,6 +237,17 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9598014a-7b24-4c50-94c3-2cdbeccfef8a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "LeftMouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

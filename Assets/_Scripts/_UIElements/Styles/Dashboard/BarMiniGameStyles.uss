@@ -20,7 +20,7 @@
 .bar-mini-game__ghost-cursor {
     top: 75%;
     height: 25%;
-    width: 10;
+    width: 10px;
     position: Absolute;
     background-color: white;
     opacity: 0.5;

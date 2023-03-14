@@ -192,14 +192,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: StyleSheetReferences.Array.size
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 1093261390, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
-      propertyPath: StyleSheetReferences.Array.data[35].m_AssetGUID
-      value: 913a9aada18953045bbc7ee794d1f0e1
-      objectReference: {fileID: 0}
     - target: {fileID: 2154333484900981485, guid: 15b9d2ba76c859c4097a6e3fdb754e84, type: 3}
       propertyPath: m_Name
       value: GameManager

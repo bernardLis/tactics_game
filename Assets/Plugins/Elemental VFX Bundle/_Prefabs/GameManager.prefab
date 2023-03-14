@@ -344,6 +344,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: 913a9aada18953045bbc7ee794d1f0e1
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,7 +364,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4066d41b1b6ca054caf73688f39e110d, type: 2}
   - {fileID: 11400000, guid: 12757db0fbb355d469f43f99831f348a, type: 2}
   - {fileID: 11400000, guid: 17298d10bd1a3424d85267d774b2bdc6, type: 2}
-  - {fileID: 11400000, guid: 3e76dd7eac7572746a4440aa797a7a08, type: 2}
   - {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
   - {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   - {fileID: 11400000, guid: 2c24b60935cc15d4f861a9964fa929f0, type: 2}
@@ -388,10 +391,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
-  PlayerTroops: []
+  WasIntroCutscenePlayed: 0
+  PlayerCharacter: {fileID: 0}
+  FriendCharacter: {fileID: 0}
   PlayerItemPouch: []
   PlayerAbilityPouch: []
-  CraftedAbilities: []
   Reports: []
   ReportsArchived: []
   _abilityNodeGraphs:
@@ -399,7 +403,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b490b888ee688624b9c291aa2a94e28b, type: 2}
   - {fileID: 11400000, guid: 6bceff6e2885a224c958a51fe4e78327, type: 2}
   - {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
-  CutsceneIndexToPlay: 0
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,22 +1,18 @@
 .common__text-primary {
     color: rgb(255, 255, 255);
     font-size: 16px;
-    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
-    -unity-font-definition: none;
 }
 
 .common__text-primary-black {
     color: rgb(0, 0, 0);
     font-size: 16px;
--unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
-    -unity-font-definition: none;
+    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
 }
 
 .common__text-secondary {
     color: rgb(255, 255, 255);
     font-size: 12px;
     -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
-    -unity-font-definition: none;
 }
 
 .common__transition-basic {
@@ -94,7 +90,6 @@
     -unity-text-outline-width: 0;
     -unity-font-style: normal;
     -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
-    -unity-font-definition: none;
     -unity-text-align: middle-center;
     transition-timing-function: ease-in-out;
 }
@@ -121,4 +116,3 @@
     background-image: url('project://database/Assets/Unity/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');
     position: absolute;
 }
-
