@@ -26,6 +26,8 @@ public class CharacterCreation : MonoBehaviour
     int _currentPortraitIndex = 0;
 
     bool _isPlayerCreated;
+    Vector2 _playerMapPosition = new(-8.5f, -6.5f);
+    Vector2 _friendMapPosition = new(-5.5f, -10.5f);
 
     // Start is called before the first frame update
     void Start()
@@ -102,13 +104,13 @@ public class CharacterCreation : MonoBehaviour
     {
         if (_isPlayerCreated)
         {
-            CreateCharacter();
+            CreateCharacter(_friendMapPosition);
             StartGame();
             _gameManager.SaveJsonData();
             return;
         }
 
-        CreateCharacter();
+        CreateCharacter(_playerMapPosition);
         _isPlayerCreated = true;
 
         _nameField.label = "What's your friend's name:";
@@ -120,12 +122,12 @@ public class CharacterCreation : MonoBehaviour
 
     }
 
-    void CreateCharacter()
+    void CreateCharacter(Vector2 mapPosition)
     {
         Debug.Log($"Creating character: {_nameField.value}");
         // TODO: an effect would be nice.
         Character newChar = ScriptableObject.CreateInstance<Character>();
-        newChar.CreateFromCharacterCreation(_nameField.value, _characterPortraits[_currentPortraitIndex]);
+        newChar.CreateFromCharacterCreation(_nameField.value, _characterPortraits[_currentPortraitIndex], mapPosition);
 
         if (_isPlayerCreated)
         {

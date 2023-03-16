@@ -5,41 +5,26 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using Pathfinding;
 
-public class MapMovement : MonoBehaviour
+public class MapMovementManager : MonoBehaviour
 {
     GameManager _gameManager;
     PlayerInput _playerInput;
 
     [SerializeField] Tilemap _tilemap;
     [SerializeField] GameObject _hero;
-    [SerializeField] LineRenderer _lineRenderer;
+    [SerializeField] LineRenderer _lineRendererReachable;
+    [SerializeField] LineRenderer _lineRendererUnreachable;
 
+    [SerializeField] float _heroRange;
 
     Vector3Int _destinationPos;
-    GameObject _destination;
-    Path _currentPath;
-    List<Vector3> _lineRendererPoints = new();
+    List<Vector3> _lineRendererReachablePoints = new();
+    List<Vector3> _lineRendererUnreachablePoints = new();
+    Vector3 _reachablePoint;
 
-    // Start is called before the first frame update
     void Start() { _gameManager = GameManager.Instance; }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /* INPUT */
-    void SubscribeInputActions()
-    {
-        _playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
-    }
-
-    void UnsubscribeInputActions()
-    {
-        _playerInput.actions["LeftMouseClick"].performed -= LeftMouseClick;
-    }
-
     void OnEnable()
     {
         if (_gameManager == null)
@@ -59,12 +44,58 @@ public class MapMovement : MonoBehaviour
         UnsubscribeInputActions();
     }
 
+    void SubscribeInputActions()
+    {
+        _playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
+        _playerInput.actions["RightMouseClick"].performed += RightMouseClick;
+
+    }
+
+    void UnsubscribeInputActions()
+    {
+        _playerInput.actions["LeftMouseClick"].performed -= LeftMouseClick;
+        _playerInput.actions["RightMouseClick"].performed -= RightMouseClick;
+    }
+
+    void RightMouseClick(InputAction.CallbackContext ctx)
+    {
+        ClearMovementIndicators();
+        if (_hero != null)
+        {
+            _hero.GetComponent<MapHero>().Unselect();
+            _hero = null;
+        }
+    }
+
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
-        if (_destinationPos != null)
-            _tilemap.SetColor(_destinationPos, Color.white);
+        if (_tilemap == null)
+            return;
+        _tilemap.SetColor(_destinationPos, Color.white);
 
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        Collider2D[] results = Physics2D.OverlapCircleAll(worldPos, 0.2f);
+        foreach (Collider2D c in results)
+            if (c.CompareTag(Tags.Player))
+                SelectHero(c.gameObject);
+
+        if (_hero != null)
+            ResolveMovement(worldPos);
+        // select hero when mouse over the hero
+    }
+
+    void SelectHero(GameObject obj)
+    {
+        if (_hero != null)
+            _hero.GetComponent<MapHero>().Unselect();
+
+        _hero = obj;
+        _hero.GetComponent<MapHero>().Select();
+    }
+
+    void ResolveMovement(Vector2 worldPos)
+    {
         Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
         _tilemap.SetTileFlags(tilePos, TileFlags.None);
         _tilemap.SetColor(tilePos, Color.red);
@@ -82,54 +113,81 @@ public class MapMovement : MonoBehaviour
     {
         _hero.GetComponent<AILerp>().canMove = false;
         Vector3 middleOfTheTile = new Vector3(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
-        Path p = _hero.GetComponent<Seeker>().StartPath(_hero.transform.position, middleOfTheTile);
-        yield return StartCoroutine(p.WaitForPath());
-        _currentPath = p;
+        Path fullPath = _hero.GetComponent<Seeker>().StartPath(_hero.transform.position, middleOfTheTile);
+        yield return StartCoroutine(fullPath.WaitForPath());
 
-        _lineRendererPoints = new();
-        for (int i = 0; i < p.vectorPath.Count; i++) // 1 to start in front of character
+        _lineRendererReachablePoints = new();
+        _lineRendererUnreachablePoints = new();
+
+        for (int i = 0; i < fullPath.vectorPath.Count; i++) // 1 to start in front of character
         {
-            Vector3 pos = new Vector3(p.vectorPath[i].x, p.vectorPath[i].y, -1); // -1 why shows the line, why?!
-            _lineRendererPoints.Add(pos);
+            Vector3 pos = new Vector3(fullPath.vectorPath[i].x, fullPath.vectorPath[i].y, -1); // -1 why shows the line, why?!
+            Path lengthCheckPath = Pathfinding.ABPath.Construct(_hero.transform.position, fullPath.vectorPath[i]);
+            AstarPath.StartPath(lengthCheckPath);
+            AstarPath.BlockUntilCalculated(lengthCheckPath);
+
+            yield return StartCoroutine(lengthCheckPath.WaitForPath());
+
+            if (lengthCheckPath.GetTotalLength() <= _heroRange)
+            {
+                _lineRendererReachablePoints.Add(pos);
+                _reachablePoint = pos;
+            }
+            else
+                _lineRendererUnreachablePoints.Add(pos);
         }
 
-        _lineRenderer.positionCount = _lineRendererPoints.Count;
-        _lineRenderer.SetPositions(_lineRendererPoints.ToArray());
+        _lineRendererReachable.positionCount = _lineRendererReachablePoints.Count;
+        _lineRendererReachable.SetPositions(_lineRendererReachablePoints.ToArray());
+
+        _lineRendererUnreachable.positionCount = _lineRendererUnreachablePoints.Count;
+        _lineRendererUnreachable.SetPositions(_lineRendererUnreachablePoints.ToArray());
     }
 
     IEnumerator Path()
     {
+        Path p = _hero.GetComponent<Seeker>().StartPath(_hero.transform.position, _reachablePoint);
+        yield return StartCoroutine(p.WaitForPath());
+
         AILerp ai = _hero.GetComponent<AILerp>();
         ai.canMove = true;
         ai.OnTargetReached += OnTargetReached;
 
-        int count = _lineRenderer.positionCount;
+        int count = _lineRendererReachable.positionCount;
         while (!ai.reachedEndOfPath)
         {
             List<Vector3> temp = new();
             ai.GetRemainingPath(temp, out bool asd);
-           // temp.RemoveAt(0);// 1 to start in front of character
-            _lineRendererPoints = new();
+            _lineRendererReachablePoints = new();
             foreach (Vector3 v in temp)
             {
-                Vector3 pos = new Vector3(v.x, v.y, -1); // -1 why shows the line, why?!
-                _lineRendererPoints.Add(pos);
+                Vector3 pos = new Vector3(v.x, v.y, -1); // TODO: -1 why shows the line, why?!
+                _lineRendererReachablePoints.Add(pos);
             }
-            _lineRenderer.positionCount = _lineRendererPoints.Count;
-            _lineRenderer.SetPositions(_lineRendererPoints.ToArray());
+            _lineRendererReachable.positionCount = _lineRendererReachablePoints.Count;
+            _lineRendererReachable.SetPositions(_lineRendererReachablePoints.ToArray());
             yield return new WaitForSeconds(0.1f);
         }
-        /*
-        for (int i = 0; i < count; i++)
-        {
-            _lineRendererPoints.RemoveAt(0);
-        }
-        */
     }
 
     void OnTargetReached()
     {
-        Debug.Log($"target reached");
-        _lineRenderer.positionCount = 0;
+        ClearMovementIndicators();
+        
+        AILerp ai = _hero.GetComponent<AILerp>();
+        ai.canMove = false;
+        ai.OnTargetReached -= OnTargetReached;
+
+        _hero.GetComponent<MapHero>().Unselect();
+        _hero = null;
+    }
+
+    void ClearMovementIndicators()
+    {
+
+        _lineRendererReachable.positionCount = 0;
+        _lineRendererUnreachable.positionCount = 0;
+        _tilemap.SetColor(_destinationPos, Color.white);
+
     }
 }

@@ -12,6 +12,11 @@ public static class Scenes
         private set { }
     }
 
+    public static string Map
+    {
+        get { return "Map"; }
+        private set { }
+    }
 
     public static string Cutscene
     {

@@ -85,7 +85,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void StartGame()
     {
-        LoadLevel(Scenes.Dashboard);
+        LoadLevel(Scenes.Map);
         IsTimerOn = true;
     }
 

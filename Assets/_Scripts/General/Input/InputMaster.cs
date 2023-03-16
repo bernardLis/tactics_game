@@ -116,6 +116,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightMouseClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""7253dc2f-382f-4cb5-9ce4-7c04073634e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -272,6 +281,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""LeftMouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""031003eb-bfa2-4882-8cd2-481c16928d92"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""RightMouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -307,6 +327,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Dashboard_Space = m_Dashboard.FindAction("Space", throwIfNotFound: true);
         m_Dashboard_Pause = m_Dashboard.FindAction("Pause", throwIfNotFound: true);
         m_Dashboard_LeftMouseClick = m_Dashboard.FindAction("LeftMouseClick", throwIfNotFound: true);
+        m_Dashboard_RightMouseClick = m_Dashboard.FindAction("RightMouseClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -376,6 +397,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Dashboard_Space;
     private readonly InputAction m_Dashboard_Pause;
     private readonly InputAction m_Dashboard_LeftMouseClick;
+    private readonly InputAction m_Dashboard_RightMouseClick;
     public struct DashboardActions
     {
         private @InputMaster m_Wrapper;
@@ -390,6 +412,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @Space => m_Wrapper.m_Dashboard_Space;
         public InputAction @Pause => m_Wrapper.m_Dashboard_Pause;
         public InputAction @LeftMouseClick => m_Wrapper.m_Dashboard_LeftMouseClick;
+        public InputAction @RightMouseClick => m_Wrapper.m_Dashboard_RightMouseClick;
         public InputActionMap Get() { return m_Wrapper.m_Dashboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -429,6 +452,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @LeftMouseClick.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnLeftMouseClick;
                 @LeftMouseClick.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnLeftMouseClick;
                 @LeftMouseClick.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnLeftMouseClick;
+                @RightMouseClick.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
+                @RightMouseClick.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
+                @RightMouseClick.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
             }
             m_Wrapper.m_DashboardActionsCallbackInterface = instance;
             if (instance != null)
@@ -463,6 +489,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @LeftMouseClick.started += instance.OnLeftMouseClick;
                 @LeftMouseClick.performed += instance.OnLeftMouseClick;
                 @LeftMouseClick.canceled += instance.OnLeftMouseClick;
+                @RightMouseClick.started += instance.OnRightMouseClick;
+                @RightMouseClick.performed += instance.OnRightMouseClick;
+                @RightMouseClick.canceled += instance.OnRightMouseClick;
             }
         }
     }
@@ -488,5 +517,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnSpace(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnLeftMouseClick(InputAction.CallbackContext context);
+        void OnRightMouseClick(InputAction.CallbackContext context);
     }
 }

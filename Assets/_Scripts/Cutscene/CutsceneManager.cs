@@ -68,7 +68,7 @@ public class CutsceneManager : MonoBehaviour
     {
         if (_gameManager.WasIntroCutscenePlayed || _isIntroCutsceneBeingPlayed)
             return;
-        StartCoroutine(PlayIntroCutscene());
+        // StartCoroutine(PlayIntroCutscene());
     }
 
     void OnDayPassed(int day)

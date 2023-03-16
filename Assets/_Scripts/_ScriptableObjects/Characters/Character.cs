@@ -52,6 +52,8 @@ public class Character : BaseScriptableObject
     public IntVariable NewWage { get; private set; }
     public bool Negotiated { get; private set; }
 
+    public Vector2 MapPosition;
+
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
     public event Action<Injury> OnInjuryAdded;
@@ -316,7 +318,7 @@ public class Character : BaseScriptableObject
         NewWage = ScriptableObject.CreateInstance<IntVariable>();
     }
 
-    public void CreateFromCharacterCreation(string name, CharacterPortrait portrait)
+    public void CreateFromCharacterCreation(string name, CharacterPortrait portrait, Vector2 mapPosition)
     {
         _gameManager = GameManager.Instance;
         Id = Guid.NewGuid().ToString();
@@ -343,6 +345,8 @@ public class Character : BaseScriptableObject
 
         UpdateRank();
         WeeklyWage.SetValue(0);
+
+        MapPosition = mapPosition;
     }
 
     public void CreateRandom(int level)
@@ -437,6 +441,7 @@ public class Character : BaseScriptableObject
         WeeklyWage.SetValue(data.WeeklyWage);
         NewWage.SetValue(data.NewWage);
         Negotiated = data.Negotiated;
+        MapPosition = data.MapPosition;
 
         UpdateRank();
         UpdateElement(Element);
@@ -478,6 +483,7 @@ public class Character : BaseScriptableObject
         data.WeeklyWage = WeeklyWage.Value;
         data.NewWage = NewWage.Value;
         data.Negotiated = Negotiated;
+        data.MapPosition = MapPosition;
 
         return data;
     }
@@ -510,4 +516,6 @@ public struct CharacterData
     public int WeeklyWage;
     public int NewWage;
     public bool Negotiated;
+
+    public Vector2 MapPosition;
 }
