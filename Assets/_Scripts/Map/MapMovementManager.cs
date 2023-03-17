@@ -9,20 +9,25 @@ public class MapMovementManager : MonoBehaviour
 {
     GameManager _gameManager;
     PlayerInput _playerInput;
+    CameraSmoothFollow _cameraSmoothFollow;
 
     [SerializeField] Tilemap _tilemap;
-    [SerializeField] GameObject _hero;
     [SerializeField] LineRenderer _lineRendererReachable;
     [SerializeField] LineRenderer _lineRendererUnreachable;
 
     [SerializeField] float _heroRange;
+    MapHero _selectedHero;
 
     Vector3Int _destinationPos;
     List<Vector3> _lineRendererReachablePoints = new();
     List<Vector3> _lineRendererUnreachablePoints = new();
     Vector3 _reachablePoint;
 
-    void Start() { _gameManager = GameManager.Instance; }
+    void Start()
+    {
+        _gameManager = GameManager.Instance;
+        _cameraSmoothFollow = Camera.main.GetComponent<CameraSmoothFollow>();
+    }
 
     /* INPUT */
     void OnEnable()
@@ -60,10 +65,10 @@ public class MapMovementManager : MonoBehaviour
     void RightMouseClick(InputAction.CallbackContext ctx)
     {
         ClearMovementIndicators();
-        if (_hero != null)
+        if (_selectedHero != null)
         {
-            _hero.GetComponent<MapHero>().Unselect();
-            _hero = null;
+            _selectedHero.Unselect();
+            _selectedHero = null;
         }
     }
 
@@ -80,18 +85,19 @@ public class MapMovementManager : MonoBehaviour
             if (c.CompareTag(Tags.Player))
                 SelectHero(c.gameObject);
 
-        if (_hero != null)
+        if (_selectedHero != null)
             ResolveMovement(worldPos);
         // select hero when mouse over the hero
     }
 
     void SelectHero(GameObject obj)
     {
-        if (_hero != null)
-            _hero.GetComponent<MapHero>().Unselect();
+        if (_selectedHero != null)
+            _selectedHero.Unselect();
 
-        _hero = obj;
-        _hero.GetComponent<MapHero>().Select();
+        _selectedHero = obj.GetComponent<MapHero>();
+        _selectedHero.Select();
+        _cameraSmoothFollow.SetTarget(_selectedHero.transform);
     }
 
     void ResolveMovement(Vector2 worldPos)
@@ -111,9 +117,9 @@ public class MapMovementManager : MonoBehaviour
 
     IEnumerator DrawPath()
     {
-        _hero.GetComponent<AILerp>().canMove = false;
+        _selectedHero.GetComponent<AILerp>().canMove = false;
         Vector3 middleOfTheTile = new Vector3(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
-        Path fullPath = _hero.GetComponent<Seeker>().StartPath(_hero.transform.position, middleOfTheTile);
+        Path fullPath = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, middleOfTheTile);
         yield return StartCoroutine(fullPath.WaitForPath());
 
         _lineRendererReachablePoints = new();
@@ -122,7 +128,7 @@ public class MapMovementManager : MonoBehaviour
         for (int i = 0; i < fullPath.vectorPath.Count; i++) // 1 to start in front of character
         {
             Vector3 pos = new Vector3(fullPath.vectorPath[i].x, fullPath.vectorPath[i].y, -1); // -1 why shows the line, why?!
-            Path lengthCheckPath = Pathfinding.ABPath.Construct(_hero.transform.position, fullPath.vectorPath[i]);
+            Path lengthCheckPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, fullPath.vectorPath[i]);
             AstarPath.StartPath(lengthCheckPath);
             AstarPath.BlockUntilCalculated(lengthCheckPath);
 
@@ -146,10 +152,10 @@ public class MapMovementManager : MonoBehaviour
 
     IEnumerator Path()
     {
-        Path p = _hero.GetComponent<Seeker>().StartPath(_hero.transform.position, _reachablePoint);
+        Path p = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, _reachablePoint);
         yield return StartCoroutine(p.WaitForPath());
 
-        AILerp ai = _hero.GetComponent<AILerp>();
+        AILerp ai = _selectedHero.GetComponent<AILerp>();
         ai.canMove = true;
         ai.OnTargetReached += OnTargetReached;
 
@@ -173,21 +179,23 @@ public class MapMovementManager : MonoBehaviour
     void OnTargetReached()
     {
         ClearMovementIndicators();
-        
-        AILerp ai = _hero.GetComponent<AILerp>();
+
+        AILerp ai = _selectedHero.GetComponent<AILerp>();
         ai.canMove = false;
         ai.OnTargetReached -= OnTargetReached;
 
-        _hero.GetComponent<MapHero>().Unselect();
-        _hero = null;
+        _selectedHero.UpdateMapPosition();
+        _selectedHero.Unselect();
+        _cameraSmoothFollow.SetTarget(null);
+        _selectedHero = null;
+
+        _gameManager.SaveJsonData();
     }
 
     void ClearMovementIndicators()
     {
-
         _lineRendererReachable.positionCount = 0;
         _lineRendererUnreachable.positionCount = 0;
         _tilemap.SetColor(_destinationPos, Color.white);
-
     }
 }

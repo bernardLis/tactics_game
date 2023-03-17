@@ -15,13 +15,9 @@ public class MapHero : MonoBehaviour
         _selection.enabled = false;
     }
 
-    public void Select()
-    {
-        _selection.enabled = true;
-    }
+    public void UpdateMapPosition() { Character.MapPosition = transform.position; }
 
-    public void Unselect()
-    {
-        _selection.enabled = false;
-    }
+    public void Select() { _selection.enabled = true; }
+
+    public void Unselect() { _selection.enabled = false; }
 }
