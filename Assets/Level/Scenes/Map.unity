@@ -10273,6 +10273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 6841108826401868264, guid: 75050e6b6ac59084794b3a58cead924e, type: 3}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6841108826401868267, guid: 75050e6b6ac59084794b3a58cead924e, type: 3}
       propertyPath: m_RootOrder
       value: 4

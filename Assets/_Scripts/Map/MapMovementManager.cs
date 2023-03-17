@@ -4,28 +4,33 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using Pathfinding;
+using Shapes;
+using DG.Tweening;
 
 public class MapMovementManager : MonoBehaviour
 {
     GameManager _gameManager;
     PlayerInput _playerInput;
     CameraSmoothFollow _cameraSmoothFollow;
+    Camera _cam;
 
     [SerializeField] Tilemap _tilemap;
-    [SerializeField] LineRenderer _lineRendererReachable;
-    [SerializeField] LineRenderer _lineRendererUnreachable;
+    [SerializeField] Transform _reachablePointMarker;
+    [SerializeField] Transform _destinationMarker;
+
+    [SerializeField] Line _lineReachable;
+    [SerializeField] Line _lineUnreachable;
 
     MapHero _selectedHero;
 
     Vector3Int _destinationPos;
-    List<Vector3> _lineRendererReachablePoints = new();
-    List<Vector3> _lineRendererUnreachablePoints = new();
     Vector3 _reachablePoint;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _cameraSmoothFollow = Camera.main.GetComponent<CameraSmoothFollow>();
+        _cam = Camera.main;
+        _cameraSmoothFollow = _cam.GetComponent<CameraSmoothFollow>();
     }
 
     /* INPUT */
@@ -41,6 +46,14 @@ public class MapMovementManager : MonoBehaviour
     }
 
     void OnDisable()
+    {
+        if (_playerInput == null)
+            return;
+
+        UnsubscribeInputActions();
+    }
+
+    void OnDestroy()
     {
         if (_playerInput == null)
             return;
@@ -72,11 +85,7 @@ public class MapMovementManager : MonoBehaviour
 
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
-        if (_tilemap == null)
-            return;
-        _tilemap.SetColor(_destinationPos, Color.white);
-
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         Collider2D[] results = Physics2D.OverlapCircleAll(worldPos, 0.2f);
         foreach (Collider2D c in results)
@@ -100,8 +109,6 @@ public class MapMovementManager : MonoBehaviour
     void ResolveMovement(Vector2 worldPos)
     {
         Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
-        _tilemap.SetTileFlags(tilePos, TileFlags.None);
-        _tilemap.SetColor(tilePos, Color.red);
 
         if (_destinationPos == tilePos)
         {
@@ -114,18 +121,17 @@ public class MapMovementManager : MonoBehaviour
 
     IEnumerator DrawPath()
     {
+        ClearMovementIndicators();
+
         Vector3 middleOfTheTile = new Vector3(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
-        
+
         Path fullPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, middleOfTheTile);
         AstarPath.StartPath(fullPath);
         yield return StartCoroutine(fullPath.WaitForPath());
 
-        _lineRendererReachablePoints = new();
-        _lineRendererUnreachablePoints = new();
-
-        for (int i = 0; i < fullPath.vectorPath.Count; i++) // 1 to start in front of character
+        for (int i = 0; i < fullPath.vectorPath.Count; i++)
         {
-            Vector3 pos = new Vector3(fullPath.vectorPath[i].x, fullPath.vectorPath[i].y, -1); // -1 why shows the line, why?!
+            Vector3 pos = new Vector3(fullPath.vectorPath[i].x, fullPath.vectorPath[i].y, 0);
             if (_selectedHero == null)
                 yield break;
             Path lengthCheckPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, fullPath.vectorPath[i]);
@@ -135,20 +141,30 @@ public class MapMovementManager : MonoBehaviour
             if (lengthCheckPath.error)
                 yield break;
 
-            if (lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft)
-            {
-                _lineRendererReachablePoints.Add(pos);
+            if (lengthCheckPath.GetTotalLength() < _selectedHero.RangeLeft)
                 _reachablePoint = pos;
-            }
-            else
-                _lineRendererUnreachablePoints.Add(pos);
         }
 
-        _lineRendererReachable.positionCount = _lineRendererReachablePoints.Count;
-        _lineRendererReachable.SetPositions(_lineRendererReachablePoints.ToArray());
+        SetMovementIndicators();
+    }
 
-        _lineRendererUnreachable.positionCount = _lineRendererUnreachablePoints.Count;
-        _lineRendererUnreachable.SetPositions(_lineRendererUnreachablePoints.ToArray());
+    void SetMovementIndicators()
+    {
+        _lineReachable.Start = _selectedHero.transform.position;
+        _lineReachable.End = _reachablePoint;
+
+        _lineUnreachable.Start = _reachablePoint;
+        _lineUnreachable.End = new Vector2(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
+
+        Vector3Int tilePos = _tilemap.WorldToCell(_reachablePoint);
+        _tilemap.SetTileFlags(tilePos, TileFlags.None);
+        _tilemap.SetColor(tilePos, Color.red);
+
+        _reachablePointMarker.position = _reachablePoint;
+        _reachablePointMarker.gameObject.SetActive(true);
+
+        _destinationMarker.position = new Vector3(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
+        _destinationMarker.gameObject.SetActive(true);
     }
 
     IEnumerator Path()
@@ -166,19 +182,9 @@ public class MapMovementManager : MonoBehaviour
         ai.canMove = true;
         ai.OnTargetReached += OnTargetReached;
 
-        int count = _lineRendererReachable.positionCount;
         while (!ai.reachedEndOfPath)
         {
-            List<Vector3> temp = new();
-            ai.GetRemainingPath(temp, out bool asd);
-            _lineRendererReachablePoints = new();
-            foreach (Vector3 v in temp)
-            {
-                Vector3 pos = new Vector3(v.x, v.y, -1); // TODO: -1 why shows the line, why?!
-                _lineRendererReachablePoints.Add(pos);
-            }
-            _lineRendererReachable.positionCount = _lineRendererReachablePoints.Count;
-            _lineRendererReachable.SetPositions(_lineRendererReachablePoints.ToArray());
+            _lineReachable.Start = _selectedHero.transform.position;
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -202,8 +208,15 @@ public class MapMovementManager : MonoBehaviour
 
     void ClearMovementIndicators()
     {
-        _lineRendererReachable.positionCount = 0;
-        _lineRendererUnreachable.positionCount = 0;
-        _tilemap.SetColor(_destinationPos, Color.white);
+        _lineReachable.Start = Vector3.zero;
+        _lineReachable.End = Vector3.zero;
+        _lineUnreachable.Start = Vector3.zero;
+        _lineUnreachable.End = Vector3.zero;
+
+        Vector3Int tilePos = _tilemap.WorldToCell(_reachablePoint);
+        _tilemap.SetColor(tilePos, Color.white);
+
+        _reachablePointMarker.gameObject.SetActive(false);
+        _destinationMarker.gameObject.SetActive(false);
     }
 }

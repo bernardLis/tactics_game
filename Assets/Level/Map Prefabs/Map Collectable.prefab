@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3257093785815811430}
   - component: {fileID: 3257093785815811429}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3257093786674810790}
   - component: {fileID: 3257093786674810787}
   - component: {fileID: 3257093786674810788}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

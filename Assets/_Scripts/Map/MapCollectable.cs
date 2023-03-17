@@ -17,7 +17,6 @@ public class MapCollectable : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log($"OnTriggerEnter2D {col.gameObject.tag}");
         if (col.gameObject.TryGetComponent<MapHero>(out MapHero hero))
             Collect(hero);
     }
