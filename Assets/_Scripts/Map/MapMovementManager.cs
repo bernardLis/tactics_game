@@ -15,7 +15,6 @@ public class MapMovementManager : MonoBehaviour
     [SerializeField] LineRenderer _lineRendererReachable;
     [SerializeField] LineRenderer _lineRendererUnreachable;
 
-    [SerializeField] float _heroRange;
     MapHero _selectedHero;
 
     Vector3Int _destinationPos;
@@ -128,13 +127,16 @@ public class MapMovementManager : MonoBehaviour
         for (int i = 0; i < fullPath.vectorPath.Count; i++) // 1 to start in front of character
         {
             Vector3 pos = new Vector3(fullPath.vectorPath[i].x, fullPath.vectorPath[i].y, -1); // -1 why shows the line, why?!
+            if (_selectedHero == null)
+                yield break;
             Path lengthCheckPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, fullPath.vectorPath[i]);
+
             AstarPath.StartPath(lengthCheckPath);
-            AstarPath.BlockUntilCalculated(lengthCheckPath);
-
             yield return StartCoroutine(lengthCheckPath.WaitForPath());
+            if (lengthCheckPath.error)
+                yield break;
 
-            if (lengthCheckPath.GetTotalLength() <= _heroRange)
+            if (lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft)
             {
                 _lineRendererReachablePoints.Add(pos);
                 _reachablePoint = pos;
@@ -154,6 +156,12 @@ public class MapMovementManager : MonoBehaviour
     {
         Path p = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, _reachablePoint);
         yield return StartCoroutine(p.WaitForPath());
+        if (p.error)
+            yield break;
+        if (_selectedHero == null)
+            yield break;
+
+        _selectedHero.UpdateRangeLeft(p.GetTotalLength());
 
         AILerp ai = _selectedHero.GetComponent<AILerp>();
         ai.canMove = true;
