@@ -52,7 +52,6 @@ public class MapMovementManager : MonoBehaviour
     {
         _playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
         _playerInput.actions["RightMouseClick"].performed += RightMouseClick;
-
     }
 
     void UnsubscribeInputActions()
@@ -86,7 +85,6 @@ public class MapMovementManager : MonoBehaviour
 
         if (_selectedHero != null)
             ResolveMovement(worldPos);
-        // select hero when mouse over the hero
     }
 
     void SelectHero(GameObject obj)
@@ -116,9 +114,10 @@ public class MapMovementManager : MonoBehaviour
 
     IEnumerator DrawPath()
     {
-        _selectedHero.GetComponent<AILerp>().canMove = false;
         Vector3 middleOfTheTile = new Vector3(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
-        Path fullPath = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, middleOfTheTile);
+        
+        Path fullPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, middleOfTheTile);
+        AstarPath.StartPath(fullPath);
         yield return StartCoroutine(fullPath.WaitForPath());
 
         _lineRendererReachablePoints = new();
@@ -187,9 +186,10 @@ public class MapMovementManager : MonoBehaviour
     void OnTargetReached()
     {
         ClearMovementIndicators();
+        if (_selectedHero == null)
+            return;
 
         AILerp ai = _selectedHero.GetComponent<AILerp>();
-        ai.canMove = false;
         ai.OnTargetReached -= OnTargetReached;
 
         _selectedHero.UpdateMapPosition();
