@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4c2fc0859105704baa82516ad88d3c7, type: 3}
-  m_Name: Collectable Gold
+  m_Script: {fileID: 11500000, guid: 96abc3f4610f3bb48b2abc20f847da3a, type: 3}
+  m_Name: Spice
   m_EditorClassIdentifier: 
-  Id: a57981fc-cfff-44a9-822c-ff6de9fc2f67
+  Id: 6626df4a-65ea-4efb-854a-1de4c6214ed0
   Amount: 0
-  Sprite: {fileID: 21300000, guid: 9cff88ef95f95be47af437526c628fd5, type: 3}
+  Sprite: {fileID: 21300000, guid: 9a06e7f64c40cc04ebda0ea05e969af0, type: 3}
