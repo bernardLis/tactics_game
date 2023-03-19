@@ -2,36 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
 using UnityEngine.EventSystems;
 
-public class MapCollectable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MapCollectable : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] SpriteRenderer _gfx;
 
     Collectable _collectable;
-    Canvas _canvas;
-    TextMeshProUGUI _textMesh;
+
+    string _tooltipText;
 
     public void Initialize(Collectable collectable)
     {
         _collectable = collectable;
         _gfx.sprite = collectable.Sprite;
 
-        _canvas = GetComponentInChildren<Canvas>();
-        _canvas.enabled = false;
-
-        _textMesh = GetComponentInChildren<TextMeshProUGUI>();
-
-        string str = $"{Helpers.ParseScriptableObjectCloneName(_collectable.name)}";
+        _tooltipText = $"{Helpers.ParseScriptableObjectCloneName(_collectable.name)}";
         if (collectable.Amount > 0)
-            str = $"{collectable.Amount} x {Helpers.ParseScriptableObjectCloneName(_collectable.name)}";
-        _textMesh.text = str;
+            _tooltipText = $"{collectable.Amount} x {Helpers.ParseScriptableObjectCloneName(_collectable.name)}";
     }
 
-    public void OnPointerEnter(PointerEventData evt) { _canvas.enabled = true; }
+    public void OnPointerEnter(PointerEventData evt) { }
 
-    public void OnPointerExit(PointerEventData evt) { _canvas.enabled = false; }
+    public void OnPointerExit(PointerEventData evt) { }
 
     public void Collect(MapHero hero)
     {
@@ -44,5 +37,10 @@ public class MapCollectable : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         Bounds b = new(transform.position, Vector3.one * 2);
         AstarPath.active.UpdateGraphs(b);
+
+        hero.FloatText($"+ {_tooltipText}");
     }
+
+    public string GetTooltipText() { return _tooltipText; }
+
 }

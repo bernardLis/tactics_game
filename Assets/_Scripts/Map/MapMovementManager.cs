@@ -29,7 +29,6 @@ public class MapMovementManager : MonoBehaviour
 
     Collider2D _disabledCollider;
 
-    Vector3Int _destinationPos;
     Vector3 _middleOfDestinationTile;
     Vector3 _reachableDestination;
 
@@ -112,19 +111,27 @@ public class MapMovementManager : MonoBehaviour
         _cameraSmoothFollow.MoveTo(_selectedHero.transform.position);
 
         _interactionResolved = false;
+
+        if (_selectedHero.GetLastDestination() == Vector3.zero)
+            return;
+
+        _middleOfDestinationTile = _selectedHero.GetLastDestination();
+        StartCoroutine(DrawPath());
     }
 
     void ResolveMovement(Vector2 worldPos)
     {
         Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
-        _middleOfDestinationTile = new Vector3(tilePos.x + 0.5f, tilePos.y + 0.5f);
+        Vector3 middleOfTile = new Vector3(tilePos.x + 0.5f, tilePos.y + 0.5f);
         // if you want to move on top of an object you need to disable the collider 
-        ResolveDestinationCollider();
+        ResolveDestinationCollider(middleOfTile);
+
+        _selectedHero.SetLastDestination(middleOfTile);
 
         // click twice at the same location to move
-        if (_destinationPos != tilePos)
+        if (_middleOfDestinationTile != middleOfTile)
         {
-            _destinationPos = tilePos;
+            _middleOfDestinationTile = middleOfTile;
             StartCoroutine(DrawPath());
             return;
         }
@@ -132,9 +139,9 @@ public class MapMovementManager : MonoBehaviour
         StartCoroutine(Path());
     }
 
-    void ResolveDestinationCollider()
+    void ResolveDestinationCollider(Vector3 pos)
     {
-        Collider2D[] results = Physics2D.OverlapCircleAll(_middleOfDestinationTile, 0.2f);
+        Collider2D[] results = Physics2D.OverlapCircleAll(pos, 0.2f);
         foreach (Collider2D c in results)
         {
             if (c.gameObject == _selectedHero.gameObject)
