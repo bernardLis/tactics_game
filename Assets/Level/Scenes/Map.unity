@@ -343,27 +343,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
---- !u!1 &642427027 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6841108826401868262, guid: 75050e6b6ac59084794b3a58cead924e, type: 3}
-  m_PrefabInstance: {fileID: 6841108826278535265}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &642427033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642427027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EventMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_MaxRayIntersections: 0
 --- !u!1 &642925796
 GameObject:
   m_ObjectHideFlags: 0
@@ -10277,6 +10256,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: A*
       objectReference: {fileID: 0}
+    - target: {fileID: 2053925382736179947, guid: f9b1a4ab768a4c545b79afe2f3ab77b5, type: 3}
+      propertyPath: data.dataString
+      value: UEsDBBQAAAgIAAAIIewgXd0xUwIAAA0FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3HEIbEvbWEkB6SMKGZXHwR1hprkCWPPgIkw3/vrmxjh05PiPfe7r79gE8mtash98YurRSPRgD7MWL0Zt9GPfkAB741ei0/oNO8SeFLEvGoeeFeGsTHFOZMBd7K/KfeKhInCAYtC2OrhdjC3DjvEC64coCUNZ6iNUKfI3bAj6uUQo74mtzQ6wNfaTI64TMH7cH20k7YyRpV0LniVQ2CLPfiaaeeNjKNzbQKMp4bpaRrnTB/rGOnL/xIfQrJsatYmrQlyG3pyeEw8LkoHPjWjuXHO2lxOE1G9ss0E6u42zWe3rkKVOM2umlSPv7DXo0jXVhTPXRVxwlV8KXMd+gv584PBjqE777aDnrP1Y5vFLyVoJ/M0pqgBZLeBgoNDiZ3/ddzY/MS8l2PN1YvwFD/fy3Uwyn2fpgrWW2I+j5tgLUycdJx6WBxJ7/RcDwJ16ZAlFy8OvjDt8PbaYl7aZ1Hqu1Sk72NCZakbBFnRt0EPzdWQ4Rb0zVorvxxhWn85QIvuEHZC+ae06+kLd5y3fFfhES41yfJBbUy+/OyXGn2j+DK5+CV1NCbJuIJ5zQ3Wjf3NZxJF7YOtuD5IGwbpPh6Wux6Csl1AZvJZpZOJrPk6iblqZjMxun09vYmT2cs3p7U2CdXq8ZoOx7c2nAmGg+t+/cYLS2v47ELy/dL+VGZwcylLsw6twD6+WsKBxar4A9SLITECa3Be6njwtlnxpTJdyCyc6Istro4eMuzPkvGavluPCEZm8e/i4wRfD7mlYV3CXsq3iU7sdNfUEsDBBQAAAgIAAAIIewvDIzjbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSsUmqgXFaapJRkpmlkZGZga65ZaJlipGZoaWJhYV5sqWZUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAIIewgXd0xUwIAAA0FAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAIIewvDIzjbQAAAHgAAAAJACQAAAAAAAAAAAAAAKACAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAWAMAAAAA
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10293,10 +10276,6 @@ PrefabInstance:
     - target: {fileID: 6841108826401868262, guid: 75050e6b6ac59084794b3a58cead924e, type: 3}
       propertyPath: m_Name
       value: Map Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841108826401868264, guid: 75050e6b6ac59084794b3a58cead924e, type: 3}
-      propertyPath: orthographic size
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6841108826401868267, guid: 75050e6b6ac59084794b3a58cead924e, type: 3}
       propertyPath: m_RootOrder
@@ -10345,10 +10324,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6841108826401868262, guid: 75050e6b6ac59084794b3a58cead924e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 642427033}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75050e6b6ac59084794b3a58cead924e, type: 3}
 --- !u!1001 &7771277315479977627
 PrefabInstance:

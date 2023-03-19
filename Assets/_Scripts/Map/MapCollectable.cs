@@ -30,15 +30,10 @@ public class MapCollectable : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
 
     public void OnPointerEnter(PointerEventData evt) { _canvas.enabled = true; }
+
     public void OnPointerExit(PointerEventData evt) { _canvas.enabled = false; }
 
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.TryGetComponent<MapHero>(out MapHero hero))
-            Collect(hero);
-    }
-
-    void Collect(MapHero hero)
+    public void Collect(MapHero hero)
     {
         GetComponent<BoxCollider2D>().enabled = false;
 
@@ -46,7 +41,8 @@ public class MapCollectable : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         transform.DOLocalJump(transform.position + Vector3.up, 3, 1, 0.5f);
         _gfx.DOColor(new Color(1f, 1f, 1f, 0f), 1f).OnComplete(() => gameObject.SetActive(false));
+
+        Bounds b = new(transform.position, Vector3.one * 2);
+        AstarPath.active.UpdateGraphs(b);
     }
-
-
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class MapSetupManager : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class MapSetupManager : MonoBehaviour
             else
                 PlaceItem(instance);
         }
+        AstarPath.active.Scan();
     }
 
     void PlaceGold(GameObject instance)
@@ -71,7 +73,4 @@ public class MapSetupManager : MonoBehaviour
         i.Initialize();
         instance.GetComponent<MapCollectable>().Initialize(i);
     }
-
-
-
 }

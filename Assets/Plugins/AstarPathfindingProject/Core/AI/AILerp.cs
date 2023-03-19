@@ -700,6 +700,7 @@ namespace Pathfinding
             Vector3 direction;
 
             nextPosition = CalculateNextPosition(out direction, isStopped ? 0f : deltaTime);
+            nextPosition.z = 0;
 
             if (enableRotation) nextRotation = SimulateRotationTowards(direction, deltaTime);
             else nextRotation = simulatedRotation;

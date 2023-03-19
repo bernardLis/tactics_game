@@ -18,13 +18,21 @@ public class MapMovementManager : MonoBehaviour
     [SerializeField] Transform _reachablePointMarker;
     [SerializeField] Transform _destinationMarker;
 
-    [SerializeField] Line _lineReachable;
-    [SerializeField] Line _lineUnreachable;
+    [SerializeField] LineRenderer _lineRendererReachable;
+    [SerializeField] LineRenderer _lineRendererUnreachable;
+
+    List<Vector3> _reachablePoints = new();
+    List<Vector3> _unreachablePoints = new();
 
     MapHero _selectedHero;
+    AILerp _ai;
+
+    Collider2D _disabledCollider;
 
     Vector3Int _destinationPos;
-    Vector3 _reachablePoint;
+    Vector3 _reachableDestination;
+    Vector3 _desiredDestination;
+    bool _interactionResolved;
 
     void Start()
     {
@@ -85,38 +93,87 @@ public class MapMovementManager : MonoBehaviour
 
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
+        if (_disabledCollider != null)
+        {
+            _disabledCollider.isTrigger = false;
+            Bounds b = new(_disabledCollider.transform.position, Vector3.one * 2);
+            AstarPath.active.UpdateGraphs(b);
+        }
+
+
         Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        if (_selectedHero != null && this != null)
+        {
+            ResolveMovement(worldPos);
+            return;
+        }
 
         Collider2D[] results = Physics2D.OverlapCircleAll(worldPos, 0.2f);
         foreach (Collider2D c in results)
             if (c.CompareTag(Tags.Player))
-                SelectHero(c.gameObject);
-
-        if (_selectedHero != null)
-            ResolveMovement(worldPos);
+                HeroClick(c.gameObject);
     }
 
-    void SelectHero(GameObject obj)
+    void HeroClick(GameObject obj)
     {
-        if (_selectedHero != null)
-            _selectedHero.Unselect();
-
         _selectedHero = obj.GetComponent<MapHero>();
         _selectedHero.Select();
-        _cameraSmoothFollow.SetTarget(_selectedHero.transform);
+
+        Vector3 camPos = _selectedHero.transform.position;
+        camPos.z = -10;
+        _cameraSmoothFollow.transform.position = camPos;
+
+        _interactionResolved = false;
     }
 
     void ResolveMovement(Vector2 worldPos)
     {
-        Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
+        _desiredDestination = worldPos;
 
+        DisableCollider();
+
+        Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
+        // click twice at the same location to move
         if (_destinationPos == tilePos)
         {
             StartCoroutine(Path());
             return;
         }
+
         _destinationPos = tilePos;
         StartCoroutine(DrawPath());
+    }
+
+    void DisableCollider()
+    {
+        Collider2D[] results = Physics2D.OverlapCircleAll(_desiredDestination, 0.2f);
+        foreach (Collider2D c in results)
+        {
+            if (c.gameObject == _selectedHero.gameObject)
+                continue;
+
+            // collectible => move into the tile and collect
+            if (c.gameObject.TryGetComponent<MapCollectable>(out MapCollectable collectable))
+            {
+                Debug.Log($"disabling the collider");
+                c.isTrigger = true;
+                _disabledCollider = c;
+                Bounds b = new(c.gameObject.transform.position, Vector3.one * 2);
+                AstarPath.active.UpdateGraphs(b);
+            }
+
+            // another hero => stay on the previous tile and "interact"
+            if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
+            {
+                c.isTrigger = true;
+                _disabledCollider = c;
+
+                Debug.Log($"meeting a hero");
+                break;
+            }
+        }
+
     }
 
     IEnumerator DrawPath()
@@ -135,14 +192,20 @@ public class MapMovementManager : MonoBehaviour
             if (_selectedHero == null)
                 yield break;
             Path lengthCheckPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, fullPath.vectorPath[i]);
-
             AstarPath.StartPath(lengthCheckPath);
             yield return StartCoroutine(lengthCheckPath.WaitForPath());
             if (lengthCheckPath.error)
                 yield break;
 
-            if (lengthCheckPath.GetTotalLength() < _selectedHero.RangeLeft)
-                _reachablePoint = pos;
+            if (lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft)
+            {
+                _reachablePoints.Add(fullPath.vectorPath[i]);
+                _reachableDestination = pos;
+            }
+            else
+            {
+                _unreachablePoints.Add(fullPath.vectorPath[i]);
+            }
         }
 
         SetMovementIndicators();
@@ -150,17 +213,19 @@ public class MapMovementManager : MonoBehaviour
 
     void SetMovementIndicators()
     {
-        _lineReachable.Start = _selectedHero.transform.position;
-        _lineReachable.End = _reachablePoint;
+        _unreachablePoints.Insert(0, _reachableDestination);
 
-        _lineUnreachable.Start = _reachablePoint;
-        _lineUnreachable.End = new Vector2(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
+        _lineRendererReachable.positionCount = _reachablePoints.Count;
+        _lineRendererReachable.SetPositions(_reachablePoints.ToArray());
 
-        Vector3Int tilePos = _tilemap.WorldToCell(_reachablePoint);
+        _lineRendererUnreachable.positionCount = _unreachablePoints.Count;
+        _lineRendererUnreachable.SetPositions(_unreachablePoints.ToArray());
+
+        Vector3Int tilePos = _tilemap.WorldToCell(_reachableDestination);
         _tilemap.SetTileFlags(tilePos, TileFlags.None);
         _tilemap.SetColor(tilePos, Color.red);
 
-        _reachablePointMarker.position = _reachablePoint;
+        _reachablePointMarker.position = _reachableDestination;
         _reachablePointMarker.gameObject.SetActive(true);
 
         _destinationMarker.position = new Vector3(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
@@ -169,7 +234,7 @@ public class MapMovementManager : MonoBehaviour
 
     IEnumerator Path()
     {
-        Path p = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, _reachablePoint);
+        Path p = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, _reachableDestination);
         yield return StartCoroutine(p.WaitForPath());
         if (p.error)
             yield break;
@@ -178,42 +243,92 @@ public class MapMovementManager : MonoBehaviour
 
         _selectedHero.UpdateRangeLeft(p.GetTotalLength());
 
-        AILerp ai = _selectedHero.GetComponent<AILerp>();
-        ai.canMove = true;
-        ai.OnTargetReached += OnTargetReached;
+        _ai = _selectedHero.GetComponent<AILerp>();
+        _ai.canMove = true;
 
-        while (!ai.reachedEndOfPath)
+        _cameraSmoothFollow.SetTarget(_selectedHero.transform);
+
+        while (!_ai.reachedEndOfPath)
         {
-            _lineReachable.Start = _selectedHero.transform.position;
-            yield return new WaitForSeconds(0.1f);
+            if (_selectedHero == null)
+                yield break;
+            Debug.Log($"desired dest dist: {Vector3.Distance(_selectedHero.transform.position, _desiredDestination)}");
+            if (Vector3.Distance(_selectedHero.transform.position, _desiredDestination) < 0.5f && !_interactionResolved)
+                yield return ResolveInteraction();
+
+            if (_reachablePoints.Count > 0)
+            {
+                _reachablePoints.RemoveAt(0);
+                _lineRendererReachable.SetPositions(_reachablePoints.ToArray());
+            }
+            yield return new WaitForSeconds(0.05f);
         }
+        OnTargetReached();
+
+    }
+
+    IEnumerator ResolveInteraction()
+    {
+        _interactionResolved = true;
+        Debug.Log($"resolving interaction");
+
+        Collider2D[] results = Physics2D.OverlapCircleAll(_desiredDestination, 0.2f);
+        foreach (Collider2D c in results)
+        {
+            if (c.gameObject == _selectedHero.gameObject)
+                continue;
+
+            // collectible => move into the tile and collect
+            if (c.gameObject.TryGetComponent<MapCollectable>(out MapCollectable collectable))
+            {
+                collectable.Collect(_selectedHero);
+                _ai.canMove = true;
+                Path p = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, _desiredDestination);
+                yield return StartCoroutine(p.WaitForPath());
+                if (p.error)
+                    yield break;
+
+                while (!_ai.reachedEndOfPath)
+                    yield return null;
+
+                break;
+            }
+
+            // another hero => stay on the previous tile and "interact"
+            if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
+            {
+                Debug.Log($"meeting a hero");
+                break;
+            }
+        }
+
+        yield return null;
+
     }
 
     void OnTargetReached()
     {
+        Debug.Log($"on target reached");
         ClearMovementIndicators();
-        if (_selectedHero == null)
-            return;
-
-        AILerp ai = _selectedHero.GetComponent<AILerp>();
-        ai.OnTargetReached -= OnTargetReached;
 
         _selectedHero.UpdateMapPosition();
         _selectedHero.Unselect();
         _cameraSmoothFollow.SetTarget(null);
         _selectedHero = null;
+        _ai = null;
 
         _gameManager.SaveJsonData();
     }
 
     void ClearMovementIndicators()
     {
-        _lineReachable.Start = Vector3.zero;
-        _lineReachable.End = Vector3.zero;
-        _lineUnreachable.Start = Vector3.zero;
-        _lineUnreachable.End = Vector3.zero;
+        _reachablePoints = new();
+        _unreachablePoints = new();
 
-        Vector3Int tilePos = _tilemap.WorldToCell(_reachablePoint);
+        _lineRendererReachable.positionCount = 0;
+        _lineRendererUnreachable.positionCount = 0;
+
+        Vector3Int tilePos = _tilemap.WorldToCell(_reachableDestination);
         _tilemap.SetColor(tilePos, Color.white);
 
         _reachablePointMarker.gameObject.SetActive(false);
