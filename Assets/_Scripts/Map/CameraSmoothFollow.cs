@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraSmoothFollow : MonoBehaviour
 {
@@ -23,4 +24,10 @@ public class CameraSmoothFollow : MonoBehaviour
     }
 
     public void SetTarget(Transform t) { _target = t; }
+
+    public void MoveTo(Vector3 newPos)
+    {
+        newPos.z = -10;
+        transform.DOMove(newPos, 0.3f);
+    }
 }

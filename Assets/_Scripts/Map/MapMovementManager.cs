@@ -30,8 +30,9 @@ public class MapMovementManager : MonoBehaviour
     Collider2D _disabledCollider;
 
     Vector3Int _destinationPos;
+    Vector3 _middleOfDestinationTile;
     Vector3 _reachableDestination;
-    Vector3 _desiredDestination;
+
     bool _interactionResolved;
 
     void Start()
@@ -55,16 +56,14 @@ public class MapMovementManager : MonoBehaviour
 
     void OnDisable()
     {
-        if (_playerInput == null)
-            return;
+        if (_playerInput == null) return;
 
         UnsubscribeInputActions();
     }
 
     void OnDestroy()
     {
-        if (_playerInput == null)
-            return;
+        if (_playerInput == null) return;
 
         UnsubscribeInputActions();
     }
@@ -84,25 +83,14 @@ public class MapMovementManager : MonoBehaviour
     void RightMouseClick(InputAction.CallbackContext ctx)
     {
         ClearMovementIndicators();
-        if (_selectedHero != null)
-        {
-            _selectedHero.Unselect();
-            _selectedHero = null;
-        }
+        UnselectHero();
     }
 
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
-        if (_disabledCollider != null)
-        {
-            _disabledCollider.isTrigger = false;
-            Bounds b = new(_disabledCollider.transform.position, Vector3.one * 2);
-            AstarPath.active.UpdateGraphs(b);
-        }
-
+        ResetDestinationCollider();
 
         Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
         if (_selectedHero != null && this != null)
         {
             ResolveMovement(worldPos);
@@ -111,100 +99,81 @@ public class MapMovementManager : MonoBehaviour
 
         Collider2D[] results = Physics2D.OverlapCircleAll(worldPos, 0.2f);
         foreach (Collider2D c in results)
-            if (c.CompareTag(Tags.Player))
-                HeroClick(c.gameObject);
+            if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
+                SelectHero(hero);
     }
 
-    void HeroClick(GameObject obj)
+    void SelectHero(MapHero hero)
     {
-        _selectedHero = obj.GetComponent<MapHero>();
+        UnselectHero();
+        _selectedHero = hero;
         _selectedHero.Select();
 
-        Vector3 camPos = _selectedHero.transform.position;
-        camPos.z = -10;
-        _cameraSmoothFollow.transform.position = camPos;
+        _cameraSmoothFollow.MoveTo(_selectedHero.transform.position);
 
         _interactionResolved = false;
     }
 
     void ResolveMovement(Vector2 worldPos)
     {
-        _desiredDestination = worldPos;
-
-        DisableCollider();
-
         Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
+        _middleOfDestinationTile = new Vector3(tilePos.x + 0.5f, tilePos.y + 0.5f);
+        // if you want to move on top of an object you need to disable the collider 
+        ResolveDestinationCollider();
+
         // click twice at the same location to move
-        if (_destinationPos == tilePos)
+        if (_destinationPos != tilePos)
         {
-            StartCoroutine(Path());
+            _destinationPos = tilePos;
+            StartCoroutine(DrawPath());
             return;
         }
 
-        _destinationPos = tilePos;
-        StartCoroutine(DrawPath());
+        StartCoroutine(Path());
     }
 
-    void DisableCollider()
+    void ResolveDestinationCollider()
     {
-        Collider2D[] results = Physics2D.OverlapCircleAll(_desiredDestination, 0.2f);
+        Collider2D[] results = Physics2D.OverlapCircleAll(_middleOfDestinationTile, 0.2f);
         foreach (Collider2D c in results)
         {
             if (c.gameObject == _selectedHero.gameObject)
                 continue;
 
-            // collectible => move into the tile and collect
             if (c.gameObject.TryGetComponent<MapCollectable>(out MapCollectable collectable))
-            {
-                Debug.Log($"disabling the collider");
-                c.isTrigger = true;
-                _disabledCollider = c;
-                Bounds b = new(c.gameObject.transform.position, Vector3.one * 2);
-                AstarPath.active.UpdateGraphs(b);
-            }
+                DisableDestinationCollider(c);
 
-            // another hero => stay on the previous tile and "interact"
             if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
-            {
-                c.isTrigger = true;
-                _disabledCollider = c;
-
-                Debug.Log($"meeting a hero");
-                break;
-            }
+                DisableDestinationCollider(c);
         }
-
     }
 
     IEnumerator DrawPath()
     {
         ClearMovementIndicators();
 
-        Vector3 middleOfTheTile = new Vector3(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
-
-        Path fullPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, middleOfTheTile);
+        Path fullPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, _middleOfDestinationTile);
         AstarPath.StartPath(fullPath);
         yield return StartCoroutine(fullPath.WaitForPath());
 
         for (int i = 0; i < fullPath.vectorPath.Count; i++)
         {
+            if (_selectedHero == null) yield break;
+
             Vector3 pos = new Vector3(fullPath.vectorPath[i].x, fullPath.vectorPath[i].y, 0);
-            if (_selectedHero == null)
-                yield break;
-            Path lengthCheckPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, fullPath.vectorPath[i]);
+            Path lengthCheckPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, pos);
             AstarPath.StartPath(lengthCheckPath);
             yield return StartCoroutine(lengthCheckPath.WaitForPath());
-            if (lengthCheckPath.error)
-                yield break;
+            if (lengthCheckPath.error) yield break;
 
             if (lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft)
             {
-                _reachablePoints.Add(fullPath.vectorPath[i]);
+                _reachablePoints.Add(pos);
                 _reachableDestination = pos;
             }
             else
             {
-                _unreachablePoints.Add(fullPath.vectorPath[i]);
+                _unreachablePoints.Add(pos);
             }
         }
 
@@ -213,11 +182,10 @@ public class MapMovementManager : MonoBehaviour
 
     void SetMovementIndicators()
     {
-        _unreachablePoints.Insert(0, _reachableDestination);
-
         _lineRendererReachable.positionCount = _reachablePoints.Count;
         _lineRendererReachable.SetPositions(_reachablePoints.ToArray());
 
+        _unreachablePoints.Insert(0, _reachableDestination);
         _lineRendererUnreachable.positionCount = _unreachablePoints.Count;
         _lineRendererUnreachable.SetPositions(_unreachablePoints.ToArray());
 
@@ -228,7 +196,7 @@ public class MapMovementManager : MonoBehaviour
         _reachablePointMarker.position = _reachableDestination;
         _reachablePointMarker.gameObject.SetActive(true);
 
-        _destinationMarker.position = new Vector3(_destinationPos.x + 0.5f, _destinationPos.y + 0.5f);
+        _destinationMarker.position = _middleOfDestinationTile;
         _destinationMarker.gameObject.SetActive(true);
     }
 
@@ -236,10 +204,8 @@ public class MapMovementManager : MonoBehaviour
     {
         Path p = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, _reachableDestination);
         yield return StartCoroutine(p.WaitForPath());
-        if (p.error)
-            yield break;
-        if (_selectedHero == null)
-            yield break;
+        if (p.error) yield break;
+        if (_selectedHero == null) yield break;
 
         _selectedHero.UpdateRangeLeft(p.GetTotalLength());
 
@@ -250,29 +216,36 @@ public class MapMovementManager : MonoBehaviour
 
         while (!_ai.reachedEndOfPath)
         {
-            if (_selectedHero == null)
-                yield break;
-            Debug.Log($"desired dest dist: {Vector3.Distance(_selectedHero.transform.position, _desiredDestination)}");
-            if (Vector3.Distance(_selectedHero.transform.position, _desiredDestination) < 0.5f && !_interactionResolved)
-                yield return ResolveInteraction();
+            if (_selectedHero == null) yield break;
 
-            if (_reachablePoints.Count > 0)
-            {
-                _reachablePoints.RemoveAt(0);
-                _lineRendererReachable.SetPositions(_reachablePoints.ToArray());
-            }
+            if (Vector3.Distance(_selectedHero.transform.position, _middleOfDestinationTile) < 0.8f
+                && !_interactionResolved)
+                ResolveInteraction();
+
+            yield return UpdatePathIndicator();
             yield return new WaitForSeconds(0.05f);
         }
         OnTargetReached();
-
     }
 
-    IEnumerator ResolveInteraction()
+    IEnumerator UpdatePathIndicator()
+    {
+        Path pathLeft = Pathfinding.ABPath.Construct(_selectedHero.transform.position, _reachableDestination);
+        AstarPath.StartPath(pathLeft);
+        yield return StartCoroutine(pathLeft.WaitForPath());
+        if (pathLeft.error) yield break;
+        if (pathLeft.vectorPath.Count == 0) yield break;
+
+        _lineRendererReachable.positionCount = pathLeft.vectorPath.Count;
+        _lineRendererReachable.SetPositions(pathLeft.vectorPath.ToArray());
+    }
+
+
+    void ResolveInteraction()
     {
         _interactionResolved = true;
-        Debug.Log($"resolving interaction");
 
-        Collider2D[] results = Physics2D.OverlapCircleAll(_desiredDestination, 0.2f);
+        Collider2D[] results = Physics2D.OverlapCircleAll(_middleOfDestinationTile, 0.2f);
         foreach (Collider2D c in results)
         {
             if (c.gameObject == _selectedHero.gameObject)
@@ -280,35 +253,22 @@ public class MapMovementManager : MonoBehaviour
 
             // collectible => move into the tile and collect
             if (c.gameObject.TryGetComponent<MapCollectable>(out MapCollectable collectable))
-            {
                 collectable.Collect(_selectedHero);
-                _ai.canMove = true;
-                Path p = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, _desiredDestination);
-                yield return StartCoroutine(p.WaitForPath());
-                if (p.error)
-                    yield break;
-
-                while (!_ai.reachedEndOfPath)
-                    yield return null;
-
-                break;
-            }
 
             // another hero => stay on the previous tile and "interact"
             if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
-            {
-                Debug.Log($"meeting a hero");
-                break;
-            }
+                MeetHero(hero);
         }
-
-        yield return null;
-
+    }
+    void MeetHero(MapHero hero)
+    {
+        _ai.canMove = false;
+        Debug.Log($"Selected hero: {_selectedHero.name} is meeting a hero: {hero.name}");
+        ResetDestinationCollider();
     }
 
     void OnTargetReached()
     {
-        Debug.Log($"on target reached");
         ClearMovementIndicators();
 
         _selectedHero.UpdateMapPosition();
@@ -333,5 +293,31 @@ public class MapMovementManager : MonoBehaviour
 
         _reachablePointMarker.gameObject.SetActive(false);
         _destinationMarker.gameObject.SetActive(false);
+    }
+
+    void UnselectHero()
+    {
+        if (_selectedHero == null) return;
+
+        _selectedHero.Unselect();
+        _selectedHero = null;
+    }
+
+    void DisableDestinationCollider(Collider2D c)
+    {
+        c.isTrigger = true;
+        _disabledCollider = c;
+        Bounds b = new(c.gameObject.transform.position, Vector3.one * 2);
+        AstarPath.active.UpdateGraphs(b);
+    }
+
+    void ResetDestinationCollider()
+    {
+        if (_disabledCollider == null)
+            return;
+
+        _disabledCollider.isTrigger = false;
+        Bounds b = new(_disabledCollider.transform.position, Vector3.one * 2);
+        AstarPath.active.UpdateGraphs(b);
     }
 }
