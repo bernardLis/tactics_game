@@ -232,7 +232,6 @@ public class QuestResultElement : FullScreenElement
         _backButton = new("Back", _ussCommonMenuButton, Hide);
         _backButton.style.opacity = 0;
 
-
         return _backButton;
     }
 

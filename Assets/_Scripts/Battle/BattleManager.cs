@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UIElements;
 
 public class BattleManager : MonoBehaviour
 {
     GameManager _gameManager;
     Battle _loadedBattle;
+
+    VisualElement _root;
 
     // skybox rotation https://forum.unity.com/threads/rotate-a-skybox.130639/
     int _rotationProperty;
@@ -35,6 +38,8 @@ public class BattleManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _loadedBattle = _gameManager.SelectedBattle;
+
+        _root = GetComponent<UIDocument>().rootVisualElement;
 
         _numberOfEnemiesToSpawn = _loadedBattle.NumberOfMeleeEnemies + _loadedBattle.NumberOfRangedEnemies;
         _numberOfPlayersToSpawn = _loadedBattle.Character.NumberOfMeleeArmy + _loadedBattle.Character.NumberOfMeleeArmy;
@@ -116,18 +121,18 @@ public class BattleManager : MonoBehaviour
 
     void BattleLost()
     {
-        StartCoroutine(FinalizeBattle());
+        StartCoroutine(FinalizeBattle(EnemyEntities));
     }
 
     void BattleWon()
     {
         _loadedBattle.Won = true;
-        StartCoroutine(FinalizeBattle());
+        StartCoroutine(FinalizeBattle(PlayerEntities));
     }
 
-    IEnumerator FinalizeBattle()
+    IEnumerator FinalizeBattle(List<BattleEntity> entities)
     {
         yield return new WaitForSeconds(2f);
-        _gameManager.LoadMap();
+        BattleResult r = new(_root, _loadedBattle, entities);
     }
 }

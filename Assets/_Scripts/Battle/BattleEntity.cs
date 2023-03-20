@@ -19,6 +19,8 @@ public class BattleEntity : MonoBehaviour
 
     float _currentAttackCooldown;
 
+    public int KilledEnemiesCount { get; private set; }
+
     bool _gettingHit;
     public bool IsDead { get; private set; }
 
@@ -84,7 +86,6 @@ public class BattleEntity : MonoBehaviour
                 yield return StartCoroutine(Attack());
             else
                 yield return StartCoroutine(Shoot());
-
         }
     }
 
@@ -108,7 +109,7 @@ public class BattleEntity : MonoBehaviour
         Vector3 punchRotation = new(45f, 0f, 0f);
         yield return GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
         _currentAttackCooldown = _stats.AttackCooldown;
-        yield return _opponent.GetHit(_stats.Power);
+        yield return _opponent.GetHit(_stats.Power, this);
     }
 
     IEnumerator Shoot()
@@ -134,7 +135,7 @@ public class BattleEntity : MonoBehaviour
         //  int speed = 20;
         //  float duration = Vector3.Distance(transform.position, _opponent.transform.position) / speed;
         Projectile projectile = projectileInstance.GetComponent<Projectile>();
-        projectile.Shoot(_opponent, 20, _stats.Power);
+        projectile.Shoot(this, _opponent, 20, _stats.Power);
     }
 
 
@@ -150,7 +151,7 @@ public class BattleEntity : MonoBehaviour
     public float GetTotalHealth() { return _stats.Health; }
     public float GetCurrentHealth() { return _currentHealth; }
 
-    public IEnumerator GetHit(float power)
+    public IEnumerator GetHit(float power, BattleEntity attacker)
     {
         if (IsDead)
             yield break;
@@ -161,6 +162,7 @@ public class BattleEntity : MonoBehaviour
 
         if (_currentHealth <= 0)
         {
+            attacker.IncreaseKillCount();
             yield return Die();
             yield break;
         }
@@ -182,4 +184,6 @@ public class BattleEntity : MonoBehaviour
         //yield return GFX.GetComponent<MeshRenderer>().material.DOFade(0, 2f).WaitForCompletion();
         // Destroy(gameObject);
     }
+
+    public void IncreaseKillCount() { KilledEnemiesCount++; }
 }

@@ -11,14 +11,14 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject _explosion;
     BattleEntity _target;
 
-    public void Shoot(BattleEntity target, float speed, float power)
+    public void Shoot(BattleEntity shooter, BattleEntity target, float speed, float power)
     {
         if (Random.value > 0.5f)
             AudioManager.Instance.PlaySFX(_shootSound, transform.position);
         _target = target;
-        StartCoroutine(ShootCoroutine(target, speed, power));
+        StartCoroutine(ShootCoroutine(shooter, target, speed, power));
     }
-    IEnumerator ShootCoroutine(BattleEntity target, float speed, float power)
+    IEnumerator ShootCoroutine(BattleEntity shooter, BattleEntity target, float speed, float power)
     {
 
         //https://gamedev.stackexchange.com/questions/100535/coroutine-to-move-to-position-passing-the-movement-speed
@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
         if (target != null)
         {
             transform.position = target.GFX.transform.position;
-            yield return target.GetHit(power);
+            yield return target.GetHit(power, shooter);
         }
 
         yield return DestroySelf();
