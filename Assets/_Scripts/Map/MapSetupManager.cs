@@ -6,21 +6,27 @@ using Pathfinding;
 public class MapSetupManager : MonoBehaviour
 {
     GameManager _gameManager;
+
+    [SerializeField] GameObject _battlePrefab;
     [SerializeField] GameObject _heroPrefab;
+    [SerializeField] GameObject _collectablePrefab;
 
     public List<GameObject> Heroes = new();
+
+    [SerializeField] Battle _battle;
 
     [SerializeField] CollectableGold _collectableGold;
     [SerializeField] CollectableSpice _collectableSpice;
     [SerializeField] CollectableItem _collectableItem;
-
-    [SerializeField] GameObject _mapCollectablePrefab;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
         PlaceCharacters();
         PlaceCollectables();
+        PlaceBattle();
+
+        AstarPath.active.Scan();
     }
 
     void PlaceCharacters()
@@ -40,7 +46,7 @@ public class MapSetupManager : MonoBehaviour
             float x = Random.Range(-15, 11);
             float y = Random.Range(-4, -13);
             Vector2 pos = new Vector2(x + 0.5f, y + 0.5f);
-            GameObject instance = Instantiate(_mapCollectablePrefab, pos, Quaternion.identity);
+            GameObject instance = Instantiate(_collectablePrefab, pos, Quaternion.identity);
 
             float v = Random.value;
             if (v < 0.3f)
@@ -50,7 +56,6 @@ public class MapSetupManager : MonoBehaviour
             else
                 PlaceItem(instance);
         }
-        AstarPath.active.Scan();
     }
 
     void PlaceGold(GameObject instance)
@@ -72,5 +77,14 @@ public class MapSetupManager : MonoBehaviour
         CollectableItem i = Instantiate(_collectableItem);
         i.Initialize();
         instance.GetComponent<MapCollectable>().Initialize(i);
+    }
+
+    void PlaceBattle()
+    {
+        Battle b = Instantiate(_battle);
+        b.RandomizeBattle();
+
+        GameObject instance = Instantiate(_battlePrefab, new Vector3(6.5f, -5.5f), Quaternion.identity);
+        instance.GetComponent<MapBattle>().Initialize(b);
     }
 }

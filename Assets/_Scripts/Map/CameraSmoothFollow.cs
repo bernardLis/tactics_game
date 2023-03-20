@@ -27,6 +27,8 @@ public class CameraSmoothFollow : MonoBehaviour
 
     public void MoveTo(Vector3 newPos)
     {
+        if (this == null) return;
+
         newPos.z = -10;
         transform.DOMove(newPos, 0.3f);
     }

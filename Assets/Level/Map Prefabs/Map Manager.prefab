@@ -486,12 +486,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a88d42bc4dd75040b69eca30f28308f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battlePrefab: {fileID: 4271262817906502119, guid: 5d2f18721b508554286f118c3712f152, type: 3}
   _heroPrefab: {fileID: 2368004553952745794, guid: 7fa93d3fdc1ffa34c8b92eacd72c200c, type: 3}
+  _collectablePrefab: {fileID: 3257093786674810791, guid: bf073daf1bee9ff4fa3b78bedf0b20f5, type: 3}
   Heroes: []
+  _battle: {fileID: 11400000, guid: a21f9f7f650aa8b4f80779c5aeb09d75, type: 2}
   _collectableGold: {fileID: 11400000, guid: 33cad4c4a31c7594fac7aa9e2aeb222e, type: 2}
   _collectableSpice: {fileID: 11400000, guid: 535fb8357472f24459b72643b32787d8, type: 2}
   _collectableItem: {fileID: 11400000, guid: 4d0290bb0918e36489b8e93b8b9ca98a, type: 2}
-  _mapCollectablePrefab: {fileID: 3257093786674810791, guid: bf073daf1bee9ff4fa3b78bedf0b20f5, type: 3}
 --- !u!114 &7771277315354121037
 MonoBehaviour:
   m_ObjectHideFlags: 0

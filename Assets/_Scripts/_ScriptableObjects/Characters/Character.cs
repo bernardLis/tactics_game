@@ -54,6 +54,9 @@ public class Character : BaseScriptableObject
 
     public Vector2 MapPosition;
 
+    public int NumberOfMeleeArmy;
+    public int NumberOfRangedArmy;
+
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
     public event Action<Injury> OnInjuryAdded;
@@ -347,6 +350,8 @@ public class Character : BaseScriptableObject
         WeeklyWage.SetValue(0);
 
         MapPosition = mapPosition;
+        NumberOfMeleeArmy = Random.Range(5, 15);
+        NumberOfRangedArmy = Random.Range(5, 15);
     }
 
     public void CreateRandom(int level)
@@ -442,6 +447,8 @@ public class Character : BaseScriptableObject
         NewWage.SetValue(data.NewWage);
         Negotiated = data.Negotiated;
         MapPosition = data.MapPosition;
+        NumberOfMeleeArmy = data.NumberOfMeleeArmy;
+        NumberOfRangedArmy = data.NumberOfRangedArmy;
 
         UpdateRank();
         UpdateElement(Element);
@@ -484,6 +491,9 @@ public class Character : BaseScriptableObject
         data.NewWage = NewWage.Value;
         data.Negotiated = Negotiated;
         data.MapPosition = MapPosition;
+        data.NumberOfMeleeArmy = NumberOfMeleeArmy;
+        data.NumberOfRangedArmy = NumberOfRangedArmy;
+
 
         return data;
     }
@@ -518,4 +528,8 @@ public struct CharacterData
     public bool Negotiated;
 
     public Vector2 MapPosition;
+
+    public int NumberOfMeleeArmy;
+    public int NumberOfRangedArmy;
+
 }

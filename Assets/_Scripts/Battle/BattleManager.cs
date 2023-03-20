@@ -5,6 +5,8 @@ using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
+    GameManager _gameManager;
+    Battle _loadedBattle;
 
     // skybox rotation https://forum.unity.com/threads/rotate-a-skybox.130639/
     int _rotationProperty;
@@ -31,6 +33,12 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
+        _gameManager = GameManager.Instance;
+        _loadedBattle = _gameManager.SelectedBattle;
+
+        _numberOfEnemiesToSpawn = _loadedBattle.NumberOfMeleeEnemies + _loadedBattle.NumberOfRangedEnemies;
+        _numberOfPlayersToSpawn = _loadedBattle.Character.NumberOfMeleeArmy + _loadedBattle.Character.NumberOfMeleeArmy;
+
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
         _initRot = _skyMat.GetFloat(_rotationProperty);
@@ -42,10 +50,30 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < _numberOfEnemiesToSpawn; i++)
             InstantiateEnemy();
 
-        foreach (BattleEntity be in PlayerEntities)
-            be.Initialize(_playerStats[Random.Range(0, _playerStats.Count)], ref EnemyEntities);
-        foreach (BattleEntity be in EnemyEntities)
-            be.Initialize(_enemyStats[Random.Range(0, _enemyStats.Count)], ref PlayerEntities);
+        InitializePlayers();
+        InitializeEnemies();
+    }
+
+    void InitializeEnemies()
+    {
+        for (int i = 0; i < _numberOfEnemiesToSpawn; i++)
+        {
+            if (i <= _loadedBattle.NumberOfMeleeEnemies)
+                EnemyEntities[i].Initialize(_enemyStats[0], ref PlayerEntities);
+            else
+                EnemyEntities[i].Initialize(_enemyStats[1], ref PlayerEntities);
+        }
+    }
+
+    void InitializePlayers()
+    {
+        for (int i = 0; i < _numberOfPlayersToSpawn; i++)
+        {
+            if (i <= _loadedBattle.NumberOfMeleeEnemies)
+                PlayerEntities[i].Initialize(_playerStats[0], ref EnemyEntities);
+            else
+                PlayerEntities[i].Initialize(_playerStats[1], ref EnemyEntities);
+        }
     }
 
     void Update() => _skyMat.SetFloat(_rotationProperty, Time.time * _skyboxRotationSpeed);
@@ -68,18 +96,38 @@ public class BattleManager : MonoBehaviour
         be.OnDeath += OnEnemyDeath;
     }
 
-
     void OnPlayerDeath(BattleEntity be)
     {
         PlayerEntities.Remove(be);
         _textMesh.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
+
+        if (PlayerEntities.Count == 0)
+            BattleLost();
     }
 
     void OnEnemyDeath(BattleEntity be)
     {
         EnemyEntities.Remove(be);
         _textMesh.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
+
+        if (EnemyEntities.Count == 0)
+            BattleWon();
     }
 
+    void BattleLost()
+    {
+        StartCoroutine(FinalizeBattle());
+    }
 
+    void BattleWon()
+    {
+        _loadedBattle.Won = true;
+        StartCoroutine(FinalizeBattle());
+    }
+
+    IEnumerator FinalizeBattle()
+    {
+        yield return new WaitForSeconds(2f);
+        _gameManager.LoadMap();
+    }
 }

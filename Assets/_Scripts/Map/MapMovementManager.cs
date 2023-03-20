@@ -87,10 +87,12 @@ public class MapMovementManager : MonoBehaviour
 
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
+        if (this == null) return;
+
         ResetDestinationCollider();
 
         Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        if (_selectedHero != null && this != null)
+        if (_selectedHero != null)
         {
             ResolveMovement(worldPos);
             return;
@@ -151,6 +153,9 @@ public class MapMovementManager : MonoBehaviour
                 DisableDestinationCollider(c);
 
             if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
+                DisableDestinationCollider(c);
+
+            if (c.gameObject.TryGetComponent<MapBattle>(out MapBattle battle))
                 DisableDestinationCollider(c);
         }
     }
@@ -265,6 +270,11 @@ public class MapMovementManager : MonoBehaviour
             // another hero => stay on the previous tile and "interact"
             if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
                 MeetHero(hero);
+
+            // battle => load scene battle
+            if (c.gameObject.TryGetComponent<MapBattle>(out MapBattle b))
+                b.TakeBattle(_selectedHero);
+
         }
     }
     void MeetHero(MapHero hero)
@@ -273,6 +283,7 @@ public class MapMovementManager : MonoBehaviour
         Debug.Log($"Selected hero: {_selectedHero.name} is meeting a hero: {hero.name}");
         ResetDestinationCollider();
     }
+
 
     void OnTargetReached()
     {
