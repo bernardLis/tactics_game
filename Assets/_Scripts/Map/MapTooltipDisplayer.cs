@@ -16,7 +16,6 @@ public class MapTooltipDisplayer : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData evt)
     {
-        Debug.Log($"on pointer enter");
         if (TryGetComponent<ITooltipDisplayable>(out ITooltipDisplayable t))
         {
             _tmpText.enabled = true;

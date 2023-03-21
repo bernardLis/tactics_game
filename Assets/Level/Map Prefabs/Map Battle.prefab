@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4271262817906502114}
   - component: {fileID: 4271262817906502112}
   - component: {fileID: 4271262817906502125}
+  - component: {fileID: 6548888807277918616}
   m_Layer: 3
   m_Name: Map Battle
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   - {fileID: 4271262818785174271}
   - {fileID: 1747295541390455263}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &4271262817906502115
 BoxCollider2D:
@@ -134,6 +135,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tmpText: {fileID: 3803268287975450693}
+--- !u!114 &6548888807277918616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4271262817906502119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4223999e6c22d0e4d8c46fc27628bbfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4271262818785174268
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +199,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 82ea68a891e7c26409bab7973a21460d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
