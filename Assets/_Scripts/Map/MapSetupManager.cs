@@ -6,6 +6,7 @@ using Pathfinding;
 public class MapSetupManager : MonoBehaviour
 {
     GameManager _gameManager;
+    Map _currentMap;
 
     [SerializeField] GameObject _battlePrefab;
     [SerializeField] GameObject _heroPrefab;
@@ -22,9 +23,11 @@ public class MapSetupManager : MonoBehaviour
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _currentMap = _gameManager.Map;
+
         PlaceCharacters();
         PlaceCollectables();
-        PlaceBattle();
+        PlaceBattles();
 
         AstarPath.active.Scan();
     }
@@ -41,50 +44,42 @@ public class MapSetupManager : MonoBehaviour
 
     void PlaceCollectables()
     {
-        for (int i = 0; i < 10; i++)
+        foreach (Collectable c in _currentMap.Collectables)
         {
-            float x = Random.Range(-15, 11);
-            float y = Random.Range(-4, -13);
-            Vector2 pos = new Vector2(x + 0.5f, y + 0.5f);
-            GameObject instance = Instantiate(_collectablePrefab, pos, Quaternion.identity);
-
-            float v = Random.value;
-            if (v < 0.3f)
-                PlaceGold(instance);
-            else if (v >= 0.3f && v < 0.6f)
-                PlaceSpice(instance);
-            else
-                PlaceItem(instance);
+            GameObject instance = Instantiate(_collectablePrefab, c.MapPosition, Quaternion.identity);
+            if (c.GetType().ToString() == "CollectableGold")
+                PlaceGold((CollectableGold)c, instance);
+            if (c.GetType().ToString() == "CollectableSpice")
+                PlaceSpice((CollectableSpice)c, instance);
+            if (c.GetType().ToString() == "CollectableItem")
+                PlaceItem((CollectableItem)c, instance);
         }
     }
 
-    void PlaceGold(GameObject instance)
+    void PlaceGold(CollectableGold g, GameObject instance)
     {
-        CollectableGold g = Instantiate(_collectableGold);
-        g.Initialize();
+        g.Initialize(instance.transform.position);
         instance.GetComponent<MapCollectable>().Initialize(g);
     }
 
-    void PlaceSpice(GameObject instance)
+    void PlaceSpice(CollectableSpice s, GameObject instance)
     {
-        CollectableSpice s = Instantiate(_collectableSpice);
-        s.Initialize();
+        s.Initialize(instance.transform.position);
         instance.GetComponent<MapCollectable>().Initialize(s);
     }
 
-    void PlaceItem(GameObject instance)
+    void PlaceItem(CollectableItem i, GameObject instance)
     {
-        CollectableItem i = Instantiate(_collectableItem);
-        i.Initialize();
+        i.Initialize(instance.transform.position);
         instance.GetComponent<MapCollectable>().Initialize(i);
     }
 
-    void PlaceBattle()
+    void PlaceBattles()
     {
-        Battle b = Instantiate(_battle);
-        b.RandomizeBattle();
-
-        GameObject instance = Instantiate(_battlePrefab, new Vector3(6.5f, -5.5f), Quaternion.identity);
-        instance.GetComponent<MapBattle>().Initialize(b);
+        foreach (Battle b in _currentMap.Battles)
+        {
+            GameObject instance = Instantiate(_battlePrefab, b.MapPosition, Quaternion.identity);
+            instance.GetComponent<MapBattle>().Initialize(b);
+        }
     }
 }

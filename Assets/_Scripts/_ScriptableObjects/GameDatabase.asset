@@ -509,3 +509,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 279f39ddcb117ee4587fc238e5e623ab, type: 3}
     - {fileID: 21300000, guid: d497bd3531bc97140904d19c4c273569, type: 3}
   <ShopWoodSprite>k__BackingField: {fileID: 21300000, guid: 9e73dfeeb2b076a45b9f4f939bc1cd58, type: 3}
+  GoldSprite: {fileID: 21300000, guid: 9cff88ef95f95be47af437526c628fd5, type: 3}
+  SpiceSprite: {fileID: 21300000, guid: 9a06e7f64c40cc04ebda0ea05e969af0, type: 3}
+  DefaultMap: {fileID: 11400000, guid: c39bdc5d1affc7c4e95ffa66e020f48f, type: 2}

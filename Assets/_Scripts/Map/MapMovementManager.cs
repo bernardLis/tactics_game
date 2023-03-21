@@ -41,6 +41,14 @@ public class MapMovementManager : MonoBehaviour
         _cameraSmoothFollow = _cam.GetComponent<CameraSmoothFollow>();
     }
 
+    void Update()
+    {
+        if (_reachablePoints.Count > 0)
+            _lineRendererReachable.material.SetTextureOffset("_MainTex", Vector2.left * Time.time);
+        if (_unreachablePoints.Count > 0)
+            _lineRendererUnreachable.material.SetTextureOffset("_MainTex", Vector2.left * Time.time);
+    }
+
     /* INPUT */
     void OnEnable()
     {

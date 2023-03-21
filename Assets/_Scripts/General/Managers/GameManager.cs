@@ -44,6 +44,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     [SerializeField] List<AbilityNodeGraph> _abilityNodeGraphs = new();
 
+    public Map Map;
     public Battle SelectedBattle { get; private set; }
 
     public event Action<Report> OnReportAdded;
@@ -259,6 +260,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
 
+        Map = ScriptableObject.CreateInstance<Map>();
+        Map.Collectables = new(GameDatabase.DefaultMap.Collectables);
+        Map.Battles = new(GameDatabase.DefaultMap.Battles);
+
         // new save
         string guid = System.Guid.NewGuid().ToString();
         string fileName = guid + ".dat";
@@ -311,6 +316,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.CampBuildings = PopulateCampBuildings();
         saveData.AbilityNodeGraphs = PopulateAbilityNodeGraphs();
+
+        saveData.MapData = Map.SerializeSelf();
     }
 
     List<CharacterData> PopulateTroops()
@@ -437,6 +444,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
             GetAbilityNodeGraphById(data.Id).LoadFromData(data);
+
+        Map = ScriptableObject.CreateInstance<Map>();
+        Map.LoadFromData(saveData.MapData);
     }
 
     void LoadReports(SaveData saveData)
@@ -482,6 +492,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
+
+        Map = ScriptableObject.CreateInstance<Map>();
+        Map.Collectables = new(GameDatabase.DefaultMap.Collectables);
+        Map.Battles = new(GameDatabase.DefaultMap.Battles);
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

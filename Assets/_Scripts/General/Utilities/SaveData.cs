@@ -28,6 +28,8 @@ public class SaveData
     public List<CampBuildingData> CampBuildings = new();
     public List<AbilityNodeGraphData> AbilityNodeGraphs = new();
 
+    public MapData MapData;
+
     public string ToJson() { return JsonUtility.ToJson(this); }
 
     public void LoadFromJson(string jsonString) { JsonUtility.FromJsonOverwrite(jsonString, this); }
