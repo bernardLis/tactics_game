@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Map/Collectable Gold")]
 public class CollectableGold : Collectable
 {
-    public override void Initialize(Vector2 mapPosition)
+    public override void Initialize()
     {
-        base.Initialize(mapPosition);
-        Amount = Random.Range(100, 500);
+        base.Initialize();
     }
     public override void Collect(MapHero hero)
     {
+        base.Collect(hero);
         GameManager.Instance.ChangeGoldValue(Amount);
     }
 

@@ -32,6 +32,18 @@ public class MapSetupManager : MonoBehaviour
         AstarPath.active.Scan();
     }
 
+#if UNITY_EDITOR
+    [ContextMenu("Reset Map")]
+    void ResetMap()
+    {
+        _currentMap.Reset();
+        PlaceCollectables();
+        PlaceBattles();
+
+        AstarPath.active.Scan();
+    }
+#endif
+
     void PlaceCharacters()
     {
         foreach (Character c in _gameManager.GetAllCharacters())
@@ -46,6 +58,8 @@ public class MapSetupManager : MonoBehaviour
     {
         foreach (Collectable c in _currentMap.Collectables)
         {
+            if (c.IsCollected)
+                continue;
             GameObject instance = Instantiate(_collectablePrefab, c.MapPosition, Quaternion.identity);
             if (c.GetType().ToString() == "CollectableGold")
                 PlaceGold((CollectableGold)c, instance);
@@ -58,19 +72,19 @@ public class MapSetupManager : MonoBehaviour
 
     void PlaceGold(CollectableGold g, GameObject instance)
     {
-        g.Initialize(instance.transform.position);
+        g.Initialize();
         instance.GetComponent<MapCollectable>().Initialize(g);
     }
 
     void PlaceSpice(CollectableSpice s, GameObject instance)
     {
-        s.Initialize(instance.transform.position);
+        s.Initialize();
         instance.GetComponent<MapCollectable>().Initialize(s);
     }
 
     void PlaceItem(CollectableItem i, GameObject instance)
     {
-        i.Initialize(instance.transform.position);
+        i.Initialize();
         instance.GetComponent<MapCollectable>().Initialize(i);
     }
 

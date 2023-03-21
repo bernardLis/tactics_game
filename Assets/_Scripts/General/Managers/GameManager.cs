@@ -260,9 +260,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
 
-        Map = ScriptableObject.CreateInstance<Map>();
-        Map.Collectables = new(GameDatabase.DefaultMap.Collectables);
-        Map.Battles = new(GameDatabase.DefaultMap.Battles);
+        Map.Reset();
 
         // new save
         string guid = System.Guid.NewGuid().ToString();
@@ -445,7 +443,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
             GetAbilityNodeGraphById(data.Id).LoadFromData(data);
 
-        Map = ScriptableObject.CreateInstance<Map>();
         Map.LoadFromData(saveData.MapData);
     }
 
@@ -493,9 +490,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
 
-        Map = ScriptableObject.CreateInstance<Map>();
-        Map.Collectables = new(GameDatabase.DefaultMap.Collectables);
-        Map.Battles = new(GameDatabase.DefaultMap.Battles);
+        Map.Reset();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

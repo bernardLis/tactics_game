@@ -5,13 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Map/Collectable Spice")]
 public class CollectableSpice : Collectable
 {
-    public override void Initialize(Vector2 mapPosition)
+    public override void Initialize()
     {
-        base.Initialize(mapPosition);
-        Amount = Random.Range(10, 50);
+        base.Initialize();
     }
 
-    public override void Collect(MapHero hero) { GameManager.Instance.ChangeSpiceValue(Amount); }
+    public override void Collect(MapHero hero)
+    {
+        base.Collect(hero);
+        GameManager.Instance.ChangeSpiceValue(Amount);
+    }
 
     public override void LoadFromData(CollectableData data)
     {

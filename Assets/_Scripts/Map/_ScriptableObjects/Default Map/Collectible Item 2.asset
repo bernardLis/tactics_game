@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa801c6d93a2a074db1620f4baee4ac5, type: 3}
-  m_Name: Fast Shoes III
+  m_Name: Health Helmet II
   m_EditorClassIdentifier: 
-  Id: 0da9fbee-64ef-4c1a-89fc-ad009326f0ac
+  Id: 23e-64ef-4c1a-89fc-ad009326f0ac
   MapPosition: {x: 3.5, y: -7.5}
   Amount: 1
-  Sprite: {fileID: 21300000, guid: c63ec72e732e57d43b7606a4181d6270, type: 3}
-  IsCollected: 0
-  Item: {fileID: 11400000, guid: 32d9c135d7e711047b6a359ed7d7dfc5, type: 2}
+  Sprite: {fileID: 21300000, guid: 5a270187853c5fa4ea9274fd2f26bd9d, type: 3}
+  IsCollected: 1
+  Item: {fileID: 11400000, guid: 1f4b32a79e11845419f1b8ddea037b28, type: 2}

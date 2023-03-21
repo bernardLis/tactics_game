@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c2fc0859105704baa82516ad88d3c7, type: 3}
   m_Name: Gold 2
   m_EditorClassIdentifier: 
-  Id: a57981fc-cfff-44a9-822c-ff6de9fc2f67
+  Id: a5744fc-cfff-44a9-822c-ff6de9fc2f67
   MapPosition: {x: 8.5, y: -7.5}
   Amount: 44
   Sprite: {fileID: 21300000, guid: 9cff88ef95f95be47af437526c628fd5, type: 3}

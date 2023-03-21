@@ -18,10 +18,11 @@ public class Battle : BaseScriptableObject
         NumberOfMeleeEnemies = Random.Range(10, 20);
         NumberOfRangedEnemies = Random.Range(10, 20);
     }
-    
+
     public BattleData SerializeSelf()
     {
         BattleData data = new();
+        data.Id = Id;
         data.MapPosition = MapPosition;
         data.NumberOfMeleeEnemies = NumberOfMeleeEnemies;
         data.NumberOfRangedEnemies = NumberOfRangedEnemies;
@@ -48,6 +49,7 @@ public class Battle : BaseScriptableObject
 [System.Serializable]
 public struct BattleData
 {
+    public string Id;
     public Vector2 MapPosition;
     public int NumberOfMeleeEnemies;
     public int NumberOfRangedEnemies;

@@ -22,39 +22,25 @@ public class Map : BaseScriptableObject
         return data;
     }
 
+    public void Reset()
+    {
+        foreach (Collectable c in Collectables)
+            c.IsCollected = false;
+        foreach (Battle b in Battles)
+            b.Won = false;
+    }
+
     public void LoadFromData(MapData data)
     {
-        Collectables = new();
         foreach (CollectableData d in data.CollectableDatas)
-        {
-            if (d.Type == "CollectableGold")
-            {
-                CollectableGold g = ScriptableObject.CreateInstance<CollectableGold>();
-                g.LoadFromData(d);
-                Collectables.Add(g);
-            }
-            if (d.Type == "CollectableSpice")
-            {
-                CollectableSpice g = ScriptableObject.CreateInstance<CollectableSpice>();
-                g.LoadFromData(d);
-                Collectables.Add(g);
-            }
-            if (d.Type == "CollectableItem")
-            {
-                CollectableItem g = ScriptableObject.CreateInstance<CollectableItem>();
-                g.LoadFromData(d);
-                Collectables.Add(g);
-            }
-        }
+            foreach (Collectable c in Collectables)
+                if (d.Id == c.Id)
+                    c.LoadFromData(d);
 
-        Battles = new();
         foreach (BattleData d in data.BattleDatas)
-        {
-            // create a battle and add it to battles
-            Battle b = ScriptableObject.CreateInstance<Battle>();
-            b.LoadFromData(d);
-            Battles.Add(b);
-        }
+            foreach (Battle b in Battles)
+                if (d.Id == b.Id)
+                    b.LoadFromData(d);
     }
 }
 

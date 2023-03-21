@@ -10,19 +10,20 @@ public class Collectable : BaseScriptableObject
     public Sprite Sprite;
     public bool IsCollected;
 
-    public virtual void Initialize(Vector2 mapPosition)
-    {
-        MapPosition = mapPosition;
-    }
+    public virtual void Initialize() { }
 
     public virtual void Collect(MapHero hero)
     {
         Debug.Log($"{hero.Character.CharacterName} collects {this.name}");
+
         IsCollected = true;
+        GameManager.Instance.SaveJsonData();
     }
+
     public virtual CollectableData SerializeSelf()
     {
         CollectableData data = new();
+        data.Id = Id;
         data.MapPosition = MapPosition;
         data.Amount = Amount;
         data.IsCollected = IsCollected;
@@ -35,13 +36,13 @@ public class Collectable : BaseScriptableObject
         MapPosition = data.MapPosition;
         Amount = data.Amount;
         IsCollected = data.IsCollected;
-
     }
 }
 
 [System.Serializable]
 public struct CollectableData
 {
+    public string Id;
     public Vector2 MapPosition;
     public int Amount;
     public string Type;

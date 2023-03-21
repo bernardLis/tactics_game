@@ -6,9 +6,9 @@ using UnityEngine;
 public class CollectableItem : Collectable
 {
     public Item Item;
-    public override void Initialize(Vector2 mapPosition)
+    public override void Initialize()
     {
-        base.Initialize(mapPosition);
+        base.Initialize();
 
         Item = GameManager.Instance.GameDatabase.GetRandomItem();
         Sprite = Item.Icon;
@@ -16,6 +16,7 @@ public class CollectableItem : Collectable
     }
     public override void Collect(MapHero hero)
     {
+        base.Collect(hero);
         hero.Character.AddItem(Item);
     }
 

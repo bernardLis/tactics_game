@@ -135,7 +135,6 @@ public class GameDatabase : BaseScriptableObject
 
     public Sprite GoldSprite;
     public Sprite SpiceSprite;
-    public Map DefaultMap;
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
