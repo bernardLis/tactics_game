@@ -12,7 +12,6 @@ public class CollectableItem : Collectable
 
         Item = GameManager.Instance.GameDatabase.GetRandomItem();
         Sprite = Item.Icon;
-        name = Item.ItemName;
     }
     public override void Collect(MapHero hero)
     {
