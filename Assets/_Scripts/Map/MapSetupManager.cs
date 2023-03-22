@@ -8,9 +8,10 @@ public class MapSetupManager : MonoBehaviour
     GameManager _gameManager;
     Map _currentMap;
 
-    [SerializeField] GameObject _battlePrefab;
     [SerializeField] GameObject _heroPrefab;
     [SerializeField] GameObject _collectablePrefab;
+    [SerializeField] GameObject _battlePrefab;
+    [SerializeField] GameObject _castlePrefab;
 
     public List<GameObject> Heroes = new();
 
@@ -28,6 +29,7 @@ public class MapSetupManager : MonoBehaviour
         PlaceCharacters();
         PlaceCollectables();
         PlaceBattles();
+        PlaceCastles();
 
         AstarPath.active.Scan();
     }
@@ -95,5 +97,16 @@ public class MapSetupManager : MonoBehaviour
             GameObject instance = Instantiate(_battlePrefab, b.MapPosition, Quaternion.identity);
             instance.GetComponent<MapBattle>().Initialize(b);
         }
+    }
+
+    void PlaceCastles()
+    {
+        Debug.Log($"_currentMap.Castles.Count  {_currentMap.Castles.Count}");
+        foreach (Castle c in _currentMap.Castles)
+        {
+            GameObject instance = Instantiate(_castlePrefab, c.MapPosition, Quaternion.identity);
+            instance.GetComponent<MapCastle>().Initialize(c);
+        }
+
     }
 }

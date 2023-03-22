@@ -23,3 +23,5 @@ MonoBehaviour:
   Battles:
   - {fileID: 11400000, guid: a7452fd1cdd3e9c4a9c873b3e62cc069, type: 2}
   - {fileID: 11400000, guid: 6da900686c976f84294a2896b533153f, type: 2}
+  Castles:
+  - {fileID: 11400000, guid: 08c6a23c3a40fca4bbd2670ceac13789, type: 2}

@@ -8,6 +8,7 @@ public class Map : BaseScriptableObject
 {
     public List<Collectable> Collectables = new();
     public List<Battle> Battles = new();
+    public List<Castle> Castles = new();
 
     public MapData SerializeSelf()
     {

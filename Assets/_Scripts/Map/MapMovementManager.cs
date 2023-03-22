@@ -169,6 +169,9 @@ public class MapMovementManager : MonoBehaviour
 
             if (c.gameObject.TryGetComponent<MapBattle>(out MapBattle battle))
                 DisableDestinationCollider(c);
+
+            if (c.gameObject.TryGetComponent<MapCastle>(out MapCastle castle))
+                DisableDestinationCollider(c);
         }
     }
 
@@ -284,15 +287,25 @@ public class MapMovementManager : MonoBehaviour
                 MeetHero(hero);
 
             // battle => load scene battle
-            if (c.gameObject.TryGetComponent<MapBattle>(out MapBattle b))
-                b.TakeBattle(_selectedHero);
+            if (c.gameObject.TryGetComponent<MapBattle>(out MapBattle battle))
+                battle.TakeBattle(_selectedHero);
 
+            if (c.gameObject.TryGetComponent<MapCastle>(out MapCastle castle))
+                VisitCastle(castle);
         }
     }
     void MeetHero(MapHero hero)
     {
         _ai.canMove = false;
         Debug.Log($"Selected hero: {_selectedHero.name} is meeting a hero: {hero.name}");
+        ResetDestinationCollider();
+    }
+
+    void VisitCastle(MapCastle castle)
+    {
+        _ai.canMove = false;
+        castle.VisitCastle(_selectedHero);
+
         ResetDestinationCollider();
     }
 
