@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa801c6d93a2a074db1620f4baee4ac5, type: 3}
-  m_Name: Mana Necklace I
+  m_Name: Health Helmet I
   m_EditorClassIdentifier: 
   Id: 0da9fbee-64ef-4c1a-89fc-ad009326f0ac
   MapPosition: {x: -6.5, y: -5.5}
   Amount: 1
-  Sprite: {fileID: 21300000, guid: 7f303f39bde4dfa47a6b8b9aa4bc4adf, type: 3}
+  Sprite: {fileID: 21300000, guid: e2d6043739e8f8548a499de45a2ee5f5, type: 3}
   IsCollected: 0
-  Item: {fileID: 11400000, guid: e2ae84c9098a17541b16d6b4c38af97a, type: 2}
+  Item: {fileID: 11400000, guid: 653ed2c41395a0d4b8e6453cafff0f00, type: 2}

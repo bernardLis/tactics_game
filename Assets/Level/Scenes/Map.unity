@@ -10328,7 +10328,7 @@ PrefabInstance:
       objectReference: {fileID: 2023523411}
     - target: {fileID: 7771277315354121038, guid: 035af9c15c6a251468e1e7390828b518, type: 3}
       propertyPath: m_Name
-      value: MapManager
+      value: Map Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

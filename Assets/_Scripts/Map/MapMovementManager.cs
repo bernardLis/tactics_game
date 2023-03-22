@@ -100,6 +100,10 @@ public class MapMovementManager : MonoBehaviour
         ResetDestinationCollider();
 
         Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
+        if (!_tilemap.HasTile(tilePos)) return;
+
         if (_selectedHero != null)
         {
             ResolveMovement(worldPos);
