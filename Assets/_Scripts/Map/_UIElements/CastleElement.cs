@@ -4,8 +4,21 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class CastleElement : FullScreenElement
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonMenuButton = "common__menu-button";
+
+    const string _ussClassName = "castle__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussTopContainer = _ussClassName + "top-container";
+    const string _ussMiddleContainer = _ussClassName + "middle-container";
+    const string _ussBottomContainer = _ussClassName + "bottom-container";
+
     GameManager _gameManager;
     Castle _castle;
+
+    VisualElement _topContainer;
+    VisualElement _middleContainer;
+    VisualElement _bottomContainer;
     public CastleElement(VisualElement root, Castle castle)
     {
         _gameManager = GameManager.Instance;
@@ -20,17 +33,36 @@ public class CastleElement : FullScreenElement
 
         _castle = castle;
 
+        AddToClassList(_ussMain);
+
+        _topContainer = new();
+        _topContainer.AddToClassList(_ussTopContainer);
+        Add(_topContainer);
+
+        _middleContainer = new();
+        _middleContainer.AddToClassList(_ussMiddleContainer);
+        Add(_middleContainer);
+
+        _bottomContainer = new();
+        _bottomContainer.AddToClassList(_ussBottomContainer);
+        Add(_bottomContainer);
+
         AddBuildings();
         AddBackButton();
     }
-
 
     void AddBuildings()
     {
         foreach (Building b in _castle.Buildings)
         {
             BuildingElement e = new(b);
-            Add(e);
+            _topContainer.Add(e);
         }
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        _gameManager.ToggleTimer(true);
     }
 }

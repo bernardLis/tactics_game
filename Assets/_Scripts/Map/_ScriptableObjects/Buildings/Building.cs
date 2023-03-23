@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class Building : BaseScriptableObject
 {
+    public string DisplayName;
+
     public Sprite OutlineSprite;
     public Sprite BuiltSprite;
 
-    public int Price;
+    public int CostToBuild;
     public bool IsBuilt;
 
     protected GameManager _gameManager;
@@ -18,6 +20,10 @@ public class Building : BaseScriptableObject
         _gameManager.OnDayPassed += OnDayPassed;
     }
 
+    public virtual void Build() { IsBuilt = true; }
+
+    public virtual void Reset() { IsBuilt = false; }
+
     public virtual void OnDayPassed(int day)
     {
         // meant to be overwritten
@@ -26,6 +32,12 @@ public class Building : BaseScriptableObject
     public virtual void Produce()
     {
         // meant to be overwritten
+    }
+
+    public virtual string GetDescription()
+    {
+        // meant to be overwritten
+        return "";
     }
 
     public virtual BuildingData SerializeSelf()

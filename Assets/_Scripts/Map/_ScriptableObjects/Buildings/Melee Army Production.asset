@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Melee Army Production
   m_EditorClassIdentifier: 
   Id: 83ff72de-3a6b-4f1d-acc4-4c6995c658a8
+  DisplayName: Meele Army Production
   OutlineSprite: {fileID: 21300000, guid: ea99704b19bcb3449982b70ba3b0ba8f, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 38ee95e772b15654d825aa787502fc76, type: 3}
-  Price: 300
+  CostToBuild: 200
   IsBuilt: 0
   ArmyEntity: {fileID: 11400000, guid: 3b5e3441a71fce848a266b6897ff1af2, type: 2}
   PricePerEntity: 10

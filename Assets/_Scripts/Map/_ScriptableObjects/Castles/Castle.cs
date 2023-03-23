@@ -11,16 +11,25 @@ public class Castle : BaseScriptableObject
     public List<Building> Buildings;
     public List<ArmyEntity> AvailableArmy;
 
-    public virtual void Initialize()
+    public void Initialize()
     {
         foreach (Building b in Buildings)
             b.Initialize();
     }
 
+    public void Reset()
+    {
+        foreach (Building b in Buildings)
+            b.Reset();
 
-    public virtual CastleData SerializeSelf()
+        AvailableArmy = new();
+    }
+
+
+    public CastleData SerializeSelf()
     {
         CastleData data = new();
+        data.Id = Id;
         data.AvailableArmy = new();
         foreach (ArmyEntity e in AvailableArmy)
             data.AvailableArmy.Add(e.SerializeSelf());
@@ -28,7 +37,7 @@ public class Castle : BaseScriptableObject
         return data;
     }
 
-    public virtual void LoadFromData(CastleData data)
+    public void LoadFromData(CastleData data)
     {
         AvailableArmy = new();
         foreach (ArmyEntityData d in data.AvailableArmy)
@@ -39,6 +48,7 @@ public class Castle : BaseScriptableObject
 [System.Serializable]
 public struct CastleData
 {
+    public string Id;
     public List<ArmyEntityData> AvailableArmy;
 }
 

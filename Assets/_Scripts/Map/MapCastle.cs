@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class MapCastle : MonoBehaviour, ITooltipDisplayable
 {
+    GameManager _gameManager;
     Castle _castle;
 
     void Start()
     {
-
+        _gameManager = GameManager.Instance;
     }
 
     public void Initialize(Castle castle)
@@ -21,6 +22,8 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
     public void VisitCastle(MapHero h)
     {
         Debug.Log($"{h.Character.CharacterName} is visiting {_castle.name}");
+
+        _gameManager.ToggleTimer(false);
         CastleElement el = new(DashboardManager.Instance.Root, _castle);
     }
 

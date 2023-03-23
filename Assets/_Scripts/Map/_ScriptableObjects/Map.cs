@@ -10,6 +10,16 @@ public class Map : BaseScriptableObject
     public List<Battle> Battles = new();
     public List<Castle> Castles = new();
 
+    public void Reset()
+    {
+        foreach (Collectable c in Collectables)
+            c.IsCollected = false;
+        foreach (Battle b in Battles)
+            b.Won = false;
+        foreach (Castle c in Castles)
+            c.Reset();
+    }
+
     public MapData SerializeSelf()
     {
         MapData data = new();
@@ -19,16 +29,11 @@ public class Map : BaseScriptableObject
         data.BattleDatas = new();
         foreach (Battle b in Battles)
             data.BattleDatas.Add(b.SerializeSelf());
+        data.CastleDatas = new();
+        foreach (Castle c in Castles)
+            data.CastleDatas.Add(c.SerializeSelf());
 
         return data;
-    }
-
-    public void Reset()
-    {
-        foreach (Collectable c in Collectables)
-            c.IsCollected = false;
-        foreach (Battle b in Battles)
-            b.Won = false;
     }
 
     public void LoadFromData(MapData data)
@@ -42,6 +47,11 @@ public class Map : BaseScriptableObject
             foreach (Battle b in Battles)
                 if (d.Id == b.Id)
                     b.LoadFromData(d);
+
+        foreach (CastleData d in data.CastleDatas)
+            foreach (Castle c in Castles)
+                if (d.Id == c.Id)
+                    c.LoadFromData(d);
     }
 }
 
@@ -50,4 +60,6 @@ public struct MapData
 {
     public List<CollectableData> CollectableDatas;
     public List<BattleData> BattleDatas;
+    public List<CastleData> CastleDatas;
+
 }

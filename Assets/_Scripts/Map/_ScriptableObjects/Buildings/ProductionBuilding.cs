@@ -7,13 +7,14 @@ public class ProductionBuilding : Building
 {
     public ArmyEntity ArmyEntity;
     public int PricePerEntity;
-    
+
     public int PerWeekProductionCount;
     public int AvailableToBuyCount;
 
-    public override void Initialize()
+    public override void Reset()
     {
-        base.Initialize();
+        base.Reset();
+        AvailableToBuyCount = 0;
     }
 
     public override void OnDayPassed(int day)
@@ -25,6 +26,7 @@ public class ProductionBuilding : Building
 
     public override void Produce()
     {
+        if (!IsBuilt) return;
         base.Produce();
         AvailableToBuyCount += PerWeekProductionCount;
     }
@@ -42,4 +44,7 @@ public class ProductionBuilding : Building
         base.LoadFromData(data);
         AvailableToBuyCount = data.AvailableToBuyCount;
     }
+
+    public override string GetDescription() { return $"Produces {PerWeekProductionCount} of {ArmyEntity.name} per week."; }
+
 }

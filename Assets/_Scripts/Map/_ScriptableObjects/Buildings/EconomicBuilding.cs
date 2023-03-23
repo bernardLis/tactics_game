@@ -7,11 +7,6 @@ public class EconomicBuilding : Building
 {
     public int GoldPerDay;
 
-    public override void Initialize()
-    {
-        base.Initialize();
-    }
-
     public override void OnDayPassed(int day)
     {
         base.OnDayPassed(day);
@@ -20,8 +15,10 @@ public class EconomicBuilding : Building
 
     public override void Produce()
     {
+        if (!IsBuilt) return;
         base.Produce();
         _gameManager.ChangeGoldValue(GoldPerDay);
     }
 
+    public override string GetDescription() { return $"Produces {GoldPerDay} gold per day."; }
 }

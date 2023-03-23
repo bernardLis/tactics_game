@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 2154333484900981486}
   - component: {fileID: 1448303728}
   - component: {fileID: 3609328160265785649}
-  - component: {fileID: 7770821782882906939}
   - component: {fileID: 5229503471192617615}
   m_Layer: 0
   m_Name: GameManager
@@ -356,6 +355,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: ea02981aef537be44982c8f81265ef08
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,31 +449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6da27739bfa18249876a09789a22071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7770821782882906939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154333484900981485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac59c41bca6984941a5a12690c11e8a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _campBuildings:
-  - {fileID: 11400000, guid: 9cf61c05596deda448a9e7ed3aeb4374, type: 2}
-  - {fileID: 11400000, guid: 81be4d27908cc3b43aec0503f6134162, type: 2}
-  - {fileID: 11400000, guid: ff8cb3895ea70b84aac0cad38a676693, type: 2}
-  - {fileID: 11400000, guid: 8c9ea9ec9adf92f46b6a0b89a6525cbd, type: 2}
-  - {fileID: 11400000, guid: 39f0a53358638c14d937e69c62c158cd, type: 2}
-  - {fileID: 11400000, guid: bfdd98314fcdbbe439c6736f78137508, type: 2}
-  - {fileID: 11400000, guid: d9db8e1895c8f4740b962e72db3c3572, type: 2}
-  - {fileID: 11400000, guid: 0cb4caff5817f214babd5bb0a0813fce, type: 2}
-  - {fileID: 11400000, guid: f06a203ee4b13e94f9b465035b3b521b, type: 2}
-  - {fileID: 11400000, guid: 1d4f5ce3046d05c40a8c82e9379291fa, type: 2}
-  - {fileID: 11400000, guid: 17546c04599c67c4c9657ad84bcd594b, type: 2}
-  - {fileID: 11400000, guid: 80d61e150ae92464da11347aa0348c4c, type: 2}
 --- !u!114 &5229503471192617615
 MonoBehaviour:
   m_ObjectHideFlags: 0

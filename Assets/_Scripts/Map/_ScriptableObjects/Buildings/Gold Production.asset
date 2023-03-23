@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Gold Production
   m_EditorClassIdentifier: 
   Id: 0dd4918b-f046-44f9-8209-fa35805cb94e
+  DisplayName: Gold Production
   OutlineSprite: {fileID: 21300000, guid: e6f133309803b3d47b41830d7c82eeb5, type: 3}
   BuiltSprite: {fileID: 21300000, guid: 8deafc1777afc70449d7479a93eacc92, type: 3}
-  Price: 200
+  CostToBuild: 500
   IsBuilt: 0
   GoldPerDay: 100
