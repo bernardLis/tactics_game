@@ -45,7 +45,7 @@ public class BarMiniGameElement : VisualElement
             styleSheets.Add(ss);
 
         if (_dashboardManager == null)
-            Debug.LogError($"No desk manager in bar mini game element");
+            Debug.LogError($"No dashboard manager in bar mini game element");
         _root = _dashboardManager.Root;
 
         _bar = new();

@@ -445,6 +445,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7771277315354121036}
+  - component: {fileID: 7227188172802379953}
+  - component: {fileID: 2544462636829078508}
   - component: {fileID: 7771277315354121027}
   - component: {fileID: 7771277315354121037}
   - component: {fileID: 744898385265374333}
@@ -472,8 +474,38 @@ Transform:
   - {fileID: 7880445060236048158}
   - {fileID: 965809664}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7227188172802379953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771277315354121038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: c4355701439a0ee4595015ef3f993f34, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &2544462636829078508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771277315354121038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7343b33cea57d8245b32fb4da3b0b527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PanelOpenEffect: {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
+  _dashboardTheme: {fileID: 11400000, guid: 9a9ea9eb274a74543bbd7852dabcf4f1, type: 2}
 --- !u!114 &7771277315354121027
 MonoBehaviour:
   m_ObjectHideFlags: 0

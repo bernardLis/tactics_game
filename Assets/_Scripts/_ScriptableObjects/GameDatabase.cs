@@ -135,6 +135,10 @@ public class GameDatabase : BaseScriptableObject
 
     public Sprite GoldSprite;
     public Sprite SpiceSprite;
+
+    public List<ArmyEntity> AllArmyEntities = new();
+    public ArmyEntity GetArmyEntityById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
+
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }

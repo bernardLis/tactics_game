@@ -11,7 +11,7 @@ public class BattleEntity : MonoBehaviour
     List<BattleEntity> _opponentList = new();
 
     public GameObject GFX;
-    Stats _stats;
+    ArmyEntity _stats;
     float _currentHealth;
 
     BattleEntity _opponent;
@@ -32,7 +32,7 @@ public class BattleEntity : MonoBehaviour
             _currentAttackCooldown -= Time.deltaTime;
     }
 
-    public void Initialize(Stats stats, ref List<BattleEntity> opponents)
+    public void Initialize(ArmyEntity stats, ref List<BattleEntity> opponents)
     {
         _stats = stats;
         _currentHealth = stats.Health;

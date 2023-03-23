@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccb508de50bd2b439cf2e085f75b979, type: 3}
+  m_Name: Melee Army Production
+  m_EditorClassIdentifier: 
+  Id: 83ff72de-3a6b-4f1d-acc4-4c6995c658a8
+  OutlineSprite: {fileID: 21300000, guid: ea99704b19bcb3449982b70ba3b0ba8f, type: 3}
+  BuiltSprite: {fileID: 21300000, guid: 38ee95e772b15654d825aa787502fc76, type: 3}
+  Price: 300
+  IsBuilt: 0
+  ArmyEntity: {fileID: 11400000, guid: 3b5e3441a71fce848a266b6897ff1af2, type: 2}
+  PricePerEntity: 10
+  PerWeekProductionCount: 10
+  AvailableToBuyCount: 0

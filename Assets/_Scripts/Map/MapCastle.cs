@@ -13,6 +13,7 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
 
     public void Initialize(Castle castle)
     {
+        castle.Initialize(); // TODO: differentiate between owned / not owned castles
         _castle = castle;
         GetComponentInChildren<SpriteRenderer>().sprite = castle.Sprite;
     }
@@ -20,6 +21,7 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
     public void VisitCastle(MapHero h)
     {
         Debug.Log($"{h.Character.CharacterName} is visiting {_castle.name}");
+        CastleElement el = new(DashboardManager.Instance.Root, _castle);
     }
 
     public string GetTooltipText() { return _castle.name; }

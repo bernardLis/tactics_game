@@ -125,6 +125,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 10b3e4dc-1e78-41ac-8502-dae1dec61a1b
     m_ActionName: Dashboard/Pause[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ed617f9f-5f71-4804-8ba5-cadc58ab9c9e
+    m_ActionName: Dashboard/LeftMouseClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7253dc2f-382f-4cb5-9ce4-7c04073634e5
+    m_ActionName: Dashboard/RightMouseClick[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Dashboard
@@ -344,6 +352,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: cdae14e4552087d4d9dd9f22b6e5582f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +409,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b490b888ee688624b9c291aa2a94e28b, type: 2}
   - {fileID: 11400000, guid: 6bceff6e2885a224c958a51fe4e78327, type: 2}
   - {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
+  Map: {fileID: 11400000, guid: c39bdc5d1affc7c4e95ffa66e020f48f, type: 2}
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

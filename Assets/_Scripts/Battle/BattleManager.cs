@@ -19,8 +19,8 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI _textMesh; // HERE: something smarter
 
-    [SerializeField] List<Stats> _enemyStats = new();
-    [SerializeField] List<Stats> _playerStats;
+    [SerializeField] List<ArmyEntity> _enemyStats = new();
+    [SerializeField] List<ArmyEntity> _playerStats;
 
     [SerializeField] GameObject _playerPrefab;
     [SerializeField] GameObject _enemyPrefab;
