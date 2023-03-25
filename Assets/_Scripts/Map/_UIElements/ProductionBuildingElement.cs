@@ -25,12 +25,12 @@ public class ProductionBuildingElement : BuildingElement
         Add(_armySlotElement);
 
         if (_productionBuilding.AvailableToBuyCount > 0)
-            _armySlotElement.AddArmy(new(new(_productionBuilding.ArmyEntity, _productionBuilding.AvailableToBuyCount)));
+            _armySlotElement.AddArmy(new(_productionBuilding.GetAvailableArmyGroup()));
     }
 
     void OnProduced(int count)
     {
         _armySlotElement.RemoveArmy();
-        _armySlotElement.AddArmy(new(new(_productionBuilding.ArmyEntity, count)));
+        _armySlotElement.AddArmy(new(_productionBuilding.GetAvailableArmyGroup()));
     }
 }

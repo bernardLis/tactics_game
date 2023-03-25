@@ -9,6 +9,8 @@ public class Character : BaseScriptableObject
 {
     public static int MaxCharacterAbilities = 1;
     public static int MaxCharacterItems = 2;
+    public static int MaxCharacterArmySlots = 5;
+
     static Vector2Int MaxHealthGainPerLevelRange = new(10, 21);
     static Vector2Int MaxManaGainPerLevelRange = new(5, 11);
 
@@ -54,8 +56,7 @@ public class Character : BaseScriptableObject
 
     public Vector2 MapPosition;
 
-    public int NumberOfMeleeArmy;
-    public int NumberOfRangedArmy;
+    public List<ArmyGroup> ArmyGroups = new();
 
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
@@ -350,8 +351,7 @@ public class Character : BaseScriptableObject
         WeeklyWage.SetValue(0);
 
         MapPosition = mapPosition;
-        NumberOfMeleeArmy = Random.Range(5, 15);
-        NumberOfRangedArmy = Random.Range(5, 15);
+        ArmyGroups = new(_gameManager.GameDatabase.BasicArmy);
     }
 
     public void CreateRandom(int level)
@@ -447,8 +447,13 @@ public class Character : BaseScriptableObject
         NewWage.SetValue(data.NewWage);
         Negotiated = data.Negotiated;
         MapPosition = data.MapPosition;
-        NumberOfMeleeArmy = data.NumberOfMeleeArmy;
-        NumberOfRangedArmy = data.NumberOfRangedArmy;
+        ArmyGroups = new();
+        foreach (ArmyGroupData d in data.ArmyGroupDatas)
+        {
+            ArmyGroup ag = CreateInstance<ArmyGroup>();
+            ag.LoadFromData(d);
+            ArmyGroups.Add(ag);
+        }
 
         UpdateRank();
         UpdateElement(Element);
@@ -491,9 +496,9 @@ public class Character : BaseScriptableObject
         data.NewWage = NewWage.Value;
         data.Negotiated = Negotiated;
         data.MapPosition = MapPosition;
-        data.NumberOfMeleeArmy = NumberOfMeleeArmy;
-        data.NumberOfRangedArmy = NumberOfRangedArmy;
-
+        data.ArmyGroupDatas = new();
+        foreach (ArmyGroup ag in ArmyGroups)
+            data.ArmyGroupDatas.Add(ag.SerializeSelf());
 
         return data;
     }
@@ -529,7 +534,5 @@ public struct CharacterData
 
     public Vector2 MapPosition;
 
-    public int NumberOfMeleeArmy;
-    public int NumberOfRangedArmy;
-
+    public List<ArmyGroupData> ArmyGroupDatas;
 }

@@ -240,9 +240,9 @@ public class MapMovementManager : MonoBehaviour
         _ai.canMove = true;
 
         _cameraSmoothFollow.SetTarget(_selectedHero.transform);
-        if (_ai == null) yield break;
         while (!_ai.reachedEndOfPath)
         {
+            if (_ai == null) yield break;
             if (_selectedHero == null) yield break;
 
             if (Vector3.Distance(_selectedHero.transform.position, _middleOfDestinationTile) < 0.8f

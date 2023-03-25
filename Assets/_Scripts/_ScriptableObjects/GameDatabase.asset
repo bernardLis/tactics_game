@@ -511,4 +511,11 @@ MonoBehaviour:
   <ShopWoodSprite>k__BackingField: {fileID: 21300000, guid: 9e73dfeeb2b076a45b9f4f939bc1cd58, type: 3}
   GoldSprite: {fileID: 21300000, guid: 9cff88ef95f95be47af437526c628fd5, type: 3}
   SpiceSprite: {fileID: 21300000, guid: 9a06e7f64c40cc04ebda0ea05e969af0, type: 3}
-  DefaultMap: {fileID: 11400000, guid: c39bdc5d1affc7c4e95ffa66e020f48f, type: 2}
+  AllArmyEntities:
+  - {fileID: 11400000, guid: 3b5e3441a71fce848a266b6897ff1af2, type: 2}
+  - {fileID: 11400000, guid: 60a1c4fcce5045946b4c157a6e324579, type: 2}
+  - {fileID: 11400000, guid: 7755c329c516513459f13843e129b595, type: 2}
+  - {fileID: 11400000, guid: a58400b4a0cee7d4b8cf4e881b6bcf23, type: 2}
+  BasicArmy:
+  - {fileID: 11400000, guid: a78a5557da897bc4b840f078134a29f0, type: 2}
+  - {fileID: 11400000, guid: 5404ee95775c73d4ba190a1c5d1b4229, type: 2}

@@ -15,11 +15,16 @@ public class CastleElement : FullScreenElement
 
     GameManager _gameManager;
     Castle _castle;
+    MapHero _visitingHero;
 
     VisualElement _topContainer;
     VisualElement _middleContainer;
     VisualElement _bottomContainer;
-    public CastleElement(VisualElement root, Castle castle)
+
+    List<ArmySlotElement> _castleArmySlots = new();
+    List<ArmySlotElement> _heroArmySlots = new();
+
+    public CastleElement(VisualElement root, Castle castle, MapHero hero)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -32,6 +37,7 @@ public class CastleElement : FullScreenElement
         Initialize(root, false);
 
         _castle = castle;
+        _visitingHero = hero;
 
         AddToClassList(_ussMain);
 
@@ -48,6 +54,9 @@ public class CastleElement : FullScreenElement
         Add(_bottomContainer);
 
         AddBuildings();
+        AddCastleArmySlots();
+        AddVisitingHero();
+
         AddBackButton();
     }
 
@@ -65,6 +74,24 @@ public class CastleElement : FullScreenElement
             BuildingElement e = new(b);
             _topContainer.Add(e);
         }
+    }
+
+    void AddCastleArmySlots()
+    {
+        _castleArmySlots = new();
+        for (int i = 0; i < Castle.MaxCastleArmySlots; i++)
+        {
+            ArmySlotElement el = new();
+            _castleArmySlots.Add(el);
+            _middleContainer.Add(el);
+        }
+
+    }
+
+    void AddVisitingHero()
+    {
+        if (_visitingHero == null) return;
+        _bottomContainer.Add(new HeroCastleElement(_visitingHero.Character));
     }
 
     public override void Hide()

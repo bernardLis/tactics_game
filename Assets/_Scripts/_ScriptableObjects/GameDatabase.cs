@@ -138,6 +138,7 @@ public class GameDatabase : BaseScriptableObject
 
     public List<ArmyEntity> AllArmyEntities = new();
     public ArmyEntity GetArmyEntityById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
+    public List<ArmyGroup> BasicArmy = new();
 
 }
 

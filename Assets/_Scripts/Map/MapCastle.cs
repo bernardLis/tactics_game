@@ -24,7 +24,7 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
         Debug.Log($"{h.Character.CharacterName} is visiting {_castle.name}");
 
         _gameManager.ToggleTimer(false);
-        CastleElement el = new(DashboardManager.Instance.Root, _castle);
+        CastleElement el = new(DashboardManager.Instance.Root, _castle, h);
     }
 
     public string GetTooltipText() { return _castle.name; }

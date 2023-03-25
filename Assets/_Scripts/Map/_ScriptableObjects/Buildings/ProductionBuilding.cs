@@ -41,6 +41,14 @@ public class ProductionBuilding : Building
         OnProduced?.Invoke(AvailableToBuyCount);
     }
 
+    public ArmyGroup GetAvailableArmyGroup()
+    {
+        ArmyGroup ag = ScriptableObject.CreateInstance<ArmyGroup>();
+        ag.ArmyEntity = ArmyEntity;
+        ag.Count = AvailableToBuyCount;
+        return ag;
+    }
+
     public override BuildingData SerializeSelf()
     {
         BuildingData data = base.SerializeSelf();

@@ -34,18 +34,6 @@ public class ArmyEntity : BaseScriptableObject
         // ex. giving bonuses for being mvp in previous battles
     }
 }
-[System.Serializable]
-public struct ArmyGroup
-{
-    public ArmyGroup(ArmyEntity armyEntity, int count)
-    {
-        this.ArmyEntity = armyEntity;
-        this.Count = count;
-    }
-
-    public ArmyEntity ArmyEntity;
-    public int Count;
-}
 
 [System.Serializable]
 public struct ArmyEntityData

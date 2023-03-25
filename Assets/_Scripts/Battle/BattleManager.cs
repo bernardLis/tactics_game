@@ -42,7 +42,6 @@ public class BattleManager : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         _numberOfEnemiesToSpawn = _loadedBattle.NumberOfMeleeEnemies + _loadedBattle.NumberOfRangedEnemies;
-        _numberOfPlayersToSpawn = _loadedBattle.Character.NumberOfMeleeArmy + _loadedBattle.Character.NumberOfMeleeArmy;
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
@@ -50,12 +49,11 @@ public class BattleManager : MonoBehaviour
 
         _textMesh.text = $"{_numberOfPlayersToSpawn} : {_numberOfEnemiesToSpawn}";
 
-        for (int i = 0; i < _numberOfPlayersToSpawn; i++)
-            InstantiatePlayer();
+        foreach (ArmyGroup ag in _loadedBattle.Character.ArmyGroups)
+            InstantiatePlayer(ag.ArmyEntity);
         for (int i = 0; i < _numberOfEnemiesToSpawn; i++)
             InstantiateEnemy();
 
-        InitializePlayers();
         InitializeEnemies();
     }
 
@@ -70,24 +68,14 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void InitializePlayers()
-    {
-        for (int i = 0; i < _numberOfPlayersToSpawn; i++)
-        {
-            if (i <= _loadedBattle.NumberOfMeleeEnemies)
-                PlayerEntities[i].Initialize(_playerStats[0], ref EnemyEntities);
-            else
-                PlayerEntities[i].Initialize(_playerStats[1], ref EnemyEntities);
-        }
-    }
-
     void Update() => _skyMat.SetFloat(_rotationProperty, Time.time * _skyboxRotationSpeed);
 
-    void InstantiatePlayer()
+    void InstantiatePlayer(ArmyEntity entity)
     {
         Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
         GameObject instance = Instantiate(_playerPrefab, pos, Quaternion.identity);
         BattleEntity be = instance.GetComponent<BattleEntity>();
+        be.Initialize(entity, ref EnemyEntities);
         PlayerEntities.Add(be);
         be.OnDeath += OnPlayerDeath;
     }
