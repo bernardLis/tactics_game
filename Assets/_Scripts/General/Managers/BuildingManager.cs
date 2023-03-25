@@ -29,6 +29,8 @@ public class BuildingManager : MonoBehaviour
     {
         foreach (CampBuilding cb in _campBuildings)
         {
+            cb.Initialize();
+            
             if (cb.GetType().Equals(typeof(CampBuildingTroopsLimit)))
                 TroopsLimitBuilding = (CampBuildingTroopsLimit)cb;
             if (cb.GetType().Equals(typeof(CampBuildingQuests)))

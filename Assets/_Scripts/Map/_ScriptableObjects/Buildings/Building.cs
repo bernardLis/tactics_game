@@ -29,7 +29,7 @@ public class Building : BaseScriptableObject
         // meant to be overwritten
     }
 
-    public virtual void Produce()
+    public virtual void Produce(int count)
     {
         // meant to be overwritten
     }

@@ -55,6 +55,13 @@ public class CastleElement : FullScreenElement
     {
         foreach (Building b in _castle.Buildings)
         {
+            if (b.GetType() == typeof(ProductionBuilding))
+            {
+                ProductionBuildingElement el = new((ProductionBuilding)b);
+                _topContainer.Add(el);
+                continue;
+            }
+
             BuildingElement e = new(b);
             _topContainer.Add(e);
         }

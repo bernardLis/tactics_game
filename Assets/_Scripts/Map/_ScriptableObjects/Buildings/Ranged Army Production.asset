@@ -21,4 +21,4 @@ MonoBehaviour:
   ArmyEntity: {fileID: 11400000, guid: 60a1c4fcce5045946b4c157a6e324579, type: 2}
   PricePerEntity: 20
   PerWeekProductionCount: 5
-  AvailableToBuyCount: 0
+  AvailableToBuyCount: 5

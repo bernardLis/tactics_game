@@ -240,7 +240,7 @@ public class MapMovementManager : MonoBehaviour
         _ai.canMove = true;
 
         _cameraSmoothFollow.SetTarget(_selectedHero.transform);
-
+        if (_ai == null) yield break;
         while (!_ai.reachedEndOfPath)
         {
             if (_selectedHero == null) yield break;

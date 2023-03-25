@@ -8,14 +8,14 @@ public class BuildingElement : ElementWithTooltip
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "camp-building__";
+    const string _ussClassName = "building__";
     const string _ussMain = _ussClassName + "main";
     const string _ussSprite = _ussClassName + "sprite";
     const string _ussBuildButton = _ussClassName + "build-button";
     const string _ussHeader = _ussClassName + "header";
 
-    GameManager _gameManager;
-    Building _building;
+    protected GameManager _gameManager;
+    protected Building _building;
 
     VisualElement _sprite;
     VisualElement _buildButtonContainer;
@@ -37,6 +37,8 @@ public class BuildingElement : ElementWithTooltip
         _gameManager.OnGoldChanged += OnGoldChanged;
 
         _building = building;
+
+        AddToClassList(_ussMain);
 
         _sprite = new();
         _sprite.AddToClassList(_ussSprite);

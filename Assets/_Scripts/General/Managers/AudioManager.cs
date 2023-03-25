@@ -46,6 +46,7 @@ public class AudioManager : Singleton<AudioManager>
         _dialogueAudioSource = dialogueGameObject.AddComponent<AudioSource>();
         _dialogueAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Dialogue")[0];
 
+        _sfxAudioSources = new();
         for (int i = 0; i < 50; i++)
         {
             GameObject sfxGameObject = new("SFX" + i);

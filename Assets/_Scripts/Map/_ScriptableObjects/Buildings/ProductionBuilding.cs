@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,14 @@ public class ProductionBuilding : Building
     public int PerWeekProductionCount;
     public int AvailableToBuyCount;
 
+    public event Action<int> OnProduced;
+
+    public override void Build()
+    {
+        base.Build();
+        Produce(Mathf.CeilToInt(PerWeekProductionCount * 0.5f));
+    }
+
     public override void Reset()
     {
         base.Reset();
@@ -21,14 +30,15 @@ public class ProductionBuilding : Building
     {
         base.OnDayPassed(day);
         if (day % 7 == 0)
-            Produce();
+            Produce(PerWeekProductionCount);
     }
 
-    public override void Produce()
+    public override void Produce(int count)
     {
         if (!IsBuilt) return;
-        base.Produce();
-        AvailableToBuyCount += PerWeekProductionCount;
+        base.Produce(count);
+        AvailableToBuyCount += count;
+        OnProduced?.Invoke(AvailableToBuyCount);
     }
 
     public override BuildingData SerializeSelf()

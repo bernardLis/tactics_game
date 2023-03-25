@@ -55,5 +55,7 @@ public enum StyleSheetType
     CharacterCardQuestStyles,
     CampBuildingStyles,
 
-    CastleElementStyles, BuildingElementStyles,
+    CastleElementStyles,
+    BuildingElementStyles, ProductionBuildingElementStyles,
+    ArmyElementStyles, ArmySlotElementStyles,
 }
