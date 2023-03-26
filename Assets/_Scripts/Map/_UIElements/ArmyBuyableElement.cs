@@ -76,9 +76,11 @@ public class ArmyBuyableElement : VisualElement
     {
         int cost = _slider.value * _building.PricePerEntity;
 
+        _gameManager.ChangeGoldValue(-cost);
+
         ArmyGroup armyGroup = ScriptableObject.CreateInstance<ArmyGroup>();
         armyGroup.ArmyEntity = _building.ArmyEntity;
-        armyGroup.Count = _slider.value;
+        armyGroup.EntityCount = _slider.value;
 
         _building.Sell(_slider.value);
     }

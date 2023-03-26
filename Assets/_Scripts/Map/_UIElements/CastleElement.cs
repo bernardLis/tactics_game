@@ -55,6 +55,7 @@ public class CastleElement : FullScreenElement
 
         AddBuildings();
         AddCastleArmySlots();
+        AddCastleArmy();
         AddVisitingHero();
 
         AddBackButton();
@@ -68,7 +69,7 @@ public class CastleElement : FullScreenElement
             {
                 ProductionBuilding pb = (ProductionBuilding)b;
                 ProductionBuildingElement el = new(pb);
-                pb.OnArmyBought += OnArmyBought;
+                pb.OnArmyBought += AddArmy;
                 _topContainer.Add(el);
                 continue;
             }
@@ -78,12 +79,41 @@ public class CastleElement : FullScreenElement
         }
     }
 
-    void OnArmyBought(ArmyGroup armyGroup)
+    void AddCastleArmySlots()
     {
-        AddArmy(armyGroup);
+        _castleArmySlots = new();
+        for (int i = 0; i < Castle.MaxCastleArmySlots; i++)
+            AddArmySlot();
+    }
+
+    ArmySlotElement AddArmySlot()
+    {
+        ArmySlotElement el = new();
+
+        _castleArmySlots.Add(el);
+        _middleContainer.Add(el);
+
+        return el;
+    }
+
+    void AddCastleArmy()
+    {
+        foreach (ArmyGroupData agd in _castle.AvailableArmy)
+        {
+            ArmyGroup a = ScriptableObject.CreateInstance<ArmyGroup>();
+            a.LoadFromData(agd);
+            AddArmyNoCastleUpdate(a);
+        }
     }
 
     void AddArmy(ArmyGroup armyGroup)
+    {
+        _castle.AddArmy(armyGroup);
+        AddArmyNoCastleUpdate(armyGroup);
+
+    }
+
+    void AddArmyNoCastleUpdate(ArmyGroup armyGroup)
     {
         // stack
         foreach (ArmySlotElement el in _castleArmySlots)
@@ -92,7 +122,7 @@ public class CastleElement : FullScreenElement
 
             if (el.ArmyElement.ArmyGroup.ArmyEntity == armyGroup.ArmyEntity)
             {
-                el.ArmyElement.ArmyGroup.ChangeCount(armyGroup.Count);
+                el.ArmyElement.ArmyGroup.ChangeCount(armyGroup.EntityCount);
                 return;
             }
         }
@@ -111,24 +141,6 @@ public class CastleElement : FullScreenElement
         armySlotElement.AddArmy(new(armyGroup));
     }
 
-    void AddCastleArmySlots()
-    {
-        _castleArmySlots = new();
-        for (int i = 0; i < Castle.MaxCastleArmySlots; i++)
-            AddArmySlot();
-    }
-
-    ArmySlotElement AddArmySlot()
-    {
-        ArmySlotElement el = new();
-        el.OnArmyAdded += _castle.OnArmyAdded;
-        el.OnArmyRemoved += _castle.OnArmyRemoved;
-
-        _castleArmySlots.Add(el);
-        _middleContainer.Add(el);
-
-        return el;
-    }
 
     void AddVisitingHero()
     {

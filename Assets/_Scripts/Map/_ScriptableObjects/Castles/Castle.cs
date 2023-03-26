@@ -10,8 +10,8 @@ public class Castle : BaseScriptableObject
     public Vector2 MapPosition;
     public Sprite Sprite;
 
-    public List<Building> Buildings;
-    public List<ArmyGroup> AvailableArmy;
+    public List<Building> Buildings = new();
+    public List<ArmyGroupData> AvailableArmy = new();
 
     public void Initialize()
     {
@@ -19,14 +19,30 @@ public class Castle : BaseScriptableObject
             b.Initialize();
     }
 
-    public void OnArmyAdded(ArmyElement armyEl)
+    public void AddArmy(ArmyGroup armyGroup)
     {
-        AvailableArmy.Add(armyEl.ArmyGroup);
+        ArmyGroupData agd = armyGroup.SerializeSelf();
+
+        //  check if there is already this entity and add count if there is
+        for (int i = 0; i < AvailableArmy.Count; i++)
+        {
+            if (AvailableArmy[i].EntityId == armyGroup.ArmyEntity.Id)
+            {
+                int prevCount = AvailableArmy[i].EntityCount;
+                AvailableArmy.Remove(AvailableArmy[i]);
+                agd.EntityCount += prevCount;
+                AvailableArmy.Insert(i, agd);
+                return;
+            }
+        }
+        AvailableArmy.Add(agd);
+        GameManager.Instance.SaveJsonData();
     }
 
-    public void OnArmyRemoved(ArmyElement armyEl)
+    public void RemoveArmy(ArmyGroup armyGroup)
     {
-        AvailableArmy.Remove(armyEl.ArmyGroup);
+        // TODO: 
+        // AvailableArmy.Remove(armyEl.ArmyGroup);
     }
 
     public void Reset()
@@ -42,22 +58,13 @@ public class Castle : BaseScriptableObject
     {
         CastleData data = new();
         data.Id = Id;
-        data.AvailableArmy = new();
-        foreach (ArmyGroup ag in AvailableArmy)
-            data.AvailableArmy.Add(ag.SerializeSelf());
-
+        data.AvailableArmyDatas = new(AvailableArmy);
         return data;
     }
 
     public void LoadFromData(CastleData data)
     {
-        AvailableArmy = new();
-        foreach (ArmyGroupData d in data.AvailableArmy)
-        {
-            ArmyGroup ag = CreateInstance<ArmyGroup>();
-            ag.LoadFromData(d);
-            AvailableArmy.Add(ag);
-        }
+        AvailableArmy = new(data.AvailableArmyDatas);
     }
 }
 
@@ -65,7 +72,7 @@ public class Castle : BaseScriptableObject
 public struct CastleData
 {
     public string Id;
-    public List<ArmyGroupData> AvailableArmy;
+    public List<ArmyGroupData> AvailableArmyDatas;
 }
 
 

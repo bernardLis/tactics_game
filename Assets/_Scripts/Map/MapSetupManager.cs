@@ -101,7 +101,6 @@ public class MapSetupManager : MonoBehaviour
 
     void PlaceCastles()
     {
-        Debug.Log($"_currentMap.Castles.Count  {_currentMap.Castles.Count}");
         foreach (Castle c in _currentMap.Castles)
         {
             GameObject instance = Instantiate(_castlePrefab, c.MapPosition, Quaternion.identity);

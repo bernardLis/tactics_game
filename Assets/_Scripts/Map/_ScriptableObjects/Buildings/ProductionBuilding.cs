@@ -49,7 +49,7 @@ public class ProductionBuilding : Building
 
         ArmyGroup ag = ScriptableObject.CreateInstance<ArmyGroup>();
         ag.ArmyEntity = ArmyEntity;
-        ag.Count = count;
+        ag.EntityCount = count;
 
         OnArmyBought?.Invoke(ag);
     }
@@ -58,7 +58,7 @@ public class ProductionBuilding : Building
     {
         ArmyGroup ag = ScriptableObject.CreateInstance<ArmyGroup>();
         ag.ArmyEntity = ArmyEntity;
-        ag.Count = AvailableToBuyCount;
+        ag.EntityCount = AvailableToBuyCount;
         return ag;
     }
 

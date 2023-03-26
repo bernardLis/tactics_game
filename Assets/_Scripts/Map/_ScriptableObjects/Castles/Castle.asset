@@ -19,4 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8279aa7dbdf6b94081c2a963dd82fa1, type: 2}
   - {fileID: 11400000, guid: 43e114a887e661744bc954382c5d24a6, type: 2}
   - {fileID: 11400000, guid: db50b2b13f8303c448fbc4e796dd7af2, type: 2}
-  AvailableArmy: []
+  AvailableArmy:
+  - EntityId: 123dd3-f94b-4090-b1df-2cbd81abd683
+    EntityCount: 5

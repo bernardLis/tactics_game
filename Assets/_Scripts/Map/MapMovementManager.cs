@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using Pathfinding;
 using Shapes;
 using DG.Tweening;
@@ -33,6 +34,7 @@ public class MapMovementManager : MonoBehaviour
     Vector3 _reachableDestination;
 
     bool _interactionResolved;
+    bool _isMouseOverUI;
 
     void Start()
     {
@@ -93,9 +95,19 @@ public class MapMovementManager : MonoBehaviour
         UnselectHero();
     }
 
+    bool IsPointerOverUI(Vector2 screenPos)
+    {
+        Vector2 pointerUiPos = new Vector2 { x = screenPos.x, y = Screen.height - screenPos.y };
+        List<VisualElement> picked = new List<VisualElement>();
+        DashboardManager.Instance.Root.panel.PickAll(pointerUiPos, picked);
+        return picked.Count != 0;
+    }
+
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
         if (this == null) return;
+
+        if (IsPointerOverUI(Mouse.current.position.ReadValue())) return;
 
         ResetDestinationCollider();
 
@@ -242,7 +254,6 @@ public class MapMovementManager : MonoBehaviour
         _cameraSmoothFollow.SetTarget(_selectedHero.transform);
         while (!_ai.reachedEndOfPath)
         {
-            if (_ai == null) yield break;
             if (_selectedHero == null) yield break;
 
             if (Vector3.Distance(_selectedHero.transform.position, _middleOfDestinationTile) < 0.8f

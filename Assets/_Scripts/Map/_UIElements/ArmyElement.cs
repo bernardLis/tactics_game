@@ -28,7 +28,7 @@ public class ArmyElement : ElementWithTooltip
         style.width = 70;
         style.height = 70;
 
-        _armyCountLabel = new($"{armyGroup.Count}");
+        _armyCountLabel = new($"{armyGroup.EntityCount}");
         _armyCountLabel.style.color = Color.white;
         _armyCountLabel.style.fontSize = 36;
         _armyCountLabel.style.position = Position.Absolute;
