@@ -12,7 +12,8 @@ public class ProductionBuilding : Building
     public int PerWeekProductionCount;
     public int AvailableToBuyCount;
 
-    public event Action<int> OnProduced;
+    public event Action<int> OnAvailableToBuyCountChanged;
+    public event Action<ArmyGroup> OnArmyBought;
 
     public override void Build()
     {
@@ -38,7 +39,19 @@ public class ProductionBuilding : Building
         if (!IsBuilt) return;
         base.Produce(count);
         AvailableToBuyCount += count;
-        OnProduced?.Invoke(AvailableToBuyCount);
+        OnAvailableToBuyCountChanged?.Invoke(AvailableToBuyCount);
+    }
+
+    public void Sell(int count)
+    {
+        AvailableToBuyCount -= count;
+        OnAvailableToBuyCountChanged?.Invoke(AvailableToBuyCount);
+
+        ArmyGroup ag = ScriptableObject.CreateInstance<ArmyGroup>();
+        ag.ArmyEntity = ArmyEntity;
+        ag.Count = count;
+
+        OnArmyBought?.Invoke(ag);
     }
 
     public ArmyGroup GetAvailableArmyGroup()

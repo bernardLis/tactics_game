@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,14 @@ public class ArmyGroup : BaseScriptableObject
 {
     public ArmyEntity ArmyEntity;
     public int Count;
+
+    public event Action<int> OnCountChanged;
+    
+    public void ChangeCount(int change)
+    {
+        Count += change;
+        OnCountChanged?.Invoke(Count);
+    }
 
     public ArmyGroupData SerializeSelf()
     {

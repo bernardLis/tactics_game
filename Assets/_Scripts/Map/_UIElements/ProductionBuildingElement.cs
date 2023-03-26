@@ -8,7 +8,7 @@ public class ProductionBuildingElement : BuildingElement
     const string _ussClassName = "production-building__";
     const string _ussMain = _ussClassName + "main";
 
-    ArmySlotElement _armySlotElement;
+    public ArmyBuyableElement ArmyBuyableElement { get; private set; }
 
     ProductionBuilding _productionBuilding;
 
@@ -19,18 +19,10 @@ public class ProductionBuildingElement : BuildingElement
             styleSheets.Add(ss);
 
         _productionBuilding = building;
-        _productionBuilding.OnProduced += OnProduced;
 
-        _armySlotElement = new();
-        Add(_armySlotElement);
+        ArmyBuyableElement = new ArmyBuyableElement(building);
 
-        if (_productionBuilding.AvailableToBuyCount > 0)
-            _armySlotElement.AddArmy(new(_productionBuilding.GetAvailableArmyGroup()));
+        Add(ArmyBuyableElement);
     }
 
-    void OnProduced(int count)
-    {
-        _armySlotElement.RemoveArmy();
-        _armySlotElement.AddArmy(new(_productionBuilding.GetAvailableArmyGroup()));
-    }
 }

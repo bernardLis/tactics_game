@@ -19,6 +19,16 @@ public class Castle : BaseScriptableObject
             b.Initialize();
     }
 
+    public void OnArmyAdded(ArmyElement armyEl)
+    {
+        AvailableArmy.Add(armyEl.ArmyGroup);
+    }
+
+    public void OnArmyRemoved(ArmyElement armyEl)
+    {
+        AvailableArmy.Remove(armyEl.ArmyGroup);
+    }
+
     public void Reset()
     {
         foreach (Building b in Buildings)

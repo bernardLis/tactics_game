@@ -66,7 +66,9 @@ public class CastleElement : FullScreenElement
         {
             if (b.GetType() == typeof(ProductionBuilding))
             {
-                ProductionBuildingElement el = new((ProductionBuilding)b);
+                ProductionBuilding pb = (ProductionBuilding)b;
+                ProductionBuildingElement el = new(pb);
+                pb.OnArmyBought += OnArmyBought;
                 _topContainer.Add(el);
                 continue;
             }
@@ -76,16 +78,56 @@ public class CastleElement : FullScreenElement
         }
     }
 
+    void OnArmyBought(ArmyGroup armyGroup)
+    {
+        AddArmy(armyGroup);
+    }
+
+    void AddArmy(ArmyGroup armyGroup)
+    {
+        // stack
+        foreach (ArmySlotElement el in _castleArmySlots)
+        {
+            if (el.ArmyElement == null) continue;
+
+            if (el.ArmyElement.ArmyGroup.ArmyEntity == armyGroup.ArmyEntity)
+            {
+                el.ArmyElement.ArmyGroup.ChangeCount(armyGroup.Count);
+                return;
+            }
+        }
+
+        // there is a free slot
+        foreach (ArmySlotElement el in _castleArmySlots)
+        {
+            if (el.ArmyElement == null)
+            {
+                el.AddArmy(new(armyGroup));
+                return;
+            }
+        }
+
+        ArmySlotElement armySlotElement = AddArmySlot();
+        armySlotElement.AddArmy(new(armyGroup));
+    }
+
     void AddCastleArmySlots()
     {
         _castleArmySlots = new();
         for (int i = 0; i < Castle.MaxCastleArmySlots; i++)
-        {
-            ArmySlotElement el = new();
-            _castleArmySlots.Add(el);
-            _middleContainer.Add(el);
-        }
+            AddArmySlot();
+    }
 
+    ArmySlotElement AddArmySlot()
+    {
+        ArmySlotElement el = new();
+        el.OnArmyAdded += _castle.OnArmyAdded;
+        el.OnArmyRemoved += _castle.OnArmyRemoved;
+
+        _castleArmySlots.Add(el);
+        _middleContainer.Add(el);
+
+        return el;
     }
 
     void AddVisitingHero()

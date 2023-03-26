@@ -1,0 +1,9 @@
+.army-buyable__main {
+    /*background-image: url('project://database/Assets/Art/Sprites/Dashboard/Paper/old_paper_by_darkwood67.jpg?fileID=2800000&guid=fd2829fbb18039045bec996992fb3c17&type=3#old_paper_by_darkwood67');*/
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    height: auto;
+}

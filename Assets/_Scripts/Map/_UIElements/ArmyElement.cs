@@ -22,6 +22,7 @@ public class ArmyElement : ElementWithTooltip
             styleSheets.Add(ss);
 
         ArmyGroup = armyGroup;
+        armyGroup.OnCountChanged += OnCountChanged;
 
         style.backgroundImage = new StyleBackground(armyGroup.ArmyEntity.Icon);
         style.width = 70;
@@ -32,6 +33,11 @@ public class ArmyElement : ElementWithTooltip
         _armyCountLabel.style.fontSize = 36;
         _armyCountLabel.style.position = Position.Absolute;
         Add(_armyCountLabel);
+    }
+
+    void OnCountChanged(int total)
+    {
+        _armyCountLabel.text = $"{total}";
     }
 
 

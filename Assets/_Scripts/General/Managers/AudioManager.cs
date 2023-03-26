@@ -152,7 +152,6 @@ public class AudioManager : Singleton<AudioManager>
 
     public AudioSource PlaySFX(string soundName, Vector3 pos)
     {
-        Debug.Log($"_sfxAudioSources.Count {_sfxAudioSources.Count}");
         AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
         if (a == null)
             return null;
