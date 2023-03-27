@@ -28,7 +28,7 @@ public class ArmySlotElement : ElementWithSound
         AddToClassList(_ussMain);
 
         IsLocked = isLocked;
-        
+
         if (armyElement == null)
             return;
 
@@ -38,8 +38,7 @@ public class ArmySlotElement : ElementWithSound
 
     public void AddArmy(ArmyElement armyElement)
     {
-        if (armyElement.ArmyGroup.EntityCount == 0)
-            return;
+        if (armyElement.ArmyGroup.EntityCount == 0) return;
 
         AddArmyNoDelegates(armyElement);
         PlayClick();
@@ -48,9 +47,17 @@ public class ArmySlotElement : ElementWithSound
 
     public void AddArmyNoDelegates(ArmyElement armyElement)
     {
+        // merge if there is already the same army entity
+        if (ArmyElement != null && ArmyElement.ArmyGroup.ArmyEntity == armyElement.ArmyGroup.ArmyEntity)
+        {
+            ArmyElement.ArmyGroup.ChangeCount(armyElement.ArmyGroup.EntityCount);
+            return;
+        }
+
         ArmyElement = armyElement;
         armyElement.style.position = Position.Relative;
         Add(armyElement);
+
     }
 
     public void RemoveArmy()

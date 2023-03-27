@@ -28,8 +28,6 @@ public class DraggableArmies : MonoBehaviour
     VisualElement _dragDropContainer;
     ArmyElement _draggedArmy;
 
-    Castle _currentCastle;
-
     List<ArmySlotElement> _armySlots = new();
     List<ArmyElement> _armyElements = new();
     void Start()
@@ -83,7 +81,6 @@ public class DraggableArmies : MonoBehaviour
 
     void ShiftDown(InputAction.CallbackContext ctx) { _isShiftDown = true; }
     void ShiftUp(InputAction.CallbackContext ctx) { _isShiftDown = false; }
-
 
     public void Initialize()
     {
@@ -215,7 +212,8 @@ public class DraggableArmies : MonoBehaviour
         _newSlot = slots.OrderBy(x => Vector2.Distance
            (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
 
-        if (_newSlot.ArmyElement != null)
+        if (_newSlot.ArmyElement != null &&
+            _newSlot.ArmyElement.ArmyGroup.ArmyEntity != _draggedArmy.ArmyGroup.ArmyEntity)
         {
             _originalSlot.AddArmy(_newSlot.ArmyElement);
             _newSlot.RemoveArmy();
