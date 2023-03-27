@@ -152,7 +152,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public AudioSource PlaySFX(string soundName, Vector3 pos)
     {
-        // first or default was throwing an error.
+        // first or default was throwing an error. 
         AudioSource freeAudioSource = _sfxAudioSources[0];
         foreach (AudioSource a in _sfxAudioSources)
         {
@@ -163,6 +163,7 @@ public class AudioManager : Singleton<AudioManager>
                 break;
             }
         }
+        if (freeAudioSource == null) return null; // solved an error happening sometimes
 
         freeAudioSource.loop = false;
         freeAudioSource.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0

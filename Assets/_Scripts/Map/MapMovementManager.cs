@@ -281,7 +281,6 @@ public class MapMovementManager : MonoBehaviour
         _lineRendererReachable.SetPositions(pathLeft.vectorPath.ToArray());
     }
 
-
     void ResolveInteraction()
     {
         _interactionResolved = true;
@@ -308,6 +307,7 @@ public class MapMovementManager : MonoBehaviour
                 VisitCastle(castle);
         }
     }
+
     void MeetHero(MapHero hero)
     {
         _ai.canMove = false;
@@ -322,7 +322,6 @@ public class MapMovementManager : MonoBehaviour
 
         ResetDestinationCollider();
     }
-
 
     void OnTargetReached()
     {
