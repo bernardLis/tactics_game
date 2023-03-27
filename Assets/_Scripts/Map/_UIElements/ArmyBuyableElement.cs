@@ -52,11 +52,11 @@ public class ArmyBuyableElement : VisualElement
     void AddArmySlot()
     {
         // slot + army (slot is locked) - TODO: not draggable
-        _armySlotElement = new();
+        _armySlotElement = new(null, true);
         Add(_armySlotElement);
 
         if (_building.AvailableToBuyCount > 0)
-            _armySlotElement.AddArmy(new(_building.GetAvailableArmyGroup()));
+            _armySlotElement.AddArmy(new(_building.GetAvailableArmyGroup(), true));
     }
 
     void AddSlider()
@@ -94,7 +94,7 @@ public class ArmyBuyableElement : VisualElement
         if (count < 0)
             return;
 
-        _armySlotElement.AddArmy(new(_building.GetAvailableArmyGroup()));
+        _armySlotElement.AddArmy(new(_building.GetAvailableArmyGroup(), true));
         _slider.highValue = _building.AvailableToBuyCount;
         _slider.SetEnabled(true);
         _buyButton.SetEnabled(true);

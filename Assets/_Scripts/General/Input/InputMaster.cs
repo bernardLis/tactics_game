@@ -125,6 +125,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shift"",
+                    ""type"": ""Button"",
+                    ""id"": ""ead3ea3c-67b0-4a7e-9cd1-051608458fd7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -273,11 +282,11 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9598014a-7b24-4c50-94c3-2cdbeccfef8a"",
+                    ""id"": ""149206bb-9bed-42db-8157-c898d5b1b944"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
+                    ""groups"": """",
                     ""action"": ""LeftMouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -290,6 +299,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""RightMouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb7c720c-b0f1-44ce-83f3-54fc585e7693"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Shift"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -328,6 +348,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Dashboard_Pause = m_Dashboard.FindAction("Pause", throwIfNotFound: true);
         m_Dashboard_LeftMouseClick = m_Dashboard.FindAction("LeftMouseClick", throwIfNotFound: true);
         m_Dashboard_RightMouseClick = m_Dashboard.FindAction("RightMouseClick", throwIfNotFound: true);
+        m_Dashboard_Shift = m_Dashboard.FindAction("Shift", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -398,6 +419,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Dashboard_Pause;
     private readonly InputAction m_Dashboard_LeftMouseClick;
     private readonly InputAction m_Dashboard_RightMouseClick;
+    private readonly InputAction m_Dashboard_Shift;
     public struct DashboardActions
     {
         private @InputMaster m_Wrapper;
@@ -413,6 +435,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Dashboard_Pause;
         public InputAction @LeftMouseClick => m_Wrapper.m_Dashboard_LeftMouseClick;
         public InputAction @RightMouseClick => m_Wrapper.m_Dashboard_RightMouseClick;
+        public InputAction @Shift => m_Wrapper.m_Dashboard_Shift;
         public InputActionMap Get() { return m_Wrapper.m_Dashboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -455,6 +478,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @RightMouseClick.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
                 @RightMouseClick.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
                 @RightMouseClick.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
+                @Shift.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnShift;
+                @Shift.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnShift;
+                @Shift.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnShift;
             }
             m_Wrapper.m_DashboardActionsCallbackInterface = instance;
             if (instance != null)
@@ -492,6 +518,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @RightMouseClick.started += instance.OnRightMouseClick;
                 @RightMouseClick.performed += instance.OnRightMouseClick;
                 @RightMouseClick.canceled += instance.OnRightMouseClick;
+                @Shift.started += instance.OnShift;
+                @Shift.performed += instance.OnShift;
+                @Shift.canceled += instance.OnShift;
             }
         }
     }
@@ -518,5 +547,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnLeftMouseClick(InputAction.CallbackContext context);
         void OnRightMouseClick(InputAction.CallbackContext context);
+        void OnShift(InputAction.CallbackContext context);
     }
 }

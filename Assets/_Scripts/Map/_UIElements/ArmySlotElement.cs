@@ -13,9 +13,11 @@ public class ArmySlotElement : ElementWithSound
 
     public ArmyElement ArmyElement;
 
+    public bool IsLocked { get; private set; }
+
     public event Action<ArmyElement> OnArmyAdded;
     public event Action<ArmyElement> OnArmyRemoved;
-    public ArmySlotElement(ArmyElement armyElement = null) : base()
+    public ArmySlotElement(ArmyElement armyElement = null, bool isLocked = false) : base()
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ArmySlotElementStyles);
@@ -25,6 +27,8 @@ public class ArmySlotElement : ElementWithSound
         RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
         AddToClassList(_ussMain);
 
+        IsLocked = isLocked;
+        
         if (armyElement == null)
             return;
 

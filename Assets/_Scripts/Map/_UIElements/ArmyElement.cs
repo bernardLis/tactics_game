@@ -13,9 +13,11 @@ public class ArmyElement : ElementWithTooltip
 
     Label _armyCountLabel;
 
+    public bool IsLocked { get; private set; }
+
     public ArmyGroup ArmyGroup;
 
-    public ArmyElement(ArmyGroup armyGroup)
+    public ArmyElement(ArmyGroup armyGroup, bool isLocked = false)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ArmyElementStyles);
@@ -25,6 +27,7 @@ public class ArmyElement : ElementWithTooltip
         ArmyGroup = armyGroup;
         armyGroup.OnCountChanged += OnCountChanged;
 
+        IsLocked = isLocked;
 
         AddToClassList(_ussMain);
         style.backgroundImage = new StyleBackground(armyGroup.ArmyEntity.Icon);

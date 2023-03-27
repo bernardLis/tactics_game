@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class DraggableArmies : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class DraggableArmies : MonoBehaviour
 
     GameManager _gameManager;
     DashboardManager _dashboardManager;
+    PlayerInput _playerInput;
+
+    bool _isShiftDown;
 
     VisualElement _root;
 
@@ -23,6 +27,8 @@ public class DraggableArmies : MonoBehaviour
     ArmySlotElement _newSlot;
     VisualElement _dragDropContainer;
     ArmyElement _draggedArmy;
+
+    Castle _currentCastle;
 
     List<ArmySlotElement> _armySlots = new();
     List<ArmyElement> _armyElements = new();
@@ -37,28 +43,81 @@ public class DraggableArmies : MonoBehaviour
         _root.Add(_dragDropContainer);
     }
 
+    /* INPUT */
+    void OnEnable()
+    {
+        if (_gameManager == null)
+            _gameManager = GameManager.Instance;
+
+        _playerInput = _gameManager.GetComponent<PlayerInput>();
+        UnsubscribeInputActions();
+        SubscribeInputActions();
+    }
+
+    void OnDisable()
+    {
+        if (_playerInput == null) return;
+
+        UnsubscribeInputActions();
+    }
+
+    void OnDestroy()
+    {
+        if (_playerInput == null) return;
+
+        UnsubscribeInputActions();
+    }
+
+    void SubscribeInputActions()
+    {
+        _playerInput.actions["Shift"].performed += ShiftDown;
+        _playerInput.actions["Shift"].canceled += ShiftUp;
+
+    }
+
+    void UnsubscribeInputActions()
+    {
+        _playerInput.actions["Shift"].performed -= ShiftDown;
+        _playerInput.actions["Shift"].canceled -= ShiftUp;
+    }
+
+    void ShiftDown(InputAction.CallbackContext ctx) { _isShiftDown = true; }
+    void ShiftUp(InputAction.CallbackContext ctx) { _isShiftDown = false; }
+
+
     public void Initialize()
     {
-        Debug.Log($"initialize");
         _armySlots = new();
         _armyElements = new();
 
         List<VisualElement> slots = _root.Query(className: _ussArmySlotElement).ToList();
-        Debug.Log($"slots.Count {slots.Count}");
         foreach (VisualElement item in slots)
-            _armySlots.Add((ArmySlotElement)item);
+        {
+            ArmySlotElement el = (ArmySlotElement)item;
+            if (el.IsLocked) continue;
+            if (_armySlots.Contains(el)) continue;
+            el.OnArmyAdded += AddDraggableArmyElement;
+            _armySlots.Add(el);
+        }
 
         List<VisualElement> els = _root.Query(className: _ussArmyElement).ToList();
-        Debug.Log($"els.Count {els.Count}");
-
         foreach (VisualElement item in els)
         {
-            item.RegisterCallback<PointerDownEvent>(OnArmyPointerDown);
-            _armyElements.Add((ArmyElement)item);
+            ArmyElement el = (ArmyElement)item;
+            if (el.IsLocked) continue;
+            AddDraggableArmyElement(el);
         }
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
+    }
+
+    void AddDraggableArmyElement(ArmyElement el)
+    {
+        if (_armyElements.Contains(el)) return;
+
+        el.RegisterCallback<PointerDownEvent>(OnArmyPointerDown);
+        _armyElements.Add(el);
     }
 
     public void Reset()
@@ -72,7 +131,6 @@ public class DraggableArmies : MonoBehaviour
 
     void OnArmyPointerDown(PointerDownEvent evt)
     {
-        Debug.Log($"click click");
         if (evt.button != 0)
             return;
 
@@ -84,6 +142,8 @@ public class DraggableArmies : MonoBehaviour
             armySlotElement = (ArmySlotElement)armyElement.parent;
             armySlotElement.RemoveArmy();
         }
+        // TODO: if shift down, split 
+        Debug.Log($"click click shift down: {_isShiftDown}");
 
         StartArmyDrag(evt.position, armySlotElement, armyElement);
     }

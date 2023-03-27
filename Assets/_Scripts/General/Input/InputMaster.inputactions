@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Shift",
+                    "type": "Button",
+                    "id": "ead3ea3c-67b0-4a7e-9cd1-051608458fd7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -251,11 +260,11 @@
                 },
                 {
                     "name": "",
-                    "id": "9598014a-7b24-4c50-94c3-2cdbeccfef8a",
+                    "id": "149206bb-9bed-42db-8157-c898d5b1b944",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard & Mouse",
+                    "groups": "",
                     "action": "LeftMouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -268,6 +277,17 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "RightMouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb7c720c-b0f1-44ce-83f3-54fc585e7693",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Shift",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

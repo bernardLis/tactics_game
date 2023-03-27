@@ -5,11 +5,17 @@ using UnityEngine;
 public class MapCastle : MonoBehaviour, ITooltipDisplayable
 {
     GameManager _gameManager;
+    DashboardManager _dashboardManager;
+    DraggableArmies _draggableArmies;
+
     Castle _castle;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _dashboardManager = DashboardManager.Instance;
+        _draggableArmies = _dashboardManager.GetComponent<DraggableArmies>();
+
     }
 
     public void Initialize(Castle castle)
@@ -25,13 +31,9 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
 
         _gameManager.ToggleTimer(false);
 
-        // TODO: here cache;
-        CastleElement el = new(DashboardManager.Instance.Root, _castle, h);
-        DraggableArmies a = DashboardManager.Instance.GetComponent<DraggableArmies>();
-        Debug.Log($"a {a}");
-        el.OnSetUpFinished += a.Initialize;
-        el.OnHide += a.Reset;
-        a.Initialize();
+        CastleElement el = new(_dashboardManager.Root, _castle, h);
+        el.OnHide += _draggableArmies.Reset;
+        _draggableArmies.Initialize();
     }
 
     public string GetTooltipText() { return _castle.name; }

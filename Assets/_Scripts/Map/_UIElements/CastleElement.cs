@@ -24,7 +24,6 @@ public class CastleElement : FullScreenElement
 
     List<ArmySlotElement> _castleArmySlots = new();
 
-    public event Action OnSetUpFinished;
     public CastleElement(VisualElement root, Castle castle, MapHero hero)
     {
         _gameManager = GameManager.Instance;
@@ -60,8 +59,6 @@ public class CastleElement : FullScreenElement
         AddVisitingHero();
 
         AddBackButton();
-        Debug.Log($"finished should call");
-        OnSetUpFinished?.Invoke();
     }
 
     void AddBuildings()
