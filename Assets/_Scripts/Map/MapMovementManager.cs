@@ -258,7 +258,10 @@ public class MapMovementManager : MonoBehaviour
 
             if (Vector3.Distance(_selectedHero.transform.position, _middleOfDestinationTile) < 0.8f
                 && !_interactionResolved)
+            {
                 ResolveInteraction();
+                break;
+            }
 
             yield return UpdatePathIndicator();
             yield return new WaitForSeconds(0.05f);
