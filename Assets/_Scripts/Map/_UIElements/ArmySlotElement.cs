@@ -34,6 +34,9 @@ public class ArmySlotElement : ElementWithSound
 
     public void AddArmy(ArmyElement armyElement)
     {
+        if (armyElement.ArmyGroup.EntityCount == 0)
+            return;
+
         AddArmyNoDelegates(armyElement);
         PlayClick();
         OnArmyAdded?.Invoke(armyElement);

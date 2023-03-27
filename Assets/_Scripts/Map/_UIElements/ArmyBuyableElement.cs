@@ -9,8 +9,9 @@ public class ArmyBuyableElement : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "army-buyable";
-    const string _ussMain = _ussClassName + "__main";
+    const string _ussClassName = "army-buyable__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussBuyButton = _ussClassName + "buy-button";
 
     GameManager _gameManager;
 
@@ -32,22 +33,44 @@ public class ArmyBuyableElement : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
+        AddToClassList(_ussMain);
+
         _building = building;
         _building.OnAvailableToBuyCountChanged += OnAvailableCountChanged;
 
+        AddArmySlot();
+        AddSlider();
+        AddBuyButton();
 
+        if (_building.AvailableToBuyCount == 0)
+        {
+            _slider.SetEnabled(false);
+            _buyButton.SetEnabled(false);
+        }
+    }
+
+    void AddArmySlot()
+    {
         // slot + army (slot is locked) - TODO: not draggable
         _armySlotElement = new();
         Add(_armySlotElement);
 
         if (_building.AvailableToBuyCount > 0)
             _armySlotElement.AddArmy(new(_building.GetAvailableArmyGroup()));
+    }
 
+    void AddSlider()
+    {
         _slider = new(0, _building.AvailableToBuyCount);
+        _slider.label = "0";
+        _slider.style.flexGrow = 1;
+        _slider.Q<Label>().style.minWidth = 10;
         Add(_slider);
 
         _slider.RegisterValueChangedCallback(x =>
         {
+            _slider.label = $"{x.newValue}";
+
             int cost = x.newValue * _building.PricePerEntity;
             _armyCost.ChangeAmount(cost);
 
@@ -56,8 +79,12 @@ public class ArmyBuyableElement : VisualElement
                 _buyButton.SetEnabled(false);
         });
 
-        // buy button
-        _buyButton = new("", _ussCommonMenuButton, BuyArmy);
+
+    }
+
+    void AddBuyButton()
+    {
+        _buyButton = new("", _ussBuyButton, BuyArmy);
         _armyCost = new(0);
         _buyButton.Add(_armyCost);
         Add(_buyButton);
@@ -66,10 +93,13 @@ public class ArmyBuyableElement : VisualElement
     void OnAvailableCountChanged(int count)
     {
         _armySlotElement.RemoveArmy();
-        if (count > 0)
-            _armySlotElement.AddArmy(new(_building.GetAvailableArmyGroup()));
+        if (count < 0)
+            return;
 
+        _armySlotElement.AddArmy(new(_building.GetAvailableArmyGroup()));
         _slider.highValue = _building.AvailableToBuyCount;
+        _slider.SetEnabled(true);
+        _buyButton.SetEnabled(true);
     }
 
     void BuyArmy()

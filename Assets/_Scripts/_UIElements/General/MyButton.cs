@@ -24,7 +24,7 @@ public class MyButton : Button
 
         _text = new Label(buttonText);
         Add(_text);
-        if (buttonText == null)
+        if (buttonText == "")
             _text.style.display = DisplayStyle.None;
 
         if (className != null)

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: e5ab011f-a2b9-122a0-b490-bf24f1b82123
   ArmyEntity: {fileID: 11400000, guid: 60a1c4fcce5045946b4c157a6e324579, type: 2}
-  Count: 5
+  EntityCount: 5
