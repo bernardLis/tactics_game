@@ -78,8 +78,6 @@ public class ArmyBuyableElement : VisualElement
             if (cost > _gameManager.Gold)
                 _buyButton.SetEnabled(false);
         });
-
-
     }
 
     void AddBuyButton()

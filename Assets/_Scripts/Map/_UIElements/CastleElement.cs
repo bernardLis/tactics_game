@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +23,8 @@ public class CastleElement : FullScreenElement
     VisualElement _bottomContainer;
 
     List<ArmySlotElement> _castleArmySlots = new();
-    List<ArmySlotElement> _heroArmySlots = new();
 
+    public event Action OnSetUpFinished;
     public CastleElement(VisualElement root, Castle castle, MapHero hero)
     {
         _gameManager = GameManager.Instance;
@@ -59,6 +60,8 @@ public class CastleElement : FullScreenElement
         AddVisitingHero();
 
         AddBackButton();
+        Debug.Log($"finished should call");
+        OnSetUpFinished?.Invoke();
     }
 
     void AddBuildings()
@@ -90,6 +93,10 @@ public class CastleElement : FullScreenElement
     {
         ArmySlotElement el = new();
 
+
+        el.OnArmyAdded += (ArmyElement el) => _castle.AddArmy(el.ArmyGroup);
+        el.OnArmyAdded += (ArmyElement el) => _castle.RemoveArmy(el.ArmyGroup);
+
         _castleArmySlots.Add(el);
         _middleContainer.Add(el);
 
@@ -102,18 +109,23 @@ public class CastleElement : FullScreenElement
         {
             ArmyGroup a = ScriptableObject.CreateInstance<ArmyGroup>();
             a.LoadFromData(agd);
-            AddArmyNoCastleUpdate(a);
+
+            foreach (ArmySlotElement el in _castleArmySlots)
+            {
+                if (el.ArmyElement == null)
+                {
+                    el.AddArmyNoDelegates(new(a));
+                    return;
+                }
+            }
+
+            ArmySlotElement armySlotElement = AddArmySlot();
+            armySlotElement.AddArmyNoDelegates(new(a));
         }
     }
 
+
     void AddArmy(ArmyGroup armyGroup)
-    {
-        _castle.AddArmy(armyGroup);
-        AddArmyNoCastleUpdate(armyGroup);
-
-    }
-
-    void AddArmyNoCastleUpdate(ArmyGroup armyGroup)
     {
         // stack
         foreach (ArmySlotElement el in _castleArmySlots)

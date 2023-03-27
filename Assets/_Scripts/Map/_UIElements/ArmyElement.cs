@@ -5,8 +5,9 @@ using UnityEngine.UIElements;
 
 public class ArmyElement : ElementWithTooltip
 {
-    const string _ussClassName = "army";
-    const string _ussMain = _ussClassName + "__main";
+    const string _ussClassName = "army__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussCount = _ussClassName + "count";
 
     GameManager _gameManager;
 
@@ -24,22 +25,16 @@ public class ArmyElement : ElementWithTooltip
         ArmyGroup = armyGroup;
         armyGroup.OnCountChanged += OnCountChanged;
 
+
+        AddToClassList(_ussMain);
         style.backgroundImage = new StyleBackground(armyGroup.ArmyEntity.Icon);
-        style.width = 70;
-        style.height = 70;
 
         _armyCountLabel = new($"{armyGroup.EntityCount}");
-        _armyCountLabel.style.color = Color.white;
-        _armyCountLabel.style.fontSize = 36;
-        _armyCountLabel.style.position = Position.Absolute;
+        _armyCountLabel.AddToClassList(_ussCount);
         Add(_armyCountLabel);
     }
 
-    void OnCountChanged(int total)
-    {
-        _armyCountLabel.text = $"{total}";
-    }
-
+    void OnCountChanged(int total) { _armyCountLabel.text = $"{total}"; }
 
     protected override void DisplayTooltip()
     {

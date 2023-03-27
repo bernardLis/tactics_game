@@ -75,6 +75,16 @@ public class Character : BaseScriptableObject
         _gameManager.SaveJsonData();
     }
 
+    public void AddArmy(ArmyGroup armyGroup)
+    {
+        ArmyGroups.Add(armyGroup);
+    }
+    public void RemoveArmy(ArmyGroup armyGroup)
+    {
+        ArmyGroups.Remove(armyGroup);
+
+    }
+
     public void AddInjury(Injury injury)
     {
         if (InjuryDramaCheck())

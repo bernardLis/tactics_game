@@ -34,6 +34,8 @@ public class HeroCastleElement : VisualElement
         {
             ArmySlotElement el = new();
             _armySlotElements.Add(el);
+            el.OnArmyAdded += (ArmyElement el) => Character.AddArmy(el.ArmyGroup);
+            el.OnArmyAdded += (ArmyElement el) => Character.RemoveArmy(el.ArmyGroup);
             Add(el);
         }
 
@@ -42,4 +44,6 @@ public class HeroCastleElement : VisualElement
             _armySlotElements[i].AddArmyNoDelegates(new(Character.ArmyGroups[i]));
         }
     }
+
+
 }

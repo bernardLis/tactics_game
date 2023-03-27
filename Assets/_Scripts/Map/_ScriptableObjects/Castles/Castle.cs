@@ -41,8 +41,8 @@ public class Castle : BaseScriptableObject
 
     public void RemoveArmy(ArmyGroup armyGroup)
     {
-        // TODO: 
-        // AvailableArmy.Remove(armyEl.ArmyGroup);
+        ArmyGroupData agd = armyGroup.SerializeSelf();
+        AvailableArmy.Remove(agd);
     }
 
     public void Reset()

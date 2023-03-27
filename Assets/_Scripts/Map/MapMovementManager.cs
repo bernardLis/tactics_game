@@ -319,7 +319,7 @@ public class MapMovementManager : MonoBehaviour
     {
         _ai.canMove = false;
         castle.VisitCastle(_selectedHero);
-
+        
         ResetDestinationCollider();
     }
 

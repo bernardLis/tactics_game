@@ -24,7 +24,14 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
         Debug.Log($"{h.Character.CharacterName} is visiting {_castle.name}");
 
         _gameManager.ToggleTimer(false);
+
+        // TODO: here cache;
         CastleElement el = new(DashboardManager.Instance.Root, _castle, h);
+        DraggableArmies a = DashboardManager.Instance.GetComponent<DraggableArmies>();
+        Debug.Log($"a {a}");
+        el.OnSetUpFinished += a.Initialize;
+        el.OnHide += a.Reset;
+        a.Initialize();
     }
 
     public string GetTooltipText() { return _castle.name; }
