@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Map/Map")]
 public class Map : BaseScriptableObject
@@ -16,14 +17,47 @@ public class Map : BaseScriptableObject
     public void Reset()
     {
         Debug.Log($"resetting map");
-        foreach (Collectable c in Collectables)
-            c.IsCollected = false;
-        foreach (Battle b in Battles)
-            b.Won = false;
+        Collectables = new();
+        for (int i = 0; i < 10; i++)
+            CreateCollectable();
+
+        Battles = new();
+        for (int i = 0; i < 3; i++)
+            CreateBattle();
 
         Castle castle = (Castle)ScriptableObject.CreateInstance<Castle>();
         castle.Create(TemplateCastleId, CastlePosition);
         Castles.Add(castle);
+    }
+
+    public void CreateCollectable()
+    {
+        Vector2 pos = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
+        pos.x += 0.5f;
+        pos.y += 0.5f;
+        // 33% chance to create CollectableGold, 33% chance to create CollectableItem, 33% chance to create SpiceCollectable
+        int rand = Random.Range(0, 3);
+        Collectable collectable;
+        if (rand == 0)
+            collectable = ScriptableObject.CreateInstance<CollectableGold>();
+        else if (rand == 1)
+            collectable = ScriptableObject.CreateInstance<CollectableItem>();
+        else
+            collectable = ScriptableObject.CreateInstance<CollectableSpice>();
+
+        collectable.Create(pos);
+        Collectables.Add(collectable);
+    }
+
+    void CreateBattle()
+    {
+        Vector2 pos = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
+        pos.x += 0.5f;
+        pos.y += 0.5f;
+
+        Battle battle = (Battle)ScriptableObject.CreateInstance<Battle>();
+        battle.Create(pos);
+        Battles.Add(battle);
     }
 
     public MapData SerializeSelf()
@@ -45,15 +79,18 @@ public class Map : BaseScriptableObject
     public void LoadFromData(MapData data)
     {
         foreach (CollectableData d in data.CollectableDatas)
-            foreach (Collectable c in Collectables)
-                if (d.Id == c.Id)
-                    c.LoadFromData(d);
+        {
+            Collectable collectable = (Collectable)ScriptableObject.CreateInstance<Collectable>();
+            collectable.LoadFromData(d);
+            Collectables.Add(collectable);
+        }
 
         foreach (BattleData d in data.BattleDatas)
-            foreach (Battle b in Battles)
-                if (d.Id == b.Id)
-                    b.LoadFromData(d);
-
+        {
+            Battle battle = (Battle)ScriptableObject.CreateInstance<Battle>();
+            battle.LoadFromData(d);
+            Battles.Add(battle);
+        }
 
         foreach (CastleData d in data.CastleDatas)
         {
@@ -61,11 +98,6 @@ public class Map : BaseScriptableObject
             castle.LoadFromData(d);
             Castles.Add(castle);
         }
-
-        // foreach (CastleData d in data.CastleDatas)
-        //     foreach (Castle c in Castles)
-        //        if (d.Id == c.Id)
-        //            c.LoadFromData(d);
     }
 }
 

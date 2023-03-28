@@ -18,8 +18,6 @@ public class MapCollectable : MonoBehaviour, ITooltipDisplayable, IPointerEnterH
         _gfx.sprite = collectable.Sprite;
 
         _tooltipText = $"{Helpers.ParseScriptableObjectCloneName(_collectable.name)}";
-        if (collectable.Amount > 0)
-            _tooltipText = $"{collectable.Amount} x {Helpers.ParseScriptableObjectCloneName(_collectable.name)}";
     }
 
     public void OnPointerEnter(PointerEventData evt) { }

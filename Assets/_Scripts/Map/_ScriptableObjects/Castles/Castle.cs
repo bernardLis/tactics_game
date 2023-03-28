@@ -63,31 +63,36 @@ public class Castle : BaseScriptableObject
         data.Id = Id;
         data.TemplateCastleId = TemplateCastleId;
         data.MapPosition = MapPosition;
+
         data.BuildingDatas = new();
         foreach (Building b in Buildings)
         {
             BuildingData bd = b.SerializeSelf();
             data.BuildingDatas.Add(bd);
         }
+
         data.AvailableArmyDatas = new();
         foreach (ArmyGroup g in AvailableArmy)
         {
             ArmyGroupData gd = g.SerializeSelf();
             data.AvailableArmyDatas.Add(gd);
         }
+        
         return data;
     }
 
     public void LoadFromData(CastleData data)
     {
         _gameManager = GameManager.Instance;
-        TemplateCastleId = data.TemplateCastleId;
 
         Castle templateCastle = _gameManager.GameDatabase.GetCastleById(TemplateCastleId);
-        Debug.Log($"template castle {templateCastle}");
         Sprite = templateCastle.Sprite;
 
+        name = "Castle";
+
+        TemplateCastleId = data.TemplateCastleId;
         MapPosition = data.MapPosition;
+
         foreach (BuildingData d in data.BuildingDatas)
         {
             Building b = Instantiate(_gameManager.GameDatabase.GetBuildingById(d.Id));

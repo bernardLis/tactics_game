@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Collectable : BaseScriptableObject
 {
@@ -11,6 +12,13 @@ public class Collectable : BaseScriptableObject
     public bool IsCollected;
 
     public virtual void Initialize() { }
+
+    public virtual void Create(Vector2 pos)
+    {
+        MapPosition = pos;
+        Id = Guid.NewGuid().ToString();
+        IsCollected = false;
+    }
 
     public virtual void Collect(MapHero hero)
     {
@@ -33,6 +41,7 @@ public class Collectable : BaseScriptableObject
 
     public virtual void LoadFromData(CollectableData data)
     {
+        Id = data.Id;
         MapPosition = data.MapPosition;
         Amount = data.Amount;
         IsCollected = data.IsCollected;

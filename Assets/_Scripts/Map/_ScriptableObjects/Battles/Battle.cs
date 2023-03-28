@@ -13,6 +13,13 @@ public class Battle : BaseScriptableObject
 
     public bool Won;
 
+    public void Create(Vector2 pos)
+    {
+        Id = System.Guid.NewGuid().ToString();
+        MapPosition = pos;
+        RandomizeBattle();
+    }
+
     public void RandomizeBattle()
     {
         NumberOfMeleeEnemies = Random.Range(10, 20);
@@ -27,22 +34,18 @@ public class Battle : BaseScriptableObject
         data.NumberOfMeleeEnemies = NumberOfMeleeEnemies;
         data.NumberOfRangedEnemies = NumberOfRangedEnemies;
         data.Won = Won;
-        if (Character != null)
-            data.CharacterId = Character.Id;
 
         return data;
     }
 
     public void LoadFromData(BattleData data)
     {
+        Id = data.Id;
+        name = "Battle";
         MapPosition = data.MapPosition;
         NumberOfMeleeEnemies = data.NumberOfMeleeEnemies;
         NumberOfRangedEnemies = data.NumberOfRangedEnemies;
         Won = data.Won;
-
-        // TODO: loading character from ID
-        //   if (data.CharacterId != null)
-        //      data.CharacterId = Character.Id;
     }
 }
 
@@ -54,6 +57,4 @@ public struct BattleData
     public int NumberOfMeleeEnemies;
     public int NumberOfRangedEnemies;
     public bool Won;
-
-    public string CharacterId;
 }
