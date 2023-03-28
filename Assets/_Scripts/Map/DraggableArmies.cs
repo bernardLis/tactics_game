@@ -7,8 +7,7 @@ using UnityEngine.InputSystem;
 
 public class DraggableArmies : MonoBehaviour
 {
-    // HERE: change
-    const string _ussDragDropContainer = "dashboard__item-drag-drop-container";
+    const string _ussDragDropContainer = "dashboard__army-drag-drop-container";
 
     const string _ussArmySlotElement = "army-slot__main";
     const string _ussArmyElement = "army__main";
@@ -70,7 +69,6 @@ public class DraggableArmies : MonoBehaviour
     {
         _playerInput.actions["Shift"].performed += ShiftDown;
         _playerInput.actions["Shift"].canceled += ShiftUp;
-
     }
 
     void UnsubscribeInputActions()
@@ -139,6 +137,7 @@ public class DraggableArmies : MonoBehaviour
             armySlotElement = (ArmySlotElement)armyElement.parent;
             armySlotElement.RemoveArmy();
         }
+        
         // TODO: if shift down, split 
         Debug.Log($"click click shift down: {_isShiftDown}");
 

@@ -1,0 +1,11 @@
+
+.building-sprite__main {
+    background-image: url('project://database/Assets/Art/Sprites/Dashboard/Camp/monastery_outline.png?fileID=2800000&guid=ea99704b19bcb3449982b70ba3b0ba8f&type=3#monastery_outline');
+    width: 200px;
+    height: 200px;
+}
+
+.building-sprite__header {
+    -unity-text-align: middle-center;
+    font-size: 36px;
+}

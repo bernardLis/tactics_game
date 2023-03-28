@@ -56,7 +56,7 @@ public enum StyleSheetType
     CampBuildingStyles,
 
     CastleElementStyles,
-    BuildingElementStyles, ProductionBuildingElementStyles,
+    BuildingElementStyles, ProductionBuildingElementStyles, BuildingSpriteElementStyles,
     ArmyElementStyles, ArmySlotElementStyles, ArmyBuyableElementStyles,
     HeroCastleElementStyles,
 }

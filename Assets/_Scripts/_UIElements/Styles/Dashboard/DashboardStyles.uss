@@ -77,10 +77,17 @@
     height: 75px;
 }
 
+.dashboard__army-drag-drop-container {
+    visibility: hidden;
+    position: absolute;
+    width: 75px;
+    height: 75px;
+}
+
+
 .dashboard__ability-drag-drop-container {
     visibility: hidden;
     position: absolute;
     width: 120px;
     height: 120px;
 }
-

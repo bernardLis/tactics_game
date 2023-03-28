@@ -133,6 +133,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7253dc2f-382f-4cb5-9ce4-7c04073634e5
     m_ActionName: Dashboard/RightMouseClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ead3ea3c-67b0-4a7e-9cd1-051608458fd7
+    m_ActionName: Dashboard/Shift[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Dashboard
@@ -369,6 +373,10 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 33f0f69a2abd646488810cf929758d3e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 685d8f293aa04654c89a53b8b5fdfaa2
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

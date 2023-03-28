@@ -4,25 +4,22 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class BuildingElement : ElementWithTooltip
+public class BuildingElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "building__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussSprite = _ussClassName + "sprite";
     const string _ussBuildButton = _ussClassName + "build-button";
-    const string _ussHeader = _ussClassName + "header";
 
     protected GameManager _gameManager;
     protected Building _building;
 
-    VisualElement _sprite;
+    BuildingSpriteElement _sprite;
     VisualElement _buildButtonContainer;
     MyButton _buildButton;
     GoldElement _costGoldElement;
 
-    VisualElement _tooltipElement;
 
     public BuildingElement(Building building)
     {
@@ -40,16 +37,12 @@ public class BuildingElement : ElementWithTooltip
 
         AddToClassList(_ussMain);
 
-        _sprite = new();
-        _sprite.AddToClassList(_ussSprite);
+        _sprite = new(building);
         Add(_sprite);
-        UpdateBuildingSprite();
 
         _buildButtonContainer = new();
         Add(_buildButtonContainer);
         HandleBuildButton();
-
-        CreateTooltip();
 
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
@@ -67,11 +60,6 @@ public class BuildingElement : ElementWithTooltip
         _gameManager.OnGoldChanged -= OnGoldChanged;
     }
 
-    void UpdateBuildingSprite()
-    {
-        _sprite.style.backgroundImage = _building.IsBuilt ? new StyleBackground(_building.BuiltSprite)
-                : new StyleBackground(_building.OutlineSprite);
-    }
 
     void HandleBuildButton()
     {
@@ -109,21 +97,4 @@ public class BuildingElement : ElementWithTooltip
             .SetEase(Ease.InCirc);
     }
 
-    void CreateTooltip()
-    {
-        _tooltipElement = new();
-
-        Label header = new($"{_building.DisplayName}");
-        header.AddToClassList(_ussHeader);
-        _tooltipElement.Add(header);
-
-        Label description = new(_building.GetDescription());
-        _tooltipElement.Add(description);
-    }
-
-    protected override void DisplayTooltip()
-    {
-        _tooltip = new(this, _tooltipElement);
-        base.DisplayTooltip();
-    }
 }
