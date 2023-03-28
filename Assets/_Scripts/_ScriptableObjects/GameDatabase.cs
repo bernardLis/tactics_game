@@ -140,6 +140,15 @@ public class GameDatabase : BaseScriptableObject
     public ArmyEntity GetArmyEntityById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
     public List<ArmyGroup> BasicArmy = new();
 
+    public List<Building> Buildings = new();
+    public Building GetBuildingById(string id) { return Buildings.FirstOrDefault(x => x.Id == id); }
+
+    public List<Castle> Castles = new();
+    public Castle GetCastleById(string id) { return Castles.FirstOrDefault(x => x.Id == id); }
+
+    public List<Map> Maps = new();
+    public Map GetMapById(string id) { return Maps.FirstOrDefault(x => x.Id == id); }
+
 }
 
 public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }

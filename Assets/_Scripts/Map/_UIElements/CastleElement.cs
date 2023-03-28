@@ -83,16 +83,15 @@ public class CastleElement : FullScreenElement
     {
         _castleArmySlots = new();
         for (int i = 0; i < Castle.MaxCastleArmySlots; i++)
-            AddArmySlot();
+            AddArmySlot(i);
     }
 
-    ArmySlotElement AddArmySlot()
+    ArmySlotElement AddArmySlot(int i)
     {
-        ArmySlotElement el = new();
-
+        ArmySlotElement el = new(null, i);
 
         el.OnArmyAdded += (ArmyElement el) => _castle.AddArmy(el.ArmyGroup);
-        el.OnArmyAdded += (ArmyElement el) => _castle.RemoveArmy(el.ArmyGroup);
+        el.OnArmyRemoved += (ArmyElement el) => _castle.RemoveArmy(el.ArmyGroup);
 
         _castleArmySlots.Add(el);
         _middleContainer.Add(el);
@@ -102,25 +101,9 @@ public class CastleElement : FullScreenElement
 
     void AddCastleArmy()
     {
-        foreach (ArmyGroupData agd in _castle.AvailableArmy)
-        {
-            ArmyGroup a = ScriptableObject.CreateInstance<ArmyGroup>();
-            a.LoadFromData(agd);
-
-            foreach (ArmySlotElement el in _castleArmySlots)
-            {
-                if (el.ArmyElement == null)
-                {
-                    el.AddArmyNoDelegates(new(a));
-                    return;
-                }
-            }
-
-            ArmySlotElement armySlotElement = AddArmySlot();
-            armySlotElement.AddArmyNoDelegates(new(a));
-        }
+        foreach (ArmyGroup ag in _castle.AvailableArmy)
+            _castleArmySlots[ag.ListPosition].AddArmyNoDelegates(new(ag));
     }
-
 
     void AddArmy(ArmyGroup armyGroup)
     {
@@ -146,8 +129,7 @@ public class CastleElement : FullScreenElement
             }
         }
 
-        ArmySlotElement armySlotElement = AddArmySlot();
-        armySlotElement.AddArmy(new(armyGroup));
+        Debug.LogError("No free slots");
     }
 
 

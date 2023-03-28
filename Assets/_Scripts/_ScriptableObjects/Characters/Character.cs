@@ -82,7 +82,6 @@ public class Character : BaseScriptableObject
     public void RemoveArmy(ArmyGroup armyGroup)
     {
         ArmyGroups.Remove(armyGroup);
-
     }
 
     public void AddInjury(Injury injury)
@@ -354,7 +353,7 @@ public class Character : BaseScriptableObject
 
         CreateStats();
 
-        List<Item> Items = new();
+        Items = new();
         Abilities = new();
 
         UpdateRank();

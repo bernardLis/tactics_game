@@ -14,10 +14,11 @@ public class ArmySlotElement : ElementWithSound
     public ArmyElement ArmyElement;
 
     public bool IsLocked { get; private set; }
+    public int ListPosition { get; private set; }
 
     public event Action<ArmyElement> OnArmyAdded;
     public event Action<ArmyElement> OnArmyRemoved;
-    public ArmySlotElement(ArmyElement armyElement = null, bool isLocked = false) : base()
+    public ArmySlotElement(ArmyElement armyElement = null, int listPosition = 0, bool isLocked = false) : base()
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ArmySlotElementStyles);
@@ -28,6 +29,7 @@ public class ArmySlotElement : ElementWithSound
         AddToClassList(_ussMain);
 
         IsLocked = isLocked;
+        ListPosition = listPosition;
 
         if (armyElement == null)
             return;
@@ -47,6 +49,8 @@ public class ArmySlotElement : ElementWithSound
 
     public void AddArmyNoDelegates(ArmyElement armyElement)
     {
+        armyElement.ArmyGroup.ListPosition = ListPosition;
+        
         // merge if there is already the same army entity
         if (ArmyElement != null && ArmyElement.ArmyGroup.ArmyEntity == armyElement.ArmyGroup.ArmyEntity)
         {

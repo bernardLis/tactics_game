@@ -133,15 +133,30 @@ public class DraggableArmies : MonoBehaviour
 
         ArmySlotElement armySlotElement = null;
         if (armyElement.parent is ArmySlotElement)
-        {
             armySlotElement = (ArmySlotElement)armyElement.parent;
-            armySlotElement.RemoveArmy();
-        }
-        
-        // TODO: if shift down, split 
-        Debug.Log($"click click shift down: {_isShiftDown}");
 
+        if (_isShiftDown)
+        {
+            SplitArmy(evt.position, armySlotElement, armyElement);
+            return;
+        }
+
+        armySlotElement.RemoveArmy();
         StartArmyDrag(evt.position, armySlotElement, armyElement);
+    }
+
+    void SplitArmy(Vector2 position, ArmySlotElement originalSlot, ArmyElement originalElement)
+    {
+        int half = Mathf.CeilToInt(originalElement.ArmyGroup.EntityCount * 0.5f);
+        originalElement.ArmyGroup.ChangeCount(-half);
+
+        ArmyGroup newArmyGroup = ScriptableObject.CreateInstance<ArmyGroup>();
+
+        newArmyGroup.ArmyEntity = originalElement.ArmyGroup.ArmyEntity;
+        newArmyGroup.EntityCount = half;
+        ArmyElement newArmyElement = new ArmyElement(newArmyGroup);
+
+        StartArmyDrag(position, originalSlot, newArmyElement);
     }
 
     void StartArmyDrag(Vector2 position, ArmySlotElement originalSlot, ArmyElement draggedItem)

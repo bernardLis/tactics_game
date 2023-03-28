@@ -15,12 +15,6 @@ public class MapSetupManager : MonoBehaviour
 
     public List<GameObject> Heroes = new();
 
-    [SerializeField] Battle _battle;
-
-    [SerializeField] CollectableGold _collectableGold;
-    [SerializeField] CollectableSpice _collectableSpice;
-    [SerializeField] CollectableItem _collectableItem;
-
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -106,6 +100,6 @@ public class MapSetupManager : MonoBehaviour
             GameObject instance = Instantiate(_castlePrefab, c.MapPosition, Quaternion.identity);
             instance.GetComponent<MapCastle>().Initialize(c);
         }
-
     }
 }
+

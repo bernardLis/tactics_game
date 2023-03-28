@@ -10,14 +10,20 @@ public class Map : BaseScriptableObject
     public List<Battle> Battles = new();
     public List<Castle> Castles = new();
 
+    public string TemplateCastleId = "549d36bd-34c9-499a-815a-0a46ff37ecb1";
+    public Vector2 CastlePosition = new Vector2(-1.5f, -8.5f);
+
     public void Reset()
     {
+        Debug.Log($"resetting map");
         foreach (Collectable c in Collectables)
             c.IsCollected = false;
         foreach (Battle b in Battles)
             b.Won = false;
-        foreach (Castle c in Castles)
-            c.Reset();
+
+        Castle castle = (Castle)ScriptableObject.CreateInstance<Castle>();
+        castle.Create(TemplateCastleId, CastlePosition);
+        Castles.Add(castle);
     }
 
     public MapData SerializeSelf()
@@ -48,10 +54,18 @@ public class Map : BaseScriptableObject
                 if (d.Id == b.Id)
                     b.LoadFromData(d);
 
+
         foreach (CastleData d in data.CastleDatas)
-            foreach (Castle c in Castles)
-                if (d.Id == c.Id)
-                    c.LoadFromData(d);
+        {
+            Castle castle = (Castle)ScriptableObject.CreateInstance<Castle>();
+            castle.LoadFromData(d);
+            Castles.Add(castle);
+        }
+
+        // foreach (CastleData d in data.CastleDatas)
+        //     foreach (Castle c in Castles)
+        //        if (d.Id == c.Id)
+        //            c.LoadFromData(d);
     }
 }
 
@@ -61,5 +75,5 @@ public struct MapData
     public List<CollectableData> CollectableDatas;
     public List<BattleData> BattleDatas;
     public List<CastleData> CastleDatas;
-
 }
+

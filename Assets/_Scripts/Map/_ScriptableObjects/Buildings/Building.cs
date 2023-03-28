@@ -43,6 +43,7 @@ public class Building : BaseScriptableObject
     public virtual BuildingData SerializeSelf()
     {
         BuildingData data = new();
+        data.Id = Id;
         data.IsBuilt = IsBuilt;
         return data;
     }
@@ -56,6 +57,7 @@ public class Building : BaseScriptableObject
 [System.Serializable]
 public struct BuildingData
 {
+    public string Id;
     public bool IsBuilt;
     public int AvailableToBuyCount;
 }

@@ -37,7 +37,7 @@ public class ArmyElement : ElementWithTooltip
         Add(_armyCountLabel);
     }
 
-    void OnCountChanged(int total) { _armyCountLabel.text = $"{total}"; }
+    void OnCountChanged(int listPos, int total) { _armyCountLabel.text = $"{total}"; }
 
     protected override void DisplayTooltip()
     {

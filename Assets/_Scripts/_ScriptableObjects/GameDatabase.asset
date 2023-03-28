@@ -519,3 +519,11 @@ MonoBehaviour:
   BasicArmy:
   - {fileID: 11400000, guid: a78a5557da897bc4b840f078134a29f0, type: 2}
   - {fileID: 11400000, guid: 5404ee95775c73d4ba190a1c5d1b4229, type: 2}
+  Buildings:
+  - {fileID: 11400000, guid: db50b2b13f8303c448fbc4e796dd7af2, type: 2}
+  - {fileID: 11400000, guid: a8279aa7dbdf6b94081c2a963dd82fa1, type: 2}
+  - {fileID: 11400000, guid: 43e114a887e661744bc954382c5d24a6, type: 2}
+  Castles:
+  - {fileID: 11400000, guid: 08c6a23c3a40fca4bbd2670ceac13789, type: 2}
+  Maps:
+  - {fileID: 11400000, guid: c39bdc5d1affc7c4e95ffa66e020f48f, type: 2}

@@ -52,7 +52,7 @@ public class ArmyBuyableElement : VisualElement
     void AddArmySlot()
     {
         // slot + army (slot is locked) - TODO: not draggable
-        _armySlotElement = new(null, true);
+        _armySlotElement = new(null, 0, true);
         Add(_armySlotElement);
 
         if (_building.AvailableToBuyCount > 0)
@@ -105,11 +105,6 @@ public class ArmyBuyableElement : VisualElement
         int cost = _slider.value * _building.PricePerEntity;
 
         _gameManager.ChangeGoldValue(-cost);
-
-        ArmyGroup armyGroup = ScriptableObject.CreateInstance<ArmyGroup>();
-        armyGroup.ArmyEntity = _building.ArmyEntity;
-        armyGroup.EntityCount = _slider.value;
-
         _building.Sell(_slider.value);
     }
 }

@@ -260,6 +260,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
 
+        Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
+        Map = Instantiate(templateMap);
         Map.Reset();
 
         // new save
@@ -443,6 +445,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
             GetAbilityNodeGraphById(data.Id).LoadFromData(data);
 
+        Map = ScriptableObject.CreateInstance<Map>();
         Map.LoadFromData(saveData.MapData);
     }
 
@@ -490,6 +493,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
 
+        Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
+        Map = Instantiate(templateMap);
         Map.Reset();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
