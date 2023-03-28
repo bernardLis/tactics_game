@@ -42,15 +42,22 @@ public class ArmySlotElement : ElementWithSound
     {
         if (armyElement.ArmyGroup.EntityCount == 0) return;
 
+        bool callDelegate = true;
+        // gonna be merged
+        if (ArmyElement != null && ArmyElement.ArmyGroup.ArmyEntity == armyElement.ArmyGroup.ArmyEntity)
+            callDelegate = false;
+
         AddArmyNoDelegates(armyElement);
         PlayClick();
-        OnArmyAdded?.Invoke(armyElement);
+
+        if (callDelegate)
+            OnArmyAdded?.Invoke(armyElement);
     }
 
     public void AddArmyNoDelegates(ArmyElement armyElement)
     {
         armyElement.ArmyGroup.ListPosition = ListPosition;
-        
+
         // merge if there is already the same army entity
         if (ArmyElement != null && ArmyElement.ArmyGroup.ArmyEntity == armyElement.ArmyGroup.ArmyEntity)
         {
@@ -61,7 +68,6 @@ public class ArmySlotElement : ElementWithSound
         ArmyElement = armyElement;
         armyElement.style.position = Position.Relative;
         Add(armyElement);
-
     }
 
     public void RemoveArmy()

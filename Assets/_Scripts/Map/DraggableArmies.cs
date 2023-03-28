@@ -135,7 +135,7 @@ public class DraggableArmies : MonoBehaviour
         if (armyElement.parent is ArmySlotElement)
             armySlotElement = (ArmySlotElement)armyElement.parent;
 
-        if (_isShiftDown)
+        if (_isShiftDown && armyElement.ArmyGroup.EntityCount > 1)
         {
             SplitArmy(evt.position, armySlotElement, armyElement);
             return;

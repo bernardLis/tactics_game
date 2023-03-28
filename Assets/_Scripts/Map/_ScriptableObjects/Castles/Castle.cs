@@ -77,7 +77,7 @@ public class Castle : BaseScriptableObject
             ArmyGroupData gd = g.SerializeSelf();
             data.AvailableArmyDatas.Add(gd);
         }
-        
+
         return data;
     }
 
@@ -85,12 +85,13 @@ public class Castle : BaseScriptableObject
     {
         _gameManager = GameManager.Instance;
 
-        Castle templateCastle = _gameManager.GameDatabase.GetCastleById(TemplateCastleId);
-        Sprite = templateCastle.Sprite;
-
+        Id = data.Id;
         name = "Castle";
 
         TemplateCastleId = data.TemplateCastleId;
+        Castle templateCastle = _gameManager.GameDatabase.GetCastleById(TemplateCastleId);
+        Sprite = templateCastle.Sprite;
+
         MapPosition = data.MapPosition;
 
         foreach (BuildingData d in data.BuildingDatas)
