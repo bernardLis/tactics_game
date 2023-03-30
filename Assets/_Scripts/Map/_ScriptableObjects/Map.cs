@@ -37,13 +37,10 @@ public class Map : BaseScriptableObject
         pos.y += 0.5f;
         // 33% chance to create CollectableGold, 33% chance to create CollectableItem, 33% chance to create SpiceCollectable
         int rand = Random.Range(0, 3);
-        Collectable collectable;
-        if (rand == 0)
-            collectable = ScriptableObject.CreateInstance<CollectableGold>();
-        else if (rand == 1)
-            collectable = ScriptableObject.CreateInstance<CollectableItem>();
-        else
-            collectable = ScriptableObject.CreateInstance<CollectableSpice>();
+        Collectable collectable = null;
+        if (rand == 0) collectable = ScriptableObject.CreateInstance<CollectableGold>();
+        if (rand == 1) collectable = ScriptableObject.CreateInstance<CollectableSpice>();
+        if (rand == 2) collectable = ScriptableObject.CreateInstance<CollectableItem>();
 
         collectable.Create(pos);
         Collectables.Add(collectable);
@@ -80,7 +77,14 @@ public class Map : BaseScriptableObject
     {
         foreach (CollectableData d in data.CollectableDatas)
         {
-            Collectable collectable = (Collectable)ScriptableObject.CreateInstance<Collectable>();
+            Collectable collectable = null;
+            if (d.Type == "CollectableGold")
+                collectable = ScriptableObject.CreateInstance<CollectableGold>();
+            if (d.Type == "CollectableSpice")
+                collectable = ScriptableObject.CreateInstance<CollectableSpice>();
+            if (d.Type == "CollectableItem")
+                collectable = ScriptableObject.CreateInstance<CollectableItem>();
+
             collectable.LoadFromData(d);
             Collectables.Add(collectable);
         }

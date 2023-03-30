@@ -49,7 +49,7 @@ public class BattleManager : MonoBehaviour
 
         _textMesh.text = $"{_numberOfPlayersToSpawn} : {_numberOfEnemiesToSpawn}";
 
-        foreach (ArmyGroup ag in _loadedBattle.Character.ArmyGroups)
+        foreach (ArmyGroup ag in _loadedBattle.Character.Army)
             InstantiatePlayer(ag.ArmyEntity);
         for (int i = 0; i < _numberOfEnemiesToSpawn; i++)
             InstantiateEnemy();

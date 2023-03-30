@@ -11,7 +11,7 @@ public class Castle : BaseScriptableObject
     public Sprite Sprite;
     public Vector2 MapPosition;
     public List<Building> Buildings = new();
-    public List<ArmyGroup> AvailableArmy = new();
+    public List<ArmyGroup> Army = new();
 
     GameManager _gameManager;
 
@@ -27,15 +27,15 @@ public class Castle : BaseScriptableObject
     {
         Debug.Log($"Castle {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
 
-        AvailableArmy.Add(armyGroup);
+        Army.Add(armyGroup);
         _gameManager.SaveJsonData();
     }
 
     public void RemoveArmy(ArmyGroup armyGroup)
     {
-        Debug.Log($"Trying to remove {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
+        Debug.Log($"Castle {name} removes {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
 
-        AvailableArmy.Remove(armyGroup);
+        Army.Remove(armyGroup);
         _gameManager.SaveJsonData();
     }
 
@@ -53,7 +53,7 @@ public class Castle : BaseScriptableObject
             instance.Initialize();
             Buildings.Add(instance);
         }
-        AvailableArmy = new();
+        Army = new();
     }
 
     public CastleData SerializeSelf()
@@ -72,7 +72,7 @@ public class Castle : BaseScriptableObject
         }
 
         data.AvailableArmyDatas = new();
-        foreach (ArmyGroup g in AvailableArmy)
+        foreach (ArmyGroup g in Army)
         {
             ArmyGroupData gd = g.SerializeSelf();
             data.AvailableArmyDatas.Add(gd);
@@ -104,7 +104,7 @@ public class Castle : BaseScriptableObject
         {
             ArmyGroup g = ScriptableObject.CreateInstance<ArmyGroup>();
             g.LoadFromData(d);
-            AvailableArmy.Add(g);
+            Army.Add(g);
         }
     }
 }

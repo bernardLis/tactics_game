@@ -32,17 +32,15 @@ public class HeroCastleElement : VisualElement
         _armySlotElements = new();
         for (int i = 0; i < Character.MaxCharacterArmySlots; i++)
         {
-            ArmySlotElement el = new();
+            ArmySlotElement el = new(null, i);
             _armySlotElements.Add(el);
             el.OnArmyAdded += (ArmyElement el) => Character.AddArmy(el.ArmyGroup);
-            el.OnArmyAdded += (ArmyElement el) => Character.RemoveArmy(el.ArmyGroup);
+            el.OnArmyRemoved += (ArmyElement el) => Character.RemoveArmy(el.ArmyGroup);
             Add(el);
         }
 
-        for (int i = 0; i < Character.ArmyGroups.Count; i++)
-        {
-            _armySlotElements[i].AddArmyNoDelegates(new(Character.ArmyGroups[i]));
-        }
+        foreach (ArmyGroup ag in Character.Army)
+            _armySlotElements[ag.ListPosition].AddArmyNoDelegates(new(ag));
     }
 
 

@@ -56,7 +56,7 @@ public class Character : BaseScriptableObject
 
     public Vector2 MapPosition;
 
-    public List<ArmyGroup> ArmyGroups = new();
+    public List<ArmyGroup> Army = new();
 
     public event Action<CharacterRank> OnRankChanged;
     public event Action<Element> OnElementChanged;
@@ -77,11 +77,17 @@ public class Character : BaseScriptableObject
 
     public void AddArmy(ArmyGroup armyGroup)
     {
-        ArmyGroups.Add(armyGroup);
+        Debug.Log($"Character {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
+
+        Army.Add(armyGroup);
+        _gameManager.SaveJsonData();
     }
     public void RemoveArmy(ArmyGroup armyGroup)
     {
-        ArmyGroups.Remove(armyGroup);
+        Debug.Log($"Character {name} removes {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
+
+        Army.Remove(armyGroup);
+        _gameManager.SaveJsonData();
     }
 
     public void AddInjury(Injury injury)
@@ -360,7 +366,12 @@ public class Character : BaseScriptableObject
         WeeklyWage.SetValue(0);
 
         MapPosition = mapPosition;
-        ArmyGroups = new(_gameManager.GameDatabase.BasicArmy);
+        Army = new();
+        foreach (ArmyGroup ag in _gameManager.GameDatabase.BasicArmy)
+        {
+            ArmyGroup instance = Instantiate(ag);
+            Army.Add(instance);
+        }
     }
 
     public void CreateRandom(int level)
@@ -456,12 +467,12 @@ public class Character : BaseScriptableObject
         NewWage.SetValue(data.NewWage);
         Negotiated = data.Negotiated;
         MapPosition = data.MapPosition;
-        ArmyGroups = new();
+        Army = new();
         foreach (ArmyGroupData d in data.ArmyGroupDatas)
         {
             ArmyGroup ag = CreateInstance<ArmyGroup>();
             ag.LoadFromData(d);
-            ArmyGroups.Add(ag);
+            Army.Add(ag);
         }
 
         UpdateRank();
@@ -506,7 +517,7 @@ public class Character : BaseScriptableObject
         data.Negotiated = Negotiated;
         data.MapPosition = MapPosition;
         data.ArmyGroupDatas = new();
-        foreach (ArmyGroup ag in ArmyGroups)
+        foreach (ArmyGroup ag in Army)
             data.ArmyGroupDatas.Add(ag.SerializeSelf());
 
         return data;

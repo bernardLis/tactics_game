@@ -101,7 +101,7 @@ public class CastleElement : FullScreenElement
 
     void AddCastleArmy()
     {
-        foreach (ArmyGroup ag in _castle.AvailableArmy)
+        foreach (ArmyGroup ag in _castle.Army)
             _castleArmySlots[ag.ListPosition].AddArmyNoDelegates(new(ag));
     }
 
