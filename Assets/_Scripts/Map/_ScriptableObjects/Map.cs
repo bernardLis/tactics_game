@@ -13,6 +13,7 @@ public class Map : BaseScriptableObject
 
     public string TemplateCastleId = "549d36bd-34c9-499a-815a-0a46ff37ecb1";
     public Vector2 CastlePosition = new Vector2(-1.5f, -8.5f);
+    public Vector2 CastlePosition1 = new Vector2(-0.5f, -0.5f);
 
     public void Reset()
     {
@@ -28,6 +29,10 @@ public class Map : BaseScriptableObject
         Castle castle = (Castle)ScriptableObject.CreateInstance<Castle>();
         castle.Create(TemplateCastleId, CastlePosition);
         Castles.Add(castle);
+
+        Castle castle1 = (Castle)ScriptableObject.CreateInstance<Castle>();
+        castle1.Create(TemplateCastleId, CastlePosition1);
+        Castles.Add(castle1);
     }
 
     public void CreateCollectable()

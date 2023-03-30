@@ -24,13 +24,15 @@ public class DashboardManager : Singleton<DashboardManager>
     GameManager _gameManager;
     public PlayerInput PlayerInput { get; private set; }
 
+    DraggableArmies _draggableArmies;
+
     public VisualElement Root { get; private set; }
 
     public EffectHolder PanelOpenEffect;
 
     public LineTimerElement DayTimer;
 
-    // resources
+    // nav
     VisualElement _navGold;
     GoldElement _goldElement;
     VisualElement _navTroops;
@@ -60,6 +62,8 @@ public class DashboardManager : Singleton<DashboardManager>
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += UpdateDay;
 
+        _draggableArmies = GetComponent<DraggableArmies>();
+
         Root = GetComponent<UIDocument>().rootVisualElement;
 
         AddDayTimer();
@@ -87,8 +91,6 @@ public class DashboardManager : Singleton<DashboardManager>
         AddSpiceElement();
 
         AddNavigationButtons();
-
-        // AudioManager.Instance.PlayMusic(_dashboardTheme);
     }
 
     /* INPUT */

@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 7771277315354121036}
   - component: {fileID: 7227188172802379953}
   - component: {fileID: 2544462636829078508}
+  - component: {fileID: 5485174610280621473}
   - component: {fileID: 7771277315354121027}
   - component: {fileID: 7771277315354121037}
   - component: {fileID: 744898385265374333}
@@ -475,7 +476,7 @@ Transform:
   - {fileID: 7880445060236048158}
   - {fileID: 965809664}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7227188172802379953
 MonoBehaviour:
@@ -507,6 +508,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PanelOpenEffect: {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
   _dashboardTheme: {fileID: 11400000, guid: 9a9ea9eb274a74543bbd7852dabcf4f1, type: 2}
+--- !u!114 &5485174610280621473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771277315354121038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3229a73c3e7ad4caf85f669464f8cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7771277315354121027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,11 +536,8 @@ MonoBehaviour:
   _collectablePrefab: {fileID: 3257093786674810791, guid: bf073daf1bee9ff4fa3b78bedf0b20f5, type: 3}
   _battlePrefab: {fileID: 4271262817906502119, guid: 5d2f18721b508554286f118c3712f152, type: 3}
   _castlePrefab: {fileID: 2761198740601422383, guid: 33425dc13e07ef844bd831d9236501c4, type: 3}
-  Heroes: []
-  _battle: {fileID: 11400000, guid: a21f9f7f650aa8b4f80779c5aeb09d75, type: 2}
-  _collectableGold: {fileID: 11400000, guid: 33cad4c4a31c7594fac7aa9e2aeb222e, type: 2}
-  _collectableSpice: {fileID: 11400000, guid: 535fb8357472f24459b72643b32787d8, type: 2}
-  _collectableItem: {fileID: 11400000, guid: 4d0290bb0918e36489b8e93b8b9ca98a, type: 2}
+  MapHeroes: []
+  MapCastles: []
 --- !u!114 &7771277315354121037
 MonoBehaviour:
   m_ObjectHideFlags: 0

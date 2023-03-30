@@ -24,7 +24,7 @@ public class CastleElement : FullScreenElement
 
     List<ArmySlotElement> _castleArmySlots = new();
 
-    public CastleElement(VisualElement root, Castle castle, MapHero hero)
+    public CastleElement(VisualElement root, Castle castle, MapHero hero = null)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -56,7 +56,8 @@ public class CastleElement : FullScreenElement
         AddBuildings();
         AddCastleArmySlots();
         AddCastleArmy();
-        AddVisitingHero();
+        if (_visitingHero != null)
+            AddVisitingHero();
 
         AddBackButton();
     }

@@ -38,6 +38,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="navRight" style="width: 25%; flex-direction: row; align-items: center; justify-content: center;" />
     </ui:VisualElement>
+    <ui:VisualElement name="controls" style="flex-grow: 1; background-color: rgb(149, 149, 149); width: 100px; right: 0; left: auto; position: absolute; top: 5%;" />
     <ui:VisualElement name="castle" style="display: none;">
         <ui:VisualElement name="topContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
         <ui:VisualElement name="middleContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />

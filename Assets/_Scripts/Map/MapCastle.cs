@@ -8,7 +8,10 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
     DashboardManager _dashboardManager;
     DraggableArmies _draggableArmies;
 
-    Castle _castle;
+    SpriteOutline _spriteOutline;
+    MapTooltipDisplayer _tooltipDisplayer;
+
+    public Castle Castle { get; private set; }
 
     void Start()
     {
@@ -16,25 +19,39 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
         _dashboardManager = DashboardManager.Instance;
         _draggableArmies = _dashboardManager.GetComponent<DraggableArmies>();
 
+        _spriteOutline = GetComponent<SpriteOutline>();
+        _tooltipDisplayer = GetComponent<MapTooltipDisplayer>();
     }
 
     public void Initialize(Castle castle)
     {
         castle.Initialize(); // TODO: differentiate between owned / not owned castles
-        _castle = castle;
+        Castle = castle;
         GetComponentInChildren<SpriteRenderer>().sprite = castle.Sprite;
+    }
+
+    public void Highlight()
+    {
+        _spriteOutline.Highlight();
+        _tooltipDisplayer.DisplayTooltip();
+    }
+
+    public void ClearHighlight()
+    {
+        _spriteOutline.ClearHighlight();
+        _tooltipDisplayer.HideTooltip();
     }
 
     public void VisitCastle(MapHero h)
     {
-        Debug.Log($"{h.Character.CharacterName} is visiting {_castle.name}");
+        Debug.Log($"{h.Character.CharacterName} is visiting {Castle.name}");
 
         _gameManager.ToggleTimer(false);
 
-        CastleElement el = new(_dashboardManager.Root, _castle, h);
+        CastleElement el = new(_dashboardManager.Root, Castle, h);
         el.OnHide += _draggableArmies.Reset;
         _draggableArmies.Initialize();
     }
 
-    public string GetTooltipText() { return _castle.name; }
+    public string GetTooltipText() { return Castle.name; }
 }

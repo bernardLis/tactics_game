@@ -41,6 +41,7 @@ public class Castle : BaseScriptableObject
 
     public void Create(string templateCastleId, Vector2 mapPosition)
     {
+        Id = System.Guid.NewGuid().ToString();
         Debug.Log($"create castle is called with {templateCastleId} and {mapPosition}");
         _gameManager = GameManager.Instance;
         TemplateCastleId = templateCastleId;

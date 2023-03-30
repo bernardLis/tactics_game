@@ -9,12 +9,13 @@ public class MapTooltipDisplayer : MonoBehaviour, IPointerEnterHandler, IPointer
 
     [SerializeField] TextMeshProUGUI _tmpText;
 
-    void Start()
-    {
-        _tmpText.enabled = false;
-    }
+    void Start() { _tmpText.enabled = false; }
 
-    public void OnPointerEnter(PointerEventData evt)
+    public void OnPointerEnter(PointerEventData evt) { DisplayTooltip(); }
+
+    public void OnPointerExit(PointerEventData evt) { HideTooltip(); }
+
+    public void DisplayTooltip()
     {
         if (TryGetComponent<ITooltipDisplayable>(out ITooltipDisplayable t))
         {
@@ -23,9 +24,6 @@ public class MapTooltipDisplayer : MonoBehaviour, IPointerEnterHandler, IPointer
         }
     }
 
-    public void OnPointerExit(PointerEventData evt)
-    {
-        _tmpText.enabled = false;
-    }
+    public void HideTooltip() { _tmpText.enabled = false; }
 }
 

@@ -13,7 +13,9 @@ public class MapSetupManager : MonoBehaviour
     [SerializeField] GameObject _battlePrefab;
     [SerializeField] GameObject _castlePrefab;
 
-    public List<GameObject> Heroes = new();
+    public List<MapHero> MapHeroes = new();
+    public List<MapCastle> MapCastles = new();
+
 
     void Start()
     {
@@ -45,8 +47,9 @@ public class MapSetupManager : MonoBehaviour
         foreach (Character c in _gameManager.GetAllCharacters())
         {
             GameObject instance = Instantiate(_heroPrefab, c.MapPosition, Quaternion.identity);
-            instance.GetComponent<MapHero>().Initialize(c);
-            Heroes.Add(instance);
+            MapHero mapHero = instance.GetComponent<MapHero>();
+            mapHero.Initialize(c);
+            MapHeroes.Add(mapHero);
         }
     }
 
@@ -98,7 +101,9 @@ public class MapSetupManager : MonoBehaviour
         foreach (Castle c in _currentMap.Castles)
         {
             GameObject instance = Instantiate(_castlePrefab, c.MapPosition, Quaternion.identity);
-            instance.GetComponent<MapCastle>().Initialize(c);
+            MapCastle mc = instance.GetComponent<MapCastle>();
+            mc.Initialize(c);
+            MapCastles.Add(mc);
         }
     }
 }
