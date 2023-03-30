@@ -90,6 +90,14 @@ public class Character : BaseScriptableObject
         _gameManager.SaveJsonData();
     }
 
+    public int GetTotalNumberOfArmyEntities()
+    {
+        int total = 0;
+        foreach (ArmyGroup ag in Army)
+            total += ag.EntityCount;
+        return total;
+    }
+
     public void AddInjury(Injury injury)
     {
         if (InjuryDramaCheck())

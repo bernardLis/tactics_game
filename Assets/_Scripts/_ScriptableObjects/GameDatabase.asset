@@ -516,6 +516,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 60a1c4fcce5045946b4c157a6e324579, type: 2}
   - {fileID: 11400000, guid: 7755c329c516513459f13843e129b595, type: 2}
   - {fileID: 11400000, guid: a58400b4a0cee7d4b8cf4e881b6bcf23, type: 2}
+  AllEnemyArmyEntities:
+  - {fileID: 11400000, guid: 7755c329c516513459f13843e129b595, type: 2}
+  - {fileID: 11400000, guid: a58400b4a0cee7d4b8cf4e881b6bcf23, type: 2}
   BasicArmy:
   - {fileID: 11400000, guid: a78a5557da897bc4b840f078134a29f0, type: 2}
   - {fileID: 11400000, guid: 5404ee95775c73d4ba190a1c5d1b4229, type: 2}

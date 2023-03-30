@@ -25,8 +25,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject _playerPrefab;
     [SerializeField] GameObject _enemyPrefab;
 
-    [SerializeField] int _numberOfPlayersToSpawn;
-    [SerializeField] int _numberOfEnemiesToSpawn;
+    int _initialPlayerEntityCount;
+    int _initialEnemyEntityCount;
 
     [SerializeField] GameObject _playerSpawnPoint;
     [SerializeField] GameObject _enemySpawnPoint;
@@ -41,52 +41,47 @@ public class BattleManager : MonoBehaviour
 
         _root = GetComponent<UIDocument>().rootVisualElement;
 
-        _numberOfEnemiesToSpawn = _loadedBattle.NumberOfMeleeEnemies + _loadedBattle.NumberOfRangedEnemies;
+        _initialEnemyEntityCount = _loadedBattle.GetTotalNumberOfEnemies();
+        _initialPlayerEntityCount = _loadedBattle.Character.GetTotalNumberOfArmyEntities();
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
         _initRot = _skyMat.GetFloat(_rotationProperty);
 
-        _textMesh.text = $"{_numberOfPlayersToSpawn} : {_numberOfEnemiesToSpawn}";
+        _textMesh.text = $"{_initialPlayerEntityCount} : {_initialEnemyEntityCount}";
 
         foreach (ArmyGroup ag in _loadedBattle.Character.Army)
-            InstantiatePlayer(ag.ArmyEntity);
-        for (int i = 0; i < _numberOfEnemiesToSpawn; i++)
-            InstantiateEnemy();
-
-        InitializeEnemies();
-    }
-
-    void InitializeEnemies()
-    {
-        for (int i = 0; i < _numberOfEnemiesToSpawn; i++)
-        {
-            if (i <= _loadedBattle.NumberOfMeleeEnemies)
-                EnemyEntities[i].Initialize(_enemyStats[0], ref PlayerEntities);
-            else
-                EnemyEntities[i].Initialize(_enemyStats[1], ref PlayerEntities);
-        }
+            InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
+        foreach (ArmyGroup ag in _loadedBattle.Army)
+            InstantiateEnemy(ag.ArmyEntity, ag.EntityCount);
     }
 
     void Update() => _skyMat.SetFloat(_rotationProperty, Time.time * _skyboxRotationSpeed);
 
-    void InstantiatePlayer(ArmyEntity entity)
+    void InstantiatePlayer(ArmyEntity entity, int count)
     {
-        Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
-        GameObject instance = Instantiate(_playerPrefab, pos, Quaternion.identity);
-        BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.Initialize(entity, ref EnemyEntities);
-        PlayerEntities.Add(be);
-        be.OnDeath += OnPlayerDeath;
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
+            GameObject instance = Instantiate(_playerPrefab, pos, Quaternion.identity);
+            BattleEntity be = instance.GetComponent<BattleEntity>();
+            be.Initialize(entity, ref EnemyEntities);
+            PlayerEntities.Add(be);
+            be.OnDeath += OnPlayerDeath;
+        }
     }
 
-    void InstantiateEnemy()
+    void InstantiateEnemy(ArmyEntity entity, int count)
     {
-        Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
-        GameObject instance = Instantiate(_enemyPrefab, pos, Quaternion.identity);
-        BattleEntity be = instance.GetComponent<BattleEntity>();
-        EnemyEntities.Add(be);
-        be.OnDeath += OnEnemyDeath;
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
+            GameObject instance = Instantiate(_enemyPrefab, pos, Quaternion.identity);
+            BattleEntity be = instance.GetComponent<BattleEntity>();
+            be.Initialize(entity, ref PlayerEntities);
+            EnemyEntities.Add(be);
+            be.OnDeath += OnEnemyDeath;
+        }
     }
 
     void OnPlayerDeath(BattleEntity be)
