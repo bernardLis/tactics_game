@@ -13,6 +13,7 @@ public class BuildingElement : VisualElement
     const string _ussBuildButton = _ussClassName + "build-button";
 
     protected GameManager _gameManager;
+    protected Castle _castle;
     protected Building _building;
 
     BuildingSpriteElement _sprite;
@@ -20,8 +21,7 @@ public class BuildingElement : VisualElement
     MyButton _buildButton;
     GoldElement _costGoldElement;
 
-
-    public BuildingElement(Building building)
+    public BuildingElement(Castle castle, Building building)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -32,7 +32,7 @@ public class BuildingElement : VisualElement
             styleSheets.Add(ss);
 
         _gameManager.OnGoldChanged += OnGoldChanged;
-
+        _castle = castle;
         _building = building;
 
         AddToClassList(_ussMain);
@@ -47,19 +47,9 @@ public class BuildingElement : VisualElement
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
 
-    void OnGoldChanged(int change)
-    {
-        if (_buildButton == null) return;
-        _buildButton.SetEnabled(false);
-        if (_gameManager.Gold >= _building.CostToBuild)
-            _buildButton.SetEnabled(true);
-    }
+    void OnGoldChanged(int change) { UpdateBuildButton(); }
 
-    void OnPanelDetached(DetachFromPanelEvent evt)
-    {
-        _gameManager.OnGoldChanged -= OnGoldChanged;
-    }
-
+    void OnPanelDetached(DetachFromPanelEvent evt) { _gameManager.OnGoldChanged -= OnGoldChanged; }
 
     void HandleBuildButton()
     {
@@ -68,12 +58,20 @@ public class BuildingElement : VisualElement
         _buildButton = new(null, _ussBuildButton, Build);
         _costGoldElement = new GoldElement(_building.CostToBuild);
         _buildButton.Add(_costGoldElement);
-        _buildButton.SetEnabled(false);
-
         _buildButtonContainer.Add(_buildButton);
 
-        if (_gameManager.Gold >= _building.CostToBuild)
-            _buildButton.SetEnabled(true);
+        UpdateBuildButton();
+    }
+
+    public void UpdateBuildButton()
+    {
+        if (_buildButton == null) return;
+        _buildButton.SetEnabled(false);
+
+        if (_castle.HasBuiltToday) return;
+        if (_gameManager.Gold < _building.CostToBuild) return;
+
+        _buildButton.SetEnabled(true);
     }
 
     void Build()

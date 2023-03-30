@@ -13,7 +13,7 @@ public class ProductionBuildingElement : BuildingElement
 
     ProductionBuilding _productionBuilding;
 
-    public ProductionBuildingElement(ProductionBuilding building) : base(building)
+    public ProductionBuildingElement(Castle castle, ProductionBuilding building) : base(castle, building)
     {
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ProductionBuildingElementStyles);
         if (ss != null)
@@ -27,7 +27,7 @@ public class ProductionBuildingElement : BuildingElement
 
         AddArmyBuyableElement();
     }
-    
+
     void AddArmyBuyableElement()
     {
         ArmyBuyableElement = new ArmyBuyableElement(_productionBuilding);

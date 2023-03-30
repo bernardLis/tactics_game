@@ -14,12 +14,10 @@ public class ProductionBuilding : Building
 
     public event Action<int> OnAvailableToBuyCountChanged;
     public event Action<ArmyGroup> OnArmyBought;
-    public event Action OnBuilt;
     public override void Build()
     {
         base.Build();
         Produce(Mathf.CeilToInt(PerWeekProductionCount * 0.5f));
-        OnBuilt?.Invoke();
     }
 
     public override void Reset()

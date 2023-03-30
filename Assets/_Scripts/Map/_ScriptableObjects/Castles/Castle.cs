@@ -10,6 +10,7 @@ public class Castle : BaseScriptableObject
     public string TemplateCastleId;
     public Sprite Sprite;
     public Vector2 MapPosition;
+    public bool HasBuiltToday;
     public List<Building> Buildings = new();
     public List<ArmyGroup> Army = new();
 
@@ -18,10 +19,16 @@ public class Castle : BaseScriptableObject
     public void Initialize()
     {
         foreach (Building b in Buildings)
+        {
             b.Initialize();
+            b.OnBuilt += () => HasBuiltToday = true;
+        }
 
         _gameManager = GameManager.Instance;
+        _gameManager.OnDayPassed += OnDayPassed;
     }
+
+    void OnDayPassed(int day) { HasBuiltToday = false; }
 
     public void AddArmy(ArmyGroup armyGroup)
     {
@@ -64,6 +71,7 @@ public class Castle : BaseScriptableObject
         data.Id = Id;
         data.TemplateCastleId = TemplateCastleId;
         data.MapPosition = MapPosition;
+        data.HasBuiltToday = HasBuiltToday;
 
         data.BuildingDatas = new();
         foreach (Building b in Buildings)
@@ -94,6 +102,7 @@ public class Castle : BaseScriptableObject
         Sprite = templateCastle.Sprite;
 
         MapPosition = data.MapPosition;
+        HasBuiltToday = data.HasBuiltToday;
 
         foreach (BuildingData d in data.BuildingDatas)
         {
@@ -116,6 +125,7 @@ public struct CastleData
     public string Id;
     public string TemplateCastleId;
     public Vector2 MapPosition;
+    public bool HasBuiltToday;
     public List<BuildingData> BuildingDatas;
     public List<ArmyGroupData> AvailableArmyDatas;
 }

@@ -22,6 +22,8 @@ public class CastleElement : FullScreenElement
     VisualElement _middleContainer;
     VisualElement _bottomContainer;
 
+
+    List<BuildingElement> _buildingElements = new();
     List<ArmySlotElement> _castleArmySlots = new();
 
     public CastleElement(VisualElement root, Castle castle, MapHero hero = null)
@@ -35,6 +37,7 @@ public class CastleElement : FullScreenElement
             styleSheets.Add(ss);
 
         Initialize(root, false);
+        _gameManager.ToggleTimer(false);
 
         _castle = castle;
         _visitingHero = hero;
@@ -66,18 +69,28 @@ public class CastleElement : FullScreenElement
     {
         foreach (Building b in _castle.Buildings)
         {
+            b.OnBuilt += UpdateBuildings;
+
             if (b.GetType() == typeof(ProductionBuilding))
             {
                 ProductionBuilding pb = (ProductionBuilding)b;
-                ProductionBuildingElement el = new(pb);
+                ProductionBuildingElement el = new(_castle, pb);
                 pb.OnArmyBought += AddArmy;
                 _topContainer.Add(el);
+                _buildingElements.Add(el);
                 continue;
             }
 
-            BuildingElement e = new(b);
+            BuildingElement e = new(_castle, b);
+            _buildingElements.Add(e);
             _topContainer.Add(e);
         }
+    }
+
+    void UpdateBuildings()
+    {
+        foreach (BuildingElement el in _buildingElements)
+            el.UpdateBuildButton();
     }
 
     void AddCastleArmySlots()

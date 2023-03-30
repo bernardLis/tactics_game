@@ -46,8 +46,6 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
     {
         Debug.Log($"{h.Character.CharacterName} is visiting {Castle.name}");
 
-        _gameManager.ToggleTimer(false);
-
         CastleElement el = new(_dashboardManager.Root, Castle, h);
         el.OnHide += _draggableArmies.Reset;
         _draggableArmies.Initialize();

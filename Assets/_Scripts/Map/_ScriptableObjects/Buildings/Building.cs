@@ -14,13 +14,19 @@ public class Building : BaseScriptableObject
     public bool IsBuilt;
 
     protected GameManager _gameManager;
+
+    public event Action OnBuilt;
     public virtual void Initialize()
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
     }
 
-    public virtual void Build() { IsBuilt = true; }
+    public virtual void Build()
+    {
+        IsBuilt = true;
+        OnBuilt?.Invoke();
+    }
 
     public virtual void Reset() { IsBuilt = false; }
 
