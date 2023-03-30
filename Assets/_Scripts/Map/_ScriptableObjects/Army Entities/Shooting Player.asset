@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shooting Player
   m_EditorClassIdentifier: 
   Id: 123dd3-f94b-4090-b1df-2cbd81abd683
+  Name: Pew pew
   Icon: {fileID: 21300000, guid: bb470b048a1d23446992ae59c3edee83, type: 3}
   Price: 100
   GFX: []

@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Blue Enemy
   m_EditorClassIdentifier: 
   Id: 3b21cc6e-445c-48b3-8221-381ef06416d8
+  Name: PEW!
+  Icon: {fileID: 264087405, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  Price: 0
+  GFX: []
   Material: {fileID: 2100000, guid: b0ddfd1fc6ff1f14eb7de1078c47e074, type: 2}
   Health: 10
   Power: 2

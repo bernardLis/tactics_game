@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Red Enemy
   m_EditorClassIdentifier: 
   Id: c4733b04-92b8-4407-88d3-aa1220be82b6
+  Name: Tsch tsch
+  Icon: {fileID: 685957397, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  Price: 0
+  GFX: []
   Material: {fileID: 2100000, guid: 648682c2568381d4595031dc35e45713, type: 2}
   Health: 20
   Power: 3

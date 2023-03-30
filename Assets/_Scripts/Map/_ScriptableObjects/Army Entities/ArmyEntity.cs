@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Army Entity")]
 public class ArmyEntity : BaseScriptableObject
 {
+    public string Name;
     public Sprite Icon;
     public int Price;
 
@@ -20,23 +21,4 @@ public class ArmyEntity : BaseScriptableObject
 
     public GameObject Projectile;
 
-    public ArmyEntityData SerializeSelf()
-    {
-        ArmyEntityData data = new();
-        data.Id = Id;
-        return data;
-    }
-
-    public void LoadFromData(ArmyEntityData data)
-    {
-        // so like if I want entities to be different from each other, 
-        // I can save & load things here
-        // ex. giving bonuses for being mvp in previous battles
-    }
-}
-
-[System.Serializable]
-public struct ArmyEntityData
-{
-    public string Id;
 }

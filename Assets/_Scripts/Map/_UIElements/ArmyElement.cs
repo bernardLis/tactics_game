@@ -41,9 +41,7 @@ public class ArmyElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        VisualElement tooltip = new();
-        tooltip.Add(new Label(("bla bla")));
-
+        ArmyTooltipElement tooltip = new(ArmyGroup);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }
