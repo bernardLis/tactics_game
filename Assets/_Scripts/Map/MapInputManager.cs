@@ -8,7 +8,7 @@ using Pathfinding;
 using Shapes;
 using DG.Tweening;
 
-public class MapMovementManager : MonoBehaviour
+public class MapInputManager : MonoBehaviour
 {
     GameManager _gameManager;
     PlayerInput _playerInput;
@@ -25,6 +25,7 @@ public class MapMovementManager : MonoBehaviour
     List<Vector3> _reachablePoints = new();
     List<Vector3> _unreachablePoints = new();
 
+    MapBattle _activeBattleTooltip;
     MapHero _selectedHero;
     AILerp _ai;
 
@@ -34,7 +35,6 @@ public class MapMovementManager : MonoBehaviour
     Vector3 _reachableDestination;
 
     bool _interactionResolved;
-    bool _isMouseOverUI;
 
     void Start()
     {
@@ -81,18 +81,43 @@ public class MapMovementManager : MonoBehaviour
     {
         _playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
         _playerInput.actions["RightMouseClick"].performed += RightMouseClick;
+        _playerInput.actions["RightMouseClick"].canceled += RightMouseCanceled;
     }
 
     void UnsubscribeInputActions()
     {
         _playerInput.actions["LeftMouseClick"].performed -= LeftMouseClick;
         _playerInput.actions["RightMouseClick"].performed -= RightMouseClick;
+        _playerInput.actions["RightMouseClick"].canceled -= RightMouseCanceled;
     }
 
     void RightMouseClick(InputAction.CallbackContext ctx)
     {
+        if (this == null) return;
+
+        if (IsPointerOverUI(Mouse.current.position.ReadValue())) return;
+        Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        Collider2D[] results = Physics2D.OverlapCircleAll(worldPos, 0.2f);
+        foreach (Collider2D c in results)
+        {
+            if (c.gameObject.TryGetComponent<MapBattle>(out MapBattle b))
+            {
+                _activeBattleTooltip = b;
+                b.DisplayBattleTooltip();
+                return;
+            }
+        }
+
         ClearMovementIndicators();
         UnselectHero();
+    }
+
+    void RightMouseCanceled(InputAction.CallbackContext ctx)
+    {
+        if (_activeBattleTooltip == null) return;
+
+        _activeBattleTooltip.HideBattleTooltip();
     }
 
     bool IsPointerOverUI(Vector2 screenPos)
@@ -124,8 +149,18 @@ public class MapMovementManager : MonoBehaviour
 
         Collider2D[] results = Physics2D.OverlapCircleAll(worldPos, 0.2f);
         foreach (Collider2D c in results)
+        {
             if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
+            {
                 SelectHero(hero);
+                return;
+            }
+            if (c.gameObject.TryGetComponent<MapCastle>(out MapCastle castle))
+            {
+                castle.ShowCastleUI();
+                return;
+            }
+        }
     }
 
     void SelectHero(MapHero hero)
@@ -319,7 +354,7 @@ public class MapMovementManager : MonoBehaviour
     {
         _ai.canMove = false;
         castle.VisitCastle(_selectedHero);
-        
+
         ResetDestinationCollider();
     }
 
