@@ -14,6 +14,9 @@ public class MapControlsManager : MonoBehaviour
     VisualElement _root;
 
     VisualElement _controls;
+
+    List<CastleControlsButton> _castleControlsButtons = new();
+    List<HeroControlsButton> _heroControlsButtons = new();
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +35,7 @@ public class MapControlsManager : MonoBehaviour
     void AddControlButtons()
     {
         AddCastleControls();
-        AddCharacterControls();
+        AddHeroControls();
     }
 
     void AddCastleControls()
@@ -47,81 +50,48 @@ public class MapControlsManager : MonoBehaviour
 
     void AddCastleButton(Castle c)
     {
-        VisualElement castle = new VisualElement();
-        castle.style.width = 100;
-        castle.style.height = 100;
-        castle.style.backgroundImage = new StyleBackground(c.Sprite);
-        _controls.Add(castle);
-        castle.RegisterCallback<PointerDownEvent>(e =>
-        {
-            CastleElement el = new(_root, c);
-            el.OnHide += _draggableArmies.Reset;
-            _draggableArmies.Initialize();
-        });
+        // get correct map castle
+        MapCastle mapCastle = null;
+        foreach (MapCastle mc in _mapSetupManager.MapCastles)
+            if (mc.Castle == c)
+                mapCastle = mc;
 
-        castle.RegisterCallback<MouseEnterEvent>(e =>
-        {
-            // get correct map castle
-            MapCastle mapCastle = null;
-            foreach (MapCastle mc in _mapSetupManager.MapCastles)
-                if (mc.Castle == c)
-                    mapCastle = mc;
-            _cameraSmoothFollow.MoveTo(mapCastle.transform.position);
-            mapCastle.Highlight();
-        });
-
-        castle.RegisterCallback<MouseLeaveEvent>(e =>
-        {
-            // get correct map castle
-            MapCastle mapCastle = null;
-            foreach (MapCastle mc in _mapSetupManager.MapCastles)
-                if (mc.Castle == c)
-                    mapCastle = mc;
-            mapCastle.ClearHighlight();
-        });
+        CastleControlsButton button = new(mapCastle, _root, _draggableArmies);
+        _controls.Add(button);
+        _castleControlsButtons.Add(button);
     }
 
-    void AddCharacterControls()
+    void AddHeroControls()
     {
-        _gameManager.OnCharacterAddedToTroops += AddCharacterButton;
-        _gameManager.OnCharacterRemovedFromTroops += RemoveCharacterButton;
+        _gameManager.OnCharacterAddedToTroops += AddHeroButton;
+        _gameManager.OnCharacterRemovedFromTroops += RemoveHeroButton;
         foreach (Character c in _gameManager.GetAllCharacters())
-            AddCharacterButton(c);
+            AddHeroButton(c);
     }
 
-    void AddCharacterButton(Character c)
+    void AddHeroButton(Character c)
     {
-        VisualElement character = new VisualElement();
-        character.style.width = 100;
-        character.style.height = 100;
-        character.style.backgroundImage = new StyleBackground(c.Portrait.Sprite);
-        _controls.Add(character);
-        character.RegisterCallback<PointerDownEvent>(e =>
-        {
-            // TODO: maybe on click center the camera on map here and select them
-            MapHero mapHero = null;
-            foreach (MapHero mc in _mapSetupManager.MapHeroes)
-                if (mc.Character == c)
-                    mapHero = mc;
+        MapHero mapHero = null;
+        foreach (MapHero mc in _mapSetupManager.MapHeroes)
+            if (mc.Character == c)
+                mapHero = mc;
 
-            Debug.Log($"{c.CharacterName} click show me a full screen card with all info");
-        });
-
-        character.RegisterCallback<MouseEnterEvent>(e =>
-        {
-            // get correct map castle
-            MapHero mapHero = null;
-            foreach (MapHero mc in _mapSetupManager.MapHeroes)
-                if (mc.Character == c)
-                    mapHero = mc;
-            _cameraSmoothFollow.MoveTo(mapHero.transform.position);
-        });
+        HeroControlsButton button = new(mapHero, _root, _draggableArmies);
+        _controls.Add(button);
+        _heroControlsButtons.Add(button);
     }
 
-    void RemoveCharacterButton(Character c)
+    void RemoveHeroButton(Character c)
     {
-        // TODO: buttons are an element that knows their character
-        // and I can remove them by character coz there is a list of them held by this script 
+        foreach (HeroControlsButton b in _heroControlsButtons)
+        {
+            if (b.MapHero.Character == c)
+            {
+                _controls.Remove(b);
+                _heroControlsButtons.Remove(b);
+                return;
+            }
+        }
     }
 
 }
