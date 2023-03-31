@@ -14,7 +14,7 @@ public class HeroCastleElement : VisualElement
 
     List<ArmySlotElement> _armySlotElements = new();
 
-    public HeroCastleElement(Character character)
+    public HeroCastleElement(Character character, bool isCardDisplayed = true)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -27,8 +27,10 @@ public class HeroCastleElement : VisualElement
         Character = character;
 
         AddToClassList(_ussMain);
+        
+        if (isCardDisplayed)
+            Add(new CharacterCardMini(Character));
 
-        Add(new CharacterCardMini(Character));
         _armySlotElements = new();
         for (int i = 0; i < Character.MaxCharacterArmySlots; i++)
         {

@@ -151,8 +151,6 @@ public class CharacterCard : VisualElement
     void PopulateBottomRightPanel(VisualElement container)
     {
         container.AddToClassList(_ussBottomRightPanel);
-        container.Add(CreateAbilities());
-        container.Add(CreateItems());
     }
 
     VisualElement CreateElementalElement()
@@ -227,62 +225,4 @@ public class CharacterCard : VisualElement
         return container;
     }
 
-    VisualElement CreateItems()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        for (int i = 0; i < Character.MaxCharacterItems; i++)
-        {
-            ItemSlot itemSlot = new();
-            itemSlot.OnItemAdded += OnItemAdded;
-            itemSlot.OnItemRemoved += OnItemRemoved;
-
-            itemSlot.Character = Character;
-            ItemSlots.Add(itemSlot);
-            container.Add(itemSlot);
-        }
-
-        for (int i = 0; i < Character.Items.Count; i++)
-        {
-            ItemElement itemVisual = new ItemElement(Character.Items[i]);
-            ItemSlots[i].AddItemNoDelegates(itemVisual);
-            ItemElements.Add(itemVisual);
-        }
-
-        return container;
-    }
-
-    void OnItemAdded(ItemElement itemElement) { Character.AddItem(itemElement.Item); }
-
-    void OnItemRemoved(ItemElement itemElement) { Character.RemoveItem(itemElement.Item); }
-
-    VisualElement CreateAbilities()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-
-        for (int i = 0; i < Character.MaxCharacterAbilities; i++)
-        {
-            AbilitySlot abilitySlot = new();
-            abilitySlot.Character = Character;
-            AbilitySlots.Add(abilitySlot);
-            container.Add(abilitySlot);
-            abilitySlot.OnAbilityAdded += OnAbilityAdded;
-            abilitySlot.OnAbilityRemoved += OnAbilityRemoved;
-        }
-
-        for (int i = 0; i < Character.Abilities.Count; i++)
-        {
-            DraggableAbilities da = null;
-            if (DeskManager.Instance != null)
-                da = DeskManager.Instance.GetComponent<DraggableAbilities>();
-
-            AbilitySlots[i].AddDraggableButtonNoDelegates(Character.Abilities[i], da);
-        }
-
-        return container;
-    }
-
-    void OnAbilityAdded(Ability ability) { Character.AddAbility(ability); }
-    void OnAbilityRemoved(Ability ability) { Character.RemoveAbility(ability); }
 }

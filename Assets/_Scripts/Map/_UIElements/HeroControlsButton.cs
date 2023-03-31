@@ -17,6 +17,7 @@ public class HeroControlsButton : ControlsButton
     protected override void OnPointerDown(PointerDownEvent e)
     {
         Debug.Log($"{MapHero.Character.CharacterName} click show me a full screen card with all info");
+        HeroCardElement card = new(MapHero, _root, _draggableArmies);
     }
 
     protected override void OnMouseEnter(MouseEnterEvent e)

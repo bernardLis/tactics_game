@@ -22,7 +22,6 @@ public class CastleElement : FullScreenElement
     VisualElement _middleContainer;
     VisualElement _bottomContainer;
 
-
     List<BuildingElement> _buildingElements = new();
     List<ArmySlotElement> _castleArmySlots = new();
 
