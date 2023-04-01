@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,16 +17,23 @@ public class Castle : BaseScriptableObject
 
     GameManager _gameManager;
 
+    public event Action OnBuilt;
     public void Initialize()
     {
         foreach (Building b in Buildings)
         {
             b.Initialize();
-            b.OnBuilt += () => HasBuiltToday = true;
+            b.OnBuilt += BuildingBuilt;
         }
 
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
+    }
+
+    void BuildingBuilt()
+    {
+        HasBuiltToday = true;
+        OnBuilt?.Invoke();
     }
 
     void OnDayPassed(int day) { HasBuiltToday = false; }

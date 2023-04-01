@@ -198,52 +198,57 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 55a2dab2e6ce8254ca54368106c488d6
-    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/TimerElementStyles.uss
+    m_Address: TimerElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 913a9aada18953045bbc7ee794d1f0e1
-    m_Address: Assets/_Scripts/_UIElements/Styles/Dashboard/QuestReportStyles.uss
+    m_Address: QuestReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cdae14e4552087d4d9dd9f22b6e5582f
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/CastleElementStyles.uss
+    m_Address: CastleElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea02981aef537be44982c8f81265ef08
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/BuildingElementStyles.uss
+    m_Address: BuildingElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 80e329f258d630443914f47dfb41a14b
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/ProductionBuildingElementStyles.uss
+    m_Address: ProductionBuildingElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 678c67e4ec184fd47b567efcaf75fa8b
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/ArmyElementStyles.uss
+    m_Address: ArmyElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 86ba47e95dde19f4b84fc0cee644719c
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/ArmySlotElementStyles.uss
+    m_Address: ArmySlotElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33f0f69a2abd646488810cf929758d3e
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/HeroCastleElementStyles.uss
+    m_Address: HeroCastleElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 685d8f293aa04654c89a53b8b5fdfaa2
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/BuildingSpriteElementStyles.uss
+    m_Address: BuildingSpriteElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5fd606b68fb97d846a0f816344bc5b12
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/HeroCardElementStyles.uss
+    m_Address: HeroCardElementStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4d079bcd1c6a68f469b8fd28f7f31ece
+    m_Address: Assets/_Scripts/Map/_UIElements/Styles/CastleControlsButtonStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

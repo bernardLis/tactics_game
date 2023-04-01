@@ -258,6 +258,7 @@ public class AbilityCraftManager : MonoBehaviour
 
     void DiscardAbility()
     {
+        if (_abilityNode == null) return;
         _abilityNode = null;
         _abilityGraphManager.ClearCraftSlot();
         ResetCraftValues();

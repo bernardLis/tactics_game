@@ -15,4 +15,4 @@ MonoBehaviour:
   Id: e5ab011f-a2b9-42a0-b490-bf24f1b82123
   ArmyEntity: {fileID: 11400000, guid: 3b5e3441a71fce848a266b6897ff1af2, type: 2}
   EntityCount: 5
-  ListPosition: 1
+  ListPosition: 0
