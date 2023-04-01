@@ -28,12 +28,16 @@ public class MapBattle : MonoBehaviour, ITooltipDisplayable
 
     public void DisplayBattleTooltip()
     {
-        _battleTooltipElement = new(Battle);
+        Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+
+        _battleTooltipElement = new(Battle, pos);
         _root.Add(_battleTooltipElement);
     }
 
     public void HideBattleTooltip()
     {
+        if (_battleTooltipElement == null) return;
+        if (_battleTooltipElement.parent != _root) return;
         _root.Remove(_battleTooltipElement);
     }
 }
