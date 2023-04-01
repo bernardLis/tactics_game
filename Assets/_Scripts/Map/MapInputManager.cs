@@ -240,7 +240,7 @@ public class MapInputManager : MonoBehaviour
             yield return StartCoroutine(lengthCheckPath.WaitForPath());
             if (lengthCheckPath.error) yield break;
 
-            if (lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft)
+            if (lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft.Value)
             {
                 _reachablePoints.Add(pos);
                 _reachableDestination = pos;

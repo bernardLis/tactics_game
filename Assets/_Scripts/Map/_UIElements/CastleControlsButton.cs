@@ -5,9 +5,6 @@ using UnityEngine.UIElements;
 
 public class CastleControlsButton : ControlsButton
 {
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonMenuButton = "common__menu-button";
-
     const string _ussClassName = "castle-controls-button__";
     const string _ussCheckMark = _ussClassName + "check-mark";
 
@@ -16,9 +13,6 @@ public class CastleControlsButton : ControlsButton
 
     public CastleControlsButton(MapCastle mapCastle, VisualElement root, DraggableArmies draggableArmies) : base(root, draggableArmies)
     {
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CastleControlsButtonStyles);
         if (ss != null)
             styleSheets.Add(ss);

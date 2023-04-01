@@ -18,7 +18,8 @@ public class MapHero : MonoBehaviour
 
     public Vector3 _lastDestination;
 
-    public float RangeLeft { get; private set; }
+    public FloatVariable RangeLeft { get; private set; }
+    // public float RangeLeft { get; private set; }
 
     public void Initialize(Character c)
     {
@@ -27,18 +28,22 @@ public class MapHero : MonoBehaviour
         _gfx.sprite = c.Portrait.Sprite;
         _selection.enabled = false;
 
-        RangeLeft = Character.Speed.GetValue();
+        RangeLeft = ScriptableObject.CreateInstance<FloatVariable>();
+        RangeLeft.SetValue(Character.Speed.GetValue());
 
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
     }
 
-    void OnDayPassed(int day) { RangeLeft = Character.Speed.GetValue(); }
+    void OnDayPassed(int day)
+    {
+        RangeLeft.SetValue(Character.Speed.GetValue());
+    }
 
     public void SetLastDestination(Vector3 pos) { _lastDestination = pos; }
     public Vector3 GetLastDestination() { return _lastDestination; }
 
-    public void UpdateRangeLeft(float distanceTraveled) { RangeLeft -= distanceTraveled; }
+    public void UpdateRangeLeft(float distanceTraveled) { RangeLeft.ApplyChange(-distanceTraveled); }
 
     public void UpdateMapPosition() { Character.MapPosition = transform.position; }
 

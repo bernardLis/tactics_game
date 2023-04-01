@@ -182,7 +182,7 @@ public class CharacterCard : VisualElement
         // TODO: this should be handled differently.
         IntVariable totalExp = ScriptableObject.CreateInstance<IntVariable>();
         totalExp.SetValue(100);
-        ExpBar = new(Color.black, "Experience", Character.Experience, totalExp, null, 0, true);
+        ExpBar = new(Color.black, "Experience", Character.Experience, totalExp, null, thickness: 0, isIncreasing: true);
 
         _level = new Label($"Level {Character.Level.Value}");
         _level.style.position = Position.Absolute;
@@ -203,7 +203,7 @@ public class CharacterCard : VisualElement
         currentHealth.SetValue(Character.Health.GetValue());
         Character.Health.OnValueChanged += currentHealth.SetValue;
 
-        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", currentHealth, null, Character.Health);
+        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", currentHealth, totalValueStat: Character.Health);
         container.Add(HealthBar);
 
         return container;
@@ -219,7 +219,7 @@ public class CharacterCard : VisualElement
         currentMana.SetValue(Character.Mana.GetValue());
         Character.Mana.OnValueChanged += currentMana.SetValue;
 
-        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", currentMana, null, Character.Mana);
+        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", currentMana, totalValueStat: Character.Mana);
         container.Add(ManaBar);
 
         return container;

@@ -78,7 +78,7 @@ public class CharacterCardQuest : VisualElement
         IntVariable totalExp = ScriptableObject.CreateInstance<IntVariable>();
         totalExp.SetValue(100);
 
-        _expBar = new(Color.black, "Experience", Character.Experience, totalExp, null, 0, true);
+        _expBar = new(Color.black, "Experience", Character.Experience, totalExp, null, thickness: 0, isIncreasing: true);
 
         _level = new Label($"Level {Character.Level.Value}");
         _level.AddToClassList(_ussCommonTextPrimary);

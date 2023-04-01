@@ -10,7 +10,8 @@ public class ResourceBarElement : ElementWithTooltip
 
     int _total;
     int _displayedAmount;
-    IntVariable _current;
+    IntVariable _currentInt;
+    FloatVariable _currentFloat;
     bool _isIncreasing;
 
     IVisualElementScheduledItem _animation;
@@ -27,7 +28,8 @@ public class ResourceBarElement : ElementWithTooltip
 
     public ResourceBarElement(Color color, string tooltipText,
             IntVariable currentIntVar = null, IntVariable totalIntVar = null,
-            Stat stat = null, int thickness = 0, bool isIncreasing = false) : base()
+            FloatVariable currentFloatVar = null,
+            Stat totalValueStat = null, int thickness = 0, bool isIncreasing = false) : base()
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -36,10 +38,10 @@ public class ResourceBarElement : ElementWithTooltip
         if (ss != null)
             styleSheets.Add(ss);
 
-        if (stat != null)
+        if (totalValueStat != null)
         {
-            _total = stat.GetValue();
-            stat.OnValueChanged += OnTotalChanged;
+            _total = totalValueStat.GetValue();
+            totalValueStat.OnValueChanged += OnTotalChanged;
         }
         if (totalIntVar != null)
         {
@@ -47,9 +49,21 @@ public class ResourceBarElement : ElementWithTooltip
             totalIntVar.OnValueChanged += OnTotalChanged;
         }
 
-        _current = currentIntVar;
-        _displayedAmount = _current.Value;
-        currentIntVar.OnValueChanged += OnValueChanged;
+        if (currentFloatVar != null)
+        {
+            _currentFloat = currentFloatVar;
+            _displayedAmount = (int)currentFloatVar.Value;
+            currentFloatVar.OnValueChanged += OnValueChanged;
+
+        }
+
+        if (currentIntVar != null)
+        {
+            _currentInt = currentIntVar;
+            _displayedAmount = _currentInt.Value;
+            currentIntVar.OnValueChanged += OnValueChanged;
+        }
+
 
         _isIncreasing = isIncreasing;
 
@@ -106,7 +120,7 @@ public class ResourceBarElement : ElementWithTooltip
 
     void OnValueChanged(int newValue)
     {
-        int change = Mathf.Abs(newValue - _current.PreviousValue);
+        int change = Mathf.Abs(newValue - _currentInt.PreviousValue);
         if (change == 0)
             return;
 
@@ -115,15 +129,40 @@ public class ResourceBarElement : ElementWithTooltip
 
         int delay = Mathf.FloorToInt(1000 / change); // do it in 1second
 
-        if (newValue - _current.PreviousValue < 0)
+        if (newValue - _currentInt.PreviousValue < 0)
             _animation = schedule.Execute(HandleDecrease).Every(delay);
         else
             _animation = schedule.Execute(HandleIncrease).Every(delay);
     }
 
+    void OnValueChanged(float newValue)
+    {
+        Debug.Log($"on value changed new: {newValue}");
+        float change = Mathf.Abs(newValue - _currentFloat.PreviousValue);
+        if (change == 0)
+            return;
+
+        if (_animation != null)
+            _animation.Pause();
+
+        int delay = Mathf.FloorToInt(1000 / change); // do it in 1second
+
+        if (newValue - _currentFloat.PreviousValue < 0)
+            _animation = schedule.Execute(HandleDecrease).Every(delay);
+        else
+            _animation = schedule.Execute(HandleIncrease).Every(delay);
+    }
+
+
     void HandleDecrease()
     {
-        if (_current.Value == _displayedAmount)
+        if (_currentInt != null && _currentInt.Value >= _displayedAmount)
+        {
+            _animation.Pause();
+            return;
+        }
+
+        if (_currentFloat != null && _currentFloat.Value >= _displayedAmount)
         {
             _animation.Pause();
             return;
@@ -135,7 +174,13 @@ public class ResourceBarElement : ElementWithTooltip
 
     void HandleIncrease()
     {
-        if (_current.Value == _displayedAmount)
+        if (_currentInt != null && _currentInt.Value <= _displayedAmount)
+        {
+            _animation.Pause();
+            return;
+        }
+
+        if (_currentFloat != null && _currentFloat.Value <= _displayedAmount)
         {
             _animation.Pause();
             return;
