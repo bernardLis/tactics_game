@@ -452,6 +452,7 @@ GameObject:
   - component: {fileID: 7771277315354121037}
   - component: {fileID: 744898385265374333}
   - component: {fileID: 1245496189666989898}
+  - component: {fileID: 6010306211081387629}
   m_Layer: 0
   m_Name: Map Manager
   m_TagString: Untagged
@@ -476,7 +477,7 @@ Transform:
   - {fileID: 7880445060236048158}
   - {fileID: 965809664}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7227188172802379953
 MonoBehaviour:
@@ -578,5 +579,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36b26885c9438614b9c118a36c3b2eb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6010306211081387629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771277315354121038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52a4db502860624484c695317802f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

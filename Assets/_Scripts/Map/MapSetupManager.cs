@@ -8,6 +8,8 @@ public class MapSetupManager : MonoBehaviour
     GameManager _gameManager;
     Map _currentMap;
 
+    FogOfWarManager _fogOfWarManager;
+
     [SerializeField] GameObject _heroPrefab;
     [SerializeField] GameObject _collectablePrefab;
     [SerializeField] GameObject _battlePrefab;
@@ -21,11 +23,15 @@ public class MapSetupManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _currentMap = _gameManager.Map;
+        _fogOfWarManager = GetComponent<FogOfWarManager>();
 
         PlaceCharacters();
         PlaceCollectables();
         PlaceBattles();
         PlaceCastles();
+
+        // TODO: maybe a delegate on setup finished
+        _fogOfWarManager.Initialize();
 
         AstarPath.active.Scan();
     }
