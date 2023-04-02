@@ -240,7 +240,8 @@ public class MapInputManager : MonoBehaviour
             yield return StartCoroutine(lengthCheckPath.WaitForPath());
             if (lengthCheckPath.error) yield break;
 
-            if (lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft.Value)
+            // (int) coz there are sometimes 0.0001s in floats, range left is x100
+            if ((int)lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft.Value * 0.01)
             {
                 _reachablePoints.Add(pos);
                 _reachableDestination = pos;
@@ -281,7 +282,7 @@ public class MapInputManager : MonoBehaviour
         if (p.error) yield break;
         if (_selectedHero == null) yield break;
 
-        _selectedHero.UpdateRangeLeft(p.GetTotalLength());
+        _selectedHero.UpdateRangeLeft((int)p.GetTotalLength() * 100);
 
         _ai = _selectedHero.GetComponent<AILerp>();
         _ai.canMove = true;
@@ -347,6 +348,10 @@ public class MapInputManager : MonoBehaviour
     {
         _ai.canMove = false;
         Debug.Log($"Selected hero: {_selectedHero.name} is meeting a hero: {hero.name}");
+        _selectedHero.Meet(hero);
+        
+        // TODO: can start a battle with enemy hero if it ever exists
+
         ResetDestinationCollider();
     }
 

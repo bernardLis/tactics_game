@@ -35,10 +35,11 @@ public class MapHero : MonoBehaviour
         _gameManager.OnDayPassed += OnDayPassed;
     }
 
-    void OnDayPassed(int day)
-    {
-        RangeLeft.SetValue(Character.Speed.GetValue());
-    }
+    void OnDayPassed(int day) { RangeLeft.SetValue(Character.Speed.GetValue()); }
+    
+    public void Select() { _selection.enabled = true; }
+
+    public void Unselect() { _selection.enabled = false; }
 
     public void SetLastDestination(Vector3 pos) { _lastDestination = pos; }
     public Vector3 GetLastDestination() { return _lastDestination; }
@@ -47,9 +48,10 @@ public class MapHero : MonoBehaviour
 
     public void UpdateMapPosition() { Character.MapPosition = transform.position; }
 
-    public void Select() { _selection.enabled = true; }
-
-    public void Unselect() { _selection.enabled = false; }
+    public void Meet(MapHero other)
+    {
+        
+    }
 
     public void FloatText(string txt)
     {

@@ -11,8 +11,8 @@ public class Character : BaseScriptableObject
     public static int MaxCharacterItems = 2;
     public static int MaxCharacterArmySlots = 5;
 
-    static Vector2Int MaxHealthGainPerLevelRange = new(10, 21);
-    static Vector2Int MaxManaGainPerLevelRange = new(5, 11);
+    static Vector2Int MaxHealthGainPerLevelRange = new(100, 210);
+    static Vector2Int MaxManaGainPerLevelRange = new(50, 110);
 
     GameManager _gameManager;
 
@@ -168,11 +168,11 @@ public class Character : BaseScriptableObject
         UpdateRank();
     }
 
-    public void AddPower() { BasePower.ApplyChange(1); }
+    public void AddPower() { BasePower.ApplyChange(100); }
 
-    public void AddArmor() { BaseArmor.ApplyChange(1); }
+    public void AddArmor() { BaseArmor.ApplyChange(100); }
 
-    public void AddRange() { BaseSpeed.ApplyChange(1); }
+    public void AddRange() { BaseSpeed.ApplyChange(100); }
 
     public bool CanTakeAnotherAbility() { return Abilities.Count < MaxCharacterAbilities; }
 
@@ -358,12 +358,12 @@ public class Character : BaseScriptableObject
         Experience.SetValue(0);
         Element = _gameManager.GameDatabase.GetElementByName(ElementName.Earth);
 
-        BaseHealth.SetValue(100);
-        BaseMana.SetValue(30);
+        BaseHealth.SetValue(1000);
+        BaseMana.SetValue(300);
 
-        BasePower.SetValue(5);
+        BasePower.SetValue(500);
         BaseArmor.SetValue(0);
-        BaseSpeed.SetValue(3);
+        BaseSpeed.SetValue(300);
 
         CreateStats();
 
@@ -410,9 +410,9 @@ public class Character : BaseScriptableObject
         totalPointsLeft -= powerLevelBonus;
         int armorLevelBonus = Random.Range(0, totalPointsLeft + 1);
         totalPointsLeft -= armorLevelBonus;
-        BasePower.SetValue(5 + powerLevelBonus);
-        BaseArmor.SetValue(0 + armorLevelBonus);
-        BaseSpeed.SetValue(3 + totalPointsLeft);
+        BasePower.SetValue(500 + powerLevelBonus * 100);
+        BaseArmor.SetValue(0 + armorLevelBonus * 100);
+        BaseSpeed.SetValue(300 + totalPointsLeft * 100);
 
         CreateStats();
 

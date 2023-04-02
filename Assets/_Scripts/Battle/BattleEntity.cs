@@ -126,14 +126,12 @@ public class BattleEntity : MonoBehaviour
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         Vector3 punchRotation = new(45f, 0f, 0f);
         GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
-        //    / yield return new WaitForSeconds(0.3f);
         _currentAttackCooldown = _stats.AttackCooldown;
 
         // spawn projectile
         GameObject projectileInstance = Instantiate(_stats.Projectile, GFX.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
-        //  int speed = 20;
-        //  float duration = Vector3.Distance(transform.position, _opponent.transform.position) / speed;
+
         Projectile projectile = projectileInstance.GetComponent<Projectile>();
         projectile.Shoot(this, _opponent, 20, _stats.Power);
     }
