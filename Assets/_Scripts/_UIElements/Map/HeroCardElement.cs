@@ -22,7 +22,7 @@ public class HeroCardElement : FullScreenElement
     VisualElement _middleContainer;
     VisualElement _bottomContainer;
 
-    public HeroCardElement(MapHero mapHero, VisualElement root, DraggableArmies draggableArmies) : base()
+    public HeroCardElement(MapHero mapHero, VisualElement root, DraggableArmies draggableArmies, bool isFullScreenElement = true) : base()
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -32,7 +32,9 @@ public class HeroCardElement : FullScreenElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        Initialize(root);
+        if (isFullScreenElement) // useful for hero meetings
+            Initialize(root);
+
         _gameManager.ToggleTimer(false);
 
         MapHero = mapHero;
@@ -61,8 +63,11 @@ public class HeroCardElement : FullScreenElement
         HeroCastleElement armyElement = new(mapHero.Character, false);
         _bottomContainer.Add(armyElement);
 
-        AddBackButton();
+        if (isFullScreenElement)
+        {
+            AddBackButton();
+            draggableArmies.Initialize();
+        }
 
-        draggableArmies.Initialize();
     }
 }
