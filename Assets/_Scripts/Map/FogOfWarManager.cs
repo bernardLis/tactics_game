@@ -13,13 +13,13 @@ public class FogOfWarManager : MonoBehaviour
     int _height = 80;
 
     List<FogOfWarSquareInfo> _squares = new();
+    List<FogOfWarObject> _fogOfWarObjects = new();
     MapHero[] _heroes;
     MapCastle[] _castles;
 
     void Start()
     {
         _cam = Camera.main;
-
 
         // Create a grid of squares
         for (int x = 0; x < _width; x++)
@@ -39,6 +39,18 @@ public class FogOfWarManager : MonoBehaviour
     {
         _heroes = FindObjectsOfType<MapHero>();
         _castles = FindObjectsOfType<MapCastle>();
+        _fogOfWarObjects = new List<FogOfWarObject>(FindObjectsOfType<FogOfWarObject>());
+        foreach (FogOfWarObject o in _fogOfWarObjects)
+        {
+            foreach (FogOfWarSquareInfo square in _squares)
+            {
+                if (square.transform.position == o.transform.position)
+                {
+                    o.SetYourSquareInfo(square);
+                    break;
+                }
+            }
+        }
     }
 
     void Update()
@@ -49,6 +61,27 @@ public class FogOfWarManager : MonoBehaviour
 
     public void UpdateFogOfWar()
     {
+        Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        foreach (FogOfWarSquareInfo square in _squares)
+        {
+            square.IsVisible = false;
+
+            SpriteRenderer sr = square.GetComponent<SpriteRenderer>();
+            if (square.IsExplored)
+                sr.color = new Color(0, 0, 0, 0.5f);
+            else
+                sr.color = Color.black;
+
+            if (Vector2.Distance(worldPos, square.transform.position) < 5)
+            {
+                square.IsExplored = true;
+                square.IsVisible = true;
+                sr.color = Color.clear;
+            }
+
+        }
+
+        /*
         List<Vector2> visibilityProducers = new();
         foreach (MapHero h in _heroes)
             visibilityProducers.Add(new Vector2(h.transform.position.x, h.transform.position.y));
@@ -73,6 +106,13 @@ public class FogOfWarManager : MonoBehaviour
             }
 
         }
+        */
 
     }
+
+
+
+    // TODO: There must be a better way to do this like have squares in dictionary or something
+    // and check dict for position
+
 }

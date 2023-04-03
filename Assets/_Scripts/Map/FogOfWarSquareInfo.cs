@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FogOfWarSquareInfo : MonoBehaviour
 {
-    public bool WasExplored;
+    public bool IsExplored;
+    public bool IsVisible;
 
 }

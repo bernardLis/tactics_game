@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4271262817906502112}
   - component: {fileID: 4271262817906502125}
   - component: {fileID: 6548888807277918616}
+  - component: {fileID: 9003758673758399946}
   m_Layer: 3
   m_Name: Map Battle
   m_TagString: Untagged
@@ -147,6 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4223999e6c22d0e4d8c46fc27628bbfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9003758673758399946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4271262817906502119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41cbfc35ceaaf7a4d9ef7333fbadac17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsVisibleInFogOfWar: 0
+  _gfx: {fileID: 4271262818785174268}
 --- !u!1 &4271262818785174268
 GameObject:
   m_ObjectHideFlags: 0

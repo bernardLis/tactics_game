@@ -315,6 +315,7 @@ GameObject:
   - component: {fileID: 2368004553952745807}
   - component: {fileID: 2368004553952745805}
   - component: {fileID: 3005010926892659475}
+  - component: {fileID: 1793323789199589878}
   - component: {fileID: 434368692239671756}
   - component: {fileID: 3408835608880774007}
   m_Layer: 0
@@ -415,6 +416,21 @@ MonoBehaviour:
   _selection: {fileID: 7232669756227415221}
   _canvasContainer: {fileID: 4658407890995922315}
   _floatingText: {fileID: 6904252969855615405}
+  _lastDestination: {x: 0, y: 0, z: 0}
+--- !u!114 &1793323789199589878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2368004553952745794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41cbfc35ceaaf7a4d9ef7333fbadac17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsVisibleInFogOfWar: 0
+  _gfx: {fileID: 2368004553514950952}
 --- !u!61 &434368692239671756
 BoxCollider2D:
   m_ObjectHideFlags: 0
