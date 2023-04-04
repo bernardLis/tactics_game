@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class HeroControlsButton : ControlsButton
 {
-
+    MapInputManager _mapInputManager;
     public MapHero MapHero { get; private set; }
 
     ResourceBarElement _movementRangeBar;
@@ -15,6 +15,8 @@ public class HeroControlsButton : ControlsButton
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroControlsButtonStyles);
         if (ss != null)
             styleSheets.Add(ss);
+
+        _mapInputManager = MapInputManager.Instance;
 
         MapHero = mapHero;
         style.backgroundImage = new StyleBackground(mapHero.Character.Portrait.Sprite);
@@ -31,13 +33,18 @@ public class HeroControlsButton : ControlsButton
 
     protected override void OnPointerDown(PointerDownEvent e)
     {
-        Debug.Log($"{MapHero.Character.CharacterName} click show me a full screen card with all info");
-        HeroCardElement card = new(MapHero, _root, _draggableArmies);
+        if (_mapInputManager.SelectedHero == MapHero)
+        {
+            HeroCardElement card = new(MapHero, _root, _draggableArmies);
+            return;
+        }
+
+        _mapInputManager.SelectHero(MapHero);
     }
 
     protected override void OnMouseEnter(MouseEnterEvent e)
     {
-        _cameraSmoothFollow.MoveTo(MapHero.transform.position);
+        //_cameraSmoothFollow.MoveTo(MapHero.transform.position);
     }
 
     protected override void OnMouseLeave(MouseLeaveEvent e)

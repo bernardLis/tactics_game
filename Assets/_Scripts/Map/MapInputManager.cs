@@ -9,7 +9,7 @@ using Pathfinding;
 using Shapes;
 using DG.Tweening;
 
-public class MapInputManager : MonoBehaviour
+public class MapInputManager : Singleton<MapInputManager>
 {
     GameManager _gameManager;
     PlayerInput _playerInput;
@@ -27,7 +27,7 @@ public class MapInputManager : MonoBehaviour
     List<Vector3> _unreachablePoints = new();
 
     MapBattle _activeBattleTooltip;
-    MapHero _selectedHero;
+    public MapHero SelectedHero { get; private set; }
     AILerp _ai;
 
     Collider2D _disabledCollider;
@@ -39,6 +39,7 @@ public class MapInputManager : MonoBehaviour
 
     public event Action<MapHero> OnHeroMoving;
     public event Action<MapHero> OnHeroTargetReached;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -144,7 +145,7 @@ public class MapInputManager : MonoBehaviour
         Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
         if (!_tilemap.HasTile(tilePos)) return;
 
-        if (_selectedHero != null)
+        if (SelectedHero != null)
         {
             ResolveMovement(worldPos);
             return;
@@ -166,20 +167,20 @@ public class MapInputManager : MonoBehaviour
         }
     }
 
-    void SelectHero(MapHero hero)
+    public void SelectHero(MapHero hero)
     {
         UnselectHero();
-        _selectedHero = hero;
-        _selectedHero.Select();
+        SelectedHero = hero;
+        SelectedHero.Select();
 
-        _cameraSmoothFollow.MoveTo(_selectedHero.transform.position);
+        _cameraSmoothFollow.MoveTo(SelectedHero.transform.position);
 
         _interactionResolved = false;
 
-        if (_selectedHero.GetLastDestination() == Vector3.zero)
+        if (SelectedHero.GetLastDestination() == Vector3.zero)
             return;
 
-        _middleOfDestinationTile = _selectedHero.GetLastDestination();
+        _middleOfDestinationTile = SelectedHero.GetLastDestination();
         StartCoroutine(DrawPath());
     }
 
@@ -190,7 +191,7 @@ public class MapInputManager : MonoBehaviour
         // if you want to move on top of an object you need to disable the collider 
         ResolveDestinationCollider(middleOfTile);
 
-        _selectedHero.SetLastDestination(middleOfTile);
+        SelectedHero.SetLastDestination(middleOfTile);
 
         // click twice at the same location to move
         if (_middleOfDestinationTile != middleOfTile)
@@ -208,7 +209,7 @@ public class MapInputManager : MonoBehaviour
         Collider2D[] results = Physics2D.OverlapCircleAll(pos, 0.2f);
         foreach (Collider2D c in results)
         {
-            if (c.gameObject == _selectedHero.gameObject)
+            if (c.gameObject == SelectedHero.gameObject)
                 continue;
 
             if (c.gameObject.TryGetComponent<MapCollectable>(out MapCollectable collectable))
@@ -229,22 +230,22 @@ public class MapInputManager : MonoBehaviour
     {
         ClearMovementIndicators();
 
-        Path fullPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, _middleOfDestinationTile);
+        Path fullPath = Pathfinding.ABPath.Construct(SelectedHero.transform.position, _middleOfDestinationTile);
         AstarPath.StartPath(fullPath);
         yield return StartCoroutine(fullPath.WaitForPath());
 
         for (int i = 0; i < fullPath.vectorPath.Count; i++)
         {
-            if (_selectedHero == null) yield break;
+            if (SelectedHero == null) yield break;
 
             Vector3 pos = new Vector3(fullPath.vectorPath[i].x, fullPath.vectorPath[i].y, 0);
-            Path lengthCheckPath = Pathfinding.ABPath.Construct(_selectedHero.transform.position, pos);
+            Path lengthCheckPath = Pathfinding.ABPath.Construct(SelectedHero.transform.position, pos);
             AstarPath.StartPath(lengthCheckPath);
             yield return StartCoroutine(lengthCheckPath.WaitForPath());
             if (lengthCheckPath.error) yield break;
 
             // (int) coz there are sometimes 0.0001s in floats, range left is x100
-            if ((int)lengthCheckPath.GetTotalLength() <= _selectedHero.RangeLeft.Value * 0.01)
+            if ((int)lengthCheckPath.GetTotalLength() <= SelectedHero.RangeLeft.Value * 0.01)
             {
                 _reachablePoints.Add(pos);
                 _reachableDestination = pos;
@@ -280,22 +281,22 @@ public class MapInputManager : MonoBehaviour
 
     IEnumerator Path()
     {
-        Path p = _selectedHero.GetComponent<Seeker>().StartPath(_selectedHero.transform.position, _reachableDestination);
+        Path p = SelectedHero.GetComponent<Seeker>().StartPath(SelectedHero.transform.position, _reachableDestination);
         yield return StartCoroutine(p.WaitForPath());
         if (p.error) yield break;
-        if (_selectedHero == null) yield break;
+        if (SelectedHero == null) yield break;
 
-        _selectedHero.UpdateRangeLeft((int)p.GetTotalLength() * 100);
+        SelectedHero.UpdateRangeLeft((int)p.GetTotalLength() * 100);
 
-        _ai = _selectedHero.GetComponent<AILerp>();
+        _ai = SelectedHero.GetComponent<AILerp>();
         _ai.canMove = true;
 
-        _cameraSmoothFollow.SetTarget(_selectedHero.transform);
+        _cameraSmoothFollow.SetTarget(SelectedHero.transform);
         while (!_ai.reachedEndOfPath)
         {
-            if (_selectedHero == null) yield break;
+            if (SelectedHero == null) yield break;
 
-            if (Vector3.Distance(_selectedHero.transform.position, _middleOfDestinationTile) < 0.8f
+            if (Vector3.Distance(SelectedHero.transform.position, _middleOfDestinationTile) < 0.8f
                 && !_interactionResolved)
             {
                 ResolveInteraction();
@@ -304,14 +305,14 @@ public class MapInputManager : MonoBehaviour
 
             yield return UpdatePathIndicator();
             yield return new WaitForSeconds(0.05f);
-            OnHeroMoving?.Invoke(_selectedHero);
+            OnHeroMoving?.Invoke(SelectedHero);
         }
         OnTargetReached();
     }
 
     IEnumerator UpdatePathIndicator()
     {
-        Path pathLeft = Pathfinding.ABPath.Construct(_selectedHero.transform.position, _reachableDestination);
+        Path pathLeft = Pathfinding.ABPath.Construct(SelectedHero.transform.position, _reachableDestination);
         AstarPath.StartPath(pathLeft);
         yield return StartCoroutine(pathLeft.WaitForPath());
         if (pathLeft.error) yield break;
@@ -328,12 +329,12 @@ public class MapInputManager : MonoBehaviour
         Collider2D[] results = Physics2D.OverlapCircleAll(_middleOfDestinationTile, 0.2f);
         foreach (Collider2D c in results)
         {
-            if (c.gameObject == _selectedHero.gameObject)
+            if (c.gameObject == SelectedHero.gameObject)
                 continue;
 
             // collectible => move into the tile and collect
             if (c.gameObject.TryGetComponent<MapCollectable>(out MapCollectable collectable))
-                collectable.Collect(_selectedHero);
+                collectable.Collect(SelectedHero);
 
             // another hero => stay on the previous tile and "interact"
             if (c.gameObject.TryGetComponent<MapHero>(out MapHero hero))
@@ -341,7 +342,7 @@ public class MapInputManager : MonoBehaviour
 
             // battle => load scene battle
             if (c.gameObject.TryGetComponent<MapBattle>(out MapBattle battle))
-                battle.TakeBattle(_selectedHero);
+                battle.TakeBattle(SelectedHero);
 
             if (c.gameObject.TryGetComponent<MapCastle>(out MapCastle castle))
                 VisitCastle(castle);
@@ -351,8 +352,8 @@ public class MapInputManager : MonoBehaviour
     void MeetHero(MapHero hero)
     {
         _ai.canMove = false;
-        Debug.Log($"Selected hero: {_selectedHero.name} is meeting a hero: {hero.name}");
-        _selectedHero.Meet(hero);
+        Debug.Log($"Selected hero: {SelectedHero.name} is meeting a hero: {hero.name}");
+        SelectedHero.Meet(hero);
 
         // TODO: can start a battle with enemy hero if it ever exists
 
@@ -362,7 +363,7 @@ public class MapInputManager : MonoBehaviour
     void VisitCastle(MapCastle castle)
     {
         _ai.canMove = false;
-        castle.VisitCastle(_selectedHero);
+        castle.VisitCastle(SelectedHero);
 
         ResetDestinationCollider();
     }
@@ -370,11 +371,11 @@ public class MapInputManager : MonoBehaviour
     void OnTargetReached()
     {
         ClearMovementIndicators();
-        OnHeroTargetReached?.Invoke(_selectedHero);
-        _selectedHero.UpdateMapPosition();
-        _selectedHero.Unselect();
+        OnHeroTargetReached?.Invoke(SelectedHero);
+        SelectedHero.UpdateMapPosition();
+        SelectedHero.Unselect();
         _cameraSmoothFollow.SetTarget(null);
-        _selectedHero = null;
+        SelectedHero = null;
         _ai = null;
 
         _gameManager.SaveJsonData();
@@ -397,10 +398,10 @@ public class MapInputManager : MonoBehaviour
 
     void UnselectHero()
     {
-        if (_selectedHero == null) return;
+        if (SelectedHero == null) return;
 
-        _selectedHero.Unselect();
-        _selectedHero = null;
+        SelectedHero.Unselect();
+        SelectedHero = null;
     }
 
     void DisableDestinationCollider(Collider2D c)
