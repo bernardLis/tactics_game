@@ -1,23 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class FogOfWarObject : MonoBehaviour
 {
-    FogOfWarSquareInfo _yourSquareInfo;
+    FogOfWarSquare _yourSquareInfo;
     public bool IsVisibleInFogOfWar;
     [SerializeField] GameObject _gfx;
 
-    public void SetYourSquareInfo(FogOfWarSquareInfo info) { _yourSquareInfo = info; }
+    public void SetYourSquareInfo(FogOfWarSquare info)
+    {
+        _yourSquareInfo = info;
+        _yourSquareInfo.OnVisibilityChanged += UpdateVisibility;
+    }
 
     public void SetVisibility(bool isVisible) { _gfx.SetActive(isVisible); }
 
-    void Update()
-    {
-        UpdateVisibility();
-    }
-
-    public void UpdateVisibility()
+    public void UpdateVisibility(bool isSquareVisible)
     {
         SetVisibility(false);
         if (_yourSquareInfo.IsVisible)

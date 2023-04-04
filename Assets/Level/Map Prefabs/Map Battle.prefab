@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cbfc35ceaaf7a4d9ef7333fbadac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisibleInFogOfWar: 0
+  IsVisibleInFogOfWar: 1
   _gfx: {fileID: 4271262818785174268}
 --- !u!1 &4271262818785174268
 GameObject:

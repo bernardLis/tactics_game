@@ -7,7 +7,7 @@ public class SpriteOutline : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     Material _mat;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _mat = GetComponentInChildren<SpriteRenderer>().material;
         _mat.SetColor("_OutlineColor", Color.black);

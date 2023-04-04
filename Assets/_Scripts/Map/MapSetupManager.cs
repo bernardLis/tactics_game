@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class MapSetupManager : MonoBehaviour
     public List<MapHero> MapHeroes = new();
     public List<MapCastle> MapCastles = new();
 
-
+    public event Action OnMapSetupFinished;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -30,10 +31,8 @@ public class MapSetupManager : MonoBehaviour
         PlaceBattles();
         PlaceCastles();
 
-        // TODO: maybe a delegate on setup finished
-        _fogOfWarManager.Initialize();
-
         AstarPath.active.Scan();
+        OnMapSetupFinished?.Invoke();
     }
 
 #if UNITY_EDITOR

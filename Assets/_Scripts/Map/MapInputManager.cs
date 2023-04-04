@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,8 @@ public class MapInputManager : MonoBehaviour
 
     bool _interactionResolved;
 
+    public event Action<MapHero> OnHeroMoving;
+    public event Action<MapHero> OnHeroTargetReached;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -301,6 +304,7 @@ public class MapInputManager : MonoBehaviour
 
             yield return UpdatePathIndicator();
             yield return new WaitForSeconds(0.05f);
+            OnHeroMoving?.Invoke(_selectedHero);
         }
         OnTargetReached();
     }
@@ -349,7 +353,7 @@ public class MapInputManager : MonoBehaviour
         _ai.canMove = false;
         Debug.Log($"Selected hero: {_selectedHero.name} is meeting a hero: {hero.name}");
         _selectedHero.Meet(hero);
-        
+
         // TODO: can start a battle with enemy hero if it ever exists
 
         ResetDestinationCollider();
@@ -366,7 +370,7 @@ public class MapInputManager : MonoBehaviour
     void OnTargetReached()
     {
         ClearMovementIndicators();
-
+        OnHeroTargetReached?.Invoke(_selectedHero);
         _selectedHero.UpdateMapPosition();
         _selectedHero.Unselect();
         _cameraSmoothFollow.SetTarget(null);
