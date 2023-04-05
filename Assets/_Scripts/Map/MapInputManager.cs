@@ -285,6 +285,9 @@ public class MapInputManager : Singleton<MapInputManager>
         yield return StartCoroutine(p.WaitForPath());
         if (p.error) yield break;
         if (SelectedHero == null) yield break;
+        Debug.Log($"p.GetTotalLength() {p.GetTotalLength()}");
+        Debug.Log($"(int)p.GetTotalLength() {(int)p.GetTotalLength()}");
+        Debug.Log($"(int)p.GetTotalLength() * 100 {(int)p.GetTotalLength() * 100}");
 
         SelectedHero.UpdateRangeLeft((int)p.GetTotalLength() * 100);
 

@@ -8,7 +8,7 @@ public class FogOfWarManager : MonoBehaviour
 {
     Camera _cam;
     [SerializeField] GameObject _squarePrefab;
-    Vector2 _bottomLeftCorner = new(-40.5f, -28.5f);
+    Vector2 _bottomLeftCorner = new(-40.5f, -28.5f);//new(0.5f, 0.5f); //new(-40.5f, -28.5f);
     int _width = 80;
     int _height = 80;
 
@@ -25,7 +25,7 @@ public class FogOfWarManager : MonoBehaviour
         MapInputManager inputManager = GetComponent<MapInputManager>();
         inputManager.OnHeroMoving += OnHeroChangedPosition;
         inputManager.OnHeroTargetReached += OnHeroChangedPosition;
-        Debug.Log($"start");
+
         // Create a grid of squares
         for (int x = 0; x < _width; x++)
         {
@@ -65,35 +65,43 @@ public class FogOfWarManager : MonoBehaviour
         UpdateFogOfWar(hero.GetComponent<FogOfWarEffector>());
     }
 
-    public void UpdateFogOfWar(FogOfWarEffector effector)
+    void UpdateFogOfWar(FogOfWarEffector effector)
     {
-        foreach (FogOfWarSquare square in _squares)
+        int delta = Mathf.CeilToInt(effector.ExploreRadius) + 2;
+        for (int i = -delta; i < delta; i++)
         {
-            if (Vector2.Distance(effector.transform.position, square.transform.position)
-                      > effector.VisionRadius + 2)
-                continue;
+            for (int j = -delta; j < delta; j++)
+            {
+                float effectorPosX = (int)effector.transform.position.x + 0.5f;
+                float effectorPosY = (int)effector.transform.position.y + 0.5f;
 
-            square.ResetVisibility();
+                float squarePosX = effectorPosX + i;
+                float squarePosY = effectorPosY + j;
+                int x = Mathf.RoundToInt(squarePosX - _bottomLeftCorner.x);
+                int y = Mathf.RoundToInt(squarePosY - _bottomLeftCorner.y);
 
-            if (Vector2.Distance(effector.transform.position, square.transform.position)
-                    <= effector.ExploredRadius)
-                square.SetExplored();
+                FogOfWarSquare square = _squares[y + _width * x];
+                square.ResetVisibility();
 
-            if (Vector2.Distance(effector.transform.position, square.transform.position)
-                    <= effector.VisionRadius)
-                square.SetVisible();
+                if (Vector2.Distance(effector.transform.position, square.transform.position) <= effector.ExploreRadius)
+                    square.SetExplored();
+
+                if (Vector2.Distance(effector.transform.position, square.transform.position) <= effector.VisionRadius)
+                    square.SetVisible();
+            }
         }
     }
 
     public void UpdateFogOfWar()
     {
+        // I'd have to know where in the list is square at a given world position
+        // https://blog.gemserk.com/2018/11/20/implementing-fog-of-war-for-rts-games-in-unity-2-2/
         foreach (FogOfWarSquare square in _squares)
         {
             square.ResetVisibility();
-
             foreach (FogOfWarEffector e in _fogOfWarEffectors)
             {
-                if (Vector2.Distance(e.transform.position, square.transform.position) <= e.ExploredRadius)
+                if (Vector2.Distance(e.transform.position, square.transform.position) <= e.ExploreRadius)
                     square.SetExplored();
 
                 if (Vector2.Distance(e.transform.position, square.transform.position) <= e.VisionRadius)

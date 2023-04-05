@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ebe2513e826e1498c5ade089fe3d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  i: 0
   _sprites:
   - {fileID: 21300000, guid: 46a758d435434ba4f926b9f38a36f6d6, type: 3}
   - {fileID: 21300000, guid: 9337a53c13c0c7b419ba99563db74dfd, type: 3}
@@ -52,6 +53,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6ba5fb6b6151ed04c91ac59ac2d20d01, type: 3}
   - {fileID: 21300000, guid: d211e958e0670d840b1577b8dfbc98a1, type: 3}
   - {fileID: 21300000, guid: a6f3ed3c9918f004e97313a50ad23048, type: 3}
+  _textMesh: {fileID: 0}
 --- !u!1 &8432216374329706341
 GameObject:
   m_ObjectHideFlags: 0
