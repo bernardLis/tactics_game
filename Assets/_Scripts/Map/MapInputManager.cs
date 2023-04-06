@@ -36,10 +36,10 @@ public class MapInputManager : Singleton<MapInputManager>
     Vector3 _reachableDestination;
 
     bool _interactionResolved;
+    bool _blockClicks;
 
     public event Action<MapHero> OnHeroMoving;
     public event Action<MapHero> OnHeroTargetReached;
-
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -97,6 +97,7 @@ public class MapInputManager : Singleton<MapInputManager>
 
     void RightMouseClick(InputAction.CallbackContext ctx)
     {
+        if (_blockClicks) return;
         if (this == null) return;
 
         if (IsPointerOverUI(Mouse.current.position.ReadValue())) return;
@@ -134,6 +135,7 @@ public class MapInputManager : Singleton<MapInputManager>
 
     void LeftMouseClick(InputAction.CallbackContext ctx)
     {
+        if (_blockClicks) return;
         if (this == null) return;
 
         if (IsPointerOverUI(Mouse.current.position.ReadValue())) return;
@@ -281,6 +283,8 @@ public class MapInputManager : Singleton<MapInputManager>
 
     IEnumerator Path()
     {
+        _blockClicks = true;
+        _gameManager.ToggleTimer(false);
         Path p = SelectedHero.GetComponent<Seeker>().StartPath(SelectedHero.transform.position, _reachableDestination);
         yield return StartCoroutine(p.WaitForPath());
         if (p.error) yield break;
@@ -370,6 +374,9 @@ public class MapInputManager : Singleton<MapInputManager>
 
     void OnTargetReached()
     {
+        _blockClicks = false;
+        _gameManager.ToggleTimer(true);
+
         ClearMovementIndicators();
         OnHeroTargetReached?.Invoke(SelectedHero);
         SelectedHero.UpdateMapPosition();
