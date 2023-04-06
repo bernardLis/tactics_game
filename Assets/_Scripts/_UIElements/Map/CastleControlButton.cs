@@ -21,6 +21,13 @@ public class CastleControlButton : ControlButton
         MapCastle = mapCastle;
         mapCastle.Castle.OnBuilt += OnBuilt;
 
+        mapCastle.PointerEnterEvent += h =>
+        {
+            Debug.Log($"on highlight in button");
+            AddToClassList(_ussSelected);
+        };
+        mapCastle.PointerLeaveEvent += h => RemoveFromClassList(_ussSelected);
+
         _icon.style.backgroundImage = new StyleBackground(mapCastle.Castle.Sprite);
 
         AddBuiltCheckMark();
@@ -42,7 +49,6 @@ public class CastleControlButton : ControlButton
 
     protected override void OnPointerDown(PointerDownEvent e)
     {
-
         CastleElement el = new(_root, MapCastle.Castle);
         el.OnHide += _draggableArmies.Reset;
         _draggableArmies.Initialize();

@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MapCastle : MonoBehaviour, ITooltipDisplayable
+public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandler, IPointerExitHandler
 {
     GameManager _gameManager;
     DashboardManager _dashboardManager;
@@ -13,6 +15,8 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
 
     public Castle Castle { get; private set; }
 
+    public event Action<MapCastle> PointerEnterEvent;
+    public event Action<MapCastle> PointerLeaveEvent;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -28,6 +32,16 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable
         castle.Initialize(); // TODO: differentiate between owned / not owned castles
         Castle = castle;
         GetComponentInChildren<SpriteRenderer>().sprite = castle.Sprite;
+    }
+
+    public void OnPointerEnter(PointerEventData evt)
+    {
+        PointerEnterEvent?.Invoke(this);
+    }
+
+    public void OnPointerExit(PointerEventData evt)
+    {
+        PointerLeaveEvent?.Invoke(this);
     }
 
     public void Highlight()
