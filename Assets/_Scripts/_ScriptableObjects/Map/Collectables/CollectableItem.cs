@@ -38,6 +38,7 @@ public class CollectableItem : Collectable
     {
         base.LoadFromData(data);
         Item = GameManager.Instance.GameDatabase.GetItemById(data.ItemId);
+        Sprite = Item.Icon;
         name = $"{Item.ItemName}";
 
     }
