@@ -82,12 +82,17 @@ public class FogOfWarManager : MonoBehaviour
 
                 FogOfWarSquare square = _squares[y + _width * x];
                 square.ResetVisibility();
+                foreach (FogOfWarEffector e in _fogOfWarEffectors)
+                {
+                    if (Vector2.Distance(e.transform.position, square.transform.position) <= e.ExploreRadius)
+                        square.SetExplored();
 
-                if (Vector2.Distance(effector.transform.position, square.transform.position) <= effector.ExploreRadius)
-                    square.SetExplored();
-
-                if (Vector2.Distance(effector.transform.position, square.transform.position) <= effector.VisionRadius)
-                    square.SetVisible();
+                    if (Vector2.Distance(e.transform.position, square.transform.position) <= e.VisionRadius)
+                    {
+                        square.SetVisible();
+                        break; // important
+                    }
+                }
             }
         }
     }
