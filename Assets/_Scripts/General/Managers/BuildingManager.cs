@@ -30,7 +30,7 @@ public class BuildingManager : MonoBehaviour
         foreach (CampBuilding cb in _campBuildings)
         {
             cb.Initialize();
-            
+
             if (cb.GetType().Equals(typeof(CampBuildingTroopsLimit)))
                 TroopsLimitBuilding = (CampBuildingTroopsLimit)cb;
             if (cb.GetType().Equals(typeof(CampBuildingQuests)))
@@ -60,7 +60,7 @@ public class BuildingManager : MonoBehaviour
         _gameManager = GetComponent<GameManager>();
         _gameManager.OnNewSaveFileCreation += OnNewSaveFileCreation;
         _gameManager.OnClearSaveData += OnClearSaveData;
-        _gameManager.OnDayPassed += OnDayPassed;
+        //   _gameManager.OnDayPassed += OnDayPassed;
     }
 
     void OnNewSaveFileCreation()

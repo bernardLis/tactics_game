@@ -244,7 +244,7 @@ public class MapInputManager : Singleton<MapInputManager>
             yield return StartCoroutine(lengthCheckPath.WaitForPath());
             if (lengthCheckPath.error) yield break;
 
-            // (int) coz there are sometimes 0.0001s in floats, range left is x100
+            // range left is x100
             if (Mathf.RoundToInt(lengthCheckPath.GetTotalLength()) <= SelectedHero.RangeLeft.Value * 0.01)
             {
                 _reachablePoints.Add(pos);
