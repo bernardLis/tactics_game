@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class SpriteOutline : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     Material _mat;
+    
     // Start is called before the first frame update
     void Awake()
     {

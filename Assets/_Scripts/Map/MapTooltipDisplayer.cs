@@ -6,10 +6,14 @@ using TMPro;
 
 public class MapTooltipDisplayer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
+    //   FogOfWarObject _fogOfWarObject;
     [SerializeField] TextMeshProUGUI _tmpText;
 
-    void Start() { _tmpText.enabled = false; }
+    void Start()
+    {
+        //      _fogOfWarObject = GetComponent<FogOfWarObject>();
+        _tmpText.enabled = false;
+    }
 
     public void OnPointerEnter(PointerEventData evt) { DisplayTooltip(); }
 
@@ -17,6 +21,9 @@ public class MapTooltipDisplayer : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void DisplayTooltip()
     {
+        // if (_fogOfWarObject != null && !_fogOfWarObject.IsCurrentlyVisible)
+        //     return;
+
         if (TryGetComponent<ITooltipDisplayable>(out ITooltipDisplayable t))
         {
             _tmpText.enabled = true;
