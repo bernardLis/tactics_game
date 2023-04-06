@@ -84,7 +84,6 @@
     height: 75px;
 }
 
-
 .dashboard__ability-drag-drop-container {
     visibility: hidden;
     position: absolute;

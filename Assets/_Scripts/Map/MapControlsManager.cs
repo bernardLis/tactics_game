@@ -15,8 +15,8 @@ public class MapControlsManager : MonoBehaviour
 
     VisualElement _controls;
 
-    List<CastleControlsButton> _castleControlsButtons = new();
-    List<HeroControlsButton> _heroControlsButtons = new();
+    List<CastleControlButton> _castleControlsButtons = new();
+    List<HeroControlButton> _heroControlsButtons = new();
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +56,7 @@ public class MapControlsManager : MonoBehaviour
             if (mc.Castle == c)
                 mapCastle = mc;
 
-        CastleControlsButton button = new(mapCastle, _root, _draggableArmies);
+        CastleControlButton button = new(mapCastle, _root, _draggableArmies);
         _controls.Add(button);
         _castleControlsButtons.Add(button);
     }
@@ -76,14 +76,14 @@ public class MapControlsManager : MonoBehaviour
             if (mc.Character == c)
                 mapHero = mc;
 
-        HeroControlsButton button = new(mapHero, _root, _draggableArmies);
+        HeroControlButton button = new(mapHero, _root, _draggableArmies);
         _controls.Add(button);
         _heroControlsButtons.Add(button);
     }
 
     void RemoveHeroButton(Character c)
     {
-        foreach (HeroControlsButton b in _heroControlsButtons)
+        foreach (HeroControlButton b in _heroControlsButtons)
         {
             if (b.MapHero.Character == c)
             {

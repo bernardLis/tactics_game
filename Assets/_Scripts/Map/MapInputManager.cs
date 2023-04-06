@@ -38,6 +38,10 @@ public class MapInputManager : Singleton<MapInputManager>
     bool _interactionResolved;
     bool _blockClicks;
 
+
+    public event Action<MapHero> OnHeroSelected;
+    public event Action<MapHero> OnHeroUnselected;
+
     public event Action<MapHero> OnHeroMoving;
     public event Action<MapHero> OnHeroTargetReached;
     void Start()
@@ -178,6 +182,8 @@ public class MapInputManager : Singleton<MapInputManager>
         _cameraSmoothFollow.MoveTo(SelectedHero.transform.position);
 
         _interactionResolved = false;
+
+        OnHeroSelected?.Invoke(SelectedHero);
 
         if (SelectedHero.GetLastDestination() == Vector3.zero)
             return;
@@ -406,8 +412,10 @@ public class MapInputManager : Singleton<MapInputManager>
     void UnselectHero()
     {
         if (SelectedHero == null) return;
-
+        
+        ClearMovementIndicators();
         SelectedHero.Unselect();
+        OnHeroUnselected?.Invoke(SelectedHero);
         SelectedHero = null;
     }
 

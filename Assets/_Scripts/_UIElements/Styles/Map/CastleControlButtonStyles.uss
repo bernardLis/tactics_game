@@ -1,4 +1,4 @@
-.castle-controls-button__check-mark {
+.castle-control-button__check-mark {
     width: 50px;
     height: 50px;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/37_accept.png?fileID=2800000&guid=26b44eca4309ac74c9658e1a6ac1357a&type=3#37_accept');

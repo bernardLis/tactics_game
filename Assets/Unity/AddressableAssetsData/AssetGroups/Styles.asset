@@ -257,6 +257,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec099da415fab4f42b139aa2a7685a96
+    m_Address: Assets/_Scripts/_UIElements/Styles/Map/ControlButtonStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:

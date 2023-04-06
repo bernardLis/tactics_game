@@ -3,23 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class HeroControlsButton : ControlsButton
+public class HeroControlButton : ControlButton
 {
+    const string _ussClassName = "hero-controls-button__";
+
     MapInputManager _mapInputManager;
     public MapHero MapHero { get; private set; }
 
     ResourceBarElement _movementRangeBar;
 
-    public HeroControlsButton(MapHero mapHero, VisualElement root, DraggableArmies draggableArmies) : base(root, draggableArmies)
+    public HeroControlButton(MapHero mapHero, VisualElement root, DraggableArmies draggableArmies) : base(root, draggableArmies)
     {
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroControlsButtonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroControlButtonStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
         _mapInputManager = MapInputManager.Instance;
+        _mapInputManager.OnHeroSelected += h =>
+        {
+            if (h == MapHero)
+                AddToClassList(_ussSelected);
+        };
+
+        _mapInputManager.OnHeroUnselected += h =>
+        {
+            if (h == MapHero)
+                RemoveFromClassList(_ussSelected);
+        };
+
 
         MapHero = mapHero;
-        style.backgroundImage = new StyleBackground(mapHero.Character.Portrait.Sprite);
+
+        _icon.style.backgroundImage = new StyleBackground(mapHero.Character.Portrait.Sprite);
 
         AddMovementRangeBar();
     }
@@ -39,17 +54,13 @@ public class HeroControlsButton : ControlsButton
             return;
         }
 
+        AddToClassList(_ussSelected);
         _mapInputManager.SelectHero(MapHero);
     }
 
-    protected override void OnMouseEnter(MouseEnterEvent e)
-    {
-        //_cameraSmoothFollow.MoveTo(MapHero.transform.position);
-    }
+    protected override void OnMouseEnter(MouseEnterEvent e) { }
 
-    protected override void OnMouseLeave(MouseLeaveEvent e)
-    {
-    }
+    protected override void OnMouseLeave(MouseLeaveEvent e) { }
 
 
 }
