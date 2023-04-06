@@ -24,7 +24,7 @@ public class FogOfWarManager : MonoBehaviour
 
         MapInputManager inputManager = GetComponent<MapInputManager>();
         inputManager.OnHeroMoving += OnHeroChangedPosition;
-        inputManager.OnHeroTargetReached += OnHeroChangedPosition;
+        inputManager.OnHeroTargetReached += DelayedFogOfWarUpdate;
 
         // Create a grid of squares
         for (int x = 0; x < _width; x++)
@@ -58,6 +58,12 @@ public class FogOfWarManager : MonoBehaviour
         _fogOfWarEffectors = new(FindObjectsOfType<FogOfWarEffector>());
 
         UpdateFogOfWar();
+    }
+
+    // I could do something smarter but this will work.
+    void DelayedFogOfWarUpdate(MapHero hero)
+    {
+        Invoke(nameof(UpdateFogOfWar), 0.3f);
     }
 
     void OnHeroChangedPosition(MapHero hero)
