@@ -11,6 +11,7 @@ public class ArmyGroup : BaseScriptableObject
     public int ListPosition; // used for save/load of castle and character army
 
     public event Action<int, int> OnCountChanged;
+
     public void ChangeCount(int change)
     {
         EntityCount += change;

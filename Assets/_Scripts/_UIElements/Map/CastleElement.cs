@@ -62,6 +62,8 @@ public class CastleElement : FullScreenElement
             AddVisitingHero();
 
         AddBackButton();
+
+        RegisterCallback<DetachFromPanelEvent>(OnDetach);
     }
 
     void AddBuildings()
@@ -83,6 +85,21 @@ public class CastleElement : FullScreenElement
             BuildingElement e = new(_castle, b);
             _buildingElements.Add(e);
             _topContainer.Add(e);
+        }
+    }
+
+    void OnDetach(DetachFromPanelEvent e)
+    {
+        foreach (Building b in _castle.Buildings)
+        {
+            b.OnBuilt -= UpdateBuildings;
+
+            if (b.GetType() == typeof(ProductionBuilding))
+            {
+                ProductionBuilding pb = (ProductionBuilding)b;
+                pb.OnArmyBought -= AddArmy;
+                continue;
+            }
         }
     }
 
@@ -120,6 +137,7 @@ public class CastleElement : FullScreenElement
 
     void AddArmy(ArmyGroup armyGroup)
     {
+        Debug.Log($"castle element add army called count: {armyGroup.EntityCount}");
         // stack
         foreach (ArmySlotElement el in _castleArmySlots)
         {
@@ -127,7 +145,7 @@ public class CastleElement : FullScreenElement
 
             if (el.ArmyElement.ArmyGroup.ArmyEntity == armyGroup.ArmyEntity)
             {
-                el.ArmyElement.ArmyGroup.ChangeCount(armyGroup.EntityCount);
+                el.AddArmy(new(armyGroup));
                 return;
             }
         }
