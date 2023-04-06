@@ -245,7 +245,7 @@ public class MapInputManager : Singleton<MapInputManager>
             if (lengthCheckPath.error) yield break;
 
             // (int) coz there are sometimes 0.0001s in floats, range left is x100
-            if ((int)lengthCheckPath.GetTotalLength() <= SelectedHero.RangeLeft.Value * 0.01)
+            if (Mathf.RoundToInt(lengthCheckPath.GetTotalLength()) <= SelectedHero.RangeLeft.Value * 0.01)
             {
                 _reachablePoints.Add(pos);
                 _reachableDestination = pos;
@@ -286,10 +286,11 @@ public class MapInputManager : Singleton<MapInputManager>
         if (p.error) yield break;
         if (SelectedHero == null) yield break;
         Debug.Log($"p.GetTotalLength() {p.GetTotalLength()}");
-        Debug.Log($"(int)p.GetTotalLength() {(int)p.GetTotalLength()}");
-        Debug.Log($"(int)p.GetTotalLength() * 100 {(int)p.GetTotalLength() * 100}");
 
-        SelectedHero.UpdateRangeLeft((int)p.GetTotalLength() * 100);
+        Debug.Log($"(int) {(int)p.GetTotalLength()}");
+        Debug.Log($"round to int p.GetTotalLength() {Mathf.RoundToInt(p.GetTotalLength())}");
+
+        SelectedHero.UpdateRangeLeft(Mathf.RoundToInt(p.GetTotalLength()) * 100);
 
         _ai = SelectedHero.GetComponent<AILerp>();
         _ai.canMove = true;
