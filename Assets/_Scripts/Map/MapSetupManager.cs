@@ -7,9 +7,7 @@ using Pathfinding;
 public class MapSetupManager : MonoBehaviour
 {
     GameManager _gameManager;
-    Map _currentMap;
-
-    FogOfWarManager _fogOfWarManager;
+    public Map CurrentMap { get; private set; }
 
     [SerializeField] GameObject _heroPrefab;
     [SerializeField] GameObject _collectablePrefab;
@@ -20,12 +18,14 @@ public class MapSetupManager : MonoBehaviour
     public List<MapCastle> MapCastles = new();
 
     public event Action OnMapSetupFinished;
-    void Start()
+    void Awake()
     {
         _gameManager = GameManager.Instance;
-        _currentMap = _gameManager.Map;
-        _fogOfWarManager = GetComponent<FogOfWarManager>();
+        CurrentMap = _gameManager.Map;
+    }
 
+    void Start()
+    {
         PlaceCharacters();
         PlaceCollectables();
         PlaceBattles();
@@ -39,7 +39,7 @@ public class MapSetupManager : MonoBehaviour
     [ContextMenu("Reset Map")]
     void ResetMap()
     {
-        _currentMap.Reset();
+        CurrentMap.Reset();
         PlaceCollectables();
         PlaceBattles();
 
@@ -60,7 +60,7 @@ public class MapSetupManager : MonoBehaviour
 
     void PlaceCollectables()
     {
-        foreach (Collectable c in _currentMap.Collectables)
+        foreach (Collectable c in CurrentMap.Collectables)
         {
             if (c.IsCollected)
                 continue;
@@ -94,7 +94,7 @@ public class MapSetupManager : MonoBehaviour
 
     void PlaceBattles()
     {
-        foreach (Battle b in _currentMap.Battles)
+        foreach (Battle b in CurrentMap.Battles)
         {
             GameObject instance = Instantiate(_battlePrefab, b.MapPosition, Quaternion.identity);
             instance.GetComponent<MapBattle>().Initialize(b);
@@ -103,7 +103,7 @@ public class MapSetupManager : MonoBehaviour
 
     void PlaceCastles()
     {
-        foreach (Castle c in _currentMap.Castles)
+        foreach (Castle c in CurrentMap.Castles)
         {
             GameObject instance = Instantiate(_castlePrefab, c.MapPosition, Quaternion.identity);
             MapCastle mc = instance.GetComponent<MapCastle>();

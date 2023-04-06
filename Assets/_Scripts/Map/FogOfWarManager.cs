@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class FogOfWarManager : MonoBehaviour
 {
+    Map _currentMap;
+
     Camera _cam;
     [SerializeField] GameObject _squarePrefab;
     Vector2 _bottomLeftCorner = new(-40.5f, -28.5f);//new(0.5f, 0.5f); //new(-40.5f, -28.5f);
@@ -16,10 +18,13 @@ public class FogOfWarManager : MonoBehaviour
     List<FogOfWarObject> _fogOfWarObjects = new();
     List<FogOfWarEffector> _fogOfWarEffectors = new();
 
+    List<int> _exploredListPositions = new();
+
     void Start()
     {
         _cam = Camera.main;
         MapSetupManager setupManager = GetComponent<MapSetupManager>();
+        _currentMap = setupManager.CurrentMap;
         setupManager.OnMapSetupFinished += Initialize;
 
         MapInputManager inputManager = GetComponent<MapInputManager>();
@@ -54,6 +59,9 @@ public class FogOfWarManager : MonoBehaviour
                 }
             }
         }
+
+        foreach (int listPos in _currentMap.ExploredListPositions)
+            _squares[listPos].SetExplored();
 
         _fogOfWarEffectors = new(FindObjectsOfType<FogOfWarEffector>());
 
@@ -91,7 +99,11 @@ public class FogOfWarManager : MonoBehaviour
                 foreach (FogOfWarEffector e in _fogOfWarEffectors)
                 {
                     if (Vector2.Distance(e.transform.position, square.transform.position) <= e.ExploreRadius)
+                    {
+                        if (!_currentMap.ExploredListPositions.Contains(y + _width * x))
+                            _currentMap.ExploredListPositions.Add(y + _width * x);
                         square.SetExplored();
+                    }
 
                     if (Vector2.Distance(e.transform.position, square.transform.position) <= e.VisionRadius)
                     {

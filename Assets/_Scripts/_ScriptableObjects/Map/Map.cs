@@ -10,6 +10,7 @@ public class Map : BaseScriptableObject
     public List<Collectable> Collectables = new();
     public List<Battle> Battles = new();
     public List<Castle> Castles = new();
+    public List<int> ExploredListPositions = new();
 
     public string TemplateCastleId = "549d36bd-34c9-499a-815a-0a46ff37ecb1";
     public Vector2 CastlePosition = new Vector2(-1.5f, -8.5f);
@@ -75,6 +76,8 @@ public class Map : BaseScriptableObject
         foreach (Castle c in Castles)
             data.CastleDatas.Add(c.SerializeSelf());
 
+        data.ExploredListPositions = ExploredListPositions;
+
         return data;
     }
 
@@ -107,6 +110,8 @@ public class Map : BaseScriptableObject
             castle.LoadFromData(d);
             Castles.Add(castle);
         }
+
+        ExploredListPositions = data.ExploredListPositions;
     }
 }
 
@@ -116,5 +121,6 @@ public struct MapData
     public List<CollectableData> CollectableDatas;
     public List<BattleData> BattleDatas;
     public List<CastleData> CastleDatas;
+    public List<int> ExploredListPositions;
 }
 
