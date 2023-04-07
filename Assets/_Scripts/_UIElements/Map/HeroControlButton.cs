@@ -7,7 +7,6 @@ public class HeroControlButton : ControlButton
 {
     const string _ussClassName = "hero-controls-button__";
 
-    MapInputManager _mapInputManager;
     public MapHero MapHero { get; private set; }
 
     ResourceBarElement _movementRangeBar;
@@ -18,7 +17,6 @@ public class HeroControlButton : ControlButton
         if (ss != null)
             styleSheets.Add(ss);
 
-        _mapInputManager = MapInputManager.Instance;
         _mapInputManager.OnHeroSelected += h =>
         {
             if (h == MapHero)

@@ -9,19 +9,38 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandle
     GameManager _gameManager;
     DashboardManager _dashboardManager;
     DraggableArmies _draggableArmies;
+    MapInputManager _mapInputManager;
 
     SpriteOutline _spriteOutline;
     MapTooltipDisplayer _tooltipDisplayer;
 
     public Castle Castle { get; private set; }
 
-    public event Action<MapCastle> PointerEnterEvent;
-    public event Action<MapCastle> PointerLeaveEvent;
+    public bool IsSelected { get; private set; }
+
     void Start()
     {
         _gameManager = GameManager.Instance;
         _dashboardManager = DashboardManager.Instance;
         _draggableArmies = _dashboardManager.GetComponent<DraggableArmies>();
+        _mapInputManager = MapInputManager.Instance;
+        _mapInputManager.OnCastleSelected += c =>
+        {
+            if (c != this)
+                return;
+
+            IsSelected = true;
+            Highlight();
+        };
+
+        _mapInputManager.OnCastleUnselected += c =>
+        {
+            if (c != this)
+                return;
+
+            IsSelected = false;
+            ClearHighlight();
+        };
 
         _spriteOutline = GetComponent<SpriteOutline>();
         _tooltipDisplayer = GetComponent<MapTooltipDisplayer>();
@@ -34,14 +53,20 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandle
         GetComponentInChildren<SpriteRenderer>().sprite = castle.Sprite;
     }
 
-    public void OnPointerEnter(PointerEventData evt)
+    public void OnPointerEnter(PointerEventData evt) { Select(); }
+
+    public void OnPointerExit(PointerEventData evt) { Unselect(); }
+
+    public void Select()
     {
-        PointerEnterEvent?.Invoke(this);
+        _mapInputManager.SelectCastle(this);
+        IsSelected = true;
     }
 
-    public void OnPointerExit(PointerEventData evt)
+    public void Unselect()
     {
-        PointerLeaveEvent?.Invoke(this);
+        _mapInputManager.UnselectCastle(this);
+        IsSelected = false;
     }
 
     public void Highlight()

@@ -71,7 +71,6 @@ public class MapHero : MonoBehaviour
     {
         HeroMeetingElement el = new(_dashboardManager.Root, _draggableArmies, this, otherHero);
         el.OnHide += _draggableArmies.Reset;
-
     }
 
     public void FloatText(string txt)

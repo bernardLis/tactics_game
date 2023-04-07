@@ -21,12 +21,21 @@ public class CastleControlButton : ControlButton
         MapCastle = mapCastle;
         mapCastle.Castle.OnBuilt += OnBuilt;
 
-        mapCastle.PointerEnterEvent += h =>
+
+        _mapInputManager.OnCastleSelected += c =>
         {
-            Debug.Log($"on highlight in button");
+            if (c != MapCastle)
+                return;
+
             AddToClassList(_ussSelected);
         };
-        mapCastle.PointerLeaveEvent += h => RemoveFromClassList(_ussSelected);
+        _mapInputManager.OnCastleUnselected += c =>
+        {
+            if (c != MapCastle)
+                return;
+
+            RemoveFromClassList(_ussSelected);
+        };
 
         _icon.style.backgroundImage = new StyleBackground(mapCastle.Castle.Sprite);
 
@@ -47,24 +56,32 @@ public class CastleControlButton : ControlButton
 
     protected override void OnDayPassed(int day) { _builtCheckMark.style.display = DisplayStyle.None; }
 
-    protected override void OnPointerDown(PointerDownEvent e)
+    protected override void OnPointerDown(PointerDownEvent e) { Select(); }
+
+    void Select()
     {
-        CastleElement el = new(_root, MapCastle.Castle);
-        el.OnHide += _draggableArmies.Reset;
-        _draggableArmies.Initialize();
+        if (MapCastle.IsSelected)
+        {
+            CastleElement el = new(_root, MapCastle.Castle);
+            el.OnHide += () =>
+            {
+                RemoveFromClassList(_ussSelected);
+                _draggableArmies.Reset();
+            };
+            _draggableArmies.Initialize();
+            return;
+        }
+        _cameraSmoothFollow.MoveTo(MapCastle.transform.position);
+        _mapInputManager.SelectCastle(MapCastle);
     }
+
 
     protected override void OnMouseEnter(MouseEnterEvent e)
     {
-        _cameraSmoothFollow.MoveTo(MapCastle.transform.position);
-        AddToClassList(_ussSelected);
-        MapCastle.Highlight();
     }
 
     protected override void OnMouseLeave(MouseLeaveEvent e)
     {
-        RemoveFromClassList(_ussSelected);
-        MapCastle.ClearHighlight();
     }
 
 }

@@ -14,6 +14,8 @@ public class ControlButton : VisualElement
     protected CameraSmoothFollow _cameraSmoothFollow;
     protected VisualElement _root;
     protected DraggableArmies _draggableArmies;
+    protected MapInputManager _mapInputManager;
+
 
     protected VisualElement _icon;
 
@@ -27,6 +29,7 @@ public class ControlButton : VisualElement
         _cameraSmoothFollow = Camera.main.GetComponent<CameraSmoothFollow>();
         _root = root;
         _draggableArmies = draggableArmies;
+        _mapInputManager = MapInputManager.Instance;
 
         _gameManager.OnDayPassed += OnDayPassed;
 

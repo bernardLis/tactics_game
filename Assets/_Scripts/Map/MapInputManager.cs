@@ -28,6 +28,8 @@ public class MapInputManager : Singleton<MapInputManager>
 
     MapBattle _activeBattleTooltip;
     public MapHero SelectedHero { get; private set; }
+    public MapCastle SelectedCastle { get; private set; }
+
     AILerp _ai;
 
     Collider2D _disabledCollider;
@@ -38,6 +40,9 @@ public class MapInputManager : Singleton<MapInputManager>
     bool _interactionResolved;
     bool _blockClicks;
 
+
+    public event Action<MapCastle> OnCastleSelected;
+    public event Action<MapCastle> OnCastleUnselected;
 
     public event Action<MapHero> OnHeroSelected;
     public event Action<MapHero> OnHeroUnselected;
@@ -103,6 +108,7 @@ public class MapInputManager : Singleton<MapInputManager>
     {
         if (_blockClicks) return;
         if (this == null) return;
+        if (SelectedCastle != null) UnselectCastle(SelectedCastle);
 
         if (IsPointerOverUI(Mouse.current.position.ReadValue())) return;
         Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -144,6 +150,8 @@ public class MapInputManager : Singleton<MapInputManager>
 
         if (IsPointerOverUI(Mouse.current.position.ReadValue())) return;
 
+        if (SelectedCastle != null) UnselectCastle(SelectedCastle);
+
         ResetDestinationCollider();
 
         Vector2 worldPos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -175,6 +183,7 @@ public class MapInputManager : Singleton<MapInputManager>
 
     public void SelectHero(MapHero hero)
     {
+        UnselectCastle(SelectedCastle);
         UnselectHero();
         SelectedHero = hero;
         SelectedHero.Select();
@@ -306,7 +315,7 @@ public class MapInputManager : Singleton<MapInputManager>
         {
             if (SelectedHero == null) yield break;
 
-            if (Vector3.Distance(SelectedHero.transform.position, _middleOfDestinationTile) < 0.8f
+            if (Vector3.Distance(SelectedHero.transform.position, _middleOfDestinationTile) < 0.99f
                 && !_interactionResolved)
             {
                 ResolveInteraction();
@@ -386,10 +395,7 @@ public class MapInputManager : Singleton<MapInputManager>
         ClearMovementIndicators();
         OnHeroTargetReached?.Invoke(SelectedHero);
         SelectedHero.UpdateMapPosition();
-        SelectedHero.Unselect();
-        _cameraSmoothFollow.SetTarget(null);
-        SelectedHero = null;
-        _ai = null;
+        UnselectHero();
 
         _gameManager.SaveJsonData();
     }
@@ -412,8 +418,11 @@ public class MapInputManager : Singleton<MapInputManager>
     void UnselectHero()
     {
         if (SelectedHero == null) return;
-        
+
         ClearMovementIndicators();
+        _cameraSmoothFollow.SetTarget(null);
+        _ai = null;
+
         SelectedHero.Unselect();
         OnHeroUnselected?.Invoke(SelectedHero);
         SelectedHero = null;
@@ -435,5 +444,19 @@ public class MapInputManager : Singleton<MapInputManager>
         _disabledCollider.isTrigger = false;
         Bounds b = new(_disabledCollider.transform.position, Vector3.one * 2);
         AstarPath.active.UpdateGraphs(b);
+    }
+
+    public void SelectCastle(MapCastle castle)
+    {
+        if (SelectedCastle != null) UnselectCastle(SelectedCastle);
+        SelectedCastle = castle;
+        OnCastleSelected?.Invoke(castle);
+    }
+
+    public void UnselectCastle(MapCastle castle)
+    {
+        if (SelectedCastle == null) return;
+        OnCastleUnselected?.Invoke(SelectedCastle);
+        SelectedCastle = null;
     }
 }
