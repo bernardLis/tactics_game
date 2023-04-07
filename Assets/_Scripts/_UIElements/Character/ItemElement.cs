@@ -9,17 +9,11 @@ public class ItemElement : ElementWithTooltip
     string _tooltipText;
     public Item Item;
     public bool IsShop;
-    ShopReportElement _shopReportElement;
-    public ItemElement(Item item, ShopReportElement shopReportElement = null) : base()
+
+    public ItemElement(Item item) : base()
     {
         Item = item;
         
-        if (shopReportElement != null)
-        {
-            _shopReportElement = shopReportElement;
-            IsShop = true;
-        }
-
         style.backgroundImage = item.Icon.texture;
         style.width = 75;
         style.height = 75;
@@ -31,7 +25,6 @@ public class ItemElement : ElementWithTooltip
 
     public void ItemBought()
     {
-        _shopReportElement.ItemBought(Item);
         IsShop = false;
     }
 

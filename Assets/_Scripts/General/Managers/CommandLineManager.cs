@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 public class CommandLineManager : MonoBehaviour
 {
     GameManager _gameManager;
-    BuildingManager _buildingManager;
     PlayerInput _playerInput;
 
     VisualElement _commandLineContainer;
@@ -34,7 +33,6 @@ public class CommandLineManager : MonoBehaviour
     void Start()
     {
         _gameManager = GetComponent<GameManager>();
-        _buildingManager = GetComponent<BuildingManager>();
         _playerInput = GetComponent<PlayerInput>();
     }
 
@@ -97,18 +95,6 @@ public class CommandLineManager : MonoBehaviour
         if (_commandTextField.text.ToLower() == "levelup")
             for (int i = _gameManager.GetAllCharacters().Count - 1; i >= 0; i--)
                 _gameManager.GetAllCharacters()[i].LevelUp();
-
-        if (_commandTextField.text.ToLower() == "quest")
-            _buildingManager.AddRandomQuest();
-        if (_commandTextField.text.ToLower() == "hr")
-            _buildingManager.AddRecruit();
-        if (_commandTextField.text.ToLower() == "shop")
-            _buildingManager.AddShop();
-        if (_commandTextField.text.ToLower() == "pawnshop")
-            _buildingManager.AddPawnshop();
-        if (_commandTextField.text.ToLower() == "spicerecycle")
-            _buildingManager.AddSpiceRecycle();
-
     }
 
     public void Log(string logString, string stackTrace, LogType type)

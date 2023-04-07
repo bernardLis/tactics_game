@@ -277,10 +277,6 @@ public class Character : BaseScriptableObject
 
         DateTime expiry = ScriptableObject.CreateInstance<DateTime>();
         expiry.Day = _gameManager.Day + 1;
-
-        Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.RaiseRequest, character: this, expiryDateTime: expiry);
-        _gameManager.AddNewReport(r);
     }
 
     public bool IsAskingForRaise()

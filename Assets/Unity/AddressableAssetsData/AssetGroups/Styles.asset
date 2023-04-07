@@ -47,26 +47,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9763af7dad1233145acb77b63af6c8db
-    m_Address: ReportStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 297779c8578a83f47b73415c817f886b
-    m_Address: ShopReportStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6bfb1f21ffcb4344e8a629ceb16d40d1
-    m_Address: QuestElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6c69c08530476f340ac9030ac672e9f6
-    m_Address: PawnshopReportStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd3c461a5e9409b40a91dec9c08cf28a
     m_Address: ResourceBarStyles
     m_ReadOnly: 0
@@ -122,11 +102,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 837ea48faac95074ea0bcef04315f50b
-    m_Address: AbilityReportStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d872669deb721f44bdfa6897d1dc942
     m_Address: DashboardStyles
     m_ReadOnly: 0
@@ -152,18 +127,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: edaefa917ed2cf64cb937dee7213ae00
-    m_Address: SpiceRecycleReportStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c8a5dfc69b360094793cdfec86277192
     m_Address: RecruitElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 98d2dc85f24f7ae4395544420536e940
-    m_Address: RaiseRequestReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -192,18 +157,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 10db60192c1223a4ca8efc531251dc4d
-    m_Address: CampBuildingStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 55a2dab2e6ce8254ca54368106c488d6
     m_Address: TimerElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 913a9aada18953045bbc7ee794d1f0e1
-    m_Address: QuestReportStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

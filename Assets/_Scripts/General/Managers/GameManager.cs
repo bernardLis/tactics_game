@@ -10,7 +10,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public const float SecondsInDay = 10;
 
     LevelLoader _levelLoader;
-    BuildingManager _buildingManager;
 
     public GameDatabase GameDatabase;
 
@@ -39,15 +38,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
-    public List<Report> Reports = new();
-    public List<Report> ReportsArchived = new();
 
     [SerializeField] List<AbilityNodeGraph> _abilityNodeGraphs = new();
 
     public Map Map;
     public Battle SelectedBattle { get; private set; }
 
-    public event Action<Report> OnReportAdded;
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;
@@ -62,7 +58,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Game manager Awake");
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
-        _buildingManager = GetComponent<BuildingManager>();
     }
 
     void Start()
@@ -108,35 +103,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         OnTimerStateChanged?.Invoke(IsTimerOn);
     }
 
-    public void AddNewReport(Report r)
-    {
-        Reports.Add(r);
-        OnReportAdded?.Invoke(r);
-        SaveJsonData();
-    }
-
     /* RESOURCES */
     public void PassDay()
     {
         Day += 1;
 
-        if (Day % 7 == 0)
-            PayWages();
-
         OnDayPassed?.Invoke(Day);
         SaveJsonData();
     }
 
-    void PayWages()
-    {
-        ChangeGoldValue(-GetCurrentWages());
-
-        int cost = GetCurrentWages();
-
-        Report r = ScriptableObject.CreateInstance<Report>();
-        r.Initialize(ReportType.Wages, null, null, null, null, null, null, null, Troops);
-        AddNewReport(r);
-    }
 
     public int GetCurrentWages()
     {
@@ -311,10 +286,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.AbilityPouch = PopulateAbilityPouch();
 
-        saveData.Reports = PopulateReports();
-        saveData.ReportsArchived = PopulateArchivedReports();
-
-        saveData.CampBuildings = PopulateCampBuildings();
         saveData.AbilityNodeGraphs = PopulateAbilityNodeGraphs();
 
         saveData.MapData = Map.SerializeSelf();
@@ -345,31 +316,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             abilityData.Add(a.SerializeSelf());
 
         return abilityData;
-    }
-
-    List<ReportData> PopulateReports()
-    {
-        List<ReportData> reports = new();
-        foreach (Report r in Reports)
-            reports.Add(r.SerializeSelf());
-        return reports;
-    }
-
-    List<ReportData> PopulateArchivedReports()
-    {
-        List<ReportData> reports = new();
-        foreach (Report r in ReportsArchived)
-            reports.Add(r.SerializeSelf());
-        return reports;
-    }
-
-    List<CampBuildingData> PopulateCampBuildings()
-    {
-        List<CampBuildingData> data = new();
-        List<CampBuilding> buildings = _buildingManager.GetAllCampBuildings();
-        foreach (CampBuilding b in buildings)
-            data.Add(b.SerializeSelf());
-        return data;
     }
 
     List<AbilityNodeGraphData> PopulateAbilityNodeGraphs()
@@ -438,10 +384,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             PlayerAbilityPouch.Add(a);
         }
 
-        LoadReports(saveData);
-
-        _buildingManager.LoadAllBuildingsFromData(saveData.CampBuildings);
-
         foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
             GetAbilityNodeGraphById(data.Id).LoadFromData(data);
 
@@ -449,24 +391,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Map.LoadFromData(saveData.MapData);
     }
 
-    void LoadReports(SaveData saveData)
-    {
-        Reports = new();
-        foreach (ReportData rd in saveData.Reports)
-        {
-            Report report = ScriptableObject.CreateInstance<Report>();
-            report.LoadFromData(rd);
-            Reports.Add(report);
-        }
-
-        ReportsArchived = new();
-        foreach (ReportData rd in saveData.ReportsArchived)
-        {
-            Report report = ScriptableObject.CreateInstance<Report>();
-            report.LoadFromData(rd);
-            ReportsArchived.Add(report);
-        }
-    }
 
     public void ClearSaveData()
     {
@@ -486,9 +410,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Troops = new();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();
-
-        Reports = new();
-        ReportsArchived = new();
 
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();

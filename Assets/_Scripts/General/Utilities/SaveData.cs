@@ -22,10 +22,6 @@ public class SaveData
     public List<ItemData> ItemPouch = new();
     public List<AbilityData> AbilityPouch = new();
 
-    public List<ReportData> Reports = new();
-    public List<ReportData> ReportsArchived = new();
-
-    public List<CampBuildingData> CampBuildings = new();
     public List<AbilityNodeGraphData> AbilityNodeGraphs = new();
 
     public MapData MapData;

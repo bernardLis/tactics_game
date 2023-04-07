@@ -59,9 +59,7 @@ public class GameDatabase : BaseScriptableObject
 
     [Header("Dashboard")]
     [SerializeField] Sprite[] CoinSprites;
-    [SerializeField] QuestRank[] QuestRanks;
     [SerializeField] Reward[] Rewards;
-    [SerializeField] ReportPaper[] ReportPapers;
     [SerializeField] Element[] Elements;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
@@ -117,21 +115,6 @@ public class GameDatabase : BaseScriptableObject
 
     public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
     public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
-
-    public QuestRank GetQuestRankById(string id) { return QuestRanks.FirstOrDefault(x => x.Id == id); }
-    public QuestRank GetRandomQuestRankWithMaxRank(int maxRank)
-    {
-        List<QuestRank> availableRanks = new();
-        foreach (QuestRank r in QuestRanks)
-            if (r.Rank <= maxRank)
-                availableRanks.Add(r);
-        return availableRanks[Random.Range(0, availableRanks.Count)];
-    }
-
-    public QuestRank GetRandomQuestRank() { return QuestRanks[Random.Range(0, QuestRanks.Length)]; }
-
-    public ReportPaper GetRandomReportPaper() { return ReportPapers[Random.Range(0, ReportPapers.Length)]; }
-    public ReportPaper GetReportPaperById(string id) { return ReportPapers.FirstOrDefault(x => x.Id == id); }
 
     public Sprite GoldSprite;
     public Sprite SpiceSprite;

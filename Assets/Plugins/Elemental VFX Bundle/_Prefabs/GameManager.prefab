@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 1448303728}
   - component: {fileID: 3609328160265785649}
   - component: {fileID: 5229503471192617615}
-  - component: {fileID: 3940463383694104519}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -236,22 +235,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 9763af7dad1233145acb77b63af6c8db
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 297779c8578a83f47b73415c817f886b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 6bfb1f21ffcb4344e8a629ceb16d40d1
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 6c69c08530476f340ac9030ac672e9f6
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: fd3c461a5e9409b40a91dec9c08cf28a
     m_SubObjectName: 
     m_SubObjectType: 
@@ -296,10 +279,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 837ea48faac95074ea0bcef04315f50b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 1dbd63513c7627546afc3aacbe651377
     m_SubObjectName: 
     m_SubObjectType: 
@@ -316,15 +295,7 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: edaefa917ed2cf64cb937dee7213ae00
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: c8a5dfc69b360094793cdfec86277192
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 98d2dc85f24f7ae4395544420536e940
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -348,15 +319,7 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 10db60192c1223a4ca8efc531251dc4d
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 55a2dab2e6ce8254ca54368106c488d6
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 913a9aada18953045bbc7ee794d1f0e1
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -448,8 +411,6 @@ MonoBehaviour:
   FriendCharacter: {fileID: 0}
   PlayerItemPouch: []
   PlayerAbilityPouch: []
-  Reports: []
-  ReportsArchived: []
   _abilityNodeGraphs:
   - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
   - {fileID: 11400000, guid: b490b888ee688624b9c291aa2a94e28b, type: 2}
@@ -504,28 +465,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd59c0f9a1c19874a8a8fd316c9bd5fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3940463383694104519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154333484900981485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac59c41bca6984941a5a12690c11e8a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _campBuildings:
-  - {fileID: 11400000, guid: 9cf61c05596deda448a9e7ed3aeb4374, type: 2}
-  - {fileID: 11400000, guid: 81be4d27908cc3b43aec0503f6134162, type: 2}
-  - {fileID: 11400000, guid: ff8cb3895ea70b84aac0cad38a676693, type: 2}
-  - {fileID: 11400000, guid: 8c9ea9ec9adf92f46b6a0b89a6525cbd, type: 2}
-  - {fileID: 11400000, guid: 39f0a53358638c14d937e69c62c158cd, type: 2}
-  - {fileID: 11400000, guid: bfdd98314fcdbbe439c6736f78137508, type: 2}
-  - {fileID: 11400000, guid: d9db8e1895c8f4740b962e72db3c3572, type: 2}
-  - {fileID: 11400000, guid: 0cb4caff5817f214babd5bb0a0813fce, type: 2}
-  - {fileID: 11400000, guid: f06a203ee4b13e94f9b465035b3b521b, type: 2}
-  - {fileID: 11400000, guid: 1d4f5ce3046d05c40a8c82e9379291fa, type: 2}
-  - {fileID: 11400000, guid: 17546c04599c67c4c9657ad84bcd594b, type: 2}
-  - {fileID: 11400000, guid: 80d61e150ae92464da11347aa0348c4c, type: 2}

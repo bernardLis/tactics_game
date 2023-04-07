@@ -8,7 +8,6 @@ using DG.Tweening;
 public class DraggableAbilities : MonoBehaviour
 {
     GameManager _gameManager;
-    DeskManager _deskManager;
 
     VisualElement _root;
     VisualElement _abilityContainer;
@@ -32,7 +31,6 @@ public class DraggableAbilities : MonoBehaviour
     public void Initialize(VisualElement root, VisualElement abilityContainer)
     {
         _gameManager = GameManager.Instance;
-        _deskManager = DeskManager.Instance;
 
         _root = root;
         _abilityContainer = abilityContainer;

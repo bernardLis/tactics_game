@@ -13,7 +13,6 @@ public class CutsceneManager : MonoBehaviour
 
     GameManager _gameManager;
     AudioManager _audioManager;
-    DeskManager _deskManager;
     Camera _cam;
 
     [SerializeField] Conversation _introConversation;
@@ -43,8 +42,7 @@ public class CutsceneManager : MonoBehaviour
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
         _audioManager = AudioManager.Instance;
-        _deskManager = DeskManager.Instance;
-        _deskManager.OnDeskInitialized += OnDeskInitialized;
+
         _cam = Camera.main;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
@@ -77,50 +75,8 @@ public class CutsceneManager : MonoBehaviour
             Debug.Log($"day 5 passed in cutscene manager");
     }
 
-    IEnumerator PlayIntroCutscene()
-    {
-        _isIntroCutsceneBeingPlayed = true;
-        _gameManager.ToggleTimer(false);
-
-        _bg = new();
-        _bg.AddToClassList(_ussBackground);
-        _reportContainer.Add(_bg);
-
-        yield return new WaitForSeconds(0.5f);
-
-        List<CharacterCardMini> cards = _deskManager.GetAllCharacterCardsMini();
-        Vector3 pos = new Vector3(150, 200);
-        foreach (var c in cards)
-        {
-            _cardsInConversation.Add(c);
-            c.BringToFront();
-            c.style.left = pos.x;
-            c.style.top = pos.y;
-            pos += new Vector3(0, 200);
-        }
-
-        // spawn a banker portrait on the right of the desk
-        _banker.InitializeSpecialCharacter();
-        CharacterCardMini bankerCard = new(_banker);
-        _cardsInConversation.Add(bankerCard);
-
-        bankerCard.style.position = Position.Absolute;
-        bankerCard.transform.position = new Vector3(Screen.width - 300, Screen.height * 0.3f);
-        _reportContainer.Add(bankerCard);
-
-        yield return new WaitForSeconds(0.5f);
-
-        yield return PlayConversation(_introConversation);
-
-        _reportContainer.Remove(bankerCard);
-        _reportContainer.Remove(_bg);
-        _gameManager.ToggleTimer(true);
-        _gameManager.WasIntroCutscenePlayed = true;
-    }
-
     IEnumerator PlayConversation(Conversation conversation)
     {
-        _deskManager.HideAllReports();
         _lineBox.style.visibility = Visibility.Visible;
 
         foreach (ConversationLine line in conversation.Lines)
@@ -130,7 +86,6 @@ public class CutsceneManager : MonoBehaviour
             yield return TypeText(line);
         }
 
-        _deskManager.ShowAllReports();
         _lineBox.style.visibility = Visibility.Hidden;
     }
 

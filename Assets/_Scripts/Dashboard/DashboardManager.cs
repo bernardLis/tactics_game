@@ -38,7 +38,6 @@ public class DashboardManager : Singleton<DashboardManager>
     VisualElement _navTroops;
     VisualElement _navSpice;
 
-    CampBuildingTroopsLimit _troopsLimitBuilding;
     TroopsLimitElement _troopsLimitElement;
 
     VisualElement _main;
@@ -160,11 +159,9 @@ public class DashboardManager : Singleton<DashboardManager>
     void AddTroopsElement()
     {
         _navTroops.Clear();
-        _troopsLimitBuilding = _gameManager.GetComponent<BuildingManager>().TroopsLimitBuilding;
         _troopsLimitElement = new($"");
         UpdateTroopsElement();
         _gameManager.OnCharacterAddedToTroops += UpdateTroopsElement;
-        _troopsLimitBuilding.OnUpgraded += UpdateTroopsElement;
 
         _navTroops.Add(_troopsLimitElement);
     }
@@ -175,7 +172,7 @@ public class DashboardManager : Singleton<DashboardManager>
     void UpdateTroopsElement()
     {
         int troopsCount = _gameManager.GetAllCharacters().Count;
-        int troopsLimit = _troopsLimitBuilding.GetUpgradeByRank(_troopsLimitBuilding.UpgradeRank).TroopsLimit;
+        int troopsLimit = 5;
 
         _troopsLimitElement.UpdateCountContainer($"{troopsCount} / {troopsLimit}", Color.white);
     }
@@ -228,13 +225,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
         DOTween.To(x => visual.style.left = x, Screen.width, 0f, 1f);
 
-        foreach (Report report in _gameManager.ReportsArchived)
-        {
-            Label r = new Label($"{report.ReportType}");
-            container.Add(r);
-            // https://forum.unity.com/threads/send-additional-parameters-to-callback.777029/
-            r.RegisterCallback<PointerUpEvent, Report>(OnArchivedReportClick, report);
-        }
         visual.Initialize(Root);
         visual.AddBackButton();
     }
@@ -244,14 +234,6 @@ public class DashboardManager : Singleton<DashboardManager>
         _gameManager.GetComponent<GameUIManager>().ToggleMenu(new InputAction.CallbackContext());
     }
 
-    void OnArchivedReportClick(PointerUpEvent evt, Report report)
-    {
-        FullScreenElement visual = new FullScreenElement();
-        visual.style.backgroundColor = Color.black;
-        visual.Add(new ReportElement(visual, report));
-        visual.Initialize(Root);
-        visual.AddBackButton();
-    }
 
     public void OpenDashboardBuilding(DashboardBuildingType db)
     {

@@ -243,7 +243,6 @@ public class AbilityCraftManager : MonoBehaviour
         _gameManager.ChangeSpiceValue(-_abilityNode.GetSpiceCostByStars(_numberOfStars));
 
         Ability craftedAbility = _abilityNode.CreateAbility(_numberOfStars, _craftAbilityName.value);
-        CreateReport(craftedAbility);
 
         // vfx
         Vector3 pos = _abilityButtonsContainer.worldTransform.GetPosition();
@@ -274,13 +273,4 @@ public class AbilityCraftManager : MonoBehaviour
         }
     }
 
-    /* CRAFTED ABILITIES */
-
-    void CreateReport(Ability craftedAbility)
-    {
-        Report report = ScriptableObject.CreateInstance<Report>();
-        report.Initialize(ReportType.Ability, null, null, null, null, null, craftedAbility);
-        _gameManager.AddNewReport(report);
-        _gameManager.SaveJsonData();
-    }
 }

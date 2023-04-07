@@ -18,8 +18,6 @@ public class Ability : BaseScriptableObject
     public int SpiceCost = 1;
     public int StarRank = 0;
 
-    /* UI Helpers */
-    public int GetAbilityValue() { return 2; }
 
     public AbilityData SerializeSelf()
     {
