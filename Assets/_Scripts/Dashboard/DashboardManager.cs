@@ -13,8 +13,6 @@ public class DashboardManager : Singleton<DashboardManager>
     const string _ussClassName = "dashboard__";
     const string _ussPassDayButton = _ussClassName + "pass-day-button";
     const string _ussNavIcon = _ussClassName + "nav-icon";
-    const string _ussNavDesk = _ussClassName + "nav-desk";
-    const string _ussNavCamp = _ussClassName + "nav-camp";
     const string _ussNavAbilities = _ussClassName + "nav-abilities";
     const string _ussNavArchive = _ussClassName + "nav-archive";
     const string _ussNavMenu = _ussClassName + "nav-menu";
@@ -41,8 +39,6 @@ public class DashboardManager : Singleton<DashboardManager>
     TroopsLimitElement _troopsLimitElement;
 
     VisualElement _main;
-    VisualElement _mainDesk;
-    VisualElement _mainCamp;
     VisualElement _mainAbilities;
     VisualElement _abilitiesWrapperLeft;
     VisualElement _abilitiesWrapperRight;
@@ -51,8 +47,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
     [SerializeField] Sound _dashboardTheme;
 
-    public event Action OnDeskOpened;
-    public event Action OnCampOpened;
     public event Action OnAbilitiesOpened;
     public event Action OnHideAllPanels;
     protected override void Awake()
@@ -73,8 +67,6 @@ public class DashboardManager : Singleton<DashboardManager>
         _navSpice = Root.Q<VisualElement>("navSpice");
 
         _main = Root.Q<VisualElement>("main");
-        _mainDesk = Root.Q<VisualElement>("mainDesk");
-        _mainCamp = Root.Q<VisualElement>("mainCamp");
         _mainAbilities = Root.Q<VisualElement>("mainAbilities");
         _abilitiesWrapperLeft = Root.Q<VisualElement>("abilitiesWrapperLeft");
         _abilitiesWrapperRight = Root.Q<VisualElement>("abilitiesWrapperRight");
@@ -96,8 +88,6 @@ public class DashboardManager : Singleton<DashboardManager>
     void SubscribeInputActions()
     {
         PlayerInput.actions["Pause"].performed += TogglePause;
-        PlayerInput.actions["OpenDesk"].performed += ShowDeskUI;
-        PlayerInput.actions["OpenCamp"].performed += ShowCampUI;
         PlayerInput.actions["OpenAbilities"].performed += ShowAbilityUI;
 
         PlayerInput.actions["CloseCurrentTab"].performed += HideAllPanels;
@@ -106,8 +96,6 @@ public class DashboardManager : Singleton<DashboardManager>
     void UnsubscribeInputActions()
     {
         PlayerInput.actions["Pause"].performed -= TogglePause;
-        PlayerInput.actions["OpenDesk"].performed -= ShowDeskUI;
-        PlayerInput.actions["OpenCamp"].performed -= ShowCampUI;
         PlayerInput.actions["OpenAbilities"].performed -= ShowAbilityUI;
 
         PlayerInput.actions["CloseCurrentTab"].performed -= HideAllPanels;
@@ -133,9 +121,7 @@ public class DashboardManager : Singleton<DashboardManager>
     }
 
     void TogglePause(InputAction.CallbackContext ctx) { _gameManager.ToggleTimer(!_gameManager.IsTimerOn); }
-    void ShowDeskUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowDeskUICoroutine()); }
     void ShowAbilityUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowAbilityUICoroutine()); }
-    void ShowCampUI(InputAction.CallbackContext ctx) { StartCoroutine(ShowCampUICoroutine()); }
 
     void AddDayTimer()
     {
@@ -190,87 +176,37 @@ public class DashboardManager : Singleton<DashboardManager>
     void AddNavigationButtons()
     {
         VisualElement navRight = Root.Q<VisualElement>("navRight");
-        MyButton navDesk = new(null, _ussNavDesk, OpenDesk);
-        MyButton navCamp = new(null, _ussNavCamp, OpenCamp);
         MyButton navAbilities = new(null, _ussNavAbilities, OpenAbilities);
-        MyButton navArchive = new(null, _ussNavArchive, OnArchiveClick);
         MyButton navMenu = new(null, _ussNavMenu, OnMenuClick);
 
-        navDesk.AddToClassList(_ussNavIcon);
-        navCamp.AddToClassList(_ussNavIcon);
         navAbilities.AddToClassList(_ussNavIcon);
-        navArchive.AddToClassList(_ussNavIcon);
         navMenu.AddToClassList(_ussNavIcon);
 
-        navRight.Add(navDesk);
-        navRight.Add(navCamp);
         navRight.Add(navAbilities);
-        navRight.Add(navArchive);
         navRight.Add(navMenu);
     }
 
-    void OpenDesk() { OpenDashboardBuilding(DashboardBuildingType.Desk); }
-    void OpenCamp() { OpenDashboardBuilding(DashboardBuildingType.Camp); }
     void OpenAbilities() { OpenDashboardBuilding(DashboardBuildingType.Abilities); }
 
-    void OnArchiveClick()
-    {
-        FullScreenElement visual = new FullScreenElement();
-        visual.AddToClassList(_ussCommonTextPrimary);
-        visual.style.backgroundColor = Color.black;
-        visual.style.left = Screen.width;
-
-        ScrollView container = new();
-        visual.Add(container);
-
-        DOTween.To(x => visual.style.left = x, Screen.width, 0f, 1f);
-
-        visual.Initialize(Root);
-        visual.AddBackButton();
-    }
 
     void OnMenuClick()
     {
         _gameManager.GetComponent<GameUIManager>().ToggleMenu(new InputAction.CallbackContext());
     }
 
-
     public void OpenDashboardBuilding(DashboardBuildingType db)
     {
         // new InputAction.CallbackContext() - coz it is hooked up in editor to open ui with f keys
         InputAction.CallbackContext a = new InputAction.CallbackContext();
 
-        if (db == DashboardBuildingType.Desk)
-            ShowDeskUI(a);
-        if (db == DashboardBuildingType.Camp)
-            ShowCampUI(a);
         if (db == DashboardBuildingType.Abilities)
             ShowAbilityUI(a);
-    }
-
-
-    IEnumerator ShowDeskUICoroutine()
-    {
-        if (_openBuilding == DashboardBuildingType.Desk)
-            yield break;
-        if (_openBuilding == DashboardBuildingType.Camp)
-            yield return HideCampUI();
-        if (_openBuilding == DashboardBuildingType.Abilities)
-            yield return HideAbilityUI();
-
-        _openBuilding = DashboardBuildingType.Desk;
-
-        BaseBuildingOpened();
-        _mainDesk.style.display = DisplayStyle.Flex;
-        OnDeskOpened?.Invoke();
     }
 
     IEnumerator ShowAbilityUICoroutine()
     {
         if (_openBuilding == DashboardBuildingType.Abilities)
             yield break;
-        if (_openBuilding == DashboardBuildingType.Camp)
-            yield return HideCampUI();
 
         _openBuilding = DashboardBuildingType.Abilities;
 
@@ -312,43 +248,6 @@ public class DashboardManager : Singleton<DashboardManager>
         }
     }
 
-    IEnumerator ShowCampUICoroutine()
-    {
-        if (_openBuilding == DashboardBuildingType.Camp)
-            yield break;
-        if (_openBuilding == DashboardBuildingType.Abilities)
-            yield return HideAbilityUI();
-
-        _openBuilding = DashboardBuildingType.Camp;
-        BaseBuildingOpened();
-        _mainCamp.style.display = DisplayStyle.Flex;
-
-        if (!_gameManager.HideMenuEffects)
-            yield return PlayCampMenuOpenTransition();
-        else
-            _mainCamp.style.top = Length.Percent(0);
-
-        OnCampOpened?.Invoke();
-    }
-
-    IEnumerator PlayCampMenuOpenTransition()
-    {
-        _mainCamp.style.top = Length.Percent(-110);
-        DOTween.To(() => _mainCamp.style.top.value.value,
-                x => _mainCamp.style.top = Length.Percent(x), 0, 0.5f)
-                .SetEase(Ease.OutBounce);
-
-        yield return new WaitForSeconds(0.15f);
-
-        float x = -6f;
-        for (int i = 0; i < 5; i++)
-        {
-            EffectHolder instance = Instantiate(PanelOpenEffect);
-            instance.PlayEffect(new Vector3(x, -5f, 1f), Vector3.one * 0.2f);
-            x += 3f;
-        }
-    }
-
     IEnumerator HideAbilityUI()
     {
         if (!_gameManager.HideMenuEffects)
@@ -363,16 +262,6 @@ public class DashboardManager : Singleton<DashboardManager>
         _mainAbilities.style.display = DisplayStyle.None;
     }
 
-    IEnumerator HideCampUI()
-    {
-        if (!_gameManager.HideMenuEffects)
-        {
-            yield return DOTween.To(() => _mainCamp.style.top.value.value,
-                    x => _mainCamp.style.top = Length.Percent(x), -110, 0.5f)
-                    .WaitForCompletion();
-        }
-        _mainCamp.style.display = DisplayStyle.None;
-    }
 
     void BaseBuildingOpened()
     {
@@ -384,9 +273,7 @@ public class DashboardManager : Singleton<DashboardManager>
 
     void HideAllPanels()
     {
-        _mainCamp.style.display = DisplayStyle.None;
         _mainAbilities.style.display = DisplayStyle.None;
-
         OnHideAllPanels?.Invoke();
     }
 }

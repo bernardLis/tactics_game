@@ -56,7 +56,12 @@ public class CastleControlButton : ControlButton
 
     protected override void OnDayPassed(int day) { _builtCheckMark.style.display = DisplayStyle.None; }
 
-    protected override void OnPointerDown(PointerDownEvent e) { Select(); }
+    protected override void OnPointerDown(PointerDownEvent e)
+    {
+        if (e.button == 1) return; // right mouse click
+
+        Select();
+    }
 
     void Select()
     {

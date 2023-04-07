@@ -46,6 +46,9 @@ public class HeroControlButton : ControlButton
 
     protected override void OnPointerDown(PointerDownEvent e)
     {
+        if (e.button == 1)//  right mouse click
+            return;
+
         if (_mapInputManager.SelectedHero == MapHero)
         {
             HeroCardElement card = new(MapHero, _root, _draggableArmies);

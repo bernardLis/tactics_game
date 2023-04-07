@@ -415,7 +415,7 @@ public class MapInputManager : Singleton<MapInputManager>
         _destinationMarker.gameObject.SetActive(false);
     }
 
-    void UnselectHero()
+    public void UnselectHero()
     {
         if (SelectedHero == null) return;
 
