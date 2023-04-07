@@ -12,6 +12,7 @@ using DG.Tweening;
 public class MapInputManager : Singleton<MapInputManager>
 {
     GameManager _gameManager;
+    DashboardManager _dashboardManager;
     PlayerInput _playerInput;
     CameraSmoothFollow _cameraSmoothFollow;
     Camera _cam;
@@ -52,6 +53,7 @@ public class MapInputManager : Singleton<MapInputManager>
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _dashboardManager = DashboardManager.Instance;
         _cam = Camera.main;
         _cameraSmoothFollow = _cam.GetComponent<CameraSmoothFollow>();
     }
@@ -139,7 +141,7 @@ public class MapInputManager : Singleton<MapInputManager>
     {
         Vector2 pointerUiPos = new Vector2 { x = screenPos.x, y = Screen.height - screenPos.y };
         List<VisualElement> picked = new List<VisualElement>();
-        DashboardManager.Instance.Root.panel.PickAll(pointerUiPos, picked);
+        _dashboardManager.Root.panel.PickAll(pointerUiPos, picked);
         return picked.Count != 0;
     }
 
