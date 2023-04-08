@@ -40,8 +40,7 @@ public enum StyleSheetType
     CommonStyles, TooltipElementStyles, ConfirmPopupStyles,
     MenuStyles, SettingsMenuStyles,
     TimerElementStyles,
-    ReportStyles, QuestReportStyles, ShopReportStyles, PawnshopReportStyles, AbilityReportStyles, SpiceRecycleReportStyles, RaiseRequestReportStyles,
-    QuestElementStyles, RecruitElementStyles, QuestResultStyles,
+    QuestResultStyles,
     RewardContainerStyles,
     BarMiniGameStyles,
     StarRankElementStyles,
@@ -53,7 +52,6 @@ public enum StyleSheetType
     CharacterCardStyles,
     CharacterCardMiniSlotStyles, CharacterCardMiniStyles,
     CharacterCardQuestStyles,
-    CampBuildingStyles,
 
     CastleElementStyles,
     BuildingElementStyles, ProductionBuildingElementStyles, BuildingSpriteElementStyles,

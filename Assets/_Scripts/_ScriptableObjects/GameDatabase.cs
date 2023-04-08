@@ -65,7 +65,6 @@ public class GameDatabase : BaseScriptableObject
     public Sprite[] TroopsElementAnimationSprites;
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
     [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
-    [field: SerializeField] public Sprite ShopWoodSprite { get; private set; }
 
     public Reward GetRewardByRank(int rank) { return Rewards.FirstOrDefault(x => x.Rank == rank); }
     public Reward GetRewardByQuestRank(int rank)
@@ -136,22 +135,12 @@ public class GameDatabase : BaseScriptableObject
 
     public List<Map> Maps = new();
     public Map GetMapById(string id) { return Maps.FirstOrDefault(x => x.Id == id); }
-
 }
 
-public enum AbilityType { Attack, Heal, Push, Buff, Create, AttackCreate }
-public enum WeaponType { Any, Melee, Ranged }
 public enum ItemRarity { Common, Uncommon, Rare, Epic }
 public enum StatType { Power, Health, Mana, Armor, Speed }
 
-public enum ReportType
-{
-    Quest, Recruit, Text, CampBuilding, Shop,
-    Pawnshop, Ability, Item, SpiceRecycle, Wages, RaiseRequest
-}
-
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
-public enum CampBuildingState { NotBuilt, Building, Built, Upgrading }
 public enum RecruitState { Pending, Resolved, Expired }
 public enum DashboardBuildingType { Desk, Camp, Abilities }
 public enum ElementName { Fire, Water, Wind, Earth }
