@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class HeroCastleElement : VisualElement
+public class HeroArmyElement : VisualElement
 {
-    const string _ussClassName = "hero-castle__";
+    const string _ussClassName = "hero-army__";
     const string _ussMain = _ussClassName + "main";
 
     GameManager _gameManager;
@@ -14,13 +14,13 @@ public class HeroCastleElement : VisualElement
 
     List<ArmySlotElement> _armySlotElements = new();
 
-    public HeroCastleElement(Character character, bool isCardDisplayed = true)
+    public HeroArmyElement(Character character, bool isCardDisplayed = true)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCastleElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroArmyElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

@@ -203,17 +203,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4d079bcd1c6a68f469b8fd28f7f31ece
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/CastleControlsButtonStyles.uss
+    m_Address: CastleControlsButtonStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea43a0f0f7ca777499db2e46dc7e5792
-    m_Address: Assets/_Scripts/Map/_UIElements/Styles/HeroControlsButtonStyles.uss
+    m_Address: HeroControlsButtonStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ec099da415fab4f42b139aa2a7685a96
-    m_Address: Assets/_Scripts/_UIElements/Styles/Map/ControlButtonStyles.uss
+    m_Address: ControlButtonStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

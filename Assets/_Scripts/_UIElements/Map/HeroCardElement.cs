@@ -60,7 +60,7 @@ public class HeroCardElement : FullScreenElement
         _bottomContainer = new();
         _bottomContainer.AddToClassList(_ussBottomContainer);
         Add(_bottomContainer);
-        HeroCastleElement armyElement = new(mapHero.Character, false);
+        HeroArmyElement armyElement = new(mapHero.Character, false);
         _bottomContainer.Add(armyElement);
 
         if (isFullScreenElement)
