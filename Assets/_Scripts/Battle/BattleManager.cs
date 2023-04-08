@@ -42,7 +42,7 @@ public class BattleManager : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         _initialEnemyEntityCount = _loadedBattle.GetTotalNumberOfEnemies();
-        _initialPlayerEntityCount = _loadedBattle.Character.GetTotalNumberOfArmyEntities();
+        _initialPlayerEntityCount = _loadedBattle.Hero.GetTotalNumberOfArmyEntities();
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
@@ -50,7 +50,7 @@ public class BattleManager : MonoBehaviour
 
         _textMesh.text = $"{_initialPlayerEntityCount} : {_initialEnemyEntityCount}";
 
-        foreach (ArmyGroup ag in _loadedBattle.Character.Army)
+        foreach (ArmyGroup ag in _loadedBattle.Hero.Army)
             InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
         foreach (ArmyGroup ag in _loadedBattle.Army)
             InstantiateEnemy(ag.ArmyEntity, ag.EntityCount);

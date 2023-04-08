@@ -63,17 +63,17 @@ public class MapControlsManager : MonoBehaviour
 
     void AddHeroControls()
     {
-        _gameManager.OnCharacterAddedToTroops += AddHeroButton;
-        _gameManager.OnCharacterRemovedFromTroops += RemoveHeroButton;
-        foreach (Character c in _gameManager.GetAllCharacters())
+        _gameManager.OnHeroAddedToTroops += AddHeroButton;
+        _gameManager.OnHeroRemovedFromTroops += RemoveHeroButton;
+        foreach (Hero c in _gameManager.GetAllHeroes())
             AddHeroButton(c);
     }
 
-    void AddHeroButton(Character c)
+    void AddHeroButton(Hero c)
     {
         MapHero mapHero = null;
         foreach (MapHero mc in _mapSetupManager.MapHeroes)
-            if (mc.Character == c)
+            if (mc.Hero == c)
                 mapHero = mc;
 
         HeroControlButton button = new(mapHero, _root, _draggableArmies);
@@ -81,11 +81,11 @@ public class MapControlsManager : MonoBehaviour
         _heroControlsButtons.Add(button);
     }
 
-    void RemoveHeroButton(Character c)
+    void RemoveHeroButton(Hero c)
     {
         foreach (HeroControlButton b in _heroControlsButtons)
         {
-            if (b.MapHero.Character == c)
+            if (b.MapHero.Hero == c)
             {
                 _controls.Remove(b);
                 _heroControlsButtons.Remove(b);

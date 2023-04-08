@@ -227,10 +227,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: efc10c22c963433429ef85038fcb82ee
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 6592743390324724eba0b66a33b0dc93
     m_SubObjectName: 
     m_SubObjectType: 
@@ -292,10 +288,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 63f1a6af3aabe544aa3592a0a0d767a6
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: c8a5dfc69b360094793cdfec86277192
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -391,7 +383,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 22337eb7337393645870a2ffab458453, type: 2}
   - {fileID: 11400000, guid: 1b4c77563a99c7c40882d7a598d3f872, type: 2}
   - {fileID: 11400000, guid: 11f01f7ced01c3847b53d38a975bc1c0, type: 2}
-  - {fileID: 11400000, guid: 5b98469e2e2a7a7418a437fb05a52265, type: 2}
   _mixer: {fileID: 24100000, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}
 --- !u!114 &1475728751920290888
 MonoBehaviour:
@@ -407,8 +398,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
   WasIntroCutscenePlayed: 0
-  PlayerCharacter: {fileID: 0}
-  FriendCharacter: {fileID: 0}
+  PlayerHero: {fileID: 0}
+  FriendHero: {fileID: 0}
   PlayerItemPouch: []
   PlayerAbilityPouch: []
   _abilityNodeGraphs:

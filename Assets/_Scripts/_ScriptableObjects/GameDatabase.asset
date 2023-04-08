@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
-  CharacterDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
+  HeroDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   Cutscenes:
   - {fileID: 11400000, guid: 55ad5ffd5bf283d4485798e7df66f245, type: 2}
@@ -81,24 +81,11 @@ MonoBehaviour:
   - {fileID: -1827811568, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: 1029492290, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: 987951257, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  QuestRanks:
-  - {fileID: 11400000, guid: 8cd96fe4c7c39ca4bbc7b4c47d366664, type: 2}
-  - {fileID: 11400000, guid: b5419f0e274ff1347839b779bb2cfbad, type: 2}
-  - {fileID: 11400000, guid: 590f0618bc3ea9c4697e673aa6ea30fb, type: 2}
-  - {fileID: 11400000, guid: 1afc3460ae804584d82c7e1cd4ada712, type: 2}
-  - {fileID: 11400000, guid: 045a8706dba3ba9498d55077f0f00067, type: 2}
-  - {fileID: 11400000, guid: d884cb3969b413c41b39b242f36d7e25, type: 2}
   Rewards:
   - {fileID: 11400000, guid: a5b991edf42867c44bfb6f3996070d37, type: 2}
   - {fileID: 11400000, guid: 8dc4b813eccf12644986db7dadf28a85, type: 2}
   - {fileID: 11400000, guid: 57a2ed5e8781a834b86d012896adbe79, type: 2}
   - {fileID: 11400000, guid: d39ab990f5e02c545ac454ba7fd618a5, type: 2}
-  ReportPapers:
-  - {fileID: 11400000, guid: ef179574ccac47e42aef73b2607fe575, type: 2}
-  - {fileID: 11400000, guid: 229b391159767b14e88a9c374891d60e, type: 2}
-  - {fileID: 11400000, guid: e50eca87b4f4f2f468fd04cd700c7474, type: 2}
-  - {fileID: 11400000, guid: f129289192ffdb34b88ebd8e492eda5c, type: 2}
-  - {fileID: 11400000, guid: b3310462d1342fd4ea8252eaa6126eec, type: 2}
   Elements:
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
@@ -508,7 +495,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: dde15f56be9393b41ab81108f7efc0a2, type: 3}
     - {fileID: 21300000, guid: 279f39ddcb117ee4587fc238e5e623ab, type: 3}
     - {fileID: 21300000, guid: d497bd3531bc97140904d19c4c273569, type: 3}
-  <ShopWoodSprite>k__BackingField: {fileID: 21300000, guid: 9e73dfeeb2b076a45b9f4f939bc1cd58, type: 3}
   GoldSprite: {fileID: 21300000, guid: 9cff88ef95f95be47af437526c628fd5, type: 3}
   SpiceSprite: {fileID: 21300000, guid: 9a06e7f64c40cc04ebda0ea05e969af0, type: 3}
   AllArmyEntities:

@@ -16,7 +16,7 @@ public class MapHero : MonoBehaviour
     [SerializeField] GameObject _canvasContainer;
     [SerializeField] TextMeshProUGUI _floatingText;
 
-    public Character Character { get; private set; }
+    public Hero Hero { get; private set; }
 
     public Vector3 _lastDestination;
 
@@ -24,7 +24,7 @@ public class MapHero : MonoBehaviour
 
     bool _isSelected;
 
-    public void Initialize(Character c)
+    public void Initialize(Hero c)
     {
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += OnDayPassed;
@@ -32,22 +32,22 @@ public class MapHero : MonoBehaviour
         _dashboardManager = DashboardManager.Instance;
         _draggableArmies = _dashboardManager.GetComponent<DraggableArmies>();
 
-        Character = c;
+        Hero = c;
 
         _gfx.sprite = c.Portrait.Sprite;
         _selection.enabled = false;
 
         RangeLeft = ScriptableObject.CreateInstance<FloatVariable>();
-        RangeLeft.SetValue(Character.Speed.GetValue());
+        RangeLeft.SetValue(Hero.Speed.GetValue());
     }
 
-    void OnDayPassed(int day) { RangeLeft.SetValue(Character.Speed.GetValue()); }
+    void OnDayPassed(int day) { RangeLeft.SetValue(Hero.Speed.GetValue()); }
 
     public void Select()
     {
         if (_isSelected)
         {
-            HeroCardElement card = new(this, _dashboardManager.Root, _draggableArmies);
+            HeroCard card = new(this, _dashboardManager.Root, _draggableArmies);
             return;
         }
         _isSelected = true;
@@ -65,7 +65,7 @@ public class MapHero : MonoBehaviour
 
     public void UpdateRangeLeft(float distanceTraveled) { RangeLeft.ApplyChange(-distanceTraveled); }
 
-    public void UpdateMapPosition() { Character.MapPosition = transform.position; }
+    public void UpdateMapPosition() { Hero.MapPosition = transform.position; }
 
     public void Meet(MapHero otherHero)
     {

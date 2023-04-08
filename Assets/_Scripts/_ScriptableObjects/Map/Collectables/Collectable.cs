@@ -22,7 +22,7 @@ public class Collectable : BaseScriptableObject
 
     public virtual void Collect(MapHero hero)
     {
-        Debug.Log($"{hero.Character.CharacterName} collects {this.name}");
+        Debug.Log($"{hero.Hero.HeroName} collects {this.name}");
 
         IsCollected = true;
         GameManager.Instance.SaveJsonData();

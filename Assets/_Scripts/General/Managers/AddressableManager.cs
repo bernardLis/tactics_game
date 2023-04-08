@@ -45,18 +45,18 @@ public enum StyleSheetType
     BarMiniGameStyles,
     StarRankElementStyles,
     GoldElementStyles, SpiceElementStyles,
-    CharacterPortraitStyles, ResourceBarStyles, StatElementStyles, ElementalElementStyles,
+    HeroPortraitStyles, ResourceBarStyles, StatElementStyles, ElementalElementStyles,
     AbilityNodeStyles,
     AbilityButtonStyles, AbilityIconStyles, AbilityTooltipElementStyles,
     ItemSlotStyles, AbilitySlotStyles,
-    CharacterCardStyles,
-    CharacterCardMiniSlotStyles, CharacterCardMiniStyles,
-    CharacterCardQuestStyles,
+    HeroStatsCardStyles,
+    HeroCardMiniStyles,
+    HeroCardQuestStyles,
 
     CastleElementStyles,
     BuildingElementStyles, ProductionBuildingElementStyles, BuildingSpriteElementStyles,
     ArmyElementStyles, ArmySlotElementStyles, ArmyBuyableElementStyles,
-    HeroCardElementStyles, HeroArmyElementStyles,
+    HeroCardStyles, HeroArmyElementStyles,
     ControlButtonStyles, CastleControlButtonStyles, HeroControlButtonStyles,
 
 }

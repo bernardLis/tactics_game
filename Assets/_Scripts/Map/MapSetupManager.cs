@@ -26,7 +26,7 @@ public class MapSetupManager : MonoBehaviour
 
     void Start()
     {
-        PlaceCharacters();
+        PlaceHeroes();
         PlaceCollectables();
         PlaceBattles();
         PlaceCastles();
@@ -47,9 +47,9 @@ public class MapSetupManager : MonoBehaviour
     }
 #endif
 
-    void PlaceCharacters()
+    void PlaceHeroes()
     {
-        foreach (Character c in _gameManager.GetAllCharacters())
+        foreach (Hero c in _gameManager.GetAllHeroes())
         {
             GameObject instance = Instantiate(_heroPrefab, c.MapPosition, Quaternion.identity);
             MapHero mapHero = instance.GetComponent<MapHero>();

@@ -90,7 +90,7 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandle
 
     public void VisitCastle(MapHero h)
     {
-        Debug.Log($"{h.Character.CharacterName} is visiting {Castle.name}");
+        Debug.Log($"{h.Hero.HeroName} is visiting {Castle.name}");
 
         CastleElement el = new(_dashboardManager.Root, Castle, h);
         el.OnHide += _draggableArmies.Reset;

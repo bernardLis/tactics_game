@@ -37,11 +37,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: efc10c22c963433429ef85038fcb82ee
-    m_Address: CharacterCardMiniSlotStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6592743390324724eba0b66a33b0dc93
     m_Address: CharacterCardMiniStyles
     m_ReadOnly: 0
@@ -124,11 +119,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e55454fed2ddfb4f90604f7fee33a32
     m_Address: MenuStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c8a5dfc69b360094793cdfec86277192
-    m_Address: RecruitElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

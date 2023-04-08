@@ -32,7 +32,7 @@ public class HeroControlButton : ControlButton
 
         MapHero = mapHero;
 
-        _icon.style.backgroundImage = new StyleBackground(mapHero.Character.Portrait.Sprite);
+        _icon.style.backgroundImage = new StyleBackground(mapHero.Hero.Portrait.Sprite);
 
         AddMovementRangeBar();
     }
@@ -40,7 +40,7 @@ public class HeroControlButton : ControlButton
     void AddMovementRangeBar()
     {
         _movementRangeBar = new(Color.green, "Movement Range",
-             totalValueStat: MapHero.Character.Speed, currentFloatVar: MapHero.RangeLeft);
+             totalValueStat: MapHero.Hero.Speed, currentFloatVar: MapHero.RangeLeft);
         Add(_movementRangeBar);
     }
 
@@ -51,7 +51,7 @@ public class HeroControlButton : ControlButton
 
         if (_mapInputManager.SelectedHero == MapHero)
         {
-            HeroCardElement card = new(MapHero, _root, _draggableArmies);
+            HeroCard card = new(MapHero, _root, _draggableArmies);
             return;
         }
 

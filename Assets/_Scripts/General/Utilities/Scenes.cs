@@ -6,9 +6,9 @@ public static class Scenes
         private set { }
     }
 
-    public static string CharacterCreation
+    public static string HeroCreation
     {
-        get { return "CharacterCreation"; }
+        get { return "HeroCreation"; }
         private set { }
     }
 

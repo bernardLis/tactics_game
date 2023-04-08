@@ -10,11 +10,11 @@ public class HeroArmyElement : VisualElement
 
     GameManager _gameManager;
 
-    public Character Character;
+    public Hero Hero;
 
     List<ArmySlotElement> _armySlotElements = new();
 
-    public HeroArmyElement(Character character, bool isCardDisplayed = true)
+    public HeroArmyElement(Hero hero, bool isCardDisplayed = true)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -24,24 +24,24 @@ public class HeroArmyElement : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        Character = character;
+        Hero = hero;
 
         AddToClassList(_ussMain);
         
         if (isCardDisplayed)
-            Add(new CharacterCardMini(Character));
+            Add(new HeroCardMini(Hero));
 
         _armySlotElements = new();
-        for (int i = 0; i < Character.MaxCharacterArmySlots; i++)
+        for (int i = 0; i < Hero.MaxHeroArmySlots; i++)
         {
             ArmySlotElement el = new(null, i);
             _armySlotElements.Add(el);
-            el.OnArmyAdded += (ArmyElement el) => Character.AddArmy(el.ArmyGroup);
-            el.OnArmyRemoved += (ArmyElement el) => Character.RemoveArmy(el.ArmyGroup);
+            el.OnArmyAdded += (ArmyElement el) => Hero.AddArmy(el.ArmyGroup);
+            el.OnArmyRemoved += (ArmyElement el) => Hero.RemoveArmy(el.ArmyGroup);
             Add(el);
         }
 
-        foreach (ArmyGroup ag in Character.Army)
+        foreach (ArmyGroup ag in Hero.Army)
             _armySlotElements[ag.ListPosition].AddArmyNoDelegates(new(ag));
     }
 

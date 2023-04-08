@@ -24,24 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenCamp",
-                    "type": "Button",
-                    "id": "4d73cc88-7be5-4377-bc88-2cfa7dbe75ac",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "OpenAbilities",
-                    "type": "Button",
-                    "id": "d220e32f-b253-4ff5-a151-a7cc4ab60a40",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "CloseCurrentTab",
                     "type": "Button",
                     "id": "d4ab2cfa-149d-49d6-8625-2bc505c7c84f",
@@ -178,28 +160,6 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "OpenDesk",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "37cbebb5-9842-4562-9e7b-3fe357c3eea2",
-                    "path": "<Keyboard>/f2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenCamp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "42ff2eb8-2fd2-4e57-9976-2ae1ee826fbb",
-                    "path": "<Keyboard>/f3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenAbilities",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

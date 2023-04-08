@@ -1,8 +1,0 @@
-.recruit-element__main {
-    align-items: center;
-}
-
-.recruit-element__wage-container {
-    align-items: center;
-    flex-direction: row;
-}

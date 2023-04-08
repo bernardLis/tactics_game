@@ -7,7 +7,7 @@ public class ConversationLine : BaseScriptableObject
 {
     public bool PlayerIsSpeaker;
     public bool FriendIsSpeaker;
-    public Character SpeakerCharacter;
+    public Hero SpeakerHero;
     [TextArea(2, 5)]
     [SerializeField] string Text;
     [HideInInspector] public string ParsedText;
@@ -17,11 +17,11 @@ public class ConversationLine : BaseScriptableObject
     {
         GameManager gm = GameManager.Instance;
         if (PlayerIsSpeaker)
-            SpeakerCharacter = gm.PlayerCharacter;
+            SpeakerHero = gm.PlayerHero;
         if (FriendIsSpeaker)
-            SpeakerCharacter = gm.FriendCharacter;
+            SpeakerHero = gm.FriendHero;
 
-        ParsedText = Text.Replace("{name}", gm.PlayerCharacter.CharacterName);
-        ParsedText = ParsedText.Replace("{friendName}", gm.FriendCharacter.CharacterName);
+        ParsedText = Text.Replace("{name}", gm.PlayerHero.HeroName);
+        ParsedText = ParsedText.Replace("{friendName}", gm.FriendHero.HeroName);
     }
 }

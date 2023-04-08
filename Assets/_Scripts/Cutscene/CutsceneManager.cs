@@ -16,16 +16,16 @@ public class CutsceneManager : MonoBehaviour
     Camera _cam;
 
     [SerializeField] Conversation _introConversation;
-    [SerializeField] Character _banker;
+    [SerializeField] Hero _banker;
 
     [SerializeField] Sound _snekSound;
     [SerializeField] Sprite[] _snekSprites;
     int snekIndex = 0;
 
-    CharacterCardMini _currentSpeaker;
+    HeroCardMini _currentSpeaker;
     ConversationLine _currentLine;
     bool _zoomIn;
-    List<CharacterCardMini> _cardsInConversation = new();
+    List<HeroCardMini> _cardsInConversation = new();
 
     VisualElement _root;
     VisualElement _reportContainer;
@@ -99,9 +99,9 @@ public class CutsceneManager : MonoBehaviour
         _lineLabel.style.width = _lineLabel.resolvedStyle.width;
         _lineLabel.style.height = _lineLabel.resolvedStyle.height;
 
-        foreach (CharacterCardMini c in _cardsInConversation)
+        foreach (HeroCardMini c in _cardsInConversation)
         {
-            if (c.Character == line.SpeakerCharacter)
+            if (c.Hero == line.SpeakerHero)
             {
                 HandleSpeaker(c);
                 UpdateBoxPosition(c);
@@ -109,7 +109,7 @@ public class CutsceneManager : MonoBehaviour
         }
     }
 
-    void HandleSpeaker(CharacterCardMini card)
+    void HandleSpeaker(HeroCardMini card)
     {
         _currentSpeaker = card;
         float duration = 1f;
@@ -130,7 +130,7 @@ public class CutsceneManager : MonoBehaviour
         });
     }
 
-    void UpdateBoxPosition(CharacterCardMini card)
+    void UpdateBoxPosition(HeroCardMini card)
     {
         _lineBox.BringToFront();
         float elWidth = _lineBox.resolvedStyle.width;

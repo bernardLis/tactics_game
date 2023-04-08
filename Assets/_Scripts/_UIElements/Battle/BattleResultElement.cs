@@ -57,7 +57,9 @@ public class BattleResult : FullScreenElement
         Add(_content);
         _content.AddToClassList(_ussContent);
 
+        AddHeroCard(battle);
         AddEntityWithMostKills(entities);
+
 
         _backToMapButton = new("Back", _ussCommonMenuButton, LoadMap);
         _content.Add(_backToMapButton);
@@ -76,6 +78,12 @@ public class BattleResult : FullScreenElement
             }
         }
         _content.Add(new Label($"Entity With Most Kills: {entityWithMostKills.name}, # kills: {topKillCount} "));
+    }
+
+    void AddHeroCard(Battle battle)
+    {
+        HeroCardQuest card = new HeroCardQuest(battle.Hero);
+        _content.Add(card);
     }
 
     void LoadMap() { _gameManager.LoadMap(); }

@@ -8,7 +8,7 @@ public class Battle : BaseScriptableObject
     public Vector2 MapPosition;
     public List<ArmyGroup> Army = new();
 
-    [HideInInspector] public Character Character;
+    [HideInInspector] public Hero Hero;
 
     public bool Won;
 

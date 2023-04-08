@@ -20,7 +20,7 @@ public class MapBattle : MonoBehaviour, ITooltipDisplayable
     }
     public void TakeBattle(MapHero h)
     {
-        Battle.Character = h.Character;
+        Battle.Hero = h.Hero;
         _gameManager.LoadBattle(Battle);
     }
 

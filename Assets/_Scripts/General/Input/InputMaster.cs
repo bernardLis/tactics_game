@@ -46,24 +46,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenCamp"",
-                    ""type"": ""Button"",
-                    ""id"": ""4d73cc88-7be5-4377-bc88-2cfa7dbe75ac"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""OpenAbilities"",
-                    ""type"": ""Button"",
-                    ""id"": ""d220e32f-b253-4ff5-a151-a7cc4ab60a40"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""CloseCurrentTab"",
                     ""type"": ""Button"",
                     ""id"": ""d4ab2cfa-149d-49d6-8625-2bc505c7c84f"",
@@ -205,28 +187,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""37cbebb5-9842-4562-9e7b-3fe357c3eea2"",
-                    ""path"": ""<Keyboard>/f2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenCamp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""42ff2eb8-2fd2-4e57-9976-2ae1ee826fbb"",
-                    ""path"": ""<Keyboard>/f3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenAbilities"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""3d1ff745-8a7c-40a1-abb4-b303fb285b49"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -339,8 +299,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Dashboard = asset.FindActionMap("Dashboard", throwIfNotFound: true);
         m_Dashboard_ArrowMovement = m_Dashboard.FindAction("ArrowMovement", throwIfNotFound: true);
         m_Dashboard_OpenDesk = m_Dashboard.FindAction("OpenDesk", throwIfNotFound: true);
-        m_Dashboard_OpenCamp = m_Dashboard.FindAction("OpenCamp", throwIfNotFound: true);
-        m_Dashboard_OpenAbilities = m_Dashboard.FindAction("OpenAbilities", throwIfNotFound: true);
         m_Dashboard_CloseCurrentTab = m_Dashboard.FindAction("CloseCurrentTab", throwIfNotFound: true);
         m_Dashboard_ToggleCommandLine = m_Dashboard.FindAction("ToggleCommandLine", throwIfNotFound: true);
         m_Dashboard_OpenMenu = m_Dashboard.FindAction("OpenMenu", throwIfNotFound: true);
@@ -410,8 +368,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private IDashboardActions m_DashboardActionsCallbackInterface;
     private readonly InputAction m_Dashboard_ArrowMovement;
     private readonly InputAction m_Dashboard_OpenDesk;
-    private readonly InputAction m_Dashboard_OpenCamp;
-    private readonly InputAction m_Dashboard_OpenAbilities;
     private readonly InputAction m_Dashboard_CloseCurrentTab;
     private readonly InputAction m_Dashboard_ToggleCommandLine;
     private readonly InputAction m_Dashboard_OpenMenu;
@@ -426,8 +382,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public DashboardActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @ArrowMovement => m_Wrapper.m_Dashboard_ArrowMovement;
         public InputAction @OpenDesk => m_Wrapper.m_Dashboard_OpenDesk;
-        public InputAction @OpenCamp => m_Wrapper.m_Dashboard_OpenCamp;
-        public InputAction @OpenAbilities => m_Wrapper.m_Dashboard_OpenAbilities;
         public InputAction @CloseCurrentTab => m_Wrapper.m_Dashboard_CloseCurrentTab;
         public InputAction @ToggleCommandLine => m_Wrapper.m_Dashboard_ToggleCommandLine;
         public InputAction @OpenMenu => m_Wrapper.m_Dashboard_OpenMenu;
@@ -451,12 +405,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @OpenDesk.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
                 @OpenDesk.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
                 @OpenDesk.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
-                @OpenCamp.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenCamp;
-                @OpenCamp.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenCamp;
-                @OpenCamp.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenCamp;
-                @OpenAbilities.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenAbilities;
-                @OpenAbilities.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenAbilities;
-                @OpenAbilities.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenAbilities;
                 @CloseCurrentTab.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
                 @CloseCurrentTab.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
                 @CloseCurrentTab.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
@@ -491,12 +439,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @OpenDesk.started += instance.OnOpenDesk;
                 @OpenDesk.performed += instance.OnOpenDesk;
                 @OpenDesk.canceled += instance.OnOpenDesk;
-                @OpenCamp.started += instance.OnOpenCamp;
-                @OpenCamp.performed += instance.OnOpenCamp;
-                @OpenCamp.canceled += instance.OnOpenCamp;
-                @OpenAbilities.started += instance.OnOpenAbilities;
-                @OpenAbilities.performed += instance.OnOpenAbilities;
-                @OpenAbilities.canceled += instance.OnOpenAbilities;
                 @CloseCurrentTab.started += instance.OnCloseCurrentTab;
                 @CloseCurrentTab.performed += instance.OnCloseCurrentTab;
                 @CloseCurrentTab.canceled += instance.OnCloseCurrentTab;
@@ -538,8 +480,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     {
         void OnArrowMovement(InputAction.CallbackContext context);
         void OnOpenDesk(InputAction.CallbackContext context);
-        void OnOpenCamp(InputAction.CallbackContext context);
-        void OnOpenAbilities(InputAction.CallbackContext context);
         void OnCloseCurrentTab(InputAction.CallbackContext context);
         void OnToggleCommandLine(InputAction.CallbackContext context);
         void OnOpenMenu(InputAction.CallbackContext context);

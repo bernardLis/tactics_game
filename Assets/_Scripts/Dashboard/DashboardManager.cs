@@ -88,16 +88,12 @@ public class DashboardManager : Singleton<DashboardManager>
     void SubscribeInputActions()
     {
         PlayerInput.actions["Pause"].performed += TogglePause;
-        PlayerInput.actions["OpenAbilities"].performed += ShowAbilityUI;
-
         PlayerInput.actions["CloseCurrentTab"].performed += HideAllPanels;
     }
 
     void UnsubscribeInputActions()
     {
         PlayerInput.actions["Pause"].performed -= TogglePause;
-        PlayerInput.actions["OpenAbilities"].performed -= ShowAbilityUI;
-
         PlayerInput.actions["CloseCurrentTab"].performed -= HideAllPanels;
     }
 
@@ -147,17 +143,17 @@ public class DashboardManager : Singleton<DashboardManager>
         _navTroops.Clear();
         _troopsLimitElement = new($"");
         UpdateTroopsElement();
-        _gameManager.OnCharacterAddedToTroops += UpdateTroopsElement;
+        _gameManager.OnHeroAddedToTroops += UpdateTroopsElement;
 
         _navTroops.Add(_troopsLimitElement);
     }
 
     // I know it is not nice, but it is also nice, and I don't care about the parameters passed in this case
-    void UpdateTroopsElement(Character c) { UpdateTroopsElement(); }
+    void UpdateTroopsElement(Hero c) { UpdateTroopsElement(); }
     void UpdateTroopsElement(int i) { UpdateTroopsElement(); }
     void UpdateTroopsElement()
     {
-        int troopsCount = _gameManager.GetAllCharacters().Count;
+        int troopsCount = _gameManager.GetAllHeroes().Count;
         int troopsLimit = 5;
 
         _troopsLimitElement.UpdateCountContainer($"{troopsCount} / {troopsLimit}", Color.white);

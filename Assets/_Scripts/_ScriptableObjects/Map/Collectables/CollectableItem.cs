@@ -22,7 +22,7 @@ public class CollectableItem : Collectable
     public override void Collect(MapHero hero)
     {
         base.Collect(hero);
-        hero.Character.AddItem(Item);
+        hero.Hero.AddItem(Item);
     }
 
     public override CollectableData SerializeSelf()

@@ -23,7 +23,7 @@ public class DraggableItems : MonoBehaviour
 
     List<ItemSlot> _allSlots = new();
 
-    List<CharacterCard> _allCards = new();
+    List<HeroStatsCard> _allCards = new();
 
     const string _ussDragDropContainer = "dashboard__item-drag-drop-container";
 
@@ -46,22 +46,6 @@ public class DraggableItems : MonoBehaviour
 
     public void AddSlot(ItemSlot slot) { _allSlots.Add(slot); }
     public void RemoveSlot(ItemSlot slot) { _allSlots.Remove(slot); }
-
-    public void AddCharacterCard(CharacterCard card)
-    {
-        _allCards.Add(card);
-        _allSlots.AddRange(card.ItemSlots);
-        foreach (ItemElement el in card.ItemElements)
-            AddDraggableItem(el);
-    }
-
-    public void RemoveCharacterCard(CharacterCard card)
-    {
-        foreach (ItemSlot slot in card.ItemSlots)
-            _allSlots.Remove(slot);
-
-        _allCards.Remove(card);
-    }
 
     void OnItemPointerDown(PointerDownEvent evt)
     {
@@ -134,8 +118,8 @@ public class DraggableItems : MonoBehaviour
         IEnumerable<ItemSlot> slots = _allSlots.Where(x =>
                x.worldBound.Overlaps(_dragDropContainer.worldBound));
 
-        List<VisualElement> characterCards = _root.Query(className: "character-card-mini__main").ToList();
-        IEnumerable<VisualElement> overlappingCards = characterCards.Where(x =>
+        List<VisualElement> heroCards = _root.Query(className: "hero-card-mini__main").ToList();
+        IEnumerable<VisualElement> overlappingCards = heroCards.Where(x =>
                     x.worldBound.Overlaps(_dragDropContainer.worldBound));
 
         if (slots.Count() != 0)
@@ -144,10 +128,10 @@ public class DraggableItems : MonoBehaviour
             return;
         }
 
-        // drag item from desk to character to add it to character
+        // drag item from desk to hero to add it to hero
         if (overlappingCards.Count() != 0)
         {
-            AddItemToCharacter(overlappingCards);
+            AddItemToHero(overlappingCards);
             return;
         }
 
@@ -185,25 +169,19 @@ public class DraggableItems : MonoBehaviour
         DragCleanUp();
     }
 
-    void AddItemToCharacter(IEnumerable<VisualElement> overlappingCards)
+    void AddItemToHero(IEnumerable<VisualElement> overlappingCards)
     {
         VisualElement closesEl = overlappingCards.OrderBy(x => Vector2.Distance
                          (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
-        CharacterCardMini closestCard = (CharacterCardMini)closesEl;
-        if (closestCard.Character.CanTakeAnotherItem())
+        HeroCardMini closestCard = (HeroCardMini)closesEl;
+        closestCard.Hero.AddItem(_draggedItem.Item);
+        if (_draggedItem.IsShop)
         {
-            closestCard.Character.AddItem(_draggedItem.Item);
-            if (_draggedItem.IsShop)
-            {
-                _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
-                _draggedItem.ItemBought();
-            }
-            DragCleanUp();
-            return;
+            _gameManager.ChangeGoldValue(-_draggedItem.Item.Price);
+            _draggedItem.ItemBought();
         }
-
-        _originalSlot.AddItem(_draggedItem);
         DragCleanUp();
+
     }
 
     void DragCleanUp()

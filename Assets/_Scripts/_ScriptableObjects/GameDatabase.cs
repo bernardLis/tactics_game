@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-    public CharacterDatabase CharacterDatabase;
+    public HeroDatabase HeroDatabase;
     public QuestDatabase QuestDatabase;
 
     public void Initialize() { SortItems(); }
@@ -16,7 +16,7 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] Cutscene[] Cutscenes;
     public Cutscene[] GetAllCutscenes() { return Cutscenes; }
 
-    [Header("Characters")]
+    [Header("Heroes")]
     [SerializeField] Ability[] Abilities;
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }

@@ -42,7 +42,7 @@ public class TooltipElement : VisualElement
     public void UpdatePosition(VisualElement element)
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
-        // TODO: inelegant solution, when character card is tooltip element it does not resolve style for some reason. 
+        // TODO: inelegant solution, when hero card is tooltip element it does not resolve style for some reason. 
         float elWidth = resolvedStyle.width == 0 ? _tooltipElement.resolvedStyle.width : resolvedStyle.width;
         float elHeight = resolvedStyle.height == 0 ? _tooltipElement.resolvedStyle.height : resolvedStyle.height;
         float x = element.worldBound.xMin;

@@ -207,8 +207,8 @@ public class DraggableArmies : MonoBehaviour
         IEnumerable<ArmySlotElement> slots = _armySlots.Where(x =>
                x.worldBound.Overlaps(_dragDropContainer.worldBound));
 
-        List<VisualElement> characterCards = _root.Query(className: "character-card-mini__main").ToList();
-        IEnumerable<VisualElement> overlappingCards = characterCards.Where(x =>
+        List<VisualElement> heroCards = _root.Query(className: "hero-card-mini__main").ToList();
+        IEnumerable<VisualElement> overlappingCards = heroCards.Where(x =>
                     x.worldBound.Overlaps(_dragDropContainer.worldBound));
 
         if (slots.Count() != 0)

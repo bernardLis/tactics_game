@@ -15,10 +15,10 @@ public class SaveData
     public int Gold;
     public int Spice;
 
-    public CharacterData PlayerCharacter = new();
-    public CharacterData FriendCharacter = new();
+    public HeroData PlayerHero = new();
+    public HeroData FriendHero = new();
 
-    public List<CharacterData> PlayerTroops = new();
+    public List<HeroData> PlayerTroops = new();
     public List<ItemData> ItemPouch = new();
     public List<AbilityData> AbilityPouch = new();
 

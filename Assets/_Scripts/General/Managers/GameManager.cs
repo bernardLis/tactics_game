@@ -31,9 +31,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public bool IsTimerOn { get; private set; }
 
-    public Character PlayerCharacter;
-    public Character FriendCharacter;
-    public List<Character> Troops { get; private set; } = new();
+    public Hero PlayerHero;
+    public Hero FriendHero;
+    public List<Hero> Troops { get; private set; } = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
 
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
@@ -47,8 +47,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;
-    public event Action<Character> OnCharacterAddedToTroops;
-    public event Action<Character> OnCharacterRemovedFromTroops;
+    public event Action<Hero> OnHeroAddedToTroops;
+    public event Action<Hero> OnHeroRemovedFromTroops;
     public event Action<string> OnLevelLoaded;
     public event Action OnNewSaveFileCreation;
     public event Action OnClearSaveData;
@@ -73,9 +73,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void Play()
     {
-        if (PlayerCharacter == null)
+        if (PlayerHero == null)
         {
-            LoadLevel(Scenes.CharacterCreation);
+            LoadLevel(Scenes.HeroCreation);
             return;
         }
         StartGame();
@@ -112,15 +112,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-
-    public int GetCurrentWages()
-    {
-        int total = 0;
-        foreach (Character c in Troops)
-            total += c.WeeklyWage.Value;
-        return total;
-    }
-
     public void ChangeGoldValue(int o)
     {
         if (o == 0)
@@ -145,26 +136,26 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public AbilityNodeGraph GetAbilityNodeGraphById(string id) { return _abilityNodeGraphs.FirstOrDefault(x => x.Id == id); }
 
     /* Troops & pouches */
-    public List<Character> GetAllCharacters()
+    public List<Hero> GetAllHeroes()
     {
-        List<Character> all = new(Troops);
-        all.Add(PlayerCharacter);
-        all.Add(FriendCharacter);
+        List<Hero> all = new(Troops);
+        all.Add(PlayerHero);
+        all.Add(FriendHero);
         return all;
     }
 
-    public void AddCharacterToTroops(Character character)
+    public void AddHeroToTroops(Hero hero)
     {
-        Troops.Add(character);
-        character.SetDayAddedToTroops(Day);
-        OnCharacterAddedToTroops?.Invoke(character);
+        Troops.Add(hero);
+        hero.SetDayAddedToTroops(Day);
+        OnHeroAddedToTroops?.Invoke(hero);
         SaveJsonData();
     }
 
-    public void RemoveCharacterFromTroops(Character character)
+    public void RemoveHeroFromTroops(Hero hero)
     {
-        Troops.Remove(character);
-        OnCharacterRemovedFromTroops?.Invoke(character);
+        Troops.Remove(hero);
+        OnHeroRemovedFromTroops?.Invoke(hero);
         SaveJsonData();
     }
 
@@ -229,8 +220,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
         Spice = 500;
 
-        PlayerCharacter = null;
-        FriendCharacter = null;
+        PlayerHero = null;
+        FriendHero = null;
 
         foreach (AbilityNodeGraph g in _abilityNodeGraphs)
             g.ResetNodes();
@@ -275,10 +266,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.Gold = Gold;
         saveData.Spice = Spice;
 
-        if (PlayerCharacter != null)
-            saveData.PlayerCharacter = PlayerCharacter.SerializeSelf();
-        if (FriendCharacter != null)
-            saveData.FriendCharacter = FriendCharacter.SerializeSelf();
+        if (PlayerHero != null)
+            saveData.PlayerHero = PlayerHero.SerializeSelf();
+        if (FriendHero != null)
+            saveData.FriendHero = FriendHero.SerializeSelf();
 
         saveData.PlayerTroops = PopulateTroops();
 
@@ -291,10 +282,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.MapData = Map.SerializeSelf();
     }
 
-    List<CharacterData> PopulateTroops()
+    List<HeroData> PopulateTroops()
     {
-        List<CharacterData> charData = new();
-        foreach (Character c in Troops)
+        List<HeroData> charData = new();
+        foreach (Hero c in Troops)
             charData.Add(c.SerializeSelf());
 
         return charData;
@@ -354,18 +345,18 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = saveData.Gold;
         Spice = saveData.Spice;
 
-        PlayerCharacter = (Character)ScriptableObject.CreateInstance<Character>();
-        PlayerCharacter.CreateFromData(saveData.PlayerCharacter);
+        PlayerHero = (Hero)ScriptableObject.CreateInstance<Hero>();
+        PlayerHero.CreateFromData(saveData.PlayerHero);
 
-        FriendCharacter = (Character)ScriptableObject.CreateInstance<Character>();
-        FriendCharacter.CreateFromData(saveData.FriendCharacter);
+        FriendHero = (Hero)ScriptableObject.CreateInstance<Hero>();
+        FriendHero.CreateFromData(saveData.FriendHero);
 
         Troops = new();
-        foreach (CharacterData data in saveData.PlayerTroops)
+        foreach (HeroData data in saveData.PlayerTroops)
         {
-            Character character = (Character)ScriptableObject.CreateInstance<Character>();
-            character.CreateFromData(data);
-            Troops.Add(character);
+            Hero hero = (Hero)ScriptableObject.CreateInstance<Hero>();
+            hero.CreateFromData(data);
+            Troops.Add(hero);
         }
 
         PlayerItemPouch = new();
@@ -405,8 +396,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 0;
         Spice = 0;
 
-        PlayerCharacter = null;
-        FriendCharacter = null;
+        PlayerHero = null;
+        FriendHero = null;
         Troops = new();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();

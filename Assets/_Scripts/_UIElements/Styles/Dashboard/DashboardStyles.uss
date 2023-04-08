@@ -47,13 +47,6 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/70_settings.png?fileID=2800000&guid=32a3467ea79eade4681347bdb0f23155&type=3#70_settings');
 }
 
-.dashboard__character-drag-drop-container {
-    visibility: hidden;
-    position: absolute;
-    width: 150px;
-    height: 150px;
-}
-
 .dashboard__item-drag-drop-container {
     visibility: hidden;
     position: absolute;
