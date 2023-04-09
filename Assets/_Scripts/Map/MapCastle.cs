@@ -8,6 +8,7 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandle
 {
     GameManager _gameManager;
     DashboardManager _dashboardManager;
+    MapControlsManager _mapControlsManager;
     DraggableArmies _draggableArmies;
     MapInputManager _mapInputManager;
 
@@ -22,8 +23,10 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandle
     {
         _gameManager = GameManager.Instance;
         _dashboardManager = DashboardManager.Instance;
+        _mapControlsManager = _dashboardManager.GetComponent<MapControlsManager>();
         _draggableArmies = _dashboardManager.GetComponent<DraggableArmies>();
         _mapInputManager = MapInputManager.Instance;
+
         _mapInputManager.OnCastleSelected += c =>
         {
             if (c != this)
@@ -51,6 +54,7 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandle
         castle.Initialize(); // TODO: differentiate between owned / not owned castles
         Castle = castle;
         GetComponentInChildren<SpriteRenderer>().sprite = castle.Sprite;
+        GetComponent<FogOfWarEffector>().IsOwnedByPlayer = castle.IsOwnedByPlayer;
     }
 
     public void OnPointerEnter(PointerEventData evt) { Select(); }
@@ -83,6 +87,8 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandle
 
     public void ShowCastleUI()
     {
+        if (!Castle.IsOwnedByPlayer) return;
+
         CastleElement el = new(_dashboardManager.Root, Castle, null);
         el.OnHide += _draggableArmies.Reset;
         _draggableArmies.Initialize();
@@ -91,6 +97,13 @@ public class MapCastle : MonoBehaviour, ITooltipDisplayable, IPointerEnterHandle
     public void VisitCastle(MapHero h)
     {
         Debug.Log($"{h.Hero.HeroName} is visiting {Castle.name}");
+
+        if (!Castle.IsOwnedByPlayer)
+        {
+            GetComponent<FogOfWarEffector>().IsOwnedByPlayer = true;
+            _mapControlsManager.AddCastleButton(Castle);
+            Castle.IsOwnedByPlayer = true;
+        }
 
         CastleElement el = new(_dashboardManager.Root, Castle, h);
         el.OnHide += _draggableArmies.Reset;

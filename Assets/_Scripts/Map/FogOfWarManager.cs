@@ -94,23 +94,10 @@ public class FogOfWarManager : MonoBehaviour
                 int x = Mathf.RoundToInt(squarePosX - _bottomLeftCorner.x);
                 int y = Mathf.RoundToInt(squarePosY - _bottomLeftCorner.y);
 
-                FogOfWarSquare square = _squares[y + _width * x];
+                int listPos = y + _width * x;
+                FogOfWarSquare square = _squares[listPos];
                 square.ResetVisibility();
-                foreach (FogOfWarEffector e in _fogOfWarEffectors)
-                {
-                    if (Vector2.Distance(e.transform.position, square.transform.position) <= e.ExploreRadius)
-                    {
-                        if (!_currentMap.ExploredListPositions.Contains(y + _width * x))
-                            _currentMap.ExploredListPositions.Add(y + _width * x);
-                        square.SetExplored();
-                    }
-
-                    if (Vector2.Distance(e.transform.position, square.transform.position) <= e.VisionRadius)
-                    {
-                        square.SetVisible();
-                        break; // important
-                    }
-                }
+                UpdateSquare(square, listPos);
             }
         }
     }
@@ -120,18 +107,26 @@ public class FogOfWarManager : MonoBehaviour
         // I'd have to know where in the list is square at a given world position
         // https://blog.gemserk.com/2018/11/20/implementing-fog-of-war-for-rts-games-in-unity-2-2/
         foreach (FogOfWarSquare square in _squares)
-        {
-            square.ResetVisibility();
-            foreach (FogOfWarEffector e in _fogOfWarEffectors)
-            {
-                if (Vector2.Distance(e.transform.position, square.transform.position) <= e.ExploreRadius)
-                    square.SetExplored();
+            UpdateSquare(square, _squares.IndexOf(square));
+    }
 
-                if (Vector2.Distance(e.transform.position, square.transform.position) <= e.VisionRadius)
-                {
-                    square.SetVisible();
-                    break; // important
-                }
+    void UpdateSquare(FogOfWarSquare square, int listPos)
+    {
+        square.ResetVisibility();
+        foreach (FogOfWarEffector e in _fogOfWarEffectors)
+        {
+            if (!e.IsOwnedByPlayer) continue;
+            if (Vector2.Distance(e.transform.position, square.transform.position) <= e.ExploreRadius)
+            {
+                if (!_currentMap.ExploredListPositions.Contains(listPos))
+                    _currentMap.ExploredListPositions.Add(listPos);
+                square.SetExplored();
+            }
+
+            if (Vector2.Distance(e.transform.position, square.transform.position) <= e.VisionRadius)
+            {
+                square.SetVisible();
+                break; // important
             }
         }
     }

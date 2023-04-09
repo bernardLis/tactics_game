@@ -39,6 +39,8 @@ public class MapHero : MonoBehaviour
 
         RangeLeft = ScriptableObject.CreateInstance<FloatVariable>();
         RangeLeft.SetValue(Hero.Speed.GetValue());
+
+        GetComponent<FogOfWarEffector>().IsOwnedByPlayer = true;
     }
 
     void OnDayPassed(int day) { RangeLeft.SetValue(Hero.Speed.GetValue()); }

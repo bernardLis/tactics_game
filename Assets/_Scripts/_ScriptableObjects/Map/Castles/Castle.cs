@@ -11,6 +11,7 @@ public class Castle : BaseScriptableObject
     public string TemplateCastleId;
     public Sprite Sprite;
     public Vector2 MapPosition;
+    public bool IsOwnedByPlayer;
     public bool HasBuiltToday;
     public List<Building> Buildings = new();
     public List<ArmyGroup> Army = new();
@@ -79,6 +80,7 @@ public class Castle : BaseScriptableObject
         data.Id = Id;
         data.TemplateCastleId = TemplateCastleId;
         data.MapPosition = MapPosition;
+        data.IsOwnedByPlayer = IsOwnedByPlayer;
         data.HasBuiltToday = HasBuiltToday;
 
         data.BuildingDatas = new();
@@ -110,6 +112,7 @@ public class Castle : BaseScriptableObject
         Sprite = templateCastle.Sprite;
 
         MapPosition = data.MapPosition;
+        IsOwnedByPlayer = data.IsOwnedByPlayer;
         HasBuiltToday = data.HasBuiltToday;
 
         foreach (BuildingData d in data.BuildingDatas)
@@ -133,6 +136,7 @@ public struct CastleData
     public string Id;
     public string TemplateCastleId;
     public Vector2 MapPosition;
+    public bool IsOwnedByPlayer;
     public bool HasBuiltToday;
     public List<BuildingData> BuildingDatas;
     public List<ArmyGroupData> AvailableArmyDatas;

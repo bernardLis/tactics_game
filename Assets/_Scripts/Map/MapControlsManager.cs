@@ -45,10 +45,11 @@ public class MapControlsManager : MonoBehaviour
         // TODO: when new castle is taken then add to controls
         // TODO: when castle is lost then remove from controls
         foreach (Castle c in map.Castles)
-            AddCastleButton(c);
+            if (c.IsOwnedByPlayer)
+                AddCastleButton(c);
     }
 
-    void AddCastleButton(Castle c)
+    public void AddCastleButton(Castle c)
     {
         // get correct map castle
         MapCastle mapCastle = null;
@@ -57,7 +58,7 @@ public class MapControlsManager : MonoBehaviour
                 mapCastle = mc;
 
         CastleControlButton button = new(mapCastle, _root, _draggableArmies);
-        _controls.Add(button);
+        _controls.Insert(0, button);
         _castleControlsButtons.Add(button);
     }
 
