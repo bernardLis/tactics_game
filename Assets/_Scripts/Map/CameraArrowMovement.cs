@@ -17,7 +17,7 @@ public class CameraArrowMovement : MonoBehaviour
             _gameManager = GameManager.Instance;
 
         _playerInput = _gameManager.GetComponent<PlayerInput>();
-        _playerInput.SwitchCurrentActionMap("Dashboard");
+        _playerInput.SwitchCurrentActionMap("Map");
         UnsubscribeInputActions();
         SubscribeInputActions();
     }

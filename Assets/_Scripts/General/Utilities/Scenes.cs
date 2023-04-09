@@ -23,11 +23,4 @@ public static class Scenes
         get { return "Cutscene"; }
         private set { }
     }
-
-    public static string Dashboard
-    {
-        get { return "Dashboard"; }
-        private set { }
-    }
-
 }

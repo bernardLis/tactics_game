@@ -103,7 +103,7 @@ public class DashboardManager : Singleton<DashboardManager>
             _gameManager = GameManager.Instance;
 
         PlayerInput = _gameManager.GetComponent<PlayerInput>();
-        PlayerInput.SwitchCurrentActionMap("Dashboard");
+        PlayerInput.SwitchCurrentActionMap("Map");
         UnsubscribeInputActions();
         SubscribeInputActions();
     }

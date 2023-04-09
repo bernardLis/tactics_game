@@ -137,7 +137,6 @@ public class CastleElement : FullScreenElement
 
     void AddArmy(ArmyGroup armyGroup)
     {
-        Debug.Log($"castle element add army called count: {armyGroup.EntityCount}");
         // stack
         foreach (ArmySlotElement el in _castleArmySlots)
         {
@@ -160,7 +159,7 @@ public class CastleElement : FullScreenElement
             }
         }
 
-        Debug.LogError("No free slots");
+        Debug.LogError($"No free slots for army in castle {_castle.name}");
     }
 
 

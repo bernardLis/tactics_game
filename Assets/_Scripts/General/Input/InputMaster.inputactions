@@ -2,7 +2,7 @@
     "name": "InputMaster",
     "maps": [
         {
-            "name": "Dashboard",
+            "name": "Map",
             "id": "342600f1-84d1-45cf-b9f5-5092c3c96e5b",
             "actions": [
                 {

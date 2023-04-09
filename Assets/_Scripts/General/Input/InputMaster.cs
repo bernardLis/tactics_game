@@ -24,7 +24,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     ""name"": ""InputMaster"",
     ""maps"": [
         {
-            ""name"": ""Dashboard"",
+            ""name"": ""Map"",
             ""id"": ""342600f1-84d1-45cf-b9f5-5092c3c96e5b"",
             ""actions"": [
                 {
@@ -295,18 +295,18 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Dashboard
-        m_Dashboard = asset.FindActionMap("Dashboard", throwIfNotFound: true);
-        m_Dashboard_ArrowMovement = m_Dashboard.FindAction("ArrowMovement", throwIfNotFound: true);
-        m_Dashboard_OpenDesk = m_Dashboard.FindAction("OpenDesk", throwIfNotFound: true);
-        m_Dashboard_CloseCurrentTab = m_Dashboard.FindAction("CloseCurrentTab", throwIfNotFound: true);
-        m_Dashboard_ToggleCommandLine = m_Dashboard.FindAction("ToggleCommandLine", throwIfNotFound: true);
-        m_Dashboard_OpenMenu = m_Dashboard.FindAction("OpenMenu", throwIfNotFound: true);
-        m_Dashboard_Space = m_Dashboard.FindAction("Space", throwIfNotFound: true);
-        m_Dashboard_Pause = m_Dashboard.FindAction("Pause", throwIfNotFound: true);
-        m_Dashboard_LeftMouseClick = m_Dashboard.FindAction("LeftMouseClick", throwIfNotFound: true);
-        m_Dashboard_RightMouseClick = m_Dashboard.FindAction("RightMouseClick", throwIfNotFound: true);
-        m_Dashboard_Shift = m_Dashboard.FindAction("Shift", throwIfNotFound: true);
+        // Map
+        m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
+        m_Map_ArrowMovement = m_Map.FindAction("ArrowMovement", throwIfNotFound: true);
+        m_Map_OpenDesk = m_Map.FindAction("OpenDesk", throwIfNotFound: true);
+        m_Map_CloseCurrentTab = m_Map.FindAction("CloseCurrentTab", throwIfNotFound: true);
+        m_Map_ToggleCommandLine = m_Map.FindAction("ToggleCommandLine", throwIfNotFound: true);
+        m_Map_OpenMenu = m_Map.FindAction("OpenMenu", throwIfNotFound: true);
+        m_Map_Space = m_Map.FindAction("Space", throwIfNotFound: true);
+        m_Map_Pause = m_Map.FindAction("Pause", throwIfNotFound: true);
+        m_Map_LeftMouseClick = m_Map.FindAction("LeftMouseClick", throwIfNotFound: true);
+        m_Map_RightMouseClick = m_Map.FindAction("RightMouseClick", throwIfNotFound: true);
+        m_Map_Shift = m_Map.FindAction("Shift", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -363,74 +363,74 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Dashboard
-    private readonly InputActionMap m_Dashboard;
-    private IDashboardActions m_DashboardActionsCallbackInterface;
-    private readonly InputAction m_Dashboard_ArrowMovement;
-    private readonly InputAction m_Dashboard_OpenDesk;
-    private readonly InputAction m_Dashboard_CloseCurrentTab;
-    private readonly InputAction m_Dashboard_ToggleCommandLine;
-    private readonly InputAction m_Dashboard_OpenMenu;
-    private readonly InputAction m_Dashboard_Space;
-    private readonly InputAction m_Dashboard_Pause;
-    private readonly InputAction m_Dashboard_LeftMouseClick;
-    private readonly InputAction m_Dashboard_RightMouseClick;
-    private readonly InputAction m_Dashboard_Shift;
-    public struct DashboardActions
+    // Map
+    private readonly InputActionMap m_Map;
+    private IMapActions m_MapActionsCallbackInterface;
+    private readonly InputAction m_Map_ArrowMovement;
+    private readonly InputAction m_Map_OpenDesk;
+    private readonly InputAction m_Map_CloseCurrentTab;
+    private readonly InputAction m_Map_ToggleCommandLine;
+    private readonly InputAction m_Map_OpenMenu;
+    private readonly InputAction m_Map_Space;
+    private readonly InputAction m_Map_Pause;
+    private readonly InputAction m_Map_LeftMouseClick;
+    private readonly InputAction m_Map_RightMouseClick;
+    private readonly InputAction m_Map_Shift;
+    public struct MapActions
     {
         private @InputMaster m_Wrapper;
-        public DashboardActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ArrowMovement => m_Wrapper.m_Dashboard_ArrowMovement;
-        public InputAction @OpenDesk => m_Wrapper.m_Dashboard_OpenDesk;
-        public InputAction @CloseCurrentTab => m_Wrapper.m_Dashboard_CloseCurrentTab;
-        public InputAction @ToggleCommandLine => m_Wrapper.m_Dashboard_ToggleCommandLine;
-        public InputAction @OpenMenu => m_Wrapper.m_Dashboard_OpenMenu;
-        public InputAction @Space => m_Wrapper.m_Dashboard_Space;
-        public InputAction @Pause => m_Wrapper.m_Dashboard_Pause;
-        public InputAction @LeftMouseClick => m_Wrapper.m_Dashboard_LeftMouseClick;
-        public InputAction @RightMouseClick => m_Wrapper.m_Dashboard_RightMouseClick;
-        public InputAction @Shift => m_Wrapper.m_Dashboard_Shift;
-        public InputActionMap Get() { return m_Wrapper.m_Dashboard; }
+        public MapActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ArrowMovement => m_Wrapper.m_Map_ArrowMovement;
+        public InputAction @OpenDesk => m_Wrapper.m_Map_OpenDesk;
+        public InputAction @CloseCurrentTab => m_Wrapper.m_Map_CloseCurrentTab;
+        public InputAction @ToggleCommandLine => m_Wrapper.m_Map_ToggleCommandLine;
+        public InputAction @OpenMenu => m_Wrapper.m_Map_OpenMenu;
+        public InputAction @Space => m_Wrapper.m_Map_Space;
+        public InputAction @Pause => m_Wrapper.m_Map_Pause;
+        public InputAction @LeftMouseClick => m_Wrapper.m_Map_LeftMouseClick;
+        public InputAction @RightMouseClick => m_Wrapper.m_Map_RightMouseClick;
+        public InputAction @Shift => m_Wrapper.m_Map_Shift;
+        public InputActionMap Get() { return m_Wrapper.m_Map; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DashboardActions set) { return set.Get(); }
-        public void SetCallbacks(IDashboardActions instance)
+        public static implicit operator InputActionMap(MapActions set) { return set.Get(); }
+        public void SetCallbacks(IMapActions instance)
         {
-            if (m_Wrapper.m_DashboardActionsCallbackInterface != null)
+            if (m_Wrapper.m_MapActionsCallbackInterface != null)
             {
-                @ArrowMovement.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnArrowMovement;
-                @ArrowMovement.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnArrowMovement;
-                @ArrowMovement.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnArrowMovement;
-                @OpenDesk.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
-                @OpenDesk.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
-                @OpenDesk.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenDesk;
-                @CloseCurrentTab.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
-                @CloseCurrentTab.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
-                @CloseCurrentTab.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnCloseCurrentTab;
-                @ToggleCommandLine.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
-                @ToggleCommandLine.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
-                @ToggleCommandLine.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnToggleCommandLine;
-                @OpenMenu.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
-                @OpenMenu.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
-                @OpenMenu.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnOpenMenu;
-                @Space.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
-                @Space.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
-                @Space.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnSpace;
-                @Pause.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnPause;
-                @LeftMouseClick.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnLeftMouseClick;
-                @LeftMouseClick.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnLeftMouseClick;
-                @LeftMouseClick.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnLeftMouseClick;
-                @RightMouseClick.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
-                @RightMouseClick.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
-                @RightMouseClick.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnRightMouseClick;
-                @Shift.started -= m_Wrapper.m_DashboardActionsCallbackInterface.OnShift;
-                @Shift.performed -= m_Wrapper.m_DashboardActionsCallbackInterface.OnShift;
-                @Shift.canceled -= m_Wrapper.m_DashboardActionsCallbackInterface.OnShift;
+                @ArrowMovement.started -= m_Wrapper.m_MapActionsCallbackInterface.OnArrowMovement;
+                @ArrowMovement.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnArrowMovement;
+                @ArrowMovement.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnArrowMovement;
+                @OpenDesk.started -= m_Wrapper.m_MapActionsCallbackInterface.OnOpenDesk;
+                @OpenDesk.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnOpenDesk;
+                @OpenDesk.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnOpenDesk;
+                @CloseCurrentTab.started -= m_Wrapper.m_MapActionsCallbackInterface.OnCloseCurrentTab;
+                @CloseCurrentTab.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnCloseCurrentTab;
+                @CloseCurrentTab.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnCloseCurrentTab;
+                @ToggleCommandLine.started -= m_Wrapper.m_MapActionsCallbackInterface.OnToggleCommandLine;
+                @ToggleCommandLine.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnToggleCommandLine;
+                @ToggleCommandLine.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnToggleCommandLine;
+                @OpenMenu.started -= m_Wrapper.m_MapActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnOpenMenu;
+                @Space.started -= m_Wrapper.m_MapActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnSpace;
+                @Pause.started -= m_Wrapper.m_MapActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnPause;
+                @LeftMouseClick.started -= m_Wrapper.m_MapActionsCallbackInterface.OnLeftMouseClick;
+                @LeftMouseClick.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnLeftMouseClick;
+                @LeftMouseClick.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnLeftMouseClick;
+                @RightMouseClick.started -= m_Wrapper.m_MapActionsCallbackInterface.OnRightMouseClick;
+                @RightMouseClick.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnRightMouseClick;
+                @RightMouseClick.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnRightMouseClick;
+                @Shift.started -= m_Wrapper.m_MapActionsCallbackInterface.OnShift;
+                @Shift.performed -= m_Wrapper.m_MapActionsCallbackInterface.OnShift;
+                @Shift.canceled -= m_Wrapper.m_MapActionsCallbackInterface.OnShift;
             }
-            m_Wrapper.m_DashboardActionsCallbackInterface = instance;
+            m_Wrapper.m_MapActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @ArrowMovement.started += instance.OnArrowMovement;
@@ -466,7 +466,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
             }
         }
     }
-    public DashboardActions @Dashboard => new DashboardActions(this);
+    public MapActions @Map => new MapActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -476,7 +476,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
-    public interface IDashboardActions
+    public interface IMapActions
     {
         void OnArrowMovement(InputAction.CallbackContext context);
         void OnOpenDesk(InputAction.CallbackContext context);

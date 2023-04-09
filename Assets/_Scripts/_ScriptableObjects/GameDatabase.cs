@@ -141,7 +141,6 @@ public enum ItemRarity { Common, Uncommon, Rare, Epic }
 public enum StatType { Power, Health, Mana, Armor, Speed }
 
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
-public enum RecruitState { Pending, Resolved, Expired }
 public enum DashboardBuildingType { Desk, Camp, Abilities }
 public enum ElementName { Fire, Water, Wind, Earth }
 

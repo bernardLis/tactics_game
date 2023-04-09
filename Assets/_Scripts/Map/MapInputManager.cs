@@ -53,6 +53,7 @@ public class MapInputManager : Singleton<MapInputManager>
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _gameManager.OnDayPassed += OnDayPassed;
         _dashboardManager = DashboardManager.Instance;
         _cam = Camera.main;
         _cameraSmoothFollow = _cam.GetComponent<CameraSmoothFollow>();
@@ -66,6 +67,12 @@ public class MapInputManager : Singleton<MapInputManager>
             _lineRendererUnreachable.material.SetTextureOffset("_MainTex", Vector2.left * Time.time);
     }
 
+    void OnDayPassed(int day)
+    {
+        if (SelectedHero == null) return;
+        StartCoroutine(DrawPath());
+    }
+
     /* INPUT */
     void OnEnable()
     {
@@ -73,7 +80,7 @@ public class MapInputManager : Singleton<MapInputManager>
             _gameManager = GameManager.Instance;
 
         _playerInput = _gameManager.GetComponent<PlayerInput>();
-        _playerInput.SwitchCurrentActionMap("Dashboard");
+        _playerInput.SwitchCurrentActionMap("Map");
         UnsubscribeInputActions();
         SubscribeInputActions();
     }
@@ -264,7 +271,7 @@ public class MapInputManager : Singleton<MapInputManager>
             if (lengthCheckPath.error) yield break;
 
             // range left is x100
-            if (Mathf.RoundToInt(lengthCheckPath.GetTotalLength()) <= SelectedHero.RangeLeft.Value * 0.01)
+            if (Mathf.CeilToInt(lengthCheckPath.GetTotalLength()) <= SelectedHero.RangeLeft.Value * 0.01)
             {
                 _reachablePoints.Add(pos);
                 _reachableDestination = pos;
@@ -307,7 +314,7 @@ public class MapInputManager : Singleton<MapInputManager>
         if (p.error) yield break;
         if (SelectedHero == null) yield break;
 
-        SelectedHero.UpdateRangeLeft(Mathf.RoundToInt(p.GetTotalLength()) * 100);
+        SelectedHero.UpdateRangeLeft(Mathf.CeilToInt(p.GetTotalLength()) * 100);
 
         _ai = SelectedHero.GetComponent<AILerp>();
         _ai.canMove = true;
