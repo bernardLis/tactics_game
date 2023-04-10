@@ -136,7 +136,7 @@ public class HeroStatsCard : VisualElement
     {
         container.AddToClassList(_ussBottomLeftPanel);
 
-        GameDatabase db = _gameManager.GameDatabase;
+        HeroDatabase db = _gameManager.HeroDatabase;
         _power = new(db.GetStatIconByName("Power"), Hero.Power);
         _armor = new(db.GetStatIconByName("Armor"), Hero.Armor);
         _speed = new(db.GetStatIconByName("Speed"), Hero.Speed);

@@ -12,6 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d9b2cef044eec4ca8d6faa247601cf, type: 3}
   m_Name: HeroDatabase
   m_EditorClassIdentifier: 
+  Abilities:
+  - {fileID: 11400000, guid: 3d3663f58cc3d42418937cd90d26e3bd, type: 2}
+  - {fileID: 11400000, guid: f5309cd13d284b7479f49fa99df8d14a, type: 2}
+  - {fileID: 11400000, guid: fdab67d255342074ea8aed7bcde79016, type: 2}
+  - {fileID: 11400000, guid: b39c5809cc0a8a8409b1538ec48bd11e, type: 2}
+  Items:
+  - {fileID: 11400000, guid: 653ed2c41395a0d4b8e6453cafff0f00, type: 2}
+  - {fileID: 11400000, guid: 1f4b32a79e11845419f1b8ddea037b28, type: 2}
+  - {fileID: 11400000, guid: 456dbaa7a77f72a4eb5b7a36f121556b, type: 2}
+  - {fileID: 11400000, guid: 33f8e2c6905680a43aef9268c59fafae, type: 2}
+  - {fileID: 11400000, guid: e2ae84c9098a17541b16d6b4c38af97a, type: 2}
+  - {fileID: 11400000, guid: 96e8516842fbbf24baa445f76b024262, type: 2}
+  - {fileID: 11400000, guid: c99842b22cbb6444c81b574b1d01ef65, type: 2}
+  - {fileID: 11400000, guid: 2aeb94181c038f044ae88fd9cae056f3, type: 2}
+  - {fileID: 11400000, guid: 1f0632a91b9587044bac4a2d2d564b5a, type: 2}
+  - {fileID: 11400000, guid: b09ee58957b83344399309d681c50151, type: 2}
+  - {fileID: 11400000, guid: 0d85a0c12c2c0dd48b3e8715894054c8, type: 2}
+  - {fileID: 11400000, guid: 99cb218141598814b8aa8ac1a39a7303, type: 2}
+  - {fileID: 11400000, guid: fd310e1f51ede2047bf2c672e55721f4, type: 2}
+  - {fileID: 11400000, guid: b3264555a8281774d80c503dec6b48d0, type: 2}
+  - {fileID: 11400000, guid: 32d9c135d7e711047b6a359ed7d7dfc5, type: 2}
+  - {fileID: 11400000, guid: daef64c9c9eccb648be50ea4a4e5f9de, type: 2}
+  StatIcons:
+  - StatName: Power
+    Sprite: {fileID: 706532537, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - StatName: Armor
+    Sprite: {fileID: -1650342666, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - StatName: Speed
+    Sprite: {fileID: -417598653, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  Injuries:
+  - {fileID: 11400000, guid: 3882f24feb7c9a3499c481804ed5dcf7, type: 2}
+  - {fileID: 11400000, guid: 529ffb6b190cf1b458eefc190f680182, type: 2}
+  - {fileID: 11400000, guid: b4a3ab2a331ad4744bda7667b4b8a03b, type: 2}
+  - {fileID: 11400000, guid: c3f85815103c82a47b6b0e23db8150da, type: 2}
+  - {fileID: 11400000, guid: 11fa4ba7830949248bbe84338cbb6866, type: 2}
+  - {fileID: 11400000, guid: b7acc7f656bb3024a847a88d99c5e4c6, type: 2}
+  - {fileID: 11400000, guid: ce651ec35b2fb2842887f54f464a1a1a, type: 2}
+  - {fileID: 11400000, guid: fb5c8da2e5007664ea562c7cfbcbb708, type: 2}
+  - {fileID: 11400000, guid: 24238414ede7a9943bf1fe216d1af774, type: 2}
+  - {fileID: 11400000, guid: 37bb3fccadffd7746881459cd0d19eaa, type: 2}
+  - {fileID: 11400000, guid: 27c46ea45eb4e6a45b0b9287250ae3f7, type: 2}
+  - {fileID: 11400000, guid: 82ccd05c08450c140bc861357b000fb3, type: 2}
+  - {fileID: 11400000, guid: 7245bbe10958dd24f8d262516f8ed811, type: 2}
+  - {fileID: 11400000, guid: ba4d2e2aa5fe1484982a8fa82f874c4a, type: 2}
+  - {fileID: 11400000, guid: c0eddd34029c02b489611b95cce7a9bc, type: 2}
+  - {fileID: 11400000, guid: 1f3d2891d6543404db70a9d8fcb38e81, type: 2}
   HeroRanks:
   - {fileID: 11400000, guid: ba11998d4c1716d41b7ff7a56468880c, type: 2}
   - {fileID: 11400000, guid: e2c506d512af45e4e96380801d467420, type: 2}
@@ -19,6 +65,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 80ced388a1313ce459c477b40ac1ae50, type: 2}
   - {fileID: 11400000, guid: b218fa4db8f680a4c8ec5dff68ef5465, type: 2}
   - {fileID: 11400000, guid: e6ef06986fe9587429dc15536536f460, type: 2}
+  Elements:
+  - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   PortraitsMale:
   - {fileID: 11400000, guid: 14ced6087fa030d4fab5cd546da3dc65, type: 2}
   - {fileID: 11400000, guid: 729ee4233ce84ae418f5abb43920b82a, type: 2}

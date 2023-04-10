@@ -124,7 +124,7 @@ public class HeroCardQuest : VisualElement
         _armorStatContainer.AddToClassList(_ussStatContainer);
         _rangeStatContainer.AddToClassList(_ussStatContainer);
 
-        GameDatabase db = GameManager.Instance.GameDatabase;
+        HeroDatabase db = GameManager.Instance.HeroDatabase;
         _power = new(db.GetStatIconByName("Power"), Hero.Power);
         _armor = new(db.GetStatIconByName("Armor"), Hero.Armor);
         _range = new(db.GetStatIconByName("Speed"), Hero.Speed);

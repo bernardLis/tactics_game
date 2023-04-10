@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Battle
   m_EditorClassIdentifier: 
   Id: df3a1cd2-40ff-49f1-9d3e-9d74304ce009
-  NumberOfMeleeEnemies: 0
-  NumberOfRangedEnemies: 0
-  CharacterTakingBattle: {fileID: 0}
+  MapPosition: {x: 0, y: 0}
+  Army:
+  - {fileID: 11400000, guid: acb62ce349af7cb458aad7d1e8d4fa72, type: 2}
+  - {fileID: 11400000, guid: a5a9a9ca872c6d049ae8bd8e59d2d73a, type: 2}
+  Hero: {fileID: 0}
+  Won: 0

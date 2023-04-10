@@ -10,7 +10,7 @@ public class CollectableItem : Collectable
     public override void Create(Vector2 pos)
     {
         base.Create(pos);
-        Item = GameManager.Instance.GameDatabase.GetRandomItem();
+        Item = GameManager.Instance.HeroDatabase.GetRandomItem();
         Sprite = Item.Icon;
         name = $"{Item.ItemName}";
     }
@@ -37,7 +37,7 @@ public class CollectableItem : Collectable
     public override void LoadFromData(CollectableData data)
     {
         base.LoadFromData(data);
-        Item = GameManager.Instance.GameDatabase.GetItemById(data.ItemId);
+        Item = GameManager.Instance.HeroDatabase.GetItemById(data.ItemId);
         Sprite = Item.Icon;
         name = $"{Item.ItemName}";
 

@@ -53,14 +53,14 @@ public class HeroCreation : MonoBehaviour
     void NameFieldSetup()
     {
         if (Random.value > 0.5f)
-            _nameField.value = _gameManager.GameDatabase.HeroDatabase.GetRandomNameFemale();
+            _nameField.value = _gameManager.HeroDatabase.GetRandomNameFemale();
         else
-            _nameField.value = _gameManager.GameDatabase.HeroDatabase.GetRandomNameMale();
+            _nameField.value = _gameManager.HeroDatabase.GetRandomNameMale();
     }
 
     void PortraitSetup()
     {
-        _heroPortraits = new(_gameManager.GameDatabase.HeroDatabase.GetAllPortraits());
+        _heroPortraits = new(_gameManager.HeroDatabase.GetAllPortraits());
         _heroPortraits = _heroPortraits.OrderBy(x => Random.value).ToList();
 
         _portrait.style.backgroundImage = new StyleBackground(_heroPortraits[0].Sprite);

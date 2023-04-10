@@ -7,60 +7,14 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-    public HeroDatabase HeroDatabase;
-    public QuestDatabase QuestDatabase;
-
-    public void Initialize() { SortItems(); }
-
     [Header("Cutscenes")]
     [SerializeField] Cutscene[] Cutscenes;
     public Cutscene[] GetAllCutscenes() { return Cutscenes; }
-
-    [Header("Heroes")]
-    [SerializeField] Ability[] Abilities;
-    public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
-    public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
-
-    [SerializeField] Item[] Items;
-    public List<Item> GetAllItems() { return Items.ToList(); }
-    public Item GetItemById(string id) { return Items.FirstOrDefault(x => x.Id == id); }
-    public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
-
-    List<Item> _commonItems = new();
-    List<Item> _uncommonItems = new();
-    List<Item> _rareItems = new();
-    List<Item> _epicItems = new();
-    void SortItems()
-    {
-        foreach (Item i in Items)
-        {
-            if (i.Rarity == ItemRarity.Common)
-                _commonItems.Add(i);
-            if (i.Rarity == ItemRarity.Uncommon)
-                _uncommonItems.Add(i);
-            if (i.Rarity == ItemRarity.Rare)
-                _rareItems.Add(i);
-            if (i.Rarity == ItemRarity.Epic)
-                _epicItems.Add(i);
-        }
-    }
-    public Item GetRandomCommonItem() { return _commonItems[Random.Range(0, _commonItems.Count)]; }
-    public Item GetRandomUncommonItem() { return _uncommonItems[Random.Range(0, _uncommonItems.Count)]; }
-    public Item GetRandomRareItem() { return _rareItems[Random.Range(0, _rareItems.Count)]; }
-    public Item GetRandomEpicItem() { return _epicItems[Random.Range(0, _epicItems.Count)]; }
-
-    [SerializeField] StatIcon[] StatIcons;
-    public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
-
-    [SerializeField] Injury[] Injuries;
-    public Injury GetInjuryById(string id) { return Injuries.FirstOrDefault(x => x.Id == id); }
-    public Injury GetRandomInjury() { return Injuries[Random.Range(0, Injuries.Length)]; }
 
 
     [Header("Dashboard")]
     [SerializeField] Sprite[] CoinSprites;
     [SerializeField] Reward[] Rewards;
-    [SerializeField] Element[] Elements;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
@@ -112,8 +66,6 @@ public class GameDatabase : BaseScriptableObject
         return SpiceAnimationSprites[index].sprites;
     }
 
-    public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
-    public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
 
     public Sprite GoldSprite;
     public Sprite SpiceSprite;

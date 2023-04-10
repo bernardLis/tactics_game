@@ -12,6 +12,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     LevelLoader _levelLoader;
 
     public GameDatabase GameDatabase;
+    public HeroDatabase HeroDatabase;
+    public QuestDatabase QuestDatabase;
 
     SaveData _originalSaveData;
 
@@ -42,7 +44,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     [SerializeField] List<AbilityNodeGraph> _abilityNodeGraphs = new();
 
     public Map Map;
-    public Battle SelectedBattle { get; private set; }
+    public Battle SelectedBattle; // HERE: battle testing { get; private set; }
 
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
@@ -58,12 +60,16 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Game manager Awake");
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
+        HeroDatabase.Initialize();
+
+        // HERE: battle testing
+        LoadFromSaveFile();
+        SelectedBattle.Hero = PlayerHero;
     }
 
     void Start()
     {
         Debug.Log($"Game manager Start");
-        GameDatabase.Initialize();
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
             CreateNewSaveFile();
@@ -370,7 +376,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerAbilityPouch = new();
         foreach (AbilityData abilityData in saveData.AbilityPouch)
         {
-            Ability a = Instantiate(GameDatabase.GetAbilityById(abilityData.TemplateId));
+            Ability a = Instantiate(HeroDatabase.GetAbilityById(abilityData.TemplateId));
             a.name = abilityData.Name;
             PlayerAbilityPouch.Add(a);
         }

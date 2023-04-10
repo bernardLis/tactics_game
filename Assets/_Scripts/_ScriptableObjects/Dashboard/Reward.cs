@@ -35,13 +35,13 @@ public class Reward : BaseScriptableObject
     {
         float v = Random.value;
         if (v < EpicItemChance)
-            return _gameManager.GameDatabase.GetRandomEpicItem();
+            return _gameManager.HeroDatabase.GetRandomEpicItem();
         if (v < RareItemChance)
-            return _gameManager.GameDatabase.GetRandomRareItem();
+            return _gameManager.HeroDatabase.GetRandomRareItem();
         if (v < UncommonItemChance)
-            return _gameManager.GameDatabase.GetRandomUncommonItem();
+            return _gameManager.HeroDatabase.GetRandomUncommonItem();
 
-        return _gameManager.GameDatabase.GetRandomCommonItem();
+        return _gameManager.HeroDatabase.GetRandomCommonItem();
     }
 
     public virtual void GetReward()

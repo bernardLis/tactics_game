@@ -1,3 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityButtonStyles.uss?fileID=7433441132597879392&amp;guid=1dcb0d843bcae2d4cb844a89c93bd82d&amp;type=3#AbilityButtonStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityIconStyles.uss?fileID=7433441132597879392&amp;guid=73a23192c66321b49874edb0a26a5d1b&amp;type=3#AbilityIconStyles" />
+    <ui:VisualElement name="AbilityContainer" style="flex-grow: 1; background-color: rgba(164, 164, 164, 0.27); width: 50%; height: 20%; bottom: 0; position: absolute; align-items: center; justify-content: space-between; flex-direction: row; right: 0;" />
+    <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
 </ui:UXML>

@@ -165,7 +165,7 @@ public class Hero : BaseScriptableObject
     {
         Abilities.Remove(ability);
         UpdateRank();
-        UpdateElement(_gameManager.GameDatabase.GetElementByName(ElementName.Earth));
+        UpdateElement(_gameManager.HeroDatabase.GetElementByName(ElementName.Earth));
     }
 
     void UpdateElement(Element element)
@@ -208,7 +208,7 @@ public class Hero : BaseScriptableObject
     public void UpdateRank()
     {
         int points = CountRankPoints();
-        HeroRank newRank = _gameManager.GameDatabase.HeroDatabase.GetRankByPoints(points);
+        HeroRank newRank = _gameManager.HeroDatabase.GetRankByPoints(points);
         if (newRank == Rank)
             return;
 
@@ -288,7 +288,7 @@ public class Hero : BaseScriptableObject
 
         Level.SetValue(1);
         Experience.SetValue(0);
-        Element = _gameManager.GameDatabase.GetElementByName(ElementName.Earth);
+        Element = _gameManager.HeroDatabase.GetElementByName(ElementName.Earth);
 
         BaseHealth.SetValue(1000);
         BaseMana.SetValue(300);
@@ -318,7 +318,7 @@ public class Hero : BaseScriptableObject
         _gameManager = GameManager.Instance;
 
         GameDatabase gameDatabase = _gameManager.GameDatabase;
-        HeroDatabase heroDatabase = gameDatabase.HeroDatabase;
+        HeroDatabase heroDatabase = _gameManager.HeroDatabase;
         bool isMale = Random.value > 0.5f;
 
         Id = Guid.NewGuid().ToString();
@@ -331,7 +331,7 @@ public class Hero : BaseScriptableObject
 
         Level.SetValue(level);
         Experience.SetValue(0);
-        Element = _gameManager.GameDatabase.GetElementByName(ElementName.Earth);
+        Element = _gameManager.HeroDatabase.GetElementByName(ElementName.Earth);
 
         BaseHealth.SetValue(100 + Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y) * level);
         BaseMana.SetValue(30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level);
@@ -358,17 +358,19 @@ public class Hero : BaseScriptableObject
         _gameManager = GameManager.Instance;
 
         GameDatabase gameDatabase = _gameManager.GameDatabase;
+        HeroDatabase heroDatabase = _gameManager.HeroDatabase;
+
         name = data.HeroName;
 
         Id = data.Id;
         HeroName = data.HeroName;
-        Portrait = gameDatabase.HeroDatabase.GetPortraitById(data.Portrait);
+        Portrait = heroDatabase.GetPortraitById(data.Portrait);
 
         CreateBaseStats();
 
         Level.SetValue(data.Level);
         Experience.SetValue(data.Experience);
-        Element = _gameManager.GameDatabase.GetElementByName((ElementName)System.Enum.Parse(typeof(ElementName), data.Element));
+        Element = _gameManager.HeroDatabase.GetElementByName((ElementName)System.Enum.Parse(typeof(ElementName), data.Element));
 
         BaseHealth.SetValue(data.BaseHealth);
         BaseMana.SetValue(data.BaseMana);
@@ -380,18 +382,18 @@ public class Hero : BaseScriptableObject
 
         foreach (AbilityData abilityData in data.AbilityData)
         {
-            Ability a = Instantiate(gameDatabase.GetAbilityById(abilityData.TemplateId));
+            Ability a = Instantiate(heroDatabase.GetAbilityById(abilityData.TemplateId));
             a.name = abilityData.Name;
             Abilities.Add(a);
         }
 
         foreach (string id in data.ItemIds)
-            AddItem(gameDatabase.GetItemById(id));
+            AddItem(heroDatabase.GetItemById(id));
 
         Injuries = new();
         foreach (var i in data.InjuryData)
         {
-            Injury instance = Instantiate(gameDatabase.GetInjuryById(i.Id));
+            Injury instance = Instantiate(heroDatabase.GetInjuryById(i.Id));
             instance.name = Helpers.ParseScriptableObjectCloneName(instance.name);
             instance.CreateFromData(i);
             Injuries.Add(instance);
@@ -399,7 +401,7 @@ public class Hero : BaseScriptableObject
         DayAddedToTroops = data.DayAddedToTroops;
 
         MapPosition = data.MapPosition;
-       
+
         Army = new();
         foreach (ArmyGroupData d in data.ArmyGroupDatas)
         {
@@ -445,7 +447,7 @@ public class Hero : BaseScriptableObject
         data.DayAddedToTroops = DayAddedToTroops;
 
         data.MapPosition = MapPosition;
-     
+
         data.ArmyGroupDatas = new();
         foreach (ArmyGroup ag in Army)
             data.ArmyGroupDatas.Add(ag.SerializeSelf());
