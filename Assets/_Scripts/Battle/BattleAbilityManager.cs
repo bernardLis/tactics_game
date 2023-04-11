@@ -131,6 +131,8 @@ public class BattleAbilityManager : MonoBehaviour
 
     IEnumerator ExecuteAbility()
     {
+        if (_selectedAbility == null) yield break;
+        
         GameObject instance = Instantiate(_effect, _selectedAbilityArea.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(1f);
         List<BattleEntity> entities = new(_selectedAbilityArea.GetEntitiesInArea());
