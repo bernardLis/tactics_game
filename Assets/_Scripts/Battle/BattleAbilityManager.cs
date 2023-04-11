@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
-
+using UnityEngine.AI;
+using DG.Tweening;
 
 public class BattleAbilityManager : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class BattleAbilityManager : MonoBehaviour
     PlayerInput _playerInput;
 
     List<Ability> _abilities = new();
+
+    [SerializeField] GameObject _abilityAreaPrefab;
+
+    Ability _selectedAbility;
+    BattleAbilityArea _selectedAbilityArea;
 
 
     // Start is called before the first frame update
@@ -56,6 +62,10 @@ public class BattleAbilityManager : MonoBehaviour
         _playerInput.actions["2"].performed += ButtonTwoClick;
         _playerInput.actions["3"].performed += ButtonThreeClick;
         _playerInput.actions["4"].performed += ButtonFourClick;
+
+        _playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
+        _playerInput.actions["RightMouseClick"].performed += RightMouseClick;
+
     }
 
     void UnsubscribeInputActions()
@@ -64,6 +74,10 @@ public class BattleAbilityManager : MonoBehaviour
         _playerInput.actions["2"].performed -= ButtonTwoClick;
         _playerInput.actions["3"].performed -= ButtonThreeClick;
         _playerInput.actions["4"].performed -= ButtonFourClick;
+
+        _playerInput.actions["LeftMouseClick"].performed -= LeftMouseClick;
+        _playerInput.actions["RightMouseClick"].performed -= RightMouseClick;
+
     }
 
 
@@ -75,22 +89,52 @@ public class BattleAbilityManager : MonoBehaviour
         foreach (Ability ability in _abilities)
         {
             AbilityButton button = new(ability);
-            button.RegisterCallback<PointerUpEvent>(e => UseAbility(ability));
+            button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability));
             abilityContainer.Add(button);
         }
     }
 
-    void ButtonOneClick(InputAction.CallbackContext context) { UseAbility(_abilities[0]); }
+    void ButtonOneClick(InputAction.CallbackContext context) { HighlightAbilityArea(_abilities[0]); }
 
-    void ButtonTwoClick(InputAction.CallbackContext context) { UseAbility(_abilities[1]); }
+    void ButtonTwoClick(InputAction.CallbackContext context) { HighlightAbilityArea(_abilities[1]); }
 
-    void ButtonThreeClick(InputAction.CallbackContext context) { UseAbility(_abilities[2]); }
+    void ButtonThreeClick(InputAction.CallbackContext context) { HighlightAbilityArea(_abilities[2]); }
 
-    void ButtonFourClick(InputAction.CallbackContext context) { UseAbility(_abilities[3]); }
+    void ButtonFourClick(InputAction.CallbackContext context) { HighlightAbilityArea(_abilities[3]); }
 
-    void UseAbility(Ability ability)
+    void HighlightAbilityArea(Ability ability)
     {
+        _selectedAbility = ability;
         Debug.Log($"Using {ability.name}");
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        GameObject instance = Instantiate(_abilityAreaPrefab, worldPos, Quaternion.identity);
+        _selectedAbilityArea = instance.GetComponent<BattleAbilityArea>();
+    }
+
+    void LeftMouseClick(InputAction.CallbackContext context) { StartCoroutine(ExecuteAbility()); }
+
+    void RightMouseClick(InputAction.CallbackContext context) { CancelAbilityHighlight(); }
+
+    IEnumerator ExecuteAbility()
+    {
+        List<BattleEntity> entities = new(_selectedAbilityArea.GetEntitiesInArea());
+        foreach (BattleEntity entity in entities)
+        {
+            StartCoroutine(entity.GetHit(20, null));
+        }
+
+        CancelAbilityHighlight();
+        yield return null;
+
+    }
+
+    void CancelAbilityHighlight()
+    {
+        if (_selectedAbility == null)
+            return;
+        _selectedAbility = null;
+        Destroy(_selectedAbilityArea.gameObject);
     }
 
 }

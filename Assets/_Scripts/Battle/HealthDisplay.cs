@@ -13,10 +13,9 @@ public class HealthDisplay : MonoBehaviour
     float _totalHealth;
     float _currentHealth;
 
-    // Start is called before the first frame update
     void Start()
     {
-        _entity = transform.root.GetComponent<BattleEntity>();
+        _entity = transform.parent.parent.GetComponent<BattleEntity>();
         _entity.OnHealthChanged += OnHealthChanged;
         _totalHealth = _entity.GetTotalHealth();
         _currentHealth = _entity.GetCurrentHealth();

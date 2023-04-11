@@ -11,11 +11,12 @@ public class BattleEntityCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _entity = transform.root.GetComponent<BattleEntity>();
+        _entity = transform.parent.GetComponent<BattleEntity>();
         _entity.OnDeath += OnEntityDeath;
 
         _canvas = GetComponent<Canvas>();
     }
+
 
     void OnEntityDeath(BattleEntity be) { _canvas.enabled = false; }
 

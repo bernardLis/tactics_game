@@ -11,6 +11,10 @@ public class BattleEntity : MonoBehaviour
     List<BattleEntity> _opponentList = new();
 
     public GameObject GFX;
+    Material _gfxMaterial;
+
+    const string _tweenHighlightId = "_tweenHighlightId";
+
     ArmyEntity _stats;
     float _currentHealth;
 
@@ -23,6 +27,7 @@ public class BattleEntity : MonoBehaviour
 
     bool _gettingHit;
     public bool IsDead { get; private set; }
+    public bool IsGrounded;
 
     public event Action<float> OnHealthChanged;
     public event Action<BattleEntity> OnDeath;
@@ -34,10 +39,11 @@ public class BattleEntity : MonoBehaviour
 
     public void Initialize(ArmyEntity stats, ref List<BattleEntity> opponents)
     {
+        IsGrounded = true;
         _stats = stats;
         _currentHealth = stats.Health;
-
         GFX.GetComponent<MeshRenderer>().material = stats.Material;
+        _gfxMaterial = GFX.GetComponent<MeshRenderer>().material;
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = stats.Speed;
@@ -52,7 +58,7 @@ public class BattleEntity : MonoBehaviour
     IEnumerator RunEntity()
     {
         yield return new WaitForSeconds(Random.Range(0f, 1f)); // random delay at the beginning
-        while (!IsDead)
+        while (!IsDead && IsGrounded)
         {
             if (_opponentList.Count == 0)
             {
@@ -160,7 +166,8 @@ public class BattleEntity : MonoBehaviour
 
         if (_currentHealth <= 0)
         {
-            attacker.IncreaseKillCount();
+            if (attacker != null)
+                attacker.IncreaseKillCount();
             yield return Die();
             yield break;
         }
@@ -179,9 +186,26 @@ public class BattleEntity : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         transform.DORotate(new Vector3(-90, 0, 0), 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
         yield return transform.DOMoveY(0, 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
+        ToggleHighlight(false);
         //yield return GFX.GetComponent<MeshRenderer>().material.DOFade(0, 2f).WaitForCompletion();
         // Destroy(gameObject);
     }
 
     public void IncreaseKillCount() { KilledEnemiesCount++; }
+
+    public void ToggleHighlight(bool isOn)
+    {
+        if (IsDead) return;
+
+        if (isOn)
+        {
+            _gfxMaterial.DOColor(Color.white, 0.2f).SetLoops(-1, LoopType.Yoyo).SetId(_tweenHighlightId);
+        }
+        else
+        {
+            DOTween.Kill(_tweenHighlightId);
+            _gfxMaterial.color = _stats.Material.color;
+        }
+
+    }
 }

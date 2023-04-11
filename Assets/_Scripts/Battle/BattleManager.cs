@@ -11,6 +11,8 @@ public class BattleManager : MonoBehaviour
 
     VisualElement _root;
 
+    [SerializeField] Transform _entityHolder;
+
     // skybox rotation https://forum.unity.com/threads/rotate-a-skybox.130639/
     int _rotationProperty;
     float _initRot;
@@ -64,6 +66,7 @@ public class BattleManager : MonoBehaviour
         {
             Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
             GameObject instance = Instantiate(_playerPrefab, pos, Quaternion.identity);
+            instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
             be.Initialize(entity, ref EnemyEntities);
             PlayerEntities.Add(be);
@@ -77,6 +80,7 @@ public class BattleManager : MonoBehaviour
         {
             Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
             GameObject instance = Instantiate(_enemyPrefab, pos, Quaternion.identity);
+            instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
             be.Initialize(entity, ref PlayerEntities);
             EnemyEntities.Add(be);
