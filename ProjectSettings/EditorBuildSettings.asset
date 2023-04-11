@@ -6,19 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Level/Scenes/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: a0db0d41080c8ba4db50e5309508edc9
   - enabled: 1
-    path: Assets/Level/Scenes/HeroCreation.unity
+    path: Assets/Scenes/HeroCreation.unity
     guid: 1d15043c6b6a44042a4eb1f2c9a080ef
   - enabled: 1
-    path: Assets/Level/Scenes/Map.unity
+    path: Assets/Scenes/Map.unity
     guid: a19e7e871a814e4448e7bc7e69ad9b86
   - enabled: 1
     path: Assets/Level/Scenes/Dashboard.unity
     guid: cbd6b73a154d2274392439e3280998ae
   - enabled: 1
-    path: Assets/Level/Scenes/Battle.unity
+    path: Assets/Scenes/Battle.unity
     guid: 114c2784d481351488a0e43bcc395093
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: ca27c83b5049f574f921e445414deb0d, type: 2}
