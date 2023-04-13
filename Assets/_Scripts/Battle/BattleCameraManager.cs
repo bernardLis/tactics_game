@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 // https://www.youtube.com/watch?v=3Y7TFN_DsoI
 public class BattleCameraManager : MonoBehaviour
@@ -37,16 +38,16 @@ public class BattleCameraManager : MonoBehaviour
     Vector3 _horizontalVelocity;
     Vector3 _lastPosition;
 
-    Vector3 _startDrag;
-
     void Awake()
     {
         _cameraTransform = GetComponentInChildren<Camera>().transform;
+        MoveCameraToDefaultPosition(new InputAction.CallbackContext());
     }
 
     void Update()
     {
         GetKeyboardMovement();
+        CheckMouseAtScreenEdge();
 
         UpdateVelocity();
         UpdateCameraPosition();
@@ -85,16 +86,16 @@ public class BattleCameraManager : MonoBehaviour
 
     void SubscribeInputActions()
     {
-
         _playerInput.actions["RotateCamera"].performed += RotateCamera;
         _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
+        _playerInput.actions["CameraDefaultPosition"].performed += MoveCameraToDefaultPosition;
     }
 
     void UnsubscribeInputActions()
     {
         _playerInput.actions["RotateCamera"].performed -= RotateCamera;
         _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
-
+        _playerInput.actions["CameraDefaultPosition"].performed += MoveCameraToDefaultPosition;
     }
 
     void UpdateVelocity()
@@ -170,5 +171,30 @@ public class BattleCameraManager : MonoBehaviour
 
         _cameraTransform.localPosition = Vector3.Lerp(_cameraTransform.localPosition, zoomTarget, _zoomDampening * Time.deltaTime);
         //_cameraTransform.LookAt(transform.position);
+    }
+
+    void CheckMouseAtScreenEdge()
+    {
+        if (!_useScreenEdge) return;
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Vector3 moveDirection = Vector3.zero;
+
+        if (mousePosition.x < _edgeTolerance * Screen.width)
+            moveDirection += -GetCameraRight();
+        else if (mousePosition.x > (1f - _edgeTolerance) * Screen.width)
+            moveDirection += GetCameraRight();
+
+        if (mousePosition.y < _edgeTolerance * Screen.height)
+            moveDirection += -GetCameraForward();
+        else if (mousePosition.y > (1f - _edgeTolerance) * Screen.height)
+            moveDirection += GetCameraForward();
+
+        _targetPosition += moveDirection;
+    }
+
+    void MoveCameraToDefaultPosition(InputAction.CallbackContext ctx)
+    {
+        transform.DOMove(new Vector3(24f, 0f, -6f), 0.5f);
+        transform.DORotate(new Vector3(30f, -90f, 0f), 0.5f);
     }
 }

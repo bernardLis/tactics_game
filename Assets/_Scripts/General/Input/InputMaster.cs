@@ -359,6 +359,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""CameraDefaultPosition"",
+                    ""type"": ""Button"",
+                    ""id"": ""096c2620-ff4b-48a7-97fc-76436ee2be5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -504,6 +513,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""ZoomCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66bcf8db-06fd-40c2-b131-48be35d8d1bc"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraDefaultPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -550,6 +570,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Battle_CameraMovement = m_Battle.FindAction("CameraMovement", throwIfNotFound: true);
         m_Battle_RotateCamera = m_Battle.FindAction("RotateCamera", throwIfNotFound: true);
         m_Battle_ZoomCamera = m_Battle.FindAction("ZoomCamera", throwIfNotFound: true);
+        m_Battle_CameraDefaultPosition = m_Battle.FindAction("CameraDefaultPosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -723,6 +744,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_CameraMovement;
     private readonly InputAction m_Battle_RotateCamera;
     private readonly InputAction m_Battle_ZoomCamera;
+    private readonly InputAction m_Battle_CameraDefaultPosition;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
@@ -736,6 +758,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @CameraMovement => m_Wrapper.m_Battle_CameraMovement;
         public InputAction @RotateCamera => m_Wrapper.m_Battle_RotateCamera;
         public InputAction @ZoomCamera => m_Wrapper.m_Battle_ZoomCamera;
+        public InputAction @CameraDefaultPosition => m_Wrapper.m_Battle_CameraDefaultPosition;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -772,6 +795,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @ZoomCamera.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnZoomCamera;
                 @ZoomCamera.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnZoomCamera;
                 @ZoomCamera.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnZoomCamera;
+                @CameraDefaultPosition.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnCameraDefaultPosition;
+                @CameraDefaultPosition.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnCameraDefaultPosition;
+                @CameraDefaultPosition.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnCameraDefaultPosition;
             }
             m_Wrapper.m_BattleActionsCallbackInterface = instance;
             if (instance != null)
@@ -803,6 +829,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @ZoomCamera.started += instance.OnZoomCamera;
                 @ZoomCamera.performed += instance.OnZoomCamera;
                 @ZoomCamera.canceled += instance.OnZoomCamera;
+                @CameraDefaultPosition.started += instance.OnCameraDefaultPosition;
+                @CameraDefaultPosition.performed += instance.OnCameraDefaultPosition;
+                @CameraDefaultPosition.canceled += instance.OnCameraDefaultPosition;
             }
         }
     }
@@ -840,5 +869,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnCameraMovement(InputAction.CallbackContext context);
         void OnRotateCamera(InputAction.CallbackContext context);
         void OnZoomCamera(InputAction.CallbackContext context);
+        void OnCameraDefaultPosition(InputAction.CallbackContext context);
     }
 }

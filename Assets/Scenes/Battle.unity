@@ -547,8 +547,8 @@ MonoBehaviour:
   _maxHeight: 50
   _zoomSpeed: 2
   _maxRotationSpeed: 0.2
-  _edgeTolerance: 0.05
-  _useScreenEdge: 1
+  _edgeTolerance: 0.01
+  _useScreenEdge: 0
 --- !u!20 &1373902035 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7420590150597614920, guid: 9b1f4b189ceb4504aab21788483e893f, type: 3}
