@@ -138,7 +138,7 @@ public class BattleAbilityManager : MonoBehaviour
         List<BattleEntity> entities = new(_selectedAbilityArea.GetEntitiesInArea());
         foreach (BattleEntity entity in entities)
         {
-            StartCoroutine(entity.GetHit(null, 20));
+            StartCoroutine(entity.GetHit(null, _selectedAbility));
         }
         CancelAbilityHighlight();
         yield return new WaitForSeconds(3f);

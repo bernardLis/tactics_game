@@ -36,7 +36,6 @@ public class BattleEntity : MonoBehaviour
 
     MMF_Player _feelPlayer;
 
-
     public event Action<float> OnHealthChanged;
     public event Action<BattleEntity> OnDeath;
 
@@ -53,6 +52,7 @@ public class BattleEntity : MonoBehaviour
 
     public void Initialize(Material mat, ArmyEntity stats, ref List<BattleEntity> opponents)
     {
+
         Stats = stats;
         _currentHealth = stats.Health;
 
@@ -70,7 +70,6 @@ public class BattleEntity : MonoBehaviour
 
         StartCoroutine(RunEntity());
     }
-
 
     IEnumerator RunEntity()
     {
@@ -92,10 +91,8 @@ public class BattleEntity : MonoBehaviour
             // path to target
             while (_agent.remainingDistance > _agent.stoppingDistance)
             {
-                if (_opponent == null)
-                    break;
-                if (IsDead)
-                    break;
+                if (_opponent == null) break;
+                if (IsDead) break;
                 _agent.destination = _opponent.transform.position;
                 transform.LookAt(_opponent.transform);
                 yield return null;
@@ -119,12 +116,9 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator Attack()
     {
-        while (_currentAttackCooldown > 0)
-            yield return null;
-        while (_gettingHit)
-            yield return null;
-        if (_opponent == null || _opponent.IsDead)
-            yield break;
+        while (_currentAttackCooldown > 0) yield return null;
+        while (_gettingHit) yield return null;
+        if (_opponent == null || _opponent.IsDead) yield break;
         if (Vector3.Distance(transform.position, _opponent.transform.position) > Stats.AttackRange + 0.5f) // +0.5 wiggle room
             yield break; // target ran away
 
@@ -137,12 +131,9 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator Shoot()
     {
-        while (_currentAttackCooldown > 0)
-            yield return null;
-        while (_gettingHit)
-            yield return null;
-        if (_opponent == null || _opponent.IsDead)
-            yield break;
+        while (_currentAttackCooldown > 0) yield return null;
+        while (_gettingHit) yield return null;
+        if (_opponent == null || _opponent.IsDead) yield break;
         if (Vector3.Distance(transform.position, _opponent.transform.position) > Stats.AttackRange)
             yield break; // target ran away
 
@@ -172,19 +163,27 @@ public class BattleEntity : MonoBehaviour
     public float GetTotalHealth() { return Stats.Health; }
     public float GetCurrentHealth() { return _currentHealth; }
 
-    public IEnumerator GetHit(BattleEntity attacker, float abilityDmg = 0)
+    public IEnumerator GetHit(BattleEntity attacker, Ability ability = null)
     {
-        if (IsDead)
-            yield break;
+        if (IsDead) yield break;
 
-        float dmg = abilityDmg;
+        float dmg = 0;
+        Color dmgColor = Color.white;
+        if (ability != null)
+        {
+            dmg = Stats.CalculateDamage(ability);
+            dmgColor = ability.Element.Color;
+        }
         if (attacker != null)
+        {
             dmg = Stats.CalculateDamage(attacker);
+            dmgColor = attacker.Stats.Element.Color;
+        }
 
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = dmg.ToString();
         floatingText.ForceColor = true;
-        floatingText.AnimateColorGradient = GetDamageTextGradient(attacker.Stats.Element.Color);
+        floatingText.AnimateColorGradient = GetDamageTextGradient(dmgColor);
         _feelPlayer.PlayFeedbacks(transform.position);
 
         _gettingHit = true;
@@ -193,8 +192,7 @@ public class BattleEntity : MonoBehaviour
 
         if (_currentHealth <= 0)
         {
-            if (attacker != null)
-                attacker.IncreaseKillCount();
+            if (attacker != null) attacker.IncreaseKillCount();
             yield return Die();
             yield break;
         }

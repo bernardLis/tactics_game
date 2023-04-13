@@ -59,13 +59,16 @@ public class BattleManager : MonoBehaviour
 
     void InstantiatePlayer(ArmyEntity entity, int count)
     {
+        ArmyEntity entityInstance = Instantiate(entity);
+        entityInstance.HeroInfluence(_loadedBattle.Hero);
+
         for (int i = 0; i < count; i++)
         {
             Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
             GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_playerMaterial, entity, ref EnemyEntities);
+            be.Initialize(_playerMaterial, entityInstance, ref EnemyEntities);
             PlayerEntities.Add(be);
             be.OnDeath += OnPlayerDeath;
         }

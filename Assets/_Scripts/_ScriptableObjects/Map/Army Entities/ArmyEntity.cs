@@ -22,10 +22,45 @@ public class ArmyEntity : BaseScriptableObject
 
     public GameObject Projectile;
 
+    Hero _hero;
+    public void HeroInfluence(Hero hero)
+    {
+        _hero = hero;
+        Power += hero.Power.GetValue() / 100;
+        Armor += hero.Armor.GetValue() / 100;
+    }
 
     public float CalculateDamage(BattleEntity attacker)
     {
-        float damage = attacker.Stats.Power; //- armor //* attacker.Stats.Element.DamageMultiplier[Element];
+        float damage = attacker.Stats.Power;
+        if (Element.StrongAgainst == attacker.Stats.Element)
+            damage *= 0.5f;
+        if (Element.WeakAgainst == attacker.Stats.Element)
+            damage *= 1.5f;
+
+        damage = Mathf.Round(damage);
+
+        damage -= Armor;
+        if (damage < 0)
+            damage = 0;
+
         return damage;
     }
+
+
+    public float CalculateDamage(Ability ability)
+    {
+        float damage = ability.BasePower;
+        if (Element.StrongAgainst == ability.Element)
+            damage *= 0.5f;
+        if (Element.WeakAgainst == ability.Element)
+            damage *= 1.5f;
+
+        damage = Mathf.Round(damage);
+
+        // abilities ignore armor
+
+        return damage;
+    }
+
 }
