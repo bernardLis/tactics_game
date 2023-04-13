@@ -25,6 +25,8 @@ public class BattleCameraManager : MonoBehaviour
     [SerializeField] float _minHeight = 5f;
     [SerializeField] float _maxHeight = 50f;
     [SerializeField] float _zoomSpeed = 2f;
+    [SerializeField] float _defaultZoomHeight = 8f;
+
 
     [Header("Rotation")]
     [SerializeField] float _maxRotationSpeed = 0.5f;
@@ -34,6 +36,7 @@ public class BattleCameraManager : MonoBehaviour
     [SerializeField] bool _useScreenEdge = true;
 
     float _zoomHeight;
+
     Vector3 _targetPosition;
     Vector3 _horizontalVelocity;
     Vector3 _lastPosition;
@@ -196,5 +199,6 @@ public class BattleCameraManager : MonoBehaviour
     {
         transform.DOMove(new Vector3(24f, 0f, -6f), 0.5f);
         transform.DORotate(new Vector3(30f, -90f, 0f), 0.5f);
+        _zoomHeight = _defaultZoomHeight;
     }
 }

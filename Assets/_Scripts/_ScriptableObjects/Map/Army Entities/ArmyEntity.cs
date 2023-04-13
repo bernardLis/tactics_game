@@ -21,6 +21,7 @@ public class ArmyEntity : BaseScriptableObject
     public float Speed;
 
     public GameObject Projectile;
+    public GameObject HitPrefab;
 
     Hero _hero;
     public void HeroInfluence(Hero hero)

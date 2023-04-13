@@ -125,8 +125,13 @@ public class BattleEntity : MonoBehaviour
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         Vector3 punchRotation = new(45f, 0f, 0f);
         yield return GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
+        GameObject hitInstance = Instantiate(Stats.HitPrefab, _opponent.transform.position, Quaternion.identity);
+
         _currentAttackCooldown = Stats.AttackCooldown;
+
         yield return _opponent.GetHit(this);
+        
+        Destroy(hitInstance);
     }
 
     IEnumerator Shoot()

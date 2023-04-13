@@ -19,8 +19,10 @@ MonoBehaviour:
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Prefab: {fileID: 6020162713100736850, guid: b52bea9135da3e64394969419223c932, type: 3}
   Health: 100
+  Armor: 0
   Power: 50
   AttackRange: 2.5
   AttackCooldown: 4
   Speed: 2
   Projectile: {fileID: 0}
+  HitPrefab: {fileID: 4187254286823873391, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
