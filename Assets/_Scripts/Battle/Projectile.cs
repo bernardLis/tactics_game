@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
         if (target != null)
         {
             transform.position = target.GFX.transform.position;
-            yield return target.GetHit(power, shooter);
+            yield return target.GetHit(shooter);
         }
 
         yield return DestroySelf();

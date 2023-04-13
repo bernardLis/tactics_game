@@ -5,17 +5,23 @@ using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
+using MoreMountains.Feedbacks;
+
 public class BattleEntity : MonoBehaviour
 {
     [SerializeField] Sound _hurtSound;
+    [SerializeField] Image _elementImage;
+
     List<BattleEntity> _opponentList = new();
 
     public GameObject GFX;
+    Material _originalMaterial;
     Material _gfxMaterial;
 
     const string _tweenHighlightId = "_tweenHighlightId";
 
-    ArmyEntity _stats;
+    public ArmyEntity Stats { get; private set; }
     float _currentHealth;
 
     BattleEntity _opponent;
@@ -27,27 +33,38 @@ public class BattleEntity : MonoBehaviour
 
     bool _gettingHit;
     public bool IsDead { get; private set; }
-    public bool IsGrounded;
+
+    MMF_Player _feelPlayer;
+
 
     public event Action<float> OnHealthChanged;
     public event Action<BattleEntity> OnDeath;
+
+    void Start()
+    {
+        _feelPlayer = GetComponent<MMF_Player>();
+    }
+
     void Update()
     {
         if (_currentAttackCooldown >= 0)
             _currentAttackCooldown -= Time.deltaTime;
     }
 
-    public void Initialize(ArmyEntity stats, ref List<BattleEntity> opponents)
+    public void Initialize(Material mat, ArmyEntity stats, ref List<BattleEntity> opponents)
     {
-        IsGrounded = true;
-        _stats = stats;
+        Stats = stats;
         _currentHealth = stats.Health;
-        GFX.GetComponent<MeshRenderer>().material = stats.Material;
+
+        _originalMaterial = mat;
+        GFX.GetComponent<MeshRenderer>().material = _originalMaterial;
         _gfxMaterial = GFX.GetComponent<MeshRenderer>().material;
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = stats.Speed;
         _agent.stoppingDistance = stats.AttackRange;
+
+        _elementImage.sprite = Stats.Element.Icon;
 
         _opponentList = opponents;
 
@@ -58,7 +75,7 @@ public class BattleEntity : MonoBehaviour
     IEnumerator RunEntity()
     {
         yield return new WaitForSeconds(Random.Range(0f, 1f)); // random delay at the beginning
-        while (!IsDead && IsGrounded)
+        while (!IsDead)
         {
             if (_opponentList.Count == 0)
             {
@@ -88,7 +105,7 @@ public class BattleEntity : MonoBehaviour
             _agent.enabled = false;
 
             // HERE: something smarter
-            if (_stats.Projectile == null)
+            if (Stats.Projectile == null)
                 yield return StartCoroutine(Attack());
             else
                 yield return StartCoroutine(Shoot());
@@ -108,14 +125,14 @@ public class BattleEntity : MonoBehaviour
             yield return null;
         if (_opponent == null || _opponent.IsDead)
             yield break;
-        if (Vector3.Distance(transform.position, _opponent.transform.position) > _stats.AttackRange + 0.5f) // +0.5 wiggle room
+        if (Vector3.Distance(transform.position, _opponent.transform.position) > Stats.AttackRange + 0.5f) // +0.5 wiggle room
             yield break; // target ran away
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         Vector3 punchRotation = new(45f, 0f, 0f);
         yield return GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
-        _currentAttackCooldown = _stats.AttackCooldown;
-        yield return _opponent.GetHit(_stats.Power, this);
+        _currentAttackCooldown = Stats.AttackCooldown;
+        yield return _opponent.GetHit(this);
     }
 
     IEnumerator Shoot()
@@ -126,20 +143,20 @@ public class BattleEntity : MonoBehaviour
             yield return null;
         if (_opponent == null || _opponent.IsDead)
             yield break;
-        if (Vector3.Distance(transform.position, _opponent.transform.position) > _stats.AttackRange)
+        if (Vector3.Distance(transform.position, _opponent.transform.position) > Stats.AttackRange)
             yield break; // target ran away
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         Vector3 punchRotation = new(45f, 0f, 0f);
         GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
-        _currentAttackCooldown = _stats.AttackCooldown;
+        _currentAttackCooldown = Stats.AttackCooldown;
 
         // spawn projectile
-        GameObject projectileInstance = Instantiate(_stats.Projectile, GFX.transform.position, Quaternion.identity);
+        GameObject projectileInstance = Instantiate(Stats.Projectile, GFX.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
 
         Projectile projectile = projectileInstance.GetComponent<Projectile>();
-        projectile.Shoot(this, _opponent, 20, _stats.Power);
+        projectile.Shoot(this, _opponent, 20, Stats.Power);
     }
 
 
@@ -152,16 +169,26 @@ public class BattleEntity : MonoBehaviour
                 .SetDelay(Random.Range(0.5f, 1f));
     }
 
-    public float GetTotalHealth() { return _stats.Health; }
+    public float GetTotalHealth() { return Stats.Health; }
     public float GetCurrentHealth() { return _currentHealth; }
 
-    public IEnumerator GetHit(float power, BattleEntity attacker)
+    public IEnumerator GetHit(BattleEntity attacker, float abilityDmg = 0)
     {
         if (IsDead)
             yield break;
 
+        float dmg = abilityDmg;
+        if (attacker != null)
+            dmg = Stats.CalculateDamage(attacker);
+
+        MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
+        floatingText.Value = dmg.ToString();
+        floatingText.ForceColor = true;
+        floatingText.AnimateColorGradient = GetDamageTextGradient(attacker.Stats.Element.Color);
+        _feelPlayer.PlayFeedbacks(transform.position);
+
         _gettingHit = true;
-        _currentHealth -= power;
+        _currentHealth -= dmg;
         OnHealthChanged?.Invoke(_currentHealth);
 
         if (_currentHealth <= 0)
@@ -177,6 +204,31 @@ public class BattleEntity : MonoBehaviour
         _gettingHit = false;
     }
 
+    public Gradient GetDamageTextGradient(Color color)
+    {
+        Gradient gradient = new Gradient();
+        GradientColorKey[] colorKey;
+        GradientAlphaKey[] alphaKey;
+
+        // Populate the color keys at the relative time 0 and 1 (0 and 100%)
+        colorKey = new GradientColorKey[2];
+        colorKey[0].color = color;
+        colorKey[0].time = 0.5f;
+        colorKey[1].color = Color.white;
+        colorKey[1].time = 1f;
+
+        // Populate the alpha  keys at relative time 0 and 1  (0 and 100%)
+        alphaKey = new GradientAlphaKey[2];
+        alphaKey[0].alpha = 1.0f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.5f;
+        alphaKey[1].time = 1f;
+
+        gradient.SetKeys(colorKey, alphaKey);
+
+        return gradient;
+    }
+
     public IEnumerator Die()
     {
         //  _agent.enabled = false;
@@ -187,8 +239,6 @@ public class BattleEntity : MonoBehaviour
         transform.DORotate(new Vector3(-90, 0, 0), 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
         yield return transform.DOMoveY(0, 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
         ToggleHighlight(false);
-        //yield return GFX.GetComponent<MeshRenderer>().material.DOFade(0, 2f).WaitForCompletion();
-        // Destroy(gameObject);
     }
 
     public void IncreaseKillCount() { KilledEnemiesCount++; }
@@ -204,8 +254,7 @@ public class BattleEntity : MonoBehaviour
         else
         {
             DOTween.Kill(_tweenHighlightId);
-            _gfxMaterial.color = _stats.Material.color;
+            _gfxMaterial.color = _originalMaterial.color;
         }
-
     }
 }

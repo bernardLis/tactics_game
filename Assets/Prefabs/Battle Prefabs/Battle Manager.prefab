@@ -66,6 +66,8 @@ MonoBehaviour:
   _entityHolder: {fileID: 0}
   _skyboxRotationSpeed: 0.2
   _textMesh: {fileID: 0}
+  _playerMaterial: {fileID: 2100000, guid: b0ddfd1fc6ff1f14eb7de1078c47e074, type: 2}
+  _enemyMaterial: {fileID: 2100000, guid: 648682c2568381d4595031dc35e45713, type: 2}
   _enemyStats:
   - {fileID: 11400000, guid: 7755c329c516513459f13843e129b595, type: 2}
   - {fileID: 11400000, guid: a58400b4a0cee7d4b8cf4e881b6bcf23, type: 2}

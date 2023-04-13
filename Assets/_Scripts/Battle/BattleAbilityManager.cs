@@ -132,13 +132,13 @@ public class BattleAbilityManager : MonoBehaviour
     IEnumerator ExecuteAbility()
     {
         if (_selectedAbility == null) yield break;
-        
+
         GameObject instance = Instantiate(_effect, _selectedAbilityArea.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(1f);
         List<BattleEntity> entities = new(_selectedAbilityArea.GetEntitiesInArea());
         foreach (BattleEntity entity in entities)
         {
-            StartCoroutine(entity.GetHit(20, null));
+            StartCoroutine(entity.GetHit(null, 20));
         }
         CancelAbilityHighlight();
         yield return new WaitForSeconds(3f);

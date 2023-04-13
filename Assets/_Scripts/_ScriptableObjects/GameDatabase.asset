@@ -13,68 +13,8 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
-  HeroDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
-  QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   Cutscenes:
   - {fileID: 11400000, guid: 55ad5ffd5bf283d4485798e7df66f245, type: 2}
-  Abilities:
-  - {fileID: 11400000, guid: 5c32271d331b2174cba7d4b21d0ec638, type: 2}
-  - {fileID: 11400000, guid: 78234d09aee00654797759a268015eea, type: 2}
-  - {fileID: 11400000, guid: b29d21e0ed8f9ad498675937a50353de, type: 2}
-  - {fileID: 11400000, guid: c029a2bb01a334047af00a29c19a8f97, type: 2}
-  - {fileID: 11400000, guid: 06099217ae6a4c644bfa9cd783b81449, type: 2}
-  - {fileID: 11400000, guid: 34d798471a097bd48bbe81cbcb9add95, type: 2}
-  - {fileID: 11400000, guid: 93a28885fd319b248b152d73ffab8512, type: 2}
-  - {fileID: 11400000, guid: 97d32039525de614495d6369d93ea45a, type: 2}
-  - {fileID: 11400000, guid: 42ecaff66c02b8c4d8b336f9c8a2f937, type: 2}
-  - {fileID: 11400000, guid: 65c33204802a65744983634f5806c5bc, type: 2}
-  - {fileID: 11400000, guid: cec39b3138f24b0489541d3fc1041b0d, type: 2}
-  - {fileID: 11400000, guid: 125b676c92177aa4f9f20ce62b8207eb, type: 2}
-  - {fileID: 11400000, guid: 3d151dd0bdf5cb44c8495ac983eaf149, type: 2}
-  - {fileID: 11400000, guid: 7826ca5053518cd4cb1bdd310d5c10dd, type: 2}
-  - {fileID: 11400000, guid: 9b2309d30543b3e458dba1ce61e2d984, type: 2}
-  - {fileID: 11400000, guid: e30492f8ad7283543bdac532bc1e1de2, type: 2}
-  Items:
-  - {fileID: 11400000, guid: 653ed2c41395a0d4b8e6453cafff0f00, type: 2}
-  - {fileID: 11400000, guid: 1f4b32a79e11845419f1b8ddea037b28, type: 2}
-  - {fileID: 11400000, guid: 456dbaa7a77f72a4eb5b7a36f121556b, type: 2}
-  - {fileID: 11400000, guid: 33f8e2c6905680a43aef9268c59fafae, type: 2}
-  - {fileID: 11400000, guid: e2ae84c9098a17541b16d6b4c38af97a, type: 2}
-  - {fileID: 11400000, guid: 96e8516842fbbf24baa445f76b024262, type: 2}
-  - {fileID: 11400000, guid: c99842b22cbb6444c81b574b1d01ef65, type: 2}
-  - {fileID: 11400000, guid: 2aeb94181c038f044ae88fd9cae056f3, type: 2}
-  - {fileID: 11400000, guid: fd310e1f51ede2047bf2c672e55721f4, type: 2}
-  - {fileID: 11400000, guid: b3264555a8281774d80c503dec6b48d0, type: 2}
-  - {fileID: 11400000, guid: 32d9c135d7e711047b6a359ed7d7dfc5, type: 2}
-  - {fileID: 11400000, guid: daef64c9c9eccb648be50ea4a4e5f9de, type: 2}
-  - {fileID: 11400000, guid: 1f0632a91b9587044bac4a2d2d564b5a, type: 2}
-  - {fileID: 11400000, guid: b09ee58957b83344399309d681c50151, type: 2}
-  - {fileID: 11400000, guid: 0d85a0c12c2c0dd48b3e8715894054c8, type: 2}
-  - {fileID: 11400000, guid: 99cb218141598814b8aa8ac1a39a7303, type: 2}
-  StatIcons:
-  - StatName: Power
-    Sprite: {fileID: 569703415, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - StatName: Armor
-    Sprite: {fileID: -1592477203, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - StatName: Speed
-    Sprite: {fileID: -417598653, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  Injuries:
-  - {fileID: 11400000, guid: 3882f24feb7c9a3499c481804ed5dcf7, type: 2}
-  - {fileID: 11400000, guid: 529ffb6b190cf1b458eefc190f680182, type: 2}
-  - {fileID: 11400000, guid: b4a3ab2a331ad4744bda7667b4b8a03b, type: 2}
-  - {fileID: 11400000, guid: c3f85815103c82a47b6b0e23db8150da, type: 2}
-  - {fileID: 11400000, guid: 11fa4ba7830949248bbe84338cbb6866, type: 2}
-  - {fileID: 11400000, guid: b7acc7f656bb3024a847a88d99c5e4c6, type: 2}
-  - {fileID: 11400000, guid: ce651ec35b2fb2842887f54f464a1a1a, type: 2}
-  - {fileID: 11400000, guid: fb5c8da2e5007664ea562c7cfbcbb708, type: 2}
-  - {fileID: 11400000, guid: 24238414ede7a9943bf1fe216d1af774, type: 2}
-  - {fileID: 11400000, guid: 37bb3fccadffd7746881459cd0d19eaa, type: 2}
-  - {fileID: 11400000, guid: 27c46ea45eb4e6a45b0b9287250ae3f7, type: 2}
-  - {fileID: 11400000, guid: 82ccd05c08450c140bc861357b000fb3, type: 2}
-  - {fileID: 11400000, guid: 7245bbe10958dd24f8d262516f8ed811, type: 2}
-  - {fileID: 11400000, guid: ba4d2e2aa5fe1484982a8fa82f874c4a, type: 2}
-  - {fileID: 11400000, guid: c0eddd34029c02b489611b95cce7a9bc, type: 2}
-  - {fileID: 11400000, guid: 1f3d2891d6543404db70a9d8fcb38e81, type: 2}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
@@ -86,11 +26,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8dc4b813eccf12644986db7dadf28a85, type: 2}
   - {fileID: 11400000, guid: 57a2ed5e8781a834b86d012896adbe79, type: 2}
   - {fileID: 11400000, guid: d39ab990f5e02c545ac454ba7fd618a5, type: 2}
-  Elements:
-  - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   LevelUpAnimationSprites:
   - {fileID: 1314029660, guid: 8a969380e83f01344ba77f992a35c2fd, type: 3}
   - {fileID: -1217882384, guid: 8a969380e83f01344ba77f992a35c2fd, type: 3}
@@ -498,16 +433,20 @@ MonoBehaviour:
   GoldSprite: {fileID: 21300000, guid: 9cff88ef95f95be47af437526c628fd5, type: 3}
   SpiceSprite: {fileID: 21300000, guid: 9a06e7f64c40cc04ebda0ea05e969af0, type: 3}
   AllArmyEntities:
-  - {fileID: 11400000, guid: 3b5e3441a71fce848a266b6897ff1af2, type: 2}
-  - {fileID: 11400000, guid: 60a1c4fcce5045946b4c157a6e324579, type: 2}
-  - {fileID: 11400000, guid: 7755c329c516513459f13843e129b595, type: 2}
-  - {fileID: 11400000, guid: a58400b4a0cee7d4b8cf4e881b6bcf23, type: 2}
+  - {fileID: 11400000, guid: 7b53656cc58148d4e90b0bb859da9580, type: 2}
+  - {fileID: 11400000, guid: 2b7ff1059c2b0bf4dbce652773d9507b, type: 2}
+  - {fileID: 11400000, guid: 660a2e5a29821f7458b85f062da8024a, type: 2}
+  - {fileID: 11400000, guid: 8e451dd3abf5b3640a831b8aaac0b2de, type: 2}
   AllEnemyArmyEntities:
-  - {fileID: 11400000, guid: 7755c329c516513459f13843e129b595, type: 2}
-  - {fileID: 11400000, guid: a58400b4a0cee7d4b8cf4e881b6bcf23, type: 2}
+  - {fileID: 11400000, guid: 7b53656cc58148d4e90b0bb859da9580, type: 2}
+  - {fileID: 11400000, guid: 2b7ff1059c2b0bf4dbce652773d9507b, type: 2}
+  - {fileID: 11400000, guid: 660a2e5a29821f7458b85f062da8024a, type: 2}
+  - {fileID: 11400000, guid: 8e451dd3abf5b3640a831b8aaac0b2de, type: 2}
   BasicArmy:
-  - {fileID: 11400000, guid: a78a5557da897bc4b840f078134a29f0, type: 2}
-  - {fileID: 11400000, guid: 5404ee95775c73d4ba190a1c5d1b4229, type: 2}
+  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
+  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
+  - {fileID: 11400000, guid: 209d3cb7de55546449caace383bdca58, type: 2}
+  - {fileID: 11400000, guid: a686b25e091e6644293bd0a77ae2cd86, type: 2}
   Buildings:
   - {fileID: 11400000, guid: db50b2b13f8303c448fbc4e796dd7af2, type: 2}
   - {fileID: 11400000, guid: a8279aa7dbdf6b94081c2a963dd82fa1, type: 2}

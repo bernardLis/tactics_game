@@ -17,5 +17,7 @@ MonoBehaviour:
   Army:
   - {fileID: 11400000, guid: acb62ce349af7cb458aad7d1e8d4fa72, type: 2}
   - {fileID: 11400000, guid: a5a9a9ca872c6d049ae8bd8e59d2d73a, type: 2}
+  - {fileID: 11400000, guid: 2f2d55322c5a9664286de4b5aa8e3d5c, type: 2}
+  - {fileID: 11400000, guid: b1a6dd638b51f624c9e89eb996ddeb42, type: 2}
   Hero: {fileID: 0}
   Won: 0

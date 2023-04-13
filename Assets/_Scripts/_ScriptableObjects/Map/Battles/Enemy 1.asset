@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enemy 1
   m_EditorClassIdentifier: 
   Id: fe41cb59-8f39-4b6c-a851-72019b4f126c
-  ArmyEntity: {fileID: 11400000, guid: a58400b4a0cee7d4b8cf4e881b6bcf23, type: 2}
-  EntityCount: 20
+  ArmyEntity: {fileID: 11400000, guid: 2b7ff1059c2b0bf4dbce652773d9507b, type: 2}
+  EntityCount: 10
   ListPosition: 0

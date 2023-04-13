@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Water Shooter
+  m_EditorClassIdentifier: 
+  Id: 1503a909-29c2-4051-b491-abdcf0f7db98
+  Name: Water Shooter
+  Icon: {fileID: 21300000, guid: a6742db7c89f6ab4a8fa1c40d75499af, type: 3}
+  Price: 10
+  Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Prefab: {fileID: 7990464852557116123, guid: d7f649c141ad9914e85803daac667681, type: 3}
+  Health: 40
+  Power: 40
+  AttackRange: 100
+  AttackCooldown: 3
+  Speed: 3
+  Projectile: {fileID: 4404377142720302936, guid: d127e40c7587fd54b8f16eae91b442f1, type: 3}

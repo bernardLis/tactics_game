@@ -21,11 +21,8 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI _textMesh; // HERE: something smarter
 
-    [SerializeField] List<ArmyEntity> _enemyStats = new();
-    [SerializeField] List<ArmyEntity> _playerStats;
-
-    [SerializeField] GameObject _playerPrefab;
-    [SerializeField] GameObject _enemyPrefab;
+    [SerializeField] Material _playerMaterial;
+    [SerializeField] Material _enemyMaterial;
 
     int _initialPlayerEntityCount;
     int _initialEnemyEntityCount;
@@ -65,10 +62,10 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
-            GameObject instance = Instantiate(_playerPrefab, pos, Quaternion.identity);
+            GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(entity, ref EnemyEntities);
+            be.Initialize(_playerMaterial, entity, ref EnemyEntities);
             PlayerEntities.Add(be);
             be.OnDeath += OnPlayerDeath;
         }
@@ -79,10 +76,10 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
-            GameObject instance = Instantiate(_enemyPrefab, pos, Quaternion.identity);
+            GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(entity, ref PlayerEntities);
+            be.Initialize(_enemyMaterial, entity, ref PlayerEntities);
             EnemyEntities.Add(be);
             be.OnDeath += OnEnemyDeath;
         }

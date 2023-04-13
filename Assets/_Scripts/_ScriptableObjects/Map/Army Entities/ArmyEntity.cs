@@ -8,10 +8,11 @@ public class ArmyEntity : BaseScriptableObject
     public string Name;
     public Sprite Icon;
     public int Price;
+    public Element Element;
 
-    public List<GameObject> GFX = new();
-    public Material Material;
+    public GameObject Prefab;
     public float Health;
+    public float Armor;
 
     public float Power;
     public float AttackRange;
@@ -20,4 +21,11 @@ public class ArmyEntity : BaseScriptableObject
     public float Speed;
 
     public GameObject Projectile;
+
+
+    public float CalculateDamage(BattleEntity attacker)
+    {
+        float damage = attacker.Stats.Power; //- armor //* attacker.Stats.Element.DamageMultiplier[Element];
+        return damage;
+    }
 }
