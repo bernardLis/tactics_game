@@ -78,7 +78,6 @@ public class BattleAbilityManager : MonoBehaviour
 
         _playerInput.actions["LeftMouseClick"].performed -= LeftMouseClick;
         _playerInput.actions["RightMouseClick"].performed -= RightMouseClick;
-
     }
 
     void AddAbilityButtons()
@@ -106,9 +105,7 @@ public class BattleAbilityManager : MonoBehaviour
     {
         if (_selectedAbility != null) CancelAbilityHighlight();
 
-        Debug.Log($"click click highlight ");
         _selectedAbility = ability;
-        Debug.Log($"Using {ability.name}");
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         GameObject instance = Instantiate(_abilityAreaPrefab, worldPos, Quaternion.identity);
@@ -118,6 +115,7 @@ public class BattleAbilityManager : MonoBehaviour
     void LeftMouseClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (this == null) return;
 
         StartCoroutine(ExecuteAbility());
     }
@@ -125,6 +123,7 @@ public class BattleAbilityManager : MonoBehaviour
     void RightMouseClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (this == null) return;
 
         CancelAbilityHighlight();
     }
@@ -136,17 +135,16 @@ public class BattleAbilityManager : MonoBehaviour
         GameObject instance = Instantiate(_effect, _selectedAbilityArea.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(1f);
         List<BattleEntity> entities = new(_selectedAbilityArea.GetEntitiesInArea());
+
         foreach (BattleEntity entity in entities)
-        {
             StartCoroutine(entity.GetHit(null, _selectedAbility));
-        }
+
         CancelAbilityHighlight();
         yield return new WaitForSeconds(3f);
         yield return instance.transform.DOScale(0f, 1f).WaitForCompletion();
         Destroy(instance);
 
         yield return null;
-
     }
 
     void CancelAbilityHighlight()
