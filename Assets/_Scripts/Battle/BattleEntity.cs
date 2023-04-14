@@ -68,6 +68,7 @@ public class BattleEntity : MonoBehaviour
 
         _opponentList = opponents;
 
+        // HERE: ability testing
         StartCoroutine(RunEntity());
     }
 
@@ -101,11 +102,15 @@ public class BattleEntity : MonoBehaviour
             // reached destination
             _agent.enabled = false;
 
-            // HERE: something smarter
-            if (Stats.Projectile == null)
-                yield return StartCoroutine(Attack());
-            else
-                yield return StartCoroutine(Shoot());
+
+            // HERE: ability testing
+            /*
+                        // HERE: something smarter
+                        if (Stats.Projectile == null)
+                            yield return StartCoroutine(Attack());
+                        else
+                            yield return StartCoroutine(Shoot());
+                            */
         }
     }
 
@@ -130,7 +135,7 @@ public class BattleEntity : MonoBehaviour
         _currentAttackCooldown = Stats.AttackCooldown;
 
         yield return _opponent.GetHit(this);
-        
+
         Destroy(hitInstance);
     }
 

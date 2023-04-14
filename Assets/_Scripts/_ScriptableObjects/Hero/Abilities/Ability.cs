@@ -14,10 +14,13 @@ public class Ability : BaseScriptableObject
     public int ManaCost;
     public Element Element;
 
+    [Header("Battle GameObjects")]
+    public GameObject AreaHighlightPrefab;
+    public GameObject EffectPrefab;
+
     [Header("Other")]
     public int SpiceCost = 1;
     public int StarRank = 0;
-
 
     public AbilityData SerializeSelf()
     {

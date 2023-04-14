@@ -152,6 +152,8 @@ public class BattleCameraManager : MonoBehaviour
 
     void RotateCamera(InputAction.CallbackContext ctx)
     {
+        if (this == null) return;
+
         if (!Mouse.current.middleButton.isPressed) return;
 
         float value = ctx.ReadValue<Vector2>().x;
@@ -160,6 +162,8 @@ public class BattleCameraManager : MonoBehaviour
 
     void ZoomCamera(InputAction.CallbackContext ctx)
     {
+        if (this == null) return;
+
         float value = -ctx.ReadValue<Vector2>().y / 100f; // I prefer to scroll to myself to zoom out
         if (Mathf.Abs(value) < 0.01f) return;
 
@@ -197,6 +201,8 @@ public class BattleCameraManager : MonoBehaviour
 
     void MoveCameraToDefaultPosition(InputAction.CallbackContext ctx)
     {
+        if (this == null) return;
+
         transform.DOMove(new Vector3(24f, 0f, -6f), 0.5f);
         transform.DORotate(new Vector3(30f, -90f, 0f), 0.5f);
         _zoomHeight = _defaultZoomHeight;

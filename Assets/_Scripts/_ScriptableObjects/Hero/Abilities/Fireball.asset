@@ -18,5 +18,7 @@ MonoBehaviour:
   BasePower: 10
   ManaCost: 0
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  AreaHighlightPrefab: {fileID: 4773166559872586498, guid: b3bc736e64fcee244a14a8a676a0bd0c, type: 3}
+  EffectPrefab: {fileID: 141900, guid: 4e9b827447afca54dac2a8a4eee5c982, type: 3}
   SpiceCost: 1
   StarRank: 0

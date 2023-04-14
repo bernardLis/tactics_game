@@ -30284,7 +30284,7 @@ GameObject:
   - component: {fileID: 3458079965876499748}
   - component: {fileID: 4773166559872586511}
   m_Layer: 0
-  m_Name: Battle Ability Area
+  m_Name: Fireball Area Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30321,7 +30321,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4773166559872586498}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -30375,7 +30375,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3458079965876499748
 Rigidbody:
@@ -30416,3 +30416,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e21eb4b370aac149baa0b21dc528e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsHighlightingEnabled: 1

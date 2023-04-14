@@ -15,11 +15,8 @@ public class BattleAbilityManager : MonoBehaviour
 
     List<Ability> _abilities = new();
 
-    [SerializeField] GameObject _abilityAreaPrefab;
-
     Ability _selectedAbility;
     BattleAbilityArea _selectedAbilityArea;
-    [SerializeField] GameObject _effect;
 
 
     // Start is called before the first frame update
@@ -108,7 +105,7 @@ public class BattleAbilityManager : MonoBehaviour
         _selectedAbility = ability;
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-        GameObject instance = Instantiate(_abilityAreaPrefab, worldPos, Quaternion.identity);
+        GameObject instance = Instantiate(_selectedAbility.AreaHighlightPrefab, worldPos, Quaternion.identity);
         _selectedAbilityArea = instance.GetComponent<BattleAbilityArea>();
     }
 
@@ -128,19 +125,22 @@ public class BattleAbilityManager : MonoBehaviour
         CancelAbilityHighlight();
     }
 
+    // TODO: this should per ability...
     IEnumerator ExecuteAbility()
     {
         if (_selectedAbility == null) yield break;
 
-        GameObject instance = Instantiate(_effect, _selectedAbilityArea.transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(1f);
+        GameObject instance = Instantiate(_selectedAbility.EffectPrefab, _selectedAbilityArea.transform.position, Quaternion.identity);
         List<BattleEntity> entities = new(_selectedAbilityArea.GetEntitiesInArea());
 
+        _selectedAbilityArea.IsHighlightingEnabled = false;
+        _selectedAbilityArea.ClearHighlightedEntities();
+        
         foreach (BattleEntity entity in entities)
             StartCoroutine(entity.GetHit(null, _selectedAbility));
 
         CancelAbilityHighlight();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3f); 
         yield return instance.transform.DOScale(0f, 1f).WaitForCompletion();
         Destroy(instance);
 
@@ -149,10 +149,13 @@ public class BattleAbilityManager : MonoBehaviour
 
     void CancelAbilityHighlight()
     {
+        Debug.Log($"cancel abiliy highlight");
         if (_selectedAbility == null) return;
         _selectedAbility = null;
 
         if (_selectedAbilityArea == null) return;
+        Debug.Log($"de stroy _selectedAbilityArea");
+
         Destroy(_selectedAbilityArea.gameObject);
     }
 
