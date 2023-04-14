@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters;
 
 public class RFX4_DemoGUI : MonoBehaviour
 {
-	public GameObject[] Prefabs;
+    public GameObject[] Prefabs;
     public float[] ReactivationTimes;
     public Light Sun;
     public ReflectionProbe ReflectionProbe;
@@ -15,8 +15,8 @@ public class RFX4_DemoGUI : MonoBehaviour
     //public RFX4_DistortionAndBloom RFX4_DistortionAndBloom;
 
     private int currentNomber;
-	private GameObject currentInstance;
-	public GUIStyle guiStyleHeader = new GUIStyle();
+    private GameObject currentInstance;
+    public GUIStyle guiStyleHeader = new GUIStyle();
     GUIStyle guiStyleHeaderMobile = new GUIStyle();
     float dpiScale;
 
@@ -28,58 +28,61 @@ public class RFX4_DemoGUI : MonoBehaviour
     private float startReflectionIntencity;
     private LightShadows startLightShadows;
 
-	void Start () {
+    void Start()
+    {
         if (Screen.dpi < 1) dpiScale = 1;
         if (Screen.dpi < 200) dpiScale = 1;
         else dpiScale = Screen.dpi / 200f;
         guiStyleHeader.fontSize = (int)(15f * dpiScale);
-		    //guiStyleHeader.normal.textColor = new Color(0.15f,0.15f,0.15f);
+        //guiStyleHeader.normal.textColor = new Color(0.15f,0.15f,0.15f);
         guiStyleHeaderMobile.fontSize = (int)(17f * dpiScale);
 
         ChangeCurrent(0);
 
         startSunIntensity = Sun.intensity;
-	    startSunRotation = Sun.transform.rotation;
-	    startAmbientLight = RenderSettings.ambientLight;
-	    startAmbientIntencity = RenderSettings.ambientIntensity;
-	    startReflectionIntencity = RenderSettings.reflectionIntensity;
-	    startLightShadows = Sun.shadows;
+        startSunRotation = Sun.transform.rotation;
+        startAmbientLight = RenderSettings.ambientLight;
+        startAmbientIntencity = RenderSettings.ambientIntensity;
+        startReflectionIntencity = RenderSettings.reflectionIntensity;
+        startLightShadows = Sun.shadows;
 
-	    ChangeDayNight();
+        ChangeDayNight();
 
-	}
+    }
 
     bool isButtonPressed;
 
     private void OnGUI()
     {
-        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.DownArrow))
-            isButtonPressed = false;
 
-        if (GUI.Button(new Rect(10*dpiScale, 15*dpiScale, 135*dpiScale, 37*dpiScale), "PREVIOUS EFFECT") || (!isButtonPressed && Input.GetKeyDown(KeyCode.LeftArrow)))
+        // if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.DownArrow))
+        //     isButtonPressed = false;
+
+        if (GUI.Button(new Rect(10 * dpiScale, 15 * dpiScale, 135 * dpiScale, 37 * dpiScale), "PREVIOUS EFFECT"))//|| (!isButtonPressed && Input.GetKeyDown(KeyCode.LeftArrow)))
         {
             isButtonPressed = true;
             ChangeCurrent(-1);
         }
-        if (GUI.Button(new Rect(160*dpiScale, 15*dpiScale, 135*dpiScale, 37*dpiScale), "NEXT EFFECT") || (!isButtonPressed && Input.GetKeyDown(KeyCode.RightArrow)))
+        if (GUI.Button(new Rect(160 * dpiScale, 15 * dpiScale, 135 * dpiScale, 37 * dpiScale), "NEXT EFFECT"))//|| (!isButtonPressed && Input.GetKeyDown(KeyCode.RightArrow)))
         {
             isButtonPressed = true;
             ChangeCurrent(+1);
         }
         var offset = 0f;
 
-        if (GUI.Button(new Rect(10*dpiScale, 63*dpiScale + offset, 285*dpiScale, 37*dpiScale), "Day / Night") || (!isButtonPressed && Input.GetKeyDown(KeyCode.DownArrow)))
+        if (GUI.Button(new Rect(10 * dpiScale, 63 * dpiScale + offset, 285 * dpiScale, 37 * dpiScale), "Day / Night"))//|| (!isButtonPressed && Input.GetKeyDown(KeyCode.DownArrow)))
         {
             ChangeDayNight();
         }
 
+
         GUI.Label(new Rect(350 * dpiScale, 15 * dpiScale + offset / 2, 500 * dpiScale, 20 * dpiScale),
             "press left mouse button for the camera rotating and scroll wheel for zooming", guiStyleHeader);
-        GUI.Label(new Rect(350*dpiScale, 35*dpiScale + offset / 2, 160*dpiScale, 20*dpiScale),
+        GUI.Label(new Rect(350 * dpiScale, 35 * dpiScale + offset / 2, 160 * dpiScale, 20 * dpiScale),
             "prefab name is: " + Prefabs[currentNomber].name, guiStyleHeader);
 
 
-       // GUI.DrawTexture(new Rect(12*dpiScale, 120*dpiScale + offset, 285*dpiScale, 15*dpiScale), HUETexture, ScaleMode.StretchToFill, false, 0);
+        // GUI.DrawTexture(new Rect(12*dpiScale, 120*dpiScale + offset, 285*dpiScale, 15*dpiScale), HUETexture, ScaleMode.StretchToFill, false, 0);
 
 
         //        float oldColorHUE = colorHUE;
@@ -109,6 +112,7 @@ public class RFX4_DemoGUI : MonoBehaviour
         //}
     }
 
+
     private void ChangeDayNight()
     {
         isButtonPressed = true;
@@ -128,12 +132,13 @@ public class RFX4_DemoGUI : MonoBehaviour
     }
 
 
-    void ChangeCurrent(int delta) {
-		currentNomber+=delta;
-		if (currentNomber> Prefabs.Length - 1)
-			currentNomber = 0;
-		else if (currentNomber < 0)
-			currentNomber = Prefabs.Length - 1;
+    void ChangeCurrent(int delta)
+    {
+        currentNomber += delta;
+        if (currentNomber > Prefabs.Length - 1)
+            currentNomber = 0;
+        else if (currentNomber < 0)
+            currentNomber = Prefabs.Length - 1;
 
         if (currentInstance != null)
         {
@@ -143,11 +148,11 @@ public class RFX4_DemoGUI : MonoBehaviour
 
         currentInstance = Instantiate(Prefabs[currentNomber]);
 
-       // if (!UsePCVersion)
-       // {
-       //     currentInstance.transform.rotation = transform.rotation;
-       //     currentInstance.transform.position = transform.position;
-       // }
+        // if (!UsePCVersion)
+        // {
+        //     currentInstance.transform.rotation = transform.rotation;
+        //     currentInstance.transform.position = transform.position;
+        // }
         if (ReactivationTimes.Length == Prefabs.Length)
         {
             CancelInvoke();
@@ -161,7 +166,7 @@ public class RFX4_DemoGUI : MonoBehaviour
         var allGO = FindObjectsOfType<GameObject>();
         foreach (var go in allGO)
         {
-            if(go.name.Contains("(Clone)")) Destroy(go);
+            if (go.name.Contains("(Clone)")) Destroy(go);
         }
     }
 

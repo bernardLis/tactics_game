@@ -90,13 +90,30 @@ public class BattleAbilityManager : MonoBehaviour
         }
     }
 
-    void ButtonOneClick(InputAction.CallbackContext context) { HighlightAbilityArea(_abilities[0]); }
+    void ButtonOneClick(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
 
-    void ButtonTwoClick(InputAction.CallbackContext context) { HighlightAbilityArea(_abilities[1]); }
+        HighlightAbilityArea(_abilities[0]);
+    }
 
-    void ButtonThreeClick(InputAction.CallbackContext context) { HighlightAbilityArea(_abilities[2]); }
+    void ButtonTwoClick(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        HighlightAbilityArea(_abilities[1]);
+    }
 
-    void ButtonFourClick(InputAction.CallbackContext context) { HighlightAbilityArea(_abilities[3]); }
+    void ButtonThreeClick(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        HighlightAbilityArea(_abilities[2]);
+    }
+
+    void ButtonFourClick(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        HighlightAbilityArea(_abilities[3]);
+    }
 
     void HighlightAbilityArea(Ability ability)
     {
@@ -130,32 +147,46 @@ public class BattleAbilityManager : MonoBehaviour
     {
         if (_selectedAbility == null) yield break;
 
+
         GameObject instance = Instantiate(_selectedAbility.EffectPrefab, _selectedAbilityArea.transform.position, Quaternion.identity);
         List<BattleEntity> entities = new(_selectedAbilityArea.GetEntitiesInArea());
 
         _selectedAbilityArea.IsHighlightingEnabled = false;
         _selectedAbilityArea.ClearHighlightedEntities();
-        
+        CancelAbilityHighlight();
+
+        if (_selectedAbility == _abilities[0])
+            yield return ExecuteFireball(instance, entities);
+        if (_selectedAbility == _abilities[1])
+            yield return ExecuteFreeze(instance, entities);
+
+    }
+
+    IEnumerator ExecuteFireball(GameObject effectInstance, List<BattleEntity> entities)
+    {
         foreach (BattleEntity entity in entities)
             StartCoroutine(entity.GetHit(null, _selectedAbility));
 
-        CancelAbilityHighlight();
-        yield return new WaitForSeconds(3f); 
-        yield return instance.transform.DOScale(0f, 1f).WaitForCompletion();
-        Destroy(instance);
+        yield return new WaitForSeconds(3f);
+        yield return effectInstance.transform.DOScale(0f, 1f).WaitForCompletion();
+        Destroy(effectInstance);
+    }
+
+    IEnumerator ExecuteFreeze(GameObject effectInstance, List<BattleEntity> entities)
+    {
+        // TODO: freeze entities
+        // spawn effect on each entity
+        // prevent them from moving for 2 seconds
 
         yield return null;
     }
 
     void CancelAbilityHighlight()
     {
-        Debug.Log($"cancel abiliy highlight");
         if (_selectedAbility == null) return;
         _selectedAbility = null;
 
         if (_selectedAbilityArea == null) return;
-        Debug.Log($"de stroy _selectedAbilityArea");
-
         Destroy(_selectedAbilityArea.gameObject);
     }
 

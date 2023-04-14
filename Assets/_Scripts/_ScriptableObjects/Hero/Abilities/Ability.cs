@@ -17,6 +17,8 @@ public class Ability : BaseScriptableObject
     [Header("Battle GameObjects")]
     public GameObject AreaHighlightPrefab;
     public GameObject EffectPrefab;
+    public GameObject EntityEffectPrefab;
+
 
     [Header("Other")]
     public int SpiceCost = 1;
