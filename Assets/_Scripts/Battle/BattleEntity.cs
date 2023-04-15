@@ -33,11 +33,15 @@ public class BattleEntity : MonoBehaviour
 
     bool _gettingHit;
     public bool IsDead { get; private set; }
+    public bool IsFrozen;
 
     MMF_Player _feelPlayer;
 
     public event Action<float> OnHealthChanged;
     public event Action<BattleEntity> OnDeath;
+
+    IEnumerator _runEntityCoroutine;
+
 
     void Start()
     {
@@ -68,8 +72,21 @@ public class BattleEntity : MonoBehaviour
 
         _opponentList = opponents;
 
+        StartRunEntityCoroutine();
         // HERE: ability testing
-        StartCoroutine(RunEntity());
+    }
+
+    public void StopRunEntityCoroutine()
+    {
+        Debug.Log($"stop coroutine");
+        _agent.enabled = false;
+        StopCoroutine(_runEntityCoroutine);
+    }
+
+    public void StartRunEntityCoroutine()
+    {
+        _runEntityCoroutine = RunEntity();
+        StartCoroutine(_runEntityCoroutine);
     }
 
     IEnumerator RunEntity()

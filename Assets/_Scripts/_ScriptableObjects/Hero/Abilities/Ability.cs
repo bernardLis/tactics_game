@@ -15,9 +15,7 @@ public class Ability : BaseScriptableObject
     public Element Element;
 
     [Header("Battle GameObjects")]
-    public GameObject AreaHighlightPrefab;
-    public GameObject EffectPrefab;
-    public GameObject EntityEffectPrefab;
+    public GameObject AbilityExecutorPrefab;
 
 
     [Header("Other")]

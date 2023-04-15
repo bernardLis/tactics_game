@@ -16,7 +16,8 @@ public class BattleAbilityManager : MonoBehaviour
     List<Ability> _abilities = new();
 
     Ability _selectedAbility;
-    BattleAbilityArea _selectedAbilityArea;
+    AbilityExecutor _abilityExecutor;
+    //BattleAbilityArea _selectedAbilityArea;
 
 
     // Start is called before the first frame update
@@ -117,77 +118,34 @@ public class BattleAbilityManager : MonoBehaviour
 
     void HighlightAbilityArea(Ability ability)
     {
-        if (_selectedAbility != null) CancelAbilityHighlight();
+        if (_selectedAbility != null) CancelAbility();
 
         _selectedAbility = ability;
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-        GameObject instance = Instantiate(_selectedAbility.AreaHighlightPrefab, worldPos, Quaternion.identity);
-        _selectedAbilityArea = instance.GetComponent<BattleAbilityArea>();
+        _abilityExecutor = Instantiate(_selectedAbility.AbilityExecutorPrefab, Vector3.zero, Quaternion.identity)
+                .GetComponent<AbilityExecutor>();
+        _abilityExecutor.HighlightAbilityArea();
     }
 
     void LeftMouseClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
         if (this == null) return;
+        if (_abilityExecutor == null) return;
 
-        StartCoroutine(ExecuteAbility());
+        _abilityExecutor.ExecuteAbility(_selectedAbility);
     }
 
     void RightMouseClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
         if (this == null) return;
-
-        CancelAbilityHighlight();
+        CancelAbility();
     }
 
-    // TODO: this should per ability...
-    IEnumerator ExecuteAbility()
+    void CancelAbility()
     {
-        if (_selectedAbility == null) yield break;
-
-
-        GameObject instance = Instantiate(_selectedAbility.EffectPrefab, _selectedAbilityArea.transform.position, Quaternion.identity);
-        List<BattleEntity> entities = new(_selectedAbilityArea.GetEntitiesInArea());
-
-        _selectedAbilityArea.IsHighlightingEnabled = false;
-        _selectedAbilityArea.ClearHighlightedEntities();
-        CancelAbilityHighlight();
-
-        if (_selectedAbility == _abilities[0])
-            yield return ExecuteFireball(instance, entities);
-        if (_selectedAbility == _abilities[1])
-            yield return ExecuteFreeze(instance, entities);
-
-    }
-
-    IEnumerator ExecuteFireball(GameObject effectInstance, List<BattleEntity> entities)
-    {
-        foreach (BattleEntity entity in entities)
-            StartCoroutine(entity.GetHit(null, _selectedAbility));
-
-        yield return new WaitForSeconds(3f);
-        yield return effectInstance.transform.DOScale(0f, 1f).WaitForCompletion();
-        Destroy(effectInstance);
-    }
-
-    IEnumerator ExecuteFreeze(GameObject effectInstance, List<BattleEntity> entities)
-    {
-        // TODO: freeze entities
-        // spawn effect on each entity
-        // prevent them from moving for 2 seconds
-
-        yield return null;
-    }
-
-    void CancelAbilityHighlight()
-    {
-        if (_selectedAbility == null) return;
+        if (_abilityExecutor == null) return;
+        _abilityExecutor.CancelAbility();
         _selectedAbility = null;
-
-        if (_selectedAbilityArea == null) return;
-        Destroy(_selectedAbilityArea.gameObject);
     }
-
 }
