@@ -31,6 +31,8 @@ public class AbilityExecutor : MonoBehaviour
 
     public void ExecuteAbility(Ability ability)
     {
+        _selectedAbility = ability;
+
         _effectInstance = Instantiate(_effectPrefab, _areaHighlightInstance.transform.position, Quaternion.identity);
         _entitiesInArea = new(_areaHighlightInstance.GetEntitiesInArea());
 
@@ -45,17 +47,17 @@ public class AbilityExecutor : MonoBehaviour
         yield return null;
     }
 
-    public void CancelAbility()
-    {
-        ClearAbilityHighlight();
-        ClearEffect();
-        Invoke("DestroySelf", 0.1f);
-    }
+    public void CancelAbility() { Invoke("DestroySelf", 3f); }
 
-    void ClearEffect()
+    public void ClearEffect()
     {
         if (_effectInstance == null) return;
         Destroy(_effectInstance.gameObject);
     }
-    void DestroySelf() { Destroy(gameObject); }
+
+    void DestroySelf()
+    {
+        ClearEffect();
+        Destroy(gameObject);
+    }
 }

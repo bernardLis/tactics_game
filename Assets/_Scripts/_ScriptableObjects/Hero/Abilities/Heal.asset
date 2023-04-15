@@ -18,5 +18,6 @@ MonoBehaviour:
   BasePower: 10
   ManaCost: 0
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  AbilityExecutorPrefab: {fileID: 2929320073763685354, guid: 1d91d80bd9faffe4099a6df87fd47064, type: 3}
   SpiceCost: 1
   StarRank: 0

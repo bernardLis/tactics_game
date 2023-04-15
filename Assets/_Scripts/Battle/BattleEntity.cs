@@ -177,18 +177,24 @@ public class BattleEntity : MonoBehaviour
         projectile.Shoot(this, _opponent, 20, Stats.Power);
     }
 
-
-    void Celebrate()
-    {
-        transform.LookAt(Camera.main.transform);
-        transform.DOJump(transform.position + Vector3.up * Random.Range(0.2f, 1.5f), 1, 1, 1f)
-                .SetEase(Ease.Linear)
-                .SetLoops(-1)
-                .SetDelay(Random.Range(0.5f, 1f));
-    }
-
     public float GetTotalHealth() { return Stats.Health; }
     public float GetCurrentHealth() { return _currentHealth; }
+
+    public void GetHealed(Ability ability)
+    {
+        float value = ability.BasePower;
+        _currentHealth += value;
+        if (_currentHealth > Stats.Health)
+            _currentHealth = Stats.Health;
+
+        MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
+        floatingText.Value = value.ToString();
+        floatingText.ForceColor = true;
+        floatingText.AnimateColorGradient = GetDamageTextGradient(ability.Element.Color);
+        _feelPlayer.PlayFeedbacks(transform.position);
+
+        OnHealthChanged?.Invoke(_currentHealth);
+    }
 
     public IEnumerator GetHit(BattleEntity attacker, Ability ability = null)
     {
@@ -254,10 +260,17 @@ public class BattleEntity : MonoBehaviour
         return gradient;
     }
 
+    void Celebrate()
+    {
+        transform.LookAt(Camera.main.transform);
+        transform.DOJump(transform.position + Vector3.up * Random.Range(0.2f, 1.5f), 1, 1, 1f)
+                .SetEase(Ease.Linear)
+                .SetLoops(-1)
+                .SetDelay(Random.Range(0.5f, 1f));
+    }
+
     public IEnumerator Die()
     {
-        //  _agent.enabled = false;
-
         IsDead = true;
         OnDeath?.Invoke(this);
         yield return new WaitForSeconds(0.2f);
