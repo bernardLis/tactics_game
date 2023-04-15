@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 2532911905608435003}
   - component: {fileID: 6020162713100736849}
   - component: {fileID: 5744492981369730018}
+  - component: {fileID: -4052892424936829354}
   m_Layer: 0
   m_Name: Square Entity Earth
   m_TagString: Enemy
@@ -333,7 +334,7 @@ MonoBehaviour:
   _hurtSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   _elementImage: {fileID: 5347679666563359644}
   GFX: {fileID: 9187932155516179885}
-  DamageFeedback: {fileID: 0}
+  IsFrozen: 0
 --- !u!114 &5744492981369730018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +539,18 @@ MonoBehaviour:
         PositionMode: 1
         TargetTransform: {fileID: 0}
         Direction: {x: 0, y: 0, z: 0}
+--- !u!114 &-4052892424936829354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020162713100736850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e09ea11e1d0f146aee6eae26062784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6267424903450404875
 GameObject:
   m_ObjectHideFlags: 0

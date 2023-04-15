@@ -23,8 +23,6 @@ public class BattleAbilityArea : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
         {
-            Debug.DrawLine(ray.origin, hit.point);
-
             Vector3 pos = new Vector3(hit.point.x - 2f, 0f, hit.point.z);
             transform.position = pos;
         }

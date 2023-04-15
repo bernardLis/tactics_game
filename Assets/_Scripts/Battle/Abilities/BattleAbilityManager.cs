@@ -17,7 +17,8 @@ public class BattleAbilityManager : MonoBehaviour
 
     Ability _selectedAbility;
     AbilityExecutor _abilityExecutor;
-    //BattleAbilityArea _selectedAbilityArea;
+
+    public bool IsAbilitySelected { get; private set; }
 
 
     // Start is called before the first frame update
@@ -119,6 +120,7 @@ public class BattleAbilityManager : MonoBehaviour
     void HighlightAbilityArea(Ability ability)
     {
         if (_selectedAbility != null) CancelAbility();
+        IsAbilitySelected = true;
 
         _selectedAbility = ability;
         _abilityExecutor = Instantiate(_selectedAbility.AbilityExecutorPrefab, Vector3.zero, Quaternion.identity)
@@ -133,6 +135,7 @@ public class BattleAbilityManager : MonoBehaviour
         if (_abilityExecutor == null) return;
 
         _abilityExecutor.ExecuteAbility(_selectedAbility);
+        IsAbilitySelected = false;
     }
 
     void RightMouseClick(InputAction.CallbackContext context)
@@ -145,6 +148,8 @@ public class BattleAbilityManager : MonoBehaviour
     void CancelAbility()
     {
         if (_abilityExecutor == null) return;
+        IsAbilitySelected = false;
+        _abilityExecutor.ClearAbilityHighlight();
         _abilityExecutor.CancelAbility();
         _selectedAbility = null;
     }

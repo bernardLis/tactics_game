@@ -73,12 +73,10 @@ public class BattleEntity : MonoBehaviour
         _opponentList = opponents;
 
         StartRunEntityCoroutine();
-        // HERE: ability testing
     }
 
     public void StopRunEntityCoroutine()
     {
-        Debug.Log($"stop coroutine");
         _agent.enabled = false;
         StopCoroutine(_runEntityCoroutine);
     }

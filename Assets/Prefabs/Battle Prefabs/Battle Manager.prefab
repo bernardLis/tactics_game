@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5119385659013104318}
   - component: {fileID: 5119385659013104315}
   - component: {fileID: 5119385659013104314}
+  - component: {fileID: 1771743886305221010}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -68,14 +69,6 @@ MonoBehaviour:
   _textMesh: {fileID: 0}
   _playerMaterial: {fileID: 2100000, guid: b0ddfd1fc6ff1f14eb7de1078c47e074, type: 2}
   _enemyMaterial: {fileID: 2100000, guid: 648682c2568381d4595031dc35e45713, type: 2}
-  _enemyStats:
-  - {fileID: 11400000, guid: 7755c329c516513459f13843e129b595, type: 2}
-  - {fileID: 11400000, guid: a58400b4a0cee7d4b8cf4e881b6bcf23, type: 2}
-  _playerStats:
-  - {fileID: 11400000, guid: 3b5e3441a71fce848a266b6897ff1af2, type: 2}
-  - {fileID: 11400000, guid: 60a1c4fcce5045946b4c157a6e324579, type: 2}
-  _playerPrefab: {fileID: 7990464852557116123, guid: d7f649c141ad9914e85803daac667681, type: 3}
-  _enemyPrefab: {fileID: 6020162713100736850, guid: b52bea9135da3e64394969419223c932, type: 3}
   _playerSpawnPoint: {fileID: 0}
   _enemySpawnPoint: {fileID: 0}
   PlayerEntities: []
@@ -92,8 +85,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42de93ffb45e1ef4aadd5e3fed61bec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _abilityAreaPrefab: {fileID: 4773166559872586498, guid: b3bc736e64fcee244a14a8a676a0bd0c, type: 3}
-  _effect: {fileID: 141900, guid: 994aac8c46b05f849b78294465816eb1, type: 3}
 --- !u!114 &5119385659013104314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,5 +95,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41fecc272b4585543bfd21746d4d2eb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1771743886305221010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 796afca0ad479f34f8de55fede3b83d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -66,6 +66,7 @@ public class BattleManager : MonoBehaviour
         {
             Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
             GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
+            instance.layer = 8;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
             be.Initialize(_playerMaterial, entityInstance, ref EnemyEntities);

@@ -416,6 +416,7 @@ GameObject:
   - component: {fileID: 3093629607898666960}
   - component: {fileID: 1535334616468719875}
   - component: {fileID: 1892242359531457263}
+  - component: {fileID: -9073476052855765026}
   m_Layer: 0
   m_Name: Tictac Entity Water
   m_TagString: Player
@@ -527,7 +528,7 @@ MonoBehaviour:
   _hurtSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   _elementImage: {fileID: 5498723126299956721}
   GFX: {fileID: 7896399672384279658}
-  DamageFeedback: {fileID: 0}
+  IsFrozen: 0
 --- !u!114 &1892242359531457263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +733,18 @@ MonoBehaviour:
         PositionMode: 1
         TargetTransform: {fileID: 0}
         Direction: {x: 0, y: 0, z: 0}
+--- !u!114 &-9073476052855765026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7990464852557116123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e09ea11e1d0f146aee6eae26062784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8258239165505546844
 GameObject:
   m_ObjectHideFlags: 0

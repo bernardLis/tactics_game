@@ -50,7 +50,7 @@ public class RFX4_DemoGUI : MonoBehaviour
 
     }
 
-    bool isButtonPressed;
+    // bool isButtonPressed;
 
     private void OnGUI()
     {
@@ -60,12 +60,12 @@ public class RFX4_DemoGUI : MonoBehaviour
 
         if (GUI.Button(new Rect(10 * dpiScale, 15 * dpiScale, 135 * dpiScale, 37 * dpiScale), "PREVIOUS EFFECT"))//|| (!isButtonPressed && Input.GetKeyDown(KeyCode.LeftArrow)))
         {
-            isButtonPressed = true;
+            //   isButtonPressed = true;
             ChangeCurrent(-1);
         }
         if (GUI.Button(new Rect(160 * dpiScale, 15 * dpiScale, 135 * dpiScale, 37 * dpiScale), "NEXT EFFECT"))//|| (!isButtonPressed && Input.GetKeyDown(KeyCode.RightArrow)))
         {
-            isButtonPressed = true;
+            //  isButtonPressed = true;
             ChangeCurrent(+1);
         }
         var offset = 0f;
@@ -115,7 +115,7 @@ public class RFX4_DemoGUI : MonoBehaviour
 
     private void ChangeDayNight()
     {
-        isButtonPressed = true;
+        //   isButtonPressed = true;
         if (ReflectionProbe != null) ReflectionProbe.RenderProbe();
         Sun.intensity = !isDay ? 0.05f : startSunIntensity;
         Sun.shadows = isDay ? startLightShadows : LightShadows.None;
