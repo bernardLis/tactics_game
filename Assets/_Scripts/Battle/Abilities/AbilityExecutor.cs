@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class AbilityExecutor : MonoBehaviour
 {
@@ -23,11 +24,6 @@ public class AbilityExecutor : MonoBehaviour
                 .GetComponent<BattleAbilityArea>();
     }
 
-    public void ClearAbilityHighlight()
-    {
-        if (_areaHighlightInstance == null) return;
-        Destroy(_areaHighlightInstance.gameObject);
-    }
 
     public void ExecuteAbility(Ability ability)
     {
@@ -47,7 +43,14 @@ public class AbilityExecutor : MonoBehaviour
         yield return null;
     }
 
-    public void CancelAbility() { Invoke("DestroySelf", 3f); }
+    public void CancelAbility() { Invoke("DestroySelf", 0.1f); }
+
+    public void ClearAbilityHighlight()
+    {
+        if (_areaHighlightInstance == null) return;
+        DOTween.Kill(_areaHighlightInstance.transform);
+        Destroy(_areaHighlightInstance.gameObject);
+    }
 
     public void ClearEffect()
     {
