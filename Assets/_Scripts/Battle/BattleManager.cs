@@ -53,6 +53,8 @@ public class BattleManager : MonoBehaviour
             InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
         foreach (ArmyGroup ag in _loadedBattle.Army)
             InstantiateEnemy(ag.ArmyEntity, ag.EntityCount);
+
+        _gameManager.ToggleTimer(true);
     }
 
     void Update() => _skyMat.SetFloat(_rotationProperty, Time.time * _skyboxRotationSpeed);

@@ -11,13 +11,21 @@ public class Ability : BaseScriptableObject
     public string Description = "New Description";
     public Sprite Icon;
     public int Level;
-    public int BasePower;
     public int ManaCost;
+    public int BasePower;
+    public int BaseCooldown;
+    public int BaseScale;
+
     public Element Element;
 
     [Header("Battle GameObjects")]
     public GameObject AbilityExecutorPrefab;
 
+    public event Action OnCooldownStarted;
+    public void StartCooldown()
+    {
+        OnCooldownStarted?.Invoke();
+    }
 
     public void LoadFromData(AbilityData data)
     {

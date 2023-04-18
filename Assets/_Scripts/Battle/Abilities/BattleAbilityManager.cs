@@ -157,6 +157,7 @@ public class BattleAbilityManager : MonoBehaviour
             b.ClearHighlight();
 
         _abilityExecutor.ExecuteAbility(_selectedAbility);
+        _selectedAbility.StartCooldown();
         IsAbilitySelected = false;
     }
 

@@ -24,9 +24,10 @@ public class AbilityExecutor : MonoBehaviour
                 .GetComponent<BattleAbilityArea>();
     }
 
-
     public void ExecuteAbility(Ability ability)
     {
+        if (_areaHighlightInstance == null) return;
+        
         _selectedAbility = ability;
 
         _effectInstance = Instantiate(_effectPrefab, _areaHighlightInstance.transform.position, Quaternion.identity);

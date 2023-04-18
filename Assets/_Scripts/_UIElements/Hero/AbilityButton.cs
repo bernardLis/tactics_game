@@ -8,8 +8,6 @@ public class AbilityButton : ElementWithSound
     public string Key;
     public Ability Ability;
 
-    VisualElement _overlay;
-
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonButtonBasic = "common__button-basic";
 
@@ -18,6 +16,8 @@ public class AbilityButton : ElementWithSound
     const string _ussHighlight = _ussClassName + "highlight";
 
     const string _ussOverlay = _ussClassName + "overlay";
+
+    OverlayTimerElement _cooldownTimer;
 
     public AbilityButton(Ability ability, string key = null) : base()
     {
@@ -29,6 +29,7 @@ public class AbilityButton : ElementWithSound
             styleSheets.Add(ss);
 
         Ability = ability;
+        Ability.OnCooldownStarted += StartCooldown;
         Key = key;
 
         AddToClassList(_ussMain);
@@ -37,6 +38,21 @@ public class AbilityButton : ElementWithSound
 
         _icon = new AbilityIcon(ability, key);
         Add(_icon);
+    }
+
+    void StartCooldown()
+    {
+        SetEnabled(false);
+        _cooldownTimer = new OverlayTimerElement(Ability.BaseCooldown, Ability.BaseCooldown, false, "");
+        _icon.Add(_cooldownTimer);
+        _cooldownTimer.OnTimerFinished += OnCooldownFinished;
+    }
+
+    void OnCooldownFinished()
+    {
+        SetEnabled(true);
+        _cooldownTimer.OnTimerFinished -= OnCooldownFinished; // TODO: is it necessary?
+        _icon.Remove(_cooldownTimer);
     }
 
     public void Highlight()
