@@ -47,10 +47,6 @@
     flex-grow: 1;
 }
 
-.hero-stats-card__element-position {
-    position: absolute;
-}
-
 .hero-stats-card__exp-container {
     align-content: center;
     width: 100%;

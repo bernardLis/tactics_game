@@ -33,7 +33,6 @@ public class HeroStatsCard : VisualElement
     const string _ussBottomLeftPanel = _ussClassName + "bottom-left-panel";
     const string _ussBottomRightPanel = _ussClassName + "bottom-right-panel";
 
-    const string _ussElementPosition = _ussClassName + "element-position";
     const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussManaContainer = _ussClassName + "mana-container";
 
@@ -76,7 +75,6 @@ public class HeroStatsCard : VisualElement
         Add(bottomPanel);
 
         Hero.OnRankChanged += OnRankChanged;
-        Hero.OnElementChanged += OnElementChanged;
 
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
@@ -92,7 +90,6 @@ public class HeroStatsCard : VisualElement
     void OnPanelDetached(DetachFromPanelEvent evt)
     {
         Hero.OnRankChanged -= OnRankChanged;
-        Hero.OnElementChanged -= OnElementChanged;
     }
 
     void PopulateTopLeftPanel(VisualElement container)
@@ -106,7 +103,6 @@ public class HeroStatsCard : VisualElement
     {
         VisualElement elementAndRank = new();
         elementAndRank.style.flexDirection = FlexDirection.Row;
-        elementAndRank.Add(CreateElementalElement());
         elementAndRank.Add(CreateRankElement());
         container.Add(elementAndRank);
 
@@ -134,13 +130,6 @@ public class HeroStatsCard : VisualElement
     void PopulateBottomRightPanel(VisualElement container)
     {
         container.AddToClassList(_ussBottomRightPanel);
-    }
-
-    VisualElement CreateElementalElement()
-    {
-        _elementalElement = new ElementalElement(Hero.Element);
-        _elementalElement.AddToClassList(_ussElementPosition);
-        return _elementalElement;
     }
 
     VisualElement CreateRankElement()

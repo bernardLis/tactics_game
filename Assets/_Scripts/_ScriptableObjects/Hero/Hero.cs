@@ -30,7 +30,6 @@ public class Hero : BaseScriptableObject
     public Stat Armor { get; private set; }
     public Stat Speed { get; private set; }
 
-    public Element Element;
     public HeroRank Rank { get; private set; }
 
     [Header("Items")]
@@ -266,7 +265,6 @@ public class Hero : BaseScriptableObject
 
         Level.SetValue(1);
         Experience.SetValue(0);
-        Element = _gameManager.HeroDatabase.GetElementByName(ElementName.Earth);
 
         BaseMana.SetValue(30);
 
@@ -308,7 +306,6 @@ public class Hero : BaseScriptableObject
 
         Level.SetValue(level);
         Experience.SetValue(0);
-        Element = _gameManager.HeroDatabase.GetElementByName(ElementName.Earth);
 
         BaseMana.SetValue(30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level);
 
@@ -346,7 +343,6 @@ public class Hero : BaseScriptableObject
 
         Level.SetValue(data.Level);
         Experience.SetValue(data.Experience);
-        Element = _gameManager.HeroDatabase.GetElementByName((ElementName)System.Enum.Parse(typeof(ElementName), data.Element));
 
         BaseMana.SetValue(data.BaseMana);
         BasePower.SetValue(data.BasePower);
@@ -396,7 +392,6 @@ public class Hero : BaseScriptableObject
         data.Portrait = Portrait.Id;
         data.Level = Level.Value;
         data.Experience = Experience.Value;
-        data.Element = Element.ElementName.ToString();
 
         data.BaseMana = BaseMana.Value;
         data.BasePower = BasePower.Value;
@@ -437,7 +432,6 @@ public struct HeroData
     public string Portrait;
     public int Level;
     public int Experience;
-    public string Element;
 
     public int BaseMana;
     public int BasePower;
