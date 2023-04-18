@@ -10,7 +10,6 @@ public class HeroStatsCard : VisualElement
     public Hero Hero;
 
     public HeroPortraitElement PortraitVisualElement;
-    StarRankElement _rankElement;
     ElementalElement _elementalElement;
     Label _title;
     Label _level;
@@ -81,11 +80,8 @@ public class HeroStatsCard : VisualElement
 
     void OnRankChanged(HeroRank rank)
     {
-        _rankElement.SetRank(rank.Rank);
         _title.text = $"[{rank.Title}] {Hero.HeroName}";
     }
-
-    void OnElementChanged(Element element) { _elementalElement.ChangeElement(element); }
 
     void OnPanelDetached(DetachFromPanelEvent evt)
     {
@@ -101,11 +97,6 @@ public class HeroStatsCard : VisualElement
 
     void PopulateTopRightPanel(VisualElement container)
     {
-        VisualElement elementAndRank = new();
-        elementAndRank.style.flexDirection = FlexDirection.Row;
-        elementAndRank.Add(CreateRankElement());
-        container.Add(elementAndRank);
-
         _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
         container.Add(_title);
 
@@ -130,12 +121,6 @@ public class HeroStatsCard : VisualElement
     void PopulateBottomRightPanel(VisualElement container)
     {
         container.AddToClassList(_ussBottomRightPanel);
-    }
-
-    VisualElement CreateRankElement()
-    {
-        _rankElement = new(Hero.Rank.Rank, 0.5f);
-        return _rankElement;
     }
 
     VisualElement CreateExpGroup()

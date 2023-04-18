@@ -23,4 +23,11 @@ public static class Scenes
         get { return "Cutscene"; }
         private set { }
     }
+
+    public static string Battle
+    {
+        get { return "Battle"; }
+        private set { }
+    }
+
 }

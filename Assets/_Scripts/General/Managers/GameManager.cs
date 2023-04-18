@@ -63,7 +63,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         HeroDatabase.Initialize();
 
         // HERE: battle testing
-        LoadFromSaveFile();
+         LoadFromSaveFile();
         SelectedBattle.Hero = PlayerHero;
     }
 
@@ -89,7 +89,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void StartGame()
     {
-        LoadLevel(Scenes.Map);
+        LoadLevel(Scenes.Battle);
         IsTimerOn = true;
     }
 
