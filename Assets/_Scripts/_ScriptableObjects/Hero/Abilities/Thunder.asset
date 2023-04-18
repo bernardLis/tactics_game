@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f069b0f2-3350-4a88-b093-e851008d9b12
   Description: Thunderinno! Jumps from target to target dealing dmg.
-  Icon: {fileID: 21300000, guid: 38093eefa189a104b9157acbc6a1b805, type: 3}
+  Icon: {fileID: 21300000, guid: a32194b91d70b6a49a10d6fed56ad25d, type: 3}
+  Level: 0
   BasePower: 10
   ManaCost: 0
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   AbilityExecutorPrefab: {fileID: 8656372026121413001, guid: 2cd0d38ad734f814aa9b33d46e87d753, type: 3}
-  SpiceCost: 1
-  StarRank: 0

@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 53d40d49-b351-4d80-97d1-46a31749e5ff
   Description: Eating ice cream = brain freeze!
-  Icon: {fileID: 21300000, guid: 37bb13c83ceb24541aef8f7a9921f85b, type: 3}
+  Icon: {fileID: 21300000, guid: ad4985dfa7f9ecf41a583101ce088a71, type: 3}
+  Level: 0
   BasePower: 10
   ManaCost: 0
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   AbilityExecutorPrefab: {fileID: 2256416241831629224, guid: 5770bd13787d8a04dac4c8ed95990294, type: 3}
-  SpiceCost: 1
-  StarRank: 0

@@ -11,6 +11,7 @@ public class AbilityButton : ElementWithSound
     VisualElement _overlay;
 
     const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonButtonBasic = "common__button-basic";
 
     const string _ussClassName = "ability-button__";
     const string _ussMain = _ussClassName + "main";
@@ -30,6 +31,7 @@ public class AbilityButton : ElementWithSound
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
+        AddToClassList(_ussCommonButtonBasic);
 
         _icon = new AbilityIcon(ability, key);
         Add(_icon);

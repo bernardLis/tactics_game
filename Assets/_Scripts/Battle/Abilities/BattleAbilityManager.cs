@@ -91,12 +91,13 @@ public class BattleAbilityManager : MonoBehaviour
         VisualElement container = new();
         container.AddToClassList(_ussAbilityContainer);
         bottomPanel.Add(container);
-
+        int i = 1;
         foreach (Ability ability in _abilities)
         {
-            AbilityButton button = new(ability);
+            AbilityButton button = new(ability, i.ToString());
             button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability));
             container.Add(button);
+            i++;
         }
     }
 

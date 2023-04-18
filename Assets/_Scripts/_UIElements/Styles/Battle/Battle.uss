@@ -4,6 +4,6 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/paper_top_3.png?fileID=2800000&guid=1c82d5cd4cd83d64da900bf60820ca37&type=3#paper_top_3');
     padding-left: 40px;
     padding-right: 40px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
