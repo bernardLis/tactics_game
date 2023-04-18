@@ -8,7 +8,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/ResourceBarStyles.uss?fileID=7433441132597879392&amp;guid=fd3c461a5e9409b40a91dec9c08cf28a&amp;type=3#ResourceBarStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StarRankElementStyles.uss?fileID=7433441132597879392&amp;guid=d7df27be43e873a44b6156bc8a574926&amp;type=3#StarRankElementStyles" />
-    <ui:VisualElement name="HeroCardContainer" style="flex-grow: 1; background-color: rgba(250, 150, 150, 0.45); width: 50%; height: 20%; position: absolute; bottom: 0;" />
-    <ui:VisualElement name="AbilityContainer" style="flex-grow: 1; background-color: rgba(164, 164, 164, 0.27); width: 50%; height: 20%; bottom: 0; position: absolute; align-items: center; justify-content: space-between; flex-direction: row; right: 0;" />
+    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: center;" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
 </ui:UXML>

@@ -27,10 +27,7 @@ public class HeroStatsCard : VisualElement
     const string _ussMain = _ussClassName + "main";
     const string _ussTopPanel = _ussClassName + "top-panel";
     const string _ussTopLeftPanel = _ussClassName + "top-left-panel";
-
-    const string _ussBottomPanel = _ussClassName + "bottom-panel";
-    const string _ussBottomLeftPanel = _ussClassName + "bottom-left-panel";
-    const string _ussBottomRightPanel = _ussClassName + "bottom-right-panel";
+    const string _ussTopMiddlePanel = _ussClassName + "top-middle-panel";
 
     const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussManaContainer = _ussClassName + "mana-container";
@@ -54,24 +51,17 @@ public class HeroStatsCard : VisualElement
         VisualElement topPanel = new();
         topPanel.AddToClassList(_ussTopPanel);
         VisualElement topLeftPanel = new();
+        VisualElement topMiddlePanel = new();
         VisualElement topRightPanel = new();
         topPanel.Add(topLeftPanel);
+        topPanel.Add(topMiddlePanel);
         topPanel.Add(topRightPanel);
 
-        VisualElement bottomPanel = new();
-        bottomPanel.AddToClassList(_ussBottomPanel);
-        VisualElement bottomLeftPanel = new();
-        VisualElement bottomRightPanel = new();
-        bottomPanel.Add(bottomLeftPanel);
-        bottomPanel.Add(bottomRightPanel);
-
         PopulateTopLeftPanel(topLeftPanel);
+        PopulateTopMiddlePanel(topMiddlePanel);
         PopulateTopRightPanel(topRightPanel);
-        PopulateBottomLeftPanel(bottomLeftPanel);
-        PopulateBottomRightPanel(bottomRightPanel);
 
         Add(topPanel);
-        Add(bottomPanel);
 
         Hero.OnRankChanged += OnRankChanged;
 
@@ -95,18 +85,9 @@ public class HeroStatsCard : VisualElement
         container.Add(PortraitVisualElement);
     }
 
-    void PopulateTopRightPanel(VisualElement container)
+    void PopulateTopMiddlePanel(VisualElement container)
     {
-        _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
-        container.Add(_title);
-
-        container.Add(CreateManaGroup());
-        container.Add(CreateExpGroup());
-    }
-
-    void PopulateBottomLeftPanel(VisualElement container)
-    {
-        container.AddToClassList(_ussBottomLeftPanel);
+        container.AddToClassList(_ussTopMiddlePanel);
 
         HeroDatabase db = _gameManager.HeroDatabase;
         _power = new(db.GetStatIconByName("Power"), Hero.Power);
@@ -116,11 +97,16 @@ public class HeroStatsCard : VisualElement
         container.Add(_power);
         container.Add(_armor);
         container.Add(_speed);
+
     }
 
-    void PopulateBottomRightPanel(VisualElement container)
+    void PopulateTopRightPanel(VisualElement container)
     {
-        container.AddToClassList(_ussBottomRightPanel);
+        _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
+        container.Add(_title);
+
+        container.Add(CreateManaGroup());
+        container.Add(CreateExpGroup());
     }
 
     VisualElement CreateExpGroup()

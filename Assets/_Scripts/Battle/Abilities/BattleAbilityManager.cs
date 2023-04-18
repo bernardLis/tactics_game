@@ -81,14 +81,14 @@ public class BattleAbilityManager : MonoBehaviour
 
     void AddAbilityButtons()
     {
-        VisualElement abilityContainer = _root.Q<VisualElement>("AbilityContainer");
+        VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
         _abilities = _gameManager.HeroDatabase.GetAllAbilities();
 
         foreach (Ability ability in _abilities)
         {
             AbilityButton button = new(ability);
             button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability));
-            abilityContainer.Add(button);
+            bottomPanel.Add(button);
         }
     }
 

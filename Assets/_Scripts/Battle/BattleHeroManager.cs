@@ -18,11 +18,11 @@ public class BattleHeroManager : MonoBehaviour
 
     void AddHeroCard()
     {
-        VisualElement heroCardContainer = _root.Q<VisualElement>("HeroCardContainer");
+        VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
         Hero hero = _gameManager.SelectedBattle.Hero;
 
         HeroStatsCard card = new(hero);
-        heroCardContainer.Add(card);
+        bottomPanel.Add(card);
     }
 
 }
