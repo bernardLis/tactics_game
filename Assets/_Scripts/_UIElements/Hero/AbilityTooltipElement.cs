@@ -40,10 +40,7 @@ public class AbilityTooltipElement : ElementWithTooltip
         Label manaCost = new("Mana cost: " + ability.ManaCost.ToString());
         manaCost.AddToClassList(_ussCommonTextSecondary);
 
-        StarRankElement rank = new(ability.StarRank, 0.5f);
-
         Add(container);
-        Add(rank);
         Add(description);
         Add(baseDamage);
         Add(manaCost);

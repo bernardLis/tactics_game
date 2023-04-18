@@ -40,9 +40,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
-
-    [SerializeField] List<AbilityNodeGraph> _abilityNodeGraphs = new();
-
     public Map Map;
     public Battle SelectedBattle; // HERE: battle testing { get; private set; }
 
@@ -138,9 +135,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    public List<AbilityNodeGraph> GetAbilityNodeGraphs() { return _abilityNodeGraphs; }
-    public AbilityNodeGraph GetAbilityNodeGraphById(string id) { return _abilityNodeGraphs.FirstOrDefault(x => x.Id == id); }
-
     /* Troops & pouches */
     public List<Hero> GetAllHeroes()
     {
@@ -229,9 +223,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerHero = null;
         FriendHero = null;
 
-        foreach (AbilityNodeGraph g in _abilityNodeGraphs)
-            g.ResetNodes();
-
         Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
         Map = Instantiate(templateMap);
         Map.Reset();
@@ -283,8 +274,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.AbilityPouch = PopulateAbilityPouch();
 
-        saveData.AbilityNodeGraphs = PopulateAbilityNodeGraphs();
-
         saveData.MapData = Map.SerializeSelf();
     }
 
@@ -313,14 +302,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             abilityData.Add(a.SerializeSelf());
 
         return abilityData;
-    }
-
-    List<AbilityNodeGraphData> PopulateAbilityNodeGraphs()
-    {
-        List<AbilityNodeGraphData> data = new();
-        foreach (AbilityNodeGraph g in _abilityNodeGraphs)
-            data.Add(g.SerializeSelf());
-        return data;
     }
 
     void LoadJsonData(string fileName)
@@ -381,9 +362,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             PlayerAbilityPouch.Add(a);
         }
 
-        foreach (AbilityNodeGraphData data in saveData.AbilityNodeGraphs)
-            GetAbilityNodeGraphById(data.Id).LoadFromData(data);
-
         Map = ScriptableObject.CreateInstance<Map>();
         Map.LoadFromData(saveData.MapData);
     }
@@ -407,9 +385,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Troops = new();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();
-
-        foreach (AbilityNodeGraph g in _abilityNodeGraphs)
-            g.ResetNodes();
 
         Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
         Map = Instantiate(templateMap);

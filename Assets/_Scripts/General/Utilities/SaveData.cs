@@ -22,8 +22,6 @@ public class SaveData
     public List<ItemData> ItemPouch = new();
     public List<AbilityData> AbilityPouch = new();
 
-    public List<AbilityNodeGraphData> AbilityNodeGraphs = new();
-
     public MapData MapData;
 
     public string ToJson() { return JsonUtility.ToJson(this); }

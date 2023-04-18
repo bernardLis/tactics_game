@@ -10,6 +10,7 @@ public class Ability : BaseScriptableObject
     [Header("Base Characteristics")]
     public string Description = "New Description";
     public Sprite Icon;
+    public int Level;
     public int BasePower;
     public int ManaCost;
     public Element Element;
@@ -18,9 +19,10 @@ public class Ability : BaseScriptableObject
     public GameObject AbilityExecutorPrefab;
 
 
-    [Header("Other")]
-    public int SpiceCost = 1;
-    public int StarRank = 0;
+    public void LoadFromData(AbilityData data)
+    {
+        Level = data.Level;
+    }
 
     public AbilityData SerializeSelf()
     {
@@ -30,7 +32,7 @@ public class Ability : BaseScriptableObject
 
         data.TemplateId = Id;
 
-        data.Name = name;
+        data.Level = Level;
         return data;
     }
 }
@@ -40,5 +42,5 @@ public struct AbilityData
 {
     public string TemplateId;
     public string Name;
-    public int TimeLeftToCrafted;
+    public int Level;
 }

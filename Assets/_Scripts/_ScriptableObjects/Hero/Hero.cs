@@ -215,9 +215,6 @@ public class Hero : BaseScriptableObject
                 total += 8;
         }
 
-        foreach (Ability a in Abilities)
-            total += a.StarRank;
-
         return total;
     }
 
@@ -354,7 +351,7 @@ public class Hero : BaseScriptableObject
         foreach (AbilityData abilityData in data.AbilityData)
         {
             Ability a = Instantiate(heroDatabase.GetAbilityById(abilityData.TemplateId));
-            a.name = abilityData.Name;
+            a.LoadFromData(abilityData);
             Abilities.Add(a);
         }
 
