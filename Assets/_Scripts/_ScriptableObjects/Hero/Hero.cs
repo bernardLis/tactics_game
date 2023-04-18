@@ -272,7 +272,7 @@ public class Hero : BaseScriptableObject
         CreateStats();
 
         Items = new();
-        Abilities = new();
+        Abilities = new(_gameManager.HeroDatabase.GetAllAbilities());
 
         UpdateRank();
 

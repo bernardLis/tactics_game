@@ -60,7 +60,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         HeroDatabase.Initialize();
 
         // HERE: battle testing
-         LoadFromSaveFile();
+        LoadFromSaveFile();
         SelectedBattle.Hero = PlayerHero;
     }
 

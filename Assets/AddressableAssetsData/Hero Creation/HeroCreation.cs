@@ -27,7 +27,6 @@ public class HeroCreation : MonoBehaviour
 
     bool _isPlayerCreated;
     Vector2 _playerMapPosition = new(-8.5f, -6.5f);
-    Vector2 _friendMapPosition = new(-5.5f, -10.5f);
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +72,6 @@ public class HeroCreation : MonoBehaviour
 
         _portraitButtonContainer.Add(_previousPortraitButton);
         _portraitButtonContainer.Add(_nextPortraitButton);
-
     }
 
     void PreviousPortrait()
@@ -102,29 +100,18 @@ public class HeroCreation : MonoBehaviour
 
     void Submit()
     {
-        if (_isPlayerCreated)
-        {
-            CreateHero(_friendMapPosition);
-            StartGame();
-            _gameManager.SaveJsonData();
-            return;
-        }
-
         CreateHero(_playerMapPosition);
         _isPlayerCreated = true;
 
-        _nameField.label = "What's your friend's name:";
-        _nameField.value = "Fren";
-
-        _portraitTextLabel.text = "How do they look like?";
-        _currentPortraitIndex = Random.Range(0, _heroPortraits.Count);
-        _portrait.style.backgroundImage = new StyleBackground(_heroPortraits[_currentPortraitIndex].Sprite);
-
+        
+        StartGame();
+        _gameManager.SaveJsonData();
     }
 
     void CreateHero(Vector2 mapPosition)
     {
         Debug.Log($"Creating hero: {_nameField.value}");
+
         // TODO: an effect would be nice.
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
         newChar.CreateFromHeroCreation(_nameField.value, _heroPortraits[_currentPortraitIndex], mapPosition);
@@ -142,7 +129,4 @@ public class HeroCreation : MonoBehaviour
         Debug.Log($"Starting game");
         _gameManager.StartGame();
     }
-
-
-
 }

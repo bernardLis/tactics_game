@@ -8,6 +8,7 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/ResourceBarStyles.uss?fileID=7433441132597879392&amp;guid=fd3c461a5e9409b40a91dec9c08cf28a&amp;type=3#ResourceBarStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StarRankElementStyles.uss?fileID=7433441132597879392&amp;guid=d7df27be43e873a44b6156bc8a574926&amp;type=3#StarRankElementStyles" />
-    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: center;" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Battle.uss?fileID=7433441132597879392&amp;guid=1b4751c5a5ad48049928f5760ebc628b&amp;type=3#Battle" />
+    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: flex-end;" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
 </ui:UXML>

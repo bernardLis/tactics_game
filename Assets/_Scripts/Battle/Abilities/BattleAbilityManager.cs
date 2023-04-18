@@ -8,6 +8,10 @@ using DG.Tweening;
 
 public class BattleAbilityManager : MonoBehaviour
 {
+    const string _ussClassName = "battle__";
+    const string _ussAbilityContainer = _ussClassName + "ability-container";
+
+
     GameManager _gameManager;
     VisualElement _root;
 
@@ -82,13 +86,17 @@ public class BattleAbilityManager : MonoBehaviour
     void AddAbilityButtons()
     {
         VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
-        _abilities = _gameManager.HeroDatabase.GetAllAbilities();
+        _abilities = _gameManager.SelectedBattle.Hero.Abilities;
+
+        VisualElement container = new();
+        container.AddToClassList(_ussAbilityContainer);
+        bottomPanel.Add(container);
 
         foreach (Ability ability in _abilities)
         {
             AbilityButton button = new(ability);
             button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability));
-            bottomPanel.Add(button);
+            container.Add(button);
         }
     }
 
