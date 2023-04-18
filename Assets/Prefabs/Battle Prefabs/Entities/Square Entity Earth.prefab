@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 6020162713100736849}
   - component: {fileID: 5744492981369730018}
   - component: {fileID: -4052892424936829354}
+  - component: {fileID: 8500222208581299189}
   m_Layer: 0
   m_Name: Square Entity Earth
   m_TagString: Enemy
@@ -549,6 +550,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e09ea11e1d0f146aee6eae26062784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8500222208581299189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020162713100736850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4802e7cbb6f6126499c27cf5bf8d40f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6267424903450404875

@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 1535334616468719875}
   - component: {fileID: 1892242359531457263}
   - component: {fileID: -9073476052855765026}
+  - component: {fileID: 5184039828202679584}
   m_Layer: 0
   m_Name: Tictac Entity Water
   m_TagString: Player
@@ -743,6 +744,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e09ea11e1d0f146aee6eae26062784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5184039828202679584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7990464852557116123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4802e7cbb6f6126499c27cf5bf8d40f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8258239165505546844

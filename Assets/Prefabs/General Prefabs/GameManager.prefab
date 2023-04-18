@@ -41,7 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &329089867633818112
 AudioListener:
@@ -128,6 +128,46 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ead3ea3c-67b0-4a7e-9cd1-051608458fd7
     m_ActionName: Dashboard/Shift[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9fbf538-eea3-4950-b46b-7d02b60335dd
+    m_ActionName: Battle/1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a41d09fa-6b54-4ef0-adfe-affccd87b0c4
+    m_ActionName: Battle/2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a11f8ce1-191f-48cf-8889-9031b36f2a02
+    m_ActionName: Battle/3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 15ac7324-c7ec-4d0e-a088-8eb757b62ca6
+    m_ActionName: Battle/4[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1a7ea72d-fc37-4603-bb31-fa5597b5bd78
+    m_ActionName: Battle/LeftMouseClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9379f80-4b7f-4c44-9980-5a16e80afa14
+    m_ActionName: Battle/RightMouseClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0ee4eba9-19cd-4e20-83fc-65833f2af581
+    m_ActionName: Battle/CameraMovement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a5eb88cc-9ebf-4956-8a15-80e412dd1f68
+    m_ActionName: Battle/RotateCamera[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0acae7ae-0888-49c3-a1cb-e12b00201f40
+    m_ActionName: Battle/ZoomCamera[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 096c2620-ff4b-48a7-97fc-76436ee2be5b
+    m_ActionName: Battle/CameraDefaultPosition[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Map
@@ -335,6 +375,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: cfbdbbe13acd1e0478727ccd5ed27b2b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,11 +427,6 @@ MonoBehaviour:
   FriendHero: {fileID: 0}
   PlayerItemPouch: []
   PlayerAbilityPouch: []
-  _abilityNodeGraphs:
-  - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
-  - {fileID: 11400000, guid: b490b888ee688624b9c291aa2a94e28b, type: 2}
-  - {fileID: 11400000, guid: 6bceff6e2885a224c958a51fe4e78327, type: 2}
-  - {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
   Map: {fileID: 11400000, guid: c39bdc5d1affc7c4e95ffa66e020f48f, type: 2}
   SelectedBattle: {fileID: 11400000, guid: a21f9f7f650aa8b4f80779c5aeb09d75, type: 2}
 --- !u!114 &2154333484900981486

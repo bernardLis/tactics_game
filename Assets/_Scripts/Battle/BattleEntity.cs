@@ -22,7 +22,7 @@ public class BattleEntity : MonoBehaviour
     const string _tweenHighlightId = "_tweenHighlightId";
 
     public ArmyEntity Stats { get; private set; }
-    float _currentHealth;
+    public float CurrentHealth { get; private set; }
 
     BattleEntity _opponent;
     NavMeshAgent _agent;
@@ -42,7 +42,6 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator _runEntityCoroutine;
 
-
     void Start()
     {
         _feelPlayer = GetComponent<MMF_Player>();
@@ -56,9 +55,8 @@ public class BattleEntity : MonoBehaviour
 
     public void Initialize(Material mat, ArmyEntity stats, ref List<BattleEntity> opponents)
     {
-
         Stats = stats;
-        _currentHealth = stats.Health;
+        CurrentHealth = stats.Health;
 
         _originalMaterial = mat;
         GFX.GetComponent<MeshRenderer>().material = _originalMaterial;
@@ -176,14 +174,14 @@ public class BattleEntity : MonoBehaviour
     }
 
     public float GetTotalHealth() { return Stats.Health; }
-    public float GetCurrentHealth() { return _currentHealth; }
+    public float GetCurrentHealth() { return CurrentHealth; }
 
     public void GetHealed(Ability ability)
     {
         float value = ability.BasePower;
-        _currentHealth += value;
-        if (_currentHealth > Stats.Health)
-            _currentHealth = Stats.Health;
+        CurrentHealth += value;
+        if (CurrentHealth > Stats.Health)
+            CurrentHealth = Stats.Health;
 
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = value.ToString();
@@ -191,7 +189,7 @@ public class BattleEntity : MonoBehaviour
         floatingText.AnimateColorGradient = GetDamageTextGradient(ability.Element.Color);
         _feelPlayer.PlayFeedbacks(transform.position);
 
-        OnHealthChanged?.Invoke(_currentHealth);
+        OnHealthChanged?.Invoke(CurrentHealth);
     }
 
     public IEnumerator GetHit(BattleEntity attacker, Ability ability = null)
@@ -218,10 +216,10 @@ public class BattleEntity : MonoBehaviour
         _feelPlayer.PlayFeedbacks(transform.position);
 
         _gettingHit = true;
-        _currentHealth -= dmg;
-        OnHealthChanged?.Invoke(_currentHealth);
+        CurrentHealth -= dmg;
+        OnHealthChanged?.Invoke(CurrentHealth);
 
-        if (_currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             if (attacker != null) attacker.IncreaseKillCount();
             yield return Die();
