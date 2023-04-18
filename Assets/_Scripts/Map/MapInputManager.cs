@@ -271,7 +271,7 @@ public class MapInputManager : Singleton<MapInputManager>
             if (lengthCheckPath.error) yield break;
 
             // range left is x100
-            if (Mathf.CeilToInt(lengthCheckPath.GetTotalLength()) <= SelectedHero.RangeLeft.Value * 0.01)
+            if (Mathf.CeilToInt(lengthCheckPath.GetTotalLength()) <= SelectedHero.RangeLeft.Value)
             {
                 _reachablePoints.Add(pos);
                 _reachableDestination = pos;

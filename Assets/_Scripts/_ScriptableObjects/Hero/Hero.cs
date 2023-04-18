@@ -9,7 +9,6 @@ public class Hero : BaseScriptableObject
 {
     public static int MaxHeroArmySlots = 5;
 
-    static Vector2Int MaxHealthGainPerLevelRange = new(100, 210);
     static Vector2Int MaxManaGainPerLevelRange = new(50, 110);
 
     GameManager _gameManager;
@@ -21,13 +20,11 @@ public class Hero : BaseScriptableObject
     public IntVariable Level;
     public IntVariable Experience;
 
-    public IntVariable BaseHealth;
     public IntVariable BaseMana;
     public IntVariable BasePower;
     public IntVariable BaseArmor;
     public IntVariable BaseSpeed;
 
-    public Stat Health { get; private set; }
     public Stat Mana { get; private set; }
     public Stat Power { get; private set; }
     public Stat Armor { get; private set; }
@@ -52,7 +49,6 @@ public class Hero : BaseScriptableObject
     public List<ArmyGroup> Army = new();
 
     public event Action<HeroRank> OnRankChanged;
-    public event Action<Element> OnElementChanged;
     public event Action<Injury> OnInjuryAdded;
 
     public void AddArmy(ArmyGroup armyGroup)
@@ -62,6 +58,7 @@ public class Hero : BaseScriptableObject
         Army.Add(armyGroup);
         _gameManager.SaveJsonData();
     }
+
     public void RemoveArmy(ArmyGroup armyGroup)
     {
         Debug.Log($"Hero {name} removes {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
@@ -140,7 +137,6 @@ public class Hero : BaseScriptableObject
         Level.ApplyChange(1);
         Experience.SetValue(0);
 
-        BaseHealth.ApplyChange(Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y));
         BaseMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
 
         AudioManager.Instance.PlaySFX("LevelUp", Vector3.one);
@@ -148,32 +144,22 @@ public class Hero : BaseScriptableObject
         UpdateRank();
     }
 
-    public void AddPower() { BasePower.ApplyChange(100); }
+    public void AddPower() { BasePower.ApplyChange(1); }
 
-    public void AddArmor() { BaseArmor.ApplyChange(100); }
+    public void AddArmor() { BaseArmor.ApplyChange(1); }
 
-    public void AddSpeed() { BaseSpeed.ApplyChange(100); }
+    public void AddSpeed() { BaseSpeed.ApplyChange(1); }
 
     public void AddAbility(Ability ability)
     {
         Abilities.Add(ability);
         UpdateRank();
-        UpdateElement(ability.Element);
     }
 
     public void RemoveAbility(Ability ability)
     {
         Abilities.Remove(ability);
         UpdateRank();
-        UpdateElement(_gameManager.HeroDatabase.GetElementByName(ElementName.Earth));
-    }
-
-    void UpdateElement(Element element)
-    {
-        if (element == Element)
-            return;
-        Element = element;
-        OnElementChanged?.Invoke(element);
     }
 
     public void AddItem(Item item)
@@ -193,8 +179,6 @@ public class Hero : BaseScriptableObject
     void UpdateStat(StatType type, int value)
     {
         // TODO: this if statement sucks.
-        if (type == StatType.Health)
-            Health.ApplyBonusValueChange(value);
         if (type == StatType.Mana)
             Mana.ApplyBonusValueChange(value);
         if (type == StatType.Power)
@@ -242,7 +226,6 @@ public class Hero : BaseScriptableObject
     {
         Level = ScriptableObject.CreateInstance<IntVariable>();
         Experience = ScriptableObject.CreateInstance<IntVariable>();
-        BaseHealth = ScriptableObject.CreateInstance<IntVariable>();
         BaseMana = ScriptableObject.CreateInstance<IntVariable>();
         BasePower = ScriptableObject.CreateInstance<IntVariable>();
         BaseArmor = ScriptableObject.CreateInstance<IntVariable>();
@@ -251,11 +234,6 @@ public class Hero : BaseScriptableObject
 
     void CreateStats()
     {
-        Health = ScriptableObject.CreateInstance<Stat>();
-        Health.StatType = StatType.Health;
-        Health.SetBaseValue(BaseHealth.Value);
-        BaseHealth.OnValueChanged += Health.SetBaseValue;
-
         Mana = ScriptableObject.CreateInstance<Stat>();
         Mana.StatType = StatType.Mana;
         Mana.SetBaseValue(BaseMana.Value);
@@ -290,12 +268,11 @@ public class Hero : BaseScriptableObject
         Experience.SetValue(0);
         Element = _gameManager.HeroDatabase.GetElementByName(ElementName.Earth);
 
-        BaseHealth.SetValue(1000);
-        BaseMana.SetValue(300);
+        BaseMana.SetValue(30);
 
-        BasePower.SetValue(500);
+        BasePower.SetValue(5);
         BaseArmor.SetValue(0);
-        BaseSpeed.SetValue(300);
+        BaseSpeed.SetValue(3);
 
         CreateStats();
 
@@ -333,7 +310,6 @@ public class Hero : BaseScriptableObject
         Experience.SetValue(0);
         Element = _gameManager.HeroDatabase.GetElementByName(ElementName.Earth);
 
-        BaseHealth.SetValue(100 + Random.Range(MaxHealthGainPerLevelRange.x, MaxHealthGainPerLevelRange.y) * level);
         BaseMana.SetValue(30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level);
 
         int totalPointsLeft = level;
@@ -372,7 +348,6 @@ public class Hero : BaseScriptableObject
         Experience.SetValue(data.Experience);
         Element = _gameManager.HeroDatabase.GetElementByName((ElementName)System.Enum.Parse(typeof(ElementName), data.Element));
 
-        BaseHealth.SetValue(data.BaseHealth);
         BaseMana.SetValue(data.BaseMana);
         BasePower.SetValue(data.BasePower);
         BaseArmor.SetValue(data.BaseArmor);
@@ -411,7 +386,6 @@ public class Hero : BaseScriptableObject
         }
 
         UpdateRank();
-        UpdateElement(Element);
     }
 
     public HeroData SerializeSelf()
@@ -424,7 +398,6 @@ public class Hero : BaseScriptableObject
         data.Experience = Experience.Value;
         data.Element = Element.ElementName.ToString();
 
-        data.BaseHealth = BaseHealth.Value;
         data.BaseMana = BaseMana.Value;
         data.BasePower = BasePower.Value;
         data.BaseArmor = BaseArmor.Value;
@@ -466,7 +439,6 @@ public struct HeroData
     public int Experience;
     public string Element;
 
-    public int BaseHealth;
     public int BaseMana;
     public int BasePower;
     public int BaseArmor;
@@ -475,7 +447,6 @@ public struct HeroData
     public List<AbilityData> AbilityData;
     public List<string> ItemIds;
 
-    public bool IsAssigned;
     public List<InjuryData> InjuryData;
 
     public int DayAddedToTroops;

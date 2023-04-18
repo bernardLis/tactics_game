@@ -11,7 +11,6 @@ public class HeroStatsCard : VisualElement
 
     public HeroPortraitElement PortraitVisualElement;
     StarRankElement _rankElement;
-    GoldElement _wageGoldElement;
     ElementalElement _elementalElement;
     Label _title;
     Label _level;
@@ -21,21 +20,9 @@ public class HeroStatsCard : VisualElement
     StatElement _speed;
 
     public ResourceBarElement ExpBar;
-    public ResourceBarElement HealthBar;
     public ResourceBarElement ManaBar;
 
-    public List<ItemSlot> ItemSlots = new();
-    public List<ItemElement> ItemElements = new();
-
-    public List<AbilitySlot> AbilitySlots = new();
-
-    VisualElement _levelUpAnimationContainer;
-
-    bool _showOnlyExp;
-
     const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonTextSecondary = "common__text-secondary";
-
 
     const string _ussClassName = "hero-stats-card__";
     const string _ussMain = _ussClassName + "main";
@@ -48,7 +35,6 @@ public class HeroStatsCard : VisualElement
 
     const string _ussElementPosition = _ussClassName + "element-position";
     const string _ussExpContainer = _ussClassName + "exp-container";
-    const string _ussHealthContainer = _ussClassName + "health-container";
     const string _ussManaContainer = _ussClassName + "mana-container";
 
     public HeroStatsCard(Hero hero)
@@ -95,7 +81,6 @@ public class HeroStatsCard : VisualElement
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
     }
 
-
     void OnRankChanged(HeroRank rank)
     {
         _rankElement.SetRank(rank.Rank);
@@ -128,10 +113,10 @@ public class HeroStatsCard : VisualElement
         _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
         container.Add(_title);
 
-        container.Add(CreateHealthGroup());
         container.Add(CreateManaGroup());
         container.Add(CreateExpGroup());
     }
+
     void PopulateBottomLeftPanel(VisualElement container)
     {
         container.AddToClassList(_ussBottomLeftPanel);
@@ -180,22 +165,6 @@ public class HeroStatsCard : VisualElement
         ExpBar.Add(_level);
 
         container.Add(ExpBar);
-        return container;
-    }
-
-    VisualElement CreateHealthGroup()
-    {
-        VisualElement container = new();
-        container.AddToClassList(_ussHealthContainer);
-
-        // TODO: this should be handled differently.
-        IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
-        currentHealth.SetValue(Hero.Health.GetValue());
-        Hero.Health.OnValueChanged += currentHealth.SetValue;
-
-        HealthBar = new(Helpers.GetColor("healthBarRed"), "Health", currentHealth, totalValueStat: Hero.Health);
-        container.Add(HealthBar);
-
         return container;
     }
 

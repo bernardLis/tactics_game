@@ -56,22 +56,7 @@
     width: 100%;
 }
 
-.hero-stats-card__health-container {
-    flex-direction: row;
-    width: 100%;
-}
-
 .hero-stats-card__mana-container {
     flex-direction: row;
     width: 100%;
-}
-
-.hero-stats-card__overlay {
-    position: Absolute;
-    width: 100%;
-    height: 100%;
-    align-self: center;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
 }
