@@ -22,6 +22,8 @@ public class BattleAbilityManager : MonoBehaviour
     Ability _selectedAbility;
     AbilityExecutor _abilityExecutor;
 
+    List<AbilityButton> _abilityButtons = new();
+
     public bool IsAbilitySelected { get; private set; }
 
 
@@ -97,6 +99,7 @@ public class BattleAbilityManager : MonoBehaviour
             AbilityButton button = new(ability, i.ToString());
             button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability));
             container.Add(button);
+            _abilityButtons.Add(button);
             i++;
         }
     }
@@ -106,24 +109,31 @@ public class BattleAbilityManager : MonoBehaviour
         if (!context.performed) return;
 
         HighlightAbilityArea(_abilities[0]);
+        _abilityButtons[0].Highlight();
     }
 
     void ButtonTwoClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+
         HighlightAbilityArea(_abilities[1]);
+        _abilityButtons[1].Highlight();
     }
 
     void ButtonThreeClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+
         HighlightAbilityArea(_abilities[2]);
+        _abilityButtons[2].Highlight();
     }
 
     void ButtonFourClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+
         HighlightAbilityArea(_abilities[3]);
+        _abilityButtons[3].Highlight();
     }
 
     void HighlightAbilityArea(Ability ability)
@@ -143,6 +153,9 @@ public class BattleAbilityManager : MonoBehaviour
         if (this == null) return;
         if (_abilityExecutor == null) return;
 
+        foreach (AbilityButton b in _abilityButtons)
+            b.ClearHighlight();
+
         _abilityExecutor.ExecuteAbility(_selectedAbility);
         IsAbilitySelected = false;
     }
@@ -157,6 +170,10 @@ public class BattleAbilityManager : MonoBehaviour
     void CancelAbility()
     {
         if (_abilityExecutor == null) return;
+
+        foreach (AbilityButton b in _abilityButtons)
+            b.ClearHighlight();
+
         IsAbilitySelected = false;
         _abilityExecutor.ClearAbilityHighlight();
         _abilityExecutor.CancelAbility();

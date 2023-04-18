@@ -15,6 +15,8 @@ public class AbilityButton : ElementWithSound
 
     const string _ussClassName = "ability-button__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussHighlight = _ussClassName + "highlight";
+
     const string _ussOverlay = _ussClassName + "overlay";
 
     public AbilityButton(Ability ability, string key = null) : base()
@@ -35,5 +37,15 @@ public class AbilityButton : ElementWithSound
 
         _icon = new AbilityIcon(ability, key);
         Add(_icon);
+    }
+
+    public void Highlight()
+    {
+        AddToClassList(_ussHighlight);
+    }
+    public void ClearHighlight()
+    {
+        RemoveFromClassList(_ussHighlight);
+
     }
 }

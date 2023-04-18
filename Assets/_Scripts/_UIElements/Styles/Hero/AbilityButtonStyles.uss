@@ -12,6 +12,11 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_square_red.png?fileID=2800000&guid=d5183af672c40874285ec21bae4a2514&type=3#Button_square_red');
 }
 
+.ability-button__highlight {
+    opacity: 1;
+    scale: 1.05 1.05;
+}
+
 .ability-button__overlay {
     position: Absolute;
     width: 100%;
