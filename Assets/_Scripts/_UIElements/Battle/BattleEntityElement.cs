@@ -22,16 +22,21 @@ public class BattleEntityElement : VisualElement
 
         AddToClassList(_ussMain);
 
-        Add(new ElementalElement(_stats.Element));
-        Add(new Label($"Name: {_stats.Name}"));
-        Add(new Label($"Health: {_battleEntity.CurrentHealth} / {_stats.Health}"));
-        Add(new Label($"Killed enemies: {_battleEntity.KilledEnemiesCount}"));
+        VisualElement leftContainer = new();
+        VisualElement rightContainer = new();
+        Add(leftContainer);
+        Add(rightContainer);
 
-        Add(new Label($"Power: {_stats.Power}"));
-        Add(new Label($"Armor: {_stats.Armor}"));
-        Add(new Label($"Attack Range: {_stats.AttackRange}"));
-        Add(new Label($"Attack Cooldown: {_stats.AttackCooldown}"));
-        Add(new Label($"Speed: {_stats.Speed}"));
+        leftContainer.Add(new ElementalElement(_stats.Element));
+        leftContainer.Add(new Label($"Name: {_stats.Name}"));
+        leftContainer.Add(new Label($"Health: {_battleEntity.CurrentHealth} / {_stats.Health}"));
+        leftContainer.Add(new Label($"Killed enemies: {_battleEntity.KilledEnemiesCount}"));
+
+        rightContainer.Add(new Label($"Power: {_stats.Power}"));
+        rightContainer.Add(new Label($"Armor: {_stats.Armor}"));
+        rightContainer.Add(new Label($"Attack Range: {_stats.AttackRange}"));
+        rightContainer.Add(new Label($"Attack Cooldown: {_stats.AttackCooldown}"));
+        rightContainer.Add(new Label($"Speed: {_stats.Speed}"));
     }
 
 
