@@ -107,11 +107,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1dbd63513c7627546afc3aacbe651377
-    m_Address: AbilityNodeStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 75cc4cb1b795ae34ba2022af2dfc4bbb
     m_Address: SettingsMenuStyles
     m_ReadOnly: 0

@@ -5,8 +5,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroPortraitStyles.uss?fileID=7433441132597879392&amp;guid=30cb1d7da388bcd46bd5f2295479366d&amp;type=3#HeroPortraitStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/GoldElementStyles.uss?fileID=7433441132597879392&amp;guid=6210ce5dd6c012b4da866162ac0c703d&amp;type=3#GoldElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StarRankElementStyles.uss?fileID=7433441132597879392&amp;guid=d7df27be43e873a44b6156bc8a574926&amp;type=3#StarRankElementStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/AbilityCraftingStyles.uss?fileID=7433441132597879392&amp;guid=90a7bf61797fcec4e83cdb041270e5c1&amp;type=3#AbilityCraftingStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/AbilityNodeStyles.uss?fileID=7433441132597879392&amp;guid=1dbd63513c7627546afc3aacbe651377&amp;type=3#AbilityNodeStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityButtonStyles.uss?fileID=7433441132597879392&amp;guid=1dcb0d843bcae2d4cb844a89c93bd82d&amp;type=3#AbilityButtonStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/SpiceElementStyles.uss?fileID=7433441132597879392&amp;guid=63f1a6af3aabe544aa3592a0a0d767a6&amp;type=3#SpiceElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/BarMiniGameStyles.uss?fileID=7433441132597879392&amp;guid=4bba9aca015f7e445805ecebf6b39c78&amp;type=3#BarMiniGameStyles" />

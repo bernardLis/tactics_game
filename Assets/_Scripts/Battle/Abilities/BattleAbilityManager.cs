@@ -148,8 +148,6 @@ public class BattleAbilityManager : MonoBehaviour
             return;
         }
 
-        _hero.CurrentMana.ApplyChange(-ability.GetManaCost());
-
         abilityButton.Highlight();
         IsAbilitySelected = true;
 
@@ -169,6 +167,7 @@ public class BattleAbilityManager : MonoBehaviour
             b.ClearHighlight();
 
         _abilityExecutor.ExecuteAbility(_selectedAbility);
+        _hero.CurrentMana.ApplyChange(-_selectedAbility.GetManaCost());
         _selectedAbility.StartCooldown();
         IsAbilitySelected = false;
     }
