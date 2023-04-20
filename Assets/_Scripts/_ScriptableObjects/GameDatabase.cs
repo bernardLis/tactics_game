@@ -14,19 +14,10 @@ public class GameDatabase : BaseScriptableObject
 
     [Header("Dashboard")]
     [SerializeField] Sprite[] CoinSprites;
-    [SerializeField] Reward[] Rewards;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
     [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
-
-    public Reward GetRewardByRank(int rank) { return Rewards.FirstOrDefault(x => x.Rank == rank); }
-    public Reward GetRewardByQuestRank(int rank)
-    {
-        List<Reward> r = Rewards.OrderBy(o => o.Rank).ToList();
-        int rewardRank = Mathf.Clamp(rank + Random.Range(-1, 2), r.First().Rank, r.Last().Rank);
-        return GetRewardByRank(rewardRank);
-    }
 
     public Sprite GetCoinSprite(int amount)
     {

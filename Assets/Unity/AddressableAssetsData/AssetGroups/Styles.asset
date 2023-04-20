@@ -137,11 +137,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1e5fca1dceaeb1f4bab0703760687dd3
-    m_Address: RewardContainerStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 55a2dab2e6ce8254ca54368106c488d6
     m_Address: TimerElementStyles
     m_ReadOnly: 0
@@ -204,6 +199,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cfbdbbe13acd1e0478727ccd5ed27b2b
     m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleEntityElementStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29783fdbff911524d91b668919352943
+    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/RewardCardStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

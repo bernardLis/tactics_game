@@ -30,7 +30,7 @@ public class BattleResult : FullScreenElement
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        // TODO: different styles
+        // TODO: different styles won/lost
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.QuestResultStyles);
         if (ss != null)
             styleSheets.Add(ss);
@@ -45,7 +45,6 @@ public class BattleResult : FullScreenElement
         {
             AddToClassList(_ussWonMain);
             _audioManager.PlaySFX("QuestWon", Vector3.one);
-
         }
         else
         {
@@ -57,9 +56,9 @@ public class BattleResult : FullScreenElement
         Add(_content);
         _content.AddToClassList(_ussContent);
 
-        AddHeroCard(battle);
         AddEntityWithMostKills(entities);
-
+        AddHeroCard(battle);
+        AddRewardCards();
 
         _backToMapButton = new("Back", _ussCommonMenuButton, LoadMap);
         _content.Add(_backToMapButton);
@@ -83,7 +82,24 @@ public class BattleResult : FullScreenElement
     void AddHeroCard(Battle battle)
     {
         HeroCardQuest card = new HeroCardQuest(battle.Hero);
+        if (battle.Won)
+            battle.Hero.GetExp(100);
         _content.Add(card);
+    }
+
+    void AddRewardCards()
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        _content.Add(container);
+
+        for (int i = 0; i < 3; i++)
+        {
+            Reward reward = ScriptableObject.CreateInstance<Reward>();
+            reward.CreateRandom();
+            RewardCard card = new RewardCard(reward);
+            container.Add(card);
+        }
     }
 
     void LoadMap() { _gameManager.LoadMap(); }

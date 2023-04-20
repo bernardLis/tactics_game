@@ -16,7 +16,6 @@ public class BattleGrabbableEntity : MonoBehaviour, IPointerDownHandler, IPointe
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
         _isPointerDown = true;
         StartCoroutine(Grab());
     }
@@ -32,6 +31,4 @@ public class BattleGrabbableEntity : MonoBehaviour, IPointerDownHandler, IPointe
         if (!_isPointerDown) yield break;
         _grabManager.TryGrabbing(GetComponent<BattleEntity>());
     }
-
-
 }

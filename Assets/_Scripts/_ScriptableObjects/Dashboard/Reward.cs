@@ -9,11 +9,8 @@ public class Reward : BaseScriptableObject
     protected GameManager _gameManager;
 
     [Header("Static")]
-    public int Rank;
     public Sprite[] ChestIdleSprites;
     public Sprite[] ChestOpenSprites;
-    public Vector2Int GoldRange;
-    public Vector2Int SpiceRange;
     public float UncommonItemChance;
     public float RareItemChance;
     public float EpicItemChance;
@@ -22,13 +19,11 @@ public class Reward : BaseScriptableObject
     [HideInInspector] public Item Item;
     [HideInInspector] public int Spice;
 
-    public virtual void Initialize()
+
+    public void CreateRandom()
     {
         _gameManager = GameManager.Instance;
 
-        Gold = Random.Range(GoldRange.x, GoldRange.y);
-        Spice = Random.Range(SpiceRange.x, SpiceRange.y);
-        Item = ChooseItem();
     }
 
     Item ChooseItem()
@@ -52,12 +47,4 @@ public class Reward : BaseScriptableObject
         if (Spice != 0)
             _gameManager.ChangeSpiceValue(Spice);
     }
-}
-
-[Serializable]
-public struct RewardData
-{
-    public int Gold;
-    public int Spice;
-    public string ItemId;
 }
