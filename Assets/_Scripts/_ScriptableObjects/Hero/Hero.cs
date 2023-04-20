@@ -50,6 +50,13 @@ public class Hero : BaseScriptableObject
     public event Action<HeroRank> OnRankChanged;
     public event Action<Injury> OnInjuryAdded;
 
+    public IntVariable CurrentMana;
+    public void BattleInitialize()
+    {
+        CurrentMana = ScriptableObject.CreateInstance<IntVariable>();
+        CurrentMana.SetValue(BaseMana.Value);
+    }
+
     public void AddArmy(ArmyGroup armyGroup)
     {
         Debug.Log($"Hero {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");

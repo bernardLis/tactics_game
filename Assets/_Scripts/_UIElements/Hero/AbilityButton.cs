@@ -19,6 +19,8 @@ public class AbilityButton : ElementWithSound
 
     OverlayTimerElement _cooldownTimer;
 
+    public bool IsOnCooldown { get; private set; }
+
     public AbilityButton(Ability ability, string key = null) : base()
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -42,6 +44,7 @@ public class AbilityButton : ElementWithSound
 
     void StartCooldown()
     {
+        IsOnCooldown = true;
         SetEnabled(false);
         _cooldownTimer = new OverlayTimerElement(Ability.GetCooldown(), Ability.GetCooldown(), false, "");
         _icon.Add(_cooldownTimer);
@@ -50,6 +53,7 @@ public class AbilityButton : ElementWithSound
 
     void OnCooldownFinished()
     {
+        IsOnCooldown = false;
         SetEnabled(true);
         _cooldownTimer.OnTimerFinished -= OnCooldownFinished; // TODO: is it necessary?
         _icon.Remove(_cooldownTimer);

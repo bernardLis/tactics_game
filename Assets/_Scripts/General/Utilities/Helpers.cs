@@ -55,7 +55,6 @@ public static class Helpers
 
     public static void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
     {
-        Debug.Log($"Displaying '{text}' on element: {element}");
         Label l = new Label(text);
         l.AddToClassList(_ussCommonTextPrimary);
         l.style.color = color;

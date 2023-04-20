@@ -22,6 +22,7 @@ public class BattleAbilityManager : MonoBehaviour
     Ability _selectedAbility;
     AbilityExecutor _abilityExecutor;
 
+    Hero _hero;
     List<AbilityButton> _abilityButtons = new();
 
     public bool IsAbilitySelected { get; private set; }
@@ -88,7 +89,8 @@ public class BattleAbilityManager : MonoBehaviour
     void AddAbilityButtons()
     {
         VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
-        _abilities = _gameManager.SelectedBattle.Hero.Abilities;
+        _hero = _gameManager.SelectedBattle.Hero;
+        _abilities = _hero.Abilities;
 
         VisualElement container = new();
         container.AddToClassList(_ussAbilityContainer);
@@ -97,7 +99,7 @@ public class BattleAbilityManager : MonoBehaviour
         foreach (Ability ability in _abilities)
         {
             AbilityButton button = new(ability, i.ToString());
-            button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability));
+            button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability, button));
             container.Add(button);
             _abilityButtons.Add(button);
             i++;
@@ -108,37 +110,47 @@ public class BattleAbilityManager : MonoBehaviour
     {
         if (!context.performed) return;
 
-        HighlightAbilityArea(_abilities[0]);
-        _abilityButtons[0].Highlight();
+        HighlightAbilityArea(_abilities[0], _abilityButtons[0]);
     }
 
     void ButtonTwoClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
-        HighlightAbilityArea(_abilities[1]);
-        _abilityButtons[1].Highlight();
+        HighlightAbilityArea(_abilities[1], _abilityButtons[1]);
     }
 
     void ButtonThreeClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
-        HighlightAbilityArea(_abilities[2]);
-        _abilityButtons[2].Highlight();
+        HighlightAbilityArea(_abilities[2], _abilityButtons[2]);
     }
 
     void ButtonFourClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
-        HighlightAbilityArea(_abilities[3]);
-        _abilityButtons[3].Highlight();
+        HighlightAbilityArea(_abilities[3], _abilityButtons[3]);
     }
 
-    void HighlightAbilityArea(Ability ability)
+    void HighlightAbilityArea(Ability ability, AbilityButton abilityButton)
     {
         if (_selectedAbility != null) CancelAbility();
+        if (abilityButton.IsOnCooldown)
+        {
+            Helpers.DisplayTextOnElement(_root, abilityButton, "Cool down, mate!", Color.red);
+            return;
+        }
+        if (_hero.CurrentMana.Value < ability.GetManaCost())
+        {
+            Helpers.DisplayTextOnElement(_root, abilityButton, "Not enough mana!", Color.red);
+            return;
+        }
+
+        _hero.CurrentMana.ApplyChange(-ability.GetManaCost());
+
+        abilityButton.Highlight();
         IsAbilitySelected = true;
 
         _selectedAbility = ability;
