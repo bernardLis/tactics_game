@@ -130,4 +130,12 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         BattleResult r = new(_root, _loadedBattle, entities);
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("Win Battle")]
+    void WinBattle()
+    {
+        BattleWon();
+    }
+#endif
 }

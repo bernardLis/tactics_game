@@ -10,6 +10,7 @@ public class Reward : BaseScriptableObject
 
     protected Hero _hero;
 
+    public event Action OnRewardSelected;
     public virtual void CreateRandom(Hero hero)
     {
         _gameManager = GameManager.Instance;
@@ -18,5 +19,6 @@ public class Reward : BaseScriptableObject
 
     public virtual void GetReward()
     {
+        OnRewardSelected?.Invoke();
     }
 }

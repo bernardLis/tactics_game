@@ -9,7 +9,7 @@ public class RewardAbility : Reward
 
     public bool IsUpgrade { get; private set; }
 
-    Ability _ability;
+    public Ability Ability { get; private set; }
 
     public override void CreateRandom(Hero hero)
     {
@@ -19,7 +19,7 @@ public class RewardAbility : Reward
         if (_hero.Abilities.Count == 4)
         {
             IsUpgrade = true;
-            _ability = _hero.Abilities[Random.Range(0, 4)];
+            Ability = _hero.Abilities[Random.Range(0, 4)];
             return;
         }
 
@@ -27,7 +27,7 @@ public class RewardAbility : Reward
         if (v < 0.5f)
         {
             IsUpgrade = true;
-            _ability = _hero.Abilities[Random.Range(0, _hero.Abilities.Count)];
+            Ability = _hero.Abilities[Random.Range(0, _hero.Abilities.Count)];
             return;
         }
 
@@ -38,18 +38,19 @@ public class RewardAbility : Reward
                 if (newAbility.Id == heroAbility.Id)
                     abilities.Remove(newAbility);
 
-        _ability = abilities[Random.Range(0, abilities.Count)];
+        Ability = abilities[Random.Range(0, abilities.Count)];
     }
 
     public override void GetReward()
     {
+        base.GetReward();
         if (IsUpgrade)
         {
-            _ability.Upgrade();
+            Ability.Upgrade();
             return;
         }
 
-        _hero.AddAbility(_ability);
+        _hero.AddAbility(Ability);
 
         _gameManager.SaveJsonData();
     }

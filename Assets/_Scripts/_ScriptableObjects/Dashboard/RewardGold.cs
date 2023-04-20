@@ -18,6 +18,7 @@ public class RewardGold : Reward
 
     public override void GetReward()
     {
+        base.GetReward();
         _gameManager.ChangeGoldValue(Gold);
     }
 }

@@ -16,7 +16,6 @@ public class SaveData
     public int Spice;
 
     public HeroData PlayerHero = new();
-    public HeroData FriendHero = new();
 
     public List<HeroData> PlayerTroops = new();
     public List<ItemData> ItemPouch = new();

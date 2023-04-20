@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class BattleResult : FullScreenElement
 {
-
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
@@ -21,6 +20,9 @@ public class BattleResult : FullScreenElement
 
     VisualElement _content;
     MyButton _backToMapButton;
+
+    List<RewardCard> _allRewardCards = new();
+    List<RewardCard> _selectedRewardCards = new();
 
     public BattleResult(VisualElement root, Battle battle, List<BattleEntity> entities)
     {
@@ -58,7 +60,7 @@ public class BattleResult : FullScreenElement
 
         AddEntityWithMostKills(entities);
         AddHeroCard(battle);
-        AddRewardCards();
+        AddRewardContainer();
 
         _backToMapButton = new("Back", _ussCommonMenuButton, LoadMap);
         _content.Add(_backToMapButton);
@@ -87,52 +89,73 @@ public class BattleResult : FullScreenElement
         _content.Add(card);
     }
 
-    void AddRewardCards()
+    void AddRewardContainer()
     {
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         _content.Add(container);
+        CreateRewardCards();
 
         for (int i = 0; i < 3; i++)
         {
-            RewardCard card = CreateRewardCard();
+            RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
+            _allRewardCards.Remove(card);
+            _selectedRewardCards.Add(card);
             container.Add(card);
         }
 
         // TODO: skip & reroll buttons
+
     }
 
-    RewardCard CreateRewardCard()
-    {
-        Reward reward;
-        float v = Random.value;
-        if (v < 0.25f)
-        {
-            reward = ScriptableObject.CreateInstance<RewardItem>();
-            reward.CreateRandom(_battle.Hero);
-            return new RewardCard(reward);
-        }
-        else if (v < 0.5f)
-        {
-            reward = ScriptableObject.CreateInstance<RewardAbility>();
-            reward.CreateRandom(_battle.Hero);
-            return new RewardCard(reward);
-        }
-        else if (v < 0.75f)
-        {
-            reward = ScriptableObject.CreateInstance<RewardGold>();
-            reward.CreateRandom(_battle.Hero);
-            return new RewardCard(reward);
-        }
-        else
-        {
-            reward = ScriptableObject.CreateInstance<RewardArmy>();
-            reward.CreateRandom(_battle.Hero);
-            return new RewardCard(reward);
-        }
 
+    void CreateRewardCards()
+    {
+        _allRewardCards.Add(CreateRewardCardItem());
+        _allRewardCards.Add(CreateRewardCardAbility());
+        _allRewardCards.Add(CreateRewardCardGold());
+        _allRewardCards.Add(CreateRewardCardArmy());
+    }
+
+    RewardCard CreateRewardCardItem()
+    {
+        RewardItem reward = ScriptableObject.CreateInstance<RewardItem>();
+        reward.CreateRandom(_battle.Hero);
+        reward.OnRewardSelected += RewardSelected;
+        return new RewardCardItem(reward);
+    }
+
+    RewardCard CreateRewardCardAbility()
+    {
+        RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
+        reward.CreateRandom(_battle.Hero);
+        reward.OnRewardSelected += RewardSelected;
+        return new RewardCardAbility(reward);
+    }
+
+    RewardCard CreateRewardCardGold()
+    {
+        RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
+        reward.CreateRandom(_battle.Hero);
+        reward.OnRewardSelected += RewardSelected;
+        return new RewardCardGold(reward);
+
+    }
+
+    RewardCard CreateRewardCardArmy()
+    {
+        RewardArmy reward = ScriptableObject.CreateInstance<RewardArmy>();
+        reward.CreateRandom(_battle.Hero);
+        reward.OnRewardSelected += RewardSelected;
+        return new RewardCardArmy(reward);
+    }
+
+
+    void RewardSelected()
+    {
+        foreach (RewardCard card in _selectedRewardCards)
+            card.SetEnabled(false);
     }
 
     void LoadMap() { _gameManager.LoadMap(); }
-
 }

@@ -34,7 +34,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public bool IsTimerOn { get; private set; }
 
     public Hero PlayerHero;
-    public Hero FriendHero;
     public List<Hero> Troops { get; private set; } = new();
     [HideInInspector] public List<Item> PlayerItemPouch = new();
 
@@ -139,7 +138,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         List<Hero> all = new(Troops);
         all.Add(PlayerHero);
-        all.Add(FriendHero);
         return all;
     }
 
@@ -220,7 +218,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Spice = 500;
 
         PlayerHero = null;
-        FriendHero = null;
 
         Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
         Map = Instantiate(templateMap);
@@ -264,8 +261,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         if (PlayerHero != null)
             saveData.PlayerHero = PlayerHero.SerializeSelf();
-        if (FriendHero != null)
-            saveData.FriendHero = FriendHero.SerializeSelf();
 
         saveData.PlayerTroops = PopulateTroops();
 
@@ -334,9 +329,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerHero = (Hero)ScriptableObject.CreateInstance<Hero>();
         PlayerHero.CreateFromData(saveData.PlayerHero);
 
-        FriendHero = (Hero)ScriptableObject.CreateInstance<Hero>();
-        FriendHero.CreateFromData(saveData.FriendHero);
-
         Troops = new();
         foreach (HeroData data in saveData.PlayerTroops)
         {
@@ -380,7 +372,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Spice = 0;
 
         PlayerHero = null;
-        FriendHero = null;
         Troops = new();
         PlayerItemPouch = new();
         PlayerAbilityPouch = new();

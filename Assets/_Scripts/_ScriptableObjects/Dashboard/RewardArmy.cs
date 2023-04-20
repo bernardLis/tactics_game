@@ -22,6 +22,8 @@ public class RewardArmy : Reward
 
     public override void GetReward()
     {
+        base.GetReward();
+
         _hero.AddArmy(ArmyGroup);
         _gameManager.SaveJsonData();
     }
