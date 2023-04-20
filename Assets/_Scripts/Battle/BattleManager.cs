@@ -30,6 +30,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject _playerSpawnPoint;
     [SerializeField] GameObject _enemySpawnPoint;
 
+    Hero _opponent;
+
     public List<BattleEntity> PlayerEntities = new();
     public List<BattleEntity> EnemyEntities = new();
 
@@ -48,6 +50,9 @@ public class BattleManager : MonoBehaviour
         _initRot = _skyMat.GetFloat(_rotationProperty);
 
         _textMesh.text = $"{_initialPlayerEntityCount} : {_initialEnemyEntityCount}";
+
+        _opponent = ScriptableObject.CreateInstance<Hero>();
+        _opponent.CreateRandom(1);
 
         foreach (ArmyGroup ag in _loadedBattle.Hero.Army)
             InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
@@ -71,7 +76,7 @@ public class BattleManager : MonoBehaviour
             instance.layer = 8;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_playerMaterial, entityInstance, ref EnemyEntities);
+            be.Initialize(_playerMaterial, _loadedBattle.Hero, entityInstance, ref EnemyEntities);
             PlayerEntities.Add(be);
             be.OnDeath += OnPlayerDeath;
         }
@@ -85,7 +90,7 @@ public class BattleManager : MonoBehaviour
             GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_enemyMaterial, entity, ref PlayerEntities);
+            be.Initialize(_enemyMaterial, _opponent, entity, ref PlayerEntities);
             EnemyEntities.Add(be);
             be.OnDeath += OnEnemyDeath;
         }

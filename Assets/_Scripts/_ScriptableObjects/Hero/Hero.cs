@@ -318,9 +318,9 @@ public class Hero : BaseScriptableObject
         totalPointsLeft -= powerLevelBonus;
         int armorLevelBonus = Random.Range(0, totalPointsLeft + 1);
         totalPointsLeft -= armorLevelBonus;
-        BasePower.SetValue(500 + powerLevelBonus * 100);
-        BaseArmor.SetValue(0 + armorLevelBonus * 100);
-        BaseSpeed.SetValue(300 + totalPointsLeft * 100);
+        BasePower.SetValue(5 + powerLevelBonus);
+        BaseArmor.SetValue(0 + armorLevelBonus);
+        BaseSpeed.SetValue(3 + totalPointsLeft);
 
         CreateStats();
 

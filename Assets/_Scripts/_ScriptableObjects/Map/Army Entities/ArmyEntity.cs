@@ -27,19 +27,24 @@ public class ArmyEntity : BaseScriptableObject
     public void HeroInfluence(Hero hero)
     {
         _hero = hero;
-        Power += hero.Power.GetValue() / 100;
-        Armor += hero.Armor.GetValue() / 100;
     }
 
     public float CalculateDamage(BattleEntity attacker)
     {
         float damage = attacker.Stats.Power;
+        if (attacker.Hero != null)
+            damage += attacker.Hero.Power.GetValue();
+
         if (Element.StrongAgainst == attacker.Stats.Element)
             damage *= 0.5f;
         if (Element.WeakAgainst == attacker.Stats.Element)
             damage *= 1.5f;
 
         damage = Mathf.Round(damage);
+
+        float armor = Armor;
+        if (_hero != null)
+            armor += _hero.Armor.GetValue();
 
         damage -= Armor;
         if (damage < 0)

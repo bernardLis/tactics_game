@@ -22,6 +22,7 @@ public class BattleEntity : MonoBehaviour
     const string _tweenHighlightId = "_tweenHighlightId";
 
     public ArmyEntity Stats { get; private set; }
+    public Hero Hero { get; private set; }
     public float CurrentHealth { get; private set; }
 
     BattleEntity _opponent;
@@ -33,7 +34,6 @@ public class BattleEntity : MonoBehaviour
 
     bool _gettingHit;
     public bool IsDead { get; private set; }
-    public bool IsFrozen;
 
     MMF_Player _feelPlayer;
 
@@ -53,8 +53,10 @@ public class BattleEntity : MonoBehaviour
             _currentAttackCooldown -= Time.deltaTime;
     }
 
-    public void Initialize(Material mat, ArmyEntity stats, ref List<BattleEntity> opponents)
+    public void Initialize(Material mat, Hero hero, ArmyEntity stats, ref List<BattleEntity> opponents)
     {
+        if (hero != null)
+            Hero = hero;
         Stats = stats;
         CurrentHealth = stats.Health;
 
@@ -63,7 +65,7 @@ public class BattleEntity : MonoBehaviour
         _gfxMaterial = GFX.GetComponent<MeshRenderer>().material;
 
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = stats.Speed;
+        _agent.speed = stats.Speed + hero.Speed.GetValue();
         _agent.stoppingDistance = stats.AttackRange;
 
         _elementImage.sprite = Stats.Element.Icon;

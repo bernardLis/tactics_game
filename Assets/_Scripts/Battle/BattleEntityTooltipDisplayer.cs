@@ -14,22 +14,7 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler//
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("On Pointer Enter");
         _tooltipManager.DisplayTooltip(GetComponent<BattleEntity>());
     }
-
-    //   public void OnPointerEnter(PointerEventData eventData)
-    //   {
-    //      Debug.Log("On Pointer Enter");
-    //       _tooltipManager.DisplayTooltip(GetComponent<BattleEntity>());
-    //   }
-
-    //   public void OnPointerExit(PointerEventData eventData)
-    //   {
-    //       Debug.Log("On Pointer Exit");
-    //       _tooltipManager.HideTooltip();
-    //   }
-
-
 }
 
