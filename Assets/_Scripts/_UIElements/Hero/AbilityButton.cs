@@ -43,7 +43,7 @@ public class AbilityButton : ElementWithSound
     void StartCooldown()
     {
         SetEnabled(false);
-        _cooldownTimer = new OverlayTimerElement(Ability.BaseCooldown, Ability.BaseCooldown, false, "");
+        _cooldownTimer = new OverlayTimerElement(Ability.GetCooldown(), Ability.GetCooldown(), false, "");
         _icon.Add(_cooldownTimer);
         _cooldownTimer.OnTimerFinished += OnCooldownFinished;
     }

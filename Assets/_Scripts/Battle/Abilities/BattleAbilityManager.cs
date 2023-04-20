@@ -144,7 +144,7 @@ public class BattleAbilityManager : MonoBehaviour
         _selectedAbility = ability;
         _abilityExecutor = Instantiate(_selectedAbility.AbilityExecutorPrefab, Vector3.zero, Quaternion.identity)
                 .GetComponent<AbilityExecutor>();
-        _abilityExecutor.HighlightAbilityArea();
+        _abilityExecutor.HighlightAbilityArea(_selectedAbility);
     }
 
     void LeftMouseClick(InputAction.CallbackContext context)

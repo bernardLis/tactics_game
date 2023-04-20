@@ -178,7 +178,7 @@ public class BattleEntity : MonoBehaviour
 
     public void GetHealed(Ability ability)
     {
-        float value = ability.BasePower;
+        float value = ability.GetPower();
         CurrentHealth += value;
         if (CurrentHealth > Stats.Health)
             CurrentHealth = Stats.Health;

@@ -34,15 +34,27 @@ public class AbilityTooltipElement : ElementWithTooltip
         description.AddToClassList(_ussCommonTextSecondary);
         description.style.whiteSpace = WhiteSpace.Normal;
 
-        Label baseDamage = new("Base power: " + ability.BasePower);
-        baseDamage.AddToClassList(_ussCommonTextSecondary);
+        Label level = new("Level: " + ability.Level.ToString());
+        level.AddToClassList(_ussCommonTextSecondary);
 
-        Label manaCost = new("Mana cost: " + ability.ManaCost.ToString());
+        Label manaCost = new("Mana cost: " + ability.GetManaCost().ToString());
         manaCost.AddToClassList(_ussCommonTextSecondary);
+
+        Label power = new("Power: " + ability.GetPower().ToString());
+        power.AddToClassList(_ussCommonTextSecondary);
+
+        Label cooldown = new("Cooldown: " + ability.GetCooldown().ToString());
+        cooldown.AddToClassList(_ussCommonTextSecondary);
+
+        Label scale = new("Scale: " + ability.GetScale().ToString());
+        scale.AddToClassList(_ussCommonTextSecondary);
 
         Add(container);
         Add(description);
-        Add(baseDamage);
+        Add(level);
         Add(manaCost);
+        Add(power);
+        Add(cooldown);
+        Add(scale);
     }
 }

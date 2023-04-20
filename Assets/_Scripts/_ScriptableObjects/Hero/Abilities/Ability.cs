@@ -11,10 +11,16 @@ public class Ability : BaseScriptableObject
     public string Description = "New Description";
     public Sprite Icon;
     public int Level;
-    public int ManaCost;
-    public int BasePower;
-    public int BaseCooldown;
-    public int BaseScale;
+
+    [SerializeField] int BaseManaCost;
+    [SerializeField] int BasePower;
+    [SerializeField] int BaseCooldown;
+    [SerializeField] int BaseScale;
+
+    [SerializeField] float ManaCostLevelMultiplier;
+    [SerializeField] float PowerLevelMultiplier;
+    [SerializeField] float CooldownLevelMultiplier;
+    [SerializeField] float ScaleLevelMultiplier;
 
     public Element Element;
 
@@ -25,6 +31,26 @@ public class Ability : BaseScriptableObject
     public void StartCooldown()
     {
         OnCooldownStarted?.Invoke();
+    }
+
+    public int GetManaCost()
+    {
+        return Mathf.RoundToInt(BaseManaCost * Level * ManaCostLevelMultiplier);
+    }
+
+    public int GetPower()
+    {
+        return Mathf.RoundToInt(BasePower * Level * PowerLevelMultiplier);
+    }
+
+    public int GetCooldown()
+    {
+        return Mathf.RoundToInt(BaseCooldown * Level * CooldownLevelMultiplier);
+    }
+
+    public int GetScale()
+    {
+        return Mathf.RoundToInt(BaseScale * Level * ScaleLevelMultiplier);
     }
 
     public void LoadFromData(AbilityData data)

@@ -51,7 +51,7 @@ public class ArmyEntity : BaseScriptableObject
 
     public float CalculateDamage(Ability ability)
     {
-        float damage = ability.BasePower;
+        float damage = ability.GetPower();
         if (Element.StrongAgainst == ability.Element)
             damage *= 0.5f;
         if (Element.WeakAgainst == ability.Element)

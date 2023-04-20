@@ -17,17 +17,21 @@ public class AbilityExecutor : MonoBehaviour
 
     protected Ability _selectedAbility;
 
-    public void HighlightAbilityArea()
+    public void HighlightAbilityArea(Ability ability)
     {
+        _selectedAbility = ability;
+
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         _areaHighlightInstance = Instantiate(_areaHighlightPrefab, worldPos, Quaternion.identity)
                 .GetComponent<BattleAbilityArea>();
+
+        _areaHighlightInstance.Initialize(ability);
     }
 
     public void ExecuteAbility(Ability ability)
     {
         if (_areaHighlightInstance == null) return;
-        
+
         _selectedAbility = ability;
 
         _effectInstance = Instantiate(_effectPrefab, _areaHighlightInstance.transform.position, Quaternion.identity);

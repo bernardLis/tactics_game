@@ -11,10 +11,18 @@ public class BattleAbilityArea : MonoBehaviour
 
     int _floorLayerMask;
 
+    Ability _ability;
+
     void Start()
     {
         _floorLayerMask = LayerMask.GetMask("Floor");
 
+    }
+
+    public void Initialize(Ability ability)
+    {
+        _ability = ability;
+        transform.localScale = new Vector3(ability.GetScale(), ability.GetScale(), ability.GetScale());
     }
 
     void Update()
