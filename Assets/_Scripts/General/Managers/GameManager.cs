@@ -57,7 +57,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Game manager Awake");
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
-        HeroDatabase.Initialize();
 
         // HERE: battle testing
         LoadFromSaveFile();

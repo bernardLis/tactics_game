@@ -4,9 +4,6 @@ using UnityEngine;
 using System.Linq;
 public class HeroDatabase : ScriptableObject
 {
-    public void Initialize() { SortItems(); }
-
-
     [Header("Heroes")]
     [SerializeField] Ability[] Abilities;
     public List<Ability> GetAllAbilities() { return Abilities.ToList(); }
@@ -17,29 +14,15 @@ public class HeroDatabase : ScriptableObject
     public List<Item> GetAllItems() { return Items.ToList(); }
     public Item GetItemById(string id) { return Items.FirstOrDefault(x => x.Id == id); }
     public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
-
-    List<Item> _commonItems = new();
-    List<Item> _uncommonItems = new();
-    List<Item> _rareItems = new();
-    List<Item> _epicItems = new();
-    void SortItems()
+    public Item GetRandomItem(ItemRarity rarity)
     {
+        List<Item> items = new();
         foreach (Item i in Items)
-        {
-            if (i.Rarity == ItemRarity.Common)
-                _commonItems.Add(i);
-            if (i.Rarity == ItemRarity.Uncommon)
-                _uncommonItems.Add(i);
-            if (i.Rarity == ItemRarity.Rare)
-                _rareItems.Add(i);
-            if (i.Rarity == ItemRarity.Epic)
-                _epicItems.Add(i);
-        }
+            if (i.Rarity == rarity)
+                items.Add(i);
+
+        return items[Random.Range(0, items.Count)];
     }
-    public Item GetRandomCommonItem() { return _commonItems[Random.Range(0, _commonItems.Count)]; }
-    public Item GetRandomUncommonItem() { return _uncommonItems[Random.Range(0, _uncommonItems.Count)]; }
-    public Item GetRandomRareItem() { return _rareItems[Random.Range(0, _rareItems.Count)]; }
-    public Item GetRandomEpicItem() { return _epicItems[Random.Range(0, _epicItems.Count)]; }
 
     [SerializeField] StatIcon[] StatIcons;
     public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }

@@ -53,6 +53,11 @@ public class Ability : BaseScriptableObject
         return Mathf.RoundToInt(BaseScale * Level * ScaleLevelMultiplier);
     }
 
+    public void Upgrade()
+    {
+        Level++;
+    }
+
     public void LoadFromData(AbilityData data)
     {
         Level = data.Level;

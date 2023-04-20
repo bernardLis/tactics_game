@@ -62,6 +62,8 @@ public class GameDatabase : BaseScriptableObject
     public Sprite SpiceSprite;
 
     public List<ArmyEntity> AllArmyEntities = new();
+    public ArmyEntity GetRandomArmyEntity() { return AllArmyEntities[Random.Range(0, AllArmyEntities.Count)]; }
+
     public ArmyEntity GetArmyEntityById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
 
     public List<ArmyEntity> AllEnemyArmyEntities = new();

@@ -95,11 +95,42 @@ public class BattleResult : FullScreenElement
 
         for (int i = 0; i < 3; i++)
         {
-            Reward reward = ScriptableObject.CreateInstance<Reward>();
-            reward.CreateRandom();
-            RewardCard card = new RewardCard(reward);
+            RewardCard card = CreateRewardCard();
             container.Add(card);
         }
+
+        // TODO: skip & reroll buttons
+    }
+
+    RewardCard CreateRewardCard()
+    {
+        Reward reward;
+        float v = Random.value;
+        if (v < 0.25f)
+        {
+            reward = ScriptableObject.CreateInstance<RewardItem>();
+            reward.CreateRandom(_battle.Hero);
+            return new RewardCard(reward);
+        }
+        else if (v < 0.5f)
+        {
+            reward = ScriptableObject.CreateInstance<RewardAbility>();
+            reward.CreateRandom(_battle.Hero);
+            return new RewardCard(reward);
+        }
+        else if (v < 0.75f)
+        {
+            reward = ScriptableObject.CreateInstance<RewardGold>();
+            reward.CreateRandom(_battle.Hero);
+            return new RewardCard(reward);
+        }
+        else
+        {
+            reward = ScriptableObject.CreateInstance<RewardArmy>();
+            reward.CreateRandom(_battle.Hero);
+            return new RewardCard(reward);
+        }
+
     }
 
     void LoadMap() { _gameManager.LoadMap(); }
