@@ -51,7 +51,7 @@ public class HeroControlButton : ControlButton
 
         if (_mapInputManager.SelectedHero == MapHero)
         {
-            HeroCard card = new(MapHero, _root, _draggableArmies);
+            HeroCardMap card = new(MapHero, _root, _draggableArmies);
             return;
         }
 

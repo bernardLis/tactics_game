@@ -40,7 +40,7 @@ public enum StyleSheetType
     CommonStyles, TooltipElementStyles, ConfirmPopupStyles,
     MenuStyles, SettingsMenuStyles,
     TimerElementStyles,
-    QuestResultStyles,
+    BattleResultStyles,
     RewardContainerStyles,
     BarMiniGameStyles,
     StarRankElementStyles,
@@ -56,7 +56,7 @@ public enum StyleSheetType
     CastleElementStyles,
     BuildingElementStyles, ProductionBuildingElementStyles, BuildingSpriteElementStyles,
     ArmyElementStyles, ArmySlotElementStyles, ArmyBuyableElementStyles,
-    HeroCardStyles, HeroArmyElementStyles,
+    HeroCardMapStyles, HeroArmyElementStyles,
     ControlButtonStyles, CastleControlButtonStyles, HeroControlButtonStyles,
 
     BattleEntityElementStyles,

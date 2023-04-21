@@ -15,8 +15,8 @@ public class HeroMeetingElement : FullScreenElement
         container.style.flexDirection = FlexDirection.Row;
         container.style.height = Length.Percent(90);
 
-        HeroCard card = new(hero, root, draggableArmies, false);
-        HeroCard otherCard = new(otherHero, root, draggableArmies, false);
+        HeroCardMap card = new(hero, root, draggableArmies, false);
+        HeroCardMap otherCard = new(otherHero, root, draggableArmies, false);
         container.Add(card);
         container.Add(otherCard);
         Add(container);

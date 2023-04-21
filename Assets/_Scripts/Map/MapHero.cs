@@ -49,7 +49,7 @@ public class MapHero : MonoBehaviour
     {
         if (_isSelected)
         {
-            HeroCard card = new(this, _dashboardManager.Root, _draggableArmies);
+            HeroCardMap card = new(this, _dashboardManager.Root, _draggableArmies);
             return;
         }
         _isSelected = true;

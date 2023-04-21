@@ -12,7 +12,6 @@ public class HeroCardMini : ElementWithTooltip
     const string _ussClassName = "hero-card-mini__";
     const string _ussMain = _ussClassName + "main";
     const string _ussShadow = _ussClassName + "shadow";
-    const string _ussPickedUp = _ussClassName + "picked-up";
 
     const string _ussTimerMain = _ussClassName + "timer-element-overlay-main";
     const string _ussTimerOverlayMask = _ussClassName + "timer-element-overlay-mask";
@@ -56,6 +55,16 @@ public class HeroCardMini : ElementWithTooltip
 
         if (hero.IsUnavailable())
             LoadUnavailability();
+
+        RegisterCallback<PointerUpEvent>(OnPointerUp);
+    }
+
+    void OnPointerUp(PointerUpEvent evt)
+    {
+        if (evt.button != 0) return;
+        Debug.Log($"showing hero card, not implemented yet");
+
+        // TODO: show full hero card but I don't have the element done... 
     }
 
     void SetUnavailable(Injury injury)
@@ -118,8 +127,4 @@ public class HeroCardMini : ElementWithTooltip
         IsLocked = false;
         OnUnlocked?.Invoke(this);
     }
-
-    public void Slotted() { _portrait.Slotted(); }
-
-    public void Unslotted() { _portrait.Unslotted(); }
 }

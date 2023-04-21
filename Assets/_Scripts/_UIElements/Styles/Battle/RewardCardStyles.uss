@@ -1,5 +1,7 @@
 .reward-card__main {
     width: 200px;
-    height: 400px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
     background-color: coral;
 }

@@ -16,12 +16,10 @@ public class HeroCardQuest : VisualElement
     const string _ussStatContainer = _ussClassName + "stat-container";
     const string _ussStatUpButton = _ussClassName + "stat-up-button";
 
-
     GameManager _gameManager;
     public Hero Hero;
 
-
-    HeroPortraitElement _portrait;
+    HeroCardMini _heroCardMini;
 
     Label _title;
     StarRankElement _rankElement;
@@ -59,8 +57,8 @@ public class HeroCardQuest : VisualElement
 
         AddToClassList(_ussMain);
 
-        _portrait = new HeroPortraitElement(hero);
-        Add(_portrait);
+        _heroCardMini = new HeroCardMini(hero);
+        Add(_heroCardMini);
 
         Add(CreateMiddlePanel());
         Add(CreateStatGroup());

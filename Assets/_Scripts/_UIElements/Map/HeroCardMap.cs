@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class HeroCard : FullScreenElement
+public class HeroCardMap : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
@@ -22,13 +22,13 @@ public class HeroCard : FullScreenElement
     VisualElement _middleContainer;
     VisualElement _bottomContainer;
 
-    public HeroCard(MapHero mapHero, VisualElement root, DraggableArmies draggableArmies, bool isFullScreenElement = true) : base()
+    public HeroCardMap(MapHero mapHero, VisualElement root, DraggableArmies draggableArmies, bool isFullScreenElement = true) : base()
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardMapStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
