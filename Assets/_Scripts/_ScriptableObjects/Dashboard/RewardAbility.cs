@@ -47,11 +47,10 @@ public class RewardAbility : Reward
         if (IsUpgrade)
         {
             Ability.Upgrade();
+            _gameManager.SaveJsonData();
             return;
         }
 
         _hero.AddAbility(Ability);
-
-        _gameManager.SaveJsonData();
     }
 }

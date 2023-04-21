@@ -25,7 +25,6 @@ public class HeroCreation : MonoBehaviour
     List<HeroPortrait> _heroPortraits = new();
     int _currentPortraitIndex = 0;
 
-    bool _isPlayerCreated;
     Vector2 _playerMapPosition = new(-8.5f, -6.5f);
 
     // Start is called before the first frame update
@@ -100,10 +99,7 @@ public class HeroCreation : MonoBehaviour
 
     void Submit()
     {
-        CreateHero(_playerMapPosition);
-        _isPlayerCreated = true;
-
-        
+        CreateHero(_playerMapPosition);       
         StartGame();
         _gameManager.SaveJsonData();
     }
@@ -115,12 +111,6 @@ public class HeroCreation : MonoBehaviour
         // TODO: an effect would be nice.
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
         newChar.CreateFromHeroCreation(_nameField.value, _heroPortraits[_currentPortraitIndex], mapPosition);
-
-        if (_isPlayerCreated)
-        {
-            _gameManager.FriendHero = newChar;
-            return;
-        }
         _gameManager.PlayerHero = newChar;
     }
 

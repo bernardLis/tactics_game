@@ -21,7 +21,6 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
     {
         HideTooltip();
 
-        Debug.Log("Displaying tooltip for " + entity.name);
         _tooltip = new(entity);
         _bottomPanel.Add(_tooltip);
     }
@@ -29,7 +28,6 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
     public void HideTooltip()
     {
         if (_tooltip == null) return;
-        Debug.Log("Hiding tooltip");
         _bottomPanel.Remove(_tooltip);
     }
 }

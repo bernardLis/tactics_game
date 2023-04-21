@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.unity.2d.animation": {
-      "version": "9.0.1",
+      "version": "9.0.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -51,7 +51,7 @@
       "dependencies": {}
     },
     "com.unity.2d.spriteshape": {
-      "version": "9.0.1",
+      "version": "9.0.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -71,7 +71,7 @@
       }
     },
     "com.unity.2d.tilemap.extras": {
-      "version": "3.0.3",
+      "version": "3.1.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -83,11 +83,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.addressables": {
-      "version": "1.21.2",
+      "version": "1.21.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.scriptablebuildpipeline": "1.21.1",
+        "com.unity.scriptablebuildpipeline": "1.21.3",
         "com.unity.modules.assetbundle": "1.0.0",
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0",
@@ -106,7 +106,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.2",
+      "version": "1.8.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -145,13 +145,13 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.2d.animation": "9.0.1",
+        "com.unity.2d.animation": "9.0.2",
         "com.unity.2d.pixel-perfect": "5.0.3",
         "com.unity.2d.psdimporter": "8.0.2",
         "com.unity.2d.sprite": "1.0.0",
-        "com.unity.2d.spriteshape": "9.0.1",
+        "com.unity.2d.spriteshape": "9.0.2",
         "com.unity.2d.tilemap": "1.0.0",
-        "com.unity.2d.tilemap.extras": "3.0.3"
+        "com.unity.2d.tilemap.extras": "3.1.0"
       }
     },
     "com.unity.ide.vscode": {
@@ -162,7 +162,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.4.4",
+      "version": "1.5.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -196,7 +196,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "14.0.6",
+      "version": "14.0.7",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -207,18 +207,18 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "14.0.6",
+      "version": "14.0.7",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
         "com.unity.burst": "1.8.2",
-        "com.unity.render-pipelines.core": "14.0.6",
-        "com.unity.shadergraph": "14.0.6"
+        "com.unity.render-pipelines.core": "14.0.7",
+        "com.unity.shadergraph": "14.0.7"
       }
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "1.21.1",
+      "version": "1.21.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -232,11 +232,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "14.0.6",
+      "version": "14.0.7",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "14.0.6",
+        "com.unity.render-pipelines.core": "14.0.7",
         "com.unity.searcher": "4.9.2"
       }
     },
@@ -261,7 +261,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.7.2",
+      "version": "1.7.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -282,12 +282,12 @@
       }
     },
     "com.unity.visualeffectgraph": {
-      "version": "14.0.6",
+      "version": "14.0.7",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.shadergraph": "14.0.6",
-        "com.unity.render-pipelines.core": "14.0.6"
+        "com.unity.shadergraph": "14.0.7",
+        "com.unity.render-pipelines.core": "14.0.7"
       }
     },
     "com.unity.modules.ai": {

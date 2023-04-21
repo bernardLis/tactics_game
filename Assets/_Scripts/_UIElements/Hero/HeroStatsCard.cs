@@ -139,10 +139,7 @@ public class HeroStatsCard : VisualElement
         Hero.Mana.OnValueChanged += currentMana.SetValue;
 
         if (Hero.CurrentMana != null)
-        {
-            Debug.Log($"current mana is not null");
             currentMana = Hero.CurrentMana;
-        }
 
 
         ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", currentMana, totalValueStat: Hero.Mana);

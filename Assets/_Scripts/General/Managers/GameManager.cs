@@ -327,13 +327,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Spice = saveData.Spice;
 
         PlayerHero = (Hero)ScriptableObject.CreateInstance<Hero>();
-        PlayerHero.CreateFromData(saveData.PlayerHero);
+        PlayerHero.LoadFromData(saveData.PlayerHero);
 
         Troops = new();
         foreach (HeroData data in saveData.PlayerTroops)
         {
             Hero hero = (Hero)ScriptableObject.CreateInstance<Hero>();
-            hero.CreateFromData(data);
+            hero.LoadFromData(data);
             Troops.Add(hero);
         }
 

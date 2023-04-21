@@ -160,12 +160,14 @@ public class Hero : BaseScriptableObject
     {
         Abilities.Add(ability);
         UpdateRank();
+        _gameManager.SaveJsonData();
     }
 
     public void RemoveAbility(Ability ability)
     {
         Abilities.Remove(ability);
         UpdateRank();
+        _gameManager.SaveJsonData();
     }
 
     public void AddItem(Item item)
@@ -173,6 +175,7 @@ public class Hero : BaseScriptableObject
         Items.Add(item);
         UpdateStat(item.InfluencedStat, item.Value);
         UpdateRank();
+        _gameManager.SaveJsonData();
     }
 
     public void RemoveItem(Item item)
@@ -180,6 +183,7 @@ public class Hero : BaseScriptableObject
         Items.Remove(item);
         UpdateStat(item.InfluencedStat, -item.Value);
         UpdateRank();
+        _gameManager.SaveJsonData();
     }
 
     void UpdateStat(StatType type, int value)
@@ -330,7 +334,7 @@ public class Hero : BaseScriptableObject
         UpdateRank();
     }
 
-    public void CreateFromData(HeroData data)
+    public void LoadFromData(HeroData data)
     {
         _gameManager = GameManager.Instance;
 

@@ -6,7 +6,6 @@ using UnityEngine;
 public class ConversationLine : BaseScriptableObject
 {
     public bool PlayerIsSpeaker;
-    public bool FriendIsSpeaker;
     public Hero SpeakerHero;
     [TextArea(2, 5)]
     [SerializeField] string Text;
@@ -18,10 +17,7 @@ public class ConversationLine : BaseScriptableObject
         GameManager gm = GameManager.Instance;
         if (PlayerIsSpeaker)
             SpeakerHero = gm.PlayerHero;
-        if (FriendIsSpeaker)
-            SpeakerHero = gm.FriendHero;
 
         ParsedText = Text.Replace("{name}", gm.PlayerHero.HeroName);
-        ParsedText = ParsedText.Replace("{friendName}", gm.FriendHero.HeroName);
     }
 }

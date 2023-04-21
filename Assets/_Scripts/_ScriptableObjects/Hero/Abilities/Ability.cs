@@ -55,11 +55,13 @@ public class Ability : BaseScriptableObject
 
     public void Upgrade()
     {
+        Debug.Log($"upgrading ability");
         Level++;
     }
 
     public void LoadFromData(AbilityData data)
     {
+        Debug.Log($"loading ability from data {data.Level}");
         Level = data.Level;
     }
 
