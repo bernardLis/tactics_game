@@ -8,7 +8,7 @@ public class BattleResult : FullScreenElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "quest-result__";
+    const string _ussClassName = "battle-result__";
     const string _ussWonMain = _ussClassName + "won-main";
     const string _ussLostMain = _ussClassName + "lost-main";
     const string _ussContent = _ussClassName + "content";
