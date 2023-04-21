@@ -49,13 +49,10 @@ public class MapSetupManager : MonoBehaviour
 
     void PlaceHeroes()
     {
-        foreach (Hero c in _gameManager.GetAllHeroes())
-        {
-            GameObject instance = Instantiate(_heroPrefab, c.MapPosition, Quaternion.identity);
-            MapHero mapHero = instance.GetComponent<MapHero>();
-            mapHero.Initialize(c);
-            MapHeroes.Add(mapHero);
-        }
+        GameObject instance = Instantiate(_heroPrefab, _gameManager.PlayerHero.MapPosition, Quaternion.identity);
+        MapHero mapHero = instance.GetComponent<MapHero>();
+        mapHero.Initialize(_gameManager.PlayerHero);
+        MapHeroes.Add(mapHero);
     }
 
     void PlaceCollectables()

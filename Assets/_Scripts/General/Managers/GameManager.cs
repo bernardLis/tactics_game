@@ -34,10 +34,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public bool IsTimerOn { get; private set; }
 
     public Hero PlayerHero;
-    public List<Hero> Troops { get; private set; } = new();
-    [HideInInspector] public List<Item> PlayerItemPouch = new();
-
-    [HideInInspector] public List<Ability> PlayerAbilityPouch = new();
 
     public Map Map;
     public Battle SelectedBattle; // HERE: battle testing { get; private set; }
@@ -45,8 +41,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;
-    public event Action<Hero> OnHeroAddedToTroops;
-    public event Action<Hero> OnHeroRemovedFromTroops;
+    
     public event Action<string> OnLevelLoaded;
     public event Action OnNewSaveFileCreation;
     public event Action OnClearSaveData;
@@ -133,52 +128,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         SaveJsonData();
     }
 
-    /* Troops & pouches */
-    public List<Hero> GetAllHeroes()
-    {
-        List<Hero> all = new(Troops);
-        all.Add(PlayerHero);
-        return all;
-    }
-
-    public void AddHeroToTroops(Hero hero)
-    {
-        Troops.Add(hero);
-        hero.SetDayAddedToTroops(Day);
-        OnHeroAddedToTroops?.Invoke(hero);
-        SaveJsonData();
-    }
-
-    public void RemoveHeroFromTroops(Hero hero)
-    {
-        Troops.Remove(hero);
-        OnHeroRemovedFromTroops?.Invoke(hero);
-        SaveJsonData();
-    }
-
-    public void AddItemToPouch(Item item)
-    {
-        PlayerItemPouch.Add(item);
-        SaveJsonData();
-    }
-
-    public void RemoveItemFromPouch(Item item)
-    {
-        PlayerItemPouch.Remove(item);
-        SaveJsonData();
-    }
-
-    public void AddAbilityToPouch(Ability ability)
-    {
-        PlayerAbilityPouch.Add(ability);
-        SaveJsonData();
-    }
-
-    public void RemoveAbilityFromPouch(Ability ability)
-    {
-        PlayerAbilityPouch.Remove(ability);
-        SaveJsonData();
-    }
 
     /* LEVELS */
     public void LoadLevel(string level)
@@ -262,41 +211,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         if (PlayerHero != null)
             saveData.PlayerHero = PlayerHero.SerializeSelf();
 
-        saveData.PlayerTroops = PopulateTroops();
-
-        saveData.ItemPouch = PopulateItemPouch();
-
-        saveData.AbilityPouch = PopulateAbilityPouch();
-
         saveData.MapData = Map.SerializeSelf();
     }
 
-    List<HeroData> PopulateTroops()
-    {
-        List<HeroData> charData = new();
-        foreach (Hero c in Troops)
-            charData.Add(c.SerializeSelf());
-
-        return charData;
-    }
-
-    List<ItemData> PopulateItemPouch()
-    {
-        List<ItemData> data = new();
-        foreach (Item i in PlayerItemPouch)
-            data.Add(i.SerializeSelf());
-
-        return data;
-    }
-
-    List<AbilityData> PopulateAbilityPouch()
-    {
-        List<AbilityData> abilityData = new();
-        foreach (Ability a in PlayerAbilityPouch)
-            abilityData.Add(a.SerializeSelf());
-
-        return abilityData;
-    }
 
     void LoadJsonData(string fileName)
     {
@@ -329,30 +246,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         PlayerHero = (Hero)ScriptableObject.CreateInstance<Hero>();
         PlayerHero.LoadFromData(saveData.PlayerHero);
 
-        Troops = new();
-        foreach (HeroData data in saveData.PlayerTroops)
-        {
-            Hero hero = (Hero)ScriptableObject.CreateInstance<Hero>();
-            hero.LoadFromData(data);
-            Troops.Add(hero);
-        }
-
-        PlayerItemPouch = new();
-        foreach (ItemData d in saveData.ItemPouch)
-        {
-            Item item = (Item)ScriptableObject.CreateInstance<Item>();
-            item.LoadFromData(d);
-            PlayerItemPouch.Add(item);
-        }
-
-        PlayerAbilityPouch = new();
-        foreach (AbilityData abilityData in saveData.AbilityPouch)
-        {
-            Ability a = Instantiate(HeroDatabase.GetAbilityById(abilityData.TemplateId));
-            a.name = abilityData.Name;
-            PlayerAbilityPouch.Add(a);
-        }
-
         Map = ScriptableObject.CreateInstance<Map>();
         Map.LoadFromData(saveData.MapData);
     }
@@ -372,9 +265,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Spice = 0;
 
         PlayerHero = null;
-        Troops = new();
-        PlayerItemPouch = new();
-        PlayerAbilityPouch = new();
 
         Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
         Map = Instantiate(templateMap);

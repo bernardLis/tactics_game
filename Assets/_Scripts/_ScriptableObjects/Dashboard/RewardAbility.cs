@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Reward Ability")]
 public class RewardAbility : Reward
 {
-
     public bool IsUpgrade { get; private set; }
 
     public Ability Ability { get; private set; }
@@ -16,6 +15,7 @@ public class RewardAbility : Reward
         base.CreateRandom(hero);
 
         // I only have 4 buttons for abilities, so I can't have more than 4 abilities
+
         if (_hero.Abilities.Count == 4)
         {
             IsUpgrade = true;
@@ -46,7 +46,9 @@ public class RewardAbility : Reward
         base.GetReward();
         if (IsUpgrade)
         {
-            Ability.Upgrade();
+            foreach (Ability heroAbility in _hero.Abilities)
+                if (heroAbility.Id == Ability.Id)
+                    heroAbility.Upgrade();
             _gameManager.SaveJsonData();
             return;
         }

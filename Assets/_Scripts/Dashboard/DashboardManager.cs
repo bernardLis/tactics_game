@@ -143,7 +143,6 @@ public class DashboardManager : Singleton<DashboardManager>
         _navTroops.Clear();
         _troopsLimitElement = new($"");
         UpdateTroopsElement();
-        _gameManager.OnHeroAddedToTroops += UpdateTroopsElement;
 
         _navTroops.Add(_troopsLimitElement);
     }
@@ -153,7 +152,7 @@ public class DashboardManager : Singleton<DashboardManager>
     void UpdateTroopsElement(int i) { UpdateTroopsElement(); }
     void UpdateTroopsElement()
     {
-        int troopsCount = _gameManager.GetAllHeroes().Count;
+        int troopsCount = 1;
         int troopsLimit = 5;
 
         _troopsLimitElement.UpdateCountContainer($"{troopsCount} / {troopsLimit}", Color.white);

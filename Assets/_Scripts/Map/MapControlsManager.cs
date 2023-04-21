@@ -64,10 +64,6 @@ public class MapControlsManager : MonoBehaviour
 
     void AddHeroControls()
     {
-        _gameManager.OnHeroAddedToTroops += AddHeroButton;
-        _gameManager.OnHeroRemovedFromTroops += RemoveHeroButton;
-        foreach (Hero c in _gameManager.GetAllHeroes())
-            AddHeroButton(c);
     }
 
     void AddHeroButton(Hero c)

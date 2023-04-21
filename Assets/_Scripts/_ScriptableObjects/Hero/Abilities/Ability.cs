@@ -55,8 +55,8 @@ public class Ability : BaseScriptableObject
 
     public void Upgrade()
     {
-        Debug.Log($"upgrading ability");
         Level++;
+        Debug.Log($"upgrading ability to level {Level}");
     }
 
     public void LoadFromData(AbilityData data)
@@ -71,8 +71,8 @@ public class Ability : BaseScriptableObject
         if (this == null)
             return data;
 
+        Debug.Log($"Serialize self level: {Level}");
         data.TemplateId = Id;
-
         data.Level = Level;
         return data;
     }

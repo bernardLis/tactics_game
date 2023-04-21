@@ -17,10 +17,6 @@ public class SaveData
 
     public HeroData PlayerHero = new();
 
-    public List<HeroData> PlayerTroops = new();
-    public List<ItemData> ItemPouch = new();
-    public List<AbilityData> AbilityPouch = new();
-
     public MapData MapData;
 
     public string ToJson() { return JsonUtility.ToJson(this); }
