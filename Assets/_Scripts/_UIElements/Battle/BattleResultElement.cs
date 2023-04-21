@@ -83,9 +83,9 @@ public class BattleResult : FullScreenElement
 
     void AddHeroCard(Battle battle)
     {
-        HeroCardQuest card = new HeroCardQuest(battle.Hero);
+        HeroCardQuest card = new HeroCardQuest(_gameManager.PlayerHero);
         if (battle.Won)
-            battle.Hero.GetExp(100);
+            _gameManager.PlayerHero.GetExp(100);
         _content.Add(card);
     }
 
@@ -120,7 +120,7 @@ public class BattleResult : FullScreenElement
     RewardCard CreateRewardCardItem()
     {
         RewardItem reward = ScriptableObject.CreateInstance<RewardItem>();
-        reward.CreateRandom(_battle.Hero);
+        reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
         return new RewardCardItem(reward);
     }
@@ -128,7 +128,7 @@ public class BattleResult : FullScreenElement
     RewardCard CreateRewardCardAbility()
     {
         RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-        reward.CreateRandom(_battle.Hero);
+        reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
         return new RewardCardAbility(reward);
     }
@@ -136,7 +136,7 @@ public class BattleResult : FullScreenElement
     RewardCard CreateRewardCardGold()
     {
         RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-        reward.CreateRandom(_battle.Hero);
+        reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
         return new RewardCardGold(reward);
 
@@ -145,11 +145,10 @@ public class BattleResult : FullScreenElement
     RewardCard CreateRewardCardArmy()
     {
         RewardArmy reward = ScriptableObject.CreateInstance<RewardArmy>();
-        reward.CreateRandom(_battle.Hero);
+        reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
         return new RewardCardArmy(reward);
     }
-
 
     void RewardSelected()
     {

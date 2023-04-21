@@ -89,7 +89,7 @@ public class BattleAbilityManager : MonoBehaviour
     void AddAbilityButtons()
     {
         VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
-        _hero = _gameManager.SelectedBattle.Hero;
+        _hero = _gameManager.PlayerHero;
         _abilities = _hero.Abilities;
 
         VisualElement container = new();

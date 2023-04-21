@@ -54,7 +54,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         // HERE: battle testing
         LoadFromSaveFile();
-        SelectedBattle.Hero = PlayerHero;
     }
 
     void Start()

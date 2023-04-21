@@ -14,7 +14,7 @@ public class BattleHeroManager : MonoBehaviour
         _gameManager = GameManager.Instance;
         _root = GetComponent<UIDocument>().rootVisualElement;
 
-        _hero = _gameManager.SelectedBattle.Hero;
+        _hero = _gameManager.PlayerHero;
         _hero.BattleInitialize();
 
         AddHeroCard();

@@ -43,7 +43,7 @@ public class BattleManager : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         _initialEnemyEntityCount = _loadedBattle.GetTotalNumberOfEnemies();
-        _initialPlayerEntityCount = _loadedBattle.Hero.GetTotalNumberOfArmyEntities();
+        _initialPlayerEntityCount = _gameManager.PlayerHero.GetTotalNumberOfArmyEntities();
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
@@ -54,7 +54,7 @@ public class BattleManager : MonoBehaviour
         _opponent = ScriptableObject.CreateInstance<Hero>();
         _opponent.CreateRandom(1);
 
-        foreach (ArmyGroup ag in _loadedBattle.Hero.Army)
+        foreach (ArmyGroup ag in _gameManager.PlayerHero.Army)
             InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
         foreach (ArmyGroup ag in _loadedBattle.Army)
             InstantiateEnemy(ag.ArmyEntity, ag.EntityCount);
@@ -67,7 +67,7 @@ public class BattleManager : MonoBehaviour
     void InstantiatePlayer(ArmyEntity entity, int count)
     {
         ArmyEntity entityInstance = Instantiate(entity);
-        entityInstance.HeroInfluence(_loadedBattle.Hero);
+        entityInstance.HeroInfluence(_gameManager.PlayerHero);
 
         for (int i = 0; i < count; i++)
         {
@@ -76,7 +76,7 @@ public class BattleManager : MonoBehaviour
             instance.layer = 8;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_playerMaterial, _loadedBattle.Hero, entityInstance, ref EnemyEntities);
+            be.Initialize(_playerMaterial, _gameManager.PlayerHero, entityInstance, ref EnemyEntities);
             PlayerEntities.Add(be);
             be.OnDeath += OnPlayerDeath;
         }

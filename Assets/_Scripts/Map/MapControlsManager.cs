@@ -64,6 +64,7 @@ public class MapControlsManager : MonoBehaviour
 
     void AddHeroControls()
     {
+        AddHeroButton(_gameManager.PlayerHero);
     }
 
     void AddHeroButton(Hero c)
