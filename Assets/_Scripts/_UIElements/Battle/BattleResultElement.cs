@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Linq;
 
 public class BattleResult : FullScreenElement
 {
@@ -15,23 +16,24 @@ public class BattleResult : FullScreenElement
 
     GameManager _gameManager;
     AudioManager _audioManager;
+    BattleLogManager _battleLogManager;
 
     Battle _battle;
 
+    List<BattleLogAbility> _abilityLogs = new();
+
     VisualElement _content;
     MyButton _continueButton;
-
 
     VisualElement _rewardContainer;
     List<RewardCard> _allRewardCards = new();
     List<RewardCard> _selectedRewardCards = new();
 
-
-
     public BattleResult(VisualElement root, Battle battle, List<BattleEntity> entities)
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
+        _battleLogManager = BattleManager.Instance.GetComponent<BattleLogManager>();
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -72,7 +74,14 @@ public class BattleResult : FullScreenElement
         3rd.go back
         */
 
+        foreach (BattleLog item in _battleLogManager.Logs)
+            if (item is BattleLogAbility abilityLog)
+                _abilityLogs.Add(abilityLog);
+
         AddEntityWithMostKills(entities);
+        AddAbilityThatDealtMostDamage();
+        AddAbilityThatAffectedMostEntities();
+
         _continueButton = new("Continue", _ussCommonMenuButton, ShowCharacterCard);
         _content.Add(_continueButton);
     }
@@ -108,6 +117,28 @@ public class BattleResult : FullScreenElement
             }
         }
         _content.Add(new Label($"Entity With Most Kills: {entityWithMostKills.name}, # kills: {topKillCount} "));
+    }
+
+    void AddAbilityThatAffectedMostEntities()
+    {
+        List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.NumberOfAffectedEntities).ToList());
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        _content.Add(container);
+        container.Add(new Label("Ability That Affected Most Entities: "));
+        container.Add(new AbilityIcon(copy[0].Ability));
+        container.Add(new Label($"# affected entities: {copy[0].NumberOfAffectedEntities}"));
+    }
+
+    void AddAbilityThatDealtMostDamage()
+    {
+        List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.DamageDealt));
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        _content.Add(container);
+        container.Add(new Label("Ability That Dealt Most Damage: "));
+        container.Add(new AbilityIcon(copy[0].Ability));
+        container.Add(new Label($"# damage dealt: {copy[0].DamageDealt}"));
     }
 
     void AddRewardContainer()

@@ -62,12 +62,10 @@ public class Ability : BaseScriptableObject
     public void Upgrade()
     {
         Level++;
-        Debug.Log($"upgrading ability to level {Level}");
     }
 
     public void LoadFromData(AbilityData data)
     {
-        Debug.Log($"loading ability from data {data.Level}");
         Level = data.Level;
         KillCount = data.KillCount;
     }
@@ -78,7 +76,6 @@ public class Ability : BaseScriptableObject
         if (this == null)
             return data;
 
-        Debug.Log($"Serialize self level: {Level}");
         data.TemplateId = Id;
         data.Level = Level;
         data.KillCount = KillCount;

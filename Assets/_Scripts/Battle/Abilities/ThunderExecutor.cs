@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class ThunderExecutor : AbilityExecutor
 {
-
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
         Debug.Log($"executing thunder on {_entitiesInArea.Count}");
