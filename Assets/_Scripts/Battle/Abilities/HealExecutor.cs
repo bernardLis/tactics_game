@@ -8,8 +8,9 @@ public class HealExecutor : AbilityExecutor
     {
         foreach (BattleEntity entity in _entitiesInArea)
         {
-            entity.GetHealed(_selectedAbility);
+            _damageDealt += entity.GetHealed(_selectedAbility);
         }
+        CreateBattleLog();
 
         yield return new WaitForSeconds(3f);
         CancelAbility();

@@ -178,7 +178,7 @@ public class BattleEntity : MonoBehaviour
     public float GetTotalHealth() { return Stats.Health; }
     public float GetCurrentHealth() { return CurrentHealth; }
 
-    public void GetHealed(Ability ability)
+    public int GetHealed(Ability ability)
     {
         float value = ability.GetPower();
         CurrentHealth += value;
@@ -192,6 +192,8 @@ public class BattleEntity : MonoBehaviour
         _feelPlayer.PlayFeedbacks(transform.position);
 
         OnHealthChanged?.Invoke(CurrentHealth);
+
+        return Mathf.RoundToInt(value);
     }
 
     public IEnumerator GetHit(BattleEntity attacker, Ability ability = null)
@@ -224,7 +226,7 @@ public class BattleEntity : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             if (attacker != null) attacker.IncreaseKillCount();
-            yield return Die();
+            yield return Die(attacker, ability);
             yield break;
         }
         //      if (Random.value > 0.5f)
@@ -267,7 +269,7 @@ public class BattleEntity : MonoBehaviour
                 .SetDelay(Random.Range(0.5f, 1f));
     }
 
-    public IEnumerator Die()
+    public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
         IsDead = true;
         OnDeath?.Invoke(this);
@@ -275,6 +277,11 @@ public class BattleEntity : MonoBehaviour
         transform.DORotate(new Vector3(-90, 0, 0), 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
         yield return transform.DOMoveY(0, 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
         ToggleHighlight(false);
+
+        BattleLogManager logManager = BattleManager.Instance.GetComponent<BattleLogManager>();
+        BattleLogEntityDeath log = ScriptableObject.CreateInstance<BattleLogEntityDeath>();
+        log.Initialize(this, attacker, ability);
+        logManager.AddLog(log);
     }
 
     public void IncreaseKillCount() { KilledEnemiesCount++; }

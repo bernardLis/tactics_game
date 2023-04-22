@@ -17,6 +17,8 @@ public class AbilityExecutor : MonoBehaviour
 
     protected Ability _selectedAbility;
 
+    protected int _damageDealt;
+
     public void HighlightAbilityArea(Ability ability)
     {
         _selectedAbility = ability;
@@ -45,7 +47,16 @@ public class AbilityExecutor : MonoBehaviour
 
     protected virtual IEnumerator ExecuteAbilityCoroutine()
     {
+
         yield return null;
+    }
+
+    protected virtual void CreateBattleLog()
+    {
+        BattleLogAbility battleLog = new();
+        battleLog.Initialize(_selectedAbility, _entitiesInArea.Count, _damageDealt);
+
+        BattleManager.Instance.GetComponent<BattleLogManager>().AddLog(battleLog);
     }
 
     public void CancelAbility() { Invoke("DestroySelf", 0.1f); }

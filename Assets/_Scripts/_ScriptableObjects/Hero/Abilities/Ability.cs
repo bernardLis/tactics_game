@@ -23,6 +23,7 @@ public class Ability : BaseScriptableObject
     [SerializeField] float ScaleLevelMultiplier;
 
     public Element Element;
+    [HideInInspector] public int KillCount;
 
     [Header("Battle GameObjects")]
     public GameObject AbilityExecutorPrefab;
@@ -31,6 +32,11 @@ public class Ability : BaseScriptableObject
     public void StartCooldown()
     {
         OnCooldownStarted?.Invoke();
+    }
+
+    public void IncreaseKillCount()
+    {
+        KillCount++;
     }
 
     public int GetManaCost()
@@ -63,6 +69,7 @@ public class Ability : BaseScriptableObject
     {
         Debug.Log($"loading ability from data {data.Level}");
         Level = data.Level;
+        KillCount = data.KillCount;
     }
 
     public AbilityData SerializeSelf()
@@ -74,6 +81,7 @@ public class Ability : BaseScriptableObject
         Debug.Log($"Serialize self level: {Level}");
         data.TemplateId = Id;
         data.Level = Level;
+        data.KillCount = KillCount;
         return data;
     }
 }
@@ -84,4 +92,5 @@ public struct AbilityData
     public string TemplateId;
     public string Name;
     public int Level;
+    public int KillCount;
 }

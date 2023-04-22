@@ -9,7 +9,11 @@ public class FireballExecutor : AbilityExecutor
     {
         Debug.Log($"executing fireball on {_entitiesInArea.Count}");
         foreach (BattleEntity entity in _entitiesInArea)
+        {
+            _damageDealt += Mathf.RoundToInt(entity.Stats.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(null, _selectedAbility));
+        }
+        CreateBattleLog();
 
         yield return new WaitForSeconds(4f);
         Transform[] allChildren = _effectInstance.GetComponentsInChildren<Transform>();
@@ -19,7 +23,6 @@ public class FireballExecutor : AbilityExecutor
 
         yield return _effectInstance.transform.DOScale(0f, 1f).WaitForCompletion();
         CancelAbility();
-        yield return null;
     }
 
 }

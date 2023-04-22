@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : Singleton<BattleManager>
 {
     GameManager _gameManager;
     Battle _loadedBattle;
@@ -19,7 +21,10 @@ public class BattleManager : MonoBehaviour
     Material _skyMat;
     [SerializeField] float _skyboxRotationSpeed = 0.2f;
 
-    [SerializeField] TextMeshProUGUI _textMesh; // HERE: something smarter
+    [SerializeField] TextMeshProUGUI _timerText;
+    [SerializeField] TextMeshProUGUI _scoreText;
+
+    public float Time { get; private set; }
 
     [SerializeField] Material _playerMaterial;
     [SerializeField] Material _enemyMaterial;
@@ -49,7 +54,7 @@ public class BattleManager : MonoBehaviour
         _skyMat = RenderSettings.skybox;
         _initRot = _skyMat.GetFloat(_rotationProperty);
 
-        _textMesh.text = $"{_initialPlayerEntityCount} : {_initialEnemyEntityCount}";
+        _scoreText.text = $"{_initialPlayerEntityCount} : {_initialEnemyEntityCount}";
 
         _opponent = ScriptableObject.CreateInstance<Hero>();
         _opponent.CreateRandom(1);
@@ -62,7 +67,14 @@ public class BattleManager : MonoBehaviour
         _gameManager.ToggleTimer(true);
     }
 
-    void Update() => _skyMat.SetFloat(_rotationProperty, Time.time * _skyboxRotationSpeed);
+    void Update()
+    {
+        Time += UnityEngine.Time.deltaTime;
+        TimeSpan time = TimeSpan.FromSeconds(Time);
+        _timerText.text = $"{time.Minutes:D2}:{time.Seconds:D2}";
+
+        _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
+    }
 
     void InstantiatePlayer(ArmyEntity entity, int count)
     {
@@ -99,7 +111,7 @@ public class BattleManager : MonoBehaviour
     void OnPlayerDeath(BattleEntity be)
     {
         PlayerEntities.Remove(be);
-        _textMesh.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
+        _scoreText.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
 
         if (PlayerEntities.Count == 0)
             BattleLost();
@@ -108,7 +120,7 @@ public class BattleManager : MonoBehaviour
     void OnEnemyDeath(BattleEntity be)
     {
         EnemyEntities.Remove(be);
-        _textMesh.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
+        _scoreText.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
 
         if (EnemyEntities.Count == 0)
             BattleWon();
