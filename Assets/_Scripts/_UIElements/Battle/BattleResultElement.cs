@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
+using DG.Tweening;
 
 public class BattleResult : FullScreenElement
 {
@@ -16,24 +17,27 @@ public class BattleResult : FullScreenElement
 
     GameManager _gameManager;
     AudioManager _audioManager;
-    BattleLogManager _battleLogManager;
+    BattleManager _battleManager;
 
     Battle _battle;
-
-    List<BattleLogAbility> _abilityLogs = new();
 
     VisualElement _content;
     MyButton _continueButton;
 
-    VisualElement _rewardContainer;
-    List<RewardCard> _allRewardCards = new();
-    List<RewardCard> _selectedRewardCards = new();
+    BattleStatsContainer _statsContainer;
+    RewardExpContainer _rewardExpContainer;
+    // 2. TODO:  player level up container
 
-    public BattleResult(VisualElement root, Battle battle, List<BattleEntity> entities)
+    RewardCardsContainer _rewardContainer;
+
+    // 4. choose next battle container 
+
+
+    public BattleResult(VisualElement root)
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
-        _battleLogManager = BattleManager.Instance.GetComponent<BattleLogManager>();
+        _battleManager = BattleManager.Instance;
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -45,11 +49,11 @@ public class BattleResult : FullScreenElement
 
         Initialize(root, false);
 
-        _battle = battle;
+        _battle = _battleManager.LoadedBattle;
 
         AddToClassList(_ussCommonTextPrimary);
 
-        if (battle.Won)
+        if (_battle.Won)
         {
             AddToClassList(_ussWonMain);
             _audioManager.PlaySFX("QuestWon", Vector3.one);
@@ -64,168 +68,35 @@ public class BattleResult : FullScreenElement
         Add(_content);
         _content.AddToClassList(_ussContent);
 
-        /*
-        0nd.show battle stats
-
-        1st.show character getting exp and allow choosing level
-
-        2nd.show rewards
-
-        3rd.go back
-        */
-
-        foreach (BattleLog item in _battleLogManager.Logs)
-            if (item is BattleLogAbility abilityLog)
-                _abilityLogs.Add(abilityLog);
-
-        AddEntityWithMostKills(entities);
-        AddAbilityThatDealtMostDamage();
-        AddAbilityThatAffectedMostEntities();
-
-        _continueButton = new("Continue", _ussCommonMenuButton, ShowCharacterCard);
-        _content.Add(_continueButton);
+        _statsContainer = new();
+        _content.Add(_statsContainer);
+        _statsContainer.OnContinue += ShowRewardExp;
     }
 
-    void ShowCharacterCard()
+    void ShowRewardExp()
     {
         _content.Clear();
 
-        HeroCardQuest card = new HeroCardQuest(_gameManager.PlayerHero);
-        _gameManager.PlayerHero.GetExp(100);
-        // TODO: normally, if the hero is not leveled up, we should wait a bit and show the rewards
-        card.OnLeveledUp += ShowRewards;
-        _content.Add(card);
+        _rewardExpContainer = new();
+        _content.Add(_rewardExpContainer);
+        _rewardExpContainer.OnContinue += ShowRewards;
     }
 
     void ShowRewards()
     {
         _content.Clear();
         _content.Add(new HeroCardMini(_gameManager.PlayerHero));
-        AddRewardContainer();
-    }
 
-    void AddEntityWithMostKills(List<BattleEntity> entities)
-    {
-        BattleEntity entityWithMostKills = entities[0];
-        int topKillCount = entities[0].KilledEnemiesCount;
-        foreach (BattleEntity e in entities)
-        {
-            if (e.KilledEnemiesCount > topKillCount)
-            {
-                topKillCount = e.KilledEnemiesCount;
-                entityWithMostKills = e;
-            }
-        }
-        _content.Add(new Label($"Entity With Most Kills: {entityWithMostKills.name}, # kills: {topKillCount} "));
-    }
+        _rewardContainer = new RewardCardsContainer();
+        _content.Add(_rewardContainer);
 
-    void AddAbilityThatAffectedMostEntities()
-    {
-        List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.NumberOfAffectedEntities).ToList());
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        _content.Add(container);
-        container.Add(new Label("Ability That Affected Most Entities: "));
-        container.Add(new AbilityIcon(copy[0].Ability));
-        container.Add(new Label($"# affected entities: {copy[0].NumberOfAffectedEntities}"));
-    }
-
-    void AddAbilityThatDealtMostDamage()
-    {
-        List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.DamageDealt));
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        _content.Add(container);
-        container.Add(new Label("Ability That Dealt Most Damage: "));
-        container.Add(new AbilityIcon(copy[0].Ability));
-        container.Add(new Label($"# damage dealt: {copy[0].DamageDealt}"));
-    }
-
-    void AddRewardContainer()
-    {
-        VisualElement parentContainer = new();
-        _content.Add(parentContainer);
-
-        _rewardContainer = new();
-        _rewardContainer.style.flexDirection = FlexDirection.Row;
-        parentContainer.Add(_rewardContainer);
-        PopulateRewards();
-
-        MyButton rerollButton = new("Reroll", _ussCommonMenuButton, RerollReward);
-        // TODO: dice + gold element
-        parentContainer.Add(rerollButton);
-    }
-
-    void RerollReward()
-    {
-        // you gotta pay for it.
-        PopulateRewards();
-    }
-
-    void PopulateRewards()
-    {
-        _rewardContainer.Clear();
-        _allRewardCards.Clear();
-        CreateRewardCards();
-        ChooseRewardCards();
-    }
-
-    void CreateRewardCards()
-    {
-        _allRewardCards.Add(CreateRewardCardItem());
-        _allRewardCards.Add(CreateRewardCardAbility());
-        _allRewardCards.Add(CreateRewardCardGold());
-        _allRewardCards.Add(CreateRewardCardArmy());
-    }
-
-    void ChooseRewardCards()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
-            _allRewardCards.Remove(card);
-            _selectedRewardCards.Add(card);
-            _rewardContainer.Add(card);
-        }
-    }
-
-    RewardCard CreateRewardCardItem()
-    {
-        RewardItem reward = ScriptableObject.CreateInstance<RewardItem>();
-        reward.CreateRandom(_gameManager.PlayerHero);
-        reward.OnRewardSelected += RewardSelected;
-        return new RewardCardItem(reward);
-    }
-
-    RewardCard CreateRewardCardAbility()
-    {
-        RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-        reward.CreateRandom(_gameManager.PlayerHero);
-        reward.OnRewardSelected += RewardSelected;
-        return new RewardCardAbility(reward);
-    }
-
-    RewardCard CreateRewardCardGold()
-    {
-        RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-        reward.CreateRandom(_gameManager.PlayerHero);
-        reward.OnRewardSelected += RewardSelected;
-        return new RewardCardGold(reward);
-
-    }
-
-    RewardCard CreateRewardCardArmy()
-    {
-        RewardArmy reward = ScriptableObject.CreateInstance<RewardArmy>();
-        reward.CreateRandom(_gameManager.PlayerHero);
-        reward.OnRewardSelected += RewardSelected;
-        return new RewardCardArmy(reward);
+        _rewardContainer.OnRewardSelected += RewardSelected;
     }
 
     void RewardSelected()
     {
-        foreach (RewardCard card in _selectedRewardCards)
-            card.SetEnabled(false);
+        _continueButton = new("Continue", _ussCommonMenuButton, LoadMap);
+        _content.Add(_continueButton);
     }
 
     void LoadMap() { _gameManager.LoadMap(); }

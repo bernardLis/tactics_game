@@ -53,7 +53,7 @@ public class AbilityExecutor : MonoBehaviour
 
     protected virtual void CreateBattleLog()
     {
-        BattleLogAbility battleLog = new();
+        BattleLogAbility battleLog = ScriptableObject.CreateInstance<BattleLogAbility>();
         battleLog.Initialize(_selectedAbility, _entitiesInArea.Count, _damageDealt);
 
         BattleManager.Instance.GetComponent<BattleLogManager>().AddLog(battleLog);

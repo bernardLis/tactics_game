@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public class BattleManager : Singleton<BattleManager>
 {
     GameManager _gameManager;
-    Battle _loadedBattle;
+    public Battle LoadedBattle { get; private set; }
 
     VisualElement _root;
 
@@ -43,11 +43,11 @@ public class BattleManager : Singleton<BattleManager>
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _loadedBattle = _gameManager.SelectedBattle;
+        LoadedBattle = _gameManager.SelectedBattle;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
 
-        _initialEnemyEntityCount = _loadedBattle.GetTotalNumberOfEnemies();
+        _initialEnemyEntityCount = LoadedBattle.GetTotalNumberOfEnemies();
         _initialPlayerEntityCount = _gameManager.PlayerHero.GetTotalNumberOfArmyEntities();
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
@@ -61,7 +61,7 @@ public class BattleManager : Singleton<BattleManager>
 
         foreach (ArmyGroup ag in _gameManager.PlayerHero.Army)
             InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
-        foreach (ArmyGroup ag in _loadedBattle.Army)
+        foreach (ArmyGroup ag in LoadedBattle.Army)
             InstantiateEnemy(ag.ArmyEntity, ag.EntityCount);
 
         _gameManager.ToggleTimer(true);
@@ -128,19 +128,19 @@ public class BattleManager : Singleton<BattleManager>
 
     void BattleLost()
     {
-        StartCoroutine(FinalizeBattle(EnemyEntities));
+        StartCoroutine(FinalizeBattle());
     }
 
     void BattleWon()
     {
-        _loadedBattle.Won = true;
-        StartCoroutine(FinalizeBattle(PlayerEntities));
+        LoadedBattle.Won = true;
+        StartCoroutine(FinalizeBattle());
     }
 
-    IEnumerator FinalizeBattle(List<BattleEntity> entities)
+    IEnumerator FinalizeBattle()
     {
         yield return new WaitForSeconds(2f);
-        BattleResult r = new(_root, _loadedBattle, entities);
+        BattleResult r = new(_root);
     }
 
 #if UNITY_EDITOR
