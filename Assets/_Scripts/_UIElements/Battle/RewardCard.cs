@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class RewardCard : VisualElement
 {
+    GameManager _gameManager;
     const string _ussClassName = "reward-card__";
     const string _ussMain = _ussClassName + "main";
     const string _ussDisabled = _ussClassName + "disabled";
@@ -14,13 +16,15 @@ public class RewardCard : VisualElement
 
     public RewardCard(Reward reward)
     {
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardCardStyles);
+        _gameManager = GameManager.Instance;
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardCardStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
         Reward = reward;
 
         AddToClassList(_ussMain);
+        style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetRandomRewardCardBackground());
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }

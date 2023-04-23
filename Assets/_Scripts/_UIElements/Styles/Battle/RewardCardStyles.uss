@@ -1,14 +1,23 @@
 .reward-card__main {
     width: 200px;
     height: 300px;
+    opacity: 0.9;
     justify-content: center;
     align-items: center;
-    background-color: coral;
-    transition-duration: 0.5s;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.reward-card__main:hover {
+    scale: 1.1;
+    opacity: 1;
+    transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
 }
 
 .reward-card__disabled {
     scale: 0.8;
     opacity: 0.6;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
 }

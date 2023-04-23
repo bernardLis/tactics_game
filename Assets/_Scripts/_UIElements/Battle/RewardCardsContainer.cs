@@ -26,12 +26,15 @@ public class RewardCardsContainer : VisualElement
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
 
+        Add(new Label("Choose your reward:"));
+
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;
         Add(_rewardContainer);
         PopulateRewards();
 
         MyButton rerollButton = new("Reroll", _ussCommonMenuButton, RerollReward);
+        Add(rerollButton);
         // TODO: dice + gold element
     }
 
