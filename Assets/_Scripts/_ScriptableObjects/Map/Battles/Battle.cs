@@ -6,7 +6,7 @@ using UnityEngine;
 public class Battle : BaseScriptableObject
 {
     public Vector2 MapPosition;
-    public List<ArmyGroup> Army = new();
+    public Hero Opponent;
 
     public bool Won;
 
@@ -14,26 +14,12 @@ public class Battle : BaseScriptableObject
     {
         Id = System.Guid.NewGuid().ToString();
         MapPosition = pos;
-        RandomizeBattle();
-    }
-
-    public void RandomizeBattle()
-    {
-        GameManager gameManager = GameManager.Instance;
-
-        Army = new();
-        Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
-        Army[0].ArmyEntity = gameManager.GameDatabase.AllEnemyArmyEntities[0];
-        Army[0].EntityCount = Random.Range(1, 10);
-        Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
-        Army[1].ArmyEntity = gameManager.GameDatabase.AllEnemyArmyEntities[1];
-        Army[1].EntityCount = Random.Range(1, 10);
     }
 
     public int GetTotalNumberOfEnemies()
     {
         int total = 0;
-        foreach (ArmyGroup ag in Army)
+        foreach (ArmyGroup ag in Opponent.Army)
             total += ag.EntityCount;
         return total;
     }
@@ -43,10 +29,7 @@ public class Battle : BaseScriptableObject
         BattleData data = new();
         data.Id = Id;
         data.MapPosition = MapPosition;
-        data.ArmyDatas = new();
-        foreach (ArmyGroup ag in Army)
-            data.ArmyDatas.Add(ag.SerializeSelf());
-
+        data.Opponent = Opponent.SerializeSelf();
         data.Won = Won;
 
         return data;
@@ -57,13 +40,8 @@ public class Battle : BaseScriptableObject
         Id = data.Id;
         name = "Battle";
         MapPosition = data.MapPosition;
-        Army = new();
-        foreach (ArmyGroupData agd in data.ArmyDatas)
-        {
-            ArmyGroup ag = ScriptableObject.CreateInstance<ArmyGroup>();
-            ag.LoadFromData(agd);
-            Army.Add(ag);
-        }
+        Opponent = ScriptableObject.CreateInstance<Hero>();
+        Opponent.LoadFromData(data.Opponent);
 
         Won = data.Won;
     }
@@ -74,6 +52,6 @@ public struct BattleData
 {
     public string Id;
     public Vector2 MapPosition;
-    public List<ArmyGroupData> ArmyDatas;
+    public HeroData Opponent;
     public bool Won;
 }

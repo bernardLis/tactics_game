@@ -17,6 +17,8 @@ public class SaveData
 
     public HeroData PlayerHero = new();
 
+    public BattleData SelectedBattle;
+    
     public MapData MapData;
 
     public string ToJson() { return JsonUtility.ToJson(this); }

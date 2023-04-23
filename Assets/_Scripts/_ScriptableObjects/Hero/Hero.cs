@@ -331,6 +331,16 @@ public class Hero : BaseScriptableObject
         List<Item> Items = new();
         Abilities = new();
 
+        // TODO: something smarter maybe the higher level the better army too?        
+        Army = new();
+        Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
+        Army[0].ArmyEntity = _gameManager.GameDatabase.AllEnemyArmyEntities[0];
+        Army[0].EntityCount = Random.Range(1, 10);
+        Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
+        Army[1].ArmyEntity = _gameManager.GameDatabase.AllEnemyArmyEntities[1];
+        Army[1].EntityCount = Random.Range(1, 10);
+
+
         UpdateRank();
     }
 

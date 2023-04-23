@@ -35,8 +35,6 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] GameObject _playerSpawnPoint;
     [SerializeField] GameObject _enemySpawnPoint;
 
-    Hero _opponent;
-
     public List<BattleEntity> PlayerEntities = new();
     public List<BattleEntity> EnemyEntities = new();
 
@@ -56,12 +54,9 @@ public class BattleManager : Singleton<BattleManager>
 
         _scoreText.text = $"{_initialPlayerEntityCount} : {_initialEnemyEntityCount}";
 
-        _opponent = ScriptableObject.CreateInstance<Hero>();
-        _opponent.CreateRandom(1);
-
         foreach (ArmyGroup ag in _gameManager.PlayerHero.Army)
             InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
-        foreach (ArmyGroup ag in LoadedBattle.Army)
+        foreach (ArmyGroup ag in LoadedBattle.Opponent.Army)
             InstantiateEnemy(ag.ArmyEntity, ag.EntityCount);
 
         _gameManager.ToggleTimer(true);
@@ -102,7 +97,7 @@ public class BattleManager : Singleton<BattleManager>
             GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_enemyMaterial, _opponent, entity, ref PlayerEntities);
+            be.Initialize(_enemyMaterial, LoadedBattle.Opponent, entity, ref PlayerEntities);
             EnemyEntities.Add(be);
             be.OnDeath += OnEnemyDeath;
         }

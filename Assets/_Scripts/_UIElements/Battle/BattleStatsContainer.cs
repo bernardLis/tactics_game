@@ -16,7 +16,7 @@ public class BattleStatsContainer : VisualElement
 
     List<BattleLogAbility> _abilityLogs = new();
 
-    public event Action OnContinue;
+    public event Action OnFinished;
     public BattleStatsContainer()
     {
         _gameManager = GameManager.Instance;
@@ -31,19 +31,19 @@ public class BattleStatsContainer : VisualElement
             if (item is BattleLogAbility abilityLog)
                 _abilityLogs.Add(abilityLog);
 
-        AddEntityWithMostKills();
+        AddMostKillsEntity();
 
         if (_abilityLogs.Count == 0)
         {
-            AddContinueButton();
+            OnFinished?.Invoke();
             return;
         }
-        AddAbilityThatAffectedMostEntities();
-        AddAbilityThatDealtMostDamage();
+        AddMostEntitiesAbility();
+        AddMostDamageAbility();
     }
 
 
-    void AddEntityWithMostKills()
+    void AddMostKillsEntity()
     {
         List<BattleEntity> entities = new(BattleManager.Instance.PlayerEntities);
 
@@ -64,7 +64,7 @@ public class BattleStatsContainer : VisualElement
         DOTween.To(x => l.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
     }
 
-    void AddAbilityThatAffectedMostEntities()
+    void AddMostEntitiesAbility()
     {
         List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.NumberOfAffectedEntities).ToList());
         VisualElement container = new();
@@ -80,7 +80,7 @@ public class BattleStatsContainer : VisualElement
         DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f).SetDelay(1f);
     }
 
-    void AddAbilityThatDealtMostDamage()
+    void AddMostDamageAbility()
     {
         if (_abilityLogs.Count == 0) return;
 
@@ -97,13 +97,6 @@ public class BattleStatsContainer : VisualElement
         container.style.opacity = 0;
         DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
         .SetDelay(1.5f)
-        .OnComplete(AddContinueButton);
+        .OnComplete(() => OnFinished?.Invoke());
     }
-
-    void AddContinueButton()
-    {
-        MyButton continueButton = new("Continue", _ussCommonMenuButton, () => OnContinue?.Invoke());
-        Add(continueButton);
-    }
-
 }

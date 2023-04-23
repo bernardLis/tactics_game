@@ -26,12 +26,8 @@ public class BattleResult : FullScreenElement
 
     BattleStatsContainer _statsContainer;
     RewardExpContainer _rewardExpContainer;
-    // 2. TODO:  player level up container
-
     RewardCardsContainer _rewardContainer;
-
-    // 4. choose next battle container 
-
+    BattleChoiceContainer _battleChoiceContainer;
 
     public BattleResult(VisualElement root)
     {
@@ -70,7 +66,9 @@ public class BattleResult : FullScreenElement
 
         _statsContainer = new();
         _content.Add(_statsContainer);
-        _statsContainer.OnContinue += ShowRewardExp;
+
+        _continueButton = new("Continue", _ussCommonMenuButton, ShowRewardExp);
+        _statsContainer.OnFinished += () => _content.Add(_continueButton);
     }
 
     void ShowRewardExp()
@@ -79,7 +77,9 @@ public class BattleResult : FullScreenElement
 
         _rewardExpContainer = new();
         _content.Add(_rewardExpContainer);
-        _rewardExpContainer.OnContinue += ShowRewards;
+
+        _continueButton = new("Continue", _ussCommonMenuButton, ShowRewards);
+        _rewardExpContainer.OnLeveledUp += () => _content.Add(_continueButton);
     }
 
     void ShowRewards()
@@ -90,14 +90,19 @@ public class BattleResult : FullScreenElement
         _rewardContainer = new RewardCardsContainer();
         _content.Add(_rewardContainer);
 
-        _rewardContainer.OnRewardSelected += RewardSelected;
+        _continueButton = new("Continue", _ussCommonMenuButton, ShowBattleChoices);
+        _rewardContainer.OnRewardSelected += () => _content.Add(_continueButton);
     }
 
-    void RewardSelected()
+    void ShowBattleChoices()
     {
-        _continueButton = new("Continue", _ussCommonMenuButton, LoadMap);
-        _content.Add(_continueButton);
+        _content.Clear();
+        _battleChoiceContainer = new();
+        _content.Add(_battleChoiceContainer);
+
+        _continueButton = new("Continue", _ussCommonMenuButton, LoadBattle);
+        _battleChoiceContainer.OnBattleSelected += () => _content.Add(_continueButton);
     }
 
-    void LoadMap() { _gameManager.LoadMap(); }
+    void LoadBattle() { _gameManager.LoadLevel(Scenes.Battle); }
 }

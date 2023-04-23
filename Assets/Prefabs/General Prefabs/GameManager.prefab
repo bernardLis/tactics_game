@@ -41,7 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &329089867633818112
 AudioListener:
@@ -420,9 +420,6 @@ MonoBehaviour:
   QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   WasIntroCutscenePlayed: 0
   PlayerHero: {fileID: 0}
-  FriendHero: {fileID: 0}
-  PlayerItemPouch: []
-  PlayerAbilityPouch: []
   Map: {fileID: 11400000, guid: c39bdc5d1affc7c4e95ffa66e020f48f, type: 2}
   SelectedBattle: {fileID: 11400000, guid: a21f9f7f650aa8b4f80779c5aeb09d75, type: 2}
 --- !u!114 &2154333484900981486

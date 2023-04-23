@@ -41,7 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &329089867633818112
 AudioListener:
@@ -307,10 +307,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 1dbd63513c7627546afc3aacbe651377
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 75cc4cb1b795ae34ba2022af2dfc4bbb
     m_SubObjectName: 
     m_SubObjectType: 
@@ -336,10 +332,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 4496443c1c70fcf40a4dd27ff7628657
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 1e5fca1dceaeb1f4bab0703760687dd3
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -384,6 +376,14 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: ec099da415fab4f42b139aa2a7685a96
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: cfbdbbe13acd1e0478727ccd5ed27b2b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 29783fdbff911524d91b668919352943
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -433,14 +433,6 @@ MonoBehaviour:
   QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   WasIntroCutscenePlayed: 0
   PlayerHero: {fileID: 0}
-  FriendHero: {fileID: 0}
-  PlayerItemPouch: []
-  PlayerAbilityPouch: []
-  _abilityNodeGraphs:
-  - {fileID: 11400000, guid: cb2907293b568eb4c8a274a9c0e077be, type: 2}
-  - {fileID: 11400000, guid: b490b888ee688624b9c291aa2a94e28b, type: 2}
-  - {fileID: 11400000, guid: 6bceff6e2885a224c958a51fe4e78327, type: 2}
-  - {fileID: 11400000, guid: 5cfff81ab536b044d8698723e7ced127, type: 2}
   Map: {fileID: 0}
   SelectedBattle: {fileID: 0}
 --- !u!114 &2154333484900981486

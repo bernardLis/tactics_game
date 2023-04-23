@@ -28,7 +28,6 @@ public class MapSetupManager : MonoBehaviour
     {
         PlaceHeroes();
         PlaceCollectables();
-        PlaceBattles();
         PlaceCastles();
 
         AstarPath.active.Scan();
@@ -41,7 +40,6 @@ public class MapSetupManager : MonoBehaviour
     {
         CurrentMap.Reset();
         PlaceCollectables();
-        PlaceBattles();
 
         AstarPath.active.Scan();
     }
@@ -87,15 +85,6 @@ public class MapSetupManager : MonoBehaviour
     {
         i.Initialize();
         instance.GetComponent<MapCollectable>().Initialize(i);
-    }
-
-    void PlaceBattles()
-    {
-        foreach (Battle b in CurrentMap.Battles)
-        {
-            GameObject instance = Instantiate(_battlePrefab, b.MapPosition, Quaternion.identity);
-            instance.GetComponent<MapBattle>().Initialize(b);
-        }
     }
 
     void PlaceCastles()

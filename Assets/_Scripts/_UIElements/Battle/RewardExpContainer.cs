@@ -10,7 +10,7 @@ public class RewardExpContainer : VisualElement
 
     GameManager _gameManager;
 
-    public event Action OnContinue;
+    public event Action OnLeveledUp;
     public RewardExpContainer()
     {
         _gameManager = GameManager.Instance;
@@ -24,14 +24,6 @@ public class RewardExpContainer : VisualElement
         Add(card);
 
         // TODO: normally, if the hero is not leveled up, we should wait a bit and show the rewards
-        card.OnLeveledUp += AddContinueButton;
-
+        card.OnLeveledUp += OnLeveledUp;
     }
-
-    void AddContinueButton()
-    {
-        MyButton continueButton = new("Continue", _ussCommonMenuButton, () => OnContinue?.Invoke());
-        Add(continueButton);
-    }
-
 }

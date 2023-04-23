@@ -12,11 +12,8 @@ public class BattleTooltipElement : VisualElement
         _battle = battle;
         style.flexDirection = FlexDirection.Row;
 
-        foreach (ArmyGroup ag in _battle.Army)
-        {
-            ArmyElement el = new(ag);
-            Add(el);
-        }
+        Add(new Label("Battle tooltip not implemented"));
+
         style.position = Position.Absolute;
 
         style.left = pos.x - 50;

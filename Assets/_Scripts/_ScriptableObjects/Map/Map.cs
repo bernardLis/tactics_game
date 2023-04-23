@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 public class Map : BaseScriptableObject
 {
     public List<Collectable> Collectables = new();
-    public List<Battle> Battles = new();
     public List<Castle> Castles = new();
     public List<int> ExploredListPositions = new();
 
@@ -22,10 +21,6 @@ public class Map : BaseScriptableObject
         Collectables = new();
         for (int i = 0; i < 10; i++)
             CreateCollectable();
-
-        Battles = new();
-        for (int i = 0; i < 3; i++)
-            CreateBattle();
 
         Castle castle = (Castle)ScriptableObject.CreateInstance<Castle>();
         castle.Create(TemplateCastleId, CastlePosition);
@@ -52,26 +47,12 @@ public class Map : BaseScriptableObject
         Collectables.Add(collectable);
     }
 
-    void CreateBattle()
-    {
-        Vector2 pos = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
-        pos.x += 0.5f;
-        pos.y += 0.5f;
-
-        Battle battle = (Battle)ScriptableObject.CreateInstance<Battle>();
-        battle.Create(pos);
-        Battles.Add(battle);
-    }
-
     public MapData SerializeSelf()
     {
         MapData data = new();
         data.CollectableDatas = new();
         foreach (Collectable c in Collectables)
             data.CollectableDatas.Add(c.SerializeSelf());
-        data.BattleDatas = new();
-        foreach (Battle b in Battles)
-            data.BattleDatas.Add(b.SerializeSelf());
         data.CastleDatas = new();
         foreach (Castle c in Castles)
             data.CastleDatas.Add(c.SerializeSelf());
@@ -97,13 +78,6 @@ public class Map : BaseScriptableObject
             Collectables.Add(collectable);
         }
 
-        foreach (BattleData d in data.BattleDatas)
-        {
-            Battle battle = (Battle)ScriptableObject.CreateInstance<Battle>();
-            battle.LoadFromData(d);
-            Battles.Add(battle);
-        }
-
         foreach (CastleData d in data.CastleDatas)
         {
             Castle castle = (Castle)ScriptableObject.CreateInstance<Castle>();
@@ -119,7 +93,6 @@ public class Map : BaseScriptableObject
 public struct MapData
 {
     public List<CollectableData> CollectableDatas;
-    public List<BattleData> BattleDatas;
     public List<CastleData> CastleDatas;
     public List<int> ExploredListPositions;
 }

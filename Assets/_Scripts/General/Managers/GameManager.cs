@@ -41,7 +41,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;
-    
+
     public event Action<string> OnLevelLoaded;
     public event Action OnNewSaveFileCreation;
     public event Action OnClearSaveData;
@@ -51,9 +51,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Game manager Awake");
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
-
-        // HERE: battle testing
-        LoadFromSaveFile();
     }
 
     void Start()
@@ -167,6 +164,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         PlayerHero = null;
 
+        // HERE: battle testing
+        Battle b = ScriptableObject.CreateInstance<Battle>();
+        Hero opp = ScriptableObject.CreateInstance<Hero>();
+        opp.CreateRandom(1);
+        b.Opponent = opp;
+        SelectedBattle = b;
+
         Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
         Map = Instantiate(templateMap);
         Map.Reset();
@@ -210,6 +214,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         if (PlayerHero != null)
             saveData.PlayerHero = PlayerHero.SerializeSelf();
 
+        saveData.SelectedBattle = SelectedBattle.SerializeSelf();
         saveData.MapData = Map.SerializeSelf();
     }
 
@@ -244,6 +249,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         PlayerHero = (Hero)ScriptableObject.CreateInstance<Hero>();
         PlayerHero.LoadFromData(saveData.PlayerHero);
+
+        SelectedBattle = (Battle)ScriptableObject.CreateInstance<Battle>();
+        SelectedBattle.LoadFromData(saveData.SelectedBattle);
 
         Map = ScriptableObject.CreateInstance<Map>();
         Map.LoadFromData(saveData.MapData);
