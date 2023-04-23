@@ -20,7 +20,8 @@ public class MapBattle : MonoBehaviour, ITooltipDisplayable
     }
     public void TakeBattle(MapHero h)
     {
-        _gameManager.LoadBattle(Battle);
+        _gameManager.SelectedBattle = Battle;
+        _gameManager.LoadLevel(Scenes.Battle);
     }
 
     public string GetTooltipText() { return "Battle"; }

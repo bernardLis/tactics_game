@@ -33,10 +33,10 @@ public class HeroCardMini : ElementWithTooltip
     public HeroCardMini(Hero hero)
     {
         _gameManager = GameManager.Instance;
-        var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        var common = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardMiniStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardMiniStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

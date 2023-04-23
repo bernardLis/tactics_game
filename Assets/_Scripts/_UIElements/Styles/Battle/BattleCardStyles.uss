@@ -1,4 +1,4 @@
-.reward-card__main {
+.battle-card__main {
     width: 200px;
     height: 300px;
     justify-content: center;
@@ -8,7 +8,7 @@
     transition-timing-function: ease-in-out;
 }
 
-.reward-card__disabled {
+.battle-card__disabled {
     scale: 0.8;
     opacity: 0.6;
 }

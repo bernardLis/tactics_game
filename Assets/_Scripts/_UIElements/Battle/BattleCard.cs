@@ -7,6 +7,11 @@ using UnityEngine.UIElements;
 
 public class BattleCard : VisualElement
 {
+    const string _ussClassName = "battle-card__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussDisabled = _ussClassName + "disabled";
+
+
     GameManager _gameManager;
 
     Battle _battle;
@@ -15,8 +20,12 @@ public class BattleCard : VisualElement
     public BattleCard()
     {
         _gameManager = GameManager.Instance;
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleCardStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
 
-        style.backgroundColor = Color.gray;
+
+        AddToClassList(_ussMain);
 
         Label l = new("Battle Card");
         Add(l);
@@ -38,19 +47,14 @@ public class BattleCard : VisualElement
 
     void OnPointerUp(PointerUpEvent evt)
     {
+        if (evt.button != 0) return;
+
         _gameManager.SelectedBattle = _battle;
         OnCardSelected?.Invoke(this);
     }
 
-    public void DisableCard()
-    {
-        transform.scale = Vector3.one * 0.8f;
-        style.opacity = 0.6f;
-    }
+    public void DisableCard() { AddToClassList(_ussDisabled); }
 
-    public void DisableClicks()
-    {
-        UnregisterCallback<PointerUpEvent>(OnPointerUp);
-    }
+    public void DisableClicks() { UnregisterCallback<PointerUpEvent>(OnPointerUp); }
 
 }

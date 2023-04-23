@@ -132,21 +132,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         OnLevelLoaded?.Invoke(level);
     }
 
-    public void LoadBattle(Battle b)
-    {
-        Debug.Log($"Loading battle {b}");
-        SelectedBattle = b;
-        SaveJsonData();
-        LoadLevel("Battle");
-    }
-
-    public void LoadMap()
-    {
-        Debug.Log($"loading map after battle, won? {SelectedBattle.Won}");
-        LoadLevel("Map");
-        SaveJsonData();
-    }
-
 
     /*************
     * Saving and Loading
@@ -233,6 +218,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void LoadFromSaveData(SaveData saveData)
     {
+        Debug.Log($"Loading from save data");
         _originalSaveData = saveData; // stored for later
 
         // player prefs

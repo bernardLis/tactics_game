@@ -100,10 +100,14 @@ public class RewardCardsContainer : VisualElement
         return new RewardCardArmy(reward);
     }
 
-    void RewardSelected()
+    void RewardSelected(Reward reward)
     {
         foreach (RewardCard card in _selectedRewardCards)
-            card.SetEnabled(false);
+        {
+            if (card.Reward != reward) card.DisableCard();
+
+            card.DisableClicks();
+        }
 
         OnRewardSelected?.Invoke();
     }

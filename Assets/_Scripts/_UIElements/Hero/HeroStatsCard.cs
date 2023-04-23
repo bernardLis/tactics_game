@@ -28,6 +28,7 @@ public class HeroStatsCard : VisualElement
     const string _ussTopPanel = _ussClassName + "top-panel";
     const string _ussTopLeftPanel = _ussClassName + "top-left-panel";
     const string _ussTopMiddlePanel = _ussClassName + "top-middle-panel";
+    const string _ussTopRightPanel = _ussClassName + "top-right-panel";
 
     const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussManaContainer = _ussClassName + "mana-container";
@@ -102,6 +103,8 @@ public class HeroStatsCard : VisualElement
 
     void PopulateTopRightPanel(VisualElement container)
     {
+        container.AddToClassList(_ussTopRightPanel);
+
         _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
         container.Add(_title);
 
@@ -140,7 +143,6 @@ public class HeroStatsCard : VisualElement
 
         if (Hero.CurrentMana != null)
             currentMana = Hero.CurrentMana;
-
 
         ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", currentMana, totalValueStat: Hero.Mana);
         container.Add(ManaBar);

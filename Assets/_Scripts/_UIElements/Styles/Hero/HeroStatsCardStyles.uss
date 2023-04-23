@@ -15,35 +15,18 @@
     justify-content: flex-end;
 }
 
-.hero-stats-card__bottom-panel {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-stats-card__top-middle-panel {
-    flex-direction: column;
-}
-
 .hero-stats-card__top-left-panel {
     position: absolute;
     left: 0;
     top: -30px;
 }
 
-.hero-stats-card__bottom-left-panel {
-    flex-direction: row;
-    align-content: center;
-    justify-content: center;
-    flex-shrink: 1;
-    flex-grow: 0;
-    flex-wrap: wrap;
+.hero-stats-card__top-middle-panel {
+    flex-direction: column;
 }
 
-.hero-stats-card__bottom-right-panel {
-    flex-direction: row;
-    flex-shrink: 0;
-    flex-grow: 1;
+.hero-stats-card__top-right-panel {
+    min-width: 200px;
 }
 
 .hero-stats-card__exp-container {

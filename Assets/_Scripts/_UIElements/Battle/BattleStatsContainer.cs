@@ -33,11 +33,6 @@ public class BattleStatsContainer : VisualElement
 
         AddMostKillsEntity();
 
-        if (_abilityLogs.Count == 0)
-        {
-            OnFinished?.Invoke();
-            return;
-        }
         AddMostEntitiesAbility();
         AddMostDamageAbility();
     }
@@ -61,11 +56,17 @@ public class BattleStatsContainer : VisualElement
         Add(l);
         l.style.opacity = 0;
 
-        DOTween.To(x => l.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
+        DOTween.To(x => l.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f)
+        .OnComplete(() =>
+        {
+            if (_abilityLogs.Count == 0) OnFinished?.Invoke();
+        });
     }
 
     void AddMostEntitiesAbility()
     {
+        if (_abilityLogs.Count == 0) return;
+        
         List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.NumberOfAffectedEntities).ToList());
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;

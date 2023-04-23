@@ -24,6 +24,8 @@ public class RewardExpContainer : VisualElement
         Add(card);
 
         // TODO: normally, if the hero is not leveled up, we should wait a bit and show the rewards
-        card.OnLeveledUp += OnLeveledUp;
+        card.OnLeveledUp += () => OnLeveledUp?.Invoke();
     }
+
+
 }

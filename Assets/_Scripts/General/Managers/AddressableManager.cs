@@ -60,6 +60,6 @@ public enum StyleSheetType
     ControlButtonStyles, CastleControlButtonStyles, HeroControlButtonStyles,
 
     BattleEntityElementStyles,
-    RewardCardStyles,
+    RewardCardStyles, BattleCardStyles
 
 }

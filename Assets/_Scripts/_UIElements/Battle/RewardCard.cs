@@ -8,8 +8,9 @@ public class RewardCard : VisualElement
 {
     const string _ussClassName = "reward-card__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussDisabled = _ussClassName + "disabled";
 
-    protected Reward _reward;
+    public Reward Reward;
 
     public RewardCard(Reward reward)
     {
@@ -17,7 +18,7 @@ public class RewardCard : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        _reward = reward;
+        Reward = reward;
 
         AddToClassList(_ussMain);
 
@@ -26,9 +27,13 @@ public class RewardCard : VisualElement
 
     void OnPointerUp(PointerUpEvent evt)
     {
-        if (evt.button != 0)
-            return;
+        if (evt.button != 0) return;
 
-        _reward.GetReward();
+        Reward.GetReward();
     }
+
+    public void DisableCard() { AddToClassList(_ussDisabled); }
+
+    public void DisableClicks() { UnregisterCallback<PointerUpEvent>(OnPointerUp); }
+
 }
