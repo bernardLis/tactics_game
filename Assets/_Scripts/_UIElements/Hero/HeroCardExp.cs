@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
 
-public class HeroCardQuest : VisualElement
+public class HeroCardExp : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "hero-card-quest__";
+    const string _ussClassName = "hero-card-exp__";
     const string _ussMain = _ussClassName + "main";
     const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussStatGroup = _ussClassName + "stat-group";
@@ -43,13 +43,13 @@ public class HeroCardQuest : VisualElement
     bool _pointAdded;
 
     public event Action OnLeveledUp;
-    public HeroCardQuest(Hero hero)
+    public HeroCardExp(Hero hero)
     {
         _gameManager = GameManager.Instance;
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardQuestStyles);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardExpStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

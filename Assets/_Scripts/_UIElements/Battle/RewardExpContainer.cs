@@ -19,7 +19,7 @@ public class RewardExpContainer : VisualElement
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
 
-        HeroCardQuest card = new HeroCardQuest(_gameManager.PlayerHero);
+        HeroCardExp card = new HeroCardExp(_gameManager.PlayerHero);
         _gameManager.PlayerHero.GetExp(100);
         Add(card);
 

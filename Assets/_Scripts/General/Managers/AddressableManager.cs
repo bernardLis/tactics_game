@@ -51,7 +51,7 @@ public enum StyleSheetType
     ItemSlotStyles, AbilitySlotStyles,
     HeroStatsCardStyles,
     HeroCardMiniStyles,
-    HeroCardQuestStyles,
+    HeroCardExpStyles,
 
     CastleElementStyles,
     BuildingElementStyles, ProductionBuildingElementStyles, BuildingSpriteElementStyles,
