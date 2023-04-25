@@ -76,6 +76,7 @@ MonoBehaviour:
   _enemySpawnPoint: {fileID: 0}
   PlayerEntities: []
   EnemyEntities: []
+  _effect: {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
 --- !u!114 &5119385659013104315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +137,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bc333019ae7434fad8d14c9eb31e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Logs: []

@@ -26,7 +26,7 @@ public class BattleResult : FullScreenElement
 
     BattleStatsContainer _statsContainer;
     RewardExpContainer _rewardExpContainer;
-    RewardCardsContainer _rewardContainer;
+    RewardContainer _rewardContainer;
     BattleChoiceContainer _battleChoiceContainer;
 
     public BattleResult(VisualElement root)
@@ -60,6 +60,11 @@ public class BattleResult : FullScreenElement
             AddToClassList(_ussLostMain);
         }
 
+        // making sure that vfx is underneath the content but visible
+        Add(_root.Q<VisualElement>("vfx"));
+        _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+        RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
+
         _content = new();
         Add(_content);
         _content.AddToClassList(_ussContent);
@@ -69,6 +74,12 @@ public class BattleResult : FullScreenElement
 
         _continueButton = new("Continue", _ussCommonMenuButton, ShowRewardExp);
         _statsContainer.OnFinished += () => _content.Add(_continueButton);
+    }
+
+    void OnPanelDetached(DetachFromPanelEvent evt)
+    {
+        // returning vfx to its original parent. TODO: this seems like a bad idea
+        _root.Add(_root.Q<VisualElement>("vfx"));
     }
 
     void ShowRewardExp()
@@ -87,7 +98,7 @@ public class BattleResult : FullScreenElement
         _content.Clear();
         _content.Add(new HeroCardMini(_gameManager.PlayerHero));
 
-        _rewardContainer = new RewardCardsContainer();
+        _rewardContainer = new RewardContainer();
         _content.Add(_rewardContainer);
 
         _continueButton = new("Continue", _ussCommonMenuButton, ShowBattleChoices);

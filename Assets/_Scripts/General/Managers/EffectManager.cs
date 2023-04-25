@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-
     public GameObject PlayEffect(GameObject prefab, Vector3 position, Vector3 scale,
             float duration)
     {

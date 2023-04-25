@@ -38,6 +38,8 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleEntity> PlayerEntities = new();
     public List<BattleEntity> EnemyEntities = new();
 
+
+    [SerializeField] EffectHolder _effect;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -128,6 +130,7 @@ public class BattleManager : Singleton<BattleManager>
 
     void BattleWon()
     {
+        _effect.PlayEffect(Vector3.zero, Vector3.one);
         LoadedBattle.Won = true;
         StartCoroutine(FinalizeBattle());
     }

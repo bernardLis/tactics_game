@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
-public class RewardCardsContainer : VisualElement
+public class RewardContainer : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "reward-cards-container__";
+    const string _ussClassName = "reward-container__";
     const string _ussMain = _ussClassName + "main";
     const string _ussRerollButton = _ussClassName + "reroll-button";
     const string _ussRerollIcon = _ussClassName + "reroll-icon";
@@ -24,16 +24,17 @@ public class RewardCardsContainer : VisualElement
     List<RewardCard> _allRewardCards = new();
     List<RewardCard> _selectedRewardCards = new();
 
+    MyButton _rerollButton;
     GoldElement _rerollCost;
 
     public event Action OnRewardSelected;
-    public RewardCardsContainer()
+    public RewardContainer()
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardCardsContainer);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardContainer);
         if (ss != null)
             styleSheets.Add(ss);
 
@@ -46,18 +47,18 @@ public class RewardCardsContainer : VisualElement
         Add(_rewardContainer);
         PopulateRewards();
 
-        MyButton rerollButton = new("", _ussRerollButton, RerollReward);
+        _rerollButton = new("", _ussRerollButton, RerollReward);
         VisualElement rerollIcon = new();
 
         rerollIcon.AddToClassList(_ussRerollIcon);
-        rerollButton.Add(rerollIcon);
+        _rerollButton.Add(rerollIcon);
 
-        rerollButton.RegisterCallback<PointerEnterEvent>(evt => rerollIcon.AddToClassList(_ussRerollIconHover));
-        rerollButton.RegisterCallback<PointerLeaveEvent>(evt => rerollIcon.RemoveFromClassList(_ussRerollIconHover));
+        _rerollButton.RegisterCallback<PointerEnterEvent>(evt => rerollIcon.AddToClassList(_ussRerollIconHover));
+        _rerollButton.RegisterCallback<PointerLeaveEvent>(evt => rerollIcon.RemoveFromClassList(_ussRerollIconHover));
 
         _rerollCost = new(200);
-        rerollButton.Add(_rerollCost);
-        Add(rerollButton);
+        _rerollButton.Add(_rerollCost);
+        Add(_rerollButton);
     }
 
     void RerollReward()
@@ -71,7 +72,6 @@ public class RewardCardsContainer : VisualElement
         }
 
         _gameManager.ChangeGoldValue(-200);
-
         PopulateRewards();
     }
 
@@ -136,6 +136,7 @@ public class RewardCardsContainer : VisualElement
 
     void RewardSelected(Reward reward)
     {
+        _rerollButton.SetEnabled(false);
         foreach (RewardCard card in _selectedRewardCards)
         {
             if (card.Reward != reward) card.DisableCard();

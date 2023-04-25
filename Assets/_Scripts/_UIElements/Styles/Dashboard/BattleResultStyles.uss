@@ -3,8 +3,9 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Victory_window.png?fileID=2800000&guid=ad6f6ab8938b42341829d59aef51c365&type=3#Victory_window');
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Victory_window.png?fileID=2800000&guid=ad6f6ab8938b42341829d59aef51c365&type=3#Victory_window');
+    */
+    background-color: rgba(0, 0, 0, 1);
     -unity-background-scale-mode: scale-to-fit;
 }
 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Panel Open Effect
   m_EditorClassIdentifier: 
   Id: 463fdf6b-3c3f-4fb1-a3d2-d3f13999110b
-  VisualEffectPrefab: {fileID: 4327275101022869409, guid: 465586325b7cedf4ebdcf85b791aa696, type: 3}
-  DurationSeconds: 1
+  VisualEffectPrefab: {fileID: 4724275542741695430, guid: c7b9f3d9f4d507f41989887bfe33e218, type: 3}
+  DurationSeconds: -1
   Sound: {fileID: 0}
