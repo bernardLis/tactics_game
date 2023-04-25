@@ -147,7 +147,11 @@ public class BattleManager : Singleton<BattleManager>
     [ContextMenu("Win Battle")]
     void WinBattle()
     {
-        BattleWon();
+        List<BattleEntity> copy = new(EnemyEntities);
+        foreach (BattleEntity be in copy)
+        {
+            StartCoroutine(be.Die());
+        }
     }
 #endif
 }

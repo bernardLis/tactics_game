@@ -11,9 +11,9 @@ public class BattleResult : FullScreenElement
     const string _ussCommonMenuButton = "common__menu-button";
 
     const string _ussClassName = "battle-result__";
-    const string _ussWonMain = _ussClassName + "won-main";
-    const string _ussLostMain = _ussClassName + "lost-main";
+    const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
+    const string _ussContinueButton = _ussClassName + "continue-button";
 
     GameManager _gameManager;
     AudioManager _audioManager;
@@ -49,18 +49,13 @@ public class BattleResult : FullScreenElement
 
         _battle = _battleManager.LoadedBattle;
 
+        AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
         if (_battle.Won)
-        {
-            AddToClassList(_ussWonMain);
             _audioManager.PlaySFX("QuestWon", Vector3.one);
-        }
         else
-        {
             _audioManager.PlaySFX("QuestLost", Vector3.one);
-            AddToClassList(_ussLostMain);
-        }
 
         // making sure that vfx is underneath the content but visible
         Add(_root.Q<VisualElement>("vfx"));
@@ -74,7 +69,7 @@ public class BattleResult : FullScreenElement
         _statsContainer = new();
         _content.Add(_statsContainer);
 
-        _continueButton = new("Continue", _ussCommonMenuButton, ShowRewardExp);
+        _continueButton = new("Continue", _ussContinueButton, ShowRewardExp);
         _statsContainer.OnFinished += () => _content.Add(_continueButton);
 
         _starEffect = _gameManager.GetComponent<EffectManager>()
@@ -95,7 +90,7 @@ public class BattleResult : FullScreenElement
         _rewardExpContainer = new();
         _content.Add(_rewardExpContainer);
 
-        _continueButton = new("Continue", _ussCommonMenuButton, ShowRewards);
+        _continueButton = new("Continue", _ussContinueButton, ShowRewards);
         _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
     }
 
@@ -107,7 +102,7 @@ public class BattleResult : FullScreenElement
         _rewardContainer = new RewardContainer();
         _content.Add(_rewardContainer);
 
-        _continueButton = new("Continue", _ussCommonMenuButton, ShowBattleChoices);
+        _continueButton = new("Continue", _ussContinueButton, ShowBattleChoices);
         _rewardContainer.OnRewardSelected += () => _content.Add(_continueButton);
     }
 
@@ -117,7 +112,7 @@ public class BattleResult : FullScreenElement
         _battleChoiceContainer = new();
         _content.Add(_battleChoiceContainer);
 
-        _continueButton = new("Continue", _ussCommonMenuButton, LoadBattle);
+        _continueButton = new("Continue", _ussContinueButton, LoadBattle);
         _battleChoiceContainer.OnBattleSelected += () => _content.Add(_continueButton);
     }
 
