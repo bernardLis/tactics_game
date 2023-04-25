@@ -24,7 +24,7 @@ public class BattleHeroManager : MonoBehaviour
     {
         VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
 
-        HeroStatsCard card = new(_hero);
+        HeroCardStats card = new(_hero);
         bottomPanel.Add(card);
     }
 

@@ -9,6 +9,12 @@
     justify-content: center;
 }
 
+.hero-card-exp__mana-container {
+    flex-direction: row;
+    width: 100%;
+}
+
+
 .hero-card-exp__stat-group {
     justify-content: center;
 }

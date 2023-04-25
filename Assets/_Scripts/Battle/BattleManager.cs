@@ -38,6 +38,9 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleEntity> PlayerEntities = new();
     public List<BattleEntity> EnemyEntities = new();
 
+    public List<BattleEntity> KilledPlayerEntities = new();
+    public List<BattleEntity> KilledEnemyEntities = new();
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -105,6 +108,7 @@ public class BattleManager : Singleton<BattleManager>
 
     void OnPlayerDeath(BattleEntity be)
     {
+        KilledPlayerEntities.Add(be);
         PlayerEntities.Remove(be);
         _scoreText.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
 
@@ -114,6 +118,7 @@ public class BattleManager : Singleton<BattleManager>
 
     void OnEnemyDeath(BattleEntity be)
     {
+        KilledEnemyEntities.Add(be);
         EnemyEntities.Remove(be);
         _scoreText.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
 

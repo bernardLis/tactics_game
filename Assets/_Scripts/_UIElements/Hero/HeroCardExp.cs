@@ -12,6 +12,7 @@ public class HeroCardExp : VisualElement
     const string _ussClassName = "hero-card-exp__";
     const string _ussMain = _ussClassName + "main";
     const string _ussExpContainer = _ussClassName + "exp-container";
+    const string _ussManaContainer = _ussClassName + "mana-container";
     const string _ussStatGroup = _ussClassName + "stat-group";
     const string _ussStatContainer = _ussClassName + "stat-container";
     const string _ussStatUpButton = _ussClassName + "stat-up-button";
@@ -27,6 +28,7 @@ public class HeroCardExp : VisualElement
     Label _level;
     VisualElement _levelUpAnimationContainer;
     ResourceBarElement _expBar;
+    ResourceBarElement _manaBar;
 
     VisualElement _powerStatContainer;
     VisualElement _armorStatContainer;
@@ -40,9 +42,7 @@ public class HeroCardExp : VisualElement
     MyButton _armorUpButton;
     MyButton _rangeUpButton;
 
-    bool _pointAdded;
-
-    public event Action OnLeveledUp;
+    public event Action OnPointAdded;
     public HeroCardExp(Hero hero)
     {
         _gameManager = GameManager.Instance;
@@ -89,9 +89,30 @@ public class HeroCardExp : VisualElement
 
         container.Add(_title);
         container.Add(_expBar);
+        container.Add(CreateManaGroup());
         container.Add(HandleUnavailability());
         return container;
     }
+
+    VisualElement CreateManaGroup()
+    {
+        VisualElement container = new();
+        container.AddToClassList(_ussManaContainer);
+
+        // TODO: this should be handled differently.
+        IntVariable currentMana = ScriptableObject.CreateInstance<IntVariable>();
+        currentMana.SetValue(Hero.Mana.GetValue());
+        Hero.Mana.OnValueChanged += currentMana.SetValue;
+
+        if (Hero.CurrentMana != null)
+            currentMana = Hero.CurrentMana;
+
+        _manaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", currentMana, totalValueStat: Hero.Mana);
+        container.Add(_manaBar);
+
+        return container;
+    }
+
 
     void OnRankChanged(HeroRank rank)
     {
@@ -151,40 +172,31 @@ public class HeroCardExp : VisualElement
 
     void PowerUp()
     {
-        if (_pointAdded)
-            return;
         BaseStatUp();
         Hero.AddPower();
     }
 
     void ArmorUp()
     {
-        if (_pointAdded)
-            return;
-
         BaseStatUp();
         Hero.AddArmor();
     }
 
     void RangeUp()
     {
-        if (_pointAdded)
-            return;
-
         BaseStatUp();
         Hero.AddSpeed();
     }
 
     void BaseStatUp()
     {
-        _pointAdded = true;
-
-        _powerUpButton.style.display = DisplayStyle.None;
-        _armorUpButton.style.display = DisplayStyle.None;
-        _rangeUpButton.style.display = DisplayStyle.None;
-
-        Hero.LevelUp();
-        OnLeveledUp?.Invoke();
+        OnPointAdded?.Invoke();
+        if (Hero.LevelUpPointsLeft <= 0)
+        {
+            _powerUpButton.style.visibility = Visibility.Hidden;
+            _armorUpButton.style.visibility = Visibility.Hidden;
+            _rangeUpButton.style.visibility = Visibility.Hidden;
+        }
     }
 
     public void PlayLevelUpAnimation()

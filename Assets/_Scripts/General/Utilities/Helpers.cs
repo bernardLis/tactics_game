@@ -55,6 +55,8 @@ public static class Helpers
 
     public static void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
     {
+        if (root == null)
+            root = GetRoot(element);
         Label l = new Label(text);
         l.AddToClassList(_ussCommonTextPrimary);
         l.style.color = color;
@@ -67,5 +69,12 @@ public static class Helpers
         DOTween.To(x => l.style.top = x, element.worldBound.yMin, end, 1).SetEase(Ease.OutSine)
                 .OnComplete(() => DOTween.To(x => l.style.opacity = x, 1, 0, 1)
                 .OnComplete(() => root.Remove(l)));
+    }
+
+    public static VisualElement GetRoot(VisualElement el)
+    {
+        if (el.parent == null)
+            return el;
+        return GetRoot(el.parent);
     }
 }

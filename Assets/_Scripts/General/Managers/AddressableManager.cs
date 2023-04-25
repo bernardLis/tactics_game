@@ -49,7 +49,7 @@ public enum StyleSheetType
     AbilityNodeStyles,
     AbilityButtonStyles, AbilityIconStyles, AbilityTooltipElementStyles,
     ItemSlotStyles, AbilitySlotStyles,
-    HeroStatsCardStyles,
+    HeroCardStatsStyles,
     HeroCardMiniStyles,
     HeroCardExpStyles,
 

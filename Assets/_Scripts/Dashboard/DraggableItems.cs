@@ -23,7 +23,7 @@ public class DraggableItems : MonoBehaviour
 
     List<ItemSlot> _allSlots = new();
 
-    List<HeroStatsCard> _allCards = new();
+    List<HeroCardStats> _allCards = new();
 
     const string _ussDragDropContainer = "dashboard__item-drag-drop-container";
 

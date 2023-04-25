@@ -96,7 +96,7 @@ public class BattleResult : FullScreenElement
         _content.Add(_rewardExpContainer);
 
         _continueButton = new("Continue", _ussCommonMenuButton, ShowRewards);
-        _rewardExpContainer.OnLeveledUp += () => _content.Add(_continueButton);
+        _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
     }
 
     void ShowRewards()

@@ -19,6 +19,7 @@ public class Hero : BaseScriptableObject
     [Header("Stats")]
     public IntVariable Level;
     public IntVariable Experience;
+    public int LevelUpPointsLeft;
 
     public IntVariable BaseMana;
     public IntVariable BasePower;
@@ -128,14 +129,13 @@ public class Hero : BaseScriptableObject
         return null;
     }
 
-    public void SetDayAddedToTroops(int day) { DayAddedToTroops = day; }
-
     public virtual void GetExp(int gain)
     {
         int g = Mathf.Clamp(gain, 0, 100);
         Experience.ApplyChange(g);
         if (Experience.Value < 100)
             return;
+        LevelUp();
     }
 
     public void LevelUp()
@@ -144,17 +144,40 @@ public class Hero : BaseScriptableObject
         Experience.SetValue(0);
 
         BaseMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
+        LevelUpPointsLeft += 1;
 
         AudioManager.Instance.PlaySFX("LevelUp", Vector3.one);
 
         UpdateRank();
     }
 
-    public void AddPower() { BasePower.ApplyChange(1); }
+    public void AddPower()
+    {
+        if (LevelUpPointsLeft <= 0)
+            return;
 
-    public void AddArmor() { BaseArmor.ApplyChange(1); }
+        BasePower.ApplyChange(1);
+        LevelUpPointsLeft--;
+    }
 
-    public void AddSpeed() { BaseSpeed.ApplyChange(1); }
+    public void AddArmor()
+    {
+        if (LevelUpPointsLeft <= 0)
+            return;
+
+        BaseArmor.ApplyChange(1);
+        LevelUpPointsLeft--;
+
+    }
+
+    public void AddSpeed()
+    {
+        if (LevelUpPointsLeft <= 0)
+            return;
+
+        BaseSpeed.ApplyChange(1);
+        LevelUpPointsLeft--;
+    }
 
     public void AddAbility(Ability ability)
     {

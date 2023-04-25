@@ -4,6 +4,15 @@ using System;
 
 public class ResourceBarElement : ElementWithTooltip
 {
+
+    const string _ussCommonTextSecondary = "common__text-secondary";
+
+    const string _ussClassName = "resource-bar";
+    const string _ussContainer = _ussClassName + "__container";
+    const string _ussMain = _ussClassName + "__main";
+    const string _ussMissing = _ussClassName + "__missing";
+    const string _ussBarText = _ussClassName + "__bar-text";
+
     VisualElement _resourceBar;
     VisualElement _missing;
     Label _text;
@@ -18,13 +27,8 @@ public class ResourceBarElement : ElementWithTooltip
 
     string _tooltipText;
 
-    const string _ussCommonTextSecondary = "common__text-secondary";
+    Color _color;
 
-    const string _ussClassName = "resource-bar";
-    const string _ussContainer = _ussClassName + "__container";
-    const string _ussMain = _ussClassName + "__main";
-    const string _ussMissing = _ussClassName + "__missing";
-    const string _ussBarText = _ussClassName + "__bar-text";
 
     public ResourceBarElement(Color color, string tooltipText,
             IntVariable currentIntVar = null, IntVariable totalIntVar = null,
@@ -37,6 +41,9 @@ public class ResourceBarElement : ElementWithTooltip
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
         if (ss != null)
             styleSheets.Add(ss);
+
+
+        _color = color;
 
         if (totalValueStat != null)
         {
@@ -123,6 +130,8 @@ public class ResourceBarElement : ElementWithTooltip
         int change = Mathf.Abs(newValue - _currentInt.PreviousValue);
         if (change == 0)
             return;
+
+        Helpers.DisplayTextOnElement(null, this, $"{change}", _color);
 
         if (_animation != null)
             _animation.Pause();

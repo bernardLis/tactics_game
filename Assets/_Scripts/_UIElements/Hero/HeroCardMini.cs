@@ -111,7 +111,7 @@ public class HeroCardMini : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        HeroStatsCard tooltip = new HeroStatsCard(Hero);
+        HeroCardStats tooltip = new HeroCardStats(Hero);
         _tooltip = new(this, tooltip, true);
         base.DisplayTooltip();
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class HeroStatsCard : VisualElement
+public class HeroCardStats : VisualElement
 {
     GameManager _gameManager;
 
@@ -33,14 +33,14 @@ public class HeroStatsCard : VisualElement
     const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussManaContainer = _ussClassName + "mana-container";
 
-    public HeroStatsCard(Hero hero)
+    public HeroCardStats(Hero hero)
     {
         _gameManager = GameManager.Instance;
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroStatsCardStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardStatsStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

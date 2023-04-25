@@ -13,12 +13,12 @@ public class HeroPortraitElement : VisualElement
     const string _ussMainSlotted = _ussClassName + "__main-slotted";
     const string _ussFrameSlotted = _ussClassName + "__frame-slotted";
 
-    public HeroStatsCard Card;
+    public HeroCardStats Card;
     public Hero Hero;
     VisualElement _portrait;
     VisualElement _frame;
 
-    public HeroPortraitElement(Hero hero, HeroStatsCard card = null)
+    public HeroPortraitElement(Hero hero, HeroCardStats card = null)
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroPortraitStyles);
         if (ss != null)

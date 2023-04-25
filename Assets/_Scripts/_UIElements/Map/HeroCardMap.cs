@@ -44,7 +44,7 @@ public class HeroCardMap : FullScreenElement
         _topContainer = new();
         _topContainer.AddToClassList(_ussTopContainer);
         Add(_topContainer);
-        HeroStatsCard card = new(mapHero.Hero);
+        HeroCardStats card = new(mapHero.Hero);
         _topContainer.Add(card);
 
         _middleContainer = new();
