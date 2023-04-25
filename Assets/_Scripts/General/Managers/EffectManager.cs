@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
+    [SerializeField] List<EffectHolder> _effects = new();
+    public GameObject PlayEffectWithName(string name, Vector3 position, Vector3 scale)
+    {
+        foreach (EffectHolder effect in _effects)
+        {
+            if (effect.name == name)
+                return PlayEffect(effect.VisualEffectPrefab, position, scale, effect.DurationSeconds);
+        }
+        Debug.LogError($"No effect {name} found.");
+        return null;
+    }
+
     public GameObject PlayEffect(GameObject prefab, Vector3 position, Vector3 scale,
             float duration)
     {

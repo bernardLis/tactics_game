@@ -29,6 +29,8 @@ public class BattleResult : FullScreenElement
     RewardContainer _rewardContainer;
     BattleChoiceContainer _battleChoiceContainer;
 
+    GameObject _starEffect;
+
     public BattleResult(VisualElement root)
     {
         _gameManager = GameManager.Instance;
@@ -74,10 +76,14 @@ public class BattleResult : FullScreenElement
 
         _continueButton = new("Continue", _ussCommonMenuButton, ShowRewardExp);
         _statsContainer.OnFinished += () => _content.Add(_continueButton);
+
+        _starEffect = _gameManager.GetComponent<EffectManager>()
+                .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
     }
 
     void OnPanelDetached(DetachFromPanelEvent evt)
     {
+        GameObject.Destroy(_starEffect);
         // returning vfx to its original parent. TODO: this seems like a bad idea
         _root.Add(_root.Q<VisualElement>("vfx"));
     }

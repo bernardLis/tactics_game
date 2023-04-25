@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &175539305417700048
 VisualEffect:
@@ -51,14 +51,23 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0.08
+      - m_Value: 0.03
         m_Name: ParticleMinSize
         m_Overridden: 1
-      - m_Value: 0.15
+      - m_Value: 0.08
         m_Name: ParticleMaxSize
         m_Overridden: 1
+      - m_Value: 1
+        m_Name: FrameRate
+        m_Overridden: 1
     m_Vector2f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 100, y: 500}
+        m_Name: Particle Spawn Rate
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 1}
+        m_Name: Particle Spawn Period
+        m_Overridden: 1
     m_Vector3f:
       m_Array:
       - m_Value: {x: 1, y: 6.74586, z: 10.8749695}
@@ -67,7 +76,7 @@ VisualEffect:
       - m_Value: {x: 0, y: 4.892155, z: -1.1855803}
         m_Name: New Axis Aligned Box_center
         m_Overridden: 1
-      - m_Value: {x: 12, y: 12, z: 0}
+      - m_Value: {x: 20, y: 20, z: 0}
         m_Name: Size_size
         m_Overridden: 1
     m_Vector4f:

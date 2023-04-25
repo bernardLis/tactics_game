@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6b7c518f57a51640a498dbd5c3f1fb2, type: 3}
-  m_Name: Panel Open Effect
+  m_Name: TwinklingStarEffect
   m_EditorClassIdentifier: 
   Id: 463fdf6b-3c3f-4fb1-a3d2-d3f13999110b
   VisualEffectPrefab: {fileID: 4724275542741695430, guid: c7b9f3d9f4d507f41989887bfe33e218, type: 3}

@@ -6,6 +6,7 @@ using DG.Tweening;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/UI Effect Holder")]
 public class EffectHolder : BaseScriptableObject
 {
+    
     [Header("VFX")]
     public GameObject VisualEffectPrefab;
 
