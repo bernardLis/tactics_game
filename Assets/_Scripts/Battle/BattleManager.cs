@@ -63,6 +63,9 @@ public class BattleManager : Singleton<BattleManager>
             InstantiateEnemy(ag.ArmyEntity, ag.EntityCount);
 
         _gameManager.ToggleTimer(true);
+
+        // HERE: for testing
+        GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
     }
 
     void Update()

@@ -74,6 +74,13 @@ public class BattleResult : FullScreenElement
 
         _starEffect = _gameManager.GetComponent<EffectManager>()
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
+
+
+        _battleManager.GetComponent<BattleInputManager>().OnContinueClicked += () =>
+        {
+            using (var e = new NavigationSubmitEvent() { target = _continueButton })
+                _continueButton.SendEvent(e);
+        };
     }
 
     void OnPanelDetached(DetachFromPanelEvent evt)

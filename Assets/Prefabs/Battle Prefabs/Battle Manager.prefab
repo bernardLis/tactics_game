@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1771743886305221010}
   - component: {fileID: 4066842339892764640}
   - component: {fileID: 1546683018716630949}
+  - component: {fileID: 3686241382488041892}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5119385659013104312
 MonoBehaviour:
@@ -76,7 +77,8 @@ MonoBehaviour:
   _enemySpawnPoint: {fileID: 0}
   PlayerEntities: []
   EnemyEntities: []
-  _effect: {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
+  KilledPlayerEntities: []
+  KilledEnemyEntities: []
 --- !u!114 &5119385659013104315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,3 +140,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Logs: []
+--- !u!114 &3686241382488041892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814c1792bbb473e46a1d8ca54e6d6317, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

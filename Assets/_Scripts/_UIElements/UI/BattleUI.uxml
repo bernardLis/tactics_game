@@ -13,6 +13,7 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardCardStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardCardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardContainerStyles.uss?fileID=7433441132597879392&amp;guid=0f0864f07de5a724691f003342cc8aa1&amp;type=3#RewardContainerStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/BattleResultStyles.uss?fileID=7433441132597879392&amp;guid=c97e24d9050e57749aee3099e5cbe6a7&amp;type=3#BattleResultStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardExpContainerStyles.uss?fileID=7433441132597879392&amp;guid=91b00a466ae631244bd0b2a23fdc1e74&amp;type=3#RewardExpContainerStyles" />
     <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: flex-end;" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
     <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: 100%; height: 100%; top: 0; left: 4px;" />

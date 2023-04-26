@@ -14,6 +14,15 @@ public class ChangingValueElement : ElementWithTooltip
 
     public event Action OnAnimationFinished;
 
+    public void Initialize(int amount, int fontSize)
+    {
+        Amount = amount;
+        _currentlyDisplayedAmount = amount;
+        _text = new(amount.ToString());
+        _text.style.fontSize = fontSize;
+        Add(_text);
+    }
+
     public void ChangeAmount(int newValue)
     {
         if (newValue == Amount)

@@ -23,6 +23,7 @@ public class RewardExpContainer : VisualElement
 
     VisualElement _heroContainer;
     VisualElement _defeatedEntitiesContainer;
+    ChangingValueElement _scoreCounter;
     VisualElement _opponentContainer;
 
     IVisualElementScheduledItem _enemiesKilledShowSchedule;
@@ -55,16 +56,19 @@ public class RewardExpContainer : VisualElement
     void RunShow()
     {
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(DOTween.To(x => _heroContainer.style.opacity = x, 0, 1, 0.5f));
-        mySequence.Append(DOTween.To(x => _opponentContainer.style.opacity = x, 0, 1, 0.5f));
-        mySequence.Append(DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 0, 1, 0.5f));
+        mySequence.Pause();
+        mySequence.Append(DOTween.To(x => _heroContainer.style.opacity = x, 0, 1, 2f));
+        mySequence.Append(DOTween.To(x => _opponentContainer.style.opacity = x, 0, 1, 2f));
+        mySequence.Append(DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 0, 1, 2f));
         mySequence.AppendCallback(() => ShowKilledEnemies());
+        mySequence.Play();
     }
 
     void AddWinner()
     {
         _heroContainer = new();
         _heroContainer.AddToClassList(_ussCardContainer);
+        _heroContainer.style.opacity = 0;
 
         Label title = new Label("Winner: ");
         title.style.fontSize = 64;
@@ -82,10 +86,22 @@ public class RewardExpContainer : VisualElement
     {
         _defeatedEntitiesContainer = new();
         _defeatedEntitiesContainer.AddToClassList(_ussDefeatedEntitiesContainer);
+        _heroContainer.style.opacity = 0;
 
-        Label title = new Label("Defeated enemies");
-        title.style.fontSize = 64;
-        _defeatedEntitiesContainer.Add(title);
+        VisualElement scoreContainer = new();
+        scoreContainer.style.flexDirection = FlexDirection.Row;
+        scoreContainer.style.justifyContent = Justify.Center;
+        scoreContainer.style.alignItems = Align.Center;
+
+        _defeatedEntitiesContainer.Add(scoreContainer);
+
+        Label title = new Label("Score: ");
+        title.style.fontSize = 32;
+        scoreContainer.Add(title);
+
+        _scoreCounter = new();
+        _scoreCounter.Initialize(0, 64);
+        scoreContainer.Add(_scoreCounter);
 
         _defeatedEntitiesContainer.style.height = Screen.height * 0.33f;
         Add(_defeatedEntitiesContainer);
@@ -95,6 +111,7 @@ public class RewardExpContainer : VisualElement
     {
         _opponentContainer = new();
         _opponentContainer.AddToClassList(_ussCardContainer);
+        _heroContainer.style.opacity = 0;
 
         Label title = new Label("Loser: ");
         title.style.fontSize = 64;
@@ -109,8 +126,9 @@ public class RewardExpContainer : VisualElement
 
     void ShowKilledEnemies()
     {
+        int delay = 2000 / _battleManager.KilledEnemyEntities.Count;
         List<BattleEntity> killedEnemies = new(_battleManager.KilledEnemyEntities);
-        _enemiesKilledShowSchedule = schedule.Execute(() => ShowKilledEnemy()).Every(500);
+        _enemiesKilledShowSchedule = schedule.Execute(() => ShowKilledEnemy()).Every(delay);
     }
 
     void ShowKilledEnemy()
@@ -140,6 +158,8 @@ public class RewardExpContainer : VisualElement
         ArcMovementElement arcMovement = new(icon, start, end);
         _defeatedEntitiesContainer.Add(arcMovement);
 
+        // TODO: is price good for score?
+        _scoreCounter.ChangeAmount(_scoreCounter.Amount + enemy.Stats.Price);
         _playerHero.GetExp(enemy.Stats.Price);
         _enemyIndex++;
     }
