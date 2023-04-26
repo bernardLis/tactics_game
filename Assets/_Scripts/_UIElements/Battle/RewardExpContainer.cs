@@ -15,6 +15,7 @@ public class RewardExpContainer : VisualElement
     const string _ussMain = _ussClassName + "main";
     const string _ussCardContainer = _ussClassName + "card-container";
     const string _ussDefeatedEntitiesContainer = _ussClassName + "defeated-entities-container";
+    const string _ussScoreContainer = _ussClassName + "score-container";
 
     GameManager _gameManager;
     BattleManager _battleManager;
@@ -69,7 +70,6 @@ public class RewardExpContainer : VisualElement
     {
         _heroContainer = new();
         _heroContainer.AddToClassList(_ussCardContainer);
-        _heroContainer.style.opacity = 0;
 
         Label title = new Label("Winner: ");
         title.style.fontSize = 64;
@@ -87,13 +87,8 @@ public class RewardExpContainer : VisualElement
     {
         _defeatedEntitiesContainer = new();
         _defeatedEntitiesContainer.AddToClassList(_ussDefeatedEntitiesContainer);
-        _heroContainer.style.opacity = 0;
 
         VisualElement scoreContainer = new();
-        scoreContainer.style.flexDirection = FlexDirection.Row;
-        scoreContainer.style.justifyContent = Justify.Center;
-        scoreContainer.style.alignItems = Align.Center;
-
         _defeatedEntitiesContainer.Add(scoreContainer);
 
         Label title = new Label("Score: ");
@@ -112,7 +107,6 @@ public class RewardExpContainer : VisualElement
     {
         _opponentContainer = new();
         _opponentContainer.AddToClassList(_ussCardContainer);
-        _heroContainer.style.opacity = 0;
 
         Label title = new Label("Loser: ");
         title.style.fontSize = 64;

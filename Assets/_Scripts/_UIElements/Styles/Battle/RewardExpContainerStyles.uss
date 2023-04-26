@@ -17,3 +17,9 @@
     justify-content: center;
     opacity: 0;
 }
+
+.reward-exp-container__score-container {
+    flex-direction: Row;
+    justify-content: Center;
+    align-items: Center;
+}
