@@ -41,12 +41,10 @@ public enum StyleSheetType
     MenuStyles, SettingsMenuStyles,
     TimerElementStyles,
     BattleResultStyles,
-    RewardContainerStyles,
     BarMiniGameStyles,
     StarRankElementStyles,
     GoldElementStyles, SpiceElementStyles,
     HeroPortraitStyles, ResourceBarStyles, StatElementStyles, ElementalElementStyles,
-    AbilityNodeStyles,
     AbilityButtonStyles, AbilityIconStyles, AbilityTooltipElementStyles,
     ItemSlotStyles, AbilitySlotStyles,
     HeroCardStatsStyles,
@@ -60,7 +58,7 @@ public enum StyleSheetType
     ControlButtonStyles, CastleControlButtonStyles, HeroControlButtonStyles,
 
     BattleEntityElementStyles,
-    RewardContainer,
+    RewardContainerStyles, RewardExpContainerStyles,
     RewardCardStyles, BattleCardStyles
 
 }

@@ -11,11 +11,15 @@ public class RewardExpContainer : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
+    const string _ussClassName = "reward-exp-container__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussCardContainer = _ussClassName + "card-container";
+    const string _ussDefeatedEntitiesContainer = _ussClassName + "defeated-entities-container";
+
     GameManager _gameManager;
     BattleManager _battleManager;
 
     Hero _playerHero;
-
 
     VisualElement _heroContainer;
     VisualElement _defeatedEntitiesContainer;
@@ -33,12 +37,13 @@ public class RewardExpContainer : VisualElement
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardExpStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
 
         _playerHero = _gameManager.PlayerHero;
 
-        style.width = Length.Percent(100);
-        style.height = Length.Percent(100);
-        style.justifyContent = Justify.Center;
+        AddToClassList(_ussMain);
 
         AddWinner();
         AddShowContainer();
@@ -59,10 +64,7 @@ public class RewardExpContainer : VisualElement
     void AddWinner()
     {
         _heroContainer = new();
-        _heroContainer.style.flexDirection = FlexDirection.Row;
-        _heroContainer.style.alignItems = Align.Center;
-        _heroContainer.style.justifyContent = Justify.Center;
-        _heroContainer.style.opacity = 0;
+        _heroContainer.AddToClassList(_ussCardContainer);
 
         Label title = new Label("Winner: ");
         title.style.fontSize = 64;
@@ -79,10 +81,7 @@ public class RewardExpContainer : VisualElement
     void AddShowContainer()
     {
         _defeatedEntitiesContainer = new();
-        _defeatedEntitiesContainer.style.width = Length.Percent(100);
-        _defeatedEntitiesContainer.style.alignItems = Align.Center;
-        _defeatedEntitiesContainer.style.justifyContent = Justify.Center;
-        _defeatedEntitiesContainer.style.opacity = 0;
+        _defeatedEntitiesContainer.AddToClassList(_ussDefeatedEntitiesContainer);
 
         Label title = new Label("Defeated enemies");
         title.style.fontSize = 64;
@@ -95,10 +94,7 @@ public class RewardExpContainer : VisualElement
     void AddLoser()
     {
         _opponentContainer = new();
-        _opponentContainer.style.flexDirection = FlexDirection.Row;
-        _opponentContainer.style.alignItems = Align.Center;
-        _opponentContainer.style.justifyContent = Justify.Center;
-        _opponentContainer.style.opacity = 0;
+        _opponentContainer.AddToClassList(_ussCardContainer);
 
         Label title = new Label("Loser: ");
         title.style.fontSize = 64;
@@ -109,7 +105,6 @@ public class RewardExpContainer : VisualElement
         _opponentContainer.Add(oppCard);
 
         Add(_opponentContainer);
-
     }
 
     void ShowKilledEnemies()
@@ -135,20 +130,12 @@ public class RewardExpContainer : VisualElement
         icon.style.backgroundImage = new StyleBackground(enemy.Stats.Icon);
 
         // middle of the screen
-        Vector3 start = new(Screen.width * 0.5f,
-                 _defeatedEntitiesContainer.resolvedStyle.bottom, 0);
+        Vector3 start = new(0, _defeatedEntitiesContainer.resolvedStyle.height * 0.5f, 0);
+
         float xChange = Random.Range(50, Screen.width * 0.25f);
         if (_enemyIndex % 2 == 0)
             xChange *= -1;
-        Vector3 end = new Vector3(start.x + xChange,
-                _defeatedEntitiesContainer.resolvedStyle.bottom - Random.Range(20, 200), 0);
-
-        Debug.Log($"Screen.width / 2: {Screen.width * 0.5f}");
-        Debug.Log($"_defeatedEntitiesContainer.resolvedStyle.width {_defeatedEntitiesContainer.resolvedStyle.width}");
-        Debug.Log($"_defeatedEntitiesContainer.resolvedStyle.bottom {_defeatedEntitiesContainer.resolvedStyle.bottom}");
-        Debug.Log($"_showContainer.layout.yMax {_defeatedEntitiesContainer.layout.yMax}");
-        Debug.Log($"start {start}");
-        Debug.Log($"end {end}");
+        Vector3 end = new Vector3(start.x + xChange, Random.Range(20, 200), 0);
 
         ArcMovementElement arcMovement = new(icon, start, end);
         _defeatedEntitiesContainer.Add(arcMovement);
