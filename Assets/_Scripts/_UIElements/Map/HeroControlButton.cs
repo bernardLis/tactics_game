@@ -39,8 +39,8 @@ public class HeroControlButton : ControlButton
 
     void AddMovementRangeBar()
     {
-        _movementRangeBar = new(Color.green, "Movement Range",
-             totalValueStat: MapHero.Hero.Speed, currentFloatVar: MapHero.RangeLeft);
+        //  _movementRangeBar = new(Color.green, "Movement Range",
+        //         totalValueStat: MapHero.Hero.Speed, currentFloatVar: MapHero.RangeLeft);
         Add(_movementRangeBar);
     }
 

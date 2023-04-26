@@ -28,12 +28,13 @@ public class ResourceBarElement : ElementWithTooltip
     string _tooltipText;
 
     Color _color;
+    int _valueChangeDelay;
 
 
     public ResourceBarElement(Color color, string tooltipText,
             IntVariable currentIntVar = null, IntVariable totalIntVar = null,
-            FloatVariable currentFloatVar = null,
-            Stat totalValueStat = null, int thickness = 0, bool isIncreasing = false) : base()
+            Stat totalValueStat = null, int thickness = 0, bool isIncreasing = false,
+            int valueChangeDelayMs = 1000) : base()
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -42,8 +43,8 @@ public class ResourceBarElement : ElementWithTooltip
         if (ss != null)
             styleSheets.Add(ss);
 
-
         _color = color;
+        _valueChangeDelay = valueChangeDelayMs;
 
         if (totalValueStat != null)
         {
@@ -56,21 +57,9 @@ public class ResourceBarElement : ElementWithTooltip
             totalIntVar.OnValueChanged += OnTotalChanged;
         }
 
-        if (currentFloatVar != null)
-        {
-            _currentFloat = currentFloatVar;
-            _displayedAmount = (int)currentFloatVar.Value;
-            currentFloatVar.OnValueChanged += OnValueChanged;
-
-        }
-
-        if (currentIntVar != null)
-        {
-            _currentInt = currentIntVar;
-            _displayedAmount = _currentInt.Value;
-            currentIntVar.OnValueChanged += OnValueChanged;
-        }
-
+        _currentInt = currentIntVar;
+        _displayedAmount = _currentInt.Value;
+        currentIntVar.OnValueChanged += OnValueChanged;
 
         _isIncreasing = isIncreasing;
 
@@ -134,9 +123,13 @@ public class ResourceBarElement : ElementWithTooltip
         Helpers.DisplayTextOnElement(null, this, $"{change}", _color);
 
         if (_animation != null)
+        {
             _animation.Pause();
+            _displayedAmount = _currentInt.PreviousValue;
+            DisplayMissingAmount();
+        }
 
-        int delay = Mathf.FloorToInt(1000 / change); // do it in 1second
+        int delay = Mathf.FloorToInt(_valueChangeDelay / change); // do it in 1second
 
         if (newValue - _currentInt.PreviousValue < 0)
             _animation = schedule.Execute(HandleDecrease).Every(delay);
@@ -153,7 +146,7 @@ public class ResourceBarElement : ElementWithTooltip
         if (_animation != null)
             _animation.Pause();
 
-        int delay = Mathf.FloorToInt(1000 / change); // do it in 1second
+        int delay = Mathf.FloorToInt(_valueChangeDelay / change); // do it in 1second
 
         if (newValue - _currentFloat.PreviousValue < 0)
             _animation = schedule.Execute(HandleDecrease).Every(delay);

@@ -14,16 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
   RewardCardBackgrounds:
-  - {fileID: 21300000, guid: ee43d4cd00e50a049aed9ada8b8b5a05, type: 3}
-  - {fileID: 21300000, guid: bde112129472457428b624253215f350, type: 3}
-  - {fileID: 21300000, guid: fb276f3f6f3cfe94fbf7dbc103e074ae, type: 3}
-  - {fileID: 21300000, guid: 6f411ced6d558fd459c6c285d9cdc7ec, type: 3}
-  - {fileID: 21300000, guid: 31b2dbedd98824c49b7f15d2e1fa839f, type: 3}
-  - {fileID: 21300000, guid: 347d4fff7e8de69498c9d3fec472bc42, type: 3}
-  - {fileID: 21300000, guid: 6d3090077d3f5944399ea3145f406d8b, type: 3}
-  - {fileID: 21300000, guid: f7f4c53029691c14590b260b68c02ff7, type: 3}
-  - {fileID: 21300000, guid: 10cf02e0235a75f4fb54408c408ab3df, type: 3}
-  - {fileID: 21300000, guid: 9662f21ea2a1ff14fbcab7768ec0c94d, type: 3}
+  - {fileID: 21300000, guid: 362091c751e8f284ea5f69ff14f8a1e8, type: 3}
   Cutscenes:
   - {fileID: 11400000, guid: 55ad5ffd5bf283d4485798e7df66f245, type: 2}
   CoinSprites:

@@ -76,7 +76,8 @@ public class HeroCardExp : VisualElement
         IntVariable totalExp = ScriptableObject.CreateInstance<IntVariable>();
         totalExp.SetValue(100);
 
-        _expBar = new(Color.black, "Experience", Hero.Experience, totalExp, null, thickness: 0, isIncreasing: true);
+        _expBar = new(Color.black, "Experience", Hero.Experience, totalExp,
+                null, thickness: 0, isIncreasing: true);
 
         _level = new Label($"Level {Hero.Level.Value}");
         _level.AddToClassList(_ussCommonTextPrimary);
@@ -91,6 +92,7 @@ public class HeroCardExp : VisualElement
         container.Add(_expBar);
         container.Add(CreateManaGroup());
         container.Add(HandleUnavailability());
+
         return container;
     }
 
@@ -113,7 +115,6 @@ public class HeroCardExp : VisualElement
         return container;
     }
 
-
     void OnRankChanged(HeroRank rank)
     {
         _rankElement.SetRank(rank.Rank);
@@ -125,8 +126,8 @@ public class HeroCardExp : VisualElement
         if (newValue < 100)
             return;
 
+        EnableStatUpButtons();
         PlayLevelUpAnimation();
-        CreateStatUpButtons();
     }
 
     void OnLevelUp(int level) { _level.text = $"Level {Hero.Level.Value}"; }
@@ -156,6 +157,8 @@ public class HeroCardExp : VisualElement
         container.Add(_armorStatContainer);
         container.Add(_rangeStatContainer);
 
+        CreateStatUpButtons();
+
         return container;
     }
 
@@ -168,36 +171,49 @@ public class HeroCardExp : VisualElement
         _powerStatContainer.Add(_powerUpButton);
         _armorStatContainer.Add(_armorUpButton);
         _rangeStatContainer.Add(_rangeUpButton);
+
+        DisableStatUpButtons();
     }
 
     void PowerUp()
     {
-        BaseStatUp();
         Hero.AddPower();
+        BaseStatUp();
     }
 
     void ArmorUp()
     {
-        BaseStatUp();
         Hero.AddArmor();
+        BaseStatUp();
     }
 
     void RangeUp()
     {
-        BaseStatUp();
         Hero.AddSpeed();
+        BaseStatUp();
     }
 
     void BaseStatUp()
     {
         OnPointAdded?.Invoke();
         if (Hero.LevelUpPointsLeft <= 0)
-        {
-            _powerUpButton.style.visibility = Visibility.Hidden;
-            _armorUpButton.style.visibility = Visibility.Hidden;
-            _rangeUpButton.style.visibility = Visibility.Hidden;
-        }
+            DisableStatUpButtons();
     }
+
+    void EnableStatUpButtons()
+    {
+        _powerUpButton.SetEnabled(true);
+        _armorUpButton.SetEnabled(true);
+        _rangeUpButton.SetEnabled(true);
+    }
+
+    void DisableStatUpButtons()
+    {
+        _powerUpButton.SetEnabled(false);
+        _armorUpButton.SetEnabled(false);
+        _rangeUpButton.SetEnabled(false);
+    }
+
 
     public void PlayLevelUpAnimation()
     {

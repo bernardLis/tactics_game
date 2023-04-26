@@ -22,6 +22,7 @@ public class RewardExpContainer : VisualElement
     Hero _playerHero;
 
     VisualElement _heroContainer;
+    HeroCardExp _heroCard;
     VisualElement _defeatedEntitiesContainer;
     ChangingValueElement _scoreCounter;
     VisualElement _opponentContainer;
@@ -57,9 +58,9 @@ public class RewardExpContainer : VisualElement
     {
         Sequence mySequence = DOTween.Sequence();
         mySequence.Pause();
-        mySequence.Append(DOTween.To(x => _heroContainer.style.opacity = x, 0, 1, 2f));
-        mySequence.Append(DOTween.To(x => _opponentContainer.style.opacity = x, 0, 1, 2f));
-        mySequence.Append(DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 0, 1, 2f));
+        mySequence.Append(DOTween.To(x => _heroContainer.style.opacity = x, 0, 1, 0.5f));
+        mySequence.Append(DOTween.To(x => _opponentContainer.style.opacity = x, 0, 1, 0.5f));
+        mySequence.Append(DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 0, 1, 0.5f));
         mySequence.AppendCallback(() => ShowKilledEnemies());
         mySequence.Play();
     }
@@ -75,9 +76,9 @@ public class RewardExpContainer : VisualElement
         title.AddToClassList(_ussCommonTextPrimary);
         _heroContainer.Add(title);
 
-        HeroCardExp heroCard = new HeroCardExp(_playerHero);
-        heroCard.OnPointAdded += OnHeroPointAdded;
-        _heroContainer.Add(heroCard);
+        _heroCard = new HeroCardExp(_playerHero);
+        _heroCard.OnPointAdded += OnHeroPointAdded;
+        _heroContainer.Add(_heroCard);
 
         Add(_heroContainer);
     }
@@ -118,7 +119,7 @@ public class RewardExpContainer : VisualElement
         title.AddToClassList(_ussCommonTextPrimary);
         _opponentContainer.Add(title);
 
-        HeroCardExp oppCard = new HeroCardExp(_gameManager.SelectedBattle.Opponent);
+        HeroCardStats oppCard = new HeroCardStats(_gameManager.SelectedBattle.Opponent);
         _opponentContainer.Add(oppCard);
 
         Add(_opponentContainer);
@@ -128,6 +129,7 @@ public class RewardExpContainer : VisualElement
     {
         int delay = 2000 / _battleManager.KilledEnemyEntities.Count;
         List<BattleEntity> killedEnemies = new(_battleManager.KilledEnemyEntities);
+
         _enemiesKilledShowSchedule = schedule.Execute(() => ShowKilledEnemy()).Every(delay);
     }
 
@@ -159,8 +161,8 @@ public class RewardExpContainer : VisualElement
         _defeatedEntitiesContainer.Add(arcMovement);
 
         // TODO: is price good for score?
-        _scoreCounter.ChangeAmount(_scoreCounter.Amount + enemy.Stats.Price);
         _playerHero.GetExp(enemy.Stats.Price);
+        _scoreCounter.ChangeAmount(_scoreCounter.Amount + enemy.Stats.Price);
         _enemyIndex++;
     }
 
