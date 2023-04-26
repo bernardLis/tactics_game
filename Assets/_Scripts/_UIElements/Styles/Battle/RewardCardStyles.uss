@@ -6,6 +6,7 @@
     align-items: center;
     margin-left: 20px;
     margin-right: 20px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_Vert_Dark.png?fileID=2800000&guid=362091c751e8f284ea5f69ff14f8a1e8&type=3#Button_Vert_Dark');
 }
 
 .reward-card__main:hover {

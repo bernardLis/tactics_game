@@ -24,11 +24,7 @@ public class BattleCard : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
-
         AddToClassList(_ussMain);
-
-        Label l = new("Battle Card");
-        Add(l);
 
         Hero hero = ScriptableObject.CreateInstance<Hero>();
         hero.CreateRandom(_gameManager.PlayerHero.Level.Value);
@@ -38,9 +34,7 @@ public class BattleCard : VisualElement
 
         Add(new HeroCardMini(hero));
         foreach (ArmyGroup ag in hero.Army)
-        {
             Add(new ArmyElement(ag));
-        }
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }

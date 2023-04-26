@@ -7,13 +7,6 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-    [Header("Reward Cards")]
-    [SerializeField] Sprite[] RewardCardBackgrounds;
-    public Sprite GetRandomRewardCardBackground()
-    {
-        return RewardCardBackgrounds[Random.Range(0, RewardCardBackgrounds.Length)];
-    }
-
     [Header("Cutscenes")]
     [SerializeField] Cutscene[] Cutscenes;
     public Cutscene[] GetAllCutscenes() { return Cutscenes; }

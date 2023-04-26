@@ -40,7 +40,9 @@ public class RewardContainer : VisualElement
 
         AddToClassList(_ussMain);
 
-        Add(new Label("Choose your reward:"));
+        Label title = new Label("Choose your reward:");
+        title.style.fontSize = 32;
+        Add(title);
 
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;

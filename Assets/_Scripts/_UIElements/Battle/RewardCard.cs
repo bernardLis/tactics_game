@@ -24,7 +24,6 @@ public class RewardCard : VisualElement
         Reward = reward;
 
         AddToClassList(_ussMain);
-        style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetRandomRewardCardBackground());
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }

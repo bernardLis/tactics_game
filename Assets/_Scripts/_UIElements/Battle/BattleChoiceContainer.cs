@@ -12,7 +12,8 @@ public class BattleChoiceContainer : VisualElement
     public event Action OnBattleSelected;
     public BattleChoiceContainer()
     {
-        Label l = new("Battle Choice Container");
+        Label l = new("Choose your next opponent: ");
+        l.style.fontSize = 32;
         Add(l);
 
         VisualElement cardContainer = new();
