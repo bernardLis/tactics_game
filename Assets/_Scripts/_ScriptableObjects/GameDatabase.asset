@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
-  RewardCardBackgrounds:
-  - {fileID: 21300000, guid: 362091c751e8f284ea5f69ff14f8a1e8, type: 3}
   Cutscenes:
   - {fileID: 11400000, guid: 55ad5ffd5bf283d4485798e7df66f245, type: 2}
   CoinSprites:
@@ -429,16 +427,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: d497bd3531bc97140904d19c4c273569, type: 3}
   GoldSprite: {fileID: 21300000, guid: 9cff88ef95f95be47af437526c628fd5, type: 3}
   SpiceSprite: {fileID: 21300000, guid: 9a06e7f64c40cc04ebda0ea05e969af0, type: 3}
-  AllArmyEntities:
-  - {fileID: 11400000, guid: 7b53656cc58148d4e90b0bb859da9580, type: 2}
-  - {fileID: 11400000, guid: 2b7ff1059c2b0bf4dbce652773d9507b, type: 2}
-  - {fileID: 11400000, guid: 660a2e5a29821f7458b85f062da8024a, type: 2}
-  - {fileID: 11400000, guid: 8e451dd3abf5b3640a831b8aaac0b2de, type: 2}
-  AllEnemyArmyEntities:
-  - {fileID: 11400000, guid: 7b53656cc58148d4e90b0bb859da9580, type: 2}
-  - {fileID: 11400000, guid: 2b7ff1059c2b0bf4dbce652773d9507b, type: 2}
-  - {fileID: 11400000, guid: 660a2e5a29821f7458b85f062da8024a, type: 2}
-  - {fileID: 11400000, guid: 8e451dd3abf5b3640a831b8aaac0b2de, type: 2}
+  AllArmyEntities: []
+  AllEnemyArmyEntities: []
   BasicArmy:
   - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
   - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}

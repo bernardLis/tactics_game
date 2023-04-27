@@ -18,8 +18,13 @@ public class CommandLineManager : MonoBehaviour
 
     bool _isOpen;
 
+    [SerializeField] ArmyEntity _metalon;
+
     void Awake()
     {
+        _gameManager = GetComponent<GameManager>();
+        _playerInput = GetComponent<PlayerInput>();
+
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
 
         _commandLineContainer = root.Q<VisualElement>("commandLineContainer");
@@ -28,17 +33,13 @@ public class CommandLineManager : MonoBehaviour
         _submitCommandButton.clickable.clicked += SubmitCommand;
 
         _logContainer = root.Q<ScrollView>("logContainer");
-    }
 
-    void Start()
-    {
-        _gameManager = GetComponent<GameManager>();
-        _playerInput = GetComponent<PlayerInput>();
     }
 
     /* INPUT */
     void OnEnable()
     {
+        Debug.Log($"command line on enable");
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
@@ -69,6 +70,7 @@ public class CommandLineManager : MonoBehaviour
 
     void ToggleCommandLine(InputAction.CallbackContext ctx)
     {
+        Debug.Log($"toggle command line");
         if (_isOpen)
             _commandLineContainer.style.display = DisplayStyle.None;
         else
@@ -94,10 +96,23 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.ChangeSpiceValue(-500);
         if (_commandTextField.text.ToLower() == "levelup")
             _gameManager.PlayerHero.LevelUp();
+        if (_commandTextField.text.ToLower() == "metalon")
+            SpawnMetalon();
+
+
+    }
+
+    void SpawnMetalon()
+    {
+        BattleManager bm = BattleManager.Instance;
+        if (bm == null) return;
+
+        bm.InstantiatePlayer(_metalon, 1);
     }
 
     public void Log(string logString, string stackTrace, LogType type)
     {
+        if (_logContainer == null) return;
         _logContainer.Add(new Label(logString));
 
         myLog = logString + "\n" + myLog;

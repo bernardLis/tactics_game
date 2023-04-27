@@ -307,11 +307,13 @@ public class Hero : BaseScriptableObject
         UpdateRank();
 
         MapPosition = mapPosition;
+        // TODO: smarter army for hero
         Army = new();
-        foreach (ArmyGroup ag in _gameManager.GameDatabase.BasicArmy)
+        for (int i = 0; i < _gameManager.GameDatabase.AllArmyEntities.Count; i++)
         {
-            ArmyGroup instance = Instantiate(ag);
-            Army.Add(instance);
+            Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
+            Army[i].ArmyEntity = _gameManager.GameDatabase.GetRandomArmyEntity();
+            Army[i].EntityCount = 3;
         }
     }
 
@@ -352,13 +354,13 @@ public class Hero : BaseScriptableObject
 
         // TODO: something smarter maybe the higher level the better army too?        
         Army = new();
-        Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
-        Army[0].ArmyEntity = _gameManager.GameDatabase.AllEnemyArmyEntities[0];
-        Army[0].EntityCount = Random.Range(1, 10);
-        Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
-        Army[1].ArmyEntity = _gameManager.GameDatabase.AllEnemyArmyEntities[1];
-        Army[1].EntityCount = Random.Range(1, 10);
-
+        int armyCount = Random.Range(1, _gameManager.GameDatabase.AllArmyEntities.Count);
+        for (int i = 0; i < armyCount; i++)
+        {
+            Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
+            Army[i].ArmyEntity = _gameManager.GameDatabase.GetRandomArmyEntity();
+            Army[i].EntityCount = Random.Range(1, 10) + level;
+        }
 
         UpdateRank();
     }

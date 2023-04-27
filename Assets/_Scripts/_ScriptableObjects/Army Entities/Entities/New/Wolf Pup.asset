@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Wolf Pup
+  m_EditorClassIdentifier: 
+  Id: 8888-6aef-4f8f-a757-9d06b20d9a51
+  Name: Wolf Pup
+  Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
+  Price: 10
+  Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  Prefab: {fileID: 3041098084931047601, guid: fa8dc3b3e4e7ed24980f5d2a57d073fb, type: 3}
+  Health: 100
+  Armor: 0
+  Power: 20
+  AttackRange: 2.5
+  AttackCooldown: 2
+  Speed: 2
+  Projectile: {fileID: 0}
+  HitPrefab: {fileID: 4187254286823873391, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}

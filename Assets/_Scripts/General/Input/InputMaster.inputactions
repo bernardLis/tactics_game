@@ -258,6 +258,15 @@
             "id": "db8f36eb-7f70-4b70-b0fe-4fc302187b58",
             "actions": [
                 {
+                    "name": "ToggleCommandLine",
+                    "type": "Button",
+                    "id": "7872737d-8ce3-4153-8ef3-20c5c317d60b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "1",
                     "type": "Button",
                     "id": "a9fbf538-eea3-4950-b46b-7d02b60335dd",
@@ -595,6 +604,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "215f93c1-5c23-430f-8dac-32e22923ab48",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleCommandLine",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

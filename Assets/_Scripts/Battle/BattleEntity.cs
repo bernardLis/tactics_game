@@ -38,6 +38,14 @@ public class BattleEntity : MonoBehaviour
     MMF_Player _feelPlayer;
 
     public event Action<float> OnHealthChanged;
+
+    public event Action<BattleEntity> OnIdle;
+    public event Action<BattleEntity> OnStartedWalking;
+    public event Action<BattleEntity> OnDamageTaken;
+    public event Action<BattleEntity> OnAttack;
+    public event Action<BattleEntity> OnCelebrate;
+
+
     public event Action<BattleEntity> OnDeath;
 
     IEnumerator _runEntityCoroutine;
@@ -60,9 +68,9 @@ public class BattleEntity : MonoBehaviour
         Stats = stats;
         CurrentHealth = stats.Health;
 
-        _originalMaterial = mat;
-        GFX.GetComponent<MeshRenderer>().material = _originalMaterial;
-        _gfxMaterial = GFX.GetComponent<MeshRenderer>().material;
+        // _originalMaterial = mat;
+        // GFX.GetComponent<MeshRenderer>().material = _originalMaterial;
+        // _gfxMaterial = GFX.GetComponent<MeshRenderer>().material;
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = stats.Speed + hero.Speed.GetValue();
@@ -71,6 +79,9 @@ public class BattleEntity : MonoBehaviour
         _elementImage.sprite = Stats.Element.Icon;
 
         _opponentList = opponents;
+        BattleEntityAnimationController c = GetComponentInChildren<BattleEntityAnimationController>();
+        if (c != null) c.Initialize(this);
+
 
         StartRunEntityCoroutine();
     }
@@ -79,6 +90,7 @@ public class BattleEntity : MonoBehaviour
     {
         _agent.enabled = false;
         StopCoroutine(_runEntityCoroutine);
+        OnIdle?.Invoke(this);
     }
 
     public void StartRunEntityCoroutine()
@@ -103,6 +115,7 @@ public class BattleEntity : MonoBehaviour
             _agent.enabled = true;
             _agent.destination = _opponent.transform.position;
             yield return new WaitForSeconds(0.2f);
+            OnStartedWalking?.Invoke(this);
 
             // path to target
             while (_agent.remainingDistance > _agent.stoppingDistance)
@@ -113,19 +126,19 @@ public class BattleEntity : MonoBehaviour
                 transform.LookAt(_opponent.transform);
                 yield return null;
             }
-
+            OnIdle?.Invoke(this);
             // reached destination
             _agent.enabled = false;
 
 
             // HERE: ability testing
-            /*
-                        // HERE: something smarter
-                        if (Stats.Projectile == null)
-                            yield return StartCoroutine(Attack());
-                        else
-                            yield return StartCoroutine(Shoot());
-                            */
+
+            // HERE: something smarter
+            if (Stats.Projectile == null)
+                yield return StartCoroutine(Attack());
+            else
+                yield return StartCoroutine(Shoot());
+
         }
     }
 
@@ -148,6 +161,8 @@ public class BattleEntity : MonoBehaviour
         GameObject hitInstance = Instantiate(Stats.HitPrefab, _opponent.transform.position, Quaternion.identity);
 
         _currentAttackCooldown = Stats.AttackCooldown;
+
+        OnAttack?.Invoke(this);
 
         yield return _opponent.GetHit(this);
 
@@ -199,6 +214,7 @@ public class BattleEntity : MonoBehaviour
     public IEnumerator GetHit(BattleEntity attacker, Ability ability = null)
     {
         if (IsDead) yield break;
+        StopRunEntityCoroutine();
 
         float dmg = 0;
         Color dmgColor = Color.white;
@@ -221,6 +237,7 @@ public class BattleEntity : MonoBehaviour
 
         _gettingHit = true;
         CurrentHealth -= dmg;
+        OnDamageTaken?.Invoke(this);
         OnHealthChanged?.Invoke(CurrentHealth);
 
         if (CurrentHealth <= 0)
@@ -233,6 +250,7 @@ public class BattleEntity : MonoBehaviour
         //         AudioManager.Instance.PlaySFX(_hurtSound, transform.position);
         yield return transform.DOShakePosition(0.2f, 0.5f).WaitForCompletion();
         _gettingHit = false;
+        StartRunEntityCoroutine();
     }
 
     public Gradient GetDamageTextGradient(Color color)
@@ -262,6 +280,7 @@ public class BattleEntity : MonoBehaviour
 
     void Celebrate()
     {
+        OnCelebrate?.Invoke(this);
         transform.LookAt(Camera.main.transform);
         transform.DOJump(transform.position + Vector3.up * Random.Range(0.2f, 1.5f), 1, 1, 1f)
                 .SetEase(Ease.Linear)
@@ -292,12 +311,12 @@ public class BattleEntity : MonoBehaviour
 
         if (isOn)
         {
-            _gfxMaterial.DOColor(Color.white, 0.2f).SetLoops(-1, LoopType.Yoyo).SetId(_tweenHighlightId);
+            //    _gfxMaterial.DOColor(Color.white, 0.2f).SetLoops(-1, LoopType.Yoyo).SetId(_tweenHighlightId);
         }
         else
         {
             DOTween.Kill(_tweenHighlightId);
-            _gfxMaterial.color = _originalMaterial.color;
+            //    _gfxMaterial.color = _originalMaterial.color;
         }
     }
 }

@@ -47,6 +47,7 @@ public class BattleManager : Singleton<BattleManager>
         LoadedBattle = _gameManager.SelectedBattle;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
+        _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         _initialEnemyEntityCount = LoadedBattle.GetTotalNumberOfEnemies();
         _initialPlayerEntityCount = _gameManager.PlayerHero.GetTotalNumberOfArmyEntities();
@@ -77,7 +78,7 @@ public class BattleManager : Singleton<BattleManager>
         _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
     }
 
-    void InstantiatePlayer(ArmyEntity entity, int count)
+    public void InstantiatePlayer(ArmyEntity entity, int count)
     {
         ArmyEntity entityInstance = Instantiate(entity);
         entityInstance.HeroInfluence(_gameManager.PlayerHero);

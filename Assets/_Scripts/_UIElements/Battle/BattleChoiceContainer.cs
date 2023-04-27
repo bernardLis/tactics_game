@@ -12,6 +12,8 @@ public class BattleChoiceContainer : VisualElement
     public event Action OnBattleSelected;
     public BattleChoiceContainer()
     {
+        style.alignItems = Align.Center;
+
         Label l = new("Choose your next opponent: ");
         l.style.fontSize = 32;
         Add(l);
@@ -38,5 +40,4 @@ public class BattleChoiceContainer : VisualElement
 
         OnBattleSelected?.Invoke();
     }
-
 }

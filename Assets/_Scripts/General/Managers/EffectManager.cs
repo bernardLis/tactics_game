@@ -6,6 +6,7 @@ using UnityEngine;
 public class EffectManager : MonoBehaviour
 {
     [SerializeField] List<EffectHolder> _effects = new();
+
     public GameObject PlayEffectWithName(string name, Vector3 position, Vector3 scale)
     {
         foreach (EffectHolder effect in _effects)

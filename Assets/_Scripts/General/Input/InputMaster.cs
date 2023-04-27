@@ -280,6 +280,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             ""id"": ""db8f36eb-7f70-4b70-b0fe-4fc302187b58"",
             ""actions"": [
                 {
+                    ""name"": ""ToggleCommandLine"",
+                    ""type"": ""Button"",
+                    ""id"": ""7872737d-8ce3-4153-8ef3-20c5c317d60b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""1"",
                     ""type"": ""Button"",
                     ""id"": ""a9fbf538-eea3-4950-b46b-7d02b60335dd"",
@@ -619,6 +628,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""215f93c1-5c23-430f-8dac-32e22923ab48"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleCommandLine"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -656,6 +676,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Map_Shift = m_Map.FindAction("Shift", throwIfNotFound: true);
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
+        m_Battle_ToggleCommandLine = m_Battle.FindAction("ToggleCommandLine", throwIfNotFound: true);
         m_Battle__1 = m_Battle.FindAction("1", throwIfNotFound: true);
         m_Battle__2 = m_Battle.FindAction("2", throwIfNotFound: true);
         m_Battle__3 = m_Battle.FindAction("3", throwIfNotFound: true);
@@ -847,6 +868,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     // Battle
     private readonly InputActionMap m_Battle;
     private List<IBattleActions> m_BattleActionsCallbackInterfaces = new List<IBattleActions>();
+    private readonly InputAction m_Battle_ToggleCommandLine;
     private readonly InputAction m_Battle__1;
     private readonly InputAction m_Battle__2;
     private readonly InputAction m_Battle__3;
@@ -863,6 +885,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     {
         private @InputMaster m_Wrapper;
         public BattleActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleCommandLine => m_Wrapper.m_Battle_ToggleCommandLine;
         public InputAction @_1 => m_Wrapper.m_Battle__1;
         public InputAction @_2 => m_Wrapper.m_Battle__2;
         public InputAction @_3 => m_Wrapper.m_Battle__3;
@@ -884,6 +907,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_BattleActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_BattleActionsCallbackInterfaces.Add(instance);
+            @ToggleCommandLine.started += instance.OnToggleCommandLine;
+            @ToggleCommandLine.performed += instance.OnToggleCommandLine;
+            @ToggleCommandLine.canceled += instance.OnToggleCommandLine;
             @_1.started += instance.On_1;
             @_1.performed += instance.On_1;
             @_1.canceled += instance.On_1;
@@ -924,6 +950,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IBattleActions instance)
         {
+            @ToggleCommandLine.started -= instance.OnToggleCommandLine;
+            @ToggleCommandLine.performed -= instance.OnToggleCommandLine;
+            @ToggleCommandLine.canceled -= instance.OnToggleCommandLine;
             @_1.started -= instance.On_1;
             @_1.performed -= instance.On_1;
             @_1.canceled -= instance.On_1;
@@ -1001,6 +1030,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     }
     public interface IBattleActions
     {
+        void OnToggleCommandLine(InputAction.CallbackContext context);
         void On_1(InputAction.CallbackContext context);
         void On_2(InputAction.CallbackContext context);
         void On_3(InputAction.CallbackContext context);

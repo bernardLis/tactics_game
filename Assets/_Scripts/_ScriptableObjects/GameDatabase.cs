@@ -63,12 +63,7 @@ public class GameDatabase : BaseScriptableObject
 
     public List<ArmyEntity> AllArmyEntities = new();
     public ArmyEntity GetRandomArmyEntity() { return AllArmyEntities[Random.Range(0, AllArmyEntities.Count)]; }
-
     public ArmyEntity GetArmyEntityById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
-
-    public List<ArmyEntity> AllEnemyArmyEntities = new();
-    public ArmyEntity GetEnemyArmyEntityById(string id) { return AllEnemyArmyEntities.FirstOrDefault(x => x.Id == id); }
-    public ArmyEntity GetRandomEnemyArmyEntity() { return AllEnemyArmyEntities[Random.Range(0, AllEnemyArmyEntities.Count)]; }
 
     public List<ArmyGroup> BasicArmy = new();
 

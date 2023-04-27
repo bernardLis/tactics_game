@@ -41,7 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &329089867633818112
 AudioListener:
@@ -168,6 +168,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 096c2620-ff4b-48a7-97fc-76436ee2be5b
     m_ActionName: Battle/CameraDefaultPosition[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7872737d-8ce3-4153-8ef3-20c5c317d60b
+    m_ActionName: Battle/ToggleCommandLine[/Keyboard/backquote]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 48c57600-1474-40eb-ae2a-7e1dc5b04924
+    m_ActionName: Battle/Continue[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c4b637b-d155-46c8-8f7d-3159f2b1f1cd
+    m_ActionName: Battle/Enter[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Map
@@ -470,6 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6da27739bfa18249876a09789a22071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _metalon: {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
 --- !u!114 &5229503471192617615
 MonoBehaviour:
   m_ObjectHideFlags: 0
