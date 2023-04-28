@@ -26,7 +26,6 @@ public class BattleEntityAnimationController : MonoBehaviour
 
         _entity.OnCelebrate += Jump;
         _entity.OnDeath += Death;
-
     }
 
 
@@ -63,6 +62,6 @@ public class BattleEntityAnimationController : MonoBehaviour
 
     void Death(BattleEntity be)
     {
-        _animator.SetTrigger("Die");
+        _animator.Play("Die");
     }
 }

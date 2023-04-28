@@ -60,7 +60,7 @@ public class BattleEntity : MonoBehaviour
             _currentAttackCooldown -= Time.deltaTime;
     }
 
-    public void Initialize(Material mat,  ArmyEntity stats, ref List<BattleEntity> opponents)
+    public void Initialize(Material mat, ArmyEntity stats, ref List<BattleEntity> opponents)
     {
         Stats = stats;
         CurrentHealth = stats.Health;
@@ -291,7 +291,7 @@ public class BattleEntity : MonoBehaviour
         OnDeath?.Invoke(this);
         yield return new WaitForSeconds(0.2f);
         //  transform.DORotate(new Vector3(-90, 0, 0), 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
-        yield return transform.DOMoveY(0, 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
+        //yield return transform.DOMoveY(0, 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
         ToggleHighlight(false);
 
         BattleLogManager logManager = BattleManager.Instance.GetComponent<BattleLogManager>();

@@ -29,10 +29,11 @@ public class Projectile : MonoBehaviour
 
         while (t <= 1.0f)
         {
-            if (target != null)
-                finalPos = target.GFX.transform.position;
+            if (target != null) finalPos = target.GFX.transform.position;
             t += step;
-            transform.position = Vector3.Lerp(startingPos, finalPos, t);
+            Vector3 pos = Vector3.Lerp(startingPos, finalPos, t);
+            if (pos.y < 1) pos.y = 1; // TODO: shitty fix for projectiles going under the ground
+            transform.position = pos;
 
             yield return new WaitForFixedUpdate();
         }

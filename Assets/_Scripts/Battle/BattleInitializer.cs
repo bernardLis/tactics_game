@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BattleInitializer : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+        Hero playerHero = GameManager.Instance.PlayerHero;
+        List<ArmyGroup> playerArmy = playerHero.Army;
+        Hero opponentHero = GameManager.Instance.SelectedBattle.Opponent;
+        List<ArmyGroup> opponentArmy = opponentHero.Army;
+
+        BattleManager.Instance.Initialize(playerHero, opponentHero, playerArmy, opponentArmy);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
