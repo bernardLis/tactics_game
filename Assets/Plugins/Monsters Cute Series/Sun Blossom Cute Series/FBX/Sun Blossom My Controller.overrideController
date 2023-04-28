@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sun Blossom My Controller
+  m_Controller: {fileID: 9100000, guid: eeb2e72db1953be419992b3a3d54b30d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b63a8f69a13184b4198e616b393c9ab2, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: e662e05ea3621224e9c7054082390015, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: ca9984468f6caed44a9557730511d00f, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 64e43b5c8a1beb04da2947dbd1a19694, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e3c96ba5d806d894f8adcb51cf7c4bad, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 6de52a6e886408c4a98b6055226dd405, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 649e08fb0a31b5a438a8f50863f3a336, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 9ed2f7bb91978a447bb6e14c14fdfe57, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 76ef86bd4e5d8d140aeb5c5e225cf14e, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 6abc358fa32d2cd46b648d0d4cb09c5f, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 914b96c72bc160b4cbfcce6c82c2f509, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 3de12fb1a974bfa4e81693430a1c24cf, type: 3}

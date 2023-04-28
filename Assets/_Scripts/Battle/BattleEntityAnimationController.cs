@@ -19,7 +19,7 @@ public class BattleEntityAnimationController : MonoBehaviour
     {
         _entity = entity;
         _entity.OnIdle += Idle;
-        _entity.OnStartedWalking += Walk;
+        _entity.OnStartedMoving += Move;
 
         _entity.OnAttack += Attack;
         _entity.OnDamageTaken += DamageTaken;
@@ -29,24 +29,26 @@ public class BattleEntityAnimationController : MonoBehaviour
 
     }
 
-    void ResetAll()
-    {
-        _animator.SetBool("Run Forward", false);
-    }
-
-    void Walk(BattleEntity be)
-    {
-        _animator.SetBool("Run Forward", true);
-    }
 
     void Idle(BattleEntity be)
     {
         ResetAll();
     }
 
+    void ResetAll()
+    {
+        _animator.SetBool("Move Forward", false);
+    }
+
+    void Move(BattleEntity be)
+    {
+        _animator.SetBool("Move Forward", true);
+    }
+
+
     void Attack(BattleEntity be)
     {
-        _animator.SetTrigger("Stab Attack");
+        _animator.SetTrigger("Attack");
     }
 
     void Jump(BattleEntity be)

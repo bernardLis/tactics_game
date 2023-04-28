@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61bc7ec53fd73a74eb23808be2b4aa05, type: 3}
-  m_Name: Earth Melee
+  m_Name: Bombs
   m_EditorClassIdentifier: 
   Id: fe41cb59-8f39-4b6c-a851-72019b4f126c
-  ArmyEntity: {fileID: 11400000, guid: 7b53656cc58148d4e90b0bb859da9580, type: 2}
-  EntityCount: 10
-  ListPosition: 0
+  ArmyEntity: {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
+  EntityCount: 2
+  ListPosition: 1

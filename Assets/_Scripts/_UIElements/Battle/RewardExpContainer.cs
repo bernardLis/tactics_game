@@ -121,22 +121,22 @@ public class RewardExpContainer : VisualElement
 
     void ShowKilledEnemies()
     {
-        int delay = 2000 / _battleManager.KilledEnemyEntities.Count;
-        List<BattleEntity> killedEnemies = new(_battleManager.KilledEnemyEntities);
+        int delay = 2000 / _battleManager.KilledOpponentEntities.Count;
+        List<BattleEntity> killedEnemies = new(_battleManager.KilledOpponentEntities);
 
         _enemiesKilledShowSchedule = schedule.Execute(() => ShowKilledEnemy()).Every(delay);
     }
 
     void ShowKilledEnemy()
     {
-        if (_enemyIndex >= _battleManager.KilledEnemyEntities.Count)
+        if (_enemyIndex >= _battleManager.KilledOpponentEntities.Count)
         {
             _enemiesKilledShowSchedule.Pause();
             if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
             return;
         }
 
-        BattleEntity enemy = _battleManager.KilledEnemyEntities[_enemyIndex];
+        BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
         // create an element with enemy icon
         VisualElement icon = new();
         icon.style.width = 50;

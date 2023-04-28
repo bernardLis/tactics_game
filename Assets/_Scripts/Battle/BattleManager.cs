@@ -29,17 +29,20 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] Material _playerMaterial;
     [SerializeField] Material _enemyMaterial;
 
+    Hero _playerHero;
+    Hero _opponentHero;
+
     int _initialPlayerEntityCount;
-    int _initialEnemyEntityCount;
+    int _initialOpponentEntityCount;
 
     [SerializeField] GameObject _playerSpawnPoint;
     [SerializeField] GameObject _enemySpawnPoint;
 
     public List<BattleEntity> PlayerEntities = new();
-    public List<BattleEntity> EnemyEntities = new();
+    public List<BattleEntity> OpponentEntities = new();
 
     public List<BattleEntity> KilledPlayerEntities = new();
-    public List<BattleEntity> KilledEnemyEntities = new();
+    public List<BattleEntity> KilledOpponentEntities = new();
 
     void Start()
     {
@@ -49,21 +52,9 @@ public class BattleManager : Singleton<BattleManager>
         _root = GetComponent<UIDocument>().rootVisualElement;
         _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
-        _initialEnemyEntityCount = LoadedBattle.GetTotalNumberOfEnemies();
-        _initialPlayerEntityCount = _gameManager.PlayerHero.GetTotalNumberOfArmyEntities();
-
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
         _initRot = _skyMat.GetFloat(_rotationProperty);
-
-        _scoreText.text = $"{_initialPlayerEntityCount} : {_initialEnemyEntityCount}";
-
-        foreach (ArmyGroup ag in _gameManager.PlayerHero.Army)
-            InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
-        foreach (ArmyGroup ag in LoadedBattle.Opponent.Army)
-            InstantiateEnemy(ag.ArmyEntity, ag.EntityCount);
-
-        _gameManager.ToggleTimer(true);
 
         // HERE: for testing
         GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
@@ -78,10 +69,29 @@ public class BattleManager : Singleton<BattleManager>
         _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
     }
 
+    public void Initialize(Hero playerHero, Hero opponentHero, List<ArmyGroup> playerArmy, List<ArmyGroup> opponentArmy)
+    {
+        if (playerHero != null) _playerHero = playerHero;
+        if (opponentHero != null) _opponentHero = opponentHero;
+
+        foreach (ArmyGroup ag in playerArmy)
+            InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
+        foreach (ArmyGroup ag in opponentArmy)
+            InstantiateOpponent(ag.ArmyEntity, ag.EntityCount);
+
+        _initialOpponentEntityCount = PlayerEntities.Count;
+        _initialPlayerEntityCount = OpponentEntities.Count;
+
+        _scoreText.text = $"{_initialPlayerEntityCount} : {_initialOpponentEntityCount}";
+
+        if (_gameManager == null) _gameManager = GameManager.Instance;
+        _gameManager.ToggleTimer(true);
+    }
+
     public void InstantiatePlayer(ArmyEntity entity, int count)
     {
         ArmyEntity entityInstance = Instantiate(entity);
-        entityInstance.HeroInfluence(_gameManager.PlayerHero);
+        entityInstance.HeroInfluence(_playerHero);
 
         for (int i = 0; i < count; i++)
         {
@@ -90,22 +100,25 @@ public class BattleManager : Singleton<BattleManager>
             instance.layer = 8;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_playerMaterial, _gameManager.PlayerHero, entityInstance, ref EnemyEntities);
+            be.Initialize(_playerMaterial, entityInstance, ref OpponentEntities);
             PlayerEntities.Add(be);
             be.OnDeath += OnPlayerDeath;
         }
     }
 
-    void InstantiateEnemy(ArmyEntity entity, int count)
+    void InstantiateOpponent(ArmyEntity entity, int count)
     {
+        ArmyEntity entityInstance = Instantiate(entity);
+        entityInstance.HeroInfluence(_opponentHero);
+
         for (int i = 0; i < count; i++)
         {
             Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5));
             GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_enemyMaterial, LoadedBattle.Opponent, entity, ref PlayerEntities);
-            EnemyEntities.Add(be);
+            be.Initialize(_enemyMaterial, entity, ref PlayerEntities);
+            OpponentEntities.Add(be);
             be.OnDeath += OnEnemyDeath;
         }
     }
@@ -114,7 +127,7 @@ public class BattleManager : Singleton<BattleManager>
     {
         KilledPlayerEntities.Add(be);
         PlayerEntities.Remove(be);
-        _scoreText.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
+        _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
 
         if (PlayerEntities.Count == 0)
             BattleLost();
@@ -122,11 +135,11 @@ public class BattleManager : Singleton<BattleManager>
 
     void OnEnemyDeath(BattleEntity be)
     {
-        KilledEnemyEntities.Add(be);
-        EnemyEntities.Remove(be);
-        _scoreText.text = $"{PlayerEntities.Count} : {EnemyEntities.Count}";
+        KilledOpponentEntities.Add(be);
+        OpponentEntities.Remove(be);
+        _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
 
-        if (EnemyEntities.Count == 0)
+        if (OpponentEntities.Count == 0)
             BattleWon();
     }
 
@@ -143,6 +156,7 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator FinalizeBattle()
     {
+        if (_playerHero == null) yield break;
         yield return new WaitForSeconds(2f);
         BattleResult r = new(_root);
     }
@@ -151,7 +165,7 @@ public class BattleManager : Singleton<BattleManager>
     [ContextMenu("Win Battle")]
     void WinBattle()
     {
-        List<BattleEntity> copy = new(EnemyEntities);
+        List<BattleEntity> copy = new(OpponentEntities);
         foreach (BattleEntity be in copy)
         {
             StartCoroutine(be.Die());

@@ -34,11 +34,10 @@ public class BattleEntityElement : VisualElement
         string attackCooldown = "" + Mathf.RoundToInt(_stats.AttackCooldown);
         string speed = "" + Mathf.RoundToInt(_stats.Speed);
 
-        if (_battleEntity.Hero != null)
+        if (_battleEntity.Stats.Hero != null)
         {
-            power += " + " + Mathf.RoundToInt(_battleEntity.Hero.Power.GetValue());
-            armor += " + " + Mathf.RoundToInt(_battleEntity.Hero.Armor.GetValue());
-            speed += " + " + Mathf.RoundToInt(_battleEntity.Hero.Speed.GetValue());
+            power += " + " + Mathf.RoundToInt(_battleEntity.Stats.Hero.Power.GetValue());
+            armor += " + " + Mathf.RoundToInt(_battleEntity.Stats.Hero.Armor.GetValue());
         }
 
         leftContainer.Add(new ElementalElement(_stats.Element));

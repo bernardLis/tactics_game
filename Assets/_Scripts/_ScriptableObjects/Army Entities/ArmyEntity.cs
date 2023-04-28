@@ -23,17 +23,17 @@ public class ArmyEntity : BaseScriptableObject
     public GameObject Projectile;
     public GameObject HitPrefab;
 
-    Hero _hero;
+    public Hero Hero;
     public void HeroInfluence(Hero hero)
     {
-        _hero = hero;
+        Hero = hero;
     }
 
     public float CalculateDamage(BattleEntity attacker)
     {
         float damage = attacker.Stats.Power;
-        if (attacker.Hero != null)
-            damage += attacker.Hero.Power.GetValue();
+        if (attacker.Stats.Hero != null)
+            damage += attacker.Stats.Hero.Power.GetValue();
 
         if (Element.StrongAgainst == attacker.Stats.Element)
             damage *= 0.5f;
@@ -43,8 +43,8 @@ public class ArmyEntity : BaseScriptableObject
         damage = Mathf.Round(damage);
 
         float armor = Armor;
-        if (_hero != null)
-            armor += _hero.Armor.GetValue();
+        if (Hero != null)
+            armor += Hero.Armor.GetValue();
 
         damage -= Armor;
         if (damage < 0)
