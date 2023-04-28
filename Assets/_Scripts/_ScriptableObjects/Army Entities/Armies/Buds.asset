@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61bc7ec53fd73a74eb23808be2b4aa05, type: 3}
-  m_Name: Water Shooter
+  m_Name: Buds
   m_EditorClassIdentifier: 
-  Id: fe41cb59-8f39-4b6c-a851-72019b4f126c
-  ArmyEntity: {fileID: 11400000, guid: 660a2e5a29821f7458b85f062da8024a, type: 2}
-  EntityCount: 10
-  ListPosition: 2
+  Id: 444359-8f39-4b6c-a851-72019b4f126c
+  ArmyEntity: {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
+  EntityCount: 4
+  ListPosition: 0

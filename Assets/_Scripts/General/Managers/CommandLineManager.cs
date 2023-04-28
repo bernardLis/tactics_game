@@ -39,7 +39,6 @@ public class CommandLineManager : MonoBehaviour
     /* INPUT */
     void OnEnable()
     {
-        Debug.Log($"command line on enable");
         if (_gameManager == null)
             _gameManager = GameManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
@@ -70,7 +69,6 @@ public class CommandLineManager : MonoBehaviour
 
     void ToggleCommandLine(InputAction.CallbackContext ctx)
     {
-        Debug.Log($"toggle command line");
         if (_isOpen)
             _commandLineContainer.style.display = DisplayStyle.None;
         else

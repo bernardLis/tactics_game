@@ -39,14 +39,11 @@ public class BattleEntity : MonoBehaviour
 
     public event Action<float> OnHealthChanged;
 
-    public event Action<BattleEntity> OnDamageTaken;
-    public event Action<BattleEntity> OnAttack;
-    public event Action<BattleEntity> OnCelebrate;
-
-
     public event Action<BattleEntity> OnDeath;
 
     IEnumerator _runEntityCoroutine;
+
+    bool _isSpawned;
 
     void Start()
     {
@@ -72,22 +69,15 @@ public class BattleEntity : MonoBehaviour
         Stats = stats;
         CurrentHealth = stats.Health;
 
-        // _originalMaterial = mat;
-        // GFX.GetComponent<MeshRenderer>().material = _originalMaterial;
-        // _gfxMaterial = GFX.GetComponent<MeshRenderer>().material;
-
         _agent = GetComponent<NavMeshAgent>();
         _agent.stoppingDistance = stats.AttackRange;
 
         _animator = GetComponentInChildren<Animator>();
+        GFX = _animator.gameObject;
 
         _elementImage.sprite = Stats.Element.Icon;
 
         _opponentList = opponents;
-        BattleEntityAnimationController c = GetComponentInChildren<BattleEntityAnimationController>();
-        if (c != null) c.Initialize(this);
-        GFX = c.gameObject;
-
 
         StartRunEntityCoroutine();
     }
@@ -106,7 +96,17 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator RunEntity()
     {
-        yield return new WaitForSeconds(Random.Range(0f, 1f)); // random delay at the beginning
+        if (!_isSpawned)
+        {
+            Debug.Log($"play spawn");
+            _animator.Play("Spawn");
+            _isSpawned = true;
+            yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+            _animator.Play("Idle");
+        }
+
+        yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
+
         while (!IsDead)
         {
             if (_opponentList.Count == 0)
@@ -119,7 +119,7 @@ public class BattleEntity : MonoBehaviour
 
             _agent.enabled = true;
             _agent.destination = _opponent.transform.position;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
 
             // path to target
             while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
@@ -142,6 +142,7 @@ public class BattleEntity : MonoBehaviour
             else
                 yield return StartCoroutine(Shoot());
 
+            _animator.Play("Idle");
         }
     }
 
@@ -159,13 +160,13 @@ public class BattleEntity : MonoBehaviour
             yield break; // target ran away
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
-        //      Vector3 punchRotation = new(45f, 0f, 0f);
-        //      yield return GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
+        _animator.Play("Attack");
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+
         GameObject hitInstance = Instantiate(Stats.HitPrefab, _opponent.transform.position, Quaternion.identity);
 
         _currentAttackCooldown = Stats.AttackCooldown;
 
-        OnAttack?.Invoke(this);
 
         yield return _opponent.GetHit(this);
 
@@ -181,9 +182,10 @@ public class BattleEntity : MonoBehaviour
             yield break; // target ran away
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
-        //   Vector3 punchRotation = new(45f, 0f, 0f);
-        //   GFX.transform.DOPunchRotation(punchRotation, 0.6f, 0, 0).WaitForCompletion();
         _currentAttackCooldown = Stats.AttackCooldown;
+
+        _animator.Play("Attack");
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= .5f);
 
         // spawn projectile
         GameObject projectileInstance = Instantiate(Stats.Projectile, GFX.transform.position, Quaternion.identity);
@@ -240,7 +242,6 @@ public class BattleEntity : MonoBehaviour
 
         _gettingHit = true;
         CurrentHealth -= dmg;
-        OnDamageTaken?.Invoke(this);
         OnHealthChanged?.Invoke(CurrentHealth);
 
         if (CurrentHealth <= 0)
@@ -249,13 +250,15 @@ public class BattleEntity : MonoBehaviour
             yield return Die(attacker, ability);
             yield break;
         }
+
+        _animator.Play("Take Damage");
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+
         //      if (Random.value > 0.5f)
         //         AudioManager.Instance.PlaySFX(_hurtSound, transform.position);
-        //   yield return transform.DOShakePosition(0.2f, 0.5f).WaitForCompletion();
         _gettingHit = false;
 
         // TODO: wait for get hit animation to finish
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
 
         StartRunEntityCoroutine();
     }
@@ -287,21 +290,18 @@ public class BattleEntity : MonoBehaviour
 
     void Celebrate()
     {
-        OnCelebrate?.Invoke(this);
+        Debug.Log($"celebrate");
         transform.LookAt(Camera.main.transform);
-        //   transform.DOJump(transform.position + Vector3.up * Random.Range(0.2f, 1.5f), 1, 1, 1f)
-        //           .SetEase(Ease.Linear)
-        //           .SetLoops(-1)
-        //          .SetDelay(Random.Range(0.5f, 1f));
+        _animator.Play("Celebrate");
+
     }
 
     public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
         IsDead = true;
+        _animator.Play("Die");
         OnDeath?.Invoke(this);
         yield return new WaitForSeconds(0.2f);
-        //  transform.DORotate(new Vector3(-90, 0, 0), 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
-        //yield return transform.DOMoveY(0, 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
         ToggleHighlight(false);
 
         BattleLogManager logManager = BattleManager.Instance.GetComponent<BattleLogManager>();

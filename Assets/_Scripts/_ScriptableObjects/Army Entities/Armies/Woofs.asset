@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61bc7ec53fd73a74eb23808be2b4aa05, type: 3}
-  m_Name: Wind Melee
+  m_Name: Woofs
   m_EditorClassIdentifier: 
-  Id: fe41cb59-8f39-4b6c-a851-72019b4f126c
-  ArmyEntity: {fileID: 11400000, guid: 8e451dd3abf5b3640a831b8aaac0b2de, type: 2}
-  EntityCount: 10
-  ListPosition: 3
+  Id: 12359-8f39-4b6c-a851-72019b4f126c
+  ArmyEntity: {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
+  EntityCount: 4
+  ListPosition: 0

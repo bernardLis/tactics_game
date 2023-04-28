@@ -105,7 +105,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1107483191224742004}
   - component: {fileID: 7530711508530950271}
-  - component: {fileID: 5472495699657907257}
   m_Layer: 0
   m_Name: Dragon Spark
   m_TagString: Untagged
@@ -167,18 +166,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5472495699657907257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1094576686070900245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14cb7282f3d80cd46969c463e305b39f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1174095446804062119
 GameObject:
   m_ObjectHideFlags: 0

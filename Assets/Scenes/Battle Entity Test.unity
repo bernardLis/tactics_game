@@ -1415,7 +1415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeamAArmies:
-  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
+  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
   TeamBArmies:
   - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
 --- !u!1001 &5119385660492297293
