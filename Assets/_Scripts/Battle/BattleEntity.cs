@@ -16,6 +16,7 @@ public class BattleEntity : MonoBehaviour
     List<BattleEntity> _opponentList = new();
 
     public GameObject GFX;
+    Animator _animator;
     Material _originalMaterial;
     Material _gfxMaterial;
 
@@ -38,8 +39,6 @@ public class BattleEntity : MonoBehaviour
 
     public event Action<float> OnHealthChanged;
 
-    public event Action<BattleEntity> OnIdle;
-    public event Action<BattleEntity> OnStartedMoving;
     public event Action<BattleEntity> OnDamageTaken;
     public event Action<BattleEntity> OnAttack;
     public event Action<BattleEntity> OnCelebrate;
@@ -58,6 +57,14 @@ public class BattleEntity : MonoBehaviour
     {
         if (_currentAttackCooldown >= 0)
             _currentAttackCooldown -= Time.deltaTime;
+
+        /* ANIMATOR UPDATE */
+        if (!_agent.isActiveAndEnabled)
+        {
+            _animator.SetBool("Move", false);
+            return;
+        }
+        _animator.SetBool("Move", !_agent.isStopped);
     }
 
     public void Initialize(Material mat, ArmyEntity stats, ref List<BattleEntity> opponents)
@@ -71,6 +78,8 @@ public class BattleEntity : MonoBehaviour
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.stoppingDistance = stats.AttackRange;
+
+        _animator = GetComponentInChildren<Animator>();
 
         _elementImage.sprite = Stats.Element.Icon;
 
@@ -87,7 +96,6 @@ public class BattleEntity : MonoBehaviour
     {
         _agent.enabled = false;
         StopCoroutine(_runEntityCoroutine);
-        OnIdle?.Invoke(this);
     }
 
     public void StartRunEntityCoroutine()
@@ -112,7 +120,6 @@ public class BattleEntity : MonoBehaviour
             _agent.enabled = true;
             _agent.destination = _opponent.transform.position;
             yield return new WaitForSeconds(0.2f);
-            OnStartedMoving?.Invoke(this);
 
             // path to target
             while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
@@ -123,10 +130,9 @@ public class BattleEntity : MonoBehaviour
                 transform.LookAt(_opponent.transform);
                 yield return null;
             }
-            OnIdle?.Invoke(this);
+
             // reached destination
             _agent.enabled = false;
-
 
             // HERE: ability testing
 
@@ -247,6 +253,10 @@ public class BattleEntity : MonoBehaviour
         //         AudioManager.Instance.PlaySFX(_hurtSound, transform.position);
         //   yield return transform.DOShakePosition(0.2f, 0.5f).WaitForCompletion();
         _gettingHit = false;
+
+        // TODO: wait for get hit animation to finish
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+
         StartRunEntityCoroutine();
     }
 

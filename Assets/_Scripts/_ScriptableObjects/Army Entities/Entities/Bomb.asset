@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Bomb
+  m_EditorClassIdentifier: 
+  Id: 1111-6aef-4f8f-a757-9d06b20d9a51
+  Name: Bomb
+  Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
+  Price: 10
+  Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  Prefab: {fileID: 220321774683407358, guid: a98687726722521498b6292a56d8c7ed, type: 3}
+  Health: 20
+  Armor: 0
+  Power: 10
+  AttackRange: 120
+  AttackCooldown: 3
+  Speed: 5
+  Projectile: {fileID: 4404377142720302936, guid: d127e40c7587fd54b8f16eae91b442f1, type: 3}
+  HitPrefab: {fileID: 0}
+  Hero: {fileID: 0}

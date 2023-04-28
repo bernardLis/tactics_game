@@ -11,15 +11,11 @@ public class BattleEntityAnimationController : MonoBehaviour
     void Awake()
     {
         _animator = GetComponent<Animator>();
-
-
     }
 
     public void Initialize(BattleEntity entity)
     {
         _entity = entity;
-        _entity.OnIdle += Idle;
-        _entity.OnStartedMoving += Move;
 
         _entity.OnAttack += Attack;
         _entity.OnDamageTaken += DamageTaken;
@@ -29,35 +25,19 @@ public class BattleEntityAnimationController : MonoBehaviour
     }
 
 
-    void Idle(BattleEntity be)
-    {
-        ResetAll();
-    }
-
-    void ResetAll()
-    {
-        _animator.SetBool("Move Forward", false);
-    }
-
-    void Move(BattleEntity be)
-    {
-        _animator.SetBool("Move Forward", true);
-    }
-
-
     void Attack(BattleEntity be)
     {
-        _animator.SetTrigger("Attack");
+        _animator.Play("Attack");
     }
 
     void Jump(BattleEntity be)
     {
-        _animator.SetTrigger("Jump");
+        _animator.Play("Celebrate");
     }
 
     void DamageTaken(BattleEntity be)
     {
-        _animator.SetTrigger("Take Damage");
+        _animator.Play("Take Damage");
     }
 
     void Death(BattleEntity be)
