@@ -23,7 +23,7 @@ MonoBehaviour:
   Power: 20
   AttackRange: 2.5
   AttackCooldown: 2
-  Speed: 2
+  Speed: 4
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
   Hero: {fileID: 0}
