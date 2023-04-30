@@ -11,9 +11,11 @@ using MoreMountains.Feedbacks;
 public class BattleEntity : MonoBehaviour
 {
 
-    public GameObject GFX;
+    public Collider Collider { get; private set; }
+
+    GameObject _GFX;
     Material _material;
-    public Texture2D _emissionTexture;
+    Texture2D _emissionTexture;
     Animator _animator;
 
     List<BattleEntity> _opponentList = new();
@@ -59,6 +61,16 @@ public class BattleEntity : MonoBehaviour
 
     public void Initialize(bool isPlayer, ArmyEntity stats, ref List<BattleEntity> opponents)
     {
+        Collider = GetComponent<Collider>();
+
+        _animator = GetComponentInChildren<Animator>();
+        _GFX = _animator.gameObject;
+        _material = _GFX.GetComponentInChildren<SkinnedMeshRenderer>().material;
+        _emissionTexture = _material.GetTexture("_EmissionMap") as Texture2D;
+        _material.EnableKeyword("_EMISSION");
+
+        if (!isPlayer) _material.SetFloat("_Metallic", 0.5f);
+
         Stats = stats;
         CurrentHealth = stats.Health;
 
@@ -66,14 +78,6 @@ public class BattleEntity : MonoBehaviour
         _agent.stoppingDistance = stats.AttackRange;
         _agent.speed = stats.Speed;
         _agent.enabled = true;
-
-        _animator = GetComponentInChildren<Animator>();
-        GFX = _animator.gameObject;
-        _material = GFX.GetComponentInChildren<SkinnedMeshRenderer>().material;
-        _emissionTexture = _material.GetTexture("_EmissionMap") as Texture2D;
-        _material.EnableKeyword("_EMISSION");
-
-        if (!isPlayer) _material.SetFloat("_Metallic", 0.5f);
 
         _opponentList = opponents;
 
@@ -153,7 +157,7 @@ public class BattleEntity : MonoBehaviour
         _animator.SetTrigger("Attack");
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
-        GameObject hitInstance = Instantiate(Stats.HitPrefab, _opponent.transform.position, Quaternion.identity);
+        GameObject hitInstance = Instantiate(Stats.HitPrefab, _opponent.Collider.bounds.center, Quaternion.identity);
         _currentAttackCooldown = Stats.AttackCooldown;
 
         yield return _opponent.GetHit(this);
@@ -176,7 +180,7 @@ public class BattleEntity : MonoBehaviour
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.8f);
 
         // spawn projectile
-        GameObject projectileInstance = Instantiate(Stats.Projectile, GFX.transform.position, Quaternion.identity);
+        GameObject projectileInstance = Instantiate(Stats.Projectile, _GFX.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
 
         Projectile projectile = projectileInstance.GetComponent<Projectile>();
