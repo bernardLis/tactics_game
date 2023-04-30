@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: drtagon-8f39-4b6c-a851-72019b4f126c
   ArmyEntity: {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
-  EntityCount: 20
+  EntityCount: 1
   ListPosition: 0

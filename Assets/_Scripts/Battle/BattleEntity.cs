@@ -10,6 +10,7 @@ using MoreMountains.Feedbacks;
 
 public class BattleEntity : MonoBehaviour
 {
+    [SerializeField] GameObject _projectileSpawnPoint;
 
     public Collider Collider { get; private set; }
 
@@ -164,17 +165,22 @@ public class BattleEntity : MonoBehaviour
         while (!CanAttack()) yield return null;
         if (!HasOpponentInRange()) yield break;
 
+        GameObject projectileInstance = Instantiate(Stats.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
+        projectileInstance.transform.LookAt(_opponent.transform);
+        projectileInstance.transform.parent = _GFX.transform;
+        projectileInstance.transform.localScale = Vector3.zero; // HERE: unifnished
+        projectileInstance.transform.DOScale(1, 2f);
+
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         _animator.SetTrigger("Attack");
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.8f);
+        yield return new WaitForSeconds(0.2f);
+        // yield return new WaitWhile(
+        //     () => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= Stats.ProjectileSpawnAnimationDelay);
 
         _currentAttackCooldown = Stats.AttackCooldown;
         // spawn projectile
-        GameObject projectileInstance = Instantiate(Stats.Projectile, _GFX.transform.position, Quaternion.identity);
-        projectileInstance.transform.LookAt(_opponent.transform);
 
-        Projectile projectile = projectileInstance.GetComponent<Projectile>();
-        projectile.Shoot(this, _opponent, 20, Stats.Power);
+        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, Stats.Power);
     }
 
     bool CanAttack()

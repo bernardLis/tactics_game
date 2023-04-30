@@ -13,14 +13,13 @@ public class Projectile : MonoBehaviour
 
     public void Shoot(BattleEntity shooter, BattleEntity target, float speed, float power)
     {
-        if (Random.value > 0.5f)
-            AudioManager.Instance.PlaySFX(_shootSound, transform.position);
+        AudioManager.Instance.PlaySFX(_shootSound, transform.position);
         _target = target;
         StartCoroutine(ShootCoroutine(shooter, target, speed, power));
     }
+
     IEnumerator ShootCoroutine(BattleEntity shooter, BattleEntity target, float speed, float power)
     {
-
         //https://gamedev.stackexchange.com/questions/100535/coroutine-to-move-to-position-passing-the-movement-speed
         Vector3 startingPos = transform.position;
         Vector3 finalPos = target.Collider.bounds.center;
@@ -38,8 +37,7 @@ public class Projectile : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         _gfx.SetActive(false);
-        if (Random.value > 0.5f)
-            AudioManager.Instance.PlaySFX(_explosionSound, transform.position);
+        AudioManager.Instance.PlaySFX(_explosionSound, transform.position);
         _explosion.SetActive(true);
 
         if (target != null)
@@ -53,11 +51,7 @@ public class Projectile : MonoBehaviour
 
     public IEnumerator DestroySelf()
     {
-        // explosion on hit
-        // _gfx.SetActive(false);
-
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
-
 }

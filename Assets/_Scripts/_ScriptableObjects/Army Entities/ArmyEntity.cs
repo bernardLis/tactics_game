@@ -18,7 +18,10 @@ public class ArmyEntity : BaseScriptableObject
     public float AttackCooldown;
 
     public float Speed;
-    
+
+    [Range(0, 1)]
+    public float ProjectileSpawnAnimationDelay;
+
     public GameObject Prefab;
     public GameObject Projectile;
     public GameObject HitPrefab;

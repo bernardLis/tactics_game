@@ -503,6 +503,37 @@ Transform:
   m_Father: {fileID: 1925232668098762906}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3780893704500627377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5502836016099575055}
+  m_Layer: 0
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5502836016099575055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3780893704500627377}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.766, z: 0.296}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2348537448589515388}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3845954562454435672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,6 +1552,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dragon Spark
       objectReference: {fileID: 0}
+    - target: {fileID: 1109390869919694126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: _projectileSpawnPoint
+      value: 
+      objectReference: {fileID: 3780893704500627377}
     - target: {fileID: 3648242271941825938, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
       value: 1.05
@@ -1532,6 +1567,10 @@ PrefabInstance:
     - target: {fileID: 3651833648164836247, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
       value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748893319486061140, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.28
       objectReference: {fileID: 0}
     - target: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_RootOrder
@@ -1592,6 +1631,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1925232668098762906}
+    - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5502836016099575055}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
 --- !u!4 &2348537448589515388 stripped
