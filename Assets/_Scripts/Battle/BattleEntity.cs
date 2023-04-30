@@ -53,10 +53,7 @@ public class BattleEntity : MonoBehaviour
 
         /* ANIMATOR UPDATE */
         if (!_agent.isActiveAndEnabled || _agent.isStopped)
-        {
             _animator.SetBool("Move", false);
-            return;
-        }
     }
 
     public void Initialize(bool isPlayer, ArmyEntity stats, ref List<BattleEntity> opponents)
@@ -98,7 +95,6 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator RunEntity()
     {
-
         if (!_isSpawned)
         {
             _isSpawned = true;
@@ -118,7 +114,7 @@ public class BattleEntity : MonoBehaviour
 
             _agent.enabled = true;
             _agent.destination = _opponent.transform.position;
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.6f)); // otherwise entities stack
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.6f)); // otherwise agent does not move
             _animator.SetBool("Move", true);
 
             // path to target
@@ -147,44 +143,53 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator Attack()
     {
-        while (_currentAttackCooldown > 0) yield return null;
-        while (_gettingHit) yield return null;
-        if (_opponent == null || _opponent.IsDead) yield break;
-        if (Vector3.Distance(transform.position, _opponent.transform.position) > Stats.AttackRange + 0.5f) // +0.5 wiggle room
-            yield break; // target ran away
+        while (!CanAttack()) yield return null;
+        if (!HasOpponentInRange()) yield break;
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         _animator.SetTrigger("Attack");
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
-        GameObject hitInstance = Instantiate(Stats.HitPrefab, _opponent.Collider.bounds.center, Quaternion.identity);
         _currentAttackCooldown = Stats.AttackCooldown;
+        GameObject hitInstance = Instantiate(Stats.HitPrefab, _opponent.Collider.bounds.center, Quaternion.identity);
 
         yield return _opponent.GetHit(this);
 
         Destroy(hitInstance);
     }
 
+
     IEnumerator Shoot()
     {
-        while (_currentAttackCooldown > 0) yield return null;
-        while (_gettingHit) yield return null;
-        if (_opponent == null || _opponent.IsDead) yield break;
-        if (Vector3.Distance(transform.position, _opponent.transform.position) > Stats.AttackRange)
-            yield break; // target ran away
+        while (!CanAttack()) yield return null;
+        if (!HasOpponentInRange()) yield break;
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
-        _currentAttackCooldown = Stats.AttackCooldown;
-
         _animator.SetTrigger("Attack");
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.8f);
 
+        _currentAttackCooldown = Stats.AttackCooldown;
         // spawn projectile
         GameObject projectileInstance = Instantiate(Stats.Projectile, _GFX.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
 
         Projectile projectile = projectileInstance.GetComponent<Projectile>();
         projectile.Shoot(this, _opponent, 20, Stats.Power);
+    }
+
+    bool CanAttack()
+    {
+        if (_gettingHit) return false;
+        return _currentAttackCooldown < 0;
+    }
+
+    bool HasOpponentInRange()
+    {
+        if (_opponent == null) return false;
+        if (_opponent.IsDead) return false;
+
+        // +0.5 wiggle room
+        return Vector3.Distance(transform.position, _opponent.transform.position) < Stats.AttackRange + 0.5f;
     }
 
     public float GetTotalHealth() { return Stats.Health; }
