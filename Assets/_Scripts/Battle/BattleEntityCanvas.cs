@@ -1,23 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleEntityCanvas : MonoBehaviour
 {
     BattleEntity _entity;
 
-    Canvas _canvas;
+    [SerializeField] Image _elementImage;
 
     // Start is called before the first frame update
     void Start()
     {
         _entity = transform.parent.GetComponent<BattleEntity>();
-        _entity.OnDeath += OnEntityDeath;
-
-        _canvas = GetComponent<Canvas>();
+        _elementImage.sprite = _entity.Stats.Element.Icon;
     }
 
-
-    void OnEntityDeath(BattleEntity be) { _canvas.enabled = false; }
 
 }

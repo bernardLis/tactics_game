@@ -10,17 +10,13 @@ using MoreMountains.Feedbacks;
 
 public class BattleEntity : MonoBehaviour
 {
-    [SerializeField] Sound _hurtSound;
-    [SerializeField] Image _elementImage;
-
-    List<BattleEntity> _opponentList = new();
 
     public GameObject GFX;
+    Material _material;
+    public Texture2D _emissionTexture;
     Animator _animator;
-    Material _originalMaterial;
-    Material _gfxMaterial;
 
-    const string _tweenHighlightId = "_tweenHighlightId";
+    List<BattleEntity> _opponentList = new();
 
     public ArmyEntity Stats { get; private set; }
     public float CurrentHealth { get; private set; }
@@ -32,23 +28,16 @@ public class BattleEntity : MonoBehaviour
 
     public int KilledEnemiesCount { get; private set; }
 
+    bool _isSpawned;
     bool _gettingHit;
     public bool IsDead { get; private set; }
 
     MMF_Player _feelPlayer;
 
-    public event Action<float> OnHealthChanged;
-
-    public event Action<BattleEntity> OnDeath;
-
     IEnumerator _runEntityCoroutine;
 
-    bool _isSpawned;
-
-    Vector3 lastUpdatePos = Vector3.zero;
-    Vector3 dist;
-    float currentSpeed;
-
+    public event Action<float> OnHealthChanged;
+    public event Action<BattleEntity> OnDeath;
 
     void Start()
     {
@@ -68,7 +57,7 @@ public class BattleEntity : MonoBehaviour
         }
     }
 
-    public void Initialize(Material mat, ArmyEntity stats, ref List<BattleEntity> opponents)
+    public void Initialize(bool isPlayer, ArmyEntity stats, ref List<BattleEntity> opponents)
     {
         Stats = stats;
         CurrentHealth = stats.Health;
@@ -80,8 +69,11 @@ public class BattleEntity : MonoBehaviour
 
         _animator = GetComponentInChildren<Animator>();
         GFX = _animator.gameObject;
+        _material = GFX.GetComponentInChildren<SkinnedMeshRenderer>().material;
+        _emissionTexture = _material.GetTexture("_EmissionMap") as Texture2D;
+        _material.EnableKeyword("_EMISSION");
 
-        _elementImage.sprite = Stats.Element.Icon;
+        if (!isPlayer) _material.SetFloat("_Metallic", 0.5f);
 
         _opponentList = opponents;
 
@@ -303,16 +295,21 @@ public class BattleEntity : MonoBehaviour
 
     public void ToggleHighlight(bool isOn)
     {
+        if (!isOn)
+        {
+            if (_emissionTexture != null)
+            {
+                _material.SetTexture("_EmissionMap", _emissionTexture);
+                return;
+            }
+            _material.SetColor("_EmissionColor", Color.black);
+            return;
+        }
+
         if (IsDead) return;
 
-        if (isOn)
-        {
-            //    _gfxMaterial.DOColor(Color.white, 0.2f).SetLoops(-1, LoopType.Yoyo).SetId(_tweenHighlightId);
-        }
-        else
-        {
-            DOTween.Kill(_tweenHighlightId);
-            //    _gfxMaterial.color = _originalMaterial.color;
-        }
+        _material.SetTexture("_EmissionMap", null);
+        _material.SetColor("_EmissionColor", Color.white);
+
     }
 }

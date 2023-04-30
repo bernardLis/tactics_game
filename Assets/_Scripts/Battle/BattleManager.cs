@@ -26,9 +26,6 @@ public class BattleManager : Singleton<BattleManager>
 
     public float Time { get; private set; }
 
-    [SerializeField] Material _playerMaterial;
-    [SerializeField] Material _enemyMaterial;
-
     Hero _playerHero;
     Hero _opponentHero;
 
@@ -100,7 +97,7 @@ public class BattleManager : Singleton<BattleManager>
             instance.layer = 8;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_playerMaterial, entityInstance, ref OpponentEntities);
+            be.Initialize(true, entityInstance, ref OpponentEntities);
             PlayerEntities.Add(be);
             be.OnDeath += OnPlayerDeath;
         }
@@ -118,7 +115,7 @@ public class BattleManager : Singleton<BattleManager>
             GameObject instance = Instantiate(entity.Prefab, pos, rotation);
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(_enemyMaterial, entity, ref PlayerEntities);
+            be.Initialize(false, entity, ref PlayerEntities);
             OpponentEntities.Add(be);
             be.OnDeath += OnEnemyDeath;
         }

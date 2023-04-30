@@ -190,8 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6108c4e99733c4c40943183fedaa4b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hurtSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
-  _elementImage: {fileID: 604348116185724909}
   GFX: {fileID: 2980912869080290697}
 --- !u!114 &5605852500305524166
 MonoBehaviour:
@@ -1611,26 +1609,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5780733498057918437, guid: 79c2a3338d08e614080642c39e1b2377, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79c2a3338d08e614080642c39e1b2377, type: 3}
---- !u!114 &604348116185724909 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1854687300658498138, guid: 79c2a3338d08e614080642c39e1b2377, type: 3}
-  m_PrefabInstance: {fileID: 1287536006463012279}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4357797828121191730 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3288820853267060869, guid: 79c2a3338d08e614080642c39e1b2377, type: 3}
