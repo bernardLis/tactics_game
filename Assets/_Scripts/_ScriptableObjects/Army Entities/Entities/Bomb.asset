@@ -17,7 +17,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
   Price: 10
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Prefab: {fileID: 220321774683407358, guid: a98687726722521498b6292a56d8c7ed, type: 3}
+  Prefab: {fileID: 676733176724701773, guid: d00cd06417c9b754c89f71896c741694, type: 3}
   Health: 20
   Armor: 0
   Power: 10

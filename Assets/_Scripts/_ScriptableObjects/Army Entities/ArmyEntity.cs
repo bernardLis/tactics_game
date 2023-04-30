@@ -10,7 +10,6 @@ public class ArmyEntity : BaseScriptableObject
     public int Price;
     public Element Element;
 
-    public GameObject Prefab;
     public float Health;
     public float Armor;
 
@@ -19,7 +18,8 @@ public class ArmyEntity : BaseScriptableObject
     public float AttackCooldown;
 
     public float Speed;
-
+    
+    public GameObject Prefab;
     public GameObject Projectile;
     public GameObject HitPrefab;
 

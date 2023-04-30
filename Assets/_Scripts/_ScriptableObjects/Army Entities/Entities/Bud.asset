@@ -17,7 +17,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
   Price: 10
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  Prefab: {fileID: 558851253593992062, guid: e1f80ebb29dfa3e47be7d9c593e90f68, type: 3}
+  Prefab: {fileID: 6053594737241183487, guid: cd6a1dfe16b492843b81576382f95fe2, type: 3}
   Health: 100
   Armor: 0
   Power: 15
@@ -26,3 +26,4 @@ MonoBehaviour:
   Speed: 2
   Projectile: {fileID: 8788628776772872563, guid: 13850dec0043970459fc427a097dcd27, type: 3}
   HitPrefab: {fileID: 0}
+  Hero: {fileID: 0}

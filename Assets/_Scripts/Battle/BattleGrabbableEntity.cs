@@ -16,12 +16,16 @@ public class BattleGrabbableEntity : MonoBehaviour, IPointerDownHandler, IPointe
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
         _isPointerDown = true;
         StartCoroutine(Grab());
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+
+
         _isPointerDown = false;
     }
 

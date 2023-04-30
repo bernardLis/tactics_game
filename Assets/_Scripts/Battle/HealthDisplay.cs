@@ -15,7 +15,7 @@ public class HealthDisplay : MonoBehaviour
 
     void Start()
     {
-        _entity = transform.parent.parent.GetComponent<BattleEntity>();
+        _entity = transform.parent.parent.parent.GetComponent<BattleEntity>();
         _entity.OnHealthChanged += OnHealthChanged;
         _totalHealth = _entity.GetTotalHealth();
         _currentHealth = _entity.GetCurrentHealth();

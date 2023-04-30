@@ -9,8 +9,8 @@ public class NameDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _entity = transform.root.GetComponent<BattleEntity>();
+        _entity = transform.parent.parent.parent.GetComponent<BattleEntity>();
         _textMesh = GetComponent<TextMeshProUGUI>();
-        _textMesh.text = Helpers.ParseScriptableObjectCloneName(_entity.name);
+        _textMesh.text = Helpers.ParseScriptableObjectCloneName(_entity.Stats.Name);
     }
 }
