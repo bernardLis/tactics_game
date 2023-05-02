@@ -41,6 +41,9 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleEntity> KilledPlayerEntities = new();
     public List<BattleEntity> KilledOpponentEntities = new();
 
+    bool _battleFinalized = false;
+
+    public event Action OnBattleFinalized;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -68,6 +71,8 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Initialize(Hero playerHero, Hero opponentHero, List<ArmyGroup> playerArmy, List<ArmyGroup> opponentArmy)
     {
+        _battleFinalized = false;
+
         if (playerHero != null) _playerHero = playerHero;
         if (opponentHero != null) _opponentHero = opponentHero;
 
@@ -154,9 +159,26 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator FinalizeBattle()
     {
-        if (_playerHero == null) yield break;
+        // if entities die "at the same time" it triggers twice
+        if (_battleFinalized) yield break;
+        _battleFinalized = true;
+
         yield return new WaitForSeconds(4f);
+        ClearAllEntities();
+        OnBattleFinalized?.Invoke();
+        if (_playerHero == null) yield break;
+
         BattleResult r = new(_root);
+    }
+
+    void ClearAllEntities()
+    {
+        PlayerEntities.Clear();
+        OpponentEntities.Clear();
+        foreach (Transform child in _entityHolder.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 
 #if UNITY_EDITOR

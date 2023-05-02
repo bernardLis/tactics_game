@@ -15,6 +15,67 @@ MonoBehaviour:
   Id: 6666-6aef-4f8f-a757-9d06b20d9a51
   Name: Snakelet
   Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
+  IconAnimation:
+  - {fileID: 21300000, guid: dfce46cc775775341b80f394c081982f, type: 3}
+  - {fileID: 21300000, guid: 8674036d7bec1814fb19a27c199c85d0, type: 3}
+  - {fileID: 21300000, guid: 48327498bdf0a4a47a926bffcb76528a, type: 3}
+  - {fileID: 21300000, guid: d282c80a55b07d74a92494956a27c72d, type: 3}
+  - {fileID: 21300000, guid: 7fc420fb4213a274c90c2efa0e0fa788, type: 3}
+  - {fileID: 21300000, guid: 90160e346dedd2d498695753752b4f3d, type: 3}
+  - {fileID: 21300000, guid: 0e809892c4f8ce34db76f733c56f4e95, type: 3}
+  - {fileID: 21300000, guid: a3b4739aadb18c44ab917534c3c7720b, type: 3}
+  - {fileID: 21300000, guid: 93d03b1da434fcd41a36862459a4f581, type: 3}
+  - {fileID: 21300000, guid: 3afc2b2d66120da4e9b1c1c1e39aed72, type: 3}
+  - {fileID: 21300000, guid: 7d487eeda84859c49a70435a10682147, type: 3}
+  - {fileID: 21300000, guid: bdbf7e6dad2ac6547b71d4328856ce4e, type: 3}
+  - {fileID: 21300000, guid: 9e13005ca7b8a2a48b723eb97f6973ff, type: 3}
+  - {fileID: 21300000, guid: 84ac0967a193e924d81866cf0570a3a0, type: 3}
+  - {fileID: 21300000, guid: 43d2632064427b14392309b90e959e66, type: 3}
+  - {fileID: 21300000, guid: 39ea528790972ad489980ab098826df3, type: 3}
+  - {fileID: 21300000, guid: 2932d7f2f794f3a48a34c9025018af67, type: 3}
+  - {fileID: 21300000, guid: 1e24b0b4022b4364eba0d5f5b9baad0a, type: 3}
+  - {fileID: 21300000, guid: 3c4786616198e014ea26dfb37a5b1a16, type: 3}
+  - {fileID: 21300000, guid: 5786265807e51aa468ea9f7958b1731d, type: 3}
+  - {fileID: 21300000, guid: 0e1f00478e706b041b77fe884b273427, type: 3}
+  - {fileID: 21300000, guid: afe98911f60982a45ae18856b4a2e658, type: 3}
+  - {fileID: 21300000, guid: eac673b735a98664b98d09291f1cdd34, type: 3}
+  - {fileID: 21300000, guid: 231ff7b0e4a84d445b4460aa10b1f23e, type: 3}
+  - {fileID: 21300000, guid: ffe0c800ead6bfe4b9f92dfb51c25a8f, type: 3}
+  - {fileID: 21300000, guid: 0ae8972ac8df9e347bf2f257558e72e3, type: 3}
+  - {fileID: 21300000, guid: 914c8e32ec0674548848028e394ae52a, type: 3}
+  - {fileID: 21300000, guid: ead23016a8668204ea316fba8738931b, type: 3}
+  - {fileID: 21300000, guid: c0e60a2cb4a64674b9945d68f11470a2, type: 3}
+  - {fileID: 21300000, guid: bb43482198065a947b5353f54db85fe0, type: 3}
+  - {fileID: 21300000, guid: a4d460e170b3f6d4e82797b6d8c807ef, type: 3}
+  - {fileID: 21300000, guid: 57861e988f354994eb74cc8d9aa44e3a, type: 3}
+  - {fileID: 21300000, guid: 14705a5c480c7754e989aa707637e21c, type: 3}
+  - {fileID: 21300000, guid: 61496bd1f0a3fe44ab558d0e42462baf, type: 3}
+  - {fileID: 21300000, guid: d407fa8d54ef36a48943cd260f54f60f, type: 3}
+  - {fileID: 21300000, guid: 904a06cf72cab774ba1d5ccd2cc93e2f, type: 3}
+  - {fileID: 21300000, guid: 50d5f3cc83064de4890fc72ae5e2bd73, type: 3}
+  - {fileID: 21300000, guid: 7ce3d276f1cb7b34294b995528c32c54, type: 3}
+  - {fileID: 21300000, guid: 78f0565cb96aa9c428ca95db7937b7c9, type: 3}
+  - {fileID: 21300000, guid: d41675da8b252d847a2d435efb3fb38d, type: 3}
+  - {fileID: 21300000, guid: e4d91f32effc1a4438f2e41eaa2bc7c2, type: 3}
+  - {fileID: 21300000, guid: 795c3494f519f1942af9195081a01177, type: 3}
+  - {fileID: 21300000, guid: 83b073a141c7fde4d97285bff45910e2, type: 3}
+  - {fileID: 21300000, guid: 1f5e64af66b2c904b88ebacb15ab5196, type: 3}
+  - {fileID: 21300000, guid: a3e0eb5259bcd4143ac76b8fcbb3d98d, type: 3}
+  - {fileID: 21300000, guid: 21e8a6b41e1d34b45bec217c08cacc9d, type: 3}
+  - {fileID: 21300000, guid: 409dd9b3c21574d4ea44b96753d37c7b, type: 3}
+  - {fileID: 21300000, guid: 30424d34c4bb5b443961689eeb250e37, type: 3}
+  - {fileID: 21300000, guid: 60d94da56b8ce9e4288dc5bd96679df9, type: 3}
+  - {fileID: 21300000, guid: 3ebed043aa22be3439eeede05ed37773, type: 3}
+  - {fileID: 21300000, guid: 1de18641155169c45aaf96c40ccd8aa7, type: 3}
+  - {fileID: 21300000, guid: c11aa5e9586d0254a80a18c8b39aa1d4, type: 3}
+  - {fileID: 21300000, guid: 591135b1e44ae1944a0bb1bf4696032c, type: 3}
+  - {fileID: 21300000, guid: a13ea14f39ea2d0448ce56600277af91, type: 3}
+  - {fileID: 21300000, guid: 8febfbbc4bbd5e34d8c4caaabababda0, type: 3}
+  - {fileID: 21300000, guid: 221597b740cadad46848b5bfd8e346ce, type: 3}
+  - {fileID: 21300000, guid: d0ac056622d04664192b1621aa4264b7, type: 3}
+  - {fileID: 21300000, guid: 909ea34075e498e43b278d0545a3db92, type: 3}
+  - {fileID: 21300000, guid: b66460191a9c6834aab7f30430ab3118, type: 3}
+  - {fileID: 21300000, guid: 76ee1e350ab3cee4984a38d0637da987, type: 3}
   Price: 10
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Health: 100
@@ -23,6 +84,7 @@ MonoBehaviour:
   AttackRange: 2.5
   AttackCooldown: 2
   Speed: 4
+  ProjectileSpawnAnimationDelay: 0
   Prefab: {fileID: 2523619118933518919, guid: 5c623aef50547514f8696c2a9d835404, type: 3}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 4187254286823873391, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: metalons-8f39-4b6c-a851-72019b4f126c
   ArmyEntity: {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
-  EntityCount: 4
+  EntityCount: 1
   ListPosition: 0
