@@ -41,6 +41,12 @@ public class BattleEntityElement : VisualElement
         }
 
         leftContainer.Add(new ElementalElement(_stats.Element));
+        VisualElement container = new();
+        container.style.width = 100;
+        container.style.height = 100;
+
+        EntityIcon icon = new(battleEntity.Stats);
+        leftContainer.Add(icon);
         leftContainer.Add(new Label($"Name: {_stats.Name}"));
         leftContainer.Add(new Label($"Health: {_battleEntity.CurrentHealth} / {_stats.Health}"));
         leftContainer.Add(new Label($"Killed enemies: {_battleEntity.KilledEnemiesCount}"));

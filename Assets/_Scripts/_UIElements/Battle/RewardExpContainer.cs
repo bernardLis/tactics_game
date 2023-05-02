@@ -138,10 +138,20 @@ public class RewardExpContainer : VisualElement
 
         BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
         // create an element with enemy icon
+        // HERE: animation of the icon
+
         VisualElement icon = new();
-        icon.style.width = 50;
-        icon.style.height = 50;
-        icon.style.backgroundImage = new StyleBackground(enemy.Stats.Icon);
+        icon.style.width = 100;
+        icon.style.height = 100;
+
+        if (enemy.Stats.IconAnimation.Length > 0)
+        {
+            icon.Add(new EntityIcon(enemy.Stats));
+        }
+        else
+        {
+            icon.style.backgroundImage = new StyleBackground(enemy.Stats.Icon);
+        }
 
         // middle of the screen
         Vector3 start = new(0, _defeatedEntitiesContainer.resolvedStyle.height * 0.5f, 0);

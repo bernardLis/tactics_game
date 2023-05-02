@@ -28,6 +28,8 @@ public class AnimationElement : VisualElement
         _animationSprites = animationSprites;
         _delay = delay;
         _isLoop = isLoop;
+
+        style.backgroundImage = new StyleBackground(_animationSprites[0]);
     }
 
     public void SwapAnimationSprites(Sprite[] animationSprites)

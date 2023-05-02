@@ -59,6 +59,8 @@ public enum StyleSheetType
 
     BattleEntityElementStyles,
     RewardContainerStyles, RewardExpContainerStyles,
-    RewardCardStyles, BattleCardStyles
+    RewardCardStyles, BattleCardStyles,
+
+    EntityIconStyles,
 
 }

@@ -155,7 +155,7 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator FinalizeBattle()
     {
         if (_playerHero == null) yield break;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         BattleResult r = new(_root);
     }
 
