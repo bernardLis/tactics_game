@@ -33,8 +33,11 @@ public class BattleCard : VisualElement
         _battle.Opponent = hero;
 
         Add(new HeroCardMini(hero));
+
+        ScrollView scrollView = new ScrollView();
+        Add(scrollView);
         foreach (ArmyGroup ag in hero.Army)
-            Add(new ArmyGroupElement(ag));
+            scrollView.Add(new ArmyGroupElement(ag));
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }

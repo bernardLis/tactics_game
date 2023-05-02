@@ -1,3 +1,8 @@
+.hero-card-mini__main {
+    min-height: 150;
+    min-width: 150;
+}
+
 .hero-card-mini__shadow {
     border-top-left-radius: 200px;
     border-bottom-left-radius: 200px;

@@ -81,8 +81,8 @@ public class BattleManager : Singleton<BattleManager>
         foreach (ArmyGroup ag in opponentArmy)
             InstantiateOpponent(ag.ArmyEntity, ag.EntityCount);
 
-        _initialOpponentEntityCount = PlayerEntities.Count;
-        _initialPlayerEntityCount = OpponentEntities.Count;
+        _initialPlayerEntityCount = PlayerEntities.Count;
+        _initialOpponentEntityCount = OpponentEntities.Count;
 
         _scoreText.text = $"{_initialPlayerEntityCount} : {_initialOpponentEntityCount}";
 
@@ -170,6 +170,7 @@ public class BattleManager : Singleton<BattleManager>
         {
             BattleResult r = new(_root);
         }
+        yield return new WaitForSeconds(1f); // TODO: hehe
         ClearAllEntities();
     }
 
