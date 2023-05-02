@@ -6,7 +6,6 @@ using UnityEngine;
 public class ArmyEntity : BaseScriptableObject
 {
     public string Name;
-    public Sprite Icon;
     public Sprite[] IconAnimation;
     public int Price;
     public Element Element;

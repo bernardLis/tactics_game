@@ -136,6 +136,7 @@ public class BattleAbilityManager : MonoBehaviour
 
     void HighlightAbilityArea(Ability ability, AbilityButton abilityButton)
     {
+        if (_selectedAbility == ability) return;
         if (_selectedAbility != null) CancelAbility();
         if (abilityButton.IsOnCooldown)
         {

@@ -64,6 +64,7 @@ public class AbilityExecutor : MonoBehaviour
     public void ClearAbilityHighlight()
     {
         if (_areaHighlightInstance == null) return;
+        _areaHighlightInstance.ClearHighlightedEntities();
         DOTween.Kill(_areaHighlightInstance.transform);
         Destroy(_areaHighlightInstance.gameObject);
     }
