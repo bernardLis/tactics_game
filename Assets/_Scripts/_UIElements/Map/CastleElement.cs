@@ -120,8 +120,8 @@ public class CastleElement : FullScreenElement
     {
         ArmySlotElement el = new(null, i);
 
-        el.OnArmyAdded += (ArmyElement el) => _castle.AddArmy(el.ArmyGroup);
-        el.OnArmyRemoved += (ArmyElement el) => _castle.RemoveArmy(el.ArmyGroup);
+        el.OnArmyAdded += (ArmyGroupElement el) => _castle.AddArmy(el.ArmyGroup);
+        el.OnArmyRemoved += (ArmyGroupElement el) => _castle.RemoveArmy(el.ArmyGroup);
 
         _castleArmySlots.Add(el);
         _middleContainer.Add(el);

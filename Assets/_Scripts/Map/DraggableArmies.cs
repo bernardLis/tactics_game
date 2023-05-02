@@ -25,10 +25,10 @@ public class DraggableArmies : MonoBehaviour
     ArmySlotElement _originalSlot;
     ArmySlotElement _newSlot;
     VisualElement _dragDropContainer;
-    ArmyElement _draggedArmy;
+    ArmyGroupElement _draggedArmy;
 
     List<ArmySlotElement> _armySlots = new();
-    List<ArmyElement> _armyElements = new();
+    List<ArmyGroupElement> _armyElements = new();
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -98,7 +98,7 @@ public class DraggableArmies : MonoBehaviour
         List<VisualElement> els = _root.Query(className: _ussArmyElement).ToList();
         foreach (VisualElement item in els)
         {
-            ArmyElement el = (ArmyElement)item;
+            ArmyGroupElement el = (ArmyGroupElement)item;
             if (el.IsLocked) continue;
             AddDraggableArmyElement(el);
         }
@@ -107,7 +107,7 @@ public class DraggableArmies : MonoBehaviour
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    void AddDraggableArmyElement(ArmyElement el)
+    void AddDraggableArmyElement(ArmyGroupElement el)
     {
         if (_armyElements.Contains(el)) return;
 
@@ -129,7 +129,7 @@ public class DraggableArmies : MonoBehaviour
         if (evt.button != 0)
             return;
 
-        ArmyElement armyElement = (ArmyElement)evt.currentTarget;
+        ArmyGroupElement armyElement = (ArmyGroupElement)evt.currentTarget;
 
         ArmySlotElement armySlotElement = null;
         if (armyElement.parent is ArmySlotElement)
@@ -145,7 +145,7 @@ public class DraggableArmies : MonoBehaviour
         StartArmyDrag(evt.position, armySlotElement, armyElement);
     }
 
-    void SplitArmy(Vector2 position, ArmySlotElement originalSlot, ArmyElement originalElement)
+    void SplitArmy(Vector2 position, ArmySlotElement originalSlot, ArmyGroupElement originalElement)
     {
         int half = Mathf.CeilToInt(originalElement.ArmyGroup.EntityCount * 0.5f);
         originalElement.ArmyGroup.ChangeCount(-half);
@@ -154,12 +154,12 @@ public class DraggableArmies : MonoBehaviour
 
         newArmyGroup.ArmyEntity = originalElement.ArmyGroup.ArmyEntity;
         newArmyGroup.EntityCount = half;
-        ArmyElement newArmyElement = new ArmyElement(newArmyGroup);
+        ArmyGroupElement newArmyElement = new ArmyGroupElement(newArmyGroup);
 
         StartArmyDrag(position, originalSlot, newArmyElement);
     }
 
-    void StartArmyDrag(Vector2 position, ArmySlotElement originalSlot, ArmyElement draggedItem)
+    void StartArmyDrag(Vector2 position, ArmySlotElement originalSlot, ArmyGroupElement draggedItem)
     {
         _draggedArmy = draggedItem;
         _draggedArmy.style.position = Position.Absolute;

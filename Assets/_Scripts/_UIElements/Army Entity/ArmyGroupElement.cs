@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ArmyElement : ElementWithTooltip
+public class ArmyGroupElement : ElementWithTooltip
 {
-    const string _ussClassName = "army__";
+    const string _ussClassName = "army-group__";
     const string _ussMain = _ussClassName + "main";
     const string _ussCount = _ussClassName + "count";
 
@@ -17,10 +17,10 @@ public class ArmyElement : ElementWithTooltip
 
     public ArmyGroup ArmyGroup;
 
-    public ArmyElement(ArmyGroup armyGroup, bool isLocked = false)
+    public ArmyGroupElement(ArmyGroup armyGroup, bool isLocked = false)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ArmyElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ArmyGroupElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
@@ -30,7 +30,9 @@ public class ArmyElement : ElementWithTooltip
         IsLocked = isLocked;
 
         AddToClassList(_ussMain);
-        style.backgroundImage = new StyleBackground(armyGroup.ArmyEntity.Icon);
+
+        EntityIcon icon = new(armyGroup.ArmyEntity);
+        Add(icon);
 
         _armyCountLabel = new($"{armyGroup.EntityCount}");
         _armyCountLabel.AddToClassList(_ussCount);
@@ -41,7 +43,7 @@ public class ArmyElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        ArmyTooltipElement tooltip = new(ArmyGroup);
+        EntityElement tooltip = new(ArmyGroup.ArmyEntity);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }

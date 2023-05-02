@@ -13,7 +13,7 @@ public class BattleEntityCanvas : MonoBehaviour
     void Start()
     {
         _entity = transform.parent.GetComponent<BattleEntity>();
-        _elementImage.sprite = _entity.Stats.Element.Icon;
+        _elementImage.sprite = _entity.ArmyEntity.Element.Icon;
     }
 
 

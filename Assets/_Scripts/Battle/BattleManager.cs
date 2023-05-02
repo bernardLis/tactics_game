@@ -164,11 +164,13 @@ public class BattleManager : Singleton<BattleManager>
         _battleFinalized = true;
 
         yield return new WaitForSeconds(4f);
-        ClearAllEntities();
         OnBattleFinalized?.Invoke();
-        if (_playerHero == null) yield break;
 
-        BattleResult r = new(_root);
+        if (_playerHero != null)
+        {
+            BattleResult r = new(_root);
+        }
+        ClearAllEntities();
     }
 
     void ClearAllEntities()

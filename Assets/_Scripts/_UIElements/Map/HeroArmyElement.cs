@@ -36,8 +36,8 @@ public class HeroArmyElement : VisualElement
         {
             ArmySlotElement el = new(null, i);
             _armySlotElements.Add(el);
-            el.OnArmyAdded += (ArmyElement el) => Hero.AddArmy(el.ArmyGroup);
-            el.OnArmyRemoved += (ArmyElement el) => Hero.RemoveArmy(el.ArmyGroup);
+            el.OnArmyAdded += (ArmyGroupElement el) => Hero.AddArmy(el.ArmyGroup);
+            el.OnArmyRemoved += (ArmyGroupElement el) => Hero.RemoveArmy(el.ArmyGroup);
             Add(el);
         }
 

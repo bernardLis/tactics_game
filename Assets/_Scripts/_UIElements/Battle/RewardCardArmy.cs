@@ -9,6 +9,6 @@ public class RewardCardArmy : RewardCard
     {
         RewardArmy rewardArmy = reward as RewardArmy;
 
-        Add(new ArmyElement(rewardArmy.ArmyGroup));
+        Add(new ArmyGroupElement(rewardArmy.ArmyGroup));
     }
 }

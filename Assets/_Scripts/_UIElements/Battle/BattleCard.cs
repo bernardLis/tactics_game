@@ -34,7 +34,7 @@ public class BattleCard : VisualElement
 
         Add(new HeroCardMini(hero));
         foreach (ArmyGroup ag in hero.Army)
-            Add(new ArmyElement(ag));
+            Add(new ArmyGroupElement(ag));
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }

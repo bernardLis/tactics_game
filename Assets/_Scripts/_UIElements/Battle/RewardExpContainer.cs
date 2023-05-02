@@ -137,21 +137,10 @@ public class RewardExpContainer : VisualElement
         }
 
         BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
-        // create an element with enemy icon
-        // HERE: animation of the icon
 
-        VisualElement icon = new();
-        icon.style.width = 100;
-        icon.style.height = 100;
-
-        if (enemy.Stats.IconAnimation.Length > 0)
-        {
-            icon.Add(new EntityIcon(enemy.Stats));
-        }
-        else
-        {
-            icon.style.backgroundImage = new StyleBackground(enemy.Stats.Icon);
-        }
+        // create an element with icon
+        EntityIcon icon = new(enemy.ArmyEntity);
+        Add(icon);
 
         // middle of the screen
         Vector3 start = new(0, _defeatedEntitiesContainer.resolvedStyle.height * 0.5f, 0);
@@ -165,8 +154,8 @@ public class RewardExpContainer : VisualElement
         _defeatedEntitiesContainer.Add(arcMovement);
 
         // TODO: is price good for score?
-        _playerHero.GetExp(enemy.Stats.Price);
-        _scoreCounter.ChangeAmount(_scoreCounter.Amount + enemy.Stats.Price);
+        _playerHero.GetExp(enemy.ArmyEntity.Price);
+        _scoreCounter.ChangeAmount(_scoreCounter.Amount + enemy.ArmyEntity.Price);
         _enemyIndex++;
     }
 

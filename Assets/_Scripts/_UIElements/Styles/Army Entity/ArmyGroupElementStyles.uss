@@ -1,0 +1,10 @@
+.army-group__main {
+    width: 100px;
+    height: 100px;
+}
+
+.army-group__count {
+    color: black;
+    font-size: 36px;
+    position: absolute;
+}

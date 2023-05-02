@@ -11,6 +11,6 @@ public class NameDisplay : MonoBehaviour
     {
         _entity = transform.parent.parent.parent.GetComponent<BattleEntity>();
         _textMesh = GetComponent<TextMeshProUGUI>();
-        _textMesh.text = Helpers.ParseScriptableObjectCloneName(_entity.Stats.Name);
+        _textMesh.text = Helpers.ParseScriptableObjectCloneName(_entity.ArmyEntity.Name);
     }
 }

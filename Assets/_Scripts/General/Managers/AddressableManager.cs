@@ -53,7 +53,7 @@ public enum StyleSheetType
 
     CastleElementStyles,
     BuildingElementStyles, ProductionBuildingElementStyles, BuildingSpriteElementStyles,
-    ArmyElementStyles, ArmySlotElementStyles, ArmyBuyableElementStyles,
+    ArmyGroupElementStyles, ArmySlotElementStyles, ArmyBuyableElementStyles,
     HeroCardMapStyles, HeroArmyElementStyles,
     ControlButtonStyles, CastleControlButtonStyles, HeroControlButtonStyles,
 
@@ -61,6 +61,6 @@ public enum StyleSheetType
     RewardContainerStyles, RewardExpContainerStyles,
     RewardCardStyles, BattleCardStyles,
 
-    EntityIconStyles,
+    EntityIconStyles, EntityElementStyles,
 
 }

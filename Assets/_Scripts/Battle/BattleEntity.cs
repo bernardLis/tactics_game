@@ -21,7 +21,7 @@ public class BattleEntity : MonoBehaviour
 
     List<BattleEntity> _opponentList = new();
 
-    public ArmyEntity Stats { get; private set; }
+    public ArmyEntity ArmyEntity { get; private set; }
     public float CurrentHealth { get; private set; }
 
     BattleEntity _opponent;
@@ -40,6 +40,7 @@ public class BattleEntity : MonoBehaviour
     IEnumerator _runEntityCoroutine;
 
     public event Action<float> OnHealthChanged;
+    public event Action<int> OnEnemyKilled;
     public event Action<BattleEntity> OnDeath;
 
     void Start()
@@ -69,7 +70,7 @@ public class BattleEntity : MonoBehaviour
 
         if (!isPlayer) _material.SetFloat("_Metallic", 0.5f);
 
-        Stats = stats;
+        ArmyEntity = stats;
         CurrentHealth = stats.Health;
 
         _agent = GetComponent<NavMeshAgent>();
@@ -130,7 +131,7 @@ public class BattleEntity : MonoBehaviour
 
             // reached destination
             _agent.enabled = false;
-            if (Stats.Projectile == null)
+            if (ArmyEntity.Projectile == null)
                 yield return StartCoroutine(Attack());
             else
                 yield return StartCoroutine(Shoot());
@@ -151,8 +152,8 @@ public class BattleEntity : MonoBehaviour
         _animator.SetTrigger("Attack");
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
-        _currentAttackCooldown = Stats.AttackCooldown;
-        GameObject hitInstance = Instantiate(Stats.HitPrefab, _opponent.Collider.bounds.center, Quaternion.identity);
+        _currentAttackCooldown = ArmyEntity.AttackCooldown;
+        GameObject hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, Quaternion.identity);
 
         yield return _opponent.GetHit(this);
 
@@ -165,7 +166,7 @@ public class BattleEntity : MonoBehaviour
         while (!CanAttack()) yield return null;
         if (!HasOpponentInRange()) yield break;
 
-        GameObject projectileInstance = Instantiate(Stats.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
+        GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
         projectileInstance.transform.parent = _GFX.transform;
         projectileInstance.transform.localScale = Vector3.zero; // HERE: unifnished
@@ -177,10 +178,10 @@ public class BattleEntity : MonoBehaviour
         // yield return new WaitWhile(
         //     () => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= Stats.ProjectileSpawnAnimationDelay);
 
-        _currentAttackCooldown = Stats.AttackCooldown;
+        _currentAttackCooldown = ArmyEntity.AttackCooldown;
         // spawn projectile
 
-        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, Stats.Power);
+        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, ArmyEntity.Power);
     }
 
     bool CanAttack()
@@ -195,18 +196,18 @@ public class BattleEntity : MonoBehaviour
         if (_opponent.IsDead) return false;
 
         // +0.5 wiggle room
-        return Vector3.Distance(transform.position, _opponent.transform.position) < Stats.AttackRange + 0.5f;
+        return Vector3.Distance(transform.position, _opponent.transform.position) < ArmyEntity.AttackRange + 0.5f;
     }
 
-    public float GetTotalHealth() { return Stats.Health; }
+    public float GetTotalHealth() { return ArmyEntity.Health; }
     public float GetCurrentHealth() { return CurrentHealth; }
 
     public int GetHealed(Ability ability)
     {
         float value = ability.GetPower();
         CurrentHealth += value;
-        if (CurrentHealth > Stats.Health)
-            CurrentHealth = Stats.Health;
+        if (CurrentHealth > ArmyEntity.Health)
+            CurrentHealth = ArmyEntity.Health;
 
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = value.ToString();
@@ -228,13 +229,13 @@ public class BattleEntity : MonoBehaviour
         Color dmgColor = Color.white;
         if (ability != null)
         {
-            dmg = Stats.CalculateDamage(ability);
+            dmg = ArmyEntity.CalculateDamage(ability);
             dmgColor = ability.Element.Color;
         }
         if (attacker != null)
         {
-            dmg = Stats.CalculateDamage(attacker);
-            dmgColor = attacker.Stats.Element.Color;
+            dmg = ArmyEntity.CalculateDamage(attacker);
+            dmgColor = attacker.ArmyEntity.Element.Color;
         }
 
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
@@ -306,7 +307,11 @@ public class BattleEntity : MonoBehaviour
         logManager.AddLog(log);
     }
 
-    public void IncreaseKillCount() { KilledEnemiesCount++; }
+    public void IncreaseKillCount()
+    {
+        KilledEnemiesCount++;
+        OnEnemyKilled?.Invoke(KilledEnemiesCount);
+    }
 
     public void ToggleHighlight(bool isOn)
     {
