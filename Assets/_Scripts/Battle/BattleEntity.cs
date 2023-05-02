@@ -14,6 +14,7 @@ public class BattleEntity : MonoBehaviour
 
     public Collider Collider { get; private set; }
 
+    bool _isPlayer;
     GameObject _GFX;
     Material _material;
     Texture2D _emissionTexture;
@@ -68,8 +69,15 @@ public class BattleEntity : MonoBehaviour
         _emissionTexture = _material.GetTexture("_EmissionMap") as Texture2D;
         _material.EnableKeyword("_EMISSION");
 
-        if (!isPlayer) _material.SetFloat("_Metallic", 0.5f);
+        _isPlayer = isPlayer;
+        if (!isPlayer)
+        {
+            _material.SetTexture("_EmissionMap", null);
+            _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
 
+            _material.SetFloat("_Metallic", 0.5f);
+
+        }
         ArmyEntity = stats;
         CurrentHealth = stats.Health;
 
@@ -169,7 +177,7 @@ public class BattleEntity : MonoBehaviour
         GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
         projectileInstance.transform.parent = _GFX.transform;
-        projectileInstance.transform.localScale = Vector3.zero; // HERE: unifnished
+        projectileInstance.transform.localScale = Vector3.zero; // HERE: unfinished
         projectileInstance.transform.DOScale(1, 2f);
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
@@ -317,19 +325,33 @@ public class BattleEntity : MonoBehaviour
     {
         if (!isOn)
         {
-            if (_emissionTexture != null)
-            {
-                _material.SetTexture("_EmissionMap", _emissionTexture);
-                return;
-            }
-            _material.SetColor("_EmissionColor", Color.black);
+            TurnHighlightOff();
             return;
         }
 
         if (IsDead) return;
 
         _material.SetTexture("_EmissionMap", null);
-        _material.SetColor("_EmissionColor", Color.white);
 
+        if (_isPlayer)
+            _material.SetColor("_EmissionColor", Color.blue);
+        else
+            _material.SetColor("_EmissionColor", Color.red);
+
+    }
+
+    void TurnHighlightOff()
+    {
+        if (_emissionTexture != null && _isPlayer)
+        {
+            _material.SetTexture("_EmissionMap", _emissionTexture);
+            _material.SetColor("_EmissionColor", Color.black);
+            return;
+        }
+
+        if (_isPlayer)
+            _material.SetColor("_EmissionColor", Color.black);
+        else
+            _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
     }
 }
