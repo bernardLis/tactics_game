@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 6666-6aef-4f8f-a757-9d06b20d9a51
   Name: Snakelet
-  Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: dfce46cc775775341b80f394c081982f, type: 3}
   - {fileID: 21300000, guid: 8674036d7bec1814fb19a27c199c85d0, type: 3}
@@ -87,5 +86,5 @@ MonoBehaviour:
   ProjectileSpawnAnimationDelay: 0
   Prefab: {fileID: 2523619118933518919, guid: 5c623aef50547514f8696c2a9d835404, type: 3}
   Projectile: {fileID: 0}
-  HitPrefab: {fileID: 4187254286823873391, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
+  HitPrefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
   Hero: {fileID: 0}

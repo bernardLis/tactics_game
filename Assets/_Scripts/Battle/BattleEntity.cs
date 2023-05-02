@@ -161,7 +161,8 @@ public class BattleEntity : MonoBehaviour
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
         _currentAttackCooldown = ArmyEntity.AttackCooldown;
-        GameObject hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, Quaternion.identity);
+        Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
+        GameObject hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, q);
 
         yield return _opponent.GetHit(this);
 

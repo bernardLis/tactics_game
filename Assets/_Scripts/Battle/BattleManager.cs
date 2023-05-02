@@ -164,7 +164,6 @@ public class BattleManager : Singleton<BattleManager>
         _battleFinalized = true;
 
         yield return new WaitForSeconds(4f);
-        OnBattleFinalized?.Invoke();
 
         if (_playerHero != null)
         {
@@ -172,6 +171,8 @@ public class BattleManager : Singleton<BattleManager>
         }
         yield return new WaitForSeconds(1f); // TODO: hehe
         ClearAllEntities();
+
+        OnBattleFinalized?.Invoke();
     }
 
     void ClearAllEntities()
