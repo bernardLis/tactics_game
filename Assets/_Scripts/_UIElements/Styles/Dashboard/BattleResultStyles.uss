@@ -6,6 +6,12 @@
     background-color: rgb(1, 1, 1);
 }
 
+.battle-result__resource-container {
+    position: absolute;
+    left: 50px;
+    top: 50px;
+}
+
 .battle-result__content {
     width: 100%;
     height: 100%;

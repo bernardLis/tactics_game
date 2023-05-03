@@ -12,6 +12,8 @@ public class BattleResult : FullScreenElement
 
     const string _ussClassName = "battle-result__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussResourceContainer = _ussClassName + "resource-container";
+
     const string _ussContent = _ussClassName + "content";
     const string _ussContinueButton = _ussClassName + "continue-button";
 
@@ -62,6 +64,16 @@ public class BattleResult : FullScreenElement
         _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
 
+        VisualElement resourceContainer = new();
+        resourceContainer.AddToClassList(_ussResourceContainer);
+        GoldElement g = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += g.ChangeAmount;
+        SpiceElement s = new(_gameManager.Spice);
+        _gameManager.OnSpiceChanged += s.ChangeAmount;
+        resourceContainer.Add(g);
+        resourceContainer.Add(s);
+        Add(resourceContainer);
+
         _content = new();
         Add(_content);
         _content.AddToClassList(_ussContent);
@@ -74,7 +86,6 @@ public class BattleResult : FullScreenElement
 
         _starEffect = _gameManager.GetComponent<EffectManager>()
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
-
 
         _battleManager.GetComponent<BattleInputManager>().OnContinueClicked += () =>
         {
