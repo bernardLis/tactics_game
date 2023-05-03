@@ -17,6 +17,7 @@ public class Hero : BaseScriptableObject
     [Header("Stats")]
     public IntVariable Level;
     public IntVariable Experience;
+    public IntVariable ExpForNextLevel;
     public int LevelUpPointsLeft;
 
     public IntVariable BaseMana;
@@ -125,11 +126,17 @@ public class Hero : BaseScriptableObject
         return null;
     }
 
+    public int GetExpForNextLevel()
+    {
+        //http://howtomakeanrpg.com/a/how-to-make-an-rpg-levels.html
+        return Mathf.RoundToInt((4 * (Level.Value ^ 3)) / 5) * 100;
+    }
+
     public virtual void GetExp(int gain)
     {
         int g = Mathf.Clamp(gain, 0, 100);
         Experience.ApplyChange(g);
-        if (Experience.Value < 100)
+        if (Experience.Value < GetExpForNextLevel())
             return;
         LevelUp();
     }
@@ -138,6 +145,7 @@ public class Hero : BaseScriptableObject
     {
         Level.ApplyChange(1);
         Experience.SetValue(0);
+        ExpForNextLevel.SetValue(GetExpForNextLevel());
 
         BaseMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
         LevelUpPointsLeft += 1;
@@ -248,6 +256,7 @@ public class Hero : BaseScriptableObject
     {
         Level = ScriptableObject.CreateInstance<IntVariable>();
         Experience = ScriptableObject.CreateInstance<IntVariable>();
+        ExpForNextLevel = ScriptableObject.CreateInstance<IntVariable>();
         BaseMana = ScriptableObject.CreateInstance<IntVariable>();
         BasePower = ScriptableObject.CreateInstance<IntVariable>();
         BaseArmor = ScriptableObject.CreateInstance<IntVariable>();
@@ -288,6 +297,7 @@ public class Hero : BaseScriptableObject
 
         Level.SetValue(1);
         Experience.SetValue(0);
+        ExpForNextLevel.SetValue(GetExpForNextLevel());
 
         BaseMana.SetValue(30);
 
@@ -331,6 +341,7 @@ public class Hero : BaseScriptableObject
 
         Level.SetValue(level);
         Experience.SetValue(0);
+        ExpForNextLevel.SetValue(GetExpForNextLevel());
 
         BaseMana.SetValue(30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level);
 
@@ -378,6 +389,7 @@ public class Hero : BaseScriptableObject
 
         Level.SetValue(data.Level);
         Experience.SetValue(data.Experience);
+        ExpForNextLevel.SetValue(GetExpForNextLevel());
 
         BaseMana.SetValue(data.BaseMana);
         BasePower.SetValue(data.BasePower);

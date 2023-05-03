@@ -76,8 +76,8 @@ public class BattleEntity : MonoBehaviour
             _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
 
             _material.SetFloat("_Metallic", 0.5f);
-
         }
+        
         ArmyEntity = stats;
         CurrentHealth = stats.Health;
 

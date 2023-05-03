@@ -26,7 +26,6 @@ public class HeroCardExp : VisualElement
     StarRankElement _rankElement;
 
     Label _level;
-    VisualElement _levelUpAnimationContainer;
     ResourceBarElement _expBar;
     ResourceBarElement _manaBar;
 
@@ -72,11 +71,7 @@ public class HeroCardExp : VisualElement
         _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
         _rankElement = new(Hero.Rank.Rank, 0.5f);
 
-        // TODO: this should be handled differently.
-        IntVariable totalExp = ScriptableObject.CreateInstance<IntVariable>();
-        totalExp.SetValue(100);
-
-        _expBar = new(Color.black, "Experience", Hero.Experience, totalExp,
+        _expBar = new(Color.black, "Experience", Hero.Experience, Hero.ExpForNextLevel,
                 null, thickness: 0, isIncreasing: true);
 
         _level = new Label($"Level {Hero.Level.Value}");
@@ -123,7 +118,7 @@ public class HeroCardExp : VisualElement
 
     void OnExpValueChanged(int newValue)
     {
-        if (newValue < 100)
+        if (newValue < Hero.GetExpForNextLevel())
             return;
 
         EnableStatUpButtons();
@@ -213,7 +208,6 @@ public class HeroCardExp : VisualElement
         _armorUpButton.SetEnabled(false);
         _rangeUpButton.SetEnabled(false);
     }
-
 
     public void PlayLevelUpAnimation()
     {

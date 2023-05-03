@@ -117,10 +117,8 @@ public class HeroCardStats : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussExpContainer);
 
-        // TODO: this should be handled differently.
-        IntVariable totalExp = ScriptableObject.CreateInstance<IntVariable>();
-        totalExp.SetValue(100);
-        ExpBar = new(Color.black, "Experience", Hero.Experience, totalExp, null, thickness: 0, isIncreasing: true);
+        ExpBar = new(Color.black, "Experience", Hero.Experience, Hero.ExpForNextLevel,
+                thickness: 0, isIncreasing: true);
 
         _level = new Label($"Level {Hero.Level.Value}");
         _level.style.position = Position.Absolute;
