@@ -15,10 +15,11 @@ public class HeroMeetingElement : FullScreenElement
         container.style.flexDirection = FlexDirection.Row;
         container.style.height = Length.Percent(90);
 
-        HeroCardMap card = new(hero, root, draggableArmies, false);
-        HeroCardMap otherCard = new(otherHero, root, draggableArmies, false);
-        container.Add(card);
-        container.Add(otherCard);
+        Debug.Log($"Hero meeting element not implemented");
+        //HeroCardFull card = new(hero.Hero, root, draggableArmies, false);
+        // HeroCardFull otherCard = new(otherHero.Hero, root, draggableArmies, false);
+        //  container.Add(card);
+        //  container.Add(otherCard);
         Add(container);
 
         AddBackButton();

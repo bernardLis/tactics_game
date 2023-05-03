@@ -51,7 +51,9 @@ public class HeroControlButton : ControlButton
 
         if (_mapInputManager.SelectedHero == MapHero)
         {
-            HeroCardMap card = new(MapHero, _root, _draggableArmies);
+            Debug.Log($"Hero card not implemented");
+
+            //    HeroCardFull card = new(MapHero.Hero, _root, _draggableArmies);
             return;
         }
 

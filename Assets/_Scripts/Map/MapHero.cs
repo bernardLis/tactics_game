@@ -49,7 +49,8 @@ public class MapHero : MonoBehaviour
     {
         if (_isSelected)
         {
-            HeroCardMap card = new(this, _dashboardManager.Root, _draggableArmies);
+            Debug.Log($"Hero card not implemented");
+            // HeroCardFull card = new(Hero, _dashboardManager.Root, _draggableArmies);
             return;
         }
         _isSelected = true;

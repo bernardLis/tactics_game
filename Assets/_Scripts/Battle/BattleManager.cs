@@ -5,13 +5,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 public class BattleManager : Singleton<BattleManager>
 {
     GameManager _gameManager;
     public Battle LoadedBattle { get; private set; }
 
-    VisualElement _root;
+    public VisualElement Root { get; private set; }
 
     [SerializeField] Transform _entityHolder;
 
@@ -49,8 +50,8 @@ public class BattleManager : Singleton<BattleManager>
         _gameManager = GameManager.Instance;
         LoadedBattle = _gameManager.SelectedBattle;
 
-        _root = GetComponent<UIDocument>().rootVisualElement;
-        _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+        Root = GetComponent<UIDocument>().rootVisualElement;
+        Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
@@ -167,7 +168,7 @@ public class BattleManager : Singleton<BattleManager>
 
         if (_playerHero != null)
         {
-            BattleResult r = new(_root);
+            BattleResult r = new(Root);
         }
         yield return new WaitForSeconds(1f); // TODO: hehe
         ClearAllEntities();
@@ -181,6 +182,7 @@ public class BattleManager : Singleton<BattleManager>
         OpponentEntities.Clear();
         foreach (Transform child in _entityHolder.transform)
         {
+            child.transform.DOKill(child.transform);
             GameObject.Destroy(child.gameObject);
         }
     }

@@ -62,9 +62,8 @@ public class HeroCardMini : ElementWithTooltip
     void OnPointerUp(PointerUpEvent evt)
     {
         if (evt.button != 0) return;
-        Debug.Log($"showing hero card, not implemented yet");
 
-        // TODO: show full hero card but I don't have the element done... 
+        HeroCardFull heroCardFull = new(Hero, BattleManager.Instance.Root);
     }
 
     void SetUnavailable(Injury injury)

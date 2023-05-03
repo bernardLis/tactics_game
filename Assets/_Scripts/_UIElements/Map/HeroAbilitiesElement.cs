@@ -5,14 +5,14 @@ using UnityEngine.UIElements;
 
 public class HeroAbilitiesElement : VisualElement
 {
-    MapHero _mapHero;
+    Hero _hero;
 
     List<AbilitySlot> _abilitySlots = new();
     List<AbilityButton> _abilityButtons = new();
 
-    public HeroAbilitiesElement(MapHero mapHero)
+    public HeroAbilitiesElement(Hero hero)
     {
-        _mapHero = mapHero;
+        _hero = hero;
 
         style.flexDirection = FlexDirection.Row;
         CreateAbilities();
@@ -21,25 +21,25 @@ public class HeroAbilitiesElement : VisualElement
     void CreateAbilities()
     {
         int slotCount = 5;
-        if (_mapHero.Hero.Items.Count > slotCount)
-            slotCount = _mapHero.Hero.Abilities.Count;
+        if (_hero.Items.Count > slotCount)
+            slotCount = _hero.Abilities.Count;
 
         for (int i = 0; i < slotCount; i++)
         {
             AbilitySlot abilitySlot = new();
-            abilitySlot.Hero = _mapHero.Hero;
+            abilitySlot.Hero = _hero;
             _abilitySlots.Add(abilitySlot);
             Add(abilitySlot);
             abilitySlot.OnAbilityAdded += OnAbilityAdded;
             abilitySlot.OnAbilityRemoved += OnAbilityRemoved;
         }
 
-        for (int i = 0; i < _mapHero.Hero.Abilities.Count; i++)
-            _abilitySlots[i].AddActionButton(new(_mapHero.Hero.Abilities[i]));
+        for (int i = 0; i < _hero.Abilities.Count; i++)
+            _abilitySlots[i].AddActionButton(new(_hero.Abilities[i]));
     }
 
-    void OnAbilityAdded(Ability ability) { _mapHero.Hero.AddAbility(ability); }
-    void OnAbilityRemoved(Ability ability) { _mapHero.Hero.RemoveAbility(ability); }
+    void OnAbilityAdded(Ability ability) { _hero.AddAbility(ability); }
+    void OnAbilityRemoved(Ability ability) { _hero.RemoveAbility(ability); }
 
 
 }

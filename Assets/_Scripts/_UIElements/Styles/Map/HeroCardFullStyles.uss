@@ -1,4 +1,4 @@
-.hero-card__main {
+.hero-card-full__main {
     flex-grow: 1;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
@@ -12,17 +12,17 @@
     padding-bottom: 25px;
 }
 
-.hero-card__top-container {
+.hero-card-full__top-container {
     width: 100%;
     flex-grow: 1;
     flex-direction: row;
     justify-content: center;
 }
 
-.hero-card__middle-container {
+.hero-card-full__middle-container {
     flex-direction: column;
 }
 
-.hero-card__bottom-container {
+.hero-card-full__bottom-container {
     flex-direction: row;
 }
