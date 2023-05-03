@@ -15,14 +15,18 @@ public class HeroAbilitiesElement : VisualElement
         _hero = hero;
 
         style.flexDirection = FlexDirection.Row;
+        style.justifyContent = Justify.Center;
         CreateAbilities();
     }
 
     void CreateAbilities()
     {
-        int slotCount = 5;
-        if (_hero.Items.Count > slotCount)
+        int slotCount = 4;
+        if (_hero.Abilities.Count > slotCount)
+        {
+            Debug.LogError($"how come hero has more abilities than 4?! {_hero.Abilities.Count}");
             slotCount = _hero.Abilities.Count;
+        }
 
         for (int i = 0; i < slotCount; i++)
         {
@@ -35,7 +39,7 @@ public class HeroAbilitiesElement : VisualElement
         }
 
         for (int i = 0; i < _hero.Abilities.Count; i++)
-            _abilitySlots[i].AddActionButton(new(_hero.Abilities[i]));
+            _abilitySlots[i].AddDraggableButtonNoDelegates(_hero.Abilities[i]);
     }
 
     void OnAbilityAdded(Ability ability) { _hero.AddAbility(ability); }

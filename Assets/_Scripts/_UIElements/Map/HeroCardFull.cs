@@ -42,12 +42,17 @@ public class HeroCardFull : FullScreenElement
         _topContainer = new();
         _topContainer.AddToClassList(_ussTopContainer);
         Add(_topContainer);
-        HeroCardStats card = new(Hero);
-        _topContainer.Add(card);
 
         _middleContainer = new();
         _middleContainer.AddToClassList(_ussMiddleContainer);
         Add(_middleContainer);
+
+        _bottomContainer = new();
+        _bottomContainer.AddToClassList(_ussBottomContainer);
+        Add(_bottomContainer);
+
+        HeroCardStats card = new(Hero);
+        _topContainer.Add(card);
 
         HeroItemsElement itemsElement = new(Hero);
         _middleContainer.Add(itemsElement);
@@ -55,10 +60,7 @@ public class HeroCardFull : FullScreenElement
         HeroAbilitiesElement abilitiesElement = new(Hero);
         _middleContainer.Add(abilitiesElement);
 
-        _bottomContainer = new();
-        _bottomContainer.AddToClassList(_ussBottomContainer);
-        Add(_bottomContainer);
-        HeroArmyElement armyElement = new(Hero, false);
+        HeroArmyElement armyElement = new(Hero);
         _bottomContainer.Add(armyElement);
 
         AddBackButton();

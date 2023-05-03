@@ -166,7 +166,7 @@ public class CastleElement : FullScreenElement
     void AddVisitingHero()
     {
         if (_visitingHero == null) return;
-        _bottomContainer.Add(new HeroArmyElement(_visitingHero.Hero));
+        //  _bottomContainer.Add(new HeroArmyElement(_visitingHero.Hero));
     }
 
     public override void Hide()

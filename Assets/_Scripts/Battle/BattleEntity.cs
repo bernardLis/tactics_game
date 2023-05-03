@@ -154,7 +154,6 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator Attack()
     {
-        Debug.Log($"attack {Time.time}");
         while (!CanAttack()) yield return null;
         if (!HasOpponentInRange()) yield break;
 
@@ -301,8 +300,6 @@ public class BattleEntity : MonoBehaviour
 
     void Celebrate()
     {
-        Debug.Log($"celebrate {Time.time}");
-
         transform.DODynamicLookAt(Camera.main.transform.position, 0.2f);
         _animator.SetBool("Celebrate", true);
     }

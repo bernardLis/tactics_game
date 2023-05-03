@@ -754,11 +754,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4357797828121191730, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4748893319486061140, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 2.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748893320144141109, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748893320144141109, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_RootOrder

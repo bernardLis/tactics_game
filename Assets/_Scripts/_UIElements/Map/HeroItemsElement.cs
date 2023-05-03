@@ -16,16 +16,17 @@ public class HeroItemsElement : VisualElement
         _hero = hero;
 
         style.flexDirection = FlexDirection.Row;
+        style.justifyContent = Justify.Center;
         CreateItems();
     }
 
     void CreateItems()
     {
-        int slotCount = 5;
-        if (_hero.Items.Count > slotCount)
-            slotCount = _hero.Items.Count;
+        ScrollView scrollView = new ScrollView();
+        scrollView.contentContainer.style.flexDirection = FlexDirection.Row;
+        Add(scrollView);
 
-        for (int i = 0; i < slotCount; i++)
+        for (int i = 0; i < _hero.Items.Count; i++)
         {
             ItemSlot itemSlot = new();
             itemSlot.OnItemAdded += OnItemAdded;
@@ -33,7 +34,7 @@ public class HeroItemsElement : VisualElement
 
             itemSlot.Hero = _hero;
             _itemSlots.Add(itemSlot);
-            Add(itemSlot);
+            scrollView.Add(itemSlot);
         }
 
         for (int i = 0; i < _hero.Items.Count; i++)
@@ -42,7 +43,6 @@ public class HeroItemsElement : VisualElement
             _itemSlots[i].AddItemNoDelegates(itemVisual);
             _itemElements.Add(itemVisual);
         }
-
     }
 
     void OnItemAdded(ItemElement itemElement) { _hero.AddItem(itemElement.Item); }
