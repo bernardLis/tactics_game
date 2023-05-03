@@ -14,7 +14,7 @@ public class ArmyEntity : BaseScriptableObject
     public float Armor;
 
     public float Power;
-    public float AttackRange;
+    public float AttackRange; // stopping distance of agent
     public float AttackCooldown;
 
     public float Speed;

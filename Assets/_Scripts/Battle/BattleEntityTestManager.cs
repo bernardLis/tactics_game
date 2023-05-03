@@ -14,10 +14,14 @@ public class BattleEntityTestManager : MonoBehaviour
     List<ArmyGroup> AllGroups = new();
     int _currentGroupIndex = 0;
 
-    [Space(10)]
+    [Header("Specific Armies")]
     [SerializeField] bool _testSpecificTeams;
     [SerializeField] List<ArmyGroup> TeamAArmies = new();
     [SerializeField] List<ArmyGroup> TeamBArmies = new();
+
+    [Header("One Army vs All")]
+    [SerializeField] bool _oneArmyVsAll;
+    [SerializeField] List<ArmyGroup> _oneArmy = new();
 
     void Start()
     {
@@ -28,11 +32,16 @@ public class BattleEntityTestManager : MonoBehaviour
             _battleManager.Initialize(null, null, TeamAArmies, TeamBArmies);
             return;
         }
+        if (_oneArmyVsAll)
+        {
+            RunOneArmyVsAll();
+            return;
+        }
 
-        RunTest();
+        RunAllGroups();
     }
 
-    void RunTest()
+    void RunOneArmyVsAll()
     {
         Debug.Log($"Running test index: {_currentGroupIndex}");
         if (_currentGroupIndex == AllGroups.Count)
@@ -40,6 +49,22 @@ public class BattleEntityTestManager : MonoBehaviour
             Debug.Log("Test finished");
             return;
         }
+
+        List<ArmyGroup> teamB = new();
+        teamB.Add(AllGroups[_currentGroupIndex]);
+        _battleManager.Initialize(null, null, _oneArmy, teamB);
+        _currentGroupIndex++;
+    }
+
+    void RunAllGroups()
+    {
+        Debug.Log($"Running test index: {_currentGroupIndex}");
+        if (_currentGroupIndex == AllGroups.Count)
+        {
+            Debug.Log("Test finished");
+            return;
+        }
+
         List<ArmyGroup> teamA = new();
         teamA.Add(AllGroups[_currentGroupIndex]);
         List<ArmyGroup> teamB = new();
@@ -50,7 +75,13 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void OnBattleFinalized()
     {
-        RunTest();
+        if (_oneArmyVsAll)
+        {
+            RunOneArmyVsAll();
+            return;
+        }
+
+        RunAllGroups();
     }
 
 

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: asd-6aef-4f8f-a757-9d06b20d9a51
   Name: Metalon
-  Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 5de6cdd5b7106134398f500118297b82, type: 3}
   - {fileID: 21300000, guid: 107d32ca4868c5146880477717768955, type: 3}
@@ -106,7 +105,7 @@ MonoBehaviour:
   Health: 100
   Armor: 0
   Power: 50
-  AttackRange: 2.5
+  AttackRange: 4
   AttackCooldown: 4
   Speed: 2
   ProjectileSpawnAnimationDelay: 0

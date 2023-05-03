@@ -116,6 +116,7 @@ public class BattleEntity : MonoBehaviour
         {
             if (_opponentList.Count == 0)
             {
+                yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
                 Celebrate();
                 yield break;
             }
@@ -153,11 +154,13 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator Attack()
     {
+        Debug.Log($"attack {Time.time}");
         while (!CanAttack()) yield return null;
         if (!HasOpponentInRange()) yield break;
 
-        transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
+        //transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         _animator.SetTrigger("Attack");
+
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
         _currentAttackCooldown = ArmyEntity.AttackCooldown;
@@ -298,6 +301,8 @@ public class BattleEntity : MonoBehaviour
 
     void Celebrate()
     {
+        Debug.Log($"celebrate {Time.time}");
+
         transform.DODynamicLookAt(Camera.main.transform.position, 0.2f);
         _animator.SetBool("Celebrate", true);
     }
@@ -307,7 +312,7 @@ public class BattleEntity : MonoBehaviour
         IsDead = true;
         _animator.SetTrigger("Die");
         OnDeath?.Invoke(this);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
         ToggleHighlight(false);
 
         BattleLogManager logManager = BattleManager.Instance.GetComponent<BattleLogManager>();

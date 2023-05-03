@@ -127,7 +127,7 @@ MonoBehaviour:
   Health: 100
   Armor: 0
   Power: 25
-  AttackRange: 2.5
+  AttackRange: 2
   AttackCooldown: 3
   Speed: 3
   ProjectileSpawnAnimationDelay: 0
