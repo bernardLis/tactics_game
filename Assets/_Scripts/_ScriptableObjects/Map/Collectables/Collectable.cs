@@ -25,7 +25,6 @@ public class Collectable : BaseScriptableObject
         Debug.Log($"{hero.Hero.HeroName} collects {this.name}");
 
         IsCollected = true;
-        GameManager.Instance.SaveJsonData();
     }
 
     public virtual CollectableData SerializeSelf()

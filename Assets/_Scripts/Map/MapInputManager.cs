@@ -405,8 +405,6 @@ public class MapInputManager : Singleton<MapInputManager>
         OnHeroTargetReached?.Invoke(SelectedHero);
         SelectedHero.UpdateMapPosition();
         UnselectHero();
-
-        _gameManager.SaveJsonData();
     }
 
     void ClearMovementIndicators()

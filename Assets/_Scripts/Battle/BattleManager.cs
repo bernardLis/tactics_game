@@ -48,6 +48,7 @@ public class BattleManager : Singleton<BattleManager>
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _gameManager.SaveJsonData();
         LoadedBattle = _gameManager.SelectedBattle;
 
         Root = GetComponent<UIDocument>().rootVisualElement;

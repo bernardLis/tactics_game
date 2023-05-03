@@ -44,7 +44,6 @@ public class Castle : BaseScriptableObject
         Debug.Log($"Castle {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
 
         Army.Add(armyGroup);
-        _gameManager.SaveJsonData();
     }
 
     public void RemoveArmy(ArmyGroup armyGroup)
@@ -52,7 +51,6 @@ public class Castle : BaseScriptableObject
         Debug.Log($"Castle {name} removes {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
 
         Army.Remove(armyGroup);
-        _gameManager.SaveJsonData();
     }
 
     public void Create(string templateCastleId, Vector2 mapPosition)

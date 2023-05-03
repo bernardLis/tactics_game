@@ -49,7 +49,6 @@ public class RewardAbility : Reward
             foreach (Ability heroAbility in _hero.Abilities)
                 if (heroAbility.Id == Ability.Id)
                     heroAbility.Upgrade();
-            _gameManager.SaveJsonData();
             return;
         }
 

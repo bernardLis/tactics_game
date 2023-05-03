@@ -194,7 +194,6 @@ public class DraggableItems : MonoBehaviour
 
         _dragDropContainer.Clear();
         _dragDropContainer.style.visibility = Visibility.Hidden;
-        _gameManager.SaveJsonData();
     }
 
     public void RemoveDragContainer()

@@ -101,7 +101,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Day += 1;
 
         OnDayPassed?.Invoke(Day);
-        SaveJsonData();
     }
 
     public void ChangeGoldValue(int o)
@@ -111,7 +110,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Gold += o;
         OnGoldChanged?.Invoke(Gold);
-        SaveJsonData();
     }
 
     public void ChangeSpiceValue(int o)
@@ -121,7 +119,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Spice += o;
         OnSpiceChanged?.Invoke(o);
-        SaveJsonData();
     }
 
 

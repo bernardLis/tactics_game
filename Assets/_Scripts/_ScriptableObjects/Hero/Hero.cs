@@ -61,7 +61,6 @@ public class Hero : BaseScriptableObject
         Debug.Log($"Hero {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
 
         Army.Add(armyGroup);
-        _gameManager.SaveJsonData();
     }
 
     public void RemoveArmy(ArmyGroup armyGroup)
@@ -69,7 +68,6 @@ public class Hero : BaseScriptableObject
         Debug.Log($"Hero {name} removes {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
 
         Army.Remove(armyGroup);
-        _gameManager.SaveJsonData();
     }
 
     public int GetTotalNumberOfArmyEntities()
