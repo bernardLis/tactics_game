@@ -15,8 +15,8 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/BattleResultStyles.uss?fileID=7433441132597879392&amp;guid=c97e24d9050e57749aee3099e5cbe6a7&amp;type=3#BattleResultStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardExpContainerStyles.uss?fileID=7433441132597879392&amp;guid=91b00a466ae631244bd0b2a23fdc1e74&amp;type=3#RewardExpContainerStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleCardStyles.uss?fileID=7433441132597879392&amp;guid=72889354f2b26c64ebdd8a7c9ae3b80b&amp;type=3#BattleCardStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Map/EntityIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#EntityIconStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Army%20Entity/EntityIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#EntityIconStyles" />
     <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: flex-end;" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
-    <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: 100%; height: 100%; top: 0; left: 4px;" />
+    <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: auto; height: auto; top: 0; left: 4px;" />
 </ui:UXML>

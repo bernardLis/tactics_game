@@ -7,10 +7,14 @@ public class EntityElement : VisualElement
 {
     const string _ussClassName = "entity-element__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussElement = _ussClassName + "element";
 
     GameManager _gameManager;
 
     ArmyEntity _entity;
+
+    protected VisualElement _leftContainer;
+    protected VisualElement _rightContainer;
 
     protected ElementalElement _elementalElement;
     protected EntityIcon _entityIcon;
@@ -33,9 +37,14 @@ public class EntityElement : VisualElement
 
         AddToClassList(_ussMain);
 
-        _elementalElement = new ElementalElement(_entity.Element);
-        _entityIcon = new(_entity);
+        _leftContainer = new();
+        _rightContainer = new();
+        Add(_leftContainer);
+        Add(_rightContainer);
 
+        _elementalElement = new ElementalElement(_entity.Element);
+
+        _entityIcon = new(_entity);
         _nameLabel = new Label($"Name: {_entity.Name}");
         _healthLabel = new Label($"Health: {_entity.Health}");
         _power = new Label($"Power: {_entity.Power}");
@@ -44,14 +53,16 @@ public class EntityElement : VisualElement
         _attackCooldown = new Label($"Attack Cooldown: {_entity.AttackCooldown}");
         _speed = new Label($"Speed: {_entity.Speed}");
 
-        Add(_elementalElement);
-        Add(_entityIcon);
-        Add(_nameLabel);
-        Add(_healthLabel);
-        Add(_power);
-        Add(_armor);
-        Add(_attackRange);
-        Add(_attackCooldown);
-        Add(_speed);
+        _leftContainer.Add(_nameLabel);
+        _leftContainer.Add(_healthLabel);
+        _leftContainer.Add(_entityIcon);
+        _leftContainer.Add(_elementalElement);
+        _elementalElement.AddToClassList(_ussElement);
+
+        _rightContainer.Add(_power);
+        _rightContainer.Add(_armor);
+        _rightContainer.Add(_attackRange);
+        _rightContainer.Add(_attackCooldown);
+        _rightContainer.Add(_speed);
     }
 }

@@ -33,7 +33,7 @@ public class BattleEntityElement : EntityElement
         _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_armyEntity.Health}";
 
         _killedEnemiesCount = new($"Killed enemies: {_battleEntity.KilledEnemiesCount}");
-        Add(_killedEnemiesCount);
+        _rightContainer.Add(_killedEnemiesCount);
 
         _battleEntity.OnHealthChanged += OnHealthChanged;
         _battleEntity.OnEnemyKilled += OnEnemyKilled;
@@ -48,6 +48,4 @@ public class BattleEntityElement : EntityElement
     {
         _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_armyEntity.Health}";
     }
-
-
 }

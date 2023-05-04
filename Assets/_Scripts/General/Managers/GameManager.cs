@@ -56,14 +56,15 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     void Start()
     {
         Debug.Log($"Game manager Start");
+        // HERE: element picking testing
         // global save per 'game'
-        if (PlayerPrefs.GetString("saveName").Length == 0)
-        {
-            CreateNewSaveFile();
+        //  if (PlayerPrefs.GetString("saveName").Length == 0)
+        //   {
+        CreateNewSaveFile();
 
-        }
-        else
-            LoadFromSaveFile();
+        //  }
+        //   else
+        //     LoadFromSaveFile();
     }
 
     public void Play()

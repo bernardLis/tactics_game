@@ -1,3 +1,10 @@
 .entity-element__main {
-    
+    flex-direction: row;
+
+}
+
+.entity-element__element {
+    position: absolute;
+    bottom: 0;
+    left: -20;
 }

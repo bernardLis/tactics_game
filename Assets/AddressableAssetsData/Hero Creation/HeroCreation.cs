@@ -16,6 +16,8 @@ public class HeroCreation : MonoBehaviour
     VisualElement _portrait;
 
     VisualElement _portraitButtonContainer;
+    VisualElement _elementChoiceContainer;
+
     MyButton _previousPortraitButton;
     MyButton _nextPortraitButton;
 
@@ -39,12 +41,19 @@ public class HeroCreation : MonoBehaviour
         _portraitTextLabel = root.Q<Label>("portraitTextLabel");
         _portrait = root.Q<VisualElement>("portrait");
         _portraitButtonContainer = root.Q<VisualElement>("portraitButtonContainer");
+        _elementChoiceContainer = root.Q<VisualElement>("elementChoiceContainer");
 
         _submitButtonContainer = root.Q<VisualElement>("submitButtonContainer");
+
+        root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         NameFieldSetup();
         PortraitSetup();
         CreatePortraitButtons();
+
+        ElementChoiceElement elementChoiceElement = new();
+        _elementChoiceContainer.Add(elementChoiceElement);
+
         CreateSubmitButton();
     }
 
@@ -99,7 +108,7 @@ public class HeroCreation : MonoBehaviour
 
     void Submit()
     {
-        CreateHero(_playerMapPosition);       
+        CreateHero(_playerMapPosition);
         StartGame();
         _gameManager.SaveJsonData();
     }

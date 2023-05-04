@@ -41,7 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &329089867633818112
 AudioListener:
@@ -181,8 +181,8 @@ MonoBehaviour:
     m_ActionId: 7c4b637b-d155-46c8-8f7d-3159f2b1f1cd
     m_ActionName: Battle/Enter[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard & Mouse
-  m_DefaultActionMap: Map
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: db8f36eb-7f70-4b70-b0fe-4fc302187b58
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &434231595863157545
@@ -396,10 +396,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 159d96b3129cc5c40bd59b4c9cfd5f30
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 91b00a466ae631244bd0b2a23fdc1e74
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

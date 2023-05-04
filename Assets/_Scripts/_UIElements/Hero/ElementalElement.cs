@@ -27,24 +27,17 @@ public class ElementalElement : ElementWithTooltip
         Add(_icon);
     }
 
-    public void ChangeElement(Element newElement)
+    public void PlayEffect()
     {
-        if (newElement == _element)
-            return;
-        if (float.IsNaN(this.resolvedStyle.width))
-            return;
-
+        Debug.Log($"play effect");
         Vector3 pos = this.worldTransform.GetPosition();
         pos.x = pos.x + this.resolvedStyle.width / 2;
         pos.y = Camera.main.pixelHeight - pos.y - this.resolvedStyle.height; // inverted, plus play on bottom of element
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
         worldPos.z = 0;
 
-        EffectHolder instance = ScriptableObject.Instantiate(newElement.VFXEffect);
-        instance.PlayEffect(worldPos, Vector3.one);
-
-        _element = newElement;
-        _icon.style.backgroundImage = new StyleBackground(newElement.Icon);
+        EffectHolder instance = ScriptableObject.Instantiate(_element.VFXEffect);
+        instance.PlayEffect(worldPos, _element.VFXEffect.VisualEffectPrefab.transform.localScale);
     }
 
     protected override void DisplayTooltip()
