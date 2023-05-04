@@ -26,17 +26,35 @@ public class BattleCard : VisualElement
 
         AddToClassList(_ussMain);
 
-        Hero hero = ScriptableObject.CreateInstance<Hero>();
-        hero.CreateRandom(_gameManager.PlayerHero.Level.Value);
+        Hero opp = ScriptableObject.CreateInstance<Hero>();
+        opp.CreateRandom(_gameManager.PlayerHero.Level.Value);
+
+        if (_gameManager.BattleNumber == 1)
+        {
+            opp.Army.Clear();
+            // get starting army of neutral element
+            List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
+            elements.Remove(_gameManager.PlayerHero.Element);
+            elements.Remove(_gameManager.PlayerHero.Element.StrongAgainst);
+            elements.Remove(_gameManager.PlayerHero.Element.WeakAgainst);
+            opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(elements[0]).ArmyGroups);
+        }
+        if (_gameManager.BattleNumber == 2)
+        {
+            // get starting army of element our here is weak to
+            opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_gameManager.PlayerHero.Element.WeakAgainst).ArmyGroups);
+
+        }
 
         _battle = ScriptableObject.CreateInstance<Battle>();
-        _battle.Opponent = hero;
+        _battle.Opponent = opp;
 
-        Add(new HeroCardMini(hero));
+
+        Add(new HeroCardMini(opp));
 
         ScrollView scrollView = new ScrollView();
         Add(scrollView);
-        foreach (ArmyGroup ag in hero.Army)
+        foreach (ArmyGroup ag in opp.Army)
             scrollView.Add(new ArmyGroupElement(ag));
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);

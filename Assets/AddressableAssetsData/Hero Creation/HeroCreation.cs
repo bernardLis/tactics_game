@@ -126,7 +126,6 @@ public class HeroCreation : MonoBehaviour
     {
         Debug.Log($"Creating hero: {_nameField.value}");
 
-
         // TODO: an effect would be nice.
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
         newChar.CreateFromHeroCreation(_nameField.value, _heroPortraits[_currentPortraitIndex], _chosenElement);
@@ -135,6 +134,9 @@ public class HeroCreation : MonoBehaviour
 
     void StartGame()
     {
+        _gameManager.SelectedBattle.Opponent.Army.Clear();
+        _gameManager.SelectedBattle.Opponent.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_chosenElement.StrongAgainst).ArmyGroups);
+
         Debug.Log($"Starting game");
         _gameManager.StartGame();
     }

@@ -10,6 +10,8 @@ public class SaveData
     public bool WasIntroCutscenePlayed;
     public int Seed;
 
+    public int BattleNumber;
+
     public float SecondsLeftInDay;
     public int Day;
     public int Gold;
@@ -18,7 +20,7 @@ public class SaveData
     public HeroData PlayerHero = new();
 
     public BattleData SelectedBattle;
-    
+
     public MapData MapData;
 
     public string ToJson() { return JsonUtility.ToJson(this); }

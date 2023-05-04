@@ -25,6 +25,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public bool WasIntroCutscenePlayed;
     public int Seed { get; private set; }
 
+    public int BattleNumber;
+
     public float TotalSeconds { get; private set; }
     public int Day { get; private set; }
     public float SecondsLeftInDay { get; private set; }
@@ -189,6 +191,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // global data
         saveData.WasIntroCutscenePlayed = WasIntroCutscenePlayed;
         saveData.Seed = Seed;
+        saveData.BattleNumber = BattleNumber;
 
         if (DashboardManager.Instance != null)
             saveData.SecondsLeftInDay = DashboardManager.Instance.DayTimer.GetTimeLeft();
@@ -228,6 +231,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // global data
         WasIntroCutscenePlayed = saveData.WasIntroCutscenePlayed;
         Seed = saveData.Seed;
+        BattleNumber = saveData.BattleNumber;
 
         SecondsLeftInDay = saveData.SecondsLeftInDay;
         Day = saveData.Day;
@@ -252,6 +256,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         WasIntroCutscenePlayed = false;
 
         Seed = System.Environment.TickCount;
+        BattleNumber = 0;
 
         SecondsLeftInDay = SecondsInDay;
         Day = 1;

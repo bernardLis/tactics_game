@@ -60,6 +60,7 @@ public class HeroDatabase : ScriptableObject
     }
 
     [SerializeField] Element[] Elements;
+    public List<Element> GetAllElements() { return Elements.ToList(); }
     public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
     public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
 

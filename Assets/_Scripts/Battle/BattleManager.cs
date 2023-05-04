@@ -161,11 +161,13 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator FinalizeBattle()
     {
+        _gameManager.BattleNumber++; // TODO: hihihihihi
+
         // if entities die "at the same time" it triggers twice
         if (_battleFinalized) yield break;
         _battleFinalized = true;
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
 
         if (_playerHero != null)
         {
