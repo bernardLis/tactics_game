@@ -5,10 +5,24 @@ using System.Linq;
 public class HeroDatabase : ScriptableObject
 {
     [Header("Heroes")]
+    public List<ArmyEntity> AllArmyEntities = new();
+    public ArmyEntity GetRandomArmyEntity() { return AllArmyEntities[Random.Range(0, AllArmyEntities.Count)]; }
+    public ArmyEntity GetArmyEntityById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
+
+    [SerializeField] StartingArmy[] StartingArmies;
+    public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }
+    [System.Serializable]
+    public struct StartingArmy
+    {
+        public Element Element;
+        public List<ArmyGroup> ArmyGroups;
+    }
+
     [SerializeField] Ability[] Abilities;
     public List<Ability> GetAllAbilities() { return Abilities.ToList(); }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
+    public Ability GetStartingAbility(Element element) { return Abilities.FirstOrDefault(x => x.Element == element && x.IsStartingAbility); }
 
     [SerializeField] Item[] Items;
     public List<Item> GetAllItems() { return Items.ToList(); }
@@ -48,7 +62,6 @@ public class HeroDatabase : ScriptableObject
     [SerializeField] Element[] Elements;
     public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
     public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
-
 
     public List<HeroPortrait> PortraitsMale = new();
     public List<HeroPortrait> PortraitsFemale = new();

@@ -308,18 +308,12 @@ public class Hero : BaseScriptableObject
         CreateStats();
 
         Items = new();
-        Abilities = new(_gameManager.HeroDatabase.GetAllAbilities());
+        Abilities = new();
+        Abilities.Add(_gameManager.HeroDatabase.GetStartingAbility(element));
 
         UpdateRank();
 
-        // TODO: smarter army for hero
-        Army = new();
-        for (int i = 0; i < _gameManager.GameDatabase.AllArmyEntities.Count; i++)
-        {
-            Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
-            Army[i].ArmyEntity = _gameManager.GameDatabase.GetRandomArmyEntity();
-            Army[i].EntityCount = 3;
-        }
+        Army = new(_gameManager.HeroDatabase.GetStartingArmy(element).ArmyGroups);
     }
 
     public void CreateRandom(int level)
@@ -337,7 +331,7 @@ public class Hero : BaseScriptableObject
         Portrait = isMale ? heroDatabase.GetRandomPortraitMale() : heroDatabase.GetRandomPortraitFemale();
 
         Element = heroDatabase.GetRandomElement();
-        
+
         CreateBaseStats();
 
         Level.SetValue(level);
@@ -362,11 +356,11 @@ public class Hero : BaseScriptableObject
 
         // TODO: something smarter maybe the higher level the better army too?        
         Army = new();
-        int armyCount = Random.Range(1, _gameManager.GameDatabase.AllArmyEntities.Count);
+        int armyCount = Random.Range(1, _gameManager.HeroDatabase.AllArmyEntities.Count);
         for (int i = 0; i < armyCount; i++)
         {
             Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
-            Army[i].ArmyEntity = _gameManager.GameDatabase.GetRandomArmyEntity();
+            Army[i].ArmyEntity = _gameManager.HeroDatabase.GetRandomArmyEntity();
             Army[i].EntityCount = Random.Range(1, 10) + level;
         }
 

@@ -11,6 +11,7 @@ public class Ability : BaseScriptableObject
     public string Description = "New Description";
     public Sprite Icon;
     public int Level;
+    public bool IsStartingAbility;
 
     [SerializeField] int BaseManaCost;
     [SerializeField] int BasePower;

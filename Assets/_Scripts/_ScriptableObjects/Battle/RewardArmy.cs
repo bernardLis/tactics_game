@@ -15,7 +15,7 @@ public class RewardArmy : Reward
         // TODO: no schema for upgrading army entities, 
         // so for now just create a new one and add it to hero army
         ArmyGroup = ScriptableObject.CreateInstance<ArmyGroup>();
-        ArmyGroup.ArmyEntity = _gameManager.GameDatabase.GetRandomArmyEntity();
+        ArmyGroup.ArmyEntity = _gameManager.HeroDatabase.GetRandomArmyEntity();
 
         ArmyGroup.EntityCount = Mathf.RoundToInt(Random.Range(1, 10) * _countPerLevelMultiplier * _hero.Level.Value);
     }

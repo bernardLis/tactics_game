@@ -12,6 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d9b2cef044eec4ca8d6faa247601cf, type: 3}
   m_Name: HeroDatabase
   m_EditorClassIdentifier: 
+  AllArmyEntities:
+  - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
+  - {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
+  - {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
+  - {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
+  - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
+  - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
+  - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
+  - {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
+  - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
+  StartingArmies:
+  - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+    ArmyGroups:
+    - {fileID: 11400000, guid: 770ebbb44e7f09b4499fdb8ad4d8ce54, type: 2}
+    - {fileID: 11400000, guid: e9de67d94e6e9714e93011bf22b4e10f, type: 2}
+  - Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+    ArmyGroups:
+    - {fileID: 11400000, guid: c650c5a793a9b7c4098c057f6168dc52, type: 2}
+    - {fileID: 11400000, guid: ca9d9f12dfc5bc047b7863bc6bb752d9, type: 2}
+  - Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+    ArmyGroups:
+    - {fileID: 11400000, guid: 2b033d815227bc24caa0bc97c2f03e1a, type: 2}
+  - Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+    ArmyGroups:
+    - {fileID: 11400000, guid: 8b5c0c0820ec73d4d9d3e872ffb85251, type: 2}
+    - {fileID: 11400000, guid: 0569cae46453ac744be8b65c21072831, type: 2}
+    - {fileID: 11400000, guid: ec6ee644c2086f14fb59aa1f7c1848ba, type: 2}
   Abilities:
   - {fileID: 11400000, guid: 3d3663f58cc3d42418937cd90d26e3bd, type: 2}
   - {fileID: 11400000, guid: f5309cd13d284b7479f49fa99df8d14a, type: 2}

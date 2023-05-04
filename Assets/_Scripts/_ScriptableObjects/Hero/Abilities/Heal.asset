@@ -16,6 +16,7 @@ MonoBehaviour:
   Description: Heal!
   Icon: {fileID: 21300000, guid: ea4492c6217e8644db2fa985d49af341, type: 3}
   Level: 1
+  IsStartingAbility: 1
   BaseManaCost: 5
   BasePower: 10
   BaseCooldown: 3
@@ -25,4 +26,5 @@ MonoBehaviour:
   CooldownLevelMultiplier: 2
   ScaleLevelMultiplier: 1.5
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  KillCount: 0
   AbilityExecutorPrefab: {fileID: 2929320073763685354, guid: 1d91d80bd9faffe4099a6df87fd47064, type: 3}

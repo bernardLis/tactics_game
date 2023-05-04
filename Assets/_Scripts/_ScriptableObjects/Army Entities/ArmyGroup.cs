@@ -29,7 +29,7 @@ public class ArmyGroup : BaseScriptableObject
 
     public void LoadFromData(ArmyGroupData data)
     {
-        ArmyEntity = GameManager.Instance.GameDatabase.GetArmyEntityById(data.EntityId);
+        ArmyEntity = GameManager.Instance.HeroDatabase.GetArmyEntityById(data.EntityId);
         EntityCount = data.EntityCount;
         ListPosition = data.ListPosition;
     }

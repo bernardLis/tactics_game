@@ -34,7 +34,6 @@ public class ElementalElement : ElementWithTooltip
 
     public void PlayEffect()
     {
-        Debug.Log($"play effect");
         Vector3 pos = this.worldTransform.GetPosition();
         pos.x = pos.x + this.resolvedStyle.width / 2;
         pos.y = Camera.main.pixelHeight - pos.y - this.resolvedStyle.height; // inverted, plus play on bottom of element
@@ -51,6 +50,4 @@ public class ElementalElement : ElementWithTooltip
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }
-
-
 }

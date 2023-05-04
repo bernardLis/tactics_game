@@ -16,6 +16,7 @@ MonoBehaviour:
   Description: Thunderinno!
   Icon: {fileID: 21300000, guid: a32194b91d70b6a49a10d6fed56ad25d, type: 3}
   Level: 1
+  IsStartingAbility: 1
   BaseManaCost: 5
   BasePower: 10
   BaseCooldown: 3
@@ -25,4 +26,5 @@ MonoBehaviour:
   CooldownLevelMultiplier: 2
   ScaleLevelMultiplier: 1.5
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  KillCount: 0
   AbilityExecutorPrefab: {fileID: 8656372026121413001, guid: 2cd0d38ad734f814aa9b33d46e87d753, type: 3}

@@ -61,11 +61,6 @@ public class GameDatabase : BaseScriptableObject
     public Sprite GoldSprite;
     public Sprite SpiceSprite;
 
-    public List<ArmyEntity> AllArmyEntities = new();
-    public ArmyEntity GetRandomArmyEntity() { return AllArmyEntities[Random.Range(0, AllArmyEntities.Count)]; }
-    public ArmyEntity GetArmyEntityById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
-
-    public List<ArmyGroup> BasicArmy = new();
 
     public List<Building> Buildings = new();
     public Building GetBuildingById(string id) { return Buildings.FirstOrDefault(x => x.Id == id); }
