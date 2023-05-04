@@ -45,7 +45,7 @@
 
 .common__ui-container {
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2');
-    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-scale-mode: stretch-to-fill;
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 40px;

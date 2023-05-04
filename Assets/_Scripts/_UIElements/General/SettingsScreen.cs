@@ -9,8 +9,6 @@ public class SettingsScreen : FullScreenElement
     AudioManager _audioManger;
     Toggle _fullScreenToggle;
 
-    Toggle _menuEffectsToggle;
-
     VisualElement _parent;
 
     const string _ussCommonTextPrimary = "common__text-primary";
@@ -57,15 +55,6 @@ public class SettingsScreen : FullScreenElement
 
         AddFullScreenToggle(graphicsContainer);
         AddRadioResolutionGroup(graphicsContainer);
-
-        // UI
-        VisualElement uiOptionsContainer = new VisualElement();
-        uiOptionsContainer.AddToClassList(_ussCommonUIContainer);
-        Label uiOptionsLabel = new Label("UI Options");
-        uiOptionsLabel.AddToClassList(_ussCommonTextPrimary);
-        uiOptionsContainer.Add(uiOptionsLabel);
-        Add(uiOptionsContainer);
-        AddUIOptions(uiOptionsContainer);
 
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
             AddClearSaveButton();
@@ -201,7 +190,7 @@ public class SettingsScreen : FullScreenElement
         int width = int.Parse(split[0]);
         string[] split1 = split[1].Split(" @ ");
         int height = int.Parse(split1[0]);
-        int hz = int.Parse(split1[1].Split("Hz")[0]);
+        int hz = int.Parse(split1[1].Split(".")[0]);
         FullScreenMode fullScreenMode = (PlayerPrefs.GetInt("fullScreen", 1) != 0) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
         RefreshRate rr = new RefreshRate() { numerator = (uint)hz, denominator = 1 };
         Screen.SetResolution(width, height, fullScreenMode, rr);
@@ -228,31 +217,6 @@ public class SettingsScreen : FullScreenElement
         ConfirmPopUp popUp = new ConfirmPopUp();
         MyButton button = new("Clear Save Data", _ussCommonMenuButton, () => popUp.Initialize(_root, ClearSaveData));
         Add(button);
-    }
-
-    void AddUIOptions(VisualElement parent)
-    {
-        VisualElement menuEffectsToggleContainer = CreateContainer("Disable Menu Transition Effects");
-        parent.Add(menuEffectsToggleContainer);
-        _menuEffectsToggle = new Toggle();
-        menuEffectsToggleContainer.Add(_menuEffectsToggle);
-        ToggleMenuEffects(PlayerPrefs.GetInt("HideMenuEffects", 0) != 0);
-        _menuEffectsToggle.RegisterValueChangedCallback(MenuEffectsToggleClick);
-    }
-
-    void MenuEffectsToggleClick(ChangeEvent<bool> evt)
-    {
-        PlayerPrefs.SetInt("HideMenuEffects", (evt.newValue ? 1 : 0));
-        ToggleMenuEffects(evt.newValue);
-    }
-
-    void ToggleMenuEffects(bool hide)
-    {
-        _menuEffectsToggle.value = hide;
-
-        if (_gameManager == null)
-            return;
-        _gameManager.SetHideMenuEffects(hide);
     }
 
     void ClearSaveData() { _gameManager.ClearSaveData(); }

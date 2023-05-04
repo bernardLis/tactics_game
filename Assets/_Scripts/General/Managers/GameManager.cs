@@ -58,7 +58,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Game manager Start");
         // global save per 'game'
         if (PlayerPrefs.GetString("saveName").Length == 0)
+        {
             CreateNewSaveFile();
+
+        }
         else
             LoadFromSaveFile();
     }
