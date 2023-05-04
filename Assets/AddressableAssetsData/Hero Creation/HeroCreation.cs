@@ -10,6 +10,8 @@ public class HeroCreation : MonoBehaviour
 
     GameManager _gameManager;
 
+    VisualElement _root;
+
     TextField _nameField;
 
     Label _portraitTextLabel;
@@ -27,31 +29,32 @@ public class HeroCreation : MonoBehaviour
     List<HeroPortrait> _heroPortraits = new();
     int _currentPortraitIndex = 0;
 
-    Vector2 _playerMapPosition = new(-8.5f, -6.5f);
+    Element _chosenElement;
 
     // Start is called before the first frame update
     void Start()
     {
         _gameManager = GameManager.Instance;
 
-        VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+        _root = GetComponent<UIDocument>().rootVisualElement;
 
-        _nameField = root.Q<TextField>("nameField");
+        _nameField = _root.Q<TextField>("nameField");
 
-        _portraitTextLabel = root.Q<Label>("portraitTextLabel");
-        _portrait = root.Q<VisualElement>("portrait");
-        _portraitButtonContainer = root.Q<VisualElement>("portraitButtonContainer");
-        _elementChoiceContainer = root.Q<VisualElement>("elementChoiceContainer");
+        _portraitTextLabel = _root.Q<Label>("portraitTextLabel");
+        _portrait = _root.Q<VisualElement>("portrait");
+        _portraitButtonContainer = _root.Q<VisualElement>("portraitButtonContainer");
+        _elementChoiceContainer = _root.Q<VisualElement>("elementChoiceContainer");
 
-        _submitButtonContainer = root.Q<VisualElement>("submitButtonContainer");
+        _submitButtonContainer = _root.Q<VisualElement>("submitButtonContainer");
 
-        root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+        _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         NameFieldSetup();
         PortraitSetup();
         CreatePortraitButtons();
 
         ElementChoiceElement elementChoiceElement = new();
+        elementChoiceElement.OnElementChosen += (element) => _chosenElement = element;
         _elementChoiceContainer.Add(elementChoiceElement);
 
         CreateSubmitButton();
@@ -108,18 +111,25 @@ public class HeroCreation : MonoBehaviour
 
     void Submit()
     {
-        CreateHero(_playerMapPosition);
+        if (_chosenElement == null)
+        {
+            Helpers.DisplayTextOnElement(_root, _submitButton, "Choose an element first!", Color.red);
+            return;
+        }
+
+        CreateHero();
         StartGame();
         _gameManager.SaveJsonData();
     }
 
-    void CreateHero(Vector2 mapPosition)
+    void CreateHero()
     {
         Debug.Log($"Creating hero: {_nameField.value}");
 
+
         // TODO: an effect would be nice.
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        newChar.CreateFromHeroCreation(_nameField.value, _heroPortraits[_currentPortraitIndex], mapPosition);
+        newChar.CreateFromHeroCreation(_nameField.value, _heroPortraits[_currentPortraitIndex], _chosenElement);
         _gameManager.PlayerHero = newChar;
     }
 

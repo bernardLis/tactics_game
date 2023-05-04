@@ -47,7 +47,7 @@ public class MapSetupManager : MonoBehaviour
 
     void PlaceHeroes()
     {
-        GameObject instance = Instantiate(_heroPrefab, _gameManager.PlayerHero.MapPosition, Quaternion.identity);
+        GameObject instance = Instantiate(_heroPrefab, Vector2.zero, Quaternion.identity);
         MapHero mapHero = instance.GetComponent<MapHero>();
         mapHero.Initialize(_gameManager.PlayerHero);
         MapHeroes.Add(mapHero);

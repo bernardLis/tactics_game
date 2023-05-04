@@ -16,7 +16,7 @@ MonoBehaviour:
   ElementName: 2
   Icon: {fileID: 21300000, guid: a030b60bf8f5b4a458df4a541bbb42a1, type: 3}
   Color: {r: 0.7589538, g: 0.38113207, b: 1, a: 1}
-  Description: Wind - chaotic element. Spreads water is dominated by fire.
+  Description: Wind - strong against water weak against earth.
   StrongAgainst: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   WeakAgainst: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   VFXEffect: {fileID: 11400000, guid: 4ee72b03a4dbde54cbc14c993daeb244, type: 2}

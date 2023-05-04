@@ -39,6 +39,7 @@ public enum StyleSheetType
 {
     CommonStyles, TooltipElementStyles, ConfirmPopupStyles,
     MenuStyles, SettingsMenuStyles,
+    ElementChoiceStyles,
     TimerElementStyles,
     BattleResultStyles,
     BarMiniGameStyles,

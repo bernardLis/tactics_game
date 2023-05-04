@@ -403,7 +403,7 @@ public class MapInputManager : Singleton<MapInputManager>
 
         ClearMovementIndicators();
         OnHeroTargetReached?.Invoke(SelectedHero);
-        SelectedHero.UpdateMapPosition();
+        // SelectedHero.UpdateMapPosition();
         UnselectHero();
     }
 

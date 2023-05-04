@@ -16,7 +16,7 @@ MonoBehaviour:
   ElementName: 1
   Icon: {fileID: 21300000, guid: a6742db7c89f6ab4a8fa1c40d75499af, type: 3}
   Color: {r: 0.23018867, g: 0.5333765, b: 1, a: 1}
-  Description: 'Water - calm element. Douses fire, is spread by wind. '
+  Description: Water - strong against fire weak against wind
   StrongAgainst: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   WeakAgainst: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   VFXEffect: {fileID: 11400000, guid: 4388d7a91a89dc34ab6e8fb61a00f808, type: 2}

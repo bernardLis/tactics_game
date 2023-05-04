@@ -20,6 +20,8 @@ public class Hero : BaseScriptableObject
     public IntVariable ExpForNextLevel;
     public int LevelUpPointsLeft;
 
+    public Element Element;
+
     public IntVariable BaseMana;
     public IntVariable BasePower;
     public IntVariable BaseArmor;
@@ -42,8 +44,6 @@ public class Hero : BaseScriptableObject
     public List<Injury> Injuries = new();
 
     public int DayAddedToTroops { get; private set; }
-
-    public Vector2 MapPosition;
 
     public List<ArmyGroup> Army = new();
 
@@ -171,7 +171,6 @@ public class Hero : BaseScriptableObject
 
         BaseArmor.ApplyChange(1);
         LevelUpPointsLeft--;
-
     }
 
     public void AddSpeed()
@@ -286,12 +285,13 @@ public class Hero : BaseScriptableObject
         BaseSpeed.OnValueChanged += Speed.SetBaseValue;
     }
 
-    public void CreateFromHeroCreation(string name, HeroPortrait portrait, Vector2 mapPosition)
+    public void CreateFromHeroCreation(string name, HeroPortrait portrait, Element element)
     {
         _gameManager = GameManager.Instance;
         Id = Guid.NewGuid().ToString();
         HeroName = name;
         Portrait = portrait;
+        Element = element;
 
         CreateBaseStats();
 
@@ -312,7 +312,6 @@ public class Hero : BaseScriptableObject
 
         UpdateRank();
 
-        MapPosition = mapPosition;
         // TODO: smarter army for hero
         Army = new();
         for (int i = 0; i < _gameManager.GameDatabase.AllArmyEntities.Count; i++)
@@ -337,6 +336,8 @@ public class Hero : BaseScriptableObject
         name = HeroName;
         Portrait = isMale ? heroDatabase.GetRandomPortraitMale() : heroDatabase.GetRandomPortraitFemale();
 
+        Element = heroDatabase.GetRandomElement();
+        
         CreateBaseStats();
 
         Level.SetValue(level);
@@ -385,6 +386,8 @@ public class Hero : BaseScriptableObject
         HeroName = data.HeroName;
         Portrait = heroDatabase.GetPortraitById(data.Portrait);
 
+        Element = heroDatabase.GetElementByName(Enum.Parse<ElementName>(data.Element));
+
         CreateBaseStats();
 
         Level.SetValue(data.Level);
@@ -418,8 +421,6 @@ public class Hero : BaseScriptableObject
         }
         DayAddedToTroops = data.DayAddedToTroops;
 
-        MapPosition = data.MapPosition;
-
         Army = new();
         foreach (ArmyGroupData d in data.ArmyGroupDatas)
         {
@@ -437,6 +438,9 @@ public class Hero : BaseScriptableObject
         data.Id = Id;
         data.HeroName = HeroName;
         data.Portrait = Portrait.Id;
+
+        data.Element = Element.ElementName.ToString();
+
         data.Level = Level.Value;
         data.Experience = Experience.Value;
 
@@ -461,8 +465,6 @@ public class Hero : BaseScriptableObject
 
         data.DayAddedToTroops = DayAddedToTroops;
 
-        data.MapPosition = MapPosition;
-
         data.ArmyGroupDatas = new();
         foreach (ArmyGroup ag in Army)
             data.ArmyGroupDatas.Add(ag.SerializeSelf());
@@ -477,6 +479,8 @@ public struct HeroData
     public string Id;
     public string HeroName;
     public string Portrait;
+    public string Element;
+
     public int Level;
     public int Experience;
 
@@ -491,8 +495,6 @@ public struct HeroData
     public List<InjuryData> InjuryData;
 
     public int DayAddedToTroops;
-
-    public Vector2 MapPosition;
 
     public List<ArmyGroupData> ArmyGroupDatas;
 }

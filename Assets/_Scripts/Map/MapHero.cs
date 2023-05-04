@@ -68,7 +68,7 @@ public class MapHero : MonoBehaviour
 
     public void UpdateRangeLeft(float distanceTraveled) { RangeLeft.ApplyChange(-distanceTraveled); }
 
-    public void UpdateMapPosition() { Hero.MapPosition = transform.position; }
+    //  public void UpdateMapPosition() { Hero.MapPosition = transform.position; }
 
     public void Meet(MapHero otherHero)
     {

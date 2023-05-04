@@ -16,7 +16,7 @@ MonoBehaviour:
   ElementName: 0
   Icon: {fileID: 21300000, guid: f9604419f9c09df469e00aef2d43b4e2, type: 3}
   Color: {r: 0.6981132, g: 0.20651671, b: 0, a: 1}
-  Description: Fire - violent element. Wind feeds fire, is doused by water.
+  Description: Fire - strong against earh weak against water
   StrongAgainst: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   WeakAgainst: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   VFXEffect: {fileID: 11400000, guid: 26e7113e8da459a43b399244173adf79, type: 2}

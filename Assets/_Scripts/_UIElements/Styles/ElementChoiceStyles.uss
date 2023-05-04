@@ -1,0 +1,17 @@
+.element-choice__main {}
+
+.element-choice__element-icon {
+    opacity: 0.9;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.element-choice__element-icon:hover {
+    scale: 1.1;
+    opacity: 1;
+}
+
+.element-choice__element-icon:disabled {
+    scale: 0.8;
+    opacity: 0.6;
+}
