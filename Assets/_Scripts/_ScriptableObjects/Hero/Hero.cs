@@ -308,12 +308,19 @@ public class Hero : BaseScriptableObject
         CreateStats();
 
         Items = new();
+
         Abilities = new();
-        Abilities.Add(_gameManager.HeroDatabase.GetStartingAbility(element));
+        Ability a = Instantiate(_gameManager.HeroDatabase.GetStartingAbility(element));
+        Abilities.Add(a);
 
         UpdateRank();
 
-        Army = new(_gameManager.HeroDatabase.GetStartingArmy(element).ArmyGroups);
+        Army = new();
+        foreach (ArmyGroup ag in _gameManager.HeroDatabase.GetStartingArmy(element).ArmyGroups)
+        {
+            ArmyGroup instance = Instantiate(ag);
+            Army.Add(instance);
+        }
     }
 
     public void CreateRandom(int level)
