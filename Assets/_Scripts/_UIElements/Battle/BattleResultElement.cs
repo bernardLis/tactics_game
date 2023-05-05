@@ -134,5 +134,5 @@ public class BattleResult : FullScreenElement
         _battleChoiceContainer.OnBattleSelected += () => _content.Add(_continueButton);
     }
 
-    void LoadBattle() { _gameManager.LoadLevel(Scenes.Battle); }
+    void LoadBattle() { _gameManager.LoadScene(Scenes.Battle); }
 }

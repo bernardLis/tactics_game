@@ -21,7 +21,7 @@ public class MapBattle : MonoBehaviour, ITooltipDisplayable
     public void TakeBattle(MapHero h)
     {
         _gameManager.SelectedBattle = Battle;
-        _gameManager.LoadLevel(Scenes.Battle);
+        _gameManager.LoadScene(Scenes.Battle);
     }
 
     public string GetTooltipText() { return "Battle"; }

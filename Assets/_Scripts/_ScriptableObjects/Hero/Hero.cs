@@ -368,7 +368,12 @@ public class Hero : BaseScriptableObject
         {
             Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
             Army[i].ArmyEntity = _gameManager.HeroDatabase.GetRandomArmyEntity();
-            Army[i].EntityCount = Random.Range(1, 10) + level;
+
+            // TODO: needs balance
+            int count = Mathf.RoundToInt(Random.Range(1, 10) * 0.2f * level);
+            count = Mathf.Clamp(count, 1, 100);
+
+            Army[i].EntityCount = count;
         }
 
         UpdateRank();

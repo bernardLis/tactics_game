@@ -18,7 +18,7 @@ public class RewardArmy : Reward
         ArmyGroup.ArmyEntity = _gameManager.HeroDatabase.GetRandomArmyEntity();
 
         int count = Mathf.RoundToInt(Random.Range(1, 10) * _countPerLevelMultiplier * _hero.Level.Value);
-        Mathf.Clamp(count, 1, 100);
+        count = Mathf.Clamp(count, 1, 100);
 
         ArmyGroup.EntityCount = count;
     }

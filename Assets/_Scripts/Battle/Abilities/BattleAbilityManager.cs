@@ -32,6 +32,8 @@ public class BattleAbilityManager : MonoBehaviour
     void Start()
     {
         _gameManager = GameManager.Instance;
+        BattleManager.Instance.OnBattleFinalized += CancelAbility;
+        
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         AddAbilityButtons();
@@ -192,4 +194,5 @@ public class BattleAbilityManager : MonoBehaviour
         _abilityExecutor.CancelAbility();
         _selectedAbility = null;
     }
+
 }

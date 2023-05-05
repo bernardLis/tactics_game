@@ -14,6 +14,10 @@ public class BattleChoiceContainer : VisualElement
     {
         style.alignItems = Align.Center;
 
+        Label bn = new($"Battle number {GameManager.Instance.BattleNumber + 1}");
+        bn.style.fontSize = 24;
+        Add(bn);
+
         Label l = new("Choose your next opponent: ");
         l.style.fontSize = 32;
         Add(l);

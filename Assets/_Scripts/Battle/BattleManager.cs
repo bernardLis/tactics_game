@@ -61,7 +61,7 @@ public class BattleManager : Singleton<BattleManager>
         _initRot = _skyMat.GetFloat(_rotationProperty);
 
         // HERE: for testing
-        GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
+        //  GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
         AudioManager.Instance.PlayMusic(_battleMusic);
     }
 
@@ -138,7 +138,7 @@ public class BattleManager : Singleton<BattleManager>
         _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
 
         if (PlayerEntities.Count == 0)
-            BattleLost();
+            StartCoroutine(BattleLost());
     }
 
     void OnEnemyDeath(BattleEntity be)
@@ -148,34 +148,35 @@ public class BattleManager : Singleton<BattleManager>
         _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
 
         if (OpponentEntities.Count == 0)
-            BattleWon();
+            StartCoroutine(BattleWon());
     }
 
-    void BattleLost()
+    IEnumerator BattleLost()
     {
-        StartCoroutine(FinalizeBattle());
+        yield return FinalizeBattle();
+        _gameManager.ClearSaveData();
+        _gameManager.LoadScene(Scenes.MainMenu);
     }
 
-    void BattleWon()
+    IEnumerator BattleWon()
     {
         LoadedBattle.Won = true;
-        StartCoroutine(FinalizeBattle());
+        yield return FinalizeBattle();
     }
 
     IEnumerator FinalizeBattle()
     {
         _gameManager.BattleNumber++; // TODO: hihihihihi
-
         // if entities die "at the same time" it triggers twice
         if (_battleFinalized) yield break;
         _battleFinalized = true;
 
         yield return new WaitForSeconds(3f);
-
-        if (_playerHero != null)
+        if (_playerHero != null && LoadedBattle.Won)
         {
             BattleResult r = new(Root);
         }
+
         yield return new WaitForSeconds(1f); // TODO: hehe
         ClearAllEntities();
 

@@ -73,7 +73,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         if (PlayerHero == null)
         {
-            LoadLevel(Scenes.HeroCreation);
+            LoadScene(Scenes.HeroCreation);
             return;
         }
         StartGame();
@@ -81,7 +81,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void StartGame()
     {
-        LoadLevel(Scenes.Battle);
+        LoadScene(Scenes.Battle);
         IsTimerOn = true;
     }
 
@@ -129,7 +129,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
 
     /* LEVELS */
-    public void LoadLevel(string level)
+    public void LoadScene(string level)
     {
         _levelLoader.LoadLevel(level);
         OnLevelLoaded?.Invoke(level);
@@ -272,7 +272,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");
 
-        LoadLevel(Scenes.MainMenu);
+        LoadScene(Scenes.MainMenu);
         OnClearSaveData?.Invoke();
     }
 
