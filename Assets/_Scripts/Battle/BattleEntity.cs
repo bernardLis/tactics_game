@@ -77,7 +77,7 @@ public class BattleEntity : MonoBehaviour
 
             _material.SetFloat("_Metallic", 0.5f);
         }
-        
+
         ArmyEntity = stats;
         CurrentHealth = stats.Health;
 
@@ -134,7 +134,6 @@ public class BattleEntity : MonoBehaviour
                 if (_opponent == null) break;
                 if (IsDead) break;
                 _agent.destination = _opponent.transform.position;
-                transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
                 yield return null;
             }
 
@@ -180,8 +179,6 @@ public class BattleEntity : MonoBehaviour
         GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
         projectileInstance.transform.parent = _GFX.transform;
-        projectileInstance.transform.localScale = Vector3.zero; // HERE: unfinished
-        projectileInstance.transform.DOScale(1, 2f);
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         _animator.SetTrigger("Attack");

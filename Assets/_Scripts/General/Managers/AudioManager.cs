@@ -131,7 +131,6 @@ public class AudioManager : Singleton<AudioManager>
         float currentTime = 0f;
         float start = 0f;
         float end = sound.Volume;
-        Debug.Log($"end: {end}");
 
         while (currentTime < duration)
         {

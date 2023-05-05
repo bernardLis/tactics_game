@@ -122,7 +122,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a695e5d410eb9904d999337915068f5b, type: 3}
   - {fileID: 21300000, guid: 580736fc474a2a74080665a38cde2510, type: 3}
   - {fileID: 21300000, guid: d601167d9ee631e4bbf5b87bc0fb696a, type: 3}
-  Price: 10
+  Price: 30
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Health: 100
   Armor: 0

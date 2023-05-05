@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Projectile : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class Projectile : MonoBehaviour
 
     IEnumerator ShootCoroutine(BattleEntity shooter, BattleEntity target, float speed, float power)
     {
+        transform.localScale = Vector3.zero;
+        transform.DOScale(1, 2f);
+
         //https://gamedev.stackexchange.com/questions/100535/coroutine-to-move-to-position-passing-the-movement-speed
         Vector3 startingPos = transform.position;
         Vector3 finalPos = target.Collider.bounds.center;
@@ -51,6 +55,7 @@ public class Projectile : MonoBehaviour
 
     public IEnumerator DestroySelf()
     {
+        transform.DOKill(transform);
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }

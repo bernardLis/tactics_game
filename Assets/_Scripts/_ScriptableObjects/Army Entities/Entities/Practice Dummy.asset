@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 4444-6aef-4f8f-a757-9d06b20d9a51
   Name: Practice Dummy
-  Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 1c53713cc8254014488cb38e3e3de052, type: 3}
   - {fileID: 21300000, guid: 4e143bd04c3ff82468c7a219bc6bc90b, type: 3}
@@ -81,7 +80,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2b82bd21d5d7ebe4eb43872bd0998114, type: 3}
   - {fileID: 21300000, guid: 9a29dda766e3d30418e8600983f26ad8, type: 3}
   - {fileID: 21300000, guid: f405493022c4f774cbb3124b212c6dbc, type: 3}
-  Price: 10
+  Price: 30
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Health: 100
   Armor: 0

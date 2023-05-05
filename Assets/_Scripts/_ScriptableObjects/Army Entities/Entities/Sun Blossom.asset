@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 7777-6aef-4f8f-a757-9d06b20d9a51
   Name: Sun Blossom
-  Icon: {fileID: 21300000, guid: a12d8346867d2fb44b53df7d3183b352, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 4e329b134e90ae24b9b5726dd474a06f, type: 3}
   - {fileID: 21300000, guid: 4a968fb05a761364da09231006f5d6a5, type: 3}
@@ -71,7 +70,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2bea7a2a083ae0d46b9f41a6da1d2b37, type: 3}
   - {fileID: 21300000, guid: 2e59ab60bed22ae4dacf55d01bb654b8, type: 3}
   - {fileID: 21300000, guid: f125c77f91fe81a409c121ed771aaef6, type: 3}
-  Price: 10
+  Price: 30
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Health: 100
   Armor: 0
