@@ -33,10 +33,10 @@ public class RewardAbility : Reward
 
         // choose an ability that hero does not have yet
         List<Ability> abilities = new(_gameManager.HeroDatabase.GetAllAbilities());
-        foreach (Ability newAbility in abilities)
+        for (int i = abilities.Count - 1; i >= 0; i--)
             foreach (Ability heroAbility in _hero.Abilities)
-                if (newAbility.Id == heroAbility.Id)
-                    abilities.Remove(newAbility);
+                if (abilities[i].Id == heroAbility.Id)
+                    abilities.Remove(abilities[i]);
 
         Ability = abilities[Random.Range(0, abilities.Count)];
     }

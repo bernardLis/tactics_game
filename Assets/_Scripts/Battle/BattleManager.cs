@@ -10,6 +10,8 @@ using DG.Tweening;
 public class BattleManager : Singleton<BattleManager>
 {
     GameManager _gameManager;
+
+    [SerializeField] Sound _battleMusic;
     public Battle LoadedBattle { get; private set; }
 
     public VisualElement Root { get; private set; }
@@ -60,6 +62,7 @@ public class BattleManager : Singleton<BattleManager>
 
         // HERE: for testing
         GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
+        AudioManager.Instance.PlayMusic(_battleMusic);
     }
 
     void Update()

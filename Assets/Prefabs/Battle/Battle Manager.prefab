@@ -38,7 +38,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5119385659013104312
 MonoBehaviour:
@@ -68,12 +68,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092e14af062d33a489ad0e4c55a5fe76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
   _entityHolder: {fileID: 0}
   _skyboxRotationSpeed: 0.2
   _timerText: {fileID: 0}
   _scoreText: {fileID: 0}
-  _playerMaterial: {fileID: 2100000, guid: b0ddfd1fc6ff1f14eb7de1078c47e074, type: 2}
-  _enemyMaterial: {fileID: 2100000, guid: 648682c2568381d4595031dc35e45713, type: 2}
   _playerSpawnPoint: {fileID: 0}
   _enemySpawnPoint: {fileID: 0}
   PlayerEntities: []

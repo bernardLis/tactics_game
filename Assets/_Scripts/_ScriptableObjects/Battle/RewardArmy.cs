@@ -17,7 +17,10 @@ public class RewardArmy : Reward
         ArmyGroup = ScriptableObject.CreateInstance<ArmyGroup>();
         ArmyGroup.ArmyEntity = _gameManager.HeroDatabase.GetRandomArmyEntity();
 
-        ArmyGroup.EntityCount = Mathf.RoundToInt(Random.Range(1, 10) * _countPerLevelMultiplier * _hero.Level.Value);
+        int count = Mathf.RoundToInt(Random.Range(1, 10) * _countPerLevelMultiplier * _hero.Level.Value);
+        Mathf.Clamp(count, 1, 100);
+
+        ArmyGroup.EntityCount = count;
     }
 
     public override void GetReward()
