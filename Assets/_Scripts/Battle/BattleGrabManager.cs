@@ -3,22 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public class BattleGrabManager : Singleton<BattleGrabManager>
 {
+    const string _ussClassName = "battle__";
+    const string _ussAbilityContainer = _ussClassName + "ability-container";
+
+
     GameManager _gameManager;
     PlayerInput _playerInput;
     BattleAbilityManager _abilityManager;
 
+    [SerializeField] Texture2D _cursorGrabbingEnabled;
+    [SerializeField] Texture2D _cursorGrabbed;
+
+    public bool IsGrabbingEnabled { get; private set; }
+
     BattleEntity _grabbedEntity;
     int _floorLayerMask;
 
-    void Start()
+    bool _wasInitialized;
+
+    public void Initialize()
     {
+        if (_wasInitialized) return;
+        _wasInitialized = true;
+
         _gameManager = GameManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         _abilityManager = GetComponent<BattleAbilityManager>();
         _floorLayerMask = LayerMask.GetMask("Floor");
+
+        VisualElement container = BattleManager.Instance.Root.Q(className: _ussAbilityContainer);
+        MyButton grabButton = new MyButton("Grab", null, ToggleGrabbing);
+        container.Add(grabButton);
+    }
+
+    public void ToggleGrabbing()
+    {
+        if (IsGrabbingEnabled)
+            DisableGrabbing();
+        else
+            EnableGrabbing();
+    }
+
+    public void EnableGrabbing()
+    {
+        Cursor.SetCursor(_cursorGrabbingEnabled, Vector2.zero, CursorMode.Auto);
+
+        IsGrabbingEnabled = true;
+    }
+
+    void DisableGrabbing()
+    {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
+        IsGrabbingEnabled = false;
     }
 
     void Update()
@@ -64,12 +106,17 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     void SubscribeInputActions()
     {
         _playerInput.actions["LeftMouseClick"].canceled += OnPointerUp;
+        _playerInput.actions["RightMouseClick"].performed += evt => DisableGrabbing();
+        _playerInput.actions["EnableGrabbing"].performed += evt => ToggleGrabbing();
 
     }
 
     void UnsubscribeInputActions()
     {
         _playerInput.actions["LeftMouseClick"].canceled -= OnPointerUp;
+        _playerInput.actions["RightMouseClick"].performed -= evt => DisableGrabbing();
+        _playerInput.actions["EnableGrabbing"].performed -= evt => ToggleGrabbing();
+
     }
 
 
@@ -77,7 +124,9 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     {
         if (_abilityManager.IsAbilitySelected) return;
         if (_grabbedEntity != null) return;
+        if (!IsGrabbingEnabled) return;
 
+        Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
         _grabbedEntity = entity;
         _grabbedEntity.StopRunEntityCoroutine();
     }
@@ -88,6 +137,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         if (this == null) return;
         if (_abilityManager.IsAbilitySelected) return;
         if (_grabbedEntity == null) return;
+
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
         _grabbedEntity.StartRunEntityCoroutine();
         _grabbedEntity = null;

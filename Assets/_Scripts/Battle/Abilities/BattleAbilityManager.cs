@@ -90,12 +90,9 @@ public class BattleAbilityManager : MonoBehaviour
 
     void AddAbilityButtons()
     {
-        VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
         _abilities = _hero.Abilities;
+        VisualElement container = _root.Q(className: _ussAbilityContainer);
 
-        VisualElement container = new();
-        container.AddToClassList(_ussAbilityContainer);
-        bottomPanel.Add(container);
         int i = 1;
         foreach (Ability ability in _abilities)
         {

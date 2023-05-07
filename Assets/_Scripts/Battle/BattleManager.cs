@@ -47,21 +47,30 @@ public class BattleManager : Singleton<BattleManager>
     bool _battleFinalized = false;
 
     public event Action OnBattleFinalized;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        Root = GetComponent<UIDocument>().rootVisualElement;
+
+        VisualElement bottomPanel = Root.Q<VisualElement>("bottomPanel");
+    }
     void Start()
     {
         _gameManager = GameManager.Instance;
         _gameManager.SaveJsonData();
         LoadedBattle = _gameManager.SelectedBattle;
 
-        Root = GetComponent<UIDocument>().rootVisualElement;
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
         _initRot = _skyMat.GetFloat(_rotationProperty);
 
         // HERE: for testing
-        //  GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
+        // GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
         AudioManager.Instance.PlayMusic(_battleMusic);
     }
 
@@ -78,12 +87,15 @@ public class BattleManager : Singleton<BattleManager>
     {
         _battleFinalized = false;
 
+        GetComponent<BattleGrabManager>().Initialize();
+
         if (playerHero != null)
         {
             _playerHero = playerHero;
             GetComponent<BattleHeroManager>().Initialize(playerHero);
             GetComponent<BattleAbilityManager>().Initialize(playerHero);
         }
+
 
         if (opponentHero != null) _opponentHero = opponentHero;
 

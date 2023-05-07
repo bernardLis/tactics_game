@@ -395,6 +395,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EnableGrabbing"",
+                    ""type"": ""Button"",
+                    ""id"": ""afc68981-4f9d-4d4b-81a5-69c2811730ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -639,6 +648,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleCommandLine"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fb4adbc-7d07-48ce-bc02-508d2072129f"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnableGrabbing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -689,6 +709,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_CameraDefaultPosition = m_Battle.FindAction("CameraDefaultPosition", throwIfNotFound: true);
         m_Battle_Continue = m_Battle.FindAction("Continue", throwIfNotFound: true);
         m_Battle_Enter = m_Battle.FindAction("Enter", throwIfNotFound: true);
+        m_Battle_EnableGrabbing = m_Battle.FindAction("EnableGrabbing", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -881,6 +902,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_CameraDefaultPosition;
     private readonly InputAction m_Battle_Continue;
     private readonly InputAction m_Battle_Enter;
+    private readonly InputAction m_Battle_EnableGrabbing;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
@@ -898,6 +920,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @CameraDefaultPosition => m_Wrapper.m_Battle_CameraDefaultPosition;
         public InputAction @Continue => m_Wrapper.m_Battle_Continue;
         public InputAction @Enter => m_Wrapper.m_Battle_Enter;
+        public InputAction @EnableGrabbing => m_Wrapper.m_Battle_EnableGrabbing;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -946,6 +969,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Enter.started += instance.OnEnter;
             @Enter.performed += instance.OnEnter;
             @Enter.canceled += instance.OnEnter;
+            @EnableGrabbing.started += instance.OnEnableGrabbing;
+            @EnableGrabbing.performed += instance.OnEnableGrabbing;
+            @EnableGrabbing.canceled += instance.OnEnableGrabbing;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -989,6 +1015,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Enter.started -= instance.OnEnter;
             @Enter.performed -= instance.OnEnter;
             @Enter.canceled -= instance.OnEnter;
+            @EnableGrabbing.started -= instance.OnEnableGrabbing;
+            @EnableGrabbing.performed -= instance.OnEnableGrabbing;
+            @EnableGrabbing.canceled -= instance.OnEnableGrabbing;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -1043,5 +1072,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnCameraDefaultPosition(InputAction.CallbackContext context);
         void OnContinue(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
+        void OnEnableGrabbing(InputAction.CallbackContext context);
     }
 }

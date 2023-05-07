@@ -373,6 +373,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "EnableGrabbing",
+                    "type": "Button",
+                    "id": "afc68981-4f9d-4d4b-81a5-69c2811730ae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -615,6 +624,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleCommandLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9fb4adbc-7d07-48ce-bc02-508d2072129f",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableGrabbing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

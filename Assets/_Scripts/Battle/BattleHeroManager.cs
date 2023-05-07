@@ -23,7 +23,7 @@ public class BattleHeroManager : MonoBehaviour
         VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
 
         HeroCardStats card = new(_hero);
-        bottomPanel.Add(card);
+        bottomPanel.Insert(0, card);
     }
 
 }

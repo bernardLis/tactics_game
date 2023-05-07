@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4066842339892764640}
   - component: {fileID: 1546683018716630949}
   - component: {fileID: 3686241382488041892}
-  - component: {fileID: 2460091108715632158}
+  - component: {fileID: 3849849297139869466}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796afca0ad479f34f8de55fede3b83d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cursorGrabbingEnabled: {fileID: 2800000, guid: 0f45821c9378469498c0044ff9068ea2, type: 3}
+  _cursorGrabbed: {fileID: 2800000, guid: 92f064f728a70f04f9cf729774eebd72, type: 3}
 --- !u!114 &4066842339892764640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 814c1792bbb473e46a1d8ca54e6d6317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2460091108715632158
+--- !u!114 &3849849297139869466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
