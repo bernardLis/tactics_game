@@ -28,13 +28,13 @@ public class BattleAbilityManager : MonoBehaviour
     public bool IsAbilitySelected { get; private set; }
 
 
-    // Start is called before the first frame update
-    void Start()
+    public void Initialize(Hero hero)
     {
         _gameManager = GameManager.Instance;
         BattleManager.Instance.OnBattleFinalized += CancelAbility;
-        
+
         _root = GetComponent<UIDocument>().rootVisualElement;
+        _hero = hero;
 
         AddAbilityButtons();
     }
@@ -91,7 +91,6 @@ public class BattleAbilityManager : MonoBehaviour
     void AddAbilityButtons()
     {
         VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
-        _hero = _gameManager.PlayerHero;
         _abilities = _hero.Abilities;
 
         VisualElement container = new();

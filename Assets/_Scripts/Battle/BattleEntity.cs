@@ -303,6 +303,9 @@ public class BattleEntity : MonoBehaviour
 
     public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
+        Debug.Log($"die");
+        _animator.SetBool("Celebrate", false);
+
         IsDead = true;
         _animator.SetTrigger("Die");
         OnDeath?.Invoke(this);

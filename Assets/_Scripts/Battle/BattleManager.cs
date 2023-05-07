@@ -78,8 +78,16 @@ public class BattleManager : Singleton<BattleManager>
     {
         _battleFinalized = false;
 
-        if (playerHero != null) _playerHero = playerHero;
+        if (playerHero != null)
+        {
+            _playerHero = playerHero;
+            GetComponent<BattleHeroManager>().Initialize(playerHero);
+            GetComponent<BattleAbilityManager>().Initialize(playerHero);
+        }
+
         if (opponentHero != null) _opponentHero = opponentHero;
+
+        if (playerArmy == null) return;
 
         foreach (ArmyGroup ag in playerArmy)
             InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);

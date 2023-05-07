@@ -5,17 +5,15 @@ using UnityEngine.UIElements;
 
 public class BattleHeroManager : MonoBehaviour
 {
-    GameManager _gameManager;
     VisualElement _root;
 
     Hero _hero;
-    void Start()
+    public void Initialize(Hero hero)
     {
-        _gameManager = GameManager.Instance;
         _root = GetComponent<UIDocument>().rootVisualElement;
 
-        _hero = _gameManager.PlayerHero;
-        _hero.BattleInitialize();
+        _hero = hero;
+        hero.BattleInitialize();
 
         AddHeroCard();
     }
