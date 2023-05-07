@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796afca0ad479f34f8de55fede3b83d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _grabAbility: {fileID: 11400000, guid: 9d0d3e78910ddd24a8b6c35929fcdf4b, type: 2}
   _cursorGrabbingEnabled: {fileID: 2800000, guid: 0f45821c9378469498c0044ff9068ea2, type: 3}
   _cursorGrabbed: {fileID: 2800000, guid: 92f064f728a70f04f9cf729774eebd72, type: 3}
 --- !u!114 &4066842339892764640

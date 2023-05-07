@@ -66,6 +66,5 @@ public class AbilityButton : ElementWithSound
     public void ClearHighlight()
     {
         RemoveFromClassList(_ussHighlight);
-
     }
 }

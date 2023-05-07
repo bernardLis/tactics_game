@@ -43,14 +43,13 @@ public class BattleCard : VisualElement
         {
             // get starting army of element our here is weak to
             opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_gameManager.PlayerHero.Element.WeakAgainst).ArmyGroups);
-
         }
 
         _battle = ScriptableObject.CreateInstance<Battle>();
         _battle.Opponent = opp;
 
-
-        Add(new HeroCardMini(opp));
+        HeroCardMini heroCardMini = new(_gameManager.PlayerHero);
+        Add(heroCardMini);
 
         ScrollView scrollView = new ScrollView();
         Add(scrollView);

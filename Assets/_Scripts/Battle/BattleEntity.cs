@@ -34,6 +34,7 @@ public class BattleEntity : MonoBehaviour
 
     bool _isSpawned;
     bool _gettingHit;
+    bool _isGrabbed;
     public bool IsDead { get; private set; }
 
     MMF_Player _feelPlayer;
@@ -267,6 +268,20 @@ public class BattleEntity : MonoBehaviour
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
         _gettingHit = false;
 
+        if (!_isGrabbed) StartRunEntityCoroutine();
+    }
+
+    public void Grabbed()
+    {
+        _isGrabbed = true;
+        StopRunEntityCoroutine();
+        _animator.enabled = false;
+    }
+
+    public void Released()
+    {
+        _isGrabbed = false;
+        _animator.enabled = true;
         StartRunEntityCoroutine();
     }
 
@@ -303,7 +318,6 @@ public class BattleEntity : MonoBehaviour
 
     public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
-        Debug.Log($"die");
         _animator.SetBool("Celebrate", false);
 
         IsDead = true;

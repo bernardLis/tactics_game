@@ -13,6 +13,7 @@ public class BattleAbilityManager : MonoBehaviour
 
 
     GameManager _gameManager;
+    BattleGrabManager _battleGrabManager;
     VisualElement _root;
 
     PlayerInput _playerInput;
@@ -32,6 +33,7 @@ public class BattleAbilityManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         BattleManager.Instance.OnBattleFinalized += CancelAbility;
+        _battleGrabManager = GetComponent<BattleGrabManager>();
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _hero = hero;
@@ -136,6 +138,7 @@ public class BattleAbilityManager : MonoBehaviour
     {
         if (_selectedAbility == ability) return;
         if (_selectedAbility != null) CancelAbility();
+        if (_battleGrabManager.IsGrabbingEnabled) _battleGrabManager.CancelGrabbing();
         if (abilityButton.IsOnCooldown)
         {
             Helpers.DisplayTextOnElement(_root, abilityButton, "Cool down, mate!", Color.red);
