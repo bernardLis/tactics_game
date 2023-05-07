@@ -43,6 +43,8 @@ public class EntityElement : VisualElement
         Add(_rightContainer);
 
         _elementalElement = new ElementalElement(_entity.Element);
+        _elementalElement.style.position = Position.Absolute;
+        _elementalElement.style.bottom = 0;
 
         _entityIcon = new(_entity);
         _nameLabel = new Label($"Name: {_entity.Name}");

@@ -46,6 +46,4 @@ public class EntitySpawner : MonoBehaviour
         yield return new WaitForSeconds(4f);
         Destroy(be.gameObject);
     }
-
-
 }
