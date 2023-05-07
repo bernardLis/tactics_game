@@ -23,7 +23,7 @@ MonoBehaviour:
   BaseScale: 0
   ManaCostLevelMultiplier: 0
   PowerLevelMultiplier: 0
-  CooldownLevelMultiplier: 0.94
+  CooldownLevelMultiplier: 1
   ScaleLevelMultiplier: 0
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   KillCount: 0

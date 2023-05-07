@@ -12,8 +12,11 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     const string _ussAbilityContainer = _ussClassName + "ability-container";
 
     GameManager _gameManager;
+    AudioManager _audioManager;
     PlayerInput _playerInput;
     BattleAbilityManager _abilityManager;
+
+    VisualElement _root;
 
     [SerializeField] Ability _grabAbility; // for visual purposes
     AbilityButton _grabButton;
@@ -34,11 +37,13 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _wasInitialized = true;
 
         _gameManager = GameManager.Instance;
+        _audioManager = AudioManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         _abilityManager = GetComponent<BattleAbilityManager>();
         _floorLayerMask = LayerMask.GetMask("Floor");
 
-        VisualElement container = BattleManager.Instance.Root.Q(className: _ussAbilityContainer);
+        _root = GetComponent<UIDocument>().rootVisualElement;
+        VisualElement container = _root.Q(className: _ussAbilityContainer);
         _grabButton = new(_grabAbility, "g");
         _grabButton.RegisterCallback<PointerDownEvent>(evt => ToggleGrabbing());
         container.Add(_grabButton);
@@ -46,6 +51,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public void ToggleGrabbing()
     {
+        if (_grabbedEntity != null) return;
+        
         if (IsGrabbingEnabled)
             DisableGrabbing();
         else
@@ -54,6 +61,11 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public void EnableGrabbing()
     {
+        if (_grabButton.IsOnCooldown)
+        {
+            Helpers.DisplayTextOnElement(_root, _grabButton, "On cooldown!", Color.red);
+            return;
+        }
         Cursor.SetCursor(_cursorGrabbingEnabled, Vector2.zero, CursorMode.Auto);
         _grabButton.Highlight();
 
@@ -130,6 +142,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         if (_grabbedEntity != null) return;
         if (!IsGrabbingEnabled) return;
 
+        _audioManager.PlaySFX("Grab", entity.transform.position);
         Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
         _grabbedEntity = entity;
         _grabbedEntity.Grabbed();
@@ -142,6 +155,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         if (_abilityManager.IsAbilitySelected) return;
         if (_grabbedEntity == null) return;
 
+        _audioManager.PlaySFX("Grab", _grabbedEntity.transform.position);
         _grabAbility.StartCooldown();
         DisableGrabbing();
 
