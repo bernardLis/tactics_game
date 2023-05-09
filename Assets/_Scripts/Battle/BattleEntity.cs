@@ -33,7 +33,7 @@ public class BattleEntity : MonoBehaviour
 
     public int KilledEnemiesCount { get; private set; }
 
-    bool _isSpawned;
+    bool _stopRunEntityInWhileLoop;
     bool _gettingHit;
     bool _isGrabbed;
     public bool IsDead { get; private set; }
@@ -56,13 +56,9 @@ public class BattleEntity : MonoBehaviour
     {
         if (_currentAttackCooldown >= 0)
             _currentAttackCooldown -= Time.deltaTime;
-
-        /* ANIMATOR UPDATE */
-        if (!_agent.isActiveAndEnabled || _agent.isStopped)
-            _animator.SetBool("Move", false);
     }
 
-    public void Initialize(bool isPlayer, ArmyEntity stats, ref List<BattleEntity> opponents)
+    public void Initialize(bool isPlayer, ArmyEntity armyEntity, ref List<BattleEntity> opponents)
     {
         Collider = GetComponent<Collider>();
 
@@ -77,29 +73,26 @@ public class BattleEntity : MonoBehaviour
         {
             _material.SetTexture("_EmissionMap", null);
             _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
-
             _material.SetFloat("_Metallic", 0.5f);
         }
 
-        ArmyEntity = stats;
-        CurrentHealth = stats.Health;
+        ArmyEntity = armyEntity;
+        CurrentHealth = armyEntity.Health;
 
         _agent = GetComponent<NavMeshAgent>();
-        _agent.stoppingDistance = stats.AttackRange;
-        _agent.speed = stats.Speed;
-        _agent.enabled = true;
+        _agent.stoppingDistance = armyEntity.AttackRange;
+        _agent.speed = armyEntity.Speed;
 
         _opponentList = opponents;
 
-        StartRunEntityCoroutine();
+        StartCoroutine(Spawn());
     }
 
-    public void StopRunEntityCoroutine()
+    IEnumerator Spawn()
     {
-        Debug.Log($"stop");
-        _agent.enabled = false;
-        StopCoroutine(_runEntityCoroutine);
-        _runEntityCoroutine = null;
+        // spawn animation should be playing play
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+        StartRunEntityCoroutine();
     }
 
     public void StartRunEntityCoroutine()
@@ -109,108 +102,76 @@ public class BattleEntity : MonoBehaviour
         StartCoroutine(_runEntityCoroutine);
     }
 
+    public void StopRunEntityCoroutine()
+    {
+        Debug.Log($"stop");
+        _agent.enabled = false;
+        _animator.SetBool("Move", false);
+        _stopRunEntityInWhileLoop = true;
+
+        if (_runEntityCoroutine != null)
+            StopCoroutine(_runEntityCoroutine);
+        _runEntityCoroutine = null;
+    }
+
     IEnumerator RunEntity()
     {
+        _stopRunEntityInWhileLoop = false;
         Debug.Log($"run entity started");
-        if (!_isSpawned)
+
+        if (_opponentList.Count == 0)
         {
-            _isSpawned = true;
-            yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+            yield return Celebrate();
+            yield break;
         }
 
-        // HERE: something smarter
-        while (!IsDead)
+        Debug.Log($"before choosing opp {_opponent}");
+        if (_opponent == null || _opponent.IsDead)
+            ChooseNewTarget();
+        Debug.Log($"after choosing opp {_opponent}");
+
+        _agent.enabled = true;
+        while (!_agent.SetDestination(_opponent.transform.position)) yield return null;
+        // _agent.destination = _opponent.transform.position;
+        // TODO: get rid of this somehow...
+        // yield return new WaitForSeconds(Random.Range(0.2f, 0.6f)); // otherwise agent does not move
+        _animator.SetBool("Move", true);
+        while (_agent.pathPending) yield return null;
+        Debug.Log($"_agent.remainingDistance {_agent.remainingDistance}");
+        Debug.Log($"_agent.stoppingDistance {_agent.stoppingDistance}");
+        if (IsDead) yield break;
+
+        // path to target
+        while (_agent.remainingDistance > _agent.stoppingDistance)
         {
-            if (_opponentList.Count == 0)
-            {
-                yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-                Celebrate();
-                yield break;
-            }
+            if (_stopRunEntityInWhileLoop) yield break;
+            if (IsDead) yield break;
 
-            if (_opponent == null || _opponent.IsDead)
-                ChooseNewTarget();
-
-            _agent.enabled = true;
-            _agent.destination = _opponent.transform.position;
-            // TODO: get rid of this somehow...
-            // yield return new WaitForSeconds(Random.Range(0.2f, 0.6f)); // otherwise agent does not move
-            _animator.SetBool("Move", true);
-
-            // path to target
-            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
-            {
-                if (_opponent == null) yield break;
-                if (IsDead) yield break;
-                _agent.destination = _opponent.transform.position;
-                yield return null;
-            }
-
-            // reached destination
-            _agent.enabled = false;
-
-            // if (_attackCoroutine != null) yield break;
-            Debug.Log($"before attack coroutine");
-            if (ArmyEntity.Projectile == null)
-                _attackCoroutine = Attack();
-            else
-                _attackCoroutine = Shoot();
-
-            yield return StartCoroutine(_attackCoroutine);
+            _agent.SetDestination(_opponent.transform.position);
+            yield return null;
         }
+
+        // reached destination
+        _animator.SetBool("Move", false);
+        _agent.enabled = false;
+
+        // if (_attackCoroutine != null) yield break;
+        Debug.Log($"before attack coroutine");
+        if (ArmyEntity.Projectile == null)
+            _attackCoroutine = Attack();
+        else
+            _attackCoroutine = Shoot();
+
+        yield return _attackCoroutine;
+        Debug.Log($"end of run entity");
     }
 
-    void ChooseNewTarget()
-    {
-        // choose a random opponent with a bias towards closer opponents
-        Dictionary<BattleEntity, float> distances = new();
-        foreach (BattleEntity be in _opponentList)
-        {
-            if (be.IsDead) continue;
-            float distance = Vector3.Distance(transform.position, be.transform.position);
-            distances.Add(be, distance);
-        }
-
-        if (distances.Count == 0) return;
-
-        var closest = distances.OrderByDescending(pair => pair.Value).Reverse().Take(10);
-        float v = Random.value;
-
-        //https://stats.stackexchange.com/questions/277298/create-a-higher-probability-to-smaller-values
-        Dictionary<BattleEntity, float> closestBiased = new();
-        // this number decides bias towards closer opponents
-        float e = 0.91f; // range 0.9 - 0.99 I think
-        float sum = 0;
-        foreach (KeyValuePair<BattleEntity, float> entry in closest)
-        {
-            float value = Mathf.Pow(e, entry.Value);
-            closestBiased.Add(entry.Key, value);
-            sum += value;
-        }
-
-        Dictionary<BattleEntity, float> closestNormalized = new();
-        foreach (KeyValuePair<BattleEntity, float> entry in closestBiased)
-            closestNormalized.Add(entry.Key, entry.Value / sum);
-
-        foreach (KeyValuePair<BattleEntity, float> entry in closestNormalized)
-        {
-            if (v < entry.Value)
-            {
-                _opponent = entry.Key;
-                return;
-            }
-            v -= entry.Value;
-        }
-
-        // should never get here...
-        _opponent = _opponentList[Random.Range(0, _opponentList.Count)];
-    }
 
     IEnumerator Attack()
     {
         Debug.Log($"attack before checks");
-        if (!CanAttack()) yield break;
-        if (!IsOpponentInRange()) yield break;
+        while (!CanAttack()) yield return null;
+        if (!IsOpponentInRange()) StartRunEntityCoroutine();
         Debug.Log($"attack after checks");
 
         _animator.SetTrigger("Attack");
@@ -225,13 +186,14 @@ public class BattleEntity : MonoBehaviour
 
         Destroy(hitInstance);
         _attackCoroutine = null;
+        StartRunEntityCoroutine();
     }
 
 
     IEnumerator Shoot()
     {
         while (!CanAttack()) yield return null;
-        if (!IsOpponentInRange()) yield break;
+        if (!IsOpponentInRange()) StartRunEntityCoroutine();
 
         Debug.Log($"shoot");
         GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
@@ -281,7 +243,7 @@ public class BattleEntity : MonoBehaviour
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = value.ToString();
         floatingText.ForceColor = true;
-        floatingText.AnimateColorGradient = GetFloatingTextGradient(ability.Element.Color);
+        floatingText.AnimateColorGradient = Helpers.GetGradient(ability.Element.Color);
         _feelPlayer.PlayFeedbacks(transform.position);
 
         OnHealthChanged?.Invoke(CurrentHealth);
@@ -311,7 +273,7 @@ public class BattleEntity : MonoBehaviour
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = dmg.ToString();
         floatingText.ForceColor = true;
-        floatingText.AnimateColorGradient = GetFloatingTextGradient(dmgColor);
+        floatingText.AnimateColorGradient = Helpers.GetGradient(dmgColor);
         _feelPlayer.PlayFeedbacks(transform.position);
 
         _gettingHit = true;
@@ -332,6 +294,72 @@ public class BattleEntity : MonoBehaviour
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
+
+    void ChooseNewTarget()
+    {
+        // choose a random opponent with a bias towards closer opponents
+        Dictionary<BattleEntity, float> distances = new();
+        foreach (BattleEntity be in _opponentList)
+        {
+            if (be.IsDead) continue;
+            float distance = Vector3.Distance(transform.position, be.transform.position);
+            distances.Add(be, distance);
+        }
+
+        if (distances.Count == 0) return;
+
+        var closest = distances.OrderByDescending(pair => pair.Value).Reverse().Take(10);
+        float v = Random.value;
+
+        //https://stats.stackexchange.com/questions/277298/create-a-higher-probability-to-smaller-values
+        Dictionary<BattleEntity, float> closestBiased = new();
+        // this number decides bias towards closer opponents
+        float e = 0.91f; // range 0.9 - 0.99 I think
+        float sum = 0;
+        foreach (KeyValuePair<BattleEntity, float> entry in closest)
+        {
+            float value = Mathf.Pow(e, entry.Value);
+            closestBiased.Add(entry.Key, value);
+            sum += value;
+        }
+
+        Dictionary<BattleEntity, float> closestNormalized = new();
+        foreach (KeyValuePair<BattleEntity, float> entry in closestBiased)
+            closestNormalized.Add(entry.Key, entry.Value / sum);
+
+        foreach (KeyValuePair<BattleEntity, float> entry in closestNormalized)
+        {
+            if (v < entry.Value)
+            {
+                _opponent = entry.Key;
+                return;
+            }
+            v -= entry.Value;
+        }
+
+        // should never get here...
+        _opponent = _opponentList[Random.Range(0, _opponentList.Count)];
+    }
+
+
+    IEnumerator Celebrate()
+    {
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
+        yield return transform.DODynamicLookAt(Camera.main.transform.position, 0.2f).WaitForCompletion();
+        _animator.SetBool("Celebrate", true);
+    }
+
+    public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
+    {
+        _animator.SetBool("Celebrate", false);
+
+        IsDead = true;
+        _animator.SetTrigger("Die");
+        OnDeath?.Invoke(this, attacker, ability);
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        ToggleHighlight(false);
+    }
+    /* grab */
     public bool CanBeGrabbed()
     {
         if (IsDead) return false;
@@ -353,29 +381,14 @@ public class BattleEntity : MonoBehaviour
         StartRunEntityCoroutine();
     }
 
-    void Celebrate()
-    {
-        transform.DODynamicLookAt(Camera.main.transform.position, 0.2f);
-        _animator.SetBool("Celebrate", true);
-    }
-
-    public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
-    {
-        _animator.SetBool("Celebrate", false);
-
-        IsDead = true;
-        _animator.SetTrigger("Die");
-        OnDeath?.Invoke(this, attacker, ability);
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        ToggleHighlight(false);
-    }
-
+    /* weird helpers */
     public void IncreaseKillCount()
     {
         KilledEnemiesCount++;
         OnEnemyKilled?.Invoke(KilledEnemiesCount);
     }
 
+    /* shit highlight */
     public void ToggleHighlight(bool isOn)
     {
         if (!isOn)
@@ -412,30 +425,4 @@ public class BattleEntity : MonoBehaviour
         else
             _material.SetColor("_EmissionColor", Color.red);
     }
-
-    public Gradient GetFloatingTextGradient(Color color)
-    {
-        Gradient gradient = new Gradient();
-        GradientColorKey[] colorKey;
-        GradientAlphaKey[] alphaKey;
-
-        // Populate the color keys at the relative time 0 and 1 (0 and 100%)
-        colorKey = new GradientColorKey[2];
-        colorKey[0].color = color;
-        colorKey[0].time = 0.5f;
-        colorKey[1].color = Color.white;
-        colorKey[1].time = 1f;
-
-        // Populate the alpha  keys at relative time 0 and 1  (0 and 100%)
-        alphaKey = new GradientAlphaKey[2];
-        alphaKey[0].alpha = 1.0f;
-        alphaKey[0].time = 0.0f;
-        alphaKey[1].alpha = 0.5f;
-        alphaKey[1].time = 1f;
-
-        gradient.SetKeys(colorKey, alphaKey);
-
-        return gradient;
-    }
-
 }
