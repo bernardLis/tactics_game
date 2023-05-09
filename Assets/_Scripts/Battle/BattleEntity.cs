@@ -49,6 +49,7 @@ public class BattleEntity : MonoBehaviour
     void Start()
     {
         _feelPlayer = GetComponent<MMF_Player>();
+        Debug.Log($"lol");
     }
 
     void Update()
