@@ -7,6 +7,7 @@ using DG.Tweening;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using MoreMountains.Feedbacks;
+using System.Linq;
 
 public class BattleEntity : MonoBehaviour
 {
@@ -121,6 +122,7 @@ public class BattleEntity : MonoBehaviour
                 Celebrate();
                 yield break;
             }
+
             if (_opponent == null || _opponent.IsDead)
                 ChooseNewTarget();
 
@@ -149,15 +151,55 @@ public class BattleEntity : MonoBehaviour
 
     void ChooseNewTarget()
     {
+        // choose a random opponent with a bias towards closer opponents
+        Dictionary<BattleEntity, float> distances = new();
+        foreach (BattleEntity be in _opponentList)
+        {
+            if (be.IsDead) continue;
+            float distance = Vector3.Distance(transform.position, be.transform.position);
+            distances.Add(be, distance);
+        }
+
+        if (distances.Count == 0) return;
+
+        var closest = distances.OrderByDescending(pair => pair.Value).Reverse().Take(10);
+        float v = Random.value;
+
+        //https://stats.stackexchange.com/questions/277298/create-a-higher-probability-to-smaller-values
+        Dictionary<BattleEntity, float> closestBiased = new();
+        // this number decides bias towards closer opponents
+        float e = 0.95f; // range 0.9 - 0.99 I think
+        float sum = 0;
+        foreach (KeyValuePair<BattleEntity, float> entry in closest)
+        {
+            float value = Mathf.Pow(e, entry.Value);
+            closestBiased.Add(entry.Key, value);
+            sum += value;
+        }
+
+        Dictionary<BattleEntity, float> closestNormalized = new();
+        foreach (KeyValuePair<BattleEntity, float> entry in closestBiased)
+            closestNormalized.Add(entry.Key, entry.Value / sum);
+
+        foreach (KeyValuePair<BattleEntity, float> entry in closestNormalized)
+        {
+            if (v < entry.Value)
+            {
+                _opponent = entry.Key;
+                return;
+            }
+            v -= entry.Value;
+        }
+
+        // should never get here...
         _opponent = _opponentList[Random.Range(0, _opponentList.Count)];
     }
 
     IEnumerator Attack()
     {
         while (!CanAttack()) yield return null;
-        if (!HasOpponentInRange()) yield break;
+        if (!IsOpponentInRange()) yield break;
 
-        //transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         _animator.SetTrigger("Attack");
 
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
@@ -175,7 +217,7 @@ public class BattleEntity : MonoBehaviour
     IEnumerator Shoot()
     {
         while (!CanAttack()) yield return null;
-        if (!HasOpponentInRange()) yield break;
+        if (!IsOpponentInRange()) yield break;
 
         GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
@@ -183,6 +225,7 @@ public class BattleEntity : MonoBehaviour
 
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
         _animator.SetTrigger("Attack");
+        // HERE: projectile spawning and animation delay per entity
         yield return new WaitForSeconds(0.2f);
         // yield return new WaitWhile(
         //     () => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= Stats.ProjectileSpawnAnimationDelay);
@@ -190,6 +233,7 @@ public class BattleEntity : MonoBehaviour
         _currentAttackCooldown = ArmyEntity.AttackCooldown;
         // spawn projectile
 
+        // HERE: projectile speed
         projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, ArmyEntity.Power);
     }
 
@@ -199,7 +243,7 @@ public class BattleEntity : MonoBehaviour
         return _currentAttackCooldown < 0;
     }
 
-    bool HasOpponentInRange()
+    bool IsOpponentInRange()
     {
         if (_opponent == null) return false;
         if (_opponent.IsDead) return false;
@@ -273,6 +317,7 @@ public class BattleEntity : MonoBehaviour
 
     public void Grabbed()
     {
+        _opponent = null;
         _isGrabbed = true;
         StopRunEntityCoroutine();
         _animator.enabled = false;
