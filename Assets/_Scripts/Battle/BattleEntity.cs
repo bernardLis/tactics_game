@@ -44,13 +44,11 @@ public class BattleEntity : MonoBehaviour
 
     public event Action<float> OnHealthChanged;
     public event Action<int> OnEnemyKilled;
-    public event Action<BattleEntity> OnDeath;
+    public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
 
     void Start()
     {
         _feelPlayer = GetComponent<MMF_Player>();
-        Debug.Log($"lol");
-        Debug.Log($"lol2");
     }
 
     void Update()
@@ -170,7 +168,7 @@ public class BattleEntity : MonoBehaviour
         //https://stats.stackexchange.com/questions/277298/create-a-higher-probability-to-smaller-values
         Dictionary<BattleEntity, float> closestBiased = new();
         // this number decides bias towards closer opponents
-        float e = 0.95f; // range 0.9 - 0.99 I think
+        float e = 0.91f; // range 0.9 - 0.99 I think
         float sum = 0;
         foreach (KeyValuePair<BattleEntity, float> entry in closest)
         {
@@ -267,7 +265,7 @@ public class BattleEntity : MonoBehaviour
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = value.ToString();
         floatingText.ForceColor = true;
-        floatingText.AnimateColorGradient = GetDamageTextGradient(ability.Element.Color);
+        floatingText.AnimateColorGradient = GetFloatingTextGradient(ability.Element.Color);
         _feelPlayer.PlayFeedbacks(transform.position);
 
         OnHealthChanged?.Invoke(CurrentHealth);
@@ -296,7 +294,7 @@ public class BattleEntity : MonoBehaviour
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = dmg.ToString();
         floatingText.ForceColor = true;
-        floatingText.AnimateColorGradient = GetDamageTextGradient(dmgColor);
+        floatingText.AnimateColorGradient = GetFloatingTextGradient(dmgColor);
         _feelPlayer.PlayFeedbacks(transform.position);
 
         _gettingHit = true;
@@ -317,6 +315,12 @@ public class BattleEntity : MonoBehaviour
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
+    public bool CanBeGrabbed()
+    {
+        if (IsDead) return false;
+        return true;
+    }
+
     public void Grabbed()
     {
         _opponent = null;
@@ -332,7 +336,67 @@ public class BattleEntity : MonoBehaviour
         StartRunEntityCoroutine();
     }
 
-    public Gradient GetDamageTextGradient(Color color)
+    void Celebrate()
+    {
+        transform.DODynamicLookAt(Camera.main.transform.position, 0.2f);
+        _animator.SetBool("Celebrate", true);
+    }
+
+    public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
+    {
+        _animator.SetBool("Celebrate", false);
+
+        IsDead = true;
+        _animator.SetTrigger("Die");
+        OnDeath?.Invoke(this, attacker, ability);
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        ToggleHighlight(false);
+    }
+
+    public void IncreaseKillCount()
+    {
+        KilledEnemiesCount++;
+        OnEnemyKilled?.Invoke(KilledEnemiesCount);
+    }
+
+    public void ToggleHighlight(bool isOn)
+    {
+        if (!isOn)
+        {
+            TurnHighlightOff();
+            return;
+        }
+
+        if (IsDead) return;
+        TurnHighlightOn();
+    }
+
+    void TurnHighlightOff()
+    {
+        if (_emissionTexture != null && _isPlayer)
+        {
+            _material.SetTexture("_EmissionMap", _emissionTexture);
+            _material.SetColor("_EmissionColor", Color.black);
+            return;
+        }
+
+        if (_isPlayer)
+            _material.SetColor("_EmissionColor", Color.black);
+        else
+            _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
+    }
+
+    void TurnHighlightOn()
+    {
+        _material.SetTexture("_EmissionMap", null);
+
+        if (_isPlayer)
+            _material.SetColor("_EmissionColor", Color.blue);
+        else
+            _material.SetColor("_EmissionColor", Color.red);
+    }
+
+    public Gradient GetFloatingTextGradient(Color color)
     {
         Gradient gradient = new Gradient();
         GradientColorKey[] colorKey;
@@ -357,65 +421,4 @@ public class BattleEntity : MonoBehaviour
         return gradient;
     }
 
-    void Celebrate()
-    {
-        transform.DODynamicLookAt(Camera.main.transform.position, 0.2f);
-        _animator.SetBool("Celebrate", true);
-    }
-
-    public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
-    {
-        _animator.SetBool("Celebrate", false);
-
-        IsDead = true;
-        _animator.SetTrigger("Die");
-        OnDeath?.Invoke(this);
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        ToggleHighlight(false);
-
-        BattleLogManager logManager = BattleManager.Instance.GetComponent<BattleLogManager>();
-        BattleLogEntityDeath log = ScriptableObject.CreateInstance<BattleLogEntityDeath>();
-        log.Initialize(this, attacker, ability);
-        logManager.AddLog(log);
-    }
-
-    public void IncreaseKillCount()
-    {
-        KilledEnemiesCount++;
-        OnEnemyKilled?.Invoke(KilledEnemiesCount);
-    }
-
-    public void ToggleHighlight(bool isOn)
-    {
-        if (!isOn)
-        {
-            TurnHighlightOff();
-            return;
-        }
-
-        if (IsDead) return;
-
-        _material.SetTexture("_EmissionMap", null);
-
-        if (_isPlayer)
-            _material.SetColor("_EmissionColor", Color.blue);
-        else
-            _material.SetColor("_EmissionColor", Color.red);
-
-    }
-
-    void TurnHighlightOff()
-    {
-        if (_emissionTexture != null && _isPlayer)
-        {
-            _material.SetTexture("_EmissionMap", _emissionTexture);
-            _material.SetColor("_EmissionColor", Color.black);
-            return;
-        }
-
-        if (_isPlayer)
-            _material.SetColor("_EmissionColor", Color.black);
-        else
-            _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
-    }
 }

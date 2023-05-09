@@ -21,8 +21,9 @@ public class Projectile : MonoBehaviour
 
     IEnumerator ShootCoroutine(BattleEntity shooter, BattleEntity target, float speed, float power)
     {
+        float targetScale = transform.localScale.x;
         transform.localScale = Vector3.zero;
-        transform.DOScale(1, 2f);
+        transform.DOScale(targetScale, 2f);
 
         //https://gamedev.stackexchange.com/questions/100535/coroutine-to-move-to-position-passing-the-movement-speed
         Vector3 startingPos = transform.position;

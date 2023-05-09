@@ -16,6 +16,10 @@ public class BattleGrabbableEntity : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
-        _grabManager.TryGrabbing(GetComponent<BattleEntity>());
+
+        BattleEntity be = GetComponent<BattleEntity>();
+        if (!be.CanBeGrabbed()) return;
+        _grabManager.TryGrabbing(be);
+
     }
 }

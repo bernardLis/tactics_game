@@ -32,7 +32,7 @@ public class EntitySpawner : MonoBehaviour
 
     }
 
-    void OnDeath(BattleEntity be)
+    void OnDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
         StartCoroutine(CleanBody(be));
         if (!_respawnToKeepNumberOfEntities) return;

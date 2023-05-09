@@ -64,7 +64,6 @@ public class BattleManager : Singleton<BattleManager>
 
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
-
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
         _initRot = _skyMat.GetFloat(_rotationProperty);
@@ -96,7 +95,6 @@ public class BattleManager : Singleton<BattleManager>
             GetComponent<BattleAbilityManager>().Initialize(playerHero);
         }
 
-
         if (opponentHero != null) _opponentHero = opponentHero;
 
         if (playerArmy == null) return;
@@ -113,6 +111,8 @@ public class BattleManager : Singleton<BattleManager>
 
         if (_gameManager == null) _gameManager = GameManager.Instance;
         _gameManager.ToggleTimer(true);
+
+        GetComponent<BattleLogManager>().Initialize(PlayerEntities, OpponentEntities);
     }
 
     public void InstantiatePlayer(ArmyEntity entity, int count)
@@ -140,7 +140,6 @@ public class BattleManager : Singleton<BattleManager>
 
         for (int i = 0; i < count; i++)
         {
-            // HERE: testing -5,5 
             Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
             Quaternion rotation = Quaternion.Euler(0, 180, 0);
             GameObject instance = Instantiate(entity.Prefab, pos, rotation);
@@ -152,7 +151,7 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
 
-    void OnPlayerDeath(BattleEntity be)
+    void OnPlayerDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
         KilledPlayerEntities.Add(be);
         PlayerEntities.Remove(be);
@@ -162,7 +161,7 @@ public class BattleManager : Singleton<BattleManager>
             StartCoroutine(BattleLost());
     }
 
-    void OnEnemyDeath(BattleEntity be)
+    void OnEnemyDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
@@ -175,8 +174,9 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator BattleLost()
     {
         yield return FinalizeBattle();
-        _gameManager.ClearSaveData();
-        _gameManager.LoadScene(Scenes.MainMenu);
+        // HERE: testing   
+        //        _gameManager.ClearSaveData();
+        //_gameManager.LoadScene(Scenes.MainMenu);
     }
 
     IEnumerator BattleWon()

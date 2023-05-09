@@ -75,6 +75,12 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void OnBattleFinalized()
     {
+        if (_testSpecificTeams)
+        {
+            _battleManager.Initialize(null, null, TeamAArmies, TeamBArmies);
+            return;
+        }
+
         if (_oneArmyVsAll)
         {
             RunOneArmyVsAll();
