@@ -41,6 +41,7 @@ public class BattleEntity : MonoBehaviour
     MMF_Player _feelPlayer;
 
     IEnumerator _runEntityCoroutine;
+    IEnumerator _attackCoroutine;
 
     public event Action<float> OnHealthChanged;
     public event Action<int> OnEnemyKilled;
@@ -95,18 +96,22 @@ public class BattleEntity : MonoBehaviour
 
     public void StopRunEntityCoroutine()
     {
+        Debug.Log($"stop");
         _agent.enabled = false;
         StopCoroutine(_runEntityCoroutine);
+        _runEntityCoroutine = null;
     }
 
     public void StartRunEntityCoroutine()
     {
+        Debug.Log($"start");
         _runEntityCoroutine = RunEntity();
         StartCoroutine(_runEntityCoroutine);
     }
 
     IEnumerator RunEntity()
     {
+        Debug.Log($"run entity started");
         if (!_isSpawned)
         {
             _isSpawned = true;
@@ -128,24 +133,30 @@ public class BattleEntity : MonoBehaviour
 
             _agent.enabled = true;
             _agent.destination = _opponent.transform.position;
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.6f)); // otherwise agent does not move
+            // TODO: get rid of this somehow...
+            // yield return new WaitForSeconds(Random.Range(0.2f, 0.6f)); // otherwise agent does not move
             _animator.SetBool("Move", true);
 
             // path to target
             while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
             {
-                if (_opponent == null) break;
-                if (IsDead) break;
+                if (_opponent == null) yield break;
+                if (IsDead) yield break;
                 _agent.destination = _opponent.transform.position;
                 yield return null;
             }
 
             // reached destination
             _agent.enabled = false;
+
+            // if (_attackCoroutine != null) yield break;
+            Debug.Log($"before attack coroutine");
             if (ArmyEntity.Projectile == null)
-                yield return StartCoroutine(Attack());
+                _attackCoroutine = Attack();
             else
-                yield return StartCoroutine(Shoot());
+                _attackCoroutine = Shoot();
+
+            yield return StartCoroutine(_attackCoroutine);
         }
     }
 
@@ -197,8 +208,10 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator Attack()
     {
-        while (!CanAttack()) yield return null;
+        Debug.Log($"attack before checks");
+        if (!CanAttack()) yield break;
         if (!IsOpponentInRange()) yield break;
+        Debug.Log($"attack after checks");
 
         _animator.SetTrigger("Attack");
 
@@ -211,6 +224,7 @@ public class BattleEntity : MonoBehaviour
         yield return _opponent.GetHit(this);
 
         Destroy(hitInstance);
+        _attackCoroutine = null;
     }
 
 
@@ -219,6 +233,7 @@ public class BattleEntity : MonoBehaviour
         while (!CanAttack()) yield return null;
         if (!IsOpponentInRange()) yield break;
 
+        Debug.Log($"shoot");
         GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.LookAt(_opponent.transform);
         projectileInstance.transform.parent = _GFX.transform;
@@ -235,6 +250,7 @@ public class BattleEntity : MonoBehaviour
 
         // HERE: projectile speed
         projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, ArmyEntity.Power);
+        _attackCoroutine = null;
     }
 
     bool CanAttack()
@@ -275,6 +291,7 @@ public class BattleEntity : MonoBehaviour
 
     public IEnumerator GetHit(BattleEntity attacker, Ability ability = null)
     {
+        Debug.Log($"get hit");
         if (IsDead) yield break;
         StopRunEntityCoroutine();
 
