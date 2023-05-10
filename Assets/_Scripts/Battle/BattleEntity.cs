@@ -11,25 +11,23 @@ using System.Linq;
 
 public class BattleEntity : MonoBehaviour
 {
-    [SerializeField] GameObject _projectileSpawnPoint;
-
     public Collider Collider { get; private set; }
 
     bool _isPlayer;
-    GameObject _GFX;
+    protected GameObject _GFX;
     Material _material;
     Texture2D _emissionTexture;
-    Animator _animator;
+    protected Animator _animator;
 
     List<BattleEntity> _opponentList = new();
 
     public ArmyEntity ArmyEntity { get; private set; }
     public float CurrentHealth { get; private set; }
 
-    BattleEntity _opponent;
+    protected BattleEntity _opponent;
     NavMeshAgent _agent;
 
-    float _currentAttackCooldown;
+    protected float _currentAttackCooldown;
 
     public int KilledEnemiesCount { get; private set; }
 
@@ -146,70 +144,31 @@ public class BattleEntity : MonoBehaviour
         _animator.SetBool("Move", false);
         _agent.enabled = false;
 
-        // if (_attackCoroutine != null) yield break;
         Debug.Log($"before attack coroutine");
-        if (ArmyEntity.Projectile == null)
-            _attackCoroutine = Attack();
-        else
-            _attackCoroutine = Shoot();
-
+        _attackCoroutine = Attack();
         yield return _attackCoroutine;
         Debug.Log($"end of run entity");
     }
 
-    IEnumerator Attack()
+    protected virtual IEnumerator Attack()
     {
-        Debug.Log($"attack before checks");
-        while (!CanAttack()) yield return null;
-        if (!IsOpponentInRange()) StartRunEntityCoroutine();
-        Debug.Log($"attack after checks");
+        // meant to be overwritten
 
-        _animator.SetTrigger("Attack");
-
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-
-        _currentAttackCooldown = ArmyEntity.AttackCooldown;
-        Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-        GameObject hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, q);
-
-        yield return _opponent.GetHit(this);
-
-        Destroy(hitInstance);
+        // it goes at the end... is that a good idea?
         _attackCoroutine = null;
-        StartRunEntityCoroutine();
-    }
-
-
-    IEnumerator Shoot()
-    {
-        while (!CanAttack()) yield return null;
-        if (!IsOpponentInRange()) StartRunEntityCoroutine();
-
-        Debug.Log($"shoot");
-
-        yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
-        _animator.SetTrigger("Attack");
-
-        // HERE: projectile spawning and animation delay per entity
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
-        GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
-        projectileInstance.transform.parent = _GFX.transform;
-
-        // HERE: projectile speed
-        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, ArmyEntity.Power);
-        _attackCoroutine = null;
-
         _currentAttackCooldown = ArmyEntity.AttackCooldown;
         StartRunEntityCoroutine();
+
+        yield break;
     }
 
-    bool CanAttack()
+    protected bool CanAttack()
     {
         if (_gettingHit) return false;
         return _currentAttackCooldown < 0;
     }
 
-    bool IsOpponentInRange()
+    protected bool IsOpponentInRange()
     {
         if (_opponent == null) return false;
         if (_opponent.IsDead) return false;
