@@ -11,7 +11,7 @@ public class FireballExecutor : AbilityExecutor
         foreach (BattleEntity entity in _entitiesInArea)
         {
             _damageDealt += Mathf.RoundToInt(entity.ArmyEntity.CalculateDamage(_selectedAbility));
-            StartCoroutine(entity.GetHit(null, _selectedAbility));
+            StartCoroutine(entity.GetHit(_selectedAbility));
         }
         CreateBattleLog();
 

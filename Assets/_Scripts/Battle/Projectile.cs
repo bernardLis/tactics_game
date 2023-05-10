@@ -38,6 +38,7 @@ public class Projectile : MonoBehaviour
             Vector3 pos = Vector3.Lerp(startingPos, finalPos, t);
             if (pos.y < 1) pos.y = 1; // TODO: shitty fix for projectiles going under the ground
             transform.position = pos;
+            transform.LookAt(target.transform);
 
             yield return new WaitForFixedUpdate();
         }

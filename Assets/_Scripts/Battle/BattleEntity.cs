@@ -125,27 +125,18 @@ public class BattleEntity : MonoBehaviour
             yield break;
         }
 
-        Debug.Log($"before choosing opp {_opponent}");
         if (_opponent == null || _opponent.IsDead)
             ChooseNewTarget();
-        Debug.Log($"after choosing opp {_opponent}");
 
         _agent.enabled = true;
         while (!_agent.SetDestination(_opponent.transform.position)) yield return null;
-        // _agent.destination = _opponent.transform.position;
-        // TODO: get rid of this somehow...
-        // yield return new WaitForSeconds(Random.Range(0.2f, 0.6f)); // otherwise agent does not move
         _animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
-        Debug.Log($"_agent.remainingDistance {_agent.remainingDistance}");
-        Debug.Log($"_agent.stoppingDistance {_agent.stoppingDistance}");
-        if (IsDead) yield break;
 
         // path to target
         while (_agent.remainingDistance > _agent.stoppingDistance)
         {
             if (_stopRunEntityInWhileLoop) yield break;
-            if (IsDead) yield break;
 
             _agent.SetDestination(_opponent.transform.position);
             yield return null;
@@ -165,7 +156,6 @@ public class BattleEntity : MonoBehaviour
         yield return _attackCoroutine;
         Debug.Log($"end of run entity");
     }
-
 
     IEnumerator Attack()
     {
@@ -196,23 +186,21 @@ public class BattleEntity : MonoBehaviour
         if (!IsOpponentInRange()) StartRunEntityCoroutine();
 
         Debug.Log($"shoot");
-        GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
-        projectileInstance.transform.LookAt(_opponent.transform);
-        projectileInstance.transform.parent = _GFX.transform;
 
-        transform.DODynamicLookAt(_opponent.transform.position, 0.2f);
+        yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
         _animator.SetTrigger("Attack");
-        // HERE: projectile spawning and animation delay per entity
-        yield return new WaitForSeconds(0.2f);
-        // yield return new WaitWhile(
-        //     () => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= Stats.ProjectileSpawnAnimationDelay);
 
-        _currentAttackCooldown = ArmyEntity.AttackCooldown;
-        // spawn projectile
+        // HERE: projectile spawning and animation delay per entity
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
+        GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
+        projectileInstance.transform.parent = _GFX.transform;
 
         // HERE: projectile speed
         projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, ArmyEntity.Power);
         _attackCoroutine = null;
+
+        _currentAttackCooldown = ArmyEntity.AttackCooldown;
+        StartRunEntityCoroutine();
     }
 
     bool CanAttack()
@@ -240,60 +228,59 @@ public class BattleEntity : MonoBehaviour
         if (CurrentHealth > ArmyEntity.Health)
             CurrentHealth = ArmyEntity.Health;
 
-        MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
-        floatingText.Value = value.ToString();
-        floatingText.ForceColor = true;
-        floatingText.AnimateColorGradient = Helpers.GetGradient(ability.Element.Color);
-        _feelPlayer.PlayFeedbacks(transform.position);
-
+        DisplayDamageText(value.ToString(), ability.Element.Color);
         OnHealthChanged?.Invoke(CurrentHealth);
 
         return Mathf.RoundToInt(value);
     }
 
-    public IEnumerator GetHit(BattleEntity attacker, Ability ability = null)
+    public IEnumerator GetHit(BattleEntity attacker)
     {
-        Debug.Log($"get hit");
+        Debug.Log($"get hit attacker");
         if (IsDead) yield break;
+
+        yield return BaseGetHit(ArmyEntity.CalculateDamage(attacker), attacker.ArmyEntity.Element.Color);
+
+        if (CurrentHealth <= 0)
+        {
+            attacker.IncreaseKillCount();
+            yield return Die(attacker: attacker);
+            yield break;
+        }
+
+        if (!_isGrabbed) StartRunEntityCoroutine();
+    }
+
+    public IEnumerator GetHit(Ability ability)
+    {
+        Debug.Log($"get hit ability");
+        if (IsDead) yield break;
+
+        yield return BaseGetHit(ArmyEntity.CalculateDamage(ability), ability.Element.Color);
+
+        if (CurrentHealth <= 0)
+        {
+            yield return Die(ability: ability);
+            yield break;
+        }
+
+        if (!_isGrabbed) StartRunEntityCoroutine();
+    }
+
+    public IEnumerator BaseGetHit(float dmg, Color color)
+    {
         StopRunEntityCoroutine();
-
-        float dmg = 0;
-        Color dmgColor = Color.white;
-        if (ability != null)
-        {
-            dmg = ArmyEntity.CalculateDamage(ability);
-            dmgColor = ability.Element.Color;
-        }
-        if (attacker != null)
-        {
-            dmg = ArmyEntity.CalculateDamage(attacker);
-            dmgColor = attacker.ArmyEntity.Element.Color;
-        }
-
-        MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
-        floatingText.Value = dmg.ToString();
-        floatingText.ForceColor = true;
-        floatingText.AnimateColorGradient = Helpers.GetGradient(dmgColor);
-        _feelPlayer.PlayFeedbacks(transform.position);
 
         _gettingHit = true;
         CurrentHealth -= dmg;
         OnHealthChanged?.Invoke(CurrentHealth);
 
-        if (CurrentHealth <= 0)
-        {
-            if (attacker != null) attacker.IncreaseKillCount();
-            yield return Die(attacker, ability);
-            yield break;
-        }
+        DisplayDamageText(dmg.ToString(), color);
 
         _animator.SetTrigger("Take Damage");
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
         _gettingHit = false;
-
-        if (!_isGrabbed) StartRunEntityCoroutine();
     }
-
 
     void ChooseNewTarget()
     {
@@ -351,6 +338,7 @@ public class BattleEntity : MonoBehaviour
 
     public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
+        StopRunEntityCoroutine();
         _animator.SetBool("Celebrate", false);
 
         IsDead = true;
@@ -359,6 +347,7 @@ public class BattleEntity : MonoBehaviour
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
         ToggleHighlight(false);
     }
+
     /* grab */
     public bool CanBeGrabbed()
     {
@@ -382,6 +371,15 @@ public class BattleEntity : MonoBehaviour
     }
 
     /* weird helpers */
+    void DisplayDamageText(string text, Color color)
+    {
+        MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
+        floatingText.Value = text;
+        floatingText.ForceColor = true;
+        floatingText.AnimateColorGradient = Helpers.GetGradient(color);
+        _feelPlayer.PlayFeedbacks(transform.position);
+    }
+
     public void IncreaseKillCount()
     {
         KilledEnemiesCount++;
