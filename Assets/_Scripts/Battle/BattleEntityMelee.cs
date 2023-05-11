@@ -1,13 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using DG.Tweening;
-using Random = UnityEngine.Random;
-using UnityEngine.UI;
-using MoreMountains.Feedbacks;
-using System.Linq;
 
 public class BattleEntityMelee : BattleEntity
 {

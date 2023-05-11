@@ -15,6 +15,8 @@ public class BattleManager : Singleton<BattleManager>
     public Battle LoadedBattle { get; private set; }
 
     public VisualElement Root { get; private set; }
+    Label _fpsLabel;
+    float _deltaTime;
 
     [SerializeField] Transform _entityHolder;
 
@@ -27,7 +29,7 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] TextMeshProUGUI _timerText;
     [SerializeField] TextMeshProUGUI _scoreText;
 
-    public float Time { get; private set; }
+    public float BattleTime { get; private set; }
 
     Hero _playerHero;
     Hero _opponentHero;
@@ -53,6 +55,7 @@ public class BattleManager : Singleton<BattleManager>
         base.Awake();
 
         Root = GetComponent<UIDocument>().rootVisualElement;
+        _fpsLabel = Root.Q<Label>("fpsLabel");
 
         VisualElement bottomPanel = Root.Q<VisualElement>("bottomPanel");
     }
@@ -75,11 +78,15 @@ public class BattleManager : Singleton<BattleManager>
 
     void Update()
     {
-        Time += UnityEngine.Time.deltaTime;
-        TimeSpan time = TimeSpan.FromSeconds(Time);
+        BattleTime += Time.deltaTime;
+        TimeSpan time = TimeSpan.FromSeconds(BattleTime);
         _timerText.text = $"{time.Minutes:D2}:{time.Seconds:D2}";
 
         _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
+
+        _deltaTime += (Time.deltaTime - _deltaTime) * 0.1f;
+        float fps = 1.0f / _deltaTime;
+        _fpsLabel.text = $"{Mathf.Ceil(fps)}";
     }
 
     public void Initialize(Hero playerHero, Hero opponentHero, List<ArmyGroup> playerArmy, List<ArmyGroup> opponentArmy)
