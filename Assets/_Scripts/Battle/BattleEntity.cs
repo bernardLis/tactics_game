@@ -11,6 +11,9 @@ using System.Linq;
 
 public class BattleEntity : MonoBehaviour
 {
+    // HERE: testing projectiles vs obstacles
+    [SerializeField] protected bool _isMovementBlocked;
+
     public Collider Collider { get; private set; }
 
     bool _isPlayer;
@@ -95,27 +98,21 @@ public class BattleEntity : MonoBehaviour
 
     public void StartRunEntityCoroutine()
     {
-        Debug.Log($"start");
         _runEntityCoroutine = RunEntity();
         StartCoroutine(_runEntityCoroutine);
     }
 
     public void StopRunEntityCoroutine()
     {
-        Debug.Log($"stop");
         _agent.enabled = false;
         _animator.SetBool("Move", false);
-        _stopRunEntityInWhileLoop = true;
-
-        if (_runEntityCoroutine != null)
-            StopCoroutine(_runEntityCoroutine);
-        _runEntityCoroutine = null;
+        StopAllCoroutines();
     }
 
     IEnumerator RunEntity()
     {
-        _stopRunEntityInWhileLoop = false;
-        Debug.Log($"run entity started");
+        // HERE: testing projectiles vs obstacles
+        if (_isMovementBlocked) yield break;
 
         if (_opponentList.Count == 0)
         {
@@ -134,8 +131,6 @@ public class BattleEntity : MonoBehaviour
         // path to target
         while (_agent.remainingDistance > _agent.stoppingDistance)
         {
-            if (_stopRunEntityInWhileLoop) yield break;
-
             _agent.SetDestination(_opponent.transform.position);
             yield return null;
         }
@@ -144,10 +139,8 @@ public class BattleEntity : MonoBehaviour
         _animator.SetBool("Move", false);
         _agent.enabled = false;
 
-        Debug.Log($"before attack coroutine");
         _attackCoroutine = Attack();
         yield return _attackCoroutine;
-        Debug.Log($"end of run entity");
     }
 
     protected virtual IEnumerator Attack()
@@ -195,7 +188,6 @@ public class BattleEntity : MonoBehaviour
 
     public IEnumerator GetHit(BattleEntity attacker)
     {
-        Debug.Log($"get hit attacker");
         if (IsDead) yield break;
 
         yield return BaseGetHit(ArmyEntity.CalculateDamage(attacker), attacker.ArmyEntity.Element.Color);
@@ -212,7 +204,6 @@ public class BattleEntity : MonoBehaviour
 
     public IEnumerator GetHit(Ability ability)
     {
-        Debug.Log($"get hit ability");
         if (IsDead) yield break;
 
         yield return BaseGetHit(ArmyEntity.CalculateDamage(ability), ability.Element.Color);
@@ -298,6 +289,7 @@ public class BattleEntity : MonoBehaviour
     public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
         StopRunEntityCoroutine();
+
         _animator.SetBool("Celebrate", false);
 
         IsDead = true;

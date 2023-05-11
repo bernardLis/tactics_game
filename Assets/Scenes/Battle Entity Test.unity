@@ -826,7 +826,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1939155310
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1436,7 +1436,7 @@ MonoBehaviour:
   TeamAArmies:
   - {fileID: 11400000, guid: 61ddd5316d4afa34c8cb44243857566d, type: 2}
   TeamBArmies:
-  - {fileID: 11400000, guid: f11406f24c473e8498dc2a64c10df48a, type: 2}
+  - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}
   _oneArmyVsAll: 0
   _oneArmy:
   - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}

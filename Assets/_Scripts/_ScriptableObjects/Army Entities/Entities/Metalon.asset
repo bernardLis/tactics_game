@@ -111,5 +111,5 @@ MonoBehaviour:
   ProjectileSpawnAnimationDelay: 0
   Prefab: {fileID: 3441978505357297890, guid: 881ba65ead77fc94eb2a7bd1e85d5add, type: 3}
   Projectile: {fileID: 0}
-  HitPrefab: {fileID: 4187254286823873391, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
+  HitPrefab: {fileID: 687239542062312524, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
   Hero: {fileID: 0}

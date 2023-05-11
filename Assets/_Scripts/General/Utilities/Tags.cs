@@ -5,6 +5,12 @@ public static class Tags
         get { return "Player"; }
         private set { }
     }
+    
+    public static int BattleObstacleLayer
+    {
+        get { return 3; }
+        private set { }
+    }
 
     public static int UIVFXLayer
     {

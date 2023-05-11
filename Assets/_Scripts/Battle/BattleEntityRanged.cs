@@ -18,8 +18,6 @@ public class BattleEntityRanged : BattleEntity
         while (!CanAttack()) yield return null;
         if (!IsOpponentInRange()) StartRunEntityCoroutine();
 
-        Debug.Log($"shoot");
-
         yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
         _animator.SetTrigger("Attack");
 

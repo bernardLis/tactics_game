@@ -11,12 +11,16 @@ using System.Linq;
 
 public class BattleEntityMelee : BattleEntity
 {
+    // HERE: testing projectiles vs obstacles
+    void Awake()
+    {
+        _isMovementBlocked = true;
+    }
+
     protected override IEnumerator Attack()
     {
-        Debug.Log($"attack before checks");
         while (!CanAttack()) yield return null;
         if (!IsOpponentInRange()) StartRunEntityCoroutine();
-        Debug.Log($"attack after checks");
 
         _animator.SetTrigger("Attack");
 
