@@ -47,6 +47,12 @@ public class BattleEntity : MonoBehaviour
     public event Action<int> OnEnemyKilled;
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
 
+
+    void Awake()
+    {
+        // _isMovementBlocked = true;
+    }
+
     // HERE: testing projectiles vs obstacles
     void Start()
     {
@@ -126,8 +132,8 @@ public class BattleEntity : MonoBehaviour
         yield return PathToTarget();
         Debug.Log($"after path to target");
 
-        _attackCoroutine = Attack();
-        yield return _attackCoroutine;
+        //   _attackCoroutine = Attack();
+        //      yield return _attackCoroutine;
     }
 
     protected virtual IEnumerator PathToTarget()
@@ -254,14 +260,13 @@ public class BattleEntity : MonoBehaviour
         var closest = distances.OrderByDescending(pair => pair.Value).Reverse().Take(10);
         float v = Random.value;
 
-        //https://stats.stackexchange.com/questions/277298/create-a-higher-probability-to-smaller-values
         Dictionary<BattleEntity, float> closestBiased = new();
+
         // this number decides bias towards closer opponents
-        float e = 0.91f; // range 0.9 - 0.99 I think
         float sum = 0;
         foreach (KeyValuePair<BattleEntity, float> entry in closest)
         {
-            float value = Mathf.Pow(e, entry.Value);
+            float value = 1 / entry.Value; // 2 / entry.value or 0.1 / entry.value to changed bias
             closestBiased.Add(entry.Key, value);
             sum += value;
         }

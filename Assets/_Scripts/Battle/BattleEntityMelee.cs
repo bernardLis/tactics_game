@@ -6,7 +6,7 @@ public class BattleEntityMelee : BattleEntity
     // HERE: testing projectiles vs obstacles
     void Awake()
     {
-        //   _isMovementBlocked = true;
+        _isMovementBlocked = true;
     }
 
     protected override IEnumerator Attack()
