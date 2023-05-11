@@ -66,6 +66,7 @@
         "crossfade",
         "Datas",
         "Grabbable",
+        "Linecast",
         "Polyline",
         "respawn",
         "Rigidbody",

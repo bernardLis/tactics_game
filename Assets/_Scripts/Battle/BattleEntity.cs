@@ -28,14 +28,13 @@ public class BattleEntity : MonoBehaviour
     public float CurrentHealth { get; private set; }
 
     protected BattleEntity _opponent;
-    NavMeshAgent _agent;
+    protected NavMeshAgent _agent;
 
     protected float _currentAttackCooldown;
 
     public int KilledEnemiesCount { get; private set; }
 
-    bool _stopRunEntityInWhileLoop;
-    bool _gettingHit;
+    bool _gettingHit; // HERE: not sure if needed anymore
     bool _isGrabbed;
     public bool IsDead { get; private set; }
 
@@ -48,18 +47,19 @@ public class BattleEntity : MonoBehaviour
     public event Action<int> OnEnemyKilled;
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
 
+    // HERE: testing projectiles vs obstacles
     void Start()
     {
         _feelPlayer = GetComponent<MMF_Player>();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (_currentAttackCooldown >= 0)
             _currentAttackCooldown -= Time.deltaTime;
     }
 
-    public void Initialize(bool isPlayer, ArmyEntity armyEntity, ref List<BattleEntity> opponents)
+    public virtual void Initialize(bool isPlayer, ArmyEntity armyEntity, ref List<BattleEntity> opponents)
     {
         Collider = GetComponent<Collider>();
 
@@ -104,15 +104,14 @@ public class BattleEntity : MonoBehaviour
 
     public void StopRunEntityCoroutine()
     {
+        StopAllCoroutines();
         _agent.enabled = false;
         _animator.SetBool("Move", false);
-        StopAllCoroutines();
     }
 
     IEnumerator RunEntity()
     {
         // HERE: testing projectiles vs obstacles
-        if (_isMovementBlocked) yield break;
 
         if (_opponentList.Count == 0)
         {
@@ -122,14 +121,24 @@ public class BattleEntity : MonoBehaviour
 
         if (_opponent == null || _opponent.IsDead)
             ChooseNewTarget();
+        if (_isMovementBlocked) yield break;
 
+        yield return PathToTarget();
+        Debug.Log($"after path to target");
+
+        _attackCoroutine = Attack();
+        yield return _attackCoroutine;
+    }
+
+    protected virtual IEnumerator PathToTarget()
+    {
         _agent.enabled = true;
         while (!_agent.SetDestination(_opponent.transform.position)) yield return null;
         _animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
 
         // path to target
-        while (_agent.remainingDistance > _agent.stoppingDistance)
+        while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
             _agent.SetDestination(_opponent.transform.position);
             yield return null;
@@ -138,9 +147,6 @@ public class BattleEntity : MonoBehaviour
         // reached destination
         _animator.SetBool("Move", false);
         _agent.enabled = false;
-
-        _attackCoroutine = Attack();
-        yield return _attackCoroutine;
     }
 
     protected virtual IEnumerator Attack()

@@ -36,29 +36,36 @@ public class Projectile : MonoBehaviour
             if (target != null) finalPos = target.Collider.bounds.center;
             t += step;
             Vector3 pos = Vector3.Lerp(startingPos, finalPos, t);
-            if (pos.y < 1) pos.y = 1; // TODO: shitty fix for projectiles going under the ground
+            //  if (pos.y < 1) pos.y = 1; // TODO: shitty fix for projectiles going under the ground
             transform.position = pos;
             transform.LookAt(target.transform);
 
             yield return new WaitForFixedUpdate();
         }
-        _gfx.SetActive(false);
-        AudioManager.Instance.PlaySFX(_explosionSound, transform.position);
-        _explosion.SetActive(true);
 
         if (target != null)
-        {
-            transform.position = target.Collider.bounds.center;
-            yield return target.GetHit(shooter);
-        }
+            StartCoroutine(target.GetHit(shooter));// yield return target.GetHit(shooter);
 
-        yield return DestroySelf();
+        yield return DestroySelf(target.Collider.bounds.center);
     }
 
-    public IEnumerator DestroySelf()
+    void OnCollisionEnter(Collision collision)
     {
-        transform.DOKill(transform);
+        if (collision.gameObject.layer != Tags.BattleObstacleLayer)
+            return;
+        StopAllCoroutines();
+        StartCoroutine(DestroySelf(transform.position));
+    }
+
+    public IEnumerator DestroySelf(Vector3 position)
+    {
+        _gfx.SetActive(false);
+        AudioManager.Instance.PlaySFX(_explosionSound, position);
+        _explosion.SetActive(true);
+
         yield return new WaitForSeconds(0.5f);
+
+        transform.DOKill(transform);
         Destroy(gameObject);
     }
 }
