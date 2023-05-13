@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
-
+using DG.Tweening;
 public class BattleGrabManager : Singleton<BattleGrabManager>
 {
     const string _ussClassName = "battle__";
@@ -26,7 +26,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public bool IsGrabbingEnabled { get; private set; }
 
-    BattleEntity _grabbedEntity;
+    GameObject _grabbedObject;
     int _floorLayerMask;
 
     bool _wasInitialized;
@@ -51,8 +51,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public void ToggleGrabbing()
     {
-        if (_grabbedEntity != null) return;
-        
+        if (_grabbedObject != null) return;
+
         if (IsGrabbingEnabled)
             DisableGrabbing();
         else
@@ -83,14 +83,14 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     void Update()
     {
         if (_abilityManager.IsAbilitySelected) return;
-        if (_grabbedEntity == null) return;
+        if (_grabbedObject == null) return;
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
         {
-            Vector3 pos = new Vector3(hit.point.x, _grabbedEntity.transform.position.y, hit.point.z);
-            _grabbedEntity.transform.position = pos;
+            Vector3 pos = new Vector3(hit.point.x, _grabbedObject.transform.position.y, hit.point.z);
+            _grabbedObject.transform.position = pos;
         }
     }
 
@@ -134,38 +134,55 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _playerInput.actions["RightMouseClick"].performed -= evt => DisableGrabbing();
         _playerInput.actions["EnableGrabbing"].performed -= evt => ToggleGrabbing();
     }
-
-
     public void TryGrabbing(BattleEntity entity)
     {
-        if (_abilityManager.IsAbilitySelected) return;
-        if (_grabbedEntity != null) return;
-        if (!IsGrabbingEnabled) return;
+        if (!IsGrabbingAllowed()) return;
 
         _audioManager.PlaySFX("Grab", entity.transform.position);
         Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
-        _grabbedEntity = entity;
-        _grabbedEntity.Grabbed();
+        _grabbedObject = entity.gameObject;
+        entity.Grabbed();
     }
 
+    public void TryGrabbing(GameObject obj)
+    {
+        if (!IsGrabbingAllowed()) return;
+
+        _audioManager.PlaySFX("Grab", obj.transform.position);
+        Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
+        _grabbedObject = obj;
+    }
+
+    bool IsGrabbingAllowed()
+    {
+        if (_abilityManager.IsAbilitySelected) return false;
+        if (_grabbedObject != null) return false;
+        if (!IsGrabbingEnabled) return false;
+
+        return true;
+    }
 
     public void OnPointerUp(InputAction.CallbackContext context)
     {
         if (this == null) return;
         if (_abilityManager.IsAbilitySelected) return;
-        if (_grabbedEntity == null) return;
+        if (_grabbedObject == null) return;
 
-        _audioManager.PlaySFX("Grab", _grabbedEntity.transform.position);
+        _audioManager.PlaySFX("Grab", _grabbedObject.transform.position);
         _grabAbility.StartCooldown();
         DisableGrabbing();
 
-        _grabbedEntity.Released();
-        _grabbedEntity = null;
+        if (_grabbedObject.TryGetComponent(out BattleEntity entity))
+            entity.Released();
+        if (_grabbedObject.TryGetComponent(out BattleGrabbableObstacle obstacle))
+            obstacle.Released();
+
+        _grabbedObject = null;
     }
 
     public void CancelGrabbing()
     {
-        if (_grabbedEntity == null) DisableGrabbing();
+        if (_grabbedObject == null) DisableGrabbing();
         OnPointerUp(default);
 
     }

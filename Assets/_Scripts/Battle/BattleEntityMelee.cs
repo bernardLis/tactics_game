@@ -4,15 +4,19 @@ using UnityEngine;
 public class BattleEntityMelee : BattleEntity
 {
     // HERE: testing projectiles vs obstacles
-    void Awake()
-    {
-        _isMovementBlocked = true;
-    }
+    // void Awake()
+    //  {
+    //       _isMovementBlocked = true;
+    //   }
 
     protected override IEnumerator Attack()
     {
         while (!CanAttack()) yield return null;
-        if (!IsOpponentInRange()) StartRunEntityCoroutine();
+        if (!IsOpponentInRange())
+        {
+            StartRunEntityCoroutine();
+            yield break;
+        }
 
         _animator.SetTrigger("Attack");
 

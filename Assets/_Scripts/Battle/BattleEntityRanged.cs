@@ -20,67 +20,44 @@ public class BattleEntityRanged : BattleEntity
 
         Vector3 point = ClosesPositionWithClearLOS();
 
-        GameObject destination = new();
-        destination.transform.position = point;
-        destination.name = "destination";
+        // path to that point
+        _agent.stoppingDistance = 0;
+        _agent.enabled = true;
+        while (!_agent.SetDestination(point)) yield return null;
+        _animator.SetBool("Move", true);
+        while (_agent.pathPending) yield return null;
 
-        StopAllCoroutines();
+        // path to target
+        while (_agent.enabled && _agent.remainingDistance > 0.01f)
+        {
+            //  _agent.SetDestination(ClosesPositionWithClearLOS());
+            yield return new WaitForSeconds(0.1f);
+        }
 
-
-        /*
-                // path to that point
-                _agent.stoppingDistance = 0;
-                _agent.enabled = true;
-                while (!_agent.SetDestination(point)) yield return null;
-                _animator.SetBool("Move", true);
-                while (_agent.pathPending) yield return null;
-
-                // path to target
-                while (_agent.enabled && _agent.remainingDistance > 0.01f)
-                {
-                    _agent.SetDestination(NearestPointOnLine(_opponent.transform.position,
-                            ClearLineOfSightToOpponent(), transform.position));
-                    yield return new WaitForSeconds(0.1f);
-                }
-                // reached destination
-                _animator.SetBool("Move", false);
-                _agent.enabled = false;
-
-                yield return null;
-                */
+        // reached destination
+        _animator.SetBool("Move", false);
+        _agent.enabled = false;
+        PathToTarget();
     }
 
     Vector3 ClosesPositionWithClearLOS()
     {
-        Debug.Log("ClosesPositionWithClearLOS");
         Vector3 dir = transform.position - _opponent.transform.position;
         Dictionary<Vector3, float> distances = new();
 
-        for (int i = 0; i < 10; i++)
+        int numberOfLines = 100;
+        for (int i = 0; i < numberOfLines; i++)
         {
-            Debug.Log($"i {i}");
-
-            Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / 10f, Vector3.up) * dir;
-            Debug.DrawLine(_opponent.transform.position, rotatedLine * 4, Color.red, 30f);
+            Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / numberOfLines, Vector3.up) * dir;
+            //   Debug.DrawLine(_opponent.transform.position, rotatedLine * 4, Color.red, 4f);
 
             if (!Physics.Linecast(_opponent.transform.position, rotatedLine * 4, // HERE: random 40
                     out RaycastHit newHit, 1 << Tags.BattleObstacleLayer))
             {
-                Debug.Log($"rotatedLine: {rotatedLine}");
+                //   Debug.DrawLine(_opponent.transform.position, rotatedLine * 4, Color.blue, 4f);
 
-                Debug.DrawLine(_opponent.transform.position, rotatedLine * 4, Color.blue, 30f);
-                //      Vector3 point = ClosestPointOnLineSegment(transform.position.x, transform.position.y, transform.position.z,
-                //             _opponent.transform.position.x, _opponent.transform.position.y, _opponent.transform.position.z,
-                //             rotatedLine.x, rotatedLine.y, rotatedLine.z);
-                // Vector3 point = ClosestPointOnLine(_opponent.transform.position,
-                //        rotatedLine, transform.position);
                 Vector3 point = FindNearestPointOnLine(_opponent.transform.position,
                         rotatedLine * 4, transform.position);
-                GameObject temp = new();
-                temp.transform.position = point;
-                temp.name = $"point {i}";
-
-                Debug.Log($"point {point}");
                 if (!distances.ContainsKey(point)) // HERE: why are there duplicates?
                     distances.Add(point, Vector3.Distance(transform.position, point));
             }
@@ -96,7 +73,6 @@ public class BattleEntityRanged : BattleEntity
                 closestPoint = kvp.Key;
             }
         }
-        Debug.Log($"closest point: {closestPoint}");
         return closestPoint;
     }
 

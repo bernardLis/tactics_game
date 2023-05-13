@@ -199,7 +199,7 @@ public class BattleManager : Singleton<BattleManager>
         if (_battleFinalized) yield break;
         _battleFinalized = true;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         if (_playerHero != null && LoadedBattle.Won)
         {
             BattleResult r = new(Root);

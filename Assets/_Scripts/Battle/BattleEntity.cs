@@ -127,13 +127,13 @@ public class BattleEntity : MonoBehaviour
 
         if (_opponent == null || _opponent.IsDead)
             ChooseNewTarget();
+        yield return new WaitForSeconds(0.1f);
         if (_isMovementBlocked) yield break;
 
         yield return PathToTarget();
-        Debug.Log($"after path to target");
 
-        //   _attackCoroutine = Attack();
-        //      yield return _attackCoroutine;
+        _attackCoroutine = Attack();
+        yield return _attackCoroutine;
     }
 
     protected virtual IEnumerator PathToTarget()
