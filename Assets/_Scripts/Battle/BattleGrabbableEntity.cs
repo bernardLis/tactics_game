@@ -20,6 +20,5 @@ public class BattleGrabbableEntity : MonoBehaviour, IPointerDownHandler
         BattleEntity be = GetComponent<BattleEntity>();
         if (!be.CanBeGrabbed()) return;
         _grabManager.TryGrabbing(be);
-
     }
 }

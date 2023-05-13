@@ -125,7 +125,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _playerInput.actions["LeftMouseClick"].canceled += OnPointerUp;
         _playerInput.actions["RightMouseClick"].performed += evt => DisableGrabbing();
         _playerInput.actions["EnableGrabbing"].performed += evt => ToggleGrabbing();
-
     }
 
     void UnsubscribeInputActions()
@@ -184,8 +183,5 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     {
         if (_grabbedObject == null) DisableGrabbing();
         OnPointerUp(default);
-
     }
-
-
 }

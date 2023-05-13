@@ -11,9 +11,6 @@ using System.Linq;
 
 public class BattleEntity : MonoBehaviour
 {
-    // HERE: testing projectiles vs obstacles
-    [SerializeField] protected bool _isMovementBlocked;
-
     public Collider Collider { get; private set; }
 
     bool _isPlayer;
@@ -34,7 +31,6 @@ public class BattleEntity : MonoBehaviour
 
     public int KilledEnemiesCount { get; private set; }
 
-    bool _gettingHit; // HERE: not sure if needed anymore
     bool _isGrabbed;
     public bool IsDead { get; private set; }
 
@@ -46,14 +42,6 @@ public class BattleEntity : MonoBehaviour
     public event Action<float> OnHealthChanged;
     public event Action<int> OnEnemyKilled;
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
-
-
-    void Awake()
-    {
-        // _isMovementBlocked = true;
-    }
-
-    // HERE: testing projectiles vs obstacles
     void Start()
     {
         _feelPlayer = GetComponent<MMF_Player>();
@@ -117,8 +105,6 @@ public class BattleEntity : MonoBehaviour
 
     IEnumerator RunEntity()
     {
-        // HERE: testing projectiles vs obstacles
-
         if (_opponentList.Count == 0)
         {
             yield return Celebrate();
@@ -128,7 +114,6 @@ public class BattleEntity : MonoBehaviour
         if (_opponent == null || _opponent.IsDead)
             ChooseNewTarget();
         yield return new WaitForSeconds(0.1f);
-        if (_isMovementBlocked) yield break;
 
         yield return PathToTarget();
 
@@ -169,7 +154,6 @@ public class BattleEntity : MonoBehaviour
 
     protected bool CanAttack()
     {
-        if (_gettingHit) return false;
         return _currentAttackCooldown < 0;
     }
 
@@ -233,7 +217,6 @@ public class BattleEntity : MonoBehaviour
     {
         StopRunEntityCoroutine();
 
-        _gettingHit = true;
         CurrentHealth -= dmg;
         OnHealthChanged?.Invoke(CurrentHealth);
 
@@ -241,7 +224,6 @@ public class BattleEntity : MonoBehaviour
 
         _animator.SetTrigger("Take Damage");
         yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        _gettingHit = false;
     }
 
     void ChooseNewTarget()

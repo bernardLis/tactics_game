@@ -41,7 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &329089867633818112
 AudioListener:
@@ -180,6 +180,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7c4b637b-d155-46c8-8f7d-3159f2b1f1cd
     m_ActionName: Battle/Enter[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: afc68981-4f9d-4d4b-81a5-69c2811730ae
+    m_ActionName: Battle/EnableGrabbing[/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Map
@@ -431,6 +435,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 22337eb7337393645870a2ffab458453, type: 2}
   - {fileID: 11400000, guid: 1b4c77563a99c7c40882d7a598d3f872, type: 2}
   - {fileID: 11400000, guid: 11f01f7ced01c3847b53d38a975bc1c0, type: 2}
+  - {fileID: 11400000, guid: 37036bfad0a85b24c8f08ae3db51d464, type: 2}
   _mixer: {fileID: 24100000, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}
 --- !u!114 &1475728751920290888
 MonoBehaviour:
@@ -448,6 +453,7 @@ MonoBehaviour:
   HeroDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   WasIntroCutscenePlayed: 0
+  BattleNumber: 0
   PlayerHero: {fileID: 0}
   Map: {fileID: 0}
   SelectedBattle: {fileID: 0}

@@ -7,20 +7,31 @@ using DG.Tweening;
 
 public class BattleChoiceContainer : VisualElement
 {
+    GameManager _gameManager;
     List<BattleCard> _cards = new();
 
     public event Action OnBattleSelected;
     public BattleChoiceContainer()
     {
+        _gameManager = GameManager.Instance;
+
         style.alignItems = Align.Center;
+
+        HeroCardMini heroCardMini = new(_gameManager.PlayerHero);
+        Add(heroCardMini);
+
 
         Label bn = new($"Battle number {GameManager.Instance.BattleNumber + 1}");
         bn.style.fontSize = 24;
         Add(bn);
 
+
+
         Label l = new("Choose your next opponent: ");
         l.style.fontSize = 32;
         Add(l);
+
+
 
         VisualElement cardContainer = new();
         cardContainer.style.flexDirection = FlexDirection.Row;

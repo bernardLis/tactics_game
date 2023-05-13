@@ -49,16 +49,18 @@ public class BattleEntityRanged : BattleEntity
         for (int i = 0; i < numberOfLines; i++)
         {
             Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / numberOfLines, Vector3.up) * dir;
-            //   Debug.DrawLine(_opponent.transform.position, rotatedLine * 4, Color.red, 4f);
+            rotatedLine = rotatedLine.normalized * ArmyEntity.AttackRange;
 
-            if (!Physics.Linecast(_opponent.transform.position, rotatedLine * 4, // HERE: random 40
+            Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
+
+            if (!Physics.Linecast(_opponent.transform.position, rotatedLine, // HERE: random 4
                     out RaycastHit newHit, 1 << Tags.BattleObstacleLayer))
             {
-                //   Debug.DrawLine(_opponent.transform.position, rotatedLine * 4, Color.blue, 4f);
+                Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.blue, 30f);
 
                 Vector3 point = FindNearestPointOnLine(_opponent.transform.position,
-                        rotatedLine * 4, transform.position);
-                if (!distances.ContainsKey(point)) // HERE: why are there duplicates?
+                        rotatedLine, transform.position);
+                if (!distances.ContainsKey(point))
                     distances.Add(point, Vector3.Distance(transform.position, point));
             }
         }
@@ -89,18 +91,6 @@ public class BattleEntityRanged : BattleEntity
         float dotP = Vector3.Dot(lhs, heading);
         dotP = Mathf.Clamp(dotP, 0f, magnitudeMax);
         return origin + heading * dotP;
-    }
-
-    // https://forum.unity.com/threads/how-do-i-find-the-closest-point-on-a-line.340058/
-    // linePnt - point the line passes through
-    // lineDir - unit vector in direction of line, either direction works
-    // pnt - the point to find nearest on line for
-    Vector3 ClosestPointOnLine(Vector3 linePnt, Vector3 lineDir, Vector3 pnt)
-    {
-        lineDir.Normalize();//this needs to be a unit vector
-        var v = pnt - linePnt;
-        var d = Vector3.Dot(v, lineDir);
-        return linePnt + lineDir * d;
     }
 
     protected override IEnumerator Attack()

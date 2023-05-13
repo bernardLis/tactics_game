@@ -48,7 +48,7 @@ public class BattleCard : VisualElement
         _battle = ScriptableObject.CreateInstance<Battle>();
         _battle.Opponent = opp;
 
-        HeroCardMini heroCardMini = new(_gameManager.PlayerHero);
+        HeroCardMini heroCardMini = new(opp);
         Add(heroCardMini);
 
         ScrollView scrollView = new ScrollView();
