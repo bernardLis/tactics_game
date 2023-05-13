@@ -8,9 +8,11 @@ using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using MoreMountains.Feedbacks;
 using System.Linq;
+using UnityEngine.EventSystems;
 
-public class BattleEntity : MonoBehaviour
+public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    BattleEntityTooltipManager _tooltipManager;
     public Collider Collider { get; private set; }
 
     bool _isPlayer;
@@ -44,6 +46,7 @@ public class BattleEntity : MonoBehaviour
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
     void Start()
     {
+        _tooltipManager = BattleEntityTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
     }
 
@@ -367,4 +370,16 @@ public class BattleEntity : MonoBehaviour
         else
             _material.SetColor("_EmissionColor", Color.red);
     }
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _tooltipManager.ShowInfo(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _tooltipManager.HideInfo();
+    }
+
 }
