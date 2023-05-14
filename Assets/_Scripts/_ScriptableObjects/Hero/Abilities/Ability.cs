@@ -13,6 +13,8 @@ public class Ability : BaseScriptableObject
     public int Level;
     public bool IsStartingAbility;
 
+    public Sound AbilityNameSound;
+
     [SerializeField] int BaseManaCost;
     [SerializeField] int BasePower;
     [SerializeField] int BaseCooldown;
@@ -69,7 +71,6 @@ public class Ability : BaseScriptableObject
     {
         Level--;
     }
-
 
     public void LoadFromData(AbilityData data)
     {

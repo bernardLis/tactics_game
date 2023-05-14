@@ -11,10 +11,12 @@ public class BattleAbilityManager : MonoBehaviour
     const string _ussClassName = "battle__";
     const string _ussAbilityContainer = _ussClassName + "ability-container";
 
-
     GameManager _gameManager;
+    AudioManager _audioManager;
     BattleGrabManager _battleGrabManager;
     VisualElement _root;
+
+    VisualElement _abilityInfoContainer;
 
     PlayerInput _playerInput;
 
@@ -28,14 +30,15 @@ public class BattleAbilityManager : MonoBehaviour
 
     public bool IsAbilitySelected { get; private set; }
 
-
     public void Initialize(Hero hero)
     {
         _gameManager = GameManager.Instance;
+        _audioManager = AudioManager.Instance;
         BattleManager.Instance.OnBattleFinalized += CancelAbility;
         _battleGrabManager = GetComponent<BattleGrabManager>();
 
         _root = GetComponent<UIDocument>().rootVisualElement;
+        _abilityInfoContainer = _root.Q<VisualElement>("abilityInfoContainer");
         _hero = hero;
 
         AddAbilityButtons();
@@ -157,6 +160,17 @@ public class BattleAbilityManager : MonoBehaviour
         _abilityExecutor = Instantiate(_selectedAbility.AbilityExecutorPrefab, Vector3.zero, Quaternion.identity)
                 .GetComponent<AbilityExecutor>();
         _abilityExecutor.HighlightAbilityArea(_selectedAbility);
+
+        _abilityInfoContainer.Clear();
+        ElementalElement el = new(_selectedAbility.Element);
+
+        Label abilityName = new($"{Helpers.ParseScriptableObjectCloneName(_selectedAbility.name)}");
+        abilityName.style.fontSize = 48;
+
+        _abilityInfoContainer.Add(el);
+        _abilityInfoContainer.Add(abilityName);
+
+        _audioManager.PlaySFX(_selectedAbility.AbilityNameSound, Vector3.zero);
     }
 
     void LeftMouseClick(InputAction.CallbackContext context)
@@ -192,6 +206,7 @@ public class BattleAbilityManager : MonoBehaviour
         _abilityExecutor.ClearAbilityHighlight();
         _abilityExecutor.CancelAbility();
         _selectedAbility = null;
+        _abilityInfoContainer.Clear();
     }
 
 }

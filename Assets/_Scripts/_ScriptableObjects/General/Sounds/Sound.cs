@@ -7,9 +7,9 @@ public class Sound : BaseScriptableObject
 {
     public AudioClip[] Clips;
     [Range(0f, 1f)]
-    public float Volume;
+    public float Volume = 1f;
     [Range(0.1f, 3f)]
-    public float Pitch;
+    public float Pitch = 1f;
 
     public bool isPitchRandomized;
     public Vector2 PitchRange;

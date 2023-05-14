@@ -17,6 +17,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: a32194b91d70b6a49a10d6fed56ad25d, type: 3}
   Level: 1
   IsStartingAbility: 1
+  AbilityNameSound: {fileID: 11400000, guid: 213c8194099e1a14ca76e82c749056f0, type: 2}
   BaseManaCost: 5
   BasePower: 10
   BaseCooldown: 3
