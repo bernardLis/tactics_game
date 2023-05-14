@@ -11,6 +11,7 @@ public class AbilityExecutor : MonoBehaviour
     [SerializeField] protected GameObject _effectPrefab;
     [SerializeField] protected GameObject _entityEffectPrefab;
 
+
     protected BattleAbilityArea _areaHighlightInstance;
     protected GameObject _effectInstance;
     protected List<BattleEntity> _entitiesInArea = new();
@@ -47,7 +48,6 @@ public class AbilityExecutor : MonoBehaviour
 
     protected virtual IEnumerator ExecuteAbilityCoroutine()
     {
-
         yield return null;
     }
 
@@ -67,6 +67,13 @@ public class AbilityExecutor : MonoBehaviour
         _areaHighlightInstance.ClearHighlightedEntities();
         DOTween.Kill(_areaHighlightInstance.transform);
         Destroy(_areaHighlightInstance.gameObject);
+    }
+
+    public virtual void CancelAbilityHighlight()
+    {
+        if (_areaHighlightInstance == null) return;
+        ClearAbilityHighlight();
+        DestroySelf();
     }
 
     public void ClearEffect()

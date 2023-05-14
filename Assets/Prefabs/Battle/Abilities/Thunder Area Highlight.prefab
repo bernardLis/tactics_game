@@ -15247,7 +15247,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   GraphTimeMultiplier: 3.1
   IsLoop: 0
 --- !u!1 &7108046540172711026

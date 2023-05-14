@@ -178,35 +178,43 @@ public class BattleAbilityManager : MonoBehaviour
         if (!context.performed) return;
         if (this == null) return;
         if (_abilityExecutor == null) return;
+        if (_selectedAbility == null) return;
 
-        foreach (AbilityButton b in _abilityButtons)
-            b.ClearHighlight();
 
         _abilityExecutor.ExecuteAbility(_selectedAbility);
         _hero.CurrentMana.ApplyChange(-_selectedAbility.GetManaCost());
         _selectedAbility.StartCooldown();
-        IsAbilitySelected = false;
+        CleanUp();
     }
 
     void RightMouseClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
         if (this == null) return;
-        CancelAbility();
+        if (_abilityExecutor == null) return;
+
+        _abilityExecutor.CancelAbilityHighlight();
+        CleanUp();
     }
 
     void CancelAbility()
     {
         if (_abilityExecutor == null) return;
 
+        _abilityExecutor.ClearAbilityHighlight();
+        _abilityExecutor.CancelAbility();
+        CleanUp();
+    }
+
+    void CleanUp()
+    {
         foreach (AbilityButton b in _abilityButtons)
             b.ClearHighlight();
 
-        IsAbilitySelected = false;
-        _abilityExecutor.ClearAbilityHighlight();
-        _abilityExecutor.CancelAbility();
+        _abilityExecutor = null;
         _selectedAbility = null;
         _abilityInfoContainer.Clear();
+        IsAbilitySelected = false;
     }
 
 }

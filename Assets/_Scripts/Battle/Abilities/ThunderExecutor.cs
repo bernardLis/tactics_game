@@ -7,7 +7,7 @@ public class ThunderExecutor : AbilityExecutor
 {
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        Debug.Log($"executing thunder on {_entitiesInArea.Count}");
+        Debug.Log($"Executing thunder on {_entitiesInArea.Count}");
 
         foreach (BattleEntity entity in _entitiesInArea)
         {
@@ -22,6 +22,15 @@ public class ThunderExecutor : AbilityExecutor
                 .WaitForCompletion();
 
         CancelAbility();
+    }
+
+    public override void CancelAbilityHighlight()
+    {
+        RotateSprite rs = _areaHighlightInstance.GetComponentInChildren<RotateSprite>();
+        if (rs != null) DOTween.Kill(rs.transform);
+
+        base.CancelAbilityHighlight();
+
     }
 }
 

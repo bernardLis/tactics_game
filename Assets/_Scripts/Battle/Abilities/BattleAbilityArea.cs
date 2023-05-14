@@ -16,7 +16,6 @@ public class BattleAbilityArea : MonoBehaviour
     void Start()
     {
         _floorLayerMask = LayerMask.GetMask("Floor");
-
     }
 
     public void Initialize(Ability ability)
