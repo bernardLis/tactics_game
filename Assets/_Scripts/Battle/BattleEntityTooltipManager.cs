@@ -24,28 +24,15 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
     {
         _entityInfoContainer.Clear();
         _entityInfoContainer.style.display = DisplayStyle.Flex;
-        Label name = new(entity.ArmyEntity.Name);
-        ElementalElement el = new(entity.ArmyEntity.Element);
 
-        IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
-        totalHealth.SetValue((int)entity.ArmyEntity.Health);
-        IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
-        currentHealth.SetValue((int)entity.GetCurrentHealth());
-        entity.OnHealthChanged += (float newVal) => currentHealth.SetValue((int)newVal);
-        ResourceBarElement bar = new(Color.red, "health", totalIntVar: totalHealth, currentIntVar: currentHealth);
-
-        _entityInfoContainer.Add(name);
-        _entityInfoContainer.Add(el);
-        _entityInfoContainer.Add(bar);
-
-
+        BattleEntityInfoElement info = new(entity);
+        _entityInfoContainer.Add(info);
     }
 
     public void HideInfo()
     {
         _entityInfoContainer.style.display = DisplayStyle.None;
         _entityInfoContainer.Clear();
-
     }
 
     public void DisplayTooltip(BattleEntity entity)
