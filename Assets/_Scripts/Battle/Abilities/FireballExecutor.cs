@@ -7,7 +7,7 @@ public class FireballExecutor : AbilityExecutor
 {
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        Debug.Log($"executing fireball on {_entitiesInArea.Count}");
+        Debug.Log($"Executing fireball on {_entitiesInArea.Count}");
         foreach (BattleEntity entity in _entitiesInArea)
         {
             _damageDealt += Mathf.RoundToInt(entity.ArmyEntity.CalculateDamage(_selectedAbility));

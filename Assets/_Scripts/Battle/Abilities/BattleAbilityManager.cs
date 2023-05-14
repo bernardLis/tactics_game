@@ -162,13 +162,21 @@ public class BattleAbilityManager : MonoBehaviour
         _abilityExecutor.HighlightAbilityArea(_selectedAbility);
 
         _abilityInfoContainer.Clear();
+
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+
         ElementalElement el = new(_selectedAbility.Element);
 
         Label abilityName = new($"{Helpers.ParseScriptableObjectCloneName(_selectedAbility.name)}");
         abilityName.style.fontSize = 48;
 
-        _abilityInfoContainer.Add(el);
-        _abilityInfoContainer.Add(abilityName);
+        container.Add(el);
+        container.Add(abilityName);
+
+        _abilityInfoContainer.Add(container);
+        DOTween.To(x => container.style.opacity = x, 1, 0, 2f)
+                .OnComplete(() => container.RemoveFromHierarchy());
 
         _audioManager.PlaySFX(_selectedAbility.AbilityNameSound, Vector3.zero);
     }

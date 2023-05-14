@@ -38,12 +38,14 @@ public class AbilityExecutor : MonoBehaviour
         _selectedAbility = ability;
 
         _effectInstance = Instantiate(_effectPrefab, _areaHighlightInstance.transform.position, Quaternion.identity);
+        _effectInstance.transform.localScale = new Vector3(ability.GetScale(), ability.GetScale(), ability.GetScale());
+
         _entitiesInArea = new(_areaHighlightInstance.GetEntitiesInArea());
 
         _areaHighlightInstance.IsHighlightingEnabled = false;
         _areaHighlightInstance.ClearHighlightedEntities();
-        ClearAbilityHighlight();
-        StartCoroutine(ExecuteAbilityCoroutine());
+        //  ClearAbilityHighlight();
+        //   StartCoroutine(ExecuteAbilityCoroutine());
     }
 
     protected virtual IEnumerator ExecuteAbilityCoroutine()

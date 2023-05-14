@@ -57,9 +57,9 @@ public class Ability : BaseScriptableObject
         return Mathf.RoundToInt(BaseCooldown * Level * CooldownLevelMultiplier);
     }
 
-    public int GetScale()
+    public float GetScale()
     {
-        return Mathf.RoundToInt(BaseScale * Level * ScaleLevelMultiplier);
+        return BaseScale * Level * ScaleLevelMultiplier;
     }
 
     public void LevelUp()

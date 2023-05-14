@@ -25,7 +25,7 @@ MonoBehaviour:
   ManaCostLevelMultiplier: 1.2
   PowerLevelMultiplier: 2
   CooldownLevelMultiplier: 2
-  ScaleLevelMultiplier: 1.5
+  ScaleLevelMultiplier: 1.2
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   KillCount: 0
   AbilityExecutorPrefab: {fileID: 2929320073763685354, guid: 1d91d80bd9faffe4099a6df87fd47064, type: 3}
