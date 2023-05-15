@@ -207,7 +207,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   GraphTimeMultiplier: 8
   GraphIntensityMultiplier: 1
   IsLoop: 0
@@ -14628,6 +14628,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3304720383593167930
 GameObject:
   m_ObjectHideFlags: 0
@@ -21357,6 +21358,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3304720383593175280
 GameObject:
   m_ObjectHideFlags: 0
@@ -26223,7 +26225,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   GraphTimeMultiplier: 0.05
   GraphIntensityMultiplier: 1
   IsLoop: 0
@@ -42865,7 +42867,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   GraphTimeMultiplier: 0.05
   GraphIntensityMultiplier: 1
   IsLoop: 0
@@ -54993,6 +54995,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3304720383593540298}
   - component: {fileID: 3191276839354386110}
+  - component: {fileID: 5284283650900989967}
   m_Layer: 0
   m_Name: Freeze Effect
   m_TagString: Untagged
@@ -55009,7 +55012,7 @@ Transform:
   m_GameObject: {fileID: 3304720383593380418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3301780216878150286}
@@ -55026,7 +55029,7 @@ Transform:
   - {fileID: 3304720383593517014}
   - {fileID: 3304720383593527416}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3191276839354386110
 MonoBehaviour:
@@ -55054,6 +55057,21 @@ MonoBehaviour:
   Speed: 10
   AirDrag: 0.1
   UseGravity: 1
+--- !u!114 &5284283650900989967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3304720383593380418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890118416131cf944a8beecfce0dce31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transformsToScale:
+  - {fileID: 3304720383593540298}
+  _lightsToScale: []
 --- !u!1 &3304720383593380442
 GameObject:
   m_ObjectHideFlags: 0
@@ -55864,7 +55882,7 @@ Transform:
   m_GameObject: {fileID: 3305464557261092750}
   m_LocalRotation: {x: 0.18867354, y: 0.6814709, z: 0.68147063, w: -0.18867333}
   m_LocalPosition: {x: 0.15, y: 0.15, z: 0.5323873}
-  m_LocalScale: {x: 1, y: 1, z: 1.2000003}
+  m_LocalScale: {x: 1, y: 1, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3301822081674035388}

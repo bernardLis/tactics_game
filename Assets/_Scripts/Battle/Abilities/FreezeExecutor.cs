@@ -6,7 +6,7 @@ public class FreezeExecutor : AbilityExecutor
 {
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        Debug.Log($"execute freeze on {_entitiesInArea.Count} entities");
+        Debug.Log($"Executing freeze on {_entitiesInArea.Count} entities");
         List<GameObject> entityEffects = new();
         foreach (BattleEntity entity in _entitiesInArea)
         {
@@ -18,6 +18,7 @@ public class FreezeExecutor : AbilityExecutor
 
             instance.GetComponent<FreezeEntityEffect>().SetDelays(_selectedAbility.GetPower());
         }
+
         CreateBattleLog();
 
         yield return new WaitForSeconds(_selectedAbility.GetPower() + 0.2f);
