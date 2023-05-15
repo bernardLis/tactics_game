@@ -31,30 +31,31 @@ public static class SceneSelectionToolbar
 
         _selectedIndex = EditorGUILayout.Popup(_selectedIndex, _displayedOptions); ;
 
-        /*
-                GUI.enabled = _selectedIndex == 0;
-                if (GUILayout.Button("+"))
-                    AddScene(_sceneOpened);
+        // GUI.enabled = _selectedIndex == 0;
+        // if (GUILayout.Button("+"))
+        //      AddScene(_sceneOpened);
 
-                GUI.enabled = _selectedIndex > 0;
-                if (GUILayout.Button("-"))
-                    RemoveScene(_sceneOpened);
-        */
+        //  GUI.enabled = _selectedIndex > 0;
+        //  if (GUILayout.Button("-"))
+        //       RemoveScene(_sceneOpened);
 
         GUI.enabled = true;
-        if (GUI.changed && _selectedIndex > 0 && _scenes.Count > _selectedIndex - 1)
-            EditorSceneManager.OpenScene(_scenes[_selectedIndex - 1].Path);
+        // if (GUI.changed && _selectedIndex > 0 && _scenes.Count > _selectedIndex - 1)
+        //     EditorSceneManager.OpenScene(_scenes[_selectedIndex - 1].Path);
+        if (GUI.changed && _scenes.Count > _selectedIndex)
+            EditorSceneManager.OpenScene(_scenes[_selectedIndex].Path);
+
     }
 
     static void RefreshDisplayedOptions()
     {
-        //  _displayedOptions = new string[_scenes.Count + 1];
-        //  _displayedOptions[0] = "Click on '+' to add current scene";
-        _displayedOptions = new string[_scenes.Count + 1];
+        // _displayedOptions = new string[_scenes.Count + 1];
+        //   _displayedOptions[0] = "Click on '+' to add current scene";
+        _displayedOptions = new string[_scenes.Count];
 
         for (int i = 0; i < _scenes.Count; i++)
         {
-            //_displayedOptions[i + 1] = _scenes[i].Name;
+            //     _displayedOptions[i + 1] = _scenes[i].Name;
             _displayedOptions[i] = _scenes[i].Name;
         }
     }
@@ -71,7 +72,8 @@ public static class SceneSelectionToolbar
             if (_scenes[i].Path == scene.Path)
             {
                 _sceneOpened = _scenes[i];
-                _selectedIndex = i + 1;
+                _selectedIndex = i;
+                // _selectedIndex = i + 1;
                 SaveToPlayerPrefs(true);
                 return;
             }

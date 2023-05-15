@@ -44,8 +44,8 @@ public class AbilityExecutor : MonoBehaviour
 
         _areaHighlightInstance.IsHighlightingEnabled = false;
         _areaHighlightInstance.ClearHighlightedEntities();
-        //  ClearAbilityHighlight();
-        //   StartCoroutine(ExecuteAbilityCoroutine());
+        ClearAbilityHighlight();
+        StartCoroutine(ExecuteAbilityCoroutine());
     }
 
     protected virtual IEnumerator ExecuteAbilityCoroutine()

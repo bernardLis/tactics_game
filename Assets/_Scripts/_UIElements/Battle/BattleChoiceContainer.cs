@@ -21,7 +21,7 @@ public class BattleChoiceContainer : VisualElement
         Add(heroCardMini);
 
 
-        Label bn = new($"Battle number {GameManager.Instance.BattleNumber + 1}");
+        Label bn = new($"Battle #{GameManager.Instance.BattleNumber + 1}");
         bn.style.fontSize = 24;
         Add(bn);
 

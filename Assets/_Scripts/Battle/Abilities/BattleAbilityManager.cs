@@ -34,6 +34,7 @@ public class BattleAbilityManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
+
         BattleManager.Instance.OnBattleFinalized += CancelAbility;
         _battleGrabManager = GetComponent<BattleGrabManager>();
 
@@ -161,23 +162,7 @@ public class BattleAbilityManager : MonoBehaviour
                 .GetComponent<AbilityExecutor>();
         _abilityExecutor.HighlightAbilityArea(_selectedAbility);
 
-        _abilityInfoContainer.Clear();
-
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-
-        ElementalElement el = new(_selectedAbility.Element);
-
-        Label abilityName = new($"{Helpers.ParseScriptableObjectCloneName(_selectedAbility.name)}");
-        abilityName.style.fontSize = 48;
-
-        container.Add(el);
-        container.Add(abilityName);
-
-        _abilityInfoContainer.Add(container);
-        DOTween.To(x => container.style.opacity = x, 1, 0, 2f)
-                .OnComplete(() => container.RemoveFromHierarchy());
-
+        DisplayAbilityInfo();
         _audioManager.PlaySFX(_selectedAbility.AbilityNameSound, Vector3.zero);
     }
 
@@ -223,6 +208,26 @@ public class BattleAbilityManager : MonoBehaviour
         _selectedAbility = null;
         _abilityInfoContainer.Clear();
         IsAbilitySelected = false;
+    }
+
+    void DisplayAbilityInfo()
+    {
+        _abilityInfoContainer.Clear();
+
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+
+        ElementalElement el = new(_selectedAbility.Element);
+
+        Label abilityName = new($"{Helpers.ParseScriptableObjectCloneName(_selectedAbility.name)}");
+        abilityName.style.fontSize = 48;
+
+        container.Add(el);
+        container.Add(abilityName);
+
+        _abilityInfoContainer.Add(container);
+        DOTween.To(x => container.style.opacity = x, 1, 0, 2f)
+                .OnComplete(() => container.RemoveFromHierarchy());
     }
 
 }

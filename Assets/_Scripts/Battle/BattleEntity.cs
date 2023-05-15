@@ -221,6 +221,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         StopRunEntityCoroutine();
 
         CurrentHealth -= dmg;
+        if (CurrentHealth < 0) CurrentHealth = 0;
         OnHealthChanged?.Invoke(CurrentHealth);
 
         DisplayDamageText(dmg.ToString(), color);

@@ -74,6 +74,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     void DisableGrabbing()
     {
+        if (this == null) return;
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         _grabButton.ClearHighlight();
 

@@ -11,25 +11,25 @@ public class FreezeExecutor : AbilityExecutor
         foreach (BattleEntity entity in _entitiesInArea)
         {
             entity.StopRunEntityCoroutine();
+            entity.GetComponentInChildren<Animator>().enabled = false;
             Vector3 pos = new Vector3(entity.transform.position.x, 0, entity.transform.position.z);
             GameObject instance = Instantiate(_entityEffectPrefab, pos, Quaternion.identity);
             entityEffects.Add(instance);
-            // HERE: abilities, you can have a variable how long it takes to unfreeze and it works with animations
-            instance.GetComponent<FreezeEntityEffect>().SetDelays(3f);
+
+            instance.GetComponent<FreezeEntityEffect>().SetDelays(_selectedAbility.GetPower());
         }
         CreateBattleLog();
 
-        yield return new WaitForSeconds(3.2f);
+        yield return new WaitForSeconds(_selectedAbility.GetPower() + 0.2f);
         foreach (BattleEntity entity in _entitiesInArea)
         {
+            entity.GetComponentInChildren<Animator>().enabled = true;
             entity.StartRunEntityCoroutine();
         }
 
         yield return new WaitForSeconds(7f);
         foreach (GameObject g in entityEffects)
-        {
             Destroy(g);
-        }
         entityEffects.Clear();
 
         CancelAbility();
