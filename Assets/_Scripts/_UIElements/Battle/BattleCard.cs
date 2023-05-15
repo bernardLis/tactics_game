@@ -67,7 +67,11 @@ public class BattleCard : VisualElement
         OnCardSelected?.Invoke(this);
     }
 
-    public void DisableCard() { AddToClassList(_ussDisabled); }
+    public void DisableCard()
+    {
+        SetEnabled(false);
+        AddToClassList(_ussDisabled);
+    }
 
     public void DisableClicks() { UnregisterCallback<PointerUpEvent>(OnPointerUp); }
 

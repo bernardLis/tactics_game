@@ -35,7 +35,11 @@ public class RewardCard : VisualElement
         Reward.GetReward();
     }
 
-    public void DisableCard() { AddToClassList(_ussDisabled); }
+    public void DisableCard()
+    {
+        SetEnabled(false);
+        AddToClassList(_ussDisabled);
+    }
 
     public void DisableClicks() { UnregisterCallback<PointerUpEvent>(OnPointerUp); }
 

@@ -15,7 +15,8 @@ public class BattleEndTestManager : MonoBehaviour
         _hero = ScriptableObject.CreateInstance<Hero>();
         _hero.CreateRandom(1);
         _hero.Abilities = new();
-        _hero.BaseMana.SetValue(12);
+
+        GameManager.Instance.PlayerHero = _hero;
 
         foreach (Ability a in GameManager.Instance.HeroDatabase.GetAllAbilities())
         {
@@ -23,8 +24,17 @@ public class BattleEndTestManager : MonoBehaviour
             _hero.Abilities.Add(instance);
         }
 
-        _battleManager.Initialize(_hero, null, null, null);
-        GameManager.Instance.ToggleTimer(true);
+        Hero opp = ScriptableObject.CreateInstance<Hero>();
+        opp.CreateRandom(1);
 
+        _battleManager.Initialize(_hero, opp, _hero.Army, opp.Army);
+
+        Invoke("WinBattle", 1f);
+
+    }
+
+    void WinBattle()
+    {
+        _battleManager.WinBattle();
     }
 }

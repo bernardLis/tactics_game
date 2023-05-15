@@ -201,7 +201,8 @@ public class BattleManager : Singleton<BattleManager>
         if (_battleFinalized) yield break;
         _battleFinalized = true;
 
-        yield return new WaitForSeconds(4f);
+        // HERE: testing
+        // yield return new WaitForSeconds(4f);
         if (_playerHero != null && LoadedBattle.Won)
         {
             BattleResult r = new(Root);
@@ -226,7 +227,7 @@ public class BattleManager : Singleton<BattleManager>
 
 #if UNITY_EDITOR
     [ContextMenu("Win Battle")]
-    void WinBattle()
+    public void WinBattle()
     {
         List<BattleEntity> copy = new(OpponentEntities);
         foreach (BattleEntity be in copy)

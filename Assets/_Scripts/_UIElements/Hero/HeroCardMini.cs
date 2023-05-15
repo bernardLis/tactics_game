@@ -62,6 +62,7 @@ public class HeroCardMini : ElementWithTooltip
     void OnPointerUp(PointerUpEvent evt)
     {
         if (evt.button != 0) return;
+        evt.StopPropagation();
 
         HeroCardFull heroCardFull = new(Hero, BattleManager.Instance.Root);
     }
