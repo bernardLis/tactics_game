@@ -18,8 +18,8 @@ public class ThunderExecutor : AbilityExecutor
 
         yield return new WaitForSeconds(3f);
         yield return _effectInstance.transform.DOScale(0f, 1f)
-                .SetEase(Ease.OutCubic)
-                .WaitForCompletion();
+                 .SetEase(Ease.OutCubic)
+                 .WaitForCompletion();
 
         CancelAbility();
     }
