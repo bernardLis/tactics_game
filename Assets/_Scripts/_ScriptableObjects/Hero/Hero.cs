@@ -128,15 +128,21 @@ public class Hero : BaseScriptableObject
 
     public int GetExpForNextLevel()
     {
-        //http://howtomakeanrpg.com/a/how-to-make-an-rpg-levels.html
-        return Mathf.RoundToInt((4 * (Level.Value ^ 3)) / 5) * 100;
+
+        float exponent = 3f;
+        float multiplier = 0.8f;
+        int baseExp = 100;
+
+        int result = Mathf.RoundToInt(Mathf.FloorToInt((multiplier * Mathf.Pow(Level.Value, exponent))) * 0.1f) * 10;
+
+        return result + baseExp;
     }
 
     public virtual void GetExp(int gain)
     {
-        int g = Mathf.Clamp(gain, 0, 100);
-        Experience.ApplyChange(g);
-        if (Experience.Value < GetExpForNextLevel())
+        Experience.ApplyChange(gain);
+
+        if (Experience.Value < ExpForNextLevel.Value)
             return;
         LevelUp();
     }
