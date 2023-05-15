@@ -173,7 +173,6 @@ public class BattleAbilityManager : MonoBehaviour
         if (_abilityExecutor == null) return;
         if (_selectedAbility == null) return;
 
-
         _abilityExecutor.ExecuteAbility(_selectedAbility);
         _hero.CurrentMana.ApplyChange(-_selectedAbility.GetManaCost());
         _selectedAbility.StartCooldown();

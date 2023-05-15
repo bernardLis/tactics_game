@@ -29,7 +29,7 @@ public class BattleAbilityTestManager : MonoBehaviour
         _hero = ScriptableObject.CreateInstance<Hero>();
         _hero.CreateRandom(1);
         _hero.Abilities = new();
-        _hero.BaseMana.SetValue(1000);
+        _hero.BaseMana.SetValue(12);
 
         foreach (Ability a in GameManager.Instance.HeroDatabase.GetAllAbilities())
         {

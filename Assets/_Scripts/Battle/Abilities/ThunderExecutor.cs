@@ -24,6 +24,15 @@ public class ThunderExecutor : AbilityExecutor
         CancelAbility();
     }
 
+    public override void ClearAbilityHighlight()
+    {
+        RotateSprite rs = _areaHighlightInstance.GetComponentInChildren<RotateSprite>();
+        if (rs != null) DOTween.Kill(rs.transform);
+
+        base.ClearAbilityHighlight();
+    }
+
+
     public override void CancelAbilityHighlight()
     {
         RotateSprite rs = _areaHighlightInstance.GetComponentInChildren<RotateSprite>();

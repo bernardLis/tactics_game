@@ -13,8 +13,6 @@ public class BattleAbilityArea : MonoBehaviour
 
     Ability _ability;
 
-    bool _testBlockMovement;
-
     void Start()
     {
         _floorLayerMask = LayerMask.GetMask("Floor");
@@ -28,9 +26,6 @@ public class BattleAbilityArea : MonoBehaviour
 
     void Update()
     {
-        // HERE: testing
-        if (_testBlockMovement) return;
-
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
@@ -43,9 +38,6 @@ public class BattleAbilityArea : MonoBehaviour
     public List<BattleEntity> GetEntitiesInArea() { return _entitiesInRange; }
     public void ClearHighlightedEntities()
     {
-        // HERE: testing
-        _testBlockMovement = true;
-
         foreach (BattleEntity be in _entitiesInRange)
             be.ToggleHighlight(false);
     }

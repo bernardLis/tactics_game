@@ -42,13 +42,12 @@ public class AbilityExecutor : MonoBehaviour
 
         _areaHighlightInstance.IsHighlightingEnabled = false;
         _areaHighlightInstance.ClearHighlightedEntities();
-        // ClearAbilityHighlight();
+        ClearAbilityHighlight();
 
         if (_effectInstance.TryGetComponent<AbilityEffectScaler>(out AbilityEffectScaler aes))
             aes.Initialize(ability.GetScale());
 
         StartCoroutine(ExecuteAbilityCoroutine());
-
     }
 
     protected virtual IEnumerator ExecuteAbilityCoroutine()
@@ -66,7 +65,7 @@ public class AbilityExecutor : MonoBehaviour
 
     public void CancelAbility() { Invoke("DestroySelf", 0.1f); }
 
-    public void ClearAbilityHighlight()
+    public virtual void ClearAbilityHighlight()
     {
         if (_areaHighlightInstance == null) return;
         _areaHighlightInstance.ClearHighlightedEntities();
