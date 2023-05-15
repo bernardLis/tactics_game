@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106776}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.73, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071066, y: -0, z: -0, w: -0.70710695}
+  m_LocalPosition: {x: -0.4, y: 0.15000042, z: 1.0699999}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 484968}
-  m_RootOrder: 0
+  m_Father: {fileID: 440458}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 360, y: 0, z: 0}
 --- !u!198 &19843906
 ParticleSystem:
@@ -4716,9 +4716,7 @@ Transform:
   m_LocalPosition: {x: -0.4, y: 0.15, z: 1.8}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 466986}
-  - {fileID: 459142}
+  m_Children: []
   m_Father: {fileID: 440458}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
@@ -9422,7 +9420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117670}
   m_LocalRotation: {x: 0.7071066, y: 0, z: 0, w: -0.70710695}
-  m_LocalPosition: {x: -0.79, y: 6.48, z: 2.69}
+  m_LocalPosition: {x: -0.79, y: 6.5, z: 2.69}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9445,7 +9443,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -14337,6 +14335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 440458}
   - component: {fileID: 114196630334499820}
+  - component: {fileID: 584584445258914447}
   m_Layer: 0
   m_Name: Fireball Effect
   m_TagString: Untagged
@@ -14362,6 +14361,8 @@ Transform:
   - {fileID: 411744}
   - {fileID: 491820}
   - {fileID: 484968}
+  - {fileID: 459142}
+  - {fileID: 466986}
   - {fileID: 484978}
   - {fileID: 411622}
   - {fileID: 4974140202039796}
@@ -14396,6 +14397,33 @@ MonoBehaviour:
   Speed: 10
   AirDrag: 0.1
   UseGravity: 1
+--- !u!114 &584584445258914447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe6184e7fbd9af43b3ff4cd691f772b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transformsToScale:
+  - {fileID: 484488}
+  - {fileID: 411744}
+  - {fileID: 411622}
+  - {fileID: 4974140202039796}
+  - {fileID: 412818}
+  - {fileID: 467640}
+  - {fileID: 466986}
+  - {fileID: 459142}
+  - {fileID: 484968}
+  _lightsToScale:
+  - {fileID: 10822010}
+  - {fileID: 6319468651433004658}
+  _cloud: {fileID: 412818}
+  _tornadoLoop: {fileID: 484978}
 --- !u!1 &151478
 GameObject:
   m_ObjectHideFlags: 0
@@ -14627,7 +14655,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.4739351, b: 0.16176468, a: 1}
   m_Intensity: 50
-  m_Range: 20
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -19544,7 +19572,7 @@ Transform:
   m_GameObject: {fileID: 175204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.75, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 0.05, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 440458}
@@ -19693,13 +19721,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176784}
-  m_LocalRotation: {x: -0.00000032584137, y: 0, z: 0, w: -1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.70710635, y: -0, z: -0, w: 0.7071072}
+  m_LocalPosition: {x: -0.4, y: 0.15, z: 1.8}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 484968}
-  m_RootOrder: 1
+  m_Father: {fileID: 440458}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 360, y: 0, z: 0}
 --- !u!198 &19843508
 ParticleSystem:
@@ -38696,7 +38724,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.4739351, b: 0.16176468, a: 1}
   m_Intensity: 50
-  m_Range: 20
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

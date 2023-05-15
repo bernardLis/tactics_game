@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AbilityEffectScaler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] List<Transform> _transformsToScale;
+    [SerializeField] List<Light> _lightsToScale;
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Initialize(float scale)
     {
-        
+        foreach (Transform t in _transformsToScale)
+            t.localScale *= scale;
+        foreach (Light l in _lightsToScale)
+            l.range *= scale;
+
     }
 }

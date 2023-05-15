@@ -37,40 +37,31 @@ public class Ability : BaseScriptableObject
         OnCooldownStarted?.Invoke();
     }
 
-    public void IncreaseKillCount()
-    {
-        KillCount++;
-    }
-
     public int GetManaCost()
     {
-        return Mathf.RoundToInt(BaseManaCost * Level * ManaCostLevelMultiplier);
+        return Mathf.RoundToInt(BaseManaCost * ((Level - 1) * ManaCostLevelMultiplier));
     }
 
     public int GetPower()
     {
-        return Mathf.RoundToInt(BasePower * Level * PowerLevelMultiplier);
+        return Mathf.RoundToInt(BasePower + ((Level - 1) * PowerLevelMultiplier));
     }
 
     public int GetCooldown()
     {
-        return Mathf.RoundToInt(BaseCooldown * Level * CooldownLevelMultiplier);
+        return Mathf.RoundToInt(BaseCooldown + ((Level - 1) * CooldownLevelMultiplier));
     }
 
     public float GetScale()
     {
-        return BaseScale * Level * ScaleLevelMultiplier;
+        return BaseScale + ((Level - 1) * ScaleLevelMultiplier);
     }
 
-    public void LevelUp()
-    {
-        Level++;
-    }
+    public void IncreaseKillCount() { KillCount++; }
 
-    public void LevelDown()
-    {
-        Level--;
-    }
+    public void LevelUp() { Level++; }
+
+    public void LevelDown() { Level--; }
 
     public void LoadFromData(AbilityData data)
     {

@@ -55,16 +55,11 @@ public class AbilityButton : ElementWithSound
     {
         IsOnCooldown = false;
         SetEnabled(true);
-        _cooldownTimer.OnTimerFinished -= OnCooldownFinished; // TODO: is it necessary?
         _icon.Remove(_cooldownTimer);
+        _cooldownTimer.OnTimerFinished -= OnCooldownFinished; // TODO: is it necessary?
     }
 
-    public void Highlight()
-    {
-        AddToClassList(_ussHighlight);
-    }
-    public void ClearHighlight()
-    {
-        RemoveFromClassList(_ussHighlight);
-    }
+    public void Highlight() { AddToClassList(_ussHighlight); }
+
+    public void ClearHighlight() { RemoveFromClassList(_ussHighlight); }
 }

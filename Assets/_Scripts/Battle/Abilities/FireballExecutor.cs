@@ -14,15 +14,16 @@ public class FireballExecutor : AbilityExecutor
             StartCoroutine(entity.GetHit(_selectedAbility));
         }
         CreateBattleLog();
+        Debug.Log($"ability scale {_selectedAbility.GetScale()}");
 
         yield return new WaitForSeconds(4f);
-        Transform[] allChildren = _effectInstance.GetComponentsInChildren<Transform>();
+        //  Transform[] allChildren = _effectInstance.GetComponentsInChildren<Transform>();
 
-        foreach (Transform child in allChildren)
-            child.DOScale(0f, 1f);
+        //  foreach (Transform child in allChildren)
+        //       child.DOScale(0f, 1f);
 
-        yield return _effectInstance.transform.DOScale(0f, 1f).WaitForCompletion();
-        CancelAbility();
+        //     yield return _effectInstance.transform.DOScale(0f, 1f).WaitForCompletion();
+        //  CancelAbility();
     }
 
 }

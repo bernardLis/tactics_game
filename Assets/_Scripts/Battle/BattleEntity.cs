@@ -209,6 +209,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         if (CurrentHealth <= 0)
         {
+            ability.IncreaseKillCount();
             yield return Die(ability: ability);
             yield break;
         }

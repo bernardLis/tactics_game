@@ -30,7 +30,7 @@ public class BattleEntityRanged : BattleEntity
         // path to target
         while (_agent.enabled && _agent.remainingDistance > 0.01f)
         {
-            //  _agent.SetDestination(ClosesPositionWithClearLOS());
+            //PathToTarget(); <- could be used to refresh path if target moved
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -51,12 +51,12 @@ public class BattleEntityRanged : BattleEntity
             Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / numberOfLines, Vector3.up) * dir;
             rotatedLine = rotatedLine.normalized * ArmyEntity.AttackRange;
 
-            Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
+            // Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
 
             if (!Physics.Linecast(_opponent.transform.position, rotatedLine, // HERE: random 4
                     out RaycastHit newHit, 1 << Tags.BattleObstacleLayer))
             {
-                Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.blue, 30f);
+                //   Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.blue, 30f);
 
                 Vector3 point = FindNearestPointOnLine(_opponent.transform.position,
                         rotatedLine, transform.position);
