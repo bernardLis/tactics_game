@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
-public class DraggableArmies : MonoBehaviour
+public class DraggableArmies : Singleton<DraggableArmies>
 {
     const string _ussDragDropContainer = "dashboard__army-drag-drop-container";
 
@@ -90,9 +90,7 @@ public class DraggableArmies : MonoBehaviour
         {
             ArmySlotElement el = (ArmySlotElement)item;
             if (el.IsLocked) continue;
-            if (_armySlots.Contains(el)) continue;
-            el.OnArmyAdded += AddDraggableArmyElement;
-            _armySlots.Add(el);
+            AddDraggableArmySlot(el);
         }
 
         List<VisualElement> els = _root.Query(className: _ussArmyElement).ToList();
@@ -105,6 +103,14 @@ public class DraggableArmies : MonoBehaviour
 
         _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
+    }
+    
+    public void AddDraggableArmySlot(ArmySlotElement el)
+    {
+        if (_armySlots.Contains(el)) return;
+
+        el.OnArmyAdded += AddDraggableArmyElement;
+        _armySlots.Add(el);
     }
 
     void AddDraggableArmyElement(ArmyGroupElement el)

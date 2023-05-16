@@ -26,7 +26,11 @@ public class ArmyEntity : BaseScriptableObject
     public GameObject Projectile;
     public GameObject HitPrefab;
 
-    public Hero Hero;
+    [Header("Upgrade")]
+    public ArmyEntity UpgradedEntity;
+    public int UpgradeCost;
+
+    [HideInInspector] public Hero Hero;
     public void HeroInfluence(Hero hero) { Hero = hero; }
 
     public float CalculateDamage(BattleEntity attacker)
