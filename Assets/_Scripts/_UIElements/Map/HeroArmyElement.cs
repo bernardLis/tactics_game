@@ -38,44 +38,11 @@ public class HeroArmyElement : VisualElement
         for (int i = 0; i < Hero.Army.Count; i++)
         {
             ArmySlotElement armySlot = new(null, i);
-            armySlot.OnArmyAdded += CheckForExtraArmySlot;
             _armySlotScrollView.Add(armySlot);
             _armySlots.Add(armySlot);
         }
 
         for (int i = 0; i < Hero.Army.Count; i++)
             _armySlots[i].AddArmyNoDelegates(new(Hero.Army[i]));
-
-        InitializeDraggableArmies();
-        CreateExtraArmySlot();
-    }
-
-    void InitializeDraggableArmies()
-    {
-        _draggableArmies = DraggableArmies.Instance;
-        if (_draggableArmies == null)
-        {
-            Debug.LogError($"There is no draggable armies...");
-            return;
-        }
-        _draggableArmies.Initialize();
-    }
-
-    void CreateExtraArmySlot()
-    {
-        ArmySlotElement armySlot = new(null, _armySlots.Count);
-        _armySlots.Add(armySlot);
-        _armySlotScrollView.Add(armySlot);
-        _draggableArmies.AddDraggableArmySlot(armySlot);
-        armySlot.OnArmyAdded += CheckForExtraArmySlot;
-    }
-
-    // make sure there is always at least one empty slot
-    void CheckForExtraArmySlot(ArmyGroupElement armyGroupElement)
-    {
-        foreach (ArmySlotElement slot in _armySlots)
-            if (slot.ArmyElement == null)
-                return;
-        CreateExtraArmySlot();
     }
 }

@@ -79,9 +79,7 @@ public class BattleResult : FullScreenElement
         _content.AddToClassList(_ussContent);
 
         _statsContainer = new();
-        // HERE: testing
-        //  _content.Add(_statsContainer);
-        ShowRewards();
+        _content.Add(_statsContainer);
 
         _continueButton = new("Continue", _ussContinueButton, ShowRewardExp);
         _statsContainer.OnFinished += () => _content.Add(_continueButton);

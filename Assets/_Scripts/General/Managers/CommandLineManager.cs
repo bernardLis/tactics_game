@@ -94,18 +94,6 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.ChangeSpiceValue(-500);
         if (_commandTextField.text.ToLower() == "levelup")
             _gameManager.PlayerHero.LevelUp();
-        if (_commandTextField.text.ToLower() == "metalon")
-            SpawnMetalon();
-
-
-    }
-
-    void SpawnMetalon()
-    {
-        BattleManager bm = BattleManager.Instance;
-        if (bm == null) return;
-
-        bm.InstantiatePlayer(_metalon, 1);
     }
 
     public void Log(string logString, string stackTrace, LogType type)

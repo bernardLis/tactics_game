@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Buds
   m_EditorClassIdentifier: 
   Id: 444359-8f39-4b6c-a851-72019b4f126c
+  Name: Budderinos
   ArmyEntity: {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
   EntityCount: 1
+  KillCount: 0
   ListPosition: 1

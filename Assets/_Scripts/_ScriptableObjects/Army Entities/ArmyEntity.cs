@@ -19,16 +19,13 @@ public class ArmyEntity : BaseScriptableObject
 
     public float Speed;
 
-    [Range(0, 1)]
-    public float ProjectileSpawnAnimationDelay;
-
     public GameObject Prefab;
     public GameObject Projectile;
     public GameObject HitPrefab;
 
     [Header("Upgrade")]
     public ArmyEntity UpgradedEntity;
-    public int UpgradeCost;
+    public int KillsToUpgrade;
 
     [HideInInspector] public Hero Hero;
     public void HeroInfluence(Hero hero) { Hero = hero; }
@@ -56,7 +53,6 @@ public class ArmyEntity : BaseScriptableObject
 
         return damage;
     }
-
 
     public float CalculateDamage(Ability ability)
     {

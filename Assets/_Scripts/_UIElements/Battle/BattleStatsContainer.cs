@@ -31,10 +31,58 @@ public class BattleStatsContainer : VisualElement
             if (item is BattleLogAbility abilityLog)
                 _abilityLogs.Add(abilityLog);
 
-        AddMostKillsEntity();
+        AddArmyGroups();
 
+        AddMostKillsEntity();
         AddMostEntitiesAbility();
         AddMostDamageAbility();
+    }
+
+    void AddArmyGroups()
+    {
+        for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
+        {
+            // HERE: make a visual element out of this
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            container.style.alignItems = Align.Center;
+
+            ArmyGroup ag = _gameManager.PlayerHero.Army[i];
+            // HERE: testing
+            ag.KillCount = Random.Range(0, 10);
+
+            container.Add(new ArmyGroupElement(ag));
+
+            VisualElement killCounterContainer = new();
+            container.style.alignItems = Align.Center;
+
+            ChangingValueElement killCounter = new();
+            killCounter.Initialize(ag.OldKillCount, 24);
+            killCounterContainer.Add(new Label($"# of kills:"));
+            killCounterContainer.Add(killCounter);
+
+            container.Add(killCounterContainer);
+            container.Add(new Label($"Evolves at:  {ag.NumberOfKillsToEvolve()}"));
+
+            // HERE: should be some kind of evolution show
+            container.schedule.Execute(() =>
+            {
+                Debug.Log($"execute {Time.time}");
+                killCounter.ChangeAmount(ag.KillCount);
+                if (ag.ShouldEvolve())
+                    container.Add(new MyButton("Evolve", _ussCommonMenuButton, () =>
+                    {
+                        SetEnabled(false);
+                        ag.Evolve();
+                    }));
+            }).StartingIn(1000 + 500 * i);
+
+            Add(container);
+
+            container.style.opacity = 0;
+            DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f * i);
+
+        }
     }
 
 
@@ -66,7 +114,7 @@ public class BattleStatsContainer : VisualElement
     void AddMostEntitiesAbility()
     {
         if (_abilityLogs.Count == 0) return;
-        
+
         List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.NumberOfAffectedEntities).ToList());
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;

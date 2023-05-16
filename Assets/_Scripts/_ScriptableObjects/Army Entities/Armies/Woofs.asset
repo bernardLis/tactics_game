@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Woofs
   m_EditorClassIdentifier: 
   Id: 12359-8f39-4b6c-a851-72019b4f126c
+  Name: Wooferinos
   ArmyEntity: {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
   EntityCount: 4
+  OldKillCount: 0
+  KillCount: 0
   ListPosition: 8

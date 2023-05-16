@@ -83,8 +83,9 @@ MonoBehaviour:
   AttackRange: 3
   AttackCooldown: 2
   Speed: 4
-  ProjectileSpawnAnimationDelay: 0
   Prefab: {fileID: 2523619118933518919, guid: 5c623aef50547514f8696c2a9d835404, type: 3}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
+  UpgradedEntity: {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
+  KillsToUpgrade: 0
   Hero: {fileID: 0}

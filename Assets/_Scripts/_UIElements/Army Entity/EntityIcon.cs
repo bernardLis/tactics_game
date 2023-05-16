@@ -42,6 +42,12 @@ public class EntityIcon : VisualElement
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
     }
 
+    public void SwapEntity(ArmyEntity newEntity)
+    {
+        _entity = newEntity;
+        _animationElement.SwapAnimationSprites(newEntity.IconAnimation);
+    }
+
     void OnMouseEnter(MouseEnterEvent evt)
     {
         _animationElement.PlayAnimation();

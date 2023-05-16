@@ -11,7 +11,11 @@ public class ArmyGroupElement : ElementWithTooltip
 
     GameManager _gameManager;
 
+
+    EntityIcon _entityIcon;
     Label _armyCountLabel;
+
+
 
     public bool IsLocked { get; private set; }
 
@@ -25,18 +29,24 @@ public class ArmyGroupElement : ElementWithTooltip
             styleSheets.Add(ss);
 
         ArmyGroup = armyGroup;
+        armyGroup.OnEvolved += OnEvolved;
         armyGroup.OnCountChanged += OnCountChanged;
 
         IsLocked = isLocked;
 
         AddToClassList(_ussMain);
 
-        EntityIcon icon = new(armyGroup.ArmyEntity);
-        Add(icon);
+        _entityIcon = new(armyGroup.ArmyEntity);
+        Add(_entityIcon);
 
         _armyCountLabel = new($"{armyGroup.EntityCount}");
         _armyCountLabel.AddToClassList(_ussCount);
         Add(_armyCountLabel);
+    }
+
+    void OnEvolved(ArmyEntity armyEntity)
+    {
+        _entityIcon.SwapEntity(armyEntity);
     }
 
     void OnCountChanged(int listPos, int total) { _armyCountLabel.text = $"{total}"; }

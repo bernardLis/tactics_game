@@ -14,10 +14,18 @@ public class BattleEndTestManager : MonoBehaviour
     {
         _battleManager = BattleManager.Instance;
 
+        List<ArmyGroup> armyInstance = new();
+        foreach (ArmyGroup ag in _army)
+        {
+            ArmyGroup instance = Instantiate<ArmyGroup>(ag);
+            armyInstance.Add(instance);
+        }
+
+
         _hero = ScriptableObject.CreateInstance<Hero>();
         _hero.CreateRandom(1);
         _hero.Abilities = new();
-        _hero.Army = _army;
+        _hero.Army = armyInstance;
 
         GameManager.Instance.PlayerHero = _hero;
 
@@ -29,7 +37,7 @@ public class BattleEndTestManager : MonoBehaviour
 
         Hero opp = ScriptableObject.CreateInstance<Hero>();
         opp.CreateRandom(1);
-        opp.Army = _army;
+        opp.Army = armyInstance;
 
         _battleManager.Initialize(_hero, opp, _hero.Army, opp.Army);
 

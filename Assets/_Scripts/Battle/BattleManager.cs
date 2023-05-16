@@ -109,7 +109,7 @@ public class BattleManager : Singleton<BattleManager>
         if (playerArmy == null) return;
 
         foreach (ArmyGroup ag in playerArmy)
-            InstantiatePlayer(ag.ArmyEntity, ag.EntityCount);
+            InstantiatePlayer(ag);
         foreach (ArmyGroup ag in opponentArmy)
             InstantiateOpponent(ag.ArmyEntity, ag.EntityCount);
 
@@ -124,20 +124,23 @@ public class BattleManager : Singleton<BattleManager>
         GetComponent<BattleLogManager>().Initialize(PlayerEntities, OpponentEntities);
     }
 
-    public void InstantiatePlayer(ArmyEntity entity, int count)
+    public void InstantiatePlayer(ArmyGroup ag)
     {
-        ArmyEntity entityInstance = Instantiate(entity);
+        ag.InitializeBattle();
+        
+        ArmyEntity entityInstance = Instantiate(ag.ArmyEntity);
         entityInstance.HeroInfluence(_playerHero);
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < ag.EntityCount; i++)
         {
             Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-            GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
+            GameObject instance = Instantiate(ag.ArmyEntity.Prefab, pos, Quaternion.identity);
             instance.layer = 8;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
             be.Initialize(true, entityInstance, ref OpponentEntities);
             PlayerEntities.Add(be);
+            be.OnEnemyKilled += ag.AddKill;
             be.OnDeath += OnPlayerDeath;
         }
     }
