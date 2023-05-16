@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Threading.Tasks;
+using DG.Tweening;
 
 public class HeroCardExp : VisualElement
 {
@@ -14,8 +14,12 @@ public class HeroCardExp : VisualElement
     const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussManaContainer = _ussClassName + "mana-container";
     const string _ussStatGroup = _ussClassName + "stat-group";
+    const string _ussStatGroupAnimation = _ussClassName + "stat-group-animation";
+
     const string _ussStatContainer = _ussClassName + "stat-container";
     const string _ussStatUpButton = _ussClassName + "stat-up-button";
+    const string _ussStatUpButtonAnimation = _ussClassName + "stat-up-button-animation";
+
 
     GameManager _gameManager;
     public Hero Hero;
@@ -29,6 +33,7 @@ public class HeroCardExp : VisualElement
     ResourceBarElement _expBar;
     ResourceBarElement _manaBar;
 
+    VisualElement _statGroupContainer;
     VisualElement _powerStatContainer;
     VisualElement _armorStatContainer;
     VisualElement _rangeStatContainer;
@@ -40,6 +45,11 @@ public class HeroCardExp : VisualElement
     MyButton _powerUpButton;
     MyButton _armorUpButton;
     MyButton _rangeUpButton;
+
+    bool _statUpButtonsEnabled;
+
+    IVisualElementScheduledItem _pulsatingButtons;
+    IVisualElementScheduledItem _pulsatingButtons1;
 
     public event Action OnPointAdded;
     public HeroCardExp(Hero hero)
@@ -129,8 +139,8 @@ public class HeroCardExp : VisualElement
 
     VisualElement CreateStatGroup()
     {
-        VisualElement container = new();
-        container.AddToClassList(_ussStatGroup);
+        _statGroupContainer = new();
+        _statGroupContainer.AddToClassList(_ussStatGroup);
 
         _powerStatContainer = new();
         _armorStatContainer = new();
@@ -148,13 +158,13 @@ public class HeroCardExp : VisualElement
         _armorStatContainer.Add(_armor);
         _rangeStatContainer.Add(_range);
 
-        container.Add(_powerStatContainer);
-        container.Add(_armorStatContainer);
-        container.Add(_rangeStatContainer);
+        _statGroupContainer.Add(_powerStatContainer);
+        _statGroupContainer.Add(_armorStatContainer);
+        _statGroupContainer.Add(_rangeStatContainer);
 
         CreateStatUpButtons();
 
-        return container;
+        return _statGroupContainer;
     }
 
     void CreateStatUpButtons()
@@ -197,16 +207,52 @@ public class HeroCardExp : VisualElement
 
     void EnableStatUpButtons()
     {
+        if (_statUpButtonsEnabled) return;
+        _statUpButtonsEnabled = true;
+
         _powerUpButton.SetEnabled(true);
         _armorUpButton.SetEnabled(true);
         _rangeUpButton.SetEnabled(true);
+        _pulsatingButtons = this.schedule.Execute(() =>
+         {
+             _statGroupContainer.AddToClassList(_ussStatGroupAnimation);
+             _powerUpButton.AddToClassList(_ussStatUpButtonAnimation);
+             _armorUpButton.AddToClassList(_ussStatUpButtonAnimation);
+             _rangeUpButton.AddToClassList(_ussStatUpButtonAnimation);
+
+         }).Every(2000);
+
+        _pulsatingButtons1 = this.schedule.Execute(() =>
+        {
+            _statGroupContainer.RemoveFromClassList(_ussStatGroupAnimation);
+
+            _powerUpButton.RemoveFromClassList(_ussStatUpButtonAnimation);
+            _armorUpButton.RemoveFromClassList(_ussStatUpButtonAnimation);
+            _rangeUpButton.RemoveFromClassList(_ussStatUpButtonAnimation);
+        }).Every(2000).StartingIn(1000);
     }
 
     void DisableStatUpButtons()
     {
+        _statUpButtonsEnabled = false;
+
+        if (_pulsatingButtons != null) _pulsatingButtons.Pause();
+        if (_pulsatingButtons1 != null) _pulsatingButtons1.Pause();
+
+        _statGroupContainer.RemoveFromClassList(_ussStatGroupAnimation);
+
+        _powerUpButton.RemoveFromClassList(_ussStatUpButtonAnimation);
+        _armorUpButton.RemoveFromClassList(_ussStatUpButtonAnimation);
+        _rangeUpButton.RemoveFromClassList(_ussStatUpButtonAnimation);
+
+        //      _powerUpButton.transform.scale = Vector3.one;
+        //    _armorUpButton.transform.scale = Vector3.one;
+        //  _rangeUpButton.transform.scale = Vector3.one;
+
         _powerUpButton.SetEnabled(false);
         _armorUpButton.SetEnabled(false);
         _rangeUpButton.SetEnabled(false);
+
     }
 
     public void PlayLevelUpAnimation()

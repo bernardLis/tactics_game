@@ -6,8 +6,6 @@ using UnityEngine.UIElements;
 
 public class ConfirmPopUp : VisualElement
 {
-    GameManager _gameManager;
-    VisualElement _root;
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
@@ -16,6 +14,12 @@ public class ConfirmPopUp : VisualElement
     const string _ussMain = _ussClassName + "main";
     const string _ussText = _ussClassName + "text";
     const string _ussButtonContainer = _ussClassName + "button-container";
+
+    GameManager _gameManager;
+    VisualElement _root;
+
+    MyButton _confirmButton;
+    MyButton _cancelButton;
 
     public void Initialize(VisualElement root, Action callback, string displayText = null)
     {
@@ -47,16 +51,21 @@ public class ConfirmPopUp : VisualElement
         container.AddToClassList(_ussButtonContainer);
         Add(container);
 
-        MyButton confirm = new MyButton("Yaasss Queen", _ussCommonMenuButton, callback);
-        container.Add(confirm);
-        confirm.clickable.clicked += Hide;
+        _confirmButton = new MyButton("Yaasss Queen", _ussCommonMenuButton, callback);
+        container.Add(_confirmButton);
+        _confirmButton.clickable.clicked += Hide;
 
         VisualElement spacer = new VisualElement();
         spacer.style.width = 50;
         container.Add(spacer);
 
-        MyButton cancel = new MyButton("Cancel!@!", _ussCommonMenuButton, Hide);
-        container.Add(cancel);
+        _cancelButton = new MyButton("Cancel!@!", _ussCommonMenuButton, Hide);
+        container.Add(_cancelButton);
+    }
+
+    public void HideCancelButton()
+    {
+        _cancelButton.style.display = DisplayStyle.None;
     }
 
     void Hide()

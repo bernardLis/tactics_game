@@ -16,6 +16,7 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/ResourceBarStyles.uss?fileID=7433441132597879392&amp;guid=fd3c461a5e9409b40a91dec9c08cf28a&amp;type=3#ResourceBarStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Army%20Entity/EntityIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#EntityIconStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Battle.uss?fileID=7433441132597879392&amp;guid=1b4751c5a5ad48049928f5760ebc628b&amp;type=3#Battle" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroCardExpStyles.uss?fileID=7433441132597879392&amp;guid=4496443c1c70fcf40a4dd27ff7628657&amp;type=3#HeroCardExpStyles" />
     <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="fpsLabel" style="position: absolute; -unity-font-style: bold; color: rgb(8, 245, 13);" />
     <ui:VisualElement name="topPanel" class="common__text-primary" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-items: center; justify-content: center; align-self: center; top: 20px;">
         <ui:VisualElement name="abilityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; justify-content: center; align-self: center;" />

@@ -128,13 +128,12 @@ public class Hero : BaseScriptableObject
 
     public int GetExpForNextLevel()
     {
-
         float exponent = 3f;
         float multiplier = 0.8f;
         int baseExp = 100;
 
-        int result = Mathf.RoundToInt(Mathf.FloorToInt((multiplier * Mathf.Pow(Level.Value, exponent))) * 0.1f) * 10;
-
+        int result = Mathf.FloorToInt((multiplier * Mathf.Pow(Level.Value, exponent)));
+        result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
         return result + baseExp;
     }
 

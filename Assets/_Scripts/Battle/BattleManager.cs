@@ -182,10 +182,13 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator BattleLost()
     {
-        yield return FinalizeBattle();
+        ConfirmPopUp popUp = new();
+        popUp.Initialize(Root, () => _gameManager.LoadScene(Scenes.MainMenu),
+                "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
+        popUp.HideCancelButton();
+        yield return null;
         // HERE: testing   
         //        _gameManager.ClearSaveData();
-        //_gameManager.LoadScene(Scenes.MainMenu);
     }
 
     IEnumerator BattleWon()

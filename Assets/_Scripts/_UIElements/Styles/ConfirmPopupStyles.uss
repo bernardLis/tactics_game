@@ -15,6 +15,11 @@
 
 .confirm-popup__text {
     font-size: 60px;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    margin-left: 100px;
+    margin-right: 100px;
+
 }
 
 .confirm-popup__button-container {
