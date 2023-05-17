@@ -11,11 +11,8 @@ public class ArmyGroupElement : ElementWithTooltip
 
     GameManager _gameManager;
 
-
     EntityIcon _entityIcon;
     Label _armyCountLabel;
-
-
 
     public bool IsLocked { get; private set; }
 

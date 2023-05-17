@@ -36,6 +36,7 @@ public class AnimationElement : VisualElement
     {
         _animationSprites = animationSprites;
         _animationSpriteIndex = 0;
+        style.backgroundImage = new StyleBackground(_animationSprites[0]);
     }
 
     public void SetLoop(bool isLoop) { _isLoop = isLoop; }
