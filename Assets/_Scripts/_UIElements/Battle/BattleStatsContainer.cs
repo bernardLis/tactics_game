@@ -16,6 +16,8 @@ public class BattleStatsContainer : VisualElement
 
     List<BattleLogAbility> _abilityLogs = new();
 
+    VisualElement _armyGroupContainer;
+    int _currentArmyGroup;
     public event Action OnFinished;
     public BattleStatsContainer()
     {
@@ -31,35 +33,58 @@ public class BattleStatsContainer : VisualElement
             if (item is BattleLogAbility abilityLog)
                 _abilityLogs.Add(abilityLog);
 
-        AddArmyGroups();
-
         AddMostKillsEntity();
         AddMostEntitiesAbility();
         AddMostDamageAbility();
+
+        BeginArmyGroupShow();
     }
 
-    void AddArmyGroups()
+    void BeginArmyGroupShow()
     {
-        VisualElement container = new();
-        container.style.alignItems = Align.Center;
-        Add(container);
+        _armyGroupContainer = new();
+        _armyGroupContainer.style.alignItems = Align.Center;
+        Add(_armyGroupContainer);
+
+        ShowArmyGroup();
+    }
+
+    void ShowArmyGroup()
+    {
+        if (_currentArmyGroup == _gameManager.PlayerHero.Army.Count)
+        {
+            DisplayAllArmies();
+            return;
+        }
+        _armyGroupContainer.Clear();
+        ArmyGroup ag = _gameManager.PlayerHero.Army[_currentArmyGroup];
+        // HERE: testing
+        ag.KillCount = Random.Range(0, 10);
+
+        ArmyEvolutionElement armyEvolutionElement = new(ag);
+        armyEvolutionElement.OnFinished += ShowArmyGroup;
+        _armyGroupContainer.Add(armyEvolutionElement);
+        _currentArmyGroup++;
+    }
+
+    void DisplayAllArmies()
+    {
+        _armyGroupContainer.Clear();
+        _armyGroupContainer.style.flexDirection = FlexDirection.Row;
 
         for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
         {
             ArmyGroup ag = _gameManager.PlayerHero.Army[i];
-            // HERE: testing
-            ag.KillCount = Random.Range(0, 10);
+            ArmyGroupElement armyGroupElement = new(ag);
+            armyGroupElement.EntityIcon.PlayAnimationAlways();
+            _armyGroupContainer.Add(armyGroupElement);
 
-            ArmyEvolutionElement armyEvolutionElement = new(ag);
-            container.Add(armyEvolutionElement);
-            armyEvolutionElement.AddKillCount(1000 + 500 * i);
-
-            armyEvolutionElement.style.opacity = 0;
-            DOTween.To(x => armyEvolutionElement.style.opacity = x, 0, 1, 0.5f)
+            armyGroupElement.style.opacity = 0;
+            DOTween.To(x => armyGroupElement.style.opacity = x, 0, 1, 0.5f)
                     .SetDelay(0.5f * i);
+
         }
     }
-
 
     void AddMostKillsEntity()
     {

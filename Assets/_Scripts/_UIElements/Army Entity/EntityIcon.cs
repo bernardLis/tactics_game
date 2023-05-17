@@ -14,6 +14,9 @@ public class EntityIcon : VisualElement
 
     ArmyEntity _entity;
 
+    VisualElement _iconContainer;
+    VisualElement _frame;
+
     AnimationElement _animationElement;
     public EntityIcon(ArmyEntity entity)
     {
@@ -26,26 +29,46 @@ public class EntityIcon : VisualElement
 
         AddToClassList(_ussMain);
 
-        VisualElement iconContainer = new();
-        iconContainer.AddToClassList(_ussIconContainer);
+        _iconContainer = new();
+        _iconContainer.AddToClassList(_ussIconContainer);
 
         _animationElement = new(entity.IconAnimation, 50, true);
-        iconContainer.Add(_animationElement);
+        _iconContainer.Add(_animationElement);
 
-        VisualElement frame = new();
-        frame.AddToClassList(_ussFrame);
+        _frame = new();
+        _frame.AddToClassList(_ussFrame);
 
-        Add(iconContainer);
-        Add(frame);
+        Add(_iconContainer);
+        Add(_frame);
 
         RegisterCallback<MouseEnterEvent>(OnMouseEnter);
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
+    }
+
+    public void LargeIcon()
+    {
+        style.width = 200;
+        style.height = 200;
+
+        _frame.style.width = 200;
+        _frame.style.height = 200;
+
+        _iconContainer.style.width = 180;
+        _iconContainer.style.height = 180;
+
     }
 
     public void SwapEntity(ArmyEntity newEntity)
     {
         _entity = newEntity;
         _animationElement.SwapAnimationSprites(newEntity.IconAnimation);
+    }
+
+    public void PlayAnimationAlways()
+    {
+        _animationElement.PlayAnimation();
+        UnregisterCallback<MouseEnterEvent>(OnMouseEnter);
+        UnregisterCallback<MouseLeaveEvent>(OnMouseLeave);
     }
 
     void OnMouseEnter(MouseEnterEvent evt)

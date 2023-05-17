@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class ArmyEvolutionElement : VisualElement
 {
@@ -10,12 +12,12 @@ public class ArmyEvolutionElement : VisualElement
 
     GameManager _gameManager;
 
-
+    ArmyGroupElement _armyGroupElement;
     ChangingValueElement _killCounter;
-    MyButton _evolveButton;
 
     public ArmyGroup ArmyGroup;
 
+    public event Action OnFinished;
     public ArmyEvolutionElement(ArmyGroup armyGroup)
     {
         _gameManager = GameManager.Instance;
@@ -36,7 +38,11 @@ public class ArmyEvolutionElement : VisualElement
         container.style.flexDirection = FlexDirection.Row;
         Add(container);
 
-        container.Add(new ArmyGroupElement(armyGroup));
+        _armyGroupElement = new(armyGroup);
+        _armyGroupElement.LargeIcon();
+        _armyGroupElement.EntityIcon.PlayAnimationAlways();
+
+        container.Add(_armyGroupElement);
 
         VisualElement killCounterContainer = new();
         killCounterContainer.style.alignItems = Align.Center;
@@ -46,10 +52,10 @@ public class ArmyEvolutionElement : VisualElement
         killCounterContainer.Add(_killCounter);
         container.Add(killCounterContainer);
 
-        _evolveButton = new MyButton($"Evolve for: {armyGroup.NumberOfKillsToEvolve()} kills",
-                 null, Evolve);
-        _evolveButton.SetEnabled(false);
-        container.Add(_evolveButton);
+        style.opacity = 0;
+        DOTween.To(x => style.opacity = x, 0, 1, 0.5f);
+
+        AddKillCount(1000);
     }
 
     public void AddKillCount(int delay)
@@ -57,22 +63,28 @@ public class ArmyEvolutionElement : VisualElement
         schedule.Execute(() =>
         {
             _killCounter.ChangeAmount(ArmyGroup.KillCount);
-            _killCounter.OnAnimationFinished += ResolveEvolveButton;
+            _killCounter.OnAnimationFinished += ResolveEvolution;
+            if (ArmyGroup.KillCount == ArmyGroup.OldKillCount) ResolveEvolution();
+
         }).StartingIn(delay);
     }
 
-    void ResolveEvolveButton()
+    void ResolveEvolution()
     {
-        if (!ArmyGroup.ShouldEvolve()) return;
-        _evolveButton.SetEnabled(true);
-    }
+        Debug.Log($"resove evolution");
+        schedule.Execute(() =>
+        {
+            _killCounter.ChangeAmount(ArmyGroup.KillCount);
 
-    void Evolve()
-    {
+            if (!ArmyGroup.ShouldEvolve())
+            {
+                OnFinished?.Invoke();
+                return;
+            }
 
-        ArmyGroup.Evolve();
-        _killCounter.ChangeAmount(ArmyGroup.KillCount);
+            ArmyGroup.Evolve(); // HERE: need to wait for it to finish
+            _armyGroupElement.OnEvolutionFinished += () => OnFinished?.Invoke();
 
-        _evolveButton.SetEnabled(false);
+        }).StartingIn(1000);
     }
 }
