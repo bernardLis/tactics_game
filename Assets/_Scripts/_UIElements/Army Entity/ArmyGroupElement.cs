@@ -54,13 +54,31 @@ public class ArmyGroupElement : ElementWithTooltip
 
     void OnEvolved(ArmyEntity armyEntity)
     {
-        DOTween.To(x => EntityIcon.style.opacity = x, 1, 0, 0.5f);
+        // HERE: shake the icon
+        DOTween.Shake(() => EntityIcon.transform.position, x => EntityIcon.transform.position = x,
+                2f, 10f);
 
-        EntityIcon.SwapEntity(armyEntity);
+        Helpers.DisplayTextOnElement(BattleManager.Instance.Root, EntityIcon, "Evolving!!!", Color.red);
+
+        Color _initialColor = EntityIcon.Frame.style.backgroundColor.value;
+        Color _targetColor = Color.white;
+        DOTween.To(() => EntityIcon.Frame.style.backgroundColor.value,
+                x => EntityIcon.Frame.style.backgroundColor = x, _targetColor, 1f)
+            .SetTarget(EntityIcon)
+            .OnComplete(() => EntityIcon.SwapEntity(armyEntity));
+
+        DOTween.To(() => EntityIcon.Frame.style.backgroundColor.value,
+                x => EntityIcon.Frame.style.backgroundColor = x, _initialColor, 2f)
+            .SetTarget(EntityIcon)
+            .SetDelay(1f)
+            .OnComplete(() => OnEvolutionFinished?.Invoke());
+
+        //     DOTween.To(() => EntityIcon.style.backgroundColor, x => globalLight.color = x, _targetColor, 1).SetTarget(EntityIcon);
+        // DOTween.To(x => EntityIcon.style.opacity = x, 1, 0, 1f);
 
 
-        DOTween.To(x => EntityIcon.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f)
-                .OnComplete(() => OnEvolutionFinished?.Invoke());
+        //   DOTween.To(x => EntityIcon.style.opacity = x, 0, 1, 1f).SetDelay(1f)
+
     }
 
     void OnCountChanged(int listPos, int total) { _armyCountLabel.text = $"{total}"; }

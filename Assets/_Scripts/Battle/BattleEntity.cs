@@ -19,7 +19,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected GameObject _GFX;
     Material _material;
     Texture2D _emissionTexture;
-    protected Animator _animator;
+    public Animator Animator { get; private set; }
 
     List<BattleEntity> _opponentList = new();
 
@@ -60,8 +60,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         Collider = GetComponent<Collider>();
 
-        _animator = GetComponentInChildren<Animator>();
-        _GFX = _animator.gameObject;
+        Animator = GetComponentInChildren<Animator>();
+        _GFX = Animator.gameObject;
         _material = _GFX.GetComponentInChildren<SkinnedMeshRenderer>().material;
         _emissionTexture = _material.GetTexture("_EmissionMap") as Texture2D;
         _material.EnableKeyword("_EMISSION");
@@ -89,7 +89,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     IEnumerator Spawn()
     {
         // spawn animation should be playing play
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
         StartRunEntityCoroutine();
     }
 
@@ -103,7 +103,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         StopAllCoroutines();
         _agent.enabled = false;
-        _animator.SetBool("Move", false);
+        Animator.SetBool("Move", false);
     }
 
     IEnumerator RunEntity()
@@ -128,7 +128,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         _agent.enabled = true;
         while (!_agent.SetDestination(_opponent.transform.position)) yield return null;
-        _animator.SetBool("Move", true);
+        Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
 
         // path to target
@@ -139,7 +139,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         // reached destination
-        _animator.SetBool("Move", false);
+        Animator.SetBool("Move", false);
         _agent.enabled = false;
     }
 
@@ -227,8 +227,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         DisplayDamageText(dmg.ToString(), color);
 
-        _animator.SetTrigger("Take Damage");
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        Animator.SetTrigger("Take Damage");
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
     }
 
     void ChooseNewTarget()
@@ -279,21 +279,21 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     IEnumerator Celebrate()
     {
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
         yield return transform.DODynamicLookAt(Camera.main.transform.position, 0.2f).WaitForCompletion();
-        _animator.SetBool("Celebrate", true);
+        Animator.SetBool("Celebrate", true);
     }
 
     public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
         StopRunEntityCoroutine();
 
-        _animator.SetBool("Celebrate", false);
+        Animator.SetBool("Celebrate", false);
 
         IsDead = true;
-        _animator.SetTrigger("Die");
+        Animator.SetTrigger("Die");
         OnDeath?.Invoke(this, attacker, ability);
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
         ToggleHighlight(false);
     }
 
@@ -309,13 +309,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _opponent = null;
         _isGrabbed = true;
         StopRunEntityCoroutine();
-        _animator.enabled = false;
+        Animator.enabled = false;
     }
 
     public void Released()
     {
         _isGrabbed = false;
-        _animator.enabled = true;
+        Animator.enabled = true;
         StartRunEntityCoroutine();
     }
 

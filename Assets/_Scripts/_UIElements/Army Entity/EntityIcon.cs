@@ -15,7 +15,7 @@ public class EntityIcon : VisualElement
     ArmyEntity _entity;
 
     VisualElement _iconContainer;
-    VisualElement _frame;
+    public VisualElement Frame;
 
     AnimationElement _animationElement;
     public EntityIcon(ArmyEntity entity)
@@ -35,11 +35,11 @@ public class EntityIcon : VisualElement
         _animationElement = new(entity.IconAnimation, 50, true);
         _iconContainer.Add(_animationElement);
 
-        _frame = new();
-        _frame.AddToClassList(_ussFrame);
+        Frame = new();
+        Frame.AddToClassList(_ussFrame);
 
         Add(_iconContainer);
-        Add(_frame);
+        Add(Frame);
 
         RegisterCallback<MouseEnterEvent>(OnMouseEnter);
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
@@ -50,12 +50,11 @@ public class EntityIcon : VisualElement
         style.width = 200;
         style.height = 200;
 
-        _frame.style.width = 200;
-        _frame.style.height = 200;
+        Frame.style.width = 200;
+        Frame.style.height = 200;
 
         _iconContainer.style.width = 180;
         _iconContainer.style.height = 180;
-
     }
 
     public void SwapEntity(ArmyEntity newEntity)

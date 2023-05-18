@@ -13,9 +13,9 @@ public class BattleEntityMelee : BattleEntity
             yield break;
         }
 
-        _animator.SetTrigger("Attack");
+        Animator.SetTrigger("Attack");
 
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
         _currentAttackCooldown = ArmyEntity.AttackCooldown;
         Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position

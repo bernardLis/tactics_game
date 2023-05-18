@@ -37,7 +37,8 @@ public class BattleStatsContainer : VisualElement
         AddMostEntitiesAbility();
         AddMostDamageAbility();
 
-        BeginArmyGroupShow();
+        // HERE: get rid of this?
+        //   BeginArmyGroupShow();
     }
 
     void BeginArmyGroupShow()

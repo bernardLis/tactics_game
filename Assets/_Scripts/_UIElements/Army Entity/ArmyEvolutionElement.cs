@@ -71,16 +71,18 @@ public class ArmyEvolutionElement : VisualElement
 
     void ResolveEvolution()
     {
-        Debug.Log($"resove evolution");
         schedule.Execute(() =>
         {
             _killCounter.ChangeAmount(ArmyGroup.KillCount);
 
-            if (!ArmyGroup.ShouldEvolve())
+            schedule.Execute(() =>
             {
-                OnFinished?.Invoke();
-                return;
-            }
+                if (!ArmyGroup.ShouldEvolve())
+                {
+                    OnFinished?.Invoke();
+                    return;
+                }
+            }).StartingIn(1000);
 
             ArmyGroup.Evolve(); // HERE: need to wait for it to finish
             _armyGroupElement.OnEvolutionFinished += () => OnFinished?.Invoke();

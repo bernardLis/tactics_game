@@ -24,7 +24,7 @@ public class BattleEntityRanged : BattleEntity
         _agent.stoppingDistance = 0;
         _agent.enabled = true;
         while (!_agent.SetDestination(point)) yield return null;
-        _animator.SetBool("Move", true);
+        Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
 
         // path to target
@@ -35,7 +35,7 @@ public class BattleEntityRanged : BattleEntity
         }
 
         // reached destination
-        _animator.SetBool("Move", false);
+        Animator.SetBool("Move", false);
         _agent.enabled = false;
         PathToTarget();
     }
@@ -99,10 +99,10 @@ public class BattleEntityRanged : BattleEntity
         if (!IsOpponentInRange()) StartRunEntityCoroutine();
 
         yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
-        _animator.SetTrigger("Attack");
+        Animator.SetTrigger("Attack");
 
         // HERE: projectile spawning and animation delay per entity
-        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
         GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
 

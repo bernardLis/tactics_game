@@ -127,7 +127,7 @@ public class BattleManager : Singleton<BattleManager>
     public void InstantiatePlayer(ArmyGroup ag)
     {
         ag.InitializeBattle();
-        
+
         ArmyEntity entityInstance = Instantiate(ag.ArmyEntity);
         entityInstance.HeroInfluence(_playerHero);
 
@@ -197,6 +197,10 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator BattleWon()
     {
         LoadedBattle.Won = true;
+        Label label = new("Battle won!");
+        label.style.fontSize = 64;
+        Root.Q<VisualElement>("topPanel").Add(label);
+
         yield return FinalizeBattle();
     }
 
@@ -209,12 +213,8 @@ public class BattleManager : Singleton<BattleManager>
 
         // HERE: testing
         // yield return new WaitForSeconds(4f);
-        if (_playerHero != null && LoadedBattle.Won)
-        {
-            BattleResult r = new(Root);
-        }
+        yield return new WaitForSeconds(1f);
 
-        yield return new WaitForSeconds(1f); // TODO: hehe
         ClearAllEntities();
 
         OnBattleFinalized?.Invoke();
