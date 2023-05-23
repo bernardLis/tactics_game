@@ -198,9 +198,13 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator BattleWon()
     {
         LoadedBattle.Won = true;
+
+        VisualElement topPanel = Root.Q<VisualElement>("topPanel");
+        topPanel.Clear();
+
         Label label = new("Battle won!");
         label.style.fontSize = 64;
-        Root.Q<VisualElement>("topPanel").Add(label);
+        topPanel.Add(label);
 
         yield return FinalizeBattle();
     }

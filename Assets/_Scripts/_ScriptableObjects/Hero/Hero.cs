@@ -60,6 +60,15 @@ public class Hero : BaseScriptableObject
     public void AddArmy(ArmyGroup armyGroup)
     {
         Debug.Log($"Hero {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
+        // join armies of the same type
+        foreach (ArmyGroup ag in Army)
+        {
+            if (ag.ArmyEntity == armyGroup.ArmyEntity)
+            {
+                ag.EntityCount += armyGroup.EntityCount;
+                return;
+            }
+        }
 
         Army.Add(armyGroup);
     }
