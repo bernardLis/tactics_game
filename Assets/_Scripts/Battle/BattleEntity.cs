@@ -43,6 +43,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public event Action<float> OnHealthChanged;
     public event Action<int> OnEnemyKilled;
+    public event Action<int> OnDamageDealt;
+    public event Action<int> OnDamageTaken;
+
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
     void Start()
     {
@@ -188,8 +191,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public IEnumerator GetHit(BattleEntity attacker)
     {
         if (IsDead) yield break;
+        
+        int damage = ArmyEntity.CalculateDamage(attacker);
+        attacker.OnDamageDealt?.Invoke(damage);
 
-        yield return BaseGetHit(ArmyEntity.CalculateDamage(attacker), attacker.ArmyEntity.Element.Color);
+        yield return BaseGetHit(damage, attacker.ArmyEntity.Element.Color);
 
         if (CurrentHealth <= 0)
         {
@@ -217,9 +223,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    public IEnumerator BaseGetHit(float dmg, Color color)
+    public IEnumerator BaseGetHit(int dmg, Color color)
     {
         StopRunEntityCoroutine();
+
+        OnDamageTaken?.Invoke(dmg);
 
         CurrentHealth -= dmg;
         if (CurrentHealth < 0) CurrentHealth = 0;
@@ -275,7 +283,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // should never get here...
         _opponent = _opponentList[Random.Range(0, _opponentList.Count)];
     }
-
 
     IEnumerator Celebrate()
     {

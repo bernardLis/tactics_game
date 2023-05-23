@@ -11,86 +11,81 @@ public class BattleStatsContainer : VisualElement
 {
     const string _ussCommonMenuButton = "common__menu-button";
 
+    const string _ussClassName = "battle-stats-container__";
+    const string _ussArmyStatsContainer = _ussClassName + "army-stats-container";
+
     GameManager _gameManager;
+    BattleManager _battleManager;
     BattleLogManager _battleLogManager;
 
     List<BattleLogAbility> _abilityLogs = new();
 
     VisualElement _armyGroupContainer;
-    int _currentArmyGroup;
+
     public event Action OnFinished;
     public BattleStatsContainer()
     {
         _gameManager = GameManager.Instance;
+        _battleManager = BattleManager.Instance;
+        _battleLogManager = _battleManager.GetComponent<BattleLogManager>();
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-
-        _battleLogManager = BattleManager.Instance.GetComponent<BattleLogManager>();
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleStatsContainer);
+        if (ss != null)
+            styleSheets.Add(ss);
 
         foreach (BattleLog item in _battleLogManager.Logs)
             if (item is BattleLogAbility abilityLog)
                 _abilityLogs.Add(abilityLog);
 
-        AddMostKillsEntity();
-        AddMostEntitiesAbility();
-        AddMostDamageAbility();
-
-        // HERE: get rid of this?
-        // more detailed stats for each army - damage dealt, damage taken, etc.
-        //   BeginArmyGroupShow();
-    }
-
-    void BeginArmyGroupShow()
-    {
         _armyGroupContainer = new();
         _armyGroupContainer.style.alignItems = Align.Center;
         Add(_armyGroupContainer);
 
-        ShowArmyGroup();
+        ShowArmyStats();
+        // wait for army stats to show
+        this.schedule.Execute(AddMostKillsEntity).StartingIn(500 + 500 * _gameManager.PlayerHero.Army.Count);
     }
 
-    void ShowArmyGroup()
+    void ShowArmyStats()
     {
-        if (_currentArmyGroup == _gameManager.PlayerHero.Army.Count)
-        {
-            DisplayAllArmies();
-            return;
-        }
-        _armyGroupContainer.Clear();
-        ArmyGroup ag = _gameManager.PlayerHero.Army[_currentArmyGroup];
-        // HERE: testing
-        ag.KillCount = Random.Range(0, 10);
-
-        ArmyEvolutionElement armyEvolutionElement = new(ag);
-        //   armyEvolutionElement.OnFinished += ShowArmyGroup;
-        _armyGroupContainer.Add(armyEvolutionElement);
-        _currentArmyGroup++;
-    }
-
-    void DisplayAllArmies()
-    {
-        _armyGroupContainer.Clear();
-        _armyGroupContainer.style.flexDirection = FlexDirection.Row;
-
         for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
         {
+            VisualElement container = new();
+            container.AddToClassList(_ussArmyStatsContainer);
+            _armyGroupContainer.Add(container);
+
             ArmyGroup ag = _gameManager.PlayerHero.Army[i];
             ArmyGroupElement armyGroupElement = new(ag);
             armyGroupElement.EntityIcon.PlayAnimationAlways();
-            _armyGroupContainer.Add(armyGroupElement);
+            container.Add(armyGroupElement);
 
-            armyGroupElement.style.opacity = 0;
-            DOTween.To(x => armyGroupElement.style.opacity = x, 0, 1, 0.5f)
+            VisualElement statsContainer = new();
+            container.Add(statsContainer);
+
+            Label kills = new($"Kills: {ag.TotalKillCount - ag.OldKillCount}");
+            Label damageDealt = new($"Damage Dealt: {ag.TotalDamageDealt - ag.OldDamageDealt}");
+            Label damageTaken = new($"Damage Taken: {ag.TotalDamageTaken - ag.OldDamageTaken}");
+            statsContainer.Add(kills);
+            statsContainer.Add(damageDealt);
+            statsContainer.Add(damageTaken);
+
+            container.style.opacity = 0;
+            DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
                     .SetDelay(0.5f * i);
-
         }
     }
 
     void AddMostKillsEntity()
     {
-        List<BattleEntity> entities = new(BattleManager.Instance.PlayerEntities);
+        List<BattleEntity> entities = new(_battleManager.PlayerEntities);
+        if (entities.Count == 0)
+        {
+            OnFinished?.Invoke();
+            return;
+        }
 
         BattleEntity entityWithMostKills = entities[0];
         int topKillCount = entities[0].KilledEnemiesCount;
@@ -106,16 +101,17 @@ public class BattleStatsContainer : VisualElement
         Add(l);
         l.style.opacity = 0;
 
-        DOTween.To(x => l.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f)
-        .OnComplete(() =>
-        {
-            if (_abilityLogs.Count == 0) OnFinished?.Invoke();
-        });
+        DOTween.To(x => l.style.opacity = x, 0, 1, 0.5f)
+                .OnComplete(() => AddMostEntitiesAbility());
     }
 
     void AddMostEntitiesAbility()
     {
-        if (_abilityLogs.Count == 0) return;
+        if (_abilityLogs.Count == 0)
+        {
+            OnFinished?.Invoke();
+            return;
+        }
 
         List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.NumberOfAffectedEntities).ToList());
         VisualElement container = new();
@@ -128,12 +124,17 @@ public class BattleStatsContainer : VisualElement
         Add(container);
 
         container.style.opacity = 0;
-        DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f).SetDelay(1f);
+        DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
+                .OnComplete(() => AddMostDamageAbility());
     }
 
     void AddMostDamageAbility()
     {
-        if (_abilityLogs.Count == 0) return;
+        if (_abilityLogs.Count == 0)
+        {
+            OnFinished?.Invoke();
+            return;
+        }
 
         List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.DamageDealt));
         VisualElement container = new();
@@ -147,7 +148,6 @@ public class BattleStatsContainer : VisualElement
 
         container.style.opacity = 0;
         DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
-        .SetDelay(1.5f)
-        .OnComplete(() => OnFinished?.Invoke());
+            .OnComplete(() => OnFinished?.Invoke());
     }
 }

@@ -140,6 +140,8 @@ public class BattleManager : Singleton<BattleManager>
             be.Initialize(true, entityInstance, ref OpponentEntities);
             PlayerEntities.Add(be);
             be.OnEnemyKilled += ag.AddKill;
+            be.OnDamageDealt += ag.AddDmgDealt;
+            be.OnDamageTaken += ag.AddDmgTaken;
             be.OnDeath += OnPlayerDeath;
         }
     }

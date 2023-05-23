@@ -1,0 +1,16 @@
+.battle-stats-container__army-stats-container {
+    flex-direction: row;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left-color: rgba(202, 176, 176, 0.77);
+    border-right-color: rgba(202, 176, 176, 0.77);
+    border-top-color: rgba(202, 176, 176, 0.77);
+    border-bottom-color: rgba(202, 176, 176, 0.77);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    background-color: rgba(125, 94, 94, 0.3);
+}

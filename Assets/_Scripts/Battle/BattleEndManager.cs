@@ -8,7 +8,7 @@ public class BattleEndManager : MonoBehaviour
 {
     const string _ussClassName = "battle__";
     const string _ussEvolutionInfoContainer = _ussClassName + "evolution-info-container";
-    const string _ussEvolutionContinueButton = _ussClassName + "continue-button";
+    const string _ussEvolutionContinueButton = _ussClassName + "evolution-continue-button";
 
     GameManager _gameManager;
     Camera _cam;
@@ -87,7 +87,7 @@ public class BattleEndManager : MonoBehaviour
             Destroy(_evolvedEntity.gameObject);
 
         // HERE: testing
-        ag.KillCount = Random.Range(5, 10);
+        ag.TotalKillCount = Random.Range(5, 10);
 
         _currentEntity = InstantiateEntity(ag.ArmyEntity);
 
@@ -106,26 +106,29 @@ public class BattleEndManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _evolutionElement.ShowKillsToEvolveBar();
 
-        yield return new WaitForSeconds(1f);
-        _evolutionElement.AddKills();
-
-        yield return new WaitForSeconds(1f);
-        if (ag.ShouldEvolve())
-            yield return Evolve();
-
-        yield return new WaitForSeconds(0.5f);
-        _evolutionElement.ResetKillsToEvolveBar();
-
         yield return new WaitForSeconds(0.5f);
         _evolutionElement.AddKills();
 
-        // in case entity killed a lot of enemies
-        yield return new WaitForSeconds(1f);
-        if (ag.ShouldEvolve())
-            yield return Evolve();
+        yield return new WaitForSeconds(0.5f);
+        yield return HandleEvolution(ag);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         ShowContinueButton();
+    }
+
+    IEnumerator HandleEvolution(ArmyGroup ag)
+    {
+        if (!ag.ShouldEvolve()) yield break;
+
+        yield return Evolve();
+        yield return new WaitForSeconds(0.5f);
+
+        _evolutionElement.ResetKillsToEvolveBar();
+        yield return new WaitForSeconds(0.5f);
+        _evolutionElement.AddKills();
+
+        yield return new WaitForSeconds(0.5f);
+        yield return HandleEvolution(ag); // it should go in circles in case of multiple evolutions
     }
 
     IEnumerator Evolve()

@@ -21,13 +21,13 @@
     padding-top: 20px;
 }
 
-.battle__continue-button {
+.battle__evolution-continue-button {
     align-items: center;
     align-content: center;
     justify-content: center;
     position: absolute;
     align-self: center;
-    font-size: 48px;
+    font-size: 36px;
     bottom: 50px;
     width: 320px;
     height: 200px;

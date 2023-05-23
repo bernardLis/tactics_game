@@ -30,7 +30,7 @@ public class ArmyEntity : BaseScriptableObject
     [HideInInspector] public Hero Hero;
     public void HeroInfluence(Hero hero) { Hero = hero; }
 
-    public float CalculateDamage(BattleEntity attacker)
+    public int CalculateDamage(BattleEntity attacker)
     {
         float damage = attacker.ArmyEntity.Power;
         if (attacker.ArmyEntity.Hero != null)
@@ -51,10 +51,10 @@ public class ArmyEntity : BaseScriptableObject
         if (damage < 0)
             damage = 0;
 
-        return damage;
+        return Mathf.RoundToInt(damage);
     }
 
-    public float CalculateDamage(Ability ability)
+    public int CalculateDamage(Ability ability)
     {
         float damage = ability.GetPower();
         if (Element.StrongAgainst == ability.Element)
@@ -66,7 +66,7 @@ public class ArmyEntity : BaseScriptableObject
 
         // abilities ignore armor
 
-        return damage;
+        return Mathf.RoundToInt(damage);
     }
 
 }

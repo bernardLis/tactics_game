@@ -81,7 +81,7 @@ public class ArmyEvolutionElement : VisualElement
         spacer.style.backgroundImage = null;
         Add(spacer);
 
-        _availableKills = ArmyGroup.KillCount - ArmyGroup.OldKillCount;
+        _availableKills = ArmyGroup.TotalKillCount - ArmyGroup.OldKillCount;
         _kills = ScriptableObject.CreateInstance<IntVariable>();
         _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
         _kills.SetValue(ArmyGroup.OldKillCount);

@@ -9,9 +9,16 @@ public class ArmyGroup : BaseScriptableObject
     public string Name;
     public ArmyEntity ArmyEntity;
     public int EntityCount;
-    public int OldKillCount;
-    public int KillCount;
     public int ListPosition; // used for save/load of castle and hero army
+
+    public int OldKillCount;
+    public int TotalKillCount;
+
+    public int OldDamageDealt;
+    public int TotalDamageDealt;
+
+    public int OldDamageTaken;
+    public int TotalDamageTaken;
 
     public ArmyEntity PreviousEntity;
 
@@ -26,12 +33,24 @@ public class ArmyGroup : BaseScriptableObject
 
     public void InitializeBattle()
     {
-        OldKillCount = KillCount;
+        OldKillCount = TotalKillCount;
+        OldDamageDealt = TotalDamageDealt;
+        OldDamageTaken = TotalDamageTaken;
     }
 
     public void AddKill(int ignored)
     {
-        KillCount++;
+        TotalKillCount++;
+    }
+
+    public void AddDmgDealt(int dmg)
+    {
+        TotalDamageDealt += dmg;
+    }
+
+    public void AddDmgTaken(int dmg)
+    {
+        TotalDamageTaken += dmg;
     }
 
     public int NumberOfKillsToEvolve()
@@ -43,12 +62,12 @@ public class ArmyGroup : BaseScriptableObject
     {
         if (ArmyEntity.UpgradedEntity == null) return false;
 
-        return KillCount >= NumberOfKillsToEvolve();
+        return TotalKillCount >= NumberOfKillsToEvolve();
     }
 
     public void Evolve()
     {
-        KillCount -= NumberOfKillsToEvolve();
+        TotalKillCount -= NumberOfKillsToEvolve();
         PreviousEntity = ArmyEntity;
         ArmyEntity = ArmyEntity.UpgradedEntity;
         OnEvolved?.Invoke(ArmyEntity);
@@ -60,8 +79,12 @@ public class ArmyGroup : BaseScriptableObject
         data.Name = Name;
         data.EntityId = ArmyEntity.Id;
         data.EntityCount = EntityCount;
-        data.KillCount = KillCount;
         data.ListPosition = ListPosition;
+
+        data.KillCount = TotalKillCount;
+        data.DamageDealt = TotalDamageDealt;
+        data.DamageTaken = TotalDamageTaken;
+
         return data;
     }
 
@@ -70,8 +93,11 @@ public class ArmyGroup : BaseScriptableObject
         ArmyEntity = GameManager.Instance.HeroDatabase.GetArmyEntityById(data.EntityId);
         Name = data.Name;
         EntityCount = data.EntityCount;
-        KillCount = data.KillCount;
         ListPosition = data.ListPosition;
+
+        TotalKillCount = data.KillCount;
+        TotalDamageDealt = data.DamageDealt;
+        TotalDamageTaken = data.DamageTaken;
     }
 }
 
@@ -81,7 +107,12 @@ public struct ArmyGroupData
     public string Name;
     public string EntityId;
     public int EntityCount;
-    public int KillCount;
     public int ListPosition;
+
+    public int KillCount;
+    public int DamageDealt;
+    public int DamageTaken;
+
+
 }
 
