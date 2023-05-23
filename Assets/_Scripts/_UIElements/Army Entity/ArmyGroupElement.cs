@@ -29,7 +29,6 @@ public class ArmyGroupElement : ElementWithTooltip
             styleSheets.Add(ss);
 
         ArmyGroup = armyGroup;
-        armyGroup.OnEvolved += OnEvolved;
         armyGroup.OnCountChanged += OnCountChanged;
 
         IsLocked = isLocked;
@@ -52,7 +51,7 @@ public class ArmyGroupElement : ElementWithTooltip
         EntityIcon.LargeIcon();
     }
 
-    void OnEvolved(ArmyEntity armyEntity)
+    public void Evolve(ArmyEntity armyEntity)
     {
         // HERE: shake the icon
         DOTween.Shake(() => EntityIcon.transform.position, x => EntityIcon.transform.position = x,
@@ -72,13 +71,6 @@ public class ArmyGroupElement : ElementWithTooltip
             .SetTarget(EntityIcon)
             .SetDelay(1f)
             .OnComplete(() => OnEvolutionFinished?.Invoke());
-
-        //     DOTween.To(() => EntityIcon.style.backgroundColor, x => globalLight.color = x, _targetColor, 1).SetTarget(EntityIcon);
-        // DOTween.To(x => EntityIcon.style.opacity = x, 1, 0, 1f);
-
-
-        //   DOTween.To(x => EntityIcon.style.opacity = x, 0, 1, 1f).SetDelay(1f)
-
     }
 
     void OnCountChanged(int listPos, int total) { _armyCountLabel.text = $"{total}"; }

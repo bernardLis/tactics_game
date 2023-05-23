@@ -20,7 +20,7 @@ public class BattleEndManager : MonoBehaviour
     VisualElement _root;
 
     VisualElement _infoContainer;
-    VisualElement _entityElementContainer;
+    ArmyEvolutionElement _evolutionElement;
 
     EntityElement _entityElement;
 
@@ -87,67 +87,45 @@ public class BattleEndManager : MonoBehaviour
         ag.KillCount = Random.Range(5, 10);
 
         _currentEntity = InstantiateEntity(ag.ArmyEntity);
-        // does not wokr  _currentEntity.Animator.SetBool("Move", true); 
-        // TODO: ideally there is a cool animation list that is going on
 
         yield return new WaitForSeconds(1f);
+        // TODO: ideally there is a cool animation list that is going on
         _currentEntity.Animator.SetBool("Move", true);
 
-        // HERE: you can make an element out of it, and every x call next method
         _infoContainer = new();
         _infoContainer.AddToClassList(_ussEvolutionInfoContainer);
         _root.Add(_infoContainer);
 
-        _entityElementContainer = new();
-        _entityElementContainer.style.flexDirection = FlexDirection.Row;
-        _infoContainer.Add(_entityElementContainer);
+        _evolutionElement = new(ag);
+        _infoContainer.Add(_evolutionElement);
+        _evolutionElement.style.opacity = 0;
+        DOTween.To(x => _evolutionElement.style.opacity = x, 0, 1, 0.5f);
 
+        yield return new WaitForSeconds(0.5f);
+        _evolutionElement.ShowKillsThisBattle();
 
-        _entityElement = new(ag.ArmyEntity);
-        _entityElementContainer.Add(_entityElement);
-        _entityElement.style.opacity = 0;
-        DOTween.To(x => _entityElement.style.opacity = x, 0, 1, 0.5f);
-
-        yield return new WaitForSeconds(1f);
-
-        _infoContainer.Add(new Label("Kills to evolve:"));
-
-        IntVariable kills = ScriptableObject.CreateInstance<IntVariable>();
-        kills.SetValue(ag.OldKillCount);
-
-        IntVariable killToEvolve = ScriptableObject.CreateInstance<IntVariable>();
-        killToEvolve.SetValue(ag.NumberOfKillsToEvolve());
-        Color barColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-        ResourceBarElement killBar = new(barColor, "Kills", kills, killToEvolve);
-        killBar.style.width = 200;
-        _infoContainer.Add(killBar);
-        killBar.style.opacity = 0;
-        DOTween.To(x => killBar.style.opacity = x, 0, 1, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+        _evolutionElement.ShowKillsToEvolveBar();
 
         yield return new WaitForSeconds(1f);
-
-        VisualElement killCountContainer = new();
-        _infoContainer.Add(killCountContainer);
-
-        killCountContainer.Add(new Label("Kills this battle:"));
-        ChangingValueElement cv = new();
-        cv.Initialize(ag.KillCount - ag.OldKillCount, 24);
-
-        killCountContainer.Add(cv);
+        _evolutionElement.AddKills();
 
         yield return new WaitForSeconds(1f);
-        int killChange = Mathf.Clamp(ag.KillCount - ag.OldKillCount, 0, ag.NumberOfKillsToEvolve());
+        if (ag.ShouldEvolve())
+            yield return Evolve();
 
-        cv.ChangeAmount(ag.KillCount - ag.OldKillCount - killChange);
+        yield return new WaitForSeconds(0.5f);
+        _evolutionElement.ResetKillsToEvolveBar();
 
-        kills.ApplyChange(killChange);
+        yield return new WaitForSeconds(0.5f);
+        _evolutionElement.AddKills();
 
         yield return new WaitForSeconds(1f);
-
         if (ag.ShouldEvolve())
             yield return Evolve();
 
         // center camera on it
+        // TODO: show a button to move to next entity
         while (true)
             yield return null;
     }
@@ -164,6 +142,8 @@ public class BattleEndManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         _currentArmyGroup.Evolve();
+        _evolutionElement.Evolve(_currentArmyGroup.ArmyEntity);
+
         _evolvedEntity = InstantiateEntity(_currentArmyGroup.ArmyEntity);
         _evolvedEntity.Collider.enabled = false;
 
@@ -174,15 +154,6 @@ public class BattleEndManager : MonoBehaviour
         mat.SetFloat("_Dissolve_Value", 1f);
         DOTween.To(x => evolvedMat.SetFloat("_Dissolve_Value", x), 1, 0, 5f)
                 .OnComplete(() => _evolvedEntity.Animator.SetBool("Move", true));
-        
-        Label header = new Label("Evolved!");
-        header.style.fontSize = 34;
-        _infoContainer.Insert(0, header);
-        //   EntityElement evolvedElement = new(_currentArmyGroup.ArmyEntity);
-        _entityElement.SetValues(_currentArmyGroup.ArmyEntity);
-        //   _entityElementContainer.Add(evolvedElement);
-        //   evolvedElement.style.opacity = 0;
-        //    DOTween.To(x => evolvedElement.style.opacity = x, 0, 1, 0.5f);
 
         yield return new WaitForSeconds(5f);
 
@@ -204,7 +175,6 @@ public class BattleEndManager : MonoBehaviour
         be.StopRunEntityCoroutine();
 
         return be;
-
     }
 
     IEnumerator RotateCameraAroundEntity()

@@ -38,6 +38,7 @@ public class BattleStatsContainer : VisualElement
         AddMostDamageAbility();
 
         // HERE: get rid of this?
+        // more detailed stats for each army - damage dealt, damage taken, etc.
         //   BeginArmyGroupShow();
     }
 
@@ -63,7 +64,7 @@ public class BattleStatsContainer : VisualElement
         ag.KillCount = Random.Range(0, 10);
 
         ArmyEvolutionElement armyEvolutionElement = new(ag);
-        armyEvolutionElement.OnFinished += ShowArmyGroup;
+        //   armyEvolutionElement.OnFinished += ShowArmyGroup;
         _armyGroupContainer.Add(armyEvolutionElement);
         _currentArmyGroup++;
     }

@@ -13,6 +13,8 @@ public class ArmyGroup : BaseScriptableObject
     public int KillCount;
     public int ListPosition; // used for save/load of castle and hero army
 
+    public ArmyEntity PreviousEntity;
+
     public event Action<ArmyEntity> OnEvolved;
 
     public event Action<int, int> OnCountChanged;
@@ -47,7 +49,7 @@ public class ArmyGroup : BaseScriptableObject
     public void Evolve()
     {
         KillCount -= NumberOfKillsToEvolve();
-
+        PreviousEntity = ArmyEntity;
         ArmyEntity = ArmyEntity.UpgradedEntity;
         OnEvolved?.Invoke(ArmyEntity);
     }

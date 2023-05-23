@@ -7,20 +7,39 @@ using DG.Tweening;
 
 public class ArmyEvolutionElement : VisualElement
 {
+    const string _ussCommonTextPrimary = "common__text-primary-black";
+
     const string _ussClassName = "army-evolution__";
     const string _ussMain = _ussClassName + "main";
 
     GameManager _gameManager;
 
-    ArmyGroupElement _armyGroupElement;
-    ChangingValueElement _killCounter;
-
     public ArmyGroup ArmyGroup;
 
-    public event Action OnFinished;
+    Label _name;
+    ArmyGroupElement _armyGroupElement;
+
+    ElementalElement _elementalElement;
+
+    Label _healthLabel;
+    Label _power;
+    Label _armor;
+    Label _attackRange;
+    Label _attackCooldown;
+    Label _speed;
+
+    ChangingValueElement _killsThisBattleElement;
+
+    int _availableKills;
+    IntVariable _kills;
+    IntVariable _killsToEvolve;
+
     public ArmyEvolutionElement(ArmyGroup armyGroup)
     {
         _gameManager = GameManager.Instance;
+        var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        if (common != null)
+            styleSheets.Add(common);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ArmyEvolutionElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
@@ -28,65 +47,97 @@ public class ArmyEvolutionElement : VisualElement
         ArmyGroup = armyGroup;
 
         AddToClassList(_ussMain);
+        AddToClassList(_ussCommonTextPrimary);
 
-        Label groupName = new(armyGroup.Name);
-        groupName.AddToClassList("common__text-primary");
-        groupName.style.fontSize = 32;
-        Add(groupName);
-
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        Add(container);
+        _name = new(armyGroup.ArmyEntity.Name);
+        _name.style.fontSize = 32;
+        Add(_name);
 
         _armyGroupElement = new(armyGroup);
         _armyGroupElement.LargeIcon();
-        _armyGroupElement.EntityIcon.PlayAnimationAlways();
+        Add(_armyGroupElement);
 
-        container.Add(_armyGroupElement);
+        _elementalElement = new ElementalElement(ArmyGroup.ArmyEntity.Element);
+        Add(_elementalElement);
 
-        VisualElement killCounterContainer = new();
-        killCounterContainer.style.alignItems = Align.Center;
-        _killCounter = new();
-        _killCounter.Initialize(armyGroup.OldKillCount, 24);
-        killCounterContainer.Add(new Label($"Kill count:"));
-        killCounterContainer.Add(_killCounter);
-        container.Add(killCounterContainer);
+        _healthLabel = new Label($"Health: {armyGroup.ArmyEntity.Health}");
+        _power = new Label($"Power: {armyGroup.ArmyEntity.Power}");
+        _armor = new Label($"Armor: {armyGroup.ArmyEntity.Armor}");
+        _attackRange = new Label($"Attack Range: {armyGroup.ArmyEntity.AttackRange}");
+        _attackCooldown = new Label($"Attack Cooldown: {armyGroup.ArmyEntity.AttackCooldown}");
+        _speed = new Label($"Speed: {armyGroup.ArmyEntity.Speed}");
 
-        style.opacity = 0;
-        DOTween.To(x => style.opacity = x, 0, 1, 0.5f);
+        Add(_healthLabel);
+        Add(_power);
+        Add(_armor);
+        Add(_attackRange);
+        Add(_attackCooldown);
+        Add(_speed);
 
-        AddKillCount(1000);
+        _availableKills = ArmyGroup.KillCount - ArmyGroup.OldKillCount;
+        _kills = ScriptableObject.CreateInstance<IntVariable>();
+        _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
+        _kills.SetValue(ArmyGroup.OldKillCount);
+        _killsToEvolve.SetValue(ArmyGroup.NumberOfKillsToEvolve());
+
     }
 
-    public void AddKillCount(int delay)
+    public void ShowKillsThisBattle()
     {
-        schedule.Execute(() =>
-        {
-            _killCounter.ChangeAmount(ArmyGroup.KillCount);
-            _killCounter.OnAnimationFinished += ResolveEvolution;
-            if (ArmyGroup.KillCount == ArmyGroup.OldKillCount) ResolveEvolution();
+        VisualElement killCountContainer = new();
+        killCountContainer.style.flexDirection = FlexDirection.Row;
+        killCountContainer.style.alignItems = Align.Center;
 
-        }).StartingIn(delay);
+        Add(killCountContainer);
+
+        killCountContainer.Add(new Label("Kills this battle:"));
+        _killsThisBattleElement = new();
+        _killsThisBattleElement.Initialize(_availableKills, 24);
+
+        killCountContainer.Add(_killsThisBattleElement);
+        killCountContainer.style.opacity = 0;
+        DOTween.To(x => killCountContainer.style.opacity = x, 0, 1, 0.5f);
     }
 
-    void ResolveEvolution()
+    public void ShowKillsToEvolveBar()
     {
-        schedule.Execute(() =>
-        {
-            _killCounter.ChangeAmount(ArmyGroup.KillCount);
+        Add(new Label("Kills to evolve:"));
 
-            schedule.Execute(() =>
-            {
-                if (!ArmyGroup.ShouldEvolve())
-                {
-                    OnFinished?.Invoke();
-                    return;
-                }
-            }).StartingIn(1000);
+        Color barColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        ResourceBarElement killBar = new(barColor, "Kills", _kills, _killsToEvolve);
+        killBar.style.width = 200;
 
-            ArmyGroup.Evolve(); // HERE: need to wait for it to finish
-            _armyGroupElement.OnEvolutionFinished += () => OnFinished?.Invoke();
-
-        }).StartingIn(1000);
+        Add(killBar);
+        killBar.style.opacity = 0;
+        DOTween.To(x => killBar.style.opacity = x, 0, 1, 0.5f);
     }
+
+    public void AddKills()
+    {
+        int killChange = Mathf.Clamp(_availableKills, 0, ArmyGroup.NumberOfKillsToEvolve());
+        _availableKills -= killChange;
+        _killsThisBattleElement.ChangeAmount(_availableKills);
+        _kills.ApplyChange(killChange);
+    }
+
+    public void Evolve(ArmyEntity entity)
+    {
+        _name.text += $" -> {entity.Name}";
+
+        _armyGroupElement.Evolve(entity);
+
+        _healthLabel.text += $" -> {ArmyGroup.ArmyEntity.Health}";
+        _power.text += $" -> {ArmyGroup.ArmyEntity.Power}";
+        _armor.text += $" -> {ArmyGroup.ArmyEntity.Armor}";
+        _attackRange.text += $" -> {ArmyGroup.ArmyEntity.AttackRange}";
+        _attackCooldown.text += $" -> {ArmyGroup.ArmyEntity.AttackCooldown}";
+        _speed.text += $" -> {ArmyGroup.ArmyEntity.Speed}";
+    }
+
+    public void ResetKillsToEvolveBar()
+    {
+        _kills.SetValue(0);
+        _killsToEvolve.SetValue(ArmyGroup.NumberOfKillsToEvolve());
+    }
+
 }
