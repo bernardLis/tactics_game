@@ -77,7 +77,7 @@ public class ArmyGroupElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        EntityElement tooltip = new(ArmyGroup.ArmyEntity);
+        ArmyGroupTooltip tooltip = new(ArmyGroup);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }

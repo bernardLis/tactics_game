@@ -3,10 +3,8 @@
 
 }
 
-.entity-element__element {
-    position: absolute;
-    bottom: 0;
-    left: -20px;
+.entity-element__left-container {
+    margin-right: 20px;
 }
 
 .entity-element__name {

@@ -142,7 +142,6 @@ public class ArmyEvolutionElement : VisualElement
 
     public void ResetKillsToEvolveBar()
     {
-        _kills.SetValue(0);
         _killsToEvolve.SetValue(ArmyGroup.NumberOfKillsToEvolve());
     }
 }

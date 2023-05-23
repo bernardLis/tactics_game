@@ -7,7 +7,7 @@ public class EntityElement : VisualElement
 {
     const string _ussClassName = "entity-element__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussElement = _ussClassName + "element";
+    const string _ussLeftContainer = _ussClassName + "left-container";
     const string _ussName = _ussClassName + "name";
 
     GameManager _gameManager;
@@ -39,14 +39,12 @@ public class EntityElement : VisualElement
         AddToClassList(_ussMain);
 
         _leftContainer = new();
+        _leftContainer.AddToClassList(_ussLeftContainer);
         _rightContainer = new();
         Add(_leftContainer);
         Add(_rightContainer);
 
         _elementalElement = new ElementalElement(_entity.Element);
-        _elementalElement.style.position = Position.Absolute;
-        _elementalElement.style.bottom = 0;
-
         _entityIcon = new(_entity);
         _nameLabel = new Label();
         _nameLabel.AddToClassList(_ussName);
@@ -59,11 +57,10 @@ public class EntityElement : VisualElement
         _speed = new Label($"Speed:");
 
         _leftContainer.Add(_nameLabel);
-        _leftContainer.Add(_healthLabel);
         _leftContainer.Add(_entityIcon);
         _leftContainer.Add(_elementalElement);
-        _elementalElement.AddToClassList(_ussElement);
 
+        _rightContainer.Add(_healthLabel);
         _rightContainer.Add(_power);
         _rightContainer.Add(_armor);
         _rightContainer.Add(_attackRange);
