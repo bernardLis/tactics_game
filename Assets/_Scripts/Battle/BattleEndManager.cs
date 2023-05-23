@@ -8,9 +8,11 @@ public class BattleEndManager : MonoBehaviour
 {
     const string _ussClassName = "battle__";
     const string _ussEvolutionInfoContainer = _ussClassName + "evolution-info-container";
+    const string _ussEvolutionContinueButton = _ussClassName + "continue-button";
 
     GameManager _gameManager;
     Camera _cam;
+    BattleCameraManager _cameraManager;
     BattleManager _battleManager;
 
     [SerializeField] Canvas _battleCanvas;
@@ -22,25 +24,27 @@ public class BattleEndManager : MonoBehaviour
     VisualElement _infoContainer;
     ArmyEvolutionElement _evolutionElement;
 
-    EntityElement _entityElement;
+    MyButton _continueButton;
 
     List<ArmyGroup> _playerArmy;
 
-
-    ArmyGroup _currentArmyGroup;
+    int _currentArmyGroupIndex;
     BattleEntity _currentEntity;
     BattleEntity _evolvedEntity;
 
-
     void Start()
     {
-
         _gameManager = GameManager.Instance;
         _cam = Camera.main;
+        _cameraManager = _cam.GetComponentInParent<BattleCameraManager>();
         _battleManager = BattleManager.Instance;
         _root = _battleManager.Root;
 
         _battleManager.OnBattleFinalized += BeginEndBattleShow;
+
+        _continueButton = new("CONTINUE", _ussEvolutionContinueButton, ContinueButtonClick);
+        _root.Add(_continueButton);
+        _continueButton.style.display = DisplayStyle.None;
     }
 
     void BeginEndBattleShow()
@@ -59,30 +63,29 @@ public class BattleEndManager : MonoBehaviour
         GetComponent<BattleInputManager>().enabled = false;
 
         Vector3 pos = new Vector3(9.5f, 0, 0);
-        Vector3 rot = new Vector3(30, -90, 0);
+        Vector3 rot = new Vector3(30f, -90f, 0);
 
-        Camera.main.GetComponentInParent<BattleCameraManager>().MoveCameraTo(pos, rot, 5);
+        _cameraManager.MoveCameraTo(pos, rot, 5);
 
         _root.Q<VisualElement>("bottomPanel").style.display = DisplayStyle.None;
         _root.Q<VisualElement>("topPanel").style.display = DisplayStyle.None;
 
+        _infoContainer = new();
+        _infoContainer.AddToClassList(_ussEvolutionInfoContainer);
+        _root.Add(_infoContainer);
 
-        foreach (ArmyGroup ag in _playerArmy)
-        {
-            _currentArmyGroup = ag;
-            yield return ShowArmyGroup(ag);
-        }
-        ShowUI();
-
-        // make it run or do some animation
-        // show its stats
-        // add kills that the army made
-        // evolve it if it can
-        // move to next entity
+        _currentArmyGroupIndex = 0;
+        yield return ShowArmyGroup(_playerArmy[_currentArmyGroupIndex]);
     }
 
     IEnumerator ShowArmyGroup(ArmyGroup ag)
     {
+        _infoContainer.Clear();
+        if (_currentEntity != null)
+            Destroy(_currentEntity.gameObject);
+        if (_evolvedEntity != null)
+            Destroy(_evolvedEntity.gameObject);
+
         // HERE: testing
         ag.KillCount = Random.Range(5, 10);
 
@@ -91,10 +94,6 @@ public class BattleEndManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         // TODO: ideally there is a cool animation list that is going on
         _currentEntity.Animator.SetBool("Move", true);
-
-        _infoContainer = new();
-        _infoContainer.AddToClassList(_ussEvolutionInfoContainer);
-        _root.Add(_infoContainer);
 
         _evolutionElement = new(ag);
         _infoContainer.Add(_evolutionElement);
@@ -120,14 +119,13 @@ public class BattleEndManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _evolutionElement.AddKills();
 
+        // in case entity killed a lot of enemies
         yield return new WaitForSeconds(1f);
         if (ag.ShouldEvolve())
             yield return Evolve();
 
-        // center camera on it
-        // TODO: show a button to move to next entity
-        while (true)
-            yield return null;
+        yield return new WaitForSeconds(1f);
+        ShowContinueButton();
     }
 
     IEnumerator Evolve()
@@ -141,10 +139,10 @@ public class BattleEndManager : MonoBehaviour
         DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), 0, 1, 5f);
         yield return new WaitForSeconds(1f);
 
-        _currentArmyGroup.Evolve();
-        _evolutionElement.Evolve(_currentArmyGroup.ArmyEntity);
+        _playerArmy[_currentArmyGroupIndex].Evolve();
+        _evolutionElement.Evolve(_playerArmy[_currentArmyGroupIndex].ArmyEntity);
 
-        _evolvedEntity = InstantiateEntity(_currentArmyGroup.ArmyEntity);
+        _evolvedEntity = InstantiateEntity(_playerArmy[_currentArmyGroupIndex].ArmyEntity);
         _evolvedEntity.Collider.enabled = false;
 
         Material evolvedMat = _evolvedEntity.GetComponentInChildren<Renderer>().material;
@@ -155,9 +153,34 @@ public class BattleEndManager : MonoBehaviour
         DOTween.To(x => evolvedMat.SetFloat("_Dissolve_Value", x), 1, 0, 5f)
                 .OnComplete(() => _evolvedEntity.Animator.SetBool("Move", true));
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
+        if (_currentEntity != null)
+            Destroy(_currentEntity.gameObject);
+        _currentEntity = _evolvedEntity;
+    }
 
-        yield return null;
+    void ShowContinueButton()
+    {
+        _continueButton.SetEnabled(true);
+        _continueButton.style.display = DisplayStyle.Flex;
+        _continueButton.style.opacity = 0;
+        DOTween.To(x => _continueButton.style.opacity = x, 0, 1, 0.5f);
+    }
+
+    void ContinueButtonClick()
+    {
+        _continueButton.SetEnabled(false);
+        DOTween.To(x => _continueButton.style.opacity = x, 1, 0, 0.5f)
+            .OnComplete(() => _continueButton.style.display = DisplayStyle.Flex);
+
+        _currentArmyGroupIndex++;
+        if (_currentArmyGroupIndex >= _playerArmy.Count)
+        {
+            ShowUI();
+            return;
+        }
+
+        StartCoroutine(ShowArmyGroup(_playerArmy[_currentArmyGroupIndex]));
     }
 
     BattleEntity InstantiateEntity(ArmyEntity armyEntity)

@@ -20,3 +20,17 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/paper.png?fileID=2800000&guid=856bfb1bae43ab042b2838bd15710c06&type=3#paper');
     padding-top: 20px;
 }
+
+.battle__continue-button {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    position: absolute;
+    align-self: center;
+    font-size: 48px;
+    bottom: 50px;
+    width: 320px;
+    height: 200px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
+    color: cornsilk;
+}

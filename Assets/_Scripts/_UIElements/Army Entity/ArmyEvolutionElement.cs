@@ -8,6 +8,7 @@ using DG.Tweening;
 public class ArmyEvolutionElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary-black";
+    const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
 
     const string _ussClassName = "army-evolution__";
     const string _ussMain = _ussClassName + "main";
@@ -74,12 +75,17 @@ public class ArmyEvolutionElement : VisualElement
         Add(_attackCooldown);
         Add(_speed);
 
+        VisualElement spacer = new();
+        spacer.AddToClassList(_ussCommonHorizontalSpacer);
+        spacer.style.height = 50;
+        spacer.style.backgroundImage = null;
+        Add(spacer);
+
         _availableKills = ArmyGroup.KillCount - ArmyGroup.OldKillCount;
         _kills = ScriptableObject.CreateInstance<IntVariable>();
         _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
         _kills.SetValue(ArmyGroup.OldKillCount);
         _killsToEvolve.SetValue(ArmyGroup.NumberOfKillsToEvolve());
-
     }
 
     public void ShowKillsThisBattle()
@@ -139,5 +145,4 @@ public class ArmyEvolutionElement : VisualElement
         _kills.SetValue(0);
         _killsToEvolve.SetValue(ArmyGroup.NumberOfKillsToEvolve());
     }
-
 }
