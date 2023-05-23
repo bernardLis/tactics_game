@@ -82,7 +82,7 @@ public class BattleResult : FullScreenElement
         _content.Add(_statsContainer);
 
         _continueButton = new("Continue", _ussContinueButton, ShowRewardExp);
-        _statsContainer.OnFinished += () =>  _content.Add(_continueButton);
+        _statsContainer.OnFinished += () => _content.Add(_continueButton);
 
         _starEffect = _gameManager.GetComponent<EffectManager>()
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
@@ -103,13 +103,17 @@ public class BattleResult : FullScreenElement
 
     void ShowRewardExp()
     {
-        _content.Clear();
+        _statsContainer.MoveAway();
+        _content.Remove(_continueButton);
 
-        _rewardExpContainer = new();
-        _content.Add(_rewardExpContainer);
+        schedule.Execute(() =>
+        {
+            _rewardExpContainer = new();
+            _content.Add(_rewardExpContainer);
 
-        _continueButton = new("Continue", _ussContinueButton, ShowRewards);
-        _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
+            _continueButton = new("Continue", _ussContinueButton, ShowRewards);
+            _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
+        }).StartingIn(1000);
     }
 
     void ShowRewards()

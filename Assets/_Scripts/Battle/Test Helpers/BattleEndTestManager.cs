@@ -21,7 +21,6 @@ public class BattleEndTestManager : MonoBehaviour
             armyInstance.Add(instance);
         }
 
-
         _hero = ScriptableObject.CreateInstance<Hero>();
         _hero.CreateRandom(1);
         _hero.Abilities = new();
