@@ -72,7 +72,6 @@ public class BattleManager : Singleton<BattleManager>
         _initRot = _skyMat.GetFloat(_rotationProperty);
 
 #if UNITY_EDITOR
-        // HERE: testing
         GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
 #endif
         AudioManager.Instance.PlayMusic(_battleMusic);

@@ -154,31 +154,30 @@ public class BattleEndManager : MonoBehaviour
 
     IEnumerator Evolve()
     {
+        _currentEntity.DisplayFloatingText("Evolving!", Color.magenta);
+
         Material mat = _currentEntity.GetComponentInChildren<Renderer>().material;
         Texture2D tex = mat.mainTexture as Texture2D;
-
         mat.shader = _dissolveShader;
         mat.SetTexture("_Base_Texture", tex);
-
         DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), 0, 1, 5f);
         yield return new WaitForSeconds(1f);
 
         _currentArmyGroup.Evolve();
-
         _evolvedEntity = InstantiateEntity(_currentArmyGroup.ArmyEntity);
         _evolvedEntity.Collider.enabled = false;
 
         Material evolvedMat = _evolvedEntity.GetComponentInChildren<Renderer>().material;
         Texture2D evolvedTex = evolvedMat.mainTexture as Texture2D;
-
         evolvedMat.shader = _dissolveShader;
         evolvedMat.SetTexture("_Base_Texture", evolvedTex);
-
         mat.SetFloat("_Dissolve_Value", 1f);
         DOTween.To(x => evolvedMat.SetFloat("_Dissolve_Value", x), 1, 0, 5f)
                 .OnComplete(() => _evolvedEntity.Animator.SetBool("Move", true));
-
-        _infoContainer.Add(new Label("Evolved!"));
+        
+        Label header = new Label("Evolved!");
+        header.style.fontSize = 34;
+        _infoContainer.Insert(0, header);
         //   EntityElement evolvedElement = new(_currentArmyGroup.ArmyEntity);
         _entityElement.SetValues(_currentArmyGroup.ArmyEntity);
         //   _entityElementContainer.Add(evolvedElement);

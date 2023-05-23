@@ -179,7 +179,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (CurrentHealth > ArmyEntity.Health)
             CurrentHealth = ArmyEntity.Health;
 
-        DisplayDamageText(value.ToString(), ability.Element.Color);
+        DisplayFloatingText(value.ToString(), ability.Element.Color);
         OnHealthChanged?.Invoke(CurrentHealth);
 
         return Mathf.RoundToInt(value);
@@ -225,7 +225,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (CurrentHealth < 0) CurrentHealth = 0;
         OnHealthChanged?.Invoke(CurrentHealth);
 
-        DisplayDamageText(dmg.ToString(), color);
+        DisplayFloatingText(dmg.ToString(), color);
 
         Animator.SetTrigger("Take Damage");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
@@ -320,7 +320,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 
     /* weird helpers */
-    void DisplayDamageText(string text, Color color)
+    public void DisplayFloatingText(string text, Color color)
     {
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = text;

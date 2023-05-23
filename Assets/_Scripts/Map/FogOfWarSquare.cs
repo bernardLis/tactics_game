@@ -12,18 +12,12 @@ public class FogOfWarSquare : MonoBehaviour
 
     [SerializeField] Sprite[] _sprites;
     SpriteRenderer _sr;
-    [SerializeField] TextMeshProUGUI _textMesh; // HERE: something smarter
 
     public event Action<bool> OnVisibilityChanged;
     void Awake()
     {
         _sr = GetComponentInChildren<SpriteRenderer>();
         _sr.sprite = _sprites[Random.Range(0, _sprites.Length)];
-    }
-
-    public void UpdateSelf()
-    {
-        ResetVisibility();
     }
 
     public void ResetVisibility()

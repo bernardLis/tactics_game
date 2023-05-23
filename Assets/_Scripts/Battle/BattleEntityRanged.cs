@@ -53,7 +53,7 @@ public class BattleEntityRanged : BattleEntity
 
             // Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
 
-            if (!Physics.Linecast(_opponent.transform.position, rotatedLine, // HERE: random 4
+            if (!Physics.Linecast(_opponent.transform.position, rotatedLine,
                     out RaycastHit newHit, 1 << Tags.BattleObstacleLayer))
             {
                 //   Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.blue, 30f);
