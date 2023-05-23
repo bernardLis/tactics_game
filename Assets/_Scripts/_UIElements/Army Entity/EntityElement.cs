@@ -50,7 +50,7 @@ public class EntityElement : VisualElement
         _entityIcon = new(_entity);
         _nameLabel = new Label();
         _nameLabel.AddToClassList(_ussName);
-        
+
         _healthLabel = new Label($"Health:");
         _power = new Label($"Power:");
         _armor = new Label($"Armor:");

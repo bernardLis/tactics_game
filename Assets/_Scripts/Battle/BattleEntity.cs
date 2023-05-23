@@ -32,6 +32,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected float _currentAttackCooldown;
 
     public int KilledEnemiesCount { get; private set; }
+    public int DamageDealt { get; private set; }
+    public int DamageTaken { get; private set; }
 
     bool _isGrabbed;
     public bool IsDead { get; private set; }
@@ -191,8 +193,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public IEnumerator GetHit(BattleEntity attacker)
     {
         if (IsDead) yield break;
-        
+
         int damage = ArmyEntity.CalculateDamage(attacker);
+        attacker.DamageDealt += damage;
         attacker.OnDamageDealt?.Invoke(damage);
 
         yield return BaseGetHit(damage, attacker.ArmyEntity.Element.Color);
@@ -228,6 +231,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         StopRunEntityCoroutine();
 
         OnDamageTaken?.Invoke(dmg);
+        DamageTaken += dmg;
 
         CurrentHealth -= dmg;
         if (CurrentHealth < 0) CurrentHealth = 0;
