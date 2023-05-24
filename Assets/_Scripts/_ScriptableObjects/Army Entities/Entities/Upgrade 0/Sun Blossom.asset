@@ -82,6 +82,6 @@ MonoBehaviour:
   Prefab: {fileID: 1260623825003051768, guid: 7f68d8bd4c8a1134d9d5d24651a1af8e, type: 3}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 687239542062312524, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
-  UpgradedEntity: {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
-  KillsToUpgrade: 10
+  UpgradedEntity: {fileID: 11400000, guid: b04d5324785816b468904c1eae7bf242, type: 2}
+  KillsToUpgrade: 1
   Hero: {fileID: 0}

@@ -67,7 +67,6 @@ public class ArmyGroup : BaseScriptableObject
 
     public void Evolve()
     {
-        TotalKillCount -= NumberOfKillsToEvolve();
         PreviousEntity = ArmyEntity;
         ArmyEntity = ArmyEntity.UpgradedEntity;
         OnEvolved?.Invoke(ArmyEntity);

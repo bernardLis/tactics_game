@@ -1518,7 +1518,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _army:
-  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
-  - {fileID: 11400000, guid: 4dc58bf026c85be4fa40d8d595b102d3, type: 2}
-  - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}
+  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
+  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
+  - {fileID: 11400000, guid: 61ddd5316d4afa34c8cb44243857566d, type: 2}
+  - {fileID: 11400000, guid: 9284f634c811c0342b04d5a99c1d02a3, type: 2}
   - {fileID: 11400000, guid: f11406f24c473e8498dc2a64c10df48a, type: 2}
+  - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}
+  - {fileID: 11400000, guid: 4dc58bf026c85be4fa40d8d595b102d3, type: 2}
+  - {fileID: 11400000, guid: 517db7d749d242244bb8a0eeece149e6, type: 2}
+  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
