@@ -7,6 +7,7 @@ public class ArmyEntity : BaseScriptableObject
 {
     public string Name;
     public Sprite[] IconAnimation;
+    public int UpgradeLevel;
     public int Price;
     public Element Element;
 

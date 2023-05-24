@@ -1550,6 +1550,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera Rig Base
       objectReference: {fileID: 0}
+    - target: {fileID: 5531196783287375940, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
+      propertyPath: _stepSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531196783287375940, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
+      propertyPath: _minHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531196783287375940, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
+      propertyPath: _zoomSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5531196783287375941, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
       propertyPath: m_RootOrder
       value: 2

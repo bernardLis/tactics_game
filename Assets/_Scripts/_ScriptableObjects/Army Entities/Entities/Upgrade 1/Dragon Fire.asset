@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Dragon Fire
+  m_EditorClassIdentifier: 
+  Id: DragonFire-6aef-4f8f-a757-9d06b20d9a51
+  Name: Dragon Fire
+  IconAnimation:
+  - {fileID: 21300000, guid: 1d215699000d17a42be148306c462961, type: 3}
+  - {fileID: 21300000, guid: 3bddab7fac66f1647b9c791696668fb2, type: 3}
+  - {fileID: 21300000, guid: b8d273b6e16f6ca49996b0a44e682b8a, type: 3}
+  - {fileID: 21300000, guid: d4ad6c807f20eef4e80cb5028848caf6, type: 3}
+  - {fileID: 21300000, guid: e4946b9af2b9a364da2e24b4b12ef8bd, type: 3}
+  - {fileID: 21300000, guid: f68755adac617634cb26caa4c5014e26, type: 3}
+  - {fileID: 21300000, guid: 5d2d67519c899844f92dd5952ad87cea, type: 3}
+  - {fileID: 21300000, guid: c5ce364954c09894f97ad98a6423ca98, type: 3}
+  - {fileID: 21300000, guid: 700e65217e11c914aab2d1554be4ebf7, type: 3}
+  - {fileID: 21300000, guid: 5b99baddb7bccf9468d291884ba09e86, type: 3}
+  - {fileID: 21300000, guid: 9e5751f6e7543d04b999524319495a1f, type: 3}
+  - {fileID: 21300000, guid: 0ed21824f5cf74c488a827514c4cd5ab, type: 3}
+  - {fileID: 21300000, guid: f3109f420bf682a479a7586661c89fa5, type: 3}
+  - {fileID: 21300000, guid: d635ae1a59bf13548ad5f71cee60a16a, type: 3}
+  - {fileID: 21300000, guid: 118543cab29088a408f9ba7bf4036d44, type: 3}
+  - {fileID: 21300000, guid: dd7a88da14458a94a90e507b9dca10f2, type: 3}
+  - {fileID: 21300000, guid: cd3187691fa043746b440511427b717c, type: 3}
+  - {fileID: 21300000, guid: 6fc5e3f8cc996864db3bb84b601af7f2, type: 3}
+  - {fileID: 21300000, guid: b9fcb5b126d4ebe4e8dc146f6bfdd2e4, type: 3}
+  - {fileID: 21300000, guid: dc3268df3cb4d054f9e6a7a9715c7233, type: 3}
+  - {fileID: 21300000, guid: e27a51973eb32da4ca96c288c464e877, type: 3}
+  - {fileID: 21300000, guid: 21b369e1c2e141449a18c20fccbfc1b8, type: 3}
+  - {fileID: 21300000, guid: 839855ce778df5b419d5e550f4f64840, type: 3}
+  - {fileID: 21300000, guid: f8aa957925461934fa52606cddbcac64, type: 3}
+  - {fileID: 21300000, guid: 3245ea04f61303140bd2ea4e40cec870, type: 3}
+  - {fileID: 21300000, guid: 57352de90b042d94b81160efdcb4e70c, type: 3}
+  - {fileID: 21300000, guid: 5aac961ff1cb48045a0ce4f4386c943c, type: 3}
+  - {fileID: 21300000, guid: 847e8acf1ef5eeb459637bdd69c03cb6, type: 3}
+  - {fileID: 21300000, guid: 09632ff96edb5b54aacb1035e065d43f, type: 3}
+  - {fileID: 21300000, guid: e9228316097e6b843ac12b92e6433dc7, type: 3}
+  - {fileID: 21300000, guid: f3cb6f27ab7ac8543b9e5851297c949c, type: 3}
+  UpgradeLevel: 1
+  Price: 60
+  Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Health: 200
+  Armor: 5
+  Power: 40
+  AttackRange: 5
+  AttackCooldown: 1.5
+  Speed: 6
+  Prefab: {fileID: 3264181270930956438, guid: f2667863d4332cb45a78130b87b9ecd9, type: 3}
+  Projectile: {fileID: 5028919531350398989, guid: a250f3ee435146848b6751d29e62b925, type: 3}
+  HitPrefab: {fileID: 0}
+  UpgradedEntity: {fileID: 0}
+  KillsToUpgrade: 8
+  Hero: {fileID: 0}

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Snake
+  m_EditorClassIdentifier: 
+  Id: snake-6aef-4f8f-a757-9d06b20d9a51
+  Name: Snake
+  IconAnimation:
+  - {fileID: 21300000, guid: caf813891d398284aa1841531fc0e1b8, type: 3}
+  - {fileID: 21300000, guid: 7c71a17c8bcc62c48a70d3c2caf0f59f, type: 3}
+  - {fileID: 21300000, guid: 5155f0f0751da6f4b8554d427b60eae7, type: 3}
+  - {fileID: 21300000, guid: 2d941bf1b2281684cb5939960004ab13, type: 3}
+  - {fileID: 21300000, guid: 4e0fa386fb53c234aa307ab6a1501328, type: 3}
+  - {fileID: 21300000, guid: 6b3a66b7e1c46bf4d8f8ff21112d00f8, type: 3}
+  - {fileID: 21300000, guid: f9c3f8cdee9d5444f9fd365d7505d8de, type: 3}
+  - {fileID: 21300000, guid: 802afd03b48a0b347a745e20be0a8391, type: 3}
+  - {fileID: 21300000, guid: bdfc6792a41846d4b99ff49e82f78e56, type: 3}
+  - {fileID: 21300000, guid: 59d0f4eb2cb65ab419deb30d35187f42, type: 3}
+  - {fileID: 21300000, guid: 7256c13caa56770428c3cc7b8134581a, type: 3}
+  - {fileID: 21300000, guid: 89d721a7623b89640969d825a0bce3ac, type: 3}
+  - {fileID: 21300000, guid: 714ec4fc7df6a834f8898c7947bbb397, type: 3}
+  - {fileID: 21300000, guid: ed30a4773dcea5b4e832666e717e3da0, type: 3}
+  - {fileID: 21300000, guid: 589a4b9f5d2a54b4bafd68a6582a4e63, type: 3}
+  - {fileID: 21300000, guid: 94a4f79198cdd0a4ab5b81cd18058f3b, type: 3}
+  - {fileID: 21300000, guid: d081f4c1ee643534b8f0bf1a75bb77e1, type: 3}
+  - {fileID: 21300000, guid: cb67035b18de0784897e61638d85434e, type: 3}
+  - {fileID: 21300000, guid: cca7830ebc84138459ae05a71166b4b0, type: 3}
+  - {fileID: 21300000, guid: 649d072d969ff0a4c845e211c9b09312, type: 3}
+  - {fileID: 21300000, guid: da977c63f5241004ebbebd915bbe0fff, type: 3}
+  - {fileID: 21300000, guid: 97dedc94793dc554b82f9c8c355be829, type: 3}
+  - {fileID: 21300000, guid: 790394a6c8dec14448568556e5c57b33, type: 3}
+  - {fileID: 21300000, guid: 48c0b3e0dd69a224e86aa81596677b9a, type: 3}
+  - {fileID: 21300000, guid: 168ddd36955e4584089d0b6e5c6432b1, type: 3}
+  - {fileID: 21300000, guid: 4fe2d2cb9b72774478dd9e3be9bebef1, type: 3}
+  - {fileID: 21300000, guid: e15cc83ed56297b40bd5054ce8c9f04b, type: 3}
+  - {fileID: 21300000, guid: dbc3c8017bd7bac47b59124cd4a24f1b, type: 3}
+  - {fileID: 21300000, guid: 6462a74c8df6f7949abb88f7c98dc8fa, type: 3}
+  - {fileID: 21300000, guid: 0b59add14d28f3143adc3a1ec2c0cc30, type: 3}
+  - {fileID: 21300000, guid: 9a3e05489204e1f4692c7d06bf32e073, type: 3}
+  - {fileID: 21300000, guid: 723818496a9f7434dbe1f48ac3d47b4d, type: 3}
+  - {fileID: 21300000, guid: 3784ff80cd3b75945ab0e34c4e61f370, type: 3}
+  - {fileID: 21300000, guid: c76717abf4be7854ab739cd7fe2c69a2, type: 3}
+  - {fileID: 21300000, guid: 31c9c18cfcc24444fb6f3a9d4536056d, type: 3}
+  - {fileID: 21300000, guid: 37bae15099cd0f94eba8e6f7e2f0ab81, type: 3}
+  - {fileID: 21300000, guid: 884206297ffb03e4d8c8c973e6220540, type: 3}
+  - {fileID: 21300000, guid: ab13783d25359584abf69596ded75e21, type: 3}
+  - {fileID: 21300000, guid: 347abd8cf404b8742908d9fab99a0405, type: 3}
+  - {fileID: 21300000, guid: 7df7215e6f641d641809da733c41935a, type: 3}
+  - {fileID: 21300000, guid: 99ff9d8a022a70d40b7c794127ac607b, type: 3}
+  - {fileID: 21300000, guid: 99de3e51023371b4b9b2192a563cacb1, type: 3}
+  - {fileID: 21300000, guid: a38d979fb4d64254c8b3dd4cf2877648, type: 3}
+  UpgradeLevel: 1
+  Price: 60
+  Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Health: 200
+  Armor: 5
+  Power: 40
+  AttackRange: 5
+  AttackCooldown: 1.5
+  Speed: 6
+  Prefab: {fileID: 3264181270930956438, guid: f8f879df92e45c044b4be3567bca42b6, type: 3}
+  Projectile: {fileID: 0}
+  HitPrefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
+  UpgradedEntity: {fileID: 0}
+  KillsToUpgrade: 8
+  Hero: {fileID: 0}

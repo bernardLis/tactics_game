@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 3042737103505245846}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &5531196783287375940
 MonoBehaviour:
@@ -48,11 +48,11 @@ MonoBehaviour:
   _maxSpeed: 20
   _acceleration: 10
   _damping: 15
-  _stepSize: 2
+  _stepSize: 1
   _zoomDampening: 7.5
-  _minHeight: 5
+  _minHeight: 2
   _maxHeight: 50
-  _zoomSpeed: 2
+  _zoomSpeed: 1
   _defaultZoomHeight: 8
   _maxRotationSpeed: 0.2
   _edgeTolerance: 0.01

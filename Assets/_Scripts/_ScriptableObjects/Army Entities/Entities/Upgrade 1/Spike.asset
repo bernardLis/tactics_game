@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Spike
+  m_EditorClassIdentifier: 
+  Id: spike-6aef-4f8f-a757-9d06b20d9a51
+  Name: Spike
+  IconAnimation:
+  - {fileID: 21300000, guid: f17af875e672c7049a8816cc45a232d9, type: 3}
+  - {fileID: 21300000, guid: 621606341f4e8ba4797e0480498d19ff, type: 3}
+  - {fileID: 21300000, guid: 9639e1c8a1f181849be71027ef6983de, type: 3}
+  - {fileID: 21300000, guid: 8a7db25286ef13b48b6bb7a4c6b4936c, type: 3}
+  - {fileID: 21300000, guid: e306220bf303c1844afba8f26f56de05, type: 3}
+  - {fileID: 21300000, guid: 9bdcce508588c92478cabd3ad19b6342, type: 3}
+  - {fileID: 21300000, guid: f975051b472411748be929d9a43aff67, type: 3}
+  - {fileID: 21300000, guid: 2c36f7992d5fa6d4b9524eb7d607af65, type: 3}
+  - {fileID: 21300000, guid: 953a1b7e12c05c84e9c337b74256c711, type: 3}
+  - {fileID: 21300000, guid: 7c45cefc6e242e94395c72e3faa14300, type: 3}
+  - {fileID: 21300000, guid: 3edc18753e6ed5f45a6bf18ba42bcaa7, type: 3}
+  - {fileID: 21300000, guid: bee5331ccc9dc544cb6da57ce6a7c59b, type: 3}
+  - {fileID: 21300000, guid: f54e2a65ea2bfcc4bb662cb46ed06fd4, type: 3}
+  - {fileID: 21300000, guid: 26e8480147b743544b7cfb001e55cf63, type: 3}
+  - {fileID: 21300000, guid: 290e8ce9cb59a15469b9b4410e5db10a, type: 3}
+  - {fileID: 21300000, guid: b8085ef42d0991b4ea76d5e083aab1e9, type: 3}
+  - {fileID: 21300000, guid: fb4725df2e0fbc5478ad48a7d18308bc, type: 3}
+  - {fileID: 21300000, guid: acff304570e41854594a295d33c1fa8a, type: 3}
+  - {fileID: 21300000, guid: 5b9dd658fb7c32c4abca57feb94278cc, type: 3}
+  - {fileID: 21300000, guid: d582d49581d4d0c46a3c89500afed867, type: 3}
+  - {fileID: 21300000, guid: 3878b84ea9eabba4bb6ab715001b1555, type: 3}
+  - {fileID: 21300000, guid: 34f39ffda8239084f8f6588d3bedd6d1, type: 3}
+  - {fileID: 21300000, guid: b0ab0bd493d94704c896be9aea329ccf, type: 3}
+  - {fileID: 21300000, guid: aefed9ab5003f8b4d8e9dc72e1dee5bf, type: 3}
+  - {fileID: 21300000, guid: d1a4076358c07144098e059fad55a11d, type: 3}
+  - {fileID: 21300000, guid: 2196a8857fea3ae4ba959ec183958325, type: 3}
+  - {fileID: 21300000, guid: 22a5286c21a8fd44c86f9f6037487b7a, type: 3}
+  - {fileID: 21300000, guid: d3b5d8991908e8c49b88ea029f42db78, type: 3}
+  - {fileID: 21300000, guid: 77da24b0a61599140b18d9f128b6524d, type: 3}
+  - {fileID: 21300000, guid: 0ecd39aea1cc5684da8bc54c55d2a5dd, type: 3}
+  - {fileID: 21300000, guid: 16620a1a3357e6946aee6710ffc69018, type: 3}
+  - {fileID: 21300000, guid: 96a72d2fd3ff2e84297addc85b96c16f, type: 3}
+  - {fileID: 21300000, guid: 8ffff2b00b3c2e949a43aeafb8fee193, type: 3}
+  - {fileID: 21300000, guid: 40c60b20131383549beff73bddf50638, type: 3}
+  - {fileID: 21300000, guid: 37909dd32dd56634cb458cb75f0bdba5, type: 3}
+  - {fileID: 21300000, guid: 2d19c3a56721d674e92096021c9a8db0, type: 3}
+  - {fileID: 21300000, guid: 548f656ac4e4b5d4fbdaf35d795457c4, type: 3}
+  - {fileID: 21300000, guid: fa9130711d7786d45804ea14c3e0f9bd, type: 3}
+  - {fileID: 21300000, guid: b43e9b0e2b953514d97d049ec159d140, type: 3}
+  - {fileID: 21300000, guid: ef64a29b0d53c114a95bebef03caf771, type: 3}
+  - {fileID: 21300000, guid: c7f850d763b56dc488bd9e88014e7ac5, type: 3}
+  - {fileID: 21300000, guid: f0ff73bb5d2127e48904bf09bb26d075, type: 3}
+  - {fileID: 21300000, guid: 0f2b213d8cceb0a48adcfcec8d35481a, type: 3}
+  - {fileID: 21300000, guid: 10b0991a753798f4c8ac8f4284156d81, type: 3}
+  - {fileID: 21300000, guid: fc6d5fa58b05aad45a665fb4205f15ea, type: 3}
+  - {fileID: 21300000, guid: 59a94763fc756ce449f44b52cdf160eb, type: 3}
+  - {fileID: 21300000, guid: 95428e4ccbb24ff4b80f8e6230810e71, type: 3}
+  - {fileID: 21300000, guid: c98fcedc9af274b4ea69cf0e89591955, type: 3}
+  - {fileID: 21300000, guid: 4d02708bef7659647a98cb3f06e08425, type: 3}
+  - {fileID: 21300000, guid: 9a5dd1a2e14f2564e9e32e2f99a0c1a5, type: 3}
+  - {fileID: 21300000, guid: 2c502514d2ce88e4faf0e25a871a093d, type: 3}
+  - {fileID: 21300000, guid: 75a3aedeb52a0964683dbda172c1495c, type: 3}
+  - {fileID: 21300000, guid: 240637183359b2f44a77017144a482fc, type: 3}
+  - {fileID: 21300000, guid: fcef6490bd8de4743a26dffa34e35cb4, type: 3}
+  - {fileID: 21300000, guid: 608dc102f2d05eb408bc5d1abce0dcd1, type: 3}
+  - {fileID: 21300000, guid: 0d67ab084e8b68c419e51a68663c2a8d, type: 3}
+  - {fileID: 21300000, guid: e4b8b4f4af272c4459155e76335d7226, type: 3}
+  - {fileID: 21300000, guid: 529eec6a0c368d14392b1ca5017877a1, type: 3}
+  - {fileID: 21300000, guid: d7d1feee29f55814483c274604ac565c, type: 3}
+  - {fileID: 21300000, guid: ee7fb2d27a1276340a70eeb362419385, type: 3}
+  - {fileID: 21300000, guid: 2a6b835b6ac3e5c49affe88f965d0219, type: 3}
+  - {fileID: 21300000, guid: db4b12599fabaa543adb1df1f86b85ab, type: 3}
+  - {fileID: 21300000, guid: 28ba8c37d0e6025468caa7aaf75ca32b, type: 3}
+  - {fileID: 21300000, guid: c95c04e6d2ba5fa45bb606047e9c6515, type: 3}
+  - {fileID: 21300000, guid: 814a5f11b712c1f4884f6c8c6f736366, type: 3}
+  - {fileID: 21300000, guid: 49599ecce45ae9649b8b3bf52b3c179a, type: 3}
+  - {fileID: 21300000, guid: f4526a9e2b0f8114c880ac591f9e9bc3, type: 3}
+  - {fileID: 21300000, guid: 16f9f2f88d18182419e630f602780437, type: 3}
+  - {fileID: 21300000, guid: c7b05a19babf1c84a9a58453e99901b4, type: 3}
+  - {fileID: 21300000, guid: 7817261d4aa4c874f8e5f5f6df54753b, type: 3}
+  - {fileID: 21300000, guid: 4b0bc59ca3a8cf14f84986bd50b527c8, type: 3}
+  - {fileID: 21300000, guid: e0504cfa5070af443b98573d67448387, type: 3}
+  - {fileID: 21300000, guid: 3372b6d9f7694754e8d6521b31d89769, type: 3}
+  - {fileID: 21300000, guid: 827ddabf7169ab54bb9aa11368b2f359, type: 3}
+  - {fileID: 21300000, guid: d1936a15deb5f134cac9cff6d797bf68, type: 3}
+  - {fileID: 21300000, guid: e63cba44e25423d44899de281ba9d443, type: 3}
+  - {fileID: 21300000, guid: 1fe33b3b78556ff4c90812aed9cb88e0, type: 3}
+  - {fileID: 21300000, guid: f401f0888cf6c394199e2ad9319f3af3, type: 3}
+  - {fileID: 21300000, guid: 4958f53f07a84d14cbd2a61d62ee08ea, type: 3}
+  - {fileID: 21300000, guid: 526714e7d6af4924bb2fafc10696a079, type: 3}
+  - {fileID: 21300000, guid: ddbf361281dbfae47825445f62d4f8f0, type: 3}
+  - {fileID: 21300000, guid: 5f343fbb699f7214e8690ce6e5da45ce, type: 3}
+  - {fileID: 21300000, guid: e7fdbb960cc1b58498f234f8b88436ef, type: 3}
+  - {fileID: 21300000, guid: 58a07620bc0cccc4e9aaf2e1fc428bc9, type: 3}
+  - {fileID: 21300000, guid: c7839c9f687409b468c4c4c77cdad568, type: 3}
+  - {fileID: 21300000, guid: e49a2044cd5f90247aac91d0004d1e54, type: 3}
+  - {fileID: 21300000, guid: af538b0dcc4d09f43a199b0793096175, type: 3}
+  - {fileID: 21300000, guid: 6bb39c420ca68864a8c6bd8209a54a78, type: 3}
+  - {fileID: 21300000, guid: 7ff1bd23ce572434c95ef6464a52dbcf, type: 3}
+  - {fileID: 21300000, guid: b4a34c627ffb6664d8e75474725ef559, type: 3}
+  - {fileID: 21300000, guid: 89a386c219fcf344ca357296c261d72a, type: 3}
+  - {fileID: 21300000, guid: 96601219fef3df741a8df89f070a5636, type: 3}
+  - {fileID: 21300000, guid: ad2dc923f8f074944beb4747c7d4a0b5, type: 3}
+  - {fileID: 21300000, guid: 3ba029cc3f3d2b74a9c5fd7b9a0296a0, type: 3}
+  - {fileID: 21300000, guid: 641f0733cbf690b469d988fd5a28fb1c, type: 3}
+  - {fileID: 21300000, guid: ad89bc67419724341ae31970171d6e7e, type: 3}
+  - {fileID: 21300000, guid: a9c2f26021251a34489e640804597e43, type: 3}
+  - {fileID: 21300000, guid: 7fd3f7983b624b3478ef2c088fb8fa29, type: 3}
+  - {fileID: 21300000, guid: 0303a502b01f9f046bf6cf063be9b1a8, type: 3}
+  - {fileID: 21300000, guid: 7398922e1ad1a4a4f8ace882a99f7eca, type: 3}
+  - {fileID: 21300000, guid: f38c303ed707e2447b67bf084db53bdf, type: 3}
+  - {fileID: 21300000, guid: 36a72728725df2d45a59e8276ebd3512, type: 3}
+  - {fileID: 21300000, guid: 94747f70e75752549b1497bb4da1df92, type: 3}
+  UpgradeLevel: 1
+  Price: 60
+  Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Health: 200
+  Armor: 5
+  Power: 40
+  AttackRange: 5
+  AttackCooldown: 1.5
+  Speed: 6
+  Prefab: {fileID: 3264181270930956438, guid: 41a495c84328c0542a0366f02b27645a, type: 3}
+  Projectile: {fileID: 0}
+  HitPrefab: {fileID: 2048183971171318672, guid: 8e20ede2f4ef4794a9fa2caad04a5ef3, type: 3}
+  UpgradedEntity: {fileID: 0}
+  KillsToUpgrade: 8
+  Hero: {fileID: 0}
