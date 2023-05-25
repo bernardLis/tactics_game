@@ -49,6 +49,8 @@ public class Hero : BaseScriptableObject
 
     public event Action<HeroRank> OnRankChanged;
     public event Action<Injury> OnInjuryAdded;
+    public event Action<ArmyGroup> OnArmyAdded;
+
 
     public IntVariable CurrentMana;
     public void BattleInitialize()
@@ -65,12 +67,13 @@ public class Hero : BaseScriptableObject
         {
             if (ag.ArmyEntity == armyGroup.ArmyEntity)
             {
-                ag.EntityCount += armyGroup.EntityCount;
+                ag.ChangeCount(armyGroup.EntityCount);
                 return;
             }
         }
 
         Army.Add(armyGroup);
+        OnArmyAdded?.Invoke(armyGroup);
     }
 
     public void RemoveArmy(ArmyGroup armyGroup)

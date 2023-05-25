@@ -57,6 +57,7 @@ public class BattleStatsContainer : VisualElement
         _armyGroupContainer = new();
         _armyGroupContainer.AddToClassList(_ussArmyGroupContainer);
         Add(_armyGroupContainer);
+        _gameManager.PlayerHero.OnArmyAdded += AddArmyToContainer;
 
         _logRecordsContainer = new();
         Add(_logRecordsContainer);
@@ -64,6 +65,18 @@ public class BattleStatsContainer : VisualElement
         ShowArmyStats();
         // wait for army stats to show
         this.schedule.Execute(AddMostKillsEntity).StartingIn(500 + 500 * _gameManager.PlayerHero.Army.Count);
+    }
+
+    void AddArmyToContainer(ArmyGroup armyGroup)
+    {
+        VisualElement container = new();
+        container.AddToClassList(_ussArmyStatsContainer);
+        _armyGroupContainer.Add(container);
+
+        ArmyGroup ag = armyGroup;
+        ArmyGroupElement armyGroupElement = new(ag);
+        armyGroupElement.EntityIcon.PlayAnimationAlways();
+        container.Add(armyGroupElement);
     }
 
     void ShowArmyStats()
