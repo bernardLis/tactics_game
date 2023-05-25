@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public class BattleCard : VisualElement
+public class BattleCard : ElementWithSound
 {
     const string _ussClassName = "battle-card__";
     const string _ussMain = _ussClassName + "main";

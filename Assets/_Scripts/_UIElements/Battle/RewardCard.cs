@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
-public class RewardCard : VisualElement
+public class RewardCard : ElementWithSound
 {
     GameManager _gameManager;
     const string _ussClassName = "reward-card__";

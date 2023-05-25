@@ -8,7 +8,12 @@ using DG.Tweening;
 public class BattleChoiceContainer : VisualElement
 {
     GameManager _gameManager;
+
+    List<BattleCard> _hiddenCards = new();
+
     List<BattleCard> _cards = new();
+
+    VisualElement _cardContainer;
 
     public event Action OnBattleSelected;
     public BattleChoiceContainer()
@@ -25,22 +30,37 @@ public class BattleChoiceContainer : VisualElement
         l.style.fontSize = 32;
         Add(l);
 
-        VisualElement cardContainer = new();
-        cardContainer.style.flexDirection = FlexDirection.Row;
-        Add(cardContainer);
+        _cardContainer = new();
+        _cardContainer.style.flexDirection = FlexDirection.Row;
+        Add(_cardContainer);
         for (int i = 0; i < 3; i++)
         {
             BattleCard card = new();
-            cardContainer.Add(card);
+            _cardContainer.Add(card);
             card.style.visibility = Visibility.Hidden;
-            _cards.Add(card);
-            card.OnCardSelected += OnCardSelected;
+            _hiddenCards.Add(card);
         }
 
         style.opacity = 0;
-        DOTween.To(x => style.opacity = x, 0, 1, 0.5f);
+        DOTween.To(x => style.opacity = x, 0, 1, 0.5f)
+            .OnComplete(() => ShowCards());
+    }
 
-        // it would be cool if the cards were falling one by one into their places
+    void ShowCards()
+    {
+        for (int i = 0; i < _hiddenCards.Count; i++)
+        {
+            BattleCard card = new();
+            _cards.Add(card);
+            _cardContainer.Add(card);
+
+            card.style.position = Position.Absolute;
+            card.style.left = Screen.width;
+            DOTween.To(x => card.style.left = x, Screen.width, i * _hiddenCards[i].resolvedStyle.width, 0.5f)
+                .SetEase(Ease.InFlash)
+                .SetDelay(i * 0.2f);
+            card.OnCardSelected += OnCardSelected;
+        }
     }
 
     void OnCardSelected(BattleCard selectedCard)
