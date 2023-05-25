@@ -62,7 +62,10 @@ public class BattleChoiceContainer : VisualElement
             // HERE: audio siup siup
             schedule.Execute(() => _audioManager.PlaySFX("Paper", Vector3.zero)).StartingIn(200 + i * 300);
 
-            DOTween.To(x => card.style.left = x, Screen.width, i * _hiddenCards[i].resolvedStyle.width, 0.5f)
+            float endLeft = i * (_hiddenCards[i].resolvedStyle.width +
+                    _hiddenCards[i].resolvedStyle.marginLeft + _hiddenCards[i].resolvedStyle.right);
+
+            DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
                 .SetEase(Ease.InFlash)
                 .SetDelay(i * 0.2f);
             card.OnCardSelected += OnCardSelected;

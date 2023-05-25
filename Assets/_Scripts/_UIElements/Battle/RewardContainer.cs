@@ -50,7 +50,10 @@ public class RewardContainer : VisualElement
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;
         Add(_rewardContainer);
-        PopulateRewards();
+
+        RunCardShow();
+
+        //PopulateRewards();
 
         _rerollButton = new("", _ussRerollButton, RerollReward);
         VisualElement rerollIcon = new();
@@ -64,6 +67,42 @@ public class RewardContainer : VisualElement
         _rerollCost = new(200);
         _rerollButton.Add(_rerollCost);
         Add(_rerollButton);
+    }
+
+    void RunCardShow()
+    {
+        List<RewardCard> hiddenCards = new();
+        for (int i = 0; i < 3; i++)
+        {
+            RewardCard card = CreateRewardCardGold();
+            hiddenCards.Add(card);
+            card.style.visibility = Visibility.Hidden;
+            _rewardContainer.Add(card);
+        }
+
+        schedule.Execute(() =>
+        {
+            CreateRewardCards();
+            for (int i = 0; i < 3; i++)
+            {
+                RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
+                _allRewardCards.Remove(card);
+                _selectedRewardCards.Add(card);
+                _rewardContainer.Add(card);
+
+                card.style.position = Position.Absolute;
+                card.style.left = Screen.width;
+
+                // HERE: audio siup siup
+                schedule.Execute(() => _audioManager.PlaySFX("Paper", Vector3.zero)).StartingIn(200 + i * 300);
+                float endLeft = i * (hiddenCards[i].resolvedStyle.width
+                    + hiddenCards[i].resolvedStyle.marginLeft + hiddenCards[i].resolvedStyle.right);
+                DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
+                    .SetEase(Ease.InFlash)
+                    .SetDelay(i * 0.2f);
+            }
+        }).StartingIn(10);
+
     }
 
     void RerollReward()
