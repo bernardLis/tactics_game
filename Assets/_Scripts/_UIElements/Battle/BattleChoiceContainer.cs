@@ -17,21 +17,13 @@ public class BattleChoiceContainer : VisualElement
 
         style.alignItems = Align.Center;
 
-        HeroCardMini heroCardMini = new(_gameManager.PlayerHero);
-        Add(heroCardMini);
-
-
         Label bn = new($"Battle #{GameManager.Instance.BattleNumber + 1}");
         bn.style.fontSize = 24;
         Add(bn);
 
-
-
         Label l = new("Choose your next opponent: ");
         l.style.fontSize = 32;
         Add(l);
-
-
 
         VisualElement cardContainer = new();
         cardContainer.style.flexDirection = FlexDirection.Row;
@@ -40,9 +32,15 @@ public class BattleChoiceContainer : VisualElement
         {
             BattleCard card = new();
             cardContainer.Add(card);
+            card.style.visibility = Visibility.Hidden;
             _cards.Add(card);
             card.OnCardSelected += OnCardSelected;
         }
+
+        style.opacity = 0;
+        DOTween.To(x => style.opacity = x, 0, 1, 0.5f);
+
+        // it would be cool if the cards were falling one by one into their places
     }
 
     void OnCardSelected(BattleCard selectedCard)

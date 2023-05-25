@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 public class RewardContainer : VisualElement
 {
@@ -147,5 +148,11 @@ public class RewardContainer : VisualElement
         }
 
         OnRewardSelected?.Invoke();
+    }
+
+    public void MoveAway()
+    {
+        style.position = Position.Absolute;
+        DOTween.To(x => style.opacity = x, 1, 0, 0.5f);
     }
 }

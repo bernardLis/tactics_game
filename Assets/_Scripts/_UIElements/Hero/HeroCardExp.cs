@@ -24,7 +24,7 @@ public class HeroCardExp : VisualElement
     GameManager _gameManager;
     public Hero Hero;
 
-    HeroCardMini _heroCardMini;
+    public HeroCardMini HeroCardMini;
 
     Label _title;
     StarRankElement _rankElement;
@@ -66,8 +66,8 @@ public class HeroCardExp : VisualElement
 
         AddToClassList(_ussMain);
 
-        _heroCardMini = new HeroCardMini(hero);
-        Add(_heroCardMini);
+        HeroCardMini = new HeroCardMini(hero);
+        Add(HeroCardMini);
 
         Add(CreateMiddlePanel());
         Add(CreateStatGroup());

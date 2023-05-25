@@ -78,11 +78,11 @@ public class BattleResult : FullScreenElement
         Add(_content);
         _content.AddToClassList(_ussContent);
 
-        _statsContainer = new(_content);
-        _content.Add(_statsContainer);
+        _rewardExpContainer = new();
+        _content.Add(_rewardExpContainer);
 
-        _continueButton = new("Continue", _ussContinueButton, ShowRewardExp);
-        _statsContainer.OnFinished += () => _content.Add(_continueButton);
+        _continueButton = new("Continue", _ussContinueButton, ShowStatsContainer);
+        _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
 
         _starEffect = _gameManager.GetComponent<EffectManager>()
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
@@ -101,41 +101,68 @@ public class BattleResult : FullScreenElement
         _root.Add(_root.Q<VisualElement>("vfx"));
     }
 
-    void ShowRewardExp()
+    void ShowStatsContainer()
     {
-        _statsContainer.MoveAway();
+        _rewardExpContainer.MoveAway();
         _content.Remove(_continueButton);
 
         schedule.Execute(() =>
         {
-            _rewardExpContainer = new();
-            _content.Add(_rewardExpContainer);
+            _statsContainer = new(_content);
+            _content.Add(_statsContainer);
 
             _continueButton = new("Continue", _ussContinueButton, ShowRewards);
-            _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
+            _statsContainer.OnFinished += () => _content.Add(_continueButton);
+
         }).StartingIn(1000);
     }
+    /*
+        void ShowRewardExp()
+        {
+            _statsContainer.MoveAway();
+            _content.Remove(_continueButton);
 
+            schedule.Execute(() =>
+            {
+                _rewardExpContainer = new();
+                _content.Add(_rewardExpContainer);
+
+                _continueButton = new("Continue", _ussContinueButton, ShowRewards);
+                _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
+            }).StartingIn(1000);
+        }
+    */
     void ShowRewards()
     {
-        _content.Clear();
-        _content.Add(new HeroCardMini(_gameManager.PlayerHero));
+        _statsContainer.MoveAway();
+        // _content.Clear();
+        _content.Remove(_continueButton);
+        //    _content.Add(new HeroCardMini(_gameManager.PlayerHero));
+        schedule.Execute(() =>
+        {
 
-        _rewardContainer = new RewardContainer();
-        _content.Add(_rewardContainer);
+            _rewardContainer = new RewardContainer();
+            _content.Add(_rewardContainer);
 
-        _continueButton = new("Continue", _ussContinueButton, ShowBattleChoices);
-        _rewardContainer.OnRewardSelected += () => _content.Add(_continueButton);
+            _continueButton = new("Continue", _ussContinueButton, ShowBattleChoices);
+            _rewardContainer.OnRewardSelected += () => _content.Add(_continueButton);
+        }).StartingIn(1000);
+
     }
 
     void ShowBattleChoices()
     {
-        _content.Clear();
-        _battleChoiceContainer = new();
-        _content.Add(_battleChoiceContainer);
+        _rewardContainer.MoveAway();
+        _content.Remove(_continueButton);
 
-        _continueButton = new("Continue", _ussContinueButton, LoadBattle);
-        _battleChoiceContainer.OnBattleSelected += () => _content.Add(_continueButton);
+        schedule.Execute(() =>
+        {
+            _battleChoiceContainer = new();
+            _content.Add(_battleChoiceContainer);
+
+            _continueButton = new("Continue", _ussContinueButton, LoadBattle);
+            _battleChoiceContainer.OnBattleSelected += () => _content.Add(_continueButton);
+        }).StartingIn(1000);
     }
 
     void LoadBattle() { _gameManager.LoadScene(Scenes.Battle); }

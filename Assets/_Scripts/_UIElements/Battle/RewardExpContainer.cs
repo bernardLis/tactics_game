@@ -164,4 +164,25 @@ public class RewardExpContainer : VisualElement
         if (_playerHero.LevelUpPointsLeft == 0)
             OnFinished?.Invoke();
     }
+
+    public void MoveAway()
+    {
+        HeroCardMini card = _heroCard.HeroCardMini;
+        style.position = Position.Absolute;
+        card.style.position = Position.Absolute;
+        card.style.left = _heroCard.worldBound.x;
+        card.style.top = _heroCard.worldBound.y;
+        parent.Add(card);
+
+        // everything except hero card mini opacity > 0
+        DOTween.To(x => _heroContainer.style.opacity = x, 1, 0, 0.5f);
+        DOTween.To(x => _opponentContainer.style.opacity = x, 1, 0, 0.5f);
+        DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 1, 0, 0.5f);
+
+        DOTween.To(x => style.opacity = x, 1, 0, 0.5f).SetDelay(0.5f);
+
+        DOTween.To(x => card.style.left = x, _heroCard.worldBound.x, 40, 1f)
+            .SetDelay(0.5f)
+            .SetEase(Ease.OutBounce);
+    }
 }

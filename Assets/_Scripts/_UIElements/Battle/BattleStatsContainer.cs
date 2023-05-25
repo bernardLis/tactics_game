@@ -190,37 +190,5 @@ public class BattleStatsContainer : VisualElement
             {
                 DOTween.To(x => _armyGroupContainer.style.bottom = x, _armyGroupContainer.layout.y, 20, 1f);
             });
-
-
-        /*
-                DOTween.To(x => style.opacity = x, 1, 0, 0.5f)
-                    .SetDelay(0.5f)
-                    .OnComplete(() =>
-                        {
-                            style.position = Position.Absolute;
-                            style.bottom = 20;
-                            style.left = 40;
-                            style.height = Length.Percent(50);
-                            _armyGroupContainer.style.height = Length.Percent(100);
-                        });
-                DOTween.To(x => style.opacity = x, 0, 1, 1f)
-                    .SetDelay(1f);
-        */
-
-        /*
-                style.position = Position.Absolute;
-                style.left = worldBound.xMin;
-                DOTween.To(x => style.left = x, worldBound.xMin, 40, 0.5f)
-                    .SetDelay(0.5f)
-                    .SetEase(Ease.OutBounce);
-                DOTween.To(x => style.height = Length.Percent(x), 100, 50, 1f)
-                    .SetDelay(1f);
-                DOTween.To(x => _armyGroupContainer.style.height = Length.Percent(x), 50, 100, 1f)
-                    .SetDelay(1.1f)
-                    .OnComplete(() =>
-                    {
-                        DOTween.To(x => style.bottom = x, layout.y, 20, 0.5f);
-                    });
-            */
     }
 }
