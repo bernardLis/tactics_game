@@ -11,7 +11,12 @@ public class BattleStatsContainer : VisualElement
 {
     const string _ussCommonMenuButton = "common__menu-button";
 
+
     const string _ussClassName = "battle-stats-container__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussArmyGroupContainer = _ussClassName + "army-group-container";
+
+
     const string _ussArmyStatsContainer = _ussClassName + "army-stats-container";
 
     GameManager _gameManager;
@@ -20,14 +25,18 @@ public class BattleStatsContainer : VisualElement
 
     List<BattleLogAbility> _abilityLogs = new();
 
-    VisualElement _armyGroupContainer;
+    ScrollView _armyGroupContainer;
     List<VisualElement> _armyStatContainers = new();
 
     VisualElement _logRecordsContainer;
 
+    VisualElement _content;
+
     public event Action OnFinished;
-    public BattleStatsContainer()
+    public BattleStatsContainer(VisualElement content)
     {
+        _content = content; // HERE: different name
+
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _battleLogManager = _battleManager.GetComponent<BattleLogManager>();
@@ -39,12 +48,14 @@ public class BattleStatsContainer : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
+        AddToClassList(_ussMain);
+
         foreach (BattleLog item in _battleLogManager.Logs)
             if (item is BattleLogAbility abilityLog)
                 _abilityLogs.Add(abilityLog);
 
         _armyGroupContainer = new();
-        _armyGroupContainer.style.alignItems = Align.Center;
+        _armyGroupContainer.AddToClassList(_ussArmyGroupContainer);
         Add(_armyGroupContainer);
 
         _logRecordsContainer = new();
@@ -167,9 +178,49 @@ public class BattleStatsContainer : VisualElement
             DOTween.To(x => el.style.opacity = x, 1, 0, 0.5f)
                     .OnComplete(() => el.style.display = DisplayStyle.None);
         }
-
         style.position = Position.Absolute;
-        style.left = worldBound.xMin;
-        DOTween.To(x => style.left = x, worldBound.xMin, 40, 0.5f).SetDelay(0.5f);
+        _armyGroupContainer.style.position = Position.Absolute;
+        parent.Add(_armyGroupContainer);
+
+        _armyGroupContainer.style.left = worldBound.xMin;
+        DOTween.To(x => _armyGroupContainer.style.left = x, worldBound.xMin, 40, 1f)
+            .SetDelay(0.5f)
+            .SetEase(Ease.OutBounce)
+            .OnComplete(() =>
+            {
+                DOTween.To(x => _armyGroupContainer.style.bottom = x, _armyGroupContainer.layout.y, 20, 1f);
+            });
+
+
+        /*
+                DOTween.To(x => style.opacity = x, 1, 0, 0.5f)
+                    .SetDelay(0.5f)
+                    .OnComplete(() =>
+                        {
+                            style.position = Position.Absolute;
+                            style.bottom = 20;
+                            style.left = 40;
+                            style.height = Length.Percent(50);
+                            _armyGroupContainer.style.height = Length.Percent(100);
+                        });
+                DOTween.To(x => style.opacity = x, 0, 1, 1f)
+                    .SetDelay(1f);
+        */
+
+        /*
+                style.position = Position.Absolute;
+                style.left = worldBound.xMin;
+                DOTween.To(x => style.left = x, worldBound.xMin, 40, 0.5f)
+                    .SetDelay(0.5f)
+                    .SetEase(Ease.OutBounce);
+                DOTween.To(x => style.height = Length.Percent(x), 100, 50, 1f)
+                    .SetDelay(1f);
+                DOTween.To(x => _armyGroupContainer.style.height = Length.Percent(x), 50, 100, 1f)
+                    .SetDelay(1.1f)
+                    .OnComplete(() =>
+                    {
+                        DOTween.To(x => style.bottom = x, layout.y, 20, 0.5f);
+                    });
+            */
     }
 }

@@ -12,6 +12,7 @@ public class ArmyEvolutionElement : VisualElement
 
     const string _ussClassName = "army-evolution__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussName = _ussClassName + "name";
 
     GameManager _gameManager;
 
@@ -51,7 +52,7 @@ public class ArmyEvolutionElement : VisualElement
         AddToClassList(_ussCommonTextPrimary);
 
         _name = new(armyGroup.ArmyEntity.Name);
-        _name.style.fontSize = 32;
+        _name.AddToClassList(_ussName);
         Add(_name);
 
         _armyGroupElement = new(armyGroup);

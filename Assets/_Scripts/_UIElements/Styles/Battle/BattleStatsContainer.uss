@@ -1,3 +1,13 @@
+.battle-stats-container__main {
+    height: 100%;
+    justify-content: center;
+}
+
+.battle-stats-container__army-group-container {
+    height: 50%;
+    align-items: center;
+}
+
 .battle-stats-container__army-stats-container {
     flex-direction: row;
     padding-left: 10px;
