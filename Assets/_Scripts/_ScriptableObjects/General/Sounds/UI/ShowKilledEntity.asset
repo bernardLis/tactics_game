@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: PlacingPaper
+  m_Name: ShowKilledEntity
   m_EditorClassIdentifier: 
-  Id: 01489164-55ca-45e0-a625-dfb8e32b2e00
+  Id: showEnem-6949-4b43-a9ae-978acb199b05
   Clips:
-  - {fileID: 8300000, guid: 506d04b37547ada478820f8f21d95144, type: 3}
-  Volume: 0.3
-  Pitch: 0.1
+  - {fileID: 8300000, guid: 8f8146d095fdde8459dc8f691da44c2b, type: 3}
+  Volume: 1
+  Pitch: 2.07
   isPitchRandomized: 1
-  PitchRange: {x: 2, y: 3}
+  PitchRange: {x: 1, y: 1.1}
   Source: {fileID: 0}

@@ -8,6 +8,7 @@ using DG.Tweening;
 public class BattleChoiceContainer : VisualElement
 {
     GameManager _gameManager;
+    AudioManager _audioManager;
 
     List<BattleCard> _hiddenCards = new();
 
@@ -19,6 +20,7 @@ public class BattleChoiceContainer : VisualElement
     public BattleChoiceContainer()
     {
         _gameManager = GameManager.Instance;
+        _audioManager = _gameManager.GetComponent<AudioManager>();
 
         style.alignItems = Align.Center;
 
@@ -56,6 +58,10 @@ public class BattleChoiceContainer : VisualElement
 
             card.style.position = Position.Absolute;
             card.style.left = Screen.width;
+
+            // HERE: audio siup siup
+            schedule.Execute(() => _audioManager.PlaySFX("Paper", Vector3.zero)).StartingIn(200 + i * 300);
+
             DOTween.To(x => card.style.left = x, Screen.width, i * _hiddenCards[i].resolvedStyle.width, 0.5f)
                 .SetEase(Ease.InFlash)
                 .SetDelay(i * 0.2f);

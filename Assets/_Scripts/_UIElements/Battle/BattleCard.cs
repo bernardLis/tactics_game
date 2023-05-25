@@ -11,7 +11,6 @@ public class BattleCard : ElementWithSound
     const string _ussMain = _ussClassName + "main";
     const string _ussDisabled = _ussClassName + "disabled";
 
-
     GameManager _gameManager;
 
     Battle _battle;
@@ -65,6 +64,9 @@ public class BattleCard : ElementWithSound
 
         _gameManager.SelectedBattle = _battle;
         OnCardSelected?.Invoke(this);
+
+        // HERE: audio bzium 
+        _gameManager.GetComponent<AudioManager>().PlaySFX("HeroVoices", Vector3.zero);
     }
 
     public void DisableCard()

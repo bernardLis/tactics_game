@@ -20,6 +20,7 @@ public class BattleStatsContainer : VisualElement
     const string _ussArmyStatsContainer = _ussClassName + "army-stats-container";
 
     GameManager _gameManager;
+    AudioManager _audioManager;
     BattleManager _battleManager;
     BattleLogManager _battleLogManager;
 
@@ -38,6 +39,7 @@ public class BattleStatsContainer : VisualElement
         _content = content; // HERE: different name
 
         _gameManager = GameManager.Instance;
+        _audioManager = _gameManager.GetComponent<AudioManager>();
         _battleManager = BattleManager.Instance;
         _battleLogManager = _battleManager.GetComponent<BattleLogManager>();
 
@@ -81,8 +83,12 @@ public class BattleStatsContainer : VisualElement
 
     void ShowArmyStats()
     {
+        _audioManager.PlaySFX("PlacingPaper", Vector3.zero);
+
         for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
         {
+            // HERE: audio click clack 
+
             VisualElement container = new();
             container.AddToClassList(_ussArmyStatsContainer);
             _armyGroupContainer.Add(container);
@@ -105,7 +111,8 @@ public class BattleStatsContainer : VisualElement
 
             container.style.opacity = 0;
             DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
-                    .SetDelay(0.5f * i);
+                    .SetDelay(0.5f * i)
+                    .OnComplete(() => _audioManager.PlaySFX("PlacingPaper", Vector3.zero));
         }
     }
 
@@ -196,12 +203,17 @@ public class BattleStatsContainer : VisualElement
         parent.Add(_armyGroupContainer);
 
         _armyGroupContainer.style.left = worldBound.xMin;
-        DOTween.To(x => _armyGroupContainer.style.left = x, worldBound.xMin, 40, 1f)
+
+        // HERE: audio siup siup
+        schedule.Execute(() => _audioManager.PlaySFX("PaperFlying", Vector3.zero)).StartingIn(500);
+
+        DOTween.To(x => _armyGroupContainer.style.left = x, worldBound.xMin, 40, 0.5f)
             .SetDelay(0.5f)
-            .SetEase(Ease.OutBounce)
+            .SetEase(Ease.InOutFlash)
             .OnComplete(() =>
             {
-                DOTween.To(x => _armyGroupContainer.style.bottom = x, _armyGroupContainer.layout.y, 20, 1f);
+                _audioManager.PlaySFX("PaperFlying", Vector3.zero);
+                DOTween.To(x => _armyGroupContainer.style.bottom = x, _armyGroupContainer.layout.y, 20, 0.5f);
             });
     }
 }

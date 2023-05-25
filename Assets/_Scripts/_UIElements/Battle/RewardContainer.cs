@@ -19,6 +19,7 @@ public class RewardContainer : VisualElement
 
 
     GameManager _gameManager;
+    AudioManager _audioManager;
 
     VisualElement _rewardContainer;
 
@@ -32,6 +33,7 @@ public class RewardContainer : VisualElement
     public RewardContainer()
     {
         _gameManager = GameManager.Instance;
+        _audioManager = _gameManager.GetComponent<AudioManager>();
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
@@ -73,6 +75,7 @@ public class RewardContainer : VisualElement
                 _rerollCost, "Not enough gold!", Color.red);
             return;
         }
+        _audioManager.PlaySFX("DiceRoll", Vector3.zero);
 
         _gameManager.ChangeGoldValue(-200);
         PopulateRewards();
@@ -139,6 +142,8 @@ public class RewardContainer : VisualElement
 
     void RewardSelected(Reward reward)
     {
+        _audioManager.PlaySFX("RewardChosen", Vector3.zero);
+
         _rerollButton.SetEnabled(false);
         foreach (RewardCard card in _selectedRewardCards)
         {
