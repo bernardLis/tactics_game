@@ -378,8 +378,8 @@ MonoBehaviour:
           m_NumAlphaKeys: 2
         ForceLifetime: 0
         Lifetime: 0.5
-        PositionMode: 1
-        TargetTransform: {fileID: 0}
+        PositionMode: 0
+        TargetTransform: {fileID: 4748893319486061140}
         Direction: {x: 0, y: 0, z: 0}
 --- !u!114 &8640876086726221700
 MonoBehaviour:

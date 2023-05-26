@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
         float targetScale = transform.localScale.x;
         transform.localScale = Vector3.zero;
         transform.DOScale(targetScale, 2f);
-
+        transform.LookAt(target.transform);
         //https://gamedev.stackexchange.com/questions/100535/coroutine-to-move-to-position-passing-the-movement-speed
         Vector3 startingPos = transform.position;
         Vector3 finalPos = target.Collider.bounds.center;
@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
             Vector3 pos = Vector3.Lerp(startingPos, finalPos, t);
             //  if (pos.y < 1) pos.y = 1; // TODO: shitty fix for projectiles going under the ground
             transform.position = pos;
-            transform.LookAt(target.transform);
+            //  
 
             yield return new WaitForFixedUpdate();
         }

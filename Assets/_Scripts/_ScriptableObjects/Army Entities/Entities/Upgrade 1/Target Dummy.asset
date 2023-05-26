@@ -77,7 +77,7 @@ MonoBehaviour:
   Health: 200
   Armor: 5
   Power: 40
-  AttackRange: 5
+  AttackRange: 3
   AttackCooldown: 1.5
   Speed: 6
   Prefab: {fileID: 3264181270930956438, guid: 8a44128aa3a759740a2a330363f53cc3, type: 3}

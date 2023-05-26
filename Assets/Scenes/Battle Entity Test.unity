@@ -1429,15 +1429,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _obstacle: {fileID: 1939155309}
   AllGroups:
-  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
-  - {fileID: 11400000, guid: 61ddd5316d4afa34c8cb44243857566d, type: 2}
-  - {fileID: 11400000, guid: 9284f634c811c0342b04d5a99c1d02a3, type: 2}
-  - {fileID: 11400000, guid: f11406f24c473e8498dc2a64c10df48a, type: 2}
-  - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}
-  - {fileID: 11400000, guid: 4dc58bf026c85be4fa40d8d595b102d3, type: 2}
-  - {fileID: 11400000, guid: 517db7d749d242244bb8a0eeece149e6, type: 2}
-  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
+  - {fileID: 11400000, guid: d3db9e786ac9fbc4da675340d2585304, type: 2}
+  - {fileID: 11400000, guid: 41448169ebc784c4385837508c41d773, type: 2}
+  - {fileID: 11400000, guid: a4e4c18644f2ae3468a0b3ebe4c619a2, type: 2}
+  - {fileID: 11400000, guid: 9ded946650f3bdb459680a619e403fa3, type: 2}
+  - {fileID: 11400000, guid: 7e8514433de019b428d8d09d46fb9f9e, type: 2}
+  - {fileID: 11400000, guid: 3d47343a601e8d146be6fb1b6114f45a, type: 2}
+  - {fileID: 11400000, guid: 4ab9782481d285b4496369dcb5986411, type: 2}
+  - {fileID: 11400000, guid: 819c3477165581c4daa4704b7d5c2b5b, type: 2}
   _testSpecificTeams: 0
   TeamAArmies:
   - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
@@ -1519,6 +1518,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3855565697554977837, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5119385659013104313, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_RootOrder
       value: 4

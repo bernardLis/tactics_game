@@ -46,7 +46,9 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleEntity> KilledPlayerEntities = new();
     public List<BattleEntity> KilledOpponentEntities = new();
 
+    public bool IsEndingBattleBlocked;
     bool _battleFinalized = false;
+
 
     public event Action OnBattleFinalized;
 
@@ -186,17 +188,30 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator BattleLost()
     {
+        if (IsEndingBattleBlocked)
+        {
+            yield return FinalizeBattle();
+            yield break;
+        }
+        
         ConfirmPopUp popUp = new();
         popUp.Initialize(Root, () => _gameManager.LoadScene(Scenes.MainMenu),
                 "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
         popUp.HideCancelButton();
         yield return null;
+
         // HERE: testing   
         //        _gameManager.ClearSaveData();
     }
 
     IEnumerator BattleWon()
     {
+        if (IsEndingBattleBlocked)
+        {
+            yield return FinalizeBattle();
+            yield break;
+        }
+
         LoadedBattle.Won = true;
 
         VisualElement topPanel = Root.Q<VisualElement>("topPanel");
