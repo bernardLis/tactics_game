@@ -27,6 +27,6 @@ public class RewardArmy : Reward
     {
         base.GetReward();
 
-        _hero.AddArmy(ArmyGroup);
+        _hero.AddNewArmy(ArmyGroup);
     }
 }

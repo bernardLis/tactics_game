@@ -49,13 +49,13 @@ public class BattleEndManager : MonoBehaviour
 
     void BeginEndBattleShow()
     {
-        ShowUI();
-        /*
-                // HERE: testing battle end UI
-                _playerArmy = _gameManager.PlayerHero.Army;
-                StartCoroutine(RunShow());
-                StartCoroutine(RotateCameraAroundEntity());
-        */
+        // ShowUI();
+
+        // HERE: testing battle end UI
+        _playerArmy = _gameManager.PlayerHero.Army;
+        StartCoroutine(RunShow());
+        StartCoroutine(RotateCameraAroundEntity());
+
     }
 
     IEnumerator RunShow()
@@ -183,6 +183,7 @@ public class BattleEndManager : MonoBehaviour
         _currentArmyGroupIndex++;
         if (_currentArmyGroupIndex >= _playerArmy.Count)
         {
+            GameManager.Instance.PlayerHero.TryJoiningArmies(); // HERE: no brain
             ShowUI();
             return;
         }

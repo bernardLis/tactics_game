@@ -22,6 +22,7 @@ public class HeroCardExp : VisualElement
 
 
     GameManager _gameManager;
+    AudioManager _audioManager;
     public Hero Hero;
 
     public HeroCardMini HeroCardMini;
@@ -55,6 +56,7 @@ public class HeroCardExp : VisualElement
     public HeroCardExp(Hero hero)
     {
         _gameManager = GameManager.Instance;
+        _audioManager = _gameManager.GetComponent<AudioManager>();
         var common = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
@@ -200,6 +202,7 @@ public class HeroCardExp : VisualElement
 
     void BaseStatUp()
     {
+        _audioManager.PlaySFX("PointAdded", Vector3.zero);
         OnPointAdded?.Invoke();
         if (Hero.LevelUpPointsLeft <= 0)
             DisableStatUpButtons();

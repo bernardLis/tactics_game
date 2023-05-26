@@ -98,8 +98,8 @@ public class RewardContainer : VisualElement
                 float endLeft = i * (hiddenCards[i].resolvedStyle.width
                     + hiddenCards[i].resolvedStyle.marginLeft + hiddenCards[i].resolvedStyle.right);
                 DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
-                    .SetEase(Ease.InFlash)
-                    .SetDelay(i * 0.2f);
+                        .SetEase(Ease.InFlash)
+                        .SetDelay(i * 0.2f);
             }
         }).StartingIn(10);
 

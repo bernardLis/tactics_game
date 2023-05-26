@@ -1518,4 +1518,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _army:
-  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
+  - {fileID: 11400000, guid: 819c3477165581c4daa4704b7d5c2b5b, type: 2}
+  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}

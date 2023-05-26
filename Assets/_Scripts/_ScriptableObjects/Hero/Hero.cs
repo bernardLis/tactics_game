@@ -51,7 +51,6 @@ public class Hero : BaseScriptableObject
     public event Action<Injury> OnInjuryAdded;
     public event Action<ArmyGroup> OnArmyAdded;
 
-
     public IntVariable CurrentMana;
     public void BattleInitialize()
     {
@@ -59,7 +58,7 @@ public class Hero : BaseScriptableObject
         CurrentMana.SetValue(BaseMana.Value);
     }
 
-    public void AddArmy(ArmyGroup armyGroup)
+    public void AddNewArmy(ArmyGroup armyGroup)
     {
         Debug.Log($"Hero {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
         // join armies of the same type
@@ -74,6 +73,40 @@ public class Hero : BaseScriptableObject
 
         Army.Add(armyGroup);
         OnArmyAdded?.Invoke(armyGroup);
+    }
+
+    public void TryJoiningArmies()
+    {
+        /* HERE: no brain
+        Dictionary<ArmyEntity, int> armyDict = new();
+        for (int i = Army.Count - 1; i >= 0; i--)
+        {
+            if (armyDict.ContainsKey(Army[i].ArmyEntity))
+            {
+                armyDict[Army[i].ArmyEntity].JoinArmy(Army[i]);
+                RemoveArmy(armyGroup);
+            }
+        }
+        foreach (ArmyGroup ag in Army)
+        {
+            if (armyDict.ContainsKey(ag.ArmyEntity))
+                armyDict[ag.ArmyEntity] += ag.EntityCount;
+            else
+                armyDict.Add(ag.ArmyEntity, ag.EntityCount);
+        }
+
+
+        // check if you can join armies of the same type
+        foreach (ArmyGroup ag in Army)
+        {
+            if (ag != armyGroup && ag.ArmyEntity == armyGroup.ArmyEntity)
+            {
+                ag.JoinArmy(armyGroup);
+                RemoveArmy(armyGroup);
+                return;
+            }
+        }
+        */
     }
 
     public void RemoveArmy(ArmyGroup armyGroup)

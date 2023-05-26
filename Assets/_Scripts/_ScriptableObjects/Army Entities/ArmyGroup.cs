@@ -11,24 +11,34 @@ public class ArmyGroup : BaseScriptableObject
     public int EntityCount;
     public int ListPosition; // used for save/load of castle and hero army
 
-    public int OldKillCount;
-    public int TotalKillCount;
+    [HideInInspector] public int OldKillCount;
+    [HideInInspector] public int TotalKillCount;
 
-    public int OldDamageDealt;
-    public int TotalDamageDealt;
+    [HideInInspector] public int OldDamageDealt;
+    [HideInInspector] public int TotalDamageDealt;
 
-    public int OldDamageTaken;
-    public int TotalDamageTaken;
+    [HideInInspector] public int OldDamageTaken;
+    [HideInInspector] public int TotalDamageTaken;
 
-    public ArmyEntity PreviousEntity;
+    [HideInInspector] public ArmyEntity PreviousEntity;
 
-    public event Action<ArmyEntity> OnEvolved;
+    public event Action<ArmyGroup> OnEvolved;
 
     public event Action<int, int> OnCountChanged;
     public void ChangeCount(int change)
     {
         EntityCount += change;
         OnCountChanged?.Invoke(ListPosition, EntityCount);
+    }
+
+    public void JoinArmy(ArmyGroup armyGroup)
+    {
+        if (armyGroup.ArmyEntity != ArmyEntity) return;
+
+        ChangeCount(armyGroup.EntityCount);
+        TotalDamageDealt += armyGroup.TotalDamageDealt;
+        TotalDamageTaken += armyGroup.TotalDamageTaken;
+        TotalKillCount += armyGroup.TotalKillCount;
     }
 
     public void InitializeBattle()
@@ -69,7 +79,7 @@ public class ArmyGroup : BaseScriptableObject
     {
         PreviousEntity = ArmyEntity;
         ArmyEntity = ArmyEntity.UpgradedEntity;
-        OnEvolved?.Invoke(ArmyEntity);
+        OnEvolved?.Invoke(this);
     }
 
     public ArmyGroupData SerializeSelf()
