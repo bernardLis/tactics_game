@@ -32,7 +32,6 @@ public class RewardCard : ElementWithSound
     {
         if (evt.button != 0) return;
 
-        // HERE: audio bzium 
         _gameManager.GetComponent<AudioManager>().PlaySFX("Bang", Vector3.zero);
         Reward.GetReward();
     }

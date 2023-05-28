@@ -1520,3 +1520,8 @@ MonoBehaviour:
   _army:
   - {fileID: 11400000, guid: 819c3477165581c4daa4704b7d5c2b5b, type: 2}
   - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
+  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
+  - {fileID: 11400000, guid: 4dc58bf026c85be4fa40d8d595b102d3, type: 2}
+  - {fileID: 11400000, guid: a4e4c18644f2ae3468a0b3ebe4c619a2, type: 2}
+  - {fileID: 11400000, guid: 4ab9782481d285b4496369dcb5986411, type: 2}
+  - {fileID: 11400000, guid: 61ddd5316d4afa34c8cb44243857566d, type: 2}

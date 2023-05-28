@@ -31,13 +31,9 @@ public class BattleStatsContainer : VisualElement
 
     VisualElement _logRecordsContainer;
 
-    VisualElement _content;
-
     public event Action OnFinished;
     public BattleStatsContainer(VisualElement content)
     {
-        _content = content; // HERE: different name
-
         _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();
         _battleManager = BattleManager.Instance;
@@ -87,8 +83,6 @@ public class BattleStatsContainer : VisualElement
 
         for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
         {
-            // HERE: audio click clack 
-
             VisualElement container = new();
             container.AddToClassList(_ussArmyStatsContainer);
             _armyGroupContainer.Add(container);
@@ -204,7 +198,6 @@ public class BattleStatsContainer : VisualElement
 
         _armyGroupContainer.style.left = worldBound.xMin;
 
-        // HERE: audio siup siup
         schedule.Execute(() => _audioManager.PlaySFX("PaperFlying", Vector3.zero)).StartingIn(500);
 
         DOTween.To(x => _armyGroupContainer.style.left = x, worldBound.xMin, 40, 0.5f)

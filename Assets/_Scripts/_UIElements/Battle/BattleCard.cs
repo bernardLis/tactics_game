@@ -65,7 +65,6 @@ public class BattleCard : ElementWithSound
         _gameManager.SelectedBattle = _battle;
         OnCardSelected?.Invoke(this);
 
-        // HERE: audio bzium 
         _gameManager.GetComponent<AudioManager>().PlaySFX("HeroVoices", Vector3.zero);
     }
 

@@ -183,7 +183,7 @@ public class BattleEndManager : MonoBehaviour
         _currentArmyGroupIndex++;
         if (_currentArmyGroupIndex >= _playerArmy.Count)
         {
-            GameManager.Instance.PlayerHero.TryJoiningArmies(); // HERE: no brain
+            _gameManager.PlayerHero.TryJoiningArmies();
             ShowUI();
             return;
         }

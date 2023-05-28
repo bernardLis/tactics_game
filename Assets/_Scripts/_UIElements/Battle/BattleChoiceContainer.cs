@@ -59,7 +59,6 @@ public class BattleChoiceContainer : VisualElement
             card.style.position = Position.Absolute;
             card.style.left = Screen.width;
 
-            // HERE: audio siup siup
             schedule.Execute(() => _audioManager.PlaySFX("Paper", Vector3.zero)).StartingIn(200 + i * 300);
 
             float endLeft = i * (_hiddenCards[i].resolvedStyle.width +

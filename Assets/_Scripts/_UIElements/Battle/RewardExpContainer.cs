@@ -138,7 +138,6 @@ public class RewardExpContainer : VisualElement
             return;
         }
 
-        // HERE: audio click clack 
         _audioManager.PlaySFX("ShowKilledEntity", Vector3.zero);
 
         BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
@@ -186,7 +185,6 @@ public class RewardExpContainer : VisualElement
 
         DOTween.To(x => style.opacity = x, 1, 0, 0.5f).SetDelay(0.5f);
 
-        // HERE: audio siup siup
         schedule.Execute(() => _audioManager.PlaySFX("PaperFlying", Vector3.zero)).StartingIn(500);
 
         DOTween.To(x => card.style.left = x, _heroCard.worldBound.x, 40, 0.5f)

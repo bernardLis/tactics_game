@@ -77,36 +77,23 @@ public class Hero : BaseScriptableObject
 
     public void TryJoiningArmies()
     {
-        /* HERE: no brain
+        List<ArmyGroup> toRemove = new();
         Dictionary<ArmyEntity, int> armyDict = new();
-        for (int i = Army.Count - 1; i >= 0; i--)
+        for (int i = 0; i < Army.Count; i++)
         {
             if (armyDict.ContainsKey(Army[i].ArmyEntity))
             {
-                armyDict[Army[i].ArmyEntity].JoinArmy(Army[i]);
-                RemoveArmy(armyGroup);
+                int index = armyDict[Army[i].ArmyEntity];
+                Army[index].JoinArmy(Army[i]);
+                toRemove.Add(Army[i]);
+                continue;
             }
-        }
-        foreach (ArmyGroup ag in Army)
-        {
-            if (armyDict.ContainsKey(ag.ArmyEntity))
-                armyDict[ag.ArmyEntity] += ag.EntityCount;
             else
-                armyDict.Add(ag.ArmyEntity, ag.EntityCount);
+                armyDict.Add(Army[i].ArmyEntity, i);
         }
 
-
-        // check if you can join armies of the same type
-        foreach (ArmyGroup ag in Army)
-        {
-            if (ag != armyGroup && ag.ArmyEntity == armyGroup.ArmyEntity)
-            {
-                ag.JoinArmy(armyGroup);
-                RemoveArmy(armyGroup);
-                return;
-            }
-        }
-        */
+        foreach (ArmyGroup ag in toRemove)
+            RemoveArmy(ag);
     }
 
     public void RemoveArmy(ArmyGroup armyGroup)

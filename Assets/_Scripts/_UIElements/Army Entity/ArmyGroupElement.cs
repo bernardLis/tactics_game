@@ -53,7 +53,6 @@ public class ArmyGroupElement : ElementWithTooltip
 
     public void Evolve(ArmyEntity armyEntity)
     {
-        // HERE: shake the icon
         DOTween.Shake(() => EntityIcon.transform.position, x => EntityIcon.transform.position = x,
                 2f, 10f);
 
