@@ -153,6 +153,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual IEnumerator Attack()
     {
+        Debug.Log($"in base attack");
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?

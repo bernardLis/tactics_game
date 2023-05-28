@@ -4,6 +4,7 @@ using DG.Tweening;
 
 public class BattleEntityMelee : BattleEntity
 {
+    GameObject _hitInstance;
 
     protected override IEnumerator Attack()
     {
@@ -22,19 +23,26 @@ public class BattleEntityMelee : BattleEntity
             yield break;
         }
 
+        Debug.Log($"in attack after current special ability check");
+
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Attack");
 
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
-        _currentAttackCooldown = ArmyEntity.AttackCooldown;
         Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-        GameObject hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, q);
+        _hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, q);
 
-        yield return _opponent.GetHit(this);
-        Destroy(hitInstance);
+        StartCoroutine(_opponent.GetHit(this));
+        Invoke("DestroyHitInstance", 2f);
 
         yield return base.Attack();
+    }
+
+    void DestroyHitInstance()
+    {
+        Destroy(_hitInstance);
+
     }
 
 }
