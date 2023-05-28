@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class BattleEntityRanged : BattleEntity
 {
-    [SerializeField] GameObject _projectileSpawnPoint;
+    [SerializeField] protected GameObject _projectileSpawnPoint;
 
     protected override IEnumerator PathToTarget()
     {
@@ -96,7 +96,19 @@ public class BattleEntityRanged : BattleEntity
     protected override IEnumerator Attack()
     {
         while (!CanAttack()) yield return null;
-        if (!IsOpponentInRange()) StartRunEntityCoroutine();
+
+        if (_currentSpecialAbilityCooldown <= 0)
+        {
+            yield return SpecialAbility();
+            yield return base.Attack();
+            yield break;
+        }
+
+        if (!IsOpponentInRange())
+        {
+            StartRunEntityCoroutine();
+            yield break;
+        }
 
         yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
         Animator.SetTrigger("Attack");

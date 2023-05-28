@@ -8,6 +8,14 @@ public class BattleEntityMelee : BattleEntity
     protected override IEnumerator Attack()
     {
         while (!CanAttack()) yield return null;
+
+        if (_currentSpecialAbilityCooldown <= 0)
+        {
+            yield return SpecialAbility();
+            yield return base.Attack();
+            yield break;
+        }
+
         if (!IsOpponentInRange())
         {
             StartRunEntityCoroutine();

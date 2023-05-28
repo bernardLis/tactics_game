@@ -30,6 +30,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected NavMeshAgent _agent;
 
     protected float _currentAttackCooldown;
+    protected float _currentSpecialAbilityCooldown;
 
     public int KilledEnemiesCount { get; private set; }
     public int DamageDealt { get; private set; }
@@ -59,6 +60,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if (_currentAttackCooldown >= 0)
             _currentAttackCooldown -= Time.deltaTime;
+        if (_currentSpecialAbilityCooldown >= 0)
+            _currentSpecialAbilityCooldown -= Time.deltaTime;
     }
 
     public virtual void Initialize(bool isPlayer, ArmyEntity armyEntity, ref List<BattleEntity> opponents)
@@ -157,6 +160,15 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _currentAttackCooldown = ArmyEntity.AttackCooldown;
         StartRunEntityCoroutine();
 
+        yield break;
+    }
+
+    protected virtual IEnumerator SpecialAbility()
+    {
+        // meant to be overwritten
+
+        // it goes at the end... is that a good idea?
+        _currentSpecialAbilityCooldown = ArmyEntity.SpecialAbilityCooldown;
         yield break;
     }
 

@@ -10,11 +10,13 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] GameObject _gfx;
     [SerializeField] GameObject _explosion;
-    BattleEntity _target;
+    protected BattleEntity _shooter;
+    protected BattleEntity _target;
 
     public void Shoot(BattleEntity shooter, BattleEntity target, float speed, float power)
     {
         AudioManager.Instance.PlaySFX(_shootSound, transform.position);
+        _shooter = shooter;
         _target = target;
         StartCoroutine(ShootCoroutine(shooter, target, speed, power));
     }
@@ -36,17 +38,21 @@ public class Projectile : MonoBehaviour
             if (target != null) finalPos = target.Collider.bounds.center;
             t += step;
             Vector3 pos = Vector3.Lerp(startingPos, finalPos, t);
-            //  if (pos.y < 1) pos.y = 1; // TODO: shitty fix for projectiles going under the ground
             transform.position = pos;
-            //  
 
             yield return new WaitForFixedUpdate();
         }
 
         if (target != null)
-            StartCoroutine(target.GetHit(shooter));// yield return target.GetHit(shooter);
+            yield return HitTarget();
 
         yield return DestroySelf(target.Collider.bounds.center);
+    }
+
+    protected virtual IEnumerator HitTarget()
+    {
+        StartCoroutine(_target.GetHit(_shooter));
+        yield return null;
     }
 
     void OnCollisionEnter(Collision collision)

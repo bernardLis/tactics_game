@@ -34,3 +34,13 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
     color: cornsilk;
 }
+
+.battle__won-label {
+    font-size: 64px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&guid=719587235c52756429cfbea86a7e8082&type=3#horizontal_flag');
+    width: auto;
+    padding-left: 500px;
+    padding-right: 500px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}

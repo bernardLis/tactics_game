@@ -49,7 +49,6 @@ public class BattleManager : Singleton<BattleManager>
     public bool IsEndingBattleBlocked;
     bool _battleFinalized = false;
 
-
     public event Action OnBattleFinalized;
 
     protected override void Awake()
@@ -193,7 +192,7 @@ public class BattleManager : Singleton<BattleManager>
             yield return FinalizeBattle();
             yield break;
         }
-        
+
         ConfirmPopUp popUp = new();
         popUp.Initialize(Root, () => _gameManager.LoadScene(Scenes.MainMenu),
                 "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
@@ -218,7 +217,10 @@ public class BattleManager : Singleton<BattleManager>
         topPanel.Clear();
 
         Label label = new("Battle won!");
-        label.style.fontSize = 64;
+        label.AddToClassList("battle__won-label");
+        label.style.opacity = 0;
+        DOTween.To(x => label.style.opacity = x, 0, 1, 0.5f);
+
         topPanel.Add(label);
 
         yield return FinalizeBattle();
