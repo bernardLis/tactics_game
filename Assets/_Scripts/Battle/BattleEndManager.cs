@@ -202,7 +202,7 @@ public class BattleEndManager : MonoBehaviour
         GameObject instance = Instantiate(armyEntity.Prefab, pos, Quaternion.identity);
         BattleEntity be = instance.GetComponent<BattleEntity>();
         List<BattleEntity> emptyList = new();
-        be.Initialize(true, entityInstance, ref emptyList);
+        be.Initialize(0, entityInstance, ref emptyList);
         be.StopRunEntityCoroutine();
 
         return be;

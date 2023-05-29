@@ -138,7 +138,7 @@ public class BattleManager : Singleton<BattleManager>
             instance.layer = 8;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(true, entityInstance, ref OpponentEntities);
+            be.Initialize(0, entityInstance, ref OpponentEntities);
             PlayerEntities.Add(be);
             be.OnEnemyKilled += ag.AddKill;
             be.OnDamageDealt += ag.AddDmgDealt;
@@ -159,7 +159,7 @@ public class BattleManager : Singleton<BattleManager>
             GameObject instance = Instantiate(entity.Prefab, pos, rotation);
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(false, entity, ref PlayerEntities);
+            be.Initialize(1, entity, ref PlayerEntities);
             OpponentEntities.Add(be);
             be.OnDeath += OnEnemyDeath;
         }

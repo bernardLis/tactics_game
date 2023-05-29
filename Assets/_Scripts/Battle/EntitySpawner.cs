@@ -27,7 +27,7 @@ public class EntitySpawner : MonoBehaviour
         GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
         instance.transform.parent = transform;
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.Initialize(false, entity, ref _battleManager.PlayerEntities);
+        be.Initialize(1, entity, ref _battleManager.PlayerEntities);
         be.OnDeath += OnDeath;
 
     }

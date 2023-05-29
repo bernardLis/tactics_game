@@ -15,7 +15,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     BattleEntityTooltipManager _tooltipManager;
     public Collider Collider { get; private set; }
 
-    bool _isPlayer;
+    public int Team { get; private set; }
+    // bool _isPlayer;
     protected GameObject _GFX;
     Material _material;
     Texture2D _emissionTexture;
@@ -69,7 +70,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             _currentSpecialAbilityCooldown -= Time.deltaTime;
     }
 
-    public virtual void Initialize(bool isPlayer, ArmyEntity armyEntity, ref List<BattleEntity> opponents)
+    public virtual void Initialize(int team, ArmyEntity armyEntity, ref List<BattleEntity> opponents)
     {
         Collider = GetComponent<Collider>();
 
@@ -79,8 +80,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _emissionTexture = _material.GetTexture("_EmissionMap") as Texture2D;
         _material.EnableKeyword("_EMISSION");
 
-        _isPlayer = isPlayer;
-        if (!isPlayer)
+        Team = team;
+        if (team == 1)
         {
             _material.SetTexture("_EmissionMap", null);
             _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
@@ -386,14 +387,14 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void TurnHighlightOff()
     {
-        if (_emissionTexture != null && _isPlayer)
+        if (_emissionTexture != null && Team == 0)
         {
             _material.SetTexture("_EmissionMap", _emissionTexture);
             _material.SetColor("_EmissionColor", Color.black);
             return;
         }
 
-        if (_isPlayer)
+        if (Team == 0)
             _material.SetColor("_EmissionColor", Color.black);
         else
             _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
@@ -403,7 +404,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         _material.SetTexture("_EmissionMap", null);
 
-        if (_isPlayer)
+        if (Team == 0)
             _material.SetColor("_EmissionColor", Color.blue);
         else
             _material.SetColor("_EmissionColor", Color.red);
