@@ -15,8 +15,6 @@ public class DragonSparkEntity : BattleEntityRanged
 
     protected override IEnumerator SpecialAbility()
     {
-        Debug.Log($"in special ability");
-
         if (!IsOpponentInRange())
         {
             StartRunEntityCoroutine();

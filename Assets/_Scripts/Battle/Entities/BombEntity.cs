@@ -33,16 +33,12 @@ public class BombEntity : BattleEntityRanged
 
         Invoke("CleanUp", 2f);
 
-        Debug.Log($"special die after everything");
         StartCoroutine(base.Die(attacker, ability));
         yield return null;
-
-        // yield return base.Die(attacker, ability);
     }
 
     void CleanUp()
     {
-        Debug.Log($"cleanup");
         if (_explosionEffectInstance != null)
             Destroy(_explosionEffectInstance);
 

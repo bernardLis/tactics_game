@@ -23,8 +23,6 @@ public class BattleEntityMelee : BattleEntity
             yield break;
         }
 
-        Debug.Log($"in attack after current special ability check");
-
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Attack");
 

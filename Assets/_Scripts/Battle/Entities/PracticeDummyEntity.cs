@@ -20,8 +20,6 @@ public class PracticeDummyEntity : BattleEntityMelee
 
     protected override IEnumerator SpecialAbility()
     {
-        Debug.Log($"in special ability");
-
         if (!IsOpponentInRange())
         {
             StartRunEntityCoroutine();

@@ -315,11 +315,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
-        Debug.Log($"base dead");
-
         StopRunEntityCoroutine();
-
-        Debug.Log($"base dead");
         Animator.SetBool("Celebrate", false);
 
         Animator.SetTrigger("Die");
