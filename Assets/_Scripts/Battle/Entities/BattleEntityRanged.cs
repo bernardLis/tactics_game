@@ -97,7 +97,7 @@ public class BattleEntityRanged : BattleEntity
     {
         while (!CanAttack()) yield return null;
 
-        if (_currentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialAttack & _currentSpecialAbilityCooldown <= 0)
         {
             yield return SpecialAbility();
             yield return base.Attack();

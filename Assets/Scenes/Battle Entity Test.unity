@@ -1439,7 +1439,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 819c3477165581c4daa4704b7d5c2b5b, type: 2}
   _testSpecificTeams: 1
   TeamAArmies:
-  - {fileID: 11400000, guid: 9284f634c811c0342b04d5a99c1d02a3, type: 2}
+  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
   TeamBArmies:
   - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}
   _oneArmyVsAll: 0

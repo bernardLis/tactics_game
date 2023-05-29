@@ -7,6 +7,12 @@ public class DragonSparkEntity : BattleEntityRanged
 {
     [SerializeField] GameObject _specialProjectile;
 
+    protected override void Start()
+    {
+        _hasSpecialAttack = true;
+        base.Start();
+    }
+
     protected override IEnumerator SpecialAbility()
     {
         Debug.Log($"in special ability");

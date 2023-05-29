@@ -9692,7 +9692,7 @@ GameObject:
   - component: {fileID: 1766927153907386988}
   - component: {fileID: 5292090784973242732}
   m_Layer: 0
-  m_Name: Dummy
+  m_Name: Dummy Special Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

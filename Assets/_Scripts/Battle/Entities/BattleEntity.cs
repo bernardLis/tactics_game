@@ -42,6 +42,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     MMF_Player _feelPlayer;
 
     IEnumerator _runEntityCoroutine;
+    protected bool _hasSpecialAttack;
     IEnumerator _attackCoroutine;
 
     public event Action<float> OnHealthChanged;
@@ -50,7 +51,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public event Action<int> OnDamageTaken;
 
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
-    void Start()
+    protected virtual void Start()
     {
         _tooltipManager = BattleEntityTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
@@ -247,7 +248,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         DamageTaken += dmg;
 
         CurrentHealth -= dmg;
-        if (CurrentHealth < 0) CurrentHealth = 0;
+        if (CurrentHealth <= 0)
+        {
+            IsDead = true;
+            CurrentHealth = 0;
+        }
         OnHealthChanged?.Invoke(CurrentHealth);
 
         DisplayFloatingText(dmg.ToString(), color);
@@ -308,13 +313,15 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Animator.SetBool("Celebrate", true);
     }
 
-    public IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
+    public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
+        Debug.Log($"base dead");
+
         StopRunEntityCoroutine();
 
+        Debug.Log($"base dead");
         Animator.SetBool("Celebrate", false);
 
-        IsDead = true;
         Animator.SetTrigger("Die");
         OnDeath?.Invoke(this, attacker, ability);
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);

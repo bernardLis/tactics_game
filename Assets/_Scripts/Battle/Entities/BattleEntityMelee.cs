@@ -10,7 +10,7 @@ public class BattleEntityMelee : BattleEntity
     {
         while (!CanAttack()) yield return null;
 
-        if (_currentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialAttack & _currentSpecialAbilityCooldown <= 0)
         {
             yield return SpecialAbility();
             yield return base.Attack();
@@ -33,7 +33,7 @@ public class BattleEntityMelee : BattleEntity
         Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
         _hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, q);
 
-        StartCoroutine(_opponent.GetHit(this));
+        yield return _opponent.GetHit(this);
         Invoke("DestroyHitInstance", 2f);
 
         yield return base.Attack();
@@ -42,7 +42,6 @@ public class BattleEntityMelee : BattleEntity
     void DestroyHitInstance()
     {
         Destroy(_hitInstance);
-
     }
 
 }

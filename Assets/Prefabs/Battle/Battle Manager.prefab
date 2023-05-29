@@ -80,6 +80,7 @@ MonoBehaviour:
   OpponentEntities: []
   KilledPlayerEntities: []
   KilledOpponentEntities: []
+  IsEndingBattleBlocked: 0
 --- !u!114 &5119385659013104315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,3 +181,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf50436f83bf8b94395c4d0d81034717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battleCanvas: {fileID: 0}
+  _dissolveShader: {fileID: -6465566751694194690, guid: ee7883bf85493b444ad650781d351876, type: 3}

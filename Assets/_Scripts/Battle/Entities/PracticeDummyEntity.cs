@@ -12,6 +12,12 @@ public class PracticeDummyEntity : BattleEntityMelee
 
     List<GameObject> _hitInstances = new();
 
+    protected override void Start()
+    {
+        _hasSpecialAttack = true;
+        base.Start();
+    }
+
     protected override IEnumerator SpecialAbility()
     {
         Debug.Log($"in special ability");
