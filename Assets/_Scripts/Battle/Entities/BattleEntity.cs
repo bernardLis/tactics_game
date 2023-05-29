@@ -16,7 +16,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Collider Collider { get; private set; }
 
     public int Team { get; private set; }
-    // bool _isPlayer;
     protected GameObject _GFX;
     Material _material;
     Texture2D _emissionTexture;
@@ -33,6 +32,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected float _currentAttackCooldown;
     protected float _currentSpecialAbilityCooldown;
 
+    [HideInInspector] public bool IsShielded;
+
     public int KilledEnemiesCount { get; private set; }
     public int DamageDealt { get; private set; }
     public int DamageTaken { get; private set; }
@@ -43,6 +44,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     MMF_Player _feelPlayer;
 
     IEnumerator _runEntityCoroutine;
+    protected bool _hasSpecialAction; // e.g. Shell's shield, can be fired at "any time"
     protected bool _hasSpecialMove;
     protected bool _hasSpecialAttack;
     IEnumerator _attackCoroutine;
@@ -128,6 +130,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             yield break;
         }
 
+        if (_hasSpecialAction && _currentSpecialAbilityCooldown <= 0)
+            yield return SpecialAbility();
+
         if (_opponent == null || _opponent.IsDead)
             ChooseNewTarget();
         yield return new WaitForSeconds(0.1f);
@@ -148,6 +153,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // path to target
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
+            if (_hasSpecialAction && _currentSpecialAbilityCooldown <= 0)
+                yield return SpecialAbility();
+
             _agent.SetDestination(_opponent.transform.position);
             yield return null;
         }
@@ -159,7 +167,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual IEnumerator Attack()
     {
-        Debug.Log($"in base attack");
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?
@@ -209,7 +216,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         return Mathf.RoundToInt(value);
     }
 
-    public IEnumerator GetHit(BattleEntity attacker)
+    public virtual IEnumerator GetHit(BattleEntity attacker)
     {
         if (IsDead) yield break;
 
@@ -229,7 +236,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    public IEnumerator GetHit(Ability ability)
+    public virtual IEnumerator GetHit(Ability ability)
     {
         if (IsDead) yield break;
 
