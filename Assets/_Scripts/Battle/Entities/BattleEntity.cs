@@ -42,6 +42,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     MMF_Player _feelPlayer;
 
     IEnumerator _runEntityCoroutine;
+    protected bool _hasSpecialMove;
     protected bool _hasSpecialAttack;
     IEnumerator _attackCoroutine;
 
@@ -53,6 +54,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
     protected virtual void Start()
     {
+        _currentAttackCooldown = 0;
+        _currentSpecialAbilityCooldown = 0;
+
         _tooltipManager = BattleEntityTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
     }
@@ -296,14 +300,19 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             if (v < entry.Value)
             {
-                _opponent = entry.Key;
+                SetOpponent(entry.Key);
                 return;
             }
             v -= entry.Value;
         }
 
         // should never get here...
-        _opponent = _opponentList[Random.Range(0, _opponentList.Count)];
+        SetOpponent(_opponentList[Random.Range(0, _opponentList.Count)]);
+    }
+
+    public void SetOpponent(BattleEntity opponent)
+    {
+        _opponent = opponent;
     }
 
     IEnumerator Celebrate()

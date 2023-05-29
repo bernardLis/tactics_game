@@ -18,6 +18,13 @@ public class BattleEntityRanged : BattleEntity
             yield break;
         }
 
+        if (_hasSpecialMove && _currentSpecialAbilityCooldown <= 0)
+        {
+            yield return SpecialAbility();
+            PathToTarget();
+            yield break;
+        }
+
         Vector3 point = ClosesPositionWithClearLOS();
 
         // path to that point
@@ -40,7 +47,7 @@ public class BattleEntityRanged : BattleEntity
         PathToTarget();
     }
 
-    Vector3 ClosesPositionWithClearLOS()
+    protected Vector3 ClosesPositionWithClearLOS()
     {
         Vector3 dir = transform.position - _opponent.transform.position;
         Dictionary<Vector3, float> distances = new();

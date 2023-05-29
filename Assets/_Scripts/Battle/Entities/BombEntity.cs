@@ -30,7 +30,6 @@ public class BombEntity : BattleEntityRanged
             }
         }
 
-
         Invoke("CleanUp", 2f);
 
         StartCoroutine(base.Die(attacker, ability));
