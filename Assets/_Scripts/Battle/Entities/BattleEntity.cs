@@ -34,6 +34,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected float _currentSpecialAbilityCooldown;
 
     [HideInInspector] public bool IsShielded;
+    bool _isPoisoned;
 
     public int KilledEnemiesCount { get; private set; }
     public int DamageDealt { get; private set; }
@@ -276,6 +277,41 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
     }
 
+    public IEnumerator GetPoisoned(BattleEntity attacker)
+    {
+        if (_isPoisoned) yield break;
+        if (IsDead) yield break;
+        Debug.Log($"poisoned");
+
+        _isPoisoned = true;
+        DisplayFloatingText("Poisoned", Color.green);
+        TurnHighlightOn(Color.green);
+
+        // TODO: for now hardcoded
+        int totalDamage = 20;
+        int damageTick = 5;
+
+        while (totalDamage > 0)
+        {
+            Debug.Log($"damage tick");
+            // poison can't kill
+            if (CurrentHealth > damageTick)
+            {
+                DisplayFloatingText(damageTick.ToString(), Color.green);
+                attacker.DamageDealt += damageTick;
+                attacker.OnDamageDealt?.Invoke(damageTick);
+                OnDamageTaken?.Invoke(damageTick);
+                DamageTaken += damageTick;
+            }
+            totalDamage -= damageTick;
+
+            yield return new WaitForSeconds(1f);
+        }
+        
+        _isPoisoned = false;
+        TurnHighlightOff();
+    }
+
     void ChooseNewTarget()
     {
         // choose a random opponent with a bias towards closer opponents
@@ -411,7 +447,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             return Color.red;
         return Color.yellow;
     }
-    
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         _tooltipManager.ShowInfo(this);
