@@ -23,8 +23,6 @@ public class DragonSparkEntity : BattleEntityRanged
 
         yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
         Animator.SetTrigger("Special Attack");
-
-        // HERE: projectile spawning and animation delay per entity
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
         GameObject projectileInstance = Instantiate(_specialProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;

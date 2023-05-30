@@ -28,7 +28,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public float CurrentHealth { get; private set; }
 
     protected BattleEntity _opponent;
-    protected NavMeshAgent _agent;
+    public NavMeshAgent _agent; // HERE: agent
 
     protected float _currentAttackCooldown;
     protected float _currentSpecialAbilityCooldown;
@@ -149,6 +149,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual IEnumerator PathToTarget()
     {
+        if (_hasSpecialMove && _currentSpecialAbilityCooldown <= 0)
+        {
+            yield return SpecialAbility();
+            PathToTarget();
+            yield break;
+        }
+
         _agent.enabled = true;
         while (!_agent.SetDestination(_opponent.transform.position)) yield return null;
         Animator.SetBool("Move", true);
@@ -203,7 +210,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // +0.5 wiggle room
         return Vector3.Distance(transform.position, _opponent.transform.position) < ArmyEntity.AttackRange + 0.5f;
     }
-
 
     public bool HasFullHealth() { return CurrentHealth >= ArmyEntity.Health; }
     public float GetTotalHealth() { return ArmyEntity.Health; }

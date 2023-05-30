@@ -13,6 +13,9 @@ public class BombEntity : BattleEntityRanged
 
     public override IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
+        Animator.SetTrigger("Special Attack");
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+
         // explode
         _explosionEffectInstance = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         _explosionEffectInstance.transform.parent = _GFX.transform;
