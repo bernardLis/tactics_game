@@ -13,8 +13,8 @@ public class ResourceBarElement : ElementWithTooltip
     const string _ussMissing = _ussClassName + "__missing";
     const string _ussBarText = _ussClassName + "__bar-text";
 
-    VisualElement _resourceBar;
-    VisualElement _missing;
+    public VisualElement ResourceBar;
+    public VisualElement MissingBar;
     Label _text;
 
     int _total;
@@ -67,29 +67,29 @@ public class ResourceBarElement : ElementWithTooltip
 
         _tooltipText = tooltipText;
 
-        _missing = new();
+        MissingBar = new();
         _text = new();
 
-        _resourceBar = new();
-        _resourceBar.AddToClassList(_ussMain);
+        ResourceBar = new();
+        ResourceBar.AddToClassList(_ussMain);
 
         if (_isIncreasing)
-            _resourceBar.style.flexDirection = FlexDirection.RowReverse;
+            ResourceBar.style.flexDirection = FlexDirection.Row;
         else
-            _resourceBar.style.flexDirection = FlexDirection.Row;
+            ResourceBar.style.flexDirection = FlexDirection.RowReverse;
 
-        _resourceBar.style.backgroundColor = color;
-        Add(_resourceBar);
+        ResourceBar.style.backgroundColor = color;
+        Add(ResourceBar);
 
-        _missing.AddToClassList(_ussMissing);
+        MissingBar.AddToClassList(_ussMissing);
         _text.AddToClassList(_ussBarText);
         _text.AddToClassList(_ussCommonTextSecondary);
 
         if (thickness != 0)
             style.height = thickness;
 
-        _resourceBar.Add(_missing);
-        _resourceBar.Add(_text);
+        ResourceBar.Add(MissingBar);
+        ResourceBar.Add(_text);
 
         DisplayMissingAmount();
     }
@@ -102,12 +102,12 @@ public class ResourceBarElement : ElementWithTooltip
 
     public void DisplayMissingAmount()
     {
-        _missing.style.display = DisplayStyle.Flex;
+        MissingBar.style.display = DisplayStyle.Flex;
 
         float missingPercent = (float)_displayedAmount / (float)_total;
         missingPercent = Mathf.Clamp(missingPercent, 0, 1);
 
-        _missing.style.width = Length.Percent((1 - missingPercent) * 100);
+        MissingBar.style.width = Length.Percent((1 - missingPercent) * 100);
 
         SetText($"{_displayedAmount}/{_total}");
     }
@@ -196,4 +196,6 @@ public class ResourceBarElement : ElementWithTooltip
         _tooltip = new(this, new Label(_tooltipText));
         base.DisplayTooltip();
     }
+
+    public void HideText() { _text.style.display = DisplayStyle.None; }
 }

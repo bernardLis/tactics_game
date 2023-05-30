@@ -10,7 +10,7 @@
 
 .resource-bar__main {
     width: 92%;
-    background-color: rgb(135, 41, 41);
+    background-color: rgb(132, 58, 58);
     align-items: center;
     height: 15px;
     margin-left: 4%;
@@ -22,7 +22,7 @@
 .resource-bar__missing {
     width: 0;
     height: 15px;
-    background-color: rgb(56, 56, 56);
+    background-color: rgb(26, 26, 26);
     justify-content: center;
     overflow: visible;
 }

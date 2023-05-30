@@ -9,9 +9,9 @@ public class BattleEntityInfoElement : VisualElement
 
     const string _ussClassName = "battle-entity-info__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussTopContainer = _ussClassName + "top-container";
 
     GameManager _gameManager;
+
 
     public BattleEntityInfoElement(BattleEntity be)
     {
@@ -26,17 +26,9 @@ public class BattleEntityInfoElement : VisualElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        VisualElement container = new();
-        container.AddToClassList(_ussTopContainer);
-        Add(container);
-
-        ElementalElement el = new(be.ArmyEntity.Element);
         Label name = new(be.ArmyEntity.Name);
         name.style.fontSize = 32;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
-
-        container.Add(el);
-        container.Add(name);
 
         IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
         totalHealth.SetValue((int)be.ArmyEntity.Health);
@@ -44,6 +36,22 @@ public class BattleEntityInfoElement : VisualElement
         currentHealth.SetValue((int)be.GetCurrentHealth());
         be.OnHealthChanged += (float newVal) => currentHealth.SetValue((int)newVal);
         ResourceBarElement bar = new(Helpers.GetColor("healthBarRed"), "health", totalIntVar: totalHealth, currentIntVar: currentHealth);
+
+        name.style.position = Position.Absolute;
+
+        bar.Add(name);
+        bar.HideText();
+        
+        bar.style.backgroundImage = null;
+        bar.style.height = 50;
+        bar.style.opacity = 0.8f;
+
+        bar.ResourceBar.style.height = Length.Percent(100);
+        bar.ResourceBar.style.width = Length.Percent(100);
+        bar.ResourceBar.style.marginLeft = Length.Percent(0);
+        bar.ResourceBar.style.marginRight = Length.Percent(0);
+
+        bar.MissingBar.style.height = Length.Percent(100);
 
         Add(bar);
     }
