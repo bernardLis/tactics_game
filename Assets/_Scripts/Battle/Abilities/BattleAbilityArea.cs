@@ -39,7 +39,7 @@ public class BattleAbilityArea : MonoBehaviour
     public void ClearHighlightedEntities()
     {
         foreach (BattleEntity be in _entitiesInRange)
-            be.ToggleHighlight(false);
+            be.TurnHighlightOff();
     }
 
     void OnTriggerEnter(Collider other)
@@ -47,7 +47,7 @@ public class BattleAbilityArea : MonoBehaviour
         if (!IsHighlightingEnabled) return;
         if (other.TryGetComponent<BattleEntity>(out BattleEntity be))
         {
-            be.ToggleHighlight(true);
+            be.TurnHighlightOn(be.GetHighlightColor());
             _entitiesInRange.Add(be);
         }
     }
@@ -56,7 +56,7 @@ public class BattleAbilityArea : MonoBehaviour
     {
         if (other.TryGetComponent<BattleEntity>(out BattleEntity be))
         {
-            be.ToggleHighlight(false);
+            be.TurnHighlightOff();
             _entitiesInRange.Remove(be);
         }
     }

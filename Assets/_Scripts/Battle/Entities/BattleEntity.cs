@@ -19,6 +19,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected GameObject _GFX;
     Material _material;
     Texture2D _emissionTexture;
+    Color _defaultEmissionColor;
     public Animator Animator { get; private set; }
 
     List<BattleEntity> _opponentList = new();
@@ -81,12 +82,14 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _material = _GFX.GetComponentInChildren<SkinnedMeshRenderer>().material;
         _emissionTexture = _material.GetTexture("_EmissionMap") as Texture2D;
         _material.EnableKeyword("_EMISSION");
+        _defaultEmissionColor = Color.black;
 
         Team = team;
         if (team == 1)
         {
+            _defaultEmissionColor = new Color(0.5f, 0.2f, 0.2f);
             _material.SetTexture("_EmissionMap", null);
-            _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
+            _material.SetColor("_EmissionColor", _defaultEmissionColor);
             _material.SetFloat("_Metallic", 0.5f);
         }
 
@@ -338,7 +341,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Animator.SetTrigger("Die");
         OnDeath?.Invoke(this, attacker, ability);
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        ToggleHighlight(false);
+        TurnHighlightOff();
     }
 
     /* grab */
@@ -379,20 +382,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         OnEnemyKilled?.Invoke(KilledEnemiesCount);
     }
 
-    /* shit highlight */
-    public void ToggleHighlight(bool isOn)
-    {
-        if (!isOn)
-        {
-            TurnHighlightOff();
-            return;
-        }
-
-        if (IsDead) return;
-        TurnHighlightOn();
-    }
-
-    void TurnHighlightOff()
+    /* highlight */
+    public void TurnHighlightOff()
     {
         if (_emissionTexture != null && Team == 0)
         {
@@ -401,23 +392,26 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             return;
         }
 
-        if (Team == 0)
-            _material.SetColor("_EmissionColor", Color.black);
-        else
-            _material.SetColor("_EmissionColor", new Color(0.5f, 0.2f, 0.2f));
+        _material.SetColor("_EmissionColor", _defaultEmissionColor);
     }
 
-    void TurnHighlightOn()
+    public void TurnHighlightOn(Color color)
     {
-        _material.SetTexture("_EmissionMap", null);
+        if (IsDead) return;
 
-        if (Team == 0)
-            _material.SetColor("_EmissionColor", Color.blue);
-        else
-            _material.SetColor("_EmissionColor", Color.red);
+        _material.SetTexture("_EmissionMap", null);
+        _material.SetColor("_EmissionColor", color);
     }
 
-
+    public Color GetHighlightColor()
+    {
+        if (Team == 0)
+            return Color.blue;
+        if (Team == 1)
+            return Color.red;
+        return Color.yellow;
+    }
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
         _tooltipManager.ShowInfo(this);
