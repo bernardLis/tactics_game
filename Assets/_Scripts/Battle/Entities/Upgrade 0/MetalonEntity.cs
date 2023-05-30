@@ -30,6 +30,7 @@ public class MetalonEntity : BattleEntityMelee
         {
             if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
             {
+                if (entity.IsDead) continue;
                 if (entity == this) continue;
                 if (entity.Team == Team) continue;
                 entity.DisplayFloatingText("Taunted", Color.red);

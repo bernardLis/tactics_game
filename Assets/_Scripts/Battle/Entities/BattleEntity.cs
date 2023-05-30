@@ -470,4 +470,15 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _tooltipManager.HideInfo();
     }
 
+
+#if UNITY_EDITOR
+    [ContextMenu("Trigger Special Ability")]
+    public void TriggerSpecialAction()
+    {
+        StartCoroutine(SpecialAbility());
+
+    }
+#endif
+
+
 }

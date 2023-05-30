@@ -98,7 +98,7 @@ MonoBehaviour:
   UpgradeLevel: 0
   Price: 30
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  Health: 999999
+  Health: 100
   Armor: 0
   Power: 15
   AttackRange: 100
