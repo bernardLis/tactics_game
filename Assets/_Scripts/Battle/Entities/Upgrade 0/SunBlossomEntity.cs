@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ShellEntity : BattleEntityMelee
+public class SunBlossomEntity : BattleEntityMelee
 {
-    [SerializeField] GameObject _shieldEffect;
-    GameObject _shieldEffectInstance;
+    [SerializeField] GameObject _healEffect;
+    GameObject _healEffectInstance;
 
     protected override void Start()
     {
@@ -16,16 +16,19 @@ public class ShellEntity : BattleEntityMelee
 
     protected override IEnumerator SpecialAbility()
     {
-        if (IsShielded) yield return base.SpecialAbility();
-
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
-        DisplayFloatingText("Shielded", Color.blue);
-        _shieldEffectInstance = Instantiate(_shieldEffect, transform.position, Quaternion.identity);
-        _shieldEffectInstance.transform.parent = _GFX.transform;
+        List<BattleEntity> copyOfAllies = new(BattleManager.Instance.GetAllies(this));
+        foreach (BattleEntity b in copyOfAllies)
+        {
+            if (b.HasFullHealth()) continue;
+            if (b.IsDead) continue;
 
-        IsShielded = true;
+            b.GetHealed(20); // TODO: hardcoded value
+            _healEffectInstance = Instantiate(_healEffect, b.transform.position, Quaternion.identity);
+            _healEffectInstance.transform.parent = _GFX.transform;
+        }
 
         yield return base.SpecialAbility();
     }
@@ -55,7 +58,7 @@ public class ShellEntity : BattleEntityMelee
     {
         DisplayFloatingText("Shield Broken", Color.blue);
         IsShielded = false;
-        if (_shieldEffectInstance != null)
-            Destroy(_shieldEffectInstance);
+        if (_healEffectInstance != null)
+            Destroy(_healEffectInstance);
     }
 }

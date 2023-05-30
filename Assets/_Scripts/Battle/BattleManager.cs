@@ -185,6 +185,13 @@ public class BattleManager : Singleton<BattleManager>
             StartCoroutine(BattleWon());
     }
 
+    public List<BattleEntity> GetAllies(BattleEntity battleEntity)
+    {
+        if (battleEntity.Team == 0) return PlayerEntities;
+        //if (battleEntity.Team == 1) 
+        return OpponentEntities;
+    }
+
     IEnumerator BattleLost()
     {
         if (IsEndingBattleBlocked)

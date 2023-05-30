@@ -204,20 +204,26 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         return Vector3.Distance(transform.position, _opponent.transform.position) < ArmyEntity.AttackRange + 0.5f;
     }
 
+
+    public bool HasFullHealth() { return CurrentHealth >= ArmyEntity.Health; }
     public float GetTotalHealth() { return ArmyEntity.Health; }
     public float GetCurrentHealth() { return CurrentHealth; }
 
     public int GetHealed(Ability ability)
     {
-        float value = ability.GetPower();
+        int value = ability.GetPower();
+        GetHealed(value);
+        return Mathf.RoundToInt(value);
+    }
+
+    public void GetHealed(int value)
+    {
         CurrentHealth += value;
         if (CurrentHealth > ArmyEntity.Health)
             CurrentHealth = ArmyEntity.Health;
 
-        DisplayFloatingText(value.ToString(), ability.Element.Color);
         OnHealthChanged?.Invoke(CurrentHealth);
-
-        return Mathf.RoundToInt(value);
+        DisplayFloatingText("+" + value, Color.green);
     }
 
     public virtual IEnumerator GetHit(BattleEntity attacker)
@@ -307,7 +313,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
             yield return new WaitForSeconds(1f);
         }
-        
+
         _isPoisoned = false;
         TurnHighlightOff();
     }
