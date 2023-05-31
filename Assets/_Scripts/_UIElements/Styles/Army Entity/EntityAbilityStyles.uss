@@ -2,3 +2,8 @@
     width: 100px;
     height: 100px;
 }
+
+.entity-ability-element__timer-label-wrapper {
+    width: 100%;
+    justify-content: center;
+}

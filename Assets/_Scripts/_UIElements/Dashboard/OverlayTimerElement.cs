@@ -24,14 +24,22 @@ public class OverlayTimerElement : TimerElement
 
     public void SetStyles(string mainStyle, string overlayMaskStyle, string labelWrapperStyles)
     {
-        ClearClassList();
-        AddToClassList(mainStyle);
+        if (mainStyle != null && mainStyle != string.Empty)
+        {
+            ClearClassList();
+            AddToClassList(mainStyle);
+        }
+        if (overlayMaskStyle != null && overlayMaskStyle != string.Empty)
+        {
+            _overlayMask.ClearClassList();
+            _overlayMask.AddToClassList(overlayMaskStyle);
+        }
 
-        _overlayMask.ClearClassList();
-        _overlayMask.AddToClassList(overlayMaskStyle);
-
-        _labelWrapper.ClearClassList();
-        _labelWrapper.AddToClassList(labelWrapperStyles);
+        if (labelWrapperStyles != null || labelWrapperStyles != string.Empty)
+        {
+            _labelWrapper.ClearClassList();
+            _labelWrapper.AddToClassList(labelWrapperStyles);
+        }
     }
 
     protected override void UpdateTimer()

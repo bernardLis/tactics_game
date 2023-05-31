@@ -31,7 +31,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public NavMeshAgent _agent; // HERE: agent
 
     protected float _currentAttackCooldown;
-    protected float _currentSpecialAbilityCooldown;
+    public float CurrentSpecialAbilityCooldown { get; private set; }
 
     [HideInInspector] public bool IsShielded;
     bool _isPoisoned;
@@ -60,7 +60,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected virtual void Start()
     {
         _currentAttackCooldown = 0;
-        _currentSpecialAbilityCooldown = 0;
+        CurrentSpecialAbilityCooldown = 0;
 
         _tooltipManager = BattleEntityTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
@@ -70,8 +70,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if (_currentAttackCooldown >= 0)
             _currentAttackCooldown -= Time.deltaTime;
-        if (_currentSpecialAbilityCooldown >= 0)
-            _currentSpecialAbilityCooldown -= Time.deltaTime;
+        if (CurrentSpecialAbilityCooldown >= 0)
+            CurrentSpecialAbilityCooldown -= Time.deltaTime;
     }
 
     public virtual void Initialize(int team, ArmyEntity armyEntity, ref List<BattleEntity> opponents)
@@ -134,7 +134,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             yield break;
         }
 
-        if (_hasSpecialAction && _currentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
             yield return SpecialAbility();
 
         if (_opponent == null || _opponent.IsDead)
@@ -149,7 +149,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual IEnumerator PathToTarget()
     {
-        if (_hasSpecialMove && _currentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialMove && CurrentSpecialAbilityCooldown <= 0)
         {
             yield return SpecialAbility();
             PathToTarget();
@@ -164,7 +164,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // path to target
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
-            if (_hasSpecialAction && _currentSpecialAbilityCooldown <= 0)
+            if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
                 yield return SpecialAbility();
 
             _agent.SetDestination(_opponent.transform.position);
@@ -193,7 +193,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?
-        _currentSpecialAbilityCooldown = ArmyEntity.EntityAbility.Cooldown;
+        ArmyEntity.EntityAbility.Used();
+        CurrentSpecialAbilityCooldown = ArmyEntity.EntityAbility.Cooldown;
         yield break;
     }
 

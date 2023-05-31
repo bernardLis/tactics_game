@@ -10,7 +10,7 @@ public class BattleEntityMelee : BattleEntity
     {
         while (!CanAttack()) yield return null;
 
-        if (_hasSpecialAttack & _currentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialAttack & CurrentSpecialAbilityCooldown <= 0)
         {
             yield return SpecialAbility();
             yield return base.Attack();

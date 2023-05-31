@@ -44,7 +44,8 @@ public class BattleEntityElement : EntityElement
         _rightContainer.Add(_damageDealt);
         _rightContainer.Add(_damageTaken);
 
-        _rightContainer.Add(new EntityAbilityElement(battleEntity.ArmyEntity.EntityAbility));
+        _rightContainer.Add(new EntityAbilityElement(battleEntity.ArmyEntity.EntityAbility,
+                battleEntity.CurrentSpecialAbilityCooldown));
 
         _battleEntity.OnHealthChanged += OnHealthChanged;
         _battleEntity.OnEnemyKilled += OnEnemyKilled;

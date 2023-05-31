@@ -18,7 +18,7 @@ public class BattleEntityRanged : BattleEntity
             yield break;
         }
 
-        if (_hasSpecialMove && _currentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialMove && CurrentSpecialAbilityCooldown <= 0)
         {
             yield return SpecialAbility();
             PathToTarget();
@@ -104,7 +104,7 @@ public class BattleEntityRanged : BattleEntity
     {
         while (!CanAttack()) yield return null;
 
-        if (_hasSpecialAttack & _currentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialAttack & CurrentSpecialAbilityCooldown <= 0)
         {
             yield return SpecialAbility();
             yield return base.Attack();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,5 +11,6 @@ public class EntityAbility : BaseScriptableObject
     public Sprite Icon;
     public int Cooldown;
 
-
+    public event Action OnAbilityUsed;
+    public void Used() { OnAbilityUsed?.Invoke(); }
 }
