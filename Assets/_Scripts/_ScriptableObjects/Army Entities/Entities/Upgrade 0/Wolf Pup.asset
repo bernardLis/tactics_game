@@ -93,12 +93,12 @@ MonoBehaviour:
   UpgradeLevel: 0
   Price: 30
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Health: 100
+  Health: 70
   Armor: 0
-  Power: 20
+  Power: 15
   AttackRange: 3
   AttackCooldown: 2
-  Speed: 4
+  Speed: 7
   EntityAbility: {fileID: 11400000, guid: 18d1386c3df7b0e43a6b692f461f6f0d, type: 2}
   Prefab: {fileID: 7354756291987998506, guid: a2cdb7819cfdb674f8fc233a9f8a8bcc, type: 3}
   Projectile: {fileID: 0}

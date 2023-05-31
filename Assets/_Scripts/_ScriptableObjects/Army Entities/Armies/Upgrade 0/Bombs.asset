@@ -16,5 +16,11 @@ MonoBehaviour:
   Name: Bomberinos
   ArmyEntity: {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
   EntityCount: 1
-  KillCount: 0
   ListPosition: 0
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  PreviousEntity: {fileID: 0}

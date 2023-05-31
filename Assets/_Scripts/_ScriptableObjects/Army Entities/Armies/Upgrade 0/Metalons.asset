@@ -16,5 +16,11 @@ MonoBehaviour:
   Name: Matalolons
   ArmyEntity: {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
   EntityCount: 1
-  KillCount: 0
   ListPosition: 4
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  PreviousEntity: {fileID: 0}

@@ -15,6 +15,12 @@ MonoBehaviour:
   Id: drtagon-8f39-4b6c-a851-72019b4f126c
   Name: Dragorinos
   ArmyEntity: {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
-  EntityCount: 2
-  KillCount: 0
+  EntityCount: 1
   ListPosition: 2
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  PreviousEntity: {fileID: 0}

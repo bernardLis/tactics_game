@@ -103,10 +103,10 @@ MonoBehaviour:
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Health: 100
   Armor: 0
-  Power: 20
-  AttackRange: 80
+  Power: 30
+  AttackRange: 100
   AttackCooldown: 2
-  Speed: 3
+  Speed: 5
   EntityAbility: {fileID: 11400000, guid: 9ea8c0122ee9dbf42a836df1166f43e8, type: 2}
   Prefab: {fileID: 8520861121768953658, guid: 22b85c0f7d7ad474a8cd8f9aa3be1bbd, type: 3}
   Projectile: {fileID: 5028919531350398989, guid: a250f3ee435146848b6751d29e62b925, type: 3}

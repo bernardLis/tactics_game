@@ -40,8 +40,9 @@ public class BattleEntityInfoElement : VisualElement
 
         bar.Add(name);
         bar.HideText();
-        
+
         bar.style.backgroundImage = null;
+        bar.style.minWidth = 300;
         bar.style.height = 50;
         bar.style.opacity = 0.8f;
 
@@ -55,6 +56,6 @@ public class BattleEntityInfoElement : VisualElement
         Add(bar);
 
 
-        
+
     }
 }

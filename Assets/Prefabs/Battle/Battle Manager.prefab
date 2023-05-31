@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092e14af062d33a489ad0e4c55a5fe76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _obstaclePrefab: {fileID: 5282784951654651465, guid: 3cdb7704dd19c474fa64d0fdb4765bfd, type: 3}
   _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
   _entityHolder: {fileID: 0}
   _skyboxRotationSpeed: 0.2

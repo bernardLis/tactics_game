@@ -99,10 +99,10 @@ MonoBehaviour:
   Price: 30
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Health: 100
-  Armor: 0
-  Power: 15
+  Armor: 5
+  Power: 20
   AttackRange: 100
-  AttackCooldown: 2
+  AttackCooldown: 3
   Speed: 2
   EntityAbility: {fileID: 11400000, guid: b98ddcdbf8212594f916e06f7b6d0b19, type: 2}
   Prefab: {fileID: 6053594737241183487, guid: cd6a1dfe16b492843b81576382f95fe2, type: 3}

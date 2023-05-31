@@ -11,6 +11,9 @@ public class BattleManager : Singleton<BattleManager>
 {
     GameManager _gameManager;
 
+    [SerializeField] GameObject _obstaclePrefab;
+    GameObject _obstacleInstance;
+
     [SerializeField] Sound _battleMusic;
     public Battle LoadedBattle { get; private set; }
 
@@ -93,6 +96,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Initialize(Hero playerHero, Hero opponentHero, List<ArmyGroup> playerArmy, List<ArmyGroup> opponentArmy)
     {
+        PlaceObstacle();
         _battleFinalized = false;
 
         GetComponent<BattleGrabManager>().Initialize();
@@ -122,6 +126,30 @@ public class BattleManager : Singleton<BattleManager>
         _gameManager.ToggleTimer(true);
 
         GetComponent<BattleLogManager>().Initialize(PlayerEntities, OpponentEntities);
+    }
+
+    void PlaceObstacle()
+    {
+        if (_obstacleInstance != null)
+            Destroy(_obstacleInstance);
+
+        //   if (Random.value > 0.5f) return; // 50/50 there is going to be an obstacle
+
+        // between player and enemy
+        float posX = _playerSpawnPoint.transform.position.x + (_enemySpawnPoint.transform.position.x - _playerSpawnPoint.transform.position.x) / 2;
+        float posZ = _playerSpawnPoint.transform.position.z + (_enemySpawnPoint.transform.position.z - _playerSpawnPoint.transform.position.z) / 2;
+        Vector3 pos = new Vector3(posX, 1, posZ);
+
+        float sizeY = Random.Range(3, 10);
+        float sizeX = Random.Range(10, 30);
+        float sizeZ = Random.Range(1, 5);
+        Vector3 size = new Vector3(sizeX, sizeY, sizeZ);
+
+        Vector3 rot = new Vector3(0, Random.Range(-45, 45), 0);
+
+        _obstacleInstance = Instantiate(_obstaclePrefab, pos, Quaternion.identity);
+        _obstacleInstance.transform.localScale = size;
+        _obstacleInstance.transform.Rotate(rot);
     }
 
     public void InstantiatePlayer(ArmyGroup ag)
@@ -251,6 +279,8 @@ public class BattleManager : Singleton<BattleManager>
 
     void ClearAllEntities()
     {
+        Destroy(_obstacleInstance);
+        
         PlayerEntities.Clear();
         OpponentEntities.Clear();
         foreach (Transform child in _entityHolder.transform)

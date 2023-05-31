@@ -16,5 +16,11 @@ MonoBehaviour:
   Name: Sun suns
   ArmyEntity: {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
   EntityCount: 1
-  KillCount: 0
   ListPosition: 7
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  PreviousEntity: {fileID: 0}
