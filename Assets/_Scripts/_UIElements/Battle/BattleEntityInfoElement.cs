@@ -12,7 +12,6 @@ public class BattleEntityInfoElement : VisualElement
 
     GameManager _gameManager;
 
-
     public BattleEntityInfoElement(BattleEntity be)
     {
         _gameManager = GameManager.Instance;
@@ -54,5 +53,8 @@ public class BattleEntityInfoElement : VisualElement
         bar.MissingBar.style.height = Length.Percent(100);
 
         Add(bar);
+
+
+        
     }
 }

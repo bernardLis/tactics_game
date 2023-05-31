@@ -10,3 +10,9 @@
     padding-right: 10px;
     white-space: normal;
 }
+
+.army-evolution__ability-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

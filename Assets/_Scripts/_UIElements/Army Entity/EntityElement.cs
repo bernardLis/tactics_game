@@ -15,6 +15,7 @@ public class EntityElement : VisualElement
     ArmyEntity _entity;
 
     protected VisualElement _leftContainer;
+    protected VisualElement _middleContainer;
     protected VisualElement _rightContainer;
 
     protected ElementalElement _elementalElement;
@@ -40,8 +41,10 @@ public class EntityElement : VisualElement
 
         _leftContainer = new();
         _leftContainer.AddToClassList(_ussLeftContainer);
+        _middleContainer = new();
         _rightContainer = new();
         Add(_leftContainer);
+        Add(_middleContainer);
         Add(_rightContainer);
 
         _elementalElement = new ElementalElement(_entity.Element);
@@ -60,12 +63,18 @@ public class EntityElement : VisualElement
         _leftContainer.Add(_entityIcon);
         _leftContainer.Add(_elementalElement);
 
-        _rightContainer.Add(_healthLabel);
-        _rightContainer.Add(_power);
-        _rightContainer.Add(_armor);
-        _rightContainer.Add(_attackRange);
-        _rightContainer.Add(_attackCooldown);
-        _rightContainer.Add(_speed);
+        _middleContainer.Add(_healthLabel);
+        _middleContainer.Add(_power);
+        _middleContainer.Add(_armor);
+        _middleContainer.Add(_attackRange);
+        _middleContainer.Add(_attackCooldown);
+        _middleContainer.Add(_speed);
+
+        if (_entity.EntityAbility != null)
+        {
+            _rightContainer.Add(new EntityAbilityElement(_entity.EntityAbility));
+            _rightContainer.Add(new EntityAbilityTooltipElement(_entity.EntityAbility));
+        }
 
         SetValues(_entity);
     }

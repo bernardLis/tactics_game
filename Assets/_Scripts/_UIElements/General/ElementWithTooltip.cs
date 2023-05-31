@@ -34,7 +34,7 @@ public abstract class ElementWithTooltip : VisualElement
         //  RegisterCallback<DetachFromPanelEvent>((evt) => HideTooltip()); maybe it is unnecessary? :)
     }
 
-    public void AddTooltip(TooltipElement tooltip) { _setTooltipElement = tooltip; }
+    public void SetTooltip(TooltipElement tooltip) { _setTooltipElement = tooltip; }
 
     public void BlockTooltip()
     {

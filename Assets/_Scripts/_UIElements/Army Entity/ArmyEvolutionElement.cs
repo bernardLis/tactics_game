@@ -13,6 +13,7 @@ public class ArmyEvolutionElement : VisualElement
     const string _ussClassName = "army-evolution__";
     const string _ussMain = _ussClassName + "main";
     const string _ussName = _ussClassName + "name";
+    const string _ussAbilityContainer = _ussClassName + "ability-container";
 
     GameManager _gameManager;
 
@@ -29,6 +30,8 @@ public class ArmyEvolutionElement : VisualElement
     Label _attackRange;
     Label _attackCooldown;
     Label _speed;
+
+    VisualElement _abilityContainer;
 
     ChangingValueElement _killsThisBattleElement;
 
@@ -75,6 +78,11 @@ public class ArmyEvolutionElement : VisualElement
         Add(_attackRange);
         Add(_attackCooldown);
         Add(_speed);
+
+        _abilityContainer = new();
+        _abilityContainer.AddToClassList(_ussAbilityContainer);
+        Add(_abilityContainer);
+        _abilityContainer.Add(new EntityAbilityElement(armyGroup.ArmyEntity.EntityAbility));
 
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonHorizontalSpacer);
@@ -139,6 +147,11 @@ public class ArmyEvolutionElement : VisualElement
         _attackRange.text += $" -> {ArmyGroup.ArmyEntity.AttackRange}";
         _attackCooldown.text += $" -> {ArmyGroup.ArmyEntity.AttackCooldown}";
         _speed.text += $" -> {ArmyGroup.ArmyEntity.Speed}";
+
+        _abilityContainer.Add(new Label(" -> "));
+        if (entity.EntityAbility != null)
+            _abilityContainer.Add(new EntityAbilityElement(entity.EntityAbility));
+
     }
 
     public void ResetKillsToEvolveBar()

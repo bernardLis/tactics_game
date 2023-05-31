@@ -98,8 +98,8 @@ MonoBehaviour:
   Power: 20
   AttackRange: 3
   AttackCooldown: 2
-  SpecialAbilityCooldown: 10
   Speed: 4
+  EntityAbility: {fileID: 11400000, guid: 18d1386c3df7b0e43a6b692f461f6f0d, type: 2}
   Prefab: {fileID: 7354756291987998506, guid: a2cdb7819cfdb674f8fc233a9f8a8bcc, type: 3}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}

@@ -64,4 +64,6 @@ public enum StyleSheetType
 
     EntityIconStyles, EntityElementStyles,
 
+    EntityAbilityStyles, EntityAbilityTooltipStyles,
+
 }

@@ -38,9 +38,13 @@ public class BattleEntityElement : EntityElement
         _damageDealt = new($"Damage dealt: {_battleEntity.DamageDealt}");
         _damageTaken = new($"Damage taken: {_battleEntity.DamageTaken}");
 
+        _rightContainer.Clear();
+
         _rightContainer.Add(_kills);
         _rightContainer.Add(_damageDealt);
         _rightContainer.Add(_damageTaken);
+
+        _rightContainer.Add(new EntityAbilityElement(battleEntity.ArmyEntity.EntityAbility));
 
         _battleEntity.OnHealthChanged += OnHealthChanged;
         _battleEntity.OnEnemyKilled += OnEnemyKilled;

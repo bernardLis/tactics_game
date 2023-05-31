@@ -193,7 +193,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?
-        _currentSpecialAbilityCooldown = ArmyEntity.SpecialAbilityCooldown;
+        _currentSpecialAbilityCooldown = ArmyEntity.EntityAbility.Cooldown;
         yield break;
     }
 
