@@ -42,6 +42,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     bool _isGrabbed;
     public bool IsDead { get; private set; }
+    bool _isDeathCoroutineStarted;
 
     MMF_Player _feelPlayer;
 
@@ -384,6 +385,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
+        if (_isDeathCoroutineStarted) yield break;
+        _isDeathCoroutineStarted = true;
+
         StopRunEntityCoroutine();
         Animator.SetBool("Celebrate", false);
 

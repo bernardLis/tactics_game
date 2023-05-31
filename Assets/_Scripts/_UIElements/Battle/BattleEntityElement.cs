@@ -7,6 +7,7 @@ public class BattleEntityElement : EntityElement
 {
     const string _ussClassName = "battle-entity__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussKilledOverlay = _ussClassName + "killed-overlay";
 
     BattleEntity _battleEntity;
     ArmyEntity _armyEntity;
@@ -51,6 +52,8 @@ public class BattleEntityElement : EntityElement
         _battleEntity.OnEnemyKilled += OnEnemyKilled;
         _battleEntity.OnDamageDealt += OnDamageDealt;
         _battleEntity.OnDamageTaken += OnDamageTaken;
+        _battleEntity.OnDeath += OnDeath;
+
     }
 
     void OnHealthChanged(float nvm)
@@ -71,5 +74,16 @@ public class BattleEntityElement : EntityElement
     void OnDamageTaken(int dmg)
     {
         _damageTaken.text = $"Damage taken: {_battleEntity.DamageTaken}";
+    }
+
+    void OnDeath(BattleEntity entity, BattleEntity killer, Ability ability)
+    {
+        VisualElement overlay = new();
+        Label l = new Label("Defeated!");
+        l.style.fontSize = 36;
+        l.style.color = Color.white;
+        overlay.Add(l);
+        overlay.AddToClassList(_ussKilledOverlay);
+        Add(overlay);
     }
 }
