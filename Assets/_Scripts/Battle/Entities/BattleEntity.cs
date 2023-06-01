@@ -122,6 +122,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void StopRunEntityCoroutine()
     {
+        Debug.Log($"stop all coroutines for {name}");
         StopAllCoroutines();
         _agent.enabled = false;
         Animator.SetBool("Move", false);
@@ -234,6 +235,22 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         DisplayFloatingText("+" + value, Color.green);
     }
 
+    public virtual IEnumerator GetHit(Ability ability)
+    {
+        if (IsDead) yield break;
+
+        yield return BaseGetHit(ArmyEntity.CalculateDamage(ability), ability.Element.Color);
+
+        if (CurrentHealth <= 0)
+        {
+            ability.IncreaseKillCount();
+            StartCoroutine(Die(ability: ability)); // start coroutine because I call stop all coroutines in base hit
+            yield break;
+        }
+
+        if (!_isGrabbed) StartRunEntityCoroutine();
+    }
+
     public virtual IEnumerator GetHit(BattleEntity attacker)
     {
         if (IsDead) yield break;
@@ -247,28 +264,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (CurrentHealth <= 0)
         {
             attacker.IncreaseKillCount();
-            yield return Die(attacker: attacker);
+            StartCoroutine(Die(attacker: attacker)); // start coroutine because I call stop all coroutines in base hit
             yield break;
         }
 
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    public virtual IEnumerator GetHit(Ability ability)
-    {
-        if (IsDead) yield break;
-
-        yield return BaseGetHit(ArmyEntity.CalculateDamage(ability), ability.Element.Color);
-
-        if (CurrentHealth <= 0)
-        {
-            ability.IncreaseKillCount();
-            yield return Die(ability: ability);
-            yield break;
-        }
-
-        if (!_isGrabbed) StartRunEntityCoroutine();
-    }
 
     public IEnumerator BaseGetHit(int dmg, Color color)
     {
@@ -280,6 +282,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         CurrentHealth -= dmg;
         if (CurrentHealth <= 0)
         {
+            Debug.Log($"in base get hit when health lower than 0 {name}");
             IsDead = true;
             CurrentHealth = 0;
         }
@@ -288,14 +291,29 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         DisplayFloatingText(dmg.ToString(), color);
 
         Animator.SetTrigger("Take Damage");
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
+    }
+
+    public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
+    {
+        Debug.Log($"{name} died");
+        if (_isDeathCoroutineStarted) yield break;
+        _isDeathCoroutineStarted = true;
+
+        DOTween.KillAll(transform);
+        // StopRunEntityCoroutine();
+        Animator.SetBool("Celebrate", false);
+
+        Animator.SetTrigger("Die");
+        OnDeath?.Invoke(this, attacker, ability);
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        TurnHighlightOff();
     }
 
     public IEnumerator GetPoisoned(BattleEntity attacker)
     {
         if (_isPoisoned) yield break;
         if (IsDead) yield break;
-        Debug.Log($"poisoned");
 
         _isPoisoned = true;
         DisplayFloatingText("Poisoned", Color.green);
@@ -383,19 +401,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Animator.SetBool("Celebrate", true);
     }
 
-    public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
-    {
-        if (_isDeathCoroutineStarted) yield break;
-        _isDeathCoroutineStarted = true;
-
-        StopRunEntityCoroutine();
-        Animator.SetBool("Celebrate", false);
-
-        Animator.SetTrigger("Die");
-        OnDeath?.Invoke(this, attacker, ability);
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        TurnHighlightOff();
-    }
 
     /* grab */
     public bool CanBeGrabbed()

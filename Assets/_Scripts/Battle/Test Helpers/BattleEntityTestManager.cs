@@ -10,8 +10,6 @@ public class BattleEntityTestManager : MonoBehaviour
 {
     BattleManager _battleManager;
 
-    [SerializeField] GameObject _obstacle;
-
     [SerializeField] List<ArmyGroup> AllGroups = new();
     int _currentGroupIndex = 0;
 
@@ -79,7 +77,6 @@ public class BattleEntityTestManager : MonoBehaviour
     {
         if (_testSpecificTeams)
         {
-            _obstacle.SetActive(false);
             _battleManager.Initialize(null, null, TeamAArmies, TeamBArmies);
             return;
         }
