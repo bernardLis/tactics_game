@@ -40,7 +40,7 @@ public class ShellEntity : BattleEntityMelee
         yield return base.GetHit(ability);
     }
 
-    public override IEnumerator GetHit(BattleEntity attacker)
+    public override IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
     {
         if (IsShielded)
         {

@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
 {
+    BattleManager _battleManager;
 
     VisualElement _root;
     VisualElement _bottomPanel;
@@ -15,9 +16,18 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
 
     void Start()
     {
+        _battleManager = BattleManager.Instance;
+        _battleManager.OnBattleFinalized += OnBattleFinalized;
+
         _root = GetComponent<UIDocument>().rootVisualElement;
         _bottomPanel = _root.Q<VisualElement>("bottomPanel");
         _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
+    }
+
+    void OnBattleFinalized()
+    {
+        HideInfo();
+        HideTooltip();
     }
 
     public void ShowInfo(BattleEntity entity)
@@ -46,6 +56,8 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
     public void HideTooltip()
     {
         if (_tooltip == null) return;
-        _bottomPanel.Remove(_tooltip);
+        //_bottomPanel.Remove(_tooltip);
+        _tooltip.RemoveFromHierarchy();
+        _tooltip = null;
     }
 }

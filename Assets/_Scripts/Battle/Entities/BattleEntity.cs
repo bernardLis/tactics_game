@@ -122,7 +122,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void StopRunEntityCoroutine()
     {
-        Debug.Log($"stop all coroutines for {name}");
         StopAllCoroutines();
         _agent.enabled = false;
         Animator.SetBool("Move", false);
@@ -251,11 +250,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    public virtual IEnumerator GetHit(BattleEntity attacker)
+    public virtual IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
     {
         if (IsDead) yield break;
 
         int damage = ArmyEntity.CalculateDamage(attacker);
+        if (specialDamage > 0) damage = specialDamage;
+
         attacker.DamageDealt += damage;
         attacker.OnDamageDealt?.Invoke(damage);
 
@@ -282,7 +283,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         CurrentHealth -= dmg;
         if (CurrentHealth <= 0)
         {
-            Debug.Log($"in base get hit when health lower than 0 {name}");
             IsDead = true;
             CurrentHealth = 0;
         }
@@ -301,7 +301,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _isDeathCoroutineStarted = true;
 
         DOTween.KillAll(transform);
-        // StopRunEntityCoroutine();
         Animator.SetBool("Celebrate", false);
 
         Animator.SetTrigger("Die");
