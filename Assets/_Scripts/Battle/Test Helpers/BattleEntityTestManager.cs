@@ -22,8 +22,12 @@ public class BattleEntityTestManager : MonoBehaviour
     [SerializeField] bool _oneArmyVsAll;
     [SerializeField] List<ArmyGroup> _oneArmy = new();
 
-    List<ArmyEntity> defeatedEntities = new();
-    List<ArmyEntity> lostToEntities = new();
+    [SerializeField] bool _fullOneVOnes;
+    int _currentOneVOneIndex = 0;
+
+
+    List<ArmyEntity> _defeatedEntities = new();
+    List<ArmyEntity> _lostToEntities = new();
 
     void Start()
     {
@@ -40,6 +44,14 @@ public class BattleEntityTestManager : MonoBehaviour
             RunOneArmyVsAll();
             return;
         }
+        if (_fullOneVOnes)
+        {
+            _oneArmyVsAll = true;
+            _oneArmy.Clear();
+            _oneArmy.Add(AllGroups[0]);
+            RunOneArmyVsAll();
+            return;
+        }
 
         RunAllGroups();
     }
@@ -51,9 +63,9 @@ public class BattleEntityTestManager : MonoBehaviour
         if (_currentGroupIndex > 0)
         {
             if (_battleManager.LoadedBattle.Won)
-                defeatedEntities.Add(AllGroups[_currentGroupIndex - 1].ArmyEntity);
+                _defeatedEntities.Add(AllGroups[_currentGroupIndex - 1].ArmyEntity);
             else
-                lostToEntities.Add(AllGroups[_currentGroupIndex - 1].ArmyEntity);
+                _lostToEntities.Add(AllGroups[_currentGroupIndex - 1].ArmyEntity);
             _battleManager.LoadedBattle.Won = false;
         }
 
@@ -62,21 +74,38 @@ public class BattleEntityTestManager : MonoBehaviour
             Debug.Log("Test finished");
 
             string s = $"{_oneArmy[0].ArmyEntity.name} defeated: ";
-            foreach (ArmyEntity entity in defeatedEntities)
+            foreach (ArmyEntity entity in _defeatedEntities)
                 s += $"{entity.name}, ";
             s += "\n";
             s += $"Lost to: ";
-            foreach (ArmyEntity entity in lostToEntities)
+            foreach (ArmyEntity entity in _lostToEntities)
                 s += $"{entity.name}, ";
             Debug.Log($"{s}");
+            EndOfOneArmyVsAll();
             return;
         }
-
 
         List<ArmyGroup> teamB = new();
         teamB.Add(AllGroups[_currentGroupIndex]);
         _battleManager.Initialize(null, null, _oneArmy, teamB);
         _currentGroupIndex++;
+    }
+
+    void EndOfOneArmyVsAll()
+    {
+        if (!_fullOneVOnes) return;
+        _currentOneVOneIndex++;
+        if (_currentOneVOneIndex == AllGroups.Count)
+        {
+            Debug.Log("Full 1v1 finished");
+            return;
+        }
+        _defeatedEntities.Clear();
+        _lostToEntities.Clear();
+        _currentGroupIndex = 0;
+        _oneArmy.Clear();
+        _oneArmy.Add(AllGroups[_currentOneVOneIndex]);
+        RunOneArmyVsAll();
     }
 
     void RunAllGroups()

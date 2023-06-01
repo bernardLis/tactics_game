@@ -1315,9 +1315,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
   TeamBArmies:
   - {fileID: 11400000, guid: f11406f24c473e8498dc2a64c10df48a, type: 2}
-  _oneArmyVsAll: 1
+  _oneArmyVsAll: 0
   _oneArmy:
   - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
+  _fullOneVOnes: 1
 --- !u!1001 &5119385660492297293
 PrefabInstance:
   m_ObjectHideFlags: 0
