@@ -22,6 +22,9 @@ public class BattleEntityTestManager : MonoBehaviour
     [SerializeField] bool _oneArmyVsAll;
     [SerializeField] List<ArmyGroup> _oneArmy = new();
 
+    List<ArmyEntity> defeatedEntities = new();
+    List<ArmyEntity> lostToEntities = new();
+
     void Start()
     {
         _battleManager = BattleManager.Instance;
@@ -44,11 +47,31 @@ public class BattleEntityTestManager : MonoBehaviour
     void RunOneArmyVsAll()
     {
         Debug.Log($"Running test index: {_currentGroupIndex}");
+
+        if (_currentGroupIndex > 0)
+        {
+            if (_battleManager.LoadedBattle.Won)
+                defeatedEntities.Add(AllGroups[_currentGroupIndex - 1].ArmyEntity);
+            else
+                lostToEntities.Add(AllGroups[_currentGroupIndex - 1].ArmyEntity);
+            _battleManager.LoadedBattle.Won = false;
+        }
+
         if (_currentGroupIndex == AllGroups.Count)
         {
             Debug.Log("Test finished");
+
+            string s = $"{_oneArmy[0].ArmyEntity.name} defeated: ";
+            foreach (ArmyEntity entity in defeatedEntities)
+                s += $"{entity.name}, ";
+            s += "\n";
+            s += $"Lost to: ";
+            foreach (ArmyEntity entity in lostToEntities)
+                s += $"{entity.name}, ";
+            Debug.Log($"{s}");
             return;
         }
+
 
         List<ArmyGroup> teamB = new();
         teamB.Add(AllGroups[_currentGroupIndex]);

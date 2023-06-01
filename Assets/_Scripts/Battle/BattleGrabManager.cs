@@ -153,7 +153,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _grabbedObject = obj;
     }
 
-    bool IsGrabbingAllowed()
+    public bool IsGrabbingAllowed()
     {
         if (_abilityManager.IsAbilitySelected) return false;
         if (_grabbedObject != null) return false;

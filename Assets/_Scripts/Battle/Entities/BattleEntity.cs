@@ -122,7 +122,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void StopRunEntityCoroutine()
     {
-        StopAllCoroutines();
+        // StopAllCoroutines();
+        if (_runEntityCoroutine != null)
+            StopCoroutine(_runEntityCoroutine);
+        if (_attackCoroutine != null)
+            StopCoroutine(_attackCoroutine);
         _agent.enabled = false;
         Animator.SetBool("Move", false);
     }
@@ -296,10 +300,10 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
-        Debug.Log($"{name} died");
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
 
+        StopAllCoroutines();
         DOTween.KillAll(transform);
         Animator.SetBool("Celebrate", false);
 
@@ -324,7 +328,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         while (totalDamage > 0)
         {
-            Debug.Log($"damage tick");
             // poison can't kill
             if (CurrentHealth > damageTick)
             {
@@ -333,6 +336,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 attacker.OnDamageDealt?.Invoke(damageTick);
                 OnDamageTaken?.Invoke(damageTick);
                 DamageTaken += damageTick;
+                CurrentHealth -= damageTick;
+                OnHealthChanged?.Invoke(CurrentHealth);
             }
             totalDamage -= damageTick;
 

@@ -22,12 +22,14 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+
         if (eventData.button != PointerEventData.InputButton.Left) return;
         if (_secondsToBreak <= 0)
         {
             DisplayText("No more grabbing!", Color.red);
             return;
         }
+        if (!_grabManager.IsGrabbingAllowed()) return;
 
         _grabManager.TryGrabbing(gameObject);
 

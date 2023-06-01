@@ -222,6 +222,8 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator BattleLost()
     {
+        LoadedBattle.Won = false;
+
         if (IsEndingBattleBlocked)
         {
             yield return FinalizeBattle();
@@ -240,13 +242,13 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator BattleWon()
     {
+        LoadedBattle.Won = true;
+
         if (IsEndingBattleBlocked)
         {
             yield return FinalizeBattle();
             yield break;
         }
-
-        LoadedBattle.Won = true;
 
         VisualElement topPanel = Root.Q<VisualElement>("topPanel");
         topPanel.Clear();
@@ -280,7 +282,7 @@ public class BattleManager : Singleton<BattleManager>
     void ClearAllEntities()
     {
         Destroy(_obstacleInstance);
-        
+
         PlayerEntities.Clear();
         OpponentEntities.Clear();
         foreach (Transform child in _entityHolder.transform)

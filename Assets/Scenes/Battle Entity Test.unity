@@ -1312,12 +1312,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
   _testSpecificTeams: 0
   TeamAArmies:
-  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
+  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
   TeamBArmies:
-  - {fileID: 11400000, guid: 517db7d749d242244bb8a0eeece149e6, type: 2}
+  - {fileID: 11400000, guid: f11406f24c473e8498dc2a64c10df48a, type: 2}
   _oneArmyVsAll: 1
   _oneArmy:
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
+  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
 --- !u!1001 &5119385660492297293
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,7 +16,11 @@ public class ShellEntity : BattleEntityMelee
 
     protected override IEnumerator SpecialAbility()
     {
-        if (IsShielded) yield return base.SpecialAbility();
+        if (IsShielded)
+        {
+            yield return base.SpecialAbility();
+            yield break;
+        }
 
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);

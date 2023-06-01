@@ -24,18 +24,14 @@ public class WolfPupEntity : BattleEntityMelee
 
         Vector3 normal = (_opponent.transform.position - transform.position).normalized;
         Vector3 targetPosition = transform.position + normal * 10f;
+
         // if opp is in range, jump behind him not *10f
-        bool hitCheck = true;
         if (IsOpponentInRange())
         {
-            hitCheck = false;
             targetPosition = transform.position + normal * (_agent.stoppingDistance * 2);
-            _opponent.GetHit(this);
+            StartCoroutine(_opponent.GetHit(this, (int)this.ArmyEntity.Power * 3));
         }
-
         transform.DOJump(targetPosition, 2f, 1, 0.3f, false);
-        if (hitCheck && IsOpponentInRange())
-            _opponent.GetHit(this);
 
         Invoke("CleanUp", 2f);
 
