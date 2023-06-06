@@ -270,6 +270,7 @@ public class BattleManager : Singleton<BattleManager>
         _battleFinalized = true;
 
         yield return new WaitForSeconds(3f);
+        Debug.Break();
 
         ClearAllEntities();
 

@@ -66,7 +66,7 @@ public class BattleEndManager : MonoBehaviour
         GetComponent<BattleEntityTooltipManager>().enabled = false;
         GetComponent<BattleInputManager>().enabled = false;
 
-        Vector3 pos = new Vector3(9.5f, 0, 0);
+        Vector3 pos = new Vector3(14f, 0, 0); // CAM
         Vector3 rot = new Vector3(30f, -90f, 0);
 
         _cameraManager.MoveCameraTo(pos, rot, 5);
@@ -198,9 +198,10 @@ public class BattleEndManager : MonoBehaviour
         pos.y = 1f;
         GameObject instance = Instantiate(armyEntity.Prefab, pos, Quaternion.identity);
         BattleEntity be = instance.GetComponent<BattleEntity>();
+        be.SetDead();
         List<BattleEntity> emptyList = new();
         be.Initialize(0, entityInstance, ref emptyList);
-        be.StopRunEntityCoroutine();
+        be.transform.DODynamicLookAt(_cam.transform.position, 0.5f, AxisConstraint.Y);
 
         return be;
     }

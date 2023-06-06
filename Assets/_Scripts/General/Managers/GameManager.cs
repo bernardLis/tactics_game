@@ -251,7 +251,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void ClearSaveData()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 
         WasIntroCutscenePlayed = false;
 
@@ -260,8 +260,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         SecondsLeftInDay = SecondsInDay;
         Day = 1;
-        Gold = 0;
-        Spice = 0;
+        Gold = 10000;
+        Spice = 500;
 
         PlayerHero = null;
 

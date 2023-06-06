@@ -11,10 +11,15 @@ public class BombEntity : BattleEntityRanged
     List<GameObject> _hitInstances = new();
     GameObject _explosionEffectInstance;
 
+    bool _isExploding;
+
     public override IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
+        if (_isExploding) yield break;
+        _isExploding = true;
+
         Animator.SetTrigger("Special Attack");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.9f);
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
 
         // explode
         _explosionEffectInstance = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
@@ -34,9 +39,9 @@ public class BombEntity : BattleEntityRanged
         }
 
         Invoke("CleanUp", 2f);
+        Debug.Log($"after all in explode {name}");
 
-        StartCoroutine(base.Die(attacker, ability));
-        yield return null;
+        yield return base.Die(attacker, ability);
     }
 
     void CleanUp()

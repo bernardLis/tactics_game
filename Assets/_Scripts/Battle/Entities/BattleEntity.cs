@@ -116,13 +116,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void StartRunEntityCoroutine()
     {
+        Debug.Log($"start run entity co {name}");
         _runEntityCoroutine = RunEntity();
         StartCoroutine(_runEntityCoroutine);
     }
 
     public void StopRunEntityCoroutine()
     {
-        // StopAllCoroutines();
         if (_runEntityCoroutine != null)
             StopCoroutine(_runEntityCoroutine);
         if (_attackCoroutine != null)
@@ -133,6 +133,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     IEnumerator RunEntity()
     {
+        if (IsDead) yield break;
+
         if (_opponentList.Count == 0)
         {
             yield return Celebrate();
@@ -247,7 +249,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (CurrentHealth <= 0)
         {
             ability.IncreaseKillCount();
-            StartCoroutine(Die(ability: ability)); // start coroutine because I call stop all coroutines in base hit
+            yield return Die(ability: ability); // start coroutine because I call stop all coroutines in base hit
             yield break;
         }
 
@@ -263,19 +265,19 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         attacker.DamageDealt += damage;
         attacker.OnDamageDealt?.Invoke(damage);
+        //  Debug.Log($"{name} before base get hit {CurrentHealth}");
 
         yield return BaseGetHit(damage, attacker.ArmyEntity.Element.Color);
-
+        //  Debug.Log($"{name} after base get hit {CurrentHealth}");
         if (CurrentHealth <= 0)
         {
             attacker.IncreaseKillCount();
-            StartCoroutine(Die(attacker: attacker)); // start coroutine because I call stop all coroutines in base hit
+            yield return Die(attacker: attacker);
             yield break;
         }
 
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
-
 
     public IEnumerator BaseGetHit(int dmg, Color color)
     {
@@ -303,14 +305,15 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
 
-        StopAllCoroutines();
-        DOTween.KillAll(transform);
-        Animator.SetBool("Celebrate", false);
-
-        Animator.SetTrigger("Die");
         OnDeath?.Invoke(this, attacker, ability);
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+
+        Animator.SetBool("Celebrate", false);
+        Animator.SetTrigger("Die");
+
         TurnHighlightOff();
+        DOTween.KillAll(transform);
+        StopAllCoroutines();
+        Debug.Log($"after all base die {name}");
     }
 
     public IEnumerator GetPoisoned(BattleEntity attacker)
@@ -393,18 +396,18 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         SetOpponent(_opponentList[Random.Range(0, _opponentList.Count)]);
     }
 
-    public void SetOpponent(BattleEntity opponent)
-    {
-        _opponent = opponent;
-    }
+    public void SetOpponent(BattleEntity opponent) { _opponent = opponent; }
 
     IEnumerator Celebrate()
     {
+        if (IsDead) yield break;
+
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
         yield return transform.DODynamicLookAt(Camera.main.transform.position, 0.2f).WaitForCompletion();
         Animator.SetBool("Celebrate", true);
     }
 
+    public void SetDead() { IsDead = true; }
 
     /* grab */
     public bool CanBeGrabbed()
