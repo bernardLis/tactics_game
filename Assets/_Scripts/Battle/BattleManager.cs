@@ -231,13 +231,12 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         ConfirmPopUp popUp = new();
-        popUp.Initialize(Root, () => _gameManager.LoadScene(Scenes.MainMenu),
+        popUp.Initialize(Root, () => _gameManager.ClearSaveData(),
                 "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
         popUp.HideCancelButton();
         yield return null;
 
-        // HERE: testing   
-        //        _gameManager.ClearSaveData();
+
     }
 
     IEnumerator BattleWon()
@@ -270,9 +269,7 @@ public class BattleManager : Singleton<BattleManager>
         if (_battleFinalized) yield break;
         _battleFinalized = true;
 
-        // HERE: testing
-        // yield return new WaitForSeconds(4f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
 
         ClearAllEntities();
 

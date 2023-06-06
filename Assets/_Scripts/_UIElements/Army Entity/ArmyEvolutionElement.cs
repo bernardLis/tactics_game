@@ -90,11 +90,20 @@ public class ArmyEvolutionElement : VisualElement
         spacer.style.backgroundImage = null;
         Add(spacer);
 
+        // HERE: build 0.0.2-june2023
+        Label warningText = new("Hey! There are upgrades, but they don't have special abilities and are not balanced!");
+        warningText.style.color = Color.red;
+        warningText.style.whiteSpace = WhiteSpace.Normal;
+        warningText.style.maxWidth = 300;
+        Add(warningText);
+
         _availableKills = ArmyGroup.TotalKillCount - ArmyGroup.OldKillCount;
         _kills = ScriptableObject.CreateInstance<IntVariable>();
         _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
         _kills.SetValue(ArmyGroup.OldKillCount);
         _killsToEvolve.SetValue(ArmyGroup.NumberOfKillsToEvolve());
+
+
     }
 
     public void ShowKillsThisBattle()

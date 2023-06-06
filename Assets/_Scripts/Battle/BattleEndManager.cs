@@ -90,9 +90,6 @@ public class BattleEndManager : MonoBehaviour
         if (_evolvedEntity != null)
             Destroy(_evolvedEntity.gameObject);
 
-        // HERE: testing
-        ag.TotalKillCount = Random.Range(5, 10);
-
         _currentEntity = InstantiateEntity(ag.ArmyEntity);
 
         yield return new WaitForSeconds(1f);

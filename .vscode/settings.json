@@ -56,8 +56,7 @@
     },
     "git.ignoreLimitWarning": true,
     "editor.tokenColorCustomizations": {
-        "[One Dark Pro]": {
-        }
+        "[One Dark Pro]": {}
     },
     "cSpell.words": [
         "Astar",
@@ -75,5 +74,6 @@
         "UGUI",
         "Unslotted",
         "Yoyo"
-    ]
+    ],
+    "omnisharp.useModernNet": false,
 }
