@@ -163,7 +163,7 @@ public class BattleManager : Singleton<BattleManager>
         {
             Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
             GameObject instance = Instantiate(ag.Creature.Prefab, pos, Quaternion.identity);
-            instance.layer = 8;
+            instance.layer = 10;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
             be.Initialize(0, entityInstance, ref OpponentEntities);
@@ -185,6 +185,7 @@ public class BattleManager : Singleton<BattleManager>
             Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
             Quaternion rotation = Quaternion.Euler(0, 180, 0);
             GameObject instance = Instantiate(entity.Prefab, pos, rotation);
+            instance.layer = 11;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
             be.Initialize(1, entity, ref PlayerEntities);

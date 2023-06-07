@@ -104,4 +104,11 @@ public static class Helpers
             return el;
         return GetRoot(el.parent);
     }
+
+    public static int GetRandomNumber(int digits)
+    {
+        int min = (int)Mathf.Pow(10, digits - 1);
+        int max = (int)Mathf.Pow(10, digits) - 1;
+        return Random.Range(min, max);
+    }
 }

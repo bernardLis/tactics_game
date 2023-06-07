@@ -15,6 +15,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     BattleEntityTooltipManager _tooltipManager;
     public Collider Collider { get; private set; }
 
+    public string BattleId { get; private set; }
     public int Team { get; private set; }
     protected GameObject _GFX;
     Material _material;
@@ -80,6 +81,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public virtual void Initialize(int team, Creature armyEntity, ref List<BattleEntity> opponents)
     {
+        BattleId = team + "_" + armyEntity.name + "_" + Helpers.GetRandomNumber(4);
+        name = BattleId;
+
         Collider = GetComponent<Collider>();
 
         Animator = GetComponentInChildren<Animator>();
@@ -173,6 +177,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         _agent.enabled = true;
+        _agent.avoidancePriority = Random.Range(1, 100);
+
         while (!_agent.SetDestination(_opponent.transform.position)) yield return null;
         Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
@@ -188,6 +194,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         // reached destination
+        _agent.avoidancePriority = 0;
         Animator.SetBool("Move", false);
         _agent.enabled = false;
     }

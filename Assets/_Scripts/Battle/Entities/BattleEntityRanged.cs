@@ -10,8 +10,7 @@ public class BattleEntityRanged : BattleEntity
     protected override IEnumerator PathToTarget()
     {
         // no obstacle blocking line of sight
-        if (!Physics.Linecast(transform.position, _opponent.transform.position,
-                out RaycastHit hit, 1 << Tags.BattleObstacleLayer)) //https://answers.unity.com/questions/1164722/raycast-ignore-layers-except.html
+        if (HasOpponentInSight())
         {
             _agent.stoppingDistance = Creature.AttackRange;
             yield return base.PathToTarget();
@@ -27,7 +26,13 @@ public class BattleEntityRanged : BattleEntity
 
         Vector3 point = ClosesPositionWithClearLOS();
 
+        GameObject temp = new();
+        temp.transform.parent = transform;
+        temp.transform.position = point;
+        temp.name = BattleId;
+
         // path to that point
+        _agent.avoidancePriority = Random.Range(1, 100);
         _agent.stoppingDistance = 0;
         _agent.enabled = true;
         while (!_agent.SetDestination(point)) yield return null;
@@ -37,14 +42,27 @@ public class BattleEntityRanged : BattleEntity
         // path to target
         while (_agent.enabled && _agent.remainingDistance > 0.01f)
         {
-            //PathToTarget(); <- could be used to refresh path if target moved
             yield return new WaitForSeconds(0.1f);
+            if (!HasOpponentInSight())
+            {
+                yield return PathToTarget();
+                yield break;
+            }
+            // yield return PathToTarget();// <- could be used to refresh path if target moved
         }
 
         // reached destination
         Animator.SetBool("Move", false);
         _agent.enabled = false;
-        PathToTarget();
+        yield return PathToTarget();
+    }
+
+    bool HasOpponentInSight()
+    {
+        //https://answers.unity.com/questions/1164722/raycast-ignore-layers-except.html
+        return !Physics.Linecast(transform.position, _opponent.transform.position,
+                    out RaycastHit hit, 1 << Tags.BattleObstacleLayer);
+
     }
 
     protected Vector3 ClosesPositionWithClearLOS()
