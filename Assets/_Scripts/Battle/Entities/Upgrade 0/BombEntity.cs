@@ -17,9 +17,11 @@ public class BombEntity : BattleEntityRanged
     {
         if (_isExploding) yield break;
         _isExploding = true;
+        EntityLog.Add($"{Time.time}: Entity is exploding.");
 
         Animator.SetTrigger("Special Attack");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
+        yield return new WaitForSeconds(0.2f);
+        // yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
 
         // explode
         _explosionEffectInstance = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
@@ -39,7 +41,6 @@ public class BombEntity : BattleEntityRanged
         }
 
         Invoke("CleanUp", 2f);
-        Debug.Log($"after all in explode {name}");
 
         yield return base.Die(attacker, ability);
     }

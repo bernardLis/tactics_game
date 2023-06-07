@@ -47,6 +47,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     MMF_Player _feelPlayer;
 
     IEnumerator _runEntityCoroutine;
+
     protected bool _hasSpecialAction; // e.g. Shell's shield, can be fired at "any time"
     protected bool _hasSpecialMove;
     protected bool _hasSpecialAttack;
@@ -56,6 +57,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public event Action<int> OnEnemyKilled;
     public event Action<int> OnDamageDealt;
     public event Action<int> OnDamageTaken;
+
+    public List<string> EntityLog = new();
 
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
     protected virtual void Start()
@@ -87,6 +90,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _defaultEmissionColor = Color.black;
 
         Team = team;
+        EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
         if (team == 1)
         {
             _defaultEmissionColor = new Color(0.5f, 0.2f, 0.2f);
@@ -112,17 +116,20 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // spawn animation should be playing play
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
         StartRunEntityCoroutine();
+        EntityLog.Add($"{Time.time}: Entity is spawned");
     }
 
     public void StartRunEntityCoroutine()
     {
-        Debug.Log($"start run entity co {name}");
+        EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
         _runEntityCoroutine = RunEntity();
         StartCoroutine(_runEntityCoroutine);
     }
 
     public void StopRunEntityCoroutine()
     {
+        EntityLog.Add($"{Time.time}: Stop run entity coroutine is called");
+
         if (_runEntityCoroutine != null)
             StopCoroutine(_runEntityCoroutine);
         if (_attackCoroutine != null)
@@ -156,6 +163,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual IEnumerator PathToTarget()
     {
+        EntityLog.Add($"{Time.time}: Path to target is called");
+
         if (_hasSpecialMove && CurrentSpecialAbilityCooldown <= 0)
         {
             yield return SpecialAbility();
@@ -185,6 +194,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual IEnumerator Attack()
     {
+        EntityLog.Add($"{Time.time}: Entity attacked {_opponent.name}");
+
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?
@@ -197,6 +208,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual IEnumerator SpecialAbility()
     {
+        EntityLog.Add($"{Time.time}: Entity used special ability");
+
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?
@@ -225,6 +238,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public int GetHealed(Ability ability)
     {
+
         int value = ability.GetPower();
         GetHealed(value);
         return Mathf.RoundToInt(value);
@@ -232,6 +246,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void GetHealed(int value)
     {
+        EntityLog.Add($"{Time.time}: Entity gets healed by {value}");
+
         CurrentHealth += value;
         if (CurrentHealth > ArmyEntity.Health)
             CurrentHealth = ArmyEntity.Health;
@@ -243,6 +259,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public virtual IEnumerator GetHit(Ability ability)
     {
         if (IsDead) yield break;
+        EntityLog.Add($"{Time.time}: Entity gets attacked by {ability.name}");
 
         yield return BaseGetHit(ArmyEntity.CalculateDamage(ability), ability.Element.Color);
 
@@ -259,16 +276,15 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public virtual IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
     {
         if (IsDead) yield break;
+        EntityLog.Add($"{Time.time}: Entity gets attacked by {attacker.name}");
 
         int damage = ArmyEntity.CalculateDamage(attacker);
         if (specialDamage > 0) damage = specialDamage;
 
         attacker.DamageDealt += damage;
         attacker.OnDamageDealt?.Invoke(damage);
-        //  Debug.Log($"{name} before base get hit {CurrentHealth}");
 
         yield return BaseGetHit(damage, attacker.ArmyEntity.Element.Color);
-        //  Debug.Log($"{name} after base get hit {CurrentHealth}");
         if (CurrentHealth <= 0)
         {
             attacker.IncreaseKillCount();
@@ -297,29 +313,31 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         DisplayFloatingText(dmg.ToString(), color);
 
         Animator.SetTrigger("Take Damage");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
+        yield return null;
+        //  yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
     }
 
     public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
+        EntityLog.Add($"{Time.time}: Entity dies.");
+        StopAllCoroutines();
+
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
 
         OnDeath?.Invoke(this, attacker, ability);
 
-        Animator.SetBool("Celebrate", false);
         Animator.SetTrigger("Die");
 
         TurnHighlightOff();
         DOTween.KillAll(transform);
-        StopAllCoroutines();
-        Debug.Log($"after all base die {name}");
     }
 
     public IEnumerator GetPoisoned(BattleEntity attacker)
     {
         if (_isPoisoned) yield break;
         if (IsDead) yield break;
+        EntityLog.Add($"{Time.time}: Entity gets poisoned by {attacker.name}.");
 
         _isPoisoned = true;
         DisplayFloatingText("Poisoned", Color.green);
