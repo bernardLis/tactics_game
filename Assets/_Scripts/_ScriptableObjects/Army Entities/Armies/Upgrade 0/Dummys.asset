@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: dummys-8f39-4b6c-a851-72019b4f126c
   Name: Dummy Boys
-  ArmyEntity: {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
-  EntityCount: 1
+  Creature: {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
+  NumberOfUnits: 0
   ListPosition: 3
   OldKillCount: 2
   TotalKillCount: 2
@@ -23,4 +23,4 @@ MonoBehaviour:
   TotalDamageDealt: 580
   OldDamageTaken: 268
   TotalDamageTaken: 268
-  PreviousEntity: {fileID: 0}
+  PreviousCreature: {fileID: 0}

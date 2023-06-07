@@ -29,7 +29,7 @@ public class WolfPupEntity : BattleEntityMelee
         if (IsOpponentInRange())
         {
             targetPosition = transform.position + normal * (_agent.stoppingDistance * 2);
-            StartCoroutine(_opponent.GetHit(this, (int)this.ArmyEntity.Power * 3));
+            StartCoroutine(_opponent.GetHit(this, (int)this.Creature.Power * 3));
         }
         transform.DOJump(targetPosition, 2f, 1, 0.3f, false);
 

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EntityAbilityTooltipElement : VisualElement
+public class CreatureAbilityTooltipElement : VisualElement
 {
-    const string _ussClassName = "entity-ability-tooltip-element__";
+    const string _ussClassName = "creature-ability-tooltip-element__";
     const string _ussMain = _ussClassName + "main";
 
     GameManager _gameManager;
 
-    EntityAbility _ability;
+    CreatureAbility _ability;
 
-    public EntityAbilityTooltipElement(EntityAbility ability)
+    public CreatureAbilityTooltipElement(CreatureAbility ability)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityAbilityTooltipStyles);

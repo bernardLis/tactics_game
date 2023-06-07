@@ -96,10 +96,10 @@ MonoBehaviour:
   AttackRange: 100
   AttackCooldown: 1
   Speed: 7
-  EntityAbility: {fileID: 11400000, guid: 6496bb5f0d329124b971558039774fff, type: 2}
+  CreatureAbility: {fileID: 11400000, guid: 6496bb5f0d329124b971558039774fff, type: 2}
   Prefab: {fileID: 676733176724701773, guid: d00cd06417c9b754c89f71896c741694, type: 3}
   Projectile: {fileID: 6865323931963210094, guid: 354092d45107a954296b58ca5e078f96, type: 3}
   HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
-  UpgradedEntity: {fileID: 11400000, guid: 2d70bf271513bd44fa9efbc8c010340c, type: 2}
+  UpgradedCreature: {fileID: 11400000, guid: 2d70bf271513bd44fa9efbc8c010340c, type: 2}
   KillsToUpgrade: 15
   Hero: {fileID: 0}

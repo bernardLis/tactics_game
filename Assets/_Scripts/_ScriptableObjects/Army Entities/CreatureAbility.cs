@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Entity Ability")]
-public class EntityAbility : BaseScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature Ability")]
+public class CreatureAbility : BaseScriptableObject
 {
     public string Description;
 

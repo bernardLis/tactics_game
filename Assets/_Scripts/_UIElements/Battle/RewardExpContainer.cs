@@ -143,7 +143,7 @@ public class RewardExpContainer : VisualElement
         BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
 
         // create an element with icon
-        EntityIcon icon = new(enemy.ArmyEntity);
+        CreatureIcon icon = new(enemy.Creature);
         Add(icon);
 
         // middle of the screen
@@ -158,8 +158,8 @@ public class RewardExpContainer : VisualElement
         _defeatedEntitiesContainer.Add(arcMovement);
 
         // TODO: is price good for score?
-        _playerHero.GetExp(enemy.ArmyEntity.Price);
-        _scoreCounter.ChangeAmount(_scoreCounter.Amount + enemy.ArmyEntity.Price);
+        _playerHero.GetExp(enemy.Creature.Price);
+        _scoreCounter.ChangeAmount(_scoreCounter.Amount + enemy.Creature.Price);
         _enemyIndex++;
     }
 

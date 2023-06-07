@@ -1,9 +1,9 @@
-.entity-ability-element__main {
+.creature-ability-element__main {
     width: 100px;
     height: 100px;
 }
 
-.entity-ability-element__timer-label-wrapper {
+.creature-ability-element__timer-label-wrapper {
     width: 100%;
     justify-content: center;
 }

@@ -29,7 +29,7 @@ public class BattleEntityMelee : BattleEntity
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
         Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-        _hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, q);
+        _hitInstance = Instantiate(Creature.HitPrefab, _opponent.Collider.bounds.center, q);
 
         yield return _opponent.GetHit(this);
         Invoke("DestroyHitInstance", 2f);

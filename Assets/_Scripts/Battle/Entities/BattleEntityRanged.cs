@@ -13,7 +13,7 @@ public class BattleEntityRanged : BattleEntity
         if (!Physics.Linecast(transform.position, _opponent.transform.position,
                 out RaycastHit hit, 1 << Tags.BattleObstacleLayer)) //https://answers.unity.com/questions/1164722/raycast-ignore-layers-except.html
         {
-            _agent.stoppingDistance = ArmyEntity.AttackRange;
+            _agent.stoppingDistance = Creature.AttackRange;
             yield return base.PathToTarget();
             yield break;
         }
@@ -56,7 +56,7 @@ public class BattleEntityRanged : BattleEntity
         for (int i = 0; i < numberOfLines; i++)
         {
             Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / numberOfLines, Vector3.up) * dir;
-            rotatedLine = rotatedLine.normalized * ArmyEntity.AttackRange;
+            rotatedLine = rotatedLine.normalized * Creature.AttackRange;
 
             // Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
 
@@ -122,11 +122,11 @@ public class BattleEntityRanged : BattleEntity
 
         // HERE: projectile spawning and animation delay per entity
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
-        GameObject projectileInstance = Instantiate(ArmyEntity.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
+        GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
 
         // HERE: projectile speed
-        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, ArmyEntity.Power);
+        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, Creature.Power);
 
         yield return base.Attack();
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EntityElement : VisualElement
+public class CreatureElement : VisualElement
 {
     const string _ussClassName = "entity-element__";
     const string _ussMain = _ussClassName + "main";
@@ -12,14 +12,14 @@ public class EntityElement : VisualElement
 
     GameManager _gameManager;
 
-    ArmyEntity _entity;
+    Creature _creature;
 
     protected VisualElement _leftContainer;
     protected VisualElement _middleContainer;
     protected VisualElement _rightContainer;
 
     protected ElementalElement _elementalElement;
-    protected EntityIcon _entityIcon;
+    protected CreatureIcon _creatureIcon;
     protected Label _nameLabel;
     protected Label _healthLabel;
     protected Label _power;
@@ -28,14 +28,14 @@ public class EntityElement : VisualElement
     protected Label _attackCooldown;
     protected Label _speed;
 
-    public EntityElement(ArmyEntity entity)
+    public CreatureElement(Creature creature)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        _entity = entity;
+        _creature = creature;
 
         AddToClassList(_ussMain);
 
@@ -47,8 +47,8 @@ public class EntityElement : VisualElement
         Add(_middleContainer);
         Add(_rightContainer);
 
-        _elementalElement = new ElementalElement(_entity.Element);
-        _entityIcon = new(_entity);
+        _elementalElement = new ElementalElement(_creature.Element);
+        _creatureIcon = new(_creature);
         _nameLabel = new Label();
         _nameLabel.AddToClassList(_ussName);
 
@@ -60,7 +60,7 @@ public class EntityElement : VisualElement
         _speed = new Label($"Speed:");
 
         _leftContainer.Add(_nameLabel);
-        _leftContainer.Add(_entityIcon);
+        _leftContainer.Add(_creatureIcon);
         _leftContainer.Add(_elementalElement);
 
         _middleContainer.Add(_healthLabel);
@@ -70,26 +70,26 @@ public class EntityElement : VisualElement
         _middleContainer.Add(_attackCooldown);
         _middleContainer.Add(_speed);
 
-        if (_entity.EntityAbility != null)
+        if (_creature.CreatureAbility != null)
         {
-            _rightContainer.Add(new EntityAbilityElement(_entity.EntityAbility));
-            _rightContainer.Add(new EntityAbilityTooltipElement(_entity.EntityAbility));
+            _rightContainer.Add(new CreatureAbilityElement(_creature.CreatureAbility));
+            _rightContainer.Add(new CreatureAbilityTooltipElement(_creature.CreatureAbility));
         }
 
-        SetValues(_entity);
+        SetValues(_creature);
     }
 
-    public void SetValues(ArmyEntity entity)
+    public void SetValues(Creature creature)
     {
-        _entity = entity;
+        _creature = creature;
 
-        _entityIcon.SwapEntity(entity);
-        _nameLabel.text = $"{entity.Name}";
-        _healthLabel.text = $"Health: {entity.Health}";
-        _power.text = $"Power: {entity.Power}";
-        _armor.text = $"Armor: {entity.Armor}";
-        _attackRange.text = $"Attack Range: {entity.AttackRange}";
-        _attackCooldown.text = $"Attack Cooldown: {entity.AttackCooldown}";
-        _speed.text = $"Speed: {entity.Speed}";
+        _creatureIcon.SwapCreature(creature);
+        _nameLabel.text = $"{creature.Name}";
+        _healthLabel.text = $"Health: {creature.Health}";
+        _power.text = $"Power: {creature.Power}";
+        _armor.text = $"Armor: {creature.Armor}";
+        _attackRange.text = $"Attack Range: {creature.AttackRange}";
+        _attackCooldown.text = $"Attack Cooldown: {creature.AttackCooldown}";
+        _speed.text = $"Speed: {creature.Speed}";
     }
 }

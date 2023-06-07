@@ -3,34 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BattleEntityElement : EntityElement
+public class BattleEntityElement : CreatureElement
 {
     const string _ussClassName = "battle-entity__";
     const string _ussMain = _ussClassName + "main";
     const string _ussKilledOverlay = _ussClassName + "killed-overlay";
 
     BattleEntity _battleEntity;
-    ArmyEntity _armyEntity;
+    Creature _armyEntity;
 
     Label _kills;
     Label _damageDealt;
     Label _damageTaken;
 
-    public BattleEntityElement(BattleEntity battleEntity) : base(battleEntity.ArmyEntity)
+    public BattleEntityElement(BattleEntity battleEntity) : base(battleEntity.Creature)
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleEntityElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
         _battleEntity = battleEntity;
-        _armyEntity = _battleEntity.ArmyEntity;
+        _armyEntity = _battleEntity.Creature;
 
         AddToClassList(_ussMain);
 
-        if (_battleEntity.ArmyEntity.Hero != null)
+        if (_battleEntity.Creature.Hero != null)
         {
-            _power.text += " + " + Mathf.RoundToInt(_battleEntity.ArmyEntity.Hero.Power.GetValue());
-            _armor.text += " + " + Mathf.RoundToInt(_battleEntity.ArmyEntity.Hero.Armor.GetValue());
+            _power.text += " + " + Mathf.RoundToInt(_battleEntity.Creature.Hero.Power.GetValue());
+            _armor.text += " + " + Mathf.RoundToInt(_battleEntity.Creature.Hero.Armor.GetValue());
         }
 
         _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_armyEntity.Health}";
@@ -45,7 +45,7 @@ public class BattleEntityElement : EntityElement
         _rightContainer.Add(_damageDealt);
         _rightContainer.Add(_damageTaken);
 
-        _rightContainer.Add(new EntityAbilityElement(battleEntity.ArmyEntity.EntityAbility,
+        _rightContainer.Add(new CreatureAbilityElement(battleEntity.Creature.CreatureAbility,
                 battleEntity.CurrentSpecialAbilityCooldown));
 
         _battleEntity.OnHealthChanged += OnHealthChanged;

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: sunblossom-8f39-4b6c-a851-72019b4f126c
   Name: Sun suns
-  ArmyEntity: {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
-  EntityCount: 1
+  Creature: {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
+  NumberOfUnits: 0
   ListPosition: 7
   OldKillCount: 0
   TotalKillCount: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   TotalDamageDealt: 0
   OldDamageTaken: 0
   TotalDamageTaken: 0
-  PreviousEntity: {fileID: 0}
+  PreviousCreature: {fileID: 0}

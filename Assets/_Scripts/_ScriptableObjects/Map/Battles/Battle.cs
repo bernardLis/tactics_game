@@ -20,7 +20,7 @@ public class Battle : BaseScriptableObject
     {
         int total = 0;
         foreach (ArmyGroup ag in Opponent.Army)
-            total += ag.EntityCount;
+            total += ag.NumberOfUnits;
         return total;
     }
 

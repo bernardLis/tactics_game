@@ -40,11 +40,11 @@ public class ArmySlotElement : ElementWithSound
 
     public void AddArmy(ArmyGroupElement armyElement)
     {
-        if (armyElement.ArmyGroup.EntityCount == 0) return;
+        if (armyElement.ArmyGroup.NumberOfUnits == 0) return;
 
         bool callDelegate = true;
         // gonna be merged
-        if (ArmyElement != null && ArmyElement.ArmyGroup.ArmyEntity == armyElement.ArmyGroup.ArmyEntity)
+        if (ArmyElement != null && ArmyElement.ArmyGroup.Creature == armyElement.ArmyGroup.Creature)
             callDelegate = false;
 
         AddArmyNoDelegates(armyElement);
@@ -59,9 +59,9 @@ public class ArmySlotElement : ElementWithSound
         armyElement.ArmyGroup.ListPosition = ListPosition;
 
         // merge if there is already the same army entity
-        if (ArmyElement != null && ArmyElement.ArmyGroup.ArmyEntity == armyElement.ArmyGroup.ArmyEntity)
+        if (ArmyElement != null && ArmyElement.ArmyGroup.Creature == armyElement.ArmyGroup.Creature)
         {
-            ArmyElement.ArmyGroup.ChangeCount(armyElement.ArmyGroup.EntityCount);
+            ArmyElement.ArmyGroup.ChangeCount(armyElement.ArmyGroup.NumberOfUnits);
             return;
         }
 

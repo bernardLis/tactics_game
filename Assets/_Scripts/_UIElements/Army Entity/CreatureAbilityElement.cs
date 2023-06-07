@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EntityAbilityElement : ElementWithTooltip
+public class CreatureAbilityElement : ElementWithTooltip
 {
-    const string _ussClassName = "entity-ability-element__";
+    const string _ussClassName = "creature-ability-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussTimerLabelWrapper = _ussClassName + "timer-label-wrapper";
 
     GameManager _gameManager;
 
-    EntityAbility _ability;
+    CreatureAbility _ability;
 
     OverlayTimerElement _timer;
-    public EntityAbilityElement(EntityAbility ability, float currentCooldown = 0)
+    public CreatureAbilityElement(CreatureAbility ability, float currentCooldown = 0)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityAbilityStyles);
@@ -49,7 +49,7 @@ public class EntityAbilityElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        EntityAbilityTooltipElement tooltip = new(_ability);
+        CreatureAbilityTooltipElement tooltip = new(_ability);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }

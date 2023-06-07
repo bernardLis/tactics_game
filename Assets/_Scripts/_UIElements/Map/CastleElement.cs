@@ -142,7 +142,7 @@ public class CastleElement : FullScreenElement
         {
             if (el.ArmyElement == null) continue;
 
-            if (el.ArmyElement.ArmyGroup.ArmyEntity == armyGroup.ArmyEntity)
+            if (el.ArmyElement.ArmyGroup.Creature == armyGroup.Creature)
             {
                 el.AddArmy(new(armyGroup));
                 return;

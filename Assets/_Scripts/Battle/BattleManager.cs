@@ -115,7 +115,7 @@ public class BattleManager : Singleton<BattleManager>
         foreach (ArmyGroup ag in playerArmy)
             InstantiatePlayer(ag);
         foreach (ArmyGroup ag in opponentArmy)
-            InstantiateOpponent(ag.ArmyEntity, ag.EntityCount);
+            InstantiateOpponent(ag.Creature, ag.NumberOfUnits);
 
         _initialPlayerEntityCount = PlayerEntities.Count;
         _initialOpponentEntityCount = OpponentEntities.Count;
@@ -156,13 +156,13 @@ public class BattleManager : Singleton<BattleManager>
     {
         ag.InitializeBattle();
 
-        ArmyEntity entityInstance = Instantiate(ag.ArmyEntity);
+        Creature entityInstance = Instantiate(ag.Creature);
         entityInstance.HeroInfluence(_playerHero);
 
-        for (int i = 0; i < ag.EntityCount; i++)
+        for (int i = 0; i < ag.NumberOfUnits; i++)
         {
             Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-            GameObject instance = Instantiate(ag.ArmyEntity.Prefab, pos, Quaternion.identity);
+            GameObject instance = Instantiate(ag.Creature.Prefab, pos, Quaternion.identity);
             instance.layer = 8;
             instance.transform.parent = _entityHolder;
             BattleEntity be = instance.GetComponent<BattleEntity>();
@@ -175,9 +175,9 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
 
-    void InstantiateOpponent(ArmyEntity entity, int count)
+    void InstantiateOpponent(Creature entity, int count)
     {
-        ArmyEntity entityInstance = Instantiate(entity);
+        Creature entityInstance = Instantiate(entity);
         entityInstance.HeroInfluence(_opponentHero);
 
         for (int i = 0; i < count; i++)

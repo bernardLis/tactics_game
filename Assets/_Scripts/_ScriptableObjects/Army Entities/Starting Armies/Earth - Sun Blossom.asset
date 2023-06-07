@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: Earth - Sun Blossom
   m_EditorClassIdentifier: 
   Id: bloss-8f39-4b6c-a851-72019b4f126c
-  ArmyEntity: {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
-  EntityCount: 2
+  Name: 
+  Creature: {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
+  NumberOfUnits: 2
   ListPosition: 1
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  PreviousCreature: {fileID: 0}

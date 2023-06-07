@@ -24,7 +24,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     List<BattleEntity> _opponentList = new();
 
-    public ArmyEntity ArmyEntity { get; private set; }
+    public Creature Creature { get; private set; }
     public float CurrentHealth { get; private set; }
 
     protected BattleEntity _opponent;
@@ -78,7 +78,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             CurrentSpecialAbilityCooldown -= Time.deltaTime;
     }
 
-    public virtual void Initialize(int team, ArmyEntity armyEntity, ref List<BattleEntity> opponents)
+    public virtual void Initialize(int team, Creature armyEntity, ref List<BattleEntity> opponents)
     {
         Collider = GetComponent<Collider>();
 
@@ -99,7 +99,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             _material.SetFloat("_Metallic", 0.5f);
         }
 
-        ArmyEntity = armyEntity;
+        Creature = armyEntity;
         CurrentHealth = armyEntity.Health;
 
         _agent = GetComponent<NavMeshAgent>();
@@ -200,7 +200,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         // it goes at the end... is that a good idea?
         _attackCoroutine = null;
-        _currentAttackCooldown = ArmyEntity.AttackCooldown;
+        _currentAttackCooldown = Creature.AttackCooldown;
         StartRunEntityCoroutine();
 
         yield break;
@@ -213,8 +213,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?
-        ArmyEntity.EntityAbility.Used();
-        CurrentSpecialAbilityCooldown = ArmyEntity.EntityAbility.Cooldown;
+        Creature.CreatureAbility.Used();
+        CurrentSpecialAbilityCooldown = Creature.CreatureAbility.Cooldown;
         yield break;
     }
 
@@ -229,11 +229,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (_opponent.IsDead) return false;
 
         // +0.5 wiggle room
-        return Vector3.Distance(transform.position, _opponent.transform.position) < ArmyEntity.AttackRange + 0.5f;
+        return Vector3.Distance(transform.position, _opponent.transform.position) < Creature.AttackRange + 0.5f;
     }
 
-    public bool HasFullHealth() { return CurrentHealth >= ArmyEntity.Health; }
-    public float GetTotalHealth() { return ArmyEntity.Health; }
+    public bool HasFullHealth() { return CurrentHealth >= Creature.Health; }
+    public float GetTotalHealth() { return Creature.Health; }
     public float GetCurrentHealth() { return CurrentHealth; }
 
     public int GetHealed(Ability ability)
@@ -249,8 +249,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         EntityLog.Add($"{Time.time}: Entity gets healed by {value}");
 
         CurrentHealth += value;
-        if (CurrentHealth > ArmyEntity.Health)
-            CurrentHealth = ArmyEntity.Health;
+        if (CurrentHealth > Creature.Health)
+            CurrentHealth = Creature.Health;
 
         OnHealthChanged?.Invoke(CurrentHealth);
         DisplayFloatingText("+" + value, Color.green);
@@ -261,7 +261,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {ability.name}");
 
-        yield return BaseGetHit(ArmyEntity.CalculateDamage(ability), ability.Element.Color);
+        yield return BaseGetHit(Creature.CalculateDamage(ability), ability.Element.Color);
 
         if (CurrentHealth <= 0)
         {
@@ -278,13 +278,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {attacker.name}");
 
-        int damage = ArmyEntity.CalculateDamage(attacker);
+        int damage = Creature.CalculateDamage(attacker);
         if (specialDamage > 0) damage = specialDamage;
 
         attacker.DamageDealt += damage;
         attacker.OnDamageDealt?.Invoke(damage);
 
-        yield return BaseGetHit(damage, attacker.ArmyEntity.Element.Color);
+        yield return BaseGetHit(damage, attacker.Creature.Element.Color);
         if (CurrentHealth <= 0)
         {
             attacker.IncreaseKillCount();

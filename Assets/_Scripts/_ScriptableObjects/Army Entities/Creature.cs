@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Army Entity")]
-public class ArmyEntity : BaseScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
+public class Creature : BaseScriptableObject
 {
     public string Name;
     public Sprite[] IconAnimation;
@@ -19,14 +19,14 @@ public class ArmyEntity : BaseScriptableObject
     public float AttackCooldown;
     public float Speed;
 
-    public EntityAbility EntityAbility;
+    public CreatureAbility CreatureAbility;
 
     public GameObject Prefab;
     public GameObject Projectile;
     public GameObject HitPrefab;
 
     [Header("Upgrade")]
-    public ArmyEntity UpgradedEntity;
+    public Creature UpgradedCreature;
     public int KillsToUpgrade;
 
     [HideInInspector] public Hero Hero;
@@ -34,13 +34,13 @@ public class ArmyEntity : BaseScriptableObject
 
     public int CalculateDamage(BattleEntity attacker)
     {
-        float damage = attacker.ArmyEntity.Power;
-        if (attacker.ArmyEntity.Hero != null)
-            damage += attacker.ArmyEntity.Hero.Power.GetValue();
+        float damage = attacker.Creature.Power;
+        if (attacker.Creature.Hero != null)
+            damage += attacker.Creature.Hero.Power.GetValue();
 
-        if (Element.StrongAgainst == attacker.ArmyEntity.Element)
+        if (Element.StrongAgainst == attacker.Creature.Element)
             damage *= 0.5f;
-        if (Element.WeakAgainst == attacker.ArmyEntity.Element)
+        if (Element.WeakAgainst == attacker.Creature.Element)
             damage *= 1.5f;
 
         damage = Mathf.Round(damage);
@@ -67,7 +67,6 @@ public class ArmyEntity : BaseScriptableObject
         damage = Mathf.Round(damage);
 
         // abilities ignore armor
-
         return Mathf.RoundToInt(damage);
     }
 

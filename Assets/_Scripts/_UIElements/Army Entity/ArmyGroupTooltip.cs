@@ -23,10 +23,10 @@ public class ArmyGroupTooltip : VisualElement
 
         _armyGroup = armyGroup;
 
-        Label count = new($"#{_armyGroup.EntityCount}");
+        Label count = new($"#{_armyGroup.NumberOfUnits}");
         Add(count);
 
-        EntityElement entityElement = new(_armyGroup.ArmyEntity);
+        CreatureElement entityElement = new(_armyGroup.Creature);
         Add(entityElement);
         entityElement.style.marginBottom = 20;
 

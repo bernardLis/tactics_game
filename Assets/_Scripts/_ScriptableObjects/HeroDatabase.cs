@@ -5,9 +5,9 @@ using System.Linq;
 public class HeroDatabase : ScriptableObject
 {
     [Header("Heroes")]
-    public List<ArmyEntity> AllArmyEntities = new();
-    public ArmyEntity GetRandomArmyEntity() { return AllArmyEntities[Random.Range(0, AllArmyEntities.Count)]; }
-    public ArmyEntity GetArmyEntityById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
+    public List<Creature> AllArmyEntities = new();
+    public Creature GetRandomArmyEntity() { return AllArmyEntities[Random.Range(0, AllArmyEntities.Count)]; }
+    public Creature GetCreatureById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
 
     [SerializeField] StartingArmy[] StartingArmies;
     public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }

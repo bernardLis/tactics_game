@@ -1,9 +1,9 @@
-.entity-icon__main {
+.creature-icon__main {
     width: 100px;
     height: 100px;
 }
 
-.entity-icon__icon-container {
+.creature-icon__icon-container {
     width: 90px;
     height: 90px;
     -unity-background-scale-mode: scale-to-fit;
@@ -16,7 +16,7 @@
     position: absolute;
 }
 
-.entity-icon__frame {
+.creature-icon__frame {
     position: absolute;
     width: 100px;
     height: 100px;

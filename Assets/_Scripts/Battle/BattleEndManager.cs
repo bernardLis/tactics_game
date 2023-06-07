@@ -22,7 +22,7 @@ public class BattleEndManager : MonoBehaviour
     VisualElement _root;
 
     VisualElement _infoContainer;
-    ArmyEvolutionElement _evolutionElement;
+    CreatureEvolutionElement _evolutionElement;
 
     MyButton _continueButton;
 
@@ -90,7 +90,7 @@ public class BattleEndManager : MonoBehaviour
         if (_evolvedEntity != null)
             Destroy(_evolvedEntity.gameObject);
 
-        _currentEntity = InstantiateEntity(ag.ArmyEntity);
+        _currentEntity = InstantiateEntity(ag.Creature);
 
         yield return new WaitForSeconds(1f);
         // TODO: ideally there is a cool animation list that is going on
@@ -144,9 +144,9 @@ public class BattleEndManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         _playerArmy[_currentArmyGroupIndex].Evolve();
-        _evolutionElement.Evolve(_playerArmy[_currentArmyGroupIndex].ArmyEntity);
+        _evolutionElement.Evolve(_playerArmy[_currentArmyGroupIndex].Creature);
 
-        _evolvedEntity = InstantiateEntity(_playerArmy[_currentArmyGroupIndex].ArmyEntity);
+        _evolvedEntity = InstantiateEntity(_playerArmy[_currentArmyGroupIndex].Creature);
         _evolvedEntity.Collider.enabled = false;
 
         Material evolvedMat = _evolvedEntity.GetComponentInChildren<Renderer>().material;
@@ -188,10 +188,10 @@ public class BattleEndManager : MonoBehaviour
         StartCoroutine(ShowArmyGroup(_playerArmy[_currentArmyGroupIndex]));
     }
 
-    BattleEntity InstantiateEntity(ArmyEntity armyEntity)
+    BattleEntity InstantiateEntity(Creature armyEntity)
     {
         // for each of player army, I want to spawn one entity
-        ArmyEntity entityInstance = Instantiate(armyEntity);
+        Creature entityInstance = Instantiate(armyEntity);
         entityInstance.HeroInfluence(_gameManager.PlayerHero);
 
         Vector3 pos = Vector3.zero;

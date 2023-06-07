@@ -26,8 +26,8 @@ public class BattleEntityTestManager : MonoBehaviour
     int _currentOneVOneIndex = 0;
 
 
-    List<ArmyEntity> _defeatedEntities = new();
-    List<ArmyEntity> _lostToEntities = new();
+    List<Creature> _defeatedEntities = new();
+    List<Creature> _lostToEntities = new();
 
     void Start()
     {
@@ -63,9 +63,9 @@ public class BattleEntityTestManager : MonoBehaviour
         if (_currentGroupIndex > 0)
         {
             if (_battleManager.LoadedBattle.Won)
-                _defeatedEntities.Add(AllGroups[_currentGroupIndex - 1].ArmyEntity);
+                _defeatedEntities.Add(AllGroups[_currentGroupIndex - 1].Creature);
             else
-                _lostToEntities.Add(AllGroups[_currentGroupIndex - 1].ArmyEntity);
+                _lostToEntities.Add(AllGroups[_currentGroupIndex - 1].Creature);
             _battleManager.LoadedBattle.Won = false;
         }
 
@@ -73,12 +73,12 @@ public class BattleEntityTestManager : MonoBehaviour
         {
             Debug.Log("Test finished");
 
-            string s = $"{_oneArmy[0].ArmyEntity.name} defeated: ";
-            foreach (ArmyEntity entity in _defeatedEntities)
+            string s = $"{_oneArmy[0].Creature.name} defeated: ";
+            foreach (Creature entity in _defeatedEntities)
                 s += $"{entity.name}, ";
             s += "\n";
             s += $"Lost to: ";
-            foreach (ArmyEntity entity in _lostToEntities)
+            foreach (Creature entity in _lostToEntities)
                 s += $"{entity.name}, ";
             Debug.Log($"{s}");
             EndOfOneArmyVsAll();

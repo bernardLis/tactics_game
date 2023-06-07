@@ -13,7 +13,7 @@ public class ArmyGroupElement : ElementWithTooltip
 
     GameManager _gameManager;
 
-    public EntityIcon EntityIcon;
+    public CreatureIcon EntityIcon;
     Label _armyCountLabel;
 
     public bool IsLocked { get; private set; }
@@ -35,10 +35,10 @@ public class ArmyGroupElement : ElementWithTooltip
 
         AddToClassList(_ussMain);
 
-        EntityIcon = new(armyGroup.ArmyEntity);
+        EntityIcon = new(armyGroup.Creature);
         Add(EntityIcon);
 
-        _armyCountLabel = new($"{armyGroup.EntityCount}");
+        _armyCountLabel = new($"{armyGroup.NumberOfUnits}");
         _armyCountLabel.AddToClassList(_ussCount);
         Add(_armyCountLabel);
     }
@@ -51,7 +51,7 @@ public class ArmyGroupElement : ElementWithTooltip
         EntityIcon.LargeIcon();
     }
 
-    public void Evolve(ArmyEntity armyEntity)
+    public void Evolve(Creature armyEntity)
     {
         DOTween.Shake(() => EntityIcon.transform.position, x => EntityIcon.transform.position = x,
                 2f, 10f);
@@ -63,7 +63,7 @@ public class ArmyGroupElement : ElementWithTooltip
         DOTween.To(() => EntityIcon.Frame.style.backgroundColor.value,
                 x => EntityIcon.Frame.style.backgroundColor = x, _targetColor, 1f)
             .SetTarget(EntityIcon)
-            .OnComplete(() => EntityIcon.SwapEntity(armyEntity));
+            .OnComplete(() => EntityIcon.SwapCreature(armyEntity));
 
         DOTween.To(() => EntityIcon.Frame.style.backgroundColor.value,
                 x => EntityIcon.Frame.style.backgroundColor = x, _initialColor, 2f)

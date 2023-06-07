@@ -41,14 +41,14 @@ public class Castle : BaseScriptableObject
 
     public void AddArmy(ArmyGroup armyGroup)
     {
-        Debug.Log($"Castle {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
+        Debug.Log($"Castle {name} adds army {armyGroup.Creature} count {armyGroup.NumberOfUnits}");
 
         Army.Add(armyGroup);
     }
 
     public void RemoveArmy(ArmyGroup armyGroup)
     {
-        Debug.Log($"Castle {name} removes {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
+        Debug.Log($"Castle {name} removes {armyGroup.Creature} count {armyGroup.NumberOfUnits}");
 
         Army.Remove(armyGroup);
     }

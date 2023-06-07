@@ -11,7 +11,7 @@ public class ThunderExecutor : AbilityExecutor
 
         foreach (BattleEntity entity in _entitiesInArea)
         {
-            _damageDealt += Mathf.RoundToInt(entity.ArmyEntity.CalculateDamage(_selectedAbility));
+            _damageDealt += Mathf.RoundToInt(entity.Creature.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(_selectedAbility));
         }
         CreateBattleLog();

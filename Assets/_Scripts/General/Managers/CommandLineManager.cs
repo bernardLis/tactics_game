@@ -18,7 +18,7 @@ public class CommandLineManager : MonoBehaviour
 
     bool _isOpen;
 
-    [SerializeField] ArmyEntity _metalon;
+    [SerializeField] Creature _metalon;
 
     void Awake()
     {

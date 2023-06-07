@@ -39,9 +39,9 @@ public class PracticeDummyEntity : BattleEntityMelee
             if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
             {
                 if (entity == this) continue;
-                StartCoroutine(entity.GetHit(this, (int)this.ArmyEntity.Power * 2));
+                StartCoroutine(entity.GetHit(this, (int)this.Creature.Power * 2));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-                GameObject hitInstance = Instantiate(ArmyEntity.HitPrefab, _opponent.Collider.bounds.center, q);
+                GameObject hitInstance = Instantiate(Creature.HitPrefab, _opponent.Collider.bounds.center, q);
                 _hitInstances.Add(hitInstance);
             }
         }

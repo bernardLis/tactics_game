@@ -60,13 +60,13 @@ public class Hero : BaseScriptableObject
 
     public void AddNewArmy(ArmyGroup armyGroup)
     {
-        Debug.Log($"Hero {name} adds army {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
+        Debug.Log($"Hero {name} adds army {armyGroup.Creature} count {armyGroup.NumberOfUnits}");
         // join armies of the same type
         foreach (ArmyGroup ag in Army)
         {
-            if (ag.ArmyEntity == armyGroup.ArmyEntity)
+            if (ag.Creature == armyGroup.Creature)
             {
-                ag.ChangeCount(armyGroup.EntityCount);
+                ag.ChangeCount(armyGroup.NumberOfUnits);
                 return;
             }
         }
@@ -78,18 +78,18 @@ public class Hero : BaseScriptableObject
     public void TryJoiningArmies()
     {
         List<ArmyGroup> toRemove = new();
-        Dictionary<ArmyEntity, int> armyDict = new();
+        Dictionary<Creature, int> armyDict = new();
         for (int i = 0; i < Army.Count; i++)
         {
-            if (armyDict.ContainsKey(Army[i].ArmyEntity))
+            if (armyDict.ContainsKey(Army[i].Creature))
             {
-                int index = armyDict[Army[i].ArmyEntity];
+                int index = armyDict[Army[i].Creature];
                 Army[index].JoinArmy(Army[i]);
                 toRemove.Add(Army[i]);
                 continue;
             }
             else
-                armyDict.Add(Army[i].ArmyEntity, i);
+                armyDict.Add(Army[i].Creature, i);
         }
 
         foreach (ArmyGroup ag in toRemove)
@@ -98,7 +98,7 @@ public class Hero : BaseScriptableObject
 
     public void RemoveArmy(ArmyGroup armyGroup)
     {
-        Debug.Log($"Hero {name} removes {armyGroup.ArmyEntity} count {armyGroup.EntityCount}");
+        Debug.Log($"Hero {name} removes {armyGroup.Creature} count {armyGroup.NumberOfUnits}");
 
         Army.Remove(armyGroup);
     }
@@ -107,7 +107,7 @@ public class Hero : BaseScriptableObject
     {
         int total = 0;
         foreach (ArmyGroup ag in Army)
-            total += ag.EntityCount;
+            total += ag.NumberOfUnits;
         return total;
     }
 
@@ -404,13 +404,13 @@ public class Hero : BaseScriptableObject
         for (int i = 0; i < armyCount; i++)
         {
             Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
-            Army[i].ArmyEntity = _gameManager.HeroDatabase.GetRandomArmyEntity();
+            Army[i].Creature = _gameManager.HeroDatabase.GetRandomArmyEntity();
 
             // TODO: needs balance
             int count = Mathf.RoundToInt(Random.Range(1, 10) * 0.2f * level);
             count = Mathf.Clamp(count, 1, 100);
 
-            Army[i].EntityCount = count;
+            Army[i].NumberOfUnits = count;
         }
 
         UpdateRank();

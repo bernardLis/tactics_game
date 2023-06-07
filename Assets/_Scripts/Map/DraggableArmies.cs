@@ -141,7 +141,7 @@ public class DraggableArmies : Singleton<DraggableArmies>
         if (armyElement.parent is ArmySlotElement)
             armySlotElement = (ArmySlotElement)armyElement.parent;
 
-        if (_isShiftDown && armyElement.ArmyGroup.EntityCount > 1)
+        if (_isShiftDown && armyElement.ArmyGroup.NumberOfUnits > 1)
         {
             SplitArmy(evt.position, armySlotElement, armyElement);
             return;
@@ -153,13 +153,13 @@ public class DraggableArmies : Singleton<DraggableArmies>
 
     void SplitArmy(Vector2 position, ArmySlotElement originalSlot, ArmyGroupElement originalElement)
     {
-        int half = Mathf.CeilToInt(originalElement.ArmyGroup.EntityCount * 0.5f);
+        int half = Mathf.CeilToInt(originalElement.ArmyGroup.NumberOfUnits * 0.5f);
         originalElement.ArmyGroup.ChangeCount(-half);
 
         ArmyGroup newArmyGroup = ScriptableObject.CreateInstance<ArmyGroup>();
 
-        newArmyGroup.ArmyEntity = originalElement.ArmyGroup.ArmyEntity;
-        newArmyGroup.EntityCount = half;
+        newArmyGroup.Creature = originalElement.ArmyGroup.Creature;
+        newArmyGroup.NumberOfUnits = half;
         ArmyGroupElement newArmyElement = new ArmyGroupElement(newArmyGroup);
 
         StartArmyDrag(position, originalSlot, newArmyElement);
@@ -233,7 +233,7 @@ public class DraggableArmies : Singleton<DraggableArmies>
            (x.worldBound.position, _dragDropContainer.worldBound.position)).First();
 
         if (_newSlot.ArmyElement != null &&
-            _newSlot.ArmyElement.ArmyGroup.ArmyEntity != _draggedArmy.ArmyGroup.ArmyEntity)
+            _newSlot.ArmyElement.ArmyGroup.Creature != _draggedArmy.ArmyGroup.Creature)
         {
             _originalSlot.AddArmy(_newSlot.ArmyElement);
             _newSlot.RemoveArmy();

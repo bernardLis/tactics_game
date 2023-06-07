@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: snakelet-8f39-4b6c-a851-72019b4f126c
   Name: Snakeletinos
-  ArmyEntity: {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
-  EntityCount: 1
+  Creature: {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
+  NumberOfUnits: 0
   ListPosition: 6
   OldKillCount: 0
   TotalKillCount: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   TotalDamageDealt: 0
   OldDamageTaken: 0
   TotalDamageTaken: 0
-  PreviousEntity: {fileID: 0}
+  PreviousCreature: {fileID: 0}

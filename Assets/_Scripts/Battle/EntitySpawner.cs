@@ -17,11 +17,11 @@ public class EntitySpawner : MonoBehaviour
 
         for (int i = 0; i < _numberOfEntities; i++)
         {
-            ArmyEntity entity = ArmiesToSpawn[Random.Range(0, ArmiesToSpawn.Count)].ArmyEntity;
+            Creature entity = ArmiesToSpawn[Random.Range(0, ArmiesToSpawn.Count)].Creature;
             SpawnEntity(entity);
         }
     }
-    void SpawnEntity(ArmyEntity entity)
+    void SpawnEntity(Creature entity)
     {
         Vector3 pos = transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
         GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
@@ -37,7 +37,7 @@ public class EntitySpawner : MonoBehaviour
         StartCoroutine(CleanBody(be));
         if (!_respawnToKeepNumberOfEntities) return;
 
-        ArmyEntity entity = ArmiesToSpawn[Random.Range(0, ArmiesToSpawn.Count)].ArmyEntity;
+        Creature entity = ArmiesToSpawn[Random.Range(0, ArmiesToSpawn.Count)].Creature;
         SpawnEntity(entity);
     }
 

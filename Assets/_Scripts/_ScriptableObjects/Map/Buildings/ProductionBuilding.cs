@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Map/Production Building")]
 public class ProductionBuilding : Building
 {
-    public ArmyEntity ArmyEntity;
+    public Creature ArmyEntity;
     public int PricePerEntity;
 
     public int PerWeekProductionCount;
@@ -47,8 +47,8 @@ public class ProductionBuilding : Building
         OnAvailableToBuyCountChanged?.Invoke(AvailableToBuyCount);
 
         ArmyGroup ag = ScriptableObject.CreateInstance<ArmyGroup>();
-        ag.ArmyEntity = ArmyEntity;
-        ag.EntityCount = count;
+        ag.Creature = ArmyEntity;
+        ag.NumberOfUnits = count;
 
         OnArmyBought?.Invoke(ag);
     }
@@ -56,8 +56,8 @@ public class ProductionBuilding : Building
     public ArmyGroup GetAvailableArmyGroup()
     {
         ArmyGroup ag = ScriptableObject.CreateInstance<ArmyGroup>();
-        ag.ArmyEntity = ArmyEntity;
-        ag.EntityCount = AvailableToBuyCount;
+        ag.Creature = ArmyEntity;
+        ag.NumberOfUnits = AvailableToBuyCount;
         return ag;
     }
 

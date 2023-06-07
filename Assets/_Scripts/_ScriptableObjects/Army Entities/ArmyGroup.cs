@@ -7,8 +7,8 @@ using UnityEngine;
 public class ArmyGroup : BaseScriptableObject
 {
     public string Name;
-    public ArmyEntity ArmyEntity;
-    public int EntityCount;
+    public Creature Creature;
+    public int NumberOfUnits;
     public int ListPosition; // used for save/load of castle and hero army
 
     [HideInInspector] public int OldKillCount;
@@ -20,22 +20,22 @@ public class ArmyGroup : BaseScriptableObject
     [HideInInspector] public int OldDamageTaken;
     [HideInInspector] public int TotalDamageTaken;
 
-    [HideInInspector] public ArmyEntity PreviousEntity;
+    [HideInInspector] public Creature PreviousCreature;
 
     public event Action<ArmyGroup> OnEvolved;
 
     public event Action<int, int> OnCountChanged;
     public void ChangeCount(int change)
     {
-        EntityCount += change;
-        OnCountChanged?.Invoke(ListPosition, EntityCount);
+        NumberOfUnits += change;
+        OnCountChanged?.Invoke(ListPosition, NumberOfUnits);
     }
 
     public void JoinArmy(ArmyGroup armyGroup)
     {
-        if (armyGroup.ArmyEntity != ArmyEntity) return;
+        if (armyGroup.Creature != Creature) return;
 
-        ChangeCount(armyGroup.EntityCount);
+        ChangeCount(armyGroup.NumberOfUnits);
         TotalDamageDealt += armyGroup.TotalDamageDealt;
         TotalDamageTaken += armyGroup.TotalDamageTaken;
         TotalKillCount += armyGroup.TotalKillCount;
@@ -65,20 +65,20 @@ public class ArmyGroup : BaseScriptableObject
 
     public int NumberOfKillsToEvolve()
     {
-        return ArmyEntity.KillsToUpgrade * EntityCount;
+        return Creature.KillsToUpgrade * NumberOfUnits;
     }
 
     public bool ShouldEvolve()
     {
-        if (ArmyEntity.UpgradedEntity == null) return false;
+        if (Creature.UpgradedCreature == null) return false;
 
         return TotalKillCount >= NumberOfKillsToEvolve();
     }
 
     public void Evolve()
     {
-        PreviousEntity = ArmyEntity;
-        ArmyEntity = ArmyEntity.UpgradedEntity;
+        PreviousCreature = Creature;
+        Creature = Creature.UpgradedCreature;
         OnEvolved?.Invoke(this);
     }
 
@@ -86,8 +86,8 @@ public class ArmyGroup : BaseScriptableObject
     {
         ArmyGroupData data = new();
         data.Name = Name;
-        data.EntityId = ArmyEntity.Id;
-        data.EntityCount = EntityCount;
+        data.CreatureId = Creature.Id;
+        data.NumberOfUnits = NumberOfUnits;
         data.ListPosition = ListPosition;
 
         data.KillCount = TotalKillCount;
@@ -99,9 +99,9 @@ public class ArmyGroup : BaseScriptableObject
 
     public void LoadFromData(ArmyGroupData data)
     {
-        ArmyEntity = GameManager.Instance.HeroDatabase.GetArmyEntityById(data.EntityId);
+        Creature = GameManager.Instance.HeroDatabase.GetCreatureById(data.CreatureId);
         Name = data.Name;
-        EntityCount = data.EntityCount;
+        NumberOfUnits = data.NumberOfUnits;
         ListPosition = data.ListPosition;
 
         TotalKillCount = data.KillCount;
@@ -114,14 +114,12 @@ public class ArmyGroup : BaseScriptableObject
 public struct ArmyGroupData
 {
     public string Name;
-    public string EntityId;
-    public int EntityCount;
+    public string CreatureId;
+    public int NumberOfUnits;
     public int ListPosition;
 
     public int KillCount;
     public int DamageDealt;
     public int DamageTaken;
-
-
 }
 

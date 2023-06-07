@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class ArmyEvolutionElement : VisualElement
+public class CreatureEvolutionElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary-black";
     const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
@@ -39,7 +39,7 @@ public class ArmyEvolutionElement : VisualElement
     IntVariable _kills;
     IntVariable _killsToEvolve;
 
-    public ArmyEvolutionElement(ArmyGroup armyGroup)
+    public CreatureEvolutionElement(ArmyGroup armyGroup)
     {
         _gameManager = GameManager.Instance;
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -54,7 +54,7 @@ public class ArmyEvolutionElement : VisualElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        _name = new(armyGroup.ArmyEntity.Name);
+        _name = new(armyGroup.Creature.Name);
         _name.AddToClassList(_ussName);
         Add(_name);
 
@@ -62,15 +62,15 @@ public class ArmyEvolutionElement : VisualElement
         _armyGroupElement.LargeIcon();
         Add(_armyGroupElement);
 
-        _elementalElement = new ElementalElement(ArmyGroup.ArmyEntity.Element);
+        _elementalElement = new ElementalElement(ArmyGroup.Creature.Element);
         Add(_elementalElement);
 
-        _healthLabel = new Label($"Health: {armyGroup.ArmyEntity.Health}");
-        _power = new Label($"Power: {armyGroup.ArmyEntity.Power}");
-        _armor = new Label($"Armor: {armyGroup.ArmyEntity.Armor}");
-        _attackRange = new Label($"Attack Range: {armyGroup.ArmyEntity.AttackRange}");
-        _attackCooldown = new Label($"Attack Cooldown: {armyGroup.ArmyEntity.AttackCooldown}");
-        _speed = new Label($"Speed: {armyGroup.ArmyEntity.Speed}");
+        _healthLabel = new Label($"Health: {armyGroup.Creature.Health}");
+        _power = new Label($"Power: {armyGroup.Creature.Power}");
+        _armor = new Label($"Armor: {armyGroup.Creature.Armor}");
+        _attackRange = new Label($"Attack Range: {armyGroup.Creature.AttackRange}");
+        _attackCooldown = new Label($"Attack Cooldown: {armyGroup.Creature.AttackCooldown}");
+        _speed = new Label($"Speed: {armyGroup.Creature.Speed}");
 
         Add(_healthLabel);
         Add(_power);
@@ -82,7 +82,7 @@ public class ArmyEvolutionElement : VisualElement
         _abilityContainer = new();
         _abilityContainer.AddToClassList(_ussAbilityContainer);
         Add(_abilityContainer);
-        _abilityContainer.Add(new EntityAbilityElement(armyGroup.ArmyEntity.EntityAbility));
+        _abilityContainer.Add(new CreatureAbilityElement(armyGroup.Creature.CreatureAbility));
 
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonHorizontalSpacer);
@@ -144,22 +144,22 @@ public class ArmyEvolutionElement : VisualElement
         _kills.ApplyChange(killChange);
     }
 
-    public void Evolve(ArmyEntity entity)
+    public void Evolve(Creature entity)
     {
         _name.text += $" -> {entity.Name}";
 
         _armyGroupElement.Evolve(entity);
 
-        _healthLabel.text += $" -> {ArmyGroup.ArmyEntity.Health}";
-        _power.text += $" -> {ArmyGroup.ArmyEntity.Power}";
-        _armor.text += $" -> {ArmyGroup.ArmyEntity.Armor}";
-        _attackRange.text += $" -> {ArmyGroup.ArmyEntity.AttackRange}";
-        _attackCooldown.text += $" -> {ArmyGroup.ArmyEntity.AttackCooldown}";
-        _speed.text += $" -> {ArmyGroup.ArmyEntity.Speed}";
+        _healthLabel.text += $" -> {ArmyGroup.Creature.Health}";
+        _power.text += $" -> {ArmyGroup.Creature.Power}";
+        _armor.text += $" -> {ArmyGroup.Creature.Armor}";
+        _attackRange.text += $" -> {ArmyGroup.Creature.AttackRange}";
+        _attackCooldown.text += $" -> {ArmyGroup.Creature.AttackCooldown}";
+        _speed.text += $" -> {ArmyGroup.Creature.Speed}";
 
         _abilityContainer.Add(new Label(" -> "));
-        if (entity.EntityAbility != null)
-            _abilityContainer.Add(new EntityAbilityElement(entity.EntityAbility));
+        if (entity.CreatureAbility != null)
+            _abilityContainer.Add(new CreatureAbilityElement(entity.CreatureAbility));
 
     }
 
