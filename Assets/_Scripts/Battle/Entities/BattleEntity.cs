@@ -261,7 +261,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {ability.name}");
 
-        yield return BaseGetHit(Creature.CalculateDamage(ability), ability.Element.Color);
+        BaseGetHit(Creature.CalculateDamage(ability), ability.Element.Color);
 
         if (CurrentHealth <= 0)
         {
@@ -284,7 +284,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         attacker.DamageDealt += damage;
         attacker.OnDamageDealt?.Invoke(damage);
 
-        yield return BaseGetHit(damage, attacker.Creature.Element.Color);
+        BaseGetHit(damage, attacker.Creature.Element.Color);
+        EntityLog.Add($"{Time.time}: Current health is {CurrentHealth}");
+
         if (CurrentHealth <= 0)
         {
             attacker.IncreaseKillCount();
@@ -295,7 +297,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    public IEnumerator BaseGetHit(int dmg, Color color)
+    void BaseGetHit(int dmg, Color color)
     {
         StopRunEntityCoroutine();
 
@@ -313,17 +315,14 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         DisplayFloatingText(dmg.ToString(), color);
 
         Animator.SetTrigger("Take Damage");
-        yield return null;
-        //  yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
     }
 
     public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
     {
-        EntityLog.Add($"{Time.time}: Entity dies.");
-        StopAllCoroutines();
-
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
+
+        EntityLog.Add($"{Time.time}: Entity dies.");
 
         OnDeath?.Invoke(this, attacker, ability);
 
@@ -331,6 +330,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         TurnHighlightOff();
         DOTween.KillAll(transform);
+        //StopAllCoroutines(); <- this breaks bomb exploding
     }
 
     public IEnumerator GetPoisoned(BattleEntity attacker)
