@@ -11,7 +11,6 @@ public class BattleStatsContainer : VisualElement
 {
     const string _ussCommonMenuButton = "common__menu-button";
 
-
     const string _ussClassName = "battle-stats-container__";
     const string _ussMain = _ussClassName + "main";
     const string _ussArmyGroupContainer = _ussClassName + "army-group-container";

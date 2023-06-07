@@ -26,11 +26,6 @@ public class BattleEntityRanged : BattleEntity
 
         Vector3 point = ClosesPositionWithClearLOS();
 
-        GameObject temp = new();
-        temp.transform.parent = transform;
-        temp.transform.position = point;
-        temp.name = BattleId;
-
         // path to that point
         _agent.avoidancePriority = Random.Range(1, 100);
         _agent.stoppingDistance = 0;

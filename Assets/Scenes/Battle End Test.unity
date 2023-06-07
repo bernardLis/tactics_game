@@ -1422,6 +1422,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 6647843633748851186, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _introConversation
+      value: 
+      objectReference: {fileID: 11400000, guid: a024f8eb5d5fa7d4282f80a0d3a22d48, type: 2}
     m_RemovedComponents:
     - {fileID: 2460091108715632158, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
     - {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
@@ -1519,4 +1523,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _army:
   - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
-  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}

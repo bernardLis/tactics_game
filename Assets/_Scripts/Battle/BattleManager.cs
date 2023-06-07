@@ -236,8 +236,6 @@ public class BattleManager : Singleton<BattleManager>
                 "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
         popUp.HideCancelButton();
         yield return null;
-
-
     }
 
     IEnumerator BattleWon()
@@ -271,7 +269,6 @@ public class BattleManager : Singleton<BattleManager>
         _battleFinalized = true;
 
         yield return new WaitForSeconds(3f);
-        Debug.Break();
 
         ClearAllEntities();
 

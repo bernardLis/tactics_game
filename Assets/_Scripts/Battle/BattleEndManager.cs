@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,9 @@ public class BattleEndManager : MonoBehaviour
     BattleEntity _currentEntity;
     BattleEntity _evolvedEntity;
 
+    public BattleResult BattleResult { get; private set; }
+
+    public event Action OnBattleResultShown;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -49,13 +53,9 @@ public class BattleEndManager : MonoBehaviour
 
     void BeginEndBattleShow()
     {
-        // ShowUI();
-
-        // HERE: testing battle end UI
         _playerArmy = _gameManager.PlayerHero.Army;
         StartCoroutine(RunShow());
         StartCoroutine(RotateCameraAroundEntity());
-
     }
 
     IEnumerator RunShow()
@@ -225,7 +225,8 @@ public class BattleEndManager : MonoBehaviour
         StopAllCoroutines();
         if (_gameManager.PlayerHero != null && _battleManager.LoadedBattle.Won)
         {
-            BattleResult r = new(_root);
+            BattleResult = new(_root);
+            OnBattleResultShown?.Invoke();
         }
     }
 }

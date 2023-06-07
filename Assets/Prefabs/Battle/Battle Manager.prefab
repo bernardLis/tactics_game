@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3686241382488041892}
   - component: {fileID: 3849849297139869466}
   - component: {fileID: 3855565697554977837}
+  - component: {fileID: 6647843633748851186}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -184,3 +185,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _battleCanvas: {fileID: 0}
   _dissolveShader: {fileID: -6465566751694194690, guid: ee7883bf85493b444ad650781d351876, type: 3}
+--- !u!114 &6647843633748851186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91caef7e4f809074088551b773ae93ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _introConversation: {fileID: 0}
+  _banker: {fileID: 0}
+  _snekSound: {fileID: 0}
+  _snekSprites: []

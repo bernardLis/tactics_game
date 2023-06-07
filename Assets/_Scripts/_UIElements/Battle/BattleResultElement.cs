@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +34,11 @@ public class BattleResult : FullScreenElement
 
     GameObject _starEffect;
 
+    public event Action OnExpContainerClosed;
+    public event Action OnStatsContainerClosed;
+    public event Action OnRewardContainerClosed;
+    public event Action OnBattleChoiceContainerClosed;
+
     public BattleResult(VisualElement root)
     {
         _gameManager = GameManager.Instance;
@@ -42,7 +48,6 @@ public class BattleResult : FullScreenElement
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        // TODO: different styles won/lost
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleResultStyles);
         if (ss != null)
             styleSheets.Add(ss);
@@ -54,25 +59,14 @@ public class BattleResult : FullScreenElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        if (_battle.Won)
-            _audioManager.PlaySFX("QuestWon", Vector3.one);
-        else
-            _audioManager.PlaySFX("QuestLost", Vector3.one);
+        _audioManager.PlaySFX("QuestWon", Vector3.one);
 
         // making sure that vfx is underneath the content but visible
         Add(_root.Q<VisualElement>("vfx"));
         _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
 
-        VisualElement resourceContainer = new();
-        resourceContainer.AddToClassList(_ussResourceContainer);
-        GoldElement g = new(_gameManager.Gold);
-        _gameManager.OnGoldChanged += g.ChangeAmount;
-        SpiceElement s = new(_gameManager.Spice);
-        _gameManager.OnSpiceChanged += s.ChangeAmount;
-        resourceContainer.Add(g);
-        resourceContainer.Add(s);
-        Add(resourceContainer);
+        AddResourceContainer();
 
         _content = new();
         Add(_content);
@@ -101,8 +95,22 @@ public class BattleResult : FullScreenElement
         _root.Add(_root.Q<VisualElement>("vfx"));
     }
 
+    void AddResourceContainer()
+    {
+        VisualElement resourceContainer = new();
+        resourceContainer.AddToClassList(_ussResourceContainer);
+        GoldElement g = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += g.ChangeAmount;
+        SpiceElement s = new(_gameManager.Spice);
+        _gameManager.OnSpiceChanged += s.ChangeAmount;
+        resourceContainer.Add(g);
+        resourceContainer.Add(s);
+        Add(resourceContainer);
+    }
+
     void ShowStatsContainer()
     {
+        OnExpContainerClosed?.Invoke();
         _rewardExpContainer.MoveAway();
         _content.Remove(_continueButton);
 
@@ -116,28 +124,12 @@ public class BattleResult : FullScreenElement
 
         }).StartingIn(1000);
     }
-    /*
-        void ShowRewardExp()
-        {
-            _statsContainer.MoveAway();
-            _content.Remove(_continueButton);
 
-            schedule.Execute(() =>
-            {
-                _rewardExpContainer = new();
-                _content.Add(_rewardExpContainer);
-
-                _continueButton = new("Continue", _ussContinueButton, ShowRewards);
-                _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
-            }).StartingIn(1000);
-        }
-    */
     void ShowRewards()
     {
+        OnStatsContainerClosed?.Invoke();
         _statsContainer.MoveAway();
-        // _content.Clear();
         _content.Remove(_continueButton);
-        //    _content.Add(new HeroCardMini(_gameManager.PlayerHero));
         schedule.Execute(() =>
         {
 
@@ -152,6 +144,7 @@ public class BattleResult : FullScreenElement
 
     void ShowBattleChoices()
     {
+        OnRewardContainerClosed?.Invoke();
         _rewardContainer.MoveAway();
         _content.Remove(_continueButton);
 
@@ -165,5 +158,14 @@ public class BattleResult : FullScreenElement
         }).StartingIn(1000);
     }
 
-    void LoadBattle() { _gameManager.LoadScene(Scenes.Battle); }
+    void LoadBattle()
+    {
+        OnBattleChoiceContainerClosed?.Invoke();
+        _gameManager.LoadScene(Scenes.Battle);
+    }
+
+    public void HideContent()
+    {
+        _content.style.display = DisplayStyle.None;
+    }
 }

@@ -13,66 +13,60 @@ public class CutsceneManager : MonoBehaviour
 
     GameManager _gameManager;
     AudioManager _audioManager;
-    Camera _cam;
+    BattleManager _battleManager;
+    BattleEndManager _battleEndManager;
 
     [SerializeField] Conversation _introConversation;
-    [SerializeField] Hero _banker;
-
-    [SerializeField] Sound _snekSound;
-    [SerializeField] Sprite[] _snekSprites;
-    int snekIndex = 0;
 
     HeroCardMini _currentSpeaker;
     ConversationLine _currentLine;
-    bool _zoomIn;
     List<HeroCardMini> _cardsInConversation = new();
 
     VisualElement _root;
-    VisualElement _reportContainer;
-    VisualElement _bg;
     VisualElement _lineBox;
     Label _lineLabel;
 
-    bool _isIntroCutsceneBeingPlayed;
-
     string _shakyShakyTweenId = "ShakyShakyTweenId";
+
+    VisualElement _cutsceneContainer;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _gameManager.OnDayPassed += OnDayPassed;
         _audioManager = AudioManager.Instance;
-
-        _cam = Camera.main;
+        _battleManager = GetComponent<BattleManager>();
+        _battleEndManager = GetComponent<BattleEndManager>();
 
         _root = GetComponent<UIDocument>().rootVisualElement;
-        _reportContainer = _root.Q<VisualElement>("reportContainer");
+
+        _battleEndManager.OnBattleResultShown += OnBattleResultShown;
+
+
+    }
+
+    void OnBattleResultShown()
+    {
+        _battleEndManager.BattleResult.HideContent();
+
+        _cutsceneContainer = new();
+        _cutsceneContainer.style.position = Position.Absolute;
+        _cutsceneContainer.style.width = Length.Percent(100);
+        _cutsceneContainer.style.height = Length.Percent(100);
+
+        _battleEndManager.BattleResult.Add(_cutsceneContainer);
+
 
         _lineBox = new();
         _lineBox.AddToClassList(_ussLineBox);
         _lineBox.style.visibility = Visibility.Hidden;
-        _reportContainer.Add(_lineBox);
+        _cutsceneContainer.Add(_lineBox); // HERE: not to root, either to battle result or on top of battle result 
 
         _lineLabel = new();
         _lineLabel.AddToClassList(_ussLineLabel);
         _lineBox.Add(_lineLabel);
 
         _introConversation.Initialize();
-
-        OnDeskInitialized(); // in webgl the scripts are executed in a weird order, so desk is initialized before i subscribe to it
-    }
-
-    void OnDeskInitialized()
-    {
-        if (_gameManager.WasIntroCutscenePlayed || _isIntroCutsceneBeingPlayed)
-            return;
-        // StartCoroutine(PlayIntroCutscene());
-    }
-
-    void OnDayPassed(int day)
-    {
-        if (day == 5)
-            Debug.Log($"day 5 passed in cutscene manager");
+        PlayConversation(_introConversation);
     }
 
     IEnumerator PlayConversation(Conversation conversation)
@@ -153,27 +147,6 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator TypeText(ConversationLine line)
     {
-        // HERE: joke to remove
-        if (snekIndex == 1)
-            _audioManager.PlaySFX(_snekSound, Vector3.one);
-        if (snekIndex >= 1)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                VisualElement container = new();
-                container.style.width = 100;
-                container.style.height = 100;
-
-                AnimationElement el = new(_snekSprites, 300, true);
-                el.PlayAnimation();
-                container.Add(el);
-                container.style.position = Position.Absolute;
-                container.style.left = Random.Range(0, Screen.width);
-                container.style.top = Random.Range(0, Screen.height);
-                _bg.Add(container);
-            }
-        }
-
         _lineBox.style.visibility = Visibility.Visible;
         _lineLabel.text = "";
 
@@ -195,6 +168,5 @@ public class CutsceneManager : MonoBehaviour
         DOTween.To(x => _currentSpeaker.transform.scale = x * Vector3.one, _currentSpeaker.transform.scale.x, 1, 0.5f);
         DOTween.Kill(_shakyShakyTweenId);
         yield return new WaitForSeconds(0.5f);
-        snekIndex++;
     }
 }

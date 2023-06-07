@@ -41,7 +41,6 @@ public class BattleEndTestManager : MonoBehaviour
         _battleManager.Initialize(_hero, opp, _hero.Army, opp.Army);
 
         Invoke("WinBattle", 1f);
-
     }
 
     void WinBattle()
