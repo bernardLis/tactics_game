@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -30,6 +32,8 @@ public class CutsceneManager : MonoBehaviour
 
     VisualElement _cutsceneContainer;
 
+    public event Action<Cutscene> OnCutsceneFinished;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -42,11 +46,17 @@ public class CutsceneManager : MonoBehaviour
         _battleManager = GetComponent<BattleManager>();
         _battleEndManager = GetComponent<BattleEndManager>();
 
-        _battleEndManager.OnBattleResultShown += TestConversation;
+        _battleEndManager.OnBattleResultShown += () =>
+        {
+            if (_gameManager.BattleNumber != 2) return;
+            _battleEndManager.BattleResult.OnRewardContainerClosed += RivalIntro;
+        };
     }
 
-    void TestConversation()
+    void RivalIntro()
     {
+        // only before the third battle
+
         _battleEndManager.BattleResult.HideContent();
 
         _cutsceneContainer = new();
@@ -67,8 +77,18 @@ public class CutsceneManager : MonoBehaviour
 
         _cardsInConversation.Clear();
         _introConversation.Initialize();
+
+        Battle battle = ScriptableObject.CreateInstance<Battle>();
+        battle.Opponent = _gameManager.RivalHero;
+        _gameManager.SelectedBattle = battle;
+
         // HERE: never gets past this line
         StartCoroutine(PlayCutscene(_introConversation));
+        OnCutsceneFinished += (c) =>
+        {
+            _gameManager.LoadScene(Scenes.Battle);
+        };
+
     }
 
     IEnumerator PlayCutscene(Cutscene cutscene)
@@ -85,6 +105,7 @@ public class CutsceneManager : MonoBehaviour
         }
 
         _lineBox.style.visibility = Visibility.Hidden;
+        OnCutsceneFinished?.Invoke(cutscene);
     }
 
     IEnumerator InitializeSpeaker(CutsceneLine line)
