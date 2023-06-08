@@ -36,6 +36,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public bool IsTimerOn { get; private set; }
 
     public Hero PlayerHero;
+    public Hero OverseerHero;
+    public Hero RivalHero;
 
     public Map Map;
     public Battle SelectedBattle; // HERE: battle testing { get; private set; }
@@ -151,6 +153,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Spice = 500;
 
         PlayerHero = null;
+
+        OverseerHero = ScriptableObject.CreateInstance<Hero>();
+        OverseerHero.CreateRandom(99);
+
+        RivalHero = ScriptableObject.CreateInstance<Hero>();
+        RivalHero.CreateRandom(3);
 
         // HERE: battle testing
         Battle b = ScriptableObject.CreateInstance<Battle>();

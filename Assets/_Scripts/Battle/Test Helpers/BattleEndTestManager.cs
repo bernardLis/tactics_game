@@ -25,8 +25,13 @@ public class BattleEndTestManager : MonoBehaviour
         _hero.CreateRandom(1);
         _hero.Abilities = new();
         _hero.Army = armyInstance;
-
+        // HERE: cutscene testing
         GameManager.Instance.PlayerHero = _hero;
+        GameManager.Instance.OverseerHero = ScriptableObject.CreateInstance<Hero>();
+        GameManager.Instance.OverseerHero.CreateRandom(99);
+
+        GameManager.Instance.RivalHero = ScriptableObject.CreateInstance<Hero>();
+        GameManager.Instance.RivalHero.CreateRandom(3);
 
         foreach (Ability a in GameManager.Instance.HeroDatabase.GetAllAbilities())
         {

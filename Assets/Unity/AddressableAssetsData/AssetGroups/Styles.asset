@@ -198,72 +198,77 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cfbdbbe13acd1e0478727ccd5ed27b2b
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleEntityElementStyles.uss
+    m_Address: BattleEntityElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 29783fdbff911524d91b668919352943
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/RewardCardStyles.uss
+    m_Address: RewardCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72889354f2b26c64ebdd8a7c9ae3b80b
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleCardStyles.uss
+    m_Address: BattleCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0f0864f07de5a724691f003342cc8aa1
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/RewardCardsContainerStyles.uss
+    m_Address: RewardCardsContainerStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 91b00a466ae631244bd0b2a23fdc1e74
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/RewardExpContainerStyles.uss
+    m_Address: RewardExpContainerStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 159d96b3129cc5c40bd59b4c9cfd5f30
-    m_Address: Assets/_Scripts/_UIElements/Styles/Map/EntityIconStyles.uss
+    m_Address: EntityIconStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a113e1f55f0831d40a7c75a2297662aa
-    m_Address: Assets/_Scripts/_UIElements/Styles/Army Entity/EntityElementStyles.uss
+    m_Address: EntityElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4b3a7778407648c41ad4f6cbd288265d
-    m_Address: Assets/_Scripts/_UIElements/Styles/ElementChoiceStyles.uss
+    m_Address: ElementChoiceStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2011cd210d470a14298a10c23ccd0898
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleEntityInfoStyles.uss
+    m_Address: BattleEntityInfoStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f383d0eb8d8fda84386829bc84276d5e
-    m_Address: Assets/_Scripts/_UIElements/Styles/Army Entity/ArmyEvolutionElementStyles.uss
+    m_Address: ArmyEvolutionElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65c94c2530362d548a758f61493f3e42
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleStatsContainer.uss
+    m_Address: BattleStatsContainer
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 126b03a0d8c2e314186e5ef37912342e
-    m_Address: Assets/_Scripts/_UIElements/Styles/Army Entity/ArmyGroupTooltipStyles.uss
+    m_Address: ArmyGroupTooltipStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a3c548c6ec4a61e4c84e77f45df08bd9
-    m_Address: Assets/_Scripts/_UIElements/Styles/Army Entity/EntityAbilityStyles.uss
+    m_Address: EntityAbilityStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c446088f6798ec240a9e067ccd097b3b
-    m_Address: Assets/_Scripts/_UIElements/Styles/Army Entity/EntityAbilityTooltipStyles.uss
+    m_Address: EntityAbilityTooltipStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d73a8a21573b1ed44bce80194d7bda1d
+    m_Address: CutsceneStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

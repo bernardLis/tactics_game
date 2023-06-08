@@ -14,10 +14,11 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityIconStyles.uss?fileID=7433441132597879392&amp;guid=73a23192c66321b49874edb0a26a5d1b&amp;type=3#AbilityIconStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityButtonStyles.uss?fileID=7433441132597879392&amp;guid=1dcb0d843bcae2d4cb844a89c93bd82d&amp;type=3#AbilityButtonStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/ResourceBarStyles.uss?fileID=7433441132597879392&amp;guid=fd3c461a5e9409b40a91dec9c08cf28a&amp;type=3#ResourceBarStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Army%20Entity/EntityIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#EntityIconStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Army%20Entity/CreatureIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#CreatureIconStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Battle.uss?fileID=7433441132597879392&amp;guid=1b4751c5a5ad48049928f5760ebc628b&amp;type=3#Battle" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroCardExpStyles.uss?fileID=7433441132597879392&amp;guid=4496443c1c70fcf40a4dd27ff7628657&amp;type=3#HeroCardExpStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleStatsContainer.uss?fileID=7433441132597879392&amp;guid=65c94c2530362d548a758f61493f3e42&amp;type=3#BattleStatsContainer" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CutsceneStyles.uss?fileID=7433441132597879392&amp;guid=d73a8a21573b1ed44bce80194d7bda1d&amp;type=3#CutsceneStyles" />
     <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="fpsLabel" style="position: absolute; -unity-font-style: bold; color: rgb(8, 245, 13);" />
     <ui:VisualElement name="topPanel" class="common__text-primary" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-items: center; justify-content: center; align-self: center; top: 20px;">
         <ui:VisualElement name="abilityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; justify-content: center; align-self: center;" />

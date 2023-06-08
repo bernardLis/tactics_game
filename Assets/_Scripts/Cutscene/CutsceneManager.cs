@@ -16,10 +16,10 @@ public class CutsceneManager : MonoBehaviour
     BattleManager _battleManager;
     BattleEndManager _battleEndManager;
 
-    [SerializeField] Conversation _introConversation;
+    [SerializeField] Cutscene _introConversation;
 
     HeroCardMini _currentSpeaker;
-    ConversationLine _currentLine;
+    CutsceneLine _currentLine;
     List<HeroCardMini> _cardsInConversation = new();
 
     VisualElement _root;
@@ -33,18 +33,19 @@ public class CutsceneManager : MonoBehaviour
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _root = GetComponent<UIDocument>().rootVisualElement;
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CutsceneStyles);
+        if (ss != null)
+            _root.styleSheets.Add(ss);
+
         _audioManager = AudioManager.Instance;
         _battleManager = GetComponent<BattleManager>();
         _battleEndManager = GetComponent<BattleEndManager>();
 
-        _root = GetComponent<UIDocument>().rootVisualElement;
-
-        _battleEndManager.OnBattleResultShown += OnBattleResultShown;
-
-
+        _battleEndManager.OnBattleResultShown += TestConversation;
     }
 
-    void OnBattleResultShown()
+    void TestConversation()
     {
         _battleEndManager.BattleResult.HideContent();
 
@@ -55,27 +56,30 @@ public class CutsceneManager : MonoBehaviour
 
         _battleEndManager.BattleResult.Add(_cutsceneContainer);
 
-
         _lineBox = new();
         _lineBox.AddToClassList(_ussLineBox);
         _lineBox.style.visibility = Visibility.Hidden;
-        _cutsceneContainer.Add(_lineBox); // HERE: not to root, either to battle result or on top of battle result 
+        _cutsceneContainer.Add(_lineBox);
 
         _lineLabel = new();
         _lineLabel.AddToClassList(_ussLineLabel);
         _lineBox.Add(_lineLabel);
 
+        _cardsInConversation.Clear();
         _introConversation.Initialize();
-        PlayConversation(_introConversation);
+        // HERE: never gets past this line
+        StartCoroutine(PlayCutscene(_introConversation));
     }
 
-    IEnumerator PlayConversation(Conversation conversation)
+    IEnumerator PlayCutscene(Cutscene cutscene)
     {
-        _lineBox.style.visibility = Visibility.Visible;
+        Debug.Log($"Playing cutscene {cutscene.name}");
 
-        foreach (ConversationLine line in conversation.Lines)
+        _lineBox.style.visibility = Visibility.Visible;
+        foreach (CutsceneLine line in cutscene.Lines)
         {
             _currentLine = line;
+            yield return InitializeSpeaker(line);
             yield return HandleLineBox(line);
             yield return TypeText(line);
         }
@@ -83,7 +87,38 @@ public class CutsceneManager : MonoBehaviour
         _lineBox.style.visibility = Visibility.Hidden;
     }
 
-    IEnumerator HandleLineBox(ConversationLine line)
+    IEnumerator InitializeSpeaker(CutsceneLine line)
+    {
+        foreach (HeroCardMini card in _cardsInConversation)
+        {
+            if (card.Hero == line.Speaker.SpeakerHero)
+                yield break;
+        }
+
+        HeroCardMini newCard = new(line.Speaker.SpeakerHero);
+        newCard.style.position = Position.Absolute;
+        newCard.style.opacity = 0;
+        // parse position [Tooltip("0 - left, 1 - middle, 2 right | 0 - up, 1 - middle, 2 - right")]
+        if (line.Speaker.SpeakerPosition.x == 0)
+            newCard.style.left = Length.Percent(10);
+        else if (line.Speaker.SpeakerPosition.x == 1)
+            newCard.style.left = Length.Percent(50);
+        else if (line.Speaker.SpeakerPosition.x == 2)
+            newCard.style.left = Length.Percent(90);
+
+        if (line.Speaker.SpeakerPosition.y == 0)
+            newCard.style.top = Length.Percent(10);
+        else if (line.Speaker.SpeakerPosition.y == 1)
+            newCard.style.top = Length.Percent(50);
+        else if (line.Speaker.SpeakerPosition.y == 2)
+            newCard.style.top = Length.Percent(90);
+
+        _cutsceneContainer.Add(newCard);
+        _cardsInConversation.Add(newCard);
+        yield return DOTween.To(x => newCard.style.opacity = x, 0, 1, 0.5f).WaitForCompletion();
+    }
+
+    IEnumerator HandleLineBox(CutsceneLine line)
     {
         _lineBox.style.visibility = Visibility.Hidden;
         _lineLabel.text = line.ParsedText;
@@ -95,7 +130,7 @@ public class CutsceneManager : MonoBehaviour
 
         foreach (HeroCardMini c in _cardsInConversation)
         {
-            if (c.Hero == line.SpeakerHero)
+            if (c.Hero == line.Speaker.SpeakerHero)
             {
                 HandleSpeaker(c);
                 UpdateBoxPosition(c);
@@ -145,7 +180,7 @@ public class CutsceneManager : MonoBehaviour
     }
 
 
-    IEnumerator TypeText(ConversationLine line)
+    IEnumerator TypeText(CutsceneLine line)
     {
         _lineBox.style.visibility = Visibility.Visible;
         _lineLabel.text = "";

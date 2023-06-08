@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Intro Line 1
   m_EditorClassIdentifier: 
   Id: 06c87a47-796d-470a-9ea2-261de87c89ff
-  PlayerIsSpeaker: 1
-  SpeakerHero: {fileID: 0}
+  Speaker: {fileID: 11400000, guid: 98617583cc1576945868d39a93cf4402, type: 2}
   Text: I am who I am.
   ParsedText: 
   VO: {fileID: 0}

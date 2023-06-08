@@ -435,6 +435,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: d73a8a21573b1ed44bce80194d7bda1d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +490,8 @@ MonoBehaviour:
   WasIntroCutscenePlayed: 0
   BattleNumber: 0
   PlayerHero: {fileID: 0}
+  OverseerHero: {fileID: 0}
+  RivalHero: {fileID: 0}
   Map: {fileID: 11400000, guid: c39bdc5d1affc7c4e95ffa66e020f48f, type: 2}
   SelectedBattle: {fileID: 11400000, guid: a21f9f7f650aa8b4f80779c5aeb09d75, type: 2}
 --- !u!114 &2154333484900981486

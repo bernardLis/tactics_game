@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
-  m_Name: Intro Line 0
+  m_Script: {fileID: 11500000, guid: 081cb3dab501bc741844aff51109a9be, type: 3}
+  m_Name: Overseer Speaker
   m_EditorClassIdentifier: 
-  Id: ce2b939b-b7a6-4380-bc28-49052d19423b
-  Speaker: {fileID: 11400000, guid: 497f0eb068b76654e90590261dbc5344, type: 2}
-  Text: Huh... who are you?
-  ParsedText: 
-  VO: {fileID: 0}
+  Id: da2a67ba-babb-4eed-9ab6-50dd409c23e7
+  PlayerIsSpeaker: 0
+  OverseerIsSpeaker: 1
+  RivalIsSpeaker: 0
+  SpeakerHero: {fileID: 0}
+  SpeakerPosition: {x: 1, y: 1}

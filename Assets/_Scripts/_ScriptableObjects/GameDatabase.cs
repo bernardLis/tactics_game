@@ -7,11 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-    [Header("Cutscenes")]
-    [SerializeField] Cutscene[] Cutscenes;
-    public Cutscene[] GetAllCutscenes() { return Cutscenes; }
-
-
+    
     [Header("Dashboard")]
     [SerializeField] Sprite[] CoinSprites;
     public Sprite[] LevelUpAnimationSprites;

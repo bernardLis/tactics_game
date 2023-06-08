@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
-  m_Name: Intro Line 0
+  m_Name: Intro Line 2
   m_EditorClassIdentifier: 
-  Id: ce2b939b-b7a6-4380-bc28-49052d19423b
-  Speaker: {fileID: 11400000, guid: 497f0eb068b76654e90590261dbc5344, type: 2}
-  Text: Huh... who are you?
+  Id: 2a47-796d-470a-9ea2-261de87c89ff
+  Speaker: {fileID: 11400000, guid: 662fccf0033f6704d8b29bf36ac77eca, type: 2}
+  Text: And me too!
   ParsedText: 
   VO: {fileID: 0}

@@ -54,10 +54,17 @@ public class HeroCreation : MonoBehaviour
         CreatePortraitButtons();
 
         ElementChoiceElement elementChoiceElement = new();
-        elementChoiceElement.OnElementChosen += (element) => _chosenElement = element;
+        elementChoiceElement.OnElementChosen += ElementChosen;
         _elementChoiceContainer.Add(elementChoiceElement);
 
         CreateSubmitButton();
+    }
+
+    void ElementChosen(Element element)
+    {
+        _chosenElement = element;
+        _gameManager.RivalHero.Element = element.WeakAgainst;
+        _gameManager.RivalHero.Army = new(_gameManager.HeroDatabase.GetStartingArmy(element.WeakAgainst).ArmyGroups);
     }
 
     void NameFieldSetup()
