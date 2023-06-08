@@ -72,7 +72,7 @@ public class BattleStatsContainer : VisualElement
 
         ArmyGroup ag = armyGroup;
         ArmyGroupElement armyGroupElement = new(ag);
-        armyGroupElement.EntityIcon.PlayAnimationAlways();
+        armyGroupElement.CreatureIcon.PlayAnimationAlways();
         container.Add(armyGroupElement);
     }
 
@@ -88,7 +88,7 @@ public class BattleStatsContainer : VisualElement
 
             ArmyGroup ag = _gameManager.PlayerHero.Army[i];
             ArmyGroupElement armyGroupElement = new(ag);
-            armyGroupElement.EntityIcon.PlayAnimationAlways();
+            armyGroupElement.CreatureIcon.PlayAnimationAlways();
             container.Add(armyGroupElement);
 
             VisualElement statsContainer = new();

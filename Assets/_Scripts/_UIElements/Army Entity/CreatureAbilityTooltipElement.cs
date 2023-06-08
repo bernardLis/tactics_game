@@ -15,7 +15,7 @@ public class CreatureAbilityTooltipElement : VisualElement
     public CreatureAbilityTooltipElement(CreatureAbility ability)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityAbilityTooltipStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureAbilityTooltipStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

@@ -23,12 +23,12 @@ public class ArmyGroupTooltip : VisualElement
 
         _armyGroup = armyGroup;
 
-        Label count = new($"#{_armyGroup.NumberOfUnits}");
+        Label count = new($"Number of units: {_armyGroup.NumberOfUnits}");
         Add(count);
 
-        CreatureElement entityElement = new(_armyGroup.Creature);
-        Add(entityElement);
-        entityElement.style.marginBottom = 20;
+        CreatureElement creatureElement = new(_armyGroup.Creature);
+        Add(creatureElement);
+        creatureElement.style.marginBottom = 20;
 
         AddKillsToEvolveBar();
 

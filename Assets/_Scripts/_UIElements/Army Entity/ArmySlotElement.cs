@@ -58,7 +58,7 @@ public class ArmySlotElement : ElementWithSound
     {
         armyElement.ArmyGroup.ListPosition = ListPosition;
 
-        // merge if there is already the same army entity
+        // merge if there is already the same creature
         if (ArmyElement != null && ArmyElement.ArmyGroup.Creature == armyElement.ArmyGroup.Creature)
         {
             ArmyElement.ArmyGroup.ChangeCount(armyElement.ArmyGroup.NumberOfUnits);

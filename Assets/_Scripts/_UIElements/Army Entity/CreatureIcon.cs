@@ -21,7 +21,7 @@ public class CreatureIcon : VisualElement
     public CreatureIcon(Creature creature)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityIconStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureIconStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

@@ -63,8 +63,8 @@ public enum StyleSheetType
     BattleStatsContainer, RewardContainerStyles, RewardExpContainerStyles,
     RewardCardStyles, BattleCardStyles,
 
-    EntityIconStyles, EntityElementStyles,
+    CreatureIconStyles, CreatureElementStyles,
 
-    EntityAbilityStyles, EntityAbilityTooltipStyles,
+    CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
 }

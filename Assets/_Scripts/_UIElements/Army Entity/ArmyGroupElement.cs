@@ -13,7 +13,7 @@ public class ArmyGroupElement : ElementWithTooltip
 
     GameManager _gameManager;
 
-    public CreatureIcon EntityIcon;
+    public CreatureIcon CreatureIcon;
     Label _armyCountLabel;
 
     public bool IsLocked { get; private set; }
@@ -35,8 +35,8 @@ public class ArmyGroupElement : ElementWithTooltip
 
         AddToClassList(_ussMain);
 
-        EntityIcon = new(armyGroup.Creature);
-        Add(EntityIcon);
+        CreatureIcon = new(armyGroup.Creature);
+        Add(CreatureIcon);
 
         _armyCountLabel = new($"{armyGroup.NumberOfUnits}");
         _armyCountLabel.AddToClassList(_ussCount);
@@ -48,26 +48,26 @@ public class ArmyGroupElement : ElementWithTooltip
         style.width = 200;
         style.height = 200;
 
-        EntityIcon.LargeIcon();
+        CreatureIcon.LargeIcon();
     }
 
-    public void Evolve(Creature armyEntity)
+    public void Evolve(Creature creature)
     {
-        DOTween.Shake(() => EntityIcon.transform.position, x => EntityIcon.transform.position = x,
+        DOTween.Shake(() => CreatureIcon.transform.position, x => CreatureIcon.transform.position = x,
                 2f, 10f);
 
-        Helpers.DisplayTextOnElement(BattleManager.Instance.Root, EntityIcon, "Evolving!!!", Color.red);
+        Helpers.DisplayTextOnElement(BattleManager.Instance.Root, CreatureIcon, "Evolving!!!", Color.red);
 
-        Color _initialColor = EntityIcon.Frame.style.backgroundColor.value;
+        Color _initialColor = CreatureIcon.Frame.style.backgroundColor.value;
         Color _targetColor = Color.white;
-        DOTween.To(() => EntityIcon.Frame.style.backgroundColor.value,
-                x => EntityIcon.Frame.style.backgroundColor = x, _targetColor, 1f)
-            .SetTarget(EntityIcon)
-            .OnComplete(() => EntityIcon.SwapCreature(armyEntity));
+        DOTween.To(() => CreatureIcon.Frame.style.backgroundColor.value,
+                x => CreatureIcon.Frame.style.backgroundColor = x, _targetColor, 1f)
+            .SetTarget(CreatureIcon)
+            .OnComplete(() => CreatureIcon.SwapCreature(creature));
 
-        DOTween.To(() => EntityIcon.Frame.style.backgroundColor.value,
-                x => EntityIcon.Frame.style.backgroundColor = x, _initialColor, 2f)
-            .SetTarget(EntityIcon)
+        DOTween.To(() => CreatureIcon.Frame.style.backgroundColor.value,
+                x => CreatureIcon.Frame.style.backgroundColor = x, _initialColor, 2f)
+            .SetTarget(CreatureIcon)
             .SetDelay(1f)
             .OnComplete(() => OnEvolutionFinished?.Invoke());
     }

@@ -1,0 +1,12 @@
+.creature-element__main {
+    flex-direction: row;
+
+}
+
+.creature-element__left-container {
+    margin-right: 20px;
+}
+
+.creature-element__name {
+    font-size: 24px;
+}

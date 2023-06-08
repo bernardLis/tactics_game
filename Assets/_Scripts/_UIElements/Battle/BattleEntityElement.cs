@@ -10,7 +10,7 @@ public class BattleEntityElement : CreatureElement
     const string _ussKilledOverlay = _ussClassName + "killed-overlay";
 
     BattleEntity _battleEntity;
-    Creature _armyEntity;
+    Creature _creature;
 
     Label _kills;
     Label _damageDealt;
@@ -23,7 +23,7 @@ public class BattleEntityElement : CreatureElement
             styleSheets.Add(ss);
 
         _battleEntity = battleEntity;
-        _armyEntity = _battleEntity.Creature;
+        _creature = _battleEntity.Creature;
 
         AddToClassList(_ussMain);
 
@@ -33,7 +33,7 @@ public class BattleEntityElement : CreatureElement
             _armor.text += " + " + Mathf.RoundToInt(_battleEntity.Creature.Hero.Armor.GetValue());
         }
 
-        _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_armyEntity.Health}";
+        _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_creature.Health}";
 
         _kills = new($"Killed enemies: {_battleEntity.KilledEnemiesCount}");
         _damageDealt = new($"Damage dealt: {_battleEntity.DamageDealt}");
@@ -58,7 +58,7 @@ public class BattleEntityElement : CreatureElement
 
     void OnHealthChanged(float nvm)
     {
-        _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_armyEntity.Health}";
+        _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_creature.Health}";
     }
 
     void OnEnemyKilled(int total)

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class CreatureElement : VisualElement
 {
-    const string _ussClassName = "entity-element__";
+    const string _ussClassName = "creature-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussLeftContainer = _ussClassName + "left-container";
     const string _ussName = _ussClassName + "name";
@@ -31,7 +31,7 @@ public class CreatureElement : VisualElement
     public CreatureElement(Creature creature)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

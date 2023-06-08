@@ -17,7 +17,7 @@ public class CreatureAbilityElement : ElementWithTooltip
     public CreatureAbilityElement(CreatureAbility ability, float currentCooldown = 0)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityAbilityStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureAbilityStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
