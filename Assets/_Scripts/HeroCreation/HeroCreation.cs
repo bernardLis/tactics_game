@@ -17,6 +17,8 @@ public class HeroCreation : MonoBehaviour
     [SerializeField] Cutscene _nameCutscene;
     [SerializeField] Cutscene _looksCutscene;
     [SerializeField] Cutscene _elementCutscene;
+    [SerializeField] Cutscene _endCutscene;
+
 
     VisualElement _background;
 
@@ -69,8 +71,6 @@ public class HeroCreation : MonoBehaviour
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
 
         _cutsceneManager = GetComponent<CutsceneManager>();
-        Debug.Log($"root {_root}");
-        Debug.Log($"_cutsceneManager {_cutsceneManager}");
         _cutsceneManager.Initialize(_root);
         _cutsceneManager.OnCutsceneFinished += NameCutsceneFinished;
 
@@ -78,10 +78,13 @@ public class HeroCreation : MonoBehaviour
         PortraitSetup();
         CreatePortraitButtons();
 
-        ElementChoiceElement elementChoiceElement = new();
-        elementChoiceElement.OnElementChosen += ElementChosen;
-        _elementChoiceContainer.Add(elementChoiceElement);
 
+        StartCoroutine(StartShow());
+    }
+
+    IEnumerator StartShow()
+    {
+        yield return new WaitForSeconds(0.5f);
         _cutsceneManager.PlayCutscene(_nameCutscene);
     }
 
@@ -125,7 +128,9 @@ public class HeroCreation : MonoBehaviour
         _cutsceneManager.OnCutsceneFinished -= ElementCutsceneFinished;
         _elementChoiceContainer.style.display = DisplayStyle.Flex;
 
-        _submitButton = new("Submit", _ussCommonMenuButton, EndHeroCreation);
+        ElementChoiceElement elementChoiceElement = new();
+        elementChoiceElement.OnElementChosen += ElementChosen;
+        _elementChoiceContainer.Add(elementChoiceElement);
     }
 
     void ElementChosen(Element element)
@@ -133,6 +138,10 @@ public class HeroCreation : MonoBehaviour
         _chosenElement = element;
         _gameManager.RivalHero.Element = element.WeakAgainst;
         _gameManager.RivalHero.Army = new(_gameManager.HeroDatabase.GetStartingArmy(element.WeakAgainst).ArmyGroups);
+    
+        _elementChoiceContainer.style.display = DisplayStyle.None;
+        _cutsceneManager.PlayCutscene(_endCutscene);
+        _cutsceneManager.OnCutsceneFinished += EndHeroCreation;
     }
 
     void NameFieldSetup()
@@ -178,13 +187,13 @@ public class HeroCreation : MonoBehaviour
         _portrait.style.backgroundImage = new StyleBackground(_heroPortraits[_currentPortraitIndex].Sprite);
     }
 
-    void EndHeroCreation()
+    void EndHeroCreation(Cutscene c)
     {
-        if (_chosenElement == null)
-        {
-            Helpers.DisplayTextOnElement(_root, _submitButton, "Choose an element first!", Color.red);
-            return;
-        }
+        // if (_chosenElement == null)
+        // {
+        //     Helpers.DisplayTextOnElement(_root, _submitButton, "Choose an element first!", Color.red);
+        //     return;
+        // }
 
         CreateHero();
         StartGame();

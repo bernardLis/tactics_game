@@ -10,6 +10,9 @@ public class CutsceneLine : BaseScriptableObject
     [SerializeField] string Text;
     [HideInInspector] public string ParsedText;
     public Sound VO;
+    
+    // TODO: maybe it makes more sense for having speaker position here, 
+    // and then when it changes from line to line I can move the speaker it
 
     public void Initialize()
     {

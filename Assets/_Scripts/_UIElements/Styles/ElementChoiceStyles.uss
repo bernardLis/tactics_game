@@ -1,4 +1,6 @@
-.element-choice__main {}
+.element-choice__main {
+    justify-content: center;
+}
 
 .element-choice__element-icon {
     opacity: 0.9;

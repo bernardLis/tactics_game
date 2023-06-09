@@ -7,11 +7,11 @@
 }
 
 .cutscene__line-box {
-    min-width: 200px;
-    min-height: 100px;
+    min-width: 500px;
+    min-height: 200px;
 
-    max-width: 500px;
-    max-height: 200px;
+    max-width: 800px;
+    max-height: 400px;
     position: absolute;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/trade_platform_2.png?fileID=2800000&guid=a3f7a3a83806fd140b8254a136a0fd96&type=3#trade_platform_2');
     padding-left: 20px;
@@ -21,6 +21,7 @@
 }
 
 .cutscene__line-label {
+    flex-grow: 1;
     font-size: 36px;
     color: white;
     white-space: normal;

@@ -9,7 +9,6 @@ public class BattleInputManager : MonoBehaviour
     GameManager _gameManager;
     PlayerInput _playerInput;
 
-
     public event Action OnContinueClicked;
     public event Action OnEnterClicked;
     void Start()
@@ -48,8 +47,6 @@ public class BattleInputManager : MonoBehaviour
     {
         _playerInput.actions["Continue"].performed += evt => OnContinueClicked?.Invoke();
         _playerInput.actions["Enter"].performed += evt => OnEnterClicked?.Invoke();
-
-
     }
 
     void UnsubscribeInputActions()

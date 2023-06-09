@@ -5,12 +5,14 @@ using UnityEngine.UIElements;
 
 public class ElementalElement : ElementWithTooltip
 {
+    const string _ussClassName = "elemental-element__";
+    const string _ussIcon = _ussClassName + "icon";
+
     Element _element;
 
     Label _icon;
 
-    const string _ussClassName = "elemental-element__";
-    const string _ussIcon = _ussClassName + "icon";
+    bool _isEffectDisabled;
 
     public ElementalElement(Element element, int size = 0)
     {
@@ -34,6 +36,8 @@ public class ElementalElement : ElementWithTooltip
 
     public void PlayEffect()
     {
+        if (_isEffectDisabled) return;
+
         Vector3 pos = this.worldTransform.GetPosition();
         pos.x = pos.x + this.resolvedStyle.width / 2;
         pos.y = Camera.main.pixelHeight - pos.y - this.resolvedStyle.height; // inverted, plus play on bottom of element
@@ -43,6 +47,8 @@ public class ElementalElement : ElementWithTooltip
         EffectHolder instance = ScriptableObject.Instantiate(_element.VFXEffect);
         instance.PlayEffect(worldPos, _element.VFXEffect.VisualEffectPrefab.transform.localScale);
     }
+
+    public void DisableEffect() { _isEffectDisabled = true; }
 
     protected override void DisplayTooltip()
     {

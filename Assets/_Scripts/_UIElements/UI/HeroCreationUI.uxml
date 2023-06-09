@@ -4,7 +4,7 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroCardMiniStyles.uss?fileID=7433441132597879392&amp;guid=6592743390324724eba0b66a33b0dc93&amp;type=3#HeroCardMiniStyles" />
     <ui:VisualElement name="background" class="common__text-primary" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 100%; height: 100%; background-image: none;">
         <ui:VisualElement name="wrapper" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 80%; height: 100%; align-items: center; font-size: 32px; justify-content: center; align-self: center; margin-top: 2%;">
-            <ui:TextField picking-mode="Ignore" label="What&apos;s your name:" value="..." name="nameField" readonly="false" style="flex-direction: column; width: 50%; align-items: center; display: none; color: rgb(0, 0, 0);" />
+            <ui:TextField picking-mode="Ignore" value="..." name="nameField" readonly="false" style="flex-direction: column; width: 50%; align-items: center; display: none; color: rgb(0, 0, 0);" />
             <ui:VisualElement name="portraitGroupContainer" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); margin-top: 50px; align-items: center; justify-content: center; display: none; color: rgb(255, 255, 255);">
                 <ui:Label tabindex="-1" text="How do you look like: " display-tooltip-when-elided="true" name="portraitTextLabel" />
                 <ui:VisualElement name="portraitWrapper" style="flex-grow: 1; width: 100%; align-items: center; height: 300px;">
@@ -13,10 +13,13 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="portraitButtonContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;" />
             </ui:VisualElement>
-            <ui:VisualElement name="elementChoiceContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;" />
+            <ui:VisualElement name="elementChoiceContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none; justify-content: center;" />
             <ui:VisualElement name="submitButtonContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="vfx" class="vfx" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
+    <ui:VisualElement class="cutscene__line-box" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-width: 500px; max-height: 300px; min-width: 200px; min-height: 150px; position: absolute; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/icon_frame.png?fileID=2800000&amp;guid=b6f2846fb71927d4dab52664cc1c07f1&amp;type=3#icon_frame&apos;); padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; display: none;">
+        <ui:Label tabindex="-1" text="gowno 1 and two and three " display-tooltip-when-elided="true" class="cutscene__line-label" />
+    </ui:VisualElement>
 </ui:UXML>

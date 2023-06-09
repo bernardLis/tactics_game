@@ -25,8 +25,10 @@ public class ElementChoiceElement : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        Label header = new("Choose your element:");
-        Add(header);
+        AddToClassList(_ussMain);
+
+        //   Label header = new("Choose your element:");
+        //  Add(header);
 
         VisualElement elementContainer = new();
         elementContainer.style.flexDirection = FlexDirection.Row;
@@ -69,6 +71,11 @@ public class ElementChoiceElement : VisualElement
         _earthElement.SetEnabled(false);
         _windElement.SetEnabled(false);
         _waterElement.SetEnabled(false);
+
+        _fireElement.DisableEffect();
+        _earthElement.DisableEffect();
+        _windElement.DisableEffect();
+        _waterElement.DisableEffect();
 
         if (element.ElementName == ElementName.Fire)
             _fireElement.SetEnabled(true);

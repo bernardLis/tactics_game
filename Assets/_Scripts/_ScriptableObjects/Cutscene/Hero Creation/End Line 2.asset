@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
-  m_Name: Element Line 0
+  m_Name: End Line 2
   m_EditorClassIdentifier: 
   Id: element0-b7a6-4380-bc28-49052d19423b
   Speaker: {fileID: 11400000, guid: 3c9c4e4a7448b5d4eb759a570feb47b8, type: 2}
-  Text: What a pretty looking hero.
-  ParsedText: You so pretty, you so fly...
+  Text: One step at the time, you will learn that in due time.
+  ParsedText: 
   VO: {fileID: 0}

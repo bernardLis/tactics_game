@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using Random = UnityEngine.Random;
+using UnityEngine.InputSystem;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -16,8 +17,7 @@ public class CutsceneManager : MonoBehaviour
     GameManager _gameManager;
     AudioManager _audioManager;
 
-    Cutscene _cutsceneInstance;
-
+    Cutscene _currentCutscene;
     HeroCardMini _currentSpeaker;
     List<HeroCardMini> _cardsInConversation = new();
 
@@ -62,13 +62,31 @@ public class CutsceneManager : MonoBehaviour
         _lineBox.Add(_lineLabel);
 
         _cardsInConversation.Clear();
+
+        _gameManager.GetComponent<PlayerInput>().actions["Continue"].performed
+                += evt => SkipCutscene();
+    }
+
+    void SkipCutscene()
+    {
+        if (this == null) return;
+        StopAllCoroutines();
+        CutsceneLine lastLine = _currentCutscene.Lines[_currentCutscene.Lines.Length - 1];
+        StartCoroutine(InitializeSpeaker(lastLine));
+        StartCoroutine(HandleLineBox(lastLine, true));
+        _lineBox.style.visibility = Visibility.Visible;
+        _lineLabel.text = lastLine.ParsedText;
+        _audioManager.StopDialogue();
+        DOTween.KillAll(); // TODO: risky but works for now
+        OnCutsceneFinished?.Invoke(_currentCutscene);
     }
 
     public void PlayCutscene(Cutscene cutscene)
     {
         Debug.Log($"Playing cutscene {cutscene.name}");
-        cutscene.Initialize();
 
+        _currentCutscene = cutscene;
+        cutscene.Initialize();
         StartCoroutine(RunCutscene(cutscene));
     }
 
@@ -120,15 +138,12 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator RunCutscene(Cutscene cutscene)
     {
-        _lineBox.style.visibility = Visibility.Visible;
         foreach (CutsceneLine line in cutscene.Lines)
         {
             yield return InitializeSpeaker(line);
             yield return HandleLineBox(line);
             yield return TypeText(line);
         }
-
-        _lineBox.style.visibility = Visibility.Hidden;
         OnCutsceneFinished?.Invoke(cutscene);
     }
 
@@ -152,7 +167,7 @@ public class CutsceneManager : MonoBehaviour
             newCard.style.left = Length.Percent(90);
 
         if (line.Speaker.SpeakerPosition.y == 0)
-            newCard.style.top = Length.Percent(10);
+            newCard.style.top = Length.Percent(20);
         else if (line.Speaker.SpeakerPosition.y == 1)
             newCard.style.top = Length.Percent(50);
         else if (line.Speaker.SpeakerPosition.y == 2)
@@ -163,22 +178,21 @@ public class CutsceneManager : MonoBehaviour
         yield return DOTween.To(x => newCard.style.opacity = x, 0, 1, 0.5f).WaitForCompletion();
     }
 
-    IEnumerator HandleLineBox(CutsceneLine line)
+    IEnumerator HandleLineBox(CutsceneLine line, bool isSkipped = false)
     {
         _lineBox.style.visibility = Visibility.Hidden;
-        yield return new WaitForSeconds(0.1f);
-
         _lineLabel.text = line.ParsedText;
-        Debug.Log($"line.paresed text in handle line box {_lineLabel.text}");
 
-        _lineLabel.style.width = _lineLabel.resolvedStyle.width;
-        _lineLabel.style.height = _lineLabel.resolvedStyle.height;
+        yield return new WaitForSeconds(0.1f);
+        // TODO: tbf, idk if it works... I'd like to size the box to the text before I start printing text
+        _lineBox.style.width = _lineLabel.resolvedStyle.width;
+        _lineBox.style.height = _lineLabel.resolvedStyle.height;
 
         foreach (HeroCardMini c in _cardsInConversation)
         {
             if (c.Hero == line.Speaker.SpeakerHero)
             {
-                HandleSpeaker(c, line);
+                if (!isSkipped) HandleSpeaker(c, line);
                 UpdateBoxPosition(c);
             }
         }
@@ -219,8 +233,7 @@ public class CutsceneManager : MonoBehaviour
             _lineBox.style.left = x + card.resolvedStyle.width;
 
         if (y - elHeight - card.resolvedStyle.height < 0)
-            _lineBox.style.top = y - elHeight;
-
+            _lineBox.style.top = 20;
         else
             _lineBox.style.top = y - elHeight;
     }

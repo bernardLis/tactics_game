@@ -188,6 +188,7 @@ MonoBehaviour:
   _nameCutscene: {fileID: 11400000, guid: 3a959c558008c8f418df92b9da858c77, type: 2}
   _looksCutscene: {fileID: 11400000, guid: 5d9a5a68b43fefe4cb3563ec2c2d5013, type: 2}
   _elementCutscene: {fileID: 11400000, guid: 3f74527959727c04bb85b35fd5a0a3c6, type: 2}
+  _endCutscene: {fileID: 11400000, guid: 1699a716922e97242b2bb7d057e0002b, type: 2}
 --- !u!114 &162899895
 MonoBehaviour:
   m_ObjectHideFlags: 0
