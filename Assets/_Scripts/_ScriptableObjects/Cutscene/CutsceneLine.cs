@@ -16,8 +16,15 @@ public class CutsceneLine : BaseScriptableObject
         Speaker.Initialize();
 
         GameManager gm = GameManager.Instance;
-        ParsedText = Text.Replace("{heroName}", gm.PlayerHero.HeroName);
-        ParsedText = Text.Replace("{overseerName}", gm.OverseerHero.HeroName);
-        ParsedText = Text.Replace("{rivalName}", gm.RivalHero.HeroName);
+        string p = Text;
+        if (gm.PlayerHero != null)
+            p = Text.Replace("{heroName}", gm.PlayerHero.HeroName);
+        if (gm.OverseerHero != null)
+            p = p.Replace("{overseerName}", gm.OverseerHero.HeroName);
+        if (gm.RivalHero != null)
+            p = p.Replace("{rivalName}", gm.RivalHero.HeroName);
+
+        ParsedText = p;
+
     }
 }

@@ -15,13 +15,10 @@ public class CutsceneManager : MonoBehaviour
 
     GameManager _gameManager;
     AudioManager _audioManager;
-    BattleManager _battleManager;
-    BattleEndManager _battleEndManager;
 
-    [SerializeField] Cutscene _introConversation;
+    Cutscene _cutsceneInstance;
 
     HeroCardMini _currentSpeaker;
-    CutsceneLine _currentLine;
     List<HeroCardMini> _cardsInConversation = new();
 
     VisualElement _root;
@@ -34,37 +31,26 @@ public class CutsceneManager : MonoBehaviour
 
     public event Action<Cutscene> OnCutsceneFinished;
 
-    void Start()
+    void Awake()
     {
         _gameManager = GameManager.Instance;
-        _root = GetComponent<UIDocument>().rootVisualElement;
+        _audioManager = AudioManager.Instance;
+    }
+
+    public void Initialize(VisualElement root)
+    {
+        _root = root;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CutsceneStyles);
         if (ss != null)
             _root.styleSheets.Add(ss);
-
-        _audioManager = AudioManager.Instance;
-        _battleManager = GetComponent<BattleManager>();
-        _battleEndManager = GetComponent<BattleEndManager>();
-
-        _battleEndManager.OnBattleResultShown += () =>
-        {
-            if (_gameManager.BattleNumber != 2) return;
-            _battleEndManager.BattleResult.OnRewardContainerClosed += RivalIntro;
-        };
-    }
-
-    void RivalIntro()
-    {
-        // only before the third battle
-
-        _battleEndManager.BattleResult.HideContent();
 
         _cutsceneContainer = new();
         _cutsceneContainer.style.position = Position.Absolute;
         _cutsceneContainer.style.width = Length.Percent(100);
         _cutsceneContainer.style.height = Length.Percent(100);
-
-        _battleEndManager.BattleResult.Add(_cutsceneContainer);
+        _cutsceneContainer.style.left = 0;
+        _cutsceneContainer.style.top = 0;
+        _root.Add(_cutsceneContainer);
 
         _lineBox = new();
         _lineBox.AddToClassList(_ussLineBox);
@@ -76,29 +62,67 @@ public class CutsceneManager : MonoBehaviour
         _lineBox.Add(_lineLabel);
 
         _cardsInConversation.Clear();
-        _introConversation.Initialize();
-
-        Battle battle = ScriptableObject.CreateInstance<Battle>();
-        battle.Opponent = _gameManager.RivalHero;
-        _gameManager.SelectedBattle = battle;
-
-        // HERE: never gets past this line
-        StartCoroutine(PlayCutscene(_introConversation));
-        OnCutsceneFinished += (c) =>
-        {
-            _gameManager.LoadScene(Scenes.Battle);
-        };
-
     }
 
-    IEnumerator PlayCutscene(Cutscene cutscene)
+    public void PlayCutscene(Cutscene cutscene)
     {
         Debug.Log($"Playing cutscene {cutscene.name}");
+        cutscene.Initialize();
 
+        StartCoroutine(RunCutscene(cutscene));
+    }
+
+    /*
+            _battleEndManager.OnBattleResultShown += () =>
+        {
+            if (_gameManager.BattleNumber != 2) return;
+            _battleEndManager.BattleResult.OnRewardContainerClosed += RivalIntro;
+        };
+
+        void RivalIntro()
+        {
+            // only before the third battle
+
+            _battleEndManager.BattleResult.HideContent();
+
+            _cutsceneContainer = new();
+            _cutsceneContainer.style.position = Position.Absolute;
+            _cutsceneContainer.style.width = Length.Percent(100);
+            _cutsceneContainer.style.height = Length.Percent(100);
+
+            _battleEndManager.BattleResult.Add(_cutsceneContainer);
+
+            _lineBox = new();
+            _lineBox.AddToClassList(_ussLineBox);
+            _lineBox.style.visibility = Visibility.Hidden;
+            _cutsceneContainer.Add(_lineBox);
+
+            _lineLabel = new();
+            _lineLabel.AddToClassList(_ussLineLabel);
+            _lineBox.Add(_lineLabel);
+
+            _cardsInConversation.Clear();
+            _introConversation.Initialize();
+
+            Battle battle = ScriptableObject.CreateInstance<Battle>();
+            battle.Opponent = _gameManager.RivalHero;
+            _gameManager.SelectedBattle = battle;
+
+            // HERE: never gets past this line
+            StartCoroutine(PlayCutscene(_introConversation));
+            OnCutsceneFinished += (c) =>
+            {
+                _gameManager.LoadScene(Scenes.Battle);
+            };
+
+        }
+        */
+
+    IEnumerator RunCutscene(Cutscene cutscene)
+    {
         _lineBox.style.visibility = Visibility.Visible;
         foreach (CutsceneLine line in cutscene.Lines)
         {
-            _currentLine = line;
             yield return InitializeSpeaker(line);
             yield return HandleLineBox(line);
             yield return TypeText(line);
@@ -142,9 +166,10 @@ public class CutsceneManager : MonoBehaviour
     IEnumerator HandleLineBox(CutsceneLine line)
     {
         _lineBox.style.visibility = Visibility.Hidden;
-        _lineLabel.text = line.ParsedText;
-
         yield return new WaitForSeconds(0.1f);
+
+        _lineLabel.text = line.ParsedText;
+        Debug.Log($"line.paresed text in handle line box {_lineLabel.text}");
 
         _lineLabel.style.width = _lineLabel.resolvedStyle.width;
         _lineLabel.style.height = _lineLabel.resolvedStyle.height;
@@ -153,18 +178,18 @@ public class CutsceneManager : MonoBehaviour
         {
             if (c.Hero == line.Speaker.SpeakerHero)
             {
-                HandleSpeaker(c);
+                HandleSpeaker(c, line);
                 UpdateBoxPosition(c);
             }
         }
     }
 
-    void HandleSpeaker(HeroCardMini card)
+    void HandleSpeaker(HeroCardMini card, CutsceneLine line)
     {
         _currentSpeaker = card;
         float duration = 1f;
-        if (_currentLine.VO != null)
-            duration = _currentLine.VO.Clips[0].length;
+        if (line.VO != null)
+            duration = line.VO.Clips[0].length;
 
         DOTween.To(x => card.transform.scale = x * Vector3.one, 1, 1.5f, 0.5f).OnComplete(() =>
         {

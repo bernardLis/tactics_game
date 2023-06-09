@@ -9,15 +9,25 @@ public class HeroCreation : MonoBehaviour
     const string _ussCommonMenuButton = "common__menu-button";
 
     GameManager _gameManager;
+    CutsceneManager _cutsceneManager;
 
     VisualElement _root;
+    GameObject _starEffect;
 
+    [SerializeField] Cutscene _nameCutscene;
+    [SerializeField] Cutscene _looksCutscene;
+    [SerializeField] Cutscene _elementCutscene;
+
+    VisualElement _background;
+
+    VisualElement _wrapper;
     TextField _nameField;
 
+    VisualElement _portraitContainer;
     Label _portraitTextLabel;
     VisualElement _portrait;
-
     VisualElement _portraitButtonContainer;
+
     VisualElement _elementChoiceContainer;
 
     MyButton _previousPortraitButton;
@@ -31,23 +41,38 @@ public class HeroCreation : MonoBehaviour
 
     Element _chosenElement;
 
+    void Awake()
+    {
+        _gameManager = GameManager.Instance;
+        _root = GetComponent<UIDocument>().rootVisualElement;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _gameManager = GameManager.Instance;
+        _background = _root.Q<VisualElement>("background");
 
-        _root = GetComponent<UIDocument>().rootVisualElement;
-
+        _wrapper = _root.Q<VisualElement>("wrapper");
         _nameField = _root.Q<TextField>("nameField");
 
+        _portraitContainer = _root.Q<VisualElement>("portraitGroupContainer");
         _portraitTextLabel = _root.Q<Label>("portraitTextLabel");
         _portrait = _root.Q<VisualElement>("portrait");
         _portraitButtonContainer = _root.Q<VisualElement>("portraitButtonContainer");
+
         _elementChoiceContainer = _root.Q<VisualElement>("elementChoiceContainer");
 
         _submitButtonContainer = _root.Q<VisualElement>("submitButtonContainer");
 
         _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+        _starEffect = _gameManager.GetComponent<EffectManager>()
+                .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
+
+        _cutsceneManager = GetComponent<CutsceneManager>();
+        Debug.Log($"root {_root}");
+        Debug.Log($"_cutsceneManager {_cutsceneManager}");
+        _cutsceneManager.Initialize(_root);
+        _cutsceneManager.OnCutsceneFinished += NameCutsceneFinished;
 
         NameFieldSetup();
         PortraitSetup();
@@ -57,7 +82,50 @@ public class HeroCreation : MonoBehaviour
         elementChoiceElement.OnElementChosen += ElementChosen;
         _elementChoiceContainer.Add(elementChoiceElement);
 
-        CreateSubmitButton();
+        _cutsceneManager.PlayCutscene(_nameCutscene);
+    }
+
+    void NameCutsceneFinished(Cutscene c)
+    {
+        _cutsceneManager.OnCutsceneFinished -= NameCutsceneFinished;
+
+        _nameField.style.display = DisplayStyle.Flex;
+        _background.BringToFront();
+        _submitButton = new("Submit", _ussCommonMenuButton, () =>
+        {
+            Hero newChar = ScriptableObject.CreateInstance<Hero>();
+            newChar.HeroName = _nameField.value;
+            _gameManager.PlayerHero = newChar;
+
+            _nameField.style.display = DisplayStyle.None;
+            _wrapper.Remove(_submitButton);
+            _cutsceneManager.PlayCutscene(_looksCutscene);
+            _cutsceneManager.OnCutsceneFinished += LooksCutsceneFinished;
+        });
+        _wrapper.Add(_submitButton);
+    }
+
+    void LooksCutsceneFinished(Cutscene c)
+    {
+        _cutsceneManager.OnCutsceneFinished -= LooksCutsceneFinished;
+
+        _portraitContainer.style.display = DisplayStyle.Flex;
+        _submitButton = new("Submit", _ussCommonMenuButton, () =>
+        {
+            _portraitContainer.style.display = DisplayStyle.None;
+            _wrapper.Remove(_submitButton);
+            _cutsceneManager.PlayCutscene(_elementCutscene);
+            _cutsceneManager.OnCutsceneFinished += ElementCutsceneFinished;
+        });
+        _wrapper.Add(_submitButton);
+    }
+
+    void ElementCutsceneFinished(Cutscene c)
+    {
+        _cutsceneManager.OnCutsceneFinished -= ElementCutsceneFinished;
+        _elementChoiceContainer.style.display = DisplayStyle.Flex;
+
+        _submitButton = new("Submit", _ussCommonMenuButton, EndHeroCreation);
     }
 
     void ElementChosen(Element element)
@@ -110,13 +178,7 @@ public class HeroCreation : MonoBehaviour
         _portrait.style.backgroundImage = new StyleBackground(_heroPortraits[_currentPortraitIndex].Sprite);
     }
 
-    void CreateSubmitButton()
-    {
-        _submitButton = new("Submit", _ussCommonMenuButton, Submit);
-        _submitButtonContainer.Add(_submitButton);
-    }
-
-    void Submit()
+    void EndHeroCreation()
     {
         if (_chosenElement == null)
         {

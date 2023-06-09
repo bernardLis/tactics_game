@@ -7,6 +7,9 @@
 }
 
 .cutscene__line-box {
+    min-width: 200px;
+    min-height: 100px;
+
     max-width: 500px;
     max-height: 200px;
     position: absolute;
