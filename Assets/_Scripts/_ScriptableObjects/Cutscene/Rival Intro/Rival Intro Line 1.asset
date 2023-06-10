@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
-  m_Name: Line 2
+  m_Name: Rival Intro Line 1
   m_EditorClassIdentifier: 
   Id: ce2b939b-b7a6-4380-bc28-49052d19423b
-  Speaker: {fileID: 11400000, guid: 662fccf0033f6704d8b29bf36ac77eca, type: 2}
-  Text: I am your rival! I'll beat you and get out of here!
+  Speaker: {fileID: 11400000, guid: c034af3f11ae1b74ea93b1d541c869b5, type: 2}
+  Text: Huh... who are you?
   ParsedText: 
-  VO: {fileID: 0}
+  VO: {fileID: 11400000, guid: 8c3539640196d9c4a8260991d45f3e09, type: 2}

@@ -16,4 +16,4 @@ MonoBehaviour:
   Speaker: {fileID: 11400000, guid: 3c9c4e4a7448b5d4eb759a570feb47b8, type: 2}
   Text: What a pretty looking hero.
   ParsedText: You so pretty, you so fly...
-  VO: {fileID: 0}
+  VO: {fileID: 11400000, guid: 1a8e3cb4ac2d18e429d42e205abb2877, type: 2}

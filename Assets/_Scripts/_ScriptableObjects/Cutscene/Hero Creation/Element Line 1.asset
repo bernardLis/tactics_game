@@ -16,4 +16,4 @@ MonoBehaviour:
   Speaker: {fileID: 11400000, guid: 3c9c4e4a7448b5d4eb759a570feb47b8, type: 2}
   Text: What element are you aligned with?
   ParsedText: 
-  VO: {fileID: 0}
+  VO: {fileID: 11400000, guid: d07b8a8f874878b4e88efec49baa4ece, type: 2}

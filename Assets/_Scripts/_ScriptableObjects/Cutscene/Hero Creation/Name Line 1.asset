@@ -16,4 +16,4 @@ MonoBehaviour:
   Speaker: {fileID: 11400000, guid: 3c9c4e4a7448b5d4eb759a570feb47b8, type: 2}
   Text: My name is {overseerName}, I am an overseer here.
   ParsedText: My name is {overseerName} , I am an overseer here.
-  VO: {fileID: 0}
+  VO: {fileID: 11400000, guid: 5bf11a7a810b24e4e84d1a053af78eb1, type: 2}

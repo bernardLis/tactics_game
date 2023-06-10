@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
+  m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
   m_Name: Name Line 2
   m_EditorClassIdentifier: 
-  Id: name2-b7a6-4380-bc28-49052d19423b
-  Speaker: {fileID: 11400000, guid: 3c9c4e4a7448b5d4eb759a570feb47b8, type: 2}
-  Text: What is your name?
-  ParsedText: 
-  VO: {fileID: 11400000, guid: f5790c3a51f315844bb320afcb1fcaef, type: 2}
+  Id: e186b5af-cfb8-431a-bfac-328d1031dcf9
+  Clips:
+  - {fileID: 8300000, guid: 58b838e756543174b883ee431539a760, type: 3}
+  Volume: 1
+  Pitch: 1
+  isPitchRandomized: 0
+  PitchRange: {x: 0, y: 0}
+  Source: {fileID: 0}

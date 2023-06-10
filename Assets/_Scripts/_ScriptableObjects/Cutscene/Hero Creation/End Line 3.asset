@@ -17,4 +17,4 @@ MonoBehaviour:
   Text: For now you have to fight. Win 9 fights and you can leave. Lose a fight and
     you have to start over.
   ParsedText: 
-  VO: {fileID: 0}
+  VO: {fileID: 11400000, guid: cefeb2fe958a2ff48a456d8427e3c102, type: 2}

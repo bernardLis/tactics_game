@@ -16,4 +16,4 @@ MonoBehaviour:
   Speaker: {fileID: 11400000, guid: 3c9c4e4a7448b5d4eb759a570feb47b8, type: 2}
   Text: So, {heroName} how do you look like?
   ParsedText: 
-  VO: {fileID: 0}
+  VO: {fileID: 11400000, guid: 87701be632e22b440a525ebc08263cd4, type: 2}

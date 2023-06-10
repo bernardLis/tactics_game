@@ -151,7 +151,6 @@ public class BattleResult : FullScreenElement
         _rewardContainer.MoveAway();
         _content.Remove(_continueButton);
 
-        Debug.Log($"_gameManager.BattleNumber {_gameManager.BattleNumber}");
         if (_gameManager.BattleNumber == 2)
         {
             PlayRivalCutscene();
@@ -170,7 +169,6 @@ public class BattleResult : FullScreenElement
 
     void PlayRivalCutscene()
     {
-        Debug.Log($"play rival cutscene");
         _content.style.display = DisplayStyle.None;
         _cutsceneManager.Initialize(_root);
         _cutsceneManager.PlayCutscene("Rival Intro");

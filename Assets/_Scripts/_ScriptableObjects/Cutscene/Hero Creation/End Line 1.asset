@@ -16,4 +16,4 @@ MonoBehaviour:
   Speaker: {fileID: 11400000, guid: d1976ed051fbaec4187cebfe86f0714d, type: 2}
   Text: Ok, that's great but where am I?
   ParsedText: 
-  VO: {fileID: 0}
+  VO: {fileID: 11400000, guid: 85a62a55161b00443b7f6ecf60ca8802, type: 2}

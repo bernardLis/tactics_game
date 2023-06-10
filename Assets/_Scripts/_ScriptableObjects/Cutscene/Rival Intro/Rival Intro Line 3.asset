@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9c4093197203540909b45415211679, type: 3}
-  m_Name: End Line 2
+  m_Name: Rival Intro Line 3
   m_EditorClassIdentifier: 
-  Id: element0-b7a6-4380-bc28-49052d19423b
-  Speaker: {fileID: 11400000, guid: 3c9c4e4a7448b5d4eb759a570feb47b8, type: 2}
-  Text: One step at the time, you will learn that in due time.
+  Id: ce2b939b-b7a6-4380-bc28-49052d19423b
+  Speaker: {fileID: 11400000, guid: c034af3f11ae1b74ea93b1d541c869b5, type: 2}
+  Text: Out of where?
   ParsedText: 
-  VO: {fileID: 11400000, guid: 454f1ea7845280640bb68c37037194b6, type: 2}
+  VO: {fileID: 11400000, guid: c693b67a6fa7e994fa180f5f4d74b5b1, type: 2}
