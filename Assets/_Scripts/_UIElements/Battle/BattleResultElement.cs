@@ -20,6 +20,7 @@ public class BattleResult : FullScreenElement
 
     GameManager _gameManager;
     AudioManager _audioManager;
+    CutsceneManager _cutsceneManager;
     BattleManager _battleManager;
 
     Battle _battle;
@@ -43,6 +44,7 @@ public class BattleResult : FullScreenElement
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
+        _cutsceneManager = _gameManager.GetComponent<CutsceneManager>();
         _battleManager = BattleManager.Instance;
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -83,6 +85,8 @@ public class BattleResult : FullScreenElement
 
         _battleManager.GetComponent<BattleInputManager>().OnContinueClicked += () =>
         {
+            if (_continueButton == null) return;
+            if (!_continueButton.enabledInHierarchy) return;
             using (var e = new NavigationSubmitEvent() { target = _continueButton })
                 _continueButton.SendEvent(e);
         };
@@ -139,7 +143,6 @@ public class BattleResult : FullScreenElement
             _continueButton = new("Continue", _ussContinueButton, ShowBattleChoices);
             _rewardContainer.OnRewardSelected += () => _content.Add(_continueButton);
         }).StartingIn(1000);
-
     }
 
     void ShowBattleChoices()
@@ -147,6 +150,13 @@ public class BattleResult : FullScreenElement
         OnRewardContainerClosed?.Invoke();
         _rewardContainer.MoveAway();
         _content.Remove(_continueButton);
+
+        Debug.Log($"_gameManager.BattleNumber {_gameManager.BattleNumber}");
+        if (_gameManager.BattleNumber == 2)
+        {
+            PlayRivalCutscene();
+            return;
+        }
 
         schedule.Execute(() =>
         {
@@ -156,6 +166,20 @@ public class BattleResult : FullScreenElement
             _continueButton = new("Continue", _ussContinueButton, LoadBattle);
             _battleChoiceContainer.OnBattleSelected += () => _content.Add(_continueButton);
         }).StartingIn(1000);
+    }
+
+    void PlayRivalCutscene()
+    {
+        Debug.Log($"play rival cutscene");
+        _content.style.display = DisplayStyle.None;
+        _cutsceneManager.Initialize(_root);
+        _cutsceneManager.PlayCutscene("Rival Intro");
+
+        Battle b = ScriptableObject.CreateInstance<Battle>();
+        b.Opponent = _gameManager.RivalHero;
+        _gameManager.SelectedBattle = b;
+
+        _cutsceneManager.OnCutsceneFinished += (c) => LoadBattle();
     }
 
     void LoadBattle()

@@ -258,6 +258,16 @@ public class BattleManager : Singleton<BattleManager>
 
         topPanel.Add(label);
 
+        if (_gameManager.BattleNumber == 8)
+        {
+            ConfirmPopUp popUp = new();
+            popUp.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
+            popUp.Initialize(Root, () => StartCoroutine(FinalizeBattle()),
+                    "You won the game! I owe you a beer for winning this prototype. You can continue playing or you can try another element. Btw. let me know what you think about this experience!.");
+            popUp.HideCancelButton();
+            yield break;
+        }
+
         yield return FinalizeBattle();
     }
 

@@ -14,6 +14,8 @@ public class CutsceneManager : MonoBehaviour
     const string _ussLineBox = _ussClassName + "line-box";
     const string _ussLineLabel = _ussClassName + "line-label";
 
+    [SerializeField] List<Cutscene> _cutscenes = new();
+
     GameManager _gameManager;
     AudioManager _audioManager;
 
@@ -31,7 +33,7 @@ public class CutsceneManager : MonoBehaviour
 
     public event Action<Cutscene> OnCutsceneFinished;
 
-    void Awake()
+    void Start()
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
@@ -62,14 +64,16 @@ public class CutsceneManager : MonoBehaviour
         _lineBox.Add(_lineLabel);
 
         _cardsInConversation.Clear();
-
-        _gameManager.GetComponent<PlayerInput>().actions["Continue"].performed
-                += evt => SkipCutscene();
     }
 
-    void SkipCutscene()
+    void SkipCutscene(InputAction.CallbackContext ctx)
     {
         if (this == null) return;
+        
+        _gameManager.GetComponent<PlayerInput>().actions["Continue"].performed -= SkipCutscene;
+        
+        Debug.Log($"Skipping cutscene {_currentCutscene.name}");
+
         StopAllCoroutines();
         CutsceneLine lastLine = _currentCutscene.Lines[_currentCutscene.Lines.Length - 1];
         StartCoroutine(InitializeSpeaker(lastLine));
@@ -81,8 +85,23 @@ public class CutsceneManager : MonoBehaviour
         OnCutsceneFinished?.Invoke(_currentCutscene);
     }
 
+    public void PlayCutscene(string cutsceneName)
+    {
+        Cutscene c = _cutscenes.Find(c => c.name == cutsceneName);
+        if (c == null)
+        {
+            Debug.LogError($"Cutscene {cutsceneName} not found");
+            OnCutsceneFinished?.Invoke(null);
+            return;
+        }
+
+        PlayCutscene(c);
+    }
+
     public void PlayCutscene(Cutscene cutscene)
     {
+
+
         Debug.Log($"Playing cutscene {cutscene.name}");
 
         _currentCutscene = cutscene;
@@ -90,60 +109,18 @@ public class CutsceneManager : MonoBehaviour
         StartCoroutine(RunCutscene(cutscene));
     }
 
-    /*
-            _battleEndManager.OnBattleResultShown += () =>
-        {
-            if (_gameManager.BattleNumber != 2) return;
-            _battleEndManager.BattleResult.OnRewardContainerClosed += RivalIntro;
-        };
-
-        void RivalIntro()
-        {
-            // only before the third battle
-
-            _battleEndManager.BattleResult.HideContent();
-
-            _cutsceneContainer = new();
-            _cutsceneContainer.style.position = Position.Absolute;
-            _cutsceneContainer.style.width = Length.Percent(100);
-            _cutsceneContainer.style.height = Length.Percent(100);
-
-            _battleEndManager.BattleResult.Add(_cutsceneContainer);
-
-            _lineBox = new();
-            _lineBox.AddToClassList(_ussLineBox);
-            _lineBox.style.visibility = Visibility.Hidden;
-            _cutsceneContainer.Add(_lineBox);
-
-            _lineLabel = new();
-            _lineLabel.AddToClassList(_ussLineLabel);
-            _lineBox.Add(_lineLabel);
-
-            _cardsInConversation.Clear();
-            _introConversation.Initialize();
-
-            Battle battle = ScriptableObject.CreateInstance<Battle>();
-            battle.Opponent = _gameManager.RivalHero;
-            _gameManager.SelectedBattle = battle;
-
-            // HERE: never gets past this line
-            StartCoroutine(PlayCutscene(_introConversation));
-            OnCutsceneFinished += (c) =>
-            {
-                _gameManager.LoadScene(Scenes.Battle);
-            };
-
-        }
-        */
-
     IEnumerator RunCutscene(Cutscene cutscene)
     {
+        _gameManager.GetComponent<PlayerInput>().actions["Continue"].performed += SkipCutscene;
+
         foreach (CutsceneLine line in cutscene.Lines)
         {
             yield return InitializeSpeaker(line);
             yield return HandleLineBox(line);
             yield return TypeText(line);
         }
+        _gameManager.GetComponent<PlayerInput>().actions["Continue"].performed -= SkipCutscene;
+
         OnCutsceneFinished?.Invoke(cutscene);
     }
 

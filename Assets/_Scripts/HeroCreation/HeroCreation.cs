@@ -69,7 +69,7 @@ public class HeroCreation : MonoBehaviour
         _starEffect = _gameManager.GetComponent<EffectManager>()
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
 
-        _cutsceneManager = GetComponent<CutsceneManager>();
+        _cutsceneManager = _gameManager.GetComponent<CutsceneManager>();
         _cutsceneManager.Initialize(_root);
         _cutsceneManager.OnCutsceneFinished += NameCutsceneFinished;
 
@@ -188,6 +188,7 @@ public class HeroCreation : MonoBehaviour
 
     void EndHeroCreation(Cutscene c)
     {
+        _cutsceneManager.OnCutsceneFinished -= EndHeroCreation;
         StartGame();
         _gameManager.SaveJsonData();
     }
