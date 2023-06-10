@@ -53,13 +53,10 @@ public class BattleEndManager : MonoBehaviour
 
     void BeginEndBattleShow()
     {
-        ShowUI();
-        // HERE: cutscene testing
-        /*
+        // ShowUI();
         _playerArmy = _gameManager.PlayerHero.Army;
         StartCoroutine(RunShow());
         StartCoroutine(RotateCameraAroundEntity());
-    */
     }
 
     IEnumerator RunShow()

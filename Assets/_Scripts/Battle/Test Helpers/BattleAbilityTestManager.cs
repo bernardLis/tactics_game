@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+#if (UNITY_EDITOR) 
 
 public class BattleAbilityTestManager : MonoBehaviour
 {
@@ -42,3 +43,4 @@ public class BattleAbilityTestManager : MonoBehaviour
 
     }
 }
+#endif

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using TMPro;
 using Random = UnityEngine.Random;
+#if (UNITY_EDITOR) 
 
 public class BattleEntityTestManager : MonoBehaviour
 {
@@ -144,3 +145,4 @@ public class BattleEntityTestManager : MonoBehaviour
 
 
 }
+#endif
