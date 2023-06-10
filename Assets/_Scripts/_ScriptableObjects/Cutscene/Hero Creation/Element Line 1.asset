@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: element0-b7a6-4380-bc28-49052d19423b
   Speaker: {fileID: 11400000, guid: 3c9c4e4a7448b5d4eb759a570feb47b8, type: 2}
-  Text: 'Choose your element:'
+  Text: What element are you aligned with?
   ParsedText: 
   VO: {fileID: 0}

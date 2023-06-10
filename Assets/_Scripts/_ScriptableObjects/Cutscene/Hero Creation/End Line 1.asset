@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: element0-b7a6-4380-bc28-49052d19423b
   Speaker: {fileID: 11400000, guid: d1976ed051fbaec4187cebfe86f0714d, type: 2}
-  Text: Where am I?
+  Text: Ok, that's great but where am I?
   ParsedText: 
   VO: {fileID: 0}

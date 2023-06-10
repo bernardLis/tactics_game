@@ -11,15 +11,15 @@
 }
 
 .hero-portrait__main {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     -unity-background-scale-mode: scale-to-fit;
     border-top-left-radius: 200px;
     border-bottom-left-radius: 200px;
     border-top-right-radius: 200px;
     border-bottom-right-radius: 200px;
-    margin-left: 5px;
-    margin-top: 5px;
+    margin-left: 15px;
+    margin-top: 15px;
     position: absolute;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
@@ -33,8 +33,8 @@
 
 .hero-portrait__frame {
     position: absolute;
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/icon_frame_round.png?fileID=2800000&guid=673d130a45e82e94d95b65f1ee0121bf&type=3#icon_frame_round');
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;

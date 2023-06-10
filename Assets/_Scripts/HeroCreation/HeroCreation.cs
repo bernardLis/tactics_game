@@ -19,7 +19,6 @@ public class HeroCreation : MonoBehaviour
     [SerializeField] Cutscene _elementCutscene;
     [SerializeField] Cutscene _endCutscene;
 
-
     VisualElement _background;
 
     VisualElement _wrapper;
@@ -77,7 +76,6 @@ public class HeroCreation : MonoBehaviour
         NameFieldSetup();
         PortraitSetup();
         CreatePortraitButtons();
-
 
         StartCoroutine(StartShow());
     }
@@ -138,7 +136,8 @@ public class HeroCreation : MonoBehaviour
         _chosenElement = element;
         _gameManager.RivalHero.Element = element.WeakAgainst;
         _gameManager.RivalHero.Army = new(_gameManager.HeroDatabase.GetStartingArmy(element.WeakAgainst).ArmyGroups);
-    
+        CreateHero();
+
         _elementChoiceContainer.style.display = DisplayStyle.None;
         _cutsceneManager.PlayCutscene(_endCutscene);
         _cutsceneManager.OnCutsceneFinished += EndHeroCreation;
@@ -189,13 +188,6 @@ public class HeroCreation : MonoBehaviour
 
     void EndHeroCreation(Cutscene c)
     {
-        // if (_chosenElement == null)
-        // {
-        //     Helpers.DisplayTextOnElement(_root, _submitButton, "Choose an element first!", Color.red);
-        //     return;
-        // }
-
-        CreateHero();
         StartGame();
         _gameManager.SaveJsonData();
     }
@@ -204,7 +196,6 @@ public class HeroCreation : MonoBehaviour
     {
         Debug.Log($"Creating hero: {_nameField.value}");
 
-        // TODO: an effect would be nice.
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
         newChar.CreateFromHeroCreation(_nameField.value, _heroPortraits[_currentPortraitIndex], _chosenElement);
         _gameManager.PlayerHero = newChar;
