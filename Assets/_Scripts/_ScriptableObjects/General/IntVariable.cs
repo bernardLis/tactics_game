@@ -18,7 +18,7 @@ public class IntVariable : ScriptableObject
         Value = newValue;
         OnValueChanged?.Invoke(Value);
     }
-    
+
     public void SetValue(IntVariable value)
     {
         PreviousValue = Value;

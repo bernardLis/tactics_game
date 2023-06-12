@@ -39,7 +39,8 @@ public class Ability : BaseScriptableObject
 
     public int GetManaCost()
     {
-        return Mathf.RoundToInt(BaseManaCost * ((Level - 1) * ManaCostLevelMultiplier));
+
+        return Mathf.RoundToInt(BaseManaCost + ((Level - 1) * ManaCostLevelMultiplier));
     }
 
     public int GetPower()

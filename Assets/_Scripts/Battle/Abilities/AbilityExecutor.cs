@@ -35,6 +35,7 @@ public class AbilityExecutor : MonoBehaviour
     {
         if (_areaHighlightInstance == null) return;
 
+
         _selectedAbility = ability;
 
         _effectInstance = Instantiate(_effectPrefab, _areaHighlightInstance.transform.position, Quaternion.identity);
