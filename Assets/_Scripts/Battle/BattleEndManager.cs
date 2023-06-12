@@ -144,7 +144,7 @@ public class BattleEndManager : MonoBehaviour
 
     IEnumerator HandleEvolution(ArmyGroup ag)
     {
-        //TESTING: if (!ag.ShouldEvolve()) yield break;
+        if (!ag.ShouldEvolve()) yield break;
 
         Evolve();
         yield return new WaitForSeconds(0.5f);
@@ -153,8 +153,8 @@ public class BattleEndManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _evolutionElement.AddKills();
 
-        //  yield return new WaitForSeconds(0.5f);
-        //  yield return HandleEvolution(ag); // it should go in circles in case of multiple evolutions
+        yield return new WaitForSeconds(0.5f);
+        yield return HandleEvolution(ag); // it should go in circles in case of multiple evolutions
     }
 
     void Evolve()
