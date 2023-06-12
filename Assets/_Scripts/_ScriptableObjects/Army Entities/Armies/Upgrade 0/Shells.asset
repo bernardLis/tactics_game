@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: shell-8f39-4b6c-a851-72019b4f126c
   Name: Shellinos
   Creature: {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
-  NumberOfUnits: 0
+  NumberOfUnits: 1
   ListPosition: 5
   OldKillCount: 0
   TotalKillCount: 0

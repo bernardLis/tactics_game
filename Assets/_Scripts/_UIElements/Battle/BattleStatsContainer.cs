@@ -78,10 +78,10 @@ public class BattleStatsContainer : VisualElement
 
     void ShowArmyStats()
     {
-        _audioManager.PlaySFX("PlacingPaper", Vector3.zero);
-
         for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
         {
+            _audioManager.PlaySFXDelayed("PlacingPaper", Vector3.zero, 0.5f * i);
+
             VisualElement container = new();
             container.AddToClassList(_ussArmyStatsContainer);
             _armyGroupContainer.Add(container);
@@ -104,8 +104,7 @@ public class BattleStatsContainer : VisualElement
 
             container.style.opacity = 0;
             DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
-                    .SetDelay(0.5f * i)
-                    .OnComplete(() => _audioManager.PlaySFX("PlacingPaper", Vector3.zero));
+                    .SetDelay(0.5f * i);
         }
     }
 

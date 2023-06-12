@@ -35,8 +35,8 @@ public class BattleResult : FullScreenElement
 
     GameObject _starEffect;
 
-    public event Action OnExpContainerClosed;
     public event Action OnStatsContainerClosed;
+    public event Action OnExpContainerClosed;
     public event Action OnRewardContainerClosed;
     public event Action OnBattleChoiceContainerClosed;
 

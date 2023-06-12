@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: dummys-8f39-4b6c-a851-72019b4f126c
   Name: Dummy Boys
   Creature: {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
-  NumberOfUnits: 0
+  NumberOfUnits: 1
   ListPosition: 3
   OldKillCount: 2
   TotalKillCount: 2

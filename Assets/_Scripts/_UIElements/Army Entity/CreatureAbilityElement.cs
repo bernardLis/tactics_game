@@ -25,6 +25,9 @@ public class CreatureAbilityElement : ElementWithTooltip
 
         AddToClassList(_ussMain);
 
+        if (_ability == null)
+            return;
+
         style.backgroundImage = _ability.Icon.texture;
         _ability.OnAbilityUsed += OnAbilityUsed;
 

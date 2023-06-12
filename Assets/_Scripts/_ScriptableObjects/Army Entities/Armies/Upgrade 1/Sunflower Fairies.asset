@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: sunsun-8f39-4b6c-a851-72019b4f126c
   Name: Sunflower Fairies
   Creature: {fileID: 11400000, guid: b04d5324785816b468904c1eae7bf242, type: 2}
-  NumberOfUnits: 0
+  NumberOfUnits: 1
   ListPosition: 0
   OldKillCount: 0
   TotalKillCount: 0

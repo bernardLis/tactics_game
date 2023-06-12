@@ -27,6 +27,7 @@ public class BattleEndTestManager : MonoBehaviour
         _hero.CreateRandom(1);
         _hero.Abilities = new();
         _hero.Army = armyInstance;
+        GameManager.Instance.PlayerHero = _hero;
 
         foreach (Ability a in GameManager.Instance.HeroDatabase.GetAllAbilities())
         {

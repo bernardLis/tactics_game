@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: metalons-8f39-4b6c-a851-72019b4f126c
   Name: Matalolons
   Creature: {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
-  NumberOfUnits: 0
+  NumberOfUnits: 1
   ListPosition: 4
   OldKillCount: 0
   TotalKillCount: 0

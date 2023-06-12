@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: snowBomberinos-8f39-4b6c-a851-72019b4f126c
   Name: Snow Bombs
   Creature: {fileID: 11400000, guid: 2d70bf271513bd44fa9efbc8c010340c, type: 2}
-  NumberOfUnits: 0
+  NumberOfUnits: 1
   ListPosition: 0
   OldKillCount: 0
   TotalKillCount: 0

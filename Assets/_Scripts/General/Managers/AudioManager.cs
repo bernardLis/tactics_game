@@ -149,6 +149,16 @@ public class AudioManager : Singleton<AudioManager>
 
     public void StopDialogue() { _dialogueAudioSource.Stop(); }
 
+    public void PlaySFXDelayed(string soundName, Vector3 pos, float delay)
+    {
+        StartCoroutine(PlaySFXDelayedCoroutine(soundName, pos, delay));
+    }
+    IEnumerator PlaySFXDelayedCoroutine(string soundName, Vector3 pos, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlaySFX(soundName, pos);
+    }
+
     public AudioSource PlaySFX(string soundName, Vector3 pos)
     {
         // first or default was throwing an error. 
