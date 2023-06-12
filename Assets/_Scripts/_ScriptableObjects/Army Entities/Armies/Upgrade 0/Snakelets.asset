@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: snakelet-8f39-4b6c-a851-72019b4f126c
   Name: Snakeletinos
   Creature: {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
-  NumberOfUnits: 1
+  NumberOfUnits: 10
   ListPosition: 6
   OldKillCount: 0
   TotalKillCount: 0

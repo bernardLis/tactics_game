@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class BattleEndManager : MonoBehaviour
 {
@@ -30,8 +31,8 @@ public class BattleEndManager : MonoBehaviour
     List<ArmyGroup> _playerArmy;
 
     int _currentArmyGroupIndex;
-    BattleEntity _currentEntity;
-    BattleEntity _evolvedEntity;
+    List<BattleEntity> _currentEntities = new();
+    List<BattleEntity> _evolvedEntities = new();
 
     public BattleResult BattleResult { get; private set; }
 
@@ -53,12 +54,11 @@ public class BattleEndManager : MonoBehaviour
 
     void BeginEndBattleShow()
     {
-        ShowUI();
-        /* HERE: testing
+        //ShowUI();
         _playerArmy = _gameManager.PlayerHero.Army;
         StartCoroutine(RunShow());
         StartCoroutine(RotateCameraAroundEntity());
-    */
+
     }
 
     IEnumerator RunShow()
@@ -85,19 +85,41 @@ public class BattleEndManager : MonoBehaviour
         yield return ShowArmyGroup(_playerArmy[_currentArmyGroupIndex]);
     }
 
+    void ClearEntities()
+    {
+        for (int i = _currentEntities.Count - 1; i >= 0; i--)
+        {
+            _currentEntities[i].Animator.DOKill();
+            Destroy(_currentEntities[i].gameObject);
+        }
+
+        for (int i = _evolvedEntities.Count - 1; i >= 0; i--)
+        {
+            _evolvedEntities[i].Animator.DOKill();
+            Destroy(_evolvedEntities[i].gameObject);
+        }
+
+        _currentEntities.Clear();
+
+        _evolvedEntities.Clear();
+    }
+
     IEnumerator ShowArmyGroup(ArmyGroup ag)
     {
         _infoContainer.Clear();
-        if (_currentEntity != null)
-            Destroy(_currentEntity.gameObject);
-        if (_evolvedEntity != null)
-            Destroy(_evolvedEntity.gameObject);
+        ClearEntities();
 
-        _currentEntity = InstantiateEntity(ag.Creature);
+        for (int i = 0; i < ag.NumberOfUnits; i++)
+        {
+            Vector3 pos = new Vector3(Random.Range(-3f, 3f), 1f, Random.Range(-3f, 3f));
+            BattleEntity be = InstantiateEntity(ag.Creature, pos);
+            _currentEntities.Add(be);
+        }
 
         yield return new WaitForSeconds(1f);
         // TODO: ideally there is a cool animation list that is going on
-        _currentEntity.Animator.SetBool("Move", true);
+        foreach (BattleEntity be in _currentEntities)
+            be.Animator.SetBool("Move", true);
 
         _evolutionElement = new(ag);
         _infoContainer.Add(_evolutionElement);
@@ -122,48 +144,47 @@ public class BattleEndManager : MonoBehaviour
 
     IEnumerator HandleEvolution(ArmyGroup ag)
     {
-        if (!ag.ShouldEvolve()) yield break;
+        //TESTING: if (!ag.ShouldEvolve()) yield break;
 
-        yield return Evolve();
+        Evolve();
         yield return new WaitForSeconds(0.5f);
 
         _evolutionElement.ResetKillsToEvolveBar();
         yield return new WaitForSeconds(0.5f);
         _evolutionElement.AddKills();
 
-        yield return new WaitForSeconds(0.5f);
-        yield return HandleEvolution(ag); // it should go in circles in case of multiple evolutions
+        //  yield return new WaitForSeconds(0.5f);
+        //  yield return HandleEvolution(ag); // it should go in circles in case of multiple evolutions
     }
 
-    IEnumerator Evolve()
+    void Evolve()
     {
-        _currentEntity.DisplayFloatingText("Evolving!", Color.magenta);
-
-        Material mat = _currentEntity.GetComponentInChildren<Renderer>().material;
-        Texture2D tex = mat.mainTexture as Texture2D;
-        mat.shader = _dissolveShader;
-        mat.SetTexture("_Base_Texture", tex);
-        DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), 0, 1, 5f);
-        yield return new WaitForSeconds(1f);
-
         _playerArmy[_currentArmyGroupIndex].Evolve();
         _evolutionElement.Evolve(_playerArmy[_currentArmyGroupIndex].Creature);
 
-        _evolvedEntity = InstantiateEntity(_playerArmy[_currentArmyGroupIndex].Creature);
-        _evolvedEntity.Collider.enabled = false;
+        foreach (BattleEntity be in _currentEntities)
+        {
+            _currentEntities[0].DisplayFloatingText("Evolving!", Color.magenta);
+            Material mat = be.GetComponentInChildren<Renderer>().material;
+            Texture2D tex = mat.mainTexture as Texture2D;
+            mat.shader = _dissolveShader;
+            mat.SetTexture("_Base_Texture", tex);
+            DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), 0, 1, 5f)
+                    .OnComplete(() => be.gameObject.SetActive(false));
 
-        Material evolvedMat = _evolvedEntity.GetComponentInChildren<Renderer>().material;
-        Texture2D evolvedTex = evolvedMat.mainTexture as Texture2D;
-        evolvedMat.shader = _dissolveShader;
-        evolvedMat.SetTexture("_Base_Texture", evolvedTex);
-        mat.SetFloat("_Dissolve_Value", 1f);
-        DOTween.To(x => evolvedMat.SetFloat("_Dissolve_Value", x), 1, 0, 5f)
-                .OnComplete(() => _evolvedEntity.Animator.SetBool("Move", true));
+            BattleEntity evolvedEntity = InstantiateEntity(_playerArmy[_currentArmyGroupIndex].Creature,
+                                                             be.transform.position);
+            _evolvedEntities.Add(evolvedEntity);
+            evolvedEntity.Collider.enabled = false;
 
-        yield return new WaitForSeconds(1f);
-        if (_currentEntity != null)
-            Destroy(_currentEntity.gameObject);
-        _currentEntity = _evolvedEntity;
+            Material evolvedMat = evolvedEntity.GetComponentInChildren<Renderer>().material;
+            Texture2D evolvedTex = evolvedMat.mainTexture as Texture2D;
+            evolvedMat.shader = _dissolveShader;
+            evolvedMat.SetTexture("_Base_Texture", evolvedTex);
+            mat.SetFloat("_Dissolve_Value", 1f);
+            DOTween.To(x => evolvedMat.SetFloat("_Dissolve_Value", x), 1, 0, 5f)
+                    .OnComplete(() => evolvedEntity.Animator.SetBool("Move", true));
+        }
     }
 
     void ShowContinueButton()
@@ -191,14 +212,12 @@ public class BattleEndManager : MonoBehaviour
         StartCoroutine(ShowArmyGroup(_playerArmy[_currentArmyGroupIndex]));
     }
 
-    BattleEntity InstantiateEntity(Creature armyEntity)
+    BattleEntity InstantiateEntity(Creature armyEntity, Vector3 pos)
     {
         // for each of player army, I want to spawn one entity
         Creature entityInstance = Instantiate(armyEntity);
         entityInstance.HeroInfluence(_gameManager.PlayerHero);
 
-        Vector3 pos = Vector3.zero;
-        pos.y = 1f;
         GameObject instance = Instantiate(armyEntity.Prefab, pos, Quaternion.identity);
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.SetDead();
@@ -213,12 +232,8 @@ public class BattleEndManager : MonoBehaviour
     {
         while (true)
         {
-            if (_currentEntity != null)
-            {
-                _cam.transform.LookAt(_currentEntity.transform.position);
-                _cam.transform.parent.RotateAround(_currentEntity.transform.position,
-                        Vector3.up, -0.5f * Time.deltaTime);
-            }
+            _cam.transform.LookAt(Vector3.zero);
+            _cam.transform.parent.RotateAround(Vector3.zero, Vector3.up, -0.5f * Time.deltaTime);
             yield return null;
         }
     }

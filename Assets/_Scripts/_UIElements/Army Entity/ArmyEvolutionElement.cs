@@ -135,11 +135,11 @@ public class CreatureEvolutionElement : VisualElement
         _kills.ApplyChange(killChange);
     }
 
-    public void Evolve(Creature entity)
+    public void Evolve(Creature creature)
     {
-        _name.text += $" -> {entity.Name}";
+        _name.text += $" -> {creature.Name}";
 
-        _armyGroupElement.Evolve(entity);
+        _armyGroupElement.Evolve(creature);
 
         _healthLabel.text += $" -> {ArmyGroup.Creature.Health}";
         _power.text += $" -> {ArmyGroup.Creature.Power}";
@@ -149,8 +149,8 @@ public class CreatureEvolutionElement : VisualElement
         _speed.text += $" -> {ArmyGroup.Creature.Speed}";
 
         _abilityContainer.Add(new Label(" -> "));
-        if (entity.CreatureAbility != null)
-            _abilityContainer.Add(new CreatureAbilityElement(entity.CreatureAbility));
+        if (creature.CreatureAbility != null)
+            _abilityContainer.Add(new CreatureAbilityElement(creature.CreatureAbility));
 
     }
 
