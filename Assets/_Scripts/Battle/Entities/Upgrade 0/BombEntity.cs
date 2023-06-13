@@ -33,9 +33,10 @@ public class BombEntity : BattleEntityRanged
             if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
             {
                 if (entity == this) continue;
+                if (entity.IsDead) continue;
                 StartCoroutine(entity.GetHit(this, 50));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-                GameObject hitInstance = Instantiate(Creature.HitPrefab, _opponent.Collider.bounds.center, q);
+                GameObject hitInstance = Instantiate(Creature.HitPrefab, collider.bounds.center, q);
                 _hitInstances.Add(hitInstance);
             }
         }

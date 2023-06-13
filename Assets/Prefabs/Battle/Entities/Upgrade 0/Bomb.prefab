@@ -10300,6 +10300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7a7b808dd32c34f8856e1c98cf2baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
+  IsShielded: 0
+  EntityLog: []
   _projectileSpawnPoint: {fileID: 7437944646562862486}
   _explosionRadius: 5
   _explosionEffect: {fileID: 1913955008231385040, guid: 1cb6420f158ffcc468cff060385ede5c, type: 3}

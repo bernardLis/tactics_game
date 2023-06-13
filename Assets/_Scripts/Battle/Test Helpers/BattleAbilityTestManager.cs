@@ -30,12 +30,19 @@ public class BattleAbilityTestManager : MonoBehaviour
         _hero = ScriptableObject.CreateInstance<Hero>();
         _hero.CreateRandom(1);
         _hero.Abilities = new();
-        _hero.BaseMana.SetValue(12);
+        _hero.BaseMana.SetValue(1200);
+
 
         foreach (Ability a in GameManager.Instance.HeroDatabase.GetAllAbilities())
         {
             Ability instance = Instantiate<Ability>(a);
             _hero.Abilities.Add(instance);
+        }
+        // HERE: pickup testing
+        for (int i = 0; i < 7; i++)
+        {
+            foreach (Ability a in _hero.Abilities)
+                a.LevelUp();
         }
 
         _battleManager.Initialize(_hero, null, null, null);

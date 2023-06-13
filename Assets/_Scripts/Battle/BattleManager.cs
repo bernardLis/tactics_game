@@ -49,6 +49,8 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleEntity> KilledPlayerEntities = new();
     public List<BattleEntity> KilledOpponentEntities = new();
 
+    [HideInInspector] public List<Pickup> CollectedPickups = new();
+
     public bool IsEndingBattleBlocked;
     bool _battleFinalized = false;
 
@@ -219,6 +221,11 @@ public class BattleManager : Singleton<BattleManager>
         if (battleEntity.Team == 0) return PlayerEntities;
         //if (battleEntity.Team == 1) 
         return OpponentEntities;
+    }
+
+    public void CollectPickup(Pickup p)
+    {
+        CollectedPickups.Add(p);
     }
 
     IEnumerator BattleLost()

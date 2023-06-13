@@ -12,6 +12,8 @@ using UnityEngine.EventSystems;
 
 public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] GameObject _battlePickupPrefab;
+
     BattleEntityTooltipManager _tooltipManager;
     public Collider Collider { get; private set; }
 
@@ -29,7 +31,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public float CurrentHealth { get; private set; }
 
     protected BattleEntity _opponent;
-    public NavMeshAgent _agent; // HERE: agent
+    protected NavMeshAgent _agent;
 
     protected float _currentAttackCooldown;
     public float CurrentSpecialAbilityCooldown { get; private set; }
@@ -329,6 +331,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
 
+        DOTween.Kill(transform);
+
+        BattlePickup bp = Instantiate(_battlePickupPrefab, transform.position, Quaternion.identity).GetComponent<BattlePickup>();
+        bp.Initialize();
+
         EntityLog.Add($"{Time.time}: Entity dies.");
 
         OnDeath?.Invoke(this, attacker, ability);
@@ -336,7 +343,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Animator.SetTrigger("Die");
 
         TurnHighlightOff();
-        DOTween.KillAll(transform);
+        //
         //StopAllCoroutines(); <- this breaks bomb exploding
     }
 
@@ -459,6 +466,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /* weird helpers */
     public void DisplayFloatingText(string text, Color color)
     {
+        if (_feelPlayer == null) return;
         MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
         floatingText.Value = text;
         floatingText.ForceColor = true;

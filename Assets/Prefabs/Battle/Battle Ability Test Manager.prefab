@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9076309237168093165}
   - component: {fileID: 7241779266783615597}
+  - component: {fileID: 7963201778319239351}
   m_Layer: 0
   m_Name: Battle Ability Test Manager
   m_TagString: Untagged
@@ -44,3 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397bfd386be827f4586f25c52f8c4509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7963201778319239351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3225769549477263778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 573e0b1f101988542b5ab500265ccafa, type: 3}
+  m_SortingOrder: 0

@@ -1332,5 +1332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b6a82b9e9177941ae72afd3c65e79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   IsShielded: 0
+  EntityLog: []
   _shieldEffect: {fileID: 1895680990583707989, guid: 614d553abddeb664b9369fcbb7e532ac, type: 3}

@@ -23,7 +23,7 @@ MonoBehaviour:
   BaseCooldown: 3
   BaseScale: 1
   ManaCostLevelMultiplier: 1.2
-  PowerLevelMultiplier: 2
+  PowerLevelMultiplier: 10
   CooldownLevelMultiplier: 2
   ScaleLevelMultiplier: 1
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}

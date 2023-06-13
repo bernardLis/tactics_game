@@ -1259,7 +1259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d085ba84bbab545a5cc450bd720547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   IsShielded: 0
+  EntityLog: []
   _healEffect: {fileID: 2247497184909312135, guid: 88290fe09cc621d4eae26d399c3ed3c8, type: 3}
 --- !u!4 &5163696819786201022 stripped
 Transform:

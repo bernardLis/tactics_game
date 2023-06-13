@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a470bf825c5164c96fb70dba9a3e90, type: 3}
+  m_Name: Uncommon Pickup
+  m_EditorClassIdentifier: 
+  Id: uncommon-1867-4180-9efa-43a396a4e854
+  PickupChance: 0.2
+  PickupColor: {r: 1, g: 1, b: 1, a: 1}
+  GoldChance: 0.61
+  GoldRange: {x: 50, y: 100}
+  Gold: 0
+  SpiceChance: 0.2
+  SpiceRange: {x: 5, y: 10}
+  Spice: 0
+  CommonItemChance: 0.1
+  UncommonItemChance: 0.05
+  RareItemChance: 0.025
+  EpicItemChance: 0.015
+  Item: {fileID: 0}

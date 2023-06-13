@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7145388959955883547}
+  - component: {fileID: 5553388727352441539}
   m_Layer: 0
   m_Name: Battle Entity Test Manager
   m_TagString: Untagged
@@ -31,3 +32,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5553388727352441539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808751737114936783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25767a370391ef4e82694a46193681a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllGroups:
+  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
+  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
+  - {fileID: 11400000, guid: 61ddd5316d4afa34c8cb44243857566d, type: 2}
+  - {fileID: 11400000, guid: 9284f634c811c0342b04d5a99c1d02a3, type: 2}
+  - {fileID: 11400000, guid: f11406f24c473e8498dc2a64c10df48a, type: 2}
+  - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}
+  - {fileID: 11400000, guid: 4dc58bf026c85be4fa40d8d595b102d3, type: 2}
+  - {fileID: 11400000, guid: 517db7d749d242244bb8a0eeece149e6, type: 2}
+  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
+  _testSpecificTeams: 1
+  TeamAArmies:
+  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
+  TeamBArmies:
+  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
+  _oneArmyVsAll: 0
+  _oneArmy:
+  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
+  _fullOneVOnes: 1

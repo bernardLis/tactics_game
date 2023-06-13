@@ -854,6 +854,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27eeb75bba4f8684c8ec3c92fe32d6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
+  IsShielded: 0
+  EntityLog: []
   _specialEffectRadius: 3
   _specialEffect: {fileID: 5539951380587535889, guid: 787e8bf9d297d154b97072c40fabc9b7, type: 3}
 --- !u!4 &9000889998500164051 stripped
