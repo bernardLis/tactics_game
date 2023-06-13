@@ -15,6 +15,9 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
     [SerializeField] List<Pickup> _pickupChoices = new();
     [HideInInspector] public Pickup Pickup;
 
+    GameObject _GFX;
+    GameObject _effect;
+
     bool _isCollected;
 
     void Start()
@@ -45,18 +48,22 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
             return;
         }
 
+        _effect = Instantiate(Pickup.Effect, transform.position, Quaternion.identity);
+        _effect.transform.parent = transform;
+
+        _GFX = GetComponentInChildren<MeshRenderer>().gameObject;
         GetComponentInChildren<MeshRenderer>().material.color = Pickup.PickupColor;
 
         float endY = Random.Range(2f, 4f);
         float timeY = Random.Range(1f, 3f);
 
-        transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
-        transform.DOMoveY(endY, timeY)
+        _GFX.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
+        _GFX.transform.DOMoveY(endY, timeY)
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
 
         float timeRot = Random.Range(3f, 5f);
-        transform.DOLocalRotate(new Vector3(0, 360, 360), timeRot, RotateMode.FastBeyond360)
+        _GFX.transform.DORotate(new Vector3(0, 360, 360), timeRot, RotateMode.FastBeyond360)
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Restart);
     }
@@ -68,10 +75,15 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
 
         BattleManager.Instance.CollectPickup(Pickup);
 
-        Rigidbody rb = GetComponent<Rigidbody>();
+        _effect.SetActive(false);
+
+        GameObject clickEffect = Instantiate(Pickup.ClickEffect, _GFX.transform.position, Quaternion.identity);
+        clickEffect.transform.parent = transform;
+
+        Rigidbody rb = _GFX.GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.useGravity = true;
-        DOTween.Kill(transform);
+        DOTween.Kill(_GFX.transform);
 
         Material mat = GetComponentInChildren<Renderer>().material;
         Texture2D tex = mat.mainTexture as Texture2D;

@@ -15,12 +15,12 @@ MonoBehaviour:
   Id: sunblossom-8f39-4b6c-a851-72019b4f126c
   Name: Sun suns
   Creature: {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
-  NumberOfUnits: 1
+  NumberOfUnits: 4
   ListPosition: 7
   OldKillCount: 0
   TotalKillCount: 0
-  OldDamageDealt: 0
-  TotalDamageDealt: 0
-  OldDamageTaken: 0
-  TotalDamageTaken: 0
+  OldDamageDealt: 24
+  TotalDamageDealt: 24
+  OldDamageTaken: 290
+  TotalDamageTaken: 290
   PreviousCreature: {fileID: 0}

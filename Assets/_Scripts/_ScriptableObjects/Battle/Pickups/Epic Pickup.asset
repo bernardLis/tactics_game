@@ -26,3 +26,5 @@ MonoBehaviour:
   RareItemChance: 0.04
   EpicItemChance: 0.03
   Item: {fileID: 0}
+  Effect: {fileID: 4577507224819663240, guid: dbf1928b656a3fb4fb903ad6d832642c, type: 3}
+  ClickEffect: {fileID: 5617353156991115116, guid: 2f38177ef00c14e48b0f0dd6bb440893, type: 3}

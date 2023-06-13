@@ -22,6 +22,9 @@ public class Pickup : BaseScriptableObject
     public float EpicItemChance;
     [HideInInspector] public Item Item;
 
+    public GameObject Effect;
+    public GameObject ClickEffect;
+
     public void Initialize()
     {
         float roll = Random.value;

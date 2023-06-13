@@ -13,7 +13,7 @@ using UnityEngine.EventSystems;
 public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] GameObject _battlePickupPrefab;
-
+    [SerializeField] GameObject _healedEffect;
     BattleEntityTooltipManager _tooltipManager;
     public Collider Collider { get; private set; }
 
@@ -247,7 +247,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public int GetHealed(Ability ability)
     {
-
         int value = ability.GetPower();
         GetHealed(value);
         return Mathf.RoundToInt(value);
@@ -263,6 +262,12 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         OnHealthChanged?.Invoke(CurrentHealth);
         DisplayFloatingText("+" + value, Color.green);
+
+        GameObject obj = Instantiate<GameObject>(_healedEffect, transform.position, Quaternion.identity);
+        obj.transform.parent = _GFX.transform;
+        obj.transform.DOScale(0, 0.5f)
+                .SetDelay(2f)
+                .OnComplete(() => Destroy(obj));
     }
 
     public virtual IEnumerator GetHit(Ability ability)

@@ -20,15 +20,19 @@ public class SunBlossomEntity : BattleEntityMelee
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
         List<BattleEntity> copyOfAllies = new(BattleManager.Instance.GetAllies(this));
+        bool hasHealed = false;
         foreach (BattleEntity b in copyOfAllies)
         {
             if (b.HasFullHealth()) continue;
             if (b.IsDead) continue;
-
+            hasHealed = true;
             b.GetHealed(20); // TODO: hardcoded value
-            _healEffectInstance = Instantiate(_healEffect, b.transform.position, Quaternion.identity);
-            _healEffectInstance.transform.parent = _GFX.transform;
         }
+
+        if (!hasHealed)
+            GetHealed(20); // TODO: hardcoded value
+        _healEffectInstance = Instantiate(_healEffect, transform.position, Quaternion.identity);
+        _healEffectInstance.transform.parent = _GFX.transform;
 
         yield return base.SpecialAbility();
     }
