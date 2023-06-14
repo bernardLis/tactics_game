@@ -8,6 +8,12 @@ using MoreMountains.Feedbacks;
 
 public class BattlePickup : MonoBehaviour, IPointerClickHandler
 {
+    AudioManager _audioManager;
+
+    BattleManager _battleManager;
+    BattleGrabManager _grabManager;
+    BattleAbilityManager _abilityManager;
+
     MMF_Player _feelPlayer;
 
     [SerializeField] Shader _dissolveShader;
@@ -22,6 +28,11 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
 
     void Start()
     {
+        _audioManager = AudioManager.Instance;
+        _battleManager = BattleManager.Instance;
+        _grabManager = BattleGrabManager.Instance;
+        _abilityManager = _battleManager.GetComponent<BattleAbilityManager>();
+
         _feelPlayer = GetComponent<MMF_Player>();
     }
 
@@ -47,6 +58,9 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
             Destroy(gameObject);
             return;
         }
+        
+        _audioManager = AudioManager.Instance;
+        _audioManager.PlaySFX(Pickup.DropSound, transform.position);
 
         _effect = Instantiate(Pickup.Effect, transform.position, Quaternion.identity);
         _effect.transform.parent = transform;
@@ -63,8 +77,10 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
             .SetLoops(-1, LoopType.Yoyo);
 
         float timeRot = Random.Range(3f, 5f);
-        _GFX.transform.DORotate(new Vector3(0, 360, 360), timeRot, RotateMode.FastBeyond360)
-            .SetEase(Ease.InOutSine)
+        Vector3 rotVector = new(360, 0, 0);
+
+        _GFX.transform.DORotate(rotVector, timeRot, RotateMode.FastBeyond360)
+            .SetEase(Ease.InOutQuad)
             .SetLoops(-1, LoopType.Restart);
     }
 
@@ -73,7 +89,13 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
         if (_isCollected) return;
         _isCollected = true;
 
-        BattleManager.Instance.CollectPickup(Pickup);
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (_grabManager.IsGrabbingEnabled) return;
+        if (_abilityManager.IsAbilitySelected) return;
+
+        _audioManager.PlaySFX(Pickup.GetPickupSound(), transform.position);
+
+        _battleManager.CollectPickup(Pickup);
 
         _effect.SetActive(false);
 
@@ -91,7 +113,11 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
         mat.color = Pickup.PickupColor;
         mat.SetTexture("_Base_Texture", tex);
         DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), 0, 1, 10f)
-                .OnComplete(() => gameObject.SetActive(false));
+                .OnComplete(() =>
+                {
+                    gameObject.SetActive(false);
+                    Destroy(gameObject, 1f);
+                });
 
         DisplayFloatingText(Pickup.GetDisplayText(), Pickup.GetDisplayColor());
     }

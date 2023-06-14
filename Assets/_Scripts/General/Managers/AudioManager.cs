@@ -207,6 +207,13 @@ public class AudioManager : Singleton<AudioManager>
         sound.Play(audioSource);
     }
 
+    public Sound GetSound(string name)
+    {
+        Sound s = sounds.First(s => s.name == name);
+        if (s == null)
+            Debug.LogError($"No sound with name {name} in library");
+        return s;
+    }
 
     /* volume setters */
     void SetPlayerPrefVolume()

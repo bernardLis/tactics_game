@@ -25,6 +25,8 @@ public class Pickup : BaseScriptableObject
     public GameObject Effect;
     public GameObject ClickEffect;
 
+    public Sound DropSound;
+
     public void Initialize()
     {
         float roll = Random.value;
@@ -101,7 +103,19 @@ public class Pickup : BaseScriptableObject
             return Color.yellow;
 
         return Color.white;
+    }
 
+    public Sound GetPickupSound()
+    {
+
+        if (Item != null)
+            return AudioManager.Instance.GetSound("Item Pickup");
+        if (Spice > 0)
+            return AudioManager.Instance.GetSound("Spice Pickup");
+        if (Gold > 0)
+            return AudioManager.Instance.GetSound("Gold Pickup");
+
+        return null;
     }
 
 }
