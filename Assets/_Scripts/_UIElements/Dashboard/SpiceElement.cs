@@ -56,7 +56,11 @@ public class SpiceElement : ChangingValueElement
                 .SetEase(Ease.InOutSine);
     }
 
-    public void OnValueChanged(int change) { ChangeAmount(Amount + change); }
+    public void OnValueChanged(int change)
+    {
+        Debug.Log($"Amount {Amount} change: {change}");
+        ChangeAmount(Amount + change);
+    }
 
     protected override void FinishAnimation()
     {

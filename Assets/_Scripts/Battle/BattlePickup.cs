@@ -58,7 +58,7 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
             Destroy(gameObject);
             return;
         }
-        
+
         _audioManager = AudioManager.Instance;
         _audioManager.PlaySFX(Pickup.DropSound, transform.position);
 
@@ -92,6 +92,8 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
         if (eventData.button != PointerEventData.InputButton.Left) return;
         if (_grabManager.IsGrabbingEnabled) return;
         if (_abilityManager.IsAbilitySelected) return;
+
+        GetComponent<Collider>().enabled = false;
 
         _audioManager.PlaySFX(Pickup.GetPickupSound(), transform.position);
 

@@ -32,6 +32,7 @@ public class BattleAbilityTestManager : MonoBehaviour
         _hero.Abilities = new();
         _hero.BaseMana.SetValue(1200);
 
+        GameManager.Instance.PlayerHero = _hero;
 
         foreach (Ability a in GameManager.Instance.HeroDatabase.GetAllAbilities())
         {

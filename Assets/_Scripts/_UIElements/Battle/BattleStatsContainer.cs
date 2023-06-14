@@ -9,12 +9,12 @@ using Random = UnityEngine.Random;
 
 public class BattleStatsContainer : VisualElement
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
     const string _ussClassName = "battle-stats-container__";
     const string _ussMain = _ussClassName + "main";
     const string _ussArmyGroupContainer = _ussClassName + "army-group-container";
-
 
     const string _ussArmyStatsContainer = _ussClassName + "army-stats-container";
 
@@ -25,10 +25,16 @@ public class BattleStatsContainer : VisualElement
 
     List<BattleLogAbility> _abilityLogs = new();
 
+    VisualElement _pickupStatsContainer;
+
     ScrollView _armyGroupContainer;
     List<VisualElement> _armyStatContainers = new();
 
     VisualElement _logRecordsContainer;
+
+    int _goldCollected = 0;
+    int _spiceCollected = 0;
+    List<Item> _itemsCollected = new();
 
     public event Action OnFinished;
     public BattleStatsContainer(VisualElement content)
@@ -46,10 +52,14 @@ public class BattleStatsContainer : VisualElement
             styleSheets.Add(ss);
 
         AddToClassList(_ussMain);
+        AddToClassList(_ussCommonTextPrimary);
 
         foreach (BattleLog item in _battleLogManager.Logs)
             if (item is BattleLogAbility abilityLog)
                 _abilityLogs.Add(abilityLog);
+
+        _pickupStatsContainer = new();
+        Add(_pickupStatsContainer);
 
         _armyGroupContainer = new();
         _armyGroupContainer.AddToClassList(_ussArmyGroupContainer);
@@ -59,6 +69,7 @@ public class BattleStatsContainer : VisualElement
         _logRecordsContainer = new();
         Add(_logRecordsContainer);
 
+        ShowPickupStats();
         ShowArmyStats();
         // wait for army stats to show
         this.schedule.Execute(AddMostKillsEntity).StartingIn(500 + 500 * _gameManager.PlayerHero.Army.Count);
@@ -74,6 +85,50 @@ public class BattleStatsContainer : VisualElement
         ArmyGroupElement armyGroupElement = new(ag);
         armyGroupElement.CreatureIcon.PlayAnimationAlways();
         container.Add(armyGroupElement);
+    }
+
+    void ShowPickupStats()
+    {
+        Label pickupCountLabel = new($"Pickups Collected: {_battleManager.CollectedPickups.Count}");
+        _pickupStatsContainer.Add(pickupCountLabel);
+        pickupCountLabel.style.opacity = 0;
+        DOTween.To(x => pickupCountLabel.style.opacity = x, 0, 1, 0.5f);
+
+        _goldCollected = 0;
+        _spiceCollected = 0;
+        _itemsCollected = new();
+
+        foreach (Pickup p in _battleManager.CollectedPickups)
+        {
+            if (p.Gold > 0)
+                _goldCollected += p.Gold;
+            if (p.Spice > 0)
+                _spiceCollected += p.Spice;
+            if (p.Item != null)
+                _itemsCollected.Add(p.Item);
+        }
+
+        VisualElement collectionContainer = new();
+        collectionContainer.style.flexDirection = FlexDirection.Row;
+        _pickupStatsContainer.Add(collectionContainer);
+
+        GoldElement goldElement = new(_goldCollected);
+        goldElement.style.opacity = 0;
+        DOTween.To(x => goldElement.style.opacity = x, 0, 1, 0.5f);
+
+        SpiceElement spiceElement = new(_spiceCollected);
+        spiceElement.style.opacity = 0;
+        DOTween.To(x => spiceElement.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
+
+        collectionContainer.Add(goldElement);
+        collectionContainer.Add(spiceElement);
+        for (int i = 0; i < _itemsCollected.Count; i++)
+        {
+            ItemElement itemElement = new(_itemsCollected[i]);
+            itemElement.style.opacity = 0;
+            DOTween.To(x => itemElement.style.opacity = x, 0, 1, 0.5f).SetDelay(1f + 0.5f * i);
+            collectionContainer.Add(itemElement);
+        }
     }
 
     void ShowArmyStats()
@@ -183,8 +238,14 @@ public class BattleStatsContainer : VisualElement
 
     public void MoveAway()
     {
+        GiveCollectedPickups();
+
+        DOTween.To(x => _pickupStatsContainer.style.opacity = x, 1, 0, 0.5f)
+                .OnComplete(() => _pickupStatsContainer.style.display = DisplayStyle.None);
+
         DOTween.To(x => _logRecordsContainer.style.opacity = x, 1, 0, 0.5f)
                 .OnComplete(() => _logRecordsContainer.style.display = DisplayStyle.None);
+
         foreach (VisualElement el in _armyStatContainers)
         {
             DOTween.To(x => el.style.opacity = x, 1, 0, 0.5f)
@@ -197,7 +258,6 @@ public class BattleStatsContainer : VisualElement
         _armyGroupContainer.style.left = worldBound.xMin;
 
         schedule.Execute(() => _audioManager.PlaySFX("PaperFlying", Vector3.zero)).StartingIn(500);
-
         DOTween.To(x => _armyGroupContainer.style.left = x, worldBound.xMin, 40, 0.5f)
             .SetDelay(0.5f)
             .SetEase(Ease.InOutFlash)
@@ -206,5 +266,13 @@ public class BattleStatsContainer : VisualElement
                 _audioManager.PlaySFX("PaperFlying", Vector3.zero);
                 DOTween.To(x => _armyGroupContainer.style.bottom = x, _armyGroupContainer.layout.y, 20, 0.5f);
             });
+    }
+
+    void GiveCollectedPickups()
+    {
+        _gameManager.ChangeGoldValue(_goldCollected);
+        _gameManager.ChangeSpiceValue(_spiceCollected);
+        foreach (Item i in _itemsCollected)
+            _gameManager.PlayerHero.AddItem(i);
     }
 }

@@ -123,6 +123,12 @@ public class RewardExpContainer : VisualElement
 
     void ShowKilledEnemies()
     {
+        if(_battleManager.KilledOpponentEntities.Count == 0)
+        {
+            if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
+            return;
+        }
+        
         int delay = 2000 / _battleManager.KilledOpponentEntities.Count;
         List<BattleEntity> killedEnemies = new(_battleManager.KilledOpponentEntities);
 

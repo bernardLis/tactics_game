@@ -248,7 +248,7 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator BattleWon()
     {
         LoadedBattle.Won = true;
-
+        Debug.Log($"battle won IsEndingBattleBlocked: {IsEndingBattleBlocked}");
         if (IsEndingBattleBlocked)
         {
             yield return FinalizeBattle();
@@ -315,5 +315,11 @@ public class BattleManager : Singleton<BattleManager>
             StartCoroutine(be.Die());
         }
     }
+    [ContextMenu("Alternative Win Battle")]
+    public void WinBattleAlternative()
+    {
+        StartCoroutine(BattleWon());
+    }
 #endif
+
 }

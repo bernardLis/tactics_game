@@ -126,7 +126,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             return;
 
         Spice += o;
-        OnSpiceChanged?.Invoke(o);
+        OnSpiceChanged?.Invoke(Spice);
     }
 
 

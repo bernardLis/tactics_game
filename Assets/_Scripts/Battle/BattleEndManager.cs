@@ -54,11 +54,13 @@ public class BattleEndManager : MonoBehaviour
 
     void BeginEndBattleShow()
     {
-        //ShowUI();
+        Debug.Log($"BeginEndBattleShow");
+        ShowUI();
+        /* TODO: pickup testing
         _playerArmy = _gameManager.PlayerHero.Army;
         StartCoroutine(RunShow());
         StartCoroutine(RotateCameraAroundEntity());
-
+*/
     }
 
     IEnumerator RunShow()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Linq;
 
 #if (UNITY_EDITOR) 
 
@@ -11,6 +12,8 @@ public class BattleEndTestManager : MonoBehaviour
     Hero _hero;
 
     [SerializeField] List<ArmyGroup> _army;
+
+    [SerializeField] List<Pickup> _pickups;
 
     void Start()
     {
@@ -40,6 +43,25 @@ public class BattleEndTestManager : MonoBehaviour
         opp.Army = armyInstance;
 
         _battleManager.Initialize(_hero, opp, _hero.Army, opp.Army);
+
+        // HERE: pickup testing
+        for (int i = 0; i < 10; i++)
+        {
+            List<Pickup> ordered = new(_pickups.OrderBy(o => o.PickupChance).ToList());
+            float roll = Random.value;
+
+            foreach (Pickup p in ordered)
+            {
+                if (roll <= p.PickupChance)
+                {
+                    Pickup instance = Instantiate(p);
+                    instance.Initialize();
+                    _battleManager.CollectPickup(instance);
+                    break;
+                }
+                roll -= p.PickupChance;
+            }
+        }
 
         Invoke("WinBattle", 1f);
     }
