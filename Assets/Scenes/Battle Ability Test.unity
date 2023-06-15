@@ -343,8 +343,8 @@ MonoBehaviour:
   _respawnToKeepNumberOfEntities: 1
   _numberOfEntities: 10
   ArmiesToSpawn:
-  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
   - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}
+  - {fileID: 11400000, guid: 4dc58bf026c85be4fa40d8d595b102d3, type: 2}
 --- !u!4 &704766438
 Transform:
   m_ObjectHideFlags: 0

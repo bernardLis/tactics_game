@@ -1310,6 +1310,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8598054890311141509}
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+--- !u!1 &354686297690419288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8538832651087049126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 8244998281391096318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2861232080461025094 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -1332,6 +1337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b6a82b9e9177941ae72afd3c65e79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _highlightDiamond: {fileID: 354686297690419288}
   _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   IsShielded: 0

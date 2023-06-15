@@ -768,6 +768,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4780772839949327987, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.518
+      objectReference: {fileID: 0}
     - target: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -854,12 +858,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27eeb75bba4f8684c8ec3c92fe32d6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _highlightDiamond: {fileID: 6895204439895445197}
   _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   IsShielded: 0
   EntityLog: []
   _specialEffectRadius: 3
   _specialEffect: {fileID: 5539951380587535889, guid: 787e8bf9d297d154b97072c40fabc9b7, type: 3}
+--- !u!1 &6895204439895445197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8538832651087049126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 2968057877029650283}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9000889998500164051 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}

@@ -1185,6 +1185,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4780772839949327987, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.388
+      objectReference: {fileID: 0}
     - target: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1259,6 +1263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d085ba84bbab545a5cc450bd720547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _highlightDiamond: {fileID: 7273340620720457888}
   _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   IsShielded: 0
@@ -1267,5 +1272,10 @@ MonoBehaviour:
 --- !u!4 &5163696819786201022 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 1328596851258734854}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7273340620720457888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8538832651087049126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 1328596851258734854}
   m_PrefabAsset: {fileID: 0}

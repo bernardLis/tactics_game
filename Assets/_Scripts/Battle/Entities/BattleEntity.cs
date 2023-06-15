@@ -12,6 +12,8 @@ using UnityEngine.EventSystems;
 
 public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    BattleHighlightDiamond _highlightDiamond;
+
     [SerializeField] GameObject _battlePickupPrefab;
     [SerializeField] GameObject _healedEffect;
     BattleEntityTooltipManager _tooltipManager;
@@ -68,6 +70,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         _currentAttackCooldown = 0;
         CurrentSpecialAbilityCooldown = 0;
+
+        _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
 
         _tooltipManager = BattleEntityTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
@@ -489,6 +493,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /* highlight */
     public void TurnHighlightOff()
     {
+        _highlightDiamond.Disable();
+
         if (_emissionTexture != null && Team == 0)
         {
             _material.SetTexture("_EmissionMap", _emissionTexture);
@@ -502,6 +508,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void TurnHighlightOn(Color color)
     {
         if (IsDead) return;
+        _highlightDiamond.Enable(GetHighlightColor());
 
         _material.SetTexture("_EmissionMap", null);
         _material.SetColor("_EmissionColor", color);
