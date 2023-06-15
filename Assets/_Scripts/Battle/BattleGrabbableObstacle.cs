@@ -64,7 +64,8 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         floatingText.Value = text;
         floatingText.ForceColor = true;
         floatingText.AnimateColorGradient = Helpers.GetGradient(color);
-        _feelPlayer.PlayFeedbacks(transform.position);
+        Vector3 pos = transform.position + new Vector3(0, transform.localScale.y * 0.8f, 0);
+        _feelPlayer.PlayFeedbacks(pos);
     }
 
 }

@@ -61,6 +61,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public void EnableGrabbing()
     {
+        if (this == null) return;
         if (_grabButton.IsOnCooldown)
         {
             Helpers.DisplayTextOnElement(_root, _grabButton, "On cooldown!", Color.red);
@@ -134,7 +135,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _playerInput.actions["RightMouseClick"].performed -= evt => DisableGrabbing();
         _playerInput.actions["EnableGrabbing"].performed -= evt => ToggleGrabbing();
     }
-    
+
     public void TryGrabbing(BattleEntity entity)
     {
         if (!IsGrabbingAllowed()) return;
