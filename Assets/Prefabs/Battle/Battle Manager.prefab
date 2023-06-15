@@ -81,6 +81,7 @@ MonoBehaviour:
   OpponentEntities: []
   KilledPlayerEntities: []
   KilledOpponentEntities: []
+  CollectedPickups: []
   IsEndingBattleBlocked: 0
 --- !u!114 &5119385659013104315
 MonoBehaviour:

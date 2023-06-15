@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using System.Linq;
 using MoreMountains.Feedbacks;
 
-public class BattlePickup : MonoBehaviour, IPointerClickHandler
+public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     AudioManager _audioManager;
 
@@ -22,6 +22,7 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
     [HideInInspector] public Pickup Pickup;
 
     GameObject _GFX;
+    Material _material;
     GameObject _effect;
 
     bool _isCollected;
@@ -66,7 +67,8 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
         _effect.transform.parent = transform;
 
         _GFX = GetComponentInChildren<MeshRenderer>().gameObject;
-        GetComponentInChildren<MeshRenderer>().material.color = Pickup.PickupColor;
+        _material = GetComponentInChildren<Renderer>().material;
+        _material.color = Pickup.PickupColor;
 
         float endY = Random.Range(2f, 4f);
         float timeY = Random.Range(1f, 3f);
@@ -109,12 +111,11 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
         rb.useGravity = true;
         DOTween.Kill(_GFX.transform);
 
-        Material mat = GetComponentInChildren<Renderer>().material;
-        Texture2D tex = mat.mainTexture as Texture2D;
-        mat.shader = _dissolveShader;
-        mat.color = Pickup.PickupColor;
-        mat.SetTexture("_Base_Texture", tex);
-        DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), 0, 1, 10f)
+        Texture2D tex = _material.mainTexture as Texture2D;
+        _material.shader = _dissolveShader;
+        _material.color = Pickup.PickupColor;
+        _material.SetTexture("_Base_Texture", tex);
+        DOTween.To(x => _material.SetFloat("_Dissolve_Value", x), 0, 1, 10f)
                 .OnComplete(() =>
                 {
                     gameObject.SetActive(false);
@@ -122,6 +123,16 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler
                 });
 
         DisplayFloatingText(Pickup.GetDisplayText(), Pickup.GetDisplayColor());
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _material.EnableKeyword("_EMISSION");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _material.DisableKeyword("_EMISSION");
     }
 
     void DisplayFloatingText(string text, Color color)

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class BattleAbilityArea : MonoBehaviour
 {
-
+    Camera _cam;
     List<BattleEntity> _entitiesInRange = new();
     public bool IsHighlightingEnabled = true;
 
@@ -16,6 +16,7 @@ public class BattleAbilityArea : MonoBehaviour
     void Start()
     {
         _floorLayerMask = LayerMask.GetMask("Floor");
+        _cam = Camera.main;
     }
 
     public void Initialize(Ability ability)
@@ -26,7 +27,7 @@ public class BattleAbilityArea : MonoBehaviour
 
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = _cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
         {
