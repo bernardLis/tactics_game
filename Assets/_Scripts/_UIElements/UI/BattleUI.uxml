@@ -24,7 +24,7 @@
         <ui:VisualElement name="abilityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; justify-content: center; align-self: center;" />
         <ui:VisualElement name="entityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
     </ui:VisualElement>
-    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: flex-start; align-self: center; justify-content: flex-start;">
+    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;">
         <ui:VisualElement name="battle__ability-container" class="battle__ability-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);" />
     </ui:VisualElement>
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />

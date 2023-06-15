@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.EventSystems;
 using System.Linq;
 using MoreMountains.Feedbacks;
+using Cursor = UnityEngine.Cursor;
 
 public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -15,6 +16,8 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     BattleAbilityManager _abilityManager;
 
     MMF_Player _feelPlayer;
+
+    [SerializeField] Texture2D _cursorTexture;
 
     [SerializeField] Shader _dissolveShader;
 
@@ -78,6 +81,7 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
 
+
         float timeRot = Random.Range(3f, 5f);
         Vector3 rotVector = new(360, 0, 0);
 
@@ -95,6 +99,12 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (_grabManager.IsGrabbingEnabled) return;
         if (_abilityManager.IsAbilitySelected) return;
 
+        Vector3 endScale = _GFX.transform.localScale * 1.01f;
+        _GFX.transform.DOPunchScale(endScale, 0.5f, 5, 0.5f)
+            .OnComplete(() => DOTween.Kill(_GFX.transform));
+
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
         GetComponent<Collider>().enabled = false;
 
         _audioManager.PlaySFX(Pickup.GetPickupSound(), transform.position);
@@ -109,7 +119,6 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         Rigidbody rb = _GFX.GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.useGravity = true;
-        DOTween.Kill(_GFX.transform);
 
         Texture2D tex = _material.mainTexture as Texture2D;
         _material.shader = _dissolveShader;
@@ -127,11 +136,17 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (_isCollected) return;
+
+        Cursor.SetCursor(_cursorTexture, Vector2.zero, CursorMode.Auto);
         _material.EnableKeyword("_EMISSION");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (_isCollected) return;
+
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         _material.DisableKeyword("_EMISSION");
     }
 
@@ -142,6 +157,6 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         floatingText.Value = text;
         floatingText.ForceColor = true;
         floatingText.AnimateColorGradient = Helpers.GetGradient(color);
-        _feelPlayer.PlayFeedbacks(transform.position);
+        _feelPlayer.PlayFeedbacks(_GFX.transform.position);
     }
 }

@@ -259,7 +259,7 @@ MonoBehaviour:
           m_NumAlphaKeys: 2
         ForceLifetime: 0
         Lifetime: 0.5
-        PositionMode: 1
+        PositionMode: 2
         TargetTransform: {fileID: 0}
         Direction: {x: 0, y: 0, z: 0}
 --- !u!114 &102792754588011014
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49409570e021bb34d8f9847407b597e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cursorTexture: {fileID: 2800000, guid: 58dfbf39eee62f74aa8ab1183b776b2c, type: 3}
   _dissolveShader: {fileID: -6465566751694194690, guid: ee7883bf85493b444ad650781d351876, type: 3}
   _pickupChoices:
   - {fileID: 11400000, guid: 1987ef9a8d2a57e4cbe2641b6680cdb6, type: 2}
@@ -310,7 +311,7 @@ Transform:
   m_GameObject: {fileID: 2728755606414489609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.2, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.2, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2052364687561058545}
