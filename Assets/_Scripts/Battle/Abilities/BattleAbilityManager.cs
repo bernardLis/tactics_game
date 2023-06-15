@@ -113,6 +113,7 @@ public class BattleAbilityManager : MonoBehaviour
     void ButtonOneClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (_abilities.Count < 1) return;
 
         HighlightAbilityArea(_abilities[0], _abilityButtons[0]);
     }
@@ -120,6 +121,7 @@ public class BattleAbilityManager : MonoBehaviour
     void ButtonTwoClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (_abilities.Count < 2) return;
 
         HighlightAbilityArea(_abilities[1], _abilityButtons[1]);
     }
@@ -127,6 +129,7 @@ public class BattleAbilityManager : MonoBehaviour
     void ButtonThreeClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (_abilities.Count < 3) return;
 
         HighlightAbilityArea(_abilities[2], _abilityButtons[2]);
     }
@@ -134,6 +137,7 @@ public class BattleAbilityManager : MonoBehaviour
     void ButtonFourClick(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (_abilities.Count < 4) return;
 
         HighlightAbilityArea(_abilities[3], _abilityButtons[3]);
     }

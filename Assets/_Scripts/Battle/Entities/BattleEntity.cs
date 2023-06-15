@@ -337,9 +337,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _isDeathCoroutineStarted = true;
 
         DOTween.Kill(transform);
-
-        BattlePickup bp = Instantiate(_battlePickupPrefab, transform.position, Quaternion.identity).GetComponent<BattlePickup>();
-        bp.Initialize();
+        if (Team != 0)
+        {
+            BattlePickup bp = Instantiate(_battlePickupPrefab, transform.position, Quaternion.identity).GetComponent<BattlePickup>();
+            bp.Initialize();
+        }
 
         EntityLog.Add($"{Time.time}: Entity dies.");
 
@@ -348,7 +350,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Animator.SetTrigger("Die");
 
         TurnHighlightOff();
-        //
         //StopAllCoroutines(); <- this breaks bomb exploding
     }
 

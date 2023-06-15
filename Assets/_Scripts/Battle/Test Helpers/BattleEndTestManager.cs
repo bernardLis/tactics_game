@@ -44,7 +44,6 @@ public class BattleEndTestManager : MonoBehaviour
 
         _battleManager.Initialize(_hero, opp, _hero.Army, opp.Army);
 
-        // HERE: pickup testing
         for (int i = 0; i < 10; i++)
         {
             List<Pickup> ordered = new(_pickups.OrderBy(o => o.PickupChance).ToList());

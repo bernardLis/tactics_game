@@ -39,7 +39,7 @@ public class BattleAbilityTestManager : MonoBehaviour
             Ability instance = Instantiate<Ability>(a);
             _hero.Abilities.Add(instance);
         }
-        // HERE: pickup testing
+
         for (int i = 0; i < 7; i++)
         {
             foreach (Ability a in _hero.Abilities)
