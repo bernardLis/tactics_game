@@ -248,7 +248,6 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator BattleWon()
     {
         LoadedBattle.Won = true;
-        Debug.Log($"battle won IsEndingBattleBlocked: {IsEndingBattleBlocked}");
         if (IsEndingBattleBlocked)
         {
             yield return FinalizeBattle();

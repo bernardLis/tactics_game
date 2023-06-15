@@ -98,3 +98,4 @@ MonoBehaviour:
   _shootSound: {fileID: 11400000, guid: a41a84a3e51ec19419cd9591cd62e362, type: 2}
   _gfx: {fileID: 0}
   _explosion: {fileID: 0}
+  _speed: 20

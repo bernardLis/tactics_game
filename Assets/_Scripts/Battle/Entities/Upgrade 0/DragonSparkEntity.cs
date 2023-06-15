@@ -27,8 +27,7 @@ public class DragonSparkEntity : BattleEntityRanged
         GameObject projectileInstance = Instantiate(_specialProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
 
-        // HERE: projectile speed
-        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, Creature.Power);
+        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, Creature.Power);
 
         yield return base.SpecialAbility();
     }

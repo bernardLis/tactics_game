@@ -10,18 +10,21 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] GameObject _gfx;
     [SerializeField] GameObject _explosion;
+
+    [SerializeField] int _speed;
+
     protected BattleEntity _shooter;
     protected BattleEntity _target;
 
-    public void Shoot(BattleEntity shooter, BattleEntity target, float speed, float power)
+    public void Shoot(BattleEntity shooter, BattleEntity target, float power)
     {
         AudioManager.Instance.PlaySFX(_shootSound, transform.position);
         _shooter = shooter;
         _target = target;
-        StartCoroutine(ShootCoroutine(shooter, target, speed, power));
+        StartCoroutine(ShootCoroutine(shooter, target, power));
     }
 
-    IEnumerator ShootCoroutine(BattleEntity shooter, BattleEntity target, float speed, float power)
+    IEnumerator ShootCoroutine(BattleEntity shooter, BattleEntity target, float power)
     {
         float targetScale = transform.localScale.x;
         transform.localScale = Vector3.zero;
@@ -31,7 +34,7 @@ public class Projectile : MonoBehaviour
         Vector3 startingPos = transform.position;
         Vector3 finalPos = target.Collider.bounds.center;
         float t = 0;
-        float step = (speed / (startingPos - finalPos).magnitude) * Time.fixedDeltaTime;
+        float step = (_speed / (startingPos - finalPos).magnitude) * Time.fixedDeltaTime;
 
         while (t <= 1.0f)
         {

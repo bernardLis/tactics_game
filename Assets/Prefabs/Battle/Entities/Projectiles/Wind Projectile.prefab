@@ -58379,6 +58379,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4977183985812118847}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: _speed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _explosion
       value: 
       objectReference: {fileID: 5087294742421194239}

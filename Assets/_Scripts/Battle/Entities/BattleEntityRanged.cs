@@ -133,13 +133,11 @@ public class BattleEntityRanged : BattleEntity
         yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
         Animator.SetTrigger("Attack");
 
-        // HERE: projectile spawning and animation delay per entity
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
         GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
 
-        // HERE: projectile speed
-        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, 20, Creature.Power);
+        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, Creature.Power);
 
         yield return base.Attack();
     }
