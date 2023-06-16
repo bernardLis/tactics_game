@@ -20,7 +20,10 @@ public class WolfPupEntity : BattleEntityMelee
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
+        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+
         _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity);
+        _effectInstance.transform.parent = transform;
 
         Vector3 normal = (_opponent.transform.position - transform.position).normalized;
         Vector3 targetPosition = transform.position + normal * 10f;

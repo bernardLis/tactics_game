@@ -24,6 +24,7 @@ public class ShellEntity : BattleEntityMelee
 
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
 
         DisplayFloatingText("Shielded", Color.blue);
         _shieldEffectInstance = Instantiate(_shieldEffect, transform.position, Quaternion.identity);

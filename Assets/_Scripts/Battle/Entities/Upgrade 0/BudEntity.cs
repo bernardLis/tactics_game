@@ -15,10 +15,13 @@ public class BudEntity : BattleEntityRanged
 
     protected override IEnumerator SpecialAbility()
     {
+        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
         _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity);
+        _effectInstance.transform.parent = transform;
 
         Vector3 point = ClosesPositionWithClearLOS();
         transform.position = point;

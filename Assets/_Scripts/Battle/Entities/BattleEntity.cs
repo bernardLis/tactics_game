@@ -12,11 +12,23 @@ using UnityEngine.EventSystems;
 
 public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    protected AudioManager _audioManager;
+
     BattleHighlightDiamond _highlightDiamond;
 
+    public List<string> EntityLog = new();
+
+    [Header("Sounds")]
+    [SerializeField] Sound _spawnSound;
+    [SerializeField] protected Sound _deathSound;
+    [SerializeField] protected Sound _attackSound;
+    [SerializeField] protected Sound _specialAbilitySound;
+
+    [Header("Prefabs")]
     [SerializeField] GameObject _battlePickupPrefab;
     [SerializeField] GameObject _healedEffect;
     BattleEntityTooltipManager _tooltipManager;
+
     public Collider Collider { get; private set; }
 
     public string BattleId { get; private set; }
@@ -63,9 +75,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public event Action<int> OnDamageDealt;
     public event Action<int> OnDamageTaken;
 
-    public List<string> EntityLog = new();
-
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
+
+    void Awake()
+    {
+        _audioManager = AudioManager.Instance;
+    }
+
     protected virtual void Start()
     {
         _currentAttackCooldown = 0;
@@ -123,7 +139,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     IEnumerator Spawn()
     {
-        // spawn animation should be playing play
+        if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
+        // spawn animation
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
         StartRunEntityCoroutine();
         EntityLog.Add($"{Time.time}: Entity is spawned");
@@ -296,6 +313,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {attacker.name}");
 
+        _audioManager.PlaySFX("Hit", transform.position);
+
         int damage = Creature.CalculateDamage(attacker);
         if (specialDamage > 0) damage = specialDamage;
 
@@ -339,6 +358,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
+
+        if (_deathSound != null) _audioManager.PlaySFX(_deathSound, transform.position);
 
         DOTween.Kill(transform);
         if (Team != 0)

@@ -25,6 +25,8 @@ public class MetalonEntity : BattleEntityMelee
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
+        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, _specialEffectRadius);
         foreach (Collider collider in colliders)
         {

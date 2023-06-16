@@ -31,6 +31,9 @@ public class SunBlossomEntity : BattleEntityMelee
 
         if (!hasHealed)
             GetHealed(20); // TODO: hardcoded value
+
+        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+
         _healEffectInstance = Instantiate(_healEffect, transform.position, Quaternion.identity);
         _healEffectInstance.transform.parent = _GFX.transform;
 

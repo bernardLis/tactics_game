@@ -19,11 +19,11 @@ public class BombEntity : BattleEntityRanged
         _isExploding = true;
         EntityLog.Add($"{Time.time}: Entity is exploding.");
 
+        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+
         Animator.SetTrigger("Special Attack");
         yield return new WaitForSeconds(0.2f);
-        // yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
 
-        // explode
         _explosionEffectInstance = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         _explosionEffectInstance.transform.parent = _GFX.transform;
 
@@ -37,6 +37,7 @@ public class BombEntity : BattleEntityRanged
                 StartCoroutine(entity.GetHit(this, 50));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
                 GameObject hitInstance = Instantiate(Creature.HitPrefab, collider.bounds.center, q);
+                hitInstance.transform.parent = entity.transform;
                 _hitInstances.Add(hitInstance);
             }
         }

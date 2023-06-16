@@ -26,8 +26,10 @@ public class Snakelet : BattleEntityMelee
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
 
         _specialHitInstance = Instantiate(_specialHit, _opponent.transform.position, Quaternion.identity);
+        _specialHitInstance.transform.parent = _opponent.transform;
         StartCoroutine(_opponent.GetPoisoned(this));
 
         Invoke("CleanUp", 2f);

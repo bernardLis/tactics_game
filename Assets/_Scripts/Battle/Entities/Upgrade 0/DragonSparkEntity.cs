@@ -22,6 +22,9 @@ public class DragonSparkEntity : BattleEntityRanged
         }
 
         yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
+
+        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+        
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
         GameObject projectileInstance = Instantiate(_specialProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
