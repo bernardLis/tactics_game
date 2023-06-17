@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: gold-617c-476a-8c1a-dbd9e697f334
   Clips:
-  - {fileID: 8300000, guid: 19358b2601712a14f931e27702e95ff8, type: 3}
+  - {fileID: 8300000, guid: e32942dc751f6df459c9510a59b4c2d7, type: 3}
+  - {fileID: 8300000, guid: 5abc894eba09696418723642c77aa4c9, type: 3}
   Volume: 1
   Pitch: 1
   isPitchRandomized: 0

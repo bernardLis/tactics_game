@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5531196783287375941}
   - component: {fileID: 5531196783287375940}
+  - component: {fileID: 8756738611776887279}
   m_Layer: 0
   m_Name: Camera Rig Base
   m_TagString: Untagged
@@ -57,6 +58,14 @@ MonoBehaviour:
   _maxRotationSpeed: 0.2
   _edgeTolerance: 0.01
   _useScreenEdge: 0
+--- !u!81 &8756738611776887279
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5531196783287375938}
+  m_Enabled: 1
 --- !u!1001 &5531196783536298973
 PrefabInstance:
   m_ObjectHideFlags: 0

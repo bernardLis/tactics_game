@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
+  m_Name: Dodge
+  m_EditorClassIdentifier: 
+  Id: 784365c7-63ad-4384-a9b2-d755efbdafca
+  Clips:
+  - {fileID: 8300000, guid: 8a2a225d5132783469e1b075e77024e4, type: 3}
+  - {fileID: 8300000, guid: 70c1847c0c52e2f488c1c34a58b0b16f, type: 3}
+  - {fileID: 8300000, guid: 2732c68a4159a79458e203c8af78ced3, type: 3}
+  Volume: 1
+  Pitch: 0.76
+  isPitchRandomized: 0
+  PitchRange: {x: 0, y: 0}
+  Source: {fileID: 0}

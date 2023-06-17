@@ -52,6 +52,8 @@ public class AudioManager : Singleton<AudioManager>
             GameObject sfxGameObject = new("SFX" + i);
             sfxGameObject.transform.parent = transform;
             AudioSource a = sfxGameObject.AddComponent<AudioSource>();
+            a.spatialBlend = 1;
+            //   a.rolloffMode = AudioRolloffMode.Linear;
             a.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
 
             _sfxAudioSources.Add(a);
@@ -161,24 +163,14 @@ public class AudioManager : Singleton<AudioManager>
 
     public AudioSource PlaySFX(string soundName, Vector3 pos)
     {
-        // first or default was throwing an error. 
-        AudioSource freeAudioSource = _sfxAudioSources[0];
-        foreach (AudioSource a in _sfxAudioSources)
+        Sound sound = sounds.First(s => s.name == soundName);
+        if (sound == null)
         {
-            if (a == null) continue;
-            if (a.isPlaying == false)
-            {
-                freeAudioSource = a;
-                break;
-            }
+            Debug.LogError($"No sound {soundName} in library");
+            return null;
         }
-        if (freeAudioSource == null) return null; // solved an error happening sometimes
 
-        freeAudioSource.loop = false;
-        freeAudioSource.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
-        PlaySound(freeAudioSource, soundName);
-
-        return freeAudioSource;
+        return PlaySFX(sound, pos);
     }
 
     public AudioSource PlaySFX(Sound sound, Vector3 pos, bool isLooping = false)
@@ -192,19 +184,6 @@ public class AudioManager : Singleton<AudioManager>
         sound.Play(a);
 
         return a;
-    }
-
-    public void PlaySound(AudioSource audioSource, string soundName)
-    {
-        Sound sound = sounds.First(s => s.name == soundName);
-        audioSource.pitch = sound.Pitch;
-        audioSource.volume = sound.Volume;
-        if (sound == null)
-        {
-            Debug.LogError($"No sound {soundName} in library");
-            return;
-        }
-        sound.Play(audioSource);
     }
 
     public Sound GetSound(string name)

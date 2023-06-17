@@ -19,12 +19,16 @@ public class Sound : BaseScriptableObject
     public void Play(AudioSource audioSource)
     {
         audioSource.volume = Volume;
-
         audioSource.pitch = Pitch;
+        
         if (isPitchRandomized)
             audioSource.pitch = Random.Range(PitchRange.x, PitchRange.y);
 
-        audioSource.clip = Clips[Random.Range(0, Clips.Length)];
-        audioSource.Play();
+        // AudioSource.PlayClipAtPoint(Clips[Random.Range(0, Clips.Length)],
+        //           audioSource.transform.position, Volume);
+        // audioSource.clip = ;
+        audioSource.PlayOneShot(Clips[Random.Range(0, Clips.Length)]);
     }
+
+
 }
