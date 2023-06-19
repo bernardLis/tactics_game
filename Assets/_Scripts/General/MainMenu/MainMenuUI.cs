@@ -36,7 +36,7 @@ public class MainMenuUI : MonoBehaviour
 
         _settingsContainer = _root.Q<VisualElement>("settingsContainer");
 
-        // AudioManager.Instance.PlayMusic(_mainMenuTheme);
+        AudioManager.Instance.PlayMusic(_mainMenuTheme);
     }
 
     void Continue()

@@ -93,7 +93,8 @@ public class RewardContainer : VisualElement
                 card.style.position = Position.Absolute;
                 card.style.left = Screen.width;
 
-                schedule.Execute(() => _audioManager.PlaySFX("Paper", Vector3.zero)).StartingIn(200 + i * 300);
+
+                _audioManager.PlayUIDelayed("Paper", 0.2f + i * 0.3f);
                 float endLeft = i * (hiddenCards[i].resolvedStyle.width
                     + hiddenCards[i].resolvedStyle.marginLeft + hiddenCards[i].resolvedStyle.right);
                 DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
@@ -113,7 +114,7 @@ public class RewardContainer : VisualElement
                 _rerollCost, "Not enough gold!", Color.red);
             return;
         }
-        _audioManager.PlaySFX("DiceRoll", Vector3.zero);
+        _audioManager.PlayUI("Dice Roll");
 
         _gameManager.ChangeGoldValue(-200);
         PopulateRewards();
@@ -180,7 +181,7 @@ public class RewardContainer : VisualElement
 
     void RewardSelected(Reward reward)
     {
-        _audioManager.PlaySFX("RewardChosen", Vector3.zero);
+        _audioManager.PlayUI("Reward Chosen");
 
         _rerollButton.SetEnabled(false);
         foreach (RewardCard card in _selectedRewardCards)

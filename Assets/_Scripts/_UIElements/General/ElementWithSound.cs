@@ -13,6 +13,6 @@ public class ElementWithSound : VisualElement
         RegisterCallback<MouseEnterEvent>((evt) => PlayClick());
     }
 
-    protected void PlayClick() { _audioManager.PlaySFX("uiClick", Vector3.zero); }
+    protected void PlayClick() { _audioManager.PlayUI("UI Click"); }
 
 }

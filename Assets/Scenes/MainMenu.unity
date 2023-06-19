@@ -198,15 +198,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3799089354964362120, guid: fd642bf6f11f3f34aa3d30c6ac1ab0c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.680805
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3799089354964362120, guid: fd642bf6f11f3f34aa3d30c6ac1ab0c1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.2237115
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3799089354964362120, guid: fd642bf6f11f3f34aa3d30c6ac1ab0c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.039862577
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3799089354964362120, guid: fd642bf6f11f3f34aa3d30c6ac1ab0c1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -236,6 +236,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3799089354964362122, guid: fd642bf6f11f3f34aa3d30c6ac1ab0c1, type: 3}
+      propertyPath: _mainMenuTheme
+      value: 
+      objectReference: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
     - target: {fileID: 3799089354964362125, guid: fd642bf6f11f3f34aa3d30c6ac1ab0c1, type: 3}
       propertyPath: m_Name
       value: MainMenu

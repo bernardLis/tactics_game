@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Grab
+  m_Name: Battle Theme
   m_EditorClassIdentifier: 
-  Id: 224025fd-90fa-4c8b-b1ae-442e9dcb127e
+  Id: 784365c7-63ad-4384-a9b2-d755efbdafca
   Clips:
-  - {fileID: 8300000, guid: 11f9432fd9e94894883da7801527a8f0, type: 3}
-  - {fileID: 8300000, guid: 70b6e007003158e4fa167f9b0a084a77, type: 3}
-  Volume: 1
-  Pitch: 0
-  isPitchRandomized: 1
-  PitchRange: {x: 0.9, y: 1.1}
+  - {fileID: 8300000, guid: 63e8bca5b85473748a7e573afda7336b, type: 3}
+  Volume: 0.5
+  Pitch: 1.01
+  isPitchRandomized: 0
+  PitchRange: {x: 0, y: 0}
   Source: {fileID: 0}

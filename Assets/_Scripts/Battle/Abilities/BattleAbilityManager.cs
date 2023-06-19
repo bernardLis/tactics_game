@@ -167,7 +167,7 @@ public class BattleAbilityManager : MonoBehaviour
         _abilityExecutor.HighlightAbilityArea(_selectedAbility);
 
         DisplayAbilityInfo();
-        _audioManager.PlaySFX(_selectedAbility.AbilityNameSound, Vector3.zero);
+        _audioManager.PlayUI(_selectedAbility.AbilityNameSound);
     }
 
     void LeftMouseClick(InputAction.CallbackContext context)

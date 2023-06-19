@@ -258,26 +258,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1359743400828135165, guid: 4a636bf8f79f5b64aae947e91c16ea03, type: 3}
-      propertyPath: m_DefaultActionMap
-      value: Battle
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 4a636bf8f79f5b64aae947e91c16ea03, type: 3}
-      propertyPath: m_DefaultControlScheme
-      value: Keyboard & Mouse
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 4a636bf8f79f5b64aae947e91c16ea03, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 4a636bf8f79f5b64aae947e91c16ea03, type: 3}
-      propertyPath: m_ActionEvents.Array.data[23].m_ActionId
-      value: afc68981-4f9d-4d4b-81a5-69c2811730ae
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359743400828135165, guid: 4a636bf8f79f5b64aae947e91c16ea03, type: 3}
-      propertyPath: m_ActionEvents.Array.data[23].m_ActionName
-      value: Battle/EnableGrabbing[/Keyboard/g]
-      objectReference: {fileID: 0}
     - target: {fileID: 2154333484900981485, guid: 4a636bf8f79f5b64aae947e91c16ea03, type: 3}
       propertyPath: m_Name
       value: GameManager

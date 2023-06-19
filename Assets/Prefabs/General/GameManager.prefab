@@ -41,7 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1359743400828135165
 MonoBehaviour:
@@ -177,7 +177,7 @@ MonoBehaviour:
     m_ActionId: afc68981-4f9d-4d4b-81a5-69c2811730ae
     m_ActionName: Battle/EnableGrabbing[/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Battle
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -448,22 +448,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - {fileID: 11400000, guid: 12757db0fbb355d469f43f99831f348a, type: 2}
   - {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
   - {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   - {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   - {fileID: 11400000, guid: 2c24b60935cc15d4f861a9964fa929f0, type: 2}
   - {fileID: 11400000, guid: 9bcc249c3b28fba4caf829c91f1b27c9, type: 2}
-  - {fileID: 11400000, guid: d99e756a0dc7a8442b6f75dfac1f416a, type: 2}
   - {fileID: 11400000, guid: e694625a1f815154ea99b8365b0aa277, type: 2}
   - {fileID: 11400000, guid: 79011a95b8d560a478b3d63518e2e735, type: 2}
   - {fileID: 11400000, guid: ce4a8d715f0abac4ba8f58b96a2d46f0, type: 2}
-  - {fileID: 11400000, guid: 3fc6190922fb74b469693ba59c6b3b6e, type: 2}
   - {fileID: 11400000, guid: 22337eb7337393645870a2ffab458453, type: 2}
-  - {fileID: 11400000, guid: 1b4c77563a99c7c40882d7a598d3f872, type: 2}
-  - {fileID: 11400000, guid: 11f01f7ced01c3847b53d38a975bc1c0, type: 2}
   - {fileID: 11400000, guid: 37036bfad0a85b24c8f08ae3db51d464, type: 2}
-  - {fileID: 11400000, guid: 89685941d822cfc48b5c1d0c75491416, type: 2}
   - {fileID: 11400000, guid: e6a900135e012de44a15251bd96c9ec9, type: 2}
   - {fileID: 11400000, guid: fc921694a945751498c17234c11830fb, type: 2}
   - {fileID: 11400000, guid: ba4213b705b48fb4baff9131b6af872f, type: 2}

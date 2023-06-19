@@ -32,7 +32,7 @@ public class RewardCard : ElementWithSound
     {
         if (evt.button != 0) return;
 
-        _gameManager.GetComponent<AudioManager>().PlaySFX("Bang", Vector3.zero);
+        _gameManager.GetComponent<AudioManager>().PlayUI("Bang");
         Reward.GetReward();
     }
 

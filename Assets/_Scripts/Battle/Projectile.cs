@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class Projectile : MonoBehaviour
 {
+    AudioManager _audioManager;
+
     [SerializeField] Sound _explosionSound;
     [SerializeField] Sound _shootSound;
 
@@ -18,7 +20,8 @@ public class Projectile : MonoBehaviour
 
     public void Shoot(BattleEntity shooter, BattleEntity target, float power)
     {
-        AudioManager.Instance.PlaySFX(_shootSound, transform.position);
+        _audioManager = AudioManager.Instance;
+        _audioManager.PlaySFX(_shootSound, transform.position);
         _shooter = shooter;
         _target = target;
         StartCoroutine(ShootCoroutine(shooter, target, power));
@@ -69,7 +72,7 @@ public class Projectile : MonoBehaviour
     public IEnumerator DestroySelf(Vector3 position)
     {
         _gfx.SetActive(false);
-        AudioManager.Instance.PlaySFX(_explosionSound, position);
+        _audioManager.PlaySFX(_explosionSound, position);
         _explosion.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);

@@ -68,7 +68,7 @@ public class MyButton : Button
         if (!enabledSelf)
             return;
         if (_audioManager != null)
-            _audioManager.PlaySFX("uiClick", Vector3.zero);
+            _audioManager.PlayUI("UI Click");
     }
 
     void PreventInteraction(MouseEnterEvent evt)

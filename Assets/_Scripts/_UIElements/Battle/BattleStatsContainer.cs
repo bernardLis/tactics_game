@@ -135,7 +135,7 @@ public class BattleStatsContainer : VisualElement
     {
         for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
         {
-            _audioManager.PlaySFXDelayed("PlacingPaper", Vector3.zero, 0.5f * i);
+            _audioManager.PlayUIDelayed("Placing Paper", 0.5f * i);
 
             VisualElement container = new();
             container.AddToClassList(_ussArmyStatsContainer);
@@ -257,13 +257,13 @@ public class BattleStatsContainer : VisualElement
 
         _armyGroupContainer.style.left = worldBound.xMin;
 
-        schedule.Execute(() => _audioManager.PlaySFX("PaperFlying", Vector3.zero)).StartingIn(500);
+        _audioManager.PlayUIDelayed("Paper Flying", 0.5f);
         DOTween.To(x => _armyGroupContainer.style.left = x, worldBound.xMin, 40, 0.5f)
             .SetDelay(0.5f)
             .SetEase(Ease.InOutFlash)
             .OnComplete(() =>
             {
-                _audioManager.PlaySFX("PaperFlying", Vector3.zero);
+                _audioManager.PlayUI("Paper Flying");
                 DOTween.To(x => _armyGroupContainer.style.bottom = x, _armyGroupContainer.layout.y, 20, 0.5f);
             });
     }

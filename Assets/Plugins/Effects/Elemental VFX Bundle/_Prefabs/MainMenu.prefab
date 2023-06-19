@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3799089354964362120}
   - component: {fileID: 3799089354964362121}
   - component: {fileID: 3799089354964362122}
+  - component: {fileID: 2512854018867918444}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -62,3 +63,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainMenuTheme: {fileID: 11400000, guid: 3f0563fe08e815243a3e1d5eb5c22a8e, type: 2}
+--- !u!81 &2512854018867918444
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3799089354964362125}
+  m_Enabled: 1

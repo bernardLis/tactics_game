@@ -242,6 +242,8 @@ public class BattleEndManager : MonoBehaviour
 
     void ShowUI()
     {
+        _cameraManager.MoveCameraTo(Vector3.zero, Vector3.zero, 5);
+
         StopAllCoroutines();
         if (_gameManager.PlayerHero != null && _battleManager.LoadedBattle.Won)
         {

@@ -59,7 +59,7 @@ public class BattleChoiceContainer : VisualElement
             card.style.position = Position.Absolute;
             card.style.left = Screen.width;
 
-            schedule.Execute(() => _audioManager.PlaySFX("Paper", Vector3.zero)).StartingIn(200 + i * 300);
+            schedule.Execute(() => _audioManager.PlayUI("Paper")).StartingIn(200 + i * 300);
 
             float endLeft = i * (_hiddenCards[i].resolvedStyle.width +
                     _hiddenCards[i].resolvedStyle.marginLeft + _hiddenCards[i].resolvedStyle.right);

@@ -14,8 +14,9 @@ public class AudioManager : Singleton<AudioManager>
     AudioSource _musicAudioSource;
     AudioSource _ambienceAudioSource;
     AudioSource _dialogueAudioSource;
-
     List<AudioSource> _sfxAudioSources = new();
+    List<AudioSource> _uiAudioSources = new();
+
 
     IEnumerator _xFadeMusicCoroutine;
     IEnumerator _xFadeAmbienceCoroutine;
@@ -47,17 +48,28 @@ public class AudioManager : Singleton<AudioManager>
         _dialogueAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Dialogue")[0];
 
         _sfxAudioSources = new();
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 25; i++)
         {
             GameObject sfxGameObject = new("SFX" + i);
             sfxGameObject.transform.parent = transform;
             AudioSource a = sfxGameObject.AddComponent<AudioSource>();
             a.spatialBlend = 1;
-            //   a.rolloffMode = AudioRolloffMode.Linear;
             a.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
 
             _sfxAudioSources.Add(a);
         }
+
+        _uiAudioSources = new();
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject uiGameObject = new("UI" + i);
+            uiGameObject.transform.parent = transform;
+            AudioSource a = uiGameObject.AddComponent<AudioSource>();
+            a.outputAudioMixerGroup = _mixer.FindMatchingGroups("UI")[0];
+
+            _uiAudioSources.Add(a);
+        }
+
     }
 
     public void PlayMusic(Sound sound)
@@ -133,6 +145,7 @@ public class AudioManager : Singleton<AudioManager>
         float currentTime = 0f;
         float start = 0f;
         float end = sound.Volume;
+        Debug.Log($"end {end}");
 
         while (currentTime < duration)
         {
@@ -181,6 +194,38 @@ public class AudioManager : Singleton<AudioManager>
 
         a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
         a.loop = isLooping;
+        sound.Play(a);
+
+        return a;
+    }
+
+    public void PlayUIDelayed(string soundName, float delay)
+    {
+        StartCoroutine(PlayUIDelayedCoroutine(soundName, delay));
+    }
+    IEnumerator PlayUIDelayedCoroutine(string soundName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlayUI(soundName);
+    }
+
+    public AudioSource PlayUI(string soundName)
+    {
+        Sound sound = sounds.First(s => s.name == soundName);
+        if (sound == null)
+        {
+            Debug.LogError($"No sound {soundName} in library");
+            return null;
+        }
+
+        return PlayUI(sound);
+    }
+
+    public AudioSource PlayUI(Sound sound)
+    {
+        AudioSource a = _uiAudioSources.FirstOrDefault(s => s.isPlaying == false);
+        if (a == null) return null;
+
         sound.Play(a);
 
         return a;

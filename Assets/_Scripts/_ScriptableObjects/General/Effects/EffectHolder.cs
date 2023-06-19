@@ -28,7 +28,7 @@ public class EffectHolder : BaseScriptableObject
         }
 
         if (Sound != null)
-            AudioManager.Instance.PlaySFX(Sound, Vector3.zero);
+            AudioManager.Instance.PlaySFX(Sound, position);
         _effect = em.PlayEffect(VisualEffectPrefab, position, scale, DurationSeconds);
     }
 

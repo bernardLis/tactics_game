@@ -187,7 +187,7 @@ public class Hero : BaseScriptableObject
         BaseMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
         LevelUpPointsLeft += 1;
 
-        AudioManager.Instance.PlaySFX("LevelUp", Vector3.one);
+        AudioManager.Instance.PlayUI("Level Up");
 
         UpdateRank();
     }

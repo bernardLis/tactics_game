@@ -65,7 +65,7 @@ public class BattleCard : ElementWithSound
         _gameManager.SelectedBattle = _battle;
         OnCardSelected?.Invoke(this);
 
-        _gameManager.GetComponent<AudioManager>().PlaySFX("HeroVoices", Vector3.zero);
+        _gameManager.GetComponent<AudioManager>().PlayUI("Hero Voices");
     }
 
     public void DisableCard()

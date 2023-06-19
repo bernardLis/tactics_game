@@ -123,12 +123,12 @@ public class RewardExpContainer : VisualElement
 
     void ShowKilledEnemies()
     {
-        if(_battleManager.KilledOpponentEntities.Count == 0)
+        if (_battleManager.KilledOpponentEntities.Count == 0)
         {
             if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
             return;
         }
-        
+
         int delay = 2000 / _battleManager.KilledOpponentEntities.Count;
         List<BattleEntity> killedEnemies = new(_battleManager.KilledOpponentEntities);
 
@@ -144,7 +144,7 @@ public class RewardExpContainer : VisualElement
             return;
         }
 
-        _audioManager.PlaySFX("ShowKilledEntity", Vector3.zero);
+        _audioManager.PlayUI("Show Killed Creature");
 
         BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
 
@@ -191,7 +191,7 @@ public class RewardExpContainer : VisualElement
 
         DOTween.To(x => style.opacity = x, 1, 0, 0.5f).SetDelay(0.5f);
 
-        schedule.Execute(() => _audioManager.PlaySFX("PaperFlying", Vector3.zero)).StartingIn(500);
+        _audioManager.PlayUIDelayed("Paper Flying", 0.5f);
 
         DOTween.To(x => card.style.left = x, _heroCard.worldBound.x, 40, 0.5f)
             .SetDelay(0.5f)

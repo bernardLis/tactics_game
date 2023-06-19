@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Explosion Sound
+  m_Name: Show Killed Creature
   m_EditorClassIdentifier: 
-  Id: 326bc922-7448-401c-a09f-e8ec9523c78a
+  Id: showEnem-6949-4b43-a9ae-978acb199b05
   Clips:
-  - {fileID: 8300000, guid: d72c68cfc3b540b4693d086e559e003b, type: 3}
-  - {fileID: 8300000, guid: 6f91fe5b2065b714997f23af06874591, type: 3}
-  - {fileID: 8300000, guid: 5be0b8f01a25c40408dc03d479f140a1, type: 3}
-  - {fileID: 8300000, guid: 63d68884b4db309419298685522a7425, type: 3}
+  - {fileID: 8300000, guid: d450321c0113b424fb42abfb373dbfe7, type: 3}
   Volume: 1
-  Pitch: 0.17
+  Pitch: 2.07
   isPitchRandomized: 1
-  PitchRange: {x: 0.9, y: 1.1}
+  PitchRange: {x: 1, y: 1.1}
   Source: {fileID: 0}

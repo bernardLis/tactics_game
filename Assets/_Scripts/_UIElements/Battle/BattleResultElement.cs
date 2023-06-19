@@ -61,7 +61,7 @@ public class BattleResult : FullScreenElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        _audioManager.PlaySFX("QuestWon", Vector3.one);
+        _audioManager.PlayUI("Reward Chosen");
 
         // making sure that vfx is underneath the content but visible
         Add(_root.Q<VisualElement>("vfx"));
