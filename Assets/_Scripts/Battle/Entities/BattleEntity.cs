@@ -386,7 +386,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         _isPoisoned = true;
         DisplayFloatingText("Poisoned", Color.green);
-        TurnHighlightOn(Color.green);
+        TurnHighlightOn(Color.green, false);
 
         // TODO: for now hardcoded
         int totalDamage = 20;
@@ -526,10 +526,10 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _material.SetColor("_EmissionColor", _defaultEmissionColor);
     }
 
-    public void TurnHighlightOn(Color color)
+    public void TurnHighlightOn(Color color, bool showDiamond = true)
     {
         if (IsDead) return;
-        _highlightDiamond.Enable(GetHighlightColor());
+        if (showDiamond) _highlightDiamond.Enable(GetHighlightColor());
 
         _material.SetTexture("_EmissionMap", null);
         _material.SetColor("_EmissionColor", color);

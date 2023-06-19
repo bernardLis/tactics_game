@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: dragon-fbb9-4952-8f15-4ad18f427d56
   Clips:
-  - {fileID: 8300000, guid: 6bb26a43ffadf0241a39b3be225ee6e5, type: 3}
+  - {fileID: 8300000, guid: a064e530a167f284981b875ff92aab6a, type: 3}
   Volume: 1
   Pitch: 1
   isPitchRandomized: 0

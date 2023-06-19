@@ -17,10 +17,10 @@ MonoBehaviour:
   Creature: {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
   NumberOfUnits: 1
   ListPosition: 0
-  OldKillCount: 19
-  TotalKillCount: 19
-  OldDamageDealt: 2270
-  TotalDamageDealt: 2270
-  OldDamageTaken: 1253
-  TotalDamageTaken: 1253
+  OldKillCount: 20
+  TotalKillCount: 20
+  OldDamageDealt: 2423
+  TotalDamageDealt: 2423
+  OldDamageTaken: 1543
+  TotalDamageTaken: 1543
   PreviousCreature: {fileID: 0}

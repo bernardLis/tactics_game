@@ -63781,8 +63781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4710205756b1874abd2ecd69f12ca15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionSound: {fileID: 11400000, guid: c8f9e2e1b2ccb1d42909a9afd2e6b5cf, type: 2}
-  _shootSound: {fileID: 11400000, guid: a41a84a3e51ec19419cd9591cd62e362, type: 2}
+  _explosionSound: {fileID: 11400000, guid: a788f407599ff974998b414ad1485cdf, type: 2}
+  _shootSound: {fileID: 11400000, guid: 308d8a93f467f7049a9b92880d7842ea, type: 2}
   _gfx: {fileID: 9117035250647840875}
   _explosion: {fileID: 6776528639051855213}
   _speed: 25

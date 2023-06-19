@@ -39325,6 +39325,14 @@ PrefabInstance:
       propertyPath: _explosion
       value: 
       objectReference: {fileID: 1343316912152017711}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: _shootSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 46aea26fa973bbf4d8796bf4919673cd, type: 2}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: _explosionSound
+      value: 
+      objectReference: {fileID: 11400000, guid: c2b4dded01903a347825591098dea5ff, type: 2}
     - target: {fileID: 5850608504391433320, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: m_Name
       value: Bud Projectile

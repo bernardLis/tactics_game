@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: dragonsa-fbb9-4952-8f15-4ad18f427d56
   Clips:
-  - {fileID: 8300000, guid: a2df3b69d98c46043a702537310011b5, type: 3}
+  - {fileID: 8300000, guid: 06f7ce028725944449765dff08e09df1, type: 3}
   Volume: 1
   Pitch: 1
   isPitchRandomized: 0

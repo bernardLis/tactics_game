@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: budteleport-fbb9-4952-8f15-4ad18f427d56
   Clips:
-  - {fileID: 8300000, guid: 6633df07c0ae99642943f5e5b0b41ec3, type: 3}
+  - {fileID: 8300000, guid: eff27bf46bd0b0d4a9167acd48b5e70e, type: 3}
   Volume: 1
   Pitch: 1
   isPitchRandomized: 0

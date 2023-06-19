@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
+  m_Name: Wind - Shoot
+  m_EditorClassIdentifier: 
+  Id: 4d97284a-4a9b-4ac5-a089-7196b2ebafd4
+  Clips:
+  - {fileID: 8300000, guid: abbb63e9412a227499c6cee139dfe970, type: 3}
+  Volume: 1
+  Pitch: 0.17
+  isPitchRandomized: 1
+  PitchRange: {x: 0.9, y: 1.1}
+  Source: {fileID: 0}
