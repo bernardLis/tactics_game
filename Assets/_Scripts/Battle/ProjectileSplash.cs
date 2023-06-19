@@ -11,7 +11,12 @@ public class ProjectileSplash : Projectile
         foreach (Collider collider in colliders)
         {
             if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
+            {
+                if (entity.Team == _shooter.Team) continue; // splash damage is player friendly
+                if (entity.IsDead) continue;
+
                 StartCoroutine(entity.GetHit(_shooter));
+            }
         }
         yield return null;
     }

@@ -1213,11 +1213,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _fullOneVOnes
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _testSpecificTeams
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: TeamAArmies.Array.data[0]

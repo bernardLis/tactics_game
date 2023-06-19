@@ -29,7 +29,7 @@ public class PracticeDummyEntity : BattleEntityMelee
         transform.DODynamicLookAt(_opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        
+
         if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
 
         _specialEffectInstance = Instantiate(_specialEffect, transform.position, Quaternion.identity);
@@ -40,7 +40,9 @@ public class PracticeDummyEntity : BattleEntityMelee
         {
             if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
             {
-                if (entity == this) continue;
+                if (entity.Team == Team) continue; // splash damage is player friendly
+                if (entity.IsDead) continue;
+
                 StartCoroutine(entity.GetHit(this, (int)this.Creature.Power * 2));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
                 GameObject hitInstance = Instantiate(Creature.HitPrefab, _opponent.Collider.bounds.center, q);
