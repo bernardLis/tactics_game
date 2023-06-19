@@ -88,6 +88,12 @@ public class SettingsScreen : FullScreenElement
         SFX.AddToClassList(_ussVolumeSlider);
         SFX.value = PlayerPrefs.GetFloat("SFXVolume", 1);
         SFX.RegisterValueChangedCallback(SFXVolumeChange);
+
+        Slider UI = AddVolumeSlider("UI", parent);
+        UI.AddToClassList(_ussVolumeSlider);
+        UI.value = PlayerPrefs.GetFloat("UIVolume", 1);
+        UI.RegisterValueChangedCallback(UIVolumeChange);
+
     }
 
     Slider AddVolumeSlider(string name, VisualElement parent)
@@ -139,6 +145,13 @@ public class SettingsScreen : FullScreenElement
         PlayerPrefs.SetFloat("SFXVolume", evt.newValue);
         PlayerPrefs.Save();
         _audioManger.SetSFXVolume(evt.newValue);
+    }
+
+    void UIVolumeChange(ChangeEvent<float> evt)
+    {
+        PlayerPrefs.SetFloat("SFXVolume", evt.newValue);
+        PlayerPrefs.Save();
+        _audioManger.SetUIVolume(evt.newValue);
     }
 
     void AddFullScreenToggle(VisualElement parent)

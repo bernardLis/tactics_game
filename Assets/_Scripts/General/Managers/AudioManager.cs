@@ -17,7 +17,6 @@ public class AudioManager : Singleton<AudioManager>
     List<AudioSource> _sfxAudioSources = new();
     List<AudioSource> _uiAudioSources = new();
 
-
     IEnumerator _xFadeMusicCoroutine;
     IEnumerator _xFadeAmbienceCoroutine;
 
@@ -54,6 +53,8 @@ public class AudioManager : Singleton<AudioManager>
             sfxGameObject.transform.parent = transform;
             AudioSource a = sfxGameObject.AddComponent<AudioSource>();
             a.spatialBlend = 1;
+            a.rolloffMode = AudioRolloffMode.Custom;
+            a.maxDistance = 50;
             a.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
 
             _sfxAudioSources.Add(a);
@@ -145,7 +146,6 @@ public class AudioManager : Singleton<AudioManager>
         float currentTime = 0f;
         float start = 0f;
         float end = sound.Volume;
-        Debug.Log($"end {end}");
 
         while (currentTime < duration)
         {
@@ -274,4 +274,11 @@ public class AudioManager : Singleton<AudioManager>
     {
         _mixer.SetFloat("SFXVolume", Mathf.Log(volume) * 20);
     }
+
+    public void SetUIVolume(float volume)
+    {
+        Debug.Log($"set ui volume {volume}");
+        _mixer.SetFloat("UIVolume", Mathf.Log(volume) * 20);
+    }
+
 }
