@@ -71,24 +71,25 @@ public class HeroCreation : MonoBehaviour
 
 
         // HERE: testing
-        /* 
-       _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
-       Hero newChar = ScriptableObject.CreateInstance<Hero>();
-       newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
-                _chosenElement);
-       _gameManager.PlayerHero = newChar;
-       StartGame();
-*/
 
-        _cutsceneManager = _gameManager.GetComponent<CutsceneManager>();
-        _cutsceneManager.Initialize(_root);
-        _cutsceneManager.OnCutsceneFinished += NameCutsceneFinished;
+        _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
+        Hero newChar = ScriptableObject.CreateInstance<Hero>();
+        newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
+                 _chosenElement);
+        _gameManager.PlayerHero = newChar;
+        StartGame();
 
-        NameFieldSetup();
-        PortraitSetup();
-        CreatePortraitButtons();
+        /*
+                _cutsceneManager = _gameManager.GetComponent<CutsceneManager>();
+                _cutsceneManager.Initialize(_root);
+                _cutsceneManager.OnCutsceneFinished += NameCutsceneFinished;
 
-        StartCoroutine(StartShow());
+                NameFieldSetup();
+                PortraitSetup();
+                CreatePortraitButtons();
+
+                StartCoroutine(StartShow());
+                */
 
     }
 

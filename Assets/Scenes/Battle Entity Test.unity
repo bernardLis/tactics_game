@@ -1222,11 +1222,11 @@ PrefabInstance:
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: TeamAArmies.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 61ddd5316d4afa34c8cb44243857566d, type: 2}
+      objectReference: {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: TeamBArmies.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
+      objectReference: {fileID: 11400000, guid: 517db7d749d242244bb8a0eeece149e6, type: 2}
     - target: {fileID: 7145388959955883547, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: m_RootOrder
       value: 3
