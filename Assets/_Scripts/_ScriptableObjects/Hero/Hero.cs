@@ -47,6 +47,8 @@ public class Hero : BaseScriptableObject
 
     public List<ArmyGroup> Army = new();
 
+
+    public event Action<Item> OnItemAdded;
     public event Action<HeroRank> OnRankChanged;
     public event Action<Injury> OnInjuryAdded;
     public event Action<ArmyGroup> OnArmyAdded;
@@ -236,6 +238,7 @@ public class Hero : BaseScriptableObject
         Items.Add(item);
         UpdateStat(item.InfluencedStat, item.Value);
         UpdateRank();
+        OnItemAdded?.Invoke(item);
     }
 
     public void RemoveItem(Item item)

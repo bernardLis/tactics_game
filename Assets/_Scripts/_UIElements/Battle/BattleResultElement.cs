@@ -26,17 +26,21 @@ public class BattleResult : FullScreenElement
     Battle _battle;
 
     VisualElement _content;
+
+    public GoldElement GoldElement;
+    public SpiceElement SpiceElement;
+
     MyButton _continueButton;
 
-    BattleStatsContainer _statsContainer;
     RewardExpContainer _rewardExpContainer;
+    BattleStatsContainer _statsContainer;
     RewardContainer _rewardContainer;
     BattleChoiceContainer _battleChoiceContainer;
 
     GameObject _starEffect;
 
-    public event Action OnStatsContainerClosed;
     public event Action OnExpContainerClosed;
+    public event Action OnStatsContainerClosed;
     public event Action OnRewardContainerClosed;
     public event Action OnBattleChoiceContainerClosed;
 
@@ -103,19 +107,39 @@ public class BattleResult : FullScreenElement
     {
         VisualElement resourceContainer = new();
         resourceContainer.AddToClassList(_ussResourceContainer);
-        GoldElement g = new(_gameManager.Gold);
-        _gameManager.OnGoldChanged += g.ChangeAmount;
-        SpiceElement s = new(_gameManager.Spice);
-        _gameManager.OnSpiceChanged += s.ChangeAmount;
-        resourceContainer.Add(g);
-        resourceContainer.Add(s);
         Add(resourceContainer);
+
+        GoldElement = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += OnGoldChanged;
+        resourceContainer.Add(GoldElement);
+
+        SpiceElement = new(_gameManager.Spice);
+        _gameManager.OnSpiceChanged += OnSpiceChanged;
+        resourceContainer.Add(SpiceElement);
+    }
+
+    void OnGoldChanged(int newValue)
+    {
+        int change = newValue - GoldElement.Amount;
+        Helpers.DisplayTextOnElement(_root, GoldElement, "+ " + change, Color.yellow);
+        GoldElement.ChangeAmount(newValue);
+    }
+
+    void OnSpiceChanged(int newValue)
+    {
+        int change = newValue - SpiceElement.Amount;
+        Helpers.DisplayTextOnElement(_root, SpiceElement, "+ " + change, Color.red);
+        SpiceElement.ChangeAmount(newValue);
     }
 
     void ShowStatsContainer()
     {
         OnExpContainerClosed?.Invoke();
         _rewardExpContainer.MoveAway();
+        _gameManager.PlayerHero.OnItemAdded +=
+                (item) => Helpers.DisplayTextOnElement(_root, _rewardExpContainer.HeroCardMini,
+                       "+ " + item.ItemName, Helpers.GetColor(item.Rarity.ToString()));
+
         _content.Remove(_continueButton);
 
         schedule.Execute(() =>
@@ -125,7 +149,6 @@ public class BattleResult : FullScreenElement
 
             _continueButton = new("Continue", _ussContinueButton, ShowRewards);
             _statsContainer.OnFinished += () => _content.Add(_continueButton);
-
         }).StartingIn(1000);
     }
 
@@ -133,10 +156,10 @@ public class BattleResult : FullScreenElement
     {
         OnStatsContainerClosed?.Invoke();
         _statsContainer.MoveAway();
+
         _content.Remove(_continueButton);
         schedule.Execute(() =>
         {
-
             _rewardContainer = new RewardContainer();
             _content.Add(_rewardContainer);
 

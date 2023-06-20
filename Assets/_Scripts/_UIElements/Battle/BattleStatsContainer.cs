@@ -272,7 +272,11 @@ public class BattleStatsContainer : VisualElement
     {
         _gameManager.ChangeGoldValue(_goldCollected);
         _gameManager.ChangeSpiceValue(_spiceCollected);
-        foreach (Item i in _itemsCollected)
-            _gameManager.PlayerHero.AddItem(i);
+        Debug.Log($"_itemsCollected.Count: {_itemsCollected.Count}");
+        for (int i = 0; i < _itemsCollected.Count; i++)
+        {
+            Debug.Log($"i {i}");
+            _gameManager.PlayerHero.AddItem(_itemsCollected[i]);
+        }
     }
 }

@@ -32,6 +32,8 @@ public class RewardExpContainer : VisualElement
     IVisualElementScheduledItem _enemiesKilledShowSchedule;
     int _enemyIndex;
 
+    public HeroCardMini HeroCardMini;
+
     public event Action OnFinished;
     public RewardExpContainer()
     {
@@ -177,12 +179,12 @@ public class RewardExpContainer : VisualElement
 
     public void MoveAway()
     {
-        HeroCardMini card = _heroCard.HeroCardMini;
+        HeroCardMini = _heroCard.HeroCardMini;
         style.position = Position.Absolute;
-        card.style.position = Position.Absolute;
-        card.style.left = _heroCard.worldBound.x;
-        card.style.top = _heroCard.worldBound.y;
-        parent.Add(card);
+        HeroCardMini.style.position = Position.Absolute;
+        HeroCardMini.style.left = _heroCard.worldBound.x;
+        HeroCardMini.style.top = _heroCard.worldBound.y;
+        parent.Add(HeroCardMini);
 
         // everything except hero card mini opacity > 0
         DOTween.To(x => _heroContainer.style.opacity = x, 1, 0, 0.5f);
@@ -193,7 +195,7 @@ public class RewardExpContainer : VisualElement
 
         _audioManager.PlayUIDelayed("Paper Flying", 0.5f);
 
-        DOTween.To(x => card.style.left = x, _heroCard.worldBound.x, 40, 0.5f)
+        DOTween.To(x => HeroCardMini.style.left = x, _heroCard.worldBound.x, 40, 0.5f)
             .SetDelay(0.5f)
             .SetEase(Ease.InOutFlash);
     }

@@ -117,7 +117,7 @@ public class HeroCardStats : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussExpContainer);
 
-        ExpBar = new(Color.black, "Experience", Hero.Experience, Hero.ExpForNextLevel,
+        ExpBar = new(Color.gray, "Experience", Hero.Experience, Hero.ExpForNextLevel,
                 thickness: 0, isIncreasing: true);
 
         _level = new Label($"Level {Hero.Level.Value}");
