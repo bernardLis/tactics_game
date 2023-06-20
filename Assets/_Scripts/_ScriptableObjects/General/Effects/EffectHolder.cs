@@ -6,7 +6,7 @@ using DG.Tweening;
 [CreateAssetMenu(menuName = "ScriptableObject/Dashboard/UI Effect Holder")]
 public class EffectHolder : BaseScriptableObject
 {
-    
+
     [Header("VFX")]
     public GameObject VisualEffectPrefab;
 
@@ -15,6 +15,8 @@ public class EffectHolder : BaseScriptableObject
 
     [Header("Sound")]
     public Sound Sound;
+
+    [HideInInspector] public AudioSource SFXAudioSource;
 
     GameObject _effect;
 
@@ -28,7 +30,7 @@ public class EffectHolder : BaseScriptableObject
         }
 
         if (Sound != null)
-            AudioManager.Instance.PlaySFX(Sound, position);
+            SFXAudioSource = AudioManager.Instance.PlaySFX(Sound, position);
         _effect = em.PlayEffect(VisualEffectPrefab, position, scale, DurationSeconds);
     }
 

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 162899893}
   - component: {fileID: 162899891}
   - component: {fileID: 162899894}
+  - component: {fileID: 162899895}
   m_Layer: 0
   m_Name: HeroCreation
   m_TagString: Untagged
@@ -165,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162899890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9914007, y: 2.136649, z: 1.4909197}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -188,6 +189,14 @@ MonoBehaviour:
   _looksCutscene: {fileID: 11400000, guid: 5d9a5a68b43fefe4cb3563ec2c2d5013, type: 2}
   _elementCutscene: {fileID: 11400000, guid: 3f74527959727c04bb85b35fd5a0a3c6, type: 2}
   _endCutscene: {fileID: 11400000, guid: 1699a716922e97242b2bb7d057e0002b, type: 2}
+--- !u!81 &162899895
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162899890}
+  m_Enabled: 1
 --- !u!1001 &652605760
 PrefabInstance:
   m_ObjectHideFlags: 0

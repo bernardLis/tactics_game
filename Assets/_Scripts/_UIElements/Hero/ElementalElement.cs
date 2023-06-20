@@ -14,6 +14,8 @@ public class ElementalElement : ElementWithTooltip
 
     bool _isEffectDisabled;
 
+    EffectHolder _effectHolderInstance;
+
     public ElementalElement(Element element, int size = 0)
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ElementalElementStyles);
@@ -44,8 +46,8 @@ public class ElementalElement : ElementWithTooltip
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
         worldPos.z = 0;
 
-        EffectHolder instance = ScriptableObject.Instantiate(_element.VFXEffect);
-        instance.PlayEffect(worldPos, _element.VFXEffect.VisualEffectPrefab.transform.localScale);
+        _effectHolderInstance = ScriptableObject.Instantiate(_element.VFXEffect);
+        _effectHolderInstance.PlayEffect(worldPos, _element.VFXEffect.VisualEffectPrefab.transform.localScale);
     }
 
     public void DisableEffect() { _isEffectDisabled = true; }

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 19556c73-519e-4f18-bbbf-3cccb5ce6151
   Clips:
-  - {fileID: 8300000, guid: a206e6546adfaf04895e60a3b1e99697, type: 3}
-  Volume: 1
+  - {fileID: 8300000, guid: dc6016a07b27d0e408c761233e1a1f81, type: 3}
+  Volume: 0.706
   Pitch: 1
-  isPitchRandomized: 0
-  PitchRange: {x: 0, y: 0}
+  isPitchRandomized: 1
+  PitchRange: {x: 0.9, y: 1.1}
   Source: {fileID: 0}
