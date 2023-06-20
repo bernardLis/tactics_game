@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -13,16 +14,20 @@ using UnityToolbarExtender;
 [InitializeOnLoad]
 public static class SceneSelectionToolbar
 {
-    static List<SceneInfo> _scenes;
+    static List<SceneInfo> _scenes = new();
     static SceneInfo _sceneOpened;
     static int _selectedIndex;
     static string[] _displayedOptions;
 
     static SceneSelectionToolbar()
     {
-        LoadFromPlayerPrefs();
+        PopulateScenes();
         ToolbarExtender.LeftToolbarGUI.Add(OnToolbarGUI);
         EditorSceneManager.sceneOpened += HandleSceneOpened;
+
+        string lastScene = GetPref("SceneSelectionToolbar.LatestOpenedScene");
+        if (!string.IsNullOrEmpty(lastScene))
+            SetOpenedScene(_scenes.Find(s => s.Path == lastScene));
     }
 
     static void OnToolbarGUI()
@@ -30,34 +35,17 @@ public static class SceneSelectionToolbar
         GUILayout.FlexibleSpace();
 
         _selectedIndex = EditorGUILayout.Popup(_selectedIndex, _displayedOptions); ;
-
-        // GUI.enabled = _selectedIndex == 0;
-        // if (GUILayout.Button("+"))
-        //     AddScene(_sceneOpened);
-
-        //  GUI.enabled = _selectedIndex > 0;
-        //  if (GUILayout.Button("-"))
-        //       RemoveScene(_sceneOpened);
-
         GUI.enabled = true;
-        // if (GUI.changed && _selectedIndex > 0 && _scenes.Count > _selectedIndex - 1)
-        //     EditorSceneManager.OpenScene(_scenes[_selectedIndex - 1].Path);
         if (GUI.changed && _scenes.Count > _selectedIndex)
             EditorSceneManager.OpenScene(_scenes[_selectedIndex].Path);
-
     }
 
     static void RefreshDisplayedOptions()
     {
-        // _displayedOptions = new string[_scenes.Count + 1];
-        //   _displayedOptions[0] = "Click on '+' to add current scene";
         _displayedOptions = new string[_scenes.Count];
 
         for (int i = 0; i < _scenes.Count; i++)
-        {
-            //     _displayedOptions[i + 1] = _scenes[i].Name;
             _displayedOptions[i] = _scenes[i].Name;
-        }
     }
 
     static void HandleSceneOpened(Scene scene, OpenSceneMode mode) => SetOpenedScene(scene);
@@ -73,7 +61,6 @@ public static class SceneSelectionToolbar
             {
                 _sceneOpened = _scenes[i];
                 _selectedIndex = i;
-                // _selectedIndex = i + 1;
                 SaveToPlayerPrefs(true);
                 return;
             }
@@ -91,49 +78,21 @@ public static class SceneSelectionToolbar
         if (scene == null)
             return;
 
-        if (_scenes.Any(s => s.Path == scene.Path))
-            RemoveScene(scene);
-
         _scenes.Add(scene);
-        _selectedIndex = _scenes.Count;
-        SetOpenedScene(scene);
-        RefreshDisplayedOptions();
-        SaveToPlayerPrefs();
-    }
-
-    static void RemoveScene(SceneInfo scene)
-    {
-        _scenes.Remove(scene);
-        _selectedIndex = 0;
-        RefreshDisplayedOptions();
-        SaveToPlayerPrefs();
     }
 
     static void SaveToPlayerPrefs(bool onlyLatestOpenedScene = false)
     {
-        if (!onlyLatestOpenedScene)
-        {
-            var serialized = string.Join(";", _scenes.Where(s => !string.IsNullOrEmpty(s.Path)).Select(s => s.Path));
-            SetPref("SceneSelectionToolbar.Scenes", serialized);
-        }
-
         if (_sceneOpened != null)
             SetPref("SceneSelectionToolbar.LatestOpenedScene", _sceneOpened.Path);
     }
 
-    static void LoadFromPlayerPrefs()
+    static void PopulateScenes()
     {
-        var serialized = GetPref("SceneSelectionToolbar.Scenes");
-
-        _scenes = serialized.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => new SceneInfo(s)).ToList();
-
-        if (_scenes == null)
-            _scenes = new List<SceneInfo>();
-
-        serialized = GetPref("SceneSelectionToolbar.LatestOpenedScene");
-
-        if (!string.IsNullOrEmpty(serialized))
-            SetOpenedScene(new SceneInfo(serialized));
+        var path = "Assets/Scenes/";
+        string[] files = Directory.GetFiles(path, "*.unity", SearchOption.TopDirectoryOnly);
+        foreach (var file in files)
+            AddScene(new SceneInfo(file));
 
         RefreshDisplayedOptions();
     }
