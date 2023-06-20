@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class ElementWithSound : VisualElement
 {
-    AudioManager _audioManager;
+    protected AudioManager _audioManager;
 
     public ElementWithSound()
     {

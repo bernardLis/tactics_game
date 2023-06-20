@@ -149,11 +149,13 @@ public class BattleAbilityManager : MonoBehaviour
         if (_battleGrabManager.IsGrabbingEnabled) _battleGrabManager.CancelGrabbing();
         if (abilityButton.IsOnCooldown)
         {
+            _audioManager.PlayUI("Ability Unavailable");
             Helpers.DisplayTextOnElement(_root, abilityButton, "Cool down, mate!", Color.red);
             return;
         }
         if (_hero.CurrentMana.Value < ability.GetManaCost())
         {
+            _audioManager.PlayUI("Ability Unavailable");
             Helpers.DisplayTextOnElement(_root, abilityButton, "Not enough mana!", Color.red);
             return;
         }

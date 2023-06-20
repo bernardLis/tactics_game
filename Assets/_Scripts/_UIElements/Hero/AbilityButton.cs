@@ -53,6 +53,7 @@ public class AbilityButton : ElementWithSound
 
     void OnCooldownFinished()
     {
+        _audioManager.PlayUI("Ability Available");
         IsOnCooldown = false;
         SetEnabled(true);
         _icon.Remove(_cooldownTimer);

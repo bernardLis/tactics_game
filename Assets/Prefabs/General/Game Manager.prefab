@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 5229503471192617615}
   - component: {fileID: 4186435637351100778}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1359743400828135165
 MonoBehaviour:
@@ -465,6 +465,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0a64af2178640a045a68dff723adc9fc, type: 2}
   - {fileID: 11400000, guid: 338e0dd97577e0e45b0c1cf5f590d01f, type: 2}
   - {fileID: 11400000, guid: dd58494d86697664683e0a4f7f581bc2, type: 2}
+  - {fileID: 11400000, guid: 1e3d7cf526f21ae4ab6121e41f1a7648, type: 2}
+  - {fileID: 11400000, guid: ae9dca4ca7fb7a94689bc698f8b09e2c, type: 2}
   _mixer: {fileID: 24100000, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}
 --- !u!114 &1475728751920290888
 MonoBehaviour:
