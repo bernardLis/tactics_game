@@ -52,7 +52,7 @@ public class CreatureElement : VisualElement
         Add(_rightContainer);
 
         _elementalElement = new ElementalElement(_creature.Element);
-        CreatureIcon = new(_creature);
+        CreatureIcon = new(_creature, true);
         _nameLabel = new Label();
         _nameLabel.AddToClassList(_ussName);
 

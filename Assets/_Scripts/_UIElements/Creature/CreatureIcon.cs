@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CreatureIcon : VisualElement
+public class CreatureIcon : ElementWithTooltip
 {
     const string _ussClassName = "creature-icon__";
     const string _ussMain = _ussClassName + "main";
@@ -13,12 +13,13 @@ public class CreatureIcon : VisualElement
     GameManager _gameManager;
 
     Creature _creature;
+    bool _blockTooltip;
 
     VisualElement _iconContainer;
     public VisualElement Frame;
 
     AnimationElement _animationElement;
-    public CreatureIcon(Creature creature)
+    public CreatureIcon(Creature creature, bool blockTooltip = false)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureIconStyles);
@@ -26,6 +27,7 @@ public class CreatureIcon : VisualElement
             styleSheets.Add(ss);
 
         _creature = creature;
+        _blockTooltip = blockTooltip;
 
         AddToClassList(_ussMain);
 
@@ -70,13 +72,16 @@ public class CreatureIcon : VisualElement
         UnregisterCallback<MouseLeaveEvent>(OnMouseLeave);
     }
 
-    void OnMouseEnter(MouseEnterEvent evt)
-    {
-        _animationElement.PlayAnimation();
-    }
+    void OnMouseEnter(MouseEnterEvent evt) { _animationElement.PlayAnimation(); }
 
-    void OnMouseLeave(MouseLeaveEvent evt)
+    void OnMouseLeave(MouseLeaveEvent evt) { _animationElement.PauseAnimation(); }
+
+    protected override void DisplayTooltip()
     {
-        _animationElement.PauseAnimation();
+        if (_blockTooltip) return;
+
+        CreatureElement tooltip = new(_creature);
+        _tooltip = new(this, tooltip);
+        base.DisplayTooltip();
     }
 }
