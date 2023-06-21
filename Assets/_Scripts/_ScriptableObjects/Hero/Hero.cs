@@ -40,18 +40,12 @@ public class Hero : BaseScriptableObject
     [Header("Abilities")]
     public List<Ability> Abilities = new();
 
-    [Header("Quest")]
-    public List<Injury> Injuries = new();
-
-    public int DayAddedToTroops { get; private set; }
-
-    public List<ArmyGroup> Army = new();
+    public List<Creature> Army = new();
 
 
     public event Action<Item> OnItemAdded;
     public event Action<HeroRank> OnRankChanged;
-    public event Action<Injury> OnInjuryAdded;
-    public event Action<ArmyGroup> OnArmyAdded;
+    public event Action<Creature> OnCreatureAdded;
 
     public IntVariable CurrentMana;
     public void BattleInitialize()
@@ -60,104 +54,17 @@ public class Hero : BaseScriptableObject
         CurrentMana.SetValue(BaseMana.Value);
     }
 
-    public void AddNewArmy(ArmyGroup armyGroup)
+    public void AddCreature(Creature creature)
     {
-        Debug.Log($"Hero {name} adds army {armyGroup.Creature} count {armyGroup.NumberOfUnits}");
-        // join armies of the same type
-        foreach (ArmyGroup ag in Army)
-        {
-            if (ag.Creature == armyGroup.Creature)
-            {
-                ag.ChangeCount(armyGroup.NumberOfUnits);
-                return;
-            }
-        }
-
-        Army.Add(armyGroup);
-        OnArmyAdded?.Invoke(armyGroup);
+        Debug.Log($"Hero {name} adds army {creature}");
+        Army.Add(creature);
+        OnCreatureAdded?.Invoke(creature);
     }
 
-    public void TryJoiningArmies()
+    public void RemoveCreature(Creature creature)
     {
-        List<ArmyGroup> toRemove = new();
-        Dictionary<Creature, int> armyDict = new();
-        for (int i = 0; i < Army.Count; i++)
-        {
-            if (armyDict.ContainsKey(Army[i].Creature))
-            {
-                int index = armyDict[Army[i].Creature];
-                Army[index].JoinArmy(Army[i]);
-                toRemove.Add(Army[i]);
-                continue;
-            }
-            else
-                armyDict.Add(Army[i].Creature, i);
-        }
-
-        foreach (ArmyGroup ag in toRemove)
-            RemoveArmy(ag);
-    }
-
-    public void RemoveArmy(ArmyGroup armyGroup)
-    {
-        Debug.Log($"Hero {name} removes {armyGroup.Creature} count {armyGroup.NumberOfUnits}");
-
-        Army.Remove(armyGroup);
-    }
-
-    public int GetTotalNumberOfArmyEntities()
-    {
-        int total = 0;
-        foreach (ArmyGroup ag in Army)
-            total += ag.NumberOfUnits;
-        return total;
-    }
-
-    public void AddInjury(Injury injury)
-    {
-        if (InjuryDramaCheck())
-        {
-            Debug.LogWarning($"Trying to add an injury to hero ({HeroName}) with active injury. It is not supported.");
-            return;
-        }
-        injury.DateTimeStarted = _gameManager.GetCurrentDateTime();
-
-        Injuries.Add(injury);
-        OnInjuryAdded?.Invoke(injury);
-    }
-
-    public bool IsUnavailable()
-    {
-        foreach (Injury i in Injuries)
-            if (i.IsHealed == false)
-                return true;
-        return false;
-    }
-
-    //TODO: I am currently not handling multiple active injuries
-    public bool InjuryDramaCheck()
-    {
-        int numberOfUnhealedInjuries = 0;
-
-        foreach (Injury i in Injuries)
-            if (i.IsHealed == false)
-                numberOfUnhealedInjuries++;
-
-        if (numberOfUnhealedInjuries > 0)
-        {
-            Debug.Log($"Number of active injuries: {numberOfUnhealedInjuries}");
-            return true;
-        }
-
-        return false;
-    }
-
-    public Injury GetActiveInjury()
-    {
-        foreach (Injury i in Injuries)
-            if (i.IsHealed == false)
-                return i;
-        return null;
+        Debug.Log($"Hero {name} removes {creature}");
+        Army.Remove(creature);
     }
 
     public int GetExpForNextLevel()
@@ -356,9 +263,9 @@ public class Hero : BaseScriptableObject
         UpdateRank();
 
         Army = new();
-        foreach (ArmyGroup ag in _gameManager.HeroDatabase.GetStartingArmy(element).ArmyGroups)
+        foreach (Creature c in _gameManager.HeroDatabase.GetStartingArmy(element).Creatures)
         {
-            ArmyGroup instance = Instantiate(ag);
+            Creature instance = Instantiate(c);
             Army.Add(instance);
         }
     }
@@ -403,17 +310,11 @@ public class Hero : BaseScriptableObject
 
         // TODO: something smarter maybe the higher level the better army too?        
         Army = new();
-        int armyCount = Random.Range(1, _gameManager.HeroDatabase.AllArmyEntities.Count);
+        int armyCount = Random.Range(Level.Value + 1, Level.Value + 4);
         for (int i = 0; i < armyCount; i++)
         {
-            Army.Add(ScriptableObject.CreateInstance<ArmyGroup>());
-            Army[i].Creature = _gameManager.HeroDatabase.GetRandomArmyEntity();
-
-            // TODO: needs balance
-            int count = Mathf.RoundToInt(Random.Range(1, 10) * 0.2f * level);
-            count = Mathf.Clamp(count, 1, 100);
-
-            Army[i].NumberOfUnits = count;
+            Creature instance = Instantiate(_gameManager.HeroDatabase.GetRandomCreature());
+            Army.Add(instance);
         }
 
         UpdateRank();
@@ -457,22 +358,13 @@ public class Hero : BaseScriptableObject
         foreach (string id in data.ItemIds)
             AddItem(heroDatabase.GetItemById(id));
 
-        Injuries = new();
-        foreach (var i in data.InjuryData)
-        {
-            Injury instance = Instantiate(heroDatabase.GetInjuryById(i.Id));
-            instance.name = Helpers.ParseScriptableObjectCloneName(instance.name);
-            instance.CreateFromData(i);
-            Injuries.Add(instance);
-        }
-        DayAddedToTroops = data.DayAddedToTroops;
-
         Army = new();
-        foreach (ArmyGroupData d in data.ArmyGroupDatas)
+        foreach (CreatureData d in data.CreatureDatas)
         {
-            ArmyGroup ag = CreateInstance<ArmyGroup>();
-            ag.LoadFromData(d);
-            Army.Add(ag);
+            Creature baseCreature = heroDatabase.GetCreatureById(d.CreatureId);
+            Creature c = Instantiate(baseCreature);
+            c.LoadFromData(d);
+            Army.Add(c);
         }
 
         UpdateRank();
@@ -505,15 +397,9 @@ public class Hero : BaseScriptableObject
             itemIds.Add(i.Id);
         data.ItemIds = new(itemIds);
 
-        data.InjuryData = new();
-        foreach (Injury i in Injuries)
-            data.InjuryData.Add(i.SerializeSelf());
-
-        data.DayAddedToTroops = DayAddedToTroops;
-
-        data.ArmyGroupDatas = new();
-        foreach (ArmyGroup ag in Army)
-            data.ArmyGroupDatas.Add(ag.SerializeSelf());
+        data.CreatureDatas = new();
+        foreach (Creature c in Army)
+            data.CreatureDatas.Add(c.SerializeSelf());
 
         return data;
     }
@@ -538,9 +424,5 @@ public struct HeroData
     public List<AbilityData> AbilityData;
     public List<string> ItemIds;
 
-    public List<InjuryData> InjuryData;
-
-    public int DayAddedToTroops;
-
-    public List<ArmyGroupData> ArmyGroupDatas;
+    public List<CreatureData> CreatureDatas;
 }

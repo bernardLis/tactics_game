@@ -9,7 +9,7 @@ public class EntitySpawner : MonoBehaviour
 
     [SerializeField] bool _respawnToKeepNumberOfEntities;
     [SerializeField] int _numberOfEntities;
-    [SerializeField] List<ArmyGroup> ArmiesToSpawn = new();
+    [SerializeField] List<Creature> Creatures = new();
 
     void Start()
     {
@@ -17,11 +17,11 @@ public class EntitySpawner : MonoBehaviour
 
         for (int i = 0; i < _numberOfEntities; i++)
         {
-            Creature entity = ArmiesToSpawn[Random.Range(0, ArmiesToSpawn.Count)].Creature;
-            SpawnEntity(entity);
+            Creature c = Creatures[Random.Range(0, Creatures.Count)];
+            SpawnCreature(c);
         }
     }
-    void SpawnEntity(Creature entity)
+    void SpawnCreature(Creature entity)
     {
         Vector3 pos = transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
         GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
@@ -29,7 +29,6 @@ public class EntitySpawner : MonoBehaviour
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.Initialize(1, entity, ref _battleManager.PlayerEntities);
         be.OnDeath += OnDeath;
-
     }
 
     void OnDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
@@ -37,8 +36,8 @@ public class EntitySpawner : MonoBehaviour
         StartCoroutine(CleanBody(be));
         if (!_respawnToKeepNumberOfEntities) return;
 
-        Creature entity = ArmiesToSpawn[Random.Range(0, ArmiesToSpawn.Count)].Creature;
-        SpawnEntity(entity);
+        Creature c = Creatures[Random.Range(0, Creatures.Count)];
+        SpawnCreature(c);
     }
 
     IEnumerator CleanBody(BattleEntity be)

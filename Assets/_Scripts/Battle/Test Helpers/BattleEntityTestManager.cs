@@ -11,24 +11,24 @@ public class BattleEntityTestManager : MonoBehaviour
 {
     BattleManager _battleManager;
 
-    [SerializeField] List<ArmyGroup> AllGroups = new();
+    [SerializeField] List<Creature> _allCreatures = new();
     int _currentGroupIndex = 0;
 
     [Header("Specific Armies")]
     [SerializeField] bool _testSpecificTeams;
-    [SerializeField] List<ArmyGroup> TeamAArmies = new();
-    [SerializeField] List<ArmyGroup> TeamBArmies = new();
+    [SerializeField] List<Creature> TeamACreatures = new();
+    [SerializeField] List<Creature> TeamBCreatures = new();
 
     [Header("One Army vs All")]
-    [SerializeField] bool _oneArmyVsAll;
-    [SerializeField] List<ArmyGroup> _oneArmy = new();
+    [SerializeField] bool _oneCreatureVsAll;
+    [SerializeField] List<Creature> _oneCreature = new();
 
     [SerializeField] bool _fullOneVOnes;
     int _currentOneVOneIndex = 0;
 
 
-    List<Creature> _defeatedEntities = new();
-    List<Creature> _lostToEntities = new();
+    List<Creature> _defeatedCreatures = new();
+    List<Creature> _lostToCreatures = new();
 
     void Start()
     {
@@ -37,19 +37,20 @@ public class BattleEntityTestManager : MonoBehaviour
         _battleManager.OnBattleFinalized += OnBattleFinalized;
         if (_testSpecificTeams)
         {
-            _battleManager.Initialize(null, null, TeamAArmies, TeamBArmies);
+            _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);
             return;
         }
-        if (_oneArmyVsAll)
+        if (_oneCreatureVsAll)
         {
             RunOneArmyVsAll();
             return;
         }
         if (_fullOneVOnes)
         {
-            _oneArmyVsAll = true;
-            _oneArmy.Clear();
-            _oneArmy.Add(AllGroups[0]);
+            _oneCreatureVsAll = true;
+            _oneCreature = null;
+            _oneCreature = new();
+            _oneCreature.Add(_allCreatures[0]);
             RunOneArmyVsAll();
             return;
         }
@@ -64,31 +65,31 @@ public class BattleEntityTestManager : MonoBehaviour
         if (_currentGroupIndex > 0)
         {
             if (_battleManager.LoadedBattle.Won)
-                _defeatedEntities.Add(AllGroups[_currentGroupIndex - 1].Creature);
+                _defeatedCreatures.Add(_allCreatures[_currentGroupIndex - 1]);
             else
-                _lostToEntities.Add(AllGroups[_currentGroupIndex - 1].Creature);
+                _lostToCreatures.Add(_allCreatures[_currentGroupIndex - 1]);
             _battleManager.LoadedBattle.Won = false;
         }
 
-        if (_currentGroupIndex == AllGroups.Count)
+        if (_currentGroupIndex == _allCreatures.Count)
         {
             Debug.Log("Test finished");
 
-            string s = $"{_oneArmy[0].Creature.name} defeated: ";
-            foreach (Creature entity in _defeatedEntities)
+            string s = $"{_allCreatures[0].name} defeated: ";
+            foreach (Creature entity in _defeatedCreatures)
                 s += $"{entity.name}, ";
             s += "\n";
             s += $"Lost to: ";
-            foreach (Creature entity in _lostToEntities)
+            foreach (Creature entity in _lostToCreatures)
                 s += $"{entity.name}, ";
             Debug.Log($"{s}");
             EndOfOneArmyVsAll();
             return;
         }
 
-        List<ArmyGroup> teamB = new();
-        teamB.Add(AllGroups[_currentGroupIndex]);
-        _battleManager.Initialize(null, null, _oneArmy, teamB);
+        List<Creature> teamB = new();
+        teamB.Add(_allCreatures[_currentGroupIndex]);
+        _battleManager.Initialize(null, null, _oneCreature, teamB);
         _currentGroupIndex++;
     }
 
@@ -96,32 +97,32 @@ public class BattleEntityTestManager : MonoBehaviour
     {
         if (!_fullOneVOnes) return;
         _currentOneVOneIndex++;
-        if (_currentOneVOneIndex == AllGroups.Count)
+        if (_currentOneVOneIndex == _allCreatures.Count)
         {
             Debug.Log("Full 1v1 finished");
             return;
         }
-        _defeatedEntities.Clear();
-        _lostToEntities.Clear();
+        _defeatedCreatures.Clear();
+        _lostToCreatures.Clear();
         _currentGroupIndex = 0;
-        _oneArmy.Clear();
-        _oneArmy.Add(AllGroups[_currentOneVOneIndex]);
+        _oneCreature.Clear();
+        _oneCreature.Add(_allCreatures[_currentOneVOneIndex]);
         RunOneArmyVsAll();
     }
 
     void RunAllGroups()
     {
         Debug.Log($"Running test index: {_currentGroupIndex}");
-        if (_currentGroupIndex == AllGroups.Count)
+        if (_currentGroupIndex == _allCreatures.Count)
         {
             Debug.Log("Test finished");
             return;
         }
 
-        List<ArmyGroup> teamA = new();
-        teamA.Add(AllGroups[_currentGroupIndex]);
-        List<ArmyGroup> teamB = new();
-        teamB.Add(AllGroups[_currentGroupIndex]);
+        List<Creature> teamA = new();
+        teamA.Add(_allCreatures[_currentGroupIndex]);
+        List<Creature> teamB = new();
+        teamB.Add(_allCreatures[_currentGroupIndex]);
         _battleManager.Initialize(null, null, teamA, teamB);
         _currentGroupIndex++;
     }
@@ -130,11 +131,11 @@ public class BattleEntityTestManager : MonoBehaviour
     {
         if (_testSpecificTeams)
         {
-            _battleManager.Initialize(null, null, TeamAArmies, TeamBArmies);
+            _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);
             return;
         }
 
-        if (_oneArmyVsAll)
+        if (_oneCreatureVsAll)
         {
             RunOneArmyVsAll();
             return;

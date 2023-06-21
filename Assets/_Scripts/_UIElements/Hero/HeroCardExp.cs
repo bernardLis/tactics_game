@@ -98,7 +98,6 @@ public class HeroCardExp : VisualElement
         container.Add(_title);
         container.Add(_expBar);
         container.Add(CreateManaGroup());
-        container.Add(HandleUnavailability());
 
         return container;
     }
@@ -272,17 +271,5 @@ public class HeroCardExp : VisualElement
         Add(container);
         el.PlayAnimation();
         el.OnAnimationFinished += () => Remove(container);
-    }
-
-    VisualElement HandleUnavailability()
-    {
-        if (!Hero.IsUnavailable())
-            return new VisualElement();
-
-        Injury i = Hero.GetActiveInjury();
-        string injuryName = Helpers.ParseScriptableObjectCloneName(i.name);
-        Label l = new($"{injuryName}, : {i.GetTotalInjuryTimeInSeconds()}s");
-        l.style.whiteSpace = WhiteSpace.Normal;
-        return l;
     }
 }

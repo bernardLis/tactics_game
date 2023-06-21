@@ -23,9 +23,6 @@ public class HeroCardMini : ElementWithTooltip
     HeroPortraitElement _portrait;
     VisualElement _shadow;
 
-    Injury _injury;
-    OverlayTimerElement _unavailabilityTimer;
-
     public bool IsLocked;
 
     public event Action<HeroCardMini> OnLocked;
@@ -41,7 +38,6 @@ public class HeroCardMini : ElementWithTooltip
             styleSheets.Add(ss);
 
         Hero = hero;
-        hero.OnInjuryAdded += SetUnavailable;
 
         AddToClassList(_ussMain);
 
@@ -53,8 +49,6 @@ public class HeroCardMini : ElementWithTooltip
         _portrait = new HeroPortraitElement(hero);
         Add(_portrait);
 
-        if (hero.IsUnavailable())
-            LoadUnavailability();
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
@@ -65,48 +59,6 @@ public class HeroCardMini : ElementWithTooltip
         evt.StopPropagation();
 
         HeroCardFull heroCardFull = new(Hero, BattleManager.Instance.Root);
-    }
-
-    void SetUnavailable(Injury injury)
-    {
-        Lock();
-        _injury = injury;
-
-        string injuryName = Helpers.ParseScriptableObjectCloneName(injury.name);
-        _unavailabilityTimer = new(injury.GetTotalInjuryTimeInSeconds(), injury.GetTotalInjuryTimeInSeconds(), false, injuryName);
-        _unavailabilityTimer.SetStyles(_ussTimerMain, _ussTimerOverlayMask, _ussTimerLabelWrapper);
-        _unavailabilityTimer.OnTimerFinished += OnUnavailabilityTimerFinished;
-        Add(_unavailabilityTimer);
-    }
-
-    void LoadUnavailability()
-    {
-        Injury injury = Hero.GetActiveInjury();
-        if (injury == null)
-            return;
-        Lock();
-        _injury = injury;
-        int timeLeft = injury.GetTotalInjuryTimeInSeconds() - ((int)_gameManager.GetCurrentTimeInSeconds() - (int)injury.DateTimeStarted.GetTimeInSeconds());
-
-        if (timeLeft <= 0)
-        {
-            injury.Healed();
-            return;
-        }
-
-        string injuryName = Helpers.ParseScriptableObjectCloneName(injury.name);
-        _unavailabilityTimer = new(timeLeft, injury.GetTotalInjuryTimeInSeconds(), false, injuryName);
-        _unavailabilityTimer.SetStyles(_ussTimerMain, _ussTimerOverlayMask, _ussTimerLabelWrapper);
-        _unavailabilityTimer.OnTimerFinished += OnUnavailabilityTimerFinished;
-        Add(_unavailabilityTimer);
-    }
-
-    void OnUnavailabilityTimerFinished()
-    {
-        // TODO: I could play an effect even!
-        _injury.Healed();
-        Remove(_unavailabilityTimer);
-        Unlock();
     }
 
     protected override void DisplayTooltip()

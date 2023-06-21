@@ -10,17 +10,17 @@ public class CreatureEvolutionElement : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary-black";
     const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
 
-    const string _ussClassName = "army-evolution__";
+    const string _ussClassName = "creature-evolution__";
     const string _ussMain = _ussClassName + "main";
     const string _ussName = _ussClassName + "name";
     const string _ussAbilityContainer = _ussClassName + "ability-container";
 
     GameManager _gameManager;
 
-    public ArmyGroup ArmyGroup;
+    public Creature Creature;
 
     Label _name;
-    ArmyGroupElement _armyGroupElement;
+    CreatureElement _creatureElement;
 
     ElementalElement _elementalElement;
 
@@ -39,38 +39,38 @@ public class CreatureEvolutionElement : VisualElement
     IntVariable _kills;
     IntVariable _killsToEvolve;
 
-    public CreatureEvolutionElement(ArmyGroup armyGroup)
+    public CreatureEvolutionElement(Creature creature)
     {
         _gameManager = GameManager.Instance;
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ArmyEvolutionElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureEvolutionElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        ArmyGroup = armyGroup;
+        Creature = creature;
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        _name = new(armyGroup.Creature.Name);
+        _name = new(creature.Name);
         _name.AddToClassList(_ussName);
         Add(_name);
 
-        _armyGroupElement = new(armyGroup);
-        _armyGroupElement.LargeIcon();
-        Add(_armyGroupElement);
+        _creatureElement = new(creature);
+        _creatureElement.LargeIcon();
+        Add(_creatureElement);
 
-        _elementalElement = new ElementalElement(ArmyGroup.Creature.Element);
+        _elementalElement = new ElementalElement(Creature.Element);
         Add(_elementalElement);
 
-        _healthLabel = new Label($"Health: {armyGroup.Creature.Health}");
-        _power = new Label($"Power: {armyGroup.Creature.Power}");
-        _armor = new Label($"Armor: {armyGroup.Creature.Armor}");
-        _attackRange = new Label($"Attack Range: {armyGroup.Creature.AttackRange}");
-        _attackCooldown = new Label($"Attack Cooldown: {armyGroup.Creature.AttackCooldown}");
-        _speed = new Label($"Speed: {armyGroup.Creature.Speed}");
+        _healthLabel = new Label($"Health: {creature.Health}");
+        _power = new Label($"Power: {creature.Power}");
+        _armor = new Label($"Armor: {creature.Armor}");
+        _attackRange = new Label($"Attack Range: {creature.AttackRange}");
+        _attackCooldown = new Label($"Attack Cooldown: {creature.AttackCooldown}");
+        _speed = new Label($"Speed: {creature.Speed}");
 
         Add(_healthLabel);
         Add(_power);
@@ -82,7 +82,7 @@ public class CreatureEvolutionElement : VisualElement
         _abilityContainer = new();
         _abilityContainer.AddToClassList(_ussAbilityContainer);
         Add(_abilityContainer);
-        _abilityContainer.Add(new CreatureAbilityElement(armyGroup.Creature.CreatureAbility));
+        _abilityContainer.Add(new CreatureAbilityElement(creature.CreatureAbility));
 
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonHorizontalSpacer);
@@ -90,11 +90,11 @@ public class CreatureEvolutionElement : VisualElement
         spacer.style.backgroundImage = null;
         Add(spacer);
 
-        _availableKills = ArmyGroup.TotalKillCount - ArmyGroup.OldKillCount;
+        _availableKills = Creature.TotalKillCount - Creature.OldKillCount;
         _kills = ScriptableObject.CreateInstance<IntVariable>();
         _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
-        _kills.SetValue(ArmyGroup.OldKillCount);
-        _killsToEvolve.SetValue(ArmyGroup.NumberOfKillsToEvolve());
+        _kills.SetValue(Creature.OldKillCount);
+        _killsToEvolve.SetValue(Creature.KillsToUpgrade);
     }
 
     public void ShowKillsThisBattle()
@@ -129,7 +129,7 @@ public class CreatureEvolutionElement : VisualElement
 
     public void AddKills()
     {
-        int killChange = Mathf.Clamp(_availableKills, 0, ArmyGroup.NumberOfKillsToEvolve());
+        int killChange = Mathf.Clamp(_availableKills, 0, Creature.KillsToUpgrade);
         _availableKills -= killChange;
         _killsThisBattleElement.ChangeAmount(_availableKills);
         _kills.ApplyChange(killChange);
@@ -139,14 +139,14 @@ public class CreatureEvolutionElement : VisualElement
     {
         _name.text += $" -> {creature.Name}";
 
-        _armyGroupElement.Evolve(creature);
+        _creatureElement.Evolve(creature);
 
-        _healthLabel.text += $" -> {ArmyGroup.Creature.Health}";
-        _power.text += $" -> {ArmyGroup.Creature.Power}";
-        _armor.text += $" -> {ArmyGroup.Creature.Armor}";
-        _attackRange.text += $" -> {ArmyGroup.Creature.AttackRange}";
-        _attackCooldown.text += $" -> {ArmyGroup.Creature.AttackCooldown}";
-        _speed.text += $" -> {ArmyGroup.Creature.Speed}";
+        _healthLabel.text += $" -> {creature.Health}";
+        _power.text += $" -> {creature.Power}";
+        _armor.text += $" -> {creature.Armor}";
+        _attackRange.text += $" -> {creature.AttackRange}";
+        _attackCooldown.text += $" -> {creature.AttackCooldown}";
+        _speed.text += $" -> {creature.Speed}";
 
         _abilityContainer.Add(new Label(" -> "));
         if (creature.CreatureAbility != null)
@@ -156,6 +156,6 @@ public class CreatureEvolutionElement : VisualElement
 
     public void ResetKillsToEvolveBar()
     {
-        _killsToEvolve.SetValue(ArmyGroup.NumberOfKillsToEvolve());
+        _killsToEvolve.SetValue(Creature.KillsToUpgrade);
     }
 }

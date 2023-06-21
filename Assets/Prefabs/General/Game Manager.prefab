@@ -355,14 +355,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 86ba47e95dde19f4b84fc0cee644719c
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 678c67e4ec184fd47b567efcaf75fa8b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 33f0f69a2abd646488810cf929758d3e
     m_SubObjectName: 
     m_SubObjectType: 
@@ -412,10 +404,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 65c94c2530362d548a758f61493f3e42
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 126b03a0d8c2e314186e5ef37912342e
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -488,7 +476,6 @@ MonoBehaviour:
   PlayerHero: {fileID: 0}
   OverseerHero: {fileID: 0}
   RivalHero: {fileID: 0}
-  Map: {fileID: 11400000, guid: c39bdc5d1affc7c4e95ffa66e020f48f, type: 2}
   SelectedBattle: {fileID: 11400000, guid: a21f9f7f650aa8b4f80779c5aeb09d75, type: 2}
 --- !u!114 &2154333484900981486
 MonoBehaviour:

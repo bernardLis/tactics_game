@@ -66,7 +66,7 @@ public class BattleResultArmyElement : VisualElement
         _armyGroupContainer = new();
         _armyGroupContainer.AddToClassList(_ussArmyGroupContainer);
         Add(_armyGroupContainer);
-        _gameManager.PlayerHero.OnArmyAdded += AddArmyToContainer;
+        _gameManager.PlayerHero.OnCreatureAdded += AddArmyToContainer;
 
         _logRecordsContainer = new();
         Add(_logRecordsContainer);
@@ -77,16 +77,15 @@ public class BattleResultArmyElement : VisualElement
         this.schedule.Execute(AddMostKillsEntity).StartingIn(500 + 500 * _gameManager.PlayerHero.Army.Count);
     }
 
-    void AddArmyToContainer(ArmyGroup armyGroup)
+    void AddArmyToContainer(Creature creature)
     {
         VisualElement container = new();
         container.AddToClassList(_ussArmyStatsContainer);
         _armyGroupContainer.Add(container);
 
-        ArmyGroup ag = armyGroup;
-        ArmyGroupElement armyGroupElement = new(ag);
-        armyGroupElement.CreatureIcon.PlayAnimationAlways();
-        container.Add(armyGroupElement);
+        CreatureElement creatureElement = new(creature);
+        creatureElement.CreatureIcon.PlayAnimationAlways();
+        container.Add(creatureElement);
     }
 
     void ShowPickupStats()
@@ -150,18 +149,18 @@ public class BattleResultArmyElement : VisualElement
             container.AddToClassList(_ussArmyStatsContainer);
             _armyGroupContainer.Add(container);
 
-            ArmyGroup ag = _gameManager.PlayerHero.Army[i];
-            ArmyGroupElement armyGroupElement = new(ag);
-            armyGroupElement.CreatureIcon.PlayAnimationAlways();
-            container.Add(armyGroupElement);
+            Creature c = _gameManager.PlayerHero.Army[i];
+            CreatureElement creatureElement = new(c);
+            creatureElement.CreatureIcon.PlayAnimationAlways();
+            container.Add(creatureElement);
 
             VisualElement statsContainer = new();
             _armyStatContainers.Add(statsContainer);
             container.Add(statsContainer);
 
-            Label kills = new($"Kills: {ag.TotalKillCount - ag.OldKillCount}");
-            Label damageDealt = new($"Damage Dealt: {ag.TotalDamageDealt - ag.OldDamageDealt}");
-            Label damageTaken = new($"Damage Taken: {ag.TotalDamageTaken - ag.OldDamageTaken}");
+            Label kills = new($"Kills: {c.TotalKillCount - c.OldKillCount}");
+            Label damageDealt = new($"Damage Dealt: {c.TotalDamageDealt - c.OldDamageDealt}");
+            Label damageTaken = new($"Damage Taken: {c.TotalDamageTaken - c.OldDamageTaken}");
             statsContainer.Add(kills);
             statsContainer.Add(damageDealt);
             statsContainer.Add(damageTaken);

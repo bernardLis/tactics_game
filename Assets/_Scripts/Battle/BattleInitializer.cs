@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class BattleInitializer : MonoBehaviour
 {
-
     void Start()
     {
         Hero playerHero = GameManager.Instance.PlayerHero;
-        List<ArmyGroup> playerArmy = playerHero.Army;
+        List<Creature> playerArmy = playerHero.Army;
         Hero opponentHero = GameManager.Instance.SelectedBattle.Opponent;
-        List<ArmyGroup> opponentArmy = opponentHero.Army;
+        List<Creature> opponentArmy = opponentHero.Army;
 
         BattleManager.Instance.Initialize(playerHero, opponentHero, playerArmy, opponentArmy);
     }
-
 }

@@ -89,7 +89,7 @@ public class BattleManager : Singleton<BattleManager>
         _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
     }
 
-    public void Initialize(Hero playerHero, Hero opponentHero, List<ArmyGroup> playerArmy, List<ArmyGroup> opponentArmy)
+    public void Initialize(Hero playerHero, Hero opponentHero, List<Creature> playerArmy, List<Creature> opponentArmy)
     {
         PlaceObstacle();
         _battleFinalized = false;
@@ -107,10 +107,10 @@ public class BattleManager : Singleton<BattleManager>
 
         if (playerArmy == null) return;
 
-        foreach (ArmyGroup ag in playerArmy)
-            InstantiatePlayer(ag);
-        foreach (ArmyGroup ag in opponentArmy)
-            InstantiateOpponent(ag.Creature, ag.NumberOfUnits);
+        foreach (Creature c in playerArmy)
+            InstantiatePlayer(c);
+        foreach (Creature c in opponentArmy)
+            InstantiateOpponent(c);
 
         _initialPlayerEntityCount = PlayerEntities.Count;
         _initialOpponentEntityCount = OpponentEntities.Count;
@@ -147,46 +147,39 @@ public class BattleManager : Singleton<BattleManager>
         _obstacleInstance.transform.Rotate(rot);
     }
 
-    public void InstantiatePlayer(ArmyGroup ag)
+    public void InstantiatePlayer(Creature creature)
     {
-        ag.InitializeBattle();
+        creature.InitializeBattle(_playerHero);
 
-        Creature entityInstance = Instantiate(ag.Creature);
-        entityInstance.HeroInfluence(_playerHero);
+        // Creature creatureInstance = Instantiate(creature);
 
-        for (int i = 0; i < ag.NumberOfUnits; i++)
-        {
-            Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-            GameObject instance = Instantiate(ag.Creature.Prefab, pos, Quaternion.identity);
-            instance.layer = 10;
-            instance.transform.parent = _entityHolder;
-            BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(0, entityInstance, ref OpponentEntities);
-            PlayerEntities.Add(be);
-            be.OnEnemyKilled += ag.AddKill;
-            be.OnDamageDealt += ag.AddDmgDealt;
-            be.OnDamageTaken += ag.AddDmgTaken;
-            be.OnDeath += OnPlayerDeath;
-        }
+        Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+        GameObject instance = Instantiate(creature.Prefab, pos, Quaternion.identity);
+        instance.layer = 10;
+        instance.transform.parent = _entityHolder;
+        BattleEntity be = instance.GetComponent<BattleEntity>();
+        be.Initialize(0, creature, ref OpponentEntities);
+        PlayerEntities.Add(be);
+        be.OnEnemyKilled += creature.AddKill;
+        be.OnDamageDealt += creature.AddDmgDealt;
+        be.OnDamageTaken += creature.AddDmgTaken;
+        be.OnDeath += OnPlayerDeath;
     }
 
-    void InstantiateOpponent(Creature entity, int count)
+    void InstantiateOpponent(Creature creature)
     {
-        Creature entityInstance = Instantiate(entity);
-        entityInstance.HeroInfluence(_opponentHero);
+        Creature entityInstance = Instantiate(creature);
+        creature.InitializeBattle(_opponentHero);
 
-        for (int i = 0; i < count; i++)
-        {
-            Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-            Quaternion rotation = Quaternion.Euler(0, 180, 0);
-            GameObject instance = Instantiate(entity.Prefab, pos, rotation);
-            instance.layer = 11;
-            instance.transform.parent = _entityHolder;
-            BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.Initialize(1, entity, ref PlayerEntities);
-            OpponentEntities.Add(be);
-            be.OnDeath += OnEnemyDeath;
-        }
+        Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+        Quaternion rotation = Quaternion.Euler(0, 180, 0);
+        GameObject instance = Instantiate(creature.Prefab, pos, rotation);
+        instance.layer = 11;
+        instance.transform.parent = _entityHolder;
+        BattleEntity be = instance.GetComponent<BattleEntity>();
+        be.Initialize(1, creature, ref PlayerEntities);
+        OpponentEntities.Add(be);
+        be.OnDeath += OnEnemyDeath;
     }
 
     void OnPlayerDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)

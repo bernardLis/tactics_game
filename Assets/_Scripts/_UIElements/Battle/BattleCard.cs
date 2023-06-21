@@ -36,12 +36,12 @@ public class BattleCard : ElementWithSound
             elements.Remove(_gameManager.PlayerHero.Element);
             elements.Remove(_gameManager.PlayerHero.Element.StrongAgainst);
             elements.Remove(_gameManager.PlayerHero.Element.WeakAgainst);
-            opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(elements[0]).ArmyGroups);
+            opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(elements[0]).Creatures);
         }
         if (_gameManager.BattleNumber == 2)
         {
             // get starting army of element our here is weak to
-            opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_gameManager.PlayerHero.Element.WeakAgainst).ArmyGroups);
+            opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_gameManager.PlayerHero.Element.WeakAgainst).Creatures);
         }
 
         _battle = ScriptableObject.CreateInstance<Battle>();
@@ -52,8 +52,8 @@ public class BattleCard : ElementWithSound
 
         ScrollView scrollView = new ScrollView();
         Add(scrollView);
-        foreach (ArmyGroup ag in opp.Army)
-            scrollView.Add(new ArmyGroupElement(ag));
+        foreach (Creature c in opp.Army)
+            scrollView.Add(new CreatureIcon(c));
 
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }

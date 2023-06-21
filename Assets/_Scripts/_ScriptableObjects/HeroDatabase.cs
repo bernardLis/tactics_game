@@ -5,9 +5,9 @@ using System.Linq;
 public class HeroDatabase : ScriptableObject
 {
     [Header("Heroes")]
-    public List<Creature> AllArmyEntities = new();
-    public Creature GetRandomArmyEntity() { return AllArmyEntities[Random.Range(0, AllArmyEntities.Count)]; }
-    public Creature GetCreatureById(string id) { return AllArmyEntities.FirstOrDefault(x => x.Id == id); }
+    public List<Creature> AllCreatures = new();
+    public Creature GetRandomCreature() { return AllCreatures[Random.Range(0, AllCreatures.Count)]; }
+    public Creature GetCreatureById(string id) { return AllCreatures.FirstOrDefault(x => x.Id == id); }
 
     [SerializeField] StartingArmy[] StartingArmies;
     public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }
@@ -15,7 +15,7 @@ public class HeroDatabase : ScriptableObject
     public struct StartingArmy
     {
         public Element Element;
-        public List<ArmyGroup> ArmyGroups;
+        public List<Creature> Creatures;
     }
 
     [SerializeField] Ability[] Abilities;
@@ -40,11 +40,6 @@ public class HeroDatabase : ScriptableObject
 
     [SerializeField] StatIcon[] StatIcons;
     public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
-
-    [SerializeField] Injury[] Injuries;
-    public Injury GetInjuryById(string id) { return Injuries.FirstOrDefault(x => x.Id == id); }
-    public Injury GetRandomInjury() { return Injuries[Random.Range(0, Injuries.Length)]; }
-
 
     [SerializeField] List<HeroRank> HeroRanks = new();
     public HeroRank GetRankByPoints(int points)

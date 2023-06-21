@@ -12,9 +12,7 @@ public class HeroArmyElement : VisualElement
 
     public Hero Hero;
 
-    ScrollView _armySlotScrollView;
-
-    List<ArmySlotElement> _armySlots = new();
+    ScrollView _armyScrollView;
 
     public HeroArmyElement(Hero hero)
     {
@@ -30,18 +28,14 @@ public class HeroArmyElement : VisualElement
 
         AddToClassList(_ussMain);
 
-        _armySlotScrollView = new ScrollView();
-        _armySlotScrollView.contentContainer.style.flexDirection = FlexDirection.Row;
-        Add(_armySlotScrollView);
+        _armyScrollView = new ScrollView();
+        _armyScrollView.contentContainer.style.flexDirection = FlexDirection.Row;
+        Add(_armyScrollView);
 
         for (int i = 0; i < Hero.Army.Count; i++)
         {
-            ArmySlotElement armySlot = new(null, i);
-            _armySlotScrollView.Add(armySlot);
-            _armySlots.Add(armySlot);
+            CreatureIcon icon = new CreatureIcon(Hero.Army[i]);
+            _armyScrollView.Add(icon);
         }
-
-        for (int i = 0; i < Hero.Army.Count; i++)
-            _armySlots[i].AddArmyNoDelegates(new(Hero.Army[i]));
     }
 }

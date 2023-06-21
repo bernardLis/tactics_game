@@ -29,8 +29,30 @@ public class Creature : BaseScriptableObject
     public Creature UpgradedCreature;
     public int KillsToUpgrade;
 
+    // battle
+    [HideInInspector] public int OldKillCount;
+    [HideInInspector] public int TotalKillCount;
+
+    [HideInInspector] public int OldDamageDealt;
+    [HideInInspector] public int TotalDamageDealt;
+
+    [HideInInspector] public int OldDamageTaken;
+    [HideInInspector] public int TotalDamageTaken;
+
     [HideInInspector] public Hero Hero;
-    public void HeroInfluence(Hero hero) { Hero = hero; }
+
+    public void InitializeBattle(Hero hero)
+    {
+        OldKillCount = TotalKillCount;
+        OldDamageDealt = TotalDamageDealt;
+        OldDamageTaken = TotalDamageTaken;
+
+        if (hero != null) Hero = hero;
+    }
+
+    public void AddKill(int ignored) { TotalKillCount++; }
+    public void AddDmgDealt(int dmg) { TotalDamageDealt += dmg; }
+    public void AddDmgTaken(int dmg) { TotalDamageTaken += dmg; }
 
     public int CalculateDamage(BattleEntity attacker)
     {
@@ -70,4 +92,52 @@ public class Creature : BaseScriptableObject
         return Mathf.RoundToInt(damage);
     }
 
+    /*
+            public bool ShouldEvolve()
+            {
+                if (Creature.UpgradedCreature == null) return false;
+
+                return TotalKillCount >= NumberOfKillsToEvolve();
+            }
+
+            public void Evolve()
+            {
+                PreviousCreature = Creature;
+                Creature = Creature.UpgradedCreature;
+                OnEvolved?.Invoke(this);
+            }
+        */
+
+    public CreatureData SerializeSelf()
+    {
+        CreatureData data = new();
+        data.Name = Name;
+        data.CreatureId = Id;
+
+        data.KillCount = TotalKillCount;
+        data.DamageDealt = TotalDamageDealt;
+        data.DamageTaken = TotalDamageTaken;
+
+        return data;
+    }
+
+    public void LoadFromData(CreatureData data)
+    {
+        Name = data.Name;
+
+        TotalKillCount = data.KillCount;
+        TotalDamageDealt = data.DamageDealt;
+        TotalDamageTaken = data.DamageTaken;
+    }
+}
+
+[System.Serializable]
+public struct CreatureData
+{
+    public string Name;
+    public string CreatureId;
+
+    public int KillCount;
+    public int DamageDealt;
+    public int DamageTaken;
 }

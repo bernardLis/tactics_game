@@ -11,7 +11,7 @@ public class BattleEndTestManager : MonoBehaviour
     BattleManager _battleManager;
     Hero _hero;
 
-    [SerializeField] List<ArmyGroup> _army;
+    [SerializeField] List<Creature> _army;
 
     [SerializeField] List<Pickup> _pickups;
 
@@ -19,10 +19,10 @@ public class BattleEndTestManager : MonoBehaviour
     {
         _battleManager = BattleManager.Instance;
 
-        List<ArmyGroup> armyInstance = new();
-        foreach (ArmyGroup ag in _army)
+        List<Creature> armyInstance = new();
+        foreach (Creature c in _army)
         {
-            ArmyGroup instance = Instantiate<ArmyGroup>(ag);
+            Creature instance = Instantiate<Creature>(c);
             armyInstance.Add(instance);
         }
 

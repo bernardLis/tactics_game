@@ -1,8 +1,8 @@
-.army-evolution__main {
+.creature-evolution__main {
     align-items: center;
 }
 
-.army-evolution__name {
+.creature-evolution__name {
     font-size: 32px;
     max-width: 300px;
     -unity-text-align: middle-center;
@@ -11,7 +11,7 @@
     white-space: normal;
 }
 
-.army-evolution__ability-container {
+.creature-evolution__ability-container {
     flex-direction: row;
     justify-content: center;
     align-items: center;

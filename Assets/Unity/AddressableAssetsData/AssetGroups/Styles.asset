@@ -157,16 +157,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 678c67e4ec184fd47b567efcaf75fa8b
-    m_Address: ArmyElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 86ba47e95dde19f4b84fc0cee644719c
-    m_Address: ArmySlotElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33f0f69a2abd646488810cf929758d3e
     m_Address: HeroCastleElementStyles
     m_ReadOnly: 0
@@ -249,11 +239,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65c94c2530362d548a758f61493f3e42
     m_Address: BattleStatsContainer
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 126b03a0d8c2e314186e5ef37912342e
-    m_Address: ArmyGroupTooltipStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

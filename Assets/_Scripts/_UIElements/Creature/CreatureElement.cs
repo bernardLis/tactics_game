@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class CreatureElement : VisualElement
 {
@@ -19,7 +21,7 @@ public class CreatureElement : VisualElement
     protected VisualElement _rightContainer;
 
     protected ElementalElement _elementalElement;
-    protected CreatureIcon _creatureIcon;
+    public CreatureIcon CreatureIcon;
     protected Label _nameLabel;
     protected Label _healthLabel;
     protected Label _power;
@@ -27,6 +29,8 @@ public class CreatureElement : VisualElement
     protected Label _attackRange;
     protected Label _attackCooldown;
     protected Label _speed;
+
+    public event Action OnEvolutionFinished;
 
     public CreatureElement(Creature creature)
     {
@@ -48,7 +52,7 @@ public class CreatureElement : VisualElement
         Add(_rightContainer);
 
         _elementalElement = new ElementalElement(_creature.Element);
-        _creatureIcon = new(_creature);
+        CreatureIcon = new(_creature);
         _nameLabel = new Label();
         _nameLabel.AddToClassList(_ussName);
 
@@ -60,7 +64,7 @@ public class CreatureElement : VisualElement
         _speed = new Label($"Speed:");
 
         _leftContainer.Add(_nameLabel);
-        _leftContainer.Add(_creatureIcon);
+        _leftContainer.Add(CreatureIcon);
         _leftContainer.Add(_elementalElement);
 
         _middleContainer.Add(_healthLabel);
@@ -79,11 +83,41 @@ public class CreatureElement : VisualElement
         SetValues(_creature);
     }
 
+    public void LargeIcon()
+    {
+        style.width = 200;
+        style.height = 200;
+
+        CreatureIcon.LargeIcon();
+    }
+
+    public void Evolve(Creature creature)
+    {
+        DOTween.Shake(() => CreatureIcon.transform.position, x => CreatureIcon.transform.position = x,
+                2f, 10f);
+
+        Helpers.DisplayTextOnElement(BattleManager.Instance.Root, CreatureIcon, "Evolving!!!", Color.red);
+
+        Color _initialColor = CreatureIcon.Frame.style.backgroundColor.value;
+        Color _targetColor = Color.white;
+        DOTween.To(() => CreatureIcon.Frame.style.backgroundColor.value,
+                x => CreatureIcon.Frame.style.backgroundColor = x, _targetColor, 1f)
+            .SetTarget(CreatureIcon)
+            .OnComplete(() => CreatureIcon.SwapCreature(creature));
+
+        DOTween.To(() => CreatureIcon.Frame.style.backgroundColor.value,
+                x => CreatureIcon.Frame.style.backgroundColor = x, _initialColor, 2f)
+            .SetTarget(CreatureIcon)
+            .SetDelay(1f)
+            .OnComplete(() => OnEvolutionFinished?.Invoke());
+    }
+
+
     public void SetValues(Creature creature)
     {
         _creature = creature;
 
-        _creatureIcon.SwapCreature(creature);
+        CreatureIcon.SwapCreature(creature);
         _nameLabel.text = $"{creature.Name}";
         _healthLabel.text = $"Health: {creature.Health}";
         _power.text = $"Power: {creature.Power}";
