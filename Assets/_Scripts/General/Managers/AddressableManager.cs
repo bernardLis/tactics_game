@@ -53,11 +53,9 @@ public enum StyleSheetType
     HeroCardMiniStyles,
     HeroCardExpStyles,
 
-    CastleElementStyles,
-    BuildingElementStyles, ProductionBuildingElementStyles, BuildingSpriteElementStyles,
-    ArmyGroupElementStyles, ArmyGroupTooltipStyles, ArmySlotElementStyles, CreatureEvolutionElementStyles,
+    CreatureEvolutionElementStyles, CreatureExpElementStyles,
     HeroCardFullStyles, HeroArmyElementStyles,
-    ControlButtonStyles, CastleControlButtonStyles, HeroControlButtonStyles,
+    
 
     BattleEntityElementStyles, BattleEntityInfoStyles,
     BattleResultArmyStyles, BattleResultRewardStyles, BattleResultHeroStyles,

@@ -150,7 +150,7 @@ public class BattleResultArmyElement : VisualElement
             _armyGroupContainer.Add(container);
 
             Creature c = _gameManager.PlayerHero.Army[i];
-            CreatureElement creatureElement = new(c);
+            CreatureExpElement creatureElement = new(c);
             creatureElement.CreatureIcon.PlayAnimationAlways();
             container.Add(creatureElement);
 
