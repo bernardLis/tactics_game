@@ -17,6 +17,8 @@ public class ArcMovementElement : VisualElement
     public event Action OnArcMovementFinished;
     public ArcMovementElement(VisualElement child, Vector3 startPosition, Vector3 endPosition)
     {
+        usageHints = UsageHints.DynamicTransform;
+        
         style.position = Position.Absolute;
         transform.position = startPosition;
         _startPosition = startPosition;
@@ -24,7 +26,7 @@ public class ArcMovementElement : VisualElement
 
         Add(child);
 
-        _arcMovement = schedule.Execute(ArcMovement).Every(5);
+        _arcMovement = schedule.Execute(ArcMovement).Every(25);
     }
 
     void ArcMovement()
@@ -46,7 +48,7 @@ public class ArcMovementElement : VisualElement
 
         transform.position = result;
 
-        _percent += 0.01f;
+        _percent += 0.025f;
     }
 
     void ArcMovementFinished()

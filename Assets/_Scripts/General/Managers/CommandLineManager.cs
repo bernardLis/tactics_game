@@ -18,6 +18,9 @@ public class CommandLineManager : MonoBehaviour
 
     bool _isOpen;
 
+    Label _fpsLabel;
+    float _deltaTime;
+
     [SerializeField] Creature _metalon;
 
     void Awake()
@@ -34,6 +37,14 @@ public class CommandLineManager : MonoBehaviour
 
         _logContainer = root.Q<ScrollView>("logContainer");
 
+        _fpsLabel = root.Q<Label>("fpsLabel");
+    }
+
+    void Update()
+    {
+        _deltaTime += (Time.deltaTime - _deltaTime) * 0.1f;
+        float fps = 1.0f / _deltaTime;
+        _fpsLabel.text = $"{Mathf.Ceil(fps)}";
     }
 
     /* INPUT */

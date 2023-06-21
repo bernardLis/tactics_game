@@ -121,14 +121,14 @@ public class BattleResult : FullScreenElement
     void OnGoldChanged(int newValue)
     {
         int change = newValue - GoldElement.Amount;
-        Helpers.DisplayTextOnElement(_root, GoldElement, "+ " + change, Color.yellow);
+        Helpers.DisplayTextOnElement(_root, GoldElement, "" + change, Color.yellow);
         GoldElement.ChangeAmount(newValue);
     }
 
     void OnSpiceChanged(int newValue)
     {
         int change = newValue - SpiceElement.Amount;
-        Helpers.DisplayTextOnElement(_root, SpiceElement, "+ " + change, Color.red);
+        Helpers.DisplayTextOnElement(_root, SpiceElement, "" + change, Color.red);
         SpiceElement.ChangeAmount(newValue);
     }
 

@@ -84,18 +84,21 @@ public static class Helpers
     {
         if (root == null)
             root = GetRoot(element);
+
         Label l = new Label(text);
         l.AddToClassList(_ussCommonTextPrimary);
         l.style.color = color;
-        l.style.position = Position.Absolute;
-        l.style.left = element.worldBound.xMin;
-        l.style.top = element.worldBound.yMin;
-
-        root.Add(l);
-        float end = element.worldBound.yMin - 100;
-        DOTween.To(x => l.style.top = x, element.worldBound.yMin, end, 1).SetEase(Ease.OutSine)
-                .OnComplete(() => DOTween.To(x => l.style.opacity = x, 1, 0, 1)
-                .OnComplete(() => root.Remove(l)));
+        
+        Vector3 start = new Vector3(element.worldBound.xMin, element.worldBound.yMin, 0);
+        Vector3 end = new Vector3(element.worldBound.xMin + Random.Range(-100, 100),
+                element.worldBound.yMin - 100, 0);
+        ArcMovementElement arcMovementElement = new(l, start, end);
+        root.Add(arcMovementElement);
+        arcMovementElement.OnArcMovementFinished += () =>
+        {
+            DOTween.To(x => l.style.opacity = x, 1, 0, 1)
+                    .OnComplete(() => root.Remove(arcMovementElement));
+        };
     }
 
     public static VisualElement GetRoot(VisualElement el)

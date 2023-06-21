@@ -54,7 +54,11 @@ public class BattleEndManager : MonoBehaviour
 
     void BeginEndBattleShow()
     {
-        Debug.Log($"BeginEndBattleShow");
+        Debug.Log($"Begin End Battle Show");
+
+        _root.Q<VisualElement>("bottomPanel").Clear();
+        _root.Q<VisualElement>("topPanel").Clear();
+
         ShowUI();
         /* TODO: pickup testing
         _playerArmy = _gameManager.PlayerHero.Army;
