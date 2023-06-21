@@ -22,8 +22,6 @@ public class DashboardManager : Singleton<DashboardManager>
     GameManager _gameManager;
     public PlayerInput PlayerInput { get; private set; }
 
-    DraggableArmies _draggableArmies;
-
     public VisualElement Root { get; private set; }
 
     public EffectHolder PanelOpenEffect;
@@ -54,8 +52,6 @@ public class DashboardManager : Singleton<DashboardManager>
         base.Awake();
         _gameManager = GameManager.Instance;
         _gameManager.OnDayPassed += UpdateDay;
-
-        _draggableArmies = GetComponent<DraggableArmies>();
 
         Root = GetComponent<UIDocument>().rootVisualElement;
 

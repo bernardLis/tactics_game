@@ -52,20 +52,6 @@ public class GameDatabase : BaseScriptableObject
 
         return SpiceAnimationSprites[index].sprites;
     }
-
-
-    public Sprite GoldSprite;
-    public Sprite SpiceSprite;
-
-
-    public List<Building> Buildings = new();
-    public Building GetBuildingById(string id) { return Buildings.FirstOrDefault(x => x.Id == id); }
-
-    public List<Castle> Castles = new();
-    public Castle GetCastleById(string id) { return Castles.FirstOrDefault(x => x.Id == id); }
-
-    public List<Map> Maps = new();
-    public Map GetMapById(string id) { return Maps.FirstOrDefault(x => x.Id == id); }
 }
 
 public enum ItemRarity { Common, Uncommon, Rare, Epic }

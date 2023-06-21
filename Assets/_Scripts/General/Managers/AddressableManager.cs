@@ -55,7 +55,7 @@ public enum StyleSheetType
 
     CastleElementStyles,
     BuildingElementStyles, ProductionBuildingElementStyles, BuildingSpriteElementStyles,
-    ArmyGroupElementStyles, ArmyGroupTooltipStyles, ArmySlotElementStyles, ArmyBuyableElementStyles, ArmyEvolutionElementStyles,
+    ArmyGroupElementStyles, ArmyGroupTooltipStyles, ArmySlotElementStyles, ArmyEvolutionElementStyles,
     HeroCardFullStyles, HeroArmyElementStyles,
     ControlButtonStyles, CastleControlButtonStyles, HeroControlButtonStyles,
 

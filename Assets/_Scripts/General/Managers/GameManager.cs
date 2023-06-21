@@ -39,7 +39,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public Hero OverseerHero;
     public Hero RivalHero;
 
-    public Map Map;
     public Battle SelectedBattle; // HERE: battle testing { get; private set; }
 
     public event Action<int> OnDayPassed;
@@ -168,10 +167,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         b.Opponent = opp;
         SelectedBattle = b;
 
-        Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
-        Map = Instantiate(templateMap);
-        Map.Reset();
-
         // new save
         string guid = System.Guid.NewGuid().ToString();
         string fileName = guid + ".dat";
@@ -213,7 +208,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             saveData.PlayerHero = PlayerHero.SerializeSelf();
 
         saveData.SelectedBattle = SelectedBattle.SerializeSelf();
-        saveData.MapData = Map.SerializeSelf();
     }
 
 
@@ -252,9 +246,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         SelectedBattle = (Battle)ScriptableObject.CreateInstance<Battle>();
         SelectedBattle.LoadFromData(saveData.SelectedBattle);
-
-        Map = ScriptableObject.CreateInstance<Map>();
-        Map.LoadFromData(saveData.MapData);
     }
 
 
@@ -273,10 +264,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Spice = 500;
 
         PlayerHero = null;
-
-        Map templateMap = GameDatabase.GetMapById("59e25ea9-893a-420b-b64b-d2cd176e66e7");
-        Map = Instantiate(templateMap);
-        Map.Reset();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

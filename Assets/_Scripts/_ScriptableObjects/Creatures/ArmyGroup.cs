@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Map/ArmyGroup")]
+[CreateAssetMenu(menuName = "ScriptableObject/ArmyGroup")]
 public class ArmyGroup : BaseScriptableObject
 {
     public string Name;

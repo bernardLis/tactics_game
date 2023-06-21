@@ -21,8 +21,6 @@ public class SaveData
 
     public BattleData SelectedBattle;
 
-    public MapData MapData;
-
     public string ToJson() { return JsonUtility.ToJson(this); }
 
     public void LoadFromJson(string jsonString) { JsonUtility.FromJsonOverwrite(jsonString, this); }
