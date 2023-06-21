@@ -6,12 +6,12 @@ using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using DG.Tweening;
 
-public class RewardExpContainer : VisualElement
+public class BattleResultHeroElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "reward-exp-container__";
+    const string _ussClassName = "battle-result-hero-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussCardContainer = _ussClassName + "card-container";
     const string _ussDefeatedEntitiesContainer = _ussClassName + "defeated-entities-container";
@@ -35,7 +35,7 @@ public class RewardExpContainer : VisualElement
     public HeroCardMini HeroCardMini;
 
     public event Action OnFinished;
-    public RewardExpContainer()
+    public BattleResultHeroElement()
     {
         _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();

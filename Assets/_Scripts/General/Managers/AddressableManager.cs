@@ -60,7 +60,7 @@ public enum StyleSheetType
     ControlButtonStyles, CastleControlButtonStyles, HeroControlButtonStyles,
 
     BattleEntityElementStyles, BattleEntityInfoStyles,
-    BattleStatsContainer, RewardContainerStyles, RewardExpContainerStyles,
+    BattleResultArmyStyles, BattleResultRewardStyles, BattleResultHeroStyles,
     RewardCardStyles, BattleCardStyles,
 
     CreatureIconStyles, CreatureElementStyles,

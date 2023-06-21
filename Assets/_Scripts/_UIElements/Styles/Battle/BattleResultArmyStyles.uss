@@ -1,14 +1,14 @@
-.battle-stats-container__main {
+.battle-result-army-element__main {
     height: 100%;
     justify-content: center;
 }
 
-.battle-stats-container__army-group-container {
+.battle-result-army-element__army-group-container {
     height: 50%;
     align-items: center;
 }
 
-.battle-stats-container__give-pickups-button {
+.battle-result-army-element__give-pickups-button {
     font-size: 24px;
     justify-content: center;
     width: 200px;
@@ -16,7 +16,7 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little.png?fileID=2800000&guid=7d3b047def79cf4429819bd8e157dbe6&type=3#Button_little');
 }
 
-.battle-stats-container__army-stats-container {
+.battle-result-army-element__army-stats-container {
     flex-direction: row;
     padding-left: 10px;
     padding-right: 10px;

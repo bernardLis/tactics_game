@@ -34,7 +34,7 @@ public class BattleEndManager : MonoBehaviour
     List<BattleEntity> _currentEntities = new();
     List<BattleEntity> _evolvedEntities = new();
 
-    public BattleResult BattleResult { get; private set; }
+    public BattleResultElement BattleResult { get; private set; }
 
     public event Action OnBattleResultShown;
     void Start()

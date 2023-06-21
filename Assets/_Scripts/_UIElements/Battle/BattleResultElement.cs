@@ -6,12 +6,12 @@ using UnityEngine.UIElements;
 using System.Linq;
 using DG.Tweening;
 
-public class BattleResult : FullScreenElement
+public class BattleResultElement : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "battle-result__";
+    const string _ussClassName = "battle-result-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussResourceContainer = _ussClassName + "resource-container";
 
@@ -32,19 +32,19 @@ public class BattleResult : FullScreenElement
 
     MyButton _continueButton;
 
-    RewardExpContainer _rewardExpContainer;
-    BattleStatsContainer _statsContainer;
-    RewardContainer _rewardContainer;
-    BattleChoiceContainer _battleChoiceContainer;
+    BattleResultHeroElement _resultHeroElement; 
+    BattleResultArmyElement _resultArmyElement; 
+    BattleResultRewardElement _resultRewardElement; 
+    BattleResultChoiceElement _resultChoiceElement; 
 
     GameObject _starEffect;
 
-    public event Action OnExpContainerClosed;
-    public event Action OnStatsContainerClosed;
-    public event Action OnRewardContainerClosed;
-    public event Action OnBattleChoiceContainerClosed;
+    public event Action OnHeroElementClosed;
+    public event Action OnArmyElementClosed;
+    public event Action OnRewardElementClosed;
+    public event Action OnChoiceElementClosed;
 
-    public BattleResult(VisualElement root)
+    public BattleResultElement(VisualElement root)
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
@@ -78,11 +78,11 @@ public class BattleResult : FullScreenElement
         Add(_content);
         _content.AddToClassList(_ussContent);
 
-        _rewardExpContainer = new();
-        _content.Add(_rewardExpContainer);
+        _resultHeroElement = new();
+        _content.Add(_resultHeroElement);
 
         _continueButton = new("Continue", _ussContinueButton, ShowStatsContainer);
-        _rewardExpContainer.OnFinished += () => _content.Add(_continueButton);
+        _resultHeroElement.OnFinished += () => _content.Add(_continueButton);
 
         _starEffect = _gameManager.GetComponent<EffectManager>()
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
@@ -134,44 +134,44 @@ public class BattleResult : FullScreenElement
 
     void ShowStatsContainer()
     {
-        OnExpContainerClosed?.Invoke();
-        _rewardExpContainer.MoveAway();
+        OnHeroElementClosed?.Invoke();
+        _resultHeroElement.MoveAway();
         _gameManager.PlayerHero.OnItemAdded +=
-                (item) => Helpers.DisplayTextOnElement(_root, _rewardExpContainer.HeroCardMini,
+                (item) => Helpers.DisplayTextOnElement(_root, _resultHeroElement.HeroCardMini,
                        "+ " + item.ItemName, Helpers.GetColor(item.Rarity.ToString()));
 
         _content.Remove(_continueButton);
 
         schedule.Execute(() =>
         {
-            _statsContainer = new(_content);
-            _content.Add(_statsContainer);
+            _resultArmyElement = new(_content);
+            _content.Add(_resultArmyElement);
 
             _continueButton = new("Continue", _ussContinueButton, ShowRewards);
-            _statsContainer.OnFinished += () => _content.Add(_continueButton);
+            _resultArmyElement.OnFinished += () => _content.Add(_continueButton);
         }).StartingIn(1000);
     }
 
     void ShowRewards()
     {
-        OnStatsContainerClosed?.Invoke();
-        _statsContainer.MoveAway();
+        OnArmyElementClosed?.Invoke();
+        _resultArmyElement.MoveAway();
 
         _content.Remove(_continueButton);
         schedule.Execute(() =>
         {
-            _rewardContainer = new RewardContainer();
-            _content.Add(_rewardContainer);
+            _resultRewardElement = new BattleResultRewardElement();
+            _content.Add(_resultRewardElement);
 
             _continueButton = new("Continue", _ussContinueButton, ShowBattleChoices);
-            _rewardContainer.OnRewardSelected += () => _content.Add(_continueButton);
+            _resultRewardElement.OnRewardSelected += () => _content.Add(_continueButton);
         }).StartingIn(1000);
     }
 
     void ShowBattleChoices()
     {
-        OnRewardContainerClosed?.Invoke();
-        _rewardContainer.MoveAway();
+        OnRewardElementClosed?.Invoke();
+        _resultRewardElement.MoveAway();
         _content.Remove(_continueButton);
 
         if (_gameManager.BattleNumber == 2)
@@ -182,11 +182,11 @@ public class BattleResult : FullScreenElement
 
         schedule.Execute(() =>
         {
-            _battleChoiceContainer = new();
-            _content.Add(_battleChoiceContainer);
+            _resultChoiceElement = new();
+            _content.Add(_resultChoiceElement);
 
             _continueButton = new("Continue", _ussContinueButton, LoadBattle);
-            _battleChoiceContainer.OnBattleSelected += () => _content.Add(_continueButton);
+            _resultChoiceElement.OnBattleSelected += () => _content.Add(_continueButton);
         }).StartingIn(1000);
     }
 
@@ -205,7 +205,7 @@ public class BattleResult : FullScreenElement
 
     void LoadBattle()
     {
-        OnBattleChoiceContainerClosed?.Invoke();
+        OnChoiceElementClosed?.Invoke();
         _gameManager.LoadScene(Scenes.Battle);
     }
 

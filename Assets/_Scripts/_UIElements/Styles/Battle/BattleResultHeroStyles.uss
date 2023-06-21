@@ -1,24 +1,24 @@
-.reward-exp-container__main {
+.battle-result-hero-element__main {
     width: 80%;
     height: 100%;
     justify-content: center;
 }
 
-.reward-exp-container__card-container {
+.battle-result-hero-element__card-container {
     flex-direction: row;
     align-items: center;
     justify-content: center;
     opacity: 0;
 }
 
-.reward-exp-container__defeated-entities-container {
+.battle-result-hero-element__defeated-entities-container {
     width: 100%;
     align-items: center;
     justify-content: center;
     opacity: 0;
 }
 
-.reward-exp-container__score-container {
+.battle-result-hero-element__score-container {
     flex-direction: Row;
     justify-content: Center;
     align-items: Center;

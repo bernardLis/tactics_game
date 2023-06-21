@@ -6,12 +6,12 @@ using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using DG.Tweening;
 
-public class RewardContainer : VisualElement
+public class BattleResultRewardElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "reward-container__";
+    const string _ussClassName = "battle-result-reward-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussRerollButton = _ussClassName + "reroll-button";
     const string _ussRerollIcon = _ussClassName + "reroll-icon";
@@ -30,14 +30,14 @@ public class RewardContainer : VisualElement
     GoldElement _rerollCost;
 
     public event Action OnRewardSelected;
-    public RewardContainer()
+    public BattleResultRewardElement()
     {
         _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardContainerStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleResultRewardStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

@@ -7,12 +7,12 @@ using DG.Tweening;
 using System.Linq;
 using Random = UnityEngine.Random;
 
-public class BattleStatsContainer : VisualElement
+public class BattleResultArmyElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonButtonBasic = "common__button-basic";
 
-    const string _ussClassName = "battle-stats-container__";
+    const string _ussClassName = "battle-result-army-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussArmyGroupContainer = _ussClassName + "army-group-container";
     const string _ussArmyStatsContainer = _ussClassName + "army-stats-container";
@@ -39,7 +39,7 @@ public class BattleStatsContainer : VisualElement
     bool _pickupsGiven;
 
     public event Action OnFinished;
-    public BattleStatsContainer(VisualElement content)
+    public BattleResultArmyElement(VisualElement content)
     {
         _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();
@@ -49,7 +49,7 @@ public class BattleStatsContainer : VisualElement
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleStatsContainer);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleResultArmyStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

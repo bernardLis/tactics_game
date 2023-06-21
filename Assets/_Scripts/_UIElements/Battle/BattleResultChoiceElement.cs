@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class BattleChoiceContainer : VisualElement
+public class BattleResultChoiceElement : VisualElement
 {
     GameManager _gameManager;
     AudioManager _audioManager;
@@ -17,7 +17,7 @@ public class BattleChoiceContainer : VisualElement
     VisualElement _cardContainer;
 
     public event Action OnBattleSelected;
-    public BattleChoiceContainer()
+    public BattleResultChoiceElement()
     {
         _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();
