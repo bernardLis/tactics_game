@@ -10,13 +10,13 @@ using Random = UnityEngine.Random;
 public class BattleStatsContainer : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonMenuButton = "common__menu-button";
+    const string _ussCommonButtonBasic = "common__button-basic";
 
     const string _ussClassName = "battle-stats-container__";
     const string _ussMain = _ussClassName + "main";
     const string _ussArmyGroupContainer = _ussClassName + "army-group-container";
-
     const string _ussArmyStatsContainer = _ussClassName + "army-stats-container";
+    const string _ussGivePickupsButton = _ussClassName + "give-pickups-button";
 
     GameManager _gameManager;
     AudioManager _audioManager;
@@ -25,7 +25,7 @@ public class BattleStatsContainer : VisualElement
 
     List<BattleLogAbility> _abilityLogs = new();
 
-    VisualElement _pickupStatsContainer;
+    VisualElement _pickupsContainer;
 
     ScrollView _armyGroupContainer;
     List<VisualElement> _armyStatContainers = new();
@@ -35,6 +35,8 @@ public class BattleStatsContainer : VisualElement
     int _goldCollected = 0;
     int _spiceCollected = 0;
     List<Item> _itemsCollected = new();
+    MyButton _givePickupsButton;
+    bool _pickupsGiven;
 
     public event Action OnFinished;
     public BattleStatsContainer(VisualElement content)
@@ -58,8 +60,8 @@ public class BattleStatsContainer : VisualElement
             if (item is BattleLogAbility abilityLog)
                 _abilityLogs.Add(abilityLog);
 
-        _pickupStatsContainer = new();
-        Add(_pickupStatsContainer);
+        _pickupsContainer = new();
+        Add(_pickupsContainer);
 
         _armyGroupContainer = new();
         _armyGroupContainer.AddToClassList(_ussArmyGroupContainer);
@@ -90,7 +92,7 @@ public class BattleStatsContainer : VisualElement
     void ShowPickupStats()
     {
         Label pickupCountLabel = new($"Pickups Collected: {_battleManager.CollectedPickups.Count}");
-        _pickupStatsContainer.Add(pickupCountLabel);
+        _pickupsContainer.Add(pickupCountLabel);
         pickupCountLabel.style.opacity = 0;
         DOTween.To(x => pickupCountLabel.style.opacity = x, 0, 1, 0.5f);
 
@@ -110,7 +112,7 @@ public class BattleStatsContainer : VisualElement
 
         VisualElement collectionContainer = new();
         collectionContainer.style.flexDirection = FlexDirection.Row;
-        _pickupStatsContainer.Add(collectionContainer);
+        _pickupsContainer.Add(collectionContainer);
 
         GoldElement goldElement = new(_goldCollected);
         goldElement.style.opacity = 0;
@@ -129,6 +131,13 @@ public class BattleStatsContainer : VisualElement
             DOTween.To(x => itemElement.style.opacity = x, 0, 1, 0.5f).SetDelay(1f + 0.5f * i);
             collectionContainer.Add(itemElement);
         }
+
+        _givePickupsButton = new("Collect", _ussCommonButtonBasic, GiveCollectedPickups);
+        _givePickupsButton.AddToClassList(_ussGivePickupsButton);
+        _pickupsContainer.Add(_givePickupsButton);
+        _givePickupsButton.style.opacity = 0;
+        DOTween.To(x => _givePickupsButton.style.opacity = x, 0, 1, 0.5f)
+                .SetDelay(1.5f + 0.5f * _itemsCollected.Count);
     }
 
     void ShowArmyStats()
@@ -240,8 +249,8 @@ public class BattleStatsContainer : VisualElement
     {
         GiveCollectedPickups();
 
-        DOTween.To(x => _pickupStatsContainer.style.opacity = x, 1, 0, 0.5f)
-                .OnComplete(() => _pickupStatsContainer.style.display = DisplayStyle.None);
+        DOTween.To(x => _pickupsContainer.style.opacity = x, 1, 0, 0.5f)
+                .OnComplete(() => _pickupsContainer.style.display = DisplayStyle.None);
 
         DOTween.To(x => _logRecordsContainer.style.opacity = x, 1, 0, 0.5f)
                 .OnComplete(() => _logRecordsContainer.style.display = DisplayStyle.None);
@@ -270,13 +279,14 @@ public class BattleStatsContainer : VisualElement
 
     void GiveCollectedPickups()
     {
+        if (_pickupsGiven) return;
+        _pickupsGiven = true;
+        _givePickupsButton.SetEnabled(false);
+        DOTween.To(x => _givePickupsButton.style.opacity = x, 1, 0, 0.5f);
+
         _gameManager.ChangeGoldValue(_goldCollected);
         _gameManager.ChangeSpiceValue(_spiceCollected);
-        Debug.Log($"_itemsCollected.Count: {_itemsCollected.Count}");
         for (int i = 0; i < _itemsCollected.Count; i++)
-        {
-            Debug.Log($"i {i}");
             _gameManager.PlayerHero.AddItem(_itemsCollected[i]);
-        }
     }
 }
