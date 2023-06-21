@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/ArmyGroup")]
 public class ArmyGroup : BaseScriptableObject
 {
+    // I am going to remove army group now...
     public string Name;
     public Creature Creature;
     public int NumberOfUnits;
