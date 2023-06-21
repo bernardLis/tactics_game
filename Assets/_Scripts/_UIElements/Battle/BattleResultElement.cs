@@ -11,7 +11,7 @@ public class BattleResultElement : FullScreenElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "battle-result-element__";
+    const string _ussClassName = "battle-result__";
     const string _ussMain = _ussClassName + "main";
     const string _ussResourceContainer = _ussClassName + "resource-container";
 

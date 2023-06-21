@@ -12,7 +12,7 @@ public class BattleResultArmyElement : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonButtonBasic = "common__button-basic";
 
-    const string _ussClassName = "battle-result-army-element__";
+    const string _ussClassName = "battle-result-army__";
     const string _ussMain = _ussClassName + "main";
     const string _ussArmyGroupContainer = _ussClassName + "army-group-container";
     const string _ussArmyStatsContainer = _ussClassName + "army-stats-container";

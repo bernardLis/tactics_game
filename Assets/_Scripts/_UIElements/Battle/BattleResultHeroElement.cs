@@ -11,7 +11,7 @@ public class BattleResultHeroElement : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "battle-result-hero-element__";
+    const string _ussClassName = "battle-result-hero__";
     const string _ussMain = _ussClassName + "main";
     const string _ussCardContainer = _ussClassName + "card-container";
     const string _ussDefeatedEntitiesContainer = _ussClassName + "defeated-entities-container";

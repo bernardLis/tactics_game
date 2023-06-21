@@ -11,12 +11,11 @@ public class BattleResultRewardElement : VisualElement
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "battle-result-reward-element__";
+    const string _ussClassName = "battle-result-reward__";
     const string _ussMain = _ussClassName + "main";
     const string _ussRerollButton = _ussClassName + "reroll-button";
     const string _ussRerollIcon = _ussClassName + "reroll-icon";
     const string _ussRerollIconHover = _ussClassName + "reroll-icon-hover";
-
 
     GameManager _gameManager;
     AudioManager _audioManager;

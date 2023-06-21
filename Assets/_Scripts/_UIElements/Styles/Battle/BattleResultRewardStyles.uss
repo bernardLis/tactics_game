@@ -1,8 +1,8 @@
-.battle-result-reward-element__main {
+.battle-result-reward__main {
     align-items: center;
 }
 
-.battle-result-reward-element__reroll-icon {
+.battle-result-reward__reroll-icon {
     width: 50px;
     height: 50px;
     background-image: url('project://database/Assets/Art/Sprites/Dashboard/Dice.png?fileID=2800000&guid=a080dd8faab77c641afa819eb830fcff&type=3#Dice');
@@ -10,7 +10,7 @@
     transition-timing-function: ease-in-out;
 }
 
-.battle-result-reward-element__reroll-button {
+.battle-result-reward__reroll-button {
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square');
     width: 200px;
     justify-content: center;
@@ -21,6 +21,6 @@
     padding-bottom: 20px;
 }
 
-.battle-result-reward-element__reroll-icon-hover {
+.battle-result-reward__reroll-icon-hover {
     rotate: 270deg;
 }
