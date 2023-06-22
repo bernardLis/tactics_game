@@ -7,22 +7,30 @@ using DG.Tweening;
 
 public class CreatureExpElement : VisualElement
 {
-    const string _ussCommonTextPrimary = "common__text-primary-black";
+    const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
 
     const string _ussClassName = "creature-exp__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussMiddlePanel = _ussClassName + "middle-panel";
+    const string _ussLevelUpButton = _ussClassName + "level-up-button";
 
     GameManager _gameManager;
 
     public Creature Creature;
 
+    VisualElement _leftPanel;
+    VisualElement _middlePanel;
+
     Label _name;
     public CreatureIcon CreatureIcon;
 
-    int _availableKills;
-    IntVariable _kills;
-    IntVariable _killsToEvolve;
+    IntVariable _currentSpice;
+    IntVariable _spiceToNextLevel;
+    ResourceBarElement _levelBar;
+    Label _levelLabel;
+    MyButton _levelUpButton;
+    SpiceElement _buttonSpice;
 
     public CreatureExpElement(Creature creature)
     {
@@ -30,7 +38,7 @@ public class CreatureExpElement : VisualElement
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureExpElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureExpStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
@@ -39,23 +47,82 @@ public class CreatureExpElement : VisualElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        _name = new(creature.Name);
-        Add(_name);
+        AddLeftPanel();
+        AddMiddlePanel();
 
-        CreatureIcon = new(creature);
-        Add(CreatureIcon);
+    }
 
-        VisualElement spacer = new();
-        spacer.AddToClassList(_ussCommonHorizontalSpacer);
-        spacer.style.height = 50;
-        spacer.style.backgroundImage = null;
-        Add(spacer);
+    void AddLeftPanel()
+    {
+        _leftPanel = new();
+        Add(_leftPanel);
 
-        _availableKills = Creature.TotalKillCount - Creature.OldKillCount;
-        _kills = ScriptableObject.CreateInstance<IntVariable>();
-        _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
-        _kills.SetValue(Creature.OldKillCount);
-        //  _killsToEvolve.SetValue(Creature.KillsToUpgrade);
+        _name = new(Creature.Name);
+        _leftPanel.Add(_name);
+
+        CreatureIcon = new(Creature);
+        _leftPanel.Add(CreatureIcon);
+    }
+
+    void AddMiddlePanel()
+    {
+        _middlePanel = new();
+        _middlePanel.AddToClassList(_ussMiddlePanel);
+        Add(_middlePanel);
+
+        _currentSpice = ScriptableObject.CreateInstance<IntVariable>();
+        _currentSpice.SetValue(0);
+
+        _spiceToNextLevel = ScriptableObject.CreateInstance<IntVariable>();
+        _spiceToNextLevel.SetValue(Creature.NextLevelSpiceRequired());
+
+        _levelBar = new(Color.gray,
+                $"Chance to evolve on level up: {Creature.ChanceToEvolve(Creature.Level + 1)}",
+                _currentSpice, _spiceToNextLevel);
+        _middlePanel.Add(_levelBar);
+
+        _levelLabel = new Label($"Level {Creature.Level}");
+        _levelLabel.AddToClassList(_ussCommonTextPrimary);
+        _levelLabel.style.position = Position.Absolute;
+        _levelBar.Add(_levelLabel);
+
+        _levelUpButton = new("", _ussLevelUpButton, LevelUp);
+        _buttonSpice = new(_spiceToNextLevel.Value);
+        _levelUpButton.Add(_buttonSpice);
+        _middlePanel.Add(_levelUpButton);
+        UpdateLevelUpButton();
+        _gameManager.OnSpiceChanged += (s) => UpdateLevelUpButton();
+    }
+
+    void UpdateLevelUpButton()
+    {
+        _levelUpButton.SetEnabled(_gameManager.Spice >= _spiceToNextLevel.Value);
+    }
+
+    void LevelUp()
+    {
+        _gameManager.ChangeSpiceValue(-_spiceToNextLevel.Value);
+        _currentSpice.SetValue(_spiceToNextLevel.Value);
+        _levelBar.OnAnimationFinished += () =>
+        {
+            Creature.LevelUp();
+            _levelLabel.text = $"Level {Creature.Level}";
+
+            _currentSpice.SetValue(0);
+            _spiceToNextLevel.SetValue(Creature.NextLevelSpiceRequired());
+
+            _buttonSpice.ChangeAmount(_spiceToNextLevel.Value);
+            UpdateLevelUpButton();
+        };
+    }
+
+    public void FoldSelf()
+    {
+        DOTween.To(x => _name.style.opacity = x, 1, 0, 0.5f)
+            .OnComplete(() => _name.style.display = DisplayStyle.None);
+        DOTween.To(x => _middlePanel.style.opacity = x, 1, 0, 0.5f)
+            .OnComplete(() => _middlePanel.style.display = DisplayStyle.None);
+        // HERE: folding creature exp element: something nicer than this
     }
 
 }

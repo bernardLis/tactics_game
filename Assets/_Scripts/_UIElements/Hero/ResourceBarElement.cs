@@ -30,6 +30,7 @@ public class ResourceBarElement : ElementWithTooltip
     Color _color;
     int _valueChangeDelay;
 
+    public event Action OnAnimationFinished;
 
     public ResourceBarElement(Color color, string tooltipText,
             IntVariable currentIntVar = null, IntVariable totalIntVar = null,
@@ -137,35 +138,19 @@ public class ResourceBarElement : ElementWithTooltip
             _animation = schedule.Execute(HandleIncrease).Every(delay);
     }
 
-    void OnValueChanged(float newValue)
-    {
-        float change = Mathf.Abs(newValue - _currentFloat.PreviousValue);
-        if (change == 0)
-            return;
-
-        if (_animation != null)
-            _animation.Pause();
-
-        int delay = Mathf.FloorToInt(_valueChangeDelay / change); // do it in 1second
-
-        if (newValue - _currentFloat.PreviousValue < 0)
-            _animation = schedule.Execute(HandleDecrease).Every(delay);
-        else
-            _animation = schedule.Execute(HandleIncrease).Every(delay);
-    }
-
-
     void HandleDecrease()
     {
         if (_currentInt != null && _currentInt.Value >= _displayedAmount)
         {
             _animation.Pause();
+            OnAnimationFinished?.Invoke();
             return;
         }
 
         if (_currentFloat != null && _currentFloat.Value >= _displayedAmount)
         {
             _animation.Pause();
+            OnAnimationFinished?.Invoke();
             return;
         }
 
@@ -178,12 +163,14 @@ public class ResourceBarElement : ElementWithTooltip
         if (_currentInt != null && _currentInt.Value <= _displayedAmount)
         {
             _animation.Pause();
+            OnAnimationFinished?.Invoke();
             return;
         }
 
         if (_currentFloat != null && _currentFloat.Value <= _displayedAmount)
         {
             _animation.Pause();
+            OnAnimationFinished?.Invoke();
             return;
         }
 

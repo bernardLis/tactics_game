@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
 public class Creature : BaseScriptableObject
@@ -41,6 +43,7 @@ public class Creature : BaseScriptableObject
 
     [HideInInspector] public Hero Hero;
 
+    public event Action OnLevelUp;
     public void InitializeBattle(Hero hero)
     {
         OldKillCount = TotalKillCount;
@@ -102,13 +105,28 @@ public class Creature : BaseScriptableObject
         return 10 + 10 * Level;
     }
 
+    public void LevelUp()
+    {
+        Level++;
+        OnLevelUp?.Invoke();
+    }
+
     public bool ShouldEvolve()
     {
-        if (UpgradedCreature == null) return false;
+        return Random.value < ChanceToEvolve(Level);
+    }
+
+    public float ChanceToEvolve(int level)
+    {
+        if (UpgradedCreature == null) return 0;
+        // starting from level 5 there is an increasing chance to evolve, 
+        // which caps at 100% at level 10
         // starting from level 5 there is an increasing chance to evolve, 
         // which caps at 100% at level 10 
         // TODO: math, and also tier 1 +10 levels
-        float chance = 0.1f * ((Level - 4) * 1.5f);
+        float chance = 0.1f * ((level - 4) * 1.5f);
+        if (chance < 0) return 0;
+        return chance;
         // level 5 -> 0.15
         // level 6 -> 0.3
         // level 7 -> 0.45
@@ -116,7 +134,7 @@ public class Creature : BaseScriptableObject
         // level 9 -> 0.75
         // level 10 -> 0.9
         // level 11 -> 1.05
-        return Random.value < chance;
+
     }
 
     public CreatureData SerializeSelf()

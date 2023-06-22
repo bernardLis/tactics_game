@@ -28,7 +28,7 @@ public class BattleResultArmyElement : VisualElement
     VisualElement _pickupsContainer;
 
     ScrollView _armyGroupContainer;
-    List<VisualElement> _armyStatContainers = new();
+    List<CreatureExpElement> _creatureExpElements = new();
 
     VisualElement _logRecordsContainer;
 
@@ -153,17 +153,7 @@ public class BattleResultArmyElement : VisualElement
             CreatureExpElement creatureElement = new(c);
             creatureElement.CreatureIcon.PlayAnimationAlways();
             container.Add(creatureElement);
-
-            VisualElement statsContainer = new();
-            _armyStatContainers.Add(statsContainer);
-            container.Add(statsContainer);
-
-            Label kills = new($"Kills: {c.TotalKillCount - c.OldKillCount}");
-            Label damageDealt = new($"Damage Dealt: {c.TotalDamageDealt - c.OldDamageDealt}");
-            Label damageTaken = new($"Damage Taken: {c.TotalDamageTaken - c.OldDamageTaken}");
-            statsContainer.Add(kills);
-            statsContainer.Add(damageDealt);
-            statsContainer.Add(damageTaken);
+            _creatureExpElements.Add(creatureElement);
 
             container.style.opacity = 0;
             DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
@@ -248,17 +238,16 @@ public class BattleResultArmyElement : VisualElement
     {
         GiveCollectedPickups();
 
-        DOTween.To(x => _pickupsContainer.style.opacity = x, 1, 0, 0.5f)
-                .OnComplete(() => _pickupsContainer.style.display = DisplayStyle.None);
-
         DOTween.To(x => _logRecordsContainer.style.opacity = x, 1, 0, 0.5f)
-                .OnComplete(() => _logRecordsContainer.style.display = DisplayStyle.None);
+                .OnComplete(() =>
+                {
+                    _logRecordsContainer.style.display = DisplayStyle.None;
+                    _pickupsContainer.style.display = DisplayStyle.None;
+                });
 
-        foreach (VisualElement el in _armyStatContainers)
-        {
-            DOTween.To(x => el.style.opacity = x, 1, 0, 0.5f)
-                    .OnComplete(() => el.style.display = DisplayStyle.None);
-        }
+        foreach (CreatureExpElement el in _creatureExpElements)
+            el.FoldSelf();
+
         style.position = Position.Absolute;
         _armyGroupContainer.style.position = Position.Absolute;
         parent.Add(_armyGroupContainer);
@@ -282,6 +271,8 @@ public class BattleResultArmyElement : VisualElement
         _pickupsGiven = true;
         _givePickupsButton.SetEnabled(false);
         DOTween.To(x => _givePickupsButton.style.opacity = x, 1, 0, 0.5f);
+        DOTween.To(x => _pickupsContainer.style.opacity = x, 1, 0, 0.5f)
+            .SetDelay(0.5f);
 
         _gameManager.ChangeGoldValue(_goldCollected);
         _gameManager.ChangeSpiceValue(_spiceCollected);

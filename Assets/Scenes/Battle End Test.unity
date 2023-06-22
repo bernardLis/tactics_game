@@ -1404,12 +1404,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _army:
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
+  - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
+  - {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
+  - {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
+  - {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
+  - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
   _pickups:
   - {fileID: 11400000, guid: 1987ef9a8d2a57e4cbe2641b6680cdb6, type: 2}
   - {fileID: 11400000, guid: 59833867e152bcf4a9d6c00e8ed0d9a8, type: 2}
