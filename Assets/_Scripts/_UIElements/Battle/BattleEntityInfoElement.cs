@@ -30,7 +30,7 @@ public class BattleEntityInfoElement : VisualElement
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
 
         IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
-        totalHealth.SetValue((int)be.Creature.Health);
+        totalHealth.SetValue((int)be.Creature.GetHealth());
         IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
         currentHealth.SetValue((int)be.GetCurrentHealth());
         be.OnHealthChanged += (float newVal) => currentHealth.SetValue((int)newVal);

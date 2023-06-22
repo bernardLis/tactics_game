@@ -7,14 +7,14 @@ public class Creature : BaseScriptableObject
 {
     public string Name;
     public Sprite[] IconAnimation;
-    public int UpgradeLevel;
+    public int Level;
     public int Price;
     public Element Element;
 
-    public float Health;
+    public float BaseHealth;
     public float Armor;
 
-    public float Power;
+    public float BasePower;
     public float AttackRange; // stopping distance of agent
     public float AttackCooldown;
     public float Speed;
@@ -50,13 +50,17 @@ public class Creature : BaseScriptableObject
         if (hero != null) Hero = hero;
     }
 
+    public int GetHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * Level); }
+
+    public int GetPower() { return Mathf.RoundToInt(BasePower + 0.1f * BasePower * Level); }
+
     public void AddKill(int ignored) { TotalKillCount++; }
     public void AddDmgDealt(int dmg) { TotalDamageDealt += dmg; }
     public void AddDmgTaken(int dmg) { TotalDamageTaken += dmg; }
 
     public int CalculateDamage(BattleEntity attacker)
     {
-        float damage = attacker.Creature.Power;
+        float damage = attacker.Creature.GetPower();
         if (attacker.Creature.Hero != null)
             damage += attacker.Creature.Hero.Power.GetValue();
 
@@ -111,8 +115,10 @@ public class Creature : BaseScriptableObject
     public CreatureData SerializeSelf()
     {
         CreatureData data = new();
-        data.Name = Name;
         data.CreatureId = Id;
+
+        data.Name = Name;
+        data.Level = Level;
 
         data.KillCount = TotalKillCount;
         data.DamageDealt = TotalDamageDealt;
@@ -124,6 +130,7 @@ public class Creature : BaseScriptableObject
     public void LoadFromData(CreatureData data)
     {
         Name = data.Name;
+        Level = data.Level;
 
         TotalKillCount = data.KillCount;
         TotalDamageDealt = data.DamageDealt;
@@ -135,6 +142,7 @@ public class Creature : BaseScriptableObject
 public struct CreatureData
 {
     public string Name;
+    public int Level;
     public string CreatureId;
 
     public int KillCount;

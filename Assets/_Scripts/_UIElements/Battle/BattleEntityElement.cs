@@ -33,7 +33,7 @@ public class BattleEntityElement : CreatureElement
             _armor.text += " + " + Mathf.RoundToInt(_battleEntity.Creature.Hero.Armor.GetValue());
         }
 
-        _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_creature.Health}";
+        _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_creature.GetHealth()}";
 
         _kills = new($"Killed enemies: {_battleEntity.KilledEnemiesCount}");
         _damageDealt = new($"Damage dealt: {_battleEntity.DamageDealt}");
@@ -58,7 +58,7 @@ public class BattleEntityElement : CreatureElement
 
     void OnHealthChanged(float nvm)
     {
-        _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_creature.Health}";
+        _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_creature.GetHealth()}";
     }
 
     void OnEnemyKilled(int total)

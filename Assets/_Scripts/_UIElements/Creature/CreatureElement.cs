@@ -119,8 +119,8 @@ public class CreatureElement : VisualElement
 
         CreatureIcon.SwapCreature(creature);
         _nameLabel.text = $"{creature.Name}";
-        _healthLabel.text = $"Health: {creature.Health}";
-        _power.text = $"Power: {creature.Power}";
+        _healthLabel.text = $"Health: {creature.GetHealth()}";
+        _power.text = $"Power: {creature.GetPower()}";
         _armor.text = $"Armor: {creature.Armor}";
         _attackRange.text = $"Attack Range: {creature.AttackRange}";
         _attackCooldown.text = $"Attack Cooldown: {creature.AttackCooldown}";

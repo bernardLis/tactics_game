@@ -65,8 +65,8 @@ public class CreatureEvolutionElement : VisualElement
         _elementalElement = new ElementalElement(Creature.Element);
         Add(_elementalElement);
 
-        _healthLabel = new Label($"Health: {creature.Health}");
-        _power = new Label($"Power: {creature.Power}");
+        _healthLabel = new Label($"Health: {creature.GetHealth()}");
+        _power = new Label($"Power: {creature.GetPower()}");
         _armor = new Label($"Armor: {creature.Armor}");
         _attackRange = new Label($"Attack Range: {creature.AttackRange}");
         _attackCooldown = new Label($"Attack Cooldown: {creature.AttackCooldown}");
@@ -141,8 +141,8 @@ public class CreatureEvolutionElement : VisualElement
 
         _creatureElement.Evolve(creature);
 
-        _healthLabel.text += $" -> {creature.Health}";
-        _power.text += $" -> {creature.Power}";
+        _healthLabel.text += $" -> {creature.GetHealth()}";
+        _power.text += $" -> {creature.GetPower()}";
         _armor.text += $" -> {creature.Armor}";
         _attackRange.text += $" -> {creature.AttackRange}";
         _attackCooldown.text += $" -> {creature.AttackCooldown}";

@@ -101,9 +101,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             CurrentSpecialAbilityCooldown -= Time.deltaTime;
     }
 
-    public virtual void Initialize(int team, Creature armyEntity, ref List<BattleEntity> opponents)
+    public virtual void Initialize(int team, Creature creature, ref List<BattleEntity> opponents)
     {
-        BattleId = team + "_" + armyEntity.name + "_" + Helpers.GetRandomNumber(4);
+        BattleId = team + "_" + creature.name + "_" + Helpers.GetRandomNumber(4);
         name = BattleId;
 
         Collider = GetComponent<Collider>();
@@ -125,12 +125,12 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             _material.SetFloat("_Metallic", 0.5f);
         }
 
-        Creature = armyEntity;
-        CurrentHealth = armyEntity.Health;
+        Creature = creature;
+        CurrentHealth = creature.GetHealth();
 
         _agent = GetComponent<NavMeshAgent>();
-        _agent.stoppingDistance = armyEntity.AttackRange;
-        _agent.speed = armyEntity.Speed;
+        _agent.stoppingDistance = creature.AttackRange;
+        _agent.speed = creature.Speed;
 
         _opponentList = opponents;
 
@@ -262,8 +262,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         return Vector3.Distance(transform.position, _opponent.transform.position) < Creature.AttackRange + 0.5f;
     }
 
-    public bool HasFullHealth() { return CurrentHealth >= Creature.Health; }
-    public float GetTotalHealth() { return Creature.Health; }
+    public bool HasFullHealth() { return CurrentHealth >= Creature.GetHealth(); }
+    public float GetTotalHealth() { return Creature.GetHealth(); }
     public float GetCurrentHealth() { return CurrentHealth; }
 
     public int GetHealed(Ability ability)
@@ -278,8 +278,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         EntityLog.Add($"{Time.time}: Entity gets healed by {value}");
 
         CurrentHealth += value;
-        if (CurrentHealth > Creature.Health)
-            CurrentHealth = Creature.Health;
+        if (CurrentHealth > Creature.GetHealth())
+            CurrentHealth = Creature.GetHealth();
 
         OnHealthChanged?.Invoke(CurrentHealth);
         DisplayFloatingText("+" + value, Color.green);

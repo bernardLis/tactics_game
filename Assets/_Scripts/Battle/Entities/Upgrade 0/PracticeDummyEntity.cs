@@ -43,7 +43,7 @@ public class PracticeDummyEntity : BattleEntityMelee
                 if (entity.Team == Team) continue; // splash damage is player friendly
                 if (entity.IsDead) continue;
 
-                StartCoroutine(entity.GetHit(this, (int)this.Creature.Power * 2));
+                StartCoroutine(entity.GetHit(this, (int)this.Creature.GetPower() * 2));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
                 GameObject hitInstance = Instantiate(Creature.HitPrefab, _opponent.Collider.bounds.center, q);
                 hitInstance.transform.parent = _opponent.transform;

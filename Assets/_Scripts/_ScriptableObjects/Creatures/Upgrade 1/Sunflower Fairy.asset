@@ -87,7 +87,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3a67ce8ac1a6c304d888eeee65c018f5, type: 3}
   - {fileID: 21300000, guid: ed8e737a143c1634ca6f18c24adb971d, type: 3}
   - {fileID: 21300000, guid: 9dbeb29db99281549a0bdd7e87d08c41, type: 3}
-  UpgradeLevel: 1
+  Level: 0
   Price: 60
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Health: 200
@@ -95,11 +95,17 @@ MonoBehaviour:
   Power: 40
   AttackRange: 2.5
   AttackCooldown: 1.5
-  SpecialAbilityCooldown: 10
   Speed: 6
+  CreatureAbility: {fileID: 0}
   Prefab: {fileID: 3264181270930956438, guid: 635e12390e8cfac4883248060602b171, type: 3}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 687239542062312524, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
-  UpgradedEntity: {fileID: 0}
+  UpgradedCreature: {fileID: 0}
   KillsToUpgrade: 99999
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
   Hero: {fileID: 0}

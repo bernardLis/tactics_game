@@ -137,7 +137,7 @@ public class BattleEntityRanged : BattleEntity
         GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
 
-        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, Creature.Power);
+        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, Creature.GetPower());
 
         yield return base.Attack();
     }
