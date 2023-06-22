@@ -94,7 +94,7 @@ public class CreatureEvolutionElement : VisualElement
         _kills = ScriptableObject.CreateInstance<IntVariable>();
         _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
         _kills.SetValue(Creature.OldKillCount);
-        _killsToEvolve.SetValue(Creature.KillsToUpgrade);
+        //  _killsToEvolve.SetValue(Creature.KillsToUpgrade);
     }
 
     public void ShowKillsThisBattle()
@@ -129,10 +129,10 @@ public class CreatureEvolutionElement : VisualElement
 
     public void AddKills()
     {
-        int killChange = Mathf.Clamp(_availableKills, 0, Creature.KillsToUpgrade);
-        _availableKills -= killChange;
+        //    int killChange = Mathf.Clamp(_availableKills, 0, Creature.KillsToUpgrade);
+        //     _availableKills -= killChange;
         _killsThisBattleElement.ChangeAmount(_availableKills);
-        _kills.ApplyChange(killChange);
+        //      _kills.ApplyChange(killChange);
     }
 
     public void Evolve(Creature creature)
@@ -156,6 +156,6 @@ public class CreatureEvolutionElement : VisualElement
 
     public void ResetKillsToEvolveBar()
     {
-        _killsToEvolve.SetValue(Creature.KillsToUpgrade);
+        //     _killsToEvolve.SetValue(Creature.KillsToUpgrade);
     }
 }

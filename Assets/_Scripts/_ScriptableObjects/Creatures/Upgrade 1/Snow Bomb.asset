@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: snowBomb-6aef-4f8f-a757-9d06b20d9a51
   Name: Snow Bomb
+  UpgradeTier: 1
   IconAnimation:
   - {fileID: 21300000, guid: 88bab5880f3c8bd4fb07277f185a2c29, type: 3}
   - {fileID: 21300000, guid: 99e0921f7910f7141ab8a326c48b1624, type: 3}
@@ -74,9 +75,9 @@ MonoBehaviour:
   Level: 0
   Price: 60
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  Health: 200
+  BaseHealth: 0
   Armor: 5
-  Power: 40
+  BasePower: 0
   AttackRange: 100
   AttackCooldown: 1.5
   Speed: 6
@@ -85,7 +86,6 @@ MonoBehaviour:
   Projectile: {fileID: 5584730079055665014, guid: 165bd481ee1e0754c8a981b866f6ecbb, type: 3}
   HitPrefab: {fileID: 0}
   UpgradedCreature: {fileID: 0}
-  KillsToUpgrade: 99999
   OldKillCount: 0
   TotalKillCount: 0
   OldDamageDealt: 0

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: targetD-6aef-4f8f-a757-9d06b20d9a51
   Name: Target Dummy
+  UpgradeTier: 1
   IconAnimation:
   - {fileID: 21300000, guid: 381fcc123d772804abbe41df32b27306, type: 3}
   - {fileID: 21300000, guid: 0ac733b1444a970498203ecca7c35614, type: 3}
@@ -74,9 +75,9 @@ MonoBehaviour:
   Level: 0
   Price: 60
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Health: 200
+  BaseHealth: 0
   Armor: 5
-  Power: 40
+  BasePower: 0
   AttackRange: 3
   AttackCooldown: 1.5
   Speed: 6
@@ -85,7 +86,6 @@ MonoBehaviour:
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
   UpgradedCreature: {fileID: 0}
-  KillsToUpgrade: 99999
   OldKillCount: 0
   TotalKillCount: 0
   OldDamageDealt: 0

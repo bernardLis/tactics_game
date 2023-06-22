@@ -6,6 +6,7 @@ using UnityEngine;
 public class Creature : BaseScriptableObject
 {
     public string Name;
+    public int UpgradeTier;
     public Sprite[] IconAnimation;
     public int Level;
     public int Price;
@@ -27,7 +28,6 @@ public class Creature : BaseScriptableObject
 
     [Header("Upgrade")]
     public Creature UpgradedCreature;
-    public int KillsToUpgrade;
 
     // battle
     [HideInInspector] public int OldKillCount;
@@ -96,21 +96,28 @@ public class Creature : BaseScriptableObject
         return Mathf.RoundToInt(damage);
     }
 
-    /*
-            public bool ShouldEvolve()
-            {
-                if (Creature.UpgradedCreature == null) return false;
+    public int NextLevelSpiceRequired()
+    {
+        // TODO: math
+        return 10 + 10 * Level;
+    }
 
-                return TotalKillCount >= NumberOfKillsToEvolve();
-            }
-
-            public void Evolve()
-            {
-                PreviousCreature = Creature;
-                Creature = Creature.UpgradedCreature;
-                OnEvolved?.Invoke(this);
-            }
-        */
+    public bool ShouldEvolve()
+    {
+        if (UpgradedCreature == null) return false;
+        // starting from level 5 there is an increasing chance to evolve, 
+        // which caps at 100% at level 10 
+        // TODO: math, and also tier 1 +10 levels
+        float chance = 0.1f * ((Level - 4) * 1.5f);
+        // level 5 -> 0.15
+        // level 6 -> 0.3
+        // level 7 -> 0.45
+        // level 8 -> 0.6
+        // level 9 -> 0.75
+        // level 10 -> 0.9
+        // level 11 -> 1.05
+        return Random.value < chance;
+    }
 
     public CreatureData SerializeSelf()
     {

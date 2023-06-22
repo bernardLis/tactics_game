@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: snake-6aef-4f8f-a757-9d06b20d9a51
   Name: Snake
+  UpgradeTier: 1
   IconAnimation:
   - {fileID: 21300000, guid: caf813891d398284aa1841531fc0e1b8, type: 3}
   - {fileID: 21300000, guid: 7c71a17c8bcc62c48a70d3c2caf0f59f, type: 3}
@@ -61,9 +62,9 @@ MonoBehaviour:
   Level: 0
   Price: 60
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  Health: 200
+  BaseHealth: 0
   Armor: 5
-  Power: 40
+  BasePower: 0
   AttackRange: 2.5
   AttackCooldown: 1.5
   Speed: 6
@@ -72,7 +73,6 @@ MonoBehaviour:
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
   UpgradedCreature: {fileID: 0}
-  KillsToUpgrade: 99999
   OldKillCount: 0
   TotalKillCount: 0
   OldDamageDealt: 0

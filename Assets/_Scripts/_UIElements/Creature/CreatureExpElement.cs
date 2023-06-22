@@ -55,7 +55,7 @@ public class CreatureExpElement : VisualElement
         _kills = ScriptableObject.CreateInstance<IntVariable>();
         _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
         _kills.SetValue(Creature.OldKillCount);
-        _killsToEvolve.SetValue(Creature.KillsToUpgrade);
+        //  _killsToEvolve.SetValue(Creature.KillsToUpgrade);
     }
 
 }
