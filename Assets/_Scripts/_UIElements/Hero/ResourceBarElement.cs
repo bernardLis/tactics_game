@@ -99,6 +99,7 @@ public class ResourceBarElement : ElementWithTooltip
     {
         _total = total;
         DisplayMissingAmount();
+
     }
 
     public void DisplayMissingAmount()
@@ -114,6 +115,15 @@ public class ResourceBarElement : ElementWithTooltip
     }
 
     public void SetText(string newText) { _text.text = newText; }
+
+    public void ChangeValueNoAnimation(int value)
+    {
+        _displayedAmount = value;
+        DisplayMissingAmount();
+        _currentInt.OnValueChanged -= OnValueChanged;
+        _currentInt.SetValue(value);
+        _currentInt.OnValueChanged += OnValueChanged;
+    }
 
     void OnValueChanged(int newValue)
     {

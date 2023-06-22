@@ -32,6 +32,9 @@ public class BattleResultArmyElement : VisualElement
 
     VisualElement _logRecordsContainer;
 
+
+    GoldElement _goldElement;
+    SpiceElement _spiceElement;
     int _goldCollected = 0;
     int _spiceCollected = 0;
     List<Item> _itemsCollected = new();
@@ -113,16 +116,16 @@ public class BattleResultArmyElement : VisualElement
         collectionContainer.style.flexDirection = FlexDirection.Row;
         _pickupsContainer.Add(collectionContainer);
 
-        GoldElement goldElement = new(_goldCollected);
-        goldElement.style.opacity = 0;
-        DOTween.To(x => goldElement.style.opacity = x, 0, 1, 0.5f);
+        _goldElement = new(_goldCollected);
+        _goldElement.style.opacity = 0;
+        DOTween.To(x => _goldElement.style.opacity = x, 0, 1, 0.5f);
 
-        SpiceElement spiceElement = new(_spiceCollected);
-        spiceElement.style.opacity = 0;
-        DOTween.To(x => spiceElement.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
+        _spiceElement = new(_spiceCollected);
+        _spiceElement.style.opacity = 0;
+        DOTween.To(x => _spiceElement.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
 
-        collectionContainer.Add(goldElement);
-        collectionContainer.Add(spiceElement);
+        collectionContainer.Add(_goldElement);
+        collectionContainer.Add(_spiceElement);
         for (int i = 0; i < _itemsCollected.Count; i++)
         {
             ItemElement itemElement = new(_itemsCollected[i]);
@@ -270,9 +273,12 @@ public class BattleResultArmyElement : VisualElement
         if (_pickupsGiven) return;
         _pickupsGiven = true;
         _givePickupsButton.SetEnabled(false);
-        DOTween.To(x => _givePickupsButton.style.opacity = x, 1, 0, 0.5f);
-        DOTween.To(x => _pickupsContainer.style.opacity = x, 1, 0, 0.5f)
-            .SetDelay(0.5f);
+
+        _goldElement.ChangeAmount(0);
+        _spiceElement.ChangeAmount(0);
+
+        DOTween.To(x => _givePickupsButton.style.opacity = x, 1, 0, 0.5f).SetDelay(0.5f);
+        DOTween.To(x => _pickupsContainer.style.opacity = x, 1, 0, 0.5f).SetDelay(1f);
 
         _gameManager.ChangeGoldValue(_goldCollected);
         _gameManager.ChangeSpiceValue(_spiceCollected);

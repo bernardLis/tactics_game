@@ -136,7 +136,11 @@ public class HeroCardExp : VisualElement
         PlayLevelUpAnimation();
     }
 
-    void OnLevelUp(int level) { _level.text = $"Level {Hero.Level.Value}"; }
+    void OnLevelUp(int level)
+    {
+        _expBar.ChangeValueNoAnimation(0);
+        _level.text = $"Level {Hero.Level.Value}";
+    }
 
     VisualElement CreateStatGroup()
     {

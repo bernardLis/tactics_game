@@ -23,10 +23,10 @@ public class CreatureElement : VisualElement
     protected ElementalElement _elementalElement;
     public CreatureIcon CreatureIcon;
     protected Label _nameLabel;
+    protected Label _levelLabel;
     protected Label _healthLabel;
     protected Label _power;
     protected Label _armor;
-    protected Label _attackRange;
     protected Label _attackCooldown;
     protected Label _speed;
 
@@ -56,10 +56,12 @@ public class CreatureElement : VisualElement
         _nameLabel = new Label();
         _nameLabel.AddToClassList(_ussName);
 
+        _levelLabel = new Label($"Level: {_creature.Level}");
+        creature.OnLevelUp += () => _levelLabel.text = $"Level: {creature.Level}";
+
         _healthLabel = new Label($"Health:");
         _power = new Label($"Power:");
         _armor = new Label($"Armor:");
-        _attackRange = new Label($"Attack Range:");
         _attackCooldown = new Label($"Attack Cooldown:");
         _speed = new Label($"Speed:");
 
@@ -67,10 +69,10 @@ public class CreatureElement : VisualElement
         _leftContainer.Add(CreatureIcon);
         _leftContainer.Add(_elementalElement);
 
+        _middleContainer.Add(_levelLabel);
         _middleContainer.Add(_healthLabel);
         _middleContainer.Add(_power);
         _middleContainer.Add(_armor);
-        _middleContainer.Add(_attackRange);
         _middleContainer.Add(_attackCooldown);
         _middleContainer.Add(_speed);
 
@@ -122,7 +124,6 @@ public class CreatureElement : VisualElement
         _healthLabel.text = $"Health: {creature.GetHealth()}";
         _power.text = $"Power: {creature.GetPower()}";
         _armor.text = $"Armor: {creature.Armor}";
-        _attackRange.text = $"Attack Range: {creature.AttackRange}";
         _attackCooldown.text = $"Attack Cooldown: {creature.AttackCooldown}";
         _speed.text = $"Speed: {creature.Speed}";
     }

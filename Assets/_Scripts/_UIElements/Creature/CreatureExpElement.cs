@@ -102,13 +102,14 @@ public class CreatureExpElement : VisualElement
     void LevelUp()
     {
         _gameManager.ChangeSpiceValue(-_spiceToNextLevel.Value);
-        _currentSpice.SetValue(_spiceToNextLevel.Value);
+        _currentSpice.ApplyChange(_spiceToNextLevel.Value);
+
+        Creature.LevelUp();
+        _levelLabel.text = $"Level {Creature.Level}";
+
         _levelBar.OnAnimationFinished += () =>
         {
-            Creature.LevelUp();
-            _levelLabel.text = $"Level {Creature.Level}";
-
-            _currentSpice.SetValue(0);
+            _levelBar.ChangeValueNoAnimation(0);
             _spiceToNextLevel.SetValue(Creature.NextLevelSpiceRequired());
 
             _buttonSpice.ChangeAmount(_spiceToNextLevel.Value);
