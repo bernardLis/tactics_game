@@ -10,12 +10,17 @@ public class BattleResultHeroElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
+    const string _ussCommonButtonBasic = "common__button-basic";
 
     const string _ussClassName = "battle-result-hero__";
     const string _ussMain = _ussClassName + "main";
     const string _ussCardContainer = _ussClassName + "card-container";
+    const string _ussShowContainer = _ussClassName + "show-container";
+    const string _ussPickupsContainer = _ussClassName + "pickups-container";
+
     const string _ussDefeatedEntitiesContainer = _ussClassName + "defeated-entities-container";
     const string _ussScoreContainer = _ussClassName + "score-container";
+    const string _ussGivePickupsButton = _ussClassName + "give-pickups-button";
 
     GameManager _gameManager;
     AudioManager _audioManager;
@@ -25,9 +30,19 @@ public class BattleResultHeroElement : VisualElement
 
     VisualElement _heroContainer;
     HeroCardExp _heroCard;
+
+    VisualElement _showContainer;
     VisualElement _defeatedEntitiesContainer;
     ChangingValueElement _scoreCounter;
     VisualElement _opponentContainer;
+
+    VisualElement _pickupsContainer;
+    GoldElement _goldElement;
+    SpiceElement _spiceElement;
+    int _goldCollected = 0;
+    int _spiceCollected = 0;
+    List<Item> _itemsCollected = new();
+    bool _pickupsGiven;
 
     IVisualElementScheduledItem _enemiesKilledShowSchedule;
     int _enemyIndex;
@@ -53,8 +68,13 @@ public class BattleResultHeroElement : VisualElement
         AddToClassList(_ussMain);
 
         AddWinner();
-        AddShowContainer();
-        AddLoser();
+
+        _showContainer = new();
+        _showContainer.AddToClassList(_ussShowContainer);
+        Add(_showContainer);
+
+        AddPickupsContainer();
+        AddOpponentContainer();
 
         RunShow();
     }
@@ -64,7 +84,6 @@ public class BattleResultHeroElement : VisualElement
         Sequence mySequence = DOTween.Sequence();
         mySequence.Pause();
         mySequence.Append(DOTween.To(x => _heroContainer.style.opacity = x, 0, 1, 0.5f));
-        mySequence.Append(DOTween.To(x => _opponentContainer.style.opacity = x, 0, 1, 0.5f));
         mySequence.Append(DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 0, 1, 0.5f));
         mySequence.AppendCallback(() => ShowKilledEnemies());
         mySequence.Play();
@@ -74,8 +93,9 @@ public class BattleResultHeroElement : VisualElement
     {
         _heroContainer = new();
         _heroContainer.AddToClassList(_ussCardContainer);
+        Add(_heroContainer);
 
-        Label title = new Label("Winner: ");
+        Label title = new Label("Battle won!");
         title.style.fontSize = 64;
         title.AddToClassList(_ussCommonTextPrimary);
         _heroContainer.Add(title);
@@ -83,46 +103,93 @@ public class BattleResultHeroElement : VisualElement
         _heroCard = new HeroCardExp(_playerHero);
         _heroCard.OnPointAdded += OnHeroPointAdded;
         _heroContainer.Add(_heroCard);
-
-        Add(_heroContainer);
     }
 
-    void AddShowContainer()
+    void AddOpponentContainer()
     {
         _defeatedEntitiesContainer = new();
         _defeatedEntitiesContainer.AddToClassList(_ussDefeatedEntitiesContainer);
+        _showContainer.Add(_defeatedEntitiesContainer);
 
         VisualElement scoreContainer = new();
+        scoreContainer.style.flexDirection = FlexDirection.Row;
         _defeatedEntitiesContainer.Add(scoreContainer);
 
-        Label title = new Label("Score: ");
+        Label title = new Label("Defeated: ");
         title.style.fontSize = 32;
         scoreContainer.Add(title);
 
-        _scoreCounter = new();
-        _scoreCounter.Initialize(0, 64);
-        scoreContainer.Add(_scoreCounter);
-
         _defeatedEntitiesContainer.style.height = Screen.height * 0.33f;
-        Add(_defeatedEntitiesContainer);
+
+        HeroCardMini oppCard = new HeroCardMini(_gameManager.SelectedBattle.Opponent);
+        _defeatedEntitiesContainer.Add(oppCard);
     }
 
-    void AddLoser()
+    void AddPickupsContainer()
     {
-        _opponentContainer = new();
-        _opponentContainer.AddToClassList(_ussCardContainer);
+        _pickupsContainer = new();
+        _pickupsContainer.AddToClassList(_ussPickupsContainer);
+        _showContainer.Add(_pickupsContainer);
 
-        Label title = new Label("Loser: ");
-        title.style.fontSize = 64;
-        title.AddToClassList(_ussCommonTextPrimary);
-        _opponentContainer.Add(title);
+        Label pickupCountLabel = new($"Pickups Collected: {_battleManager.CollectedPickups.Count}");
+        pickupCountLabel.style.fontSize = 32;
+        _pickupsContainer.Add(pickupCountLabel);
+        pickupCountLabel.style.opacity = 0;
+        DOTween.To(x => pickupCountLabel.style.opacity = x, 0, 1, 0.5f);
 
-        HeroCardStats oppCard = new HeroCardStats(_gameManager.SelectedBattle.Opponent);
-        _opponentContainer.Add(oppCard);
+        VisualElement collectionContainer = new();
+        collectionContainer.style.flexDirection = FlexDirection.Row;
+        _pickupsContainer.Add(collectionContainer);
 
-        Add(_opponentContainer);
+        _goldCollected = 0;
+        _spiceCollected = 0;
+        _itemsCollected = new();
+
+        foreach (Pickup p in _battleManager.CollectedPickups)
+        {
+            if (p.Gold > 0)
+                _goldCollected += p.Gold;
+            if (p.Spice > 0)
+                _spiceCollected += p.Spice;
+            if (p.Item != null)
+                _itemsCollected.Add(p.Item);
+        }
+
+        _goldElement = new(_goldCollected);
+        _goldElement.style.opacity = 0;
+        DOTween.To(x => _goldElement.style.opacity = x, 0, 1, 0.5f);
+
+        _spiceElement = new(_spiceCollected);
+        _spiceElement.style.opacity = 0;
+        DOTween.To(x => _spiceElement.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
+
+        collectionContainer.Add(_goldElement);
+        collectionContainer.Add(_spiceElement);
+
+        for (int i = 0; i < _itemsCollected.Count; i++)
+        {
+            ItemElement itemElement = new(_itemsCollected[i]);
+            itemElement.style.opacity = 0;
+            DOTween.To(x => itemElement.style.opacity = x, 0, 1, 0.5f).SetDelay(1f + 0.5f * i);
+            collectionContainer.Add(itemElement);
+        }
+
     }
+    void GiveCollectedPickups()
+    {
+        if (_pickupsGiven) return;
+        _pickupsGiven = true;
 
+        _goldElement.ChangeAmount(0);
+        _spiceElement.ChangeAmount(0);
+
+        DOTween.To(x => _pickupsContainer.style.opacity = x, 1, 0, 0.5f).SetDelay(1f);
+
+        _gameManager.ChangeGoldValue(_goldCollected);
+        _gameManager.ChangeSpiceValue(_spiceCollected);
+        for (int i = 0; i < _itemsCollected.Count; i++)
+            _gameManager.PlayerHero.AddItem(_itemsCollected[i]);
+    }
     void ShowKilledEnemies()
     {
         if (_battleManager.KilledOpponentEntities.Count == 0)
@@ -167,7 +234,6 @@ public class BattleResultHeroElement : VisualElement
 
         // TODO: is price good for score?
         _playerHero.GetExp(enemy.Creature.Price);
-        _scoreCounter.ChangeAmount(_scoreCounter.Amount + enemy.Creature.Price);
         _enemyIndex++;
     }
 
@@ -179,6 +245,8 @@ public class BattleResultHeroElement : VisualElement
 
     public void MoveAway()
     {
+        GiveCollectedPickups();
+
         HeroCardMini = _heroCard.HeroCardMini;
         style.position = Position.Absolute;
         HeroCardMini.style.position = Position.Absolute;
@@ -188,7 +256,6 @@ public class BattleResultHeroElement : VisualElement
 
         // everything except hero card mini opacity > 0
         DOTween.To(x => _heroContainer.style.opacity = x, 1, 0, 0.5f);
-        DOTween.To(x => _opponentContainer.style.opacity = x, 1, 0, 0.5f);
         DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 1, 0, 0.5f);
 
         DOTween.To(x => style.opacity = x, 1, 0, 0.5f).SetDelay(0.5f);
@@ -197,6 +264,12 @@ public class BattleResultHeroElement : VisualElement
 
         DOTween.To(x => HeroCardMini.style.left = x, _heroCard.worldBound.x, 40, 0.5f)
             .SetDelay(0.5f)
-            .SetEase(Ease.InOutFlash);
+            .SetEase(Ease.InOutFlash)
+            .OnComplete(() =>
+            {
+                // TODO: UI scaling, park it beneath spice element
+                float heroCardMiniYPercent = HeroCardMini.worldBound.y / Screen.height * 100;
+                DOTween.To(x => HeroCardMini.style.top = Length.Percent(x), heroCardMiniYPercent, 25, 0.5f);
+            });
     }
 }

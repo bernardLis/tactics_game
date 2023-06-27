@@ -31,16 +31,6 @@ public class BattleResultArmyElement : VisualElement
     List<CreatureCardExp> _creatureExpElements = new();
 
     VisualElement _logRecordsContainer;
-
-
-    GoldElement _goldElement;
-    SpiceElement _spiceElement;
-    int _goldCollected = 0;
-    int _spiceCollected = 0;
-    List<Item> _itemsCollected = new();
-    MyButton _givePickupsButton;
-    bool _pickupsGiven;
-
     public event Action OnFinished;
     public BattleResultArmyElement(VisualElement content)
     {
@@ -74,7 +64,6 @@ public class BattleResultArmyElement : VisualElement
         _logRecordsContainer = new();
         Add(_logRecordsContainer);
 
-        ShowPickupStats();
         ShowArmyStats();
         // wait for army stats to show
         this.schedule.Execute(AddMostKillsEntity).StartingIn(500 + 500 * _gameManager.PlayerHero.Army.Count);
@@ -89,58 +78,6 @@ public class BattleResultArmyElement : VisualElement
         CreatureIcon icon = new(creature);
         container.Add(icon);
     }
-
-    void ShowPickupStats()
-    {
-        Label pickupCountLabel = new($"Pickups Collected: {_battleManager.CollectedPickups.Count}");
-        _pickupsContainer.Add(pickupCountLabel);
-        pickupCountLabel.style.opacity = 0;
-        DOTween.To(x => pickupCountLabel.style.opacity = x, 0, 1, 0.5f);
-
-        _goldCollected = 0;
-        _spiceCollected = 0;
-        _itemsCollected = new();
-
-        foreach (Pickup p in _battleManager.CollectedPickups)
-        {
-            if (p.Gold > 0)
-                _goldCollected += p.Gold;
-            if (p.Spice > 0)
-                _spiceCollected += p.Spice;
-            if (p.Item != null)
-                _itemsCollected.Add(p.Item);
-        }
-
-        VisualElement collectionContainer = new();
-        collectionContainer.style.flexDirection = FlexDirection.Row;
-        _pickupsContainer.Add(collectionContainer);
-
-        _goldElement = new(_goldCollected);
-        _goldElement.style.opacity = 0;
-        DOTween.To(x => _goldElement.style.opacity = x, 0, 1, 0.5f);
-
-        _spiceElement = new(_spiceCollected);
-        _spiceElement.style.opacity = 0;
-        DOTween.To(x => _spiceElement.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
-
-        collectionContainer.Add(_goldElement);
-        collectionContainer.Add(_spiceElement);
-        for (int i = 0; i < _itemsCollected.Count; i++)
-        {
-            ItemElement itemElement = new(_itemsCollected[i]);
-            itemElement.style.opacity = 0;
-            DOTween.To(x => itemElement.style.opacity = x, 0, 1, 0.5f).SetDelay(1f + 0.5f * i);
-            collectionContainer.Add(itemElement);
-        }
-
-        _givePickupsButton = new("Collect", _ussCommonButtonBasic, GiveCollectedPickups);
-        _givePickupsButton.AddToClassList(_ussGivePickupsButton);
-        _pickupsContainer.Add(_givePickupsButton);
-        _givePickupsButton.style.opacity = 0;
-        DOTween.To(x => _givePickupsButton.style.opacity = x, 0, 1, 0.5f)
-                .SetDelay(1.5f + 0.5f * _itemsCollected.Count);
-    }
-
     void ShowArmyStats()
     {
         for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
@@ -244,8 +181,6 @@ public class BattleResultArmyElement : VisualElement
 
     public void MoveAway()
     {
-        GiveCollectedPickups();
-
         _logRecordsContainer.style.display = DisplayStyle.None;
         _pickupsContainer.style.display = DisplayStyle.None;
 
@@ -267,23 +202,5 @@ public class BattleResultArmyElement : VisualElement
                 _audioManager.PlayUI("Paper Flying");
                 DOTween.To(x => _armyGroupContainer.style.bottom = x, _armyGroupContainer.layout.y, 20, 0.5f);
             });
-    }
-
-    void GiveCollectedPickups()
-    {
-        if (_pickupsGiven) return;
-        _pickupsGiven = true;
-        _givePickupsButton.SetEnabled(false);
-
-        _goldElement.ChangeAmount(0);
-        _spiceElement.ChangeAmount(0);
-
-        DOTween.To(x => _givePickupsButton.style.opacity = x, 1, 0, 0.5f).SetDelay(0.5f);
-        DOTween.To(x => _pickupsContainer.style.opacity = x, 1, 0, 0.5f).SetDelay(1f);
-
-        _gameManager.ChangeGoldValue(_goldCollected);
-        _gameManager.ChangeSpiceValue(_spiceCollected);
-        for (int i = 0; i < _itemsCollected.Count; i++)
-            _gameManager.PlayerHero.AddItem(_itemsCollected[i]);
     }
 }
