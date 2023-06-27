@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class CreatureIcon : ElementWithTooltip
 {
@@ -62,7 +63,19 @@ public class CreatureIcon : ElementWithTooltip
     public void SwapCreature(Creature newCreature)
     {
         _creature = newCreature;
-        _animationElement.SwapAnimationSprites(newCreature.IconAnimation);
+
+        DOTween.Shake(() => transform.position, x => transform.position = x,
+                2f, 10f);
+
+        Color _initialColor = Frame.style.backgroundColor.value;
+        Color _targetColor = Color.white;
+        DOTween.To(() => Frame.style.backgroundColor.value,
+                x => Frame.style.backgroundColor = x, _targetColor, 1f)
+            .OnComplete(() => _animationElement.SwapAnimationSprites(newCreature.IconAnimation));
+
+        DOTween.To(() => Frame.style.backgroundColor.value,
+                x => Frame.style.backgroundColor = x, _initialColor, 2f)
+            .SetDelay(1f);
     }
 
     public void PlayAnimationAlways()

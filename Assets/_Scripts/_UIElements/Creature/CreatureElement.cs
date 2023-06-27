@@ -30,8 +30,6 @@ public class CreatureElement : VisualElement
     protected Label _attackCooldown;
     protected Label _speed;
 
-    public event Action OnEvolutionFinished;
-
     public CreatureElement(Creature creature)
     {
         _gameManager = GameManager.Instance;
@@ -84,36 +82,6 @@ public class CreatureElement : VisualElement
 
         SetValues(_creature);
     }
-
-    public void LargeIcon()
-    {
-        style.width = 200;
-        style.height = 200;
-
-        CreatureIcon.LargeIcon();
-    }
-
-    public void Evolve(Creature creature)
-    {
-        DOTween.Shake(() => CreatureIcon.transform.position, x => CreatureIcon.transform.position = x,
-                2f, 10f);
-
-        Helpers.DisplayTextOnElement(BattleManager.Instance.Root, CreatureIcon, "Evolving!!!", Color.red);
-
-        Color _initialColor = CreatureIcon.Frame.style.backgroundColor.value;
-        Color _targetColor = Color.white;
-        DOTween.To(() => CreatureIcon.Frame.style.backgroundColor.value,
-                x => CreatureIcon.Frame.style.backgroundColor = x, _targetColor, 1f)
-            .SetTarget(CreatureIcon)
-            .OnComplete(() => CreatureIcon.SwapCreature(creature));
-
-        DOTween.To(() => CreatureIcon.Frame.style.backgroundColor.value,
-                x => CreatureIcon.Frame.style.backgroundColor = x, _initialColor, 2f)
-            .SetTarget(CreatureIcon)
-            .SetDelay(1f)
-            .OnComplete(() => OnEvolutionFinished?.Invoke());
-    }
-
 
     public void SetValues(Creature creature)
     {
