@@ -90,20 +90,23 @@ public class CreatureExpElement : VisualElement
         _buttonSpice = new(_spiceToNextLevel.Value);
         _levelUpButton.Add(_buttonSpice);
         _middlePanel.Add(_levelUpButton);
-        UpdateLevelUpButton();
-        _gameManager.OnSpiceChanged += (s) => UpdateLevelUpButton();
     }
 
     void UpdateLevelUpButton()
     {
+        Debug.Log($"update level up button ");
         _levelUpButton.SetEnabled(_gameManager.Spice >= _spiceToNextLevel.Value);
     }
 
     void LevelUp()
     {
-        // HERE: this does not work
-        _levelUpButton.SetEnabled(false);
+        if (_gameManager.Spice < _spiceToNextLevel.Value)
+        {
+            Helpers.DisplayTextOnElement(Helpers.GetRoot(this), _levelUpButton, "Not enough spice", Color.red);
+            return;
+        }
 
+        _levelUpButton.SetEnabled(false);
         _gameManager.ChangeSpiceValue(-_spiceToNextLevel.Value);
         _currentSpice.ApplyChange(_spiceToNextLevel.Value);
 
@@ -116,7 +119,8 @@ public class CreatureExpElement : VisualElement
             _spiceToNextLevel.SetValue(Creature.NextLevelSpiceRequired());
 
             _buttonSpice.ChangeAmount(_spiceToNextLevel.Value);
-            UpdateLevelUpButton();
+            _levelUpButton.SetEnabled(true);
+
         };
     }
 

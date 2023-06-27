@@ -120,8 +120,7 @@ public class BattleEndManager : MonoBehaviour
 
     IEnumerator ShowCreature()
     {
-        Vector3 pos = new Vector3(Random.Range(-3f, 3f), 1f, Random.Range(-3f, 3f));
-        BattleEntity be = InstantiateEntity(_creatureToEvolve, pos);
+        BattleEntity be = InstantiateEntity(_creatureToEvolve, Vector3.zero);
         _currentEntity = be;
 
         yield return new WaitForSeconds(1f);

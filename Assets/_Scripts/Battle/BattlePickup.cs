@@ -80,15 +80,16 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         _GFX.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
         _GFX.transform.DOMoveY(endY, timeY)
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
-
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetId(transform);
 
         float timeRot = Random.Range(3f, 5f);
         Vector3 rotVector = new(360, 0, 0);
 
         _GFX.transform.DORotate(rotVector, timeRot, RotateMode.FastBeyond360)
             .SetEase(Ease.InOutQuad)
-            .SetLoops(-1, LoopType.Restart);
+            .SetLoops(-1, LoopType.Restart)
+            .SetId(transform);
     }
 
     public void OnPointerClick(PointerEventData eventData)
