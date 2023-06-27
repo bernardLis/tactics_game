@@ -49,7 +49,6 @@ public class CreatureExpElement : VisualElement
 
         AddLeftPanel();
         AddMiddlePanel();
-
     }
 
     void AddLeftPanel()
@@ -92,12 +91,6 @@ public class CreatureExpElement : VisualElement
         _middlePanel.Add(_levelUpButton);
     }
 
-    void UpdateLevelUpButton()
-    {
-        Debug.Log($"update level up button ");
-        _levelUpButton.SetEnabled(_gameManager.Spice >= _spiceToNextLevel.Value);
-    }
-
     void LevelUp()
     {
         if (_gameManager.Spice < _spiceToNextLevel.Value)
@@ -120,7 +113,6 @@ public class CreatureExpElement : VisualElement
 
             _buttonSpice.ChangeAmount(_spiceToNextLevel.Value);
             _levelUpButton.SetEnabled(true);
-
         };
     }
 
@@ -132,5 +124,4 @@ public class CreatureExpElement : VisualElement
             .OnComplete(() => _middlePanel.style.display = DisplayStyle.None);
         // HERE: folding creature exp element: something nicer than this
     }
-
 }

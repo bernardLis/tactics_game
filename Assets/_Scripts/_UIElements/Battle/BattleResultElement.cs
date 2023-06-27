@@ -240,6 +240,7 @@ public class BattleResultElement : FullScreenElement
     {
         _starEffect.SetActive(true);
         style.display = DisplayStyle.Flex;
+        _resultArmyElement.RefreshArmy();
 
         DOTween.To(x => _transitionOverlay.style.opacity = x, 1, 0, 0.5f)
             .OnComplete(() =>

@@ -154,7 +154,6 @@ public class BattleResultArmyElement : VisualElement
 
             Creature c = _gameManager.PlayerHero.Army[i];
             CreatureExpElement creatureElement = new(c);
-            // creatureElement.CreatureIcon.PlayAnimationAlways();
             container.Add(creatureElement);
             _creatureExpElements.Add(creatureElement);
 
@@ -236,6 +235,13 @@ public class BattleResultArmyElement : VisualElement
         DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
             .OnComplete(() => OnFinished?.Invoke());
     }
+
+    public void RefreshArmy()
+    {
+        _armyGroupContainer.Clear();
+        ShowArmyStats();
+    }
+
 
     public void MoveAway()
     {
