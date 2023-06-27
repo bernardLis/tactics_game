@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class CreatureExpElement : VisualElement
+public class CreatureCardExp : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
 
-    const string _ussClassName = "creature-exp__";
+    const string _ussClassName = "creature-card-exp__";
     const string _ussMain = _ussClassName + "main";
     const string _ussMiddlePanel = _ussClassName + "middle-panel";
     const string _ussLevelUpButton = _ussClassName + "level-up-button";
@@ -32,13 +32,13 @@ public class CreatureExpElement : VisualElement
     MyButton _levelUpButton;
     SpiceElement _buttonSpice;
 
-    public CreatureExpElement(Creature creature)
+    public CreatureCardExp(Creature creature)
     {
         _gameManager = GameManager.Instance;
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureExpStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureCardExpStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

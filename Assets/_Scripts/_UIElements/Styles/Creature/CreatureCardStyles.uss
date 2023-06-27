@@ -1,0 +1,12 @@
+.creature-card__main {
+    flex-direction: row;
+
+}
+
+.creature-card__left-container {
+    margin-right: 20px;
+}
+
+.creature-card__name {
+    font-size: 24px;
+}

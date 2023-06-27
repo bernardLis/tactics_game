@@ -107,7 +107,7 @@ public class CreatureIcon : ElementWithTooltip
     {
         if (_blockTooltip) return;
 
-        CreatureElement tooltip = new(_creature);
+        CreatureCard tooltip = new(_creature);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }

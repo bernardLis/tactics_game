@@ -1,8 +1,8 @@
-.creature-evolution__main {
+.creature-card-evolution__main {
     align-items: center;
 }
 
-.creature-evolution__name {
+.creature-card-evolution__name {
     font-size: 32px;
     max-width: 300px;
     -unity-text-align: middle-center;
@@ -11,7 +11,7 @@
     white-space: normal;
 }
 
-.creature-evolution__ability-container {
+.creature-card-evolution__ability-container {
     flex-direction: row;
     justify-content: center;
     align-items: center;

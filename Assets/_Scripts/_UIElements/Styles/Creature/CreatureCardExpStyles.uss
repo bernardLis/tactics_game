@@ -1,13 +1,13 @@
-.creature-exp__main {
+.creature-card-exp__main {
     align-items: center;
     flex-direction: row;
 }
 
-.creature-exp__middle-panel {
+.creature-card-exp__middle-panel {
     min-width: 200px;
 }
 
-.creature-exp__level-up-button {
+.creature-card-exp__level-up-button {
     align-items: center;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square');
 }

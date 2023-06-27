@@ -28,7 +28,7 @@ public class BattleResultArmyElement : VisualElement
     VisualElement _pickupsContainer;
 
     ScrollView _armyGroupContainer;
-    List<CreatureExpElement> _creatureExpElements = new();
+    List<CreatureCardExp> _creatureExpElements = new();
 
     VisualElement _logRecordsContainer;
 
@@ -152,7 +152,7 @@ public class BattleResultArmyElement : VisualElement
             _armyGroupContainer.Add(container);
 
             Creature c = _gameManager.PlayerHero.Army[i];
-            CreatureExpElement creatureElement = new(c);
+            CreatureCardExp creatureElement = new(c);
             container.Add(creatureElement);
             _creatureExpElements.Add(creatureElement);
 
@@ -249,7 +249,7 @@ public class BattleResultArmyElement : VisualElement
         _logRecordsContainer.style.display = DisplayStyle.None;
         _pickupsContainer.style.display = DisplayStyle.None;
 
-        foreach (CreatureExpElement el in _creatureExpElements)
+        foreach (CreatureCardExp el in _creatureExpElements)
             el.FoldSelf();
 
         style.position = Position.Absolute;

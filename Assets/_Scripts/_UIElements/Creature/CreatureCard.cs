@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class CreatureElement : VisualElement
+public class CreatureCard : VisualElement
 {
-    const string _ussClassName = "creature-element__";
+    const string _ussClassName = "creature-card__";
     const string _ussMain = _ussClassName + "main";
     const string _ussLeftContainer = _ussClassName + "left-container";
     const string _ussName = _ussClassName + "name";
@@ -30,10 +30,10 @@ public class CreatureElement : VisualElement
     protected Label _attackCooldown;
     protected Label _speed;
 
-    public CreatureElement(Creature creature)
+    public CreatureCard(Creature creature)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureCardStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

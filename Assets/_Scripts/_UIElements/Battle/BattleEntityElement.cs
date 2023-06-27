@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BattleEntityElement : CreatureElement
+public class BattleEntityElement : CreatureCard
 {
     const string _ussClassName = "battle-entity__";
     const string _ussMain = _ussClassName + "main";

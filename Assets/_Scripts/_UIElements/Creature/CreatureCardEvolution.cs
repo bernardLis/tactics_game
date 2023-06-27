@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class CreatureEvolutionElement : VisualElement
+public class CreatureCardEvolution : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary-black";
     const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
 
-    const string _ussClassName = "creature-evolution__";
+    const string _ussClassName = "creature-card-evolution__";
     const string _ussMain = _ussClassName + "main";
     const string _ussName = _ussClassName + "name";
     const string _ussAbilityContainer = _ussClassName + "ability-container";
@@ -34,13 +34,13 @@ public class CreatureEvolutionElement : VisualElement
     VisualElement _elementContainer;
     VisualElement _abilityContainer;
 
-    public CreatureEvolutionElement(Creature creature)
+    public CreatureCardEvolution(Creature creature)
     {
         _gameManager = GameManager.Instance;
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureEvolutionStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureCardEvolutionStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

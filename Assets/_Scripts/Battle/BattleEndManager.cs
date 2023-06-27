@@ -23,7 +23,7 @@ public class BattleEndManager : MonoBehaviour
     VisualElement _root;
 
     VisualElement _infoContainer;
-    CreatureEvolutionElement _evolutionElement;
+    CreatureCardEvolution _evolutionElement;
 
     MyButton _continueButton;
 
