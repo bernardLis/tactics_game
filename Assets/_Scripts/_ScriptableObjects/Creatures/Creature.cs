@@ -54,9 +54,10 @@ public class Creature : BaseScriptableObject
         if (hero != null) Hero = hero;
     }
 
-    public int GetHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * Level); }
+    // TODO: math
+    public int GetHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * (1 - Level)); }
 
-    public int GetPower() { return Mathf.RoundToInt(BasePower + 0.1f * BasePower * Level); }
+    public int GetPower() { return Mathf.RoundToInt(BasePower + 0.1f * BasePower * (1 - Level)); }
 
     public void AddKill(int ignored) { TotalKillCount++; }
     public void AddDmgDealt(int dmg) { TotalDamageDealt += dmg; }
@@ -103,7 +104,7 @@ public class Creature : BaseScriptableObject
     public int NextLevelSpiceRequired()
     {
         // TODO: math
-        return 10 + 10 * Level;
+        return 10 * Level;
     }
 
     public void LevelUp()

@@ -99,7 +99,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 758450fcee00df5418594bb6b29a1c4d, type: 3}
   - {fileID: 21300000, guid: 8e83ac1606c125e4db3bfd220512afa5, type: 3}
   - {fileID: 21300000, guid: 76d7f6f472a6bae4d9f1a09da99116e8, type: 3}
-  Level: 0
+  Level: 1
   Price: 30
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   BaseHealth: 80

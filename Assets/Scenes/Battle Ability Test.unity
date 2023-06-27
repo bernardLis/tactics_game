@@ -343,7 +343,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _respawnToKeepNumberOfEntities: 1
   _numberOfEntities: 10
-  Creatures: []
+  Creatures:
+  - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
+  - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
 --- !u!4 &704766438
 Transform:
   m_ObjectHideFlags: 0

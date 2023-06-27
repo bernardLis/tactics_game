@@ -87,7 +87,7 @@ public class CreatureElement : VisualElement
     {
         _creature = creature;
 
-        CreatureIcon.SwapCreature(creature);
+        CreatureIcon.SetCreature(creature);
         _nameLabel.text = $"{creature.Name}";
         _healthLabel.text = $"Health: {creature.GetHealth()}";
         _power.text = $"Power: {creature.GetPower()}";

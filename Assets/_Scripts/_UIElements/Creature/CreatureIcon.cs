@@ -60,6 +60,12 @@ public class CreatureIcon : ElementWithTooltip
         _iconContainer.style.height = 180;
     }
 
+    public void SetCreature(Creature newCreature)
+    {
+        _creature = newCreature;
+        _animationElement.SwapAnimationSprites(newCreature.IconAnimation);
+    }
+
     public void SwapCreature(Creature newCreature)
     {
         _creature = newCreature;
