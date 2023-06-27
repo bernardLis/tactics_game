@@ -53,7 +53,7 @@ public enum StyleSheetType
     HeroCardMiniStyles,
     HeroCardExpStyles,
 
-    CreatureEvolutionElementStyles, CreatureExpStyles,
+    CreatureEvolutionStyles, CreatureExpStyles,
     HeroCardFullStyles, HeroArmyElementStyles,
     
 

@@ -22,6 +22,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
   - {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
   - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
+  - {fileID: 11400000, guid: 781e2964c503f234391e050e4a468f35, type: 2}
+  - {fileID: 11400000, guid: daca97b5f2623ff46a5cd980f82ce627, type: 2}
+  - {fileID: 11400000, guid: 87befecc986df7943bbab53ca05c9f5f, type: 2}
+  - {fileID: 11400000, guid: 2d70bf271513bd44fa9efbc8c010340c, type: 2}
+  - {fileID: 11400000, guid: 46c3a5d4b1a3d9741b66619ef1c54303, type: 2}
+  - {fileID: 11400000, guid: b04d5324785816b468904c1eae7bf242, type: 2}
+  - {fileID: 11400000, guid: db8f082d533c77945aaeb61ac1332099, type: 2}
+  - {fileID: 11400000, guid: 997eae81a58e0a84088fda32fe9b3758, type: 2}
   StartingArmies:
   - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
     Creatures:

@@ -25,6 +25,8 @@ public class BattleResultElement : FullScreenElement
 
     Battle _battle;
 
+    VisualElement _vfx;
+
     VisualElement _content;
 
     public GoldElement GoldElement;
@@ -32,12 +34,13 @@ public class BattleResultElement : FullScreenElement
 
     MyButton _continueButton;
 
-    BattleResultHeroElement _resultHeroElement; 
-    BattleResultArmyElement _resultArmyElement; 
-    BattleResultRewardElement _resultRewardElement; 
-    BattleResultChoiceElement _resultChoiceElement; 
+    BattleResultHeroElement _resultHeroElement;
+    BattleResultArmyElement _resultArmyElement;
+    BattleResultRewardElement _resultRewardElement;
+    BattleResultChoiceElement _resultChoiceElement;
 
     GameObject _starEffect;
+    VisualElement _transitionOverlay;
 
     public event Action OnHeroElementClosed;
     public event Action OnArmyElementClosed;
@@ -67,9 +70,10 @@ public class BattleResultElement : FullScreenElement
 
         _audioManager.PlayUI("Reward Chosen");
 
+        _vfx = _root.Q<VisualElement>("vfx");
         // making sure that vfx is underneath the content but visible
-        Add(_root.Q<VisualElement>("vfx"));
-        _root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+        Add(_vfx);
+        _vfx.pickingMode = PickingMode.Ignore;
         RegisterCallback<DetachFromPanelEvent>(OnPanelDetached);
 
         AddResourceContainer();
@@ -213,4 +217,35 @@ public class BattleResultElement : FullScreenElement
     {
         _content.style.display = DisplayStyle.None;
     }
+
+    public override void Hide()
+    {
+        _transitionOverlay = new();
+        _transitionOverlay.style.position = Position.Absolute;
+        _transitionOverlay.style.width = Length.Percent(100);
+        _transitionOverlay.style.height = Length.Percent(100);
+        _transitionOverlay.style.backgroundColor = new Color(1, 1, 1, 0);
+
+        Add(_transitionOverlay);
+        DOTween.To(x => _transitionOverlay.style.opacity = x, 0, 1, 0.5f)
+            .SetDelay(0.5f)
+            .OnComplete(() =>
+            {
+                _starEffect.SetActive(false);
+                style.display = DisplayStyle.None;
+            });
+    }
+
+    public void Show()
+    {
+        _starEffect.SetActive(true);
+        style.display = DisplayStyle.Flex;
+
+        DOTween.To(x => _transitionOverlay.style.opacity = x, 1, 0, 0.5f)
+            .OnComplete(() =>
+            {
+                _transitionOverlay.RemoveFromHierarchy();
+            });
+    }
+
 }

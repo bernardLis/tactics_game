@@ -20,7 +20,7 @@ public class CreatureEvolutionElement : VisualElement
     public Creature Creature;
 
     Label _name;
-    CreatureElement _creatureElement;
+    CreatureIcon _creatureIcon;
 
     ElementalElement _elementalElement;
 
@@ -31,13 +31,8 @@ public class CreatureEvolutionElement : VisualElement
     Label _attackCooldown;
     Label _speed;
 
+    VisualElement _elementContainer;
     VisualElement _abilityContainer;
-
-    ChangingValueElement _killsThisBattleElement;
-
-    int _availableKills;
-    IntVariable _kills;
-    IntVariable _killsToEvolve;
 
     public CreatureEvolutionElement(Creature creature)
     {
@@ -45,7 +40,7 @@ public class CreatureEvolutionElement : VisualElement
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureEvolutionElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureEvolutionStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
@@ -58,12 +53,15 @@ public class CreatureEvolutionElement : VisualElement
         _name.AddToClassList(_ussName);
         Add(_name);
 
-        _creatureElement = new(creature);
-        _creatureElement.LargeIcon();
-        Add(_creatureElement);
+        _creatureIcon = new(creature, true);
+        _creatureIcon.LargeIcon();
+        Add(_creatureIcon);
 
+        _elementContainer = new();
+        _elementContainer.AddToClassList(_ussAbilityContainer);
+        Add(_elementContainer);
         _elementalElement = new ElementalElement(Creature.Element);
-        Add(_elementalElement);
+        _elementContainer.Add(_elementalElement);
 
         _healthLabel = new Label($"Health: {creature.GetHealth()}");
         _power = new Label($"Power: {creature.GetPower()}");
@@ -89,57 +87,16 @@ public class CreatureEvolutionElement : VisualElement
         spacer.style.height = 50;
         spacer.style.backgroundImage = null;
         Add(spacer);
-
-        _availableKills = Creature.TotalKillCount - Creature.OldKillCount;
-        _kills = ScriptableObject.CreateInstance<IntVariable>();
-        _killsToEvolve = ScriptableObject.CreateInstance<IntVariable>();
-        _kills.SetValue(Creature.OldKillCount);
-        //  _killsToEvolve.SetValue(Creature.KillsToUpgrade);
-    }
-
-    public void ShowKillsThisBattle()
-    {
-        VisualElement killCountContainer = new();
-        killCountContainer.style.flexDirection = FlexDirection.Row;
-        killCountContainer.style.alignItems = Align.Center;
-
-        Add(killCountContainer);
-
-        killCountContainer.Add(new Label("Kills this battle:"));
-        _killsThisBattleElement = new();
-        _killsThisBattleElement.Initialize(_availableKills, 24);
-
-        killCountContainer.Add(_killsThisBattleElement);
-        killCountContainer.style.opacity = 0;
-        DOTween.To(x => killCountContainer.style.opacity = x, 0, 1, 0.5f);
-    }
-
-    public void ShowKillsToEvolveBar()
-    {
-        Add(new Label("Kills to evolve:"));
-
-        Color barColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-        ResourceBarElement killBar = new(barColor, "Kills", _kills, _killsToEvolve);
-        killBar.style.width = 200;
-
-        Add(killBar);
-        killBar.style.opacity = 0;
-        DOTween.To(x => killBar.style.opacity = x, 0, 1, 0.5f);
-    }
-
-    public void AddKills()
-    {
-        //    int killChange = Mathf.Clamp(_availableKills, 0, Creature.KillsToUpgrade);
-        //     _availableKills -= killChange;
-        _killsThisBattleElement.ChangeAmount(_availableKills);
-        //      _kills.ApplyChange(killChange);
     }
 
     public void Evolve(Creature creature)
     {
         _name.text += $" -> {creature.Name}";
 
-        _creatureElement.Evolve(creature);
+        _creatureIcon.SwapCreature(creature);
+
+        _elementContainer.Add(new Label(" -> "));
+        _elementContainer.Add(new ElementalElement(creature.Element));
 
         _healthLabel.text += $" -> {creature.GetHealth()}";
         _power.text += $" -> {creature.GetPower()}";
@@ -151,11 +108,5 @@ public class CreatureEvolutionElement : VisualElement
         _abilityContainer.Add(new Label(" -> "));
         if (creature.CreatureAbility != null)
             _abilityContainer.Add(new CreatureAbilityElement(creature.CreatureAbility));
-
-    }
-
-    public void ResetKillsToEvolveBar()
-    {
-        //     _killsToEvolve.SetValue(Creature.KillsToUpgrade);
     }
 }

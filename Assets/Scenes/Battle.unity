@@ -1207,6 +1207,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1717841824}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: EntityHolder
+      value: 
+      objectReference: {fileID: 1078788522}
+    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _entityHolder
       value: 
       objectReference: {fileID: 1078788522}

@@ -29,7 +29,7 @@ public class Creature : BaseScriptableObject
     public GameObject HitPrefab;
 
     [Header("Upgrade")]
-    public Creature UpgradedCreature;
+    public Creature EvolvedCreature;
 
     // battle
     [HideInInspector] public int OldKillCount;
@@ -44,6 +44,7 @@ public class Creature : BaseScriptableObject
     [HideInInspector] public Hero Hero;
 
     public event Action OnLevelUp;
+
     public void InitializeBattle(Hero hero)
     {
         OldKillCount = TotalKillCount;
@@ -109,6 +110,7 @@ public class Creature : BaseScriptableObject
     {
         Level++;
         OnLevelUp?.Invoke();
+
     }
 
     public bool ShouldEvolve()
@@ -118,7 +120,7 @@ public class Creature : BaseScriptableObject
 
     public float ChanceToEvolve(int level)
     {
-        if (UpgradedCreature == null) return 0;
+        if (EvolvedCreature == null) return 0;
         // starting from level 5 there is an increasing chance to evolve, 
         // which caps at 100% at level 10
         // starting from level 5 there is an increasing chance to evolve, 

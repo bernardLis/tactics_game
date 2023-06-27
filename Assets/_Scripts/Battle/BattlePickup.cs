@@ -34,6 +34,7 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         _audioManager = AudioManager.Instance;
         _battleManager = BattleManager.Instance;
+        transform.parent = _battleManager.EntityHolder;
         _grabManager = BattleGrabManager.Instance;
         _abilityManager = _battleManager.GetComponent<BattleAbilityManager>();
 

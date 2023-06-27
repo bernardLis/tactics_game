@@ -37,7 +37,10 @@ public static class SceneSelectionToolbar
         _selectedIndex = EditorGUILayout.Popup(_selectedIndex, _displayedOptions); ;
         GUI.enabled = true;
         if (GUI.changed && _scenes.Count > _selectedIndex)
+        {
+            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
             EditorSceneManager.OpenScene(_scenes[_selectedIndex].Path);
+        }
     }
 
     static void RefreshDisplayedOptions()

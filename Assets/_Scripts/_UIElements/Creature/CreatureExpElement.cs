@@ -101,6 +101,9 @@ public class CreatureExpElement : VisualElement
 
     void LevelUp()
     {
+        // HERE: this does not work
+        _levelUpButton.SetEnabled(false);
+
         _gameManager.ChangeSpiceValue(-_spiceToNextLevel.Value);
         _currentSpice.ApplyChange(_spiceToNextLevel.Value);
 

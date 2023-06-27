@@ -19,7 +19,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public VisualElement Root { get; private set; }
 
-    [SerializeField] Transform _entityHolder;
+    public Transform EntityHolder;
 
     // skybox rotation https://forum.unity.com/threads/rotate-a-skybox.130639/
     int _rotationProperty;
@@ -156,7 +156,7 @@ public class BattleManager : Singleton<BattleManager>
         Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
         GameObject instance = Instantiate(creature.Prefab, pos, Quaternion.identity);
         instance.layer = 10;
-        instance.transform.parent = _entityHolder;
+        instance.transform.parent = EntityHolder;
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.Initialize(0, creature, ref OpponentEntities);
         PlayerEntities.Add(be);
@@ -175,7 +175,7 @@ public class BattleManager : Singleton<BattleManager>
         Quaternion rotation = Quaternion.Euler(0, 180, 0);
         GameObject instance = Instantiate(creature.Prefab, pos, rotation);
         instance.layer = 11;
-        instance.transform.parent = _entityHolder;
+        instance.transform.parent = EntityHolder;
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.Initialize(1, creature, ref PlayerEntities);
         OpponentEntities.Add(be);
@@ -283,7 +283,7 @@ public class BattleManager : Singleton<BattleManager>
 
         PlayerEntities.Clear();
         OpponentEntities.Clear();
-        foreach (Transform child in _entityHolder.transform)
+        foreach (Transform child in EntityHolder.transform)
         {
             child.transform.DOKill(child.transform);
             GameObject.Destroy(child.gameObject);

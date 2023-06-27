@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 3333-6aef-4f8f-a757-9d06b20d9a51
   Name: Dragon Spark
+  UpgradeTier: 0
   IconAnimation:
   - {fileID: 21300000, guid: 68d81fe6f1a2bfc42b9f9e283a4a5f18, type: 3}
   - {fileID: 21300000, guid: f78f135f5b140374aa8cdfa7440fe8d8, type: 3}
@@ -101,9 +102,9 @@ MonoBehaviour:
   Level: 0
   Price: 30
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  Health: 80
+  BaseHealth: 80
   Armor: 0
-  Power: 25
+  BasePower: 25
   AttackRange: 100
   AttackCooldown: 2.5
   Speed: 4
@@ -111,8 +112,7 @@ MonoBehaviour:
   Prefab: {fileID: 8520861121768953658, guid: 22b85c0f7d7ad474a8cd8f9aa3be1bbd, type: 3}
   Projectile: {fileID: 5028919531350398989, guid: a250f3ee435146848b6751d29e62b925, type: 3}
   HitPrefab: {fileID: 0}
-  UpgradedCreature: {fileID: 11400000, guid: daca97b5f2623ff46a5cd980f82ce627, type: 2}
-  KillsToUpgrade: 15
+  EvolvedCreature: {fileID: 11400000, guid: daca97b5f2623ff46a5cd980f82ce627, type: 2}
   OldKillCount: 0
   TotalKillCount: 0
   OldDamageDealt: 0
