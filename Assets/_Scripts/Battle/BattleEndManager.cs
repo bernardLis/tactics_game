@@ -175,8 +175,6 @@ public class BattleEndManager : MonoBehaviour
 
     BattleEntity InstantiateEntity(Creature creature, Vector3 pos)
     {
-        // for each of player army, I want to spawn one entity
-        // TODO: this instantiate is not needed
         Creature entityInstance = Instantiate(creature);
 
         GameObject instance = Instantiate(creature.Prefab, pos, Quaternion.identity);

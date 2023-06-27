@@ -108,8 +108,8 @@ public class HeroCardStats : VisualElement
         _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
         container.Add(_title);
 
-        container.Add(CreateManaGroup());
         container.Add(CreateExpGroup());
+        container.Add(CreateManaGroup());
     }
 
     VisualElement CreateExpGroup()
@@ -118,7 +118,7 @@ public class HeroCardStats : VisualElement
         container.AddToClassList(_ussExpContainer);
 
         ExpBar = new(Color.gray, "Experience", Hero.Experience, Hero.ExpForNextLevel,
-                thickness: 0, isIncreasing: true);
+                thickness: 0);
 
         _level = new Label($"Level {Hero.Level.Value}");
         _level.style.position = Position.Absolute;

@@ -86,9 +86,8 @@ public class BattleResultArmyElement : VisualElement
         container.AddToClassList(_ussArmyStatsContainer);
         _armyGroupContainer.Add(container);
 
-        CreatureElement creatureElement = new(creature);
-        //  creatureElement.CreatureIcon.PlayAnimationAlways();
-        container.Add(creatureElement);
+        CreatureIcon icon = new(creature);
+        container.Add(icon);
     }
 
     void ShowPickupStats()
@@ -247,12 +246,8 @@ public class BattleResultArmyElement : VisualElement
     {
         GiveCollectedPickups();
 
-        DOTween.To(x => _logRecordsContainer.style.opacity = x, 1, 0, 0.5f)
-                .OnComplete(() =>
-                {
-                    _logRecordsContainer.style.display = DisplayStyle.None;
-                    _pickupsContainer.style.display = DisplayStyle.None;
-                });
+        _logRecordsContainer.style.display = DisplayStyle.None;
+        _pickupsContainer.style.display = DisplayStyle.None;
 
         foreach (CreatureExpElement el in _creatureExpElements)
             el.FoldSelf();

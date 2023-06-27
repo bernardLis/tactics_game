@@ -10,6 +10,7 @@ public class CreatureIcon : ElementWithTooltip
     const string _ussMain = _ussClassName + "main";
     const string _ussIconContainer = _ussClassName + "icon-container";
     const string _ussFrame = _ussClassName + "frame";
+    const string _ussLevel = _ussClassName + "level";
 
     GameManager _gameManager;
 
@@ -18,6 +19,8 @@ public class CreatureIcon : ElementWithTooltip
 
     VisualElement _iconContainer;
     public VisualElement Frame;
+
+    Label _level;
 
     AnimationElement _animationElement;
     public CreatureIcon(Creature creature, bool blockTooltip = false)
@@ -41,8 +44,13 @@ public class CreatureIcon : ElementWithTooltip
         Frame = new();
         Frame.AddToClassList(_ussFrame);
 
+        _level = new($"{_creature.Level}");
+        _level.AddToClassList(_ussLevel);
+        _creature.OnLevelUp += () => _level.text = $"{_creature.Level}";
+
         Add(_iconContainer);
         Add(Frame);
+        Add(_level);
 
         RegisterCallback<MouseEnterEvent>(OnMouseEnter);
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);

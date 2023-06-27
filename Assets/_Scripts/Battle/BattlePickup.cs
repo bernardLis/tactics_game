@@ -129,6 +129,7 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         DOTween.To(x => _material.SetFloat("_Dissolve_Value", x), 0, 1, 10f)
                 .OnComplete(() =>
                 {
+                    if (this == null) return;
                     gameObject.SetActive(false);
                     Destroy(gameObject, 1f);
                 });

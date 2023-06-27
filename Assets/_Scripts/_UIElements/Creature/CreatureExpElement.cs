@@ -122,6 +122,5 @@ public class CreatureExpElement : VisualElement
             .OnComplete(() => _name.style.display = DisplayStyle.None);
         DOTween.To(x => _middlePanel.style.opacity = x, 1, 0, 0.5f)
             .OnComplete(() => _middlePanel.style.display = DisplayStyle.None);
-        // HERE: folding creature exp element: something nicer than this
     }
 }
