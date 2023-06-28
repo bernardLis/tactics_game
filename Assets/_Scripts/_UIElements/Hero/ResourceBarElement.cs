@@ -20,7 +20,6 @@ public class ResourceBarElement : ElementWithTooltip
     int _total;
     int _displayedAmount;
     IntVariable _currentInt;
-    FloatVariable _currentFloat;
     bool _isIncreasing;
 
     IVisualElementScheduledItem _animation;
@@ -150,14 +149,7 @@ public class ResourceBarElement : ElementWithTooltip
 
     void HandleDecrease()
     {
-        if (_currentInt != null && _currentInt.Value >= _displayedAmount)
-        {
-            _animation.Pause();
-            OnAnimationFinished?.Invoke();
-            return;
-        }
-
-        if (_currentFloat != null && _currentFloat.Value >= _displayedAmount)
+        if (_currentInt.Value >= _displayedAmount)
         {
             _animation.Pause();
             OnAnimationFinished?.Invoke();
@@ -170,14 +162,7 @@ public class ResourceBarElement : ElementWithTooltip
 
     void HandleIncrease()
     {
-        if (_currentInt != null && _currentInt.Value <= _displayedAmount)
-        {
-            _animation.Pause();
-            OnAnimationFinished?.Invoke();
-            return;
-        }
-
-        if (_currentFloat != null && _currentFloat.Value <= _displayedAmount)
+        if (_currentInt.Value <= _displayedAmount)
         {
             _animation.Pause();
             OnAnimationFinished?.Invoke();
