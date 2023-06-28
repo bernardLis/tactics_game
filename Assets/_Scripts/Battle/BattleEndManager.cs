@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using Random = UnityEngine.Random;
+using Cursor = UnityEngine.Cursor;
 
 public class BattleEndManager : MonoBehaviour
 {
@@ -54,6 +55,8 @@ public class BattleEndManager : MonoBehaviour
 
     void BeginEndBattleShow()
     {
+        Debug.Log($"Begin End Battle Show");
+
         DisableBattle();
         ShowUI();
 
@@ -74,17 +77,18 @@ public class BattleEndManager : MonoBehaviour
         GetComponent<BattleEntityTooltipManager>().enabled = false;
         GetComponent<BattleInputManager>().enabled = false;
 
-        Debug.Log($"Begin End Battle Show");
-
         _root.Q<VisualElement>("bottomPanel").Clear();
         _root.Q<VisualElement>("topPanel").Clear();
         _root.Q<VisualElement>("bottomPanel").style.display = DisplayStyle.None;
         _root.Q<VisualElement>("topPanel").style.display = DisplayStyle.None;
+
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     void ShowUI()
     {
         _cameraManager.MoveCameraTo(Vector3.zero, Vector3.zero, 5);
+        VFXCameraManager.Instance.gameObject.SetActive(true);
 
         StopAllCoroutines();
         if (_gameManager.PlayerHero != null && _battleManager.LoadedBattle.Won)

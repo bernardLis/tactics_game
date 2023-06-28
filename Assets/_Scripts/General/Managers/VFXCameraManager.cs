@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VFXCameraManager : MonoBehaviour
+public class VFXCameraManager : Singleton<VFXCameraManager>
 {
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
+        
         Camera cam = GetComponent<Camera>();
         RenderTexture texture = cam.targetTexture;
         texture.Release();
@@ -14,5 +16,4 @@ public class VFXCameraManager : MonoBehaviour
 
         cam.targetTexture = texture;
     }
-
 }

@@ -62,8 +62,11 @@ public class BattleManager : Singleton<BattleManager>
 
         VisualElement bottomPanel = Root.Q<VisualElement>("bottomPanel");
     }
+
     void Start()
     {
+        VFXCameraManager.Instance.gameObject.SetActive(false);
+
         _gameManager = GameManager.Instance;
         _gameManager.SaveJsonData();
         LoadedBattle = _gameManager.SelectedBattle;
