@@ -36,13 +36,15 @@ public class Projectile : MonoBehaviour
         //https://gamedev.stackexchange.com/questions/100535/coroutine-to-move-to-position-passing-the-movement-speed
         Vector3 startingPos = transform.position;
         Vector3 finalPos = target.Collider.bounds.center;
+        Vector3 dir = (finalPos - startingPos).normalized;
+        Vector3 destination = startingPos + dir * shooter.Creature.AttackRange;
         float t = 0;
-        float step = (_speed / shooter.Creature.AttackRange) * Time.fixedDeltaTime; //(startingPos - finalPos).magnitude) * Time.fixedDeltaTime;
+        float step = (_speed / (startingPos - finalPos).magnitude) * Time.fixedDeltaTime;
 
         while (t <= 1.0f)
         {
             t += step;
-            transform.position = Vector3.Lerp(startingPos, finalPos, t);
+            transform.position = Vector3.Lerp(startingPos, destination, t);
             yield return new WaitForFixedUpdate();
         }
 

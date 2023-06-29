@@ -14,22 +14,42 @@ public class EntitySpawner : MonoBehaviour
     void Start()
     {
         _battleManager = BattleManager.Instance;
+        StartCoroutine(SpawnShow());
+        /*
+            for (int i = 0; i < _numberOfEntities; i++)
+            {
+                Creature c = Creatures[Random.Range(0, Creatures.Count)];
+                SpawnCreature(c);
+            }
+      */
+    }
 
+    IEnumerator SpawnShow()
+    {
         for (int i = 0; i < _numberOfEntities; i++)
         {
             Creature c = Creatures[Random.Range(0, Creatures.Count)];
-            SpawnCreature(c);
+            yield return SpawnCreature(c);
+            yield return new WaitForSeconds(1f);
         }
     }
-    void SpawnCreature(Creature entity)
+
+
+    IEnumerator SpawnCreature(Creature creature)
     {
-        Vector3 pos = transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-        GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
+        Vector3 pos = transform.position;// + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+        GameObject instance = Instantiate(creature.Prefab, pos, Quaternion.identity);
         instance.transform.parent = transform;
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.Initialize(1, entity, ref _battleManager.PlayerEntities);
+
+        Vector3 jumpPos = pos + Vector3.forward * 2f + Vector3.up;
+        yield return instance.transform.DOJump(jumpPos, 1f, 1, 0.5f).WaitForCompletion();
+
+        //yield return new WaitForSeconds(1f);
+        be.Initialize(0, creature, ref _battleManager.PlayerEntities);
         be.OnDeath += OnDeath;
     }
+
 
     void OnDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
@@ -37,7 +57,7 @@ public class EntitySpawner : MonoBehaviour
         if (!_respawnToKeepNumberOfEntities) return;
 
         Creature c = Creatures[Random.Range(0, Creatures.Count)];
-        SpawnCreature(c);
+        StartCoroutine(SpawnCreature(c));
     }
 
     IEnumerator CleanBody(BattleEntity be)

@@ -91,7 +91,7 @@ MonoBehaviour:
   Level: 1
   Price: 30
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  BaseHealth: 999999
+  BaseHealth: 50
   Armor: 0
   BasePower: 15
   AttackRange: 60
@@ -104,8 +104,8 @@ MonoBehaviour:
   EvolvedCreature: {fileID: 11400000, guid: 2d70bf271513bd44fa9efbc8c010340c, type: 2}
   OldKillCount: 8
   TotalKillCount: 8
-  OldDamageDealt: 2610
-  TotalDamageDealt: 2865
-  OldDamageTaken: 800
-  TotalDamageTaken: 1000
+  OldDamageDealt: 3795
+  TotalDamageDealt: 4260
+  OldDamageTaken: 1400
+  TotalDamageTaken: 1850
   Hero: {fileID: 0}
