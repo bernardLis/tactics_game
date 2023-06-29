@@ -102,7 +102,7 @@ MonoBehaviour:
   Level: 1
   Price: 30
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  BaseHealth: 80
+  BaseHealth: 99999
   Armor: 0
   BasePower: 25
   AttackRange: 100

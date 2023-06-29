@@ -94,7 +94,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Initialize(Hero playerHero, Hero opponentHero, List<Creature> playerArmy, List<Creature> opponentArmy)
     {
-        PlaceObstacle();
+       // HERE: projectile PlaceObstacle();
         _battleFinalized = false;
 
         GetComponent<BattleGrabManager>().Initialize();

@@ -1213,20 +1213,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _fullOneVOnes
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _testSpecificTeams
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: TeamAArmies.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
+      propertyPath: TeamACreatures.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: TeamBArmies.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 517db7d749d242244bb8a0eeece149e6, type: 2}
+    - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
+      propertyPath: TeamBCreatures.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
+      propertyPath: TeamACreatures.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
+    - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
+      propertyPath: TeamACreatures.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
+    - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
+      propertyPath: TeamBCreatures.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
     - target: {fileID: 7145388959955883547, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: m_RootOrder
       value: 3

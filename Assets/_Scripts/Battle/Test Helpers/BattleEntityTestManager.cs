@@ -35,6 +35,7 @@ public class BattleEntityTestManager : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleManager.IsEndingBattleBlocked = true;
         _battleManager.OnBattleFinalized += OnBattleFinalized;
+
         if (_testSpecificTeams)
         {
             _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);

@@ -104,7 +104,7 @@ MonoBehaviour:
   Level: 1
   Price: 30
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  BaseHealth: 150
+  BaseHealth: 99999
   Armor: 5
   BasePower: 25
   AttackRange: 4
@@ -119,6 +119,6 @@ MonoBehaviour:
   TotalKillCount: 0
   OldDamageDealt: 0
   TotalDamageDealt: 0
-  OldDamageTaken: 0
-  TotalDamageTaken: 0
+  OldDamageTaken: 561
+  TotalDamageTaken: 627
   Hero: {fileID: 0}

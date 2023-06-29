@@ -41,32 +41,43 @@ public class Projectile : MonoBehaviour
 
         while (t <= 1.0f)
         {
-            if (target != null) finalPos = target.Collider.bounds.center;
+            //            if (target != null) finalPos = target.Collider.bounds.center;
             t += step;
-            Vector3 pos = Vector3.Lerp(startingPos, finalPos, t);
-            transform.position = pos;
+            // Vector3 pos = Vector3.Lerp(startingPos, finalPos, t);
+            transform.position = Vector3.Lerp(startingPos, finalPos, t);
 
             yield return new WaitForFixedUpdate();
         }
 
-        if (target != null)
-            yield return HitTarget();
+        //    if (target != null)
+        //       yield return HitTarget();
 
         yield return DestroySelf(target.Collider.bounds.center);
     }
 
-    protected virtual IEnumerator HitTarget()
+    protected virtual IEnumerator HitTarget(BattleEntity target)
     {
-        StartCoroutine(_target.GetHit(_shooter));
-        yield return null;
+        StartCoroutine(target.GetHit(_shooter));
+        yield return DestroySelf(transform.position);
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer != Tags.BattleObstacleLayer)
+        if (collision.gameObject.layer == Tags.BattleObstacleLayer)
+        {
+            StopAllCoroutines();
+            StartCoroutine(DestroySelf(transform.position));
             return;
-        StopAllCoroutines();
-        StartCoroutine(DestroySelf(transform.position));
+        }
+
+        if (collision.gameObject.TryGetComponent<BattleEntity>(out BattleEntity battleEntity))
+        {
+            if (battleEntity.Team == _shooter.Team) return;
+
+            StopAllCoroutines();
+            StartCoroutine(HitTarget(battleEntity));
+            return;
+        }
     }
 
     public IEnumerator DestroySelf(Vector3 position)
