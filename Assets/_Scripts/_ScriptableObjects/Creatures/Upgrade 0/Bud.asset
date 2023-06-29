@@ -102,7 +102,7 @@ MonoBehaviour:
   BaseHealth: 100
   Armor: 5
   BasePower: 20
-  AttackRange: 100
+  AttackRange: 60
   AttackCooldown: 3
   Speed: 2
   CreatureAbility: {fileID: 11400000, guid: b98ddcdbf8212594f916e06f7b6d0b19, type: 2}

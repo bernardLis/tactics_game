@@ -102,10 +102,10 @@ MonoBehaviour:
   Level: 1
   Price: 30
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  BaseHealth: 99999
+  BaseHealth: 999999
   Armor: 0
   BasePower: 25
-  AttackRange: 100
+  AttackRange: 60
   AttackCooldown: 2.5
   Speed: 4
   CreatureAbility: {fileID: 11400000, guid: 9ea8c0122ee9dbf42a836df1166f43e8, type: 2}

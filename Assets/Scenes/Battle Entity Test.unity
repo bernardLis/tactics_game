@@ -1225,7 +1225,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: TeamACreatures.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: TeamBArmies.Array.data[0]

@@ -91,10 +91,10 @@ MonoBehaviour:
   Level: 1
   Price: 30
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  BaseHealth: 9999999
+  BaseHealth: 999999
   Armor: 0
   BasePower: 15
-  AttackRange: 100
+  AttackRange: 60
   AttackCooldown: 1
   Speed: 7
   CreatureAbility: {fileID: 11400000, guid: 6496bb5f0d329124b971558039774fff, type: 2}
@@ -102,10 +102,10 @@ MonoBehaviour:
   Projectile: {fileID: 6865323931963210094, guid: 354092d45107a954296b58ca5e078f96, type: 3}
   HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
   EvolvedCreature: {fileID: 11400000, guid: 2d70bf271513bd44fa9efbc8c010340c, type: 2}
-  OldKillCount: 7
+  OldKillCount: 8
   TotalKillCount: 8
-  OldDamageDealt: 765
-  TotalDamageDealt: 855
-  OldDamageTaken: 75
-  TotalDamageTaken: 75
+  OldDamageDealt: 2610
+  TotalDamageDealt: 2865
+  OldDamageTaken: 800
+  TotalDamageTaken: 1000
   Hero: {fileID: 0}

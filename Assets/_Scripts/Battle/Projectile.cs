@@ -37,20 +37,14 @@ public class Projectile : MonoBehaviour
         Vector3 startingPos = transform.position;
         Vector3 finalPos = target.Collider.bounds.center;
         float t = 0;
-        float step = (_speed / (startingPos - finalPos).magnitude) * Time.fixedDeltaTime;
+        float step = (_speed / shooter.Creature.AttackRange) * Time.fixedDeltaTime; //(startingPos - finalPos).magnitude) * Time.fixedDeltaTime;
 
         while (t <= 1.0f)
         {
-            //            if (target != null) finalPos = target.Collider.bounds.center;
             t += step;
-            // Vector3 pos = Vector3.Lerp(startingPos, finalPos, t);
             transform.position = Vector3.Lerp(startingPos, finalPos, t);
-
             yield return new WaitForFixedUpdate();
         }
-
-        //    if (target != null)
-        //       yield return HitTarget();
 
         yield return DestroySelf(target.Collider.bounds.center);
     }

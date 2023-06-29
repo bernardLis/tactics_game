@@ -119,6 +119,6 @@ MonoBehaviour:
   TotalKillCount: 0
   OldDamageDealt: 0
   TotalDamageDealt: 0
-  OldDamageTaken: 561
-  TotalDamageTaken: 627
+  OldDamageTaken: 1056
+  TotalDamageTaken: 1056
   Hero: {fileID: 0}
