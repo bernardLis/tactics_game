@@ -109,6 +109,4 @@ public class BattleInitializer : MonoBehaviour
         _obstacleInstance.transform.localScale = size;
         _obstacleInstance.transform.Rotate(rot);
     }
-
-
 }

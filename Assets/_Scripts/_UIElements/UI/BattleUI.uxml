@@ -19,13 +19,13 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroCardExpStyles.uss?fileID=7433441132597879392&amp;guid=4496443c1c70fcf40a4dd27ff7628657&amp;type=3#HeroCardExpStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleResultArmyStyles.uss?fileID=7433441132597879392&amp;guid=65c94c2530362d548a758f61493f3e42&amp;type=3#BattleResultArmyStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CutsceneStyles.uss?fileID=7433441132597879392&amp;guid=d73a8a21573b1ed44bce80194d7bda1d&amp;type=3#CutsceneStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Creature/CreatureExpStyles.uss?fileID=7433441132597879392&amp;guid=238938f1c857a4941a46bbc638616475&amp;type=3#CreatureExpStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Creature/CreatureCardExpStyles.uss?fileID=7433441132597879392&amp;guid=238938f1c857a4941a46bbc638616475&amp;type=3#CreatureCardExpStyles" />
     <ui:VisualElement name="topPanel" class="common__text-primary" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-items: center; justify-content: center; align-self: center; top: 20px;">
         <ui:VisualElement name="abilityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; justify-content: center; align-self: center;" />
         <ui:VisualElement name="entityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
     </ui:VisualElement>
     <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;">
-        <ui:VisualElement name="battle__ability-container" class="battle__ability-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);" />
+        <ui:VisualElement name="abilityContainer" class="battle__ability-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); opacity: 0;" />
     </ui:VisualElement>
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
     <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: 100%; height: 100%; top: 0; left: 4px;" />

@@ -40,9 +40,15 @@ public class BattleAbilityManager : MonoBehaviour
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _abilityInfoContainer = _root.Q<VisualElement>("abilityInfoContainer");
+        _abilityInfoContainer.style.opacity = 0;
+        DOTween.To(x => _abilityInfoContainer.style.opacity = x, 0, 1, 0.5f);
+
         _hero = hero;
 
         AddAbilityButtons();
+
+        VisualElement abilityContainer = _root.Q<VisualElement>("abilityContainer");
+        DOTween.To(x => abilityContainer.style.opacity = x, 0, 1, 0.5f);
     }
 
     /* INPUT */
@@ -108,6 +114,8 @@ public class BattleAbilityManager : MonoBehaviour
             _abilityButtons.Add(button);
             i++;
         }
+
+
     }
 
     void ButtonOneClick(InputAction.CallbackContext context)

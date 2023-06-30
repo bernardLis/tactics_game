@@ -19,6 +19,19 @@ public class BattleAbilityTestManager : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleManager.BlockBattleEnd = true;
 
+        SetupUI();
+        CreateHero();
+        LevelUpAbilities(7);
+
+        _battleManager.Initialize(_hero, new List<BattleEntity>(), new List<BattleEntity>());
+        _gameManager.ToggleTimer(true);
+
+        for (int i = 0; i < _creaturesToSpawn; i++)
+            StartCoroutine(SpawnCreature());
+    }
+
+    void SetupUI()
+    {
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
 
         root.Q<Button>("restoreMana").clickable.clicked += () => _hero.CurrentMana.SetValue(1000);
@@ -32,7 +45,10 @@ public class BattleAbilityTestManager : MonoBehaviour
             foreach (Ability a in _hero.Abilities)
                 a.LevelDown();
         };
+    }
 
+    void CreateHero()
+    {
         _hero = ScriptableObject.CreateInstance<Hero>();
         _hero.CreateRandom(1);
         _hero.Abilities = new();
@@ -45,18 +61,13 @@ public class BattleAbilityTestManager : MonoBehaviour
             Ability instance = Instantiate<Ability>(a);
             _hero.Abilities.Add(instance);
         }
+    }
 
-        for (int i = 0; i < 7; i++)
-        {
+    void LevelUpAbilities(int level)
+    {
+        for (int i = 0; i < level; i++)
             foreach (Ability a in _hero.Abilities)
                 a.LevelUp();
-        }
-
-        _battleManager.Initialize(_hero, new List<BattleEntity>(), new List<BattleEntity>());
-        _gameManager.ToggleTimer(true);
-
-        for (int i = 0; i < _creaturesToSpawn; i++)
-            StartCoroutine(SpawnCreature());
     }
 
     IEnumerator SpawnCreature()

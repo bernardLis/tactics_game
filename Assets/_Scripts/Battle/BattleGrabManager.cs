@@ -85,7 +85,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     void Update()
     {
         if (!_wasInitialized) return;
-        if (_abilityManager != null || _abilityManager.IsAbilitySelected) return;
+        if (_abilityManager.IsAbilitySelected) return;
         if (_grabbedObject == null) return;
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());

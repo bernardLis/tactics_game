@@ -145,7 +145,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             _material.SetColor("_EmissionColor", _defaultEmissionColor);
             _material.SetFloat("_Metallic", 0.5f);
         }
-        
+
         _currentAttackCooldown = 0;
         CurrentSpecialAbilityCooldown = 0;
 
@@ -557,11 +557,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (_tooltipManager == null) return;
         _tooltipManager.ShowInfo(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (_tooltipManager == null) return;
         _tooltipManager.HideInfo();
     }
 
