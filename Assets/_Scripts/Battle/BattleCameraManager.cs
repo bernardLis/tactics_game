@@ -223,7 +223,6 @@ public class BattleCameraManager : MonoBehaviour
         _cameraTransform.DOLocalMoveY(_defaultZoomHeight, time)
                 .OnComplete(() =>
                 {
-                    Debug.Log($"camera complete");
                     _zoomHeight = _cameraTransform.localPosition.y;
                     _lastPosition = transform.position;
 

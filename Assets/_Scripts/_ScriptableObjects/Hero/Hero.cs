@@ -268,7 +268,6 @@ public class Hero : BaseScriptableObject
         Army = new();
         foreach (Creature c in _gameManager.HeroDatabase.GetStartingArmy(element).Creatures)
         {
-            Debug.Log($"creature in army {c.name}");
             Creature instance = Instantiate(c);
             Army.Add(instance);
         }

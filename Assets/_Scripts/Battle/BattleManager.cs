@@ -108,8 +108,6 @@ public class BattleManager : Singleton<BattleManager>
             _battleAbilityManager.enabled = true;
             _battleAbilityManager.Initialize(playerHero);
         }
-        Debug.Log($"playerArmy.Count {playerArmy.Count}");
-        Debug.Log($"opponentArmy.Count {opponentArmy.Count}");
 
         foreach (BattleEntity b in playerArmy)
         {

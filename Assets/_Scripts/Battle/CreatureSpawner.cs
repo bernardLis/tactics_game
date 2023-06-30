@@ -17,10 +17,8 @@ public class CreatureSpawner : MonoBehaviour
     public List<BattleEntity> SpawnedEntities = new();
 
     public event Action OnSpawnComplete;
-    public void Initialize(Hero hero, float duration = 2f)
+    public void SpawnHeroArmy(Hero hero, float duration = 2f)
     {
-        Debug.Log($"hero {hero}");
-        Debug.Log($"_hero.army count {hero.Army.Count}");
         SpawnCreatures(hero.Army, hero, duration);
     }
 

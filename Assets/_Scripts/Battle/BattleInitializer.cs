@@ -54,25 +54,21 @@ public class BattleInitializer : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        Debug.Log($"_playerHero {_playerHero}");
-        Debug.Log($"_opponentHero {_opponentHero}");
-
         GameObject playerSpawnerInstance = Instantiate(_creatureSpawnerPrefab, _playerSpawnPoint.position,
                 Quaternion.identity);
         CreatureSpawner playerSpawner = playerSpawnerInstance.GetComponent<CreatureSpawner>();
-        playerSpawner.Initialize(_playerHero, 1.5f);
+        playerSpawner.SpawnHeroArmy(_playerHero, 1.5f);
 
         Vector3 oppPortalRotation = new(0, 180, 0);
         GameObject opponentSpawnerInstance = Instantiate(_creatureSpawnerPrefab, _enemySpawnPoint.position,
                  Quaternion.Euler(oppPortalRotation));
         CreatureSpawner opponentSpawner = opponentSpawnerInstance.GetComponent<CreatureSpawner>();
-        opponentSpawner.Initialize(_opponentHero, 1.5f);
+        opponentSpawner.SpawnHeroArmy(_opponentHero, 1.5f);
 
         yield return new WaitForSeconds(2f);
 
         List<BattleEntity> playerArmy = new(playerSpawner.SpawnedEntities);
         List<BattleEntity> opponentArmy = new(opponentSpawner.SpawnedEntities);
-        Debug.Log($"after copy playerArmy.Count {playerArmy.Count}");
 
         playerSpawnerInstance.transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
         opponentSpawnerInstance.transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
@@ -83,7 +79,6 @@ public class BattleInitializer : MonoBehaviour
         Destroy(opponentSpawnerInstance);
 
         _battleInputManager.enabled = true;
-        Debug.Log($"after destruction  playerArmy.Count {playerArmy.Count}");
 
         _battleManager.Initialize(_playerHero, playerArmy, opponentArmy);
         yield return null;
