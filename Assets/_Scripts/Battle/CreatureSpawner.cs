@@ -11,6 +11,8 @@ public class CreatureSpawner : MonoBehaviour
 
     Hero _hero;
     List<Creature> _creatures = new();
+    [SerializeField] List<PortalElement> _portalElements = new();
+    [SerializeField] GameObject _blackPortal;
 
     float _delay;
 
@@ -33,7 +35,13 @@ public class CreatureSpawner : MonoBehaviour
 
     IEnumerator SpawnShow()
     {
-        // HERE: choose portal color
+        Debug.Log($"_hero.Element {_hero.Element}");
+        Debug.Log($"_hero.Element.ElementName {_hero.Element.ElementName}");
+        if (_hero != null)
+            _portalElements.Find(x => x.ElementName == _hero.Element.ElementName).Portal.SetActive(true);
+        else
+            _blackPortal.SetActive(true);
+
         for (int i = 0; i < _creatures.Count; i++)
         {
             SpawnCreature(_creatures[i]);
@@ -57,3 +65,11 @@ public class CreatureSpawner : MonoBehaviour
         instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
     }
 }
+
+[System.Serializable]
+public struct PortalElement
+{
+    public ElementName ElementName;
+    public GameObject Portal;
+}
+
