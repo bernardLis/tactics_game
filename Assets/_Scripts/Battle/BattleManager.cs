@@ -44,7 +44,7 @@ public class BattleManager : Singleton<BattleManager>
 
     [HideInInspector] public List<Pickup> CollectedPickups = new();
 
-    public bool IsEndingBattleBlocked;
+    public bool BlockBattleEnd;
     public bool BattleFinalized { get; private set; }
 
     public event Action OnBattleFinalized;
@@ -68,6 +68,8 @@ public class BattleManager : Singleton<BattleManager>
         _battleGrabManager = GetComponent<BattleGrabManager>();
         _battleHeroManager = GetComponent<BattleHeroManager>();
         _battleAbilityManager = GetComponent<BattleAbilityManager>();
+
+        UpdateEntityCount();
 
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
@@ -110,22 +112,11 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         foreach (BattleEntity b in playerArmy)
-        {
-            b.InitializeBattle(0, ref OpponentEntities);
-            b.gameObject.layer = 10;
-            PlayerEntities.Add(b);
-            b.OnDeath += OnPlayerDeath;
-        }
+            AddPlayerArmyEntity(b);
 
         foreach (BattleEntity b in opponentArmy)
-        {
-            b.InitializeBattle(1, ref PlayerEntities);
-            b.gameObject.layer = 11;
-            OpponentEntities.Add(b);
-            b.OnDeath += OnOpponentDeath;
-        }
+            AddOpponentArmyEntity(b);
 
-        _scoreText.text = $"{playerArmy.Count} : {opponentArmy.Count}";
 
         if (_gameManager == null) _gameManager = GameManager.Instance;
         _gameManager.ToggleTimer(true);
@@ -133,12 +124,42 @@ public class BattleManager : Singleton<BattleManager>
         GetComponent<BattleLogManager>().Initialize(PlayerEntities, OpponentEntities);
     }
 
+    public void AddPlayerArmyEntity(BattleEntity b)
+    {
+        b.transform.parent = EntityHolder;
+
+        b.InitializeBattle(0, ref OpponentEntities);
+        b.gameObject.layer = 10;
+        PlayerEntities.Add(b);
+        b.OnDeath += OnPlayerDeath;
+
+        UpdateEntityCount();
+    }
+
+    public void AddOpponentArmyEntity(BattleEntity b)
+    {
+        b.transform.parent = EntityHolder;
+
+        b.InitializeBattle(1, ref PlayerEntities);
+        b.gameObject.layer = 11;
+        OpponentEntities.Add(b);
+        b.OnDeath += OnOpponentDeath;
+
+        UpdateEntityCount();
+    }
+
+    void UpdateEntityCount()
+    {
+        _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
+    }
+
     void OnPlayerDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
         KilledPlayerEntities.Add(be);
         PlayerEntities.Remove(be);
-        _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
+        UpdateEntityCount();
 
+        if (BlockBattleEnd) return;
         if (PlayerEntities.Count == 0)
             StartCoroutine(BattleLost());
     }
@@ -147,8 +168,9 @@ public class BattleManager : Singleton<BattleManager>
     {
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
-        _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
+        UpdateEntityCount();
 
+        if (BlockBattleEnd) return;
         if (OpponentEntities.Count == 0)
             StartCoroutine(BattleWon());
     }
@@ -169,12 +191,6 @@ public class BattleManager : Singleton<BattleManager>
     {
         LoadedBattle.Won = false;
 
-        if (IsEndingBattleBlocked)
-        {
-            yield return FinalizeBattle();
-            yield break;
-        }
-
         ConfirmPopUp popUp = new();
         popUp.Initialize(Root, () => _gameManager.ClearSaveData(),
                 "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
@@ -185,11 +201,6 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator BattleWon()
     {
         LoadedBattle.Won = true;
-        if (IsEndingBattleBlocked)
-        {
-            yield return FinalizeBattle();
-            yield break;
-        }
 
         VisualElement topPanel = Root.Q<VisualElement>("topPanel");
         topPanel.Clear();

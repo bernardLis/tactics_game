@@ -35,8 +35,6 @@ public class CreatureSpawner : MonoBehaviour
 
     IEnumerator SpawnShow()
     {
-        Debug.Log($"_hero.Element {_hero.Element}");
-        Debug.Log($"_hero.Element.ElementName {_hero.Element.ElementName}");
         if (_hero != null)
             _portalElements.Find(x => x.ElementName == _hero.Element.ElementName).Portal.SetActive(true);
         else

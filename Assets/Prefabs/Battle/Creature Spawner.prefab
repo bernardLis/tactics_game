@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6240947752651108598}
   - component: {fileID: 6375703481576796825}
   m_Layer: 0
-  m_Name: Portal green
+  m_Name: Portal earth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4901,7 +4901,7 @@ GameObject:
   - component: {fileID: 5201128493894434478}
   - component: {fileID: 1855424573968065147}
   m_Layer: 0
-  m_Name: Portal red
+  m_Name: Portal fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34369,7 +34369,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.9511895, b: 0.43867922, a: 1}
+      maxColor: {r: 0.51212776, g: 0.21402632, b: 0.6792453, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -53555,7 +53555,7 @@ GameObject:
   - component: {fileID: 4672763019276370812}
   - component: {fileID: 7832970537389613974}
   m_Layer: 0
-  m_Name: Portal yellow
+  m_Name: Portal wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53769,7 +53769,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.9737498, b: 0.4009434, a: 1}
+      maxColor: {r: 0.97374094, g: 0.39999998, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -77841,7 +77841,7 @@ GameObject:
   - component: {fileID: 8528838771959874134}
   - component: {fileID: 5956699430114717329}
   m_Layer: 0
-  m_Name: Portal blue
+  m_Name: Portal water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92667,7 +92667,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 0.36470592, a: 1}
+      maxColor: {r: 0.64652383, g: 0.16575289, b: 0.9056604, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -97312,7 +97312,7 @@ Transform:
   m_Children:
   - {fileID: 8804641758311649894}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4923369291984236664
 MonoBehaviour:

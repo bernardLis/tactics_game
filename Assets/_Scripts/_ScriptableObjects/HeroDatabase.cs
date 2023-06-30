@@ -8,6 +8,7 @@ public class HeroDatabase : ScriptableObject
     public List<Creature> AllCreatures = new();
     public Creature GetRandomCreature() { return AllCreatures[Random.Range(0, AllCreatures.Count)]; }
     public Creature GetCreatureById(string id) { return AllCreatures.FirstOrDefault(x => x.Id == id); }
+    public Creature GetRandomCreatureByUpgradeTier(int tier) { return AllCreatures.FirstOrDefault(x => x.UpgradeTier == tier); }
 
     [SerializeField] StartingArmy[] StartingArmies;
     public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }

@@ -90,7 +90,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _currentAttackCooldown = 0;
         CurrentSpecialAbilityCooldown = 0;
 
-        _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
 
         _tooltipManager = BattleEntityTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
@@ -110,6 +109,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         OnEnemyKilled += creature.AddKill;
         OnDamageDealt += creature.AddDmgDealt;
         OnDamageTaken += creature.AddDmgTaken;
+
+        _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
+        _highlightDiamond.gameObject.SetActive(false);
 
         Collider = GetComponent<Collider>();
 

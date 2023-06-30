@@ -9,12 +9,6 @@ public class BattleHighlightDiamond : MonoBehaviour
     Material _mat;
     Vector3 _startPos;
 
-    void Start()
-    {
-        Disable();
-        _mat = GetComponentInChildren<MeshRenderer>().material;
-    }
-
     public void Enable(Color col)
     {
         if (gameObject.activeSelf) return;
@@ -22,6 +16,7 @@ public class BattleHighlightDiamond : MonoBehaviour
         _startPos = transform.position;
         gameObject.SetActive(true);
 
+        if (_mat == null) _mat = GetComponentInChildren<MeshRenderer>().material;
         _mat.color = col;
 
         float endY = transform.position.y + 0.5f;
