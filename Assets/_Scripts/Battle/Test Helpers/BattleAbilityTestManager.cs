@@ -46,7 +46,7 @@ public class BattleAbilityTestManager : MonoBehaviour
                 a.LevelUp();
         }
 
-        _battleManager.Initialize(_hero, null, null, null);
+        // HERE: creature spawning   _battleManager.Initialize(_hero, null, null, null);
         GameManager.Instance.ToggleTimer(true);
 
     }

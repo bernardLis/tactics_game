@@ -185,7 +185,7 @@ public class BattleEndManager : MonoBehaviour
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.SetDead();
         List<BattleEntity> emptyList = new();
-        be.Initialize(0, entityInstance, ref emptyList);
+        // HERE: creature spawning     be.InitializeBattle(0, entityInstance, ref emptyList);
         be.transform.DODynamicLookAt(_cam.transform.position, 0.5f, AxisConstraint.Y);
 
         return be;

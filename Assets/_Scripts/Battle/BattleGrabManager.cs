@@ -84,7 +84,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     void Update()
     {
-        if (_abilityManager.IsAbilitySelected) return;
+        if (!_wasInitialized) return;
+        if (_abilityManager != null || _abilityManager.IsAbilitySelected) return;
         if (_grabbedObject == null) return;
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -157,6 +158,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public bool IsGrabbingAllowed()
     {
+        if (!_wasInitialized) return false;
         if (_abilityManager.IsAbilitySelected) return false;
         if (_grabbedObject != null) return false;
         if (!IsGrabbingEnabled) return false;
@@ -166,6 +168,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public void OnPointerUp(InputAction.CallbackContext context)
     {
+        if (!_wasInitialized) return;
         if (this == null) return;
         if (_abilityManager.IsAbilitySelected) return;
         if (_grabbedObject == null) return;

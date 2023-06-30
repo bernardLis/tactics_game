@@ -38,7 +38,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
         if (_testSpecificTeams)
         {
-            _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);
+            // HERE: creature spawning _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);
             return;
         }
         if (_oneCreatureVsAll)
@@ -90,7 +90,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
         List<Creature> teamB = new();
         teamB.Add(_allCreatures[_currentGroupIndex]);
-        _battleManager.Initialize(null, null, _oneCreature, teamB);
+        // HERE: creature spawning   _battleManager.Initialize(null, null, _oneCreature, teamB);
         _currentGroupIndex++;
     }
 
@@ -124,7 +124,7 @@ public class BattleEntityTestManager : MonoBehaviour
         teamA.Add(_allCreatures[_currentGroupIndex]);
         List<Creature> teamB = new();
         teamB.Add(_allCreatures[_currentGroupIndex]);
-        _battleManager.Initialize(null, null, teamA, teamB);
+        // HERE: creature spawning    _battleManager.Initialize(null, null, teamA, teamB);
         _currentGroupIndex++;
     }
 
@@ -132,7 +132,7 @@ public class BattleEntityTestManager : MonoBehaviour
     {
         if (_testSpecificTeams)
         {
-            _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);
+            // HERE: creature spawning     _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);
             return;
         }
 

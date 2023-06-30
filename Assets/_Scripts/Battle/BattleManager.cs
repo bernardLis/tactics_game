@@ -11,8 +11,9 @@ public class BattleManager : Singleton<BattleManager>
 {
     GameManager _gameManager;
 
-    [SerializeField] GameObject _obstaclePrefab;
-    GameObject _obstacleInstance;
+    BattleGrabManager _battleGrabManager;
+    BattleHeroManager _battleHeroManager;
+    BattleAbilityManager _battleAbilityManager;
 
     [SerializeField] Sound _battleMusic;
     public Battle LoadedBattle { get; private set; }
@@ -35,12 +36,6 @@ public class BattleManager : Singleton<BattleManager>
     Hero _playerHero;
     Hero _opponentHero;
 
-    int _initialPlayerEntityCount;
-    int _initialOpponentEntityCount;
-
-    [SerializeField] GameObject _playerSpawnPoint;
-    [SerializeField] GameObject _enemySpawnPoint;
-
     public List<BattleEntity> PlayerEntities = new();
     public List<BattleEntity> OpponentEntities = new();
 
@@ -50,7 +45,7 @@ public class BattleManager : Singleton<BattleManager>
     [HideInInspector] public List<Pickup> CollectedPickups = new();
 
     public bool IsEndingBattleBlocked;
-    bool _battleFinalized = false;
+    public bool BattleFinalized { get; private set; }
 
     public event Action OnBattleFinalized;
 
@@ -59,7 +54,6 @@ public class BattleManager : Singleton<BattleManager>
         base.Awake();
 
         Root = GetComponent<UIDocument>().rootVisualElement;
-
         VisualElement bottomPanel = Root.Q<VisualElement>("bottomPanel");
     }
 
@@ -71,16 +65,21 @@ public class BattleManager : Singleton<BattleManager>
         _gameManager.SaveJsonData();
         LoadedBattle = _gameManager.SelectedBattle;
 
+        _battleGrabManager = GetComponent<BattleGrabManager>();
+        _battleHeroManager = GetComponent<BattleHeroManager>();
+        _battleAbilityManager = GetComponent<BattleAbilityManager>();
+
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
         _skyMat = RenderSettings.skybox;
         _initRot = _skyMat.GetFloat(_rotationProperty);
 
+        AudioManager.Instance.PlayMusic(_battleMusic);
+
 #if UNITY_EDITOR
         GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
 #endif
-        AudioManager.Instance.PlayMusic(_battleMusic);
     }
 
     void Update()
@@ -92,97 +91,48 @@ public class BattleManager : Singleton<BattleManager>
         _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
     }
 
-    public void Initialize(Hero playerHero, Hero opponentHero, List<Creature> playerArmy, List<Creature> opponentArmy)
+    public void Initialize(Hero playerHero, List<BattleEntity> playerArmy, List<BattleEntity> opponentArmy)
     {
-        PlaceObstacle();
-        _battleFinalized = false;
+        BattleFinalized = false;
 
-        GetComponent<BattleGrabManager>().Initialize();
+        _battleGrabManager.enabled = true;
+        _battleGrabManager.Initialize();
 
         if (playerHero != null)
         {
             _playerHero = playerHero;
-            GetComponent<BattleHeroManager>().Initialize(playerHero);
-            GetComponent<BattleAbilityManager>().Initialize(playerHero);
+
+            _battleHeroManager.enabled = true;
+            _battleHeroManager.Initialize(playerHero);
+
+            _battleAbilityManager.enabled = true;
+            _battleAbilityManager.Initialize(playerHero);
+        }
+        Debug.Log($"playerArmy.Count {playerArmy.Count}");
+        Debug.Log($"opponentArmy.Count {opponentArmy.Count}");
+
+        foreach (BattleEntity b in playerArmy)
+        {
+            b.InitializeBattle(0, ref OpponentEntities);
+            b.gameObject.layer = 10;
+            PlayerEntities.Add(b);
+            b.OnDeath += OnPlayerDeath;
         }
 
-        if (opponentHero != null) _opponentHero = opponentHero;
+        foreach (BattleEntity b in opponentArmy)
+        {
+            b.InitializeBattle(1, ref PlayerEntities);
+            b.gameObject.layer = 11;
+            OpponentEntities.Add(b);
+            b.OnDeath += OnOpponentDeath;
+        }
 
-        if (playerArmy == null) return;
-
-        foreach (Creature c in playerArmy)
-            InstantiatePlayer(c);
-        foreach (Creature c in opponentArmy)
-            InstantiateOpponent(c);
-
-        _initialPlayerEntityCount = PlayerEntities.Count;
-        _initialOpponentEntityCount = OpponentEntities.Count;
-
-        _scoreText.text = $"{_initialPlayerEntityCount} : {_initialOpponentEntityCount}";
+        _scoreText.text = $"{playerArmy.Count} : {opponentArmy.Count}";
 
         if (_gameManager == null) _gameManager = GameManager.Instance;
         _gameManager.ToggleTimer(true);
 
         GetComponent<BattleLogManager>().Initialize(PlayerEntities, OpponentEntities);
-    }
-
-    void PlaceObstacle()
-    {
-        if (_obstacleInstance != null)
-            Destroy(_obstacleInstance);
-
-        //   if (Random.value > 0.5f) return; // 50/50 there is going to be an obstacle
-
-        // between player and enemy
-        float posX = _playerSpawnPoint.transform.position.x + (_enemySpawnPoint.transform.position.x - _playerSpawnPoint.transform.position.x) / 2;
-        float posZ = _playerSpawnPoint.transform.position.z + (_enemySpawnPoint.transform.position.z - _playerSpawnPoint.transform.position.z) / 2;
-        Vector3 pos = new Vector3(posX, 1, posZ);
-
-        float sizeY = Random.Range(3, 10);
-        float sizeX = Random.Range(10, 30);
-        float sizeZ = Random.Range(1, 5);
-        Vector3 size = new Vector3(sizeX, sizeY, sizeZ);
-
-        Vector3 rot = new Vector3(0, Random.Range(-45, 45), 0);
-
-        _obstacleInstance = Instantiate(_obstaclePrefab, pos, Quaternion.identity);
-        _obstacleInstance.transform.localScale = size;
-        _obstacleInstance.transform.Rotate(rot);
-    }
-
-    public void InstantiatePlayer(Creature creature)
-    {
-        creature.InitializeBattle(_playerHero);
-
-        // Creature creatureInstance = Instantiate(creature);
-
-        Vector3 pos = _playerSpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-        GameObject instance = Instantiate(creature.Prefab, pos, Quaternion.identity);
-        instance.layer = 10;
-        instance.transform.parent = EntityHolder;
-        BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.Initialize(0, creature, ref OpponentEntities);
-        PlayerEntities.Add(be);
-        be.OnEnemyKilled += creature.AddKill;
-        be.OnDamageDealt += creature.AddDmgDealt;
-        be.OnDamageTaken += creature.AddDmgTaken;
-        be.OnDeath += OnPlayerDeath;
-    }
-
-    void InstantiateOpponent(Creature creature)
-    {
-        Creature entityInstance = Instantiate(creature);
-        creature.InitializeBattle(_opponentHero);
-
-        Vector3 pos = _enemySpawnPoint.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-        Quaternion rotation = Quaternion.Euler(0, 180, 0);
-        GameObject instance = Instantiate(creature.Prefab, pos, rotation);
-        instance.layer = 11;
-        instance.transform.parent = EntityHolder;
-        BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.Initialize(1, creature, ref PlayerEntities);
-        OpponentEntities.Add(be);
-        be.OnDeath += OnEnemyDeath;
     }
 
     void OnPlayerDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
@@ -195,7 +145,7 @@ public class BattleManager : Singleton<BattleManager>
             StartCoroutine(BattleLost());
     }
 
-    void OnEnemyDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
+    void OnOpponentDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
@@ -270,8 +220,8 @@ public class BattleManager : Singleton<BattleManager>
     {
         _gameManager.BattleNumber++; // TODO: hihihihihi
         // if entities die "at the same time" it triggers twice
-        if (_battleFinalized) yield break;
-        _battleFinalized = true;
+        if (BattleFinalized) yield break;
+        BattleFinalized = true;
 
         yield return new WaitForSeconds(3f);
 
@@ -282,8 +232,6 @@ public class BattleManager : Singleton<BattleManager>
 
     void ClearAllEntities()
     {
-        Destroy(_obstacleInstance);
-
         PlayerEntities.Clear();
         OpponentEntities.Clear();
         foreach (Transform child in EntityHolder.transform)

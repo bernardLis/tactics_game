@@ -232,11 +232,14 @@ public class Hero : BaseScriptableObject
         BaseSpeed.OnValueChanged += Speed.SetBaseValue;
     }
 
-    public void CreateFromHeroCreation(string name, HeroPortrait portrait, Element element)
+    public void CreateFromHeroCreation(string heroName, HeroPortrait portrait, Element element)
     {
         _gameManager = GameManager.Instance;
+
+        name = heroName;
         Id = Guid.NewGuid().ToString();
-        HeroName = name;
+
+        HeroName = heroName;
         Portrait = portrait;
         Element = element;
 
@@ -265,6 +268,7 @@ public class Hero : BaseScriptableObject
         Army = new();
         foreach (Creature c in _gameManager.HeroDatabase.GetStartingArmy(element).Creatures)
         {
+            Debug.Log($"creature in army {c.name}");
             Creature instance = Instantiate(c);
             Army.Add(instance);
         }

@@ -41,14 +41,17 @@ public class BattleCameraManager : MonoBehaviour
     Vector3 _horizontalVelocity;
     Vector3 _lastPosition;
 
+    bool _disableUpdate;
+
     void Awake()
     {
         _cameraTransform = GetComponentInChildren<Camera>().transform;
-        MoveCameraToDefaultPosition(new InputAction.CallbackContext());
     }
 
     void Update()
     {
+        if (_disableUpdate) return;
+
         GetKeyboardMovement();
         CheckMouseAtScreenEdge();
 
@@ -98,7 +101,7 @@ public class BattleCameraManager : MonoBehaviour
     {
         _playerInput.actions["RotateCamera"].performed -= RotateCamera;
         _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
-        _playerInput.actions["CameraDefaultPosition"].performed += MoveCameraToDefaultPosition;
+        _playerInput.actions["CameraDefaultPosition"].performed -= MoveCameraToDefaultPosition;
     }
 
     void UpdateVelocity()
@@ -206,6 +209,27 @@ public class BattleCameraManager : MonoBehaviour
         transform.DOMove(new Vector3(24f, 0f, -6f), 0.5f);
         transform.DORotate(new Vector3(30f, -90f, 0f), 0.5f);
         _zoomHeight = _defaultZoomHeight;
+    }
+
+    public void MoveCameraToDefaultPosition(float time)
+    {
+        if (this == null) return;
+
+        _disableUpdate = true;
+
+        transform.DOMove(new Vector3(24f, 0f, -6f), time);
+        transform.DORotate(new Vector3(30f, -90f, 0f), time);
+
+        _cameraTransform.DOLocalMoveY(_defaultZoomHeight, time)
+                .OnComplete(() =>
+                {
+                    Debug.Log($"camera complete");
+                    _zoomHeight = _cameraTransform.localPosition.y;
+                    _lastPosition = transform.position;
+
+                    _disableUpdate = false;
+                });
+
     }
 
     public void MoveCameraTo(Vector3 position, Vector3 rotation, float zoomHeight)

@@ -42,7 +42,7 @@ public class BattleEndTestManager : MonoBehaviour
         opp.CreateRandom(1);
         opp.Army = armyInstance;
 
-        _battleManager.Initialize(_hero, opp, _hero.Army, opp.Army);
+        // HERE: creature spawning   _battleManager.Initialize(_hero, opp, _hero.Army, opp.Army);
 
         for (int i = 0; i < 10; i++)
         {

@@ -13,6 +13,7 @@ using UnityEngine.EventSystems;
 public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     protected AudioManager _audioManager;
+    BattleManager _battleManager;
 
     BattleHighlightDiamond _highlightDiamond;
 
@@ -84,6 +85,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual void Start()
     {
+        _battleManager = BattleManager.Instance;
+
         _currentAttackCooldown = 0;
         CurrentSpecialAbilityCooldown = 0;
 
@@ -101,10 +104,12 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             CurrentSpecialAbilityCooldown -= Time.deltaTime;
     }
 
-    public virtual void Initialize(int team, Creature creature, ref List<BattleEntity> opponents)
+    public virtual void SpawnCreature(Creature creature)
     {
-        BattleId = team + "_" + creature.name + "_" + Helpers.GetRandomNumber(4);
-        name = BattleId;
+        Creature = creature;
+        OnEnemyKilled += creature.AddKill;
+        OnDamageDealt += creature.AddDmgDealt;
+        OnDamageTaken += creature.AddDmgTaken;
 
         Collider = GetComponent<Collider>();
 
@@ -115,7 +120,24 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _material.EnableKeyword("_EMISSION");
         _defaultEmissionColor = Color.black;
 
+        _agent = GetComponent<NavMeshAgent>();
+        _agent.stoppingDistance = Creature.AttackRange;
+        _agent.speed = Creature.Speed;
+
+        CurrentHealth = Creature.GetHealth();
+
+        if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
+        EntityLog.Add($"{Time.time}: Entity is spawned");
+    }
+
+    public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
+    {
         Team = team;
+        _opponentList = opponents;
+
+        BattleId = team + "_" + Creature.name + "_" + Helpers.GetRandomNumber(4);
+        name = BattleId;
+
         EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
         if (team == 1)
         {
@@ -125,25 +147,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             _material.SetFloat("_Metallic", 0.5f);
         }
 
-        Creature = creature;
-        CurrentHealth = creature.GetHealth();
-
-        _agent = GetComponent<NavMeshAgent>();
-        _agent.stoppingDistance = creature.AttackRange;
-        _agent.speed = creature.Speed;
-
-        _opponentList = opponents;
-
-        StartCoroutine(Spawn());
-    }
-
-    IEnumerator Spawn()
-    {
-        if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
-        // spawn animation
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
         StartRunEntityCoroutine();
-        EntityLog.Add($"{Time.time}: Entity is spawned");
     }
 
     public void StartRunEntityCoroutine()
@@ -169,10 +173,15 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if (IsDead) yield break;
 
-        if (_opponentList.Count == 0)
+        while (_opponentList.Count == 0)
         {
-            yield return Celebrate();
-            yield break;
+            if (IsDead) yield break;
+            if (_battleManager.BattleFinalized)
+            {
+                yield return Celebrate();
+                yield break;
+            }
+            yield return new WaitForSeconds(0.5f); // TODO: lag
         }
 
         if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)

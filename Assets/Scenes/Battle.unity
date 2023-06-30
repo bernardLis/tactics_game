@@ -1154,6 +1154,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1771743886305221010, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _obstaclePrefab
+      value: 
+      objectReference: {fileID: 5282784951654651465, guid: 3cdb7704dd19c474fa64d0fdb4765bfd, type: 3}
+    - target: {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _enemySpawnPoint
+      value: 
+      objectReference: {fileID: 1474169944}
+    - target: {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _playerSpawnPoint
+      value: 
+      objectReference: {fileID: 2116685829}
+    - target: {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _creatureSpawnerPrefab
+      value: 
+      objectReference: {fileID: 9175160785698911493, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
     - target: {fileID: 3855565697554977837, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _battleCanvas
       value: 
@@ -1206,6 +1226,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5119385659013104315, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _scoreText
       value: 
@@ -1248,6 +1272,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3042737103505245846, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5531196783287375938, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
       propertyPath: m_Name
       value: Camera Rig Base
@@ -1262,15 +1290,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5531196783287375941, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.06
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 5531196783287375941, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5531196783287375941, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 5531196783287375941, guid: cd04e4f37ac413a4fb7ffb0c9a57688c, type: 3}
       propertyPath: m_LocalRotation.w

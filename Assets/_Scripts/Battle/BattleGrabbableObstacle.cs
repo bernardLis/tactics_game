@@ -10,19 +10,21 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
 {
     BattleGrabManager _grabManager;
     bool _wasGrabbed;
+
+    Rigidbody _rb;
     MMF_Player _feelPlayer;
     Color _grabbedColor = new Color(0.875f, 0.32f, 0.28f, 1f); // reddish
 
-    int _secondsToBreak = 3;
+    int _secondsToBreak = 99999; // HERE: obstacle
     void Start()
     {
         _grabManager = BattleGrabManager.Instance;
+        _rb = GetComponent<Rigidbody>();
         _feelPlayer = GetComponent<MMF_Player>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-
         if (eventData.button != PointerEventData.InputButton.Left) return;
         if (_secondsToBreak <= 0)
         {
@@ -31,6 +33,7 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         }
         if (!_grabManager.IsGrabbingAllowed()) return;
 
+        _rb.isKinematic = true;
         _grabManager.TryGrabbing(gameObject);
 
         StartCoroutine(GrabBreaker());
@@ -39,6 +42,7 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
     public void Released()
     {
         StopAllCoroutines();
+        _rb.isKinematic = false;
         DisplayText("Released!", Color.red);
         DOTween.Kill("GrabbedColor");
     }
