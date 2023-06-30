@@ -85,14 +85,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual void Start()
     {
-        _battleManager = BattleManager.Instance;
-
-        _currentAttackCooldown = 0;
-        CurrentSpecialAbilityCooldown = 0;
-
-
-        _tooltipManager = BattleEntityTooltipManager.Instance;
-        _feelPlayer = GetComponent<MMF_Player>();
     }
 
     protected virtual void Update()
@@ -112,6 +104,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
         _highlightDiamond.gameObject.SetActive(false);
+
+        _feelPlayer = GetComponent<MMF_Player>();
 
         Collider = GetComponent<Collider>();
 
@@ -134,6 +128,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
     {
+        _battleManager = BattleManager.Instance;
+        _tooltipManager = BattleEntityTooltipManager.Instance;
+
         Team = team;
         _opponentList = opponents;
 
@@ -148,6 +145,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             _material.SetColor("_EmissionColor", _defaultEmissionColor);
             _material.SetFloat("_Metallic", 0.5f);
         }
+        
+        _currentAttackCooldown = 0;
+        CurrentSpecialAbilityCooldown = 0;
 
         StartRunEntityCoroutine();
     }

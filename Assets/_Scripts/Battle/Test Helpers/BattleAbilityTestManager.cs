@@ -63,7 +63,7 @@ public class BattleAbilityTestManager : MonoBehaviour
     {
         Creature creature = _gameManager.HeroDatabase.GetRandomCreatureByUpgradeTier(0);
 
-        Vector3 pos = Vector3.zero + new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
+        Vector3 pos = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
         GameObject instance = Instantiate(creature.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.SpawnCreature(creature);

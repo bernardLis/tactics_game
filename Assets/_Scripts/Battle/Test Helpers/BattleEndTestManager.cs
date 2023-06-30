@@ -10,6 +10,7 @@ public class BattleEndTestManager : MonoBehaviour
 {
     BattleManager _battleManager;
     Hero _hero;
+    Hero _opponent;
 
     [SerializeField] List<Creature> _army;
 
@@ -19,6 +20,16 @@ public class BattleEndTestManager : MonoBehaviour
     {
         _battleManager = BattleManager.Instance;
 
+        InstantiateHeroes();
+        InstantiatePickups();
+        InstantiateArmies();
+
+
+        Invoke("WinBattle", 1f);
+    }
+
+    void InstantiateHeroes()
+    {
         List<Creature> armyInstance = new();
         foreach (Creature c in _army)
         {
@@ -38,12 +49,13 @@ public class BattleEndTestManager : MonoBehaviour
             _hero.Abilities.Add(instance);
         }
 
-        Hero opp = ScriptableObject.CreateInstance<Hero>();
-        opp.CreateRandom(1);
-        opp.Army = armyInstance;
+        _opponent = ScriptableObject.CreateInstance<Hero>();
+        _opponent.CreateRandom(1);
+        _opponent.Army = armyInstance;
+    }
 
-        // HERE: creature spawning   _battleManager.Initialize(_hero, opp, _hero.Army, opp.Army);
-
+    void InstantiatePickups()
+    {
         for (int i = 0; i < 10; i++)
         {
             List<Pickup> ordered = new(_pickups.OrderBy(o => o.PickupChance).ToList());
@@ -61,8 +73,33 @@ public class BattleEndTestManager : MonoBehaviour
                 roll -= p.PickupChance;
             }
         }
+    }
 
-        Invoke("WinBattle", 1f);
+    void InstantiateArmies()
+    {
+        List<BattleEntity> heroArmy = new();
+        List<BattleEntity> opponentArmy = new();
+
+        foreach (Creature c in _hero.Army)
+        {
+            Vector3 pos = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
+            GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
+            BattleEntity be = instance.GetComponent<BattleEntity>();
+            be.SpawnCreature(c);
+            heroArmy.Add(be);
+        }
+
+        foreach (Creature c in _hero.Army)
+        {
+            Vector3 pos = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f))
+                    + new Vector3(10f, 0f, 10f);
+            GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
+            BattleEntity be = instance.GetComponent<BattleEntity>();
+            be.SpawnCreature(c);
+            opponentArmy.Add(be);
+        }
+
+        _battleManager.Initialize(_hero, heroArmy, opponentArmy);
     }
 
     void WinBattle()
