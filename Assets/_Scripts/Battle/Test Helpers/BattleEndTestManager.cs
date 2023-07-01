@@ -85,7 +85,7 @@ public class BattleEndTestManager : MonoBehaviour
             Vector3 pos = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
             GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.SpawnCreature(c);
+            be.InitializeCreature(c);
             heroArmy.Add(be);
         }
 
@@ -95,7 +95,7 @@ public class BattleEndTestManager : MonoBehaviour
                     + new Vector3(10f, 0f, 10f);
             GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.SpawnCreature(c);
+            be.InitializeCreature(c);
             opponentArmy.Add(be);
         }
 

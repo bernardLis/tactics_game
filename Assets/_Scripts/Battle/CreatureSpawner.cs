@@ -56,7 +56,7 @@ public class CreatureSpawner : MonoBehaviour
         Vector3 pos = transform.position;
         GameObject instance = Instantiate(creature.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.SpawnCreature(creature);
+        be.InitializeCreature(creature);
         SpawnedEntities.Add(be);
 
         Vector3 jumpPos = pos + transform.forward * 2f + Vector3.up + Vector3.left * Random.Range(-2, 2);

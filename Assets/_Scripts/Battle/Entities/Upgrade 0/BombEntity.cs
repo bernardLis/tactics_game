@@ -19,11 +19,9 @@ public class BombEntity : BattleEntityRanged
         _isExploding = true;
         EntityLog.Add($"{Time.time}: Entity is exploding.");
         if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
-        Debug.Log($"before animation");
 
         Animator.SetTrigger("Special Attack");
         //  yield return new WaitForSeconds(0.2f);
-        Debug.Log($"after animation");
 
         _explosionEffectInstance = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         _explosionEffectInstance.transform.parent = _GFX.transform;

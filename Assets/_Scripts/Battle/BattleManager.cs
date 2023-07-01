@@ -239,7 +239,7 @@ public class BattleManager : Singleton<BattleManager>
         OnBattleFinalized?.Invoke();
     }
 
-    void ClearAllEntities()
+    public void ClearAllEntities()
     {
         PlayerEntities.Clear();
         OpponentEntities.Clear();

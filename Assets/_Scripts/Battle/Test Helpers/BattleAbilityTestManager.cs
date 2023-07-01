@@ -77,7 +77,7 @@ public class BattleAbilityTestManager : MonoBehaviour
         Vector3 pos = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
         GameObject instance = Instantiate(creature.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.SpawnCreature(creature);
+        be.InitializeCreature(creature);
         be.OnDeath += (a, b, c) => StartCoroutine(SpawnCreature());
         be.OnDeath += (a, b, c) => Destroy(be.gameObject, 2f);
         yield return new WaitForSeconds(0.1f);

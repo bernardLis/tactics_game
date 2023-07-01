@@ -37,6 +37,7 @@ public class Projectile : MonoBehaviour
         Vector3 startingPos = transform.position;
         Vector3 finalPos = target.Collider.bounds.center;
         Vector3 dir = (finalPos - startingPos).normalized;
+        //  dir.y = 0;
         Vector3 destination = startingPos + dir * shooter.Creature.AttackRange;
         float t = 0;
         float step = (_speed / (startingPos - finalPos).magnitude) * Time.fixedDeltaTime;

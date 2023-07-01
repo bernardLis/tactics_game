@@ -95,7 +95,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             CurrentSpecialAbilityCooldown -= Time.deltaTime;
     }
 
-    public virtual void SpawnCreature(Creature creature)
+    public virtual void InitializeCreature(Creature creature)
     {
         Creature = creature;
         OnEnemyKilled += creature.AddKill;
