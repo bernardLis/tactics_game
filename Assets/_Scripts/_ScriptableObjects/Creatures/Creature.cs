@@ -55,9 +55,9 @@ public class Creature : BaseScriptableObject
     }
 
     // TODO: math
-    public int GetHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * (1 - Level)); }
+    public int GetHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * (Level - 1)); }
 
-    public int GetPower() { return Mathf.RoundToInt(BasePower + 0.1f * BasePower * (1 - Level)); }
+    public int GetPower() { return Mathf.RoundToInt(BasePower + 0.1f * BasePower * (Level - 1)); }
 
     public void AddKill(int ignored) { TotalKillCount++; }
     public void AddDmgDealt(int dmg) { TotalDamageDealt += dmg; }

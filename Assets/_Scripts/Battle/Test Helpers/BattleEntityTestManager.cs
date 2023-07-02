@@ -47,38 +47,6 @@ public class BattleEntityTestManager : MonoBehaviour
         _currentAllCreaturesIndex = -1;
 
         ResolveTestType();
-
-
-        /*
-        else
-        {
-            _allCreatures.AddRange(_battleManager.CreatureDatabase.GetAllCreatures());
-        }
-
-        if (_testSpecificTeams)
-        {
-            // HERE: creature spawning _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);
-            return;
-        }
-
-        if (_oneCreatureVsAll)
-        {
-            RunOneArmyVsAll();
-            return;
-        }
-
-        if (_fullOneVOnes)
-        {
-            _oneCreatureVsAll = true;
-            _oneCreature = null;
-            _oneCreature = new();
-            _oneCreature.Add(_allCreatures[0]);
-            RunOneArmyVsAll();
-            return;
-        }
-
-        RunAllGroups();
-        */
     }
 
     void ResolveTestType()
@@ -201,98 +169,6 @@ public class BattleEntityTestManager : MonoBehaviour
             ResolveTestType();
         }
     }
-
-
-
-
-    /*
-        void RunOneArmyVsAll()
-        {
-            Debug.Log($"Running test index: {_currentGroupIndex}");
-
-            if (_currentGroupIndex > 0)
-            {
-                if (_battleManager.LoadedBattle.Won)
-                    _defeatedCreatures.Add(_allCreatures[_currentGroupIndex - 1]);
-                else
-                    _lostToCreatures.Add(_allCreatures[_currentGroupIndex - 1]);
-                _battleManager.LoadedBattle.Won = false;
-            }
-
-            if (_currentGroupIndex == _allCreatures.Count)
-            {
-                Debug.Log("Test finished");
-
-                string s = $"{_allCreatures[0].name} defeated: ";
-                foreach (Creature entity in _defeatedCreatures)
-                    s += $"{entity.name}, ";
-                s += "\n";
-                s += $"Lost to: ";
-                foreach (Creature entity in _lostToCreatures)
-                    s += $"{entity.name}, ";
-                Debug.Log($"{s}");
-                EndOfOneArmyVsAll();
-                return;
-            }
-
-            List<Creature> teamB = new();
-            teamB.Add(_allCreatures[_currentGroupIndex]);
-            // HERE: creature spawning   _battleManager.Initialize(null, null, _oneCreature, teamB);
-            _currentGroupIndex++;
-        }
-
-        void EndOfOneArmyVsAll()
-        {
-            if (!_fullOneVOnes) return;
-            _currentOneVOneIndex++;
-            if (_currentOneVOneIndex == _allCreatures.Count)
-            {
-                Debug.Log("Full 1v1 finished");
-                return;
-            }
-            _defeatedCreatures.Clear();
-            _lostToCreatures.Clear();
-            _currentGroupIndex = 0;
-            _oneCreature.Clear();
-            _oneCreature.Add(_allCreatures[_currentOneVOneIndex]);
-            RunOneArmyVsAll();
-        }
-
-        void RunAllGroups()
-        {
-            Debug.Log($"Running test index: {_currentGroupIndex}");
-            if (_currentGroupIndex == _allCreatures.Count)
-            {
-                Debug.Log("Test finished");
-                return;
-            }
-
-            List<Creature> teamA = new();
-            teamA.Add(_allCreatures[_currentGroupIndex]);
-            List<Creature> teamB = new();
-            teamB.Add(_allCreatures[_currentGroupIndex]);
-            // HERE: creature spawning    _battleManager.Initialize(null, null, teamA, teamB);
-            _currentGroupIndex++;
-        }
-
-        void OnBattleFinalized()
-        {
-            if (_testSpecificTeams)
-            {
-                // HERE: creature spawning     _battleManager.Initialize(null, null, TeamACreatures, TeamBCreatures);
-                return;
-            }
-
-            if (_oneCreatureVsAll)
-            {
-                RunOneArmyVsAll();
-                return;
-            }
-
-            RunAllGroups();
-        }
-
-    */
 }
 
 

@@ -15,7 +15,7 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
     MMF_Player _feelPlayer;
     Color _grabbedColor = new Color(0.875f, 0.32f, 0.28f, 1f); // reddish
 
-    int _secondsToBreak = 99999; // HERE: obstacle
+    int _secondsToBreak = 5;
     void Start()
     {
         _grabManager = BattleGrabManager.Instance;
@@ -71,5 +71,4 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         Vector3 pos = transform.position + new Vector3(0, transform.localScale.y * 0.8f, 0);
         _feelPlayer.PlayFeedbacks(pos);
     }
-
 }
