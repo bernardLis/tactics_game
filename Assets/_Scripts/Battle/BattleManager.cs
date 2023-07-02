@@ -69,8 +69,6 @@ public class BattleManager : Singleton<BattleManager>
         _battleHeroManager = GetComponent<BattleHeroManager>();
         _battleAbilityManager = GetComponent<BattleAbilityManager>();
 
-        UpdateEntityCount();
-
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
@@ -95,6 +93,8 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Initialize(Hero playerHero, List<BattleEntity> playerArmy, List<BattleEntity> opponentArmy)
     {
+        _scoreText.text = $"{playerArmy.Count} : {opponentArmy.Count}";
+     
         BattleFinalized = false;
 
         _battleGrabManager.enabled = true;
@@ -117,7 +117,6 @@ public class BattleManager : Singleton<BattleManager>
         foreach (BattleEntity b in opponentArmy)
             AddOpponentArmyEntity(b);
 
-
         if (_gameManager == null) _gameManager = GameManager.Instance;
         _gameManager.ToggleTimer(true);
 
@@ -132,8 +131,6 @@ public class BattleManager : Singleton<BattleManager>
         b.gameObject.layer = 10;
         PlayerEntities.Add(b);
         b.OnDeath += OnPlayerDeath;
-
-        UpdateEntityCount();
     }
 
     public void AddOpponentArmyEntity(BattleEntity b)
@@ -144,11 +141,9 @@ public class BattleManager : Singleton<BattleManager>
         b.gameObject.layer = 11;
         OpponentEntities.Add(b);
         b.OnDeath += OnOpponentDeath;
-
-        UpdateEntityCount();
     }
 
-    void UpdateEntityCount()
+    public void UpdateEntityCount()
     {
         _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
     }

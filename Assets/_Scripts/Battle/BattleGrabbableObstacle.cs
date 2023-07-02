@@ -33,7 +33,6 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         }
         if (!_grabManager.IsGrabbingAllowed()) return;
 
-        _rb.isKinematic = true;
         _grabManager.TryGrabbing(gameObject);
 
         StartCoroutine(GrabBreaker());
@@ -70,5 +69,15 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         floatingText.AnimateColorGradient = Helpers.GetGradient(color);
         Vector3 pos = transform.position + new Vector3(0, transform.localScale.y * 0.8f, 0);
         _feelPlayer.PlayFeedbacks(pos);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log($"collision {collision.gameObject.name}");
+        // HERE: don't do this
+        if (collision.gameObject.layer == Tags.BattleFloorLayer)
+            _rb.isKinematic = true;
+
+
     }
 }

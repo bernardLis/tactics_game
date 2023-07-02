@@ -6,6 +6,12 @@ public static class Tags
         private set { }
     }
     
+    public static int BattleFloorLayer
+    {
+        get { return 6; }
+        private set { }
+    }
+
     public static int BattleObstacleLayer
     {
         get { return 3; }
