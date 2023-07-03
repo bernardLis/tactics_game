@@ -8,18 +8,21 @@ using MoreMountains.Feedbacks;
 
 public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
 {
+    [SerializeField] GameObject _dustParticlePrefab;
     BattleGrabManager _grabManager;
     bool _wasGrabbed;
 
     Rigidbody _rb;
+    Collider _collider;
     MMF_Player _feelPlayer;
     Color _grabbedColor = new Color(0.875f, 0.32f, 0.28f, 1f); // reddish
 
-    int _secondsToBreak = 5;
+    int _secondsToBreak = 9999;
     void Start()
     {
         _grabManager = BattleGrabManager.Instance;
         _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
         _feelPlayer = GetComponent<MMF_Player>();
     }
 
@@ -73,11 +76,27 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"collision {collision.gameObject.name}");
-        // HERE: don't do this
         if (collision.gameObject.layer == Tags.BattleFloorLayer)
-            _rb.isKinematic = true;
+            FloorCollision();
 
 
+    }
+
+    void FloorCollision()
+    {
+        _rb.isKinematic = true;
+
+        float particleObjectCount = Random.Range(2, 6);
+        for (int i = 0; i < particleObjectCount; i++)
+            SpawnDustParticle();
+
+    }
+    void SpawnDustParticle()
+    {
+        Vector3 pos = new(Random.Range(_collider.bounds.min.x, _collider.bounds.max.x), 0.5f,
+                Random.Range(_collider.bounds.min.z, _collider.bounds.max.z));
+        Vector3 rotation = new Vector3(-90, 0, 0);
+        GameObject dust = Instantiate(_dustParticlePrefab, pos, Quaternion.Euler(rotation));
+        dust.SetActive(true);
     }
 }

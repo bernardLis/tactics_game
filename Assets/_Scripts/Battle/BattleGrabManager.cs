@@ -92,7 +92,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
         {
-            Vector3 pos = new Vector3(hit.point.x, _grabbedObject.transform.position.y, hit.point.z);
+            // HERE: obstacle _grabbedObject.transform.position.y
+            Vector3 pos = new Vector3(hit.point.x, 4, hit.point.z);
             _grabbedObject.transform.position = pos;
         }
     }

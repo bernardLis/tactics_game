@@ -65,10 +65,6 @@ public class BattleManager : Singleton<BattleManager>
         _gameManager.SaveJsonData();
         LoadedBattle = _gameManager.SelectedBattle;
 
-        _battleGrabManager = GetComponent<BattleGrabManager>();
-        _battleHeroManager = GetComponent<BattleHeroManager>();
-        _battleAbilityManager = GetComponent<BattleAbilityManager>();
-
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         _rotationProperty = Shader.PropertyToID("_Rotation");
@@ -94,9 +90,10 @@ public class BattleManager : Singleton<BattleManager>
     public void Initialize(Hero playerHero, List<BattleEntity> playerArmy, List<BattleEntity> opponentArmy)
     {
         _scoreText.text = $"{playerArmy.Count} : {opponentArmy.Count}";
-     
+
         BattleFinalized = false;
 
+        _battleGrabManager = GetComponent<BattleGrabManager>();
         _battleGrabManager.enabled = true;
         _battleGrabManager.Initialize();
 
@@ -104,9 +101,11 @@ public class BattleManager : Singleton<BattleManager>
         {
             _playerHero = playerHero;
 
+            _battleHeroManager = GetComponent<BattleHeroManager>();
             _battleHeroManager.enabled = true;
             _battleHeroManager.Initialize(playerHero);
 
+            _battleAbilityManager = GetComponent<BattleAbilityManager>();
             _battleAbilityManager.enabled = true;
             _battleAbilityManager.Initialize(playerHero);
         }
