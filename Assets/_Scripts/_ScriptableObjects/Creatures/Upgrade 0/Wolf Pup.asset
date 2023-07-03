@@ -108,7 +108,7 @@ MonoBehaviour:
   OldKillCount: 0
   TotalKillCount: 0
   OldDamageDealt: 0
-  TotalDamageDealt: 0
+  TotalDamageDealt: 45
   OldDamageTaken: 0
   TotalDamageTaken: 0
   Hero: {fileID: 0}

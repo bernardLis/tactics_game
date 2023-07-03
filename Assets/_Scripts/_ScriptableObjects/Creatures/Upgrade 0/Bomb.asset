@@ -107,5 +107,5 @@ MonoBehaviour:
   OldDamageDealt: 3795
   TotalDamageDealt: 4260
   OldDamageTaken: 1400
-  TotalDamageTaken: 1850
+  TotalDamageTaken: 1895
   Hero: {fileID: 0}

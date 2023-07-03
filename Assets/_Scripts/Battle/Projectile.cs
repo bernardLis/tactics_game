@@ -33,19 +33,22 @@ public class Projectile : MonoBehaviour
         transform.localScale = transform.localScale * 0.5f;
         transform.DOScale(targetScale, 1f);
         transform.LookAt(target.transform);
-        //https://gamedev.stackexchange.com/questions/100535/coroutine-to-move-to-position-passing-the-movement-speed
+
         Vector3 startingPos = transform.position;
+
         Vector3 finalPos = target.Collider.bounds.center;
+
         Vector3 dir = (finalPos - startingPos).normalized;
-        //  dir.y = 0;
         Vector3 destination = startingPos + dir * shooter.Creature.AttackRange;
+
         float t = 0;
-        float step = (_speed / (startingPos - finalPos).magnitude) * Time.fixedDeltaTime;
+        float step = (_speed / _shooter.Creature.AttackRange) * Time.fixedDeltaTime;
 
         while (t <= 1.0f)
         {
             t += step;
-            transform.position = Vector3.Lerp(startingPos, destination, t);
+            Vector3 newPos = Vector3.Lerp(startingPos, destination, t);
+            transform.position = newPos;
             yield return new WaitForFixedUpdate();
         }
 

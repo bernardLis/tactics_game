@@ -1274,7 +1274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _testType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _fullOneVOnes
@@ -1322,7 +1322,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _teamACreatures.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _teamBCreatures.Array.size
@@ -1379,7 +1379,7 @@ PrefabInstance:
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _teamACreatures.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
+      objectReference: {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _teamACreatures.Array.data[1]
       value: 
@@ -1395,7 +1395,7 @@ PrefabInstance:
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _teamBCreatures.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
+      objectReference: {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
     - target: {fileID: 5553388727352441539, guid: 2c77c3b6a8f5549409ce8f4a4177d988, type: 3}
       propertyPath: _teamBCreatures.Array.data[1]
       value: 
