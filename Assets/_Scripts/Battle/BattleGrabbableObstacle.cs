@@ -15,15 +15,26 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
     Rigidbody _rb;
     Collider _collider;
     MMF_Player _feelPlayer;
-    Color _grabbedColor = new Color(0.875f, 0.32f, 0.28f, 1f); // reddish
+    Material _material;
 
-    int _secondsToBreak = 9999;
+    Color _defaultColor;
+    Color _endColor = new Color(0.875f, 0.32f, 0.28f, 1f); // reddish
+
+    int _maxGrabbingTime = 5;
+    int _secondsToBreak;
+
+    IEnumerator _cooldownCoroutine;
+
     void Start()
     {
+
+        _secondsToBreak = _maxGrabbingTime;
         _grabManager = BattleGrabManager.Instance;
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         _feelPlayer = GetComponent<MMF_Player>();
+        _material = GetComponent<Renderer>().material;
+        _defaultColor = _material.color;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -35,7 +46,7 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
             return;
         }
         if (!_grabManager.IsGrabbingAllowed()) return;
-
+        if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
         _grabManager.TryGrabbing(gameObject);
 
         StartCoroutine(GrabBreaker());
@@ -46,13 +57,29 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         StopAllCoroutines();
         _rb.isKinematic = false;
         DisplayText("Released!", Color.red);
-        DOTween.Kill("GrabbedColor");
+        DOTween.Kill("Color");
+
+        _cooldownCoroutine = Cooldown();
+        StartCoroutine(_cooldownCoroutine);
+    }
+
+    IEnumerator Cooldown()
+    {
+        float time = (_maxGrabbingTime - _secondsToBreak) * 10f;
+
+        _material.DOColor(_defaultColor, time).SetId("Color");
+
+        while (_secondsToBreak < _maxGrabbingTime)
+        {
+            _secondsToBreak++;
+            yield return new WaitForSeconds(10f);
+        }
     }
 
     IEnumerator GrabBreaker()
     {
-        Material mat = GetComponent<Renderer>().material;
-        mat.DOColor(_grabbedColor, _secondsToBreak).SetId("GrabbedColor");
+        DOTween.Kill("Color");
+        _material.DOColor(_endColor, _secondsToBreak).SetId("Color");
 
         for (int i = _secondsToBreak; i > 0; i--)
         {
@@ -78,8 +105,6 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
     {
         if (collision.gameObject.layer == Tags.BattleFloorLayer)
             FloorCollision();
-
-
     }
 
     void FloorCollision()

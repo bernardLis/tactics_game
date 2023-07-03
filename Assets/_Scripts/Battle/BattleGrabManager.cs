@@ -27,6 +27,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     public bool IsGrabbingEnabled { get; private set; }
 
     GameObject _grabbedObject;
+    float _objectYPosition;
     int _floorLayerMask;
 
     bool _wasInitialized;
@@ -82,22 +83,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         IsGrabbingEnabled = false;
     }
 
-    void Update()
-    {
-        if (!_wasInitialized) return;
-        if (_abilityManager.IsAbilitySelected) return;
-        if (_grabbedObject == null) return;
-
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
-        {
-            // HERE: obstacle _grabbedObject.transform.position.y
-            Vector3 pos = new Vector3(hit.point.x, 4, hit.point.z);
-            _grabbedObject.transform.position = pos;
-        }
-    }
-
     /* INPUT */
     void OnEnable()
     {
@@ -141,20 +126,39 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     public void TryGrabbing(BattleEntity entity)
     {
         if (!IsGrabbingAllowed()) return;
-
+        _objectYPosition = entity.transform.position.y;
         _audioManager.PlaySFX("Grab", entity.transform.position);
         Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
         _grabbedObject = entity.gameObject;
         entity.Grabbed();
+
+        StartCoroutine(UpdateGrabbedObjectPosition());
     }
 
     public void TryGrabbing(GameObject obj)
     {
         if (!IsGrabbingAllowed()) return;
-
+        _objectYPosition = 4f;
         _audioManager.PlaySFX("Grab", obj.transform.position);
         Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
         _grabbedObject = obj;
+
+        StartCoroutine(UpdateGrabbedObjectPosition());
+    }
+
+    IEnumerator UpdateGrabbedObjectPosition()
+    {
+        while (_grabbedObject != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
+            {
+                Vector3 pos = new Vector3(hit.point.x, _objectYPosition, hit.point.z);
+                _grabbedObject.transform.position = pos;
+            }
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     public bool IsGrabbingAllowed()
@@ -184,6 +188,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
             obstacle.Released();
 
         _grabbedObject = null;
+        StopAllCoroutines();
     }
 
     public void CancelGrabbing()
