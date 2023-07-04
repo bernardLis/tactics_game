@@ -54,6 +54,18 @@ public class Creature : BaseScriptableObject
         if (hero != null) Hero = hero;
     }
 
+    public void RandomizedEnemy(int level)
+    {
+        HeroDatabase heroDatabase = GameManager.Instance.HeroDatabase;
+        Level = level;
+        Element = heroDatabase.GetRandomElement();
+        HitPrefab = heroDatabase.GetElementalHitPrefab(Element);
+        GameObject prefabInstance = Instantiate(Prefab);
+        Material mat = prefabInstance.GetComponentInChildren<Renderer>().material;
+        mat.EnableKeyword("_EMISSION");
+        mat.SetColor("_EmissionColor", Element.Color);
+    }
+
     // TODO: math
     public int GetHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * (Level - 1)); }
 

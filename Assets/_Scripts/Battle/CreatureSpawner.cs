@@ -7,9 +7,8 @@ using Random = UnityEngine.Random;
 
 public class CreatureSpawner : MonoBehaviour
 {
-    BattleManager _battleManager;
-
     Hero _hero;
+    Element _portalElement;
     List<Creature> _creatures = new();
     [SerializeField] List<PortalElement> _portalElements = new();
     [SerializeField] GameObject _blackPortal;
@@ -18,16 +17,24 @@ public class CreatureSpawner : MonoBehaviour
 
     public List<BattleEntity> SpawnedEntities = new();
 
-    public event Action OnSpawnComplete;
+    public event Action<List<BattleEntity>> OnSpawnComplete;
     public void SpawnHeroArmy(Hero hero, float duration = 2f)
     {
+        Debug.Log($"hero {hero}");
+        Debug.Log($"hero.Army {hero.Army}");
+
         SpawnCreatures(hero.Army, hero, duration);
     }
 
-    public void SpawnCreatures(List<Creature> creatures, Hero hero = null, float duration = 2f)
+    public void SpawnCreatures(List<Creature> creatures, Hero hero = null,
+                        float duration = 2f, Element portalElement = null)
     {
         _creatures = creatures;
+
         _hero = hero;
+        if (_hero != null) _portalElement = _hero.Element;
+        else _portalElement = portalElement;
+
         _delay = duration / _creatures.Count;
 
         StartCoroutine(SpawnShow());
@@ -35,7 +42,7 @@ public class CreatureSpawner : MonoBehaviour
 
     IEnumerator SpawnShow()
     {
-        if (_hero != null)
+        if (_portalElement != null)
             _portalElements.Find(x => x.ElementName == _hero.Element.ElementName).Portal.SetActive(true);
         else
             _blackPortal.SetActive(true);
@@ -46,7 +53,7 @@ public class CreatureSpawner : MonoBehaviour
             yield return new WaitForSeconds(_delay);
         }
 
-        OnSpawnComplete?.Invoke();
+        OnSpawnComplete?.Invoke(SpawnedEntities);
     }
 
     void SpawnCreature(Creature creature)
@@ -61,6 +68,12 @@ public class CreatureSpawner : MonoBehaviour
 
         Vector3 jumpPos = pos + transform.forward * 2f + Vector3.up + Vector3.left * Random.Range(-2, 2);
         instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
+    }
+
+    public void DestroySelf()
+    {
+        transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
+        Destroy(gameObject, 1f);
     }
 }
 

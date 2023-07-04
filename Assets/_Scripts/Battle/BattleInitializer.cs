@@ -24,6 +24,9 @@ public class BattleInitializer : MonoBehaviour
     Hero _playerHero;
     Hero _opponentHero;
 
+    List<BattleEntity> _playerArmy = new();
+    List<BattleEntity> _opponentArmy = new();
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -36,8 +39,19 @@ public class BattleInitializer : MonoBehaviour
         _battleCameraManager = Camera.main.GetComponentInParent<BattleCameraManager>();
 
         _playerHero = _gameManager.PlayerHero;
-        _opponentHero = _gameManager.SelectedBattle.Opponent;
 
+        // HERE: waves
+        if (_playerHero == null)
+        {
+            _playerHero = ScriptableObject.CreateInstance<Hero>();
+            _playerHero.CreateRandom(1);
+            _playerHero.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_playerHero.Element).Creatures);
+        }
+
+        _opponentHero = _gameManager.SelectedBattle.Opponent;
+        // HERE: waves
+        _opponentHero = null;
+        
         StartCoroutine(BattleStartShow());
     }
 
@@ -54,34 +68,41 @@ public class BattleInitializer : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        InitializePlayerArmy();
+        if (_opponentHero != null) InitializeOpponentArmy();
+
+        yield return new WaitForSeconds(2f);
+
+        _battleInputManager.enabled = true;
+
+        _battleManager.Initialize(_playerHero, _playerArmy, _opponentArmy);
+    }
+
+    void InitializePlayerArmy()
+    {
         GameObject playerSpawnerInstance = Instantiate(_creatureSpawnerPrefab, _playerSpawnPoint.position,
                 Quaternion.identity);
         CreatureSpawner playerSpawner = playerSpawnerInstance.GetComponent<CreatureSpawner>();
         playerSpawner.SpawnHeroArmy(_playerHero, 1.5f);
+        playerSpawner.OnSpawnComplete += (list) =>
+        {
+            _playerArmy = new(list);
+            playerSpawner.DestroySelf();
+        };
+    }
 
+    void InitializeOpponentArmy()
+    {
         Vector3 oppPortalRotation = new(0, 180, 0);
         GameObject opponentSpawnerInstance = Instantiate(_creatureSpawnerPrefab, _enemySpawnPoint.position,
                  Quaternion.Euler(oppPortalRotation));
         CreatureSpawner opponentSpawner = opponentSpawnerInstance.GetComponent<CreatureSpawner>();
         opponentSpawner.SpawnHeroArmy(_opponentHero, 1.5f);
-
-        yield return new WaitForSeconds(2f);
-
-        List<BattleEntity> playerArmy = new(playerSpawner.SpawnedEntities);
-        List<BattleEntity> opponentArmy = new(opponentSpawner.SpawnedEntities);
-
-        playerSpawnerInstance.transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
-        opponentSpawnerInstance.transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
-
-        yield return new WaitForSeconds(1f);
-
-        Destroy(playerSpawnerInstance);
-        Destroy(opponentSpawnerInstance);
-
-        _battleInputManager.enabled = true;
-
-        _battleManager.Initialize(_playerHero, playerArmy, opponentArmy);
-        yield return null;
+        opponentSpawner.OnSpawnComplete += (list) =>
+        {
+            _opponentArmy = new(list);
+            opponentSpawner.DestroySelf();
+        };
 
     }
 

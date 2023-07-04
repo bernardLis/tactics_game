@@ -51,6 +51,16 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
     - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
     - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
+  MeleeEnemy: {fileID: 11400000, guid: 54e6a991d1dc09d41838de32398f26c2, type: 2}
+  ElementalHitPrefabs:
+  - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+    Prefab: {fileID: 687239542062312524, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
+  - Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+    Prefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
+  - Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+    Prefab: {fileID: 2048183971171318672, guid: 8e20ede2f4ef4794a9fa2caad04a5ef3, type: 3}
+  - Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+    Prefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
   Abilities:
   - {fileID: 11400000, guid: 3d3663f58cc3d42418937cd90d26e3bd, type: 2}
   - {fileID: 11400000, guid: f5309cd13d284b7479f49fa99df8d14a, type: 2}

@@ -47,6 +47,7 @@ public class BattleManager : Singleton<BattleManager>
     public bool BlockBattleEnd;
     public bool BattleFinalized { get; private set; }
 
+    public event Action OnBattleInitialized;
     public event Action OnBattleFinalized;
 
     protected override void Awake()
@@ -120,6 +121,7 @@ public class BattleManager : Singleton<BattleManager>
         _gameManager.ToggleTimer(true);
 
         GetComponent<BattleLogManager>().Initialize(PlayerEntities, OpponentEntities);
+        OnBattleInitialized?.Invoke();
     }
 
     public void AddPlayerArmyEntity(BattleEntity b)
@@ -130,6 +132,12 @@ public class BattleManager : Singleton<BattleManager>
         b.gameObject.layer = 10;
         PlayerEntities.Add(b);
         b.OnDeath += OnPlayerDeath;
+    }
+
+    public void AddOpponentArmyEntities(List<BattleEntity> list)
+    {
+        foreach (BattleEntity b in list)
+            AddOpponentArmyEntity(b);
     }
 
     public void AddOpponentArmyEntity(BattleEntity b)

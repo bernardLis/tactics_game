@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 public class HeroDatabase : ScriptableObject
 {
-    [Header("Heroes")]
+    [Header("Creatures")]
     public List<Creature> AllCreatures = new();
     public Creature GetRandomCreature() { return AllCreatures[Random.Range(0, AllCreatures.Count)]; }
     public Creature GetCreatureById(string id) { return AllCreatures.FirstOrDefault(x => x.Id == id); }
@@ -18,6 +18,7 @@ public class HeroDatabase : ScriptableObject
         return creatures[Random.Range(0, creatures.Count)];
     }
 
+
     [SerializeField] StartingArmy[] StartingArmies;
     public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }
     [System.Serializable]
@@ -26,6 +27,21 @@ public class HeroDatabase : ScriptableObject
         public Element Element;
         public List<Creature> Creatures;
     }
+
+    public Creature MeleeEnemy;
+
+    [SerializeField] ElementalHitPrefab[] ElementalHitPrefabs;
+    public GameObject GetElementalHitPrefab(Element element) { return ElementalHitPrefabs.FirstOrDefault(x => x.Element == element).Prefab; }
+
+    [System.Serializable]
+    public struct ElementalHitPrefab
+    {
+        public Element Element;
+        public GameObject Prefab;
+    }
+
+
+    [Header("Abilities")]
 
     [SerializeField] Ability[] Abilities;
     public List<Ability> GetAllAbilities() { return Abilities.ToList(); }
