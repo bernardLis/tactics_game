@@ -73,6 +73,7 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.TryGetComponent<BattleEntity>(out BattleEntity battleEntity))
         {
             if (battleEntity.Team == _shooter.Team) return;
+            if (battleEntity.IsDead) return;
 
             StopAllCoroutines();
             StartCoroutine(HitTarget(battleEntity));

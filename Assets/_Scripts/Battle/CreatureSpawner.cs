@@ -20,9 +20,6 @@ public class CreatureSpawner : MonoBehaviour
     public event Action<List<BattleEntity>> OnSpawnComplete;
     public void SpawnHeroArmy(Hero hero, float duration = 2f)
     {
-        Debug.Log($"hero {hero}");
-        Debug.Log($"hero.Army {hero.Army}");
-
         SpawnCreatures(hero.Army, hero, duration);
     }
 
@@ -43,7 +40,7 @@ public class CreatureSpawner : MonoBehaviour
     IEnumerator SpawnShow()
     {
         if (_portalElement != null)
-            _portalElements.Find(x => x.ElementName == _hero.Element.ElementName).Portal.SetActive(true);
+            _portalElements.Find(x => x.ElementName == _portalElement.ElementName).Portal.SetActive(true);
         else
             _blackPortal.SetActive(true);
 

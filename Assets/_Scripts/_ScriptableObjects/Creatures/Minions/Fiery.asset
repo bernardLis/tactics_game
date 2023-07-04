@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Fiery
+  m_EditorClassIdentifier: 
+  Id: 5866c498-f0e4-4270-8e9e-c9233abcec89
+  Name: Fiery
+  UpgradeTier: 0
+  IconAnimation: []
+  Level: 1
+  Price: 10
+  Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  BaseHealth: 10
+  Armor: 0
+  BasePower: 2
+  AttackRange: 2
+  AttackCooldown: 2
+  Speed: 2
+  CreatureAbility: {fileID: 0}
+  Prefab: {fileID: 6266213777921296780, guid: 8e0dce24b7ada1e499e61efabf14d439, type: 3}
+  Projectile: {fileID: 0}
+  HitPrefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
+  EvolvedCreature: {fileID: 0}
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  Hero: {fileID: 0}

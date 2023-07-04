@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Name: Beary
+  m_EditorClassIdentifier: 
+  Id: 5149d526-8533-484f-8dbb-8c795319e0df
+  Name: Beary
+  UpgradeTier: 0
+  IconAnimation: []
+  Level: 1
+  Price: 10
+  Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  BaseHealth: 10
+  Armor: 0
+  BasePower: 2
+  AttackRange: 2
+  AttackCooldown: 2
+  Speed: 2
+  CreatureAbility: {fileID: 0}
+  Prefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
+  Projectile: {fileID: 0}
+  HitPrefab: {fileID: 687239542062312524, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
+  EvolvedCreature: {fileID: 0}
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  Hero: {fileID: 0}

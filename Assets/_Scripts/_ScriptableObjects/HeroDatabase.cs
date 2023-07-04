@@ -18,6 +18,8 @@ public class HeroDatabase : ScriptableObject
         return creatures[Random.Range(0, creatures.Count)];
     }
 
+    public List<Creature> AllMinions = new();
+    public Creature GetRandomMinion() { return AllMinions[Random.Range(0, AllMinions.Count)]; }
 
     [SerializeField] StartingArmy[] StartingArmies;
     public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }
@@ -27,8 +29,6 @@ public class HeroDatabase : ScriptableObject
         public Element Element;
         public List<Creature> Creatures;
     }
-
-    public Creature MeleeEnemy;
 
     [SerializeField] ElementalHitPrefab[] ElementalHitPrefabs;
     public GameObject GetElementalHitPrefab(Element element) { return ElementalHitPrefabs.FirstOrDefault(x => x.Element == element).Prefab; }

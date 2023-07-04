@@ -555,6 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _portalPrefab: {fileID: 9175160785698911493, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
+  _waves: []
 --- !u!4 &1482627311
 Transform:
   m_ObjectHideFlags: 0

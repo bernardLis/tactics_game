@@ -140,7 +140,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
         if (team == 1)
         {
-            _defaultEmissionColor = new Color(0.5f, 0.2f, 0.2f);
+            // HERE: waves
+            // _defaultEmissionColor = new Color(0.5f, 0.2f, 0.2f);
             _material.SetTexture("_EmissionMap", null);
             _material.SetColor("_EmissionColor", _defaultEmissionColor);
             _material.SetFloat("_Metallic", 0.5f);

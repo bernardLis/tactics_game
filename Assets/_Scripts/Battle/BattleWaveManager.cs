@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BattleWaveManager : MonoBehaviour
 {
@@ -48,33 +49,40 @@ public class BattleWaveManager : MonoBehaviour
 
     void SpawnWave()
     {
+        Debug.Log($"spawn wave {_currentWaveIndex}");
         // TODO: something more interesting, like split some armies
         List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
         foreach (Element element in elements)
         {
             List<Creature> creatures = _waves[_currentWaveIndex].GetAllCreaturesByElement(element);
             if (creatures.Count == 0) continue;
+            Debug.Log($"element.name {element.ElementName}, creatures.Count: {creatures.Count}");
 
-            GameObject portal = Instantiate(_portalPrefab, transform);
-            portal.transform.position = RandomPointInAnnulus(Vector3.zero, 10f, 15f);
+            // https://forum.unity.com/threads/random-point-within-circle-with-min-max-radius.597523/
+            Vector2 point = Random.insideUnitCircle.normalized * Random.Range(30, 50);
+            Vector3 pos = new Vector3(point.x, 0, point.y);
+            Vector3 lookRotation = (pos - Vector3.zero).normalized; // TODO: math, this seems dumb
+
+            GameObject portal = Instantiate(_portalPrefab, pos, Quaternion.LookRotation(lookRotation));
+
             CreatureSpawner creatureSpawner = portal.GetComponent<CreatureSpawner>();
-            creatureSpawner.SpawnCreatures(creatures);
+            creatureSpawner.SpawnCreatures(creatures, portalElement: element);
             creatureSpawner.OnSpawnComplete += (list) =>
             {
                 _battleManager.AddOpponentArmyEntities(list);
                 creatureSpawner.DestroySelf();
+
+                foreach (BattleEntity be in list)
+                    be.OnDeath += ClearBody;
             };
         }
-    }
 
-    //https://forum.unity.com/threads/random-point-within-circle-with-min-max-radius.597523/
-    public Vector2 RandomPointInAnnulus(Vector2 origin, float minRadius, float maxRadius)
-    {
-        var randomDirection = (Random.insideUnitCircle * origin).normalized;
-        var randomDistance = Random.Range(minRadius, maxRadius);
-        var point = origin + randomDirection * randomDistance;
-        return point;
+        void ClearBody(BattleEntity be, BattleEntity killer, Ability ability)
+        {
+            be.transform.DOMoveY(-1, 10f)
+                    .SetDelay(3f)
+                    .OnComplete(() => Destroy(be.gameObject));
+        }
     }
-
 }
 
