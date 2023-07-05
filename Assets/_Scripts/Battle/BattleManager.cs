@@ -48,6 +48,8 @@ public class BattleManager : Singleton<BattleManager>
     public bool BattleFinalized { get; private set; }
 
     public event Action OnBattleInitialized;
+    public event Action<int> OnPlayerEntityDeath;
+    public event Action<int> OnOpponentEntityDeath;
     public event Action OnBattleFinalized;
 
     protected override void Awake()
@@ -75,7 +77,7 @@ public class BattleManager : Singleton<BattleManager>
         AudioManager.Instance.PlayMusic(_battleMusic);
 
 #if UNITY_EDITOR
-        GetComponent<BattleInputManager>().OnEnterClicked += WinBattle;
+        GetComponent<BattleInputManager>().OnEnterClicked += CheatWinBattle;
 #endif
     }
 
@@ -160,6 +162,7 @@ public class BattleManager : Singleton<BattleManager>
         KilledPlayerEntities.Add(be);
         PlayerEntities.Remove(be);
         UpdateEntityCount();
+        OnPlayerEntityDeath?.Invoke(PlayerEntities.Count);
 
         if (BlockBattleEnd) return;
         if (PlayerEntities.Count == 0)
@@ -171,6 +174,7 @@ public class BattleManager : Singleton<BattleManager>
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
         UpdateEntityCount();
+        OnOpponentEntityDeath?.Invoke(OpponentEntities.Count);
 
         if (BlockBattleEnd) return;
         if (OpponentEntities.Count == 0)
@@ -184,10 +188,10 @@ public class BattleManager : Singleton<BattleManager>
         return OpponentEntities;
     }
 
-    public void CollectPickup(Pickup p)
-    {
-        CollectedPickups.Add(p);
-    }
+    public void CollectPickup(Pickup p) { CollectedPickups.Add(p); }
+
+    public void LoseBattle() { StartCoroutine(BattleLost()); }
+    public void WinBattle() { StartCoroutine(BattleWon()); }
 
     IEnumerator BattleLost()
     {
@@ -254,7 +258,7 @@ public class BattleManager : Singleton<BattleManager>
 
 #if UNITY_EDITOR
     [ContextMenu("Win Battle")]
-    public void WinBattle()
+    public void CheatWinBattle()
     {
         List<BattleEntity> copy = new(OpponentEntities);
         foreach (BattleEntity be in copy)

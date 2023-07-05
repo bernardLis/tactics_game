@@ -17,11 +17,12 @@ public class BattleWaveManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
 
-        for (int i = 0; i < 5; i++)
+        // HERE: waves you could pass a list of waves
+        for (int i = 0; i < 3; i++)
         {
             BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
 
-            wave.NumberOfEnemies = Random.Range(10, 50);
+            wave.NumberOfEnemies = Random.Range(1, 5);
             wave.EnemyLevelRange = new Vector2Int(1, 5);
             wave.Initialize();
             _waves.Add(wave);
@@ -29,24 +30,27 @@ public class BattleWaveManager : MonoBehaviour
 
         _battleManager = BattleManager.Instance;
         _battleManager.BlockBattleEnd = true;
-        _battleManager.OnBattleInitialized += () =>
+        _battleManager.OnBattleInitialized += SpawnWave;
+
+        _battleManager.OnPlayerEntityDeath += (count) =>
         {
-            SpawnWave();
-            StartCoroutine(WaveSpawnerCoroutine());
+            if (count == 0)
+                _battleManager.LoseBattle();
         };
+        _battleManager.OnOpponentEntityDeath += ResolveNextWave;
 
     }
-
-    IEnumerator WaveSpawnerCoroutine()
+    void ResolveNextWave(int count)
     {
-        while (_currentWaveIndex < _waves.Count)
+        if (count != 0) return;
+        _currentWaveIndex++;
+        if (_currentWaveIndex >= _waves.Count)
         {
-            yield return new WaitForSeconds(30f); // HERE: waves
-            _currentWaveIndex++;
-            SpawnWave();
+            _battleManager.WinBattle();
+            return;
         }
+        SpawnWave();
     }
-
     void SpawnWave()
     {
         Debug.Log($"spawn wave {_currentWaveIndex}");
