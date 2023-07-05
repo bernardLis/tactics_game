@@ -54,7 +54,11 @@ public class Creature : BaseScriptableObject
         if (hero != null) Hero = hero;
     }
 
-    public void InitializeMinion(int level) { Level = level; }
+    public void InitializeMinion(int level)
+    {
+        Level = level;
+        if (level >= 5) Speed = 2;
+    }
 
     // TODO: math
     public int GetHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * (Level - 1)); }

@@ -224,6 +224,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
                 yield return SpecialAbility();
 
+            if (_opponent.IsDead || _opponent == null) yield break;
+
             _agent.SetDestination(_opponent.transform.position);
             yield return null;
         }

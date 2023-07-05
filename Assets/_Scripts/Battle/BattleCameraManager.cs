@@ -228,7 +228,6 @@ public class BattleCameraManager : MonoBehaviour
 
                     _disableUpdate = false;
                 });
-
     }
 
     public void MoveCameraTo(Vector3 position, Vector3 rotation, float zoomHeight)

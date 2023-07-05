@@ -32,8 +32,8 @@
     <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;">
         <ui:VisualElement name="abilityContainer" class="battle__ability-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); opacity: 0;" />
     </ui:VisualElement>
-    <ui:VisualElement name="leftPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; height: 60%; top: auto; left: 10px; bottom: 20%;">
-        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="armyHotkeysContainer" style="height: 100%;" />
+    <ui:VisualElement name="leftPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; height: 60%; top: auto; left: 10px; bottom: 20%; flex-direction: column-reverse; align-items: flex-end;">
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="armyHotkeysContainer" style="height: auto; flex-direction: column-reverse; max-height: 100%;" />
     </ui:VisualElement>
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
     <ui:VisualElement name="vfx" focusable="true" class="vfx" style="width: 100%; height: 100%; top: 0; left: 4px;" />

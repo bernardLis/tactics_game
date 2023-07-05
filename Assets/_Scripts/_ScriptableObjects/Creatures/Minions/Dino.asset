@@ -25,7 +25,7 @@ MonoBehaviour:
   BasePower: 2
   AttackRange: 2
   AttackCooldown: 2
-  Speed: 2
+  Speed: 1
   CreatureAbility: {fileID: 0}
   Prefab: {fileID: 6266213777921296780, guid: 4cc9e000150e18a4b96817b7fa0e348a, type: 3}
   Projectile: {fileID: 0}

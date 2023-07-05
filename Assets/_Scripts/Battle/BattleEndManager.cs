@@ -18,7 +18,6 @@ public class BattleEndManager : MonoBehaviour
     BattleCameraManager _cameraManager;
     BattleManager _battleManager;
 
-    [SerializeField] Canvas _battleCanvas;
     [SerializeField] Shader _dissolveShader;
 
     VisualElement _root;
@@ -71,12 +70,12 @@ public class BattleEndManager : MonoBehaviour
 
     void DisableBattle()
     {
-        _battleCanvas.enabled = false;
         GetComponent<BattleGrabManager>().enabled = false;
         GetComponent<BattleAbilityManager>().enabled = false;
         GetComponent<BattleEntityTooltipManager>().enabled = false;
         GetComponent<BattleInputManager>().enabled = false;
 
+        _root.Q<VisualElement>("infoPanel").style.display = DisplayStyle.None;
         _root.Q<VisualElement>("bottomPanel").Clear();
         _root.Q<VisualElement>("topPanel").Clear();
         _root.Q<VisualElement>("bottomPanel").style.display = DisplayStyle.None;

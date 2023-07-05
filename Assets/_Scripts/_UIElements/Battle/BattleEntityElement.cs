@@ -53,7 +53,6 @@ public class BattleEntityElement : CreatureCard
         _battleEntity.OnDamageDealt += OnDamageDealt;
         _battleEntity.OnDamageTaken += OnDamageTaken;
         _battleEntity.OnDeath += OnDeath;
-
     }
 
     void OnHealthChanged(float nvm)
