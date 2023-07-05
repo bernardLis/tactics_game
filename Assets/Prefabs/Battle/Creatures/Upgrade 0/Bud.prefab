@@ -23,12 +23,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5016062787147690811}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.12, z: 0.049}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.495, z: -0.003}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1972813509664572812}
+  m_Father: {fileID: 204122141870234041}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6272402861689575169
@@ -467,17 +467,17 @@ PrefabInstance:
     - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-      insertIndex: 1
+    - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 148330665517007287}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1068552059567596957}
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
---- !u!4 &1972813509664572812 stripped
+--- !u!4 &204122141870234041 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 6272402861689575169}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6053594737241183487 stripped
@@ -505,5 +505,10 @@ MonoBehaviour:
   _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   IsShielded: 0
-  _projectileSpawnPoint: {fileID: 5016062787147690811}
+  _projectileSpawnPoint: {fileID: 8928407045434391330}
   _effect: {fileID: 2954389165149253133, guid: 7ebb0151d77c0f94f97c1ae221a7b0fa, type: 3}
+--- !u!1 &8928407045434391330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3234745396514303011, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 6272402861689575169}
+  m_PrefabAsset: {fileID: 0}

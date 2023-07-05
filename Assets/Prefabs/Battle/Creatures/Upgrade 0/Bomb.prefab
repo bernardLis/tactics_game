@@ -562,37 +562,6 @@ Transform:
   m_Father: {fileID: 5768453582871520814}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 12.825851, y: -56.652145, z: 179.5557}
---- !u!1 &7437944646562862486
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2078282337763406328}
-  m_Layer: 0
-  m_Name: Projectile Spawn Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2078282337763406328
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7437944646562862486}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.477, z: 0.2105}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6896063724478336779}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8357190702616166941
 GameObject:
   m_ObjectHideFlags: 0
@@ -10190,10 +10159,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomb
       objectReference: {fileID: 0}
-    - target: {fileID: 1109390869919694126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-      propertyPath: _projectileSpawnPoint
-      value: 
-      objectReference: {fileID: 7437944646562862486}
     - target: {fileID: 3648242271941825938, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
       value: 0.8
@@ -10283,9 +10248,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5768453582871520814}
-    - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2078282337763406328}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
@@ -10316,7 +10278,7 @@ MonoBehaviour:
   _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   IsShielded: 0
-  _projectileSpawnPoint: {fileID: 7437944646562862486}
+  _projectileSpawnPoint: {fileID: 5768453582871689746}
   _explosionRadius: 5
   _explosionEffect: {fileID: 1913955008231385040, guid: 1cb6420f158ffcc468cff060385ede5c, type: 3}
 --- !u!4 &6896063724478336779 stripped

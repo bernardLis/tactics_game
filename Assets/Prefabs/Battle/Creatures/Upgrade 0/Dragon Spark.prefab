@@ -1674,5 +1674,5 @@ MonoBehaviour:
   _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   IsShielded: 0
-  _projectileSpawnPoint: {fileID: 3780893704500627377}
+  _projectileSpawnPoint: {fileID: 3845954562454435672}
   _specialProjectile: {fileID: 5028919531350398989, guid: 6bf5c3a3a459e5541a713ddb624d627e, type: 3}

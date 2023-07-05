@@ -22,7 +22,7 @@ public class BattleWaveManager : MonoBehaviour
         {
             BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
 
-            wave.NumberOfEnemies = Random.Range(1, 5);
+            wave.NumberOfEnemies = Random.Range(10, 25);
             wave.EnemyLevelRange = new Vector2Int(1, 5);
             wave.Initialize();
             _waves.Add(wave);
@@ -60,10 +60,9 @@ public class BattleWaveManager : MonoBehaviour
         {
             List<Creature> creatures = _waves[_currentWaveIndex].GetAllCreaturesByElement(element);
             if (creatures.Count == 0) continue;
-            Debug.Log($"element.name {element.ElementName}, creatures.Count: {creatures.Count}");
 
             // https://forum.unity.com/threads/random-point-within-circle-with-min-max-radius.597523/
-            Vector2 point = Random.insideUnitCircle.normalized * Random.Range(30, 50);
+            Vector2 point = Random.insideUnitCircle.normalized * Random.Range(50, 80);
             Vector3 pos = new Vector3(point.x, 0, point.y);
             Vector3 lookRotation = (pos - Vector3.zero).normalized; // TODO: math, this seems dumb
 

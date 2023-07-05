@@ -237,4 +237,13 @@ public class BattleCameraManager : MonoBehaviour
         transform.DORotate(rotation, 0.5f);
         _zoomHeight = zoomHeight;
     }
+
+    public void CenterCameraOnTransform(Transform target)
+    {
+        Vector3 pos = target.position + new Vector3(12, 0, -1.5f);
+
+        transform.DOMove(pos, 0.5f);
+        transform.DORotate(new Vector3(30f, -90f, 0f), 0.5f);
+        _zoomHeight = _defaultZoomHeight;
+    }
 }

@@ -10,7 +10,6 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] GameObject _dustParticlePrefab;
     BattleGrabManager _grabManager;
-    bool _wasGrabbed;
 
     Rigidbody _rb;
     Collider _collider;
@@ -27,7 +26,6 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
 
     void Start()
     {
-
         _secondsToBreak = _maxGrabbingTime;
         _grabManager = BattleGrabManager.Instance;
         _rb = GetComponent<Rigidbody>();
@@ -123,5 +121,7 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         Vector3 rotation = new Vector3(-90, 0, 0);
         GameObject dust = Instantiate(_dustParticlePrefab, pos, Quaternion.Euler(rotation));
         dust.SetActive(true);
+        dust.transform.parent = transform;
+        Destroy(dust, 3f);
     }
 }

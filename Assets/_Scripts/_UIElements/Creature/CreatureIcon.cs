@@ -23,6 +23,7 @@ public class CreatureIcon : ElementWithTooltip
     Label _level;
 
     AnimationElement _animationElement;
+    bool _isAnimationBlocked;
     public CreatureIcon(Creature creature, bool blockTooltip = false)
     {
         _gameManager = GameManager.Instance;
@@ -55,6 +56,7 @@ public class CreatureIcon : ElementWithTooltip
         RegisterCallback<MouseEnterEvent>(OnMouseEnter);
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
     }
+
 
     public void LargeIcon()
     {
@@ -92,6 +94,8 @@ public class CreatureIcon : ElementWithTooltip
             .SetDelay(1f);
     }
 
+    public void BlockAnimation() { _isAnimationBlocked = true; }
+
     public void PlayAnimationAlways()
     {
         _animationElement.PlayAnimation();
@@ -99,9 +103,17 @@ public class CreatureIcon : ElementWithTooltip
         UnregisterCallback<MouseLeaveEvent>(OnMouseLeave);
     }
 
-    void OnMouseEnter(MouseEnterEvent evt) { _animationElement.PlayAnimation(); }
+    void OnMouseEnter(MouseEnterEvent evt)
+    {
+        if (_isAnimationBlocked) return;
+        _animationElement.PlayAnimation();
+    }
 
-    void OnMouseLeave(MouseLeaveEvent evt) { _animationElement.PauseAnimation(); }
+    void OnMouseLeave(MouseLeaveEvent evt)
+    {
+        if (_isAnimationBlocked) return;
+        _animationElement.PauseAnimation();
+    }
 
     protected override void DisplayTooltip()
     {
