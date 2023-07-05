@@ -27,9 +27,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public int BattleNumber;
 
-    public float TotalSeconds { get; private set; }
-    public int Day { get; private set; }
-    public float SecondsLeftInDay { get; private set; }
     public int Gold { get; private set; }
     public int Spice { get; private set; }
 
@@ -41,14 +38,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public Battle SelectedBattle; // HERE: battle testing { get; private set; }
 
-    public event Action<int> OnDayPassed;
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;
 
     public event Action<string> OnLevelLoaded;
     public event Action OnNewSaveFileCreation;
     public event Action OnClearSaveData;
-    public event Action<bool> OnTimerStateChanged;
     protected override void Awake()
     {
         Debug.Log($"Game manager Awake");
@@ -86,30 +81,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         IsTimerOn = true;
     }
 
-    public DateTime GetCurrentDateTime()
-    {
-        DateTime d = ScriptableObject.CreateInstance<DateTime>();
-        d.Day = Day;
-        d.Seconds = SecondsInDay - SecondsLeftInDay;
-        return d;
-    }
-
-    public float GetCurrentTimeInSeconds() { return Day * SecondsInDay + SecondsInDay - SecondsLeftInDay; }
-
-    public void ToggleTimer(bool isOn)
-    {
-        IsTimerOn = isOn;
-        OnTimerStateChanged?.Invoke(IsTimerOn);
-    }
-
     /* RESOURCES */
-    public void PassDay()
-    {
-        Day += 1;
-
-        OnDayPassed?.Invoke(Day);
-    }
-
     public void ChangeGoldValue(int o)
     {
         if (o == 0)
@@ -146,9 +118,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Creating new save file...");
         Seed = System.Environment.TickCount;
 
-        SecondsLeftInDay = SecondsInDay;
         BattleNumber = 0;
-        Day = 1;
         Gold = 10000;
         Spice = 500;
 
@@ -197,7 +167,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.Seed = Seed;
         saveData.BattleNumber = BattleNumber;
 
-        saveData.Day = Day;
         saveData.Gold = Gold;
         saveData.Spice = Spice;
 
@@ -230,8 +199,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Seed = saveData.Seed;
         BattleNumber = saveData.BattleNumber;
 
-        SecondsLeftInDay = saveData.SecondsLeftInDay;
-        Day = saveData.Day;
         Gold = saveData.Gold;
         Spice = saveData.Spice;
 
@@ -248,8 +215,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Seed = System.Environment.TickCount;
         BattleNumber = 0;
 
-        SecondsLeftInDay = SecondsInDay;
-        Day = 1;
         Gold = 10000;
         Spice = 500;
 

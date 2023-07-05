@@ -132,9 +132,6 @@ public class BattleManager : Singleton<BattleManager>
         foreach (BattleEntity b in opponentArmy)
             AddOpponentArmyEntity(b);
 
-        if (_gameManager == null) _gameManager = GameManager.Instance;
-        _gameManager.ToggleTimer(true);
-
         StartCoroutine(UpdateTimer());
 
         OnBattleInitialized?.Invoke();

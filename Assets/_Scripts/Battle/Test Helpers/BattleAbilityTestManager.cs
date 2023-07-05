@@ -24,7 +24,6 @@ public class BattleAbilityTestManager : MonoBehaviour
         LevelUpAbilities(7);
 
         _battleManager.Initialize(_hero, new List<BattleEntity>(), new List<BattleEntity>());
-        _gameManager.ToggleTimer(true);
 
         for (int i = 0; i < _creaturesToSpawn; i++)
             StartCoroutine(SpawnCreature());

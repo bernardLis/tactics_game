@@ -32,7 +32,6 @@ public class TimerElement : VisualElement
     public TimerElement(float timeLeft, float totalTime, bool isLooping, string text)
     {
         _gameManager = GameManager.Instance;
-        _gameManager.OnTimerStateChanged += OnTimerStateChanged;
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)

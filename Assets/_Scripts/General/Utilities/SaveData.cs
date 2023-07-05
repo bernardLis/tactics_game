@@ -12,8 +12,6 @@ public class SaveData
 
     public int BattleNumber;
 
-    public float SecondsLeftInDay;
-    public int Day;
     public int Gold;
     public int Spice;
 
