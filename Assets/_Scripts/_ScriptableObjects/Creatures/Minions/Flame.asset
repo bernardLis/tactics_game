@@ -15,7 +15,8 @@ MonoBehaviour:
   Id: ddf4e432-8a31-46d9-83a3-eaed7f9af691
   Name: Flame
   UpgradeTier: 0
-  IconAnimation: []
+  IconAnimation:
+  - {fileID: 21300000, guid: 6585685a12ef7ed4385ab0fbf44c02ac, type: 3}
   Level: 1
   Price: 10
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}

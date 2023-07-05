@@ -15,7 +15,8 @@ MonoBehaviour:
   Id: af65cb0f-0760-4b05-8f13-edebe9a1e1e7
   Name: Dino
   UpgradeTier: 0
-  IconAnimation: []
+  IconAnimation:
+  - {fileID: 21300000, guid: 82080bad9a90d2846ab93da51b2bd819, type: 3}
   Level: 1
   Price: 10
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}

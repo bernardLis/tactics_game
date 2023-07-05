@@ -15,7 +15,8 @@ MonoBehaviour:
   Id: e3bfde87-8362-41ea-802e-3727cdc81619
   Name: Venom
   UpgradeTier: 0
-  IconAnimation: []
+  IconAnimation:
+  - {fileID: 21300000, guid: d5af00c8fcf39704aa7ea8ec50502840, type: 3}
   Level: 1
   Price: 10
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}

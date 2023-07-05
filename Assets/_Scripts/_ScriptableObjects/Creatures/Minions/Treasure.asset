@@ -15,7 +15,8 @@ MonoBehaviour:
   Id: 75ad498d-bce6-4055-83f3-60c4bd55ffc4
   Name: Treasure
   UpgradeTier: 0
-  IconAnimation: []
+  IconAnimation:
+  - {fileID: 21300000, guid: 8531b4b08bdc44344b918b4fe44e8037, type: 3}
   Level: 1
   Price: 10
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}

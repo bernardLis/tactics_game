@@ -15,7 +15,8 @@ MonoBehaviour:
   Id: 70838e87-2085-456d-9e61-67b4be2553a3
   Name: Nightingale
   UpgradeTier: 0
-  IconAnimation: []
+  IconAnimation:
+  - {fileID: 21300000, guid: 9c27f776fc204e8469420385f120b5c4, type: 3}
   Level: 1
   Price: 10
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}

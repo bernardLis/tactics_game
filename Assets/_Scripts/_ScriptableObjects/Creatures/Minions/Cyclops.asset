@@ -15,7 +15,8 @@ MonoBehaviour:
   Id: d336f5b3-59f5-420b-9ba7-2f92af116e39
   Name: Cyclops
   UpgradeTier: 0
-  IconAnimation: []
+  IconAnimation:
+  - {fileID: 21300000, guid: e4a72eadae7f44e468fef0a2c07a7c0b, type: 3}
   Level: 1
   Price: 10
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}

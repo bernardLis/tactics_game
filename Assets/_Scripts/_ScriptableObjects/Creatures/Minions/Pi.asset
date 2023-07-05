@@ -15,7 +15,8 @@ MonoBehaviour:
   Id: 98469044-7be4-42c6-b21f-4b2e07338a8e
   Name: Pi
   UpgradeTier: 0
-  IconAnimation: []
+  IconAnimation:
+  - {fileID: 21300000, guid: 236d8fb223ead20479ce67d578e24209, type: 3}
   Level: 1
   Price: 10
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}

@@ -47,6 +47,8 @@ public class AnimationElement : VisualElement
 
     void Animate()
     {
+        if (_animationSprites.Length <= 1) return;
+
         if (_animationSpriteIndex == _animationSprites.Length)
         {
             if (!_isLoop)
