@@ -51,7 +51,7 @@ public class BattleInitializer : MonoBehaviour
         _opponentHero = _gameManager.SelectedBattle.Opponent;
         // HERE: waves
         _opponentHero = null;
-        
+
         StartCoroutine(BattleStartShow());
     }
 
@@ -74,6 +74,10 @@ public class BattleInitializer : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         _battleInputManager.enabled = true;
+
+        // HERE: waves resolve battle -> 
+        // battle holds info whether it is 1v1 or 
+        // wave battle  
 
         _battleManager.Initialize(_playerHero, _playerArmy, _opponentArmy);
     }
