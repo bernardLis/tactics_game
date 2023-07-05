@@ -197,9 +197,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.Seed = Seed;
         saveData.BattleNumber = BattleNumber;
 
-        if (DashboardManager.Instance != null)
-            saveData.SecondsLeftInDay = DashboardManager.Instance.DayTimer.GetTimeLeft();
-
         saveData.Day = Day;
         saveData.Gold = Gold;
         saveData.Spice = Spice;
@@ -207,7 +204,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         if (PlayerHero != null)
             saveData.PlayerHero = PlayerHero.SerializeSelf();
     }
-
 
     void LoadJsonData(string fileName)
     {

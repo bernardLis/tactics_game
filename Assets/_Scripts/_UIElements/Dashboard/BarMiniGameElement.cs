@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class BarMiniGameElement : VisualElement
 {
     GameManager _gameManager;
-    DashboardManager _dashboardManager;
+    //DashboardManager _dashboardManager;
 
     VisualElement _root;
 
@@ -36,7 +36,7 @@ public class BarMiniGameElement : VisualElement
     public BarMiniGameElement()
     {
         _gameManager = GameManager.Instance;
-        _dashboardManager = DashboardManager.Instance;
+        //     _dashboardManager = DashboardManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
@@ -44,9 +44,9 @@ public class BarMiniGameElement : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        if (_dashboardManager == null)
-            Debug.LogError($"No dashboard manager in bar mini game element");
-        _root = _dashboardManager.Root;
+        //   if (_dashboardManager == null)
+        //      Debug.LogError($"No dashboard manager in bar mini game element");
+        //  _root = _dashboardManager.Root;
 
         _bar = new();
         _bar.AddToClassList(_ussBar);
@@ -74,7 +74,7 @@ public class BarMiniGameElement : VisualElement
     {
         _gameStarted = true;
         _hitButton.UpdateButtonText("Hit");
-        _dashboardManager.PlayerInput.actions["Space"].performed += HitInput;
+        //  _dashboardManager.PlayerInput.actions["Space"].performed += HitInput;
         _spaceBarTooltip = new Label("Space Bar works as well.");
         _spaceBarTooltip.AddToClassList(_ussCommonTextSecondary);
         Add(_spaceBarTooltip);
@@ -95,7 +95,7 @@ public class BarMiniGameElement : VisualElement
 
     public void StopGame()
     {
-        _dashboardManager.PlayerInput.actions["Space"].performed -= HitInput;
+        //_dashboardManager.PlayerInput.actions["Space"].performed -= HitInput;
 
         Remove(_spaceBarTooltip);
         DOTween.Kill(_cursorMovementTween);
