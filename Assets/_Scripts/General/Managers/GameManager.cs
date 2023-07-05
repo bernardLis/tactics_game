@@ -206,8 +206,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         if (PlayerHero != null)
             saveData.PlayerHero = PlayerHero.SerializeSelf();
-
-        saveData.SelectedBattle = SelectedBattle.SerializeSelf();
     }
 
 
@@ -243,11 +241,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         PlayerHero = (Hero)ScriptableObject.CreateInstance<Hero>();
         PlayerHero.LoadFromData(saveData.PlayerHero);
-
-        SelectedBattle = (Battle)ScriptableObject.CreateInstance<Battle>();
-        SelectedBattle.LoadFromData(saveData.SelectedBattle);
     }
-
 
     public void ClearSaveData()
     {
