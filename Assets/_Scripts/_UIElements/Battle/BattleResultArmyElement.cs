@@ -21,7 +21,6 @@ public class BattleResultArmyElement : VisualElement
     GameManager _gameManager;
     AudioManager _audioManager;
     BattleManager _battleManager;
-    BattleLogManager _battleLogManager;
 
     List<BattleLogAbility> _abilityLogs = new();
 
@@ -31,13 +30,13 @@ public class BattleResultArmyElement : VisualElement
     List<CreatureCardExp> _creatureExpElements = new();
 
     VisualElement _logRecordsContainer;
+
     public event Action OnFinished;
     public BattleResultArmyElement(VisualElement content)
     {
         _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();
         _battleManager = BattleManager.Instance;
-        _battleLogManager = _battleManager.GetComponent<BattleLogManager>();
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -48,10 +47,6 @@ public class BattleResultArmyElement : VisualElement
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
-
-        foreach (BattleLog item in _battleLogManager.Logs)
-            if (item is BattleLogAbility abilityLog)
-                _abilityLogs.Add(abilityLog);
 
         _pickupsContainer = new();
         Add(_pickupsContainer);
@@ -65,8 +60,6 @@ public class BattleResultArmyElement : VisualElement
         Add(_logRecordsContainer);
 
         ShowArmyStats();
-        // wait for army stats to show
-        this.schedule.Execute(AddMostKillsEntity).StartingIn(500 + 500 * _gameManager.PlayerHero.Army.Count);
     }
 
     void AddArmyToContainer(Creature creature)
@@ -97,79 +90,8 @@ public class BattleResultArmyElement : VisualElement
             DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
                     .SetDelay(0.5f * i);
         }
-    }
 
-    void AddMostKillsEntity()
-    {
-        List<BattleEntity> entities = new(_battleManager.PlayerEntities);
-        if (entities.Count == 0)
-        {
-            OnFinished?.Invoke();
-            return;
-        }
-
-        BattleEntity entityWithMostKills = entities[0];
-        int topKillCount = entities[0].KilledEnemiesCount;
-        foreach (BattleEntity e in entities)
-        {
-            if (e.KilledEnemiesCount > topKillCount)
-            {
-                topKillCount = e.KilledEnemiesCount;
-                entityWithMostKills = e;
-            }
-        }
-        Label l = new($"Entity With Most Kills: {entityWithMostKills.name}, # kills: {topKillCount} ");
-        _logRecordsContainer.Add(l);
-
-        l.style.opacity = 0;
-        DOTween.To(x => l.style.opacity = x, 0, 1, 0.5f)
-                .OnComplete(() => AddMostEntitiesAbility());
-    }
-
-    void AddMostEntitiesAbility()
-    {
-        if (_abilityLogs.Count == 0)
-        {
-            OnFinished?.Invoke();
-            return;
-        }
-
-        List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.NumberOfAffectedEntities).ToList());
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.alignItems = Align.Center;
-
-        container.Add(new Label("Ability That Affected Most Entities: "));
-        container.Add(new AbilityIcon(copy[0].Ability));
-        container.Add(new Label($"# affected entities: {copy[0].NumberOfAffectedEntities}"));
-        _logRecordsContainer.Add(container);
-
-        container.style.opacity = 0;
-        DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
-                .OnComplete(() => AddMostDamageAbility());
-    }
-
-    void AddMostDamageAbility()
-    {
-        if (_abilityLogs.Count == 0)
-        {
-            OnFinished?.Invoke();
-            return;
-        }
-
-        List<BattleLogAbility> copy = new(_abilityLogs.OrderByDescending(a => a.DamageDealt));
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.alignItems = Align.Center;
-
-        container.Add(new Label("Ability That Dealt Most Damage: "));
-        container.Add(new AbilityIcon(copy[0].Ability));
-        container.Add(new Label($"# damage dealt: {copy[0].DamageDealt}"));
-        _logRecordsContainer.Add(container);
-
-        container.style.opacity = 0;
-        DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
-            .OnComplete(() => OnFinished?.Invoke());
+        OnFinished?.Invoke();
     }
 
     public void RefreshArmy()
@@ -177,7 +99,6 @@ public class BattleResultArmyElement : VisualElement
         _armyGroupContainer.Clear();
         ShowArmyStats();
     }
-
 
     public void MoveAway()
     {

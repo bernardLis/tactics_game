@@ -14,7 +14,6 @@ public class ThunderExecutor : AbilityExecutor
             _damageDealt += Mathf.RoundToInt(entity.Creature.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(_selectedAbility));
         }
-        CreateBattleLog();
 
         yield return new WaitForSeconds(3f);
         yield return _effectInstance.transform.DOScale(0f, 1f)

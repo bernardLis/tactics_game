@@ -135,8 +135,6 @@ public class BattleManager : Singleton<BattleManager>
         if (_gameManager == null) _gameManager = GameManager.Instance;
         _gameManager.ToggleTimer(true);
 
-        GetComponent<BattleLogManager>().Initialize(PlayerEntities, OpponentEntities);
-
         StartCoroutine(UpdateTimer());
 
         OnBattleInitialized?.Invoke();

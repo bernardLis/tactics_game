@@ -19,7 +19,6 @@ public class FreezeExecutor : AbilityExecutor
             instance.GetComponent<FreezeEntityEffect>().SetDelays(_selectedAbility.GetPower());
         }
 
-        CreateBattleLog();
 
         yield return new WaitForSeconds(_selectedAbility.GetPower() + 0.2f);
         foreach (BattleEntity entity in _entitiesInArea)

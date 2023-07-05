@@ -55,14 +55,6 @@ public class AbilityExecutor : MonoBehaviour
         yield return null;
     }
 
-    protected virtual void CreateBattleLog()
-    {
-        BattleLogAbility battleLog = ScriptableObject.CreateInstance<BattleLogAbility>();
-        battleLog.Initialize(_selectedAbility, _entitiesInArea.Count, _damageDealt);
-
-        BattleManager.Instance.GetComponent<BattleLogManager>().AddLog(battleLog);
-    }
-
     public void CancelAbility() { Invoke("DestroySelf", 0.1f); }
 
     public virtual void ClearAbilityHighlight()

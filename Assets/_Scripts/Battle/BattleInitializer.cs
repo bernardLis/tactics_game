@@ -110,7 +110,6 @@ public class BattleInitializer : MonoBehaviour
 
     }
 
-
     void PlaceObstacle()
     {
         if (_obstacleInstance != null)

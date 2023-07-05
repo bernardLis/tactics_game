@@ -13,7 +13,6 @@ public class FireballExecutor : AbilityExecutor
             _damageDealt += Mathf.RoundToInt(entity.Creature.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(_selectedAbility));
         }
-        CreateBattleLog();
 
         yield return new WaitForSeconds(6f);
         Transform[] allChildren = _effectInstance.GetComponentsInChildren<Transform>();
