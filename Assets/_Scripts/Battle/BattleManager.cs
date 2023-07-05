@@ -20,6 +20,10 @@ public class BattleManager : Singleton<BattleManager>
 
     public VisualElement Root { get; private set; }
 
+    VisualElement _infoPanel;
+    Label _timerLabel;
+    Label _opponentsLeftLabel;
+
     public Transform EntityHolder;
 
     // skybox rotation https://forum.unity.com/threads/rotate-a-skybox.130639/
@@ -27,9 +31,6 @@ public class BattleManager : Singleton<BattleManager>
     float _initRot;
     Material _skyMat;
     [SerializeField] float _skyboxRotationSpeed = 0.2f;
-
-    [SerializeField] TextMeshProUGUI _timerText;
-    [SerializeField] TextMeshProUGUI _scoreText;
 
     public float BattleTime { get; private set; }
 
@@ -59,6 +60,9 @@ public class BattleManager : Singleton<BattleManager>
 
         Root = GetComponent<UIDocument>().rootVisualElement;
         VisualElement bottomPanel = Root.Q<VisualElement>("bottomPanel");
+        _infoPanel = Root.Q<VisualElement>("infoPanel");
+        _timerLabel = _infoPanel.Q<Label>("timer");
+        _opponentsLeftLabel = _infoPanel.Q<Label>("enemyCount");
     }
 
     void Start()
@@ -77,6 +81,9 @@ public class BattleManager : Singleton<BattleManager>
 
         AudioManager.Instance.PlayMusic(_battleMusic);
 
+        _timerLabel.style.display = DisplayStyle.Flex;
+        _opponentsLeftLabel.style.display = DisplayStyle.Flex;
+
 #if UNITY_EDITOR
         GetComponent<BattleInputManager>().OnEnterClicked += CheatWinBattle;
 #endif
@@ -84,17 +91,22 @@ public class BattleManager : Singleton<BattleManager>
 
     void Update()
     {
-        BattleTime += Time.deltaTime;
-        TimeSpan time = TimeSpan.FromSeconds(BattleTime);
-        _timerText.text = $"{time.Minutes:D2}:{time.Seconds:D2}";
-
         _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
+    }
+
+    IEnumerator UpdateTimer()
+    {
+        while (true)
+        {
+            BattleTime += 1f;
+            TimeSpan time = TimeSpan.FromSeconds(BattleTime);
+            _timerLabel.text = $"{time.Minutes:D2}:{time.Seconds:D2}";
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     public void Initialize(Hero playerHero, List<BattleEntity> playerArmy, List<BattleEntity> opponentArmy)
     {
-        _scoreText.text = $"{playerArmy.Count} : {opponentArmy.Count}";
-
         BattleFinalized = false;
 
         _battleGrabManager = GetComponent<BattleGrabManager>();
@@ -124,7 +136,14 @@ public class BattleManager : Singleton<BattleManager>
         _gameManager.ToggleTimer(true);
 
         GetComponent<BattleLogManager>().Initialize(PlayerEntities, OpponentEntities);
+
+        StartCoroutine(UpdateTimer());
+
         OnBattleInitialized?.Invoke();
+
+        _infoPanel.style.opacity = 0f;
+        _infoPanel.style.display = DisplayStyle.Flex;
+        DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
     }
 
     public void AddPlayerArmyEntity(BattleEntity b)
@@ -152,18 +171,14 @@ public class BattleManager : Singleton<BattleManager>
         b.gameObject.layer = 11;
         OpponentEntities.Add(b);
         b.OnDeath += OnOpponentDeath;
-    }
 
-    public void UpdateEntityCount()
-    {
-        _scoreText.text = $"{PlayerEntities.Count} : {OpponentEntities.Count}";
+        UpdateOpponentCountLabel();
     }
 
     void OnPlayerDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
         KilledPlayerEntities.Add(be);
         PlayerEntities.Remove(be);
-        UpdateEntityCount();
         OnPlayerEntityDeath?.Invoke(PlayerEntities.Count);
 
         if (BlockBattleEnd) return;
@@ -175,14 +190,20 @@ public class BattleManager : Singleton<BattleManager>
     {
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
-        UpdateEntityCount();
         OnOpponentEntityDeath?.Invoke(OpponentEntities.Count);
+
+        UpdateOpponentCountLabel();
 
         if (BlockBattleEnd) return;
         if (OpponentEntities.Count == 0)
             StartCoroutine(BattleWon());
     }
 
+    void UpdateOpponentCountLabel()
+    {
+        _opponentsLeftLabel.text = $"Enemies Left: {OpponentEntities.Count}";
+
+    }
     public List<BattleEntity> GetAllies(BattleEntity battleEntity)
     {
         if (battleEntity.Team == 0) return PlayerEntities;

@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class BattleWaveManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
+
+    Label _waveLabel;
 
     [SerializeField] GameObject _portalPrefab;
 
@@ -32,6 +35,9 @@ public class BattleWaveManager : MonoBehaviour
         _battleManager.BlockBattleEnd = true;
         _battleManager.OnBattleInitialized += SpawnWave;
 
+        _waveLabel = _battleManager.Root.Q<Label>("waveCount");
+        _waveLabel.style.display = DisplayStyle.Flex;
+
         _battleManager.OnPlayerEntityDeath += (count) =>
         {
             if (count == 0)
@@ -51,9 +57,10 @@ public class BattleWaveManager : MonoBehaviour
         }
         SpawnWave();
     }
+
     void SpawnWave()
     {
-        Debug.Log($"spawn wave {_currentWaveIndex}");
+        UpdateWaveLabel();
         // TODO: something more interesting, like split some armies
         List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
         foreach (Element element in elements)
@@ -87,5 +94,12 @@ public class BattleWaveManager : MonoBehaviour
                     .OnComplete(() => Destroy(be.gameObject));
         }
     }
+
+    void UpdateWaveLabel()
+    {
+        _waveLabel.text = $"Wave: {_currentWaveIndex} / {_waves.Count}";
+    }
+
+
 }
 
