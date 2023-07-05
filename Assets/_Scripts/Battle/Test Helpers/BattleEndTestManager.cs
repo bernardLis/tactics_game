@@ -24,7 +24,6 @@ public class BattleEndTestManager : MonoBehaviour
         InstantiatePickups();
         InstantiateArmies();
 
-
         Invoke("WinBattle", 1f);
     }
 
@@ -99,7 +98,9 @@ public class BattleEndTestManager : MonoBehaviour
             opponentArmy.Add(be);
         }
 
-        _battleManager.Initialize(_hero, heroArmy, opponentArmy);
+        _battleManager.Initialize(_hero);
+        _battleManager.AddPlayerArmyEntities(heroArmy);
+        _battleManager.AddOpponentArmyEntities(opponentArmy);
     }
 
     void WinBattle()

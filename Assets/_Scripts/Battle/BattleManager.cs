@@ -105,7 +105,7 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
 
-    public void Initialize(Hero playerHero, List<BattleEntity> playerArmy, List<BattleEntity> opponentArmy)
+    public void Initialize(Hero playerHero)
     {
         BattleFinalized = false;
 
@@ -126,19 +126,18 @@ public class BattleManager : Singleton<BattleManager>
             _battleAbilityManager.Initialize(playerHero);
         }
 
-        foreach (BattleEntity b in playerArmy)
-            AddPlayerArmyEntity(b);
-
-        foreach (BattleEntity b in opponentArmy)
-            AddOpponentArmyEntity(b);
-
         StartCoroutine(UpdateTimer());
-
         OnBattleInitialized?.Invoke();
 
         _infoPanel.style.opacity = 0f;
         _infoPanel.style.display = DisplayStyle.Flex;
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
+    }
+
+    public void AddPlayerArmyEntities(List<BattleEntity> list)
+    {
+        foreach (BattleEntity b in list)
+            AddPlayerArmyEntity(b);
     }
 
     public void AddPlayerArmyEntity(BattleEntity b)

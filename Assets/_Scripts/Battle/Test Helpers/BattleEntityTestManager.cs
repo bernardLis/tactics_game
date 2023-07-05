@@ -130,7 +130,9 @@ public class BattleEntityTestManager : MonoBehaviour
 
         _entityTestLog.Add($"Team A: {teamANames} vs Team B: {teamBNames}");
 
-        _battleManager.Initialize(null, _teamA, _teamB);
+        _battleManager.Initialize(null);
+        _battleManager.AddPlayerArmyEntities(_teamA);
+        _battleManager.AddOpponentArmyEntities(_teamB);
     }
 
     BattleEntity SpawnCreature(Creature c, Vector3 spawnPos)
