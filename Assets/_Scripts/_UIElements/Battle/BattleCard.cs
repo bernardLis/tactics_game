@@ -16,7 +16,7 @@ public class BattleCard : ElementWithSound
     Battle _battle;
 
     public event Action<BattleCard> OnCardSelected;
-    public BattleCard()
+    public BattleCard(BattleType battleType)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleCardStyles);
@@ -25,37 +25,35 @@ public class BattleCard : ElementWithSound
 
         AddToClassList(_ussMain);
 
-        Hero opp = ScriptableObject.CreateInstance<Hero>();
-        opp.CreateRandom(_gameManager.PlayerHero.Level.Value);
-
-        if (_gameManager.BattleNumber == 1)
-        {
-            opp.Army.Clear();
-            // get starting army of neutral element
-            List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
-            elements.Remove(_gameManager.PlayerHero.Element);
-            elements.Remove(_gameManager.PlayerHero.Element.StrongAgainst);
-            elements.Remove(_gameManager.PlayerHero.Element.WeakAgainst);
-            opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(elements[0]).Creatures);
-        }
-        if (_gameManager.BattleNumber == 2)
-        {
-            // get starting army of element our here is weak to
-            opp.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_gameManager.PlayerHero.Element.WeakAgainst).Creatures);
-        }
-
         _battle = ScriptableObject.CreateInstance<Battle>();
-        _battle.Opponent = opp;
 
-        HeroCardMini heroCardMini = new(opp);
+        if (battleType == BattleType.Duel)
+            CreateDuel();
+        if (battleType == BattleType.Waves)
+            CreateWaves();
+
+        RegisterCallback<PointerUpEvent>(OnPointerUp);
+    }
+
+    void CreateDuel()
+    {
+        _battle.CreateRandomDuel(_gameManager.PlayerHero.Level.Value);
+
+        HeroCardMini heroCardMini = new(_battle.Opponent);
         Add(heroCardMini);
 
         ScrollView scrollView = new ScrollView();
         Add(scrollView);
-        foreach (Creature c in opp.Army)
+        foreach (Creature c in _battle.Opponent.Army)
             scrollView.Add(new CreatureIcon(c));
+    }
 
-        RegisterCallback<PointerUpEvent>(OnPointerUp);
+    void CreateWaves()
+    {
+        _battle.CreateRandomWaves(_gameManager.PlayerHero.Level.Value);
+
+        Label waveCount = new Label("Number of waves: " + _battle.Waves.Count);
+        Add(waveCount);
     }
 
     void OnPointerUp(PointerUpEvent evt)

@@ -67,7 +67,8 @@ public class BattleInitializer : MonoBehaviour
 
         _battleCameraManager.MoveCameraToDefaultPosition(5f);
 
-        PlaceObstacle();
+        if (_selectedBattle.IsObstacleActive)
+            PlaceObstacle();
 
         yield return new WaitForSeconds(1f);
 
@@ -119,6 +120,7 @@ public class BattleInitializer : MonoBehaviour
                     _battleManager.LoseBattle();
             };
             _battleManager.OnOpponentEntityDeath += ResolveNextWave;
+            SpawnWave();
         }
     }
 

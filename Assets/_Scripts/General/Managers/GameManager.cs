@@ -132,9 +132,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         // HERE: battle testing
         Battle b = ScriptableObject.CreateInstance<Battle>();
-        Hero opp = ScriptableObject.CreateInstance<Hero>();
-        opp.CreateRandom(1);
-        b.Opponent = opp;
+        b.CreateRandomWaves(1);
         SelectedBattle = b;
 
         // new save

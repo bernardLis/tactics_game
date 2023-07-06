@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class BattleResultChoiceElement : VisualElement
 {
@@ -35,9 +36,12 @@ public class BattleResultChoiceElement : VisualElement
         _cardContainer = new();
         _cardContainer.style.flexDirection = FlexDirection.Row;
         Add(_cardContainer);
+
+        // placeholder to make sure the cards are centered
         for (int i = 0; i < 3; i++)
         {
-            BattleCard card = new();
+            BattleType type = (BattleType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(BattleType)).Length);
+            BattleCard card = new(type);
             _cardContainer.Add(card);
             card.style.visibility = Visibility.Hidden;
             _hiddenCards.Add(card);
@@ -52,7 +56,8 @@ public class BattleResultChoiceElement : VisualElement
     {
         for (int i = 0; i < _hiddenCards.Count; i++)
         {
-            BattleCard card = new();
+            BattleType type = (BattleType)Random.Range(0, Enum.GetValues(typeof(BattleType)).Length);
+            BattleCard card = new(type);
             _cards.Add(card);
             _cardContainer.Add(card);
 
