@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UIElements;
 
-public class BattleWaveManager : MonoBehaviour
+public class BattleWaveTestManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;

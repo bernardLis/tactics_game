@@ -11,9 +11,7 @@ public class BattleManager : Singleton<BattleManager>
 {
     GameManager _gameManager;
 
-    BattleGrabManager _battleGrabManager;
     BattleHeroManager _battleHeroManager;
-    BattleAbilityManager _battleAbilityManager;
 
     [SerializeField] Sound _battleMusic;
     public Battle LoadedBattle { get; private set; }
@@ -109,10 +107,6 @@ public class BattleManager : Singleton<BattleManager>
     {
         BattleFinalized = false;
 
-        _battleGrabManager = GetComponent<BattleGrabManager>();
-        _battleGrabManager.enabled = true;
-        _battleGrabManager.Initialize();
-
         if (playerHero != null)
         {
             _playerHero = playerHero;
@@ -120,10 +114,6 @@ public class BattleManager : Singleton<BattleManager>
             _battleHeroManager = GetComponent<BattleHeroManager>();
             _battleHeroManager.enabled = true;
             _battleHeroManager.Initialize(playerHero);
-
-            _battleAbilityManager = GetComponent<BattleAbilityManager>();
-            _battleAbilityManager.enabled = true;
-            _battleAbilityManager.Initialize(playerHero);
         }
 
         StartCoroutine(UpdateTimer());

@@ -14,6 +14,8 @@ public class BattleAbilityManager : MonoBehaviour
     GameManager _gameManager;
     AudioManager _audioManager;
     BattleGrabManager _battleGrabManager;
+    PlayerArmyDeployer _playerArmyDeployer;
+
     VisualElement _root;
 
     VisualElement _abilityInfoContainer;
@@ -29,6 +31,12 @@ public class BattleAbilityManager : MonoBehaviour
     List<AbilityButton> _abilityButtons = new();
 
     public bool IsAbilitySelected { get; private set; }
+
+    void Start()
+    {
+        _playerArmyDeployer = GetComponent<PlayerArmyDeployer>();
+        _playerArmyDeployer.OnPlayerArmyDeployed += () => Initialize(_gameManager.PlayerHero);
+    }
 
     public void Initialize(Hero hero)
     {

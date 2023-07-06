@@ -14,10 +14,26 @@ public class CreatureSpawner : MonoBehaviour
     [SerializeField] GameObject _blackPortal;
 
     float _delay;
+    bool _portalShown;
 
     public List<BattleEntity> SpawnedEntities = new();
 
     public event Action<List<BattleEntity>> OnSpawnComplete;
+
+    public void ShowPortal(Element element)
+    {
+        if (_portalShown) return;
+        _portalShown = true;
+
+        if (element == null)
+        {
+            _blackPortal.SetActive(true);
+            return;
+        }
+
+        _portalElements.Find(x => x.ElementName == element.ElementName).Portal.SetActive(true);
+    }
+
     public void SpawnHeroArmy(Hero hero, float duration = 2f)
     {
         SpawnCreatures(hero.Army, hero, duration);
@@ -39,10 +55,7 @@ public class CreatureSpawner : MonoBehaviour
 
     IEnumerator SpawnShow()
     {
-        if (_portalElement != null)
-            _portalElements.Find(x => x.ElementName == _portalElement.ElementName).Portal.SetActive(true);
-        else
-            _blackPortal.SetActive(true);
+        ShowPortal(_portalElement);
 
         for (int i = 0; i < _creatures.Count; i++)
         {

@@ -11,6 +11,7 @@ public class BattleInitializer : MonoBehaviour
 
     BattleCameraManager _battleCameraManager;
     BattleInputManager _battleInputManager;
+    PlayerArmyDeployer _playerArmyDeployer;
 
     Transform _entityHolder;
 
@@ -35,6 +36,7 @@ public class BattleInitializer : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleCameraManager = _battleManager.GetComponent<BattleCameraManager>();
         _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
+        _playerArmyDeployer = _battleManager.GetComponent<PlayerArmyDeployer>();
 
         _waveLabel = _battleManager.Root.Q<Label>("waveCount");
         _waveLabel.style.display = DisplayStyle.Flex;
@@ -65,7 +67,7 @@ public class BattleInitializer : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        _battleCameraManager.MoveCameraToDefaultPosition(5f);
+        _battleCameraManager.MoveCameraToDefaultPosition(3f);
 
         if (_selectedBattle.IsObstacleActive)
             PlaceObstacle();
@@ -78,6 +80,7 @@ public class BattleInitializer : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
+        _playerArmyDeployer.Initialize();
         _battleInputManager.enabled = true;
     }
 
@@ -85,8 +88,6 @@ public class BattleInitializer : MonoBehaviour
     {
         if (_obstacleInstance != null)
             Destroy(_obstacleInstance);
-
-        //   if (Random.value > 0.5f) return; // 50/50 there is going to be an obstacle
 
         // between player and enemy
         float posX = _playerSpawnPoint.transform.position.x + (_enemySpawnPoint.transform.position.x - _playerSpawnPoint.transform.position.x) / 2;
@@ -107,7 +108,8 @@ public class BattleInitializer : MonoBehaviour
 
     void ResolveBattleType()
     {
-        InitializePlayerArmy();
+        // HERE: deployment
+        // InitializePlayerArmy();
         if (_selectedBattle.BattleType == BattleType.Duel)
             InitializeOpponentArmy();
 
@@ -122,19 +124,6 @@ public class BattleInitializer : MonoBehaviour
             _battleManager.OnOpponentEntityDeath += ResolveNextWave;
             SpawnWave();
         }
-    }
-
-    void InitializePlayerArmy()
-    {
-        GameObject playerSpawnerInstance = Instantiate(_creatureSpawnerPrefab, _playerSpawnPoint.position,
-                Quaternion.identity);
-        CreatureSpawner playerSpawner = playerSpawnerInstance.GetComponent<CreatureSpawner>();
-        playerSpawner.SpawnHeroArmy(_playerHero, 1.5f);
-        playerSpawner.OnSpawnComplete += (list) =>
-        {
-            playerSpawner.DestroySelf();
-            _battleManager.AddPlayerArmyEntities(list);
-        };
     }
 
     void InitializeOpponentArmy()

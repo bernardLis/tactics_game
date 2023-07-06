@@ -15,6 +15,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     AudioManager _audioManager;
     PlayerInput _playerInput;
     BattleAbilityManager _abilityManager;
+    PlayerArmyDeployer _playerArmyDeployer;
 
     VisualElement _root;
 
@@ -31,6 +32,12 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     int _floorLayerMask;
 
     bool _wasInitialized;
+
+    void Start()
+    {
+        _playerArmyDeployer = GetComponent<PlayerArmyDeployer>();
+        _playerArmyDeployer.OnPlayerArmyDeployed += () => Initialize();
+    }
 
     public void Initialize()
     {
@@ -63,6 +70,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     public void EnableGrabbing()
     {
         if (this == null) return;
+        if (_grabButton == null) return;
         if (_grabButton.IsOnCooldown)
         {
             Helpers.DisplayTextOnElement(_root, _grabButton, "On cooldown!", Color.red);
