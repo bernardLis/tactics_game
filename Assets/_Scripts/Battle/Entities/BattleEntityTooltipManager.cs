@@ -32,6 +32,8 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
 
     public void ShowInfo(BattleEntity entity)
     {
+        if (entity.IsDead) return;
+
         _entityInfoContainer.Clear();
         _entityInfoContainer.style.display = DisplayStyle.Flex;
 
@@ -48,7 +50,7 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
     public void DisplayTooltip(BattleEntity entity)
     {
         HideTooltip();
-        
+
         _tooltip = new(entity);
         _bottomPanel.Add(_tooltip);
     }

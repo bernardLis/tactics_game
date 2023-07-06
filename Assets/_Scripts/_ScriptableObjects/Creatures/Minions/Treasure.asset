@@ -18,7 +18,7 @@ MonoBehaviour:
   IconAnimation:
   - {fileID: 21300000, guid: 8531b4b08bdc44344b918b4fe44e8037, type: 3}
   Level: 1
-  Price: 10
+  Price: 2
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   BaseHealth: 10
   Armor: 0

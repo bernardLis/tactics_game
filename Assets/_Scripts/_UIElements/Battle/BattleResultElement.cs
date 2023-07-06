@@ -152,7 +152,11 @@ public class BattleResultElement : FullScreenElement
             _content.Add(_resultArmyElement);
 
             _continueButton = new("Continue", _ussContinueButton, ShowRewards);
-            _resultArmyElement.OnFinished += () => _content.Add(_continueButton);
+            _resultArmyElement.OnFinished += () =>
+            {
+                Debug.Log($"show");
+                _content.Add(_continueButton);
+            };
         }).StartingIn(1000);
     }
 

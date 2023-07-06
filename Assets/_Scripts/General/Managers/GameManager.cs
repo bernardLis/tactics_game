@@ -130,11 +130,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         RivalHero = ScriptableObject.CreateInstance<Hero>();
         RivalHero.CreateRandom(3);
 
-        // HERE: battle testing
-        Battle b = ScriptableObject.CreateInstance<Battle>();
-        b.CreateRandomWaves(1);
-        SelectedBattle = b;
-
         // new save
         string guid = System.Guid.NewGuid().ToString();
         string fileName = guid + ".dat";

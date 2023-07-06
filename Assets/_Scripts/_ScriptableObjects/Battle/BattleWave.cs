@@ -27,4 +27,13 @@ public class BattleWave : BaseScriptableObject
                 minions.Add(minion);
         return minions;
     }
+
+    public int GetNumberOfMinionsByName(string name)
+    {
+        int count = 0;
+        foreach (Creature minion in Minions)
+            if (minion.Name == name)
+                count++;
+        return count;
+    }
 }

@@ -44,7 +44,12 @@ public class Battle : BaseScriptableObject
         BattleType = BattleType.Waves;
 
         GameManager gameManager = GameManager.Instance;
-        int waveCount = Random.Range(1, 5);
+
+        Opponent = ScriptableObject.CreateInstance<Hero>();
+        Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
+        Opponent.Army.Clear();
+
+        int waveCount = Random.Range(1, 2); // HERE: waves 
         for (int i = 0; i < waveCount; i++)
         {
             BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
@@ -55,5 +60,13 @@ public class Battle : BaseScriptableObject
             wave.Initialize();
             Waves.Add(wave);
         }
+    }
+
+    public int GetTotalNumberOfMinionsByName(string minionName)
+    {
+        int total = 0;
+        foreach (BattleWave wave in Waves)
+            total += wave.GetNumberOfMinionsByName(minionName);
+        return total;
     }
 }

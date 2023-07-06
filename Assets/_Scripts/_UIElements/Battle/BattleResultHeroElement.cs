@@ -26,6 +26,8 @@ public class BattleResultHeroElement : VisualElement
     AudioManager _audioManager;
     BattleManager _battleManager;
 
+    Battle _selectedBattle;
+
     Hero _playerHero;
 
     VisualElement _heroContainer;
@@ -33,8 +35,6 @@ public class BattleResultHeroElement : VisualElement
 
     VisualElement _showContainer;
     VisualElement _defeatedEntitiesContainer;
-    ChangingValueElement _scoreCounter;
-    VisualElement _opponentContainer;
 
     VisualElement _pickupsContainer;
     GoldElement _goldElement;
@@ -46,6 +46,8 @@ public class BattleResultHeroElement : VisualElement
 
     IVisualElementScheduledItem _enemiesKilledShowSchedule;
     int _enemyIndex;
+
+    List<MinionArmyCard> _killedMinionArmies = new();
 
     public HeroCardMini HeroCardMini;
 
@@ -64,6 +66,7 @@ public class BattleResultHeroElement : VisualElement
             styleSheets.Add(ss);
 
         _playerHero = _gameManager.PlayerHero;
+        _selectedBattle = _gameManager.SelectedBattle;
 
         AddToClassList(_ussMain);
 
@@ -85,7 +88,7 @@ public class BattleResultHeroElement : VisualElement
         mySequence.Pause();
         mySequence.Append(DOTween.To(x => _heroContainer.style.opacity = x, 0, 1, 0.5f));
         mySequence.Append(DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 0, 1, 0.5f));
-        mySequence.AppendCallback(() => ShowKilledEnemies());
+        mySequence.AppendCallback(() => ResolveKilledEntities());
         mySequence.Play();
     }
 
@@ -121,7 +124,7 @@ public class BattleResultHeroElement : VisualElement
 
         _defeatedEntitiesContainer.style.height = Screen.height * 0.33f;
 
-        HeroCardMini oppCard = new HeroCardMini(_gameManager.SelectedBattle.Opponent);
+        HeroCardMini oppCard = new HeroCardMini(_selectedBattle.Opponent);
         _defeatedEntitiesContainer.Add(oppCard);
     }
 
@@ -173,8 +176,8 @@ public class BattleResultHeroElement : VisualElement
             DOTween.To(x => itemElement.style.opacity = x, 0, 1, 0.5f).SetDelay(1f + 0.5f * i);
             collectionContainer.Add(itemElement);
         }
-
     }
+
     void GiveCollectedPickups()
     {
         if (_pickupsGiven) return;
@@ -190,7 +193,8 @@ public class BattleResultHeroElement : VisualElement
         for (int i = 0; i < _itemsCollected.Count; i++)
             _gameManager.PlayerHero.AddItem(_itemsCollected[i]);
     }
-    void ShowKilledEnemies()
+
+    void ResolveKilledEntities()
     {
         if (_battleManager.KilledOpponentEntities.Count == 0)
         {
@@ -198,13 +202,21 @@ public class BattleResultHeroElement : VisualElement
             return;
         }
 
+        if (_selectedBattle.BattleType == BattleType.Duel)
+            DisplayKilledCreatures();
+        if (_selectedBattle.BattleType == BattleType.Waves)
+            DisplayKilledWaves();
+    }
+
+    void DisplayKilledCreatures()
+    {
         int delay = 2000 / _battleManager.KilledOpponentEntities.Count;
         List<BattleEntity> killedEnemies = new(_battleManager.KilledOpponentEntities);
 
-        _enemiesKilledShowSchedule = schedule.Execute(() => ShowKilledEnemy()).Every(delay);
+        _enemiesKilledShowSchedule = schedule.Execute(() => ShowKilledCreature()).Every(delay);
     }
 
-    void ShowKilledEnemy()
+    void ShowKilledCreature()
     {
         if (_enemyIndex >= _battleManager.KilledOpponentEntities.Count)
         {
@@ -213,13 +225,54 @@ public class BattleResultHeroElement : VisualElement
             return;
         }
 
-        _audioManager.PlayUI("Show Killed Creature");
-
         BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
 
         // create an element with icon
         CreatureIcon icon = new(enemy.Creature);
-        Add(icon);
+        // Add(icon);
+
+        MoveDefeatedEntity(icon);
+
+        // TODO: is price good for score?
+        _playerHero.GetExp(enemy.Creature.Price);
+        _enemyIndex++;
+    }
+
+    void DisplayKilledWaves()
+    {
+        List<Creature> minions = new(_gameManager.HeroDatabase.AllMinions);
+        foreach (Creature minion in minions)
+        {
+            int count = _selectedBattle.GetTotalNumberOfMinionsByName(minion.Name);
+            if (count == 0) continue;
+
+            _killedMinionArmies.Add(new(minion, count));
+        }
+        
+        int delay = 2000 / _killedMinionArmies.Count;
+        _enemiesKilledShowSchedule = schedule.Execute(() => ShowKilledMinion()).Every(delay);
+    }
+
+    void ShowKilledMinion()
+    {
+        if (_enemyIndex >= _killedMinionArmies.Count)
+        {
+            _enemiesKilledShowSchedule.Pause();
+            if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
+            return;
+        }
+
+        MoveDefeatedEntity(_killedMinionArmies[_enemyIndex]);
+
+        // TODO: is price good for score?
+        int exp = _killedMinionArmies[_enemyIndex].Creature.Price * _killedMinionArmies[_enemyIndex].Count;
+        _playerHero.GetExp(exp);
+        _enemyIndex++;
+    }
+
+    void MoveDefeatedEntity(VisualElement elToMove)
+    {
+        _audioManager.PlayUI("Show Killed Creature");
 
         // middle of the screen
         Vector3 start = new(0, _defeatedEntitiesContainer.resolvedStyle.height * 0.5f, 0);
@@ -229,12 +282,8 @@ public class BattleResultHeroElement : VisualElement
             xChange *= -1;
         Vector3 end = new Vector3(start.x + xChange, Random.Range(20, 200), 0);
 
-        ArcMovementElement arcMovement = new(icon, start, end);
+        ArcMovementElement arcMovement = new(elToMove, start, end);
         _defeatedEntitiesContainer.Add(arcMovement);
-
-        // TODO: is price good for score?
-        _playerHero.GetExp(enemy.Creature.Price);
-        _enemyIndex++;
     }
 
     void OnHeroPointAdded()

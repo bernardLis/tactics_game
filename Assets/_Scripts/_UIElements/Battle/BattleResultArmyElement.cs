@@ -22,14 +22,8 @@ public class BattleResultArmyElement : VisualElement
     AudioManager _audioManager;
     BattleManager _battleManager;
 
-    List<BattleLogAbility> _abilityLogs = new();
-
-    VisualElement _pickupsContainer;
-
     ScrollView _armyGroupContainer;
     List<CreatureCardExp> _creatureExpElements = new();
-
-    VisualElement _logRecordsContainer;
 
     public event Action OnFinished;
     public BattleResultArmyElement(VisualElement content)
@@ -48,18 +42,16 @@ public class BattleResultArmyElement : VisualElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        _pickupsContainer = new();
-        Add(_pickupsContainer);
 
         _armyGroupContainer = new();
         _armyGroupContainer.AddToClassList(_ussArmyGroupContainer);
         Add(_armyGroupContainer);
         _gameManager.PlayerHero.OnCreatureAdded += AddArmyToContainer;
 
-        _logRecordsContainer = new();
-        Add(_logRecordsContainer);
-
         ShowArmyStats();
+
+        this.schedule.Execute(() => OnFinished?.Invoke())
+                .StartingIn(_gameManager.PlayerHero.Army.Count * 500);
     }
 
     void AddArmyToContainer(Creature creature)
@@ -71,6 +63,7 @@ public class BattleResultArmyElement : VisualElement
         CreatureIcon icon = new(creature);
         container.Add(icon);
     }
+
     void ShowArmyStats()
     {
         for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
@@ -90,8 +83,6 @@ public class BattleResultArmyElement : VisualElement
             DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f)
                     .SetDelay(0.5f * i);
         }
-
-        OnFinished?.Invoke();
     }
 
     public void RefreshArmy()
@@ -102,9 +93,6 @@ public class BattleResultArmyElement : VisualElement
 
     public void MoveAway()
     {
-        _logRecordsContainer.style.display = DisplayStyle.None;
-        _pickupsContainer.style.display = DisplayStyle.None;
-
         foreach (CreatureCardExp el in _creatureExpElements)
             el.FoldSelf();
 
