@@ -25,8 +25,7 @@ public class BattleResultRewardElement : VisualElement
     List<RewardCard> _allRewardCards = new();
     List<RewardCard> _selectedRewardCards = new();
 
-    MyButton _rerollButton;
-    GoldElement _rerollCost;
+    RerollButton _rerollButton;
 
     public event Action OnRewardSelected;
     public BattleResultRewardElement()
@@ -50,22 +49,10 @@ public class BattleResultRewardElement : VisualElement
         _rewardContainer.style.flexDirection = FlexDirection.Row;
         Add(_rewardContainer);
 
-        RunCardShow();
-
-        //PopulateRewards();
-
-        _rerollButton = new("", _ussRerollButton, RerollReward);
-        VisualElement rerollIcon = new();
-
-        rerollIcon.AddToClassList(_ussRerollIcon);
-        _rerollButton.Add(rerollIcon);
-
-        _rerollButton.RegisterCallback<PointerEnterEvent>(evt => rerollIcon.AddToClassList(_ussRerollIconHover));
-        _rerollButton.RegisterCallback<PointerLeaveEvent>(evt => rerollIcon.RemoveFromClassList(_ussRerollIconHover));
-
-        _rerollCost = new(200);
-        _rerollButton.Add(_rerollCost);
+        _rerollButton = new(callback: RerollReward);
         Add(_rerollButton);
+
+        RunCardShow();
     }
 
     void RunCardShow()
@@ -110,7 +97,7 @@ public class BattleResultRewardElement : VisualElement
         if (_gameManager.Gold < 200)
         {
             Helpers.DisplayTextOnElement(BattleManager.Instance.GetComponent<UIDocument>().rootVisualElement,
-                _rerollCost, "Not enough gold!", Color.red);
+                _rerollButton, "Not enough gold!", Color.red);
             return;
         }
         _audioManager.PlayUI("Dice Roll");

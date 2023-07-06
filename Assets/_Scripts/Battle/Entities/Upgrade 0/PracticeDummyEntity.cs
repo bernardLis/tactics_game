@@ -26,7 +26,7 @@ public class PracticeDummyEntity : BattleEntityMelee
             yield break;
         }
 
-        transform.DODynamicLookAt(_opponent.transform.position, 0.2f, AxisConstraint.Y);
+        transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
@@ -45,8 +45,8 @@ public class PracticeDummyEntity : BattleEntityMelee
 
                 StartCoroutine(entity.GetHit(this, (int)this.Creature.GetPower() * 2));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-                GameObject hitInstance = Instantiate(Creature.HitPrefab, _opponent.Collider.bounds.center, q);
-                hitInstance.transform.parent = _opponent.transform;
+                GameObject hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
+                hitInstance.transform.parent = Opponent.transform;
                 _hitInstances.Add(hitInstance);
             }
         }

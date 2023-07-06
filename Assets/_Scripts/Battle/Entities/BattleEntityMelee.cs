@@ -25,16 +25,16 @@ public class BattleEntityMelee : BattleEntity
 
         if (_attackSound != null) _audioManager.PlaySFX(_attackSound, transform.position);
 
-        transform.DODynamicLookAt(_opponent.transform.position, 0.2f, AxisConstraint.Y);
+        transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Attack");
 
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
         Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-        _hitInstance = Instantiate(Creature.HitPrefab, _opponent.Collider.bounds.center, q);
-        _hitInstance.transform.parent = _opponent.transform;
+        _hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
+        _hitInstance.transform.parent = Opponent.transform;
 
-        yield return _opponent.GetHit(this);
+        yield return Opponent.GetHit(this);
         Invoke("DestroyHitInstance", 2f);
 
         yield return base.Attack();

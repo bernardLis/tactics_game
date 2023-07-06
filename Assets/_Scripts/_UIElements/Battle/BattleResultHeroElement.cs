@@ -248,7 +248,7 @@ public class BattleResultHeroElement : VisualElement
 
             _killedMinionArmies.Add(new(minion, count));
         }
-        
+
         int delay = 2000 / _killedMinionArmies.Count;
         _enemiesKilledShowSchedule = schedule.Execute(() => ShowKilledMinion()).Every(delay);
     }
@@ -305,7 +305,8 @@ public class BattleResultHeroElement : VisualElement
 
         // everything except hero card mini opacity > 0
         DOTween.To(x => _heroContainer.style.opacity = x, 1, 0, 0.5f);
-        DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 1, 0, 0.5f);
+        DOTween.To(x => _defeatedEntitiesContainer.style.opacity = x, 1, 0, 0.5f)
+                .OnComplete(() => _defeatedEntitiesContainer.Clear());
 
         DOTween.To(x => style.opacity = x, 1, 0, 0.5f).SetDelay(0.5f);
 

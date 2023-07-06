@@ -6,17 +6,18 @@ using System;
 
 public class MyButton : Button
 {
+    protected GameManager _gameManager;
     AudioManager _audioManager;
 
     Label _text;
 
     const string _ussCommonButtonBasic = "common__button-basic";
 
-
     Action _currentCallback;
     public MyButton(string buttonText = null, string className = null, Action callback = null)
     {
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        _gameManager = GameManager.Instance;
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

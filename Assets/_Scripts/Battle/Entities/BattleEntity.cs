@@ -45,7 +45,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Creature Creature { get; private set; }
     public float CurrentHealth { get; private set; }
 
-    protected BattleEntity _opponent;
+    public BattleEntity Opponent { get; private set; }
     protected NavMeshAgent _agent;
 
     protected float _currentAttackCooldown;
@@ -190,7 +190,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
             yield return SpecialAbility();
 
-        if (_opponent == null || _opponent.IsDead)
+        if (Opponent == null || Opponent.IsDead)
             ChooseNewTarget();
         yield return new WaitForSeconds(0.1f);
 
@@ -214,7 +214,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _agent.enabled = true;
         _agent.avoidancePriority = Random.Range(1, 100);
 
-        while (!_agent.SetDestination(_opponent.transform.position)) yield return null;
+        while (!_agent.SetDestination(Opponent.transform.position)) yield return null;
         Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
 
@@ -224,9 +224,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
                 yield return SpecialAbility();
 
-            if (_opponent.IsDead || _opponent == null) yield break;
+            if (Opponent.IsDead || Opponent == null) yield break;
 
-            _agent.SetDestination(_opponent.transform.position);
+            _agent.SetDestination(Opponent.transform.position);
             yield return null;
         }
 
@@ -238,7 +238,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected virtual IEnumerator Attack()
     {
-        EntityLog.Add($"{Time.time}: Entity attacked {_opponent.name}");
+        EntityLog.Add($"{Time.time}: Entity attacked {Opponent.name}");
 
         // meant to be overwritten
 
@@ -269,11 +269,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     protected bool IsOpponentInRange()
     {
-        if (_opponent == null) return false;
-        if (_opponent.IsDead) return false;
+        if (Opponent == null) return false;
+        if (Opponent.IsDead) return false;
 
         // +0.5 wiggle room
-        return Vector3.Distance(transform.position, _opponent.transform.position) < Creature.AttackRange + 0.5f;
+        return Vector3.Distance(transform.position, Opponent.transform.position) < Creature.AttackRange + 0.5f;
     }
 
     public bool HasFullHealth() { return CurrentHealth >= Creature.GetHealth(); }
@@ -473,7 +473,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         SetOpponent(_opponentList[Random.Range(0, _opponentList.Count)]);
     }
 
-    public void SetOpponent(BattleEntity opponent) { _opponent = opponent; }
+    public void SetOpponent(BattleEntity opponent) { Opponent = opponent; }
 
     IEnumerator Celebrate()
     {
@@ -495,7 +495,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void Grabbed()
     {
-        _opponent = null;
+        Opponent = null;
         _isGrabbed = true;
         StopRunEntityCoroutine();
         Animator.enabled = false;

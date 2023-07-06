@@ -16,6 +16,7 @@ public class BattleResultChoiceElement : VisualElement
     List<BattleCard> _cards = new();
 
     VisualElement _cardContainer;
+    RerollButton _rerollButton;
 
     public event Action OnBattleSelected;
     public BattleResultChoiceElement()
@@ -29,7 +30,7 @@ public class BattleResultChoiceElement : VisualElement
         bn.style.fontSize = 24;
         Add(bn);
 
-        Label l = new("Choose your next opponent: ");
+        Label l = new("Choose your next battle: ");
         l.style.fontSize = 32;
         Add(l);
 
@@ -37,6 +38,17 @@ public class BattleResultChoiceElement : VisualElement
         _cardContainer.style.flexDirection = FlexDirection.Row;
         Add(_cardContainer);
 
+        AddPlaceholderCards();
+        AddRerollButton();
+
+        style.opacity = 0;
+        DOTween.To(x => style.opacity = x, 0, 1, 0.5f)
+            .OnComplete(() => ShowCards());
+
+    }
+
+    void AddPlaceholderCards()
+    {
         // placeholder to make sure the cards are centered
         for (int i = 0; i < 3; i++)
         {
@@ -46,14 +58,21 @@ public class BattleResultChoiceElement : VisualElement
             card.style.visibility = Visibility.Hidden;
             _hiddenCards.Add(card);
         }
+    }
 
-        style.opacity = 0;
-        DOTween.To(x => style.opacity = x, 0, 1, 0.5f)
-            .OnComplete(() => ShowCards());
+    void AddRerollButton()
+    {
+        _rerollButton = new(callback: RerollCards);
+        _rerollButton.style.opacity = 0;
+        Add(_rerollButton);
+
+        this.schedule.Execute(() => DOTween.To(x => _rerollButton.style.opacity = x, 0, 1, 0.5f))
+                .StartingIn(2100);
     }
 
     void ShowCards()
     {
+        _cards.Clear();
         for (int i = 0; i < _hiddenCards.Count; i++)
         {
             BattleType type = (BattleType)Random.Range(0, Enum.GetValues(typeof(BattleType)).Length);
@@ -74,6 +93,31 @@ public class BattleResultChoiceElement : VisualElement
                 .SetDelay(i * 0.2f);
             card.OnCardSelected += OnCardSelected;
         }
+    }
+
+    void RerollCards()
+    {
+        // TODO: something smarter about the cost...
+        if (_gameManager.Gold < 200)
+        {
+            Helpers.DisplayTextOnElement(BattleManager.Instance.GetComponent<UIDocument>().rootVisualElement,
+                _rerollButton, "Not enough gold!", Color.red);
+            return;
+        }
+        _audioManager.PlayUI("Dice Roll");
+
+        _gameManager.ChangeGoldValue(-200);
+
+        foreach (BattleCard c in _cards)
+        {
+            DOTween.To(x => c.style.opacity = x, 1, 0, 0.5f)
+                    .OnComplete(() =>
+                    {
+                        c.style.display = DisplayStyle.None;
+                        _cardContainer.Remove(c);
+                    });
+        }
+        this.schedule.Execute(() => ShowCards()).StartingIn(500);
     }
 
     void OnCardSelected(BattleCard selectedCard)

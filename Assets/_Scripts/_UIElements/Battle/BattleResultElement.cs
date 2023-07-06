@@ -67,7 +67,6 @@ public class BattleResultElement : FullScreenElement
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
-
         _audioManager.PlayUI("Reward Chosen");
 
         _vfx = _root.Q<VisualElement>("vfx");
@@ -152,11 +151,9 @@ public class BattleResultElement : FullScreenElement
             _content.Add(_resultArmyElement);
 
             _continueButton = new("Continue", _ussContinueButton, ShowRewards);
-            _resultArmyElement.OnFinished += () =>
-            {
-                Debug.Log($"show");
-                _content.Add(_continueButton);
-            };
+            _resultArmyElement.OnFinished += () => _content.Add(_continueButton);
+
+            _content.Remove(_resultHeroElement);
         }).StartingIn(1000);
     }
 

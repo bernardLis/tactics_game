@@ -36,7 +36,7 @@ public class BattleArmyHotkeys : MonoBehaviour
         icon.RegisterCallback<MouseUpEvent>((e) =>
         {
             if (e.button != 0) return;
-            _cameraManager.CenterCameraOnTransform(be.transform);
+            _cameraManager.CenterCameraOnBattleEntity(be);
             _tooltipManager.DisplayTooltip(be);
         });
 

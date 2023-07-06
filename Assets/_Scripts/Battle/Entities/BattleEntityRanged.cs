@@ -55,14 +55,14 @@ public class BattleEntityRanged : BattleEntity
     bool HasOpponentInSight()
     {
         //https://answers.unity.com/questions/1164722/raycast-ignore-layers-except.html
-        return !Physics.Linecast(transform.position, _opponent.transform.position,
+        return !Physics.Linecast(transform.position, Opponent.transform.position,
                     out RaycastHit hit, 1 << Tags.BattleObstacleLayer);
 
     }
 
     protected Vector3 ClosesPositionWithClearLOS()
     {
-        Vector3 dir = transform.position - _opponent.transform.position;
+        Vector3 dir = transform.position - Opponent.transform.position;
         Dictionary<Vector3, float> distances = new();
 
         int numberOfLines = 100;
@@ -73,12 +73,12 @@ public class BattleEntityRanged : BattleEntity
 
             // Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
 
-            if (!Physics.Linecast(_opponent.transform.position, rotatedLine,
+            if (!Physics.Linecast(Opponent.transform.position, rotatedLine,
                     out RaycastHit newHit, 1 << Tags.BattleObstacleLayer))
             {
                 //   Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.blue, 30f);
 
-                Vector3 point = FindNearestPointOnLine(_opponent.transform.position,
+                Vector3 point = FindNearestPointOnLine(Opponent.transform.position,
                         rotatedLine, transform.position);
                 if (!distances.ContainsKey(point))
                     distances.Add(point, Vector3.Distance(transform.position, point));
@@ -130,14 +130,14 @@ public class BattleEntityRanged : BattleEntity
             yield break;
         }
 
-        yield return transform.DODynamicLookAt(_opponent.transform.position, 0.2f).WaitForCompletion();
+        yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f).WaitForCompletion();
         Animator.SetTrigger("Attack");
 
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
         GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
 
-        projectileInstance.GetComponent<Projectile>().Shoot(this, _opponent, Creature.GetPower());
+        projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
 
         yield return base.Attack();
     }

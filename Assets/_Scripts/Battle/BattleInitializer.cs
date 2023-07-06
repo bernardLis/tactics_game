@@ -147,7 +147,7 @@ public class BattleInitializer : MonoBehaviour
         opponentSpawner.OnSpawnComplete += (list) =>
         {
             opponentSpawner.DestroySelf();
-            _battleManager.AddPlayerArmyEntities(list);
+            _battleManager.AddOpponentArmyEntities(list);
         };
     }
     void ResolveNextWave(int count)
@@ -165,6 +165,7 @@ public class BattleInitializer : MonoBehaviour
     void SpawnWave()
     {
         UpdateWaveLabel();
+
         // TODO: something more interesting, like split some armies
         List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
         foreach (Element element in elements)
@@ -201,7 +202,7 @@ public class BattleInitializer : MonoBehaviour
 
     void UpdateWaveLabel()
     {
-        _waveLabel.text = $"Wave: {_currentWaveIndex} / {_selectedBattle.Waves.Count}";
+        _waveLabel.text = $"Wave: {_currentWaveIndex + 1} / {_selectedBattle.Waves.Count}";
     }
 
 }
