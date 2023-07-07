@@ -43,11 +43,13 @@ public class BattleArmyHotkeys : MonoBehaviour
         icon.RegisterCallback<MouseEnterEvent>((e) =>
         {
             icon.style.opacity = 1;
+            be.ShowHighlightDiamond();
         });
 
         icon.RegisterCallback<MouseLeaveEvent>((e) =>
         {
             icon.style.opacity = 0.8f;
+            be.HideHighlightDiamond();
         });
 
     }

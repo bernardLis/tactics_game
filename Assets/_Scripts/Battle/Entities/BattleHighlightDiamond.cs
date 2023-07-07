@@ -13,13 +13,13 @@ public class BattleHighlightDiamond : MonoBehaviour
     {
         if (gameObject.activeSelf) return;
 
-        _startPos = transform.position;
+        _startPos = transform.localPosition;
         gameObject.SetActive(true);
 
         if (_mat == null) _mat = GetComponentInChildren<MeshRenderer>().material;
         _mat.color = col;
 
-        float endY = transform.position.y + 0.5f;
+        float endY = transform.localPosition.y + 0.5f;
         transform.DOMoveY(endY, 2f)
                 .SetEase(Ease.InOutSine)
                 .SetLoops(-1, LoopType.Yoyo);
@@ -32,7 +32,7 @@ public class BattleHighlightDiamond : MonoBehaviour
     public void Disable()
     {
         DOTween.Kill(transform);
-        transform.position = _startPos;
+        transform.localPosition = _startPos;
         gameObject.SetActive(false);
 
     }

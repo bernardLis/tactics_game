@@ -526,6 +526,16 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 
     /* highlight */
+    public void ShowHighlightDiamond()
+    {
+        _highlightDiamond.Enable(Color.white);
+    }
+
+    public void HideHighlightDiamond()
+    {
+        _highlightDiamond.Disable();
+    }
+
     public void TurnHighlightOff()
     {
         _highlightDiamond.Disable();
