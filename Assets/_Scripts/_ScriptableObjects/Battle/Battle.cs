@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Map/Battle")]
 public class Battle : BaseScriptableObject
@@ -9,10 +11,13 @@ public class Battle : BaseScriptableObject
     public Hero Opponent;
     public List<BattleWave> Waves = new();
 
-    public bool IsObstacleActive;
+    // modifiers
+    // TODO: something smarter with modifiers?
+    public List<BattleModifier> BattleModifiers = new();
 
     public bool Won;
 
+    public event Action<BattleModifier> OnBattleModifierAdded;
     public void CreateRandomDuel(int level)
     {
         BattleType = BattleType.Duel;
@@ -61,7 +66,7 @@ public class Battle : BaseScriptableObject
             Waves.Add(wave);
         }
 
-        foreach (Creature c in GameManager.Instance.HeroDatabase.AllMinions)
+        foreach (Creature c in GameManager.Instance.HeroDatabase.GetAllMinions())
         {
             int numberOfMinions = GetTotalNumberOfMinionsByName(c.Name);
             if (numberOfMinions > 0)
@@ -80,5 +85,19 @@ public class Battle : BaseScriptableObject
         foreach (BattleWave wave in Waves)
             total += wave.GetNumberOfMinionsByName(minionName);
         return total;
+    }
+
+    public void AddModifier(BattleModifier modifier)
+    {
+        BattleModifiers.Add(modifier);
+        OnBattleModifierAdded?.Invoke(modifier);
+    }
+
+    public bool HasModifierOfType(BattleModifierType modifierType)
+    {
+        foreach (BattleModifier modifier in BattleModifiers)
+            if (modifier.BattleModifierType == modifierType)
+                return true;
+        return false;
     }
 }

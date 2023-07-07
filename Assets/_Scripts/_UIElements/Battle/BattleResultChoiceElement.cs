@@ -18,6 +18,9 @@ public class BattleResultChoiceElement : VisualElement
     VisualElement _cardContainer;
     RerollButton _rerollButton;
 
+    List<BattleModifier> _selectedBattleModifiers = new();
+
+
     public event Action OnBattleSelected;
     public BattleResultChoiceElement()
     {
@@ -40,6 +43,7 @@ public class BattleResultChoiceElement : VisualElement
 
         AddPlaceholderCards();
         AddRerollButton();
+        AddBattleModifiers();
 
         style.opacity = 0;
         DOTween.To(x => style.opacity = x, 0, 1, 0.5f)
@@ -77,6 +81,9 @@ public class BattleResultChoiceElement : VisualElement
         {
             BattleType type = (BattleType)Random.Range(0, Enum.GetValues(typeof(BattleType)).Length);
             BattleCard card = new(type);
+            foreach (BattleModifier bm in _selectedBattleModifiers)
+                card.Battle.AddModifier(bm);
+
             _cards.Add(card);
             _cardContainer.Add(card);
 
@@ -129,5 +136,53 @@ public class BattleResultChoiceElement : VisualElement
         }
 
         OnBattleSelected?.Invoke();
+    }
+
+    void AddBattleModifiers()
+    {
+        Add(new Label("Choose battle modifiers: "));
+
+        VisualElement container = new();
+        Add(container);
+        container.style.flexDirection = FlexDirection.Row;
+
+        GameDatabase gdb = _gameManager.GameDatabase;
+        List<BattleModifier> chosenModifiers = new();
+        for (int i = 0; i < 3; i++)
+        {
+            BattleModifier modifier = gdb.GetRandomBattleModifier();
+            while (chosenModifiers.Contains(modifier)) // TODO: risky?
+                modifier = gdb.GetRandomBattleModifier();
+            chosenModifiers.Add(modifier);
+
+            BattleModifierElement element = new(modifier);
+            element.RegisterCallback<PointerUpEvent>((e) =>
+            {
+                if (!element.enabledInHierarchy) return;
+                if (_gameManager.Gold < modifier.Cost)
+                {
+                    Helpers.DisplayTextOnElement(BattleManager.Instance.Root,
+                            element, "Not enough gold!", Color.red);
+                    return;
+                }
+                if (_selectedBattleModifiers.Count >= 2)
+                {
+                    Helpers.DisplayTextOnElement(BattleManager.Instance.Root,
+                            element, "You can only choose 2 modifiers!", Color.red);
+                    return;
+                }
+                _gameManager.ChangeGoldValue(-modifier.Cost);
+                AddModifierToAllBattles(modifier);
+                element.SetEnabled(false);
+            });
+            container.Add(element);
+        }
+    }
+
+    void AddModifierToAllBattles(BattleModifier modifier)
+    {
+        _selectedBattleModifiers.Add(modifier);
+        foreach (BattleCard c in _cards)
+            c.Battle.AddModifier(modifier);
     }
 }

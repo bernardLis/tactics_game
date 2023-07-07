@@ -30,7 +30,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b04d5324785816b468904c1eae7bf242, type: 2}
   - {fileID: 11400000, guid: db8f082d533c77945aaeb61ac1332099, type: 2}
   - {fileID: 11400000, guid: 997eae81a58e0a84088fda32fe9b3758, type: 2}
-  AllMinions:
+  Minions:
   - {fileID: 11400000, guid: db9fae6ee78ed3d47a08e01d05f9ae4f, type: 2}
   - {fileID: 11400000, guid: 21440e69f9255954d88bd9d512170a89, type: 2}
   - {fileID: 11400000, guid: 54e6a991d1dc09d41838de32398f26c2, type: 2}
@@ -64,7 +64,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
     - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
     - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
-  MeleeEnemy: {fileID: 11400000, guid: 54e6a991d1dc09d41838de32398f26c2, type: 2}
   ElementalHitPrefabs:
   - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
     Prefab: {fileID: 687239542062312524, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}

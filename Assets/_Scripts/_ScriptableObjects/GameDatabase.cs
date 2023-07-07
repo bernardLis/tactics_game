@@ -7,8 +7,12 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
+    [Header("Battle")]
+    [SerializeField] BattleModifier[] BattleModifiers;
+    public List<BattleModifier> GetAllBattleModifiers() { return new(BattleModifiers); }
+    public BattleModifier GetRandomBattleModifier() { return BattleModifiers[Random.Range(0, BattleModifiers.Length)]; }
 
-    [Header("Dashboard")]
+    [Header("General")]
     [SerializeField] Sprite[] CoinSprites;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
@@ -58,6 +62,7 @@ public enum ItemRarity { Common, Uncommon, Rare, Epic }
 public enum StatType { Power, Health, Mana, Armor, Speed }
 
 public enum BattleType { Duel, Waves }
+
 
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
 public enum DashboardBuildingType { Desk, Camp, Abilities }

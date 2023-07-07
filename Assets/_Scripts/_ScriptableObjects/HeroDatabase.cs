@@ -18,8 +18,10 @@ public class HeroDatabase : ScriptableObject
         return creatures[Random.Range(0, creatures.Count)];
     }
 
-    public List<Creature> AllMinions = new();
-    public Creature GetRandomMinion() { return AllMinions[Random.Range(0, AllMinions.Count)]; }
+    [SerializeField] Creature[] Minions;
+
+    public List<Creature> GetAllMinions() { return Minions.ToList(); }
+    public Creature GetRandomMinion() { return Minions[Random.Range(0, Minions.Length)]; }
 
     [SerializeField] StartingArmy[] StartingArmies;
     public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }
@@ -40,8 +42,7 @@ public class HeroDatabase : ScriptableObject
         public GameObject Prefab;
     }
 
-
-    [Header("Abilities")]
+    [Header("Hero Stats")]
 
     [SerializeField] Ability[] Abilities;
     public List<Ability> GetAllAbilities() { return Abilities.ToList(); }
@@ -83,6 +84,8 @@ public class HeroDatabase : ScriptableObject
     public List<Element> GetAllElements() { return Elements.ToList(); }
     public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
     public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
+
+    [Header("Hero General")]
 
     public List<HeroPortrait> PortraitsMale = new();
     public List<HeroPortrait> PortraitsFemale = new();

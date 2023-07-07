@@ -69,7 +69,7 @@ public class BattleInitializer : MonoBehaviour
 
         _battleCameraManager.MoveCameraToDefaultPosition(3f);
 
-        if (_selectedBattle.IsObstacleActive)
+        if (_selectedBattle.HasModifierOfType(BattleModifierType.Obstacle))
             PlaceObstacle();
 
         yield return new WaitForSeconds(1f);

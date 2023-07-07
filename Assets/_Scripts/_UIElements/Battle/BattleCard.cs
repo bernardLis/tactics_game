@@ -15,7 +15,7 @@ public class BattleCard : ElementWithSound
 
     GameManager _gameManager;
 
-    Battle _battle;
+    public Battle Battle { get; private set; }
 
     Label _battleTypeLabel;
 
@@ -32,7 +32,8 @@ public class BattleCard : ElementWithSound
         _battleTypeLabel = new Label();
         Add(_battleTypeLabel);
 
-        _battle = ScriptableObject.CreateInstance<Battle>();
+        Battle = ScriptableObject.CreateInstance<Battle>();
+        Battle.OnBattleModifierAdded += OnBattleModifierAdded;
 
         if (battleType == BattleType.Duel)
             CreateDuel();
@@ -42,51 +43,38 @@ public class BattleCard : ElementWithSound
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
+    void OnBattleModifierAdded(BattleModifier battleModifier)
+    {
+        BattleModifierElement battleModifierElement = new(battleModifier, true);
+        Add(battleModifierElement);
+    }
+
     void CreateDuel()
     {
         _battleTypeLabel.text = "Duel";
-        //  _battleTypeLabel.AddToClassList(_ussDuelIcon);
-        _battle.CreateRandomDuel(_gameManager.PlayerHero.Level.Value);
+        Battle.CreateRandomDuel(_gameManager.PlayerHero.Level.Value);
 
-        HeroCardMini heroCardMini = new(_battle.Opponent);
+        HeroCardMini heroCardMini = new(Battle.Opponent);
         heroCardMini.SmallCard();
         Add(heroCardMini);
-
-        /*
-                VisualElement armyContainer = new();
-                armyContainer.style.width = Length.Percent(70);
-                armyContainer.style.flexDirection = FlexDirection.Row;
-                armyContainer.style.flexWrap = Wrap.Wrap;
-                Add(armyContainer);
-                foreach (Creature c in _battle.Opponent.Army)
-                {
-                    CreatureIcon creatureIcon = new(c);
-                    creatureIcon.SmallIcon();
-                    armyContainer.Add(creatureIcon);
-                }
-                */
     }
 
     void CreateWaves()
     {
         _battleTypeLabel.text = "Waves";
 
-        //  _battleTypeLabel.AddToClassList(_ussWavesIcon);
-        _battle.CreateRandomWaves(_gameManager.PlayerHero.Level.Value);
+        Battle.CreateRandomWaves(_gameManager.PlayerHero.Level.Value);
 
-        HeroCardMini heroCardMini = new(_battle.Opponent);
+        HeroCardMini heroCardMini = new(Battle.Opponent);
         heroCardMini.SmallCard();
         Add(heroCardMini);
-
-        //  Label waveCount = new Label("Number of waves: " + _battle.Waves.Count);
-        // Add(waveCount);
     }
 
     void OnPointerUp(PointerUpEvent evt)
     {
         if (evt.button != 0) return;
 
-        _gameManager.SelectedBattle = _battle;
+        _gameManager.SelectedBattle = Battle;
         OnCardSelected?.Invoke(this);
 
         _gameManager.GetComponent<AudioManager>().PlayUI("Hero Voices");

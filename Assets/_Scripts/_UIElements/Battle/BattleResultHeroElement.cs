@@ -240,7 +240,7 @@ public class BattleResultHeroElement : VisualElement
 
     void DisplayKilledWaves()
     {
-        List<Creature> minions = new(_gameManager.HeroDatabase.AllMinions);
+        List<Creature> minions = new(_gameManager.HeroDatabase.GetAllMinions());
         foreach (Creature minion in minions)
         {
             int count = _selectedBattle.GetTotalNumberOfMinionsByName(minion.Name);
