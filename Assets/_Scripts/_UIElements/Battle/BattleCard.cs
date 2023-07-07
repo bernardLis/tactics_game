@@ -44,37 +44,42 @@ public class BattleCard : ElementWithSound
 
     void CreateDuel()
     {
-        _battleTypeLabel.AddToClassList(_ussDuelIcon);
+        _battleTypeLabel.text = "Duel";
+        //  _battleTypeLabel.AddToClassList(_ussDuelIcon);
         _battle.CreateRandomDuel(_gameManager.PlayerHero.Level.Value);
 
         HeroCardMini heroCardMini = new(_battle.Opponent);
         heroCardMini.SmallCard();
         Add(heroCardMini);
 
-        VisualElement armyContainer = new();
-        armyContainer.style.width = Length.Percent(80);
-        armyContainer.style.flexDirection = FlexDirection.Row;
-        armyContainer.style.flexWrap = Wrap.Wrap;
-        Add(armyContainer);
-        foreach (Creature c in _battle.Opponent.Army)
-        {
-            CreatureIcon creatureIcon = new(c);
-            creatureIcon.SmallIcon();
-            armyContainer.Add(creatureIcon);
-        }
+        /*
+                VisualElement armyContainer = new();
+                armyContainer.style.width = Length.Percent(70);
+                armyContainer.style.flexDirection = FlexDirection.Row;
+                armyContainer.style.flexWrap = Wrap.Wrap;
+                Add(armyContainer);
+                foreach (Creature c in _battle.Opponent.Army)
+                {
+                    CreatureIcon creatureIcon = new(c);
+                    creatureIcon.SmallIcon();
+                    armyContainer.Add(creatureIcon);
+                }
+                */
     }
 
     void CreateWaves()
     {
-        _battleTypeLabel.AddToClassList(_ussWavesIcon);
+        _battleTypeLabel.text = "Waves";
+
+        //  _battleTypeLabel.AddToClassList(_ussWavesIcon);
         _battle.CreateRandomWaves(_gameManager.PlayerHero.Level.Value);
 
         HeroCardMini heroCardMini = new(_battle.Opponent);
         heroCardMini.SmallCard();
         Add(heroCardMini);
 
-        Label waveCount = new Label("Number of waves: " + _battle.Waves.Count);
-        Add(waveCount);
+        //  Label waveCount = new Label("Number of waves: " + _battle.Waves.Count);
+        // Add(waveCount);
     }
 
     void OnPointerUp(PointerUpEvent evt)

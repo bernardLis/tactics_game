@@ -142,6 +142,9 @@ public class BattleResultElement : FullScreenElement
         _gameManager.PlayerHero.OnItemAdded +=
                 (item) => Helpers.DisplayTextOnElement(_root, _resultHeroElement.HeroCardMini,
                        "+ " + item.ItemName, Helpers.GetColor(item.Rarity.ToString()));
+        _gameManager.PlayerHero.OnCreatureAdded +=
+                (creature) => Helpers.DisplayTextOnElement(_root, _resultHeroElement.HeroCardMini,
+                       "+ " + creature.Name, creature.Element.Color);
 
         _content.Remove(_continueButton);
 

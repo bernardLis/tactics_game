@@ -5,9 +5,6 @@ using UnityEngine.UIElements;
 
 public class MinionArmyCard : VisualElement
 {
-
-    const string _ussCommonTextPrimary = "common__text-primary";
-
     GameManager _gameManager;
 
     public Creature Creature;

@@ -60,6 +60,18 @@ public class Battle : BaseScriptableObject
             wave.Initialize();
             Waves.Add(wave);
         }
+
+        foreach (Creature c in GameManager.Instance.HeroDatabase.AllMinions)
+        {
+            int numberOfMinions = GetTotalNumberOfMinionsByName(c.Name);
+            if (numberOfMinions > 0)
+            {
+                // HERE: minions should be addable to army with count not level
+                Creature creature = Instantiate(c);
+                creature.Level = numberOfMinions;
+                Opponent.Army.Add(creature);
+            }
+        }
     }
 
     public int GetTotalNumberOfMinionsByName(string minionName)
