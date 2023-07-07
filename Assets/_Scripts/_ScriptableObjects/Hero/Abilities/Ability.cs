@@ -15,15 +15,21 @@ public class Ability : BaseScriptableObject
 
     public Sound AbilityNameSound;
 
-    [SerializeField] int BaseManaCost;
-    [SerializeField] int BasePower;
-    [SerializeField] int BaseCooldown;
-    [SerializeField] int BaseScale;
+    [SerializeField] int _baseManaCost;
+    [SerializeField] int _basePower;
+    [SerializeField] int _baseCooldown;
+    [SerializeField] int _baseScale;
 
-    [SerializeField] float ManaCostLevelMultiplier;
-    [SerializeField] float PowerLevelMultiplier;
-    [SerializeField] float CooldownLevelMultiplier;
-    [SerializeField] float ScaleLevelMultiplier;
+    [SerializeField] float _manaCostLevelMultiplier;
+    [SerializeField] float _powerLevelMultiplier;
+    [SerializeField] float _cooldownLevelMultiplier;
+    [SerializeField] float _scaleLevelMultiplier;
+
+    // battle modifiers
+    float _battleDamageMultiplier = 1f;
+    float _battleCooldownMultiplier = 1f;
+    float _battleManaCostMultiplier = 1f;
+    float _battleScaleMultiplier = 1f;
 
     public Element Element;
     [HideInInspector] public int KillCount;
@@ -32,6 +38,17 @@ public class Ability : BaseScriptableObject
     public GameObject AbilityExecutorPrefab;
 
     public event Action OnCooldownStarted;
+
+    public void InitializeBattle()
+    {
+        Battle b = GameManager.Instance.SelectedBattle;
+
+        _battleDamageMultiplier = b.AbilityDamage;
+        _battleCooldownMultiplier = b.AbilityCooldown;
+        _battleManaCostMultiplier = b.AbilityManaCost;
+        _battleScaleMultiplier = b.AbilityScale;
+    }
+
     public void StartCooldown()
     {
         OnCooldownStarted?.Invoke();
@@ -39,23 +56,26 @@ public class Ability : BaseScriptableObject
 
     public int GetManaCost()
     {
-
-        return Mathf.RoundToInt(BaseManaCost + ((Level - 1) * ManaCostLevelMultiplier));
+        int manaCost = Mathf.RoundToInt(_baseManaCost + ((Level - 1) * _manaCostLevelMultiplier));
+        return Mathf.RoundToInt(manaCost * _battleManaCostMultiplier);
     }
 
     public int GetPower()
     {
-        return Mathf.RoundToInt(BasePower + ((Level - 1) * PowerLevelMultiplier));
+        int power = Mathf.RoundToInt(_basePower + ((Level - 1) * _powerLevelMultiplier));
+        return Mathf.RoundToInt(power * _battleDamageMultiplier);
     }
 
     public int GetCooldown()
     {
-        return Mathf.RoundToInt(BaseCooldown + ((Level - 1) * CooldownLevelMultiplier));
+        int cooldown = Mathf.RoundToInt(_baseCooldown + ((Level - 1) * _cooldownLevelMultiplier));
+        return Mathf.RoundToInt(cooldown * _battleCooldownMultiplier);
     }
 
     public float GetScale()
     {
-        return BaseScale + ((Level - 1) * ScaleLevelMultiplier);
+        int scale = Mathf.RoundToInt(_baseScale + ((Level - 1) * _scaleLevelMultiplier));
+        return scale * _battleScaleMultiplier;
     }
 
     public void IncreaseKillCount() { KillCount++; }

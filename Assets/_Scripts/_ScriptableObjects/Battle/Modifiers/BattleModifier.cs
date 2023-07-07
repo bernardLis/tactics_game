@@ -7,6 +7,7 @@ public class BattleModifier : BaseScriptableObject
 {
     public BattleModifierType BattleModifierType;
     public Sprite Icon;
+    public float Multiplier;
     public string Description;
     public int Cost;
 }
@@ -14,14 +15,12 @@ public class BattleModifier : BaseScriptableObject
 public enum BattleModifierType
 {
     Obstacle,
-    DoubleCreatureSpeed,
-    NoElementDamageMultiplier,
-    DoubleElementDamageMultiplier,
-    HalfCreatureAbilityCooldown,
-    DoubleCreatureAbilityCooldown,
-    DoubleAbilityDamage,
-    DoubleAbilityAOE,
-    HalfAbilityManaCost,
-    NoAbilityCooldown
+    CreatureSpeed,
+    ElementDamage,
+    CreatureAbilityCooldown,
+    AbilityDamage,
+    AbilityAOE,
+    AbilityManaCost,
+    AbilityCooldown
 }
 

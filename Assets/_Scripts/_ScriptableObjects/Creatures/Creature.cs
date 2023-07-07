@@ -43,6 +43,8 @@ public class Creature : BaseScriptableObject
 
     [HideInInspector] public Hero Hero;
 
+    float ElementalDamageMultiplier = 1f;
+
     public event Action OnLevelUp;
 
     public void InitializeBattle(Hero hero)
@@ -52,6 +54,14 @@ public class Creature : BaseScriptableObject
         OldDamageTaken = TotalDamageTaken;
 
         if (hero != null) Hero = hero;
+
+        // modifiers
+        Battle b = GameManager.Instance.SelectedBattle;
+
+        Speed *= b.CreatureSpeedMultiplier;
+        ElementalDamageMultiplier = b.ElementalDamageMultiplier;
+        if (CreatureAbility != null)
+            CreatureAbility.Cooldown = Mathf.FloorToInt(CreatureAbility.Cooldown * b.CreatureAbilityCooldown);
     }
 
     public void InitializeMinion(int level)
@@ -75,10 +85,14 @@ public class Creature : BaseScriptableObject
         if (attacker.Creature.Hero != null)
             damage += attacker.Creature.Hero.Power.GetValue();
 
+        float elementalDamageBonus = 0f;
         if (Element.StrongAgainst == attacker.Creature.Element)
-            damage *= 0.5f;
+            elementalDamageBonus = -damage * 0.5f;
         if (Element.WeakAgainst == attacker.Creature.Element)
-            damage *= 1.5f;
+            elementalDamageBonus = damage * 0.5f;
+
+        elementalDamageBonus *= ElementalDamageMultiplier;
+        damage += elementalDamageBonus;
 
         damage = Mathf.Round(damage);
 

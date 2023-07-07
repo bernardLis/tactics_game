@@ -12,7 +12,15 @@ public class Battle : BaseScriptableObject
     public List<BattleWave> Waves = new();
 
     // modifiers
-    // TODO: something smarter with modifiers?
+    public float CreatureSpeedMultiplier = 1f;
+    public float ElementalDamageMultiplier = 1f;
+    public float CreatureAbilityCooldown = 1f;
+    public float AbilityDamage = 1f;
+    public float AbilityScale = 1f;
+    public float AbilityManaCost = 1f;
+    public float AbilityCooldown = 1f;
+
+
     public List<BattleModifier> BattleModifiers = new();
 
     public bool Won;
@@ -91,6 +99,21 @@ public class Battle : BaseScriptableObject
     {
         BattleModifiers.Add(modifier);
         OnBattleModifierAdded?.Invoke(modifier);
+
+        if (modifier.BattleModifierType == BattleModifierType.CreatureSpeed)
+            CreatureSpeedMultiplier *= modifier.Multiplier;
+        if (modifier.BattleModifierType == BattleModifierType.ElementDamage)
+            ElementalDamageMultiplier *= modifier.Multiplier;
+        if (modifier.BattleModifierType == BattleModifierType.CreatureAbilityCooldown)
+            CreatureAbilityCooldown *= modifier.Multiplier;
+        if (modifier.BattleModifierType == BattleModifierType.AbilityDamage)
+            AbilityDamage *= modifier.Multiplier;
+        if (modifier.BattleModifierType == BattleModifierType.AbilityAOE)
+            AbilityScale *= modifier.Multiplier;
+        if (modifier.BattleModifierType == BattleModifierType.AbilityManaCost)
+            AbilityManaCost *= modifier.Multiplier;
+        if (modifier.BattleModifierType == BattleModifierType.AbilityCooldown)
+            AbilityCooldown *= modifier.Multiplier;
     }
 
     public bool HasModifierOfType(BattleModifierType modifierType)

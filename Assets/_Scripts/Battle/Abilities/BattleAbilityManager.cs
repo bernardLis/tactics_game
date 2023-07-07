@@ -94,7 +94,6 @@ public class BattleAbilityManager : MonoBehaviour
 
         _playerInput.actions["LeftMouseClick"].performed += LeftMouseClick;
         _playerInput.actions["RightMouseClick"].performed += RightMouseClick;
-
     }
 
     void UnsubscribeInputActions()
@@ -116,14 +115,13 @@ public class BattleAbilityManager : MonoBehaviour
         int i = 1;
         foreach (Ability ability in _abilities)
         {
+            ability.InitializeBattle();
             AbilityButton button = new(ability, i.ToString());
             button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability, button));
             container.Add(button);
             _abilityButtons.Add(button);
             i++;
         }
-
-
     }
 
     void ButtonOneClick(InputAction.CallbackContext context)
