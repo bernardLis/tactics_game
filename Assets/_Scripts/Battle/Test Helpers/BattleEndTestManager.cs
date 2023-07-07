@@ -8,6 +8,7 @@ using System.Linq;
 
 public class BattleEndTestManager : MonoBehaviour
 {
+    GameManager _gameManager;
     BattleManager _battleManager;
     Hero _hero;
     Hero _opponent;
@@ -29,6 +30,7 @@ public class BattleEndTestManager : MonoBehaviour
 
     void InstantiateHeroes()
     {
+        _gameManager = GameManager.Instance;
         List<Creature> armyInstance = new();
         foreach (Creature c in _army)
         {
@@ -40,7 +42,7 @@ public class BattleEndTestManager : MonoBehaviour
         _hero.CreateRandom(1);
         _hero.Abilities = new();
         _hero.Army = armyInstance;
-        GameManager.Instance.PlayerHero = _hero;
+        _gameManager.PlayerHero = _hero;
 
         foreach (Ability a in GameManager.Instance.HeroDatabase.GetAllAbilities())
         {
@@ -48,9 +50,11 @@ public class BattleEndTestManager : MonoBehaviour
             _hero.Abilities.Add(instance);
         }
 
-        _opponent = ScriptableObject.CreateInstance<Hero>();
-        _opponent.CreateRandom(1);
-        _opponent.Army = armyInstance;
+        Battle battle = ScriptableObject.CreateInstance<Battle>();
+        battle.CreateRandomDuel(1);
+        _gameManager.SelectedBattle = battle;
+
+        _gameManager.BattleNumber = 0;
     }
 
     void InstantiatePickups()
@@ -88,7 +92,7 @@ public class BattleEndTestManager : MonoBehaviour
             heroArmy.Add(be);
         }
 
-        foreach (Creature c in _hero.Army)
+        foreach (Creature c in _gameManager.SelectedBattle.Opponent.Army)
         {
             Vector3 pos = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f))
                     + new Vector3(10f, 0f, 10f);

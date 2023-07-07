@@ -57,6 +57,17 @@ public class CreatureIcon : ElementWithTooltip
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
     }
 
+    public void SmallIcon()
+    {
+        style.width = 50;
+        style.height = 50;
+
+        Frame.style.width = 50;
+        Frame.style.height = 50;
+
+        _iconContainer.style.width = 40;
+        _iconContainer.style.height = 40;
+    }
 
     public void LargeIcon()
     {

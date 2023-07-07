@@ -9,11 +9,15 @@ public class BattleCard : ElementWithSound
 {
     const string _ussClassName = "battle-card__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussDuelIcon = _ussClassName + "duel-icon";
+    const string _ussWavesIcon = _ussClassName + "waves-icon";
     const string _ussDisabled = _ussClassName + "disabled";
 
     GameManager _gameManager;
 
     Battle _battle;
+
+    Label _battleTypeLabel;
 
     public event Action<BattleCard> OnCardSelected;
     public BattleCard(BattleType battleType)
@@ -24,6 +28,9 @@ public class BattleCard : ElementWithSound
             styleSheets.Add(ss);
 
         AddToClassList(_ussMain);
+
+        _battleTypeLabel = new Label();
+        Add(_battleTypeLabel);
 
         _battle = ScriptableObject.CreateInstance<Battle>();
 
@@ -37,20 +44,34 @@ public class BattleCard : ElementWithSound
 
     void CreateDuel()
     {
+        _battleTypeLabel.AddToClassList(_ussDuelIcon);
         _battle.CreateRandomDuel(_gameManager.PlayerHero.Level.Value);
 
         HeroCardMini heroCardMini = new(_battle.Opponent);
+        heroCardMini.SmallCard();
         Add(heroCardMini);
 
-        ScrollView scrollView = new ScrollView();
-        Add(scrollView);
+        VisualElement armyContainer = new();
+        armyContainer.style.width = Length.Percent(80);
+        armyContainer.style.flexDirection = FlexDirection.Row;
+        armyContainer.style.flexWrap = Wrap.Wrap;
+        Add(armyContainer);
         foreach (Creature c in _battle.Opponent.Army)
-            scrollView.Add(new CreatureIcon(c));
+        {
+            CreatureIcon creatureIcon = new(c);
+            creatureIcon.SmallIcon();
+            armyContainer.Add(creatureIcon);
+        }
     }
 
     void CreateWaves()
     {
+        _battleTypeLabel.AddToClassList(_ussWavesIcon);
         _battle.CreateRandomWaves(_gameManager.PlayerHero.Level.Value);
+
+        HeroCardMini heroCardMini = new(_battle.Opponent);
+        heroCardMini.SmallCard();
+        Add(heroCardMini);
 
         Label waveCount = new Label("Number of waves: " + _battle.Waves.Count);
         Add(waveCount);

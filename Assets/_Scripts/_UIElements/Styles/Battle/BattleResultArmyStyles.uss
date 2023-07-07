@@ -7,28 +7,3 @@
     height: 50%;
     align-items: center;
 }
-
-.battle-result-army__give-pickups-button {
-    font-size: 24px;
-    justify-content: center;
-    width: 200px;
-    height: 60px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little.png?fileID=2800000&guid=7d3b047def79cf4429819bd8e157dbe6&type=3#Button_little');
-}
-
-.battle-result-army__army-stats-container {
-    flex-direction: row;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-left-color: rgba(202, 176, 176, 0.77);
-    border-right-color: rgba(202, 176, 176, 0.77);
-    border-top-color: rgba(202, 176, 176, 0.77);
-    border-bottom-color: rgba(202, 176, 176, 0.77);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    background-color: rgba(125, 94, 94, 0.3);
-}

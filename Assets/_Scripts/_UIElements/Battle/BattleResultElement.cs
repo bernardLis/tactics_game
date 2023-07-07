@@ -84,7 +84,7 @@ public class BattleResultElement : FullScreenElement
         _resultHeroElement = new();
         _content.Add(_resultHeroElement);
 
-        _continueButton = new("Continue", _ussContinueButton, ShowStatsContainer);
+        _continueButton = new("Continue", _ussContinueButton, ShowArmyContainer);
         _resultHeroElement.OnFinished += () => _content.Add(_continueButton);
 
         _starEffect = _gameManager.GetComponent<EffectManager>()
@@ -135,7 +135,7 @@ public class BattleResultElement : FullScreenElement
         SpiceElement.ChangeAmount(newValue);
     }
 
-    void ShowStatsContainer()
+    void ShowArmyContainer()
     {
         OnHeroElementClosed?.Invoke();
         _resultHeroElement.MoveAway();
@@ -150,14 +150,14 @@ public class BattleResultElement : FullScreenElement
             _resultArmyElement = new(_content);
             _content.Add(_resultArmyElement);
 
-            _continueButton = new("Continue", _ussContinueButton, ShowRewards);
+            _continueButton = new("Continue", _ussContinueButton, ShowRewardContainer);
             _resultArmyElement.OnFinished += () => _content.Add(_continueButton);
 
             _content.Remove(_resultHeroElement);
         }).StartingIn(1000);
     }
 
-    void ShowRewards()
+    void ShowRewardContainer()
     {
         OnArmyElementClosed?.Invoke();
         _resultArmyElement.MoveAway();
@@ -168,12 +168,14 @@ public class BattleResultElement : FullScreenElement
             _resultRewardElement = new BattleResultRewardElement();
             _content.Add(_resultRewardElement);
 
-            _continueButton = new("Continue", _ussContinueButton, ShowBattleChoices);
+            _continueButton = new("Continue", _ussContinueButton, ShowBattleChoiceContainer);
             _resultRewardElement.OnRewardSelected += () => _content.Add(_continueButton);
+
+            _content.Remove(_resultArmyElement);
         }).StartingIn(1000);
     }
 
-    void ShowBattleChoices()
+    void ShowBattleChoiceContainer()
     {
         OnRewardElementClosed?.Invoke();
         _resultRewardElement.MoveAway();
@@ -192,6 +194,8 @@ public class BattleResultElement : FullScreenElement
 
             _continueButton = new("Continue", _ussContinueButton, LoadBattle);
             _resultChoiceElement.OnBattleSelected += () => _content.Add(_continueButton);
+
+            _content.Remove(_resultRewardElement);
         }).StartingIn(1000);
     }
 

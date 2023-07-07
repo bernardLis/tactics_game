@@ -5,11 +5,6 @@
     transition-timing-function: ease-in-out;
 }
 
-.hero-portrait__container-slotted {
-    width: 100px;
-    height: 100px;
-}
-
 .hero-portrait__main {
     width: 130px;
     height: 130px;
@@ -26,11 +21,6 @@
 
 }
 
-.hero-portrait__main-slotted {
-    width: 90px;
-    height: 90px;
-}
-
 .hero-portrait__frame {
     position: absolute;
     width: 160px;
@@ -40,7 +30,19 @@
     transition-timing-function: ease-in-out;
 }
 
-.hero-portrait__frame-slotted {
+.hero-portrait__container-small {
+    width: 100px;
+    height: 100px;
+}
+
+.hero-portrait__main-small {
+    width: 90px;
+    height: 90px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.hero-portrait__frame-small {
     position: relative;
     width: 100px;
     height: 100px;

@@ -297,6 +297,7 @@ public class BattleResultHeroElement : VisualElement
         GiveCollectedPickups();
 
         HeroCardMini = _heroCard.HeroCardMini;
+        HeroCardMini.SmallCard();
         style.position = Position.Absolute;
         HeroCardMini.style.position = Position.Absolute;
         HeroCardMini.style.left = _heroCard.worldBound.x;

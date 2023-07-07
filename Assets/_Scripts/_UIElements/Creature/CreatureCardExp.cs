@@ -14,6 +14,7 @@ public class CreatureCardExp : VisualElement
     const string _ussMain = _ussClassName + "main";
     const string _ussMiddlePanel = _ussClassName + "middle-panel";
     const string _ussLevelUpButton = _ussClassName + "level-up-button";
+    const string _ussMainFolded = _ussClassName + "main-folded";
 
     GameManager _gameManager;
 
@@ -56,9 +57,6 @@ public class CreatureCardExp : VisualElement
         _leftPanel = new();
         Add(_leftPanel);
 
-        _name = new(Creature.Name);
-        _leftPanel.Add(_name);
-
         CreatureIcon = new(Creature);
         _leftPanel.Add(CreatureIcon);
     }
@@ -68,6 +66,9 @@ public class CreatureCardExp : VisualElement
         _middlePanel = new();
         _middlePanel.AddToClassList(_ussMiddlePanel);
         Add(_middlePanel);
+
+        _name = new(Creature.Name);
+        _middlePanel.Add(_name);
 
         _currentSpice = ScriptableObject.CreateInstance<IntVariable>();
         _currentSpice.SetValue(0);
@@ -118,6 +119,8 @@ public class CreatureCardExp : VisualElement
 
     public void FoldSelf()
     {
+        CreatureIcon.SmallIcon();
+        AddToClassList(_ussMainFolded);
         DOTween.To(x => _name.style.opacity = x, 1, 0, 0.5f)
             .OnComplete(() => _name.style.display = DisplayStyle.None);
         DOTween.To(x => _middlePanel.style.opacity = x, 1, 0, 0.5f)

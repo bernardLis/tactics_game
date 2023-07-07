@@ -53,6 +53,13 @@ public class HeroCardMini : ElementWithTooltip
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
+    public void SmallCard()
+    {
+        style.minHeight = 100;
+        style.minWidth = 100; 
+        _portrait.SmallPortrait();
+    }
+
     void OnPointerUp(PointerUpEvent evt)
     {
         if (evt.button != 0) return;

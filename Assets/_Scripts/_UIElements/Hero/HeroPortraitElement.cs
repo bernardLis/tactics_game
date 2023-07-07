@@ -9,9 +9,9 @@ public class HeroPortraitElement : VisualElement
     const string _ussMain = _ussClassName + "__main";
     const string _ussFrame = _ussClassName + "__frame";
 
-    const string _ussContainerSlotted = _ussClassName + "__container-slotted";
-    const string _ussMainSlotted = _ussClassName + "__main-slotted";
-    const string _ussFrameSlotted = _ussClassName + "__frame-slotted";
+    const string _ussContainerSmall = _ussClassName + "__container-small";
+    const string _ussMainSmall = _ussClassName + "__main-small";
+    const string _ussFrameSmall = _ussClassName + "__frame-small";
 
     public HeroCardStats Card;
     public Hero Hero;
@@ -44,17 +44,17 @@ public class HeroPortraitElement : VisualElement
 
     void UpdateFrame(HeroRank rank) { _frame.style.backgroundImage = new StyleBackground(rank.PortraitBorder); }
 
-    public void Slotted()
+    public void SmallPortrait()
     {
-        AddToClassList(_ussContainerSlotted);
-        _portrait.AddToClassList(_ussMainSlotted);
-        _frame.AddToClassList(_ussFrameSlotted);
+        AddToClassList(_ussContainerSmall);
+        _portrait.AddToClassList(_ussMainSmall);
+        _frame.AddToClassList(_ussFrameSmall);
     }
 
-    public void Unslotted()
+    public void NotSmallPortrait()
     {
-        RemoveFromClassList(_ussContainerSlotted);
-        _portrait.RemoveFromClassList(_ussMainSlotted);
-        _frame.RemoveFromClassList(_ussFrameSlotted);
+        RemoveFromClassList(_ussContainerSmall);
+        _portrait.RemoveFromClassList(_ussMainSmall);
+        _frame.RemoveFromClassList(_ussFrameSmall);
     }
 }
