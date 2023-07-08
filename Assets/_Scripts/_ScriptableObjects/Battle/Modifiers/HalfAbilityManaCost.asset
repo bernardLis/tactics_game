@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f595b96f-9ec4-48aa-9d25-61b13e62db75
   BattleModifierType: 6
-  Icon: {fileID: 21300000, guid: 6b1c444e5f1016043b032bbbdb5ab838, type: 3}
+  Icon: {fileID: 21300000, guid: 2a82c9c17025de5428097a729e7a7c33, type: 3}
   Multiplier: 0.5
   Description: Hero ability mana cost is halved.
   Cost: 200

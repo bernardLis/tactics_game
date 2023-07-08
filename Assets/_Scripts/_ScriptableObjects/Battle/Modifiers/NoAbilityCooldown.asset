@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f595b96f-9ec4-48aa-9d25-61b13e62db75
   BattleModifierType: 7
-  Icon: {fileID: 21300000, guid: 6b1c444e5f1016043b032bbbdb5ab838, type: 3}
+  Icon: {fileID: 21300000, guid: 5db9adce0eb17804e97d2f668a0188a4, type: 3}
   Multiplier: 0
   Description: Hero abilities have no cooldown.
   Cost: 200

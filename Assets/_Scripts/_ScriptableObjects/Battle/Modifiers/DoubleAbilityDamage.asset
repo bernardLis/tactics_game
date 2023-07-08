@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f595b96f-9ec4-48aa-9d25-61b13e62db75
   BattleModifierType: 4
-  Icon: {fileID: 21300000, guid: 6b1c444e5f1016043b032bbbdb5ab838, type: 3}
+  Icon: {fileID: 21300000, guid: 7ce267a7d2e37024b9cdbabed4b463cb, type: 3}
   Multiplier: 2
   Description: Hero ability damage is doubled.
   Cost: 200

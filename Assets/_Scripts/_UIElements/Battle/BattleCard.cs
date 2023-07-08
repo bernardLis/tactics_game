@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using DG.Tweening;
 
 public class BattleCard : ElementWithSound
 {
@@ -46,6 +46,8 @@ public class BattleCard : ElementWithSound
     void OnBattleModifierAdded(BattleModifier battleModifier)
     {
         BattleModifierElement battleModifierElement = new(battleModifier, true);
+        battleModifierElement.style.opacity = 0;
+        DOTween.To(x => battleModifierElement.style.opacity = x, 0, 1, 0.5f);
         Add(battleModifierElement);
     }
 
