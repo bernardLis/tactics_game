@@ -19,6 +19,7 @@ public class PlayerArmyDeployer : MonoBehaviour
     int _floorLayerMask;
     bool _wasInitialized;
     CreatureSpawner _creatureSpawnerInstance;
+    bool _wasDeployed;
 
     public event Action OnPlayerArmyDeployed;
     void Start()
@@ -70,11 +71,15 @@ public class PlayerArmyDeployer : MonoBehaviour
 
     public void OnPointerUp(InputAction.CallbackContext context)
     {
+        if (_wasDeployed) return;
+        _wasDeployed = true;
+
         if (!_wasInitialized) return;
         if (this == null) return;
         if (_creatureSpawnerInstance == null) return;
 
-        _topPanel.Remove(_tooltipText);
+        if (_tooltipText.parent != null)
+            _topPanel.Remove(_tooltipText);
 
         _creatureSpawnerInstance.SpawnHeroArmy(_gameManager.PlayerHero);
         _creatureSpawnerInstance.OnSpawnComplete += (list) =>

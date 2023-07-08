@@ -71,6 +71,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
+  _testBattleModifiers:
+  - {fileID: 11400000, guid: 3e03f3fc898a81e43ba173446667b441, type: 2}
+  - {fileID: 11400000, guid: 292c1a174e0fddd4a9f43f64cc5ba621, type: 2}
   EntityHolder: {fileID: 0}
   _skyboxRotationSpeed: 0.2
   PlayerEntities: []

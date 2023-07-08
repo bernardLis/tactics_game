@@ -221,7 +221,7 @@ public class HeroCreation : MonoBehaviour
         //        _gameManager.SelectedBattle.Opponent.Element = _chosenElement.StrongAgainst;
         //      _gameManager.SelectedBattle.Opponent.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_chosenElement.StrongAgainst).Creatures);
         Battle battle = ScriptableObject.CreateInstance<Battle>();
-        battle.CreateRandomWaves(1);
+        battle.CreateRandomDuel(1);
         _gameManager.SelectedBattle = battle;
 
         Debug.Log($"Starting game");

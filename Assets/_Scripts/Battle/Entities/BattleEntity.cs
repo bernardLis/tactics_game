@@ -156,6 +156,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void StartRunEntityCoroutine()
     {
         EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
+        if (_runEntityCoroutine != null) StopCoroutine(_runEntityCoroutine);
+
         _runEntityCoroutine = RunEntity();
         StartCoroutine(_runEntityCoroutine);
     }

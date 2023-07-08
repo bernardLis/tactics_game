@@ -14,6 +14,8 @@ public class BattleManager : Singleton<BattleManager>
     BattleHeroManager _battleHeroManager;
 
     [SerializeField] Sound _battleMusic;
+    [SerializeField] List<BattleModifier> _testBattleModifiers = new();         // HERE: modifier testing
+
     public Battle LoadedBattle { get; private set; }
 
     public VisualElement Root { get; private set; }
@@ -32,8 +34,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public float BattleTime { get; private set; }
 
-    Hero _playerHero;
-    Hero _opponentHero;
+    bool _timerIsOn;
 
     public List<BattleEntity> PlayerEntities = new();
     public List<BattleEntity> OpponentEntities = new();
@@ -61,6 +62,13 @@ public class BattleManager : Singleton<BattleManager>
         _infoPanel = Root.Q<VisualElement>("infoPanel");
         _timerLabel = _infoPanel.Q<Label>("timer");
         _opponentsLeftLabel = _infoPanel.Q<Label>("enemyCount");
+
+        // HERE: modifier testing
+        _gameManager = GameManager.Instance;
+        foreach (BattleModifier bm in _testBattleModifiers)
+        {
+            _gameManager.SelectedBattle.AddModifier(bm);
+        }
     }
 
     void Start()
@@ -94,7 +102,7 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator UpdateTimer()
     {
-        while (true)
+        while (_timerIsOn)
         {
             BattleTime += 1f;
             TimeSpan time = TimeSpan.FromSeconds(BattleTime);
@@ -109,15 +117,16 @@ public class BattleManager : Singleton<BattleManager>
 
         if (playerHero != null)
         {
-            _playerHero = playerHero;
-
             _battleHeroManager = GetComponent<BattleHeroManager>();
             _battleHeroManager.enabled = true;
             _battleHeroManager.Initialize(playerHero);
         }
-
+        _timerIsOn = true;
         StartCoroutine(UpdateTimer());
         OnBattleInitialized?.Invoke();
+
+        foreach (BattleModifier b in _gameManager.SelectedBattle.BattleModifiers)
+            _infoPanel.Add(new BattleModifierElement(b, true));
 
         _infoPanel.style.opacity = 0f;
         _infoPanel.style.display = DisplayStyle.Flex;

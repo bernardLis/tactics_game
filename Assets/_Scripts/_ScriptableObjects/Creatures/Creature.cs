@@ -61,7 +61,11 @@ public class Creature : BaseScriptableObject
         Speed *= b.CreatureSpeedMultiplier;
         ElementalDamageMultiplier = b.ElementalDamageMultiplier;
         if (CreatureAbility != null)
+        {
+            CreatureAbility = Instantiate(CreatureAbility);
+            Debug.Log($"b.CreatureAbilityCooldown {b.CreatureAbilityCooldown}");
             CreatureAbility.Cooldown = Mathf.FloorToInt(CreatureAbility.Cooldown * b.CreatureAbilityCooldown);
+        }
     }
 
     public void InitializeMinion(int level)

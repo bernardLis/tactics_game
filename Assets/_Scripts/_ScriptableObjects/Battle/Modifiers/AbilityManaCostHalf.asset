@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd61fa15d46142a4ca24e344bd313f36, type: 3}
-  m_Name: DoubleCreatureAbilityCooldown
+  m_Name: AbilityManaCostHalf
   m_EditorClassIdentifier: 
   Id: f595b96f-9ec4-48aa-9d25-61b13e62db75
-  BattleModifierType: 3
-  Icon: {fileID: 21300000, guid: 9115f364e3af4394a81c2ce016560c4a, type: 3}
-  Multiplier: 2
-  Description: Cooldown of creature abilities is doubled.
+  BattleModifierType: 6
+  Icon: {fileID: 21300000, guid: 2a82c9c17025de5428097a729e7a7c33, type: 3}
+  Multiplier: 0.5
+  Description: Hero ability mana cost is halved.
   Cost: 200

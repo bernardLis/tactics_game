@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd61fa15d46142a4ca24e344bd313f36, type: 3}
-  m_Name: NoElementDamageMultiplier
+  m_Name: AbilityCooldownNo
   m_EditorClassIdentifier: 
   Id: f595b96f-9ec4-48aa-9d25-61b13e62db75
-  BattleModifierType: 2
-  Icon: {fileID: 21300000, guid: 52a13c57b2a30e94080d26c72a39b1ee, type: 3}
+  BattleModifierType: 7
+  Icon: {fileID: 21300000, guid: 5db9adce0eb17804e97d2f668a0188a4, type: 3}
   Multiplier: 0
-  Description: Element damage bonus is disabled.
+  Description: Hero abilities have no cooldown.
   Cost: 200
