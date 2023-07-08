@@ -20,7 +20,6 @@ public class BattleWaveTestManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
 
-        // HERE: waves you could pass a list of waves
         for (int i = 0; i < 3; i++)
         {
             BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();

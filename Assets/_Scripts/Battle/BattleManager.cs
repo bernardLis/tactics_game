@@ -14,7 +14,6 @@ public class BattleManager : Singleton<BattleManager>
     BattleHeroManager _battleHeroManager;
 
     [SerializeField] Sound _battleMusic;
-    [SerializeField] List<BattleModifier> _testBattleModifiers = new();         // HERE: modifier testing
 
     public Battle LoadedBattle { get; private set; }
 
@@ -62,13 +61,6 @@ public class BattleManager : Singleton<BattleManager>
         _infoPanel = Root.Q<VisualElement>("infoPanel");
         _timerLabel = _infoPanel.Q<Label>("timer");
         _opponentsLeftLabel = _infoPanel.Q<Label>("enemyCount");
-
-        // HERE: modifier testing
-        _gameManager = GameManager.Instance;
-        foreach (BattleModifier bm in _testBattleModifiers)
-        {
-            _gameManager.SelectedBattle.AddModifier(bm);
-        }
     }
 
     void Start()

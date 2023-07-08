@@ -47,14 +47,6 @@ public class BattleInitializer : MonoBehaviour
 
         _playerHero = _gameManager.PlayerHero;
 
-        // HERE: waves
-        if (_playerHero == null)
-        {
-            _playerHero = ScriptableObject.CreateInstance<Hero>();
-            _playerHero.CreateRandom(1);
-            _playerHero.Army = new(_gameManager.HeroDatabase.GetStartingArmy(_playerHero.Element).Creatures);
-        }
-
         _selectedBattle = _gameManager.SelectedBattle;
         _opponentHero = _gameManager.SelectedBattle.Opponent;
 

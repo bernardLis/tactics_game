@@ -62,12 +62,12 @@ public class Battle : BaseScriptableObject
         Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
         Opponent.Army.Clear();
 
-        int waveCount = Random.Range(1, 2); // HERE: waves 
+        // TODO: math for wave difficulty
+        int waveCount = Random.Range(1, 5);
         for (int i = 0; i < waveCount; i++)
         {
             BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
 
-            // TODO: math for wave difficulty
             wave.NumberOfEnemies = Random.Range(10, 25);
             wave.EnemyLevelRange = new Vector2Int(1, 5);
             wave.Initialize();
