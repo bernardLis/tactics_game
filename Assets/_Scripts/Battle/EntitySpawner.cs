@@ -38,7 +38,7 @@ public class EntitySpawner : MonoBehaviour
     {
         _hero = hero;
         _portalElement = _hero.Element;
-        _delay = duration / _entities.Count;
+        _delay = duration / hero.CreatureArmy.Count;
 
         SpawnEntities(creatures: hero.CreatureArmy);
     }
@@ -46,10 +46,9 @@ public class EntitySpawner : MonoBehaviour
     public void SpawnMinions(List<Minion> minions, Element portalElement = null, float duration = 2f)
     {
         _portalElement = portalElement;
-        _delay = duration / _entities.Count;
+        _delay = duration / minions.Count;
 
         SpawnEntities(minions: minions);
-
     }
 
     public void SpawnEntities(List<Creature> creatures = null, List<Minion> minions = null)

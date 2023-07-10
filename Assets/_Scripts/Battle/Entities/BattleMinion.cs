@@ -21,7 +21,13 @@ public class BattleMinion : BattleEntity
 
     protected override IEnumerator RunEntity()
     {
-        // HERE: MINION IMPLEMENT
-        yield return null;
+        if (IsDead) yield break;
+
+        _agent.enabled = true;
+        _agent.avoidancePriority = Random.Range(1, 100);
+
+        while (!_agent.SetDestination(Vector3.zero)) yield return null;
+        Animator.SetBool("Move", true);
+        while (_agent.pathPending) yield return null;
     }
 }

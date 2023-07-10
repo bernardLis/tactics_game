@@ -31,9 +31,8 @@ public class BattleCreature : BattleEntity
     public event Action<int> OnEnemyKilled;
     public event Action<int> OnDamageDealt;
 
-    protected virtual void Start()
-    {
-    }
+    protected virtual void Start() { }
+
     protected virtual void Update()
     {
         if (_currentAttackCooldown >= 0)

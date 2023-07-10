@@ -36,7 +36,7 @@ public class Entity : BaseScriptableObject
         if (attacker.Entity.Hero != null)
             damage += attacker.Entity.Hero.Power.GetValue();
 
-        float elementalDamageBonus = 0f;
+        float elementalDamageBonus = 1f;
         if (Element.StrongAgainst == attacker.Entity.Element)
             elementalDamageBonus = 0.5f;
         if (Element.WeakAgainst == attacker.Entity.Element)
