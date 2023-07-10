@@ -140,7 +140,7 @@ public class BattleEntityTestManager : MonoBehaviour
         Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
         GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeCreature(c);
+        be.InitializeEntity(c);
         return be;
     }
 
@@ -151,7 +151,7 @@ public class BattleEntityTestManager : MonoBehaviour
         {
             string creaturesLeft = "";
             foreach (BattleEntity be in _teamB)
-                creaturesLeft += $"{be.Creature.Name}, ";
+                creaturesLeft += $"{be.Entity.Name}, ";
 
             _entityTestLog.Add($"{Time.time}: Team B won! {creaturesLeft} left.");
             ResolveTestType();
@@ -165,7 +165,7 @@ public class BattleEntityTestManager : MonoBehaviour
         {
             string creaturesLeft = "";
             foreach (BattleEntity be in _teamA)
-                creaturesLeft += $"{be.Creature.Name}, ";
+                creaturesLeft += $"{be.Entity.Name}, ";
 
             _entityTestLog.Add($"{Time.time}: Team A won! {creaturesLeft} left.");
             ResolveTestType();

@@ -121,7 +121,7 @@ public class BattleInitializer : MonoBehaviour
         Vector3 oppPortalRotation = new(0, 180, 0);
         GameObject opponentSpawnerInstance = Instantiate(_creatureSpawnerPrefab, _enemySpawnPoint.position,
                  Quaternion.Euler(oppPortalRotation));
-        CreatureSpawner opponentSpawner = opponentSpawnerInstance.GetComponent<CreatureSpawner>();
+        EntitySpawner opponentSpawner = opponentSpawnerInstance.GetComponent<EntitySpawner>();
         opponentSpawner.SpawnHeroArmy(_opponentHero, 1.5f);
         opponentSpawner.OnSpawnComplete += (list) =>
         {
@@ -149,8 +149,8 @@ public class BattleInitializer : MonoBehaviour
         List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
         foreach (Element element in elements)
         {
-            List<Creature> creatures = _selectedBattle.Waves[_currentWaveIndex].GetAllCreaturesByElement(element);
-            if (creatures.Count == 0) continue;
+            List<Minion> minions = _selectedBattle.Waves[_currentWaveIndex].GetAllMinionsByElement(element);
+            if (minions.Count == 0) continue;
 
             // https://forum.unity.com/threads/random-point-within-circle-with-min-max-radius.597523/
             Vector2 point = Random.insideUnitCircle.normalized * Random.Range(50, 80);
@@ -159,8 +159,8 @@ public class BattleInitializer : MonoBehaviour
 
             GameObject portal = Instantiate(_creatureSpawnerPrefab, pos, Quaternion.LookRotation(lookRotation));
 
-            CreatureSpawner creatureSpawner = portal.GetComponent<CreatureSpawner>();
-            creatureSpawner.SpawnCreatures(creatures, portalElement: element);
+            EntitySpawner creatureSpawner = portal.GetComponent<EntitySpawner>();
+            creatureSpawner.SpawnMinions(minions, portalElement: element);
             creatureSpawner.OnSpawnComplete += (list) =>
             {
                 _battleManager.AddOpponentArmyEntities(list);

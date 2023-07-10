@@ -32,9 +32,9 @@ public class HeroArmyElement : VisualElement
         _armyScrollView.contentContainer.style.flexDirection = FlexDirection.Row;
         Add(_armyScrollView);
 
-        for (int i = 0; i < Hero.Army.Count; i++)
+        for (int i = 0; i < Hero.CreatureArmy.Count; i++)
         {
-            CreatureIcon icon = new CreatureIcon(Hero.Army[i]);
+            CreatureIcon icon = new CreatureIcon(Hero.CreatureArmy[i]);
             _armyScrollView.Add(icon);
         }
     }

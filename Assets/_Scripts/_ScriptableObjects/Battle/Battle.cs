@@ -36,18 +36,18 @@ public class Battle : BaseScriptableObject
 
         if (gameManager.BattleNumber == 1)
         {
-            Opponent.Army.Clear();
+            Opponent.CreatureArmy.Clear();
             // get starting army of neutral element
             List<Element> elements = new(gameManager.HeroDatabase.GetAllElements());
             elements.Remove(gameManager.PlayerHero.Element);
             elements.Remove(gameManager.PlayerHero.Element.StrongAgainst);
             elements.Remove(gameManager.PlayerHero.Element.WeakAgainst);
-            Opponent.Army = new(gameManager.HeroDatabase.GetStartingArmy(elements[0]).Creatures);
+            Opponent.CreatureArmy = new(gameManager.HeroDatabase.GetStartingArmy(elements[0]).Creatures);
         }
         if (gameManager.BattleNumber == 2)
         {
             // get starting army of element our here is weak to
-            Opponent.Army = new(gameManager.HeroDatabase.GetStartingArmy(gameManager.PlayerHero.Element.WeakAgainst).Creatures);
+            Opponent.CreatureArmy = new(gameManager.HeroDatabase.GetStartingArmy(gameManager.PlayerHero.Element.WeakAgainst).Creatures);
         }
     }
 
@@ -59,7 +59,7 @@ public class Battle : BaseScriptableObject
 
         Opponent = ScriptableObject.CreateInstance<Hero>();
         Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
-        Opponent.Army.Clear();
+        Opponent.CreatureArmy.Clear();
 
         // TODO: math for wave difficulty
         int waveCount = Random.Range(1, 5);
@@ -73,15 +73,15 @@ public class Battle : BaseScriptableObject
             Waves.Add(wave);
         }
 
-        foreach (Creature c in GameManager.Instance.HeroDatabase.GetAllMinions())
+        foreach (Minion m in GameManager.Instance.HeroDatabase.GetAllMinions())
         {
-            int numberOfMinions = GetTotalNumberOfMinionsByName(c.Name);
+            int numberOfMinions = GetTotalNumberOfMinionsByName(m.Name);
             if (numberOfMinions > 0)
             {
                 // HERE: minions should be addable to army with count not level
-                Creature creature = Instantiate(c);
-                creature.Level = numberOfMinions;
-                Opponent.Army.Add(creature);
+                Minion minion = Instantiate(m);
+                minion.Level = numberOfMinions;
+                Opponent.MinionArmy.Add(minion);
             }
         }
     }

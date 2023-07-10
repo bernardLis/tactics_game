@@ -15,10 +15,10 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] int _speed;
 
-    protected BattleEntity _shooter;
+    protected BattleCreature _shooter;
     protected BattleEntity _target;
 
-    public void Shoot(BattleEntity shooter, BattleEntity target, float power)
+    public void Shoot(BattleCreature shooter, BattleEntity target, float power)
     {
         _audioManager = AudioManager.Instance;
         _audioManager.PlaySFX(_shootSound, transform.position);
@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
         StartCoroutine(ShootCoroutine(shooter, target, power));
     }
 
-    IEnumerator ShootCoroutine(BattleEntity shooter, BattleEntity target, float power)
+    IEnumerator ShootCoroutine(BattleCreature shooter, BattleEntity target, float power)
     {
         float targetScale = transform.localScale.x;
         transform.localScale = transform.localScale * 0.5f;

@@ -59,7 +59,7 @@ public class BattleEndManager : MonoBehaviour
         DisableBattle();
         ShowUI();
 
-        foreach (Creature c in _gameManager.PlayerHero.Army)
+        foreach (Creature c in _gameManager.PlayerHero.CreatureArmy)
         {
             c.OnLevelUp += () =>
             {
@@ -146,10 +146,10 @@ public class BattleEndManager : MonoBehaviour
     IEnumerator EvolutionShow()
     {
         // need to swap the creature in the players army
-        int index = _gameManager.PlayerHero.Army.IndexOf(_creatureToEvolve);
+        int index = _gameManager.PlayerHero.CreatureArmy.IndexOf(_creatureToEvolve);
         Creature evolvedCreature = Instantiate(_gameManager.HeroDatabase.GetCreatureById(_creatureToEvolve.EvolvedCreature.Id));
         evolvedCreature.Level = _creatureToEvolve.Level;
-        _gameManager.PlayerHero.Army[index] = evolvedCreature;
+        _gameManager.PlayerHero.CreatureArmy[index] = evolvedCreature;
 
         _evolutionElement.Evolve(evolvedCreature);
 
@@ -176,15 +176,15 @@ public class BattleEndManager : MonoBehaviour
                 .OnComplete(() => _evolvedEntity.Animator.SetBool("Move", true));
     }
 
-    BattleEntity InstantiateEntity(Creature creature, Vector3 pos)
+    BattleCreature InstantiateEntity(Creature creature, Vector3 pos)
     {
         Creature entityInstance = Instantiate(creature);
 
         GameObject instance = Instantiate(creature.Prefab, pos, Quaternion.identity);
-        BattleEntity be = instance.GetComponent<BattleEntity>();
+        BattleCreature be = instance.GetComponent<BattleCreature>();
         be.SetDead();
-        List<BattleEntity> emptyList = new();
-        be.InitializeCreature(creature);
+        List<BattleCreature> emptyList = new();
+        be.InitializeEntity(creature);
         be.transform.DODynamicLookAt(_cam.transform.position, 0.5f, AxisConstraint.Y);
 
         return be;

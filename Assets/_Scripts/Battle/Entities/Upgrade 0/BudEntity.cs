@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BudEntity : BattleEntityRanged
+public class BudEntity : BattleCreatureRanged
 {
     [SerializeField] GameObject _effect;
     GameObject _effectInstance;

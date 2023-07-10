@@ -51,7 +51,8 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
     {
         HideTooltip();
 
-        _tooltip = new(entity);
+        // HERE: broken due to battle entity = battle creature
+        //  _tooltip = new(entity);
         _bottomPanel.Add(_tooltip);
     }
 

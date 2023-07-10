@@ -25,12 +25,12 @@ public class BattleEntityInfoElement : VisualElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        Label name = new(be.Creature.Name);
+        Label name = new(be.Entity.Name);
         name.style.fontSize = 32;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
 
         IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
-        totalHealth.SetValue((int)be.Creature.GetHealth());
+        totalHealth.SetValue((int)be.Entity.GetHealth());
         IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
         currentHealth.SetValue((int)be.GetCurrentHealth());
         be.OnHealthChanged += (float newVal) => currentHealth.SetValue((int)newVal);

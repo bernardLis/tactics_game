@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class MetalonEntity : BattleEntityMelee
+public class MetalonEntity : BattleCreatureMelee
 {
     [SerializeField] float _specialEffectRadius = 5f;
 
@@ -34,9 +34,13 @@ public class MetalonEntity : BattleEntityMelee
             {
                 if (entity.Team == Team) continue;
                 if (entity.IsDead) continue;
-                
+
                 entity.DisplayFloatingText("Taunted", Color.red);
-                entity.SetOpponent(this);
+
+                if (entity is BattleCreature creature)
+                    creature.SetOpponent(this);
+                if (entity is BattleMinion minion)
+                    StartCoroutine(entity.GetHit(this, Mathf.RoundToInt(Creature.GetPower() * 0.5f)));
             }
         }
 

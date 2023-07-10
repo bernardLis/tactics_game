@@ -40,8 +40,8 @@ public class Hero : BaseScriptableObject
     [Header("Abilities")]
     public List<Ability> Abilities = new();
 
-    public List<Creature> Army = new();
-
+    public List<Creature> CreatureArmy = new();
+    public List<Minion> MinionArmy = new();
 
     public event Action<Item> OnItemAdded;
     public event Action<HeroRank> OnRankChanged;
@@ -57,14 +57,14 @@ public class Hero : BaseScriptableObject
     public void AddCreature(Creature creature)
     {
         Debug.Log($"Hero {name} adds army {creature}");
-        Army.Add(creature);
+        CreatureArmy.Add(creature);
         OnCreatureAdded?.Invoke(creature);
     }
 
     public void RemoveCreature(Creature creature)
     {
         Debug.Log($"Hero {name} removes {creature}");
-        Army.Remove(creature);
+        CreatureArmy.Remove(creature);
     }
 
     public int GetExpForNextLevel()
@@ -265,11 +265,11 @@ public class Hero : BaseScriptableObject
 
         UpdateRank();
 
-        Army = new();
+        CreatureArmy = new();
         foreach (Creature c in _gameManager.HeroDatabase.GetStartingArmy(element).Creatures)
         {
             Creature instance = Instantiate(c);
-            Army.Add(instance);
+            CreatureArmy.Add(instance);
         }
     }
 
@@ -312,12 +312,12 @@ public class Hero : BaseScriptableObject
         Abilities = new();
 
         // TODO: something smarter maybe the higher level the better army too?        
-        Army = new();
+        CreatureArmy = new();
         int armyCount = Random.Range(Level.Value + 1, Level.Value + 4);
         for (int i = 0; i < armyCount; i++)
         {
             Creature instance = Instantiate(_gameManager.HeroDatabase.GetRandomCreature());
-            Army.Add(instance);
+            CreatureArmy.Add(instance);
         }
 
         UpdateRank();
@@ -361,13 +361,13 @@ public class Hero : BaseScriptableObject
         foreach (string id in data.ItemIds)
             AddItem(heroDatabase.GetItemById(id));
 
-        Army = new();
+        CreatureArmy = new();
         foreach (CreatureData d in data.CreatureDatas)
         {
             Creature baseCreature = heroDatabase.GetCreatureById(d.CreatureId);
             Creature c = Instantiate(baseCreature);
             c.LoadFromData(d);
-            Army.Add(c);
+            CreatureArmy.Add(c);
         }
 
         UpdateRank();
@@ -401,7 +401,7 @@ public class Hero : BaseScriptableObject
         data.ItemIds = new(itemIds);
 
         data.CreatureDatas = new();
-        foreach (Creature c in Army)
+        foreach (Creature c in CreatureArmy)
             data.CreatureDatas.Add(c.SerializeSelf());
 
         return data;

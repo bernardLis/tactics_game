@@ -41,7 +41,7 @@ public class BattleEndTestManager : MonoBehaviour
         _hero = ScriptableObject.CreateInstance<Hero>();
         _hero.CreateRandom(1);
         _hero.Abilities = new();
-        _hero.Army = armyInstance;
+        _hero.CreatureArmy = armyInstance;
         _gameManager.PlayerHero = _hero;
 
         foreach (Ability a in GameManager.Instance.HeroDatabase.GetAllAbilities())
@@ -83,22 +83,22 @@ public class BattleEndTestManager : MonoBehaviour
         List<BattleEntity> heroArmy = new();
         List<BattleEntity> opponentArmy = new();
 
-        foreach (Creature c in _hero.Army)
+        foreach (Creature c in _hero.CreatureArmy)
         {
             Vector3 pos = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
             GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.InitializeCreature(c);
+            be.InitializeEntity(c);
             heroArmy.Add(be);
         }
 
-        foreach (Creature c in _gameManager.SelectedBattle.Opponent.Army)
+        foreach (Creature c in _gameManager.SelectedBattle.Opponent.CreatureArmy)
         {
             Vector3 pos = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f))
                     + new Vector3(10f, 0f, 10f);
             GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
             BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.InitializeCreature(c);
+            be.InitializeEntity(c);
             opponentArmy.Add(be);
         }
 

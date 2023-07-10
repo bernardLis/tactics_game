@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Snakelet : BattleEntityMelee
+public class Snakelet : BattleCreatureMelee
 {
 
     [SerializeField] GameObject _specialHit;

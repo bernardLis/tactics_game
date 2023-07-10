@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
-public class BattleEntityMelee : BattleEntity
+public class BattleCreatureMelee : BattleCreature
 {
     GameObject _hitInstance;
 

@@ -148,7 +148,7 @@ public class HeroCreation : MonoBehaviour
     {
         _chosenElement = element;
         _gameManager.RivalHero.Element = element.WeakAgainst;
-        _gameManager.RivalHero.Army = new(_gameManager.HeroDatabase.GetStartingArmy(element.WeakAgainst).Creatures);
+        _gameManager.RivalHero.CreatureArmy = new(_gameManager.HeroDatabase.GetStartingArmy(element.WeakAgainst).Creatures);
         CreateHero();
 
         _elementChoiceContainer.style.display = DisplayStyle.None;

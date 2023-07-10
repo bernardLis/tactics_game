@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BombEntity : BattleEntityRanged
+public class BombEntity : BattleCreatureRanged
 {
     [SerializeField] float _explosionRadius = 5f;
     [SerializeField] GameObject _explosionEffect;

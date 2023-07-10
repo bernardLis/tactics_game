@@ -18,10 +18,10 @@ public class HeroDatabase : ScriptableObject
         return creatures[Random.Range(0, creatures.Count)];
     }
 
-    [SerializeField] Creature[] Minions;
+    [SerializeField] Minion[] Minions;
 
-    public List<Creature> GetAllMinions() { return Minions.ToList(); }
-    public Creature GetRandomMinion() { return Minions[Random.Range(0, Minions.Length)]; }
+    public List<Minion> GetAllMinions() { return Minions.ToList(); }
+    public Minion GetRandomMinion() { return Minions[Random.Range(0, Minions.Length)]; }
 
     [SerializeField] StartingArmy[] StartingArmies;
     public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }

@@ -7,22 +7,25 @@ public class MinionArmyCard : VisualElement
 {
     GameManager _gameManager;
 
-    public Creature Creature;
+    public Minion Minion;
     public int Count;
 
-    public MinionArmyCard(Creature creature, int count)
+    public MinionArmyCard(Minion minion, int count)
     {
         _gameManager = GameManager.Instance;
         var common = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (common != null)
             styleSheets.Add(common);
 
-        Creature = creature;
+        Minion = minion;
         Count = count;
+        
+        // HERE: minions should be addable to army with count not level
 
-        CreatureIcon icon = new(creature);
+
+        //CreatureIcon icon = new(creature);
         Label countLabel = new Label($"Count: {count}");
-        Add(icon);
+        //   Add(icon);
         Add(countLabel);
     }
 }

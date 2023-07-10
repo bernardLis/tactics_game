@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ShellEntity : BattleEntityMelee
+public class ShellEntity : BattleCreatureMelee
 {
     [SerializeField] GameObject _shieldEffect;
     GameObject _shieldEffectInstance;
@@ -45,7 +45,7 @@ public class ShellEntity : BattleEntityMelee
         yield return base.GetHit(ability);
     }
 
-    public override IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
+    public override IEnumerator GetHit(BattleCreature attacker, int specialDamage = 0)
     {
         if (IsShielded)
         {

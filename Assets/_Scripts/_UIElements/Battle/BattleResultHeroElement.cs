@@ -225,23 +225,24 @@ public class BattleResultHeroElement : VisualElement
             return;
         }
 
-        BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
+        // HERE: broken minion vs creature
+        //  BattleEntity enemy = _battleManager.KilledOpponentEntities[_enemyIndex];
 
         // create an element with icon
-        CreatureIcon icon = new(enemy.Creature);
+        //CreatureIcon icon = new(enemy.Creature);
         // Add(icon);
 
-        MoveDefeatedEntity(icon);
+        // MoveDefeatedEntity(icon);
 
         // TODO: is price good for score?
-        _playerHero.GetExp(enemy.Creature.Price);
+        // _playerHero.GetExp(enemy.Entity.Price);
         _enemyIndex++;
     }
 
     void DisplayKilledWaves()
     {
-        List<Creature> minions = new(_gameManager.HeroDatabase.GetAllMinions());
-        foreach (Creature minion in minions)
+        List<Minion> minions = new(_gameManager.HeroDatabase.GetAllMinions());
+        foreach (Minion minion in minions)
         {
             int count = _selectedBattle.GetTotalNumberOfMinionsByName(minion.Name);
             if (count == 0) continue;
@@ -265,7 +266,7 @@ public class BattleResultHeroElement : VisualElement
         MoveDefeatedEntity(_killedMinionArmies[_enemyIndex]);
 
         // TODO: is price good for score?
-        int exp = _killedMinionArmies[_enemyIndex].Creature.Price * _killedMinionArmies[_enemyIndex].Count;
+        int exp = _killedMinionArmies[_enemyIndex].Minion.Price * _killedMinionArmies[_enemyIndex].Count;
         _playerHero.GetExp(exp);
         _enemyIndex++;
     }

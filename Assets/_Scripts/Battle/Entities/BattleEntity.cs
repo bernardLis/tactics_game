@@ -13,17 +13,15 @@ using UnityEngine.EventSystems;
 public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     protected AudioManager _audioManager;
-    BattleManager _battleManager;
+    protected BattleManager _battleManager;
 
-    BattleHighlightDiamond _highlightDiamond;
+    protected BattleHighlightDiamond _highlightDiamond;
 
     public List<string> EntityLog = new();
 
     [Header("Sounds")]
     [SerializeField] Sound _spawnSound;
     [SerializeField] protected Sound _deathSound;
-    [SerializeField] protected Sound _attackSound;
-    [SerializeField] protected Sound _specialAbilitySound;
 
     [Header("Prefabs")]
     [SerializeField] GameObject _battlePickupPrefab;
@@ -40,23 +38,13 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     Color _defaultEmissionColor;
     public Animator Animator { get; private set; }
 
-    List<BattleEntity> _opponentList = new();
-
-    public Creature Creature { get; private set; }
+    public Entity Entity { get; private set; }
     public float CurrentHealth { get; private set; }
 
-    public BattleEntity Opponent { get; private set; }
     protected NavMeshAgent _agent;
-
-    protected float _currentAttackCooldown;
-    public float CurrentSpecialAbilityCooldown { get; private set; }
 
     [HideInInspector] public bool IsShielded;
     bool _isPoisoned;
-
-    public int KilledEnemiesCount { get; private set; }
-    public int DamageDealt { get; private set; }
-    public int DamageTaken { get; private set; }
 
     bool _isGrabbed;
     public bool IsDead { get; private set; }
@@ -66,14 +54,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     IEnumerator _runEntityCoroutine;
 
-    protected bool _hasSpecialAction; // e.g. Shell's shield, can be fired at "any time"
-    protected bool _hasSpecialMove;
-    protected bool _hasSpecialAttack;
-    IEnumerator _attackCoroutine;
+    public int DamageTaken { get; private set; }
 
     public event Action<float> OnHealthChanged;
-    public event Action<int> OnEnemyKilled;
-    public event Action<int> OnDamageDealt;
     public event Action<int> OnDamageTaken;
 
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
@@ -83,28 +66,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _audioManager = AudioManager.Instance;
     }
 
-    protected virtual void Start()
+    public virtual void InitializeEntity(Entity entity)
     {
-    }
-
-    protected virtual void Update()
-    {
-        if (_currentAttackCooldown >= 0)
-            _currentAttackCooldown -= Time.deltaTime;
-        if (CurrentSpecialAbilityCooldown >= 0)
-            CurrentSpecialAbilityCooldown -= Time.deltaTime;
-    }
-
-    public virtual void InitializeCreature(Creature creature)
-    {
-        Creature = creature;
-        OnEnemyKilled += creature.AddKill;
-        OnDamageDealt += creature.AddDmgDealt;
-        OnDamageTaken += creature.AddDmgTaken;
-
+        Entity = entity;
         _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
         _highlightDiamond.gameObject.SetActive(false);
-
         _feelPlayer = GetComponent<MMF_Player>();
 
         Collider = GetComponent<Collider>();
@@ -117,10 +83,9 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _defaultEmissionColor = Color.black;
 
         _agent = GetComponent<NavMeshAgent>();
-        _agent.stoppingDistance = Creature.AttackRange;
-        _agent.speed = Creature.Speed;
+        _agent.speed = Entity.Speed;
 
-        CurrentHealth = Creature.GetHealth();
+        CurrentHealth = Entity.GetHealth();
 
         if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
         EntityLog.Add($"{Time.time}: Entity is spawned");
@@ -132,9 +97,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _tooltipManager = BattleEntityTooltipManager.Instance;
 
         Team = team;
-        _opponentList = opponents;
 
-        BattleId = team + "_" + Creature.name + "_" + Helpers.GetRandomNumber(4);
+        BattleId = team + "_" + Entity.name + "_" + Helpers.GetRandomNumber(4);
         name = BattleId;
 
         EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
@@ -145,11 +109,6 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             _material.SetColor("_EmissionColor", _defaultEmissionColor);
             _material.SetFloat("_Metallic", 0.5f);
         }
-
-        _currentAttackCooldown = 0;
-        CurrentSpecialAbilityCooldown = 0;
-
-        StartRunEntityCoroutine();
     }
 
     public void StartRunEntityCoroutine()
@@ -161,124 +120,28 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         StartCoroutine(_runEntityCoroutine);
     }
 
-    public void StopRunEntityCoroutine()
+    public virtual void StopRunEntityCoroutine()
     {
         EntityLog.Add($"{Time.time}: Stop run entity coroutine is called");
 
         if (_runEntityCoroutine != null)
             StopCoroutine(_runEntityCoroutine);
-        if (_attackCoroutine != null)
-            StopCoroutine(_attackCoroutine);
         _agent.enabled = false;
         Animator.SetBool("Move", false);
     }
 
-    IEnumerator RunEntity()
+    protected virtual IEnumerator RunEntity()
     {
-        if (IsDead) yield break;
-
-        while (_opponentList.Count == 0)
-        {
-            if (IsDead) yield break;
-            if (_battleManager.BattleFinalized)
-            {
-                yield return Celebrate();
-                yield break;
-            }
-            yield return new WaitForSeconds(0.5f); // TODO: lag
-        }
-
-        if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
-            yield return SpecialAbility();
-
-        if (Opponent == null || Opponent.IsDead)
-            ChooseNewTarget();
-        yield return new WaitForSeconds(0.1f);
-
-        yield return PathToTarget();
-
-        _attackCoroutine = Attack();
-        yield return _attackCoroutine;
+        yield return null;
     }
 
     protected virtual IEnumerator PathToTarget()
     {
-        EntityLog.Add($"{Time.time}: Path to target is called");
-
-        if (_hasSpecialMove && CurrentSpecialAbilityCooldown <= 0)
-        {
-            yield return SpecialAbility();
-            PathToTarget();
-            yield break;
-        }
-
-        _agent.enabled = true;
-        _agent.avoidancePriority = Random.Range(1, 100);
-
-        while (!_agent.SetDestination(Opponent.transform.position)) yield return null;
-        Animator.SetBool("Move", true);
-        while (_agent.pathPending) yield return null;
-
-        // path to target
-        while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
-        {
-            if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
-                yield return SpecialAbility();
-
-            if (Opponent.IsDead || Opponent == null) yield break;
-
-            _agent.SetDestination(Opponent.transform.position);
-            yield return null;
-        }
-
-        // reached destination
-        _agent.avoidancePriority = 0;
-        Animator.SetBool("Move", false);
-        _agent.enabled = false;
+        yield return null;
     }
 
-    protected virtual IEnumerator Attack()
-    {
-        EntityLog.Add($"{Time.time}: Entity attacked {Opponent.name}");
-
-        // meant to be overwritten
-
-        // it goes at the end... is that a good idea?
-        _attackCoroutine = null;
-        _currentAttackCooldown = Creature.AttackCooldown;
-        StartRunEntityCoroutine();
-
-        yield break;
-    }
-
-    protected virtual IEnumerator SpecialAbility()
-    {
-        EntityLog.Add($"{Time.time}: Entity used special ability");
-
-        // meant to be overwritten
-
-        // it goes at the end... is that a good idea?
-        Creature.CreatureAbility.Used();
-        CurrentSpecialAbilityCooldown = Creature.CreatureAbility.Cooldown;
-        yield break;
-    }
-
-    protected bool CanAttack()
-    {
-        return _currentAttackCooldown < 0;
-    }
-
-    protected bool IsOpponentInRange()
-    {
-        if (Opponent == null) return false;
-        if (Opponent.IsDead) return false;
-
-        // +0.5 wiggle room
-        return Vector3.Distance(transform.position, Opponent.transform.position) < Creature.AttackRange + 0.5f;
-    }
-
-    public bool HasFullHealth() { return CurrentHealth >= Creature.GetHealth(); }
-    public float GetTotalHealth() { return Creature.GetHealth(); }
+    public bool HasFullHealth() { return CurrentHealth >= Entity.GetHealth(); }
+    public float GetTotalHealth() { return Entity.GetHealth(); }
     public float GetCurrentHealth() { return CurrentHealth; }
 
     public int GetHealed(Ability ability)
@@ -293,8 +156,8 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         EntityLog.Add($"{Time.time}: Entity gets healed by {value}");
 
         CurrentHealth += value;
-        if (CurrentHealth > Creature.GetHealth())
-            CurrentHealth = Creature.GetHealth();
+        if (CurrentHealth > Entity.GetHealth())
+            CurrentHealth = Entity.GetHealth();
 
         OnHealthChanged?.Invoke(CurrentHealth);
         DisplayFloatingText("+" + value, Color.green);
@@ -311,7 +174,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {ability.name}");
 
-        BaseGetHit(Creature.CalculateDamage(ability), ability.Element.Color);
+        BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color);
 
         if (CurrentHealth <= 0)
         {
@@ -323,20 +186,19 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    public virtual IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
+    public virtual IEnumerator GetHit(BattleCreature attacker, int specialDamage = 0)
     {
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {attacker.name}");
 
         _audioManager.PlaySFX("Hit", transform.position);
 
-        int damage = Creature.CalculateDamage(attacker);
+        int damage = Entity.CalculateDamage(attacker);
         if (specialDamage > 0) damage = specialDamage;
 
-        attacker.DamageDealt += damage;
-        attacker.OnDamageDealt?.Invoke(damage);
+        attacker.DealtDamage(damage);
 
-        BaseGetHit(damage, attacker.Creature.Element.Color);
+        BaseGetHit(damage, attacker.Entity.Element.Color);
         EntityLog.Add($"{Time.time}: Current health is {CurrentHealth}");
 
         if (CurrentHealth <= 0)
@@ -349,7 +211,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    void BaseGetHit(int dmg, Color color)
+    protected void BaseGetHit(int dmg, Color color)
     {
         StopRunEntityCoroutine();
 
@@ -393,7 +255,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         //StopAllCoroutines(); <- this breaks bomb exploding
     }
 
-    public IEnumerator GetPoisoned(BattleEntity attacker)
+    public IEnumerator GetPoisoned(BattleCreature attacker)
     {
         if (_isPoisoned) yield break;
         if (IsDead) yield break;
@@ -413,8 +275,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (CurrentHealth > damageTick)
             {
                 DisplayFloatingText(damageTick.ToString(), Color.green);
-                attacker.DamageDealt += damageTick;
-                attacker.OnDamageDealt?.Invoke(damageTick);
+                attacker.DealtDamage(damageTick);
                 OnDamageTaken?.Invoke(damageTick);
                 DamageTaken += damageTick;
                 CurrentHealth -= damageTick;
@@ -429,54 +290,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         TurnHighlightOff();
     }
 
-    void ChooseNewTarget()
-    {
-        // choose a random opponent with a bias towards closer opponents
-        Dictionary<BattleEntity, float> distances = new();
-        foreach (BattleEntity be in _opponentList)
-        {
-            if (be.IsDead) continue;
-            float distance = Vector3.Distance(transform.position, be.transform.position);
-            distances.Add(be, distance);
-        }
-
-        if (distances.Count == 0) return;
-
-        var closest = distances.OrderByDescending(pair => pair.Value).Reverse().Take(10);
-        float v = Random.value;
-
-        Dictionary<BattleEntity, float> closestBiased = new();
-
-        // this number decides bias towards closer opponents
-        float sum = 0;
-        foreach (KeyValuePair<BattleEntity, float> entry in closest)
-        {
-            float value = 1 / entry.Value; // 2 / entry.value or 0.1 / entry.value to changed bias
-            closestBiased.Add(entry.Key, value);
-            sum += value;
-        }
-
-        Dictionary<BattleEntity, float> closestNormalized = new();
-        foreach (KeyValuePair<BattleEntity, float> entry in closestBiased)
-            closestNormalized.Add(entry.Key, entry.Value / sum);
-
-        foreach (KeyValuePair<BattleEntity, float> entry in closestNormalized)
-        {
-            if (v < entry.Value)
-            {
-                SetOpponent(entry.Key);
-                return;
-            }
-            v -= entry.Value;
-        }
-
-        // should never get here...
-        SetOpponent(_opponentList[Random.Range(0, _opponentList.Count)]);
-    }
-
-    public void SetOpponent(BattleEntity opponent) { Opponent = opponent; }
-
-    IEnumerator Celebrate()
+    protected IEnumerator Celebrate()
     {
         if (IsDead) yield break;
 
@@ -494,12 +308,11 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         return true;
     }
 
-    public void Grabbed()
+    public virtual void Grabbed()
     {
-        Opponent = null;
         _isGrabbed = true;
-        StopRunEntityCoroutine();
         Animator.enabled = false;
+        StopRunEntityCoroutine();
     }
 
     public void Released()
@@ -520,26 +333,10 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _feelPlayer.PlayFeedbacks(transform.position);
     }
 
-    public void IncreaseKillCount()
-    {
-        KilledEnemiesCount++;
-        OnEnemyKilled?.Invoke(KilledEnemiesCount);
-    }
-
     /* highlight */
-    public void ShowHighlightDiamond()
-    {
-        _highlightDiamond.Enable(Color.white);
-    }
-
-    public void HideHighlightDiamond()
-    {
-        _highlightDiamond.Disable();
-    }
-
     public void TurnHighlightOff()
     {
-        _highlightDiamond.Disable();
+        HideHighlightDiamond();
 
         if (_emissionTexture != null && Team == 0)
         {
@@ -554,10 +351,20 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void TurnHighlightOn(Color color, bool showDiamond = true)
     {
         if (IsDead) return;
-        if (showDiamond) _highlightDiamond.Enable(GetHighlightColor());
+        if (showDiamond) ShowHighlightDiamond(GetHighlightColor());
 
         _material.SetTexture("_EmissionMap", null);
         _material.SetColor("_EmissionColor", color);
+    }
+
+    public void ShowHighlightDiamond(Color color)
+    {
+        _highlightDiamond.Enable(color);
+    }
+
+    public void HideHighlightDiamond()
+    {
+        _highlightDiamond.Disable();
     }
 
     public Color GetHighlightColor()
@@ -569,6 +376,7 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         return Color.yellow;
     }
 
+    /* tooltip */
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
@@ -580,16 +388,4 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (_tooltipManager == null) return;
         _tooltipManager.HideInfo();
     }
-
-
-#if UNITY_EDITOR
-    [ContextMenu("Trigger Special Ability")]
-    public void TriggerSpecialAction()
-    {
-        StartCoroutine(SpecialAbility());
-
-    }
-#endif
-
-
 }

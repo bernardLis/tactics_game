@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class WolfPupEntity : BattleEntityMelee
+public class WolfPupEntity : BattleCreatureMelee
 {
     [SerializeField] GameObject _effect;
     GameObject _effectInstance;
@@ -32,7 +32,7 @@ public class WolfPupEntity : BattleEntityMelee
         if (IsOpponentInRange())
         {
             targetPosition = transform.position + normal * (_agent.stoppingDistance * 2);
-            StartCoroutine(Opponent.GetHit(this, (int)this.Creature.GetPower() * 3));
+            StartCoroutine(Opponent.GetHit(this, (int)Creature.GetPower() * 3));
         }
         transform.DOJump(targetPosition, 2f, 1, 0.3f, false);
 

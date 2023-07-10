@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class SunBlossomEntity : BattleEntityMelee
+public class SunBlossomEntity : BattleCreatureMelee
 {
     [SerializeField] GameObject _healEffect;
     GameObject _healEffectInstance;
@@ -38,34 +38,5 @@ public class SunBlossomEntity : BattleEntityMelee
         _healEffectInstance.transform.parent = _GFX.transform;
 
         yield return base.SpecialAbility();
-    }
-
-    public override IEnumerator GetHit(Ability ability)
-    {
-        if (IsShielded)
-        {
-            BreakShield();
-            yield break;
-        }
-        yield return base.GetHit(ability);
-    }
-
-    public override IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
-    {
-        if (IsShielded)
-        {
-            BreakShield();
-            yield break;
-        }
-
-        yield return base.GetHit(attacker);
-    }
-
-    public void BreakShield()
-    {
-        DisplayFloatingText("Shield Broken", Color.blue);
-        IsShielded = false;
-        if (_healEffectInstance != null)
-            Destroy(_healEffectInstance);
     }
 }

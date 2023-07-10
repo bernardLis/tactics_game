@@ -9,14 +9,14 @@ public class BattleEntityElement : CreatureCard
     const string _ussMain = _ussClassName + "main";
     const string _ussKilledOverlay = _ussClassName + "killed-overlay";
 
-    BattleEntity _battleEntity;
+    BattleCreature _battleEntity;
     Creature _creature;
 
     Label _kills;
     Label _damageDealt;
     Label _damageTaken;
 
-    public BattleEntityElement(BattleEntity battleEntity) : base(battleEntity.Creature)
+    public BattleEntityElement(BattleCreature battleEntity) : base(battleEntity.Creature)
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleEntityElementStyles);
         if (ss != null)
@@ -27,11 +27,8 @@ public class BattleEntityElement : CreatureCard
 
         AddToClassList(_ussMain);
 
-        if (_battleEntity.Creature.Hero != null)
-        {
-            _power.text += " + " + Mathf.RoundToInt(_battleEntity.Creature.Hero.Power.GetValue());
-            _armor.text += " + " + Mathf.RoundToInt(_battleEntity.Creature.Hero.Armor.GetValue());
-        }
+        if (_battleEntity.Entity.Hero != null)
+            _power.text += " + " + Mathf.RoundToInt(_battleEntity.Entity.Hero.Power.GetValue());
 
         _healthLabel.text = $"Health: {_battleEntity.CurrentHealth} / {_creature.GetHealth()}";
 

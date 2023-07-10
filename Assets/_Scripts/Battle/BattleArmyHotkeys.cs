@@ -14,7 +14,7 @@ public class BattleArmyHotkeys : MonoBehaviour
     void Start()
     {
         _battleManager = BattleManager.Instance;
-        _battleManager.OnPlayerEntityAdded += AddPlayerArmyEntityHotkey;
+        _battleManager.OnPlayerCreatureAdded += AddPlayerArmyEntityHotkey;
         _tooltipManager = BattleEntityTooltipManager.Instance;
 
         _cameraManager = Camera.main.GetComponentInParent<BattleCameraManager>();
@@ -23,7 +23,7 @@ public class BattleArmyHotkeys : MonoBehaviour
         _armyHotkeysContainer = root.Q<VisualElement>("armyHotkeysContainer");
     }
 
-    void AddPlayerArmyEntityHotkey(BattleEntity be)
+    void AddPlayerArmyEntityHotkey(BattleCreature be)
     {
         CreatureIcon icon = new(be.Creature);
         icon.SmallIcon();
@@ -44,7 +44,7 @@ public class BattleArmyHotkeys : MonoBehaviour
         icon.RegisterCallback<MouseEnterEvent>((e) =>
         {
             icon.style.opacity = 1;
-            be.ShowHighlightDiamond();
+            be.ShowHighlightDiamond(Color.white);
         });
 
         icon.RegisterCallback<MouseLeaveEvent>((e) =>

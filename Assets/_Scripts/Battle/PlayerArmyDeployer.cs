@@ -18,7 +18,7 @@ public class PlayerArmyDeployer : MonoBehaviour
 
     int _floorLayerMask;
     bool _wasInitialized;
-    CreatureSpawner _creatureSpawnerInstance;
+    EntitySpawner _creatureSpawnerInstance;
     bool _wasDeployed;
 
     public event Action OnPlayerArmyDeployed;
@@ -103,7 +103,7 @@ public class PlayerArmyDeployer : MonoBehaviour
         _topPanel.Add(_tooltipText);
 
         GameObject instance = Instantiate(_creatureSpawnerPrefab);
-        _creatureSpawnerInstance = instance.GetComponent<CreatureSpawner>();
+        _creatureSpawnerInstance = instance.GetComponent<EntitySpawner>();
         _creatureSpawnerInstance.ShowPortal(_gameManager.PlayerHero.Element);
         StartCoroutine(UpdateGrabbedObjectPosition());
     }

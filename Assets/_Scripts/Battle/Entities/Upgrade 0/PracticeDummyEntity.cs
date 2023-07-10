@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class PracticeDummyEntity : BattleEntityMelee
+public class PracticeDummyEntity : BattleCreatureMelee
 {
     [SerializeField] float _specialEffectRadius = 3f;
     [SerializeField] GameObject _specialEffect;

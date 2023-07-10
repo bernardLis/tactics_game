@@ -7,22 +7,22 @@ public class BattleWave : BaseScriptableObject
     public int NumberOfEnemies;
     public Vector2Int EnemyLevelRange;
 
-    public List<Creature> Minions = new();
+    public List<Minion> Minions = new();
 
     public void Initialize()
     {
         for (int i = 0; i < NumberOfEnemies; i++)
         {
-            Creature minion = Instantiate(GameManager.Instance.HeroDatabase.GetRandomMinion());
+            Minion minion = Instantiate(GameManager.Instance.HeroDatabase.GetRandomMinion());
             minion.InitializeMinion(Random.Range(EnemyLevelRange.x, EnemyLevelRange.y));
             Minions.Add(minion);
         }
     }
 
-    public List<Creature> GetAllCreaturesByElement(Element element)
+    public List<Minion> GetAllMinionsByElement(Element element)
     {
-        List<Creature> minions = new();
-        foreach (Creature minion in Minions)
+        List<Minion> minions = new();
+        foreach (Minion minion in Minions)
             if (minion.Element == element)
                 minions.Add(minion);
         return minions;
@@ -31,7 +31,7 @@ public class BattleWave : BaseScriptableObject
     public int GetNumberOfMinionsByName(string name)
     {
         int count = 0;
-        foreach (Creature minion in Minions)
+        foreach (Minion minion in Minions)
             if (minion.Name == name)
                 count++;
         return count;

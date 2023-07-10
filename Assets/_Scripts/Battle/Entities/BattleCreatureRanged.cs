@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BattleEntityRanged : BattleEntity
+public class BattleCreatureRanged : BattleCreature
 {
     [SerializeField] protected GameObject _projectileSpawnPoint;
 

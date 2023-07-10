@@ -5,11 +5,11 @@ using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
 
-public class CreatureSpawner : MonoBehaviour
+public class EntitySpawner : MonoBehaviour
 {
     Hero _hero;
     Element _portalElement;
-    List<Creature> _creatures = new();
+    List<Entity> _entities = new();
     [SerializeField] List<PortalElement> _portalElements = new();
     [SerializeField] GameObject _blackPortal;
 
@@ -36,19 +36,28 @@ public class CreatureSpawner : MonoBehaviour
 
     public void SpawnHeroArmy(Hero hero, float duration = 2f)
     {
-        SpawnCreatures(hero.Army, hero, duration);
+        _hero = hero;
+        _portalElement = _hero.Element;
+        _delay = duration / _entities.Count;
+
+        SpawnEntities(creatures: hero.CreatureArmy);
     }
 
-    public void SpawnCreatures(List<Creature> creatures, Hero hero = null,
-                        float duration = 2f, Element portalElement = null)
+    public void SpawnMinions(List<Minion> minions, Element portalElement = null, float duration = 2f)
     {
-        _creatures = creatures;
+        _portalElement = portalElement;
+        _delay = duration / _entities.Count;
 
-        _hero = hero;
-        if (_hero != null) _portalElement = _hero.Element;
-        else _portalElement = portalElement;
+        SpawnEntities(minions: minions);
 
-        _delay = duration / _creatures.Count;
+    }
+
+    public void SpawnEntities(List<Creature> creatures = null, List<Minion> minions = null)
+    {
+        if (creatures != null)
+            _entities = new(creatures);
+        if (minions != null)
+            _entities = new(minions);
 
         StartCoroutine(SpawnShow());
     }
@@ -57,23 +66,23 @@ public class CreatureSpawner : MonoBehaviour
     {
         ShowPortal(_portalElement);
 
-        for (int i = 0; i < _creatures.Count; i++)
+        for (int i = 0; i < _entities.Count; i++)
         {
-            SpawnCreature(_creatures[i]);
+            SpawnEntity(_entities[i]);
             yield return new WaitForSeconds(_delay);
         }
 
         OnSpawnComplete?.Invoke(SpawnedEntities);
     }
 
-    void SpawnCreature(Creature creature)
+    void SpawnEntity(Entity entity)
     {
-        creature.InitializeBattle(_hero);
+        entity.InitializeBattle(_hero);
 
         Vector3 pos = transform.position;
-        GameObject instance = Instantiate(creature.Prefab, pos, transform.localRotation);
+        GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeCreature(creature);
+        be.InitializeEntity(entity);
         SpawnedEntities.Add(be);
 
         Vector3 jumpPos = pos + transform.forward * 2f + Vector3.up + Vector3.left * Random.Range(-2, 2);

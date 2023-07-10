@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
   m_Name: Cyclops
   m_EditorClassIdentifier: 
-  Id: d336f5b3-59f5-420b-9ba7-2f92af116e39
+  Id: f6385442-c0c8-4f69-92c1-01a38f81d1e1
   Name: Cyclops
-  UpgradeTier: 0
   IconAnimation:
   - {fileID: 21300000, guid: e4a72eadae7f44e468fef0a2c07a7c0b, type: 3}
   Level: 1
@@ -22,19 +21,6 @@ MonoBehaviour:
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   BaseHealth: 10
   Armor: 0
-  BasePower: 2
-  AttackRange: 2
-  AttackCooldown: 2
   Speed: 1
-  CreatureAbility: {fileID: 0}
   Prefab: {fileID: 6266213777921296780, guid: 9226efbdb8715d84c913a3ec7d87f55f, type: 3}
-  Projectile: {fileID: 0}
-  HitPrefab: {fileID: 2048183971171318672, guid: 8e20ede2f4ef4794a9fa2caad04a5ef3, type: 3}
-  EvolvedCreature: {fileID: 0}
-  OldKillCount: 0
-  TotalKillCount: 0
-  OldDamageDealt: 0
-  TotalDamageDealt: 0
-  OldDamageTaken: 0
-  TotalDamageTaken: 0
   Hero: {fileID: 0}

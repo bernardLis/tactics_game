@@ -48,7 +48,7 @@ public class BattleResultArmyElement : VisualElement
         ShowArmyStats();
 
         this.schedule.Execute(() => OnFinished?.Invoke())
-                .StartingIn(_gameManager.PlayerHero.Army.Count * 500);
+                .StartingIn(_gameManager.PlayerHero.CreatureArmy.Count * 500);
     }
 
     void AddArmyToContainer(Creature creature)
@@ -60,11 +60,11 @@ public class BattleResultArmyElement : VisualElement
 
     void ShowArmyStats()
     {
-        for (int i = 0; i < _gameManager.PlayerHero.Army.Count; i++)
+        for (int i = 0; i < _gameManager.PlayerHero.CreatureArmy.Count; i++)
         {
             _audioManager.PlayUIDelayed("Placing Paper", 0.5f * i);
 
-            Creature c = _gameManager.PlayerHero.Army[i];
+            Creature c = _gameManager.PlayerHero.CreatureArmy[i];
             CreatureCardExp creatureElement = new(c);
             _armyGroupContainer.Add(creatureElement);
             _creatureExpElements.Add(creatureElement);

@@ -31,18 +31,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: db8f082d533c77945aaeb61ac1332099, type: 2}
   - {fileID: 11400000, guid: 997eae81a58e0a84088fda32fe9b3758, type: 2}
   Minions:
-  - {fileID: 11400000, guid: db9fae6ee78ed3d47a08e01d05f9ae4f, type: 2}
-  - {fileID: 11400000, guid: 21440e69f9255954d88bd9d512170a89, type: 2}
-  - {fileID: 11400000, guid: 54e6a991d1dc09d41838de32398f26c2, type: 2}
-  - {fileID: 11400000, guid: d1e62034dd3fa22409ab5412c3519eb6, type: 2}
-  - {fileID: 11400000, guid: 28921d104386525408fcca57aadb2fd2, type: 2}
-  - {fileID: 11400000, guid: 9c4a3d7d129d6df44add5d98e0c7a9ba, type: 2}
-  - {fileID: 11400000, guid: f087255ecce7f694e8312edabb44a672, type: 2}
-  - {fileID: 11400000, guid: 0b591a3000a8f6b45b9f95894ca9248b, type: 2}
-  - {fileID: 11400000, guid: fcbe021cb50d3d6438ba9e669fc32913, type: 2}
-  - {fileID: 11400000, guid: 48828d145a2ff2c4e89003a736f45ab3, type: 2}
-  - {fileID: 11400000, guid: 34f8df3eae6bb124792f1e47465a50ec, type: 2}
-  - {fileID: 11400000, guid: 4acf802234bcbe148ac0ba2116aabd71, type: 2}
+  - {fileID: 11400000, guid: 27427328862dabf42892a61e93da6513, type: 2}
+  - {fileID: 11400000, guid: ae1d2525f2b52fa40b410377b0c21d04, type: 2}
+  - {fileID: 11400000, guid: 126cd6f4df31c6b479280c25ca39d48c, type: 2}
+  - {fileID: 11400000, guid: 14a55f63bdbcb444bad64f7681dafe8a, type: 2}
   StartingArmies:
   - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
     Creatures:
