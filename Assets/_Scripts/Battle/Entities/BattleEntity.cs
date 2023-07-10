@@ -26,7 +26,7 @@ public class BattleEntity : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] GameObject _battlePickupPrefab;
     [SerializeField] GameObject _healedEffect;
-    BattleEntityTooltipManager _tooltipManager;
+    BattleTooltipManager _tooltipManager;
 
     public Collider Collider { get; private set; }
 
@@ -94,7 +94,7 @@ public class BattleEntity : MonoBehaviour
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
     {
         _battleManager = BattleManager.Instance;
-        _tooltipManager = BattleEntityTooltipManager.Instance;
+        _tooltipManager = BattleTooltipManager.Instance;
 
         Team = team;
 

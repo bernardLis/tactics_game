@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
+using UnityEngine.EventSystems;
 
-public class BattleBase : MonoBehaviour
+public class BattleBase : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    BattleTooltipManager _tooltipManager;
+
     MMF_Player _feelPlayer;
+
 
     public int Lives { get; private set; }
 
     void Start()
     {
-        Lives = 10;
+        _tooltipManager = BattleTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
-
+        Lives = 10;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -27,6 +31,24 @@ public class BattleBase : MonoBehaviour
 
             StartCoroutine(battleEntity.Die(hasPickup: false));
         }
+    }
+
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log($"click click");
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (_tooltipManager == null) return;
+        _tooltipManager.ShowInfo($"{Lives} lives left");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_tooltipManager == null) return;
+        _tooltipManager.HideInfo();
     }
 
     public void DisplayFloatingText(string text, Color color)

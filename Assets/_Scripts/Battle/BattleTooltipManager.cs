@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
+public class BattleTooltipManager : Singleton<BattleTooltipManager>
 {
     BattleManager _battleManager;
 
     VisualElement _root;
     VisualElement _bottomPanel;
 
-    VisualElement _entityInfoContainer;
+    VisualElement _topContainer;
 
     BattleEntityElement _tooltip;
 
@@ -21,7 +21,7 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _bottomPanel = _root.Q<VisualElement>("bottomPanel");
-        _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
+        _topContainer = _root.Q<VisualElement>("entityInfoContainer");
     }
 
     void OnBattleFinalized()
@@ -34,17 +34,25 @@ public class BattleEntityTooltipManager : Singleton<BattleEntityTooltipManager>
     {
         if (entity.IsDead) return;
 
-        _entityInfoContainer.Clear();
-        _entityInfoContainer.style.display = DisplayStyle.Flex;
+        _topContainer.Clear();
+        _topContainer.style.display = DisplayStyle.Flex;
 
         BattleEntityInfoElement info = new(entity);
-        _entityInfoContainer.Add(info);
+        _topContainer.Add(info);
+    }
+
+    public void ShowInfo(string text)
+    {
+        _topContainer.Clear();
+        _topContainer.style.display = DisplayStyle.Flex;
+
+        _topContainer.Add(new Label(text));
     }
 
     public void HideInfo()
     {
-        _entityInfoContainer.style.display = DisplayStyle.None;
-        _entityInfoContainer.Clear();
+        _topContainer.style.display = DisplayStyle.None;
+        _topContainer.Clear();
     }
 
     public void DisplayTooltip(BattleEntity entity)

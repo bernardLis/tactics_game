@@ -6,12 +6,12 @@ using UnityEngine.EventSystems;
 public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     BattleEntity _battleEntity;
-    BattleEntityTooltipManager _tooltipManager;
+    BattleTooltipManager _tooltipManager;
 
     void Start()
     {
         _battleEntity = GetComponent<BattleEntity>();
-        _tooltipManager = BattleEntityTooltipManager.Instance;
+        _tooltipManager = BattleTooltipManager.Instance;
     }
 
     public void OnPointerDown(PointerEventData eventData)

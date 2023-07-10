@@ -9,13 +9,13 @@ public class BattleArmyHotkeys : MonoBehaviour
     VisualElement _armyHotkeysContainer;
     BattleCameraManager _cameraManager;
     BattleManager _battleManager;
-    BattleEntityTooltipManager _tooltipManager;
+    BattleTooltipManager _tooltipManager;
 
     void Start()
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnPlayerCreatureAdded += AddPlayerArmyEntityHotkey;
-        _tooltipManager = BattleEntityTooltipManager.Instance;
+        _tooltipManager = BattleTooltipManager.Instance;
 
         _cameraManager = Camera.main.GetComponentInParent<BattleCameraManager>();
 

@@ -72,7 +72,7 @@ public class BattleEndManager : MonoBehaviour
     {
         GetComponent<BattleGrabManager>().enabled = false;
         GetComponent<BattleAbilityManager>().enabled = false;
-        GetComponent<BattleEntityTooltipManager>().enabled = false;
+        GetComponent<BattleTooltipManager>().enabled = false;
         GetComponent<BattleInputManager>().enabled = false;
 
         _root.Q<VisualElement>("infoPanel").style.display = DisplayStyle.None;
