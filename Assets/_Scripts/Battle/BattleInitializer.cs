@@ -100,8 +100,6 @@ public class BattleInitializer : MonoBehaviour
 
     void ResolveBattleType()
     {
-        // HERE: deployment
-        // InitializePlayerArmy();
         if (_selectedBattle.BattleType == BattleType.Duel)
             InitializeOpponentArmy();
 

@@ -23,7 +23,15 @@ public class BattleAbilityTestManager : MonoBehaviour
         CreateHero();
         LevelUpAbilities(7);
 
+        _gameManager.PlayerHero = _hero;
+
+        Battle b = ScriptableObject.CreateInstance<Battle>();
+        b.CreateRandomDuel(1);
+        _gameManager.SelectedBattle = b;
+
         _battleManager.Initialize(_hero);
+        _battleManager.GetComponent<BattleAbilityManager>().Initialize(_hero);
+        _battleManager.GetComponent<BattleGrabManager>().Initialize();
 
         for (int i = 0; i < _creaturesToSpawn; i++)
             StartCoroutine(SpawnCreature());

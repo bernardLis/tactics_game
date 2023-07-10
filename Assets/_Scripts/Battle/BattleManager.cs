@@ -117,12 +117,21 @@ public class BattleManager : Singleton<BattleManager>
         StartCoroutine(UpdateTimer());
         OnBattleInitialized?.Invoke();
 
-        foreach (BattleModifier b in _gameManager.SelectedBattle.BattleModifiers)
-            _infoPanel.Add(new BattleModifierElement(b, true));
+        ResolveInfoPanel();
+    }
 
+    void ResolveInfoPanel()
+    {
         _infoPanel.style.opacity = 0f;
         _infoPanel.style.display = DisplayStyle.Flex;
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
+
+        if (_gameManager == null) _gameManager = GameManager.Instance;
+        if (_gameManager.SelectedBattle.BattleModifiers == null) return;
+
+        foreach (BattleModifier b in _gameManager.SelectedBattle.BattleModifiers)
+            _infoPanel.Add(new BattleModifierElement(b, true));
+
     }
 
     public void AddPlayerArmyEntities(List<BattleEntity> list)

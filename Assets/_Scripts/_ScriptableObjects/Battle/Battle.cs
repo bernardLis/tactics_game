@@ -20,7 +20,6 @@ public class Battle : BaseScriptableObject
     public float AbilityManaCost = 1f;
     public float AbilityCooldown = 1f;
 
-
     public List<BattleModifier> BattleModifiers = new();
 
     public bool Won;
@@ -118,6 +117,8 @@ public class Battle : BaseScriptableObject
 
     public bool HasModifierOfType(BattleModifierType modifierType)
     {
+        if (BattleModifiers == null) return false;
+
         foreach (BattleModifier modifier in BattleModifiers)
             if (modifier.BattleModifierType == modifierType)
                 return true;
