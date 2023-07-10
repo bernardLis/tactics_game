@@ -10,7 +10,7 @@ using MoreMountains.Feedbacks;
 using System.Linq;
 using UnityEngine.EventSystems;
 
-public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class BattleEntity : MonoBehaviour
 {
     protected AudioManager _audioManager;
     protected BattleManager _battleManager;
@@ -231,15 +231,17 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Animator.SetTrigger("Take Damage");
     }
 
-    public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
+    public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasPickup = true)
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
+        if (_isGrabbed) BattleGrabManager.Instance.CancelGrabbing();
+        if (_agent.isActiveAndEnabled) _agent.isStopped = true;
 
         if (_deathSound != null) _audioManager.PlaySFX(_deathSound, transform.position);
 
         DOTween.Kill(transform);
-        if (Team != 0)
+        if (Team != 0 && hasPickup)
         {
             BattlePickup bp = Instantiate(_battlePickupPrefab, transform.position, Quaternion.identity).GetComponent<BattlePickup>();
             bp.Initialize();
@@ -374,18 +376,5 @@ public class BattleEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (Team == 1)
             return Color.red;
         return Color.yellow;
-    }
-
-    /* tooltip */
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo(this);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (_tooltipManager == null) return;
-        _tooltipManager.HideInfo();
     }
 }

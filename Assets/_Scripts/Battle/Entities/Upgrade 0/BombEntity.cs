@@ -13,7 +13,7 @@ public class BombEntity : BattleCreatureRanged
 
     bool _isExploding;
 
-    public override IEnumerator Die(BattleEntity attacker = null, Ability ability = null)
+    public override IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasPickup = true)
     {
         if (_isExploding) yield break;
         _isExploding = true;
