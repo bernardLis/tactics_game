@@ -98,7 +98,8 @@ public class BattleEntity : MonoBehaviour
 
         Team = team;
 
-        BattleId = team + "_" + Entity.name + "_" + Helpers.GetRandomNumber(4);
+        BattleId = team + "_" + Helpers.ParseScriptableObjectCloneName(Entity.name)
+                 + "_" + Helpers.GetRandomNumber(4);
         name = BattleId;
 
         EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");

@@ -57,7 +57,6 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public void DisplayTooltip(BattleEntity entity)
     {
-        Debug.Log($"click lcik {entity.name}");
         HideTooltip();
         if (entity.GetType() == typeof(BattleMinion))
             _tooltip = new BattleMinionCard((BattleMinion)entity);

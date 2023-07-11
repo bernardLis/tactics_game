@@ -20,7 +20,6 @@ public class BattleCreatureCard : CreatureCard
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleCreatureCardStyles);
         if (ss != null)
             styleSheets.Add(ss);
-        Debug.Log($"card");
 
         _battleCreature = battleCreature;
 
