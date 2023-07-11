@@ -20,7 +20,7 @@ public class CreatureCardEvolution : VisualElement
     public Creature Creature;
 
     Label _name;
-    CreatureIcon _creatureIcon;
+    EntityIcon _creatureIcon;
 
     ElementalElement _elementalElement;
 

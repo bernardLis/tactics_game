@@ -12,16 +12,16 @@ public class CreatureCard : VisualElement
     const string _ussLeftContainer = _ussClassName + "left-container";
     const string _ussName = _ussClassName + "name";
 
-    GameManager _gameManager;
+    protected GameManager _gameManager;
 
-    Creature _creature;
+    protected Creature _creature;
 
     protected VisualElement _leftContainer;
     protected VisualElement _middleContainer;
     protected VisualElement _rightContainer;
 
     protected ElementalElement _elementalElement;
-    public CreatureIcon CreatureIcon;
+    public EntityIcon CreatureIcon;
     protected Label _nameLabel;
     protected Label _levelLabel;
     protected Label _healthLabel;
@@ -87,7 +87,7 @@ public class CreatureCard : VisualElement
     {
         _creature = creature;
 
-        CreatureIcon.SetCreature(creature);
+        CreatureIcon.SetEntity(creature);
         _nameLabel.text = $"{creature.Name}";
         _healthLabel.text = $"Health: {creature.GetHealth()}";
         _power.text = $"Power: {creature.GetPower()}";

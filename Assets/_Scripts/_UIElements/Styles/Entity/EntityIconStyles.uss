@@ -1,9 +1,9 @@
-.creature-icon__main {
+.entity-icon__main {
     width: 100px;
     height: 100px;
 }
 
-.creature-icon__icon-container {
+.entity-icon__icon-container {
     width: 90px;
     height: 90px;
     -unity-background-scale-mode: scale-to-fit;
@@ -16,24 +16,9 @@
     position: absolute;
 }
 
-.creature-icon__frame {
+.entity-icon__frame {
     position: absolute;
     width: 100px;
     height: 100px;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/icon_frame.png?fileID=2800000&guid=b6f2846fb71927d4dab52664cc1c07f1&type=3#icon_frame');
-}
-
-.creature-icon__level {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: black;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
 }

@@ -1,6 +1,5 @@
 .creature-card__main {
     flex-direction: row;
-
 }
 
 .creature-card__left-container {

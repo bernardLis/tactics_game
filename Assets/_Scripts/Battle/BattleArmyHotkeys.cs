@@ -25,7 +25,7 @@ public class BattleArmyHotkeys : MonoBehaviour
 
     void AddPlayerArmyEntityHotkey(BattleCreature be)
     {
-        CreatureIcon icon = new(be.Creature);
+        EntityIcon icon = new(be.Creature);
         icon.SmallIcon();
         _armyHotkeysContainer.Add(icon);
 

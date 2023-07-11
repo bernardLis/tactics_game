@@ -53,7 +53,7 @@ public class BattleResultArmyElement : VisualElement
 
     void AddArmyToContainer(Creature creature)
     {
-        CreatureIcon icon = new(creature);
+        EntityIcon icon = new(creature);
         icon.SmallIcon();
         _armyGroupContainer.Add(icon);
     }

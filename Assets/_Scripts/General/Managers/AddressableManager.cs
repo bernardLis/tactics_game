@@ -56,12 +56,13 @@ public enum StyleSheetType
     CreatureCardEvolutionStyles, CreatureCardExpStyles,
     HeroCardFullStyles, HeroArmyElementStyles,
 
-
-    BattleEntityElementStyles, BattleEntityInfoStyles,
+    BattleEntityInfoStyles,
     BattleResultArmyStyles, BattleResultRewardStyles, BattleResultHeroStyles,
     RewardCardStyles, BattleCardStyles, BattleModifierStyles,
 
-    CreatureIconStyles, CreatureCardStyles,
+    EntityIconStyles,
+    MinionCardStyles, BattleMinionCardStyles,
+    CreatureCardStyles, BattleCreatureCardStyles,
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 

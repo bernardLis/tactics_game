@@ -24,7 +24,7 @@ public class CreatureCardExp : VisualElement
     VisualElement _middlePanel;
 
     Label _name;
-    public CreatureIcon CreatureIcon;
+    public EntityIcon CreatureIcon;
 
     IntVariable _currentSpice;
     IntVariable _spiceToNextLevel;

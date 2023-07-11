@@ -1,0 +1,11 @@
+.minion-card__main {
+    flex-direction: row;
+}
+
+.minion-card__left-container {
+    margin-right: 20px;
+}
+
+.minion-card__name {
+    font-size: 24px;
+}

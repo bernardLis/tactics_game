@@ -34,7 +34,7 @@ public class HeroArmyElement : VisualElement
 
         for (int i = 0; i < Hero.CreatureArmy.Count; i++)
         {
-            CreatureIcon icon = new CreatureIcon(Hero.CreatureArmy[i]);
+            EntityIcon icon = new EntityIcon(Hero.CreatureArmy[i]);
             _armyScrollView.Add(icon);
         }
     }

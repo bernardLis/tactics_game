@@ -12,7 +12,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     VisualElement _topContainer;
 
-    BattleEntityElement _tooltip;
+    VisualElement _tooltip;
 
     void Start()
     {
@@ -57,10 +57,13 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public void DisplayTooltip(BattleEntity entity)
     {
+        Debug.Log($"click lcik {entity.name}");
         HideTooltip();
+        if (entity.GetType() == typeof(BattleMinion))
+            _tooltip = new BattleMinionCard((BattleMinion)entity);
+        else
+            _tooltip = new BattleCreatureCard((BattleCreature)entity);
 
-        // HERE: broken due to battle entity = battle creature
-        //  _tooltip = new(entity);
         _bottomPanel.Add(_tooltip);
     }
 

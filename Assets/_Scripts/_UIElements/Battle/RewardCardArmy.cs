@@ -9,6 +9,6 @@ public class RewardCardArmy : RewardCard
     {
         RewardArmy rewardArmy = reward as RewardArmy;
 
-        Add(new CreatureIcon(rewardArmy.Creature));
+        Add(new EntityIcon(rewardArmy.Creature));
     }
 }

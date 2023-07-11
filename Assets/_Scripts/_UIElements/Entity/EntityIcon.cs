@@ -4,34 +4,31 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class CreatureIcon : ElementWithTooltip
+public class EntityIcon : ElementWithTooltip
 {
-    const string _ussClassName = "creature-icon__";
+    const string _ussClassName = "entity-icon__";
     const string _ussMain = _ussClassName + "main";
     const string _ussIconContainer = _ussClassName + "icon-container";
     const string _ussFrame = _ussClassName + "frame";
-    const string _ussLevel = _ussClassName + "level";
 
     GameManager _gameManager;
 
-    Creature _creature;
+    Entity _entity;
     bool _blockTooltip;
 
     VisualElement _iconContainer;
     public VisualElement Frame;
 
-    Label _level;
-
     AnimationElement _animationElement;
     bool _isAnimationBlocked;
-    public CreatureIcon(Creature creature, bool blockTooltip = false)
+    public EntityIcon(Entity creature, bool blockTooltip = false)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CreatureIconStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityIconStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        _creature = creature;
+        _entity = creature;
         _blockTooltip = blockTooltip;
 
         AddToClassList(_ussMain);
@@ -45,13 +42,8 @@ public class CreatureIcon : ElementWithTooltip
         Frame = new();
         Frame.AddToClassList(_ussFrame);
 
-        _level = new($"{_creature.Level}");
-        _level.AddToClassList(_ussLevel);
-        _creature.OnLevelUp += () => _level.text = $"{_creature.Level}";
-
         Add(_iconContainer);
         Add(Frame);
-        Add(_level);
 
         RegisterCallback<MouseEnterEvent>(OnMouseEnter);
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
@@ -81,15 +73,15 @@ public class CreatureIcon : ElementWithTooltip
         _iconContainer.style.height = 180;
     }
 
-    public void SetCreature(Creature newCreature)
+    public void SetEntity(Entity entity)
     {
-        _creature = newCreature;
-        _animationElement.SwapAnimationSprites(newCreature.IconAnimation);
+        _entity = entity;
+        _animationElement.SwapAnimationSprites(entity.IconAnimation);
     }
 
-    public void SwapCreature(Creature newCreature)
+    public void SwapCreature(Entity newEntity)
     {
-        _creature = newCreature;
+        _entity = newEntity;
 
         DOTween.Shake(() => transform.position, x => transform.position = x,
                 2f, 10f);
@@ -98,7 +90,7 @@ public class CreatureIcon : ElementWithTooltip
         Color _targetColor = Color.white;
         DOTween.To(() => Frame.style.backgroundColor.value,
                 x => Frame.style.backgroundColor = x, _targetColor, 1f)
-            .OnComplete(() => _animationElement.SwapAnimationSprites(newCreature.IconAnimation));
+            .OnComplete(() => _animationElement.SwapAnimationSprites(newEntity.IconAnimation));
 
         DOTween.To(() => Frame.style.backgroundColor.value,
                 x => Frame.style.backgroundColor = x, _initialColor, 2f)
@@ -130,7 +122,13 @@ public class CreatureIcon : ElementWithTooltip
     {
         if (_blockTooltip) return;
 
-        CreatureCard tooltip = new(_creature);
+        VisualElement tooltip = new();
+
+        if (_entity.GetType() == typeof(Creature))
+            tooltip = new CreatureCard((Creature)_entity);
+        if (_entity.GetType() == typeof(Minion))
+            tooltip = new MinionCard((Minion)_entity);
+
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }

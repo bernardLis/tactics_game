@@ -13,7 +13,7 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
         _battleEntity = GetComponent<BattleEntity>();
         _tooltipManager = BattleTooltipManager.Instance;
     }
-
+    
     public void OnPointerDown(PointerEventData eventData)
     {
         _tooltipManager.DisplayTooltip(_battleEntity);
