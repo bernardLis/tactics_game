@@ -61,7 +61,7 @@ public class BattleHeroManager : MonoBehaviour
 
     void AddCreature(Creature c)
     {
-        EntitySpawner instance = Instantiate(_spawnerPrefab, Vector3.zero, Quaternion.identity);
+        EntitySpawner instance = Instantiate(_spawnerPrefab, Vector3.forward, Quaternion.identity);
 
         List<Creature> creatures = new();
         creatures.Add(c);
