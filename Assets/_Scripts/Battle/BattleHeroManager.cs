@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class BattleHeroManager : MonoBehaviour
 {
+    [SerializeField] EntitySpawner _spawnerPrefab;
+
     BattleManager _battleManager;
     VisualElement _root;
 
@@ -18,6 +20,7 @@ public class BattleHeroManager : MonoBehaviour
         _hero = hero;
         hero.BattleInitialize();
         hero.OnLevelUp += OnHeroLevelUp;
+        hero.OnCreatureAdded += AddCreature;
 
         AddHeroCard();
     }
@@ -52,7 +55,21 @@ public class BattleHeroManager : MonoBehaviour
             _battleManager.ResumeGame();
             _root.Remove(rewardElement);
             _root.Remove(blackout);
+            _hero.CurrentMana.ApplyChange(_hero.BaseMana.Value - _hero.CurrentMana.Value);
         };
     }
 
+    void AddCreature(Creature c)
+    {
+        EntitySpawner instance = Instantiate(_spawnerPrefab, Vector3.zero, Quaternion.identity);
+
+        List<Creature> creatures = new();
+        creatures.Add(c);
+        instance.SpawnCreatures(creatures: creatures);
+        instance.OnSpawnComplete += (list) =>
+        {
+            _battleManager.AddPlayerArmyEntities(list);
+            instance.DestroySelf();
+        };
+    }
 }

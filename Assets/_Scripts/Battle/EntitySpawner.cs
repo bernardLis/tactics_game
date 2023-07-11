@@ -34,6 +34,7 @@ public class EntitySpawner : MonoBehaviour
         _portalElements.Find(x => x.ElementName == element.ElementName).Portal.SetActive(true);
     }
 
+
     public void SpawnHeroArmy(Hero hero, float duration = 2f)
     {
         _hero = hero;
@@ -41,6 +42,14 @@ public class EntitySpawner : MonoBehaviour
         _delay = duration / hero.CreatureArmy.Count;
 
         SpawnEntities(creatures: hero.CreatureArmy);
+    }
+
+    public void SpawnCreatures(List<Creature> creatures, float duration = 2f)
+    {
+        _delay = duration / creatures.Count;
+        _portalElement = creatures[0].Element;
+
+        SpawnEntities(creatures: creatures);
     }
 
     public void SpawnMinions(List<Minion> minions, Element portalElement = null, float duration = 2f)
