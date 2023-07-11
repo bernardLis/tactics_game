@@ -61,9 +61,6 @@ public class GameDatabase : BaseScriptableObject
 public enum ItemRarity { Common, Uncommon, Rare, Epic }
 public enum StatType { Power, Health, Mana, Armor, Speed }
 
-public enum BattleType { Duel, Waves }
-
-
 public enum QuestState { Pending, Delegated, Finished, Expired, RewardCollected }
 public enum DashboardBuildingType { Desk, Camp, Abilities }
 public enum ElementName { Fire, Water, Wind, Earth }

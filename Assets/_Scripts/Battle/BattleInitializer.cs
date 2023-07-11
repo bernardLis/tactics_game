@@ -18,17 +18,7 @@ public class BattleInitializer : MonoBehaviour
     [SerializeField] Transform _playerSpawnPoint;
     [SerializeField] Transform _enemySpawnPoint;
 
-    [SerializeField] GameObject _obstaclePrefab;
-    GameObject _obstacleInstance;
-
-    [SerializeField] GameObject _creatureSpawnerPrefab;
-
     Hero _playerHero;
-    Battle _selectedBattle;
-    Hero _opponentHero;
-
-    Label _waveLabel;
-    int _currentWaveIndex;
 
     void Start()
     {
@@ -38,17 +28,11 @@ public class BattleInitializer : MonoBehaviour
         _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
         _playerArmyDeployer = _battleManager.GetComponent<PlayerArmyDeployer>();
 
-        _waveLabel = _battleManager.Root.Q<Label>("waveCount");
-        _waveLabel.style.display = DisplayStyle.Flex;
-
         _entityHolder = _battleManager.EntityHolder;
 
         _battleCameraManager = Camera.main.GetComponentInParent<BattleCameraManager>();
 
         _playerHero = _gameManager.PlayerHero;
-
-        _selectedBattle = _gameManager.SelectedBattle;
-        _opponentHero = _gameManager.SelectedBattle.Opponent;
 
         StartCoroutine(BattleStartShow());
     }
@@ -61,14 +45,11 @@ public class BattleInitializer : MonoBehaviour
 
         _battleCameraManager.MoveCameraToDefaultPosition(3f);
 
-        if (_selectedBattle.HasModifierOfType(BattleModifierType.Obstacle))
-            PlaceObstacle();
-
         yield return new WaitForSeconds(1f);
 
         _battleManager.Initialize(_playerHero);
+        GetComponent<BattleWaveManager>().Initialize();
 
-        ResolveBattleType();
 
         yield return new WaitForSeconds(2f);
 
@@ -76,6 +57,9 @@ public class BattleInitializer : MonoBehaviour
         _battleInputManager.enabled = true;
     }
 
+    // HERE: obstacle code
+    [SerializeField] GameObject _obstaclePrefab;
+    GameObject _obstacleInstance;
     void PlaceObstacle()
     {
         if (_obstacleInstance != null)
@@ -97,91 +81,4 @@ public class BattleInitializer : MonoBehaviour
         _obstacleInstance.transform.localScale = size;
         _obstacleInstance.transform.Rotate(rot);
     }
-
-    void ResolveBattleType()
-    {
-        if (_selectedBattle.BattleType == BattleType.Duel)
-            InitializeOpponentArmy();
-
-        if (_selectedBattle.BattleType == BattleType.Waves)
-        {
-            _battleManager.BlockBattleEnd = true;
-            _battleManager.OnPlayerEntityDeath += (count) =>
-            {
-                if (count == 0)
-                    _battleManager.LoseBattle();
-            };
-            _battleManager.OnOpponentEntityDeath += ResolveNextWave;
-            SpawnWave();
-        }
-    }
-
-    void InitializeOpponentArmy()
-    {
-        Vector3 oppPortalRotation = new(0, 180, 0);
-        GameObject opponentSpawnerInstance = Instantiate(_creatureSpawnerPrefab, _enemySpawnPoint.position,
-                 Quaternion.Euler(oppPortalRotation));
-        EntitySpawner opponentSpawner = opponentSpawnerInstance.GetComponent<EntitySpawner>();
-        opponentSpawner.SpawnHeroArmy(_opponentHero, 1.5f);
-        opponentSpawner.OnSpawnComplete += (list) =>
-        {
-            opponentSpawner.DestroySelf();
-            _battleManager.AddOpponentArmyEntities(list);
-        };
-    }
-    void ResolveNextWave(int count)
-    {
-        if (count != 0) return;
-        _currentWaveIndex++;
-        if (_currentWaveIndex >= _selectedBattle.Waves.Count)
-        {
-            _battleManager.WinBattle();
-            return;
-        }
-        SpawnWave();
-    }
-
-    void SpawnWave()
-    {
-        UpdateWaveLabel();
-
-        // TODO: something more interesting, like split some armies
-        List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
-        foreach (Element element in elements)
-        {
-            List<Minion> minions = _selectedBattle.Waves[_currentWaveIndex].GetAllMinionsByElement(element);
-            if (minions.Count == 0) continue;
-
-            // https://forum.unity.com/threads/random-point-within-circle-with-min-max-radius.597523/
-            Vector2 point = Random.insideUnitCircle.normalized * Random.Range(50, 80);
-            Vector3 pos = new Vector3(point.x, 0, point.y);
-            Vector3 lookRotation = (pos - Vector3.zero).normalized; // TODO: math, this seems dumb
-
-            GameObject portal = Instantiate(_creatureSpawnerPrefab, pos, Quaternion.LookRotation(lookRotation));
-
-            EntitySpawner creatureSpawner = portal.GetComponent<EntitySpawner>();
-            creatureSpawner.SpawnMinions(minions, portalElement: element);
-            creatureSpawner.OnSpawnComplete += (list) =>
-            {
-                _battleManager.AddOpponentArmyEntities(list);
-                creatureSpawner.DestroySelf();
-
-                foreach (BattleEntity be in list)
-                    be.OnDeath += ClearBody;
-            };
-        }
-
-        void ClearBody(BattleEntity be, BattleEntity killer, Ability ability)
-        {
-            be.transform.DOMoveY(-1, 10f)
-                    .SetDelay(3f)
-                    .OnComplete(() => Destroy(be.gameObject));
-        }
-    }
-
-    void UpdateWaveLabel()
-    {
-        _waveLabel.text = $"Wave: {_currentWaveIndex + 1} / {_selectedBattle.Waves.Count}";
-    }
-
 }

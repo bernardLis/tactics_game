@@ -196,7 +196,7 @@ public class BattleResultElement : FullScreenElement
             _content.Add(_resultChoiceElement);
 
             _continueButton = new("Continue", _ussContinueButton, LoadBattle);
-            _resultChoiceElement.OnBattleSelected += () => _content.Add(_continueButton);
+            //     _resultChoiceElement.OnBattleSelected += () => _content.Add(_continueButton);
 
             _content.Remove(_resultRewardElement);
         }).StartingIn(1000);

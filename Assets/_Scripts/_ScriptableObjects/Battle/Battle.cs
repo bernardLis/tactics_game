@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "ScriptableObject/Map/Battle")]
 public class Battle : BaseScriptableObject
 {
-    public BattleType BattleType;
     public Hero Opponent;
     public List<BattleWave> Waves = new();
 
@@ -25,15 +24,33 @@ public class Battle : BaseScriptableObject
     public bool Won;
 
     public event Action<BattleModifier> OnBattleModifierAdded;
-    public void CreateRandomDuel(int level)
-    {
-        BattleType = BattleType.Duel;
 
+    public void CreateRandom(int level)
+    {
         GameManager gameManager = GameManager.Instance;
 
         Opponent = ScriptableObject.CreateInstance<Hero>();
         Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
+        Opponent.CreatureArmy.Clear();
 
+    }
+
+    public BattleWave GetWave(int difficulty)
+    {
+        // TODO: math for wave difficulty
+        BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
+
+        wave.NumberOfEnemies = Random.Range(10, 25);
+        wave.EnemyLevelRange = new Vector2Int(1, 5);
+        wave.Initialize();
+        Waves.Add(wave);
+
+        return wave;
+    }
+
+    // TODO:
+    // mixing waves of minions and creatures from x wave 
+    /* 
         if (gameManager.BattleNumber == 1)
         {
             Opponent.CreatureArmy.Clear();
@@ -49,42 +66,8 @@ public class Battle : BaseScriptableObject
             // get starting army of element our here is weak to
             Opponent.CreatureArmy = new(gameManager.HeroDatabase.GetStartingArmy(gameManager.PlayerHero.Element.WeakAgainst).Creatures);
         }
-    }
 
-    public void CreateRandomWaves(int level)
-    {
-        BattleType = BattleType.Waves;
-
-        GameManager gameManager = GameManager.Instance;
-
-        Opponent = ScriptableObject.CreateInstance<Hero>();
-        Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
-        Opponent.CreatureArmy.Clear();
-
-        // TODO: math for wave difficulty
-        int waveCount = Random.Range(1, 5);
-        for (int i = 0; i < waveCount; i++)
-        {
-            BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
-
-            wave.NumberOfEnemies = Random.Range(10, 25);
-            wave.EnemyLevelRange = new Vector2Int(1, 5);
-            wave.Initialize();
-            Waves.Add(wave);
-        }
-
-        foreach (Minion m in GameManager.Instance.HeroDatabase.GetAllMinions())
-        {
-            int numberOfMinions = GetTotalNumberOfMinionsByName(m.Name);
-            if (numberOfMinions > 0)
-            {
-                // HERE: minions should be addable to army with count not level
-                Minion minion = Instantiate(m);
-                minion.Level = numberOfMinions;
-                Opponent.MinionArmy.Add(minion);
-            }
-        }
-    }
+    */
 
     public int GetTotalNumberOfMinionsByName(string minionName)
     {

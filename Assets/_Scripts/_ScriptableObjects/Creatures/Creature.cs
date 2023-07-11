@@ -55,12 +55,17 @@ public class Creature : Entity
             CreatureAbility.Cooldown = Mathf.FloorToInt(CreatureAbility.Cooldown * b.CreatureAbilityCooldown);
         }
     }
-    
+
     public int GetPower() { return Mathf.RoundToInt(BasePower + 0.1f * BasePower * (Level - 1)); }
 
     public void AddKill(int ignored) { TotalKillCount++; }
     public void AddDmgDealt(int dmg) { TotalDamageDealt += dmg; }
     public void AddDmgTaken(int dmg) { TotalDamageTaken += dmg; }
+
+    public void AddExp(int gain)
+    {
+        // TODO: creature exp - to implement
+    }
 
     public int NextLevelSpiceRequired()
     {

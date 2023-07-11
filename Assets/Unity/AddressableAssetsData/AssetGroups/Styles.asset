@@ -197,11 +197,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 72889354f2b26c64ebdd8a7c9ae3b80b
-    m_Address: BattleCardStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0f0864f07de5a724691f003342cc8aa1
     m_Address: RewardCardsContainerStyles
     m_ReadOnly: 0

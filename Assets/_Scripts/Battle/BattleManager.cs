@@ -21,10 +21,8 @@ public class BattleManager : Singleton<BattleManager>
 
     VisualElement _infoPanel;
     Label _timerLabel;
-    Label _opponentsLeftLabel;
     public GoldElement GoldElement;
     public SpiceElement SpiceElement;
-
 
     public Transform EntityHolder;
 
@@ -66,7 +64,6 @@ public class BattleManager : Singleton<BattleManager>
         VisualElement bottomPanel = Root.Q<VisualElement>("bottomPanel");
         _infoPanel = Root.Q<VisualElement>("infoPanel");
         _timerLabel = _infoPanel.Q<Label>("timer");
-        _opponentsLeftLabel = _infoPanel.Q<Label>("enemyCount");
     }
 
     void Start()
@@ -86,7 +83,6 @@ public class BattleManager : Singleton<BattleManager>
         AudioManager.Instance.PlayMusic(_battleMusic);
 
         _timerLabel.style.display = DisplayStyle.Flex;
-        _opponentsLeftLabel.style.display = DisplayStyle.Flex;
 
 #if UNITY_EDITOR
         GetComponent<BattleInputManager>().OnEnterClicked += CheatWinBattle;
@@ -206,8 +202,6 @@ public class BattleManager : Singleton<BattleManager>
         b.gameObject.layer = 11;
         OpponentEntities.Add(b);
         b.OnDeath += OnOpponentDeath;
-
-        UpdateOpponentCountLabel();
     }
 
     void OnPlayerDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
@@ -215,10 +209,6 @@ public class BattleManager : Singleton<BattleManager>
         KilledPlayerEntities.Add(be);
         PlayerEntities.Remove(be);
         OnPlayerEntityDeath?.Invoke(PlayerEntities.Count);
-
-        if (BlockBattleEnd) return;
-        if (PlayerEntities.Count == 0)
-            StartCoroutine(BattleLost());
     }
 
     void OnOpponentDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
@@ -228,20 +218,17 @@ public class BattleManager : Singleton<BattleManager>
         OnOpponentEntityDeath?.Invoke(OpponentEntities.Count);
 
         // TODO: price for experience
+        if (killer is BattleCreature)
+        {
+            Debug.Log($"killer is creature");
+            int gain = Mathf.RoundToInt(be.Entity.Price * 0.5f);
+            _gameManager.PlayerHero.AddExp(gain);
+            ((BattleCreature)killer).Creature.AddExp(gain);
+            return;
+        }
         _gameManager.PlayerHero.AddExp(be.Entity.Price);
-
-        UpdateOpponentCountLabel();
-
-        if (BlockBattleEnd) return;
-        if (OpponentEntities.Count == 0)
-            StartCoroutine(BattleWon());
     }
 
-    void UpdateOpponentCountLabel()
-    {
-        _opponentsLeftLabel.text = $"Enemies Left: {OpponentEntities.Count}";
-
-    }
     public List<BattleEntity> GetAllies(BattleEntity battleEntity)
     {
         if (battleEntity.Team == 0) return PlayerEntities;
@@ -278,16 +265,6 @@ public class BattleManager : Singleton<BattleManager>
         DOTween.To(x => label.style.opacity = x, 0, 1, 0.5f);
 
         topPanel.Add(label);
-
-        if (_gameManager.BattleNumber == 8)
-        {
-            ConfirmPopUp popUp = new();
-            popUp.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
-            popUp.Initialize(Root, () => StartCoroutine(FinalizeBattle()),
-                    "You won the game! I owe you a beer for winning this prototype. You can continue playing or you can try another element. Btw. let me know what you think about this experience!.");
-            popUp.HideCancelButton();
-            yield break;
-        }
 
         yield return FinalizeBattle();
     }

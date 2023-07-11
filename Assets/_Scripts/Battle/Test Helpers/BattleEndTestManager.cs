@@ -51,7 +51,7 @@ public class BattleEndTestManager : MonoBehaviour
         }
 
         Battle battle = ScriptableObject.CreateInstance<Battle>();
-        battle.CreateRandomDuel(1);
+        battle.CreateRandom(1);
         _gameManager.SelectedBattle = battle;
 
         _gameManager.BattleNumber = 0;

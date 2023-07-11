@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class BattleBase : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
     MMF_Player _feelPlayer;
@@ -30,9 +31,11 @@ public class BattleBase : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
             DisplayFloatingText($"Lives: {Lives}", Color.white);
 
             StartCoroutine(battleEntity.Die(hasPickup: false));
+
+            if (Lives <= 0)
+                _battleManager.LoseBattle();
         }
     }
-
 
     public void OnPointerDown(PointerEventData eventData)
     {

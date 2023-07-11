@@ -201,11 +201,12 @@ public class BattleResultHeroElement : VisualElement
             if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
             return;
         }
-
-        if (_selectedBattle.BattleType == BattleType.Duel)
-            DisplayKilledCreatures();
-        if (_selectedBattle.BattleType == BattleType.Waves)
-            DisplayKilledWaves();
+        /*
+                if (_selectedBattle.BattleType == BattleType.Duel)
+                    DisplayKilledCreatures();
+                if (_selectedBattle.BattleType == BattleType.Waves)
+                    DisplayKilledWaves();
+                    */
     }
 
     void DisplayKilledCreatures()

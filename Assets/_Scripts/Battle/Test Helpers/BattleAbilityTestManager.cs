@@ -26,7 +26,7 @@ public class BattleAbilityTestManager : MonoBehaviour
         _gameManager.PlayerHero = _hero;
 
         Battle b = ScriptableObject.CreateInstance<Battle>();
-        b.CreateRandomDuel(1);
+        b.CreateRandom(1);
         _gameManager.SelectedBattle = b;
 
         _battleManager.Initialize(_hero);

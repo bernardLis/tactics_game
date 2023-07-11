@@ -6315,14 +6315,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1771743886305221010, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _obstaclePrefab
-      value: 
-      objectReference: {fileID: 5282784951654651465, guid: 3cdb7704dd19c474fa64d0fdb4765bfd, type: 3}
     - target: {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _enemySpawnPoint
       value: 
@@ -6331,18 +6323,6 @@ PrefabInstance:
       propertyPath: _playerSpawnPoint
       value: 
       objectReference: {fileID: 2116685829}
-    - target: {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _creatureSpawnerPrefab
-      value: 
-      objectReference: {fileID: 9175160785698911493, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
-    - target: {fileID: 3855565697554977837, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _battleCanvas
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3855565697554977837, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _dissolveShader
-      value: 
-      objectReference: {fileID: -6465566751694194690, guid: ee7883bf85493b444ad650781d351876, type: 3}
     - target: {fileID: 5119385659013104313, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -6387,48 +6367,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _spawner
-      value: 
-      objectReference: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _spawnerPrefab
-      value: 
-      objectReference: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
-    - target: {fileID: 5119385659013104315, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _scoreText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _timerText
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: EntityHolder
       value: 
       objectReference: {fileID: 1078788522}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _entityHolder
-      value: 
-      objectReference: {fileID: 1078788522}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _enemySpawnPoint
-      value: 
-      objectReference: {fileID: 1474169943}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _playerSpawnPoint
-      value: 
-      objectReference: {fileID: 2116685828}
     - target: {fileID: 5119385659013104319, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_Name
       value: Battle Manager
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1216169557816568583, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _entitySpawnerPrefab
+      value: 
+      objectReference: {fileID: 9175160785698911493, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
