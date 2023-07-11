@@ -267,7 +267,7 @@ public class BattleResultHeroElement : VisualElement
 
         // TODO: is price good for score?
         int exp = _killedMinionArmies[_enemyIndex].Minion.Price * _killedMinionArmies[_enemyIndex].Count;
-        _playerHero.GetExp(exp);
+        _playerHero.AddExp(exp);
         _enemyIndex++;
     }
 

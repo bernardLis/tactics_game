@@ -8,6 +8,7 @@ using DG.Tweening;
 public class BattleCameraManager : MonoBehaviour
 {
     GameManager _gameManager;
+    BattleManager _battleManager;
     PlayerInput _playerInput;
 
     InputAction _movement;
@@ -46,6 +47,13 @@ public class BattleCameraManager : MonoBehaviour
     void Awake()
     {
         _cameraTransform = GetComponentInChildren<Camera>().transform;
+    }
+
+    void Start()
+    {
+        _battleManager = BattleManager.Instance;
+        _battleManager.OnGamePaused += () => _disableUpdate = true;
+        _battleManager.OnGameResumed += () => _disableUpdate = false;
     }
 
     void Update()
@@ -245,7 +253,7 @@ public class BattleCameraManager : MonoBehaviour
 
         Vector3 rot = new Vector3(30, be.transform.localEulerAngles.y, 0f);
         transform.DORotate(rot, 0.5f);
-        
+
         _zoomHeight = _defaultZoomHeight;
     }
 }

@@ -52,6 +52,9 @@ public class BattleManager : Singleton<BattleManager>
     public event Action<int> OnOpponentEntityDeath;
     public event Action OnBattleFinalized;
 
+    public event Action OnGamePaused;
+    public event Action OnGameResumed;
+
     protected override void Awake()
     {
         base.Awake();
@@ -90,6 +93,18 @@ public class BattleManager : Singleton<BattleManager>
     void Update()
     {
         _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        OnGamePaused?.Invoke();
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        OnGameResumed?.Invoke();
     }
 
     IEnumerator UpdateTimer()
@@ -186,6 +201,9 @@ public class BattleManager : Singleton<BattleManager>
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
         OnOpponentEntityDeath?.Invoke(OpponentEntities.Count);
+
+        // TODO: price for experience
+        _gameManager.PlayerHero.AddExp(be.Entity.Price);
 
         UpdateOpponentCountLabel();
 

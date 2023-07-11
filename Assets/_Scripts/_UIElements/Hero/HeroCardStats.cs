@@ -98,7 +98,6 @@ public class HeroCardStats : VisualElement
         container.Add(_power);
         container.Add(_armor);
         container.Add(_speed);
-
     }
 
     void PopulateTopRightPanel(VisualElement container)
@@ -127,6 +126,11 @@ public class HeroCardStats : VisualElement
 
         container.Add(ExpBar);
         return container;
+    }
+
+    void OnLevelUp(int level)
+    {
+        _level.text = $"Level {Hero.Level.Value}";
     }
 
     VisualElement CreateManaGroup()

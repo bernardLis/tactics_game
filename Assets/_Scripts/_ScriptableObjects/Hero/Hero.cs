@@ -43,6 +43,7 @@ public class Hero : BaseScriptableObject
     public List<Creature> CreatureArmy = new();
     public List<Minion> MinionArmy = new();
 
+    public event Action OnLevelUp;
     public event Action<Item> OnItemAdded;
     public event Action<HeroRank> OnRankChanged;
     public event Action<Creature> OnCreatureAdded;
@@ -78,7 +79,7 @@ public class Hero : BaseScriptableObject
         return result + baseExp;
     }
 
-    public virtual void GetExp(int gain)
+    public virtual void AddExp(int gain)
     {
         Experience.ApplyChange(gain);
 
@@ -99,6 +100,7 @@ public class Hero : BaseScriptableObject
         AudioManager.Instance.PlayUI("Level Up");
 
         UpdateRank();
+        OnLevelUp?.Invoke();
     }
 
     public void AddPower()

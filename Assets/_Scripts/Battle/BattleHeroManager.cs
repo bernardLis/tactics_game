@@ -6,15 +6,18 @@ using DG.Tweening;
 
 public class BattleHeroManager : MonoBehaviour
 {
+    BattleManager _battleManager;
     VisualElement _root;
 
     Hero _hero;
     public void Initialize(Hero hero)
     {
+        _battleManager = BattleManager.Instance;
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         _hero = hero;
         hero.BattleInitialize();
+        hero.OnLevelUp += OnHeroLevelUp;
 
         AddHeroCard();
     }
@@ -28,6 +31,19 @@ public class BattleHeroManager : MonoBehaviour
         card.style.opacity = 0;
 
         DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f);
+    }
+
+    void OnHeroLevelUp()
+    {
+        _battleManager.PauseGame();
+        BattleResultRewardElement rewardElement = new();
+        _root.Add(rewardElement);
+
+        rewardElement.OnRewardSelected += () =>
+        {
+            _battleManager.ResumeGame();
+            _root.Remove(rewardElement);
+        };
     }
 
 }

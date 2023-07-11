@@ -71,6 +71,7 @@ public class BattleResultRewardElement : VisualElement
             CreateRewardCards();
             for (int i = 0; i < 3; i++)
             {
+                Debug.Log($"i {i}");
                 RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
                 _allRewardCards.Remove(card);
                 _selectedRewardCards.Add(card);
@@ -79,13 +80,12 @@ public class BattleResultRewardElement : VisualElement
                 card.style.position = Position.Absolute;
                 card.style.left = Screen.width;
 
-
                 _audioManager.PlayUIDelayed("Paper", 0.2f + i * 0.3f);
                 float endLeft = i * (hiddenCards[i].resolvedStyle.width
                     + hiddenCards[i].resolvedStyle.marginLeft + hiddenCards[i].resolvedStyle.right);
                 DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
                         .SetEase(Ease.InFlash)
-                        .SetDelay(i * 0.2f);
+                        .SetDelay(i * 0.2f).SetUpdate(true);
             }
         }).StartingIn(10);
 
