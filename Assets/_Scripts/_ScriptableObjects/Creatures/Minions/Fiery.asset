@@ -9,32 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
   m_Name: Fiery
   m_EditorClassIdentifier: 
-  Id: 5866c498-f0e4-4270-8e9e-c9233abcec89
+  Id: 6ce2a527-4335-4ae0-ab33-4723c0c223e0
   Name: Fiery
-  UpgradeTier: 0
   IconAnimation:
   - {fileID: 21300000, guid: 3a7f9e4649e6d024e9a67e3345709459, type: 3}
   Level: 1
-  Price: 2
+  Price: 20
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   BaseHealth: 10
   Armor: 0
-  BasePower: 2
-  AttackRange: 2
-  AttackCooldown: 2
   Speed: 1
-  CreatureAbility: {fileID: 0}
   Prefab: {fileID: 6266213777921296780, guid: 8e0dce24b7ada1e499e61efabf14d439, type: 3}
-  Projectile: {fileID: 0}
-  HitPrefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
-  EvolvedCreature: {fileID: 0}
-  OldKillCount: 0
-  TotalKillCount: 0
-  OldDamageDealt: 0
-  TotalDamageDealt: 0
-  OldDamageTaken: 0
-  TotalDamageTaken: 0
   Hero: {fileID: 0}

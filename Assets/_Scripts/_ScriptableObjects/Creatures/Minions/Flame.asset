@@ -9,32 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
   m_Name: Flame
   m_EditorClassIdentifier: 
-  Id: ddf4e432-8a31-46d9-83a3-eaed7f9af691
+  Id: 5143ed1b-e748-4311-bc54-e7e0ba06d431
   Name: Flame
-  UpgradeTier: 0
   IconAnimation:
   - {fileID: 21300000, guid: 6585685a12ef7ed4385ab0fbf44c02ac, type: 3}
   Level: 1
-  Price: 2
+  Price: 20
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   BaseHealth: 10
   Armor: 0
-  BasePower: 2
-  AttackRange: 2
-  AttackCooldown: 2
   Speed: 1
-  CreatureAbility: {fileID: 0}
   Prefab: {fileID: 6266213777921296780, guid: fb3c3385068ba3841943c8da8bba6c0c, type: 3}
-  Projectile: {fileID: 0}
-  HitPrefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
-  EvolvedCreature: {fileID: 0}
-  OldKillCount: 0
-  TotalKillCount: 0
-  OldDamageDealt: 0
-  TotalDamageDealt: 0
-  OldDamageTaken: 0
-  TotalDamageTaken: 0
   Hero: {fileID: 0}

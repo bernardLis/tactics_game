@@ -9,32 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
   m_Name: Shadow
   m_EditorClassIdentifier: 
-  Id: 68a5d68a-2943-4921-a7e6-0ecb92f64a50
+  Id: 0a31e71d-59e4-4d6f-9f25-ad46300fa086
   Name: Shadow
-  UpgradeTier: 0
   IconAnimation:
   - {fileID: 21300000, guid: bc4860c087663ce46bb792453a314312, type: 3}
   Level: 1
-  Price: 2
+  Price: 20
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   BaseHealth: 10
   Armor: 0
-  BasePower: 2
-  AttackRange: 2
-  AttackCooldown: 2
   Speed: 1
-  CreatureAbility: {fileID: 0}
   Prefab: {fileID: 6266213777921296780, guid: e2ecff5a3e5e08e44b9949281be7d1b7, type: 3}
-  Projectile: {fileID: 0}
-  HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
-  EvolvedCreature: {fileID: 0}
-  OldKillCount: 0
-  TotalKillCount: 0
-  OldDamageDealt: 0
-  TotalDamageDealt: 0
-  OldDamageTaken: 0
-  TotalDamageTaken: 0
   Hero: {fileID: 0}

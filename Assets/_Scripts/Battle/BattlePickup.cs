@@ -111,8 +111,6 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         _audioManager.PlaySFX(Pickup.GetPickupSound(), transform.position);
 
-        _battleManager.CollectPickup(Pickup);
-
         _effect.SetActive(false);
 
         GameObject clickEffect = Instantiate(Pickup.ClickEffect, _GFX.transform.position, Quaternion.identity);
@@ -135,6 +133,9 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 });
 
         DisplayFloatingText(Pickup.GetDisplayText(), Pickup.GetDisplayColor());
+
+        _battleManager.CollectPickup(Pickup);
+        Pickup.Collect();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

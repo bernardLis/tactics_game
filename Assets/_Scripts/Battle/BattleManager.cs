@@ -22,6 +22,9 @@ public class BattleManager : Singleton<BattleManager>
     VisualElement _infoPanel;
     Label _timerLabel;
     Label _opponentsLeftLabel;
+    public GoldElement GoldElement;
+    public SpiceElement SpiceElement;
+
 
     public Transform EntityHolder;
 
@@ -142,11 +145,33 @@ public class BattleManager : Singleton<BattleManager>
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
 
         if (_gameManager == null) _gameManager = GameManager.Instance;
+
+        GoldElement = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += OnGoldChanged;
+        _infoPanel.Add(GoldElement);
+
+        SpiceElement = new(_gameManager.Spice);
+        _gameManager.OnSpiceChanged += OnSpiceChanged;
+        _infoPanel.Add(SpiceElement);
+
         if (_gameManager.SelectedBattle.BattleModifiers == null) return;
 
         foreach (BattleModifier b in _gameManager.SelectedBattle.BattleModifiers)
             _infoPanel.Add(new BattleModifierElement(b, true));
+    }
 
+    void OnGoldChanged(int newValue)
+    {
+        int change = newValue - GoldElement.Amount;
+        Helpers.DisplayTextOnElement(Root, GoldElement, "" + change, Color.yellow);
+        GoldElement.ChangeAmount(newValue);
+    }
+
+    void OnSpiceChanged(int newValue)
+    {
+        int change = newValue - SpiceElement.Amount;
+        Helpers.DisplayTextOnElement(Root, SpiceElement, "" + change, Color.red);
+        SpiceElement.ChangeAmount(newValue);
     }
 
     public void AddPlayerArmyEntities(List<BattleEntity> list)

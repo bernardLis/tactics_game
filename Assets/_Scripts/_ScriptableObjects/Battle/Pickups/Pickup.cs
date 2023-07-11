@@ -81,6 +81,17 @@ public class Pickup : BaseScriptableObject
         v -= GoldChance;
     }
 
+    public void Collect()
+    {
+        GameManager gameManager = GameManager.Instance;
+        if (Item != null)
+            gameManager.PlayerHero.AddItem(Item);
+        if (Spice > 0)
+            gameManager.ChangeSpiceValue(Spice);
+        if (Gold > 0)
+            gameManager.ChangeGoldValue(Gold);
+    }
+
     public string GetDisplayText()
     {
         if (Item != null)
