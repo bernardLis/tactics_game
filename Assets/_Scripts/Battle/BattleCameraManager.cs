@@ -53,7 +53,13 @@ public class BattleCameraManager : MonoBehaviour
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
-        _battleManager.OnGameResumed += () => _disableUpdate = false;
+        _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
+    }
+
+    IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _disableUpdate = false;
     }
 
     void Update()
@@ -128,7 +134,6 @@ public class BattleCameraManager : MonoBehaviour
 
         if (inputValue.sqrMagnitude > 0.1f)
             _targetPosition += inputValue;
-
     }
 
     Vector3 GetCameraRight()

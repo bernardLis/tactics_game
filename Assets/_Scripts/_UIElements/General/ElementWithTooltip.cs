@@ -87,6 +87,7 @@ public abstract class ElementWithTooltip : VisualElement
         _tooltip.style.opacity = 0;
         DOTween.Kill(tooltipTweenId);
         DOTween.To(x => _tooltip.style.opacity = x, 0, 1, 0.3f)
+                .SetUpdate(true)
                 .SetId(tooltipTweenId);
     }
 
@@ -105,7 +106,9 @@ public abstract class ElementWithTooltip : VisualElement
             return;
 
         DOTween.To(x => _tooltip.style.opacity = x, 1, 0, 0.3f)
-                .SetId(tooltipTweenId).OnComplete(() =>
+                .SetUpdate(true)
+                .SetId(tooltipTweenId)
+                .OnComplete(() =>
                 {
                     _tooltipContainer.style.display = DisplayStyle.None;
                     _isTooltipDisplayed = false;

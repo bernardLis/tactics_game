@@ -36,13 +36,22 @@ public class BattleHeroManager : MonoBehaviour
     void OnHeroLevelUp()
     {
         _battleManager.PauseGame();
-        BattleResultRewardElement rewardElement = new();
+
+        VisualElement blackout = new();
+        blackout.style.backgroundColor = new Color(0, 0, 0, 0.3f);
+        blackout.style.position = Position.Absolute;
+        blackout.style.width = Length.Percent(100);
+        blackout.style.height = Length.Percent(100);
+        _root.Add(blackout);
+
+        BattleRewardElement rewardElement = new();
         _root.Add(rewardElement);
 
-        rewardElement.OnRewardSelected += () =>
+        rewardElement.OnContinueClicked += () =>
         {
             _battleManager.ResumeGame();
             _root.Remove(rewardElement);
+            _root.Remove(blackout);
         };
     }
 

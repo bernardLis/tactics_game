@@ -88,7 +88,7 @@ public static class Helpers
         Label l = new Label(text);
         l.AddToClassList(_ussCommonTextPrimary);
         l.style.color = color;
-        
+
         Vector3 start = new Vector3(element.worldBound.xMin, element.worldBound.yMin, 0);
         Vector3 end = new Vector3(element.worldBound.xMin + Random.Range(-100, 100),
                 element.worldBound.yMin - 100, 0);
@@ -97,6 +97,7 @@ public static class Helpers
         arcMovementElement.OnArcMovementFinished += () =>
         {
             DOTween.To(x => l.style.opacity = x, 1, 0, 1)
+                    .SetUpdate(true)
                     .OnComplete(() => root.Remove(arcMovementElement));
         };
     }

@@ -6,21 +6,22 @@ using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using DG.Tweening;
 
-public class BattleResultRewardElement : VisualElement
+public class BattleRewardElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
 
-    const string _ussClassName = "battle-result-reward__";
+    const string _ussClassName = "battle-reward__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussRerollButton = _ussClassName + "reroll-button";
-    const string _ussRerollIcon = _ussClassName + "reroll-icon";
-    const string _ussRerollIconHover = _ussClassName + "reroll-icon-hover";
+    const string _ussContinueButton = _ussClassName + "continue-button";
+
 
     GameManager _gameManager;
     AudioManager _audioManager;
 
     VisualElement _rewardContainer;
+    Label _rewardTitle;
+    List<RewardCard> _hiddenCards = new();
 
     List<RewardCard> _allRewardCards = new();
     List<RewardCard> _selectedRewardCards = new();
@@ -28,50 +29,81 @@ public class BattleResultRewardElement : VisualElement
     RerollButton _rerollButton;
 
     public event Action OnRewardSelected;
-    public BattleResultRewardElement()
+    public event Action OnContinueClicked;
+
+    public BattleRewardElement()
     {
         _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleResultRewardStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleRewardStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
+        AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
-        Label title = new Label("Choose your reward:");
-        title.style.fontSize = 32;
+        AddHeroCard();
+        AddRewardContainer();
+    }
+
+    void AddHeroCard()
+    {
+        Label title = new Label("Add stat point");
         Add(title);
+        title.style.fontSize = 32;
+        title.style.opacity = 0;
+        DOTween.To(x => title.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+
+        HeroCardExp card = new(_gameManager.PlayerHero);
+        Add(card);
+        card.style.opacity = 0;
+        DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
+            .SetUpdate(true)
+            .OnComplete(card.LeveledUp);
+
+        card.OnPointAdded += () =>
+        {
+            title.style.visibility = Visibility.Hidden;
+            RunCardShow();
+        };
+    }
+
+    void AddRewardContainer()
+    {
+        _rewardTitle = new Label("Choose your reward:");
+        _rewardTitle.style.fontSize = 32;
+        _rewardTitle.style.opacity = 0;
+        Add(_rewardTitle);
 
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;
         Add(_rewardContainer);
 
+        _hiddenCards = new();
+        for (int i = 0; i < 3; i++)
+        {
+            RewardCard card = CreateRewardCardGold();
+            _hiddenCards.Add(card);
+            card.style.visibility = Visibility.Hidden;
+            _rewardContainer.Add(card);
+        }
+
         _rerollButton = new(callback: RerollReward);
         Add(_rerollButton);
-
-        RunCardShow();
     }
 
     void RunCardShow()
     {
-        List<RewardCard> hiddenCards = new();
-        for (int i = 0; i < 3; i++)
-        {
-            RewardCard card = CreateRewardCardGold();
-            hiddenCards.Add(card);
-            card.style.visibility = Visibility.Hidden;
-            _rewardContainer.Add(card);
-        }
+        DOTween.To(x => _rewardTitle.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
 
         schedule.Execute(() =>
         {
             CreateRewardCards();
             for (int i = 0; i < 3; i++)
             {
-                Debug.Log($"i {i}");
                 RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
                 _allRewardCards.Remove(card);
                 _selectedRewardCards.Add(card);
@@ -81,8 +113,8 @@ public class BattleResultRewardElement : VisualElement
                 card.style.left = Screen.width;
 
                 _audioManager.PlayUIDelayed("Paper", 0.2f + i * 0.3f);
-                float endLeft = i * (hiddenCards[i].resolvedStyle.width
-                    + hiddenCards[i].resolvedStyle.marginLeft + hiddenCards[i].resolvedStyle.right);
+                float endLeft = i * (_hiddenCards[i].resolvedStyle.width
+                    + _hiddenCards[i].resolvedStyle.marginLeft + _hiddenCards[i].resolvedStyle.right);
                 DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
                         .SetEase(Ease.InFlash)
                         .SetDelay(i * 0.2f).SetUpdate(true);
@@ -178,11 +210,20 @@ public class BattleResultRewardElement : VisualElement
         }
 
         OnRewardSelected?.Invoke();
+
+
+        MyButton continueButton = new("Continue", _ussContinueButton, MoveAway);
+        Add(continueButton);
+        continueButton.style.opacity = 0;
+        DOTween.To(x => continueButton.style.opacity = x, 0, 1, 0.3f).SetUpdate(true);
+
     }
 
     public void MoveAway()
     {
         style.position = Position.Absolute;
-        DOTween.To(x => style.opacity = x, 1, 0, 0.5f);
+        DOTween.To(x => style.opacity = x, 1, 0, 0.5f)
+            .SetUpdate(true)
+            .OnComplete(() => OnContinueClicked?.Invoke());
     }
 }

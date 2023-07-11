@@ -36,7 +36,7 @@ public class BattleResultElement : FullScreenElement
 
     BattleResultHeroElement _resultHeroElement;
     BattleResultArmyElement _resultArmyElement;
-    BattleResultRewardElement _resultRewardElement;
+    BattleRewardElement _resultRewardElement;
     BattleResultChoiceElement _resultChoiceElement;
 
     GameObject _starEffect;
@@ -168,7 +168,7 @@ public class BattleResultElement : FullScreenElement
         _content.Remove(_continueButton);
         schedule.Execute(() =>
         {
-            _resultRewardElement = new BattleResultRewardElement();
+            _resultRewardElement = new BattleRewardElement();
             _content.Add(_resultRewardElement);
 
             _continueButton = new("Continue", _ussContinueButton, ShowBattleChoiceContainer);

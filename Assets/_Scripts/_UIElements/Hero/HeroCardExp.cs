@@ -142,6 +142,13 @@ public class HeroCardExp : VisualElement
         _level.text = $"Level {Hero.Level.Value}";
     }
 
+    public void LeveledUp()
+    {
+        EnableStatUpButtons();
+        PlayLevelUpAnimation();
+
+    }
+
     VisualElement CreateStatGroup()
     {
         _statGroupContainer = new();
