@@ -45,6 +45,7 @@ public class HeroCardStats : VisualElement
             styleSheets.Add(ss);
 
         Hero = hero;
+        hero.OnLevelUp += OnLevelUp;
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
@@ -128,7 +129,7 @@ public class HeroCardStats : VisualElement
         return container;
     }
 
-    void OnLevelUp(int level)
+    void OnLevelUp()
     {
         _level.text = $"Level {Hero.Level.Value}";
     }

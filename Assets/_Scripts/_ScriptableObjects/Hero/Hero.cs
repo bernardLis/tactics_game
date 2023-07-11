@@ -44,6 +44,8 @@ public class Hero : BaseScriptableObject
     public List<Minion> MinionArmy = new();
 
     public event Action OnLevelUp;
+    public event Action<Ability> OnAbilityAdded;
+    public event Action<Ability> OnAbilityRemoved;
     public event Action<Item> OnItemAdded;
     public event Action<HeroRank> OnRankChanged;
     public event Action<Creature> OnCreatureAdded;
@@ -132,14 +134,17 @@ public class Hero : BaseScriptableObject
 
     public void AddAbility(Ability ability)
     {
-        Abilities.Add(ability);
+        Ability instance = Instantiate(ability);
+        Abilities.Add(instance);
         UpdateRank();
+        OnAbilityAdded?.Invoke(instance);
     }
 
     public void RemoveAbility(Ability ability)
     {
         Abilities.Remove(ability);
         UpdateRank();
+        OnAbilityRemoved?.Invoke(ability);
     }
 
     public void AddItem(Item item)
@@ -262,8 +267,7 @@ public class Hero : BaseScriptableObject
         Items = new();
 
         Abilities = new();
-        Ability a = Instantiate(_gameManager.HeroDatabase.GetStartingAbility(element));
-        Abilities.Add(a);
+        AddAbility(_gameManager.HeroDatabase.GetStartingAbility(element));
 
         UpdateRank();
 

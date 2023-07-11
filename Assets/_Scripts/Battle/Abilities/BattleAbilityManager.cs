@@ -19,6 +19,7 @@ public class BattleAbilityManager : MonoBehaviour
     VisualElement _root;
 
     VisualElement _abilityInfoContainer;
+    VisualElement _abilityButtonsContainer;
 
     PlayerInput _playerInput;
 
@@ -52,11 +53,13 @@ public class BattleAbilityManager : MonoBehaviour
         DOTween.To(x => _abilityInfoContainer.style.opacity = x, 0, 1, 0.5f);
 
         _hero = hero;
+        _hero.OnAbilityAdded += AddNewAbilityButton;
+
+        _abilityButtonsContainer = _root.Q<VisualElement>("abilityContainer");
 
         AddAbilityButtons();
 
-        VisualElement abilityContainer = _root.Q<VisualElement>("abilityContainer");
-        DOTween.To(x => abilityContainer.style.opacity = x, 0, 1, 0.5f);
+        DOTween.To(x => _abilityButtonsContainer.style.opacity = x, 0, 1, 0.5f);
     }
 
     /* INPUT */
@@ -110,18 +113,23 @@ public class BattleAbilityManager : MonoBehaviour
     void AddAbilityButtons()
     {
         _abilities = _hero.Abilities;
-        VisualElement container = _root.Q(className: _ussAbilityContainer);
 
-        int i = 1;
-        foreach (Ability ability in _abilities)
-        {
-            ability.InitializeBattle();
-            AbilityButton button = new(ability, i.ToString());
-            button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability, button));
-            container.Add(button);
-            _abilityButtons.Add(button);
-            i++;
-        }
+        for (int i = 0; i < _abilities.Count; i++)
+            InitializeAbilityButton(_abilities[i], i + 1);
+    }
+
+    void AddNewAbilityButton(Ability ability)
+    {
+        InitializeAbilityButton(ability, _abilities.Count);
+    }
+
+    void InitializeAbilityButton(Ability ability, int i)
+    {
+        ability.InitializeBattle();
+        AbilityButton button = new(ability, i.ToString());
+        button.RegisterCallback<PointerUpEvent>(e => HighlightAbilityArea(ability, button));
+        _abilityButtonsContainer.Add(button);
+        _abilityButtons.Add(button);
     }
 
     void ButtonOneClick(InputAction.CallbackContext context)
