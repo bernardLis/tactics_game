@@ -5,7 +5,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleRewardStyles.uss?fileID=7433441132597879392&amp;guid=0f0864f07de5a724691f003342cc8aa1&amp;type=3#BattleRewardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardCardStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardCardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/BattleCreatureCardStyles.uss?fileID=7433441132597879392&amp;guid=cfbdbbe13acd1e0478727ccd5ed27b2b&amp;type=3#BattleCreatureCardStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleCardStyles.uss?fileID=7433441132597879392&amp;guid=72889354f2b26c64ebdd8a7c9ae3b80b&amp;type=3#BattleCardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StarRankElementStyles.uss?fileID=7433441132597879392&amp;guid=d7df27be43e873a44b6156bc8a574926&amp;type=3#StarRankElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroPortraitStyles.uss?fileID=7433441132597879392&amp;guid=30cb1d7da388bcd46bd5f2295479366d&amp;type=3#HeroPortraitStyles" />
@@ -23,8 +22,9 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleModifierStyles.uss?fileID=7433441132597879392&amp;guid=c56f9f9d036fcad44b2603ccb497d2ec&amp;type=3#BattleModifierStyles" />
     <ui:VisualElement name="infoPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; right: 0; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Flag_vert_2.png?fileID=2800000&amp;guid=9662f21ea2a1ff14fbcab7768ec0c94d&amp;type=3#Flag_vert_2&apos;); padding-bottom: 14px; align-items: center; padding-left: 10px; padding-right: 10px; padding-top: 5px; display: none; width: auto; flex-direction: row;">
         <ui:Label tabindex="-1" text="00:00" display-tooltip-when-elided="true" name="timer" class="common__text-primary" style="display: none; width: 50px; -unity-text-align: upper-center;" />
-        <ui:Label tabindex="-1" text="Enemies left: 15" display-tooltip-when-elided="true" name="enemyCount" class="common__text-primary" style="display: none; width: 200px; -unity-text-align: upper-center;" />
+        <ui:Label tabindex="-1" text="Enemies left: 15" display-tooltip-when-elided="true" name="livesCount" class="common__text-primary" style="display: none; width: 70px; -unity-text-align: upper-center;" />
         <ui:Label tabindex="-1" text="Wave: 1/5" display-tooltip-when-elided="true" name="waveCount" class="common__text-primary" style="display: none; width: 100px; -unity-text-align: upper-center;" />
+        <ui:VisualElement name="troopsLimitContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 100px; display: none;" />
     </ui:VisualElement>
     <ui:VisualElement name="topPanel" class="common__text-primary" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-items: center; justify-content: center; align-self: center; top: 20px; width: auto;">
         <ui:VisualElement name="abilityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; justify-content: center; align-self: center;" />

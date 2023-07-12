@@ -194,7 +194,15 @@ public class BattleRewardElement : VisualElement
         RewardArmy reward = ScriptableObject.CreateInstance<RewardArmy>();
         reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
-        return new RewardCardArmy(reward);
+        RewardCard card = new RewardCardArmy(reward);
+
+        if (_gameManager.PlayerHero.CreatureArmy.Count >= _gameManager.SelectedBattle.Base.TroopsLimit.Value)
+        {
+            card.DisableCard();
+            card.Add(new Label("Your army is full!"));
+        }
+
+        return card;
     }
 
     void RewardSelected(Reward reward)

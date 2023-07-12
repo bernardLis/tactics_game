@@ -12,7 +12,7 @@ public class BattleManager : Singleton<BattleManager>
     GameManager _gameManager;
 
     BattleHeroManager _battleHeroManager;
-
+    
     [SerializeField] Sound _battleMusic;
 
     public Battle LoadedBattle { get; private set; }
@@ -21,8 +21,9 @@ public class BattleManager : Singleton<BattleManager>
 
     VisualElement _infoPanel;
     Label _timerLabel;
-    public GoldElement GoldElement;
-    public SpiceElement SpiceElement;
+
+    GoldElement _goldElement;
+    SpiceElement _spiceElement;
 
     public Transform EntityHolder;
 
@@ -144,13 +145,14 @@ public class BattleManager : Singleton<BattleManager>
 
         if (_gameManager == null) _gameManager = GameManager.Instance;
 
-        GoldElement = new(_gameManager.Gold);
-        _gameManager.OnGoldChanged += OnGoldChanged;
-        _infoPanel.Add(GoldElement);
 
-        SpiceElement = new(_gameManager.Spice);
+        _goldElement = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += OnGoldChanged;
+        _infoPanel.Add(_goldElement);
+
+        _spiceElement = new(_gameManager.Spice);
         _gameManager.OnSpiceChanged += OnSpiceChanged;
-        _infoPanel.Add(SpiceElement);
+        _infoPanel.Add(_spiceElement);
 
         if (_gameManager.SelectedBattle.BattleModifiers == null) return;
 
@@ -160,16 +162,16 @@ public class BattleManager : Singleton<BattleManager>
 
     void OnGoldChanged(int newValue)
     {
-        int change = newValue - GoldElement.Amount;
-        Helpers.DisplayTextOnElement(Root, GoldElement, "" + change, Color.yellow);
-        GoldElement.ChangeAmount(newValue);
+        int change = newValue - _goldElement.Amount;
+        Helpers.DisplayTextOnElement(Root, _goldElement, "" + change, Color.yellow);
+        _goldElement.ChangeAmount(newValue);
     }
 
     void OnSpiceChanged(int newValue)
     {
-        int change = newValue - SpiceElement.Amount;
-        Helpers.DisplayTextOnElement(Root, SpiceElement, "" + change, Color.red);
-        SpiceElement.ChangeAmount(newValue);
+        int change = newValue - _spiceElement.Amount;
+        Helpers.DisplayTextOnElement(Root, _spiceElement, "" + change, Color.red);
+        _spiceElement.ChangeAmount(newValue);
     }
 
     public void AddPlayerArmyEntities(List<BattleEntity> list)
