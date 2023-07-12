@@ -214,8 +214,8 @@ public class HeroCardExp : VisualElement
     {
         _audioManager.PlayUI("Point Added");
         OnPointAdded?.Invoke();
-        if (Hero.LevelUpPointsLeft <= 0)
-            DisableStatUpButtons();
+        DisableStatUpButtons();
+        Hero.LevelUp();
     }
 
     void EnableStatUpButtons()

@@ -18,7 +18,9 @@ public class Hero : BaseScriptableObject
     public IntVariable Level;
     public IntVariable Experience;
     public IntVariable ExpForNextLevel;
-    public int LevelUpPointsLeft;
+
+    bool _levelUpReady;
+    public int LeftoverExp;
 
     public Element Element;
 
@@ -43,6 +45,7 @@ public class Hero : BaseScriptableObject
     public List<Creature> CreatureArmy = new();
     public List<Minion> MinionArmy = new();
 
+    public event Action OnLevelUpReady;
     public event Action OnLevelUp;
     public event Action<Ability> OnAbilityAdded;
     public event Action<Ability> OnAbilityRemoved;
@@ -83,53 +86,56 @@ public class Hero : BaseScriptableObject
 
     public virtual void AddExp(int gain)
     {
-        Experience.ApplyChange(gain);
-
-        if (Experience.Value < ExpForNextLevel.Value)
+        if (_levelUpReady)
+        {
+            LeftoverExp += gain;
             return;
-        LevelUp();
+        }
+        if (Experience.Value + gain >= ExpForNextLevel.Value)
+        {
+            LeftoverExp = Experience.Value + gain - ExpForNextLevel.Value;
+            Experience.SetValue(ExpForNextLevel.Value);
+            LevelUpReady();
+            return;
+        }
+
+        Experience.ApplyChange(gain);
+    }
+
+    public void LevelUpReady()
+    {
+        Debug.Log($"level up ready on level: {Level}");
+        _levelUpReady = true;
+        AudioManager.Instance.PlayUI("Level Up");
+
+        OnLevelUpReady?.Invoke();
     }
 
     public void LevelUp()
     {
-        Level.ApplyChange(1);
+        _levelUpReady = false;
         Experience.SetValue(0);
         ExpForNextLevel.SetValue(GetExpForNextLevel());
 
+        Level.ApplyChange(1);
         BaseMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
-        LevelUpPointsLeft += 1;
-
-        AudioManager.Instance.PlayUI("Level Up");
-
-        UpdateRank();
         OnLevelUp?.Invoke();
+        UpdateRank();
     }
 
     public void AddPower()
     {
-        if (LevelUpPointsLeft <= 0)
-            return;
-
         BasePower.ApplyChange(1);
-        LevelUpPointsLeft--;
     }
 
     public void AddArmor()
     {
-        if (LevelUpPointsLeft <= 0)
-            return;
-
         BaseArmor.ApplyChange(1);
-        LevelUpPointsLeft--;
     }
 
     public void AddSpeed()
     {
-        if (LevelUpPointsLeft <= 0)
-            return;
-
         BaseSpeed.ApplyChange(1);
-        LevelUpPointsLeft--;
     }
 
     public void AddAbility(Ability ability)

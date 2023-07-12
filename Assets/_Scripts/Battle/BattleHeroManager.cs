@@ -19,7 +19,7 @@ public class BattleHeroManager : MonoBehaviour
 
         _hero = hero;
         hero.BattleInitialize();
-        hero.OnLevelUp += OnHeroLevelUp;
+        hero.OnLevelUpReady += OnHeroLevelUp;
         hero.OnCreatureAdded += AddCreature;
 
         AddHeroCard();
@@ -52,10 +52,12 @@ public class BattleHeroManager : MonoBehaviour
 
         rewardElement.OnContinueClicked += () =>
         {
+            Debug.Log($"continue clicked");
             _battleManager.ResumeGame();
             _root.Remove(rewardElement);
             _root.Remove(blackout);
             _hero.CurrentMana.ApplyChange(_hero.BaseMana.Value - _hero.CurrentMana.Value);
+            _hero.AddExp(_hero.LeftoverExp);
         };
     }
 

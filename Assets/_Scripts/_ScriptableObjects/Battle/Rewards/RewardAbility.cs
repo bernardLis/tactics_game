@@ -14,31 +14,13 @@ public class RewardAbility : Reward
     {
         base.CreateRandom(hero);
 
-        // I only have 4 buttons for abilities, so I can't have more than 4 abilities
-
-        if (_hero.Abilities.Count == 4)
-        {
-            IsUpgrade = true;
-            Ability = _hero.Abilities[Random.Range(0, 4)];
-            return;
-        }
-
-        float v = Random.value;
-        if (v < 0.5f)
-        {
-            IsUpgrade = true;
-            Ability = _hero.Abilities[Random.Range(0, _hero.Abilities.Count)];
-            return;
-        }
-
-        // choose an ability that hero does not have yet
         List<Ability> abilities = new(_gameManager.HeroDatabase.GetAllAbilities());
-        for (int i = abilities.Count - 1; i >= 0; i--)
-            foreach (Ability heroAbility in _hero.Abilities)
-                if (abilities[i].Id == heroAbility.Id)
-                    abilities.Remove(abilities[i]);
-
+        if (_hero.Abilities.Count == 4) // only 4 ability buttons
+            abilities = new(_hero.Abilities);
         Ability = abilities[Random.Range(0, abilities.Count)];
+        foreach (Ability heroAbility in _hero.Abilities)
+            if (heroAbility.Id == Ability.Id)
+                IsUpgrade = true;
     }
 
     public override void GetReward()

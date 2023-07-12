@@ -104,7 +104,7 @@ public class CommandLineManager : MonoBehaviour
         if (_commandTextField.text.ToLower() == "takespice")
             _gameManager.ChangeSpiceValue(-500);
         if (_commandTextField.text.ToLower() == "levelup")
-            _gameManager.PlayerHero.LevelUp();
+            _gameManager.PlayerHero.LevelUpReady();
     }
 
     public void Log(string logString, string stackTrace, LogType type)

@@ -198,7 +198,7 @@ public class BattleResultHeroElement : VisualElement
     {
         if (_battleManager.KilledOpponentEntities.Count == 0)
         {
-            if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
+            //   if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
             return;
         }
         /*
@@ -222,7 +222,7 @@ public class BattleResultHeroElement : VisualElement
         if (_enemyIndex >= _battleManager.KilledOpponentEntities.Count)
         {
             _enemiesKilledShowSchedule.Pause();
-            if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
+            //   if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
             return;
         }
 
@@ -260,7 +260,7 @@ public class BattleResultHeroElement : VisualElement
         if (_enemyIndex >= _killedMinionArmies.Count)
         {
             _enemiesKilledShowSchedule.Pause();
-            if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
+            // if (_playerHero.LevelUpPointsLeft == 0) OnFinished?.Invoke();
             return;
         }
 
@@ -290,8 +290,8 @@ public class BattleResultHeroElement : VisualElement
 
     void OnHeroPointAdded()
     {
-        if (_playerHero.LevelUpPointsLeft == 0)
-            OnFinished?.Invoke();
+        //   if (_playerHero.LevelUpPointsLeft == 0)
+        OnFinished?.Invoke();
     }
 
     public void MoveAway()
