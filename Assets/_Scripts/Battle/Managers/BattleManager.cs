@@ -22,8 +22,6 @@ public class BattleManager : Singleton<BattleManager>
     VisualElement _infoPanel;
     Label _timerLabel;
 
-    GoldElement _goldElement;
-    SpiceElement _spiceElement;
 
     public Transform EntityHolder;
 
@@ -133,46 +131,8 @@ public class BattleManager : Singleton<BattleManager>
         _timerIsOn = true;
         StartCoroutine(UpdateTimer());
         OnBattleInitialized?.Invoke();
-
-        ResolveInfoPanel();
     }
 
-    void ResolveInfoPanel()
-    {
-        _infoPanel.style.opacity = 0f;
-        _infoPanel.style.display = DisplayStyle.Flex;
-        DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
-
-        if (_gameManager == null) _gameManager = GameManager.Instance;
-
-
-        _goldElement = new(_gameManager.Gold);
-        _gameManager.OnGoldChanged += OnGoldChanged;
-        _infoPanel.Add(_goldElement);
-
-        _spiceElement = new(_gameManager.Spice);
-        _gameManager.OnSpiceChanged += OnSpiceChanged;
-        _infoPanel.Add(_spiceElement);
-
-        if (_gameManager.SelectedBattle.BattleModifiers == null) return;
-
-        foreach (BattleModifier b in _gameManager.SelectedBattle.BattleModifiers)
-            _infoPanel.Add(new BattleModifierElement(b, true));
-    }
-
-    void OnGoldChanged(int newValue)
-    {
-        int change = newValue - _goldElement.Amount;
-        Helpers.DisplayTextOnElement(Root, _goldElement, "" + change, Color.yellow);
-        _goldElement.ChangeAmount(newValue);
-    }
-
-    void OnSpiceChanged(int newValue)
-    {
-        int change = newValue - _spiceElement.Amount;
-        Helpers.DisplayTextOnElement(Root, _spiceElement, "" + change, Color.red);
-        _spiceElement.ChangeAmount(newValue);
-    }
 
     public void AddPlayerArmyEntities(List<BattleEntity> list)
     {

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4674785151299061227}
   - component: {fileID: 9037198521051735104}
   - component: {fileID: 8300005922033865725}
+  - component: {fileID: 4810545558572652240}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -41,7 +42,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5119385659013104312
 MonoBehaviour:
@@ -156,10 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2685ec49db263d46ac8cad404de18bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpawnPoint: {fileID: 0}
-  _enemySpawnPoint: {fileID: 0}
   _obstaclePrefab: {fileID: 5282784951654651465, guid: 3cdb7704dd19c474fa64d0fdb4765bfd, type: 3}
-  _creatureSpawnerPrefab: {fileID: 9175160785698911493, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
 --- !u!114 &3855565697554977837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,5 +206,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entitySpawnerPrefab: {fileID: 0}
+--- !u!114 &4810545558572652240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd236773358092c4b8664dc1a4ce4a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

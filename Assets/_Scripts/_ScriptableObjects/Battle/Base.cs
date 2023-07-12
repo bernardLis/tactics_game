@@ -5,18 +5,15 @@ using UnityEngine;
 
 public class Base : BaseScriptableObject
 {
+    public IntVariable Lives;
     public IntVariable TroopsLimit;
-
 
     public void Initialize()
     {
+        Lives = ScriptableObject.CreateInstance<IntVariable>();
+        Lives.SetValue(10);
+
         TroopsLimit = ScriptableObject.CreateInstance<IntVariable>();
-        TroopsLimit.SetValue(3);
+        TroopsLimit.SetValue(5);
     }
-
-    public void AddTroopsLimit(int amount)
-    {
-        TroopsLimit.ApplyChange(amount);
-    }
-
 }

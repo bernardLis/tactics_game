@@ -15,43 +15,15 @@ public class BattleBase : Singleton<BattleBase>, IPointerDownHandler, IPointerEn
 
     MMF_Player _feelPlayer;
 
-    TroopsLimitElement _troopsLimitElement;
-    Label _livesCountLabel;
-    public int Lives { get; private set; }
-
     void Start()
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
-        _livesCountLabel = _battleManager.Root.Q<Label>("livesCount");
 
         _tooltipManager = BattleTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
 
         _base = _gameManager.SelectedBattle.Base;
-
-        AddTroopsLimitElement();
-
-        Lives = 10;
-        _livesCountLabel.style.display = DisplayStyle.Flex;
-        _livesCountLabel.text = $"Lives: {Lives}";
-    }
-
-    void AddTroopsLimitElement()
-    {
-        VisualElement TroopsLimitContainer = _battleManager.Root.Q<VisualElement>("troopsLimitContainer");
-        TroopsLimitContainer.style.display = DisplayStyle.Flex;
-        _troopsLimitElement = new($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_base.TroopsLimit.Value}");
-
-        TroopsLimitContainer.Add(_troopsLimitElement);
-
-        _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
-        _base.TroopsLimit.OnValueChanged += (v) => UpdateTroopsLimitElement();
-    }
-
-    void UpdateTroopsLimitElement()
-    {
-        _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_base.TroopsLimit}", Color.white);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -60,17 +32,14 @@ public class BattleBase : Singleton<BattleBase>, IPointerDownHandler, IPointerEn
         {
             if (battleEntity.Team == 0) return;
 
-            Lives--;
-            DisplayFloatingText($"Lives: {Lives}", Color.white);
+            _base.Lives.ApplyChange(-1);
+            DisplayFloatingText($"Lives: {_base.Lives.Value}", Color.white);
             StartCoroutine(battleEntity.Die(hasPickup: false));
 
-            _livesCountLabel.text = $"Lives: {Lives}";
-
-            if (Lives <= 0)
+            if (_base.Lives.Value <= 0)
                 _battleManager.LoseBattle();
         }
     }
-
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -80,7 +49,7 @@ public class BattleBase : Singleton<BattleBase>, IPointerDownHandler, IPointerEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"{Lives} lives left");
+        _tooltipManager.ShowInfo($"{_base.Lives.Value} lives left");
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -98,6 +67,4 @@ public class BattleBase : Singleton<BattleBase>, IPointerDownHandler, IPointerEn
         floatingText.AnimateColorGradient = Helpers.GetGradient(color);
         _feelPlayer.PlayFeedbacks(transform.position);
     }
-
-
 }
