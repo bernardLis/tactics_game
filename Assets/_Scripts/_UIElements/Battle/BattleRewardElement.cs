@@ -13,20 +13,20 @@ public class BattleRewardElement : VisualElement
 
     const string _ussClassName = "battle-reward__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussContinueButton = _ussClassName + "continue-button";
-
+    const string _ussSpacer = _ussClassName + "spacer";
 
     GameManager _gameManager;
     AudioManager _audioManager;
 
     VisualElement _rewardContainer;
-    Label _rewardTitle;
+    Label _rewardTooltip;
     List<RewardCard> _hiddenCards = new();
 
     List<RewardCard> _allRewardCards = new();
     List<RewardCard> _selectedRewardCards = new();
 
     RerollButton _rerollButton;
+    ContinueButton _continueButton;
 
     public event Action OnRewardSelected;
     public event Action OnContinueClicked;
@@ -45,18 +45,23 @@ public class BattleRewardElement : VisualElement
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
+        _rewardTooltip = new Label("Add stat point");
+        _rewardTooltip.style.opacity = 0;
+        _rewardTooltip.style.fontSize = 32;
+        Add(_rewardTooltip);
+        DOTween.To(x => _rewardTooltip.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+
         AddHeroCard();
+
+        VisualElement spacer = new();
+        spacer.AddToClassList(_ussSpacer);
+        Add(spacer);
+
         AddRewardContainer();
     }
 
     void AddHeroCard()
     {
-        Label title = new Label("Add stat point");
-        Add(title);
-        title.style.fontSize = 32;
-        title.style.opacity = 0;
-        DOTween.To(x => title.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
-
         HeroCardExp card = new(_gameManager.PlayerHero);
         Add(card);
         card.style.opacity = 0;
@@ -66,18 +71,20 @@ public class BattleRewardElement : VisualElement
 
         card.OnPointAdded += () =>
         {
-            title.style.visibility = Visibility.Hidden;
+            DOTween.To(x => _rewardTooltip.style.opacity = x, 1, 0, 0.5f)
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    _rewardTooltip.text = "Choose your reward:";
+                    DOTween.To(x => _rewardTooltip.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+                });
+
             RunCardShow();
         };
     }
 
     void AddRewardContainer()
     {
-        _rewardTitle = new Label("Choose your reward:");
-        _rewardTitle.style.fontSize = 32;
-        _rewardTitle.style.opacity = 0;
-        Add(_rewardTitle);
-
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;
         Add(_rewardContainer);
@@ -92,12 +99,17 @@ public class BattleRewardElement : VisualElement
         }
 
         _rerollButton = new(callback: RerollReward);
+        _rerollButton.style.opacity = 0;
+        _rerollButton.style.visibility = Visibility.Hidden;
         Add(_rerollButton);
     }
 
     void RunCardShow()
     {
-        DOTween.To(x => _rewardTitle.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+        _rerollButton.style.visibility = Visibility.Visible;
+        DOTween.To(x => _rerollButton.style.opacity = x, 0, 1, 0.5f)
+            .SetDelay(0.5f)
+            .SetUpdate(true);
 
         schedule.Execute(() =>
         {
@@ -210,6 +222,8 @@ public class BattleRewardElement : VisualElement
         _audioManager.PlayUI("Reward Chosen");
 
         _rerollButton.SetEnabled(false);
+        DOTween.To(x => _rerollButton.style.opacity = x, 1, 0, 0.5f).SetUpdate(true);
+
         foreach (RewardCard card in _selectedRewardCards)
         {
             if (card.Reward != reward) card.DisableCard();
@@ -219,12 +233,8 @@ public class BattleRewardElement : VisualElement
 
         OnRewardSelected?.Invoke();
 
-
-        MyButton continueButton = new("Continue", _ussContinueButton, MoveAway);
-        Add(continueButton);
-        continueButton.style.opacity = 0;
-        DOTween.To(x => continueButton.style.opacity = x, 0, 1, 0.3f).SetUpdate(true);
-
+        _continueButton = new(callback: MoveAway);
+        Add(_continueButton);
     }
 
     public void MoveAway()

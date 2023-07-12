@@ -67,4 +67,6 @@ public enum StyleSheetType
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
+    BattleBaseStyles,
+
 }

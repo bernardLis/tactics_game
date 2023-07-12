@@ -150,3 +150,19 @@
 .common__reroll-icon-hover {
     rotate: 270deg;
 }
+
+.common__continue-button {
+    font-size: 36px;
+    justify-content: center;
+    position: absolute;
+    width: 300px;
+    height: 100px;
+    bottom: 20px;
+    align-self: center;
+    opacity: 0.8;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-sine;
+    -unity-text-align: middle-center;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark');
+}
