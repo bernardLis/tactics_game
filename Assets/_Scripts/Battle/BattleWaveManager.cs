@@ -49,6 +49,12 @@ public class BattleWaveManager : MonoBehaviour
         UpdateWaveLabel();
         BattleWave wave = _selectedBattle.GetWave(_currentWaveIndex);
 
+        InstantiateMinions(wave);
+        InstantiateCreatures(wave);
+    }
+
+    void InstantiateMinions(BattleWave wave)
+    {
         // TODO: something more interesting, like split some armies
         List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
         foreach (Element element in elements)
@@ -56,32 +62,50 @@ public class BattleWaveManager : MonoBehaviour
             List<Minion> minions = wave.GetAllMinionsByElement(element);
             if (minions.Count == 0) continue;
 
-            // https://forum.unity.com/threads/random-point-within-circle-with-min-max-radius.597523/
-            Vector2 point = Random.insideUnitCircle.normalized * Random.Range(50, 80);
-            Vector3 pos = new Vector3(point.x, 0, point.y);
-            Vector3 lookRotation = (pos - Vector3.zero).normalized; // TODO: math, this seems dumb
-
-            GameObject portal = Instantiate(_entitySpawnerPrefab, pos, Quaternion.LookRotation(lookRotation));
-
-            EntitySpawner creatureSpawner = portal.GetComponent<EntitySpawner>();
+            EntitySpawner creatureSpawner = InstantiateSpawner();
             creatureSpawner.SpawnMinions(minions, portalElement: element);
-            creatureSpawner.OnSpawnComplete += (list) =>
-            {
-                _battleManager.AddOpponentArmyEntities(list);
-                creatureSpawner.DestroySelf();
-
-                foreach (BattleEntity be in list)
-                    be.OnDeath += ClearBody;
-            };
-        }
-
-        void ClearBody(BattleEntity be, BattleEntity killer, Ability ability)
-        {
-            be.transform.DOMoveY(-1, 10f)
-                    .SetDelay(3f)
-                    .OnComplete(() => Destroy(be.gameObject));
+            creatureSpawner.OnSpawnComplete += OnEntitySpawnComplete;
         }
     }
+
+    void InstantiateCreatures(BattleWave wave)
+    {
+        foreach (Creature c in wave.Creatures)
+        {
+            EntitySpawner creatureSpawner = InstantiateSpawner();
+            List<Creature> creatures = new List<Creature>() { c };
+            creatureSpawner.SpawnCreatures(creatures);
+            creatureSpawner.OnSpawnComplete += OnEntitySpawnComplete;
+        }
+    }
+
+    EntitySpawner InstantiateSpawner()
+    {
+        // https://forum.unity.com/threads/random-point-within-circle-with-min-max-radius.597523/
+        Vector2 point = Random.insideUnitCircle.normalized * Random.Range(50, 80);
+        Vector3 pos = new Vector3(point.x, 0, point.y);
+        Vector3 lookRotation = (pos - Vector3.zero).normalized; // TODO: math, this seems dumb
+
+        GameObject portal = Instantiate(_entitySpawnerPrefab, pos, Quaternion.LookRotation(lookRotation));
+
+        return portal.GetComponent<EntitySpawner>();
+    }
+
+    void OnEntitySpawnComplete(List<BattleEntity> list)
+    {
+        _battleManager.AddOpponentArmyEntities(list);
+
+        foreach (BattleEntity be in list)
+            be.OnDeath += ClearBody;
+    }
+
+    void ClearBody(BattleEntity be, BattleEntity killer, Ability ability)
+    {
+        be.transform.DOMoveY(-1, 10f)
+                .SetDelay(3f)
+                .OnComplete(() => Destroy(be.gameObject));
+    }
+
 
     void UpdateWaveLabel()
     {

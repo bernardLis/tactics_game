@@ -32,42 +32,16 @@ public class Battle : BaseScriptableObject
         Opponent = ScriptableObject.CreateInstance<Hero>();
         Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
         Opponent.CreatureArmy.Clear();
-
     }
 
     public BattleWave GetWave(int difficulty)
     {
-        // TODO: math for wave difficulty
         BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
-
-        wave.NumberOfEnemies = Random.Range(10, 25);
-        wave.EnemyLevelRange = new Vector2Int(1, 5);
-        wave.Initialize();
+        wave.CreateWave(difficulty);
         Waves.Add(wave);
 
         return wave;
     }
-
-    // TODO:
-    // mixing waves of minions and creatures from x wave 
-    /* 
-        if (gameManager.BattleNumber == 1)
-        {
-            Opponent.CreatureArmy.Clear();
-            // get starting army of neutral element
-            List<Element> elements = new(gameManager.HeroDatabase.GetAllElements());
-            elements.Remove(gameManager.PlayerHero.Element);
-            elements.Remove(gameManager.PlayerHero.Element.StrongAgainst);
-            elements.Remove(gameManager.PlayerHero.Element.WeakAgainst);
-            Opponent.CreatureArmy = new(gameManager.HeroDatabase.GetStartingArmy(elements[0]).Creatures);
-        }
-        if (gameManager.BattleNumber == 2)
-        {
-            // get starting army of element our here is weak to
-            Opponent.CreatureArmy = new(gameManager.HeroDatabase.GetStartingArmy(gameManager.PlayerHero.Element.WeakAgainst).Creatures);
-        }
-
-    */
 
     public int GetTotalNumberOfMinionsByName(string minionName)
     {

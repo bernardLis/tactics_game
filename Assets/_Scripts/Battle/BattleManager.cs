@@ -295,7 +295,7 @@ public class BattleManager : Singleton<BattleManager>
     }
 
 #if UNITY_EDITOR
-    [ContextMenu("Win Battle")]
+    [ContextMenu("Kill All Opponents")]
     public void CheatWinBattle()
     {
         List<BattleEntity> copy = new(OpponentEntities);

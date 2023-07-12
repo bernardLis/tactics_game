@@ -15,9 +15,6 @@ public class BattleInitializer : MonoBehaviour
 
     Transform _entityHolder;
 
-    [SerializeField] Transform _playerSpawnPoint;
-    [SerializeField] Transform _enemySpawnPoint;
-
     Hero _playerHero;
 
     void Start()
@@ -66,9 +63,9 @@ public class BattleInitializer : MonoBehaviour
             Destroy(_obstacleInstance);
 
         // between player and enemy
-        float posX = _playerSpawnPoint.transform.position.x + (_enemySpawnPoint.transform.position.x - _playerSpawnPoint.transform.position.x) / 2;
-        float posZ = _playerSpawnPoint.transform.position.z + (_enemySpawnPoint.transform.position.z - _playerSpawnPoint.transform.position.z) / 2;
-        Vector3 pos = new Vector3(posX, 10, posZ);
+        //   float posX = _playerSpawnPoint.transform.position.x + (_enemySpawnPoint.transform.position.x - _playerSpawnPoint.transform.position.x) / 2;
+        //   float posZ = _playerSpawnPoint.transform.position.z + (_enemySpawnPoint.transform.position.z - _playerSpawnPoint.transform.position.z) / 2;
+        Vector3 pos = new Vector3(Random.Range(-15, 15), 10, Random.Range(-15, 15));
 
         float sizeY = Random.Range(3, 10);
         float sizeX = Random.Range(10, 30);
