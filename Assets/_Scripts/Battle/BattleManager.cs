@@ -113,6 +113,8 @@ public class BattleManager : Singleton<BattleManager>
             BattleTime += 1f;
             TimeSpan time = TimeSpan.FromSeconds(BattleTime);
             _timerLabel.text = $"{time.Minutes:D2}:{time.Seconds:D2}";
+            if (time.Minutes >= _gameManager.SelectedBattle.Duration)
+                BattleWon();
             yield return new WaitForSeconds(1f);
         }
     }

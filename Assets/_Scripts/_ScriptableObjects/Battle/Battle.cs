@@ -10,6 +10,8 @@ public class Battle : BaseScriptableObject
     public Hero Opponent;
     public List<BattleWave> Waves = new();
 
+    public int Duration = 15; // minutes
+
     // modifiers
     public float CreatureSpeedMultiplier = 1f;
     public float ElementalDamageMultiplier = 1f;
