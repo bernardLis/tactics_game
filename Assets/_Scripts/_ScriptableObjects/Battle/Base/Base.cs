@@ -31,12 +31,15 @@ public class Base : BaseScriptableObject
             instance.Initialize();
             AllBaseUpgrades.Add(instance);
 
-            if (u is BaseUpgradeLives)
-                LivesUpgrade = u as BaseUpgradeLives;
-            if (u is BaseUpgradeTroops)
-                TroopsUpgrade = u as BaseUpgradeTroops;
-            if (u is BaseUpgradeMana)
-                ManaUpgrade = u as BaseUpgradeMana;
+            if (instance is BaseUpgradeLives)
+                LivesUpgrade = instance as BaseUpgradeLives;
+            if (instance is BaseUpgradeTroops)
+                TroopsUpgrade = instance as BaseUpgradeTroops;
+            if (instance is BaseUpgradeMana)
+                ManaUpgrade = instance as BaseUpgradeMana;
+
+            Debug.Log($"initalize {LivesUpgrade}");
+
         }
     }
 

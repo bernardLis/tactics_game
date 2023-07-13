@@ -27,7 +27,7 @@ MonoBehaviour:
   AllBaseUpgrades:
   - {fileID: 11400000, guid: 38ffc0f173ff1484c94d2bbabdf58736, type: 2}
   - {fileID: 11400000, guid: 61c889540e3a6974498b440006d6c98e, type: 2}
-  - {fileID: 11400000, guid: 2ad75a1000c227648b6cf8c409f64478, type: 2}
+  - {fileID: 11400000, guid: b1ce1f3dc88d3f04fa418c1c763015e6, type: 2}
   BaseGameObject: {fileID: 5342128357525200296, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

@@ -23,7 +23,8 @@ public class BaseUpgrade : BaseScriptableObject
     {
         if (!Purchased) return;
         if (Prefab == null) return;
-        GameObject instance = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
+        Vector3 pos = new Vector3(0, 10, 0);
+        GameObject instance = Instantiate(Prefab, pos, Quaternion.identity);
     }
 }
 

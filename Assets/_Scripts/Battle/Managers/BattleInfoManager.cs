@@ -57,6 +57,11 @@ public class BattleInfoManager : MonoBehaviour
     void ResolveLivesLabel()
     {
         _livesCountLabel.style.display = DisplayStyle.Flex;
+        Debug.Log($"_base {_base}");
+        Debug.Log($"_base.LivesUpgrade {_base.LivesUpgrade}");
+        Debug.Log($"_base.LivesUpgrade.CurrentLives {_base.LivesUpgrade.CurrentLives}");
+        Debug.Log($"_base.LivesUpgrade.CurrentLives.Value {_base.LivesUpgrade.CurrentLives.Value}");
+
         _base.LivesUpgrade.CurrentLives.OnValueChanged += (v) => UpdateLivesLabel();
     }
 

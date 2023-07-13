@@ -16,6 +16,7 @@ public class BaseUpgradeLives : BaseUpgrade
     {
         CurrentLives = ScriptableObject.CreateInstance<IntVariable>();
         CurrentLives.SetValue(MaxLivesTree[CurrentMaxLivesLevel].Value);
+        Debug.Log($"intialize lives {CurrentLives.Value}");
 
         base.Initialize();
     }
