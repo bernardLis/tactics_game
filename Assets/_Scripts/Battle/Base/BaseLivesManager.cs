@@ -1,16 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using MoreMountains.Feedbacks;
-using UnityEngine.EventSystems;
 
-public class BattleBase : Singleton<BattleBase>, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class BaseLivesManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
-    BattleTooltipManager _tooltipManager;
-
     Base _base;
 
     MMF_Player _feelPlayer;
@@ -20,7 +16,6 @@ public class BattleBase : Singleton<BattleBase>, IPointerDownHandler, IPointerEn
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
 
-        _tooltipManager = BattleTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
 
         _base = _gameManager.SelectedBattle.Base;
@@ -41,23 +36,6 @@ public class BattleBase : Singleton<BattleBase>, IPointerDownHandler, IPointerEn
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log($"click click");
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"{_base.Lives.Value} lives left");
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (_tooltipManager == null) return;
-        _tooltipManager.HideInfo();
-    }
-
     public void DisplayFloatingText(string text, Color color)
     {
         if (_feelPlayer == null) return;
@@ -67,4 +45,6 @@ public class BattleBase : Singleton<BattleBase>, IPointerDownHandler, IPointerEn
         floatingText.AnimateColorGradient = Helpers.GetGradient(color);
         _feelPlayer.PlayFeedbacks(transform.position);
     }
+
+
 }

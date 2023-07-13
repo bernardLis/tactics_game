@@ -75,7 +75,7 @@ public class BattleRewardElement : VisualElement
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {
-                    _rewardTooltip.text = "Choose your reward:";
+                    _rewardTooltip.text = "Choose reward:";
                     DOTween.To(x => _rewardTooltip.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
                 });
 
