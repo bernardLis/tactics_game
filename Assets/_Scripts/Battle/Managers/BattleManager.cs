@@ -12,7 +12,7 @@ public class BattleManager : Singleton<BattleManager>
     GameManager _gameManager;
 
     BattleHeroManager _battleHeroManager;
-    
+
     [SerializeField] Sound _battleMusic;
 
     public Battle LoadedBattle { get; private set; }
@@ -130,6 +130,9 @@ public class BattleManager : Singleton<BattleManager>
         }
         _timerIsOn = true;
         StartCoroutine(UpdateTimer());
+
+        _gameManager.SelectedBattle.Base.InitializeBattle();
+        
         OnBattleInitialized?.Invoke();
     }
 

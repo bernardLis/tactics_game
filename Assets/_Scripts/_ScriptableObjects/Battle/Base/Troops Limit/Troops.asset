@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b147022e76794804d8eed2396c5828af, type: 3}
+  m_Name: Troops
+  m_EditorClassIdentifier: 
+  Id: cec343fb-723d-4ad6-87a5-842968f89918
+  Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
+  Description: Increases amount of creatrures you can have on the battlefield.
+  Purchased: 1
+  Cost: 0
+  Prefab: {fileID: 3777509045833753945, guid: 8611043e45d00f24f8ca5f0015ff0416, type: 3}
+  MaxTroopsTree:
+  - {fileID: 11400000, guid: 9b7a974ae4c90f8488dbff60afeade25, type: 2}
+  - {fileID: 11400000, guid: 5cf07309bc8578047bdc1af9821118a7, type: 2}
+  - {fileID: 11400000, guid: d02a8e98fef06be44959b6b32d97e453, type: 2}
+  - {fileID: 11400000, guid: 113664320a4a13d49a8d6c1f6b52e66d, type: 2}
+  - {fileID: 11400000, guid: 327f773fd17b1424e8d58861031b4d64, type: 2}
+  CurrentMaxTroopsLevel: 0
+  DeadTroops: []

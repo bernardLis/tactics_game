@@ -35,7 +35,6 @@ public class BaseUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerEn
         _tooltipManager.HideInfo();
     }
 
-
     public void OnPointerDown(PointerEventData eventData)
     {
         _baseElement = new BattleBaseElement(_base);

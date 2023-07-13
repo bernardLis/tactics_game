@@ -12,6 +12,10 @@ public class GameDatabase : BaseScriptableObject
     public List<BattleModifier> GetAllBattleModifiers() { return new(BattleModifiers); }
     public BattleModifier GetRandomBattleModifier() { return BattleModifiers[Random.Range(0, BattleModifiers.Length)]; }
 
+    [Header("Base")]
+    public List<BaseUpgrade> AllBaseUpgrades = new();
+    public GameObject BaseGameObject;
+
     [Header("General")]
     [SerializeField] Sprite[] CoinSprites;
     public Sprite[] LevelUpAnimationSprites;

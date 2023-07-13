@@ -208,7 +208,7 @@ public class BattleRewardElement : VisualElement
         reward.OnRewardSelected += RewardSelected;
         RewardCard card = new RewardCardArmy(reward);
 
-        if (_gameManager.PlayerHero.CreatureArmy.Count >= _gameManager.SelectedBattle.Base.TroopsLimit.Value)
+        if (_gameManager.PlayerHero.CreatureArmy.Count >= _gameManager.SelectedBattle.Base.TroopsUpgrade.CurrentLimit.Value)
         {
             card.DisableCard();
             card.Add(new Label("Your army is full!"));

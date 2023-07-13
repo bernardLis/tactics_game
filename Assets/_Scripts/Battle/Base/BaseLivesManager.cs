@@ -27,11 +27,11 @@ public class BaseLivesManager : MonoBehaviour
         {
             if (battleEntity.Team == 0) return;
 
-            _base.Lives.ApplyChange(-1);
-            DisplayFloatingText($"Lives: {_base.Lives.Value}", Color.white);
+            _base.LivesUpgrade.CurrentLives.ApplyChange(-1);
+            DisplayFloatingText($"Lives: {_base.LivesUpgrade.CurrentLives.Value}", Color.white);
             StartCoroutine(battleEntity.Die(hasPickup: false));
 
-            if (_base.Lives.Value <= 0)
+            if (_base.LivesUpgrade.CurrentLives.Value <= 0)
                 _battleManager.LoseBattle();
         }
     }
@@ -43,8 +43,6 @@ public class BaseLivesManager : MonoBehaviour
         floatingText.Value = text;
         floatingText.ForceColor = true;
         floatingText.AnimateColorGradient = Helpers.GetGradient(color);
-        _feelPlayer.PlayFeedbacks(transform.position);
+        _feelPlayer.PlayFeedbacks(transform.position + Vector3.forward);
     }
-
-
 }
